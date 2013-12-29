@@ -4,7 +4,7 @@ import ornicar.scalalib.Zero
 import play.api.data.Form
 import play.api.http._
 import play.api.libs.iteratee.{ Iteratee, Enumerator }
-import play.api.libs.json.{ Json, JsValue, Writes }
+import play.api.libs.json.{ Json, JsValue, JsObject, Writes }
 import play.api.mvc._, Results._
 import play.api.mvc.WebSocket.FrameFormatter
 import play.api.templates.Html
@@ -174,16 +174,16 @@ private[controllers] trait LilaController
 
   protected def reqToCtx(req: RequestHeader, withChan: Option[Chan] = None): Fu[HeaderContext] =
     restoreUser(req) map { lila.user.UserContext(req, _) } flatMap { ctx ⇒
-      chatAndPrefs(ctx, withChan) map { case (chat, pref) ⇒ Context(ctx, chat, pref) }
+      contextBuilder(ctx, withChan) map { case (chat, pref, friends) ⇒ Context(ctx, chat, pref, friends) }
     }
 
   protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
     restoreUser(req) map { lila.user.UserContext(req, _) } flatMap { ctx ⇒
-      chatAndPrefs(ctx) map { case (chat, pref) ⇒ Context(ctx, chat, pref) }
+      contextBuilder(ctx) map { case (chat, pref, friends) ⇒ Context(ctx, chat, pref, friends) }
     }
 
-  private def chatAndPrefs(ctx: lila.user.UserContext, withChan: Option[Chan] = None): Fu[(Option[Chat], Option[lila.pref.Pref])] =
-    ctx.me.fold(fuccess(none[Chat] -> none[lila.pref.Pref])) { me ⇒
+  private def contextBuilder(ctx: lila.user.UserContext, withChan: Option[Chan] = None): Fu[(Option[Chat], Option[lila.pref.Pref], Option[JsObject])] =
+    ctx.me.fold(fuccess((none[Chat], none[lila.pref.Pref], none[JsObject]))) { me ⇒
       (HTTPRequest.isSynchronousHttp(ctx.req) ?? {
         Env.chat.api.get(me) flatMap { chan ⇒
           Env.chat.api.populate(withChan.fold(chan)(chan.withPageChan), me) recoverWith {
@@ -198,8 +198,17 @@ private[controllers] trait LilaController
           play.api.Logger("controller").warn(e.getMessage)
           none
         }
-      }) zip (Env.pref.api getPref me) map {
-        case (chat, pref) ⇒ chat -> pref.some
+      }) zip (Env.pref.api getPref me) zip {
+        HTTPRequest.isSynchronousHttp(ctx.req) ?? {
+          import lila.hub.actorApi.relation._
+          import akka.pattern.ask
+          import makeTimeout.short
+          Env.hub.actor.relation ? GetOnlineFriends(me.id) map {
+            case OnlineFriends(usernames, nb) ⇒ Json.obj("us" -> usernames, "nb" -> nb).some
+          }
+        }
+      } map {
+        case ((chat, pref), friends) ⇒ (chat, pref.some, friends)
       }
     }
 

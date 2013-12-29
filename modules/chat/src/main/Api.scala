@@ -20,9 +20,9 @@ private[chat] final class Api(
 
   def get(user: User): Fu[ChatHead] = prefApi getPref user map { pref ⇒
     ChatHead(
-      chans = Chat.baseChans,
+      chans = Chat.baseChans ::: pref.chat.chans.map(Chan.parse).flatten,
       pageChanKey = none,
-      activeChanKeys = pref.chat.chans,
+      activeChanKeys = pref.chat.activeChans,
       mainChanKey = pref.chat.mainChan)
   }
 
@@ -33,12 +33,10 @@ private[chat] final class Api(
     relationApi blocking user.id flatMap { blocks ⇒
       val selectTroll = user.troll.fold(Json.obj(), Json.obj(L.troll -> false))
       val selectBlock = Json.obj(L.username -> $nin(blocks))
-      val selectTo = Json.obj(L.to -> $in(List("", user.id)))
       namer.chans(head.chans, user) zip
         $find($query(
           selectTroll ++
             selectBlock ++
-            selectTo ++
             Json.obj(L.chan -> $in(head.activeChanKeys))
         ) sort $sort.desc(L.date), 20) map {
           case (namedChans, lines) ⇒ Chat(head, namedChans, lines.reverse)

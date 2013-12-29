@@ -865,15 +865,13 @@ var storage = {
         self._setActive($(this).attr('name'), $(this).prop('checked'));
       });
       self.element.find('.help').click(function() {
-        self.send('/help tutorial');
+        self._send('/help tutorial');
       });
       self.$bar.find('> .on').click(function() {
-        self.$wrap.addClass('on');
-        self.on = true;
+        self._send('/open');
       });
       self.element.find('> .off').click(function() {
-        self.$wrap.removeClass('on');
-        self.on = false;
+        self._send('/close');
       });
       $(window).resize(function() {
         self._renderForm();
@@ -887,6 +885,9 @@ var storage = {
           mainChan: self.mainChan
         });
       });
+    },
+    query: function(username) {
+      this._send('/query ' + username);
     },
     reload: function(c) {
       var self = this;
@@ -921,9 +922,9 @@ var storage = {
         return false;
       }
       self.$input.val('');
-      self.send(text);
+      self._send(text);
     },
-    send: function(text) {
+    _send: function(text) {
       var self = this;
       var doSend = function() {
         lichess.socket.send('chat.tell', {
@@ -931,10 +932,20 @@ var storage = {
           text: text
         });
       };
-      if (!self.mainChan) { // may happen when help is clicked
+      if (!self.mainChan && text.indexOf('/help') === 0) { 
         self._setMain(_.keys(self.chans)[0]);
         setTimeout(doSend, 777);
       } else doSend();
+      switch (text) {
+        case '/close':
+          self.$wrap.removeClass('on');
+          self.on = false;
+          break;
+        case '/open':
+          self.$wrap.addClass('on');
+          self.on = true;
+          break;
+      }
     },
     _setActive: function(chan, value, setMain) {
       var self = this;
@@ -1034,6 +1045,40 @@ var storage = {
       } else {
         self.$form.hide();
       }
+    }
+  });
+
+  $.widget("lichess.friends", {
+    _create: function() {
+      var self = this;
+      self.$list = self.element.find("div.list");
+      self.$nobody = self.element.find("div.nobody");
+      self.set(self.element.data('preload'));
+      self.element.on('click', 'a.user_link', function(e) {
+        e.preventDefault();
+        $('#chat').onechat('query', $(this).text());
+      });
+    },
+    repaint: function() {
+      this.users = _.uniq(this.users);
+      this.$nobody.toggle(this.users.length === 0);
+      this.$list.html(_.map(this.users, this._renderUser).join(""));
+      $('body').trigger('lichess.content_loaded');
+    },
+    set: function(data) {
+      this.users = data.us;
+      this.repaint();
+    },
+    enters: function(user) {
+      this.users.push(user);
+      this.repaint();
+    },
+    leaves: function(user) {
+      this.users = _.without(this.users, user);
+      this.repaint();
+    },
+    _renderUser: function(user) {
+      return '<a class="user_link online ulpt" data-placement="nw" href="/@/' + user + '">' + user + '</a>';
     }
   });
 
@@ -1738,47 +1783,6 @@ var storage = {
       } else {
         self.element.hide();
       }
-    }
-  });
-
-  $.widget("lichess.friends", {
-    _create: function() {
-      var self = this;
-      self.$list = self.element.find("div.list");
-      self.$title = self.element.find('.title').click(function() {
-        self.element.find('.content_wrap').toggle(500, function() {
-          storage.set('friends-hide', $(this).is(':visible') ? 0 : 1);
-        });
-      });
-      if (storage.get('friends-hide') == 1) self.$title.click();
-      self.$nbOnline = self.$title.find('.online');
-      self.$nbTotal = self.$title.find('.total');
-      self.$nobody = self.element.find("div.nobody");
-      self.set(self.element.data('preload'));
-    },
-    repaint: function() {
-      this.users = _.uniq(this.users);
-      this.$nbOnline.text(this.users.length);
-      this.$nbTotal.text(this.nb);
-      this.$nobody.toggle(this.users.length === 0);
-      this.$list.html(_.map(this.users, this._renderUser).join(""));
-      $('body').trigger('lichess.content_loaded');
-    },
-    set: function(data) {
-      this.nb = data.nb;
-      this.users = data.us;
-      this.repaint();
-    },
-    enters: function(user) {
-      this.users.push(user);
-      this.repaint();
-    },
-    leaves: function(user) {
-      this.users = _.without(this.users, user);
-      this.repaint();
-    },
-    _renderUser: function(user) {
-      return '<a class="ulpt" data-placement="nw" href="/@/' + user + '">' + user + '</a>';
     }
   });
 

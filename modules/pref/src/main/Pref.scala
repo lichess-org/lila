@@ -32,17 +32,25 @@ case class Pref(
 object Pref {
 
   case class ChatPref(
-      chans: Set[String],
+      on: Boolean,
+      chans: List[String],
+      activeChans: Set[String],
       mainChan: Option[String]) {
+
     def withChan(key: String, value: Boolean) = copy(
-      chans = if (value) chans + key else chans - key
+      chans = if (value) (key :: chans).distinct else chans.filter(key!=)
     )
+
+    def withActiveChan(key: String, value: Boolean) = copy(
+      activeChans = if (value) activeChans + key else activeChans - key
+    )
+
     def withMainChan(key: Option[String]) = copy(mainChan = key)
   }
 
   object ChatPref {
 
-    val default = ChatPref(Set("lobby", "tournamentLobby", "tv"), none)
+    val default = ChatPref(false, Nil, Set("lobby", "tournamentLobby", "tv"), none)
   }
 
   object AutoQueen {

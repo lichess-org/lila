@@ -4,6 +4,7 @@ import akka.actor._
 import akka.pattern.pipe
 import play.api.libs.json.JsObject
 
+import actorApi._
 import lila.common.Bus
 import lila.common.PimpedJson._
 import lila.hub.actorApi.chat._
@@ -21,12 +22,10 @@ private[chat] final class ChatActor(
 
   private val members = collection.mutable.Map[String, ChatMember[_]]()
 
-  private val lichessBot = context.actorOf(Props[LichessBot])
+  private val commander = context.actorOf(Props[Commander])
 
   override def preStart() {
     bus.subscribe(self, 'chat, 'socketDoor, 'relation)
-    val bot = new BotChatMember("lichess", lichessBot)
-    members += (bot.uid -> bot)
   }
 
   override def postStop() {
@@ -36,7 +35,7 @@ private[chat] final class ChatActor(
   def receive = {
 
     case line: Line ⇒ {
-      lazy val json = Socket.makeMessage("chat.line", line.toJson)
+      lazy val json = lineMessage(line)
       members.values foreach {
         case m: JsChatMember if (m wants line)  ⇒ m tell json
         case m: BotChatMember if (m wants line) ⇒ m tell line
@@ -44,10 +43,30 @@ private[chat] final class ChatActor(
       }
     }
 
-    case System(chanTyp: String, chanId: Option[String], text: String) ⇒
-      Chan(chanTyp, chanId) foreach { chan ⇒
-        api.systemWrite(chan, text) pipeTo self
+    case Tell(uid, line) ⇒ {
+      members get uid foreach { _ tell lineMessage(line) }
+    }
+
+    case System(chanTyp, chanId, text) ⇒ Chan(chanTyp, chanId) foreach { chan ⇒
+      api.systemWrite(chan, text) pipeTo self
+    }
+
+    case SetOpen(member, value) ⇒
+      prefApi.setPref(member.userId, (p: Pref) ⇒ p.updateChat(_.copy(on = value)))
+
+    case Query(member, toId) ⇒ UserRepo byId toId foreach {
+      _ foreach { to ⇒
+        val chan = UserChan(member.userId, toId)
+        prefApi.setPref(member.userId, (p: Pref) ⇒
+          p.updateChat(_.withChan(chan.key, true).withActiveChan(chan.key, true).withMainChan(chan.key.some))
+        ) >>- {
+          member addChan chan
+          member.setActiveChan(chan.key, true)
+          member setMainChan chan.key.some
+          reloadChat(member)
+        }
       }
+    }
 
     case lila.hub.actorApi.relation.Block(u1, u2) ⇒ withMembersOf(u1) { member ⇒
       member block u2
@@ -75,8 +94,8 @@ private[chat] final class ChatActor(
           val value = data int "value" exists (1==)
           val setMain = value && (data int "main" exists (1==))
           (!chan.autoActive) ?? prefApi.setPref(member.userId, (p: Pref) ⇒ p.updateChat(setMain.fold(
-            _.withChan(chan.key, value).withMainChan(chan.key.some),
-            _.withChan(chan.key, value)
+            _.withActiveChan(chan.key, value).withMainChan(chan.key.some),
+            _.withActiveChan(chan.key, value)
           ))) andThen {
             case _ ⇒ {
               member.setActiveChan(chan.key, value)
@@ -91,17 +110,12 @@ private[chat] final class ChatActor(
             p.updateChat(_.withMainChan(chan map (_.key)))
           )
         }
-        case "chat.tell" ⇒ for {
-          chan ← data str "chan"
-          text ← data str "text"
-        } {
-          if (text startsWith "/") api.makeLine(chan, member.userId, text) foreach {
-            _ foreach { line ⇒
-              self ! line.copy(to = "lichess".some, text = text drop 1)
-            }
+        case "chat.tell" ⇒ data str "text" foreach { text ⇒
+          val chanOption = data str "chan" flatMap Chan.parse
+          if (text startsWith "/") commander ! Command(chanOption, member, text drop 1)
+          else chanOption foreach { chan ⇒
+            api.write(chan.key, member.userId, text) foreach { _ foreach self.! }
           }
-          else api.write(chan, member.userId, text) foreach { _ foreach self.! }
-
         }
       }
     }
@@ -112,6 +126,8 @@ private[chat] final class ChatActor(
 
     case SocketLeave(uid) ⇒ members -= uid
   }
+
+  private def lineMessage(line: Line) = Socket.makeMessage("chat.line", line.toJson)
 
   private def withMembersOf(userId: String)(f: ChatMember[_] ⇒ Unit) {
     members.values foreach { member ⇒

@@ -12,7 +12,6 @@ case class Line(
     id: String,
     chan: Chan,
     username: String,
-    to: Option[String],
     date: DateTime,
     text: String,
     troll: Boolean) {
@@ -35,20 +34,18 @@ object Line {
 
   val idSize = 10
 
-  def make(chan: Chan, user: User, text: String, to: Option[String] = None): Line = Line(
+  def make(chan: Chan, user: User, text: String): Line = Line(
     id = Random nextString idSize,
     chan = chan,
     username = user.username,
-    to = to,
     date = DateTime.now,
     text = text,
     troll = user.troll)
 
-  def system(chan: Chan, text: String, to: Option[String] = None): Line = Line(
+  def system(chan: Chan, text: String): Line = Line(
     id = Random nextString idSize,
     chan = chan,
     username = Chat.systemUsername,
-    to = to,
     date = DateTime.now,
     text = text,
     troll = false)
@@ -59,7 +56,6 @@ object Line {
     val id = "_id"
     val chan = "c"
     val username = "u"
-    val to = "to"
     val date = "d"
     val text = "t"
     val troll = "tr"
@@ -77,7 +73,6 @@ object Line {
       id = r str id,
       chan = Chan parse (r str chan) err s"Line has invalid chan: ${r.doc}",
       username = r str username,
-      to = Some(r str to) filter (_.nonEmpty),
       text = r str text,
       date = r date date,
       troll = r bool troll)
@@ -86,7 +81,6 @@ object Line {
       id -> o.id,
       chan -> o.chan.key,
       username -> o.username,
-      to -> ~o.to,
       text -> o.text,
       date -> o.date,
       troll -> o.troll)

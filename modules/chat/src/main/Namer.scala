@@ -39,6 +39,11 @@ private[chat] final class Namer(getUsername: String ⇒ Fu[String]) {
         _ + " tournament"
       }
 
+    case (c@UserChan(u1, u2), user) ⇒
+      if (user.id == u1) getUsername(u2)
+      else if (user.id == u2) getUsername(u1)
+      else fufail(s"${user.id} can't see $c")
+
     case (c, _) ⇒ fuccess(c.toString)
   }
 
