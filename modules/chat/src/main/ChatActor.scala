@@ -16,11 +16,12 @@ private[chat] final class ChatActor(
     api: Api,
     namer: Namer,
     bus: Bus,
+    relationApi: lila.relation.RelationApi,
     prefApi: PrefApi) extends Actor {
 
   private val members = collection.mutable.Map[String, ChatMember]()
 
-  bus.subscribe(self, 'chat, 'socketDoor)
+  bus.subscribe(self, 'chat, 'socketDoor, 'relation)
 
   override def postStop() {
     bus.unsubscribe(self)
@@ -38,15 +39,26 @@ private[chat] final class ChatActor(
         api.systemWrite(chan, text) pipeTo self
       }
 
+    case lila.hub.actorApi.relation.Block(u1, u2) ⇒ withMembersOf(u1) { member =>
+      member block u2
+      reloadChat(member)
+    }
+
+    case lila.hub.actorApi.relation.UnBlock(u1, u2) ⇒ withMembersOf(u1) { member =>
+      member unBlock u2
+      reloadChat(member)
+    }
+
     case Input(uid, o) ⇒ (o str "t") |@| (o obj "d") |@| (members get uid) apply {
       case (typ, data, member) ⇒ typ match {
 
-        case "chat.register" ⇒ {
+        case "chat.register" ⇒ relationApi blocking member.userId foreach { blocks ⇒
           member.setHead(ChatHead(
             chans = (~data.arrAs("chans")(_.asOpt[String]) map Chan.parse).flatten,
             pageChanKey = data str "pageChan",
             activeChanKeys = (~data.arrAs("activeChans")(_.asOpt[String])).toSet,
             mainChanKey = data str "mainChan"))
+          member setBlocks blocks
           reloadChat(member)
         }
         case "chat.set-active-chan" ⇒ withChan(data) { chan ⇒
@@ -81,6 +93,12 @@ private[chat] final class ChatActor(
     }
 
     case SocketLeave(uid) ⇒ members -= uid
+  }
+
+  private def withMembersOf(userId: String)(f: ChatMember ⇒ Unit) {
+    members.values foreach { member ⇒
+      if (member.userId == userId) f(member)
+    }
   }
 
   private def withChan(data: JsObject)(f: Chan ⇒ Unit) {

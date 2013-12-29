@@ -527,6 +527,10 @@ div.footer div.right {
 #chat .line.main {
   opacity: 1;
 }
+#chat .line.sys {
+  font-style: italic;
+  color: #808080;
+}
 #chat .line > .user {
   display: inline-block;
   width: 100px;

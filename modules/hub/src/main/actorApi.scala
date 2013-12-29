@@ -142,4 +142,6 @@ package relation {
 case class ReloadOnlineFriends(userId: String)
 case class GetOnlineFriends(userId: String)
 case class OnlineFriends(usernames: List[String], nb: Int)
+case class Block(u1: String, u2: String)
+case class UnBlock(u1: String, u2: String)
 }
