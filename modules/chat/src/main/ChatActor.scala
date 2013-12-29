@@ -20,7 +20,7 @@ private[chat] final class ChatActor(
     relationApi: lila.relation.RelationApi,
     prefApi: PrefApi) extends Actor {
 
-  private val members = collection.mutable.Map[String, ChatMember[_]]()
+  private val members = collection.mutable.Map[String, ChatMember]()
 
   private val commander = context.actorOf(Props[Commander])
 
@@ -36,10 +36,8 @@ private[chat] final class ChatActor(
 
     case line: Line ⇒ {
       lazy val json = lineMessage(line)
-      members.values foreach {
-        case m: JsChatMember if (m wants line)  ⇒ m tell json
-        case m: BotChatMember if (m wants line) ⇒ m tell line
-        case _                                  ⇒
+      members.values foreach { m ⇒
+        if (m wants line) m tell json
       }
     }
 
@@ -121,7 +119,7 @@ private[chat] final class ChatActor(
     }
 
     case SocketEnter(uid, member) ⇒ member.userId foreach { userId ⇒
-      members += (uid -> new JsChatMember(uid, userId, member.troll, member.channel))
+      members += (uid -> new ChatMember(uid, userId, member.troll, member.channel))
     }
 
     case SocketLeave(uid) ⇒ members -= uid
@@ -129,7 +127,7 @@ private[chat] final class ChatActor(
 
   private def lineMessage(line: Line) = Socket.makeMessage("chat.line", line.toJson)
 
-  private def withMembersOf(userId: String)(f: ChatMember[_] ⇒ Unit) {
+  private def withMembersOf(userId: String)(f: ChatMember ⇒ Unit) {
     members.values foreach { member ⇒
       if (member.userId == userId) f(member)
     }
@@ -143,15 +141,11 @@ private[chat] final class ChatActor(
     f(data str "chan" flatMap Chan.parse)
   }
 
-  private def reloadChat(member: ChatMember[_]) {
-    member match {
-      case m: JsChatMember ⇒
-        UserRepo byId m.userId flatten s"User of $m not found" foreach { user ⇒
-          api.populate(m.head, user) foreach { chat ⇒
-            m tell Socket.makeMessage("chat.reload", chat.toJson)
-          }
-        }
-      case _ ⇒
+  private def reloadChat(m: ChatMember) {
+    UserRepo byId m.userId flatten s"User of $m not found" foreach { user ⇒
+      api.populate(m.head, user) foreach { chat ⇒
+        m tell Socket.makeMessage("chat.reload", chat.toJson)
+      }
     }
   }
 }

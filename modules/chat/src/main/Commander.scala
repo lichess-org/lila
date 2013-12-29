@@ -51,7 +51,7 @@ ___________________________ help ___________________________
 /close                  close the chat
 """.lines.toList filter (_.nonEmpty)
 
-  private def replyTo(chan: Chan, member: ChatMember[_])(text: String) {
+  private def replyTo(chan: Chan, member: ChatMember)(text: String) {
     chat ! Tell(member.uid, Line.system(chan = chan, text = text))
   }
 }
