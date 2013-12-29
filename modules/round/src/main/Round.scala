@@ -107,13 +107,11 @@ private[round] final class Round(
     case Moretime(playerRef) ⇒ handle(playerRef) { pov ⇒
       pov.game.clock.filter(_ ⇒ pov.game.moretimeable) ?? { clock ⇒
         val newClock = clock.giveTime(!pov.color, moretimeDuration.toSeconds)
-        val progress = pov.game withClock newClock
-        messenger.systemMessage(progress.game, (_.untranslated(
+        val progress = (pov.game withClock newClock) + Event.Clock(newClock)
+        messenger(progress.game, (_.untranslated(
           "%s + %d seconds".format(!pov.color, moretimeDuration.toSeconds)
-        ))) flatMap { events ⇒
-          val progress2 = progress ++ (Event.Clock(newClock) :: events)
-          GameRepo save progress2 inject progress2.events
-        }
+        )))
+        GameRepo save progress inject progress.events
       }
     }
   }

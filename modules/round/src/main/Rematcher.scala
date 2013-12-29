@@ -5,13 +5,13 @@ import akka.pattern.ask
 import chess.format.Forsyth
 import chess.{ Game ⇒ ChessGame, Board, Clock, Variant, Color ⇒ ChessColor }
 import ChessColor.{ White, Black }
-import lila.memo.ExpireSetMemo
-import makeTimeout.short
 
 import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Event, Progress, Pov, PlayerRef, Namer, Source }
+import lila.memo.ExpireSetMemo
 import lila.user.UserRepo
+import makeTimeout.short
 
 private[round] final class Rematcher(
     messenger: Messenger,
@@ -28,20 +28,14 @@ private[round] final class Rematcher(
   }
 
   def no(pov: Pov): Fu[Events] = pov match {
-    case Pov(g1, color) if pov.player.isOfferingRematch ⇒ for {
-      p1 ← messenger.systemMessage(g1, _.rematchOfferCanceled) map { es ⇒
-        Progress(g1, Event.ReloadTablesOwner :: es)
-      }
-      p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeRematchOffer) }
-      _ ← GameRepo save p2
-    } yield p2.events
-    case Pov(g1, color) if pov.opponent.isOfferingRematch ⇒ for {
-      p1 ← messenger.systemMessage(g1, _.rematchOfferDeclined) map { es ⇒
-        Progress(g1, Event.ReloadTablesOwner :: es)
-      }
-      p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeRematchOffer) }
-      _ ← GameRepo save p2
-    } yield p2.events
+    case Pov(game, color) if pov.player.isOfferingRematch ⇒ GameRepo save {
+      messenger(game, _.rematchOfferCanceled)
+      Progress(game) map { g ⇒ g.updatePlayer(color, _.removeRematchOffer) }
+    } inject List(Event.ReloadTablesOwner)
+    case Pov(game, color) if pov.opponent.isOfferingRematch ⇒ GameRepo save {
+      messenger(game, _.rematchOfferDeclined)
+      Progress(game) map { g ⇒ g.updatePlayer(!color, _.removeRematchOffer) }
+    } inject List(Event.ReloadTablesOwner)
     case _ ⇒ ClientErrorException.future("[rematcher] invalid no " + pov)
   }
 
@@ -55,22 +49,17 @@ private[round] final class Rematcher(
     nextId = nextGame.id
     _ ← (GameRepo insertDenormalized nextGame) >>
       GameRepo.saveNext(pov.game, nextGame.id) >>-
-      // messenges are not sent to the next game socket
-      // as nobody is there to see them yet
-      messenger.rematch(pov.game, nextGame) >>- {
+      messenger(pov.game, _.rematchOfferAccepted) >>- {
         if (pov.game.variant == Variant.Chess960 && !rematch960Cache.get(pov.game.id))
           rematch960Cache.put(nextId)
       }
     events ← redirectEvents(nextGame)
   } yield events
 
-  private def rematchCreate(pov: Pov): Fu[Events] = for {
-    p1 ← messenger.systemMessage(pov.game, _.rematchOfferSent) map { es ⇒
-      Progress(pov.game, Event.ReloadTablesOwner :: es)
-    }
-    p2 = p1 map { g ⇒ g.updatePlayer(pov.color, _ offerRematch) }
-    _ ← GameRepo save p2
-  } yield p2.events
+  private def rematchCreate(pov: Pov): Fu[Events] = GameRepo save {
+    messenger(pov.game, _.rematchOfferSent)
+    Progress(pov.game) map { g ⇒ g.updatePlayer(pov.color, _ offerRematch) }
+  } inject List(Event.ReloadTablesOwner)
 
   private def returnGame(pov: Pov): Fu[Game] = for {
     pieces ← pov.game.variant.standard.fold(

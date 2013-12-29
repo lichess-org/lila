@@ -11,7 +11,6 @@ final class Env(
     config: AppConfig,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    messenger: lila.round.Messenger,
     aiPlay: Game ⇒ Fu[Progress],
     system: ActorSystem) {
 
@@ -32,7 +31,6 @@ final class Env(
     aiPlay = aiPlay)
 
   lazy val friendJoiner = new FriendJoiner(
-    messenger = messenger,
     friendConfigMemo = friendConfigMemo,
     router = hub.actor.router)
 
@@ -53,7 +51,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "setup",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    messenger = lila.round.Env.current.messenger,
     aiPlay = lila.round.Env.current.aiPlay,
     system = lila.common.PlayApp.system)
 }

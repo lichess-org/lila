@@ -22,7 +22,6 @@ import tube.tournamentTube
 private[tournament] final class SocketHandler(
     hub: lila.hub.Env,
     socketHub: ActorRef,
-    messenger: Messenger,
     flood: Flood,
     bus: lila.common.Bus) {
 

@@ -37,6 +37,7 @@ case object GetUids
 
 package chat {
 case class Input(uid: String, json: JsObject)
+case class System(chanTyp: String, chanId: Option[String], text: String)
 }
 
 package setup {

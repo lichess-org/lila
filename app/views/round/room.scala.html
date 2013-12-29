@@ -1,5 +1,0 @@
-@(inner: Html, spectator: Boolean)(implicit ctx: Context)
-
-@base.chatRoom(
-title = spectator.fold(trans.spectatorRoom, trans.chatRoom).str(),
-cssClass = spectator.fold("spectator", "kings"))(inner)

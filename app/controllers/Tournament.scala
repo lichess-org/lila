@@ -54,26 +54,20 @@ object Tournament extends LilaController {
   }
 
   private def showCreated(tour: Created)(implicit ctx: Context) =
-    env.version(tour.id) zip (env.messenger getMessages tour.id) map {
-      case (version, messages) ⇒
-        html.tournament.show.created(tour, messages, version)
-    }
+    env version tour.id map { html.tournament.show.created(tour, _) }
 
   private def showStarted(tour: Started)(implicit ctx: Context) =
     env.version(tour.id) zip
-      (env.messenger getMessages tour.id) zip
       GameRepo.games(tour recentGameIds 4) zip
       tour.userCurrentPov(ctx.me).??(GameRepo.pov) map {
-        case (((version, messages), games), pov) ⇒
-          html.tournament.show.started(tour, messages, version, games, pov)
+        case ((version, games), pov) ⇒
+          html.tournament.show.started(tour, version, games, pov)
       }
 
   private def showFinished(tour: Finished)(implicit ctx: Context) =
-    env.version(tour.id) zip
-      (env.messenger getMessages tour.id) zip
-      GameRepo.games(tour recentGameIds 4) map {
-        case ((version, messages), games) ⇒
-          html.tournament.show.finished(tour, messages, version, games)
+    env.version(tour.id) zip GameRepo.games(tour recentGameIds 4) map {
+        case (version, games) ⇒
+          html.tournament.show.finished(tour, version, games)
       }
 
   def join(id: String) = AuthBody { implicit ctx ⇒
@@ -120,9 +114,7 @@ object Tournament extends LilaController {
   }
 
   private def renderJoinPassword(tour: Created, form: Form[_])(implicit ctx: Context) =
-    env.version(tour.id) zip (env.messenger getMessages tour.id) map {
-      case (version, messages) ⇒ html.tournament.joinPassword(tour, form, messages, version)
-    }
+    env version tour.id map { html.tournament.joinPassword(tour, form, _) }
 
   def withdraw(id: String) = Auth { implicit ctx ⇒
     me ⇒

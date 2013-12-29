@@ -6,12 +6,10 @@ import chess.{ Color ⇒ ChessColor }
 
 import lila.game.{ GameRepo, Game, Pov, Event, Progress }
 import lila.hub.actorApi.router.Player
-import lila.round.Messenger
 import lila.user.User
 import makeTimeout.short
 
 private[setup] final class FriendJoiner(
-    messenger: Messenger,
     friendConfigMemo: FriendConfigMemo,
     router: ActorSelection) {
 
@@ -27,9 +25,7 @@ private[setup] final class FriendJoiner(
         p1 ← GameRepo.setUsers(g1.id, g1.player(_.white).userInfos, g1.player(_.black).userInfos) inject Progress(game, g1)
         p2 = p1 map (_.start)
         url ← playerUrl(p2.game, !color)
-        p3 ← messenger init p2.game map { evts ⇒
-          p2 + Event.RedirectOwner(!color, url) ++ evts
-        }
+        p3 = p2 + Event.RedirectOwner(!color, url)
         _ ← GameRepo save p3
       } yield Pov(p3.game, color) -> p3.events
     } toValid "Can't join started game " + game.id

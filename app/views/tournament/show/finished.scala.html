@@ -1,8 +1,7 @@
-@(tour: lila.tournament.Finished, messages: List[lila.tournament.Room.Message], version: Int, games: List[Game])(implicit ctx: Context)
+@(tour: lila.tournament.Finished, version: Int, games: List[Game])(implicit ctx: Context)
 
 @tournament.show.layout(
 tour = tour,
-messages = messages,
 goodies = tournament.infoBox(tour),
 version = version,
 side = tournament.pairings(tour).some,

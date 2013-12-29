@@ -12,7 +12,6 @@ import lila.app._
 import lila.game.{ Pov, GameRepo, PgnDump }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.AnalysisAvailable
-import lila.round.{ RoomRepo, WatcherRoomRepo }
 import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
 import lila.user.{ UserRepo }
 import views._
@@ -32,21 +31,17 @@ object Analyse extends LilaController {
       Redirect(routes.Analyse.replay(id, color)).fuccess
   }
 
-  def replay(id: String, color: String) = Open { implicit ctx ⇒
+  def replay(id: String, color: String) = OpenWithChan(lila.chat.GameWatcherChan(id)) { implicit ctx ⇒
     OptionFuOk(GameRepo.pov(id, color)) { pov ⇒
-      (WatcherRoomRepo room pov.gameId map { room ⇒
-        html.round.watcherRoomInner(room.decodedMessages)
-      }) zip
-        Env.round.version(pov.gameId) zip
+      Env.round.version(pov.gameId) zip
         (bookmarkApi userIdsByGame pov.game) zip
         Env.game.pgnDump(pov.game) zip
         (env.analyser get pov.game.id) zip
         (pov.game.tournamentId ?? TournamentRepo.byId) map {
-          case (((((roomHtml, version), bookmarkers), pgn), analysis), tour) ⇒
+          case ((((version, bookmarkers), pgn), analysis), tour) ⇒
             html.analyse.replay(
               pov,
               analysis.fold(pgn)(a ⇒ Env.analyse.annotator(pgn, a)).toString,
-              roomHtml,
               bookmarkers,
               chess.OpeningExplorer openingOf pov.game.pgnMoves,
               analysis,
@@ -57,7 +52,7 @@ object Analyse extends LilaController {
     }
   }
 
-  def stats(id: String) = Open { implicit ctx ⇒
+  def stats(id: String) = OpenWithChan(lila.chat.GameWatcherChan(id)) { implicit ctx ⇒
     OptionFuOk(GameRepo game id) { game ⇒
       timeChart(game) map { chart ⇒
         html.analyse.stats(

@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, engine: Boolean, roomHtml: Option[Html], bookmarkers: List[String], analysed: Boolean, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, version: Int, engine: Boolean, bookmarkers: List[String], analysed: Boolean, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @import pov._
 
@@ -13,7 +13,6 @@
 @round.layout(
 title = title,
 goodies = views.html.game.infoBox(pov, tour),
-chat = roomHtml.map(round.room(_, false)),
 underchat = underchat.some,
 signedJs = pov.game.rated option routes.Round.signedJs(pov.gameId) map (_.toString)) {
 <div class="lichess_game clearfix lichess_player_@color not_spectator"

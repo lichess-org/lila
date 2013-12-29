@@ -1,7 +1,0 @@
-@(messages: List[(String, String)])(implicit ctx: Context)
-
-@messages.map { 
-case (author, text) => {
-<li class="@author@{ (author == "system").option(" trans_me") }">@text</li>
-}
-}

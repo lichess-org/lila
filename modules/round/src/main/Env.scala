@@ -13,7 +13,6 @@ import makeTimeout.large
 final class Env(
     config: Config,
     system: ActorSystem,
-    flood: lila.security.Flood,
     db: lila.db.Env,
     hub: lila.hub.Env,
     ai: lila.ai.Ai,
@@ -31,8 +30,6 @@ final class Env(
     val PlayerRagequitTimeout = config duration "player.ragequit.timeout"
     val AnimationDelay = config duration "animation.delay"
     val Moretime = config duration "moretime"
-    val CollectionRoom = config getString "collection.room"
-    val CollectionWatcherRoom = config getString "collection.watcher_room"
     val SocketName = config getString "socket.name"
     val SocketTimeout = config duration "socket.timeout"
     val FinisherLockTimeout = config duration "finisher.lock.timeout"
@@ -78,8 +75,6 @@ final class Env(
     hub = hub,
     roundMap = roundMap,
     socketHub = socketHub,
-    messenger = messenger,
-    flood = flood,
     hijack = hijack,
     bus = system.lilaBus)
 
@@ -115,26 +110,14 @@ final class Env(
     socketHub = socketHub)
 
   lazy val messenger = new Messenger(
-    netDomain = NetDomain,
-    i18nKeys = i18nKeys,
-    getUsername = getUsername)
+    bus = system.lilaBus,
+    i18nKeys = i18nKeys)
 
   def version(gameId: String): Fu[Int] =
     socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
 
   private[round] def animationDelay = AnimationDelay
   private[round] def moretimeSeconds = Moretime.toSeconds
-
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def playerName(p: lila.game.Player) = lila.game.Namer.player(p, false)(getUsernameOrAnon)
-    def receive = {
-      case ChangeFeaturedGame(game) ⇒ {
-        (game.players map playerName).sequenceFu foreach { names ⇒
-          WatcherRoomRepo.addMessage("tv", "lichess".some, names mkString " - ")
-        }
-      }
-    }
-  }), name = "room-writer"), 'changeFeaturedGame)
 
   {
     import scala.concurrent.duration._
@@ -157,10 +140,6 @@ final class Env(
     uciMemo = uciMemo)
 
   lazy val moveBroadcast = system.actorOf(Props(new MoveBroadcast), name = "move-broadcast")
-
-  private[round] lazy val roomColl = db(CollectionRoom)
-
-  private[round] lazy val watcherRoomColl = db(CollectionWatcherRoom)
 }
 
 object Env {
@@ -168,7 +147,6 @@ object Env {
   lazy val current = "[boot] round" describes new Env(
     config = lila.common.PlayApp loadConfig "round",
     system = lila.common.PlayApp.system,
-    flood = lila.security.Env.current.flood,
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     ai = lila.ai.Env.current.ai,

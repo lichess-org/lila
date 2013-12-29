@@ -11,7 +11,6 @@ import actorApi._, round._
 import lila.common.PimpedJson._
 import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
 import lila.hub.actorApi.map._
-import lila.security.Flood
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.socket.Handler
 import lila.user.User
@@ -21,8 +20,6 @@ private[round] final class SocketHandler(
     roundMap: ActorRef,
     socketHub: ActorRef,
     hub: lila.hub.Env,
-    messenger: Messenger,
-    flood: Flood,
     hijack: Hijack,
     bus: lila.common.Bus) {
 
@@ -35,28 +32,14 @@ private[round] final class SocketHandler(
 
     def round(msg: Any) { roundMap ! Tell(gameId, msg) }
 
-    def watcherTalk(roomId: String, o: JsObject) {
-      (o str "d") filter {
-        flood.allowMessage(uid, _)
-      } foreach { txt ⇒
-        messenger.watcherMessage(roomId, member.userId, txt, member.troll) pipeTo socket
-      }
-    }
-
     member.playerIdOption.fold[Handler.Controller]({
       case ("p", o)       ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
-      case ("talk", o)    ⇒ watcherTalk(ref.gameId, o)
-      case ("talk-tv", o) ⇒ if (member.isAuth) watcherTalk("tv", o)
       case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
         socket ! LiveGames(uid, ids.split(' ').toList)
       }
     }) { playerId ⇒
       {
         case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
-        case ("talk", o) ⇒ for {
-          txt ← o str "d"
-          if flood.allowMessage(uid, txt)
-        } messenger.playerMessage(ref, txt, member.troll) pipeTo socket
         case ("rematch-yes", _)  ⇒ round(RematchYes(playerId))
         case ("rematch-no", _)   ⇒ round(RematchNo(playerId))
         case ("takeback-yes", _) ⇒ round(TakebackYes(playerId))
