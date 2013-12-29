@@ -434,12 +434,56 @@ div.footer div.right {
   position: fixed;
   bottom: 0;
 }
+#chat_wrap > .bar {
+  width: 100%;
+  height: 32px;
+  border-top: 1px solid #444;
+  background: rgba(20, 20, 20, 0.9);
+  position: relative;
+}
+#chat_wrap.on > .bar {
+  display: none;
+}
+#chat_wrap > .bar > .on {
+  display:inline-block;
+  height: 32px;
+  line-height: 32px;
+  font-size: 1.2em;
+  padding: 0 10px 0 46px;
+  background: url(/assets/images/open32.png) top left no-repeat;
+  background-position: +10px +1px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+#chat_wrap > .bar > .on:hover {
+  background-color: #0a0a0a;
+}
 #chat {
   width: 100%;
   height: 200px;
   border-top: 1px solid #444;
   background: rgba(20, 20, 20, 0.9);
   position: relative;
+  display: none;
+}
+#chat_wrap.on #chat {
+  display: block;
+}
+#chat > .off {
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 32px;
+  height: 32px;
+  padding: 0 10px;
+  background: url(/assets/images/open32.png) top left no-repeat;
+  background-position: +10px +1px;
+  text-decoration: none;
+  transform: rotate(180deg);
+}
+#chat > .off:hover {
+  background-color: #0a0a0a;
 }
 #chat > .help {
   display: inline-block;
@@ -457,7 +501,7 @@ div.footer div.right {
 #chat > .chans {
   float: left;
   width: 200px;
-  height: 200px;
+  height: 100%;
   border-right: 1px solid #444;
 }
 #chat .chan {
@@ -556,6 +600,9 @@ div.footer div.right {
 }
 #chat .line > .text {
   display: inline-block;
+}
+#chat .line > pre.text {
+  margin: 0;
 }
 #chat .controls > form {
   display: none;

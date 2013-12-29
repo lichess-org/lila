@@ -14,17 +14,16 @@ private[chat] final class LichessBot extends Actor {
   val chat = context.parent
 
   val tutorialLines = """
------------------------ lichess chat -----------------------
+_______________________ lichess chat _______________________
 The text input at the bottom can be used to enter commands.
 Commands start with a forward slash (/).
 For instance, try and send the message /help to see available commands.
 """.lines.toList filter (_.nonEmpty)
 
   val helpLines = """
---------------------------- help ---------------------------
+___________________________ help ___________________________
 /help                   display this message
-/join <room>            join a room. Ex: /join en
-/tell <user> <message>  send a private message. Ex: /tell thibault lichess rocks!
+/close                  close the chat
 """.lines.toList filter (_.nonEmpty)
 
   def receive = {
