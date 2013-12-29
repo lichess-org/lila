@@ -461,7 +461,7 @@ var storage = {
         $('#site_header .side_menu').prependTo('div.content_box:first');
       } else {
         $(document.body).removeClass("tight");
-        $('#timeline, div.lichess_goodies div.box, div.lichess_chat, div.under_chat').each(function() {
+        $('#timeline, div.lichess_goodies div.box, div.under_chat').each(function() {
           var ol = $(this).offset().left;
           if (ol < 3) {
             var dec = 3 - ol;
@@ -1048,7 +1048,6 @@ var storage = {
       self.$board = self.element.find("div.lichess_board");
       self.$table = self.element.find("div.lichess_table_wrap");
       self.$tableInner = self.$table.find("div.table_inner");
-      self.$chat = $("div.lichess_chat").orNot();
       self.$watchers = $("div.watchers");
       self.initialTitle = document.title;
       self.hasMovedOnce = false;
@@ -1073,24 +1072,6 @@ var storage = {
         self.initSquaresAndPieces();
         self.initTable();
         self.initClocks();
-        if (self.$chat) {
-          self.$chat.chat({
-            talkMessageType: self.options.tv ? 'talk-tv' : 'talk',
-            secure: self.options.tv,
-            resize: true,
-            render: function(u, t) {
-              if (self.options.player.spectator) {
-                if (u == 'lichess') {
-                  return '<li class="system">' + urlToLink(t) + '</li>';
-                } else {
-                  return '<li><span>' + $.userLinkLimit(u, 14) + '</span>' + urlToLink(t) + '</li>';
-                }
-              } else {
-                return '<li class="' + u + (u == 'system' ? ' trans_me' : '') + '">' + urlToLink(t) + '</li>';
-              }
-            }
-          });
-        }
         self.$watchers.watchers();
         if (self.isMyTurn() && self.options.game.turns === 0) {
           self.element.one('lichess.audio_ready', function() {
@@ -1153,12 +1134,6 @@ var storage = {
             ran: "--ranph--"
           },
           events: {
-            message: function(e) {
-              self.element.queue(function() {
-                if (self.$chat) self.$chat.chat("append", e.u, e.t);
-                self.element.dequeue();
-              });
-            },
             possible_moves: function(event) {
               self.element.queue(function() {
                 self.options.possible_moves = event;
@@ -1638,7 +1613,6 @@ var storage = {
         self.$tableInner.html(data.table);
         self.initTable();
         $('div.lichess_goodies').replaceWith(data.infobox);
-        if (self.$chat) self.$chat.chat('resize');
         if ($.isFunction(callback)) callback();
         $('body').trigger('lichess.content_loaded');
       });
@@ -1805,85 +1779,6 @@ var storage = {
     },
     _renderUser: function(user) {
       return '<a class="ulpt" data-placement="nw" href="/@/' + user + '">' + user + '</a>';
-    }
-  });
-
-  $.widget("lichess.chat", {
-    _create: function() {
-      this.options = $.extend({
-        // render: function(u, t) {},
-        talkMessageType: 'talk',
-        secure: false,
-        resize: false
-      }, this.options);
-      var self = this;
-      self.$msgs = self.element.find('.lichess_messages');
-      if (self.options.resize) self.resize();
-
-      var $form = self.element.find('form');
-      var $input = self.element.find('input.lichess_say');
-
-      // send a message
-      $form.submit(function() {
-        var text = $.trim($input.val());
-        if (!text) return false;
-        if (text.length > 140) {
-          alert('Max length: 140 chars. ' + text.length + ' chars used.');
-          return false;
-        }
-        if (self.options.secure && !$('#user_tag').length) {
-          if (confirm($.trans('You need an account to do that'))) location.href = '/signup';
-          return false;
-        }
-        $input.val('');
-        lichess.socket.send(self.options.talkMessageType, text);
-        return false;
-      });
-
-      self.element.find('a.send').click(function() {
-        $input.trigger('click');
-        $form.submit();
-      });
-
-      // toggle the chat
-      var $toggle = self.element.find('input.toggle_chat');
-      $toggle.change(function() {
-        var enabled = $toggle.is(':checked');
-        self.element.toggleClass('hidden', !enabled);
-        if (!enabled) storage.set('nochat', 1);
-        else storage.remove('nochat');
-      });
-      $toggle[0].checked = storage.get('nochat') != 1;
-      if (!$toggle[0].checked) {
-        self.element.addClass('hidden');
-      }
-    },
-    resize: function() {
-      var headerHeight = this.element.parent().height();
-      this.element.css("top", headerHeight + 13);
-      this.$msgs.css('height', 459 - headerHeight).scrollTop(999999);
-    },
-    append: function(u, t) {
-      this._appendHtml(this.options.render(u, t));
-    },
-    appendMany: function(objs) {
-      var self = this,
-        html = "";
-      $.each(objs, function() {
-        html += self.options.render(this.u, this.t);
-      });
-      this._appendHtml(html);
-    },
-    _appendHtml: function(html) {
-      this.$msgs.append(html);
-      $('body').trigger('lichess.content_loaded');
-      this.$msgs.scrollTop(999999);
-    },
-    remove: function(regex) {
-      var r = new RegExp(regex);
-      $this.$msgs.find('li').filter(function() {
-        return r.test($(this).html());
-      }).remove();
     }
   });
 
@@ -2733,13 +2628,6 @@ var storage = {
     var socketUrl = $wrap.data("socket-url");
     var $watchers = $("div.watchers").watchers();
 
-    var $chat = $("div.lichess_chat").chat({
-      resize: true,
-      render: function(u, t) {
-        return '<li><span>' + $.userLinkLimit(u, 14) + '</span>' + urlToLink(t) + '</li>';
-      }
-    });
-
     function startClock() {
       $("span.tournament_clock").each(function() {
         $(this).clock({
@@ -2763,9 +2651,6 @@ var storage = {
 
     lichess.socket = new strongSocket(socketUrl, _ld_.version, $.extend(true, lichess.socketDefaults, {
       events: {
-        talk: function(e) {
-          $chat.chat('append', e.u, e.t);
-        },
         start: start,
         reload: reload,
         reloadPage: function() {
@@ -2816,12 +2701,6 @@ var storage = {
       event.stopPropagation();
       return false;
     });
-    var $chat = $("div.lichess_chat").chat({
-      render: function(u, t) {
-        return '<li><span>' + $.userLinkLimit(u, 14) + '</span>' + urlToLink(t) + '</li>';
-      },
-      resize: true
-    });
     var $watchers = $("div.watchers").watchers();
 
     lichess.socket = new strongSocket(
@@ -2833,9 +2712,6 @@ var storage = {
           ignoreUnknownMessages: true
         },
         events: {
-          message: function(e) {
-            $chat.chat("append", e.u, e.t);
-          },
           crowd: function(event) {
             $watchers.watchers("set", event.watchers);
           }
