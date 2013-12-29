@@ -39,33 +39,40 @@ object Round extends LilaController with TheftPrevention {
     JsOk(fuccess(Env.game.gameJs.sign(env.hijack tokenOf gameId)), CACHE_CONTROL -> "max-age=3600")
   }
 
-  def player(fullId: String) = Open { implicit ctx ⇒
-    OptionFuResult(GameRepo pov fullId) { pov ⇒
-      if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
-      pov.game.started.fold(
-        PreventTheft(pov) {
-          (pov.game.hasChat optionFu {
-            RoomRepo room pov.gameId map { room ⇒ html.round.roomInner(room.decodedMessages) }
-          }) zip
-            env.version(pov.gameId) zip
-            (bookmarkApi userIdsByGame pov.game) zip
-            pov.opponent.userId.??(UserRepo.isEngine) zip
-            (analyser has pov.gameId) zip
-            (pov.game.tournamentId ?? TournamentRepo.byId) map {
-              case (((((roomHtml, v), bookmarkers), engine), analysed), tour) ⇒
-                Ok(html.round.player(pov, v, engine, roomHtml, bookmarkers, analysed, tour = tour))
-            }
-        },
-        Redirect(routes.Setup.await(fullId)).fuccess
-      )
+  def player(fullId: String) = Action async { req ⇒
+    GameRepo pov fullId flatMap {
+      case None ⇒ notFoundReq(req)
+      case Some(pov) ⇒ (OpenWithChan(pov.game.hasAi.fold(
+        lila.chat.GameWatcherChan(pov.gameId),
+        lila.chat.GamePlayerChan(pov.gameId)
+      )) { implicit ctx ⇒
+        if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
+        pov.game.started.fold(
+          PreventTheft(pov) {
+            (pov.game.hasChat optionFu {
+              RoomRepo room pov.gameId map { room ⇒ html.round.roomInner(room.decodedMessages) }
+            }) zip
+              env.version(pov.gameId) zip
+              (bookmarkApi userIdsByGame pov.game) zip
+              pov.opponent.userId.??(UserRepo.isEngine) zip
+              (analyser has pov.gameId) zip
+              (pov.game.tournamentId ?? TournamentRepo.byId) map {
+                case (((((roomHtml, v), bookmarkers), engine), analysed), tour) ⇒
+                  Ok(html.round.player(pov, v, engine, roomHtml, bookmarkers, analysed, tour = tour))
+              }
+          },
+          Redirect(routes.Setup.await(fullId)).fuccess
+        )
+      })(req)
     }
   }
 
-  def watcher(gameId: String, color: String) = Open { implicit ctx ⇒
-    OptionFuResult(GameRepo.pov(gameId, color)) { pov ⇒
-      pov.game.joinable.fold(join _, watch _)(pov)
+  def watcher(gameId: String, color: String) =
+    OpenWithChan(lila.chat.GameWatcherChan(gameId)) { implicit ctx ⇒
+      OptionFuResult(GameRepo.pov(gameId, color)) { pov ⇒
+        pov.game.joinable.fold(join _, watch _)(pov)
+      }
     }
-  }
 
   private def watch(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =
     bookmarkApi userIdsByGame pov.game zip

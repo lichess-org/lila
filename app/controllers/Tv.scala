@@ -2,17 +2,17 @@ package controllers
 
 import play.api.mvc._
 import play.api.templates.Html
-import views._
 
 import lila.app._
 import lila.game.{ GameRepo, Game ⇒ GameModel, Pov }
 import lila.round.WatcherRoomRepo
 import lila.tournament.TournamentRepo
 import lila.user.{ UserRepo, Confrontation }
+import views._
 
 object Tv extends LilaController {
 
-  def index = Open { implicit ctx ⇒
+  def index = OpenWithChan(lila.chat.TvChan) { implicit ctx ⇒
     OptionFuResult(Env.game.featured.one) { game ⇒
       Env.round.version(game.id) zip
         (WatcherRoomRepo room "tv" map { room ⇒

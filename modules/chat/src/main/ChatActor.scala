@@ -2,6 +2,7 @@ package lila.chat
 
 import akka.actor._
 import akka.pattern.pipe
+import play.api.libs.json.JsObject
 
 import lila.common.Bus
 import lila.common.PimpedJson._
@@ -29,27 +30,34 @@ private[chat] final class ChatActor(
 
     case Input(uid, o) ⇒ (o str "t") |@| (o obj "d") |@| (members get uid) apply {
       case (typ, data, member) ⇒ typ match {
-        case "chat.set-active-chan" ⇒ data str "chan" foreach { chan ⇒
+
+        case "chat.register" ⇒ {
+          member.setHead(ChatHead(
+            chans = (~data.arrAs("chans")(_.asOpt[String]) map Chan.parse).flatten,
+            pageChanKey = data str "pageChan",
+            activeChanKeys = (~data.arrAs("activeChans")(_.asOpt[String])).toSet,
+            mainChanKey = data str "mainChan"))
+          reloadChat(member)
+        }
+        case "chat.set-active-chan" ⇒ withChan(data) { chan ⇒
           val value = data int "value" exists (1==)
           val setMain = value && (data int "main" exists (1==))
-          prefApi.setPref(member.userId, (p: Pref) ⇒ p.updateChat(setMain.fold(
-            _.withChan(chan, value).withMainChan(chan.some),
-            _.withChan(chan, value)
+          (!chan.autoActive) ?? prefApi.setPref(member.userId, (p: Pref) ⇒ p.updateChat(setMain.fold(
+            _.withChan(chan.key, value).withMainChan(chan.key.some),
+            _.withChan(chan.key, value)
           ))) andThen {
             case _ ⇒ {
-              member setActiveChan (chan, value)
+              member.setActiveChan(chan.key, value)
+              if (setMain) member.setMainChan(chan.key.some)
               reloadChat(member)
             }
           }
         }
-        case "chat.set-main" ⇒
-          prefApi.setPref(member.userId, (p: Pref) ⇒ p.updateChat(_.withMainChan(data str "chan")))
-        case "chat.register" ⇒ prefApi getPref member.userId foreach { pref ⇒
-          member setActiveChans pref.chat.chans
-          member setExtraChans {
-            data str "chans" map (_.split(',').toList) getOrElse Nil
-          }
-          reloadChat(member)
+        case "chat.set-main" ⇒ withChanOption(data) { chan ⇒
+          member.setMainChan(chan map (_.key))
+          if (!chan.??(_.autoActive)) prefApi.setPref(member.userId, (p: Pref) ⇒
+            p.updateChat(_.withMainChan(chan map (_.key)))
+          )
         }
         case "chat.tell" ⇒ for {
           chan ← data str "chan"
@@ -59,7 +67,7 @@ private[chat] final class ChatActor(
     }
 
     case SocketEnter(uid, member) ⇒ member.userId foreach { userId ⇒
-      members += (uid -> ChatMember(uid, userId, member.troll, member.channel))
+      members += (uid -> new ChatMember(uid, userId, member.troll, member.channel))
     }
 
     case SocketLeave(uid) ⇒ members -= uid
@@ -72,9 +80,19 @@ private[chat] final class ChatActor(
     }
   }
 
+  private def withChan(data: JsObject)(f: Chan ⇒ Unit) {
+    data str "chan" flatMap Chan.parse foreach f
+  }
+
+  private def withChanOption(data: JsObject)(f: Option[Chan] ⇒ Unit) {
+    f(data str "chan" flatMap Chan.parse)
+  }
+
   private def reloadChat(member: ChatMember) {
-    api.getNamed(member.userId, member.extraChans) foreach { chat ⇒
-      member.channel push Socket.makeMessage("chat.reload", chat.toJson)
+    UserRepo byId member.userId flatten s"User of $member not found" foreach { user ⇒
+      api.populate(member.head, user) foreach { chat ⇒
+        member.channel push Socket.makeMessage("chat.reload", chat.toJson)
+      }
     }
   }
 }

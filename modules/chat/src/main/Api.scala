@@ -17,26 +17,24 @@ private[chat] final class Api(
     prefApi: lila.pref.PrefApi,
     netDomain: String) {
 
-  def get(user: User, extraChans: List[Chan]): Fu[Chat] = prefApi getPref user flatMap { pref ⇒
-    val mainChanKey = pref.chat.mainChan
-    val activeChanKeys = pref.chat.chans
-    val chans = Chat.baseChans ::: extraChans
-    val selectTroll = user.troll.fold(Json.obj(), Json.obj(L.troll -> false))
-    $find($query(selectTroll ++ Json.obj("c" -> $in(activeChanKeys))) sort $sort.desc(L.date), 20) map { lines ⇒
-      Chat(user, lines.reverse, chans, activeChanKeys, mainChanKey)
-    }
+  def get(user: User): Fu[ChatHead] = prefApi getPref user map { pref ⇒
+    ChatHead(
+      chans = Chat.baseChans,
+      pageChanKey = none,
+      activeChanKeys = pref.chat.chans,
+      mainChanKey = pref.chat.mainChan)
   }
-  def get(userId: String, extraChans: List[String]): Fu[Chat] =
-    (UserRepo byId userId) flatten s"No such user: $userId" flatMap { u ⇒
-      get(u, extraChans.map(Chan.parse).flatten)
-    }
 
-  def getNamed(user: User, extraChans: List[Chan]): Fu[NamedChat] =
-    get(user, extraChans) flatMap namer.chat
-  def getNamed(userId: String, extraChans: List[String]): Fu[NamedChat] =
-    (UserRepo byId userId) flatten s"No such user: $userId" flatMap { u ⇒
-      getNamed(u, extraChans.map(Chan.parse).flatten)
-    }
+  def get(userId: String): Fu[ChatHead] =
+    (UserRepo byId userId) flatten s"No such user: $userId" flatMap get
+
+  def populate(head: ChatHead, user: User): Fu[Chat] = {
+    val selectTroll = user.troll.fold(Json.obj(), Json.obj(L.troll -> false))
+    namer.chans(head.chans, user) zip
+      $find($query(selectTroll ++ Json.obj("c" -> $in(head.activeChanKeys))) sort $sort.desc(L.date), 20) map {
+        case (namedChans, lines) ⇒ Chat(head, namedChans, lines.reverse)
+      }
+  }
 
   def write(chan: String, userId: String, text: String): Fu[Option[Line]] = {
     import Writer._

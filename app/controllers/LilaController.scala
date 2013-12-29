@@ -12,6 +12,7 @@ import scalaz.Monoid
 
 import lila.api.{ Context, HeaderContext, BodyContext }
 import lila.app._
+import lila.chat.{ Chat, Chan }
 import lila.common.{ LilaCookie, HTTPRequest }
 import lila.security.{ Permission, Granter }
 import lila.user.{ User ⇒ UserModel }
@@ -47,6 +48,9 @@ private[controllers] trait LilaController
 
   protected def Open[A](p: BodyParser[A])(f: Context ⇒ Fu[SimpleResult]): Action[A] =
     Action.async(p)(req ⇒ reqToCtx(req) flatMap f)
+
+  protected def OpenWithChan(chan: lila.chat.Chan)(f: Context ⇒ Fu[SimpleResult]): Action[AnyContent] =
+    Action.async(BodyParsers.parse.anyContent)(req ⇒ reqToCtx(req, chan.some) flatMap f)
 
   protected def OpenBody(f: BodyContext ⇒ Fu[SimpleResult]): Action[AnyContent] =
     OpenBody(BodyParsers.parse.anyContent)(f)
@@ -153,6 +157,9 @@ private[controllers] trait LilaController
     if (HTTPRequest isSynchronousHttp ctx.req) Lobby renderHome Results.NotFound
     else Results.NotFound("resource not found").fuccess
 
+  protected def notFoundReq(req: RequestHeader): Fu[SimpleResult] =
+    reqToCtx(req, lila.chat.LobbyChan.some) flatMap (x ⇒ notFound(x))
+
   protected def isGranted(permission: Permission.type ⇒ Permission)(implicit ctx: Context): Boolean =
     isGranted(permission(Permission))
 
@@ -165,9 +172,9 @@ private[controllers] trait LilaController
   protected def authorizationFailed(req: RequestHeader): SimpleResult =
     Forbidden("no permission")
 
-  protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
+  protected def reqToCtx(req: RequestHeader, withChan: Option[Chan] = None): Fu[HeaderContext] =
     restoreUser(req) map { lila.user.UserContext(req, _) } flatMap { ctx ⇒
-      chatAndPrefs(ctx) map { case (chat, pref) ⇒ Context(ctx, chat, pref) }
+      chatAndPrefs(ctx, withChan) map { case (chat, pref) ⇒ Context(ctx, chat, pref) }
     }
 
   protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
@@ -175,11 +182,23 @@ private[controllers] trait LilaController
       chatAndPrefs(ctx) map { case (chat, pref) ⇒ Context(ctx, chat, pref) }
     }
 
-  import lila.chat.NamedChat
-  import lila.pref.Pref
-  private def chatAndPrefs(ctx: lila.user.UserContext): Fu[(Option[NamedChat], Option[Pref])] =
-    ctx.me.fold(fuccess(none[NamedChat] -> none[Pref])) { me ⇒
-      (HTTPRequest.isSynchronousHttp(ctx.req) ?? (Env.chat.api.getNamed(me, Nil) map (_.some))) zip (Env.pref.api getPref me) map {
+  private def chatAndPrefs(ctx: lila.user.UserContext, withChan: Option[Chan] = None): Fu[(Option[Chat], Option[lila.pref.Pref])] =
+    ctx.me.fold(fuccess(none[Chat] -> none[lila.pref.Pref])) { me ⇒
+      (HTTPRequest.isSynchronousHttp(ctx.req) ?? {
+        Env.chat.api.get(me) flatMap { chan ⇒
+          Env.chat.api.populate(withChan.fold(chan)(chan.withPageChan), me) recoverWith {
+            case e: Exception ⇒ {
+              play.api.Logger("controller").info(e.getMessage)
+              Env.chat.api.populate(chan, me)
+            }
+          }
+        } map (_.some)
+      } recover {
+        case e: Exception ⇒ {
+          play.api.Logger("controller").warn(e.getMessage)
+          none
+        }
+      }) zip (Env.pref.api getPref me) map {
         case (chat, pref) ⇒ chat -> pref.some
       }
     }

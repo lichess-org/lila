@@ -40,6 +40,11 @@ object Pref {
     def withMainChan(key: Option[String]) = copy(mainChan = key)
   }
 
+  object ChatPref {
+
+    val default = ChatPref(Set("lobby", "tournamentLobby", "tv"), none)
+  }
+
   object AutoQueen {
     val NEVER = 1
     val PREMOVE = 2
@@ -58,7 +63,7 @@ object Pref {
     autoQueen = AutoQueen.PREMOVE,
     clockTenths = true,
     premove = true,
-    chat = ChatPref(Set("lichess", "lobby", "tv"), "lichess".some))
+    chat = ChatPref.default)
 
   val default = create("")
 

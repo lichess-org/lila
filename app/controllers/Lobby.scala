@@ -4,15 +4,15 @@ import play.api.libs.json.Json
 import play.api.libs.json.JsValue
 import play.api.mvc._
 
+import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
 import lila.tournament.TournamentRepo
-import lila.api.Context
 import views._
 
 object Lobby extends LilaController {
 
-  def home = Open { implicit ctx ⇒
+  def home = OpenWithChan(lila.chat.LobbyChan) { implicit ctx ⇒
     ctx.me match {
       case Some(u) if u.artificial ⇒ fuccess {
         views.html.auth.artificialPassword(u, Env.security.forms.newPassword)
