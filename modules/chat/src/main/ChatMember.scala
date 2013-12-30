@@ -29,18 +29,8 @@ private[chat] final class ChatMember(
     head = h
   }
 
-  def addChan(chan: Chan) {
-    head = head addChan chan
-  }
-
-  def setMainChan(chan: Option[String]) {
-    head = head.copy(mainChanKey = chan)
-  }
-
-  def setActiveChan(key: String, value: Boolean) {
-    head = head.copy(
-      activeChanKeys = if (value) head.activeChanKeys + key else head.activeChanKeys - key
-    )
+  def updateHead(f: ChatHead => ChatHead) {
+    head = f(head)
   }
 
   def setBlocks(bs: Set[String]) {
