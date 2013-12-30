@@ -99,7 +99,7 @@ follow a user #chess claymore http://www.freechess.org/Help/HelpFiles/follow.htm
 team menu should lead to "My teams"
 atwar style chat system http://imgur.com/a/buwy3 (but better)
 replay games using move time
-antiboost tool for mods
+antifarming tool for mods
 list all players by ranking.
 automatic ai cheat detection is broken
 time pie chart colors http://en.lichess.org/52ede6hu/stats
@@ -109,4 +109,5 @@ full page recent forum posts
 
 deploy
 ------
-db.chat.ensureIndex({tr:1,c:1,d:-1}
+db.chat.ensureIndex({tr:1,c:1,d:-1})
+db.chat.ensureIndex({u:1,c:1,d:-1})

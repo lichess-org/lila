@@ -2,48 +2,61 @@ package lila.chat
 
 import java.util.regex.Matcher.quoteReplacement
 
-import Line.{ BSONFields ⇒ L }
-import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import play.api.i18n.Lang
 import play.api.libs.json._
 
-import lila.db.api._
-import lila.db.Implicits._
 import lila.user.{ User, UserRepo }
-import tube.lineTube
 
 private[chat] final class Api(
     namer: Namer,
+    chanVoter: ChanVoter,
     flood: lila.security.Flood,
     relationApi: lila.relation.RelationApi,
     prefApi: lila.pref.PrefApi,
     netDomain: String) {
 
-  def get(user: User): Fu[ChatHead] = prefApi getPref user flatMap { p ⇒
-    val langChan = LangChan(Lang(user.lang | "en"))
-    p.chat.isDefault.fold({
-      val p2 = p.updateChat(c ⇒ ChatHead(c) join langChan updatePref c)
-      prefApi setPref p2 inject p2.chat
-    }, fuccess(p.chat)) map { pref ⇒
-      ChatHead(pref).setChan(langChan, true)
-    }
+  def join(user: User, chat: ChatHead, chan: Chan): ChatHead = {
+    chanVoter(user.id, chan.key)
+    truncate(user, chat join chan, chan.key)
   }
 
-  def get(userId: String): Fu[ChatHead] =
-    (UserRepo byId userId) flatten s"No such user: $userId" flatMap get
+  def join(member: ChatMember, chan: Chan): Fu[ChatHead] =
+    getUser(member.userId) map { user ⇒ join(user, member.head, chan) }
+
+  def show(user: User, chat: ChatHead, chan: Chan): ChatHead =
+    truncate(user, chat.setChan(chan, true), chan.key)
+
+  def truncate(user: User, chat: ChatHead, not: String): ChatHead =
+    if (chat.chans.size <= Chat.maxChans) chat else {
+      val nots = Set(LangChan(user).key, not)
+      def filter(keys: Seq[String]) = keys filterNot nots.contains
+      filter(chat.inactiveChanKeys).headOption match {
+        case Some(key) ⇒ truncate(user, chat.unsetChanKey(key), not)
+        case _ ⇒ chanVoter.lessVoted(user.id, filter(chat.chanKeys)) match {
+          case Some(key) ⇒ truncate(user, chat.unsetChanKey(key), not)
+          case _ ⇒ filter(chat.chanKeys).headOption match {
+            case Some(key) ⇒ truncate(user, chat unsetChanKey key, not)
+            case _         ⇒ chat
+          }
+        }
+      }
+    }
+
+  def get(user: User): Fu[ChatHead] = prefApi getPref user map { pref ⇒
+    show(user, ChatHead(pref.chat), LangChan(user))
+  }
+
+  def get(userId: String): Fu[ChatHead] = getUser(userId) flatMap get
 
   def populate(head: ChatHead, user: User): Fu[Chat] =
-    relationApi blocking user.id flatMap { blocks ⇒
-      val selectTroll = user.troll.fold(Json.obj(), Json.obj(L.troll -> false))
-      val selectBlock = Json.obj(L.username -> $nin(blocks))
-      namer.chans(head.chans, user) zip
-        $find($query(
-          selectTroll ++
-            selectBlock ++
-            Json.obj(L.chan -> $in(head.activeChanKeys))
-        ) sort $sort.desc(L.date), 20) map {
-          case (namedChans, lines) ⇒ Chat(head, namedChans, lines.reverse)
+    namer.chans(head.chans, user) zip {
+      relationApi blocking user.id flatMap {
+        LineRepo.find(head.activeChanKeys, user.troll, _, 20) flatMap {
+          _.map(namer.line).sequenceFu
         }
+      }
+    } map {
+      case (namedChans, namedLines) ⇒ Chat(head, namedChans, namedLines.reverse)
     }
 
   def makeLine(chanName: String, userId: String, t1: String): Fu[Option[Line]] =
@@ -67,8 +80,7 @@ private[chat] final class Api(
         case UserChan(u1, u2) ⇒ relationApi.areFriends(u1, u2)
         case _                ⇒ fuccess(true)
       }) flatMap {
-        case true  ⇒ write(line) inject line.some
-        case false ⇒ fuccess(none)
+        _ ?? (LineRepo insert line inject line.some)
       }
       case Some(line) ⇒ {
         logger.info(s"Flood: $userId @ $chanName : $text")
@@ -76,12 +88,13 @@ private[chat] final class Api(
       }
     }
 
-  def write(line: Line): Funit = $insert bson line
-
   def systemWrite(chan: Chan, text: String): Fu[Line] = {
     val line = Line.system(chan, text)
-    $insert bson line inject line
+    LineRepo insert line inject line
   }
+
+  private[chat] def getUser(userId: String) =
+    (UserRepo byId userId) flatten s"No such user: $userId"
 
   private val logger = play.api.Logger("chat")
 

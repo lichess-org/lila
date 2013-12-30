@@ -511,8 +511,8 @@ div.footer div.right {
 #chat .chan {
   display: block;
   text-align: right;
-  line-height: 31px;
-  height: 31px;
+  line-height: 27px;
+  height: 27px;
   padding: 0px 10px;
   border-bottom: 1px solid #2a2a2a;
   cursor: pointer;
@@ -529,7 +529,7 @@ div.footer div.right {
   float: right;
   width: 20px;
   height: 20px;
-  margin: 5px 16px 0 -13px;
+  margin: 3px 16px 0 -13px;
   position: relative;
 }
 #chat div.check input[type=checkbox] {
@@ -578,8 +578,10 @@ div.footer div.right {
 #chat > .room > .lines {
   height: 171px;
   overflow: hidden;
-  /* overflow-y: auto; */
   border-bottom: 1px solid #444;
+}
+#chat > .room > .lines:hover {
+  overflow-y: auto;
 }
 #chat .line {
   width: 100%;

@@ -18,9 +18,12 @@ case class ChatHead(
   def setChan(c: Chan, value: Boolean) = if (value) {
     if (chans contains c) this else copy(chans = c :: chans).sorted
   }
-  else {
-    if (chans contains c) copy(chans = chans filterNot (c==)) else this
-  }
+  else unsetChanKey(c.key)
+
+  def unsetChanKey(key: String) = copy(
+    chans = chans filterNot (_.key == key),
+    activeChanKeys = activeChanKeys filterNot (key==),
+    mainChanKey = mainChanKey filterNot (key==))
 
   def withPageChan(c: Chan) = setChan(c, true).copy(
     pageChanKey = c.key.some,
@@ -28,11 +31,15 @@ case class ChatHead(
     mainChanKey = c.autoActive.fold(c.key.some, mainChanKey))
 
   def setActiveChanKey(key: String, value: Boolean) =
-    copy(activeChanKeys = if (value) activeChanKeys + key else activeChanKeys - key)
+    copy(activeChanKeys = if (value && exists(key)) activeChanKeys + key else activeChanKeys - key)
+
+  def exists(key: String) = chanKeys contains key
 
   def setMainChanKey(key: Option[String]) = copy(mainChanKey = key)
 
   def join(c: Chan) = setChan(c, true).setActiveChanKey(c.key, true).setMainChanKey(c.key.some)
+
+  def inactiveChanKeys = chanKeys filterNot activeChanKeys.contains
 
   def updatePref(pref: ChatPref) = ChatPref(
     on = pref.on,
@@ -52,7 +59,7 @@ object ChatHead {
     mainChanKey = pref.mainChan).sorted
 }
 
-case class Chat(head: ChatHead, namedChans: List[NamedChan], lines: List[Line]) {
+case class Chat(head: ChatHead, namedChans: List[NamedChan], lines: List[NamedLine]) {
 
   def toJson = Json.obj(
     "lines" -> lines.map(_.toJson),
@@ -67,5 +74,5 @@ object Chat {
 
   val maxChans = 7
 
-  val systemUsername = "Lichess"
+  val systemUserId = "lichess"
 }

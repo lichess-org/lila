@@ -4,6 +4,7 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.i18n.LangList
+import lila.user.User
 
 sealed trait Chan extends Ordered[Chan] {
   def typ: String
@@ -36,20 +37,24 @@ sealed abstract class IdChan(
   def idOption = id.some
 
   def compare(other: Chan) = other match {
-    case c: LangChan ⇒ -c.compare(this)
-    case c: IdChan   ⇒ id compare c.id
-    case _           ⇒ -1
+    case c: LangChan ⇒ 1
+    case c: ContextualChan => -1
+    case c: IdChan ⇒ typ compare c.typ match {
+      case 0 ⇒ id compare c.id
+      case x ⇒ x
+    }
+    case _ ⇒ -1
   }
 }
 
 sealed trait ContextualChan { self: Chan ⇒
   override val contextual = true
+  override def compare(other: Chan) = 1
 }
 
 sealed abstract class AutoActiveChan(typ: String, i: String)
     extends IdChan(typ, true) with ContextualChan {
   val id = i
-  override def compare(other: Chan) = 1
 }
 
 object TvChan extends StaticChan(Chan.typ.tv, "TV") with ContextualChan
@@ -67,6 +72,7 @@ case class LangChan(lang: Lang) extends IdChan(Chan.typ.lang, false) {
 }
 object LangChan {
   def apply(code: String): Option[LangChan] = LangList.exists(code) option LangChan(Lang(code))
+  def apply(user: User): LangChan = LangChan(Lang(user.lang | "en"))
 }
 
 case class UserChan(u1: String, u2: String) extends IdChan("user", false) {

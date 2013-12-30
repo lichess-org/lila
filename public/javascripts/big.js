@@ -883,10 +883,7 @@ var storage = {
 
       $('body').on('socket.open', function() {
         lichess.socket.send('chat.register', {
-          chans: _.keys(self.head.chans),
-          pageChan: self.head.pageChan,
-          activeChans: self.head.activeChans,
-          mainChan: self.head.mainChan
+          pageChan: self.head.pageChan
         });
       });
     },
