@@ -37,6 +37,8 @@ object Pref {
       activeChans: Set[String],
       mainChan: Option[String]) {
 
+    def prependChan(key: String) = copy(chans = (key :: chans).distinct)
+
     def withChan(key: String, value: Boolean) = copy(
       chans = if (value) (chans :+ key).distinct else chans.filter(key!=)
     )
@@ -46,11 +48,15 @@ object Pref {
     )
 
     def withMainChan(key: Option[String]) = copy(mainChan = key)
+
+    def join(key: String) = withChan(key, true).withActiveChan(key, true).withMainChan(key.some)
+
+    def isDefault = this == ChatPref.default
   }
 
   object ChatPref {
 
-    val default = ChatPref(false, Nil, Set("lobby", "tournamentLobby", "tv"), none)
+    val default = ChatPref(false, Nil, Set("tv"), none)
   }
 
   object AutoQueen {

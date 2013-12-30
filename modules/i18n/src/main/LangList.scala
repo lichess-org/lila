@@ -2,9 +2,11 @@ package lila.i18n
 
 object LangList {
 
-  def name(code: String) = all get code 
+  def name(code: String) = all get code
 
   def nameOrCode(code: String) = name(code) | code
+
+  def exists(code: String) = all contains code
 
   lazy val sortedList = all.toList sortBy (_._1)
 
@@ -71,7 +73,6 @@ object LangList {
     "ho" -> "Hiri Motu",
     "hu" -> "Magyar",
     "ia" -> "Interlingua",
-    "id" -> "Bahasa Indonesia",
     "ga" -> "Gaeilge",
     "ig" -> "Asụsụ Igbo",
     "ik" -> "Iñupiaq, Iñupiatun",

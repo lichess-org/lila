@@ -1,6 +1,9 @@
 package lila.chat
 
+import play.api.i18n.Lang
 import play.api.libs.json._
+
+import lila.i18n.LangList
 
 sealed trait Chan {
   def typ: String
@@ -39,8 +42,11 @@ case class GameWatcherChan(i: String) extends AutoActiveChan(Chan.typ.gameWatche
 case class GamePlayerChan(i: String) extends AutoActiveChan(Chan.typ.gamePlayer, i)
 case class TournamentChan(i: String) extends AutoActiveChan(Chan.typ.tournament, i)
 
-case class LangChan(lang: String) extends IdChan(Chan.typ.lang, false) {
-  val id = lang
+case class LangChan(lang: Lang) extends IdChan(Chan.typ.lang, false) {
+  val id = lang.language
+}
+object LangChan {
+  def apply(code: String): Option[LangChan] = LangList.exists(code) option LangChan(Lang(code))
 }
 
 case class UserChan(u1: String, u2: String) extends IdChan("user", false) {
@@ -73,13 +79,13 @@ object Chan {
   }
 
   def apply(typ: String, idOption: Option[String]): Option[Chan] = typ match {
-    case Chan.typ.lang            ⇒ idOption map LangChan.apply
-    case Chan.typ.tv              ⇒ TvChan.some
-    case Chan.typ.gameWatcher     ⇒ idOption map GameWatcherChan
-    case Chan.typ.gamePlayer      ⇒ idOption map GamePlayerChan
-    case Chan.typ.tournament      ⇒ idOption map TournamentChan
-    case Chan.typ.user            ⇒ idOption flatMap UserChan.apply
-    case _                        ⇒ none
+    case Chan.typ.lang        ⇒ idOption flatMap LangChan.apply
+    case Chan.typ.tv          ⇒ TvChan.some
+    case Chan.typ.gameWatcher ⇒ idOption map GameWatcherChan
+    case Chan.typ.gamePlayer  ⇒ idOption map GamePlayerChan
+    case Chan.typ.tournament  ⇒ idOption map TournamentChan
+    case Chan.typ.user        ⇒ idOption flatMap UserChan.apply
+    case lang                 ⇒ LangChan(lang)
   }
 
   def parse(str: String): Option[Chan] = str.split('_').toList match {

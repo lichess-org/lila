@@ -4,6 +4,7 @@ import java.util.regex.Matcher.quoteReplacement
 
 import Line.{ BSONFields ⇒ L }
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
+import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.db.api._
@@ -18,12 +19,18 @@ private[chat] final class Api(
     prefApi: lila.pref.PrefApi,
     netDomain: String) {
 
-  def get(user: User): Fu[ChatHead] = prefApi getPref user map { pref ⇒
-    ChatHead(
-      chans = LangChan(user.lang | "en") :: pref.chat.chans.map(Chan.parse).flatten,
-      pageChanKey = none,
-      activeChanKeys = pref.chat.activeChans,
-      mainChanKey = pref.chat.mainChan)
+  def get(user: User): Fu[ChatHead] = prefApi getPref user flatMap { p ⇒
+    val langChan = LangChan(Lang(user.lang | "en"))
+    p.chat.isDefault.fold({
+      val p2 = p.updateChat(_.join(langChan.key))
+      prefApi setPref p2 inject p2.chat
+    }, fuccess(p.chat)) map { pref ⇒
+      ChatHead(
+        chans = pref.prependChan(langChan).chans.map(Chan.parse).flatten,
+        pageChanKey = none,
+        activeChanKeys = pref.activeChans,
+        mainChanKey = pref.mainChan)
+    }
   }
 
   def get(userId: String): Fu[ChatHead] =

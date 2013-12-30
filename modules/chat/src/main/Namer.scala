@@ -45,7 +45,7 @@ private[chat] final class Namer(getUsername: String ⇒ Fu[String]) {
       else fufail(s"${user.id} can't see $c")
 
     case (LangChan(lang), _) ⇒ fuccess {
-      (lila.i18n.LangList name lang) | lang
+      lila.i18n.LangList nameOrCode lang.language
     }
 
     case (c, _) ⇒ fuccess(c.toString)
