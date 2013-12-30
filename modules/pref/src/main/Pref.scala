@@ -37,20 +37,6 @@ object Pref {
       activeChans: Set[String],
       mainChan: Option[String]) {
 
-    def prependChan(key: String) = copy(chans = (key :: chans).distinct)
-
-    def withChan(key: String, value: Boolean) = copy(
-      chans = if (value) (chans :+ key).distinct else chans.filter(key!=)
-    )
-
-    def withActiveChan(key: String, value: Boolean) = copy(
-      activeChans = if (value) activeChans + key else activeChans - key
-    )
-
-    def withMainChan(key: Option[String]) = copy(mainChan = key)
-
-    def join(key: String) = withChan(key, true).withActiveChan(key, true).withMainChan(key.some)
-
     def isDefault = this == ChatPref.default
   }
 

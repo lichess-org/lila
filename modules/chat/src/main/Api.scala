@@ -22,14 +22,10 @@ private[chat] final class Api(
   def get(user: User): Fu[ChatHead] = prefApi getPref user flatMap { p ⇒
     val langChan = LangChan(Lang(user.lang | "en"))
     p.chat.isDefault.fold({
-      val p2 = p.updateChat(_.join(langChan.key))
+      val p2 = p.updateChat(c ⇒ ChatHead(c) join langChan updatePref c)
       prefApi setPref p2 inject p2.chat
     }, fuccess(p.chat)) map { pref ⇒
-      ChatHead(
-        chans = pref.prependChan(langChan).chans.map(Chan.parse).flatten,
-        pageChanKey = none,
-        activeChanKeys = pref.activeChans,
-        mainChanKey = pref.mainChan)
+      ChatHead(pref) prependChan langChan
     }
   }
 

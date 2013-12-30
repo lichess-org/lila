@@ -93,5 +93,7 @@ object Chan {
     case typ :: id ⇒ apply(typ, id.mkString("_").some)
     case _         ⇒ None
   }
+
+  def autoActive(str: String): Boolean = parse(str) ?? (_.autoActive)
 }
 

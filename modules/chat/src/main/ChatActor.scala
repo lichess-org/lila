@@ -36,9 +36,7 @@ private[chat] final class ChatActor(
 
     case line: Line ⇒ {
       lazy val json = lineMessage(line)
-      members.values foreach { m ⇒
-        if (m wants line) m tell json
-      }
+      members.values foreach { m ⇒ if (m wants line) m tell json }
     }
 
     case Tell(uid, line) ⇒ members get uid foreach { _ tell lineMessage(line) }
@@ -47,53 +45,35 @@ private[chat] final class ChatActor(
       api.systemWrite(chan, text) pipeTo self
     }
 
-    case SetOpen(member, value) ⇒
-      prefApi.setPref(member.userId, (p: Pref) ⇒ p.updateChat(_.copy(on = value)))
+    case SetOpen(member, value) ⇒ prefApi.setChatPref(member.userId, _.copy(on = value))
 
-    case Join(member, chan) ⇒
-      (!chan.autoActive ?? prefApi.setPref(member.userId, (p: Pref) ⇒
-        p.updateChat(_.join(chan.key))
-      )) >>- {
-        member.addChan(chan)
-        member.setActiveChan(chan.key, true)
-        member.setMainChan(chan.key.some)
-        reloadChat(member)
-      }
+    case Join(member, chan) ⇒ {
+      member.updateHead(_ join chan)
+      saveAndReload(member)
+    }
 
-    case Show(member, chan, value) ⇒
-      (!chan.autoActive ?? prefApi.setPref(member.userId, (p: Pref) ⇒
-        p.updateChat(_.withActiveChan(chan.key, value))
-      )) >>- {
-        member.setActiveChan(chan.key, value)
-        reloadChat(member)
-      }
+    case Show(member, chan, value) ⇒ {
+      member.updateHead(_.setActiveChanKey(chan.key, value))
+      saveAndReload(member)
+    }
 
     case Query(member, toId) ⇒
       UserRepo byId toId flatten s"Can't query non existing user $toId" foreach { to ⇒
-        relationApi.follows(to.id, member.userId) foreach {
-          case false ⇒ fufail(s"Can't query $toId, not following ${member.userId}")
-          case _ ⇒ {
-            val chan = UserChan(member.userId, toId)
-            prefApi.setPref(member.userId, (p: Pref) ⇒
-              p.updateChat(_.withChan(chan.key, true).withActiveChan(chan.key, true).withMainChan(chan.key.some))
-            ) >>- {
-              member addChan chan
-              member.setActiveChan(chan.key, true)
-              member setMainChan chan.key.some
-              reloadChat(member)
-            }
-          }
+        relationApi.follows(to.id, member.userId) onSuccess {
+          case true ⇒
+            member.updateHead(_ join UserChan(member.userId, toId))
+            saveAndReload(member)
         }
       }
 
     case lila.hub.actorApi.relation.Block(u1, u2) ⇒ withMembersOf(u1) { member ⇒
       member block u2
-      reloadChat(member)
+      reload(member)
     }
 
     case lila.hub.actorApi.relation.UnBlock(u1, u2) ⇒ withMembersOf(u1) { member ⇒
       member unBlock u2
-      reloadChat(member)
+      reload(member)
     }
 
     case Input(uid, o) ⇒ (o str "t") |@| (o obj "d") |@| (members get uid) apply {
@@ -106,7 +86,7 @@ private[chat] final class ChatActor(
             activeChanKeys = (~data.arrAs("activeChans")(_.asOpt[String])).toSet,
             mainChanKey = data str "mainChan"))
           member setBlocks blocks
-          reloadChat(member)
+          reload(member)
         }
         case "chat.tell" ⇒ data str "text" foreach { text ⇒
           val chanOption = data str "chan" flatMap Chan.parse
@@ -133,15 +113,11 @@ private[chat] final class ChatActor(
     }
   }
 
-  private def withChan(data: JsObject)(f: Chan ⇒ Unit) {
-    data str "chan" flatMap Chan.parse foreach f
+  private def saveAndReload(member: ChatMember) {
+    prefApi.setChatPref(member.uid, member.head.updatePref) >>- reload(member)
   }
 
-  private def withChanOption(data: JsObject)(f: Option[Chan] ⇒ Unit) {
-    f(data str "chan" flatMap Chan.parse)
-  }
-
-  private def reloadChat(m: ChatMember) {
+  private def reload(m: ChatMember) {
     UserRepo byId m.userId flatten s"User of $m not found" foreach { user ⇒
       api.populate(m.head, user) foreach { chat ⇒
         m tell Socket.makeMessage("chat.reload", chat.toJson)
