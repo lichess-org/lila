@@ -5,11 +5,13 @@ import play.api.libs.json._
 
 import lila.i18n.LangList
 
-sealed trait Chan {
+sealed trait Chan extends Ordered[Chan] {
   def typ: String
   def key: String
   def idOption: Option[String]
   def autoActive: Boolean
+
+  val contextual: Boolean = false
 
   override def toString = key
 }
@@ -21,6 +23,8 @@ sealed abstract class StaticChan(
   val key = typ
   val idOption = none
   val autoActive = false
+
+  def compare(other: Chan) = 1
 }
 
 sealed abstract class IdChan(
@@ -30,13 +34,25 @@ sealed abstract class IdChan(
   val id: String
   def key = s"${typ}_$id"
   def idOption = id.some
+
+  def compare(other: Chan) = other match {
+    case c: LangChan ⇒ -c.compare(this)
+    case c: IdChan   ⇒ id compare c.id
+    case _           ⇒ -1
+  }
 }
 
-sealed abstract class AutoActiveChan(typ: String, i: String) extends IdChan(typ, true) {
+sealed trait ContextualChan { self: Chan ⇒
+  override val contextual = true
+}
+
+sealed abstract class AutoActiveChan(typ: String, i: String)
+    extends IdChan(typ, true) with ContextualChan {
   val id = i
+  override def compare(other: Chan) = 1
 }
 
-object TvChan extends StaticChan(Chan.typ.tv, "TV")
+object TvChan extends StaticChan(Chan.typ.tv, "TV") with ContextualChan
 
 case class GameWatcherChan(i: String) extends AutoActiveChan(Chan.typ.gameWatcher, i)
 case class GamePlayerChan(i: String) extends AutoActiveChan(Chan.typ.gamePlayer, i)
@@ -44,6 +60,10 @@ case class TournamentChan(i: String) extends AutoActiveChan(Chan.typ.tournament,
 
 case class LangChan(lang: Lang) extends IdChan(Chan.typ.lang, false) {
   val id = lang.language
+  override def compare(other: Chan) = other match {
+    case c: LangChan ⇒ id compare c.id
+    case _           ⇒ -1
+  }
 }
 object LangChan {
   def apply(code: String): Option[LangChan] = LangList.exists(code) option LangChan(Lang(code))
@@ -95,5 +115,6 @@ object Chan {
   }
 
   def autoActive(str: String): Boolean = parse(str) ?? (_.autoActive)
+  def contextual(str: String): Boolean = parse(str) ?? (_.contextual)
 }
 
