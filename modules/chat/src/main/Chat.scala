@@ -35,5 +35,7 @@ case class Chat(head: ChatHead, namedChans: List[NamedChan], lines: List[Line]) 
 
 object Chat {
 
+  val maxChans = 7
+
   val systemUsername = "Lichess"
 }

@@ -41,9 +41,7 @@ private[chat] final class ChatActor(
       }
     }
 
-    case Tell(uid, line) ⇒ {
-      members get uid foreach { _ tell lineMessage(line) }
-    }
+    case Tell(uid, line) ⇒ members get uid foreach { _ tell lineMessage(line) }
 
     case System(chanTyp, chanId, text) ⇒ Chan(chanTyp, chanId) foreach { chan ⇒
       api.systemWrite(chan, text) pipeTo self
@@ -52,24 +50,23 @@ private[chat] final class ChatActor(
     case SetOpen(member, value) ⇒
       prefApi.setPref(member.userId, (p: Pref) ⇒ p.updateChat(_.copy(on = value)))
 
-    case Join(member, chan) ⇒ {
+    case Join(member, chan) ⇒
       (!chan.autoActive ?? prefApi.setPref(member.userId, (p: Pref) ⇒
-        p.updateChat(_.withMainChan(chan.key.some).withActiveChan(chan.key, true))
+        p.updateChat(_.join(chan.key))
       )) >>- {
+        member.addChan(chan)
         member.setActiveChan(chan.key, true)
         member.setMainChan(chan.key.some)
         reloadChat(member)
       }
-    }
 
-    case Show(member, chan, value) ⇒ {
+    case Show(member, chan, value) ⇒
       (!chan.autoActive ?? prefApi.setPref(member.userId, (p: Pref) ⇒
         p.updateChat(_.withActiveChan(chan.key, value))
       )) >>- {
         member.setActiveChan(chan.key, value)
         reloadChat(member)
       }
-    }
 
     case Query(member, toId) ⇒
       UserRepo byId toId flatten s"Can't query non existing user $toId" foreach { to ⇒
@@ -113,7 +110,6 @@ private[chat] final class ChatActor(
         }
         case "chat.tell" ⇒ data str "text" foreach { text ⇒
           val chanOption = data str "chan" flatMap Chan.parse
-          println(text)
           if (text startsWith "/") commander ! Command(chanOption, member, text drop 1)
           else chanOption foreach { chan ⇒
             api.write(chan.key, member.userId, text) foreach { _ foreach self.! }

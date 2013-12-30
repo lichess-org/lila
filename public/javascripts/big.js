@@ -942,16 +942,8 @@ var storage = {
         self._join(_.keys(self.chans)[0]);
         setTimeout(doSend, 777);
       } else doSend();
-      switch (text) {
-        case '/close':
-          self.$wrap.removeClass('on');
-          self.on = false;
-          break;
-        case '/open':
-          self.$wrap.addClass('on');
-          self.on = true;
-          break;
-      }
+      if (text == '/close') self.$wrap.removeClass('on');
+      else if (text == '/open') self.$wrap.addClass('on');
     },
     _show: function(chan, value) {
       this._disablePlaceholder();
