@@ -114,7 +114,7 @@ private[chat] final class ChatActor(
   }
 
   private def saveAndReload(member: ChatMember) {
-    prefApi.setChatPref(member.uid, member.head.updatePref) >>- reload(member)
+    prefApi.setChatPref(member.userId, member.head.updatePref) >>- reload(member)
   }
 
   private def reload(m: ChatMember) {

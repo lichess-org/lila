@@ -25,7 +25,7 @@ private[chat] final class Api(
       val p2 = p.updateChat(c ⇒ ChatHead(c) join langChan updatePref c)
       prefApi setPref p2 inject p2.chat
     }, fuccess(p.chat)) map { pref ⇒
-      ChatHead(pref) prependChan langChan
+      ChatHead(pref).setChan(langChan, true)
     }
   }
 

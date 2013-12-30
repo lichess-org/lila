@@ -853,7 +853,6 @@ var storage = {
 
       self.on = _lc_.on;
       self.user = _lc_.user;
-
       self.reload(_lc_);
 
       self.element.click(function() {
@@ -884,10 +883,10 @@ var storage = {
 
       $('body').on('socket.open', function() {
         lichess.socket.send('chat.register', {
-          chans: _.keys(self.chans),
-          pageChan: self.pageChan,
-          activeChans: self.activeChans,
-          mainChan: self.mainChan
+          chans: _.keys(self.head.chans),
+          pageChan: self.head.pageChan,
+          activeChans: self.head.activeChans,
+          mainChan: self.head.mainChan
         });
       });
     },
@@ -896,19 +895,12 @@ var storage = {
       this.$input.focus();
     },
     reload: function(c) {
-      var self = this;
-      self.lines = c.lines;
-      self.chans = c.chans;
-      self.pageChan = c.pageChan;
-      self.activeChans = _.filter(c.activeChans, function(chan) {
-        return self._exists(chan);
-      });
-      self.mainChan = _.contains(self.activeChans, c.mainChan) ? c.mainChan : null;
-      self.options = $.extend({}, c.options);
-
-      self._renderChans();
-      self._renderLines();
-      self._renderForm();
+      this.head = c.head;
+      if (!this._exists(this.head.mainChan)) this.head.mainChan = null;
+      this.lines = c.lines;
+      this._renderChans();
+      this._renderLines();
+      this._renderForm();
     },
     line: function(l) {
       var self = this;
@@ -920,7 +912,7 @@ var storage = {
     }),
     _tell: function() {
       var self = this;
-      if (!self.mainChan) return false;
+      if (!self.head.mainChan) return false;
       var text = $.trim(self.$input.val());
       if (!text) return false;
       if (text.length > 200) {
@@ -934,12 +926,12 @@ var storage = {
       var self = this;
       var doSend = function() {
         lichess.socket.send('chat.tell', {
-          chan: self.mainChan,
+          chan: self.head.mainChan,
           text: text
         });
       };
-      if (!self.mainChan && text.indexOf('/help') === 0) {
-        self._join(_.keys(self.chans)[0]);
+      if (!self.head.mainChan && text.indexOf('/help') === 0) {
+        self._join(_.keys(self.head.chans)[0]);
         setTimeout(doSend, 777);
       } else doSend();
       if (text == '/close') self.$wrap.removeClass('on');
@@ -954,23 +946,23 @@ var storage = {
       this._send('/join ' + chan);
     },
     _chanIndex: function(key) {
-      return _.keys(this.chans).indexOf(key);
+      return _.keys(this.head.chans).indexOf(key);
     },
     _colorClass: function(i) {
       return 'color' + (i % 8);
     },
     _exists: function(chan) {
-      return _.contains(_.keys(this.chans), chan);
+      return _.contains(_.keys(this.head.chans), chan);
     },
     _isActive: function(chan) {
-      return _.contains(this.activeChans, chan);
+      return _.contains(this.head.activeChans, chan);
     },
     _renderLine: function(line) {
       var self = this;
       if (!self._isActive(line.chan)) return '';
       else {
         var color = self._colorClass(self._chanIndex(line.chan));
-        var main = self.mainChan == line.chan;
+        var main = self.head.mainChan == line.chan;
         var sys = line.user == 'Lichess';
         return '<div class="line ' + (main ? 'main' : color) + ' ' + (sys ? 'sys' : '') + '">' +
           (sys ?
@@ -988,10 +980,10 @@ var storage = {
     },
     _renderChans: function() {
       var self = this;
-      self.$chans.html(_.map(self.chans, function(chan) {
+      self.$chans.html(_.map(self.head.chans, function(chan) {
         var id = 'chan_' + chan.key;
-        var active = self.activeChans.indexOf(chan.key) != -1;
-        var main = self.mainChan == chan.key;
+        var active = self.head.activeChans.indexOf(chan.key) != -1;
+        var main = self.head.mainChan == chan.key;
         var color = self._colorClass(self._chanIndex(chan.key));
         return '<div class="chan ' + color + (main ? ' main' : '') + ' clearfix">' +
           '<div class="check">' +
@@ -1004,12 +996,12 @@ var storage = {
     },
     _renderForm: function() {
       var self = this;
-      if (self.mainChan) {
-        var index = self._chanIndex(self.mainChan);
-        var mainChan = self.chans[self.mainChan];
+      if (self.head.mainChan) {
+        var index = self._chanIndex(self.head.mainChan);
+        var chan = self.head.chans[self.head.mainChan];
         self.$form.show();
         self.$invite
-          .text(self.user + ' ● ' + mainChan.name)
+          .text(self.user + ' ● ' + chan.name)
           .attr('class', 'invite ' + self._colorClass(index));
         self.$input.css({
           width: (self.$form.width() - self.$invite.width() - 50) + 'px',

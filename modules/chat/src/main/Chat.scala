@@ -15,26 +15,32 @@ case class ChatHead(
 
   def chanKeys = chans map (_.key)
 
-  def prependChan(c: Chan) = if (chans contains c) this else copy(chans = c :: chans)
-  def appendChan(c: Chan) = if (chans contains c) this else copy(chans = chans :+ c)
+  def setChan(c: Chan, value: Boolean) = if (value) {
+    if (chans contains c) this else copy(chans = c :: chans).sorted
+  }
+  else {
+    if (chans contains c) copy(chans = chans filterNot (c==)) else this
+  }
 
-  def withPageChan(c: Chan) = copy(
-    chans = (chans :+ c).distinct,
+  def withPageChan(c: Chan) = setChan(c, true).copy(
     pageChanKey = c.key.some,
     activeChanKeys = c.autoActive.fold(activeChanKeys + c.key, activeChanKeys),
     mainChanKey = c.autoActive.fold(c.key.some, mainChanKey))
 
   def setActiveChanKey(key: String, value: Boolean) =
     copy(activeChanKeys = if (value) activeChanKeys + key else activeChanKeys - key)
+
   def setMainChanKey(key: Option[String]) = copy(mainChanKey = key)
 
-  def join(c: Chan) = appendChan(c).setActiveChanKey(c.key, true).setMainChanKey(c.key.some)
+  def join(c: Chan) = setChan(c, true).setActiveChanKey(c.key, true).setMainChanKey(c.key.some)
 
   def updatePref(pref: ChatPref) = ChatPref(
     on = pref.on,
-    chans = chans map (_.key),
+    chans = chans filterNot (_.contextual) map (_.key),
     activeChans = activeChanKeys filterNot Chan.autoActive,
     mainChan = (mainChanKey filterNot Chan.autoActive) orElse pref.mainChan)
+
+  def sorted = copy(chans = chans.sorted)
 }
 
 object ChatHead {
@@ -43,17 +49,18 @@ object ChatHead {
     chans = pref.chans.map(Chan.parse).flatten,
     pageChanKey = none,
     activeChanKeys = pref.activeChans,
-    mainChanKey = pref.mainChan)
+    mainChanKey = pref.mainChan).sorted
 }
 
 case class Chat(head: ChatHead, namedChans: List[NamedChan], lines: List[Line]) {
 
   def toJson = Json.obj(
     "lines" -> lines.map(_.toJson),
-    "chans" -> JsObject(namedChans map { c ⇒ c.chan.key -> c.toJson }),
-    "pageChan" -> head.pageChanKey.fold[JsValue](JsNull)(JsString.apply),
-    "activeChans" -> head.activeChanKeys,
-    "mainChan" -> head.mainChanKey.filter(head.activeChanKeys.contains))
+    "head" -> Json.obj(
+      "chans" -> JsObject(namedChans map { c ⇒ c.chan.key -> c.toJson }),
+      "pageChan" -> head.pageChanKey.fold[JsValue](JsNull)(JsString.apply),
+      "activeChans" -> head.activeChanKeys,
+      "mainChan" -> head.mainChanKey.filter(head.activeChanKeys.contains)))
 }
 
 object Chat {
