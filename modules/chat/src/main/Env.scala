@@ -24,6 +24,7 @@ final class Env(
 
   lazy val api = new Api(
     namer = namer,
+    chanVoter = new ChanVoter,
     flood = flood,
     relationApi = relationApi,
     prefApi = prefApi,

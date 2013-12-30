@@ -185,13 +185,11 @@ private[controllers] trait LilaController
   private def contextBuilder(ctx: lila.user.UserContext, withChan: Option[Chan] = None): Fu[(Option[Chat], Option[lila.pref.Pref], Option[JsObject])] =
     ctx.me.fold(fuccess((none[Chat], none[lila.pref.Pref], none[JsObject]))) { me ⇒
       (HTTPRequest.isSynchronousHttp(ctx.req) ?? {
-        Env.chat.api.get(me) flatMap { chan ⇒
-          Env.chat.api.populate(withChan.fold(chan)(chan.withPageChan), me) recoverWith {
-            case e: Exception ⇒ {
-              play.api.Logger("controller").info(e.getMessage)
-              Env.chat.api.populate(chan, me)
-            }
+        Env.chat.api get me flatMap { chat ⇒
+          val pageChat = withChan.fold(chat) { chan ⇒
+            Env.chat.api.truncate(me, chat withPageChan chan, chan.key)
           }
+          Env.chat.api.populate(pageChat, me)
         } map (_.some)
       } recover {
         case e: Exception ⇒ {
