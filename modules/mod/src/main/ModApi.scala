@@ -16,10 +16,10 @@ final class ModApi(
       UserRepo.toggleEngine(user.id) void
   }
 
-  def troll(mod: String, username: String): Funit = withUser(username) { u ⇒
+  def troll(mod: String, username: String): Fu[Boolean] = withUser(username) { u ⇒
     val user = u.copy(troll = !u.troll)
-    (UserRepo updateTroll user) >>-
-      logApi.troll(mod, user.id, user.troll) void
+    ((UserRepo updateTroll user) >>-
+      logApi.troll(mod, user.id, user.troll)) inject user.troll
   }
 
   def ban(mod: String, username: String): Funit = withUser(username) { user ⇒
@@ -36,7 +36,7 @@ final class ModApi(
 
   def reopenAccount(mod: String, username: String): Funit = withUser(username) { user ⇒
     !user.enabled ?? {
-      (UserRepo enable user.id) >> logApi.reopenAccount(mod, user.id) 
+      (UserRepo enable user.id) >> logApi.reopenAccount(mod, user.id)
     }
   }
 

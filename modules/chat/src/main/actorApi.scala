@@ -4,7 +4,7 @@ private[chat] object actorApi {
 
 case class Command(chanOption: Option[Chan], member: ChatMember, text: String)
 
-case class Tell(member: ChatMember, text: String)
+case class Flash(member: ChatMember, text: String)
 
 case class SetOpen(member: ChatMember, value: Boolean)
 

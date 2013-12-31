@@ -90,6 +90,7 @@ case class NamedChan(chan: Chan, name: String) {
 
   def toJson = Json.obj(
     "key" -> chan.key,
+    "type" -> chan.typ,
     "name" -> name)
 }
 

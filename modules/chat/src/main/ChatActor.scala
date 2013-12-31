@@ -17,11 +17,12 @@ private[chat] final class ChatActor(
     namer: Namer,
     bus: Bus,
     relationApi: lila.relation.RelationApi,
-    prefApi: PrefApi) extends Actor {
+    prefApi: PrefApi,
+    makeCommander: () => Commander) extends Actor {
 
   private val members = collection.mutable.Map[String, ChatMember]()
 
-  private val commander = context.actorOf(Props[Commander])
+  private val commander = context.actorOf(Props(makeCommander()))
 
   override def preStart() {
     bus.subscribe(self, 'chat, 'socketDoor, 'relation)
@@ -37,7 +38,7 @@ private[chat] final class ChatActor(
       members.values foreach { m ⇒ if (m wants line) m tell json }
     }
 
-    case Tell(member, text) ⇒ member tell systemMessage(text)
+    case Flash(member, text) ⇒ member tell Socket.makeMessage("chat.flash", text)
 
     case System(chanTyp, chanId, text) ⇒ Chan(chanTyp, chanId) foreach { chan ⇒
       api.systemWrite(chan, text) pipeTo self
@@ -66,9 +67,9 @@ private[chat] final class ChatActor(
           member setHead head
           saveAndReload(member)
         }
-        case false ⇒ self ! Tell(member, s"The user ${to.username} does not follow you.")
+        case false ⇒ self ! Flash(member, s"The user ${to.username} does not follow you.")
       }
-      case None ⇒ self ! Tell(member, s"The user $toId does not exist.")
+      case None ⇒ self ! Flash(member, s"The user $toId does not exist.")
     }
 
     case lila.hub.actorApi.relation.Block(u1, u2) ⇒ withMembersOf(u1) { member ⇒
@@ -133,7 +134,6 @@ private[chat] final class ChatActor(
   }
 
   private def reload(m: ChatMember) {
-    Thread sleep 500
     api getUser m.userId foreach { user ⇒
       api.populate(m.head, user) foreach { chat ⇒
         m tell Socket.makeMessage("chat.reload", chat.toJson)
