@@ -42,7 +42,7 @@ object Pref {
 
   object ChatPref {
 
-    val default = ChatPref(false, Nil, Set("tv"), none)
+    val default = ChatPref(false, Nil, Set.empty, none)
   }
 
   object AutoQueen {

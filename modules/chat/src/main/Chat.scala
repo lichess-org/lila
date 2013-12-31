@@ -15,10 +15,9 @@ case class ChatHead(
 
   def chanKeys = chans map (_.key)
 
-  def setChan(c: Chan, value: Boolean) = if (value) {
-    if (chans contains c) this else copy(chans = c :: chans).sorted
-  }
-  else unsetChanKey(c.key)
+  def setChan(c: Chan, value: Boolean) =
+    if (value) copy(chans = (c :: chans).distinct).sorted
+    else unsetChanKey(c.key)
 
   def unsetChanKey(key: String) = copy(
     chans = chans filterNot (_.key == key),
@@ -32,6 +31,8 @@ case class ChatHead(
 
   def setActiveChanKey(key: String, value: Boolean) =
     copy(activeChanKeys = if (value && exists(key)) activeChanKeys + key else activeChanKeys - key)
+
+  def ensureActiveChan(chan: Chan) = setChan(chan, true).setActiveChanKey(chan.key, true)
 
   def exists(key: String) = chanKeys contains key
 

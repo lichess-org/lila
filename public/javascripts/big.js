@@ -902,6 +902,9 @@ var storage = {
     line: function(l) {
       var self = this;
       self.lines.push(l);
+      if (l.chan.type == "user" && !self._isActive(l.chan.key)) {
+        self._send('/show ' + l.chan.key);
+      }
       self.$lines.append(self._renderLine(l)).scrollTop(999999);
     },
     _disablePlaceholder: _.once(function() {
@@ -928,11 +931,18 @@ var storage = {
         });
       };
       if (!self.head.mainChan && text.indexOf('/help') === 0) {
-        self._join(_.keys(self.head.chans)[0]);
+        self._joinFirst();
         setTimeout(doSend, 777);
       } else doSend();
       if (text == '/close') self.$wrap.removeClass('on');
-      else if (text == '/open') self.$wrap.addClass('on');
+      else if (text == '/open') {
+        self.$wrap.addClass('on');
+        self._joinFirst();
+      }
+    },
+    _joinFirst: function() {
+      if (!this.head.mainChan) this._join(_.keys(this.head.chans)[0]);
+      this.$input.focus();
     },
     _show: function(chan, value) {
       this._disablePlaceholder();
@@ -956,10 +966,10 @@ var storage = {
     },
     _renderLine: function(line) {
       var self = this;
-      if (!self._isActive(line.chan)) return '';
+      if (!self._isActive(line.chan.key)) return '';
       else {
-        var color = self._colorClass(self._chanIndex(line.chan));
-        var main = self.head.mainChan == line.chan;
+        var color = self._colorClass(self._chanIndex(line.chan.key));
+        var main = self.head.mainChan == line.chan.key;
         var sys = line.user == 'Lichess';
         return '<div class="line ' + (main ? 'main' : color) + ' ' + (sys ? 'sys' : '') + '">' +
           (sys ?

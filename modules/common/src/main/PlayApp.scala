@@ -18,7 +18,7 @@ object PlayApp {
 
   private def enableScheduler = !(loadConfig getBoolean "app.scheduler.disabled")
 
-  def scheduler = new Scheduler(system.scheduler, 
+  def scheduler = new Scheduler(system.scheduler,
     enabled = enableScheduler && isServer,
     debug = loadConfig getBoolean "app.scheduler.debug")
 

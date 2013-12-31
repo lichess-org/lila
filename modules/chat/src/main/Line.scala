@@ -1,6 +1,5 @@
 package lila.chat
 
-import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json.Json
@@ -17,18 +16,17 @@ case class Line(
     troll: Boolean) {
 
   def system = userId == Chat.systemUserId
-
-  def html = Html {
-    escapeXml(text)
-  }
 }
 
 case class NamedLine(line: Line, username: String) {
 
   def toJson = Json.obj(
-    "chan" -> line.chan.key,
+    "chan" -> Json.obj(
+      "key" -> line.chan.key,
+      "type" -> line.chan.typ
+    ),
     "user" -> username,
-    "html" -> line.html.toString)
+    "html" -> line.text)
 }
 
 object Line {

@@ -37,9 +37,7 @@ private[chat] final class ChatActor(
       members.values foreach { m ⇒ if (m wants line) m tell json }
     }
 
-    case Tell(uid, line) ⇒ lineMessage(line) foreach { json ⇒
-      members get uid foreach { _ tell json }
-    }
+    case Tell(member, text) ⇒ member tell systemMessage(text)
 
     case System(chanTyp, chanId, text) ⇒ Chan(chanTyp, chanId) foreach { chan ⇒
       api.systemWrite(chan, text) pipeTo self
@@ -52,20 +50,26 @@ private[chat] final class ChatActor(
       saveAndReload(member)
     }
 
-    case Show(member, chan, value) ⇒ {
-      member.updateHead(_.setActiveChanKey(chan.key, value))
+    case Activate(member, chan) ⇒ api.active(member, chan) foreach { head ⇒
+      member setHead head
       saveAndReload(member)
     }
 
-    case Query(member, toId) ⇒
-      api getUser toId foreach { to ⇒
-        relationApi.follows(to.id, member.userId) onSuccess {
-          case true ⇒ api.join(member, UserChan(member.userId, toId)) foreach { head ⇒
-            member setHead head
-            saveAndReload(member)
-          }
+    case DeActivate(member, chan) ⇒ {
+      member.updateHead(_.setActiveChanKey(chan.key, false))
+      saveAndReload(member)
+    }
+
+    case Query(member, toId) ⇒ api getUserOption toId foreach {
+      case Some(to) ⇒ relationApi.follows(to.id, member.userId) onSuccess {
+        case true ⇒ api.join(member, UserChan(member.userId, toId)) foreach { head ⇒
+          member setHead head
+          saveAndReload(member)
         }
+        case false ⇒ self ! Tell(member, s"The user ${to.username} does not follow you.")
       }
+      case None ⇒ self ! Tell(member, s"The user $toId does not exist.")
+    }
 
     case lila.hub.actorApi.relation.Block(u1, u2) ⇒ withMembersOf(u1) { member ⇒
       member block u2
@@ -112,6 +116,10 @@ private[chat] final class ChatActor(
 
   private def lineMessage(line: Line) = namer line line map { namedLine ⇒
     Socket.makeMessage("chat.line", namedLine.toJson)
+  }
+
+  private def systemMessage(text: String) = {
+    Socket.makeMessage("chat.system", text)
   }
 
   private def withMembersOf(userId: String)(f: ChatMember ⇒ Unit) {
