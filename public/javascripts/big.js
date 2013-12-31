@@ -944,15 +944,14 @@ var storage = {
       else if (text == '/open') {
         self.$wrap.addClass('on');
         self._joinFirst();
-      } else {
-        var poses = text.match(/\/([a-h][1-8])([a-h][1-8])/);
-        if (poses.length == 3) {
-          var $game = $('div.lichess_game');
-          if ($game.length) {
-            $game.game('apiMove', poses[1], poses[2]);
-            return false;
-          }
-        }
+      } else if ($('div.lichess_game').length) {
+        var $game = $('div.lichess_game');
+        var poses = text.match(/\/([a-h][1-8])\s?([a-h][1-8])/);
+        if (poses && poses.length == 3) return $game.game('apiMove', poses[1], poses[2]);
+        else if (text == '/resign') return $('a.lichess_resign').click();
+        else if (text == '/rematch') return $('a.lichess_rematch').click();
+        else if (text == '/abort') return $('a.lichess_abort').click();
+        else if (text == '/takeback') return $('a.propose_takeback').click();
       }
       lichess.socket.send('chat.tell', {
         chan: self.head.mainChan,
@@ -994,9 +993,9 @@ var storage = {
         var sys = line.user == self.systemUsername;
         return '<div class="line ' + (main ? 'main' : color) + ' ' + (sys ? 'sys' : '') + '">' +
           (sys ?
-          '<pre class="text ' + (main ? 'main' : color) + '">' + line.html + '</pre>' :
+          '<pre class="text ' + (main ? '' : color) + '">' + line.html + '</pre>' :
           '<div class="user">' + $.userLinkLimit(line.user, 14, color) + '</div>' +
-          '<div class="text ' + (main ? 'main' : color) + '">' + line.html + '</div>') +
+          '<div class="text ' + (main ? '' : color) + '">' + line.html + '</div>') +
           '</div>';
       }
     },
