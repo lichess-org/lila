@@ -41,7 +41,8 @@ private[chat] final class Commander(
         chat ! DeActivate(member, chan)
       }
 
-      case MoveRegex(orig, dest) :: _ ⇒ flash(member, "Use this command when playing a game.")
+      case ("rematch" | "resign" | "abort" | "takeback") :: _ ⇒ gameOnlyCommand(member)
+      case MoveRegex(orig, dest) :: _                         ⇒ gameOnlyCommand(member)
 
       case "troll" :: username :: _ ⇒ Secure(member, _.MarkTroll) { me ⇒
         modApi.troll(me.id, username) foreach { troll ⇒
@@ -58,6 +59,10 @@ private[chat] final class Commander(
 
   private def flash(member: ChatMember, text: String) {
     chat ! Flash(member, text)
+  }
+
+  private def gameOnlyCommand(member: ChatMember) {
+    flash(member, "Use this command when playing a game.")
   }
 
   private def Secure(member: ChatMember, perm: Permission.type ⇒ Permission)(f: User ⇒ Unit) {
@@ -77,10 +82,12 @@ For instance, try and send the message /help to see available commands.
 """) + "</pre>"
 
   val help = "<pre>" + escapeXml("""
-___________________________ help ___________________________
+_______________________ chat commands ______________________
 /help                   display this message
 /join <chan>            enter a chat room. Ex: /join en
 /query <friend>         start a private chat with a friend
-/close                  close the chat
+_______________________ game commands ______________________
+/e2e4                   move the piece on e2 to e4
+/abort, /resign, /takeback, /rematch
 """) + "</pre>"
 }

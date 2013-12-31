@@ -609,7 +609,7 @@ div.footer div.right {
 #chat .line > .text {
   display: inline-block;
 }
-#chat .line > .text pre {
+#chat .line pre {
   margin: 0;
 }
 #friend_box {
