@@ -11,7 +11,6 @@ import lila.game.{ Game, Player, Namer }
 import lila.user.Env.{ current ⇒ userEnv }
 import lila.user.{ User, Context }
 
-
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper ⇒
   def variantName(variant: Variant)(implicit ctx: Context) = variant match {
     case Variant.Standard     ⇒ trans.standard.str()

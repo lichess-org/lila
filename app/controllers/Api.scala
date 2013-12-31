@@ -5,6 +5,8 @@ import play.api.mvc._, Results._
 
 import lila.app._
 import lila.user.{ UserRepo, User ⇒ UserModel, Perf, Perfs }
+import lila.game.GameRepo
+import lila.app.templating.Environment.netBaseUrl
 
 object Api extends LilaController {
 
@@ -19,17 +21,26 @@ object Api extends LilaController {
       case (name, perf) ⇒ name -> perfWrites.writes(perf)
     })
   }
-  private implicit val userWrites: Writes[UserModel] = Writes { u ⇒
+  private implicit val userWrites: OWrites[UserModel] = OWrites { u ⇒
     Json.obj(
       "username" -> u.username,
-      "perfs" -> u.perfs,
-      "progress" -> u.progress)
+      "perfs" -> u.perfs)
   }
 
   def user(username: String) = Action.async { req ⇒
-    UserRepo named username map {
-      case None    ⇒ NotFound
-      case Some(u) ⇒ Ok(Json toJson u) as JSON
+    UserRepo named username flatMap {
+      case None ⇒ fuccess(NotFound)
+      case Some(u) ⇒ GameRepo nowPlaying u.id map { gameOption ⇒
+        val json = userWrites.writes(u) ++ Json.obj(
+          "online" -> Env.user.isOnline(u.id),
+          "playing" -> gameOption.map(g ⇒
+            netBaseUrl + routes.Round.watcher(g.id, g.firstPlayer.color.name).url)
+        )
+        get("callback", req) match {
+          case None           ⇒ Ok(json) as JSON
+          case Some(callback) ⇒ Ok(s"$callback($json)") as JAVASCRIPT
+        }
+      }
     }
   }
 }
