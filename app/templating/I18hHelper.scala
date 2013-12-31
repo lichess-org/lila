@@ -26,7 +26,7 @@ trait I18nHelper {
   def langName(lang: String): Option[String] = LangList name lang
 
   def translationCall(implicit ctx: Context) =
-    if (ctx.req.cookies.get(hideCallsCookieName).isDefined) None
+    if (ctx.isAnon || ctx.req.cookies.get(hideCallsCookieName).isDefined) None
     else shuffle(
       (ctx.req.acceptLanguages map transInfos.get).flatten filter (_.nonComplete)
     ).headOption
