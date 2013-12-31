@@ -944,6 +944,12 @@ var storage = {
       else if (text == '/open') {
         self.$wrap.addClass('on');
         self._joinFirst();
+      } else if (text.match(/\/msg\s(\w+)/)) {
+        location.href = '/inbox/new?username=' + text.match(/\/msg\s(\w+)/)[1];
+        return;
+      } else if (text.match(/\/report\s(\w+)/)) {
+        location.href = '/report?username=' + text.match(/\/report\s(\w+)/)[1];
+        return;
       } else if ($('div.lichess_game').length) {
         var $game = $('div.lichess_game');
         var poses = text.match(/\/([a-h][1-8])\s?([a-h][1-8])/);

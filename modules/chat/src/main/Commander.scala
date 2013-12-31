@@ -76,9 +76,9 @@ private[chat] final class Commander(
 
   val tutorial = "<pre>" + escapeXml("""
 _______________________ lichess chat _______________________
-The text input at the bottom can be used to enter commands.
+The text input at the bottom can be used to command lichess!
 Commands start with a forward slash (/).
-For instance, try and send the message /help to see available commands.
+For instance, try and send /help to see available commands.
 """) + "</pre>"
 
   val help = "<pre>" + escapeXml("""
@@ -86,6 +86,9 @@ _______________________ chat commands ______________________
 /help                   display this message
 /join <chan>            enter a chat room. Ex: /join en
 /query <friend>         start a private chat with a friend
+_______________________ user commands ______________________
+/msg <user>             send a message to a user
+/report <user>          report a user to the moderators
 _______________________ game commands ______________________
 /e2e4                   move the piece on e2 to e4
 /abort, /resign, /takeback, /rematch
