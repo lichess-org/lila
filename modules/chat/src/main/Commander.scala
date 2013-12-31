@@ -1,5 +1,7 @@
 package lila.chat
 
+import scala.concurrent.duration._
+
 import akka.actor._
 import play.api.libs.iteratee.Concurrent.Channel
 import play.api.libs.iteratee.Input
@@ -17,53 +19,43 @@ private[chat] final class Commander extends Actor {
   def receive = {
     case Command(chanOption, member, text) ⇒ text.split(' ').toList match {
 
-      case "help" :: "tutorial" :: _ ⇒ chanOption foreach { chan ⇒
-        tutorialLines foreach replyTo(chan, member)
-      }
+      case "help" :: "tutorial" :: _ ⇒ chat ! Tell(member, tutorialLines)
+      case "help" :: _               ⇒ chat ! Tell(member, helpLines)
 
-      case "help" :: _ ⇒ chanOption foreach { chan ⇒
-        helpLines foreach replyTo(chan, member)
-      }
+      case "open" :: _               ⇒ chat ! SetOpen(member, true)
+      case "close" :: _              ⇒ chat ! SetOpen(member, false)
 
-      case "open" :: _              ⇒ chat ! SetOpen(member, true)
-      case "close" :: _             ⇒ chat ! SetOpen(member, false)
+      case "query" :: username :: _  ⇒ chat ! Query(member, username.toLowerCase)
 
-      case "query" :: username :: _ ⇒ chat ! Query(member, username.toLowerCase)
-
-      case "join" :: chanName :: _ ⇒ Chan parse chanName foreach { chan ⇒
-        chat ! Join(member, chan)
+      case "join" :: chanName :: _ ⇒ Chan parse chanName match {
+        case Some(chan) ⇒ chat ! Join(member, chan)
+        case None       ⇒ chat ! Tell(member, s"The channel $chanName does not exist")
       }
       case "show" :: chanName :: _ ⇒ Chan parse chanName foreach { chan ⇒
-        chat ! Show(member, chan, true)
+        chat ! Activate(member, chan)
       }
       case "hide" :: chanName :: _ ⇒ Chan parse chanName foreach { chan ⇒
-        chat ! Show(member, chan, false)
+        chat ! DeActivate(member, chan)
       }
 
-      case words ⇒ chanOption foreach { chan ⇒
-        replyTo(chan, member) {
-          s"Command not found. Type /help for the list of available commands."
-        }
-      }
+      case words ⇒ chat ! Tell(member, s"Command not found. Type /help for the list of available commands.")
     }
   }
 
-  val tutorialLines = """
+  import org.apache.commons.lang3.StringEscapeUtils.escapeXml
+
+  val tutorialLines = "<pre>" + escapeXml("""
 _______________________ lichess chat _______________________
 The text input at the bottom can be used to enter commands.
 Commands start with a forward slash (/).
 For instance, try and send the message /help to see available commands.
-""".lines.toList filter (_.nonEmpty)
+""") + "</pre>"
 
-  val helpLines = """
+  val helpLines = "<pre>" + escapeXml("""
 ___________________________ help ___________________________
 /help                   display this message
 /join <chan>            enter a chat room. Ex: /join en
 /query <friend>         start a private chat with a friend
 /close                  close the chat
-""".lines.toList filter (_.nonEmpty)
-
-  private def replyTo(chan: Chan, member: ChatMember)(text: String) {
-    chat ! Tell(member.uid, Line.system(chan = chan, text = text))
-  }
+""") + "</pre>"
 }

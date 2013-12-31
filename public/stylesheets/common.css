@@ -308,7 +308,7 @@ body {
   color: #848484;
   background: #F7F7F7 url(../images/head_bg.png) top left repeat-x;
   /* leave room for the chat */
-  padding-bottom: 200px;
+  padding-bottom: 195px;
 }
 a, a:visited {
   color: #848484;
@@ -463,7 +463,7 @@ div.footer div.right {
 }
 #chat {
   width: 100%;
-  height: 200px;
+  height: 195px;
   border-top: 1px solid #444;
   background: rgba(20, 20, 20, 0.9);
   position: relative;
@@ -576,7 +576,7 @@ div.footer div.right {
   margin-right: 201px;
 }
 #chat > .room > .lines {
-  height: 171px;
+  height: 167px;
   overflow: hidden;
   border-bottom: 1px solid #444;
 }
@@ -585,7 +585,7 @@ div.footer div.right {
 }
 #chat .line {
   width: 100%;
-  padding: 2px 10px;
+  padding: 1px 10px;
   position: relative;
   opacity: 0.7;
   color: #b0b0b0;
@@ -609,7 +609,7 @@ div.footer div.right {
 #chat .line > .text {
   display: inline-block;
 }
-#chat .line > pre.text {
+#chat .line > .text pre {
   margin: 0;
 }
 #friend_box {
@@ -650,8 +650,8 @@ div.footer div.right {
 #chat .controls > form .invite {
   padding: 0 10px;
   display: inline-block;
-  height: 28px;
-  line-height: 28px;
+  height: 27px;
+  line-height: 27px;
   position: relative;
   margin-right: 12px;
   background: #0a0a0a;

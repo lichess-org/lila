@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import ornicar.scalalib.Random.{approximatly, nextString}
+import ornicar.scalalib.Random.{ approximatly, nextString }
 
 final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: Boolean) {
 
@@ -12,9 +12,10 @@ final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: 
     batch.zipWithIndex foreach {
       case (a, i) ⇒ try {
         scheduler.scheduleOnce((1 + i) * delay) { op(a) }
-      } catch { 
-        case e: java.lang.IllegalStateException =>
-          // the actor system is being stopped, can't schedule
+      }
+      catch {
+        case e: java.lang.IllegalStateException ⇒
+        // the actor system is being stopped, can't schedule
       }
     }
   }

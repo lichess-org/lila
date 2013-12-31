@@ -1,7 +1,5 @@
 package lila.chat
 
-import java.util.regex.Matcher.quoteReplacement
-
 import play.api.i18n.Lang
 import play.api.libs.json._
 
@@ -25,6 +23,14 @@ private[chat] final class Api(
 
   def show(user: User, chat: ChatHead, chan: Chan): ChatHead =
     truncate(user, chat.setChan(chan, true), chan.key)
+
+  def active(user: User, chat: ChatHead, chan: Chan): ChatHead = {
+    chanVoter(user.id, chan.key)
+    truncate(user, chat.ensureActiveChan(chan), chan.key)
+  }
+
+  def active(member: ChatMember, chan: Chan): Fu[ChatHead] =
+    getUser(member.userId) map { user ⇒ active(user, member.head, chan) }
 
   def truncate(user: User, chat: ChatHead, not: String): ChatHead =
     if (chat.chans.size <= Chat.maxChans) chat else {
@@ -67,7 +73,7 @@ private[chat] final class Api(
         chan ← Chan parse chanName
         t2 ← Some(t1.trim take 200) filter (_.nonEmpty)
         if !user.disabled
-      } yield Line.make(chan, user, delocalize(noPrivateUrl(t2)))
+      } yield Line.make(chan, user, preprocessUserInput(t2))
     }
 
   def write(chanName: String, userId: String, text: String): Fu[Option[Line]] =
@@ -93,16 +99,29 @@ private[chat] final class Api(
     LineRepo insert line inject line
   }
 
-  private[chat] def getUser(userId: String) =
-    (UserRepo byId userId) flatten s"No such user: $userId"
+  private[chat] def getUser(userId: String) = getUserOption(userId) flatten s"No such user: $userId"
+
+  private[chat] def getUserOption(userId: String) = UserRepo byId userId
 
   private val logger = play.api.Logger("chat")
 
   private object Writer {
+
+    import java.util.regex.Matcher.quoteReplacement
+    import org.apache.commons.lang3.StringEscapeUtils.escapeXml
+
+    def preprocessUserInput(in: String) = addLinks(delocalize(noPrivateUrl(escapeXml(in))))
+
+    def addLinks(text: String) = urlRegex.replaceAllIn(text, m ⇒ {
+      val url = delocalize(quoteReplacement(m group 1))
+      "<a href='%s'>%s</a>".format(prependHttp(url), url)
+    })
+    def prependHttp(url: String): String = url startsWith "http" fold (url, "http://" + url)
     val delocalize = new lila.common.String.Delocalizer(netDomain)
     val domainRegex = netDomain.replace(".", """\.""")
-    val urlRegex = (domainRegex + """/([\w-]{8})[\w-]{4}""").r
+    val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))""".r
+    val gameUrlRegex = (domainRegex + """/([\w-]{8})[\w-]{4}""").r
     def noPrivateUrl(str: String): String =
-      urlRegex.replaceAllIn(str, m ⇒ quoteReplacement(netDomain + "/" + (m group 1)))
+      gameUrlRegex.replaceAllIn(str, m ⇒ quoteReplacement(netDomain + "/" + (m group 1)))
   }
 }
