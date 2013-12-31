@@ -72,10 +72,56 @@ From here you can now run the application (`run`).
 
 ### GET user infos
 
-> /api/user/<username>
+> /api/user/&lt;username&gt;
 
 ```
 > curl en.lichess.org/api/user/thibault
+{
+    "perfs": {
+        "black": {
+            "deviation": 62,
+            "nbGames": 465,
+            "rating": 1483
+        },
+        "blitz": {
+            "deviation": 63,
+            "nbGames": 481,
+            "rating": 1480
+        },
+        "bullet": {
+            "deviation": 90,
+            "nbGames": 23,
+            "rating": 1640
+        },
+        "chess960": {
+            "deviation": 64,
+            "nbGames": 323,
+            "rating": 1575
+        },
+        "global": {
+            "deviation": 62,
+            "nbGames": 883,
+            "rating": 1503
+        },
+        "slow": {
+            "deviation": 63,
+            "nbGames": 379,
+            "rating": 1586
+        },
+        "standard": {
+            "deviation": 62,
+            "nbGames": 560,
+            "rating": 1504
+        },
+        "white": {
+            "deviation": 63,
+            "nbGames": 418,
+            "rating": 1478
+        }
+    },
+    "progress": 36,
+    "username": "thibault"
+}
 ```
 
 ### Read the move stream
