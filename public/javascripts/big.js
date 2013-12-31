@@ -940,15 +940,24 @@ var storage = {
     },
     _send: function(text) {
       var self = this;
-      lichess.socket.send('chat.tell', {
-        chan: self.head.mainChan,
-        text: text
-      });
       if (text == '/close') self.$wrap.removeClass('on');
       else if (text == '/open') {
         self.$wrap.addClass('on');
         self._joinFirst();
+      } else {
+        var poses = text.match(/\/([a-h][1-8])([a-h][1-8])/);
+        if (poses.length == 3) {
+          var $game = $('div.lichess_game');
+          if ($game.length) {
+            $game.game('apiMove', poses[1], poses[2]);
+            return false;
+          }
+        }
       }
+      lichess.socket.send('chat.tell', {
+        chan: self.head.mainChan,
+        text: text
+      });
     },
     _joinFirst: function() {
       var mustJoin = !this.head.mainChan;
@@ -1432,14 +1441,7 @@ var storage = {
       if (self.options.enablePremove && self.premove && self.isMyTurn()) {
         var move = self.premove;
         self.unsetPremove();
-        if (self.possibleMovesContain(move.from, move.to)) {
-          var $fromSquare = $("#" + move.from).orNot();
-          var $toSquare = $("#" + move.to).orNot();
-          var $piece = $fromSquare.find(".lichess_piece").orNot();
-          if ($fromSquare && $toSquare && $piece) {
-            self.dropPiece($piece, $fromSquare, $toSquare, true);
-          }
-        }
+        self.apiMove(move.from, move.to, true);
       }
     },
     setPremove: function(move) {
@@ -1460,6 +1462,15 @@ var storage = {
     },
     unselect: function() {
       this.$board.find('> div.selected').removeClass('selected');
+    },
+    apiMove: function(orig, dest, isPremove) {
+      if (!this.possibleMovesContain(orig, dest)) return;
+      var $fromSquare = $("#" + orig).orNot();
+      var $toSquare = $("#" + dest).orNot();
+      var $piece = $fromSquare.find(".lichess_piece").orNot();
+      if ($fromSquare && $toSquare && $piece) {
+        this.dropPiece($piece, $fromSquare, $toSquare, isPremove | false);
+      }
     },
     dropPiece: function($piece, $oldSquare, $newSquare, isPremove) {
       var self = this,
