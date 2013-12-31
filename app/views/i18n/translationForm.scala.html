@@ -52,29 +52,20 @@ No need to submit a complete translation. You can just translate some sentences,
     }
     }
   </div>
-  <p>The following fields are optional, and not part of the translation:</p>
+  <p>The comment is optional, and not part of the translation:</p>
   <br />
   <div class="field optional">
-    <label for="@form("author").id">Author</label>
-    <input
-    size="30"
-    type="text"
-    value="@form("author").value"
-    name="@form("author").name"
-    id="@form("author").id" />
-    @errMsg(form("author"))
-  </div>
-  <div class="field optional">
-    <label for="@form("comment").id">Comment</label>
     <input
     size="60"
     type="text"
     value="@form("comment").value"
     name="@form("comment").name"
-    id="@form("comment").id" />
+    id="@form("comment").id"
+    placeholder="Briefly describe your changes, in english" />
     @errMsg(form("comment"))
   </div>
-  <div class="field">
+  <br />
+  <div>
     @base.captcha(form("move"), form("gameId"), captcha)
     @errMsg(form)
   </div>

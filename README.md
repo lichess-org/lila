@@ -68,6 +68,80 @@ sbt play -Dhttp.port=9663
 
 From here you can now run the application (`run`).
 
+## API
+
+### `GET /api/user/<username>`
+
+```
+> curl http://en.lichess.org/api/user/thibault
+```
+
+```javascript
+{
+  "username": "thibault",
+  "rating": 1503,                           // shortcut to perfs.global.rating
+  "progress": 36,                           // rating change over the last ten games
+  "online": true,                           // is the player currently using lichess?
+  "playing": "http://lichess.org/abcdefgh", // game being played, if any
+  "perfs": {                                // performances on rated games
+    "black": {                              // performances with black pieces
+      "rating": 1483,                       // Glicko2 rating
+      "deviation": 62,                      // Glicko2 rating deviation
+      "nbGames": 465                        // number of games played as black
+    },
+    "white": {
+      "rating": 1478,
+      "deviation": 63,
+      "nbGames": 418
+    },
+    "global": {
+      "rating": 1503,
+      "deviation": 62,
+      "nbGames": 883
+    },
+    "bullet": {
+      "rating": 1640,
+      "deviation": 90,
+      "nbGames": 23
+    },
+    "blitz": {
+      "rating": 1480,
+      "deviation": 63,
+      "nbGames": 481
+    },
+    "slow": {
+      "rating": 1586,
+      "deviation": 63,
+      "nbGames": 379
+    },
+    "standard": {
+      "rating": 1504,
+      "deviation": 62,
+      "nbGames": 560
+    },
+    "chess960": {
+      "rating": 1575,
+      "deviation": 64,
+      "nbGames": 323
+    }
+  }
+}
+```
+
+#### JSONP
+
+```javascript
+$.ajax({
+  url:'http://en.l.org/api/user/thibault',
+  dataType:'jsonp',
+  jsonp:'callback',
+  success: function(data) {
+    // data is a javascript object, do something with it!
+    console.debug(JSON.stringify(data));
+  }
+});
+```
+
 ### Read the move stream
 
 Lichess streams all played moves on http://en.lichess.org/stream using chunked HTTP response and the following format:
