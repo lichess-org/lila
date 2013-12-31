@@ -68,6 +68,16 @@ sbt play -Dhttp.port=9663
 
 From here you can now run the application (`run`).
 
+## API
+
+### GET user infos
+
+> /api/user/<username>
+
+```
+> curl en.lichess.org/api/user/thibault
+```
+
 ### Read the move stream
 
 Lichess streams all played moves on http://en.lichess.org/stream using chunked HTTP response and the following format:
