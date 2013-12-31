@@ -269,3 +269,4 @@ activePlayers=aktiivsed mängijad
 bestBulletPlayers=Kõige kiiremad mängijad
 bestBlitzPlayers=Parimad pommitajad
 bestSlowPlayers=Kõige aeglasemad mängijad
+bewareTheGameIsRatedButHasNoClock=Tähelepanu, mäng on reitinguga aga ilma ajakontrollita!
