@@ -70,58 +70,78 @@ From here you can now run the application (`run`).
 
 ## API
 
-### GET user infos
+### GET user infos: `/api/user/<username>`
 
-> /api/user/&lt;username&gt;
+#### JSON
 
 ```
 > curl en.lichess.org/api/user/thibault
+```
+
+```javascript
 {
+    "rating": 1503,                           // shortcut to perfs.global.rating
+    "progress": 36,                           // rating change over the last ten games
+    "online": true,                           // is the player currently using lichess?
+    "playing": "http://lichess.org/abcdefgh", // game being played, if any
+    "username": "thibault",
     "perfs": {
-        "black": {
-            "deviation": 62,
-            "nbGames": 465,
-            "rating": 1483
+        "black": {                            // performances with black pieces
+            "rating": 1483,                   // Glicko2 rating
+            "deviation": 62,                  // Glicko2 rating deviation
+            "nbGames": 465                    // number of games played as black
         },
         "blitz": {
+            "rating": 1480,
             "deviation": 63,
-            "nbGames": 481,
-            "rating": 1480
+            "nbGames": 481
         },
         "bullet": {
+            "rating": 1640,
             "deviation": 90,
-            "nbGames": 23,
-            "rating": 1640
+            "nbGames": 23
         },
         "chess960": {
+            "rating": 1575,
             "deviation": 64,
-            "nbGames": 323,
-            "rating": 1575
+            "nbGames": 323
         },
         "global": {
+            "rating": 1503,
             "deviation": 62,
-            "nbGames": 883,
-            "rating": 1503
+            "nbGames": 883
         },
         "slow": {
+            "rating": 1586,
             "deviation": 63,
-            "nbGames": 379,
-            "rating": 1586
+            "nbGames": 379
         },
         "standard": {
+            "rating": 1504,
             "deviation": 62,
-            "nbGames": 560,
-            "rating": 1504
+            "nbGames": 560
         },
         "white": {
+            "rating": 1478,
             "deviation": 63,
-            "nbGames": 418,
-            "rating": 1478
+            "nbGames": 418
         }
-    },
-    "progress": 36,
-    "username": "thibault"
+    }
 }
+```
+
+#### JSONP
+
+```javascript
+$.ajax({
+  url:'http://en.l.org/api/user/thibault',
+  dataType:'jsonp',
+  jsonp:'callback',
+  success: function(data) {
+    // data is a javascript object, do something with it!
+    console.debug(JSON.stringify(data));
+  }
+});
 ```
 
 ### Read the move stream
