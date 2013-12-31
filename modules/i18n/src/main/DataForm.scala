@@ -9,11 +9,10 @@ import lila.db.api.$insert
 import tube.translationTube
 
 final class DataForm(
-    keys: I18nKeys, 
+    keys: I18nKeys,
     val captcher: akka.actor.ActorSelection) extends lila.hub.CaptchedForm {
 
   val translation = Form(mapping(
-    "author" -> optional(nonEmptyText),
     "comment" -> optional(nonEmptyText),
     "gameId" -> nonEmptyText,
     "move" -> nonEmptyText
@@ -22,7 +21,7 @@ final class DataForm(
 
   def translationWithCaptcha = withCaptcha(translation)
 
-  def process(code: String, metadata: TransMetadata, data: Map[String, String]): Funit = {
+  def process(code: String, metadata: TransMetadata, data: Map[String, String], user: String): Funit = {
     val messages = (data mapValues { msg ⇒
       msg.some map sanitize filter (_.nonEmpty)
     }).toList collect {
@@ -38,8 +37,8 @@ final class DataForm(
         text = sorted map {
           case (key, trans) ⇒ key + "=" + trans
         } mkString "\n",
-        author = metadata.author,
         comment = metadata.comment,
+        author = user.some,
         createdAt = DateTime.now)
       $insert(translation)
     }
@@ -60,7 +59,6 @@ final class DataForm(
 }
 
 private[i18n] case class TransMetadata(
-  author: Option[String],
   comment: Option[String],
   gameId: String,
   move: String)
