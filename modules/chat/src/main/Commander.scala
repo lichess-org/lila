@@ -41,15 +41,20 @@ private[chat] final class Commander(
         chat ! DeActivate(member, chan)
       }
 
+      case MoveRegex(orig, dest) :: _ ⇒ flash(member, "Use this command when playing a game.")
+
       case "troll" :: username :: _ ⇒ Secure(member, _.MarkTroll) { me ⇒
         modApi.troll(me.id, username) foreach { troll ⇒
           flash(member, s"User $username is ${troll.fold("now", "no longer")} a troll.")
         }
       }
 
-      case words ⇒ flash(member, s"Command not found. Type /help for the list of available commands.")
+      case words ⇒ flash(member, s"Command not found: ${words mkString " "}. Type /help for the list of available commands.")
     }
   }
+
+  private val MoveRegex = """^([a-h][1-8])([a-h][1-8])$""".r
+  private val PovIdRegex = """^(\w{12})$""".r
 
   private def flash(member: ChatMember, text: String) {
     chat ! Flash(member, text)
