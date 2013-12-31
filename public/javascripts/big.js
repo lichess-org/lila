@@ -51,6 +51,9 @@ var storage = {
       'chat.line': function(e) {
         $('#chat').onechat('line', e);
       },
+      'chat.flash': function(e) {
+        $('#chat').onechat('flash', e);
+      },
       'chat.reload': function(e) {
         $('#chat').onechat('reload', e);
       }
@@ -853,6 +856,7 @@ var storage = {
 
       self.on = _lc_.on;
       self.user = _lc_.user;
+      self.systemUsername = 'Lichess';
       self.reload(_lc_);
 
       self.element.click(function() {
@@ -907,12 +911,24 @@ var storage = {
       }
       self.$lines.append(self._renderLine(l)).scrollTop(999999);
     },
+    flash: function(html) {
+      var self = this;
+      var joining = self._joinFirst();
+      var doFlash = function() {
+        self.line({
+          chan: self.head.chans[self.head.mainChan],
+          user: self.systemUsername,
+          html: html
+        });
+      };
+      if (joining) setTimeout(doFlash, 777);
+      else doFlash();
+    },
     _disablePlaceholder: _.once(function() {
       this.$input.attr('placeholder', '');
     }),
     _tell: function() {
       var self = this;
-      if (!self.head.mainChan) return false;
       var text = $.trim(self.$input.val());
       if (!text) return false;
       if (text.length > 200) {
@@ -924,16 +940,10 @@ var storage = {
     },
     _send: function(text) {
       var self = this;
-      var doSend = function() {
-        lichess.socket.send('chat.tell', {
-          chan: self.head.mainChan,
-          text: text
-        });
-      };
-      if (!self.head.mainChan && text.indexOf('/help') === 0) {
-        self._joinFirst();
-        setTimeout(doSend, 777);
-      } else doSend();
+      lichess.socket.send('chat.tell', {
+        chan: self.head.mainChan,
+        text: text
+      });
       if (text == '/close') self.$wrap.removeClass('on');
       else if (text == '/open') {
         self.$wrap.addClass('on');
@@ -941,8 +951,10 @@ var storage = {
       }
     },
     _joinFirst: function() {
-      if (!this.head.mainChan) this._join(_.keys(this.head.chans)[0]);
+      var mustJoin = !this.head.mainChan;
+      if (mustJoin) this._join(_.keys(this.head.chans)[0]);
       this.$input.focus();
+      return mustJoin;
     },
     _show: function(chan, value) {
       this._disablePlaceholder();
@@ -970,7 +982,7 @@ var storage = {
       else {
         var color = self._colorClass(self._chanIndex(line.chan.key));
         var main = self.head.mainChan == line.chan.key;
-        var sys = line.user == 'Lichess';
+        var sys = line.user == self.systemUsername;
         return '<div class="line ' + (main ? 'main' : color) + ' ' + (sys ? 'sys' : '') + '">' +
           (sys ?
           '<pre class="text ' + (main ? 'main' : color) + '">' + line.html + '</pre>' :

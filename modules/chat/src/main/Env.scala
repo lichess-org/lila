@@ -12,6 +12,7 @@ final class Env(
     flood: lila.security.Flood,
     relationApi: lila.relation.RelationApi,
     prefApi: lila.pref.PrefApi,
+    modApi: lila.mod.ModApi,
     system: ActorSystem) {
 
   private val settings = new {
@@ -37,7 +38,10 @@ final class Env(
     namer = namer,
     bus = system.lilaBus,
     relationApi = relationApi,
-    prefApi = prefApi)))
+    prefApi = prefApi,
+    makeCommander = () ⇒ new Commander(
+      modApi = modApi
+    ))))
 }
 
 object Env {
@@ -49,5 +53,6 @@ object Env {
     flood = lila.security.Env.current.flood,
     relationApi = lila.relation.Env.current.api,
     prefApi = lila.pref.Env.current.api,
+    modApi = lila.mod.Env.current.api,
     system = lila.common.PlayApp.system)
 }
