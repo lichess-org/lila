@@ -164,16 +164,22 @@ data-accept-languages="@acceptLanguages.mkString(",")">
     <a class="off"></a>
     <a class="help">help</a>
     <div class="chans"></div>
-    <div id="team_box" class="list_box" data-preload="@ctx.teams">
-      <div class="content list"></div>
-    </div>
-    <div id="friend_box" class="list_box" data-preload="@ctx.friends">
-      <div class="content list"></div>
-      <div class="nobody">
-        <span>@trans.noFriendsOnline()</span>
-        <a class="find button" href="@routes.Relation.suggest(me.username)">
-          <span class="s16 tup">@trans.findFriends()</span>
-        </a>
+    <div class="lists">
+      <div class="tabs">
+        <a data-tab="friends" class="friends">@trans.onlineFriends()</a>
+        <a data-tab="teams" class="teams">@trans.teams()</a>
+      </div>
+      <div id="team_box" class="list_box teams" data-preload="@ctx.teams">
+        <div class="content list"></div>
+      </div>
+      <div id="friend_box" class="list_box friends" data-preload="@ctx.friends">
+        <div class="content list"></div>
+        <div class="nobody">
+          <span>@trans.noFriendsOnline()</span>
+          <a class="find button" href="@routes.Relation.suggest(me.username)">
+            <span class="s16 tup">@trans.findFriends()</span>
+          </a>
+        </div>
       </div>
     </div>
     <div class="room">

@@ -883,6 +883,14 @@ var storage = {
       self.element.find('> .off').click(function() {
         self._send('/close');
       });
+      self.element.on('click', '.tabs > a', function() {
+        var tab = $(this).data('tab');
+        self.element.find('.tabs > a').removeClass('active').filter('.' + tab).addClass('active');
+        self.element.find('.list_box').hide().filter('.' + tab).show();
+        storage.set('chat-list-tab', tab);
+      });
+      var tab = storage.get('chat-list-tab') || 'friends';
+      self.element.find('.tabs > a.' + tab).click();
       $(window).resize(function() {
         self._renderForm();
       });
