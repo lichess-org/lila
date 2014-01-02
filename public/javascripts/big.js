@@ -858,7 +858,6 @@ var storage = {
       self.$input = self.$form.find('input');
 
       self.on = _lc_.on;
-      self.user = _lc_.user;
       self.systemUsername = 'Lichess';
       self.reload(_lc_);
 
@@ -1040,9 +1039,7 @@ var storage = {
         var index = self._chanIndex(self.head.mainChan);
         var chan = self.head.chans[self.head.mainChan];
         self.$form.show();
-        self.$invite
-          .text(self.user + ' ● ' + chan.name)
-          .attr('class', 'invite ' + self._colorClass(index));
+        self.$invite.text(chan.name).attr('class', 'invite ' + self._colorClass(index));
         self.$input.css({
           width: (self.$form.width() - self.$invite.width() - 50) + 'px',
           paddingLeft: (self.$invite.width() + 40) + 'px'

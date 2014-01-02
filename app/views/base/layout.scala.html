@@ -194,7 +194,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
 @signedJs.fold(jsTagCompiled("big.js"))(js => jsAt(js, false))
 @ctx.me.map { u =>
 @ctx.chat.map { c =>
-@embedJs("var _lc_ = " + toJson(c.toJson ++ play.api.libs.json.Json.obj("user" -> u.username)))
+@embedJs("var _lc_ = " + toJson(c.toJson))
 }
 }
 @moreJs
