@@ -1065,7 +1065,7 @@ form.wide input[type="text"], form.wide textarea {
   background: #fff;
   border: 1px solid #dadada;
   border-top: none;
-  z-index: 1;
+  z-index: 3;
 }
 span.progress > .zero {
   color: #afafaf;
