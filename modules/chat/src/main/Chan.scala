@@ -37,8 +37,8 @@ sealed abstract class IdChan(
   def idOption = id.some
 
   def compare(other: Chan) = other match {
-    case c: LangChan ⇒ 1
-    case c: ContextualChan => -1
+    case c: LangChan       ⇒ 1
+    case c: ContextualChan ⇒ -1
     case c: IdChan ⇒ typ compare c.typ match {
       case 0 ⇒ id compare c.id
       case x ⇒ x
@@ -85,6 +85,7 @@ object UserChan {
     case _             ⇒ none
   }
 }
+case class TeamChan(id: String) extends IdChan(Chan.typ.team, false)
 
 case class NamedChan(chan: Chan, name: String) {
 
@@ -103,6 +104,7 @@ object Chan {
     val gamePlayer = "gamePlayer"
     val tournament = "tournament"
     val user = "user"
+    val team = "team"
   }
 
   def apply(typ: String, idOption: Option[String]): Option[Chan] = typ match {
@@ -112,6 +114,7 @@ object Chan {
     case Chan.typ.gamePlayer  ⇒ idOption map GamePlayerChan
     case Chan.typ.tournament  ⇒ idOption map TournamentChan
     case Chan.typ.user        ⇒ idOption flatMap UserChan.apply
+    case Chan.typ.team        ⇒ idOption map TeamChan.apply
     case lang                 ⇒ LangChan(lang)
   }
 

@@ -8,7 +8,9 @@ import lila.memo.AsyncCache
 import lila.tournament.TournamentRepo
 import lila.user.User
 
-private[chat] final class Namer(getUsername: String ⇒ Fu[String]) {
+private[chat] final class Namer(
+    getUsername: String ⇒ Fu[String],
+    getTeamName: String ⇒ Fu[Option[String]]) {
 
   def line(l: Line): Fu[NamedLine] = getUsername(l.userId) map { NamedLine(l, _) }
 
@@ -45,6 +47,8 @@ private[chat] final class Namer(getUsername: String ⇒ Fu[String]) {
       if (user.id == u1) getUsername(u2)
       else if (user.id == u2) getUsername(u1)
       else fufail(s"${user.id} can't see $c")
+
+    case (c@TeamChan(id), _) ⇒ getTeamName(id) map (_ | id)
 
     case (LangChan(lang), _) ⇒ fuccess {
       lila.i18n.LangList nameOrCode lang.language

@@ -4,13 +4,13 @@ import ornicar.scalalib.Zero
 import play.api.data.Form
 import play.api.http._
 import play.api.libs.iteratee.{ Iteratee, Enumerator }
-import play.api.libs.json.{ Json, JsValue, JsObject, Writes }
+import play.api.libs.json.{ Json, JsValue, JsObject, JsArray, Writes }
 import play.api.mvc._, Results._
 import play.api.mvc.WebSocket.FrameFormatter
 import play.api.templates.Html
 import scalaz.Monoid
 
-import lila.api.{ Context, HeaderContext, BodyContext }
+import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
 import lila.chat.{ Chat, Chan }
 import lila.common.{ LilaCookie, HTTPRequest }
@@ -174,17 +174,18 @@ private[controllers] trait LilaController
 
   protected def reqToCtx(req: RequestHeader, withChan: Option[Chan] = None): Fu[HeaderContext] =
     restoreUser(req) map { lila.user.UserContext(req, _) } flatMap { ctx ⇒
-      contextBuilder(ctx, withChan) map { case (chat, pref, friends) ⇒ Context(ctx, chat, pref, friends) }
+      pageDataBuilder(ctx, withChan) map { Context(ctx, _) }
     }
 
   protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
     restoreUser(req) map { lila.user.UserContext(req, _) } flatMap { ctx ⇒
-      contextBuilder(ctx) map { case (chat, pref, friends) ⇒ Context(ctx, chat, pref, friends) }
+      pageDataBuilder(ctx) map { Context(ctx, _) }
     }
 
-  private def contextBuilder(ctx: lila.user.UserContext, withChan: Option[Chan] = None): Fu[(Option[Chat], Option[lila.pref.Pref], Option[JsObject])] =
-    ctx.me.fold(fuccess((none[Chat], none[lila.pref.Pref], none[JsObject]))) { me ⇒
-      (HTTPRequest.isSynchronousHttp(ctx.req) ?? {
+  private def pageDataBuilder(ctx: lila.user.UserContext, withChan: Option[Chan] = None): Fu[PageData] =
+    ctx.me.fold(fuccess(PageData.default)) { me ⇒
+      val isPage = HTTPRequest.isSynchronousHttp(ctx.req)
+      (isPage ?? {
         Env.chat.api get me flatMap { chat ⇒
           val pageChat = withChan.fold(chat) { chan ⇒
             Env.chat.api.truncate(me, chat withPageChan chan, chan.key)
@@ -197,7 +198,7 @@ private[controllers] trait LilaController
           none
         }
       }) zip (Env.pref.api getPref me) zip {
-        HTTPRequest.isSynchronousHttp(ctx.req) ?? {
+        isPage ?? {
           import lila.hub.actorApi.relation._
           import akka.pattern.ask
           import makeTimeout.short
@@ -205,8 +206,12 @@ private[controllers] trait LilaController
             case OnlineFriends(usernames, nb) ⇒ Json.obj("us" -> usernames, "nb" -> nb).some
           }
         }
+      } zip {
+        (isPage ?? (Env.team.api mine me)) map { teams ⇒
+          JsArray(teams map { t ⇒ Json.obj("id" -> t.id, "name" -> t.name) }).some
+        }
       } map {
-        case ((chat, pref), friends) ⇒ (chat, pref.some, friends)
+        case (((chat, pref), friends), teams) ⇒ PageData(chat, friends, pref, teams)
       }
     }
 
