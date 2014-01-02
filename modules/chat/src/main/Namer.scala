@@ -12,7 +12,9 @@ private[chat] final class Namer(
     getUsername: String ⇒ Fu[String],
     getTeamName: String ⇒ Fu[Option[String]]) {
 
-  def line(l: Line): Fu[NamedLine] = getUsername(l.userId) map { NamedLine(l, _) }
+  val user = getUsername
+
+  def line(l: Line): Fu[NamedLine] = user(l.userId) map { NamedLine(l, _) }
 
   def chan(c: Chan, as: User): Fu[NamedChan] =
     chanCache(c -> as) map { NamedChan(c, _) }
@@ -29,10 +31,10 @@ private[chat] final class Namer(
     case (c@GameWatcherChan(id), _) ⇒
       GameRepo game id flatten s"No game for chan $c" flatMap nameWatcherChan
 
-    case (c@GamePlayerChan(id), user) ⇒
+    case (c@GamePlayerChan(id), u) ⇒
       GameRepo game id flatten s"No game for chan $c" flatMap { game ⇒
-        (game player user).fold(nameWatcherChan(game)) { player ⇒
-          lila.game.Namer.player(game opponent player, false)(getUsername) map { opponent ⇒
+        (game player u).fold(nameWatcherChan(game)) { player ⇒
+          lila.game.Namer.player(game opponent player, false)(user) map { opponent ⇒
             s"Game: $opponent"
           }
         }
@@ -43,10 +45,10 @@ private[chat] final class Namer(
         _ + " tournament"
       }
 
-    case (c@UserChan(u1, u2), user) ⇒
-      if (user.id == u1) getUsername(u2)
-      else if (user.id == u2) getUsername(u1)
-      else fufail(s"${user.id} can't see $c")
+    case (c@UserChan(u1, u2), u) ⇒
+      if (u.id == u1) user(u2)
+      else if (u.id == u2) user(u1)
+      else fufail(s"${u.id} can't see $c")
 
     case (c@TeamChan(id), _) ⇒ getTeamName(id) map (_ | id)
 
@@ -58,5 +60,5 @@ private[chat] final class Namer(
   }
 
   private def nameWatcherChan(game: Game) =
-    lila.game.Namer.players(game, false)(getUsername) map { case (p1, p2) ⇒ s"$p1 vs $p2" }
+    lila.game.Namer.players(game, false)(user) map { case (p1, p2) ⇒ s"$p1 vs $p2" }
 }

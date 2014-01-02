@@ -21,6 +21,8 @@ private[chat] final class ChatMember(
       !blocks(line.userId)
   }
 
+  def hasActiveChan = head.activeChanKeys contains _
+
   def tell(msg: JsValue) {
     channel push msg
   }

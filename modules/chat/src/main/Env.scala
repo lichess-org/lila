@@ -43,7 +43,8 @@ final class Env(
     relationApi = relationApi,
     prefApi = prefApi,
     makeCommander = () ⇒ new Commander(
-      modApi = modApi
+      modApi = modApi,
+      namer = namer
     ))))
 }
 

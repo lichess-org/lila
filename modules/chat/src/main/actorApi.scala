@@ -14,4 +14,6 @@ case class Join(member: ChatMember, chan: Chan)
 
 case class Activate(member: ChatMember, chan: Chan)
 case class DeActivate(member: ChatMember, chan: Chan)
+
+case class WithChanNicks(key: String, f: List[String] => Unit)
 }
