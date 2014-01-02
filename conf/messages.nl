@@ -84,7 +84,6 @@ minutesPerSide=Minuten per speler
 variant=Variant
 timeControl=Speelduur
 time=Tijd
-start=Start
 username=Gebruikersnaam
 password=Wachtwoord
 haveAnAccount=Heeft u al een account?

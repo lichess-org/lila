@@ -84,7 +84,6 @@ minutesPerSide=Minutter per side
 variant=Variant
 timeControl=Tidskontroll
 time=Tid
-start=Start
 username=Brukernavn
 password=Passord
 haveAnAccount=Har du en konto?

@@ -84,7 +84,6 @@ minutesPerSide=Րոպեներ ամեն կողմի համար
 variant=Տեսակ
 timeControl=Ժամանակի վերահսկողություն
 time=Ժամանակ
-start=Սկսել
 username=Անուն
 password=Գաղտնաբառ
 haveAnAccount=Արդեն գրանցվե՞լ եք

@@ -64,7 +64,6 @@ chessPlayers=Ойыншылар
 variant=Нусқа
 timeControl=Шектелген уақыт
 time=уақыт
-start=Бастау
 username=Есіміңіз
 password=Пароль
 haveAnAccount=Тіркелдің бе?

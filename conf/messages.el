@@ -84,7 +84,6 @@ minutesPerSide=Λεπτά ανά πλευρά
 variant=Εκδοχή
 timeControl=Χρονόμετρο
 time=Χρόνος
-start=Έναρξη
 username=Όνομα χρήστη
 password=Κωδικός
 haveAnAccount=Έχετε λογαριασμό;

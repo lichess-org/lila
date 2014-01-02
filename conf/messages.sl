@@ -84,7 +84,6 @@ minutesPerSide=Minut na igralca
 variant=Različica
 timeControl=Ura
 time=Čas
-start=Začni
 username=Uporabniško ime
 password=Geslo
 haveAnAccount=Ali že imate račun?

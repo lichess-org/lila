@@ -84,7 +84,6 @@ minutesPerSide=Минути по играч
 variant=Варијанта
 timeControl=Временска контрола
 time=Време
-start=Старт
 username=Корисник
 password=Лозинка
 haveAnAccount=Имаш профил?

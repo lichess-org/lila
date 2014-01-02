@@ -65,7 +65,6 @@ chessPlayers=Joyor d'echec
 minutesPerSide=Minites per làt
 variant=Variacion
 timeControl=Controlo d’o tèmps
-start=Comènci
 username=Nom d'usor
 password=Contrasinyi
 haveAnAccount=T'as jà un aconto?

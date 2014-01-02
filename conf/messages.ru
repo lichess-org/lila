@@ -84,7 +84,6 @@ minutesPerSide=Минут на партию
 variant=Вариант
 timeControl=Ограничение по времени
 time=Время
-start=Начать
 username=Имя пользователя
 password=Пароль
 haveAnAccount=Есть учетная запись?

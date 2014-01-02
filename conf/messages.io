@@ -70,7 +70,6 @@ chessPlayers=Shakoluderi
 minutesPerSide=Minuti per partiso
 variant=Varianto
 timeControl=Tempodirekto
-start=Komencar
 username=Uzeronomo
 password=Pasovorto
 haveAnAccount=Ka vu havas konto?
