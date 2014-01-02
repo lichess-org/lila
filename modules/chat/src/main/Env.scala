@@ -10,6 +10,7 @@ final class Env(
     db: lila.db.Env,
     getUsername: String ⇒ Fu[String],
     getTeamName: String ⇒ Fu[Option[String]],
+    getTeamIds: String ⇒ Fu[List[String]],
     flood: lila.security.Flood,
     relationApi: lila.relation.RelationApi,
     prefApi: lila.pref.PrefApi,
@@ -30,6 +31,7 @@ final class Env(
     flood = flood,
     relationApi = relationApi,
     prefApi = prefApi,
+    getTeamIds = getTeamIds,
     netDomain = NetDomain)
 
   lazy val namer = new Namer(
@@ -44,7 +46,8 @@ final class Env(
     prefApi = prefApi,
     makeCommander = () ⇒ new Commander(
       modApi = modApi,
-      namer = namer
+      namer = namer,
+      getTeamIds = getTeamIds
     ))))
 }
 
@@ -54,7 +57,8 @@ object Env {
     config = lila.common.PlayApp loadConfig "chat",
     db = lila.db.Env.current,
     getUsername = lila.user.Env.current.usernameOrAnonymous,
-    getTeamName = lila.team.Env.current.cached.name.apply,
+    getTeamName = lila.team.Env.current.api.teamName,
+    getTeamIds = lila.team.Env.current.api.teamIds,
     flood = lila.security.Env.current.flood,
     relationApi = lila.relation.Env.current.api,
     prefApi = lila.pref.Env.current.api,

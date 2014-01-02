@@ -11,6 +11,7 @@ private[chat] final class Api(
     flood: lila.security.Flood,
     relationApi: lila.relation.RelationApi,
     prefApi: lila.pref.PrefApi,
+    getTeamIds: String ⇒ Fu[List[String]],
     netDomain: String) {
 
   def join(user: User, chat: ChatHead, chan: Chan): ChatHead = {
@@ -65,15 +66,21 @@ private[chat] final class Api(
       case (namedChans, namedLines) ⇒ Chat(head, namedChans, namedLines.reverse)
     }
 
-  def makeLine(chanName: String, userId: String, t1: String): Fu[Option[Line]] =
-    UserRepo byId userId map { userOption ⇒
-      import Writer._
-      for {
-        user ← userOption
-        chan ← Chan parse chanName
-        t2 ← Some(t1.trim take 200) filter (_.nonEmpty)
-        if !user.disabled
-      } yield Line.make(chan, user, preprocessUserInput(t2))
+  def makeLine(chanKey: String, userId: String, t1: String): Fu[Option[Line]] =
+    getUser(userId) flatMap { user ⇒
+      val chanOption = Chan parse chanKey
+      (chanOption match {
+        case Some(TeamChan(teamId)) ⇒ getTeamIds(user.id) map (_ contains teamId)
+        case _                      ⇒ fuccess(true)
+      }) map {
+        _ ?? {
+          for {
+            chan ← chanOption
+            t2 ← Some(t1.trim take 200) filter (_.nonEmpty)
+            if !user.disabled
+          } yield Line.make(chan, user, Writer preprocessUserInput t2)
+        }
+      }
     }
 
   def write(chanName: String, userId: String, text: String): Fu[Option[Line]] =

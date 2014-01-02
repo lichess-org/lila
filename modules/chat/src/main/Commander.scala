@@ -16,7 +16,8 @@ import lila.user.{ User, UserRepo }
 
 private[chat] final class Commander(
     modApi: lila.mod.ModApi,
-    namer: Namer) extends Actor {
+    namer: Namer,
+    getTeamIds: String ⇒ Fu[List[String]]) extends Actor {
 
   val chat = context.parent
 
@@ -33,6 +34,10 @@ private[chat] final class Commander(
       case "query" :: username :: _  ⇒ chat ! Query(member, username.toLowerCase)
 
       case "join" :: chanKey :: _ ⇒ Chan parse chanKey match {
+        case Some(chan@TeamChan(teamId)) ⇒ getTeamIds(member.userId) foreach {
+          case teamIds if teamIds.contains(teamId) ⇒ chat ! Join(member, chan)
+          case _                                   ⇒ flash(member, s"You are not a member of this team.")
+        }
         case Some(chan) ⇒ chat ! Join(member, chan)
         case None       ⇒ flash(member, s"The channel $chanKey does not exist.")
       }
@@ -44,7 +49,7 @@ private[chat] final class Commander(
       }
 
       case "names" :: _ ⇒ chanOption foreach { chan ⇒
-        (UserRepo byId member.userId flatten s"No such user: $member.userId") foreach { user ⇒
+        userOf(member) foreach { user ⇒
           namer.chan(chan, user) foreach { named ⇒
             chat ! WithChanNicks(chan.key, { nicks ⇒
               flash(member, s"${nicks.size} users in ${named.name}: ${nicks.sorted.mkString(", ")}")
@@ -83,6 +88,9 @@ private[chat] final class Commander(
       case _                           ⇒ flash(member, s"Permission denied. Well tried, tho.")
     }
   }
+
+  private def userOf(member: ChatMember): Fu[User] =
+    UserRepo byId member.userId flatten s"No such user: $member.userId"
 
   import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
