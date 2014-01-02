@@ -31,7 +31,6 @@ final class TeamApi(
       location = s.location,
       description = s.description,
       open = s.isOpen,
-      irc = s.hasIrc,
       createdBy = me)
     $insert(team) >>
       MemberRepo.add(team.id, me.id) >>
@@ -47,9 +46,7 @@ final class TeamApi(
     team.copy(
       location = e.location,
       description = e.description,
-      open = e.isOpen,
-      irc = e.hasIrc
-    ) |> { team ⇒ $update(team) >>- (indexer ! InsertTeam(team)) }
+      open = e.isOpen) |> { team ⇒ $update(team) >>- (indexer ! InsertTeam(team)) }
   }
 
   def mine(me: User): Fu[List[Team]] =

@@ -5,9 +5,6 @@
   <p>@trans.averageElo(): <strong>@info.averageRating</strong></p>
   <p>@trans.tournamentPoints(): <strong>@info.toints.localize</strong></p>
   <p>@trans.teamLeader(): @userIdLinkMini(t.createdBy)</p>
-  @teamIrcChan(t).map { chan =>
-  <p>IRC: <a href="@routes.Main.irc">#@chan</a></p>
-  }
   </section>
   <h2>@trans.teamBestPlayers()</h2>
   <ol class="userlist best_players">
