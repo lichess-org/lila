@@ -15,7 +15,8 @@ import lila.socket.SocketMember
 import lila.user.{ User, UserRepo }
 
 private[chat] final class Commander(
-    modApi: lila.mod.ModApi) extends Actor {
+    modApi: lila.mod.ModApi,
+    namer: Namer) extends Actor {
 
   val chat = context.parent
 
@@ -23,6 +24,7 @@ private[chat] final class Commander(
     case Command(chanOption, member, text) ⇒ text.split(' ').toList match {
 
       case "help" :: "tutorial" :: _ ⇒ flash(member, tutorial)
+      case "help" :: "mod" :: _      ⇒ flash(member, modHelp)
       case "help" :: _               ⇒ flash(member, help)
 
       case "open" :: _               ⇒ chat ! SetOpen(member, true)
@@ -30,15 +32,25 @@ private[chat] final class Commander(
 
       case "query" :: username :: _  ⇒ chat ! Query(member, username.toLowerCase)
 
-      case "join" :: chanName :: _ ⇒ Chan parse chanName match {
+      case "join" :: chanKey :: _ ⇒ Chan parse chanKey match {
         case Some(chan) ⇒ chat ! Join(member, chan)
-        case None       ⇒ flash(member, s"The channel $chanName does not exist.")
+        case None       ⇒ flash(member, s"The channel $chanKey does not exist.")
       }
-      case "show" :: chanName :: _ ⇒ Chan parse chanName foreach { chan ⇒
+      case "show" :: chanKey :: _ ⇒ Chan parse chanKey foreach { chan ⇒
         chat ! Activate(member, chan)
       }
-      case "hide" :: chanName :: _ ⇒ Chan parse chanName foreach { chan ⇒
+      case "hide" :: chanKey :: _ ⇒ Chan parse chanKey foreach { chan ⇒
         chat ! DeActivate(member, chan)
+      }
+
+      case "nicks" :: _ ⇒ chanOption foreach { chan ⇒
+        (UserRepo byId member.userId flatten s"No such user: $member.userId") foreach { user ⇒
+          namer.chan(chan, user) foreach { named ⇒
+            chat ! WithChanNicks(chan.key, { nicks ⇒
+              flash(member, s"Users in ${named.name}: ${nicks.sorted.mkString(", ")}")
+            })
+          }
+        }
       }
 
       case ("rematch" | "resign" | "abort" | "takeback") :: _ ⇒ gameOnlyCommand(member)
@@ -92,5 +104,10 @@ _______________________ user commands ______________________
 _______________________ game commands ______________________
 /e2e4                   move the piece on e2 to e4
 /abort, /resign, /takeback, /rematch
+""") + "</pre>"
+
+  val modHelp = "<pre>" + escapeXml("""
+_______________________ mod commands _______________________
+/troll <user>           toggle user troll status
 """) + "</pre>"
 }

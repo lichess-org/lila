@@ -18,7 +18,7 @@ private[chat] final class ChatActor(
     bus: Bus,
     relationApi: lila.relation.RelationApi,
     prefApi: PrefApi,
-    makeCommander: () => Commander) extends Actor {
+    makeCommander: () ⇒ Commander) extends Actor {
 
   private val members = collection.mutable.Map[String, ChatMember]()
 
@@ -81,6 +81,11 @@ private[chat] final class ChatActor(
       member unBlock u2
       reload(member)
     }
+
+    case WithChanNicks(key, f) ⇒ members.values
+      .filter(_ hasActiveChan key)
+      .map(_.userId).toList.distinct
+      .map(namer.user).sequenceFu foreach f
 
     case Input(uid, o) ⇒ (o str "t") |@| (o obj "d") |@| (members get uid) apply {
       case (typ, data, member) ⇒ typ match {
