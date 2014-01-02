@@ -84,7 +84,6 @@ minutesPerSide=Minut pro každého hráče
 variant=Varianta
 timeControl=Tempo hry
 time=Tempo
-start=Start
 username=Uživatelské jméno
 password=Heslo
 haveAnAccount=Máte již účet?

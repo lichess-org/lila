@@ -64,7 +64,6 @@ chessPlayers=Chwaraewr chess
 minutesPerSide=Munudau pob ochr
 variant=Amrywiad
 timeControl=Reolaith Amser
-start=Dechrau
 username=Enw defnyddiwr
 password=Cyfrinair
 haveAnAccount=Ydynch yn cael ystyried?

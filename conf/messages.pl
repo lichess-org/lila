@@ -84,7 +84,6 @@ minutesPerSide=Minut na stronę
 variant=Wariant
 timeControl=Limit czasu
 time=Czas
-start=Start
 username=Nazwa użytkownika
 password=Hasło
 haveAnAccount=Masz już konto?

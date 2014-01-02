@@ -82,7 +82,6 @@ minutesPerSide=Mionaidean an taobh
 variant=Caochladh
 timeControl=Smachdadh-ùine
 time=Ùine
-start=Toiseach
 username=Far-ainm
 password=Facal-faire
 haveAnAccount=A bheil cunntas agad?

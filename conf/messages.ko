@@ -84,7 +84,6 @@ minutesPerSide=진영 당 주어진 시간(분)
 variant=모드
 timeControl=시간 제한
 time=시간
-start=시작
 username=사용자 이름
 password=비밀번호
 haveAnAccount=계정이 있습니까?

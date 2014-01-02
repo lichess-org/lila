@@ -84,7 +84,6 @@ minutesPerSide=持ち時間
 variant=バリアント
 timeControl=持ち時間制限
 time=時間
-start=開始
 username=ユーザー名
 password=パスワード
 haveAnAccount=アカウントをお持ちですか？

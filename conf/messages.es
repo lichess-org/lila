@@ -84,7 +84,6 @@ minutesPerSide=Minutos por jugador
 variant=Variante
 timeControl=Tiempo
 time=Tiempo
-start=Empezar
 username=Usuario
 password=Contraseña
 haveAnAccount=¿Tienes una cuenta?

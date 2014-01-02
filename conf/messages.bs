@@ -84,7 +84,6 @@ minutesPerSide=Minuta po igraču
 variant=Varijanta
 timeControl=Vremenska kontrola
 time=Vrijeme
-start=Početak
 username=Korisničko ime
 password=Lozinka
 haveAnAccount=Već imate raćun?

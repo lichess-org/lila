@@ -84,7 +84,6 @@ minutesPerSide=Minuter per spelare
 variant=Variant
 timeControl=Tidskontroll
 time=Tid
-start=Start
 username=Användarnamn
 password=Lösenord
 haveAnAccount=Har du ett konto?

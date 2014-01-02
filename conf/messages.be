@@ -84,7 +84,6 @@ minutesPerSide=Хвілінаў на партыю
 variant=Варыянт
 timeControl=Абмежаваньне часу
 time=Час
-start=Пачаць
 username=Карыстальнік
 password=Пароль
 haveAnAccount=Ужо зарэгістраваны?
