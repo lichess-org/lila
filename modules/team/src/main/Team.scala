@@ -13,7 +13,6 @@ case class Team(
     nbMembers: Int,
     enabled: Boolean,
     open: Boolean,
-    irc: Boolean,
     createdAt: DateTime,
     createdBy: String) {
 
@@ -31,7 +30,6 @@ object Team {
     location: Option[String],
     description: String,
     open: Boolean,
-    irc: Boolean,
     createdBy: User): Team = new Team(
     id = nameToId(name),
     name = name,
@@ -40,7 +38,6 @@ object Team {
     nbMembers = 1,
     enabled = true,
     open = open,
-    irc = false,
     createdAt = DateTime.now,
     createdBy = createdBy.id)
 
