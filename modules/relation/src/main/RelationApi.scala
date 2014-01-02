@@ -8,7 +8,7 @@ import lila.game.GameRepo
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.timeline.{ Propagate, Follow ⇒ FollowUser }
 import lila.user.tube.userTube
-import lila.user.{ User, UserRepo }
+import lila.user.{ User ⇒ UserModel, UserRepo }
 import tube.relationTube
 
 final class RelationApi(
@@ -37,7 +37,7 @@ final class RelationApi(
 
   def relation(u1: ID, u2: ID): Fu[Option[Relation]] = cached.relation(u1, u2)
 
-  def onlinePopularUsers(max: Int): Fu[List[User]] =
+  def onlinePopularUsers(max: Int): Fu[List[UserModel]] =
     (getOnlineUserIds().toList map { id ⇒
       nbFollowers(id) map (id -> _)
     }).sequenceFu map (_ sortBy (-_._2) take max map (_._1)) flatMap UserRepo.byOrderedIds

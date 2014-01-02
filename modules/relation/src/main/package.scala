@@ -4,11 +4,13 @@ import lila.db.JsTube
 
 package object relation extends PackageObject with WithPlay {
 
-  private[relation] type ID = String
-
   type Relation = Boolean
-  val Follow: Relation = true
-  val Block: Relation = false
+  private[relation] val Follow: Relation = true
+  private[relation] val Block: Relation = false
+
+  private[relation] type ID = String
+  private[relation] type Username = String
+  private[relation] type User = (ID, Username)
 
   object tube {
 
