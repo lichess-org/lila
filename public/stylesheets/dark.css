@@ -133,11 +133,13 @@ body.dark div.lichess_table_wrap div.clock.running.emerg, body.dark div.lichess_
 }
 /* soft inactive gradient */
  body.dark #top a.signin, body.dark div.lichess_chat_top, body.dark div.undertable_top, body.dark .button, body.dark .button:visited, body.dark .ui-state-default, body.dark div.content_box_top, body.dark #translation_call, body.dark #notifications > div, body.dark div.locale_menu a, body.dark table.slist thead {
-  background: #303030 linear-gradient(to bottom, #2a2a2a, #202020);
+  background: #2a2a2a;
+  background: linear-gradient(to bottom, #2a2a2a, #202020);
 }
 body.dark .ui-state-active {
   color: #fff;
-  background: #d85000 linear-gradient(to bottom, #d85000, #c84000);
+  background: #d85000;
+  background: linear-gradient(to bottom, #d85000, #c84000);
 }
 body.dark #hooks_chart .plot {
   box-shadow: 0 0 5px #000;
