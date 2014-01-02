@@ -526,7 +526,7 @@ div.footer div.right {
   line-height: 27px;
   height: 27px;
   padding: 0px 10px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid #3a3a3a;
   cursor: pointer;
 }
 #chat .chan.main {
@@ -688,7 +688,6 @@ div.footer div.right {
 }
 #chat .controls {
   height: 27px;
-  background: rgba(20, 20, 20, 0.9);
 }
 #chat .controls > form {
   display: none;

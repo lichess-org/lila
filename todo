@@ -104,6 +104,7 @@ list all players by ranking.
 automatic ai cheat detection is broken
 time pie chart colors http://en.lichess.org/52ede6hu/stats
 full page recent forum posts
+en_GB, en_US, pt_PT, pt_BR = localization
 
 deploy
 ------

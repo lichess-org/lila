@@ -156,6 +156,9 @@ body.dark a#sound_state.sound_state_on span {
 body.dark .s16.ddown {
   background-position: right -368px;
 }
+body.dark #chat .chan {
+  border-color: #2a2a2a;
+}
 body.dark ::-webkit-input-placeholder {
   color: #666;
 }
