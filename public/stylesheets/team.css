@@ -6,7 +6,6 @@
   display: block;
   margin-bottom: 2em;
 }
-
 #team form label span {
   float: left;
   display: block;
@@ -16,11 +15,10 @@
   margin-top: 3px;
 }
 #team form label span.required:after {
-  content: "*";
+  content:"*";
   color: #FF6666;
   margin-left: 3px;
 }
-
 #team form .team-data input, #team form textarea {
   width: 480px;
 }
@@ -30,18 +28,15 @@
 #team form.wide .submit {
   margin-left: 110px;
 }
-
 #team form p.error {
   margin-left: 110px;
   margin-bottom: 10px;
   color: red;
 }
-
 #team form.search {
   float: right;
   margin: 20px;
 }
-
 #team table.slist td {
   word-break: break-all;
   padding-top: 1em;
@@ -78,7 +73,6 @@
   float: right;
   margin-right: 20px;
 }
-
 #team .team-left {
   float: left;
   width: 280px;
@@ -103,19 +97,15 @@
   font-size: 1.2em;
   margin: 20px 0 20px 20px;
 }
-
 #team .best_players {
   margin-bottom: 20px;
 }
-
 #team .userlist > * {
   padding: 10px 0 10px 25px;
 }
-
 #team .actions {
   margin-left: 20px;
 }
-
 #team .forum {
   margin-top: 30px;
   width: 100%;
@@ -125,7 +115,7 @@
   font-weight: bold;
   border-bottom: 1px solid #ccc;
   padding: 0 0 5px 20px;
-} 
+}
 #team .forum h2 a {
   text-decoration: none;
 }
@@ -154,7 +144,6 @@
   text-align: right;
   margin: 10px 10px 0 0;
 }
-
 #team table.requests form {
   margin: 0;
 }
@@ -186,15 +175,12 @@
   display: inline;
   margin-left: 5px;
 }
-
 #team .button.small {
   font-size: 12px;
 }
-
 #team .undertitle {
   margin-top: 1.5em;
 }
-
 #team .kick .button {
   margin-bottom: 5px;
 }

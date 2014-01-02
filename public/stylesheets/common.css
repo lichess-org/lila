@@ -479,6 +479,7 @@ div.footer div.right {
   border-top: 1px solid #444;
   position: relative;
   display: none;
+  background: rgba(20, 20, 20, 0.9);
 }
 #chat_wrap.on #chat {
   display: block;
@@ -508,7 +509,6 @@ div.footer div.right {
   height: 16px;
   line-height: 16px;
   padding: 0 8px;
-  background: rgba(20, 20, 20, 0.9);
   border-top: 1px solid #444;
   border-right: 1px solid #444;
   text-decoration: none;
@@ -519,7 +519,6 @@ div.footer div.right {
   width: 220px;
   height: 100%;
   border-right: 1px solid #444;
-  background: rgba(20, 20, 20, 0.9);
 }
 #chat .chan {
   display: block;
@@ -593,7 +592,6 @@ div.footer div.right {
   height: 167px;
   overflow: hidden;
   border-bottom: 1px solid #444;
-  background: rgba(20, 20, 20, 0.9);
 }
 #chat > .room > .lines:hover {
   overflow-y: auto;
@@ -636,6 +634,7 @@ div.footer div.right {
 }
 #chat > .lists > .tabs {
   border-bottom: 1px solid #444;
+  display: block;
 }
 #chat > .lists > .tabs > a {
   display:inline-block;
@@ -644,27 +643,29 @@ div.footer div.right {
   text-decoration: none;
   padding: 0 10px;
 }
-#chat > .lists > .tabs > a:first-child {
-  border-right: 1px solid #444;
-}
 #chat > .lists > .tabs > a.active {
-  background: #030303;
+  background-color: #202020;
 }
 #chat .list_box {
   display: none;
   height: 100%;
   width: 100%;
-  background: #202020;
 }
 #chat .list_box:hover {
   overflow-y: auto;
 }
 #chat .list_box .content a {
   display: block;
-  margin: 3px 0 0 8px;
+  padding: 3px 0 3px 8px;
   text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
+}
+#chat .list_box .content a:hover {
+  background-color: #202020;
+}
+#friend_box .content .s16 {
+  background-position: 0 -208px;
 }
 #friend_box .nobody {
   text-align: center;
