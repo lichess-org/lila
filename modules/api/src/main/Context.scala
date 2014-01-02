@@ -1,19 +1,31 @@
 package lila.api
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ JsObject, JsArray }
 import play.api.mvc.{ Request, RequestHeader }
 
 import lila.chat.Chat
 import lila.pref.Pref
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
 
+case class PageData(
+  chat: Option[Chat],
+  friends: Option[JsObject],
+  pref: Pref,
+  teams: Option[JsArray])
+
+object PageData {
+  val default = PageData(none, none, Pref.default, none)
+}
+
 sealed trait Context extends lila.user.UserContextWrapper {
 
   val userContext: UserContext
-  val chat: Option[Chat]
-  val friends: Option[JsObject]
+  val pageData: PageData
 
-  val pref: Pref
+  def chat = pageData.chat
+  def friends = pageData.friends
+  def pref = pageData.pref
+  def teams = pageData.teams
 
   def currentTheme =
     (ctxPref("theme") map lila.pref.Theme.apply) | Pref.default.realTheme
@@ -26,35 +38,27 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
 sealed abstract class BaseContext(
   val userContext: lila.user.UserContext,
-  val chat: Option[Chat],
-  val pref: Pref,
-  val friends: Option[JsObject]) extends Context
+  val pageData: PageData) extends Context
 
 final class BodyContext(
-  val bodyContext: BodyUserContext,
-  chatOption: Option[Chat],
-  p: Pref,
-  f: Option[JsObject])
-    extends BaseContext(bodyContext, chatOption, p, f) {
+    val bodyContext: BodyUserContext,
+    data: PageData) extends BaseContext(bodyContext, data) {
 
   def body = bodyContext.body
 }
 
 final class HeaderContext(
-  val headerContext: HeaderUserContext,
-  chatOption: Option[Chat],
-  p: Pref,
-  f: Option[JsObject])
-    extends BaseContext(headerContext, chatOption, p, f)
+  headerContext: HeaderUserContext,
+  data: PageData) extends BaseContext(headerContext, data)
 
 object Context {
 
   def apply(req: RequestHeader): HeaderContext =
-    new HeaderContext(UserContext(req, none), none, Pref.default, none)
+    new HeaderContext(UserContext(req, none), PageData.default)
 
-  def apply(userContext: HeaderUserContext, chat: Option[Chat], pref: Option[Pref], friends: Option[JsObject]): HeaderContext =
-    new HeaderContext(userContext, chat, pref | Pref.default, friends)
+  def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
+    new HeaderContext(userContext, pageData)
 
-  def apply(userContext: BodyUserContext, chat: Option[Chat], pref: Option[Pref], friends: Option[JsObject]): BodyContext =
-    new BodyContext(userContext, chat, pref | Pref.default, friends)
+  def apply(userContext: BodyUserContext, pageData: PageData): BodyContext =
+    new BodyContext(userContext, pageData)
 }

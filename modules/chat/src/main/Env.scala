@@ -9,6 +9,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     getUsername: String ⇒ Fu[String],
+    getTeamName: String ⇒ Fu[Option[String]],
     flood: lila.security.Flood,
     relationApi: lila.relation.RelationApi,
     prefApi: lila.pref.PrefApi,
@@ -31,7 +32,9 @@ final class Env(
     prefApi = prefApi,
     netDomain = NetDomain)
 
-  lazy val namer = new Namer(getUsername)
+  lazy val namer = new Namer(
+    getUsername = getUsername,
+    getTeamName = getTeamName)
 
   system.actorOf(Props(new ChatActor(
     api = api,
@@ -50,6 +53,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "chat",
     db = lila.db.Env.current,
     getUsername = lila.user.Env.current.usernameOrAnonymous,
+    getTeamName = lila.team.Env.current.cached.name.apply,
     flood = lila.security.Env.current.flood,
     relationApi = lila.relation.Env.current.api,
     prefApi = lila.pref.Env.current.api,

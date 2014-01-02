@@ -536,6 +536,7 @@ div.footer div.right {
   display: block;
   margin-right: 20px;
   white-space: nowrap;
+  overflow: hidden;
 }
 #chat div.check {
   float: right;
@@ -585,7 +586,7 @@ div.footer div.right {
 }
 #chat > .room {
   margin-left: 201px;
-  margin-right: 201px;
+  margin-right: 402px;
 }
 #chat > .room > .lines {
   height: 167px;
@@ -624,18 +625,22 @@ div.footer div.right {
 #chat .line pre {
   margin: 0;
 }
-#friend_box {
+#chat .list_box {
   float: right;
   width: 200px;
   height: 100%;
   border-left: 1px solid #444;
+  overflow: hidden;
 }
-#friend_box .content a {
+#chat .list_box:hover {
+  overflow-y: auto;
+}
+#chat .list_box .content a {
   display: block;
-  line-height: 16px;
-  height: 16px;
-  margin: 5px 0 0 8px;
+  margin: 3px 0 0 8px;
   text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
 }
 #friend_box .nobody {
   text-align: center;

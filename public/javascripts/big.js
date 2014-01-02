@@ -504,6 +504,7 @@ var storage = {
     $('#friend_box').friends({
       $title: $('#chat_wrap .bar .friends')
     });
+    $('#team_box').teams();
     $('#chat').onechat();
 
     $('body').on('click', 'a.chat_query', function() {
@@ -897,6 +898,10 @@ var storage = {
       this._send('/query ' + username);
       this.$input.focus();
     },
+    team: function(id) {
+      this._send('/join team_' + id);
+      this.$input.focus();
+    },
     reload: function(c) {
       this.head = c.head;
       if (!this._exists(this.head.mainChan)) this.head.mainChan = null;
@@ -1045,6 +1050,27 @@ var storage = {
       } else {
         self.$form.hide();
       }
+    }
+  });
+
+  $.widget("lichess.teams", {
+    _create: function() {
+      var self = this;
+      self.$list = self.element.find("div.list");
+      self.$list.on('click', 'a', function() {
+        $('#chat').onechat('team', $(this).data('id'));
+      });
+      self.set(self.element.data('preload'));
+    },
+    repaint: function() {
+      this.$list.html(_.map(this.teams, this._renderTeam).join(""));
+    },
+    set: function(data) {
+      this.teams = data;
+      this.repaint();
+    },
+    _renderTeam: function(team) {
+      return '<a data-id="' + team.id + '" class="s16 team">' + team.name + '</a>';
     }
   });
 

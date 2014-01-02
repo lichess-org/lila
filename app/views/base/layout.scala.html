@@ -164,7 +164,10 @@ data-accept-languages="@acceptLanguages.mkString(",")">
     <a class="off"></a>
     <a class="help">help</a>
     <div class="chans"></div>
-    <div id="friend_box" data-preload="@ctx.friends">
+    <div id="team_box" class="list_box" data-preload="@ctx.teams">
+      <div class="content list"></div>
+    </div>
+    <div id="friend_box" class="list_box" data-preload="@ctx.friends">
       <div class="content list"></div>
       <div class="nobody">
         <span>@trans.noFriendsOnline()</span>
