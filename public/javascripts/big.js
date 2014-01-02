@@ -1075,7 +1075,7 @@ var storage = {
       this.repaint();
     },
     _renderTeam: function(team) {
-      return '<a data-id="' + team.id + '" class="s16 team">' + team.name + '</a>';
+      return '<a data-id="' + team.id + '"><span class="s16 team">' + team.name + '</span></a>';
     }
   });
 
@@ -1111,7 +1111,7 @@ var storage = {
       this.repaint();
     },
     _renderUser: function(user) {
-      return '<a class="user_link online ulpt" data-placement="nw" href="/@/' + user + '">' + user + '</a>';
+      return '<a class="ulpt" data-placement="nw" href="/@/' + user + '"><span class="s16">' + user + '</span></a>';
     }
   });
 
