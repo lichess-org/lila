@@ -1290,12 +1290,14 @@ div.join_warning {
 /* soft inactive gradient */
  #top a.signin, div.lichess_chat_top, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, #hooks tr, #translation_call, #notifications > div, div.locale_menu a, table.slist thead {
   color: #666;
-  background: #efefef linear-gradient(to bottom, #efefef, #e2e2e2);
+  background: #efefef;
+  background: linear-gradient(to bottom, #efefef, #e2e2e2);
 }
 /* active gradient */
  #top a.signin:hover, #top a.goto_nav.active, .button.active, .button.active:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, #top span.new_messages, #hooks td.action:hover, div.progressbar.flashy div, .button.strong:hover, div.locale_menu a.active, #import_game .progression {
   color: #fff;
-  background: #d85000 linear-gradient(to bottom, #d85000, #c84000);
+  background: #d85000;
+  background: linear-gradient(to bottom, #d85000, #c84000);
 }
 div.checkmateFen {
   float: left;
