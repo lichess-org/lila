@@ -501,7 +501,9 @@ var storage = {
       lichess.socket.send($(this).data('msg'), $(this).data('data'));
     });
 
-    $('#friend_box').friends();
+    $('#friend_box').friends({
+      $title: $('#chat_wrap .bar .friends')
+    });
     $('#chat').onechat();
 
     $('body').on('click', 'a.chat_query', function() {
@@ -875,7 +877,7 @@ var storage = {
       self.element.find('.help').click(function() {
         self._send('/help tutorial');
       });
-      self.$bar.find('> .on').click(function() {
+      self.$bar.find('> *').click(function() {
         self._send('/open');
       });
       self.element.find('> .off').click(function() {
@@ -1049,6 +1051,9 @@ var storage = {
   $.widget("lichess.friends", {
     _create: function() {
       var self = this;
+      self.$title = self.options.$title;
+      self.$nbOnline = self.$title.find('.online');
+      self.$nbTotal = self.$title.find('.total');
       self.$list = self.element.find("div.list");
       self.$nobody = self.element.find("div.nobody");
       self.set(self.element.data('preload'));
@@ -1056,10 +1061,13 @@ var storage = {
     repaint: function() {
       this.users = _.uniq(this.users);
       this.$nobody.toggle(this.users.length === 0);
+      this.$nbOnline.text(this.users.length);
+      this.$nbTotal.text(this.nb);
       this.$list.html(_.map(this.users, this._renderUser).join(""));
       $('body').trigger('lichess.content_loaded');
     },
     set: function(data) {
+      this.nb = data.nb;
       this.users = data.us;
       this.repaint();
     },

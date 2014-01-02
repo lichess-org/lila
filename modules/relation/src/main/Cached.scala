@@ -11,7 +11,7 @@ private[relation] final class Cached {
   private[relation] val friends = AsyncCache(findFriends, maxCapacity = 50000)
   private[relation] val relation = AsyncCache(findRelation, maxCapacity = 50000)
 
-  private def findFriends(userId: String): Fu[Set[ID]] = 
+  private def findFriends(userId: String): Fu[Set[ID]] =
     following(userId) flatMap { ids ⇒
       (ids.toList map { id ⇒ following(id) map (_ contains userId) }).sequenceFu map { ids zip _ } map {
         _.filter(_._2).map(_._1)

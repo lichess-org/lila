@@ -63,12 +63,12 @@ private[relation] final class RelationActor(
   private def onlineIds: Set[ID] = onlines.keySet
 
   private def onlineFriends(userId: String): Fu[OnlineFriends] = for {
-    ids ← api.following(userId)
+    ids ← api following userId
     usernames ← ((ids intersect onlineIds).toList map getUsername).sequenceFu
   } yield OnlineFriends(usernames, ids.size)
 
   private def reloadOnlineFriends(userId: String) {
-    onlineFriends(userId) map {
+    onlineFriends(userId) foreach {
       case OnlineFriends(usernames, nb) ⇒ {
         val event = SendTo(userId, "following_onlines", Json.obj(
           "us" -> usernames,
