@@ -468,7 +468,7 @@ div.footer div.right {
 }
 #chat_wrap > .bar > .friends {
   right: 0;
-  width: 200px;
+  width: 220px;
   text-transform: capitalize;
   text-align: center;
   border-left: 1px solid #444;
@@ -477,7 +477,6 @@ div.footer div.right {
   width: 100%;
   height: 195px;
   border-top: 1px solid #444;
-  background: rgba(20, 20, 20, 0.9);
   position: relative;
   display: none;
 }
@@ -513,12 +512,14 @@ div.footer div.right {
   border-top: 1px solid #444;
   border-right: 1px solid #444;
   text-decoration: none;
+  background: rgba(20, 20, 20, 0.9);
 }
 #chat > .chans {
   float: left;
-  width: 200px;
+  width: 220px;
   height: 100%;
   border-right: 1px solid #444;
+  background: rgba(20, 20, 20, 0.9);
 }
 #chat .chan {
   display: block;
@@ -585,13 +586,14 @@ div.footer div.right {
   opacity: 1;
 }
 #chat > .room {
-  margin-left: 201px;
-  margin-right: 402px;
+  margin-left: 221px;
+  margin-right: 221px;
 }
 #chat > .room > .lines {
   height: 167px;
   overflow: hidden;
   border-bottom: 1px solid #444;
+  background: rgba(20, 20, 20, 0.9);
 }
 #chat > .room > .lines:hover {
   overflow-y: auto;
@@ -625,12 +627,34 @@ div.footer div.right {
 #chat .line pre {
   margin: 0;
 }
-#chat .list_box {
+#chat > .lists {
   float: right;
-  width: 200px;
+  width: 220px;
   height: 100%;
   border-left: 1px solid #444;
   overflow: hidden;
+}
+#chat > .lists > .tabs {
+  border-bottom: 1px solid #444;
+}
+#chat > .lists > .tabs > a {
+  display:inline-block;
+  height: 19px;
+  line-height: 19px;
+  text-decoration: none;
+  padding: 0 10px;
+}
+#chat > .lists > .tabs > a:first-child {
+  border-right: 1px solid #444;
+}
+#chat > .lists > .tabs > a.active {
+  background: #030303;
+}
+#chat .list_box {
+  display: none;
+  height: 100%;
+  width: 100%;
+  background: #202020;
 }
 #chat .list_box:hover {
   overflow-y: auto;
@@ -661,6 +685,10 @@ div.footer div.right {
 #friend_box div.nobody:hover a.find {
   display: block;
 }
+#chat .controls {
+  height: 27px;
+  background: rgba(20, 20, 20, 0.9);
+}
 #chat .controls > form {
   display: none;
   position: relative;
@@ -690,8 +718,8 @@ div.footer div.right {
   height: 19px;
   padding: 4px 10px;
   border: none;
-  background: #202020;
   color: #b0b0b0;
+  background: none;
 }
 #chat .color0 {
   /* green */
