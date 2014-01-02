@@ -43,11 +43,11 @@ private[chat] final class Commander(
         chat ! DeActivate(member, chan)
       }
 
-      case "nicks" :: _ ⇒ chanOption foreach { chan ⇒
+      case "names" :: _ ⇒ chanOption foreach { chan ⇒
         (UserRepo byId member.userId flatten s"No such user: $member.userId") foreach { user ⇒
           namer.chan(chan, user) foreach { named ⇒
             chat ! WithChanNicks(chan.key, { nicks ⇒
-              flash(member, s"Users in ${named.name}: ${nicks.sorted.mkString(", ")}")
+              flash(member, s"${nicks.size} users in ${named.name}: ${nicks.sorted.mkString(", ")}")
             })
           }
         }
@@ -95,9 +95,9 @@ For instance, try and send /help to see available commands.
 
   val help = "<pre>" + escapeXml("""
 _______________________ chat commands ______________________
-/help                   display this message
 /join <chan>            enter a chat room. Ex: /join en
 /query <friend>         start a private chat with a friend
+/names                  show the users connected to the current room
 _______________________ user commands ______________________
 /msg <user>             send a message to a user
 /report <user>          report a user to the moderators
