@@ -447,19 +447,31 @@ div.footer div.right {
 #chat_wrap.on > .bar {
   display: none;
 }
-#chat_wrap > .bar > .on {
+#chat_wrap > .bar > * {
+  position: absolute;
+  top: 0;
   display:inline-block;
   height: 32px;
   line-height: 32px;
-  font-size: 1.2em;
-  padding: 0 10px 0 46px;
-  background: url(/assets/images/open32.png) top left no-repeat;
-  background-position: +10px +1px;
   text-decoration: none;
   text-transform: uppercase;
 }
-#chat_wrap > .bar > .on:hover {
+#chat_wrap > .bar > *:hover {
   background-color: #0a0a0a;
+}
+#chat_wrap > .bar > .on {
+  left: 0;
+  background: url(/assets/images/open32.png) top left no-repeat;
+  background-position: +10px +1px;
+  font-size: 1.2em;
+  padding: 0 10px 0 46px;
+}
+#chat_wrap > .bar > .friends {
+  right: 0;
+  width: 200px;
+  text-transform: capitalize;
+  text-align: center;
+  border-left: 1px solid #444;
 }
 #chat {
   width: 100%;
@@ -630,6 +642,7 @@ div.footer div.right {
   display: none;
   padding: 3px 5px;
   font-style: italic;
+  height: 100%;
 }
 #friend_box .nobody span {
   display: block;
@@ -637,7 +650,7 @@ div.footer div.right {
 }
 #friend_box a.find {
   display: none;
-  margin: 7px;
+  margin: 30px 7px 0 7px;
   font-style: normal;
 }
 #friend_box div.nobody:hover a.find {
@@ -669,9 +682,10 @@ div.footer div.right {
   position: absolute;
   top: 0;
   left: 0;
-  height: 20px;
+  height: 19px;
   padding: 4px 10px;
   border: none;
+  background: #202020;
   color: #b0b0b0;
 }
 #chat .color0 {
@@ -1274,7 +1288,7 @@ div.join_warning {
   margin-bottom: 15px;
 }
 /* soft inactive gradient */
- #top a.signin, div.lichess_chat_top, #friend_box .title, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, #hooks tr, #translation_call, #notifications > div, div.locale_menu a, table.slist thead {
+ #top a.signin, div.lichess_chat_top, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, #hooks tr, #translation_call, #notifications > div, div.locale_menu a, table.slist thead {
   color: #666;
   background: #efefef linear-gradient(to bottom, #efefef, #e2e2e2);
 }
