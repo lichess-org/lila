@@ -107,16 +107,12 @@ full page recent forum posts
 en_GB, en_US, pt_PT, pt_BR = localization
 /takeback to accept (or sys message)
 badges out of screen
-chat click user to chat
 moretime button position (>1hour)
 move command sys message
 abort system message
 hide chat help after /help typed
 copy rematch chats
 chat logs
-maybe no chat transparency?
-indicator when someone talks to you but the chat is closed
-user badge is too large; also add a link to profile to it
 chat visited link color
 
 deploy

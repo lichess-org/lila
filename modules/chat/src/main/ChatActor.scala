@@ -46,6 +46,8 @@ private[chat] final class ChatActor(
 
     case SetOpen(member, value) ⇒ prefApi.setChatPref(member.userId, _.copy(on = value))
 
+    case SetHeight(member, value) ⇒ prefApi.setChatPref(member.userId, _.copy(height = value))
+
     case Join(member, chan) ⇒ api.join(member, chan) foreach { head ⇒
       member setHead head
       saveAndReload(member)

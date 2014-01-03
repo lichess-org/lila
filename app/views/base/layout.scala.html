@@ -161,7 +161,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
     </div>
     <div class="center last"></div>
   </div>
-  <div id="chat">
+  <div id="chat" style="height:@{ctx.pref.chat.height}px">
     <a class="off"></a>
     <a class="help">help</a>
     <div class="left chans"></div>
@@ -184,7 +184,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
       </div>
     </div>
     <div class="center room">
-      <div class="lines"></div>
+      <div class="lines" style="height:@{ctx.pref.chat.height - 28}px"></div>
       <div class="controls">
         <form action="#">
           <input class="input" value="" placeholder="@trans.talkInChat()" />

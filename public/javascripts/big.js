@@ -862,6 +862,17 @@ var storage = {
 
       self.element.click(function() {
         self.$input.focus();
+      }).resizable({
+        handles: 'n',
+        alsoResize: self.$lines,
+        minHeight: 83,
+        maxHeight: $(window).height() - 30,
+        resize: function() {
+          $(this).css('top', 'auto');
+        },
+        stop: function() {
+          self._send('/height ' + $(this).height());
+        }
       });
       self.$form.submit(function() {
         self._tell();

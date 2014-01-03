@@ -14,7 +14,7 @@ private[chat] final class Api(
     getTeamIds: String ⇒ Fu[List[String]],
     netDomain: String) {
 
-  private val NB_LINES = 30
+  private val NB_LINES = 40
 
   def join(user: User, chat: ChatHead, chan: Chan): ChatHead = {
     chanVoter(user.id, chan.key)

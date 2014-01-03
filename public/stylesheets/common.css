@@ -1,37 +1,56 @@
-body, ul, ol, li, h1, h2, form, legend, input, textarea, p, th, td {
-  margin:0;
-  padding:0;
+body,
+ul,
+ol,
+li,
+h1,
+h2,
+form,
+legend,
+input,
+textarea,
+p,
+th,
+td {
+  margin: 0;
+  padding: 0;
 }
 table {
-  border-collapse:collapse;
-  border-spacing:0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 img {
-  border:0;
+  border: 0;
 }
-em, strong, th {
-  font-style:normal;
-  font-weight:normal;
+em,
+strong,
+th {
+  font-style: normal;
+  font-weight: normal;
 }
 li {
-  list-style:none;
+  list-style: none;
 }
 th {
-  text-align:left;
+  text-align: left;
 }
-h1, h2, h3 {
-  font-size:100%;
-  font-weight:normal;
+h1,
+h2,
+h3 {
+  font-size: 100%;
+  font-weight: normal;
 }
-input, textarea, select {
-  font-family:inherit;
-  font-size:inherit;
-  font-weight:inherit;
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
 }
 /* jquery-ui */
 
 /* button */
- .ui-helper-hidden {
+
+.ui-helper-hidden {
   display: none;
 }
 .ui-helper-hidden-accessible {
@@ -60,7 +79,8 @@ button.ui-state-hover {
   border-color: #984000;
 }
 /* defaults */
- .ui-button {
+
+.ui-button {
   display: inline-block;
   position: relative;
   padding: 0;
@@ -71,22 +91,26 @@ button.ui-state-hover {
   overflow: visible;
 }
 /* the overflow property removes extra width in IE */
- .ui-button-icon-only {
+
+.ui-button-icon-only {
   width: 2.2em;
 }
 /* to make room for the icon, a width needs to be set here */
- button.ui-button-icon-only {
+
+button.ui-button-icon-only {
   width: 2.4em;
 }
 /* button elements seem to need a little more width */
- .ui-button-icons-only {
+
+.ui-button-icons-only {
   width: 3.4em;
 }
 button.ui-button-icons-only {
   width: 3.7em;
 }
 /*button text element */
- .ui-button .ui-button-text {
+
+.ui-button .ui-button-text {
   display: block;
   line-height: 1.4;
 }
@@ -94,12 +118,14 @@ button.ui-button-icons-only {
   padding: .4em 1em;
 }
 /*button sets*/
- .ui-buttonset .ui-button {
+
+.ui-buttonset .ui-button {
   margin-left: 0;
   margin-right: -.3em;
 }
 /* Corner radius */
- .ui-corner-right {
+
+.ui-corner-right {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
@@ -111,12 +137,14 @@ button.ui-button-icons-only {
   border-radius: 4px;
 }
 /* workarounds */
- button.ui-button::-moz-focus-inner {
+
+button.ui-button::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
 /* reset extra padding in Firefox */
- ul.ui-autocomplete {
+
+ul.ui-autocomplete {
   width: 200px;
   background: #FAFAFA;
   border: 1px solid #DADADA;
@@ -133,7 +161,8 @@ ul.ui-autocomplete li a.ui-state-focus {
   color: #444;
 }
 /* slider */
- .ui-widget-content {
+
+.ui-widget-content {
   border: 1px solid #DDD;
   background: #EEE;
   color: #333;
@@ -180,7 +209,27 @@ ul.ui-autocomplete li a.ui-state-focus {
 .ui-slider-horizontal .ui-slider-range-max {
   right: 0;
 }
-#powerTip, #hook {
+.ui-resizable {
+  position: relative;
+}
+.ui-resizable-handle {
+  position: absolute;
+  font-size: 0.1px;
+  display: block;
+}
+.ui-resizable-disabled .ui-resizable-handle,
+.ui-resizable-autohide .ui-resizable-handle {
+  display: none;
+}
+.ui-resizable-n {
+  cursor: n-resize;
+  height: 7px;
+  width: 100%;
+  top: -5px;
+  left: 0;
+}
+#powerTip,
+#hook {
   width: 240px;
   min-height: 6em;
   cursor: default;
@@ -204,17 +253,20 @@ ul.ui-autocomplete li a.ui-state-focus {
   height: 16px;
   margin-top: 5px;
 }
-#powerTip:before, #hook:before {
-  content:"";
+#powerTip:before,
+#hook:before {
+  content: "";
   position: absolute;
 }
-#powerTip.n:before, #powerTip.s:before {
+#powerTip.n:before,
+#powerTip.s:before {
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   left: 50%;
   margin-left: -5px;
 }
-#powerTip.e:before, #powerTip.w:before {
+#powerTip.e:before,
+#powerTip.w:before {
   border-bottom: 5px solid transparent;
   border-top: 5px solid transparent;
   margin-top: -5px;
@@ -240,27 +292,37 @@ ul.ui-autocomplete li a.ui-state-focus {
   border-left: 10px solid rgba(172, 172, 172, 0.8);
   right: -10px;
 }
-#powerTip.ne:before, #hook.ne:before, #powerTip.se:before {
+#powerTip.ne:before,
+#hook.ne:before,
+#powerTip.se:before {
   border-right: 10px solid transparent;
   border-left: 0;
   left: 10px;
 }
-#powerTip.nw:before, #powerTip.sw:before {
+#powerTip.nw:before,
+#powerTip.sw:before {
   border-left: 10px solid transparent;
   border-right: 0;
   right: 10px;
 }
-#powerTip.ne:before, #hook.ne:before, #powerTip.nw:before {
+#powerTip.ne:before,
+#hook.ne:before,
+#powerTip.nw:before {
   border-top: 10px solid #acacac;
   border-top: 10px solid rgba(172, 172, 172, 0.8);
   bottom: -10px;
 }
-#powerTip.se:before, #powerTip.sw:before {
+#powerTip.se:before,
+#powerTip.sw:before {
   border-bottom: 10px solid #acacac;
   border-bottom: 10px solid rgba(172, 172, 172, 0.8);
   top: -10px;
 }
-#powerTip.nw-alt:before, #powerTip.ne-alt:before, #hook.ne-alt:before, #powerTip.sw-alt:before, #powerTip.se-alt:before {
+#powerTip.nw-alt:before,
+#powerTip.ne-alt:before,
+#hook.ne-alt:before,
+#powerTip.sw-alt:before,
+#powerTip.se-alt:before {
   border-top: 10px solid #acacac;
   border-top: 10px solid rgba(172, 172, 172, 0.8);
   bottom: -10px;
@@ -268,11 +330,13 @@ ul.ui-autocomplete li a.ui-state-focus {
   border-right: 5px solid transparent;
   left: 10px;
 }
-#powerTip.ne-alt:before, #hook.ne-alt:before {
+#powerTip.ne-alt:before,
+#hook.ne-alt:before {
   left: auto;
   right: 10px;
 }
-#powerTip.sw-alt:before, #powerTip.se-alt:before {
+#powerTip.sw-alt:before,
+#powerTip.se-alt:before {
   border-top: none;
   border-bottom: 10px solid #acacac;
   border-bottom: 10px solid rgba(172, 172, 172, 0.8);
@@ -284,14 +348,14 @@ ul.ui-autocomplete li a.ui-state-focus {
   right: 10px;
 }
 .clearfix:after {
-  content:".";
-  display:block;
-  height:0;
-  clear:both;
-  visibility:hidden;
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
 }
 .clearfix {
-  display:inline-block;
+  display: inline-block;
 }
 .none {
   display: none;
@@ -301,13 +365,14 @@ ul.ui-autocomplete li a.ui-state-focus {
   background: transparent url(../images/s16.png) top left no-repeat;
 }
 body {
-  font:12px'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
+  font: 12px'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   color: #848484;
   background: #F7F7F7 url(../images/head_bg.png) top left repeat-x;
   /* leave room for the chat */
   padding-bottom: 195px;
 }
-a, a:visited {
+a,
+a:visited {
   color: #848484;
   text-decoration: underline;
   cursor: pointer;
@@ -350,7 +415,7 @@ body.tight > div.content {
   min-width: 780px;
   margin-top: 35px;
 }
-@media screen and (-webkit-min-device-pixel-ratio:0) {
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
   body > div.content {
     margin-top: 40px;
   }
@@ -374,14 +439,17 @@ body.tight #top {
   margin-left: 211px;
 }
 /* #lichess, #site_header { */
+
 /*   display: none; */
+
 /* } */
+
 body.tight #lichess {
   margin-left: 10px;
 }
 #site_title {
   width: 130px;
-  font-family:'Trebuchet MS', 'Helvetica Neue', Arial, Sans-Serif;
+  font-family: 'Trebuchet MS', 'Helvetica Neue', Arial, Sans-Serif;
   font-size: 30px;
   color: #afafaf;
   text-decoration: none;
@@ -467,7 +535,7 @@ div.footer div.right {
   text-decoration: none;
 }
 #chat_wrap > .bar .on {
-  display:block;
+  display: block;
   background: url(/assets/images/open32.png) top left no-repeat;
   background-position: +10px +1px;
   font-size: 1.2em;
@@ -588,7 +656,7 @@ div.footer div.right {
 }
 #chat div.check label:after {
   opacity: 0;
-  content:'';
+  content: '';
   position: absolute;
   width: 9px;
   height: 5px;
@@ -638,7 +706,7 @@ div.footer div.right {
   text-align: right;
   margin-right: 10px;
 }
-#chat .line a.user_link{
+#chat .line a.user_link {
   text-decoration: none;
 }
 #chat .line > .text {
@@ -648,7 +716,7 @@ div.footer div.right {
   margin: 0;
 }
 #chat > .lists {
-  height: 195px;
+  height: 100%;
   overflow: hidden;
 }
 #chat > .lists > .tabs {
@@ -656,7 +724,7 @@ div.footer div.right {
   display: block;
 }
 #chat > .lists > .tabs > a {
-  display:inline-block;
+  display: inline-block;
   height: 19px;
   line-height: 19px;
   text-decoration: none;
@@ -723,7 +791,7 @@ div.footer div.right {
   background: #ccc;
 }
 #chat .controls > form .invite:after {
-  content:"";
+  content: "";
   border-top: 14px solid transparent;
   border-bottom: 14px solid transparent;
   border-left: 14px solid #ccc;
@@ -776,7 +844,8 @@ div.footer div.right {
 .country > img {
   vertical-align: middle;
 }
-.button, a.button {
+.button,
+a.button {
   border-radius: 5px;
   border: 1px solid #DADADA;
   padding: 0.4em 1em;
@@ -922,7 +991,8 @@ table.slist .s16 {
 table.slist tbody tr:nth-child(even) {
   background: #f4f4f4;
 }
-table.slist td:first-child, table.slist th:first-child {
+table.slist td:first-child,
+table.slist th:first-child {
   padding-left: 25px;
 }
 div.lichess_goodies h2 {
@@ -967,7 +1037,12 @@ body.tight div.side_menu a {
   border: 1px solid #dadada;
   border-right: none;
 }
-#nb_connected_players, #reconnecting, a.goto_nav, #top a.toggle, #top a.bgpicker, a#sound_state {
+#nb_connected_players,
+#reconnecting,
+a.goto_nav,
+#top a.toggle,
+#top a.bgpicker,
+a#sound_state {
   text-decoration: none;
   font-size: 13px;
   height: 24px;
@@ -986,10 +1061,12 @@ body.offline #reconnecting {
 body.offline #nb_connected_players {
   display: none;
 }
-#nb_connected_players, #reconnecting {
+#nb_connected_players,
+#reconnecting {
   border-left: 1px solid #ccc;
 }
-#top a.goto_nav, #nb_connected_players {
+#top a.goto_nav,
+#nb_connected_players {
   float: left;
 }
 #top a.goto_nav.message {
@@ -998,7 +1075,10 @@ body.offline #nb_connected_players {
 #top .goto_nav {
   border-bottom: 2px solid transparent;
 }
-#top a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hover {
+#top a.goto_nav:hover,
+#top a.toggle:hover,
+#top a.bgpicker:hover,
+a#sound_state:hover {
   opacity: 1;
   color: #303030;
   border-color: #808080;
@@ -1009,7 +1089,7 @@ body.offline #nb_connected_players {
   border-color: #d85000;
 }
 #top .s16 {
-  display:block;
+  display: block;
   height: 16px;
   margin-top: 4px;
   line-height: 16px;
@@ -1024,7 +1104,7 @@ body.offline #nb_connected_players {
   background: #bbb;
   color: white;
   font-weight: bold;
-  border-radius:4px;
+  border-radius: 4px;
   font-size: 0.9em;
 }
 #top span.new_messages.unread {
@@ -1048,7 +1128,8 @@ body.offline #nb_connected_players {
   float: right;
   position: relative;
 }
-#top div.auth.shown form, #top div.auth.shown .links {
+#top div.auth.shown form,
+#top div.auth.shown .links {
   display: block;
 }
 #top div.auth .links a {
@@ -1067,12 +1148,13 @@ body.offline #nb_connected_players {
 #top div.auth .links .goto_profile {
   background-position: 0 -208px;
 }
-form.wide input[type="text"], form.wide textarea {
+form.wide input[type="text"],
+form.wide textarea {
   padding: 0.5em;
   border: 1px solid #D4D4D4;
 }
 #top a.toggle {
-  display:block;
+  display: block;
   padding-right: 4px;
   float: left;
 }
@@ -1095,7 +1177,8 @@ span.progress > .positive {
 span.progress > .negative {
   color: #D07070;
 }
-div.auth input.username, div.auth input.password {
+div.auth input.username,
+div.auth input.password {
   border: 1px solid #dadada;
   padding: 2px 3px;
   width: 100px;
@@ -1112,7 +1195,7 @@ ul.language_links {
   width: 620px;
   padding: 10px;
   max-height: 700px;
-  overflow:auto;
+  overflow: auto;
 }
 #top div.lichess_language.shown ul.language_links {
   display: block;
@@ -1122,14 +1205,16 @@ ul.language_links a {
   padding: 0.4em 0.5em;
   text-decoration: none;
 }
-ul.language_links a.current, ul.language_links a.accepted {
+ul.language_links a.current,
+ul.language_links a.accepted {
   font-weight: bold;
   color: #444;
 }
 ul.language_links a.accepted {
   text-decoration: underline;
 }
-ul.language_links a:hover, ul.language_links a.current {
+ul.language_links a:hover,
+ul.language_links a.current {
   background: #F0F0F0;
 }
 ul.language_links li {
@@ -1286,17 +1371,23 @@ span.s16.clock {
 .s16.chat {
   background-position: 0 -176px;
 }
-.user_link.white, .user_link.black, .user_link.online, .user_link.offline {
+.user_link.white,
+.user_link.black,
+.user_link.online,
+.user_link.offline {
   line-height: 16px;
   display: block;
   background: url(../images/s16.png) no-repeat;
   padding-left: 20px;
   white-space: nowrap;
 }
-.user_link.white, .s16.challenge, .s16.white {
+.user_link.white,
+.s16.challenge,
+.s16.white {
   background-position: 0 -240px;
 }
-.user_link.black, .s16.black {
+.user_link.black,
+.s16.black {
   background-position: 0 -256px;
 }
 .s16.random {
@@ -1341,13 +1432,38 @@ div.join_warning {
   margin-bottom: 15px;
 }
 /* soft inactive gradient */
- #top a.signin, div.lichess_chat_top, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, #hooks tr, #translation_call, #notifications > div, div.locale_menu a, table.slist thead {
+
+#top a.signin,
+div.lichess_chat_top,
+div.undertable_top,
+.button,
+.button:visited,
+.ui-state-default,
+div.content_box_top,
+#hooks tr,
+#translation_call,
+#notifications > div,
+div.locale_menu a,
+table.slist thead {
   color: #666;
   background: #efefef;
   background: linear-gradient(to bottom, #efefef, #e2e2e2);
 }
 /* active gradient */
- #top a.signin:hover, #top a.goto_nav.active, .button.active, .button.active:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, #top span.new_messages, #hooks td.action:hover, div.progressbar.flashy div, .button.strong:hover, div.locale_menu a.active, #import_game .progression {
+
+#top a.signin:hover,
+#top a.goto_nav.active,
+.button.active,
+.button.active:hover,
+.ui-state-active,
+.ui-widget-header,
+div.pagination span.current,
+#top span.new_messages,
+#hooks td.action:hover,
+div.progressbar.flashy div,
+.button.strong:hover,
+div.locale_menu a.active,
+#import_game .progression {
   color: #fff;
   background: #d85000;
   background: linear-gradient(to bottom, #d85000, #c84000);
@@ -1417,7 +1533,8 @@ div.game_analysis {
   padding: 10px;
   width: 492px;
 }
-div.game_analysis a, form.new_analysis a {
+div.game_analysis a,
+form.new_analysis a {
   background: url("../images/s24.png") no-repeat 0 -72px;
   display: block;
   height: 24px;
@@ -1457,7 +1574,8 @@ div.game_extra div.right_coll {
   max-width: 48%;
 }
 /* gamelist.css */
- div.game_row {
+
+div.game_row {
   display: block;
   padding: 1.4em 20px;
   height: 224px;
@@ -1603,7 +1721,8 @@ div.lcmp.king.black {
   background-position: -140px bottom;
 }
 /* opening.css */
- div.game_config button {
+
+div.game_config button {
   font-size: 1.4em;
   padding: 0 2em;
 }
@@ -1625,7 +1744,8 @@ div.game_config div.ui-buttonset {
 #config_level .ui-button {
   margin-right: -0.6em;
 }
-div.game_config .ui-button-text, div.game_config select {
+div.game_config .ui-button-text,
+div.game_config select {
   text-transform: capitalize;
 }
 div.game_config div.ui-slider {
@@ -1660,7 +1780,9 @@ div.game_config input#fen.failure {
 div.game_config .fen_position .mini_board {
   margin: 10px auto 0 auto;
 }
-div.game_config .time_choice, div.game_config .increment_choice, div.game_config .rating_range_config {
+div.game_config .time_choice,
+div.game_config .increment_choice,
+div.game_config .rating_range_config {
   padding-bottom: 1em;
   text-align: left;
   text-indent: 15px;
@@ -1680,12 +1802,14 @@ div.game_config button {
   display: inline-block;
   margin: 0 5px;
 }
-div.game_config button.black, div.game_config button.white {
+div.game_config button.black,
+div.game_config button.white {
   width: 50px;
   height: 50px;
   padding: 5px;
 }
-div.game_config button.black span, div.game_config button.white span {
+div.game_config button.black span,
+div.game_config button.white span {
   background: url(../images/choice-color.png) no-repeat;
   width: 40px;
   height: 40px;
@@ -1729,7 +1853,8 @@ div.game_config div.color_submits button.random span {
   border-bottom: 0;
   background: #dadada;
 }
-#hooks_wrap > div.tabs > a:hover, #hooks_wrap > div.tabs > a.active {
+#hooks_wrap > div.tabs > a:hover,
+#hooks_wrap > div.tabs > a.active {
   background: #f0f0f0;
 }
 #hooks_wrap > div.tabs > a.active {
@@ -1746,7 +1871,8 @@ div.game_config div.color_submits button.random span {
   display: block;
   text-decoration: none;
 }
-#hooks_wrap > a.filter:hover, #hooks_wrap > a.filter.active {
+#hooks_wrap > a.filter:hover,
+#hooks_wrap > a.filter.active {
   background: #fff;
 }
 #hooks_wrap > a.filter span.number {
@@ -1788,7 +1914,8 @@ div.game_config div.color_submits button.random span {
   padding: 3px 0;
   color: #444;
 }
-#hook_filter label.hover, #hook_filter input {
+#hook_filter label.hover,
+#hook_filter input {
   cursor: pointer;
 }
 #hook_filter td > label.hover:hover {
@@ -1921,8 +2048,8 @@ div.game_config div.color_submits button.random span {
 }
 #hooks_chart .plot.rated {
   border-radius: 3px;
-  transform:rotate(45deg);
-  -webkit-transform:rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
   width: 15px;
   height: 15px;
 }
@@ -1948,7 +2075,7 @@ div.game_config div.color_submits button.random span {
   color: #444;
   text-align: center;
   border: none;
-  box-shadow:0 0 9px #333;
+  box-shadow: 0 0 9px #333;
   background: #d0d0d0;
 }
 #hooks_chart .plot:hover {
@@ -1974,7 +2101,8 @@ div.game_config div.color_submits button.random span {
   width: 100%;
   height: 30px;
 }
-#hook .rating, #hook .clock {
+#hook .rating,
+#hook .clock {
   display: block;
   width: 60px;
   height: 20px;
@@ -2002,7 +2130,8 @@ div.game_config div.color_submits button.random span {
 #hook .mode {
   margin-top: 40px;
 }
-#hook .mode, #hook .chess960 {
+#hook .mode,
+#hook .chess960 {
   font-size: 1.25em;
   display: block;
 }
@@ -2261,10 +2390,12 @@ div.progressbar.flashy.green div {
 #notifications .action {
   margin-left: 10px;
 }
-a.hover_text > .base, a.hover_text:hover > .hover {
+a.hover_text > .base,
+a.hover_text:hover > .hover {
   display: inline-block;
 }
-a.hover_text > .hover, a.hover_text:hover > .base {
+a.hover_text > .hover,
+a.hover_text:hover > .base {
   display: none;
 }
 input:focus::-webkit-input-placeholder {
@@ -2285,7 +2416,8 @@ div.relation_actions {
 div.relation_actions a.button {
   padding: 0.3em 0.4em 0.3em 0.6em;
 }
-#powerTip div.relation_actions a.button, div.user_show div.relation_actions a.button {
+#powerTip div.relation_actions a.button,
+div.user_show div.relation_actions a.button {
   padding: 0.6em 0.8em 0.6em 1em;
 }
 div.relation_actions a.relation.processing {
@@ -2314,766 +2446,766 @@ div.relation_actions .icon span {
   display: block;
 }
 .flag {
-  background:url(/images/flags.png) no-repeat;
-  display:inline-block;
-  height:11px;
-  overflow:hidden;
-  width:16px;
+  background: url(/images/flags.png) no-repeat;
+  display: inline-block;
+  height: 11px;
+  overflow: hidden;
+  width: 16px;
 }
 .flag.ad {
-  background-position:0 0;
+  background-position: 0 0;
 }
 .flag.ae {
-  background-position:0 -21px;
+  background-position: 0 -21px;
 }
 .flag.af {
-  background-position:0 -42px;
+  background-position: 0 -42px;
 }
 .flag.ag {
-  background-position:0 -63px;
+  background-position: 0 -63px;
 }
 .flag.ai {
-  background-position:0 -84px;
+  background-position: 0 -84px;
 }
 .flag.al {
-  background-position:0 -105px;
+  background-position: 0 -105px;
 }
 .flag.am {
-  background-position:0 -126px;
+  background-position: 0 -126px;
 }
 .flag.an {
-  background-position:0 -147px;
+  background-position: 0 -147px;
 }
 .flag.ao {
-  background-position:0 -168px;
+  background-position: 0 -168px;
 }
 .flag.ar {
-  background-position:0 -189px;
+  background-position: 0 -189px;
 }
 .flag.as {
-  background-position:0 -210px;
+  background-position: 0 -210px;
 }
 .flag.at {
-  background-position:0 -231px;
+  background-position: 0 -231px;
 }
 .flag.au {
-  background-position:0 -252px;
+  background-position: 0 -252px;
 }
 .flag.aw {
-  background-position:0 -273px;
+  background-position: 0 -273px;
 }
 .flag.ax {
-  background-position:0 -294px;
+  background-position: 0 -294px;
 }
 .flag.az {
-  background-position:0 -315px;
+  background-position: 0 -315px;
 }
 .flag.ba {
-  background-position:0 -336px;
+  background-position: 0 -336px;
 }
 .flag.bb {
-  background-position:0 -357px;
+  background-position: 0 -357px;
 }
 .flag.bd {
-  background-position:0 -378px;
+  background-position: 0 -378px;
 }
 .flag.be {
-  background-position:0 -399px;
+  background-position: 0 -399px;
 }
 .flag.bf {
-  background-position:0 -420px;
+  background-position: 0 -420px;
 }
 .flag.bg {
-  background-position:0 -441px;
+  background-position: 0 -441px;
 }
 .flag.bh {
-  background-position:0 -462px;
+  background-position: 0 -462px;
 }
 .flag.bi {
-  background-position:0 -483px;
+  background-position: 0 -483px;
 }
 .flag.bj {
-  background-position:0 -504px;
+  background-position: 0 -504px;
 }
 .flag.bm {
-  background-position:0 -525px;
+  background-position: 0 -525px;
 }
 .flag.bn {
-  background-position:0 -546px;
+  background-position: 0 -546px;
 }
 .flag.bo {
-  background-position:0 -567px;
+  background-position: 0 -567px;
 }
 .flag.bq {
-  background-position:0 -588px;
+  background-position: 0 -588px;
 }
 .flag.br {
-  background-position:0 -609px;
+  background-position: 0 -609px;
 }
 .flag.bs {
-  background-position:0 -630px;
+  background-position: 0 -630px;
 }
 .flag.bt {
-  background-position:0 -651px;
+  background-position: 0 -651px;
 }
 .flag.bv {
-  background-position:0 -672px;
+  background-position: 0 -672px;
 }
 .flag.bw {
-  background-position:0 -693px;
+  background-position: 0 -693px;
 }
 .flag.by {
-  background-position:0 -714px;
+  background-position: 0 -714px;
 }
 .flag.bz {
-  background-position:0 -735px;
+  background-position: 0 -735px;
 }
 .flag.ca {
-  background-position:0 -756px;
+  background-position: 0 -756px;
 }
 .flag.cc {
-  background-position:0 -777px;
+  background-position: 0 -777px;
 }
 .flag.cd {
-  background-position:0 -798px;
+  background-position: 0 -798px;
 }
 .flag.cf {
-  background-position:0 -819px;
+  background-position: 0 -819px;
 }
 .flag.cg {
-  background-position:0 -840px;
+  background-position: 0 -840px;
 }
 .flag.ch {
-  background-position:0 -861px;
+  background-position: 0 -861px;
 }
 .flag.ci {
-  background-position:0 -882px;
+  background-position: 0 -882px;
 }
 .flag.ck {
-  background-position:0 -903px;
+  background-position: 0 -903px;
 }
 .flag.cl {
-  background-position:0 -924px;
+  background-position: 0 -924px;
 }
 .flag.cm {
-  background-position:0 -945px;
+  background-position: 0 -945px;
 }
 .flag.cn {
-  background-position:0 -966px;
+  background-position: 0 -966px;
 }
 .flag.co {
-  background-position:0 -987px;
+  background-position: 0 -987px;
 }
 .flag.cr {
-  background-position:0 -1008px;
+  background-position: 0 -1008px;
 }
 .flag.cs {
-  background-position:0 -1029px;
+  background-position: 0 -1029px;
 }
 .flag.ct {
-  background-position:0 -1050px;
+  background-position: 0 -1050px;
 }
 .flag.cu {
-  background-position:0 -1071px;
+  background-position: 0 -1071px;
 }
 .flag.cv {
-  background-position:0 -1092px;
+  background-position: 0 -1092px;
 }
 .flag.cx {
-  background-position:0 -1113px;
+  background-position: 0 -1113px;
 }
 .flag.cy {
-  background-position:0 -1134px;
+  background-position: 0 -1134px;
 }
 .flag.cz {
-  background-position:0 -1155px;
+  background-position: 0 -1155px;
 }
 .flag.de {
-  background-position:0 -1176px;
+  background-position: 0 -1176px;
 }
 .flag.dj {
-  background-position:0 -1197px;
+  background-position: 0 -1197px;
 }
 .flag.dk {
-  background-position:0 -1218px;
+  background-position: 0 -1218px;
 }
 .flag.dm {
-  background-position:0 -1239px;
+  background-position: 0 -1239px;
 }
 .flag.do {
-  background-position:0 -1260px;
+  background-position: 0 -1260px;
 }
 .flag.dz {
-  background-position:0 -1281px;
+  background-position: 0 -1281px;
 }
 .flag.ec {
-  background-position:0 -1302px;
+  background-position: 0 -1302px;
 }
 .flag.ee {
-  background-position:0 -1323px;
+  background-position: 0 -1323px;
 }
 .flag.eg {
-  background-position:0 -1344px;
+  background-position: 0 -1344px;
 }
 .flag.eh {
-  background-position:0 -1365px;
+  background-position: 0 -1365px;
 }
 .flag.en {
-  background-position:0 -1386px;
+  background-position: 0 -1386px;
 }
 .flag.er {
-  background-position:0 -1428px;
+  background-position: 0 -1428px;
 }
 .flag.es {
-  background-position:0 -1449px;
+  background-position: 0 -1449px;
 }
 .flag.et {
-  background-position:0 -1470px;
+  background-position: 0 -1470px;
 }
 .flag.eu {
-  background-position:0 -1491px;
+  background-position: 0 -1491px;
 }
 .flag.fi {
-  background-position:0 -1533px;
+  background-position: 0 -1533px;
 }
 .flag.fj {
-  background-position:0 -1554px;
+  background-position: 0 -1554px;
 }
 .flag.fk {
-  background-position:0 -1575px;
+  background-position: 0 -1575px;
 }
 .flag.fm {
-  background-position:0 -1596px;
+  background-position: 0 -1596px;
 }
 .flag.fo {
-  background-position:0 -1617px;
+  background-position: 0 -1617px;
 }
 .flag.fr {
-  background-position:0 -1638px;
+  background-position: 0 -1638px;
 }
 .flag.ga {
-  background-position:0 -1659px;
+  background-position: 0 -1659px;
 }
 .flag.gb {
-  background-position:0 -1680px;
+  background-position: 0 -1680px;
 }
 .flag.gc {
-  background-position:0 -1701px;
+  background-position: 0 -1701px;
 }
 .flag.gd {
-  background-position:0 -1722px;
+  background-position: 0 -1722px;
 }
 .flag.ge {
-  background-position:0 -1743px;
+  background-position: 0 -1743px;
 }
 .flag.gg {
-  background-position:0 -1764px;
+  background-position: 0 -1764px;
 }
 .flag.gh {
-  background-position:0 -1785px;
+  background-position: 0 -1785px;
 }
 .flag.gi {
-  background-position:0 -1806px;
+  background-position: 0 -1806px;
 }
 .flag.gl {
-  background-position:0 -1827px;
+  background-position: 0 -1827px;
 }
 .flag.gm {
-  background-position:0 -1848px;
+  background-position: 0 -1848px;
 }
 .flag.gn {
-  background-position:0 -1869px;
+  background-position: 0 -1869px;
 }
 .flag.gp {
-  background-position:0 -1890px;
+  background-position: 0 -1890px;
 }
 .flag.gq {
-  background-position:0 -1911px;
+  background-position: 0 -1911px;
 }
 .flag.gr {
-  background-position:0 -1932px;
+  background-position: 0 -1932px;
 }
 .flag.gs {
-  background-position:0 -1953px;
+  background-position: 0 -1953px;
 }
 .flag.gt {
-  background-position:0 -1974px;
+  background-position: 0 -1974px;
 }
 .flag.gu {
-  background-position:0 -1995px;
+  background-position: 0 -1995px;
 }
 .flag.gw {
-  background-position:0 -2016px;
+  background-position: 0 -2016px;
 }
 .flag.gy {
-  background-position:0 -2037px;
+  background-position: 0 -2037px;
 }
 .flag.hk {
-  background-position:0 -2058px;
+  background-position: 0 -2058px;
 }
 .flag.hn {
-  background-position:0 -2079px;
+  background-position: 0 -2079px;
 }
 .flag.hr {
-  background-position:0 -2100px;
+  background-position: 0 -2100px;
 }
 .flag.ht {
-  background-position:0 -2121px;
+  background-position: 0 -2121px;
 }
 .flag.hu {
-  background-position:0 -2142px;
+  background-position: 0 -2142px;
 }
 .flag.id {
-  background-position:0 -2163px;
+  background-position: 0 -2163px;
 }
 .flag.ie {
-  background-position:0 -2184px;
+  background-position: 0 -2184px;
 }
 .flag.il {
-  background-position:0 -2205px;
+  background-position: 0 -2205px;
 }
 .flag.im {
-  background-position:0 -2226px;
+  background-position: 0 -2226px;
 }
 .flag.in {
-  background-position:0 -2247px;
+  background-position: 0 -2247px;
 }
 .flag.io {
-  background-position:0 -2268px;
+  background-position: 0 -2268px;
 }
 .flag.iq {
-  background-position:0 -2289px;
+  background-position: 0 -2289px;
 }
 .flag.ir {
-  background-position:0 -2310px;
+  background-position: 0 -2310px;
 }
 .flag.is {
-  background-position:0 -2331px;
+  background-position: 0 -2331px;
 }
 .flag.it {
-  background-position:0 -2352px;
+  background-position: 0 -2352px;
 }
 .flag.je {
-  background-position:0 -2373px;
+  background-position: 0 -2373px;
 }
 .flag.jm {
-  background-position:0 -2394px;
+  background-position: 0 -2394px;
 }
 .flag.jo {
-  background-position:0 -2415px;
+  background-position: 0 -2415px;
 }
 .flag.jp {
-  background-position:0 -2436px;
+  background-position: 0 -2436px;
 }
 .flag.ke {
-  background-position:0 -2457px;
+  background-position: 0 -2457px;
 }
 .flag.kg {
-  background-position:0 -2478px;
+  background-position: 0 -2478px;
 }
 .flag.kh {
-  background-position:0 -2499px;
+  background-position: 0 -2499px;
 }
 .flag.ki {
-  background-position:0 -2520px;
+  background-position: 0 -2520px;
 }
 .flag.km {
-  background-position:0 -2541px;
+  background-position: 0 -2541px;
 }
 .flag.kn {
-  background-position:0 -2562px;
+  background-position: 0 -2562px;
 }
 .flag.ko {
-  background-position:0 -2583px;
+  background-position: 0 -2583px;
 }
 .flag.kp {
-  background-position:0 -2604px;
+  background-position: 0 -2604px;
 }
 .flag.kr {
-  background-position:0 -2625px;
+  background-position: 0 -2625px;
 }
 .flag.kw {
-  background-position:0 -2646px;
+  background-position: 0 -2646px;
 }
 .flag.ky {
-  background-position:0 -2667px;
+  background-position: 0 -2667px;
 }
 .flag.kz {
-  background-position:0 -2688px;
+  background-position: 0 -2688px;
 }
 .flag.la {
-  background-position:0 -2709px;
+  background-position: 0 -2709px;
 }
 .flag.lb {
-  background-position:0 -2730px;
+  background-position: 0 -2730px;
 }
 .flag.lc {
-  background-position:0 -2751px;
+  background-position: 0 -2751px;
 }
 .flag.li {
-  background-position:0 -2772px;
+  background-position: 0 -2772px;
 }
 .flag.lk {
-  background-position:0 -2793px;
+  background-position: 0 -2793px;
 }
 .flag.lr {
-  background-position:0 -2814px;
+  background-position: 0 -2814px;
 }
 .flag.ls {
-  background-position:0 -2835px;
+  background-position: 0 -2835px;
 }
 .flag.lt {
-  background-position:0 -2856px;
+  background-position: 0 -2856px;
 }
 .flag.lu {
-  background-position:0 -2877px;
+  background-position: 0 -2877px;
 }
 .flag.lv {
-  background-position:0 -2898px;
+  background-position: 0 -2898px;
 }
 .flag.ly {
-  background-position:0 -2919px;
+  background-position: 0 -2919px;
 }
 .flag.ma {
-  background-position:0 -2940px;
+  background-position: 0 -2940px;
 }
 .flag.mc {
-  background-position:0 -2961px;
+  background-position: 0 -2961px;
 }
 .flag.md {
-  background-position:0 -2982px;
+  background-position: 0 -2982px;
 }
 .flag.me {
-  background-position:0 -3003px;
+  background-position: 0 -3003px;
 }
 .flag.mg {
-  background-position:0 -3024px;
+  background-position: 0 -3024px;
 }
 .flag.mh {
-  background-position:0 -3045px;
+  background-position: 0 -3045px;
 }
 .flag.mk {
-  background-position:0 -3066px;
+  background-position: 0 -3066px;
 }
 .flag.ml {
-  background-position:0 -3087px;
+  background-position: 0 -3087px;
 }
 .flag.mm {
-  background-position:0 -3108px;
+  background-position: 0 -3108px;
 }
 .flag.mn {
-  background-position:0 -3129px;
+  background-position: 0 -3129px;
 }
 .flag.mo {
-  background-position:0 -3150px;
+  background-position: 0 -3150px;
 }
 .flag.mp {
-  background-position:0 -3171px;
+  background-position: 0 -3171px;
 }
 .flag.mq {
-  background-position:0 -3192px;
+  background-position: 0 -3192px;
 }
 .flag.mr {
-  background-position:0 -3213px;
+  background-position: 0 -3213px;
 }
 .flag.ms {
-  background-position:0 -3234px;
+  background-position: 0 -3234px;
 }
 .flag.mt {
-  background-position:0 -3255px;
+  background-position: 0 -3255px;
 }
 .flag.mu {
-  background-position:0 -3276px;
+  background-position: 0 -3276px;
 }
 .flag.mv {
-  background-position:0 -3297px;
+  background-position: 0 -3297px;
 }
 .flag.mw {
-  background-position:0 -3318px;
+  background-position: 0 -3318px;
 }
 .flag.mx {
-  background-position:0 -3339px;
+  background-position: 0 -3339px;
 }
 .flag.my {
-  background-position:0 -3360px;
+  background-position: 0 -3360px;
 }
 .flag.mz {
-  background-position:0 -3381px;
+  background-position: 0 -3381px;
 }
 .flag.na {
-  background-position:0 -3402px;
+  background-position: 0 -3402px;
 }
 .flag.nc {
-  background-position:0 -3423px;
+  background-position: 0 -3423px;
 }
 .flag.ne {
-  background-position:0 -3444px;
+  background-position: 0 -3444px;
 }
 .flag.nf {
-  background-position:0 -3465px;
+  background-position: 0 -3465px;
 }
 .flag.ng {
-  background-position:0 -3486px;
+  background-position: 0 -3486px;
 }
 .flag.ni {
-  background-position:0 -3507px;
+  background-position: 0 -3507px;
 }
 .flag.nl {
-  background-position:0 -3528px;
+  background-position: 0 -3528px;
 }
 .flag.no {
-  background-position:0 -3549px;
+  background-position: 0 -3549px;
 }
 .flag.np {
-  background-position:0 -3570px;
+  background-position: 0 -3570px;
 }
 .flag.nr {
-  background-position:0 -3591px;
+  background-position: 0 -3591px;
 }
 .flag.nu {
-  background-position:0 -3612px;
+  background-position: 0 -3612px;
 }
 .flag.nz {
-  background-position:0 -3633px;
+  background-position: 0 -3633px;
 }
 .flag.om {
-  background-position:0 -3654px;
+  background-position: 0 -3654px;
 }
 .flag.pa {
-  background-position:0 -3675px;
+  background-position: 0 -3675px;
 }
 .flag.pe {
-  background-position:0 -3696px;
+  background-position: 0 -3696px;
 }
 .flag.pf {
-  background-position:0 -3717px;
+  background-position: 0 -3717px;
 }
 .flag.pg {
-  background-position:0 -3738px;
+  background-position: 0 -3738px;
 }
 .flag.ph {
-  background-position:0 -3759px;
+  background-position: 0 -3759px;
 }
 .flag.pk {
-  background-position:0 -3780px;
+  background-position: 0 -3780px;
 }
 .flag.pl {
-  background-position:0 -3801px;
+  background-position: 0 -3801px;
 }
 .flag.pm {
-  background-position:0 -3822px;
+  background-position: 0 -3822px;
 }
 .flag.pn {
-  background-position:0 -3843px;
+  background-position: 0 -3843px;
 }
 .flag.pr {
-  background-position:0 -3864px;
+  background-position: 0 -3864px;
 }
 .flag.ps {
-  background-position:0 -3885px;
+  background-position: 0 -3885px;
 }
 .flag.pt {
-  background-position:0 -3906px;
+  background-position: 0 -3906px;
 }
 .flag.pw {
-  background-position:0 -3927px;
+  background-position: 0 -3927px;
 }
 .flag.py {
-  background-position:0 -3948px;
+  background-position: 0 -3948px;
 }
 .flag.qa {
-  background-position:0 -3969px;
+  background-position: 0 -3969px;
 }
 .flag.ro {
-  background-position:0 -3990px;
+  background-position: 0 -3990px;
 }
 .flag.rs {
-  background-position:0 -4011px;
+  background-position: 0 -4011px;
 }
 .flag.ru {
-  background-position:0 -4032px;
+  background-position: 0 -4032px;
 }
 .flag.rw {
-  background-position:0 -4053px;
+  background-position: 0 -4053px;
 }
 .flag.sa {
-  background-position:0 -4074px;
+  background-position: 0 -4074px;
 }
 .flag.sb {
-  background-position:0 -4095px;
+  background-position: 0 -4095px;
 }
 .flag.sc {
-  background-position:0 -4116px;
+  background-position: 0 -4116px;
 }
 .flag.sd {
-  background-position:0 -4158px;
+  background-position: 0 -4158px;
 }
 .flag.se {
-  background-position:0 -4179px;
+  background-position: 0 -4179px;
 }
 .flag.sg {
-  background-position:0 -4200px;
+  background-position: 0 -4200px;
 }
 .flag.sh {
-  background-position:0 -4221px;
+  background-position: 0 -4221px;
 }
 .flag.si {
-  background-position:0 -4242px;
+  background-position: 0 -4242px;
 }
 .flag.sk {
-  background-position:0 -4263px;
+  background-position: 0 -4263px;
 }
 .flag.sl {
-  background-position:0 -4284px;
+  background-position: 0 -4284px;
 }
 .flag.sm {
-  background-position:0 -4305px;
+  background-position: 0 -4305px;
 }
 .flag.sn {
-  background-position:0 -4326px;
+  background-position: 0 -4326px;
 }
 .flag.so {
-  background-position:0 -4347px;
+  background-position: 0 -4347px;
 }
 .flag.sr {
-  background-position:0 -4368px;
+  background-position: 0 -4368px;
 }
 .flag.ss {
-  background-position:0 -4389px;
+  background-position: 0 -4389px;
 }
 .flag.st {
-  background-position:0 -4410px;
+  background-position: 0 -4410px;
 }
 .flag.sv {
-  background-position:0 -4431px;
+  background-position: 0 -4431px;
 }
 .flag.sx {
-  background-position:0 -4452px;
+  background-position: 0 -4452px;
 }
 .flag.sy {
-  background-position:0 -4473px;
+  background-position: 0 -4473px;
 }
 .flag.sz {
-  background-position:0 -4494px;
+  background-position: 0 -4494px;
 }
 .flag.tc {
-  background-position:0 -4515px;
+  background-position: 0 -4515px;
 }
 .flag.td {
-  background-position:0 -4536px;
+  background-position: 0 -4536px;
 }
 .flag.tf {
-  background-position:0 -4557px;
+  background-position: 0 -4557px;
 }
 .flag.tg {
-  background-position:0 -4578px;
+  background-position: 0 -4578px;
 }
 .flag.th {
-  background-position:0 -4599px;
+  background-position: 0 -4599px;
 }
 .flag.tj {
-  background-position:0 -4620px;
+  background-position: 0 -4620px;
 }
 .flag.tk {
-  background-position:0 -4641px;
+  background-position: 0 -4641px;
 }
 .flag.tl {
-  background-position:0 -4662px;
+  background-position: 0 -4662px;
 }
 .flag.tm {
-  background-position:0 -4683px;
+  background-position: 0 -4683px;
 }
 .flag.tn {
-  background-position:0 -4704px;
+  background-position: 0 -4704px;
 }
 .flag.to {
-  background-position:0 -4725px;
+  background-position: 0 -4725px;
 }
 .flag.tr {
-  background-position:0 -4746px;
+  background-position: 0 -4746px;
 }
 .flag.tt {
-  background-position:0 -4767px;
+  background-position: 0 -4767px;
 }
 .flag.tv {
-  background-position:0 -4788px;
+  background-position: 0 -4788px;
 }
 .flag.tw {
-  background-position:0 -4809px;
+  background-position: 0 -4809px;
 }
 .flag.tz {
-  background-position:0 -4830px;
+  background-position: 0 -4830px;
 }
 .flag.ua {
-  background-position:0 -4851px;
+  background-position: 0 -4851px;
 }
 .flag.ug {
-  background-position:0 -4872px;
+  background-position: 0 -4872px;
 }
 .flag.um {
-  background-position:0 -4893px;
+  background-position: 0 -4893px;
 }
 .flag.us {
-  background-position:0 -4914px;
+  background-position: 0 -4914px;
 }
 .flag.uy {
-  background-position:0 -4935px;
+  background-position: 0 -4935px;
 }
 .flag.uz {
-  background-position:0 -4956px;
+  background-position: 0 -4956px;
 }
 .flag.va {
-  background-position:0 -4977px;
+  background-position: 0 -4977px;
 }
 .flag.vc {
-  background-position:0 -4998px;
+  background-position: 0 -4998px;
 }
 .flag.ve {
-  background-position:0 -5019px;
+  background-position: 0 -5019px;
 }
 .flag.vg {
-  background-position:0 -5040px;
+  background-position: 0 -5040px;
 }
 .flag.vi {
-  background-position:0 -5061px;
+  background-position: 0 -5061px;
 }
 .flag.vn {
-  background-position:0 -5082px;
+  background-position: 0 -5082px;
 }
 .flag.vu {
-  background-position:0 -5103px;
+  background-position: 0 -5103px;
 }
 .flag.wf {
-  background-position:0 -5145px;
+  background-position: 0 -5145px;
 }
 .flag.wl {
-  background-position:0 -5166px;
+  background-position: 0 -5166px;
 }
 .flag.ws {
-  background-position:0 -5187px;
+  background-position: 0 -5187px;
 }
 .flag.ye {
-  background-position:0 -5234px;
+  background-position: 0 -5234px;
 }
 .flag.yt {
-  background-position:0 -5255px;
+  background-position: 0 -5255px;
 }
 .flag.yu {
-  background-position:0 -5276px;
+  background-position: 0 -5276px;
 }
 .flag.za {
-  background-position:0 -5297px;
+  background-position: 0 -5297px;
 }
 .flag.zm {
-  background-position:0 -5318px;
+  background-position: 0 -5318px;
 }
 .flag.zw {
-  background-position:0 -5339px;
+  background-position: 0 -5339px;
 }
 .flag.zz {
-  top:2px;
+  top: 2px;
 }
 .flag.zz {
-  background-position:0 -5208px;
-  height:16px;
+  background-position: 0 -5208px;
+  height: 16px;
 }
