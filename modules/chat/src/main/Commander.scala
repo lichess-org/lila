@@ -69,6 +69,8 @@ private[chat] final class Commander(
         }
       }
 
+      case "height" :: height :: Nil                            ⇒ parseIntOption(height) foreach { h ⇒ chat ! SetHeight(member, h) }
+
       case ("rematch" | "resign" | "abort" | "takeback") :: Nil ⇒ gameOnlyCommand(member)
       case MoveRegex(orig, dest) :: Nil                         ⇒ gameOnlyCommand(member)
 

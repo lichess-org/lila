@@ -1,6 +1,9 @@
 package lila.pref
 
-import scala._
+import play.api.libs.json._
+
+import lila.db.JsTube
+import lila.db.JsTube.Helpers._
 
 case class Pref(
     id: String, // user id
@@ -33,6 +36,7 @@ object Pref {
 
   case class ChatPref(
       on: Boolean,
+      height: Int,
       chans: List[String],
       activeChans: Set[String],
       mainChan: Option[String]) {
@@ -42,7 +46,15 @@ object Pref {
 
   object ChatPref {
 
-    val default = ChatPref(false, Nil, Set.empty, none)
+    val default = ChatPref(false, 195, Nil, Set.empty, none)
+
+    private[pref] implicit lazy val tube = JsTube[ChatPref](
+      (__.json update merge(defaults)) andThen Json.reads[ChatPref],
+      Json.writes[ChatPref])
+
+    private[pref] def defaults = Json.obj(
+      "on" -> ChatPref.default.on,
+      "height" -> ChatPref.default.height)
   }
 
   object AutoQueen {
@@ -70,16 +82,11 @@ object Pref {
   private val booleans = Map("true" -> true, "false" -> false)
   private val bgs = Map("light" -> false, "dark" -> true)
 
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private implicit lazy val chatFormat = Json.format[ChatPref]
+  import ChatPref.tube
 
   private[pref] lazy val tube = JsTube[Pref](
     (__.json update merge(defaults)) andThen Json.reads[Pref],
-    Json.writes[Pref]
-  )
+    Json.writes[Pref])
 
   private def defaults = Json.obj(
     "dark" -> default.dark,

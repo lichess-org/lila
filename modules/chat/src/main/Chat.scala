@@ -44,8 +44,7 @@ case class ChatHead(
 
   def inactiveChanKeys = chanKeys filterNot activeChanKeys.contains
 
-  def updatePref(pref: ChatPref) = ChatPref(
-    on = pref.on,
+  def updatePref(pref: ChatPref) = pref.copy(
     chans = chans filterNot (_.contextual) map (_.key),
     activeChans = activeChanKeys filterNot Chan.autoActive,
     mainChan = (mainChanKey filterNot Chan.autoActive) orElse pref.mainChan)

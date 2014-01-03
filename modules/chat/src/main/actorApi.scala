@@ -7,6 +7,7 @@ case class Command(chanOption: Option[Chan], member: ChatMember, text: String)
 case class Flash(member: ChatMember, text: String)
 
 case class SetOpen(member: ChatMember, value: Boolean)
+case class SetHeight(member: ChatMember, value: Int)
 
 case class Query(member: ChatMember, username: String)
 
