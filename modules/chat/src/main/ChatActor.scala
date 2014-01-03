@@ -51,6 +51,8 @@ private[chat] final class ChatActor(
       saveAndReload(member)
     }
 
+    case Say(chan, member, text) => api.write(chan.key, member.userId, text) foreach { _ foreach self.! }
+
     case Activate(member, chan) ⇒ api.active(member, chan) foreach { head ⇒
       member setHead head
       saveAndReload(member)
@@ -106,9 +108,7 @@ private[chat] final class ChatActor(
         case "chat.tell" ⇒ data str "text" foreach { text ⇒
           val chanOption = data str "chan" flatMap Chan.parse
           if (text startsWith "/") commander ! Command(chanOption, member, text drop 1)
-          else chanOption foreach { chan ⇒
-            api.write(chan.key, member.userId, text) foreach { _ foreach self.! }
-          }
+          else chanOption foreach { chan ⇒ self ! Say(chan, member, text) }
         }
       }
     }

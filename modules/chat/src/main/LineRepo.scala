@@ -19,7 +19,7 @@ object LineRepo {
 
   def find(chanKeys: Set[String], troll: Boolean, blocks: Set[String], limit: Int): Fu[List[Line]] =
     $find($query(
-      troll.fold(Json.obj(), Json.obj(L.troll -> false)) ++
+      Json.obj(L.troll -> troll.fold($in(List(true, false)), JsBoolean(false))) ++
         Json.obj(L.userId -> $nin(blocks)) ++
         Json.obj(L.chan -> $in(chanKeys))
     ) sort $sort.desc(L.date), limit)

@@ -958,15 +958,15 @@ var storage = {
       else if (text == '/open') {
         self.$wrap.addClass('on');
         self._joinFirst();
-      } else if (text.match(/\/msg\s(\w+)/)) {
-        location.href = '/inbox/new?username=' + text.match(/\/msg\s(\w+)/)[1];
+      } else if (text.match(/^\/msg\s(\w+)/)) {
+        location.href = '/inbox/new?username=' + text.match(/^\/msg\s(\w+)/)[1];
         return;
-      } else if (text.match(/\/report\s(\w+)/)) {
-        location.href = '/report?username=' + text.match(/\/report\s(\w+)/)[1];
+      } else if (text.match(/^\/report\s(\w+)/)) {
+        location.href = '/report?username=' + text.match(/^\/report\s(\w+)/)[1];
         return;
       } else if ($('div.lichess_game').length) {
         var $game = $('div.lichess_game');
-        var poses = text.match(/\/([a-h][1-8])\s?([a-h][1-8])/);
+        var poses = text.match(/^\/([a-h][1-8])\s?([a-h][1-8])/);
         if (poses && poses.length == 3) return $game.game('apiMove', poses[1], poses[2]);
         else if (text == '/resign') return $('a.lichess_resign').click();
         else if (text == '/rematch') return $('a.lichess_rematch').click();
@@ -1013,7 +1013,7 @@ var storage = {
         var sys = line.user == self.systemUsername;
         return '<div class="line ' + (main ? 'main' : color) + ' ' + (sys ? 'sys' : '') + '">' +
           (sys ?
-          '<pre class="text ' + (main ? '' : color) + '">' + line.html + '</pre>' :
+          '<div class="text ' + (main ? '' : color) + '">' + line.html + '</div>' :
           '<div class="user">' + $.userLinkLimit(line.user, 14, color) + '</div>' +
           '<div class="text ' + (main ? '' : color) + '">' + line.html + '</div>') +
           '</div>';
@@ -1048,8 +1048,9 @@ var storage = {
         var chan = self.head.chans[self.head.mainChan];
         self.$form.show();
         self.$invite.text(chan.name).attr('class', 'invite ' + self._colorClass(index));
-        self.$input.css({
-          width: (self.$form.width() - self.$invite.width() - 50) + 'px',
+        var width = self.$form.width() - self.$invite.width() - 50;
+        if (width > 0) self.$input.css({
+          width: width + 'px',
           paddingLeft: (self.$invite.width() + 40) + 'px'
         });
       } else {
