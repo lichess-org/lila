@@ -40,6 +40,8 @@ case class ChatHead(
 
   def join(c: Chan) = setChan(c, true).setActiveChanKey(c.key, true).setMainChanKey(c.key.some)
 
+  def part(c: Chan) = setChan(c, false)
+
   def inactiveChanKeys = chanKeys filterNot activeChanKeys.contains
 
   def updatePref(pref: ChatPref) = ChatPref(
@@ -47,6 +49,8 @@ case class ChatHead(
     chans = chans filterNot (_.contextual) map (_.key),
     activeChans = activeChanKeys filterNot Chan.autoActive,
     mainChan = (mainChanKey filterNot Chan.autoActive) orElse pref.mainChan)
+
+  def sees(line: Line) = (chanKeys contains line.chan.key) && (activeChanKeys contains line.chan.key)
 
   def sorted = copy(chans = chans.sorted)
 }

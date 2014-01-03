@@ -437,49 +437,66 @@ div.footer div.right {
   position: fixed;
   bottom: 0;
 }
+#chat_wrap div.left {
+  float: left;
+  width: 220px;
+  border-right: 1px solid #ccc;
+}
+#chat_wrap div.right {
+  float: right;
+  width: 220px;
+  border-left: 1px solid #ccc;
+}
+#chat_wrap div.center {
+  margin: 0 221px;
+}
 #chat_wrap > .bar {
   width: 100%;
   height: 32px;
-  border-top: 1px solid #444;
-  background: rgba(20, 20, 20, 0.9);
+  border-top: 1px solid #ccc;
+  background: rgba(230, 230, 230, 0.7);
   position: relative;
+  cursor: pointer;
 }
 #chat_wrap.on > .bar {
   display: none;
 }
-#chat_wrap > .bar > * {
-  position: absolute;
-  top: 0;
-  display:inline-block;
+#chat_wrap > .bar:hover {
+  background: #ccc;
+}
+#chat_wrap > .bar > div > * {
   height: 32px;
   line-height: 32px;
   text-decoration: none;
-  text-transform: uppercase;
 }
-#chat_wrap > .bar > *:hover {
-  background-color: #0a0a0a;
-}
-#chat_wrap > .bar > .on {
-  left: 0;
+#chat_wrap > .bar .on {
+  display:block;
   background: url(/assets/images/open32.png) top left no-repeat;
   background-position: +10px +1px;
   font-size: 1.2em;
   padding: 0 10px 0 46px;
+  text-transform: uppercase;
 }
-#chat_wrap > .bar > .friends {
-  right: 0;
-  width: 220px;
+#chat_wrap > .bar .last {
+  display: block;
+}
+#chat_wrap > .bar .last > span {
+  display: inline-block;
+  margin-left: 10px;
+  color: #505050;
+}
+#chat_wrap > .bar .friends {
   text-transform: capitalize;
   text-align: center;
-  border-left: 1px solid #444;
 }
 #chat {
   width: 100%;
   height: 195px;
-  border-top: 1px solid #444;
+  border-top: 1px solid #ccc;
   position: relative;
   display: none;
-  background: rgba(20, 20, 20, 0.9);
+  background: #f0f0f0;
+  box-shadow: 0 0 15px #888;
 }
 #chat_wrap.on #chat {
   display: block;
@@ -499,7 +516,7 @@ div.footer div.right {
   -webkit-transform: rotate(180deg);
 }
 #chat > .off:hover {
-  background-color: #0a0a0a;
+  background-color: #ccc;
 }
 #chat > .help {
   display: inline-block;
@@ -509,16 +526,13 @@ div.footer div.right {
   height: 16px;
   line-height: 16px;
   padding: 0 8px;
-  border-top: 1px solid #444;
-  border-right: 1px solid #444;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
   text-decoration: none;
-  background: rgba(20, 20, 20, 0.9);
+  background: #f0f0f0;
 }
 #chat > .chans {
-  float: left;
-  width: 220px;
   height: 100%;
-  border-right: 1px solid #444;
 }
 #chat .chan {
   display: block;
@@ -526,17 +540,32 @@ div.footer div.right {
   line-height: 27px;
   height: 27px;
   padding: 0px 10px;
-  border-bottom: 1px solid #3a3a3a;
+  border-bottom: 1px solid #ccc;
   cursor: pointer;
 }
 #chat .chan.main {
-  background: #030303;
+  background: #ccc;
 }
 #chat .chan > .name {
   display: block;
   margin-right: 20px;
   white-space: nowrap;
   overflow: hidden;
+}
+#chat .chan > .close {
+  text-decoration: none;
+  float: left;
+  display: none;
+  height: 17px;
+  line-height: 17px;
+  margin: 3px 0 0 -7px;
+  padding: 2px 8px;
+}
+#chat .chan:hover > .close {
+  display: block;
+}
+#chat a.close:hover {
+  background-color: #ccc;
 }
 #chat div.check {
   float: right;
@@ -557,8 +586,8 @@ div.footer div.right {
   border-radius: 4px;
 }
 #chat .chan:hover div.check label {
-  background: linear-gradient(to bottom, #222 0%, #45484d 100%);
-  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, .4);
+  background: #c5c8cd;
+  background: linear-gradient(to bottom, #ccc 0%, #a5a8ad 100%);
 }
 #chat div.check label:after {
   opacity: 0;
@@ -569,7 +598,7 @@ div.footer div.right {
   background: transparent;
   top: 5px;
   left: 4px;
-  border: 3px solid #fcfff4;
+  border: 3px solid #0c0f04;
   border-top: none;
   border-right: none;
   transform: rotate(-45deg);
@@ -584,14 +613,10 @@ div.footer div.right {
 #chat .chan:hover div.check input[type=checkbox]:checked + label:after {
   opacity: 1;
 }
-#chat > .room {
-  margin-left: 221px;
-  margin-right: 221px;
-}
 #chat > .room > .lines {
   height: 167px;
   overflow: hidden;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #ccc;
 }
 #chat > .room > .lines:hover {
   overflow-y: auto;
@@ -601,7 +626,7 @@ div.footer div.right {
   padding: 1px 10px;
   position: relative;
   opacity: 0.7;
-  color: #b0b0b0;
+  color: #505050;
 }
 #chat .line.main {
   opacity: 1;
@@ -620,20 +645,17 @@ div.footer div.right {
   text-decoration: none;
 }
 #chat .line > .text {
-  display: inline-block;
+  display: inline;
 }
 #chat .line pre {
   margin: 0;
 }
 #chat > .lists {
-  float: right;
-  width: 220px;
-  height: 100%;
-  border-left: 1px solid #444;
+  height: 195px;
   overflow: hidden;
 }
 #chat > .lists > .tabs {
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #ccc;
   display: block;
 }
 #chat > .lists > .tabs > a {
@@ -644,12 +666,13 @@ div.footer div.right {
   padding: 0 10px;
 }
 #chat > .lists > .tabs > a.active {
-  background-color: #202020;
+  background-color: #ccc;
 }
 #chat .list_box {
   display: none;
-  height: 100%;
+  height: 175px;
   width: 100%;
+  overflow: hidden;
 }
 #chat .list_box:hover {
   overflow-y: auto;
@@ -662,7 +685,7 @@ div.footer div.right {
   overflow: hidden;
 }
 #chat .list_box .content a:hover {
-  background-color: #202020;
+  background-color: #ccc;
 }
 #friend_box .content .s16 {
   background-position: 0 -208px;
@@ -700,13 +723,13 @@ div.footer div.right {
   line-height: 27px;
   position: relative;
   margin-right: 12px;
-  background: #0a0a0a;
+  background: #ccc;
 }
 #chat .controls > form .invite:after {
   content:"";
   border-top: 14px solid transparent;
   border-bottom: 14px solid transparent;
-  border-left: 14px solid #0a0a0a;
+  border-left: 14px solid #ccc;
   position: absolute;
   right: -14px;
   top: 0;
@@ -718,7 +741,7 @@ div.footer div.right {
   height: 19px;
   padding: 4px 10px;
   border: none;
-  color: #b0b0b0;
+  color: #505050;
   background: none;
 }
 #chat .color0 {

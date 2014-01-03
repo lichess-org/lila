@@ -16,9 +16,7 @@ private[chat] final class ChatMember(
 
   def wants(line: Line) = line.chan match {
     case c: UserChan if c.contains(userId) ⇒ true
-    case _ ⇒ (troll || !line.troll) &&
-      (head.activeChanKeys contains line.chan.key) &&
-      !blocks(line.userId)
+    case _ ⇒ (troll || !line.troll) && (head sees line) && !blocks(line.userId)
   }
 
   def hasActiveChan = head.activeChanKeys contains _

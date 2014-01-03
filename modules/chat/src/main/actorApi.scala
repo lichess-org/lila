@@ -11,6 +11,7 @@ case class SetOpen(member: ChatMember, value: Boolean)
 case class Query(member: ChatMember, username: String)
 
 case class Join(member: ChatMember, chan: Chan)
+case class Part(member: ChatMember, chan: Chan)
 
 case class Say(chan: Chan, member: ChatMember, text: String)
 

@@ -76,11 +76,11 @@ object LangChan {
 }
 
 case class UserChan(u1: String, u2: String) extends IdChan("user", false) {
-  val id = List(u1, u2).sorted mkString "-"
+  val id = List(u1, u2).sorted mkString "/"
   def contains(userId: String) = u1 == userId || u2 == userId
 }
 object UserChan {
-  def apply(id: String): Option[UserChan] = id.split("-") match {
+  def apply(id: String): Option[UserChan] = id.split("/") match {
     case Array(u1, u2) ⇒ UserChan(u1, u2).some
     case _             ⇒ none
   }

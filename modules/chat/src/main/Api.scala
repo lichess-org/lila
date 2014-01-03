@@ -14,6 +14,8 @@ private[chat] final class Api(
     getTeamIds: String ⇒ Fu[List[String]],
     netDomain: String) {
 
+  private val NB_LINES = 30
+
   def join(user: User, chat: ChatHead, chan: Chan): ChatHead = {
     chanVoter(user.id, chan.key)
     truncate(user, chat join chan, chan.key)
@@ -58,7 +60,7 @@ private[chat] final class Api(
   def populate(head: ChatHead, user: User): Fu[Chat] =
     namer.chans(head.chans, user) zip {
       relationApi blocking user.id flatMap {
-        LineRepo.find(head.activeChanKeys, user.troll, _, 20) flatMap {
+        LineRepo.find(head.activeChanKeys, user.troll, _, NB_LINES) flatMap {
           _.map(namer.line).sequenceFu
         }
       }

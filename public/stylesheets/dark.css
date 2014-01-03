@@ -156,9 +156,37 @@ body.dark a#sound_state.sound_state_on span {
 body.dark .s16.ddown {
   background-position: right -368px;
 }
-body.dark #chat .chan {
-  border-color: #2a2a2a;
+body.dark #chat {
+  box-shadow: 0 0 15px #000;
 }
+body.dark #chat_wrap > .bar {
+  background: rgba(20, 20, 20, 0.9);
+}
+body.dark #chat, body.dark #chat > .help {
+  background: #101010;
+}
+body.dark #chat > .lists > .tabs, body.dark #chat > .room > .lines, body.dark #chat, body.dark #chat .chan, body.dark #chat_wrap > .bar, body.dark #chat > .help, body.dark #chat_wrap div.left, body.dark #chat_wrap div.right, body.dark #chat_wrap div.left {
+  border-color: #303030;
+}
+body.dark #chat .controls > form .invite, body.dark #chat .list_box .content a:hover, body.dark #chat > .lists > .tabs > a.active, body.dark #chat .chan.main, body.dark #chat a.close:hover, body.dark #chat_wrap > .bar:hover, body.dark #chat > .off:hover {
+  background-color: #0a0a0a;
+}
+body.dark #chat .controls > form .invite:after {
+  border-left-color: #0a0a0a;
+}
+body.dark #chat .chan:hover div.check label {
+  background-color: #45484d;
+}
+body.dark #chat div.check label:after {
+  border-color: #fcfff4;
+}
+body.dark #chat_wrap > .bar .last > span, body.dark #chat .controls > form .input, body.dark #chat .line {
+  color: #b0b0b0;
+}
+body.dark #chat .line.sys {
+  color: #808080;
+}
+
 body.dark ::-webkit-input-placeholder {
   color: #666;
 }

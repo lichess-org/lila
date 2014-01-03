@@ -106,11 +106,8 @@ time pie chart colors http://en.lichess.org/52ede6hu/stats
 full page recent forum posts
 en_GB, en_US, pt_PT, pt_BR = localization
 /takeback to accept (or sys message)
-chat multiline
 badges out of screen
 chat click user to chat
-try to switch chan without server
-chat links = new tab
 moretime button position (>1hour)
 move command sys message
 abort system message
@@ -119,6 +116,8 @@ copy rematch chats
 chat logs
 maybe no chat transparency?
 indicator when someone talks to you but the chat is closed
+user badge is too large; also add a link to profile to it
+chat visited link color
 
 deploy
 ------
