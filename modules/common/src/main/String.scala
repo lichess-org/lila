@@ -14,7 +14,7 @@ object String {
 
   final class Delocalizer(netDomain: String) {
 
-    private val regex = ("""\w+\.""" + quoteReplacement(netDomain)).r
+    private val regex = ("""\w{2}\.""" + quoteReplacement(netDomain)).r
 
     def apply(url: String) = regex.replaceAllIn(url, netDomain)
   }
