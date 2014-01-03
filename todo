@@ -116,8 +116,9 @@ move command sys message
 abort system message
 hide chat help after /help typed
 copy rematch chats
-//command
 chat logs
+maybe no chat transparency?
+indicator when someone talks to you but the chat is closed
 
 deploy
 ------

@@ -121,7 +121,7 @@ private[chat] final class Api(
 
     def addLinks(text: String) = urlRegex.replaceAllIn(text, m ⇒ {
       val url = delocalize(quoteReplacement(m group 1))
-      "<a href='%s'>%s</a>".format(prependHttp(url), url)
+      "<a target='_blank' href='%s'>%s</a>".format(prependHttp(url), url)
     })
     def prependHttp(url: String): String = url startsWith "http" fold (url, "http://" + url)
     val delocalize = new lila.common.String.Delocalizer(netDomain)

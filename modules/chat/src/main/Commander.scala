@@ -3,6 +3,7 @@ package lila.chat
 import scala.concurrent.duration._
 
 import akka.actor._
+import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import play.api.libs.iteratee.Concurrent.Channel
 import play.api.libs.iteratee.Input
 import play.api.libs.json._
@@ -22,7 +23,7 @@ private[chat] final class Commander(
   val chat = context.parent
 
   def receive = {
-    case Command(chanOption, member, text) ⇒ text.split(' ').toList match {
+    case command @ Command(chanOption, member, text) ⇒ text.split(' ').toList match {
 
       case "help" :: "tutorial" :: _ ⇒ flash(member, tutorial)
       case "help" :: "mod" :: _      ⇒ flash(member, modHelp)
@@ -48,6 +49,10 @@ private[chat] final class Commander(
         chat ! DeActivate(member, chan)
       }
 
+      case "say" :: words                     ⇒ chanOption foreach { chan ⇒ chat ! Say(chan, member, words mkString " ") }
+
+      case escaped :: _ if escaped.startsWith("/") ⇒ self ! command.copy(text = "say " + text)
+
       case "names" :: _ ⇒ chanOption foreach { chan ⇒
         userOf(member) foreach { user ⇒
           namer.chan(chan, user) foreach { named ⇒
@@ -67,7 +72,7 @@ private[chat] final class Commander(
         }
       }
 
-      case words ⇒ flash(member, s"Command not found: ${words mkString " "}. Type /help for the list of available commands.")
+      case words ⇒ flash(member, s"Command not found: ${escapeXml(words mkString " ")}. Type /help for the list of available commands.")
     }
   }
 
@@ -91,8 +96,6 @@ private[chat] final class Commander(
 
   private def userOf(member: ChatMember): Fu[User] =
     UserRepo byId member.userId flatten s"No such user: $member.userId"
-
-  import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
   val tutorial = "<pre>" + escapeXml("""
 _______________________ lichess chat _______________________
