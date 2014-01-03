@@ -28,13 +28,6 @@ case None => {
 </a>
 }
 case Some(true) => {
-@if(followsMe(userId)) {
-<a class="icon button chat chat_query"
-  title="@trans.chat()"
-  data-query="@userId">
-  <span class="s16 chat"></span>
-</a>
-}
 <a class="button relation hover_text" href="@routes.Relation.unfollow(userId)">
   <span class="base s16 tup">@trans.following()</span>
   <span class="hover s16 tup">@trans.unfollow()</span>
