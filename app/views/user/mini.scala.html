@@ -16,6 +16,7 @@
     <span class="lang s16">@name</span>
     }
   </p>
+  <a href="@routes.User.show(u.username)">@trans.profile()</a>
   @if(followsMe(u.id)) {
   @trans.followsYou()
   }

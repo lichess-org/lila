@@ -1118,6 +1118,10 @@ var storage = {
       self.$list = self.element.find("div.content");
       self.$nobody = self.element.find("div.nobody");
       self.set(self.element.data('preload'));
+      self.$list.on('click', 'a', function(e) {
+        $('#chat').onechat('query', $(this).data('id'));
+        e.preventDefault();
+      });
     },
     repaint: function() {
       this.users = _.uniq(this.users);
@@ -1141,7 +1145,7 @@ var storage = {
       this.repaint();
     },
     _renderUser: function(user) {
-      return '<a class="ulpt" data-placement="nw" href="/@/' + user + '"><span class="s16">' + user + '</span></a>';
+      return '<a class="ulpt" data-id="' + user + '" data-placement="nw" href="/@/' + user + '"><span class="s16">' + user + '</span></a>';
     }
   });
 

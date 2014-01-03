@@ -191,9 +191,6 @@ ul.ui-autocomplete li a.ui-state-focus {
   position: absolute;
   z-index: 2147483647;
 }
-#powerTip {
-  width: 270px;
-}
 #powerTip > .title {
   padding: 8px;
   border-bottom: 1px solid #c0c0c0;
