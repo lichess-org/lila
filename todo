@@ -105,6 +105,19 @@ automatic ai cheat detection is broken
 time pie chart colors http://en.lichess.org/52ede6hu/stats
 full page recent forum posts
 en_GB, en_US, pt_PT, pt_BR = localization
+/takeback to accept (or sys message)
+chat multiline
+badges out of screen
+chat click user to chat
+try to switch chan without server
+chat links = new tab
+moretime button position (>1hour)
+move command sys message
+abort system message
+hide chat help after /help typed
+copy rematch chats
+//command
+chat logs
 
 deploy
 ------
