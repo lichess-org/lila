@@ -155,25 +155,26 @@ data-accept-languages="@acceptLanguages.mkString(",")">
 @ctx.chat.map { c =>
 <div id="chat_wrap"@if(ctx.pref.chat.on) { class="on"}>
   <div class="bar">
-    <a class="on">@trans.chat()</a>
-    <a class="friends">
+    <div class="left"><a class="on">@trans.chat()</a></div>
+    <div class="right friends">
       @trans.onlineFriends() - <strong class="online"> </strong>/<span class="total"> </span>
-    </a>
+    </div>
+    <div class="center last"></div>
   </div>
   <div id="chat">
     <a class="off"></a>
     <a class="help">help</a>
-    <div class="chans"></div>
-    <div class="lists">
+    <div class="left chans"></div>
+    <div class="right lists">
       <div class="tabs">
         <a data-tab="friends" class="friends">@trans.onlineFriends()</a>
         <a data-tab="teams" class="teams">@trans.teams()</a>
       </div>
       <div id="team_box" class="list_box teams" data-preload="@ctx.teams">
-        <div class="content list"></div>
+        <div class="content"></div>
       </div>
       <div id="friend_box" class="list_box friends" data-preload="@ctx.friends">
-        <div class="content list"></div>
+        <div class="content"></div>
         <div class="nobody">
           <span>@trans.noFriendsOnline()</span>
           <a class="find button" href="@routes.Relation.suggest(me.username)">
@@ -182,7 +183,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
         </div>
       </div>
     </div>
-    <div class="room">
+    <div class="center room">
       <div class="lines"></div>
       <div class="controls">
         <form action="#">

@@ -51,7 +51,12 @@ private[chat] final class ChatActor(
       saveAndReload(member)
     }
 
-    case Say(chan, member, text) => api.write(chan.key, member.userId, text) foreach { _ foreach self.! }
+    case Part(member, chan) ⇒ {
+      member setHead (member.head part chan)
+      save(member)
+    }
+
+    case Say(chan, member, text) ⇒ api.write(chan.key, member.userId, text) foreach { _ foreach self.! }
 
     case Activate(member, chan) ⇒ api.active(member, chan) foreach { head ⇒
       member setHead head
@@ -134,8 +139,10 @@ private[chat] final class ChatActor(
     }
   }
 
+  private def save(member: ChatMember) = prefApi.setChatPref(member.userId, member.head.updatePref)
+
   private def saveAndReload(member: ChatMember) {
-    prefApi.setChatPref(member.userId, member.head.updatePref) >>- reload(member)
+    save(member) >>- reload(member)
   }
 
   private def reload(m: ChatMember) {

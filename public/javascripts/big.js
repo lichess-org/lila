@@ -857,7 +857,6 @@ var storage = {
       self.$invite = self.$form.find('.invite');
       self.$input = self.$form.find('input');
 
-      self.on = _lc_.on;
       self.systemUsername = 'Lichess';
       self.reload(_lc_);
 
@@ -868,8 +867,11 @@ var storage = {
         self._tell();
         return false;
       });
+      self.$chans.on('click', '.close', function() {
+        self._part($(this).parent().data('chan'));
+      });
       self.$chans.on('click', '.name', function() {
-        self._join($(this).data('chan'));
+        self._join($(this).parent().data('chan'));
       });
       self.$chans.on('click', 'input', function() {
         self._show($(this).attr('name'), $(this).prop('checked'));
@@ -877,7 +879,7 @@ var storage = {
       self.element.find('.help').click(function() {
         self._send('/help tutorial');
       });
-      self.$bar.find('> *').click(function() {
+      self.$bar.click(function() {
         self._send('/open');
       });
       self.element.find('> .off').click(function() {
@@ -913,17 +915,20 @@ var storage = {
       this.head = c.head;
       if (!this._exists(this.head.mainChan)) this.head.mainChan = null;
       this.lines = c.lines;
-      this._renderChans();
-      this._renderLines();
-      this._renderForm();
+      this._renderAll();
     },
     line: function(l) {
       var self = this;
       self.lines.push(l);
+      var rendered = self._renderLine(l);
       if (l.chan.type == "user" && !self._isActive(l.chan.key)) {
         self._send('/show ' + l.chan.key);
       }
-      self.$lines.append(self._renderLine(l)).scrollTop(999999);
+      if (!self.$wrap.hasClass('on') && self._isActive(l.chan.key)) {
+        self.$bar.find('.last').html('<span class="user">' + l.user + '</span> : <span class="text">' + l.html + '</span>');
+      }
+      self.$lines.append(rendered);
+      self._scrollLines();
     },
     flash: function(html) {
       var self = this;
@@ -958,6 +963,9 @@ var storage = {
       else if (text == '/open') {
         self.$wrap.addClass('on');
         self._joinFirst();
+        self._scrollLines();
+      } else if (text == '/part' || text == '/leave') {
+        if (self.head.mainChan) self._part(self.head.mainChan);
       } else if (text.match(/^\/msg\s(\w+)/)) {
         location.href = '/inbox/new?username=' + text.match(/^\/msg\s(\w+)/)[1];
         return;
@@ -990,7 +998,18 @@ var storage = {
     },
     _join: function(chan) {
       this._disablePlaceholder();
+      if (this._isActive(chan)) { // immediate rendering
+        this.head.mainChan = chan;
+        this._renderAll();
+      }
       this._send('/join ' + chan);
+    },
+    _part: function(chan) {
+      delete this.head.chans[chan];
+      this.head.activeChans = _.difference(this.head.activeChans, [chan]);
+      if (this.head.mainChan == chan) this.head.mainChan = null;
+      this._renderAll();
+      this._send('/part ' + chan);
     },
     _chanIndex: function(key) {
       return _.keys(this.head.chans).indexOf(key);
@@ -1003,6 +1022,11 @@ var storage = {
     },
     _isActive: function(chan) {
       return _.contains(this.head.activeChans, chan);
+    },
+    _renderAll: function() {
+      this._renderForm();
+      this._renderChans();
+      this._renderLines();
     },
     _renderLine: function(line) {
       var self = this;
@@ -1023,7 +1047,11 @@ var storage = {
       var self = this;
       self.$lines.html(_.map(self.lines, function(line) {
         return self._renderLine(line);
-      }).join('')).scrollTop(999999);
+      }).join(''));
+      self._scrollLines();
+    },
+    _scrollLines: function() {
+      this.$lines.scrollTop(999999);
     },
     _renderChans: function() {
       var self = this;
@@ -1032,12 +1060,13 @@ var storage = {
         var active = self.head.activeChans.indexOf(chan.key) != -1;
         var main = self.head.mainChan == chan.key;
         var color = self._colorClass(self._chanIndex(chan.key));
-        return '<div class="chan ' + color + (main ? ' main' : '') + ' clearfix">' +
+        return '<div data-chan="' + chan.key + '" class="chan ' + color + (main ? ' main' : '') + ' clearfix">' +
+          '<a class="close">x</a>' +
           '<div class="check">' +
           '<input type="checkbox"' + (active ? " checked" : "") + ' id="' + id + '" name="' + chan.key + '"/>' +
           '<label for="' + id + '"></label>' +
           '</div>' +
-          '<span data-chan="' + chan.key + '" class="name">' + chan.name + '</span>' +
+          '<span class="name">' + chan.name + '</span>' +
           '</div>';
       }).join(''));
     },
@@ -1062,7 +1091,7 @@ var storage = {
   $.widget("lichess.teams", {
     _create: function() {
       var self = this;
-      self.$list = self.element.find("div.list");
+      self.$list = self.element.find("div.content");
       self.$list.on('click', 'a', function() {
         $('#chat').onechat('team', $(this).data('id'));
       });
@@ -1086,7 +1115,7 @@ var storage = {
       self.$title = self.options.$title;
       self.$nbOnline = self.$title.find('.online');
       self.$nbTotal = self.$title.find('.total');
-      self.$list = self.element.find("div.list");
+      self.$list = self.element.find("div.content");
       self.$nobody = self.element.find("div.nobody");
       self.set(self.element.data('preload'));
     },
