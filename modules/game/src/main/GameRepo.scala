@@ -9,7 +9,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats.toJSON
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
-import reactivemongo.bson.{ BSONDocument, BSONBinary, BSONInteger }
+import reactivemongo.bson.{ BSONDocument, BSONArray, BSONBinary, BSONInteger }
 
 import lila.common.PimpedJson._
 import lila.db.api._
@@ -29,6 +29,7 @@ trait GameRepo {
   type ID = String
 
   import Game._
+  import Game.{ BSONFields ⇒ F }
 
   def game(gameId: ID): Fu[Option[Game]] = $find byId gameId
 
@@ -70,7 +71,7 @@ trait GameRepo {
   )
 
   def chronologicalFinishedByUser(userId: String): Fu[List[Game]] = $find(
-    $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc BSONFields.createdAt)
+    $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc F.createdAt)
   )
 
   def save(progress: Progress): Funit =
@@ -87,22 +88,22 @@ trait GameRepo {
 
   def setRatingDiffs(id: ID, white: Int, black: Int) =
     $update($select(id), BSONDocument("$set" -> BSONDocument(
-      s"p0.${Player.BSONFields.ratingDiff}" -> BSONInteger(white),
-      s"p1.${Player.BSONFields.ratingDiff}" -> BSONInteger(black))))
+      s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(white),
+      s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(black))))
 
   def setUsers(id: ID, white: Option[(String, Int)], black: Option[(String, Int)]) =
     if (white.isDefined || black.isDefined) $update($select(id), BSONDocument("$set" -> BSONDocument(
-      s"p0.${Player.BSONFields.rating}" -> white.map(_._2).map(BSONInteger.apply),
-      s"p1.${Player.BSONFields.rating}" -> black.map(_._2).map(BSONInteger.apply),
-      BSONFields.playerUids -> lila.db.BSON.writer.listO(List(~white.map(_._1), ~black.map(_._1)))
+      s"${F.whitePlayer}.${Player.BSONFields.rating}" -> white.map(_._2).map(BSONInteger.apply),
+      s"${F.blackPlayer}.${Player.BSONFields.rating}" -> black.map(_._2).map(BSONInteger.apply),
+      F.playerUids -> lila.db.BSON.writer.listO(List(~white.map(_._1), ~black.map(_._1)))
     )))
     else funit
 
   def setTv(id: ID) {
-    $update.fieldUnchecked(id, BSONFields.tvAt, $date(DateTime.now))
+    $update.fieldUnchecked(id, F.tvAt, $date(DateTime.now))
   }
 
-  def onTv(nb: Int): Fu[List[Game]] = $find($query.all sort $sort.desc(BSONFields.tvAt), nb)
+  def onTv(nb: Int): Fu[List[Game]] = $find($query.all sort $sort.desc(F.tvAt), nb)
 
   def incBookmarks(id: ID, value: Int) =
     $update($select(id), $incBson("bm" -> value))
@@ -111,11 +112,11 @@ trait GameRepo {
     $select(id),
     BSONDocument(
       "$set" -> BSONDocument(
-        Game.BSONFields.winnerId -> winnerId,
-        Game.BSONFields.winnerColor -> winnerColor.map(_.white)
+        F.winnerId -> winnerId,
+        F.winnerColor -> winnerColor.map(_.white)
       ),
       "$unset" -> BSONDocument(
-        Game.BSONFields.positionHashes -> true,
+        F.positionHashes -> true,
         ("p0." + Player.BSONFields.lastDrawOffer) -> true,
         ("p1." + Player.BSONFields.lastDrawOffer) -> true,
         ("p0." + Player.BSONFields.isOfferingDraw) -> true,
@@ -143,7 +144,7 @@ trait GameRepo {
 
   def saveNext(game: Game, nextId: ID): Funit = $update(
     $select(game.id),
-    $set(BSONFields.next -> nextId) ++
+    $set(F.next -> nextId) ++
       $unset("p0." + Player.BSONFields.isOfferingRematch, "p1." + Player.BSONFields.isOfferingRematch)
   )
 
@@ -152,8 +153,8 @@ trait GameRepo {
 
   def featuredCandidates: Fu[List[Game]] = $find(
     Query.playable ++ Query.clock(true) ++ Query.turnsGt(1) ++ Json.obj(
-      BSONFields.createdAt -> $gt($date(DateTime.now - 3.minutes)),
-      BSONFields.updatedAt -> $gt($date(DateTime.now - 15.seconds))
+      F.createdAt -> $gt($date(DateTime.now - 3.minutes)),
+      F.updatedAt -> $gt($date(DateTime.now - 15.seconds))
     ))
 
   def count(query: Query.type ⇒ JsObject): Fu[Int] = $count(query(Query))
@@ -162,24 +163,23 @@ trait GameRepo {
     ((days to 1 by -1).toList map { day ⇒
       val from = DateTime.now.withTimeAtStartOfDay - day.days
       val to = from + 1.day
-      $count(Json.obj(BSONFields.createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
+      $count(Json.obj(F.createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
     }).sequenceFu
 
   def nowPlaying(userId: String): Fu[Option[Game]] =
     $find.one(Query.status(Status.Started) ++ Query.user(userId) ++ Json.obj(
-      BSONFields.createdAt -> $gt($date(DateTime.now - 30.minutes))
+      F.createdAt -> $gt($date(DateTime.now - 30.minutes))
     ))
 
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
-    import BSONFields.playerUids
     val command = Aggregate(gameTube.coll.name, Seq(
-      Match(BSONDocument(playerUids -> userId)),
-      Match(BSONDocument(playerUids -> BSONDocument("$size" -> 2))),
-      Unwind(playerUids),
-      Match(BSONDocument(playerUids -> BSONDocument("$ne" -> userId))),
-      GroupField(playerUids)("gs" -> SumValue(1)),
+      Match(BSONDocument(F.playerUids -> userId)),
+      Match(BSONDocument(F.playerUids -> BSONDocument("$size" -> 2))),
+      Unwind(F.playerUids),
+      Match(BSONDocument(F.playerUids -> BSONDocument("$ne" -> userId))),
+      GroupField(F.playerUids)("gs" -> SumValue(1)),
       Sort(Seq(Descending("gs"))),
       Limit(limit)
     ))
@@ -195,18 +195,23 @@ trait GameRepo {
   }
 
   def random: Fu[Option[Game]] = $find.one(
-    Json.obj(BSONFields.playerUids -> $exists(true)),
+    Json.obj(F.playerUids -> $exists(true)),
     _ sort Query.sortCreated skip (Random nextInt 1000)
   )
 
-  def findMirror(game: Game): Fu[Option[Game]] = $find.one(
-    Query.users(game.userIds) ++ Query.status(Status.Started) ++ Json.obj(
-      BSONFields.turns -> game.turns,
-      BSONFields.id -> $ne(game.id),
-      BSONFields.binaryPieces -> game.binaryPieces,
-      BSONFields.createdAt -> $gt($date(DateTime.now - 1.hour)),
-      BSONFields.updatedAt -> $gt($date(DateTime.now - 5.minutes))
-    ))
+  def findMirror(game: Game): Fu[Option[Game]] = $find.one($query(
+    BSONDocument(
+      F.id -> BSONDocument("$ne" -> game.id),
+      F.playerUids -> BSONDocument("$in" -> game.userIds),
+      F.status -> Status.Started.id,
+      F.createdAt -> BSONDocument("$gt" -> (DateTime.now - 15.minutes)),
+      F.updatedAt -> BSONDocument("$gt" -> (DateTime.now - 5.minutes)),
+      "$or" -> BSONArray(
+        BSONDocument(s"${F.whitePlayer}.ai" -> BSONDocument("$exists" -> true)),
+        BSONDocument(s"${F.blackPlayer}.ai" -> BSONDocument("$exists" -> true))
+      )
+    )
+  ))
 
   def getPgn(id: ID): Fu[PgnMoves] = getOptionPgn(id) map (~_)
 
@@ -216,8 +221,8 @@ trait GameRepo {
   def getOptionPgn(id: ID): Fu[Option[PgnMoves]] =
     gameTube.coll.find(
       $select(id), Json.obj(
-        BSONFields.id -> false,
-        BSONFields.binaryPgn -> true
+        F.id -> false,
+        F.binaryPgn -> true
       )
     ).one[BSONDocument] map { _ flatMap extractPgnMoves }
 
@@ -238,8 +243,8 @@ trait GameRepo {
 
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] = {
     $find.one(Json.obj(
-      BSONFields.playerUids -> Json.obj("$all" -> List(u1, u2)),
-      BSONFields.createdAt -> Json.obj("$gt" -> $date(since))
+      F.playerUids -> Json.obj("$all" -> List(u1, u2)),
+      F.createdAt -> Json.obj("$gt" -> $date(since))
     ))
   }
 
@@ -249,15 +254,15 @@ trait GameRepo {
     import lila.db.BSON.BSONJodaDateTimeHandler
     val command = Aggregate(gameTube.coll.name, Seq(
       Match(BSONDocument(
-        BSONFields.createdAt -> BSONDocument("$gt" -> since),
-        BSONFields.status -> BSONDocument("$gte" -> chess.Status.Mate.id),
-        s"${BSONFields.playerUids}.0" -> BSONDocument("$exists" -> true)
+        F.createdAt -> BSONDocument("$gt" -> since),
+        F.status -> BSONDocument("$gte" -> chess.Status.Mate.id),
+        s"${F.playerUids}.0" -> BSONDocument("$exists" -> true)
       )),
-      Unwind(BSONFields.playerUids),
+      Unwind(F.playerUids),
       Match(BSONDocument(
-        BSONFields.playerUids -> BSONDocument("$ne" -> "")
+        F.playerUids -> BSONDocument("$ne" -> "")
       )),
-      GroupField(Game.BSONFields.playerUids)("nb" -> SumValue(1)),
+      GroupField(F.playerUids)("nb" -> SumValue(1)),
       Sort(Seq(Descending("nb"))),
       Limit(max)
     ))
@@ -294,7 +299,7 @@ trait GameRepo {
   // }""",
   //     query = Some(JsObjectWriter write {
   //       Json.obj(
-  //         BSONFields.createdAt -> $gte($date(DateTime.now - minutes.minutes))
+  //         F.createdAt -> $gte($date(DateTime.now - minutes.minutes))
   //       ) ++ $or(List(Json.obj("p0.e" -> $exists(true)), Json.obj("p1.e" -> $exists(true))))
   //     })
   //   )
@@ -306,7 +311,7 @@ trait GameRepo {
   // }
 
   private def extractPgnMoves(doc: BSONDocument) =
-    doc.getAs[BSONBinary](BSONFields.binaryPgn) map { bin ⇒
+    doc.getAs[BSONBinary](F.binaryPgn) map { bin ⇒
       BinaryFormat.pgn read { ByteArray.ByteArrayBSONHandler read bin }
     }
 
@@ -321,10 +326,10 @@ trait GameRepo {
       val userIds = List(user1, user2).sortBy(_._2).map(_._1)
       val command = Aggregate(gameTube.coll.name, Seq(
         Match(BSONDocument(
-          BSONFields.playerUids -> BSONDocument("$all" -> userIds),
-          BSONFields.status -> BSONDocument("$gte" -> chess.Status.Mate.id)
+          F.playerUids -> BSONDocument("$all" -> userIds),
+          F.status -> BSONDocument("$gte" -> chess.Status.Mate.id)
         )),
-        GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1))
+        GroupField(F.winnerId)("nb" -> SumValue(1))
       ))
       gameTube.coll.db.command(command) map { stream ⇒
         val res = (stream.toList map { obj ⇒
