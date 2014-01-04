@@ -44,7 +44,7 @@ private[chat] final class ChatActor(
       api.systemWrite(chan, text) pipeTo self
     }
 
-    case SetOpen(member, value) ⇒ prefApi.setChatPref(member.userId, _.copy(on = value))
+    case SetOpen(member, value)   ⇒ prefApi.setChatPref(member.userId, _.copy(on = value))
 
     case SetHeight(member, value) ⇒ prefApi.setChatPref(member.userId, _.copy(height = value))
 
@@ -71,6 +71,7 @@ private[chat] final class ChatActor(
     }
 
     case Query(member, toId) ⇒ api getUserOption toId foreach {
+      case Some(to) if member.is(toId) ⇒ self ! Flash(member, "Can't start a private chat with yourself")
       case Some(to) ⇒ relationApi.follows(to.id, member.userId) onSuccess {
         case true ⇒ api.join(member, UserChan(member.userId, toId)) foreach { head ⇒
           member setHead head
