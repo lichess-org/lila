@@ -869,8 +869,10 @@ var storage = {
         maxHeight: $(window).height() - 30,
         resize: function() {
           $(this).css('top', 'auto');
+          self._scrollLines();
         },
         stop: function() {
+          self._scrollLines();
           self._send('/height ' + $(this).height());
         }
       });
