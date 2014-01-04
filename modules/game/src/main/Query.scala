@@ -48,18 +48,18 @@ object Query {
 
   def clock(c: Boolean) = Json.obj(F.clock -> $exists(c))
 
-  def user(u: String) = Json.obj("us" -> u)
-  def users(u: Seq[String]) = Json.obj("us" -> $in(u))
+  def user(u: String) = Json.obj(F.playerUids -> u)
+  def users(u: Seq[String]) = Json.obj(F.playerUids -> $in(u))
 
   // use the us index
-  def win(u: String) = user(u) ++ Json.obj("wid" -> u)
+  def win(u: String) = user(u) ++ Json.obj(F.winnerId -> u)
 
   def loss(u: String) = user(u) ++
     Json.obj(F.status -> $in(Status.finishedWithWinner map (_.id))) ++
-    Json.obj("wid" -> $ne(u))
+    Json.obj(F.winnerId -> $ne(u))
 
   def opponents(u1: User, u2: User) =
-    Json.obj("us" -> $all(List(u1, u2).sortBy(_.count.game).map(_.id)))
+    Json.obj(F.playerUids -> $all(List(u1, u2).sortBy(_.count.game).map(_.id)))
 
   def turnsGt(nb: Int) = Json.obj(F.turns -> $gt(nb))
 
@@ -75,7 +75,7 @@ object Query {
   }
 
   def unplayed = Json.obj(
-    "t" -> $lt(2),
+    F.turns -> $lt(2),
     F.createdAt -> (
       $lt($date(DateTime.now - 24.hours)) ++
       $gt($date(DateTime.now - 25.hours)))

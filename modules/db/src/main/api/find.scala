@@ -46,6 +46,6 @@ object $find {
 
   // useful in capped collections
   // def recent[A: TubeInColl](max: Int): Fu[List[A]] = (
-  //   pimpQB($query.all).sort($sort.naturalOrder) 
+  //   pimpQB($query.all).sort($sort.naturalOrder)
   // ).cursor[Option[A]] toList max map (_.flatten)
 }
