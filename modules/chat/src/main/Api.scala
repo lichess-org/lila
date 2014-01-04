@@ -59,8 +59,8 @@ private[chat] final class Api(
 
   def populate(head: ChatHead, user: User): Fu[Chat] =
     namer.chans(head.chans, user) zip {
-      relationApi blocking user.id flatMap {
-        LineRepo.find(head.activeChanKeys, user.troll, _, NB_LINES) flatMap {
+      relationApi blocking user.id flatMap { blocks =>
+        LineRepo.find(head.watchingChanKeys, user.troll, blocks, NB_LINES) flatMap {
           _.map(namer.line).sequenceFu
         }
       }
