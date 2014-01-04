@@ -13,7 +13,7 @@ case class ChatHead(
     activeChanKeys: Set[String],
     mainChanKey: Option[String]) {
 
-  def chanKeys = chans map (_.key)
+  lazy val chanKeys = chans map (_.key)
 
   def setChan(c: Chan, value: Boolean) =
     if (value) copy(chans = (c :: chans).distinct).sorted
@@ -49,7 +49,9 @@ case class ChatHead(
     activeChans = activeChanKeys filterNot Chan.autoActive,
     mainChan = (mainChanKey filterNot Chan.autoActive) orElse pref.mainChan)
 
-  def sees(line: Line) = (chanKeys contains line.chan.key) && (activeChanKeys contains line.chan.key)
+  def sees(line: Line) = watchingChanKeys contains line.chan.key
+
+  lazy val watchingChanKeys = activeChanKeys intersect chanKeys.toSet
 
   def sorted = copy(chans = chans.sorted)
 }
