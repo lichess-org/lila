@@ -114,6 +114,9 @@ hide chat help after /help typed
 copy rematch chats
 chat logs
 chat visited link color
+chat click on username tries a private chat
+chat mod can query anybody
+chat dark theme tick bg
 
 deploy
 ------
