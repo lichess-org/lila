@@ -168,14 +168,15 @@ body.dark #chat, body.dark #chat > .help {
 body.dark #chat > .lists > .tabs, body.dark #chat > .room > .lines, body.dark #chat, body.dark #chat .chan, body.dark #chat_wrap > .bar, body.dark #chat > .help, body.dark #chat_wrap div.left, body.dark #chat_wrap div.right, body.dark #chat_wrap div.left {
   border-color: #303030;
 }
-body.dark #chat .controls > form .invite, body.dark #chat .list_box .content a:hover, body.dark #chat > .lists > .tabs > a.active, body.dark #chat .chan.main, body.dark #chat a.close:hover, body.dark #chat_wrap > .bar:hover, body.dark #chat > .off:hover {
+body.dark #chat .controls > form .invite, body.dark #chat .list_box .content a:hover, body.dark #chat .chan.main, body.dark #chat a.close:hover, body.dark #chat_wrap > .bar:hover, body.dark #chat > .off:hover {
   background-color: #0a0a0a;
 }
 body.dark #chat .controls > form .invite:after {
   border-left-color: #0a0a0a;
 }
 body.dark #chat .chan:hover div.check label {
-  background-color: #45484d;
+  background: #45484d;
+  background: linear-gradient(to bottom, #222 0%, #45484d 100%);
 }
 body.dark #chat div.check label:after {
   border-color: #fcfff4;
@@ -185,6 +186,10 @@ body.dark #chat_wrap > .bar .last > span, body.dark #chat .controls > form .inpu
 }
 body.dark #chat .line.sys {
   color: #808080;
+}
+body.dark #chat > .lists > .tabs > a.active {
+  background: #303030;
+  color: #d0d0d0;
 }
 
 body.dark ::-webkit-input-placeholder {
