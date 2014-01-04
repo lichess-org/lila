@@ -732,6 +732,7 @@ div.footer div.right {
 }
 #chat > .lists > .tabs > a.active {
   background-color: #ccc;
+  color: #303030;
 }
 #chat .list_box {
   display: none;
