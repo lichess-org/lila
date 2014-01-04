@@ -898,6 +898,10 @@ var storage = {
       self.element.find('> .off').click(function() {
         self._send('/close');
       });
+      self.$lines.on('click', 'div.user', function(e) {
+        self.query($(this).data('id'));
+        e.preventDefault();
+      });
       self.element.on('click', '.tabs > a', function() {
         var tab = $(this).data('tab');
         self.element.find('.tabs > a').removeClass('active').filter('.' + tab).addClass('active');
@@ -1051,7 +1055,7 @@ var storage = {
         return '<div class="line ' + (main ? 'main' : color) + ' ' + (sys ? 'sys' : '') + '">' +
           (sys ?
           '<div class="text ' + (main ? '' : color) + '">' + line.html + '</div>' :
-          '<div class="user">' + $.userLinkLimit(line.user, 14, color) + '</div>' +
+          '<div class="user" data-id="' + line.user + '">' + $.userLinkLimit(line.user, 14, color) + '</div>' +
           '<div class="text ' + (main ? '' : color) + '">' + line.html + '</div>') +
           '</div>';
       }
