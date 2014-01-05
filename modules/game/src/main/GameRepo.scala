@@ -195,8 +195,7 @@ trait GameRepo {
   }
 
   def random: Fu[Option[Game]] = $find.one(
-    Json.obj(F.playerUids -> $exists(true)),
-    _ sort Query.sortCreated skip (Random nextInt 1000)
+    $query.all sort Query.sortCreated skip (Random nextInt 100)
   )
 
   def findMirror(game: Game): Fu[Option[Game]] = $find.one($query(
