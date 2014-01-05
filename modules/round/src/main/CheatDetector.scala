@@ -7,7 +7,7 @@ import lila.game.{ Game, GameRepo, Pov }
 
 private[round] final class CheatDetector {
 
-  def apply(game: Game): Fu[Option[Color]] = interresting(game) ?? {
+  def apply(game: Game): Fu[Option[Color]] = interesting(game) ?? {
     GameRepo findMirror game map {
       _ ?? { mirror ⇒
         mirror.players find (p ⇒ p.userId ?? game.userIds.contains) match {
@@ -24,6 +24,6 @@ private[round] final class CheatDetector {
 
   private val TURNS_MODULUS = 10
 
-  private def interresting(game: Game) =
+  private def interesting(game: Game) =
     game.rated && game.turns > 0 && (game.turns % TURNS_MODULUS == 0)
 }
