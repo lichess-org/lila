@@ -1,4 +1,5 @@
 playWithAFriend=Pelaa ystävän kanssa
+inviteAFriendToPlayWithYou=Haasta ystäväsi peliin.
 playWithTheMachine=Pelaa tietokonetta vastaan
 challengeTheArtificialIntelligence=Haasta tekoäly
 toInviteSomeoneToPlayGiveThisUrl=Anna tämä linkki ystävälle pelataksesi hänen kanssaan
@@ -266,4 +267,5 @@ activeThisWeek=Aktiivisena tällä viikolla
 activePlayers=Aktiiviset pelaajat
 bestBulletPlayers=paras bullet pelaaja
 bestBlitzPlayers=Parhaat blitz-pelaajat
+bestSlowPlayers=Parhaat pelaajat pitkissä peleissä.
 bewareTheGameIsRatedButHasNoClock=Huomaa, että peli on pisteytetty, vaikka siinä ei ole aikarajoitetta.
