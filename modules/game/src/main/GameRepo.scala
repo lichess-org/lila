@@ -208,7 +208,8 @@ trait GameRepo {
       "$or" -> BSONArray(
         BSONDocument(s"${F.whitePlayer}.ai" -> BSONDocument("$exists" -> true)),
         BSONDocument(s"${F.blackPlayer}.ai" -> BSONDocument("$exists" -> true))
-      )
+      ),
+      F.binaryPieces -> game.binaryPieces
     )
   ))
 
