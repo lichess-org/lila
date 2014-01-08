@@ -2,9 +2,9 @@ package lila.analyse
 
 import scala.concurrent.Future
 
+import chess.Color
 import play.api.libs.json.Json
 
-import chess.Color
 import lila.game.{ Game, Namer }
 
 final class TimeChart(game: Game, usernames: Map[Color, String]) {
@@ -26,8 +26,8 @@ final class TimeChart(game: Game, usernames: Map[Color, String]) {
   }
 
   private val indexedMoveTimes = game.moveTimesInSeconds.zipWithIndex
-  private def moveTimes(i: Int) = 
-    indexedMoveTimes.view.filter(_._2 % 2 == i).map(_._1).toList map { x =>
+  private def moveTimes(i: Int) =
+    indexedMoveTimes.view.filter(_._2 % 2 == i).map(_._1).toList map { x ⇒
       if (x < 0.5) 0 else x
     }
 }

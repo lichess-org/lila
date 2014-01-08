@@ -210,6 +210,7 @@ POST  /report/:id/process              controllers.Report.process(id: String)
 
 # API
 GET   /api/user/:id                    controllers.Api.user(id: String)
+GET   /api/game                        controllers.Api.games
 
 # Misc
 POST  /cli                             controllers.Cli.command

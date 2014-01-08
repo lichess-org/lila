@@ -9,7 +9,7 @@ import lila.db.api._
 import lila.db.Implicits._
 import tube.analysisTube
 
-private[analyse] object AnalysisRepo {
+object AnalysisRepo {
 
   type ID = String
 
