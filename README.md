@@ -79,10 +79,12 @@ From here you can now run the application (`run`).
 ```javascript
 {
   "username": "thibault",
+  "url": "http://lichess.org/@/thibault",   // profile url
   "rating": 1503,                           // shortcut to perfs.global.rating
   "progress": 36,                           // rating change over the last ten games
   "online": true,                           // is the player currently using lichess?
   "playing": "http://lichess.org/abcdefgh", // game being played, if any
+  "engine": false,                          // true if the user is known to use a chess engine
   "perfs": {                                // performances on rated games
     "black": {                              // performances with black pieces
       "rating": 1483,                       // Glicko2 rating
@@ -141,6 +143,55 @@ $.ajax({
   }
 });
 ```
+
+### `GET /api/game`
+
+All parameters are optional. Games are returned by descendant chronological order.
+
+name | type | default | description
+--- | --- | --- | ---
+**username** | string | - | filter games by user
+**rated** | 1 or 0 | - | filter rated or casual games
+**nb** | int | 10 | maximum number to return
+**token** | string | - | security token (unlocks secret game data)
+
+```
+> curl http://en.lichess.org/api/game?username=thibault&rated=1&nb=10
+```
+
+```javascript
+{
+  "list": [
+    {
+      "id": "x2kpaixn",
+      "rated": false,
+      "status": "mate",
+      "timestamp": 1389100907239,
+      "turns": 44,
+      "url": "http://lichess.org/x2kpaixn",
+      "winner": "black",
+      "players": {
+        "white": {
+          "userId": "thibault"
+          "rating": 1642,
+          "analysis": {
+            "blunder": 1,
+            "inaccuracy": 0,
+            "mistake": 2
+          },
+          "moveTimes": [1, 15, 15, 10, 20, 15, 15, 20, 30, 10, 15, 20, 20, 30, 40, 30, 20, 20, 15, 30, 20, 10]
+        },
+        "black": ... // other player
+      }
+    },
+    {
+      ... // other game
+    }
+  ]
+}
+```
+
+(1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
 
 ### Read the move stream
 

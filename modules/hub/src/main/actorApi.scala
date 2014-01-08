@@ -102,6 +102,7 @@ case class Abs(route: Any)
 case class Nolang(route: Any)
 case object Homepage
 case class TeamShow(id: String)
+case class User(username: String)
 case class Player(fullId: String)
 case class Watcher(gameId: String, color: String)
 case class Replay(gameId: String, color: String)

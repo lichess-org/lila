@@ -28,6 +28,7 @@ private[app] final class Router(
 
     case Homepage               ⇒ sender ! R.Lobby.home().url
     case TeamShow(id)           ⇒ sender ! R.Team.show(id).url
+    case User(username)         ⇒ sender ! R.User.show(username).url
     case Player(fullId)         ⇒ sender ! R.Round.player(fullId).url
     case Watcher(gameId, color) ⇒ sender ! R.Round.watcher(gameId, color).url
     case Replay(gameId, color)  ⇒ sender ! R.Analyse.replay(gameId, color).url
