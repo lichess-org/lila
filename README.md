@@ -70,7 +70,7 @@ From here you can now run the application (`run`).
 
 ## API
 
-### `GET /api/user/<username>`
+### `GET /api/user/<username>` fetch one user
 
 ```
 > curl http://en.lichess.org/api/user/thibault
@@ -80,53 +80,11 @@ From here you can now run the application (`run`).
 {
   "username": "thibault",
   "url": "http://lichess.org/@/thibault",   // profile url
-  "rating": 1503,                           // shortcut to perfs.global.rating
+  "rating": 1503,                           // global Glicko2 rating
   "progress": 36,                           // rating change over the last ten games
   "online": true,                           // is the player currently using lichess?
   "playing": "http://lichess.org/abcdefgh", // game being played, if any
-  "engine": false,                          // true if the user is known to use a chess engine
-  "perfs": {                                // performances on rated games
-    "black": {                              // performances with black pieces
-      "rating": 1483,                       // Glicko2 rating
-      "deviation": 62,                      // Glicko2 rating deviation
-      "nbGames": 465                        // number of games played as black
-    },
-    "white": {
-      "rating": 1478,
-      "deviation": 63,
-      "nbGames": 418
-    },
-    "global": {
-      "rating": 1503,
-      "deviation": 62,
-      "nbGames": 883
-    },
-    "bullet": {
-      "rating": 1640,
-      "deviation": 90,
-      "nbGames": 23
-    },
-    "blitz": {
-      "rating": 1480,
-      "deviation": 63,
-      "nbGames": 481
-    },
-    "slow": {
-      "rating": 1586,
-      "deviation": 63,
-      "nbGames": 379
-    },
-    "standard": {
-      "rating": 1504,
-      "deviation": 62,
-      "nbGames": 560
-    },
-    "chess960": {
-      "rating": 1575,
-      "deviation": 64,
-      "nbGames": 323
-    }
-  }
+  "engine": false                           // true if the user is known to use a chess engine
 }
 ```
 
@@ -144,15 +102,62 @@ $.ajax({
 });
 ```
 
-### `GET /api/game`
+### `GET /api/user` fetch many users
 
-All parameters are optional. Games are returned by descendant chronological order.
+All parameters are optional.
+
+name | type | default | description
+--- | --- | --- | ---
+**team** | string | - | filter games by team
+**nb** | int | 10 | maximum number of users to return
+
+```
+> curl http://en.lichess.org/api/user?team=coders&nb=100
+```
+
+```javascript
+{
+  "list": [
+    {
+      "username": "thibault",
+      "url": "http://lichess.org/@/thibault",   // profile url
+      "rating": 1503,                           // global Glicko2 rating
+      "progress": 36,                           // rating change over the last ten games
+      "online": true,                           // is the player currently using lichess?
+      "engine": false                           // true if the user is known to use a chess engine
+    }
+  ]
+}
+```
+
+#### JSONP
+
+```javascript
+$.ajax({
+  url:'http://en.l.org/api/user',
+  data: {
+    team: 'coders',
+    nb: 100
+  },
+  dataType:'jsonp',
+  jsonp:'callback',
+  success: function(data) {
+    // data is a javascript object, do something with it!
+    console.debug(JSON.stringify(data.list));
+  }
+});
+```
+
+### `GET /api/game` fetch many games
+
+Games are returned by descendant chronological order.
+All parameters are optional.
 
 name | type | default | description
 --- | --- | --- | ---
 **username** | string | - | filter games by user
 **rated** | 1 or 0 | - | filter rated or casual games
-**nb** | int | 10 | maximum number to return
+**nb** | int | 10 | maximum number of games to return
 **token** | string | - | security token (unlocks secret game data)
 
 ```

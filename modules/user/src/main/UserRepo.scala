@@ -236,6 +236,9 @@ trait UserRepo {
     } map (~_)
   }
 
+  def filterByEngine(userIds: List[String]): Fu[List[String]] =
+    $primitive(Json.obj("_id" -> $in(userIds), "engine" -> true), "username")(_.asOpt[String])
+
   private def newUser(username: String, password: String) = {
 
     val salt = ornicar.scalalib.Random nextString 32

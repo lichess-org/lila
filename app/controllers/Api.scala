@@ -16,6 +16,14 @@ object Api extends LilaController {
       token = get("token", req))
   }
 
+  def users = ApiResult { req ⇒
+    userApi.list(
+      team = get("team", req),
+      token = get("token", req),
+      nb = getInt("nb", req)
+    ) map (_.some)
+  }
+
   def games = ApiResult { req ⇒
     gameApi.list(
       username = get("username", req),

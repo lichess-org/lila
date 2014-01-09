@@ -209,6 +209,7 @@ GET   /report/list                     controllers.Report.list
 POST  /report/:id/process              controllers.Report.process(id: String)
 
 # API
+GET   /api/user                        controllers.Api.users
 GET   /api/user/:id                    controllers.Api.user(id: String)
 GET   /api/game                        controllers.Api.games
 
