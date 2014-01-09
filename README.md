@@ -108,7 +108,7 @@ All parameters are optional.
 
 name | type | default | description
 --- | --- | --- | ---
-**team** | string | - | filter games by team
+**team** | string | - | filter users by team
 **nb** | int | 10 | maximum number of users to return
 
 ```
@@ -125,7 +125,8 @@ name | type | default | description
       "progress": 36,                           // rating change over the last ten games
       "online": true,                           // is the player currently using lichess?
       "engine": false                           // true if the user is known to use a chess engine
-    }
+    },
+    ... // other users
   ]
 }
 ```
