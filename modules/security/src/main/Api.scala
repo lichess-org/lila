@@ -19,7 +19,7 @@ private[security] final class Api(firewall: Firewall) {
   )
 
   def saveAuthentication(username: String)(implicit req: RequestHeader): Fu[String] = {
-    val sessionId = Random nextString 12 
+    val sessionId = Random nextString 12
     Store.save(sessionId, username.toLowerCase, req) inject sessionId
   }
 
@@ -28,11 +28,20 @@ private[security] final class Api(firewall: Firewall) {
     UserRepo.authenticate(username.toLowerCase, password).await
 
   def restoreUser(req: RequestHeader): Fu[Option[User]] =
-    firewall accepts req flatMap { 
+    firewall accepts req flatMap {
       _ ?? {
         req.session.get("sessionId") ?? { sessionId ⇒
           Store userId sessionId flatMap { _ ?? UserRepo.byId }
         }
       }
     }
+
+  def userIdsSharingIp(userId: String) = {
+    import tube.storeTube
+    import lila.db.api._
+    import play.api.libs.json._
+    $primitive(Json.obj("user" -> userId), "ip")(_.asOpt[String]) flatMap { ips ⇒
+      $primitive(Json.obj("ip" -> $in(ips), "user" -> $ne(userId)), "user")(_.asOpt[String])
+    }
+  }
 }

@@ -9,6 +9,7 @@ final class Env(
     router: akka.actor.ActorSelection,
     bus: lila.common.Bus,
     userEnv: lila.user.Env,
+    userIdsSharingIp: String ⇒ Fu[List[String]],
     val isProd: Boolean) {
 
   val CliUsername = config getString "cli.username"
@@ -27,6 +28,7 @@ final class Env(
   val userApi = new UserApi(
     makeUrl = apiUrl,
     apiToken = apiToken,
+    userIdsSharingIp = userIdsSharingIp,
     isOnline = userEnv.isOnline)
 
   val gameApi = new GameApi(
@@ -50,6 +52,7 @@ object Env {
     renderer = lila.hub.Env.current.actor.renderer,
     router = lila.hub.Env.current.actor.router,
     userEnv = lila.user.Env.current,
+    userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp,
     bus = lila.common.PlayApp.system.lilaBus,
     isProd = lila.common.PlayApp.isProd)
 }
