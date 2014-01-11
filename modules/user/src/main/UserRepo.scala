@@ -85,9 +85,9 @@ trait UserRepo {
     $update($select(id), $setBson("profile" -> Profile.tube.handler.write(profile)))
 
   val enabledSelect = Json.obj("enabled" -> true)
-  val noEngineSelect = Json.obj("engine" -> $ne(true))
+  def engineSelect(v: Boolean) = Json.obj(User.BSONFields.engine -> v.fold(JsBoolean(true), $ne(true)))
   val stableSelect = Json.obj("perfs.global.gl.d" -> $lt(82))
-  val goodLadSelect = enabledSelect ++ noEngineSelect
+  val goodLadSelect = enabledSelect ++ engineSelect(false)
   val stableGoodLadSelect = stableSelect ++ goodLadSelect
   def perfSince(perf: String, since: DateTime) = Json.obj(
     s"perfs.$perf.la" -> Json.obj("$gt" -> $date(since))
@@ -184,7 +184,7 @@ trait UserRepo {
 
   def updateTroll(user: User) = $update.field(user.id, "troll", user.troll)
 
-  def isEngine(id: ID): Fu[Boolean] = $count.exists($select(id) ++ Json.obj("engine" -> true))
+  def isEngine(id: ID): Fu[Boolean] = $count.exists($select(id) ++ engineSelect(true))
   def isArtificial(id: ID): Fu[Boolean] = $count.exists($select(id) ++ Json.obj("artificial" -> true))
 
   def setRoles(id: ID, roles: List[String]) = $update.field(id, "roles", roles)
@@ -237,7 +237,7 @@ trait UserRepo {
   }
 
   def filterByEngine(userIds: List[String]): Fu[List[String]] =
-    $primitive(Json.obj("_id" -> $in(userIds), "engine" -> true), "username")(_.asOpt[String])
+    $primitive(Json.obj("_id" -> $in(userIds)) ++ engineSelect(true), "username")(_.asOpt[String])
 
   private def newUser(username: String, password: String) = {
 
