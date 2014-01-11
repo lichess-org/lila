@@ -32,12 +32,19 @@ private[api] final class UserApi(
     Json.obj(
       "username" -> u.username,
       "rating" -> u.rating,
+      "rd" -> u.perfs.global.glicko.deviation,
       "progress" -> u.progress)
   }
 
-  def list(team: Option[String], token: Option[String], nb: Option[Int]): Fu[JsObject] = (team match {
+  def list(
+    team: Option[String],
+    token: Option[String],
+    nb: Option[Int],
+    engine: Option[Boolean]): Fu[JsObject] = (team match {
     case Some(teamId) ⇒ lila.team.MemberRepo.userIdsByTeam(teamId) flatMap UserRepo.byIds
-    case None         ⇒ $find($query.all sort UserRepo.sortRatingDesc, makeNb(nb))
+    case None ⇒ $find($query(
+      $select.all ++ (engine ?? UserRepo.engineSelect)
+    ) sort UserRepo.sortRatingDesc, makeNb(nb, token))
   }) flatMap { users ⇒
     users.map(u ⇒ makeUrl(R User u.username)).sequenceFu map { urls ⇒
       Json.obj(
@@ -76,7 +83,7 @@ private[api] final class UserApi(
   def knownEnginesSharingIp(userId: String): Fu[List[String]] =
     userIdsSharingIp(userId) flatMap UserRepo.filterByEngine
 
-  private def makeNb(nb: Option[Int]) = math.min(100, nb | 10)
+  private def makeNb(nb: Option[Int], token: Option[String]) = math.min(check(token) ? 1000 | 100, nb | 10)
 
   private def check(token: Option[String]) = token ?? (apiToken==)
 }
