@@ -250,3 +250,6 @@ lastName=Ազգանուն
 biography=Կենսագրություն
 country=Երկիր
 preferences=Նախընտրություններ
+todaysLeaders=Այսօրվա առաջատարը
+leaderboardThisWeek=Շաբաթվա առաջատարը
+leaderboardThisMonth=Նախորդ ամսվա առաջատարը
