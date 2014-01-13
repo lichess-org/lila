@@ -44,7 +44,10 @@ private[api] final class UserApi(
     case Some(teamId) ⇒ lila.team.MemberRepo.userIdsByTeam(teamId) flatMap UserRepo.byIds
     case None ⇒ $find($query(
       $select.all ++ (engine ?? UserRepo.engineSelect)
-    ) sort UserRepo.sortRatingDesc, makeNb(nb, token))
+    ) sort ((~engine).fold(
+        UserRepo.sortCreatedAtDesc,
+        UserRepo.sortRatingDesc
+      )), makeNb(nb, token))
   }) flatMap { users ⇒
     users.map(u ⇒ makeUrl(R User u.username)).sequenceFu map { urls ⇒
       Json.obj(
