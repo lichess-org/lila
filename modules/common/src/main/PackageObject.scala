@@ -33,6 +33,17 @@ trait PackageObject extends Steroids with WithFuture {
     def future: Fu[A] = v fold (errs ⇒ fufail(errs.shows), fuccess)
   }
 
+  implicit final class LilaPimpedTry[A](v: scala.util.Try[A]) {
+
+    def fold[B](fe: Exception ⇒ B, fa: A ⇒ B): B = v match {
+      case scala.util.Failure(e: Exception) ⇒ fe(e)
+      case scala.util.Failure(e)            ⇒ throw e
+      case scala.util.Success(a)            ⇒ fa(a)
+    }
+
+    def future: Fu[A] = fold(Future.failed, fuccess)
+  }
+
   def parseIntOption(str: String): Option[Int] = try {
     Some(java.lang.Integer.parseInt(str))
   }

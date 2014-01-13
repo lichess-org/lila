@@ -20,6 +20,7 @@ GET   /@/:username/suggestions         controllers.Relation.suggest(username: St
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
 POST  /@/:username/export              controllers.User.export(username: String)
 GET   /@/:username/mod                 controllers.User.mod(username: String)
+POST  /@/:username/evaluate            controllers.User.evaluate(username: String)
 GET   /@/:username/mini                controllers.User.showMini(username: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)

@@ -41,10 +41,10 @@ private[api] final class UserApi(
     token: Option[String],
     nb: Option[Int],
     engine: Option[Boolean]): Fu[JsObject] = (team match {
-    case Some(teamId) ⇒ lila.team.MemberRepo.userIdsByTeam(teamId) flatMap UserRepo.byIds
-    case None ⇒ $find($query(
-      $select.all ++ (engine ?? UserRepo.engineSelect)
-    ) sort ((~engine).fold(
+    case Some(teamId) ⇒ lila.team.MemberRepo.userIdsByTeam(teamId) flatMap UserRepo.enabledByIds
+    case None ⇒ $find(pimpQB($query(
+      UserRepo.enabledSelect ++ (engine ?? UserRepo.engineSelect)
+    )) sort ((~engine).fold(
         UserRepo.sortCreatedAtDesc,
         UserRepo.sortRatingDesc
       )), makeNb(nb, token))

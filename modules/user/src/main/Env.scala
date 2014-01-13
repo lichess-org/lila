@@ -20,6 +20,8 @@ final class Env(
     val RankingTtl = config duration "ranking.ttl"
     val CollectionUser = config getString "collection.user"
     val CollectionHistory = config getString "collection.history"
+    val CollectionEvaluation = config getString "collection.evaluation"
+    val EvaluatorScriptPath = config getString "evaluator.script_path"
   }
   import settings._
 
@@ -32,6 +34,8 @@ final class Env(
     maxPerPage = PaginatorMaxPerPage)
 
   lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
+
+  lazy val evaluator = new Evaluator(db(CollectionEvaluation), EvaluatorScriptPath)
 
   lazy val ranking = new Ranking(ttl = RankingTtl)
 

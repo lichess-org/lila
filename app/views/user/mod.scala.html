@@ -1,6 +1,11 @@
-@(u: User, spy: lila.security.UserSpy)(implicit ctx: Context)
+@(u: User, spy: lila.security.UserSpy, eval: Option[lila.user.Evaluation])(implicit ctx: Context)
 
 <div class="actions clearfix">
+  @if(isGranted(_.UserEvaluate)) {
+  <form method="post" action="@routes.User.evaluate(u.username)">
+    <input class="button" type="submit" value="@{eval.isDefined.??("(Re)")}Evaluate" />
+  </form>
+  }
   @if(isGranted(_.MarkEngine)) {
   <form method="post" action="@routes.Mod.engine(u.username)">
     <input class="confirm button" type="submit" value="@u.engine.fold("Un-mark as engine", "Mark as engine")" />
@@ -19,6 +24,17 @@
 </div>
 
 <div class="user_spy">
+  @eval.map { e =>
+  <div class="evaluation">
+    <p>@e.isDeep.fold("Thoroughly", "Quickly") evaluated @timeago(e.date) as @e.percent% -> <strong>@e.verdict</strong>.</p>
+    <p>Most suspicious games found:</p>
+    <ul>
+      @e.games.map { g =>
+      <li><a href="@g.url">@g</a></li>
+      }
+    </ul>
+  </div>
+  }
   @if(spy.otherUsers.size < 2) {
   <strong>No user found with same IPs</strong>
   } else {
