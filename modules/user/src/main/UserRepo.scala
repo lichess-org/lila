@@ -96,6 +96,7 @@ trait UserRepo {
 
   val sortRatingDesc = $sort desc "rating"
   val sortProgressDesc = $sort desc "progress"
+  val sortCreatedAtDesc = $sort desc User.BSONFields.createdAt
 
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Option[Int]) = {
     val incs = List(
