@@ -27,12 +27,16 @@
   @eval.map { e =>
   <div class="evaluation">
     <p>@e.isDeep.fold("Thoroughly", "Quickly") evaluated @timeago(e.date) as @e.percent% -> <strong>@e.verdict</strong>.</p>
+    @if(e.games.isEmpty) {
+    <p>No suspicious game found.</p>
+    } else {
     <p>Most suspicious games found:</p>
     <ul>
       @e.games.map { g =>
       <li><a href="@g.url">@g</a></li>
       }
     </ul>
+    }
   </div>
   }
   @if(spy.otherUsers.size < 2) {

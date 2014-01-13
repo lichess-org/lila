@@ -1,6 +1,6 @@
 package lila.user
 
-import scala.util.Try
+import scala.util.{ Try, Success, Failure }
 
 import akka.actor.ActorSelection
 import org.joda.time.DateTime
@@ -16,6 +16,9 @@ final class Evaluator(
     coll: Coll,
     script: String,
     reporter: ActorSelection) {
+
+  val autoRatingThreshold = 1800
+  val autoDeviationThreshold = 150
 
   def findOrGenerate(user: User, deep: Boolean): Fu[Option[Evaluation]] = find(user) flatMap {
     case x@Some(eval) if (!deep || eval.isDeep) ⇒ fuccess(x)
@@ -40,7 +43,7 @@ final class Evaluator(
     UserRepo isEvaluated user.id foreach {
       case false ⇒ {
         val g = perfs.global.glicko
-        ((g.deviation < 150 && g.rating > 1800) ?? generate(user.id, false)) foreach {
+        ((g.deviation <= autoDeviationThreshold && g.rating >= autoRatingThreshold) ?? generate(user.id, false)) foreach {
           case Some(eval) if (eval.action == Evaluation.Report) ⇒
             reporter ! lila.hub.actorApi.report.Cheater(user.id, eval.reportText)
           case None ⇒
@@ -56,9 +59,15 @@ final class Evaluator(
       case JsError(e)      ⇒ throw lila.common.LilaException(s"Can't parse evaluator json: $e on $js")
     }
 
-  private def run(userId: String, deep: Boolean): Try[String] = Try {
-    import scala.sys.process._
-    s"""$script $userId ${deep ?? "true"}"""!!
+  private def run(userId: String, deep: Boolean): Try[String] = {
+    val command = s"""$script $userId ${deep ?? "true"}"""
+    Try {
+      import scala.sys.process._
+      command!!
+    } match {
+      case Failure(e) ⇒ Failure(new Exception("$command $e"))
+      case x          ⇒ x
+    }
   }
 
   private def evaluationTransformer =
