@@ -46,7 +46,7 @@ final class Evaluator(
         ((g.deviation <= autoDeviationThreshold && g.rating >= autoRatingThreshold) ?? generate(user.id, false)) foreach {
           case Some(eval) if (eval.action == Evaluation.Report) ⇒
             reporter ! lila.hub.actorApi.report.Cheater(user.id, eval.reportText)
-          case None ⇒
+          case _ ⇒
         }
       }
       case true ⇒
@@ -65,7 +65,7 @@ final class Evaluator(
       import scala.sys.process._
       command!!
     } match {
-      case Failure(e) ⇒ Failure(new Exception("$command $e"))
+      case Failure(e) ⇒ Failure(new Exception(s"$command $e"))
       case x          ⇒ x
     }
   }
