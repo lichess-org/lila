@@ -7,7 +7,7 @@
 }
 
 @base.layout(
-title = title, 
+title = title,
 moreCss = cssTag("report.css"),
 goodies = goodies.some) {
 
@@ -23,23 +23,23 @@ goodies = goodies.some) {
       </tr>
     </thead>
     <tbody>
-    @reports.map { r =>
-    <tr class="@r.unprocessed.fold("new", "")">
-      <td>@userIdLink(r.createdBy.some)@timeago(r.createdAt)</td>
-      <td>@userIdLink(r.user.some)</td>
-      <td>
-        <strong>@r.reason.capitalize</strong>
-        - @autoLink(r.text)
-      </td>
-      <td>@r.processedBy.map { u =>
-        }.getOrElse {
-        <form action="@routes.Report.process(r.id)" method="post">
-          <button type="submit" class="button">Check</button>
-        </form>
-        }
-      </td>
-    </tr>
-    }
+      @reports.map { r =>
+      <tr class="@r.unprocessed.fold("new", "")">
+        <td>@userIdLink(r.createdBy.some)@timeago(r.createdAt)</td>
+        <td>@userIdLink(r.user.some, params = "?mod")</td>
+        <td>
+          <strong>@r.reason.capitalize</strong>
+          - @autoLink(r.text)
+        </td>
+        <td>@r.processedBy.map { u =>
+          }.getOrElse {
+          <form action="@routes.Report.process(r.id)" method="post">
+            <button type="submit" class="button">Check</button>
+          </form>
+          }
+        </td>
+      </tr>
+      }
     </tbody>
   </table>
 </div>

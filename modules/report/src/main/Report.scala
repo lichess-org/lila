@@ -18,11 +18,15 @@ case class Report(
 
   def isCreator(user: String) = user == createdBy
 
+  def isCheat = realReason == Reason.Cheat
+
+  def isManual = createdBy != "lichess"
+
   def process(by: User) = copy(processedBy = by.id.some)
 
   def unprocessed = processedBy.isEmpty
 
-  def realReason = Reason byName reason
+  def realReason: Reason = Reason byName reason
 }
 
 object Report {
