@@ -6,6 +6,7 @@ import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
 import lila.game.actorApi.ChangeFeaturedGame
+import lila.user.Evaluator
 import lila.hub.actorApi.map.Ask
 import lila.socket.actorApi.GetVersion
 import makeTimeout.large
@@ -18,6 +19,7 @@ final class Env(
     ai: lila.ai.Ai,
     getUsername: String ⇒ Fu[Option[String]],
     getUsernameOrAnon: String ⇒ Fu[String],
+    evaluator: Evaluator,
     uciMemo: lila.game.UciMemo,
     rematch960Cache: lila.memo.ExpireSetMemo,
     i18nKeys: lila.i18n.I18nKeys,
@@ -78,8 +80,11 @@ final class Env(
     hijack = hijack,
     bus = system.lilaBus)
 
+  private lazy val perfsUpdater = new PerfsUpdater(evaluator = evaluator)
+
   private lazy val finisher = new Finisher(
     messenger = messenger,
+    perfsUpdater = perfsUpdater,
     indexer = hub.actor.gameIndexer,
     tournamentOrganizer = hub.actor.tournamentOrganizer)
 
@@ -152,6 +157,7 @@ object Env {
     ai = lila.ai.Env.current.ai,
     getUsername = lila.user.Env.current.usernameOption,
     getUsernameOrAnon = lila.user.Env.current.usernameOrAnonymous,
+    evaluator = lila.user.Env.current.evaluator,
     uciMemo = lila.game.Env.current.uciMemo,
     rematch960Cache = lila.game.Env.current.cached.rematch960,
     i18nKeys = lila.i18n.Env.current.keys,

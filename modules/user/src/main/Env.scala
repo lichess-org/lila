@@ -9,6 +9,7 @@ import lila.memo.ExpireSetMemo
 final class Env(
     config: Config,
     db: lila.db.Env,
+    hub: lila.hub.Env,
     scheduler: lila.common.Scheduler,
     system: ActorSystem) {
 
@@ -35,7 +36,10 @@ final class Env(
 
   lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
 
-  lazy val evaluator = new Evaluator(db(CollectionEvaluation), EvaluatorScriptPath)
+  lazy val evaluator = new Evaluator(
+    coll = db(CollectionEvaluation),
+    script = EvaluatorScriptPath,
+    reporter = hub.actor.report)
 
   lazy val ranking = new Ranking(ttl = RankingTtl)
 
@@ -93,6 +97,7 @@ object Env {
   lazy val current: Env = "[boot] user" describes new Env(
     config = lila.common.PlayApp loadConfig "user",
     db = lila.db.Env.current,
+    hub = lila.hub.Env.current,
     scheduler = lila.common.PlayApp.scheduler,
     system = lila.common.PlayApp.system)
 }

@@ -15,14 +15,19 @@ case class Evaluation(
     games: List[Evaluation.Game],
     date: DateTime) {
 
-  def percent  = deep getOrElse shallow
+  def percent = deep getOrElse shallow
 
   def isDeep = deep.isDefined
 
   def verdict = action match {
-    case Evaluation.Nothing => "innocent"
-    case Evaluation.Report => "suspicious"
-    case Evaluation.Mark => "definitely cheating"
+    case Evaluation.Nothing ⇒ "innocent"
+    case Evaluation.Report  ⇒ "suspicious"
+    case Evaluation.Mark    ⇒ "definitely cheating"
+  }
+
+  def reportText = {
+    val gameText = games map { g ⇒ s"${g.url} $g" } mkString "\n"
+    s"[AUTOREPORT] Cheat evaluation: $percent%\n$gameText"
   }
 }
 
@@ -39,17 +44,17 @@ object Evaluation {
   case object Mark extends Action
 
   case class Game(
-    url: String,
-    moveTime: Option[Int],
-    blur: Option[Int],
-    error: Option[Int]) {
+      url: String,
+      moveTime: Option[Int],
+      blur: Option[Int],
+      error: Option[Int]) {
 
-      override def toString = List(
-        moveTime map (x => s"Move time deviation: $x%"),
-        blur map (x => s"Blur rate: $x%"),
-        error map (x => s"Error rate: $x%")
-      ).flatten mkString ", "
-    }
+    override def toString = List(
+      moveTime map (x ⇒ s"Move time deviation: $x%"),
+      blur map (x ⇒ s"Blur rate: $x%"),
+      error map (x ⇒ s"Error rate: $x%")
+    ).flatten mkString ", "
+  }
 
   private[user] implicit val gameReader = Json.reads[Game]
 
@@ -63,9 +68,9 @@ object Evaluation {
     (__ \ 'progress).read[Int] and
     (__ \ 'sharedIP).read[Int] and
     ((__ \ 'action).read[String].map(_.toLowerCase).map {
-        case "report" ⇒ Report
-        case "mark" ⇒ Mark
-        case _                             ⇒ Nothing
+      case "report" ⇒ Report
+      case "mark"   ⇒ Mark
+      case _        ⇒ Nothing
     }) and
     (__ \ 'games).read[List[Game]] and
     (__ \ 'date).read[DateTime]
