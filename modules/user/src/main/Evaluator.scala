@@ -2,6 +2,7 @@ package lila.user
 
 import scala.util.Try
 
+import akka.actor.ActorSelection
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.json.Json
@@ -11,7 +12,10 @@ import lila.db.api._
 import lila.db.JsTube.Helpers.{ rename, writeDate, readDate }
 import lila.db.Types._
 
-final class Evaluator(coll: Coll, script: String) {
+final class Evaluator(
+    coll: Coll,
+    script: String,
+    reporter: ActorSelection) {
 
   def findOrGenerate(user: User, deep: Boolean): Fu[Option[Evaluation]] = find(user) flatMap {
     case x@Some(eval) if (!deep || eval.isDeep) ⇒ fuccess(x)
@@ -29,7 +33,22 @@ final class Evaluator(coll: Coll, script: String) {
     }
     eval ← scala.concurrent.Future(readEvaluation(evalJs))
     _ ← coll.update(Json.obj("_id" -> userId), evalJs, upsert = true)
+    _ ← UserRepo.setEvaluated(userId, true)
   } yield eval.some
+
+  def autoGenerate(user: User, perfs: Perfs) {
+    UserRepo isEvaluated user.id foreach {
+      case false ⇒ {
+        val g = perfs.global.glicko
+        ((g.deviation < 150 && g.rating > 1800) ?? generate(user.id, false)) foreach {
+          case Some(eval) if (eval.action == Evaluation.Report) ⇒
+            reporter ! lila.hub.actorApi.report.Cheater(user.id, eval.reportText)
+          case None ⇒
+        }
+      }
+      case true ⇒
+    }
+  }
 
   private def readEvaluation(js: JsValue): Evaluation =
     (readDate('date) andThen Evaluation.reader) reads js match {
@@ -42,7 +61,7 @@ final class Evaluator(coll: Coll, script: String) {
     s"""$script $userId ${deep ?? "true"}"""!!
   }
 
-  def evaluationTransformer =
+  private def evaluationTransformer =
     rename('userId, '_id) andThen
       rename('cheatIndex, 'shallow) andThen
       rename('deepIndex, 'deep) andThen

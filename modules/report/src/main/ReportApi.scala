@@ -4,7 +4,7 @@ import play.api.libs.json._
 
 import lila.db.api._
 import lila.db.Implicits._
-import lila.user.{ User, Evaluator }
+import lila.user.{ User, UserRepo, Evaluator }
 import tube.reportTube
 
 final class ReportApi(evaluator: Evaluator) {
@@ -19,6 +19,17 @@ final class ReportApi(evaluator: Evaluator) {
       $insert(report) >> {
         (report.isCheat && report.isManual) ?? evaluator.generate(report.user, true).void
       }
+    }
+
+  def autoCheatReport(userId: String, text: String): Funit =
+    UserRepo byId userId zip UserRepo.lichess flatMap {
+      case (Some(user), Some(lichess)) ⇒ create(ReportSetup(
+        user = user,
+        reason = "cheat",
+        text = text,
+        gameId = "",
+        move = ""), lichess)
+      case _ ⇒ funit
     }
 
   def process(id: String, by: User): Funit =

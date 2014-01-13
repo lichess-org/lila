@@ -14,6 +14,7 @@ import lila.user.{ User, UserRepo }
 
 private[round] final class Finisher(
     messenger: Messenger,
+    perfsUpdater: PerfsUpdater,
     indexer: akka.actor.ActorSelection,
     tournamentOrganizer: akka.actor.ActorSelection) {
 
@@ -37,7 +38,7 @@ private[round] final class Finisher(
   private def updateCountAndPerfs(game: Game): Funit =
     UserRepo.pair(game.player(White).userId, game.player(Black).userId) flatMap {
       case (whiteOption, blackOption) ⇒ (whiteOption |@| blackOption).tupled ?? {
-        case (white, black) ⇒ PerfsUpdater.save(game, white, black)
+        case (white, black) ⇒ perfsUpdater.save(game, white, black)
       } zip
         (whiteOption ?? incNbGames(game)) zip
         (blackOption ?? incNbGames(game)) void

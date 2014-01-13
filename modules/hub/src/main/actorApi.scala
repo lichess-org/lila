@@ -40,6 +40,10 @@ case class Input(uid: String, json: JsObject)
 case class System(chanTyp: String, chanId: Option[String], text: String)
 }
 
+package report {
+  case class Cheater(userId: String, text: String)
+}
+
 package setup {
 case class RemindChallenge(gameId: String, from: String, to: String)
 case class DeclineChallenge(gameId: String)

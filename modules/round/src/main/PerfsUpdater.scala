@@ -6,9 +6,9 @@ import org.joda.time.DateTime
 import play.api.Logger
 
 import lila.game.{ GameRepo, Game, Pov }
-import lila.user.{ UserRepo, HistoryRepo, HistoryEntry, User, Perf, Perfs, Glicko }
+import lila.user.{ UserRepo, HistoryRepo, HistoryEntry, User, Perf, Perfs, Glicko, Evaluator }
 
-object PerfsUpdater {
+private final class PerfsUpdater(evaluator: Evaluator) {
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU = 0.75d
@@ -56,6 +56,9 @@ object PerfsUpdater {
               case (proW, proB) ⇒
                 (UserRepo.setPerfs(white, perfsW, proW) zip UserRepo.setPerfs(black, perfsB, proB)) void
             }
+          } >>- {
+            evaluator.autoGenerate(white, perfsW)
+            evaluator.autoGenerate(black, perfsB)
           }
     }
 
