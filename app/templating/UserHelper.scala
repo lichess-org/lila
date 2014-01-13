@@ -31,11 +31,18 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     userIdOption: Option[String],
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
-    truncate: Option[Int] = None): Html = Html {
+    truncate: Option[Int] = None,
+    params: String = ""): Html = Html {
     userIdOption.fold(User.anonymous) { userId ⇒
       Env.user usernameOption userId map {
         _.fold(User.anonymous) { username ⇒
-          userIdNameLink(userId, username, cssClass, withOnline, truncate)
+          userIdNameLink(
+            userId = userId,
+            username = username,
+            cssClass = cssClass,
+            withOnline = withOnline,
+            truncate = truncate,
+            params = params)
         }
       } await
     }
@@ -70,10 +77,11 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     username: String,
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
-    truncate: Option[Int] = None): String =
+    truncate: Option[Int] = None,
+    params: String = ""): String =
     """<a %s %s>%s</a>""".format(
       userClass(userId, cssClass, withOnline),
-      userHref(username),
+      userHref(username, params = params),
       truncate.fold(username)(username.take)
     )
 
@@ -107,8 +115,8 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
 
   def perfTitle(perf: String): String = lila.user.Perf.titles get perf getOrElse perf
 
-  private def userHref(username: String) =
-    "href=\"" + routes.User.show(username) + "\""
+  private def userHref(username: String, params: String = "") =
+    s"""href="${routes.User.show(username)}$params""""
 
   protected def userClass(
     userId: String,

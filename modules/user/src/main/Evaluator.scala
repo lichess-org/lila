@@ -11,29 +11,25 @@ import lila.db.api._
 import lila.db.JsTube.Helpers.{ rename, writeDate, readDate }
 import lila.db.Types._
 
-private[user] final class Evaluator(coll: Coll, script: String) {
+final class Evaluator(coll: Coll, script: String) {
 
   def findOrGenerate(user: User, deep: Boolean): Fu[Option[Evaluation]] = find(user) flatMap {
     case x@Some(eval) if (!deep || eval.isDeep) ⇒ fuccess(x)
-    case _                                      ⇒ generate(user, deep)
+    case _                                      ⇒ generate(user.id, deep)
   }
 
   def find(user: User): Fu[Option[Evaluation]] =
     coll.find(Json.obj("_id" -> user.id)).one[JsObject] map { _ map readEvaluation }
 
-  def generate(user: User, deep: Boolean): Fu[Option[Evaluation]] = UserRepo byId user.id flatMap {
-    _ ?? { user ⇒
-      for {
-        output ← run(user.id, deep).future
-        evalJs ← (Json parse output).transform(evaluationTransformer) match {
-          case JsSuccess(v, _) ⇒ fuccess(v)
-          case JsError(e)      ⇒ fufail(lila.common.LilaException(s"Can't parse evaluator output: $e on $output"))
-        }
-        eval ← scala.concurrent.Future(readEvaluation(evalJs))
-        _ ← coll.update(Json.obj("_id" -> user.id), evalJs, upsert = true)
-      } yield eval.some
+  def generate(userId: String, deep: Boolean): Fu[Option[Evaluation]] = for {
+    output ← run(userId, deep).future
+    evalJs ← (Json parse output).transform(evaluationTransformer) match {
+      case JsSuccess(v, _) ⇒ fuccess(v)
+      case JsError(e)      ⇒ fufail(lila.common.LilaException(s"Can't parse evaluator output: $e on $output"))
     }
-  }
+    eval ← scala.concurrent.Future(readEvaluation(evalJs))
+    _ ← coll.update(Json.obj("_id" -> userId), evalJs, upsert = true)
+  } yield eval.some
 
   private def readEvaluation(js: JsValue): Evaluation =
     (readDate('date) andThen Evaluation.reader) reads js match {
