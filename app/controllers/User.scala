@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._, Results._
 
+import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
 import lila.db.api.$find
@@ -9,7 +10,6 @@ import lila.game.GameRepo
 import lila.security.Permission
 import lila.user.tube.userTube
 import lila.user.{ User ⇒ UserModel, UserRepo }
-import lila.api.Context
 import views._
 
 object User extends LilaController {
@@ -99,8 +99,17 @@ object User extends LilaController {
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx ⇒
     me ⇒ OptionFuOk(UserRepo named username) { user ⇒
-      Env.security userSpy user.id map { spy ⇒
-        html.user.mod(user, spy)
+      Env.user.evaluator find user zip
+        (Env.security userSpy user.id) map {
+          case (eval, spy) ⇒ html.user.mod(user, spy, eval)
+        }
+    }
+  }
+
+  def evaluate(username: String) = Secure(_.UserEvaluate) { implicit ctx ⇒
+    me ⇒ OptionFuResult(UserRepo named username) { user ⇒
+      Env.user.evaluator.findOrGenerate(user, true) map { _ =>
+        Redirect(routes.User.show(username).url + "?mod")
       }
     }
   }

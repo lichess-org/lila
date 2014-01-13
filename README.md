@@ -254,6 +254,7 @@ Big thanks go to lichess community for the support, inspiration, bug reports, an
 
 Special thanks go to:
 
+- [Clarkey](http://en.lichess.org/@/Clarkey) for the [cheat detection engine](https://github.com/clarkerubber/engine-evaluator) and countless contributions to lichess.
 - [Mephostophilis](http://lichess.org/@/Mephostophilis) for writing [Lichess Wiki](http://lichess.org/wiki), leading the cheater hunt, moderating the site, reporting countless bugs, and contributing to the codebase
 - [Smiling Bishop](http://lichess.org/@/smiling_bishop), [legend](http://lichess.org/@/legend), [mb](http://lichess.org/@/mb) and all the moderators who spent time keeping the site enjoyable
 - [Evropi](https://github.com/evropi) for contributing to the wiki, translations and [translation contexts](https://github.com/ornicar/lila/wiki/translation_context)

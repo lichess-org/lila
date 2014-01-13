@@ -13,6 +13,7 @@ object Permission {
   case object ModerateForum extends Permission("ROLE_MODERATE_FORUM")
 
   case object UserSpy extends Permission("ROLE_USER_SPY")
+  case object UserEvaluate extends Permission("ROLE_USER_EVALUATE")
   case object MarkTroll extends Permission("ROLE_CHAT_BAN", List(UserSpy))
   case object MarkEngine extends Permission("ROLE_ADJUST_CHEATER", List(UserSpy))
   case object IpBan extends Permission("ROLE_IP_BAN", List(UserSpy))
@@ -20,10 +21,10 @@ object Permission {
   case object SeeReport extends Permission("ROLE_SEE_REPORT", Nil)
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
-      ViewBlurs, MarkEngine, StaffForum, UserSpy, SeeReport))
+      ViewBlurs, MarkEngine, StaffForum, UserSpy, UserEvaluate, SeeReport))
 
   case object Admin extends Permission("ROLE_ADMIN", List(
-      ViewBlurs, MarkTroll, MarkEngine, StaffForum, ModerateForum, UserSpy, SeeReport, IpBan, ReopenAccount))
+      ViewBlurs, MarkTroll, MarkEngine, StaffForum, ModerateForum, UserSpy, UserEvaluate, SeeReport, IpBan, ReopenAccount))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(Admin))
 

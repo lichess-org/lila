@@ -9,7 +9,7 @@ import lila.db.Implicits._
 import lila.memo.AsyncCache
 import tube.userTube
 
-final class Ranking(ttl: Duration) {
+private[user] final class Ranking(ttl: Duration) {
 
   def get(id: String): Fu[Option[Int]] = cache(true) map (_ get id)
 
