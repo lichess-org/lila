@@ -25,8 +25,8 @@ case class Evaluation(
     case Evaluation.Mark    ⇒ "definitely cheating"
   }
 
-  def reportText = {
-    val gameText = games map { g ⇒ s"${g.url} $g" } mkString "\n"
+  def reportText(maxGames: Int = 10) = {
+    val gameText = games take maxGames map { g ⇒ s"${g.url} $g" } mkString "\n"
     s"[AUTOREPORT] Cheat evaluation: $percent%\n$gameText"
   }
 }

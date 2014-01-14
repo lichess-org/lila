@@ -45,7 +45,7 @@ final class Evaluator(
         val g = perfs.global.glicko
         ((g.deviation <= autoDeviationThreshold && g.rating >= autoRatingThreshold) ?? generate(user.id, false)) foreach {
           case Some(eval) if (eval.action == Evaluation.Report) ⇒
-            reporter ! lila.hub.actorApi.report.Cheater(user.id, eval.reportText)
+            reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
           case _ ⇒
         }
       }
