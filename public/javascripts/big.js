@@ -534,7 +534,7 @@ var storage = {
         }).on({
           powerTipPreRender: function() {
             $.ajax({
-              url: $(this).attr('href') + '/mini',
+              url: $(this).attr('href').replace(/\?.+$/, '') + '/mini',
               success: function(html) {
                 $('#powerTip').html(html);
                 $('body').trigger('lichess.content_loaded');
