@@ -17,7 +17,7 @@ final class Evaluator(
     script: String,
     reporter: ActorSelection) {
 
-  val autoRatingThreshold = 1800
+  val autoRatingThreshold = 1700
   val autoDeviationThreshold = 150
 
   def findOrGenerate(user: User, deep: Boolean): Fu[Option[Evaluation]] = find(user) flatMap {
