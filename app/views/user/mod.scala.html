@@ -31,11 +31,26 @@
     <p>No suspicious game found.</p>
     } else {
     <p>Most suspicious games found:</p>
-    <ul>
-      @e.games.map { g =>
-      <li><a href="@g.url">@g</a></li>
-      }
-    </ul>
+    <table class="slist">
+      <thead>
+        <tr>
+          <th>Game</th>
+          <th>Move time deviation</th>
+          <th>Blur rate</th>
+          <th>Error rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        @e.games.map { g =>
+        <tr>
+          <td><a href="@g.url">@g.url</a></td>
+          <td>@g.moveTime.map(_ + "%")</td>
+          <td>@g.blur.map(_ + "%")</td>
+          <td>@g.error.map(_ + "%")</td>
+        </tr>
+        }
+      </tbody>
+    </table>
     }
   </div>
   }

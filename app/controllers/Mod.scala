@@ -14,16 +14,16 @@ object Mod extends LilaController {
   private def modLogApi = Env.mod.logApi
 
   def engine(username: String) = Secure(_.MarkEngine) { _ ⇒
-    me ⇒ modApi.adjust(me.id, username) inject Redirect(routes.User show username)
+    me ⇒ modApi.adjust(me.id, username) inject redirect(username)
   }
 
   def troll(username: String) = Secure(_.MarkTroll) { _ ⇒
     me ⇒
-      modApi.troll(me.id, username) inject Redirect(routes.User show username)
+      modApi.troll(me.id, username) inject redirect(username)
   }
 
   def ban(username: String) = Secure(_.IpBan) { implicit ctx ⇒
-    me ⇒ modApi.ban(me.id, username) inject Redirect(routes.User show username)
+    me ⇒ modApi.ban(me.id, username) inject redirect(username)
   }
 
   def ipban(ip: String) = Secure(_.IpBan) { implicit ctx ⇒
@@ -31,11 +31,13 @@ object Mod extends LilaController {
   }
 
   def reopenAccount(username: String) = Secure(_.ReopenAccount) { implicit ctx ⇒
-    me ⇒ modApi.reopenAccount(me.id, username) inject Redirect(routes.User show username)
+    me ⇒ modApi.reopenAccount(me.id, username) inject redirect(username)
   }
 
 
   def log = Auth { implicit ctx ⇒
     me ⇒ modLogApi.recent map { html.mod.log(_) }
   }
+
+  def redirect(username: String) = Redirect(routes.User.show(username).url + "?mod")
 }

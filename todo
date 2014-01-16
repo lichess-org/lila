@@ -121,8 +121,5 @@ fix auto cheat detection
 clarkey improvement list: http://pastebin.com/c8Zmdw7t
 SVG chess sets http://chesstempo.com/chess-tactics.html
 mailbox counter is grey
-
-deploy
-------
-db.chat.ensureIndex({tr:1,c:1,d:-1})
-db.chat.ensureIndex({u:1,c:1,d:-1})
+show analysis details, blur % in cheat table and reports
+ban only latest IP

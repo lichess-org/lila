@@ -42,6 +42,11 @@ case class System(chanTyp: String, chanId: Option[String], text: String)
 
 package report {
   case class Cheater(userId: String, text: String)
+  case class Check(userId: String)
+}
+
+package mod {
+  case class MarkCheater(userId: String)
 }
 
 package setup {
