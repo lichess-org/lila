@@ -39,7 +39,8 @@ final class Env(
   lazy val evaluator = new Evaluator(
     coll = db(CollectionEvaluation),
     script = EvaluatorScriptPath,
-    reporter = hub.actor.report)
+    reporter = hub.actor.report,
+    marker = hub.actor.mod)
 
   lazy val ranking = new Ranking(ttl = RankingTtl)
 

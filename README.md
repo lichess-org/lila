@@ -16,10 +16,10 @@ and relies on [Play 2.2](http://www.playframework.com/) for the routing, templat
 Pure chess logic is contained in [scalachess](http://github.com/ornicar/scalachess) submodule.
 The codebase is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
 Lichess talks to [Stockfish 4](http://stockfishchess.org/) using a [FSM Actor](https://github.com/ornicar/lila/blob/master/modules/ai/src/main/stockfish/ActorFSM.scala) to handle AI moves and analysis.
-It uses [MongoDB 2.4](http://mongodb.org) to store about 15 million games, which are indexed by [elasticsearch 0.90](http://elasticsearch.org).
+It uses [MongoDB 2.4](http://mongodb.org) to store about 20 million games, which are indexed by [elasticsearch 0.90](http://elasticsearch.org).
 HTTP requests and websocket connections are proxied by [nginx 1.4](http://nginx.org).
 
-Join us on [#lichess IRC channel](http://lichess.org/irc) for more info.
+Join us on #lichess IRC channel on freenode for more info.
 
 Installation
 ------------

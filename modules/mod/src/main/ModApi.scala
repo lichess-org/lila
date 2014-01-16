@@ -16,6 +16,8 @@ final class ModApi(
       UserRepo.toggleEngine(user.id) void
   }
 
+  def autoAdjust(username: String): Funit = adjust("lichess", username)
+
   def troll(mod: String, username: String): Fu[Boolean] = withUser(username) { u ⇒
     val user = u.copy(troll = !u.troll)
     ((UserRepo updateTroll user) >>-

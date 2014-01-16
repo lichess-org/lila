@@ -20,15 +20,22 @@ case class Evaluation(
   def isDeep = deep.isDefined
 
   def verdict = action match {
-    case Evaluation.Nothing ⇒ "innocent"
+    case Evaluation.Nothing ⇒ "clean"
     case Evaluation.Report  ⇒ "suspicious"
     case Evaluation.Mark    ⇒ "definitely cheating"
   }
 
   def reportText(maxGames: Int = 10) = {
     val gameText = games take maxGames map { g ⇒ s"${g.url} $g" } mkString "\n"
-    s"[AUTOREPORT] Cheat evaluation: $percent%\n$gameText"
+    s"[AUTOREPORT] Cheat evaluation: $percent%\n\n$gameText"
   }
+
+  def report(perfs: Perfs) = action == Evaluation.Report || notMarkBecauseGreat(perfs)
+
+  def mark(perfs: Perfs) = action == Evaluation.Mark && !notMarkBecauseGreat(perfs)
+
+  def notMarkBecauseGreat(perfs: Perfs) =
+    action == Evaluation.Mark && perfs.global.glicko.rating >= Evaluation.greatPlayerRating
 }
 
 object Evaluation {
@@ -36,6 +43,7 @@ object Evaluation {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
+  private val greatPlayerRating = 2000
   private type Percent = Int
 
   sealed trait Action

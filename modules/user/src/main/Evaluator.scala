@@ -15,41 +15,52 @@ import lila.db.Types._
 final class Evaluator(
     coll: Coll,
     script: String,
-    reporter: ActorSelection) {
+    reporter: ActorSelection,
+    marker: ActorSelection) {
 
   val autoRatingThreshold = 1700
-  val autoDeviationThreshold = 150
+  val autoDeviationThreshold = 120
 
   def findOrGenerate(user: User, deep: Boolean): Fu[Option[Evaluation]] = find(user) flatMap {
     case x@Some(eval) if (!deep || eval.isDeep) ⇒ fuccess(x)
-    case _                                      ⇒ generate(user.id, deep)
+    case _                                      ⇒ generate(user, deep)
   }
 
   def find(user: User): Fu[Option[Evaluation]] =
     coll.find(Json.obj("_id" -> user.id)).one[JsObject] map { _ map readEvaluation }
 
-  def generate(userId: String, deep: Boolean): Fu[Option[Evaluation]] = for {
-    output ← run(userId, deep).future
-    evalJs ← (Json parse output).transform(evaluationTransformer) match {
-      case JsSuccess(v, _) ⇒ fuccess(v)
-      case JsError(e)      ⇒ fufail(lila.common.LilaException(s"Can't parse evaluator output: $e on $output"))
+  def generate(user: User, deep: Boolean): Fu[Option[Evaluation]] = generate(user.id, user.perfs, deep)
+
+  def generate(userId: String, perfs: Perfs, deep: Boolean): Fu[Option[Evaluation]] = {
+    run(userId, deep) match {
+      case Failure(e: Exception) if e.getMessage.contains("exit value: 1") ⇒ fuccess(none)
+      case Failure(e: Exception) if e.getMessage.contains("exit value: 2") ⇒ fuccess(none)
+      case Failure(e: Exception) ⇒ fufail(e)
+      case Success(output) ⇒ for {
+        evalJs ← (Json parse output).transform(evaluationTransformer) match {
+          case JsSuccess(v, _) ⇒ fuccess(v)
+          case JsError(e)      ⇒ fufail(lila.common.LilaException(s"Can't parse evaluator output: $e on $output"))
+        }
+        eval ← scala.concurrent.Future(readEvaluation(evalJs))
+        _ ← coll.update(Json.obj("_id" -> userId), evalJs, upsert = true)
+        _ ← UserRepo.setEvaluated(userId, true)
+      } yield eval.some
     }
-    eval ← scala.concurrent.Future(readEvaluation(evalJs))
-    _ ← coll.update(Json.obj("_id" -> userId), evalJs, upsert = true)
-    _ ← UserRepo.setEvaluated(userId, true)
-  } yield eval.some
+  } andThen {
+    case Success(Some(eval)) if eval.mark(perfs) ⇒ {
+      marker ! lila.hub.actorApi.mod.MarkCheater(userId)
+      reporter ! lila.hub.actorApi.report.Check(userId)
+    }
+  }
 
   def autoGenerate(user: User, perfs: Perfs) {
-    UserRepo isEvaluated user.id foreach {
-      case false ⇒ {
-        val g = perfs.global.glicko
-        ((g.deviation <= autoDeviationThreshold && g.rating >= autoRatingThreshold) ?? generate(user.id, false)) foreach {
-          case Some(eval) if (eval.action == Evaluation.Report) ⇒
-            reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
+    UserRepo isEvaluated user.id foreach { evaluated ⇒
+      val g = perfs.global.glicko
+      if (!evaluated && g.deviation <= autoDeviationThreshold && g.rating >= autoRatingThreshold)
+        generate(user.id, perfs, false) foreach {
+          case Some(eval) if eval.report(perfs) ⇒ reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
           case _ ⇒
         }
-      }
-      case true ⇒
     }
   }
 
