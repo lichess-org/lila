@@ -140,7 +140,6 @@ exportGames=Exportar xogos
 color=Cor
 eloRange=Clasificación Elo
 giveNbSeconds=Dar %s segundos
-allPlayers=Todos os xogadores
 premoveEnabledClickAnywhereToCancel=Movemento previo habilitado. Pulse en calquera sitio para cancelar.
 thisPlayerUsesChessComputerAssistance=Este xogador sérvese de programas de xadrez
 opening=Apertura

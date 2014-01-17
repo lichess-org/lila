@@ -97,7 +97,6 @@ play=Chwarae
 inbox=Mewnflwch
 chatRoom=Ystafell sgwrs
 composeMessage=Creu Neges
-sentMessages=Negesau anfonwyd
 incrementInSeconds=Cynyddiad mewn eiliadau
 freeOnlineChess=Chess arlein am ddim
 spectators=Ymwelwyr

@@ -123,3 +123,8 @@ SVG chess sets http://chesstempo.com/chess-tactics.html
 mailbox counter is grey
 show analysis details, blur % in cheat table and reports
 ban only latest IP
+graph on the user page is ~3px to the left of where it should be
+
+deploy
+------
+evaluation.evaluator.script_path = "php /home/thib/engine-evaluator/engine-evaluator.php"

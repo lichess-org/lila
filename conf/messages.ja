@@ -140,7 +140,6 @@ exportGames=対局をエクスポートする
 color=色
 eloRange=Eloレーティングの範囲
 giveNbSeconds=%s秒を与える
-allPlayers=全プレイヤー
 premoveEnabledClickAnywhereToCancel=次の手を予約しました－キャンセルするならどこかをクリックしてください
 thisPlayerUsesChessComputerAssistance=このプレイヤーはチェスソフトを使用しています
 opening=序盤

@@ -140,7 +140,6 @@ exportGames=খেলা রপ্তানী
 color=রঙ
 eloRange=ইলো সীমা
 giveNbSeconds=%s সেকেন্ড দিন
-allPlayers=সকল খেলোয়াড়
 premoveEnabledClickAnywhereToCancel=পূর্বচাল চালু আছে - বন্ধ করার জন্য যে কোন জায়গায় ক্লিক করুন
 thisPlayerUsesChessComputerAssistance=এই খেলোয়াড় দাবা-কম্পিউটারের সাহায্য ব্যবহার করেন
 opening=শুরু হচ্ছে

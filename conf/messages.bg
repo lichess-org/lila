@@ -140,7 +140,6 @@ exportGames=експорт на партии
 color=Цвят
 eloRange=Рейтинг ЕЛО
 giveNbSeconds=Задай %s секунди
-allPlayers=Всички играчи
 premoveEnabledClickAnywhereToCancel=Предварителен ход зададен - Натиснете където и да е за да го отмените
 thisPlayerUsesChessComputerAssistance=Този играч използва компютърен софтуер за асистенция
 opening=Дебют
