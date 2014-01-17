@@ -140,7 +140,6 @@ exportGames=Eksportér partier
 color=Farge
 eloRange=Elo-spenn
 giveNbSeconds=Gi %s sekunder
-allPlayers=Alle spillere
 premoveEnabledClickAnywhereToCancel=Forhåndstrekk aktivert - klikk hvor som helst for å avbryte
 thisPlayerUsesChessComputerAssistance=Denne spilleren bruker datahjelp
 opening=Åpning

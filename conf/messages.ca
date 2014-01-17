@@ -140,7 +140,6 @@ exportGames=Exporta les partides
 color=Color
 eloRange=Puntuació d'Elo
 giveNbSeconds=Dóna %s segons
-allPlayers=Tots els jugadors
 premoveEnabledClickAnywhereToCancel=El moviment automàtic està activat - Clica en qualsevol lloc per cancel·lar-lo
 thisPlayerUsesChessComputerAssistance=Aquest jugador utilitza un programa informàtic d'escacs
 opening=Obertura

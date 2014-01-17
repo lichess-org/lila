@@ -140,7 +140,6 @@ exportGames=Էկսպորտ անել խաղերը
 color=Գույն
 eloRange=Elo միջակայք
 giveNbSeconds=Տալ %s վայրկան
-allPlayers=Բոլոր խաղացողները
 premoveEnabledClickAnywhereToCancel=Նախորոք քայլ կատարելու հնարավորությունը ակտիվացված է, կարող եք այն անջատել՝ մկնիկի ստեղնակին սեղմելով
 thisPlayerUsesChessComputerAssistance=Այղ խաղացողը դիմում է համակարգչի օգնությանը
 opening=Սկզբնախաղ

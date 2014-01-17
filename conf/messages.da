@@ -140,7 +140,6 @@ exportGames=Eksporter spil
 color=Farve
 eloRange=Elo interval
 giveNbSeconds=Giv %s sekunder
-allPlayers=Alle spillere
 premoveEnabledClickAnywhereToCancel=Forhåndstræk aktiveret - Klik hvor som helst for at annullere
 thisPlayerUsesChessComputerAssistance=Denne spiller bruger skakcomputer assistance
 opening=Åbning

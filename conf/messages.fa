@@ -140,7 +140,6 @@ exportGames=بازی های صادره
 color=رنگ زمینه
 eloRange=حدود ریتینگ
 giveNbSeconds=%s ثانیه اضافه کن
-allPlayers=همه بازیکنان
 premoveEnabledClickAnywhereToCancel=حرکت خودکار زود از موعد فعال است - برای لغو هر جای صفحه کلیک کنید
 thisPlayerUsesChessComputerAssistance=این بازیکن از کامپیوتر کمک می گیرد
 opening=گشایش
