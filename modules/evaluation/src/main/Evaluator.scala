@@ -1,4 +1,4 @@
-package lila.user
+package lila.evaluation
 
 import scala.util.{ Try, Success, Failure }
 
@@ -11,6 +11,8 @@ import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import lila.db.api._
 import lila.db.JsTube.Helpers.{ rename, writeDate, readDate }
 import lila.db.Types._
+import lila.game.Player
+import lila.user.{ User, UserRepo, Perfs }
 
 final class Evaluator(
     coll: Coll,
@@ -18,8 +20,7 @@ final class Evaluator(
     reporter: ActorSelection,
     marker: ActorSelection) {
 
-  val autoRatingThreshold = 1700
-  val autoDeviationThreshold = 120
+  import Evaluation._
 
   def findOrGenerate(user: User, deep: Boolean): Fu[Option[Evaluation]] = find(user) flatMap {
     case x@Some(eval) if (!deep || eval.isDeep) ⇒ fuccess(x)
@@ -53,13 +54,12 @@ final class Evaluator(
     }
   }
 
-  def autoGenerate(user: User, perfs: Perfs) {
+  def autoGenerate(user: User, player: Player) {
     UserRepo isEvaluated user.id foreach { evaluated ⇒
-      val g = perfs.global.glicko
-      if (!evaluated && g.deviation <= autoDeviationThreshold && g.rating >= autoRatingThreshold)
-        generate(user.id, perfs, false) foreach {
-          case Some(eval) if eval.report(perfs) ⇒ reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
-          case _ ⇒
+      if (!evaluated && deviationIsLow(user.perfs) && ratingIsHigh(user.perfs))
+        generate(user.id, user.perfs, false) foreach {
+          case Some(eval) if eval.report(user.perfs) ⇒ reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
+          case _                                     ⇒
         }
     }
   }

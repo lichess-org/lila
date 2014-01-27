@@ -9,7 +9,6 @@ import lila.memo.ExpireSetMemo
 final class Env(
     config: Config,
     db: lila.db.Env,
-    hub: lila.hub.Env,
     scheduler: lila.common.Scheduler,
     system: ActorSystem) {
 
@@ -21,8 +20,6 @@ final class Env(
     val RankingTtl = config duration "ranking.ttl"
     val CollectionUser = config getString "collection.user"
     val CollectionHistory = config getString "collection.history"
-    val CollectionEvaluation = config getString "collection.evaluation"
-    val EvaluatorScriptPath = config getString "evaluator.script_path"
   }
   import settings._
 
@@ -35,12 +32,6 @@ final class Env(
     maxPerPage = PaginatorMaxPerPage)
 
   lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
-
-  lazy val evaluator = new Evaluator(
-    coll = db(CollectionEvaluation),
-    script = EvaluatorScriptPath,
-    reporter = hub.actor.report,
-    marker = hub.actor.mod)
 
   lazy val ranking = new Ranking(ttl = RankingTtl)
 
@@ -98,7 +89,6 @@ object Env {
   lazy val current: Env = "[boot] user" describes new Env(
     config = lila.common.PlayApp loadConfig "user",
     db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
     scheduler = lila.common.PlayApp.scheduler,
     system = lila.common.PlayApp.system)
 }
