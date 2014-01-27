@@ -1,10 +1,8 @@
 include "base"
 
-# Use l.org as local development domain
-net {
-  domain = "l.org"
-  asset.domain = "static.l.org"
-}
+# Define application domain name
+net.domain = "l.org"
+
 # Use local artificial intelligence 
 ai {
   server = false
