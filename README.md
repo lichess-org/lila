@@ -184,8 +184,7 @@ name | type | default | description
             "blunder": 1,
             "inaccuracy": 0,
             "mistake": 2
-          },
-          "moveTimes": [1, 15, 15, 10, 20, 15, 15, 20, 30, 10, 15, 20, 20, 30, 40, 30, 20, 20, 15, 30, 20, 10]
+          }
         },
         "black": ... // other player
       }
@@ -214,7 +213,79 @@ One could use that API to provide chess capabilities to an online chat, for inst
   "white": "http://l.org/8pmigk36t1hp",
   "black": "http://l.org/8pmigk36ov6m"
 }
-``` 
+```
+
+### `GET /api/analysis` fetch many analysis
+
+Analysis are returned by descendant chronological order.
+All parameters are optional.
+
+name | type | default | description
+--- | --- | --- | ---
+**nb** | int | 10 | maximum number of analysis to return
+
+```
+> curl http://en.lichess.org/api/analysis?nb=10
+```
+
+```json
+{
+  "list": [
+    {
+      "analysis": [
+        {
+          "eval": -26, // board evaluation in centipawns
+          "move": "e4",
+          "ply": 1
+        },
+        {
+          "eval": -8,
+          "move": "b5",
+          "ply": 2
+        },
+        {
+          "comment": "(-0.08 → -0.66) Inaccuracy. The best move was c4.",
+          "eval": -66,
+          "move": "Nfe3",
+          "ply": 3,
+          "variation": "c4 bxc4 Nfe3 c5 Qf1 f6 Rxc4 Bb7 b4 Ba6"
+        },
+        // ... more moves
+      ],
+      "game": {                         // similar to the game API format
+        "id": "lkvinsaq",
+        "players": {
+          "black": {
+            "analysis": {
+              "blunder": 0,
+              "inaccuracy": 0,
+              "mistake": 0
+            },
+            "rating": 1505,
+            "userId": "neio"
+          },
+          "white": {
+            "analysis": {
+              "blunder": 0,
+              "inaccuracy": 1,
+              "mistake": 0
+            },
+            "rating": 1692,
+            "userId": "thibault"
+          }
+        },
+        "rated": true,
+        "status": "resign",
+        "timestamp": 1386797718059,
+        "turns": 3,
+        "url": "http://l.org/lkvinsaq/black",
+        "variant": "chess960",
+        "winner": "black"
+      }
+    }
+  ]
+}
+```
 
 ### Read the move stream
 

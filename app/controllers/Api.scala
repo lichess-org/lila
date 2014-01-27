@@ -9,6 +9,7 @@ object Api extends LilaController {
 
   private val userApi = Env.api.userApi
   private val gameApi = Env.api.gameApi
+  private val analysisApi = Env.api.analysisApi
 
   def user(username: String) = ApiResult { req ⇒
     userApi.one(
@@ -30,6 +31,12 @@ object Api extends LilaController {
       username = get("username", req),
       rated = get("rated", req) map ("1"==),
       token = get("token", req),
+      nb = getInt("nb", req)
+    ) map (_.some)
+  }
+
+  def analysis = ApiResult { req ⇒
+    analysisApi.list(
       nb = getInt("nb", req)
     ) map (_.some)
   }

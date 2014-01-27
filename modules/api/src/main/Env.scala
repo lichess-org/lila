@@ -8,6 +8,7 @@ final class Env(
     renderer: akka.actor.ActorSelection,
     router: akka.actor.ActorSelection,
     bus: lila.common.Bus,
+    pgnDump: lila.game.PgnDump,
     userEnv: lila.user.Env,
     userIdsSharingIp: String ⇒ Fu[List[String]],
     val isProd: Boolean) {
@@ -36,6 +37,10 @@ final class Env(
     apiToken = apiToken,
     isOnline = userEnv.isOnline)
 
+  val analysisApi = new AnalysisApi(
+    makeUrl = apiUrl,
+    pgnDump = pgnDump)
+
   private def apiUrl(msg: Any): Fu[String] = {
     import akka.pattern.ask
     import makeTimeout.short
@@ -52,6 +57,7 @@ object Env {
     renderer = lila.hub.Env.current.actor.renderer,
     router = lila.hub.Env.current.actor.router,
     userEnv = lila.user.Env.current,
+    pgnDump = lila.game.Env.current.pgnDump,
     userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp,
     bus = lila.common.PlayApp.system.lilaBus,
     isProd = lila.common.PlayApp.isProd)

@@ -53,5 +53,8 @@ object AnalysisRepo {
       _.fold($find byId id) { staled ⇒ $remove byId id inject none }
     }
 
+  def recent(nb: Int): Fu[List[Analysis]] =
+    $find($query(Json.obj("done" -> true)) sort $sort.desc("date"), nb)
+
   def count = $count($select.all)
 }
