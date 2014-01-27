@@ -26,7 +26,8 @@ final class ReportApi(evaluator: ActorSelection) {
       }
     }
 
-  def autoCheatReport(userId: String, text: String): Funit =
+  def autoCheatReport(userId: String, text: String): Funit = {
+    play.api.Logger("Report").info(s"auto cheat reaport $userId: $text")
     UserRepo byId userId zip UserRepo.lichess flatMap {
       case (Some(user), Some(lichess)) ⇒ create(ReportSetup(
         user = user,
@@ -36,6 +37,7 @@ final class ReportApi(evaluator: ActorSelection) {
         move = ""), lichess)
       case _ ⇒ funit
     }
+  }
 
   def process(id: String, by: User): Funit =
     $update.field(id, "processedBy", by.id)

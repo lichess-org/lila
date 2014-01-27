@@ -52,9 +52,11 @@ final class Evaluator(
       marker ! lila.hub.actorApi.mod.MarkCheater(userId)
       reporter ! lila.hub.actorApi.report.Check(userId)
     }
+    case Failure(e) ⇒ logger.warn(s"generate: $e")
   }
 
   def autoGenerate(user: User, player: Player) {
+    logger.info(s"auto evaluate $user")
     UserRepo isEvaluated user.id foreach { evaluated ⇒
       if (!evaluated && deviationIsLow(user.perfs) && ratingIsHigh(user.perfs))
         generate(user.id, user.perfs, false) foreach {
@@ -91,4 +93,6 @@ final class Evaluator(
         __.read[JsObject].map { o ⇒ o ++ Json.obj("date" -> $date(DateTime.now)) }
       ) andThen
         (__ \ 'Error).json.prune
+
+  private val logger = play.api.Logger("Evaluator")
 }
