@@ -208,7 +208,7 @@ One could use that API to provide chess capabilities to an online chat, for inst
 > curl -XPOST http://en.lichess.org/api/game/new
 ```
 
-```json
+```javascript
 {
   "white": "http://l.org/8pmigk36t1hp",
   "black": "http://l.org/8pmigk36ov6m"
@@ -228,7 +228,7 @@ name | type | default | description
 > curl http://en.lichess.org/api/analysis?nb=10
 ```
 
-```json
+```javascript
 {
   "list": [
     {
