@@ -26,11 +26,15 @@
 <div class="user_spy">
   @eval.map { e =>
   <div class="evaluation">
-    <p>@e.isDeep.fold("Thoroughly", "Quickly") evaluated @timeago(e.date) as @e.percent% -> <strong>@e.verdict(u.perfs)</strong>.</p>
-    @if(e.games.isEmpty) {
-    <p>No suspicious game found.</p>
-    } else {
-    <p>Most suspicious games found:</p>
+    <p>
+      @e.isDeep.fold("Thoroughly", "Quickly") evaluated @timeago(e.date) as @e.percent% -> <strong>@e.verdict(u.perfs)</strong>.
+      @if(e.games.nonEmpty) {
+      Most suspicious games found:
+      } else {
+      No suspicious game found.
+      }
+    </p>
+    @if(e.games.nonEmpty) {
     <table class="slist">
       <thead>
         <tr>

@@ -134,6 +134,10 @@ div.user_show .mod_zone {
   margin: 1em 20px;
   border-bottom: 1px solid #c0c0c0;
 }
+div.user_show .mod_zone .actions {
+  width: 100%;
+  text-align: center;
+}
 div.user_show .mod_zone .slist {
   font-size: 0.9em;
 }
@@ -158,7 +162,7 @@ div.user_show .mod_zone strong {
   margin-top: 0.5em;
 }
 div.user_show .evaluation {
-  max-height: 210px;
+  max-height: 226px;
   overflow: auto;
 }
 div.user_show .evaluation strong {
