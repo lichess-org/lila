@@ -61,6 +61,13 @@ private[api] object GameApi {
     "timestamp" -> g.createdAt.getDate,
     "turns" -> g.turns,
     "status" -> g.status.name.toLowerCase,
+    "clock" -> g.clock.map { clock =>
+      Json.obj(
+        "limit" -> clock.limit,
+        "increment" -> clock.increment,
+        "totalTime" -> clock.estimateTotalTime
+      )
+    },
     "players" -> JsObject(g.players.zipWithIndex map {
       case (p, i) ⇒ p.color.name -> Json.obj(
         "userId" -> p.userId,

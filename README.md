@@ -172,6 +172,11 @@ name | type | default | description
       "id": "x2kpaixn",
       "rated": false,
       "status": "mate",
+      "clock":{          // all clock values are expressed in seconds
+        "limit": 300,
+        "increment": 8,
+        "totalTime": 540  // evaluation of the game duration = limit + 30 * increment
+      },
       "timestamp": 1389100907239,
       "turns": 44,
       "url": "http://lichess.org/x2kpaixn",

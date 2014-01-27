@@ -5,9 +5,9 @@ import chess.Status._
 import chess.{ Status, Color, Speed, Variant }
 
 import lila.db.api._
+import lila.game.actorApi.FinishGame
 import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Pov, Event }
-import lila.hub.actorApi.round._
 import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo }
@@ -15,8 +15,7 @@ import lila.user.{ User, UserRepo }
 private[round] final class Finisher(
     messenger: Messenger,
     perfsUpdater: PerfsUpdater,
-    indexer: akka.actor.ActorSelection,
-    tournamentOrganizer: akka.actor.ActorSelection) {
+    bus: lila.common.Bus) {
 
   def apply(
     game: Game,
@@ -27,22 +26,26 @@ private[round] final class Finisher(
     val g = prog.game
     (GameRepo save prog) >>
       GameRepo.finish(g.id, winner, winner flatMap (g.player(_).userId)) >>
-      updateCountAndPerfs(g) inject {
-        message foreach { messenger(g, _) }
-        indexer ! lila.game.actorApi.InsertGame(g)
-        tournamentOrganizer ! FinishGame(g.id)
-        prog.events
-      }
+      UserRepo.pair(
+        game.player(White).userId,
+        game.player(Black).userId).flatMap {
+          case (whiteO, blackO) ⇒ {
+            val finish = FinishGame(game, whiteO, blackO)
+            updateCountAndPerfs(finish) inject {
+              message foreach { messenger(g, _) }
+              bus.publish(finish, 'finishGame)
+              prog.events
+            }
+          }
+        }
   }
 
-  private def updateCountAndPerfs(game: Game): Funit =
-    UserRepo.pair(game.player(White).userId, game.player(Black).userId) flatMap {
-      case (whiteOption, blackOption) ⇒ (whiteOption |@| blackOption).tupled ?? {
-        case (white, black) ⇒ perfsUpdater.save(game, white, black)
-      } zip
-        (whiteOption ?? incNbGames(game)) zip
-        (blackOption ?? incNbGames(game)) void
-    }
+  private def updateCountAndPerfs(finish: FinishGame): Funit =
+    (finish.white |@| finish.black).tupled ?? {
+      case (white, black) ⇒ perfsUpdater.save(finish.game, white, black)
+    } zip
+      (finish.white ?? incNbGames(finish.game)) zip
+      (finish.black ?? incNbGames(finish.game)) void
 
   private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
     UserRepo.incNbGames(user.id, game.rated, game.hasAi,

@@ -1,8 +1,8 @@
 package lila.hub
 package actorApi
 
-import play.api.libs.json._
 import akka.actor.ActorRef
+import play.api.libs.json._
 
 case class SendTo(userId: String, message: JsObject)
 
@@ -41,12 +41,12 @@ case class System(chanTyp: String, chanId: Option[String], text: String)
 }
 
 package report {
-  case class Cheater(userId: String, text: String)
-  case class Check(userId: String)
+case class Cheater(userId: String, text: String)
+case class Check(userId: String)
 }
 
 package mod {
-  case class MarkCheater(userId: String)
+case class MarkCheater(userId: String)
 }
 
 package setup {
@@ -140,7 +140,6 @@ case class MoveEvent(
   move: String,
   ip: String,
   meta: String) // x, +, #, +x, #x
-case class FinishGame(gameId: String)
 }
 
 package bookmark {
