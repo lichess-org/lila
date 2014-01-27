@@ -43,9 +43,6 @@ body.dark #site_title span.extension, body.dark div.sub_ratings h3 {
 body.dark #GameText a:hover, body.dark #hooks_wrap a.filter:hover, body.dark #hooks_wrap a.filter.active {
   background: #000;
 }
-body.dark #top span.new_messages {
-  background: #606060;
-}
 body.dark div.lichess_chat .lichess_messages, body.dark div.undertable_inner, body.dark div.lichess_goodies div.box, body.dark div.undergame_box, body.dark div.undertable td, body.dark div.lichess_table, body.dark div.lichess_table_wrap div.clock, body.dark div.footer_wrap {
   background: #242424;
 }
