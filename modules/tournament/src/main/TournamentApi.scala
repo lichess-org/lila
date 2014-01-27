@@ -114,8 +114,7 @@ private[tournament] final class TournamentApi(
     case finished: Finished ⇒ fufail("Cannot withdraw from finished tournament " + finished.id)
   }
 
-  def finishGame(gameId: String): Fu[Option[Tournament]] = for {
-    game ← optionT(GameRepo finished gameId)
+  def finishGame(game: Game): Fu[Option[Tournament]] = for {
     tour ← optionT(game.tournamentId ?? TournamentRepo.startedById)
     result ← optionT {
       val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId, game.turns))

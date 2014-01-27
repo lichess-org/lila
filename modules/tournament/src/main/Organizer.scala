@@ -5,7 +5,7 @@ import akka.pattern.{ ask, pipe }
 
 import actorApi._
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.FinishGame
+import lila.game.actorApi.FinishGame
 import lila.hub.actorApi.WithUserIds
 import makeTimeout.short
 
@@ -36,8 +36,8 @@ private[tournament] final class Organizer(
       reminder ! RemindTournaments(tours)
     }
 
-    case FinishGame(gameId) ⇒
-      api finishGame gameId foreach { _ map (_.id) foreach api.socketReload }
+    case FinishGame(game, _, _) ⇒
+      api finishGame game foreach { _ map (_.id) foreach api.socketReload }
   }
 
   private def startPairing(tour: Started) {
