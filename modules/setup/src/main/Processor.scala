@@ -8,7 +8,6 @@ import play.api.libs.json.{ Json, JsObject }
 import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, Pov, Progress }
-import lila.hub.actorApi.router.Player
 import lila.i18n.I18nDomain
 import lila.lobby.actorApi.AddHook
 import lila.lobby.Hook
@@ -57,9 +56,10 @@ private[setup] final class Processor(
     val pov = config.pov
     val game = ctx.me.fold(pov.game)(user ⇒ pov.game.updatePlayer(pov.color, _ withUser user)).start
     import ChessColor.{ White, Black }
+    import lila.hub.actorApi.router.{ Player, Abs }
     $insert bson game zip
-      (router ? Player(game fullIdOf White) mapTo manifest[String]) zip
-      (router ? Player(game fullIdOf Black) mapTo manifest[String]) map {
+      (router ? Abs(Player(game fullIdOf White)) mapTo manifest[String]) zip
+      (router ? Abs(Player(game fullIdOf Black)) mapTo manifest[String]) map {
         case ((_, whiteUrl), blackUrl) ⇒ Json.obj(
           White.name -> whiteUrl,
           Black.name -> blackUrl)
