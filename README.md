@@ -257,35 +257,8 @@ name | type | default | description
         },
         // ... more moves
       ],
-      "game": {                         // similar to the game API format
-        "id": "lkvinsaq",
-        "players": {
-          "black": {
-            "analysis": {
-              "blunder": 0,
-              "inaccuracy": 0,
-              "mistake": 0
-            },
-            "rating": 1505,
-            "userId": "neio"
-          },
-          "white": {
-            "analysis": {
-              "blunder": 0,
-              "inaccuracy": 1,
-              "mistake": 0
-            },
-            "rating": 1692,
-            "userId": "thibault"
-          }
-        },
-        "rated": true,
-        "status": "resign",
-        "timestamp": 1386797718059,
-        "turns": 3,
-        "url": "http://l.org/lkvinsaq/black",
-        "variant": "chess960",
-        "winner": "black"
+      "game": {
+        // similar to the game API format, see above
       }
     }
   ]
