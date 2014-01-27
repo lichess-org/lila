@@ -1,4 +1,4 @@
-@(u: User, spy: lila.security.UserSpy, eval: Option[lila.user.Evaluation])(implicit ctx: Context)
+@(u: User, spy: lila.security.UserSpy, eval: Option[lila.evaluation.Evaluation])(implicit ctx: Context)
 
 <div class="actions clearfix">
   @if(isGranted(_.UserEvaluate)) {
@@ -26,7 +26,7 @@
 <div class="user_spy">
   @eval.map { e =>
   <div class="evaluation">
-    <p>@e.isDeep.fold("Thoroughly", "Quickly") evaluated @timeago(e.date) as @e.percent% -> <strong>@e.verdict</strong>.</p>
+    <p>@e.isDeep.fold("Thoroughly", "Quickly") evaluated @timeago(e.date) as @e.percent% -> <strong>@e.verdict(u.perfs)</strong>.</p>
     @if(e.games.isEmpty) {
     <p>No suspicious game found.</p>
     } else {

@@ -14,6 +14,8 @@ private[tournament] final class Organizer(
     reminder: ActorRef,
     socketHub: ActorRef) extends Actor {
 
+  context.system.lilaBus.subscribe(self, 'finishGame)
+
   def receive = {
 
     case CreatedTournaments ⇒ TournamentRepo.created foreach {
@@ -36,7 +38,6 @@ private[tournament] final class Organizer(
 
     case FinishGame(gameId) ⇒
       api finishGame gameId foreach { _ map (_.id) foreach api.socketReload }
-
   }
 
   private def startPairing(tour: Started) {

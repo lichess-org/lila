@@ -29,6 +29,7 @@ final class Env(config: Config, system: ActorSystem) {
     val challenger = select("actor.challenger")
     val report = select("actor.report")
     val mod = select("actor.mod")
+    val evaluator = select("actor.evaluator")
   }
 
   object socket {

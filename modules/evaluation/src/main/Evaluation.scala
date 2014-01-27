@@ -1,6 +1,7 @@
-package lila.user
+package lila.evaluation
 
 import org.joda.time.DateTime
+import lila.user.{ Perfs }
 
 case class Evaluation(
     id: String,
@@ -15,27 +16,28 @@ case class Evaluation(
     games: List[Evaluation.Game],
     date: DateTime) {
 
+  import Evaluation._
+
   def percent = deep getOrElse shallow
 
   def isDeep = deep.isDefined
 
-  def verdict = action match {
-    case Evaluation.Nothing ⇒ "clean"
-    case Evaluation.Report  ⇒ "suspicious"
-    case Evaluation.Mark    ⇒ "definitely cheating"
-  }
+  def verdict(perfs: Perfs) =
+    if (mark(perfs)) "definitely cheating"
+    else if (report(perfs)) "suspicious"
+    else "clean"
 
   def reportText(maxGames: Int = 10) = {
     val gameText = games take maxGames map { g ⇒ s"${g.url} $g" } mkString "\n"
     s"[AUTOREPORT] Cheat evaluation: $percent%\n\n$gameText"
   }
 
-  def report(perfs: Perfs) = action == Evaluation.Report || notMarkBecauseGreat(perfs)
+  def report(perfs: Perfs) = action == Report || {
+    action == Mark && !mark(perfs)
+  }
 
-  def mark(perfs: Perfs) = action == Evaluation.Mark && !notMarkBecauseGreat(perfs)
-
-  def notMarkBecauseGreat(perfs: Perfs) =
-    action == Evaluation.Mark && perfs.global.glicko.rating >= Evaluation.greatPlayerRating
+  def mark(perfs: Perfs) =
+    action == Mark && deviationIsLow(perfs) && !ratingIsGreat(perfs)
 }
 
 object Evaluation {
@@ -43,7 +45,14 @@ object Evaluation {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
-  private val greatPlayerRating = 2000
+  private[evaluation] val greatRatingThreshold = 2100
+  private[evaluation] val ratingThreshold = 1700
+  private[evaluation] val deviationThreshold = 120
+
+  def deviationIsLow(perfs: Perfs) = perfs.global.glicko.deviation < deviationThreshold
+  def ratingIsHigh(perfs: Perfs) = perfs.global.glicko.rating >= ratingThreshold
+  def ratingIsGreat(perfs: Perfs) = perfs.global.glicko.rating >= greatRatingThreshold
+
   private type Percent = Int
 
   sealed trait Action
@@ -64,9 +73,9 @@ object Evaluation {
     ).flatten mkString ", "
   }
 
-  private[user] implicit val gameReader = Json.reads[Game]
+  private[evaluation] implicit val gameReader = Json.reads[Game]
 
-  private[user] val reader: Reads[Evaluation] = (
+  private[evaluation] val reader: Reads[Evaluation] = (
     (__ \ '_id).read[String] and
     (__ \ 'shallow).read[Int] and
     (__ \ 'deep).readNullable[Int] and
