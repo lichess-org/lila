@@ -25,7 +25,7 @@ final class Env(
 object Env {
 
   lazy val current = "[boot] evaluation" describes new Env(
-    config = lila.common.PlayApp loadConfig "mod",
+    config = lila.common.PlayApp loadConfig "evaluation",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     system = lila.common.PlayApp.system)
