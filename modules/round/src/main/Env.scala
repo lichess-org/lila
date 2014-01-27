@@ -6,9 +6,9 @@ import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
 import lila.game.actorApi.ChangeFeaturedGame
-import lila.user.Evaluator
 import lila.hub.actorApi.map.Ask
 import lila.socket.actorApi.GetVersion
+import lila.user.Evaluator
 import makeTimeout.large
 
 final class Env(
@@ -117,6 +117,10 @@ final class Env(
   lazy val messenger = new Messenger(
     bus = system.lilaBus,
     i18nKeys = i18nKeys)
+
+  lazy val fenUrlWatch = new FenUrlWatch(
+    roundMap = roundMap,
+    scheduler = system.scheduler)
 
   def version(gameId: String): Fu[Int] =
     socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]

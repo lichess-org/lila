@@ -84,6 +84,7 @@ object Analyse extends LilaController {
 
   def fen(id: String) = Open { implicit ctx ⇒
     OptionOk(GameRepo game id) { game ⇒
+      Env.round fenUrlWatch game
       chess.format.Forsyth >> game.toChess
     }
   }
