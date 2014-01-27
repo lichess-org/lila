@@ -58,9 +58,9 @@ private[setup] final class Processor(
     val game = ctx.me.fold(pov.game)(user ⇒ pov.game.updatePlayer(pov.color, _ withUser user)).start
     import ChessColor.{ White, Black }
     $insert bson game zip
-      router ? Player(game fullIdOf White) zip
-      router ? Player(game fullIdOf Black) collect {
-        case (_, (whiteUrl: String, blackUrl: String)) ⇒ Json.obj(
+      (router ? Player(game fullIdOf White) mapTo manifest[String]) zip
+      (router ? Player(game fullIdOf Black) mapTo manifest[String]) map {
+        case ((_, whiteUrl), blackUrl) ⇒ Json.obj(
           White.name -> whiteUrl,
           Black.name -> blackUrl)
       }

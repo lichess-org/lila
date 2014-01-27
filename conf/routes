@@ -127,7 +127,6 @@ POST  /setup/hook/:uid                 controllers.Setup.hook(uid: String)
 GET   /setup/filter                    controllers.Setup.filterForm
 POST  /setup/filter                    controllers.Setup.filter
 GET   /setup/validate-fen              controllers.Setup.validateFen
-POST  /api/game/new                    controllers.Setup.api
 
 # I18n
 GET   /translation/contribute          controllers.I18n.contribute
@@ -210,6 +209,7 @@ GET   /report/list                     controllers.Report.list
 POST  /report/:id/process              controllers.Report.process(id: String)
 
 # API
+POST  /api/game/new                    controllers.Setup.api
 GET   /api/user                        controllers.Api.users
 GET   /api/user/:id                    controllers.Api.user(id: String)
 GET   /api/game                        controllers.Api.games

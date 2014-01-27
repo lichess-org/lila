@@ -104,7 +104,7 @@ list all players by ranking.
 automatic ai cheat detection is broken
 time pie chart colors http://en.lichess.org/52ede6hu/stats
 full page recent forum posts
-en_GB, en_US, pt_PT, pt_BR = localization
+en_GB, en_US, pt_PT, pt_BR = localization (note that current pt translation is good pt_PT)
 /takeback to accept (or sys message)
 badges out of screen
 moretime button position (>1hour)
