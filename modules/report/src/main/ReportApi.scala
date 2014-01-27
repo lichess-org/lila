@@ -1,14 +1,15 @@
 package lila.report
 
+import akka.actor.ActorSelection
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
 import lila.db.api._
 import lila.db.Implicits._
-import lila.user.{ User, UserRepo, Evaluator }
+import lila.user.{ User, UserRepo }
 import tube.reportTube
 
-final class ReportApi(evaluator: Evaluator) {
+final class ReportApi(evaluator: ActorSelection) {
 
   def create(setup: ReportSetup, by: User): Funit =
     Reason(setup.reason).fold[Funit](fufail("Invalid report reason " + setup.reason)) { reason ⇒
@@ -19,8 +20,8 @@ final class ReportApi(evaluator: Evaluator) {
         text = setup.text,
         createdBy = by)
       (!report.isCheat || !user.engine) ?? {
-        $insert(report) >> {
-          (report.isCheat && report.isManual) ?? evaluator.generate(user, true).void
+        $insert(report) >>- {
+          if (report.isCheat && report.isManual) evaluator ! user
         }
       }
     }

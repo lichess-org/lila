@@ -9,7 +9,6 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     system: ActorSystem,
-    evaluator: lila.user.Evaluator,
     hub: lila.hub.Env) {
 
   private val CollectionReport = config getString "collection.report"
@@ -17,7 +16,7 @@ final class Env(
 
   lazy val forms = new DataForm(hub.actor.captcher)
 
-  lazy val api = new ReportApi(evaluator)
+  lazy val api = new ReportApi(hub.actor.evaluator)
 
   // api actor
   system.actorOf(Props(new Actor {
@@ -36,6 +35,5 @@ object Env {
     config = lila.common.PlayApp loadConfig "report",
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
-    evaluator = lila.user.Env.current.evaluator,
     hub = lila.hub.Env.current)
 }
