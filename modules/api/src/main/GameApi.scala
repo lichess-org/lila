@@ -2,10 +2,11 @@ package lila.api
 
 import play.api.libs.json._
 
-import lila.analyse.AnalysisRepo
+import lila.analyse.{ AnalysisRepo, Analysis }
 import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
+import lila.game.Game
 import lila.game.Game.{ BSONFields ⇒ G }
 import lila.game.tube.gameTube
 import lila.hub.actorApi.{ router ⇒ R }
@@ -29,32 +30,14 @@ private[api] final class GameApi(
     (games map { g ⇒
       makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) zip (AnalysisRepo doneById g.id)
     }).sequenceFu map { data ⇒
+      val validToken = check(token)
       Json.obj(
         "list" -> JsArray(
           games zip data map {
-            case (g, (url, analysisOption)) ⇒ Json.obj(
-              "id" -> g.id,
-              "rated" -> g.rated,
-              "variant" -> g.variant.name,
-              "timestamp" -> g.createdAt.getDate,
-              "turns" -> g.turns,
-              "status" -> g.status.name.toLowerCase,
-              "players" -> JsObject(g.players.zipWithIndex map {
-                case (p, i) ⇒ p.color.name -> Json.obj(
-                  "userId" -> p.userId,
-                  "rating" -> p.rating,
-                  "moveTimes" -> g.moveTimes.zipWithIndex.filter(_._2 % 2 == i).map(_._1),
-                  "blurs" -> check(token).option(p.blurs),
-                  "analysis" -> analysisOption.map(_.summary).flatMap(_.find(_._1 == p.color).map(_._2)).map(s ⇒
-                    JsObject(s map {
-                      case (nag, nb) ⇒ nag.toString.toLowerCase -> JsNumber(nb)
-                    })
-                  )
-                ).noNull
-              }),
-              "winner" -> g.winnerColor.map(_.name),
-              "url" -> url
-            ).noNull
+            case (g, (url, analysisOption)) ⇒
+              GameApi.gameToJson(g, url, analysisOption,
+                withBlurs = validToken,
+                withMoveTimes = validToken)
           }
         )
       )
@@ -62,4 +45,38 @@ private[api] final class GameApi(
   }
 
   private def check(token: Option[String]) = token ?? (apiToken==)
+}
+
+private[api] object GameApi {
+
+  def gameToJson(
+    g: Game,
+    url: String,
+    analysisOption: Option[Analysis],
+    withBlurs: Boolean = false,
+    withMoveTimes: Boolean = false) = Json.obj(
+    "id" -> g.id,
+    "rated" -> g.rated,
+    "variant" -> g.variant.name,
+    "timestamp" -> g.createdAt.getDate,
+    "turns" -> g.turns,
+    "status" -> g.status.name.toLowerCase,
+    "players" -> JsObject(g.players.zipWithIndex map {
+      case (p, i) ⇒ p.color.name -> Json.obj(
+        "userId" -> p.userId,
+        "rating" -> p.rating,
+        "moveTimes" -> (withMoveTimes.fold(
+          g.moveTimes.zipWithIndex.filter(_._2 % 2 == i).map(_._1),
+          JsNull)),
+        "blurs" -> withBlurs.option(p.blurs),
+        "analysis" -> analysisOption.map(_.summary).flatMap(_.find(_._1 == p.color).map(_._2)).map(s ⇒
+          JsObject(s map {
+            case (nag, nb) ⇒ nag.toString.toLowerCase -> JsNumber(nb)
+          })
+        )
+      ).noNull
+    }),
+    "winner" -> g.winnerColor.map(_.name),
+    "url" -> url
+  ).noNull
 }

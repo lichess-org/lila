@@ -11,7 +11,7 @@ import org.joda.time.format.DateTimeFormat
 import lila.hub.actorApi.router.{ Abs, Watcher }
 import lila.user.User
 
-private[game] final class PgnDump(
+final class PgnDump(
     router: ActorSelection,
     findUser: String ⇒ Fu[Option[User]]) {
 
