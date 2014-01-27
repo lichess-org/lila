@@ -88,7 +88,7 @@ From here you can now run the application (`run`).
 }
 ```
 
-#### JSONP
+Example usage with JSONP:
 
 ```javascript
 $.ajax({
@@ -131,7 +131,7 @@ name | type | default | description
 }
 ```
 
-#### JSONP
+Example usage with JSONP:
 
 ```javascript
 $.ajax({
@@ -200,7 +200,7 @@ name | type | default | description
 
 ### `POST /api/game/new` create a new game
 
-You can create a new casual game by just POSTing to that url.
+You can create a new casual game by just `POST`ing to this url.
 You get back two links, for the white player and for the black player.
 One could use that API to provide chess capabilities to an online chat, for instance.
 
