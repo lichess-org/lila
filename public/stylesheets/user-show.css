@@ -158,7 +158,7 @@ div.user_show .mod_zone strong {
   margin-top: 0.5em;
 }
 div.user_show .evaluation {
-  max-height: 150px;
+  max-height: 210px;
   overflow: auto;
 }
 div.user_show .evaluation strong {
