@@ -12,7 +12,6 @@ import scalaz.Monoid
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
-import lila.chat.{ Chat, Chan }
 import lila.common.{ LilaCookie, HTTPRequest }
 import lila.security.{ Permission, Granter }
 import lila.user.{ User ⇒ UserModel }
@@ -48,9 +47,6 @@ private[controllers] trait LilaController
 
   protected def Open[A](p: BodyParser[A])(f: Context ⇒ Fu[SimpleResult]): Action[A] =
     Action.async(p)(req ⇒ reqToCtx(req) flatMap f)
-
-  protected def OpenWithChan(chan: lila.chat.Chan)(f: Context ⇒ Fu[SimpleResult]): Action[AnyContent] =
-    Action.async(BodyParsers.parse.anyContent)(req ⇒ reqToCtx(req, chan.some) flatMap f)
 
   protected def OpenBody(f: BodyContext ⇒ Fu[SimpleResult]): Action[AnyContent] =
     OpenBody(BodyParsers.parse.anyContent)(f)
@@ -172,9 +168,9 @@ private[controllers] trait LilaController
   protected def authorizationFailed(req: RequestHeader): SimpleResult =
     Forbidden("no permission")
 
-  protected def reqToCtx(req: RequestHeader, withChan: Option[Chan] = None): Fu[HeaderContext] =
+  protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
     restoreUser(req) map { lila.user.UserContext(req, _) } flatMap { ctx ⇒
-      pageDataBuilder(ctx, withChan) map { Context(ctx, _) }
+      pageDataBuilder(ctx) map { Context(ctx, _) }
     }
 
   protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
@@ -182,22 +178,10 @@ private[controllers] trait LilaController
       pageDataBuilder(ctx) map { Context(ctx, _) }
     }
 
-  private def pageDataBuilder(ctx: lila.user.UserContext, withChan: Option[Chan] = None): Fu[PageData] =
+  private def pageDataBuilder(ctx: lila.user.UserContext): Fu[PageData] =
     ctx.me.fold(fuccess(PageData.default)) { me ⇒
       val isPage = HTTPRequest.isSynchronousHttp(ctx.req)
-      (isPage ?? {
-        Env.chat.api get me flatMap { chat ⇒
-          val pageChat = withChan.fold(chat) { chan ⇒
-            Env.chat.api.truncate(me, chat withPageChan chan, chan.key)
-          }
-          Env.chat.api.populate(pageChat, me)
-        } map (_.some)
-      } recover {
-        case e: Exception ⇒ {
-          play.api.Logger("controller").warn(e.getMessage)
-          none
-        }
-      }) zip (Env.pref.api getPref me) zip {
+      (Env.pref.api getPref me) zip {
         isPage ?? {
           import lila.hub.actorApi.relation._
           import akka.pattern.ask
@@ -211,7 +195,7 @@ private[controllers] trait LilaController
           JsArray(teams map { t ⇒ Json.obj("id" -> t.id, "name" -> t.name) }).some
         }
       } map {
-        case (((chat, pref), friends), teams) ⇒ PageData(chat, friends, pref, teams)
+        case ((pref, friends), teams) ⇒ PageData(friends, pref, teams)
       }
     }
 

@@ -3,18 +3,16 @@ package lila.api
 import play.api.libs.json.{ JsObject, JsArray }
 import play.api.mvc.{ Request, RequestHeader }
 
-import lila.chat.Chat
 import lila.pref.Pref
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
 
 case class PageData(
-  chat: Option[Chat],
   friends: Option[JsObject],
   pref: Pref,
   teams: Option[JsArray])
 
 object PageData {
-  val default = PageData(none, none, Pref.default, none)
+  val default = PageData(none, Pref.default, none)
 }
 
 sealed trait Context extends lila.user.UserContextWrapper {
@@ -22,7 +20,6 @@ sealed trait Context extends lila.user.UserContextWrapper {
   val userContext: UserContext
   val pageData: PageData
 
-  def chat = pageData.chat
   def friends = pageData.friends
   def pref = pageData.pref
   def teams = pageData.teams

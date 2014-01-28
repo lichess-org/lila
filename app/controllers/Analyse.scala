@@ -31,7 +31,7 @@ object Analyse extends LilaController {
       Redirect(routes.Analyse.replay(id, color)).fuccess
   }
 
-  def replay(id: String, color: String) = OpenWithChan(lila.chat.GameWatcherChan(id)) { implicit ctx ⇒
+  def replay(id: String, color: String) = Open { implicit ctx ⇒
     OptionFuOk(GameRepo.pov(id, color)) { pov ⇒
       Env.round.version(pov.gameId) zip
         (bookmarkApi userIdsByGame pov.game) zip
@@ -52,7 +52,7 @@ object Analyse extends LilaController {
     }
   }
 
-  def stats(id: String) = OpenWithChan(lila.chat.GameWatcherChan(id)) { implicit ctx ⇒
+  def stats(id: String) = Open { implicit ctx ⇒
     OptionFuOk(GameRepo game id) { game ⇒
       timeChart(game) map { chart ⇒
         html.analyse.stats(
