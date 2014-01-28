@@ -7,7 +7,7 @@ sealed trait Line {
   def author: String
 }
 
-case class UserLine(username: String, text: String) extends Line {
+case class UserLine(username: String, text: String, troll: Boolean) extends Line {
   def author = username
 }
 case class PlayerLine(color: Color, text: String) extends Line {
@@ -20,26 +20,30 @@ object Line {
   import reactivemongo.bson.{ BSONHandler, BSONString }
 
   implicit val userLineBSONHandler = new BSONHandler[BSONString, UserLine] {
-
-    def read(bsonStr: BSONString) = {
-      val str = bsonStr.value
-      val username = str takeWhile (' '!=)
-      UserLine(username = username, text = str drop (username.size + 1))
-    }
-
-    def write(x: UserLine) = BSONString(s"${x.username} ${x.text}")
+    def read(bsonStr: BSONString) = strToUserLine(bsonStr.value) err s"Invalid user line ${bsonStr.value}"
+    def write(x: UserLine) = BSONString(userLineToStr(x))
   }
 
   implicit val lineBSONHandler = new BSONHandler[BSONString, Line] {
+    def read(bsonStr: BSONString) = strToLine(bsonStr.value) err s"Invalid line ${bsonStr.value}"
+    def write(x: Line) = BSONString(lineToStr(x))
+  }
 
-    def read(bsonStr: BSONString) = if (bsonStr.value(1) != ' ') userLineBSONHandler read bsonStr else {
-      val str = bsonStr.value
-      PlayerLine(color = Color(str.head) err s"Invalid player line $str", text = str drop 2)
-    }
+  private val UserLineRegex = """^([\w-]{2,})[\s!](.+)$""".r
+  def strToUserLine(str: String): Option[UserLine] = str match {
+    case UserLineRegex(username, " ", text) ⇒ UserLine(username, text, false).some
+    case UserLineRegex(username, "!", text) ⇒ UserLine(username, text, true).some
+    case _                                  ⇒ None
+  }
+  def userLineToStr(x: UserLine) = s"${x.username}${if (x.troll) "!" else " "}${x.text}"
 
-    def write(x: Line) = x match {
-      case PlayerLine(color, text) ⇒ BSONString(s"${color.letter} $text")
-      case e: UserLine             ⇒ userLineBSONHandler write e
+  def strToLine(str: String): Option[Line] = strToUserLine(str) orElse {
+    str.headOption flatMap Color.apply map { color ⇒
+      PlayerLine(color, str drop 2)
     }
+  }
+  def lineToStr(x: Line) = x match {
+    case u: UserLine   ⇒ userLineToStr(u)
+    case p: PlayerLine ⇒ s"${p.color.letter} ${p.text}"
   }
 }
