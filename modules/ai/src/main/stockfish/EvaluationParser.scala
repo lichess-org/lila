@@ -7,7 +7,7 @@ import lila.analyse.{ Evaluation, Score }
 
 object EvaluationParser {
 
-  private val LineMaxPlies = 10
+  private val LineMaxPlies = 20
 
   private val cpRegex = """^info.*\scp\s(\-?\d+).*$""".r
   private val mateRegex = """^info.*\smate\s(\-?\d+).*$""".r
