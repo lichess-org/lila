@@ -1,13 +1,15 @@
 package lila.api
 
 import chess.format.pgn.Pgn
+import chess.format.UciDump
+import chess.Replay
 import play.api.libs.json._
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
-import lila.game.{ GameRepo, PgnDump }
+import lila.game.{ Game, GameRepo, PgnDump }
 import lila.hub.actorApi.{ router ⇒ R }
 
 private[api] final class AnalysisApi(
@@ -21,22 +23,29 @@ private[api] final class AnalysisApi(
       games.map { g ⇒
         as find (_.id == g.id) map { _ -> g }
       }.flatten.map {
-        case (a, g) ⇒ pgnDump(g) zip
-          makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) map {
-            case (pgn, url) ⇒ (g, a, url, pgn)
+        case (a, g) ⇒ GameRepo initialFen g.id flatMap { initialFen ⇒
+          pgnDump(g) zip makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) map {
+            case (pgn, url) ⇒ (g, a, url, pgn, initialFen)
           }
+        }
       }.sequenceFu map { tuples ⇒
         Json.obj(
           "list" -> JsArray(tuples map {
-            case (game, analysis, url, pgn) ⇒ Json.obj(
-              "game" -> GameApi.gameToJson(game, url, analysis.some),
-              "analysis" -> AnalysisApi.analysisToJson(analysis, pgn)
-            )
+            case (game, analysis, url, pgn, fen) ⇒ Json.obj(
+              "game" -> (GameApi.gameToJson(game, url, analysis.some) ++ {
+                fen ?? { f ⇒ Json.obj("initialFen" -> f) }
+              }),
+              "analysis" -> AnalysisApi.analysisToJson(analysis, pgn),
+              "uci" -> uciMovesOf(game, fen).map(_.mkString(" "))
+            ).noNull
           })
         )
       }
     }
   }
+
+  private def uciMovesOf(game: Game, initialFen: Option[String]): Option[List[String]] =
+    Replay(game.pgnMoves mkString " ", initialFen, game.variant).toOption map UciDump.apply
 }
 
 private[api] object AnalysisApi {

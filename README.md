@@ -259,7 +259,8 @@ name | type | default | description
       ],
       "game": {
         // similar to the game API format, see above
-      }
+      },
+      "uci": "e2e4 e7e5 d2d4 e5d4 g1f3 g8f6" // UCI compatible game moves
     }
   ]
 }
