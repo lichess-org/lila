@@ -56,13 +56,14 @@ final class Evaluator(
   }
 
   def autoGenerate(user: User, player: Player) {
-    logger.info(s"auto evaluate $user")
     UserRepo isEvaluated user.id foreach { evaluated ⇒
-      if (!evaluated && deviationIsLow(user.perfs) && ratingIsHigh(user.perfs))
+      if (!evaluated && deviationIsLow(user.perfs) && ratingIsHigh(user.perfs)) {
+        logger.info(s"auto evaluate $user")
         generate(user.id, user.perfs, false) foreach {
           case Some(eval) if eval.report(user.perfs) ⇒ reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
           case _                                     ⇒
         }
+      }
     }
   }
 
