@@ -2,6 +2,7 @@ package lila.search
 
 import scala.collection.JavaConversions._
 import scala.concurrent.Future
+import scala.util.{ Success, Failure }
 
 import akka.actor.ActorSystem
 import com.typesafe.config.Config
@@ -16,17 +17,26 @@ final class Env(
   private val ESPort = config getInt "es.port"
   private val ESCluster = config getString "es.cluster"
   private val IndexesToOptimize = config getStringList "indexes_to_optimize"
+  private val IndexerMaxAttempts = 10
 
-  val esIndexer = Future {
-    "[search] Instanciate indexer" describes elasticsearch.Indexer.transport(
-      settings = Map("cluster.name" -> ESCluster),
-      host = ESHost,
-      ports = Seq(ESPort))
+  val esIndexer = makeIndexer()
+
+  private def makeIndexer(attempt: Int = 1): Future[elasticsearch.ClientIndexer] = Future {
+    s"[search] Instanciate indexer, attempt $attempt/$IndexerMaxAttempts" describes
+      elasticsearch.Indexer.transport(
+        settings = Map("cluster.name" -> ESCluster),
+        host = ESHost,
+        ports = Seq(ESPort))
   } andThen {
-    case scala.util.Success(indexer) ⇒
+    case Success(indexer) ⇒
       loginfo("[search] Start indexer")
       indexer.start
       loginfo("[search] Indexer is running")
+  } recoverWith {
+    case e: Exception if attempt <= IndexerMaxAttempts ⇒
+      logwarn(s"[search] Indexer creation: $e")
+      Thread sleep 10 * 1000
+      makeIndexer(attempt + 1)
   }
 
   {
