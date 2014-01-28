@@ -11,7 +11,7 @@ import views._
 
 object Tv extends LilaController {
 
-  def index = OpenWithChan(lila.chat.TvChan) { implicit ctx ⇒
+  def index = Open { implicit ctx ⇒
     OptionFuResult(Env.game.featured.one) { game ⇒
       Env.round.version(game.id) zip
         (GameRepo onTv 10) zip

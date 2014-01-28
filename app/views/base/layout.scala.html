@@ -151,59 +151,9 @@ data-accept-languages="@acceptLanguages.mkString(",")">
     Ping: <span id="connection_lag">?</span>
   </div>
 </div>
-@ctx.me.map { me =>
-@ctx.chat.map { c =>
-<div id="chat_wrap"@if(ctx.pref.chat.on) { class="on"}>
-  <div class="bar">
-    <div class="left"><a class="on">@trans.chat()</a></div>
-    <div class="right friends">
-      @trans.onlineFriends() - <strong class="online"> </strong>/<span class="total"> </span>
-    </div>
-    <div class="center last"></div>
-  </div>
-  <div id="chat" style="height:@{ctx.pref.chat.height}px">
-    <a class="off"></a>
-    <a class="help">help</a>
-    <div class="left chans"></div>
-    <div class="right lists">
-      <div class="tabs">
-        <a data-tab="friends" class="friends">@trans.onlineFriends()</a>
-        <a data-tab="teams" class="teams">@trans.teams()</a>
-      </div>
-      <div id="team_box" class="list_box teams" data-preload="@ctx.teams">
-        <div class="content"></div>
-      </div>
-      <div id="friend_box" class="list_box friends" data-preload="@ctx.friends">
-        <div class="content"></div>
-        <div class="nobody">
-          <span>@trans.noFriendsOnline()</span>
-          <a class="find button" href="@routes.Relation.suggest(me.username)">
-            <span class="s16 tup">@trans.findFriends()</span>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="center room">
-      <div class="lines" style="height:@{ctx.pref.chat.height - 28}px"></div>
-      <div class="controls">
-        <form action="#">
-          <input class="input" value="" placeholder="@trans.talkInChat()" />
-          <span class="invite"></span>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-}
-}
 }
 @jsTag("deps.min.js")
 @signedJs.fold(jsTagCompiled("big.js"))(js => jsAt(js, false))
-@ctx.me.map { u =>
-@ctx.chat.map { c =>
-@embedJs("var _lc_ = " + toJson(c.toJson))
-}
-}
 @moreJs
 @if(lang.language != "en") {
 @jsAt(s"trans/${lang.language}.js")

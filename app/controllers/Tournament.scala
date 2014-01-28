@@ -42,7 +42,7 @@ object Tournament extends LilaController {
   private def tournaments =
     repo.created zip repo.started zip repo.finished(20)
 
-  def show(id: String) = OpenWithChan(lila.chat.TournamentChan(id)) { implicit ctx ⇒
+  def show(id: String) = Open { implicit ctx ⇒
     repo byId id flatMap {
       _ match {
         case Some(tour: Created)  ⇒ showCreated(tour) map { Ok(_) }
