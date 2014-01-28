@@ -1,6 +1,7 @@
 package lila.report
 
 import akka.actor.ActorSelection
+import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
@@ -20,14 +21,19 @@ final class ReportApi(evaluator: ActorSelection) {
         text = setup.text,
         createdBy = by)
       (!report.isCheat || !user.engine) ?? {
-        $insert(report) >>- {
-          if (report.isCheat && report.isManual) evaluator ! user
+        existsToday(user, reason) flatMap {
+          case true ⇒
+            logger.info(s"Skip existing report creation: $reason $user")
+            funit
+          case false ⇒ $insert(report) >>- {
+            if (report.isCheat && report.isManual) evaluator ! user
+          }
         }
       }
     }
 
   def autoCheatReport(userId: String, text: String): Funit = {
-    play.api.Logger("Report").info(s"auto cheat reaport $userId: $text")
+    logger.info(s"auto cheat reaport $userId: $text")
     UserRepo byId userId zip UserRepo.lichess flatMap {
       case (Some(user), Some(lichess)) ⇒ create(ReportSetup(
         user = user,
@@ -48,4 +54,12 @@ final class ReportApi(evaluator: ActorSelection) {
   def nbUnprocessed = $count(Json.obj("processedBy" -> $exists(false)))
 
   def recent = $find($query.all sort $sort.createdDesc, 50)
+
+  def existsToday(user: User, reason: Reason) =
+    $count.exists(Json.obj(
+      "createdAt" -> (DateTime.now minusDays 1),
+      "user" -> user.id,
+      "reason" -> reason.name))
+
+  private val logger = play.api.Logger("Report")
 }
