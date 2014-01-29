@@ -71,7 +71,7 @@ private[chat] final class Api(
 
     def preprocessUserInput(in: String) = addLinks(delocalize(noPrivateUrl(escapeXml(in))))
 
-    def cut(text: String) = Some(text.trim take 200) filter (_.nonEmpty)
+    def cut(text: String) = Some(text.trim take 140) filter (_.nonEmpty)
     def addLinks(text: String) = urlRegex.replaceAllIn(text, m ⇒ {
       val url = delocalize(quoteReplacement(m group 1))
       "<a target='_blank' href='%s'>%s</a>".format(prependHttp(url), url)
