@@ -1534,6 +1534,71 @@ var storage = {
     }
   });
 
+  $.widget("lichess.chat", {
+    _create: function() {
+      this.options = $.extend({
+        resize: false
+      }, this.options);
+      var self = this;
+      self.$msgs = self.element.find('.lichess_messages');
+      if (this.options.resize) {
+        var headerHeight = self.element.parent().height();
+        self.element.css("top", headerHeight + 13)
+          .find('.lichess_messages').css('height', 459 - headerHeight);
+        self.$msgs.scrollTop(999999);
+      }
+      var $form = self.element.find('form');
+      var $input = self.element.find('input.lichess_say');
+
+      // send a message
+      $form.submit(function() {
+        var text = $.trim($input.val());
+        if (!text) return false;
+        if (text.length > 140) {
+          alert('Max length: 140 chars. ' + text.length + ' chars used.');
+          return false;
+        }
+        $input.val('');
+        lichess.socket.send('talk', text);
+        return false;
+      });
+
+      self.element.find('a.send').click(function() {
+        $input.trigger('click');
+        $form.submit();
+      });
+
+      // toggle the chat
+      var $toggle = self.element.find('input.toggle_chat');
+      $toggle.change(function() {
+        var enabled = $toggle.is(':checked');
+        self.element.toggleClass('hidden', !enabled);
+        if (!enabled) storage.set('nochat', 1);
+        else storage.remove('nochat');
+      });
+      $toggle[0].checked = storage.get('nochat') != 1;
+      if (!$toggle[0].checked) {
+        self.element.addClass('hidden');
+      }
+    },
+    append: function(u, t) {
+      this._appendHtml(this.options.render(u, t));
+    },
+    appendMany: function(objs) {
+      var self = this,
+        html = "";
+      $.each(objs, function() {
+        html += self.options.render(this.u, this.t);
+      });
+      this._appendHtml(html);
+    },
+    _appendHtml: function(html) {
+      this.$msgs.append(html);
+      $('body').trigger('lichess.content_loaded');
+      this.$msgs.scrollTop(999999);
+    }
+  });
+
   $.widget("lichess.clock", {
     _create: function() {
       this.options.time = parseFloat(this.options.time) * 1000;
