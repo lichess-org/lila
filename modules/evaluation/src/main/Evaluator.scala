@@ -48,9 +48,11 @@ final class Evaluator(
       } yield eval.some
     }
   } andThen {
-    case Success(Some(eval)) if eval.mark(perfs) ⇒ {
-      marker ! lila.hub.actorApi.mod.MarkCheater(userId)
-      reporter ! lila.hub.actorApi.report.Check(userId)
+    case Success(Some(eval)) if eval.mark(perfs) ⇒ UserRepo byId userId foreach {
+      _ filterNot (_.engine) foreach { user ⇒
+        marker ! lila.hub.actorApi.mod.MarkCheater(user.id)
+        reporter ! lila.hub.actorApi.report.Check(user.id)
+      }
     }
     case Failure(e) ⇒ logger.warn(s"generate: $e")
   }

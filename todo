@@ -112,11 +112,7 @@ clarkey improvement list: http://pastebin.com/c8Zmdw7t
 SVG chess sets http://chesstempo.com/chess-tactics.html
 show analysis details, blur % in cheat table and reports
 ban only latest IP
-graph on the user page is ~3px to the left of where it should be
 give AI levels ratings
-chess960 castling bug http://en.lichess.org/analyse/ligpcaoi
 http://en.lichess.org/@/JoSopinka in top slow with only 4 slow games (should index more perf deviations)
-lichess unmarks! http://en.lichess.org/mod/log
-redesign badge http://i.imgur.com/Qx7ZEsO.png
-store 20 plies variations in analysis
-add e2e4 moves to analysis API using UciDump
+redesign badge http://i.imgur.com/Qx7ZEsO.png http://i.imgur.com/NAALdNF.png
+show badge on left or right only

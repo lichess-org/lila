@@ -36,11 +36,6 @@ trait AssetHelper {
     test = "window.Highcharts",
     local = staticUrl("vendor/highcharts/highcharts-more.js"))
 
-  lazy val highstockTag = cdnOrLocal(
-    cdn = "http://code.highcharts.com/stock/3.0/highstock.js",
-    test = "window.Highcharts",
-    local = staticUrl("vendor/highstock/highstock.js"))
-
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
     s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local?v=$assetVersion">\\x3C/script>')</script>"""
   }

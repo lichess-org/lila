@@ -67,7 +67,14 @@ $(function() {
       xAxis: {
         labels: disabled,
         lineWidth: 0,
-        tickWidth: 0
+        tickWidth: 0,
+        gridLineWidth: 0
+      },
+      yAxis: {
+        gridLineWidth: 0,
+        labels: {
+          x: 0
+        }
       },
       plotOptions: {
         line: {
@@ -82,20 +89,19 @@ $(function() {
         }
       },
       series: [{
-          name: 'Deviation',
-          type: 'arearange',
-          data: areaPoints('range')
-        }, {
-          name: 'Rating',
-          type: 'line',
-          data: points('rating'),
-          threshold: null
-        }, {
-          name: 'Opponent',
-          type: 'line',
-          data: points('op')
-        }
-      ]
+        name: 'Deviation',
+        type: 'arearange',
+        data: areaPoints('range')
+      }, {
+        name: 'Rating',
+        type: 'line',
+        data: points('rating'),
+        threshold: null
+      }, {
+        name: 'Opponent',
+        type: 'line',
+        data: points('op')
+      }]
     }));
   });
 
@@ -104,13 +110,12 @@ $(function() {
     var cpMax = parseInt($this.data('max'), 10) / 100;
     $(this).highcharts(mergeDefaults({
       series: [{
-          name: 'Advantage',
-          data: _.map($this.data('rows'), function(row) {
-            row.y = row.y / 100;
-            return row;
-          })
-        }
-      ],
+        name: 'Advantage',
+        data: _.map($this.data('rows'), function(row) {
+          row.y = row.y / 100;
+          return row;
+        })
+      }],
       chart: {
         type: 'area',
         margin: 0,
@@ -192,7 +197,7 @@ Highcharts.theme = (function() {
   return {
     light: light,
     colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee",
-        "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"
+      "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"
     ],
     chart: {
       backgroundColor: null,
