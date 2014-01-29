@@ -6,7 +6,7 @@ import reactivemongo.bson.BSONDocument
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
 
-private[chat] final class Api(
+private[chat] final class ChatApi(
     coll: Coll,
     flood: lila.security.Flood,
     maxLinesPerChat: Int,
@@ -24,7 +24,7 @@ private[chat] final class Api(
         _ ?? { line ⇒ pushLine(chatId, line) inject line.some }
       }
 
-    private[Api] def makeLine(userId: String, t1: String): Fu[Option[UserLine]] = UserRepo byId userId map {
+    private[ChatApi] def makeLine(userId: String, t1: String): Fu[Option[UserLine]] = UserRepo byId userId map {
       _ flatMap { user ⇒
         Writer cut t1 ifFalse user.disabled flatMap { t2 ⇒
           flood.allowMessage(user.id, t2) option
