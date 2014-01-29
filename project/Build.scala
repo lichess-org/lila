@@ -70,8 +70,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val chat = project("chat", Seq(
-    common, db, hub, memo, socket, user, security, pref, relation,
-    game, tournament, team, i18n, mod)).settings(
+    common, db, user, security, i18n)).settings(
     libraryDependencies ++= provided(
       play.api, RM, PRM)
   )
