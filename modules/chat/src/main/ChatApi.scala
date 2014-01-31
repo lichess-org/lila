@@ -14,15 +14,22 @@ private[chat] final class ChatApi(
 
   import Chat.userChatBSONHandler
 
+  private val systemUserId = "lichess"
+
   object userChat {
 
-    def find(chatId: ChatId): Fu[Option[UserChat]] =
-      coll.find(BSONDocument("_id" -> chatId)).one[UserChat]
+    def find(chatId: ChatId): Fu[UserChat] =
+      coll.find(BSONDocument("_id" -> chatId)).one[UserChat] map (_ | Chat.makeUser(chatId))
 
     def write(chatId: ChatId, userId: String, text: String): Fu[Option[UserLine]] =
       makeLine(userId, text) flatMap {
         _ ?? { line ⇒ pushLine(chatId, line) inject line.some }
       }
+
+    def system(chatId: ChatId, text: String) = {
+      val line = UserLine(systemUserId, Writer delocalize text, false)
+      pushLine(chatId, line) inject line.some
+    }
 
     private[ChatApi] def makeLine(userId: String, t1: String): Fu[Option[UserLine]] = UserRepo byId userId map {
       _ flatMap { user ⇒
@@ -34,25 +41,21 @@ private[chat] final class ChatApi(
     }
   }
 
-  object mixedChat {
+  object playerChat {
 
-    def find(chatId: ChatId): Fu[Option[MixedChat]] =
-      coll.find(BSONDocument("_id" -> chatId)).one[MixedChat]
+    def find(chatId: ChatId): Fu[MixedChat] =
+      coll.find(BSONDocument("_id" -> chatId)).one[MixedChat] map (_ | Chat.makeMixed(chatId))
 
-    def write(chatId: ChatId, user: Either[String, Color], text: String): Fu[Option[Line]] =
-      makeLine(chatId, user, text) flatMap {
-        _ ?? { line ⇒ pushLine(chatId, line) inject line.some }
+    def write(chatId: ChatId, color: Color, text: String): Fu[Option[Line]] =
+      makeLine(chatId, color, text) ?? { line ⇒
+        pushLine(chatId, line) inject line.some
       }
 
-    private def makeLine(chatId: ChatId, user: Either[String, Color], t1: String): Fu[Option[Line]] = user match {
-      case Left(userId) ⇒ userChat.makeLine(userId, t1)
-      case Right(color) ⇒ fuccess {
-        Writer cut t1 flatMap { t2 ⇒
-          flood.allowMessage(s"$chatId/${color.letter}", t2) option
-            PlayerLine(color, Writer preprocessUserInput t2)
-        }
+    private def makeLine(chatId: ChatId, color: Color, t1: String): Option[Line] =
+      Writer cut t1 flatMap { t2 ⇒
+        flood.allowMessage(s"$chatId/${color.letter}", t2) option
+          PlayerLine(color, Writer preprocessUserInput t2)
       }
-    }
   }
 
   private def pushLine(chatId: ChatId, line: Line) = coll.update(

@@ -29,8 +29,6 @@ object Handler {
       case ("following_onlines", _) ⇒ userId foreach { u ⇒
         hub.actor.relation ! ReloadOnlineFriends(u)
       }
-      case (typ, o) if typ.startsWith("chat.") ⇒
-        bus.publish(lila.hub.actorApi.chat.Input(uid, o), 'chat)
       case msg ⇒ logwarn("Unhandled msg: " + msg)
     }
 

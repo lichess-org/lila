@@ -322,15 +322,15 @@ var storage = {
     socket: null,
     socketDefaults: {
       events: {
-        following_onlines: function(data) {
-          $('#friend_box').friends("set", data);
-        },
-        following_enters: function(name) {
-          $('#friend_box').friends('enters', name);
-        },
-        following_leaves: function(name) {
-          $('#friend_box').friends('leaves', name);
-        },
+        // following_onlines: function(data) {
+        //   $('#friend_box').friends("set", data);
+        // },
+        // following_enters: function(name) {
+        //   $('#friend_box').friends('enters', name);
+        // },
+        // following_leaves: function(name) {
+        //   $('#friend_box').friends('leaves', name);
+        // },
         n: function(e) {
           var $tag = $('#nb_connected_players > strong');
           if ($tag.length && e) {
@@ -491,8 +491,6 @@ var storage = {
     $('#lichess').on('click', 'a.socket-link', function() {
       lichess.socket.send($(this).data('msg'), $(this).data('data'));
     });
-
-    $('#team_box').teams();
 
     $('body').on('click', 'div.relation_actions a.relation', function() {
       var $a = $(this).addClass('processing');
@@ -839,6 +837,7 @@ var storage = {
       self.$board = self.element.find("div.lichess_board");
       self.$table = self.element.find("div.lichess_table_wrap");
       self.$tableInner = self.$table.find("div.table_inner");
+      self.$chat = $("div.lichess_chat").orNot();
       self.$watchers = $("div.watchers");
       self.initialTitle = document.title;
       self.hasMovedOnce = false;
@@ -863,6 +862,10 @@ var storage = {
         self.initSquaresAndPieces();
         self.initTable();
         self.initClocks();
+        if (self.$chat) self.$chat.chat({
+          resize: true,
+          messages: lichess_chat
+        });
         self.$watchers.watchers();
         if (self.isMyTurn() && self.options.game.turns === 0) {
           self.element.one('lichess.audio_ready', function() {
@@ -1537,6 +1540,7 @@ var storage = {
   $.widget("lichess.chat", {
     _create: function() {
       this.options = $.extend({
+        messages: [],
         resize: false
       }, this.options);
       var self = this;
@@ -1581,16 +1585,27 @@ var storage = {
         self.element.addClass('hidden');
       }
     },
-    append: function(u, t) {
-      this._appendHtml(this.options.render(u, t));
+    append: function(msg) {
+      this._appendHtml(this._render(msg));
     },
     appendMany: function(objs) {
       var self = this,
         html = "";
       $.each(objs, function() {
-        html += self.options.render(this.u, this.t);
+        html += self._render(this);
       });
-      this._appendHtml(html);
+      self._appendHtml(html);
+    },
+    _render: function(msg) {
+      var user;
+      if (msg.c) {
+        user = '<span class="color">' + msg.c + '</span>';
+      } else if (msg.u == 'lichess') {
+        user = '<span class="system"></span>';
+      } else {
+        user = '<span class="user">' + $.userLinkLimit(msg.u, 14) + '</span>';
+      }
+      return '<li class="' + (u == 'system' ? ' trans_me' : '') + (msg.r ? ' troll' : '') + '">' + urlToLink(msg.t) + '</li>';
     },
     _appendHtml: function(html) {
       this.$msgs.append(html);

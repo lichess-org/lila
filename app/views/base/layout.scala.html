@@ -4,6 +4,7 @@ active: Option[lila.app.ui.SiteMenu.Elem] = None,
 baseline: Option[Html] = None,
 goodies: Option[Html] = None,
 menu: Option[Html] = None,
+chat: Option[Html] = None,
 underchat: Option[Html] = None,
 robots: Boolean = true,
 moreCss: Html = Html(""),
@@ -124,6 +125,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
     <div class="side_menu">@side</div>
     }
     @goodies
+    @chat
     @underchat.map { g =>
     <div class="under_chat">@g</div>
     }

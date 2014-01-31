@@ -36,8 +36,10 @@ case class WithUserIds(f: Iterable[String] ⇒ Unit)
 case object GetUids
 
 package chat {
-case class Input(uid: String, json: JsObject)
-case class System(chanTyp: String, chanId: Option[String], text: String)
+case class UserTalk(chatId: String, userId: String, text: String)
+case class PlayerTalk(chatId: String, white: Boolean, text: String)
+case class SystemTalk(chatId: String, text: String)
+case class NotifyLine(chatId: String, json: JsObject)
 }
 
 package report {

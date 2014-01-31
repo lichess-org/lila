@@ -116,3 +116,11 @@ give AI levels ratings
 http://en.lichess.org/@/JoSopinka in top slow with only 4 slow games (should index more perf deviations)
 redesign badge http://i.imgur.com/Qx7ZEsO.png http://i.imgur.com/NAALdNF.png
 show badge on left or right only
+cheat detected -> auto report
+mod close accounts/teams
+
+
+infra
+-------
+lila nice + thread limit
+paul mongodb arbiter with nice (ia 10 arbiter 2)

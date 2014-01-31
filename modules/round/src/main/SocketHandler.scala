@@ -33,13 +33,13 @@ private[round] final class SocketHandler(
     def round(msg: Any) { roundMap ! Tell(gameId, msg) }
 
     member.playerIdOption.fold[Handler.Controller]({
-      case ("p", o)       ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
+      case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
       case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
         socket ! LiveGames(uid, ids.split(' ').toList)
       }
     }) { playerId ⇒
       {
-        case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
+        case ("p", o)            ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
         case ("rematch-yes", _)  ⇒ round(RematchYes(playerId))
         case ("rematch-no", _)   ⇒ round(RematchNo(playerId))
         case ("takeback-yes", _) ⇒ round(TakebackYes(playerId))
@@ -67,6 +67,12 @@ private[round] final class SocketHandler(
         }
         case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
           socket ! LiveGames(uid, ids.split(' ').toList)
+        }
+        case ("talk", o) ⇒ o str "d" foreach { text ⇒
+          bus.publish(member.userId match {
+            case Some(userId) ⇒ lila.hub.actorApi.chat.UserTalk(uid, userId, text)
+            case None         ⇒ lila.hub.actorApi.chat.PlayerTalk(uid, member.color.white, text)
+          }, 'chatIn)
         }
       }
     }

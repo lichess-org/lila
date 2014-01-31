@@ -47,9 +47,10 @@ object Round extends LilaController with TheftPrevention {
             (bookmarkApi userIdsByGame pov.game) zip
             pov.opponent.userId.??(UserRepo.isEngine) zip
             (analyser has pov.gameId) zip
-            (pov.game.tournamentId ?? TournamentRepo.byId) map {
-              case ((((v, bookmarkers), engine), analysed), tour) ⇒
-                Ok(html.round.player(pov, v, engine, bookmarkers, analysed, tour = tour))
+            (pov.game.tournamentId ?? TournamentRepo.byId) zip
+            (Env.chat.api.playerChat find pov.gameId) map {
+              case (((((v, bookmarkers), engine), analysed), tour), chat) ⇒
+                Ok(html.round.player(pov, v, engine, bookmarkers, analysed, chat = chat, tour = tour))
             }
         },
         Redirect(routes.Setup.await(fullId)).fuccess

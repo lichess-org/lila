@@ -69,7 +69,8 @@ final class Env(
       Env.notification,
       Env.bookmark,
       Env.pref,
-      Env.evaluation)
+      Env.evaluation,
+      Env.chat)
     loginfo("[boot] Preloading complete")
   }
 
@@ -120,4 +121,5 @@ object Env {
   def report = lila.report.Env.current
   def pref = lila.pref.Env.current
   def evaluation = lila.evaluation.Env.current
+  def chat = lila.chat.Env.current
 }
