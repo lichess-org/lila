@@ -1,8 +1,15 @@
 package lila.chat
 
-sealed trait Chat[L <: Line] {
-  val id: ChatId
-  val lines: List[L]
+sealed trait AnyChat {
+  def id: ChatId
+  def lines: List[Line]
+
+  def toJsonString = Line toJsonString lines
+}
+
+sealed trait Chat[L <: Line] extends AnyChat {
+  def id: ChatId
+  def lines: List[L]
 }
 
 case class UserChat(
@@ -18,6 +25,9 @@ case class MixedChat(
 object Chat {
 
   import lila.db.BSON
+
+  def makeUser(id: ChatId) = UserChat(id, Nil)
+  def makeMixed(id: ChatId) = MixedChat(id, Nil)
 
   object BSONFields {
     val id = "_id"

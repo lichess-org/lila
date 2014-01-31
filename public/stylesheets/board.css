@@ -2,6 +2,7 @@ div.lichess_board_wrap {
   float: left;
   border: 1px solid #ccc;
   position: relative;
+  display: none;
 }
 span.board_mark {
   position: absolute;
