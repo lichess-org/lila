@@ -5,7 +5,10 @@ import scala.util.Success
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-abstract class BSON[T] extends BSONHandler[BSONDocument, T] with BSONDocumentReader[T] {
+abstract class BSON[T]
+    extends BSONHandler[BSONDocument, T]
+    with BSONDocumentReader[T]
+    with BSONDocumentWriter[T] {
 
   import BSON._
 
