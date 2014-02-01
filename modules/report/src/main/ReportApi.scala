@@ -10,7 +10,7 @@ import lila.db.Implicits._
 import lila.user.{ User, UserRepo }
 import tube.reportTube
 
-final class ReportApi(evaluator: ActorSelection) {
+private[report] final class ReportApi(evaluator: ActorSelection) {
 
   def create(setup: ReportSetup, by: User): Funit =
     Reason(setup.reason).fold[Funit](fufail("Invalid report reason " + setup.reason)) { reason ⇒

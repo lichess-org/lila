@@ -7,8 +7,9 @@ import lila.game.Game
 import lila.hub.actorApi.map.Tell
 
 private[round] final class FenUrlWatch(
-  roundMap: akka.actor.ActorRef,
-  scheduler: akka.actor.Scheduler) {
+    roundMap: akka.actor.ActorRef,
+    reporter: akka.actor.ActorSelection,
+    scheduler: akka.actor.Scheduler) {
 
   private val stack = lila.memo.Builder.expiry[String, Int](30.seconds)
 
@@ -25,6 +26,10 @@ private[round] final class FenUrlWatch(
             roundMap,
             Tell(game.id, Cheat(game.turnColor))
           )
+          game.player.userId foreach { userId ⇒
+            reporter ! lila.hub.actorApi.report.Cheater(userId,
+              s"Cheat detected on http://lichess.org/${game.id}, using a FEN bot.")
+          }
       }
     }
   }

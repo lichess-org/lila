@@ -5,17 +5,20 @@ import chess.Color
 
 import lila.game.{ Game, GameRepo, Pov }
 
-private[round] final class CheatDetector {
+private[round] final class CheatDetector(reporter: ActorSelection) {
 
   def apply(game: Game): Fu[Option[Color]] = interesting(game) ?? {
     GameRepo findMirror game map {
       _ ?? { mirror ⇒
         mirror.players find (p ⇒ p.userId ?? game.userIds.contains) match {
-          case Some(player) ⇒ {
+          case Some(player) ⇒
             val color = !player.color
             play.api.Logger("cheat detector").info(s"$color @ ${game.id} uses ${mirror.id}")
+            player.userId foreach { userId ⇒
+              reporter ! lila.hub.actorApi.report.Cheater(userId,
+                s"Cheat detected on http://lichess.org/${game.id}, using lichess AI.")
+            }
             Some(color)
-          }
           case None ⇒ None
         }
       }

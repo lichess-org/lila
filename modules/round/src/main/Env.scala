@@ -110,7 +110,7 @@ final class Env(
     messenger = messenger,
     finisher = finisher)
 
-  private lazy val cheatDetector = new CheatDetector
+  private lazy val cheatDetector = new CheatDetector(reporter = hub.actor.report)
 
   lazy val meddler = new Meddler(
     roundMap = roundMap,
@@ -123,6 +123,7 @@ final class Env(
 
   lazy val fenUrlWatch = new FenUrlWatch(
     roundMap = roundMap,
+    reporter = hub.actor.report,
     scheduler = system.scheduler)
 
   def version(gameId: String): Fu[Int] =
