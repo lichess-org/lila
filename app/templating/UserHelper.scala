@@ -91,8 +91,9 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     withRating: Boolean = true,
     withProgress: Boolean = false,
     withOnline: Boolean = true,
+    withPowerTip: Boolean = true,
     text: Option[String] = None) = Html {
-    val klass = userClass(user.id, cssClass, withOnline)
+    val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
     val href = userHref(user.username)
     val content = text | withRating.fold(user.usernameWithRating, user.username)
     val progress = withProgress ?? (" " + showProgress(user.progress))
@@ -121,7 +122,8 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
   protected def userClass(
     userId: String,
     cssClass: Option[String],
-    withOnline: Boolean) = {
+    withOnline: Boolean,
+    withPowerTip: Boolean = true) = {
     // ultp = user link power tip
     "user_link" :: "ulpt" :: List(
       cssClass,
