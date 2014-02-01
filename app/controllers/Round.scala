@@ -68,9 +68,12 @@ object Round extends LilaController with TheftPrevention {
     bookmarkApi userIdsByGame pov.game zip
       env.version(pov.gameId) zip
       (analyser has pov.gameId) zip
-      (pov.game.tournamentId ?? TournamentRepo.byId) map {
-        case (((bookmarkers, v), analysed), tour) ⇒
-          Ok(html.round.watcher(pov, v, bookmarkers, analysed, tour))
+      (pov.game.tournamentId ?? TournamentRepo.byId) zip
+      (ctx.isAuth ?? {
+        Env.chat.api.playerChat find s"${pov.gameId}/w" map (_.some)
+      }) map {
+        case ((((bookmarkers, v), analysed), tour), chat) ⇒
+          Ok(html.round.watcher(pov, v, bookmarkers, analysed, chat, tour))
       }
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =

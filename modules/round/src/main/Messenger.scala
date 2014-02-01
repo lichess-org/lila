@@ -1,33 +1,33 @@
 package lila.round
 
 import akka.actor.ActorRef
+import akka.actor.ActorSelection
 
-import lila.chat.actorApi._
-import lila.common.Bus
-import lila.game.Game
 import actorApi._
+import lila.chat.actorApi._
+import lila.game.Game
 import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
 import lila.i18n.I18nKeys
 
 final class Messenger(
-    bus: Bus,
     socketHub: akka.actor.ActorRef,
+    chat: ActorSelection,
     i18nKeys: I18nKeys) {
 
   def system(game: Game, message: SelectI18nKey, args: Any*) {
     val translated = message(i18nKeys).en(args: _*)
-    bus.publish(SystemTalk(game.id + "/w", translated, socketHub), 'chatIn)
-    if (game.nonAi) bus.publish(SystemTalk(game.id, translated, socketHub), 'chatIn)
+    chat ! SystemTalk(game.id + "/w", translated, socketHub)
+    if (game.nonAi) chat ! SystemTalk(game.id, translated, socketHub)
   }
 
   def watcher(gameId: String, member: Member, text: String, socket: ActorRef) =
     member.userId foreach { userId ⇒
-      bus.publish(UserTalk(gameId + "/w", userId, text, socket), 'chatIn)
+      chat ! UserTalk(gameId + "/w", userId, text, socket)
     }
 
   def owner(gameId: String, member: Member, text: String, socket: ActorRef) =
-    bus.publish(member.userId match {
+    chat ! (member.userId match {
       case Some(userId) ⇒ UserTalk(gameId, userId, text, socket)
       case None         ⇒ PlayerTalk(gameId, member.color.white, text, socket)
-    }, 'chatIn)
+    })
 }

@@ -7,10 +7,6 @@ import actorApi._
 
 private[chat] final class FrontActor(api: ChatApi) extends Actor {
 
-  private val bus = context.system.lilaBus
-
-  bus.subscribe(self, 'chatIn)
-
   def receive = {
 
     case UserTalk(chatId, userId, text, replyTo) ⇒
