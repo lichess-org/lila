@@ -6,7 +6,6 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
-import lila.common.Bus
 import lila.common.PimpedJson._
 import lila.hub.actorApi.lobby._
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
@@ -17,8 +16,7 @@ import makeTimeout.short
 private[lobby] final class SocketHandler(
     hub: lila.hub.Env,
     lobby: ActorRef,
-    socket: ActorRef,
-    bus: Bus) {
+    socket: ActorRef) {
 
   private def controller(
     socket: ActorRef,
@@ -36,7 +34,7 @@ private[lobby] final class SocketHandler(
 
   def apply(uid: String, user: Option[User]): Fu[JsSocketHandler] = {
     val join = Join(uid = uid, user = user)
-    Handler(hub, socket, uid, join, user map (_.id), bus) {
+    Handler(hub, socket, uid, join, user map (_.id)) {
       case Connected(enum, member) ⇒
         controller(socket, uid, member) -> enum
     }

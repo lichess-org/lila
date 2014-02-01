@@ -29,11 +29,11 @@ private[round] final class Rematcher(
 
   def no(pov: Pov): Fu[Events] = pov match {
     case Pov(game, color) if pov.player.isOfferingRematch ⇒ GameRepo save {
-      messenger(game, _.rematchOfferCanceled)
+      messenger.system(game, _.rematchOfferCanceled)
       Progress(game) map { g ⇒ g.updatePlayer(color, _.removeRematchOffer) }
     } inject List(Event.ReloadTablesOwner)
     case Pov(game, color) if pov.opponent.isOfferingRematch ⇒ GameRepo save {
-      messenger(game, _.rematchOfferDeclined)
+      messenger.system(game, _.rematchOfferDeclined)
       Progress(game) map { g ⇒ g.updatePlayer(!color, _.removeRematchOffer) }
     } inject List(Event.ReloadTablesOwner)
     case _ ⇒ ClientErrorException.future("[rematcher] invalid no " + pov)
@@ -49,7 +49,7 @@ private[round] final class Rematcher(
     nextId = nextGame.id
     _ ← (GameRepo insertDenormalized nextGame) >>
       GameRepo.saveNext(pov.game, nextGame.id) >>-
-      messenger(pov.game, _.rematchOfferAccepted) >>- {
+      messenger.system(pov.game, _.rematchOfferAccepted) >>- {
         if (pov.game.variant == Variant.Chess960 && !rematch960Cache.get(pov.game.id))
           rematch960Cache.put(nextId)
       }
@@ -57,7 +57,7 @@ private[round] final class Rematcher(
   } yield events
 
   private def rematchCreate(pov: Pov): Fu[Events] = GameRepo save {
-    messenger(pov.game, _.rematchOfferSent)
+    messenger.system(pov.game, _.rematchOfferSent)
     Progress(pov.game) map { g ⇒ g.updatePlayer(pov.color, _ offerRematch) }
   } inject List(Event.ReloadTablesOwner)
 

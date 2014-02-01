@@ -7,9 +7,9 @@ import play.api.libs.concurrent.Akka.system
 import lila.common.PimpedConfig._
 
 final class Env(
-  config: Config, 
-  hub: lila.hub.Env,
-  system: ActorSystem) {
+    config: Config,
+    hub: lila.hub.Env,
+    system: ActorSystem) {
 
   private val SocketUidTtl = config duration "socket.uid.ttl"
   private val SocketName = config getString "socket.name"
@@ -17,7 +17,7 @@ final class Env(
   private val socket = system.actorOf(
     Props(new Socket(timeout = SocketUidTtl)), name = SocketName)
 
-  lazy val socketHandler = new SocketHandler(socket, hub, system.lilaBus)
+  lazy val socketHandler = new SocketHandler(socket, hub)
 }
 
 object Env {

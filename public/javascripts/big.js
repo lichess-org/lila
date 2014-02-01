@@ -1603,15 +1603,16 @@ var storage = {
       self._appendHtml(html);
     },
     _render: function(msg) {
-      var user;
+      var user, sys = false;
       if (msg.c) {
         user = '<span class="color">' + msg.c + '</span>';
       } else if (msg.u == 'lichess') {
+        sys = true;
         user = '<span class="system"></span>';
       } else {
         user = '<span class="user">' + $.userLinkLimit(msg.u, 14) + '</span>';
       }
-      return '<li class="' + (msg.u == 'system' ? ' trans_me' : '') + (msg.r ? ' troll' : '') + '">' + user + urlToLink(msg.t) + '</li>';
+      return '<li class="' + (sys ? 'system trans_me' : '') + (msg.r ? ' troll' : '') + '">' + user + urlToLink(msg.t) + '</li>';
     },
     _appendHtml: function(html) {
       this.$msgs.append(html);

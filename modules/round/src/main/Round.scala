@@ -108,7 +108,7 @@ private[round] final class Round(
       pov.game.clock.filter(_ ⇒ pov.game.moretimeable) ?? { clock ⇒
         val newClock = clock.giveTime(!pov.color, moretimeDuration.toSeconds)
         val progress = (pov.game withClock newClock) + Event.Clock(newClock)
-        messenger(progress.game, (_.untranslated(
+        messenger.system(progress.game, (_.untranslated(
           "%s + %d seconds".format(!pov.color, moretimeDuration.toSeconds)
         )))
         GameRepo save progress inject progress.events
