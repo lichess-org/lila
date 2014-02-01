@@ -33,12 +33,7 @@ object Lobby extends LilaController {
       filter = Env.setup.filter
     ).map(_.fold(Redirect(_), {
         case (preload, entries, posts, tours, featured, leaderboard, progress) ⇒ status(html.lobby.home(
-          Json stringify preload, entries, posts, tours, featured, leaderboard, progress)) |> { response ⇒
-          ctx.req.session.data.contains(LilaCookie.sessionId).fold(
-            response,
-            response withCookies LilaCookie.makeSessionId(ctx.req)
-          )
-        }
+          Json stringify preload, entries, posts, tours, featured, leaderboard, progress))
       }))
 
   def socket = Socket[JsValue] { implicit ctx ⇒
