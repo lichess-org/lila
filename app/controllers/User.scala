@@ -23,8 +23,10 @@ object User extends LilaController {
   }
 
   def showMini(username: String) = Open { implicit ctx ⇒
-    OptionFuOk(UserRepo named username) { user ⇒
-      GameRepo nowPlaying user.id map { html.user.mini(user, _) }
+    OptionFuResult(UserRepo named username) { user ⇒
+      GameRepo nowPlaying user.id map { game ⇒
+        Ok(html.user.mini(user, game)).withHeaders(CACHE_CONTROL -> "max-age=60")
+      }
     }
   }
 
@@ -108,7 +110,7 @@ object User extends LilaController {
 
   def evaluate(username: String) = Secure(_.UserEvaluate) { implicit ctx ⇒
     me ⇒ OptionFuResult(UserRepo named username) { user ⇒
-      Env.evaluation.evaluator.generate(user, true) map { _ =>
+      Env.evaluation.evaluator.generate(user, true) map { _ ⇒
         Redirect(routes.User.show(username).url + "?mod")
       }
     }
