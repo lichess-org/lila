@@ -1,7 +1,7 @@
 package lila.mod
 
-import org.joda.time.DateTime
 import com.github.nscala_time.time.Imports._
+import org.joda.time.DateTime
 
 case class Modlog(
     mod: String,
@@ -17,6 +17,7 @@ case class Modlog(
     case Modlog.ban           ⇒ "ban user"
     case Modlog.ipban         ⇒ "ban IPs"
     case Modlog.ipunban       ⇒ "unban IPs"
+    case Modlog.closeAccount  ⇒ "close account"
     case Modlog.reopenAccount ⇒ "reopen account"
     case Modlog.openTopic     ⇒ "reopen topic"
     case Modlog.closeTopic    ⇒ "close topic"
@@ -32,6 +33,7 @@ object Modlog {
   val untroll = "untroll"
   val ban = "ban"
   val ipban = "ipban"
+  val closeAccount = "closeAccount"
   val reopenAccount = "reopenAccount"
   val ipunban = "ipunban"
   val deletePost = "deletePost"

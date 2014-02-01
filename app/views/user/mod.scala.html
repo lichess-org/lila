@@ -21,6 +21,19 @@
     <input class="confirm button" type="submit" value="@u.ipBan.fold("Revoke IP ban", "IP ban")" />
   </form>
   }
+  @if(!u.disabled) {
+  @if(isGranted(_.CloseAccount)) {
+  <form method="post" action="@routes.Mod.closeAccount(u.username)">
+    <input class="confirm button" type="submit" value="Close" />
+  </form>
+  }
+  } else {
+  @if(isGranted(_.ReopenAccount)) {
+  <form action="@routes.Mod.reopenAccount(u.username)" method="post">
+    <input type="submit" class="button confirm" value="Reopen" />
+  </form>
+  }
+  }
 </div>
 
 <div class="user_spy">

@@ -18,6 +18,10 @@ final class ModlogApi {
     Modlog(mod, user.some, v.fold(Modlog.ipban, Modlog.ipunban))
   }
 
+  def closeAccount(mod: String, user: String) = add {
+    Modlog(mod, user.some, Modlog.closeAccount)
+  }
+
   def reopenAccount(mod: String, user: String) = add {
     Modlog(mod, user.some, Modlog.reopenAccount)
   }
