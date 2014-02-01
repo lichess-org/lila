@@ -15,9 +15,7 @@ object $update {
   def apply[A <: Identified[String]: JsTubeInColl](doc: A): Funit = apply[String, A](doc)
 
   def apply[A: InColl, B: BSONDocumentWriter](selector: JsObject, update: B, upsert: Boolean = false, multi: Boolean = false): Funit =
-    successful {
-      implicitly[InColl[A]].coll.update(selector, update, upsert = upsert, multi = multi)
-    }
+      implicitly[InColl[A]].coll.update(selector, update, upsert = upsert, multi = multi).void
 
   def doc[ID: Writes, A <: Identified[ID]: TubeInColl](id: ID)(op: A ⇒ JsObject): Funit =
     $find byId id flatten "[db] cannot update missing doc" flatMap { doc ⇒

@@ -77,13 +77,11 @@ trait GameRepo {
   def save(progress: Progress): Funit =
     GameDiff(progress.origin, progress.game) |> {
       case (Nil, Nil) ⇒ funit
-      case (sets, unsets) ⇒ lila.db.api successful {
-        gameTube.coll.update(
-          $select(progress.origin.id),
-          if (unsets.isEmpty) BSONDocument("$set" -> BSONDocument(sets))
-          else BSONDocument("$set" -> BSONDocument(sets), "$unset" -> BSONDocument(unsets))
-        )
-      }
+      case (sets, unsets) ⇒ gameTube.coll.update(
+        $select(progress.origin.id),
+        if (unsets.isEmpty) BSONDocument("$set" -> BSONDocument(sets))
+        else BSONDocument("$set" -> BSONDocument(sets), "$unset" -> BSONDocument(unsets))
+      ).void
     }
 
   def setRatingDiffs(id: ID, white: Int, black: Int) =

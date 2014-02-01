@@ -7,9 +7,8 @@ import Types._
 
 object $remove {
 
-  def apply[A: InColl](selector: JsObject): Funit = successful {
-    (implicitly[InColl[A]].coll remove selector)
-  }
+  def apply[A: InColl](selector: JsObject): Funit =
+    implicitly[InColl[A]].coll remove selector void
 
   def byId[ID: Writes, A: InColl](id: ID): Funit =
     apply($select(id))
