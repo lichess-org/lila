@@ -47,7 +47,7 @@ final class TeamApi(
     team.copy(
       location = e.location,
       description = e.description,
-      open = e.isOpen
+      open = e.isOpen,
       irc = e.hasIrc) |> { team ⇒ $update(team) >>- (indexer ! InsertTeam(team)) }
   }
 

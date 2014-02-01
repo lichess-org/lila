@@ -93,6 +93,7 @@ private[team] case class TeamEdit(
     irc: Int) {
 
   def isOpen = open == 1
+  def hasIrc = irc == 1
 
   def trim = copy(
     location = location map (_.trim) filter (_.nonEmpty),
