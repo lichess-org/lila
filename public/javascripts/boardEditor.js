@@ -25,9 +25,9 @@ $(function() {
 
     function toBase(fen) {
       return fen.split(' ')[0];
-    }}}
+    }
 
-    faarsunction onChange() {
+    function onChange() {
       var rich = getRich();
       $string.text(rich);
       $wrap.find('a.fen_link').each(function() {

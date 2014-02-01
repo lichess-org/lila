@@ -39,20 +39,6 @@ underchat = underchat.some,
 active = siteMenu.tv.some) {
 @round.watcherGame(pov)
 @embedJs("var _ld_ = " + roundWatcherJsData(pov, version, true, ctx.pref))
-@views.html.game.more(pov, Nil) {
-<nav>
-  @round.continueFromHere(pov.game)
-  <a href="@routes.Analyse.replay(pov.gameId, pov.color.name)">@trans.replayAndAnalyse()</a>
-  <br />
-  <a href="@routes.Tv.index@when(pov.isFirstPlayer, "?flip=1")">@trans.flipBoard()</a>
-  @if(pov.game.pgnImport.isEmpty) {
-  <br />
-  <a href="@routes.Analyse.stats(pov.gameId)">@trans.viewGameStats()</a>
-  }
-  <br />
-  @round.fenPgn(pov.game)
-</nav>
-}
 <div class="lichess_bot undertable">
   <div class="undertable_top">
     <span class="title">@trans.previouslyOnLichessTV()</span>

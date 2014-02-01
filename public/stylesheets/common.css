@@ -1545,69 +1545,6 @@ div.checkmateCaptcha.success div.success {
 div.checkmateCaptcha.failure div.failure {
   display: block;
 }
-div.undergame_box {
-  margin-top: 10px;
-  width: 512px;
-  border: 1px solid #ccc;
-  line-height: 24px;
-}
-div.undergame_box div.inner {
-  padding: 10px 10px 0 10px;
-  width: 492px;
-}
-div.undergame_box .opponent_choice {
-  display: none;
-}
-div.undergame_box a {
-  text-decoration: none;
-}
-div.undergame_box a:hover {
-  text-decoration: underline;
-}
-div.game_analysis {
-  padding: 10px;
-  width: 492px;
-}
-div.game_analysis a,
-form.new_analysis a {
-  background: url("../images/s24.png") no-repeat 0 -72px;
-  display: block;
-  height: 24px;
-  padding-left: 30px;
-}
-form.new_analysis a {
-  line-height: 24px;
-}
-div.game_more div.more_top {
-  padding: 3px 10px;
-  width: 492px;
-  height: 29px;
-  border-bottom: 1px solid #ccc;
-}
-div.game_more div.more_top span.bookmark {
-  margin-top: 2px;
-  margin-right: 34px;
-}
-div.game_more a.game_permalink {
-  float: left;
-  margin-top: 3px;
-}
-div.game_more textarea {
-  display: block;
-  width: 100%;
-  height: 200px;
-  font-family: monospace;
-  line-height: normal;
-  margin: 0;
-  background: #fff;
-  color: #888;
-  border: 1px solid #eaeaea;
-  padding: 5px;
-}
-div.game_extra div.right_coll {
-  float: right;
-  max-width: 48%;
-}
 /* gamelist.css */
 
 div.game_row {
@@ -2358,22 +2295,22 @@ div.lichess_overboard.joining .mini_board {
 span.bookmark {
   position: relative;
   float: right;
-  margin-right: 14px;
+  margin-right: 36px;
 }
 span.bookmark .icon {
   position: absolute;
   top: 0;
   left: 0;
-  background: transparent url(../images/s24.png) top left no-repeat;
+  background: transparent url(../images/s24.png) top right no-repeat;
   height: 24px;
   display: block;
-  padding-left: 28px;
+  padding-right: 28px;
   line-height: 28px;
   text-decoration: none;
   color: #a0a0a0;
 }
 span.bookmark .icon.bookmarked {
-  background-position: 0 -24px;
+  background-position: right -24px;
 }
 span.bookmark a {
   outline: none;

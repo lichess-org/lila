@@ -34,18 +34,16 @@ object Analyse extends LilaController {
   def replay(id: String, color: String) = Open { implicit ctx ⇒
     OptionFuOk(GameRepo.pov(id, color)) { pov ⇒
       Env.round.version(pov.gameId) zip
-        (bookmarkApi userIdsByGame pov.game) zip
         Env.game.pgnDump(pov.game) zip
         (env.analyser get pov.game.id) zip
         (pov.game.tournamentId ?? TournamentRepo.byId) zip
         (ctx.isAuth ?? {
           Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
         }) map {
-          case (((((version, bookmarkers), pgn), analysis), tour), chat) ⇒
+          case ((((version, pgn), analysis), tour), chat) ⇒
             html.analyse.replay(
               pov,
               analysis.fold(pgn)(a ⇒ Env.analyse.annotator(pgn, a)).toString,
-              bookmarkers,
               chess.OpeningExplorer openingOf pov.game.pgnMoves,
               analysis,
               analysis filter (_.done) map { a ⇒ AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },

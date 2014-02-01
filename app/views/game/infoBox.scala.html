@@ -4,6 +4,7 @@
 
 <div class="lichess_goodies">
   <div class="box">
+    @bookmark.toggle(game)
     @game.pgnImport.flatMap(_.date).map { date =>
     PGN Import - @date
     @game.pgnImport.flatMap(_.user).map { user =>

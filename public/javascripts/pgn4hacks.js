@@ -69,14 +69,10 @@ function customFunctionOnMove() {
     }
   }
   var fen = CurrentFEN();
-  $('div.undergame_box a.fen_link').each(function() {
+  $('a.fen_link').each(function() {
     $(this).attr('href', $(this).attr('href').replace(/fen=.*$/, "fen=" + fen));
   });
-  // override normal round fen link
-  $("a.view_fen").off('click').on('click', function() {
-    alert(fen);
-    return false;
-  });
+  $('div.fen_pgn .fen').text(fen);
 }
 
 // hack: display captures and checks

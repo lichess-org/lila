@@ -8,6 +8,6 @@ import lila.user.User
 
 trait BookmarkHelper {
 
-  def bookmarked(game: Game, user: User): Boolean = 
+  def isBookmarked(game: Game, user: User): Boolean = 
     bookmarkEnv.api.bookmarked(game, user).await
 }

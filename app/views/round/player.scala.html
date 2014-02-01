@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, engine: Boolean, bookmarkers: List[String], analysed: Boolean, chat: Option[lila.chat.MixedChat], tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, version: Int, engine: Boolean, analysed: Boolean, chat: Option[lila.chat.MixedChat], tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @import pov._
 
@@ -51,18 +51,4 @@ signedJs = pov.game.rated option routes.Round.signedJs(pov.gameId) map (_.toStri
 </div>
 @embedJs("var _ld_ = " + roundPlayerJsData(pov, version, ctx.pref))
 @analyse.link(pov, analysed)
-@if(!tour.fold(false)(_.isRunning)) {
-@views.html.game.more(pov, bookmarkers) {
-<nav>
-@continueFromHere(game)
-<a href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
-@if(game.pgnImport.isEmpty) {
-<br />
-<a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
-}
-<br />
-@fenPgn(game)
-</nav>
-}
-}
 }
