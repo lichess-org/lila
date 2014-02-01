@@ -70,6 +70,12 @@ data-accept-languages="@acceptLanguages.mkString(",")">
   </a>
   }
   }
+  case "team" => {
+  <a class="goto_nav blank_if_play @elem.currentClass(active)"
+    href="@ctx.isAuth.fold(routes.Team.mine, elem.route)">
+    @elem.name()
+  </a>
+  }
   case _ => {
   <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
     @elem.name()

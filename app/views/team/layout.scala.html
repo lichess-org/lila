@@ -16,13 +16,15 @@
     @teamNbRequests(ctx) join requests
   </a>
   }
-  <a class="@tab.active("all")" href="@routes.Team.home()">
-    @trans.allTeams()
-  </a>
   @if(ctx.me.??(_.canTeam)) {
   <a class="@tab.active("mine")" href="@routes.Team.mine()">
     @trans.myTeams()
   </a>
+  }
+  <a class="@tab.active("all")" href="@routes.Team.home()">
+    @trans.allTeams()
+  </a>
+  @if(ctx.me.??(_.canTeam)) {
   <a class="@tab.active("form")" href="@routes.Team.form()">
     @trans.newTeam()
   </a>
