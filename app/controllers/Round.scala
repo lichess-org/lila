@@ -70,7 +70,7 @@ object Round extends LilaController with TheftPrevention {
       (analyser has pov.gameId) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.isAuth ?? {
-        Env.chat.api.playerChat find s"${pov.gameId}/w" map (_.some)
+        Env.chat.api.userChat find s"${pov.gameId}/w" map (_.some)
       }) map {
         case ((((bookmarkers, v), analysed), tour), chat) ⇒
           Ok(html.round.watcher(pov, v, bookmarkers, analysed, chat, tour))
