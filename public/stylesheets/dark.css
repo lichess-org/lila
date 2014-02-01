@@ -2,7 +2,7 @@ body.dark {
   background: #1a1a1a url(../images/head_bg_dark.png) top left repeat-x;
   color: #8a8a8a;
 }
-body.dark a, body.dark a:visited, body.dark #powerTip > .actions a {
+body.dark a, body.dark a:visited, body.dark #powerTip > .actions a, body.dark .button {
   color: #8a8a8a;
 }
 body.dark input, body.dark textarea, body.dark div.analysis_menu > a.active {

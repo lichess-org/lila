@@ -8,6 +8,7 @@ import play.api.mvc._
 import play.api.templates.Html
 
 import lila.analyse.{ TimeChart, TimePie, AdvantageChart }
+import lila.api.Context
 import lila.app._
 import lila.game.{ Pov, GameRepo, PgnDump }
 import lila.hub.actorApi.map.Tell
@@ -28,31 +29,28 @@ object Analyse extends LilaController {
         e ⇒ logerr("[analysis] " + e.getMessage),
         _ ⇒ Env.hub.socket.round ! Tell(id, AnalysisAvailable)
       )
-      Redirect(routes.Analyse.replay(id, color)).fuccess
+      Redirect(routes.Round.watcher(id, color)).fuccess
   }
 
-  def replay(id: String, color: String) = Open { implicit ctx ⇒
-    OptionFuOk(GameRepo.pov(id, color)) { pov ⇒
-      Env.round.version(pov.gameId) zip
-        Env.game.pgnDump(pov.game) zip
-        (env.analyser get pov.game.id) zip
-        (pov.game.tournamentId ?? TournamentRepo.byId) zip
-        (ctx.isAuth ?? {
-          Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
-        }) map {
-          case ((((version, pgn), analysis), tour), chat) ⇒
-            html.analyse.replay(
-              pov,
-              analysis.fold(pgn)(a ⇒ Env.analyse.annotator(pgn, a)).toString,
-              chess.OpeningExplorer openingOf pov.game.pgnMoves,
-              analysis,
-              analysis filter (_.done) map { a ⇒ AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
-              version,
-              chat,
-              tour)
-        }
-    }
-  }
+  def replay(pov: Pov)(implicit ctx: Context) =
+    Env.round.version(pov.gameId) zip
+      Env.game.pgnDump(pov.game) zip
+      (env.analyser get pov.game.id) zip
+      (pov.game.tournamentId ?? TournamentRepo.byId) zip
+      (ctx.isAuth ?? {
+        Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
+      }) map {
+        case ((((version, pgn), analysis), tour), chat) ⇒
+          Ok(html.analyse.replay(
+            pov,
+            analysis.fold(pgn)(a ⇒ Env.analyse.annotator(pgn, a)).toString,
+            chess.OpeningExplorer openingOf pov.game.pgnMoves,
+            analysis,
+            analysis filter (_.done) map { a ⇒ AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
+            version,
+            chat,
+            tour))
+      }
 
   def stats(id: String) = Open { implicit ctx ⇒
     OptionFuOk(GameRepo game id) { game ⇒

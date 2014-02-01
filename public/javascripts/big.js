@@ -401,8 +401,7 @@ var storage = {
           }
         },
         analysisAvailable: function() {
-          $("div.game_analysis.status").remove();
-          $("div.game_analysis").show();
+          $(".future_game_analysis").hide().filter('.view_game_analysis').show();
           $.playSound();
           document.title = "/!\\ ANALYSIS READY! " + document.title;
         },
@@ -707,10 +706,6 @@ var storage = {
       var count = (parseInt(t.html(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
       t.html(count > 0 ? count : "");
       return false;
-    });
-
-    $("form.request_analysis a").click(function() {
-      $(this).parent().submit();
     });
 
     $("#import_game form").submit(function() {

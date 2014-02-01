@@ -26,7 +26,6 @@ private[game] final class Export(router: akka.actor.ActorSelection) {
     val player = game player user
     (List(
       R.Watcher(game.id, player.fold("white")(_.color.name)),
-      R.Replay(game.id, player.fold("white")(_.color.name)),
       R.Pgn(game.id)
     ) map { r ⇒
         router ? R.Nolang(r) mapTo manifest[String]
@@ -53,7 +52,7 @@ private[game] final class Export(router: akka.actor.ActorSelection) {
   private def showRatingDiff(n: Int): String = (n > 0).fold("+" + n, n.toString)
 
   def header =
-    List("#", "Date (ISO8601)", "Color", "Opponent", "Result", "Status", "Plies", "Variant", "Mode", "Time control", "Your Rating", "Your Rating change", "Opponent Rating", "Opponent Rating Change", "Game url", "Analysis url", "PGN url")
+    List("#", "Date (ISO8601)", "Color", "Opponent", "Result", "Status", "Plies", "Variant", "Mode", "Time control", "Your Rating", "Your Rating change", "Opponent Rating", "Opponent Rating Change", "Game url", "PGN url")
 
   private def date: String = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
 }

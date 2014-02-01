@@ -20,7 +20,7 @@ object Importer extends LilaController with BaseGame {
         Ok(html.game.importGame(listMenu, failure))
       },
       data ⇒ env.importer(data, ctx.userId, ctx.req.remoteAddress) map { game ⇒
-        Redirect(routes.Analyse.replay(game.id, "white"))
+        Redirect(routes.Round.watcher(game.id, "white"))
       } recover {
         case e ⇒ {
           logwarn(e.getMessage)

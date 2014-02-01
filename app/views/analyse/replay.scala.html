@@ -113,12 +113,22 @@ themepicker = true) {
       data-max="@lila.analyse.AdvantageChart.max"
       data-rows="@chart"></div>
     }.getOrElse {
-    <div class="game_analysis status">
+    <div class="future_game_analysis">
       @trans.computerAnalysisInProgress()
     </div>
     }
+    }.getOrElse {
+    @if(ctx.isAuth && game.analysable && analysis.isEmpty) {
+    <form class="future_game_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
+      <button type="submit" class="button"><span>@trans.requestAComputerAnalysis()</span></button>
+    </form>
     }
-    @analyse.link(pov)
+    }
+    <div class="view_game_analysis future_game_analysis">
+      <a class="button" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+        <span>@trans.viewTheComputerAnalysis()</span>
+      </a>
+    </div>
   </div>
   <div class="panel fen_pgn">
     <p><strong>FEN</strong> <span class="fen"></span></p>
