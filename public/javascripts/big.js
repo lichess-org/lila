@@ -349,9 +349,7 @@ var storage = {
           }
         },
         message: function(msg) {
-          $('div.lichess_chat').each(function() {
-            $(this).chat("append", msg);
-          });
+          $('div.lichess_chat').chat("append", msg);
         },
         nbm: function(e) {
           $('#nb_messages').text(e || "0").toggleClass("unread", e > 0);
@@ -2467,6 +2465,11 @@ var storage = {
     var $userList = $wrap.find("div.user_list");
     var socketUrl = $wrap.data("socket-url");
     var $watchers = $("div.watchers").watchers();
+
+    var $chat = $("div.lichess_chat").chat({
+      resize: true,
+      messages: lichess_chat
+    });
 
     function startClock() {
       $("span.tournament_clock").each(function() {

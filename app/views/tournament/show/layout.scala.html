@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Tournament, title: String, version: Int, goodies: Html, side: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(tour: lila.tournament.Tournament, chat: Option[lila.chat.UserChat], title: String, version: Int, goodies: Html, side: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @underchat = {
 <div class="watchers">
@@ -9,6 +9,7 @@
 @tournament.layout(
 title = title,
 goodies = goodies.some,
+chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some) {
 <div
   id="tournament"
