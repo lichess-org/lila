@@ -99,6 +99,12 @@ object User extends LilaController {
     }
   }
 
+  def leaderboard = Open { implicit ctx =>
+    UserRepo topRating 500 map { users =>
+      html.user.leaderboard(users)
+    }
+  }
+
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx ⇒
     me ⇒ OptionFuOk(UserRepo named username) { user ⇒
       Env.evaluation.evaluator find user zip

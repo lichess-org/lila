@@ -36,7 +36,7 @@ div.user_lists div.user_top a {
   margin: 3px 0;
 }
 
-div.online_users > a {
+div.big_user_list > a {
   float: left;
   width: 25%;
   margin-bottom: 5px;

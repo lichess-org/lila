@@ -1,8 +1,8 @@
 @(users: List[User])(implicit ctx: Context)
 
-@user.layout(trans.onlinePlayers.str()) {
+@user.layout(trans.leaderboard.str()) {
 <div class="content_box">
-  <h1>@trans.onlinePlayers() (@users.size)</h1>
+  <h1>@trans.players() top @users.size</h1>
   <br />
   <br />
   <div class="big_user_list clearfix">

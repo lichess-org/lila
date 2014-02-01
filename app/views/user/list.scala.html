@@ -38,7 +38,7 @@
     @user.topActive(nbWeek, trans.activeThisWeek(), true)
 
     @user.topLeader(progressMonth, trans.progressThisMonth())
-    @user.topLeader(rating, trans.leaderboard())
+    @user.topLeader(rating, trans.leaderboard(), moreUrl = routes.User.leaderboard.url.some)
     @user.topActive(nb, trans.activePlayers(), true)
 
     @user.top(bullet, trans.bestBulletPlayers())(u => Html(s"<td>${u.perfs.bullet.glicko.intRating}</td>"))

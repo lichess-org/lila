@@ -24,10 +24,10 @@ POST  /@/:username/evaluate            controllers.User.evaluate(username: Strin
 GET   /@/:username/mini                controllers.User.showMini(username: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
-
 GET   /people                          controllers.User.list(page: Int ?= 1)
 GET   /people/online                   controllers.User.online
 GET   /people/autocomplete             controllers.User.autocomplete
+GET   /leaderboard                     controllers.User.leaderboard
 
 # Account
 GET   /account/passwd                  controllers.Account.passwd
