@@ -190,5 +190,9 @@ object Tournament extends LilaController {
   }
 
   private def chatOf(tour: lila.tournament.Tournament)(implicit ctx: Context) =
-    ctx.isAuth ?? (Env.chat.api.userChat find tour.id map (_.some))
+    ctx.isAuth ?? {
+      Env.chat.api.userChat find tour.id map { chat ⇒
+        ctx.troll.fold(chat, chat.filterTroll).some
+      }
+    }
 }
