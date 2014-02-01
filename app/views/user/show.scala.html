@@ -44,11 +44,6 @@ evenMoreJs = evenMoreJs) {
     }
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
-    @if(isGranted(_.ReopenAccount)) {
-    <form class="reopen" action="@routes.Mod.reopenAccount(u.username)" method="post">
-      <button type="submit" class="button confirm">Reopen</button>
-    </form>
-    }
     }
   </div>
   <div class="social content_box_inter">

@@ -9,10 +9,6 @@ div.user_show .staff {
   font-weight: bold;
   margin-bottom: 1em;
 }
-div.user_show form.reopen {
-  float: right;
-  margin-right: 1em;
-}
 div.user_show div.content_box_top > span {
   margin-left: 1em;
   font-size: 1.6em;

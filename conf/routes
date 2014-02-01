@@ -147,6 +147,7 @@ POST  /new-password                    controllers.Auth.newPassword
 POST  /mod/:username/engine            controllers.Mod.engine(username: String)
 POST  /mod/:username/troll             controllers.Mod.troll(username: String)
 POST  /mod/:username/ban               controllers.Mod.ban(username: String)
+POST  /mod/:username/close             controllers.Mod.closeAccount(username: String)
 POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: String)
 POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
 GET   /mod/log                         controllers.Mod.log

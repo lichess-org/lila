@@ -37,6 +37,12 @@ final class ModApi(
     }
   }
 
+  def closeAccount(mod: String, username: String): Funit = withUser(username) { user ⇒
+    user.enabled ?? {
+      (UserRepo disable user.id) >> logApi.closeAccount(mod, user.id)
+    }
+  }
+
   def reopenAccount(mod: String, username: String): Funit = withUser(username) { user ⇒
     !user.enabled ?? {
       (UserRepo enable user.id) >> logApi.reopenAccount(mod, user.id)

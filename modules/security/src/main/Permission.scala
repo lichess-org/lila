@@ -2,7 +2,7 @@ package lila.security
 
 sealed abstract class Permission(val name: String, val children: List[Permission] = Nil) {
 
-  final def is(p: Permission): Boolean = 
+  final def is(p: Permission): Boolean =
     this == p || (children exists (_ is p))
 }
 
@@ -17,6 +17,7 @@ object Permission {
   case object MarkTroll extends Permission("ROLE_CHAT_BAN", List(UserSpy))
   case object MarkEngine extends Permission("ROLE_ADJUST_CHEATER", List(UserSpy))
   case object IpBan extends Permission("ROLE_IP_BAN", List(UserSpy))
+  case object CloseAccount extends Permission("ROLE_CLOSE_ACCOUNT", List(UserSpy))
   case object ReopenAccount extends Permission("ROLE_REOPEN_ACCOUNT", List(UserSpy))
   case object SeeReport extends Permission("ROLE_SEE_REPORT", Nil)
 
@@ -24,7 +25,7 @@ object Permission {
       ViewBlurs, MarkEngine, StaffForum, UserSpy, UserEvaluate, SeeReport))
 
   case object Admin extends Permission("ROLE_ADMIN", List(
-      ViewBlurs, MarkTroll, MarkEngine, StaffForum, ModerateForum, UserSpy, UserEvaluate, SeeReport, IpBan, ReopenAccount))
+      ViewBlurs, MarkTroll, MarkEngine, StaffForum, ModerateForum, UserSpy, UserEvaluate, SeeReport, IpBan, CloseAccount, ReopenAccount))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(Admin))
 
