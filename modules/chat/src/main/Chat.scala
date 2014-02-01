@@ -4,6 +4,8 @@ sealed trait AnyChat {
   def id: ChatId
   def lines: List[Line]
 
+  def filterTroll: AnyChat
+
   def toJsonString = Line toJsonString lines
 }
 
@@ -15,11 +17,18 @@ sealed trait Chat[L <: Line] extends AnyChat {
 case class UserChat(
     id: ChatId,
     lines: List[UserLine]) extends Chat[UserLine] {
+
+  def filterTroll = copy(lines = lines filterNot (_.troll))
 }
 
 case class MixedChat(
     id: ChatId,
     lines: List[Line]) extends Chat[Line] {
+
+  def filterTroll = copy(lines = lines filter {
+    case l: UserLine   ⇒ !l.troll
+    case l: PlayerLine ⇒ true
+  })
 }
 
 object Chat {
