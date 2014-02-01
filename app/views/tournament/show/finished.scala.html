@@ -1,8 +1,9 @@
-@(tour: lila.tournament.Finished, version: Int, games: List[Game])(implicit ctx: Context)
+@(tour: lila.tournament.Finished, version: Int, chat: Option[lila.chat.UserChat], games: List[Game])(implicit ctx: Context)
 
 @tournament.show.layout(
 tour = tour,
 goodies = tournament.infoBox(tour),
+chat = chat,
 version = version,
 side = tournament.pairings(tour).some,
 title = tour.nameT) {

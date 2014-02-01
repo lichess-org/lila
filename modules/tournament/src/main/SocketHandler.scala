@@ -13,6 +13,7 @@ import lila.db.api.$count
 import lila.game.Game
 import lila.hub.actorApi.map._
 import lila.security.Flood
+import akka.actor.ActorSelection
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.socket.Handler
 import lila.user.User
@@ -22,6 +23,7 @@ import tube.tournamentTube
 private[tournament] final class SocketHandler(
     hub: lila.hub.Env,
     socketHub: ActorRef,
+    chat: ActorSelection,
     flood: Flood) {
 
   def join(
@@ -54,10 +56,10 @@ private[tournament] final class SocketHandler(
     case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
       socket ! LiveGames(uid, ids.split(' ').toList)
     }
-    case ("talk", o) ⇒ for {
-      t ← o str "d"
-      userId ← member.userId
-      if flood.allowMessage(uid, t)
-    } socket ! Talk(tourId, userId, t, member.troll)
+    case ("talk", o) ⇒ o str "d" foreach { text ⇒
+      member.userId foreach { userId ⇒
+        chat ! lila.chat.actorApi.UserTalk(tourId, userId, text, socket)
+      }
+    }
   }
 }

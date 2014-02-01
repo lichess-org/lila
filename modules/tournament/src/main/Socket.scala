@@ -7,10 +7,10 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
+import lila.hub.TimeBomb
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.socket.{ SocketActor, History, Historical }
-import lila.hub.TimeBomb
 
 private[tournament] final class Socket(
     tournamentId: String,
@@ -54,6 +54,12 @@ private[tournament] final class Socket(
       if (timeBomb.boom) self ! PoisonPill
     }
 
+    case lila.chat.actorApi.ChatLine(_, line) ⇒ line match {
+      case line: lila.chat.UserLine ⇒
+        notifyVersionTrollable("message", lila.chat.Line toJson line, troll = line.troll)
+      case _ ⇒
+    }
+
     case GetVersion ⇒ sender ! history.version
 
     case Join(uid, user, version) ⇒ {
@@ -87,7 +93,7 @@ private[tournament] final class Socket(
     notifyVersion("reload", JsNull)
   }
 
-  def notifyVersionTrollable[A : Writes](t: String, data: A, troll: Boolean) {
+  def notifyVersionTrollable[A: Writes](t: String, data: A, troll: Boolean) {
     val vmsg = history += History.Message(makeMessage(t, data), troll)
     members.values.foreach(sendMessage(vmsg))
   }

@@ -12,7 +12,7 @@ trait Historical[M <: SocketMember] { self: SocketActor[M] ⇒
   }
 
   def sendMessage(message: History.Message)(member: M) {
-    if (!message.troll || member.troll) member.channel push message.msg
+    if (!message.troll || member.troll) member.channel push message.msg.pp
   }
   def sendMessage(member: M)(message: History.Message) {
     sendMessage(message)(member)

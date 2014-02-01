@@ -54,20 +54,25 @@ object Tournament extends LilaController {
   }
 
   private def showCreated(tour: Created)(implicit ctx: Context) =
-    env version tour.id map { html.tournament.show.created(tour, _) }
+    env.version(tour.id) zip chatOf(tour) map {
+      case (version, chat) ⇒ html.tournament.show.created(tour, version, chat)
+    }
 
   private def showStarted(tour: Started)(implicit ctx: Context) =
     env.version(tour.id) zip
+      chatOf(tour) zip
       GameRepo.games(tour recentGameIds 4) zip
       tour.userCurrentPov(ctx.me).??(GameRepo.pov) map {
-        case ((version, games), pov) ⇒
-          html.tournament.show.started(tour, version, games, pov)
+        case (((version, chat), games), pov) ⇒
+          html.tournament.show.started(tour, version, chat, games, pov)
       }
 
   private def showFinished(tour: Finished)(implicit ctx: Context) =
-    env.version(tour.id) zip GameRepo.games(tour recentGameIds 4) map {
-        case (version, games) ⇒
-          html.tournament.show.finished(tour, version, games)
+    env.version(tour.id) zip
+      chatOf(tour) zip
+      GameRepo.games(tour recentGameIds 4) map {
+        case ((version, chat), games) ⇒
+          html.tournament.show.finished(tour, version, chat, games)
       }
 
   def join(id: String) = AuthBody { implicit ctx ⇒
@@ -183,4 +188,7 @@ object Tournament extends LilaController {
       case (version, uid) ⇒ env.socketHandler.join(id, version, uid, ctx.me)
     })
   }
+
+  private def chatOf(tour: lila.tournament.Tournament)(implicit ctx: Context) =
+    ctx.isAuth ?? (Env.chat.api.userChat find tour.id map (_.some))
 }
