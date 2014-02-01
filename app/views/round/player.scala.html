@@ -50,5 +50,7 @@ signedJs = pov.game.rated option routes.Round.signedJs(pov.gameId) map (_.toStri
   </div>
 </div>
 @embedJs("var _ld_ = " + roundPlayerJsData(pov, version, ctx.pref))
-@analyse.link(pov, analysed)
+<div class="replay_and_analyse">
+  <a class="button" href="@routes.Analyse.replay(game.id, color.name)">&#9654; @trans.replayAndAnalyse()</a>
+</div>
 }

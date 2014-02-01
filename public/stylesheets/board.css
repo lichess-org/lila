@@ -570,3 +570,13 @@ span.inline_userlist a {
 span.inline_userlist a:hover {
   text-decoration: underline;
 }
+div.replay_and_analyse {
+  display: none;
+  width: 512px;
+  margin-top: 20px;
+  text-align: center;
+}
+div.replay_and_analyse a {
+  display: inline-block;
+  font-size: 1.4em;
+}

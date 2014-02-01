@@ -996,6 +996,7 @@ var storage = {
               setTimeout(function() {
                 self.element.find('.ui-draggable-dragging').remove();
               }, 500);
+              $('div.replay_and_analyse').show();
               // But enqueue the visible changes
               self.element.queue(function() {
                 self.changeTitle($.trans("Game Over"));
