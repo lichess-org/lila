@@ -1,4 +1,4 @@
-@(pov: Pov, pgn: String, bookmarkers: List[String], opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], version: Int, chat: Option[lila.chat.UserChat], tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, pgn: String, opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], version: Int, chat: Option[lila.chat.UserChat], tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @import pov._
 
@@ -13,7 +13,7 @@
 @analysis.map { a =>
 @highchartsTag
 @jsTagCompiled("chart2.js")
-@embedJs("var lichess_best_moves="+toJson(a.bestMoves)+";")
+@embedJs(s"var lichess_best_moves=${toJson(a.bestMoves)};")
 }
 }
 
@@ -52,6 +52,17 @@ themepicker = true) {
   </div>
   <div class="moves_wrap">
     <div id="GameText"></div>
+
+    <nav class="game_actions">
+      <p>
+        <strong>@trans.opening()</strong> @opening.map { o =>
+        <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
+        }.getOrElse { "Unknown" }
+      </p>
+      <a class="button" href="@routes.Round.watcher(gameId, (!color).name)">&#8635; @trans.flipBoard()</a>
+      <a class="fen_link button" href="@routes.Editor.game(game.id)?fen=">&#9654; @trans.boardEditor()</a>
+    </nav>
+
     <div class="advice_summary">
       @round.blurs(game)
       @analysis.filter(_.done).map { a =>
@@ -66,11 +77,11 @@ themepicker = true) {
         </thead>
         @for((nag, nb) <- pairs) {
         <tbody>
-        <tr>
-          <th>@nagName(nag)</th>
-          <td><strong>@nb</strong></td>
-          <td><strong>@("%.1f".format(100f * nb / pov.game.playerMoves(color)))</strong>%</td>
-        </tr>
+          <tr>
+            <th>@nagName(nag)</th>
+            <td><strong>@nb</strong></td>
+            <td><strong>@("%.1f".format(100f * nb / pov.game.playerMoves(color)))</strong>%</td>
+          </tr>
         </tbody>
         }
         }
@@ -80,43 +91,39 @@ themepicker = true) {
   </div>
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
-@analysis.map { a =>
-@if(a.old) {
-<form class="request_analysis new_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
-  <a>Request a better computer analysis</a>
-</form>
-}
-@advantageChart.map { chart =>
-<div
-  id="adv_chart"
-  title="Advantage (up: white, down: black)"
-  data-max="@lila.analyse.AdvantageChart.max"
-  data-rows="@chart"></div>
-}.getOrElse {
-<div class="undergame_box game_analysis status">
-  @trans.computerAnalysisInProgress()
-</div>
-}
-}
-@analyse.link(pov)
-@views.html.game.more(pov, bookmarkers) {
-@trans.opening(): @opening.map { o =>
-<a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
-}.getOrElse { "Unknown" }
-<nav>
-  @round.continueFromHere(pov.game, true)
-  @if(ctx.isAuth && game.analysable && analysis.isEmpty) {
-  <form class="request_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
-    <a>@trans.requestAComputerAnalysis()</a>
-  </form>
-  }
+<div class="analysis_menu">
+  <a data-panel="computer_analysis" class="active">@trans.computerAnalysis()</a>
+  <a data-panel="fen_pgn">FEN &amp; PGN</a>
   @if(game.pgnImport.isEmpty) {
-  <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
-  <br />
+  <a data-panel="move_times" href="@routes.Analyse.stats(gameId)">@trans.moveTimes()</a>
   }
-  <a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a>
-  <br />
-  @round.fenPgn(game)
-</nav>
-}
+</div>
+<div class="analysis_panels">
+  <div class="panel computer_analysis active">
+    @analysis.map { a =>
+    @if(a.old) {
+    <form class="request_analysis new_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
+      <a>Request a better computer analysis</a>
+    </form>
+    }
+    @advantageChart.map { chart =>
+    <div
+      id="adv_chart"
+      title="Advantage (up: white, down: black)"
+      data-max="@lila.analyse.AdvantageChart.max"
+      data-rows="@chart"></div>
+    }.getOrElse {
+    <div class="game_analysis status">
+      @trans.computerAnalysisInProgress()
+    </div>
+    }
+    }
+    @analyse.link(pov)
+  </div>
+  <div class="panel fen_pgn">
+    <p><strong>FEN</strong> <span class="fen"></span></p>
+    <p><strong>PGN</strong> (<a href="@routes.Analyse.pgn(game.id)">Download it</a>)</p>
+    <textarea>@pgn</textarea>
+  </div>
+</div>
 }

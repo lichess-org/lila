@@ -701,41 +701,11 @@ var storage = {
       return confirm('Confirm this action?');
     });
 
-    $('#lichess').on('click', 'span.bookmark a.icon', function() {
+    $('#site_header').on('click', 'span.bookmark a.icon', function() {
       var t = $(this).toggleClass("bookmarked");
       $.post(t.attr("href"));
       var count = (parseInt(t.html(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
       t.html(count > 0 ? count : "");
-      return false;
-    });
-
-    $("a.view_pgn_toggle").on('click', function() {
-      var $this = $(this);
-      $.ajax({
-        url: $this.attr("href"),
-        success: function(text) {
-          $this.siblings('div.view_pgn_box').show()
-            .find('a.close').one('click', function() {
-              $(this).parent().hide();
-            })
-            .siblings('textarea').val(text);
-        }
-      });
-      return false;
-    });
-
-    $("a.view_fen").on('click', function() {
-      $.ajax({
-        url: $(this).attr("href"),
-        success: function(text) {
-          alert(text);
-        }
-      });
-      return false;
-    });
-
-    $("a.continue_from_here").one("click", function() {
-      $(this).hide().siblings('.opponent_choice').show();
       return false;
     });
 
@@ -2550,6 +2520,12 @@ var storage = {
       messages: lichess_chat
     });
     var $watchers = $("div.watchers").watchers();
+
+    var $panels = $('div.analysis_panels > div');
+    $('div.analysis_menu').on('click', 'a', function() {
+      $(this).siblings('.active').removeClass('active').end().addClass('active');
+      $panels.removeClass('active').filter('.' + $(this).data('panel')).addClass('active');
+    });
 
     lichess.socket = new strongSocket(
       $game.data("socket-url"),

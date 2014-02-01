@@ -44,15 +44,14 @@ object Round extends LilaController with TheftPrevention {
       pov.game.started.fold(
         PreventTheft(pov) {
           env.version(pov.gameId) zip
-            (bookmarkApi userIdsByGame pov.game) zip
             pov.opponent.userId.??(UserRepo.isEngine) zip
             (analyser has pov.gameId) zip
             (pov.game.tournamentId ?? TournamentRepo.byId) zip
             (pov.game.hasChat optionFu {
               Env.chat.api.playerChat find pov.gameId map (_ forUser ctx.me)
             }) map {
-              case (((((v, bookmarkers), engine), analysed), tour), chat) ⇒
-                Ok(html.round.player(pov, v, engine, bookmarkers, analysed, chat = chat, tour = tour))
+              case ((((v, engine), analysed), tour), chat) ⇒
+                Ok(html.round.player(pov, v, engine, analysed, chat = chat, tour = tour))
             }
         },
         Redirect(routes.Setup.await(fullId)).fuccess
@@ -67,15 +66,14 @@ object Round extends LilaController with TheftPrevention {
   }
 
   private def watch(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =
-    bookmarkApi userIdsByGame pov.game zip
       env.version(pov.gameId) zip
       (analyser has pov.gameId) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.isAuth ?? {
         Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
       }) map {
-        case ((((bookmarkers, v), analysed), tour), chat) ⇒
-          Ok(html.round.watcher(pov, v, bookmarkers, analysed, chat, tour))
+        case (((v, analysed), tour), chat) ⇒
+          Ok(html.round.watcher(pov, v, analysed, chat, tour))
       }
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =
