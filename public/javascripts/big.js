@@ -322,15 +322,15 @@ var storage = {
     socket: null,
     socketDefaults: {
       events: {
-        // following_onlines: function(data) {
-        //   $('#friend_box').friends("set", data);
-        // },
-        // following_enters: function(name) {
-        //   $('#friend_box').friends('enters', name);
-        // },
-        // following_leaves: function(name) {
-        //   $('#friend_box').friends('leaves', name);
-        // },
+        following_onlines: function(data) {
+          $('#friend_box').friends("set", data);
+        },
+        following_enters: function(name) {
+          $('#friend_box').friends('enters', name);
+        },
+        following_leaves: function(name) {
+          $('#friend_box').friends('leaves', name);
+        },
         n: function(e) {
           var $tag = $('#nb_connected_players > strong');
           if ($tag.length && e) {
@@ -494,6 +494,8 @@ var storage = {
       lichess.socket.send($(this).data('msg'), $(this).data('data'));
     });
 
+    $('#friend_box').friends();
+
     $('body').on('click', 'div.relation_actions a.relation', function() {
       var $a = $(this).addClass('processing');
       $.ajax({
@@ -509,8 +511,9 @@ var storage = {
     function userPowertips() {
       var header = document.getElementById('site_header');
       $('a.ulpt').removeClass('ulpt').each(function() {
+        var placement = $(this).data('placement') || ($.contains(header, this) ? 'e' : 'w');
         $(this).powerTip({
-          placement: $.contains(header, this) ? 'e' : 'w',
+          placement: placement,
           mouseOnToPopup: true,
           closeDelay: 200
         }).on({
@@ -1504,6 +1507,47 @@ var storage = {
       } else {
         self.element.hide();
       }
+    }
+  });
+
+  $.widget("lichess.friends", {
+    _create: function() {
+      var self = this;
+      self.$list = self.element.find("div.list");
+      self.$title = self.element.find('.title').click(function() {
+        self.element.find('.content_wrap').toggle(100, function() {
+          storage.set('friends-hide', $(this).is(':visible') ? 0 : 1);
+        });
+      });
+      if (storage.get('friends-hide') == 1) self.$title.click();
+      self.$nbOnline = self.$title.find('.online');
+      self.$nbTotal = self.$title.find('.total');
+      self.$nobody = self.element.find("div.nobody");
+      self.set(self.element.data('preload'));
+    },
+    repaint: function() {
+      this.users = _.uniq(this.users);
+      this.$nbOnline.text(this.users.length);
+      this.$nbTotal.text(this.nb);
+      this.$nobody.toggle(this.users.length === 0);
+      this.$list.html(_.map(this.users, this._renderUser).join(""));
+      $('body').trigger('lichess.content_loaded');
+    },
+    set: function(data) {
+      this.nb = data.nb;
+      this.users = data.us;
+      this.repaint();
+    },
+    enters: function(user) {
+      this.users.push(user);
+      this.repaint();
+    },
+    leaves: function(user) {
+      this.users = _.without(this.users, user);
+      this.repaint();
+    },
+    _renderUser: function(user) {
+      return '<a class="ulpt" data-placement="nw" href="/@/' + user + '">' + user + '</a>';
     }
   });
 

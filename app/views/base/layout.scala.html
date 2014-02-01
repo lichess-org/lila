@@ -160,6 +160,20 @@ data-accept-languages="@acceptLanguages.mkString(",")">
   </div>
 </div>
 }
+@ctx.me.map { me =>
+<div id="friend_box" data-preload="@ctx.friends">
+  <div class="title">@trans.onlineFriends() - <strong class="online"> </strong>/<span class="total"> </span></div>
+  <div class="content_wrap">
+    <div class="content list"></div>
+    <div class="nobody">
+      <span>@trans.noFriendsOnline()</span>
+      <a class="find button" href="@routes.Relation.suggest(me.username)">
+        <span class="s16 tup">@trans.findFriends()</span>
+      </a>
+    </div>
+  </div>
+</div>
+}
 @jsTag("deps.min.js")
 @signedJs.fold(jsTagCompiled("big.js"))(js => jsAt(js, false))
 @moreJs
