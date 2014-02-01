@@ -1359,6 +1359,49 @@ a#sound_state.unavailable {
   bottom: 0.2em;
   right: 0.3em;
 }
+#friend_box {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-right: 0;
+  min-width: 150px;
+}
+#friend_box .title {
+  cursor: pointer;
+  padding: 3px 5px;
+  border-bottom: 1px solid #ccc;
+  border-radius: 4px 4px 0 0;
+}
+#friend_box .content a {
+  padding: 3px 5px;
+  text-decoration: none;
+  display: block;
+  max-height: 100px;
+  overflow-y:auto;
+}
+#friend_box .content a:hover {
+  background: #F0F0F0;
+}
+#friend_box .nobody {
+  text-align: center;
+  display: none;
+  padding: 3px 5px;
+  font-style: italic;
+}
+#friend_box .nobody span {
+  display: block;
+  margin: 5px;
+}
+#friend_box a.find {
+  display: none;
+  margin: 7px;
+  font-style: normal;
+}
+#friend_box div.nobody:hover a.find {
+  display: block;
+}
 span.s16.clock {
   background-position: 0 -224px;
   padding-bottom: 1px;
