@@ -124,9 +124,9 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     cssClass: Option[String],
     withOnline: Boolean,
     withPowerTip: Boolean = true) = {
-    // ultp = user link power tip
-    "user_link" :: "ulpt" :: List(
+    "user_link" :: List(
       cssClass,
+      withPowerTip option "ulpt",
       withOnline option isOnline(userId).fold("online", "offline")
     ).flatten
   }.mkString("class=\"", " ", "\"")
