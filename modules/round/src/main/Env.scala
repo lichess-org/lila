@@ -59,7 +59,7 @@ final class Env(
   }), name = ActorMapName)
 
   private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor.Default[Socket] {
+    Props(new lila.socket.SocketHubActor[Socket] {
       def mkActor(id: String) = new Socket(
         gameId = id,
         history = history(),
@@ -68,6 +68,10 @@ final class Env(
         socketTimeout = SocketTimeout,
         disconnectTimeout = PlayerDisconnectTimeout,
         ragequitTimeout = PlayerRagequitTimeout)
+      def receive: Receive = ({
+        case msg@lila.chat.actorApi.ChatLine(id, line) ⇒
+          self ! lila.hub.actorApi.map.Tell(id take 8, msg).pp
+      }: Receive) orElse socketHubReceive
     }),
     name = SocketName)
 
@@ -113,6 +117,7 @@ final class Env(
 
   lazy val messenger = new Messenger(
     bus = system.lilaBus,
+    socketHub = socketHub,
     i18nKeys = i18nKeys)
 
   lazy val fenUrlWatch = new FenUrlWatch(

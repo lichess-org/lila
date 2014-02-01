@@ -348,6 +348,11 @@ var storage = {
             });
           }
         },
+        message: function(msg) {
+          $('div.lichess_chat').each(function() {
+            $(this).chat("append", msg);
+          });
+        },
         nbm: function(e) {
           $('#nb_messages').text(e || "0").toggleClass("unread", e > 0);
         },
@@ -1584,11 +1589,12 @@ var storage = {
       if (!$toggle[0].checked) {
         self.element.addClass('hidden');
       }
+      if (self.options.messages.length > 0) self._appendMany(self.options.messages);
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));
     },
-    appendMany: function(objs) {
+    _appendMany: function(objs) {
       var self = this,
         html = "";
       $.each(objs, function() {
@@ -1605,7 +1611,7 @@ var storage = {
       } else {
         user = '<span class="user">' + $.userLinkLimit(msg.u, 14) + '</span>';
       }
-      return '<li class="' + (u == 'system' ? ' trans_me' : '') + (msg.r ? ' troll' : '') + '">' + urlToLink(msg.t) + '</li>';
+      return '<li class="' + (msg.u == 'system' ? ' trans_me' : '') + (msg.r ? ' troll' : '') + '">' + user + urlToLink(msg.t) + '</li>';
     },
     _appendHtml: function(html) {
       this.$msgs.append(html);

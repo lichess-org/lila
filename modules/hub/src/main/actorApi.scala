@@ -35,13 +35,6 @@ case class WithUserIds(f: Iterable[String] ⇒ Unit)
 
 case object GetUids
 
-package chat {
-case class UserTalk(chatId: String, userId: String, text: String)
-case class PlayerTalk(chatId: String, white: Boolean, text: String)
-case class SystemTalk(chatId: String, text: String)
-case class NotifyLine(chatId: String, json: JsObject)
-}
-
 package report {
 case class Cheater(userId: String, text: String)
 case class Check(userId: String)

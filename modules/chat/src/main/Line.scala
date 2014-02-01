@@ -29,7 +29,7 @@ object Line {
     def write(x: Line) = BSONString(lineToStr(x))
   }
 
-  private val UserLineRegex = """^([\w-]{2,})[\s!](.+)$""".r
+  private val UserLineRegex = """^([\w-]{2,})(\s|\!)(.+)$""".r
   def strToUserLine(str: String): Option[UserLine] = str match {
     case UserLineRegex(username, " ", text) ⇒ UserLine(username, text, false).some
     case UserLineRegex(username, "!", text) ⇒ UserLine(username, text, true).some
