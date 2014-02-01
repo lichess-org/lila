@@ -274,30 +274,6 @@ trait UserRepo {
   def artificialSetPassword(id: String, password: String) =
     passwd(id, password) >> $update($select(id), $unset("artificial") ++ $set("enabled" -> true))
 
-  def insertArtificialUser(username: String, perfs: Perfs, progress: Int, createdAt: DateTime) = $insert bson {
-
-    val password = ornicar.scalalib.Random nextString 8
-    val salt = ornicar.scalalib.Random nextString 32
-    implicit def countHandler = Count.tube.handler
-    implicit def perfsHandler = Perfs.tube.handler
-    import lila.db.BSON.BSONJodaDateTimeHandler
-    import User.BSONFields
-
-    BSONDocument(
-      BSONFields.id -> normalize(username),
-      BSONFields.username -> username,
-      "artificial" -> true,
-      "password" -> hash(password, salt),
-      "salt" -> salt,
-      BSONFields.perfs -> perfs,
-      BSONFields.rating -> perfs.global.glicko.intRating,
-      BSONFields.progress -> progress,
-      BSONFields.count -> Count.default,
-      BSONFields.enabled -> false,
-      BSONFields.createdAt -> createdAt,
-      BSONFields.seenAt -> createdAt)
-  }
-
   private def hash(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha1
   private def hash512(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha512
 }
