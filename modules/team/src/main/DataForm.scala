@@ -16,6 +16,7 @@ private[team] final class DataForm(val captcher: akka.actor.ActorSelection) exte
     val location = "location" -> optional(text(minLength = 3, maxLength = 80))
     val description = "description" -> text(minLength = 30, maxLength = 2000)
     val open = "open" -> number
+    val irc = "irc" -> number
     val gameId = "gameId" -> text
     val move = "move" -> text
   }
@@ -25,6 +26,7 @@ private[team] final class DataForm(val captcher: akka.actor.ActorSelection) exte
     Fields.location,
     Fields.description,
     Fields.open,
+    Fields.irc,
     Fields.gameId,
     Fields.move)(TeamSetup.apply)(TeamSetup.unapply)
     .verifying("This team already exists", d ⇒ !teamExists(d).await)
@@ -33,10 +35,12 @@ private[team] final class DataForm(val captcher: akka.actor.ActorSelection) exte
   def edit(team: Team) = Form(mapping(
     Fields.location,
     Fields.description,
-    Fields.open)(TeamEdit.apply)(TeamEdit.unapply)) fill TeamEdit(
+    Fields.open,
+    Fields.irc)(TeamEdit.apply)(TeamEdit.unapply)) fill TeamEdit(
     location = team.location,
     description = team.description,
-    open = team.open.fold(1, 0))
+    open = team.open.fold(1, 0),
+    irc = team.irc.fold(1, 0))
 
   val request = Form(mapping(
     "message" -> text(minLength = 30, maxLength = 2000),
@@ -69,10 +73,12 @@ private[team] case class TeamSetup(
     location: Option[String],
     description: String,
     open: Int,
+    irc: Int,
     gameId: String,
     move: String) {
 
   def isOpen = open == 1
+  def hasIrc = irc == 1
 
   def trim = copy(
     name = name.trim,
@@ -83,7 +89,8 @@ private[team] case class TeamSetup(
 private[team] case class TeamEdit(
     location: Option[String],
     description: String,
-    open: Int) {
+    open: Int,
+    irc: Int) {
 
   def isOpen = open == 1
 
