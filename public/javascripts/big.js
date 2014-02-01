@@ -1614,6 +1614,7 @@ var storage = {
       return '<li class="' + (sys ? 'system trans_me' : '') + (msg.r ? ' troll' : '') + '">' + user + urlToLink(msg.t) + '</li>';
     },
     _appendHtml: function(html) {
+      if (!html) return;
       this.$msgs.append(html);
       $('body').trigger('lichess.content_loaded');
       this.$msgs.scrollTop(999999);
