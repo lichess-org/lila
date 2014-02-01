@@ -117,8 +117,8 @@ final class Env(
     socketHub = socketHub)
 
   lazy val messenger = new Messenger(
-    bus = system.lilaBus,
     socketHub = socketHub,
+    chat = hub.actor.chat,
     i18nKeys = i18nKeys)
 
   lazy val fenUrlWatch = new FenUrlWatch(

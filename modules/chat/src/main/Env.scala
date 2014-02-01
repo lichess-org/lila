@@ -15,6 +15,7 @@ final class Env(
     val CollectionChat = config getString "collection.chat"
     val MaxLinesPerChat = config getInt "max_lines"
     val NetDomain = config getString "net.domain"
+    val ActorName = config getString "actor.name"
   }
   import settings._
 
@@ -24,7 +25,7 @@ final class Env(
     maxLinesPerChat = MaxLinesPerChat,
     netDomain = NetDomain)
 
-  system.actorOf(Props(new FrontActor(api)))
+  system.actorOf(Props(new FrontActor(api)), name = ActorName)
 
   private[chat] lazy val chatColl = db(CollectionChat)
 }

@@ -6,7 +6,7 @@ import reactivemongo.bson.BSONDocument
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
 
-final class ChatApi(
+private[chat] final class ChatApi(
     coll: Coll,
     flood: lila.security.Flood,
     maxLinesPerChat: Int,

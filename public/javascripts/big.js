@@ -1414,6 +1414,7 @@ var storage = {
         self.$tableInner.html(data.table);
         self.initTable();
         $('div.lichess_goodies').replaceWith(data.infobox);
+        if (self.$chat) self.$chat.chat('resize');
         if ($.isFunction(callback)) callback();
         $('body').trigger('lichess.content_loaded');
       });
@@ -1550,12 +1551,7 @@ var storage = {
       }, this.options);
       var self = this;
       self.$msgs = self.element.find('.lichess_messages');
-      if (this.options.resize) {
-        var headerHeight = self.element.parent().height();
-        self.element.css("top", headerHeight + 13)
-          .find('.lichess_messages').css('height', 459 - headerHeight);
-        self.$msgs.scrollTop(999999);
-      }
+      if (self.options.resize) self.resize();
       var $form = self.element.find('form');
       var $input = self.element.find('input.lichess_say');
 
@@ -1591,6 +1587,11 @@ var storage = {
       }
       if (self.options.messages.length > 0) self._appendMany(self.options.messages);
     },
+    resize: function() {
+      var headerHeight = this.element.parent().height();
+      this.element.css("top", headerHeight + 13);
+      this.$msgs.css('height', 459 - headerHeight).scrollTop(999999);
+    },
     append: function(msg) {
       this._appendHtml(this._render(msg));
     },
@@ -1605,7 +1606,7 @@ var storage = {
     _render: function(msg) {
       var user, sys = false;
       if (msg.c) {
-        user = '<span class="color">' + msg.c + '</span>';
+        user = '<span class="color">[' + msg.c + ']</span>';
       } else if (msg.u == 'lichess') {
         sys = true;
         user = '<span class="system"></span>';
