@@ -1,6 +1,6 @@
 @(users: List[User])(implicit ctx: Context)
 
-@user.layout(trans.chessPlayers.str()) {
+@user.layout(trans.players.str()) {
 <div class="content_box">
   <h1>@trans.onlinePlayers() (@users.size)</h1>
   <br />
