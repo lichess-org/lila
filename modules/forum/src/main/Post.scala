@@ -39,7 +39,7 @@ object Post {
     text: String,
     number: Int,
     troll: Boolean): Post = Post(
-    id = Random nextString idSize,
+    id = Random nextStringUppercase idSize,
     topicId = topicId,
     author = author,
     userId = userId,

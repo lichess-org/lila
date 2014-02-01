@@ -1,6 +1,6 @@
 package lila.notification
 
-import ornicar.scalalib.Random.nextString
+import ornicar.scalalib.Random.nextStringUppercase
 
 import lila.user.User
 
@@ -16,7 +16,7 @@ object Notification {
   user: String,
   html: String,
   from: Option[String]): Notification = new Notification(
-    id = nextString(8),
+    id = nextStringUppercase(8),
     user = user,
     html = html,
     from = from)

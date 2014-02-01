@@ -90,7 +90,7 @@ object Hook {
     user: Option[User],
     sid: Option[String],
     ratingRange: RatingRange): Hook = new Hook(
-    id = Random nextString idSize,
+    id = Random nextStringUppercase idSize,
     uid = uid,
     variant = variant.id,
     hasClock = clock.isDefined,

@@ -87,6 +87,6 @@ private[ai] final class Dispatcher(
   private val urlRegex = """^https?://([^\/]+)/.+$""".r
   private def urlToActorName(url: String) = url match {
     case urlRegex(domain) ⇒ domain
-    case _                ⇒ ornicar.scalalib.Random nextString 8
+    case _                ⇒ ornicar.scalalib.Random nextStringUppercase 8
   }
 }

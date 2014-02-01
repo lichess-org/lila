@@ -4,9 +4,9 @@ import ornicar.scalalib.Random
 
 object IdGenerator {
 
-  def game = Random nextString Game.gameIdSize
+  def game = Random nextStringUppercase Game.gameIdSize
 
-  def token = Random nextString Game.tokenSize
+  def token = Random nextStringUppercase Game.tokenSize
 
-  def player = Random nextString Game.playerIdSize
+  def player = Random nextStringUppercase Game.playerIdSize
 }

@@ -51,7 +51,7 @@ final class Firewall(
 
   private def infectCookie(name: String)(implicit req: RequestHeader) = Action {
     log("Infect cookie " + formatReq(req))
-    val cookie = LilaCookie.cookie(name, Random nextString 32)
+    val cookie = LilaCookie.cookie(name, Random nextStringUppercase 32)
     Redirect("/") withCookies cookie
   }
 

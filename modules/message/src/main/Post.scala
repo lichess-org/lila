@@ -22,7 +22,7 @@ object Post {
   def make(
     text: String,
     isByCreator: Boolean): Post = Post(
-    id = Random nextString idSize,
+    id = Random nextStringUppercase idSize,
     text = text,
     isByCreator = isByCreator,
     isRead = false,

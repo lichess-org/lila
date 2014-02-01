@@ -2,10 +2,10 @@ package lila.app
 package ui
 
 import controllers.routes
+import play.api.mvc.Call
+
 import lila.i18n.{ I18nKey, I18nKeys }
 import lila.user.User
-
-import play.api.mvc.Call
 
 final class SiteMenu(trans: I18nKeys) {
 
@@ -28,11 +28,11 @@ final class SiteMenu(trans: I18nKeys) {
 
 object SiteMenu {
 
-  sealed class Elem(
-    val code: String,
-      val route: Call,
-      val name: I18nKey) {
+  case class Elem(
+      code: String,
+      route: Call,
+      name: I18nKey) {
 
-    def currentClass(e: Option[Elem]) = (e == Some(this)) ?? " current" 
+    def currentClass(e: Option[Elem]) = (e == Some(this)) ?? " current"
   }
 }

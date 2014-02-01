@@ -262,7 +262,7 @@ object Tournament {
     variant: Variant,
     mode: Mode,
     password: Option[String]): Created = Created(
-    id = Random nextString 8,
+    id = Random nextStringUppercase 8,
     data = Data(
       name = RandomName(),
       clock = clock,

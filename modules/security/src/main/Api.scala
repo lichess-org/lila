@@ -19,7 +19,7 @@ private[security] final class Api(firewall: Firewall) {
   )
 
   def saveAuthentication(username: String)(implicit req: RequestHeader): Fu[String] = {
-    val sessionId = Random nextString 12
+    val sessionId = Random nextStringUppercase 12
     Store.save(sessionId, username.toLowerCase, req) inject sessionId
   }
 
