@@ -17,21 +17,19 @@ object HistoryRepo {
     BSONInteger(o.opponent)
   )
 
-  def set(userId: String, history: Iterable[HistoryEntry]): Funit = successful {
+  def set(userId: String, history: Iterable[HistoryEntry]): Funit =
     historyColl.insert(BSONDocument(
       "_id" -> userId,
       "e" -> BSONArray(history map write)
-    ))
-  }
+    )).void
 
-  def addEntry(userId: String, entry: HistoryEntry): Funit = successful {
+  def addEntry(userId: String, entry: HistoryEntry): Funit =
     historyColl.update(
       BSONDocument("_id" -> userId),
       BSONDocument("$push" -> BSONDocument("e" -> write(entry))),
-      upsert = true)
-  }
+      upsert = true).void
 
-  def create(user: User) = successful {
+  def create(user: User) =
     historyColl.insert(BSONDocument(
       "_id" -> user.id,
       "e" -> BSONArray(write(HistoryEntry(
@@ -39,8 +37,7 @@ object HistoryRepo {
         user.perfs.global.glicko.intRating,
         user.perfs.global.glicko.intDeviation,
         Glicko.default.intRating)))
-    ))
-  }
+    )).void
 
   private val arrayReader = implicitly[BSONReader[_ <: BSONValue, BSONArray]].asInstanceOf[BSONReader[BSONValue, BSONArray]]
   def userRatings(userId: String, slice: Option[Int] = None): Fu[List[HistoryEntry]] = {

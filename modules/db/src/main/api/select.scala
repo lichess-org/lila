@@ -3,7 +3,7 @@ package api
 
 import play.api.libs.json._
 
-object $select { 
+object $select {
 
   def all = Json.obj()
 
