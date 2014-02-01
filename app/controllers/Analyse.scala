@@ -39,7 +39,7 @@ object Analyse extends LilaController {
         (env.analyser get pov.game.id) zip
         (pov.game.tournamentId ?? TournamentRepo.byId) zip
         (ctx.isAuth ?? {
-          Env.chat.api.userChat find s"${pov.gameId}/w" map (_.some)
+          Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
         }) map {
           case (((((version, bookmarkers), pgn), analysis), tour), chat) ⇒
             html.analyse.replay(
