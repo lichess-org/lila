@@ -1,7 +1,11 @@
-@(users: List[User], title: Any, last: Boolean = false)(f: User => Any)(implicit ctx: Context)
+@(users: List[User], title: Any, last: Boolean = false, moreUrl: Option[String] = None)(f: User => Any)(implicit ctx: Context)
 
 <div class="user_top@{ last.??(" last") }">
+  @moreUrl.map { url =>
+  <h2><a href="@url">@title</a></h2>
+  }.getOrElse {
   <h2>@title</h2>
+  }
   <table>
     <tbody>
       @users.map { u =>
