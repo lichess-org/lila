@@ -2437,7 +2437,8 @@ var storage = {
     var socketUrl = $wrap.data("socket-url");
     var $watchers = $("div.watchers").watchers();
 
-    var $chat = $("div.lichess_chat").chat({
+    var $chat = $("div.lichess_chat");
+    if ($chat.length) $chat.chat({
       resize: true,
       messages: lichess_chat
     });
@@ -2515,7 +2516,8 @@ var storage = {
       event.stopPropagation();
       return false;
     });
-    var $chat = $("div.lichess_chat").chat({
+    var $chat = $("div.lichess_chat");
+    if ($chat.length) $chat.chat({
       resize: true,
       messages: lichess_chat
     });

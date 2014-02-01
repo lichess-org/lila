@@ -87,6 +87,9 @@ div.fen_pgn textarea {
   border: none;
   padding: 0;
 }
+.game_actions {
+  white-space: nowrap;
+}
 .game_actions .button {
   margin-top: 1em;
   display: inline-block;
