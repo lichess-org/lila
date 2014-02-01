@@ -61,19 +61,19 @@ object Round extends LilaController with TheftPrevention {
 
   def watcher(gameId: String, color: String) = Open { implicit ctx ⇒
     OptionFuResult(GameRepo.pov(gameId, color)) { pov ⇒
-      pov.game.joinable.fold(join _, watch _)(pov)
+      if (pov.game.finished) Analyse replay pov
+      else pov.game.joinable.fold(join _, watch _)(pov)
     }
   }
 
   private def watch(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =
       env.version(pov.gameId) zip
-      (analyser has pov.gameId) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.isAuth ?? {
         Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
       }) map {
-        case (((v, analysed), tour), chat) ⇒
-          Ok(html.round.watcher(pov, v, analysed, chat, tour))
+        case ((v, tour), chat) ⇒
+          Ok(html.round.watcher(pov, v, chat, tour))
       }
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =

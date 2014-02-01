@@ -109,7 +109,6 @@ case class TeamShow(id: String)
 case class User(username: String)
 case class Player(fullId: String)
 case class Watcher(gameId: String, color: String)
-case class Replay(gameId: String, color: String)
 case class Pgn(gameId: String)
 case class Tourney(tourId: String)
 }

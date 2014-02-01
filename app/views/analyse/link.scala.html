@@ -1,5 +1,0 @@
-@(pov: Pov, visible: Boolean = false)(implicit ctx: Context)
-
-<div class="game_analysis @visible.fold("", "none")">
-  <a href="@routes.Analyse.replay(pov.gameId, pov.color.name)">@trans.viewTheComputerAnalysis()</a>
-</div>

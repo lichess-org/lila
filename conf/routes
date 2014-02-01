@@ -101,12 +101,10 @@ GET   /team/:id/kick                          controllers.Team.kickForm(id: Stri
 POST  /team/:id/kick                          controllers.Team.kick(id: String)
 
 # Analyse
-GET   /analyse/$gameId<[\w\-]{8}>        controllers.Analyse.replay(gameId: String, color: String = "white")
-GET   /analyse/$gameId<[\w\-]{8}>/$color<white|black> controllers.Analyse.replay(gameId: String, color: String)
-POST  /analyse/$gameId<[\w\-]{8}>/$color<white|black>/computer controllers.Analyse.computer(gameId: String, color: String)
-GET   /$gameId<[\w\-]{8}>/stats          controllers.Analyse.stats(gameId: String)
-GET   /$gameId<[\w\-]{8}>/pgn            controllers.Analyse.pgn(gameId: String)
-GET   /$gameId<[\w\-]{8}>/fen            controllers.Analyse.fen(gameId: String)
+POST  /$gameId<[\w\-]{8}>/$color<white|black>/computer-analysis   controllers.Analyse.computer(gameId: String, color: String)
+GET   /$gameId<[\w\-]{8}>/stats               controllers.Analyse.stats(gameId: String)
+GET   /$gameId<[\w\-]{8}>/pgn                 controllers.Analyse.pgn(gameId: String)
+GET   /$gameId<[\w\-]{8}>/fen                 controllers.Analyse.fen(gameId: String)
 
 # Pref
 POST  /pref/:name                      controllers.Pref.set(name: String)
