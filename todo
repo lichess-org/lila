@@ -93,11 +93,8 @@ visual sep under standard/chess960 ratings
 progress over date ranges
 best wins / worse defeats (?)
 peak rating
-messager control (only friends / everybody / nobody) mephos on #lichess
 country leaderboards
 follow a user #chess claymore http://www.freechess.org/Help/HelpFiles/follow.html
-team menu should lead to "My teams"
-atwar style chat system http://imgur.com/a/buwy3 (but better)
 replay games using move time
 antifarming tool for mods
 list all players by ranking.
@@ -107,13 +104,10 @@ en_GB, en_US, pt_PT, pt_BR = localization (note that current pt translation is g
 badges out of screen
 moretime button position (>1hour)
 redirect user to stored language (store new language when clicking language list)
-fix auto cheat detection
-clarkey improvement list: http://pastebin.com/c8Zmdw7t
 SVG chess sets http://chesstempo.com/chess-tactics.html
 show analysis details, blur % in cheat table and reports
 ban only latest IP
 give AI levels ratings
-mod close teams
 
 
 infra
