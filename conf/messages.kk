@@ -57,7 +57,6 @@ nbAnalysedGames=%s талданған ойындар
 logOut=Шығу
 signIn=Кіру
 signUp=Тіркелу
-people=Адамдар
 games=Ойындар
 forum=Талқылау
 chessPlayers=Ойыншылар

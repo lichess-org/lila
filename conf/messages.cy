@@ -57,7 +57,6 @@ viewInFullSize=Edrych yn maint llawn
 logOut=Allgofnodi
 signIn=Lofnodi mewn
 signUp=Lofnodi lan
-people=Pobol
 games=Gêmau
 forum=Fforwm
 chessPlayers=Chwaraewr chess

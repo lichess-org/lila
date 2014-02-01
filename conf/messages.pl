@@ -75,7 +75,6 @@ signIn=Zaloguj
 newToLichess=Nowy w Lichess?
 youNeedAnAccountToDoThat=Potrzebujesz nazwę użytkownika aby to zrobić
 signUp=Zarejestruj się
-people=Ludzie
 games=Gry
 forum=Forum
 xPostedInForumY=%s postów na forum

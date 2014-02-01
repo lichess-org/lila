@@ -75,7 +75,6 @@ signIn=Είσοδος
 newToLichess=Νέοι στο Lichess;
 youNeedAnAccountToDoThat=Χρειάζεστε λογαριασμό για να το κάνετε αυτό
 signUp=Εγγραφή
-people=Άτομα
 games=Παιχνίδια
 forum=Φόρουμ
 xPostedInForumY=Ο %s έγραψε στη συζήτηση %s

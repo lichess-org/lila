@@ -75,7 +75,6 @@ signIn=Войти
 newToLichess=Впервые на Lichess?
 youNeedAnAccountToDoThat=Вам нужно зарегистрироваться, чтобы сделать это
 signUp=Регистрация
-people=Люди
 games=Игры
 forum=Форум
 xPostedInForumY=%s опубликовал на форуме %s

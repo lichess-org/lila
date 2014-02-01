@@ -63,7 +63,6 @@ viewInFullSize=Vidar plengrande
 logOut=Eksalutar
 signIn=Ensalutar
 signUp=Enrejistrar
-people=Homi
 games=Ludi
 forum=Forumo
 chessPlayers=Shakoluderi

@@ -75,7 +75,6 @@ signIn=Logga in
 newToLichess=Ny användare?
 youNeedAnAccountToDoThat=Du behöver ett konto för att göra det
 signUp=Registrera dig
-people=Spelare
 games=Partier
 forum=Forum
 xPostedInForumY=%s postade i forumet %s

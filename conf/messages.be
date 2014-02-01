@@ -75,7 +75,6 @@ signIn=Увайсьці
 newToLichess=Упершыню на Lichess?
 youNeedAnAccountToDoThat=Патрэбны акаўнт каб зрабіць гэта
 signUp=Зарэгістравацца
-people=Людзі
 games=Гульні
 forum=Форум
 xPostedInForumY=%s апублікавана на форуме %s

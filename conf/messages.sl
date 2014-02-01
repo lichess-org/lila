@@ -75,7 +75,6 @@ signIn=Prijava
 newToLichess=Novinec na Lichess?
 youNeedAnAccountToDoThat=Potrebujete račun za to dejanje
 signUp=Registracija
-people=Igralci
 games=Igre
 forum=Forum
 xPostedInForumY=%s poslal v temo %s

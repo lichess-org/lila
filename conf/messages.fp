@@ -58,7 +58,6 @@ viewInFullSize=Vèyre èn plléna talyi
 logOut=Modar
 signIn=Se conectar
 signUp=S'inscrire
-people=Persones
 games=Passes
 forum=Pllacèta
 chessPlayers=Joyor d'echec
