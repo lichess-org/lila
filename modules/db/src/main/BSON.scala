@@ -50,6 +50,8 @@ object BSON {
     def nInt(k: String) = get[BSONNumberLike](k).toInt
     def nIntO(k: String) = getO[BSONNumberLike](k) map (_.toInt)
     def nIntD(k: String) = nIntO(k) getOrElse 0
+
+    def toList = doc.elements.toList
   }
 
   final class Writer {

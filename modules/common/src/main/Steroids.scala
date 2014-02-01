@@ -39,6 +39,18 @@ trait Steroids
 
   with BooleanSteroids
   with OptionSteroids
+  with ListSteroids
+
+trait ListSteroids {
+
+  import scala.util.{ Try, Success }
+
+  implicit class LilaPimpedTryList[A](list: List[Try[A]]) {
+    def sequence: Try[List[A]] = (Try(List[A]()) /: list) {
+      (a, b) ⇒ a flatMap (c ⇒ b map (d ⇒ d :: c))
+    } map (_.reverse)
+  }
+}
 
 trait BooleanSteroids {
 

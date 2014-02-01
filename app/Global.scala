@@ -25,8 +25,9 @@ object Global extends GlobalSettings {
         super.onRouteRequest(req)
     }
 
-  private def niceError(req: RequestHeader): Boolean =
+  private def niceError(req: RequestHeader): Boolean = req.method == "GET" && {
     Env.ai.isServer || (lila.common.HTTPRequest isSynchronousHttp req)
+  }
 
   override def onHandlerNotFound(req: RequestHeader) =
     if (niceError(req)) controllers.Lobby.handleStatus(req, Results.NotFound)
