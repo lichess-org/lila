@@ -44,4 +44,10 @@ object Main extends LilaController {
       views.html.site.developers()
     }
   }
+
+  def irc = Open { implicit ctx ⇒
+    ctx.me ?? Env.team.api.mine map {
+      views.html.site.irc(_)
+    }
+  }
 }

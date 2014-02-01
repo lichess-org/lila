@@ -1,0 +1,30 @@
+@(teams: List[lila.team.Team])(implicit ctx: Context)
+
+@goodies = {
+<br />
+<br />
+You can chat here,<br />
+or use your own <a href="http://www.wikihow.com/Get-Started-with-IRC-(Internet-Relay-Chat)">IRC client</a>.<br />
+<br />
+Server: freenode<br />
+Channels: <br />
+<ul class="channels">
+  @myIrcChannels(teams).map { chan =>
+  <li><a href="irc://irc.freenode.net/@chan">#@chan</a></li>
+  }
+</ul>
+<br />
+<a target="_blank" href="@myIrcUrl(teams)">Go Full Screen</a>
+}
+
+@site.layout(
+title = trans.chat.str(),
+goodies = goodies.some,
+moreCss = cssTag("irc.css")) {
+
+<div class="content_box irc_box">
+  <h1 class="lichess_title">@trans.chat()</h1>
+  <iframe src="@myIrcUrl(teams)"></iframe>
+</div>
+}
+

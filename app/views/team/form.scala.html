@@ -18,6 +18,10 @@ currentTab = "form".some) {
         @base.select(form("open"), Seq(0 -> trans.aConfirmationIsRequiredToJoin.str(), 1 -> trans.anyoneCanJoin.str()))
       </label>
       <label>
+        <span>IRC channel</span>
+        @base.select(form("irc"), Seq(0 -> "No", 1 -> "Yes"))
+      </label>
+      <label>
         <span>@trans.location()</span>
         @base.input(form("location"))
         @errMsg(form("location"))
