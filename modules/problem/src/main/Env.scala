@@ -12,11 +12,13 @@ final class Env(
 
   private val settings = new {
     val CollectionProblem = config getString "collection.problem"
+    val ApiToken = config getString "api.token"
   }
   import settings._
 
   lazy val api = new ProblemApi(
-    coll = problemColl)
+    coll = problemColl,
+    apiToken = ApiToken)
 
   private[problem] lazy val problemColl = db(CollectionProblem)
 }

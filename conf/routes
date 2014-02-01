@@ -207,6 +207,9 @@ GET   /report/thanks                   controllers.Report.thanks
 GET   /report/list                     controllers.Report.list
 POST  /report/:id/process              controllers.Report.process(id: String)
 
+# Problem
+POST  /api/problem                     controllers.Problem.importBatch
+
 # API
 POST  /api/game/new                    controllers.Setup.api
 GET   /api/user                        controllers.Api.users
