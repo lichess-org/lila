@@ -10,7 +10,7 @@ import play.api.libs.json._
 case class Generated(
     tags: List[String],
     color: String,
-    position: List[String],
+    position: String,
     solution: JsObject,
     id: String) {
 
@@ -21,8 +21,8 @@ case class Generated(
     id = Random nextStringUppercase 8,
     gameId = id,
     tags = tags,
-    white = trueColor.white,
-    position = position,
+    color = trueColor,
+    position = position.trim.split(' ').toList,
     lines = lines,
     date = DateTime.now)
 }
