@@ -75,7 +75,6 @@ signIn=Connexion
 newToLichess=Nouveau sur Lichess ?
 youNeedAnAccountToDoThat=Il vous faut un compte d'utilisateur pour faire cela
 signUp=Inscription
-people=Membres
 games=Parties
 forum=Forum
 xPostedInForumY=%s a posté dans le forum %s

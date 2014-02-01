@@ -75,7 +75,6 @@ signIn=Prijava
 newToLichess=Novi u lichess-u?
 youNeedAnAccountToDoThat=Trebate račun da bi to napravili
 signUp=Registrovati se
-people=Prijatelji
 games=Igre
 forum=Forum
 xPostedInForumY=%s objavio u forumu %s

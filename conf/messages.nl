@@ -75,7 +75,6 @@ signIn=Aanmelden
 newToLichess=Nieuw op Lichess?
 youNeedAnAccountToDoThat=Je hebt een account nodig om dat te doen
 signUp=Registreren
-people=Personen
 games=Partijen
 forum=Forum
 xPostedInForumY=%s plaatste een bericht in forum %s

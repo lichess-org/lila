@@ -75,7 +75,6 @@ signIn=Přihlásit se
 newToLichess=Jste na Liches nový?
 youNeedAnAccountToDoThat=Pro následující akci je vyžadován účet
 signUp=Registrace
-people=Lidé
 games=Partie
 forum=Fórum
 xPostedInForumY=%s napsal do fóra %s

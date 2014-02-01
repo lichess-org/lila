@@ -75,7 +75,6 @@ signIn=Најави се
 newToLichess=Нов на Lichess?
 youNeedAnAccountToDoThat=Мора да имате отворено профил за да го направите тоа
 signUp=Регистрирај се
-people=Луѓе
 games=Игри
 forum=Форум
 xPostedInForumY=%s постирале во форумот %s

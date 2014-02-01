@@ -75,7 +75,6 @@ signIn=Մուտք
 newToLichess=Նոր ե՞ք Lichess-ում
 youNeedAnAccountToDoThat=Դա անելու համար պետք է հաշիվ ունենալ
 signUp=Գրանցվել
-people=Մարդիկ
 games=Խաղերը
 forum=Ֆորում
 xPostedInForumY=%s գրառել է %s ֆորումում

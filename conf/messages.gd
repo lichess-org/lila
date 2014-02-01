@@ -73,7 +73,6 @@ signIn=Log a-steach
 newToLichess=Ùr air Lichess?
 youNeedAnAccountToDoThat=Tha feum agad air cunntas gus sin a dhèanamh
 signUp=Clàraich
-people=Daoine
 games=Geamannan
 forum=Bòrd-brath
 xPostedInForumY=Sgrìobh %s san fhòram %s

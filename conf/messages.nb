@@ -75,7 +75,6 @@ signIn=Logg inn
 newToLichess=Ny hos Lichess?
 youNeedAnAccountToDoThat=Du trenger en konto for å gjøre det
 signUp=Lag en bruker
-people=Folk
 games=Partier
 forum=Forum
 xPostedInForumY=%s postet i forumet %s
