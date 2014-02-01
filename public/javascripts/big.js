@@ -508,10 +508,10 @@ var storage = {
     });
 
     function userPowertips() {
+      var header = document.getElementById('site_header');
       $('a.ulpt').removeClass('ulpt').each(function() {
         $(this).powerTip({
-          placement: $(this).data('placement') || 's',
-          smartPlacement: true,
+          placement: $.contains(header, this) ? 'e' : 'w',
           mouseOnToPopup: true,
           closeDelay: 200
         }).on({
