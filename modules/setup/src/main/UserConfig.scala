@@ -1,7 +1,6 @@
 package lila.setup
 
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 
 import lila.user.User
 

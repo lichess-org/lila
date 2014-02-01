@@ -61,7 +61,7 @@ object Thread {
     text: String,
     creatorId: String,
     invitedId: String): Thread = Thread(
-    id = Random nextString idSize,
+    id = Random nextStringUppercase idSize,
     name = name,
     createdAt = DateTime.now,
     updatedAt = DateTime.now,

@@ -250,7 +250,7 @@ trait UserRepo {
 
   private def newUser(username: String, password: String) = {
 
-    val salt = ornicar.scalalib.Random nextString 32
+    val salt = ornicar.scalalib.Random nextStringUppercase 32
     val perfs = Perfs.default
     implicit def countHandler = Count.tube.handler
     implicit def perfsHandler = Perfs.tube.handler

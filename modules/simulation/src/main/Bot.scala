@@ -15,7 +15,7 @@ private[simulation] trait Bot extends SimulActor {
 
   import Bot._
 
-  val uid = Random nextString 8
+  val uid = Random nextStringUppercase 8
   val user = none[User]
   val sid = none[String]
   val ip = "127.0.0.1"
