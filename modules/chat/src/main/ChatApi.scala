@@ -6,7 +6,7 @@ import reactivemongo.bson.BSONDocument
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
 
-private[chat] final class ChatApi(
+final class ChatApi(
     coll: Coll,
     flood: lila.security.Flood,
     maxLinesPerChat: Int,
@@ -61,9 +61,9 @@ private[chat] final class ChatApi(
   private def pushLine(chatId: ChatId, line: Line) = coll.update(
     BSONDocument("_id" -> chatId),
     BSONDocument("$push" -> BSONDocument(
-      "messages" -> BSONDocument(
-        "$each" -> line,
-        "$slice" -> maxLinesPerChat)
+      Chat.BSONFields.lines -> BSONDocument(
+        "$each" -> List(line),
+        "$slice" -> -maxLinesPerChat)
     )),
     upsert = true)
 

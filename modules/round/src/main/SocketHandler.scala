@@ -8,6 +8,7 @@ import chess.Color
 import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
+import lila.chat.actorApi._
 import lila.common.PimpedJson._
 import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
 import lila.hub.actorApi.map._
@@ -36,6 +37,11 @@ private[round] final class SocketHandler(
       case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
       case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
         socket ! LiveGames(uid, ids.split(' ').toList)
+      }
+      case ("talk", o) ⇒ o str "d" foreach { text ⇒
+        member.userId foreach { userId =>
+          bus.publish(UserTalk(gameId + "/w", userId, text, socket), 'chatIn)
+        }
       }
     }) { playerId ⇒
       {
@@ -70,8 +76,8 @@ private[round] final class SocketHandler(
         }
         case ("talk", o) ⇒ o str "d" foreach { text ⇒
           bus.publish(member.userId match {
-            case Some(userId) ⇒ lila.hub.actorApi.chat.UserTalk(uid, userId, text)
-            case None         ⇒ lila.hub.actorApi.chat.PlayerTalk(uid, member.color.white, text)
+            case Some(userId) ⇒ UserTalk(gameId, userId, text, socket)
+            case None         ⇒ PlayerTalk(gameId, member.color.white, text, socket)
           }, 'chatIn)
         }
       }

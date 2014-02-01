@@ -26,6 +26,8 @@ private[round] final class Socket(
     disconnectTimeout: Duration,
     ragequitTimeout: Duration) extends SocketActor[Member](uidTimeout) {
 
+  context.system.lilaBus.subscribe(self, 'chatOut)
+
   private val timeBomb = new TimeBomb(socketTimeout)
 
   private final class Player(color: Color) {
@@ -87,8 +89,13 @@ private[round] final class Socket(
       sender ! Connected(enumerator, member)
     }
 
-    case Nil                                         ⇒
-    case events: Events                              ⇒ notify(events)
+    case Nil            ⇒
+    case events: Events ⇒ notify(events)
+
+    case lila.chat.actorApi.ChatLine(chatId, line) ⇒ notify(List(line match {
+      case l: lila.chat.UserLine   ⇒ Event.UserMessage(l, chatId endsWith "/w")
+      case l: lila.chat.PlayerLine ⇒ Event.PlayerMessage(l)
+    }))
 
     case AnalysisAvailable                           ⇒ notifyAll("analysisAvailable", true)
 

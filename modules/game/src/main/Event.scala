@@ -1,8 +1,8 @@
 package lila.game
 
-import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import play.api.libs.json._
 
+import lila.chat.{ Line, UserLine, PlayerLine }
 import chess.Pos.{ piotr, allPiotrs }
 import chess.{ PromotableRole, Pos, Color, Situation, Move ⇒ ChessMove, Clock ⇒ ChessClock }
 
@@ -107,20 +107,20 @@ object Event {
     def data = JsString(pos.key)
   }
 
-  case class Message(author: String, text: String, t: Boolean) extends Event {
+  case class PlayerMessage(line: PlayerLine) extends Event {
     def typ = "message"
-    def data = Json.obj("u" -> author, "t" -> escapeXml(text))
+    def data = Line toJson line
     override def owner = true
-    override def troll = t
+    override def troll = false
   }
 
   // it *IS* a username, and not a user ID
   // immediately used for rendering
-  case class WatcherMessage(username: Option[String], text: String, t: Boolean) extends Event {
+  case class UserMessage(line: UserLine, w: Boolean) extends Event {
     def typ = "message"
-    def data = Json.obj("u" -> username, "t" -> escapeXml(text))
-    override def watcher = true
-    override def troll = t
+    def data = Line toJson line
+    override def troll = line.troll
+    override def watcher = w
   }
 
   object End extends Empty {

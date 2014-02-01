@@ -3,7 +3,7 @@ package lila.chat
 import akka.actor._
 import chess.Color
 
-import lila.hub.actorApi.chat._
+import actorApi._
 
 private[chat] final class FrontActor(api: ChatApi) extends Actor {
 
@@ -13,18 +13,19 @@ private[chat] final class FrontActor(api: ChatApi) extends Actor {
 
   def receive = {
 
-    case UserTalk(chatId, userId, text)  ⇒ api.userChat.write(chatId, userId, text) foreach publish(chatId)
+    case UserTalk(chatId, userId, text, replyTo) ⇒
+      api.userChat.write(chatId, userId, text) foreach publish(chatId, replyTo)
 
-    case PlayerTalk(chatId, color, text) ⇒ api.playerChat.write(chatId, Color(color), text) foreach publish(chatId)
+    case PlayerTalk(chatId, color, text, replyTo) ⇒
+      api.playerChat.write(chatId, Color(color), text) foreach publish(chatId, replyTo)
 
-    case SystemTalk(chatId, text)        ⇒ api.userChat.system(chatId, text) foreach publish(chatId)
-
-    case msg: NotifyLine                 ⇒ bus.publish(msg, 'chatOut)
+    case SystemTalk(chatId, text, replyTo) ⇒
+      api.userChat.system(chatId, text) foreach publish(chatId, replyTo)
   }
 
-  def publish(chatId: String)(lineOption: Option[Line]) {
+  def publish(chatId: String, replyTo: ActorRef)(lineOption: Option[Line]) {
     lineOption foreach { line ⇒
-      self ! NotifyLine(chatId, Line toJson line)
+      replyTo ! ChatLine(chatId, line)
     }
   }
 }
