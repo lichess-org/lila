@@ -1,4 +1,4 @@
-@(pov: Pov, pgn: String, bookmarkers: List[String], opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], version: Int, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, pgn: String, bookmarkers: List[String], opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], version: Int, chat: Option[lila.chat.UserChat], tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @import pov._
 
@@ -36,6 +36,7 @@
 @analyse.layout(
 title = trans.replayAndAnalyse() + " " + gameId,
 goodies = views.html.game.infoBox(pov, tour).some,
+chat = chat.map(c => base.chat(c, trans.spectatorRoom.str())),
 underchat = underchat.some,
 moreCss = moreCss,
 moreJs = moreJs,

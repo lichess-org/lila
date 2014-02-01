@@ -1588,7 +1588,7 @@ var storage = {
     resize: function() {
       var headerHeight = this.element.parent().height();
       this.element.css("top", headerHeight + 13);
-      this.$msgs.css('height', 459 - headerHeight).scrollTop(999999);
+      this.$msgs.css('height', 457 - headerHeight).scrollTop(999999);
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));
@@ -2543,6 +2543,10 @@ var storage = {
       }
       event.stopPropagation();
       return false;
+    });
+    var $chat = $("div.lichess_chat").chat({
+      resize: true,
+      messages: lichess_chat
     });
     var $watchers = $("div.watchers").watchers();
 
