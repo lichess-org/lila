@@ -54,14 +54,6 @@ data-accept-languages="@acceptLanguages.mkString(",")">
   @if(!zen) {
   @siteMenu.all(ctx.me).map { elem =>
   @elem.code match {
-  case "message" => {
-  <a title="@elem.name()" data-href="@routes.Message.preview" class="message goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
-    <span class="s16 message"></span>
-    @defining(messageNbUnread(ctx)) { nbUnread =>
-    <span id="nb_messages" class="new_messages @{ (nbUnread > 0).??("unread") }">@nbUnread</span>
-    }
-  </a>
-  }
   case "team" if teamNbRequests(ctx) > 0 => {
   @defining(teamNbRequests(ctx)) { nbr =>
   <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@routes.Team.requests()">
@@ -107,7 +99,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
   <a href="@routes.Pref.set("bg")" title="@trans.toggleBackground()" class="bgpicker">
     <span></span>
   </a>
-  @ctx.me.fold(auth.miniLogin())(auth.loggedIn(_))
+  @ctx.me.fold(auth.miniLogin())(auth.loggedIn(_, active))
   }
 </div>
 @ctx.me.map { me =>
