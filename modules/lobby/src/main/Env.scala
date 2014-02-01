@@ -38,7 +38,6 @@ final class Env(
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
-    bus = system.lilaBus,
     lobby = lobby,
     socket = socket)
 

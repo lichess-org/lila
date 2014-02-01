@@ -8,7 +8,6 @@ import chess.Color
 import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
-import lila.chat.actorApi._
 import lila.common.PimpedJson._
 import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
 import lila.hub.actorApi.map._
@@ -21,6 +20,7 @@ private[round] final class SocketHandler(
     roundMap: ActorRef,
     socketHub: ActorRef,
     hub: lila.hub.Env,
+    messenger: Messenger,
     hijack: Hijack,
     bus: lila.common.Bus) {
 
@@ -39,9 +39,7 @@ private[round] final class SocketHandler(
         socket ! LiveGames(uid, ids.split(' ').toList)
       }
       case ("talk", o) ⇒ o str "d" foreach { text ⇒
-        member.userId foreach { userId =>
-          bus.publish(UserTalk(gameId + "/w", userId, text, socket), 'chatIn)
-        }
+        messenger.watcher(gameId, member, text, socket)
       }
     }) { playerId ⇒
       {
@@ -75,10 +73,7 @@ private[round] final class SocketHandler(
           socket ! LiveGames(uid, ids.split(' ').toList)
         }
         case ("talk", o) ⇒ o str "d" foreach { text ⇒
-          bus.publish(member.userId match {
-            case Some(userId) ⇒ UserTalk(gameId, userId, text, socket)
-            case None         ⇒ PlayerTalk(gameId, member.color.white, text, socket)
-          }, 'chatIn)
+          messenger.owner(gameId, member, text, socket)
         }
       }
     }
@@ -122,7 +117,7 @@ private[round] final class SocketHandler(
       playerId = playerId filterNot (_ ⇒ hijack(pov, token)),
       ip = ip)
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket ⇒
-      Handler(hub, socket, uid, join, user map (_.id), bus) {
+      Handler(hub, socket, uid, join, user map (_.id)) {
         case Connected(enum, member) ⇒
           controller(pov.gameId, socket, uid, pov.ref, member) -> enum
       }

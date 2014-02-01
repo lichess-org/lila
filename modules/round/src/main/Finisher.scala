@@ -32,7 +32,7 @@ private[round] final class Finisher(
           case (whiteO, blackO) ⇒ {
             val finish = FinishGame(g, whiteO, blackO)
             updateCountAndPerfs(finish) inject {
-              message foreach { messenger(g, _) }
+              message foreach { messenger.system(g, _) }
               bus.publish(finish, 'finishGame)
               prog.events
             }

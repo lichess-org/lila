@@ -12,8 +12,7 @@ import lila.socket.actorApi.{ Connected, LiveGames }
 
 private[site] final class SocketHandler(
     socket: ActorRef,
-    hub: lila.hub.Env,
-    bus: lila.common.Bus) {
+    hub: lila.hub.Env) {
 
   def apply(
     uid: String,
@@ -26,7 +25,7 @@ private[site] final class SocketHandler(
       }
     }
 
-    Handler(hub, socket, uid, Join(uid, userId, flag), userId, bus) {
+    Handler(hub, socket, uid, Join(uid, userId, flag), userId) {
       case Connected(enum, member) ⇒ controller -> enum
     }
   }

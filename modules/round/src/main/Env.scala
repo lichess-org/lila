@@ -70,7 +70,7 @@ final class Env(
         ragequitTimeout = PlayerRagequitTimeout)
       def receive: Receive = ({
         case msg@lila.chat.actorApi.ChatLine(id, line) ⇒
-          self ! lila.hub.actorApi.map.Tell(id take 8, msg).pp
+          self ! lila.hub.actorApi.map.Tell(id take 8, msg)
       }: Receive) orElse socketHubReceive
     }),
     name = SocketName)
@@ -79,6 +79,7 @@ final class Env(
     hub = hub,
     roundMap = roundMap,
     socketHub = socketHub,
+    messenger = messenger,
     hijack = hijack,
     bus = system.lilaBus)
 

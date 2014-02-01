@@ -510,10 +510,6 @@ div.lichess_chat li {
   line-height: 14px;
   margin: 0.6em 0 0.6em 3px;
 }
-div.lichess_chat.kings li {
-  margin: 0.6em 0;
-  padding-left: 18px;
-}
 div.lichess_chat li.system {
   padding: 2px 0;
   margin-left: 0;
@@ -522,9 +518,6 @@ div.lichess_chat li.system {
   font-style: italic;
 }
 
-div.lichess_chat.kings ol.lichess_messages {
-  padding-left: 5px;
-}
 div.lichess_chat span.title {
   padding-left: 3px;
 }

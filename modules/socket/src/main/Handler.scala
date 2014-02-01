@@ -6,7 +6,6 @@ import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.libs.json._
 
 import actorApi._
-import lila.common.Bus
 import lila.common.PimpedJson._
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import makeTimeout.large
@@ -21,8 +20,7 @@ object Handler {
     socket: ActorRef,
     uid: String,
     join: Any,
-    userId: Option[String],
-    bus: Bus)(connecter: Connecter): Fu[JsSocketHandler] = {
+    userId: Option[String])(connecter: Connecter): Fu[JsSocketHandler] = {
 
     val baseController: Controller = {
       case ("p", _) ⇒ socket ! Ping(uid)

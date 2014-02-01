@@ -22,8 +22,7 @@ import tube.tournamentTube
 private[tournament] final class SocketHandler(
     hub: lila.hub.Env,
     socketHub: ActorRef,
-    flood: Flood,
-    bus: lila.common.Bus) {
+    flood: Flood) {
 
   def join(
     tourId: String,
@@ -38,7 +37,7 @@ private[tournament] final class SocketHandler(
             uid = uid,
             user = user,
             version = version)
-          handler ← Handler(hub, socket, uid, join, user map (_.id), bus) {
+          handler ← Handler(hub, socket, uid, join, user map (_.id)) {
             case Connected(enum, member) ⇒
               controller(socket, tourId, uid, member) -> enum
           }
