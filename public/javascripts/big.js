@@ -533,7 +533,7 @@ var storage = {
     $('body').on('lichess.content_loaded', userPowertips);
 
     $('#top a.message').powerTip({
-      placement: 'se',
+      placement: 'sw',
       mouseOnToPopup: true,
       closeDelay: 200
     }).on({

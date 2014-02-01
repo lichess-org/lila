@@ -1,4 +1,4 @@
-@(me: User)(implicit ctx: Context)
+@(me: User, active: Option[lila.app.ui.SiteMenu.Elem])(implicit ctx: Context)
 
 <div class="auth">
   <a
@@ -20,3 +20,9 @@
     }
   </div>
 </div>
+<a title="@trans.inbox()" data-href="@routes.Message.preview" class="goto_nav message blank_if_play @{(active exists (_.code == "message")).??("current")}" href="@routes.Message.inbox(page=1)">
+  <span class="s16 message"></span>
+  @defining(messageNbUnread(ctx)) { nbUnread =>
+  <span id="nb_messages" class="new_messages @{ (nbUnread > 0).??("unread") }">@nbUnread</span>
+  }
+</a>

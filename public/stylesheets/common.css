@@ -1103,8 +1103,9 @@ body.offline #nb_connected_players {
 #nb_connected_players {
   float: left;
 }
-#top a.goto_nav.message {
+#top a.message {
   opacity: 0.7;
+  float: right;
 }
 #top .goto_nav {
   border-bottom: 2px solid transparent;
@@ -1528,9 +1529,7 @@ table.slist thead {
   background: linear-gradient(to bottom, #efefef, #e2e2e2);
 }
 /* active gradient */
-
 #top a.signin:hover,
-#top a.goto_nav.active,
 .button.active,
 .button.active:hover,
 .ui-state-active,
