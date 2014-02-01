@@ -97,7 +97,6 @@ country leaderboards
 follow a user #chess claymore http://www.freechess.org/Help/HelpFiles/follow.html
 replay games using move time
 antifarming tool for mods
-list all players by ranking.
 time pie chart colors http://en.lichess.org/52ede6hu/stats
 full page recent forum posts
 en_GB, en_US, pt_PT, pt_BR = localization (note that current pt translation is good pt_PT)
@@ -107,6 +106,7 @@ SVG chess sets http://chesstempo.com/chess-tactics.html
 show analysis details, blur % in cheat table and reports
 ban only latest IP
 give AI levels ratings
+integrate move times in analysis view
 
 infra
 -------
