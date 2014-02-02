@@ -53,7 +53,6 @@ requestAComputerAnalysis=Verzoek een computer analyse
 blunders=Blunders
 mistakes=Fouten
 inaccuracies=Inaccurate zetten
-viewGameStats=Partijstatistieken bekijken
 flipBoard=Bord draaien
 threefoldRepetition=Driemaal dezelfde stelling
 claimADraw=Remise opeisen
