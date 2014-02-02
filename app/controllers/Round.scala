@@ -61,7 +61,7 @@ object Round extends LilaController with TheftPrevention {
 
   def watcher(gameId: String, color: String) = Open { implicit ctx ⇒
     OptionFuResult(GameRepo.pov(gameId, color)) { pov ⇒
-      if (pov.game.finished) Analyse replay pov
+      if (pov.game.replayable) Analyse replay pov
       else pov.game.joinable.fold(join _, watch _)(pov)
     }
   }
