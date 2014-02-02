@@ -40,7 +40,6 @@ youAreViewingThisGameAsASpectator=Сіз бұл ойынды тек тамаша
 replayAndAnalyse=Ойынды қайталау және саралау
 blunders=өрескел қателер
 mistakes=қате
-viewGameStats=Ойынның статистикасын тамашалау
 flipBoard=Тақтаны аудару
 threefoldRepetition=Жүрісті үш рет қайталадыңыз
 claimADraw=Тепе-теңдікті ұсыну

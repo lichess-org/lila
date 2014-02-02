@@ -43,7 +43,6 @@ blackLeftTheGame=Nigro livis la ludo
 shareThisUrlToLetSpectatorsSeeTheGame=Partigez ica URL por permisar spekteri vidar la ludo
 youAreViewingThisGameAsASpectator=Vu vidas ica ludo kom spektero
 replayAndAnalyse=Riplear ed analizar
-viewGameStats=Vidar ludostatistiki
 flipBoard=Rotacar tabulo
 threefoldRepetition=Triopla repeto
 claimADraw=Asertar egaligo
