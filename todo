@@ -107,6 +107,7 @@ show analysis details, blur % in cheat table and reports
 ban only latest IP
 give AI levels ratings
 integrate move times in analysis view
+hash problem data to ensure unicity
 
 infra
 -------

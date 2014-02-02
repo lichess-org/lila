@@ -18,6 +18,12 @@ private[problem] final class ProblemApi(
   def find(id: ProblemId): Fu[Option[Problem]] =
     coll.find(BSONDocument("_id" -> id)).one[Problem]
 
+  def latest(nb: Int): Fu[List[Problem]] =
+    coll.find(BSONDocument())
+      .sort(BSONDocument("date" -> -1))
+      .cursor[Problem]
+      .collect[List](nb)
+
   def importBatch(json: JsValue, token: String): Try[Funit] =
     if (token != apiToken) Failure(new Exception("Invalid API token"))
     else {

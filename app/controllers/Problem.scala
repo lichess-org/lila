@@ -14,6 +14,12 @@ object Problem extends LilaController {
 
   private def env = Env.problem
 
+  def debug = Open { implicit ctx =>
+    env.api latest 50 map { problems =>
+      Ok(problems.toString)
+    }
+  }
+
   def importBatch = Action.async(parse.json) { implicit req ⇒
     env.api.importBatch(req.body, ~get("token", req)) match {
       case Success(f) ⇒ f inject Ok("kthxbye")

@@ -209,6 +209,7 @@ POST  /report/:id/process              controllers.Report.process(id: String)
 
 # Problem
 POST  /api/problem                     controllers.Problem.importBatch
+GET   /problem/debug                   controllers.Problem.debug
 
 # API
 POST  /api/game/new                    controllers.Setup.api
