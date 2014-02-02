@@ -176,6 +176,76 @@ $(function() {
       }
     }));
   });
+
+  $('#movetimes_chart').each(function() {
+    var $this = $(this);
+    var series = $this.data('series');
+    $(this).highcharts(mergeDefaults({
+      series: [{
+        name: 'White',
+        data: series.white
+      },{
+        name: 'Black',
+        data: series.black
+      }],
+      chart: {
+        type: 'area',
+        margin: 0,
+        marginTop: 16,
+        spacing: [10, 0, 0, 0]
+      },
+      plotOptions: {
+        line: {
+          color: theme.colors[7],
+          negativeColor: theme.colors[1],
+          threshold: 0,
+          lineWidth: 1,
+          allowPointSelect: true,
+          column: noAnimation,
+          cursor: 'pointer',
+          events: {
+            click: function(event) {
+              if (event.point) {
+                event.point.select();
+                GoToMove(event.point.x + 1, 0);
+              }
+            }
+          },
+          marker: {
+            radius: 1,
+            states: {
+              hover: {
+                radius: 3,
+                lineColor: '#b57600',
+                fillColor: '#ffffff'
+              },
+              select: {
+                radius: 4,
+                lineColor: '#b57600',
+                fillColor: '#ffffff'
+              }
+            }
+          }
+        }
+      },
+      title: {
+        text: $this.attr('title'),
+        margin: 0,
+        align: 'left',
+        y: 0
+      },
+      xAxis: {
+        title: noText,
+        labels: disabled,
+        lineWidth: 0,
+        tickWidth: 0
+      },
+      yAxis: {
+        labels: disabled,
+        gridLineWidth: 0
+      }
+    }));
+  });
 });
 
 Highcharts.theme = (function() {

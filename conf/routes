@@ -102,7 +102,6 @@ POST  /team/:id/kick                          controllers.Team.kick(id: String)
 
 # Analyse
 POST  /$gameId<[\w\-]{8}>/$color<white|black>/computer-analysis   controllers.Analyse.computer(gameId: String, color: String)
-GET   /$gameId<[\w\-]{8}>/stats               controllers.Analyse.stats(gameId: String)
 GET   /$gameId<[\w\-]{8}>/pgn                 controllers.Analyse.pgn(gameId: String)
 GET   /$gameId<[\w\-]{8}>/fen                 controllers.Analyse.fen(gameId: String)
 

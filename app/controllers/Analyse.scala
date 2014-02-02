@@ -39,8 +39,8 @@ object Analyse extends LilaController {
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.isAuth ?? {
         Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
-      }) map {
-        case ((((version, pgn), analysis), tour), chat) ⇒
+      }) zip timeChart(pov.game) map {
+        case (((((version, pgn), analysis), tour), chat), times) ⇒
           Ok(html.analyse.replay(
             pov,
             analysis.fold(pgn)(a ⇒ Env.analyse.annotator(pgn, a)).toString,
@@ -49,19 +49,9 @@ object Analyse extends LilaController {
             analysis filter (_.done) map { a ⇒ AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
             version,
             chat,
-            tour))
+            tour,
+            times))
       }
-
-  def stats(id: String) = Open { implicit ctx ⇒
-    OptionFuOk(GameRepo game id) { game ⇒
-      timeChart(game) map { chart ⇒
-        html.analyse.stats(
-          game = game,
-          timeChart = chart,
-          timePies = Pov(game) map { new TimePie(_) })
-      }
-    }
-  }
 
   def pgn(id: String) = Open { implicit ctx ⇒
     OptionFuResult(GameRepo game id) { game ⇒

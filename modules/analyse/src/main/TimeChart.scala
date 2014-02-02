@@ -9,20 +9,11 @@ import lila.game.{ Game, Namer }
 
 final class TimeChart(game: Game, usernames: Map[Color, String]) {
 
-  def columns = Json stringify {
-    Json toJson {
-      List("string", "Move") :: (usernames.toList map {
-        case (color, name) ⇒ List("number", "%s - %s".format(color, name))
-      })
-    }
-  }
-
-  def rows = Json stringify {
-    Json toJson {
-      (moveTimes(0) zip moveTimes(1)).zipWithIndex map {
-        case ((white, black), move) ⇒ Json.arr((move + 1).toString, white, black)
-      }
-    }
+  def series = Json stringify {
+    Json.obj(
+      "white" -> moveTimes(0),
+      "black" -> moveTimes(1).map(-_)
+    )
   }
 
   private val indexedMoveTimes = game.moveTimesInSeconds.zipWithIndex

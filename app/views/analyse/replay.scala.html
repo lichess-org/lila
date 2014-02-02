@@ -1,4 +1,4 @@
-@(pov: Pov, pgn: String, opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], version: Int, chat: Option[lila.chat.UserChat], tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, pgn: String, opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], version: Int, chat: Option[lila.chat.UserChat], tour: Option[lila.tournament.Tournament], timeChart: lila.analyse.TimeChart)(implicit ctx: Context)
 
 @import pov._
 
@@ -92,14 +92,14 @@ themepicker = true) {
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
 <div class="analysis_menu">
-  <a data-panel="computer_analysis" class="active">@trans.computerAnalysis()</a>
+  <a data-panel="computer_analysis">@trans.computerAnalysis()</a>
   <a data-panel="fen_pgn">FEN &amp; PGN</a>
   @if(game.pgnImport.isEmpty) {
-  <a data-panel="move_times" href="@routes.Analyse.stats(gameId)">@trans.moveTimes()</a>
+  <a data-panel="move_times" class="active">@trans.moveTimes()</a>
   }
 </div>
 <div class="analysis_panels">
-  <div class="panel computer_analysis active">
+  <div class="panel computer_analysis">
     @analysis.map { a =>
     @if(a.old) {
     <form class="request_analysis new_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
@@ -134,6 +134,12 @@ themepicker = true) {
     <p><strong>FEN</strong> <span class="fen"></span></p>
     <p><strong>PGN</strong> (<a href="@routes.Analyse.pgn(game.id)">Download it</a>)</p>
     <textarea>@pgn</textarea>
+  </div>
+  <div class="panel move_times active">
+    <div
+      id="movetimes_chart"
+      data-title="@trans.moveTimes()"
+      data-series="@timeChart.series"></div>
   </div>
 </div>
 }
