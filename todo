@@ -107,10 +107,12 @@ give AI levels ratings
 integrate move times in analysis view
 hash problem data to ensure unicity
 connect time chart to pgn viewer and say "time spent on this move: X seconds"
+all games vs anon count as draw on player counts http://en.lichess.org/forum/general-chess-discussion/anonymous-win-but-is-draw#6
 
 deploy
 -----
-db.problem.ensureIndex({hash:1},{unique:1})
+db.problem.ensureIndex({fen:1},{unique:1})
+db.problem.ensureIndex({date:-1})
 
 infra
 -------
