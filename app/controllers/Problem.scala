@@ -20,10 +20,25 @@ object Problem extends LilaController {
     }
   }
 
+  def home = Open { implicit ctx =>
+    env.api latest 50 map { problems =>
+      Ok(views.html.problem.home(problems))
+    }
+  }
+
+  def show(id: String) = Open { implicit ctx =>
+    OptionOk(env.api find id) { problem =>
+      views.html.problem.show(problem)
+    }
+  }
+
   def importBatch = Action.async(parse.json) { implicit req ⇒
     env.api.importBatch(req.body, ~get("token", req)) match {
       case Success(f) ⇒ f inject Ok("kthxbye")
-      case Failure(e) ⇒ fuccess(BadRequest(e.getMessage))
+      case Failure(e) ⇒ {
+        play.api.Logger("Problem import").warn(e.getMessage)
+        fuccess(BadRequest(e.getMessage))
+      }
     }
   }
 }

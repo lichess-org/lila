@@ -7,7 +7,7 @@ import play.api.http.ContentTypes
 import play.api.mvc._
 import play.api.templates.Html
 
-import lila.analyse.{ TimeChart, TimePie, AdvantageChart }
+import lila.analyse.{ TimeChart, AdvantageChart }
 import lila.api.Context
 import lila.app._
 import lila.game.{ Pov, GameRepo, PgnDump }

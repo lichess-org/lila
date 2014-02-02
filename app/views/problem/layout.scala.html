@@ -1,0 +1,17 @@
+@(title: String)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("problem.css")
+}
+
+@moreJs = {
+@jsTagCompiled("chessboard.js")
+@jsAt("compiled/problem.js")
+}
+
+@base.layout(
+title = title,
+moreCss = moreCss,
+moreJs = moreJs) {
+@body
+}

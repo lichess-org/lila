@@ -1,0 +1,8 @@
+@(recent: List[lila.problem.Problem])(implicit ctx: Context)
+
+@layout("Problems") {
+
+@recent.map { problem =>
+<p><a href="@routes.Problem.show(problem.id)">Problem @problem.id</a></p>
+}
+}
