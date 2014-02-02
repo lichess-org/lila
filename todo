@@ -13,7 +13,6 @@ only team forum posts on the homepage?
 team list sort by date, name, popularity, avg elo, team elo, ...?
 download 10.000 best games http://en.lichess.org/inbox/v1p6hokg#bottom
 sound config (like sound on game join, not moves)
-start clock after black move http://en.lichess.org/forum/lichess-feedback/shouldnt-the-time-start-time-after-blacks-first-move#3
 show tournament trophies on user profile
 recognize pgn in forum and show a pgn4web
 correspondance chess https://github.com/ornicar/lila/issues/12
@@ -107,7 +106,7 @@ ban only latest IP
 give AI levels ratings
 integrate move times in analysis view
 hash problem data to ensure unicity
-translated buttons should wrap http://i3.minus.com/ibvy3tV84RjDcC.png
+connect time chart to pgn viewer and say "time spent on this move: X seconds"
 
 infra
 -------
