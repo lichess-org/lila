@@ -2,7 +2,8 @@ package lila.problem
 
 import scala.util.{ Try, Success, Failure }
 
-import chess.Color
+import chess.format.{ Forsyth, UciMove }
+import chess.{ Color, Situation, Game, Variant }
 import org.joda.time.DateTime
 import play.api.libs.json._
 
@@ -16,12 +17,23 @@ case class Generated(
   def toProblem: Try[Problem] = for {
     trueColor ← Color(color).fold[Try[Color]](Failure(new Exception(s"Invalid color $color")))(Success.apply)
     lines ← Generated readLines solution
+    fen ← situation map Forsyth.>>
   } yield Problem.make(
     gameId = id.some,
     tags = tags,
     color = trueColor,
-    position = position.trim.split(' ').toList,
+    history = position.trim.split(' ').toList,
+    fen = fen,
     lines = lines)
+
+  def situation: Try[Situation] =
+    (position.split(' ').foldLeft(Try(Game(Variant.Standard))) {
+      case (game, moveStr) ⇒ game flatMap { g ⇒
+        (UciMove(moveStr) toValid s"Invalid UCI move $moveStr" flatMap {
+          case UciMove(orig, dest, prom) ⇒ g(orig, dest, prom) map (_._1)
+        }).fold(errs => Failure(new Exception(errs.shows)), Success.apply)
+      }
+    }) map (_.situation)
 }
 
 object Generated {

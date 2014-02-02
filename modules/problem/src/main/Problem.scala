@@ -10,11 +10,11 @@ case class End(move: String) extends Line
 
 case class Problem(
   id: ProblemId,
-  hash: String,
   gameId: Option[String],
   tags: List[String],
   color: Color,
-  position: List[String],
+  history: List[String],
+  fen: String,
   lines: List[Line],
   date: DateTime)
 
@@ -24,21 +24,17 @@ object Problem {
     gameId: Option[String],
     tags: List[String],
     color: Color,
-    position: List[String],
+    history: List[String],
+    fen: String,
     lines: Lines) = new Problem(
     id = ornicar.scalalib.Random nextStringUppercase 8,
-    hash = makeHash(position),
     gameId = gameId,
     tags = tags,
     color = color,
-    position = position,
+    history = history,
+    fen = fen,
     lines = lines,
     date = DateTime.now)
-
-  def makeHash(position: List[String]) = {
-    import com.roundeights.hasher.Implicits._
-    position.mkString.md5.toString take 12
-  }
 
   import reactivemongo.bson._
   import lila.db.BSON
@@ -58,21 +54,21 @@ object Problem {
 
     def reads(r: BSON.Reader): Problem = Problem(
       id = r str "_id",
-      hash = r str "hash",
       gameId = r strO "gameId",
       tags = r.get[List[String]]("tags"),
       color = Color(r bool "white"),
-      position = r str "position" split ' ' toList,
+      history = r str "history" split ' ' toList,
+      fen = r str "fen",
       lines = r.get[Lines]("lines"),
       date = r date "date")
 
     def writes(w: BSON.Writer, o: Problem) = BSONDocument(
       "_id" -> o.id,
-      "hash" -> o.hash,
       "gameId" -> o.gameId,
       "tags" -> o.tags,
       "white" -> o.color.white,
-      "position" -> o.position.mkString(" "),
+      "history" -> o.history.mkString(" "),
+      "fen" -> o.fen,
       "lines" -> o.lines,
       "date" -> o.date)
   }
