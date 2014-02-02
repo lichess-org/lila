@@ -96,7 +96,6 @@ div.fen_pgn textarea {
   padding: 0;
 }
 .game_actions {
-  white-space: nowrap;
 }
 .game_actions .button {
   margin-top: 1em;
@@ -142,7 +141,7 @@ div.fen_pgn textarea {
 #GameText {
   font-size: 15px;
   width: 242px;
-  height: 438px;
+  height: 374px;
   margin-bottom: 1em;
   padding: 5px 7px;
   background: #f7f7f7;
