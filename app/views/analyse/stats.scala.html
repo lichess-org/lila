@@ -8,7 +8,7 @@
 @jsTag("chart.js")
 }
 
-@title = @{ "Game #%s time stats" format game.id }
+@title = @{ s"Game #${game.id} ${trans.moveTimes()}" }
 
 @analyse.layout(
 title = title,
@@ -16,7 +16,7 @@ moreCss = moreCss,
 moreJs = moreJs) {
 <div class="content_box">
   <h1 class="title">
-    Game <a href="@routes.Round.watcher(game.id, "white")">#@game.id</a> time stats
+    Game <a href="@routes.Round.watcher(game.id, "white")">#@game.id</a> @trans.moveTimes()
   </h1>
   <br /><br />
   <div
