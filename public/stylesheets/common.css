@@ -401,8 +401,6 @@ body {
   font: 12px'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   color: #848484;
   background: #F7F7F7 url(../images/head_bg.png) top left repeat-x;
-  /* leave room for the chat */
-  padding-bottom: 195px;
 }
 a,
 a:visited {
@@ -512,7 +510,6 @@ body.tight #site_baseline {
 div.footer_wrap {
   width: 100%;
   border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
   background: #EEE;
   padding: 20px 0;
   display: block;
