@@ -56,5 +56,8 @@ object AnalysisRepo {
   def recent(nb: Int): Fu[List[Analysis]] =
     $find($query(Json.obj("done" -> true)) sort $sort.desc("date"), nb)
 
+  def skipping(skip: Int, nb: Int): Fu[List[Analysis]] =
+    $find($query(Json.obj("done" -> true)) sort $sort.desc("date") skip skip, nb)
+
   def count = $count($select.all)
 }
