@@ -2,12 +2,21 @@
 
 @layout("Problem " + problem.id) {
 
-<div id="chessboard"
-  data-fen="@problem.fen"
-  data-color="@problem.color.name"
-  data-lines="@lila.problem.Line.toJsonString(problem.lines)"></div>
+<div class="content_box" id="problem">
+
+  <h1>Puzzle #@problem.id</h1>
+
+  <div id="chessboard"
+    data-fen="@problem.fen"
+    data-color="@problem.color.name"
+    data-lines="@lila.problem.Line.toJsonString(problem.lines)"></div>
+
+  <div class="on_success">
+    Congrats! You solved the problem.
+  </div>
 
 <pre>
 @lila.problem.Line.toString(problem.lines)
 </pre>
+</div>
 }
