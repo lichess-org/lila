@@ -74,11 +74,12 @@ object LangList {
     "hu" -> "Magyar",
     "ia" -> "Interlingua",
     "ga" -> "Gaeilge",
+    "id" -> "Bahasa Indonesia",
     "ig" -> "Asụsụ Igbo",
     "ik" -> "Iñupiaq, Iñupiatun", // lots of different writing systems (and therefore spellings) for 'ik' -- the Inupiat language
     "io" -> "Ido",
     "is" -> "Íslenska",
-    "it" -> "Italian",
+    "it" -> "Italiano",
     "iu" -> "ᐃᓄᒃᑎᑐ",
     "ja" -> "日本語",
     "jv" -> "basa Jawa",
@@ -177,6 +178,6 @@ object LangList {
     "xh" -> "isiXhosa",
     "yo" -> "Yorùbá",
     "za" -> "Saɯ cueŋƅ, Saw cueng",
-    // the values for 'za' (Zhang languages) are made up. No, I'm not joking. :( It will be hard to determine a native name and contact with a native speaker is necessary (won't be hard; it has many speakers)
+    // the values for 'za' (Zhang languages) are made up. Contact with a native speaker to determine their native name is necessary (won't be hard; it has many speakers)
     "zu" -> "isiZulu")
 }
