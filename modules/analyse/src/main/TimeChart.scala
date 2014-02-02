@@ -11,16 +11,20 @@ final class TimeChart(game: Game, usernames: Map[Color, String]) {
 
   def series = Json stringify {
     Json.obj(
-      "white" -> moveTimes(0),
-      "black" -> moveTimes(1).map(-_)
+      "white" -> moveTimesOf(0),
+      "black" -> moveTimesOf(1).map(-_)
     )
   }
 
-  private val indexedMoveTimes = game.moveTimesInSeconds.zipWithIndex
-  private def moveTimes(i: Int) =
+  private val moveTimes = game.moveTimesInSeconds
+  private val indexedMoveTimes = moveTimes.zipWithIndex
+  private def moveTimesOf(i: Int) =
     indexedMoveTimes.view.filter(_._2 % 2 == i).map(_._1).toList map { x ⇒
       if (x < 0.5) 0 else x
     }
+  def maxTime = moveTimes.map(math.abs).foldLeft(0f) {
+    case (x, y) => if (y > x) y else x
+  }
 }
 
 object TimeChart {

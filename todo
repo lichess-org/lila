@@ -97,7 +97,6 @@ country leaderboards
 follow a user #chess claymore http://www.freechess.org/Help/HelpFiles/follow.html
 replay games using move time
 antifarming tool for mods
-time pie chart colors http://en.lichess.org/52ede6hu/stats
 full page recent forum posts
 en_GB, en_US, pt_PT, pt_BR = localization (note that current pt translation is good pt_PT)
 moretime button position (>1hour)
@@ -108,6 +107,7 @@ ban only latest IP
 give AI levels ratings
 integrate move times in analysis view
 hash problem data to ensure unicity
+translated buttons should wrap http://i3.minus.com/ibvy3tV84RjDcC.png
 
 infra
 -------

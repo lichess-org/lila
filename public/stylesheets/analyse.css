@@ -218,8 +218,8 @@ div.advice_summary thead th {
   padding: 3px 0;
 }
 
-#adv_chart {
-  height: 170px;
+#adv_chart, #movetimes_chart {
+  height: 200px;
   width: 512px;
 }
 

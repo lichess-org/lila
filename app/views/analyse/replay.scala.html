@@ -92,18 +92,18 @@ themepicker = true) {
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
 <div class="analysis_menu">
-  <a data-panel="computer_analysis">@trans.computerAnalysis()</a>
+  <a data-panel="computer_analysis" class="active">@trans.computerAnalysis()</a>
   <a data-panel="fen_pgn">FEN &amp; PGN</a>
   @if(game.pgnImport.isEmpty) {
-  <a data-panel="move_times" class="active">@trans.moveTimes()</a>
+  <a data-panel="move_times">@trans.moveTimes()</a>
   }
 </div>
 <div class="analysis_panels">
-  <div class="panel computer_analysis">
+  <div class="panel computer_analysis active">
     @analysis.map { a =>
     @if(a.old) {
-    <form class="request_analysis new_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
-      <a>Request a better computer analysis</a>
+    <form class="request_analysis future_game_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
+      <button type="submit" class="button"><span>Request a better computer analysis</span></button>
     </form>
     }
     @advantageChart.map { chart =>
@@ -135,11 +135,12 @@ themepicker = true) {
     <p><strong>PGN</strong> (<a href="@routes.Analyse.pgn(game.id)">Download it</a>)</p>
     <textarea>@pgn</textarea>
   </div>
-  <div class="panel move_times active">
+  <div class="panel move_times">
     <div
       id="movetimes_chart"
-      data-title="@trans.moveTimes()"
-      data-series="@timeChart.series"></div>
+      title="@trans.moveTimes()"
+      data-series="@timeChart.series"
+      data-max="@timeChart.maxTime"></div>
   </div>
 </div>
 }
