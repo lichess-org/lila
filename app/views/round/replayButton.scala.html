@@ -1,0 +1,4 @@
+@(pov: Pov)(implicit ctx: Context)
+<div class="replay_and_analyse @{(!pov.game.replayable).??(" none")}">
+  <a class="button" href="@routes.Round.watcher(pov.game.id, pov.color.name)">&#9654; @trans.replayAndAnalyse()</a>
+</div>
