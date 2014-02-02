@@ -1,8 +1,8 @@
 package lila.problem
 
+import chess.Color
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
-import chess.Color
 
 sealed trait Line
 case class Node(move: String, lines: Lines) extends Line
@@ -10,7 +10,8 @@ case class End(move: String) extends Line
 
 case class Problem(
   id: ProblemId,
-  gameId: String,
+  hash: String,
+  gameId: Option[String],
   tags: List[String],
   color: Color,
   position: List[String],
@@ -18,6 +19,26 @@ case class Problem(
   date: DateTime)
 
 object Problem {
+
+  def make(
+    gameId: Option[String],
+    tags: List[String],
+    color: Color,
+    position: List[String],
+    lines: Lines) = new Problem(
+    id = ornicar.scalalib.Random nextStringUppercase 8,
+    hash = makeHash(position),
+    gameId = gameId,
+    tags = tags,
+    color = color,
+    position = position,
+    lines = lines,
+    date = DateTime.now)
+
+  def makeHash(position: List[String]) = {
+    import com.roundeights.hasher.Implicits._
+    position.mkString.md5.toString take 12
+  }
 
   import reactivemongo.bson._
   import lila.db.BSON
@@ -37,7 +58,8 @@ object Problem {
 
     def reads(r: BSON.Reader): Problem = Problem(
       id = r str "_id",
-      gameId = r str "gameId",
+      hash = r str "hash",
+      gameId = r strO "gameId",
       tags = r.get[List[String]]("tags"),
       color = Color(r bool "white"),
       position = r str "position" split ' ' toList,
@@ -46,6 +68,7 @@ object Problem {
 
     def writes(w: BSON.Writer, o: Problem) = BSONDocument(
       "_id" -> o.id,
+      "hash" -> o.hash,
       "gameId" -> o.gameId,
       "tags" -> o.tags,
       "white" -> o.color.white,
