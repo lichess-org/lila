@@ -1429,7 +1429,7 @@ var storage = {
         }
       }
       self.$table.find('div.clock').clock('stop');
-      if (self.hasClock() && !self.options.game.finished && (self.options.game.turns > 0 || self.options.game.clockRunning)) {
+      if (self.hasClock() && !self.options.game.finished && (self.options.game.turns > 1 || self.options.game.clockRunning)) {
         self.$table.find('div.clock_' + self.options.game.player).clock('start');
       }
     },

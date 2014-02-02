@@ -170,9 +170,12 @@ case class Game(
     updatedAt = DateTime.now.some
   ))
 
-  def startClock(compensation: Float) = clock.filterNot(_.isRunning).fold(this) { c ⇒
-    copy(clock = c.run.giveTime(White, compensation).some)
-  }
+  def startClock(compensation: Float) = copy(
+    clock = clock map {
+      case c: chess.PausedClock ⇒ c.start.giveTime(White, compensation)
+      case c                    ⇒ c
+    }
+  )
 
   def started = status >= Status.Started
 
@@ -267,7 +270,7 @@ case class Game(
 
   def outoftimePlayer: Option[Player] = for {
     c ← clock
-    if started && playable && onePlayerHasMoved
+    if started && playable && bothPlayersHaveMoved
     if !c.isRunning || (c outoftime player.color)
   } yield player
 
