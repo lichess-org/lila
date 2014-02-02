@@ -53,7 +53,6 @@ requestAComputerAnalysis=Запытаць камп'ютарный аналіз
 blunders=Грубыя памылкі
 mistakes=Памылкі
 inaccuracies=Недакладнасьці
-viewGameStats=Паглядзець статыстыку гульні
 flipBoard=Разьвярнуць дошку
 threefoldRepetition=Трохразовы паўтор
 claimADraw=Запатрабаваць нічыю

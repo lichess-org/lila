@@ -51,7 +51,6 @@ requestAComputerAnalysis=Iarr anailis a' choimpiutair
 blunders=Tuislidhean
 mistakes=Mearachdan
 inaccuracies=Neo-eagnaidhean
-viewGameStats=Faic stadastaig a’ gheama
 flipBoard=Dèan flip air a’ bhòrd
 threefoldRepetition=Treas ath-nochdadh
 claimADraw=Tagair geama ionnanach
