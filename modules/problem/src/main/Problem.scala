@@ -4,10 +4,6 @@ import chess.Color
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
 
-sealed trait Line
-case class Node(move: String, lines: Lines) extends Line
-case class End(move: String) extends Line
-
 case class Problem(
   id: ProblemId,
   gameId: Option[String],
