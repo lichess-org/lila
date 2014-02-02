@@ -108,6 +108,10 @@ integrate move times in analysis view
 hash problem data to ensure unicity
 connect time chart to pgn viewer and say "time spent on this move: X seconds"
 
+deploy
+-----
+db.problem.ensureIndex({hash:1},{unique:1})
+
 infra
 -------
 lila nice + thread limit

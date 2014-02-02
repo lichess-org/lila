@@ -4,7 +4,6 @@ import scala.util.{ Try, Success, Failure }
 
 import chess.Color
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import play.api.libs.json._
 
 case class Generated(
@@ -17,14 +16,12 @@ case class Generated(
   def toProblem: Try[Problem] = for {
     trueColor ← Color(color).fold[Try[Color]](Failure(new Exception(s"Invalid color $color")))(Success.apply)
     lines ← Generated readLines solution
-  } yield Problem(
-    id = Random nextStringUppercase 8,
-    gameId = id,
+  } yield Problem.make(
+    gameId = id.some,
     tags = tags,
     color = trueColor,
     position = position.trim.split(' ').toList,
-    lines = lines,
-    date = DateTime.now)
+    lines = lines)
 }
 
 object Generated {
