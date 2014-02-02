@@ -40,7 +40,7 @@ $(function() {
       });
     }
 
-    var pieceTheme = 'http://' + document.domain.replace(/^\w+/, 'static') + '/assets/vendor/chessboard/img/chesspieces/wikipedia/{piece}.png';
+    var pieceTheme = 'http://' + document.domain.replace(/^\w+/, 'static') + '/assets/images/chessboard/{piece}.png';
     board = new ChessBoard('chessboard', {
       position: toBase($('#chessboard').data('fen')) || 'start',
       draggable: true,

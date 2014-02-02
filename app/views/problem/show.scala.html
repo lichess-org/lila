@@ -2,5 +2,12 @@
 
 @layout("Problem " + problem.id) {
 
-@problem
+<div id="chessboard"
+  data-fen="@problem.fen"
+  data-color="@problem.color.name"
+  data-lines="@lila.problem.Line.toJsonString(problem.lines)"></div>
+
+<pre>
+@lila.problem.Line.toString(problem.lines)
+</pre>
 }
