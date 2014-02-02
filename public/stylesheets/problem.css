@@ -1,0 +1,18 @@
+#chessboard {
+  width: 520px;
+  margin: 20px auto;
+}
+
+#problem .on_success {
+  margin: 1em;
+  padding: 1em;
+  text-align: center;
+  font-size: 1.2em;
+  border: 1px solid #DADADA;
+  color: #000;
+  background: #AAFFAA;
+  display: none;
+}
+#problem.success .on_success {
+  display: block;
+}
