@@ -1,11 +1,11 @@
 /*!
- * ChessBoardJS v0.1.0
+ * chessboard.js $version$
  *
  * Copyright 2013 Chris Oakman
  * Released under the MIT license
- * http://chessboardjs.com/license
+ * https://github.com/oakmac/chessboardjs/blob/master/LICENSE
  *
- * Date: 21 Jul 2013
+ * Date: $date$
  */
 
 // start anonymous scope
@@ -17,7 +17,7 @@
 //------------------------------------------------------------------------------
 var COLUMNS = 'abcdefgh'.split('');
 
-var validMove = function(move) {
+function validMove(move) {
   // move should be a string
   if (typeof move !== 'string') return false;
 
@@ -26,24 +26,29 @@ var validMove = function(move) {
   if (tmp.length !== 2) return false;
 
   return (validSquare(tmp[0]) === true && validSquare(tmp[1]) === true);
-};
+}
 
-var validSquare = function(square) {
+function validSquare(square) {
   if (typeof square !== 'string') return false;
   return (square.search(/^[a-h][1-8]$/) !== -1);
-};
+}
 
-var validPieceCode = function(code) {
+function validPieceCode(code) {
   if (typeof code !== 'string') return false;
   return (code.search(/^[bw][KQRNBP]$/) !== -1);
-};
+}
 
-var validFen = function(fen) {
+// TODO: this whole function could probably be replaced with a single regex
+function validFen(fen) {
   if (typeof fen !== 'string') return false;
 
-  // FEN should be at least 8 sections separated by slashes
+  // cut off any move, castling, etc info from the end
+  // we're only interested in position information
+  fen = fen.replace(/ .+$/, '');
+
+  // FEN should be 8 sections separated by slashes
   var chunks = fen.split('/');
-  if (chunks.length < 8) return false;
+  if (chunks.length !== 8) return false;
 
   // check the piece sections
   for (var i = 0; i < 8; i++) {
@@ -55,9 +60,9 @@ var validFen = function(fen) {
   }
 
   return true;
-};
+}
 
-var validPositionObject = function(pos) {
+function validPositionObject(pos) {
   if (typeof pos !== 'object') return false;
 
   for (var i in pos) {
@@ -69,10 +74,10 @@ var validPositionObject = function(pos) {
   }
 
   return true;
-};
+}
 
 // convert FEN piece code to bP, wK, etc
-var fenToPieceCode = function(piece) {
+function fenToPieceCode(piece) {
   // black piece
   if (piece.toLowerCase() === piece) {
     return 'b' + piece.toUpperCase();
@@ -80,10 +85,10 @@ var fenToPieceCode = function(piece) {
 
   // white piece
   return 'w' + piece.toUpperCase();
-};
+}
 
 // convert bP, wK, etc code to FEN structure
-var pieceCodeToFen = function(piece) {
+function pieceCodeToFen(piece) {
   var tmp = piece.split('');
 
   // white piece
@@ -93,14 +98,18 @@ var pieceCodeToFen = function(piece) {
 
   // black piece
   return tmp[1].toLowerCase();
-};
+}
 
 // convert FEN string to position object
 // returns false if the FEN string is invalid
-var fenToObj = function(fen) {
+function fenToObj(fen) {
   if (validFen(fen) !== true) {
     return false;
   }
+
+  // cut off any move, castling, etc info from the end
+  // we're only interested in position information
+  fen = fen.replace(/ .+$/, '');
 
   var rows = fen.split('/');
   var position = {};
@@ -129,11 +138,11 @@ var fenToObj = function(fen) {
   }
 
   return position;
-};
+}
 
 // position object to FEN string
 // returns false if the obj is not a valid position object
-var objToFen = function(obj) {
+function objToFen(obj) {
   if (validPositionObject(obj) !== true) {
     return false;
   }
@@ -174,10 +183,9 @@ var objToFen = function(obj) {
   fen = fen.replace(/11/g, '2');
 
   return fen;
-};
+}
 
 window['ChessBoard'] = window['ChessBoard'] || function(containerElOrId, cfg) {
-'use strict';
 
 cfg = cfg || {};
 
@@ -191,6 +199,7 @@ var MINIMUM_JQUERY_VERSION = '1.7.0',
 
 // use unique class names to prevent clashing with anything else on the page
 // and simplify selectors
+// NOTE: these should never change
 var CSS = {
   alpha: 'alpha-d2270',
   black: 'black-3c85d',
@@ -245,28 +254,28 @@ var ANIMATION_HAPPENING = false,
 //------------------------------------------------------------------------------
 
 // http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
-var createId = function() {
+function createId() {
   return 'xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx'.replace(/x/g, function(c) {
     var r = Math.random() * 16 | 0;
     return r.toString(16);
   });
-};
+}
 
-var deepCopy = function(thing) {
+function deepCopy(thing) {
   return JSON.parse(JSON.stringify(thing));
-};
+}
 
-var parseSemVer = function(version) {
+function parseSemVer(version) {
   var tmp = version.split('.');
   return {
     major: parseInt(tmp[0], 10),
     minor: parseInt(tmp[1], 10),
     patch: parseInt(tmp[2], 10)
   };
-};
+}
 
 // returns true if version is >= minimum
-var compareSemVer = function(version, minimum) {
+function compareSemVer(version, minimum) {
   version = parseSemVer(version);
   minimum = parseSemVer(minimum);
 
@@ -276,13 +285,13 @@ var compareSemVer = function(version, minimum) {
     (minimum.minor * 10000) + minimum.patch;
 
   return (versionNum >= minimumNum);
-};
+}
 
 //------------------------------------------------------------------------------
 // Validation / Errors
 //------------------------------------------------------------------------------
 
-var error = function(code, msg, obj) {
+function error(code, msg, obj) {
   // do nothing if showErrors is not set
   if (cfg.hasOwnProperty('showErrors') !== true ||
       cfg.showErrors === false) {
@@ -315,10 +324,10 @@ var error = function(code, msg, obj) {
   if (typeof cfg.showErrors === 'function') {
     cfg.showErrors(code, msg, obj);
   }
-};
+}
 
 // check dependencies
-var checkDeps = function() {
+function checkDeps() {
   // if containerId is a string, it must be the ID of a DOM node
   if (typeof containerElOrId === 'string') {
     // cannot be empty
@@ -375,9 +384,9 @@ var checkDeps = function() {
   }
 
   return true;
-};
+}
 
-var validAnimationSpeed = function(speed) {
+function validAnimationSpeed(speed) {
   if (speed === 'fast' || speed === 'slow') {
     return true;
   }
@@ -386,11 +395,11 @@ var validAnimationSpeed = function(speed) {
     return false;
   }
 
-  return (speed > 0);
-};
+  return (speed >= 0);
+}
 
 // validate config / set default options
-var expandConfig = function() {
+function expandConfig() {
   if (typeof cfg === 'string' || validPositionObject(cfg) === true) {
     cfg = {
       position: cfg
@@ -436,6 +445,10 @@ var expandConfig = function() {
   }
 
   // animation speeds
+  if (cfg.hasOwnProperty('appearSpeed') !== true ||
+      validAnimationSpeed(cfg.appearSpeed) !== true) {
+    cfg.appearSpeed = 200;
+  }
   if (cfg.hasOwnProperty('moveSpeed') !== true ||
       validAnimationSpeed(cfg.moveSpeed) !== true) {
     cfg.moveSpeed = 200;
@@ -473,7 +486,7 @@ var expandConfig = function() {
   }
 
   return true;
-};
+}
 
 //------------------------------------------------------------------------------
 // DOM Misc
@@ -484,7 +497,7 @@ var expandConfig = function() {
 // get the width of the container element (could be anything), reduce by 1 for
 // fudge factor, and then keep reducing until we find an exact mod 8 for
 // our square size
-var calculateSquareSize = function() {
+function calculateSquareSize() {
   var containerWidth = parseInt(containerEl.css('width'), 10);
 
   // defensive, prevent infinite loop
@@ -500,10 +513,10 @@ var calculateSquareSize = function() {
   }
 
   return (boardWidth / 8);
-};
+}
 
 // create random IDs for elements
-var createElIds = function() {
+function createElIds() {
   // squares on the board
   for (var i = 0; i < COLUMNS.length; i++) {
     for (var j = 1; j <= 8; j++) {
@@ -520,13 +533,13 @@ var createElIds = function() {
     SPARE_PIECE_ELS_IDS[whitePiece] = whitePiece + '-' + createId();
     SPARE_PIECE_ELS_IDS[blackPiece] = blackPiece + '-' + createId();
   }
-};
+}
 
 //------------------------------------------------------------------------------
-// Markup Building Functions
+// Markup Building
 //------------------------------------------------------------------------------
 
-var buildBoardContainer = function() {
+function buildBoardContainer() {
   var html = '<div class="' + CSS.chessboard + '">';
 
   if (cfg.sparePieces === true) {
@@ -544,7 +557,7 @@ var buildBoardContainer = function() {
   html += '</div>';
 
   return html;
-};
+}
 
 /*
 var buildSquare = function(color, size, id) {
@@ -562,7 +575,7 @@ var buildSquare = function(color, size, id) {
 };
 */
 
-var buildBoard = function(orientation) {
+function buildBoard(orientation) {
   if (orientation !== 'black') {
     orientation = 'white';
   }
@@ -583,7 +596,8 @@ var buildBoard = function(orientation) {
     for (var j = 0; j < 8; j++) {
       var square = alpha[j] + row;
 
-      html += '<div class="' + CSS.square + ' ' + CSS[squareColor] + '" ' +
+      html += '<div class="' + CSS.square + ' ' + CSS[squareColor] + ' ' +
+        'square-' + square + '" ' +
         'style="width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px" ' +
         'id="' + SQUARE_ELS_IDS[square] + '" ' +
         'data-square="' + square + '">';
@@ -619,9 +633,9 @@ var buildBoard = function(orientation) {
   }
 
   return html;
-};
+}
 
-var buildPieceImgSrc = function(piece) {
+function buildPieceImgSrc(piece) {
   if (typeof cfg.pieceTheme === 'function') {
     return cfg.pieceTheme(piece);
   }
@@ -632,9 +646,10 @@ var buildPieceImgSrc = function(piece) {
 
   // NOTE: this should never happen
   error(8272, 'Unable to build image source for cfg.pieceTheme.');
-};
+  return '';
+}
 
-var buildPiece = function(piece, hidden, id) {
+function buildPiece(piece, hidden, id) {
   var html = '<img src="' + buildPieceImgSrc(piece) + '" ';
   if (id && typeof id === 'string') {
     html += 'id="' + id + '" ';
@@ -650,9 +665,9 @@ var buildPiece = function(piece, hidden, id) {
   html += '" />';
 
   return html;
-};
+}
 
-var buildSparePieces = function(color) {
+function buildSparePieces(color) {
   var pieces = ['wK', 'wQ', 'wR', 'wB', 'wN', 'wP'];
   if (color === 'black') {
     pieces = ['bK', 'bQ', 'bR', 'bB', 'bN', 'bP'];
@@ -664,13 +679,13 @@ var buildSparePieces = function(color) {
   }
 
   return html;
-};
+}
 
 //------------------------------------------------------------------------------
 // Animations
 //------------------------------------------------------------------------------
 
-var animateSquareToSquare = function(src, dest, piece, completeFn) {
+function animateSquareToSquare(src, dest, piece, completeFn) {
   // get information about the source and destination squares
   var srcSquareEl = $('#' + SQUARE_ELS_IDS[src]);
   var srcSquarePosition = srcSquareEl.offset();
@@ -690,7 +705,7 @@ var animateSquareToSquare = function(src, dest, piece, completeFn) {
   });
 
   // remove original piece from source square
-  srcSquareEl.find('img.' + CSS.piece).remove();
+  srcSquareEl.find('.' + CSS.piece).remove();
 
   // on complete
   var complete = function() {
@@ -712,9 +727,9 @@ var animateSquareToSquare = function(src, dest, piece, completeFn) {
     complete: complete
   };
   animatedPieceEl.animate(destSquarePosition, opts);
-};
+}
 
-var animateSparePieceToSquare = function(piece, dest, completeFn) {
+function animateSparePieceToSquare(piece, dest, completeFn) {
   var srcOffset = $('#' + SPARE_PIECE_ELS_IDS[piece]).offset();
   var destSquareEl = $('#' + SQUARE_ELS_IDS[dest]);
   var destOffset = destSquareEl.offset();
@@ -733,7 +748,7 @@ var animateSparePieceToSquare = function(piece, dest, completeFn) {
   // on complete
   var complete = function() {
     // add the "real" piece to the destination square
-    destSquareEl.find('img.' + CSS.piece).remove();
+    destSquareEl.find('.' + CSS.piece).remove();
     destSquareEl.append(buildPiece(piece));
 
     // remove the animated piece
@@ -751,35 +766,42 @@ var animateSparePieceToSquare = function(piece, dest, completeFn) {
     complete: complete
   };
   animatedPieceEl.animate(destOffset, opts);
-};
+}
 
 // execute an array of animations
-var doAnimations = function(a) {
+function doAnimations(a, oldPos, newPos) {
   ANIMATION_HAPPENING = true;
 
   var numFinished = 0;
-  var onFinish = function() {
+  function onFinish() {
     numFinished++;
-    if (numFinished === a.length) {
-      drawPositionInstant();
-      ANIMATION_HAPPENING = false;
+
+    // exit if all the animations aren't finished
+    if (numFinished !== a.length) return;
+
+    drawPositionInstant();
+    ANIMATION_HAPPENING = false;
+
+    // run their onMoveEnd function
+    if (cfg.hasOwnProperty('onMoveEnd') === true &&
+      typeof cfg.onMoveEnd === 'function') {
+      cfg.onMoveEnd(deepCopy(oldPos), deepCopy(newPos));
     }
-  };
+  }
 
   for (var i = 0; i < a.length; i++) {
     // clear a piece
     if (a[i].type === 'clear') {
-      $('#' + SQUARE_ELS_IDS[a[i].square] + ' img.' + CSS.piece)
+      $('#' + SQUARE_ELS_IDS[a[i].square] + ' .' + CSS.piece)
         .fadeOut(cfg.trashSpeed, onFinish);
     }
 
     // add a piece (no spare pieces)
-    // TODO: need to make this speed configurable
     if (a[i].type === 'add' && cfg.sparePieces !== true) {
       $('#' + SQUARE_ELS_IDS[a[i].square])
         .append(buildPiece(a[i].piece, true))
-        .find('img.' + CSS.piece)
-        .fadeIn('fast', onFinish);
+        .find('.' + CSS.piece)
+        .fadeIn(cfg.appearSpeed, onFinish);
     }
 
     // add a piece from a spare piece
@@ -793,10 +815,10 @@ var doAnimations = function(a) {
         onFinish);
     }
   }
-};
+}
 
 // returns the distance between two squares
-var squareDistance = function(s1, s2) {
+function squareDistance(s1, s2) {
   s1 = s1.split('');
   var s1x = COLUMNS.indexOf(s1[0]) + 1;
   var s1y = parseInt(s1[1], 10);
@@ -810,10 +832,10 @@ var squareDistance = function(s1, s2) {
 
   if (xDelta >= yDelta) return xDelta;
   return yDelta;
-};
+}
 
 // returns an array of closest squares from square
-var createRadius = function(square) {
+function createRadius(square) {
   var squares = [];
 
   // calculate distance of all squares
@@ -843,11 +865,11 @@ var createRadius = function(square) {
   }
 
   return squares2;
-};
+}
 
 // returns the square of the closest instance of piece
 // returns false if no instance of piece is found in position
-var findClosestPiece = function(position, piece, square) {
+function findClosestPiece(position, piece, square) {
   // create array of closest squares from square
   var closestSquares = createRadius(square);
 
@@ -861,11 +883,11 @@ var findClosestPiece = function(position, piece, square) {
   }
 
   return false;
-};
+}
 
 // calculate an array of animations that need to happen in order to get
 // from pos1 to pos2
-var calculateAnimations = function(pos1, pos2) {
+function calculateAnimations(pos1, pos2) {
   // make copies of both
   pos1 = deepCopy(pos1);
   pos2 = deepCopy(pos2);
@@ -933,33 +955,25 @@ var calculateAnimations = function(pos1, pos2) {
   }
 
   return animations;
-};
+}
 
 //------------------------------------------------------------------------------
 // Control Flow
 //------------------------------------------------------------------------------
 
-var clearBoardFade = function() {
-  boardEl.find('img.' + CSS.piece).fadeOut(cfg.trashSpeed, function() {
-    $(this).remove();
-  });
-};
+function drawPositionInstant() {
+  // clear the board
+  boardEl.find('.' + CSS.piece).remove();
 
-var clearBoardInstant = function() {
-  boardEl.find('img.' + CSS.piece).remove();
-};
-
-var drawPositionInstant = function() {
-  clearBoardInstant();
-
+  // add the pieces
   for (var i in CURRENT_POSITION) {
     if (CURRENT_POSITION.hasOwnProperty(i) !== true) continue;
 
     $('#' + SQUARE_ELS_IDS[i]).append(buildPiece(CURRENT_POSITION[i]));
   }
-};
+}
 
-var drawBoard = function() {
+function drawBoard() {
   boardEl.html(buildBoard(CURRENT_ORIENTATION));
   drawPositionInstant();
 
@@ -973,15 +987,11 @@ var drawBoard = function() {
       sparePiecesBottomEl.html(buildSparePieces('black'));
     }
   }
-};
-
-var animateToPosition = function(pos1, pos2) {
-  doAnimations(calculateAnimations(pos1, pos2));
-};
+}
 
 // given a position and a set of moves, return a new position
 // with the moves executed
-var calculatePositionFromMoves = function(position, moves) {
+function calculatePositionFromMoves(position, moves) {
   position = deepCopy(position);
 
   for (var i in moves) {
@@ -996,9 +1006,9 @@ var calculatePositionFromMoves = function(position, moves) {
   }
 
   return position;
-};
+}
 
-var setCurrentPosition = function(position) {
+function setCurrentPosition(position) {
   var oldPos = deepCopy(CURRENT_POSITION);
   var newPos = deepCopy(position);
   var oldFen = objToFen(oldPos);
@@ -1015,9 +1025,9 @@ var setCurrentPosition = function(position) {
 
   // update state
   CURRENT_POSITION = position;
-};
+}
 
-var isXYOnSquare = function(x, y) {
+function isXYOnSquare(x, y) {
   for (var i in SQUARE_ELS_OFFSETS) {
     if (SQUARE_ELS_OFFSETS.hasOwnProperty(i) !== true) continue;
 
@@ -1029,10 +1039,10 @@ var isXYOnSquare = function(x, y) {
   }
 
   return 'offboard';
-};
+}
 
 // records the XY coords of every square into memory
-var captureSquareOffsets = function() {
+function captureSquareOffsets() {
   SQUARE_ELS_OFFSETS = {};
 
   for (var i in SQUARE_ELS_IDS) {
@@ -1040,27 +1050,34 @@ var captureSquareOffsets = function() {
 
     SQUARE_ELS_OFFSETS[i] = $('#' + SQUARE_ELS_IDS[i]).offset();
   }
-};
+}
 
-var removeSquareHighlights = function() {
-  boardEl.find('div.' + CSS.square)
+function removeSquareHighlights() {
+  boardEl.find('.' + CSS.square)
     .removeClass(CSS.highlight1 + ' ' + CSS.highlight2);
-};
+}
 
-var snapbackPiece = function() {
+function snapbackDraggedPiece() {
   // there is no "snapback" for spare pieces
   if (DRAGGED_PIECE_SOURCE === 'spare') {
-    trashPiece();
+    trashDraggedPiece();
     return;
   }
 
   removeSquareHighlights();
 
   // animation complete
-  var complete = function() {
+  function complete() {
     drawPositionInstant();
     draggedPieceEl.css('display', 'none');
-  };
+
+    // run their onSnapbackEnd function
+    if (cfg.hasOwnProperty('onSnapbackEnd') === true &&
+      typeof cfg.onSnapbackEnd === 'function') {
+      cfg.onSnapbackEnd(DRAGGED_PIECE, DRAGGED_PIECE_SOURCE,
+        deepCopy(CURRENT_POSITION), CURRENT_ORIENTATION);
+    }
+  }
 
   // get source square position
   var sourceSquarePosition =
@@ -1075,9 +1092,9 @@ var snapbackPiece = function() {
 
   // set state
   DRAGGING_A_PIECE = false;
-};
+}
 
-var trashPiece = function() {
+function trashDraggedPiece() {
   removeSquareHighlights();
 
   // remove the source piece
@@ -1093,9 +1110,9 @@ var trashPiece = function() {
 
   // set state
   DRAGGING_A_PIECE = false;
-};
+}
 
-var dropPieceOnSquare = function(square) {
+function dropDraggedPieceOnSquare(square) {
   removeSquareHighlights();
 
   // update position
@@ -1111,6 +1128,12 @@ var dropPieceOnSquare = function(square) {
   var complete = function() {
     drawPositionInstant();
     draggedPieceEl.css('display', 'none');
+
+    // execute their onSnapEnd function
+    if (cfg.hasOwnProperty('onSnapEnd') === true &&
+      typeof cfg.onSnapEnd === 'function') {
+      cfg.onSnapEnd(DRAGGED_PIECE_SOURCE, square, DRAGGED_PIECE);
+    }
   };
 
   // snap the piece to the target square
@@ -1122,9 +1145,9 @@ var dropPieceOnSquare = function(square) {
 
   // set state
   DRAGGING_A_PIECE = false;
-};
+}
 
-var beginDraggingPiece = function(source, piece, x, y) {
+function beginDraggingPiece(source, piece, x, y) {
   // run their custom onDragStart function
   // their custom onDragStart function can cancel drag start
   if (typeof cfg.onDragStart === 'function' &&
@@ -1161,11 +1184,11 @@ var beginDraggingPiece = function(source, piece, x, y) {
   if (source !== 'spare') {
     // highlight the source square and hide the piece
     $('#' + SQUARE_ELS_IDS[source]).addClass(CSS.highlight1)
-      .find('img.' + CSS.piece).css('display', 'none');
+      .find('.' + CSS.piece).css('display', 'none');
   }
-};
+}
 
-var updateDraggedPiece = function(x, y) {
+function updateDraggedPiece(x, y) {
   // put the dragged piece over the mouse cursor
   draggedPieceEl.css({
     left: x - (SQUARE_SIZE / 2),
@@ -1198,9 +1221,9 @@ var updateDraggedPiece = function(x, y) {
 
   // update state
   DRAGGED_PIECE_LOCATION = location;
-};
+}
 
-var stopDraggedPiece = function(location) {
+function stopDraggedPiece(location) {
   // determine what the action should be
   var action = 'drop';
   if (location === 'offboard' && cfg.dropOffBoard === 'snapback') {
@@ -1216,9 +1239,8 @@ var stopDraggedPiece = function(location) {
     var newPosition = deepCopy(CURRENT_POSITION);
 
     // source piece is a spare piece and position is off the board
-    if (DRAGGED_PIECE_SOURCE === 'spare' && location === 'offboard') {
-      // position has not changed; do nothing
-    }
+    //if (DRAGGED_PIECE_SOURCE === 'spare' && location === 'offboard') {...}
+    // position has not changed; do nothing
 
     // source piece is a spare piece and position is on the board
     if (DRAGGED_PIECE_SOURCE === 'spare' && validSquare(location) === true) {
@@ -1251,15 +1273,15 @@ var stopDraggedPiece = function(location) {
 
   // do it!
   if (action === 'snapback') {
-    snapbackPiece();
+    snapbackDraggedPiece();
   }
   else if (action === 'trash') {
-    trashPiece();
+    trashDraggedPiece();
   }
   else if (action === 'drop') {
-    dropPieceOnSquare(location);
+    dropDraggedPieceOnSquare(location);
   }
-};
+}
 
 //------------------------------------------------------------------------------
 // Public Methods
@@ -1269,17 +1291,6 @@ var stopDraggedPiece = function(location) {
 widget.clear = function(useAnimation) {
   widget.position({}, useAnimation);
 };
-
-/*
-// get or set config properties
-// TODO: write this, GitHub Issue #1
-widget.config = function(arg1, arg2) {
-  // get the current config
-  if (arguments.length === 0) {
-    return deepCopy(cfg);
-  }
-};
-*/
 
 // remove the widget from the page
 widget.destroy = function() {
@@ -1313,9 +1324,17 @@ widget.move = function() {
   // no need to throw an error here; just do nothing
   if (arguments.length === 0) return;
 
+  var useAnimation = true;
+
   // collect the moves into an object
   var moves = {};
   for (var i = 0; i < arguments.length; i++) {
+    // any "false" to this function means no animations
+    if (arguments[i] === false) {
+      useAnimation = false;
+      continue;
+    }
+
     // skip invalid arguments
     if (validMove(arguments[i]) !== true) {
       error(2826, 'Invalid move passed to the move method.', arguments[i]);
@@ -1330,7 +1349,7 @@ widget.move = function() {
   var newPos = calculatePositionFromMoves(CURRENT_POSITION, moves);
 
   // update the board
-  widget.position(newPos);
+  widget.position(newPos, useAnimation);
 
   // return the new position object
   return newPos;
@@ -1392,8 +1411,9 @@ widget.position = function(position, useAnimation) {
   }
 
   if (useAnimation === true) {
-    // start the animation
-    animateToPosition(CURRENT_POSITION, position);
+    // start the animations
+    doAnimations(calculateAnimations(CURRENT_POSITION, position),
+      CURRENT_POSITION, position);
 
     // set the new position
     setCurrentPosition(position);
@@ -1420,7 +1440,7 @@ widget.resize = function() {
 
   // spare pieces
   if (cfg.sparePieces === true) {
-    containerEl.find('div.' + CSS.sparePieces)
+    containerEl.find('.' + CSS.sparePieces)
       .css('paddingLeft', (SQUARE_SIZE + BOARD_BORDER_SIZE) + 'px');
   }
 
@@ -1437,21 +1457,21 @@ widget.start = function(useAnimation) {
 // Browser Events
 //------------------------------------------------------------------------------
 
-var isTouchDevice = function() {
+function isTouchDevice() {
   return ('ontouchstart' in document.documentElement);
-};
+}
 
 // reference: http://www.quirksmode.org/js/detect.html
-var isMSIE = function() {
+function isMSIE() {
   return (navigator && navigator.userAgent &&
       navigator.userAgent.search(/MSIE/) !== -1);
-};
+}
 
-var stopDefault = function(e) {
+function stopDefault(e) {
   e.preventDefault();
-};
+}
 
-var mousedownSquare = function(e) {
+function mousedownSquare(e) {
   // do nothing if we're not draggable
   if (cfg.draggable !== true) return;
 
@@ -1464,9 +1484,9 @@ var mousedownSquare = function(e) {
   }
 
   beginDraggingPiece(square, CURRENT_POSITION[square], e.pageX, e.pageY);
-};
+}
 
-var touchstartSquare = function(e) {
+function touchstartSquare(e) {
   // do nothing if we're not draggable
   if (cfg.draggable !== true) return;
 
@@ -1481,18 +1501,18 @@ var touchstartSquare = function(e) {
   e = e.originalEvent;
   beginDraggingPiece(square, CURRENT_POSITION[square],
     e.changedTouches[0].pageX, e.changedTouches[0].pageY);
-};
+}
 
-var mousedownSparePiece = function(e) {
+function mousedownSparePiece(e) {
   // do nothing if sparePieces is not enabled
   if (cfg.sparePieces !== true) return;
 
   var piece = $(this).attr('data-piece');
 
   beginDraggingPiece('spare', piece, e.pageX, e.pageY);
-};
+}
 
-var touchstartSparePiece = function(e) {
+function touchstartSparePiece(e) {
   // do nothing if sparePieces is not enabled
   if (cfg.sparePieces !== true) return;
 
@@ -1501,16 +1521,16 @@ var touchstartSparePiece = function(e) {
   e = e.originalEvent;
   beginDraggingPiece('spare', piece,
     e.changedTouches[0].pageX, e.changedTouches[0].pageY);
-};
+}
 
-var mousemoveWindow = function(e) {
+function mousemoveWindow(e) {
   // do nothing if we are not dragging a piece
   if (DRAGGING_A_PIECE !== true) return;
 
   updateDraggedPiece(e.pageX, e.pageY);
-};
+}
 
-var touchmoveWindow = function(e) {
+function touchmoveWindow(e) {
   // do nothing if we are not dragging a piece
   if (DRAGGING_A_PIECE !== true) return;
 
@@ -1519,9 +1539,9 @@ var touchmoveWindow = function(e) {
 
   updateDraggedPiece(e.originalEvent.changedTouches[0].pageX,
     e.originalEvent.changedTouches[0].pageY);
-};
+}
 
-var mouseupWindow = function(e) {
+function mouseupWindow(e) {
   // do nothing if we are not dragging a piece
   if (DRAGGING_A_PIECE !== true) return;
 
@@ -1529,9 +1549,9 @@ var mouseupWindow = function(e) {
   var location = isXYOnSquare(e.pageX, e.pageY);
 
   stopDraggedPiece(location);
-};
+}
 
-var touchendWindow = function(e) {
+function touchendWindow(e) {
   // do nothing if we are not dragging a piece
   if (DRAGGING_A_PIECE !== true) return;
 
@@ -1540,20 +1560,74 @@ var touchendWindow = function(e) {
     e.originalEvent.changedTouches[0].pageY);
 
   stopDraggedPiece(location);
-};
+}
+
+function mouseenterSquare(e) {
+  // do not fire this event if we are dragging a piece
+  // NOTE: this should never happen, but it's a safeguard
+  if (DRAGGING_A_PIECE !== false) return;
+
+  if (cfg.hasOwnProperty('onMouseoverSquare') !== true ||
+    typeof cfg.onMouseoverSquare !== 'function') return;
+
+  // get the square
+  var square = $(e.currentTarget).attr('data-square');
+
+  // NOTE: this should never happen; defensive
+  if (validSquare(square) !== true) return;
+
+  // get the piece on this square
+  var piece = false;
+  if (CURRENT_POSITION.hasOwnProperty(square) === true) {
+    piece = CURRENT_POSITION[square];
+  }
+
+  // execute their function
+  cfg.onMouseoverSquare(square, piece, deepCopy(CURRENT_POSITION),
+    CURRENT_ORIENTATION);
+}
+
+function mouseleaveSquare(e) {
+  // do not fire this event if we are dragging a piece
+  // NOTE: this should never happen, but it's a safeguard
+  if (DRAGGING_A_PIECE !== false) return;
+
+  if (cfg.hasOwnProperty('onMouseoutSquare') !== true ||
+    typeof cfg.onMouseoutSquare !== 'function') return;
+
+  // get the square
+  var square = $(e.currentTarget).attr('data-square');
+
+  // NOTE: this should never happen; defensive
+  if (validSquare(square) !== true) return;
+
+  // get the piece on this square
+  var piece = false;
+  if (CURRENT_POSITION.hasOwnProperty(square) === true) {
+    piece = CURRENT_POSITION[square];
+  }
+
+  // execute their function
+  cfg.onMouseoutSquare(square, piece, deepCopy(CURRENT_POSITION),
+    CURRENT_ORIENTATION);
+}
 
 //------------------------------------------------------------------------------
 // Initialization
 //------------------------------------------------------------------------------
 
-var addEvents = function() {
+function addEvents() {
   // prevent browser "image drag"
-  $('body').on('mousedown mousemove', 'img.' + CSS.piece, stopDefault);
+  $('body').on('mousedown mousemove', '.' + CSS.piece, stopDefault);
 
   // mouse drag pieces
-  boardEl.on('mousedown', 'div.' + CSS.square, mousedownSquare);
-  containerEl.on('mousedown', 'div.' + CSS.sparePieces + ' img.' + CSS.piece,
+  boardEl.on('mousedown', '.' + CSS.square, mousedownSquare);
+  containerEl.on('mousedown', '.' + CSS.sparePieces + ' .' + CSS.piece,
     mousedownSparePiece);
+
+  // mouse enter / leave square
+  boardEl.on('mouseenter', '.' + CSS.square, mouseenterSquare);
+  boardEl.on('mouseleave', '.' + CSS.square, mouseleaveSquare);
 
   // IE doesn't like the events on the window object, but other browsers
   // perform better that way
@@ -1571,22 +1645,25 @@ var addEvents = function() {
 
   // touch drag pieces
   if (isTouchDevice() === true) {
-    boardEl.on('touchstart', 'div.' + CSS.square, touchstartSquare);
-    containerEl.on('touchstart', 'div.' + CSS.sparePieces + ' img.' + CSS.piece,
+    boardEl.on('touchstart', '.' + CSS.square, touchstartSquare);
+    containerEl.on('touchstart', '.' + CSS.sparePieces + ' .' + CSS.piece,
       touchstartSparePiece);
     $(window).on('touchmove', touchmoveWindow);
     $(window).on('touchend', touchendWindow);
   }
-};
+}
 
-var initDom = function() {
+function initDom() {
+  // create unique IDs for all the elements we will create
+  createElIds();
+
   // build board and save it in memory
   containerEl.html(buildBoardContainer());
-  boardEl = containerEl.find('div.' + CSS.board);
+  boardEl = containerEl.find('.' + CSS.board);
 
   if (cfg.sparePieces === true) {
-    sparePiecesTopEl = containerEl.find('div.' + CSS.sparePiecesTop);
-    sparePiecesBottomEl = containerEl.find('div.' + CSS.sparePiecesBottom);
+    sparePiecesTopEl = containerEl.find('.' + CSS.sparePiecesTop);
+    sparePiecesBottomEl = containerEl.find('.' + CSS.sparePiecesBottom);
   }
 
   // create the drag piece
@@ -1599,18 +1676,15 @@ var initDom = function() {
 
   // set the size and draw the board
   widget.resize();
-};
+}
 
-var init = function() {
+function init() {
   if (checkDeps() !== true ||
       expandConfig() !== true) return;
 
-  // create unique IDs for all the elements we will create
-  createElIds();
-
   initDom();
   addEvents();
-};
+}
 
 // go time
 init();
@@ -1625,3 +1699,4 @@ window.ChessBoard.fenToObj = fenToObj;
 window.ChessBoard.objToFen = objToFen;
 
 })(); // end anonymous wrapper
+
