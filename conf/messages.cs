@@ -53,7 +53,6 @@ requestAComputerAnalysis=Vyžádat počítačovou analýzu
 blunders=Hrubky
 mistakes=Omyly
 inaccuracies=Nepřesnosti
-viewGameStats=Zobrazit statistiky partie
 flipBoard=Otočit šachovnici
 threefoldRepetition=Trojí opakování pozice
 claimADraw=Reklamovat remízu
