@@ -32,7 +32,7 @@ private[round] final class Round(
     }
 
     case p: HumanPlay ⇒ handle(p.playerId) { pov ⇒
-      pov.game.outoftimePlayer.fold(player.human(p)(pov))(outOfTime(pov.game))
+      pov.game.outoftimePlayer.fold(player.human(p, self)(pov))(outOfTime(pov.game))
     }
 
     case AiPlay ⇒ handle { game ⇒

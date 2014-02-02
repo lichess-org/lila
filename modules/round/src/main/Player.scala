@@ -9,16 +9,16 @@ import lila.ai.Ai
 import lila.game.{ Game, GameRepo, Pov, Progress, UciMemo }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.MoveEvent
+import akka.actor.ActorRef
 
 private[round] final class Player(
     engine: Ai,
     bus: lila.common.Bus,
     finisher: Finisher,
     cheatDetector: CheatDetector,
-    roundMap: akka.actor.ActorSelection,
     uciMemo: UciMemo) {
 
-  def human(play: HumanPlay)(pov: Pov): Fu[Events] = play match {
+  def human(play: HumanPlay, round: ActorRef)(pov: Pov): Fu[Events] = play match {
     case HumanPlay(playerId, ip, origS, destS, promS, blur, lag, onFailure) ⇒ pov match {
       case Pov(game, color) if (game playableBy color) ⇒ {
         (for {
@@ -36,11 +36,11 @@ private[round] final class Player(
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
                     cheatDetector(progress.game) addEffect {
-                      case Some(color) ⇒ roundMap ! Tell(game.id, Cheat(color))
+                      case Some(color) ⇒ round ! Cheat(color)
                       case None ⇒ {
-                        if (progress.game.playableByAi) roundMap ! Tell(game.id, AiPlay)
-                        if (game.player.isOfferingDraw) roundMap ! Tell(game.id, DrawNo(game.player.id))
-                        if (game.player.isProposingTakeback) roundMap ! Tell(game.id, TakebackNo(game.player.id))
+                        if (progress.game.playableByAi) round ! AiPlay
+                        if (game.player.isOfferingDraw) round ! DrawNo(game.player.id)
+                        if (game.player.isProposingTakeback) round ! TakebackNo(game.player.id)
                       }
                     } inject progress.events
                   })

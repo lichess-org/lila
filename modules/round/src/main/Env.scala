@@ -100,7 +100,6 @@ final class Env(
     bus = system.lilaBus,
     finisher = finisher,
     cheatDetector = cheatDetector,
-    roundMap = hub.actor.roundMap,
     uciMemo = uciMemo)
 
   // public access to AI play, for setup.Processor usage
