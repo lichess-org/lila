@@ -104,8 +104,6 @@ SVG chess sets http://chesstempo.com/chess-tactics.html
 show analysis details, blur % in cheat table and reports
 ban only latest IP
 give AI levels ratings
-integrate move times in analysis view
-hash problem data to ensure unicity
 connect time chart to pgn viewer and say "time spent on this move: X seconds"
 
 deploy
