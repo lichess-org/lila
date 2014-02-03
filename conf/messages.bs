@@ -54,6 +54,7 @@ computerAnalysis=Racunarska analiza
 blunders=Zabuna
 mistakes=Greški
 inaccuracies=Nepravilnosti
+moveTimes=Vrijeme za Potez
 flipBoard=Okrenuti ploču
 threefoldRepetition=Trostruko ponavljanje
 claimADraw=Zahtijevati remi
