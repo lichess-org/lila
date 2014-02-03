@@ -10,9 +10,9 @@
 @jsAt("vendor/pgn4web/pgn4web-compacted.js")
 @jsTag("vendor/jquery.mousewheel.js")
 @jsTagCompiled("pgn4hacks.js")
-@analysis.map { a =>
 @highchartsTag
 @jsTagCompiled("chart2.js")
+@analysis.map { a =>
 @embedJs(s"var lichess_best_moves=${toJson(a.bestMoves)};")
 }
 }
