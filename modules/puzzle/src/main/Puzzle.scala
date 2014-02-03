@@ -44,12 +44,14 @@ object Puzzle {
   import BSON.BSONJodaDateTimeHandler
   private implicit val lineBSONHandler = new BSONHandler[BSONDocument, Lines] {
     def read(doc: BSONDocument): Lines = doc.elements.toList map {
-      case (move, BSONString("end" | "win")) ⇒ Win(move)
-      case (move, more: BSONDocument)        ⇒ Node(move, read(more))
-      case (move, value)                     ⇒ throw new Exception(s"Can't read value of $move: $value")
+      case (move, BSONString("win"))   ⇒ Win(move)
+      case (move, BSONString("retry")) ⇒ Retry(move)
+      case (move, more: BSONDocument)  ⇒ Node(move, read(more))
+      case (move, value)               ⇒ throw new Exception(s"Can't read value of $move: $value")
     }
     def write(lines: Lines): BSONDocument = BSONDocument(lines map {
       case Win(move)         ⇒ move -> BSONString("win")
+      case Retry(move)       ⇒ move -> BSONString("retry")
       case Node(move, lines) ⇒ move -> write(lines)
     })
   }
