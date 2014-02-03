@@ -6,7 +6,7 @@ import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import play.api.libs.iteratee.Enumerator
 import play.api.libs.json._
-import reactivemongo.bson.BSONDocument
+import reactivemongo.bson.{ BSONDocument, BSONInteger }
 import reactivemongo.core.commands.Count
 
 import lila.db.Types.Coll
@@ -65,17 +65,27 @@ private[puzzle] final class PuzzleApi(
     BSONDocument(Attempt.BSONFields.vote -> v)
   ).void
 
-  def fixFen = puzzleColl.find(BSONDocument()).cursor[Puzzle].enumerate() |>>>
-    (Iteratee.foldM[Puzzle, Unit](()) {
-      case (_, puzzle) ⇒ Generated fenOf puzzle.history match {
-        case Success(fen) ⇒ puzzleColl.update(
-          BSONDocument("_id" -> puzzle.id),
-          BSONDocument("$set" -> BSONDocument(
-            Puzzle.BSONFields.fen -> fen,
-            Puzzle.BSONFields.rating -> Glicko.default
-          ))
-        ).void
-        case Failure(err) ⇒ fufail(err.getMessage)
-      }
+  def fixAll = puzzleColl.find(
+    BSONDocument(),
+    BSONDocument("history" -> true)
+  ).cursor[BSONDocument].enumerate() |>>>
+    (Iteratee.foldM[BSONDocument, Unit](()) {
+      case (_, doc) ⇒
+        val reader = new lila.db.BSON.Reader(doc)
+        val (id, moves) = (reader str "_id", reader str "history" split ' ')
+        Generated fenOf moves match {
+          case Success(fen) ⇒ puzzleColl.update(
+            BSONDocument("_id" -> id),
+            BSONDocument("$set" -> BSONDocument(
+              Puzzle.BSONFields.fen -> fen,
+              Puzzle.BSONFields.rating -> Glicko.default,
+              Puzzle.BSONFields.vote -> BSONInteger(0),
+              Puzzle.BSONFields.attempts -> BSONInteger(0)
+            ))
+          ).void
+          case Failure(err) ⇒
+            println(err)
+            fufail(err.getMessage)
+        }
     })
 }

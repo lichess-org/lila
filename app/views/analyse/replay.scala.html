@@ -113,19 +113,16 @@ themepicker = true) {
       data-max="@lila.analyse.AdvantageChart.max"
       data-rows="@chart"></div>
     }.getOrElse {
-    <div class="future_game_analysis in_progress" >
-      @trans.computerAnalysisInProgress()
-    </div>
-    }
-    }.getOrElse {
-    @if(game.analysable && analysis.isEmpty) {
-    <!-- <form class="future_game_analysis@{ctx.isAnon ?? " must_login"}" action="@routes.Analyse.computer(gameId, color.name)" method="post"> -->
-    <!--   <button type="submit" class="button"><span>@trans.requestAComputerAnalysis()</span></button> -->
-    <!-- </form> -->
     <div class="future_game_analysis">
       @trans.computerAnalysisInProgress()
       <div class="spinner"></div>
     </div>
+    }
+    }.getOrElse {
+    @if(game.analysable && analysis.isEmpty) {
+    <form class="future_game_analysis@{ctx.isAnon ?? " must_login"}" action="@routes.Analyse.computer(gameId, color.name)" method="post">
+      <button type="submit" class="button"><span>@trans.requestAComputerAnalysis()</span></button>
+    </form>
     }
     }
     <div class="view_game_analysis future_game_analysis">

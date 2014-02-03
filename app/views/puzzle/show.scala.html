@@ -1,6 +1,17 @@
 @(puzzle: lila.puzzle.Puzzle)(implicit ctx: Context)
 
-@layout("Puzzle " + puzzle.id) {
+@moreCss = {
+@cssTag("chessboardjs.css")
+}
+
+@moreJs = {
+@jsTag("vendor/chess.min.js")
+@jsAt("compiled/problem.js")
+}
+
+@layout("Puzzle " + puzzle.id,
+evenMoreCss = moreCss.some,
+evenMoreJs = moreJs.some) {
 
 <div class="content_box" id="puzzle">
 
