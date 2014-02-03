@@ -49,11 +49,8 @@ private[round] final class Finisher(
 
   private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
     UserRepo.incNbGames(user.id, game.rated, game.hasAi,
-      result = game.nonAi option (game.winnerUserId match {
-        case None          ⇒ 0
-        case Some(user.id) ⇒ 1
-        case _             ⇒ -1
-      })
-    )
+      result = if (game.winnerUserId exists (user.id==)) 1
+      else if (game.loserUserId exists (user.id==)) -1
+      else 0)
   }
 }

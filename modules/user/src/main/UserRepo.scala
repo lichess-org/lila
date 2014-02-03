@@ -106,22 +106,22 @@ trait UserRepo {
   val sortProgressDesc = $sort desc "progress"
   val sortCreatedAtDesc = $sort desc User.BSONFields.createdAt
 
-  def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Option[Int]) = {
+  def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Int) = {
     val incs = List(
       "count.game".some,
       "count.rated".some filter (_ ⇒ rated),
       "count.ai".some filter (_ ⇒ ai),
       (result match {
-        case Some(-1) ⇒ "count.loss".some
-        case Some(1)  ⇒ "count.win".some
-        case Some(0)  ⇒ "count.draw".some
-        case _        ⇒ none
+        case -1 ⇒ "count.loss".some
+        case 1  ⇒ "count.win".some
+        case 0  ⇒ "count.draw".some
+        case _  ⇒ none
       }),
       (result match {
-        case Some(-1) ⇒ "count.lossH".some
-        case Some(1)  ⇒ "count.winH".some
-        case Some(0)  ⇒ "count.drawH".some
-        case _        ⇒ none
+        case -1 ⇒ "count.lossH".some
+        case 1  ⇒ "count.winH".some
+        case 0  ⇒ "count.drawH".some
+        case _  ⇒ none
       }) filterNot (_ ⇒ ai)
     ).flatten map (_ -> 1)
 
