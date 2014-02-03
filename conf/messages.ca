@@ -53,6 +53,7 @@ requestAComputerAnalysis=Demana una anàlisi informàtica
 blunders=Errades greus
 mistakes=Errades
 inaccuracies=Imprecisions
+moveTimes=Moure el temps
 flipBoard=Gira el tauler
 threefoldRepetition=Triple repetició de la posició
 claimADraw=Reclama taules
