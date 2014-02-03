@@ -52,7 +52,7 @@
 (defn try-move [progress move]
   (let [new-progress (conj progress move)
         new-lines (get-in lines new-progress)]
-    (if new-lines [new-progress new-lines] false)))
+    (if new-lines [new-progress new-lines] "fail")))
 
 (defn ai-play! [branch]
   (let [ch (chan) move (first (first branch))]
@@ -63,31 +63,39 @@
         (await-in ch move (+ 50 animation-delay))))
     ch))
 
-(defn end! [result] (-> puzzle-elem
-                        (dommy/add-class! (str "complete " result))
-                        (dommy/remove-class! "playing")))
+(defn set-status! [status] (dommy/set-attr! puzzle-elem :class status))
 
 (go
   (<! (timeout 1000))
   (apply-move initial-move)
   (set-position! (.fen chess))
   (color-move! initial-move)
-  (dommy/add-class! puzzle-elem "playing")
+  (set-status! "playing")
   (loop [progress [] fen (.fen chess)]
-    (let [move (<! drop-chan)]
-      (if-let [[new-progress new-lines] (try-move progress move)]
+    (let [move (<! drop-chan)
+          new-progress (conj progress move)
+          new-lines (get-in lines new-progress)]
+      (case new-lines
+        "retry" (do
+                  (set-status! "playing retry")
+                  (.load chess fen)
+                  (<! (delay-chan #(set-position! fen) animation-delay))
+                  (<! (timeout (+ animation-delay 50)))
+                  (recur progress fen))
+        nil (do
+              (set-status! "playing fail")
+              (.load chess fen)
+              (<! (delay-chan #(set-position! fen) animation-delay))
+              (<! (timeout (+ animation-delay 50)))
+              (recur progress fen))
         (do
+          (set-status! "playing")
           (color-move! move)
           (set-position! (.fen chess))
           (<! (timeout (+ animation-delay 50)))
           (if (= new-lines "win")
-            (end! "win")
+            (set-status! "win")
             (let [aim (<! (ai-play! new-lines))]
               (if (= (get new-lines aim) "win")
-                (end! "win")
-                (recur (conj new-progress aim) (.fen chess))))))
-        (do
-          (.load chess fen)
-          (<! (delay-chan #(set-position! fen) animation-delay))
-          (<! (timeout (+ animation-delay 50)))
-          (recur progress fen))))))
+                (set-status! "win")
+                (recur (conj new-progress aim) (.fen chess))))))))))

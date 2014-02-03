@@ -13,22 +13,30 @@
 evenMoreCss = moreCss.some,
 evenMoreJs = moreJs.some) {
 
-<div class="content_box" id="puzzle">
+<div class="content_box">
+  <div id="puzzle">
 
-  <h1>Puzzle #@puzzle.id</h1>
-  <p><a href="@routes.Puzzle.home">Back to puzzle list</a></p>
+    <h1>Puzzle #@puzzle.id</h1>
+    <p><a href="@routes.Puzzle.home">Back to puzzle list</a></p>
 
-  <div id="chessboard"
-    data-fen="@puzzle.fen"
-    data-move="@puzzle.initialMove"
-    data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"></div>
+    <div id="chessboard"
+      data-fen="@puzzle.fen"
+      data-move="@puzzle.initialMove"
+      data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"></div>
 
-  <div class="on_win">
-    Congrats! You solved the puzzle.
-  </div>
+    <div class="message on_win">
+      Congratulations! You solved the puzzle.
+    </div>
+    <div class="message on_retry">
+      This was a good move, but you can do better!
+    </div>
+    <div class="message on_fail">
+      Puzzle failed! But you can keep looking for the solution.
+    </div>
 
 <pre>
 @lila.puzzle.Line.toString(puzzle.lines)
 </pre>
+  </div>
 </div>
 }
