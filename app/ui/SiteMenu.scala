@@ -19,11 +19,18 @@ final class SiteMenu(trans: I18nKeys) {
   val forum = new Elem("forum", routes.ForumCateg.index, trans.forum)
   val tv = new Elem("tv", routes.Tv.index, I18nKey.untranslated("TV"))
   val message = new Elem("message", routes.Message.inbox(page = 1), trans.inbox)
+  val puzzle = new Elem("puzzle", routes.Puzzle.home, I18nKey untranslated "Puzzles")
 
   private val authenticated = List(play, game, tournament, user, team, forum, tv)
   private val anonymous = List(play, game, tournament, user, team, forum, tv)
 
-  def all(me: Option[User]) = me.isDefined.fold(authenticated, anonymous)
+  private val betaTesters = Set("thibault", "hellball", "clarkey", "legend", "chubakka", "iron_logician")
+
+  def all(me: Option[User]) = me match {
+    case Some(me) if betaTesters(me.id) ⇒ authenticated :+ puzzle
+    case Some(me)                       ⇒ authenticated
+    case _                              ⇒ anonymous
+  }
 }
 
 object SiteMenu {

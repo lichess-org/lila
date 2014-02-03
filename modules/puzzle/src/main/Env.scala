@@ -24,7 +24,7 @@ final class Env(
 
   def cli = new lila.common.Cli {
     def process = {
-      case "puzzle" :: "fix" :: "fen" :: Nil ⇒ api.fixFen inject "fixed!"
+      case "puzzle" :: "fix" :: "fen" :: Nil ⇒ api.fixAll inject "fixed!"
     }
   }
 

@@ -1,19 +1,19 @@
-@(title: String)(body: Html)(implicit ctx: Context)
+@(title: String, evenMoreCss: Option[Html] = None, evenMoreJs: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
+@evenMoreCss
 @cssTag("problem.css")
-@cssTag("chessboardjs.css")
 }
 
 @moreJs = {
+@evenMoreJs
 @jsTagCompiled("chessboard.js")
-@jsTag("vendor/chess.min.js")
-@jsAt("compiled/problem.js")
 }
 
 @base.layout(
 title = title,
 moreCss = moreCss,
-moreJs = moreJs) {
+moreJs = moreJs,
+active = siteMenu.puzzle.some) {
 @body
 }
