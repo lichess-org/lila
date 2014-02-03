@@ -1,13 +1,13 @@
 @(title: String, evenMoreCss: Option[Html] = None, evenMoreJs: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
+@cssTag("puzzle.css")
 @evenMoreCss
-@cssTag("problem.css")
 }
 
 @moreJs = {
-@evenMoreJs
 @jsTagCompiled("chessboard.js")
+@evenMoreJs
 }
 
 @base.layout(

@@ -23,7 +23,8 @@ case class Perfs(
     "blitz" -> blitz,
     "slow" -> slow,
     "white" -> white,
-    "black" -> black)
+    "black" -> black,
+    "puzzle" -> puzzle)
 
   override def toString = perfs map {
     case (name, perf) ⇒ s"$name:${perf.intRating}"
