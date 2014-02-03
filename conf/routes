@@ -208,7 +208,6 @@ POST  /report/:id/process              controllers.Report.process(id: String)
 
 # Puzzle
 POST  /api/puzzle                     controllers.Problem.importBatch
-GET   /puzzle/debug                   controllers.Problem.debug
 GET   /puzzle                         controllers.Problem.home
 GET   /puzzle/$id<[\w]{8}>            controllers.Problem.show(id: String)
 

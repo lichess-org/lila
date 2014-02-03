@@ -14,12 +14,6 @@ object Problem extends LilaController {
 
   private def env = Env.problem
 
-  def debug = Open { implicit ctx =>
-    env.api latest 50 map { problems =>
-      Ok(problems.toString)
-    }
-  }
-
   def home = Open { implicit ctx =>
     env.api latest 50 map { problems =>
       Ok(views.html.problem.home(problems))
