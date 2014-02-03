@@ -50,6 +50,7 @@ theComputerAnalysisYouRequestedIsNowAvailable=Računalniška analiza je na voljo
 theComputerAnalysisHasFailed=Računalniška analiza je spodletela
 viewTheComputerAnalysis=Poglej računalniško analizo
 requestAComputerAnalysis=Zahtevaj računalniško analizo
+computerAnalysis=računalniška analiza
 blunders=Hude napake
 mistakes=Napake
 inaccuracies=Nenatančnosti
