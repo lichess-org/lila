@@ -1,8 +1,8 @@
 (ns lichess.puzzle
   (:require [dommy.core :as dommy]
-            [cljs.core.async :as async :refer [chan <! >! alts! put! close!]])
+            [cljs.core.async :as async :refer [chan <! >! alts! put! close! timeout]])
   (:require-macros [cljs.core.async.macros :refer [go]])
-  (:use-macros [dommy.macros :only [node sel sel1]]))
+  (:use-macros [dommy.macros :only [sel sel1]]))
 
 (defn log! [& args] (.log js/console (apply pr-str args)))
 (defn log-obj! [obj] (.log js/console obj))
@@ -23,8 +23,13 @@
   ([orig, dest] (.move chess (clj->js {:from orig :to dest})))
   ([move] (let [[a, b, c, d] (seq move)] (apply-move (str a b) (str c d)))))
 
+(defn color-move! [move]
+  (let [[a b c d] (seq move) [orig dest] [(str a b) (str c d)]]
+    (doseq [s (sel [chessboard-elem :.last])] (dommy/remove-class! s :last))
+    (let [squares (clojure.string/join ", " (map #(str ".square-" %) [orig dest]))]
+      (doseq [s (sel squares)] (dommy/add-class! s :last)))))
+
 (defn delay-chan [fun duration] (let [ch (chan)] (js/setTimeout #(put! ch (or (fun) true)) duration) ch))
-(defn await-chan [value duration] (let [ch (chan)] (js/setTimeout #(put! ch value) duration) ch))
 (defn await-in [ch value duration] (js/setTimeout #(put! ch value) duration) ch)
 
 (defn on-drop! [orig, dest]
@@ -52,6 +57,7 @@
 (defn ai-play! [branch]
   (let [ch (chan) move (first (first branch))]
     (when-let [valid (apply-move move)]
+      (color-move! move)
       (go
         (set-position! (.fen chess))
         (await-in ch move (+ 50 animation-delay))))
@@ -62,16 +68,18 @@
                         (dommy/remove-class! "playing")))
 
 (go
-  (<! (await-chan true 1000))
+  (<! (timeout 1000))
   (apply-move initial-move)
   (set-position! (.fen chess))
+  (color-move! initial-move)
   (dommy/add-class! puzzle-elem "playing")
   (loop [progress [] fen (.fen chess)]
     (let [move (<! drop-chan)]
       (if-let [[new-progress new-lines] (try-move progress move)]
         (do
+          (color-move! move)
           (set-position! (.fen chess))
-          (<! (await-chan true (+ animation-delay 50)))
+          (<! (timeout (+ animation-delay 50)))
           (if (= new-lines "win")
             (end! "win")
             (let [aim (<! (ai-play! new-lines))]
@@ -81,5 +89,5 @@
         (do
           (.load chess fen)
           (<! (delay-chan #(set-position! fen) animation-delay))
-          (<! (await-chan true (+ animation-delay 50)))
+          (<! (timeout (+ animation-delay 50)))
           (recur progress fen))))))

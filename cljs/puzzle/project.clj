@@ -11,6 +11,8 @@
                        :dev {
                              :source-paths ["src"]
                              :compiler {:output-to "../../public/compiled/puzzle.js"
+                                        ; :source-map "../../public/compiled/puzzle.js.map"
+                                        ; :output-dir "../../public/compiled/target"
                                         :optimizations :whitespace
                                         :pretty-print true}}
                        :prod {
