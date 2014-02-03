@@ -8,30 +8,29 @@
 (defn log-obj! [obj] (.log js/console obj))
 
 (def static-domain (str "http://" (clojure.string/replace (.-domain js/document) #"^\w+" "static")))
+(def puzzle-elem (sel1 "#puzzle"))
 (def chessboard-elem (sel1 "#chessboard"))
 (def initial-fen (dommy/attr chessboard-elem "data-fen"))
 (def initial-move (dommy/attr chessboard-elem "data-move"))
-(log! initial-fen)
 (def lines (js->clj (js/JSON.parse (dommy/attr chessboard-elem "data-lines"))))
 (def drop-chan (chan))
 (def animation-delay 300)
 (def chess (new js/Chess initial-fen))
 
-(defn playing [] (not (dommy/has-class? (sel1 "#puzzle") "complete")))
+(defn playing [] (dommy/has-class? puzzle-elem "playing"))
 
-(defn make-move
-  ([orig, dest] {:from orig :to dest})
-  ([move] (let [[a, b, c, d] (seq move)] (make-move (str a b) (str c d)))))
+(defn apply-move
+  ([orig, dest] (.move chess (clj->js {:from orig :to dest})))
+  ([move] (let [[a, b, c, d] (seq move)] (apply-move (str a b) (str c d)))))
 
 (defn delay-chan [fun duration] (let [ch (chan)] (js/setTimeout #(put! ch (or (fun) true)) duration) ch))
 (defn await-chan [value duration] (let [ch (chan)] (js/setTimeout #(put! ch value) duration) ch))
 (defn await-in [ch value duration] (js/setTimeout #(put! ch value) duration) ch)
 
 (defn on-drop! [orig, dest]
-  (if (and (playing) (.move chess (clj->js (make-move orig dest))))
+  (if (and (playing) (apply-move orig dest))
     (put! drop-chan (str orig dest)) "snapback"))
 
-(log! (.turn chess))
 (def chessboard
   (new js/ChessBoard "chessboard"
        (clj->js {:position initial-fen
@@ -52,20 +51,21 @@
 
 (defn ai-play! [branch]
   (let [ch (chan) move (first (first branch))]
-    (when-let [valid (.move chess (clj->js (make-move move)))]
+    (when-let [valid (apply-move move)]
       (go
         (set-position! (.fen chess))
         (await-in ch move (+ 50 animation-delay))))
     ch))
 
-(defn end! [result]
-  (close! drop-chan)
-  (dommy/add-class! (sel1 "#puzzle") (str "complete " result)))
+(defn end! [result] (-> puzzle-elem
+                        (dommy/add-class! (str "complete " result))
+                        (dommy/remove-class! "playing")))
 
 (go
   (<! (await-chan true 1000))
-  (.move chess (clj->js (make-move initial-move)))
+  (apply-move initial-move)
   (set-position! (.fen chess))
+  (dommy/add-class! puzzle-elem "playing")
   (loop [progress [] fen (.fen chess)]
     (let [move (<! drop-chan)]
       (if-let [[new-progress new-lines] (try-move progress move)]
