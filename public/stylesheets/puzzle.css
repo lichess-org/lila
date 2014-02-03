@@ -3,17 +3,29 @@
   margin: 20px auto;
 }
 
-#puzzle .on_win {
+#puzzle .on_win,
+#puzzle .on_retry,
+#puzzle .on_fail {
   margin: 1em;
   padding: 1em;
   text-align: center;
   font-size: 1.2em;
-  border: 1px solid #DADADA;
+  border: 1px solid #c0c0c0;
   color: #000;
-  background: #AAFFAA;
   display: none;
 }
-#puzzle.win .on_win {
+#puzzle .on_win {
+  background: #AAFFAA;
+}
+#puzzle .on_retry {
+  background: #CCCC77;
+}
+#puzzle .on_fail {
+  background: #FF9999;
+}
+#puzzle.win .on_win,
+#puzzle.retry .on_retry,
+#puzzle.fail .on_fail {
   display: block;
 }
 .last {
