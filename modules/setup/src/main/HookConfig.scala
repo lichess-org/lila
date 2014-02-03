@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.{ Variant, Mode, Color ⇒ ChessColor }
-import lila.common.RatingRange
+import lila.rating.RatingRange
 import lila.lobby.Color
 import lila.lobby.Hook
 import lila.user.User

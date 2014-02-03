@@ -15,6 +15,6 @@
                                         :pretty-print true}}
                        :prod {
                               :source-paths ["src"]
-                              :compiler {:output-to "target/compiled.js"
+                              :compiler {:output-to "../../public/compiled/problem.js"
                                          :optimizations :advanced
                                          :pretty-print false}}}})

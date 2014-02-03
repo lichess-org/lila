@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 
 import lila.db.api._
+import lila.rating.Glicko
 import tube.historyColl
 
 case class HistoryEntry(date: DateTime, rating: Int, deviation: Int, opponent: Int)

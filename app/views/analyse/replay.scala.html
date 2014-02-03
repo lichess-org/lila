@@ -101,7 +101,7 @@ themepicker = true) {
 <div class="analysis_panels">
   <div class="panel computer_analysis active">
     @analysis.map { a =>
-    @if(a.old) {
+    @if(a.old && ctx.isAuth) {
     <form class="request_analysis future_game_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
       <button type="submit" class="button"><span>Request a better computer analysis</span></button>
     </form>
@@ -113,15 +113,19 @@ themepicker = true) {
       data-max="@lila.analyse.AdvantageChart.max"
       data-rows="@chart"></div>
     }.getOrElse {
-    <div class="future_game_analysis">
+    <div class="future_game_analysis in_progress" >
       @trans.computerAnalysisInProgress()
     </div>
     }
     }.getOrElse {
-    @if(ctx.isAuth && game.analysable && analysis.isEmpty) {
-    <form class="future_game_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
-      <button type="submit" class="button"><span>@trans.requestAComputerAnalysis()</span></button>
-    </form>
+    @if(game.analysable && analysis.isEmpty) {
+    <!-- <form class="future_game_analysis@{ctx.isAnon ?? " must_login"}" action="@routes.Analyse.computer(gameId, color.name)" method="post"> -->
+    <!--   <button type="submit" class="button"><span>@trans.requestAComputerAnalysis()</span></button> -->
+    <!-- </form> -->
+    <div class="future_game_analysis">
+      @trans.computerAnalysisInProgress()
+      <div class="spinner"></div>
+    </div>
     }
     }
     <div class="view_game_analysis future_game_analysis">

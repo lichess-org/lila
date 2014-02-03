@@ -11,6 +11,7 @@ import reactivemongo.bson._
 import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
+import lila.rating.Glicko
 import tube.userTube
 
 object UserRepo extends UserRepo {

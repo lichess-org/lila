@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.{ Variant, Mode, Clock }
-import lila.common.RatingRange
+import lila.rating.RatingRange
 import lila.game.{ Game, Player, Source }
 import lila.lobby.Color
 

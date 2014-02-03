@@ -3,6 +3,7 @@ package lila.user
 import org.joda.time.DateTime
 import reactivemongo.bson.BSONDocument
 
+import lila.rating.Glicko
 import lila.db.BSON
 
 case class Perf(

@@ -119,7 +119,7 @@ $(function() {
       chart: {
         type: 'area',
         margin: 0,
-        marginTop: 16,
+        marginTop: 20,
         spacing: [10, 0, 0, 0]
       },
       plotOptions: {
@@ -158,9 +158,8 @@ $(function() {
       },
       title: {
         text: $this.attr('title'),
-        margin: 0,
         align: 'left',
-        y: 0
+        y: 5
       },
       xAxis: {
         title: noText,
@@ -194,7 +193,7 @@ $(function() {
           type: 'area',
           margin: 0,
           marginTop: 0,
-          spacing: [10, 0, 0, 0]
+          spacing: [0, 0, 0, 0]
         },
         plotOptions: {
           area: {

@@ -17,4 +17,8 @@ play-2*
 
 db/lib/
 
+cljs/*/out
+cljs/*/repl
+cljs/*/.repl
+
 RUNNING_PID

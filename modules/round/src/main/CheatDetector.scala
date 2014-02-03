@@ -16,7 +16,7 @@ private[round] final class CheatDetector(reporter: ActorSelection) {
             play.api.Logger("cheat detector").info(s"$color @ ${game.id} uses ${mirror.id}")
             player.userId foreach { userId ⇒
               reporter ! lila.hub.actorApi.report.Cheater(userId,
-                s"Cheat detected on http://lichess.org/${game.id}, using lichess AI.")
+                s"Cheat detected on ${gameUrl(game.id)}, using lichess AI: ${gameUrl(mirror.id)}")
             }
             Some(color)
           case None ⇒ None
@@ -24,6 +24,8 @@ private[round] final class CheatDetector(reporter: ActorSelection) {
       }
     }
   }
+
+  private def gameUrl(gameId: String) = s"http://lichess.org/${gameId}"
 
   private val TURNS_MODULUS = 10
 
