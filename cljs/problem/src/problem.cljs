@@ -44,7 +44,7 @@
   (go (loop [progress [] fen initial-fen]
         (let [[orig, target] (async/<! drop-chan) move (str orig target)]
           (if-let [[new-progress new-lines] (try-move progress move)]
-            (if (= new-progress "end")
+            (if (= new-lines "end")
               (end! "success")
               (let [ai-move (ai-play! new-lines)]
                 (if (= (get new-lines ai-move) "end")
