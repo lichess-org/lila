@@ -50,6 +50,7 @@ theComputerAnalysisYouRequestedIsNowAvailable=De computer analyse waar u om vroe
 theComputerAnalysisHasFailed=De computer analyse is mislukt
 viewTheComputerAnalysis=Bekijk de computer analyse
 requestAComputerAnalysis=Verzoek een computer analyse
+computerAnalysis=Computer analyse
 blunders=Blunders
 mistakes=Fouten
 inaccuracies=Inaccurate zetten
