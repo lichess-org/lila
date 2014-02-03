@@ -16,3 +16,6 @@
 #puzzle.win .on_win {
   display: block;
 }
+.last {
+  background-image: url(../images/over5.png);
+}
