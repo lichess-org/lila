@@ -50,6 +50,7 @@ theComputerAnalysisYouRequestedIsNowAvailable=Výsledky počítačové analýzy 
 theComputerAnalysisHasFailed=Počítačová analýza selhala
 viewTheComputerAnalysis=Zobrazit počítačovou analýzu
 requestAComputerAnalysis=Vyžádat počítačovou analýzu
+computerAnalysis=Počítačová analýza
 blunders=Hrubky
 mistakes=Omyly
 inaccuracies=Nepřesnosti
