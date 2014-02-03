@@ -1,4 +1,4 @@
-package lila.problem
+package lila.puzzle
 
 import play.api.libs.json._
 

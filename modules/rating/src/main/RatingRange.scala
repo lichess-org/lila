@@ -1,4 +1,4 @@
-package lila.common
+package lila.rating
 
 case class RatingRange(min: Int, max: Int) {
 

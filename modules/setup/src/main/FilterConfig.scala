@@ -4,7 +4,7 @@ import chess.{ Variant, Mode, Speed }
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
-import lila.common.RatingRange
+import lila.rating.RatingRange
 
 case class FilterConfig(
     variant: List[Variant],

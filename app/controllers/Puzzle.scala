@@ -6,23 +6,23 @@ import play.api.mvc._
 import play.api.templates.Html
 
 import lila.app._
-import lila.problem.{ Generated, Problem ⇒ ProblemModel }
+import lila.puzzle.{ Generated, Puzzle ⇒ PuzzleModel }
 import lila.user.{ User ⇒ UserModel, UserRepo }
 import views._
 
-object Problem extends LilaController {
+object Puzzle extends LilaController {
 
-  private def env = Env.problem
+  private def env = Env.puzzle
 
   def home = Open { implicit ctx =>
-    env.api latest 50 map { problems =>
-      Ok(views.html.problem.home(problems))
+    env.api latest 50 map { puzzles =>
+      Ok(views.html.puzzle.home(puzzles))
     }
   }
 
   def show(id: String) = Open { implicit ctx =>
-    OptionOk(env.api find id) { problem =>
-      views.html.problem.show(problem)
+    OptionOk(env.api find id) { puzzle =>
+      views.html.puzzle.show(puzzle)
     }
   }
 
@@ -30,7 +30,7 @@ object Problem extends LilaController {
     env.api.importBatch(req.body, ~get("token", req)) match {
       case Success(f) ⇒ f inject Ok("kthxbye")
       case Failure(e) ⇒ {
-        play.api.Logger("Problem import").warn(e.getMessage)
+        play.api.Logger("Puzzle import").warn(e.getMessage)
         fuccess(BadRequest(e.getMessage))
       }
     }

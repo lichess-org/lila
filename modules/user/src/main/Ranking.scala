@@ -7,6 +7,7 @@ import play.api.libs.json.Json
 import lila.db.api._
 import lila.db.Implicits._
 import lila.memo.AsyncCache
+import lila.rating.Glicko
 import tube.userTube
 
 private[user] final class Ranking(ttl: Duration) {

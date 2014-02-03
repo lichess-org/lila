@@ -1,4 +1,4 @@
-package lila.user
+package lila.rating
 
 import reactivemongo.bson.BSONDocument
 
@@ -27,7 +27,7 @@ case object Glicko {
     rating + (deviation * 2)
   )
 
-  private def GlickoBSONHandler = new BSON[Glicko] {
+  implicit val GlickoBSONHandler = new BSON[Glicko] {
 
     def reads(r: BSON.Reader): Glicko = Glicko(
       rating = r double "r",

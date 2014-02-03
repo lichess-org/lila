@@ -106,11 +106,6 @@ ban only latest IP
 give AI levels ratings
 connect time chart to pgn viewer and say "time spent on this move: X seconds"
 
-deploy
------
-db.problem.ensureIndex({fen:1},{unique:1})
-db.problem.ensureIndex({date:-1})
-
 infra
 -------
 lila nice + thread limit

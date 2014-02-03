@@ -71,7 +71,7 @@ final class Env(
       Env.pref,
       Env.evaluation,
       Env.chat,
-      Env.problem)
+      Env.puzzle)
     loginfo("[boot] Preloading complete")
   }
 
@@ -123,5 +123,5 @@ object Env {
   def pref = lila.pref.Env.current
   def evaluation = lila.evaluation.Env.current
   def chat = lila.chat.Env.current
-  def problem = lila.problem.Env.current
+  def puzzle = lila.puzzle.Env.current
 }

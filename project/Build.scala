@@ -26,12 +26,12 @@ object ApplicationBuild extends Build {
   ) dependsOn api aggregate api
 
   lazy val modules = Seq(
-    chess, common, db, user, security, wiki, hub, socket,
+    chess, common, db, rating, user, security, wiki, hub, socket,
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     ai, analyse, mod, monitor, site, round, lobby, setup,
     importer, tournament, relation, report, pref, simulation,
-    evaluation, chat, problem)
+    evaluation, chat, puzzle)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -43,8 +43,8 @@ object ApplicationBuild extends Build {
         actuarius, scalastic, findbugs, RM)
     ) aggregate (moduleRefs: _*)
 
-  lazy val problem = project("problem", Seq(
-    common, hub, db, user)).settings(
+  lazy val puzzle = project("puzzle", Seq(
+    common, hub, db, user, rating)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
@@ -60,6 +60,10 @@ object ApplicationBuild extends Build {
 
   lazy val common = project("common").settings(
     libraryDependencies ++= provided(play.api, play.test, RM, csv)
+  )
+
+  lazy val rating = project("rating", Seq(common, db)).settings(
+    libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
   lazy val memo = project("memo", Seq(common)).settings(
@@ -90,7 +94,7 @@ object ApplicationBuild extends Build {
       play.api, play.test, RM, PRM)
   )
 
-  lazy val user = project("user", Seq(common, memo, db, hub, chess)).settings(
+  lazy val user = project("user", Seq(common, memo, db, hub, chess, rating)).settings(
     libraryDependencies ++= provided(
       play.api, play.test, RM, PRM, hasher)
   )

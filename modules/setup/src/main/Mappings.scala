@@ -4,7 +4,7 @@ import play.api.data.Forms._
 
 import chess.format.Forsyth
 import chess.Mode
-import lila.common.RatingRange
+import lila.rating.RatingRange
 import lila.lobby.Color
 
 object Mappings {

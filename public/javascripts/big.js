@@ -2571,6 +2571,10 @@ var storage = {
       if (panel == 'move_times') $.renderMoveTimesChart();
     });
 
+    $panels.find('form.must_login').submit(function() {
+      return confirm($.trans('You need an account to do that') + '.');
+    });
+
     lichess.socket = new strongSocket(
       $game.data("socket-url"),
       parseInt($game.data("version"), 10),

@@ -6,7 +6,7 @@ import Game.fields
 import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
 import org.joda.time.DateTime
 
-import lila.common.RatingRange
+import lila.rating.RatingRange
 import lila.search.{ ElasticSearch, Range }
 
 case class Query(

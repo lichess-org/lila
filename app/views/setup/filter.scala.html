@@ -1,6 +1,6 @@
 @(form: Form[_], filter: lila.setup.FilterConfig)(implicit ctx: Context)
 
-@import lila.common.RatingRange
+@import lila.rating.RatingRange
 
 @helper.form(action = routes.Setup.filter(), 'novalidate -> "novalidate") {
 <table>

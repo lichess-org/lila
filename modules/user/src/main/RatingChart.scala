@@ -6,6 +6,8 @@ import org.joda.time.DateTime
 import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 import play.api.libs.json.Json
 
+import lila.rating.Glicko
+
 case class RatingChart(rows: String) {
 
   def columns: String = RatingChart.columns
@@ -54,7 +56,7 @@ object RatingChart {
           val ratingValues = ratings map (_.rating)
           val opValues = ratings map (_.opponent)
           ratings.zipWithIndex map {
-            case (entry @ HistoryEntry(_, rating, _, opponent), i) ⇒ Median(
+            case (entry@HistoryEntry(_, rating, _, opponent), i) ⇒ Median(
               entry,
               opValues.slice(i - opMedian, i + opMedian) |> { vs ⇒
                 if (vs.isEmpty) 0 else (vs.sum / vs.size)
@@ -64,13 +66,13 @@ object RatingChart {
 
         Json stringify {
           val values = withMedian(reduce(rawRatings))
-          val ranges = values map { vs =>
+          val ranges = values map { vs ⇒
             Glicko.range(vs.entry.rating, vs.entry.deviation) match {
-              case (x, y) => List(x, y)
+              case (x, y) ⇒ List(x, y)
             }
           }
           Json.obj(
-            "date" -> (values map (x => formatter print x.entry.date)),
+            "date" -> (values map (x ⇒ formatter print x.entry.date)),
             "rating" -> (values map (_.entry.rating)),
             "range" -> ranges,
             // "avg" -> (values map (_.median)),

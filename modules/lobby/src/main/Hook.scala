@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 
-import lila.common.RatingRange
+import lila.rating.RatingRange
 import lila.user.User
 
 case class Hook(

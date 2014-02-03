@@ -6,7 +6,8 @@ import org.joda.time.DateTime
 import play.api.Logger
 
 import lila.game.{ GameRepo, Game, Pov }
-import lila.user.{ UserRepo, HistoryRepo, HistoryEntry, User, Perf, Perfs, Glicko }
+import lila.rating.Glicko
+import lila.user.{ UserRepo, HistoryRepo, HistoryEntry, User, Perf, Perfs }
 
 private final class PerfsUpdater {
 

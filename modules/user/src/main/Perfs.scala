@@ -12,7 +12,8 @@ case class Perfs(
     blitz: Perf,
     slow: Perf,
     white: Perf,
-    black: Perf) {
+    black: Perf,
+    puzzle: Perf) {
 
   def perfs = List(
     "global" -> global,
@@ -33,7 +34,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p)
   }
 
   private def PerfsBSONHandler = new BSON[Perfs] {
@@ -50,7 +51,8 @@ case object Perfs {
         blitz = perf("blitz"),
         slow = perf("slow"),
         white = perf("white"),
-        black = perf("black"))
+        black = perf("black"),
+        puzzle = perf("puzzle"))
     }
 
     def writes(w: BSON.Writer, o: Perfs) = BSONDocument(
@@ -61,7 +63,8 @@ case object Perfs {
       "blitz" -> o.blitz,
       "slow" -> o.slow,
       "white" -> o.white,
-      "black" -> o.black)
+      "black" -> o.black,
+      "puzzle" -> o.puzzle)
   }
 
   lazy val tube = lila.db.BsTube(PerfsBSONHandler)
