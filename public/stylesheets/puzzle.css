@@ -3,7 +3,7 @@
   margin: 20px auto;
 }
 
-#puzzle .on_success {
+#puzzle .on_win {
   margin: 1em;
   padding: 1em;
   text-align: center;
@@ -13,6 +13,6 @@
   background: #AAFFAA;
   display: none;
 }
-#puzzle.success .on_success {
+#puzzle.win .on_win {
   display: block;
 }

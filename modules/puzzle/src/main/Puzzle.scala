@@ -1,37 +1,36 @@
 package lila.puzzle
 
-import chess.Color
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
 
 import lila.rating.Glicko
 
 case class Puzzle(
-  id: PuzzleId,
-  gameId: Option[String],
-  tags: List[String],
-  color: Color,
-  history: List[String],
-  fen: String,
-  lines: List[Line],
-  date: DateTime,
-  rating: Glicko,
-  vote: Int,
-  attempts: Int)
+    id: PuzzleId,
+    gameId: Option[String],
+    tags: List[String],
+    history: List[String],
+    fen: String,
+    lines: List[Line],
+    date: DateTime,
+    rating: Glicko,
+    vote: Int,
+    attempts: Int) {
+
+  def initialMove = history.last
+}
 
 object Puzzle {
 
   def make(
     gameId: Option[String],
     tags: List[String],
-    color: Color,
     history: List[String],
     fen: String,
     lines: Lines) = new Puzzle(
     id = ornicar.scalalib.Random nextStringUppercase 8,
     gameId = gameId,
     tags = tags,
-    color = color,
     history = history,
     fen = fen,
     lines = lines,
@@ -45,12 +44,12 @@ object Puzzle {
   import BSON.BSONJodaDateTimeHandler
   private implicit val lineBSONHandler = new BSONHandler[BSONDocument, Lines] {
     def read(doc: BSONDocument): Lines = doc.elements.toList map {
-      case (move, BSONString("end"))  ⇒ End(move)
-      case (move, more: BSONDocument) ⇒ Node(move, read(more))
-      case (move, value)              ⇒ throw new Exception(s"Can't read value of $move: $value")
+      case (move, BSONString("end" | "win")) ⇒ Win(move)
+      case (move, more: BSONDocument)        ⇒ Node(move, read(more))
+      case (move, value)                     ⇒ throw new Exception(s"Can't read value of $move: $value")
     }
     def write(lines: Lines): BSONDocument = BSONDocument(lines map {
-      case End(move)         ⇒ move -> BSONString("end")
+      case Win(move)         ⇒ move -> BSONString("win")
       case Node(move, lines) ⇒ move -> write(lines)
     })
   }
@@ -78,7 +77,6 @@ object Puzzle {
       id = r str id,
       gameId = r strO gameId,
       tags = r.get[List[String]](tags),
-      color = Color(r bool white),
       history = r str history split ' ' toList,
       fen = r str fen,
       lines = r.get[Lines](lines),
@@ -91,7 +89,6 @@ object Puzzle {
       id -> o.id,
       gameId -> o.gameId,
       tags -> o.tags,
-      white -> o.color.white,
       history -> o.history.mkString(" "),
       fen -> o.fen,
       lines -> o.lines,

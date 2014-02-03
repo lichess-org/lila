@@ -20,10 +20,10 @@ evenMoreJs = moreJs.some) {
 
   <div id="chessboard"
     data-fen="@puzzle.fen"
-    data-color="@puzzle.color.name"
+    data-move="@puzzle.initialMove"
     data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"></div>
 
-  <div class="on_success">
+  <div class="on_win">
     Congrats! You solved the puzzle.
   </div>
 

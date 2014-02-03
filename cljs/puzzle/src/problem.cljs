@@ -10,6 +10,8 @@
 (def static-domain (str "http://" (clojure.string/replace (.-domain js/document) #"^\w+" "static")))
 (def chessboard-elem (sel1 "#chessboard"))
 (def initial-fen (dommy/attr chessboard-elem "data-fen"))
+(def initial-move (dommy/attr chessboard-elem "data-move"))
+(log! initial-fen)
 (def lines (js->clj (js/JSON.parse (dommy/attr chessboard-elem "data-lines"))))
 (def drop-chan (chan))
 (def animation-delay 300)
@@ -29,15 +31,17 @@
   (if (and (playing) (.move chess (clj->js (make-move orig dest))))
     (put! drop-chan (str orig dest)) "snapback"))
 
-(def chessboard (new js/ChessBoard "chessboard"
-                     (clj->js {:position initial-fen
-                               :orientation (dommy/attr chessboard-elem "data-color")
-                               :draggable true
-                               :dropOffBoard "snapback"
-                               :sparePieces false
-                               :pieceTheme (str static-domain "/assets/images/chessboard/{piece}.png")
-                               :moveSpeed animation-delay
-                               :onDrop on-drop!})))
+(log! (.turn chess))
+(def chessboard
+  (new js/ChessBoard "chessboard"
+       (clj->js {:position initial-fen
+                 :orientation (if (= "b" (.turn chess)) "white" "black")
+                 :draggable true
+                 :dropOffBoard "snapback"
+                 :sparePieces false
+                 :pieceTheme (str static-domain "/assets/images/chessboard/{piece}.png")
+                 :moveSpeed animation-delay
+                 :onDrop on-drop!})))
 
 (defn set-position! [fen] (.position chessboard fen))
 
@@ -58,20 +62,24 @@
   (close! drop-chan)
   (dommy/add-class! (sel1 "#puzzle") (str "complete " result)))
 
-(go (loop [progress [] fen initial-fen]
-      (let [move (<! drop-chan)]
-        (if-let [[new-progress new-lines] (try-move progress move)]
-          (do
-            (set-position! (.fen chess))
-            (<! (await-chan true (+ animation-delay 50)))
-            (if (= new-lines "end")
-              (end! "success")
-              (let [aim (<! (ai-play! new-lines))]
-                (if (= (get new-lines aim) "end")
-                  (end! "success")
-                  (recur (conj new-progress aim) (.fen chess))))))
-          (do
-            (.load chess fen)
-            (<! (delay-chan #(set-position! fen) animation-delay))
-            (<! (await-chan true (+ animation-delay 50)))
-            (recur progress fen))))))
+(go
+  (<! (await-chan true 1000))
+  (.move chess (clj->js (make-move initial-move)))
+  (set-position! (.fen chess))
+  (loop [progress [] fen (.fen chess)]
+    (let [move (<! drop-chan)]
+      (if-let [[new-progress new-lines] (try-move progress move)]
+        (do
+          (set-position! (.fen chess))
+          (<! (await-chan true (+ animation-delay 50)))
+          (if (= new-lines "win")
+            (end! "win")
+            (let [aim (<! (ai-play! new-lines))]
+              (if (= (get new-lines aim) "win")
+                (end! "win")
+                (recur (conj new-progress aim) (.fen chess))))))
+        (do
+          (.load chess fen)
+          (<! (delay-chan #(set-position! fen) animation-delay))
+          (<! (await-chan true (+ animation-delay 50)))
+          (recur progress fen))))))
