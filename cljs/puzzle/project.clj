@@ -1,5 +1,5 @@
 (defproject pcg "1.0"
-  :description "lichess.org problem solver"
+  :description "lichess.org puzzle solver"
   :source-paths ["src-clj"]
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/clojurescript "0.0-2156" :exclusions [org.apache.ant/ant]]
@@ -10,11 +10,11 @@
               :builds {
                        :dev {
                              :source-paths ["src"]
-                             :compiler {:output-to "../../public/compiled/problem.js"
+                             :compiler {:output-to "../../public/compiled/puzzle.js"
                                         :optimizations :whitespace
                                         :pretty-print true}}
                        :prod {
                               :source-paths ["src"]
-                              :compiler {:output-to "../../public/compiled/problem.js"
+                              :compiler {:output-to "../../public/compiled/puzzle.js"
                                          :optimizations :advanced
                                          :pretty-print false}}}})

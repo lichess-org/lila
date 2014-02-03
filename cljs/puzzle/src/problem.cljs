@@ -1,4 +1,4 @@
-(ns lichess.problem
+(ns lichess.puzzle
   (:require [dommy.core :as dommy]
             [cljs.core.async :as async :refer [chan <! >! alts! put! close!]])
   (:require-macros [cljs.core.async.macros :refer [go]])
@@ -15,7 +15,7 @@
 (def animation-delay 300)
 (def chess (new js/Chess initial-fen))
 
-(defn playing [] (not (dommy/has-class? (sel1 "#problem") "complete")))
+(defn playing [] (not (dommy/has-class? (sel1 "#puzzle") "complete")))
 
 (defn make-move
   ([orig, dest] {:from orig :to dest})
@@ -56,7 +56,7 @@
 
 (defn end! [result]
   (close! drop-chan)
-  (dommy/add-class! (sel1 "#problem") (str "complete " result)))
+  (dommy/add-class! (sel1 "#puzzle") (str "complete " result)))
 
 (go (loop [progress [] fen initial-fen]
       (let [move (<! drop-chan)]
