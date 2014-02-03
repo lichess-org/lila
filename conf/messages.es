@@ -50,6 +50,7 @@ theComputerAnalysisYouRequestedIsNowAvailable=El análisis de computadora que so
 theComputerAnalysisHasFailed=El análisis de la computadora ha fallado
 viewTheComputerAnalysis=Ver el análisis de la computadora
 requestAComputerAnalysis=Pedir un análisis de la computadora
+computerAnalysis=Análisis por ordenador
 blunders=Despistes
 mistakes=Errores
 inaccuracies=Imprecisiones
