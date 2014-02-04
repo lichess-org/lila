@@ -29,7 +29,6 @@
     (let [squares (clojure.string/join ", " (map #(str ".square-" %) [orig dest]))]
       (doseq [s (sel squares)] (dommy/add-class! s :last)))))
 
-(defn delay-chan [fun duration] (let [ch (chan)] (js/setTimeout #(put! ch (or (fun) true)) duration) ch))
 (defn await-in [ch value duration] (js/setTimeout #(put! ch value) duration) ch)
 
 (defn on-drop! [orig, dest]
@@ -78,15 +77,15 @@
       (case new-lines
         "retry" (do
                   (set-status! "playing retry")
+                  (<! (timeout animation-delay))
                   (.load chess fen)
-                  (<! (delay-chan #(set-position! fen) animation-delay))
-                  (<! (timeout (+ animation-delay 50)))
+                  (set-position! fen)
                   (recur progress fen))
         nil (do
               (set-status! "playing fail")
+              (<! (timeout animation-delay))
               (.load chess fen)
-              (<! (delay-chan #(set-position! fen) animation-delay))
-              (<! (timeout (+ animation-delay 50)))
+              (set-position! fen)
               (recur progress fen))
         (do
           (set-status! "playing")
