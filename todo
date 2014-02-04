@@ -106,8 +106,6 @@ ban only latest IP
 give AI levels ratings
 connect time chart to pgn viewer and say "time spent on this move: X seconds"
 
-start puzzle with opponent move
-
 deploy
 ------
 db.puzzle.ensureIndex({fen:1},{unique:1})
