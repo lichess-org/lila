@@ -1,0 +1,19 @@
+@(puzzle: lila.puzzle.Puzzle)(implicit ctx: Context)
+
+<div class="lichess_goodies">
+  <div class="box">
+    <h1>Puzzle</h1>
+    <p>
+      Rating: <strong>@puzzle.rating.intRating</strong> <small title="Glicko rating deviation"> ±@puzzle.rating.intDeviationDoubled</small>
+    </p>
+    <p>
+      Played <strong>@puzzle.attempts</strong> times
+    </p>
+    <p>
+      Win rate: <strong>@puzzle.winPercent</strong>%
+    </p>
+    <p>
+      Average solving time: <strong>@puzzle.time</strong> seconds
+    </p>
+  </div>
+</div>
