@@ -10,8 +10,12 @@
 @jsAt("compiled/puzzle.js")
 }
 
+@goodies = {
+  @infoBox(puzzle)
+}
+
 @layout("Puzzle " + puzzle.id,
-goodies = infoBox(puzzle).some,
+goodies = goodies.some,
 evenMoreCss = moreCss.some,
 evenMoreJs = moreJs.some) {
 
@@ -23,10 +27,6 @@ evenMoreJs = moreJs.some) {
     data-color="@puzzle.color"
     data-move="@puzzle.initialMove"
     data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"></div>
-
-  @puzzle.gameId.map { id =>
-  <p><a href="@routes.Round.watcher(id, puzzle.color.name)">From game #@id</a></p>
-  }
 
   <div class="message on_win">
     Congratulations! You solved the puzzle.

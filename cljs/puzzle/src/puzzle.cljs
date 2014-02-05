@@ -68,15 +68,19 @@
 
 (defn set-status! [status] (dommy/set-attr! puzzle-elem :class status))
 
-(defn end! [status]
-  (set-status! status))
-
-(defn fail! [retries]
-  (set-status! "playing fail")
-  (xhr/POST post-url {:win 0
+(defn post-attempt [retries win]
+  (xhr/POST post-url {:win win
                       :hints 0
                       :retries 0
                       :time (seconds-since-started)}))
+
+(defn win! [retries]
+  (set-status! "win")
+  (post-attempt retries 1))
+
+(defn fail! [retries]
+  (set-status! "playing fail")
+  (post-attempt retries 0))
 
 (go
   (<! (timeout 1000))
@@ -110,8 +114,8 @@
           (set-position! (.fen chess))
           (<! (timeout (+ animation-delay 50)))
           (if (= new-lines "win")
-            (end! "win")
+            (win! retries)
             (let [aim (<! (ai-play! new-lines))]
               (if (= (get new-lines aim) "win")
-                (end! "win")
+                (win! retries)
                 (recur (conj new-progress aim) (.fen chess) retries failed)))))))))
