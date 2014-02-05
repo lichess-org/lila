@@ -34,11 +34,9 @@ private[puzzle] final class PuzzleApi(
     if (token != apiToken) fufail("Invalid API token")
     else {
       import Generated.generatedJSONRead
-      for {
-        gens ← Future(json.as[List[Generated]])
-        puzzles ← gens.map(_.toPuzzle).sequence.future
-        _ ← insertPuzzles(puzzles)
-      } yield ()
+      Future(json.as[List[Generated]]) flatMap {
+        _.map(_.toPuzzle).sequence.future flatMap insertPuzzles
+      }
     }
 
   def insertPuzzles(puzzles: List[PuzzleId ⇒ Puzzle]): Funit = puzzles match {

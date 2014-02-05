@@ -41,7 +41,7 @@ object Puzzle {
     history = history,
     fen = fen,
     lines = lines,
-    depth = (Line minPlyDepth lines) / 2,
+    depth = Line minDepth lines,
     color = Color(history.size % 2 == 0),
     date = DateTime.now,
     rating = Glicko.default,

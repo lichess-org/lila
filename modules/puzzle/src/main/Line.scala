@@ -10,15 +10,23 @@ case class Retry(move: String) extends Line
 
 object Line {
 
-  def minPlyDepth(lines: Lines, depth: Int = 0): Int = lines match {
-    case Nil                   ⇒ Int.MaxValue
-    case Retry(_) :: rest      ⇒ minPlyDepth(rest)
-    case Win(_) :: rest        ⇒ 1
-    case Node(_, more) :: rest ⇒ 1 + minPlyDepth(rest ::: more)
+  def minDepth(lines: Lines): Int = {
+    def walk(subs: Vector[(Lines, Int)]): Option[Int] = subs match {
+      case Vector() ⇒ none
+      case (lines, depth) +: rest ⇒
+        lines match {
+          case Nil                  ⇒ walk(rest)
+          case Win(_) :: _          ⇒ depth.some
+          case Retry(_) :: siblings ⇒ walk(rest :+ (siblings -> depth))
+          case Node(_, children) :: siblings ⇒
+            walk(rest :+ (siblings -> depth) :+ (children -> (depth + 1)))
+        }
+    }
+    (1 + ~(walk(Vector(lines -> 1)))) / 2
   }
 
   def toString(lines: Lines, level: Int = 0): String = {
-    val indent = "  " * level
+    val indent = ". " * level
     lines map {
       case Win(move)        ⇒ s"$indent$move win"
       case Retry(move)      ⇒ s"$indent$move retry"
