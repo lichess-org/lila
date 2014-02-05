@@ -16,8 +16,11 @@
 (def drop-chan (chan))
 (def animation-delay 300)
 (def chess (new js/Chess initial-fen))
+(def started-at (new js/Date))
 
-(defn playing [] (dommy/has-class? puzzle-elem "playing"))
+(defn seconds-since-started [] (.round js/Math (/ 1000 (- (.getTime (new js/Date)) (.getTime started-at)))))
+
+(defn playing? [] (dommy/has-class? puzzle-elem "playing"))
 
 (defn apply-move
   ([orig, dest] (.move chess (clj->js {:from orig :to dest})))
@@ -32,13 +35,12 @@
 (defn await-in [ch value duration] (js/setTimeout #(put! ch value) duration) ch)
 
 (defn on-drop! [orig, dest]
-  (if (and (playing) (apply-move orig dest))
-    (put! drop-chan (str orig dest)) "snapback"))
+  (if (and (playing?) (apply-move orig dest)) (put! drop-chan (str orig dest)) "snapback"))
 
 (def chessboard
   (new js/ChessBoard "chessboard"
        (clj->js {:position initial-fen
-                 :orientation (if (= "b" (.turn chess)) "white" "black")
+                 :orientation (dommy/attr chessboard-elem "data-color")
                  :draggable true
                  :dropOffBoard "snapback"
                  :sparePieces false
@@ -70,13 +72,18 @@
 (defn end! [status]
   (set-status! status))
 
+(defn fail! []
+  (set-status! "playing fail"))
+
 (go
   (<! (timeout 1000))
   (apply-move initial-move)
   (set-position! (.fen chess))
   (color-move! initial-move)
   (set-status! "playing")
-  (loop [progress [] fen (.fen chess)]
+  (loop [progress []
+         fen (.fen chess)
+         failed false]
     (let [move (<! drop-chan)
           new-progress (conj progress move)
           new-lines (get-in lines new-progress)]
@@ -86,21 +93,21 @@
                   (<! (timeout animation-delay))
                   (.load chess fen)
                   (set-position! fen)
-                  (recur progress fen))
+                  (recur progress fen failed))
         nil (do
-              (set-status! "playing fail")
-              (<! (timeout animation-delay))
-              (.load chess fen)
-              (set-position! fen)
-              (recur progress fen))
-        (do
-          (set-status! "playing")
-          (color-move! move)
-          (set-position! (.fen chess))
-          (<! (timeout (+ animation-delay 50)))
-          (if (= new-lines "win")
-            (end! "win")
-            (let [aim (<! (ai-play! new-lines))]
-              (if (= (get new-lines aim) "win")
-                (end! "win")
-                (recur (conj new-progress aim) (.fen chess))))))))))
+              (when (not failed) (fail!)
+                (<! (timeout animation-delay))
+                (.load chess fen)
+                (set-position! fen)
+                (recur progress fen true))
+              (do
+                (set-status! "playing")
+                (color-move! move)
+                (set-position! (.fen chess))
+                (<! (timeout (+ animation-delay 50)))
+                (if (= new-lines "win")
+                  (end! "win")
+                  (let [aim (<! (ai-play! new-lines))]
+                    (if (= (get new-lines aim) "win")
+                      (end! "win")
+                      (recur (conj new-progress aim) (.fen chess) failed)))))))))

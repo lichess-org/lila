@@ -6,6 +6,7 @@
 
 @moreJs = {
 @jsTag("vendor/chess.min.js")
+@jsTagCompiled("chessboard.js")
 @jsAt("compiled/puzzle.js")
 }
 
@@ -21,6 +22,7 @@ evenMoreJs = moreJs.some) {
 
     <div id="chessboard"
       data-fen="@puzzle.fen"
+      data-color="@puzzle.color"
       data-move="@puzzle.initialMove"
       data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"></div>
 
