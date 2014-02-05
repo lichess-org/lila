@@ -105,6 +105,7 @@ show analysis details, blur % in cheat table and reports
 ban only latest IP
 give AI levels ratings
 connect time chart to pgn viewer and say "time spent on this move: X seconds"
+key bindings on replay pgn4web
 
 deploy
 ------

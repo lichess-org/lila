@@ -14,16 +14,29 @@ object Puzzle extends LilaController {
 
   private def env = Env.puzzle
 
-  def home = Open { implicit ctx =>
-    env.api latest 50 map { puzzles =>
+  def home = Open { implicit ctx ⇒
+    env.api latest 50 map { puzzles ⇒
       Ok(views.html.puzzle.home(puzzles))
     }
   }
 
-  def show(id: String) = Open { implicit ctx =>
-    OptionOk(env.api find id) { puzzle =>
+  def show(id: String) = Open { implicit ctx ⇒
+    OptionOk(env.api find id) { puzzle ⇒
       views.html.puzzle.show(puzzle)
     }
+  }
+
+  def attempt(id: String) = AuthBody { implicit ctx ⇒
+    me ⇒
+      implicit val req = ctx.body
+      OptionFuResult(env.api find id) { puzzle ⇒
+        env.forms.attempt.bindFromRequest.fold(
+          err ⇒ fuccess(BadRequest(err.toString)),
+          data ⇒ env.api.attempt.add(puzzle, me, data) map { attempt ⇒
+            Ok(views.html.puzzle.attempt(puzzle, attempt))
+          }
+        )
+      }
   }
 
   def importBatch = Action.async(parse.json) { implicit req ⇒

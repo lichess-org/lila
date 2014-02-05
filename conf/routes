@@ -210,6 +210,7 @@ POST  /report/:id/process              controllers.Report.process(id: String)
 POST  /api/puzzle                      controllers.Puzzle.importBatch
 GET   /puzzle                          controllers.Puzzle.home
 GET   /puzzle/$id<[\w]{8}>             controllers.Puzzle.show(id: String)
+POST  /puzzle/$id<[\w]{8}>/attempt     controllers.Puzzle.attempt(id: String)
 
 # API
 POST  /api/game/new                    controllers.Setup.api

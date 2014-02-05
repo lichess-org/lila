@@ -22,6 +22,8 @@ final class Env(
     attemptColl = attemptColl,
     apiToken = ApiToken)
 
+  lazy val forms = DataForm
+
   def cli = new lila.common.Cli {
     def process = {
       case "puzzle" :: "fix" :: "fen" :: Nil ⇒ api.fixAll inject "fixed!"

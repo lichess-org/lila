@@ -24,6 +24,10 @@ evenMoreJs = moreJs.some) {
       data-move="@puzzle.initialMove"
       data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"></div>
 
+    @puzzle.gameId.map { id =>
+    <p><a href="@routes.Round.watcher(id, puzzle.color.name)">From game #@id</a></p>
+    }
+
     <div class="message on_win">
       Congratulations! You solved the puzzle.
     </div>
