@@ -2,7 +2,13 @@
 
 <div class="lichess_goodies">
   <div class="box">
-    <h1>Puzzle</h1>
+    <h1>Puzzle @puzzle.id</h1>
+    @puzzle.gameId.map { id =>
+    <p><a href="@routes.Round.watcher(id, puzzle.color.name)">From game #@id</a></p>
+    }
+    <p>
+      Moves: @puzzle.depth
+    </p>
     <p>
       Rating: <strong>@puzzle.rating.intRating</strong> <small title="Glicko rating deviation"> ±@puzzle.rating.intDeviationDoubled</small>
     </p>
