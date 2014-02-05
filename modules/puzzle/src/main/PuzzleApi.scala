@@ -1,5 +1,6 @@
 package lila.puzzle
 
+import scala.concurrent.Future
 import scala.util.{ Try, Success, Failure }
 
 import org.joda.time.DateTime
@@ -29,19 +30,34 @@ private[puzzle] final class PuzzleApi(
       .cursor[Puzzle]
       .collect[List](nb)
 
-  def importBatch(json: JsValue, token: String): Try[Funit] =
-    if (token != apiToken) Failure(new Exception("Invalid API token"))
+  def importBatch(json: JsValue, token: String): Funit =
+    if (token != apiToken) fufail("Invalid API token")
     else {
       import Generated.generatedJSONRead
       for {
-        gens ← Try(json.as[List[Generated]])
-        puzzles ← gens map (_.toPuzzle) sequence
-      } yield puzzleColl bulkInsert Enumerator.enumerate(puzzles) void
+        gens ← Future(json.as[List[Generated]])
+        puzzles ← gens.map(_.toPuzzle).sequence.future
+        _ ← insertPuzzles(puzzles)
+      } yield ()
     }
+
+  def insertPuzzles(puzzles: List[PuzzleId ⇒ Puzzle]): Funit = puzzles match {
+    case Nil ⇒ funit
+    case puzzle :: rest ⇒ findNextId flatMap { id ⇒
+      (puzzleColl insert puzzle(id)) >> insertPuzzles(rest)
+    }
+  }
+
+  private def findNextId: Fu[PuzzleId] =
+    puzzleColl.find(BSONDocument(), BSONDocument("_id" -> true))
+      .sort(BSONDocument("_id" -> -1))
+      .one[BSONDocument] map {
+        _ flatMap { doc ⇒ doc.getAs[Int]("_id") map (1+) } getOrElse 1
+      }
 
   object attempt {
 
-    def find(puzzleId: String, userId: String): Fu[Option[Attempt]] =
+    def find(puzzleId: PuzzleId, userId: String): Fu[Option[Attempt]] =
       attemptColl.find(BSONDocument(
         Attempt.BSONFields.id -> Attempt.makeId(puzzleId, userId)
       )).one[Attempt]
@@ -65,7 +81,7 @@ private[puzzle] final class PuzzleApi(
     }
   }
 
-  def vote(puzzleId: String, userId: String, v: Boolean) = attemptColl.update(
+  def vote(puzzleId: PuzzleId, userId: String, v: Boolean) = attemptColl.update(
     BSONDocument(Attempt.BSONFields.id -> Attempt.makeId(puzzleId, userId)),
     BSONDocument(Attempt.BSONFields.vote -> v)
   ).void

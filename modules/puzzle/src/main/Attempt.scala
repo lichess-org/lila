@@ -17,7 +17,7 @@ case class Attempt(
 
 object Attempt {
 
-  def makeId(puzzleId: String, userId: String) = s"$puzzleId/$userId"
+  def makeId(puzzleId: PuzzleId, userId: String) = s"$puzzleId/$userId"
 
   object BSONFields {
     val id = "_id"
@@ -42,7 +42,7 @@ object Attempt {
 
     def reads(r: BSON.Reader): Attempt = Attempt(
       id = r str id,
-      puzzleId = r str puzzleId,
+      puzzleId = r int puzzleId,
       userId = r str userId,
       date = r.get[DateTime](date),
       win = r boolD win,
