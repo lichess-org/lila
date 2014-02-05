@@ -41,7 +41,7 @@ object HistoryRepo {
     )).void
 
   private val arrayReader = implicitly[BSONReader[_ <: BSONValue, BSONArray]].asInstanceOf[BSONReader[BSONValue, BSONArray]]
-  def userRatings(userId: String, slice: Option[Int] = None): Fu[List[HistoryEntry]] = {
+  def userRatings(userId: String, slice: Option[Int] = None): Fu[List[HistoryEntry]] =
     historyColl.find(
       BSONDocument("_id" -> userId),
       BSONDocument("_id" -> false) ++ slice.fold(BSONDocument()) { s ⇒
@@ -61,5 +61,4 @@ object HistoryRepo {
           }
         } yield elems.toList)
       }
-  }
 }

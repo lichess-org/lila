@@ -1,5 +1,6 @@
 (ns lichess.puzzle
   (:require [dommy.core :as dommy]
+            [ajax.core :as xhr]
             [cljs.core.async :as async :refer [chan <! >! alts! put! close! timeout]])
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:use-macros [dommy.macros :only [sel sel1]]))
@@ -12,6 +13,7 @@
 (def chessboard-elem (sel1 "#chessboard"))
 (def initial-fen (dommy/attr chessboard-elem "data-fen"))
 (def initial-move (dommy/attr chessboard-elem "data-move"))
+(def post-url (dommy/attr chessboard-elem "data-post-url"))
 (def lines (js->clj (js/JSON.parse (dommy/attr chessboard-elem "data-lines"))))
 (def drop-chan (chan))
 (def animation-delay 300)
@@ -66,14 +68,15 @@
 
 (defn set-status! [status] (dommy/set-attr! puzzle-elem :class status))
 
-(defn post-attempt! []
-  (log! "post attempt!"))
-
 (defn end! [status]
   (set-status! status))
 
-(defn fail! []
-  (set-status! "playing fail"))
+(defn fail! [retries]
+  (set-status! "playing fail")
+  (xhr/POST post-url {:win 0
+                      :hints 0
+                      :retries 0
+                      :time (seconds-since-started)}))
 
 (go
   (<! (timeout 1000))
@@ -83,6 +86,7 @@
   (set-status! "playing")
   (loop [progress []
          fen (.fen chess)
+         retries 0
          failed false]
     (let [move (<! drop-chan)
           new-progress (conj progress move)
@@ -93,21 +97,21 @@
                   (<! (timeout animation-delay))
                   (.load chess fen)
                   (set-position! fen)
-                  (recur progress fen failed))
+                  (recur progress fen (+ 1 retries) failed))
         nil (do
-              (when (not failed) (fail!)
-                (<! (timeout animation-delay))
-                (.load chess fen)
-                (set-position! fen)
-                (recur progress fen true))
-              (do
-                (set-status! "playing")
-                (color-move! move)
-                (set-position! (.fen chess))
-                (<! (timeout (+ animation-delay 50)))
-                (if (= new-lines "win")
-                  (end! "win")
-                  (let [aim (<! (ai-play! new-lines))]
-                    (if (= (get new-lines aim) "win")
-                      (end! "win")
-                      (recur (conj new-progress aim) (.fen chess) failed)))))))))
+              (when (not failed) (fail! retries))
+              (<! (timeout animation-delay))
+              (.load chess fen)
+              (set-position! fen)
+              (recur progress fen retries true))
+        (do
+          (set-status! "playing")
+          (color-move! move)
+          (set-position! (.fen chess))
+          (<! (timeout (+ animation-delay 50)))
+          (if (= new-lines "win")
+            (end! "win")
+            (let [aim (<! (ai-play! new-lines))]
+              (if (= (get new-lines aim) "win")
+                (end! "win")
+                (recur (conj new-progress aim) (.fen chess) retries failed)))))))))

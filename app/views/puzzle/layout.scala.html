@@ -1,4 +1,4 @@
-@(title: String, evenMoreCss: Option[Html] = None, evenMoreJs: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(title: String, goodies: Option[Html] = None, evenMoreCss: Option[Html] = None, evenMoreJs: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("puzzle.css")
@@ -11,6 +11,7 @@
 
 @base.layout(
 title = title,
+goodies = goodies,
 moreCss = moreCss,
 moreJs = moreJs,
 active = siteMenu.puzzle.some) {

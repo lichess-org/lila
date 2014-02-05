@@ -3,8 +3,9 @@
   :source-paths ["src-clj"]
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/clojurescript "0.0-2156" :exclusions [org.apache.ant/ant]]
+                 [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
                  [prismatic/dommy "0.1.2"]
-                 [org.clojure/core.async "0.1.267.0-0d7780-alpha"]]
+                 [cljs-ajax "0.2.3"]]
   :plugins [[lein-cljsbuild "1.0.2"]]
   :cljsbuild {
               :builds {

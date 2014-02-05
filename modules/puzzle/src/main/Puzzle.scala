@@ -22,6 +22,8 @@ case class Puzzle(
     wins: Int,
     time: Int) {
 
+  def winPercent = if (attempts == 0) 0 else wins * 100 / attempts
+
   def initialMove = history.last
 }
 
