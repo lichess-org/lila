@@ -64,6 +64,12 @@
 
 (defn set-status! [status] (dommy/set-attr! puzzle-elem :class status))
 
+(defn post-attempt! []
+  (log! "post attempt!"))
+
+(defn end! [status]
+  (set-status! status))
+
 (go
   (<! (timeout 1000))
   (apply-move initial-move)
@@ -93,8 +99,8 @@
           (set-position! (.fen chess))
           (<! (timeout (+ animation-delay 50)))
           (if (= new-lines "win")
-            (set-status! "win")
+            (end! "win")
             (let [aim (<! (ai-play! new-lines))]
               (if (= (get new-lines aim) "win")
-                (set-status! "win")
+                (end! "win")
                 (recur (conj new-progress aim) (.fen chess))))))))))

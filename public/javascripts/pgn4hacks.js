@@ -59,13 +59,14 @@ function customFunctionOnMove() {
   var turn = Math.round(CurrentPly / 2);
   var $gameText = $("#GameText");
   var $moveOn = $gameText.find(".moveOn:first");
+  var gtHeight = $gameText.height();
   if ($moveOn.length) {
     var height = $moveOn.height();
     var y = $moveOn.position().top;
     if (y < height * 5) {
       $gameText.scrollTop($gameText.scrollTop() + y - height * 5);
-    } else if (y > (512 - height * 6)) {
-      $gameText.scrollTop($gameText.scrollTop() + y + height * 6 - 512);
+    } else if (y > (gtHeight - height * 6)) {
+      $gameText.scrollTop($gameText.scrollTop() + y + height * 6 - gtHeight);
     }
   }
   var fen = CurrentFEN();

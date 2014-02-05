@@ -39,25 +39,30 @@ private[puzzle] final class PuzzleApi(
       } yield puzzleColl bulkInsert Enumerator.enumerate(puzzles) void
     }
 
-  def attemptExists(puzzleId: String, userId: String): Fu[Boolean] = attemptColl.db command Count(
-    attemptColl.name,
-    BSONDocument("_id" -> Attempt.makeId(puzzleId, userId)).some
-  ) map (_ > 0)
+  object attempt {
 
-  def attempt(puzzle: Puzzle, user: User, win: Boolean, hints: Int = 0) = attemptExists(puzzle.id, user.id) flatMap {
-    case true ⇒ funit
-    case false ⇒
-      val a = new Attempt(
-        id = Attempt.makeId(puzzle.id, user.id),
-        puzzleId = puzzle.id,
-        userId = user.id,
-        date = DateTime.now,
-        win = win,
-        hints = hints,
-        vote = none,
-        puzzleRating = puzzle.rating.intRating,
-        userRating = user.perfs.puzzle.intRating)
-      attemptColl.insert(a).void
+    def find(puzzleId: String, userId: String): Fu[Option[Attempt]] =
+      attemptColl.find(BSONDocument(
+        Attempt.BSONFields.id -> Attempt.makeId(puzzleId, userId)
+      )).one[Attempt]
+
+    def add(puzzle: Puzzle, user: User, data: DataForm.AttemptData): Fu[Attempt] = find(puzzle.id, user.id) flatMap {
+      case Some(a) ⇒ fuccess(a)
+      case None ⇒
+        val a = new Attempt(
+          id = Attempt.makeId(puzzle.id, user.id),
+          puzzleId = puzzle.id,
+          userId = user.id,
+          date = DateTime.now,
+          win = data.isWin,
+          hints = data.hints,
+          retries = data.retries,
+          time = data.time,
+          vote = none,
+          puzzleRating = puzzle.rating.intRating,
+          userRating = user.perfs.puzzle.intRating)
+        attemptColl.insert(a) inject a
+    }
   }
 
   def vote(puzzleId: String, userId: String, v: Boolean) = attemptColl.update(

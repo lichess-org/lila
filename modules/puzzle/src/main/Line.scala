@@ -10,6 +10,13 @@ case class Retry(move: String) extends Line
 
 object Line {
 
+  def minPlyDepth(lines: Lines, depth: Int = 0): Int = lines match {
+    case Nil                   ⇒ Int.MaxValue
+    case Retry(_) :: rest      ⇒ minPlyDepth(rest)
+    case Win(_) :: rest        ⇒ 1
+    case Node(_, more) :: rest ⇒ 1 + minPlyDepth(rest ::: more)
+  }
+
   def toString(lines: Lines, level: Int = 0): String = {
     val indent = "  " * level
     lines map {
