@@ -75,6 +75,7 @@ object LangList {
     "ia" -> "Interlingua",
     "ga" -> "Gaeilge",
     "id" -> "Bahasa Indonesia",
+    "ie" -> "Interlingue",
     "ig" -> "Asụsụ Igbo",
     "ik" -> "Iñupiaq, Iñupiatun", // lots of different writing systems (and therefore spellings) for 'ik' -- the Inupiat language
     "io" -> "Ido",
@@ -82,6 +83,7 @@ object LangList {
     "it" -> "Italiano",
     "iu" -> "ᐃᓄᒃᑎᑐ",
     "ja" -> "日本語",
+    "jb" -> "lojban",
     "jv" -> "basa Jawa",
     "kl" -> "kalaallisut",
     "kn" -> "ಕನ್ನಡ",
@@ -159,6 +161,8 @@ object LangList {
     "th" -> "ไทย",
     "ti" -> "ትግርኛ",
     "tk" -> "Türkmençe",
+    "tl" -> "tlhIngan Hol",
+    //"tlh" -> "tlhIngan Hol"
     "tn" -> "Setswana",
     "to" -> "lea fakatonga", // a variety of different spellings for this
     "tp" -> "toki pona", // note that this constructed language has no ISO code
