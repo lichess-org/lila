@@ -13,7 +13,7 @@ case class Generated(
     solution: JsObject,
     id: String) {
 
-  def toPuzzle: Try[Puzzle] = for {
+  def toPuzzle: Try[PuzzleId ⇒ Puzzle] = for {
     lines ← Generated readLines solution
     history = position split ' '
     _ ← if (history.isEmpty) Failure(new Exception("Empty history")) else Success(true)

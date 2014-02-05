@@ -6,6 +6,7 @@ import play.api.mvc._
 import play.api.templates.Html
 
 import lila.app._
+import lila.puzzle.PuzzleId
 import lila.puzzle.{ Generated, Puzzle ⇒ PuzzleModel }
 import lila.user.{ User ⇒ UserModel, UserRepo }
 import views._
@@ -20,13 +21,13 @@ object Puzzle extends LilaController {
     }
   }
 
-  def show(id: String) = Open { implicit ctx ⇒
+  def show(id: PuzzleId) = Open { implicit ctx ⇒
     OptionOk(env.api find id) { puzzle ⇒
       views.html.puzzle.show(puzzle)
     }
   }
 
-  def attempt(id: String) = AuthBody { implicit ctx ⇒
+  def attempt(id: PuzzleId) = AuthBody { implicit ctx ⇒
     me ⇒
       implicit val req = ctx.body
       OptionFuResult(env.api find id) { puzzle ⇒
@@ -40,12 +41,12 @@ object Puzzle extends LilaController {
   }
 
   def importBatch = Action.async(parse.json) { implicit req ⇒
-    env.api.importBatch(req.body, ~get("token", req)) match {
-      case Success(f) ⇒ f inject Ok("kthxbye")
-      case Failure(e) ⇒ {
+    env.api.importBatch(req.body, ~get("token", req)) map { _ ⇒
+      Ok("kthxbye")
+    } recover {
+      case e ⇒
         play.api.Logger("Puzzle import").warn(e.getMessage)
-        fuccess(BadRequest(e.getMessage))
-      }
+        BadRequest(e.getMessage)
     }
   }
 }

@@ -34,8 +34,8 @@ object Puzzle {
     tags: List[String],
     history: List[String],
     fen: String,
-    lines: Lines) = new Puzzle(
-    id = ornicar.scalalib.Random nextStringUppercase 8,
+    lines: Lines)(id: PuzzleId) = new Puzzle(
+    id = id,
     gameId = gameId,
     tags = tags,
     history = history,
@@ -98,7 +98,7 @@ object Puzzle {
     import Glicko.GlickoBSONHandler
 
     def reads(r: BSON.Reader): Puzzle = Puzzle(
-      id = r str id,
+      id = r int id,
       gameId = r strO gameId,
       tags = r.get[List[String]](tags),
       history = r str history split ' ' toList,
