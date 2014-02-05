@@ -18,5 +18,6 @@
                        :prod {
                               :source-paths ["src"]
                               :compiler {:output-to "../../public/compiled/puzzle.js"
+                                         :externs ["externs.js"]
                                          :optimizations :advanced
                                          :pretty-print false}}}})
