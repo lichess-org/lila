@@ -17,10 +17,12 @@ case class Puzzle(
     color: Color,
     date: DateTime,
     perf: Perf,
-    vote: Int,
+    vote: Vote,
     attempts: Int,
     wins: Int,
     time: Int) {
+
+  def withVote(f: Vote ⇒ Vote) = copy(vote = f(vote))
 
   def winPercent = if (attempts == 0) 0 else wins * 100 / attempts
 
@@ -45,7 +47,7 @@ object Puzzle {
     color = Color(history.size % 2 == 0),
     date = DateTime.now,
     perf = Perf.default,
-    vote = 0,
+    vote = Vote(0, 0, 0),
     attempts = 0,
     wins = 0,
     time = 0)
@@ -96,6 +98,7 @@ object Puzzle {
 
     import BSONFields._
     import Perf.perfBSONHandler
+    import Vote.voteBSONHandler
 
     def reads(r: BSON.Reader): Puzzle = Puzzle(
       id = r int id,
@@ -108,7 +111,7 @@ object Puzzle {
       color = Color(r bool white),
       date = r date date,
       perf = r.get[Perf](perf),
-      vote = r int vote,
+      vote = r.get[Vote](vote),
       attempts = r int attempts,
       wins = r int wins,
       time = r int time)

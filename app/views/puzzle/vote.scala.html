@@ -1,0 +1,10 @@
+@(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt])
+
+<p>Popularity: <strong>@puzzle.vote.percent</strong>%</p>
+
+@attempt.map { a =>
+<form class="vote" action="@routes.Puzzle.vote(puzzle.id)" method="post">
+  <button type="submit" value="1" @if(a.vote == Some(true)) { disabled }>Up vote</button>
+  <button type="submit" value="0" @if(a.vote == Some(false)) { disabled }>Down vote</button>
+</form>
+}

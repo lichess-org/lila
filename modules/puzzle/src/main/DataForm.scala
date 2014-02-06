@@ -20,4 +20,8 @@ object DataForm {
 
     def isWin = win == 1
   }
+
+  val vote = Form(single(
+    "vote" -> number
+  ))
 }

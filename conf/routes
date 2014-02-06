@@ -211,6 +211,7 @@ POST  /api/puzzle                      controllers.Puzzle.importBatch
 GET   /puzzle                          controllers.Puzzle.home
 GET   /puzzle/:id                      controllers.Puzzle.show(id: Int)
 POST  /puzzle/:id/attempt              controllers.Puzzle.attempt(id: Int)
+POST  /puzzle/:id/vote                 controllers.Puzzle.vote(id: Int)
 
 # API
 POST  /api/game/new                    controllers.Setup.api

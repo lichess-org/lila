@@ -16,13 +16,13 @@ object Puzzle extends LilaController {
   private def env = Env.puzzle
 
   def home = Open { implicit ctx ⇒
-    env.api latest 50 map { puzzles ⇒
+    env.api.puzzle latest 50 map { puzzles ⇒
       Ok(views.html.puzzle.home(puzzles))
     }
   }
 
   def show(id: PuzzleId) = Open { implicit ctx ⇒
-    OptionFuOk(env.api find id) { puzzle ⇒
+    OptionFuOk(env.api.puzzle find id) { puzzle ⇒
       (ctx.userId ?? { env.api.attempt.find(puzzle.id, _) }) map { attempt ⇒
         views.html.puzzle.show(puzzle, attempt)
       }
@@ -31,7 +31,7 @@ object Puzzle extends LilaController {
 
   def attempt(id: PuzzleId) = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body
-    OptionFuResult(env.api find id) { puzzle ⇒
+    OptionFuResult(env.api.puzzle find id) { puzzle ⇒
       env.forms.attempt.bindFromRequest.fold(
         err ⇒ fuccess(BadRequest(err.toString)),
         data ⇒ ctx.me match {
@@ -43,8 +43,21 @@ object Puzzle extends LilaController {
     }
   }
 
+  def vote(id: PuzzleId) = AuthBody { implicit ctx ⇒
+    me ⇒
+      implicit val req = ctx.body
+      OptionFuResult(env.api.attempt.find(id, me.id)) { attempt ⇒
+        env.forms.vote.bindFromRequest.fold(
+          err ⇒ fuccess(BadRequest(err.toString)),
+          vote ⇒ env.api.attempt.vote(attempt, vote == 1) map {
+            case (p, a) ⇒ Ok(views.html.puzzle.vote(p, a.some))
+          }
+        )
+      }
+  }
+
   def importBatch = Action.async(parse.json) { implicit req ⇒
-    env.api.importBatch(req.body, ~get("token", req)) map { _ ⇒
+    env.api.puzzle.importBatch(req.body, ~get("token", req)) map { _ ⇒
       Ok("kthxbye")
     } recover {
       case e ⇒

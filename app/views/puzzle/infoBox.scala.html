@@ -22,6 +22,7 @@
     <p>
       Average time: <strong>@showMillis(puzzle.time)</strong> seconds
     </p>
+    <div class="vote_wrap">@vote(puzzle, attempt)</div>
   </div>
   @ctx.me.map { u =>
   <div class="box">
