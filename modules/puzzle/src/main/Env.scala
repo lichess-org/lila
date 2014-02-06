@@ -22,13 +22,11 @@ final class Env(
     attemptColl = attemptColl,
     apiToken = ApiToken)
 
-  lazy val forms = DataForm
+  lazy val finisher = new Finisher(
+    api = api,
+    puzzleColl = puzzleColl)
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "puzzle" :: "fix" :: "fen" :: Nil ⇒ api.fixAll inject "fixed!"
-    }
-  }
+  lazy val forms = DataForm
 
   private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
   private[puzzle] lazy val attemptColl = db(CollectionAttempt)

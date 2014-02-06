@@ -12,7 +12,9 @@ case class Attempt(
   retries: Int,
   time: Int, // seconds
   puzzleRating: Int,
+  puzzleRatingDiff: Int,
   userRating: Int,
+  userRatingDiff: Int,
   vote: Option[Boolean])
 
 object Attempt {
@@ -29,7 +31,9 @@ object Attempt {
     val retries = "r"
     val time = "t"
     val puzzleRating = "pr"
+    val puzzleRatingDiff = "pd"
     val userRating = "ur"
+    val userRatingDiff = "ud"
     val vote = "v"
   }
 
@@ -50,7 +54,9 @@ object Attempt {
       retries = r intD retries,
       time = r int time,
       puzzleRating = r int puzzleRating,
+      puzzleRatingDiff = r int puzzleRatingDiff,
       userRating = r int userRating,
+      userRatingDiff = r int userRatingDiff,
       vote = r boolO vote)
 
     def writes(w: BSON.Writer, o: Attempt) = BSONDocument(
@@ -61,9 +67,11 @@ object Attempt {
       win -> o.win,
       hints -> w.intO(o.hints),
       retries -> w.intO(o.retries),
-      time -> o.time,
-      puzzleRating -> o.puzzleRating,
-      userRating -> o.userRating,
+      time -> w.int(o.time),
+      puzzleRating -> w.int(o.puzzleRating),
+      puzzleRatingDiff -> w.int(o.puzzleRatingDiff),
+      userRating -> w.int(o.userRating),
+      userRatingDiff -> w.int(o.userRatingDiff),
       vote -> o.vote)
   }
 }

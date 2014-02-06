@@ -1,9 +1,8 @@
-package lila.user
+package lila.rating
 
 import org.joda.time.DateTime
 import reactivemongo.bson.BSONDocument
 
-import lila.rating.Glicko
 import lila.db.BSON
 
 case class Perf(
@@ -21,18 +20,9 @@ case object Perf {
 
   val default = Perf(Glicko.default, 0, None)
 
-  val titles = Map(
-    "bullet"   -> "Very fast games: less than 3 minutes",
-    "blitz"    -> "Fast games: less than 8 minutes",
-    "slow"     -> "Slow games: more than 8 minutes",
-    "standard" -> "Standard rules of chess",
-    "chess960" -> "Chess960 variant",
-    "white"    -> "With white pieces",
-    "black"    -> "With black pieces")
+  implicit val perfBSONHandler = new BSON[Perf] {
 
-  private def PerfBSONHandler = new BSON[Perf] {
-
-    implicit def glickoHandler = Glicko.tube.handler
+    import Glicko.glickoBSONHandler
 
     def reads(r: BSON.Reader): Perf = Perf(
       glicko = r.getO[Glicko]("gl") | Glicko.default,
@@ -45,6 +35,6 @@ case object Perf {
       "la" -> o.latest.map(w.date))
   }
 
-  lazy val tube = lila.db.BsTube(PerfBSONHandler)
+  lazy val tube = lila.db.BsTube(perfBSONHandler)
 }
 

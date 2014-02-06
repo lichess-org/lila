@@ -114,7 +114,7 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     }
   } await
 
-  def perfTitle(perf: String): String = lila.user.Perf.titles get perf getOrElse perf
+  def perfTitle(perf: String): String = lila.user.Perfs.titles get perf getOrElse perf
 
   private def userHref(username: String, params: String = "") =
     s"""href="${routes.User.show(username)}$params""""

@@ -6,15 +6,14 @@ import org.joda.time.DateTime
 import play.api.Logger
 
 import lila.game.{ GameRepo, Game, Pov }
-import lila.rating.Glicko
-import lila.user.{ UserRepo, HistoryRepo, HistoryEntry, User, Perf, Perfs }
+import lila.rating.{ Glicko, Perf }
+import lila.user.{ UserRepo, HistoryRepo, HistoryEntry, User, Perfs }
 
 private final class PerfsUpdater {
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU = 0.75d
-
-  val system = new RatingCalculator(VOLATILITY, TAU)
+  private val system = new RatingCalculator(VOLATILITY, TAU)
 
   def save(game: Game, white: User, black: User): Funit =
     (game.rated && game.finished && game.turns >= 2 && !white.engine && !black.engine) ?? {
@@ -60,7 +59,7 @@ private final class PerfsUpdater {
           }
     }
 
-  final class Ratings(
+  private final class Ratings(
     val global: Rating,
     val standard: Rating,
     val chess960: Rating,
@@ -70,7 +69,7 @@ private final class PerfsUpdater {
     val white: Rating,
     val black: Rating)
 
-  def makeProgress(userId: String): Fu[Int] =
+  private def makeProgress(userId: String): Fu[Int] =
     HistoryRepo.userRatings(userId, -10.some) map { entries ⇒
       ~((entries.headOption |@| entries.lastOption) {
         case (head, last) ⇒ last.rating - head.rating
@@ -80,7 +79,7 @@ private final class PerfsUpdater {
   private implicit def mkRating(perf: Perf) = new Rating(
     perf.glicko.rating, perf.glicko.deviation, perf.glicko.volatility, perf.nb)
 
-  def mkRatings(perfs: Perfs) = new Ratings(
+  private def mkRatings(perfs: Perfs) = new Ratings(
     global = perfs.global,
     standard = perfs.standard,
     chess960 = perfs.chess960,
@@ -90,14 +89,14 @@ private final class PerfsUpdater {
     white = perfs.white,
     black = perfs.black)
 
-  def resultOf(game: Game): Glicko.Result =
+  private def resultOf(game: Game): Glicko.Result =
     game.winnerColor match {
       case Some(chess.White) ⇒ Glicko.Result.Win
       case Some(chess.Black) ⇒ Glicko.Result.Loss
       case None              ⇒ Glicko.Result.Draw
     }
 
-  def updateRatings(white: Rating, black: Rating, result: Glicko.Result, system: RatingCalculator) {
+  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result, system: RatingCalculator) {
     val results = new RatingPeriodResults()
     result match {
       case Glicko.Result.Draw ⇒ results.addDraw(white, black)
@@ -112,12 +111,12 @@ private final class PerfsUpdater {
     }
   }
 
-  def mkPerf(rating: Rating, latest: Option[DateTime]): Perf = Perf(
+  private def mkPerf(rating: Rating, latest: Option[DateTime]): Perf = Perf(
     Glicko(rating.getRating, rating.getRatingDeviation, rating.getVolatility),
     nb = rating.getNumberOfResults,
     latest = latest)
 
-  def mkPerfs(ratings: Ratings, perfs: Perfs, pov: Pov): Perfs = {
+  private def mkPerfs(ratings: Ratings, perfs: Perfs, pov: Pov): Perfs = {
     import pov._
     val speed = chess.Speed(game.clock)
     perfs.copy(

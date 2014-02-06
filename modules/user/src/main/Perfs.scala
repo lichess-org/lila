@@ -2,6 +2,7 @@ package lila.user
 
 import reactivemongo.bson.BSONDocument
 
+import lila.rating.Perf
 import lila.db.BSON
 
 case class Perfs(
@@ -37,6 +38,15 @@ case object Perfs {
     val p = Perf.default
     Perfs(p, p, p, p, p, p, p, p, p)
   }
+
+  val titles = Map(
+    "bullet"   -> "Very fast games: less than 3 minutes",
+    "blitz"    -> "Fast games: less than 8 minutes",
+    "slow"     -> "Slow games: more than 8 minutes",
+    "standard" -> "Standard rules of chess",
+    "chess960" -> "Chess960 variant",
+    "white"    -> "With white pieces",
+    "black"    -> "With black pieces")
 
   private def PerfsBSONHandler = new BSON[Perfs] {
 

@@ -1,4 +1,4 @@
-@(puzzle: lila.puzzle.Puzzle)(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt])(implicit ctx: Context)
 
 <div class="lichess_goodies">
   <div class="box">
@@ -10,7 +10,8 @@
       Moves: @puzzle.depth
     </p>
     <p>
-      Rating: <strong>@puzzle.rating.intRating</strong> <small title="Glicko rating deviation"> ±@puzzle.rating.intDeviationDoubled</small>
+      Rating: <strong>@puzzle.perf.intRating</strong>
+      <small title="Glicko rating deviation"> ±@puzzle.perf.glicko.intDeviationDoubled</small>
     </p>
     <p>
       Played <strong>@puzzle.attempts</strong> times
@@ -19,7 +20,27 @@
       Win rate: <strong>@puzzle.winPercent</strong>%
     </p>
     <p>
-      Average solving time: <strong>@puzzle.time</strong> seconds
+      Average time: <strong>@showMillis(puzzle.time)</strong> seconds
     </p>
   </div>
+  @ctx.me.map { u =>
+  <div class="box">
+    Your puzzle rating: <strong>@u.perfs.puzzle.intRating</strong>
+    <small title="Glicko rating deviation"> ±@puzzle.perf.glicko.intDeviationDoubled</small>
+  </div>
+  }
+  @attempt.map { a =>
+  <div class="box">
+    <p>@showDate(a.date)</p>
+    <p>
+      @if(a.win) {
+      Puzzle solved in <strong>@showMillis(a.time)</strong> seconds.
+      } else {
+      Puzzle failed.
+      }
+    </p>
+    <p>Your rating: @a.userRating (@showNumber(a.userRatingDiff))</p>
+    <p>Puzzle rating: @a.puzzleRating (@showNumber(a.puzzleRatingDiff))</p>
+  </div>
+  }
 </div>
