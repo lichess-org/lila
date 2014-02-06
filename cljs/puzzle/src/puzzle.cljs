@@ -1,29 +1,26 @@
 (ns lichess.puzzle
-  (:require [dommy.core :as dommy]
-            [ajax.core :as xhr]
+  (:require [jayq.core :as jq :refer [$]]
             [cljs.core.async :as async :refer [chan <! >! alts! put! close! timeout]])
-  (:require-macros [cljs.core.async.macros :refer [go]])
-  (:use-macros [dommy.macros :only [sel sel1]]))
+  (:require-macros [cljs.core.async.macros :refer [go]]))
 
 (defn log! [& args] (.log js/console (apply pr-str args)))
 (defn log-obj! [obj] (.log js/console obj))
 
 (def static-domain (str "http://" (clojure.string/replace (.-domain js/document) #"^\w+" "static")))
-(def puzzle-elem (sel1 "#puzzle"))
-(def chessboard-elem (sel1 "#chessboard"))
-(def prev-elem (sel1 [puzzle-elem :.prev]))
-(def next-elem (sel1 [puzzle-elem :.next]))
-(def vote-elem (sel1 :div.vote_wrap))
-(def initial-fen (dommy/attr chessboard-elem "data-fen"))
-(def initial-move (dommy/attr chessboard-elem "data-move"))
-(def post-url (dommy/attr chessboard-elem "data-post-url"))
-(def lines (js->clj (js/JSON.parse (dommy/attr chessboard-elem "data-lines"))))
+(def $puzzle ($ :#puzzle))
+(def $chessboard ($ :#chessboard))
+(def $prev ($ [$puzzle :.prev]))
+(def $next ($ [$puzzle :.next]))
+(def $vote ($ :div.vote_wrap))
+(def initial-fen (jq/attr $chessboard :data-fen))
+(def initial-move (jq/attr $chessboard :data-move))
+(def lines (js->clj (js/JSON.parse (jq/attr $chessboard :data-lines))))
 (def drop-chan (chan))
 (def animation-delay 300)
 (def chess (new js/Chess initial-fen))
 (def started-at (new js/Date))
 
-(defn playing? [] (dommy/has-class? puzzle-elem "playing"))
+(defn playing? [] (jq/has-class $puzzle "playing"))
 
 (defn apply-move
   ([orig, dest] (.move chess (clj->js {:from orig :to dest :promotion "q"})))
@@ -31,9 +28,9 @@
 
 (defn color-move! [move]
   (let [[a b c d] (seq move) [orig dest] [(str a b) (str c d)]]
-    (doseq [s (sel [chessboard-elem :.last])] (dommy/remove-class! s :last))
+    (jq/remove-class ($ [$chessboard :.last]) :last)
     (let [squares (clojure.string/join ", " (map #(str ".square-" %) [orig dest]))]
-      (doseq [s (sel squares)] (dommy/add-class! s :last)))))
+      (jq/add-class ($ squares) :last))))
 
 (defn await-in [ch value duration] (js/setTimeout #(put! ch value) duration) ch)
 
@@ -43,7 +40,7 @@
 (def chessboard
   (new js/ChessBoard "chessboard"
        (clj->js {:position initial-fen
-                 :orientation (dommy/attr chessboard-elem "data-color")
+                 :orientation (jq/attr $chessboard :data-color)
                  :draggable true
                  :dropOffBoard "snapback"
                  :sparePieces false
@@ -62,16 +59,16 @@
         (await-in ch move (+ 50 animation-delay))))
     ch))
 
-(defn set-status! [status] (dommy/set-attr! puzzle-elem :class status))
+(defn set-status! [status] (jq/attr $puzzle :class status))
 
 (defn post-attempt! [retries win]
-  (xhr/ajax-request post-url :post
-                    {:params {:win win
-                              :hints 0
-                              :retries retries
-                              :time (- (.getTime (new js/Date)) (.getTime started-at))}
-                     :format xhr/raw-format
-                     :handler log!}))
+  (jq/ajax {:url (jq/attr $chessboard :data-post-url)
+            :method :post
+            :on-success log!
+            :data {:win win
+                   :hints 0
+                   :retries retries
+                   :time (- (.getTime (new js/Date)) (.getTime started-at))}}))
 
 (defn win! [retries]
   (set-status! "win")
@@ -121,25 +118,29 @@
                   (win! retries)
                   (recur (conj new-progress aim) (.fen chess) retries failed))))))))))
 
-(defn vote! [value]
-  (let [url (dommy/attr (sel1 [vote-elem :form]) :action)]
-    (xhr/ajax-request url :post
-                      {:params {:vote value}
-                       :format (xhr/raw-format)
-                       :handler (fn [[ok res]]
-                                  (dommy/set-html! (sel1 :.vote_wrap) res)
-                                  (bind-vote-form!))})))
+; (defn vote! [value]
+;   (let [url (dommy/attr ($ [$vote :form]) :action)]
+;     (xhr/ajax-request url :post
+;                       {:params {:vote value}
+;                        :format (xhr/raw-format)
+;                        :handler (fn [[ok res]]
+;                                   (dommy/set-html! (sel1 :.vote_wrap) res)
+;                                   (bind-vote-form!))})))
 
-(defn bind-vote-form! []
-  (doseq [button (sel [vote-elem :button])]
-    (dommy/listen! button :click (fn [event]
-                                   (.preventDefault event)
-                                   (dommy/set-attr! button :disabled)
-                                   (vote! (dommy/attr button :value))))))
+; (defn voting! []
+;   (let [click-chan (chan)]
+;     (dommy/listen!
+;   (go
+;     (<! (
+;   (doseq [button ($ [$vote :button])]
+;     (dommy/listen! button :click (fn [event]
+;                                    (.preventDefault event)
+;                                    (dommy/set-attr! button :disabled)
+;                                    (vote! (dommy/attr button :value))))))
 
 ; (defn replay-loop []
 ;   (go
 ;       (loop [
 
 (play-loop)
-(bind-vote-form!)
+; (bind-vote-form!)
