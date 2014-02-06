@@ -1,5 +1,13 @@
+#puzzle > .center {
+  width: 512px;
+}
 #chessboard {
   width: 520px;
+}
+
+.prev_next {
+  margin-top: 10px;
+  text-align: center;
 }
 
 #puzzle .on_win,

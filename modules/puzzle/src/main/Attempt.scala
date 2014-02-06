@@ -24,7 +24,7 @@ object Attempt {
     val puzzleId = "p"
     val userId = "u"
     val date = "d"
-    val win = "s"
+    val win = "w"
     val hints = "h"
     val retries = "r"
     val time = "t"
@@ -45,7 +45,7 @@ object Attempt {
       puzzleId = r int puzzleId,
       userId = r str userId,
       date = r.get[DateTime](date),
-      win = r boolD win,
+      win = r bool win,
       hints = r intD hints,
       retries = r intD retries,
       time = r int time,
@@ -58,7 +58,7 @@ object Attempt {
       puzzleId -> o.puzzleId,
       userId -> o.userId,
       date -> o.date,
-      win -> w.boolO(o.win),
+      win -> o.win,
       hints -> w.intO(o.hints),
       retries -> w.intO(o.retries),
       time -> o.time,

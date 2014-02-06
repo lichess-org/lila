@@ -75,7 +75,12 @@ private[puzzle] final class PuzzleApi(
           vote = none,
           puzzleRating = puzzle.rating.intRating,
           userRating = user.perfs.puzzle.intRating)
-        attemptColl.insert(a) inject a
+        attemptColl.insert(a) inject a zip puzzleColl.update(
+          BSONDocument("_id" -> puzzle.id),
+          BSONDocument("$inc" -> BSONDocument(
+            Puzzle.BSONFields.attempts -> BSONInteger(1),
+            Puzzle.BSONFields.wins -> BSONInteger(data.isWin ? 1 | 0)
+          ))) map { _ ⇒ a }
     }
   }
 
