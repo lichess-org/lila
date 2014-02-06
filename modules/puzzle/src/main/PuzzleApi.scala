@@ -20,37 +20,40 @@ private[puzzle] final class PuzzleApi(
 
   import Puzzle.puzzleBSONHandler
 
-  def find(id: PuzzleId): Fu[Option[Puzzle]] =
-    puzzleColl.find(BSONDocument("_id" -> id)).one[Puzzle]
+  object puzzle {
 
-  def latest(nb: Int): Fu[List[Puzzle]] =
-    puzzleColl.find(BSONDocument())
-      .sort(BSONDocument("date" -> -1))
-      .cursor[Puzzle]
-      .collect[List](nb)
+    def find(id: PuzzleId): Fu[Option[Puzzle]] =
+      puzzleColl.find(BSONDocument("_id" -> id)).one[Puzzle]
 
-  def importBatch(json: JsValue, token: String): Funit =
-    if (token != apiToken) fufail("Invalid API token")
-    else {
-      import Generated.generatedJSONRead
-      Future(json.as[List[Generated]]) flatMap {
-        _.map(_.toPuzzle).sequence.future flatMap insertPuzzles
+    def latest(nb: Int): Fu[List[Puzzle]] =
+      puzzleColl.find(BSONDocument())
+        .sort(BSONDocument("date" -> -1))
+        .cursor[Puzzle]
+        .collect[List](nb)
+
+    def importBatch(json: JsValue, token: String): Funit =
+      if (token != apiToken) fufail("Invalid API token")
+      else {
+        import Generated.generatedJSONRead
+        Future(json.as[List[Generated]]) flatMap {
+          _.map(_.toPuzzle).sequence.future flatMap insertPuzzles
+        }
+      }
+
+    def insertPuzzles(puzzles: List[PuzzleId ⇒ Puzzle]): Funit = puzzles match {
+      case Nil ⇒ funit
+      case puzzle :: rest ⇒ findNextId flatMap { id ⇒
+        (puzzleColl insert puzzle(id)) >> insertPuzzles(rest)
       }
     }
 
-  def insertPuzzles(puzzles: List[PuzzleId ⇒ Puzzle]): Funit = puzzles match {
-    case Nil ⇒ funit
-    case puzzle :: rest ⇒ findNextId flatMap { id ⇒
-      (puzzleColl insert puzzle(id)) >> insertPuzzles(rest)
-    }
+    private def findNextId: Fu[PuzzleId] =
+      puzzleColl.find(BSONDocument(), BSONDocument("_id" -> true))
+        .sort(BSONDocument("_id" -> -1))
+        .one[BSONDocument] map {
+          _ flatMap { doc ⇒ doc.getAs[Int]("_id") map (1+) } getOrElse 1
+        }
   }
-
-  private def findNextId: Fu[PuzzleId] =
-    puzzleColl.find(BSONDocument(), BSONDocument("_id" -> true))
-      .sort(BSONDocument("_id" -> -1))
-      .one[BSONDocument] map {
-        _ flatMap { doc ⇒ doc.getAs[Int]("_id") map (1+) } getOrElse 1
-      }
 
   object attempt {
 
@@ -58,6 +61,24 @@ private[puzzle] final class PuzzleApi(
       attemptColl.find(BSONDocument(
         Attempt.BSONFields.id -> Attempt.makeId(puzzleId, userId)
       )).one[Attempt]
+
+    def vote(a1: Attempt, v: Boolean): Fu[(Puzzle, Attempt)] = puzzle find a1.puzzleId flatMap {
+      case None ⇒ fufail(s"Can't vote for non existing puzzle ${a1.puzzleId}")
+      case Some(p1) ⇒
+        val p2 = a1.vote match {
+          case Some(from) ⇒ p1 withVote (_.change(from, v))
+          case None       ⇒ p1 withVote (_ add v)
+        }
+        val a2 = a1.copy(vote = v.some)
+        attemptColl.update(
+          BSONDocument("_id" -> a2.id),
+          BSONDocument("$set" -> BSONDocument(Attempt.BSONFields.vote -> v))) zip
+          puzzleColl.update(
+            BSONDocument("_id" -> p2.id),
+            BSONDocument("$set" -> BSONDocument(Puzzle.BSONFields.vote -> p2.vote))) map {
+              case _ ⇒ p2 -> a2
+            }
+    }
 
     def add(a: Attempt) = attemptColl insert a void
 

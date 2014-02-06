@@ -13,6 +13,7 @@
 (def chessboard-elem (sel1 "#chessboard"))
 (def prev-elem (sel1 [puzzle-elem :.prev]))
 (def next-elem (sel1 [puzzle-elem :.next]))
+(def vote-elem (sel1 :div.vote_wrap))
 (def initial-fen (dommy/attr chessboard-elem "data-fen"))
 (def initial-move (dommy/attr chessboard-elem "data-move"))
 (def post-url (dommy/attr chessboard-elem "data-post-url"))
@@ -120,8 +121,25 @@
                   (win! retries)
                   (recur (conj new-progress aim) (.fen chess) retries failed))))))))))
 
+(defn vote! [value]
+  (let [url (dommy/attr (sel1 [vote-elem :form]) :action)]
+    (xhr/ajax-request url :post
+                      {:params {:vote value}
+                       :format (xhr/raw-format)
+                       :handler (fn [[ok res]]
+                                  (dommy/set-html! (sel1 :.vote_wrap) res)
+                                  (bind-vote-form!))})))
+
+(defn bind-vote-form! []
+  (doseq [button (sel [vote-elem :button])]
+    (dommy/listen! button :click (fn [event]
+                                   (.preventDefault event)
+                                   (dommy/set-attr! button :disabled)
+                                   (vote! (dommy/attr button :value))))))
+
 ; (defn replay-loop []
 ;   (go
 ;       (loop [
 
 (play-loop)
+(bind-vote-form!)
