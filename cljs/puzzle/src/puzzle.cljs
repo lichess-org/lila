@@ -118,14 +118,13 @@
                   (win! retries)
                   (recur (conj new-progress aim) (.fen chess) retries failed))))))))))
 
-; (defn vote! [value]
-;   (let [url (dommy/attr ($ [$vote :form]) :action)]
-;     (xhr/ajax-request url :post
-;                       {:params {:vote value}
-;                        :format (xhr/raw-format)
-;                        :handler (fn [[ok res]]
-;                                   (dommy/set-html! (sel1 :.vote_wrap) res)
-;                                   (bind-vote-form!))})))
+(jq/on $vote :click :button (fn [e]
+                              (jq/prevent e)
+                              (jq/attr ($ :button $vote) :disabled)
+                              (jq/xhr [:post (jq/attr ($ :form $vote) :action)]
+                                      {:vote (jq/attr ($ (.-target e)) :value)}
+                                      #(jq/html $vote %))))
+
 
 ; (defn voting! []
 ;   (let [click-chan (chan)]
