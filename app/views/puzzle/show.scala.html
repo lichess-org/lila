@@ -11,7 +11,7 @@
 }
 
 @goodies = {
-  @infoBox(puzzle)
+@infoBox(puzzle)
 }
 
 @layout("Puzzle " + puzzle.id,
@@ -20,26 +20,33 @@ evenMoreCss = moreCss.some,
 evenMoreJs = moreJs.some) {
 
 <div id="puzzle">
+  <div class="center">
+    <div id="chessboard"
+      data-post-url="@routes.Puzzle.attempt(puzzle.id)"
+      data-fen="@puzzle.fen"
+      data-color="@puzzle.color"
+      data-move="@puzzle.initialMove"
+      data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"></div>
 
-  <div id="chessboard"
-    data-post-url="@routes.Puzzle.attempt(puzzle.id)"
-    data-fen="@puzzle.fen"
-    data-color="@puzzle.color"
-    data-move="@puzzle.initialMove"
-    data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"></div>
+    <!-- <div class="prev_next"> -->
+    <!--   <button class="prev">&lt;</button> -->
+    <!--   <button class="next">&gt;</button> -->
+    <!-- </div> -->
 
-  <div class="message on_win">
-    Congratulations! You solved the puzzle.
-  </div>
-  <div class="message on_retry">
-    This was a good move, but you can do better!
-  </div>
-  <div class="message on_fail">
-    Puzzle failed! But you can keep looking for the solution.
-  </div>
+    <div class="message on_win">
+      Congratulations! You solved the puzzle.
+    </div>
+    <div class="message on_retry">
+      This was a good move, but you can do better!
+    </div>
+    <div class="message on_fail">
+      Puzzle failed! But you can keep looking for the solution.
+    </div>
 
-<pre>
-@lila.puzzle.Line.toString(puzzle.lines)
-</pre>
+    <br />
+    <br />
+    <h2>Debug follows:</h2>
+    <pre>@lila.puzzle.Line.toString(puzzle.lines)</pre>
+  </div>
 </div>
 }

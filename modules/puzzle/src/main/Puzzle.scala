@@ -126,7 +126,7 @@ object Puzzle {
       rating -> o.rating,
       vote -> o.vote,
       attempts -> o.attempts,
-      attempts -> o.wins,
-      attempts -> o.time)
+      wins -> o.wins,
+      time -> o.time)
   }
 }
