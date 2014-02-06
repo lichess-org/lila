@@ -11,7 +11,7 @@ import reactivemongo.bson._
 import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
-import lila.rating.Glicko
+import lila.rating.{ Glicko, Perf }
 import tube.userTube
 
 object UserRepo extends UserRepo {
@@ -84,6 +84,10 @@ trait UserRepo {
     "perfs" -> Perfs.tube.handler.write(perfs),
     "rating" -> BSONInteger(user.engine.fold(Glicko.default, perfs.global.glicko).intRating),
     "progress" -> BSONInteger(progress)
+  ))
+
+  def setPerf(userId: String, perfName: String, perf: Perf) = $update($select(userId), $setBson(
+    s"perfs.$perfName" -> Perf.perfBSONHandler.write(perf)
   ))
 
   def setProfile(id: ID, profile: Profile): Funit =

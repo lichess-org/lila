@@ -106,6 +106,7 @@ ban only latest IP
 give AI levels ratings
 connect time chart to pgn viewer and say "time spent on this move: X seconds"
 key bindings on replay pgn4web
+run many AIs per server. And paralellize analysis! \o/
 
 deploy
 ------

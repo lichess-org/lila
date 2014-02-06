@@ -11,7 +11,6 @@ import reactivemongo.bson.{ BSONDocument, BSONInteger }
 import reactivemongo.core.commands.Count
 
 import lila.db.Types.Coll
-import lila.rating.Glicko
 import lila.user.{ User, UserRepo }
 
 private[puzzle] final class PuzzleApi(
@@ -60,56 +59,18 @@ private[puzzle] final class PuzzleApi(
         Attempt.BSONFields.id -> Attempt.makeId(puzzleId, userId)
       )).one[Attempt]
 
-    def add(puzzle: Puzzle, user: User, data: DataForm.AttemptData): Fu[Attempt] = find(puzzle.id, user.id) flatMap {
-      case Some(a) ⇒ fuccess(a)
-      case None ⇒
-        val a = new Attempt(
-          id = Attempt.makeId(puzzle.id, user.id),
-          puzzleId = puzzle.id,
-          userId = user.id,
-          date = DateTime.now,
-          win = data.isWin,
-          hints = data.hints,
-          retries = data.retries,
-          time = data.time,
-          vote = none,
-          puzzleRating = puzzle.rating.intRating,
-          userRating = user.perfs.puzzle.intRating)
-        attemptColl.insert(a) inject a zip puzzleColl.update(
-          BSONDocument("_id" -> puzzle.id),
-          BSONDocument("$inc" -> BSONDocument(
-            Puzzle.BSONFields.attempts -> BSONInteger(1),
-            Puzzle.BSONFields.wins -> BSONInteger(data.isWin ? 1 | 0)
-          ))) map { _ ⇒ a }
-    }
+    def add(a: Attempt) = attemptColl insert a void
+
+    def times(puzzleId: PuzzleId): Fu[List[Int]] = attemptColl.find(
+      BSONDocument(Attempt.BSONFields.puzzleId -> puzzleId),
+      BSONDocument(Attempt.BSONFields.time -> true)
+    ).cursor[BSONDocument].collect[List]() map2 {
+        (obj: BSONDocument) ⇒ obj.getAs[Int](Attempt.BSONFields.time)
+      } map (_.flatten)
   }
 
   def vote(puzzleId: PuzzleId, userId: String, v: Boolean) = attemptColl.update(
     BSONDocument(Attempt.BSONFields.id -> Attempt.makeId(puzzleId, userId)),
     BSONDocument(Attempt.BSONFields.vote -> v)
   ).void
-
-  def fixAll = puzzleColl.find(
-    BSONDocument(),
-    BSONDocument("history" -> true)
-  ).cursor[BSONDocument].enumerate() |>>>
-    (Iteratee.foldM[BSONDocument, Unit](()) {
-      case (_, doc) ⇒
-        val reader = new lila.db.BSON.Reader(doc)
-        val (id, moves) = (reader str "_id", reader str "history" split ' ')
-        Generated fenOf moves match {
-          case Success(fen) ⇒ puzzleColl.update(
-            BSONDocument("_id" -> id),
-            BSONDocument("$set" -> BSONDocument(
-              Puzzle.BSONFields.fen -> fen,
-              Puzzle.BSONFields.rating -> Glicko.default,
-              Puzzle.BSONFields.vote -> BSONInteger(0),
-              Puzzle.BSONFields.attempts -> BSONInteger(0)
-            ))
-          ).void
-          case Failure(err) ⇒
-            println(err)
-            fufail(err.getMessage)
-        }
-    })
 }

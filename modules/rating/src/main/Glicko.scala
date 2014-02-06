@@ -27,7 +27,7 @@ case object Glicko {
     rating + (deviation * 2)
   )
 
-  implicit val GlickoBSONHandler = new BSON[Glicko] {
+  implicit val glickoBSONHandler = new BSON[Glicko] {
 
     def reads(r: BSON.Reader): Glicko = Glicko(
       rating = r double "r",
@@ -49,5 +49,5 @@ case object Glicko {
     case object Draw extends Result(0.5) { def negate = Draw }
   }
 
-  lazy val tube = lila.db.BsTube(GlickoBSONHandler)
+  lazy val tube = lila.db.BsTube(glickoBSONHandler)
 }

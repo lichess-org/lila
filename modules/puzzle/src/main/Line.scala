@@ -43,10 +43,12 @@ object Line {
   }
 
   def toJson(lines: Lines): JsObject = JsObject(lines map {
-    case Win(move)        ⇒ move -> JsString("win")
-    case Retry(move)      ⇒ move -> JsString("retry")
-    case Node(move, more) ⇒ move -> toJson(more)
+    case Win(move)        ⇒ dropPromotion(move) -> JsString("win")
+    case Retry(move)      ⇒ dropPromotion(move) -> JsString("retry")
+    case Node(move, more) ⇒ dropPromotion(move) -> toJson(more)
   })
+
+  private def dropPromotion(move: String) = move take 4
 
   def toJsonString(lines: Lines) = Json stringify toJson(lines)
 }

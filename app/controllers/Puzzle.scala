@@ -22,22 +22,25 @@ object Puzzle extends LilaController {
   }
 
   def show(id: PuzzleId) = Open { implicit ctx ⇒
-    OptionOk(env.api find id) { puzzle ⇒
-      views.html.puzzle.show(puzzle)
+    OptionFuOk(env.api find id) { puzzle ⇒
+      (ctx.userId ?? { env.api.attempt.find(puzzle.id, _) }) map { attempt ⇒
+        views.html.puzzle.show(puzzle, attempt)
+      }
     }
   }
 
-  def attempt(id: PuzzleId) = AuthBody { implicit ctx ⇒
-    me ⇒
-      implicit val req = ctx.body
-      OptionFuResult(env.api find id) { puzzle ⇒
-        env.forms.attempt.bindFromRequest.fold(
-          err ⇒ fuccess(BadRequest(err.toString)),
-          data ⇒ env.api.attempt.add(puzzle, me, data) map { attempt ⇒
+  def attempt(id: PuzzleId) = OpenBody { implicit ctx ⇒
+    implicit val req = ctx.body
+    OptionFuResult(env.api find id) { puzzle ⇒
+      env.forms.attempt.bindFromRequest.fold(
+        err ⇒ fuccess(BadRequest(err.toString)),
+        data ⇒ ctx.me match {
+          case Some(me) ⇒ env.finisher(puzzle, me, data) map { attempt ⇒
             Ok(views.html.puzzle.attempt(puzzle, attempt))
           }
-        )
-      }
+          case None ⇒ env.finisher.anon(puzzle, data) inject Ok("ok")
+        })
+    }
   }
 
   def importBatch = Action.async(parse.json) { implicit req ⇒

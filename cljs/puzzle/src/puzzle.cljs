@@ -22,12 +22,10 @@
 (def chess (new js/Chess initial-fen))
 (def started-at (new js/Date))
 
-(defn seconds-since-started [] (.round js/Math (/ 1000 (- (.getTime (new js/Date)) (.getTime started-at)))))
-
 (defn playing? [] (dommy/has-class? puzzle-elem "playing"))
 
 (defn apply-move
-  ([orig, dest] (.move chess (clj->js {:from orig :to dest})))
+  ([orig, dest] (.move chess (clj->js {:from orig :to dest :promotion "q"})))
   ([move] (let [[a, b, c, d] (seq move)] (apply-move (str a b) (str c d)))))
 
 (defn color-move! [move]
@@ -54,11 +52,6 @@
 
 (defn set-position! [fen] (.position chessboard fen))
 
-(defn try-move [progress move]
-  (let [new-progress (conj progress move)
-        new-lines (get-in lines new-progress)]
-    (if new-lines [new-progress new-lines] "fail")))
-
 (defn ai-play! [branch]
   (let [ch (chan) move (first (first branch))]
     (when-let [valid (apply-move move)]
@@ -70,20 +63,14 @@
 
 (defn set-status! [status] (dommy/set-attr! puzzle-elem :class status))
 
-(defn handler [response]
-  (.log js/console (str response)))
-
-(defn error-handler [{:keys [status status-text]}]
-  (.log js/console (str "something bad happened: " status " " status-text)))
-
 (defn post-attempt! [retries win]
   (xhr/ajax-request post-url :post
                     {:params {:win win
                               :hints 0
-                              :retries 0
-                              :time (seconds-since-started)}
-                     ; :handler (fn [] (.reload js/location))
-                     :format xhr/raw-format}))
+                              :retries retries
+                              :time (- (.getTime (new js/Date)) (.getTime started-at))}
+                     :format xhr/raw-format
+                     :handler log!}))
 
 (defn win! [retries]
   (set-status! "win")
@@ -106,6 +93,7 @@
            failed false]
       (let [move (<! drop-chan)
             new-progress (conj progress move)
+            _ (log! move new-progress)
             new-lines (get-in lines new-progress)]
         (case new-lines
           "retry" (do

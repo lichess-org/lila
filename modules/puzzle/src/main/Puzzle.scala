@@ -4,7 +4,7 @@ import chess.Color
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
 
-import lila.rating.Glicko
+import lila.rating.Perf
 
 case class Puzzle(
     id: PuzzleId,
@@ -16,7 +16,7 @@ case class Puzzle(
     depth: Int,
     color: Color,
     date: DateTime,
-    rating: Glicko,
+    perf: Perf,
     vote: Int,
     attempts: Int,
     wins: Int,
@@ -44,7 +44,7 @@ object Puzzle {
     depth = Line minDepth lines,
     color = Color(history.size % 2 == 0),
     date = DateTime.now,
-    rating = Glicko.default,
+    perf = Perf.default,
     vote = 0,
     attempts = 0,
     wins = 0,
@@ -85,7 +85,7 @@ object Puzzle {
     val depth = "depth"
     val white = "white"
     val date = "date"
-    val rating = "rating"
+    val perf = "perf"
     val vote = "vote"
     val attempts = "attempts"
     val wins = "wins"
@@ -95,7 +95,7 @@ object Puzzle {
   implicit val puzzleBSONHandler = new BSON[Puzzle] {
 
     import BSONFields._
-    import Glicko.GlickoBSONHandler
+    import Perf.perfBSONHandler
 
     def reads(r: BSON.Reader): Puzzle = Puzzle(
       id = r int id,
@@ -107,11 +107,11 @@ object Puzzle {
       depth = r int depth,
       color = Color(r bool white),
       date = r date date,
-      rating = r.get[Glicko](rating),
-      vote = r intD vote,
-      attempts = r intD attempts,
-      wins = r intD wins,
-      time = r intD time)
+      perf = r.get[Perf](perf),
+      vote = r int vote,
+      attempts = r int attempts,
+      wins = r int wins,
+      time = r int time)
 
     def writes(w: BSON.Writer, o: Puzzle) = BSONDocument(
       id -> o.id,
@@ -123,7 +123,7 @@ object Puzzle {
       depth -> o.depth,
       white -> o.color.white,
       date -> o.date,
-      rating -> o.rating,
+      perf -> o.perf,
       vote -> o.vote,
       attempts -> o.attempts,
       wins -> o.wins,

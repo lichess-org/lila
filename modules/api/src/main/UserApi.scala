@@ -7,8 +7,9 @@ import lila.db.api._
 import lila.db.Implicits._
 import lila.game.GameRepo
 import lila.hub.actorApi.{ router ⇒ R }
+import lila.rating.Perf
 import lila.user.tube.userTube
-import lila.user.{ UserRepo, User, Perf, Perfs }
+import lila.user.{ UserRepo, User, Perfs }
 import makeTimeout.short
 
 private[api] final class UserApi(
@@ -45,9 +46,9 @@ private[api] final class UserApi(
     case None ⇒ $find(pimpQB($query(
       UserRepo.enabledSelect ++ (engine ?? UserRepo.engineSelect)
     )) sort ((~engine).fold(
-        UserRepo.sortCreatedAtDesc,
-        UserRepo.sortRatingDesc
-      )), makeNb(nb, token))
+      UserRepo.sortCreatedAtDesc,
+      UserRepo.sortRatingDesc
+    )), makeNb(nb, token))
   }) flatMap { users ⇒
     users.map(u ⇒ makeUrl(R User u.username)).sequenceFu map { urls ⇒
       Json.obj(
