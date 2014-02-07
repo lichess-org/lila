@@ -26,6 +26,10 @@ final class Env(
     api = api,
     puzzleColl = puzzleColl)
 
+  lazy val selector = new Selector(
+    puzzleColl = puzzleColl,
+    attemptColl = attemptColl)
+
   lazy val forms = DataForm
 
   private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)

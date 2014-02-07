@@ -1,4 +1,4 @@
-(ns lichess.puzzle.replay
+(ns lichess.puzzle.view
   (:require [lichess.puzzle.core :as core :refer [$puzzle $board]]
             [jayq.core :as jq :refer [$]]
             [cljs.core.async :as async :refer [chan <! >! alts! put! close! timeout]])
@@ -8,7 +8,7 @@
 (def $next ($ [$puzzle :.next]))
 (def $vote ($ :div.vote_wrap))
 
-(defn replay-chessboard [fen]
+(defn view-chessboard [fen]
   (core/make-chessboard {:position fen :draggable false}))
 
 (defn bind-vote! []

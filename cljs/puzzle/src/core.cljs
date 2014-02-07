@@ -7,7 +7,8 @@
 
 (def $puzzle ($ :#puzzle))
 (def $board ($ :#chessboard))
-(def lines (js->clj (js/JSON.parse (jq/attr $board :data-lines))))
+(def mode (keyword (jq/data $puzzle :mode)))
+(def lines (js->clj (jq/data $board :lines)))
 (def animation-delay 300)
 (def chess (new js/Chess))
 
@@ -19,14 +20,14 @@
 
 (defn color-move! [move]
   (let [[a b c d] (seq move) [orig dest] [(str a b) (str c d)]]
-    (jq/remove-class ($ [$board :.last]) :last)
+    (jq/remove-class ($ :.last $board) :last)
     (let [squares (clojure.string/join ", " (map #(str ".square-" %) [orig dest]))]
       (jq/add-class ($ squares) :last))))
 
 (defn make-chessboard [config]
   (let [static-domain (str "http://" (clojure.string/replace (.-domain js/document) #"^\w+" "static"))]
     (new js/ChessBoard "chessboard"
-         (clj->js (merge {:orientation (jq/attr $board :data-color)
+         (clj->js (merge {:orientation (jq/data $board :color)
                           :sparePieces false
                           :pieceTheme (str static-domain "/assets/images/chessboard/{piece}.png")
                           :moveSpeed animation-delay} config)))))
