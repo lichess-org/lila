@@ -1,0 +1,32 @@
+@(puzzle: lila.puzzle.Puzzle)(implicit ctx: Context)
+
+<div id="puzzle" class="playing"
+  data-mode="play"
+  data-post-url="@routes.Puzzle.attempt(puzzle.id)"
+  data-attempted="@attempt.isDefined">
+
+  <div class="center">
+
+    <div id="chessboard"
+      data-fen="@puzzle.fen"
+      data-color="@puzzle.color"
+      data-move="@puzzle.initialMove"
+      data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"></div>
+
+    <div class="message on_win">
+      Congratulations! You solved the puzzle.
+    </div>
+    <div class="message on_retry">
+      This was a good move, but you can do better!
+    </div>
+    <div class="message on_fail">
+      Puzzle failed! But you can keep looking for the solution.
+    </div>
+
+    <br />
+    <br />
+    <h2>Debug follows:</h2>
+    <pre>@lila.puzzle.Line.toString(puzzle.lines)</pre>
+
+  </div>
+</div>

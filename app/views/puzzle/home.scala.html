@@ -1,8 +1,23 @@
-@(recent: List[lila.puzzle.Puzzle])(implicit ctx: Context)
+@()(implicit ctx: Context)
 
-@layout("Puzzles") {
-
-@recent.map { puzzle =>
-<p><a href="@routes.Puzzle.show(puzzle.id)">Puzzle @puzzle.id</a></p>
+@moreCss = {
+@cssTag("chessboardjs.css")
 }
+
+@moreJs = {
+@jsTag("vendor/chess.min.js")
+@jsTagCompiled("chessboard.js")
+@jsAt("compiled/puzzle.js")
+}
+
+@goodies = {
+}
+
+@layout("Puzzle",
+goodies = goodies.some,
+evenMoreCss = moreCss.some,
+evenMoreJs = moreJs.some) {
+
+<div id="puzzle_wrap">
+</div>
 }

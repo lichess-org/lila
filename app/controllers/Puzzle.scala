@@ -16,15 +16,28 @@ object Puzzle extends LilaController {
   private def env = Env.puzzle
 
   def home = Open { implicit ctx ⇒
-    env.api.puzzle latest 50 map { puzzles ⇒
-      Ok(views.html.puzzle.home(puzzles))
+    fuccess(Ok(views.html.puzzle.home()))
+  }
+
+  def next = Open { implicit ctx ⇒
+    env.api.selector(ctx.me) map { puzzle ⇒
+      Ok(views.html.puzzle.playMode(puzzle))
     }
   }
 
   def show(id: PuzzleId) = Open { implicit ctx ⇒
     OptionFuOk(env.api.puzzle find id) { puzzle ⇒
       (ctx.userId ?? { env.api.attempt.find(puzzle.id, _) }) map { attempt ⇒
-        views.html.puzzle.show(puzzle, attempt)
+        views.html.puzzle.tryMode(puzzle, attempt)
+      }
+    }
+  }
+
+  // XHR view chunks
+  def view(id: PuzzleId) = Open { implicit ctx ⇒
+    OptionFuOk(env.api.puzzle find id) { puzzle ⇒
+      (ctx.userId ?? { env.api.attempt.find(puzzle.id, _) }) map { attempt ⇒
+        views.html.puzzle.view(puzzle, attempt)
       }
     }
   }
