@@ -1,0 +1,13 @@
+@(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt])(implicit ctx: Context)
+
+@goodies = {
+@infoBox(puzzle, attempt)
+}
+
+@layout("Puzzle",
+goodies = goodies.some) {
+
+<div id="puzzle_wrap">
+  @viewMode(puzzle, attempt)
+</div>
+}

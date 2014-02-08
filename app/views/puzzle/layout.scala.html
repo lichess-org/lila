@@ -1,11 +1,15 @@
 @(title: String, goodies: Option[Html] = None, evenMoreCss: Option[Html] = None, evenMoreJs: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
+@cssTag("chessboardjs.css")
 @cssTag("puzzle.css")
 @evenMoreCss
 }
 
 @moreJs = {
+@jsTag("vendor/chess.min.js")
+@jsTagCompiled("chessboard.js")
+@jsAt("compiled/puzzle.js")
 @evenMoreJs
 }
 

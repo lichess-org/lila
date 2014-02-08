@@ -1,38 +1,21 @@
 @(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt])(implicit ctx: Context)
 
-@moreCss = {
-@cssTag("chessboardjs.css")
-}
+<div id="puzzle"
+  data-mode="view"
+  data-fen="@puzzle.fen"
+  data-color="@puzzle.color"
+  data-move="@puzzle.initialMove"
+  data-flat-line="@lila.puzzle.Line.flatLine(puzzle.lines.head).mkString(" ")">
 
-@moreJs = {
-@jsTag("vendor/chess.min.js")
-@jsTagCompiled("chessboard.js")
-@jsAt("compiled/puzzle.js")
-}
-
-@goodies = {
-@infoBox(puzzle, attempt)
-}
-
-@layout("Puzzle " + puzzle.id,
-goodies = goodies.some,
-evenMoreCss = moreCss.some,
-evenMoreJs = moreJs.some) {
-
-<div id="puzzle">
   <div class="center">
 
-    <div id="chessboard" class="end"
-      data-fen="@puzzle.fen"
-      data-color="@puzzle.color"
-      data-move="@puzzle.initialMove"
-      data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"></div>
+    <div id="chessboard"></div>
 
     <div class="prev_next">
-      <button class="prev">&lt;</button>
-      <button class="next">&gt;</button>
+      <button class="prev" value="prev">&lt;</button>
+      <button class="next" value="next">&gt;</button>
     </div>
 
   </div>
+
 </div>
-}

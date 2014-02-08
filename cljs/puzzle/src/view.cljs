@@ -1,5 +1,5 @@
 (ns lichess.puzzle.view
-  (:require [lichess.puzzle.core :as core :refer [$puzzle $board chess log!]]
+  (:require [lichess.puzzle.core :as core :refer [chess log!]]
             [jayq.core :as jq :refer [$]]
             [cljs.core.async :as async :refer [chan <! >! alts! put! close! timeout]])
   (:require-macros [cljs.core.async.macros :refer [go]]))
@@ -7,8 +7,11 @@
 (def browse-chan (async/chan))
 (def animation-delay 200)
 
-(defn make-chessboard [fen] (core/make-chessboard {:position fen
-                                                   :draggable false}))
+(defn make-chessboard [$puzzle fen]
+  (core/make-chessboard {:orientation (jq/data $puzzle :color)
+                         :position fen
+                         :moveSpeed animation-delay
+                         :draggable false}))
 
 (defn bind-vote! [$vote]
   (jq/on $vote :click :button (fn [e]
@@ -26,13 +29,14 @@
     (map (fn [move] (core/apply-move c move) [move (.fen c)]) line)))
 
 (defn run! [initial-step]
-  (let [$browse ($ :.prev_next $puzzle)
+  (let [$puzzle ($ :#puzzle)
+        $browse ($ :.prev_next $puzzle)
         $prev ($ :.prev $browse)
         $next ($ :.next $browse)
-        initial-fen (jq/data $board :fen)
-        chessboard (make-chessboard initial-fen)
-        line (clojure.string/split (jq/data $board :flat-line) " ")
-        history (vec (make-history initial-fen (conj (seq line) (jq/data $board :move))))]
+        initial-fen (jq/data $puzzle :fen)
+        chessboard (make-chessboard $puzzle initial-fen)
+        line (clojure.string/split (jq/data $puzzle :flat-line) " ")
+        history (vec (make-history initial-fen (conj (seq line) (jq/data $puzzle :move))))]
     (bind-vote! ($ :div.vote_wrap))
     (bind-browse! $browse)
     (go

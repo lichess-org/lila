@@ -113,7 +113,7 @@ http://omnipotent.net/jquery.sparkline
 deploy
 ------
 db.puzzle.ensureIndex({fen:1},{unique:1})
-db.puzzle.ensureIndex({users:1,'vote.sum':-1,'perf.gl.r':1})
+db.puzzle.ensureIndex({'vote.sum':-1, users:1,'perf.gl.r':1})
 db.puzzle_attempt.ensureIndex({p:1})
 db.puzzle_attempt.ensureIndex({u:1})
 

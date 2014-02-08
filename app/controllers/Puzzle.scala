@@ -16,21 +16,23 @@ object Puzzle extends LilaController {
   private def env = Env.puzzle
 
   def home = Open { implicit ctx ⇒
-    env.selector(ctx.me).thenPp
-    fuccess(Ok(views.html.puzzle.home()))
-  }
-
-  def next = Open { implicit ctx ⇒
     env selector ctx.me map { puzzle ⇒
-      Ok(views.html.puzzle.playMode(puzzle))
+      Ok(views.html.puzzle.home(puzzle))
     }
   }
 
   def show(id: PuzzleId) = Open { implicit ctx ⇒
     OptionFuOk(env.api.puzzle find id) { puzzle ⇒
       (ctx.userId ?? { env.api.attempt.find(puzzle.id, _) }) map { attempt ⇒
-        views.html.puzzle.tryMode(puzzle, attempt)
+        views.html.puzzle.show(puzzle, attempt)
       }
+    }
+  }
+
+  // XHR load nex play puzzle
+  def next = Open { implicit ctx ⇒
+    env selector ctx.me map { puzzle ⇒
+      Ok(views.html.puzzle.playMode(puzzle))
     }
   }
 
@@ -48,12 +50,13 @@ object Puzzle extends LilaController {
     OptionFuResult(env.api.puzzle find id) { puzzle ⇒
       env.forms.attempt.bindFromRequest.fold(
         err ⇒ fuccess(BadRequest(err.toString)),
-        data ⇒ ctx.me match {
-          case Some(me) ⇒ env.finisher(puzzle, me, data) map { attempt ⇒
-            Ok(views.html.puzzle.attempt(puzzle, attempt))
-          }
-          case None ⇒ env.finisher.anon(puzzle, data) inject Ok("ok")
-        })
+        data ⇒ (ctx.me match {
+          case Some(me) ⇒ env.finisher(puzzle, me, data) map (_.some)
+          case None     ⇒ env.finisher.anon(puzzle, data) inject none
+        }) map { attempt ⇒
+          Ok(views.html.puzzle.viewMode(puzzle, attempt))
+        }
+      )
     }
   }
 

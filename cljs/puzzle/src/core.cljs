@@ -5,10 +5,7 @@
 (defn log! [& args] (.log js/console (apply pr-str args)))
 (defn log-obj! [obj] (.log js/console obj))
 
-(def $puzzle ($ :#puzzle))
-(def $board ($ :#chessboard))
-(def mode (keyword (jq/data $puzzle :mode)))
-(def lines (js->clj (jq/data $board :lines)))
+(def $wrap ($ :#puzzle_wrap))
 (def chess (new js/Chess))
 
 (defn await-in [ch value duration] (js/setTimeout #(put! ch value) duration) ch)
@@ -26,7 +23,6 @@
 (defn make-chessboard [config]
   (let [static-domain (str "http://" (clojure.string/replace (.-domain js/document) #"^\w+" "static"))]
     (new js/ChessBoard "chessboard"
-         (clj->js (merge {:orientation (jq/data $board :color)
-                          :sparePieces false
-                          :pieceTheme (str static-domain "/assets/images/chessboard/{piece}.png")
-                          :moveSpeed animation-delay} config)))))
+         (clj->js (merge {:sparePieces false
+                          :pieceTheme (str static-domain "/assets/images/chessboard/{piece}.png")}
+                         config)))))

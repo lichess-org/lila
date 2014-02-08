@@ -34,7 +34,7 @@ private[puzzle] final class Selector(puzzleColl: Coll) {
   private def tryRange(user: User, tolerance: Int): Fu[Puzzle] = puzzleColl.find(BSONDocument(
     Puzzle.BSONFields.users -> BSONDocument("$ne" -> user.id),
     Puzzle.BSONFields.rating -> BSONDocument(
-      "$gt" -> BSONInteger(user.perfs.puzzle.intRating + tolerance),
+      "$gt" -> BSONInteger(user.perfs.puzzle.intRating - tolerance),
       "$lt" -> BSONInteger(user.perfs.puzzle.intRating + tolerance)
     )
   ), BSONDocument(
