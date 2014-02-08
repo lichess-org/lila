@@ -14,12 +14,12 @@
                          :draggable false}))
 
 (defn bind-vote! [$vote]
-  (jq/on $vote :click :button (fn [e]
-                                (jq/prevent e)
-                                (jq/attr ($ :button $vote) :disabled)
-                                (jq/xhr [:post (jq/attr ($ :form $vote) :action)]
-                                        {:vote (jq/attr ($ (.-target e)) :value)}
-                                        #(jq/html $vote %)))))
+  (jq/on $vote :click ".enabled a:not(.active)"
+         (fn [e] (let [$a ($ (.-target e))]
+                   (jq/add-class $a :active)
+                   (jq/xhr [:post (jq/data (jq/parent $a) :post-url)]
+                           {:vote (jq/data $a :vote)}
+                           #(jq/html $vote %))))))
 
 (defn bind-browse! [$browse]
   (jq/on $browse :click :button #(put! browse-chan (jq/attr ($ (.-target %)) :value))))

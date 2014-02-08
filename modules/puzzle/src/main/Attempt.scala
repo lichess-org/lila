@@ -8,8 +8,6 @@ case class Attempt(
     userId: String,
     date: DateTime,
     win: Boolean,
-    hints: Int,
-    retries: Int,
     time: Int, // seconds
     puzzleRating: Int,
     puzzleRatingDiff: Int,
@@ -32,8 +30,6 @@ object Attempt {
     val userId = "u"
     val date = "d"
     val win = "w"
-    val hints = "h"
-    val retries = "r"
     val time = "t"
     val puzzleRating = "pr"
     val puzzleRatingDiff = "pd"
@@ -55,8 +51,6 @@ object Attempt {
       userId = r str userId,
       date = r.get[DateTime](date),
       win = r bool win,
-      hints = r intD hints,
-      retries = r intD retries,
       time = r int time,
       puzzleRating = r int puzzleRating,
       puzzleRatingDiff = r int puzzleRatingDiff,
@@ -70,8 +64,6 @@ object Attempt {
       userId -> o.userId,
       date -> o.date,
       win -> o.win,
-      hints -> w.intO(o.hints),
-      retries -> w.intO(o.retries),
       time -> w.int(o.time),
       puzzleRating -> w.int(o.puzzleRating),
       puzzleRatingDiff -> w.int(o.puzzleRatingDiff),

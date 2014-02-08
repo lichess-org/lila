@@ -20,7 +20,7 @@
   border-bottom: 1px solid #ccc;
   margin-bottom: 8px;
 }
-#puzzle > .side p {
+#puzzle p {
   line-height: 1.8em;
 }
 #puzzle > .side p.comment {
@@ -53,7 +53,6 @@
 #puzzle > .side .user_chart {
   margin: 0 0 -10px -9px;
 }
-
 #puzzle > .center {
   width: 512px;
 }
@@ -61,6 +60,11 @@
   position: absolute;
   left: 524px;
   width: 242px;
+}
+#puzzle > .right h2 {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-bottom: 7px;
 }
 #puzzle > .right .lichess_control {
   text-align: center;
@@ -70,9 +74,10 @@
 #puzzle > .right > .continue {
   display: block;
   margin: 20px auto 0 auto;
+  white-space: nowrap;
   font-size: 1.3em;
+  font-weight: bold;
 }
-
 #puzzle .prev_next {
   text-align: center;
 }
@@ -85,11 +90,43 @@
 #puzzle .prev_next button:disabled {
   color: transparent;
 }
-
 #chessboard {
   width: 520px;
 }
-
 #chessboard .last {
   background-image: url(../images/over5.png);
+}
+#puzzle div.upvote {
+  float: right;
+}
+#puzzle div.upvote.enabled a {
+  cursor: pointer;
+}
+#puzzle div.upvote a {
+  background: url('../images/vote.png');
+  overflow: hidden;
+  display: block;
+  margin: 0 auto;
+  width: 40px;
+  height: 25px;
+}
+#puzzle div.upvote span.count {
+  display: block;
+  font-size: 24px;
+  color: #555;
+  text-align: center;
+  width: 40px;
+  line-height: 1;
+}
+#puzzle div.upvote a.upvote {
+  background-position: 0px -35px;
+}
+#puzzle div.upvote a.upvote.active {
+  background-position: 0px 0;
+}
+#puzzle div.upvote a.downvote {
+  background-position: 0px -70px;
+}
+#puzzle div.upvote a.downvote.active {
+  background-position: 0px -100px;
 }

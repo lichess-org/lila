@@ -37,11 +37,10 @@
 
 (defn set-status! [$puzzle status] (jq/attr $puzzle :class status))
 
-(defn post-attempt! [$puzzle retries win started-at]
+(defn post-attempt! [$puzzle win started-at]
   (let [chan (async/chan)]
     (jq/xhr [:post (jq/data $puzzle :post-url)]
-            {:win win :hints 0 :retries retries
-             :time (- (.getTime (new js/Date)) (.getTime started-at))}
+            {:win win :time (- (.getTime (new js/Date)) (.getTime started-at))}
             #(put! chan %))
     chan))
 
@@ -50,16 +49,16 @@
     (jq/xhr [:get (jq/data $puzzle :view-url)] {} #(put! chan %))
     chan))
 
-(defn win! [$puzzle mode retries progress started-at]
+(defn win! [$puzzle mode progress started-at]
   (go
-    (let [res (<! (if (= mode :play) (post-attempt! $puzzle retries 1 started-at) (get-view $puzzle)))]
+    (let [res (<! (if (= mode :play) (post-attempt! $puzzle 1 started-at) (get-view $puzzle)))]
       (<! (timeout animation-delay))
       (jq/html core/$wrap res)
       (view/run! progress))))
 
-(defn fail! [$puzzle mode retries started-at]
+(defn fail! [$puzzle mode started-at]
   (set-status! $puzzle "playing fail")
-  (if (= mode :play) (post-attempt! $puzzle retries 0 started-at) (timeout 10)))
+  (if (= mode :play) (post-attempt! $puzzle 0 started-at) (timeout 10)))
 
 (defn run! []
   (let [$puzzle ($ :#puzzle)
@@ -79,12 +78,11 @@
       (core/color-move! $puzzle (jq/data $puzzle :move))
       (set-status! $puzzle "playing")
       (loop [progress []
-             fen (.fen chess)
-             retries 0]
+             fen (.fen chess)]
         (show-turn! $puzzle)
         (let [[move ch] (alts! [drop-chan giveup-chan])]
           (if (= ch giveup-chan)
-            (let [res (<! (post-attempt! $puzzle retries 0 started-at))]
+            (let [res (<! (post-attempt! $puzzle 0 started-at))]
               (jq/html core/$wrap res)
               (view/run! progress))
             (let [new-progress (conj progress move)
@@ -95,17 +93,17 @@
                           (<! (timeout animation-delay))
                           (.load chess fen)
                           (.position chessboard fen)
-                          (recur progress fen (+ 1 retries)))
+                          (recur progress fen))
                 "fail" (do
                          (<! (timeout animation-delay))
                          (.load chess fen)
                          (.position chessboard fen)
-                         (if-let [res (<! (fail! $puzzle mode retries started-at))]
+                         (if-let [res (<! (fail! $puzzle mode started-at))]
                            (do
                              (<! (timeout animation-delay))
                              (jq/html core/$wrap res)
                              (view/run! progress))
-                           (recur progress fen retries)))
+                           (recur progress fen)))
                 (do
                   (set-status! $puzzle "playing great")
                   (core/color-move! $puzzle move)
@@ -113,9 +111,9 @@
                   (show-turn! $puzzle)
                   (<! (timeout animation-delay-plus))
                   (if (= new-lines "win")
-                    (win! $puzzle mode retries new-progress started-at)
+                    (win! $puzzle mode new-progress started-at)
                     (let [aim (<! (ai-play! $puzzle chessboard new-lines))
                           new-new-progress (conj new-progress aim)]
                       (if (= (get new-lines aim) "win")
-                        (win! $puzzle mode retries new-new-progress started-at )
-                        (recur new-new-progress (.fen chess) retries)))))))))))))
+                        (win! $puzzle mode new-new-progress started-at )
+                        (recur new-new-progress (.fen chess))))))))))))))
