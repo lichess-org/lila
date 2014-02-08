@@ -44,6 +44,8 @@ private[puzzle] final class Finisher(
             )) ++ BSONDocument("$set" -> BSONDocument(
               Puzzle.BSONFields.time -> BSONInteger(times.sum / (puzzle.attempts + 1)),
               Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf)
+            )) ++ BSONDocument("$addToSet" -> BSONDocument(
+              Puzzle.BSONFields.users -> user.id
             ))) zip UserRepo.setPerf(user.id, "puzzle", userPerf)
         } inject a
     }

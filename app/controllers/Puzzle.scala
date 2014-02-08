@@ -16,11 +16,12 @@ object Puzzle extends LilaController {
   private def env = Env.puzzle
 
   def home = Open { implicit ctx ⇒
+    env.selector(ctx.me).thenPp
     fuccess(Ok(views.html.puzzle.home()))
   }
 
   def next = Open { implicit ctx ⇒
-    env.api.selector(ctx.me) map { puzzle ⇒
+    env selector ctx.me map { puzzle ⇒
       Ok(views.html.puzzle.playMode(puzzle))
     }
   }
