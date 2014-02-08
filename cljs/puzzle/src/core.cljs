@@ -9,14 +9,13 @@
 (def $board ($ :#chessboard))
 (def mode (keyword (jq/data $puzzle :mode)))
 (def lines (js->clj (jq/data $board :lines)))
-(def animation-delay 300)
 (def chess (new js/Chess))
 
 (defn await-in [ch value duration] (js/setTimeout #(put! ch value) duration) ch)
 
 (defn apply-move
-  ([orig, dest] (.move chess (clj->js {:from orig :to dest :promotion "q"})))
-  ([move] (let [[a, b, c, d] (seq move)] (apply-move (str a b) (str c d)))))
+  ([ch orig, dest] (.move ch (clj->js {:from orig :to dest :promotion "q"})))
+  ([ch move] (let [[a, b, c, d] (seq move)] (apply-move ch (str a b) (str c d)))))
 
 (defn color-move! [move]
   (let [[a b c d] (seq move) [orig dest] [(str a b) (str c d)]]
