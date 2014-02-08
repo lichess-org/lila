@@ -1,12 +1,8 @@
-@(puzzle: lila.puzzle.Puzzle)(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, userInfos: Option[lila.puzzle.UserInfos])(implicit ctx: Context)
 
-@goodies = {
-}
-
-@layout("Puzzle",
-goodies = goodies.some) {
+@layout("Puzzle") {
 
 <div id="puzzle_wrap">
-  @playMode(puzzle)
+  @playMode(puzzle, userInfos)
 </div>
 }

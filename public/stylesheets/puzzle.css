@@ -1,51 +1,95 @@
-#puzzle > .center {
-  width: 512px;
+#puzzle {
+  position: relative;
 }
-#chessboard {
-  width: 520px;
+#puzzle > .side {
+  position: absolute;
+  margin-top: 64px;
+  left: -222px;
+  width: 212px;
 }
-
-.prev_next {
-  margin-top: 10px;
-  text-align: center;
+#puzzle div.box {
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  padding: 7px;
 }
-
-#puzzle .on_win,
-#puzzle .on_retry,
-#puzzle .on_fail {
-  margin: 1em;
-  padding: 1em;
-  text-align: center;
-  font-size: 1.2em;
-  border: 1px solid #c0c0c0;
-  color: #000;
-  display: none;
-}
-#puzzle .on_win {
-  background: #AAFFAA;
-}
-#puzzle .on_retry {
-  background: #CCCC77;
-}
-#puzzle .on_fail {
-  background: #FF9999;
-}
-#puzzle.win .on_win,
-#puzzle.retry .on_retry,
-#puzzle.fail .on_fail {
-  display: block;
-}
-.last {
-  background-image: url(../images/over5.png);
-}
-.lichess_goodies h1 {
+#puzzle > .side h1 {
   text-align: center;
   font-size: 1.4em;
   font-weight: bold;
   padding-bottom: 8px;
-  border-bottom: 1px solid #3d3d3d;
+  border-bottom: 1px solid #ccc;
   margin-bottom: 8px;
 }
-.lichess_goodies p {
+#puzzle > .side p {
   line-height: 1.8em;
+}
+#puzzle > .side p.comment {
+  padding: 10px 5px;
+  text-align: center;
+  margin-bottom: 1em;
+}
+#puzzle > .side p.comment strong {
+  display: block;
+}
+#puzzle > .side p.retry {
+  color: #31708f;
+  background: #D9EDF7;
+}
+#puzzle.retry > .side p.retry {
+  display: block;
+}
+#puzzle > .side p.great,
+#puzzle > .side p.win {
+  background: #DFF0D8;
+  color: #3c763d;
+}
+#puzzle.great > .side p.great {
+  display: block;
+}
+#puzzle > .side p.loss {
+  color: #a94442;
+  background: #ebccd1;
+}
+#puzzle > .side .user_chart {
+  margin: 0 0 -10px -9px;
+}
+
+#puzzle > .center {
+  width: 512px;
+}
+#puzzle > .right {
+  position: absolute;
+  left: 524px;
+  width: 242px;
+}
+#puzzle > .right .lichess_control {
+  text-align: center;
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+#puzzle > .right > .continue {
+  display: block;
+  margin: 20px auto 0 auto;
+  font-size: 1.3em;
+}
+
+#puzzle .prev_next {
+  text-align: center;
+}
+#puzzle .prev_next button {
+  font-size: 2em;
+  font-weight: bold;
+  padding: 5px 30px;
+  margin: 15px 5px 0 5px;
+}
+#puzzle .prev_next button:disabled {
+  color: transparent;
+}
+
+#chessboard {
+  width: 520px;
+}
+
+#chessboard .last {
+  background-image: url(../images/over5.png);
 }

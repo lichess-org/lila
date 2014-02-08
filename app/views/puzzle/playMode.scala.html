@@ -1,4 +1,4 @@
-@(puzzle: lila.puzzle.Puzzle)(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, userInfos: Option[lila.puzzle.UserInfos])(implicit ctx: Context)
 
 <div id="puzzle" class="playing"
   data-mode="play"
@@ -8,28 +8,38 @@
   data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"
   data-post-url="@routes.Puzzle.attempt(puzzle.id)">
 
+  <div class="side">
+    @trainingBox(userInfos)
+    <p class="comment retry none"><strong>Good!</strong> But you can do better.</p>
+    <p class="comment great none"><strong>Best move!</strong> Continue like that.</p>
+  </div>
+
   <div class="center">
 
     <div id="chessboard"></div>
 
-    <div class="actions">
-      <button class="giveup">Give up</button>
-    </div>
+    @userInfos.map(history(_))
 
-    <div class="message on_win">
-      Congratulations! You solved the puzzle.
-    </div>
-    <div class="message on_retry">
-      This was a good move, but you can do better!
-    </div>
-    <div class="message on_fail">
-      Puzzle failed! But you can keep looking for the solution.
-    </div>
+  </div>
 
-    <br />
-    <br />
-    <h2>Debug follows:</h2>
-    <pre>@lila.puzzle.Line.toString(puzzle.lines)</pre>
+  <div class="right">
+    <div class="lichess_table">
+      <div class="table_inner">
 
+        <div class="lichess_current_player">
+          <div class="lichess_player white @puzzle.color.black.fold("", " none")">
+            <div class="lichess_piece king white"></div>
+            <p>@puzzle.color.white.fold(trans.yourTurn(), trans.waiting())</p>
+          </div>
+          <div class="lichess_player black @puzzle.color.white.fold("", " none")">
+            <div class="lichess_piece king black"></div>
+            <p>@puzzle.color.black.fold(trans.yourTurn(), trans.waiting())</p>
+          </div>
+        </div>
+        <div class="lichess_control">
+          <a class="giveup button">Give up</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

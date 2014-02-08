@@ -1,21 +1,70 @@
-@(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt])(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt], userInfos: Option[lila.puzzle.UserInfos])(implicit ctx: Context)
 
 <div id="puzzle"
   data-mode="view"
   data-fen="@puzzle.fen"
   data-color="@puzzle.color"
   data-move="@puzzle.initialMove"
-  data-flat-line="@lila.puzzle.Line.flatLine(puzzle.lines.head).mkString(" ")">
+  data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"
+  data-new-url="@routes.Puzzle.newPuzzle">
+
+  <div class="side">
+    @trainingBox(userInfos)
+    @attempt.map { a =>
+    @if(a.win) {
+    <p class="comment win"><strong>Victory!</strong>Puzzle solved in @showMillis(a.time) seconds.</p>
+    } else {
+    <p class="comment loss">Puzzle failed.</p>
+    }
+    <div class="box">
+      <p>Your rating: @a.userRating (@showNumber(a.userRatingDiff))</p>
+      <p>Puzzle rating: @a.puzzleRating (@showNumber(a.puzzleRatingDiff))</p>
+    </div>
+    }
+  </div>
 
   <div class="center">
 
     <div id="chessboard"></div>
 
     <div class="prev_next">
-      <button class="prev" value="prev">&lt;</button>
-      <button class="next" value="next">&gt;</button>
+      <button class="prev button" value="prev">&lt;</button>
+      <button class="next button" value="next">&gt;</button>
     </div>
 
+    @userInfos.map(history(_))
+
+  </div>
+
+  <div class="right">
+    <div class="box">
+      <p>
+        @defining(netBaseUrl + routes.Puzzle.show(puzzle.id)) { url =>
+        Share: <a href="@url">@url</a>
+        }
+      </p>
+      @puzzle.gameId.map { id =>
+      <p>From game: <a href="@routes.Round.watcher(id, puzzle.color.name)">#@id</a></p>
+      }
+      <p>
+        Moves: @puzzle.depth
+      </p>
+      <p>
+        Rating: <strong>@puzzle.perf.intRating</strong>
+        <small title="Glicko rating deviation"> ±@puzzle.perf.glicko.intDeviationDoubled</small>
+      </p>
+      <p>
+        Played <strong>@puzzle.attempts</strong> times
+      </p>
+      <p>
+        Win rate: <strong>@puzzle.winPercent</strong>%
+      </p>
+      <p>
+        Average time: <strong>@showMillis(puzzle.time)</strong> seconds
+      </p>
+      <div class="vote_wrap">@vote(puzzle, attempt)</div>
+    </div>
+    <button class="continue button">&#9654; Continue training</button>
   </div>
 
 </div>

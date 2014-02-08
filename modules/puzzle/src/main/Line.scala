@@ -24,15 +24,6 @@ object Line {
     (1 + ~(walk(Vector(lines -> 1)))) / 2
   }
 
-  def flatLine(line: Line): List[String] = line match {
-    case Win(move) ⇒ List(move)
-    case Retry(_)  ⇒ Nil
-    case Node(move, lines) ⇒ move :: ~(lines.find {
-      case Retry(_)            ⇒ false
-      case Win(_) | Node(_, _) ⇒ true
-    }).map(flatLine)
-  }
-
   def toString(lines: Lines, level: Int = 0): String = {
     val indent = ". " * level
     lines map {
@@ -43,12 +34,10 @@ object Line {
   }
 
   def toJson(lines: Lines): JsObject = JsObject(lines map {
-    case Win(move)        ⇒ dropPromotion(move) -> JsString("win")
-    case Retry(move)      ⇒ dropPromotion(move) -> JsString("retry")
-    case Node(move, more) ⇒ dropPromotion(move) -> toJson(more)
+    case Win(move)        ⇒ move -> JsString("win")
+    case Retry(move)      ⇒ move -> JsString("retry")
+    case Node(move, more) ⇒ move -> toJson(more)
   })
-
-  private def dropPromotion(move: String) = move take 4
 
   def toJsonString(lines: Lines) = Json stringify toJson(lines)
 }

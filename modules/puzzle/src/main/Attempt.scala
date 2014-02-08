@@ -3,19 +3,24 @@ package lila.puzzle
 import org.joda.time.DateTime
 
 case class Attempt(
-  id: String, // userId/puzzleId
-  puzzleId: PuzzleId,
-  userId: String,
-  date: DateTime,
-  win: Boolean,
-  hints: Int,
-  retries: Int,
-  time: Int, // seconds
-  puzzleRating: Int,
-  puzzleRatingDiff: Int,
-  userRating: Int,
-  userRatingDiff: Int,
-  vote: Option[Boolean])
+    id: String, // userId/puzzleId
+    puzzleId: PuzzleId,
+    userId: String,
+    date: DateTime,
+    win: Boolean,
+    hints: Int,
+    retries: Int,
+    time: Int, // seconds
+    puzzleRating: Int,
+    puzzleRatingDiff: Int,
+    userRating: Int,
+    userRatingDiff: Int,
+    vote: Option[Boolean]) {
+
+  def userPostRating = userRating + userRatingDiff
+
+  def puzzlePostRating = puzzleRating + puzzleRatingDiff
+}
 
 object Attempt {
 

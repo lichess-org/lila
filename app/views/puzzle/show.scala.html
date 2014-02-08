@@ -1,13 +1,8 @@
-@(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt])(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt], userInfos: Option[lila.puzzle.UserInfos])(implicit ctx: Context)
 
-@goodies = {
-@infoBox(puzzle, attempt)
-}
-
-@layout("Puzzle",
-goodies = goodies.some) {
+@layout("Puzzle") {
 
 <div id="puzzle_wrap">
-  @viewMode(puzzle, attempt)
+  @viewMode(puzzle, attempt, userInfos)
 </div>
 }

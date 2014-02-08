@@ -1,55 +1,7 @@
 @(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt])(implicit ctx: Context)
 
-@moreCss = {
-@cssTag("chessboardjs.css")
-}
+@layout("Puzzle " + puzzle.id) {
 
-@moreJs = {
-@jsTag("vendor/chess.min.js")
-@jsTagCompiled("chessboard.js")
-@jsAt("compiled/puzzle.js")
-}
-
-@goodies = {
-@infoBox(puzzle, attempt)
-}
-
-@layout("Puzzle " + puzzle.id,
-goodies = goodies.some,
-evenMoreCss = moreCss.some,
-evenMoreJs = moreJs.some) {
-
-<div id="puzzle" class="playing"
-  data-mode="try"
-  data-view-url="@routes.Puzzle.view(puzzle.id)"
-  data-attempted="@attempt.isDefined">
-  <div class="center">
-
-    <div id="chessboard"
-      data-fen="@puzzle.fen"
-      data-color="@puzzle.color"
-      data-move="@puzzle.initialMove"
-      data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"></div>
-
-    <div class="actions">
-      <button class="giveup">See the solution</button>
-    </div>
-
-    <div class="message on_win">
-      Congratulations! You solved the puzzle.
-    </div>
-    <div class="message on_retry">
-      This was a good move, but you can do better!
-    </div>
-    <div class="message on_fail">
-      Puzzle failed! But you can keep looking for the solution.
-    </div>
-
-    <br />
-    <br />
-    <h2>Debug follows:</h2>
-    <pre>@lila.puzzle.Line.toString(puzzle.lines)</pre>
-
-  </div>
+<div id="puzzle_wrap">
 </div>
 }

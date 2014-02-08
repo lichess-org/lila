@@ -1,0 +1,13 @@
+@(userInfos: Option[lila.puzzle.UserInfos])(implicit ctx: Context)
+
+<div class="box">
+  <h1>Training</h1>
+  @ctx.me.map { u =>
+  Your puzzle rating: <strong>@u.perfs.puzzle.intRating</strong>
+  @userInfos.map { i =>
+  <div class="user_chart" data-points="@toJson(i.chart)"></div>
+  }
+  }.getOrElse {
+  <a href="@routes.Auth.signup">Create a username</a> to get a puzzle rating!
+  }
+</div>
