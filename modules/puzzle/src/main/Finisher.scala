@@ -27,8 +27,6 @@ private[puzzle] final class Finisher(
           userId = user.id,
           date = DateTime.now,
           win = data.isWin,
-          hints = data.hints,
-          retries = data.retries,
           time = data.time,
           vote = none,
           puzzleRating = puzzle.perf.intRating,

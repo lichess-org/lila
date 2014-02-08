@@ -56,8 +56,9 @@ object Puzzle extends LilaController {
           case Some(me) ⇒ env.finisher(puzzle, me, data) map (_.some)
           case None     ⇒ env.finisher.anon(puzzle, data) inject none
         }) flatMap { attempt ⇒
-          env userInfos ctx.me map { infos ⇒
-            Ok(views.html.puzzle.viewMode(puzzle, attempt, infos))
+          env.api.puzzle find id zip (env userInfos ctx.me) map {
+            case (Some(p2), infos) ⇒ Ok(views.html.puzzle.viewMode(p2, attempt, infos))
+            case _                 ⇒ NotFound
           }
         }
       )

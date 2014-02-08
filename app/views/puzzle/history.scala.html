@@ -19,11 +19,11 @@
             <td>
               <a class="user_link" href="@routes.Puzzle.show(attempt.puzzleId)">
                 Puzzle #@attempt.puzzleId
-                (@attempt.puzzleRating) (@showNumber(attempt.puzzleRatingDiff))
+                (@attempt.puzzleRating)
               </a>
             </td>
             <td>
-              @showMillis(attempt.time) seconds
+              @showMillis(attempt.time) s
             </td>
           </tr>
           }
