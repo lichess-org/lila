@@ -2,15 +2,19 @@
 
 <div id="puzzle" class="playing"
   data-mode="play"
+  data-fen="@puzzle.fen"
+  data-color="@puzzle.color"
+  data-move="@puzzle.initialMove"
+  data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"
   data-post-url="@routes.Puzzle.attempt(puzzle.id)">
 
   <div class="center">
 
-    <div id="chessboard"
-      data-fen="@puzzle.fen"
-      data-color="@puzzle.color"
-      data-move="@puzzle.initialMove"
-      data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"></div>
+    <div id="chessboard"></div>
+
+    <div class="actions">
+      <button class="giveup">Give up</button>
+    </div>
 
     <div class="message on_win">
       Congratulations! You solved the puzzle.

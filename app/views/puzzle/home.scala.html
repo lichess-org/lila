@@ -1,23 +1,12 @@
-@()(implicit ctx: Context)
-
-@moreCss = {
-@cssTag("chessboardjs.css")
-}
-
-@moreJs = {
-@jsTag("vendor/chess.min.js")
-@jsTagCompiled("chessboard.js")
-@jsAt("compiled/puzzle.js")
-}
+@(puzzle: lila.puzzle.Puzzle)(implicit ctx: Context)
 
 @goodies = {
 }
 
 @layout("Puzzle",
-goodies = goodies.some,
-evenMoreCss = moreCss.some,
-evenMoreJs = moreJs.some) {
+goodies = goodies.some) {
 
 <div id="puzzle_wrap">
+  @playMode(puzzle)
 </div>
 }
