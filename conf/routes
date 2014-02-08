@@ -209,7 +209,7 @@ POST  /report/:id/process              controllers.Report.process(id: String)
 # Puzzle
 POST  /api/puzzle                      controllers.Puzzle.importBatch
 GET   /puzzle                          controllers.Puzzle.home
-GET   /puzzle/next                     controllers.Puzzle.next
+GET   /puzzle/new                      controllers.Puzzle.newPuzzle
 GET   /puzzle/:id                      controllers.Puzzle.show(id: Int)
 GET   /puzzle/:id/view                 controllers.Puzzle.view(id: Int)
 POST  /puzzle/:id/attempt              controllers.Puzzle.attempt(id: Int)

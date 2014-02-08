@@ -14,11 +14,11 @@
   ([ch orig, dest] (.move ch (clj->js {:from orig :to dest :promotion "q"})))
   ([ch move] (let [[a, b, c, d] (seq move)] (apply-move ch (str a b) (str c d)))))
 
-(defn color-move! [move]
+(defn color-move! [$puzzle move]
   (let [[a b c d] (seq move) [orig dest] [(str a b) (str c d)]]
-    (jq/remove-class ($ :.last $board) :last)
+    (jq/remove-class ($ :.last $puzzle) :last)
     (let [squares (clojure.string/join ", " (map #(str ".square-" %) [orig dest]))]
-      (jq/add-class ($ squares) :last))))
+      (jq/add-class ($ squares $puzzle) :last))))
 
 (defn make-chessboard [config]
   (let [static-domain (str "http://" (clojure.string/replace (.-domain js/document) #"^\w+" "static"))]
@@ -26,3 +26,11 @@
          (clj->js (merge {:sparePieces false
                           :pieceTheme (str static-domain "/assets/images/chessboard/{piece}.png")}
                          config)))))
+
+(defn center-right! [$right]
+  (jq/css $right {:top (str (- 256 (/ (jq/height $right) 2)) "px")}))
+
+(defn user-chart! [$chart]
+  (.sparkline $chart (jq/data $chart :points) (clj->js {:type "line"
+                                                        :width "213px"
+                                                        :height "80px"})))

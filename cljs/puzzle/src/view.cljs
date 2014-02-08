@@ -5,11 +5,11 @@
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
 (def browse-chan (async/chan))
+(def continue-chan (async/chan))
 (def animation-delay 200)
 
-(defn make-chessboard [$puzzle fen]
+(defn make-chessboard [$puzzle]
   (core/make-chessboard {:orientation (jq/data $puzzle :color)
-                         :position fen
                          :moveSpeed animation-delay
                          :draggable false}))
 
@@ -24,34 +24,67 @@
 (defn bind-browse! [$browse]
   (jq/on $browse :click :button #(put! browse-chan (jq/attr ($ (.-target %)) :value))))
 
+(defn bind-continue! [$continue]
+  (jq/bind $continue :click #(put! continue-chan true)))
+
 (defn make-history [initial-fen line]
   (let [c (new js/Chess initial-fen)]
     (map (fn [move] (core/apply-move c move) [move (.fen c)]) line)))
 
-(defn run! [initial-step]
+(defn find-best-line [lines]
+  (loop [paths (map (fn [p] [p]) (keys lines))]
+    (if (empty? paths) '()
+      (let [[path & siblings] paths
+            ahead (get-in lines path)]
+        (case ahead
+          "win" path
+          "retry" (recur siblings)
+          (let [children (map #(conj path %) (keys ahead))]
+            (recur (concat siblings children))))))))
+
+(defn find-best-line-from-progress [lines progress]
+  (let [ahead (get-in lines progress)]
+    (if (= ahead "win") progress (concat progress (find-best-line ahead)))))
+
+(defn get-new [$puzzle]
+  (let [chan (async/chan)]
+    (jq/xhr [:get (jq/data $puzzle :new-url)] {} #(put! chan %))
+    chan))
+
+(defn play-new! [$puzzle]
+  (go
+    (let [res (<! (get-new $puzzle))]
+      (jq/html core/$wrap res)
+      (lichess.puzzle.play/run!))))
+
+(defn run! [progress]
   (let [$puzzle ($ :#puzzle)
         $browse ($ :.prev_next $puzzle)
         $prev ($ :.prev $browse)
         $next ($ :.next $browse)
-        initial-fen (jq/data $puzzle :fen)
-        chessboard (make-chessboard $puzzle initial-fen)
-        line (clojure.string/split (jq/data $puzzle :flat-line) " ")
-        history (vec (make-history initial-fen (conj (seq line) (jq/data $puzzle :move))))]
-    (bind-vote! ($ :div.vote_wrap))
+        lines (js->clj (jq/data $puzzle :lines))
+        line (find-best-line-from-progress lines progress)
+        history (vec (make-history (jq/data $puzzle :fen) (conj (seq line) (jq/data $puzzle :move))))
+        chessboard (make-chessboard $puzzle)]
+    (core/center-right! ($ :.right $puzzle))
+    (core/user-chart! ($ :.user_chart $puzzle))
+    (bind-vote! ($ :div.vote_wrap $puzzle))
+    (bind-continue! ($ :.continue $puzzle))
     (bind-browse! $browse)
     (go
-      (.load chess initial-fen)
-      (<! (timeout 1000))
-      (loop [step initial-step]
+      (loop [step (count progress) animate false]
         (let [[move fen] (get history step)
               is-first (= step 0)
               is-last (= step (- (count history) 1))]
           (jq/attr $prev :disabled is-first)
           (jq/attr $next :disabled is-last)
-          (.position chessboard fen)
-          (core/color-move! move)
+          (.position chessboard fen animate)
+          (core/color-move! $puzzle move)
           (<! (timeout (+ 50 animation-delay)))
-          (let [[browse ch] (alts! [browse-chan])]
-            (when (and (= browse "prev") (not is-first)) (recur (- step 1)))
-            (when (and (= browse "next") (not is-last)) (recur (+ step 1)))
-            (recur step)))))))
+          (let [[browse ch] (alts! [browse-chan continue-chan])]
+            (if (= ch continue-chan)
+              (play-new! $puzzle)
+              (do
+                (when (and (= browse "prev") (not is-first)) (recur (- step 1) true))
+                (when (and (= browse "next") (not is-last)) (recur (+ step 1) true))
+                (recur step false)))))))))

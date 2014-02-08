@@ -28,6 +28,8 @@ final class Env(
 
   lazy val selector = new Selector(puzzleColl = puzzleColl)
 
+  lazy val userInfos = UserInfos(attemptColl = attemptColl)
+
   lazy val forms = DataForm
 
   private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)

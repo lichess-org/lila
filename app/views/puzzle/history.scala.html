@@ -1,0 +1,34 @@
+@(userInfos: lila.puzzle.UserInfos)(implicit ctx: Context)
+
+<div class="undertable">
+  <div class="undertable_top">
+    <span class="title">Recently played puzzles</span>
+  </div>
+  <div class="undertable_inner">
+    <div class="content">
+      <table>
+        <tbody>
+          @userInfos.history.map { attempt =>
+          <tr>
+            <td>
+              <a class="user_link ulpt" href="@routes.User.show(userInfos.user.username)">
+                @userInfos.user.username
+                (@attempt.userRating) (@showNumber(attempt.userRatingDiff))
+              </a>
+            </td>
+            <td>
+              <a class="user_link" href="@routes.Puzzle.show(attempt.puzzleId)">
+                Puzzle #@attempt.puzzleId
+                (@attempt.puzzleRating) (@showNumber(attempt.puzzleRatingDiff))
+              </a>
+            </td>
+            <td>
+              @showMillis(attempt.time) seconds
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
