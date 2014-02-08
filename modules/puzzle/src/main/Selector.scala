@@ -28,7 +28,7 @@ private[puzzle] final class Selector(puzzleColl: Coll) {
         .collect[List](1)
         .map(_.headOption) flatten "Can't find a puzzle for anon player!"
     }
-    case Some(user) ⇒ tryRange(user, 100)
+    case Some(user) ⇒ tryRange(user, ratingToleranceStep)
   }
 
   private def tryRange(user: User, tolerance: Int): Fu[Puzzle] = puzzleColl.find(BSONDocument(
