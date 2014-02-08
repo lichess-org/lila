@@ -8,7 +8,6 @@ import play.api.libs.iteratee._
 import play.api.libs.iteratee.Enumerator
 import play.api.libs.json._
 import reactivemongo.bson.{ BSONDocument, BSONInteger }
-import reactivemongo.core.commands.Count
 
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }

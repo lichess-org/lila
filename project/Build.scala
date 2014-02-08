@@ -44,7 +44,7 @@ object ApplicationBuild extends Build {
     ) aggregate (moduleRefs: _*)
 
   lazy val puzzle = project("puzzle", Seq(
-    common, hub, db, user, rating)).settings(
+    common, memo, hub, db, user, rating)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
