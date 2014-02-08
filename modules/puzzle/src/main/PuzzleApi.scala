@@ -23,10 +23,13 @@ private[puzzle] final class PuzzleApi(
   object puzzle {
 
     def find(id: PuzzleId): Fu[Option[Puzzle]] =
-      puzzleColl.find(BSONDocument("_id" -> id)).one[Puzzle]
+      puzzleColl.find(BSONDocument("_id" -> id))
+        .projection(Puzzle.withoutUsers)
+        .one[Puzzle]
 
     def latest(nb: Int): Fu[List[Puzzle]] =
       puzzleColl.find(BSONDocument())
+        .projection(Puzzle.withoutUsers)
         .sort(BSONDocument("date" -> -1))
         .cursor[Puzzle]
         .collect[List](nb)
@@ -89,9 +92,4 @@ private[puzzle] final class PuzzleApi(
         (obj: BSONDocument) ⇒ obj.getAs[Int](Attempt.BSONFields.time)
       } map (_.flatten)
   }
-
-  def vote(puzzleId: PuzzleId, userId: String, v: Boolean) = attemptColl.update(
-    BSONDocument(Attempt.BSONFields.id -> Attempt.makeId(puzzleId, userId)),
-    BSONDocument(Attempt.BSONFields.vote -> v)
-  ).void
 }
