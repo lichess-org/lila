@@ -6,4 +6,4 @@
 
 (defn playing? [] (jq/has-class core/$puzzle "playing"))
 
-(if (playing?) (play/run!) (view/run!))
+(if (playing?) (play/run!) (view/run! 0))
