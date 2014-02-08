@@ -26,6 +26,15 @@
     (jq/fade-out ($ :.lichess_player $puzzle) animation-delay)
     (jq/fade-in ($ (str ".lichess_player." color) $puzzle) animation-delay)))
 
+(defn try-move [lines progress move]
+  (let [try-m (fn [m]
+                (let [new-progress (conj progress m) new-lines (get-in lines new-progress)]
+                  (and new-lines [new-progress new-lines])))
+        moves (map #(str move %) ["" "q" "n" "r" "b"])
+        tries (remove nil? (map try-m moves))
+        search #(first (filter % tries))]
+    (or (search #(not= % "retry")) (search #(true)) [progress "fail"])))
+
 (defn ai-play! [$puzzle chessboard branch]
   (let [ch (async/chan) move (first (first branch))]
     (when (core/apply-move chess move)
@@ -85,8 +94,7 @@
             (let [res (<! (post-attempt! $puzzle 0 started-at))]
               (jq/html core/$wrap res)
               (view/run! progress))
-            (let [new-progress (conj progress move)
-                  new-lines (or (get-in lines new-progress) "fail")]
+            (let [[new-progress new-lines] (try-move lines progress move)]
               (case new-lines
                 "retry" (do
                           (set-status! $puzzle "playing retry")
