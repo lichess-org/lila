@@ -109,13 +109,19 @@ key bindings on replay pgn4web
 run many AIs per server. And paralellize analysis! \o/
 restore "continue from here" button
 share the puzzle
+show puzzle check
+speed up puzzzzzle end view
+chessboardjs theming
+board editor/play from position
+puzzle letters outside
+show points won/lost in view mode
+view mode chart doesn't show last attempt
+one-time introduction to puzzle "Find the best move for white"
+right-align "continue" arrow (+color?)
 
 deploy
 ------
-db.puzzle.ensureIndex({fen:1},{unique:1})
-db.puzzle.ensureIndex({'vote.sum':-1, users:1,'perf.gl.r':1})
-db.puzzle_attempt.ensureIndex({p:1})
-db.puzzle_attempt.ensureIndex({u:1, d:-1})
+nginx rule puzzle->training
 
 infra
 -------
