@@ -26,22 +26,22 @@ div.lcs {
   width: 64px;
   height: 64px;
 }
-body.blue div.lichess_board, body.blue #GameBoard, #top div.color_demo.blue {
+body.blue div.lichess_board, body.blue #GameBoard, body.blue #chessboard .board-b72b1, #top div.color_demo.blue {
   background-image: url(../images/board/blue.png);
 }
-body.brown div.lichess_board, body.brown #GameBoard, #top div.color_demo.brown {
+body.brown div.lichess_board, body.brown #GameBoard, body.brown #chessboard .board-b72b1, #top div.color_demo.brown {
   background-image: url(../images/board/brown.png);
 }
-body.green div.lichess_board, body.green #GameBoard, #top div.color_demo.green {
+body.green div.lichess_board, body.green #GameBoard, body.green #chessboard .board-b72b1, #top div.color_demo.green {
   background-image: url(../images/board/green.png);
 }
-body.grey div.lichess_board, body.grey #GameBoard, #top div.color_demo.grey {
+body.grey div.lichess_board, body.grey #GameBoard, body.grey #chessboard .board-b72b1, #top div.color_demo.grey {
   background-image: url(../images/board/grey.png);
 }
-body.wood div.lichess_board, body.wood #GameBoard, #top div.color_demo.wood {
+body.wood div.lichess_board, body.wood #GameBoard, body.wood #chessboard .board-b72b1, #top div.color_demo.wood {
   background-image: url(../images/board/woodenboard.jpg);
 }
-body.canvas div.lichess_board, body.canvas #GameBoard, #top div.color_demo.canvas {
+body.canvas div.lichess_board, body.canvas #GameBoard, body.canvas #chessboard .board-b72b1, #top div.color_demo.canvas {
   background-image: url(../images/board/canvas.jpg);
 }
 #GameBoard {
@@ -578,4 +578,24 @@ div.replay_and_analyse {
 div.replay_and_analyse a {
   display: inline-block;
   font-size: 1.4em;
+}
+
+/* chessboardjs */
+.board-b72b1 {
+  border: 1px solid #c0c0c0;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 512px;
+}
+.square-55d63 {
+  float: left;
+  position: relative;
+  /* disable any native browser highlighting */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

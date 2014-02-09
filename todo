@@ -108,15 +108,12 @@ run many AIs per server. And paralellize analysis! \o/
 restore "continue from here" button
 share the puzzle
 show puzzle check
-chessboardjs theming
 board editor/play from position
-puzzle letters outside
-one-time introduction to puzzle "Find the best move for white"
 more sounds http://en.lichess.org/forum/lichess-feedback/play-a-sound-when-a-game-is-beginning#1
 puzzle stats page
-check play-RM dependency (prismic?)
 kingcrusher wants his FIDE title http://en.lichess.org/forum/general-chess-discussion/player-titles---cm-fm-im-gm-etc
 drop old notifications (timeline)
+anon shares running game - hilarity follows.
 
 deploy
 ------

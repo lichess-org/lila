@@ -4,7 +4,6 @@
 @import chess.{ KingSide, QueenSide }
 
 @moreCss = {
-@cssTag("chessboardjs.css")
 @cssTag("boardEditor.css")
 }
 @moreJs = {
@@ -16,7 +15,8 @@
 title = trans.boardEditor.str(),
 menu = game.sideMenu(listMenu, "edit").some,
 moreJs = moreJs,
-moreCss = moreCss) {
+moreCss = moreCss,
+themepicker = true) {
 <div id="board_editor" class="content_box">
   <div id="chessboard_side">
     <div>

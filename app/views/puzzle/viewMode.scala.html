@@ -20,12 +20,12 @@
     @attempt.map { a =>
     @if(a.win) {
     <div class="comment win">
-      <h3><strong>Victory!</strong> (<strong>@showNumber(a.userRatingDiff)</strong>)</h3>
+      <h3><strong>Victory!</strong><strong class="rating"> @showNumber(a.userRatingDiff)</strong></h3>
       Puzzle solved in @a.seconds seconds.
     </div>
     } else {
     <div class="comment loss">
-      <h3><strong>Puzzle failed</strong> (<strong>@showNumber(a.userRatingDiff)</strong>)</h3>
+      <h3><strong>Puzzle failed</strong><strong class="rating"> @showNumber(a.userRatingDiff)</strong></h3>
     </div>
     }
     }
@@ -34,7 +34,9 @@
 
   <div class="center">
 
-    <div id="chessboard"></div>
+    <div id="chessboard_wrap">
+      <div id="chessboard"></div>
+    </div>
 
     <div class="prev_next">
       <button class="prev button" value="prev">&lt;</button>

@@ -30,8 +30,12 @@
 }
 #puzzle > .side div.comment h3 {
   font-size: inherit;
-  margin: 3px;
+  margin: 4px;
   display: block;
+}
+#puzzle > .side div.comment .rating {
+  font-size: 2em;
+  vertical-align: -3px;
 }
 #puzzle > .side div.retry {
   color: #31708f;
@@ -64,12 +68,11 @@
 }
 #puzzle > .right {
   position: absolute;
-  left: 524px;
+  left: 532px;
   width: 242px;
 }
 #puzzle > .right h2 {
   font-size: 1.4em;
-  font-weight: bold;
   margin-bottom: 7px;
 }
 #puzzle > .right .lichess_control {
@@ -113,6 +116,9 @@
 }
 #puzzle .prev_next button:disabled {
   color: transparent;
+}
+#chessboard_wrap {
+  position: relative;
 }
 #chessboard {
   width: 520px;
