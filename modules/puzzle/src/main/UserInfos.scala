@@ -11,7 +11,7 @@ case class UserInfos(user: User, history: List[Attempt], chart: JsArray)
 
 object UserInfos {
 
-  private def historySize = 30
+  private def historySize = 20
   private def chartSize = 12
 
   import Attempt.attemptBSONHandler

@@ -156,12 +156,14 @@ body.dark a#sound_state.sound_state_on span {
 body.dark .s16.ddown {
   background-position: right -368px;
 }
-body.dark .future_game_analysis .spinner {
+body.dark .future_game_analysis .spinner,
+body.dark #puzzle > .right .spinner {
   background-image: url("../images/spinner-gray-dark.gif");
 }
 body.dark #puzzle div.upvote a {
   background-image: url('../images/vote-dark.png');
 }
+body.dark #puzzle > .side p.fail,
 body.dark #puzzle > .side p.loss {
   color: #e97472;
   background: #582b33;

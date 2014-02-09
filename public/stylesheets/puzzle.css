@@ -46,9 +46,13 @@
 #puzzle.great > .side p.great {
   display: block;
 }
-#puzzle > .side p.loss {
+#puzzle > .side p.loss,
+#puzzle > .side p.fail {
   color: #a94442;
   background: #ebccd1;
+}
+#puzzle.fail > .side p.fail {
+  display: block;
 }
 #puzzle > .side .user_chart {
   margin: 0 0 -10px -9px;
@@ -76,11 +80,25 @@
   text-align: center;
   margin-top: 20px;
 }
+#puzzle > .right .retry {
+  display: inline-block;
+  margin-top: 20px;
+}
 #puzzle > .right .continue {
   display: inline-block;
   white-space: nowrap;
   font-size: 1.3em;
   font-weight: bold;
+}
+#puzzle > .right .spinner {
+  color: transparent;
+  border: none;
+  height: 32px;
+  display:inline-block;
+  background: url("../images/spinner-gray.gif") center center no-repeat;
+}
+#puzzle > .right.spinner > * {
+  display: none;
 }
 #puzzle .prev_next {
   text-align: center;

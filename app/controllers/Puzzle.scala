@@ -23,26 +23,27 @@ object Puzzle extends LilaController {
 
   def show(id: PuzzleId) = Open { implicit ctx ⇒
     OptionFuOk(env.api.puzzle find id) { puzzle ⇒
-      (ctx.userId ?? { env.api.attempt.find(puzzle.id, _) }) zip
-        (env userInfos ctx.me) map {
-          case (attempt, infos) ⇒ views.html.puzzle.show(puzzle, attempt, infos)
-        }
+      (env userInfos ctx.me) map { infos ⇒
+        views.html.puzzle.show(puzzle, infos)
+      }
     }
   }
 
-  // XHR load nex play puzzle
+  // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx ⇒
     env selector ctx.me zip (env userInfos ctx.me) map {
-      case (puzzle, infos) ⇒ Ok(views.html.puzzle.playMode(puzzle, infos))
+      case (puzzle, infos) ⇒ Ok(views.html.puzzle.playMode(puzzle, infos, true))
     }
   }
 
   // XHR view
   def view(id: PuzzleId) = Open { implicit ctx ⇒
+    val win = getInt("win", ctx.req) exists (1==)
     OptionFuOk(env.api.puzzle find id) { puzzle ⇒
       (ctx.userId ?? { env.api.attempt.find(puzzle.id, _) }) zip
         (env userInfos ctx.me) map {
-          case (attempt, infos) ⇒ views.html.puzzle.viewMode(puzzle, attempt, infos, false)
+          case (attempt, infos) ⇒
+            views.html.puzzle.viewMode(puzzle, attempt, infos, win.some)
         }
     }
   }
@@ -52,13 +53,16 @@ object Puzzle extends LilaController {
     OptionFuResult(env.api.puzzle find id) { puzzle ⇒
       env.forms.attempt.bindFromRequest.fold(
         err ⇒ fuccess(BadRequest(err.toString)),
-        data ⇒ (ctx.me match {
-          case Some(me) ⇒ env.finisher(puzzle, me, data) map (_.some)
-          case None     ⇒ env.finisher.anon(puzzle, data) inject none
-        }) flatMap { attempt ⇒
-          env.api.puzzle find id zip (env userInfos ctx.me) map {
-            case (Some(p2), infos) ⇒ Ok(views.html.puzzle.viewMode(p2, attempt, infos, true))
-            case _                 ⇒ NotFound
+        data ⇒ ctx.me match {
+          case Some(me) ⇒ env.finisher(puzzle, me, data) flatMap { attempt ⇒
+            env.api.puzzle find id zip (env userInfos ctx.me) map {
+              case (p2, infos) ⇒ Ok(views.html.puzzle.viewMode(p2 | puzzle, attempt.some, infos, none))
+            }
+          }
+          case None ⇒ env.finisher.anon(puzzle, data) >> {
+            env.api.puzzle find id map { p2 ⇒
+              Ok(views.html.puzzle.viewMode(p2 | puzzle, none, none, data.isWin.some))
+            }
           }
         }
       )

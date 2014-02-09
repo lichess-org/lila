@@ -52,6 +52,7 @@
     chan))
 
 (defn play-new! [$puzzle]
+  (core/loading! ($ :button.continue $puzzle))
   (go
     (let [res (<! (get-new $puzzle))]
       (jq/html core/$wrap res)

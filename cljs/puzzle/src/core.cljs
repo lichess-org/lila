@@ -30,6 +30,8 @@
 (defn center-right! [$right]
   (jq/css $right {:top (str (- 256 (/ (jq/height $right) 2)) "px")}))
 
+(defn loading! [$elem] (jq/add-class $elem :spinner))
+
 (defn user-chart! [$chart]
   (let [dark (jq/has-class ($ :body) :dark)
         theme {:lineColor (if dark "#4444ff" "#0000ff")

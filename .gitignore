@@ -20,5 +20,6 @@ db/lib/
 cljs/*/out
 cljs/*/repl
 cljs/*/.repl
+cljs/*/.lein-repl-history
 
 RUNNING_PID
