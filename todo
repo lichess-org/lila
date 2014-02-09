@@ -108,6 +108,7 @@ connect time chart to pgn viewer and say "time spent on this move: X seconds"
 key bindings on replay pgn4web
 run many AIs per server. And paralellize analysis! \o/
 restore "continue from here" button
+share the puzzle
 
 deploy
 ------
