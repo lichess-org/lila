@@ -17,8 +17,12 @@
 (defn color-move! [$puzzle move]
   (let [[a b c d] (seq move) [orig dest] [(str a b) (str c d)]]
     (jq/remove-class ($ :.last $puzzle) :last)
-    (let [squares (clojure.string/join ", " (map #(str ".square-" %) [orig dest]))]
-      (jq/add-class ($ squares $puzzle) :last))))
+    (jq/remove-class ($ :.check $puzzle) :check)
+    (let [squares (clojure.string/join ", " (map #(str ".square-" %) [orig dest]))
+          $check (when (.in_check chess)
+                   (jq/parent ($ (str "img[data-piece=" (.turn chess) "K]") $puzzle)))]
+      (jq/add-class ($ squares $puzzle) :last)
+      (when $check (jq/add-class $check :check)))))
 
 (defn make-chessboard [config]
   (let [static-domain (str "http://" (clojure.string/replace (.-domain js/document) #"^\w+" "static"))]

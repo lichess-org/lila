@@ -120,12 +120,6 @@
 #chessboard_wrap {
   position: relative;
 }
-#chessboard {
-  width: 520px;
-}
-#chessboard .last {
-  background-image: url(../images/over5.png);
-}
 #puzzle div.upvote {
   float: right;
 }
