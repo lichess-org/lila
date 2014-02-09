@@ -9,7 +9,7 @@ private[gameSearch] final class Indexer(
     lowLevel: ActorRef,
     isAnalyzed: String ⇒ Fu[Boolean]) extends Actor {
 
-  context.system.lilaBus.subscribe(self, 'finishGame)
+  // context.system.lilaBus.subscribe(self, 'finishGame)
 
   def receive = {
 
