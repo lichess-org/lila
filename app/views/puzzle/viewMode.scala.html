@@ -1,4 +1,4 @@
-@(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt], userInfos: Option[lila.puzzle.UserInfos])(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt], userInfos: Option[lila.puzzle.UserInfos], inSession: Boolean)(implicit ctx: Context)
 
 <div id="puzzle"
   data-mode="view"
@@ -51,7 +51,13 @@
         <small title="Glicko rating deviation"> ±@puzzle.perf.glicko.intDeviationDoubled</small>
       </p>
       <p>
-        Played <strong>@puzzle.attempts</strong> times
+        Played <strong>
+          @puzzle.attempts match {
+          case 1 => { once }
+          case 2 => { twice }
+          case x => { @x times }
+          }
+        </strong>
       </p>
       <p>
         Win rate: <strong>@puzzle.winPercent</strong>%
@@ -60,7 +66,13 @@
         Average time: <strong>@showMillis(puzzle.time)</strong> seconds
       </p>
     </div>
-    <button class="continue button">&#9654; Continue training</button>
+    <div class="continue_wrap">
+      @if(inSession) {
+      <button class="continue button">Continue training &#9654;</button>
+      } else {
+      <a class="continue button" href="@routes.Puzzle.home">Start training &#9654;</a>
+      }
+    </div>
   </div>
 
 </div>
