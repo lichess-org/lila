@@ -163,17 +163,17 @@ body.dark #puzzle > .right .spinner {
 body.dark #puzzle div.upvote a {
   background-image: url('../images/vote-dark.png');
 }
-body.dark #puzzle > .side p.fail,
-body.dark #puzzle > .side p.loss {
+body.dark #puzzle > .side div.fail,
+body.dark #puzzle > .side div.loss {
   color: #e97472;
   background: #582b33;
 }
-body.dark #puzzle > .side p.retry {
+body.dark #puzzle > .side div.retry {
   color: #8482c9;
   background: #101034;
 }
-body.dark #puzzle > .side p.great,
-body.dark #puzzle > .side p.win {
+body.dark #puzzle > .side div.great,
+body.dark #puzzle > .side div.win {
   background: #103410;
   color: #74a962;
 }

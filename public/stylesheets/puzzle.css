@@ -20,38 +20,40 @@
   border-bottom: 1px solid #ccc;
   margin-bottom: 8px;
 }
-#puzzle div.box p {
+#puzzle div.box > p, #puzzle div.box > div {
   line-height: 1.8em;
 }
-#puzzle > .side p.comment {
+#puzzle > .side div.comment {
   padding: 10px 5px;
   text-align: center;
   margin-bottom: 1em;
 }
-#puzzle > .side p.comment strong {
+#puzzle > .side div.comment h3 {
+  font-size: inherit;
+  margin: 3px;
   display: block;
 }
-#puzzle > .side p.retry {
+#puzzle > .side div.retry {
   color: #31708f;
   background: #D9EDF7;
 }
-#puzzle.retry > .side p.retry {
+#puzzle.retry > .side div.retry {
   display: block;
 }
-#puzzle > .side p.great,
-#puzzle > .side p.win {
+#puzzle > .side div.great,
+#puzzle > .side div.win {
   background: #DFF0D8;
   color: #3c763d;
 }
-#puzzle.great > .side p.great {
+#puzzle.great > .side div.great {
   display: block;
 }
-#puzzle > .side p.loss,
-#puzzle > .side p.fail {
+#puzzle > .side div.loss,
+#puzzle > .side div.fail {
   color: #a94442;
   background: #ebccd1;
 }
-#puzzle.fail > .side p.fail {
+#puzzle.fail > .side div.fail {
   display: block;
 }
 #puzzle > .side .user_chart {

@@ -8,12 +8,14 @@ case class Attempt(
     userId: String,
     date: DateTime,
     win: Boolean,
-    time: Int, // seconds
+    time: Int, // millis
     puzzleRating: Int,
     puzzleRatingDiff: Int,
     userRating: Int,
     userRatingDiff: Int,
     vote: Option[Boolean]) {
+
+  def seconds = math.round(time / 1000)
 
   def loss = !win
 
