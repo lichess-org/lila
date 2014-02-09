@@ -1,6 +1,6 @@
 @(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt])
 
-<div class="upvote @if(attempt.isDefined) { enabled }"
+<div title="Popularity" class="upvote @if(attempt.isDefined) { enabled }"
   data-post-url="@routes.Puzzle.vote(puzzle.id)">
   <a data-vote="1" class="upvote @if(attempt.flatMap(_.vote) == Some(true)) { active }"></a>
   <span class="count">@puzzle.vote.sum</span>

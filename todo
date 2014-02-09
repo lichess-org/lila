@@ -55,7 +55,6 @@ replace move green glow with simple border (chess.com) skwex on #chess
 opening tree http://www.shredderchess.com/online-chess/online-databases/opening-database.html
 data visualisation with http://app.raw.densitydesign.org/
 tournament elo restriction
-open analysis to anon (with IP restriction)
 analysis always show best move
 analysis infer ! and !! from evaluation at depth
 no challenge when playing http://en.lichess.org/forum/lichess-feedback/defis#2
@@ -80,7 +79,6 @@ premove choose promotion http://en.lichess.org/forum/lichess-feedback/premove-pr
 teams sorted by ELO http://en.lichess.org/forum/lichess-feedback/average-team-elo#1
 analysis bug http://en.lichess.org/forum/lichess-feedback/blunders-in-computer-analysis#1
 improve AI cheat detection (not only game start)
-can't search for anon games
 user profile tab for imported games http://en.lichess.org/inbox/zevof2tu#bottom
 analysis board (see chess.com)
 watcher game sounds only on first color
@@ -117,7 +115,9 @@ puzzle letters outside
 show points won/lost in view mode
 view mode chart doesn't show last attempt
 one-time introduction to puzzle "Find the best move for white"
-right-align "continue" arrow (+color?)
+more sounds http://en.lichess.org/forum/lichess-feedback/play-a-sound-when-a-game-is-beginning#1
+puzzle stats page
+check play-RM dependency (prismic?)
 
 deploy
 ------

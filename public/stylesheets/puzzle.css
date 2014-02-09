@@ -71,9 +71,13 @@
   font-size: 1.3em;
   margin-bottom: 10px;
 }
-#puzzle > .right > .continue {
-  display: block;
-  margin: 20px auto 0 auto;
+#puzzle > .right > .continue_wrap {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+#puzzle > .right .continue {
+  display: inline-block;
   white-space: nowrap;
   font-size: 1.3em;
   font-weight: bold;
@@ -100,14 +104,13 @@
   float: right;
 }
 #puzzle div.upvote a {
-  cursor: normal;
+  cursor: default;
 }
 #puzzle div.upvote.enabled a {
   cursor: pointer;
 }
 #puzzle div.upvote a {
   background: url('../images/vote.png');
-  overflow: hidden;
   display: block;
   margin: 0 auto;
   width: 40px;

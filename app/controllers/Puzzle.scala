@@ -42,7 +42,7 @@ object Puzzle extends LilaController {
     OptionFuOk(env.api.puzzle find id) { puzzle ⇒
       (ctx.userId ?? { env.api.attempt.find(puzzle.id, _) }) zip
         (env userInfos ctx.me) map {
-          case (attempt, infos) ⇒ views.html.puzzle.viewMode(puzzle, attempt, infos)
+          case (attempt, infos) ⇒ views.html.puzzle.viewMode(puzzle, attempt, infos, false)
         }
     }
   }
@@ -57,7 +57,7 @@ object Puzzle extends LilaController {
           case None     ⇒ env.finisher.anon(puzzle, data) inject none
         }) flatMap { attempt ⇒
           env.api.puzzle find id zip (env userInfos ctx.me) map {
-            case (Some(p2), infos) ⇒ Ok(views.html.puzzle.viewMode(p2, attempt, infos))
+            case (Some(p2), infos) ⇒ Ok(views.html.puzzle.viewMode(p2, attempt, infos, true))
             case _                 ⇒ NotFound
           }
         }

@@ -69,7 +69,7 @@
     (core/center-right! ($ :.right $puzzle))
     (core/user-chart! ($ :.user_chart $puzzle))
     (bind-vote! ($ :div.vote_wrap $puzzle))
-    (bind-continue! ($ :.continue $puzzle))
+    (bind-continue! ($ :button.continue $puzzle))
     (bind-browse! $browse)
     (go
       (loop [step (count progress) animate false]

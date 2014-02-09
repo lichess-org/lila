@@ -22,7 +22,7 @@ final class SiteMenu(trans: I18nKeys) {
   val message = new Elem("message", routes.Message.inbox(page = 1), trans.inbox)
 
   private val authenticated = List(play, game, puzzle, tournament, user, team, forum, tv)
-  private val anonymous = List(play, game, tournament, user, team, forum, tv)
+  private val anonymous = List(play, game, puzzle, tournament, user, team, forum, tv)
 
   def all(me: Option[User]) = me match {
     case Some(me)                       ⇒ authenticated

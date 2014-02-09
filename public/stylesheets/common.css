@@ -1538,7 +1538,8 @@ div.pagination span.current,
 div.progressbar.flashy div,
 .button.strong:hover,
 div.locale_menu a.active,
-#import_game .progression {
+#import_game .progression,
+#puzzle .continue {
   color: #fff;
   background: #d85000;
   background: linear-gradient(to bottom, #d85000, #c84000);
