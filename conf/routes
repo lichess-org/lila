@@ -208,12 +208,12 @@ POST  /report/:id/process              controllers.Report.process(id: String)
 
 # Puzzle
 POST  /api/puzzle                      controllers.Puzzle.importBatch
-GET   /puzzle                          controllers.Puzzle.home
-GET   /puzzle/new                      controllers.Puzzle.newPuzzle
-GET   /puzzle/:id                      controllers.Puzzle.show(id: Int)
-GET   /puzzle/:id/view                 controllers.Puzzle.view(id: Int)
-POST  /puzzle/:id/attempt              controllers.Puzzle.attempt(id: Int)
-POST  /puzzle/:id/vote                 controllers.Puzzle.vote(id: Int)
+GET   /training                        controllers.Puzzle.home
+GET   /training/new                    controllers.Puzzle.newPuzzle
+GET   /training/:id                    controllers.Puzzle.show(id: Int)
+GET   /training/:id/view               controllers.Puzzle.view(id: Int)
+POST  /training/:id/attempt            controllers.Puzzle.attempt(id: Int)
+POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
 
 # API
 POST  /api/game/new                    controllers.Setup.api
