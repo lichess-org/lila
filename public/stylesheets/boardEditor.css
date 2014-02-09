@@ -1,9 +1,6 @@
 #board_editor {
   position: relative;
 }
-#chessboard {
-  width: 520px;
-}
 #chessboard_side {
   position: absolute;
   left: 552px;

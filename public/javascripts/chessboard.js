@@ -202,7 +202,6 @@ var MINIMUM_JQUERY_VERSION = '1.7.0',
 // NOTE: these should never change
 var CSS = {
   alpha: 'alpha-d2270',
-  black: 'black-3c85d',
   board: 'board-b72b1',
   chessboard: 'chessboard-63f37',
   highlight1: 'highlight1-32417',
@@ -214,8 +213,7 @@ var CSS = {
   sparePieces: 'spare-pieces-7492f',
   sparePiecesBottom: 'spare-pieces-bottom-ae20f',
   sparePiecesTop: 'spare-pieces-top-4028b',
-  square: 'square-55d63',
-  white: 'white-1e1d7'
+  square: 'square-55d63'
 };
 
 //------------------------------------------------------------------------------
@@ -596,7 +594,7 @@ function buildBoard(orientation) {
     for (var j = 0; j < 8; j++) {
       var square = alpha[j] + row;
 
-      html += '<div class="' + CSS.square + ' ' + CSS[squareColor] + ' ' +
+      html += '<div class="' + CSS.square + ' ' +
         'square-' + square + '" ' +
         'style="width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px" ' +
         'id="' + SQUARE_ELS_IDS[square] + '" ' +
