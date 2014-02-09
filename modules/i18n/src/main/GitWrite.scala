@@ -7,7 +7,7 @@ import scala.concurrent.Future
 import akka.actor._
 import akka.pattern.ask
 import org.eclipse.jgit.lib.Repository
-import org.eclipse.jgit.storage.file.FileRepository
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 
 import makeTimeout.veryLarge
 
@@ -16,7 +16,12 @@ private[i18n] final class GitWrite(
     repoPath: String,
     system: ActorSystem) {
 
-  private val repo = new FileRepository(repoPath + "/.git")
+  private val repo = (new FileRepositoryBuilder())
+    .setGitDir(new File(repoPath + "/.git"))
+    .readEnvironment() // scan environment GIT_* variables
+    .findGitDir() // scan up the file system tree
+    .build()
+
   private val git = new Git(repo, debug = true)
 
   def apply(translations: List[Translation]): Funit =
@@ -25,7 +30,7 @@ private[i18n] final class GitWrite(
         loginfo("Current branch is " + currentBranch)
         (translations map gitActor.?).sequenceFu >>
           (gitActor ? currentBranch mapTo manifest[Unit])
-      } 
+      }
 
   private lazy val gitActor = system.actorOf(Props(new Actor {
 
@@ -53,7 +58,7 @@ private[i18n] final class GitWrite(
               (git commit commitMsg).void
           )
         }).await
-      } 
+      }
 
     }
   }))
