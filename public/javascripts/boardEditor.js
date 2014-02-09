@@ -46,6 +46,7 @@ $(function() {
       draggable: true,
       dropOffBoard: 'trash',
       sparePieces: true,
+      showNotation: false,
       pieceTheme: pieceTheme,
       onChange: function() {
         setTimeout(onChange, 100);

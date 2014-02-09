@@ -6,3 +6,4 @@ var Chess = {
   turn: function() {}
 };
 jQuery.prototype.sparkline = function(points, options) {};
+jQuery.displayBoardMarks = function(board, white) {};

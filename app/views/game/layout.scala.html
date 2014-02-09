@@ -1,9 +1,10 @@
-@(title: String, goodies: Option[Html] = None, menu: Option[Html] = None, moreJs: Html = Html(""), moreCss: Html = Html(""))(body: Html)(implicit ctx: Context)
+@(title: String, goodies: Option[Html] = None, menu: Option[Html] = None, moreJs: Html = Html(""), moreCss: Html = Html(""), themepicker: Boolean = true)(body: Html)(implicit ctx: Context)
 
 @base.layout(
-title = title, 
-goodies = goodies, 
+title = title,
+goodies = goodies,
 menu = menu,
 active = siteMenu.game.some,
 moreJs = moreJs,
-moreCss = moreCss)(body)
+moreCss = moreCss,
+themepicker = themepicker)(body)

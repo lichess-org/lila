@@ -1,7 +1,6 @@
 @(title: String, evenMoreCss: Option[Html] = None, evenMoreJs: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
-@cssTag("chessboardjs.css")
 @cssTag("puzzle.css")
 @evenMoreCss
 }
@@ -18,6 +17,7 @@
 title = title,
 moreCss = moreCss,
 moreJs = moreJs,
-active = siteMenu.puzzle.some) {
+active = siteMenu.puzzle.some,
+themepicker = true) {
 @body
 }

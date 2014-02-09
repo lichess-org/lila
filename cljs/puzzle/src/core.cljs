@@ -28,6 +28,11 @@
                           :pieceTheme (str static-domain "/assets/images/chessboard/{piece}.png")}
                          config)))))
 
+(defn board-marks! [$puzzle]
+  (.displayBoardMarks js/jQuery
+                      ($ :#chessboard_wrap $puzzle)
+                      (= "white" (jq/data $puzzle :color))))
+
 (defn center-right! [$right]
   (jq/css $right {:top (str (- 256 (/ (jq/height $right) 2)) "px")}))
 
