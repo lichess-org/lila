@@ -24,9 +24,7 @@ private[puzzle] final class Selector(puzzleColl: Coll) {
       puzzleColl.find(BSONDocument())
         .projection(Puzzle.withoutUsers)
         .options(QueryOpts(skipN = Random.nextInt(skipMax)))
-        .cursor[Puzzle]
-        .collect[List](1)
-        .map(_.headOption) flatten "Can't find a puzzle for anon player!"
+        .one[Puzzle] flatten "Can't find a puzzle for anon player!"
     }
     case Some(user) ⇒ tryRange(user, ratingToleranceStep)
   }
@@ -41,13 +39,10 @@ private[puzzle] final class Selector(puzzleColl: Coll) {
     Puzzle.BSONFields.users -> false
   )).projection(Puzzle.withoutUsers)
     .sort(BSONDocument(Puzzle.BSONFields.voteSum -> -1))
-    .cursor[Puzzle]
-    .collect[List](1)
-    .map(_.headOption) flatMap {
+    .one[Puzzle] flatMap {
       case Some(puzzle) ⇒ fuccess(puzzle)
       case None ⇒ if ((tolerance + ratingToleranceStep) <= ratingToleranceMax)
         tryRange(user, tolerance + ratingToleranceStep)
       else fufail(s"Can't find a puzzle for user $user!")
     }
-
 }
