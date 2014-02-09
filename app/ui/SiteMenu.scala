@@ -21,14 +21,10 @@ final class SiteMenu(trans: I18nKeys) {
   val tv = new Elem("tv", routes.Tv.index, I18nKey.untranslated("TV"))
   val message = new Elem("message", routes.Message.inbox(page = 1), trans.inbox)
 
-  private val beta = List(play, game, puzzle, tournament, user, team, forum, tv)
-  private val authenticated = List(play, game, tournament, user, team, forum, tv)
+  private val authenticated = List(play, game, puzzle, tournament, user, team, forum, tv)
   private val anonymous = List(play, game, tournament, user, team, forum, tv)
 
-  private val betaTesters = Set("thibault", "hellball", "clarkey", "legend", "chubakka", "iron_logician")
-
   def all(me: Option[User]) = me match {
-    case Some(me) if betaTesters(me.id) ⇒ beta
     case Some(me)                       ⇒ authenticated
     case _                              ⇒ anonymous
   }

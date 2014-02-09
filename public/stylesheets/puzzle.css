@@ -99,6 +99,9 @@
 #puzzle div.upvote {
   float: right;
 }
+#puzzle div.upvote a {
+  cursor: normal;
+}
 #puzzle div.upvote.enabled a {
   cursor: pointer;
 }

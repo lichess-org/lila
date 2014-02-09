@@ -31,6 +31,11 @@
   (jq/css $right {:top (str (- 256 (/ (jq/height $right) 2)) "px")}))
 
 (defn user-chart! [$chart]
-  (.sparkline $chart (jq/data $chart :points) (clj->js {:type "line"
-                                                        :width "213px"
-                                                        :height "80px"})))
+  (let [dark (jq/has-class ($ :body) :dark)
+        theme {:lineColor (if dark "#4444ff" "#0000ff")
+               :fillColor (if dark "#222255" "#ccccff")}]
+    (.sparkline $chart (jq/data $chart :points) (clj->js (merge
+                                                           {:type "line"
+                                                            :width "213px"
+                                                            :height "80px"}
+                                                           theme)))))
