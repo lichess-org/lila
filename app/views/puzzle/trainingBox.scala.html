@@ -2,14 +2,12 @@
 
 <div class="box">
   <h1>Training</h1>
-  @ctx.me.map { u =>
-  Your puzzle rating: <strong>@u.perfs.puzzle.intRating</strong>
   @userInfos.map { i =>
+  Your puzzle rating: <strong>@i.user.perfs.puzzle.intRating</strong>
   @if(i.history.nonEmpty) {
   <div class="user_chart" data-points="@toJson(i.chart)"></div>
   } else {
   <br />
-  }
   }
   }.getOrElse {
   <a href="@routes.Auth.signup">Create a username</a> to get a puzzle rating!
