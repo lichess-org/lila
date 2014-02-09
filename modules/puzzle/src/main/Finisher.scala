@@ -14,7 +14,11 @@ private[puzzle] final class Finisher(
 
   def apply(puzzle: Puzzle, user: User, data: DataForm.AttemptData): Fu[Attempt] =
     api.attempt.find(puzzle.id, user.id) flatMap {
-      case Some(a) ⇒ fuccess(a)
+      case Some(a) ⇒ puzzleColl.update(
+        BSONDocument("_id" -> puzzle.id),
+        BSONDocument("$addToSet" -> BSONDocument(
+          Puzzle.BSONFields.users -> user.id
+        ))) inject a
       case None ⇒
         val userRating = mkRating(user.perfs.puzzle)
         val puzzleRating = mkRating(puzzle.perf)

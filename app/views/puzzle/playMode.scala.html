@@ -1,17 +1,23 @@
-@(puzzle: lila.puzzle.Puzzle, userInfos: Option[lila.puzzle.UserInfos])(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, userInfos: Option[lila.puzzle.UserInfos], asPlay: Boolean)(implicit ctx: Context)
 
 <div id="puzzle" class="playing"
-  data-mode="play"
+  data-mode="@asPlay.fold("play", "try")"
   data-fen="@puzzle.fen"
   data-color="@puzzle.color"
   data-move="@puzzle.initialMove"
   data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"
-  data-post-url="@routes.Puzzle.attempt(puzzle.id)">
+  data-post-url="@routes.Puzzle.attempt(puzzle.id)"
+  data-view-url="@routes.Puzzle.view(puzzle.id)">
 
   <div class="side">
     @trainingBox(userInfos)
     <p class="comment retry none"><strong>Good move</strong> But you can do better.</p>
     <p class="comment great none"><strong>Best move!</strong> Keep going...</p>
+    @if(asPlay) {
+    <p class="comment fail none"><strong>Puzzle failed</strong></p>
+    } else {
+    <p class="comment fail none"><strong>Puzzle failed</strong> But you can keep trying.</p>
+    }
   </div>
 
   <div class="center">

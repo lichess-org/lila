@@ -1,4 +1,4 @@
-@(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt], userInfos: Option[lila.puzzle.UserInfos], inSession: Boolean)(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt], userInfos: Option[lila.puzzle.UserInfos], win: Option[Boolean])(implicit ctx: Context)
 
 <div id="puzzle"
   data-mode="view"
@@ -10,11 +10,19 @@
 
   <div class="side">
     @trainingBox(userInfos)
+    @win.map { w =>
+    @if(w) {
+    <p class="comment win"><strong>Victory!</strong></p>
+    } else {
+    <p class="comment loss"><strong>Puzzle failed</strong></p>
+    }
+    }.getOrElse {
     @attempt.map { a =>
     @if(a.win) {
     <p class="comment win"><strong>Victory!</strong>Puzzle solved in @showMillis(a.time) seconds.</p>
     } else {
-    <p class="comment loss">Puzzle failed.</p>
+    <p class="comment loss"><strong>Puzzle failed</strong></p>
+    }
     }
     }
   </div>
@@ -38,14 +46,6 @@
       <h2 class="puzzle_link">
         <a href="@routes.Puzzle.show(puzzle.id)">Puzzle @puzzle.id</a>
       </h2>
-      @*
-      @puzzle.gameId.map { id =>
-      <p>From game: <a href="@routes.Round.watcher(id, puzzle.color.name)">#@id</a></p>
-      }
-      <p>
-        Moves: @puzzle.depth
-      </p>
-      *@
       <p>
         Rating: <strong>@puzzle.perf.intRating</strong>
         <small title="Glicko rating deviation"> ±@puzzle.perf.glicko.intDeviationDoubled</small>
@@ -67,10 +67,13 @@
       </p>
     </div>
     <div class="continue_wrap">
-      @if(inSession) {
-      <button class="continue button">Continue training &#9654;</button>
-      } else {
+      @if(win.isDefined) {
       <a class="continue button" href="@routes.Puzzle.home">Start training &#9654;</a>
+      } else {
+      <button class="continue button">Continue training &#9654;</button>
+      }
+      @if(win.fold(attempt.exists(_.loss))(!_)) {
+      <a class="retry" href="@routes.Puzzle.show(puzzle.id)">Retry this puzzle</a>
       }
     </div>
   </div>

@@ -7,7 +7,7 @@
 
 (def drop-chan (async/chan))
 (def giveup-chan (async/chan))
-(def animation-delay 300)
+(def animation-delay 250)
 (def animation-delay-plus (+ 50 animation-delay))
 
 (defn on-drop! [orig, dest]
@@ -22,9 +22,12 @@
                          :onDrop on-drop!}))
 
 (defn show-turn! [$puzzle]
-  (let [color (if (= (.turn chess) "w") "white" "black")]
-    (jq/fade-out ($ :.lichess_player $puzzle) animation-delay)
-    (jq/fade-in ($ (str ".lichess_player." color) $puzzle) animation-delay)))
+  (let [color (if (= (.turn chess) "w") "white" "black")
+        $table ($ :.table_inner $puzzle)]
+    (when (not (jq/has-class $table color))
+      (-> $table (jq/remove-class "white black") (jq/add-class color))
+      (jq/fade-out ($ :.lichess_player $table) animation-delay)
+      (jq/fade-in ($ (str ".lichess_player." color) $table) animation-delay))))
 
 (defn try-move [lines progress move]
   (let [try-m (fn [m]
@@ -53,25 +56,68 @@
             #(put! chan %))
     chan))
 
-(defn get-view [$puzzle]
+(defn get-view [$puzzle win]
   (let [chan (async/chan)]
-    (jq/xhr [:get (jq/data $puzzle :view-url)] {} #(put! chan %))
+    (jq/xhr [:get (jq/data $puzzle :view-url)] {:win win} #(put! chan %))
     chan))
 
-(defn win! [$puzzle mode progress started-at]
-  (go
-    (let [res (<! (if (= mode :play) (post-attempt! $puzzle 1 started-at) (get-view $puzzle)))]
+(defn mode-of [$puzzle] (keyword (jq/data $puzzle :mode)))
+
+(defn retry! [$puzzle chessboard fen]
+  (set-status! $puzzle "playing retry")
+  (let [chan (async/chan)]
+    (go
       (<! (timeout animation-delay))
+      (.load chess fen)
+      (.position chessboard fen)
+      (put! chan true))
+    chan))
+
+(defn win! [$puzzle progress started-at]
+  (go
+    (let [_ (core/loading! ($ :.giveup $puzzle))
+          mode (mode-of $puzzle)
+          xhr-chan (if (= mode :play)
+                     (post-attempt! $puzzle 1 started-at)
+                     (get-view $puzzle 1))
+          wait-chan (timeout animation-delay-plus)
+          res (<! xhr-chan)
+          _ (<! wait-chan)]
       (jq/html core/$wrap res)
       (view/run! progress))))
 
-(defn fail! [$puzzle mode started-at]
+(defn fail! [$puzzle chessboard fen progress started-at]
   (set-status! $puzzle "playing fail")
-  (if (= mode :play) (post-attempt! $puzzle 0 started-at) (timeout 10)))
+  (let [chan (async/chan)]
+    (go
+      (<! (timeout animation-delay-plus))
+      (.load chess fen)
+      (.position chessboard fen)
+      (if (= (mode-of $puzzle) :play)
+        (let [_ (core/loading! ($ :.giveup $puzzle))
+              xhr-chan (post-attempt! $puzzle 0 started-at)
+              wait-chan (timeout animation-delay-plus)
+              res (<! xhr-chan)
+              _ (<! wait-chan)]
+          (jq/html core/$wrap res)
+          (view/run! progress)
+          (put! chan false))
+        (put! chan true)))
+    chan))
+
+(defn give-up! [$puzzle progress started-at]
+  (set-status! $puzzle "playing fail")
+  (core/loading! ($ :.giveup $puzzle))
+  (go
+    (let [mode (mode-of $puzzle)
+          res (<! (if (= mode :play)
+                    (post-attempt! $puzzle 0 started-at)
+                    (get-view $puzzle 0)))]
+      (jq/html core/$wrap res)
+      (view/run! progress))))
 
 (defn run! []
   (let [$puzzle ($ :#puzzle)
-        mode (keyword (jq/data $puzzle :mode))
         lines (js->clj (jq/data $puzzle :lines))
         initial-fen (jq/data $puzzle :fen)
         chessboard (make-chessboard $puzzle initial-fen)
@@ -86,32 +132,17 @@
       (.position chessboard (.fen chess))
       (core/color-move! $puzzle (jq/data $puzzle :move))
       (set-status! $puzzle "playing")
-      (loop [progress []
-             fen (.fen chess)]
+      (loop [progress [] fen (.fen chess)]
         (show-turn! $puzzle)
         (let [[move ch] (alts! [drop-chan giveup-chan])]
           (if (= ch giveup-chan)
-            (let [res (<! (post-attempt! $puzzle 0 started-at))]
-              (jq/html core/$wrap res)
-              (view/run! progress))
+            (give-up! $puzzle progress started-at)
             (let [[new-progress new-lines] (try-move lines progress move)]
               (case new-lines
-                "retry" (do
-                          (set-status! $puzzle "playing retry")
-                          (<! (timeout animation-delay))
-                          (.load chess fen)
-                          (.position chessboard fen)
-                          (recur progress fen))
-                "fail" (do
-                         (<! (timeout animation-delay))
-                         (.load chess fen)
-                         (.position chessboard fen)
-                         (if-let [res (<! (fail! $puzzle mode started-at))]
-                           (do
-                             (<! (timeout animation-delay))
-                             (jq/html core/$wrap res)
-                             (view/run! progress))
-                           (recur progress fen)))
+                "retry" (do (<! (retry! $puzzle chessboard fen))
+                            (recur progress fen))
+                "fail" (when (<! (fail! $puzzle chessboard fen progress started-at))
+                         (recur progress fen))
                 (do
                   (set-status! $puzzle "playing great")
                   (core/color-move! $puzzle move)
@@ -119,9 +150,9 @@
                   (show-turn! $puzzle)
                   (<! (timeout animation-delay-plus))
                   (if (= new-lines "win")
-                    (win! $puzzle mode new-progress started-at)
+                    (win! $puzzle new-progress started-at)
                     (let [aim (<! (ai-play! $puzzle chessboard new-lines))
                           new-new-progress (conj new-progress aim)]
                       (if (= (get new-lines aim) "win")
-                        (win! $puzzle mode new-new-progress started-at )
+                        (win! $puzzle new-new-progress started-at )
                         (recur new-new-progress (.fen chess))))))))))))))

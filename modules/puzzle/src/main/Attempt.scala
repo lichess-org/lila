@@ -15,6 +15,8 @@ case class Attempt(
     userRatingDiff: Int,
     vote: Option[Boolean]) {
 
+  def loss = !win
+
   def userPostRating = userRating + userRatingDiff
 
   def puzzlePostRating = puzzleRating + puzzleRatingDiff
