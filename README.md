@@ -8,6 +8,7 @@ It haz a [search engine](http://lichess.org/games/search),
 [tournaments](http://lichess.org/tournament),
 [forums](http://lichess.org/forum),
 [teams](http://lichess.org/team),
+[puzzles](http://lichess.org/training),
 and a weird [monitoring console](http://lichess.org/monitor).
 The UI is available in [72 languages](http://lichess.org/translation/contribute) thanks to the community.
 
@@ -18,6 +19,7 @@ The codebase is fully asynchronous, making heavy use of Scala Futures and [Akka 
 Lichess talks to [Stockfish 4](http://stockfishchess.org/) using a [FSM Actor](https://github.com/ornicar/lila/blob/master/modules/ai/src/main/stockfish/ActorFSM.scala) to handle AI moves and analysis.
 It uses [MongoDB 2.4](http://mongodb.org) to store about 20 million games, which are indexed by [elasticsearch 0.90](http://elasticsearch.org).
 HTTP requests and websocket connections are proxied by [nginx 1.4](http://nginx.org).
+New client-side features are written in [ClojureScript](https://github.com/ornicar/lila/tree/master/cljs/puzzle/src).
 
 Join us on #lichess IRC channel on freenode for more info.
 
@@ -321,13 +323,17 @@ Big thanks go to lichess community for the support, inspiration, bug reports, an
 
 Special thanks go to:
 
-- [Clarkey](http://en.lichess.org/@/Clarkey) for the [cheat detection engine](https://github.com/clarkerubber/engine-evaluator) and countless contributions to lichess.
+- [Clarkey](http://en.lichess.org/@/Clarkey) for:
+  - the [cheat detection engine](https://github.com/clarkerubber/engine-evaluator)
+  - the [puzzle creator]()
+  - moding, mockups, communication and much more.
 - [Mephostophilis](http://lichess.org/@/Mephostophilis) for writing [Lichess Wiki](http://lichess.org/wiki), leading the cheater hunt, moderating the site, reporting countless bugs, and contributing to the codebase
 - [Smiling Bishop](http://lichess.org/@/smiling_bishop), [legend](http://lichess.org/@/legend), [mb](http://lichess.org/@/mb) and all the moderators who spent time keeping the site enjoyable
 - [Evropi](https://github.com/evropi) for contributing to the wiki, translations and [translation contexts](https://github.com/ornicar/lila/wiki/translation_context)
 - [Steibock](https://github.com/Steibock) for board theming
 - [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/) for the fugue icons
 - [pgn4web](http://pgn4web.casaschi.net/home.html) for the analysis board
-- [chessboardjs](https://github.com/oakmac/chessboardjs/) for the board editor
+- [chessboardjs](https://github.com/oakmac/chessboardjs) for the board editor
+- [chess.js](https://github.com/jhlywa/chess.js) for the client-side chess logic
 
 Thanks to all players for feeding the database.
