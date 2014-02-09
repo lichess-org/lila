@@ -53,6 +53,7 @@ computerAnalysis=računalniška analiza
 blunders=Hude napake
 mistakes=Napake
 inaccuracies=Nenatančnosti
+moveTimes=Čas za potezo
 flipBoard=Obrni igralno desko
 threefoldRepetition=Trikratna ponovitev
 claimADraw=Zahtevaj remi
