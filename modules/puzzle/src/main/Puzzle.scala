@@ -27,6 +27,8 @@ case class Puzzle(
   def winPercent = if (attempts == 0) 0 else wins * 100 / attempts
 
   def initialMove = history.last
+
+  def enabled = vote.sum > -9000
 }
 
 object Puzzle {
