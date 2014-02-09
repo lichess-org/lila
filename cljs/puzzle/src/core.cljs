@@ -24,6 +24,7 @@
   (let [static-domain (str "http://" (clojure.string/replace (.-domain js/document) #"^\w+" "static"))]
     (new js/ChessBoard "chessboard"
          (clj->js (merge {:sparePieces false
+                          :showNotation false
                           :pieceTheme (str static-domain "/assets/images/chessboard/{piece}.png")}
                          config)))))
 

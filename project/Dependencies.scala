@@ -1,5 +1,4 @@
-import sbt._
-import Keys._
+import sbt._, Keys._
 
 object Dependencies {
 
@@ -25,27 +24,27 @@ object Dependencies {
       // sonatypeS,
       sonatype,
       awesomepom, iliaz,
-      typesafe, 
+      typesafe,
       roundeights,
       // typesafeS,
       t2v, jgitMaven, sprayRepo)
   }
 
-  val scalaz = "org.scalaz" %% "scalaz-core" % "7.0.4"
+  val scalaz = "org.scalaz" %% "scalaz-core" % "7.0.5"
   val scalalib = "com.github.ornicar" %% "scalalib" % "4.23"
-  val config = "com.typesafe" % "config" % "1.0.2"
-  val apache = "org.apache.commons" % "commons-lang3" % "3.1"
-  val scalaTime = "com.github.nscala-time" %% "nscala-time" % "0.6.0"
-  val guava = "com.google.guava" % "guava" % "15.0"
+  val config = "com.typesafe" % "config" % "1.2.0"
+  val apache = "org.apache.commons" % "commons-lang3" % "3.2.1"
+  val scalaTime = "com.github.nscala-time" %% "nscala-time" % "0.8.0"
+  val guava = "com.google.guava" % "guava" % "16.0.1"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "2.0.1"
-  val csv = "com.github.tototoshi" %% "scala-csv" % "0.8.0"
+  val csv = "com.github.tototoshi" %% "scala-csv" % "1.0.0"
   val hasher = "com.roundeights" %% "hasher" % "1.0.0"
-  val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "2.3.1.201302201838-r"
+  val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
   val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.6-THIB"
   val jodaTime = "joda-time" % "joda-time" % "2.3"
   val scalastic = "org.scalastic" %% "scalastic" % "0.90.3"
-  val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.2-PRISMIC"
-  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.2-PRISMIC"
+  val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.0"
+  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.0"
   object play {
     val version = "2.2.1"
     val api = "com.typesafe.play" %% "play" % version

@@ -8,7 +8,6 @@ import com.google.common.io.Files
 import eu.henkelmann.actuarius.ActuariusTransformer
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.Repository
-import org.eclipse.jgit.storage.file.FileRepository
 import Page.DefaultLang
 
 import lila.db.api._
