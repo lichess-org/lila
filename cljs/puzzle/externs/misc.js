@@ -2,5 +2,7 @@ var ChessBoard = {
   position: function() {}
 };
 var Chess = {
-  fen: function() {}
+  fen: function() {},
+  turn: function() {}
 };
+jQuery.prototype.sparkline = function(points, options) {};
