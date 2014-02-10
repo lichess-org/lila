@@ -629,15 +629,15 @@ div.replay_and_analyse a {
   -ms-user-select: none;
   user-select: none;
 }
-#chessboard div.square-55d63:hover {
-  background: url(../images/sover.png) 0 0;
-}
-#chessboard div.highlight2-9c5d2 {
-  background: url(../images/sover.png) 0 -64px;
-}
 #chessboard div.last {
   background: url(../images/over5.png);
 }
 #chessboard div.check {
   background: url(../images/sover.png) 0 -256px;
+}
+#chessboard div.highlight2-9c5d2 {
+  background: url(../images/sover.png) 0 -64px;
+}
+#chessboard div.square-55d63:hover {
+  background: url(../images/sover.png) 0 0;
 }
