@@ -46,7 +46,8 @@ case object Perfs {
     "standard" -> "Standard rules of chess",
     "chess960" -> "Chess960 variant",
     "white"    -> "With white pieces",
-    "black"    -> "With black pieces")
+    "black"    -> "With black pieces",
+    "puzzle"   -> "Training puzzles")
 
   private def PerfsBSONHandler = new BSON[Perfs] {
 
