@@ -79,6 +79,13 @@
   font-size: 1.4em;
   margin-bottom: 7px;
 }
+#puzzle > .right .please_vote {
+  background: #DFF0D8;
+  color: #3c763d;
+  margin-bottom: 1em;
+  text-align: center;
+  padding: 10px 5px;
+}
 #puzzle > .right .lichess_control {
   text-align: center;
   font-size: 1.3em;
