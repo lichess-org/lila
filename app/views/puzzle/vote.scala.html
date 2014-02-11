@@ -1,10 +1,10 @@
 @(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt])
 
 @if(puzzle.enabled) {
-<div title="Popularity" class="upvote @if(attempt.isDefined) { enabled }"
+<div class="upvote @if(attempt.isDefined) { enabled }"
   data-post-url="@routes.Puzzle.vote(puzzle.id)">
-  <a data-vote="1" class="upvote @if(attempt.flatMap(_.vote) == Some(true)) { active }"></a>
-  <span class="count">@puzzle.vote.sum</span>
-  <a data-vote="0" class="downvote @if(attempt.flatMap(_.vote) == Some(false)) { active }"></a>
+  <a title="This puzzle is correct and interresting" data-vote="1" class="upvote @if(attempt.flatMap(_.vote) == Some(true)) { active }"></a>
+  <span title="Popularity" class="count">@puzzle.vote.sum</span>
+  <a title="This puzzle is wrong or boring" data-vote="0" class="downvote @if(attempt.flatMap(_.vote) == Some(false)) { active }"></a>
 </div>
 }
