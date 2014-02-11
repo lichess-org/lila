@@ -5,6 +5,7 @@ import reactivemongo.bson._
 import reactivemongo.bson.Macros
 
 import lila.db.Types.Coll
+import lila.rating.Glicko
 import lila.user.User
 
 case class UserInfos(user: User, history: List[Attempt], chart: JsArray)
@@ -15,6 +16,10 @@ object UserInfos {
   private def chartSize = 12
 
   import Attempt.attemptBSONHandler
+
+  lazy val defaultChart = JsArray {
+    List.fill(chartSize)(Glicko.default.intRating) map { JsNumber(_) }
+  }
 
   def apply(attemptColl: Coll) = new {
 
@@ -36,11 +41,13 @@ object UserInfos {
         Attempt.BSONFields.date -> -1
       )).cursor[Attempt]
         .collect[List](math.max(historySize, chartSize))
+  }
 
-    private def makeHistory(attempts: List[Attempt]) = attempts.take(historySize)
+  private def makeHistory(attempts: List[Attempt]) = attempts.take(historySize)
 
-    private def makeChart(attempts: List[Attempt]) = JsArray {
-      attempts.take(historySize).reverse map (_.userPostRating) map { JsNumber(_) }
-    }
+  private def makeChart(attempts: List[Attempt]) = JsArray {
+    val ratings = attempts.take(chartSize).reverse map (_.userPostRating)
+    val filled = List.fill(chartSize - ratings.size)(Glicko.default.intRating) ::: ratings
+    filled map { JsNumber(_) }
   }
 }

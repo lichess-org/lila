@@ -9,7 +9,7 @@
   data-new-url="@routes.Puzzle.newPuzzle">
 
   <div class="side">
-    @trainingBox(userInfos)
+    @trainingBox(puzzle, userInfos, false)
     @win.map { w =>
     @if(w) {
     <div class="comment win"><h3><strong>Victory!</strong></h3></div>
@@ -58,13 +58,12 @@
         <small title="Glicko rating deviation"> ±@puzzle.perf.glicko.intDeviationDoubled</small>
       </p>
       <p>
-        Played <strong>
-          @puzzle.attempts match {
-          case 1 => { once }
-          case 2 => { twice }
-          case x => { @x times }
-          }
-        </strong>
+        Played
+        @puzzle.attempts match {
+        case 1 => { <strong>once</strong> }
+        case 2 => { <strong>twice</strong> }
+        case x => { <strong>@x</strong> times }
+        }
       </p>
       <p>
         Win rate: <strong>@puzzle.winPercent</strong>%

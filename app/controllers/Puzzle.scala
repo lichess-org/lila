@@ -54,17 +54,18 @@ object Puzzle extends LilaController {
       env.forms.attempt.bindFromRequest.fold(
         err ⇒ fuccess(BadRequest(err.toString)),
         data ⇒ ctx.me match {
-          case Some(me) ⇒ env.finisher(puzzle, me, data) flatMap { attempt ⇒
-            UserRepo byId me.id map (_ | me) flatMap { me2 ⇒
+          case Some(me) ⇒ env.finisher(puzzle, me, data) flatMap {
+            case (newAttempt, None) ⇒ UserRepo byId me.id map (_ | me) flatMap { me2 ⇒
               env.api.puzzle find id zip (env userInfos me2.some) map {
-                case (p2, infos) ⇒ Ok(views.html.puzzle.viewMode(p2 | puzzle, attempt.some, infos, none))
+                case (p2, infos) ⇒ Ok(views.html.puzzle.viewMode(p2 | puzzle, newAttempt.some, infos, none))
               }
             }
-          }
-          case None ⇒ env.finisher.anon(puzzle, data) >> {
-            env.api.puzzle find id map { p2 ⇒
-              Ok(views.html.puzzle.viewMode(p2 | puzzle, none, none, data.isWin.some))
+            case (oldAttempt, Some(win)) ⇒ env userInfos me.some map { infos ⇒
+              Ok(views.html.puzzle.viewMode(puzzle, oldAttempt.some, infos, win.some))
             }
+          }
+          case None ⇒ fuccess {
+            Ok(views.html.puzzle.viewMode(puzzle, none, none, data.isWin.some))
           }
         }
       )

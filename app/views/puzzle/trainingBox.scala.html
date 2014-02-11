@@ -1,4 +1,4 @@
-@(userInfos: Option[lila.puzzle.UserInfos])(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, userInfos: Option[lila.puzzle.UserInfos], isPlay: Boolean)(implicit ctx: Context)
 
 <div class="box">
   <h1>Training</h1>
@@ -10,6 +10,17 @@
   <br />
   }
   }.getOrElse {
-  <a href="@routes.Auth.signup">Create a username</a> to get a puzzle rating!
+  @if(isPlay) {
+  <p>Find the best move for @{puzzle.color.name}.</p>
+  } else {
+  <p>To track your progress:</p>
+  <p class="signup">
+    <a class="button" href="@routes.Auth.signup">Create a username</a>
+  </p>
+  <p>
+    This helps lichess showing puzzles that match your level, 
+    and makes for a better training.
+  </p>
+  }
   }
 </div>
