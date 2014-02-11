@@ -13,24 +13,36 @@ object Relation extends LilaController {
 
   def follow(userId: String) = Open { implicit ctx ⇒
     ctx.userId.fold(Ok(html.relation.actions(userId, true)).fuccess) { myId ⇒
-      env.api.follow(myId, userId).nevermind inject html.relation.actions(userId)
+      env.api.follow(myId, userId).nevermind inject getBool("mini").fold(
+        html.relation.mini(userId),
+        html.relation.actions(userId)
+      )
     }
   }
 
   def unfollow(userId: String) = Auth { implicit ctx ⇒
     me ⇒
-      env.api.unfollow(me.id, userId).nevermind inject html.relation.actions(userId)
+      env.api.unfollow(me.id, userId).nevermind inject getBool("mini").fold(
+        html.relation.mini(userId),
+        html.relation.actions(userId)
+      )
   }
 
   def block(userId: String) = Open { implicit ctx ⇒
     ctx.userId.fold(Ok(html.relation.actions(userId, true)).fuccess) { myId ⇒
-      env.api.block(myId, userId).nevermind inject html.relation.actions(userId)
+      env.api.block(myId, userId).nevermind inject getBool("mini").fold(
+        html.relation.mini(userId),
+        html.relation.actions(userId)
+      )
     }
   }
 
   def unblock(userId: String) = Auth { implicit ctx ⇒
     me ⇒
-      env.api.unblock(me.id, userId).nevermind inject html.relation.actions(userId)
+      env.api.unblock(me.id, userId).nevermind inject getBool("mini").fold(
+        html.relation.mini(userId),
+        html.relation.actions(userId)
+      )
   }
 
   def following(username: String) = Open { implicit ctx ⇒

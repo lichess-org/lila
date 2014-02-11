@@ -38,12 +38,11 @@ object Puzzle extends LilaController {
 
   // XHR view
   def view(id: PuzzleId) = Open { implicit ctx ⇒
-    val win = getInt("win", ctx.req) exists (1==)
     OptionFuOk(env.api.puzzle find id) { puzzle ⇒
       (ctx.userId ?? { env.api.attempt.find(puzzle.id, _) }) zip
         (env userInfos ctx.me) map {
           case (attempt, infos) ⇒
-            views.html.puzzle.viewMode(puzzle, attempt, infos, win.some)
+            views.html.puzzle.viewMode(puzzle, attempt, infos, getBool("win").some)
         }
     }
   }
