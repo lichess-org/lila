@@ -81,6 +81,7 @@
           (jq/attr $prev :disabled is-first)
           (jq/attr $next :disabled is-last)
           (.position chessboard fen animate)
+          (.load core/chess fen)
           (core/color-move! $puzzle move)
           (<! (timeout (+ 50 animation-delay)))
           (let [[browse ch] (alts! [browse-chan continue-chan])]
