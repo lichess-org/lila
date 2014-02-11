@@ -49,11 +49,18 @@
 
   <div class="right">
     @if(voted == Some(false)) {
-    <p class="please_vote">
-      <strong>Was this puzzle any good?</strong><br />
-      Help lichess improve by voting<br />
-      using the up or down arrow:
-    </p>
+    <div class="please_vote">
+      <p class="first">
+        <strong>Was this puzzle any good?</strong><br />
+        Help lichess improve by voting<br />
+        using the up or down arrow:
+      </p>
+      <p class="then">
+        <br />
+        <strong>Thank you!</strong>
+        <br /><br />
+      </p>
+    </div>
     }
     <div class="box">
       <div class="vote_wrap">@vote(puzzle, attempt)</div>
@@ -76,7 +83,7 @@
         Win rate: <strong>@puzzle.winPercent</strong>%
       </p>
       @puzzle.gameId.map { id =>
-      <p>From Game <a href="@routes.Round.watcher(id, puzzle.color)">#@id</a></p>
+      <p>From game <a href="@routes.Round.watcher(id, puzzle.color.name)">#@id</a></p>
       }
     </div>
     <div class="continue_wrap">

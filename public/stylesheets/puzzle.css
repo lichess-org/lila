@@ -86,6 +86,13 @@
   text-align: center;
   padding: 10px 5px;
 }
+#puzzle > .right .please_vote .then,
+#puzzle > .right .please_vote.thanks .first {
+  display: none;
+}
+#puzzle > .right .please_vote.thanks .then {
+  display: block;
+}
 #puzzle > .right .lichess_control {
   text-align: center;
   font-size: 1.3em;

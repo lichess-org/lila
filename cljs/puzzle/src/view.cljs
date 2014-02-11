@@ -15,7 +15,9 @@
 
 (defn bind-vote! [$vote]
   (jq/on $vote :click ".enabled a:not(.active)"
-         (fn [e] (let [$a ($ (.-target e))]
+         (fn [e] (let [$a ($ (.-target e))
+                       $please ($ "#puzzle .please_vote")]
+                   (when (.-length $please) (jq/add-class $please :thanks))
                    (jq/add-class $a :active)
                    (jq/xhr [:post (jq/data (jq/parent $a) :post-url)]
                            {:vote (jq/data $a :vote)}
