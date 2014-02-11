@@ -34,9 +34,10 @@
                 (let [new-progress (conj progress m) new-lines (get-in lines new-progress)]
                   (and new-lines [new-progress new-lines])))
         moves (map #(str move %) ["" "q" "n" "r" "b"])
-        tries (remove nil? (map try-m moves))
-        search #(first (filter % tries))]
-    (or (search #(not= % "retry")) (search #(true)) [progress "fail"])))
+        tries (remove nil? (map try-m moves))]
+    (or (first (filter #(not= (second %) "retry") tries))
+        (first tries)
+        [progress "fail"])))
 
 (defn ai-play! [$puzzle chessboard branch]
   (let [ch (async/chan) move (first (first branch))]
@@ -133,14 +134,18 @@
                          (recur progress fen))
                 (do
                   (set-status! $puzzle "playing great")
-                  (core/color-move! $puzzle move)
-                  (.position chessboard (.fen chess))
-                  (show-turn! $puzzle)
-                  (<! (timeout animation-delay-plus))
-                  (if (= new-lines "win")
-                    (win! $puzzle new-progress started-at)
-                    (let [aim (<! (ai-play! $puzzle chessboard new-lines))
-                          new-new-progress (conj new-progress aim)]
-                      (if (= (get new-lines aim) "win")
-                        (win! $puzzle new-new-progress started-at )
-                        (recur new-new-progress (.fen chess))))))))))))))
+                  (let [full-move (last new-progress)
+                        prom (get (vec full-move) 4)]
+                    ; hack to handle under-promotion http://en.l.org/training/4036
+                    (when (and prom (not= prom "q")) (.undo chess) (core/apply-move chess full-move))
+                    (core/color-move! $puzzle move)
+                    (.position chessboard (.fen chess))
+                    (show-turn! $puzzle)
+                    (<! (timeout animation-delay-plus))
+                    (if (= new-lines "win")
+                      (win! $puzzle new-progress started-at)
+                      (let [aim (<! (ai-play! $puzzle chessboard new-lines))
+                            new-new-progress (conj new-progress aim)]
+                        (if (= (get new-lines aim) "win")
+                          (win! $puzzle new-new-progress started-at )
+                          (recur new-new-progress (.fen chess)))))))))))))))

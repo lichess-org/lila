@@ -11,8 +11,9 @@
 (defn await-in [ch value duration] (js/setTimeout #(put! ch value) duration) ch)
 
 (defn apply-move
-  ([ch orig, dest] (.move ch (clj->js {:from orig :to dest :promotion "q"})))
-  ([ch move] (let [[a, b, c, d] (seq move)] (apply-move ch (str a b) (str c d)))))
+  ([ch orig dest prom] (.move ch (clj->js {:from orig :to dest :promotion prom})))
+  ([ch orig dest] (apply-move ch orig dest "q"))
+  ([ch move] (let [[a, b, c, d, p] (seq move)] (apply-move ch (str a b) (str c d) p))))
 
 (defn color-move! [$puzzle move]
   (let [[a b c d] (seq move) [orig dest] [(str a b) (str c d)]]
