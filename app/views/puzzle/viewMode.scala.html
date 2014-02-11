@@ -1,4 +1,4 @@
-@(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt], userInfos: Option[lila.puzzle.UserInfos], win: Option[Boolean])(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt], userInfos: Option[lila.puzzle.UserInfos], win: Option[Boolean], voted: Option[Boolean] = None)(implicit ctx: Context)
 
 <div id="puzzle"
   data-mode="view"
@@ -48,6 +48,13 @@
   </div>
 
   <div class="right">
+    @if(voted == Some(false)) {
+    <p class="please_vote">
+      <strong>Was this puzzle any good?</strong><br />
+      Help lichess improve by voting<br />
+      using the up or down arrow:
+    </p>
+    }
     <div class="box">
       <div class="vote_wrap">@vote(puzzle, attempt)</div>
       <h2 class="puzzle_link">

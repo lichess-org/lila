@@ -90,5 +90,19 @@ private[puzzle] final class PuzzleApi(
     ).cursor[BSONDocument].collect[List]() map2 {
         (obj: BSONDocument) ⇒ obj.getAs[Int](Attempt.BSONFields.time)
       } map (_.flatten)
+
+    def hasVoted(user: User): Fu[Boolean] = attemptColl.find(
+      BSONDocument(Attempt.BSONFields.userId -> user.id),
+      BSONDocument(
+        Attempt.BSONFields.vote -> true,
+        Attempt.BSONFields.id -> false
+      )).sort(BSONDocument(Attempt.BSONFields.date -> -1))
+      .cursor[BSONDocument]
+      .collect[List](5) map {
+        _.foldLeft(false) {
+          case (true, _)    ⇒ true
+          case (false, doc) ⇒ doc.getAs[Boolean](Attempt.BSONFields.vote).isDefined
+        }
+      }
   }
 }

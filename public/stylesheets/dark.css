@@ -173,7 +173,8 @@ body.dark #puzzle > .side div.retry {
   background: #101034;
 }
 body.dark #puzzle > .side div.great,
-body.dark #puzzle > .side div.win {
+body.dark #puzzle > .side div.win,
+body.dark #puzzle > .right .please_vote {
   background: #103410;
   color: #74a962;
 }
