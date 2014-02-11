@@ -17,4 +17,7 @@ trait RequestGetter {
 
   protected def getInt(name: String, req: RequestHeader): Option[Int] =
     req.queryString get name flatMap (_.headOption) flatMap parseIntOption
+
+  protected def getBool(name: String)(implicit ctx: UserContext) =
+    getInt(name) exists (1==)
 }

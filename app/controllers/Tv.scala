@@ -19,7 +19,7 @@ object Tv extends LilaController {
         (game.tournamentId ?? TournamentRepo.byId) map {
           case (((v, games), confrontation), tour) ⇒
             Ok(html.tv.index(
-              getInt("flip").exists(1==).fold(Pov second game, Pov first game),
+              getBool("flip").fold(Pov second game, Pov first game),
               v, games, confrontation, tour))
         }
     }

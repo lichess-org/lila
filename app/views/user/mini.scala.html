@@ -38,25 +38,7 @@
       </td>
       }
       }
-      <td>
-        @relationWith(u.id) match {
-        case None => {
-        <a href="@routes.Relation.follow(u.id)">
-          <span class="s16 tup">@trans.follow()</span>
-        </a>
-        }
-        case Some(true) => {
-        <a title="@trans.unfollow()" href="@routes.Relation.unfollow(u.id)">
-          <span class="s16 tup">@trans.following()</span>
-        </a>
-        }
-        case Some(false) => {
-        <a title="@trans.unblock()" class="hover_text" href="@routes.Relation.unblock(u.id)">
-          <span class="s16 tdown">@trans.blocked()</span>
-        </a>
-        }
-        }
-      </td>
+      <td class="relation_actions">@relation.mini(u.id)</td>
     </tr>
   </tbody>
 </table>

@@ -1,0 +1,19 @@
+@(userId: String)(implicit ctx: Context)
+
+@relationWith(userId) match {
+case None => {
+<a class="relation" href="@routes.Relation.follow(userId)?mini=1">
+  <span class="s16 tup">@trans.follow()</span>
+</a>
+}
+case Some(true) => {
+<a class="relation" title="@trans.unfollow()" href="@routes.Relation.unfollow(userId)?mini=1">
+  <span class="s16 tup">@trans.following()</span>
+</a>
+}
+case Some(false) => {
+<a class="relation" title="@trans.unblock()" class="hover_text" href="@routes.Relation.unblock(userId)?mini=1">
+  <span class="s16 tdown">@trans.blocked()</span>
+</a>
+}
+}

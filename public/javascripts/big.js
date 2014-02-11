@@ -496,7 +496,7 @@ var storage = {
 
     $('#friend_box').friends();
 
-    $('body').on('click', 'div.relation_actions a.relation', function() {
+    $('body').on('click', '.relation_actions a.relation', function() {
       var $a = $(this).addClass('processing');
       $.ajax({
         url: $a.attr('href'),
