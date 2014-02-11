@@ -23,6 +23,10 @@
 #puzzle div.box > p, #puzzle div.box > div {
   line-height: 1.8em;
 }
+#puzzle > .side .signup {
+  margin: 1em auto;
+  text-align: center;
+}
 #puzzle > .side div.comment {
   padding: 10px 5px;
   text-align: center;

@@ -12,13 +12,11 @@ private[puzzle] final class Finisher(
     api: PuzzleApi,
     puzzleColl: Coll) {
 
-  def apply(puzzle: Puzzle, user: User, data: DataForm.AttemptData): Fu[Attempt] =
+  private val maxTime = 5 * 60 * 1000
+
+  def apply(puzzle: Puzzle, user: User, data: DataForm.AttemptData): Fu[(Attempt, Option[Boolean])] =
     api.attempt.find(puzzle.id, user.id) flatMap {
-      case Some(a) ⇒ puzzleColl.update(
-        BSONDocument("_id" -> puzzle.id),
-        BSONDocument("$addToSet" -> BSONDocument(
-          Puzzle.BSONFields.users -> user.id
-        ))) inject a
+      case Some(a) ⇒ fuccess(a -> data.isWin.some)
       case None ⇒
         val userRating = mkRating(user.perfs.puzzle)
         val puzzleRating = mkRating(puzzle.perf)
@@ -31,7 +29,7 @@ private[puzzle] final class Finisher(
           userId = user.id,
           date = DateTime.now,
           win = data.isWin,
-          time = data.time,
+          time = math.min(data.time, maxTime),
           vote = none,
           puzzleRating = puzzle.perf.intRating,
           puzzleRatingDiff = puzzlePerf.intRating - puzzle.perf.intRating,
@@ -49,15 +47,8 @@ private[puzzle] final class Finisher(
             )) ++ BSONDocument("$addToSet" -> BSONDocument(
               Puzzle.BSONFields.users -> user.id
             ))) zip UserRepo.setPerf(user.id, "puzzle", userPerf)
-        } inject a
+        } inject (a -> none)
     }
-
-  def anon(puzzle: Puzzle, data: DataForm.AttemptData): Funit = puzzleColl.update(
-    BSONDocument("_id" -> puzzle.id),
-    BSONDocument("$inc" -> BSONDocument(
-      Puzzle.BSONFields.attempts -> BSONInteger(1),
-      Puzzle.BSONFields.wins -> BSONInteger(data.isWin ? 1 | 0)
-    ))).void
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU = 0.75d

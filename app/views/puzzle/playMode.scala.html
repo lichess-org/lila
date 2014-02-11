@@ -6,11 +6,10 @@
   data-color="@puzzle.color"
   data-move="@puzzle.initialMove"
   data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"
-  data-post-url="@routes.Puzzle.attempt(puzzle.id)"
-  data-view-url="@routes.Puzzle.view(puzzle.id)">
+  data-post-url="@routes.Puzzle.attempt(puzzle.id)">
 
   <div class="side">
-    @trainingBox(userInfos)
+    @trainingBox(puzzle, userInfos, true)
     <div class="comment retry none"><h3><strong>Good move</strong></h3>But you can do better.</div>
     <div class="comment great none"><h3><strong>Best move!</strong></h3>Keep going...</div>
     @if(asPlay) {

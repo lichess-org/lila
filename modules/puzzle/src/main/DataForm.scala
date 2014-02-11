@@ -7,7 +7,7 @@ object DataForm {
 
   val attempt = Form(mapping(
     "win" -> number,
-    "time" -> number
+    "time" -> number(min = 1000)
   )(AttemptData.apply)(AttemptData.unapply))
 
   case class AttemptData(

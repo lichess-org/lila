@@ -56,13 +56,6 @@
             #(put! chan %))
     chan))
 
-(defn get-view [$puzzle win]
-  (let [chan (async/chan)]
-    (jq/xhr [:get (jq/data $puzzle :view-url)] {:win win} #(put! chan %))
-    chan))
-
-(defn mode-of [$puzzle] (keyword (jq/data $puzzle :mode)))
-
 (defn retry! [$puzzle chessboard fen]
   (set-status! $puzzle "playing retry")
   (let [chan (async/chan)]
@@ -76,10 +69,7 @@
 (defn win! [$puzzle progress started-at]
   (go
     (let [_ (core/loading! ($ :.giveup $puzzle))
-          mode (mode-of $puzzle)
-          xhr-chan (if (= mode :play)
-                     (post-attempt! $puzzle 1 started-at)
-                     (get-view $puzzle 1))
+          xhr-chan (post-attempt! $puzzle 1 started-at)
           wait-chan (timeout animation-delay-plus)
           res (<! xhr-chan)
           _ (<! wait-chan)]
@@ -93,7 +83,7 @@
       (<! (timeout animation-delay-plus))
       (.load chess fen)
       (.position chessboard fen)
-      (if (= (mode-of $puzzle) :play)
+      (if (= (keyword (jq/data $puzzle :mode)) :play)
         (let [_ (core/loading! ($ :.giveup $puzzle))
               xhr-chan (post-attempt! $puzzle 0 started-at)
               wait-chan (timeout animation-delay-plus)
@@ -109,10 +99,7 @@
   (set-status! $puzzle "playing fail")
   (core/loading! ($ :.giveup $puzzle))
   (go
-    (let [mode (mode-of $puzzle)
-          res (<! (if (= mode :play)
-                    (post-attempt! $puzzle 0 started-at)
-                    (get-view $puzzle 0)))]
+    (let [res (<! (post-attempt! $puzzle 0 started-at))]
       (jq/html core/$wrap res)
       (view/run! progress))))
 
