@@ -75,6 +75,9 @@
       <p>
         Win rate: <strong>@puzzle.winPercent</strong>%
       </p>
+      @puzzle.gameId.map { id =>
+      <p>From Game <a href="@routes.Round.watcher(id, puzzle.color)">#@id</a></p>
+      }
     </div>
     <div class="continue_wrap">
       @if(win.isDefined) {
