@@ -114,7 +114,9 @@ kingcrusher wants his FIDE title http://en.lichess.org/forum/general-chess-discu
 drop old notifications (timeline)
 anon shares running game - hilarity follows.
 puzzle of the day
-fix firefox/chrome font-size blank space
+investigate yacdb
+flip running game http://en.lichess.org/forum/general-chess-discussion/flip-board-button-while-watching-a-game#1
+consider analysis with data="" failed (and retry them)
 
 deploy
 ------
