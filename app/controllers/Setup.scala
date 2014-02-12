@@ -155,10 +155,6 @@ object Setup extends LilaController with TheftPrevention {
     }
   }
 
-  def api = Open { implicit ctx ⇒
-    JsonOk(env.processor.api)
-  }
-
   def validateFen = Open { implicit ctx ⇒
     {
       for {
