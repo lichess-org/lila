@@ -51,21 +51,6 @@ private[setup] final class Processor(
       lobby ! AddHook(config.hook(uid, ctx.me, sid))
     }
 
-  def api(implicit ctx: UserContext): Fu[JsObject] = {
-    val config = ApiConfig
-    val pov = config.pov
-    val game = ctx.me.fold(pov.game)(user ⇒ pov.game.updatePlayer(pov.color, _ withUser user)).start
-    import ChessColor.{ White, Black }
-    import lila.hub.actorApi.router.{ Player, Abs }
-    $insert bson game zip
-      (router ? Abs(Player(game fullIdOf White)) mapTo manifest[String]) zip
-      (router ? Abs(Player(game fullIdOf Black)) mapTo manifest[String]) map {
-        case ((_, whiteUrl), blackUrl) ⇒ Json.obj(
-          White.name -> whiteUrl,
-          Black.name -> blackUrl)
-      }
-  }
-
   private def saveConfig(map: UserConfig ⇒ UserConfig)(implicit ctx: UserContext): Funit =
     ctx.me.fold(AnonConfigRepo.update(ctx.req) _)(user ⇒ UserConfigRepo.update(user) _)(map)
 }

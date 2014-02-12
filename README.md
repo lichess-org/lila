@@ -205,23 +205,6 @@ name | type | default | description
 
 (1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
 
-### `POST /api/game/new` create a new game
-
-You can create a new casual game by just `POST`ing to this url.
-You get back two links, for the white player and for the black player.
-One could use that API to provide chess capabilities to an online chat, for instance.
-
-```
-> curl -XPOST http://en.lichess.org/api/game/new
-```
-
-```javascript
-{
-  "white": "http://l.org/8pmigk36t1hp",
-  "black": "http://l.org/8pmigk36ov6m"
-}
-```
-
 ### `GET /api/analysis` fetch many analysis
 
 Analysis are returned by descendant chronological order.
