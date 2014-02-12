@@ -33,7 +33,7 @@ private[puzzle] final class PuzzleApi(
         .cursor[Puzzle]
         .collect[List](nb)
 
-    def importBatch(json: JsValue, token: String): Funit =
+    def importBatch(json: JsValue, token: String): Fu[List[PuzzleId]] =
       if (token != apiToken) fufail("Invalid API token")
       else {
         import Generated.generatedJSONRead
@@ -42,10 +42,12 @@ private[puzzle] final class PuzzleApi(
         }
       }
 
-    def insertPuzzles(puzzles: List[PuzzleId ⇒ Puzzle]): Funit = puzzles match {
-      case Nil ⇒ funit
+    def insertPuzzles(puzzles: List[PuzzleId ⇒ Puzzle]): Fu[List[PuzzleId]] = puzzles match {
+      case Nil ⇒ fuccess(Nil)
       case puzzle :: rest ⇒ findNextId flatMap { id ⇒
-        (puzzleColl insert puzzle(id)) >> insertPuzzles(rest)
+        (puzzleColl insert puzzle(id)) >> {
+          insertPuzzles(rest) map (id :: _)
+        }
       }
     }
 
