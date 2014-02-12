@@ -312,7 +312,7 @@ case class Game(
 
   def hasBookmarks = bookmarks > 0
 
-  def showBookmarks = hasBookmarks ?? bookmarks
+  def showBookmarks = hasBookmarks ?? bookmarks.toString
 
   def userIds = playerMaps(_.userId)
 

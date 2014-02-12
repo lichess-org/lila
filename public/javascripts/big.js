@@ -703,7 +703,7 @@ var storage = {
       return confirm('Confirm this action?');
     });
 
-    $('#site_header').on('click', 'span.bookmark a.icon', function() {
+    $('div.content').on('click', 'span.bookmark a.icon', function() {
       var t = $(this).toggleClass("bookmarked");
       $.post(t.attr("href"));
       var count = (parseInt(t.html(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
