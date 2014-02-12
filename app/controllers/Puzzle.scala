@@ -55,13 +55,13 @@ object Puzzle extends LilaController {
         data ⇒ ctx.me match {
           case Some(me) ⇒ env.finisher(puzzle, me, data) flatMap {
             case (newAttempt, None) ⇒ UserRepo byId me.id map (_ | me) flatMap { me2 ⇒
-              env.api.puzzle find id zip 
-              (env userInfos me2.some) zip 
-              (env.api.attempt hasVoted me2) map {
-                case ((p2, infos), voted) ⇒ Ok {
-                  views.html.puzzle.viewMode(p2 | puzzle, newAttempt.some, infos, none, voted.some)
+              env.api.puzzle find id zip
+                (env userInfos me2.some) zip
+                (env.api.attempt hasVoted me2) map {
+                  case ((p2, infos), voted) ⇒ Ok {
+                    views.html.puzzle.viewMode(p2 | puzzle, newAttempt.some, infos, none, voted.some)
+                  }
                 }
-              }
             }
             case (oldAttempt, Some(win)) ⇒ env userInfos me.some map { infos ⇒
               Ok(views.html.puzzle.viewMode(puzzle, oldAttempt.some, infos, win.some))
@@ -89,8 +89,8 @@ object Puzzle extends LilaController {
   }
 
   def importBatch = Action.async(parse.json) { implicit req ⇒
-    env.api.puzzle.importBatch(req.body, ~get("token", req)) map { _ ⇒
-      Ok("kthxbye")
+    env.api.puzzle.importBatch(req.body, ~get("token", req)) map { ids ⇒
+      Ok("kthxbye " + ids.map(id ⇒ s"http://lichess.org/training/$id").mkString(" "))
     } recover {
       case e ⇒
         play.api.Logger("Puzzle import").warn(e.getMessage)
