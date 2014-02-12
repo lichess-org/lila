@@ -9,7 +9,9 @@ import play.api.libs.json._
 import play.api.templates.Html
 
 import actorApi._
+import lila.common.PimpedJson._
 import lila.game.actorApi._
+import lila.game.AnonCookie
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.router.{ Homepage, Player }
 import lila.hub.actorApi.timeline._
@@ -51,10 +53,15 @@ private[lobby] final class Socket(
     case JoinHook(uid, hook, game, creatorColor) ⇒
       playerUrl(game fullIdOf creatorColor) zip
         playerUrl(game fullIdOf !creatorColor) foreach {
-          case (creatorUrl, invitedUrl) ⇒ {
-            withMember(hook.uid)(notifyMember("redirect", creatorUrl))
-            withMember(uid)(notifyMember("redirect", invitedUrl))
-          }
+          case (creatorUrl, invitedUrl) ⇒
+            withMember(hook.uid)(notifyMember("redirect", Json.obj(
+              "url" -> creatorUrl,
+              "cookie" -> AnonCookie.json(game, creatorColor)
+            ).noNull))
+            withMember(uid)(notifyMember("redirect", Json.obj(
+              "url" -> invitedUrl,
+              "cookie" -> AnonCookie.json(game, !creatorColor)
+            ).noNull))
         }
 
     case ChangeFeatured(html) ⇒ notifyFeatured(html)

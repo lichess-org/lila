@@ -317,6 +317,24 @@ var storage = {
   $.userLinkLimit = function(u, limit, klass) {
     return (u || false) ? '<a class="user_link ulpt ' + (klass || '') + '" href="/@/' + u + '">' + ((limit || false) ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   };
+  $.redirect = function(obj) {
+    var url;
+    if (typeof obj == "string") url = obj;
+    else {
+      url = obj.url;
+      if (obj.cookie) {
+        var domain = document.domain.replace(/^.+(\.[^\.]+\.[^\.]+)$/, '$1');
+        var cookie = [
+          encodeURIComponent(obj.cookie.name) + '=' + obj.cookie.value,
+          '; max-age=' + obj.cookie.maxAge,
+          '; path=/',
+          '; domain=' + domain
+        ].join('');
+        document.cookie = cookie;
+      }
+    }
+    location.href = 'http://' + location.hostname + '/' + url.replace(/^\//, '');
+  };
 
   var lichess = {
     socket: null,
@@ -956,7 +974,7 @@ var storage = {
               self.element.queue(function() {
                 setTimeout(function() {
                   lichess.hasToReload = true;
-                  location.href = event;
+                  $.redirect(event);
                 }, 400);
               });
             },
@@ -2212,7 +2230,7 @@ var storage = {
         featured: changeFeatured,
         redirect: function(e) {
           $.lichessOpeningPreventClicks();
-          location.href = 'http://' + location.hostname + '/' + e.replace(/^\//, '');
+          $.redirect(e);
         },
         tournaments: reloadTournaments,
         reload_forum: reloadForum
@@ -2512,7 +2530,7 @@ var storage = {
           location.reload();
         },
         redirect: function(e) {
-          location.href = 'http://' + location.hostname + '/' + e.replace(/^\//, '');
+          $.redirect(e);
         },
         crowd: function(data) {
           $watchers.watchers("set", data);

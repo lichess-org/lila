@@ -1,10 +1,11 @@
 package lila.game
 
+import lila.common.PimpedJson._
 import play.api.libs.json._
 
-import lila.chat.{ Line, UserLine, PlayerLine }
 import chess.Pos.{ piotr, allPiotrs }
 import chess.{ PromotableRole, Pos, Color, Situation, Move ⇒ ChessMove, Clock ⇒ ChessClock }
+import lila.chat.{ Line, UserLine, PlayerLine }
 
 sealed trait Event {
   def typ: String
@@ -79,13 +80,15 @@ object Event {
     )
   }
 
-  sealed trait Redirect extends Event {
-    def url: String
+  case class RedirectOwner(
+      color: Color,
+      url: String,
+      cookie: Option[JsObject]) extends Event {
     def typ = "redirect"
-    def data = JsString(url)
-  }
-
-  case class RedirectOwner(color: Color, url: String) extends Redirect {
+    def data = Json.obj(
+      "url" -> url,
+      "cookie" -> cookie
+    ).noNull
     override def only = Some(color)
     override def owner = true
   }

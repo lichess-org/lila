@@ -8,7 +8,7 @@ import ChessColor.{ White, Black }
 
 import lila.db.api._
 import lila.game.tube.gameTube
-import lila.game.{ GameRepo, Game, Event, Progress, Pov, PlayerRef, Namer, Source }
+import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie }
 import lila.memo.ExpireSetMemo
 import lila.user.UserRepo
 import makeTimeout.short
@@ -91,12 +91,12 @@ private[round] final class Rematcher(
       }
     }
 
-  private def redirectEvents(nextGame: Game): Fu[Events] =
-    router ? lila.hub.actorApi.router.Player(nextGame fullIdOf White) zip
-      router ? lila.hub.actorApi.router.Player(nextGame fullIdOf Black) collect {
+  private def redirectEvents(game: Game): Fu[Events] =
+    router ? lila.hub.actorApi.router.Player(game fullIdOf White) zip
+      router ? lila.hub.actorApi.router.Player(game fullIdOf Black) collect {
         case (whiteUrl: String, blackUrl: String) ⇒ List(
-          Event.RedirectOwner(White, blackUrl),
-          Event.RedirectOwner(Black, whiteUrl),
+          Event.RedirectOwner(White, blackUrl, AnonCookie.json(game, Black)),
+          Event.RedirectOwner(Black, whiteUrl, AnonCookie.json(game, White)),
           // tell spectators to reload the table
           Event.ReloadTable(White),
           Event.ReloadTable(Black))

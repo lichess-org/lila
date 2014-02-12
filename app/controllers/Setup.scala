@@ -1,13 +1,13 @@
 package controllers
 
 import play.api.data.Form
-import play.api.mvc.{ SimpleResult, Call }
+import play.api.mvc.{ SimpleResult, Call, RequestHeader }
 
-import lila.app._
-import lila.common.HTTPRequest
-import lila.game.GameRepo
-import lila.user.UserRepo
 import lila.api.{ Context, BodyContext }
+import lila.app._
+import lila.common.{ HTTPRequest, LilaCookie }
+import lila.game.{ GameRepo, Pov, AnonCookie }
+import lila.user.UserRepo
 import views._
 
 object Setup extends LilaController with TheftPrevention {
@@ -25,7 +25,7 @@ object Setup extends LilaController with TheftPrevention {
   def ai = process(env.forms.ai) { config ⇒
     implicit ctx ⇒
       env.processor ai config map { pov ⇒
-        routes.Round.player(pov.fullId)
+        pov -> routes.Round.player(pov.fullId)
       }
   }
 
@@ -67,7 +67,7 @@ object Setup extends LilaController with TheftPrevention {
   def friend(username: Option[String]) = process(env.forms.friend) { config ⇒
     implicit ctx ⇒
       env.processor friend config map { pov ⇒
-        routes.Setup.await(pov.fullId, username)
+        pov -> routes.Setup.await(pov.fullId, username)
       }
   }
 
@@ -120,7 +120,8 @@ object Setup extends LilaController with TheftPrevention {
         _ map {
           case (p, events) ⇒ {
             Env.hub.socket.round ! lila.hub.actorApi.map.Tell(p.gameId, events)
-            Redirect(routes.Round.player(p.fullId))
+            implicit val req = ctx.req
+            redirectPov(p, routes.Round.player(p.fullId))
           }
         })
     }
@@ -170,12 +171,22 @@ object Setup extends LilaController with TheftPrevention {
     }.fold[SimpleResult](BadRequest)(Ok(_)).fuccess
   }
 
-  private def process[A](form: Context ⇒ Form[A])(op: A ⇒ BodyContext ⇒ Fu[Call]) =
-    OpenBody { ctx ⇒
+  private def process[A](form: Context ⇒ Form[A])(op: A ⇒ BodyContext ⇒ Fu[(Pov, Call)]) =
+    OpenBody { implicit ctx ⇒
       implicit val req = ctx.body
-      FuRedirect(form(ctx).bindFromRequest.fold(
-        f ⇒ fuloginfo(f.errors.toString) inject routes.Lobby.home,
-        config ⇒ op(config)(ctx)
-      ))
+      form(ctx).bindFromRequest.fold(
+        f ⇒ fuloginfo(f.errors.toString) inject Redirect(routes.Lobby.home),
+        config ⇒ op(config)(ctx) map {
+          case (pov, call) ⇒ redirectPov(pov, call)
+        }
+      )
     }
+
+  private def redirectPov(pov: Pov, call: Call)(implicit ctx: Context, req: RequestHeader) =
+    if (ctx.isAuth) Redirect(call)
+    else Redirect(call) withCookies LilaCookie.cookie(
+      AnonCookie.name,
+      pov.playerId,
+      maxAge = AnonCookie.maxAge.some,
+      httpOnly = false.some)
 }
