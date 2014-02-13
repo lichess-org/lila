@@ -53,10 +53,19 @@ $(function() {
       }
     });
     onChange();
+    
+    var displayMarks = function() {
+      $.displayBoardMarks($('#chessboard .board-b72b1'), board.orientation() == "white");
+    };
+
+    displayMarks();
 
     $wrap.on('click', 'a.start', board.start);
     $wrap.on('click', 'a.clear', board.clear);
-    $wrap.on('click', 'a.flip', board.flip);
+    $wrap.on('click', 'a.flip', function() {
+      board.flip();
+      displayMarks();
+    });
     $wrap.on('click', 'a.load', function() {
       var fen = prompt('Paste FEN position');
       window.location = $(this).data('url').replace('xxx', fen);

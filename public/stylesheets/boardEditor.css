@@ -1,6 +1,15 @@
 #board_editor {
   position: relative;
 }
+#chessboard .board-b72b1 {
+  position: relative;
+}
+#chessboard span.board_mark.vert {
+  right: -11px;
+}
+#chessboard .spare-pieces-bottom-ae20f {
+  margin-top: 8px;
+}
 #chessboard_side {
   position: absolute;
   left: 552px;
