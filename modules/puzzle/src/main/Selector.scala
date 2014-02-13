@@ -12,16 +12,20 @@ import lila.user.User
 
 private[puzzle] final class Selector(puzzleColl: Coll) {
 
-  private val count = lila.memo.AsyncCache.single[Int](
-    f = puzzleColl.db command Count(puzzleColl.name, none),
-    timeToLive = 1 hour)
-
   private val ratingToleranceStep = 100
   private val ratingToleranceMax = 1000
 
+  private val popularSelector = BSONDocument(
+    Puzzle.BSONFields.voteSum -> BSONDocument("$gt" -> BSONInteger(0))
+  )
+
+  private val popularCount = lila.memo.AsyncCache.single[Int](
+    f = puzzleColl.db command Count(puzzleColl.name, popularSelector.some),
+    timeToLive = 1 hour)
+
   def apply(me: Option[User]): Fu[Puzzle] = me match {
-    case None ⇒ count(true) map (_ - 1) flatMap { skipMax ⇒
-      puzzleColl.find(BSONDocument())
+    case None ⇒ popularCount(true) map (_ - 1) flatMap { skipMax ⇒
+      puzzleColl.find(popularSelector)
         .projection(Puzzle.withoutUsers)
         .options(QueryOpts(skipN = Random.nextInt(skipMax)))
         .one[Puzzle] flatten "Can't find a puzzle for anon player!"
