@@ -19,8 +19,7 @@ final class Env(
   private val IndexesToOptimize = config getStringList "indexes_to_optimize"
   private val IndexerMaxAttempts = 10
 
-  // val esIndexer = makeIndexer()
-  val esIndexer = fufail[elasticsearch.ClientIndexer]("Elasticsearch is disabled")
+  val esIndexer = makeIndexer()
 
   private def makeIndexer(attempt: Int = 1): Future[elasticsearch.ClientIndexer] = Future {
     s"[search] Instanciate indexer, attempt $attempt/$IndexerMaxAttempts" describes
