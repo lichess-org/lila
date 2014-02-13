@@ -8,6 +8,7 @@ import play.api.libs.iteratee._
 import play.api.libs.iteratee.Enumerator
 import play.api.libs.json._
 import reactivemongo.bson.{ BSONDocument, BSONInteger }
+import reactivemongo.core.commands.Count
 
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
@@ -92,6 +93,11 @@ private[puzzle] final class PuzzleApi(
     ).cursor[BSONDocument].collect[List]() map2 {
         (obj: BSONDocument) ⇒ obj.getAs[Int](Attempt.BSONFields.time)
       } map (_.flatten)
+
+    def hasPlayed(user: User, puzzle: Puzzle): Fu[Boolean] =
+      attemptColl.db command Count(attemptColl.name, BSONDocument(
+        Attempt.BSONFields.id -> Attempt.makeId(puzzle.id, user.id)
+      ).some) map (0!=)
 
     def hasVoted(user: User): Fu[Boolean] = attemptColl.find(
       BSONDocument(Attempt.BSONFields.userId -> user.id),

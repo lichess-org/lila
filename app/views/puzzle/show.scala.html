@@ -1,8 +1,8 @@
-@(puzzle: lila.puzzle.Puzzle, userInfos: Option[lila.puzzle.UserInfos])(implicit ctx: Context)
+@(puzzle: lila.puzzle.Puzzle, userInfos: Option[lila.puzzle.UserInfos], asPlay: Boolean)(implicit ctx: Context)
 
 @layout("Puzzle") {
 
 <div id="puzzle_wrap">
-  @playMode(puzzle, userInfos, false)
+  @playMode(puzzle, userInfos, asPlay)
 </div>
 }
