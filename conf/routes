@@ -56,7 +56,6 @@ GET   /games/search       controllers.Game.search(page: Int ?= 1)
 GET   /training                        controllers.Puzzle.home
 GET   /training/new                    controllers.Puzzle.newPuzzle
 GET   /training/:id                    controllers.Puzzle.show(id: Int)
-GET   /training/:id/view               controllers.Puzzle.view(id: Int)
 POST  /training/:id/attempt            controllers.Puzzle.attempt(id: Int)
 POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
 

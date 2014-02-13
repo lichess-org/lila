@@ -17,15 +17,16 @@ object Puzzle extends LilaController {
 
   def home = Open { implicit ctx ⇒
     env selector ctx.me zip env.userInfos(ctx.me) map {
-      case (puzzle, infos) ⇒ Ok(views.html.puzzle.home(puzzle, infos))
+      case (puzzle, infos) ⇒ Ok(views.html.puzzle.show(puzzle, infos, true))
     }
   }
 
   def show(id: PuzzleId) = Open { implicit ctx ⇒
     OptionFuOk(env.api.puzzle find id) { puzzle ⇒
-      (env userInfos ctx.me) map { infos ⇒
-        views.html.puzzle.show(puzzle, infos)
-      }
+      (env userInfos ctx.me) zip
+        { ctx.me ?? (u ⇒ env.api.attempt.hasPlayed(u, puzzle) map (_.some)) } map {
+          case (infos, played) ⇒ views.html.puzzle.show(puzzle, infos, played == Some(false))
+        }
     }
   }
 
@@ -33,17 +34,6 @@ object Puzzle extends LilaController {
   def newPuzzle = Open { implicit ctx ⇒
     env selector ctx.me zip (env userInfos ctx.me) map {
       case (puzzle, infos) ⇒ Ok(views.html.puzzle.playMode(puzzle, infos, true))
-    }
-  }
-
-  // XHR view
-  def view(id: PuzzleId) = Open { implicit ctx ⇒
-    OptionFuOk(env.api.puzzle find id) { puzzle ⇒
-      (ctx.userId ?? { env.api.attempt.find(puzzle.id, _) }) zip
-        (env userInfos ctx.me) map {
-          case (attempt, infos) ⇒
-            views.html.puzzle.viewMode(puzzle, attempt, infos, getBool("win").some)
-        }
     }
   }
 
