@@ -138,6 +138,9 @@
 #chessboard_wrap {
   position: relative;
 }
+#chessboard_wrap span.board_mark.vert {
+  right: -11px;
+}
 #puzzle div.upvote {
   float: right;
 }
