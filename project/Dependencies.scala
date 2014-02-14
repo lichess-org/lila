@@ -42,7 +42,7 @@ object Dependencies {
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
   val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.6-THIB"
   val jodaTime = "joda-time" % "joda-time" % "2.3"
-  val scalastic = "org.scalastic" %% "scalastic" % "0.90.3"
+  val scalastic = "org.scalastic" %% "scalastic" % "0.90.10-THIB"
   val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.0"
   val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.2"
   object play {

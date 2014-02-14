@@ -38,7 +38,7 @@ object ApplicationBuild extends Build {
 
   lazy val api = project("api", moduleCPDeps)
     .settings(
-      libraryDependencies := provided(
+      libraryDependencies ++= provided(
         play.api, hasher, config, apache, csv, jgit,
         actuarius, scalastic, findbugs, RM)
     ) aggregate (moduleRefs: _*)
