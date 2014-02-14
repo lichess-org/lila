@@ -40,7 +40,7 @@ $(function() {
       });
     }
 
-    var pieceTheme = 'http://' + document.domain.replace(/^\w+/, 'static') + '/assets/images/chessboard/{piece}.png';
+    var pieceTheme = 'http://' + document.domain.replace(/^\w+/, 'static') + '/assets/images/piece/{piece}.svg';
     board = new ChessBoard('chessboard', {
       position: toBase($('#chessboard').data('fen')) || 'start',
       draggable: true,
@@ -52,6 +52,8 @@ $(function() {
         setTimeout(onChange, 100);
       }
     });
+    $wrap.find('div.spare-pieces-7492f').addClass('onbg');
+
     onChange();
     
     var displayMarks = function() {

@@ -14,12 +14,13 @@ trait AssetHelper {
 
   def staticUrl(path: String) = s"http://$domain${routes.Assets.at(path)}"
 
-  def cssTag(name: String) = css("stylesheets/" + name)
+  def cssTag(name: String, staticDomain: Boolean = true) = cssAt("stylesheets/" + name, staticDomain)
 
-  def cssVendorTag(name: String) = css("vendor/" + name)
+  def cssVendorTag(name: String, staticDomain: Boolean = true) = cssAt("vendor/" + name, staticDomain)
 
-  private def css(path: String) = Html {
-    s"""<link href="${staticUrl(path)}?v=$assetVersion" type="text/css" rel="stylesheet"/>"""
+  def cssAt(path: String, staticDomain: Boolean = true) = Html {
+    val href = if (staticDomain) staticUrl(path) else routes.Assets.at(path)
+    s"""<link href="$href?v=$assetVersion" type="text/css" rel="stylesheet"/>"""
   }
 
   def jsTag(name: String) = jsAt("javascripts/" + name)

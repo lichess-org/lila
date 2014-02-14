@@ -1,0 +1,136 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "lichess";
+  src:url("fonts/lichess.eot");
+  src:url("fonts/lichess.eot?#iefix") format("embedded-opentype"),
+    url("fonts/lichess.woff") format("woff"),
+    url("fonts/lichess.ttf") format("truetype"),
+    url("fonts/lichess.svg#lichess") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "lichess" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "lichess" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-fontawesome-webfont:before {
+  content: "a";
+}
+.icon-fontawesome-webfont-1:before {
+  content: "b";
+}
+.icon-fontawesome-webfont-2:before {
+  content: "c";
+}
+.icon-fontawesome-webfont-6:before {
+  content: "g";
+}
+.icon-fontawesome-webfont-7:before {
+  content: "h";
+}
+.icon-fontawesome-webfont-8:before {
+  content: "i";
+}
+.icon-fontawesome-webfont-9:before {
+  content: "j";
+}
+.icon-fontawesome-webfont-10:before {
+  content: "k";
+}
+.icon-fontawesome-webfont-11:before {
+  content: "l";
+}
+.icon-fontawesome-webfont-12:before {
+  content: "m";
+}
+.icon-fontawesome-webfont-16:before {
+  content: "q";
+}
+.icon-fontawesome-webfont-17:before {
+  content: "r";
+}
+.icon-fontawesome-webfont-4:before {
+  content: "e";
+}
+.icon-fontawesome-webfont-5:before {
+  content: "n";
+}
+.icon-fontawesome-webfont-13:before {
+  content: "o";
+}
+.icon-fontawesome-webfont-14:before {
+  content: "f";
+}
+.icon-fontawesome-webfont-3:before {
+  content: "d";
+}
+.icon-fontawesome-webfont-18:before {
+  content: "u";
+}
+.icon-fontawesome-webfont-20:before {
+  content: "x";
+}
+.icon-flag:before {
+  content: "y";
+}
+.icon-fontawesome-webfont-21:before {
+  content: "z";
+}
+.icon-fontawesome-webfont-22:before {
+  content: "A";
+}
+.icon-fontawesome-webfont-23:before {
+  content: "p";
+}
+.icon-fontawesome-webfont-24:before {
+  content: "y";
+}
+.icon-fontawesome-webfont-15:before {
+  content: "w";
+}
+.icon-fontawesome-webfont-26:before {
+  content: "t";
+}
+.icon-fontawesome-webfont-25:before {
+  content: "s";
+}
+.icon-fontawesome-webfont-27:before {
+  content: "B";
+}
+.icon-ionicons:before {
+  content: "v";
+}
+.icon-ionicons-1:before {
+  content: "C";
+}
+.icon-arrows-ccw:before {
+  content: "D";
+}
+.icon-fontawesome-webfont-14:before {
+  content: "f";
+}

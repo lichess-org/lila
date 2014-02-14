@@ -99,43 +99,46 @@ div.lichess_piece {
   position: absolute;
   width: 64px;
   height: 64px;
-  background-image: url(../images/sprite.png);
+  background-size: 100% 100%;
 }
 div.my_turn div.lichess_piece.ui-draggable {
   cursor: move;
 }
-div.lichess_piece.bishop.white {
-  background-position: -64px 0;
+div.pawn.white {
+  background-image: url(../images/piece/wP.svg);
 }
-div.lichess_piece.knight.white {
-  background-position: -128px 0;
+div.bishop.white {
+  background-image: url(../images/piece/wB.svg);
 }
-div.lichess_piece.rook.white {
-  background-position: -192px 0;
+div.knight.white {
+  background-image: url(../images/piece/wN.svg);
 }
-div.lichess_piece.queen.white {
-  background-position: -256px 0;
+div.rook.white {
+  background-image: url(../images/piece/wR.svg);
 }
-div.lichess_piece.king.white {
-  background-position: -320px 0;
+div.queen.white {
+  background-image: url(../images/piece/wQ.svg);
 }
-div.lichess_piece.pawn.black {
-  background-position: 0 bottom;
+div.king.white {
+  background-image: url(../images/piece/wK.svg);
 }
-div.lichess_piece.bishop.black {
-  background-position: -64px bottom;
+div.pawn.black {
+  background-image: url(../images/piece/bP.svg);
 }
-div.lichess_piece.knight.black {
-  background-position: -128px bottom;
+div.bishop.black {
+  background-image: url(../images/piece/bB.svg);
 }
-div.lichess_piece.rook.black {
-  background-position: -192px bottom;
+div.knight.black {
+  background-image: url(../images/piece/bN.svg);
 }
-div.lichess_piece.queen.black {
-  background-position: -256px bottom;
+div.rook.black {
+  background-image: url(../images/piece/bR.svg);
 }
-div.lichess_piece.king.black {
-  background-position: -320px bottom;
+div.queen.black {
+  background-image: url(../images/piece/bQ.svg);
+}
+div.king.black {
+  background-image: url(../images/piece/bK.svg);
 }
 div.lichess_game_not_started {
   position: relative;
@@ -560,12 +563,6 @@ div.lichess_chat a.user_link {
 }
 div.lichess_chat a.user_link:hover {
   text-decoration: underline;
-}
-div.lichess_chat ol.lichess_messages li.white {
-  background: url(../images/klw14.png) no-repeat;
-}
-div.lichess_chat ol.lichess_messages li.black {
-  background: url(../images/klb14.png) no-repeat;
 }
 div.lichess_chat.hidden ol.lichess_messages,
 div.lichess_chat.hidden form {

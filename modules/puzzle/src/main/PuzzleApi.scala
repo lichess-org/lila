@@ -107,7 +107,8 @@ private[puzzle] final class PuzzleApi(
       )).sort(BSONDocument(Attempt.BSONFields.date -> -1))
       .cursor[BSONDocument]
       .collect[List](5) map {
-        _.foldLeft(false) {
+        case attempts if attempts.size < 5 ⇒ true
+        case attempts ⇒ attempts.foldLeft(false) {
           case (true, _)    ⇒ true
           case (false, doc) ⇒ doc.getAs[Boolean](Attempt.BSONFields.vote).isDefined
         }

@@ -80,12 +80,6 @@ div.game_analysis {
   display: inline-block;
   line-height: 24px;
 }
-.future_game_analysis .button span {
-  background: url("../images/s24.png") no-repeat 0 -72px;
-  display: inline-block;
-  height: 24px;
-  padding-left: 30px;
-}
 div.fen_pgn p {
   margin: 0.6em 0;
 }
@@ -157,19 +151,7 @@ div.fen_pgn textarea {
   border: 1px solid #ccc;
   overflow: auto;
 }
-
-/* @font-face { */
-/*   font-family: 'pgn4web ChessSansMerida'; */
-/*   src: url('ChessSansMerida.eot'); */
-/*   src: url('/assets/vendor/pgn4web/fonts/ChessSansMerida.eot?#iefix') format('embedded-opentype'), url('/assets/vendor/pgn4web/fonts/ChessSansMerida.woff') format('woff'), url('/assets/vendor/pgn4web/fonts/ChessSansMerida.ttf') format('truetype'), url('/assets/vendor/pgn4web/fonts/ChessSansMerida.svg#ChessSansMerida') format('svg'); */
-/* } */
-@font-face {
-  font-family: 'pgn4web ChessSansPiratf';
-  src: url('ChessSansPiratf.eot');
-  src: url('/assets/vendor/pgn4web/fonts/ChessSansPiratf.eot?#iefix') format('embedded-opentype'), url('/assets/vendor/pgn4web/fonts/ChessSansPiratf.woff') format('woff'), url('/assets/vendor/pgn4web/fonts/ChessSansPiratf.ttf') format('truetype'), url('/assets/vendor/pgn4web/fonts/ChessSansPiratf.svg#ChessSansPiratf') format('svg');
-}
 #GameText .move, #GameText .variation {
-  /* font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif; */
   font-family: 'pgn4web ChessSansPiratf', 'pgn4web Liberation Sans', sans-serif;
   text-decoration: none;
   padding-top: 3px;

@@ -112,16 +112,44 @@ body.dark div.lmcs.black {
   background-color: #8a8a8a;
 }
 body.dark #hooks_wrap {
-  background-image: url(../images/knight2000b.png);
+  background-image: url(../images/piece/bN-full.svg);
+  background-size: 100% 100%;
 }
-body.dark div.lichess_cemetery div.lichess_piece, body.dark div.lichess_table div.lichess_piece {
-  background-image: url(../images/sprite_invert.png);
+body.dark div.onbg div.pawn.white {
+  background-image: url(../images/piece/invert/bP.svg);
 }
-body.dark div.lichess_chat ol.lichess_messages li.white {
-  background: url(../images/kdw14.png) no-repeat;
+body.dark div.onbg div.bishop.white {
+  background-image: url(../images/piece/invert/bB.svg);
 }
-body.dark div.lichess_chat ol.lichess_messages li.black {
-  background: url(../images/kdb14.png) no-repeat;
+body.dark div.onbg div.knight.white {
+  background-image: url(../images/piece/invert/bN.svg);
+}
+body.dark div.onbg div.rook.white {
+  background-image: url(../images/piece/invert/bR.svg);
+}
+body.dark div.onbg div.queen.white {
+  background-image: url(../images/piece/invert/bQ.svg);
+}
+body.dark div.onbg div.king.white {
+  background-image: url(../images/piece/invert/bK.svg);
+}
+body.dark div.onbg div.pawn.black {
+  background-image: url(../images/piece/invert/wP.svg);
+}
+body.dark div.onbg div.bishop.black {
+  background-image: url(../images/piece/invert/wB.svg);
+}
+body.dark div.onbg div.knight.black {
+  background-image: url(../images/piece/invert/wN.svg);
+}
+body.dark div.onbg div.rook.black {
+  background-image: url(../images/piece/invert/wR.svg);
+}
+body.dark div.onbg div.queen.black {
+  background-image: url(../images/piece/invert/wQ.svg);
+}
+body.dark div.onbg div.king.black {
+  background-image: url(../images/piece/invert/wK.svg);
 }
 body.dark div.lichess_table_wrap div.clock.running {
   background: #505a60;
@@ -146,12 +174,6 @@ body.dark #hooks_chart .plot {
 }
 body.dark #hooks_chart > span.label {
   text-shadow: 0 0 3px #000;
-}
-body.dark a#sound_state span {
-  background-position: 0 -464px;
-}
-body.dark a#sound_state.sound_state_on span {
-  background-position: 0 -288px;
 }
 body.dark .s16.ddown {
   background-position: right -368px;
