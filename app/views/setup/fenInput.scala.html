@@ -2,5 +2,8 @@
 
 <div class="fen_position optional_config" data-validate-url="@routes.Setup.validateFen@{strict.??("?strict=1")}">
   @base.input(field, placeholder=trans.pasteTheFenStringHere.str().some)
-  <a class="board_editor" href="@routes.Editor.index(~field.value)"><span class="preview"></span>@trans.boardEditor()</a>
+  <a class="board_editor" href="@routes.Editor.index(~field.value)">
+    <span class="preview"></span>
+    <span data-icon="f"> @trans.boardEditor()</span>
+  </a>
 </div>

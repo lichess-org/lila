@@ -1112,7 +1112,6 @@ body.offline #nb_connected_players {
 #top a.bgpicker:hover,
 a#sound_state:hover {
   opacity: 1;
-  color: #303030;
   border-color: #808080;
 }
 #top a.goto_nav.current {
@@ -1288,31 +1287,18 @@ ul.language_links li:last-child {
   width: 128px;
   height: 64px;
 }
-#top a.bgpicker {
-  float: right;
-}
-#top a.bgpicker span {
-  width: 24px;
-  height: 24px;
-  opacity: 0.7;
-  background: url(../images/s24.png) no-repeat;
-  background-position: 0 -48px;
-  display: block;
-}
+#top a.bgpicker,
 a#sound_state {
+  opacity: 0.7;
   float: right;
 }
-a#sound_state span {
-  margin-top: 4px;
-  width: 18px;
-  height: 15px;
-  opacity: 0.7;
-  background: url(../images/s16.png) no-repeat;
-  background-position: 0 -64px;
-  display: block;
+a#sound_state span.on,
+a#sound_state.sound_state_on span.off {
+  display: none;
 }
-a#sound_state.sound_state_on span {
-  background-position: 0 -80px;
+a#sound_state span.off,
+a#sound_state.sound_state_on span.on {
+  display: block;
 }
 a#sound_state.unavailable {
   display: none;
@@ -1695,43 +1681,7 @@ div.lcmp {
   position: absolute;
   width: 28px;
   height: 28px;
-  background-image: url(../images/sprite_mini3.png);
-}
-div.lcmp.pawn.white {
-  background-position: 0 0;
-}
-div.lcmp.bishop.white {
-  background-position: -28px 0;
-}
-div.lcmp.knight.white {
-  background-position: -56px 0;
-}
-div.lcmp.rook.white {
-  background-position: -84px 0;
-}
-div.lcmp.queen.white {
-  background-position: -112px 0;
-}
-div.lcmp.king.white {
-  background-position: -140px 0;
-}
-div.lcmp.pawn.black {
-  background-position: 0px bottom;
-}
-div.lcmp.bishop.black {
-  background-position: -28px bottom;
-}
-div.lcmp.knight.black {
-  background-position: -56px bottom;
-}
-div.lcmp.rook.black {
-  background-position: -84px bottom;
-}
-div.lcmp.queen.black {
-  background-position: -112px bottom;
-}
-div.lcmp.king.black {
-  background-position: -140px bottom;
+  background-size: 100% 100%;
 }
 /* opening.css */
 
@@ -1848,9 +1798,11 @@ div.game_config div.color_submits button.random span {
   height: 512px;
   top: 0;
   left: 0;
-  background: #f0f0f0 url(../images/knight2000.png) no-repeat;
   overflow-x: hidden;
   overflow-y: auto;
+  position: relative;
+  background: #f0f0f0 url(../images/piece/wN-full.svg);
+  background-size: 100% 100%;
 }
 #hooks_wrap > div.tabs {
   position: absolute;

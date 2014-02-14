@@ -5,13 +5,13 @@
     id="user_tag"
     data-rating="@me.rating"
     class="toggle toggle_auth">
-    <span class="s16 ddown">@me.usernameWithRating</span>
+    <span data-icon="w"> @me.usernameWithRating</span>
   </a>
   <div class="links dropdown">
-    <a href="@routes.User.show(me.username)" class="blank_if_play"><span class="s16 goto_profile">@trans.profile()</span></a>
-    <a href="@routes.Account.profile"><span class="s16 gear">@trans.editProfile()</span></a>
-    <a href="@routes.Pref.form"><span class="s16 gear">@trans.preferences()</span></a>
-    <a href="@routes.Auth.logout"><span class="s16 goto_logout">@trans.logOut()</span></a>
+    <a href="@routes.User.show(me.username)" class="blank_if_play"><span data-icon="o"> @trans.profile()</span></a>
+    <a href="@routes.Account.profile"><span data-icon="j"> @trans.editProfile()</span></a>
+    <a href="@routes.Pref.form"><span data-icon="j"> @trans.preferences()</span></a>
+    <a href="@routes.Auth.logout"><span data-icon="m"> @trans.logOut()</span></a>
     @if(isGranted(_.StaffForum)) {
     <hr />
     <a href="@routes.ForumCateg.show("staff")">Staff Forum</a>
@@ -21,7 +21,7 @@
   </div>
 </div>
 <a title="@trans.inbox()" data-href="@routes.Message.preview" class="goto_nav message blank_if_play @{(active exists (_.code == "message")).??("current")}" href="@routes.Message.inbox(page=1)">
-  <span class="s16 message"></span>
+  <span class="is2" data-icon="B"> </span>
   @defining(messageNbUnread(ctx)) { nbUnread =>
   <span id="nb_messages" class="new_messages @{ (nbUnread > 0).??("unread") }">@nbUnread</span>
   }

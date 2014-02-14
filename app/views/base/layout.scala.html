@@ -19,6 +19,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
 @if(ctx.currentBg == "dark") {
 @cssTag("dark.css")
 }
+@cssTag("fonts.css", false)
 @cssTag("common.css")
 @cssTag("board.css")
 @moreCss
@@ -39,12 +40,13 @@ data-accept-languages="@acceptLanguages.mkString(",")">
 <div id="top" class="clearfix">
   @if(!zen) {
   <a title="@trans.toggleSound()" id="sound_state" class="available">
-    <span></span>
+    <span class="is2 on" data-icon="t"> </span>
+    <span class="is2 off" data-icon="s"> </span>
   </a>
   }
   <div class="lichess_language">
     <a class="toggle" href="#">
-      <span class="s16 ddown">@langName(lang)</span>
+      <span data-icon="w"> @langName(lang)</span>
     </a>
     <ul class="language_links dropdown">
       @langLinks(lang)
@@ -88,7 +90,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
   <a id="reconnecting" onclick="location.reload();">@trans.reconnecting()</a>
   @if(themepicker) {
   <div class="themepicker">
-    <a class="theme_toggle toggle" href="#"><span class="s16 ddown">@trans.color()</span></a>
+    <a class="theme_toggle toggle" href="#"><span data-icon="w"> @trans.color()</span></a>
     <div class="themes dropdown" data-href="@routes.Pref.set("theme")">
       @lila.pref.Theme.list.map { theme =>
       <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>
@@ -97,7 +99,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
   </div>
   }
   <a href="@routes.Pref.set("bg")" title="@trans.toggleBackground()" class="bgpicker">
-    <span></span>
+    <span class="is2" data-icon="u"> </span>
   </a>
   @ctx.me.fold(auth.miniLogin())(auth.loggedIn(_, active))
   }
@@ -160,7 +162,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
     <div class="nobody">
       <span>@trans.noFriendsOnline()</span>
       <a class="find button" href="@routes.Relation.suggest(me.username)">
-        <span class="s16 tup">@trans.findFriends()</span>
+        <span class="is3" data-icon="e"> @trans.findFriends()</span>
       </a>
     </div>
   </div>

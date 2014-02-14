@@ -30,7 +30,7 @@ signedJs = pov.game.rated option routes.Round.signedJs(pov.gameId) map (_.toStri
       @game.clock.map { c =>
       @round.clock(c, !pov.color, "top")
       }
-      <div class="lichess_table@{ if(game.hasClock) " table_with_clock" }@{ if(game.finished) " finished" }">
+      <div class="lichess_table onbg@{ if(game.hasClock) " table_with_clock" }@{ if(game.finished) " finished" }">
         <div class="lichess_opponent">
           @round.username(pov.opponent, engine)
         </div>
