@@ -270,15 +270,10 @@ div.lichess_table_not_started {
   padding: 0;
 }
 div.lichess_table div.username {
-  padding-left: 16px;
+  display: inline-block;
 }
 div.lichess_table div.username.connected {
-  background: url(../images/s16.png) no-repeat;
-  background-position: 0 -112px;
-}
-div.lichess_table div.username.offline {
-  background: url(../images/s16.png) no-repeat;
-  background-position: 0 -128px;
+  border-bottom: 2px solid #859900;
 }
 div.lichess_table a.button.strong {
   padding-top: 1em;
@@ -523,11 +518,10 @@ div.lichess_chat a.send {
   position: absolute;
   top: 0px;
   right: 2px;
+  padding-top: 3px;
   display: block;
   height: 16px;
   width: 16px;
-  background: url(../images/s16.png) no-repeat;
-  background-position: 0 -96px;
   text-decoration: none;
   z-index: 1;
   opacity: 0.5;

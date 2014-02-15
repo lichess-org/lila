@@ -9,7 +9,7 @@
     @bookmark.toggle(g)
     <b>
       @if(g.isBeingPlayed) {
-      <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)">@trans.playingRightNow()</a>,
+      <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)" data-icon="v"> @trans.playingRightNow()</a>,
       } else {
       @timeago(g.createdAt)
       }
@@ -39,14 +39,14 @@
     <table class="game_players">
       @List(g.opponent(firstPlayer), firstPlayer).map { p =>
       <tr>
-        <td><span class="color s16 @p.color.name">@p.color.fold(trans.white(), trans.black())</span></td>
+        <td><span class="color @p.color.name">@p.color.fold(trans.white(), trans.black())</span></td>
         <td>@playerLink(p)</td>
       </tr>
       }
     </table>
     <br />
     @g.clock.map { c =>
-    <span class="s16 clock">
+    <span data-icon="p">
       @if(!mini) {
       @trans.timeControl():
       }
@@ -55,7 +55,7 @@
     <br /><br />
     }
     @g.tournamentId.map { tourId =>
-    <a class="tournament_link s16" href="@routes.Tournament.show(tourId)">Tournament</a>
+    <a data-icon="g" href="@routes.Tournament.show(tourId)">Tournament</a>
     <br />
     }
     @if(g.rated) {

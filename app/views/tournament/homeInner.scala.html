@@ -33,7 +33,7 @@
           <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
             <button type="submit" class="submit button">
               @if(tour.hasPassword) {
-              <span class="s16 lock">@trans.join()</span>
+              <span data-icon="a"> @trans.join()</span>
               } else {
               @trans.join()
               }

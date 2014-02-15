@@ -7,7 +7,7 @@
 
 @forum.layout(title = "New forum topic", goodies = goodies.some) {
 <ol class="crumbs">
-  <li><a href="@routes.ForumCateg.index">Forum</a></li>
+  <li><a style="text-decoration:none" data-icon="d" class="is4" href="@routes.ForumCateg.index"> Forum</a></li>
   <li><h1>@categ.name</h1></li>
 </ol>
 <br />
@@ -21,7 +21,7 @@
   @forum.post.formFields(form("post")("text"), form("post")("author"))
   @base.captcha(form("post")("move"), form("post")("gameId"), captcha)
   @errMsg(form("post"))
-  <button class="submit button" type="submit">Create the topic</button>
+  <button class="submit button" type="submit" data-icon="E"> Create the topic</button>
   <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">@trans.cancel()</a>
 </form>
 }

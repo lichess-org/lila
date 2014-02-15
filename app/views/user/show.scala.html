@@ -39,8 +39,7 @@ evenMoreJs = evenMoreJs) {
     <img class="trophy" src="@staticUrl("images/trophy64.png")" width=64 height=64 title="Top 1% player" />
     }
     }
-    <div class="icon status @{isOnline(u.id).??("connected")}"></div>
-    <h1 class="lichess_title">@u.username</h1>
+    <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" } data-icon="r"></span> @u.username</h1>
     <span class="rating">RATING <strong title="Glicko rating">@u.rating</strong><small title="Glicko rating deviation"> ±@u.perfs.global.glicko.intDeviationDoubled</small></span>
     @showProgress(u.progress)
     @info.rank.map { r =>
@@ -61,18 +60,14 @@ evenMoreJs = evenMoreJs) {
     <div class="relation_actions">
       @if(ctx is u) {
       <a class="button" href="@routes.Account.profile">
-        <span class="s16 gear">@trans.editProfile()</span>
+        <span data-icon="q"> @trans.editProfile()</span>
       </a>
       }
       @if(isGranted(_.UserSpy)) {
-      <a class="icon button mod_zone_toggle" href="@routes.User.mod(u.username)" title="Mod zone">
-        <span class="s16 nuclear"></span>
-      </a>
+      <a class="icon button mod_zone_toggle" href="@routes.User.mod(u.username)" title="Mod zone"><span data-icon="y"></span></a>
       }
       <form id="exportform" action="@routes.User.export(u.username)" method="POST">
-        <a class="icon button" onclick="document.getElementById('exportform').submit();" title="@trans.exportGames()">
-          <span class="s16 download"></span>
-        </a>
+        <a class="icon button" onclick="document.getElementById('exportform').submit();" title="@trans.exportGames()"><span data-icon="x"></span></a>
       </form>
       @if(ctx.isAuth && !ctx.is(u)) {
       @relation.actions(u.id)
@@ -88,7 +83,10 @@ evenMoreJs = evenMoreJs) {
     }
     <div class="user-infos">
       @if(u.engine && ctx.me.fold(true)(u !=)) {
-      <div class="warning engine_warning">@trans.thisPlayerUsesChessComputerAssistance()</div>
+      <div class="warning engine_warning">
+        <span data-icon="j" class="is4"></span>
+        @trans.thisPlayerUsesChessComputerAssistance()
+      </div>
       }
       @u.profile.map { p =>
       @p.nonEmptyRealName.map { name =>
@@ -111,7 +109,7 @@ evenMoreJs = evenMoreJs) {
         }
         }
         @u.lang.flatMap(langName).map { name =>
-        <span class="lang s16">@name</span>
+        <span data-icon="c"> @name</span>
         }
         <p>@trans.memberSince() @showDate(u.createdAt)</p>
         @u.seenAt.map { seen =>
@@ -124,7 +122,7 @@ evenMoreJs = evenMoreJs) {
         }
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
-          @teamLink(teamId, ("s16 team revert-underline" + myTeam(teamId).fold(" mine", "")).some)
+          @teamLink(teamId, ("revert-underline" + myTeam(teamId).fold(" mine", "")).some)
           }
         </div>
       </div>

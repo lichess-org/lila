@@ -112,7 +112,7 @@ body.dark div.lmcs.black {
   background-color: #8a8a8a;
 }
 body.dark #hooks_wrap {
-  background-image: url(../images/piece/bN-full.svg);
+  background-image: url(../images/bN-bg.svg);
   background-size: 100% 100%;
 }
 body.dark div.onbg div.pawn.white {
@@ -151,6 +151,14 @@ body.dark div.onbg div.queen.black {
 body.dark div.onbg div.king.black {
   background-image: url(../images/piece/invert/wK.svg);
 }
+body.dark div.game_row span.white,
+body.dark .player.color.white {
+  background-image: url(../images/piece/invert/bK-full.svg);
+}
+body.dark div.game_row span.black,
+body.dark .player.color.black {
+  background-image: url(../images/piece/invert/wK-full.svg);
+}
 body.dark div.lichess_table_wrap div.clock.running {
   background: #505a60;
   color: #fff;
@@ -174,9 +182,6 @@ body.dark #hooks_chart .plot {
 }
 body.dark #hooks_chart > span.label {
   text-shadow: 0 0 3px #000;
-}
-body.dark .s16.ddown {
-  background-position: right -368px;
 }
 body.dark .future_game_analysis .spinner,
 body.dark #puzzle > .right .spinner {

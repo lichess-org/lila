@@ -1,11 +1,3 @@
-a.forum_feed_link {
-  width: 16px;
-  height: 16px;
-  display: block;
-  background: url(/assets/images/feed-balloon.png) top left no-repeat;
-  float: right;
-}
-
 .metas .delete,
 .metas .postip {
   margin-left: 1em;
@@ -107,8 +99,6 @@ ol.crumbs li:first-child {
   font-weight: bold;
   color: #0090B0;
   text-decoration: none;
-  background: transparent url(/assets/images/balloon.png) top left no-repeat;
-  padding-left: 20px;
 }
 
 #lichess_forum table.forum_table td .description {

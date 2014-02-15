@@ -20,7 +20,7 @@ trait TeamHelper {
   def teamIdToName(id: String): String = (api teamName id).await | id
 
   def teamLink(id: String, cssClass: Option[String] = None): Html = Html {
-    """<a class="%s" href="%s">%s</a>""".format(
+    """<a data-icon="f" class="%s" href="%s"> %s</a>""".format(
       cssClass.??(" " + _),
       routes.Team.show(id),
       teamIdToName(id))

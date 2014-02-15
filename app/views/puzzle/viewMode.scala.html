@@ -39,8 +39,8 @@
     </div>
 
     <div class="prev_next">
-      <button class="prev button" value="prev">&lt;</button>
-      <button class="next button" value="next">&gt;</button>
+      <button class="prev button" value="prev" data-icon="I"></button>
+      <button class="next button" value="next" data-icon="H"></button>
     </div>
 
     @userInfos.map(history(_))
@@ -88,9 +88,9 @@
     </div>
     <div class="continue_wrap">
       @if(win.isDefined) {
-      <a class="continue button" href="@routes.Puzzle.home">Start training &#9654;</a>
+      <a class="continue button" href="@routes.Puzzle.home" data-icon="G"> Start training</a>
       } else {
-      <button class="continue button">Continue training &#9654;</button>
+      <button class="continue button" data-icon="G"> Continue training</button>
       }
       @if(win.fold(attempt.exists(_.loss))(!_)) {
       <a class="retry" href="@routes.Puzzle.show(puzzle.id)">Retry this puzzle</a>

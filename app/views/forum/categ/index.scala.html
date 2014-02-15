@@ -2,7 +2,7 @@
 
 @forum.layout(title = trans.forum.str()) {
 
-<h1>Lichess Forum</h1>
+<h1 data-icon="d" class="is4"> Lichess Forum</h1>
 @forum.categ.table(categs.filterNot(_.categ.isTeam))
 
 @if(categs.exists(_.categ.isTeam)) {

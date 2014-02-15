@@ -12,7 +12,7 @@
     @requests.map { request =>
     <tr>
       @if(t.isEmpty) {
-      <td>@userLink(request.user) @teamLink(request.team, "s16 team".some)</td>
+      <td>@userLink(request.user) @teamLink(request.team)</td>
       } else {
       <td>@userLink(request.user)</td>
       }

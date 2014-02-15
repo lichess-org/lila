@@ -48,12 +48,6 @@
   margin-bottom: 4px;
   padding-bottom: 5px;
 }
-#team .team-icon {
-  background-position: 0 -336px;
-}
-#team .team-icon.mine {
-  background-position: 0 -352px;
-}
 #team table.slist a.team-name span.team-icon {
   float: left;
   margin-top: 4px;
