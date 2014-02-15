@@ -21,6 +21,9 @@ div.lichess_board {
   height: 512px;
   position: relative;
 }
+div.lichess_board, #chessboard .board-b72b1 , #top div.color_demo {
+  background-size: contain;
+}
 div.lcs {
   position: absolute;
   width: 64px;
