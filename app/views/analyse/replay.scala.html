@@ -18,7 +18,7 @@
 }
 
 @underchat = {
-<div class="watchers">
+<div class="watchers" data-icon="v">
   @trans.spectators() <span class="list inline_userlist"></span>
 </div>
 <div class="shortcuts">
@@ -59,8 +59,8 @@ themepicker = true) {
         <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
         }.getOrElse { "Unknown" }
       </p>
-      <a class="button" data-icon="D" href="@routes.Round.watcher(gameId, (!color).name)"> @trans.flipBoard()</a>
-      <a class="fen_link button" data-icon="f" href="@routes.Editor.game(game.id)?fen="> @trans.boardEditor()</a>
+      <a class="button" data-icon="B" href="@routes.Round.watcher(gameId, (!color).name)"> @trans.flipBoard()</a>
+      <a class="fen_link button" data-icon="m" href="@routes.Editor.game(game.id)?fen="> @trans.boardEditor()</a>
     </nav>
 
     <div class="advice_summary">
@@ -71,7 +71,7 @@ themepicker = true) {
         <thead>
           <tr>
             <th colspan="3">
-              @playerLink(pov.game.player(color), withOnline = false, cssClass = Some("s16 " + color.name))
+              @playerLink(pov.game.player(color), withOnline = false, cssClass = Some("player color " + color.name))
             </th>
           </tr>
         </thead>
@@ -104,7 +104,7 @@ themepicker = true) {
     @if(a.old && ctx.isAuth) {
     <form class="request_analysis future_game_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
       <button type="submit" class="button">
-        <span class="is3" data-icon="C"> Request a better computer analysis</span>
+        <span class="is3" data-icon="A"> Request a better computer analysis</span>
       </button>
     </form>
     }
@@ -123,13 +123,13 @@ themepicker = true) {
     }.getOrElse {
     @if(game.analysable && analysis.isEmpty) {
     <form class="future_game_analysis@{ctx.isAnon ?? " must_login"}" action="@routes.Analyse.computer(gameId, color.name)" method="post">
-      <button type="submit" class="button"><span class="is3" data-icon="C"> @trans.requestAComputerAnalysis()</span></button>
+      <button type="submit" class="button"><span class="is3" data-icon="A"> @trans.requestAComputerAnalysis()</span></button>
     </form>
     }
     }
     <div class="view_game_analysis future_game_analysis">
       <a class="button" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-        <span class="is3" data-icon="C"> @trans.viewTheComputerAnalysis()</span>
+        <span class="is3" data-icon="A"> @trans.viewTheComputerAnalysis()</span>
       </a>
     </div>
   </div>

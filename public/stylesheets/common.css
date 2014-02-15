@@ -46,6 +46,62 @@ select {
   font-size: inherit;
   font-weight: inherit;
 }
+
+/* lichess font */
+@font-face {
+  font-family: "lichess";
+  src:url("../font/fonts/lichess.eot");
+  src:url("../font/fonts/lichess.eot?#iefix") format("embedded-opentype"),
+    url("../font/fonts/lichess.woff") format("woff"),
+    url("../font/fonts/lichess.ttf") format("truetype"),
+    url("../font/fonts/lichess.svg#lichess") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+.is:before, [data-icon]:before {
+  font-size: 1.2em;
+  vertical-align: middle;
+  font-family: "lichess" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+[data-icon]:before {
+  content: attr(data-icon);
+}
+[data-icon].is2:before {
+  font-size: 20px;
+}
+[data-icon].is3:before {
+  font-size: 22px;
+}
+[data-icon].is4:before {
+  font-size: 30px;
+}
+[data-icon].ic-green:before {
+  color: #759900;
+}
+.is.user:before {
+  content: "r ";
+}
+.is.user.online:before {
+  color: #759900;
+}
+
+@font-face {
+  font-family: 'pgn4web ChessSansPiratf';
+  src:url("../vendor/pgn4web/fonts/ChessSansPiratf.eot");
+  src:url("../vendor/pgn4web/fonts/ChessSansPiratf.eot?#iefix") format("embedded-opentype"),
+    url("../vendor/pgn4web/fonts/ChessSansPiratf.woff") format("woff"),
+    url("../vendor/pgn4web/fonts/ChessSansPiratf.ttf") format("truetype"),
+    url("../vendor/pgn4web/fonts/ChessSansPiratf.svg#lichess") format("svg");
+}
+
 /* jquery-ui */
 
 /* button */
@@ -252,8 +308,8 @@ ul.ui-autocomplete li a.ui-state-focus {
   border-width: 0 0 1px 0;
 }
 #powerTip a.user_link {
+  display: block;
   font-weight: bold;
-  text-decoration: none;
 }
 #powerTip .country, #powerTip .lang {
   float: right;
@@ -280,11 +336,6 @@ ul.ui-autocomplete li a.ui-state-focus {
 }
 #powerTip > .actions td:last-child a {
   border-right: 0;
-}
-#powerTip > .actions .s16 {
-  display: inline-block;
-  height: 16px;
-  line-height: 16px;
 }
 #powerTip:before,
 #hook:before {
@@ -392,10 +443,6 @@ ul.ui-autocomplete li a.ui-state-focus {
 }
 .none {
   display: none;
-}
-.s16 {
-  padding-left: 20px;
-  background: transparent url(../images/s16.png) top left no-repeat;
 }
 body {
   font: 12px'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
@@ -736,9 +783,6 @@ div.footer div.right {
   text-align: right;
   margin-right: 10px;
 }
-#chat .line a.user_link {
-  text-decoration: none;
-}
 #chat .line > .text {
   display: inline;
 }
@@ -783,9 +827,6 @@ div.footer div.right {
 #chat .list_box .content a:hover {
   background-color: #ccc;
 }
-#friend_box .content .s16 {
-  background-position: 0 -208px;
-}
 #friend_box .nobody {
   text-align: center;
   display: none;
@@ -805,73 +846,6 @@ div.footer div.right {
 #friend_box div.nobody:hover a.find {
   display: block;
 }
-#chat .controls {
-  height: 27px;
-}
-#chat .controls > form {
-  display: none;
-  position: relative;
-}
-#chat .controls > form .invite {
-  padding: 0 10px;
-  display: inline-block;
-  height: 27px;
-  line-height: 27px;
-  position: relative;
-  margin-right: 12px;
-  background: #ccc;
-}
-#chat .controls > form .invite:after {
-  content: "";
-  border-top: 14px solid transparent;
-  border-bottom: 14px solid transparent;
-  border-left: 14px solid #ccc;
-  position: absolute;
-  right: -14px;
-  top: 0;
-}
-#chat .controls > form .input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 19px;
-  padding: 4px 10px;
-  border: none;
-  color: #505050;
-  background: none;
-}
-#chat .color0 {
-  /* green */
-  color: #859900;
-}
-#chat .color1 {
-  /* blue */
-  color: #268bd2;
-}
-#chat .color2 {
-  /* orange */
-  color: #cb4b16;
-}
-#chat .color3 {
-  /* cyan */
-  color: #2aa198;
-}
-#chat .color4 {
-  /* magenta */
-  color: #d33682;
-}
-#chat .color5 {
-  /* violet */
-  color: #6c71c4;
-}
-#chat .color6 {
-  /* yellow */
-  color: #b58900;
-}
-#chat .color7 {
-  /* red */
-  color: #dc322f;
-}
 .country > img {
   vertical-align: middle;
 }
@@ -882,11 +856,6 @@ a.button {
   padding: 0.4em 1em;
   text-decoration: none;
   cursor: pointer;
-}
-.button .s16 {
-  display: inline-block;
-  height: 16px;
-  line-height: 16px;
 }
 a.easy_button {
   font-weight: normal;
@@ -917,10 +886,10 @@ div.content_box.no_padding h1 {
   padding: 20px 25px;
 }
 .content_box_title {
-  padding: 20px 25px 0 25px;
+  padding: 20px 20px 0 20px;
 }
 div.content_box_top {
-  padding-left: 25px;
+  padding-left: 20px;
   height: 40px;
   line-height: 40px;
   border-radius: 4px 4px 0 0;
@@ -941,14 +910,6 @@ div.content_box_top .link:hover {
 div.content_box_top h1.lichess_title {
   display: inline;
   padding: 0;
-}
-div.content_box_top .icon {
-  display: block;
-  width: 16px;
-  height: 16px;
-  float: left;
-  background: transparent url(/assets/images/s16.png) top left no-repeat;
-  margin: 12px 8px 0 -10px;
 }
 .content_box_content {
   padding: 20px 25px 25px 25px;
@@ -1014,11 +975,6 @@ table.slist td .label {
   font-family: monospace;
   font-size: 10px;
 }
-table.slist .s16 {
-  display: block;
-  height: 16px;
-  padding: 0 0 0 20px;
-}
 table.slist tbody tr:nth-child(even) {
   background: #f4f4f4;
 }
@@ -1037,18 +993,11 @@ div.lichess_goodies div.box {
   border: 1px solid #ccc;
   padding: 7px;
 }
-div.lichess_goodies div.box .player {
-  margin: 4px 0;
-}
 div.lichess_goodies div.confrontation {
   text-align: center;
 }
 div.lichess_goodies div.confrontation div.vs {
   margin-bottom: 5px;
-}
-div.lichess_goodies a.user_link {
-  font-weight: bold;
-  text-decoration: none;
 }
 #site_header div.side_menu {
   margin-top: 15px;
@@ -1118,16 +1067,6 @@ a#sound_state:hover {
   opacity: 1;
   color: #303030;
   border-color: #d85000;
-}
-#top .s16 {
-  display: block;
-  height: 16px;
-  margin-top: 4px;
-  line-height: 16px;
-}
-#top a.goto_nav .s16 {
-  display: inline-block;
-  vertical-align: text-bottom;
 }
 #top span.new_messages {
   display: none;
@@ -1386,104 +1325,26 @@ a#sound_state.unavailable {
 #friend_box div.nobody:hover a.find {
   display: block;
 }
-span.s16.clock {
-  background-position: 0 -224px;
-  padding-bottom: 1px;
-}
-.s16.tournament {
-  background-position: 0 -304px;
-  padding-bottom: 1px;
-}
-.s16.team {
-  background-position: 0 -336px;
-  padding-bottom: 1px;
-  display: block;
-  height: 15px;
-}
-.s16.team.mine {
-  background-position: 0 -352px;
-}
-.s16.ddown {
-  background-position: right -192px;
-  padding-left: 0;
-  padding-right: 20px;
-}
-.s16.message {
-  background-position: 0 -144px;
-}
-.s16.nuclear {
-  background-position: 0 -400px;
-}
-.s16.download {
-  background-position: 0 -416px;
-}
-.s16.tup {
-  background-position: 0 -432px;
-}
-.s16.tdown {
-  background-position: 0 -448px;
-}
-.s16.lock {
-  background-position: 0 -480px;
-}
-.s16.gear {
-  background-position: 0 -496px;
-}
-.s16.chat {
-  background-position: 0 -176px;
-}
-.user_link.white,
-.user_link.black,
-.user_link.online,
-.user_link.offline {
-  line-height: 16px;
-  display: block;
-  background: url(../images/s16.png) no-repeat;
-  padding-left: 20px;
+.user_link {
+  display: inline-block;
   white-space: nowrap;
+  text-decoration: none;
 }
-.user_link.white,
-.s16.challenge,
-.s16.white {
-  background-position: 0 -240px;
-}
-.user_link.black,
-.s16.black {
-  background-position: 0 -256px;
-}
-.s16.random {
-  background-position: 0 -272px;
-}
-.user_link.offline {
-  background-position: 0 -160px;
-}
-.user_link.online {
-  background-position: 0 -208px;
+a.user_link:hover {
+  text-decoration: underline;
 }
 .user_link.inline {
   display: inline-block;
 }
-.tournament_link {
-  padding-left: 20px;
-  background-position: 0 -304px;
-}
 div.warning {
-  padding: 5px 5px 5px 40px;
-  background: #f2dede url(../images/engine_big.png) 8px 5px no-repeat;
+  padding: 5px;
+  background: #f2dede;
   line-height: 16px;
   border: 1px solid #eed3d7;
   color: #894a48;
 }
 div.join_warning {
   margin: 1em;
-}
-.engine_mark {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background: transparent url(../images/engine_small.png) top left no-repeat;
-  opacity: 0.8;
-  vertical-align: bottom;
 }
 #lichess_social {
   height: 0px;
@@ -1600,16 +1461,20 @@ div.game_row a.go_analyse {
 div.game_row table td {
   padding: 4px 0;
 }
-div.game_row span.color {
+div.game_row span.color, .player.color {
   line-height: 16px;
-  display: block;
-  margin-right: 1em;
+  height: 16px;
+  display: inline-block;
+  margin: 1px 1em 1px 0;
+  padding-left: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
-div.game_row span.white {
-  background-position: 0 -240px;
+div.game_row span.white, .player.color.white {
+  background-image: url(../images/piece/wK-full.svg);
 }
-div.game_row span.black {
-  background-position: 0 -256px;
+div.game_row span.black, .player.color.black {
+  background-image: url(../images/piece/bK-full.svg);
 }
 div.game_row .bookmark {
   margin-right: 26px;
@@ -1800,8 +1665,7 @@ div.game_config div.color_submits button.random span {
   left: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  position: relative;
-  background: #f0f0f0 url(../images/piece/wN-full.svg);
+  background: #f0f0f0 url(../images/wN-bg.svg);
   background-size: 100% 100%;
 }
 #hooks_wrap > div.tabs {
@@ -1845,10 +1709,6 @@ div.game_config div.color_submits button.random span {
 }
 #hooks_wrap > a.filter.on {
   padding: 0 10px 0 2px;
-}
-#hooks_wrap > a.filter.on span.s16 {
-  padding: 0 0 0 20px;
-  background-position: left -112px;
 }
 #hooks_wrap > a.filter.on span.number {
   display: inline;
@@ -1905,14 +1765,6 @@ div.game_config div.color_submits button.random span {
   cursor: pointer;
   border-bottom: 1px solid #ccc;
   padding: 12px 12px;
-}
-#hooks_table th > span {
-  display: inline-block;
-  height: 16px;
-  line-height: 16px;
-  padding-right: 20px;
-  background: transparent url(../images/s16.png) top right no-repeat;
-  background-position: 0 9999px;
 }
 #hooks_table th.sorting-asc > span {
   background-position: right -384px;
@@ -2204,11 +2056,8 @@ div.lichess_bot tr {
   cursor: pointer;
 }
 div.lichess_bot a.watch {
-  display: block;
-  width: 24px;
-  height: 24px;
-  background: url("../images/s24.png") no-repeat 0 -96px;
-  opacity: 0.4;
+  opacity: 0.6;
+  text-decoration: none;
 }
 div.lichess_bot tr:hover a.watch {
   opacity: 1;
@@ -2218,12 +2067,6 @@ div.new_posts li {
   padding-left: 9px;
   line-height: 14px;
   white-space: nowrap;
-}
-div.new_posts li.s16 {
-  padding-left: 20px;
-  margin-left: 5px;
-  height: 15px;
-  display: block;
 }
 div.new_posts a.post_link {
   margin-right: 7px;
@@ -2285,28 +2128,18 @@ div.lichess_overboard.joining .mini_board {
   display: block;
   float: left;
 }
-span.bookmark {
-  position: relative;
+.bookmark {
   float: right;
-  margin-right: 36px;
-}
-span.bookmark .icon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: transparent url(../images/s24.png) top right no-repeat;
-  height: 24px;
-  display: block;
-  padding-right: 28px;
-  line-height: 28px;
   text-decoration: none;
-  color: #a0a0a0;
-}
-span.bookmark .icon.bookmarked {
-  background-position: right -24px;
-}
-span.bookmark a {
   outline: none;
+}
+.bookmark .on,
+.bookmark.bookmarked .off {
+  display: none;
+}
+.bookmark .off,
+.bookmark.bookmarked .on {
+  display: block;
 }
 div.progressbar {
   background: #eaeaea;

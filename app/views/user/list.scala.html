@@ -13,7 +13,7 @@
         <tbody>
           @online.map { u =>
           <tr>
-            <td>@userLink(u, withOnline = false, withRating = false, cssClass="revert-underline".some)</td>
+            <td>@userLink(u, withRating = false, cssClass="revert-underline".some)</td>
             <td>@u.rating</td>
             <td>@showProgress(u.progress)</td>
           </tr>

@@ -721,11 +721,11 @@ var storage = {
       return confirm('Confirm this action?');
     });
 
-    $('div.content').on('click', 'span.bookmark a.icon', function() {
+    $('div.content').on('click', 'a.bookmark', function() {
       var t = $(this).toggleClass("bookmarked");
       $.post(t.attr("href"));
       var count = (parseInt(t.html(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
-      t.html(count > 0 ? count : "");
+      t.find('span').html(count > 0 ? ' ' + count : "");
       return false;
     });
 
@@ -2403,11 +2403,10 @@ var storage = {
         html += '<span class="clock nope">∞</span>';
       }
       html += '<span class="mode">' + $.trans(hook.mode) + '</span>';
-      if (hook.color) {
-        html += '<span class="color s16 ' + hook.color + '"></span>';
-      }
+      var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
+      html += '<span class="is2" data-icon="' + k + '"></span>';
       if (hook.engine && hook.action == 'join') {
-        html += '<span class="s16 engine"></span>';
+        html += '<span class="is2" data-icon="j"></span>';
       }
       if (hook.variant == 'Chess960') {
         html += '<span class="chess960">960</span>';
@@ -2417,9 +2416,14 @@ var storage = {
 
     function renderTr(hook) {
       var title = (hook.action == "join") ? $.trans('Join the game') : $.trans('cancel');
+      var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
+      console.debug(hook);
+      console.debug(hook.engine && hook.action == 'join');
       return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
-        ['', '<span class="s16 ' + (hook.color || 'random') + '"></span>'],
-        [hook.username, hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous'],
+        ['', '<span class="is2" data-icon="' + k + '"></span>'],
+        [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous') +
+          ((hook.engine && hook.action == 'join') ? ' <span class="is2" data-icon="j"></span>' : '')
+        ],
         [hook.rating || 0, hook.rating || ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
         [hook.mode, $.trans(hook.mode) + (hook.variant == 'Chess960' ? '<span class="chess960">960</span>' : '')]
