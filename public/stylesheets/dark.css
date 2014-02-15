@@ -1,5 +1,6 @@
 body.dark {
-  background: #1a1a1a url(../images/head_bg_dark.png) top left repeat-x;
+  background: #1a1a1a;
+  background-image: linear-gradient(to bottom, #303030 0%, #1a1a1a 6%);
   color: #8a8a8a;
 }
 body.dark a, body.dark a:visited, body.dark #powerTip > .actions a, body.dark .button {
