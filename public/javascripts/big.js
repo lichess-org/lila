@@ -2558,16 +2558,14 @@ var storage = {
     // required to match e2e4 and highlight the moves on the board
     chessMovesRegExp = new RegExp("((\\d+(\\.{1,3}|\\s)\\s*)?((([KQRBN][a-h1-8]?)|[a-h])?x?[a-h][1-8](=[QRNB])?|O-O-O|O-O)[!?+#]*)", "g");
 
-    SetImagePath('http://' + document.domain.replace(/^\w+/, 'static') + "/assets/vendor/pgn4web/lichess/64"); // use "" path if images are in the same folder as this javascript file
-    SetImageType("png");
+    SetImagePath('http://' + document.domain.replace(/^\w+/, 'static') + "/assets/images/piece");
+    SetImageType("svg");
     SetShortcutKeysEnabled(true);
     $('input').on('focus', function() {
       SetShortcutKeysEnabled(false);
     }).on('blur', function() {
       SetShortcutKeysEnabled(true);
     });
-    clearShortcutSquares("BCDEFGH", "12345678");
-    clearShortcutSquares("A", "1234567");
     var $game = $("#GameBoard");
     $game.mousewheel(function(event) {
       if (event.deltaY == -1) {

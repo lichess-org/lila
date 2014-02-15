@@ -441,8 +441,14 @@ ul.ui-autocomplete li a.ui-state-focus {
 body {
   font: 12px'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   color: #848484;
-  background: #F7F7F7;
-  background-image: linear-gradient(to bottom, #d7d7d7 0%, #f7f7f7 6%);
+  background: #d7d7d7;
+  background: -moz-linear-gradient(top, #d7d7d7 0%, #f7f7f7 6%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d7d7d7), color-stop(6%, #f7f7f7));
+  background: -webkit-linear-gradient(top, #d7d7d7 0%, #f7f7f7 6%);
+  background: -o-linear-gradient(top, #d7d7d7 0%, #f7f7f7 6%);
+  background: -ms-linear-gradient(top, #d7d7d7 0%, #f7f7f7 6%);
+  background: linear-gradient(to bottom, #d7d7d7 0%, #f7f7f7 6%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#d7d7d7', endColorstr='#f7f7f7', GradientType=0);
 }
 a,
 a:visited {
