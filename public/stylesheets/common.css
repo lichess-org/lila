@@ -1223,7 +1223,7 @@ ul.language_links li:last-child {
 #top div.themepicker.shown div.color_demo {
   border: 1px solid #dadada;
   position: relative;
-  width: 128px;
+  width: 64px;
   height: 64px;
 }
 #top a.bgpicker,
