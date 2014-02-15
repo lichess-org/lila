@@ -46,19 +46,17 @@ select {
   font-size: inherit;
   font-weight: inherit;
 }
-
 /* lichess font */
+
 @font-face {
   font-family: "lichess";
-  src:url("../font/fonts/lichess.eot");
-  src:url("../font/fonts/lichess.eot?#iefix") format("embedded-opentype"),
-    url("../font/fonts/lichess.woff") format("woff"),
-    url("../font/fonts/lichess.ttf") format("truetype"),
-    url("../font/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font/fonts/lichess.eot");
+  src: url("../font/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font/fonts/lichess.woff") format("woff"), url("../font/fonts/lichess.ttf") format("truetype"), url("../font/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
-.is:before, [data-icon]:before {
+.is:before,
+[data-icon]:before {
   font-size: 1.2em;
   vertical-align: middle;
   font-family: "lichess" !important;
@@ -92,16 +90,11 @@ select {
 .is.user.online:before {
   color: #759900;
 }
-
 @font-face {
   font-family: 'pgn4web ChessSansPiratf';
-  src:url("../vendor/pgn4web/fonts/ChessSansPiratf.eot");
-  src:url("../vendor/pgn4web/fonts/ChessSansPiratf.eot?#iefix") format("embedded-opentype"),
-    url("../vendor/pgn4web/fonts/ChessSansPiratf.woff") format("woff"),
-    url("../vendor/pgn4web/fonts/ChessSansPiratf.ttf") format("truetype"),
-    url("../vendor/pgn4web/fonts/ChessSansPiratf.svg#lichess") format("svg");
+  src: url("../vendor/pgn4web/fonts/ChessSansPiratf.eot");
+  src: url("../vendor/pgn4web/fonts/ChessSansPiratf.eot?#iefix") format("embedded-opentype"), url("../vendor/pgn4web/fonts/ChessSansPiratf.woff") format("woff"), url("../vendor/pgn4web/fonts/ChessSansPiratf.ttf") format("truetype"), url("../vendor/pgn4web/fonts/ChessSansPiratf.svg#lichess") format("svg");
 }
-
 /* jquery-ui */
 
 /* button */
@@ -311,7 +304,8 @@ ul.ui-autocomplete li a.ui-state-focus {
   display: block;
   font-weight: bold;
 }
-#powerTip .country, #powerTip .lang {
+#powerTip .country,
+#powerTip .lang {
   float: right;
 }
 #powerTip .follows {
@@ -447,7 +441,8 @@ ul.ui-autocomplete li a.ui-state-focus {
 body {
   font: 12px'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   color: #848484;
-  background: #F7F7F7 url(../images/head_bg.png) top left repeat-x;
+  background: #F7F7F7;
+  background-image: linear-gradient(to bottom, #d7d7d7 0%, #f7f7f7 6%);
 }
 a,
 a:visited {
@@ -1302,7 +1297,7 @@ a#sound_state.unavailable {
   text-decoration: none;
   display: block;
   max-height: 100px;
-  overflow-y:auto;
+  overflow-y: auto;
 }
 #friend_box .content a:hover {
   background: #F0F0F0;
@@ -1374,6 +1369,7 @@ table.slist thead {
   background: linear-gradient(to bottom, #efefef, #e2e2e2);
 }
 /* active gradient */
+
 #top a.signin:hover,
 .button.active,
 .button.active:hover,
@@ -1461,7 +1457,8 @@ div.game_row a.go_analyse {
 div.game_row table td {
   padding: 4px 0;
 }
-div.game_row span.color, .player.color {
+div.game_row span.color,
+.player.color {
   line-height: 16px;
   height: 16px;
   display: inline-block;
@@ -1470,10 +1467,12 @@ div.game_row span.color, .player.color {
   background-size: contain;
   background-repeat: no-repeat;
 }
-div.game_row span.white, .player.color.white {
+div.game_row span.white,
+.player.color.white {
   background-image: url(../images/piece/wK-full.svg);
 }
-div.game_row span.black, .player.color.black {
+div.game_row span.black,
+.player.color.black {
   background-image: url(../images/piece/bK-full.svg);
 }
 div.game_row .bookmark {
