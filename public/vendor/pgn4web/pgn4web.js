@@ -1,13 +1,13 @@
 /*
  *  pgn4web javascript chessboard
- *  copyright (C) 2009-2013 Paolo Casaschi
+ *  copyright (C) 2009-2014 Paolo Casaschi
  *  see README file and http://pgn4web.casaschi.net
  *  for credits, license and more details
  */
 
 "use strict";
 
-var pgn4web_version = '2.79';
+var pgn4web_version = '2.80';
 
 var pgn4web_project_url = "http://pgn4web.casaschi.net";
 var pgn4web_project_author = "Paolo Casaschi";
@@ -2490,7 +2490,8 @@ function InitImages() {
   ClearImg.src = ImagePath + 'clear.' + imageType;
 
   var ColorName = new Array ("w", "b");
-  var PiecePrefix = new Array ("k", "q", "r", "b", "n", "p");
+  // thib hack uppercase prefix
+  var PiecePrefix = new Array ("K", "Q", "R", "B", "N", "P");
   for (var c=0; c<2; ++c) {
     for (var p=1; p<7; p++) {
       PieceImg[c][p] = new Image();
@@ -3419,14 +3420,12 @@ function PrintHTML() {
         text += (ii+jj)%2 === 0 ?
           '<TD CLASS="whiteSquare" ID="' + squareId + '" BGCOLOR="#FFFFFF"' :
           '<TD CLASS="blackSquare" ID="' + squareId + '" BGCOLOR="#D3D3D3"';
-        text += ' ALIGN="center" VALIGN="middle" ONCLICK="clickedSquare(' + ii + ',' + jj + ')">';
+        text += ' ALIGN="center" VALIGN="middle">';
         squareCoord = IsRotated ? String.fromCharCode(72-jj,49+ii) : String.fromCharCode(jj+65,56-ii);
-        squareTitle = squareCoord;
-        if (boardTitle[jj][ii] !== '') { squareTitle += ': ' + boardTitle[jj][ii]; }
+        // thib hack remove onclick and title
         text += '<IMG SRC="'+ ClearImg.src + '" ' +
           'CLASS="pieceImage" STYLE="border: none; display: block; vertical-align: middle;" ' +
-          'ONCLICK="boardOnClick[' + jj + '][' + ii + '](this, event);" ' +
-          'ID="' + imageId + '" TITLE="' + squareTitle + '" ' + 'ONFOCUS="this.blur()" />' +
+          'ID="' + imageId + '" ONFOCUS="this.blur()" />' +
           '</TD>';
       }
       text += '</TR>';
@@ -3603,7 +3602,7 @@ function PrintHTML() {
 
   if (theObj = document.getElementById("GameText")) {
     variationTextDepth = -1;
-    text = '<SPAN ID="ShowPgnText">' + variationTextFromId(0); + '</SPAN>';
+    text = '<SPAN ID="ShowPgnText">' + variationTextFromId(0) + '</SPAN>';
     theObj.innerHTML = text;
   }
 

@@ -68,37 +68,13 @@ body.canvas #chessboard .board-b72b1,
 #top div.color_demo.canvas {
   background-image: url(../images/board/canvas.jpg);
 }
-#GameBoard {
-  background-position: 1px 1px;
-}
 div.lcsi {
   position: absolute;
   width: 64px;
   height: 64px;
-  background: url(../images/sover.png) top left no-repeat;
-  background-position: 0 -320px;
-}
-div.lcs.moved div.lcsi {
-  background-position: 0 -192px;
-}
-div.lcs.check div.lcsi {
-  background-position: 0 -256px;
-}
-div.lcs.premoved div.lcsi {
-  background-position: 0 -64px !important;
-}
-div.my_turn.not_spectator div.lcs:hover div.lcsi {
-  background-position: 0 0px;
-}
-div.lcs.droppable-hover div.lcsi {
-  background-position: 0 -64px !important;
 }
 div.lichess_board div.lcs.selected div.lcsi,
 div.lichess_board div.lcs.selectable div.lcsi {
-  background-position: 0 -64px !important;
-  cursor: pointer;
-}
-div.lichess_board div.lcs.selectable div.lichess_piece {
   cursor: pointer;
 }
 div.lichess_piece {
@@ -626,15 +602,32 @@ div.replay_and_analyse a {
   -ms-user-select: none;
   user-select: none;
 }
-#chessboard div.last {
-  background: url(../images/over5.png);
+#chessboard div.last,
+#GameBoard td.highlightWhiteSquare,
+#GameBoard td.highlightBlackSquare,
+div.lcs.moved div.lcsi {
+  box-shadow: inset 0 0 2px 3px rgba(0, 0, 0, 0.5);
 }
-#chessboard div.check {
-  background: url(../images/sover.png) 0 -256px;
+#chessboard div.check,
+div.lcs.check div.lcsi {
+  background: -moz-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255, 0, 0, 1)), color-stop(25%, rgba(231, 0, 0, 1)), color-stop(89%, rgba(169, 0, 0, 0)), color-stop(100%, rgba(158, 0, 0, 0)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+  background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ff0000', endColorstr='#009e0000', GradientType=1);
 }
-#chessboard div.highlight2-9c5d2 {
-  background: url(../images/sover.png) 0 -64px;
+#chessboard div.square-55d63:hover,
+#chessboard div.highlight2-9c5d2,
+div.my_turn div.lcs:hover div.lcsi,
+div.lcs.premoved div.lcsi,
+div.lcs.droppable-hover div.lcsi,
+div.lichess_board div.lcs.selected div.lcsi,
+div.lichess_board div.lcs.selectable div.lcsi,
+#GameBoard td img.bestmove {
+  box-shadow: inset 0 0 0px 3px rgba(216, 85, 0, 1);
 }
-#chessboard div.square-55d63:hover {
-  background: url(../images/sover.png) 0 0;
+div.my_turn.not_spectator div.lcs:hover div.lcsi {
+  box-shadow: none;
 }

@@ -107,25 +107,17 @@ div.fen_pgn textarea {
 
 #GameBoard {
   position: relative;
-}
-
-#GameBoard table.boardTable {
+  width: 512px;
+  height: 512px;
   border: 1px solid #ccc;
 }
+
 #GameBoard.flip table, #GameBoard.flip img.pieceImage {
   -o-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
-}
-#GameBoard td.highlightWhiteSquare img,
-#GameBoard td.highlightBlackSquare img {
-  background: url(../images/over5.png) no-repeat;
-}
-#GameBoard td img.bestmove {
-  background: url(../images/sover.png) no-repeat;
-  background-position: 0 -64px;
 }
 #GameBoard td img {
   width: 64px;
