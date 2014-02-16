@@ -12,13 +12,12 @@ private[round] final class CheatDetector(reporter: ActorSelection) {
       _ ?? { mirror ⇒
         mirror.players find (p ⇒ p.userId ?? game.userIds.contains) match {
           case Some(player) ⇒
-            val color = !player.color
-            play.api.Logger("cheat detector").info(s"$color @ ${game.id} uses ${mirror.id}")
+            play.api.Logger("cheat detector").info(s"${player.color} @ ${game.id} uses ${mirror.id}")
             player.userId foreach { userId ⇒
               reporter ! lila.hub.actorApi.report.Cheater(userId,
                 s"Cheat detected on ${gameUrl(game.id)}, using lichess AI: ${gameUrl(mirror.id)}")
             }
-            Some(color)
+            Some(player.color)
           case None ⇒ None
         }
       }
