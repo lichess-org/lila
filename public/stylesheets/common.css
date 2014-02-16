@@ -392,7 +392,6 @@ body {
   background-image: linear-gradient(to bottom, #d7d7d7 0%, #f7f7f7 6%);
   background-repeat: no-repeat;
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#d7d7d7', endColorstr='#f7f7f7', GradientType=0);
-  position: relative;
 }
 a,
 a:visited,

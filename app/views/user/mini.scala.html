@@ -1,6 +1,9 @@
 @(u: User, playing: Option[Game])(implicit ctx: Context)
 <div class="title">
   @userLink(u, withPowerTip = false)
+  @if(u.engine && ctx.me.fold(true)(u !=)) {
+  <span title="@trans.thisPlayerUsesChessComputerAssistance()" data-icon="j"></span>
+  }
   @u.profileOrDefault.countryInfo.map {
   case (code, name) => {
   <span class="country"><img src="@staticUrl(s"images/flag/shiny/16/$code.png")" /> @name</span>
