@@ -11,11 +11,11 @@
   <div class="side">
     @trainingBox(puzzle, userInfos, true)
     <div class="comment retry none"><h3><strong>Good move</strong></h3>But you can do better.</div>
-    <div class="comment great none"><h3><strong>Best move!</strong></h3>Keep going...</div>
+    <div class="comment great none"><h3 data-icon="E"> <strong>Best move!</strong></h3>Keep going...</div>
     @if(asPlay) {
-    <div class="comment fail none"><h3><strong>Puzzle failed</strong></h3></div>
+    <div class="comment fail none"><h3 data-icon="k"> <strong>Puzzle failed</strong></h3></div>
     } else {
-    <div class="comment fail none"><h3><strong>Puzzle failed</strong></h3>But you can keep trying.</div>
+    <div class="comment fail none"><h3 data-icon="k"> <strong>Puzzle failed</strong></h3>But you can keep trying.</div>
     }
   </div>
 

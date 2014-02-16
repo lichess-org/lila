@@ -368,9 +368,6 @@ body.dark .future_game_analysis .spinner,
 body.dark #puzzle > .right .spinner {
   background-image: url("../images/spinner-gray-dark.gif");
 }
-body.dark #puzzle div.upvote a {
-  background-image: url('../images/vote-dark.png');
-}
 body.dark #puzzle > .side div.fail,
 body.dark #puzzle > .side div.loss {
   color: #e97472;

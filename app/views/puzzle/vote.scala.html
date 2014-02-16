@@ -3,8 +3,16 @@
 @if(puzzle.enabled) {
 <div class="upvote @if(attempt.isDefined) { enabled }"
   data-post-url="@routes.Puzzle.vote(puzzle.id)">
-  <a title="This puzzle is correct and interesting" data-vote="1" class="upvote @if(attempt.flatMap(_.vote) == Some(true)) { active }"></a>
+  <a 
+    title="This puzzle is correct and interesting" 
+    data-vote="1" 
+    data-icon="S"
+    class="upvote @if(attempt.flatMap(_.vote) == Some(true)) { active }"></a>
   <span title="Popularity" class="count">@puzzle.vote.sum</span>
-  <a title="This puzzle is wrong or boring" data-vote="0" class="downvote @if(attempt.flatMap(_.vote) == Some(false)) { active }"></a>
+  <a 
+    title="This puzzle is wrong or boring" 
+    data-vote="0" 
+    data-icon="R"
+    class="downvote @if(attempt.flatMap(_.vote) == Some(false)) { active }"></a>
 </div>
 }

@@ -1136,12 +1136,10 @@ div.checkmateSection div.result {
   font-weight: bold;
 }
 div.checkmateSection div.success {
-  background: url(../images/tick-48.png) no-repeat;
-  color: #00aa00;
+  color: #759900;
 }
 div.checkmateSection div.failure {
-  background: url(../images/cross-48.png) no-repeat;
-  color: #aa0000;
+  color: #dc322f;
 }
 div.checkmateCaptcha.success div.success {
   display: block;
@@ -1258,8 +1256,7 @@ div.lmcs.black {
   background: #cacaca;
 }
 div.lmcs.moved {
-  background-image: url(../images/sprite_mini3.png);
-  background-position: -168px 0;
+  box-shadow: inset 0 0 0px 2px rgba(75, 99, 0, 0.8);
 }
 div.lcmp {
   position: absolute;
