@@ -536,9 +536,8 @@ var storage = {
     function userPowertips() {
       var header = document.getElementById('site_header');
       $('a.ulpt').removeClass('ulpt').each(function() {
-        var placement = $(this).data('placement') || ($.contains(header, this) ? 'e' : 'w');
         $(this).powerTip({
-          placement: placement,
+          placement: $(this).data('placement') || ($.contains(header, this) ? 'e' : 'w'),
           mouseOnToPopup: true,
           closeDelay: 200
         }).on({
@@ -2420,7 +2419,7 @@ var storage = {
       return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
         ['', '<span class="is2" data-icon="' + k + '"></span>'],
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous') +
-          ((hook.engine && hook.action == 'join') ? ' <span class="is2" data-icon="j"></span>' : '')
+          ((hook.engine && hook.action == 'join') ? ' <span data-icon="j"></span>' : '')
         ],
         [hook.rating || 0, hook.rating || ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
