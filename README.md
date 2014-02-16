@@ -94,7 +94,7 @@ Example usage with JSONP:
 
 ```javascript
 $.ajax({
-  url:'http://en.l.org/api/user/thibault',
+  url:'http://en.lichess.org/api/user/thibault',
   dataType:'jsonp',
   jsonp:'callback',
   success: function(data) {
@@ -137,7 +137,7 @@ Example usage with JSONP:
 
 ```javascript
 $.ajax({
-  url:'http://en.l.org/api/user',
+  url:'http://en.lichess.org/api/user',
   data: {
     team: 'coders',
     nb: 100
