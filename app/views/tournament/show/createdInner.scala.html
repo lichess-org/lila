@@ -22,19 +22,19 @@
           @if(tour contains me) {
           @if(tour.isCreator(me.id) && tour.readyToEarlyStart) {
           <form class="inline" action="@routes.Tournament.earlyStart(tour.id)" method="POST">
-            <input type="submit" class="submit button strong" value="Early Start" />
+            <input type="submit" class="submit button" value="Early Start" />
           </form>
           }
           <form class="inline" action="@routes.Tournament.withdraw(tour.id)" method="POST">
-            <button type="submit" class="submit button strong" data-icon="b">@trans.withdraw()</button>
+            <button type="submit" class="submit button" data-icon="b"> @trans.withdraw()</button>
           </form>
           } else {
           <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
-            <button type="submit" class="submit button strong">
+            <button type="submit" class="submit button">
               @if(tour.hasPassword) {
-              <span data-icon="a">@trans.join()</span>
+              <span data-icon="a"> @trans.join()</span>
               } else {
-              <span data-icon="F">@trans.join()</span>
+              <span data-icon="F"> @trans.join()</span>
               }
             </button>
           </form>

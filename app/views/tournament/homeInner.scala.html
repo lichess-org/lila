@@ -47,7 +47,10 @@
       @if(ctx.isAuth) {
       <tr class="create">
         <td colspan="5">
-          <a href="@routes.Tournament.form()" class="action">@trans.createANewTournament()</a>
+          <br />
+          <a href="@routes.Tournament.form()" class="action button" data-icon="g"> @trans.createANewTournament()</a>
+          <br />
+          <br />
         </td>
       </tr>
       }

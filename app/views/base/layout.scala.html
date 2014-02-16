@@ -14,167 +14,196 @@ themepicker: Boolean = false,
 zen: Boolean = false)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
-<head>
-<title>@isProd.fold("lichess", "[dev]") @title • @trans.freeOnlineChess()</title>
-@if(ctx.currentBg == "dark") {
-@cssTag("dark.css")
-}
-@cssTag("common.css")
-@cssTag("board.css")
-@moreCss
-<meta content="@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()" name="description">
-<meta charset="utf-8">
-<link rel="shortcut icon" href="@routes.Assets.at("images/favicon-32-white.png")" type="image/x-icon" />
-@if(!robots) {
-<meta content="noindex, nofollow" name="robots">
-}
-<meta name="google" content="notranslate" />
-</head>
-<body class="@ctx.currentTheme.cssClass @ctx.currentBg"
-data-sound-file="@routes.Assets.at("sound/alert.ogg")"
-data-troll="@ctx.troll.toString"
-data-port="@netPort"
-data-accept-languages="@acceptLanguages.mkString(",")">
-<div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
-<div id="top" class="clearfix">
-  @if(!zen) {
-  <a title="@trans.toggleSound()" id="sound_state" class="available">
-    <span class="is2 on" data-icon="n"> </span>
-    <span class="is2 off" data-icon="o"> </span>
-  </a>
-  }
-  <div class="lichess_language">
-    <a class="toggle" href="#">
-      <span data-icon="u"> @langName(lang)</span>
-    </a>
-    <ul class="language_links dropdown">
-      @langLinks(lang)
-      <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
-    </ul>
-  </div>
-  @if(!zen) {
-  @siteMenu.all(ctx.me).map { elem =>
-  @elem.code match {
-  case "team" if teamNbRequests(ctx) > 0 => {
-  @defining(teamNbRequests(ctx)) { nbr =>
-  <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@routes.Team.requests()">
-    @elem.name()
-    <span id="nb_messages" class="new_messages unread">@nbr</span>
-  </a>
-  }
-  }
-  case "team" => {
-  <a class="goto_nav blank_if_play @elem.currentClass(active)"
-    href="@ctx.isAuth.fold(routes.Team.mine, elem.route)">
-    @elem.name()
-  </a>
-  }
-  case _ => {
-  <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
-    @elem.name()
-  </a>
-  }
-  }
-  }
-  }
-  @defining(reportNbUnprocessed) { nb =>
-  @if(nb > 0) {
-  <a class="goto_nav" href="@routes.Report.list"><strong>Report (@nb)</strong></a>
-  }
-  }
-  @if(!zen) {
-  <div id="nb_connected_players" class="nb_connected_players">
-    @trans.nbConnectedPlayers("<strong>?</strong>")
-  </div>
-  <a id="reconnecting" onclick="location.reload();">@trans.reconnecting()</a>
-  @if(themepicker) {
-  <div class="themepicker">
-    <a class="theme_toggle toggle" href="#"><span data-icon="u"> @trans.color()</span></a>
-    <div class="themes dropdown" data-href="@routes.Pref.set("theme")">
-      @lila.pref.Theme.list.map { theme =>
-      <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>
+  <head>
+    <title>@isProd.fold("lichess", "[dev]") @title • @trans.freeOnlineChess()</title>
+    @if(ctx.currentBg == "dark") {
+    @cssTag("dark.css")
+    }
+    @cssTag("common.css")
+    @cssTag("board.css")
+    @moreCss
+    <meta content="@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()" name="description">
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="@routes.Assets.at("images/favicon-32-white.png")" type="image/x-icon" />
+    @if(!robots) {
+    <meta content="noindex, nofollow" name="robots">
+    }
+    <meta name="google" content="notranslate" />
+  </head>
+  <body class="@ctx.currentTheme.cssClass @ctx.currentBg"
+    data-sound-file="@routes.Assets.at("sound/alert.ogg")"
+    data-troll="@ctx.troll.toString"
+    data-port="@netPort"
+    data-accept-languages="@acceptLanguages.mkString(",")">
+    <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
+    <div id="top" class="clearfix">
+      @if(!zen) {
+      <a title="@trans.toggleSound()" id="sound_state" class="available">
+        <span class="is2 on" data-icon="n"> </span>
+        <span class="is2 off" data-icon="o"> </span>
+      </a>
+      }
+      @if(!zen) {
+      @siteMenu.all(ctx.me).map { elem =>
+      @elem.code match {
+      case "team" if teamNbRequests(ctx) > 0 => {
+      @defining(teamNbRequests(ctx)) { nbr =>
+      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@routes.Team.requests()">
+        @elem.name()
+        <span id="nb_messages" class="new_messages unread">@nbr</span>
+      </a>
+      }
+      }
+      case "team" => {
+      <a class="goto_nav blank_if_play @elem.currentClass(active)"
+        href="@ctx.isAuth.fold(routes.Team.mine, elem.route)">
+        @elem.name()
+      </a>
+      }
+      case _ => {
+      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
+        @elem.name()
+      </a>
+      }
+      }
+      }
+      }
+      @defining(reportNbUnprocessed) { nb =>
+      @if(nb > 0) {
+      <a class="goto_nav" href="@routes.Report.list"><strong>Report (@nb)</strong></a>
+      }
+      }
+      @if(!zen) {
+      <div id="nb_connected_players" class="nb_connected_players">
+        @trans.nbConnectedPlayers("<strong>?</strong>")
+      </div>
+      <a id="reconnecting" onclick="location.reload();">@trans.reconnecting()</a>
+      <a href="@routes.Pref.set("bg")" title="@trans.toggleBackground()" class="bgpicker">
+        <span class="is2" data-icon="l"> </span>
+      </a>
+      @if(themepicker) {
+      <div class="themepicker">
+        <a class="theme_toggle toggle" href="#"><span data-icon="u"> @trans.color()</span></a>
+        <div class="themes dropdown" data-href="@routes.Pref.set("theme")">
+          @lila.pref.Theme.list.map { theme =>
+          <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>
+          }
+        </div>
+      </div>
+      }
+      <div class="lichess_language">
+        <a class="toggle" href="#">
+          <span data-icon="u"> @langName(lang)</span>
+        </a>
+        <ul class="language_links dropdown">
+          @langLinks(lang)
+          <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
+        </ul>
+      </div>
+      @ctx.me.map { me =>
+      <div class="auth">
+        <a
+          id="user_tag"
+          data-rating="@me.rating"
+          class="toggle toggle_auth">
+          <span data-icon="u"> @me.usernameWithRating</span>
+        </a>
+        <div class="links dropdown">
+          <a href="@routes.User.show(me.username)" class="blank_if_play"><span data-icon="r"> @trans.profile()</span></a>
+          <a href="@routes.Account.profile"><span data-icon="q"> @trans.editProfile()</span></a>
+          <a href="@routes.Pref.form"><span data-icon="q"> @trans.preferences()</span></a>
+          <a href="@routes.Auth.logout"><span data-icon="w"> @trans.logOut()</span></a>
+          @if(isGranted(_.StaffForum)) {
+          <hr />
+          <a href="@routes.ForumCateg.show("staff")">Staff Forum</a>
+          <a href="@routes.Mod.log()">Mod log</a>
+          <a href="@routes.Report.list()">User reports</a>
+          }
+        </div>
+      </div>
+      <a title="@trans.inbox()" data-href="@routes.Message.preview" class="goto_nav message blank_if_play @{(active exists (_.code == "message")).??("current")}" href="@routes.Message.inbox(page=1)">
+        <span class="is2" data-icon="e"> </span>
+        @defining(messageNbUnread(ctx)) { nbUnread =>
+        <span id="nb_messages" class="new_messages @{ (nbUnread > 0).??("unread") }">@nbUnread</span>
+        }
+      </a>
+      }.getOrElse {
+      <a href="@routes.Auth.login" class="signin button" data-icon="F"> @trans.signIn()</a>
+      }
       }
     </div>
-  </div>
-  }
-  <a href="@routes.Pref.set("bg")" title="@trans.toggleBackground()" class="bgpicker">
-    <span class="is2" data-icon="l"> </span>
-  </a>
-  @ctx.me.fold(auth.miniLogin())(auth.loggedIn(_, active))
-  }
-</div>
-@ctx.me.map { me =>
-<div id="notifications">@notifications(me)</div>
-}.getOrElse {
-<div id="notifications"></div>
-}
-<div class="content">
-  <div id="site_header">
-    <h1>
-      <a id="site_title" href="@routes.Lobby.home">
-        lichess<span class="extension">.org</span>
-      </a>
-      @if(acceptsLanguage(lang)) {
-      @baseline
-      } else {
-      @langFallbackLinks
-      }
-    </h1>
-    @menu.map { side =>
-    <div class="side_menu">@side</div>
+    @ctx.me.map { me =>
+    <div id="notifications">@notifications(me)</div>
+    }.getOrElse {
+    <div id="notifications"></div>
     }
-    @goodies
-    @chat
-    @underchat.map { g =>
-    <div class="under_chat">@g</div>
+    <div class="content">
+      <div id="site_header">
+        <h1>
+          <a id="site_title" href="@routes.Lobby.home">
+            lichess<span class="extension">.org</span>
+          </a>
+          @if(acceptsLanguage(lang)) {
+          @baseline
+          } else {
+          @langFallbackLinks
+          }
+        </h1>
+        @menu.map { side =>
+        <div class="side_menu">@side</div>
+        }
+        @goodies
+        @chat
+        @underchat.map { g =>
+        <div class="under_chat">@g</div>
+        }
+      </div>
+      <div id="lichess">
+        @body
+      </div>
+    </div>
+    @if(!zen) {
+    <div class="footer_wrap">
+      <div id="lichess_social"></div>
+      <div class="footer">
+        <div class="right">
+          <a href="http://github.com/ornicar">github.com/ornicar</a> | <a class="js_email">email me</a><br />
+          <a href="@routes.Main.developers">Developers</a> |
+          <a href="http://www.facebook.com/appcenter/510511915639555">Facebook app</a>
+        </div>
+        <a href="@routes.Wiki.home()" title="@trans.learnMoreAboutLichess()">Wiki</a> |
+        <a href="http://map.lichess.org" title="Realtime world map of chess moves">World Map</a> |
+        <a href="http://github.com/ornicar/lila" target="_blank" title="See what's inside, fork and contribute">Source Code</a><br />
+        <a href="@routes.Tv.index()" title="@trans.watchLichessTV()">TV</a> |
+        <a href="@routes.Monitor.index">Monitor</a> |
+        <a href="@routes.I18n.contribute">Translate Lichess</a>
+        <br />
+        Ping: <span id="connection_lag">?</span>
+      </div>
+    </div>
     }
-  </div>
-  <div id="lichess">
-    @body
-  </div>
-</div>
-@if(!zen) {
-<div class="footer_wrap">
-  <div id="lichess_social"></div>
-  <div class="footer">
-    <div class="right">
-      <a href="http://github.com/ornicar">github.com/ornicar</a> | <a class="js_email">email me</a><br />
-      <a href="@routes.Main.developers">Developers</a> |
-      <a href="http://www.facebook.com/appcenter/510511915639555">Facebook app</a>
+    @ctx.me.map { me =>
+    <div id="friend_box" data-preload="@ctx.friends">
+      <div class="title">@trans.onlineFriends() - <strong class="online"> </strong>/<span class="total"> </span></div>
+      <div class="content_wrap">
+        <div class="content list"></div>
+        <div class="nobody">
+          <span>@trans.noFriendsOnline()</span>
+          <a class="find button" href="@routes.Relation.suggest(me.username)">
+            <span class="is3" data-icon="h"> @trans.findFriends()</span>
+          </a>
+        </div>
+      </div>
     </div>
-    <a href="@routes.Wiki.home()" title="@trans.learnMoreAboutLichess()">Wiki</a> |
-    <a href="http://map.lichess.org" title="Realtime world map of chess moves">World Map</a> |
-    <a href="http://github.com/ornicar/lila" target="_blank" title="See what's inside, fork and contribute">Source Code</a><br />
-    <a href="@routes.Tv.index()" title="@trans.watchLichessTV()">TV</a> |
-    <a href="@routes.Monitor.index">Monitor</a> |
-    <a href="@routes.I18n.contribute">Translate Lichess</a>
-    <br />
-    Ping: <span id="connection_lag">?</span>
-  </div>
-</div>
-}
-@ctx.me.map { me =>
-<div id="friend_box" data-preload="@ctx.friends">
-  <div class="title">@trans.onlineFriends() - <strong class="online"> </strong>/<span class="total"> </span></div>
-  <div class="content_wrap">
-    <div class="content list"></div>
-    <div class="nobody">
-      <span>@trans.noFriendsOnline()</span>
-      <a class="find button" href="@routes.Relation.suggest(me.username)">
-        <span class="is3" data-icon="h"> @trans.findFriends()</span>
-      </a>
-    </div>
-  </div>
-</div>
-}
-@jsTag("deps.min.js")
-@signedJs.fold(jsTagCompiled("big.js"))(js => jsAt(js, false))
-@moreJs
-@if(lang.language != "en") {
-@jsAt(s"trans/${lang.language}.js")
-@timeagoLocale.map { l =>
-@jsAt(s"vendor/timeago/locales/jquery.timeago.$l.js")
-}
-}
-</body>
+    }
+    @jsTag("deps.min.js")
+    @signedJs.fold(jsTagCompiled("big.js"))(js => jsAt(js, false))
+    @moreJs
+    @if(lang.language != "en") {
+    @jsAt(s"trans/${lang.language}.js")
+    @timeagoLocale.map { l =>
+    @jsAt(s"vendor/timeago/locales/jquery.timeago.$l.js")
+    }
+    }
+  </body>
 </html>

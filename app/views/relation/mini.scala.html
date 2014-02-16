@@ -2,17 +2,17 @@
 
 @relationWith(userId) match {
 case None => {
-<a class="relation" href="@routes.Relation.follow(userId)?mini=1">
+<a class="relation button" href="@routes.Relation.follow(userId)?mini=1">
   <span data-icon="h"> @trans.follow()</span>
 </a>
 }
 case Some(true) => {
-<a class="relation" title="@trans.unfollow()" href="@routes.Relation.unfollow(userId)?mini=1">
+<a class="relation button" title="@trans.unfollow()" href="@routes.Relation.unfollow(userId)?mini=1">
   <span data-icon="h"> @trans.following()</span>
 </a>
 }
 case Some(false) => {
-<a class="relation" title="@trans.unblock()" class="hover_text" href="@routes.Relation.unblock(userId)?mini=1">
+<a class="relation button" title="@trans.unblock()" class="hover_text" href="@routes.Relation.unblock(userId)?mini=1">
   <span data-icon="k"> @trans.blocked()</span>
 </a>
 }

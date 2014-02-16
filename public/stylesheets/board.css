@@ -141,12 +141,10 @@ div.lichess_overboard {
 }
 div.lichess_overboard a.close {
   float: right;
-  width: 32px;
-  height: 32px;
   display: block;
-  background: url(../images/close24.png) no-repeat;
   cursor: pointer;
-  margin-top: -9px;
+  text-decoration: none;
+  margin-top: -12px;
   margin-right: 6px;
   opacity: 0.4;
 }
@@ -298,12 +296,10 @@ div.clock_bottom {
 div.lichess_table_wrap a.moretime {
   opacity: 0.4;
   position: absolute;
-  left: 115px;
-  top: 4px;
-  width: 32px;
-  height: 32px;
-  display: block;
-  background: url(../images/add.png) no-repeat;
+  text-decoration: none;
+  font-size: 20px;
+  left: 130px;
+  top: 7px;
 }
 div.lichess_table_wrap a.moretime:hover {
   opacity: 1;
@@ -380,17 +376,10 @@ div.lichess_separator {
 div.lichess_table .lichess_button {
   margin: 2.5em 0 0 0;
   font-size: 1.3em;
-  display: block;
-  text-decoration: none;
   padding: 1em;
   text-align: center;
-  border: 1px solid #d3d3d3;
-  font-weight: normal;
-}
-div.lichess_table a.lichess_button:hover,
-div.lichess_table a.lichess_button.active {
-  box-shadow: 0 0 9px #d85000;
-  border: 1px solid #d85000;
+  display: block;
+  letter-spacing: -1px;
 }
 div.lichess_current_player {
   height: 64px;
@@ -620,14 +609,11 @@ div.lcs.check div.lcsi {
 }
 #chessboard div.square-55d63:hover,
 #chessboard div.highlight2-9c5d2,
-div.my_turn div.lcs:hover div.lcsi,
+div.my_turn.not_spectator div.lcs:hover div.lcsi,
 div.lcs.premoved div.lcsi,
 div.lcs.droppable-hover div.lcsi,
 div.lichess_board div.lcs.selected div.lcsi,
 div.lichess_board div.lcs.selectable div.lcsi,
 #GameBoard td img.bestmove {
   box-shadow: inset 0 0 0px 3px rgba(216, 85, 0, 1);
-}
-div.my_turn.not_spectator div.lcs:hover div.lcsi {
-  box-shadow: none;
 }

@@ -3,7 +3,7 @@
 <div class="open_tournaments undertable">
   <div class="undertable_top">
     <a class="more" title="See all tournaments" href="@routes.Tournament.home()">@trans.more() »</a>
-    <span class="title">@trans.openTournaments()</span>
+    <span class="title" data-icon="g"> @trans.openTournaments()</span>
   </div>
   <div class="undertable_inner">
     <table class="tournaments">
@@ -16,7 +16,7 @@
     <div class="user_top">
       <div class="undertable_top">
         <a class="more" title="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
-        <span class="title">@trans.todaysLeaders()</span>
+        <span class="title" data-icon="P"> @trans.todaysLeaders()</span>
       </div>
       <div class="undertable_inner">
         <table>
@@ -37,7 +37,7 @@
     <div class="user_top">
       <div class="undertable_top">
         <a class="more" title="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
-        <span class="title">@trans.progressToday()</span>
+        <span class="title" data-icon="N"> @trans.progressToday()</span>
       </div>
       <div class="undertable_inner">
         <table>
