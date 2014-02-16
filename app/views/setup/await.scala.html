@@ -35,7 +35,7 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
       @config.map { c =>
       <p class="explanations">
         @trans.variant(): @variantName(c.variant)<br />
-        @trans.timeControl(): @clockName(c.makeClock)<br />
+        <span data-icon="p"></span> @clockName(c.makeClock)<br />
         @trans.mode(): @modeName(c.mode)
       </p>
       }

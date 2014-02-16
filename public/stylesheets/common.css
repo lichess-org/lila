@@ -377,18 +377,22 @@ ul.ui-autocomplete li a.ui-state-focus {
 .none {
   display: none;
 }
+html {
+  min-height: 100%;
+}
 body {
   font: 12px'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   color: #848484;
-  background: #d7d7d7;
-  background: -moz-linear-gradient(top, #d7d7d7 0%, #f7f7f7 6%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d7d7d7), color-stop(6%, #f7f7f7));
-  background: -webkit-linear-gradient(top, #d7d7d7 0%, #f7f7f7 6%);
-  background: -o-linear-gradient(top, #d7d7d7 0%, #f7f7f7 6%);
-  background: -ms-linear-gradient(top, #d7d7d7 0%, #f7f7f7 6%);
-  background: linear-gradient(to bottom, #d7d7d7 0%, #f7f7f7 6%);
+  background: #f7f7f7;
+  background-image: -moz-linear-gradient(top, #d7d7d7 0%, #f7f7f7 6%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d7d7d7), color-stop(6%, #f7f7f7));
+  background-image: -webkit-linear-gradient(top, #d7d7d7 0%, #f7f7f7 6%);
+  background-image: -o-linear-gradient(top, #d7d7d7 0%, #f7f7f7 6%);
+  background-image: -ms-linear-gradient(top, #d7d7d7 0%, #f7f7f7 6%);
+  background-image: linear-gradient(to bottom, #d7d7d7 0%, #f7f7f7 6%);
   background-repeat: no-repeat;
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#d7d7d7', endColorstr='#f7f7f7', GradientType=0);
+  position: relative;
 }
 a,
 a:visited,
@@ -431,7 +435,6 @@ body.tight #site_header {
 }
 body > div.content {
   width: 1005px;
-  min-height: 590px;
   margin: 30px auto 30px auto;
 }
 body.tight > div.content {
@@ -501,20 +504,31 @@ body.tight #site_baseline {
   display: none;
 }
 div.footer_wrap {
-  width: 100%;
   border-top: 1px solid #ddd;
   background: #EEE;
-  padding: 20px 0;
+  padding: 30px 0;
   display: block;
 }
 div.footer {
   width: 1000px;
   margin: auto;
   line-height: 2em;
+  position: relative;
+}
+div.footer a {
+  text-decoration: none;
 }
 body.tight div.footer {
   width: auto;
   padding: 0 10px;
+}
+div.footer > .center {
+  position: absolute;
+  top: 1em;
+  left: 0px;
+  right: 0px;
+  margin: 0px auto;
+  width: 120px;
 }
 div.footer div.right {
   float: right;
@@ -1022,13 +1036,6 @@ div.warning {
 }
 div.join_warning {
   margin: 1em;
-}
-#lichess_social {
-  height: 0px;
-  text-align: center;
-}
-#lichess_social div.addtochrome {
-  margin-bottom: 15px;
 }
 
 /* soft inactive gradient */
@@ -1711,6 +1718,7 @@ div.undertable_top a.more {
   float: right;
   padding-right: 2px;
   text-decoration: none;
+  font-weight: normal;
 }
 div.undertable_top span.title {
   font-weight: bold;

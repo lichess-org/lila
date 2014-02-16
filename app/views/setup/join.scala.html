@@ -12,14 +12,14 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
     @color.fold(board.white(), board.black())
     <div class="lichess_overboard auto_center joining">
       @opponentUser.map { u =>
-      @userLink(u, withOnline = false)
+      @userLink(u)
       }.getOrElse {
       @User.anonymous
       }
       @config.map { c =>
       <p class="explanations">
         @trans.variant(): @variantName(c.variant)<br />
-        @trans.timeControl(): @clockName(c.makeClock)<br />
+        <span data-icon="p"></span> @clockName(c.makeClock)<br />
         @trans.mode(): @modeName(c.mode)
       </p>
       }

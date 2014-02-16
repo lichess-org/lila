@@ -113,7 +113,6 @@ puzzle stats page
 kingcrusher wants his FIDE title http://en.lichess.org/forum/general-chess-discussion/player-titles---cm-fm-im-gm-etc
 drop old notifications (timeline)
 puzzle of the day
-investigate yacdb
 flip running game http://en.lichess.org/forum/general-chess-discussion/flip-board-button-while-watching-a-game#1
 consider analysis with data="" failed (and retry them)
 play pieces are more blury than training pieces
@@ -122,7 +121,6 @@ analysis board = editor + fen history :D
 editor FEN like https://nextchessmove.com/
 new lobby system http://i.imgur.com/p5MD0uX.png
 ajax load computer analysis when available
-detected cheater wins? http://en.lichess.org/@/savir?mod
 
 infra
 -------
