@@ -12,20 +12,20 @@
     @trainingBox(puzzle, userInfos, false)
     @win.map { w =>
     @if(w) {
-    <div class="comment win"><h3><strong>Victory!</strong></h3></div>
+    <div class="comment win"><h3 data-icon="E"> <strong>Victory!</strong></h3></div>
     } else {
-    <div class="comment loss"><h3><strong>Puzzle failed</strong></h3></div>
+    <div class="comment loss"><h3 data-icon="k"> <strong>Puzzle failed</strong></h3></div>
     }
     }.getOrElse {
     @attempt.map { a =>
     @if(a.win) {
     <div class="comment win">
-      <h3><strong>Victory!</strong><strong class="rating"> @showNumber(a.userRatingDiff)</strong></h3>
+      <h3 data-icon="E"> <strong>Victory!</strong><strong class="rating"> @showNumber(a.userRatingDiff)</strong></h3>
       Puzzle solved in @a.seconds seconds.
     </div>
     } else {
     <div class="comment loss">
-      <h3><strong>Puzzle failed</strong><strong class="rating"> @showNumber(a.userRatingDiff)</strong></h3>
+      <h3 data-icon="k"> <strong>Puzzle failed</strong><strong class="rating"> @showNumber(a.userRatingDiff)</strong></h3>
     </div>
     }
     }

@@ -124,6 +124,7 @@
   display: none;
 }
 #puzzle .prev_next {
+  margin-top: 10px;
   text-align: center;
 }
 #puzzle .prev_next button {
@@ -143,6 +144,7 @@
 }
 #puzzle div.upvote {
   float: right;
+  text-align: center;
 }
 #puzzle div.upvote a {
   cursor: default;
@@ -151,29 +153,18 @@
   cursor: pointer;
 }
 #puzzle div.upvote a {
-  background: url('../images/vote.png');
   display: block;
-  margin: 0 auto;
+  font-size: 24px;
+  text-decoration: none;
   width: 40px;
-  height: 25px;
+}
+#puzzle div.upvote.enabled a:hover,
+#puzzle div.upvote a.active {
+  color: #d85000;
 }
 #puzzle div.upvote span.count {
   display: block;
   font-size: 24px;
-  color: #555;
-  text-align: center;
   width: 40px;
   line-height: 1;
-}
-#puzzle div.upvote a.upvote {
-  background-position: 0px -35px;
-}
-#puzzle div.upvote a.upvote.active {
-  background-position: 0px 0;
-}
-#puzzle div.upvote a.downvote {
-  background-position: 0px -70px;
-}
-#puzzle div.upvote a.downvote.active {
-  background-position: 0px -100px;
 }
