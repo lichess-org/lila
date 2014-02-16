@@ -207,7 +207,7 @@ var storage = {
       self.schedulePing(self.options.pingDelay);
       self.currentLag = self.now() - self.lastPingTime;
       if (self.options.lagTag) {
-        self.options.lagTag.text(self.currentLag + " ms");
+        self.options.lagTag.html('<strong>' + self.currentLag + "</strong> ms");
       }
       self.averageLag = self.averageLag * 0.8 + self.currentLag * 0.2;
     },
@@ -496,6 +496,13 @@ var storage = {
     $(window).resize(onResize);
     onResize();
 
+    var bodyHeight = $('body').height();
+    var winHeight = $(window).height();
+    if (bodyHeight < winHeight) {
+      var $footer = $('div.footer_wrap');
+      $footer.css('marginTop', winHeight - bodyHeight + 30 + 'px');
+    }
+
     if (!strongSocket.available) {
       $('#lichess').on('mouseover', function() {
         $('#lichess').off('mouseover');
@@ -779,11 +786,6 @@ var storage = {
     } else {
       $soundToggle.addClass('unavailable');
     }
-
-    if (Boolean(window.chrome)) {
-      $('#lichess_social').append('<div class="addtochrome"><a class="button" href="https://chrome.google.com/webstore/detail/kiefmccciemniajdkgikpnocipidaaeg">' + $.trans('Add to Chrome') + '</a></div>');
-    }
-
   });
 
   $.fn.orNot = function() {

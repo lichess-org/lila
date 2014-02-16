@@ -1,11 +1,11 @@
 body.dark {
-  background: #303030;
-  background: -moz-linear-gradient(top, #303030 0%, #1a1a1a 6%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #303030), color-stop(6%, #1a1a1a));
-  background: -webkit-linear-gradient(top, #303030 0%, #1a1a1a 6%);
-  background: -o-linear-gradient(top, #303030 0%, #1a1a1a 6%);
-  background: -ms-linear-gradient(top, #303030 0%, #1a1a1a 6%);
-  background: linear-gradient(to bottom, #303030 0%, #1a1a1a 6%);
+  background: #1a1a1a;
+  background-image: -moz-linear-gradient(top, #303030 0%, #1a1a1a 6%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #303030), color-stop(6%, #1a1a1a));
+  background-image: -webkit-linear-gradient(top, #303030 0%, #1a1a1a 6%);
+  background-image: -o-linear-gradient(top, #303030 0%, #1a1a1a 6%);
+  background-image: -ms-linear-gradient(top, #303030 0%, #1a1a1a 6%);
+  background-image: linear-gradient(to bottom, #303030 0%, #1a1a1a 6%);
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#303030', endColorstr='#1a1a1a', GradientType=0);
   color: #8a8a8a;
 }

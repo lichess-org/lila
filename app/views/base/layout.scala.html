@@ -164,21 +164,20 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     </div>
     @if(!zen) {
     <div class="footer_wrap">
-      <div id="lichess_social"></div>
       <div class="footer">
         <div class="right">
           <a href="http://github.com/ornicar">github.com/ornicar</a> | <a class="js_email">email me</a><br />
           <a href="@routes.Main.developers">Developers</a> |
           <a href="http://www.facebook.com/appcenter/510511915639555">Facebook app</a>
         </div>
+        <div class="center">
+          <div class="ping">Ping: <span id="connection_lag">?</span></div>
+        </div>
         <a href="@routes.Wiki.home()" title="@trans.learnMoreAboutLichess()">Wiki</a> |
         <a href="http://map.lichess.org" title="Realtime world map of chess moves">World Map</a> |
         <a href="http://github.com/ornicar/lila" target="_blank" title="See what's inside, fork and contribute">Source Code</a><br />
-        <a href="@routes.Tv.index()" title="@trans.watchLichessTV()">TV</a> |
         <a href="@routes.Monitor.index">Monitor</a> |
         <a href="@routes.I18n.contribute">Translate Lichess</a>
-        <br />
-        Ping: <span id="connection_lag">?</span>
       </div>
     </div>
     }
