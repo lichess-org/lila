@@ -4,7 +4,7 @@
 title = thread.name) {
 <div class="thread_actions">
   <form action="@routes.Message.delete(thread.id)" method="post">
-    <input type="submit" class="delete" value="Delete" />
+    <button type="submit" class="delete button"> Delete</button>
   </form>
 </div>
 
@@ -15,9 +15,8 @@ title = thread.name) {
 @thread.posts.map { post =>
 <div class="thread_message" id="message_@post.id">
   <span class="infos">
-    @userIdLink(thread.senderOf(post), "inline".some) &rarr; @userIdLink(thread.receiverOf(post), "inline".some) - @timeago(post.createdAt)
+    @userIdLink(thread.senderOf(post), "inline".some) <span data-icon="H"></span> @userIdLink(thread.receiverOf(post), "inline".some) - @timeago(post.createdAt)
   </span>
-
   <div class="thread_message_body">@autoLink(post.text)</div>
 </div>
 }
@@ -33,7 +32,7 @@ title = thread.name) {
       @errMsg(form("text"))
     </div>
     <div class="actions">
-      <input class="send button" type="submit" value="@trans.send()" />
+      <button class="send button" data-icon="E" type="submit"> @trans.send()</button>
       <a class="cancel" href="@routes.Message.inbox(1)">@trans.cancel()</a>
     </div>
   </form>

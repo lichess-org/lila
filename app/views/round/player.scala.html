@@ -42,7 +42,7 @@ signedJs = pov.game.rated option routes.Round.signedJs(pov.gameId) map (_.toStri
       @game.clock.map { c =>
       @round.clock(c, pov.color, "bottom")
       @if(game.moretimeable) {
-      <a class="moretime" title="@trans.giveNbSeconds(moretimeSeconds)"></a>
+      <a class="moretime" title="@trans.giveNbSeconds(moretimeSeconds)" data-icon="O"></a>
       }
       }
     </div>

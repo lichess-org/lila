@@ -1,7 +1,7 @@
-@(users: List[(User, Int)], title: Any, last: Boolean = false)(implicit ctx: Context)
+@(users: List[(User, Int)], title: Any, last: Boolean = false, icon: Option[String] = None)(implicit ctx: Context)
 
 <div class="user_top@{ last.??(" last") }">
-  <h2>@title</h2>
+  <h2 @icon.map { i => data-icon="@i" }> @title</h2>
   <table>
     <tbody>
       @users.map { u =>

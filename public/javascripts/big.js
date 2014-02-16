@@ -1789,25 +1789,21 @@ var storage = {
         return html + '>';
       }
 
-      function closeSquare() {
-        return '</div>';
-      }
-
       for (var fenIndex in fen) {
         c = fen[fenIndex];
         html += openSquare(x, y);
         if (!isNaN(c)) { // it is numeric
-          html += closeSquare();
+          html += '</div>';
           increment();
           for (d = 1; d < c; d++) {
-            html += openSquare(x, y) + closeSquare();
+            html += openSquare(x, y) + '</div>';
             increment();
           }
         } else {
           pcolor = pregex.test(c) ? 'black' : 'white';
           pclass = pclasses[c.toLowerCase()];
           html += '<div class="lcmp ' + pclass + ' ' + pcolor + '"></div>';
-          html += closeSquare();
+          html += '</div>';
           increment();
         }
       }
@@ -2054,7 +2050,7 @@ var storage = {
         $.centerOverboard();
       }).trigger('change');
 
-      $form.prepend($('<a class="close"></a>').click(function() {
+      $form.prepend($('<a class="close" data-icon="L"></a>').click(function() {
         $form.remove();
         $startButtons.find('a.active').removeClass('active');
       }));

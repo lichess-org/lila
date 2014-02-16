@@ -50,7 +50,7 @@ body.dark div.clock,
 body.dark .button,
 body.dark #GameText,
 body.dark #tournament_side,
-body.dark #GameBoard table.boardTable,
+body.dark #GameBoard,
 body.dark div.shortcuts .title,
 body.dark div.content_box,
 body.dark div.content_box_top,
@@ -92,7 +92,6 @@ body.dark div.user_show div.user-infos,
 body.dark div.game_config input[type="text"],
 body.dark #powerTip,
 body.dark #powerTip > .title,
-body.dark #powerTip > .actions a,
 body.dark #hooks_table th,
 body.dark #hooks_table td,
 body.dark #hooks_wrap > div.tabs > a,
@@ -124,8 +123,10 @@ body.dark #top a.toggle:hover,
 body.dark #top .dropdown,
 body.dark #top a.goto_nav.current,
 body.dark #top a.goto_nav:hover,
+body.dark #top a.bgpicker:hover,
+body.dark a#sound_state:hover,
 body.dark #top ul.language_links a.accepted {
-  color: #b0b0b0;
+  color: #c0c0c0;
 }
 body.dark #top .dropdown,
 body.dark #top .shown a.toggle,
@@ -209,10 +210,6 @@ body.dark div.lichess_table_not_started {
   box-shadow: none;
   background: none;
 }
-body.dark div.lichess_table a.lichess_button:hover,
-body.dark div.lichess_table a.lichess_button.active {
-  border: 1px solid #d85000;
-}
 body.dark div.content_box,
 body.dark div.content_box_inter a.active,
 body.dark #GameText,
@@ -224,7 +221,7 @@ body.dark div.content_box_inter a.intertab:hover {
 }
 body.dark #site_header div.side_menu a.active {
   background: #2b2b2b;
-  box-shadow: -3px 0 5px #505050;
+  text-shadow: 0px 1px 0px #000;
 }
 body.dark div.game_row:nth-child(odd),
 body.dark #lichess_forum table.forum_table tr:nth-child(odd),
@@ -323,7 +320,6 @@ body.dark div.lichess_table_wrap div.clock.outoftime {
 /* soft inactive gradient */
 
 body.dark #top a.signin,
-body.dark #powerTip > .actions a,
 body.dark div.lichess_chat_top,
 body.dark #friend_box .title,
 body.dark div.undertable_top,
@@ -335,8 +331,27 @@ body.dark #translation_call,
 body.dark #notifications > div,
 body.dark div.locale_menu a,
 body.dark table.slist thead {
-  background: #2a2a2a;
-  background: linear-gradient(to bottom, #2a2a2a, #202020);
+  background-color: #282828;
+  background-image: linear-gradient(to bottom, #282828 0%, #222222 100%);
+  text-shadow: 0px 1px 0px #000;
+}
+body.dark .button,
+body.dark a.button,
+body.dark .ui-button,
+body.dark .ui-slider-handle,
+body.dark .ui-widget-content {
+  border-color: #323232;
+}
+body.dark .button:hover,
+body.dark a.button:hover,
+body.dark .ui-state-hover {
+  border-color: #383838;
+  background-color: #2c2c2c;
+  background-image: linear-gradient(to bottom, #2c2c2c 0%, #282828 100%);
+}
+body.dark .button:active,
+body.dark a.button:active {
+  box-shadow: 0px 1px 2px rgba(2, 0, 0, 0.3) inset;
 }
 body.dark .ui-state-active {
   color: #fff;

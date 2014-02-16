@@ -44,7 +44,7 @@ title = trans.composeMessage.str()) {
         @errMsg(form("text"))
       </div>
       <div class="actions">
-        <input class="send button" type="submit" value="@trans.send()" />
+        <button class="send button" data-icon="E" type="submit"> @trans.send()</button>
         <a class="cancel" href="@routes.Message.inbox()">@trans.cancel()</a>
       </div>
     </form>

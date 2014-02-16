@@ -5,7 +5,7 @@
   <div class="content_box_top">
     <span class="righty">@trans.nbMembers("<strong>" + t.nbMembers + "</strong>")</span>
     <div class="icon team-icon @myTeam(t.id).fold("mine", "")"></div>
-    <h1 class="lichess_title">@t.name <span>TEAM</span></h1>
+    <h1 class="lichess_title" data-icon="f"> @t.name <span>TEAM</span></h1>
     @if(t.disabled) {
     <span class="staff">CLOSED</span>
     }

@@ -46,7 +46,7 @@
     }
   </div>
   <div class="forum">
-    <h2><a href="@teamForumUrl(t.id)">@trans.forum() (@info.forumNbPosts)</a></h2>
+    <h2 data-icon="d"> <a href="@teamForumUrl(t.id)">@trans.forum() (@info.forumNbPosts)</a></h2>
     <ol class="posts">
       @info.forumPosts.take(10).map { v =>
       <li>
@@ -67,7 +67,7 @@
       </form>
       }
       @if(info.createdByMe) {
-      <a href="@routes.Team.edit(t.id)" class="submit button small">@trans.settings()</a>
+      <a href="@routes.Team.edit(t.id)" class="submit button small" data-icon="q"> @trans.settings()</a>
       }
     </div>
   </div>
