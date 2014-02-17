@@ -25,7 +25,7 @@ goodies = goodies.some) {
     <tbody>
       @reports.map { r =>
       <tr class="@r.unprocessed.fold("new", "")">
-        <td>@userIdLink(r.createdBy.some)@timeago(r.createdAt)</td>
+        <td>@userIdLink(r.createdBy.some)<br />@timeago(r.createdAt)</td>
         <td>@userIdLink(r.user.some, params = "?mod")</td>
         <td>
           <strong>@r.reason.capitalize</strong>
