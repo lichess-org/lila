@@ -16,27 +16,27 @@ trait ActorMap[A <: Actor] extends Actor {
 
   def actorMapReceive: Receive = {
 
-    case Get(id) ⇒ sender ! {
+    case Get(id) => sender ! {
       (actors get id) | {
-        context.actorOf(Props(mkActor(id)), name = id) ~ { actor ⇒
+        context.actorOf(Props(mkActor(id)), name = id) ~ { actor =>
           actors = actors + (id -> actor)
           context watch actor
         }
       }
     }
 
-    case Tell(id, msg) ⇒ withActor(id)(_ forward msg)
+    case Tell(id, msg) => withActor(id)(_ forward msg)
 
-    case TellAll(msg)  ⇒ tellAll(msg)
+    case TellAll(msg)  => tellAll(msg)
 
-    case Ask(id, msg)  ⇒ get(id) flatMap (_ ? msg) pipeTo sender
+    case Ask(id, msg)  => get(id) flatMap (_ ? msg) pipeTo sender
 
-    case Size          ⇒ sender ! actors.size
+    case Size          => sender ! actors.size
 
-    case Terminated(actor) ⇒ {
+    case Terminated(actor) => {
       context unwatch actor
       actors filter (_._2 == actor) foreach {
-        case (id, _) ⇒ actors = actors - id
+        case (id, _) => actors = actors - id
       }
     }
   }
@@ -57,5 +57,5 @@ trait ActorMap[A <: Actor] extends Actor {
 
   def get(id: String): Fu[ActorRef] = self ? Get(id) mapTo manifest[ActorRef]
 
-  def withActor(id: String)(op: ActorRef ⇒ Unit) = get(id) foreach op
+  def withActor(id: String)(op: ActorRef => Unit) = get(id) foreach op
 }

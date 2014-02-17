@@ -9,7 +9,7 @@ import Types._
 
 trait WithColl {
 
-  def withColl[A](f: Coll ⇒ A): A = {
+  def withColl[A](f: Coll => A): A = {
 
     implicit val ec = ExecutionContext.Implicits.global
 

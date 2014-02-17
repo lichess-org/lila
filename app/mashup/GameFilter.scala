@@ -55,23 +55,23 @@ object GameFilterMenu {
     val current = (all.list find (_.name == currentName)) | all.head
 
     val query: Option[JsObject] = current match {
-      case All      ⇒ Some(Query started user)
-      case Me       ⇒ Some(Query.opponents(user, me | user))
-      case Rated    ⇒ Some(Query rated user)
-      case Win      ⇒ Some(Query win user)
-      case Loss     ⇒ Some(Query loss user)
-      case Draw     ⇒ Some(Query draw user)
-      case Playing  ⇒ Some(Query notFinished user)
-      case Bookmark ⇒ None
+      case All      => Some(Query started user)
+      case Me       => Some(Query.opponents(user, me | user))
+      case Rated    => Some(Query rated user)
+      case Win      => Some(Query win user)
+      case Loss     => Some(Query loss user)
+      case Draw     => Some(Query draw user)
+      case Playing  => Some(Query notFinished user)
+      case Bookmark => None
     }
 
     val cachedNb: Option[Int] = current match {
-      case All   ⇒ info.user.count.game.some
-      case Rated ⇒ info.user.count.rated.some
-      case Win   ⇒ info.user.count.win.some
-      case Loss  ⇒ info.user.count.loss.some
-      case Draw  ⇒ info.user.count.draw.some
-      case _     ⇒ None
+      case All   => info.user.count.game.some
+      case Rated => info.user.count.rated.some
+      case Win   => info.user.count.win.some
+      case Loss  => info.user.count.loss.some
+      case Draw  => info.user.count.draw.some
+      case _     => None
     }
 
     new GameFilterMenu(all, current, query, cachedNb)

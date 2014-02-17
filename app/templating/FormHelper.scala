@@ -5,7 +5,7 @@ import lila.api.Context
 import play.api.data._
 import play.api.templates.Html
 
-trait FormHelper { self: I18nHelper ⇒
+trait FormHelper { self: I18nHelper =>
 
   private val errNames = Map(
     "error.minLength" -> trans.textIsTooShort,
@@ -18,7 +18,7 @@ trait FormHelper { self: I18nHelper ⇒
   def errMsg(form: Form[_])(implicit ctx: Context): Html = errMsg(form.errors)
 
   def errMsg(errors: Seq[FormError])(implicit ctx: Context): Html = Html {
-    errors map { e ⇒
+    errors map { e =>
       """<p class="error">%s</p>""".format(
         (errNames get e.message map (_.str())) | e.message)
     } mkString

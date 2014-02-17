@@ -29,7 +29,7 @@ class DateTest extends Specification with WithColl {
       val doc = JsObjectWriter.write(Json.obj(
         "ca" -> $gt($date(date))
       ))
-      doc.getAsTry[BSONDocument]("ca") flatMap { gt ⇒
+      doc.getAsTry[BSONDocument]("ca") flatMap { gt =>
         gt.getAsTry[BSONDateTime]("$gt")
       } must_== scala.util.Success(BSONDateTime(date.getMillis))
     }
@@ -41,12 +41,12 @@ class DateTest extends Specification with WithColl {
 
     "tube" in {
       val event = TestEvent("test2", date)
-      withColl { coll ⇒
+      withColl { coll =>
         implicit val tube = eTube inColl coll
         ($remove($select.all) >>
           $insert(event) >>
           $find.one($select.all)).await must beSome.like {
-            case TestEvent("test2", d) ⇒ d must_== date
+            case TestEvent("test2", d) => d must_== date
           }
       }
     }

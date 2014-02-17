@@ -22,7 +22,7 @@ private[monitor] object MongoStatus {
   val default = new MongoStatus()
 
   def apply(db: DB)(prev: MongoStatus): Fu[MongoStatus] =
-    db.command(Status) map { bsonMap ⇒
+    db.command(Status) map { bsonMap =>
       val bson = BSONDocument(bsonMap)
       val status = JsObjectReader.read(bson)
 

@@ -7,7 +7,7 @@ import play.api.Play.current
 object CsvServer {
 
   // returns the web path
-  def apply(name: String)(lines: ⇒ List[List[Any]]): Fu[String] =
+  def apply(name: String)(lines: => List[List[Any]]): Fu[String] =
     if (exists(name)) fuccess(webPath(name))
     else {
       val file = getFile(name)

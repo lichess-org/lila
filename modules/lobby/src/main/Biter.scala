@@ -1,20 +1,20 @@
 package lila.lobby
 
 import akka.actor.ActorRef
-import chess.{ Game ⇒ ChessGame, Board, Variant, Mode, Clock, Color ⇒ ChessColor }
+import chess.{ Game => ChessGame, Board, Variant, Mode, Clock, Color => ChessColor }
 import org.joda.time.DateTime
 
 import actorApi.{ RemoveHook, BiteHook, JoinHook }
 import lila.game.{ GameRepo, Game, Player, Pov, Progress }
 import lila.user.{ User, UserRepo }
 
-private[lobby] final class Biter(blocks: (String, String) ⇒ Fu[Boolean]) {
+private[lobby] final class Biter(blocks: (String, String) => Fu[Boolean]) {
 
   def apply(hook: Hook, userId: Option[String], uid: String): Fu[JoinHook] =
-    userId ?? UserRepo.byId flatMap { user ⇒
+    userId ?? UserRepo.byId flatMap { user =>
       canJoin(hook, user) flatMap {
-        case true  ⇒ join(hook, user, uid)
-        case false ⇒ fufail("%s cannot bite hook %s".format(userId, hook.id))
+        case true  => join(hook, user, uid)
+        case false => fufail("%s cannot bite hook %s".format(userId, hook.id))
       }
     }
 
@@ -29,13 +29,13 @@ private[lobby] final class Biter(blocks: (String, String) ⇒ Fu[Boolean]) {
   } yield JoinHook(uid, hook, game, creatorColor)
 
   def blame(color: ChessColor, userOption: Option[User], game: Game) =
-    userOption.fold(game)(user ⇒ game.updatePlayer(color, _ withUser user))
+    userOption.fold(game)(user => game.updatePlayer(color, _ withUser user))
 
   private def makeGame(hook: Hook) = Game.make(
     game = ChessGame(
       board = Board init hook.realVariant,
       clock = hook.hasClock.fold(
-        hook.time |@| hook.increment apply { (limit, inc) ⇒
+        hook.time |@| hook.increment apply { (limit, inc) =>
           Clock(limit = limit, increment = inc)
         },
         none)
@@ -51,10 +51,10 @@ private[lobby] final class Biter(blocks: (String, String) ⇒ Fu[Boolean]) {
     if (!hook.open) fuccess(false)
     else hook.realMode.casual.fold(
       user.isDefined || hook.allowAnon,
-      user ?? { u ⇒ hook.realRatingRange.fold(true)(_ contains u.rating) }
+      user ?? { u => hook.realRatingRange.fold(true)(_ contains u.rating) }
     ) ?? !{
         (user |@| hook.userId).tupled ?? {
-          case (u, hookUserId) ⇒ blocks(hookUserId, u.id) >>| blocks(u.id, hookUserId)
+          case (u, hookUserId) => blocks(hookUserId, u.id) >>| blocks(u.id, hookUserId)
         }
       }
 }

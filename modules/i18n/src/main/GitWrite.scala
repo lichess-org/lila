@@ -26,7 +26,7 @@ private[i18n] final class GitWrite(
 
   def apply(translations: List[Translation]): Funit =
     fuloginfo("Working on " + repoPath) >>
-      git.currentBranch flatMap { currentBranch ⇒
+      git.currentBranch flatMap { currentBranch =>
         loginfo("Current branch is " + currentBranch)
         (translations map gitActor.?).sequenceFu >>
           (gitActor ? currentBranch mapTo manifest[Unit])
@@ -36,13 +36,13 @@ private[i18n] final class GitWrite(
 
     def receive = {
 
-      case branch: String ⇒ {
+      case branch: String => {
         loginfo("Checkout " + branch)
         git checkout branch
         sender ! ()
       }
 
-      case translation: Translation ⇒ {
+      case translation: Translation => {
         val branch = "t/" + translation.id
         val code = translation.code
         val name = (LangList name code) err "Lang does not exist: " + code
@@ -65,7 +65,7 @@ private[i18n] final class GitWrite(
 
   private def writeMessages(translation: Translation) =
     fuloginfo("Write messages to " + absFileOf(translation)) >>
-      printToFile(absFileOf(translation)) { writer ⇒
+      printToFile(absFileOf(translation)) { writer =>
         translation.lines foreach writer.println
       }
 
@@ -115,7 +115,7 @@ private[i18n] final class GitWrite(
     private def cleanupBranch(branch: String) =
       branch.replace("refs/heads/", "")
 
-    private def log(msg: ⇒ Any) = debug.fold(fuloginfo(msg.toString), funit)
+    private def log(msg: => Any) = debug.fold(fuloginfo(msg.toString), funit)
   }
 
 }

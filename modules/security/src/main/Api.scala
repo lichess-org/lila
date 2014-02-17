@@ -14,7 +14,7 @@ private[security] final class Api(firewall: Firewall) {
   def loginForm = Form(mapping(
     "username" -> nonEmptyText,
     "password" -> nonEmptyText
-  )(authenticateUser)(_.map(u ⇒ (u.username, "")))
+  )(authenticateUser)(_.map(u => (u.username, "")))
     .verifying("Invalid username or password", _.isDefined)
   )
 
@@ -30,7 +30,7 @@ private[security] final class Api(firewall: Firewall) {
   def restoreUser(req: RequestHeader): Fu[Option[User]] =
     firewall accepts req flatMap {
       _ ?? {
-        req.session.get("sessionId") ?? { sessionId ⇒
+        req.session.get("sessionId") ?? { sessionId =>
           Store userId sessionId flatMap { _ ?? UserRepo.byId }
         }
       }
@@ -40,7 +40,7 @@ private[security] final class Api(firewall: Firewall) {
     import tube.storeTube
     import lila.db.api._
     import play.api.libs.json._
-    $primitive(Json.obj("user" -> userId), "ip")(_.asOpt[String]) flatMap { ips ⇒
+    $primitive(Json.obj("user" -> userId), "ip")(_.asOpt[String]) flatMap { ips =>
       $primitive(Json.obj("ip" -> $in(ips), "user" -> $ne(userId)), "user")(_.asOpt[String])
     }
   }

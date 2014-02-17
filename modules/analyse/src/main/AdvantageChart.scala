@@ -25,15 +25,15 @@ object AdvantageChart {
     Json stringify {
       Json toJson {
         advices map {
-          case (info, advice) ⇒
+          case (info, advice) =>
             (info.score, info.mate) match {
-              case (Some(score), _) ⇒ point(move(info, advice), score.centipawns)
-              case (_, Some(mate)) ⇒ point(move(info, advice), {
+              case (Some(score), _) => point(move(info, advice), score.centipawns)
+              case (_, Some(mate)) => point(move(info, advice), {
                 val mateDelta = math.abs(mate)
                 val whiteWins = mate > 0
                 whiteWins.fold(max - mateDelta, mateDelta - max)
               })
-              case _ ⇒ point(move(info, none), 0)
+              case _ => point(move(info, none), 0)
             }
         }
       }

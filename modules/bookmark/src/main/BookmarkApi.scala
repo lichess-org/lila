@@ -11,9 +11,9 @@ final class BookmarkApi(
     paginator: PaginatorBuilder) {
 
   def toggle(gameId: String, userId: String): Funit =
-    $find.byId[Game](gameId) flatMap { gameOption ⇒
-      gameOption ?? { game ⇒
-        BookmarkRepo.toggle(gameId, userId) flatMap { bookmarked ⇒
+    $find.byId[Game](gameId) flatMap { gameOption =>
+      gameOption ?? { game =>
+        BookmarkRepo.toggle(gameId, userId) flatMap { bookmarked =>
           GameRepo.incBookmarks(gameId, bookmarked.fold(1, -1)) >>
             (cached.gameIds remove userId)
         }
@@ -30,5 +30,5 @@ final class BookmarkApi(
   def removeByGameIds(ids: List[String]): Funit = BookmarkRepo removeByGameIds ids
 
   def gamePaginatorByUser(user: User, page: Int) =
-    paginator.byUser(user, page) map2 { (b: Bookmark) ⇒ b.game }
+    paginator.byUser(user, page) map2 { (b: Bookmark) => b.game }
 }

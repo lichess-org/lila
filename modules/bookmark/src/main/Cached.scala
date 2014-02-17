@@ -5,7 +5,7 @@ import lila.memo.AsyncCache
 private[bookmark] final class Cached {
 
   val gameIds = AsyncCache(
-    (userId: String) ⇒ BookmarkRepo gameIdsByUserId userId map (_.toSet),
+    (userId: String) => BookmarkRepo gameIdsByUserId userId map (_.toSet),
     maxCapacity = 50000)
 
   def bookmarked(gameId: String, userId: String): Fu[Boolean] =

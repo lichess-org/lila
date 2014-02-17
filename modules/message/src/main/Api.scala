@@ -26,25 +26,25 @@ final class Api(
     maxPerPage = maxPerPage
   )
 
-  def preview(userId: String): Fu[List[Thread]] = unreadCache(userId) flatMap { ids ⇒
+  def preview(userId: String): Fu[List[Thread]] = unreadCache(userId) flatMap { ids =>
     $find byOrderedIds ids
   }
 
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
     threadOption ← $find.byId(id) map (_ filter (_ hasUser me))
-    _ ← threadOption.filter(_ isUnReadBy me).??(thread ⇒
+    _ ← threadOption.filter(_ isUnReadBy me).??(thread =>
       (ThreadRepo setRead thread) >>- updateUser(me.id)
     )
   } yield threadOption
 
   def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] =
     UserRepo named data.user.id flatMap {
-      _.fold(fufail[Thread]("No such recipient")) { invited ⇒
+      _.fold(fufail[Thread]("No such recipient")) { invited =>
         Thread.make(
           name = data.subject,
           text = data.text,
           creatorId = me.id,
-          invitedId = data.user.id) |> { t ⇒
+          invitedId = data.user.id) |> { t =>
             val thread = (me.troll && !Granter(_.MarkTroll)(invited)).fold(
               t deleteFor invited,
               t)
@@ -57,7 +57,7 @@ final class Api(
     name = lt.subject,
     text = lt.message,
     creatorId = "lichess",
-    invitedId = lt.to) |> { thread ⇒ $insert(thread) >>- updateUser(lt.to) }
+    invitedId = lt.to) |> { thread => $insert(thread) >>- updateUser(lt.to) }
 
   def makePost(thread: Thread, text: String, me: User) = {
     val post = Post.make(
@@ -72,7 +72,7 @@ final class Api(
   }
 
   def deleteThread(id: String, me: User): Funit =
-    thread(id, me) flatMap { threadOption ⇒
+    thread(id, me) flatMap { threadOption =>
       (threadOption.map(_.id) ?? (ThreadRepo deleteFor me.id)) >>-
         updateUser(me.id)
     }
@@ -80,7 +80,7 @@ final class Api(
   val unreadIds = unreadCache apply _
 
   private def updateUser(user: String) {
-    (unreadCache refresh user) mapTo manifest[List[String]] foreach { ids ⇒
+    (unreadCache refresh user) mapTo manifest[List[String]] foreach { ids =>
       bus.publish(SendTo(user, "nbm", ids.size), 'users)
     } 
   }

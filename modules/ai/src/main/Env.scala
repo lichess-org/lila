@@ -41,9 +41,9 @@ final class Env(
     debug = config getBoolean "stockfish.debug")
 
   lazy val ai: Ai = (EngineName, IsClient) match {
-    case ("stockfish", true)  ⇒ stockfishClient
-    case ("stockfish", false) ⇒ stockfishServer
-    case _                    ⇒ throw new Exception(s"Unsupported AI: $EngineName")
+    case ("stockfish", true)  => stockfishClient
+    case ("stockfish", false) => stockfishServer
+    case _                    => throw new Exception(s"Unsupported AI: $EngineName")
   }
 
   def isServer = IsServer
@@ -51,11 +51,11 @@ final class Env(
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.ai.GetLoad ⇒ IsClient.fold(
+      case lila.hub.actorApi.ai.GetLoad => IsClient.fold(
         stockfishClient.load pipeTo sender,
         sender ! Nil
       )
-      case lila.hub.actorApi.ai.Analyse(uciMoves, fen) ⇒
+      case lila.hub.actorApi.ai.Analyse(uciMoves, fen) =>
         ai.analyse(uciMoves, fen) pipeTo sender
     }
   }), name = ActorName)
@@ -88,8 +88,8 @@ final class Env(
   ) withDispatcher StockfishQueueDispatcher, name = StockfishQueueName)
 
   private lazy val client = (EngineName, IsClient) match {
-    case ("stockfish", true) ⇒ stockfishClient.some
-    case _                   ⇒ none
+    case ("stockfish", true) => stockfishClient.some
+    case _                   => none
   }
 }
 

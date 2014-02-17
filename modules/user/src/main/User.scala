@@ -25,8 +25,8 @@ case class User(
     lang: Option[String]) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
-    case u: User ⇒ id == u.id
-    case _       ⇒ false
+    case u: User => id == u.id
+    case _       => false
   }
 
   override def toString = s"User $username games:${count.game} rating:$rating troll:$troll engine:$engine"
@@ -50,7 +50,7 @@ case class User(
   private val recentDuration = 10.minutes
   def seenRecently: Boolean = timeNoSee < recentDuration
 
-  def timeNoSee: Duration = seenAt.fold[Duration](Duration.Inf) { s ⇒
+  def timeNoSee: Duration = seenAt.fold[Duration](Duration.Inf) { s =>
     (nowMillis - s.getMillis).millis
   }
 }

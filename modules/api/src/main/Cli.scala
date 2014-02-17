@@ -10,19 +10,19 @@ import makeTimeout.short
 private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) extends lila.common.Cli {
 
   def apply(args: List[String]): Fu[String] = run(args).map(_ + "\n") ~ {
-    _ logFailure ("[cli] " + args.mkString(" ")) foreach { output ⇒
+    _ logFailure ("[cli] " + args.mkString(" ")) foreach { output =>
       loginfo("[cli] %s\n%s".format(args mkString " ", output))
     }
   }
 
   def process = {
-    case "deploy" :: "pre" :: Nil  ⇒ remindDeploy(lila.hub.actorApi.RemindDeployPre)
-    case "deploy" :: "post" :: Nil ⇒ remindDeploy(lila.hub.actorApi.RemindDeployPost)
+    case "deploy" :: "pre" :: Nil  => remindDeploy(lila.hub.actorApi.RemindDeployPre)
+    case "deploy" :: "post" :: Nil => remindDeploy(lila.hub.actorApi.RemindDeployPost)
   }
 
   private def remindDeploy(event: RemindDeploy): Fu[String] = {
     renderer ? event foreach {
-      case html: Html ⇒ bus.publish(Deploy(event, html.body), 'deploy)
+      case html: Html => bus.publish(Deploy(event, html.body), 'deploy)
     }
     fuccess("Deploy in progress")
   }
@@ -30,7 +30,7 @@ private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) ext
   private def run(args: List[String]): Fu[String] = {
     (processors lift args) | fufail("Unknown command: " + args.mkString(" "))
   } recover {
-    case e: Exception ⇒ "ERROR " + e
+    case e: Exception => "ERROR " + e
   }
 
   private def processors =

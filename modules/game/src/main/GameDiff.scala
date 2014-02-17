@@ -18,7 +18,7 @@ private[game] object GameDiff {
     val setBuilder = scala.collection.mutable.ListBuffer[Set]()
     val unsetBuilder = scala.collection.mutable.ListBuffer[Unset]()
 
-    def d[A, B <: BSONValue](name: String, getter: Game ⇒ A, toBson: A ⇒ B) {
+    def d[A, B <: BSONValue](name: String, getter: Game => A, toBson: A => B) {
       val (va, vb) = (getter(a), getter(b))
       if (va != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> BSONBoolean(true))
@@ -26,13 +26,13 @@ private[game] object GameDiff {
       }
     }
 
-    def dOpt[A, B <: BSONValue](name: String, getter: Game ⇒ A, toBson: A ⇒ Option[B]) {
+    def dOpt[A, B <: BSONValue](name: String, getter: Game => A, toBson: A => Option[B]) {
       val (va, vb) = (getter(a), getter(b))
       if (va != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> BSONBoolean(true))
         else toBson(vb) match {
-          case None    ⇒ unsetBuilder += (name -> BSONBoolean(true))
-          case Some(x) ⇒ setBuilder += name -> x
+          case None    => unsetBuilder += (name -> BSONBoolean(true))
+          case Some(x) => setBuilder += name -> x
         }
       }
     }
@@ -44,13 +44,13 @@ private[game] object GameDiff {
     d(status, _.status.id, w.int)
     d(turns, _.turns, w.int)
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
-    d(moveTimes, _.moveTimes, (x: Vector[Int]) ⇒ ByteArray.ByteArrayBSONHandler.write(BinaryFormat.moveTime write x))
+    d(moveTimes, _.moveTimes, (x: Vector[Int]) => ByteArray.ByteArrayBSONHandler.write(BinaryFormat.moveTime write x))
     dOpt(positionHashes, _.positionHashes, w.bytesO)
-    dOpt(clock, _.clock, (o: Option[Clock]) ⇒ o map { c ⇒ Game.clockBSONHandler.write(_ ⇒ c) })
+    dOpt(clock, _.clock, (o: Option[Clock]) => o map { c => Game.clockBSONHandler.write(_ => c) })
     for (i ← 0 to 1) {
       import Player.BSONFields._
       val name = s"p$i."
-      val player: Game ⇒ Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
+      val player: Game => Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
       dOpt(name + lastDrawOffer, player(_).lastDrawOffer, w.map[Option, Int, BSONInteger])
       dOpt(name + isOfferingDraw, player(_).isOfferingDraw, w.boolO)
       dOpt(name + isOfferingRematch, player(_).isOfferingRematch, w.boolO)
@@ -62,7 +62,7 @@ private[game] object GameDiff {
   }
 
   private def addUa(sets: List[Set]): List[Set] = sets match {
-    case Nil  ⇒ Nil
-    case sets ⇒ (Game.BSONFields.updatedAt -> BSONJodaDateTimeHandler.write(DateTime.now)) :: sets
+    case Nil  => Nil
+    case sets => (Game.BSONFields.updatedAt -> BSONJodaDateTimeHandler.write(DateTime.now)) :: sets
   }
 }

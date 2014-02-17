@@ -29,12 +29,12 @@ final class Env(
         host = ESHost,
         ports = Seq(ESPort))
   } andThen {
-    case Success(indexer) ⇒
+    case Success(indexer) =>
       loginfo("[search] Start indexer")
       indexer.start
       loginfo("[search] Indexer is running")
   } recoverWith {
-    case e: Exception if attempt <= IndexerMaxAttempts ⇒
+    case e: Exception if attempt <= IndexerMaxAttempts =>
       logwarn(s"[search] Indexer creation: $e")
       Thread sleep 10 * 1000
       makeIndexer(attempt + 1)
@@ -44,12 +44,12 @@ final class Env(
   //   import scala.concurrent.duration._
 
   //   scheduler.effect(1 hour, "search: optimize index") {
-  //     esIndexer foreach { es ⇒
+  //     esIndexer foreach { es =>
   //       try {
   //         es optimize IndexesToOptimize
   //       }
   //       catch {
-  //         case e: org.elasticsearch.indices.IndexMissingException ⇒
+  //         case e: org.elasticsearch.indices.IndexMissingException =>
   //           play.api.Logger("search").warn(e.toString)
   //       }
   //     }

@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 
 import spray.caching.{ LruCache, Cache }
 
-final class AsyncCache[K, V] private (cache: Cache[V], f: K ⇒ Fu[V]) {
+final class AsyncCache[K, V] private (cache: Cache[V], f: K => Fu[V]) {
 
   def apply(k: K): Fu[V] = cache(k)(f(k))
 
@@ -18,7 +18,7 @@ final class AsyncCache[K, V] private (cache: Cache[V], f: K ⇒ Fu[V]) {
 object AsyncCache {
 
   def apply[K, V](
-    f: K ⇒ Fu[V],
+    f: K => Fu[V],
     maxCapacity: Int = 500,
     initialCapacity: Int = 16,
     timeToLive: Duration = Duration.Inf,
@@ -27,8 +27,8 @@ object AsyncCache {
     f = f)
 
   def single[V](
-    f: ⇒ Fu[V],
+    f: => Fu[V],
     timeToLive: Duration = Duration.Inf) = new AsyncCache[Boolean, V](
     cache = LruCache(timeToLive = timeToLive),
-    f = _ ⇒ f)
+    f = _ => f)
 }

@@ -5,14 +5,14 @@ import controllers.routes
 import play.api.templates.Html
 
 import lila.api.Context
-import lila.team.Env.{ current ⇒ teamEnv }
+import lila.team.Env.{ current => teamEnv }
 
 trait TeamHelper {
 
   private def api = teamEnv.api
 
   def myTeam(teamId: String)(implicit ctx: Context): Boolean =
-    ctx.me.??(me ⇒ api.belongsTo(teamId, me.id).await)
+    ctx.me.??(me => api.belongsTo(teamId, me.id).await)
 
   def teamIds(userId: String): List[String] =
     api.teamIds(userId).await

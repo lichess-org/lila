@@ -28,7 +28,7 @@ case class Perfs(
     "puzzle" -> puzzle)
 
   override def toString = perfs map {
-    case (name, perf) ⇒ s"$name:${perf.intRating}"
+    case (name, perf) => s"$name:${perf.intRating}"
   } mkString ", "
 }
 

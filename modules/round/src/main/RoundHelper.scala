@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 
 import lila.game.Pov
 import lila.pref.Pref
-import lila.round.Env.{ current ⇒ roundEnv }
+import lila.round.Env.{ current => roundEnv }
 import lila.user.UserContext
 
 trait RoundHelper {
@@ -74,7 +74,7 @@ trait RoundHelper {
 
   private def possibleMoves(pov: Pov) = (pov.game playableBy pov.player) option {
     pov.game.toChess.situation.destinations map {
-      case (from, dests) ⇒ from.key -> (dests.mkString)
+      case (from, dests) => from.key -> (dests.mkString)
     } toMap
   }
 

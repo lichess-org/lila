@@ -36,8 +36,8 @@ trait Implicits extends Types {
         BSONDocument(
           (for (sorter ← sorters) yield sorter._1 -> BSONInteger(
             sorter._2 match {
-              case SortOrder.Ascending  ⇒ 1
-              case SortOrder.Descending ⇒ -1
+              case SortOrder.Ascending  => 1
+              case SortOrder.Descending => -1
             })).toStream)
       }
 
@@ -46,7 +46,7 @@ trait Implicits extends Types {
     def batch(nb: Int): QueryBuilder = b.options(b.options batchSize nb)
 
     def toList[A: BSONDocumentReader](limit: Option[Int]): Fu[List[A]] =
-      limit.fold(b.cursor[A].collect[List]()) { l ⇒
+      limit.fold(b.cursor[A].collect[List]()) { l =>
         batch(l).cursor[A].collect[List](l)
       }
 

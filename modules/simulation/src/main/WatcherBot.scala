@@ -24,17 +24,17 @@ private[simulation] final class WatcherBot(
 
   when(Offline) {
 
-    case Event(Simulator.Start, _) ⇒ {
+    case Event(Simulator.Start, _) => {
       featured.one pipeTo self
       stay
     }
 
-    case Event(Some(game: lila.game.Game), _) ⇒ {
+    case Event(Some(game: lila.game.Game), _) => {
       roundEnv.socketHandler.watcher(game.id, "white", 0, uid, user, ip) pipeTo self
       goto(TvConnect) using Id(game.id)
     }
 
-    case Event(None, _) ⇒ {
+    case Event(None, _) => {
       delay(1 second)(self ! Simulator.Start)
       stay
     }
@@ -42,7 +42,7 @@ private[simulation] final class WatcherBot(
 
   when(TvConnect) {
 
-    case Event((iteratee: JsIteratee, enumerator: JsEnumerator), Id(id)) ⇒ {
+    case Event((iteratee: JsIteratee, enumerator: JsEnumerator), Id(id)) => {
       receiveFrom(enumerator)
       delay(1 second)(self ! Ping)
       goto(Tv) using Watcher(id, sendTo(iteratee))
@@ -51,35 +51,35 @@ private[simulation] final class WatcherBot(
 
   when(Tv) {
 
-    case Event(Ping, watcher: Watcher) ⇒ {
+    case Event(Ping, watcher: Watcher) => {
       watcher.channel push Json.obj("t" -> "p", "v" -> watcher.v)
       stay
     }
 
-    case Event(SetVersion(v), watcher: Watcher) ⇒
+    case Event(SetVersion(v), watcher: Watcher) =>
       stay using watcher.copy(v = v)
 
-    case Event(Message("featured_id", obj), watcher: Watcher) ⇒ obj str "d" map { id ⇒
+    case Event(Message("featured_id", obj), watcher: Watcher) => obj str "d" map { id =>
       watcher.channel.eofAndEnd()
       roundEnv.socketHandler.watcher(id, "white", 0, uid, user, ip) pipeTo self
       goto(TvConnect) using Id(id)
     } getOrElse stay
 
     // pong
-    case Event(Message("n", obj), _) ⇒ {
+    case Event(Message("n", obj), _) => {
       delay(1 second)(self ! Ping)
       stay
     }
 
     // batch
-    case Event(Message("b", obj), _) ⇒ {
+    case Event(Message("b", obj), _) => {
       val events = ~(obj.arrAs("d")(_.asOpt[JsObject]))
       events.map(parseMessage).flatten foreach self.!
       stay
     }
 
     // any other versioned event
-    case Event(Message(_, obj), _) ⇒ {
+    case Event(Message(_, obj), _) => {
       setVersion(obj)
       stay
     }
@@ -87,7 +87,7 @@ private[simulation] final class WatcherBot(
 
   whenUnhandled {
 
-    case e ⇒ {
+    case e => {
       // log(e)
       stay
     }

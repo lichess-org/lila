@@ -16,7 +16,7 @@ object Mappings {
   def mode(isAuth: Boolean) = optional(rawMode(isAuth))
   def rawMode(isAuth: Boolean) = number
     .verifying(HookConfig.modes contains _)
-    .verifying(m ⇒ m == Mode.Casual.id || isAuth)
+    .verifying(m => m == Mode.Casual.id || isAuth)
   val ratingRange = nonEmptyText.verifying(RatingRange valid _)
   val color = nonEmptyText.verifying(Color.names contains _)
   val level = number.verifying(AiConfig.levels contains _)

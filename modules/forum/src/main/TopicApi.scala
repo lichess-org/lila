@@ -8,7 +8,7 @@ import lila.db.api._
 import lila.db.Implicits._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
-import lila.security.{ Granter ⇒ MasterGranter }
+import lila.security.{ Granter => MasterGranter }
 import lila.user.{ User, UserContext }
 import tube._
 
@@ -26,7 +26,7 @@ private[forum] final class TopicApi(
         topic ← optionT(TopicRepo(troll).byTree(categSlug, slug))
       } yield categ -> topic).run
       res ← data ?? {
-        case (categ, topic) ⇒ (TopicRepo incViews topic) >>
+        case (categ, topic) => (TopicRepo incViews topic) >>
           (env.postApi.paginator(topic, page, troll) map { (categ, topic, _).some })
       }
     } yield res
@@ -34,7 +34,7 @@ private[forum] final class TopicApi(
   def makeTopic(
     categ: Categ,
     data: DataForm.TopicData)(implicit ctx: UserContext): Fu[Topic] =
-    TopicRepo.nextSlug(categ, data.name) flatMap { slug ⇒
+    TopicRepo.nextSlug(categ, data.name) flatMap { slug =>
       val topic = Topic.make(
         categId = categ.slug,
         slug = slug,
@@ -54,8 +54,8 @@ private[forum] final class TopicApi(
         $update(categ withTopic post) >>-
         (indexer ! InsertPost(post)) >>
         env.recent.invalidate >>-
-        ((ctx.userId ifFalse post.troll) ?? { userId ⇒
-          timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop ⇒
+        ((ctx.userId ifFalse post.troll) ?? { userId =>
+          timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop =>
             post.isStaff.fold(prop.toStaffFriendsOf(userId), prop.toFriendsOf(userId))
           )
         }) inject topic
@@ -65,8 +65,8 @@ private[forum] final class TopicApi(
     adapter = new Adapter[Topic](
       selector = TopicRepo(troll) byCategQuery categ,
       sort = Seq($sort.updatedDesc)
-    ) mapFuture { topic ⇒
-      $find.byId[Post](topic lastPostId troll) map { post ⇒
+    ) mapFuture { topic =>
+      $find.byId[Post](topic lastPostId troll) map { post =>
         TopicView(categ, topic, post, env.postApi lastPageOf topic, troll)
       }
     },
@@ -101,7 +101,7 @@ private[forum] final class TopicApi(
     ))
   } yield ()
 
-  def denormalize: Funit = $find.all[Topic] flatMap { topics ⇒
+  def denormalize: Funit = $find.all[Topic] flatMap { topics =>
     topics.map(denormalize).sequenceFu
   } void
 }

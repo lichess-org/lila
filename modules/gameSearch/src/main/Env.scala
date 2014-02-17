@@ -4,11 +4,11 @@ import akka.actor._
 import com.typesafe.config.Config
 import org.elasticsearch.action.search.SearchResponse
 import play.api.libs.json.JsObject
-import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
+import scalastic.elasticsearch.{ Indexer => EsIndexer }
 
 import lila.db.api.$find
 import lila.game.tube.gameTube
-import lila.game.{ GameRepo, Game ⇒ GameModel, Query ⇒ DbQuery }
+import lila.game.{ GameRepo, Game => GameModel, Query => DbQuery }
 import lila.search.TypeIndexer
 
 final class Env(
@@ -47,7 +47,7 @@ final class Env(
     import lila.search.actorApi.RebuildAll
     private implicit def timeout = makeTimeout minutes 60
     def process = {
-      case "game" :: "search" :: "reset" :: Nil ⇒
+      case "game" :: "search" :: "reset" :: Nil =>
         (lowLevelIndexer ? RebuildAll) inject "Game search index rebuilt"
     }
   }
@@ -67,20 +67,20 @@ final class Env(
     var nb = 0
     var nbSkipped = 0
     var started = nowMillis
-    esIndexer map { es ⇒
-      $enumerate.bulk[Option[GameModel]](query, batchSize) { gameOptions ⇒
+    esIndexer map { es =>
+      $enumerate.bulk[Option[GameModel]](query, batchSize) { gameOptions =>
         val games = gameOptions.flatten
         val gameIds = games.map(_.id).toSeq
         val nbGames = games.size
         nb = nb + nbGames
-        GameRepo.associatePgn(gameIds) flatMap { pgns ⇒
-          analyser hasMany gameIds map { analysedIds ⇒
+        GameRepo.associatePgn(gameIds) flatMap { pgns =>
+          analyser hasMany gameIds map { analysedIds =>
             val pairs = (pgns map {
-              case (id, pgn) ⇒ games.find(_.id == id) map (_ -> pgn)
+              case (id, pgn) => games.find(_.id == id) map (_ -> pgn)
             }).flatten
             es bulk_send {
               (pairs map {
-                case (game, moves) ⇒ es.index_prepare(
+                case (game, moves) => es.index_prepare(
                   IndexName,
                   TypeName,
                   game.id,

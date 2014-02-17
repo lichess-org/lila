@@ -31,29 +31,29 @@ final class Featured(
 
     def receive = {
 
-      case Get ⇒ oneId ?? $find.byId[Game] pipeTo sender
+      case Get => oneId ?? $find.byId[Game] pipeTo sender
 
-      case Set(game) ⇒ {
+      case Set(game) => {
         oneId = game.id.some
         bus.publish(actorApi.ChangeFeaturedGame(game), 'changeFeaturedGame)
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
-          case html: Html ⇒ lobbySocket ! actorApi.ChangeFeatured(html)
+          case html: Html => lobbySocket ! actorApi.ChangeFeatured(html)
         }
         GameRepo setTv game.id
       }
 
-      case Continue ⇒ {
+      case Continue => {
         oneId ?? $find.byId[Game] foreach {
-          case None                       ⇒ feature foreach elect
-          case Some(game) if !fresh(game) ⇒ wayBetter(game) orElse rematch(game) orElse featureIfOld(game) foreach elect
-          case _                          ⇒
+          case None                       => feature foreach elect
+          case Some(game) if !fresh(game) => wayBetter(game) orElse rematch(game) orElse featureIfOld(game) foreach elect
+          case _                          =>
         }
       }
 
-      case Disrupt ⇒ {
+      case Disrupt => {
         oneId ?? $find.byId[Game] foreach {
-          case Some(game) if fresh(game) ⇒ wayBetter(game) foreach elect
-          case _                         ⇒
+          case Some(game) if fresh(game) => wayBetter(game) foreach elect
+          case _                         =>
         }
       }
     }
@@ -65,8 +65,8 @@ final class Featured(
     def fresh(game: Game) = game.isBeingPlayed
 
     def wayBetter(game: Game): Fuog = feature map {
-      case Some(next) if isWayBetter(game, next) ⇒ next.some
-      case _                                     ⇒ none
+      case Some(next) if isWayBetter(game, next) => next.some
+      case _                                     => none
     }
 
     def isWayBetter(g1: Game, g2: Game) =
@@ -76,7 +76,7 @@ final class Featured(
 
     def featureIfOld(game: Game): Fuog = (game olderThan 7) ?? feature
 
-    def feature: Fuog = GameRepo.featuredCandidates map { games ⇒
+    def feature: Fuog = GameRepo.featuredCandidates map { games =>
       Featured.sort(games filter fresh).headOption
     } orElse GameRepo.random
   }))
@@ -95,11 +95,11 @@ object Featured {
 
   private[game] def score(game: Game): Int = math.round {
     (heuristics map {
-      case (fn, coefficient) ⇒ heuristicBox(fn(game)) * coefficient
+      case (fn, coefficient) => heuristicBox(fn(game)) * coefficient
     }).sum * 1000
   }
 
-  private type Heuristic = Game ⇒ Float
+  private type Heuristic = Game => Float
   private val heuristicBox = box(0 to 1) _
   private val ratingBox = box(1000 to 2600) _
   private val timeBox = box(60 to 360) _
@@ -111,13 +111,13 @@ object Featured {
     speedHeuristic -> 0.5f,
     progressHeuristic -> 1f)
 
-  private[game] def ratingHeuristic(color: Color): Heuristic = game ⇒
+  private[game] def ratingHeuristic(color: Color): Heuristic = game =>
     ratingBox(game.player(color).rating | 1100)
 
-  private[game] def speedHeuristic: Heuristic = game ⇒
+  private[game] def speedHeuristic: Heuristic = game =>
     1 - timeBox(game.estimateTotalTime)
 
-  private[game] def progressHeuristic: Heuristic = game ⇒
+  private[game] def progressHeuristic: Heuristic = game =>
     1 - turnBox(game.turns)
 
   // boxes and reduces to 0..1 range

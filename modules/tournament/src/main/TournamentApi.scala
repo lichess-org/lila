@@ -30,18 +30,18 @@ private[tournament] final class TournamentApi(
     roundMap: ActorRef) {
 
   def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): Funit =
-    (tour addPairings pairings) |> { tour2 ⇒
+    (tour addPairings pairings) |> { tour2 =>
       $update(tour2) >> (pairings map joiner(tour2)).sequence
     } map {
-      _.list foreach { game ⇒
-        game.tournamentId foreach { tid ⇒
+      _.list foreach { game =>
+        game.tournamentId foreach { tid =>
           sendTo(tid, StartGame(game))
         }
       }
     }
 
   def createTournament(setup: TournamentSetup, me: User): Fu[Created] =
-    TournamentRepo withdraw me.id flatMap { withdrawIds ⇒
+    TournamentRepo withdraw me.id flatMap { withdrawIds =>
       val created = Tournament.make(
         createdBy = me,
         clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
@@ -80,15 +80,15 @@ private[tournament] final class TournamentApi(
     $update(finished) >>-
       sendTo(started.id, ReloadPage) >>-
       reloadSiteSocket >>-
-      (pairingsToAbort foreach { pairing ⇒
+      (pairingsToAbort foreach { pairing =>
         roundMap ! Tell(pairing.gameId, AbortForce)
       }) >>
-      finished.players.filter(_.score > 0).map(p ⇒ UserRepo.incToints(p.id)(p.score)).sequenceFu inject finished
+      finished.players.filter(_.score > 0).map(p => UserRepo.incToints(p.id)(p.score)).sequenceFu inject finished
   }, fuccess(started))
 
   def join(tour: Created, me: User, password: Option[String]): Funit =
-    (tour.join(me, password)).future flatMap { tour2 ⇒
-      TournamentRepo withdraw me.id flatMap { withdrawIds ⇒
+    (tour.join(me, password)).future flatMap { tour2 =>
+      TournamentRepo withdraw me.id flatMap { withdrawIds =>
         $update(tour2) >>-
           sendTo(tour.id, Joining(me.id)) >>-
           ((tour.id :: withdrawIds) foreach socketReload) >>-
@@ -98,20 +98,20 @@ private[tournament] final class TournamentApi(
     }
 
   def withdraw(tour: Tournament, userId: String): Funit = tour match {
-    case created: Created ⇒ (created withdraw userId).fold(
-      err ⇒ fulogwarn(err.shows),
-      tour2 ⇒ $update(tour2) >>- socketReload(tour2.id) >>- reloadSiteSocket >>- lobbyReload
+    case created: Created => (created withdraw userId).fold(
+      err => fulogwarn(err.shows),
+      tour2 => $update(tour2) >>- socketReload(tour2.id) >>- reloadSiteSocket >>- lobbyReload
     )
-    case started: Started ⇒ (started withdraw userId).fold(
-      err ⇒ fufail(err.shows),
-      tour2 ⇒ $update(tour2) >>-
-        (tour2.userCurrentPov(userId) ?? { povRef ⇒
+    case started: Started => (started withdraw userId).fold(
+      err => fufail(err.shows),
+      tour2 => $update(tour2) >>-
+        (tour2.userCurrentPov(userId) ?? { povRef =>
           roundMap ! Tell(povRef.gameId, ResignColor(povRef.color))
         }) >>-
         socketReload(tour2.id) >>-
         reloadSiteSocket
     )
-    case finished: Finished ⇒ fufail("Cannot withdraw from finished tournament " + finished.id)
+    case finished: Finished => fufail("Cannot withdraw from finished tournament " + finished.id)
   }
 
   def finishGame(game: Game): Fu[Option[Tournament]] = for {
@@ -130,12 +130,12 @@ private[tournament] final class TournamentApi(
   private def userIdWhoLostOnTimeWithoutMoving(game: Game): Option[String] =
     game.playerWhoDidNotMove
       .flatMap(_.userId)
-      .filter(_ ⇒ List(chess.Status.Timeout, chess.Status.Outoftime) contains game.status)
+      .filter(_ => List(chess.Status.Timeout, chess.Status.Outoftime) contains game.status)
 
   private def lobbyReload {
-    TournamentRepo.created foreach { tours ⇒
+    TournamentRepo.created foreach { tours =>
       renderer ? TournamentTable(tours) map {
-        case view: play.api.templates.Html ⇒ ReloadTournaments(view.body)
+        case view: play.api.templates.Html => ReloadTournaments(view.body)
       } pipeToSelection lobby
     }
   }

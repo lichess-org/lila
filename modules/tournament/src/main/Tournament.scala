@@ -162,8 +162,8 @@ case class Started(
   def addPairings(ps: scalaz.NonEmptyList[Pairing]) =
     copy(pairings = ps.list ::: pairings)
 
-  def updatePairing(gameId: String, f: Pairing ⇒ Pairing) = copy(
-    pairings = pairings map { p ⇒ (p.gameId == gameId).fold(f(p), p) }
+  def updatePairing(gameId: String, f: Pairing => Pairing) = copy(
+    pairings = pairings map { p => (p.gameId == gameId).fold(f(p), p) }
   )
 
   def readyToFinish = (remainingSeconds == 0) || (nbActiveUsers < 2)
@@ -172,7 +172,7 @@ case class Started(
     ((finishedAt.getMillis - nowMillis) / 1000).toFloat
   )
 
-  def clockStatus = remainingSeconds.toInt |> { s ⇒
+  def clockStatus = remainingSeconds.toInt |> { s =>
     "%02d:%02d".format(s / 60, s % 60)
   }
 
@@ -181,9 +181,9 @@ case class Started(
   }.flatten.headOption
 
   def userCurrentPov(user: Option[User]): Option[PovRef] =
-    user.flatMap(u ⇒ userCurrentPov(u.id))
+    user.flatMap(u => userCurrentPov(u.id))
 
-  def finish = refreshPlayers |> { tour ⇒
+  def finish = refreshPlayers |> { tour =>
     Finished(
       id = tour.id,
       data = tour.data,
@@ -194,14 +194,14 @@ case class Started(
 
   def withdraw(userId: String): Valid[Started] = contains(userId).fold(
     withPlayers(players map {
-      case p if p is userId ⇒ p.doWithdraw
-      case p                ⇒ p
+      case p if p is userId => p.doWithdraw
+      case p                => p
     }).success,
     !!("User %s is not part of the tournament" format userId)
   )
 
   def quickLossStreak(user: String): Boolean = {
-    userPairings(user) takeWhile { pair ⇒ (pair lostBy user) && pair.quickLoss }
+    userPairings(user) takeWhile { pair => (pair lostBy user) && pair.quickLoss }
   }.size >= 3
 
   private def userPairings(user: String) = pairings filter (_ contains user)
@@ -232,13 +232,13 @@ object Tournament {
   import lila.db.JsTube
   import play.api.libs.json._
 
-  private def reader[T <: Tournament](decode: RawTournament ⇒ Option[T])(js: JsValue): JsResult[T] = ~(for {
+  private def reader[T <: Tournament](decode: RawTournament => Option[T])(js: JsValue): JsResult[T] = ~(for {
     obj ← js.asOpt[JsObject]
     rawTour ← RawTournament.tube.read(obj).asOpt
     tour ← decode(rawTour)
   } yield JsSuccess(tour): JsResult[T])
 
-  private lazy val writer = Writes[Tournament](tour ⇒
+  private lazy val writer = Writes[Tournament](tour =>
     RawTournament.tube.write(tour.encode) getOrElse JsUndefined("[db] Can't write tournament " + tour.id)
   )
 
@@ -325,9 +325,9 @@ private[tournament] case class RawTournament(
   private def decodePairings = pairings map (_.decode) flatten
 
   def any: Option[Tournament] = Status(status) flatMap {
-    case Status.Created  ⇒ created
-    case Status.Started  ⇒ started
-    case Status.Finished ⇒ finished
+    case Status.Created  => created
+    case Status.Started  => started
+    case Status.Finished => finished
   }
 }
 

@@ -13,12 +13,12 @@ import tube.{ userConfigTube, filterConfigTube }
 
 private[setup] object UserConfigRepo {
 
-  def update(user: User)(map: UserConfig ⇒ UserConfig): Funit =
-    config(user) flatMap { c ⇒ $save(map(c)) }
+  def update(user: User)(map: UserConfig => UserConfig): Funit =
+    config(user) flatMap { c => $save(map(c)) }
 
   def config(user: User): Fu[UserConfig] =
     $find byId user.id recover {
-      case e: LilaException ⇒ {
+      case e: LilaException => {
         logwarn("Can't load config: " + e.getMessage)
         none[UserConfig]
       }

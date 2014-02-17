@@ -27,12 +27,12 @@ private[tournament] object Player {
     username = user.username,
     rating = user.rating)
 
-  def refresh(tour: Tournament): Players = tour.players.map { player ⇒
+  def refresh(tour: Tournament): Players = tour.players.map { player =>
     tour.pairings
-      .filter(p ⇒ p.finished && (p contains player.id))
+      .filter(p => p.finished && (p contains player.id))
       .foldLeft(Builder(player))(_ + _.winner)
       .toPlayer
-  } sortBy { p ⇒
+  } sortBy { p =>
     p.withdraw.fold(Int.MaxValue, 0) - p.score
   }
 
@@ -46,7 +46,7 @@ private[tournament] object Player {
       prevWin: Boolean = false) {
 
     def +(winner: Option[String]) = {
-      val (win, loss): Pair[Boolean, Boolean] = winner.fold(false -> false) { w ⇒
+      val (win, loss): Pair[Boolean, Boolean] = winner.fold(false -> false) { w =>
         if (w == player.id) true -> false else false -> true
       }
       val newWinSeq = if (win) prevWin.fold(winSeq + 1, 1) else 0

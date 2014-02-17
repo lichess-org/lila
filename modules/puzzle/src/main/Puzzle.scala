@@ -22,7 +22,7 @@ case class Puzzle(
     wins: Int,
     time: Int) {
 
-  def withVote(f: Vote ⇒ Vote) = copy(vote = f(vote))
+  def withVote(f: Vote => Vote) = copy(vote = f(vote))
 
   def winPercent = if (attempts == 0) 0 else wins * 100 / attempts
 
@@ -59,23 +59,23 @@ object Puzzle {
   import BSON.BSONJodaDateTimeHandler
   private implicit val lineBSONHandler = new BSONHandler[BSONDocument, Lines] {
     private def readMove(move: String) = chess.Pos.doublePiotrToKey(move take 2) match {
-      case Some(m) ⇒ s"$m${move drop 2}"
-      case _       ⇒ sys error s"Invalid piotr move notation: $move"
+      case Some(m) => s"$m${move drop 2}"
+      case _       => sys error s"Invalid piotr move notation: $move"
     }
     def read(doc: BSONDocument): Lines = doc.elements.toList map {
-      case (move, BSONBoolean(true))  ⇒ Win(readMove(move))
-      case (move, BSONBoolean(false)) ⇒ Retry(readMove(move))
-      case (move, more: BSONDocument) ⇒ Node(readMove(move), read(more))
-      case (move, value)              ⇒ throw new Exception(s"Can't read value of $move: $value")
+      case (move, BSONBoolean(true))  => Win(readMove(move))
+      case (move, BSONBoolean(false)) => Retry(readMove(move))
+      case (move, more: BSONDocument) => Node(readMove(move), read(more))
+      case (move, value)              => throw new Exception(s"Can't read value of $move: $value")
     }
     private def writeMove(move: String) = chess.Pos.doubleKeyToPiotr(move take 4) match {
-      case Some(m) ⇒ s"$m${move drop 4}"
-      case _       ⇒ sys error s"Invalid move notation: $move"
+      case Some(m) => s"$m${move drop 4}"
+      case _       => sys error s"Invalid move notation: $move"
     }
     def write(lines: Lines): BSONDocument = BSONDocument(lines map {
-      case Win(move)         ⇒ writeMove(move) -> BSONBoolean(true)
-      case Retry(move)       ⇒ writeMove(move) -> BSONBoolean(false)
-      case Node(move, lines) ⇒ writeMove(move) -> write(lines)
+      case Win(move)         => writeMove(move) -> BSONBoolean(true)
+      case Retry(move)       => writeMove(move) -> BSONBoolean(false)
+      case Node(move, lines) => writeMove(move) -> write(lines)
     })
   }
 

@@ -3,7 +3,7 @@ package lila.socket
 import scala.concurrent.duration._
 import scala.util.Random
 
-import akka.actor.{ Deploy ⇒ _, _ }
+import akka.actor.{ Deploy => _, _ }
 import play.api.libs.json._
 
 import actorApi._
@@ -32,30 +32,30 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)                    ⇒ ping(uid)
+    case Ping(uid)                    => ping(uid)
 
-    case Broom                        ⇒ broom
+    case Broom                        => broom
 
     // when a member quits
-    case Quit(uid)                    ⇒ quit(uid)
+    case Quit(uid)                    => quit(uid)
 
-    case NbMembers(nb)                ⇒ pong = makePong(nb)
+    case NbMembers(nb)                => pong = makePong(nb)
 
-    case WithUserIds(f)               ⇒ f(userIds)
+    case WithUserIds(f)               => f(userIds)
 
-    case GetUids                      ⇒ sender ! uids
+    case GetUids                      => sender ! uids
 
-    case LiveGames(uid, gameIds)      ⇒ registerLiveGames(uid, gameIds)
+    case LiveGames(uid, gameIds)      => registerLiveGames(uid, gameIds)
 
-    case move: MoveEvent              ⇒ notifyMove(move)
+    case move: MoveEvent              => notifyMove(move)
 
-    case SendTo(userId, msg)          ⇒ sendTo(userId, msg)
+    case SendTo(userId, msg)          => sendTo(userId, msg)
 
-    case SendTos(userIds, msg)        ⇒ sendTos(userIds, msg)
+    case SendTos(userIds, msg)        => sendTos(userIds, msg)
 
-    case Resync(uid)                  ⇒ resync(uid)
+    case Resync(uid)                  => resync(uid)
 
-    case Deploy(event, html)          ⇒ notifyAll(makeMessage(event.key, html))
+    case Deploy(event, html)          => notifyAll(makeMessage(event.key, html))
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -96,7 +96,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   def eject(uid: String) {
-    withMember(uid) { member ⇒
+    withMember(uid) { member =>
       member.channel.end()
       quit(uid)
     }
@@ -141,7 +141,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     members.values find (_.userId == Some(userId))
 
   def membersByUserIds(userIds: Set[String]): Iterable[M] =
-    members.values filter (member ⇒ member.userId ?? userIds.contains)
+    members.values filter (member => member.userId ?? userIds.contains)
 
   def userIds: Iterable[String] = members.values.map(_.userId).flatten
 
@@ -151,21 +151,21 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
       "fen" -> move.fen,
       "lm" -> move.move
     ))
-    members.values foreach { m ⇒
+    members.values foreach { m =>
       if (m liveGames move.gameId) m.channel push msg
     }
   }
 
   def showSpectators(users: List[String], nbAnons: Int) = nbAnons match {
-    case 0 ⇒ users
-    case x ⇒ users :+ ("Anonymous (%d)" format x)
+    case 0 => users
+    case x => users :+ ("Anonymous (%d)" format x)
   }
 
   def registerLiveGames(uid: String, ids: List[String]) {
     withMember(uid)(_ addLiveGames ids)
   }
 
-  def withMember(uid: String)(f: M ⇒ Unit) {
+  def withMember(uid: String)(f: M => Unit) {
     members get uid foreach f
   }
 }

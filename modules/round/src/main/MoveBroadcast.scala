@@ -13,7 +13,7 @@ private final class MoveBroadcast extends Actor {
     context.system.lilaBus.unsubscribe(self)
   }
 
-  val format = Enumeratee.map[MoveEvent] { move ⇒
+  val format = Enumeratee.map[MoveEvent] { move =>
     s"${move.gameId} ${move.move}${move.meta} ${move.ip}"
   }
 
@@ -24,9 +24,9 @@ private final class MoveBroadcast extends Actor {
 
   def receive = {
 
-    case MoveBroadcast.GetEnumerator ⇒ sender ! formattedEnumerator
+    case MoveBroadcast.GetEnumerator => sender ! formattedEnumerator
 
-    case move: MoveEvent             ⇒ channel push move
+    case move: MoveEvent             => channel push move
   }
 }
 

@@ -16,9 +16,9 @@ private[tournament] final class Reminder(
 
   def receive = {
 
-    case RemindTournaments(tours) ⇒ tours foreach { tour ⇒
+    case RemindTournaments(tours) => tours foreach { tour =>
       renderer ? RemindTournament(tour) foreach {
-        case html: Html ⇒ {
+        case html: Html => {
           val event = SendTos(tour.activeUserIds.toSet, Json.obj(
             "t" -> "tournamentReminder",
             "d" -> Json.obj(

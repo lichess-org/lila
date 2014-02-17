@@ -8,7 +8,7 @@ import lila.db.api._
 import lila.game.actorApi.FinishGame
 import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Pov, Event }
-import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
+import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo }
 
@@ -19,7 +19,7 @@ private[round] final class Finisher(
 
   def apply(
     game: Game,
-    status: Status.type ⇒ Status,
+    status: Status.type => Status,
     winner: Option[Color] = None,
     message: Option[SelectI18nKey] = None): Fu[Events] = {
     val prog = game.finish(status(Status), winner)
@@ -29,7 +29,7 @@ private[round] final class Finisher(
       UserRepo.pair(
         g.player(White).userId,
         g.player(Black).userId).flatMap {
-          case (whiteO, blackO) ⇒ {
+          case (whiteO, blackO) => {
             val finish = FinishGame(g, whiteO, blackO)
             updateCountAndPerfs(finish) inject {
               message foreach { messenger.system(g, _) }
@@ -42,7 +42,7 @@ private[round] final class Finisher(
 
   private def updateCountAndPerfs(finish: FinishGame): Funit =
     (finish.white |@| finish.black).tupled ?? {
-      case (white, black) ⇒ perfsUpdater.save(finish.game, white, black)
+      case (white, black) => perfsUpdater.save(finish.game, white, black)
     } zip
       (finish.white ?? incNbGames(finish.game)) zip
       (finish.black ?? incNbGames(finish.game)) void

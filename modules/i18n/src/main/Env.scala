@@ -61,7 +61,7 @@ final class Env(
     keys = keys,
     captcher = captcher)
 
-  def upstreamFetch = new UpstreamFetch(id ⇒ UpstreamUrlPattern format id)
+  def upstreamFetch = new UpstreamFetch(id => UpstreamUrlPattern format id)
 
   lazy val gitWrite = new GitWrite(
     transRelPath = FilePathRelative,
@@ -75,16 +75,16 @@ final class Env(
 
   def jsonFromVersion(v: Int): Fu[JsValue] = {
     import tube.translationTube
-    TranslationRepo findFrom v map { ts ⇒ Json toJson ts }
+    TranslationRepo findFrom v map { ts => Json toJson ts }
   }
 
   def cli = new lila.common.Cli {
     def process = {
-      case "i18n" :: "fetch" :: from :: Nil ⇒
+      case "i18n" :: "fetch" :: from :: Nil =>
         upstreamFetch(from) flatMap gitWrite.apply inject "Fetched translations from upstream"
-      case "i18n" :: "js" :: "dump" :: Nil ⇒
+      case "i18n" :: "js" :: "dump" :: Nil =>
         jsDump.apply inject "Dumped JavaScript translations"
-      case "i18n" :: "file" :: "fix" :: Nil ⇒
+      case "i18n" :: "file" :: "fix" :: Nil =>
         fileFix.apply inject "Fixed translation files"
     }
   }

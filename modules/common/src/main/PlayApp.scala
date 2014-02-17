@@ -9,10 +9,10 @@ object PlayApp {
 
   def loadConfig(prefix: String): Config = loadConfig getConfig prefix
 
-  def withApp[A](op: Application ⇒ A): A =
+  def withApp[A](op: Application => A): A =
     Play.maybeApplication map op err "Play application is not started!"
 
-  def system = withApp { implicit app ⇒
+  def system = withApp { implicit app =>
     play.api.libs.concurrent.Akka.system
   }
 
@@ -26,5 +26,5 @@ object PlayApp {
   def isTest = isMode(_.Test)
   def isProd = isMode(_.Prod)
   def isServer = !isTest
-  def isMode(f: Mode.type ⇒ Mode.Mode) = withApp { _.mode == f(Mode) }
+  def isMode(f: Mode.type => Mode.Mode) = withApp { _.mode == f(Mode) }
 }

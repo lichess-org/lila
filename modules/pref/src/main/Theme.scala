@@ -12,12 +12,12 @@ sealed class Theme private (val name: String) {
 object Theme {
 
   val all = NonEmptyList("brown", "blue", "green", "grey", "wood", "canvas") map {
-    case name ⇒ new Theme(name)
+    case name => new Theme(name)
   }
 
   val list = all.list
 
-  val allByName = list map { c ⇒ c.name -> c } toMap
+  val allByName = list map { c => c.name -> c } toMap
 
   val default = all.head
 

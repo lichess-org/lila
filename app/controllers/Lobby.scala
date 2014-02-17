@@ -12,19 +12,19 @@ import views._
 
 object Lobby extends LilaController {
 
-  def home = Open { implicit ctx ⇒
+  def home = Open { implicit ctx =>
     ctx.me match {
-      case Some(u) if u.artificial ⇒ fuccess {
+      case Some(u) if u.artificial => fuccess {
         views.html.auth.artificialPassword(u, Env.security.forms.newPassword)
       }
-      case _ ⇒ renderHome(Results.Ok).map(_.withHeaders(
+      case _ => renderHome(Results.Ok).map(_.withHeaders(
         CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
       ))
     }
   }
 
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[SimpleResult] =
-    reqToCtx(req) flatMap { ctx ⇒ renderHome(status)(ctx) }
+    reqToCtx(req) flatMap { ctx => renderHome(status)(ctx) }
 
   def renderHome[A](status: Results.Status)(implicit ctx: Context): Fu[SimpleResult] =
     Env.current.preloader(
@@ -32,23 +32,23 @@ object Lobby extends LilaController {
       tours = TournamentRepo.createdUnprotected,
       filter = Env.setup.filter
     ).map(_.fold(Redirect(_), {
-        case (preload, entries, posts, tours, featured, leaderboard, progress) ⇒ status(html.lobby.home(
+        case (preload, entries, posts, tours, featured, leaderboard, progress) => status(html.lobby.home(
           Json stringify preload, entries, posts, tours, featured, leaderboard, progress))
       }))
 
-  def socket = Socket[JsValue] { implicit ctx ⇒
-    get("sri") ?? { uid ⇒
+  def socket = Socket[JsValue] { implicit ctx =>
+    get("sri") ?? { uid =>
       Env.lobby.socketHandler(uid = uid, user = ctx.me)
     }
   }
 
-  def timeline = Auth { implicit ctx ⇒
-    me ⇒
+  def timeline = Auth { implicit ctx =>
+    me =>
       Env.timeline.getter.userEntries(me.id) map { html.timeline.entries(_) }
   }
 
-  def timelineMore = Auth { implicit ctx ⇒
-    me ⇒
+  def timelineMore = Auth { implicit ctx =>
+    me =>
       Env.timeline.getter.moreUserEntries(me.id) map { html.timeline.more(_) }
   }
 }

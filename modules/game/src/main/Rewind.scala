@@ -1,18 +1,18 @@
 package lila.game
 
-import chess.format.{ pgn ⇒ chessPgn }
+import chess.format.{ pgn => chessPgn }
 import chess.Status
 
 object Rewind {
 
   def apply(game: Game, initialFen: Option[String]): Valid[Progress] = chessPgn.Reader.withSans(
     pgn = game.pgnMoves mkString " ",
-    op = sans ⇒ sans.isEmpty.fold(sans, sans.init),
-    tags = initialFen.??(fen ⇒ List(
+    op = sans => sans.isEmpty.fold(sans, sans.init),
+    tags = initialFen.??(fen => List(
       chessPgn.Tag(_.FEN, fen),
       chessPgn.Tag(_.Variant, game.variant.name)
     ))
-  ) map { replay ⇒
+  ) map { replay =>
       val rewindedGame = replay.state
       val rewindedHistory = rewindedGame.board.history
       val rewindedSituation = rewindedGame.situation

@@ -11,17 +11,17 @@ case class Modlog(
     date: DateTime = DateTime.now) {
 
   def showAction = action match {
-    case Modlog.engine        ⇒ "mark as engine"
-    case Modlog.unengine      ⇒ "un-mark as engine"
-    case Modlog.deletePost    ⇒ "delete forum post"
-    case Modlog.ban           ⇒ "ban user"
-    case Modlog.ipban         ⇒ "ban IPs"
-    case Modlog.ipunban       ⇒ "unban IPs"
-    case Modlog.closeAccount  ⇒ "close account"
-    case Modlog.reopenAccount ⇒ "reopen account"
-    case Modlog.openTopic     ⇒ "reopen topic"
-    case Modlog.closeTopic    ⇒ "close topic"
-    case a                    ⇒ a
+    case Modlog.engine        => "mark as engine"
+    case Modlog.unengine      => "un-mark as engine"
+    case Modlog.deletePost    => "delete forum post"
+    case Modlog.ban           => "ban user"
+    case Modlog.ipban         => "ban IPs"
+    case Modlog.ipunban       => "unban IPs"
+    case Modlog.closeAccount  => "close account"
+    case Modlog.reopenAccount => "reopen account"
+    case Modlog.openTopic     => "reopen topic"
+    case Modlog.closeTopic    => "close topic"
+    case a                    => a
   }
 }
 

@@ -29,7 +29,7 @@ object Member {
     ip: String): Member = {
     val userId = user map (_.id)
     val troll = user.??(_.troll)
-    playerIdOption.fold[Member](Watcher(channel, userId, color, troll, ip)) { playerId ⇒
+    playerIdOption.fold[Member](Watcher(channel, userId, color, troll, ip)) { playerId =>
       Owner(channel, userId, playerId, color, troll, ip)
     }
   }
@@ -79,7 +79,7 @@ package round {
     prom: Option[String],
     blur: Boolean,
     lag: FiniteDuration,
-    onFailure: Exception ⇒ Unit)
+    onFailure: Exception => Unit)
   case object AiPlay
 
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])

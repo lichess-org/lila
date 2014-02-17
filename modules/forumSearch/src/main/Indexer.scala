@@ -5,7 +5,7 @@ import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
 
 import lila.forum.actorApi._
 import lila.forum.PostApi
-import lila.search.{ actorApi ⇒ S }
+import lila.search.{ actorApi => S }
 
 private[forumSearch] final class Indexer(
     lowLevel: ActorRef,
@@ -13,15 +13,15 @@ private[forumSearch] final class Indexer(
 
   def receive = {
 
-    case InsertPost(post) ⇒ postApi liteView post foreach {
-      _ foreach { view ⇒
+    case InsertPost(post) => postApi liteView post foreach {
+      _ foreach { view =>
         lowLevel ! S.InsertOne(post.id, Post from view)
       }
     }
 
-    case RemovePost(id) ⇒ lowLevel ! S.RemoveOne(id)
+    case RemovePost(id) => lowLevel ! S.RemoveOne(id)
 
-    case RemoveTopic(id) ⇒ lowLevel ! S.RemoveQuery(
+    case RemoveTopic(id) => lowLevel ! S.RemoveQuery(
       termQuery(Post.fields.topicId, id)
     )
   }

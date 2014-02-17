@@ -10,8 +10,8 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    getOnlineUserIds: () ⇒ Set[String],
-    getUsername: String ⇒ Fu[String],
+    getOnlineUserIds: () => Set[String],
+    getUsername: String => Fu[String],
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
@@ -62,7 +62,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "relation",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    getOnlineUserIds = () ⇒ lila.user.Env.current.onlineUserIdMemo.keySet,
+    getOnlineUserIds = () => lila.user.Env.current.onlineUserIdMemo.keySet,
     getUsername = lila.user.Env.current.usernameOrAnonymous,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)

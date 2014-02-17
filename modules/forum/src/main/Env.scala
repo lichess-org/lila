@@ -48,9 +48,9 @@ final class Env(
   def cli = new lila.common.Cli {
     import tube._
     def process = {
-      case "forum" :: "denormalize" :: Nil ⇒
+      case "forum" :: "denormalize" :: Nil =>
         topicApi.denormalize >> categApi.denormalize inject "Forum denormalized"
-      case "forum" :: "typecheck" :: Nil ⇒
+      case "forum" :: "typecheck" :: Nil =>
         lila.db.Typecheck.apply[Categ] >>
           lila.db.Typecheck.apply[Topic] >>
           lila.db.Typecheck.apply[Post]
@@ -59,7 +59,7 @@ final class Env(
 
   system.actorOf(Props(new Actor {
     def receive = {
-      case MakeTeam(id, name) ⇒ categApi.makeTeam(id, name)
+      case MakeTeam(id, name) => categApi.makeTeam(id, name)
     }
   }), name = ActorName)
 

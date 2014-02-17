@@ -21,5 +21,5 @@ private[user] final class Ranking(ttl: Duration) {
       UserRepo.enabledSelect ++ Json.obj("rating" -> $gt(Glicko.default.intRating)),
       "_id",
       _ sort UserRepo.sortRatingDesc
-    )(_.asOpt[String]) map { _.zipWithIndex.map(x ⇒ x._1 -> (x._2 + 1)).toMap }
+    )(_.asOpt[String]) map { _.zipWithIndex.map(x => x._1 -> (x._2 + 1)).toMap }
 }
