@@ -32,8 +32,15 @@ object Lobby extends LilaController {
       tours = TournamentRepo.createdUnprotected,
       filter = Env.setup.filter
     ).map(_.fold(Redirect(_), {
-        case (preload, entries, posts, tours, featured, leaderboard, progress) => status(html.lobby.home(
-          Json stringify preload, entries, posts, tours, featured, leaderboard, progress))
+        case (preload, entries, posts, tours, featured, leaderboard, progress) =>
+          val response = status(html.lobby.home(
+            Json stringify preload, entries, posts, tours, featured, leaderboard, progress
+          ))
+          // the session cookie is required for anon lobby filter storage
+          ctx.req.session.data.contains(LilaCookie.sessionId).fold(
+            response,
+            response withCookies LilaCookie.makeSessionId(ctx.req)
+          )
       }))
 
   def socket = Socket[JsValue] { implicit ctx =>
