@@ -63,7 +63,9 @@
     </div>
     }
     <div class="box">
+      @if(ctx.isAuth) {
       <div class="vote_wrap">@vote(puzzle, attempt)</div>
+      }
       <h2 class="puzzle_link">
         <a href="@routes.Puzzle.show(puzzle.id)">Puzzle @puzzle.id</a>
       </h2>
