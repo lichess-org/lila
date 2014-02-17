@@ -7,13 +7,11 @@
   @gameFen(g, firstPlayer.color, ownerLink)
   <div class="infos">
     @bookmark.toggle(g)
-    <b>
-      @if(g.isBeingPlayed) {
-      <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)" data-icon="v"> @trans.playingRightNow()</a>,
-      } else {
-      @timeago(g.createdAt)
-      }
-    </b>-
+    @if(g.isBeingPlayed) {
+    <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)" data-icon="v"> @trans.playingRightNow()</a>,
+    } else {
+    @timeago(g.createdAt)
+    }
     @if(g.finishedOrAborted) {
     @gameEndStatus(g)
     @g.winner.map { winner =>
@@ -46,12 +44,7 @@
     </table>
     <br />
     @g.clock.map { c =>
-    <span data-icon="p">
-      @if(!mini) {
-      @trans.timeControl():
-      }
-      @clockName(c)
-    </span>
+    <span data-icon="p"> @clockName(c)</span>
     <br /><br />
     }
     @g.tournamentId.map { tourId =>

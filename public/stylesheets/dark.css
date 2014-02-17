@@ -1,11 +1,11 @@
 body.dark {
   background: #1a1a1a;
-  background-image: -moz-linear-gradient(top, #303030 0%, #1a1a1a 6%);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #303030), color-stop(6%, #1a1a1a));
-  background-image: -webkit-linear-gradient(top, #303030 0%, #1a1a1a 6%);
-  background-image: -o-linear-gradient(top, #303030 0%, #1a1a1a 6%);
-  background-image: -ms-linear-gradient(top, #303030 0%, #1a1a1a 6%);
-  background-image: linear-gradient(to bottom, #303030 0%, #1a1a1a 6%);
+  background-image: -moz-linear-gradient(top, #303030 0%, #1a1a1a 116px);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #303030), color-stop(116px, #1a1a1a));
+  background-image: -webkit-linear-gradient(top, #303030 0%, #1a1a1a 116px);
+  background-image: -o-linear-gradient(top, #303030 0%, #1a1a1a 116px);
+  background-image: -ms-linear-gradient(top, #303030 0%, #1a1a1a 116px);
+  background-image: linear-gradient(to bottom, #303030 0%, #1a1a1a 116px);
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#303030', endColorstr='#1a1a1a', GradientType=0);
   color: #8a8a8a;
 }
@@ -51,8 +51,6 @@ body.dark #tournament_side,
 body.dark #GameBoard,
 body.dark div.shortcuts .title,
 body.dark div.content_box,
-body.dark div.content_box_top,
-body.dark div.content_box_top a,
 body.dark div.content_box_inter,
 body.dark div.content_box_inter a.active,
 body.dark #site_header div.side_menu a.active,
@@ -136,25 +134,14 @@ body.dark #timeline a,
 body.dark #site_baseline,
 body.dark div.lichess_chat span,
 body.dark div.lichess_chat a.user_link,
-body.dark div.lichess_chat a.user_link,
-body.dark div.new_posts li span,
+body.dark div.undertable a.user_link,
+body.dark #timeline a.user_link,
 body.dark #team .forum a.user_link,
 body.dark span.board_mark,
 body.dark div.user_show div.content_box_top > span,
-body.dark #timeline time,
 body.dark span.progress > .zero,
 body.dark div.undertable_top span.title {
   color: #777;
-}
-body.dark span.progress > .negative {
-  color: #C04444;
-}
-body.dark span.progress > .positive {
-  color: #308030;
-}
-body.dark #site_title span.extension,
-body.dark div.sub_ratings h3 {
-  color: #606060;
 }
 body.dark #GameText a:hover,
 body.dark #hooks_wrap a.filter:hover,
@@ -210,6 +197,7 @@ body.dark div.lichess_table_not_started {
 }
 body.dark div.content_box,
 body.dark div.content_box_inter a.active,
+body.dark #site_header div.side_menu a.active,
 body.dark #GameText,
 body.dark #tournament_side,
 body.dark table.translations tbody tr,
@@ -217,8 +205,8 @@ body.dark form.translation_form div.message,
 body.dark div.content_box_inter a.intertab:hover {
   background: #2b2b2b;
 }
-body.dark #site_header div.side_menu a.active {
-  background: #2b2b2b;
+body.dark #site_header div.side_menu a.active,
+body.dark div.content_box h1 {
   text-shadow: 0px 1px 0px #000;
 }
 body.dark div.game_row:nth-child(odd),
@@ -248,7 +236,6 @@ body.dark #lichess_forum div.post .message,
 body.dark #lichess_message div.thread_message div.thread_message_body,
 body.dark #GameText .move,
 body.dark form.translation_form div.message label,
-body.dark div.content_box h1,
 body.dark div.user_show div.content_box_top > span strong {
   color: #b0b0b0;
 }
@@ -315,6 +302,13 @@ body.dark div.lichess_table_wrap div.clock.outoftime {
   background-color: #a00000;
   color: #d0d0d0;
 }
+
+body.dark div.content_box_top {
+  background-color: #343434;
+  background-image: linear-gradient(to bottom, #3a3a3a 0%, #343434 100%);
+  text-shadow: 0px 1px 0px #000;
+}
+
 /* soft inactive gradient */
 
 body.dark #top a.signin,
@@ -324,7 +318,6 @@ body.dark div.undertable_top,
 body.dark .button,
 body.dark .button:visited,
 body.dark .ui-state-default,
-body.dark div.content_box_top,
 body.dark #translation_call,
 body.dark #notifications > div,
 body.dark div.locale_menu a,

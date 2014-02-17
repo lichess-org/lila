@@ -77,7 +77,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
       <div id="nb_connected_players" class="nb_connected_players">
         @trans.nbConnectedPlayers("<strong>?</strong>")
       </div>
-      <a id="reconnecting" onclick="location.reload();">@trans.reconnecting()</a>
+      <a id="reconnecting" onclick="location.reload();" data-icon="B"> @trans.reconnecting()</a>
       <a href="@routes.Pref.set("bg")" title="@trans.toggleBackground()" class="bgpicker">
         <span class="is2" data-icon="l"> </span>
       </a>
