@@ -125,6 +125,11 @@ double click style in chessboardjs
 darker light theme top bars
 light button border contrast
 identic puzzles http://en.lichess.org/training/8635 http://en.lichess.org/training/8634
+anon filter regression http://en.lichess.org/forum/general-chess-discussion/game-filter-reverts-to-default-after-game#3
+
+deploy
+------
+drop puzzle fen index
 
 infra
 -------
