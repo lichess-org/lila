@@ -9,7 +9,7 @@
   @game.tournamentId.map { tourId =>
   <a 
     class="button @tour.fold(false)(_.isRunning).fold("strong", "") view_tournament" 
-    href="@routes.Tournament.show(tourId)">Back to Tournament</a>
+    href="@routes.Tournament.show(tourId)" data-icon="G"> Back to Tournament</a>
   }.getOrElse {
   @if(opponent.isHuman) {
   <div class="lichess_separator"></div>
