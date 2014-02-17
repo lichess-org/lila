@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import play.api.libs.iteratee.Enumerator
 import play.api.libs.json._
-import reactivemongo.bson.{ BSONDocument, BSONInteger }
+import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex }
 import reactivemongo.core.commands.Count
 
 import lila.db.Types.Coll
@@ -46,8 +46,15 @@ private[puzzle] final class PuzzleApi(
     def insertPuzzles(puzzles: List[PuzzleId => Puzzle]): Fu[List[PuzzleId]] = puzzles match {
       case Nil => fuccess(Nil)
       case puzzle :: rest => findNextId flatMap { id =>
-        (puzzleColl insert puzzle(id)) >> {
-          insertPuzzles(rest) map (id :: _)
+        val p = puzzle(id)
+        val fenStart = p.fen.split(' ').take(2).mkString(" ")
+        puzzleColl.db command Count(puzzleColl.name, BSONDocument(
+          "fen" -> BSONRegex(fenStart.replace("/", "\\/"), "")
+        ).some) flatMap {
+          case 0 => (puzzleColl insert p) >> {
+            insertPuzzles(rest) map (id :: _)
+          }
+          case _ => insertPuzzles(rest)
         }
       }
     }
