@@ -124,12 +124,10 @@ button {
 .ui-button-text-only .ui-button-text {
   padding: .4em 1em;
 }
-/*button sets*/
-
 div.ui-buttonset {
   margin-left: -0.4em;
 }
-.ui-buttonset .ui-button {
+div.ui-buttonset .ui-button {
   margin-right: -.4em;
 }
 ul.ui-autocomplete {
@@ -1074,7 +1072,7 @@ a.button,
 .ui-widget-content {
   border-style: solid;
   border-width: 1px;
-  border-color: #e5e5e5;
+  border-color: #e2e2e2;
 }
 .button,
 a.button,
@@ -1087,7 +1085,7 @@ a.button,
 a.button:hover,
 .ui-state-hover {
   background-color: #F1F1F1;
-  border-color: #e1e1e1;
+  border-color: #dedede;
   background-image: linear-gradient(to bottom, #F5F5F5 0%, #F1F1F1 100%);
 }
 .button:active,
@@ -1691,16 +1689,6 @@ div.game_config div.color_submits button.random span {
 #hook .color.black {
   background-position: 0 -256px;
 }
-#hook .engine {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  display: block;
-  width: 16px;
-  height: 16px;
-  background: red url(../images/engine_small.png) top left no-repeat;
-  border-radius: 8px 0 3px 0;
-}
 div.undertable {
   width: 514px;
   font-size: 11.5px;
@@ -1722,7 +1710,6 @@ div.undertable_top a.more {
 div.undertable_top span.title {
   font-weight: bold;
   color: #999;
-  padding-left: 4px;
 }
 div.undertable_inner {
   border: 1px solid #ccc;

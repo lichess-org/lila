@@ -593,7 +593,7 @@ div.replay_and_analyse a {
 #GameBoard td.highlightWhiteSquare,
 #GameBoard td.highlightBlackSquare,
 div.lcs.moved div.lcsi {
-  box-shadow: inset 0 0 2px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 7px 3px rgba(0, 0, 0, 0.4);
 }
 #chessboard div.check,
 div.lcs.check div.lcsi {
@@ -613,5 +613,5 @@ div.lcs.droppable-hover div.lcsi,
 div.lichess_board div.lcs.selected div.lcsi,
 div.lichess_board div.lcs.selectable div.lcsi,
 #GameBoard td img.bestmove {
-  box-shadow: inset 0 0 0px 3px rgba(216, 85, 0, 1);
+  box-shadow: inset 0 0 10px 2px rgba(216, 85, 0, 0.9);
 }
