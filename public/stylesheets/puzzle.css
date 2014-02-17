@@ -124,20 +124,20 @@
   display: none;
 }
 #puzzle .prev_next {
-  margin-top: 10px;
   text-align: center;
 }
 #puzzle .prev_next button {
   font-size: 2em;
   font-weight: bold;
   padding: 5px 30px;
-  margin: 15px 5px 0 5px;
+  margin: 0 5px;
 }
 #puzzle .prev_next button:disabled {
   color: transparent;
 }
 #chessboard_wrap {
   position: relative;
+  margin-bottom: 25px;
 }
 #chessboard_wrap span.board_mark.vert {
   right: -11px;
