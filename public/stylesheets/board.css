@@ -533,6 +533,7 @@ div.lichess_chat.hidden form {
 }
 div.game_tournament {
   text-align: center;
+  line-height: 2em;
 }
 div.game_tournament .title {
   display: block;
