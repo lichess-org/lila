@@ -2,8 +2,8 @@
 
 @user.layout(title = u.username + " - " + trans.nbFollowers(users.size)) {
 <div class="content_box no_padding">
-  <h1>
-    @userLink(u, withOnline = false) 
+  <h1 data-icon="r">
+    @userLink(u, withOnline = false)
     @trans.nbFollowers(users.size)
     &amp;
     <a href="@routes.Relation.following(u.username)">@trans.nbFollowing(nbFollowing(u.id))</a>

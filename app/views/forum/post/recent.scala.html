@@ -3,6 +3,6 @@
 <li>
   <a @if(v.post.isTeam) { data-icon="f" } class="post_link" href="@routes.ForumPost.redirect(v.post.id)"> @shorten(v.topic.name, 30)</a>
   <span>@authorLink(v.post, withOnline = false)</span>
-  @shorten(v.post.text, 70)
+  <span class="extract">@shorten(v.post.text, 70)</span>
 </li>
 }
