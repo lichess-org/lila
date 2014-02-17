@@ -28,7 +28,7 @@ private[simulation] final class Simulator(
 
   def receive = {
 
-    case Start ⇒ {
+    case Start => {
       println("----------------- start simulation --------------------")
       self ! Spawn.Player
       delay(2 second) {
@@ -36,7 +36,7 @@ private[simulation] final class Simulator(
       }
     }
 
-    case Spawn.Player ⇒ (players.size < config.players) ! {
+    case Spawn.Player => (players.size < config.players) ! {
       val n = s"P-${nameIterator.next}"
       val player = context.actorOf(Props(mkPlayer(n)), name = n)
       players += player
@@ -44,7 +44,7 @@ private[simulation] final class Simulator(
       context.system.scheduler.scheduleOnce(0.07 second, self, Spawn.Player)
     }
 
-    case Spawn.Watcher ⇒ (watchers.size < config.watchers) ! {
+    case Spawn.Watcher => (watchers.size < config.watchers) ! {
       val n = s"W-${nameIterator.next}"
       val watcher = context.actorOf(Props(mkWatcher(n)), name = n)
       watchers += watcher

@@ -7,15 +7,15 @@ import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
 import lila.game.Game
-import lila.game.Game.{ BSONFields ⇒ G }
+import lila.game.Game.{ BSONFields => G }
 import lila.game.tube.gameTube
-import lila.hub.actorApi.{ router ⇒ R }
+import lila.hub.actorApi.{ router => R }
 import makeTimeout.short
 
 private[api] final class GameApi(
-    makeUrl: Any ⇒ Fu[String],
+    makeUrl: Any => Fu[String],
     apiToken: String,
-    isOnline: String ⇒ Boolean) {
+    isOnline: String => Boolean) {
 
   private def makeNb(nb: Option[Int]) = math.min(100, nb | 10)
 
@@ -26,15 +26,15 @@ private[api] final class GameApi(
     nb: Option[Int]): Fu[JsObject] = $find($query(Json.obj(
     G.playerUids -> username,
     G.rated -> rated.map(_.fold(JsBoolean(true), $exists(false)))
-  ).noNull) sort lila.game.Query.sortCreated, makeNb(nb)) flatMap { games ⇒
-    (games map { g ⇒
+  ).noNull) sort lila.game.Query.sortCreated, makeNb(nb)) flatMap { games =>
+    (games map { g =>
       makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) zip (AnalysisRepo doneById g.id)
-    }).sequenceFu map { data ⇒
+    }).sequenceFu map { data =>
       val validToken = check(token)
       Json.obj(
         "list" -> JsArray(
           games zip data map {
-            case (g, (url, analysisOption)) ⇒
+            case (g, (url, analysisOption)) =>
               GameApi.gameToJson(g, url, analysisOption,
                 withBlurs = validToken,
                 withMoveTimes = validToken)
@@ -69,16 +69,16 @@ private[api] object GameApi {
       )
     },
     "players" -> JsObject(g.players.zipWithIndex map {
-      case (p, i) ⇒ p.color.name -> Json.obj(
+      case (p, i) => p.color.name -> Json.obj(
         "userId" -> p.userId,
         "rating" -> p.rating,
         "moveTimes" -> (withMoveTimes.fold(
           g.moveTimes.zipWithIndex.filter(_._2 % 2 == i).map(_._1),
           JsNull)),
         "blurs" -> withBlurs.option(p.blurs),
-        "analysis" -> analysisOption.map(_.summary).flatMap(_.find(_._1 == p.color).map(_._2)).map(s ⇒
+        "analysis" -> analysisOption.map(_.summary).flatMap(_.find(_._1 == p.color).map(_._2)).map(s =>
           JsObject(s map {
-            case (nag, nb) ⇒ nag.toString.toLowerCase -> JsNumber(nb)
+            case (nag, nb) => nag.toString.toLowerCase -> JsNumber(nb)
           })
         )
       ).noNull

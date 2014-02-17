@@ -29,7 +29,7 @@ final class Env(
     timelineEntries = Env.timeline.getter.userEntries _)
 
   lazy val userInfo = mashup.UserInfo(
-    countUsers = () ⇒ Env.user.countEnabled,
+    countUsers = () => Env.user.countEnabled,
     bookmarkApi = Env.bookmark.api,
     relationApi = Env.relation.api,
     gameCached = Env.game.cached,

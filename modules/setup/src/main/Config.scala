@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.format.Forsyth
-import chess.{ Game ⇒ ChessGame, Board, Situation, Variant, Clock, Speed }
+import chess.{ Game => ChessGame, Board, Situation, Variant, Clock, Speed }
 
 import lila.game.{ GameRepo, Game, Pov }
 import lila.lobby.Color
@@ -36,14 +36,14 @@ private[setup] trait Config {
   }
 }
 
-trait GameGenerator { self: Config ⇒
+trait GameGenerator { self: Config =>
 
   def game: Game
 
   def pov = Pov(game, creatorColor)
 }
 
-trait Positional { self: Config ⇒
+trait Positional { self: Config =>
 
   import chess.format.Forsyth, Forsyth.SituationPlus
 
@@ -52,13 +52,13 @@ trait Positional { self: Config ⇒
   def strictFen: Boolean
 
   lazy val validFen = variant != Variant.FromPosition || {
-    fen ?? { f ⇒ ~(Forsyth <<< f).map(_.situation playable strictFen) }
+    fen ?? { f => ~(Forsyth <<< f).map(_.situation playable strictFen) }
   }
 
-  def fenGame(builder: ChessGame ⇒ Game): Game = {
-    val state = fen filter (_ ⇒ variant == Variant.FromPosition) flatMap Forsyth.<<<
+  def fenGame(builder: ChessGame => Game): Game = {
+    val state = fen filter (_ => variant == Variant.FromPosition) flatMap Forsyth.<<<
     val chessGame = state.fold(makeGame) {
-      case sit @ SituationPlus(Situation(board, color), _) ⇒
+      case sit @ SituationPlus(Situation(board, color), _) =>
         ChessGame(
           board = board, 
           player = color, 
@@ -67,7 +67,7 @@ trait Positional { self: Config ⇒
     }
     val game = builder(chessGame)
     state.fold(game) {
-      case sit @ SituationPlus(Situation(board, _), _) ⇒ game.copy(
+      case sit @ SituationPlus(Situation(board, _), _) => game.copy(
         variant = Variant.FromPosition,
         castleLastMoveTime = game.castleLastMoveTime.copy(
           castles = board.history.castles

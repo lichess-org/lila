@@ -17,8 +17,8 @@ private[round] final class FenUrlWatch(
     if (game.playable) {
       val id = game.id + game.turnColor.name.head
       ~Option(stack getIfPresent id) match {
-        case nb if nb < 5 ⇒ stack.put(id, nb + 1)
-        case nb ⇒
+        case nb if nb < 5 => stack.put(id, nb + 1)
+        case nb =>
           play.api.Logger("FenUrlWatch").warn(s"Detected http://lichess.org/${game.id} ${game.turnColor}")
           stack.invalidate(id)
           scheduler.scheduleOnce(
@@ -26,7 +26,7 @@ private[round] final class FenUrlWatch(
             roundMap,
             Tell(game.id, Cheat(game.turnColor))
           )
-          game.player.userId foreach { userId ⇒
+          game.player.userId foreach { userId =>
             reporter ! lila.hub.actorApi.report.Cheater(userId,
               s"Cheat detected on http://lichess.org/${game.id}, using a FEN bot.")
           }

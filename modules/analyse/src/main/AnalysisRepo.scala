@@ -50,7 +50,7 @@ object AnalysisRepo {
     $find.one($select(id) ++ Json.obj(
       "done" -> false,
       "date" -> $lt($date(DateTime.now - 20.minutes)))) flatMap {
-      _.fold($find byId id) { staled ⇒ $remove byId id inject none }
+      _.fold($find byId id) { staled => $remove byId id inject none }
     }
 
   def recent(nb: Int): Fu[List[Analysis]] =

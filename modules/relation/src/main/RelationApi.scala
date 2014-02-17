@@ -6,16 +6,16 @@ import lila.db.api._
 import lila.db.Implicits._
 import lila.game.GameRepo
 import lila.hub.actorApi.relation.ReloadOnlineFriends
-import lila.hub.actorApi.timeline.{ Propagate, Follow ⇒ FollowUser }
+import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.user.tube.userTube
-import lila.user.{ User ⇒ UserModel, UserRepo }
+import lila.user.{ User => UserModel, UserRepo }
 import tube.relationTube
 
 final class RelationApi(
     cached: Cached,
     actor: ActorSelection,
     bus: lila.common.Bus,
-    getOnlineUserIds: () ⇒ Set[String],
+    getOnlineUserIds: () => Set[String],
     timeline: ActorSelection) {
 
   def followers(userId: ID) = cached followers userId
@@ -38,15 +38,15 @@ final class RelationApi(
   def relation(u1: ID, u2: ID): Fu[Option[Relation]] = cached.relation(u1, u2)
 
   def onlinePopularUsers(max: Int): Fu[List[UserModel]] =
-    (getOnlineUserIds().toList map { id ⇒
+    (getOnlineUserIds().toList map { id =>
       nbFollowers(id) map (id -> _)
     }).sequenceFu map (_ sortBy (-_._2) take max map (_._1)) flatMap UserRepo.byOrderedIds
 
   def follow(u1: ID, u2: ID): Funit =
     if (u1 == u2) fufail("Cannot follow yourself")
     else relation(u1, u2) flatMap {
-      case Some(Follow) ⇒ fufail("Already following")
-      case _            ⇒ doFollow(u1, u2)
+      case Some(Follow) => fufail("Already following")
+      case _            => doFollow(u1, u2)
     }
 
   private[relation] def autofollow(u1: ID, u2: ID): Funit = doFollow(u1, u2)
@@ -61,24 +61,24 @@ final class RelationApi(
   def block(u1: ID, u2: ID): Funit =
     if (u1 == u2) fufail("Cannot block yourself")
     else relation(u1, u2) flatMap {
-      case Some(Block) ⇒ fufail("Already blocking")
-      case _ ⇒ RelationRepo.block(u1, u2) >> refresh(u1, u2) >>-
+      case Some(Block) => fufail("Already blocking")
+      case _ => RelationRepo.block(u1, u2) >> refresh(u1, u2) >>-
         bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation)
     }
 
   def unfollow(u1: ID, u2: ID): Funit =
     if (u1 == u2) fufail("Cannot unfollow yourself")
     else relation(u1, u2) flatMap {
-      case Some(Follow) ⇒ RelationRepo.unfollow(u1, u2) >> refresh(u1, u2)
-      case _            ⇒ fufail("Not following")
+      case Some(Follow) => RelationRepo.unfollow(u1, u2) >> refresh(u1, u2)
+      case _            => fufail("Not following")
     }
 
   def unblock(u1: ID, u2: ID): Funit =
     if (u1 == u2) fufail("Cannot unblock yourself")
     else relation(u1, u2) flatMap {
-      case Some(Block) ⇒ RelationRepo.unblock(u1, u2) >> refresh(u1, u2) >>-
+      case Some(Block) => RelationRepo.unblock(u1, u2) >> refresh(u1, u2) >>-
         bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), 'relation)
-      case _ ⇒ fufail("Not blocking")
+      case _ => fufail("Not blocking")
     }
 
   private def refresh(u1: ID, u2: ID): Funit =

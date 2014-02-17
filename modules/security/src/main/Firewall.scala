@@ -21,8 +21,8 @@ final class Firewall(
     cachedIpsTtl: Duration) {
 
   def requestHandler(req: RequestHeader): Fu[Option[Handler]] =
-    cookieName.filter(_ ⇒ enabled) ?? { cn ⇒
-      blocksIp(req.remoteAddress) map { bIp ⇒
+    cookieName.filter(_ => enabled) ?? { cn =>
+      blocksIp(req.remoteAddress) map { bIp =>
         val bCs = blocksCookies(req.cookies, cn)
         if (bIp && !bCs) infectCookie(cn)(req).some
         else if (bCs && !bIp) { blockIp(req.remoteAddress); None }
@@ -31,7 +31,7 @@ final class Firewall(
     }
 
   def blocks(req: RequestHeader): Fu[Boolean] = if (enabled) {
-    cookieName.fold(blocksIp(req.remoteAddress)) { cn ⇒
+    cookieName.fold(blocksIp(req.remoteAddress)) { cn =>
       blocksIp(req.remoteAddress) map (_ || blocksCookies(req.cookies, cn))
     }
   }

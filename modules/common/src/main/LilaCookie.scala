@@ -10,19 +10,19 @@ object LilaCookie {
   private val domainRegex = """^.+(\.[^\.]+\.[^\.]+)$""".r
 
   private def domain(req: RequestHeader): String =
-    domainRegex.replaceAllIn(req.domain, m ⇒ quoteReplacement(m group 1))
+    domainRegex.replaceAllIn(req.domain, m => quoteReplacement(m group 1))
 
   val sessionId = "sid"
 
   def makeSessionId(implicit req: RequestHeader) = session(sessionId, Random nextStringUppercase 8)
 
-  def session(name: String, value: String)(implicit req: RequestHeader): Cookie = withSession { s ⇒
+  def session(name: String, value: String)(implicit req: RequestHeader): Cookie = withSession { s =>
     s + (name -> value)
   }
 
   def newSession(implicit req: RequestHeader): Cookie = withSession(identity)
 
-  def withSession(op: Session ⇒ Session)(implicit req: RequestHeader): Cookie = cookie(
+  def withSession(op: Session => Session)(implicit req: RequestHeader): Cookie = cookie(
     Session.COOKIE_NAME,
     Session.encode(Session.serialize(op(req.session)))
   )

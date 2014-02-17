@@ -22,20 +22,20 @@ final class DataForm(
   def translationWithCaptcha = withCaptcha(translation)
 
   def process(code: String, metadata: TransMetadata, data: Map[String, String], user: String): Funit = {
-    val messages = (data mapValues { msg ⇒
+    val messages = (data mapValues { msg =>
       msg.some map sanitize filter (_.nonEmpty)
     }).toList collect {
-      case (key, Some(value)) ⇒ key -> value
+      case (key, Some(value)) => key -> value
     }
-    messages.nonEmpty ?? TranslationRepo.nextId flatMap { id ⇒
-      val sorted = (keys.keys map { key ⇒
+    messages.nonEmpty ?? TranslationRepo.nextId flatMap { id =>
+      val sorted = (keys.keys map { key =>
         messages find (_._1 == key.key)
       }).flatten
       val translation = Translation(
         id = id,
         code = code,
         text = sorted map {
-          case (key, trans) ⇒ key + "=" + trans
+          case (key, trans) => key + "=" + trans
         } mkString "\n",
         comment = metadata.comment,
         author = user.some,
@@ -45,11 +45,11 @@ final class DataForm(
   }
 
   def decodeTranslationBody(implicit req: Request[_]): Map[String, String] = req.body match {
-    case body: play.api.mvc.AnyContent if body.asFormUrlEncoded.isDefined ⇒
+    case body: play.api.mvc.AnyContent if body.asFormUrlEncoded.isDefined =>
       (body.asFormUrlEncoded.get collect {
-        case (key, msgs) if key startsWith "key_" ⇒ msgs.headOption map { key.drop(4) -> _ }
+        case (key, msgs) if key startsWith "key_" => msgs.headOption map { key.drop(4) -> _ }
       }).flatten.toMap
-    case body ⇒ {
+    case body => {
       logwarn("Can't parse translation request body: " + body)
       Map.empty
     }

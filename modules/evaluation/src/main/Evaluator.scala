@@ -23,8 +23,8 @@ final class Evaluator(
   import Evaluation._
 
   def findOrGenerate(user: User, deep: Boolean): Fu[Option[Evaluation]] = find(user) flatMap {
-    case x@Some(eval) if (!deep || eval.isDeep) ⇒ fuccess(x)
-    case _                                      ⇒ generate(user, deep)
+    case x@Some(eval) if (!deep || eval.isDeep) => fuccess(x)
+    case _                                      => generate(user, deep)
   }
 
   def find(user: User): Fu[Option[Evaluation]] =
@@ -34,13 +34,13 @@ final class Evaluator(
 
   def generate(userId: String, perfs: Perfs, deep: Boolean): Fu[Option[Evaluation]] = {
     run(userId, deep) match {
-      case Failure(e: Exception) if e.getMessage.contains("exit value: 1") ⇒ fuccess(none)
-      case Failure(e: Exception) if e.getMessage.contains("exit value: 2") ⇒ fuccess(none)
-      case Failure(e: Exception) ⇒ fufail(e)
-      case Success(output) ⇒ for {
+      case Failure(e: Exception) if e.getMessage.contains("exit value: 1") => fuccess(none)
+      case Failure(e: Exception) if e.getMessage.contains("exit value: 2") => fuccess(none)
+      case Failure(e: Exception) => fufail(e)
+      case Success(output) => for {
         evalJs ← (Json parse output).transform(evaluationTransformer) match {
-          case JsSuccess(v, _) ⇒ fuccess(v)
-          case JsError(e)      ⇒ fufail(lila.common.LilaException(s"Can't parse evaluator output: $e on $output"))
+          case JsSuccess(v, _) => fuccess(v)
+          case JsError(e)      => fufail(lila.common.LilaException(s"Can't parse evaluator output: $e on $output"))
         }
         eval ← scala.concurrent.Future(readEvaluation(evalJs))
         _ ← coll.update(Json.obj("_id" -> userId), evalJs, upsert = true)
@@ -48,22 +48,22 @@ final class Evaluator(
       } yield eval.some
     }
   } andThen {
-    case Success(Some(eval)) if eval.mark(perfs) ⇒ UserRepo byId userId foreach {
-      _ filterNot (_.engine) foreach { user ⇒
+    case Success(Some(eval)) if eval.mark(perfs) => UserRepo byId userId foreach {
+      _ filterNot (_.engine) foreach { user =>
         marker ! lila.hub.actorApi.mod.MarkCheater(user.id)
         reporter ! lila.hub.actorApi.report.Check(user.id)
       }
     }
-    case Failure(e) ⇒ logger.warn(s"generate: $e")
+    case Failure(e) => logger.warn(s"generate: $e")
   }
 
   def autoGenerate(user: User, player: Player) {
-    UserRepo isEvaluated user.id foreach { evaluated ⇒
+    UserRepo isEvaluated user.id foreach { evaluated =>
       if (!evaluated && deviationIsLow(user.perfs) && ratingIsHigh(user.perfs)) {
         logger.info(s"auto evaluate $user")
         generate(user.id, user.perfs, false) foreach {
-          case Some(eval) if eval.report(user.perfs) ⇒ reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
-          case _                                     ⇒
+          case Some(eval) if eval.report(user.perfs) => reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
+          case _                                     =>
         }
       }
     }
@@ -71,8 +71,8 @@ final class Evaluator(
 
   private def readEvaluation(js: JsValue): Evaluation =
     (readDate('date) andThen Evaluation.reader) reads js match {
-      case JsSuccess(v, _) ⇒ v
-      case JsError(e)      ⇒ throw lila.common.LilaException(s"Can't parse evaluator json: $e on $js")
+      case JsSuccess(v, _) => v
+      case JsError(e)      => throw lila.common.LilaException(s"Can't parse evaluator json: $e on $js")
     }
 
   private def run(userId: String, deep: Boolean): Try[String] = {
@@ -81,8 +81,8 @@ final class Evaluator(
       import scala.sys.process._
       command!!
     } match {
-      case Failure(e) ⇒ Failure(new Exception(s"$command $e"))
-      case x          ⇒ x
+      case Failure(e) => Failure(new Exception(s"$command $e"))
+      case x          => x
     }
   }
 
@@ -93,7 +93,7 @@ final class Evaluator(
       rename('computerAnalysis, 'analysis) andThen
       rename('knownEngineIP, 'sharedIP) andThen
       __.json.update(
-        __.read[JsObject].map { o ⇒ o ++ Json.obj("date" -> $date(DateTime.now)) }
+        __.read[JsObject].map { o => o ++ Json.obj("date" -> $date(DateTime.now)) }
       ) andThen
         (__ \ 'Error).json.prune
 

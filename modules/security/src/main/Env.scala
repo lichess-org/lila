@@ -30,7 +30,7 @@ final class Env(
   lazy val api = new Api(firewall = firewall)
 
   lazy val firewall = new Firewall(
-    cookieName = FirewallCookieName.some filter (_ ⇒ FirewallCookieEnabled),
+    cookieName = FirewallCookieName.some filter (_ => FirewallCookieEnabled),
     enabled = FirewallEnabled,
     cachedIpsTtl = FirewallCachedIpsTtl)
 

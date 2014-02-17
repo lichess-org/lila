@@ -26,20 +26,20 @@ private[simulation] final class PlayerBot(
 
   when(Offline) {
 
-    case Event(Simulator.Start, _) ⇒ goto(LobbyConnect)
+    case Event(Simulator.Start, _) => goto(LobbyConnect)
   }
 
   onTransition {
-    case _ -> LobbyConnect ⇒ lobbyEnv.socketHandler(uid, user) pipeTo self
+    case _ -> LobbyConnect => lobbyEnv.socketHandler(uid, user) pipeTo self
   }
 
   onTransition {
-    case a -> b ⇒ log(s"$a -> $b")
+    case a -> b => log(s"$a -> $b")
   }
 
   when(LobbyConnect) {
 
-    case Event((iteratee: JsIteratee, enumerator: JsEnumerator), _) ⇒ {
+    case Event((iteratee: JsIteratee, enumerator: JsEnumerator), _) => {
       delayRandomMillis(4000) {
         self ! config.hookConfig.hook(uid, user, sid)
       }
@@ -51,24 +51,24 @@ private[simulation] final class PlayerBot(
   when(Lobby, stateTimeout = 20 seconds) {
 
     // pong
-    case Event(Message("n", obj), _) ⇒ {
+    case Event(Message("n", obj), _) => {
       delay(1 second)(self ! Ping)
       stay
     }
 
-    case Event(hook: lila.lobby.Hook, _) ⇒ {
+    case Event(hook: lila.lobby.Hook, _) => {
       lobbyEnv.lobby ! lila.lobby.actorApi.AddHook(hook)
       stay
     }
 
-    case Event(Message("redirect", obj), Lobbyist(channel)) ⇒ obj str "d" map { url ⇒
+    case Event(Message("redirect", obj), Lobbyist(channel)) => obj str "d" map { url =>
       channel.eofAndEnd()
       val id = url drop 1
       roundEnv.socketHandler.player(id, 0, uid, "token", user, ip) pipeTo self
       goto(RoundConnect) using FullId(id)
     } getOrElse stay
 
-    case Event(StateTimeout, Lobbyist(channel)) ⇒ {
+    case Event(StateTimeout, Lobbyist(channel)) => {
       channel.eofAndEnd()
       goto(LobbyConnect) using NoData
     }
@@ -76,22 +76,22 @@ private[simulation] final class PlayerBot(
 
   when(RoundConnect) {
 
-    case Event((iteratee: JsIteratee, enumerator: JsEnumerator), FullId(id)) ⇒ {
+    case Event((iteratee: JsIteratee, enumerator: JsEnumerator), FullId(id)) => {
       receiveFrom(enumerator)
       lila.game.GameRepo.pov(id).flatten(id).map(_.color) pipeTo self
       stay using Player(id, sendTo(iteratee))
     }
 
-    case Event(color: chess.Color, player: Player) ⇒ {
+    case Event(color: chess.Color, player: Player) => {
       log(s"start ${player.id} as $color")
       delay(1 second)(self ! Ping)
       delay(10 second)(self ! QuitIfStalled(player.v))
       color match {
-        case Color.White ⇒ {
+        case Color.White => {
           delay(2 seconds)(self ! Move)
           goto(RoundPlay) using player
         }
-        case Color.Black ⇒ goto(RoundPlay) using player.nextMove._2
+        case Color.Black => goto(RoundPlay) using player.nextMove._2
       }
     }
   }
@@ -99,30 +99,30 @@ private[simulation] final class PlayerBot(
   val roundFallback: StateFunction = {
 
     // pong
-    case Event(Message("n", _), _) ⇒ {
+    case Event(Message("n", _), _) => {
       delay(1 second)(self ! Ping)
       stay
     }
 
     // batch
-    case Event(Message("b", obj), _) ⇒ {
+    case Event(Message("b", obj), _) => {
       val events = ~(obj.arrAs("d")(_.asOpt[JsObject]))
       events.map(parseMessage).flatten foreach self.!
       stay
     }
 
     // any other versioned event
-    case Event(Message(_, obj), _) ⇒ {
+    case Event(Message(_, obj), _) => {
       setVersion(obj)
       stay
     }
 
-    case Event(Ping, player: Player) ⇒ {
+    case Event(Ping, player: Player) => {
       player.channel push Json.obj("t" -> "p", "v" -> player.v)
       stay
     }
 
-    case Event(SetVersion(v), player: Player) ⇒
+    case Event(SetVersion(v), player: Player) =>
       stay using player.copy(v = v)
   }
 
@@ -130,11 +130,11 @@ private[simulation] final class PlayerBot(
 
   when(RoundPlay)(roundHandler({
 
-    case Event(Message("end", _), player: Player) ⇒ {
+    case Event(Message("end", _), player: Player) => {
       goto(RoundEnd)
     }
 
-    case Event(Message("possible_moves", obj), player: Player) ⇒
+    case Event(Message("possible_moves", obj), player: Player) =>
       if (~getVersion(obj) <= player.v) {
         log(s"skip possible_moves v ${getVersion(obj)} because at v ${player.v}")
         stay
@@ -156,7 +156,7 @@ private[simulation] final class PlayerBot(
         }
       }
 
-    case Event(QuitIfStalled(v), player: Player) ⇒ {
+    case Event(QuitIfStalled(v), player: Player) => {
       if (player.v == v) {
         player.channel.eofAndEnd()
         goto(LobbyConnect) using NoData
@@ -166,16 +166,16 @@ private[simulation] final class PlayerBot(
       stay
     }
 
-    case Event(Resign, player: Player) ⇒ {
+    case Event(Resign, player: Player) => {
       player.channel push Json.obj("t" -> "resign")
       stay
     }
 
-    case Event(Move, player: Player) ⇒ {
+    case Event(Move, player: Player) => {
       val (move, nextPlayer) = player.nextMove
       log(move)
       move foreach {
-        case (from, to) ⇒ player.channel push Json.obj(
+        case (from, to) => player.channel push Json.obj(
           "t" -> "move",
           "d" -> Json.obj(
             "from" -> from.key,
@@ -187,7 +187,7 @@ private[simulation] final class PlayerBot(
   }))
 
   onTransition {
-    case _ -> RoundEnd ⇒ maybe(config.rematchProbability) {
+    case _ -> RoundEnd => maybe(config.rematchProbability) {
       delayRandomMillis(5000)(self ! Rematch)
     }
   }
@@ -195,14 +195,14 @@ private[simulation] final class PlayerBot(
   when(RoundEnd, stateTimeout = 5.seconds)(roundHandler({
 
     // don't ping, so the timeout can be reached
-    case Event(Message("n", _), _) ⇒ stay
+    case Event(Message("n", _), _) => stay
 
-    case Event(Rematch, player: Player) ⇒ {
+    case Event(Rematch, player: Player) => {
       player.channel push Json.obj("t" -> "rematch-yes")
       stay
     }
 
-    case Event(Message("redirect", obj), player: Player) ⇒ obj str "d" map { url ⇒
+    case Event(Message("redirect", obj), player: Player) => obj str "d" map { url =>
       player.channel.eofAndEnd()
       val id = url drop 1
       delay(200 millis) {
@@ -211,7 +211,7 @@ private[simulation] final class PlayerBot(
       goto(RoundConnect) using FullId(id)
     } getOrElse stay
 
-    case Event(StateTimeout, player: Player) ⇒ {
+    case Event(StateTimeout, player: Player) => {
       player.channel.eofAndEnd()
       goto(LobbyConnect) using NoData
     }
@@ -219,7 +219,7 @@ private[simulation] final class PlayerBot(
 
   whenUnhandled {
 
-    case e ⇒ {
+    case e => {
       log(e.toString.take(60))
       stay
     }
@@ -248,8 +248,8 @@ private[simulation] object PlayerBot {
       v: Int = 1,
       moves: Queue[Move] = allMoves) extends Data {
     def nextMove: (Option[Move], Player) = Try(moves.dequeue).toOption match {
-      case Some((move, queue)) ⇒ move.some -> copy(moves = queue)
-      case None                ⇒ none -> this
+      case Some((move, queue)) => move.some -> copy(moves = queue)
+      case None                => none -> this
     }
   }
 

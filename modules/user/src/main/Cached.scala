@@ -22,7 +22,7 @@ final class Cached(
   def usernameOrAnonymous(id: Option[String]): Fu[String] =
     id.fold(fuccess(User.anonymous))(usernameOrAnonymous)
 
-  val count = AsyncCache((o: JsObject) ⇒ $count(o), timeToLive = nbTtl)
+  val count = AsyncCache((o: JsObject) => $count(o), timeToLive = nbTtl)
 
   def countEnabled: Fu[Int] = count(UserRepo.enabledSelect)
 
@@ -34,19 +34,19 @@ final class Cached(
   private def oneWeekAgo = DateTime.now minusWeeks 1
   private def oneMonthAgo = DateTime.now minusMonths 1
   val topProgressDay = AsyncCache(
-    (nb: Int) ⇒ UserRepo.topProgressSince(oneDayAgo, nb),
+    (nb: Int) => UserRepo.topProgressSince(oneDayAgo, nb),
     timeToLive = 14 minutes)
   val topProgressWeek = AsyncCache(
-    (nb: Int) ⇒ UserRepo.topProgressSince(oneWeekAgo, nb),
+    (nb: Int) => UserRepo.topProgressSince(oneWeekAgo, nb),
     timeToLive = 29 minutes)
   val topProgressMonth = AsyncCache(
-    (nb: Int) ⇒ UserRepo.topProgressSince(oneMonthAgo, nb),
+    (nb: Int) => UserRepo.topProgressSince(oneMonthAgo, nb),
     timeToLive = 27 minutes)
   val topRatingDay = AsyncCache(
-    (nb: Int) ⇒ UserRepo.topRatingSince(oneDayAgo, nb),
+    (nb: Int) => UserRepo.topRatingSince(oneDayAgo, nb),
     timeToLive = 13 minutes)
   val topRatingWeek = AsyncCache(
-    (nb: Int) ⇒ UserRepo.topRatingSince(oneWeekAgo, nb),
+    (nb: Int) => UserRepo.topRatingSince(oneWeekAgo, nb),
     timeToLive = 28 minutes)
   val topRating = AsyncCache(UserRepo.topRating, timeToLive = 30 minutes)
   val topBullet = AsyncCache(UserRepo.topBullet, timeToLive = 31 minutes)
@@ -55,6 +55,6 @@ final class Cached(
   val topNbGame = AsyncCache(UserRepo.topNbGame, timeToLive = 34 minutes)
 
   val topOnline = AsyncCache(
-    (nb: Int) ⇒ UserRepo.byIdsSortRating(onlineUserIdMemo.keys, nb),
+    (nb: Int) => UserRepo.byIdsSortRating(onlineUserIdMemo.keys, nb),
     timeToLive = 2 seconds)
 }

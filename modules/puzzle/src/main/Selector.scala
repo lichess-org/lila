@@ -24,13 +24,13 @@ private[puzzle] final class Selector(puzzleColl: Coll) {
     timeToLive = 1 hour)
 
   def apply(me: Option[User]): Fu[Puzzle] = me match {
-    case None ⇒ popularCount(true) map (_ - 1) flatMap { skipMax ⇒
+    case None => popularCount(true) map (_ - 1) flatMap { skipMax =>
       puzzleColl.find(popularSelector)
         .projection(Puzzle.withoutUsers)
         .options(QueryOpts(skipN = Random.nextInt(skipMax)))
         .one[Puzzle] flatten "Can't find a puzzle for anon player!"
     }
-    case Some(user) ⇒ tryRange(user, ratingToleranceStep)
+    case Some(user) => tryRange(user, ratingToleranceStep)
   }
 
   private def tryRange(user: User, tolerance: Int): Fu[Puzzle] = puzzleColl.find(BSONDocument(
@@ -44,8 +44,8 @@ private[puzzle] final class Selector(puzzleColl: Coll) {
   )).projection(Puzzle.withoutUsers)
     .sort(BSONDocument(Puzzle.BSONFields.voteSum -> -1))
     .one[Puzzle] flatMap {
-      case Some(puzzle) ⇒ fuccess(puzzle)
-      case None ⇒ if ((tolerance + ratingToleranceStep) <= ratingToleranceMax)
+      case Some(puzzle) => fuccess(puzzle)
+      case None => if ((tolerance + ratingToleranceStep) <= ratingToleranceMax)
         tryRange(user, tolerance + ratingToleranceStep)
       else fufail(s"Can't find a puzzle for user $user!")
     }

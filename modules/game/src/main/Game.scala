@@ -2,7 +2,7 @@ package lila.game
 
 import chess.Color._
 import chess.Pos.piotr, chess.Role.forsyth
-import chess.{ History ⇒ ChessHistory, Castles, Role, Board, Move, Pos, Game ⇒ ChessGame, Clock, Status, Color, Piece, Variant, Mode, PositionHash }
+import chess.{ History => ChessHistory, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Variant, Mode, PositionHash }
 import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 
@@ -37,8 +37,8 @@ case class Game(
   )
 
   def player(color: Color): Player = color match {
-    case White ⇒ whitePlayer
-    case Black ⇒ blackPlayer
+    case White => whitePlayer
+    case Black => blackPlayer
   }
 
   def player(playerId: String): Option[Player] =
@@ -47,7 +47,7 @@ case class Game(
   def player(user: User): Option[Player] =
     players find (_ isUser user)
 
-  def player(c: Color.type ⇒ Color): Player = player(c(Color))
+  def player(c: Color.type => Color): Player = player(c(Color))
 
   def isPlayerFullId(player: Player, fullId: String): Boolean =
     (fullId.size == Game.fullIdSize) && player.id == (fullId drop 8)
@@ -83,7 +83,7 @@ case class Game(
   private def lastMoveTime: Option[Long] = castleLastMoveTime.lastMoveTime map {
     _.toLong + (createdAt.getMillis / 100)
   }
-  def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x ⇒ (x / 10).toInt)
+  def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
   def moveTimesInSeconds: Vector[Float] = moveTimes.map(_.toFloat / 10)
 
@@ -114,7 +114,7 @@ case class Game(
     val (history, situation) = (game.board.history, game.situation)
 
     val events = (players collect {
-      case p if p.isHuman ⇒ Event.possibleMoves(situation, p.color)
+      case p if p.isHuman => Event.possibleMoves(situation, p.color)
     }) :::
       Event.State(situation.color, game.turns) ::
       (Event fromMove move) :::
@@ -138,14 +138,14 @@ case class Game(
         check = situation.kingPos ifTrue situation.check),
       moveTimes = isPgnImport.fold(
         Vector.empty,
-        lastMoveTime.fold(Vector(0)) { lmt ⇒ moveTimes :+ (nowTenths - lmt).toInt }
+        lastMoveTime.fold(Vector(0)) { lmt => moveTimes :+ (nowTenths - lmt).toInt }
       ),
       status = situation.status | status,
       clock = game.clock)
 
-    val finalEvents = events ::: updated.clock.??(c ⇒ List(Event.Clock(c))) ::: {
+    val finalEvents = events ::: updated.clock.??(c => List(Event.Clock(c))) ::: {
       (updated.playable && (
-        abortable != updated.abortable || (Color.all exists { color ⇒
+        abortable != updated.abortable || (Color.all exists { color =>
           playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
         })
       )).??(Color.all map Event.ReloadTable)
@@ -156,11 +156,11 @@ case class Game(
 
   def check = castleLastMoveTime.check
 
-  def updatePlayer(color: Color, f: Player ⇒ Player) = color.fold(
+  def updatePlayer(color: Color, f: Player => Player) = color.fold(
     copy(whitePlayer = f(whitePlayer)),
     copy(blackPlayer = f(blackPlayer)))
 
-  def updatePlayers(f: Player ⇒ Player) = copy(
+  def updatePlayers(f: Player => Player) = copy(
     whitePlayer = f(whitePlayer),
     blackPlayer = f(blackPlayer))
 
@@ -172,8 +172,8 @@ case class Game(
 
   def startClock(compensation: Float) = copy(
     clock = clock map {
-      case c: chess.PausedClock ⇒ c.start.giveTime(White, compensation)
-      case c                    ⇒ c
+      case c: chess.PausedClock => c.start.giveTime(White, compensation)
+      case c                    => c
     }
   )
 
@@ -200,7 +200,7 @@ case class Game(
   def hasAi: Boolean = players exists (_.isAi)
   def nonAi = !hasAi
 
-  def mapPlayers(f: Player ⇒ Player) = copy(
+  def mapPlayers(f: Player => Player) = copy(
     whitePlayer = f(whitePlayer),
     blackPlayer = f(blackPlayer)
   )
@@ -241,7 +241,7 @@ case class Game(
       blackPlayer = blackPlayer finish (winner == Some(Black)),
       clock = clock map (_.stop)
     ),
-    List(Event.End) ::: clock.??(c ⇒ List(Event.Clock(c)))
+    List(Event.End) ::: clock.??(c => List(Event.Clock(c)))
   )
 
   def rated = mode.rated
@@ -283,9 +283,9 @@ case class Game(
   def estimateTotalTime = clock.fold(1200)(_.estimateTotalTime)
 
   def playerWhoDidNotMove: Option[Player] = turns match {
-    case 0 ⇒ player(White).some
-    case 1 ⇒ player(Black).some
-    case _ ⇒ none
+    case 0 => player(White).some
+    case 1 => player(Black).some
+    case _ => none
   }
 
   def onePlayerHasMoved = turns > 0
@@ -301,7 +301,7 @@ case class Game(
   )
 
   def deadPiecesOf(color: Color): List[Role] = toChess.deads collect {
-    case piece if piece is color ⇒ piece.role
+    case piece if piece is color => piece.role
   }
 
   def isBeingPlayed = !finishedOrAborted && !olderThan(60)
@@ -319,9 +319,9 @@ case class Game(
   def userRatings = playerMaps(_.rating)
 
   def averageUsersRating = userRatings match {
-    case a :: b :: Nil ⇒ Some((a + b) / 2)
-    case a :: Nil      ⇒ Some((a + 1200) / 2)
-    case _             ⇒ None
+    case a :: b :: Nil => Some((a + b) / 2)
+    case a :: Nil      => Some((a + 1200) / 2)
+    case _             => None
   }
 
   def withTournamentId(id: String) = this.copy(
@@ -338,7 +338,7 @@ case class Game(
 
   def resetTurns = copy(turns = 0)
 
-  private def playerMaps[A](f: Player ⇒ Option[A]): List[A] = players.map(f).flatten
+  private def playerMaps[A](f: Player => Option[A]): List[A] = players.map(f).flatten
 }
 
 object Game {
@@ -442,7 +442,7 @@ object Game {
         binaryPgn = r bytesD binaryPgn,
         status = Status(r int status) err "Invalid status",
         turns = nbTurns,
-        clock = r.getO[Color ⇒ Clock](clock) map (_(Color(0 == nbTurns % 2))),
+        clock = r.getO[Color => Clock](clock) map (_(Color(0 == nbTurns % 2))),
         positionHashes = r.bytesD(positionHashes).value,
         castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(castleLastMoveTimeBSONHandler),
         moveTimes = ((r bytesO moveTimes) ?? BinaryFormat.moveTime.read _) take nbTurns,
@@ -464,13 +464,13 @@ object Game {
       id -> o.id,
       playerIds -> (o.whitePlayer.id + o.blackPlayer.id),
       playerUids -> w.listO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
-      whitePlayer -> w.docO(playerBSONHandler write ((_: Color) ⇒ (_: Player.Id) ⇒ (_: Player.UserId) ⇒ (_: Player.Win) ⇒ o.whitePlayer)),
-      blackPlayer -> w.docO(playerBSONHandler write ((_: Color) ⇒ (_: Player.Id) ⇒ (_: Player.UserId) ⇒ (_: Player.Win) ⇒ o.blackPlayer)),
+      whitePlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.Id) => (_: Player.UserId) => (_: Player.Win) => o.whitePlayer)),
+      blackPlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.Id) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer)),
       binaryPieces -> o.binaryPieces,
       binaryPgn -> w.byteArrayO(o.binaryPgn),
       status -> o.status.id,
       turns -> o.turns,
-      clock -> (o.clock map { c ⇒ clockBSONHandler.write(_ ⇒ c) }),
+      clock -> (o.clock map { c => clockBSONHandler.write(_ => c) }),
       positionHashes -> w.bytesO(o.positionHashes),
       castleLastMoveTime -> castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
       moveTimes -> (BinaryFormat.moveTime write o.moveTimes),
@@ -489,11 +489,11 @@ object Game {
 
   import lila.db.ByteArray.ByteArrayBSONHandler
 
-  implicit val clockBSONHandler = new BSONHandler[BSONBinary, Color ⇒ Clock] {
+  implicit val clockBSONHandler = new BSONHandler[BSONBinary, Color => Clock] {
     def read(bin: BSONBinary) = BinaryFormat.clock read {
       ByteArrayBSONHandler read bin
     }
-    def write(clock: Color ⇒ Clock) = ByteArrayBSONHandler write {
+    def write(clock: Color => Clock) = ByteArrayBSONHandler write {
       BinaryFormat.clock write clock(chess.White)
     }
   }
@@ -505,7 +505,7 @@ case class CastleLastMoveTime(
     lastMoveTime: Option[Int], // tenths of seconds since game creation
     check: Option[Pos]) {
 
-  def lastMoveString = lastMove map { case (a, b) ⇒ a.toString + b.toString }
+  def lastMoveString = lastMove map { case (a, b) => a.toString + b.toString }
 }
 
 object CastleLastMoveTime {

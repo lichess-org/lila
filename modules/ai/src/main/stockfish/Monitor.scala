@@ -18,9 +18,9 @@ private[ai] final class Monitor(queue: ActorRef) extends Actor {
 
   def receive = {
 
-    case AddTime(time) ⇒ times = times + (nowMillis -> time)
+    case AddTime(time) => times = times + (nowMillis -> time)
 
-    case GetLoad ⇒ {
+    case GetLoad => {
       val now = nowMillis
       val from = nowMillis - loadPeriodMillis
       val time = times.filter(_._1 >= from).map(_._2).sum

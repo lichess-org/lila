@@ -12,11 +12,11 @@ case class ListMenu(
 
 object ListMenu {
 
-  type CountBookmarks = User ⇒ Fu[Int]
+  type CountBookmarks = User => Fu[Int]
 
   def apply(cached: Cached)(
     countBookmarks: CountBookmarks,
-    countAnalysed: () ⇒ Fu[Int],
+    countAnalysed: () => Fu[Int],
     me: Option[User]): Fu[ListMenu] =
     cached.nbGames zip
       cached.nbMates zip
@@ -24,7 +24,7 @@ object ListMenu {
       me.??(countBookmarks) zip
       countAnalysed() zip
       cached.nbImported map {
-        case (((((nbGames, nbMates), nbPopular), nbBookmarks), nbAnalysed), nbImported) ⇒
+        case (((((nbGames, nbMates), nbPopular), nbBookmarks), nbAnalysed), nbImported) =>
           new ListMenu(
             nbGames = nbGames,
             nbMates = nbMates,

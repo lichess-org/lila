@@ -29,7 +29,7 @@ case class Info(
   def reverse = copy(score = score map (-_), mate = mate map (-_))
 
   def scoreComment: Option[String] = score map (_.showPawns)
-  def mateComment: Option[String] = mate map { m ⇒ s"Mate in ${math.abs(m)}" }
+  def mateComment: Option[String] = mate map { m => s"Mate in ${math.abs(m)}" }
   def evalComment: Option[String] = scoreComment orElse mateComment
 
   override def toString = s"Info [$ply] ${score.fold("?")(_.showPawns)} ${mate | 0} ${variation.mkString(" ")}"
@@ -43,22 +43,22 @@ object Info {
   lazy val start = Info(0, Evaluation.start.score, none, Nil)
 
   def decode(ply: Int, str: String): Option[Info] = str.split(separator).toList match {
-    case Nil                  ⇒ Info(ply).some
-    case List(cp)             ⇒ Info(ply, Score(cp)).some
-    case List(cp, ma)         ⇒ Info(ply, Score(cp), parseIntOption(ma)).some
-    case List(cp, ma, va)     ⇒ Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList).some
-    case List(cp, ma, va, be) ⇒ Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList, UciMove piotr be).some
-    case _                    ⇒ none
+    case Nil                  => Info(ply).some
+    case List(cp)             => Info(ply, Score(cp)).some
+    case List(cp, ma)         => Info(ply, Score(cp), parseIntOption(ma)).some
+    case List(cp, ma, va)     => Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList).some
+    case List(cp, ma, va, be) => Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList, UciMove piotr be).some
+    case _                    => none
   }
 
   def decodeList(str: String): Option[List[Info]] = {
     str.split(listSeparator).toList.zipWithIndex map {
-      case (infoStr, index) ⇒ decode(index + 1, infoStr)
+      case (infoStr, index) => decode(index + 1, infoStr)
     }
   }.sequence
 
   def encodeList(infos: List[Info]): String = infos map (_.encode) mkString listSeparator
 
-  def apply(score: Option[Int], mate: Option[Int], variation: List[String]): Int ⇒ Info =
-    ply ⇒ Info(ply, score map Score.apply, mate, variation)
+  def apply(score: Option[Int], mate: Option[Int], variation: List[String]): Int => Info =
+    ply => Info(ply, score map Score.apply, mate, variation)
 }

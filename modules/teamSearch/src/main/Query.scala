@@ -15,7 +15,7 @@ private[teamSearch] final class Query private (terms: List[String]) extends lila
   def countRequest = ElasticSearch.Request.Count(makeQuery)
 
   private def makeQuery = terms.foldLeft(boolQuery()) {
-    case (query, term) ⇒ query must {
+    case (query, term) => query must {
       multiMatchQuery(term, fields.name, fields.description, fields.location)
     }
   }

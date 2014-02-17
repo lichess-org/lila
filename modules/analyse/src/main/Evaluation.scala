@@ -19,10 +19,10 @@ object Evaluation {
 
   def toInfos(evals: List[Evaluation], moves: List[String]): List[Info] =
     (evals filterNot (_.checkMate) sliding 2).toList.zip(moves).zipWithIndex map {
-      case ((List(before, after), move), index) ⇒ {
+      case ((List(before, after), move), index) => {
         val variation = before.line match {
-          case first :: rest if first != move ⇒ first :: rest
-          case _                              ⇒ Nil
+          case first :: rest if first != move => first :: rest
+          case _                              => Nil
         }
         val best = variation.headOption flatMap UciMove.apply
         Info(
@@ -30,7 +30,7 @@ object Evaluation {
           score = after.score,
           mate = after.mate,
           variation = variation,
-          best = best) |> { info ⇒
+          best = best) |> { info =>
             if (info.ply % 2 == 1) info.reverse else info
           }
       }

@@ -41,14 +41,14 @@ private[setup] object UserConfig {
   import play.api.libs.json._
 
   private[setup] lazy val tube = JsTube(
-    reader = Reads[UserConfig](js ⇒
+    reader = Reads[UserConfig](js =>
       ~(for {
         obj ← js.asOpt[JsObject]
         raw ← RawUserConfig.tube.read(obj).asOpt
         decoded ← raw.decode
       } yield JsSuccess(decoded): JsResult[UserConfig])
     ),
-    writer = Writes[UserConfig](config ⇒
+    writer = Writes[UserConfig](config =>
       RawUserConfig.tube.write(config.encode) getOrElse JsUndefined("[setup] Can't write config")
     )
   )

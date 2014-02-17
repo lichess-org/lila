@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import akka.actor.{ ActorRef, ActorSystem, ActorSelection }
 
 import chess.Color
-import lila.game.{ Game, Player ⇒ GamePlayer, GameRepo, Pov, PovRef, Source }
+import lila.game.{ Game, Player => GamePlayer, GameRepo, Pov, PovRef, Source }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round.ResignColor
 import lila.user.{ User, UserRepo }
@@ -49,10 +49,10 @@ final class GameJoiner(
 
   private def idleCheck(povRef: PovRef) {
     GameRepo pov povRef foreach {
-      _.filter(_.game.playable) foreach { pov ⇒
+      _.filter(_.game.playable) foreach { pov =>
         pov.game.playerHasMoved(pov.color).fold(
           (pov.color.white && !pov.game.playerHasMoved(Color.Black)) ?? {
-            scheduleIdleCheck(!pov.ref, pov.game.lastMoveTimeInSeconds.fold(secondsToMove) { lmt ⇒
+            scheduleIdleCheck(!pov.ref, pov.game.lastMoveTimeInSeconds.fold(secondsToMove) { lmt =>
               lmt - nowSeconds + secondsToMove
             })
           },

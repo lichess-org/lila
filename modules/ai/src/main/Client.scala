@@ -20,11 +20,11 @@ trait Client extends Ai {
   def currentHealth = isHealthy(ping)
 
   def diagnose: Unit = tryPing onComplete {
-    case Failure(e) ⇒ {
+    case Failure(e) => {
       logwarn("remote AI error: " + e.getMessage)
       changePing(none)
     }
-    case Success(p) ⇒ changePing(p.some)
+    case Success(p) => changePing(p.some)
   }
 
   private def changePing(p: Option[Int]) = {

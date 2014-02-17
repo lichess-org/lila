@@ -4,12 +4,12 @@ import akka.actor._
 import com.typesafe.config.Config
 import org.elasticsearch.action.search.SearchResponse
 import play.api.libs.json.JsObject
-import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
+import scalastic.elasticsearch.{ Indexer => EsIndexer }
 
 import lila.db.api.{ $find, $cursor }
 import lila.search.TypeIndexer
 import lila.team.tube.teamTube
-import lila.team.{ Team ⇒ TeamModel }
+import lila.team.{ Team => TeamModel }
 
 final class Env(
     config: Config,
@@ -40,7 +40,7 @@ final class Env(
     import lila.search.actorApi.RebuildAll
     private implicit def timeout = makeTimeout minutes 20
     def process = {
-      case "team" :: "search" :: "reset" :: Nil ⇒
+      case "team" :: "search" :: "reset" :: Nil =>
         (lowLevelIndexer ? RebuildAll) inject "team search index rebuilt"
     }
   }
@@ -57,11 +57,11 @@ final class Env(
     import play.api.libs.json._
     import play.api.libs.iteratee._
     import lila.db.api._
-    esIndexer map { es ⇒
-      $enumerate.bulk[Option[TeamModel]]($query[TeamModel](sel), 100) { teamOptions ⇒
+    esIndexer map { es =>
+      $enumerate.bulk[Option[TeamModel]]($query[TeamModel](sel), 100) { teamOptions =>
         fuccess {
           es bulk {
-            teamOptions.flatten map { team ⇒
+            teamOptions.flatten map { team =>
               es.index_prepare(
                 IndexName,
                 TypeName,

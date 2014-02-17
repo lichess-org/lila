@@ -31,7 +31,7 @@ case class Ask(id: String, msg: Any)
 case object Size
 }
 
-case class WithUserIds(f: Iterable[String] ⇒ Unit)
+case class WithUserIds(f: Iterable[String] => Unit)
 
 case object GetUids
 

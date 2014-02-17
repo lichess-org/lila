@@ -6,7 +6,7 @@ import chess.Pos._
 import org.specs2.mutable._
 import org.specs2.specification._
 import ornicar.scalalib.test.ValidationMatchers
-import scalaz.{ Validation ⇒ V }
+import scalaz.{ Validation => V }
 
 final class UciToPgnTest extends Specification with ValidationMatchers {
 
@@ -47,7 +47,7 @@ final class UciToPgnTest extends Specification with ValidationMatchers {
   "convert UCI analysis to PGN" should {
     "work :)" in {
       UciToPgn(rep, uciAnalysis) match {
-        case (a, errs) ⇒ errs must beEmpty
+        case (a, errs) => errs must beEmpty
       }
     }
   }

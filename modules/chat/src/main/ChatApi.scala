@@ -23,7 +23,7 @@ private[chat] final class ChatApi(
 
     def write(chatId: ChatId, userId: String, text: String): Fu[Option[UserLine]] =
       makeLine(userId, text) flatMap {
-        _ ?? { line ⇒ pushLine(chatId, line) inject line.some }
+        _ ?? { line => pushLine(chatId, line) inject line.some }
       }
 
     def system(chatId: ChatId, text: String) = {
@@ -32,8 +32,8 @@ private[chat] final class ChatApi(
     }
 
     private[ChatApi] def makeLine(userId: String, t1: String): Fu[Option[UserLine]] = UserRepo byId userId map {
-      _ flatMap { user ⇒
-        Writer cut t1 ifFalse user.disabled flatMap { t2 ⇒
+      _ flatMap { user =>
+        Writer cut t1 ifFalse user.disabled flatMap { t2 =>
           flood.allowMessage(user.id, t2) option
             UserLine(user.username, Writer preprocessUserInput t2, user.troll)
         }
@@ -47,12 +47,12 @@ private[chat] final class ChatApi(
       coll.find(BSONDocument("_id" -> chatId)).one[MixedChat] map (_ | Chat.makeMixed(chatId))
 
     def write(chatId: ChatId, color: Color, text: String): Fu[Option[Line]] =
-      makeLine(chatId, color, text) ?? { line ⇒
+      makeLine(chatId, color, text) ?? { line =>
         pushLine(chatId, line) inject line.some
       }
 
     private def makeLine(chatId: ChatId, color: Color, t1: String): Option[Line] =
-      Writer cut t1 flatMap { t2 ⇒
+      Writer cut t1 flatMap { t2 =>
         flood.allowMessage(s"$chatId/${color.letter}", t2) option
           PlayerLine(color, Writer preprocessUserInput t2)
       }
@@ -75,7 +75,7 @@ private[chat] final class ChatApi(
     def preprocessUserInput(in: String) = addLinks(delocalize(noPrivateUrl(escapeXml(in))))
 
     def cut(text: String) = Some(text.trim take 140) filter (_.nonEmpty)
-    def addLinks(text: String) = urlRegex.replaceAllIn(text, m ⇒ {
+    def addLinks(text: String) = urlRegex.replaceAllIn(text, m => {
       val url = delocalize(quoteReplacement(m group 1))
       "<a target='_blank' href='%s'>%s</a>".format(prependHttp(url), url)
     })
@@ -85,6 +85,6 @@ private[chat] final class ChatApi(
     val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))""".r
     val gameUrlRegex = (domainRegex + """/([\w-]{8})[\w-]{4}""").r
     def noPrivateUrl(str: String): String =
-      gameUrlRegex.replaceAllIn(str, m ⇒ quoteReplacement(netDomain + "/" + (m group 1)))
+      gameUrlRegex.replaceAllIn(str, m => quoteReplacement(netDomain + "/" + (m group 1)))
   }
 }

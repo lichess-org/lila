@@ -18,7 +18,7 @@ final class Flood(duration: Duration) {
 
   private val messages = lila.memo.Builder.expiry[String, Messages](duration)
 
-  def filterMessage[A](uid: String, text: String)(op: ⇒ Unit) {
+  def filterMessage[A](uid: String, text: String)(op: => Unit) {
     if (allowMessage(uid, text)) op
   }
 
@@ -31,7 +31,7 @@ final class Flood(duration: Duration) {
   }
 
   private def duplicateMessage(msg: Message, msgs: Messages): Boolean =
-    msgs.headOption ?? { m ⇒
+    msgs.headOption ?? { m =>
       (m same msg) || (msgs.tail.headOption ?? (_ same msg))
     }
 

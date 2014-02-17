@@ -18,9 +18,9 @@ trait Tube[Doc] extends BSONDocumentReader[Option[Doc]]
 case class BsTube[Doc](handler: BSONHandler[BSONDocument, Doc]) extends Tube[Doc] {
 
   def read(bson: BSONDocument): Option[Doc] = handler readTry bson match {
-    case Success(doc) ⇒ Some(doc)
-    case Failure(err) ⇒ logerr(s"[tube] Cannot read ${lila.db.BSON.debug(bson)}\n$err\n${err.printStackTrace}"); None
-    // case Failure(err) ⇒ logerr(s"[tube] $err"); None
+    case Success(doc) => Some(doc)
+    case Failure(err) => logerr(s"[tube] Cannot read ${lila.db.BSON.debug(bson)}\n$err\n${err.printStackTrace}"); None
+    // case Failure(err) => logerr(s"[tube] $err"); None
   }
 
   def write(doc: Doc): BSONDocument = handler write doc
@@ -32,7 +32,7 @@ case class BsTube[Doc](handler: BSONHandler[BSONDocument, Doc]) extends Tube[Doc
 case class JsTube[Doc](
   reader: Reads[Doc],
   writer: Writes[Doc],
-  flags: Seq[JsTube.Flag.type ⇒ JsTube.Flag] = Seq.empty)
+  flags: Seq[JsTube.Flag.type => JsTube.Flag] = Seq.empty)
     extends Tube[Doc]
     with Reads[Doc]
     with Writes[Doc] {
@@ -43,8 +43,8 @@ case class JsTube[Doc](
   def read(bson: BSONDocument): Option[Doc] = {
     val js = JsObjectReader read bson
     fromMongo(js) match {
-      case JsSuccess(v, _) ⇒ Some(v)
-      case e ⇒ {
+      case JsSuccess(v, _) => Some(v)
+      case e => {
         logerr("[tube] Cannot read %s\n%s".format(js, e))
         None
       }
@@ -54,8 +54,8 @@ case class JsTube[Doc](
   def read(js: JsObject): JsResult[Doc] = reads(js)
 
   def write(doc: Doc): JsResult[JsObject] = writes(doc) match {
-    case obj: JsObject ⇒ JsSuccess(obj)
-    case something ⇒ {
+    case obj: JsObject => JsSuccess(obj)
+    case something => {
       logerr("[tube] Cannot write %s\ngot %s".format(doc, something))
       JsError()
     }
@@ -76,7 +76,7 @@ case class JsTube[Doc](
 
   private lazy val flagSet = flags.map(_(JsTube.Flag)).toSet
 
-  private def flag[A](f: JsTube.Flag.type ⇒ JsTube.Flag)(x: ⇒ A, y: ⇒ A) =
+  private def flag[A](f: JsTube.Flag.type => JsTube.Flag)(x: => A, y: => A) =
     flagSet contains f(JsTube.Flag) fold (x, y)
 }
 
@@ -105,10 +105,10 @@ object JsTube {
     // Explodes on failure
     implicit final class LilaTubePimpedWrites[A](writes: Writes[A]) {
       def andThen(transformer: Reads[JsObject]): Writes[A] =
-        writes.transform(Writes[JsValue] { origin ⇒
+        writes.transform(Writes[JsValue] { origin =>
           origin transform transformer match {
-            case err: JsError     ⇒ throw LilaException("[tube] Cannot transform %s\n%s".format(origin, err))
-            case JsSuccess(js, _) ⇒ js
+            case err: JsError     => throw LilaException("[tube] Cannot transform %s\n%s".format(origin, err))
+            case JsSuccess(js, _) => js
           }
         })
     }
@@ -123,11 +123,11 @@ object JsTube {
     def readDateOpt(field: Symbol) = readDate(field) orElse json.reader
 
     def writeDate(field: Symbol) = (__ \ field).json.update(of[JsNumber] map {
-      millis ⇒ Json.obj("$date" -> millis)
+      millis => Json.obj("$date" -> millis)
     })
 
     def writeDateOpt(field: Symbol) = (__ \ field).json.update(of[JsNumber] map {
-      millis ⇒ Json.obj("$date" -> millis)
+      millis => Json.obj("$date" -> millis)
     }) orElse json.reader
 
     def merge(obj: JsObject) = __.read[JsObject] map (obj ++)

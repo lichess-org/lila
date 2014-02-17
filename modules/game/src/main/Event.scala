@@ -4,7 +4,7 @@ import lila.common.PimpedJson._
 import play.api.libs.json._
 
 import chess.Pos.{ piotr, allPiotrs }
-import chess.{ PromotableRole, Pos, Color, Situation, Move ⇒ ChessMove, Clock ⇒ ChessClock }
+import chess.{ PromotableRole, Pos, Color, Situation, Move => ChessMove, Clock => ChessClock }
 import lila.chat.{ Line, UserLine, PlayerLine }
 
 sealed trait Event {
@@ -21,7 +21,7 @@ object Event {
   def fromMove(move: ChessMove): List[Event] = Move(move) :: List(
     (move.capture ifTrue move.enpassant) map Event.Enpassant.apply,
     move.promotion map { Promotion(_, move.dest) },
-    move.castle map { case (king, rook) ⇒ Castling(king, rook, move.color) }
+    move.castle map { case (king, rook) => Castling(king, rook, move.color) }
   ).flatten
 
   def fromSituation(situation: Situation): List[Event] = List(
@@ -61,7 +61,7 @@ object Event {
     def data =
       if (moves.isEmpty) JsNull
       else JsObject(moves map {
-        case (o, d) ⇒ o.key -> JsString(d map (_.key) mkString)
+        case (o, d) => o.key -> JsString(d map (_.key) mkString)
       } toList)
     override def only = Some(color)
   }

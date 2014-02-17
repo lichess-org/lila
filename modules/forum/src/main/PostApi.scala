@@ -10,7 +10,7 @@ import lila.db.Implicits._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
 import lila.mod.ModlogApi
-import lila.security.{ Granter ⇒ MasterGranter }
+import lila.security.{ Granter => MasterGranter }
 import lila.user.{ User, UserContext }
 import tube._
 
@@ -25,7 +25,7 @@ final class PostApi(
     categ: Categ,
     topic: Topic,
     data: DataForm.PostData)(implicit ctx: UserContext): Fu[Post] =
-    lastNumberOf(topic) flatMap { number ⇒
+    lastNumberOf(topic) flatMap { number =>
       val post = Post.make(
         topicId = topic.id,
         author = data.author,
@@ -40,20 +40,20 @@ final class PostApi(
         $update(categ withTopic post) >>-
         (indexer ! InsertPost(post)) >>
         (env.recent.invalidate inject post) >>-
-        ((ctx.userId ifFalse post.troll) ?? { userId ⇒
-          timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop ⇒
+        ((ctx.userId ifFalse post.troll) ?? { userId =>
+          timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop =>
             post.isStaff.fold(prop.toStaffFriendsOf(userId), prop.toFriendsOf(userId))
           )
         }) inject post
     }
 
   def urlData(postId: String, troll: Boolean): Fu[Option[PostUrlData]] = get(postId) flatMap {
-    case Some((topic, post)) if (!troll && post.troll) ⇒ fuccess(none[PostUrlData])
-    case Some((topic, post)) ⇒ PostRepo(troll).countBeforeNumber(topic.id, post.number) map { nb ⇒
+    case Some((topic, post)) if (!troll && post.troll) => fuccess(none[PostUrlData])
+    case Some((topic, post)) => PostRepo(troll).countBeforeNumber(topic.id, post.number) map { nb =>
       val page = nb / maxPerPage + 1
       PostUrlData(topic.categId, topic.slug, page, post.number).some
     }
-    case _ ⇒ fuccess(none)
+    case _ => fuccess(none)
   }
 
   def get(postId: String): Fu[Option[(Topic, Post)]] = for {
@@ -64,7 +64,7 @@ final class PostApi(
   def views(posts: List[Post]): Fu[List[PostView]] = for {
     topics ← $find.byIds[Topic](posts.map(_.topicId).distinct)
     categs ← $find.byIds[Categ](topics.map(_.categId).distinct)
-  } yield posts map { post ⇒
+  } yield posts map { post =>
     for {
       topic ← topics find (_.id == post.topicId)
       categ ← categs find (_.slug == topic.categId)
@@ -79,8 +79,8 @@ final class PostApi(
 
   def liteViews(posts: List[Post]): Fu[List[PostLiteView]] = for {
     topics ← $find.byIds[Topic](posts.map(_.topicId).distinct)
-  } yield posts map { post ⇒
-    topics find (_.id == post.topicId) map { topic ⇒
+  } yield posts map { post =>
+    topics find (_.id == post.topicId) map { topic =>
       PostLiteView(post, topic)
     }
   } flatten

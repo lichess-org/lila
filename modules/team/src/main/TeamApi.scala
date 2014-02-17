@@ -43,12 +43,12 @@ final class TeamApi(
       ).toFriendsOf(me.id)) inject team
   }
 
-  def update(team: Team, edit: TeamEdit, me: User): Funit = edit.trim |> { e ⇒
+  def update(team: Team, edit: TeamEdit, me: User): Funit = edit.trim |> { e =>
     team.copy(
       location = e.location,
       description = e.description,
       open = e.isOpen,
-      irc = e.hasIrc) |> { team ⇒ $update(team) >>- (indexer ! InsertTeam(team)) }
+      irc = e.hasIrc) |> { team => $update(team) >>- (indexer ! InsertTeam(team)) }
   }
 
   def mine(me: User): Fu[List[Team]] =
@@ -61,7 +61,7 @@ final class TeamApi(
     requests ← RequestRepo findByTeam team.id
     users ← $find.byOrderedIds[User](requests map (_.user))
   } yield requests zip users map {
-    case (request, user) ⇒ RequestWithUser(request, user)
+    case (request, user) => RequestWithUser(request, user)
   }
 
   def requestsWithUsers(user: User): Fu[List[RequestWithUser]] = for {
@@ -69,15 +69,15 @@ final class TeamApi(
     requests ← RequestRepo findByTeams teamIds
     users ← $find.byOrderedIds[User](requests map (_.user))
   } yield requests zip users map {
-    case (request, user) ⇒ RequestWithUser(request, user)
+    case (request, user) => RequestWithUser(request, user)
   }
 
   def join(teamId: String)(implicit ctx: UserContext): Fu[Option[Requesting]] = for {
     teamOption ← $find.byId[Team](teamId)
     result ← ~(teamOption |@| ctx.me.filter(_.canTeam))({
-      case (team, user) if team.open ⇒
+      case (team, user) if team.open =>
         (doJoin(team, user.id) inject Joined(team).some): Fu[Option[Requesting]]
-      case (team, user) ⇒
+      case (team, user) =>
         fuccess(Motivate(team).some: Option[Requesting])
     })
   } yield result
@@ -85,12 +85,12 @@ final class TeamApi(
   def requestable(teamId: String, user: User): Fu[Option[Team]] = for {
     teamOption ← $find.byId[Team](teamId)
     able ← teamOption.??(requestable(_, user))
-  } yield teamOption filter (_ ⇒ able)
+  } yield teamOption filter (_ => able)
 
   def requestable(team: Team, user: User): Fu[Boolean] =
     RequestRepo.exists(team.id, user.id) zip belongsTo(team.id, user.id) map {
-      case (false, false) ⇒ true
-      case _              ⇒ false
+      case (false, false) => true
+      case _              => false
     }
 
   def createRequest(team: Team, setup: RequestSetup, user: User): Funit =
@@ -106,15 +106,15 @@ final class TeamApi(
     _ ← $remove(request)
     _ ← cached.nbRequests remove team.createdBy
     userOption ← $find.byId[User](request.user)
-    _ ← userOption.filter(_ ⇒ accept).??(user ⇒
+    _ ← userOption.filter(_ => accept).??(user =>
       doJoin(team, user.id) >>- notifier.acceptRequest(team, request)
     )
   } yield ()
 
   def doJoin(team: Team, userId: String): Funit =
-    belongsTo(team.id, userId) flatMap { belongs ⇒
+    belongsTo(team.id, userId) flatMap { belongs =>
       (!belongs) ?? {
-        MemberRepo userIdsByTeam team.id flatMap { previousMembers ⇒
+        MemberRepo userIdsByTeam team.id flatMap { previousMembers =>
           MemberRepo.add(team.id, userId) >>
             TeamRepo.incMembers(team.id, +1) >>
             (cached.teamIds remove userId) >>-
@@ -128,7 +128,7 @@ final class TeamApi(
   def quit(teamId: String)(implicit ctx: UserContext): Fu[Option[Team]] = for {
     teamOption ← $find.byId[Team](teamId)
     result ← ~(teamOption |@| ctx.me)({
-      case (team, user) ⇒ doQuit(team, user.id) inject team.some
+      case (team, user) => doQuit(team, user.id) inject team.some
     })
   } yield result
 

@@ -29,7 +29,7 @@ private[team] final class DataForm(val captcher: akka.actor.ActorSelection) exte
     Fields.irc,
     Fields.gameId,
     Fields.move)(TeamSetup.apply)(TeamSetup.unapply)
-    .verifying("This team already exists", d ⇒ !teamExists(d).await)
+    .verifying("This team already exists", d => !teamExists(d).await)
     .verifying(captchaFailMessage, validateCaptcha _))
 
   def edit(team: Team) = Form(mapping(

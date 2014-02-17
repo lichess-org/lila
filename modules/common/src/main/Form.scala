@@ -4,11 +4,11 @@ import play.api.data.Forms._
 
 object Form {
 
-  def options(it: Iterable[Int], pattern: String) = it map { d ⇒
+  def options(it: Iterable[Int], pattern: String) = it map { d =>
     d -> (pluralize(pattern, d) format d)
   }
 
-  def options(it: Iterable[Int], code: String, pattern: String) = it map { d ⇒
+  def options(it: Iterable[Int], code: String, pattern: String) = it map { d =>
     (d + code) -> (pluralize(pattern, d) format d)
   }
 

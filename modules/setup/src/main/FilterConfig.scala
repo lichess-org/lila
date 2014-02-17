@@ -29,7 +29,7 @@ case class FilterConfig(
     "variant" -> variant.map(_.toString),
     "mode" -> mode.map(_.toString),
     "speed" -> speed.map(_.id),
-    "rating" -> ratingRange.notBroad.map(rr ⇒ List(rr.min, rr.max)))
+    "rating" -> ratingRange.notBroad.map(rr => List(rr.min, rr.max)))
 
   def nonEmpty = copy(
     variant = variant.isEmpty.fold(FilterConfig.default.variant, variant),
@@ -69,14 +69,14 @@ object FilterConfig {
   import play.api.libs.json._
 
   private[setup] lazy val tube = JsTube(
-    reader = Reads[FilterConfig](js ⇒
+    reader = Reads[FilterConfig](js =>
       ~(for {
         obj ← js.asOpt[JsObject]
         raw ← RawFilterConfig.tube.read(obj).asOpt
         decoded ← raw.decode
       } yield JsSuccess(decoded): JsResult[FilterConfig])
     ),
-    writer = Writes[FilterConfig](config ⇒
+    writer = Writes[FilterConfig](config =>
       RawFilterConfig.tube.write(config.encode) getOrElse JsUndefined("[setup] Can't write config")
     )
   )

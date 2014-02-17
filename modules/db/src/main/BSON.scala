@@ -28,7 +28,7 @@ object BSON {
 
   final class Reader(val doc: BSONDocument) {
 
-    val map = (doc.stream collect { case Success(e) ⇒ e }).toMap
+    val map = (doc.stream collect { case Success(e) => e }).toMap
 
     def get[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, A]): A =
       reader.asInstanceOf[BSONReader[BSONValue, A]] read map(k)
@@ -69,11 +69,11 @@ object BSON {
       if (b.isEmpty) None else ByteArray.ByteArrayBSONHandler.write(b).some
     def bytesO(b: Array[Byte]): Option[BSONBinary] = byteArrayO(ByteArray(b))
     def listO(list: List[String]): Option[List[String]] = list match {
-      case Nil          ⇒ None
-      case List("")     ⇒ None
-      case List("", "") ⇒ None
-      case List(a, "")  ⇒ Some(List(a))
-      case full         ⇒ Some(full)
+      case Nil          => None
+      case List("")     => None
+      case List("", "") => None
+      case List(a, "")  => Some(List(a))
+      case full         => Some(full)
     }
     def docO(o: BSONDocument): Option[BSONDocument] = if (o.isEmpty) None else Some(o)
     def double(i: Double): BSONDouble = BSONDouble(i)
@@ -86,12 +86,12 @@ object BSON {
   val writer = new Writer
 
   def debug(v: BSONValue): String = v match {
-    case d: BSONDocument ⇒ debugDoc(d)
-    case d: BSONArray    ⇒ debugArr(d)
-    case v               ⇒ v.toString
+    case d: BSONDocument => debugDoc(d)
+    case d: BSONArray    => debugArr(d)
+    case v               => v.toString
   }
   def debugArr(doc: BSONArray): String = doc.values.toList.map(debug).mkString("[", ", ", "]")
   def debugDoc(doc: BSONDocument): String = (doc.elements.toList map {
-    case (k, v) ⇒ s"$k: ${debug(v)}"
+    case (k, v) => s"$k: ${debug(v)}"
   }).mkString("{", ", ", "}")
 }

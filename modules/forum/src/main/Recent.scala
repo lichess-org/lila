@@ -4,7 +4,7 @@ import scala.concurrent.duration.Duration
 
 import spray.caching.{ LruCache, Cache }
 
-import lila.security.{ Permission, Granter ⇒ MasterGranter }
+import lila.security.{ Permission, Granter => MasterGranter }
 import lila.user.User
 
 private[forum] final class Recent(
@@ -12,10 +12,10 @@ private[forum] final class Recent(
   ttl: Duration,
   nb: Int) {
 
-  private type GetTeams = String ⇒ Fu[List[String]]
+  private type GetTeams = String => Fu[List[String]]
 
   def apply(user: Option[User], getTeams: GetTeams): Fu[List[PostLiteView]] =
-    userCacheKey(user, getTeams) flatMap { key ⇒
+    userCacheKey(user, getTeams) flatMap { key =>
       cache(key)(fetch(key))
     }
 
@@ -27,7 +27,7 @@ private[forum] final class Recent(
   import makeTimeout.large
 
   private def userCacheKey(user: Option[User], getTeams: GetTeams): Fu[String] =
-    user.map(_.id) ?? getTeams map { teams ⇒
+    user.map(_.id) ?? getTeams map { teams =>
       (user.??(_.troll) ?? List("[troll]")) :::
         (user ?? MasterGranter(Permission.StaffForum)).fold(staffCategIds, publicCategIds) :::
         (teams map teamSlug)
@@ -42,7 +42,7 @@ private[forum] final class Recent(
 
   private def fetch(key: String): Fu[List[PostLiteView]] =
     (key.split(";").toList match {
-      case "[troll]" :: categs ⇒ PostRepoTroll.recentInCategs(nb)(categs)
-      case categs              ⇒ PostRepo.recentInCategs(nb)(categs)
+      case "[troll]" :: categs => PostRepoTroll.recentInCategs(nb)(categs)
+      case categs              => PostRepo.recentInCategs(nb)(categs)
     }) flatMap postApi.liteViews
 }

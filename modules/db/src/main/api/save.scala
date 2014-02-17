@@ -8,8 +8,8 @@ import Types._
 object $save {
 
   def apply[ID: Writes, A <: Identified[ID]: JsTubeInColl](doc: A): Funit =
-    (implicitly[JsTube[A]] toMongo doc).fold(e ⇒ fufail(e.toString),
-      js ⇒ $update($select(doc.id), js, upsert = true)
+    (implicitly[JsTube[A]] toMongo doc).fold(e => fufail(e.toString),
+      js => $update($select(doc.id), js, upsert = true)
     )
 
   def apply[A <: Identified[String]: JsTubeInColl](doc: A): Funit = apply[String, A](doc)

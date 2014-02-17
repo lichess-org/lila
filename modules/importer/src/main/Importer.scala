@@ -20,25 +20,25 @@ private[importer] final class Importer(
 
   def apply(data: ImportData, user: Option[String], ip: String): Fu[Game] = {
 
-    def gameExists(processing: ⇒ Fu[Game]): Fu[Game] =
+    def gameExists(processing: => Fu[Game]): Fu[Game] =
       $find.one(lila.game.Query pgnImport data.pgn) flatMap { _.fold(processing)(fuccess) }
 
     def applyResult(game: Game, result: Result) {
       result match {
-        case Result(Status.Draw, _)             ⇒ roundMap ! Tell(game.id, DrawForce)
-        case Result(Status.Resign, Some(color)) ⇒ roundMap ! Tell(game.id, Resign(game.player(!color).id))
-        case _                                  ⇒
+        case Result(Status.Draw, _)             => roundMap ! Tell(game.id, DrawForce)
+        case Result(Status.Resign, Some(color)) => roundMap ! Tell(game.id, Resign(game.player(!color).id))
+        case _                                  =>
       }
     }
 
     def applyMoves(pov: Pov, moves: List[Move]) {
       moves match {
-        case move :: rest ⇒ {
+        case move :: rest => {
           applyMove(pov, move)
           Thread sleep delay.toMillis
           applyMoves(!pov, rest)
         }
-        case Nil ⇒
+        case Nil =>
       }
     }
 
@@ -51,16 +51,16 @@ private[importer] final class Importer(
         prom = move.promotion map (_.name),
         blur = false,
         lag = 0.millis,
-        onFailure = _ ⇒ ()
+        onFailure = _ => ()
       ))
     }
 
     gameExists {
       (data preprocess user).future flatMap {
-        case Preprocessed(game, moves, result) ⇒
+        case Preprocessed(game, moves, result) =>
           (GameRepo insertDenormalized game) >>-
             applyMoves(Pov(game, Color.white), moves) >>-
-            (result foreach { r ⇒ applyResult(game, r) }) inject game
+            (result foreach { r => applyResult(game, r) }) inject game
       }
     }
   }

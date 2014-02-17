@@ -23,18 +23,18 @@ private final class PerfsUpdater {
       updateRatings(ratingsW.global, ratingsB.global, result, system)
       updateRatings(ratingsW.white, ratingsB.black, result, system)
       game.variant match {
-        case chess.Variant.Standard ⇒
+        case chess.Variant.Standard =>
           updateRatings(ratingsW.standard, ratingsB.standard, result, system)
-        case chess.Variant.Chess960 ⇒
+        case chess.Variant.Chess960 =>
           updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
-        case _ ⇒
+        case _ =>
       }
       chess.Speed(game.clock) match {
-        case chess.Speed.Bullet ⇒
+        case chess.Speed.Bullet =>
           updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
-        case chess.Speed.Blitz ⇒
+        case chess.Speed.Blitz =>
           updateRatings(ratingsW.blitz, ratingsB.blitz, result, system)
-        case chess.Speed.Slow | chess.Speed.Unlimited ⇒
+        case chess.Speed.Slow | chess.Speed.Unlimited =>
           updateRatings(ratingsW.slow, ratingsB.slow, result, system)
       }
       val perfsW = mkPerfs(ratingsW, white.perfs, Pov white game)
@@ -53,7 +53,7 @@ private final class PerfsUpdater {
           perfsW.global.glicko.intRating - white.perfs.global.glicko.intRating,
           perfsB.global.glicko.intRating - black.perfs.global.glicko.intRating)) >> {
             (makeProgress(white.id) zip makeProgress(black.id)) flatMap {
-              case (proW, proB) ⇒
+              case (proW, proB) =>
                 (UserRepo.setPerfs(white, perfsW, proW) zip UserRepo.setPerfs(black, perfsB, proB)) void
             }
           }
@@ -70,9 +70,9 @@ private final class PerfsUpdater {
     val black: Rating)
 
   private def makeProgress(userId: String): Fu[Int] =
-    HistoryRepo.userRatings(userId, -10.some) map { entries ⇒
+    HistoryRepo.userRatings(userId, -10.some) map { entries =>
       ~((entries.headOption |@| entries.lastOption) {
-        case (head, last) ⇒ last.rating - head.rating
+        case (head, last) => last.rating - head.rating
       })
     }
 
@@ -91,23 +91,23 @@ private final class PerfsUpdater {
 
   private def resultOf(game: Game): Glicko.Result =
     game.winnerColor match {
-      case Some(chess.White) ⇒ Glicko.Result.Win
-      case Some(chess.Black) ⇒ Glicko.Result.Loss
-      case None              ⇒ Glicko.Result.Draw
+      case Some(chess.White) => Glicko.Result.Win
+      case Some(chess.Black) => Glicko.Result.Loss
+      case None              => Glicko.Result.Draw
     }
 
   private def updateRatings(white: Rating, black: Rating, result: Glicko.Result, system: RatingCalculator) {
     val results = new RatingPeriodResults()
     result match {
-      case Glicko.Result.Draw ⇒ results.addDraw(white, black)
-      case Glicko.Result.Win  ⇒ results.addResult(white, black)
-      case Glicko.Result.Loss ⇒ results.addResult(black, white)
+      case Glicko.Result.Draw => results.addDraw(white, black)
+      case Glicko.Result.Win  => results.addResult(white, black)
+      case Glicko.Result.Loss => results.addResult(black, white)
     }
     try {
       system.updateRatings(results)
     }
     catch {
-      case e: Exception ⇒ logger.error(e.getMessage)
+      case e: Exception => logger.error(e.getMessage)
     }
   }
 

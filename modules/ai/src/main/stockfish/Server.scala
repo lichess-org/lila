@@ -20,7 +20,7 @@ private[ai] final class Server(
   def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[MoveResult] = {
     implicit val timeout = makeTimeout(config.playTimeout)
     queue ? PlayReq(uciMoves, initialFen map chess960Fen, level) mapTo
-      manifest[Option[String]] flatten "[stockfish] play failed" flatMap { move ⇒
+      manifest[Option[String]] flatten "[stockfish] play failed" flatMap { move =>
         host map { MoveResult(move, _) }
       }
   }
@@ -33,18 +33,18 @@ private[ai] final class Server(
 
   def load: Fu[Int] = {
     import makeTimeout.short
-    queue ? GetLoad mapTo manifest[Int] addEffect { l ⇒
+    queue ? GetLoad mapTo manifest[Int] addEffect { l =>
       (l > 0) ! println(s"[stockfish] load = $l")
     }
   }
 
-  private def chess960Fen(fen: String) = (Forsyth << fen).fold(fen) { situation ⇒
+  private def chess960Fen(fen: String) = (Forsyth << fen).fold(fen) { situation =>
     fen.replace("KQkq", situation.board.pieces.toList filter {
-      case (_, piece) ⇒ piece is chess.Rook
+      case (_, piece) => piece is chess.Rook
     } sortBy {
-      case (pos, _) ⇒ (pos.y, pos.x)
+      case (pos, _) => (pos.y, pos.x)
     } map {
-      case (pos, piece) ⇒ piece.color.fold(pos.file.toUpperCase, pos.file)
+      case (pos, piece) => piece.color.fold(pos.file.toUpperCase, pos.file)
     } mkString "")
   }
 }

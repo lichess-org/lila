@@ -6,7 +6,7 @@ private[game] object MoveTime {
 
   def encode(mt: Int): Char = encodeHash get mt getOrElse lastChar
 
-  def decode(str: String): List[Int] = str.toList map { mt ⇒
+  def decode(str: String): List[Int] = str.toList map { mt =>
     decodeHash get mt getOrElse lastInt
   }
 
@@ -15,7 +15,7 @@ private[game] object MoveTime {
 
   private val decodeHash: Map[Char, Int] = chars.zipWithIndex.toMap
 
-  private val encodeHash: Map[Int, Char] = decodeHash.map(x ⇒ x._2 -> x._1).toMap
+  private val encodeHash: Map[Int, Char] = decodeHash.map(x => x._2 -> x._1).toMap
 
   private val lastChar: Char = chars.last
   private val lastInt: Int = chars.size - 1

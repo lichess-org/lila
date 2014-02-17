@@ -29,7 +29,7 @@ trait GameRepo {
   type ID = String
 
   import Game._
-  import Game.{ BSONFields ⇒ F }
+  import Game.{ BSONFields => F }
 
   def game(gameId: ID): Fu[Option[Game]] = $find byId gameId
 
@@ -39,10 +39,10 @@ trait GameRepo {
     $find.one($select(gameId) ++ Query.finished)
 
   def player(gameId: ID, color: Color): Fu[Option[Player]] =
-    $find byId gameId map2 { (game: Game) ⇒ game player color }
+    $find byId gameId map2 { (game: Game) => game player color }
 
   def player(gameId: ID, playerId: ID): Fu[Option[Player]] =
-    $find byId gameId map { gameOption ⇒
+    $find byId gameId map { gameOption =>
       gameOption flatMap { _ player playerId }
     }
 
@@ -50,14 +50,14 @@ trait GameRepo {
     player(playerRef.gameId, playerRef.playerId)
 
   def pov(gameId: ID, color: Color): Fu[Option[Pov]] =
-    $find byId gameId map2 { (game: Game) ⇒ Pov(game, game player color) }
+    $find byId gameId map2 { (game: Game) => Pov(game, game player color) }
 
   def pov(gameId: ID, color: String): Fu[Option[Pov]] =
     Color(color) ?? (pov(gameId, _))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
-    $find byId playerRef.gameId map { gameOption ⇒
-      gameOption flatMap { game ⇒
+    $find byId playerRef.gameId map { gameOption =>
+      gameOption flatMap { game =>
         game player playerRef.playerId map { Pov(game, _) }
       }
     }
@@ -76,8 +76,8 @@ trait GameRepo {
 
   def save(progress: Progress): Funit =
     GameDiff(progress.origin, progress.game) |> {
-      case (Nil, Nil) ⇒ funit
-      case (sets, unsets) ⇒ gameTube.coll.update(
+      case (Nil, Nil) => funit
+      case (sets, unsets) => gameTube.coll.update(
         $select(progress.origin.id),
         if (unsets.isEmpty) BSONDocument("$set" -> BSONDocument(sets))
         else BSONDocument("$set" -> BSONDocument(sets), "$unset" -> BSONDocument(unsets))
@@ -155,10 +155,10 @@ trait GameRepo {
       F.updatedAt -> $gt($date(DateTime.now - 15.seconds))
     ))
 
-  def count(query: Query.type ⇒ JsObject): Fu[Int] = $count(query(Query))
+  def count(query: Query.type => JsObject): Fu[Int] = $count(query(Query))
 
   def nbPerDay(days: Int): Fu[List[Int]] =
-    ((days to 1 by -1).toList map { day ⇒
+    ((days to 1 by -1).toList map { day =>
       val from = DateTime.now.withTimeAtStartOfDay - day.days
       val to = from + 1.day
       $count(Json.obj(F.createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
@@ -181,10 +181,10 @@ trait GameRepo {
       Sort(Seq(Descending("gs"))),
       Limit(limit)
     ))
-    gameTube.coll.db.command(command) map { stream ⇒
-      (stream.toList map { obj ⇒
-        toJSON(obj).asOpt[JsObject] flatMap { o ⇒
-          o str "_id" flatMap { id ⇒
+    gameTube.coll.db.command(command) map { stream =>
+      (stream.toList map { obj =>
+        toJSON(obj).asOpt[JsObject] flatMap { o =>
+          o str "_id" flatMap { id =>
             o int "gs" map { id -> _ }
           }
         }
@@ -227,8 +227,8 @@ trait GameRepo {
   def associatePgn(ids: Seq[ID]): Fu[Map[String, PgnMoves]] =
     gameTube.coll.find($select byIds ids)
       .cursor[BSONDocument]
-      .collect[List]() map2 { (obj: BSONDocument) ⇒
-        extractPgnMoves(obj) flatMap { moves ⇒
+      .collect[List]() map2 { (obj: BSONDocument) =>
+        extractPgnMoves(obj) flatMap { moves =>
           obj.getAs[String]("_id") map (_ -> moves)
         }
       } map (_.flatten.toMap)
@@ -264,10 +264,10 @@ trait GameRepo {
       Sort(Seq(Descending("nb"))),
       Limit(max)
     ))
-    gameTube.coll.db.command(command) map { stream ⇒
-      (stream.toList map { obj ⇒
-        toJSON(obj).asOpt[JsObject] flatMap { o ⇒
-          o int "nb" map { nb ⇒
+    gameTube.coll.db.command(command) map { stream =>
+      (stream.toList map { obj =>
+        toJSON(obj).asOpt[JsObject] flatMap { o =>
+          o int "nb" map { nb =>
             ~(o str "_id") -> nb
           }
         }
@@ -301,15 +301,15 @@ trait GameRepo {
   //       ) ++ $or(List(Json.obj("p0.e" -> $exists(true)), Json.obj("p1.e" -> $exists(true))))
   //     })
   //   )
-  //   gameTube.coll.db.command(command) map { res ⇒
-  //     toJSON(res).arr("results").flatMap { r ⇒
+  //   gameTube.coll.db.command(command) map { res =>
+  //     toJSON(res).arr("results").flatMap { r =>
   //       (r(0) int "value") |@| (r(1) int "value") tupled
   //     }
   //   } map (~_)
   // }
 
   private def extractPgnMoves(doc: BSONDocument) =
-    doc.getAs[BSONBinary](F.binaryPgn) map { bin ⇒
+    doc.getAs[BSONBinary](F.binaryPgn) map { bin =>
       BinaryFormat.pgn read { ByteArray.ByteArrayBSONHandler read bin }
     }
 
@@ -318,7 +318,7 @@ trait GameRepo {
   // the 2 userIds SHOULD be sorted by game count desc
   // this method is cached in lila.game.Cached
   private[game] def confrontation(users: ((String, Int), (String, Int))): Fu[Confrontation] = users match {
-    case (user1, user2) ⇒ {
+    case (user1, user2) => {
       import reactivemongo.bson._
       import reactivemongo.core.commands._
       val userIds = List(user1, user2).sortBy(_._2).map(_._1)
@@ -329,10 +329,10 @@ trait GameRepo {
         )),
         GroupField(F.winnerId)("nb" -> SumValue(1))
       ))
-      gameTube.coll.db.command(command) map { stream ⇒
-        val res = (stream.toList map { obj ⇒
-          toJSON(obj).asOpt[JsObject] flatMap { o ⇒
-            o int "nb" map { nb ⇒
+      gameTube.coll.db.command(command) map { stream =>
+        val res = (stream.toList map { obj =>
+          toJSON(obj).asOpt[JsObject] flatMap { o =>
+            o int "nb" map { nb =>
               ~(o str "_id") -> nb
             }
           }

@@ -2,7 +2,7 @@ package lila.setup
 
 import akka.actor.ActorSelection
 import akka.pattern.ask
-import chess.{ Color ⇒ ChessColor }
+import chess.{ Color => ChessColor }
 
 import lila.game.{ GameRepo, Game, Pov, Event, Progress, AnonCookie }
 import lila.hub.actorApi.router.Player
@@ -20,7 +20,7 @@ private[setup] final class FriendJoiner(
         Some(ChessColor.Black).ifTrue(game.whitePlayer.hasUser) orElse
         Some(ChessColor.White).ifTrue(game.blackPlayer.hasUser) getOrElse
         ChessColor.Black // well no. we're fucked. toss the coin.
-      val g1 = user.fold(game) { u ⇒ game.updatePlayer(color, _ withUser u) }
+      val g1 = user.fold(game) { u => game.updatePlayer(color, _ withUser u) }
       for {
         p1 ← GameRepo.setUsers(g1.id, g1.player(_.white).userInfos, g1.player(_.black).userInfos) inject Progress(game, g1)
         p2 = p1 map (_.start)

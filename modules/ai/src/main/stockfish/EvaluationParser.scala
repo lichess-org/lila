@@ -17,16 +17,16 @@ object EvaluationParser {
   def apply(output: String): Evaluation = {
 
     val score = parseIntOption {
-      cpRegex.replaceAllIn(output, m ⇒ quoteReplacement(m group 1))
+      cpRegex.replaceAllIn(output, m => quoteReplacement(m group 1))
     } map Score.apply
 
     val mate = parseIntOption {
-      mateRegex.replaceAllIn(output, m ⇒ quoteReplacement(m group 1))
+      mateRegex.replaceAllIn(output, m => quoteReplacement(m group 1))
     }
 
     val line = output match {
-      case lineRegex(line) ⇒ line.split(' ').toList take LineMaxPlies
-      case _               ⇒ Nil
+      case lineRegex(line) => line.split(' ').toList take LineMaxPlies
+      case _               => Nil
     }
 
     Evaluation(score, mate, line)

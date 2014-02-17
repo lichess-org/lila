@@ -25,8 +25,8 @@ final class SiteMenu(trans: I18nKeys) {
   private val anonymous = List(play, game, puzzle, tournament, user, team, forum, tv)
 
   def all(me: Option[User]) = me match {
-    case Some(me)                       ⇒ authenticated
-    case _                              ⇒ anonymous
+    case Some(me)                       => authenticated
+    case _                              => anonymous
   }
 }
 

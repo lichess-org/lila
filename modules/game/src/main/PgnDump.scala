@@ -4,7 +4,7 @@ import akka.actor._
 import akka.pattern.ask
 import chess.format.Forsyth
 import chess.format.pgn.{ Pgn, Tag }
-import chess.format.{ pgn ⇒ chessPgn }
+import chess.format.{ pgn => chessPgn }
 import makeTimeout.short
 import org.joda.time.format.DateTimeFormat
 
@@ -13,19 +13,19 @@ import lila.user.User
 
 final class PgnDump(
     router: ActorSelection,
-    findUser: String ⇒ Fu[Option[User]]) {
+    findUser: String => Fu[Option[User]]) {
 
   import PgnDump._
 
   def apply(game: Game): Fu[Pgn] =
-    tags(game) map { ts ⇒
-      val fenSituation = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) ⇒ Forsyth <<< fen }
+    tags(game) map { ts =>
+      val fenSituation = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) => Forsyth <<< fen }
       val moves2 = (~fenSituation.map(_.situation.color.black)).fold(".." :: game.pgnMoves, game.pgnMoves)
       Pgn(ts, turns(moves2, fenSituation.map(_.fullMoveNumber) | 1))
     }
 
   def filename(game: Game): Fu[String] = gameUsers(game) map {
-    case (wu, bu) ⇒ "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
+    case (wu, bu) => "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
       dateFormat.print(game.createdAt),
       player(game.whitePlayer, wu),
       player(game.blackPlayer, bu),
@@ -49,7 +49,7 @@ final class PgnDump(
     gameUsers(game) zip
       (game.variant.standard.fold(fuccess(none), GameRepo initialFen game.id)) zip
       gameUrl(game.id) map {
-        case ((((wu, bu)), initialFen), url) ⇒ List(
+        case ((((wu, bu)), initialFen), url) => List(
           Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
           Tag(_.Site, url),
           Tag(_.Date, dateFormat.print(game.createdAt)),
@@ -68,7 +68,7 @@ final class PgnDump(
 
   private def turns(moves: List[String], from: Int): List[chessPgn.Turn] =
     (moves grouped 2).zipWithIndex.toList map {
-      case (moves, index) ⇒ chessPgn.Turn(
+      case (moves, index) => chessPgn.Turn(
         number = index + from,
         white = moves.headOption filter (".." !=) map { chessPgn.Move(_) },
         black = moves lift 1 map { chessPgn.Move(_) })
@@ -78,6 +78,6 @@ final class PgnDump(
 object PgnDump {
 
   def result(game: Game) = game.finished.fold(
-    game.winnerColor.fold("1/2-1/2")(color ⇒ color.white.fold("1-0", "0-1")),
+    game.winnerColor.fold("1/2-1/2")(color => color.white.fold("1-0", "0-1")),
     "*")
 }

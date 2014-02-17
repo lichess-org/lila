@@ -62,7 +62,7 @@ private[i18n] case class JsDump(
   }
 
   private def dump(lang: Lang): String =
-    """lichess_translations = {%s};""".format(messages map { key ⇒
+    """lichess_translations = {%s};""".format(messages map { key =>
       """"%s":"%s"""".format(escape(key.to(pool.default)()), escape(key.to(lang)()))
     } mkString ",")
 

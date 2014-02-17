@@ -16,8 +16,8 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     ai: lila.ai.Ai,
-    getUsername: String ⇒ Fu[Option[String]],
-    getUsernameOrAnon: String ⇒ Fu[String],
+    getUsername: String => Fu[Option[String]],
+    getUsernameOrAnon: String => Fu[String],
     uciMemo: lila.game.UciMemo,
     rematch960Cache: lila.memo.ExpireSetMemo,
     i18nKeys: lila.i18n.I18nKeys,
@@ -42,7 +42,7 @@ final class Env(
   }
   import settings._
 
-  lazy val history = () ⇒ new History(ttl = MessageTtl)
+  lazy val history = () => new History(ttl = MessageTtl)
 
   val roundMap = system.actorOf(Props(new lila.hub.ActorMap[Round] {
     def mkActor(id: String) = new Round(
@@ -69,7 +69,7 @@ final class Env(
         disconnectTimeout = PlayerDisconnectTimeout,
         ragequitTimeout = PlayerRagequitTimeout)
       def receive: Receive = ({
-        case msg@lila.chat.actorApi.ChatLine(id, line) ⇒
+        case msg@lila.chat.actorApi.ChatLine(id, line) =>
           self ! lila.hub.actorApi.map.Tell(id take 8, msg)
       }: Receive) orElse socketHubReceive
     }),

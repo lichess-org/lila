@@ -20,13 +20,13 @@ private[site] final class SocketHandler(
     flag: Option[String]): Fu[JsSocketHandler] = {
 
     def controller: Handler.Controller = {
-      case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
+      case ("liveGames", o) => o str "d" foreach { ids =>
         socket ! LiveGames(uid, ids.split(' ').toList)
       }
     }
 
     Handler(hub, socket, uid, Join(uid, userId, flag), userId) {
-      case Connected(enum, member) ⇒ controller -> enum
+      case Connected(enum, member) => controller -> enum
     }
   }
 }

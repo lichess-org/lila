@@ -14,30 +14,30 @@ object Auth extends LilaController {
   private def forms = Env.security.forms
 
   private def gotoLoginSucceeded[A](username: String, referrer: Option[String])(implicit req: RequestHeader) =
-    api saveAuthentication username map { sessionId ⇒
+    api saveAuthentication username map { sessionId =>
       val uri = referrer.filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
-      Redirect(uri) withCookies LilaCookie.withSession { session ⇒
+      Redirect(uri) withCookies LilaCookie.withSession { session =>
         session + ("sessionId" -> sessionId) - api.AccessUri
       }
     }
 
   private def gotoSignupSucceeded[A](username: String)(implicit req: RequestHeader) =
-    api saveAuthentication username map { sessionId ⇒
+    api saveAuthentication username map { sessionId =>
       Redirect(routes.User.show(username)) withCookies LilaCookie.session("sessionId", sessionId)
     }
 
-  def login = Open { implicit ctx ⇒
+  def login = Open { implicit ctx =>
     val referrer = get("referrer")
     Ok(html.auth.login(api.loginForm, referrer)) fuccess
   }
 
-  def authenticate = OpenBody { implicit ctx ⇒
+  def authenticate = OpenBody { implicit ctx =>
     val referrer = get("referrer")
     Firewall {
       implicit val req = ctx.body
       api.loginForm.bindFromRequest.fold(
-        err ⇒ BadRequest(html.auth.login(err, referrer)).fuccess,
-        _.fold(InternalServerError("authenticate error").fuccess) { u ⇒
+        err => BadRequest(html.auth.login(err, referrer)).fuccess,
+        _.fold(InternalServerError("authenticate error").fuccess) { u =>
           u.ipBan.fold(
             Env.security.firewall.blockIp(req.remoteAddress) inject BadRequest("blocked by firewall"),
             gotoLoginSucceeded(u.username, referrer)
@@ -47,24 +47,24 @@ object Auth extends LilaController {
     }
   }
 
-  def logout = Open { implicit ctx ⇒
+  def logout = Open { implicit ctx =>
     gotoLogoutSucceeded(ctx.req) fuccess
   }
 
-  def signup = Open { implicit ctx ⇒
+  def signup = Open { implicit ctx =>
     forms.signupWithCaptcha map {
-      case (form, captcha) ⇒ Ok(html.auth.signup(form, captcha))
+      case (form, captcha) => Ok(html.auth.signup(form, captcha))
     }
   }
 
-  def signupPost = OpenBody { implicit ctx ⇒
+  def signupPost = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     forms.signup.bindFromRequest.fold(
-      err ⇒ forms.anyCaptcha map { captcha ⇒
+      err => forms.anyCaptcha map { captcha =>
         BadRequest(html.auth.signup(err, captcha))
       },
-      data ⇒ Firewall {
-        UserRepo.create(data.username, data.password) flatMap { userOption ⇒
+      data => Firewall {
+        UserRepo.create(data.username, data.password) flatMap { userOption =>
           val user = userOption err "No user could be created for %s".format(data.username)
           HistoryRepo.create(user) >> gotoSignupSucceeded(user.username)
         }
@@ -72,16 +72,16 @@ object Auth extends LilaController {
     )
   }
 
-  def newPassword = AuthBody { implicit ctx ⇒
-    me ⇒
+  def newPassword = AuthBody { implicit ctx =>
+    me =>
       if (!me.artificial) fuccess(Redirect(routes.Lobby.home))
       else {
         implicit val req = ctx.body
         forms.newPassword.bindFromRequest.fold(
-          err ⇒ fuccess {
+          err => fuccess {
             BadRequest(html.auth.artificialPassword(me, err))
           },
-          pass ⇒ UserRepo.artificialSetPassword(me.id, pass) map { _ ⇒
+          pass => UserRepo.artificialSetPassword(me.id, pass) map { _ =>
             Redirect(routes.Lobby.home)
           }
         )

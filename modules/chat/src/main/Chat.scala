@@ -30,8 +30,8 @@ case class MixedChat(
 
   def forUser(u: Option[User]) = u.??(_.troll).fold(this,
     copy(lines = lines filter {
-      case l: UserLine   ⇒ !l.troll
-      case l: PlayerLine ⇒ true
+      case l: UserLine   => !l.troll
+      case l: PlayerLine => true
     }))
 }
 

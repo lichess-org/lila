@@ -13,7 +13,7 @@ private[team] final class Notifier(
   import makeTimeout.large
 
   def acceptRequest(team: Team, request: Request) {
-    teamUrl(team.id) foreach { url ⇒
+    teamUrl(team.id) foreach { url =>
       messenger ! LichessThread(
         to = request.user,
         subject = """You have joined the team %s""".format(team.name),
