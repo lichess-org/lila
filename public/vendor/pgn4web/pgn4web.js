@@ -3418,8 +3418,9 @@ function PrintHTML() {
         squareId = 'tcol' + jj + 'trow' + ii;
         imageId = 'img_' + squareId;
         text += (ii+jj)%2 === 0 ?
-          '<TD CLASS="whiteSquare" ID="' + squareId + '" BGCOLOR="#FFFFFF"' :
-          '<TD CLASS="blackSquare" ID="' + squareId + '" BGCOLOR="#D3D3D3"';
+          // thib hack remove bgcolor
+          '<TD CLASS="whiteSquare" ID="' + squareId + '"' :
+          '<TD CLASS="blackSquare" ID="' + squareId + '"';
         text += ' ALIGN="center" VALIGN="middle">';
         squareCoord = IsRotated ? String.fromCharCode(72-jj,49+ii) : String.fromCharCode(jj+65,56-ii);
         // thib hack remove onclick and title
