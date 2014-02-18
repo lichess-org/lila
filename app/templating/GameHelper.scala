@@ -56,23 +56,21 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withRating: Boolean = true,
     withDiff: Boolean = true,
     engine: Boolean = false)(implicit ctx: UserContext) = Html {
-    player.userId.fold(
-      """<span class="user_link%s">%s</span>""".format(
-        cssClass.??(" " + _),
-        player.aiLevel.fold(player.name | User.anonymous)(aiName)
-      )
-    ) { userId =>
+    player.userId match {
+      case None =>
+        val klass = cssClass.??(" " + _)
+        val content = player.aiLevel.fold(player.name | User.anonymous)(aiName)
+        s"""<span class="user_link$klass">$content</span>"""
+      case Some(userId) =>
         userIdToUsername(userId) |> { username =>
-          """<a %s href="%s">%s%s</a>""".format(
-            userClass(userId, cssClass, withOnline),
-            routes.User show username,
-            playerUsername(player, withRating) + ~(player.ratingDiff filter (_ => withDiff) map { diff =>
-              " (%s)".format(showNumber(diff))
-            }),
-            engine ?? """<span class="engine_mark" title="%s"></span>""" format trans.thisPlayerUsesChessComputerAssistance()
-          )
+          val klass = userClass(userId, cssClass, withOnline)
+          val href = routes.User show username
+          val content = playerUsername(player, withRating)
+          val diff = withDiff ?? { player.ratingDiff ?? { d => s" (${showNumber(d)})" } }
+          val mark = engine ?? s"""<span class="engine_mark" title="${trans.thisPlayerUsesChessComputerAssistance()}"></span>"""
+          s"""<a data-icon="r" $klass href="$href">&nbsp;$content$diff$mark</a>"""
         }
-      }
+    }
   }
 
   def gameEndStatus(game: Game)(implicit ctx: UserContext): Html = game.status match {

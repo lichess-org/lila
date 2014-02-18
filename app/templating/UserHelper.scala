@@ -54,11 +54,10 @@ trait UserHelper { self: I18nHelper with StringHelper =>
 
   def userIdLinkMini(userId: String) = Html {
     Env.user usernameOption userId map { username =>
-      """<a %s %s>%s</a>""".format(
-        userClass(userId, none, false),
-        userHref(username | userId),
-        username | userId
-      )
+      val klass = userClass(userId, none, false)
+      val href = userHref(username | userId)
+      val content = username | userId
+      s"""<a data-icon="r" $klass $href>&nbsp;$content</a>"""
     } await
   }
 
@@ -78,12 +77,12 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
     truncate: Option[Int] = None,
-    params: String = ""): String =
-    """<a %s %s>%s</a>""".format(
-      userClass(userId, cssClass, withOnline),
-      userHref(username, params = params),
-      truncate.fold(username)(username.take)
-    )
+    params: String = ""): String = {
+    val klass = userClass(userId, cssClass, withOnline)
+    val href = userHref(username, params = params)
+    val content = truncate.fold(username)(username.take)
+    s"""<a data-icon="r" $klass $href>&nbsp;$content</a>"""
+  }
 
   def userLink(
     user: User,
@@ -97,7 +96,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val href = userHref(user.username)
     val content = text | withRating.fold(user.usernameWithRating, user.username)
     val progress = withProgress ?? (" " + showProgress(user.progress))
-    s"""<a $klass $href>$content$progress</a>"""
+    s"""<a data-icon="r" $klass $href>&nbsp;$content$progress</a>"""
   }
 
   def userInfosLink(
@@ -106,11 +105,10 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     cssClass: Option[String] = None,
     withOnline: Boolean = true) = Env.user usernameOption userId map (_ | userId) map { username =>
     Html {
-      """<a %s %s>%s</a>""".format(
-        userClass(userId, cssClass, withOnline),
-        userHref(username),
-        rating.fold(username)(e => s"$username ($e)")
-      )
+      val klass = userClass(userId, cssClass, withOnline)
+      val href = userHref(username)
+      val content = rating.fold(username)(e => s"$username ($e)")
+      s"""<a data-icon="r" $klass $href>&nbsp;$content</a>"""
     }
   } await
 
@@ -127,7 +125,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     "user_link" :: List(
       cssClass,
       withPowerTip option "ulpt",
-      withOnline option isOnline(userId).fold("is user online", "is user offline")
+      withOnline option isOnline(userId).fold("online is-green", "offline")
     ).flatten
   }.mkString("class=\"", " ", "\"")
 

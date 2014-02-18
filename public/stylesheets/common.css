@@ -62,7 +62,6 @@ time::first-letter {
   font-weight: normal;
   font-style: normal;
 }
-.is:before,
 [data-icon]:before {
   font-size: 1.2em;
   vertical-align: middle;
@@ -88,12 +87,8 @@ time::first-letter {
 [data-icon].is4:before {
   font-size: 30px;
 }
-[data-icon].ic-green:before,
-.is.user.online:before {
+[data-icon].is-green:before {
   color: #759900;
-}
-.is.user:before {
-  content: "r ";
 }
 @font-face {
   font-family: 'pgn4web ChessSansPiratf';
