@@ -1924,7 +1924,7 @@ div.progressbar div {
   border-radius: 4px;
 }
 div.progressbar.flashy.green div {
-  background: #309850;
+  background-color: #759900 !important;
 }
 #notifications {
   width: 1005px;
