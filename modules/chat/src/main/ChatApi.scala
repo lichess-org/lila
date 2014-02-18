@@ -72,17 +72,11 @@ private[chat] final class ChatApi(
     import java.util.regex.Matcher.quoteReplacement
     import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
-    def preprocessUserInput(in: String) = addLinks(delocalize(noPrivateUrl(escapeXml(in))))
+    def preprocessUserInput(in: String) = delocalize(noPrivateUrl(escapeXml(in)))
 
     def cut(text: String) = Some(text.trim take 140) filter (_.nonEmpty)
-    def addLinks(text: String) = urlRegex.replaceAllIn(text, m => {
-      val url = delocalize(quoteReplacement(m group 1))
-      "<a target='_blank' href='%s'>%s</a>".format(prependHttp(url), url)
-    })
-    def prependHttp(url: String): String = url startsWith "http" fold (url, "http://" + url)
     val delocalize = new lila.common.String.Delocalizer(netDomain)
     val domainRegex = netDomain.replace(".", """\.""")
-    val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))""".r
     val gameUrlRegex = (domainRegex + """/([\w-]{8})[\w-]{4}""").r
     def noPrivateUrl(str: String): String =
       gameUrlRegex.replaceAllIn(str, m => quoteReplacement(netDomain + "/" + (m group 1)))

@@ -1578,6 +1578,9 @@ var storage = {
       }, this.options);
       var self = this;
       self.$msgs = self.element.find('.lichess_messages');
+      self.$msgs.on('click', 'a', function() {
+        $(this).attr('target', '_blank');
+      });
       if (self.options.resize) self.resize();
       var $form = self.element.find('form');
       var $input = self.element.find('input.lichess_say');
