@@ -251,7 +251,10 @@ div.lichess_table div.username {
   display: inline-block;
 }
 div.lichess_table div.username.connected {
-  border-bottom: 2px solid #859900;
+  border-bottom: 1px solid #859900;
+}
+div.lichess_table div.username a:hover {
+  text-decoration: none;
 }
 div.lichess_table a.button.strong {
   padding-top: 1em;
