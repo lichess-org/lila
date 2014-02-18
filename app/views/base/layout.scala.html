@@ -39,8 +39,8 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     <div id="top" class="clearfix">
       @if(!zen) {
       <a title="@trans.toggleSound()" id="sound_state" class="available">
-        <span class="is2 on" data-icon="n"> </span>
-        <span class="is2 off" data-icon="o"> </span>
+        <span class="is2 on" data-icon="n"></span>
+        <span class="is2 off" data-icon="o"></span>
       </a>
       }
       @if(!zen) {
@@ -77,13 +77,13 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
       <div id="nb_connected_players" class="nb_connected_players">
         @trans.nbConnectedPlayers("<strong>?</strong>")
       </div>
-      <a id="reconnecting" onclick="location.reload();" data-icon="B"> @trans.reconnecting()</a>
+      <a id="reconnecting" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
       <a href="@routes.Pref.set("bg")" title="@trans.toggleBackground()" class="bgpicker">
-        <span class="is2" data-icon="l"> </span>
+        <span class="is2" data-icon="l"></span>
       </a>
       @if(themepicker) {
       <div class="themepicker">
-        <a class="theme_toggle toggle" href="#"><span data-icon="u"> @trans.color()</span></a>
+        <a class="theme_toggle toggle" href="#"><span data-icon="u">&nbsp;@trans.color()</span></a>
         <div class="themes dropdown" data-href="@routes.Pref.set("theme")">
           @lila.pref.Theme.list.map { theme =>
           <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>
@@ -93,7 +93,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
       }
       <div class="lichess_language">
         <a class="toggle" href="#">
-          <span data-icon="u"> @langName(lang)</span>
+          <span data-icon="u">&nbsp;@langName(lang)</span>
         </a>
         <ul class="language_links dropdown">
           @langLinks(lang)
@@ -106,12 +106,12 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
           id="user_tag"
           data-rating="@me.rating"
           class="toggle toggle_auth">
-          <span data-icon="u"> @me.usernameWithRating</span>
+          <span data-icon="u">&nbsp;@me.usernameWithRating</span>
         </a>
         <div class="links dropdown">
-          <a href="@routes.User.show(me.username)" class="blank_if_play"><span data-icon="r"> @trans.profile()</span></a>
-          <a href="@routes.Pref.form"><span data-icon="q"> @trans.preferences()</span></a>
-          <a href="@routes.Auth.logout"><span data-icon="w"> @trans.logOut()</span></a>
+          <a href="@routes.User.show(me.username)" class="blank_if_play"><span data-icon="r">&nbsp;@trans.profile()</span></a>
+          <a href="@routes.Pref.form"><span data-icon="q">&nbsp;@trans.preferences()</span></a>
+          <a href="@routes.Auth.logout"><span data-icon="w">&nbsp;@trans.logOut()</span></a>
           @if(isGranted(_.StaffForum)) {
           <hr />
           <a href="@routes.ForumCateg.show("staff")">Staff Forum</a>
@@ -121,13 +121,13 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
         </div>
       </div>
       <a title="@trans.inbox()" data-href="@routes.Message.preview" class="goto_nav message blank_if_play @{(active exists (_.code == "message")).??("current")}" href="@routes.Message.inbox(page=1)">
-        <span class="is2" data-icon="e"> </span>
+        <span class="is2" data-icon="e"></span>
         @defining(messageNbUnread(ctx)) { nbUnread =>
         <span id="nb_messages" class="new_messages @{ (nbUnread > 0).??("unread") }">@nbUnread</span>
         }
       </a>
       }.getOrElse {
-      <a href="@routes.Auth.login" class="signin button" data-icon="F"> @trans.signIn()</a>
+      <a href="@routes.Auth.login" class="signin button" data-icon="F">&nbsp;@trans.signIn()</a>
       }
       }
     </div>
@@ -188,7 +188,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
         <div class="nobody">
           <span>@trans.noFriendsOnline()</span>
           <a class="find button" href="@routes.Relation.suggest(me.username)">
-            <span class="is3" data-icon="h"> @trans.findFriends()</span>
+            <span class="is3" data-icon="h">&nbsp;@trans.findFriends()</span>
           </a>
         </div>
       </div>
