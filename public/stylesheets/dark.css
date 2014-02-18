@@ -120,8 +120,7 @@ body.dark #top .dropdown,
 body.dark #top a.goto_nav.current,
 body.dark #top a.goto_nav:hover,
 body.dark #top a.bgpicker:hover,
-body.dark a#sound_state:hover,
-body.dark #top ul.language_links a.accepted {
+body.dark a#sound_state:hover {
   color: #c0c0c0;
 }
 body.dark #top .dropdown,

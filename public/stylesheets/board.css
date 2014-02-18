@@ -594,16 +594,14 @@ div.replay_and_analyse a {
 #GameBoard td.highlightWhiteSquare,
 #GameBoard td.highlightBlackSquare,
 div.lcs.moved div.lcsi {
-  background: -moz-radial-gradient(center, ellipse cover, rgba(0,255,0,0.7) 0%, rgba(0,255,0,0) 200%); /* FF3.6+ */
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,255,0,0.7)), color-stop(200%,rgba(0,255,0,0))); /* Chrome,Safari4+ */
-  background: -webkit-radial-gradient(center, ellipse cover, rgba(0,255,0,0.7) 0%,rgba(0,255,0,0) 200%); /* Chrome10+,Safari5.1+ */
-  background: -o-radial-gradient(center, ellipse cover, rgba(0,255,0,0.7) 0%,rgba(0,255,0,0) 200%); /* Opera 12+ */
-  background: -ms-radial-gradient(center, ellipse cover, rgba(0,255,0,0.7) 0%,rgba(0,255,0,0) 200%); /* IE10+ */
-  background: radial-gradient(ellipse at center, rgba(0,255,0,0.7) 0%,rgba(0,255,0,0) 200%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ff00', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  background: -moz-radial-gradient(center, ellipse cover, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(155,199,00, 0.81)), color-stop(100%, rgba(155,199,00, 0)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
+  background: radial-gradient(ellipse at center, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#cfd85500', endColorstr='#00d85500', GradientType=1);
 }
-
-
 #chessboard div.check,
 div.lcs.check div.lcsi {
   background: -moz-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);

@@ -100,6 +100,9 @@ time::first-letter {
   src: url("../vendor/pgn4web/fonts/ChessSansPiratf.eot");
   src: url("../vendor/pgn4web/fonts/ChessSansPiratf.eot?#iefix") format("embedded-opentype"), url("../vendor/pgn4web/fonts/ChessSansPiratf.woff") format("woff"), url("../vendor/pgn4web/fonts/ChessSansPiratf.ttf") format("truetype"), url("../vendor/pgn4web/fonts/ChessSansPiratf.svg#lichess") format("svg");
 }
+.thin {
+  font-weight: lighter;
+}
 /* jquery-ui */
 
 .ui-helper-hidden {
@@ -399,6 +402,10 @@ a:visited,
 button,
 input {
   color: #747474;
+}
+a,
+a:visited,
+button {
   cursor: pointer;
 }
 a,
@@ -1261,7 +1268,13 @@ div.lmcs.black {
   background: #cacaca;
 }
 div.lmcs.moved {
-  box-shadow: inset 0 0 0px 2px rgba(75, 99, 0, 0.8);
+  background: -moz-radial-gradient(center, ellipse cover, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(155,199,00, 0.81)), color-stop(100%, rgba(155,199,00, 0)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
+  background: radial-gradient(ellipse at center, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#cfd85500', endColorstr='#00d85500', GradientType=1);
 }
 div.lcmp {
   position: absolute;
@@ -1356,7 +1369,6 @@ ul.language_links a {
 ul.language_links a.current,
 ul.language_links a.accepted {
   font-weight: bold;
-  color: #759900;
 }
 div.game_config .fen_position .mini_board {
   margin: 10px auto 0 auto;
