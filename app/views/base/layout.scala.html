@@ -110,7 +110,6 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
         </a>
         <div class="links dropdown">
           <a href="@routes.User.show(me.username)" class="blank_if_play"><span data-icon="r"> @trans.profile()</span></a>
-          <a href="@routes.Account.profile"><span data-icon="q"> @trans.editProfile()</span></a>
           <a href="@routes.Pref.form"><span data-icon="q"> @trans.preferences()</span></a>
           <a href="@routes.Auth.logout"><span data-icon="w"> @trans.logOut()</span></a>
           @if(isGranted(_.StaffForum)) {
