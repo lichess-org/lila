@@ -15,10 +15,10 @@ trait StringHelper { self: NumberHelper =>
 
   val slugify = lila.common.String.slugify _
 
-  def shorten(text: String, length: Int, sep: String = " [&#8230;]"): String = Html {
-    val t = escape(text.replace("\n", " "))
-    if (t.size > (length + sep.size)) (t take length) ++ sep
-    else t
+  def shorten(text: String, length: Int, sep: String = " [&#8230;]") = Html {
+    val t = text.replace("\n", " ")
+    if (t.size > (length + sep.size)) escape(t take length) ++ sep
+    else escape(t)
   }
 
   def shortenWithBr(text: String, length: Int) = Html {
