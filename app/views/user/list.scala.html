@@ -30,15 +30,15 @@
 <div class="content_box">
   <div class="user_lists clearfix">
     @user.topLeader(progressDay, trans.progressToday(), icon = "Q".some)
-    @user.topLeader(ratingDay, trans.todaysLeaders(), icon = "P".some)
+    @user.topLeader(ratingDay, trans.todaysLeaders(), icon = "C".some)
     @user.topActive(nbDay, trans.activeToday(), true, icon = "T".some)
 
     @user.topLeader(progressWeek, trans.progressThisWeek(), icon = "Q".some)
-    @user.topLeader(ratingWeek, trans.leaderboardThisWeek(), icon = "P".some)
+    @user.topLeader(ratingWeek, trans.leaderboardThisWeek(), icon = "C".some)
     @user.topActive(nbWeek, trans.activeThisWeek(), true, icon = "T".some)
 
     @user.topLeader(progressMonth, trans.progressThisMonth(), icon = "Q".some)
-    @user.topLeader(rating, trans.leaderboard(), moreUrl = routes.User.leaderboard.url.some, icon = "P".some)
+    @user.topLeader(rating, trans.leaderboard(), moreUrl = routes.User.leaderboard.url.some, icon = "C".some)
     @user.topActive(nb, trans.activePlayers(), true, icon = "T".some)
 
     @user.top(bullet, trans.bestBulletPlayers())(u => Html(s"<td>${u.perfs.bullet.glicko.intRating}</td>"))

@@ -122,6 +122,15 @@ editor FEN like https://nextchessmove.com/
 new lobby system http://i.imgur.com/p5MD0uX.png
 ajax load computer analysis when available
 double click style in chessboardjs
+overflow http://en.lichess.org/@/Kingscrusher-YouTube
+content: "r "; on windows http://i.imgur.com/AWsbIfN.png
+cheater wins http://en.lichess.org/1m9XeoZS http://en.lichess.org/CKrrimBa 
+different hilights for selected/movable squares, don't highlight illegal moves
+http://en.lichess.org/translation/contribute green bars
+show context aware user ratings (claymore on #chess)
+bugs http://en.lichess.org/forum/lichess-feedback/bug-report-2#3
+paste lichess url in chat http://en.lichess.org/38W9YKR3eGjY
+improve continue game 
 
 deploy
 ------

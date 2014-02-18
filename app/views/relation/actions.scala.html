@@ -4,7 +4,7 @@
 @if(myId != userId) {
 @if(!blocks(userId, myId)) {
 @if(!playing) {
-<a title="@trans.challengeToPlay()" href="@routes.Lobby.home()?username=@userIdToUsername(userId)#friend" class="icon button" href="#"><span data-icon="C"></span></a>
+<a title="@trans.challengeToPlay()" href="@routes.Lobby.home()?username=@userIdToUsername(userId)#friend" class="icon button" href="#"><span data-icon="U"></span></a>
 }
 <a title="@trans.composeMessage()" href="@routes.Message.form()?username=@userId" class="icon button" href="#"><span data-icon="c"></span></a>
 }
@@ -21,14 +21,14 @@ case None => {
 }
 case Some(true) => {
 <a class="button relation hover_text" href="@routes.Relation.unfollow(userId)">
-  <span data-icon="h" class="base"> @trans.following()</span>
-  <span data-icon="h" class="hover"> @trans.unfollow()</span>
+  <span data-icon="h" class="base">&nbsp;@trans.following()</span>
+  <span data-icon="h" class="hover">&nbsp;@trans.unfollow()</span>
 </a>
 }
 case Some(false) => {
 <a class="button relation hover_text" href="@routes.Relation.unblock(userId)">
-  <span data-icon="k" class="base"> @trans.blocked()</span>
-  <span data-icon="k" class="hover"> @trans.unblock()</span>
+  <span data-icon="k" class="base">&nbsp;@trans.blocked()</span>
+  <span data-icon="k" class="hover">&nbsp;@trans.unblock()</span>
 </a>
 }
 }
@@ -39,4 +39,3 @@ case Some(false) => {
 <a href="@routes.Auth.login" class="signup">@trans.signUp</a>
 }
 }
-
