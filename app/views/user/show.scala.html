@@ -43,7 +43,7 @@ evenMoreJs = evenMoreJs) {
     <span class="rating">RATING <strong title="Glicko rating">@u.rating</strong><small title="Glicko rating deviation"> ±@u.perfs.global.glicko.intDeviationDoubled</small></span>
     @showProgress(u.progress)
     @info.rank.map { r =>
-    <span class="rank" title="@trans.rank()">RANK <strong>@r._1.localize</strong> / @{r._2/1000}k</span>
+    <span class="rank" title="@trans.rank()">RANK <strong>@r._1.localize</strong>/@{r._2/1000}k</span>
     }
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
