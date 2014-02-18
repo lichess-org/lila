@@ -18,7 +18,9 @@ private[api] final class AnalysisApi(
 
   private def makeNb(nb: Option[Int]) = math.min(100, nb | 10)
 
-  def makeSkip = scala.util.Random.nextInt(325 * 1000)
+  private def makeSkip = scala.util.Random.nextInt(325 * 1000)
+
+  def one(id: String): Fu[Option[JsObject]] = ??? // TODO AnalysisRepo done id 
 
   def list(nb: Option[Int]): Fu[JsObject] = AnalysisRepo.skipping(makeSkip, makeNb(nb)) flatMap { as =>
     GameRepo games as.map(_.id) flatMap { games =>
