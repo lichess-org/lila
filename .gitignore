@@ -6,6 +6,7 @@ project/project
 project/target
 public/trans
 public/compiled
+public/vendor/pgn4web/pgn4web-compacted.js
 serve/
 serve/README
 target
