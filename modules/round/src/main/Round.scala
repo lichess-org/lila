@@ -94,9 +94,9 @@ private[round] final class Round(
     case DrawNo(playerRef)   => handle(playerRef)(drawer.no)
     case DrawClaim(playerId) => handle(playerId)(drawer.claim)
     case DrawForce           => handle(drawer force _)
-    case Cheat(color) => handle(color) { pov =>
-      (pov.game.playable && !pov.game.imported) ?? {
-        finisher(pov.game, _.Cheat, Some(!pov.color))
+    case Cheat(color) => handle { game =>
+      (game.playable && !game.imported) ?? {
+        finisher(game, _.Cheat, Some(!color))
       }
     }
 
