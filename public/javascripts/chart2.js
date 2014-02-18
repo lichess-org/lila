@@ -73,7 +73,10 @@ $(function() {
       yAxis: {
         gridLineWidth: 0,
         labels: {
-          x: 0
+          x: 0,
+          style: {
+            fontWeight: 'lighter'
+          }
         }
       },
       plotOptions: {

@@ -78,7 +78,7 @@ evenMoreJs = evenMoreJs) {
   <div class="meat">
     @info.ratingChart.map { ratingChart =>
     <div class="rating_history" title="Rating history" data-rows="@ratingChart">
-      <span>Chart loading...</span>
+      <span>Chart loading&#8230;</span>
     </div>
     }
     <div class="user-infos">
@@ -111,9 +111,9 @@ evenMoreJs = evenMoreJs) {
         @u.lang.flatMap(langName).map { name =>
         <span data-icon="c"> @name</span>
         }
-        <p>@trans.memberSince() @showDate(u.createdAt)</p>
+        <p class="thin">@trans.memberSince() @showDate(u.createdAt)</p>
         @u.seenAt.map { seen =>
-        <p>@trans.lastLogin() @timeago(seen)</p>
+        <p class="thin">@trans.lastLogin() @timeago(seen)</p>
         }
         <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
         @if(ctx.isAuth && !(ctx is u)) {
