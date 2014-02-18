@@ -591,8 +591,8 @@ div.replay_and_analyse a {
   user-select: none;
 }
 #chessboard div.last,
-#GameBoard td.highlightWhiteSquare,
-#GameBoard td.highlightBlackSquare,
+#GameBoard td.highlightWhiteSquare img,
+#GameBoard td.highlightBlackSquare img,
 div.lcs.moved div.lcsi {
   background: -moz-radial-gradient(center, ellipse cover, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(155,199,00, 0.81)), color-stop(100%, rgba(155,199,00, 0)));
