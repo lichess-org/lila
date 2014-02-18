@@ -57,8 +57,8 @@ time::first-letter {
 
 @font-face {
   font-family: "lichess";
-  src: url("../font2/fonts/lichess.eot");
-  src: url("../font2/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font2/fonts/lichess.woff") format("woff"), url("../font2/fonts/lichess.ttf") format("truetype"), url("../font2/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font3/fonts/lichess.eot");
+  src: url("../font3/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font3/fonts/lichess.woff") format("woff"), url("../font3/fonts/lichess.ttf") format("truetype"), url("../font3/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -263,6 +263,7 @@ ul.ui-autocomplete li a.ui-state-focus {
   border-radius: 0;
   display: block;
   font-size: 0.9em;
+  letter-spacing: -1px;
   text-align: center;
   padding: 0 7px;
   height: 30px;
@@ -405,7 +406,9 @@ input {
 }
 a,
 a:visited,
-button {
+button,
+.button,
+.ui-button {
   cursor: pointer;
 }
 a,
@@ -1041,7 +1044,6 @@ div.join_warning {
 }
 /* soft inactive gradient */
 
-#top a.signin,
 #friend_box .title,
 div.lichess_chat_top,
 div.undertable_top,
@@ -1049,22 +1051,31 @@ div.undertable_top,
 a.button,
 .button:visited,
 .ui-state-default,
-#hooks tr,
 #translation_call,
 #notifications > div,
-div.locale_menu a,
+div.vstext,
 table.slist thead {
-  background-color: #f5f5f5;
-  background-image: linear-gradient(to bottom, #f9f9f9 0%, #f5f5f5 100%);
+  background: rgb(250, 250, 250);
+  background: -moz-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(250, 250, 250, 1)), color-stop(100%, rgba(245, 245, 245, 1)));
+  background: -webkit-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
+  background: -o-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
+  background: -ms-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
+  background: linear-gradient(to bottom, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#f5f5f5', GradientType=0);
   text-decoration: none;
   text-shadow: 0px 1px 0px #FFF;
-  font-weight: bold;
   color: #848484;
 }
+div.lichess_chat_top,
+div.undertable_top,
 .button,
 a.button,
-.ui-button {
-  cursor: pointer;
+.button:visited,
+.ui-state-default,
+#translation_call,
+table.slist thead {
+  font-weight: bold;
 }
 .button,
 a.button {
@@ -1088,9 +1099,15 @@ a.button,
 .button:hover,
 a.button:hover,
 .ui-state-hover {
-  background-color: #F1F1F1;
   border-color: #dedede;
-  background-image: linear-gradient(to bottom, #F5F5F5 0%, #F1F1F1 100%);
+  background: rgb(245, 245, 245);
+  background: -moz-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(245, 245, 245, 1)), color-stop(100%, rgba(240, 240, 240, 1)));
+  background: -webkit-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
+  background: -o-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
+  background: -ms-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
+  background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#f0f0f0', GradientType=0);
 }
 .button:active,
 a.button:active {
@@ -1105,7 +1122,6 @@ a.button:active {
 div.pagination span.current,
 #top span.new_messages,
 div.progressbar.flashy div,
-div.locale_menu a.active,
 #import_game .progression {
   color: #fff !important;
   text-shadow: 0px 1px 0px #000 !important;
@@ -1216,18 +1232,22 @@ div.game_list.realtime > div {
   margin: 0px 11px 11px 11px;
 }
 div.vstext {
-  font-size: 11.5px;
-  width: 224px;
+  width: 214px;
   line-height: 1.2em;
   height: 2.4em;
   overflow: hidden;
   white-space: nowrap;
-  margin-top: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-top: 0;
   position: relative;
 }
 div.vstext > .center {
   width: 100%;
   text-align: center;
+  position: absolute;
+  bottom: 4px;
+  font-size: 0.9em;
 }
 div.vstext .left {
   float: left;
@@ -1235,11 +1255,6 @@ div.vstext .left {
 div.vstext .right {
   float: right;
   text-align: right;
-}
-div.vstext .center {
-  position: absolute;
-  bottom: 0;
-  text-align: center;
 }
 div.extra_top {
   float: right;
@@ -1268,12 +1283,12 @@ div.lmcs.black {
   background: #cacaca;
 }
 div.lmcs.moved {
-  background: -moz-radial-gradient(center, ellipse cover, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(155,199,00, 0.81)), color-stop(100%, rgba(155,199,00, 0)));
-  background: -webkit-radial-gradient(center, ellipse cover, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
-  background: -o-radial-gradient(center, ellipse cover, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
-  background: -ms-radial-gradient(center, ellipse cover, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
-  background: radial-gradient(ellipse at center, rgba(155,199,00, 0.81) 0%, rgba(155,199,00, 0) 100%);
+  background: -moz-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(155, 199, 00, 0.81)), color-stop(100%, rgba(155, 199, 00, 0)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
+  background: radial-gradient(ellipse at center, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#cfd85500', endColorstr='#00d85500', GradientType=1);
 }
 div.lcmp {
@@ -1866,7 +1881,7 @@ div.lichess_overboard.joining .mini_board {
   font-size: 0.8em;
 }
 #timeline a {
-  font-weight: bold;
+  font-weight: normal;
   color: #a0a0a0;
   text-decoration: none;
 }

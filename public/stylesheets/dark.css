@@ -68,7 +68,6 @@ body.dark .content_box form input,
 body.dark div.progressbar,
 body.dark form.translation_form div.messages,
 body.dark form.translation_form input,
-body.dark div.locale_menu a,
 body.dark #adv_chart,
 body.dark #top .dropdown,
 body.dark div.search_status,
@@ -93,6 +92,7 @@ body.dark #hooks_table td,
 body.dark #hooks_wrap > div.tabs > a,
 body.dark #hooks_chart > div.grid,
 body.dark div.analysis_menu,
+body.dark div.vstext,
 body.dark div.analysis_menu > a {
   border-color: #3d3d3d;
 }
@@ -113,7 +113,6 @@ body.dark #top ul.language_links a.current {
   background-color: #3e3e3e;
   color: #b0b0b0;
 }
-body.dark #notifications > div,
 body.dark #top a.signin,
 body.dark #top a.toggle:hover,
 body.dark #top .dropdown,
@@ -301,16 +300,12 @@ body.dark div.lichess_table_wrap div.clock.outoftime {
   background-color: #a00000;
   color: #d0d0d0;
 }
-
 body.dark div.content_box_top {
   background-color: #343434;
   background-image: linear-gradient(to bottom, #3a3a3a 0%, #343434 100%);
   text-shadow: 0px 1px 0px #000;
 }
-
 /* soft inactive gradient */
-
-body.dark #top a.signin,
 body.dark div.lichess_chat_top,
 body.dark #friend_box .title,
 body.dark div.undertable_top,
@@ -319,10 +314,16 @@ body.dark .button:visited,
 body.dark .ui-state-default,
 body.dark #translation_call,
 body.dark #notifications > div,
-body.dark div.locale_menu a,
+body.dark div.vstext,
 body.dark table.slist thead {
-  background-color: #282828;
-  background-image: linear-gradient(to bottom, #282828 0%, #222222 100%);
+  background: rgb(40, 40, 40);
+  background: -moz-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(40, 40, 40, 1)), color-stop(100%, rgba(34, 34, 34, 1)));
+  background: -webkit-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
+  background: -o-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
+  background: -ms-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
+  background: linear-gradient(to bottom, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#282828', endColorstr='#222222', GradientType=0);
   text-shadow: 0px 1px 0px #000;
 }
 body.dark .button,
@@ -336,17 +337,14 @@ body.dark .button:hover,
 body.dark a.button:hover,
 body.dark .ui-state-hover {
   border-color: #383838;
-  background-color: #2c2c2c;
-  background-image: linear-gradient(to bottom, #2c2c2c 0%, #282828 100%);
-}
-body.dark .button:active,
-body.dark a.button:active {
-  box-shadow: 0px 1px 2px rgba(2, 0, 0, 0.3) inset;
-}
-body.dark .ui-state-active {
-  color: #fff;
-  background: #d85000;
-  background: linear-gradient(to bottom, #d85000, #c84000);
+  background: rgb(44, 44, 44);
+  background: -moz-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(44, 44, 44, 1)), color-stop(100%, rgba(40, 40, 40, 1)));
+  background: -webkit-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
+  background: -o-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
+  background: -ms-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
+  background: linear-gradient(to bottom, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#2c2c2c', endColorstr='#282828', GradientType=0);
 }
 body.dark #hooks_chart .plot {
   box-shadow: 0 0 5px #000;

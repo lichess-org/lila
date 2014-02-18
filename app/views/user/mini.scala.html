@@ -10,7 +10,7 @@
   }
   }.getOrElse {
   @u.lang.flatMap(langName).map { name =>
-  <span class="lang" data-icon="c"> @name</span>
+  <span class="lang" data-icon="c">&nbsp;@name</span>
   }
   }
   <span class="follows">
@@ -30,13 +30,13 @@
       @if(!blocks(u.id, myId)) {
       <td>
         <a class="button" href="@routes.Message.form()?username=@u.username" href="#">
-          <span data-icon="c"> @trans.chat()</span>
+          <span data-icon="c">&nbsp;@trans.chat()</span>
         </a>
       </td>
       @if(playing.isEmpty) {
       <td>
         <a class="button" href="@routes.Lobby.home()?username=@u.username#friend" href="#">
-          <span data-icon="C"> @trans.play()</span>
+          <span data-icon="U">&nbsp;@trans.play()</span>
         </a>
       </td>
       }

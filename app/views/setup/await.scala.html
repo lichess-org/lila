@@ -13,7 +13,7 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
     <div class="lichess_overboard auto_center">
       @userOption.map { user =>
       <div id="challenge_await" data-user="@user.id">
-        <h2>@trans.challengeToPlay()</h2>
+        <h2 data-icon="U"> @trans.challengeToPlay()</h2>
         @userLink(user, cssClass="target".some)
         <p class="explanations">
           @trans.waitingForOpponent()

@@ -1,7 +1,7 @@
 @(game: Game, user: User)
 
 @notification.view("challenge_reminder", closable = false) {
-<div data-icon="C">
+<div data-icon="U">
   @userLink(user) @trans.challengeToPlay.en()
   @clockNameNoCtx(game.clock)
   @modeNameNoCtx(game.mode)
