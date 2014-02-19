@@ -1,6 +1,6 @@
-@(chat: lila.chat.AnyChat, title: String, cssClass: String = "")(implicit ctx: Context)
+@(chat: lila.chat.AnyChat, title: String)(implicit ctx: Context)
 
-<div id="chat" class="@cssClass">
+<div id="chat">
   <div class="top">
     <span class="title">@title</span>
     <input title="@trans.toggleTheChat()" class="toggle_chat" type="checkbox" />
