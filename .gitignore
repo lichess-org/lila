@@ -13,8 +13,7 @@ target
 bin/.translate_version
 data/
 dist/
-play
-play-2*
+todos/
 
 db/lib/
 
