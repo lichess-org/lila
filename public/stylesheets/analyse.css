@@ -28,7 +28,7 @@ span.board_mark.horz {
 div.analysis_menu {
   width: 512px;
   text-align: center;
-  border-bottom: 1px solid #c0c0c0;
+  border-top: 1px solid #c0c0c0;
   height: 21px;
 }
 div.analysis_menu > a {
@@ -38,22 +38,21 @@ div.analysis_menu > a {
   padding: 2px 8px;
   height: 16px;
   line-height: 16px;
-  margin: 0 0 0 -5px;
+  margin: -1px 0 0 -5px;
   display: inline-block;
   cursor: pointer;
 }
 div.analysis_menu > a.active {
-  border-bottom: 0;
   background-color: #f7f7f7;
-  border-bottom: 1px solid #f7f7f7;
+  border-top: 1px solid #f7f7f7;
 }
 div.analysis_panels > div {
   width: 512px;
-  min-height: 150px;
+  height: 210px;
+  max-height: 210px;
   display: none;
-}
-div.analysis_panels > div.fen_pgn {
-  margin-top: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 div.analysis_panels > div.active {
   display: block;
@@ -66,7 +65,7 @@ div.game_analysis {
   display: none;
 }
 .future_game_analysis {
-  margin-top: 2em;
+  margin-top: 70px;
   text-align: center;
 }
 .future_game_analysis .spinner {
@@ -125,18 +124,28 @@ div.fen_pgn textarea {
   display: block;
 }
 
-#GameButtons {
+div.game_control, div.continue {
   margin-top: 20px;
+  text-align: center;
 }
-#GameButtons input {
-  width: 100px;
-  height: 2em;
+div.game_control a {
+  font-size: 1.5em;
+  display: inline-block;
+}
+#GameButtons {
+  display: inline-block;
+  margin-left: 10px;
+}
+#GameButtons a {
+  /* height: 1em; */
+  margin-left: -1px;
+  margin-right: -2px;
 }
 
 #GameText {
   font-size: 15px;
   width: 242px;
-  height: 374px;
+  height: 438px;
   margin-bottom: 1em;
   padding: 5px 7px;
   background: #f7f7f7;

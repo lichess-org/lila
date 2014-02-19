@@ -614,13 +614,15 @@ span.inline_userlist a {
 span.inline_userlist a:hover {
   text-decoration: underline;
 }
-div.replay_and_analyse {
+div.underboard {
   width: 512px;
   margin-top: 20px;
   text-align: center;
 }
-div.replay_and_analyse a {
+div.underboard a {
   display: inline-block;
+}
+div.underboard.replay_and_analyse a {
   font-size: 1.4em;
 }
 /* chessboardjs */

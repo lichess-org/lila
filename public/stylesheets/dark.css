@@ -22,7 +22,7 @@ body.dark div.analysis_menu > a.active {
   color: #8a8a8a;
 }
 body.dark div.analysis_menu > a.active {
-  border-bottom-color: #1a1a1a;
+  border-top-color: #1a1a1a;
 }
 body.dark #reconnecting,
 body.dark #chessboard .board-b72b1,

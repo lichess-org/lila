@@ -1013,7 +1013,7 @@ var storage = {
               setTimeout(function() {
                 self.element.find('.ui-draggable-dragging').remove();
               }, 500);
-              $('div.replay_and_analyse').show();
+              $('div.underboard').hide().filter('.replay_and_analyse').show();
               // But enqueue the visible changes
               self.element.queue(function() {
                 self.changeTitle($.trans("Game Over"));
@@ -2549,6 +2549,11 @@ var storage = {
   $(function() {
 
     if (!$("#GameBoard").length) return;
+
+    $('a.continue').click(function() {
+      $('div.continue').toggle();
+      return false;
+    });
 
     // override to remove word boundaries (\b)
     // required to match e2e4 and highlight the moves on the board

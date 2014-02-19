@@ -9,7 +9,6 @@ function customFunctionOnPgnGameLoad() {
     return false;
   });
   redrawBoardMarks();
-  $("#GameButtons table").css('width', '514px').find("input").button();
   $("#autoplayButton").click(refreshButtonset);
   $("#GameBoard td").css('background', 'none');
   $('#ShowPgnText > span').each(function() {
@@ -92,5 +91,5 @@ function redrawBoardMarks() {
 }
 
 function refreshButtonset() {
-  $("#autoplayButton").addClass("ui-button ui-widget ui-state-default ui-corner-all");
+  $("#autoplayButton").addClass('button');
 }
