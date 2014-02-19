@@ -105,7 +105,7 @@ evenMoreJs = evenMoreJs) {
         }
         @u.profileOrDefault.countryInfo.map {
         case (code, name) => {
-        <span class="country"><img src="@routes.Assets.at(s"images/flag/shiny/16/$code.png")" /> @name</span>
+        <span class="country"><img class="flag" src="@routes.Assets.at(s"images/flags/$code.png")" /> @name</span>
         }
         }
         @u.lang.flatMap(langName).map { name =>
