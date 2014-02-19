@@ -17,6 +17,7 @@ case class Game(
     binaryPgn: ByteArray,
     status: Status,
     turns: Int,
+    startedAtTurn: Int,
     clock: Option[Clock],
     castleLastMoveTime: CastleLastMoveTime,
     positionHashes: PositionHash = Array(),
@@ -99,6 +100,7 @@ case class Game(
       clock = clock,
       deads = deads,
       turns = turns,
+      startedAtTurn = startedAtTurn,
       pgnMoves = pgnMoves)
   }
 
@@ -369,6 +371,7 @@ object Game {
     binaryPgn = ByteArray.empty,
     status = Status.Created,
     turns = game.turns,
+    startedAtTurn = game.startedAtTurn,
     clock = game.clock,
     castleLastMoveTime = CastleLastMoveTime.init,
     mode = mode,
@@ -399,6 +402,7 @@ object Game {
     val binaryPgn = "pg"
     val status = "s"
     val turns = "t"
+    val startedAtTurn = "st"
     val clock = "c"
     val positionHashes = "ph"
     val castleLastMoveTime = "cl"
@@ -442,6 +446,7 @@ object Game {
         binaryPgn = r bytesD binaryPgn,
         status = Status(r int status) err "Invalid status",
         turns = nbTurns,
+        startedAtTurn = r intD startedAtTurn,
         clock = r.getO[Color => Clock](clock) map (_(Color(0 == nbTurns % 2))),
         positionHashes = r.bytesD(positionHashes).value,
         castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(castleLastMoveTimeBSONHandler),
@@ -470,6 +475,7 @@ object Game {
       binaryPgn -> w.byteArrayO(o.binaryPgn),
       status -> o.status.id,
       turns -> o.turns,
+      startedAtTurn -> w.intO(o.startedAtTurn),
       clock -> (o.clock map { c => clockBSONHandler.write(_ => c) }),
       positionHashes -> w.bytesO(o.positionHashes),
       castleLastMoveTime -> castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
