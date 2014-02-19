@@ -83,7 +83,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case S.Stalemate => trans.stalemate()
     case S.Timeout => game.loser match {
       case Some(p) if p.color.white => trans.whiteLeftTheGame()
-      case _                        => trans.blackLeftTheGame()
+      case Some(_)                  => trans.blackLeftTheGame()
+      case None                     => trans.draw()
     }
     case S.Draw      => trans.draw()
     case S.Outoftime => trans.timeOut()
