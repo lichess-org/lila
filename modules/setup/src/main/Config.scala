@@ -63,6 +63,7 @@ trait Positional { self: Config =>
           board = board, 
           player = color, 
           turns = sit.turns,
+          startedAtTurn = sit.turns,
           clock = makeClock)
     }
     val game = builder(chessGame)
