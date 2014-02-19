@@ -48,7 +48,16 @@ themepicker = true) {
       data-version="@version"
       data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
       class="@color.fold("", "flip")"></div>
-    <div id="GameButtons"></div>
+    <div class="game_control">
+      <a class="button" title="@trans.flipBoard()" data-icon="B" href="@routes.Round.watcher(gameId, (!color).name)"></a>
+      <a class="fen_link button" title="@trans.boardEditor()" data-icon="m" href="@routes.Editor.game(game.id)?fen="></a>
+      <a class="continue button" title="@trans.continueFromHere()" data-icon="U" href="#"></a>
+      <div id="GameButtons"></div>
+    </div>
+    <div class="continue none">
+      <a class="fen_link button" href="@routes.Round.continue(game.id, "ai")?fen=">@trans.playWithTheMachine()</a>
+      <a class="fen_link button" href="@routes.Round.continue(game.id, "friend")?fen=">@trans.playWithAFriend()</a>
+    </div>
   </div>
   <div class="moves_wrap">
     <div id="GameText"></div>
@@ -59,8 +68,6 @@ themepicker = true) {
         <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
         }.getOrElse { "Unknown" }
       </p>
-      <a class="button" data-icon="B" href="@routes.Round.watcher(gameId, (!color).name)"> @trans.flipBoard()</a>
-      <a class="fen_link button" data-icon="m" href="@routes.Editor.game(game.id)?fen="> @trans.boardEditor()</a>
     </nav>
 
     <div class="advice_summary">
@@ -91,13 +98,6 @@ themepicker = true) {
   </div>
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
-<div class="analysis_menu">
-  <a data-panel="computer_analysis" class="active">@trans.computerAnalysis()</a>
-  <a data-panel="fen_pgn">FEN &amp; PGN</a>
-  @if(game.pgnImport.isEmpty) {
-  <a data-panel="move_times">@trans.moveTimes()</a>
-  }
-</div>
 <div class="analysis_panels">
   <div class="panel computer_analysis active">
     @analysis.map { a =>
@@ -145,5 +145,12 @@ themepicker = true) {
       data-series="@timeChart.series"
       data-max="@timeChart.maxTime"></div>
   </div>
+</div>
+<div class="analysis_menu">
+  <a data-panel="computer_analysis" class="active">@trans.computerAnalysis()</a>
+  <a data-panel="fen_pgn">FEN &amp; PGN</a>
+  @if(game.pgnImport.isEmpty) {
+  <a data-panel="move_times">@trans.moveTimes()</a>
+  }
 </div>
 }

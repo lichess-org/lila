@@ -17,5 +17,8 @@ chat = chat.map(c => base.chat(c, trans.spectatorRoom.str())),
 underchat = underchat.some) {
 @watcherGame(pov)
 @embedJs("var _ld_ = " + roundWatcherJsData(pov, version, false, ctx.pref))
+<div class="underboard during_game">
+  <a class="button" data-icon="B" href="@routes.Round.watcher(gameId, (!color).name)"> @trans.flipBoard()</a>
+</div>
 @replayButton(pov)
 }
