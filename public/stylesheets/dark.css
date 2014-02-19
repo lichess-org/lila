@@ -28,12 +28,12 @@ body.dark #reconnecting,
 body.dark #chessboard .board-b72b1,
 body.dark .mini_board,
 body.dark #nb_connected_players,
-body.dark div.lichess_chat_top,
-body.dark div.lichess_chat .lichess_messages,
+body.dark #chat div.top,
+body.dark #chat .messages,
 body.dark div.undertable_top,
 body.dark div.undertable_inner,
 body.dark div.undertable td,
-body.dark div.lichess_chat form input,
+body.dark #chat form input,
 body.dark div.lichess_board_wrap,
 body.dark #translation_call,
 body.dark div.footer_wrap,
@@ -130,8 +130,8 @@ body.dark div.analysis_menu > a {
 body.dark #site_title,
 body.dark #timeline a,
 body.dark #site_baseline,
-body.dark div.lichess_chat span,
-body.dark div.lichess_chat a.user_link,
+body.dark #chat span,
+body.dark #chat a.user_link,
 body.dark div.undertable a.user_link,
 body.dark #timeline a.user_link,
 body.dark #team .forum a.user_link,
@@ -146,7 +146,7 @@ body.dark #hooks_wrap a.filter:hover,
 body.dark #hooks_wrap a.filter.active {
   background: #000;
 }
-body.dark div.lichess_chat .lichess_messages,
+body.dark #chat .messages,
 body.dark div.undertable_inner,
 body.dark div.lichess_goodies div.box,
 body.dark div.undertable td,
@@ -204,6 +204,7 @@ body.dark div.content_box_inter a.intertab:hover {
   background: #2b2b2b;
 }
 body.dark #site_header div.side_menu a.active,
+body.dark #hooks_table,
 body.dark div.content_box h1 {
   text-shadow: 0px 1px 0px #000;
 }
@@ -237,12 +238,6 @@ body.dark #GameText .move,
 body.dark form.translation_form div.message label,
 body.dark div.user_show div.content_box_top > span strong {
   color: #b0b0b0;
-}
-body.dark div.lmcs.white {
-  background-color: #b0b0b0;
-}
-body.dark div.lmcs.black {
-  background-color: #8a8a8a;
 }
 body.dark #hooks_wrap {
   background-image: url(../images/bN-bg.svg);
@@ -307,7 +302,7 @@ body.dark div.content_box_top {
   text-shadow: 0px 1px 0px #000;
 }
 /* soft inactive gradient */
-body.dark div.lichess_chat_top,
+body.dark #chat div.top,
 body.dark #friend_box .title,
 body.dark div.undertable_top,
 body.dark .button,

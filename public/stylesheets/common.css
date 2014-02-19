@@ -62,7 +62,7 @@ time::first-letter {
   font-weight: normal;
   font-style: normal;
 }
-[data-icon]:before {
+.is:before, [data-icon]:before {
   font-size: 1.2em;
   vertical-align: middle;
   font-family: "lichess" !important;
@@ -74,8 +74,6 @@ time::first-letter {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-[data-icon]:before {
   content: attr(data-icon);
 }
 [data-icon].is2:before {
@@ -496,7 +494,7 @@ body.tight #site_title {
 }
 #site_title:hover,
 #site_title:hover span.extension {
-  color: inherit;
+  color: inherit !important;
 }
 #site_baseline {
   font-style: italic;
@@ -1040,7 +1038,7 @@ div.join_warning {
 /* soft inactive gradient */
 
 #friend_box .title,
-div.lichess_chat_top,
+#chat div.top,
 div.undertable_top,
 .button,
 a.button,
@@ -1062,7 +1060,7 @@ table.slist thead {
   text-shadow: 0px 1px 0px #FFF;
   color: #848484;
 }
-div.lichess_chat_top,
+#chat div.top,
 div.undertable_top,
 .button,
 a.button,
@@ -1130,10 +1128,10 @@ div.checkmateFen {
   margin-left: 110px;
   cursor: pointer;
 }
-div.checkmateFen div.lmcs:hover {
+div.checkmateFen .mini_board > div:hover {
   background: #eebb77!important;
 }
-div.checkmateFen div.lmcs.selected {
+div.checkmateFen .mini_board > div.selected {
   background: #77eeaa!important;
 }
 div.checkmateSection {
@@ -1266,18 +1264,12 @@ div.all_games a.mini_board {
   float: left;
   margin: 0 20px 20px 10px;
 }
-div.lmcs {
+.mini_board > div {
   position: absolute;
   width: 28px;
   height: 28px;
 }
-div.lmcs.white {
-  background: #FFFFFF;
-}
-div.lmcs.black {
-  background: #cacaca;
-}
-div.lmcs.moved {
+.mini_board > div.moved {
   background: -moz-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(155, 199, 00, 0.81)), color-stop(100%, rgba(155, 199, 00, 0)));
   background: -webkit-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
@@ -1539,19 +1531,23 @@ div.game_config div.color_submits button.random span {
 #hooks_table {
   width: 512px;
   max-height: 512px;
+  text-shadow: 0px 1px 0px #FFF;
 }
 #hooks_table th {
   cursor: pointer;
   border-bottom: 1px solid #ccc;
   padding: 12px 12px;
+  font-weight: lighter;
 }
-#hooks_table th.sorting-asc > span {
-  background-position: right -384px;
-  font-weight: bold;
+#hooks_table th.sorting-asc,
+#hooks_table th.sorting-desc {
+  font-weight: normal;
 }
-#hooks_table th.sorting-desc > span {
-  background-position: right -368px;
-  font-weight: bold;
+#hooks_table th.sorting-desc .is:before {
+  content: "R";
+}
+#hooks_table th.sorting-asc .is:before {
+  content: "S";
 }
 #hooks_table th.player {
   width: 110px;
@@ -1771,6 +1767,7 @@ div.undertable_inner {
   height: 202px;
   width: auto;
   overflow: hidden;
+  background: #fff;
 }
 div.undertable_inner:hover {
   overflow-y: auto;
