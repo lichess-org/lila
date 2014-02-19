@@ -1,12 +1,12 @@
 @(chat: lila.chat.AnyChat, title: String, cssClass: String = "")(implicit ctx: Context)
 
-<div class="lichess_chat @cssClass">
-  <div class="lichess_chat_top">
+<div id="chat" class="@cssClass">
+  <div class="top">
     <span class="title">@title</span>
     <input title="@trans.toggleTheChat()" class="toggle_chat" type="checkbox" />
   </div>
   <div>
-    <ol class="lichess_messages content"></ol>
+    <ol class="messages content"></ol>
     <form action="#">
       <input class="lichess_say" value="" placeholder="@trans.talkInChat()" />
       <a class="send" data-icon="z"></a>

@@ -367,7 +367,7 @@ var storage = {
           }
         },
         message: function(msg) {
-          $('div.lichess_chat').chat("append", msg);
+          $('#chat').chat("append", msg);
         },
         nbm: function(e) {
           $('#nb_messages').text(e || "0").toggleClass("unread", e > 0);
@@ -827,7 +827,7 @@ var storage = {
       self.$board = self.element.find("div.lichess_board");
       self.$table = self.element.find("div.lichess_table_wrap");
       self.$tableInner = self.$table.find("div.table_inner");
-      self.$chat = $("div.lichess_chat").orNot();
+      self.$chat = $('#chat').orNot();
       self.$watchers = $("div.watchers");
       self.initialTitle = document.title;
       self.hasMovedOnce = false;
@@ -1577,7 +1577,7 @@ var storage = {
         resize: false
       }, this.options);
       var self = this;
-      self.$msgs = self.element.find('.lichess_messages');
+      self.$msgs = self.element.find('.messages');
       self.$msgs.on('click', 'a', function() {
         $(this).attr('target', '_blank');
       });
@@ -1620,7 +1620,7 @@ var storage = {
     resize: function() {
       var headerHeight = this.element.parent().height();
       this.element.css("top", headerHeight + 13);
-      this.$msgs.css('height', 457 - headerHeight).scrollTop(999999);
+      this.$msgs.css('height', 459 - headerHeight).scrollTop(999999);
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));
@@ -1749,7 +1749,7 @@ var storage = {
       var lm = $this.data('lastmove');
       var lastMove = lm ? [lm[0] + lm[1], lm[2] + lm[3]] : [];
       var x, y, html = '',
-        scolor, pcolor, pclass, c, d, increment;
+        pcolor, pclass, c, d, increment;
       var pclasses = {
         'p': 'pawn',
         'r': 'rook',
@@ -1784,9 +1784,7 @@ var storage = {
 
       function openSquare(x, y) {
         var key = 'white' == color ? letters[y - 1] + x : letters[8 - y] + (9 - x);
-        var scolor = (x + y) % 2 ? 'white' : 'black';
-        if ($.inArray(key, lastMove) != -1) scolor += " moved";
-        var html = '<div class="lmcs ' + scolor + '" style="top:' + (28 * (8 - x)) + 'px;left:' + (28 * (y - 1)) + 'px;"';
+        var html = '<div' + (_.contains(lastMove, key) ? ' class="moved" ' : '') + ' style="top:' + (28 * (8 - x)) + 'px;left:' + (28 * (y - 1)) + 'px;"';
         if (withKeys) {
           html += ' data-key="' + key + '"';
         }
@@ -1843,7 +1841,7 @@ var storage = {
     $('div.checkmateCaptcha').each(function() {
       var $captcha = $(this);
       var color = $captcha.find('.mini_board').data('color');
-      var $squares = $captcha.find('div.lmcs');
+      var $squares = $captcha.find('.mini_board > div');
       var $input = $captcha.find('input').val('');
       $captcha.find('button.retry').click(function() {
         $input.val("");
@@ -1851,7 +1849,7 @@ var storage = {
         $captcha.removeClass("success failure");
         return false;
       });
-      $captcha.on('click', 'div.lmcs', function() {
+      $captcha.on('click', '.mini_board > div', function() {
         var key = $(this).data('key');
         $captcha.removeClass("success failure");
         if ($input.val().length == 2) {
@@ -2417,8 +2415,6 @@ var storage = {
     function renderTr(hook) {
       var title = (hook.action == "join") ? $.trans('Join the game') : $.trans('cancel');
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
-      console.debug(hook);
-      console.debug(hook.engine && hook.action == 'join');
       return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
         ['', '<span class="is2" data-icon="' + k + '"></span>'],
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous') +
@@ -2499,7 +2495,7 @@ var storage = {
     var socketUrl = $wrap.data("socket-url");
     var $watchers = $("div.watchers").watchers();
 
-    var $chat = $("div.lichess_chat");
+    var $chat = $('#chat');
     if ($chat.length) $chat.chat({
       resize: true,
       messages: lichess_chat
@@ -2576,7 +2572,7 @@ var storage = {
       event.stopPropagation();
       return false;
     });
-    var $chat = $("div.lichess_chat");
+    var $chat = $('#chat');
     if ($chat.length) $chat.chat({
       resize: true,
       messages: lichess_chat
@@ -2677,6 +2673,7 @@ var storage = {
         $(this).data("sort-dir", sort_dir).addClass("sorting-" + sort_dir);
         $table.trigger('sortable.sort');
       });
+
       $table.on("sortable.sort", function() {
 
         var $th = $ths.filter('.sorting-desc,.sorting-asc').first();
