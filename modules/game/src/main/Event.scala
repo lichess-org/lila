@@ -117,13 +117,12 @@ object Event {
     override def troll = false
   }
 
-  // it *IS* a username, and not a user ID
-  // immediately used for rendering
   case class UserMessage(line: UserLine, w: Boolean) extends Event {
     def typ = "message"
     def data = Line toJson line
     override def troll = line.troll
     override def watcher = w
+    override def owner = !w
   }
 
   object End extends Empty {
