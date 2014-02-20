@@ -70,7 +70,7 @@ $(function() {
     });
     $wrap.on('click', 'a.load', function() {
       var fen = prompt('Paste FEN position');
-      window.location = $(this).data('url').replace('xxx', fen);
+      if (fen) window.location = $(this).data('url').replace('xxx', fen);
       return false;
     });
   });
