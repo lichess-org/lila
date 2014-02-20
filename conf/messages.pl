@@ -211,7 +211,6 @@ challengeToPlay=Wyzwanie
 player=Gracz
 list=Lista
 graph=Wykres
-all=Wszystko
 lessThanNbMinutes=Mniej niż %s minut
 xToYMinutes=od %s do %s minut
 textIsTooShort=Tekst jest za krótki.

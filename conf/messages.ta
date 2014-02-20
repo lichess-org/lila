@@ -211,7 +211,6 @@ challengeToPlay=ஆட அழை
 player=ஆடி
 list=வரிசை
 graph=வரைவு
-all=எல்லா
 lessThanNbMinutes=%s விடக் குறைந்த நிமிடங்கள்
 xToYMinutes=%s - %s நிமிடங்கள்
 textIsTooShort=உரை மிகவும் குறுகல்

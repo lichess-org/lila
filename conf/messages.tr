@@ -211,7 +211,6 @@ challengeToPlay=Oyun teklif et
 player=Oyuncu
 list=Liste
 graph=Grafik
-all=Tümü
 lessThanNbMinutes=%s dakikadan daha az
 xToYMinutes=%s ile %s dakika arası
 textIsTooShort=Yazı çok kısa.

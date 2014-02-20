@@ -211,7 +211,6 @@ challengeToPlay=対戦を申し込む
 player=プレイヤー
 list=リスト
 graph=グラフ
-all=全て
 lessThanNbMinutes=%s 分未満
 xToYMinutes=%s から %s 分
 textIsTooShort=テキストが短すぎます。

@@ -211,7 +211,6 @@ challengeToPlay=Provoaca la joc
 player=Jucator
 list=Lista
 graph=Grafic
-all=Tot/Toate/Toti
 lessThanNbMinutes=Mai putin de %s minute
 xToYMinutes=%s pana la %s minute
 textIsTooShort=Textul este prea scurt

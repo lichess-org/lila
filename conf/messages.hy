@@ -210,7 +210,6 @@ challengeToPlay=Ուղարկել խաղի մարտահրավեր
 player=Խաղացող
 list=ցուցակ
 graph=Գրաֆ
-all=Բոլոր
 lessThanNbMinutes=ավելի քիչ քան %s րոպե
 xToYMinutes=%s -ից %s րոպե
 textIsTooShort=Տեքստը շատ կարճ է

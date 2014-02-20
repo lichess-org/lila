@@ -211,7 +211,6 @@ challengeToPlay=Utmaning att spela
 player=Spelare
 list=Lista
 graph=Graf
-all=Allt
 lessThanNbMinutes=Mindre än %s minuter
 xToYMinutes=%s till %s minuter
 textIsTooShort=Texten är för kort.

@@ -208,7 +208,6 @@ challengeToPlay=Challenge to a game
 player=Mpilalao
 list=Lisitra
 graph=Graphe
-all=Rehetra
 lessThanNbMinutes=Latsaky ny %s minitra
 xToYMinutes=%s hatramin'ny %s minitra
 textIsTooShort=Fohy loatra ny soratra.
