@@ -3,6 +3,7 @@ package actorApi
 
 import akka.actor.ActorRef
 import play.api.libs.json._
+import play.api.templates.Html
 
 case class SendTo(userId: String, message: JsObject)
 
@@ -94,6 +95,7 @@ case class Propagate(data: Atom, propagations: List[Propagation] = Nil) {
 }
 
 package game {
+case class ChangeFeatured(id: String, html: Html)
 case object Count
 }
 

@@ -35,9 +35,9 @@ final class Featured(
 
       case Set(game) => {
         oneId = game.id.some
-        bus.publish(actorApi.ChangeFeaturedGame(game), 'changeFeaturedGame)
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
-          case html: Html => lobbySocket ! actorApi.ChangeFeatured(html)
+          case html: Html =>
+            bus.publish(lila.hub.actorApi.game.ChangeFeatured(game.id, html), 'changeFeaturedGame)
         }
         GameRepo setTv game.id
       }

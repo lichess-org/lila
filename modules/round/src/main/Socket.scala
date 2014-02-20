@@ -9,7 +9,6 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
-import lila.game.actorApi.ChangeFeaturedGame
 import lila.game.Event
 import lila.hub.TimeBomb
 import lila.round.actorApi.Bye
@@ -100,11 +99,6 @@ private[round] final class Socket(
     case AnalysisAvailable                           => notifyAll("analysisAvailable", true)
 
     case lila.hub.actorApi.setup.DeclineChallenge(_) => notifyAll("declined", JsNull)
-
-    case ChangeFeaturedGame(game) => watchers.nonEmpty ! {
-      val msg = makeMessage("featured_id", game.id)
-      watchers foreach { _.channel push msg }
-    }
 
     case Quit(uid) => {
       quit(uid)

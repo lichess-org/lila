@@ -15,7 +15,6 @@ final class SocketHub extends Actor {
 
   context.system.lilaBus.subscribe(self,
     'moveEvent, 'users, 'deploy, 'nbMembers, 'socket,
-    // FIXME this event only concern the current TV room
     'changeFeaturedGame)
 
   override def postStop() {

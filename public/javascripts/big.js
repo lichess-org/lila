@@ -692,13 +692,15 @@ var storage = {
       });
     });
 
-    var acceptLanguages = $('body').data('accept-languages').split(',');
+    var acceptLanguages = $('body').data('accept-languages');
+    if (acceptLanguages) {
     $('#top .lichess_language').one('mouseover', function() {
       var $t = $(this);
-      _.each(acceptLanguages, function(lang) {
+      _.each(acceptLanguages.split(','), function(lang) {
         $t.find('a[lang="' + lang + '"]').addClass('accepted');
       });
     });
+    }
 
     $('#lichess_translation_form_code').change(function() {
       if ("0" != $(this).val()) {

@@ -64,17 +64,11 @@ private[lobby] final class Socket(
             ).noNull))
         }
 
-    case ChangeFeatured(html) => notifyFeatured(html)
-
     case HookIds(ids)         => notifyVersion("hook_list", ids)
   }
 
   private def playerUrl(fullId: String) =
     router ? Player(fullId) mapTo manifest[String]
-
-  private def notifyFeatured(html: Html) {
-    notifyAll(makeMessage("featured", html.toString))
-  }
 
   private def notifyTournaments(html: String) {
     notifyAll(makeMessage("tournaments", html))
