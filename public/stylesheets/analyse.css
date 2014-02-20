@@ -138,6 +138,9 @@ div.game_control a {
 }
 #GameButtons a {
   /* height: 1em; */
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
   margin-left: -1px;
   margin-right: -2px;
 }
