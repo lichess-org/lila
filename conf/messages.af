@@ -209,7 +209,6 @@ challengeToPlay=Daag uit vir 'n spel
 player=Speler
 list=Lys
 graph=Grafiek
-all=Alles
 lessThanNbMinutes=Minder as %s minute
 xToYMinutes=%s tot %s minute
 textIsTooShort=Teks is te min.

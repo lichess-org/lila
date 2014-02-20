@@ -211,7 +211,6 @@ challengeToPlay=poziv na dvoboj
 player=Igrač
 list=Lista
 graph=Graf
-all=Svi
 lessThanNbMinutes=manje od %s minuta
 xToYMinutes=%s do %s minuta
 textIsTooShort=Tekst je prekratak

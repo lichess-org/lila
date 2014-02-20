@@ -211,7 +211,6 @@ challengeToPlay=Προκαλέστε σε παιχνίδι
 player=Παίκτης
 list=Κατάλογος
 graph=Διάγραμμα
-all=Όλα
 lessThanNbMinutes=Λιγότερο από %s λεπτά
 xToYMinutes=%s εώς %s λεπτά
 textIsTooShort=Το κείμενο είναι πολύ μικρό.

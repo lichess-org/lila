@@ -211,7 +211,6 @@ challengeToPlay=Menantang bermain
 player=Pemain
 list=Daftar
 graph=Grafik
-all=Semua
 lessThanNbMinutes=Kurang dari %s menit
 xToYMinutes=%s atau %s menit
 textIsTooShort=Kalimat terlalu pendek.

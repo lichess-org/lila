@@ -208,7 +208,6 @@ challengeToPlay=게임에 도전
 player=플레이어
 list=리스트
 graph=그래프
-all=모두
 lessThanNbMinutes=%s분 미만
 xToYMinutes=%s~%s분
 textIsTooShort=텍스트가 너무 짧습니다.

@@ -211,7 +211,6 @@ challengeToPlay=挑战
 player=玩家
 list=列表
 graph=图表
-all=全部
 lessThanNbMinutes=少于 %s 分钟
 xToYMinutes=%s 到 %s 分钟
 textIsTooShort=留言长度太短。

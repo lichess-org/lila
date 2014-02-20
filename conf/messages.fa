@@ -211,7 +211,6 @@ challengeToPlay=رقابتی برای بازی
 player=بازیکن
 list=لیست
 graph=نمایش هندسی
-all=همه
 lessThanNbMinutes=کمتر از %s دقیقه ها
 xToYMinutes=%s به %s دقیقه ها
 textIsTooShort=متن بیش از حد کوتاه است

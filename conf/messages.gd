@@ -206,7 +206,6 @@ challengeToPlay=Thoir dùbhlan cluiche dha
 player=Cluicheadair
 list=Liosta
 graph=Graf
-all=Na h-uile
 lessThanNbMinutes=Nas lugha na %s mionaidean
 xToYMinutes=%s gu %s mionaidean
 textIsTooShort=Tha an teacsa ro ghoirid.

@@ -211,7 +211,6 @@ challengeToPlay=Kihívás játszmára
 player=Játékos
 list=lista
 graph=Grafikon
-all=Mind
 lessThanNbMinutes=Kevesebb mint %s perc
 xToYMinutes=%s perctől %s percig
 textIsTooShort=A szöveg túl rövid

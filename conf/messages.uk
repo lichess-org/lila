@@ -211,7 +211,6 @@ challengeToPlay=Викликати на гру
 player=Гравець
 list=Список
 graph=Графік
-all=Всі
 lessThanNbMinutes=Менше, ніж %s хвилин
 xToYMinutes=%s до %s хвилин
 textIsTooShort=Текст закороткий.
