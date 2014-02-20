@@ -24,7 +24,7 @@
     }
     @if(g.variant.exotic) {
     <br />
-    @trans.variant(): <strong>@g.variant.name</strong>
+    @trans.variant(): <strong>@variantName(g.variant)</strong>
     }
     @g.pgnImport.flatMap(_.date).map { date =>
     <br />
