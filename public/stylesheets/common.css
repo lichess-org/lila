@@ -1981,10 +1981,6 @@ div.relation_actions {
 div.relation_actions a.relation.processing {
   opacity: 0.2
 }
-div.relation_actions .icon span {
-  width: 16px;
-  height: 16px;
-}
 #powerTip.messages {
   width: 400px;
   padding: 1em;
