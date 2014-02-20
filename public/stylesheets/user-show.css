@@ -32,6 +32,7 @@ div.user_show .relation_actions {
   position: absolute;
   top: 22px;
   right: 8px;
+  font-size: 1.2em;
 }
 div.user_show .relation_actions form {
   display: inline;
@@ -61,9 +62,9 @@ div.sub_ratings h3 {
 div.user_show .rating_history {
   position: absolute;
   top: -10px;
-  left: -41px;
+  left: -15px;
   display: block;
-  width: 505px;
+  width: 479px;
   height: 350px;
 }
 div.user_show .rating_history span {
@@ -159,4 +160,10 @@ div.user_show .evaluation {
 div.user_show .evaluation strong {
   display: inline;
   text-transform: uppercase;
+}
+div.user_show div.content_box_inter.tabs {
+  margin-left: -8px;
+  padding-left: 30px;
+  width: 775px;
+  border: 1px solid #ccc;
 }
