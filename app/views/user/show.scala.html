@@ -65,13 +65,15 @@ themepicker = true) {
       </a>
       }
       @if(isGranted(_.UserSpy)) {
-      <a class="icon button mod_zone_toggle" href="@routes.User.mod(u.username)" title="Mod zone"><span data-icon="y"></span></a>
+      <a class="button mod_zone_toggle" href="@routes.User.mod(u.username)" title="Mod zone"><span data-icon="y"></span></a>
       }
       @if(ctx.isAuth && !ctx.is(u)) {
       @relation.actions(u.id)
-      }
-      @if(ctx.isAuth && !(ctx is u)) {
       <a data-icon="!" title="@trans.reportXToModerators(u.username)" class="button" href="@routes.Report.form?username=@u.username"></a>
+      } else {
+      <form id="exportform" action="@routes.User.export(u.username)" method="POST">
+        <a class="button" onclick="document.getElementById('exportform').submit();" title="@trans.exportGames()"><span data-icon="x"></span></a>
+      </form>
       }
     </div>
   </div>
