@@ -468,10 +468,6 @@ var storage = {
     function onResize() {
       if ($(document.body).width() < 1000) {
         $(document.body).addClass("tight");
-        // hack for gecko
-        if ($('body > div.content').offset().top > 70) {
-          $('body > div.content').css('marginTop', '0px');
-        }
         $('#site_header .side_menu').prependTo('div.content_box:first');
       } else {
         $(document.body).removeClass("tight");

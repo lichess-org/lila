@@ -1,7 +1,6 @@
 #pgnText {
   display: none;
 }
-
 div.board_wrap {
   float: left;
   width: 514px;
@@ -24,7 +23,6 @@ span.board_mark.vert {
 span.board_mark.horz {
   bottom: -14px;
 }
-
 div.analysis_menu {
   width: 512px;
   text-align: center;
@@ -82,7 +80,8 @@ div.game_analysis {
 div.fen_pgn p {
   margin: 0.6em 0;
 }
-div.fen_pgn .fen {
+div.fen_pgn .fen,
+div.fen_pgn .pgn {
   font-family: monospace;
 }
 div.fen_pgn textarea {
@@ -97,21 +96,18 @@ div.fen_pgn textarea {
   border: none;
   padding: 0;
 }
-.game_actions {
-}
 .game_actions .button {
   margin-top: 1em;
   display: inline-block;
 }
-
 #GameBoard {
   position: relative;
   width: 512px;
   height: 512px;
   border: 1px solid #ccc;
 }
-
-#GameBoard.flip table, #GameBoard.flip img.pieceImage {
+#GameBoard.flip table,
+#GameBoard.flip img.pieceImage {
   -o-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
@@ -123,8 +119,8 @@ div.fen_pgn textarea {
   height: 64px;
   display: block;
 }
-
-div.game_control, div.continue {
+div.game_control,
+div.continue {
   margin-top: 20px;
   text-align: center;
 }
@@ -137,14 +133,12 @@ div.game_control a {
   margin-left: 10px;
 }
 #GameButtons a {
-  /* height: 1em; */
-  -webkit-user-select: none; /* Chrome/Safari */        
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   margin-left: -1px;
   margin-right: -2px;
 }
-
 #GameText {
   font-size: 15px;
   width: 242px;
@@ -155,7 +149,8 @@ div.game_control a {
   border: 1px solid #ccc;
   overflow: auto;
 }
-#GameText .move, #GameText .variation {
+#GameText .move,
+#GameText .variation {
   font-family: 'pgn4web ChessSansPiratf', 'pgn4web Liberation Sans', sans-serif;
   text-decoration: none;
   padding-top: 3px;
@@ -164,33 +159,33 @@ div.game_control a {
   color: #b57600;
 }
 /* played */
+
 #GameText .move {
   color: #444;
 }
-/* played move SAN */
-#GameText a.move {
-  font-weight: bold;
-}
 /* any move number */
+
 #GameText span {
   padding-right: 0;
 }
 /* any move SAN */
+
 #GameText a {
   padding-right: 4px;
   padding-left: 4px;
 }
-#GameText .comment, #GameText .variation {
+#GameText .comment,
+#GameText .variation {
   font-size: 80%;
 }
 #GameText .comment {
   display: block;
 }
-
 #GameText a:hover {
   background: #e0e0e0;
 }
-#GameText .moveOn, #GameText .variationOn  {
+#GameText .moveOn,
+#GameText .variationOn {
   border: 1px solid #909090;
   padding: 2px 3px;
 }
@@ -211,12 +206,11 @@ div.advice_summary td {
 div.advice_summary thead th {
   padding: 3px 0;
 }
-
-#adv_chart, #movetimes_chart {
+#adv_chart,
+#movetimes_chart {
   height: 200px;
   width: 512px;
 }
-
 div.shortcuts .title {
   margin: 1.5em 0 0.5em 0;
   display: block;

@@ -28,8 +28,8 @@ div.goodies a.more {
 div.user_lists div.user_top table {
   width: 100%;
 }
-div.user_lists div.user_top a {
-  margin: 3px 0;
+div.user_lists div.user_top td {
+  padding: 2px 0;
 }
 
 div.big_user_list > a {

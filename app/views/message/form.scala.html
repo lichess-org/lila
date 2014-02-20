@@ -9,7 +9,7 @@ title = trans.composeMessage.str()) {
       <div class="field_to">
         <label for="@form("username").id">@trans.recipient():</label>
         @reqUser.map { user =>
-        @userLink(user, cssClass = "inline".some)
+        @userLink(user)
         <input
         type="hidden"
         name="@form("username").name"

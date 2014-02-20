@@ -66,7 +66,7 @@ body.wood #GameBoard,
 body.wood #chessboard .board-b72b1,
 body.wood .mini_board,
 #top div.color_demo.wood {
-  background-image: url(../images/board/wood2-512.jpg);
+  background-image: url(../images/board/wood3-512.jpg);
 }
 body.canvas div.lichess_board,
 body.canvas #GameBoard,
@@ -112,7 +112,7 @@ only screen and (min-resolution:2dppx) {
   body.wood #chessboard .board-b72b1,
   body.wood .mini_board,
   #top div.color_demo.wood {
-    background-image: url(../images/board/wood2-1024.jpg);
+    background-image: url(../images/board/wood3-1024.jpg);
   }
   body.canvas div.lichess_board,
   body.canvas #GameBoard,

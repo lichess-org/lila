@@ -136,7 +136,7 @@ themepicker = true) {
   <div class="panel fen_pgn">
     <p><strong>FEN</strong> <span class="fen"></span></p>
     <p><strong>PGN</strong> (<a href="@routes.Analyse.pgn(game.id)">Download it</a>)</p>
-    <textarea>@pgn</textarea>
+    <div class="pgn">@Html(nl2br(escape(pgn)))</div>
   </div>
   <div class="panel move_times">
     <div
