@@ -73,6 +73,7 @@ $(function() {
       yAxis: {
         gridLineWidth: 0,
         labels: {
+          enabled: false,
           x: 0,
           style: {
             font: Highcharts.makeFont(10),

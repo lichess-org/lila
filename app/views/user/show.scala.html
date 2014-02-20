@@ -67,11 +67,11 @@ themepicker = true) {
       @if(isGranted(_.UserSpy)) {
       <a class="icon button mod_zone_toggle" href="@routes.User.mod(u.username)" title="Mod zone"><span data-icon="y"></span></a>
       }
-      <form id="exportform" action="@routes.User.export(u.username)" method="POST">
-        <a class="icon button" onclick="document.getElementById('exportform').submit();" title="@trans.exportGames()"><span data-icon="x"></span></a>
-      </form>
       @if(ctx.isAuth && !ctx.is(u)) {
       @relation.actions(u.id)
+      }
+      @if(ctx.isAuth && !(ctx is u)) {
+      <a data-icon="!" title="@trans.reportXToModerators(u.username)" class="button" href="@routes.Report.form?username=@u.username"></a>
       }
     </div>
   </div>
@@ -117,10 +117,6 @@ themepicker = true) {
         <p class="thin">@trans.lastLogin() @timeago(seen)</p>
         }
         <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
-        @if(ctx.isAuth && !(ctx is u)) {
-        <br />
-        <a href="@routes.Report.form?username=@u.username">@trans.reportXToModerators(u.username)</a>
-        }
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
           @teamLink(teamId, ("revert-underline" + myTeam(teamId).fold(" mine", "")).some)

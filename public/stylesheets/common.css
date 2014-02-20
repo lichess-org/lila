@@ -74,8 +74,8 @@ time::first-letter {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font4/fonts/lichess.eot");
-  src: url("../font4/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font4/fonts/lichess.woff") format("woff"), url("../font4/fonts/lichess.ttf") format("truetype"), url("../font4/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font5/fonts/lichess.eot");
+  src: url("../font5/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font5/fonts/lichess.woff") format("woff"), url("../font5/fonts/lichess.ttf") format("truetype"), url("../font5/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -625,7 +625,9 @@ div.content_box_inter .intertab {
   border: 1px solid transparent;
 }
 div.content_box_inter.tabs .intertab {
+  margin-top: 7px;
   border-bottom: none;
+  padding-bottom: 0.8em;
 }
 div.content_box_inter .intertab strong {
   font-weight: normal;
@@ -633,7 +635,8 @@ div.content_box_inter .intertab strong {
 div.content_box_inter a.intertab:hover,
 div.content_box_inter a.intertab.active {
   border-color: #ccc;
-  text-decoration: none;
+}
+div.content_box_inter a.intertab.active {
   background: #fff;
 }
 div.content_box .lichess_title {
@@ -1040,7 +1043,7 @@ a.button,
 #translation_call,
 #notifications > div,
 div.vstext,
-div.content_box_inter a.intertab:hover,
+div.user_show div.content_box_inter.tabs,
 table.slist thead {
   background: rgb(250, 250, 250);
   background: -moz-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
@@ -1852,19 +1855,19 @@ div.lichess_overboard.joining .mini_board {
 }
 #timeline {
   margin-top: 2em;
-  border-top: 1px solid #e0e0e0;
-  padding-top: 1em;
+  border-top: 1px solid #e4e4e4;
+  padding-top: 8px;
   margin-left: -30px;
   width: 230px;
 }
 #timeline > .entry {
-  padding-bottom: 1em;
-  border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 1em;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e4e4e4;
+  margin-bottom: 8px;
   font-weight: lighter;
 }
 #timeline time {
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 #timeline a {
   font-weight: normal;

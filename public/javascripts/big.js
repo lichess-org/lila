@@ -2191,10 +2191,10 @@ var storage = {
     });
 
     function resizeTimeline() {
-      var max = $('#lichess').offset().top + 516;
       if ($timeline.length) {
-        var pos = $timeline.offset().top;
+        var pos = $timeline.offset().top, max = $('#lichess').offset().top + 536;
         while (pos + $timeline.outerHeight() > max) {
+          console.debug($timeline.outerHeight());
           $timeline.find('div.entry:last').remove();
         }
       }

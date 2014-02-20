@@ -21,7 +21,6 @@ object Analyse extends LilaController {
 
   private def env = Env.analyse
   private def bookmarkApi = Env.bookmark.api
-  private lazy val timeChart = TimeChart(Env.user.usernameOrAnonymous) _
 
   def computer(id: String, color: String) = Auth { implicit ctx =>
     me =>
@@ -39,8 +38,8 @@ object Analyse extends LilaController {
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.isAuth ?? {
         Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
-      }) zip timeChart(pov.game) map {
-        case (((((version, pgn), analysis), tour), chat), times) =>
+      })  map {
+        case ((((version, pgn), analysis), tour), chat) =>
           Ok(html.analyse.replay(
             pov,
             analysis.fold(pgn)(a => Env.analyse.annotator(pgn, a)).toString,
@@ -50,7 +49,7 @@ object Analyse extends LilaController {
             version,
             chat,
             tour,
-            times))
+            new TimeChart(pov.game)))
       }
 
   def pgn(id: String) = Open { implicit ctx =>

@@ -31,10 +31,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def clockNameNoCtx(clock: Clock): String =
     trans.nbMinutesPerSidePlusNbSecondsPerMove.en(clock.limitInMinutes, clock.increment)
 
-  def shortClockName(clock: Option[Clock])(implicit ctx: UserContext): String =
-    clock.fold(trans.unlimited.str())(Namer.shortClock)
+  def shortClockName(clock: Option[Clock])(implicit ctx: UserContext): Html =
+    clock.fold(trans.unlimited())(Namer.shortClock)
 
-  def shortClockName(clock: Clock): String = Namer shortClock clock
+  def shortClockName(clock: Clock): Html = Namer shortClock clock
 
   def modeName(mode: Mode)(implicit ctx: UserContext): String = mode match {
     case Mode.Casual => trans.casual.str()

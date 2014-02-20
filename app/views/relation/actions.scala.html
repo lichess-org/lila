@@ -8,16 +8,19 @@
 }
 <a title="@trans.composeMessage()" href="@routes.Message.form()?username=@userId" class="icon button" href="#"><span data-icon="c"></span></a>
 }
+<form id="exportform" action="@routes.User.export(userId)" method="POST">
+  <a class="icon button" onclick="document.getElementById('exportform').submit();" title="@trans.exportGames()"><span data-icon="x"></span></a>
+</form>
 @relationWith(userId) match {
 case None => {
 <a
   class="icon button relation"
-  href="@routes.Relation.block(userId)"
-  title="@trans.block()"><span data-icon="k"></span></a>
-<a
-  class="icon button relation"
   href="@routes.Relation.follow(userId)"
   title="@trans.follow()"><span data-icon="h"></span></a>
+<a
+  class="icon button relation"
+  href="@routes.Relation.block(userId)"
+  title="@trans.block()"><span data-icon="k"></span></a>
 }
 case Some(true) => {
 <a class="button relation hover_text" href="@routes.Relation.unfollow(userId)">

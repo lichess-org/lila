@@ -28,8 +28,6 @@ final class Env(
 
   lazy val annotator = new Annotator(NetDomain)
 
-  lazy val timeChart = TimeChart(nameUser) _
-
   lazy val cached = new {
     private val cache: Cache[Int] = LruCache(timeToLive = CachedNbTtl)
     def nbAnalysis: Fu[Int] = cache(true)(AnalysisRepo.count)

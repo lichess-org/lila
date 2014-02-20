@@ -7,7 +7,7 @@ import play.api.libs.json.Json
 
 import lila.game.{ Game, Namer }
 
-final class TimeChart(game: Game, usernames: Map[Color, String]) {
+final class TimeChart(game: Game) {
 
   def series = Json stringify {
     Json.obj(
@@ -25,12 +25,4 @@ final class TimeChart(game: Game, usernames: Map[Color, String]) {
   def maxTime = moveTimes.map(math.abs).foldLeft(0f) {
     case (x, y) => if (y > x) y else x
   }
-}
-
-object TimeChart {
-
-  def apply(nameUser: String => Fu[String])(game: Game): Fu[TimeChart] =
-    Future.traverse(game.players) { p =>
-      Namer.player(p)(nameUser) map (p.color -> _)
-    } map { named => new TimeChart(game, named.toMap) }
 }
