@@ -5,7 +5,6 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
-import lila.game.actorApi.ChangeFeaturedGame
 import lila.hub.actorApi.map.Ask
 import lila.socket.actorApi.GetVersion
 import makeTimeout.large
