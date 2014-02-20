@@ -54,6 +54,20 @@ body.green .mini_board,
 #top div.color_demo.green {
   background-image: url(../images/board/green.png);
 }
+body.yellow div.lichess_board,
+body.yellow #GameBoard,
+body.yellow #chessboard .board-b72b1,
+body.yellow .mini_board,
+#top div.color_demo.yellow {
+  background-image: url(../images/board/yellow.png);
+}
+body.purple div.lichess_board,
+body.purple #GameBoard,
+body.purple #chessboard .board-b72b1,
+body.purple .mini_board,
+#top div.color_demo.purple {
+  background-image: url(../images/board/purple.png);
+}
 body.grey div.lichess_board,
 body.grey #GameBoard,
 body.grey #chessboard .board-b72b1,
@@ -75,6 +89,13 @@ body.canvas .mini_board,
 #top div.color_demo.canvas {
   background-image: url(../images/board/canvas2-512.jpg);
 }
+body.leather div.lichess_board,
+body.leather #GameBoard,
+body.leather #chessboard .board-b72b1,
+body.leather .mini_board,
+#top div.color_demo.leather {
+  background-image: url(../images/board/leather-512.jpg);
+}
 @media
 
 only screen and (-webkit-min-device-pixel-ratio:2),
@@ -83,35 +104,7 @@ only screen and (-o-min-device-pixel-ratio:2/1),
 only screen and (min-device-pixel-ratio:2),
 only screen and (min-resolution:192dpi),
 only screen and (min-resolution:2dppx) {
-  body.blue div.lichess_board, body.blue #GameBoard, body.blue #chessboard .board-b72b1, body.blue .mini_board, #top div.color_demo.blue {
-    background-image: url(../images/board/blue.png);
-  }
-  body.brown div.lichess_board,
-  body.brown #GameBoard,
-  body.brown #chessboard .board-b72b1,
-  body.brown .mini_board,
-  #top div.color_demo.brown {
-    background-image: url(../images/board/brown.png);
-  }
-  body.green div.lichess_board,
-  body.green #GameBoard,
-  body.green #chessboard .board-b72b1,
-  body.green .mini_board,
-  #top div.color_demo.green {
-    background-image: url(../images/board/green.png);
-  }
-  body.grey div.lichess_board,
-  body.grey #GameBoard,
-  body.grey #chessboard .board-b72b1,
-  body.grey .mini_board,
-  #top div.color_demo.grey {
-    background-image: url(../images/board/grey.png);
-  }
-  body.wood div.lichess_board,
-  body.wood #GameBoard,
-  body.wood #chessboard .board-b72b1,
-  body.wood .mini_board,
-  #top div.color_demo.wood {
+  body.wood div.lichess_board, body.wood #GameBoard, body.wood #chessboard .board-b72b1, body.wood .mini_board, #top div.color_demo.wood {
     background-image: url(../images/board/wood3-1024.jpg);
   }
   body.canvas div.lichess_board,
@@ -119,6 +112,13 @@ only screen and (min-resolution:2dppx) {
   body.canvas #chessboard .board-b72b1,
   #top div.color_demo.canvas {
     background-image: url(../images/board/canvas2-1024.jpg);
+  }
+  body.leather div.lichess_board,
+  body.leather #GameBoard,
+  body.leather #chessboard .board-b72b1,
+  body.leather .mini_board,
+  #top div.color_demo.leather {
+    background-image: url(../images/board/leather-1024.jpg);
   }
 }
 div.lcsi {
