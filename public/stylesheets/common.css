@@ -476,11 +476,6 @@ body.tight #top {
 #lichess {
   margin-left: 211px;
 }
-/* #lichess, #site_header { */
-
-/*   display: none; */
-
-/* } */
 
 body.tight #lichess {
   margin-left: 10px;
@@ -902,9 +897,11 @@ ul.language_links li:last-child {
 }
 #top div.themepicker.shown div.themes {
   display: block;
+  width: 240px;
 }
 #top div.themepicker.shown div.theme {
-  padding: 5px 10px;
+  float: left;
+  padding: 7px;
   cursor: pointer;
 }
 #top div.themepicker.shown div.theme:hover {
