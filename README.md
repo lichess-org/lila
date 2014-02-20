@@ -310,6 +310,7 @@ Special thanks go to:
 - [Clarkey](http://en.lichess.org/@/Clarkey) for:
   - the [cheat detection engine](https://github.com/clarkerubber/engine-evaluator)
   - the [puzzle creator](https://github.com/clarkerubber/problem-creator)
+  - the magnificent, unique wooden chess board (http://i.imgur.com/Zw8IO7v.jpg)
   - moding, mockups, communication and much more.
 - [Mephostophilis](http://lichess.org/@/Mephostophilis) for writing [Lichess Wiki](http://lichess.org/wiki), leading the cheater hunt, moderating the site, reporting countless bugs, and contributing to the codebase
 - [Smiling Bishop](http://lichess.org/@/smiling_bishop), [legend](http://lichess.org/@/legend), [mb](http://lichess.org/@/mb) and all the moderators who spent time keeping the site enjoyable

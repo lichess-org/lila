@@ -75,6 +75,7 @@ $(function() {
         labels: {
           x: 0,
           style: {
+            font: Highcharts.makeFont(10),
             fontWeight: 'lighter'
           }
         }
@@ -252,6 +253,10 @@ $(function() {
   };
 });
 
+Highcharts.makeFont = function(size) {
+  return size + "px 'Open Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
+};
+
 Highcharts.theme = (function() {
 
   var light = document.body.className.indexOf('light') != -1;
@@ -263,10 +268,6 @@ Highcharts.theme = (function() {
     weak: light ? '#ccc' : '#404040',
     strong: light ? '#a0a0a0' : '#606060'
   };
-
-  function font(size) {
-    return size + 'px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif';
-  }
 
   return {
     light: light,
@@ -283,7 +284,7 @@ Highcharts.theme = (function() {
     },
     title: {
       style: {
-        font: font(13),
+        font: Highcharts.makeFont(13),
         color: text.strong
       }
     },
@@ -301,7 +302,7 @@ Highcharts.theme = (function() {
       title: {
         style: {
           color: text.weak,
-          font: font(12)
+          font: Highcharts.makeFont(12)
         }
       }
     },
@@ -321,7 +322,7 @@ Highcharts.theme = (function() {
       title: {
         style: {
           color: text.weak,
-          font: font(12)
+          font: Highcharts.makeFont(12)
         }
       }
     },

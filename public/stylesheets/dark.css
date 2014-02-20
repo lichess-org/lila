@@ -53,6 +53,7 @@ body.dark div.shortcuts .title,
 body.dark div.content_box,
 body.dark div.content_box_inter,
 body.dark div.content_box_inter a.active,
+body.dark div.content_box_inter a:hover,
 body.dark #site_header div.side_menu a.active,
 body.dark div.game_row,
 body.dark form.search_user_form input,
@@ -99,6 +100,9 @@ body.dark div.analysis_menu > a {
 body.dark #timeline,
 body.dark #timeline > .entry {
   border-color: #303030;
+}
+body.dark #hooks_wrap > div.tabs > a.active {
+  border-bottom-color: #303030;
 }
 body.dark .ui-slider,
 body.dark div.progressbar,
@@ -199,8 +203,7 @@ body.dark #site_header div.side_menu a.active,
 body.dark #GameText,
 body.dark #tournament_side,
 body.dark table.translations tbody tr,
-body.dark form.translation_form div.message,
-body.dark div.content_box_inter a.intertab:hover {
+body.dark form.translation_form div.message {
   background: #2b2b2b;
 }
 body.dark #site_header div.side_menu a.active,
@@ -311,6 +314,7 @@ body.dark .ui-state-default,
 body.dark #translation_call,
 body.dark #notifications > div,
 body.dark div.vstext,
+body.dark div.content_box_inter a.intertab:hover,
 body.dark table.slist thead {
   background: rgb(40, 40, 40);
   background: -moz-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);

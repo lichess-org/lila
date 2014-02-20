@@ -115,6 +115,7 @@
 }
 #puzzle > .right .spinner {
   color: transparent;
+  text-shadow: none !important;
   border: none;
   height: 32px;
   display:inline-block;
@@ -134,6 +135,7 @@
 }
 #puzzle .prev_next button:disabled {
   color: transparent;
+  text-shadow: none !important;
 }
 #chessboard_wrap {
   position: relative;

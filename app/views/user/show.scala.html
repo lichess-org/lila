@@ -29,7 +29,8 @@
 title = title,
 goodies = goodies.some,
 robots = false,
-evenMoreJs = evenMoreJs) {
+evenMoreJs = evenMoreJs,
+themepicker = true) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
     @if(info.rank.map(_._1).exists(1==)) {
@@ -129,7 +130,7 @@ evenMoreJs = evenMoreJs) {
     </div>
   </div>
   @if(u.hasGames) {
-  <div class="content_box_inter clearfix">
+  <div class="content_box_inter tabs">
     @filters.list.map { f =>
     <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.showFilter(u.username, f.name)">
       @userGameFilterTitle(info, f)

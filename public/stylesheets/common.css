@@ -53,8 +53,25 @@ time {
 time::first-letter {
   text-transform: uppercase;
 }
-/* lichess font */
 
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Light'), local('OpenSans-Light'), url(http://themes.googleusercontent.com/static/fonts/opensans/v7/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v7/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v7/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+}
 @font-face {
   font-family: "lichess";
   src: url("../font4/fonts/lichess.eot");
@@ -238,7 +255,6 @@ ul.ui-autocomplete li a.ui-state-focus {
 }
 #powerTip a.user_link {
   display: block;
-  font-weight: bold;
 }
 #powerTip .country,
 #powerTip .lang {
@@ -379,7 +395,7 @@ html {
   min-height: 100%;
 }
 body {
-  font: 12px'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
+  font: 12px 'Open Sans', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   color: #747474;
   background: #f7f7f7;
   background-image: -moz-linear-gradient(top, #d7d7d7 0%, #f7f7f7 116px);
@@ -445,14 +461,6 @@ body.tight > div.content {
   min-width: 780px;
   margin-top: 35px;
 }
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  body > div.content {
-    margin-top: 40px;
-  }
-  body.tight > div.content {
-    margin-top: 45px;
-  }
-}
 #top {
   width: 100%;
   min-width: 1005px;
@@ -479,7 +487,6 @@ body.tight #lichess {
 }
 #site_title {
   width: 130px;
-  font-family: 'Trebuchet MS', 'Helvetica Neue', Arial, Sans-Serif;
   font-size: 30px;
   color: #afafaf;
   text-decoration: none;
@@ -497,7 +504,6 @@ body.tight #site_title {
   color: inherit !important;
 }
 #site_baseline {
-  font-style: italic;
   color: #afafaf;
 }
 body.tight #site_baseline {
@@ -538,7 +544,6 @@ div.footer div.right {
   text-align: center;
   display: none;
   padding: 3px 5px;
-  font-style: italic;
   height: 100%;
 }
 #friend_box .nobody span {
@@ -565,9 +570,6 @@ div.content_box {
 div.content_box h1 {
   font-size: 1.8em;
   font-weight: normal;
-  display: inline;
-}
-div.content_box h1 a.user_link {
   display: inline;
 }
 div.content_box.small_box {
@@ -617,7 +619,7 @@ div.content_box_inter {
   display: block;
 }
 div.content_box_inter .intertab {
-  float: left;
+  display:inline-block;
   text-align: center;
   line-height: 1.4em;
   margin: 5px 0 -1px 0;
@@ -625,18 +627,19 @@ div.content_box_inter .intertab {
   text-decoration: none;
   text-transform: capitalize;
   font-weight: lighter;
+  border: 1px solid transparent;
+}
+div.content_box_inter.tabs .intertab {
+  border-bottom: none;
 }
 div.content_box_inter .intertab strong {
   font-weight: normal;
 }
-div.content_box_inter a.intertab:hover {
-  background: #fff;
-}
+div.content_box_inter a.intertab:hover,
 div.content_box_inter a.intertab.active {
-  background: white;
-  border: 1px solid #ccc;
-  border-bottom: 0;
+  border-color: #ccc;
   text-decoration: none;
+  background: #fff;
 }
 div.content_box .lichess_title {
   font-size: 2em;
@@ -728,7 +731,6 @@ a#sound_state {
 }
 #reconnecting {
   display: none;
-  font-style: italic;
 }
 body.offline #reconnecting {
   display: inline-block;
@@ -886,7 +888,6 @@ ul.language_links li {
 ul.language_links li:last-child {
   width: 50%;
   font-weight: bold;
-  font-style: italic;
 }
 #top div.themepicker {
   float: right;
@@ -1000,7 +1001,6 @@ a#sound_state.unavailable {
   text-align: center;
   display: none;
   padding: 3px 5px;
-  font-style: italic;
 }
 #friend_box .nobody span {
   display: block;
@@ -1015,15 +1015,11 @@ a#sound_state.unavailable {
   display: block;
 }
 .user_link {
-  display: inline-block;
   white-space: nowrap;
   text-decoration: none;
 }
 a.user_link:hover {
   text-decoration: underline;
-}
-.user_link.inline {
-  display: inline-block;
 }
 div.warning {
   padding: 5px;
@@ -1047,6 +1043,7 @@ a.button,
 #translation_call,
 #notifications > div,
 div.vstext,
+div.content_box_inter a.intertab:hover,
 table.slist thead {
   background: rgb(250, 250, 250);
   background: -moz-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
@@ -1447,10 +1444,10 @@ div.game_config div.color_submits button.random span {
   line-height: 20px;
 }
 #hooks_wrap > div.tabs > a {
+  display:inline-block;
   text-decoration: none;
-  padding: 5px 10px;
+  padding: 0px 10px;
   border: 1px solid #ccc;
-  border-bottom: 0;
   background: #dadada;
 }
 #hooks_wrap > div.tabs > a:hover,
@@ -1459,6 +1456,7 @@ div.game_config div.color_submits button.random span {
 }
 #hooks_wrap > div.tabs > a.active {
   font-weight: bold;
+  border-bottom-color: #f0f0f0;
 }
 #hooks_wrap > a.filter {
   position: absolute;
@@ -1838,7 +1836,6 @@ div.new_posts a.post_link {
   margin-right: 7px;
 }
 div.new_posts li span {
-  font-weight: bold;
   margin-right: 6px;
 }
 div.new_posts li span.extract {
@@ -1877,10 +1874,11 @@ div.lichess_overboard.joining .mini_board {
   color: #a0a0a0;
   text-decoration: none;
 }
+#timeline a:hover {
+  text-decoration: underline;
+}
 #timeline a.user_link {
-  background: none;
   padding-left: 0;
-  display: inline-block;
 }
 #timeline .links {
   width: 100%;
@@ -1944,9 +1942,6 @@ div.progressbar.flashy.green div {
 }
 #notifications > div a.close:hover {
   font-weight: bold;
-}
-#notifications .user_link {
-  display: inline-block;
 }
 #notifications .actions {
   text-align: right;
