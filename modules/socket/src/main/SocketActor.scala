@@ -8,8 +8,8 @@ import play.api.libs.json._
 import play.api.templates.Html
 
 import actorApi._
-import lila.hub.actorApi.round.MoveEvent
 import lila.hub.actorApi.game.ChangeFeatured
+import lila.hub.actorApi.round.MoveEvent
 import lila.hub.actorApi.{ Deploy, GetUids, WithUserIds, SendTo, SendTos }
 import lila.memo.ExpireSetMemo
 
@@ -34,30 +34,30 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)               => ping(uid)
+    case Ping(uid)                => ping(uid)
 
-    case Broom                   => broom
+    case Broom                    => broom
 
     // when a member quits
-    case Quit(uid)               => quit(uid)
+    case Quit(uid)                => quit(uid)
 
-    case NbMembers(nb)           => pong = makePong(nb)
+    case NbMembers(nb)            => pong = makePong(nb)
 
-    case WithUserIds(f)          => f(userIds)
+    case WithUserIds(f)           => f(userIds)
 
-    case GetUids                 => sender ! uids
+    case GetUids                  => sender ! uids
 
-    case LiveGames(uid, gameIds) => registerLiveGames(uid, gameIds)
+    case LiveGames(uid, gameIds)  => registerLiveGames(uid, gameIds)
 
-    case move: MoveEvent         => notifyMove(move)
+    case move: MoveEvent          => notifyMove(move)
 
-    case SendTo(userId, msg)     => sendTo(userId, msg)
+    case SendTo(userId, msg)      => sendTo(userId, msg)
 
-    case SendTos(userIds, msg)   => sendTos(userIds, msg)
+    case SendTos(userIds, msg)    => sendTos(userIds, msg)
 
-    case Resync(uid)             => resync(uid)
+    case Resync(uid)              => resync(uid)
 
-    case Deploy(event, html)     => notifyAll(makeMessage(event.key, html))
+    case Deploy(event, html)      => notifyAll(makeMessage(event.key, html))
 
     case ChangeFeatured(id, html) => notifyFeatured(id, html)
   }
@@ -175,8 +175,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   private def notifyFeatured(id: String, html: Html) {
     val msg = makeMessage("featured", Json.obj("id" -> id, "html" -> html.toString))
-    members.values foreach {
-      case m if m.tv => m.channel push msg
+    members.values foreach { m =>
+      if (m.hasTv) m.channel push msg
     }
   }
 }

@@ -85,9 +85,10 @@ private[round] final class SocketHandler(
     version: Int,
     uid: String,
     user: Option[User],
-    ip: String): Fu[JsSocketHandler] =
+    ip: String,
+    tv: Boolean): Fu[JsSocketHandler] =
     GameRepo.pov(gameId, colorName) flatMap {
-      _ ?? { join(_, none, version, uid, "", user, ip) }
+      _ ?? { join(_, none, version, uid, "", user, ip, tv) }
     }
 
   def player(
@@ -98,7 +99,7 @@ private[round] final class SocketHandler(
     user: Option[User],
     ip: String): Fu[JsSocketHandler] =
     GameRepo.pov(fullId) flatMap {
-      _ ?? { join(_, Some(Game takePlayerId fullId), version, uid, token, user, ip) }
+      _ ?? { join(_, Some(Game takePlayerId fullId), version, uid, token, user, ip, false) }
     }
 
   private def join(
@@ -108,7 +109,8 @@ private[round] final class SocketHandler(
     uid: String,
     token: String,
     user: Option[User],
-    ip: String): Fu[JsSocketHandler] = {
+    ip: String,
+    tv: Boolean): Fu[JsSocketHandler] = {
     val join = Join(
       uid = uid,
       user = user,
@@ -119,6 +121,7 @@ private[round] final class SocketHandler(
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
       Handler(hub, socket, uid, join, user map (_.id)) {
         case Connected(enum, member) =>
+          if (tv) member.setTv
           controller(pov.gameId, socket, uid, pov.ref, member) -> enum
       }
     }

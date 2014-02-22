@@ -579,7 +579,15 @@ var storage = {
 
     setTimeout(function() {
       if (lichess.socket === null) {
-        lichess.socket = new strongSocket("/socket", 0, lichess.socketDefaults);
+        var socketSettings = lichess.socketDefaults;
+        if ($('body').hasClass('embed-tv')) {
+          socketSettings.params.tv = 1;
+          socketSettings.events.featured = function changeFeatured(o) {
+            $('#featured_game').html(o.html);
+            $('body').trigger('lichess.content_loaded');
+          };
+        }
+        lichess.socket = new strongSocket("/socket", 0, socketSettings);
       }
       $(document).idleTimer(lichess.idleTime)
         .on('idle.idleTimer', function() {
@@ -588,7 +596,7 @@ var storage = {
         .on('active.idleTimer', function() {
           lichess.socket.connect();
         });
-    }, 500);
+    }, 200);
 
     var $board = $('div.with_marks');
     if ($board.length > 0) {
@@ -694,12 +702,12 @@ var storage = {
 
     var acceptLanguages = $('body').data('accept-languages');
     if (acceptLanguages) {
-    $('#top .lichess_language').one('mouseover', function() {
-      var $t = $(this);
-      _.each(acceptLanguages.split(','), function(lang) {
-        $t.find('a[lang="' + lang + '"]').addClass('accepted');
+      $('#top .lichess_language').one('mouseover', function() {
+        var $t = $(this);
+        _.each(acceptLanguages.split(','), function(lang) {
+          $t.find('a[lang="' + lang + '"]').addClass('accepted');
+        });
       });
-    });
     }
 
     $('#lichess_translation_form_code').change(function() {
@@ -913,7 +921,8 @@ var storage = {
             name: "game"
           },
           params: {
-            ran: "--ranph--"
+            ran: "--ranph--",
+            tv: self.options.tv ? 1 : null
           },
           events: {
             possible_moves: function(event) {
@@ -990,7 +999,7 @@ var storage = {
                 self.centerTable();
               }
             },
-            featured_id: function(id) {
+            featured: function(o) {
               if (self.options.player.spectator && self.options.tv) {
                 // stop queue propagation here
                 self.element.queue(function() {
@@ -2252,8 +2261,8 @@ var storage = {
       }, Math.round(Math.random() * 5000));
     }
 
-    function changeFeatured(html) {
-      $('#featured_game').html(html);
+    function changeFeatured(o) {
+      $('#featured_game').html(o.html);
       $('body').trigger('lichess.content_loaded');
     }
 
