@@ -211,7 +211,6 @@ challengeToPlay=אתגר למשחק
 player=שחקן
 list=רשימה
 graph=גרף
-all=הכל
 lessThanNbMinutes=פחות מ- %s דקות
 xToYMinutes=%s עד %s דקות
 textIsTooShort=טקסט קצר מדי.

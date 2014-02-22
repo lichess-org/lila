@@ -63,6 +63,10 @@
   color: #909090;
   font-size: 0.8em;
 }
+#team.team_show .content_box_top {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
 #team.team_show .content_box_top .righty {
   float: right;
   margin-right: 20px;

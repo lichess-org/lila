@@ -211,7 +211,6 @@ challengeToPlay=Вызвать на игру
 player=Игрок
 list=Список
 graph=График
-all=Все
 lessThanNbMinutes=Менее %s минут
 xToYMinutes=От %s до %s минут
 textIsTooShort=Текст слишком короткий.

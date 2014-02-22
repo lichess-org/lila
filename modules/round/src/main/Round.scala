@@ -119,7 +119,7 @@ private[round] final class Round(
   }
 
   private def outOfTime(game: Game)(p: lila.game.Player) =
-    finisher(game, _.Outoftime, Some(!p.color) filter {
+    finisher(game, _.Outoftime, Some(!p.color) filterNot {
       chess.InsufficientMatingMaterial(game.toChess.board, _)
     })
 

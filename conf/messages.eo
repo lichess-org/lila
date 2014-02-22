@@ -211,7 +211,6 @@ challengeToPlay=Defii je nova ludo
 player=Ludanto
 list=Listo
 graph=Grafo
-all=Ĉiuj
 lessThanNbMinutes=Malpli ol %s minutoj
 xToYMinutes=de %s ĝis %s minutoj
 textIsTooShort=Teksto estas tro mallonga.

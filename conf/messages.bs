@@ -211,7 +211,6 @@ challengeToPlay=Poziv na igru
 player=Igrač
 list=Lista
 graph=Grafika
-all=svi
 lessThanNbMinutes=manje od %s minuta
 xToYMinutes=%s do %s minuta
 textIsTooShort=Tekst je prekratak

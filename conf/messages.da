@@ -211,7 +211,6 @@ challengeToPlay=Send en udfordring
 player=Spiller
 list=listen
 graph=graf
-all=alle
 lessThanNbMinutes=mindre end %s minutter
 xToYMinutes=%s til %s minutter
 textIsTooShort=teks er for kort
