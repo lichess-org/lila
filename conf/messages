@@ -76,6 +76,7 @@ signUp=Register
 games=Games
 forum=Forum
 xPostedInForumY=%s posted in topic %s
+latestForumPosts=Latest forum posts
 players=Players
 minutesPerSide=Minutes per side
 variant=Variant
