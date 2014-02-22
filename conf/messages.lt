@@ -211,7 +211,6 @@ challengeToPlay=Kvietimas žaisti
 player=Žaidėjas
 list=Sąrašas
 graph=Grafikas
-all=Visi
 lessThanNbMinutes=Mažiau nei per %s minučiu
 xToYMinutes=nuo %s iki %s minučiu
 textIsTooShort=Tekstas per trumpas.

@@ -37,11 +37,10 @@ private[round] final class Player(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
                     cheatDetector(progress.game) addEffect {
                       case Some(color) => round ! Cheat(color)
-                      case None => {
+                      case None => 
                         if (progress.game.playableByAi) round ! AiPlay
                         if (game.player.isOfferingDraw) round ! DrawNo(game.player.id)
                         if (game.player.isProposingTakeback) round ! TakebackNo(game.player.id)
-                      }
                     } inject progress.events
                   })
           }

@@ -211,7 +211,6 @@ challengeToPlay=Áskorun
 player=Skákmenn
 list=Listi
 graph=Graf
-all=Allir
 lessThanNbMinutes=Minna en %s mínútur
 xToYMinutes=%s til %s mínútur
 textIsTooShort=Texti er of stuttur.

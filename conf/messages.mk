@@ -211,7 +211,6 @@ challengeToPlay=Предизикај
 player=Играч
 list=Листа
 graph=Графикон
-all=Сите
 lessThanNbMinutes=Помалку од %s минути
 xToYMinutes=%s до %s минути
 textIsTooShort=Текстот е прекраток.

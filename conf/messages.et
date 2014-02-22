@@ -211,7 +211,6 @@ challengeToPlay=Väljakutse mängule
 player=Mängija
 list=Nimekiri
 graph=Graafik
-all=Kõik
 lessThanNbMinutes=Alla %s minuti
 xToYMinutes=%s kuni %s minutit
 textIsTooShort=Tekst on liiga lühike

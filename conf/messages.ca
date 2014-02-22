@@ -211,7 +211,6 @@ challengeToPlay=Desafia per a jugar
 player=Jugador
 list=Llista
 graph=Gràfica
-all=Tot
 lessThanNbMinutes=Menys de %s minuts
 xToYMinutes=De %s a %s minuts
 textIsTooShort=El text és massa curt.

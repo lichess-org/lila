@@ -211,7 +211,6 @@ challengeToPlay=Выклік на гульню
 player=Гулец
 list=Сьпіс
 graph=Дыяграма
-all=Усе
 lessThanNbMinutes=Меньш за %s хвілінаў
 xToYMinutes=Ад %s да %s хвілінаў
 textIsTooShort=Тэкст занадта кароткі.

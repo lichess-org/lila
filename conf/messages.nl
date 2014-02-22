@@ -211,7 +211,6 @@ challengeToPlay=Uitdagen voor een partij
 player=Speler
 list=Lijst
 graph=Grafiek
-all=Allemaal
 lessThanNbMinutes=Minder dan %s minuten
 xToYMinutes=%s tot %s minuten
 textIsTooShort=Te weinig tekst.

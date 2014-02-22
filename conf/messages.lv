@@ -211,7 +211,6 @@ challengeToPlay=Izaicināt uz spēli
 player=Spēlētājs
 list=Saraksts
 graph=Grafiks
-all=Visi
 lessThanNbMinutes=Mazāk kā %s minūtes
 xToYMinutes=%s līdz %s minūtes
 textIsTooShort=Teksts ir par īsu.

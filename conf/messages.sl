@@ -211,7 +211,6 @@ challengeToPlay=Izzovi na igro
 player=Igralec
 list=Seznam
 graph=Graf
-all=Vse
 lessThanNbMinutes=Manj kot %s minut
 xToYMinutes=%s do %s minut
 textIsTooShort=Besedilo je prekratko

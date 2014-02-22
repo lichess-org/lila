@@ -770,7 +770,7 @@ a#sound_state:hover {
   background: #bbb;
   color: #fff;
   font-weight: bold;
-  border-radius: 4px;
+  border-radius: 2px;
   font-size: 0.9em;
 }
 #top span.new_messages.unread {
@@ -943,7 +943,7 @@ a#sound_state.unavailable {
   padding: 0.5em;
   border: 1px solid #d0d0d0;
   display: block;
-  border-radius: 4px;
+  border-radius: 2px;
   text-decoration: none;
   position: relative;
 }
@@ -985,7 +985,6 @@ a#sound_state.unavailable {
   cursor: pointer;
   padding: 3px 5px;
   border-bottom: 1px solid #ccc;
-  border-radius: 4px 4px 0 0;
 }
 #friend_box .content a {
   padding: 3px 5px;
@@ -1934,7 +1933,7 @@ div.progressbar.flashy.green div {
   border: 1px solid #c0c0c0;
   padding: 6px 8px 7px 8px;
   margin-bottom: 8px;
-  border-radius: 3px;
+  border-radius: 2px;
 }
 #notifications > div a.close {
   text-decoration: none;
