@@ -36,6 +36,7 @@ private[lobby] final class SocketHandler(
     val join = Join(uid = uid, user = user)
     Handler(hub, socket, uid, join, user map (_.id)) {
       case Connected(enum, member) =>
+        member.setTv
         controller(socket, uid, member) -> enum
     }
   }
