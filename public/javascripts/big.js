@@ -413,14 +413,14 @@ var storage = {
             }, 3000));
             $('body').trigger('lichess.content_loaded');
             if (!storage.get('challenge-' + data.id)) {
-              $.playSound();
+              $.sound.dong();
               storage.set('challenge-' + data.id, 1);
             }
           }
         },
         analysisAvailable: function() {
           $(".future_game_analysis").hide().filter('.view_game_analysis').show();
-          $.playSound();
+          $.sound.dong();
           document.title = "/!\\ ANALYSIS READY! " + document.title;
         },
         deployPre: function(html) {
@@ -743,45 +743,47 @@ var storage = {
         }, duration);
       return true;
     });
+  });
 
-    var elem = document.createElement('audio');
-    var canPlayAudio = !! elem.canPlayType && elem.canPlayType('audio/ogg; codecs="vorbis"');
-    var $soundToggle = $('#sound_state').toggleClass('sound_state_on', storage.get('sound') == 1);
-
-    function soundEnabled() {
-      return $soundToggle.hasClass("sound_state_on");
-    }
-
-    $.playSound = function() {
-      if (canPlayAudio && soundEnabled()) {
-        var $sound = $('#lichess_sound_player');
-        if (!$sound.length) {
-          $('body').append($('<audio id="lichess_sound_player">').attr('src', $('body').attr('data-sound-file')));
-          $sound = $('#lichess_sound_player');
-        }
-        var sound = $sound.get(0);
-        sound.play();
-        setTimeout(function() {
-            sound.pause();
-          },
-          1000);
+  $.sound = (function() {
+    var baseUrl = 'http://' + document.domain.replace(/^\w+/, 'static') + '/assets/sound/';
+    var audio = {
+      dong: new Audio(baseUrl + 'dong.ogg'),
+      move: new Audio(baseUrl + 'move.ogg'),
+      take: new Audio(baseUrl + 'take.ogg')
+    };
+    var canPlay = !! audio.move.canPlayType && audio.move.canPlayType('audio/ogg; codecs="vorbis"');
+    var $toggle = $('#sound_state').toggleClass('sound_state_on', storage.get('sound') == 1);
+    var enabled = function() {
+      return $toggle.hasClass("sound_state_on");
+    };
+    var shouldPlay = function() {
+      return canPlay && enabled();
+    };
+    var play = {
+      move: function() {
+        if (shouldPlay()) audio.move.play();
+      },
+      take: function() {
+        if (shouldPlay()) audio.take.play();
+      },
+      dong: function() {
+        if (shouldPlay()) audio.dong.play();
       }
     };
+    if (canPlay) $toggle.click(function() {
+      console.debug(enabled());
+      $toggle.toggleClass('sound_state_on', !enabled());
+      console.debug(enabled());
+      if (enabled()) storage.set('sound', 1);
+      else storage.remove('sound');
+      play.dong();
+      return false;
+    });
+    else $toggle.addClass('unavailable');
 
-    if (canPlayAudio) {
-      $soundToggle.click(function() {
-        var enabled = !soundEnabled();
-        $soundToggle.toggleClass('sound_state_on', enabled);
-        $.playSound();
-        if (enabled) storage.set('sound', 1);
-        else storage.remove('sound');
-        return false;
-      });
-      if ($game) $game.trigger('lichess.audio_ready');
-    } else {
-      $soundToggle.addClass('unavailable');
-    }
-  });
+    return play;
+  })();
 
   $.fn.orNot = function() {
     return this.length === 0 ? false : this;
@@ -854,9 +856,7 @@ var storage = {
         });
         self.$watchers.watchers();
         if (self.isMyTurn() && self.options.game.turns === 0) {
-          self.element.one('lichess.audio_ready', function() {
-            $.playSound();
-          });
+          $.sound.dong();
         }
         if (!self.options.game.finished && !self.options.player.spectator) {
           self.blur = 0;
@@ -1014,7 +1014,7 @@ var storage = {
               self.element.queue(function() {
                 self.changeTitle($.trans("Game Over"));
                 self.element.removeClass("my_turn");
-                $.playSound();
+                $.sound.dong();
                 self.loadEnd(function() {
                   self.element.dequeue();
                 });
@@ -1096,7 +1096,8 @@ var storage = {
       var self = this,
         $piece = self.$board.find("div#" + from + " div.lichess_piece"),
         $from = $("div#" + from, self.$board),
-        $to = $("div#" + to, self.$board);
+        $to = $("div#" + to, self.$board),
+        $killed = $to.find("div.lichess_piece");
 
       // already moved
       if (!$piece.length) {
@@ -1104,13 +1105,12 @@ var storage = {
         return;
       }
 
+      if ($killed.length) $.sound.take();
+      else $.sound.move();
+
       self.highlightLastMove(from + " " + to);
-      if (!self.isPlayerColor(self.getPieceColor($piece))) {
-        $.playSound();
-      }
 
       var afterMove = function() {
-        var $killed = $to.find("div.lichess_piece");
         if ($killed.length && self.getPieceColor($piece) != self.getPieceColor($killed)) {
           self.killPiece($killed);
         }
@@ -2192,7 +2192,8 @@ var storage = {
 
     function resizeTimeline() {
       if ($timeline.length) {
-        var pos = $timeline.offset().top, max = $('#lichess').offset().top + 536;
+        var pos = $timeline.offset().top,
+          max = $('#lichess').offset().top + 536;
         while (pos + $timeline.outerHeight() > max) {
           console.debug($timeline.outerHeight());
           $timeline.find('div.entry:last').remove();

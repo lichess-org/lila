@@ -31,7 +31,6 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     <meta name="google" content="notranslate" />
   </head>
   <body class="@ctx.currentTheme.cssClass @ctx.currentBg"
-    data-sound-file="@routes.Assets.at("sound/alert.ogg")"
     data-troll="@ctx.troll.toString"
     data-port="@netPort"
     data-accept-languages="@acceptLanguages.mkString(",")">
