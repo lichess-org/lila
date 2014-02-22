@@ -932,46 +932,6 @@ a#sound_state.sound_state_on span.on {
 a#sound_state.unavailable {
   display: none;
 }
-#call_boxes {
-  position: absolute;
-  top: 30px;
-  right: 10px;
-  width: 250px;
-}
-#translation_call {
-  margin-top: 1em;
-  padding: 0.5em;
-  border: 1px solid #d0d0d0;
-  display: block;
-  border-radius: 2px;
-  text-decoration: none;
-  position: relative;
-}
-#translation_call span.action {
-  float: right;
-  margin-right: 2px;
-}
-#translation_call span.name {
-  font-weight: bold;
-}
-#translation_call div.progressbar {
-  margin-top: 0.5em;
-  background: #fff;
-  margin-bottom: 0.4em;
-}
-#translation_call .close {
-  position: absolute;
-  bottom: 0.4em;
-  right: 0.6em;
-  text-decoration: none;
-  font-weight: bold;
-}
-#translation_call .close:hover {
-  color: #ac524f;
-  font-size: 1.4em;
-  bottom: 0.2em;
-  right: 0.3em;
-}
 #friend_box {
   position: fixed;
   bottom: 0px;
