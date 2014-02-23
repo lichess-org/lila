@@ -764,10 +764,11 @@ var storage = {
     };
     var audio = {
       dong: makeAudio('dong.ogg', 1),
-      move: makeAudio('move.ogg', 0.6),
+      moveW: makeAudio('move.ogg', 0.6),
+      moveB: makeAudio('move.ogg', 0.6),
       take: makeAudio('take.ogg', 0.6)
     };
-    var canPlay = !! audio.move.canPlayType && audio.move.canPlayType('audio/ogg; codecs="vorbis"');
+    var canPlay = !! audio.moveW.canPlayType && audio.moveW.canPlayType('audio/ogg; codecs="vorbis"');
     var $toggle = $('#sound_state').toggleClass('sound_state_on', storage.get('sound') == 1);
     var enabled = function() {
       return $toggle.hasClass("sound_state_on");
@@ -776,8 +777,9 @@ var storage = {
       return canPlay && enabled();
     };
     var play = {
-      move: function() {
-        if (shouldPlay()) audio.move.play();
+      move: function(white) {
+        if (white) audio.moveW.play();
+        else audio.moveB.play();
       },
       take: function() {
         if (shouldPlay()) audio.take.play();
@@ -1121,13 +1123,15 @@ var storage = {
         return;
       }
 
+      var color = self.getPieceColor($piece);
+
       if ($killed.length) $.sound.take();
-      else $.sound.move();
+      else $.sound.move(color == 'white');
 
       self.highlightLastMove(from + " " + to);
 
       var afterMove = function() {
-        if ($killed.length && self.getPieceColor($piece) != self.getPieceColor($killed)) {
+        if ($killed.length && color != self.getPieceColor($killed)) {
           self.killPiece($killed);
         }
         $piece.css({
