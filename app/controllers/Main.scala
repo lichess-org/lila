@@ -39,17 +39,6 @@ object Main extends LilaController {
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 
-  def embedTv = Open { implicit ctx =>
-    Env.game.featured.one map {
-      case None => NotFound
-      case Some(game) => Ok(views.html.tv.embed(
-        game,
-        get("bg") | "light",
-        lila.pref.Theme(~get("theme")).cssClass
-      ))
-    }
-  }
-
   def developers = Open { implicit ctx =>
     fuccess {
       views.html.site.developers()

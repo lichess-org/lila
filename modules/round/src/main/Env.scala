@@ -150,7 +150,8 @@ final class Env(
     messenger = messenger,
     uciMemo = uciMemo)
 
-  lazy val moveBroadcast = system.actorOf(Props(new MoveBroadcast), name = "move-broadcast")
+  lazy val moveBroadcast = system.actorOf(Props(new MoveBroadcast))
+  lazy val tvBroadcast = system.actorOf(Props(new TvBroadcast))
 }
 
 object Env {
