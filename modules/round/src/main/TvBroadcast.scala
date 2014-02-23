@@ -17,17 +17,21 @@ private final class TvBroadcast extends Actor {
 
   private val (enumerator, channel) = Concurrent.broadcast[JsValue]
 
+  private var featuredId = none[String]
+
   def receive = {
 
     case TvBroadcast.GetEnumerator => sender ! enumerator
 
-    case ChangeFeatured(html) =>
+    case ChangeFeatured(id, html) =>
+      featuredId = id.some
       channel push makeMessage("featured", Json.obj("html" -> html.toString))
 
-    case move: MoveEvent => channel push makeMessage("fen", Json.obj(
-      "fen" -> move.fen,
-      "lm" -> move.move
-    ))
+    case move: MoveEvent if Some(move.gameId) == featuredId =>
+      channel push makeMessage("fen", Json.obj(
+        "fen" -> move.fen,
+        "lm" -> move.move
+      ))
   }
 }
 
