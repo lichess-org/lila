@@ -7,11 +7,11 @@ title = "Developers") {
   <h1 class="lichess_title">Embed lichess in your site</h1>
 
   <p>
-    Do you have a chess website, and want to add a playable live chess section?<br />
+    Do you have a website, and want to add a playable live chess section?<br />
     Add the following line to your site html:
   </p>
 
-  <pre>&lt;script src="http://en.lichess.org/embed?w=820h=650"&gt;&lt;/script&gt;</pre>
+  <pre>&lt;script src="http://en.@netDomain/embed?w=820h=650"&gt;&lt;/script&gt;</pre>
 
   <p>The <strong>w</strong> and <strong>h</strong> parameters control the width and height of the chess window.</p>
 </div>
@@ -20,17 +20,19 @@ title = "Developers") {
 <br />
 
 <div class="content_box small_box developers">
-  <h1 class="lichess_title">Embed the Chess TV in your site</h1>
+  <h1 id="embed-tv" class="lichess_title">Embed the Chess TV in your site</h1>
+
+  <div style="text-align: center; margin: 2em 0 1em 0;">
+    <script src="http://en.@netDomain/tv/embed?theme=wood&bg=dark"></script>
+    &nbsp;&nbsp;
+    <script src="http://en.@netDomain/tv/embed?theme=green&bg=light"></script>
+  </div>
 
   <p>
-    Do you have a chess website, and want to add a live chess TV?<br />
-    Add the following line to your site html:
+    Just add the following line to your site html:
   </p>
 
-  <pre>
-&lt;iframe frameBorder='0' style='width: 226px; height: 266px'
-src="http://en.lichess.org/embed/tv?theme=brown&bg=light"&gt;&lt;/iframe&gt;
-  </pre>
+  <pre>&lt;script src="http://en.@netDomain/tv/embed?theme=brown&bg=light"&gt;&lt;/script&gt;</pre>
 
   <p>
     Parameters:
@@ -39,18 +41,5 @@ src="http://en.lichess.org/embed/tv?theme=brown&bg=light"&gt;&lt;/iframe&gt;
       <li>- <strong>bg</strong>: Controls the background color. Available backgrounds: light, dark.</li>
     </ul>
   </p>
-
-  <br />
-  <p>Example with dark background and wood theme:</p>
-
-  <pre>
-&lt;iframe frameBorder='0' style='width: 226px; height: 266px'
-src="http://en.lichess.org/embed/tv?theme=wood&bg=dark"&gt;&lt;/iframe&gt;
-  </pre>
-
-  <div style="text-align: center; margin: 2em 0 1em 0;">
-    <iframe frameBorder='0' style='width: 226px; height: 266px'
-      src="http://en.lichess.org@routes.Tv.embed()?theme=wood&bg=dark"></iframe>
-  </div>
 </div>
 }

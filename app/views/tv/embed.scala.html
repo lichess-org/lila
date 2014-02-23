@@ -1,7 +1,7 @@
-@(g: Game, bg: String, theme: String)(implicit ctx: Context)
+@(g: Game, bg: String, theme: String)
 
 <!doctype html>
-<html lang="@lang.language">
+<html>
   <head>
     <title>lichess.org TV</title>
     @if(bg == "dark") {
@@ -9,16 +9,14 @@
     }
     @cssTag("common.css")
     @cssTag("board.css")
-    <meta content="@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()" name="description">
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="@routes.Assets.at("images/favicon-32-white.png")" type="image/x-icon" />
   </head>
-  <body 
-    class="embed-tv @bg @theme" 
+  <body
+    class="embed-tv @bg @theme"
     style="width: 226px; height: 266px; overflow: hidden;"
     data-stream-url="@routes.Tv.stream">
-    <div id="featured_game" title="@trans.watchLichessTV()">
-      @gameFen(g, g.firstPlayer.color, tv = true, blank = true)
+    <div id="featured_game" title="lichess.org TV">
+      @gameFenNoCtx(g, g.firstPlayer.color, tv = true, blank = true)
       @game.vstext(g)
     </div>
   </body>

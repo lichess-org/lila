@@ -94,32 +94,32 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case _           => Html("")
   }
 
-  def gameFen(game: Game, color: Color, ownerLink: Boolean = false, tv: Boolean = false, blank: Boolean = false)(implicit ctx: UserContext) = Html {
+  def gameFen(game: Game, color: Color, ownerLink: Boolean = false, tv: Boolean = false)(implicit ctx: UserContext) = Html {
     val owner = ownerLink.fold(ctx.me flatMap game.player, none)
     var live = game.isBeingPlayed
     val url = owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
       routes.Round.player(game fullIdOf o.color)
     }
-    """<a href="%s%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s" %s></a>""".format(
-      blank ?? netBaseUrl,
+    """<a href="%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"></a>""".format(
       tv.fold(routes.Tv.index, url),
       trans.viewInFullSize(),
       live ?? ("live live_" + game.id),
       live ?? game.id,
       color.name,
       Forsyth exportBoard game.toChess.board,
-      ~game.castleLastMoveTime.lastMoveString,
-      blank ?? """target="_blank"""")
+      ~game.castleLastMoveTime.lastMoveString)
   }
 
-  def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false) = Html {
+  def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false, blank: Boolean = false) = Html {
     var live = game.isBeingPlayed
-    """<a href="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"></a>""".format(
+    """<a href="%s%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s></a>""".format(
+      blank ?? netBaseUrl,
       tv.fold(routes.Tv.index, routes.Round.watcher(game.id, color.name)),
       live ?? ("live live_" + game.id),
       live ?? game.id,
       color.name,
       Forsyth exportBoard game.toChess.board,
-      ~game.castleLastMoveTime.lastMoveString)
+      ~game.castleLastMoveTime.lastMoveString,
+      blank ?? """ target="_blank"""")
   }
 }
