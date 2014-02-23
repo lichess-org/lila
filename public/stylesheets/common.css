@@ -1750,7 +1750,7 @@ div.undertable tr:first-child td {
   border-top: none;
 }
 div.undertable tr:nth-child(even) td {
-  background: #f0f0f0;
+  background: #f8f8f8;
 }
 div.undertable.half {
   width: 250px;
