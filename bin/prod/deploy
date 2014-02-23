@@ -62,6 +62,8 @@ rsync_command="rsync $RSYNC_OPTIONS bin $stage/bin $stage/lib public $REMOTE:$RE
 echo "$rsync_command"
 $rsync_command
 
+read \?"I am waiting for you to press [Enter] before I continue."
+
 if [ $mode == "main" ]; then
   lilalog "Notify users of post deploy"
   bin/cli-prod deploy post
