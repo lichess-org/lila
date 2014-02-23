@@ -13,6 +13,8 @@ import lila.user.{ User, UserContext }
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper =>
 
+  def netBaseUrl: String
+
   def variantName(variant: Variant)(implicit ctx: UserContext) = variant match {
     case Variant.Standard     => trans.standard.str()
     case Variant.Chess960     => "chess960"
@@ -92,13 +94,14 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case _           => Html("")
   }
 
-  def gameFen(game: Game, color: Color, ownerLink: Boolean = false, tv: Boolean = false, target: Option[String] = None)(implicit ctx: UserContext) = Html {
+  def gameFen(game: Game, color: Color, ownerLink: Boolean = false, tv: Boolean = false, blank: Boolean = false)(implicit ctx: UserContext) = Html {
     val owner = ownerLink.fold(ctx.me flatMap game.player, none)
     var live = game.isBeingPlayed
     val url = owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
       routes.Round.player(game fullIdOf o.color)
     }
-    """<a href="%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s" %s></a>""".format(
+    """<a href="%s%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s" %s></a>""".format(
+      blank ?? netBaseUrl,
       tv.fold(routes.Tv.index, url),
       trans.viewInFullSize(),
       live ?? ("live live_" + game.id),
@@ -106,8 +109,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       color.name,
       Forsyth exportBoard game.toChess.board,
       ~game.castleLastMoveTime.lastMoveString,
-      target ?? (t => s"""target="$t"""")
-    )
+      blank ?? """target="_blank"""")
   }
 
   def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false) = Html {
