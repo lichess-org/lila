@@ -770,8 +770,10 @@ var storage = {
     };
     var play = {
       move: function(white) {
-        if (white) audio.moveW.play();
-        else audio.moveB.play();
+        if (shouldPlay()) {
+          if (white) audio.moveW.play();
+          else audio.moveB.play();
+        }
       },
       take: function() {
         if (shouldPlay()) audio.take.play();
@@ -781,9 +783,7 @@ var storage = {
       }
     };
     if (canPlay) $toggle.click(function() {
-      console.debug(enabled());
       $toggle.toggleClass('sound_state_on', !enabled());
-      console.debug(enabled());
       if (enabled()) storage.set('sound', 1);
       else storage.remove('sound');
       play.dong();
