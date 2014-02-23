@@ -579,15 +579,7 @@ var storage = {
 
     setTimeout(function() {
       if (lichess.socket === null) {
-        var socketSettings = lichess.socketDefaults;
-        if ($('body').hasClass('embed-tv')) {
-          socketSettings.params.tv = 1;
-          socketSettings.events.featured = function changeFeatured(o) {
-            $('#featured_game').html(o.html);
-            $('body').trigger('lichess.content_loaded');
-          };
-        }
-        lichess.socket = new strongSocket("/socket", 0, socketSettings);
+        lichess.socket = new strongSocket("/socket", 0, lichess.socketDefaults);
       }
       $(document).idleTimer(lichess.idleTime)
         .on('idle.idleTimer', function() {
@@ -928,8 +920,7 @@ var storage = {
             name: "game"
           },
           params: {
-            ran: "--ranph--",
-            tv: self.options.tv ? 1 : null
+            ran: "--ranph--"
           },
           events: {
             possible_moves: function(event) {

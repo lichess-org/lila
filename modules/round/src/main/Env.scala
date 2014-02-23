@@ -57,22 +57,27 @@ final class Env(
     def receive = actorMapReceive
   }), name = ActorMapName)
 
-  private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor[Socket] {
-      def mkActor(id: String) = new Socket(
-        gameId = id,
-        history = history(),
-        getUsername = getUsername,
-        uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout,
-        disconnectTimeout = PlayerDisconnectTimeout,
-        ragequitTimeout = PlayerRagequitTimeout)
-      def receive: Receive = ({
-        case msg@lila.chat.actorApi.ChatLine(id, line) =>
-          self ! lila.hub.actorApi.map.Tell(id take 8, msg)
-      }: Receive) orElse socketHubReceive
-    }),
-    name = SocketName)
+  private val socketHub = {
+    val actor = system.actorOf(
+      Props(new lila.socket.SocketHubActor[Socket] {
+        def mkActor(id: String) = new Socket(
+          gameId = id,
+          history = history(),
+          getUsername = getUsername,
+          uidTimeout = UidTimeout,
+          socketTimeout = SocketTimeout,
+          disconnectTimeout = PlayerDisconnectTimeout,
+          ragequitTimeout = PlayerRagequitTimeout)
+        def receive: Receive = ({
+          case msg@lila.chat.actorApi.ChatLine(id, line) =>
+            self ! lila.hub.actorApi.map.Tell(id take 8, msg)
+          case m: lila.hub.actorApi.game.ChangeFeatured => tellAll(m)
+        }: Receive) orElse socketHubReceive
+      }),
+      name = SocketName)
+    system.lilaBus.subscribe(actor, 'changeFeaturedGame)
+    actor
+  }
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,

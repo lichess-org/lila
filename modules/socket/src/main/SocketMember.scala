@@ -8,14 +8,10 @@ trait SocketMember extends Ordered[SocketMember] {
 
   // FIXME
   private val privateLiveGames = collection.mutable.Set[String]()
-  private var privateHasTv: Boolean = false
 
   def liveGames: Set[String] = privateLiveGames.toSet
 
   def addLiveGames(ids: List[String]) { ids foreach privateLiveGames.+= }
-
-  def hasTv = privateHasTv
-  def setTv { privateHasTv = true }
 
   def isAuth = userId.isDefined
 

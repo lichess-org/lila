@@ -17,8 +17,7 @@ private[site] final class SocketHandler(
   def apply(
     uid: String,
     userId: Option[String],
-    flag: Option[String],
-    tv: Boolean): Fu[JsSocketHandler] = {
+    flag: Option[String]): Fu[JsSocketHandler] = {
 
     def controller: Handler.Controller = {
       case ("liveGames", o) => o str "d" foreach { ids =>
@@ -28,7 +27,6 @@ private[site] final class SocketHandler(
 
     Handler(hub, socket, uid, Join(uid, userId, flag), userId) {
       case Connected(enum, member) =>
-        if (tv) member.setTv
         controller -> enum
     }
   }
