@@ -61,7 +61,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
     // the actor instance must subscribe to 'changeFeaturedGame to receive this message
     // context.system.lilaBus.subscribe(self, 'changeFeaturedGame)
-    case ChangeFeatured(html)    => notifyFeatured(html)
+    case ChangeFeatured(_, html) => notifyFeatured(html)
   }
 
   def receive = receiveSpecific orElse receiveGeneric
