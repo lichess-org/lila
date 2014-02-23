@@ -16,7 +16,7 @@ object Main extends LilaController {
 
   def websocket = Socket { implicit ctx =>
     get("sri") ?? { uid =>
-      Env.site.socketHandler(uid, ctx.userId, get("flag"), getBool("tv"))
+      Env.site.socketHandler(uid, ctx.userId, get("flag"))
     }
   }
 

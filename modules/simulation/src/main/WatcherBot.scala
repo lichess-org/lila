@@ -30,7 +30,7 @@ private[simulation] final class WatcherBot(
     }
 
     case Event(Some(game: lila.game.Game), _) => {
-      roundEnv.socketHandler.watcher(game.id, "white", 0, uid, user, ip, true) pipeTo self
+      roundEnv.socketHandler.watcher(game.id, "white", 0, uid, user, ip) pipeTo self
       goto(TvConnect) using Id(game.id)
     }
 
@@ -61,7 +61,7 @@ private[simulation] final class WatcherBot(
 
     case Event(Message("featured_id", obj), watcher: Watcher) => obj str "d" map { id =>
       watcher.channel.eofAndEnd()
-      roundEnv.socketHandler.watcher(id, "white", 0, uid, user, ip, true) pipeTo self
+      roundEnv.socketHandler.watcher(id, "white", 0, uid, user, ip) pipeTo self
       goto(TvConnect) using Id(id)
     } getOrElse stay
 

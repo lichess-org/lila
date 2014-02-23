@@ -34,32 +34,34 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)                => ping(uid)
+    case Ping(uid)               => ping(uid)
 
-    case Broom                    => broom
+    case Broom                   => broom
 
     // when a member quits
-    case Quit(uid)                => quit(uid)
+    case Quit(uid)               => quit(uid)
 
-    case NbMembers(nb)            => pong = makePong(nb)
+    case NbMembers(nb)           => pong = makePong(nb)
 
-    case WithUserIds(f)           => f(userIds)
+    case WithUserIds(f)          => f(userIds)
 
-    case GetUids                  => sender ! uids
+    case GetUids                 => sender ! uids
 
-    case LiveGames(uid, gameIds)  => registerLiveGames(uid, gameIds)
+    case LiveGames(uid, gameIds) => registerLiveGames(uid, gameIds)
 
-    case move: MoveEvent          => notifyMove(move)
+    case move: MoveEvent         => notifyMove(move)
 
-    case SendTo(userId, msg)      => sendTo(userId, msg)
+    case SendTo(userId, msg)     => sendTo(userId, msg)
 
-    case SendTos(userIds, msg)    => sendTos(userIds, msg)
+    case SendTos(userIds, msg)   => sendTos(userIds, msg)
 
-    case Resync(uid)              => resync(uid)
+    case Resync(uid)             => resync(uid)
 
-    case Deploy(event, html)      => notifyAll(makeMessage(event.key, html))
+    case Deploy(event, html)     => notifyAll(makeMessage(event.key, html))
 
-    case ChangeFeatured(id, html) => notifyFeatured(id, html)
+    // the actor instance must subscribe to 'changeFeaturedGame to receive this message
+    // context.system.lilaBus.subscribe(self, 'changeFeaturedGame)
+    case ChangeFeatured(html)    => notifyFeatured(html)
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -173,10 +175,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     members get uid foreach f
   }
 
-  private def notifyFeatured(id: String, html: Html) {
-    val msg = makeMessage("featured", Json.obj("id" -> id, "html" -> html.toString))
-    members.values foreach { m =>
-      if (m.hasTv) m.channel push msg
-    }
+  private def notifyFeatured(html: Html) {
+    val msg = makeMessage("featured", Json.obj("html" -> html.toString))
+    members.values foreach { _.channel push msg }
   }
 }

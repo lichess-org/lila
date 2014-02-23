@@ -24,6 +24,8 @@ private[lobby] final class Socket(
     router: akka.actor.ActorSelection,
     uidTtl: Duration) extends SocketActor[Member](uidTtl) with Historical[Member] {
 
+  context.system.lilaBus.subscribe(self, 'changeFeaturedGame)
+
   def receiveSpecific = {
 
     case PingVersion(uid, v) => {
