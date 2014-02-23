@@ -757,10 +757,15 @@ var storage = {
 
   $.sound = (function() {
     var baseUrl = 'http://' + document.domain.replace(/^\w+/, 'static') + '/assets/sound/';
+    var makeAudio = function(file, volume) {
+      var a = new Audio(baseUrl + file);
+      a.volume = volume;
+      return a;
+    };
     var audio = {
-      dong: new Audio(baseUrl + 'dong.ogg'),
-      move: new Audio(baseUrl + 'move.ogg'),
-      take: new Audio(baseUrl + 'take.ogg')
+      dong: makeAudio('dong.ogg', 1),
+      move: makeAudio('move.ogg', 0.6),
+      take: makeAudio('take.ogg', 0.6)
     };
     var canPlay = !! audio.move.canPlayType && audio.move.canPlayType('audio/ogg; codecs="vorbis"');
     var $toggle = $('#sound_state').toggleClass('sound_state_on', storage.get('sound') == 1);
