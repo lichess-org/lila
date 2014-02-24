@@ -76,6 +76,7 @@ signUp=Kayıt Ol
 games=Oyunlar
 forum=Forum
 xPostedInForumY=%s %s forumunda yayınladı
+latestForumPosts=En son forum gönderileri
 players=Oyuncular
 minutesPerSide=Dakika (her oyuncu için)
 variant=Varyant
