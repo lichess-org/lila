@@ -76,6 +76,7 @@ signUp=Inscription
 games=Parties
 forum=Forum
 xPostedInForumY=%s a posté dans le forum %s
+latestForumPosts=Derniers posts du forum
 players=Joueurs
 minutesPerSide=Minutes par joueur
 variant=Variante
