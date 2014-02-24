@@ -210,7 +210,6 @@ challengeToPlay=გამოიწვიეთ სათამაშოდ
 player=მოთამაშე
 list=სია
 graph=გრაფა
-all=ყველა
 lessThanNbMinutes=%s წუთწე ნაკლები
 xToYMinutes=%s დან %s წუთი
 textIsTooShort=ტექსთი ძალიან მოკლეა
