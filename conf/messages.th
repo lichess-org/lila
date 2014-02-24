@@ -211,7 +211,6 @@ challengeToPlay=ท้าประลองในเกม
 player=ผู้เล่น
 list=รายการ
 graph=กราฟ
-all=ทั้งหมด
 lessThanNbMinutes=น้อยกว่า %s นาที
 xToYMinutes=%s ถึง %s นาที
 textIsTooShort=ข้อความสั้นไป
