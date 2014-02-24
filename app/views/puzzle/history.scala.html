@@ -2,7 +2,7 @@
 
 <div class="undertable">
   <div class="undertable_top">
-    <span class="title">Recently played puzzles</span>
+    <span class="title">@trans.recentlyPlayedPuzzles()</span>
   </div>
   <div class="undertable_inner">
     <div class="content">
@@ -18,8 +18,7 @@
             </td>
             <td>
               <a class="user_link" href="@routes.Puzzle.show(attempt.puzzleId)">
-                Puzzle @attempt.puzzleId
-                (@attempt.puzzleRating)
+                @trans.puzzleId(attempt.puzzleId) (@attempt.puzzleRating)
               </a>
             </td>
             <td>
