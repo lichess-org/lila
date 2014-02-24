@@ -18,6 +18,9 @@ elif [ $mode = "paul" ]; then
 elif [ $mode = "salim" ]; then
   REMOTE="salim"
   REMOTE_DIR="/home/lila5"
+elif [ $mode = "lizen" ]; then
+  REMOTE="lizen"
+  REMOTE_DIR="/home/lila5"
 elif [ $mode = "local" ]; then
   REMOTE="localhost"
   REMOTE_DIR="/tmp/lila5"
@@ -37,7 +40,7 @@ if [ $mode == "main" ]; then
   bin/closure
 fi
 
-sbt ";play;stage"
+sbt ";play;stage;exit"
 if [ $? != 0 ]; then
   lilalog "Deploy canceled"
   exit 1
