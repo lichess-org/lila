@@ -50,4 +50,10 @@ object Main extends LilaController {
       views.html.site.irc(_)
     }
   }
+
+  def thanks = Open { implicit ctx =>
+    fuccess {
+      views.html.site.thanks()
+    }
+  }
 }

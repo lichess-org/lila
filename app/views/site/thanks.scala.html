@@ -1,0 +1,108 @@
+@()(implicit ctx: Context)
+
+@site.layout(
+title = "Thanks") {
+
+<style type="text/css">
+  h2 {
+    font-size: 1.5em;
+    margin: 1.5em 0;
+  }
+  .logo {
+    display: block;
+    float: left;
+    margin: 1em;
+    text-decoration: none;
+  }
+  .logo span {
+    width: 233px;
+    height: 116px;
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .logo img {
+    width: 233px;
+  }
+  .fat {
+    font-size: 1.2em;
+    line-height: 1.7em;
+  }
+  p {
+    margin: 1em 0;
+  }
+  ul li {
+    list-style: disc inside;
+    margin-left: 2em;
+  }
+</style>
+
+<div class="content_box small_box">
+
+  <h1 class="lichess_title">They make lichess possible</h1>
+
+  <div class="clearfix">
+
+    <h2>They offer a webserver. Thank you!</h2>
+
+    <a class="logo" href="http://zengularity.com" title="Zengularity">
+      <span>
+        <img src="@routes.Assets.at("images/thanks/zengularity.jpg")" />
+      </span>
+    </a>
+
+    <a class="logo" href="http://webenabled.com" title="WebEnabled">
+      <span>
+        <img src="@routes.Assets.at("images/thanks/webenabled.png")" />
+      </span>
+    </a>
+  </div>
+
+  <h2>They offer their work. Thank you!</h2>
+
+  <div class="fat">
+
+    <p>Big thanks go to all translators, for their <a href="http://lichess.org/translation/contribute">amazing translation efforts</a>.</p>
+
+    <p>Special thanks go to:</p>
+
+    <ul>
+      <li>
+        <a href="http://en.lichess.org/@@/Clarkey">Clarkey</a> for:
+
+        <ul>
+          <li>the <a href="https://github.com/clarkerubber/engine-evaluator">cheat detection engine</a>
+          </li>
+          <li>the <a href="https://github.com/clarkerubber/problem-creator">puzzle creator</a>
+          </li>
+          <li>the magnificent, unique wooden chess board (<a href="http://i.imgur.com/Zw8IO7v.jpg">http://i.imgur.com/Zw8IO7v.jpg</a>)</li>
+          <li>moderation work, mockups, communication, brilliant ideas and much more.</li>
+        </ul>
+      </li>
+      <li>
+        <a href="https://github.com/evropi">Evropi</a> for:
+        <ul>
+          <li>contributing to the wiki and translations</li>
+          <li>Writing the amazing <a href="https://github.com/ornicar/lila/wiki/translation_context">translation contexts</a></li>
+          <li>moderation work, communication, testing, and much more.</li>
+        </ul>
+      </li>
+      <li>
+        <a href="http://lichess.org/@@/Mephostophilis">Mephostophilis</a> for writing <a href="http://lichess.org/wiki">Lichess Wiki</a>, leading the cheater hunt and moderating the site.</li>
+      <li>
+        <a href="http://lichess.org/@@/smiling_bishop">Smiling Bishop</a>, <a href="http://lichess.org/@@/legend">legend</a>, <a href="http://lichess.org/@@/mb">mb</a>, <a href="http://lichess.org/@@/Iron_Logician">Iron_Logician</a>, and all the moderators who spent time keeping the site enjoyable</li>
+      <li>
+        <a href="https://github.com/Steibock">Steibock</a> for board theming</li>
+      <li>
+        <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a> for the fugue icons</li>
+      <li>
+        <a href="http://pgn4web.casaschi.net/home.html">pgn4web</a> for the analysis board</li>
+      <li>
+        <a href="https://github.com/oakmac/chessboardjs">chessboardjs</a> for the board editor</li>
+      <li>
+        <a href="https://github.com/jhlywa/chess.js">chess.js</a> for the client-side chess logic</li>
+    </ul>
+    <p>Thanks to all players for feeding the database.</p>
+
+  </div>
+</div>
+}
