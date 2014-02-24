@@ -73,7 +73,7 @@ private[ai] final class Dispatcher(
     context.actorOf(
       Props(new Connection(name, config, router(url))),
       name = name
-    ) 
+    )
   }
 
   private val loadTick = context.system.scheduler.schedule(0.second, 1.second, self, CalculateLoad)
