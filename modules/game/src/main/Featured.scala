@@ -70,7 +70,7 @@ final class Featured(
     }
 
     def isWayBetter(g1: Game, g2: Game) =
-      score(g2.resetTurns) > (score(g1.resetTurns) * 1.2)
+      score(g2.resetTurns) > (score(g1.resetTurns) * 1.1)
 
     def rematch(game: Game): Fuog = game.next ?? $find.byId[Game]
 
