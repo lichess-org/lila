@@ -50,21 +50,23 @@ themepicker = true) {
     </div>
   </div>
   <div id="chessboard" data-fen="@fen"></div>
-  <table>
-    <tbody>
-      <tr>
-        <th>FEN string</th>
-        <td class="fen-string"></td>
-      </tr>
-      <tr>
-        <th>Permalink</th>
-        <td>
-          @defining(netBaseUrl + routes.Editor.index("xxx")) { url =>
-          <a class="permalink" data-url="@url">@url</a>
-          }
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="copyables">
+    <p>
+      FEN
+      <span class="copyable">
+        <span class="toggle" data-icon="i"></span>
+        <span class="text fen-string"></span>
+        <input type="input" spellcheck="false" class="input fen-string" />
+      </span>
+    </p>
+    <p>
+      URL
+      <span>
+        @defining(netBaseUrl + routes.Editor.index("xxx")) { url =>
+        <a class="permalink" data-url="@url">@url</a>
+        }
+      </span>
+    </p>
+  </div>
 </div>
 }
