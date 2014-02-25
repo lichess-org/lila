@@ -39,6 +39,10 @@
     </div>
 
     <div class="game_control">
+      @puzzle.gameId.map { id =>
+      <a class="button" data-icon="v" title="@trans.fromGameLink(id)"
+        href="@routes.Round.watcher(id, puzzle.color.name)@{puzzle.initialPly.??("#" + _)}"></a>
+      }
       <a class="fen_link button" title="@trans.boardEditor()" data-icon="m" href="@routes.Editor.index("")?fen="></a>
       <a class="continue button" title="@trans.continueFromHere()" data-icon="U"></a>
       <div id="GameButtons">
@@ -82,20 +86,17 @@
       </p>
       <p>@trans.playedXTimes(s"<strong>${puzzle.attempts}</strong>")</p>
       <p>@trans.winRateX(s"<strong>${puzzle.winPercent}</strong>")</p>
-        @puzzle.gameId.map { id =>
-        <p>@trans.fromGameLink(s"""<a class="game_id" href="${routes.Round.watcher(id, puzzle.color.name)}">$id</a>""")</p>
-        }
-      </div>
-      <div class="continue_wrap">
-        @if(win.isDefined) {
-        <a class="continue button" href="@routes.Puzzle.home" data-icon="G"> @trans.startTraining()</a>
-        } else {
-        <button class="continue button" data-icon="G"> @trans.continueTraining()</button>
-        }
-        @if(win.fold(attempt.exists(_.loss))(!_)) {
-        <a class="retry" href="@routes.Puzzle.show(puzzle.id)">@trans.retryThisPuzzle()</a>
-        }
-      </div>
     </div>
-
+    <div class="continue_wrap">
+      @if(win.isDefined) {
+      <a class="continue button" href="@routes.Puzzle.home" data-icon="G"> @trans.startTraining()</a>
+      } else {
+      <button class="continue button" data-icon="G"> @trans.continueTraining()</button>
+      }
+      @if(win.fold(attempt.exists(_.loss))(!_)) {
+      <a class="retry" href="@routes.Puzzle.show(puzzle.id)">@trans.retryThisPuzzle()</a>
+      }
+    </div>
   </div>
+
+</div>
