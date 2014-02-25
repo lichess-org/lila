@@ -11,11 +11,12 @@ object Editor extends LilaController with BaseGame {
 
   private def env = Env.importer
 
-  def index(fenStr: String) = Open { implicit ctx =>
+  def index(urlFen: String) = Open { implicit ctx =>
+    val fenStr = Some(urlFen.trim).filter(_.nonEmpty) orElse get("fen")
     makeListMenu map { listMenu =>
-      val decodedFen = java.net.URLDecoder.decode(fenStr, "UTF-8").trim.some.filter(_.nonEmpty)
+      val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }.filter(_.nonEmpty)
       val situation = (decodedFen flatMap Forsyth.<<< map (_.situation)) | Situation(Variant.Standard)
-      val fen = Forsyth >> situation 
+      val fen = Forsyth >> situation
       Ok(html.board.editor(listMenu, situation, fen))
     }
   }
