@@ -74,8 +74,8 @@ time::first-letter {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font5/fonts/lichess.eot");
-  src: url("../font5/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font5/fonts/lichess.woff") format("woff"), url("../font5/fonts/lichess.ttf") format("truetype"), url("../font5/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font6/fonts/lichess.eot");
+  src: url("../font6/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font6/fonts/lichess.woff") format("woff"), url("../font6/fonts/lichess.ttf") format("truetype"), url("../font6/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
