@@ -76,6 +76,7 @@ signUp=Registracija
 games=Igre
 forum=Forum
 xPostedInForumY=%s poslal v temo %s
+latestForumPosts=Zadnje objave na forumu
 players=Igralci
 minutesPerSide=Minut na igralca
 variant=Različica
