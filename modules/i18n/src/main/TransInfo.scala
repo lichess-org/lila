@@ -38,7 +38,7 @@ private[i18n] object TransInfos {
   val defaultCode = "en"
 
   def apply(api: MessagesApi, keys: I18nKeys): TransInfos = TransInfos {
-    val nbMessages = keys.keys.size
+    val nbMessages = keys.count
     LangList.sortedList.filter(_._1 != defaultCode) map {
       case (code, name) => TransInfo(
         lang = Lang(code),
