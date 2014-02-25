@@ -6,6 +6,7 @@ net.domain = "l.org"
 # Use local artificial intelligence 
 ai {
   client = false
+  server = false
   stockfish {
     debug = false
     hash_size = 128
