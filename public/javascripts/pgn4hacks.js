@@ -55,7 +55,6 @@ function customFunctionOnMove() {
       }
     }
   }
-  var turn = Math.round(CurrentPly / 2);
   var $gameText = $("#GameText");
   var $moveOn = $gameText.find(".moveOn:first");
   var gtHeight = $gameText.height();

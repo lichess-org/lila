@@ -93,9 +93,6 @@
 #puzzle > .right .please_vote.thanks .then {
   display: block;
 }
-#puzzle > .right a.game_id {
-  font-family: monospace;
-}
 #puzzle > .right .lichess_control {
   text-align: center;
   font-size: 1.3em;

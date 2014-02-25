@@ -22,6 +22,10 @@ case class Puzzle(
     wins: Int,
     time: Int) {
 
+  def initialPly: Option[Int] = fen.split(' ').lastOption flatMap parseIntOption map { move =>
+    move * 2 + color.fold(0, 1)
+  }
+
   def withVote(f: Vote => Vote) = copy(vote = f(vote))
 
   def winPercent = if (attempts == 0) 0 else wins * 100 / attempts

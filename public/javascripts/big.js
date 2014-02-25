@@ -2537,6 +2537,11 @@ var storage = {
           }
         }
       }));
+
+    setTimeout(function() {
+      var ply = parseInt(location.hash.replace(/#/, ''));
+      if (ply) GoToMove(ply, 0);
+    }, 500);
   });
 
   $.fn.sortable = function(sortFns) {
