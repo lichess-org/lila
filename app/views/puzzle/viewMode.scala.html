@@ -96,7 +96,7 @@
       <button class="continue button" data-icon="G"> @trans.continueTraining()</button>
       }
       @if(win.fold(attempt.exists(_.loss))(!_)) {
-      <a class="retry" href="@routes.Puzzle.show(puzzle.id)">@trans.retryThisPuzzle()</a>
+      <a class="retry" data-icon="P" href="@routes.Puzzle.show(puzzle.id)"> @trans.retryThisPuzzle()</a>
       }
     </div>
   </div>

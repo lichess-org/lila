@@ -62,9 +62,6 @@
 .icon-fontawesome-webfont-8:before {
   content: "h";
 }
-.icon-fontawesome-webfont:before {
-  content: "i";
-}
 .icon-fontawesome-webfont-9:before {
   content: "j";
 }
@@ -161,9 +158,6 @@
 .icon-plus-squared:before {
   content: "O";
 }
-.icon-crown:before {
-  content: "P";
-}
 .icon-plus-circled:before {
   content: "O";
 }
@@ -208,4 +202,10 @@
 }
 .icon-fontawesome-webfont-40:before {
   content: "!";
+}
+.icon-fontawesome-webfont:before {
+  content: "i";
+}
+.icon-fontawesome-webfont-41:before {
+  content: "P";
 }
