@@ -1940,6 +1940,9 @@ div.relation_actions {
 div.relation_actions a.relation.processing {
   opacity: 0.2
 }
+.copyable .toggle {
+  cursor: pointer;
+}
 #powerTip.messages {
   width: 400px;
   padding: 1em;

@@ -517,6 +517,13 @@ var storage = {
 
     $('#friend_box').friends();
 
+    $('.copyable').each(function() {
+      var $this = $(this);
+      $this.find('.toggle').click(function() {
+        $this.find('.text, .input').toggle().filter('input').select();
+      }).end().find('input').hide();
+    });
+
     $('body').on('click', '.relation_actions a.relation', function() {
       var $a = $(this).addClass('processing');
       $.ajax({
