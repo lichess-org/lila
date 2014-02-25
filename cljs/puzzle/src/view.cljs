@@ -73,8 +73,10 @@
 (defn run! [progress]
   (let [$puzzle ($ :#puzzle)
         $browse ($ :#GameButtons $puzzle)
+        $first ($ :.first $browse)
         $prev ($ :.prev $browse)
         $next ($ :.next $browse)
+        $last ($ :.last $browse)
         lines (js->clj (jq/data $puzzle :lines))
         line (find-best-line-from-progress lines progress)
         history (vec (make-history (jq/data $puzzle :fen) (conj (seq line) (jq/data $puzzle :move))))
@@ -91,8 +93,10 @@
         (let [[move fen] (get history step)
               is-first (= step 0)
               is-last (= step (- (count history) 1))]
+          (switch-class! $first :disabled is-first)
           (switch-class! $prev :disabled is-first)
           (switch-class! $next :disabled is-last)
+          (switch-class! $last :disabled is-last)
           (.position chessboard fen animate)
           (.load core/chess fen)
           (update-fen-links! fen)
@@ -102,6 +106,8 @@
             (if (= ch continue-chan)
               (play-new! $puzzle)
               (do
+                (when (and (= browse "first") (not is-first)) (recur 0 true))
                 (when (and (= browse "prev") (not is-first)) (recur (- step 1) true))
                 (when (and (= browse "next") (not is-last)) (recur (+ step 1) true))
+                (when (and (= browse "last") (not is-last)) (recur (- (count history) 1) true))
                 (recur step false)))))))))
