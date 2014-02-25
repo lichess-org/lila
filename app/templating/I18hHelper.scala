@@ -26,6 +26,12 @@ trait I18nHelper {
   def langName(lang: Lang): Option[String] = langName(lang.language)
   def langName(lang: String): Option[String] = LangList name lang
 
+  def translationCall(implicit ctx: UserContext) =
+    if (ctx.isAnon || ctx.req.cookies.get(hideCallsCookieName).isDefined) None
+    else shuffle(
+      (ctx.req.acceptLanguages map transInfos.get).flatten filter (_.nonComplete)
+    ).headOption
+
   def transValidationPattern(trans: String) =
     (trans contains "%s") option ".*%s.*"
 
