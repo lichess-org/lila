@@ -2034,11 +2034,10 @@ var storage = {
     var animation = 500;
     var pool = [];
 
-    $wrap.find('>div.tabs>a').click(function() {
+    $wrap.on('click', '>div.tabs>a', function() {
       var tab = $(this).data('tab');
       $(this).siblings().removeClass('active').end().addClass('active');
-      $wrap.find('>.tab:not(.' + tab + ')').fadeOut(500);
-      $wrap.find('>.' + tab).fadeIn(500);
+      $wrap.find('>.tab').hide().filter('.' + tab).show();
       storage.set('lobbytab', tab);
     });
     var active = storage.get('lobbytab') || 'list';
@@ -2052,12 +2051,12 @@ var storage = {
           e.stopPropagation();
         });
         $('html').one('click', function(e) {
-          $div.off('click').fadeOut(500);
+          $div.off('click').fadeOut(200);
           $a.removeClass('active');
         });
       }, 10);
       if ($(this).toggleClass('active').hasClass('active')) {
-        $div.fadeIn(500);
+        $div.fadeIn(200);
         if ($div.is(':empty')) {
           $.ajax({
             url: $(this).attr('href'),
