@@ -38,9 +38,17 @@
       <div id="chessboard"></div>
     </div>
 
-    <div class="prev_next">
-      <button class="prev button" value="prev" data-icon="I"></button>
-      <button class="next button" value="next" data-icon="H"></button>
+    <div class="game_control">
+      <!-- <a class="fen_link button" title="@trans.boardEditor()" data-icon="m" href="@routes.Editor.index("")?fen="></a> -->
+      <!-- <a class="continue button" title="@trans.continueFromHere()" data-icon="U" href="#"></a> -->
+      <div id="GameButtons">
+        <a class="prev button" data-value="prev" data-icon="Y"></a>
+        <a class="next button" data-value="next" data-icon="X"></a>
+      </div>
+    </div>
+    <div class="continue none">
+      <a class="fen_link button" href="@routes.Lobby.home()?fen=#ai">@trans.playWithTheMachine()</a>
+      <a class="fen_link button" href="@routes.Lobby.home()?fen=#friend">@trans.playWithAFriend()</a>
     </div>
 
     @userInfos.map(history(_))
@@ -73,21 +81,21 @@
         <small title="Glicko rating deviation"> ±@puzzle.perf.glicko.intDeviationDoubled</small>
       </p>
       <p>@trans.playedXTimes(s"<strong>${puzzle.attempts}</strong>")</p>
-      <p>@trans.winRateX(s"<strong>${puzzle.winPercent}</strong}>%")</p>
-      @puzzle.gameId.map { id =>
-      <p>@trans.fromGameLink(s"""<a href="${routes.Round.watcher(id, puzzle.color.name)}">#$id</a>""")</p>
-      }
+      <p>@trans.winRateX(s"<strong>${puzzle.winPercent}</strong>")</p>
+        @puzzle.gameId.map { id =>
+        <p>@trans.fromGameLink(s"""<a class="game_id" href="${routes.Round.watcher(id, puzzle.color.name)}">$id</a>""")</p>
+        }
+      </div>
+      <div class="continue_wrap">
+        @if(win.isDefined) {
+        <a class="continue button" href="@routes.Puzzle.home" data-icon="G"> @trans.startTraining()</a>
+        } else {
+        <button class="continue button" data-icon="G"> @trans.continueTraining()</button>
+        }
+        @if(win.fold(attempt.exists(_.loss))(!_)) {
+        <a class="retry" href="@routes.Puzzle.show(puzzle.id)">@trans.retryThisPuzzle()</a>
+        }
+      </div>
     </div>
-    <div class="continue_wrap">
-      @if(win.isDefined) {
-      <a class="continue button" href="@routes.Puzzle.home" data-icon="G"> @trans.startTraining()</a>
-      } else {
-      <button class="continue button" data-icon="G"> @trans.continueTraining()</button>
-      }
-      @if(win.fold(attempt.exists(_.loss))(!_)) {
-      <a class="retry" href="@routes.Puzzle.show(puzzle.id)">@trans.retryThisPuzzle()</a>
-      }
-    </div>
-  </div>
 
-</div>
+  </div>

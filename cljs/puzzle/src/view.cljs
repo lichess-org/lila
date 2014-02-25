@@ -24,7 +24,7 @@
                            #(jq/html $vote %))))))
 
 (defn bind-browse! [$browse]
-  (jq/on $browse :click :button #(put! browse-chan (jq/attr ($ (.-target %)) :value))))
+  (jq/on $browse :click :a #(put! browse-chan (jq/data ($ (.-target %)) :value))))
 
 (defn bind-continue! [$continue]
   (jq/bind $continue :click #(put! continue-chan true)))
@@ -62,7 +62,7 @@
 
 (defn run! [progress]
   (let [$puzzle ($ :#puzzle)
-        $browse ($ :.prev_next $puzzle)
+        $browse ($ :#GameButtons $puzzle)
         $prev ($ :.prev $browse)
         $next ($ :.next $browse)
         lines (js->clj (jq/data $puzzle :lines))
