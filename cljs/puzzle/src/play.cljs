@@ -1,5 +1,5 @@
 (ns lichess.puzzle.play
-  (:require [lichess.puzzle.core :as core :refer [chess log!]]
+  (:require [lichess.puzzle.core :as core :refer [chess]]
             [lichess.puzzle.view :as view]
             [jayq.core :as jq :refer [$]]
             [cljs.core.async :as async :refer [<! >! alts! put! close! timeout]])
