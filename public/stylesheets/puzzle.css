@@ -93,6 +93,9 @@
 #puzzle > .right .please_vote.thanks .then {
   display: block;
 }
+#puzzle > .right a.game_id {
+  font-family: monospace;
+}
 #puzzle > .right .lichess_control {
   text-align: center;
   font-size: 1.3em;
@@ -124,16 +127,25 @@
 #puzzle > .right.spinner > * {
   display: none;
 }
-#puzzle .prev_next {
+#puzzle .game_control {
   text-align: center;
 }
-#puzzle .prev_next button {
-  font-size: 2em;
-  font-weight: bold;
-  padding: 5px 30px;
-  margin: 0 5px;
+#puzzle .game_control a {
+  font-size: 1.5em;
+  display:inline-block;
 }
-#puzzle .prev_next button:disabled {
+#puzzle #GameButtons {
+  display: inline-block;
+  margin-left: 10px;
+}
+#puzzle #GameButtons a {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  margin-left: -2px;
+  margin-right: -3px;
+}
+#puzzle #GameButtons a:disabled {
   color: transparent;
   text-shadow: none !important;
 }
