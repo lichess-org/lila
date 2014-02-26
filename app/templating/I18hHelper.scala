@@ -28,9 +28,11 @@ trait I18nHelper {
 
   def translationCall(implicit ctx: UserContext) =
     if (ctx.isAnon || ctx.req.cookies.get(hideCallsCookieName).isDefined) None
-    else shuffle(
-      (ctx.req.acceptLanguages map transInfos.get).flatten filter (_.nonComplete)
-    ).headOption
+    else {
+      (~ctx.me.map(_.count.game) >= 200) ?? shuffle(
+        (ctx.req.acceptLanguages map transInfos.get).flatten filter (_.nonComplete)
+      ).headOption
+    }
 
   def transValidationPattern(trans: String) =
     (trans contains "%s") option ".*%s.*"
