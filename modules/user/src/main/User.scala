@@ -31,6 +31,8 @@ case class User(
 
   override def toString = s"User $username games:${count.game} rating:$rating troll:$troll engine:$engine"
 
+  def langs = ("en" :: lang.toList).distinct.sorted
+
   def compare(other: User) = id compare other.id
 
   def noTroll = !troll
