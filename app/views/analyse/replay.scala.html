@@ -49,7 +49,7 @@ themepicker = true) {
       data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
       class="@color.fold("", "flip")"></div>
     <div class="game_control">
-      <a class="button" title="@trans.flipBoard()" data-icon="B" href="@routes.Round.watcher(gameId, (!color).name)"></a>
+      <a class="button flip" title="@trans.flipBoard()" data-icon="B" href="@routes.Round.watcher(gameId, (!color).name)#0"></a>
       <a class="fen_link button" title="@trans.boardEditor()" data-icon="m" href="@routes.Editor.game(game.id)?fen="></a>
       <a class="continue button" title="@trans.continueFromHere()" data-icon="U" href="#"></a>
       <div id="GameButtons"></div>
