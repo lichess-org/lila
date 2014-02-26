@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 . bin/lilarc
 
 fail () {
