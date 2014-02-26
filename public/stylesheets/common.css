@@ -947,9 +947,9 @@ a#sound_state.unavailable {
   text-decoration: none;
   position: relative;
 }
-#translation_call span.action {
-  float: right;
-  margin-right: 2px;
+#translation_call .button {
+  margin: 5px 0 0 0;
+  display:inline-block;
 }
 #translation_call span.name {
   font-weight: bold;
@@ -958,19 +958,6 @@ a#sound_state.unavailable {
   margin-top: 0.5em;
   background: #fff;
   margin-bottom: 0.4em;
-}
-#translation_call .close {
-  position: absolute;
-  bottom: 0.4em;
-  right: 0.6em;
-  text-decoration: none;
-  font-weight: bold;
-}
-#translation_call .close:hover {
-  color: #ac524f;
-  font-size: 1.4em;
-  bottom: 0.2em;
-  right: 0.3em;
 }
 #friend_box {
   position: fixed;
