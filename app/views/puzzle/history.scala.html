@@ -12,13 +12,12 @@
           <tr>
             <td>
               <a class="user_link ulpt" href="@routes.User.show(userInfos.user.username)">
-                @userInfos.user.username
-                (@attempt.userRating) (@showNumber(attempt.userRatingDiff))
+                @userInfos.user.username (@attempt.userRating) @showRatingDiff(attempt.userRatingDiff)
               </a>
             </td>
             <td>
               <a class="user_link" href="@routes.Puzzle.show(attempt.puzzleId)">
-                @trans.puzzleId(attempt.puzzleId) (@attempt.puzzleRating)
+                @trans.puzzleId(attempt.puzzleId) (@attempt.puzzleRating) @showRatingDiff(attempt.puzzleRatingDiff)
               </a>
             </td>
             <td>
