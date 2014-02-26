@@ -74,6 +74,9 @@ function customFunctionOnMove() {
     $(this).attr('href', $(this).attr('href').replace(/fen=.*$/, "fen=" + fen));
   });
   $('div.fen_pgn .fen').text(fen);
+  $('a.flip').each(function() {
+    $(this).attr('href', $(this).attr('href').replace(/#\d+$/, "#" + CurrentPly));
+  });
   if (!$('#GameBoard').hasClass('initialized')) {
     $('#GameBoard').addClass('initialized');
     var ply = parseInt(location.hash.replace(/#/, ''));
