@@ -263,3 +263,5 @@ bestBulletPlayers=Mejores jugadores "Bala"
 bestBlitzPlayers=Mejores jugadores "Bombarderos"
 bestSlowPlayers=Mejores jugadores "Lentos"
 bewareTheGameIsRatedButHasNoClock=¡Cuidado, el juego es con puntaje pero sin reloj!
+goodMove=Buen movimiento
+startTraining=Iniciar entrenamiento
