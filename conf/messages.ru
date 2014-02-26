@@ -263,3 +263,6 @@ bestBulletPlayers=Лучшие игроки в пулю
 bestBlitzPlayers=Лучшие игроки в блиц
 bestSlowPlayers=Лучшие игроки в рапид
 bewareTheGameIsRatedButHasNoClock=Внимание, эта рейтинговая игра без ограничения по времени!
+retryThisPuzzle=Попробовать ещё
+thisPuzzleIsCorrect=Задача корректна и интересна
+thisPuzzleIsWrong=Задача некорректна или неинтересна
