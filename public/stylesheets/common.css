@@ -1020,6 +1020,15 @@ a#sound_state.unavailable {
 a.user_link:hover {
   text-decoration: underline;
 }
+a.user_link span.rp:before {
+  content: " ";
+}
+a.user_link span.rp.up {
+  color: #759900;
+}
+a.user_link span.rp.down {
+  color: #ac524f;
+}
 div.warning {
   padding: 5px;
   background: #f2dede;
