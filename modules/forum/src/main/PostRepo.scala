@@ -39,8 +39,8 @@ sealed abstract class PostRepo(troll: Boolean) {
   def lastByTopics(topics: List[String]): Fu[Option[Post]] =
     $find.one($query(selectTopics(topics)) sort $sort.createdDesc)
 
-  def recentInCategs(nb: Int)(categIds: List[String]): Fu[List[Post]] =
-    $find($query(selectCategs(categIds)) sort $sort.createdDesc, nb)
+  def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
+    $find($query(selectCategs(categIds) ++ selectLangs(langs) pp) sort $sort.createdDesc, nb)
 
   def removeByTopic(topicId: String): Fu[Unit] =
     $remove(selectTopic(topicId))
@@ -50,6 +50,8 @@ sealed abstract class PostRepo(troll: Boolean) {
 
   def selectCateg(categId: String) = Json.obj("categId" -> categId) ++ trollFilter
   def selectCategs(categIds: List[String]) = Json.obj("categId" -> $in(categIds)) ++ trollFilter
+
+  def selectLangs(langs: List[String]) = Json.obj("lang" -> $in(langs))
 
   def sortQuery = $sort.createdAsc
 }
