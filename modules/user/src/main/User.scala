@@ -70,6 +70,7 @@ object User {
 
   val titles = Seq(
     "CM" -> "Candidate Master (CM)",
+    "NM" -> "National Master (NM)",
     "FM" -> "FIDE Master (FM)",
     "IM" -> "International Master (IM)",
     "GM" -> "Grand Master (GM)")
