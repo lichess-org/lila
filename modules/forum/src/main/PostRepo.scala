@@ -40,7 +40,7 @@ sealed abstract class PostRepo(troll: Boolean) {
     $find.one($query(selectTopics(topics)) sort $sort.createdDesc)
 
   def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
-    $find($query(selectCategs(categIds) ++ selectLangs(langs) pp) sort $sort.createdDesc, nb)
+    $find($query(selectCategs(categIds) ++ selectLangs(langs)) sort $sort.createdDesc, nb)
 
   def removeByTopic(topicId: String): Fu[Unit] =
     $remove(selectTopic(topicId))
