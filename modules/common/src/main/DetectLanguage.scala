@@ -22,10 +22,14 @@ final class DetectLanguage(url: String, key: String) {
       "key" -> Seq(key),
       "q" -> Seq(message take messageMaxLength)
     )) map { response =>
-      (response.json \ "data" \ "detections").as[List[Detection]]
-        .filter(_.isReliable)
-        .sortBy(-_.confidence)
-        .headOption map (_.language) flatMap Lang.get
+      (response.json \ "data" \ "detections").asOpt[List[Detection]] match {
+        case None =>
+          play.api.Logger("DetectLanguage").warn("Invalide service response")
+          None
+        case Some(res) => res.filter(_.isReliable)
+          .sortBy(-_.confidence)
+          .headOption map (_.language) flatMap Lang.get
+      }
     }
 
 }
