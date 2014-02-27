@@ -93,6 +93,11 @@ trait UserRepo {
   def setProfile(id: ID, profile: Profile): Funit =
     $update($select(id), $setBson("profile" -> Profile.tube.handler.write(profile)))
 
+  def setTitle(id: ID, title: Option[String]): Funit = title match {
+    case Some(t) => $update.field(id, "title", t)
+    case None    => $update($select(id), $unset("title"))
+  }
+
   def setEvaluated(id: ID, v: Boolean): Funit = $update.field(id, "evaluated", v)
   def isEvaluated(id: ID): Fu[Boolean] =
     $primitive.one($select(id), "evaluated")(_.asOpt[Boolean]) map (~_)
