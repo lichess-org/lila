@@ -267,3 +267,4 @@ bewareTheGameIsRatedButHasNoClock=Uważaj, gra jest rankingowa, ale bez limitu c
 training=Trening
 victory=Sukces!
 giveUp=Poddaj się
+thankYou=Dziękuję!
