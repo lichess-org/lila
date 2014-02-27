@@ -285,6 +285,7 @@ pleaseVotePuzzle=Mach lichess besser, indem Du votest.
 thankYou=Vielen Dank!
 ratingX=Schwierigkeitsgrad: %s
 playedXTimes=%s mal gespielt
+fromGameLink=Aus dem Spiel %s
 startTraining=Training beginnen
 continueTraining=Training fortsetzen
 retryThisPuzzle=Probiere es von Neuem
