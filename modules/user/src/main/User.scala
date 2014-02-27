@@ -20,6 +20,7 @@ case class User(
     profile: Option[Profile] = None,
     engine: Boolean = false,
     toints: Int = 0,
+    title: Option[String] = None,
     createdAt: DateTime,
     seenAt: Option[DateTime],
     lang: Option[String]) extends Ordered[User] {
@@ -67,6 +68,14 @@ object User {
 
   def normalize(username: String) = username.toLowerCase
 
+  val titles = Seq(
+    "CM" -> "Candidate Master (CM)",
+    "FM" -> "FIDE Master (FM)",
+    "IM" -> "International Master (IM)",
+    "GM" -> "Grand Master (CM)")
+
+  val titlesMap = titles.toMap
+
   object BSONFields {
     val id = "_id"
     val username = "username"
@@ -85,6 +94,7 @@ object User {
     val createdAt = "createdAt"
     val seenAt = "seenAt"
     val lang = "lang"
+    val title = "title"
     def glicko(perf: String) = s"$perfs.$perf.gl"
   }
 
@@ -116,7 +126,8 @@ object User {
       toints = r nIntD toints,
       createdAt = r date createdAt,
       seenAt = r dateO seenAt,
-      lang = r strO lang)
+      lang = r strO lang,
+      title = r strO title)
 
     def writes(w: BSON.Writer, o: User) = BSONDocument(
       id -> o.id,
@@ -135,7 +146,8 @@ object User {
       toints -> w.intO(o.toints),
       createdAt -> o.createdAt,
       seenAt -> o.seenAt,
-      lang -> o.lang)
+      lang -> o.lang,
+      title -> o.title)
   }
 
   private[user] lazy val tube = lila.db.BsTube(userBSONHandler)
