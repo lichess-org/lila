@@ -2327,14 +2327,14 @@ var storage = {
       } else {
         html += '<span class="clock nope">∞</span>';
       }
-      html += '<span class="mode">' + $.trans(hook.mode) + '</span>';
+      html += '<span class="mode">';
+      html += $.trans(hook.mode);
+      if (hook.variant == 'Chess960') html += ', 960';
+      html += '</span>';
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
       html += '<span class="is2" data-icon="' + k + '"></span>';
       if (hook.engine && hook.action == 'join') {
         html += '<span class="is2" data-icon="j"></span>';
-      }
-      if (hook.variant == 'Chess960') {
-        html += '<span class="chess960">960</span>';
       }
       return html;
     }
