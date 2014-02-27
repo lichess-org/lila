@@ -72,7 +72,7 @@ object User {
     "CM" -> "Candidate Master (CM)",
     "FM" -> "FIDE Master (FM)",
     "IM" -> "International Master (IM)",
-    "GM" -> "Grand Master (CM)")
+    "GM" -> "Grand Master (GM)")
 
   val titlesMap = titles.toMap
 
