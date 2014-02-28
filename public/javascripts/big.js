@@ -1978,6 +1978,17 @@ var storage = {
         if (fen) $casual.click();
         $.centerOverboard();
       }).trigger('change');
+      
+      $form.find('div.level').each(function() {
+        var $infos = $(this).find('.ai_info > div');
+        $(this).find('label').mouseenter(function() {
+          $infos.hide().filter('.' + $(this).attr('for')).show();
+        });
+        $(this).find('#config_level').mouseleave(function() {
+          var level = $(this).find('input:checked').val();
+          $infos.hide().filter('.level_' + level).show();
+        }).trigger('mouseout');
+      });
 
       $form.prepend($('<a class="close" data-icon="L"></a>').click(function() {
         $form.remove();

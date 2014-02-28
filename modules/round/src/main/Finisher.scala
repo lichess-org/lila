@@ -15,6 +15,7 @@ import lila.user.{ User, UserRepo }
 private[round] final class Finisher(
     messenger: Messenger,
     perfsUpdater: PerfsUpdater,
+    aiPerfApi: lila.ai.AiPerfApi,
     bus: lila.common.Bus) {
 
   def apply(
@@ -44,8 +45,26 @@ private[round] final class Finisher(
     (finish.white |@| finish.black).tupled ?? {
       case (white, black) => perfsUpdater.save(finish.game, white, black)
     } zip
+      addAiGame(finish) zip
       (finish.white ?? incNbGames(finish.game)) zip
       (finish.black ?? incNbGames(finish.game)) void
+
+  private def addAiGame(finish: FinishGame): Funit = ~{
+    import finish._
+    import lila.rating.Glicko.Result._
+    for {
+      level <- game.players.map(_.aiLevel).flatten.headOption
+      if game.turns > 10
+      if !game.fromPosition
+      humanColor <- game.players.find(_.isHuman).map(_.color)
+      user <- humanColor.fold(white, black)
+      result = game.winnerColor match {
+        case Some(c) if c == humanColor => Loss
+        case Some(_)                    => Win
+        case None                       => Draw
+      }
+    } yield aiPerfApi.add(level, user.perfs.global, result)
+  }
 
   private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
     UserRepo.incNbGames(user.id, game.rated, game.hasAi,

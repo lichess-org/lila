@@ -16,7 +16,9 @@ object Setup extends LilaController with TheftPrevention {
 
   def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req)
-      env.forms aiFilled get("fen") map { html.setup.ai(_) }
+      env.forms aiFilled get("fen") zip Env.ai.aiPerfApi.intRatings map {
+        case (form, ratings) => html.setup.ai(form, ratings)
+      }
     else fuccess {
       Redirect(routes.Lobby.home + "#ai")
     }
