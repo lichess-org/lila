@@ -61,7 +61,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     player.userId match {
       case None =>
         val klass = cssClass.??(" " + _)
-        val content = player.aiLevel.fold(player.name | User.anonymous)(aiName)
+        val content = player.aiLevel.fold(player.name | User.anonymous) { aiName(_, withRating) }
         s"""<span class="user_link$klass">$content</span>"""
       case Some(userId) =>
         userIdToUsername(userId) |> { username =>

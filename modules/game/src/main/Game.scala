@@ -254,7 +254,9 @@ case class Game(
 
   def replayable = imported || finished
 
-  def analysable = replayable && source.fold(true)(Source.Position!=)
+  def analysable = replayable && !fromPosition
+
+  def fromPosition = source ?? (Source.Position==)
 
   def imported = source exists (_ == Source.Import)
 
