@@ -54,7 +54,7 @@ body.dark div.content_box,
 body.dark div.content_box_inter,
 body.dark div.content_box_inter a.active,
 body.dark div.content_box_inter a:hover,
-body.dark input.copyable:hover,  
+body.dark input.copyable,
 body.dark #site_header div.side_menu a.active,
 body.dark div.game_row,
 body.dark form.search_user_form input,
@@ -308,6 +308,7 @@ body.dark div.content_box_top {
   text-shadow: 0px 1px 0px #000;
 }
 /* soft inactive gradient */
+
 body.dark #chat div.top,
 body.dark #friend_box .title,
 body.dark div.undertable_top,

@@ -87,6 +87,8 @@
         <small title="Glicko rating deviation"> ±@puzzle.perf.glicko.intDeviationDoubled</small>
       </p>
       <p>@trans.playedXTimes(s"<strong>${puzzle.attempts}</strong>")</p>
+      <br />
+      <p><input value="@netBaseUrl@routes.Puzzle.show(puzzle.id)" type="input" readonly="true" spellcheck="false" class="copyable" /></p>
     </div>
     <div class="continue_wrap">
       @if(win.isDefined) {

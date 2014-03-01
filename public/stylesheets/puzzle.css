@@ -75,6 +75,9 @@
   left: 532px;
   width: 242px;
 }
+#puzzle > .right .box input {
+  width: 214px;
+}
 #puzzle > .right h2 {
   font-size: 1.4em;
   margin-bottom: 7px;
