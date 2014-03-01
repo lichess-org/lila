@@ -1979,8 +1979,27 @@ div.relation_actions {
 div.relation_actions a.relation.processing {
   opacity: 0.2
 }
-.copyable .toggle {
-  cursor: pointer;
+input.copyable {
+  background: #f7f7f7;
+  font-family: monospace;
+  padding: 3px 5px;
+  border: 1px solid transparent;
+}
+input.copyable:hover {
+  border-color: #ccc;
+}
+#board_editor .copyables > p {
+  margin-top: 7px;
+}
+#board_editor .copyables .name {
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 1.2em;
+  display:inline-block;
+  width: 40px;
+}
+#board_editor .copyable {
+  width: 460px;
 }
 #powerTip.messages {
   width: 400px;
