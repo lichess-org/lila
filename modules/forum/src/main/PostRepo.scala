@@ -51,7 +51,9 @@ sealed abstract class PostRepo(troll: Boolean) {
   def selectCateg(categId: String) = Json.obj("categId" -> categId) ++ trollFilter
   def selectCategs(categIds: List[String]) = Json.obj("categId" -> $in(categIds)) ++ trollFilter
 
-  def selectLangs(langs: List[String]) = Json.obj("lang" -> $in(langs))
+  def selectLangs(langs: List[String]) =
+    if (langs.isEmpty) Json.obj()
+    else Json.obj("lang" -> $in(langs))
 
   def sortQuery = $sort.createdAsc
 }
