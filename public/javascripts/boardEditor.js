@@ -2,7 +2,7 @@ $(function() {
   $('#board_editor').each(function() {
     var $wrap = $(this);
     var board;
-    var $string = $wrap.find('.fen-string');
+    var $string = $wrap.find('input.fen-string');
     var $color = $wrap.find('.color').on('change', onChange);
     var castles = {
       wk: 'K',
@@ -29,14 +29,12 @@ $(function() {
 
     function onChange() {
       var rich = getRich();
-      $string.text(rich);
+      $string.val(rich);
       $wrap.find('a.fen_link').each(function() {
         $(this).attr('href', $(this).attr('href').replace(/fen=[^#]*#/, "fen=" + rich + '#'));
       });
-      $wrap.find('a.permalink').each(function() {
-        $(this)
-          .attr('href', $(this).data('url').replace('xxx', rich))
-          .text($(this).data('url').replace('xxx', encodeURIComponent(rich)));
+      $wrap.find('input.permalink').each(function() {
+        $(this).val($(this).data('url').replace('xxx', encodeURIComponent(rich)));
       });
     }
 
@@ -55,7 +53,7 @@ $(function() {
     $wrap.find('div.spare-pieces-7492f').addClass('onbg');
 
     onChange();
-    
+
     var displayMarks = function() {
       $.displayBoardMarks($('#chessboard .board-b72b1'), board.orientation() == "white");
     };
