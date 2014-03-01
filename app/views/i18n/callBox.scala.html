@@ -1,0 +1,13 @@
+@(info: lila.i18n.TransInfo)(implicit ctx: Context)
+
+<div id="translation_call">
+  <div>
+    <span class="name">@info.name</span>
+    <div class="progressbar flashy">
+      <div style="width: @info.percent%"></div>
+    </div>
+    <span class="nb">@pluralize("message", info.nbMissing) missing</span>
+  </div>
+  <a href="@routes.I18n.translationForm(info.code)" class="button">Translate lichess</a>
+  <span class="close button" data-href="@routes.I18n.hideCalls" title="Hide translation calls">No, thanks</span>
+</div>

@@ -17,7 +17,8 @@ private[forum] final class TopicApi(
     indexer: ActorSelection,
     maxPerPage: Int,
     modLog: lila.mod.ModlogApi,
-    timeline: ActorSelection) {
+    timeline: ActorSelection,
+    detectLanguage: lila.common.DetectLanguage) {
 
   def show(categSlug: String, slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
@@ -34,31 +35,33 @@ private[forum] final class TopicApi(
   def makeTopic(
     categ: Categ,
     data: DataForm.TopicData)(implicit ctx: UserContext): Fu[Topic] =
-    TopicRepo.nextSlug(categ, data.name) flatMap { slug =>
-      val topic = Topic.make(
-        categId = categ.slug,
-        slug = slug,
-        name = data.name,
-        troll = ctx.troll)
-      val post = Post.make(
-        topicId = topic.id,
-        author = data.post.author,
-        userId = ctx.me map (_.id),
-        ip = ctx.isAnon option ctx.req.remoteAddress,
-        troll = ctx.troll,
-        text = data.post.text,
-        number = 1,
-        categId = categ.id)
-      $insert(post) >>
-        $insert(topic withPost post) >>
-        $update(categ withTopic post) >>-
-        (indexer ! InsertPost(post)) >>
-        env.recent.invalidate >>-
-        ((ctx.userId ifFalse post.troll) ?? { userId =>
-          timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop =>
-            post.isStaff.fold(prop.toStaffFriendsOf(userId), prop.toFriendsOf(userId))
-          )
-        }) inject topic
+    TopicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap {
+      case (slug, lang) =>
+        val topic = Topic.make(
+          categId = categ.slug,
+          slug = slug,
+          name = data.name,
+          troll = ctx.troll)
+        val post = Post.make(
+          topicId = topic.id,
+          author = data.post.author,
+          userId = ctx.me map (_.id),
+          ip = ctx.isAnon option ctx.req.remoteAddress,
+          troll = ctx.troll,
+          text = data.post.text,
+          lang = lang map (_.language),
+          number = 1,
+          categId = categ.id)
+        $insert(post) >>
+          $insert(topic withPost post) >>
+          $update(categ withTopic post) >>-
+          (indexer ! InsertPost(post)) >>
+          env.recent.invalidate >>-
+          ((ctx.userId ifFalse post.troll) ?? { userId =>
+            timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop =>
+              post.isStaff.fold(prop.toStaffFriendsOf(userId), prop.toFriendsOf(userId))
+            )
+          }) inject topic
     }
 
   def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = Paginator(

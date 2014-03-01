@@ -21,6 +21,8 @@ case class Modlog(
     case Modlog.reopenAccount => "reopen account"
     case Modlog.openTopic     => "reopen topic"
     case Modlog.closeTopic    => "close topic"
+    case Modlog.setTitle      => "set FIDE title"
+    case Modlog.removeTitle   => "remove FIDE title"
     case a                    => a
   }
 }
@@ -39,6 +41,8 @@ object Modlog {
   val deletePost = "deletePost"
   val closeTopic = "closeTopic"
   val openTopic = "openTopic"
+  val setTitle = "setTitle"
+  val removeTitle = "removeTitle"
 
   import lila.db.JsTube
   import JsTube.Helpers._

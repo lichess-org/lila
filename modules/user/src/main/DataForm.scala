@@ -32,4 +32,6 @@ object DataForm {
       "the new passwords don't match",
       _.samePasswords
     ))
+
+  val title = Form(single("title" -> optional(nonEmptyText)))
 }

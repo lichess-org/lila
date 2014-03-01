@@ -49,6 +49,10 @@ final class ModApi(
     }
   }
 
+  def setTitle(mod: String, username: String, title: Option[String]): Funit = withUser(username) { user =>
+    UserRepo.setTitle(user.id, title) >> logApi.setTitle(mod, user.id, title)
+  }
+
   def ipban(mod: String, ip: String): Funit =
     (firewall blockIp ip) >> logApi.ipban(mod, ip)
 

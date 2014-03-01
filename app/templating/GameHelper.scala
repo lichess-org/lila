@@ -61,16 +61,17 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     player.userId match {
       case None =>
         val klass = cssClass.??(" " + _)
-        val content = player.aiLevel.fold(player.name | User.anonymous)(aiName)
+        val content = player.aiLevel.fold(player.name | User.anonymous) { aiName(_, withRating) }
         s"""<span class="user_link$klass">$content</span>"""
       case Some(userId) =>
         userIdToUsername(userId) |> { username =>
           val klass = userClass(userId, cssClass, withOnline)
           val href = routes.User show username
           val content = playerUsername(player, withRating)
-          val diff = withDiff ?? { player.ratingDiff ?? { d => s" (${showNumber(d)})" } }
+          val diff = (player.ratingDiff ifTrue withDiff).fold(Html(""))(showRatingDiff)
           val mark = engine ?? s"""<span class="engine_mark" title="${trans.thisPlayerUsesChessComputerAssistance()}"></span>"""
-          s"""<a data-icon="r" $klass href="$href">&nbsp;$content$diff$mark</a>"""
+          val dataIcon = withOnline ?? """data-icon="r""""
+          s"""<a $dataIcon $klass href="$href">&nbsp;$content$diff$mark</a>"""
         }
     }
   }

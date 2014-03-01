@@ -388,6 +388,9 @@ ul.ui-autocomplete li a.ui-state-focus {
 .clearfix {
   display: inline-block;
 }
+.clearfix2 {
+  overflow: hidden;
+}
 .none {
   display: none;
 }
@@ -932,6 +935,33 @@ a#sound_state.sound_state_on span.on {
 a#sound_state.unavailable {
   display: none;
 }
+#call_boxes {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  width: 250px;
+}
+#translation_call {
+  margin-top: 1em;
+  padding: 0.5em;
+  border: 1px solid #d0d0d0;
+  display: block;
+  border-radius: 2px;
+  text-decoration: none;
+  position: relative;
+}
+#translation_call .button {
+  margin: 5px 0 0 0;
+  display:inline-block;
+}
+#translation_call span.name {
+  font-weight: bold;
+}
+#translation_call div.progressbar {
+  margin-top: 0.5em;
+  background: #fff;
+  margin-bottom: 0.4em;
+}
 #friend_box {
   position: fixed;
   bottom: 0px;
@@ -979,6 +1009,15 @@ a#sound_state.unavailable {
 }
 a.user_link:hover {
   text-decoration: underline;
+}
+a.user_link span.rp:before {
+  content: " ";
+}
+a.user_link span.rp.up {
+  color: #759900;
+}
+a.user_link span.rp.down {
+  color: #ac524f;
 }
 div.warning {
   padding: 5px;

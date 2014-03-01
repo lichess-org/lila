@@ -35,14 +35,13 @@ private[puzzle] final class Finisher(
           puzzleRatingDiff = puzzlePerf.intRating - puzzle.perf.intRating,
           userRating = user.perfs.puzzle.intRating,
           userRatingDiff = userPerf.intRating - user.perfs.puzzle.intRating)
-        (api.attempt add a) >> (api.attempt times puzzle.id) flatMap { times =>
+        (api.attempt add a) >> {
           puzzleColl.update(
             BSONDocument("_id" -> puzzle.id),
             BSONDocument("$inc" -> BSONDocument(
               Puzzle.BSONFields.attempts -> BSONInteger(1),
               Puzzle.BSONFields.wins -> BSONInteger(data.isWin ? 1 | 0)
             )) ++ BSONDocument("$set" -> BSONDocument(
-              Puzzle.BSONFields.time -> BSONInteger(times.sum / (puzzle.attempts + 1)),
               Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf)
             )) ++ BSONDocument("$addToSet" -> BSONDocument(
               Puzzle.BSONFields.users -> user.id
