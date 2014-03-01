@@ -52,11 +52,11 @@ themepicker = true) {
   <div id="chessboard" data-fen="@fen"></div>
   <div class="copyables">
     <p>
-      <span class="name">FEN</span><input type="input" readonly="true" spellcheck="false" class="copyable fen-string" />
+      <strong class="name">FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen-string" />
     </p>
     <p>
       @defining(netBaseUrl + routes.Editor.index("xxx")) { url =>
-      <span class="name">URL</span><input  data-url="@url" type="input" readonly="true" spellcheck="false" class="copyable permalink" value="@url" />
+      <strong class="name">URL</strong><input  data-url="@url" type="input" readonly="true" spellcheck="false" class="copyable permalink" value="@url" />
       }
     </p>
   </div>

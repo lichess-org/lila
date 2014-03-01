@@ -73,7 +73,7 @@ function customFunctionOnMove() {
   $('a.fen_link').each(function() {
     $(this).attr('href', $(this).attr('href').replace(/fen=.*$/, "fen=" + fen));
   });
-  $('div.fen_pgn .fen').text(fen);
+  $('div.fen_pgn input.fen').val(fen);
   $('a.flip').each(function() {
     $(this).attr('href', $(this).attr('href').replace(/#\d+$/, "#" + CurrentPly));
   });
