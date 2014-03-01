@@ -1983,10 +1983,7 @@ input.copyable {
   background: #f7f7f7;
   font-family: monospace;
   padding: 3px 5px;
-  border: 1px solid transparent;
-}
-input.copyable:hover {
-  border-color: #ccc;
+  border: 1px solid #ccc;
 }
 #board_editor .copyables > p {
   margin-top: 7px;
