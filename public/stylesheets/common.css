@@ -388,6 +388,9 @@ ul.ui-autocomplete li a.ui-state-focus {
 .clearfix {
   display: inline-block;
 }
+.clearfix2 {
+  overflow: hidden;
+}
 .none {
   display: none;
 }
