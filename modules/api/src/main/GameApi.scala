@@ -24,6 +24,7 @@ private[api] final class GameApi(
     rated: Option[Boolean],
     token: Option[String],
     nb: Option[Int]): Fu[JsObject] = $find($query(Json.obj(
+    G.status -> $gte(chess.Status.Mate.id),
     G.playerUids -> username,
     G.rated -> rated.map(_.fold(JsBoolean(true), $exists(false)))
   ).noNull) sort lila.game.Query.sortCreated, makeNb(nb)) flatMap { games =>
