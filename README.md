@@ -52,6 +52,11 @@ cp conf/application.conf.dist conf/application.conf
 `application.conf` extends `base.conf` and can override any value.
 Note that `application.conf` is excluded from git index.
 
+Compile SVG images:
+```sh
+bin/svg-optimize
+```
+
 ### Websocket proxying and language subdomains
 
 When accessed from the root domaing (e.g. lichess.org),

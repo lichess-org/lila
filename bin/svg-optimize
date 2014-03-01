@@ -1,0 +1,22 @@
+#!/bin/zsh
+
+# PIECES
+
+from=public/images/piece-src
+to=public/images/piece
+
+rm -rf $to/*
+mkdir -p $to/invert
+
+for file ($from/*.svg); do
+  svgcleaner-cli $file $(echo $file | sed 's#/piece-src/#/piece/#')
+done
+for file ($from/invert/*.svg); do
+  svgcleaner-cli $file $(echo $file | sed 's#/piece-src/#/piece/#')
+done
+
+# LOGO
+
+for file (public/images/bN-bg.src.svg public/images/wN-bg.src.svg); do
+  svgcleaner-cli $file $(echo $file | sed 's#.src.svg#.svg#')
+done
