@@ -41,11 +41,6 @@ object Api extends LilaController {
     ) map (_.some)
   }
 
-  def oneAnalysis(id: String) = ApiResult { req =>
-    ???
-    // TODO analysisApi one id map (_.some)
-  }
-
   private def ApiResult(js: RequestHeader => Fu[Option[JsValue]]) = Action async { req =>
     js(req) map {
       case None => NotFound
