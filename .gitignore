@@ -6,6 +6,9 @@ project/project
 project/target
 public/trans
 public/compiled
+public/images/piece
+public/images/wN-bg.svg
+public/images/bN-bg.svg
 public/vendor/pgn4web/pgn4web-compacted.js
 serve/
 serve/README
