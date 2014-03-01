@@ -12,7 +12,8 @@ import lila.user.User
 
 private[puzzle] final class Selector(puzzleColl: Coll) {
 
-  private val ratingToleranceStep = 100
+  private val ratingToleranceDecay = 50
+  private val ratingToleranceStep = 150
   private val ratingToleranceMax = 1000
 
   private val popularSelector = BSONDocument(
@@ -36,8 +37,8 @@ private[puzzle] final class Selector(puzzleColl: Coll) {
   private def tryRange(user: User, tolerance: Int): Fu[Puzzle] = puzzleColl.find(BSONDocument(
     Puzzle.BSONFields.users -> BSONDocument("$ne" -> user.id),
     Puzzle.BSONFields.rating -> BSONDocument(
-      "$gt" -> BSONInteger(user.perfs.puzzle.intRating - tolerance),
-      "$lt" -> BSONInteger(user.perfs.puzzle.intRating + tolerance)
+      "$gt" -> BSONInteger(user.perfs.puzzle.intRating - tolerance + ratingToleranceDecay),
+      "$lt" -> BSONInteger(user.perfs.puzzle.intRating + tolerance + ratingToleranceDecay)
     )
   ), BSONDocument(
     Puzzle.BSONFields.users -> false
