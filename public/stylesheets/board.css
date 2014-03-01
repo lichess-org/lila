@@ -134,7 +134,7 @@ div.lichess_piece {
   position: absolute;
   width: 64px;
   height: 64px;
-  background-size: 100% 100%;
+  background-size: cover;
 }
 div.my_turn div.lichess_piece.ui-draggable {
   cursor: move;
