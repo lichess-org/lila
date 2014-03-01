@@ -15,6 +15,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     ai: lila.ai.Ai,
+    aiPerfApi: lila.ai.AiPerfApi,
     getUsername: String => Fu[Option[String]],
     getUsernameOrAnon: String => Fu[String],
     uciMemo: lila.game.UciMemo,
@@ -92,6 +93,7 @@ final class Env(
   private lazy val finisher = new Finisher(
     messenger = messenger,
     perfsUpdater = perfsUpdater,
+    aiPerfApi = aiPerfApi,
     bus = system.lilaBus)
 
   private lazy val rematcher = new Rematcher(
@@ -167,6 +169,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     ai = lila.ai.Env.current.ai,
+    aiPerfApi = lila.ai.Env.current.aiPerfApi,
     getUsername = lila.user.Env.current.usernameOption,
     getUsernameOrAnon = lila.user.Env.current.usernameOrAnonymous,
     uciMemo = lila.game.Env.current.uciMemo,

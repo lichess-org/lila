@@ -19,32 +19,35 @@ final class PostApi(
     indexer: ActorSelection,
     maxPerPage: Int,
     modLog: ModlogApi,
-    timeline: ActorSelection) {
+    timeline: ActorSelection,
+    detectLanguage: lila.common.DetectLanguage) {
 
   def makePost(
     categ: Categ,
     topic: Topic,
     data: DataForm.PostData)(implicit ctx: UserContext): Fu[Post] =
-    lastNumberOf(topic) flatMap { number =>
-      val post = Post.make(
-        topicId = topic.id,
-        author = data.author,
-        userId = ctx.me map (_.id),
-        ip = ctx.req.remoteAddress.some,
-        text = data.text,
-        number = number + 1,
-        troll = ctx.troll,
-        categId = categ.id)
-      $insert(post) >>
-        $update(topic withPost post) >>
-        $update(categ withTopic post) >>-
-        (indexer ! InsertPost(post)) >>
-        (env.recent.invalidate inject post) >>-
-        ((ctx.userId ifFalse post.troll) ?? { userId =>
-          timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop =>
-            post.isStaff.fold(prop.toStaffFriendsOf(userId), prop.toFriendsOf(userId))
-          )
-        }) inject post
+    lastNumberOf(topic) zip detectLanguage(data.text) flatMap {
+      case (number, lang) =>
+        val post = Post.make(
+          topicId = topic.id,
+          author = data.author,
+          userId = ctx.me map (_.id),
+          ip = ctx.req.remoteAddress.some,
+          text = data.text,
+          number = number + 1,
+          lang = lang map (_.language),
+          troll = ctx.troll,
+          categId = categ.id)
+        $insert(post) >>
+          $update(topic withPost post) >>
+          $update(categ withTopic post) >>-
+          (indexer ! InsertPost(post)) >>
+          (env.recent.invalidate inject post) >>-
+          ((ctx.userId ifFalse post.troll) ?? { userId =>
+            timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop =>
+              post.isStaff.fold(prop.toStaffFriendsOf(userId), prop.toFriendsOf(userId))
+            )
+          }) inject post
     }
 
   def urlData(postId: String, troll: Boolean): Fu[Option[PostUrlData]] = get(postId) flatMap {

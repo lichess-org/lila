@@ -70,6 +70,7 @@
 #team.team_show .content_box_top .righty {
   float: right;
   margin-right: 20px;
+  line-height: 30px;
 }
 #team .team-left {
   float: left;

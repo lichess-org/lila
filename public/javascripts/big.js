@@ -206,10 +206,11 @@ var storage = {
       clearTimeout(self.connectSchedule);
       self.schedulePing(self.options.pingDelay);
       self.currentLag = self.now() - self.lastPingTime;
+      if (!self.averageLag) self.averageLag = self.currentLag;
+      else self.averageLag = 0.2 * (self.currentLag - self.averageLag) + self.averageLag;
       if (self.options.lagTag) {
         self.options.lagTag.html('<strong>' + self.currentLag + "</strong> ms");
       }
-      self.averageLag = self.averageLag * 0.8 + self.currentLag * 0.2;
     },
     pingData: function() {
       return JSON.stringify({
@@ -1263,7 +1264,7 @@ var storage = {
 
       function sendMoveRequest(moveData) {
         if (self.hasClock()) {
-          moveData.lag = parseInt(lichess.socket.averageLag, 10);
+          moveData.lag = Math.round(lichess.socket.averageLag);
         }
         lichess.socket.sendAckable("move", moveData);
       }
@@ -1986,6 +1987,17 @@ var storage = {
         $.centerOverboard();
       }).trigger('change');
 
+      $form.find('div.level').each(function() {
+        var $infos = $(this).find('.ai_info > div');
+        $(this).find('label').mouseenter(function() {
+          $infos.hide().filter('.' + $(this).attr('for')).show();
+        });
+        $(this).find('#config_level').mouseleave(function() {
+          var level = $(this).find('input:checked').val();
+          $infos.hide().filter('.level_' + level).show();
+        }).trigger('mouseout');
+      });
+
       $form.prepend($('<a class="close" data-icon="L"></a>').click(function() {
         $form.remove();
         $startButtons.find('a.active').removeClass('active');
@@ -2334,14 +2346,14 @@ var storage = {
       } else {
         html += '<span class="clock nope">∞</span>';
       }
-      html += '<span class="mode">' + $.trans(hook.mode) + '</span>';
+      html += '<span class="mode">';
+      html += $.trans(hook.mode);
+      if (hook.variant == 'Chess960') html += ', 960';
+      html += '</span>';
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
       html += '<span class="is2" data-icon="' + k + '"></span>';
       if (hook.engine && hook.action == 'join') {
         html += '<span class="is2" data-icon="j"></span>';
-      }
-      if (hook.variant == 'Chess960') {
-        html += '<span class="chess960">960</span>';
       }
       return html;
     }
@@ -2544,11 +2556,6 @@ var storage = {
           }
         }
       }));
-
-    setTimeout(function() {
-      var ply = parseInt(location.hash.replace(/#/, ''));
-      if (ply) GoToMove(ply, 0);
-    }, 500);
   });
 
   $.fn.sortable = function(sortFns) {

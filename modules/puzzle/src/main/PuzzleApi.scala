@@ -94,13 +94,6 @@ private[puzzle] final class PuzzleApi(
 
     def add(a: Attempt) = attemptColl insert a void
 
-    def times(puzzleId: PuzzleId): Fu[List[Int]] = attemptColl.find(
-      BSONDocument(Attempt.BSONFields.puzzleId -> puzzleId),
-      BSONDocument(Attempt.BSONFields.time -> true)
-    ).cursor[BSONDocument].collect[List]() map2 {
-        (obj: BSONDocument) => obj.getAs[Int](Attempt.BSONFields.time)
-      } map (_.flatten)
-
     def hasPlayed(user: User, puzzle: Puzzle): Fu[Boolean] =
       attemptColl.db command Count(attemptColl.name, BSONDocument(
         Attempt.BSONFields.id -> Attempt.makeId(puzzle.id, user.id)

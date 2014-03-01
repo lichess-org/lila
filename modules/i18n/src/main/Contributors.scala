@@ -13,7 +13,7 @@ private[i18n] object Contributors {
     "da" -> List("Henrik Bjornskov", "Kurt Keller (DE)"),
     "es" -> List("FennecFoxz"),
     "ro" -> List("Cristian Niţă"),
-    "it" -> List("Marco Barberis"),
+    "it" -> List("Marco Barberis, Danilo Di Moia"),
     "fi" -> List("Juuso Vallius"),
     "uk" -> List("alterionisto"),
     "pt" -> List("Arthur Braz", "Eugênio Vázquez", "backdoorman"),

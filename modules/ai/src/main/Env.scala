@@ -11,6 +11,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     uciMemo: lila.game.UciMemo,
+    db: lila.db.Env,
     system: ActorSystem) {
 
   private val settings = new {
@@ -26,6 +27,8 @@ final class Env(
     val StockfishQueueDispatcher = config getString "stockfish.queue.dispatcher"
     val StockfishAnalyseTimeout = config duration "stockfish.analyse.timeout"
     val ActorName = config getString "actor.name"
+    val CollectionAiPerf = config getString "collection.ai_perf"
+    val AiPerfCacheTtl = config duration "ai_perf.cache_ttl"
   }
   import settings._
 
@@ -45,6 +48,10 @@ final class Env(
     case ("stockfish", false) => stockfishServer
     case _                    => throw new Exception(s"Unsupported AI: $EngineName")
   }
+
+  lazy val aiPerfApi = new AiPerfApi(db(CollectionAiPerf), AiPerfCacheTtl)
+
+  def ratingOf(level: Int) = aiPerfApi.intRatings map (_ get level)
 
   def isServer = IsServer
 
@@ -98,5 +105,6 @@ object Env {
   lazy val current = "[boot] ai" describes new Env(
     config = lila.common.PlayApp loadConfig "ai",
     uciMemo = lila.game.Env.current.uciMemo,
+    db = lila.db.Env.current,
     system = lila.common.PlayApp.system)
 }

@@ -52,6 +52,11 @@ cp conf/application.conf.dist conf/application.conf
 `application.conf` extends `base.conf` and can override any value.
 Note that `application.conf` is excluded from git index.
 
+Compile SVG images:
+```sh
+bin/svg-optimize
+```
+
 ### Websocket proxying and language subdomains
 
 When accessed from the root domaing (e.g. lichess.org),
@@ -305,22 +310,4 @@ By comparing game IDs, you can guess who plays against who.
 Credits
 -------
 
-Big thanks go to lichess community for the support, inspiration, bug reports, and [amazing translation efforts](http://lichess.org/translation/contribute).
-
-Special thanks go to:
-
-- [Clarkey](http://en.lichess.org/@/Clarkey) for:
-  - the [cheat detection engine](https://github.com/clarkerubber/engine-evaluator)
-  - the [puzzle creator](https://github.com/clarkerubber/problem-creator)
-  - the magnificent, unique wooden chess board (http://i.imgur.com/Zw8IO7v.jpg)
-  - moding, mockups, communication and much more.
-- [Mephostophilis](http://lichess.org/@/Mephostophilis) for writing [Lichess Wiki](http://lichess.org/wiki), leading the cheater hunt, moderating the site, reporting countless bugs, and contributing to the codebase
-- [Smiling Bishop](http://lichess.org/@/smiling_bishop), [legend](http://lichess.org/@/legend), [mb](http://lichess.org/@/mb) and all the moderators who spent time keeping the site enjoyable
-- [Evropi](https://github.com/evropi) for contributing to the wiki, translations and [translation contexts](https://github.com/ornicar/lila/wiki/translation_context)
-- [Steibock](https://github.com/Steibock) for board theming
-- [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/) for the fugue icons
-- [pgn4web](http://pgn4web.casaschi.net/home.html) for the analysis board
-- [chessboardjs](https://github.com/oakmac/chessboardjs) for the board editor
-- [chess.js](https://github.com/jhlywa/chess.js) for the client-side chess logic
-
-Thanks to all players for feeding the database.
+See the [lichess Thanks page](http://lichess.org/thanks)

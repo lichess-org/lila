@@ -19,6 +19,14 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     s"""<span title="$title" class="progress">$span</span>"""
   }
 
+  def showRatingDiff(diff: Int) = Html {
+    diff match {
+      case 0          => """<span class="rp null">+0</span>"""
+      case d if d > 0 => s"""<span class="rp up">+$d</span>"""
+      case d          => s"""<span class="rp down">$d</span>"""
+    }
+  }
+
   def userIdToUsername(userId: String): String =
     (Env.user usernameOrAnonymous userId).await
 
@@ -81,7 +89,8 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val klass = userClass(userId, cssClass, withOnline)
     val href = userHref(username, params = params)
     val content = truncate.fold(username)(username.take)
-    s"""<a data-icon="r" $klass $href>&nbsp;$content</a>"""
+    val dataIcon = withOnline ?? """data-icon="r""""
+    s"""<a $dataIcon $klass $href>&nbsp;$content</a>"""
   }
 
   def userLink(
@@ -96,7 +105,8 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val href = userHref(user.username)
     val content = text | withRating.fold(user.usernameWithRating, user.username)
     val progress = withProgress ?? (" " + showProgress(user.progress))
-    s"""<a data-icon="r" $klass $href>&nbsp;$content$progress</a>"""
+    val dataIcon = withOnline ?? """data-icon="r""""
+    s"""<a $dataIcon $klass $href>&nbsp;$content$progress</a>"""
   }
 
   def userInfosLink(
@@ -108,7 +118,8 @@ trait UserHelper { self: I18nHelper with StringHelper =>
       val klass = userClass(userId, cssClass, withOnline)
       val href = userHref(username)
       val content = rating.fold(username)(e => s"$username ($e)")
-      s"""<a data-icon="r" $klass $href>&nbsp;$content</a>"""
+    val dataIcon = withOnline ?? """data-icon="r""""
+      s"""<a $dataIcon $klass $href>&nbsp;$content</a>"""
     }
   } await
 

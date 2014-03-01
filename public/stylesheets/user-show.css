@@ -21,7 +21,11 @@ div.user_show div.content_box_top > img.trophy {
   margin-top: -30px;
   margin-right: 10px;
 }
-
+div.user_show .title {
+  margin-top: 1em;
+  font-weight: bold;
+  font-size: 1.4em;
+}
 div.user_show .social {
   position: relative;
   border-top: 0;
@@ -138,7 +142,6 @@ div.user_show .mod_zone .same {
   font-weight: bold;
 }
 div.user_show .mod_zone form {
-  margin: 0 25px 0 0;
   display: inline;
 }
 div.user_show .mod_zone .listings > div {

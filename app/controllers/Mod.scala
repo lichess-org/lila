@@ -1,9 +1,9 @@
 package controllers
 
 import lila.app._
-import views._
 import lila.security.Permission
 import lila.user.UserRepo
+import views._
 
 import play.api.mvc._
 import play.api.mvc.Results._
@@ -38,9 +38,21 @@ object Mod extends LilaController {
     me => modApi.reopenAccount(me.id, username) inject redirect(username)
   }
 
+  def setTitle(username: String) = AuthBody { implicit ctx =>
+    me =>
+      implicit def req = ctx.body
+      if (isGranted(_.SetTitle))
+        lila.user.DataForm.title.bindFromRequest.fold(
+          err => fuccess(Redirect(routes.User.show(username))),
+          title => modApi.setTitle(me.id, username, title) inject redirect(username, false)
+        )
+      else fuccess(authorizationFailed(ctx.req))
+  }
+
   def log = Auth { implicit ctx =>
     me => modLogApi.recent map { html.mod.log(_) }
   }
 
-  def redirect(username: String) = Redirect(routes.User.show(username).url + "?mod")
+  def redirect(username: String, mod: Boolean = true) = 
+    Redirect(routes.User.show(username).url + mod.??("?mod"))
 }
