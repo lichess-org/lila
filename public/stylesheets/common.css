@@ -1993,7 +1993,6 @@ input.copyable:hover {
 }
 #board_editor .copyables .name {
   font-family: monospace;
-  font-weight: bold;
   font-size: 1.2em;
   display:inline-block;
   width: 40px;

@@ -62,13 +62,13 @@ themepicker = true) {
   <div class="moves_wrap">
     <div id="GameText"></div>
 
-    <nav class="game_actions">
-      <p>
-        <strong>@trans.opening()</strong> @opening.map { o =>
-        <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
-        }.getOrElse { "Unknown" }
-      </p>
-    </nav>
+    @if(!game.fromPosition && !game.variant.exotic) {
+    <p>
+      <strong>@trans.opening()</strong> @opening.map { o =>
+      <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
+      }.getOrElse { "Unknown" }
+    </p>
+    }
 
     <div class="advice_summary">
       @round.blurs(game)
@@ -134,8 +134,8 @@ themepicker = true) {
     </div>
   </div>
   <div class="panel fen_pgn">
-    <p><strong>FEN</strong> <span class="fen"></span></p>
-    <p><strong>PGN</strong> (<a href="@routes.Analyse.pgn(game.id)">Download it</a>)</p>
+    <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen" /></p>
+    <p><strong>PGN</strong>(<a data-icon="x" href="@routes.Analyse.pgn(game.id)"> Download it</a>)</p>
     <div class="pgn">@Html(nl2br(escape(pgn)))</div>
   </div>
   <div class="panel move_times">

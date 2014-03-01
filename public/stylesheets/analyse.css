@@ -80,25 +80,18 @@ div.game_analysis {
 div.fen_pgn p {
   margin: 0.6em 0;
 }
-div.fen_pgn .fen,
+div.fen_pgn strong,
+div.fen_pgn input.fen,
 div.fen_pgn .pgn {
   font-family: monospace;
 }
-div.fen_pgn textarea {
-  display: block;
-  width: 100%;
-  height: 200px;
-  font-family: monospace;
-  line-height: normal;
-  margin: 0;
-  background: none;
-  color: #888;
-  border: none;
-  padding: 0;
+div.fen_pgn strong {
+  font-size: 1.1em;
+  display:inline-block;
+  margin-right: 7px;
 }
-.game_actions .button {
-  margin-top: 1em;
-  display: inline-block;
+div.fen_pgn input.fen {
+  width: 450px;
 }
 #GameBoard {
   position: relative;
