@@ -1,8 +1,10 @@
 package lila.search
 
+import com.sksamuel.elastic4s.ElasticDsl._
+
 trait Query {
 
-  def searchRequest(from: Int = 0, size: Int = 10): ElasticSearch.Request.Search
+  def searchDef(from: Int = 0, size: Int = 10): SearchDefinition
 
-  def countRequest: ElasticSearch.Request.Count
+  def countDef: CountDefinition
 }

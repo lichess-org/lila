@@ -5,8 +5,9 @@ import scala.concurrent.Future
 import scala.util.{ Success, Failure }
 
 import akka.actor.ActorSystem
+import com.sksamuel.elastic4s.ElasticClient
 import com.typesafe.config.Config
-import scalastic.elasticsearch
+import org.elasticsearch.common.settings.ImmutableSettings
 
 final class Env(
     config: Config,
@@ -19,24 +20,10 @@ final class Env(
   private val IndexesToOptimize = config getStringList "indexes_to_optimize"
   private val IndexerMaxAttempts = 10
 
-  val esIndexer = makeIndexer()
-
-  private def makeIndexer(attempt: Int = 1): Future[elasticsearch.ClientIndexer] = Future {
-    s"[search] Instanciate indexer, attempt $attempt/$IndexerMaxAttempts" describes
-      elasticsearch.Indexer.transport(
-        settings = Map("cluster.name" -> ESCluster),
-        host = ESHost,
-        ports = Seq(ESPort))
-  } andThen {
-    case Success(indexer) =>
-      loginfo("[search] Start indexer")
-      indexer.start
-      loginfo("[search] Indexer is running")
-  } recoverWith {
-    case e: Exception if attempt <= IndexerMaxAttempts =>
-      logwarn(s"[search] Indexer creation: $e")
-      Thread sleep 10 * 1000
-      makeIndexer(attempt + 1)
+  lazy val client = {
+    val settings = ImmutableSettings.settingsBuilder()
+      .put("cluster.name", ESCluster).build()
+    ElasticClient.remote(settings, ESHost -> ESPort)
   }
 
   // {

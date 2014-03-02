@@ -2,7 +2,35 @@ package lila.search
 
 import play.api.libs.json._
 
+import com.sksamuel.elastic4s.ElasticClient
+import com.sksamuel.elastic4s.ElasticDsl._
+
 object ElasticSearch {
+
+  // synchronously create index and type, ignoring errors (already existing)
+  def createType(client: ElasticClient, indexName: String, typeName: String) {
+    try {
+      client.sync execute {
+        create index indexName
+      }
+    }
+    catch {
+      case e: Exception =>
+    }
+    try {
+      client.sync execute {
+        delete from indexName -> typeName where all
+      }
+    }
+    catch {
+      case e: Exception =>
+    }
+  }
+
+  def decomposeTextQuery(text: String): List[String] =
+    text.trim.toLowerCase.replace("+", " ").split(" ").toList
+
+  // DROP shit below
 
   object Date {
 
@@ -71,7 +99,7 @@ object ElasticSearch {
       }.getHits.totalHits.toInt
     }
 
-    def decomposeTextQuery(text: String): List[String] = 
+    def decomposeTextQuery(text: String): List[String] =
       text.trim.toLowerCase.replace("+", " ").split(" ").toList
   }
 }
