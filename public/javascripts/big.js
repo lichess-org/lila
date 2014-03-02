@@ -95,6 +95,7 @@ var storage = {
   strongSocket.available = window.WebSocket || window.MozWebSocket;
   strongSocket.prototype = {
     connect: function() {
+      if (this.ws && this.ws.readyState === 0) return; // firefox delay
       var self = this;
       self.destroy();
       self.autoReconnect = true;
