@@ -389,6 +389,7 @@ var storage = {
         },
         challengeReminder: function(data) {
           if (!storage.get('challenge-refused-' + data.id)) {
+            var autoDecline = $('#lichess a.lichess_resign').length;
             var $overboard = $('div.lichess_overboard.joining');
             var declineListener = function($a, callback) {
               return $a.click(function() {
@@ -412,15 +413,20 @@ var storage = {
               clearTimeout($(this).data('timeout'));
               $(this).remove();
             });
-            $('#notifications').append($(data.html));
+            $('#notifications').append($(data.html).toggle(!autoDecline));
             declineListener($('#notifications a.decline'));
             $('#challenge_reminder').data('timeout', setTimeout(function() {
               $('#challenge_reminder').remove();
             }, 3000));
-            $('body').trigger('lichess.content_loaded');
-            if (!storage.get('challenge-' + data.id)) {
-              $.sound.dong();
-              storage.set('challenge-' + data.id, 1);
+            // automatically decline when playing
+            if (autoDecline) {
+              $('#notifications a.decline').click();
+            } else {
+              $('body').trigger('lichess.content_loaded');
+              if (!storage.get('challenge-' + data.id)) {
+                $.sound.dong();
+                storage.set('challenge-' + data.id, 1);
+              }
             }
           }
         },
