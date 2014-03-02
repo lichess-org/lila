@@ -266,6 +266,10 @@ var storage = {
       if (this.ws) {
         this.debug("Disconnect", true);
         this.autoReconnect = false;
+        this.ws.onerror = $.noop();
+        this.ws.onclose = $.noop();
+        this.ws.onopen = $.noop();
+        this.ws.onmessage = $.noop();
         this.ws.close();
       }
     },
