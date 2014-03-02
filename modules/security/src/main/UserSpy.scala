@@ -38,7 +38,7 @@ private[security] object UserSpy {
   )
 
   private def explore(users: Set[User], ips: Set[IP], _users: Set[User]): Fu[Set[User]] = {
-    nextIps(users, ips) flatMap { nIps ⇒
+    nextIps(users, ips) flatMap { nIps =>
       nextUsers(nIps, users) map { _ ++: users ++: _users }
     }
   }
@@ -54,7 +54,7 @@ private[security] object UserSpy {
     ips.nonEmpty ?? {
       $primitive(
         Json.obj("ip" -> $in(ips), "user" -> $nin(users.map(_.id))), "user"
-      )(_.asOpt[String]) flatMap { userIds ⇒
+      )(_.asOpt[String]) flatMap { userIds =>
           userIds.nonEmpty ?? (UserRepo byIds userIds.distinct) map (_.toSet)
         }
     }

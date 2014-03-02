@@ -11,7 +11,7 @@ import actorApi._, round._
 import lila.common.PimpedJson._
 import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
 import lila.hub.actorApi.map._
-import lila.socket.actorApi.{ Connected ⇒ _, _ }
+import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.user.User
 import makeTimeout.short
@@ -34,45 +34,45 @@ private[round] final class SocketHandler(
     def round(msg: Any) { roundMap ! Tell(gameId, msg) }
 
     member.playerIdOption.fold[Handler.Controller]({
-      case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
-      case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
+      case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
+      case ("liveGames", o) => o str "d" foreach { ids =>
         socket ! LiveGames(uid, ids.split(' ').toList)
       }
-      case ("talk", o) ⇒ o str "d" foreach { text ⇒
+      case ("talk", o) => o str "d" foreach { text =>
         messenger.watcher(gameId, member, text, socket)
       }
-    }) { playerId ⇒
+    }) { playerId =>
       {
-        case ("p", o)            ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
-        case ("rematch-yes", _)  ⇒ round(RematchYes(playerId))
-        case ("rematch-no", _)   ⇒ round(RematchNo(playerId))
-        case ("takeback-yes", _) ⇒ round(TakebackYes(playerId))
-        case ("takeback-no", _)  ⇒ round(TakebackNo(playerId))
-        case ("draw-yes", _)     ⇒ round(DrawYes(playerId))
-        case ("draw-no", _)      ⇒ round(DrawNo(playerId))
-        case ("draw-claim", _)   ⇒ round(DrawClaim(playerId))
-        case ("resign", _)       ⇒ round(Resign(playerId))
-        case ("resign-force", _) ⇒ round(ResignForce(playerId))
-        case ("draw-force", _)   ⇒ round(DrawForce(playerId))
-        case ("abort", _)        ⇒ round(Abort(playerId))
-        case ("move", o) ⇒ parseMove(o) foreach {
-          case (orig, dest, prom, blur, lag) ⇒ {
+        case ("p", o)            => o int "v" foreach { v => socket ! PingVersion(uid, v) }
+        case ("rematch-yes", _)  => round(RematchYes(playerId))
+        case ("rematch-no", _)   => round(RematchNo(playerId))
+        case ("takeback-yes", _) => round(TakebackYes(playerId))
+        case ("takeback-no", _)  => round(TakebackNo(playerId))
+        case ("draw-yes", _)     => round(DrawYes(playerId))
+        case ("draw-no", _)      => round(DrawNo(playerId))
+        case ("draw-claim", _)   => round(DrawClaim(playerId))
+        case ("resign", _)       => round(Resign(playerId))
+        case ("resign-force", _) => round(ResignForce(playerId))
+        case ("draw-force", _)   => round(DrawForce(playerId))
+        case ("abort", _)        => round(Abort(playerId))
+        case ("move", o) => parseMove(o) foreach {
+          case (orig, dest, prom, blur, lag) => {
             socket ! Ack(uid)
             round(HumanPlay(
-              playerId, member.ip, orig, dest, prom, blur, lag.millis, _ ⇒ socket ! Resync(uid)
+              playerId, member.ip, orig, dest, prom, blur, lag.millis, _ => socket ! Resync(uid)
             ))
           }
         }
-        case ("moretime", _)  ⇒ round(Moretime(playerId))
-        case ("outoftime", _) ⇒ round(Outoftime)
-        case ("bye", _)       ⇒ socket ! Bye(ref.color)
-        case ("challenge", o) ⇒ ((o str "d") |@| member.userId).tupled foreach {
-          case (to, from) ⇒ hub.actor.challenger ! lila.hub.actorApi.setup.RemindChallenge(gameId, from, to)
+        case ("moretime", _)  => round(Moretime(playerId))
+        case ("outoftime", _) => round(Outoftime)
+        case ("bye", _)       => socket ! Bye(ref.color)
+        case ("challenge", o) => ((o str "d") |@| member.userId).tupled foreach {
+          case (to, from) => hub.actor.challenger ! lila.hub.actorApi.setup.RemindChallenge(gameId, from, to)
         }
-        case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
+        case ("liveGames", o) => o str "d" foreach { ids =>
           socket ! LiveGames(uid, ids.split(' ').toList)
         }
-        case ("talk", o) ⇒ o str "d" foreach { text ⇒
+        case ("talk", o) => o str "d" foreach { text =>
           messenger.owner(gameId, member, text, socket)
         }
       }
@@ -114,11 +114,11 @@ private[round] final class SocketHandler(
       user = user,
       version = version,
       color = pov.color,
-      playerId = playerId filterNot (_ ⇒ hijack(pov, token)),
+      playerId = playerId filterNot (_ => hijack(pov, token)),
       ip = ip)
-    socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket ⇒
+    socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
       Handler(hub, socket, uid, join, user map (_.id)) {
-        case Connected(enum, member) ⇒
+        case Connected(enum, member) =>
           controller(pov.gameId, socket, uid, pov.ref, member) -> enum
       }
     }

@@ -1,7 +1,7 @@
 package lila.search
 package actorApi
 
-import org.elasticsearch.action.search.{ SearchResponse ⇒ ESSR }
+import org.elasticsearch.action.search.{ SearchResponse => ESSR }
 import org.elasticsearch.index.query.QueryBuilder
 import play.api.libs.json.JsObject
 

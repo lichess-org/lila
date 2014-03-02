@@ -13,11 +13,11 @@ private[monitor] final class SocketHandler(
   def apply(uid: String): Fu[JsSocketHandler] = {
 
     def controller: Handler.Controller = {
-      case _ ⇒
+      case _ =>
     }
 
     Handler(hub, socket, uid, Join(uid), none) {
-      case Connected(enum, member) ⇒ controller -> enum
+      case Connected(enum, member) => controller -> enum
     }
   }
 }

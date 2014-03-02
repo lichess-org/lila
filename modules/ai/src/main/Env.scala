@@ -11,6 +11,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     uciMemo: lila.game.UciMemo,
+    db: lila.db.Env,
     system: ActorSystem) {
 
   private val settings = new {
@@ -26,6 +27,8 @@ final class Env(
     val StockfishQueueDispatcher = config getString "stockfish.queue.dispatcher"
     val StockfishAnalyseTimeout = config duration "stockfish.analyse.timeout"
     val ActorName = config getString "actor.name"
+    val CollectionAiPerf = config getString "collection.ai_perf"
+    val AiPerfCacheTtl = config duration "ai_perf.cache_ttl"
   }
   import settings._
 
@@ -41,21 +44,25 @@ final class Env(
     debug = config getBoolean "stockfish.debug")
 
   lazy val ai: Ai = (EngineName, IsClient) match {
-    case ("stockfish", true)  ⇒ stockfishClient
-    case ("stockfish", false) ⇒ stockfishServer
-    case _                    ⇒ throw new Exception(s"Unsupported AI: $EngineName")
+    case ("stockfish", true)  => stockfishClient
+    case ("stockfish", false) => stockfishServer
+    case _                    => throw new Exception(s"Unsupported AI: $EngineName")
   }
+
+  lazy val aiPerfApi = new AiPerfApi(db(CollectionAiPerf), AiPerfCacheTtl)
+
+  def ratingOf(level: Int) = aiPerfApi.intRatings map (_ get level)
 
   def isServer = IsServer
 
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.ai.GetLoad ⇒ IsClient.fold(
+      case lila.hub.actorApi.ai.GetLoad => IsClient.fold(
         stockfishClient.load pipeTo sender,
         sender ! Nil
       )
-      case lila.hub.actorApi.ai.Analyse(uciMoves, fen) ⇒
+      case lila.hub.actorApi.ai.Analyse(uciMoves, fen) =>
         ai.analyse(uciMoves, fen) pipeTo sender
     }
   }), name = ActorName)
@@ -88,8 +95,8 @@ final class Env(
   ) withDispatcher StockfishQueueDispatcher, name = StockfishQueueName)
 
   private lazy val client = (EngineName, IsClient) match {
-    case ("stockfish", true) ⇒ stockfishClient.some
-    case _                   ⇒ none
+    case ("stockfish", true) => stockfishClient.some
+    case _                   => none
   }
 }
 
@@ -98,5 +105,6 @@ object Env {
   lazy val current = "[boot] ai" describes new Env(
     config = lila.common.PlayApp loadConfig "ai",
     uciMemo = lila.game.Env.current.uciMemo,
+    db = lila.db.Env.current,
     system = lila.common.PlayApp.system)
 }

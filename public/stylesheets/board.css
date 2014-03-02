@@ -21,6 +21,13 @@ div.lichess_board {
   height: 512px;
   position: relative;
 }
+div.lichess_board,
+#GameBoard,
+#chessboard .board-b72b1,
+.mini_board,
+#top div.color_demo {
+  background-size: contain;
+}
 div.lcs {
   position: absolute;
   width: 64px;
@@ -29,113 +36,144 @@ div.lcs {
 body.blue div.lichess_board,
 body.blue #GameBoard,
 body.blue #chessboard .board-b72b1,
+body.blue .mini_board,
 #top div.color_demo.blue {
   background-image: url(../images/board/blue.png);
 }
 body.brown div.lichess_board,
 body.brown #GameBoard,
 body.brown #chessboard .board-b72b1,
+body.brown .mini_board,
 #top div.color_demo.brown {
   background-image: url(../images/board/brown.png);
 }
 body.green div.lichess_board,
 body.green #GameBoard,
 body.green #chessboard .board-b72b1,
+body.green .mini_board,
 #top div.color_demo.green {
   background-image: url(../images/board/green.png);
+}
+body.yellow div.lichess_board,
+body.yellow #GameBoard,
+body.yellow #chessboard .board-b72b1,
+body.yellow .mini_board,
+#top div.color_demo.yellow {
+  background-image: url(../images/board/yellow.png);
+}
+body.purple div.lichess_board,
+body.purple #GameBoard,
+body.purple #chessboard .board-b72b1,
+body.purple .mini_board,
+#top div.color_demo.purple {
+  background-image: url(../images/board/purple.png);
 }
 body.grey div.lichess_board,
 body.grey #GameBoard,
 body.grey #chessboard .board-b72b1,
+body.grey .mini_board,
 #top div.color_demo.grey {
   background-image: url(../images/board/grey.png);
 }
 body.wood div.lichess_board,
 body.wood #GameBoard,
 body.wood #chessboard .board-b72b1,
+body.wood .mini_board,
 #top div.color_demo.wood {
-  background-image: url(../images/board/woodenboard.jpg);
+  background-image: url(../images/board/wood3-512.jpg);
 }
 body.canvas div.lichess_board,
 body.canvas #GameBoard,
 body.canvas #chessboard .board-b72b1,
+body.canvas .mini_board,
 #top div.color_demo.canvas {
-  background-image: url(../images/board/canvas.jpg);
+  background-image: url(../images/board/canvas2-512.jpg);
 }
-#GameBoard {
-  background-position: 1px 1px;
+body.leather div.lichess_board,
+body.leather #GameBoard,
+body.leather #chessboard .board-b72b1,
+body.leather .mini_board,
+#top div.color_demo.leather {
+  background-image: url(../images/board/leather-512.jpg);
+}
+@media
+
+only screen and (-webkit-min-device-pixel-ratio:2),
+only screen and (min--moz-device-pixel-ratio:2),
+only screen and (-o-min-device-pixel-ratio:2/1),
+only screen and (min-device-pixel-ratio:2),
+only screen and (min-resolution:192dpi),
+only screen and (min-resolution:2dppx) {
+  body.wood div.lichess_board, body.wood #GameBoard, body.wood #chessboard .board-b72b1, body.wood .mini_board, #top div.color_demo.wood {
+    background-image: url(../images/board/wood3-1024.jpg);
+  }
+  body.canvas div.lichess_board,
+  body.canvas #GameBoard,
+  body.canvas #chessboard .board-b72b1,
+  #top div.color_demo.canvas {
+    background-image: url(../images/board/canvas2-1024.jpg);
+  }
+  body.leather div.lichess_board,
+  body.leather #GameBoard,
+  body.leather #chessboard .board-b72b1,
+  body.leather .mini_board,
+  #top div.color_demo.leather {
+    background-image: url(../images/board/leather-1024.jpg);
+  }
 }
 div.lcsi {
   position: absolute;
   width: 64px;
   height: 64px;
-  background: url(../images/sover.png) top left no-repeat;
-  background-position: 0 -320px;
-}
-div.lcs.moved div.lcsi {
-  background-position: 0 -192px;
-}
-div.lcs.check div.lcsi {
-  background-position: 0 -256px;
-}
-div.lcs.premoved div.lcsi {
-  background-position: 0 -64px !important;
-}
-div.my_turn.not_spectator div.lcs:hover div.lcsi {
-  background-position: 0 0px;
-}
-div.lcs.droppable-hover div.lcsi {
-  background-position: 0 -64px !important;
 }
 div.lichess_board div.lcs.selected div.lcsi,
 div.lichess_board div.lcs.selectable div.lcsi {
-  background-position: 0 -64px !important;
-  cursor: pointer;
-}
-div.lichess_board div.lcs.selectable div.lichess_piece {
   cursor: pointer;
 }
 div.lichess_piece {
   position: absolute;
   width: 64px;
   height: 64px;
-  background-image: url(../images/sprite.png);
+  background-size: cover;
 }
 div.my_turn div.lichess_piece.ui-draggable {
   cursor: move;
 }
-div.lichess_piece.bishop.white {
-  background-position: -64px 0;
+div.pawn.white {
+  background-image: url(../images/piece/wP.svg);
 }
-div.lichess_piece.knight.white {
-  background-position: -128px 0;
+div.bishop.white {
+  background-image: url(../images/piece/wB.svg);
 }
-div.lichess_piece.rook.white {
-  background-position: -192px 0;
+div.knight.white {
+  background-image: url(../images/piece/wN.svg);
 }
-div.lichess_piece.queen.white {
-  background-position: -256px 0;
+div.rook.white {
+  background-image: url(../images/piece/wR.svg);
 }
-div.lichess_piece.king.white {
-  background-position: -320px 0;
+div.queen.white {
+  background-image: url(../images/piece/wQ.svg);
 }
-div.lichess_piece.pawn.black {
-  background-position: 0 bottom;
+div.king.white {
+  background-image: url(../images/piece/wK.svg);
 }
-div.lichess_piece.bishop.black {
-  background-position: -64px bottom;
+div.pawn.black {
+  background-image: url(../images/piece/bP.svg);
 }
-div.lichess_piece.knight.black {
-  background-position: -128px bottom;
+div.bishop.black {
+  background-image: url(../images/piece/bB.svg);
 }
-div.lichess_piece.rook.black {
-  background-position: -192px bottom;
+div.knight.black {
+  background-image: url(../images/piece/bN.svg);
 }
-div.lichess_piece.queen.black {
-  background-position: -256px bottom;
+div.rook.black {
+  background-image: url(../images/piece/bR.svg);
 }
-div.lichess_piece.king.black {
-  background-position: -320px bottom;
+div.queen.black {
+  background-image: url(../images/piece/bQ.svg);
+}
+div.king.black {
+  background-image: url(../images/piece/bK.svg);
 }
 div.lichess_game_not_started {
   position: relative;
@@ -156,12 +194,10 @@ div.lichess_overboard {
 }
 div.lichess_overboard a.close {
   float: right;
-  width: 32px;
-  height: 32px;
   display: block;
-  background: url(../images/close24.png) no-repeat;
   cursor: pointer;
-  margin-top: -9px;
+  text-decoration: none;
+  margin-top: -12px;
   margin-right: 6px;
   opacity: 0.4;
 }
@@ -193,10 +229,8 @@ div.lichess_overboard p.explanations {
 div.lichess_id_input {
   margin-top: 10px;
   border: none;
-  background: #fff;
   width: 100%;
   text-align: center;
-  color: #444;
   font-size: 1.2em;
   padding: 1em 0;
 }
@@ -267,15 +301,13 @@ div.lichess_table_not_started {
   padding: 0;
 }
 div.lichess_table div.username {
-  padding-left: 16px;
+  display: inline-block;
 }
 div.lichess_table div.username.connected {
-  background: url(../images/s16.png) no-repeat;
-  background-position: 0 -112px;
+  border-bottom: 1px solid #859900;
 }
-div.lichess_table div.username.offline {
-  background: url(../images/s16.png) no-repeat;
-  background-position: 0 -128px;
+div.lichess_table div.username a:hover {
+  text-decoration: none;
 }
 div.lichess_table a.button.strong {
   padding-top: 1em;
@@ -318,18 +350,16 @@ div.clock_bottom {
 div.lichess_table_wrap a.moretime {
   opacity: 0.4;
   position: absolute;
-  left: 115px;
-  top: 4px;
-  width: 32px;
-  height: 32px;
-  display: block;
-  background: url(../images/add.png) no-repeat;
+  text-decoration: none;
+  font-size: 20px;
+  left: 130px;
+  top: 7px;
 }
 div.lichess_table_wrap a.moretime:hover {
   opacity: 1;
 }
-div.lichess_table_wrap .player_blurs {
-  margin-top: 1em;
+div.player_blurs {
+  margin: 1em 0;
 }
 div.lichess_table_next {
   top: 145px;
@@ -400,17 +430,10 @@ div.lichess_separator {
 div.lichess_table .lichess_button {
   margin: 2.5em 0 0 0;
   font-size: 1.3em;
-  display: block;
-  text-decoration: none;
   padding: 1em;
   text-align: center;
-  border: 1px solid #d3d3d3;
-  font-weight: normal;
-}
-div.lichess_table a.lichess_button:hover,
-div.lichess_table a.lichess_button.active {
-  box-shadow: 0 0 9px #d85000;
-  border: 1px solid #d85000;
+  display: block;
+  letter-spacing: -1px;
 }
 div.lichess_current_player {
   height: 64px;
@@ -474,7 +497,7 @@ div.under_chat .watchtv {
   text-align: center;
   margin-top: -24px;
 }
-div.lichess_chat {
+#chat {
   font-size: 11.5px;
   position: absolute;
   top: 205px;
@@ -482,97 +505,91 @@ div.lichess_chat {
   width: 228px;
   margin-left: -30px;
 }
-div.lichess_chat_top {
+#chat div.top {
   border: 1px solid #ccc;
   padding: 3px 5px;
 }
-div.lichess_chat_top span.title {
+#chat div.top span.title {
   font-weight: bold;
   color: #999;
 }
-div.lichess_chat_top span.title span {
+#chat div.top span.title span {
   font-weight: normal;
 }
-div.lichess_chat input.toggle_chat {
+#chat input.toggle_chat {
   cursor: pointer;
   position: absolute;
   top: 4px;
   right: 4px;
   z-index: 1;
 }
-div.lichess_chat .lichess_messages {
+#chat .messages {
   height: 263px;
   border: 1px solid #ccc;
   border-top: none;
   overflow: hidden;
   overflow-y: auto;
 }
-div.lichess_chat form {
+#chat form {
   position: relative;
 }
-div.lichess_chat form input {
+#chat form input {
   border: 1px solid #ccc;
   border-top: 0;
   padding: 2px 20px 2px 4px;
   width: 202px;
 }
-div.lichess_chat a.send {
+#chat a.send {
   position: absolute;
   top: 0px;
   right: 2px;
+  padding-top: 3px;
   display: block;
   height: 16px;
   width: 16px;
-  background: url(../images/s16.png) no-repeat;
-  background-position: 0 -96px;
   text-decoration: none;
   z-index: 1;
   opacity: 0.5;
 }
-div.lichess_chat a.send:hover {
+#chat a.send:hover {
   opacity: 1;
 }
-div.lichess_chat li {
+#chat li {
   padding-left: 3px;
   line-height: 14px;
   margin: 0.6em 0 0.6em 3px;
 }
-div.lichess_chat li.system {
+#chat li.system {
   padding: 2px 0;
   margin-left: 0;
   text-align: center;
   white-space: nowrap;
   font-style: italic;
 }
-div.lichess_chat span.title {
+#chat span.title {
   padding-left: 3px;
 }
-div.lichess_chat li span {
+#chat li span {
   font-weight: bold;
   margin-right: 6px;
   color: #aaa;
 }
-div.lichess_chat a.user_link {
+#chat a.user_link {
   padding: 0;
   color: #aaa;
   text-decoration: none;
   font-weight: bold;
 }
-div.lichess_chat a.user_link:hover {
+#chat a.user_link:hover {
   text-decoration: underline;
 }
-div.lichess_chat ol.lichess_messages li.white {
-  background: url(../images/klw14.png) no-repeat;
-}
-div.lichess_chat ol.lichess_messages li.black {
-  background: url(../images/klb14.png) no-repeat;
-}
-div.lichess_chat.hidden ol.lichess_messages,
-div.lichess_chat.hidden form {
+#chat.hidden ol.messages,
+#chat.hidden form {
   opacity: 0;
 }
 div.game_tournament {
   text-align: center;
+  line-height: 2em;
 }
 div.game_tournament .title {
   display: block;
@@ -597,17 +614,19 @@ span.inline_userlist a {
 span.inline_userlist a:hover {
   text-decoration: underline;
 }
-div.replay_and_analyse {
+div.underboard {
   width: 512px;
   margin-top: 20px;
   text-align: center;
 }
-div.replay_and_analyse a {
+div.underboard a {
   display: inline-block;
+}
+div.underboard.replay_and_analyse a {
   font-size: 1.4em;
 }
-
 /* chessboardjs */
+
 #chessboard {
   width: 520px;
 }
@@ -629,15 +648,35 @@ div.replay_and_analyse a {
   -ms-user-select: none;
   user-select: none;
 }
-#chessboard div.last {
-  background: url(../images/over5.png);
+#chessboard div.last,
+#GameBoard td.highlightWhiteSquare img,
+#GameBoard td.highlightBlackSquare img,
+div.lcs.moved div.lcsi {
+  background: -moz-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(155, 199, 00, 0.81)), color-stop(100%, rgba(155, 199, 00, 0)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
+  background: radial-gradient(ellipse at center, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#cfd85500', endColorstr='#00d85500', GradientType=1);
 }
-#chessboard div.check {
-  background: url(../images/sover.png) 0 -256px;
+#chessboard div.check,
+div.lcs.check div.lcsi {
+  background: -moz-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255, 0, 0, 1)), color-stop(25%, rgba(231, 0, 0, 1)), color-stop(89%, rgba(169, 0, 0, 0)), color-stop(100%, rgba(158, 0, 0, 0)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+  background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ff0000', endColorstr='#009e0000', GradientType=1);
 }
-#chessboard div.highlight2-9c5d2 {
-  background: url(../images/sover.png) 0 -64px;
-}
-#chessboard div.square-55d63:hover {
-  background: url(../images/sover.png) 0 0;
+#chessboard div.square-55d63:hover,
+#chessboard div.highlight2-9c5d2,
+div.my_turn.not_spectator div.lcs:hover div.lcsi,
+div.lcs.premoved div.lcsi,
+div.lcs.droppable-hover div.lcsi,
+div.lichess_board div.lcs.selected div.lcsi,
+div.lichess_board div.lcs.selectable div.lcsi,
+#GameBoard td img.bestmove {
+  box-shadow: inset 0 0 10px 2px rgba(216, 85, 0, 0.9);
 }

@@ -8,7 +8,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     getFriendIds: String => Fu[Set[String]],
-    getUsername: String ⇒ Fu[String],
+    getUsername: String => Fu[String],
     lobbySocket: ActorSelection,
     renderer: ActorSelection,
     system: ActorSystem) {

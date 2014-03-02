@@ -3,7 +3,7 @@
 <tr class="paginated_element">
   <td class="subject">
     <a class="team-name" href="@routes.Team.show(t.id)">
-      <span class="team-icon s16 @myTeam(t.id).fold("mine", "")"></span>
+      <span data-icon="f" class="@myTeam(t.id).??("is-green")"></span>
       @t.name
     </a>
     @shorten(t.description, 200)

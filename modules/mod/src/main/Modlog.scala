@@ -11,17 +11,19 @@ case class Modlog(
     date: DateTime = DateTime.now) {
 
   def showAction = action match {
-    case Modlog.engine        ⇒ "mark as engine"
-    case Modlog.unengine      ⇒ "un-mark as engine"
-    case Modlog.deletePost    ⇒ "delete forum post"
-    case Modlog.ban           ⇒ "ban user"
-    case Modlog.ipban         ⇒ "ban IPs"
-    case Modlog.ipunban       ⇒ "unban IPs"
-    case Modlog.closeAccount  ⇒ "close account"
-    case Modlog.reopenAccount ⇒ "reopen account"
-    case Modlog.openTopic     ⇒ "reopen topic"
-    case Modlog.closeTopic    ⇒ "close topic"
-    case a                    ⇒ a
+    case Modlog.engine        => "mark as engine"
+    case Modlog.unengine      => "un-mark as engine"
+    case Modlog.deletePost    => "delete forum post"
+    case Modlog.ban           => "ban user"
+    case Modlog.ipban         => "ban IPs"
+    case Modlog.ipunban       => "unban IPs"
+    case Modlog.closeAccount  => "close account"
+    case Modlog.reopenAccount => "reopen account"
+    case Modlog.openTopic     => "reopen topic"
+    case Modlog.closeTopic    => "close topic"
+    case Modlog.setTitle      => "set FIDE title"
+    case Modlog.removeTitle   => "remove FIDE title"
+    case a                    => a
   }
 }
 
@@ -39,6 +41,8 @@ object Modlog {
   val deletePost = "deletePost"
   val closeTopic = "closeTopic"
   val openTopic = "openTopic"
+  val setTitle = "setTitle"
+  val removeTitle = "removeTitle"
 
   import lila.db.JsTube
   import JsTube.Helpers._

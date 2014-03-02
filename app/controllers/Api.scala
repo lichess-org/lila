@@ -11,13 +11,13 @@ object Api extends LilaController {
   private val gameApi = Env.api.gameApi
   private val analysisApi = Env.api.analysisApi
 
-  def user(username: String) = ApiResult { req ⇒
+  def user(username: String) = ApiResult { req =>
     userApi.one(
       username = username,
       token = get("token", req))
   }
 
-  def users = ApiResult { req ⇒
+  def users = ApiResult { req =>
     userApi.list(
       team = get("team", req),
       engine = get("engine", req) map ("1"==),
@@ -26,7 +26,7 @@ object Api extends LilaController {
     ) map (_.some)
   }
 
-  def games = ApiResult { req ⇒
+  def games = ApiResult { req =>
     gameApi.list(
       username = get("username", req),
       rated = get("rated", req) map ("1"==),
@@ -35,18 +35,18 @@ object Api extends LilaController {
     ) map (_.some)
   }
 
-  def analysis = ApiResult { req ⇒
+  def analysis = ApiResult { req =>
     analysisApi.list(
       nb = getInt("nb", req)
     ) map (_.some)
   }
 
-  private def ApiResult(js: RequestHeader ⇒ Fu[Option[JsValue]]) = Action async { req ⇒
+  private def ApiResult(js: RequestHeader => Fu[Option[JsValue]]) = Action async { req =>
     js(req) map {
-      case None ⇒ NotFound
-      case Some(json) ⇒ get("callback", req) match {
-        case None           ⇒ Ok(json) as JSON
-        case Some(callback) ⇒ Ok(s"$callback($json)") as JAVASCRIPT
+      case None => NotFound
+      case Some(json) => get("callback", req) match {
+        case None           => Ok(json) as JSON
+        case Some(callback) => Ok(s"$callback($json)") as JAVASCRIPT
       }
     }
   }

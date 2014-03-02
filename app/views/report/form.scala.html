@@ -16,7 +16,7 @@
     <div class="field_to">
       <label for="@form("username").id">User</label>
       @reqUser.map { user =>
-      @userLink(user, cssClass = "inline".some)
+      @userLink(user)
       <input
       type="hidden"
       name="@form("username").name"

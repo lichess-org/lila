@@ -21,11 +21,11 @@ final class UciMemo(ttl: Duration) {
   }
 
   def get(game: Game): Fu[Vector[String]] =
-    Option(memo getIfPresent game.id) filter { moves ⇒
+    Option(memo getIfPresent game.id) filter { moves =>
         moves.size == game.pgnMoves.size
       } match {
-        case Some(moves) ⇒ fuccess(moves)
-        case _           ⇒ compute(game) addEffect { set(game, _) }
+        case Some(moves) => fuccess(moves)
+        case _           => compute(game) addEffect { set(game, _) }
       }
 
   def drop(game: Game, nb: Int) {

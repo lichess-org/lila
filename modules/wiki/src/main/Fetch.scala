@@ -16,10 +16,10 @@ import tube._
 
 private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
 
-  def apply: Funit = getFiles flatMap { files ⇒
+  def apply: Funit = getFiles flatMap { files =>
     val (defaultPages, langPages) = files.map(filePage).flatten partition (_.isDefaultLang)
-    val newLangPages = (langPages map { page ⇒
-      defaultPages find (_.number == page.number) map { default ⇒
+    val newLangPages = (langPages map { page =>
+      defaultPages find (_.number == page.number) map { default =>
         page.copy(slug = default.slug)
       }
     }).flatten

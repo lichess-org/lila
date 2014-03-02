@@ -8,7 +8,7 @@ import lila.hub.actorApi.message.LichessThread
 final class Env(
     config: Config,
     db: lila.db.Env,
-    blocks: (String, String) ⇒ Fu[Boolean],
+    blocks: (String, String) => Fu[Boolean],
     system: ActorSystem) {
 
   private val CollectionThread = config getString "collection.thread"
@@ -28,14 +28,14 @@ final class Env(
 
   system.actorOf(Props(new Actor {
     def receive = {
-      case thread: LichessThread ⇒ api.lichessThread(thread)
+      case thread: LichessThread => api.lichessThread(thread)
     }
   }), name = ActorName)
 
   def cli = new lila.common.Cli {
     import tube.threadTube
     def process = {
-      case "message" :: "typecheck" :: Nil ⇒ lila.db.Typecheck.apply[Thread]
+      case "message" :: "typecheck" :: Nil => lila.db.Typecheck.apply[Thread]
     }
   }
 }

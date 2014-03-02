@@ -10,8 +10,8 @@ import lila.hub.actorApi.{ SendTo, SendTos }
 import makeTimeout.short
 
 private[relation] final class RelationActor(
-    getOnlineUserIds: () ⇒ Set[String],
-    getUsername: String ⇒ Fu[String],
+    getOnlineUserIds: () => Set[String],
+    getUsername: String => Fu[String],
     api: RelationApi) extends Actor {
 
   private val bus = context.system.lilaBus
@@ -20,38 +20,38 @@ private[relation] final class RelationActor(
 
   def receive = {
 
-    case GetOnlineFriends(userId)    ⇒ onlineFriends(userId) pipeTo sender
+    case GetOnlineFriends(userId)    => onlineFriends(userId) pipeTo sender
 
     // triggers following reloading for this user id
-    case ReloadOnlineFriends(userId) ⇒ reloadOnlineFriends(userId)
+    case ReloadOnlineFriends(userId) => reloadOnlineFriends(userId)
 
-    case AllOnlineFriends(o) ⇒ {
+    case AllOnlineFriends(o) => {
       onlines = o
       onlineIds foreach reloadOnlineFriends
     }
 
-    case ReloadAllOnlineFriends ⇒
-      (getOnlineUserIds() map { id ⇒
+    case ReloadAllOnlineFriends =>
+      (getOnlineUserIds() map { id =>
         getUsername(id) map (id -> _)
-      }).sequenceFu map { users ⇒ AllOnlineFriends(users.toMap) } pipeTo self
+      }).sequenceFu map { users => AllOnlineFriends(users.toMap) } pipeTo self
 
-    case NotifyMovement ⇒ {
+    case NotifyMovement => {
       val prevIds = onlineIds
       val curIds = getOnlineUserIds()
       val leaveIds = (prevIds diff curIds).toList
       val enterIds = (curIds diff prevIds).toList
 
-      val leaves: List[User] = leaveIds map { id ⇒
+      val leaves: List[User] = leaveIds map { id =>
         onlines get id map { id -> _ }
       } flatten
 
       val enters: Fu[List[User]] =
-        (enterIds map { id ⇒ getUsername(id) map { id -> _ } }).sequenceFu
+        (enterIds map { id => getUsername(id) map { id -> _ } }).sequenceFu
 
       enters map { Movement(leaves, _) } pipeTo self
     }
 
-    case Movement(leaves, enters) ⇒ {
+    case Movement(leaves, enters) => {
 
       onlines = onlines -- leaves.map(_._1) ++ enters
 
@@ -69,7 +69,7 @@ private[relation] final class RelationActor(
 
   private def reloadOnlineFriends(userId: String) {
     onlineFriends(userId) foreach {
-      case OnlineFriends(usernames, nb) ⇒ {
+      case OnlineFriends(usernames, nb) => {
         val event = SendTo(userId, "following_onlines", Json.obj(
           "us" -> usernames,
           "nb" -> nb
@@ -81,7 +81,7 @@ private[relation] final class RelationActor(
 
   private def notifyFollowers(users: List[User], message: String) {
     users foreach {
-      case (id, name) ⇒ api followers id foreach { ids ⇒
+      case (id, name) => api followers id foreach { ids =>
         val notify = ids filter onlines.contains
         if (notify.nonEmpty) bus.publish(SendTos(notify.toSet, message, name), 'users)
       }

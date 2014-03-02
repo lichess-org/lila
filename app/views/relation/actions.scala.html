@@ -4,39 +4,31 @@
 @if(myId != userId) {
 @if(!blocks(userId, myId)) {
 @if(!playing) {
-<a title="@trans.challengeToPlay()" href="@routes.Lobby.home()?username=@userIdToUsername(userId)#friend" class="icon button" href="#">
-  <span class="s16 challenge"></span>
-</a>
+<a title="@trans.challengeToPlay()" href="@routes.Lobby.home()?username=@userIdToUsername(userId)#friend" class="icon button" href="#"><span data-icon="U"></span></a>
 }
-<a title="@trans.composeMessage()" href="@routes.Message.form()?username=@userId" class="icon button" href="#">
-  <span class="s16 message"></span>
-</a>
+<a title="@trans.composeMessage()" href="@routes.Message.form()?username=@userId" class="icon button" href="#"><span data-icon="c"></span></a>
 }
 @relationWith(userId) match {
 case None => {
 <a
   class="icon button relation"
-  href="@routes.Relation.block(userId)"
-  title="@trans.block()">
-  <span class="s16 tdown"></span>
-</a>
+  href="@routes.Relation.follow(userId)"
+  title="@trans.follow()"><span data-icon="h"></span></a>
 <a
   class="icon button relation"
-  href="@routes.Relation.follow(userId)"
-  title="@trans.follow()">
-  <span class="s16 tup"></span>
-</a>
+  href="@routes.Relation.block(userId)"
+  title="@trans.block()"><span data-icon="k"></span></a>
 }
 case Some(true) => {
 <a class="button relation hover_text" href="@routes.Relation.unfollow(userId)">
-  <span class="base s16 tup">@trans.following()</span>
-  <span class="hover s16 tup">@trans.unfollow()</span>
+  <span data-icon="h" class="base">&nbsp;@trans.following()</span>
+  <span data-icon="h" class="hover">&nbsp;@trans.unfollow()</span>
 </a>
 }
 case Some(false) => {
 <a class="button relation hover_text" href="@routes.Relation.unblock(userId)">
-  <span class="base s16 tdown">@trans.blocked()</span>
-  <span class="hover s16 tdown">@trans.unblock()</span>
+  <span data-icon="k" class="base">&nbsp;@trans.blocked()</span>
+  <span data-icon="k" class="hover">&nbsp;@trans.unblock()</span>
 </a>
 }
 }
@@ -47,4 +39,3 @@ case Some(false) => {
 <a href="@routes.Auth.login" class="signup">@trans.signUp</a>
 }
 }
-

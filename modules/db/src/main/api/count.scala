@@ -9,12 +9,12 @@ import Types._
 object $count {
 
   def apply[A: InColl](q: JsObject): Fu[Int] =
-    implicitly[InColl[A]].coll |> { coll ⇒
+    implicitly[InColl[A]].coll |> { coll =>
       coll.db command Count(coll.name, JsObjectWriter.write(q).some)
     }
 
   def apply[A: InColl]: Fu[Int] =
-    implicitly[InColl[A]].coll |> { coll ⇒
+    implicitly[InColl[A]].coll |> { coll =>
       coll.db command Count(coll.name, none)
     }
 

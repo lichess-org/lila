@@ -7,7 +7,7 @@ import views._
 
 import play.api.mvc.Result
 
-private[controllers] trait BaseGame { self: LilaController ⇒
+private[controllers] trait BaseGame { self: LilaController =>
 
   protected def makeListMenu(implicit ctx: Context): Fu[ListMenu] =
     Env.game.listMenu(

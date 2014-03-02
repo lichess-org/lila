@@ -5,7 +5,7 @@ import play.api.data.Forms._
 
 import lila.user.{ User, UserRepo }
 
-private[message] final class DataForm(blocks: (String, String) ⇒ Fu[Boolean]) {
+private[message] final class DataForm(blocks: (String, String) => Fu[Boolean]) {
 
   import DataForm._
 
@@ -16,7 +16,7 @@ private[message] final class DataForm(blocks: (String, String) ⇒ Fu[Boolean]) 
     "subject" -> text(minLength = 3),
     "text" -> text(minLength = 3)
   )({
-      case (username, subject, text) ⇒ ThreadData(
+      case (username, subject, text) => ThreadData(
         user = fetchUser(username) err "Unknown username " + username,
         subject = subject,
         text = text)

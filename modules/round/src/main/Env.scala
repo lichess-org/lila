@@ -5,7 +5,6 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
-import lila.game.actorApi.ChangeFeaturedGame
 import lila.hub.actorApi.map.Ask
 import lila.socket.actorApi.GetVersion
 import makeTimeout.large
@@ -16,8 +15,9 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     ai: lila.ai.Ai,
-    getUsername: String ⇒ Fu[Option[String]],
-    getUsernameOrAnon: String ⇒ Fu[String],
+    aiPerfApi: lila.ai.AiPerfApi,
+    getUsername: String => Fu[Option[String]],
+    getUsernameOrAnon: String => Fu[String],
     uciMemo: lila.game.UciMemo,
     rematch960Cache: lila.memo.ExpireSetMemo,
     i18nKeys: lila.i18n.I18nKeys,
@@ -42,7 +42,7 @@ final class Env(
   }
   import settings._
 
-  lazy val history = () ⇒ new History(ttl = MessageTtl)
+  lazy val history = () => new History(ttl = MessageTtl)
 
   val roundMap = system.actorOf(Props(new lila.hub.ActorMap[Round] {
     def mkActor(id: String) = new Round(
@@ -58,22 +58,27 @@ final class Env(
     def receive = actorMapReceive
   }), name = ActorMapName)
 
-  private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor[Socket] {
-      def mkActor(id: String) = new Socket(
-        gameId = id,
-        history = history(),
-        getUsername = getUsername,
-        uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout,
-        disconnectTimeout = PlayerDisconnectTimeout,
-        ragequitTimeout = PlayerRagequitTimeout)
-      def receive: Receive = ({
-        case msg@lila.chat.actorApi.ChatLine(id, line) ⇒
-          self ! lila.hub.actorApi.map.Tell(id take 8, msg)
-      }: Receive) orElse socketHubReceive
-    }),
-    name = SocketName)
+  private val socketHub = {
+    val actor = system.actorOf(
+      Props(new lila.socket.SocketHubActor[Socket] {
+        def mkActor(id: String) = new Socket(
+          gameId = id,
+          history = history(),
+          getUsername = getUsername,
+          uidTimeout = UidTimeout,
+          socketTimeout = SocketTimeout,
+          disconnectTimeout = PlayerDisconnectTimeout,
+          ragequitTimeout = PlayerRagequitTimeout)
+        def receive: Receive = ({
+          case msg@lila.chat.actorApi.ChatLine(id, line) =>
+            self ! lila.hub.actorApi.map.Tell(id take 8, msg)
+          case m: lila.hub.actorApi.game.ChangeFeatured => tellAll(m)
+        }: Receive) orElse socketHubReceive
+      }),
+      name = SocketName)
+    system.lilaBus.subscribe(actor, 'changeFeaturedGame)
+    actor
+  }
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
@@ -88,6 +93,7 @@ final class Env(
   private lazy val finisher = new Finisher(
     messenger = messenger,
     perfsUpdater = perfsUpdater,
+    aiPerfApi = aiPerfApi,
     bus = system.lilaBus)
 
   private lazy val rematcher = new Rematcher(
@@ -151,7 +157,8 @@ final class Env(
     messenger = messenger,
     uciMemo = uciMemo)
 
-  lazy val moveBroadcast = system.actorOf(Props(new MoveBroadcast), name = "move-broadcast")
+  lazy val moveBroadcast = system.actorOf(Props(new MoveBroadcast))
+  lazy val tvBroadcast = system.actorOf(Props(new TvBroadcast))
 }
 
 object Env {
@@ -162,6 +169,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     ai = lila.ai.Env.current.ai,
+    aiPerfApi = lila.ai.Env.current.aiPerfApi,
     getUsername = lila.user.Env.current.usernameOption,
     getUsernameOrAnon = lila.user.Env.current.usernameOrAnonymous,
     uciMemo = lila.game.Env.current.uciMemo,

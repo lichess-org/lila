@@ -10,7 +10,7 @@ import play.api.templates.Html
 
 import lila.api.Context
 
-trait DateHelper { self: I18nHelper ⇒
+trait DateHelper { self: I18nHelper =>
 
   private val dateTimeStyle = "MS"
   private val dateStyle = "M-"
@@ -43,18 +43,18 @@ trait DateHelper { self: I18nHelper ⇒
 
   def timeagoLocale(implicit ctx: Context): Option[String] =
     lang(ctx).language match {
-      case "en" ⇒ none
-      case "fr" ⇒ "fr-short".some
-      case "pt" ⇒ "pt-br".some
-      case "zh" ⇒ "zh-CN".some
-      case l    ⇒ timeagoLocales(l) option l
+      case "en" => none
+      case "fr" => "fr-short".some
+      case "pt" => "pt-br".some
+      case "zh" => "zh-CN".some
+      case l    => timeagoLocales(l) option l
     }
 
   private lazy val timeagoLocales: Set[String] = {
     import java.io.File
     val Regex = """^jquery\.timeago\.(\w{2})\.js$""".r
     (new File(Env.current.timeagoLocalesPath).listFiles map (_.getName) collect {
-      case Regex(l) ⇒ l
+      case Regex(l) => l
     }).toSet: Set[String]
   }
 }

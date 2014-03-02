@@ -17,7 +17,7 @@ final class Env(
     flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMap: ActorRef,
-    getUsername: String ⇒ Fu[Option[String]],
+    getUsername: String => Fu[Option[String]],
     isDev: Boolean,
     scheduler: lila.common.Scheduler) {
 
@@ -50,7 +50,7 @@ final class Env(
     chat = hub.actor.chat,
     flood = flood)
 
-  private lazy val history = () ⇒ new History(ttl = MessageTtl)
+  private lazy val history = () => new History(ttl = MessageTtl)
 
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
@@ -76,7 +76,7 @@ final class Env(
   def cli = new lila.common.Cli {
     import tube.tournamentTube
     def process = {
-      case "tournament" :: "typecheck" :: Nil ⇒ lila.db.Typecheck.apply[Tournament]
+      case "tournament" :: "typecheck" :: Nil => lila.db.Typecheck.apply[Tournament]
     }
   }
 

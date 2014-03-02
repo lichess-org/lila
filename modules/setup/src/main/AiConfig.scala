@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.{ Variant, Mode, Color ⇒ ChessColor }
+import chess.{ Variant, Mode, Color => ChessColor }
 import lila.game.{ Game, Player, Source }
 import lila.lobby.Color
 
@@ -17,7 +17,7 @@ case class AiConfig(
 
   def >> = (variant.id, clock, time, increment, level, color.name, fen).some
 
-  def game = fenGame { chessGame ⇒
+  def game = fenGame { chessGame =>
     Game.make(
       game = chessGame,
       whitePlayer = Player.make(
@@ -62,20 +62,20 @@ object AiConfig extends BaseConfig {
 
   val levels = (1 to 8).toList
 
-  val levelChoices = levels map { l ⇒ l.toString -> l.toString }
+  val levelChoices = levels map { l => l.toString -> l.toString }
 
   import lila.db.JsTube
   import play.api.libs.json._
 
   private[setup] lazy val tube = JsTube(
-    reader = Reads[AiConfig](js ⇒
+    reader = Reads[AiConfig](js =>
       ~(for {
         obj ← js.asOpt[JsObject]
         raw ← RawAiConfig.tube.read(obj).asOpt
         decoded ← raw.decode
       } yield JsSuccess(decoded): JsResult[AiConfig])
     ),
-    writer = Writes[AiConfig](config ⇒
+    writer = Writes[AiConfig](config =>
       RawAiConfig.tube.write(config.encode) getOrElse JsUndefined("[setup] Can't write config")
     )
   )

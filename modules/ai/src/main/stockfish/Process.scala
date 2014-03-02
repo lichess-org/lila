@@ -3,13 +3,13 @@ package stockfish
 
 import java.io.OutputStream
 import scala.io.Source.fromInputStream
-import scala.sys.process.{ Process ⇒ SProcess, ProcessBuilder, ProcessIO }
+import scala.sys.process.{ Process => SProcess, ProcessBuilder, ProcessIO }
 
 private[stockfish] final class Process(
     builder: ProcessBuilder,
     name: String,
-    out: String ⇒ Unit,
-    err: String ⇒ Unit,
+    out: String => Unit,
+    err: String => Unit,
     debug: Boolean) {
 
   doLog("start process")
@@ -28,21 +28,21 @@ private[stockfish] final class Process(
       Thread sleep 300
     }
     catch {
-      case e: java.io.IOException ⇒ logwarn("[ai] process destroy " + e.getMessage)
+      case e: java.io.IOException => logwarn("[ai] process destroy " + e.getMessage)
     }
     process.destroy()
   }
 
   private var in: OutputStream = _
   private val processIO = new ProcessIO(
-    i ⇒ {
+    i => {
       in = i
     },
-    o ⇒ fromInputStream(o).getLines foreach { line ⇒
+    o => fromInputStream(o).getLines foreach { line =>
       log(line)
       out(line)
     },
-    e ⇒ fromInputStream(e).getLines foreach { line ⇒
+    e => fromInputStream(e).getLines foreach { line =>
       log(line)
       err(line)
     })
@@ -59,7 +59,7 @@ private[stockfish] final class Process(
 
 object Process {
 
-  def apply(execPath: String, name: String)(out: String ⇒ Unit, err: String ⇒ Unit, debug: Boolean) =
+  def apply(execPath: String, name: String)(out: String => Unit, err: String => Unit, debug: Boolean) =
     new Process(
       builder = SProcess(execPath),
       name = name,
@@ -67,6 +67,6 @@ object Process {
       err = err,
       debug = debug)
 
-  type Builder = (String ⇒ Unit, String ⇒ Unit, Boolean) ⇒ Process
+  type Builder = (String => Unit, String => Unit, Boolean) => Process
 }
 

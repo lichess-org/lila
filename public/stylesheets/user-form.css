@@ -14,10 +14,11 @@
   text-align: right;
   width: 150px;
 }
-.content_box form input.submit {
+.content_box form button.submit {
   margin-left: 160px;
   margin-right: 20px;
   padding: 3px 1em;
+  font-size: 1.1em;
 }
 form .error {
   color: red;

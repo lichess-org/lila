@@ -10,7 +10,7 @@ object $find {
 
   def one[A: TubeInColl](
     q: JsObject,
-    modifier: QueryBuilder ⇒ QueryBuilder = identity): Fu[Option[A]] =
+    modifier: QueryBuilder => QueryBuilder = identity): Fu[Option[A]] =
     one(modifier($query(q)))
 
   def one[A: TubeInColl](q: QueryBuilder): Fu[Option[A]] =
@@ -23,8 +23,8 @@ object $find {
   def byIds[A: TubeInColl](ids: Iterable[String]): Fu[List[A]] = byIds[String, A](ids)
 
   def byOrderedIds[ID: Writes, A <: Identified[ID]: TubeInColl](ids: Iterable[ID]): Fu[List[A]] =
-    byIds(ids) map { docs ⇒
-      val docsMap = docs.map(u ⇒ u.id -> u).toMap
+    byIds(ids) map { docs =>
+      val docsMap = docs.map(u => u.id -> u).toMap
       ids.map(docsMap.get).flatten.toList
     }
   def byOrderedIds[A <: Identified[String]: TubeInColl](ids: Iterable[String]): Fu[List[A]] =

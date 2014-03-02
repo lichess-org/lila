@@ -6,7 +6,7 @@ zen = true) {
 <div class="content_box small_box signup">
   <div class="alternative">
     @trans.haveAnAccount()
-    <a href="@routes.Auth.login()" class="button">@trans.signIn()</a>
+    <a href="@routes.Auth.login()" class="button" data-icon="F"> @trans.signIn()</a>
   </div>
   <div class="signup_box">
     <h1 class="lichess_title">@trans.signUp()</h1>
@@ -21,7 +21,7 @@ zen = true) {
         </li>
         @errMsg(form)
         <li>
-          <input type="submit" value="@trans.signUp()" class="submit button">
+          <button type="submit" class="submit button" data-icon="F"> @trans.signUp()</button>
         </li>
       </ul>
       <input type="hidden" class="referrer" name="_referrer" value="@currentUrl" />

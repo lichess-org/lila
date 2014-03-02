@@ -21,8 +21,8 @@ final class Env(
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.report.Cheater(userId, text) ⇒ api.autoCheatReport(userId, text)
-      case lila.hub.actorApi.report.Check(userId) ⇒ api.autoProcess(userId)
+      case lila.hub.actorApi.report.Cheater(userId, text) => api.autoCheatReport(userId, text)
+      case lila.hub.actorApi.report.Check(userId) => api.autoProcess(userId)
     }
   }), name = ActorName)
 

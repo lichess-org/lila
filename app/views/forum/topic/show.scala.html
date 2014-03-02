@@ -5,13 +5,14 @@ title = topic.name) {
 <div class="topic">
   @categ.team.map { team =>
   <ol class="crumbs">
+    <li><span data-icon="d" class="is4"></span></li>
     <li>@teamLink(team)</li>
     <li><a href="@routes.ForumCateg.show(categ.slug)">Forum</a></li>
     <li><h1>@topic.name</h1></li>
   </ol>
   }.getOrElse {
   <ol class="crumbs">
-    <li><a href="@routes.ForumCateg.index">Forum</a></li>
+    <li><a style="text-decoration:none" data-icon="d" class="is4" href="@routes.ForumCateg.index"> Forum</a></li>
     <li><a href="@routes.ForumCateg.show(categ.slug)">@categ.name</a></li>
     <li><h1>@topic.name</h1></li>
   </ol>
@@ -53,7 +54,7 @@ title = topic.name) {
       @forum.post.formFields(form("text"), form("author"))
       @base.captcha(form("move"), form("gameId"), captcha)
       @errMsg(form)
-      <input type="submit" class="submit button" value="Reply" />
+      <button type="submit" class="submit button" data-icon="E"> Reply</button>
       <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">@trans.cancel()</a>
     </form>
     }

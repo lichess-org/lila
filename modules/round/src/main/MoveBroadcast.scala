@@ -13,20 +13,20 @@ private final class MoveBroadcast extends Actor {
     context.system.lilaBus.unsubscribe(self)
   }
 
-  val format = Enumeratee.map[MoveEvent] { move ⇒
+  private val format = Enumeratee.map[MoveEvent] { move =>
     s"${move.gameId} ${move.move}${move.meta} ${move.ip}"
   }
 
-  val (enumerator, channel) =
+  private val (enumerator, channel) =
     play.api.libs.iteratee.Concurrent.broadcast[MoveEvent]
 
-  val formattedEnumerator = enumerator &> format
+  private val formattedEnumerator = enumerator &> format
 
   def receive = {
 
-    case MoveBroadcast.GetEnumerator ⇒ sender ! formattedEnumerator
+    case MoveBroadcast.GetEnumerator => sender ! formattedEnumerator
 
-    case move: MoveEvent             ⇒ channel push move
+    case move: MoveEvent             => channel push move
   }
 }
 

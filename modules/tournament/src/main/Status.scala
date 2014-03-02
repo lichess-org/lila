@@ -7,7 +7,7 @@ private[tournament] sealed abstract class Status(val id: Int) extends Ordered[St
   def name = toString
 
   def is(s: Status): Boolean = this == s
-  def is(f: Status.type ⇒ Status): Boolean = is(f(Status))
+  def is(f: Status.type => Status): Boolean = is(f(Status))
 }
 
 private[tournament] object Status {
@@ -18,7 +18,7 @@ private[tournament] object Status {
 
   val all = List(Created, Started, Finished)
 
-  val byId = all map { v ⇒ (v.id, v) } toMap
+  val byId = all map { v => (v.id, v) } toMap
 
   def apply(id: Int): Option[Status] = byId get id
 }

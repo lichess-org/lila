@@ -1,15 +1,9 @@
 @(g: Game)
 
 <div class="vstext clearfix">
-  <div class="left">
-    @playerUsername(g.firstPlayer, false)<br />
-    @g.firstPlayer.rating
-  </div>
-  <div class="right">
-    @playerUsername(g.secondPlayer, false)<br />
-    @g.secondPlayer.rating
-  </div>
-  @g.clock.map { c =>
-  <div class="center"><br />@shortClockName(c)</div>
-  }
+<div class="left">@playerUsername(g.firstPlayer, false)<br />@g.firstPlayer.rating</div>
+<div class="right">@playerUsername(g.secondPlayer, false)<br />@g.secondPlayer.rating</div>
+@g.clock.map { c =>
+<div class="center"><span data-icon="p">&nbsp;@shortClockName(c)</span></div>
+}
 </div>

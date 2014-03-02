@@ -3,6 +3,7 @@ package lila.forum
 import akka.actor._
 import com.typesafe.config.Config
 
+import lila.common.DetectLanguage
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.forum._
 import lila.mod.ModlogApi
@@ -12,6 +13,7 @@ final class Env(
     db: lila.db.Env,
     modLog: ModlogApi,
     hub: lila.hub.Env,
+    detectLanguage: DetectLanguage,
     system: ActorSystem) {
 
   private val settings = new {
@@ -33,14 +35,16 @@ final class Env(
     indexer = hub.actor.forumIndexer,
     maxPerPage = TopicMaxPerPage,
     modLog = modLog,
-    timeline = hub.actor.timeline)
+    timeline = hub.actor.timeline,
+    detectLanguage = detectLanguage)
 
   lazy val postApi = new PostApi(
     env = this,
     indexer = hub.actor.forumIndexer,
     maxPerPage = PostMaxPerPage,
     modLog = modLog,
-    timeline = hub.actor.timeline)
+    timeline = hub.actor.timeline,
+    detectLanguage = detectLanguage)
 
   lazy val forms = new DataForm(hub.actor.captcher)
   lazy val recent = new Recent(postApi, RecentTtl, RecentNb)
@@ -48,9 +52,9 @@ final class Env(
   def cli = new lila.common.Cli {
     import tube._
     def process = {
-      case "forum" :: "denormalize" :: Nil ⇒
+      case "forum" :: "denormalize" :: Nil =>
         topicApi.denormalize >> categApi.denormalize inject "Forum denormalized"
-      case "forum" :: "typecheck" :: Nil ⇒
+      case "forum" :: "typecheck" :: Nil =>
         lila.db.Typecheck.apply[Categ] >>
           lila.db.Typecheck.apply[Topic] >>
           lila.db.Typecheck.apply[Post]
@@ -59,7 +63,7 @@ final class Env(
 
   system.actorOf(Props(new Actor {
     def receive = {
-      case MakeTeam(id, name) ⇒ categApi.makeTeam(id, name)
+      case MakeTeam(id, name) => categApi.makeTeam(id, name)
     }
   }), name = ActorName)
 
@@ -77,5 +81,6 @@ object Env {
     db = lila.db.Env.current,
     modLog = lila.mod.Env.current.logApi,
     hub = lila.hub.Env.current,
+    detectLanguage = DetectLanguage(lila.common.PlayApp loadConfig "detectlanguage"),
     system = lila.common.PlayApp.system)
 }

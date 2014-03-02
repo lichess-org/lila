@@ -1,6 +1,7 @@
 (ns lichess.puzzle.view
-  (:require [lichess.puzzle.core :as core :refer [chess log!]]
+  (:require [lichess.puzzle.core :as core :refer [chess]]
             [jayq.core :as jq :refer [$]]
+            [jayq.util :as jqu :refer [log]]
             [cljs.core.async :as async :refer [chan <! >! alts! put! close! timeout]])
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
@@ -24,7 +25,7 @@
                            #(jq/html $vote %))))))
 
 (defn bind-browse! [$browse]
-  (jq/on $browse :click :button #(put! browse-chan (jq/attr ($ (.-target %)) :value))))
+  (jq/on $browse :click :a #(put! browse-chan (jq/data ($ (.-target %)) :value))))
 
 (defn bind-continue! [$continue]
   (jq/bind $continue :click #(put! continue-chan true)))
@@ -60,11 +61,22 @@
       (jq/html core/$wrap res)
       (lichess.puzzle.play/run!))))
 
+(defn switch-class! [$elem klass switch]
+  ((if switch jq/add-class jq/remove-class) $elem klass))
+
+(defn update-fen-links! [fen]
+  (doseq [link ($ :a.fen_link $puzzle)]
+    (let [href1 (jq/attr ($ link) :href)
+          href2 (clojure.string/replace href1 #"fen=[^#]*(#.+)?$" #(str "fen=" fen %2))]
+      (jq/attr ($ link) :href href2))))
+
 (defn run! [progress]
   (let [$puzzle ($ :#puzzle)
-        $browse ($ :.prev_next $puzzle)
+        $browse ($ :#GameButtons $puzzle)
+        $first ($ :.first $browse)
         $prev ($ :.prev $browse)
         $next ($ :.next $browse)
+        $last ($ :.last $browse)
         lines (js->clj (jq/data $puzzle :lines))
         line (find-best-line-from-progress lines progress)
         history (vec (make-history (jq/data $puzzle :fen) (conj (seq line) (jq/data $puzzle :move))))
@@ -75,21 +87,27 @@
     (bind-vote! ($ :div.vote_wrap $puzzle))
     (bind-continue! ($ :button.continue $puzzle))
     (bind-browse! $browse)
+    (jq/bind ($ :a.continue) :click #(jq/toggle ($ :div.continue)))
     (go
       (loop [step (count progress) animate false]
         (let [[move fen] (get history step)
               is-first (= step 0)
               is-last (= step (- (count history) 1))]
-          (jq/attr $prev :disabled is-first)
-          (jq/attr $next :disabled is-last)
+          (switch-class! $first :disabled is-first)
+          (switch-class! $prev :disabled is-first)
+          (switch-class! $next :disabled is-last)
+          (switch-class! $last :disabled is-last)
           (.position chessboard fen animate)
           (.load core/chess fen)
+          (update-fen-links! fen)
           (core/color-move! $puzzle move)
           (<! (timeout (+ 50 animation-delay)))
           (let [[browse ch] (alts! [browse-chan continue-chan])]
             (if (= ch continue-chan)
               (play-new! $puzzle)
               (do
+                (when (and (= browse "first") (not is-first)) (recur 0 true))
                 (when (and (= browse "prev") (not is-first)) (recur (- step 1) true))
                 (when (and (= browse "next") (not is-last)) (recur (+ step 1) true))
+                (when (and (= browse "last") (not is-last)) (recur (- (count history) 1) true))
                 (recur step false)))))))))

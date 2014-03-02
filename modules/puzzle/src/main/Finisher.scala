@@ -16,8 +16,8 @@ private[puzzle] final class Finisher(
 
   def apply(puzzle: Puzzle, user: User, data: DataForm.AttemptData): Fu[(Attempt, Option[Boolean])] =
     api.attempt.find(puzzle.id, user.id) flatMap {
-      case Some(a) ⇒ fuccess(a -> data.isWin.some)
-      case None ⇒
+      case Some(a) => fuccess(a -> data.isWin.some)
+      case None =>
         val userRating = mkRating(user.perfs.puzzle)
         val puzzleRating = mkRating(puzzle.perf)
         updateRatings(userRating, puzzleRating, data.isWin.fold(Glicko.Result.Win, Glicko.Result.Loss))
@@ -35,14 +35,13 @@ private[puzzle] final class Finisher(
           puzzleRatingDiff = puzzlePerf.intRating - puzzle.perf.intRating,
           userRating = user.perfs.puzzle.intRating,
           userRatingDiff = userPerf.intRating - user.perfs.puzzle.intRating)
-        (api.attempt add a) >> (api.attempt times puzzle.id) flatMap { times ⇒
+        (api.attempt add a) >> {
           puzzleColl.update(
             BSONDocument("_id" -> puzzle.id),
             BSONDocument("$inc" -> BSONDocument(
               Puzzle.BSONFields.attempts -> BSONInteger(1),
               Puzzle.BSONFields.wins -> BSONInteger(data.isWin ? 1 | 0)
             )) ++ BSONDocument("$set" -> BSONDocument(
-              Puzzle.BSONFields.time -> BSONInteger(times.sum / (puzzle.attempts + 1)),
               Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf)
             )) ++ BSONDocument("$addToSet" -> BSONDocument(
               Puzzle.BSONFields.users -> user.id
@@ -65,15 +64,15 @@ private[puzzle] final class Finisher(
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result) {
     val results = new RatingPeriodResults()
     result match {
-      case Glicko.Result.Draw ⇒ results.addDraw(u1, u2)
-      case Glicko.Result.Win  ⇒ results.addResult(u1, u2)
-      case Glicko.Result.Loss ⇒ results.addResult(u2, u1)
+      case Glicko.Result.Draw => results.addDraw(u1, u2)
+      case Glicko.Result.Win  => results.addResult(u1, u2)
+      case Glicko.Result.Loss => results.addResult(u2, u1)
     }
     try {
       system.updateRatings(results)
     }
     catch {
-      case e: Exception ⇒ play.api.Logger("Puzzle finisher").error(e.getMessage)
+      case e: Exception => play.api.Logger("Puzzle finisher").error(e.getMessage)
     }
   }
 }

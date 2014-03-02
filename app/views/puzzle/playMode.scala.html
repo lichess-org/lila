@@ -10,12 +10,12 @@
 
   <div class="side">
     @trainingBox(puzzle, userInfos, true)
-    <div class="comment retry none"><h3><strong>Good move</strong></h3>But you can do better.</div>
-    <div class="comment great none"><h3><strong>Best move!</strong></h3>Keep going...</div>
+    <div class="comment retry none"><h3><strong>@trans.goodMove()</strong></h3>@trans.butYouCanDoBetter()</div>
+    <div class="comment great none"><h3 data-icon="E"> <strong>@trans.bestMove()</strong></h3>@trans.keepGoing()</div>
     @if(asPlay) {
-    <div class="comment fail none"><h3><strong>Puzzle failed</strong></h3></div>
+    <div class="comment fail none"><h3 data-icon="k"> <strong>@trans.puzzleFailed()</strong></h3></div>
     } else {
-    <div class="comment fail none"><h3><strong>Puzzle failed</strong></h3>But you can keep trying.</div>
+    <div class="comment fail none"><h3 data-icon="k"> <strong>@trans.puzzleFailed()</strong></h3>@trans.butYouCanKeepTrying()</div>
     }
   </div>
 
@@ -30,7 +30,7 @@
   </div>
 
   <div class="right">
-    <div class="lichess_table">
+    <div class="lichess_table onbg">
       <div class="table_inner">
 
         <div class="lichess_current_player">
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="lichess_control">
-          <a class="giveup button">Give up</a>
+          <a class="giveup button">@trans.giveUp()</a>
         </div>
       </div>
     </div>

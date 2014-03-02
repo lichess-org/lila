@@ -1,17 +1,17 @@
 package lila.mod
 
 import lila.db.api._
-import lila.security.{ Firewall, UserSpy, Store ⇒ SecurityStore }
+import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo }
 
 final class ModApi(
     logApi: ModlogApi,
-    userSpy: String ⇒ Fu[UserSpy],
+    userSpy: String => Fu[UserSpy],
     firewall: Firewall,
     lobbySocket: akka.actor.ActorSelection) {
 
-  def adjust(mod: String, username: String): Funit = withUser(username) { user ⇒
+  def adjust(mod: String, username: String): Funit = withUser(username) { user =>
     play.api.Logger("ModApi").info(s"$mod marks $username as engine")
     logApi.engine(mod, user.id, !user.engine) zip
       UserRepo.toggleEngine(user.id) void
@@ -19,14 +19,14 @@ final class ModApi(
 
   def autoAdjust(username: String): Funit = adjust("lichess", username)
 
-  def troll(mod: String, username: String): Fu[Boolean] = withUser(username) { u ⇒
+  def troll(mod: String, username: String): Fu[Boolean] = withUser(username) { u =>
     val user = u.copy(troll = !u.troll)
     ((UserRepo updateTroll user) >>-
       logApi.troll(mod, user.id, user.troll)) inject user.troll
   }
 
-  def ban(mod: String, username: String): Funit = withUser(username) { user ⇒
-    userSpy(user.id) flatMap { spy ⇒
+  def ban(mod: String, username: String): Funit = withUser(username) { user =>
+    userSpy(user.id) flatMap { spy =>
       UserRepo.toggleIpBan(user.id) zip
         logApi.ban(mod, user.id, !user.ipBan) zip
         user.ipBan.fold(
@@ -37,21 +37,25 @@ final class ModApi(
     }
   }
 
-  def closeAccount(mod: String, username: String): Funit = withUser(username) { user ⇒
+  def closeAccount(mod: String, username: String): Funit = withUser(username) { user =>
     user.enabled ?? {
       (UserRepo disable user.id) >> logApi.closeAccount(mod, user.id)
     }
   }
 
-  def reopenAccount(mod: String, username: String): Funit = withUser(username) { user ⇒
+  def reopenAccount(mod: String, username: String): Funit = withUser(username) { user =>
     !user.enabled ?? {
       (UserRepo enable user.id) >> logApi.reopenAccount(mod, user.id)
     }
   }
 
+  def setTitle(mod: String, username: String, title: Option[String]): Funit = withUser(username) { user =>
+    UserRepo.setTitle(user.id, title) >> logApi.setTitle(mod, user.id, title)
+  }
+
   def ipban(mod: String, ip: String): Funit =
     (firewall blockIp ip) >> logApi.ipban(mod, ip)
 
-  private def withUser[A](username: String)(op: User ⇒ Fu[A]): Fu[A] =
+  private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     UserRepo named username flatten "[mod] missing user " + username flatMap op
 }

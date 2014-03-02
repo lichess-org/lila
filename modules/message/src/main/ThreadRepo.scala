@@ -43,7 +43,7 @@ object ThreadRepo {
         visibleByUserQuery(userId) ++ Json.obj("posts.isRead" -> false)
       ).some,
       sort = JsObjectWriter.write(Json.obj("updatedAt" -> -1)).some)
-    tube.threadTube.coll.db.command(command) map { res ⇒
+    tube.threadTube.coll.db.command(command) map { res =>
       toJSON(res).arr("results").flatMap(_.apply(0) str "value")
     } map { 
       _ ?? (_ split ';' toList)

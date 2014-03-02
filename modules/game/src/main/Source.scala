@@ -16,7 +16,7 @@ object Source {
   case object Import extends Source(id = 7)
 
   val all = List(Lobby, Friend, Ai, Api, Tournament, Position, Import)
-  val byId = all map { v ⇒ (v.id, v) } toMap
+  val byId = all map { v => (v.id, v) } toMap
 
   def apply(id: Int): Option[Source] = byId get id
 }

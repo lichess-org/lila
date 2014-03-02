@@ -9,16 +9,16 @@ import lila.user.UserContext
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import play.api.templates.Html
 
-trait StringHelper { self: NumberHelper ⇒
+trait StringHelper { self: NumberHelper =>
 
   def netDomain: String
 
   val slugify = lila.common.String.slugify _
 
-  def shorten(text: String, length: Int, sep: String = " [...]"): String = {
+  def shorten(text: String, length: Int, sep: String = " [&#8230;]") = Html {
     val t = text.replace("\n", " ")
-    if (t.size > (length + sep.size)) (t take length) ++ sep
-    else t
+    if (t.size > (length + sep.size)) escape(t take length) ++ sep
+    else escape(t)
   }
 
   def shortenWithBr(text: String, length: Int) = Html {
@@ -38,7 +38,7 @@ trait StringHelper { self: NumberHelper ⇒
 
   private val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))""".r
 
-  def addLinks(text: String) = urlRegex.replaceAllIn(text, m ⇒ {
+  def addLinks(text: String) = urlRegex.replaceAllIn(text, m => {
     val url = delocalize(quoteReplacement(m group 1))
     "<a href='%s'>%s</a>".format(prependHttp(url), url)
   })
@@ -62,9 +62,9 @@ trait StringHelper { self: NumberHelper ⇒
   private val NumberLastRegex = """^(.+)\s(\d+)$""".r
   def splitNumber(s: String)(implicit ctx: UserContext): Html = Html {
     s match {
-      case NumberFirstRegex(number, text) ⇒ "<strong>%s</strong><br />%s".format((~parseIntOption(number)).localize, text)
-      case NumberLastRegex(text, number)  ⇒ "%s<br /><strong>%s</strong>".format(text, (~parseIntOption(number)).localize)
-      case h                              ⇒ h
+      case NumberFirstRegex(number, text) => "<strong>%s</strong><br />%s".format((~parseIntOption(number)).localize, text)
+      case NumberLastRegex(text, number)  => "%s<br /><strong>%s</strong>".format(text, (~parseIntOption(number)).localize)
+      case h                              => h
     }
   }
   def splitNumber(s: Html)(implicit ctx: UserContext): Html = splitNumber(s.body)

@@ -4,9 +4,9 @@ import akka.actor._
 import com.typesafe.config.Config
 import org.elasticsearch.action.search.SearchResponse
 import play.api.libs.json.JsObject
-import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
+import scalastic.elasticsearch.{ Indexer => EsIndexer }
 
-import lila.forum.{ PostApi, Post ⇒ PostModel, PostView }
+import lila.forum.{ PostApi, Post => PostModel, PostView }
 import lila.search.TypeIndexer
 
 final class Env(
@@ -41,7 +41,7 @@ final class Env(
     import lila.search.actorApi.RebuildAll
     private implicit def timeout = makeTimeout minutes 20
     def process = {
-      case "forum" :: "search" :: "reset" :: Nil ⇒
+      case "forum" :: "search" :: "reset" :: Nil =>
         (lowLevelIndexer ? RebuildAll) inject "Forum search index rebuilt"
     }
   }
@@ -59,11 +59,11 @@ final class Env(
     import play.api.libs.iteratee._
     import lila.db.api._
     import lila.forum.tube.postTube
-    esIndexer map { es ⇒
-      $enumerate.bulk[Option[PostModel]]($query[PostModel](sel), 1000) { postOptions ⇒
-        (postApi liteViews postOptions.flatten) map { views ⇒
+    esIndexer map { es =>
+      $enumerate.bulk[Option[PostModel]]($query[PostModel](sel), 1000) { postOptions =>
+        (postApi liteViews postOptions.flatten) map { views =>
           es bulk {
-            views map { view ⇒
+            views map { view =>
               es.index_prepare(
                 IndexName,
                 TypeName,

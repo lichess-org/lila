@@ -21,12 +21,12 @@ private[relation] object RelationRepo {
   def blocking(userId: ID) = relating(userId, Block)
 
   private def relaters(userId: ID, relation: Relation): Fu[Set[ID]] =
-    $projection(Json.obj("u2" -> userId), Seq("u1", "r")) { obj ⇒
+    $projection(Json.obj("u2" -> userId), Seq("u1", "r")) { obj =>
       obj str "u1" map { _ -> ~(obj boolean "r") }
     } map (_.filter(_._2 == relation).map(_._1).toSet)
 
   private def relating(userId: ID, relation: Relation): Fu[Set[ID]] =
-    $projection(Json.obj("u1" -> userId), Seq("u2", "r")) { obj ⇒
+    $projection(Json.obj("u1" -> userId), Seq("u2", "r")) { obj =>
       obj str "u2" map { _ -> ~(obj boolean "r") }
     } map (_.filter(_._2 == relation).map(_._1).toSet)
 

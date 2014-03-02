@@ -18,9 +18,9 @@ private[setup] final class Challenger(
 
   def receive = {
 
-    case msg@RemindChallenge(gameId, from, to) ⇒
+    case msg@RemindChallenge(gameId, from, to) =>
       renderer ? msg foreach {
-        case html: Html ⇒ {
+        case html: Html => {
           val event = SendTo(to, Json.obj(
             "t" -> "challengeReminder",
             "d" -> Json.obj(
@@ -32,6 +32,6 @@ private[setup] final class Challenger(
         }
       }
 
-    case msg@DeclineChallenge(gameId) ⇒ roundHub ! Tell(gameId, msg)
+    case msg@DeclineChallenge(gameId) => roundHub ! Tell(gameId, msg)
   }
 }

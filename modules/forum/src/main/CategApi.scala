@@ -11,11 +11,11 @@ private[forum] final class CategApi(env: Env) {
 
   def list(teams: List[String], troll: Boolean): Fu[List[CategView]] = for {
     categs ← CategRepo withTeams teams
-    views ← (categs map { categ ⇒
-      env.postApi get (categ lastPostId troll) map { topicPost ⇒
+    views ← (categs map { categ =>
+      env.postApi get (categ lastPostId troll) map { topicPost =>
         CategView(categ, topicPost map {
           _ match {
-            case (topic, post) ⇒ (topic, post, env.postApi lastPageOf topic)
+            case (topic, post) => (topic, post, env.postApi lastPageOf topic)
           }
         }, troll)
       }
@@ -25,7 +25,7 @@ private[forum] final class CategApi(env: Env) {
   def teamNbPosts(slug: String): Fu[Int] = CategRepo nbPosts teamSlug(slug)
 
   def makeTeam(slug: String, name: String): Funit =
-    CategRepo.nextPosition flatMap { position ⇒
+    CategRepo.nextPosition flatMap { position =>
       val categ = Categ(
         id = teamSlug(slug),
         name = name,
@@ -51,6 +51,7 @@ private[forum] final class CategApi(env: Env) {
         text = "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
         number = 1,
         troll = false,
+        lang = "en".some,
         categId = categ.id)
       $insert(categ) >>
         $insert(post) >>
@@ -59,7 +60,7 @@ private[forum] final class CategApi(env: Env) {
     }
 
   def show(slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Paginator[TopicView])]] =
-    optionT(CategRepo bySlug slug) flatMap { categ ⇒
+    optionT(CategRepo bySlug slug) flatMap { categ =>
       optionT(env.topicApi.paginator(categ, page, troll) map { (categ, _).some })
     }
 
@@ -82,7 +83,7 @@ private[forum] final class CategApi(env: Env) {
     ))
   } yield ()
 
-  def denormalize: Funit = $find.all[Categ] flatMap { categs ⇒
+  def denormalize: Funit = $find.all[Categ] flatMap { categs =>
     categs.map(denormalize).sequenceFu
   } void
 }

@@ -18,7 +18,7 @@
 }
 
 @underchat = {
-<div class="watchers">
+<div class="watchers" data-icon="v">
   @trans.spectators() <span class="list inline_userlist"></span>
 </div>
 <div class="shortcuts">
@@ -48,20 +48,27 @@ themepicker = true) {
       data-version="@version"
       data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
       class="@color.fold("", "flip")"></div>
-    <div id="GameButtons"></div>
+    <div class="game_control">
+      <a class="button flip" title="@trans.flipBoard()" data-icon="B" href="@routes.Round.watcher(gameId, (!color).name)#0"></a>
+      <a class="fen_link button" title="@trans.boardEditor()" data-icon="m" href="@routes.Editor.game(game.id)?fen="></a>
+      <a class="continue button" title="@trans.continueFromHere()" data-icon="U" href="#"></a>
+      <div id="GameButtons"></div>
+    </div>
+    <div class="continue none">
+      <a class="fen_link button" href="@routes.Round.continue(game.id, "ai")?fen=">@trans.playWithTheMachine()</a>
+      <a class="fen_link button" href="@routes.Round.continue(game.id, "friend")?fen=">@trans.playWithAFriend()</a>
+    </div>
   </div>
   <div class="moves_wrap">
     <div id="GameText"></div>
 
-    <nav class="game_actions">
-      <p>
-        <strong>@trans.opening()</strong> @opening.map { o =>
-        <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
-        }.getOrElse { "Unknown" }
-      </p>
-      <a class="button" href="@routes.Round.watcher(gameId, (!color).name)">&#8635; @trans.flipBoard()</a>
-      <a class="fen_link button" href="@routes.Editor.game(game.id)?fen=">&#9654; @trans.boardEditor()</a>
-    </nav>
+    @if(!game.fromPosition && !game.variant.exotic) {
+    <p>
+      <strong>@trans.opening()</strong> @opening.map { o =>
+      <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
+      }.getOrElse { "Unknown" }
+    </p>
+    }
 
     <div class="advice_summary">
       @round.blurs(game)
@@ -71,7 +78,7 @@ themepicker = true) {
         <thead>
           <tr>
             <th colspan="3">
-              @playerLink(pov.game.player(color), withOnline = false, cssClass = Some("s16 " + color.name))
+              @playerLink(pov.game.player(color), withOnline = false, cssClass = Some("player color " + color.name))
             </th>
           </tr>
         </thead>
@@ -91,19 +98,14 @@ themepicker = true) {
   </div>
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
-<div class="analysis_menu">
-  <a data-panel="computer_analysis" class="active">@trans.computerAnalysis()</a>
-  <a data-panel="fen_pgn">FEN &amp; PGN</a>
-  @if(game.pgnImport.isEmpty) {
-  <a data-panel="move_times">@trans.moveTimes()</a>
-  }
-</div>
 <div class="analysis_panels">
   <div class="panel computer_analysis active">
     @analysis.map { a =>
     @if(a.old && ctx.isAuth) {
     <form class="request_analysis future_game_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
-      <button type="submit" class="button"><span>Request a better computer analysis</span></button>
+      <button type="submit" class="button">
+        <span class="is3" data-icon="A"> Request a better computer analysis</span>
+      </button>
     </form>
     }
     @advantageChart.map { chart =>
@@ -121,20 +123,20 @@ themepicker = true) {
     }.getOrElse {
     @if(game.analysable && analysis.isEmpty) {
     <form class="future_game_analysis@{ctx.isAnon ?? " must_login"}" action="@routes.Analyse.computer(gameId, color.name)" method="post">
-      <button type="submit" class="button"><span>@trans.requestAComputerAnalysis()</span></button>
+      <button type="submit" class="button"><span class="is3" data-icon="A"> @trans.requestAComputerAnalysis()</span></button>
     </form>
     }
     }
     <div class="view_game_analysis future_game_analysis">
       <a class="button" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-        <span>@trans.viewTheComputerAnalysis()</span>
+        <span class="is3" data-icon="A"> @trans.viewTheComputerAnalysis()</span>
       </a>
     </div>
   </div>
   <div class="panel fen_pgn">
-    <p><strong>FEN</strong> <span class="fen"></span></p>
-    <p><strong>PGN</strong> (<a href="@routes.Analyse.pgn(game.id)">Download it</a>)</p>
-    <textarea>@pgn</textarea>
+    <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen" /></p>
+    <p><strong>PGN</strong>(<a data-icon="x" href="@routes.Analyse.pgn(game.id)"> Download it</a>)</p>
+    <div class="pgn">@Html(nl2br(escape(pgn)))</div>
   </div>
   <div class="panel move_times">
     <div
@@ -143,5 +145,12 @@ themepicker = true) {
       data-series="@timeChart.series"
       data-max="@timeChart.maxTime"></div>
   </div>
+</div>
+<div class="analysis_menu">
+  <a data-panel="computer_analysis" class="active">@trans.computerAnalysis()</a>
+  <a data-panel="fen_pgn">FEN &amp; PGN</a>
+  @if(game.pgnImport.isEmpty) {
+  <a data-panel="move_times">@trans.moveTimes()</a>
+  }
 </div>
 }

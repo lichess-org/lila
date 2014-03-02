@@ -41,12 +41,12 @@ private[ai] case class Config(
     setoption("Ponder", false))
 
   def prepare(req: Req) = req match {
-    case r: PlayReq ⇒ List(
+    case r: PlayReq => List(
       setoption("Uci_AnalyseMode", false),
       setoption("Skill Level", skill(r.level)),
       setoption("UCI_Chess960", r.chess960),
       setoption("OwnBook", ownBook(r.level)))
-    case r: AnalReq ⇒ List(
+    case r: AnalReq => List(
       setoption("Uci_AnalyseMode", true),
       setoption("Skill Level", skillMax),
       setoption("UCI_Chess960", r.chess960),
@@ -54,10 +54,10 @@ private[ai] case class Config(
   }
 
   def go(req: Req): List[String] = req match {
-    case r: PlayReq ⇒ List(
+    case r: PlayReq => List(
       position(r.fen, r.moves),
       "go movetime %d%s".format(moveTime(r.level), depth(r.level).??(" depth " + _)))
-    case r: AnalReq ⇒ List(
+    case r: AnalReq => List(
       position(r.fen, r.moves),
       "go movetime %d".format(analyseMoveTime.toMillis))
   }

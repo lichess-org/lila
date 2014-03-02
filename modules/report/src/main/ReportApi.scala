@@ -13,7 +13,7 @@ import tube.reportTube
 private[report] final class ReportApi(evaluator: ActorSelection) {
 
   def create(setup: ReportSetup, by: User): Funit =
-    Reason(setup.reason).fold[Funit](fufail("Invalid report reason " + setup.reason)) { reason ⇒
+    Reason(setup.reason).fold[Funit](fufail("Invalid report reason " + setup.reason)) { reason =>
       val user = setup.user
       val report = Report.make(
         user = setup.user,
@@ -22,10 +22,10 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
         createdBy = by)
       (!report.isCheat || !user.engine) ?? {
         existsToday(user, reason) flatMap {
-          case true ⇒
+          case true =>
             logger.info(s"Skip existing report creation: $reason $user")
             funit
-          case false ⇒ $insert(report) >>- {
+          case false => $insert(report) >>- {
             if (report.isCheat && report.isManual) evaluator ! user
           }
         }
@@ -35,13 +35,13 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
   def autoCheatReport(userId: String, text: String): Funit = {
     logger.info(s"auto cheat reaport $userId: $text")
     UserRepo byId userId zip UserRepo.lichess flatMap {
-      case (Some(user), Some(lichess)) ⇒ create(ReportSetup(
+      case (Some(user), Some(lichess)) => create(ReportSetup(
         user = user,
         reason = "cheat",
         text = text,
         gameId = "",
         move = ""), lichess)
-      case _ ⇒ funit
+      case _ => funit
     }
   }
 

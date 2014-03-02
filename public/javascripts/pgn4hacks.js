@@ -9,7 +9,6 @@ function customFunctionOnPgnGameLoad() {
     return false;
   });
   redrawBoardMarks();
-  $("#GameButtons table").css('width', '514px').find("input").button();
   $("#autoplayButton").click(refreshButtonset);
   $("#GameBoard td").css('background', 'none');
   $('#ShowPgnText > span').each(function() {
@@ -32,31 +31,32 @@ function customFunctionOnMove() {
   var $chart = $("#adv_chart");
   if ($chart.length) {
     var chart = $chart.highcharts();
-    $("#GameBoard img.bestmove").removeClass("bestmove");
-    if (CurrentVar !== 0) {
-      _.each(chart.getSelectedPoints(), function(point) {
-        point.select(false);
-      });
-    } else {
-      if (!isAutoPlayOn) {
-        var ids = uciToSquareIds(lichess_best_moves[CurrentPly] || '');
-        $.each(ids, function() {
-          $("#" + this).addClass("bestmove");
+    if (chart) {
+      $("#GameBoard img.bestmove").removeClass("bestmove");
+      if (CurrentVar !== 0) {
+        _.each(chart.getSelectedPoints(), function(point) {
+          point.select(false);
         });
-      }
-      var index = CurrentPly - 1;
-      var point = chart.series[0].data[index];
-      if (typeof point != "undefined") {
-        point.select();
-        var adv = "Advantage: <strong>" + point.y + "</strong>";
-        var title = point.name + ' ' + adv;
-        chart.setTitle({
-          text: title
-        });
+      } else {
+        if (!isAutoPlayOn) {
+          var ids = uciToSquareIds(lichess_best_moves[CurrentPly] || '');
+          $.each(ids, function() {
+            $("#" + this).addClass("bestmove");
+          });
+        }
+        var index = CurrentPly - 1;
+        var point = chart.series[0].data[index];
+        if (typeof point != "undefined") {
+          point.select();
+          var adv = "Advantage: <strong>" + point.y + "</strong>";
+          var title = point.name + ' ' + adv;
+          chart.setTitle({
+            text: title
+          });
+        }
       }
     }
   }
-  var turn = Math.round(CurrentPly / 2);
   var $gameText = $("#GameText");
   var $moveOn = $gameText.find(".moveOn:first");
   var gtHeight = $gameText.height();
@@ -73,7 +73,15 @@ function customFunctionOnMove() {
   $('a.fen_link').each(function() {
     $(this).attr('href', $(this).attr('href').replace(/fen=.*$/, "fen=" + fen));
   });
-  $('div.fen_pgn .fen').text(fen);
+  $('div.fen_pgn input.fen').val(fen);
+  $('a.flip').each(function() {
+    $(this).attr('href', $(this).attr('href').replace(/#\d+$/, "#" + CurrentPly));
+  });
+  if (!$('#GameBoard').hasClass('initialized')) {
+    $('#GameBoard').addClass('initialized');
+    var ply = parseInt(location.hash.replace(/#/, ''));
+    if (ply) GoToMove(ply, 0);
+  }
 }
 
 // hack: display captures and checks
@@ -92,5 +100,5 @@ function redrawBoardMarks() {
 }
 
 function refreshButtonset() {
-  $("#autoplayButton").addClass("ui-button ui-widget ui-state-default ui-corner-all");
+  $("#autoplayButton").addClass('button');
 }

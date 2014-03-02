@@ -18,7 +18,7 @@ trait TournamentHelper {
       "version" -> version
     )
     Json stringify {
-      user.fold(data) { u ⇒ data ++ Json.obj("username" -> u.username) }
+      user.fold(data) { u => data ++ Json.obj("username" -> u.username) }
     }
   }
 }

@@ -1,7 +1,7 @@
 package lila.setup
 
 import akka.actor._
-import com.typesafe.config.{ Config ⇒ AppConfig }
+import com.typesafe.config.{ Config => AppConfig }
 
 import lila.common.PimpedConfig._
 import lila.game.{ Game, Progress }
@@ -11,7 +11,7 @@ final class Env(
     config: AppConfig,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    aiPlay: Game ⇒ Fu[Progress],
+    aiPlay: Game => Fu[Progress],
     system: ActorSystem) {
 
   private val FriendMemoTtl = config duration "friend.memo.ttl"

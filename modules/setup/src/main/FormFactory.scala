@@ -14,7 +14,7 @@ private[setup] final class FormFactory {
   import Mappings._
 
   def filterFilled(implicit ctx: UserContext): Fu[(Form[FilterConfig], FilterConfig)] =
-    filterConfig map { f ⇒ filter(ctx).fill(f) -> f }
+    filterConfig map { f => filter(ctx).fill(f) -> f }
 
   def filter(ctx: UserContext) = Form(
     mapping(
@@ -28,8 +28,8 @@ private[setup] final class FormFactory {
   def filterConfig(implicit ctx: UserContext): Fu[FilterConfig] = savedConfig map (_.filter)
 
   def aiFilled(fen: Option[String])(implicit ctx: UserContext): Fu[Form[AiConfig]] =
-    aiConfig map { config ⇒
-      ai(ctx) fill fen.fold(config) { f ⇒
+    aiConfig map { config =>
+      ai(ctx) fill fen.fold(config) { f =>
         config.copy(fen = f.some, variant = Variant.FromPosition)
       }
     }
@@ -50,8 +50,8 @@ private[setup] final class FormFactory {
   def aiConfig(implicit ctx: UserContext): Fu[AiConfig] = savedConfig map (_.ai)
 
   def friendFilled(fen: Option[String])(implicit ctx: UserContext): Fu[Form[FriendConfig]] =
-    friendConfig map { config ⇒
-      friend(ctx) fill fen.fold(config) { f ⇒
+    friendConfig map { config =>
+      friend(ctx) fill fen.fold(config) { f =>
         config.copy(fen = f.some, variant = Variant.FromPosition)
       }
     }

@@ -2,9 +2,6 @@
   (:require [jayq.core :as jq :refer [$]]
             [cljs.core.async :as async :refer [chan <! >! alts! put! close! timeout]]))
 
-(defn log! [& args] (.log js/console (apply pr-str args)))
-(defn log-obj! [obj] (.log js/console obj))
-
 (def $wrap ($ :#puzzle_wrap))
 (def chess (new js/Chess))
 
@@ -30,7 +27,7 @@
     (new js/ChessBoard "chessboard"
          (clj->js (merge {:sparePieces false
                           :showNotation false
-                          :pieceTheme (str static-domain "/assets/images/chessboard/{piece}.png")}
+                          :pieceTheme (str static-domain "/assets/images/piece/{piece}.svg")}
                          config)))))
 
 (defn board-marks! [$puzzle]

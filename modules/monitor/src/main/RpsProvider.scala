@@ -12,9 +12,9 @@ private[monitor] final class RpsProvider(timeout: FiniteDuration) {
   def add {
     val current = nowMillis
     counter.single.transform {
-      case (precedent, (count, millis)) if current > millis + tms       ⇒ (0, (1, current))
-      case (precedent, (count, millis)) if current > millis + (tms / 2) ⇒ (count, (1, current))
-      case (precedent, (count, millis))                                 ⇒ (precedent, (count + 1, millis))
+      case (precedent, (count, millis)) if current > millis + tms       => (0, (1, current))
+      case (precedent, (count, millis)) if current > millis + (tms / 2) => (count, (1, current))
+      case (precedent, (count, millis))                                 => (precedent, (count + 1, millis))
     }
   }
 

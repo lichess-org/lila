@@ -3,7 +3,7 @@ package lila.teamSearch
 import play.api.libs.json._
 
 import lila.search.ElasticSearch
-import lila.team.{ Team ⇒ TeamModel }
+import lila.team.{ Team => TeamModel }
 
 private[teamSearch] object Team {
 

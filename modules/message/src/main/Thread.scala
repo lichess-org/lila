@@ -26,12 +26,12 @@ case class Thread(
   def isUnReadBy(user: User) = !isReadBy(user)
 
   def nbUnreadBy(user: User): Int = isCreator(user).fold(
-    posts count { post ⇒ post.isByInvited && post.isUnRead },
-    posts count { post ⇒ post.isByCreator && post.isUnRead })
+    posts count { post => post.isByInvited && post.isUnRead },
+    posts count { post => post.isByCreator && post.isUnRead })
 
   def nbUnread: Int = posts count (_.isUnRead)
 
-  def firstPostUnreadBy(user: User): Option[Post] = posts find { post ⇒
+  def firstPostUnreadBy(user: User): Option[Post] = posts find { post =>
     post.isUnRead && post.isByCreator != isCreator(user)
   }
 
@@ -77,7 +77,7 @@ object Thread {
   import JsTube.Helpers._
   import play.api.libs.json._
 
-  private[message] lazy val tube = Post.tube |> { implicit pt ⇒
+  private[message] lazy val tube = Post.tube |> { implicit pt =>
     JsTube(
       (__.json update (
         readDate('createdAt) andThen readDate('updatedAt)

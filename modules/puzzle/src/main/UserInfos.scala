@@ -23,10 +23,10 @@ object UserInfos {
 
   def apply(attemptColl: Coll) = new {
 
-    def apply(user: User): Fu[UserInfos] = fetchAttempts(user.id) map { attempts ⇒
+    def apply(user: User): Fu[UserInfos] = fetchAttempts(user.id) map { attempts =>
       new UserInfos(user, makeHistory(attempts), makeChart(attempts))
     } recover {
-      case e: Exception ⇒
+      case e: Exception =>
         play.api.Logger("Puzzle UserInfos").error(e.getMessage)
         new UserInfos(user, Nil, JsArray())
     }

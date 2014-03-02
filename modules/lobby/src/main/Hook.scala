@@ -42,7 +42,7 @@ case class Hook(
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this)
 
   private def ratingRangeCompatibleWith(h: Hook) = realRatingRange.fold(true) {
-    range ⇒ h.user.map(_.rating) ?? range.contains
+    range => h.user.map(_.rating) ?? range.contains
   }
 
   private def compatibilityProperties = (variant, time, increment, mode)
@@ -63,7 +63,7 @@ case class Hook(
     "variant" -> realVariant.toString,
     "mode" -> realMode.toString,
     "allowAnon" -> allowAnon,
-    "clock" -> clockOption.map(c ⇒ renderClock(c.limit, c.increment)),
+    "clock" -> clockOption.map(c => renderClock(c.limit, c.increment)),
     "time" -> clockOption.map(_.estimateTotalTime),
     "speed" -> chess.Speed(clockOption).id,
     "emin" -> realRatingRange.map(_.min),
@@ -71,7 +71,7 @@ case class Hook(
     "color" -> chess.Color(color).??(_.name),
     "engine" -> engine)
 
-  private def clockOption = (time filter (_ ⇒ hasClock)) |@| increment apply Clock.apply
+  private def clockOption = (time filter (_ => hasClock)) |@| increment apply Clock.apply
 
   private def renderClock(time: Int, inc: Int) = "%d + %d".format(time / 60, inc)
 }

@@ -7,7 +7,7 @@
     @timeago(tour.createdAt)
     @tour.password.map { password =>
     <br />
-    <span class="s16 lock">
+    <span data-icon="a">
       @if(ctx.userId == tour.createdBy.some) {
       @trans.password(): @tour.password
       } else {
@@ -16,7 +16,7 @@
     </span>
     }
     <br /><br />
-    <span class="s16 clock">@tour.clock.show</span>,
+    <span data-icon="p"> @tour.clock.show</span>,
     @variantName(tour.variant).capitalize,
     @{ tour.rated.fold(trans.rated(), trans.casual()) }
     <br /><br />
@@ -24,12 +24,12 @@
     @if(tour.isRunning && (tour isActive ctx.me)) {
     <br /><br />
     <form action="@routes.Tournament.withdraw(tour.id)" method="POST">
-      <input type="submit" class="submit button strong" value="@trans.withdraw()" />
+      <button type="submit" class="submit button strong" data-icon="b"> @trans.withdraw()</button>
     </form>
     }
     @tour.winner.filter(_ => tour.isFinished).map { winner =>
     <br /><br />
-    @trans.winner(): @userInfosLink(winner.username, winner.rating.some, withOnline = false)
+    @trans.winner(): @userInfosLink(winner.username, none)
     }
   </div>
 </div>

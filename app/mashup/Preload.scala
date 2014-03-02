@@ -27,7 +27,7 @@ final class Preload(
     relations: RelationApi,
     leaderboard: Int => Fu[List[User]],
     progress: Int => Fu[List[User]],
-    timelineEntries: String ⇒ Fu[List[Entry]]) {
+    timelineEntries: String => Fu[List[Entry]]) {
 
   private type RightResponse = (JsObject, List[Entry], List[PostLiteView], List[Created], Option[Game], List[User], List[User])
   private type Response = Either[Call, RightResponse]
@@ -45,7 +45,7 @@ final class Preload(
       leaderboard(10) zip
       progress(10) zip
       filter map {
-        case ((((((((hooks, posts), tours), feat), blocks), entries), leaderboard), progress), filter) ⇒
+        case ((((((((hooks, posts), tours), feat), blocks), entries), leaderboard), progress), filter) =>
           (Right((Json.obj(
             "version" -> history.version,
             "pool" -> JsArray(hooks map (_.render)),

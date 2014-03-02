@@ -6,7 +6,7 @@ import akka.actor.ActorSelection
 import actorApi._
 import lila.chat.actorApi._
 import lila.game.Game
-import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
+import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.i18n.I18nKeys
 
 final class Messenger(
@@ -21,13 +21,13 @@ final class Messenger(
   }
 
   def watcher(gameId: String, member: Member, text: String, socket: ActorRef) =
-    member.userId foreach { userId ⇒
+    member.userId foreach { userId =>
       chat ! UserTalk(gameId + "/w", userId, text, socket)
     }
 
   def owner(gameId: String, member: Member, text: String, socket: ActorRef) =
     chat ! (member.userId match {
-      case Some(userId) ⇒ UserTalk(gameId, userId, text, socket)
-      case None         ⇒ PlayerTalk(gameId, member.color.white, text, socket)
+      case Some(userId) => UserTalk(gameId, userId, text, socket)
+      case None         => PlayerTalk(gameId, member.color.white, text, socket)
     })
 }

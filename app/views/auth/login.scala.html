@@ -11,7 +11,7 @@
       <ul>
         @auth.formFields(form("username"), form("password"))
         <li>
-          <input type="submit" value="@trans.signIn()" class="submit button">
+          <button type="submit" class="submit button" data-icon="F"> @trans.signIn()</button>
         </li>
       </ul>
       <input type="hidden" class="referrer" name="_referrer" value="@referrer.getOrElse(currentUrl)" />
@@ -19,7 +19,7 @@
   </div>
   <div class="alternative">
     @trans.newToLichess()
-    <a href="@routes.Auth.signup()" class="button">@trans.signUp()</a>
+    <a href="@routes.Auth.signup()" class="button" data-icon="F"> @trans.signUp()</a>
   </div>
 </div>
 }

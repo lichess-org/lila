@@ -63,7 +63,7 @@ final class Env(
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.game.Count ⇒ cached.nbGames pipeTo sender
+      case lila.hub.actorApi.game.Count => cached.nbGames pipeTo sender
     }
   }), name = ActorName)
 

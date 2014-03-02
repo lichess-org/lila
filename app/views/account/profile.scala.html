@@ -14,33 +14,35 @@
     <form action="@routes.Account.profileApply" method="POST">
       <ul>
         <li class="field">
-        <label for="@form("country").id">@trans.country()</label>
-        @base.select(form("country"), lila.user.Countries.all, default = "".some)
+          <label for="@form("country").id">@trans.country()</label>
+          @base.select(form("country"), lila.user.Countries.all, default = "".some)
         </li>
         <li class="field">
-        <label for="@form("location").id">@trans.location()</label>
-        @base.input(form("location"))
-        <p class="help">Your city, region, or department.</p>
+          <label for="@form("location").id">@trans.location()</label>
+          @base.input(form("location"))
+          <p class="help">Your city, region, or department.</p>
         </li>
         <li class="field">
-        <label for="@form("bio").id">@trans.biography()</label>
-        <textarea name="@form("bio").name" id="@form("bio").id" cols="25" rows="7">@form("bio").value</textarea>
-        <p class="help">Tell about you, what you like in chess, your favorite openings, games, players...</p>
-        <p class="help">Maximum: 400 characters.</p>
+          <label for="@form("bio").id">@trans.biography()</label>
+          <textarea name="@form("bio").name" id="@form("bio").id" cols="25" rows="7">@form("bio").value</textarea>
+          <p class="help">Tell about you, what you like in chess, your favorite openings, games, players&#8230;</p>
+          <p class="help">Maximum: 400 characters.</p>
         </li>
         <li class="field">
-        <label for="@form("firstName").id">@trans.firstName()</label>
-        @base.input(form("firstName"))
+          <label for="@form("firstName").id">@trans.firstName()</label>
+          @base.input(form("firstName"))
         </li>
         <li class="field">
-        <label for="@form("lastName").id">@trans.lastName()</label>
-        @base.input(form("lastName"))
+          <label for="@form("lastName").id">@trans.lastName()</label>
+          @base.input(form("lastName"))
         </li>
         <li>
-        @errMsg(form)
+          @errMsg(form)
         </li>
         <li>
-        <input type="submit" class="submit button" value="@trans.apply()" />
+          <button type="submit" class="submit button" data-icon="E">
+            @trans.apply()
+          </button>
         </li>
       </ul>
     </form>

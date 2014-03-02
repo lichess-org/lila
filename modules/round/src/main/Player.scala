@@ -19,8 +19,8 @@ private[round] final class Player(
     uciMemo: UciMemo) {
 
   def human(play: HumanPlay, round: ActorRef)(pov: Pov): Fu[Events] = play match {
-    case HumanPlay(playerId, ip, origS, destS, promS, blur, lag, onFailure) ⇒ pov match {
-      case Pov(game, color) if (game playableBy color) ⇒ {
+    case HumanPlay(playerId, ip, origS, destS, promS, blur, lag, onFailure) => pov match {
+      case Pov(game, color) if (game playableBy color) => {
         (for {
           orig ← posAt(origS) toValid "Wrong orig " + origS
           dest ← posAt(destS) toValid "Wrong dest " + destS
@@ -28,35 +28,34 @@ private[round] final class Player(
           newChessGameAndMove ← game.toChess(orig, dest, promotion, lag)
           (newChessGame, move) = newChessGameAndMove
         } yield game.update(newChessGame, move, blur) -> move).prefixFailuresWith(s"$pov ")
-          .fold(errs ⇒ ClientErrorException.future(errs.shows), fuccess).flatMap {
-            case (progress, move) ⇒
+          .fold(errs => ClientErrorException.future(errs.shows), fuccess).flatMap {
+            case (progress, move) =>
               (GameRepo save progress) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, move)) >>-
                 notifyProgress(move, progress, ip) >>
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
                     cheatDetector(progress.game) addEffect {
-                      case Some(color) ⇒ round ! Cheat(color)
-                      case None ⇒ {
+                      case Some(color) => round ! Cheat(color)
+                      case None => 
                         if (progress.game.playableByAi) round ! AiPlay
                         if (game.player.isOfferingDraw) round ! DrawNo(game.player.id)
                         if (game.player.isProposingTakeback) round ! TakebackNo(game.player.id)
-                      }
                     } inject progress.events
                   })
           }
       } addFailureEffect onFailure
-      case Pov(game, _) if game.finished           ⇒ ClientErrorException.future(s"$pov game is finished")
-      case Pov(game, _) if game.aborted            ⇒ ClientErrorException.future(s"$pov game is aborted")
-      case Pov(game, color) if !game.turnOf(color) ⇒ ClientErrorException.future(s"$pov not your turn")
-      case _                                       ⇒ ClientErrorException.future(s"$pov move refused for some reason")
+      case Pov(game, _) if game.finished           => ClientErrorException.future(s"$pov game is finished")
+      case Pov(game, _) if game.aborted            => ClientErrorException.future(s"$pov game is aborted")
+      case Pov(game, color) if !game.turnOf(color) => ClientErrorException.future(s"$pov not your turn")
+      case _                                       => ClientErrorException.future(s"$pov move refused for some reason")
     }
   }
 
   def ai(game: Game): Fu[Progress] =
     (game.playable && game.player.isAi).fold(
       engine.play(game, game.aiLevel | 1) flatMap {
-        case lila.ai.PlayResult(progress, move, host) ⇒ {
+        case lila.ai.PlayResult(progress, move, host) => {
           notifyProgress(move, progress, host.ip)
           moveFinish(progress.game, game.turnColor) map { progress.++ }
         }
@@ -81,8 +80,8 @@ private[round] final class Player(
   }
 
   private def moveFinish(game: Game, color: Color): Fu[Events] = game.status match {
-    case Status.Mate                             ⇒ finisher(game, _.Mate, Some(color))
-    case status@(Status.Stalemate | Status.Draw) ⇒ finisher(game, _ ⇒ status)
-    case _                                       ⇒ fuccess(Nil)
+    case Status.Mate                             => finisher(game, _.Mate, Some(color))
+    case status@(Status.Stalemate | Status.Draw) => finisher(game, _ => status)
+    case _                                       => fuccess(Nil)
   }
 }

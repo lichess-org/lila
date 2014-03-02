@@ -21,7 +21,7 @@ case class Player(
 
   def encodePieces(allPieces: Iterable[(Pos, Piece, Boolean)]): String =
     allPieces collect {
-      case (pos, piece, dead) if piece.color == color ⇒ pos.piotrStr + {
+      case (pos, piece, dead) if piece.color == color => pos.piotrStr + {
         if (dead) piece.role.forsyth.toUpper
         else piece.role.forsyth
       }
@@ -65,10 +65,10 @@ case class Player(
   def withName(name: String) = copy(name = name.some)
 
   def before(other: Player) = ((rating, id), (other.rating, other.id)) match {
-    case ((Some(a), _), (Some(b), _)) if a != b ⇒ a < b
-    case ((Some(_), _), (None, _))              ⇒ true
-    case ((None, _), (Some(_), _))              ⇒ false
-    case ((_, a), (_, b))                       ⇒ a < b
+    case ((Some(a), _), (Some(b), _)) if a != b => a < b
+    case ((Some(_), _), (None, _))              => true
+    case ((None, _), (Some(_), _))              => false
+    case ((_, a), (_, b))                       => a < b
   }
 }
 
@@ -104,13 +104,13 @@ object Player {
   type Id = String
   type UserId = Option[String]
   type Win = Option[Boolean]
-  type Builder = Color ⇒ Id ⇒ UserId ⇒ Win ⇒ Player
+  type Builder = Color => Id => UserId => Win => Player
 
   implicit val playerBSONHandler = new BSON[Builder] {
 
     import BSONFields._
 
-    def reads(r: BSON.Reader) = color ⇒ id ⇒ userId ⇒ win ⇒ Player(
+    def reads(r: BSON.Reader) = color => id => userId => win => Player(
       id = id,
       color = color,
       aiLevel = r intO aiLevel,
@@ -126,7 +126,7 @@ object Player {
       name = r strO name)
 
     def writes(w: BSON.Writer, o: Builder) =
-      o(chess.White)("0000")(none)(none) |> { p ⇒
+      o(chess.White)("0000")(none)(none) |> { p =>
         BSONDocument(
           aiLevel -> p.aiLevel,
           isOfferingDraw -> w.boolO(p.isOfferingDraw),

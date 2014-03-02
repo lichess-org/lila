@@ -9,21 +9,21 @@ import Types._
 object $update {
 
   def apply[ID: Writes, A <: Identified[ID]: JsTubeInColl](doc: A): Funit =
-    (implicitly[JsTube[A]] toMongo doc).fold(e ⇒ fufail(e.toString),
-      js ⇒ apply($select(doc.id), js)
+    (implicitly[JsTube[A]] toMongo doc).fold(e => fufail(e.toString),
+      js => apply($select(doc.id), js)
     )
   def apply[A <: Identified[String]: JsTubeInColl](doc: A): Funit = apply[String, A](doc)
 
   def apply[A: InColl, B: BSONDocumentWriter](selector: JsObject, update: B, upsert: Boolean = false, multi: Boolean = false): Funit =
       implicitly[InColl[A]].coll.update(selector, update, upsert = upsert, multi = multi).void
 
-  def doc[ID: Writes, A <: Identified[ID]: TubeInColl](id: ID)(op: A ⇒ JsObject): Funit =
-    $find byId id flatten "[db] cannot update missing doc" flatMap { doc ⇒
+  def doc[ID: Writes, A <: Identified[ID]: TubeInColl](id: ID)(op: A => JsObject): Funit =
+    $find byId id flatten "[db] cannot update missing doc" flatMap { doc =>
       apply($select(id), op(doc))
     }
 
-  def docBson[ID: Writes, A <: Identified[ID]: TubeInColl](id: ID)(op: A ⇒ BSONDocument): Funit =
-    $find byId id flatten "[db] cannot update missing doc" flatMap { doc ⇒
+  def docBson[ID: Writes, A <: Identified[ID]: TubeInColl](id: ID)(op: A => BSONDocument): Funit =
+    $find byId id flatten "[db] cannot update missing doc" flatMap { doc =>
       apply($select(id), op(doc))
     }
 

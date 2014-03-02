@@ -3,7 +3,7 @@ package lila.gameSearch
 import play.api.libs.json._
 
 import chess.{ OpeningExplorer, Status }
-import lila.game.{ Game ⇒ GameModel }
+import lila.game.{ Game => GameModel }
 import lila.search.ElasticSearch
 import lila.search.ElasticSearch._
 

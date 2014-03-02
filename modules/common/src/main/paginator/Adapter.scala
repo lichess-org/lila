@@ -19,7 +19,7 @@ trait AdapterLike[A] {
   /**
    * FUNCTOR INTERFACE
    */
-  def map[B](f: A ⇒ B): AdapterLike[B] = new AdapterLike[B] {
+  def map[B](f: A => B): AdapterLike[B] = new AdapterLike[B] {
 
     def nbResults = AdapterLike.this.nbResults
 
@@ -27,12 +27,12 @@ trait AdapterLike[A] {
       AdapterLike.this.slice(offset, length) map (_.toList) map2 f
   }
 
-  def mapFuture[B](f: A ⇒ Fu[B]): AdapterLike[B] = new AdapterLike[B] {
+  def mapFuture[B](f: A => Fu[B]): AdapterLike[B] = new AdapterLike[B] {
 
     def nbResults = AdapterLike.this.nbResults
 
     def slice(offset: Int, length: Int) =
-      AdapterLike.this.slice(offset, length) flatMap { results ⇒
+      AdapterLike.this.slice(offset, length) flatMap { results =>
         results.map(f).sequenceFu
       }
   }

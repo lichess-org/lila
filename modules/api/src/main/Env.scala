@@ -10,7 +10,7 @@ final class Env(
     bus: lila.common.Bus,
     pgnDump: lila.game.PgnDump,
     userEnv: lila.user.Env,
-    userIdsSharingIp: String ⇒ Fu[List[String]],
+    userIdsSharingIp: String => Fu[List[String]],
     val isProd: Boolean) {
 
   val CliUsername = config getString "cli.username"

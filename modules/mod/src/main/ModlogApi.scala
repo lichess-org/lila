@@ -26,6 +26,11 @@ final class ModlogApi {
     Modlog(mod, user.some, Modlog.reopenAccount)
   }
 
+  def setTitle(mod: String, user: String, title: Option[String]) = add {
+    val name = title flatMap lila.user.User.titlesMap.get 
+    Modlog(mod, user.some, name.isDefined.fold(Modlog.setTitle, Modlog.removeTitle), details = name)
+  }
+
   def ipban(mod: String, ip: String) = add {
     Modlog(mod, none, Modlog.ipban, ip.some)
   }

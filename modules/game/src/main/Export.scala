@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import org.joda.time.format.{ DateTimeFormat, ISODateTimeFormat, DateTimeFormatter }
 
 import lila.common.CsvServer
-import lila.hub.actorApi.{ router ⇒ R }
+import lila.hub.actorApi.{ router => R }
 import lila.user.User
 import makeTimeout.short
 
@@ -27,9 +27,9 @@ private[game] final class Export(router: akka.actor.ActorSelection) {
     (List(
       R.Watcher(game.id, player.fold("white")(_.color.name)),
       R.Pgn(game.id)
-    ) map { r ⇒
+    ) map { r =>
         router ? R.Nolang(r) mapTo manifest[String]
-      }).sequenceFu map { urls ⇒
+      }).sequenceFu map { urls =>
         (List(
           id,
           dateFormatter.print(game.createdAt),
@@ -40,7 +40,7 @@ private[game] final class Export(router: akka.actor.ActorSelection) {
           game.turns - 1,
           game.variant,
           game.mode,
-          game.clock.fold("unlimited") { c ⇒ "%d %d".format(c.limitInMinutes, c.increment) },
+          game.clock.fold("unlimited") { c => "%d %d".format(c.limitInMinutes, c.increment) },
           (player flatMap (_.rating)).fold("?")(_.toString),
           (player flatMap (_.ratingDiff)).fold("?")(showRatingDiff),
           (player map game.opponent flatMap (_.rating)).fold("?")(_.toString),

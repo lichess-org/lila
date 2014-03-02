@@ -82,7 +82,7 @@ private[tournament] object Pairing {
 
   private def naivePairings(users: List[String]) =
     Random shuffle users grouped 2 collect {
-      case List(u1, u2) ⇒ Pairing(u1, u2)
+      case List(u1, u2) => Pairing(u1, u2)
     } toList
 
   private def smartPairings(users: List[String], pairings: Pairings, nbActiveUsers: Int): Pairings = {
@@ -98,18 +98,18 @@ private[tournament] object Pairing {
 
     // lower is better
     def score(pair: P): Int = pair match {
-      case (a, b) ⇒ justPlayedTogether(a, b).fold(
+      case (a, b) => justPlayedTogether(a, b).fold(
         100,
         -timeSincePlay(a) - timeSincePlay(b))
     }
 
     (users match {
-      case x if x.size < 2                            ⇒ Nil
-      case List(u1, u2) if nbActiveUsers == 2         ⇒ List(u1 -> u2)
-      case List(u1, u2) if justPlayedTogether(u1, u2) ⇒ Nil
-      case List(u1, u2)                               ⇒ List(u1 -> u2)
-      case us ⇒ allPairCombinations(us)
-        .map(c ⇒ c -> c.map(score).sum)
+      case x if x.size < 2                            => Nil
+      case List(u1, u2) if nbActiveUsers == 2         => List(u1 -> u2)
+      case List(u1, u2) if justPlayedTogether(u1, u2) => Nil
+      case List(u1, u2)                               => List(u1 -> u2)
+      case us => allPairCombinations(us)
+        .map(c => c -> c.map(score).sum)
         .sortBy(_._2)
         .headOption
         .map(_._1) | Nil
@@ -117,13 +117,13 @@ private[tournament] object Pairing {
   }
 
   def allPairCombinations(list: List[String]): List[List[(String, String)]] = list match {
-    case a :: rest ⇒ for {
+    case a :: rest => for {
       b ← rest
       init = (a -> b)
       nps = allPairCombinations(rest filter (b !=))
-      ps ← nps.isEmpty.fold(List(List(init)), nps map (np ⇒ init :: np))
+      ps ← nps.isEmpty.fold(List(List(init)), nps map (np => init :: np))
     } yield ps
-    case _ ⇒ Nil
+    case _ => Nil
   }
 }
 

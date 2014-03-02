@@ -3,7 +3,7 @@
 @title = @{ "TV" }
 
 @underchat = {
-<div class="watchers">
+<div class="watchers" data-icon="v">
   @trans.spectators() <span class="list inline_userlist"></span>
 </div>
 }
@@ -21,7 +21,7 @@
     </div>
     }
     <br />
-    <span class="s16 clock">@shortClockName(pov.game.clock)</span>
+    <span data-icon="p"> @shortClockName(pov.game.clock)</span>
     @if(pov.game.variant.exotic) {
     , @variantName(pov.game.variant).capitalize
     }
@@ -47,17 +47,17 @@ active = siteMenu.tv.some) {
     <div class="content">
       <table>
         <tbody>
-        @games.map { g =>
-        <tr>
-          <td><a class="watch s24 eye" href="@routes.Round.watcher(g.id, g.firstPlayer.color.name)"></a></td>
-          <td>
-            @playerLink(g.firstPlayer, withOnline = false, withDiff = true)
-            vs
-            @playerLink(g.secondPlayer, withOnline = false, withDiff = true)
-          </td>
-          <td>@shortClockName(g.clock)</td>
-        </tr>
-        }
+          @games.map { g =>
+          <tr>
+            <td><a class="watch" data-icon="v" href="@routes.Round.watcher(g.id, g.firstPlayer.color.name)"></a></td>
+            <td>
+              @playerLink(g.firstPlayer, withOnline = true, withDiff = true)
+              vs
+              @playerLink(g.secondPlayer, withOnline = true, withDiff = true)
+            </td>
+            <td data-icon="p"> @shortClockName(g.clock)</td>
+          </tr>
+          }
         </tbody>
       </table>
     </div>
