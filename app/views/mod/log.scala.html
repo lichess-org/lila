@@ -16,10 +16,18 @@
 </style>
 <div id="modlog_table" class="content_box no_padding">
   <h1>@title</h1>
-  <table class="datatable"><tbody>
+  <table class="slist">
+    <thead>
+      <tr>
+        <th>Mod</th>
+        <th>Action</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
       @logs.map { log =>
       <tr>
-        <td>@userIdLink(log.mod.some)@timeago(log.date)</td>
+        <td>@userIdLink(log.mod.some)<br />@timeago(log.date)</td>
         <td>@log.showAction.capitalize @log.user.map { u =>
           @userIdLink(u.some)
           }</td>

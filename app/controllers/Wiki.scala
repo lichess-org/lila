@@ -7,13 +7,13 @@ import play.api.mvc._, Results._
 
 object Wiki extends LilaController {
 
-  val home = Open { implicit ctx ⇒
+  val home = Open { implicit ctx =>
     fuccess(Redirect(routes.Wiki.show("Lichess-Wiki")))
   }
 
-  def show(slug: String) = Open { implicit ctx ⇒
+  def show(slug: String) = Open { implicit ctx =>
     OptionOk(Env.wiki.api.show(slug, lang(ctx.req).language)) {
-      case (page, pages) ⇒ html.wiki.show(page, pages)
+      case (page, pages) => html.wiki.show(page, pages)
     }
   }
 }

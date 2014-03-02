@@ -33,20 +33,20 @@ case class UserInfo(
 object UserInfo {
 
   def apply(
-    countUsers: () ⇒ Fu[Int],
+    countUsers: () => Fu[Int],
     bookmarkApi: BookmarkApi,
     relationApi: RelationApi,
     gameCached: lila.game.Cached,
     postApi: PostApi,
-    getRatingChart: User ⇒ Fu[Option[String]],
-    getRank: String ⇒ Fu[Option[Int]])(user: User, ctx: Context): Fu[UserInfo] =
+    getRatingChart: User => Fu[Option[String]],
+    getRank: String => Fu[Option[Int]])(user: User, ctx: Context): Fu[UserInfo] =
     (getRank(user.id) flatMap {
-      _ ?? { rank ⇒ countUsers() map { nb ⇒ (rank -> nb).some } }
+      _ ?? { rank => countUsers() map { nb => (rank -> nb).some } }
     }) zip
       ((ctx is user) ?? {
         gameCached nbPlaying user.id map (_.some)
       }) zip
-      (ctx.me.filter(user!=) ?? { me ⇒
+      (ctx.me.filter(user!=) ?? { me =>
         gameCached.confrontation(me, user) map (_.some filterNot (_.empty))
       }) zip
       (bookmarkApi countByUser user) zip
@@ -57,7 +57,7 @@ object UserInfo {
         relationApi.nbBlockers(user.id) map (_.some)
       }) zip
       postApi.nbByUser(user.id) map {
-        case ((((((((rank, nbPlaying), confrontation), nbBookmark), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts) ⇒ new UserInfo(
+        case ((((((((rank, nbPlaying), confrontation), nbBookmark), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts) => new UserInfo(
           user = user,
           rank = rank,
           nbPlaying = ~nbPlaying,

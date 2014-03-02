@@ -6,7 +6,7 @@ import play.api.templates.Html
 import lila.forum.Post
 import lila.api.Context
 
-trait ForumHelper { self: UserHelper with StringHelper ⇒
+trait ForumHelper { self: UserHelper with StringHelper =>
 
   private object Granter extends lila.forum.Granter {
 
@@ -34,7 +34,7 @@ trait ForumHelper { self: UserHelper with StringHelper ⇒
     cssClass: Option[String] = None,
     withOnline: Boolean = true) = post.userId.fold(
     Html("""<span class="%s">%s</span>""".format(~cssClass, authorName(post)))
-  ) { userId ⇒
+  ) { userId =>
       userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline)
     }
 }

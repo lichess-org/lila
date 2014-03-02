@@ -1,8 +1,8 @@
 @(tour: lila.tournament.Created, form: Option[Html] = None)(implicit ctx: Context)
 
-<h1>@tour.nameT
+<h1 data-icon="g"> @tour.nameT
   @if(tour.hasPassword) {
-  <span class="private s16 lock">@trans.isPrivate()</span>
+  <span data-icon="a"> @trans.isPrivate()</span>
   }
 </h1>
 @form
@@ -22,19 +22,19 @@
           @if(tour contains me) {
           @if(tour.isCreator(me.id) && tour.readyToEarlyStart) {
           <form class="inline" action="@routes.Tournament.earlyStart(tour.id)" method="POST">
-            <input type="submit" class="submit button strong" value="Early Start" />
+            <input type="submit" class="submit button" value="Early Start" />
           </form>
           }
           <form class="inline" action="@routes.Tournament.withdraw(tour.id)" method="POST">
-            <input type="submit" class="submit button strong" value="@trans.withdraw()" />
+            <button type="submit" class="submit button" data-icon="b"> @trans.withdraw()</button>
           </form>
           } else {
           <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
-            <button type="submit" class="submit button strong">
+            <button type="submit" class="submit button">
               @if(tour.hasPassword) {
-              <span class="s16 lock">@trans.join()</span>
+              <span data-icon="a"> @trans.join()</span>
               } else {
-              @trans.join()
+              <span data-icon="F"> @trans.join()</span>
               }
             </button>
           </form>

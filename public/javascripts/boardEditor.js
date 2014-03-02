@@ -2,7 +2,7 @@ $(function() {
   $('#board_editor').each(function() {
     var $wrap = $(this);
     var board;
-    var $string = $wrap.find('.fen-string');
+    var $string = $wrap.find('input.fen-string');
     var $color = $wrap.find('.color').on('change', onChange);
     var castles = {
       wk: 'K',
@@ -29,18 +29,16 @@ $(function() {
 
     function onChange() {
       var rich = getRich();
-      $string.text(rich);
+      $string.val(rich);
       $wrap.find('a.fen_link').each(function() {
         $(this).attr('href', $(this).attr('href').replace(/fen=[^#]*#/, "fen=" + rich + '#'));
       });
-      $wrap.find('a.permalink').each(function() {
-        $(this)
-          .attr('href', $(this).data('url').replace('xxx', rich))
-          .text($(this).data('url').replace('xxx', encodeURIComponent(rich)));
+      $wrap.find('input.permalink').each(function() {
+        $(this).val($(this).data('url').replace('xxx', encodeURIComponent(rich)));
       });
     }
 
-    var pieceTheme = 'http://' + document.domain.replace(/^\w+/, 'static') + '/assets/images/chessboard/{piece}.png';
+    var pieceTheme = 'http://' + document.domain.replace(/^\w+/, 'static') + '/assets/images/piece/{piece}.svg';
     board = new ChessBoard('chessboard', {
       position: toBase($('#chessboard').data('fen')) || 'start',
       draggable: true,
@@ -52,8 +50,10 @@ $(function() {
         setTimeout(onChange, 100);
       }
     });
+    $wrap.find('div.spare-pieces-7492f').addClass('onbg');
+
     onChange();
-    
+
     var displayMarks = function() {
       $.displayBoardMarks($('#chessboard .board-b72b1'), board.orientation() == "white");
     };
@@ -68,7 +68,7 @@ $(function() {
     });
     $wrap.on('click', 'a.load', function() {
       var fen = prompt('Paste FEN position');
-      window.location = $(this).data('url').replace('xxx', fen);
+      if (fen) window.location = $(this).data('url').replace('xxx', fen);
       return false;
     });
   });

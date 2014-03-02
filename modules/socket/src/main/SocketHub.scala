@@ -13,10 +13,7 @@ final class SocketHub extends Actor {
 
   private val sockets = collection.mutable.Set[ActorRef]()
 
-  context.system.lilaBus.subscribe(self,
-    'moveEvent, 'users, 'deploy, 'nbMembers, 'socket,
-    // FIXME this event only concern the current TV room
-    'changeFeaturedGame)
+  context.system.lilaBus.subscribe(self, 'moveEvent, 'users, 'deploy, 'nbMembers, 'socket)
 
   override def postStop() {
     context.system.lilaBus.unsubscribe(self)
@@ -26,11 +23,11 @@ final class SocketHub extends Actor {
 
   def receive = {
 
-    case Subscribe(socket)   ⇒ sockets += socket
+    case Subscribe(socket)   => sockets += socket
 
-    case Unsubscribe(socket) ⇒ sockets -= socket
+    case Unsubscribe(socket) => sockets -= socket
 
-    case msg                 ⇒ sockets foreach (_ ! msg)
+    case msg                 => sockets foreach (_ ! msg)
   }
 }
 

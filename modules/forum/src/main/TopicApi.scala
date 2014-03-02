@@ -8,7 +8,7 @@ import lila.db.api._
 import lila.db.Implicits._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
-import lila.security.{ Granter ⇒ MasterGranter }
+import lila.security.{ Granter => MasterGranter }
 import lila.user.{ User, UserContext }
 import tube._
 
@@ -17,7 +17,8 @@ private[forum] final class TopicApi(
     indexer: ActorSelection,
     maxPerPage: Int,
     modLog: lila.mod.ModlogApi,
-    timeline: ActorSelection) {
+    timeline: ActorSelection,
+    detectLanguage: lila.common.DetectLanguage) {
 
   def show(categSlug: String, slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
@@ -26,7 +27,7 @@ private[forum] final class TopicApi(
         topic ← optionT(TopicRepo(troll).byTree(categSlug, slug))
       } yield categ -> topic).run
       res ← data ?? {
-        case (categ, topic) ⇒ (TopicRepo incViews topic) >>
+        case (categ, topic) => (TopicRepo incViews topic) >>
           (env.postApi.paginator(topic, page, troll) map { (categ, topic, _).some })
       }
     } yield res
@@ -34,39 +35,41 @@ private[forum] final class TopicApi(
   def makeTopic(
     categ: Categ,
     data: DataForm.TopicData)(implicit ctx: UserContext): Fu[Topic] =
-    TopicRepo.nextSlug(categ, data.name) flatMap { slug ⇒
-      val topic = Topic.make(
-        categId = categ.slug,
-        slug = slug,
-        name = data.name,
-        troll = ctx.troll)
-      val post = Post.make(
-        topicId = topic.id,
-        author = data.post.author,
-        userId = ctx.me map (_.id),
-        ip = ctx.isAnon option ctx.req.remoteAddress,
-        troll = ctx.troll,
-        text = data.post.text,
-        number = 1,
-        categId = categ.id)
-      $insert(post) >>
-        $insert(topic withPost post) >>
-        $update(categ withTopic post) >>-
-        (indexer ! InsertPost(post)) >>
-        env.recent.invalidate >>-
-        ((ctx.userId ifFalse post.troll) ?? { userId ⇒
-          timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop ⇒
-            post.isStaff.fold(prop.toStaffFriendsOf(userId), prop.toFriendsOf(userId))
-          )
-        }) inject topic
+    TopicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap {
+      case (slug, lang) =>
+        val topic = Topic.make(
+          categId = categ.slug,
+          slug = slug,
+          name = data.name,
+          troll = ctx.troll)
+        val post = Post.make(
+          topicId = topic.id,
+          author = data.post.author,
+          userId = ctx.me map (_.id),
+          ip = ctx.isAnon option ctx.req.remoteAddress,
+          troll = ctx.troll,
+          text = data.post.text,
+          lang = lang map (_.language),
+          number = 1,
+          categId = categ.id)
+        $insert(post) >>
+          $insert(topic withPost post) >>
+          $update(categ withTopic post) >>-
+          (indexer ! InsertPost(post)) >>
+          env.recent.invalidate >>-
+          ((ctx.userId ifFalse post.troll) ?? { userId =>
+            timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop =>
+              post.isStaff.fold(prop.toStaffFriendsOf(userId), prop.toFriendsOf(userId))
+            )
+          }) inject topic
     }
 
   def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = Paginator(
     adapter = new Adapter[Topic](
       selector = TopicRepo(troll) byCategQuery categ,
       sort = Seq($sort.updatedDesc)
-    ) mapFuture { topic ⇒
-      $find.byId[Post](topic lastPostId troll) map { post ⇒
+    ) mapFuture { topic =>
+      $find.byId[Post](topic lastPostId troll) map { post =>
         TopicView(categ, topic, post, env.postApi lastPageOf topic, troll)
       }
     },
@@ -101,7 +104,7 @@ private[forum] final class TopicApi(
     ))
   } yield ()
 
-  def denormalize: Funit = $find.all[Topic] flatMap { topics ⇒
+  def denormalize: Funit = $find.all[Topic] flatMap { topics =>
     topics.map(denormalize).sequenceFu
   } void
 }

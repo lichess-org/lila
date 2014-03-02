@@ -3,10 +3,17 @@ package templating
 
 import lila.user.UserContext
 
-trait AiHelper { self: I18nHelper ⇒
+trait AiHelper { self: I18nHelper =>
 
   val aiName: String = "Stockfish AI"
 
-  def aiName(level: Int)(implicit ctx: UserContext): String =
-    trans.aiNameLevelAiLevel(aiName, level).body
+  def aiName(level: Int, withRating: Boolean = true)(implicit ctx: UserContext): String = {
+    val name = trans.aiNameLevelAiLevel.str(aiName, level)
+    val rating = withRating ?? {
+      aiRating(level) ?? { r => s" ($r)" }
+    }
+    s"$name$rating"
+  }
+
+  def aiRating(level: Int): Option[Int] = (Env.ai ratingOf level).await
 }

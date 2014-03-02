@@ -28,23 +28,23 @@ private[ai] final class Connection(
 
   def receive = {
 
-    case GetLoad ⇒ sender ! load
+    case GetLoad => sender ! load
 
-    case CalculateLoad ⇒ Future {
+    case CalculateLoad => Future {
       Try(WS.url(router.load).get() map (_.body) map parseIntOption await makeTimeout(config.loadTimeout)) match {
-        case Success(l) ⇒ load = l
-        case Failure(e) ⇒ load = none
+        case Success(l) => load = l
+        case Failure(e) => load = none
       }
     }
-    case Play(uciMoves, fen, level) ⇒ WS.url(router.play).withQueryString(
+    case Play(uciMoves, fen, level) => WS.url(router.play).withQueryString(
       "uciMoves" -> uciMoves.mkString(" "),
       "initialFen" -> fen,
       "level" -> level.toString
-    ).get() flatMap { response ⇒
+    ).get() flatMap { response =>
         DNSLookup(router.play) map { MoveResult(response.body, _) }
       } pipeTo sender
 
-    case Analyse(uciMoves, fen) ⇒ WS.url(router.analyse).withQueryString(
+    case Analyse(uciMoves, fen) => WS.url(router.analyse).withQueryString(
       "uciMoves" -> uciMoves.mkString(" "),
       "initialFen" -> fen
     ).get() map (_.body) pipeTo sender

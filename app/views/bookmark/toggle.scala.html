@@ -1,13 +1,13 @@
 @(g: Game)(implicit ctx: Context)
 
+@ctx.me.map { m =>
+<a class="bookmark@isBookmarked(g, m).fold(" bookmarked", "")" href="@routes.Bookmark.toggle(g.id)"
+  title="@trans.bookmarkThisGame()">
+  <span data-icon="t" class="on is3"> @g.showBookmarks</span>
+  <span data-icon="s" class="off is3"> @g.showBookmarks</span>
+</a>
+}.getOrElse {
 <span class="bookmark">
-  @ctx.me.map { m =>
-  <a
-    href="@routes.Bookmark.toggle(g.id)"
-    class="icon
-    @isBookmarked(g, m).fold("bookmarked", "")"
-    title="@trans.bookmarkThisGame()">@g.showBookmarks</a>
-  }.getOrElse {
-  <span class="icon">@g.showBookmarks</span>
-  }
+  <span data-icon="s" class="is3"> @g.showBookmarks</span>
 </span>
+}

@@ -33,7 +33,7 @@
           <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
             <button type="submit" class="submit button">
               @if(tour.hasPassword) {
-              <span class="s16 lock">@trans.join()</span>
+              <span data-icon="a"> @trans.join()</span>
               } else {
               @trans.join()
               }
@@ -47,7 +47,10 @@
       @if(ctx.isAuth) {
       <tr class="create">
         <td colspan="5">
-          <a href="@routes.Tournament.form()" class="action">@trans.createANewTournament()</a>
+          <br />
+          <a href="@routes.Tournament.form()" class="action button" data-icon="g"> @trans.createANewTournament()</a>
+          <br />
+          <br />
         </td>
       </tr>
       }

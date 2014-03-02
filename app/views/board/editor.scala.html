@@ -24,7 +24,7 @@ themepicker = true) {
       <a class="button clear">@trans.clearBoard()</a>
     </div>
     <div>
-      <a class="button flip">@trans.flipBoard()</a>
+      <a class="button flip" data-icon="B"> @trans.flipBoard()</a>
       <a class="button load" data-url="@routes.Editor.index("xxx")">@trans.loadPosition()</a>
     </div>
     <div>
@@ -50,21 +50,15 @@ themepicker = true) {
     </div>
   </div>
   <div id="chessboard" data-fen="@fen"></div>
-  <table>
-    <tbody>
-      <tr>
-        <th>FEN string</th>
-        <td class="fen-string"></td>
-      </tr>
-      <tr>
-        <th>Permalink</th>
-        <td>
-          @defining(netBaseUrl + routes.Editor.index("xxx")) { url =>
-          <a class="permalink" data-url="@url">@url</a>
-          }
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="copyables">
+    <p>
+      <strong class="name">FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen-string" />
+    </p>
+    <p>
+      @defining(netBaseUrl + routes.Editor.index("xxx")) { url =>
+      <strong class="name">URL</strong><input  data-url="@url" type="input" readonly="true" spellcheck="false" class="copyable permalink" value="@url" />
+      }
+    </p>
+  </div>
 </div>
 }

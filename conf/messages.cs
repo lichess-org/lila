@@ -211,7 +211,6 @@ challengeToPlay=Vyzvat k partii
 player=Hráč
 list=Seznam
 graph=Graf
-all=Vše
 lessThanNbMinutes=Méně než %s minut
 xToYMinutes=%s až %s minut
 textIsTooShort=Text je příliš krátký.

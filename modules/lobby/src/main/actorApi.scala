@@ -18,7 +18,7 @@ object Member {
 }
 
 case class Connected(enumerator: JsEnumerator, member: Member)
-case class WithHooks(op: Iterable[String] ⇒ Unit)
+case class WithHooks(op: Iterable[String] => Unit)
 case class AddHook(hook: Hook)
 case class SaveHook(msg: AddHook)
 case class RemoveHook(hookId: String)

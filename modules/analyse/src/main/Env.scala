@@ -11,7 +11,7 @@ final class Env(
     db: lila.db.Env,
     ai: ActorSelection,
     indexer: ActorSelection,
-    nameUser: String ⇒ Fu[String]) {
+    nameUser: String => Fu[String]) {
 
   private val CollectionAnalysis = config getString "collection.analysis"
   private val NetDomain = config getString "net.domain"
@@ -28,8 +28,6 @@ final class Env(
 
   lazy val annotator = new Annotator(NetDomain)
 
-  lazy val timeChart = TimeChart(nameUser) _
-
   lazy val cached = new {
     private val cache: Cache[Int] = LruCache(timeToLive = CachedNbTtl)
     def nbAnalysis: Fu[Int] = cache(true)(AnalysisRepo.count)
@@ -38,7 +36,7 @@ final class Env(
   def cli = new lila.common.Cli {
     import tube.analysisTube
     def process = {
-      case "analyse" :: "typecheck" :: Nil ⇒ lila.db.Typecheck.apply[Analysis](false)
+      case "analyse" :: "typecheck" :: Nil => lila.db.Typecheck.apply[Analysis](false)
     }
   }
 }

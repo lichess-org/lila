@@ -30,7 +30,7 @@ $(function() {
     title: {
       floating: true,
       style: {
-        font: '12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif',
+        font: '12px Open Sans, Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif',
         color: '#bababa',
       }
     },

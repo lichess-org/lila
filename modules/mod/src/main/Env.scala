@@ -30,7 +30,7 @@ final class Env(
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.mod.MarkCheater(userId) ⇒ api autoAdjust userId
+      case lila.hub.actorApi.mod.MarkCheater(userId) => api autoAdjust userId
     }
   }), name = ActorName)
 }

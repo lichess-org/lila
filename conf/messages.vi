@@ -211,7 +211,6 @@ challengeToPlay=Yêu cầu chơi
 player=Người chơi
 list=Danh sách
 graph=Biểu đồ
-all=Tất cả
 lessThanNbMinutes=Ít hơn %s phút
 xToYMinutes=%s đến %s phút
 textIsTooShort=Câu quá ngắn

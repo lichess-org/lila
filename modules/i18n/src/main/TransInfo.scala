@@ -24,7 +24,7 @@ case class TransInfo(
 
 private[i18n] case class TransInfos(all: List[TransInfo]) {
 
-  lazy val byCode = all map { info ⇒
+  lazy val byCode = all map { info =>
     info.code -> info
   } toMap
 
@@ -38,9 +38,9 @@ private[i18n] object TransInfos {
   val defaultCode = "en"
 
   def apply(api: MessagesApi, keys: I18nKeys): TransInfos = TransInfos {
-    val nbMessages = keys.keys.size
+    val nbMessages = keys.count
     LangList.sortedList.filter(_._1 != defaultCode) map {
-      case (code, name) ⇒ TransInfo(
+      case (code, name) => TransInfo(
         lang = Lang(code),
         name = name,
         contributors = Contributors(code),

@@ -12,11 +12,11 @@ private[simulation] case class PlayerConfig(
   private val defaultClockConfig = (5, 8)
 
   private def randomClockConfig = Random.nextInt(5) match {
-    case 0 ⇒ (1, 0)
-    case 1 ⇒ (0, 1)
-    case 2 ⇒ (3, 3)
-    case 3 ⇒ (5, 8)
-    case _ ⇒ (2, 12)
+    case 0 => (1, 0)
+    case 1 => (0, 1)
+    case 2 => (3, 3)
+    case 3 => (5, 8)
+    case _ => (2, 12)
   }
 
   def hookConfig = {

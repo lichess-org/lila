@@ -1,6 +1,6 @@
 @(field: play.api.data.Field, options: Iterable[(Any,String)], default: Option[String] = None)
 
-<select id="@field.id" name="@field.name">
+<select name="@field.name">
   @default.map { d =>
   <option value="">@d</option>
   }

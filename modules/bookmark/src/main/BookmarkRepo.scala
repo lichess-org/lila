@@ -13,7 +13,7 @@ case class Bookmark(game: lila.game.Game, user: lila.user.User)
 private[bookmark] object BookmarkRepo {
 
   def toggle(gameId: String, userId: String): Fu[Boolean] =
-    $count exists selectId(gameId, userId) flatMap { e ⇒
+    $count exists selectId(gameId, userId) flatMap { e =>
       e.fold(
         remove(gameId, userId),
         add(gameId, userId, DateTime.now)

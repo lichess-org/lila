@@ -47,7 +47,7 @@ trait ListSteroids {
 
   implicit class LilaPimpedTryList[A](list: List[Try[A]]) {
     def sequence: Try[List[A]] = (Try(List[A]()) /: list) {
-      (a, b) ⇒ a flatMap (c ⇒ b map (d ⇒ d :: c))
+      (a, b) => a flatMap (c => b map (d => d :: c))
     } map (_.reverse)
   }
 }
@@ -60,15 +60,15 @@ trait BooleanSteroids {
    */
   implicit class LilaPimpedBoolean(self: Boolean) {
 
-    def ??[A](a: ⇒ A)(implicit z: Zero[A]): A = if (self) a else Zero[A].zero
+    def ??[A](a: => A)(implicit z: Zero[A]): A = if (self) a else Zero[A].zero
 
-    def !(f: ⇒ Unit) = if (self) f
+    def !(f: => Unit) = if (self) f
 
-    def fold[A](t: ⇒ A, f: ⇒ A): A = if (self) t else f
+    def fold[A](t: => A, f: => A): A = if (self) t else f
 
-    def ?[X](t: ⇒ X) = new { def |(f: ⇒ X) = if (self) t else f }
+    def ?[X](t: => X) = new { def |(f: => X) = if (self) t else f }
 
-    def option[A](a: ⇒ A): Option[A] = if (self) Some(a) else None
+    def option[A](a: => A): Option[A] = if (self) Some(a) else None
   }
 }
 
@@ -80,23 +80,23 @@ trait OptionSteroids {
    */
   implicit class LilaPimpedOption[A](self: Option[A]) {
 
-    import scalaz.std.{ option ⇒ o }
+    import scalaz.std.{ option => o }
 
-    def fold[X](some: A ⇒ X, none: ⇒ X): X = self match {
-      case None    ⇒ none
-      case Some(a) ⇒ some(a)
+    def fold[X](some: A => X, none: => X): X = self match {
+      case None    => none
+      case Some(a) => some(a)
     }
 
-    def |(a: ⇒ A): A = self getOrElse a
+    def |(a: => A): A = self getOrElse a
 
     def unary_~(implicit z: Zero[A]): A = self getOrElse z.zero
 
-    def toSuccess[E](e: ⇒ E): scalaz.Validation[E, A] = o.toSuccess(self)(e)
+    def toSuccess[E](e: => E): scalaz.Validation[E, A] = o.toSuccess(self)(e)
 
-    def toFailure[B](b: ⇒ B): scalaz.Validation[A, B] = o.toFailure(self)(b)
+    def toFailure[B](b: => B): scalaz.Validation[A, B] = o.toFailure(self)(b)
 
-    def err(message: ⇒ String): A = self.getOrElse(sys.error(message))
+    def err(message: => String): A = self.getOrElse(sys.error(message))
 
-    def ifNone(n: ⇒ Unit): Unit = if (self.isEmpty) n
+    def ifNone(n: => Unit): Unit = if (self.isEmpty) n
   }
 }

@@ -17,8 +17,8 @@
       @defining(netBaseUrl + routes.Round.watcher(captcha.gameId, captcha.white.fold("white", "black"))) { url =>
       Help: <a title="View the solution" target="_blank" href="@url">@url</a>
       }
-      <div class="result success">@trans.checkmate()</div>
-      <div class="result failure">@trans.notACheckmate()<br /><button class="button retry">@trans.retry()</button></div>
+      <div class="result success" data-icon="E"> @trans.checkmate()</div>
+      <div class="result failure" data-icon="k"> @trans.notACheckmate()<br /><button class="button retry">@trans.retry()</button></div>
     </label>
     <input type="hidden" name="@move.name" id="@move.id" value="" />
   </div>

@@ -56,9 +56,9 @@ trait UserRepo {
   def byIds(ids: Iterable[ID]): Fu[List[User]] = $find byIds ids
 
   def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =
-    $find byIds List(x, y).flatten map { users ⇒
-      x.??(xx ⇒ users.find(_.id == xx)) ->
-        y.??(yy ⇒ users.find(_.id == yy))
+    $find byIds List(x, y).flatten map { users =>
+      x.??(xx => users.find(_.id == xx)) ->
+        y.??(yy => users.find(_.id == yy))
     }
 
   def byOrderedIds(ids: Iterable[ID]): Fu[List[User]] = $find byOrderedIds ids
@@ -93,6 +93,11 @@ trait UserRepo {
   def setProfile(id: ID, profile: Profile): Funit =
     $update($select(id), $setBson("profile" -> Profile.tube.handler.write(profile)))
 
+  def setTitle(id: ID, title: Option[String]): Funit = title match {
+    case Some(t) => $update.field(id, "title", t)
+    case None    => $update($select(id), $unset("title"))
+  }
+
   def setEvaluated(id: ID, v: Boolean): Funit = $update.field(id, "evaluated", v)
   def isEvaluated(id: ID): Fu[Boolean] =
     $primitive.one($select(id), "evaluated")(_.asOpt[Boolean]) map (~_)
@@ -114,20 +119,20 @@ trait UserRepo {
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Int) = {
     val incs = List(
       "count.game".some,
-      "count.rated".some filter (_ ⇒ rated),
-      "count.ai".some filter (_ ⇒ ai),
+      "count.rated".some filter (_ => rated),
+      "count.ai".some filter (_ => ai),
       (result match {
-        case -1 ⇒ "count.loss".some
-        case 1  ⇒ "count.win".some
-        case 0  ⇒ "count.draw".some
-        case _  ⇒ none
+        case -1 => "count.loss".some
+        case 1  => "count.win".some
+        case 0  => "count.draw".some
+        case _  => none
       }),
       (result match {
-        case -1 ⇒ "count.lossH".some
-        case 1  ⇒ "count.winH".some
-        case 0  ⇒ "count.drawH".some
-        case _  ⇒ none
-      }) filterNot (_ ⇒ ai)
+        case -1 => "count.lossH".some
+        case 1  => "count.winH".some
+        case 0  => "count.drawH".some
+        case _  => none
+      }) filterNot (_ => ai)
     ).flatten map (_ -> 1)
 
     $update($select(id), $incBson(incs: _*))
@@ -135,7 +140,7 @@ trait UserRepo {
 
   def incToints(id: ID)(nb: Int) = $update($select(id), $incBson("toints" -> nb))
 
-  def averageRating: Fu[Float] = $primitive($select.all, "rating")(_.asOpt[Float]) map { ratings ⇒
+  def averageRating: Fu[Float] = $primitive($select.all, "rating")(_.asOpt[Float]) map { ratings =>
     ratings.sum / ratings.size.toFloat
   }
 
@@ -157,10 +162,10 @@ trait UserRepo {
   }
 
   def checkPassword(id: ID, password: String): Fu[Boolean] =
-    $projection.one($select(id), Seq("password", "salt", "enabled", "sha512")) { obj ⇒
+    $projection.one($select(id), Seq("password", "salt", "enabled", "sha512")) { obj =>
       (AuthData.reader reads obj).asOpt
     } map {
-      _ ?? (data ⇒ data.enabled && data.compare(password))
+      _ ?? (data => data.enabled && data.compare(password))
     }
 
   def create(username: String, password: String): Fu[Option[User]] =
@@ -177,7 +182,7 @@ trait UserRepo {
 
   def usernamesLike(username: String, max: Int = 10): Fu[List[String]] = {
     import java.util.regex.Matcher.quoteReplacement
-    val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), m ⇒ quoteReplacement(m group 1))
+    val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), m => quoteReplacement(m group 1))
     val regex = "^" + escaped + ".*$"
     $primitive(
       $select byId $regex(regex),
@@ -187,14 +192,14 @@ trait UserRepo {
     )(_.asOpt[String])
   }
 
-  def toggleEngine(id: ID): Funit = $update.docBson[ID, User](id) { u ⇒
+  def toggleEngine(id: ID): Funit = $update.docBson[ID, User](id) { u =>
     $setBson(
       "engine" -> BSONBoolean(!u.engine),
       "rating" -> BSONInteger(u.engine.fold(u.perfs.global.glicko, Glicko.default).intRating)
     )
   }
 
-  def toggleIpBan(id: ID) = $update.doc[ID, User](id) { u ⇒ $set("ipBan" -> !u.ipBan) }
+  def toggleIpBan(id: ID) = $update.doc[ID, User](id) { u => $set("ipBan" -> !u.ipBan) }
 
   def updateTroll(user: User) = $update.field(user.id, "troll", user.troll)
 
@@ -208,8 +213,8 @@ trait UserRepo {
   def disable(id: ID) = $update.field(id, "enabled", false)
 
   def passwd(id: ID, password: String): Funit =
-    $primitive.one($select(id), "salt")(_.asOpt[String]) flatMap { saltOption ⇒
-      saltOption ?? { salt ⇒
+    $primitive.one($select(id), "salt")(_.asOpt[String]) flatMap { saltOption =>
+      saltOption ?? { salt =>
         $update($select(id), $set(Json.obj(
           "password" -> hash(password, salt),
           "sha512" -> false)))
@@ -230,8 +235,8 @@ trait UserRepo {
       Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
       Group(BSONBoolean(true))("rating" -> SumField("rating"))
     ))
-    userTube.coll.db.command(command) map { stream ⇒
-      stream.toList.headOption flatMap { obj ⇒
+    userTube.coll.db.command(command) map { stream =>
+      stream.toList.headOption flatMap { obj =>
         toJSON(obj).asOpt[JsObject]
       } flatMap { _ int "rating" }
     } map (~_ / ids.size)
@@ -243,8 +248,8 @@ trait UserRepo {
       Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
       Group(BSONBoolean(true))("toints" -> SumField("toints"))
     ))
-    userTube.coll.db.command(command) map { stream ⇒
-      stream.toList.headOption flatMap { obj ⇒
+    userTube.coll.db.command(command) map { stream =>
+      stream.toList.headOption flatMap { obj =>
         toJSON(obj).asOpt[JsObject]
       } flatMap { _ int "toints" }
     } map (~_)

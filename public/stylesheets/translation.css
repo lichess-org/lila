@@ -26,18 +26,6 @@ table.translations div.progressbar {
 div.locale_menu {
   margin-top: 2em;
 }
-div.locale_menu a {
-  display: block;
-  float: left;
-  padding: 0.5em 1em;
-  border: 1px solid #dadada;
-  margin-right: 1em;
-  text-decoration: none;
-  border-radius:4px;
-}
-div.locale_menu a:hover {
-  box-shadow: 0 0 9px #d85000;
-}
 
 .error {
   color: red;

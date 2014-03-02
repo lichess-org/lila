@@ -1,7 +1,6 @@
 #pgnText {
   display: none;
 }
-
 div.board_wrap {
   float: left;
   width: 514px;
@@ -24,36 +23,34 @@ span.board_mark.vert {
 span.board_mark.horz {
   bottom: -14px;
 }
-
 div.analysis_menu {
   width: 512px;
   text-align: center;
-  border-bottom: 1px solid #c0c0c0;
+  border-top: 1px solid #c0c0c0;
   height: 21px;
 }
 div.analysis_menu > a {
-  background: #e0e0e0;
+  background: #f0f0f0;
   border: 1px solid #c0c0c0;
   text-decoration: none;
   padding: 2px 8px;
   height: 16px;
   line-height: 16px;
-  margin: 0 0 0 -5px;
+  margin: -1px 0 0 -5px;
   display: inline-block;
   cursor: pointer;
 }
 div.analysis_menu > a.active {
-  border-bottom: 0;
   background-color: #f7f7f7;
-  border-bottom: 1px solid #f7f7f7;
+  border-top: 1px solid #f7f7f7;
 }
 div.analysis_panels > div {
   width: 512px;
-  min-height: 150px;
+  height: 210px;
+  max-height: 210px;
   display: none;
-}
-div.analysis_panels > div.fen_pgn {
-  margin-top: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 div.analysis_panels > div.active {
   display: block;
@@ -66,7 +63,7 @@ div.game_analysis {
   display: none;
 }
 .future_game_analysis {
-  margin-top: 2em;
+  margin-top: 70px;
   text-align: center;
 }
 .future_game_analysis .spinner {
@@ -80,96 +77,73 @@ div.game_analysis {
   display: inline-block;
   line-height: 24px;
 }
-.future_game_analysis .button span {
-  background: url("../images/s24.png") no-repeat 0 -72px;
-  display: inline-block;
-  height: 24px;
-  padding-left: 30px;
-}
 div.fen_pgn p {
   margin: 0.6em 0;
 }
-div.fen_pgn .fen {
+div.fen_pgn strong,
+div.fen_pgn input.fen,
+div.fen_pgn .pgn {
   font-family: monospace;
 }
-div.fen_pgn textarea {
-  display: block;
-  width: 100%;
-  height: 200px;
-  font-family: monospace;
-  line-height: normal;
-  margin: 0;
-  background: none;
-  color: #888;
-  border: none;
-  padding: 0;
+div.fen_pgn strong {
+  font-size: 1.1em;
+  display:inline-block;
+  margin-right: 7px;
 }
-.game_actions {
+div.fen_pgn input.fen {
+  width: 450px;
 }
-.game_actions .button {
-  margin-top: 1em;
-  display: inline-block;
-}
-
 #GameBoard {
   position: relative;
-}
-
-#GameBoard table.boardTable {
+  width: 512px;
+  height: 512px;
   border: 1px solid #ccc;
 }
-#GameBoard.flip table, #GameBoard.flip img.pieceImage {
+#GameBoard.flip table,
+#GameBoard.flip img.pieceImage {
   -o-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
 }
-#GameBoard td.highlightWhiteSquare img,
-#GameBoard td.highlightBlackSquare img {
-  background: url(../images/over5.png) no-repeat;
-}
-#GameBoard td img.bestmove {
-  background: url(../images/sover.png) no-repeat;
-  background-position: 0 -64px;
-}
 #GameBoard td img {
   width: 64px;
   height: 64px;
   display: block;
 }
-
-#GameButtons {
+div.game_control,
+div.continue {
   margin-top: 20px;
+  text-align: center;
 }
-#GameButtons input {
-  width: 100px;
-  height: 2em;
+div.game_control a {
+  font-size: 1.5em;
+  display: inline-block;
 }
-
+#GameButtons {
+  display: inline-block;
+  margin-left: 10px;
+}
+#GameButtons a {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  margin-left: -1px;
+  margin-right: -2px;
+}
 #GameText {
   font-size: 15px;
   width: 242px;
-  height: 374px;
+  height: 438px;
   margin-bottom: 1em;
   padding: 5px 7px;
   background: #f7f7f7;
   border: 1px solid #ccc;
   overflow: auto;
 }
-
-/* @font-face { */
-/*   font-family: 'pgn4web ChessSansMerida'; */
-/*   src: url('ChessSansMerida.eot'); */
-/*   src: url('/assets/vendor/pgn4web/fonts/ChessSansMerida.eot?#iefix') format('embedded-opentype'), url('/assets/vendor/pgn4web/fonts/ChessSansMerida.woff') format('woff'), url('/assets/vendor/pgn4web/fonts/ChessSansMerida.ttf') format('truetype'), url('/assets/vendor/pgn4web/fonts/ChessSansMerida.svg#ChessSansMerida') format('svg'); */
-/* } */
-@font-face {
-  font-family: 'pgn4web ChessSansPiratf';
-  src: url('ChessSansPiratf.eot');
-  src: url('/assets/vendor/pgn4web/fonts/ChessSansPiratf.eot?#iefix') format('embedded-opentype'), url('/assets/vendor/pgn4web/fonts/ChessSansPiratf.woff') format('woff'), url('/assets/vendor/pgn4web/fonts/ChessSansPiratf.ttf') format('truetype'), url('/assets/vendor/pgn4web/fonts/ChessSansPiratf.svg#ChessSansPiratf') format('svg');
-}
-#GameText .move, #GameText .variation {
-  /* font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif; */
+#GameText .move,
+#GameText .variation {
   font-family: 'pgn4web ChessSansPiratf', 'pgn4web Liberation Sans', sans-serif;
   text-decoration: none;
   padding-top: 3px;
@@ -178,33 +152,33 @@ div.fen_pgn textarea {
   color: #b57600;
 }
 /* played */
+
 #GameText .move {
   color: #444;
 }
-/* played move SAN */
-#GameText a.move {
-  font-weight: bold;
-}
 /* any move number */
+
 #GameText span {
   padding-right: 0;
 }
 /* any move SAN */
+
 #GameText a {
   padding-right: 4px;
   padding-left: 4px;
 }
-#GameText .comment, #GameText .variation {
+#GameText .comment,
+#GameText .variation {
   font-size: 80%;
 }
 #GameText .comment {
   display: block;
 }
-
 #GameText a:hover {
   background: #e0e0e0;
 }
-#GameText .moveOn, #GameText .variationOn  {
+#GameText .moveOn,
+#GameText .variationOn {
   border: 1px solid #909090;
   padding: 2px 3px;
 }
@@ -225,12 +199,11 @@ div.advice_summary td {
 div.advice_summary thead th {
   padding: 3px 0;
 }
-
-#adv_chart, #movetimes_chart {
+#adv_chart,
+#movetimes_chart {
   height: 200px;
   width: 512px;
 }
-
 div.shortcuts .title {
   margin: 1.5em 0 0.5em 0;
   display: block;

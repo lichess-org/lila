@@ -4,7 +4,7 @@ package templating
 import lila.api.Context
 import lila.team.Team
 
-trait IRCHelper { self: TeamHelper with SecurityHelper with I18nHelper ⇒
+trait IRCHelper { self: TeamHelper with SecurityHelper with I18nHelper =>
 
   private val prompt = "1"
   private val uio = "OT10cnVlde"

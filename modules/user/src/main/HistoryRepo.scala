@@ -44,16 +44,16 @@ object HistoryRepo {
   def userRatings(userId: String, slice: Option[Int] = None): Fu[List[HistoryEntry]] =
     historyColl.find(
       BSONDocument("_id" -> userId),
-      BSONDocument("_id" -> false) ++ slice.fold(BSONDocument()) { s ⇒
+      BSONDocument("_id" -> false) ++ slice.fold(BSONDocument()) { s =>
         BSONDocument("e" -> BSONDocument("$slice" -> s))
       }
-    ).one[BSONDocument] map { historyOption ⇒
+    ).one[BSONDocument] map { historyOption =>
         ~(for {
           history ← historyOption
           entries ← history.getAs[BSONArray]("e")
           stream = entries.values map arrayReader.readOpt
           elems = stream collect {
-            case Some(array) ⇒ HistoryEntry(
+            case Some(array) => HistoryEntry(
               new DateTime(~array.getAs[Int](0) * 1000l),
               ~array.getAs[Int](1),
               ~array.getAs[Int](2),

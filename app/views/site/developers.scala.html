@@ -3,16 +3,41 @@
 @site.layout(
 title = "Developers") {
 
-<div class="content_box small_box developers">
-  <h1 class="lichess_title">Developers</h1>
+<div class="content_box small_box">
+  <h1 class="lichess_title">Embed lichess in your site</h1>
 
   <p>
-    Do you have a chess website, and want to add a live chess section?<br />
+    Do you have a website, and want to add a playable live chess section?<br />
     Add the following line to your site html:
   </p>
 
-  <pre>&lt;script src="http://en.lichess.org/embed?w=820h=650"&gt;&lt;/script&gt;</pre>
+  <pre>&lt;script src="http://en.@netDomain/embed?w=820h=650"&gt;&lt;/script&gt;</pre>
 
   <p>The <strong>w</strong> and <strong>h</strong> parameters control the width and height of the chess window.</p>
+</div>
+
+<br />
+<br />
+
+<div class="content_box small_box developers">
+  <h1 id="embed-tv" class="lichess_title">Embed the Chess TV in your site</h1>
+
+  <div style="text-align: center;">
+    <script src="http://en.@netDomain/tv/embed?theme=wood&bg=light"></script>
+  </div>
+
+  <p>
+    Just add the following line to your site html:
+  </p>
+
+  <pre>&lt;script src="http://en.@netDomain/tv/embed?theme=brown&bg=light"&gt;&lt;/script&gt;</pre>
+
+  <p>
+    Parameters:
+    <ul>
+      <li>- <strong>theme</strong>: Controls the board theme. Available themes: brown, blue, green, purple, yellow, grey, wood, canvas, leather.</li>
+      <li>- <strong>bg</strong>: Controls the background color. Available backgrounds: light, dark.</li>
+    </ul>
+  </p>
 </div>
 }

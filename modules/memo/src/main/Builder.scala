@@ -14,7 +14,7 @@ object Builder {
    * A caching wrapper for a function (K => V),
    * backed by a Cache from Google Collections.
    */
-  def cache[K, V](ttl: Duration, f: K ⇒ V): LoadingCache[K, V] =
+  def cache[K, V](ttl: Duration, f: K => V): LoadingCache[K, V] =
     cacheBuilder[K, V](ttl)
       .build[K, V](f)
 
@@ -26,18 +26,18 @@ object Builder {
       .expireAfterWrite(ttl, TimeUnit.MILLISECONDS)
       .asInstanceOf[CacheBuilder[K, V]]
 
-  implicit def functionToRemovalListener[K, V](f: (K, V) ⇒ Unit): RemovalListener[K, V] =
+  implicit def functionToRemovalListener[K, V](f: (K, V) => Unit): RemovalListener[K, V] =
     new RemovalListener[K, V] {
       def onRemoval(notification: RemovalNotification[K, V]) =
         f(notification.getKey, notification.getValue)
     }
 
-  implicit def functionToGoogleFunction[T, R](f: T ⇒ R): Function[T, R] =
+  implicit def functionToGoogleFunction[T, R](f: T => R): Function[T, R] =
     new Function[T, R] {
       def apply(p1: T) = f(p1)
     }
 
-  implicit def functionToGoogleCacheLoader[T, R](f: T ⇒ R): CacheLoader[T, R] =
+  implicit def functionToGoogleCacheLoader[T, R](f: T => R): CacheLoader[T, R] =
     new CacheLoader[T, R] {
       def load(p1: T) = f(p1)
     }

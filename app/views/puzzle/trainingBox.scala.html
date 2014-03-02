@@ -1,9 +1,9 @@
 @(puzzle: lila.puzzle.Puzzle, userInfos: Option[lila.puzzle.UserInfos], isPlay: Boolean)(implicit ctx: Context)
 
 <div class="box">
-  <h1>Training</h1>
+  <h1>@trans.training()</h1>
   @userInfos.map { i =>
-  Your puzzle rating: <strong>@i.user.perfs.puzzle.intRating</strong>
+  @trans.yourPuzzleRatingX(s"<strong>${i.user.perfs.puzzle.intRating}</strong>")
   @if(i.history.nonEmpty) {
   <div class="user_chart" data-points="@toJson(i.chart)"></div>
   } else {
@@ -11,16 +11,13 @@
   }
   }.getOrElse {
   @if(isPlay) {
-  <p>Find the best move for @{puzzle.color.name}.</p>
+  <p>@trans.findTheBestMoveForColor(puzzle.color.name)</p>
   } else {
-  <p>To track your progress:</p>
+  <p>@trans.toTrackYourProgress()</p>
   <p class="signup">
-    <a class="button" href="@routes.Auth.signup">Create a username</a>
+    <a class="button" href="@routes.Auth.signup">@trans.signUp()</a>
   </p>
-  <p>
-    This helps lichess showing puzzles that match your level, 
-    and makes for a better training.
-  </p>
+  <p>@trans.trainingSignupExplanation()</p>
   }
   }
 </div>

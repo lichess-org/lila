@@ -32,7 +32,7 @@ private[pref] final class DataForm(api: PrefApi) {
       premove = pref.premove option 1)
   }
 
-  def prefOf(user: User): Fu[Form[PrefData]] = api getPref user map { p ⇒
+  def prefOf(user: User): Fu[Form[PrefData]] = api getPref user map { p =>
     pref fill PrefData(p)
   }
 

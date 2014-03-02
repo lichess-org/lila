@@ -22,11 +22,14 @@ HTTP requests and websocket connections are proxied by [nginx 1.4](http://nginx.
 New client-side features are written in [ClojureScript](https://github.com/ornicar/lila/tree/master/cljs/puzzle/src).
 
 Join us on #lichess IRC channel on freenode for more info.
+See the roadmap on https://etherpad.mozilla.org/ep/pad/view/ro.3bIwxJwTQYW/latest.
 
 Installation
 ------------
 
-> I am **not** happy to see lichess clones spreading on the Internet. This project source code is open for other developers to have an example of non-trivial scala/play2/mongodb application. You're welcome to reuse as much code as you want for your projects, and to get inspired by the solutions I propose to many common web development problems. But please don't just create a public lichess clone. Also, if you are building a website based on lichess, please mention it in the footer with `Based on <a href="http://lichess.org">lichess</a>`. Thank you!
+> If you want to add a live chess section to your website, you are welcome to [embed lichess](http://lichess.org/developers). It's very easy.
+
+> This project source code is open for other developers to have an example of non-trivial scala/play2/mongodb application. You're welcome to reuse as much code as you want for your projects, and to get inspired by the solutions I propose to many common web development problems. But please don't just create a public lichess clone. Instead, just [embed lichess using an &lt;iframe&gt;](http://lichess.org/developers). Also, if you are deploying a website based on lichess, please mention it in the footer with `Based on <a href="http://lichess.org">lichess</a>`. Thank you!
 
 > Also note that if I provide the source code, I do **not** offer free support for your lichess instance. I will probably ignore any question about lichess installation and runtime issues.
 
@@ -48,6 +51,11 @@ cp conf/application.conf.dist conf/application.conf
 
 `application.conf` extends `base.conf` and can override any value.
 Note that `application.conf` is excluded from git index.
+
+Compile SVG images:
+```sh
+bin/svg-optimize
+```
 
 ### Websocket proxying and language subdomains
 
@@ -94,7 +102,7 @@ Example usage with JSONP:
 
 ```javascript
 $.ajax({
-  url:'http://en.l.org/api/user/thibault',
+  url:'http://en.lichess.org/api/user/thibault',
   dataType:'jsonp',
   jsonp:'callback',
   success: function(data) {
@@ -137,7 +145,7 @@ Example usage with JSONP:
 
 ```javascript
 $.ajax({
-  url:'http://en.l.org/api/user',
+  url:'http://en.lichess.org/api/user',
   data: {
     team: 'coders',
     nb: 100
@@ -302,21 +310,4 @@ By comparing game IDs, you can guess who plays against who.
 Credits
 -------
 
-Big thanks go to lichess community for the support, inspiration, bug reports, and [amazing translation efforts](http://lichess.org/translation/contribute).
-
-Special thanks go to:
-
-- [Clarkey](http://en.lichess.org/@/Clarkey) for:
-  - the [cheat detection engine](https://github.com/clarkerubber/engine-evaluator)
-  - the [puzzle creator](https://github.com/clarkerubber/problem-creator)
-  - moding, mockups, communication and much more.
-- [Mephostophilis](http://lichess.org/@/Mephostophilis) for writing [Lichess Wiki](http://lichess.org/wiki), leading the cheater hunt, moderating the site, reporting countless bugs, and contributing to the codebase
-- [Smiling Bishop](http://lichess.org/@/smiling_bishop), [legend](http://lichess.org/@/legend), [mb](http://lichess.org/@/mb) and all the moderators who spent time keeping the site enjoyable
-- [Evropi](https://github.com/evropi) for contributing to the wiki, translations and [translation contexts](https://github.com/ornicar/lila/wiki/translation_context)
-- [Steibock](https://github.com/Steibock) for board theming
-- [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/) for the fugue icons
-- [pgn4web](http://pgn4web.casaschi.net/home.html) for the analysis board
-- [chessboardjs](https://github.com/oakmac/chessboardjs) for the board editor
-- [chess.js](https://github.com/jhlywa/chess.js) for the client-side chess logic
-
-Thanks to all players for feeding the database.
+See the [lichess Thanks page](http://lichess.org/thanks)

@@ -37,7 +37,7 @@ object ElasticSearch {
     import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
     import org.elasticsearch.search._, facet._, terms._, sort._, SortBuilders._, builder._
 
-    import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
+    import scalastic.elasticsearch.{ Indexer => EsIndexer }
     import scalastic.elasticsearch.SearchParameterTypes
 
     case class Search(

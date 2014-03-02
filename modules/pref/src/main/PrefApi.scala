@@ -15,18 +15,18 @@ final class PrefApi(cacheTtl: Duration) {
   def getPref(id: String): Fu[Pref] = cache(id) map (_ | Pref.create(id))
   def getPref(user: User): Fu[Pref] = getPref(user.id)
 
-  def getPref[A](user: User, pref: Pref ⇒ A): Fu[A] = getPref(user) map pref
+  def getPref[A](user: User, pref: Pref => A): Fu[A] = getPref(user) map pref
 
   def setPref(pref: Pref): Funit =
     $save(pref) >>- { cache remove pref.id }
 
-  def setPref(user: User, change: Pref ⇒ Pref): Funit =
+  def setPref(user: User, change: Pref => Pref): Funit =
     getPref(user) map change flatMap setPref
 
-  def setPref(userId: String, change: Pref ⇒ Pref): Funit =
+  def setPref(userId: String, change: Pref => Pref): Funit =
     getPref(userId) map change flatMap setPref
 
-  def setChatPref(userId: String, change: Pref.ChatPref ⇒ Pref.ChatPref): Funit =
+  def setChatPref(userId: String, change: Pref.ChatPref => Pref.ChatPref): Funit =
     getPref(userId) map (_ updateChat change) flatMap setPref
 
   def setPrefString(user: User, name: String, value: String): Funit =

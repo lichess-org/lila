@@ -1,4 +1,4 @@
-@(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu)(implicit ctx: Context)
+@(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu, playing: Boolean)(implicit ctx: Context)
 
 @title = @{ "%s : %s - page %d".format(u.username, userGameFilterTitleNoTag(info, filters.current), games.currentPage) }
 
@@ -29,7 +29,8 @@
 title = title,
 goodies = goodies.some,
 robots = false,
-evenMoreJs = evenMoreJs) {
+evenMoreJs = evenMoreJs,
+themepicker = true) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
     @if(info.rank.map(_._1).exists(1==)) {
@@ -39,12 +40,11 @@ evenMoreJs = evenMoreJs) {
     <img class="trophy" src="@staticUrl("images/trophy64.png")" width=64 height=64 title="Top 1% player" />
     }
     }
-    <div class="icon status @{isOnline(u.id).??("connected")}"></div>
-    <h1 class="lichess_title">@u.username</h1>
+    <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" } data-icon="r"></span> @u.username</h1>
     <span class="rating">RATING <strong title="Glicko rating">@u.rating</strong><small title="Glicko rating deviation"> ±@u.perfs.global.glicko.intDeviationDoubled</small></span>
     @showProgress(u.progress)
     @info.rank.map { r =>
-    <span class="rank" title="@trans.rank()">RANK <strong>@r._1.localize</strong> / @{r._2/1000}k</span>
+    <span class="rank" title="@trans.rank()">RANK <strong>@r._1.localize</strong>/@{r._2/1000}k</span>
     }
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
@@ -61,21 +61,19 @@ evenMoreJs = evenMoreJs) {
     <div class="relation_actions">
       @if(ctx is u) {
       <a class="button" href="@routes.Account.profile">
-        <span class="s16 gear">@trans.editProfile()</span>
+        <span data-icon="q"> @trans.editProfile()</span>
       </a>
       }
       @if(isGranted(_.UserSpy)) {
-      <a class="icon button mod_zone_toggle" href="@routes.User.mod(u.username)" title="Mod zone">
-        <span class="s16 nuclear"></span>
-      </a>
+      <a class="button mod_zone_toggle" href="@routes.User.mod(u.username)" title="Mod zone"><span data-icon="y"></span></a>
       }
-      <form id="exportform" action="@routes.User.export(u.username)" method="POST">
-        <a class="icon button" onclick="document.getElementById('exportform').submit();" title="@trans.exportGames()">
-          <span class="s16 download"></span>
-        </a>
-      </form>
       @if(ctx.isAuth && !ctx.is(u)) {
-      @relation.actions(u.id)
+      @relation.actions(u.id, playing = playing)
+      <a data-icon="!" title="@trans.reportXToModerators(u.username)" class="button" href="@routes.Report.form?username=@u.username"></a>
+      } else {
+      <form id="exportform" action="@routes.User.export(u.username)" method="POST">
+        <a class="button" onclick="document.getElementById('exportform').submit();" title="@trans.exportGames()"><span data-icon="x"></span></a>
+      </form>
       }
     </div>
   </div>
@@ -83,12 +81,19 @@ evenMoreJs = evenMoreJs) {
   <div class="meat">
     @info.ratingChart.map { ratingChart =>
     <div class="rating_history" title="Rating history" data-rows="@ratingChart">
-      <span>Chart loading...</span>
+      <span>Chart loading&#8230;</span>
     </div>
     }
     <div class="user-infos">
       @if(u.engine && ctx.me.fold(true)(u !=)) {
-      <div class="warning engine_warning">@trans.thisPlayerUsesChessComputerAssistance()</div>
+      <div class="warning engine_warning">
+        <span data-icon="j" class="is4"></span>
+        @trans.thisPlayerUsesChessComputerAssistance()
+      </div>
+      } else {
+      @u.title.flatMap(lila.user.User.titlesMap.get).map { title =>
+      <p data-icon="E" class="title"> @title</p>
+      }
       }
       @u.profile.map { p =>
       @p.nonEmptyRealName.map { name =>
@@ -107,31 +112,27 @@ evenMoreJs = evenMoreJs) {
         }
         @u.profileOrDefault.countryInfo.map {
         case (code, name) => {
-        <span class="country"><img src="@routes.Assets.at(s"images/flag/shiny/16/$code.png")" /> @name</span>
+        <span class="country"><img class="flag" src="@routes.Assets.at(s"images/flags/$code.png")" /> @name</span>
         }
         }
         @u.lang.flatMap(langName).map { name =>
-        <span class="lang s16">@name</span>
+        <span data-icon="c"> @name</span>
         }
-        <p>@trans.memberSince() @showDate(u.createdAt)</p>
+        <p class="thin">@trans.memberSince() @showDate(u.createdAt)</p>
         @u.seenAt.map { seen =>
-        <p>@trans.lastLogin() @timeago(seen)</p>
+        <p class="thin">@trans.lastLogin() @timeago(seen)</p>
         }
         <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
-        @if(ctx.isAuth && !(ctx is u)) {
-        <br />
-        <a href="@routes.Report.form?username=@u.username">@trans.reportXToModerators(u.username)</a>
-        }
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
-          @teamLink(teamId, ("s16 team revert-underline" + myTeam(teamId).fold(" mine", "")).some)
+          @teamLink(teamId, ("revert-underline" + myTeam(teamId).fold(" mine", "")).some)
           }
         </div>
       </div>
     </div>
   </div>
   @if(u.hasGames) {
-  <div class="content_box_inter clearfix">
+  <div class="content_box_inter tabs">
     @filters.list.map { f =>
     <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.showFilter(u.username, f.name)">
       @userGameFilterTitle(info, f)

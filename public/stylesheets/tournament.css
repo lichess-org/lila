@@ -32,15 +32,6 @@
 
 #tournament table.slist span.rank {
   font-weight: bold;
-  padding-right: 20px;
-  background: transparent url(../images/s16.png) top right no-repeat;
-  background-position: right 900px;
-}
-#tournament table.slist tbody span.withdraw {
-  background-position: right -320px;
-}
-#tournament table.slist tbody span.winner {
-  background-position: right -304px;
 }
 #tournament table.slist .small {
   font-size: 0.8em;
@@ -101,12 +92,6 @@
   padding: 3px 5px;
 }
 
-.s16.lock {
-  display: inline-block;
-  height: 16px;
-  line-height: 16px;
-}
-
 #tournament_side {
   float: right;
   width: 246px;
@@ -161,7 +146,6 @@ div.header .tournament_links {
   border-bottom: 1px solid #ccc;
 }
 ol.tournament_leaderboard li {
-  font-size: 1.2em;
   padding: 5px 0;
   list-style: decimal-leading-zero inside;
 }

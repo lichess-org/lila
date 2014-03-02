@@ -20,6 +20,9 @@ $(function() {
       var $zone = $("div.user_show .mod_zone");
       if ($zone.is(':visible')) $zone.hide();
       else $zone.html("Loading...").show().load($(this).attr("href"), function() {
+        $(this).find('form.fide_title select').on('change', function() {
+          $(this).parent('form').submit();
+        });
         $('body').trigger('lichess.content_loaded');
       });
       return false;

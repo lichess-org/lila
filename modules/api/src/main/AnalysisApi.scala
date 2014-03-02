@@ -10,32 +10,34 @@ import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
 import lila.game.{ Game, GameRepo, PgnDump }
-import lila.hub.actorApi.{ router ⇒ R }
+import lila.hub.actorApi.{ router => R }
 
 private[api] final class AnalysisApi(
-    makeUrl: Any ⇒ Fu[String],
+    makeUrl: Any => Fu[String],
     pgnDump: PgnDump) {
 
   private def makeNb(nb: Option[Int]) = math.min(100, nb | 10)
 
-  def makeSkip = scala.util.Random.nextInt(200 * 1000)
+  private def makeSkip = scala.util.Random.nextInt(332 * 1000)
 
-  def list(nb: Option[Int]): Fu[JsObject] = AnalysisRepo.skipping(makeSkip, makeNb(nb)) flatMap { as ⇒
-    GameRepo games as.map(_.id) flatMap { games ⇒
-      games.map { g ⇒
+  def one(id: String): Fu[Option[JsObject]] = ??? // TODO AnalysisRepo done id 
+
+  def list(nb: Option[Int]): Fu[JsObject] = AnalysisRepo.skipping(makeSkip, makeNb(nb)) flatMap { as =>
+    GameRepo games as.map(_.id) flatMap { games =>
+      games.map { g =>
         as find (_.id == g.id) map { _ -> g }
       }.flatten.map {
-        case (a, g) ⇒ GameRepo initialFen g.id flatMap { initialFen ⇒
+        case (a, g) => GameRepo initialFen g.id flatMap { initialFen =>
           pgnDump(g) zip makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) map {
-            case (pgn, url) ⇒ (g, a, url, pgn, initialFen)
+            case (pgn, url) => (g, a, url, pgn, initialFen)
           }
         }
-      }.sequenceFu map { tuples ⇒
+      }.sequenceFu map { tuples =>
         Json.obj(
           "list" -> JsArray(tuples map {
-            case (game, analysis, url, pgn, fen) ⇒ Json.obj(
+            case (game, analysis, url, pgn, fen) => Json.obj(
               "game" -> (GameApi.gameToJson(game, url, analysis.some) ++ {
-                fen ?? { f ⇒ Json.obj("initialFen" -> f) }
+                fen ?? { f => Json.obj("initialFen" -> f) }
               }),
               "analysis" -> AnalysisApi.analysisToJson(analysis, pgn),
               "uci" -> uciMovesOf(game, fen).map(_.mkString(" "))
@@ -53,7 +55,7 @@ private[api] final class AnalysisApi(
 private[api] object AnalysisApi {
 
   def analysisToJson(analysis: Analysis, pgn: Pgn) = JsArray(analysis.infoAdvices zip pgn.moves map {
-    case ((info, adviceOption), move) ⇒ Json.obj(
+    case ((info, adviceOption), move) => Json.obj(
       "ply" -> info.ply,
       "move" -> move.san,
       "eval" -> info.score.map(_.centipawns),

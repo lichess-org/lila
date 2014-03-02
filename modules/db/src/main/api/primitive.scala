@@ -11,27 +11,27 @@ object $primitive {
   def apply[A: InColl, B](
     query: JsObject,
     field: String,
-    modifier: QueryBuilder ⇒ QueryBuilder = identity,
-    max: Option[Int] = None)(extract: JsValue ⇒ Option[B]): Fu[List[B]] =
+    modifier: QueryBuilder => QueryBuilder = identity,
+    max: Option[Int] = None)(extract: JsValue => Option[B]): Fu[List[B]] =
     modifier {
       implicitly[InColl[A]].coll
         .genericQueryBuilder
         .query(query)
         .projection(Json.obj(field -> true))
-    } toList max map2 { (obj: BSONDocument) ⇒
+    } toList max map2 { (obj: BSONDocument) =>
       extract(JsObjectReader.read(obj) \ field)
     } map (_.flatten)
 
   def one[A: InColl, B](
     query: JsObject,
     field: String,
-    modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[B]): Fu[Option[B]] =
+    modifier: QueryBuilder => QueryBuilder = identity)(extract: JsValue => Option[B]): Fu[Option[B]] =
     modifier {
       implicitly[InColl[A]].coll
         .genericQueryBuilder
         .query(query)
         .projection(Json.obj(field -> true))
-    }.one map2 { (obj: BSONDocument) ⇒
+    }.one map2 { (obj: BSONDocument) =>
       extract(JsObjectReader.read(obj) \ field)
     } map (_.flatten)
 }

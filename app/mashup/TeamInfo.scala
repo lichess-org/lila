@@ -26,11 +26,11 @@ object TeamInfo {
 
   def apply(
     api: TeamApi,
-    getForumNbPosts: String ⇒ Fu[Int],
-    getForumPosts: String ⇒ Fu[List[PostLiteView]])(team: Team, me: Option[User]): Fu[TeamInfo] = for {
-    requests ← (team.enabled && me.??(m ⇒ team.isCreator(m.id))) ?? api.requestsWithUsers(team)
-    mine ← me.??(m ⇒ api.belongsTo(team.id, m.id))
-    requestedByMe ← !mine ?? me.??(m ⇒ RequestRepo.exists(team.id, m.id))
+    getForumNbPosts: String => Fu[Int],
+    getForumPosts: String => Fu[List[PostLiteView]])(team: Team, me: Option[User]): Fu[TeamInfo] = for {
+    requests ← (team.enabled && me.??(m => team.isCreator(m.id))) ?? api.requestsWithUsers(team)
+    mine ← me.??(m => api.belongsTo(team.id, m.id))
+    requestedByMe ← !mine ?? me.??(m => RequestRepo.exists(team.id, m.id))
     userIds ← MemberRepo userIdsByTeam team.id
     bestPlayers ← UserRepo.byIdsSortRating(userIds, 10)
     averageRating ← UserRepo.idsAverageRating(userIds)
@@ -39,7 +39,7 @@ object TeamInfo {
     forumPosts ← getForumPosts(team.id)
   } yield TeamInfo(
     mine = mine,
-    createdByMe = ~me.map(m ⇒ team.isCreator(m.id)),
+    createdByMe = ~me.map(m => team.isCreator(m.id)),
     requestedByMe = requestedByMe,
     requests = requests,
     bestPlayers = bestPlayers,

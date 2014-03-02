@@ -1,7 +1,7 @@
 package lila.app
 package ui
 
-import chess.{ Pos, Color ⇒ ChessColor }
+import chess.{ Pos, Color => ChessColor }
 import Pos._
 
 import lila.game.Pov
@@ -11,16 +11,16 @@ object Board {
   def render(pov: Pov) = {
     val check = pov.game.check.??(_.key)
     val board = pov.game.toChess.board
-    val moved: Pos ⇒ Boolean =
-      pov.game.toChessHistory.lastMove.fold((_: Pos) ⇒ false) { last ⇒
-        pos ⇒ last._1 == pos || last._2 == pos
+    val moved: Pos => Boolean =
+      pov.game.toChessHistory.lastMove.fold((_: Pos) => false) { last =>
+        pos => last._1 == pos || last._2 == pos
       }
-    pov.color.fold(white, black) map { s ⇒
+    pov.color.fold(white, black) map { s =>
       val ccheck = if (s.pos.key == check) " check" else ""
       val cmoved = if (moved(s.pos)) " moved" else ""
       s"""<div class="lcs ${s.color}$ccheck$cmoved" id="${s.pos.key}" style="top:${s.top}px;left:${s.left}px">""" ++
         """<div class="lcsi"></div>""" ++ {
-          board(s.pos).??(piece ⇒
+          board(s.pos).??(piece =>
             s"""<div class="lichess_piece ${piece.role.name} ${piece.color.name}"></div>"""
           )
         } ++

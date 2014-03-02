@@ -11,7 +11,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    blocks: (String, String) ⇒ Fu[Boolean],
+    blocks: (String, String) => Fu[Boolean],
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 

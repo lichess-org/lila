@@ -26,7 +26,7 @@ private[forumSearch] final class Query private (
   private lazy val makeQuery =
     if (queryTerms.isEmpty) matchAllQuery
     else queryTerms.foldLeft(boolQuery) {
-      case (query, term) ⇒ query must {
+      case (query, term) => query must {
         multiMatchQuery(term, fields.body, fields.topic, fields.author)
       }
     }
@@ -35,7 +35,7 @@ private[forumSearch] final class Query private (
     userSearch map { termFilter(fields.author, _) },
     !staff option termFilter(fields.staff, false),
     !troll option termFilter(fields.troll, false)
-  ).flatten.toNel map { fs ⇒ andFilter(fs.list: _*) }
+  ).flatten.toNel map { fs => andFilter(fs.list: _*) }
 }
 
 object Query {

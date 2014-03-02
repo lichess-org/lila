@@ -31,7 +31,7 @@ trait Ai {
 
   def analyse(uciMoves: List[String], initialFen: Option[String]): Fu[List[Info]]
 
-  private def withValidSituation[A](game: Game)(op: ⇒ Fu[A]): Fu[A] =
+  private def withValidSituation[A](game: Game)(op: => Fu[A]): Fu[A] =
     if (game.toChess.situation playable true) op
     else fufail("[ai stockfish] invalid game situation: " + game.toChess.situation)
 }

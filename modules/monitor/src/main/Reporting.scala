@@ -52,26 +52,26 @@ private[monitor] final class Reporting(
 
   def receive = {
 
-    case _: MoveEvent  ⇒ mpsProvider.add
+    case _: MoveEvent  => mpsProvider.add
 
-    case AddRequest    ⇒ rpsProvider.add
+    case AddRequest    => rpsProvider.add
 
-    case PopulationGet ⇒ sender ! nbMembers
+    case PopulationGet => sender ! nbMembers
 
-    case NbMembers(nb) ⇒ nbMembers = nb
+    case NbMembers(nb) => nbMembers = nb
 
-    case GetNbMoves    ⇒ sender ! mpsProvider.rps
+    case GetNbMoves    => sender ! mpsProvider.rps
 
-    case Update ⇒ socket ? PopulationGet foreach {
-      case 0 ⇒ idle = true
-      case _ ⇒ {
+    case Update => socket ? PopulationGet foreach {
+      case 0 => idle = true
+      case _ => {
         val before = nowMillis
         MongoStatus(db.db)(mongoStatus) zip
           (hub.actor.ai ? lila.hub.actorApi.ai.GetLoad).mapTo[List[Option[Int]]] zip
           (hub.socket.round ? Size).mapTo[Int] zip
           (hub.actor.game ? lila.hub.actorApi.game.Count).mapTo[Int] onComplete {
-            case Failure(e) ⇒ logwarn("[reporting] " + e.getMessage)
-            case Success((((mongoS, aiL), gameHubs), games)) ⇒ {
+            case Failure(e) => logwarn("[reporting] " + e.getMessage)
+            case Success((((mongoS, aiL), gameHubs), games)) => {
               latency = (nowMillis - before).toInt
               mongoStatus = mongoS
               nbGames = games
@@ -107,7 +107,7 @@ private[monitor] final class Reporting(
     "dbLock" -> math.round(mongoStatus.lock * 10) / 10d,
     "ai" -> aiLoadString
   ) map {
-      case (name, value) ⇒ value + ":" + name
+      case (name, value) => value + ":" + name
     }
 
   private def dataLine(data: List[(String, Any)]) = new {
@@ -115,7 +115,7 @@ private[monitor] final class Reporting(
     def header = data map (_._1) mkString " "
 
     def line = data map {
-      case (name, value) ⇒ {
+      case (name, value) => {
         val s = value.toString
         List.fill(name.size - s.size)(" ").mkString + s + " "
       }

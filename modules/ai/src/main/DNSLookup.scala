@@ -17,7 +17,7 @@ private[ai] object DNSLookup {
     val host = new java.net.URL(url).getHost
     lookup(host).headOption map { AiHost(host, _) }
   } flatten s"Can't lookup $url IP address" recover {
-    case e: Exception ⇒ {
+    case e: Exception => {
       play.api.Logger("ai").warn(e.getMessage)
       AiHost("dns-fail", "127.0.0.1")
     }
@@ -29,7 +29,7 @@ private[ai] object DNSLookup {
       new InitialDirContext getAttributes ("dns:/%s" format host)
     }
     catch {
-      case _: NamingException ⇒ return Nil
+      case _: NamingException => return Nil
     }
     val list = {
       val attributeEnumeration = attributes.getAll
@@ -39,10 +39,10 @@ private[ai] object DNSLookup {
       attributeEnumeration.close
       list.reverse
     }
-    list map (x ⇒ x.getID -> x.get.toString) flatMap {
-      case ("A", x)     ⇒ List(x)
-      case ("CNAME", x) ⇒ lookup(x)
-      case (_, x)       ⇒ Nil
+    list map (x => x.getID -> x.get.toString) flatMap {
+      case ("A", x)     => List(x)
+      case ("CNAME", x) => lookup(x)
+      case (_, x)       => Nil
     }
   }
 }

@@ -12,20 +12,20 @@
     @trainingBox(puzzle, userInfos, false)
     @win.map { w =>
     @if(w) {
-    <div class="comment win"><h3><strong>Victory!</strong></h3></div>
+    <div class="comment win"><h3 data-icon="E"> <strong>@trans.victory()</strong></h3></div>
     } else {
-    <div class="comment loss"><h3><strong>Puzzle failed</strong></h3></div>
+    <div class="comment loss"><h3 data-icon="k"> <strong>@trans.puzzleFailed()</strong></h3></div>
     }
     }.getOrElse {
     @attempt.map { a =>
     @if(a.win) {
     <div class="comment win">
-      <h3><strong>Victory!</strong><strong class="rating"> @showNumber(a.userRatingDiff)</strong></h3>
-      Puzzle solved in @a.seconds seconds.
+      <h3 data-icon="E"> <strong>@trans.victory()</strong><strong class="rating"> @showNumber(a.userRatingDiff)</strong></h3>
+      @trans.puzzleSolvedInXSeconds(a.seconds)
     </div>
     } else {
     <div class="comment loss">
-      <h3><strong>Puzzle failed</strong><strong class="rating"> @showNumber(a.userRatingDiff)</strong></h3>
+      <h3 data-icon="k"> <strong>@trans.puzzleFailed()</strong><strong class="rating"> @showNumber(a.userRatingDiff)</strong></h3>
     </div>
     }
     }
@@ -38,9 +38,23 @@
       <div id="chessboard"></div>
     </div>
 
-    <div class="prev_next">
-      <button class="prev button" value="prev">&lt;</button>
-      <button class="next button" value="next">&gt;</button>
+    <div class="game_control">
+      @puzzle.gameId.map { id =>
+      <a class="button" data-icon="v" title="@trans.fromGameLink(id)"
+        href="@routes.Round.watcher(id, puzzle.color.name)@{puzzle.initialPly.??("#" + _)}"></a>
+      }
+      <a class="fen_link button" title="@trans.boardEditor()" data-icon="m" href="@routes.Editor.index("")?fen="></a>
+      <a class="continue button" title="@trans.continueFromHere()" data-icon="U"></a>
+      <div id="GameButtons">
+        <a class="first button" data-value="first" data-icon="W"></a>
+        <a class="prev button" data-value="prev" data-icon="Y"></a>
+        <a class="next button" data-value="next" data-icon="X"></a>
+        <a class="last button" data-value="last" data-icon="V"></a>
+      </div>
+    </div>
+    <div class="continue links none">
+      <a class="fen_link button" href="@routes.Lobby.home()?fen=#ai">@trans.playWithTheMachine()</a>
+      <a class="fen_link button" href="@routes.Lobby.home()?fen=#friend">@trans.playWithAFriend()</a>
     </div>
 
     @userInfos.map(history(_))
@@ -48,52 +62,42 @@
   </div>
 
   <div class="right">
-    @if(voted == Some(false)) {
+    @if(puzzle.enabled && voted == Some(false)) {
     <div class="please_vote">
       <p class="first">
-        <strong>Was this puzzle any good?</strong><br />
-        Help lichess improve by voting<br />
-        using the up or down arrow:
+        <strong>@trans.wasThisPuzzleAnyGood()</strong><br />
+        @trans.pleaseVotePuzzle()
       </p>
       <p class="then">
         <br />
-        <strong>Thank you!</strong>
+        <strong>@trans.thankYou()</strong>
         <br /><br />
       </p>
     </div>
     }
     <div class="box">
+      @if(ctx.isAuth) {
       <div class="vote_wrap">@vote(puzzle, attempt)</div>
+      }
       <h2 class="puzzle_link">
-        <a href="@routes.Puzzle.show(puzzle.id)">Puzzle @puzzle.id</a>
+        <a href="@routes.Puzzle.show(puzzle.id)">@trans.puzzleId(puzzle.id)</a>
       </h2>
       <p>
-        Rating: <strong>@puzzle.perf.intRating</strong>
+        @trans.ratingX(s"<strong>${puzzle.perf.intRating}</strong>")
         <small title="Glicko rating deviation"> ±@puzzle.perf.glicko.intDeviationDoubled</small>
       </p>
-      <p>
-        Played
-        @puzzle.attempts match {
-        case 1 => { <strong>once</strong> }
-        case 2 => { <strong>twice</strong> }
-        case x => { <strong>@x</strong> times }
-        }
-      </p>
-      <p>
-        Win rate: <strong>@puzzle.winPercent</strong>%
-      </p>
-      @puzzle.gameId.map { id =>
-      <p>From game <a href="@routes.Round.watcher(id, puzzle.color.name)">#@id</a></p>
-      }
+      <p>@trans.playedXTimes(s"<strong>${puzzle.attempts}</strong>")</p>
+      <br />
+      <p><input value="@netBaseUrl@routes.Puzzle.show(puzzle.id)" type="input" readonly="true" spellcheck="false" class="copyable" /></p>
     </div>
     <div class="continue_wrap">
       @if(win.isDefined) {
-      <a class="continue button" href="@routes.Puzzle.home">Start training &#9654;</a>
+      <a class="continue button" href="@routes.Puzzle.home" data-icon="G"> @trans.startTraining()</a>
       } else {
-      <button class="continue button">Continue training &#9654;</button>
+      <button class="continue button" data-icon="G"> @trans.continueTraining()</button>
       }
       @if(win.fold(attempt.exists(_.loss))(!_)) {
-      <a class="retry" href="@routes.Puzzle.show(puzzle.id)">Retry this puzzle</a>
+      <a class="retry" data-icon="P" href="@routes.Puzzle.show(puzzle.id)"> @trans.retryThisPuzzle()</a>
       }
     </div>
   </div>

@@ -81,12 +81,12 @@ private[gameSearch] case class SearchData(
 
   private val DateDelta = """^(\d+)(\w)$""".r
   private def toDate(delta: String): Option[DateTime] = delta match {
-    case DateDelta(n, "h") ⇒ parseIntOption(n) map (DateTime.now - _.hours)
-    case DateDelta(n, "d") ⇒ parseIntOption(n) map (DateTime.now - _.days)
-    case DateDelta(n, "w") ⇒ parseIntOption(n) map (DateTime.now - _.weeks)
-    case DateDelta(n, "m") ⇒ parseIntOption(n) map (DateTime.now - _.months)
-    case DateDelta(n, "y") ⇒ parseIntOption(n) map (DateTime.now - _.years)
-    case _                 ⇒ None
+    case DateDelta(n, "h") => parseIntOption(n) map (DateTime.now - _.hours)
+    case DateDelta(n, "d") => parseIntOption(n) map (DateTime.now - _.days)
+    case DateDelta(n, "w") => parseIntOption(n) map (DateTime.now - _.weeks)
+    case DateDelta(n, "m") => parseIntOption(n) map (DateTime.now - _.months)
+    case DateDelta(n, "y") => parseIntOption(n) map (DateTime.now - _.years)
+    case _                 => None
   }
 }
 
@@ -97,7 +97,7 @@ private[gameSearch] case class SearchPlayer(
 
   def cleanA = clean(a)
   def cleanB = clean(b)
-  def cleanWinner = clean(winner) |> { w ⇒
+  def cleanWinner = clean(winner) |> { w =>
     w filter List(cleanA, cleanB).flatten.contains
   }
 

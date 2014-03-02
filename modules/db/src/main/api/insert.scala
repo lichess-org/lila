@@ -9,7 +9,7 @@ import Types.Coll
 object $insert {
 
   def apply[A: JsTubeInColl](doc: A): Funit =
-    (implicitly[JsTube[A]] toMongo doc).fold(e ⇒ fufail(e.toString), apply(_))
+    (implicitly[JsTube[A]] toMongo doc).fold(e => fufail(e.toString), apply(_))
 
   def apply[A: InColl](js: JsObject): Funit =
     implicitly[InColl[A]].coll insert js void

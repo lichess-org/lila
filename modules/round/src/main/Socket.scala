@@ -9,18 +9,17 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
-import lila.game.actorApi.ChangeFeaturedGame
 import lila.game.Event
 import lila.hub.TimeBomb
 import lila.round.actorApi.Bye
 import lila.socket._
-import lila.socket.actorApi.{ Connected ⇒ _, _ }
+import lila.socket.actorApi.{ Connected => _, _ }
 import makeTimeout.short
 
 private[round] final class Socket(
     gameId: String,
     history: History,
-    getUsername: String ⇒ Fu[Option[String]],
+    getUsername: String => Fu[Option[String]],
     uidTimeout: Duration,
     socketTimeout: Duration,
     disconnectTimeout: Duration,
@@ -53,34 +52,34 @@ private[round] final class Socket(
 
   def receiveSpecific = {
 
-    case PingVersion(uid, v) ⇒ {
+    case PingVersion(uid, v) => {
       timeBomb.delay
       ping(uid)
-      ownerOf(uid) foreach { o ⇒
+      ownerOf(uid) foreach { o =>
         playerDo(o.color, _.ping)
       }
-      withMember(uid) { member ⇒
+      withMember(uid) { member =>
         (history getEventsSince v).fold(resyncNow(member))(batch(member, _))
       }
     }
 
-    case Bye(color) ⇒ playerDo(color, _.setBye)
+    case Bye(color) => playerDo(color, _.setBye)
 
-    case Ack(uid)   ⇒ withMember(uid) { _.channel push ackEvent }
+    case Ack(uid)   => withMember(uid) { _.channel push ackEvent }
 
-    case Broom ⇒ {
+    case Broom => {
       broom
       if (timeBomb.boom) self ! PoisonPill
-      else Color.all foreach { c ⇒
+      else Color.all foreach { c =>
         if (playerGet(c, _.isGone)) notifyGone(c, true)
       }
     }
 
-    case GetVersion    ⇒ sender ! history.getVersion
+    case GetVersion    => sender ! history.getVersion
 
-    case IsGone(color) ⇒ sender ! playerGet(color, _.isGone)
+    case IsGone(color) => sender ! playerGet(color, _.isGone)
 
-    case Join(uid, user, version, color, playerId, ip) ⇒ {
+    case Join(uid, user, version, color, playerId, ip) => {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, color, playerId, ip)
       addMember(uid, member)
@@ -89,24 +88,19 @@ private[round] final class Socket(
       sender ! Connected(enumerator, member)
     }
 
-    case Nil            ⇒
-    case events: Events ⇒ notify(events)
+    case Nil            =>
+    case events: Events => notify(events)
 
-    case lila.chat.actorApi.ChatLine(chatId, line) ⇒ notify(List(line match {
-      case l: lila.chat.UserLine   ⇒ Event.UserMessage(l, chatId endsWith "/w")
-      case l: lila.chat.PlayerLine ⇒ Event.PlayerMessage(l)
+    case lila.chat.actorApi.ChatLine(chatId, line) => notify(List(line match {
+      case l: lila.chat.UserLine   => Event.UserMessage(l, chatId endsWith "/w")
+      case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
     }))
 
-    case AnalysisAvailable                           ⇒ notifyAll("analysisAvailable", true)
+    case AnalysisAvailable                           => notifyAll("analysisAvailable", true)
 
-    case lila.hub.actorApi.setup.DeclineChallenge(_) ⇒ notifyAll("declined", JsNull)
+    case lila.hub.actorApi.setup.DeclineChallenge(_) => notifyAll("declined", JsNull)
 
-    case ChangeFeaturedGame(game) ⇒ watchers.nonEmpty ! {
-      val msg = makeMessage("featured_id", game.id)
-      watchers foreach { _.channel push msg }
-    }
-
-    case Quit(uid) ⇒ {
+    case Quit(uid) => {
       quit(uid)
       notifyCrowd
     }
@@ -114,8 +108,8 @@ private[round] final class Socket(
 
   def notifyCrowd {
     watchers.map(_.userId).toList.partition(_.isDefined) match {
-      case (users, anons) ⇒
-        (users.flatten.distinct map getUsername).sequenceFu map { userList ⇒
+      case (users, anons) =>
+        (users.flatten.distinct map getUsername).sequenceFu map { userList =>
           notify(Event.Crowd(
             white = ownerOf(White).isDefined,
             black = ownerOf(Black).isDefined,
@@ -127,7 +121,7 @@ private[round] final class Socket(
 
   def notify(events: Events) {
     val vevents = history addEvents events
-    members.values foreach { m ⇒ batch(m, vevents) }
+    members.values foreach { m => batch(m, vevents) }
   }
 
   def batch(member: Member, vevents: List[VersionedEvent]) {
@@ -137,7 +131,7 @@ private[round] final class Socket(
   }
 
   def notifyOwner[A: Writes](color: Color, t: String, data: A) {
-    ownerOf(color) foreach { m ⇒
+    ownerOf(color) foreach { m =>
       m.channel push makeMessage(t, data)
     }
   }
@@ -149,17 +143,17 @@ private[round] final class Socket(
   private val ackEvent = Json.obj("t" -> "ack")
 
   def ownerOf(color: Color): Option[Member] =
-    members.values find { m ⇒ m.owner && m.color == color }
+    members.values find { m => m.owner && m.color == color }
 
   def ownerOf(uid: String): Option[Member] =
     members get uid filter (_.owner)
 
   def watchers: List[Member] = members.values.filter(_.watcher).toList
 
-  private def playerGet[A](color: Color, getter: Player ⇒ A): A =
+  private def playerGet[A](color: Color, getter: Player => A): A =
     getter(color.fold(whitePlayer, blackPlayer))
 
-  private def playerDo(color: Color, effect: Player ⇒ Unit) {
+  private def playerDo(color: Color, effect: Player => Unit) {
     effect(color.fold(whitePlayer, blackPlayer))
   }
 }

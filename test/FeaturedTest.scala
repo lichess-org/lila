@@ -17,7 +17,7 @@ class FeaturedTest extends LilaSpec {
         0.9f -> 0.9f,
         -1f -> 0f,
         2f -> 1f)) {
-        case (a, b) ⇒ box(0 to 1)(a) must_== b
+        case (a, b) => box(0 to 1)(a) must_== b
       }
     }
 
@@ -30,7 +30,7 @@ class FeaturedTest extends LilaSpec {
         -1f -> 0f,
         800f -> 0f,
         2200f -> 1f)) {
-        case (a, b) ⇒ box(1200 to 2000)(a) must_== b
+        case (a, b) => box(1200 to 2000)(a) must_== b
       }
     }
 

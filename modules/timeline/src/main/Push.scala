@@ -19,18 +19,18 @@ import tube.entryTube
 private[timeline] final class Push(
     lobbySocket: ActorSelection,
     renderer: ActorSelection,
-    getFriendIds: String ⇒ Fu[Set[String]]) extends Actor {
+    getFriendIds: String => Fu[Set[String]]) extends Actor {
 
   def receive = {
 
-    case Propagate(data, propagations) ⇒ {
+    case Propagate(data, propagations) => {
       data match {
-        case _: ForumPost ⇒ lobbySocket ! NewForumPost
-        case _            ⇒
+        case _: ForumPost => lobbySocket ! NewForumPost
+        case _            =>
       }
-      propagate(propagations) foreach { users ⇒
+      propagate(propagations) foreach { users =>
         if (users.nonEmpty) makeEntry(users, data) >>-
-          (users foreach { u ⇒
+          (users foreach { u =>
             lobbySocket ! ReloadTimeline(u)
           })
       }
@@ -39,9 +39,9 @@ private[timeline] final class Push(
 
   private def propagate(propagations: List[Propagation]): Fu[List[String]] =
     (propagations map {
-      case Users(ids)  ⇒ fuccess(ids)
-      case Friends(id) ⇒ getFriendIds(id) map (_.toList)
-      case StaffFriends(id) ⇒ getFriendIds(id) flatMap UserRepo.byIds map {
+      case Users(ids)  => fuccess(ids)
+      case Friends(id) => getFriendIds(id) map (_.toList)
+      case StaffFriends(id) => getFriendIds(id) flatMap UserRepo.byIds map {
         _ filter Granter(_.StaffForum) map (_.id)
       }
     }).sequence map (_.flatten.distinct)
@@ -49,8 +49,8 @@ private[timeline] final class Push(
   private def makeEntry(users: List[String], data: Atom): Fu[Entry] =
     Entry.make(users, data).fold(
       fufail[Entry]("[timeline] invalid entry data " + data)
-    ) { entry ⇒
-        $find(Json.obj("typ" -> entry.typ, "date" -> $gt($date(DateTime.now - 1.hour)))) flatMap { entries ⇒
+    ) { entry =>
+        $find(Json.obj("typ" -> entry.typ, "date" -> $gt($date(DateTime.now - 1.hour)))) flatMap { entries =>
           entries exists (_ similarTo entry) fold (
             fufail[Entry]("[timeline] a similar entry already exists"),
             $insert(entry) inject entry

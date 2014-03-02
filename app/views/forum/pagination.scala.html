@@ -8,9 +8,9 @@
 <div class="pagination">
   <nav>
     @if(pager.hasPreviousPage) {
-    <a href="@url(pager.previousPage.get)">&larr; Previous</a>
+    <a href="@url(pager.previousPage.get)" data-icon="I"></a>
     } else {
-    <span class="disabled">&larr; Previous</span>
+    <span class="disabled" data-icon="I"></span>
     }
     @for(p <- pager.sliding) {
     @if(p == pager.currentPage) {
@@ -20,9 +20,9 @@
     }
     }
     @if(pager.hasNextPage) {
-    <a href="@url(pager.nextPage.get)">Next &rarr;</a>
+    <a href="@url(pager.nextPage.get)" data-icon="H"></a>
     } else {
-    <span class="disabled">Next &rarr;</span>
+    <span class="disabled" data-icon="H"></span>
     }
   </nav>
 </div>

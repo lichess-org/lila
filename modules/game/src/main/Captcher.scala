@@ -6,7 +6,7 @@ import scala.concurrent.Future
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import chess.format.{ Forsyth, pgn }
-import chess.{ Game ⇒ ChessGame, Color }
+import chess.{ Game => ChessGame, Color }
 import scalaz.{ NonEmptyList, OptionT }
 
 import lila.common.Captcha, Captcha._
@@ -19,27 +19,27 @@ private final class Captcher extends Actor {
 
   def receive = {
 
-    case AnyCaptcha             ⇒ sender ! Impl.current
+    case AnyCaptcha             => sender ! Impl.current
 
-    case GetCaptcha(id: String) ⇒ sender ! Impl.get(id).await
+    case GetCaptcha(id: String) => sender ! Impl.get(id).await
 
-    case actorApi.NewCaptcha    ⇒ Impl.refresh.await
+    case actorApi.NewCaptcha    => Impl.refresh.await
 
-    case ValidCaptcha(id: String, solution: String) ⇒
+    case ValidCaptcha(id: String, solution: String) =>
       Impl get id map (_ valid solution) pipeTo sender
   }
 
   private object Impl {
 
     def get(id: String): Fu[Captcha] = find(id) match {
-      case None    ⇒ getFromDb(id) map (c ⇒ (c | Captcha.default) ~ add)
-      case Some(c) ⇒ fuccess(c)
+      case None    => getFromDb(id) map (c => (c | Captcha.default) ~ add)
+      case Some(c) => fuccess(c)
     }
 
     def current = challenges.head
 
     def refresh: Funit = createFromDb ~ (_ onSuccess {
-      case Some(captcha) ⇒ add(captcha)
+      case Some(captcha) => add(captcha)
     }) void
 
     // Private stuff
@@ -58,7 +58,7 @@ private final class Captcher extends Actor {
 
     private def createFromDb: Fu[Option[Captcha]] =
       optionT(findCheckmateInDb(10) flatMap {
-        _.fold(findCheckmateInDb(1))(g ⇒ fuccess(g.some))
+        _.fold(findCheckmateInDb(1))(g => fuccess(g.some))
       }) flatMap fromGame
 
     private def findCheckmateInDb(distribution: Int): Fu[Option[Game]] =
@@ -80,7 +80,7 @@ private final class Captcher extends Actor {
 
     private def solve(game: ChessGame): Option[Captcha.Solutions] =
       game.situation.moves.toList flatMap {
-        case (_, moves) ⇒ moves filter { move ⇒
+        case (_, moves) => moves filter { move =>
           (move.after situationOf !game.player).checkMate
         }
       } map (_.spaceNotation) toNel
@@ -89,9 +89,9 @@ private final class Captcher extends Actor {
       pgn.Reader.withSans(moves mkString " ", safeInit) map (_.state) toOption
 
     private def safeInit[A](list: List[A]): List[A] = list match {
-      case x :: Nil ⇒ Nil
-      case x :: xs  ⇒ x :: safeInit(xs)
-      case _        ⇒ Nil
+      case x :: Nil => Nil
+      case x :: xs  => x :: safeInit(xs)
+      case _        => Nil
     }
 
     private def fen(game: ChessGame): String = Forsyth >> game takeWhile (_ != ' ')

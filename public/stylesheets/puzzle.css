@@ -75,6 +75,9 @@
   left: 532px;
   width: 242px;
 }
+#puzzle > .right .box input {
+  width: 214px;
+}
 #puzzle > .right h2 {
   font-size: 1.4em;
   margin-bottom: 7px;
@@ -115,6 +118,7 @@
 }
 #puzzle > .right .spinner {
   color: transparent;
+  text-shadow: none !important;
   border: none;
   height: 32px;
   display:inline-block;
@@ -123,26 +127,45 @@
 #puzzle > .right.spinner > * {
   display: none;
 }
-#puzzle .prev_next {
+#puzzle .game_control {
   text-align: center;
 }
-#puzzle .prev_next button {
-  font-size: 2em;
-  font-weight: bold;
-  padding: 5px 30px;
-  margin: 15px 5px 0 5px;
+#puzzle .game_control a {
+  font-size: 1.5em;
+  display:inline-block;
 }
-#puzzle .prev_next button:disabled {
+#puzzle .game_control a.disabled {
+  opacity: 0.5;
+}
+#puzzle div.continue.links {
+  margin: 20px 0 20px 0;
+  text-align: center;
+}
+#puzzle #GameButtons {
+  display: inline-block;
+  margin-left: 10px;
+}
+#puzzle #GameButtons a {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  margin-left: -2px;
+  margin-right: -3px;
+}
+#puzzle #GameButtons a:disabled {
   color: transparent;
+  text-shadow: none !important;
 }
 #chessboard_wrap {
   position: relative;
+  margin-bottom: 25px;
 }
 #chessboard_wrap span.board_mark.vert {
   right: -11px;
 }
 #puzzle div.upvote {
   float: right;
+  text-align: center;
 }
 #puzzle div.upvote a {
   cursor: default;
@@ -151,29 +174,18 @@
   cursor: pointer;
 }
 #puzzle div.upvote a {
-  background: url('../images/vote.png');
   display: block;
-  margin: 0 auto;
+  font-size: 24px;
+  text-decoration: none;
   width: 40px;
-  height: 25px;
+}
+#puzzle div.upvote.enabled a:hover,
+#puzzle div.upvote a.active {
+  color: #d85000;
 }
 #puzzle div.upvote span.count {
   display: block;
   font-size: 24px;
-  color: #555;
-  text-align: center;
   width: 40px;
   line-height: 1;
-}
-#puzzle div.upvote a.upvote {
-  background-position: 0px -35px;
-}
-#puzzle div.upvote a.upvote.active {
-  background-position: 0px 0;
-}
-#puzzle div.upvote a.downvote {
-  background-position: 0px -70px;
-}
-#puzzle div.upvote a.downvote.active {
-  background-position: 0px -100px;
 }

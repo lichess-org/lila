@@ -2,7 +2,7 @@
 
 @newTopicButton = {
 @if(isGrantedWrite(categ.slug)) {
-<a href="@routes.ForumTopic.form(categ.slug)" class="action button">Create a new topic</a>
+<a href="@routes.ForumTopic.form(categ.slug)" class="action button" data-icon="m"> Create a new topic</a>
 }
 }
 
@@ -11,12 +11,13 @@ title = categ.name) {
 <div class="category">
   @categ.team.map { team =>
   <ol class="crumbs">
+    <li><span data-icon="d" class="is4"></span></li>
     <li>@teamLink(team)</li>
     <li><h1>Forum</h1></li>
   </ol>
   }.getOrElse {
   <ol class="crumbs">
-    <li><a href="@routes.ForumCateg.index">Forum</a></li>
+    <li><a style="text-decoration:none" data-icon="d" class="is4" href="@routes.ForumCateg.index"> Forum</a></li>
     <li><h1>@categ.name</h1></li>
   </ol>
   }

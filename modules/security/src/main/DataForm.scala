@@ -22,8 +22,8 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
     "password" -> text(minLength = 4),
     "gameId" -> nonEmptyText,
     "move" -> nonEmptyText
-  )(SignupData.apply)(_ ⇒ None)
-    .verifying("This user already exists", d ⇒ !userExists(d).await)
+  )(SignupData.apply)(_ => None)
+    .verifying("This user already exists", d => !userExists(d).await)
     .verifying(captchaFailMessage, validateCaptcha _)
   )
 

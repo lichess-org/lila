@@ -6,6 +6,9 @@ GET   /timeline/more                   controllers.Lobby.timelineMore
 
 # TV
 GET   /tv                              controllers.Tv.index
+GET   /tv/embed                        controllers.Tv.embed
+GET   /tv/frame                        controllers.Tv.frame
+GET   /tv/stream                       controllers.Tv.stream
 
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
@@ -153,6 +156,7 @@ POST  /mod/:username/troll             controllers.Mod.troll(username: String)
 POST  /mod/:username/ban               controllers.Mod.ban(username: String)
 POST  /mod/:username/close             controllers.Mod.closeAccount(username: String)
 POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: String)
+POST  /mod/:username/title             controllers.Mod.setTitle(username: String)
 POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
 GET   /mod/log                         controllers.Mod.log
 
@@ -227,6 +231,7 @@ GET   /developers                      controllers.Main.developers
 GET   /embed                           controllers.Main.embed
 GET   /irc                             controllers.Main.irc
 GET   /stream                          controllers.Main.stream
+GET   /thanks                          controllers.Main.thanks
 
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)

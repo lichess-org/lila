@@ -10,13 +10,13 @@ import tube.tournamentTube
 object TournamentRepo {
 
   private def asCreated(tour: Tournament): Option[Created] = tour.some collect {
-    case t: Created ⇒ t
+    case t: Created => t
   }
   private def asStarted(tour: Tournament): Option[Started] = tour.some collect {
-    case t: Started ⇒ t
+    case t: Started => t
   }
   private def asFinished(tour: Tournament): Option[Finished] = tour.some collect {
-    case t: Finished ⇒ t
+    case t: Finished => t
   }
 
   def byId(id: String): Fu[Option[Tournament]] = $find byId id
@@ -31,7 +31,7 @@ object TournamentRepo {
   def createdByIdAndCreator(id: String, userId: String): Fu[Option[Created]] =
     createdById(id) map (_ filter (_ isCreator userId))
 
-  private def byIdAs[A <: Tournament](id: String, as: Tournament ⇒ Option[A]): Fu[Option[A]] =
+  private def byIdAs[A <: Tournament](id: String, as: Tournament => Option[A]): Fu[Option[A]] =
     $find byId id map (_ flatMap as)
 
   def created: Fu[List[Created]] = $find(
@@ -57,11 +57,11 @@ object TournamentRepo {
   def withdraw(userId: String): Fu[List[String]] = for {
     createds ← created
     createdIds ← (createds map (_ withdraw userId) collect {
-      case scalaz.Success(tour) ⇒ $update(tour: Tournament) inject tour.id
+      case scalaz.Success(tour) => $update(tour: Tournament) inject tour.id
     }).sequenceFu
     starteds ← started
     startedIds ← (starteds map (_ withdraw userId) collect {
-      case scalaz.Success(tour) ⇒ $update(tour: Tournament) inject tour.id
+      case scalaz.Success(tour) => $update(tour: Tournament) inject tour.id
     }).sequenceFu
   } yield createdIds ::: startedIds
 }

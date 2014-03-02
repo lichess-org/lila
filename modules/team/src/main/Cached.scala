@@ -9,6 +9,6 @@ private[team] final class Cached(capacity: Int) {
   val teamIds = AsyncCache(MemberRepo.teamIdsByUser, maxCapacity = capacity)
 
   val nbRequests = AsyncCache(
-    (userId: String) ⇒ TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams,
+    (userId: String) => TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams,
     maxCapacity = capacity)
 }

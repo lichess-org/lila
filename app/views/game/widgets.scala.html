@@ -7,13 +7,11 @@
   @gameFen(g, firstPlayer.color, ownerLink)
   <div class="infos">
     @bookmark.toggle(g)
-    <b>
-      @if(g.isBeingPlayed) {
-      <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)">@trans.playingRightNow()</a>,
-      } else {
-      @timeago(g.createdAt)
-      }
-    </b>-
+    @if(g.isBeingPlayed) {
+    <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)" data-icon="v"> @trans.playingRightNow()</a>,
+    } else {
+    @timeago(g.createdAt)
+    }
     @if(g.finishedOrAborted) {
     @gameEndStatus(g)
     @g.winner.map { winner =>
@@ -26,7 +24,7 @@
     }
     @if(g.variant.exotic) {
     <br />
-    @trans.variant(): <strong>@g.variant.name</strong>
+    @trans.variant(): <strong>@variantName(g.variant)</strong>
     }
     @g.pgnImport.flatMap(_.date).map { date =>
     <br />
@@ -39,23 +37,18 @@
     <table class="game_players">
       @List(g.opponent(firstPlayer), firstPlayer).map { p =>
       <tr>
-        <td><span class="color s16 @p.color.name">@p.color.fold(trans.white(), trans.black())</span></td>
+        <td><span class="color @p.color.name">@p.color.fold(trans.white(), trans.black())</span></td>
         <td>@playerLink(p)</td>
       </tr>
       }
     </table>
     <br />
     @g.clock.map { c =>
-    <span class="s16 clock">
-      @if(!mini) {
-      @trans.timeControl():
-      }
-      @clockName(c)
-    </span>
+    <span data-icon="p"> @clockName(c)</span>
     <br /><br />
     }
     @g.tournamentId.map { tourId =>
-    <a class="tournament_link s16" href="@routes.Tournament.show(tourId)">Tournament</a>
+    <a data-icon="g" href="@routes.Tournament.show(tourId)">Tournament</a>
     <br />
     }
     @if(g.rated) {

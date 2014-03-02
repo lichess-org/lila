@@ -13,11 +13,11 @@ private[simulation] trait SimulActor extends Actor {
     if (logging) println(s"${name} ${msg}")
   }
 
-  def delay(duration: FiniteDuration)(action: ⇒ Unit) {
+  def delay(duration: FiniteDuration)(action: => Unit) {
     context.system.scheduler.scheduleOnce(duration)(action)
   }
 
-  def delayRandomMillis(max: Int)(action: ⇒ Unit) {
+  def delayRandomMillis(max: Int)(action: => Unit) {
     delay((10 + scala.util.Random.nextInt(max)).millis)(action)
   }
 }

@@ -19,7 +19,7 @@ final class Client(
     implicit val timeout = makeTimeout(config.playTimeout)
     dispatcher ? Play(uciMoves, ~initialFen, level) mapTo manifest[MoveResult]
   } recoverWith {
-    case e: Exception ⇒ {
+    case e: Exception => {
       logwarn(s"[stockfish client] move ${e.getMessage}")
       fallback.move(uciMoves, initialFen, level)
     }
@@ -30,7 +30,7 @@ final class Client(
     dispatcher ? Analyse(uciMoves, ~initialFen) mapTo manifest[String] map
       Info.decodeList flatten "Can't read analysis results: "
   } recoverWith {
-    case e: Exception ⇒ {
+    case e: Exception => {
       logwarn(s"[stockfish client] analyse ${e.getMessage}")
       fallback.analyse(uciMoves, initialFen)
     }

@@ -3,7 +3,10 @@
 @if(tours.isEmpty) {
 <tr class="create">
   <td>
-    <a href="@routes.Tournament.form()" class="action trans_me">@trans.createANewTournament.en()</a>
+    <br />
+    <a href="@routes.Tournament.form()" data-icon="g" class="action trans_me button">@trans.createANewTournament.en()</a>
+    <br />
+    <br />
   </td>
 </tr>
 } else {

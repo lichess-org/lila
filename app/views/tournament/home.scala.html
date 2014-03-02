@@ -7,7 +7,7 @@
 <h2 class="leaderboard_title">@trans.leaderboard()</h2>
 <ol class="tournament_leaderboard">
 @leaderboard.map { user =>
-<li>@userLink(user, withOnline = false, cssClass = "inline".some, text = Some(user.username + " [" + user.toints.localize + "]"))</li>
+<li>@userLink(user, withOnline = false, text = Some(user.username + " [" + user.toints.localize + "]"))</li>
 }
 </ol>
 }

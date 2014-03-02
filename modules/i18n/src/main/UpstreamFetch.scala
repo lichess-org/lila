@@ -6,13 +6,13 @@ import lila.common.PimpedJson._
 import lila.common.ws.WS
 import tube.translationTube
 
-private[i18n] final class UpstreamFetch(upstreamUrl: Int ⇒ String) {
+private[i18n] final class UpstreamFetch(upstreamUrl: Int => String) {
 
   private type Fetched = Fu[List[Translation]]
 
   def apply(from: Int): Fetched =
     fetch(upstreamUrl(from)) map parse flatMap {
-      _.fold(e ⇒ fufail(e.toString), fuccess(_))
+      _.fold(e => fufail(e.toString), fuccess(_))
     }
 
   def apply(from: String): Fetched =

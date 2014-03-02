@@ -31,15 +31,15 @@ final class Cached(ttl: Duration) {
   val rematch960 = new ExpireSetMemo(3.hours)
 
   val activePlayerUidsDay = AsyncCache(
-    (nb: Int) ⇒ GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
+    (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
     timeToLive = 15 minutes)
 
   val activePlayerUidsWeek = AsyncCache(
-    (nb: Int) ⇒ GameRepo.activePlayersSince(DateTime.now minusWeeks 1, nb),
+    (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusWeeks 1, nb),
     timeToLive = 30 minutes)
 
   private val confrontationCache =
     AsyncCache(GameRepo.confrontation, timeToLive = 1.minute)
 
-  private val count = AsyncCache((o: JsObject) ⇒ $count(o), timeToLive = ttl)
+  private val count = AsyncCache((o: JsObject) => $count(o), timeToLive = ttl)
 }

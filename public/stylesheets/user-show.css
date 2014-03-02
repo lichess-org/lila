@@ -1,8 +1,5 @@
-div.user_show div.content_box_top .icon {
-  background-position: 0 -160px;
-}
-div.user_show div.content_box_top .icon.connected {
-  background-position: 0 -208px;
+div.user_show div.content_box_top .connected {
+  color: #859900;
 }
 div.user_show .staff {
   color: #aa3333;
@@ -10,7 +7,7 @@ div.user_show .staff {
   margin-bottom: 1em;
 }
 div.user_show div.content_box_top > span {
-  margin-left: 1em;
+  margin-left: 10px;
   font-size: 1.6em;
   color: #afafaf;
 }
@@ -24,7 +21,11 @@ div.user_show div.content_box_top > img.trophy {
   margin-top: -30px;
   margin-right: 10px;
 }
-
+div.user_show .title {
+  margin-top: 1em;
+  font-weight: bold;
+  font-size: 1.4em;
+}
 div.user_show .social {
   position: relative;
   border-top: 0;
@@ -35,6 +36,7 @@ div.user_show .relation_actions {
   position: absolute;
   top: 22px;
   right: 8px;
+  font-size: 1.2em;
 }
 div.user_show .relation_actions form {
   display: inline;
@@ -46,17 +48,15 @@ div.user_show div.meat {
 }
 
 div.engine_warning {
-  margin-bottom: 15px;
-  width: 240px;
+  margin: 10px 0;
 }
 
 div.sub_ratings.sep {
   margin-top: 2.5em;
 }
 div.sub_ratings h3 {
-  font-weight: bold;
+  font-weight: 100;
   font-size: 1.2em;
-  color: #bbb;
   margin-bottom: 0;
 }
 #site_header div.sub_ratings strong {
@@ -66,9 +66,9 @@ div.sub_ratings h3 {
 div.user_show .rating_history {
   position: absolute;
   top: -10px;
-  left: -43px;
+  left: -15px;
   display: block;
-  width: 507px;
+  width: 479px;
   height: 350px;
 }
 div.user_show .rating_history span {
@@ -142,7 +142,6 @@ div.user_show .mod_zone .same {
   font-weight: bold;
 }
 div.user_show .mod_zone form {
-  margin: 0 25px 0 0;
   display: inline;
 }
 div.user_show .mod_zone .listings > div {
@@ -164,4 +163,10 @@ div.user_show .evaluation {
 div.user_show .evaluation strong {
   display: inline;
   text-transform: uppercase;
+}
+div.user_show div.content_box_inter.tabs {
+  margin-left: -8px;
+  padding-left: 30px;
+  width: 775px;
+  border: 1px solid #ccc;
 }

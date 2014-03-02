@@ -29,34 +29,34 @@ private[ai] final class Queue(config: Config) extends Actor {
 
   def receive = {
 
-    case GetLoad ⇒ {
+    case GetLoad => {
       import makeTimeout.short
       monitor ? GetLoad pipeTo sender
     }
 
-    case req: PlayReq ⇒ {
+    case req: PlayReq => {
       implicit val timeout = makeTimeout((config moveTime req.level).millis + extraStockfishTime)
       blockAndMeasure {
         actor ? req mapTo manifest[Option[String]] map sender.!
       }
     }
 
-    case req: AnalReq ⇒
+    case req: AnalReq =>
       if (req.isStart) sender ! Evaluation.start.some
       else {
         implicit val timeout = makeTimeout(config.analyseMoveTime + extraStockfishTime)
         (actor ? req) map sender.! await timeout
       }
 
-    case FullAnalReq(moves, fen) ⇒ {
+    case FullAnalReq(moves, fen) => {
       val mrSender = sender
       implicit val timeout = makeTimeout(config.analyseTimeout)
-      val futures = (0 to moves.size).toStream map moves.take map { serie ⇒
+      val futures = (0 to moves.size).toStream map moves.take map { serie =>
         self ? AnalReq(serie, fen) mapTo manifest[Option[Evaluation]]
       }
       lila.common.Future.lazyFold(futures)(Vector[Option[Evaluation]]())(_ :+ _) addFailureEffect {
-        case e ⇒ mrSender ! Status.Failure(e)
-      } foreach { results ⇒
+        case e => mrSender ! Status.Failure(e)
+      } foreach { results =>
         mrSender ! Evaluation.toInfos(results.toList.map(_ | Evaluation.empty), moves)
       }
     }

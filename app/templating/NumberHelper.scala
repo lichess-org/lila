@@ -7,7 +7,7 @@ import scala.collection.mutable
 
 import lila.user.UserContext
 
-trait NumberHelper { self: I18nHelper ⇒
+trait NumberHelper { self: I18nHelper =>
 
   private val formatters = mutable.Map[String, NumberFormat]()
 

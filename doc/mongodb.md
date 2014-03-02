@@ -209,7 +209,7 @@ Detect threefold repetition:
 // check if the current position hash
 // exists 3 time in the historical position hashes
 def threefoldRepetition = positionHashes.size > 6 && {
-  positionHashes.headOption map { hash ⇒ positionHashes.count(_ == hash) >= 3 } | false
+  positionHashes.headOption map { hash => positionHashes.count(_ == hash) >= 3 } | false
 }
 ```
 

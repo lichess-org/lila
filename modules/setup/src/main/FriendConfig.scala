@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.{ Variant, Mode, Clock, Color ⇒ ChessColor }
+import chess.{ Variant, Mode, Clock, Color => ChessColor }
 import lila.rating.RatingRange
 import lila.game.{ Game, Player, Source }
 import lila.lobby.Color
@@ -18,7 +18,7 @@ case class FriendConfig(
 
   def >> = (variant.id, clock, time, increment, mode.id.some, color.name, fen).some
 
-  def game = fenGame { chessGame ⇒
+  def game = fenGame { chessGame =>
     Game.make(
       game = chessGame,
       whitePlayer = Player.white,
@@ -62,14 +62,14 @@ object FriendConfig extends BaseHumanConfig {
   import play.api.libs.json._
 
   private[setup] lazy val tube = JsTube(
-    reader = Reads[FriendConfig](js ⇒
+    reader = Reads[FriendConfig](js =>
       ~(for {
         obj ← js.asOpt[JsObject]
         raw ← RawFriendConfig.tube.read(obj).asOpt
         decoded ← raw.decode
       } yield JsSuccess(decoded): JsResult[FriendConfig])
     ),
-    writer = Writes[FriendConfig](config ⇒
+    writer = Writes[FriendConfig](config =>
       RawFriendConfig.tube.write(config.encode) getOrElse JsUndefined("[setup] Can't write config")
     )
   )

@@ -1,13 +1,15 @@
 @(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game], leaderboard: List[User], progress: List[User])(implicit ctx: Context)
 
 @underchat = {
-<a class="watchtv revert-underline" href="@routes.Tv.index">@trans.watchLichessTV()</a>
-<div id="featured_game">
+<div id="featured_game" title="@trans.watchLichessTV()">
   @featured.map { g =>
   @gameFen(g, g.firstPlayer.color, tv = true)
   @game.vstext(g)
   }
 </div>
+<a style="display: block; text-align: center; margin-top: 10px;" class="get_tv" href="@routes.Main.developers()#embed-tv">
+  Get Lichess TV in your website
+</a>
 }
 
 @baseline = {
@@ -38,7 +40,8 @@ baseline = baseline.some,
 active = siteMenu.play.some,
 goodies = goodies.some,
 moreJs = moreJs,
-underchat = underchat.some) {
+underchat = underchat.some,
+themepicker = true) {
 <div id="call_boxes">
   @translationCall.map(i18n.callBox(_))
 </div>
@@ -50,7 +53,7 @@ underchat = underchat.some) {
         <a data-tab="graph" class="graph">@trans.graph()</a>
       </div>
       <a class="filter" href="@routes.Setup.filterForm()">
-        <span class="s16 ddown">@trans.filterGames()</span>
+        <span data-icon="D"> @trans.filterGames()</span>
         <span class="number">(0)</span>
       </a>
       <div id="hooks_chart" class="tab graph none"><div class="canvas"></div></div>
@@ -58,10 +61,10 @@ underchat = underchat.some) {
         <thead>
           <tr>
             <th class="color"></th>
-            <th data-sort="string" class="player"><span>@trans.player()</span></th>
-            <th data-sort="int" class="rating"><span>Rating</span></th>
-            <th data-sort="int"><span>@trans.time()</span></th>
-            <th data-sort="string"><span>@trans.mode()</span></th>
+            <th data-sort="string" class="player"><span class="is">&nbsp;@trans.player()</span></th>
+            <th data-sort="int" class="rating"><span class="is">&nbsp;Rating</span></th>
+            <th data-sort="int"><span class="is">&nbsp;@trans.time()</span></th>
+            <th data-sort="string"><span class="is">&nbsp;@trans.mode()</span></th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -70,7 +73,7 @@ underchat = underchat.some) {
     </div>
   </div>
   <div class="lichess_ground">
-    <div class="lichess_table lichess_table_not_started" id="start_buttons">
+    <div class="lichess_table onbg lichess_table_not_started" id="start_buttons">
       @lobbyMenu.all.map { b =>
       <a class="lichess_button button config_@b.code" href="@b.route" onclick="return false" title="@b.title()">@b.name()</a>
       }

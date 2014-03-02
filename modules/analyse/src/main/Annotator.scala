@@ -11,8 +11,8 @@ private[analyse] final class Annotator(netDomain: String) {
 
   private def annotateTurns(p: Pgn, advices: List[Advice]): Pgn =
     advices.foldLeft(p) {
-      case (pgn, advice) ⇒ pgn.updateTurn(advice.turn, turn ⇒
-        turn.update(advice.color, move ⇒
+      case (pgn, advice) => pgn.updateTurn(advice.turn, turn =>
+        turn.update(advice.color, move =>
           move.copy(
             nag = advice.nag.code.some,
             comment = advice.makeComment(true, true).some,
@@ -24,7 +24,7 @@ private[analyse] final class Annotator(netDomain: String) {
 
   private def makeVariation(turn: Turn, advice: Advice): List[Turn] =
     Turn.fromMoves(
-      advice.info.variation take 16 map { san ⇒ Move(san) },
+      advice.info.variation take 16 map { san => Move(san) },
       turn plyOf advice.color
     )
 }

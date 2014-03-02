@@ -20,16 +20,19 @@ case class User(
     profile: Option[Profile] = None,
     engine: Boolean = false,
     toints: Int = 0,
+    title: Option[String] = None,
     createdAt: DateTime,
     seenAt: Option[DateTime],
     lang: Option[String]) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
-    case u: User ⇒ id == u.id
-    case _       ⇒ false
+    case u: User => id == u.id
+    case _       => false
   }
 
   override def toString = s"User $username games:${count.game} rating:$rating troll:$troll engine:$engine"
+
+  def langs = ("en" :: lang.toList).distinct.sorted
 
   def compare(other: User) = id compare other.id
 
@@ -50,7 +53,7 @@ case class User(
   private val recentDuration = 10.minutes
   def seenRecently: Boolean = timeNoSee < recentDuration
 
-  def timeNoSee: Duration = seenAt.fold[Duration](Duration.Inf) { s ⇒
+  def timeNoSee: Duration = seenAt.fold[Duration](Duration.Inf) { s =>
     (nowMillis - s.getMillis).millis
   }
 }
@@ -64,6 +67,15 @@ object User {
   case class Active(user: User, lang: String)
 
   def normalize(username: String) = username.toLowerCase
+
+  val titles = Seq(
+    "CM" -> "Candidate Master (CM)",
+    "NM" -> "National Master (NM)",
+    "FM" -> "FIDE Master (FM)",
+    "IM" -> "International Master (IM)",
+    "GM" -> "Grand Master (GM)")
+
+  val titlesMap = titles.toMap
 
   object BSONFields {
     val id = "_id"
@@ -83,6 +95,7 @@ object User {
     val createdAt = "createdAt"
     val seenAt = "seenAt"
     val lang = "lang"
+    val title = "title"
     def glicko(perf: String) = s"$perfs.$perf.gl"
   }
 
@@ -114,7 +127,8 @@ object User {
       toints = r nIntD toints,
       createdAt = r date createdAt,
       seenAt = r dateO seenAt,
-      lang = r strO lang)
+      lang = r strO lang,
+      title = r strO title)
 
     def writes(w: BSON.Writer, o: User) = BSONDocument(
       id -> o.id,
@@ -133,7 +147,8 @@ object User {
       toints -> w.intO(o.toints),
       createdAt -> o.createdAt,
       seenAt -> o.seenAt,
-      lang -> o.lang)
+      lang -> o.lang,
+      title -> o.title)
   }
 
   private[user] lazy val tube = lila.db.BsTube(userBSONHandler)

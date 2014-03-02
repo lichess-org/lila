@@ -36,7 +36,7 @@ private[simulation] trait Bot extends SimulActor {
     channel
   }
 
-  def maybe(factor: Double)(action: ⇒ Unit): Boolean =
+  def maybe(factor: Double)(action: => Unit): Boolean =
     if (scala.util.Random.nextDouble < factor) {
       action
       true
@@ -54,12 +54,12 @@ private[simulation] object Bot {
 
   val parsingMessage: Enumeratee[JsValue, Message] =
     Enumeratee.mapInput[JsValue] {
-      case Input.El(js) ⇒ parseMessage(js).fold[Input[Message]](Input.Empty)(Input.El.apply)
-      case _            ⇒ Input.Empty
+      case Input.El(js) => parseMessage(js).fold[Input[Message]](Input.Empty)(Input.El.apply)
+      case _            => Input.Empty
     }
 
   def parseMessage(js: JsValue): Option[Message] =
-    js.asOpt[JsObject] flatMap { obj ⇒
+    js.asOpt[JsObject] flatMap { obj =>
       obj str "t" map { Message(_, obj) }
     }
 }

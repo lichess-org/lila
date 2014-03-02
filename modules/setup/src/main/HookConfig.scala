@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.{ Variant, Mode, Color ⇒ ChessColor }
+import chess.{ Variant, Mode, Color => ChessColor }
 import lila.rating.RatingRange
 import lila.lobby.Color
 import lila.lobby.Hook
@@ -54,7 +54,7 @@ object HookConfig extends BaseHumanConfig {
       increment = i,
       mode = realMode,
       allowAnon = !membersOnly, // membersOnly
-      ratingRange = e.filter(_ ⇒ useRatingRange).fold(RatingRange.default)(RatingRange.orDefault),
+      ratingRange = e.filter(_ => useRatingRange).fold(RatingRange.default)(RatingRange.orDefault),
       color = Color(c) err "Invalid color " + c)
   }
 
@@ -72,14 +72,14 @@ object HookConfig extends BaseHumanConfig {
   import play.api.libs.json._
 
   private[setup] lazy val tube = JsTube(
-    reader = Reads[HookConfig](js ⇒
+    reader = Reads[HookConfig](js =>
       ~(for {
         obj ← js.asOpt[JsObject]
         raw ← RawHookConfig.tube.read(obj).asOpt
         decoded ← raw.decode
       } yield JsSuccess(decoded): JsResult[HookConfig])
     ),
-    writer = Writes[HookConfig](config ⇒
+    writer = Writes[HookConfig](config =>
       RawHookConfig.tube.write(config.encode) getOrElse JsUndefined("[setup] Can't write config")
     )
   )

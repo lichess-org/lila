@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import play.api.libs.iteratee.Enumerator
 import play.api.libs.json._
-import reactivemongo.bson.{ BSONDocument, BSONInteger }
+import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex }
 import reactivemongo.core.commands.Count
 
 import lila.db.Types.Coll
@@ -43,11 +43,18 @@ private[puzzle] final class PuzzleApi(
         }
       }
 
-    def insertPuzzles(puzzles: List[PuzzleId ⇒ Puzzle]): Fu[List[PuzzleId]] = puzzles match {
-      case Nil ⇒ fuccess(Nil)
-      case puzzle :: rest ⇒ findNextId flatMap { id ⇒
-        (puzzleColl insert puzzle(id)) >> {
-          insertPuzzles(rest) map (id :: _)
+    def insertPuzzles(puzzles: List[PuzzleId => Puzzle]): Fu[List[PuzzleId]] = puzzles match {
+      case Nil => fuccess(Nil)
+      case puzzle :: rest => findNextId flatMap { id =>
+        val p = puzzle(id)
+        val fenStart = p.fen.split(' ').take(2).mkString(" ")
+        puzzleColl.db command Count(puzzleColl.name, BSONDocument(
+          "fen" -> BSONRegex(fenStart.replace("/", "\\/"), "")
+        ).some) flatMap {
+          case 0 => (puzzleColl insert p) >> {
+            insertPuzzles(rest) map (id :: _)
+          }
+          case _ => insertPuzzles(rest)
         }
       }
     }
@@ -56,7 +63,7 @@ private[puzzle] final class PuzzleApi(
       puzzleColl.find(BSONDocument(), BSONDocument("_id" -> true))
         .sort(BSONDocument("_id" -> -1))
         .one[BSONDocument] map {
-          _ flatMap { doc ⇒ doc.getAs[Int]("_id") map (1+) } getOrElse 1
+          _ flatMap { doc => doc.getAs[Int]("_id") map (1+) } getOrElse 1
         }
   }
 
@@ -68,11 +75,11 @@ private[puzzle] final class PuzzleApi(
       )).one[Attempt]
 
     def vote(a1: Attempt, v: Boolean): Fu[(Puzzle, Attempt)] = puzzle find a1.puzzleId flatMap {
-      case None ⇒ fufail(s"Can't vote for non existing puzzle ${a1.puzzleId}")
-      case Some(p1) ⇒
+      case None => fufail(s"Can't vote for non existing puzzle ${a1.puzzleId}")
+      case Some(p1) =>
         val p2 = a1.vote match {
-          case Some(from) ⇒ p1 withVote (_.change(from, v))
-          case None       ⇒ p1 withVote (_ add v)
+          case Some(from) => p1 withVote (_.change(from, v))
+          case None       => p1 withVote (_ add v)
         }
         val a2 = a1.copy(vote = v.some)
         attemptColl.update(
@@ -81,18 +88,11 @@ private[puzzle] final class PuzzleApi(
           puzzleColl.update(
             BSONDocument("_id" -> p2.id),
             BSONDocument("$set" -> BSONDocument(Puzzle.BSONFields.vote -> p2.vote))) map {
-              case _ ⇒ p2 -> a2
+              case _ => p2 -> a2
             }
     }
 
     def add(a: Attempt) = attemptColl insert a void
-
-    def times(puzzleId: PuzzleId): Fu[List[Int]] = attemptColl.find(
-      BSONDocument(Attempt.BSONFields.puzzleId -> puzzleId),
-      BSONDocument(Attempt.BSONFields.time -> true)
-    ).cursor[BSONDocument].collect[List]() map2 {
-        (obj: BSONDocument) ⇒ obj.getAs[Int](Attempt.BSONFields.time)
-      } map (_.flatten)
 
     def hasPlayed(user: User, puzzle: Puzzle): Fu[Boolean] =
       attemptColl.db command Count(attemptColl.name, BSONDocument(
@@ -107,9 +107,10 @@ private[puzzle] final class PuzzleApi(
       )).sort(BSONDocument(Attempt.BSONFields.date -> -1))
       .cursor[BSONDocument]
       .collect[List](5) map {
-        _.foldLeft(false) {
-          case (true, _)    ⇒ true
-          case (false, doc) ⇒ doc.getAs[Boolean](Attempt.BSONFields.vote).isDefined
+        case attempts if attempts.size < 5 => true
+        case attempts => attempts.foldLeft(false) {
+          case (true, _)    => true
+          case (false, doc) => doc.getAs[Boolean](Attempt.BSONFields.vote).isDefined
         }
       }
   }
