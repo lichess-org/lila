@@ -43,6 +43,7 @@ object Dependencies {
   val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.6-THIB"
   val jodaTime = "joda-time" % "joda-time" % "2.3"
   val scalastic = "org.scalastic" %% "scalastic" % "0.90.10-THIB"
+  val elastic4s = "com.sksamuel.elastic4s" %% "elastic4s" % "1.0.1.0"
   val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.0"
   val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.2"
   object play {

@@ -41,14 +41,16 @@ case class Query(
       date.nonEmpty ||
       duration.nonEmpty
 
-  def searchRequest(from: Int = 0, size: Int = 10) = ElasticSearch.Request.Search(
-    query = matchAllQuery,
-    filter = filters,
-    sortings = List(sorting.fieldSort),
-    from = from,
-    size = size)
+  def searchDef(from: Int = 0, size: Int = 10) = ???
+  // ElasticSearch.Request.Search(
+  //   query = matchAllQuery,
+  //   filter = filters,
+  //   sortings = List(sorting.fieldSort),
+  //   from = from,
+  //   size = size)
 
-  def countRequest = ElasticSearch.Request.Count(matchAllQuery, filters)
+  def countDef = ???
+  // ElasticSearch.Request.Count(matchAllQuery, filters)
 
   def usernames = List(user1, user2).flatten
 

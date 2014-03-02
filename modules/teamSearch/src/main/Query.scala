@@ -7,12 +7,14 @@ import lila.search.ElasticSearch
 
 private[teamSearch] final class Query private (terms: List[String]) extends lila.search.Query {
 
-  def searchRequest(from: Int = 0, size: Int = 10) = ElasticSearch.Request.Search(
-    query = makeQuery,
-    from = from,
-    size = size)
+  def searchDef(from: Int = 0, size: Int = 10) = ???
+  // ElasticSearch.Request.Search(
+  //   query = makeQuery,
+  //   from = from,
+  //   size = size)
 
-  def countRequest = ElasticSearch.Request.Count(makeQuery)
+  def countDef = ???
+  //ElasticSearch.Request.Count(makeQuery)
 
   private def makeQuery = terms.foldLeft(boolQuery()) {
     case (query, term) => query must {
