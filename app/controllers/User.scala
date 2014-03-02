@@ -57,7 +57,8 @@ object User extends LilaController {
     pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query =>
       gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
     })
-  } yield html.user.show(u, info, pag, filters)
+    playing <- GameRepo nowPlaying u.id map (_.isDefined)
+  } yield html.user.show(u, info, pag, filters, playing)
 
   def list(page: Int) = Open { implicit ctx =>
     Reasonable(page) {
