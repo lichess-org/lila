@@ -448,8 +448,8 @@ var storage = {
       },
       params: {},
       options: {
-        baseUrls: _.map([1,2,3,4,5,6], function(i) {
-          return document.domain + ':' + (6660 + i);
+        baseUrls: _.map(_.range(1, 9), function(i) {
+          return 'socket.' + document.domain + ':' + (6660 + i);
         }),
         baseUrlKey: 'surl2',
         name: "site",
