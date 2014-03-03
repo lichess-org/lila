@@ -19,3 +19,10 @@ iptables -t nat -A PREROUTING -p tcp --dport 6666 -j DNAT --to 91.121.106.120:80
 iptables -t nat -A PREROUTING -p tcp --dport 6667 -j DNAT --to 91.121.106.120:80
 iptables -t nat -A PREROUTING -p tcp --dport 6668 -j DNAT --to 91.121.106.120:80
 iptables -t nat -A PREROUTING -p tcp --dport 6669 -j DNAT --to 91.121.106.120:80
+
+iptables-save > /etc/iptables.rules
+
+/etc/network/interfaces
+ iface eth0 inet static
+   # stuff
+   pre-up iptables-restore < /etc/iptables.rules
