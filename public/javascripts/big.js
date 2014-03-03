@@ -82,10 +82,8 @@ var storage = {
     if (self.options.resetUrl || self.options.prodPipe) {
       storage.remove(self.options.baseUrlKey);
     }
-    if (window.opera) {
-      self.options.baseUrls = self.options.baseUrls.reverse();
-    } else if (self.options.prodPipe) {
-      self.options.baseUrls = ['socket.en.lichess.org'];
+    if (self.options.prodPipe) {
+      self.options.baseUrls = ['en.lichess.org:6661'];
     }
     self.connect();
     $(window).on('unload', function() {
@@ -95,7 +93,6 @@ var storage = {
   strongSocket.available = window.WebSocket || window.MozWebSocket;
   strongSocket.prototype = {
     connect: function() {
-      if (this.ws && this.ws.readyState === 0) return; // firefox delay
       var self = this;
       self.destroy();
       self.autoReconnect = true;
@@ -451,11 +448,10 @@ var storage = {
       },
       params: {},
       options: {
-        baseUrls: [
-          'socket.' + document.domain,
-          document.domain + ':' + $('body').data('port')
-        ],
-        baseUrlKey: 'surl',
+        baseUrls: _.map([1,2,3,4,5,6], function(i) {
+          return document.domain + ':' + (6660 + i);
+        }),
+        baseUrlKey: 'surl2',
         name: "site",
         lagTag: $('#connection_lag'),
         debug: location.search.indexOf('debug-ws') != -1,
