@@ -29,54 +29,9 @@ Installation
 
 > If you want to add a live chess section to your website, you are welcome to [embed lichess](http://lichess.org/developers). It's very easy.
 
-> This project source code is open for other developers to have an example of non-trivial scala/play2/mongodb application. You're welcome to reuse as much code as you want for your projects, and to get inspired by the solutions I propose to many common web development problems. But please don't just create a public lichess clone. Instead, just [embed lichess using an &lt;iframe&gt;](http://lichess.org/developers). Also, if you are deploying a website based on lichess, please mention it in the footer with `Based on <a href="http://lichess.org">lichess</a>`. Thank you!
+> This project source code is open for other developers to have an example of non-trivial scala/play2/mongodb application. You're welcome to reuse as much code as you want for your projects, and to get inspired by the solutions I propose to many common web development problems. But please don't just create a public lichess clone. Instead, just [embed lichess using an &lt;iframe&gt;](http://lichess.org/developers).
 
-> Also note that if I provide the source code, I do **not** offer free support for your lichess instance. I will probably ignore any question about lichess installation and runtime issues.
-
-This is full-stack application, not a library, and it may not
-be straightforward to get it fully running.
-I assume you run a Unix with nginx, mongodb, elasticsearch and stockfish installed.
-
-```sh
-git clone git://github.com/ornicar/lila
-cd lila
-git submodule update --init
-```
-
-### Configuration
-
-```sh
-cp conf/application.conf.dist conf/application.conf
-```
-
-`application.conf` extends `base.conf` and can override any value.
-Note that `application.conf` is excluded from git index.
-
-Compile SVG images:
-```sh
-bin/svg-optimize
-```
-
-### Websocket proxying and language subdomains
-
-When accessed from the root domaing (e.g. lichess.org),
-the application will redirect to a language specific subdomaing (e.g. en.lichess.org).
-Additionally, lichess will open websockets on the `socket.` subdomain (e.g. socket.en.lichess.org).
-
-Here is my local nginx configuration for `l.org`, assuming lila is installed in `/home/thib/lila` and runs on 127.0.0.1:9663
-[/etc/nginx/l.org.conf](https://github.com/ornicar/lila/blob/master/doc/nginx/l.org.conf)
-
-And here is my local [/etc/hosts file](https://github.com/ornicar/lila/blob/master/doc/hosts)
-
-### Run it
-
-Launch the play console:
-
-```sh
-sbt play -Dhttp.port=9663
-```
-
-From here you can now run the application (`run`).
+> Also note that if I provide the source code, I do **not** offer support for your lichess instance. I will probably ignore any question about lichess installation and runtime issues.
 
 ## API
 
