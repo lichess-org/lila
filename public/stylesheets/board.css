@@ -412,7 +412,7 @@ div.lichess_control.buttons a.button {
   text-align: center;
   text-decoration: none;
 }
-div.lichess_claim_draw_zone,
+#claim_draw_zone,
 div.force_resign_zone,
 div.proposed_takeback,
 div.offered_draw {
