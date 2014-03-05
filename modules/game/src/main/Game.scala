@@ -16,7 +16,7 @@ case class Game(
     binaryPieces: ByteArray,
     binaryPgn: ByteArray,
     status: Status,
-    turns: Int,
+    turns: Int, // = ply
     startedAtTurn: Int,
     clock: Option[Clock],
     castleLastMoveTime: CastleLastMoveTime,
@@ -67,6 +67,8 @@ case class Game(
 
   def turnOf(p: Player) = p == player
   def turnOf(c: Color) = c == turnColor
+
+  def playedTurns = turns - startedAtTurn
 
   def fullIdOf(player: Player): Option[String] =
     (players contains player) option id + player.id

@@ -19,9 +19,9 @@ object $enumerate {
 
   def bulk[A: BSONDocumentReader](query: QueryBuilder, size: Int, limit: Int = Int.MaxValue)(op: List[A] => Funit): Funit =
     query.batch(size).cursor[A].enumerateBulks(limit) run {
-      Iteratee.foreach((objs: Iterator[A]) =>
-        op(objs.toList)
-      )
+      Iteratee.foldM(()) {
+        case (_, objs) => op(objs.toList)
+      }
     }
 
   def fold[A: BSONDocumentReader, B](query: QueryBuilder)(zero: B)(f: (B, A) => B): Fu[B] =

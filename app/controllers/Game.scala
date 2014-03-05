@@ -18,12 +18,11 @@ object Game extends LilaController with BaseGame {
       makeListMenu flatMap { listMenu =>
         searchForm.bindFromRequest.fold(
           failure => Ok(html.game.search(listMenu, failure)).fuccess,
-          data => ???
-        // data.nonEmptyQuery ?? { query =>
-        //   searchEnv.paginator(query, page) map (_.some)
-        // } map { pager =>
-        //   Ok(html.game.search(listMenu, searchForm fill data, pager))
-        // }
+          data => searchEnv.nonEmptyQuery(data) ?? { query =>
+            searchEnv.paginator(query, page) map (_.some)
+          } map { pager =>
+            Ok(html.game.search(listMenu, searchForm fill data, pager))
+          }
         )
       }
     }

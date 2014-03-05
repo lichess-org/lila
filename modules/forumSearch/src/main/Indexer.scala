@@ -25,9 +25,7 @@ private[forumSearch] final class Indexer(
 
     case InsertPost(post) => postApi liteView post foreach {
       _ foreach { view =>
-        client execute {
-          indexInto(indexType, view)
-        }
+        client execute store(view)
       }
     }
 
@@ -62,7 +60,7 @@ private[forumSearch] final class Indexer(
           $enumerate.bulk[Option[Post]]($query[Post](Json.obj()), 200) { postOptions =>
             (postApi liteViews postOptions.flatten) flatMap { views =>
               client bulk {
-                views.map { indexInto(indexType, _) }: _*
+                (views map store): _*
               } void
             }
           }, 20 minutes)
@@ -75,7 +73,7 @@ private[forumSearch] final class Indexer(
       }
   }
 
-  private def indexInto(indexType: String, view: PostLiteView) =
+  private def store(view: PostLiteView) =
     index into indexType fields {
       List(
         Fields.body -> view.post.text.take(10000),
