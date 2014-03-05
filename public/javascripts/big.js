@@ -945,7 +945,7 @@ var storage = {
             move: function(event) {
               self.element.queue(function() {
                 // if a draw was claimable, remove the zone
-                $('div.lichess_claim_draw_zone').remove();
+                $('#claim_draw_zone').remove();
                 self.$board.find("div.lcs.check").removeClass("check");
                 self.$board.find("div.droppable-hover").removeClass("droppable-hover");
                 // If I made the move, the piece is already moved on the board

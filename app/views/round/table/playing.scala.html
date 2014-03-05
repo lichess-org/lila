@@ -34,7 +34,7 @@
 </div>
 }
 @if(game.turnOf(player) && game.toChessHistory.threefoldRepetition) {
-<div class="lichess_claim_draw_zone">
+<div id="claim_draw_zone">
     @trans.threefoldRepetition().&nbsp;
     <a class="lichess_claim_draw socket-link" data-msg="draw-claim">@trans.claimADraw()</a>
 </div>
