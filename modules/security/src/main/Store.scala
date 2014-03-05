@@ -6,6 +6,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.mvc.RequestHeader
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+import reactivemongo.bson.BSONDocument
 
 import lila.common.PimpedJson._
 import lila.db.api._
@@ -27,10 +28,10 @@ object Store {
       "up" -> true))
 
   def userId(sessionId: String): Fu[Option[String]] =
-    $primitive.one(
-      $select(sessionId) ++ Json.obj("up" -> true),
-      "user"
-    )(_.asOpt[String])
+    storeTube.coll.find(
+      BSONDocument("_id" -> sessionId, "up" -> true),
+      BSONDocument("user" -> true)
+    ).one[BSONDocument] map { _ flatMap (_.getAs[String]("user")) }
 
   def delete(sessionId: String): Funit =
     $update($select(sessionId), $set("up" -> false))
