@@ -72,6 +72,9 @@ final class Evaluator(
           generate(user.id, user.perfs, false) foreach {
             case Some(eval) if eval.report(user.perfs) =>
               reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
+            case Some(eval) if eval.mark(user.perfs) =>
+              marker ! lila.hub.actorApi.mod.MarkCheater(user.id)
+              reporter ! lila.hub.actorApi.report.Check(user.id)
             case _ =>
           }
         }
