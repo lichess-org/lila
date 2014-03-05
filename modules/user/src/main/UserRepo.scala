@@ -49,7 +49,7 @@ trait UserRepo {
     ) sort ($sort desc s"perfs.$perf.gl.r"), nb)
 
   def topNbGame(nb: Int): Fu[List[User]] =
-    $find(goodLadQuery sort ($sort desc "count.game"), nb)
+    $find($query(enabledSelect) sort ($sort desc "count.game"), nb)
 
   def byId(id: ID): Fu[Option[User]] = $find byId id
 
@@ -97,10 +97,6 @@ trait UserRepo {
     case Some(t) => $update.field(id, "title", t)
     case None    => $update($select(id), $unset("title"))
   }
-
-  def setEvaluated(id: ID, v: Boolean): Funit = $update.field(id, "evaluated", v)
-  def isEvaluated(id: ID): Fu[Boolean] =
-    $primitive.one($select(id), "evaluated")(_.asOpt[Boolean]) map (~_)
 
   val enabledSelect = Json.obj("enabled" -> true)
   def engineSelect(v: Boolean) = Json.obj(User.BSONFields.engine -> v.fold(JsBoolean(true), $ne(true)))

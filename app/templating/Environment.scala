@@ -51,7 +51,6 @@ object Environment
 
   def netDomain = apiEnv.Net.Domain
   def netBaseUrl = apiEnv.Net.BaseUrl
-  def netPort = apiEnv.Net.Port
 
   def isProd = apiEnv.isProd
 

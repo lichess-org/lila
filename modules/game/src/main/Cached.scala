@@ -32,11 +32,11 @@ final class Cached(ttl: Duration) {
 
   val activePlayerUidsDay = AsyncCache(
     (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
-    timeToLive = 15 minutes)
+    timeToLive = 1 hour)
 
   val activePlayerUidsWeek = AsyncCache(
     (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusWeeks 1, nb),
-    timeToLive = 30 minutes)
+    timeToLive = 6 hours)
 
   private val confrontationCache =
     AsyncCache(GameRepo.confrontation, timeToLive = 1.minute)

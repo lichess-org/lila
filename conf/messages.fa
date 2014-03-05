@@ -285,6 +285,7 @@ thankYou=ممنون
 ratingX=امتیاز %s
 playedXTimes=این جدول%s بار بازی شده است
 winRateX=امتیاز پیروزی: %s
+fromGameLink=برگرفته شده از بازي شماره %s
 startTraining=شروع تمرین
 continueTraining=ادامه دادن تمرین
 retryThisPuzzle=این جدول را دوباره امتحان کنید
