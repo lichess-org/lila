@@ -65,7 +65,7 @@ final class Evaluator(
   }
 
   def autoGenerate(user: User, player: Player) {
-    if (deviationIsLow(user.perfs) && ratingIsHigh(user.perfs)) {
+    if (!user.engine && deviationIsLow(user.perfs) && (progressIsHigh(user) || ratingIsHigh(user.perfs))) {
       evaluatedAt(user) foreach { date =>
         if (date.fold(true)(_ isBefore (DateTime.now minusDays 7))) {
           logger.info(s"auto evaluate $user")

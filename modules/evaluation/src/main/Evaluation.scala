@@ -1,7 +1,7 @@
 package lila.evaluation
 
 import org.joda.time.DateTime
-import lila.user.{ Perfs }
+import lila.user.{ User, Perfs }
 
 case class Evaluation(
     id: String,
@@ -45,13 +45,10 @@ object Evaluation {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
-  private[evaluation] val greatRatingThreshold = 2100
-  private[evaluation] val ratingThreshold = 1600
-  private[evaluation] val deviationThreshold = 120
-
-  def deviationIsLow(perfs: Perfs) = perfs.global.glicko.deviation < deviationThreshold
-  def ratingIsHigh(perfs: Perfs) = perfs.global.glicko.rating >= ratingThreshold
-  def ratingIsGreat(perfs: Perfs) = perfs.global.glicko.rating >= greatRatingThreshold
+  private[evaluation] def progressIsHigh(user: User) = user.progress > 80
+  private[evaluation] def deviationIsLow(perfs: Perfs) = perfs.global.glicko.deviation < 110
+  private[evaluation] def ratingIsHigh(perfs: Perfs) = perfs.global.glicko.rating >= 1600
+  private[evaluation] def ratingIsGreat(perfs: Perfs) = perfs.global.glicko.rating >= 2100
 
   private type Percent = Int
 
