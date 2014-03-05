@@ -15,10 +15,10 @@ private[gameSearch] final class Indexer(
 
     case FinishGame(game, _, _) => self ! InsertGame(game)
 
-    case InsertGame(game) => if (game.finished) {
-      isAnalyzed(game.id) foreach { analyzed =>
-        lowLevel ! S.InsertOne(game.id, Game.from(game, analyzed))
-      }
-    }
+    // case InsertGame(game) => if (game.finished) {
+    //   isAnalyzed(game.id) foreach { analyzed =>
+    //     lowLevel ! S.InsertOne(game.id, Game.from(game, analyzed))
+    //   }
+    // }
   }
 }

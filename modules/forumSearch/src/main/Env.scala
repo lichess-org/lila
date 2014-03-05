@@ -34,7 +34,7 @@ final class Env(
     private implicit def timeout = makeTimeout minutes 20
     def process = {
       case "forum" :: "search" :: "reset" :: Nil =>
-        (indexer ? Indexer.Reset) inject "Forum search index rebuilt"
+        (indexer ? lila.search.actorApi.Reset) inject "Forum search index rebuilt"
     }
   }
 

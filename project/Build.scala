@@ -177,7 +177,7 @@ object ApplicationBuild extends Build {
 
   lazy val teamSearch = project("teamSearch", Seq(common, hub, team, search)).settings(
     libraryDependencies ++= provided(
-      play.api, RM, PRM, scalastic, elastic4s)
+      play.api, RM, PRM, elastic4s)
   )
 
   lazy val i18n = project("i18n", Seq(common, db, user, hub)).settings(

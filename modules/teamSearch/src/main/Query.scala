@@ -1,31 +1,37 @@
 package lila.teamSearch
 
-import org.elasticsearch.index.query._, QueryBuilders._
-import Team.fields
+import com.sksamuel.elastic4s.ElasticDsl._
+import com.sksamuel.elastic4s.QueryDefinition
+import org.elasticsearch.search.sort.SortOrder
 
 import lila.search.ElasticSearch
 
-private[teamSearch] final class Query private (terms: List[String]) extends lila.search.Query {
+private[teamSearch] final class Query private (
+    indexType: String,
+    terms: List[String]) extends lila.search.Query {
 
-  def searchDef(from: Int = 0, size: Int = 10) = ???
-  // ElasticSearch.Request.Search(
-  //   query = makeQuery,
-  //   from = from,
-  //   size = size)
+  def searchDef(from: Int = 0, size: Int = 10) =
+    search in indexType query makeQuery sort (
+      by field Fields.nbMembers order SortOrder.DESC
+    ) start from size size
 
-  def countDef = ???
-  //ElasticSearch.Request.Count(makeQuery)
+  def countDef = count from indexType query makeQuery
 
-  private def makeQuery = terms.foldLeft(boolQuery()) {
-    case (query, term) => query must {
-      multiMatchQuery(term, fields.name, fields.description, fields.location)
+  private def makeQuery = terms match {
+    case Nil => all
+    case terms => must {
+      terms.map { term =>
+        multiMatchQuery(term) fields (Query.searchableFields: _*)
+      }: _*
     }
   }
 }
 
 object Query {
 
-  def apply(text: String): Query = new Query(
-    ElasticSearch.Request decomposeTextQuery text
+  private val searchableFields = List(Fields.name, Fields.description, Fields.location)
+
+  def apply(indexType: String, text: String): Query = new Query(
+    indexType, ElasticSearch.Request decomposeTextQuery text
   )
 }

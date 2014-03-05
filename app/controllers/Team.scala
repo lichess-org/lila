@@ -31,8 +31,7 @@ object Team extends LilaController {
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
     text.trim.isEmpty.fold(
       paginator popularTeams page map { html.team.home(_) },
-      ???
-      // Env.teamSearch(text, page) map { html.team.search(text, _) }
+      Env.teamSearch(text, page) map { html.team.search(text, _) }
     )
   }
 
