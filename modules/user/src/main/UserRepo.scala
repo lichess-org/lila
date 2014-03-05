@@ -49,7 +49,7 @@ trait UserRepo {
     ) sort ($sort desc s"perfs.$perf.gl.r"), nb)
 
   def topNbGame(nb: Int): Fu[List[User]] =
-    $find(goodLadQuery sort ($sort desc "count.game"), nb)
+    $find($query(enabledSelect) sort ($sort desc "count.game"), nb)
 
   def byId(id: ID): Fu[Option[User]] = $find byId id
 
