@@ -5,8 +5,6 @@ import akka.pattern.pipe
 import com.sksamuel.elastic4s.ElasticClient
 import com.sksamuel.elastic4s.ElasticDsl._
 import com.sksamuel.elastic4s.mapping.FieldType._
-import scala.concurrent.Await
-import scala.concurrent.duration._
 
 import lila.forum.actorApi._
 import lila.forum.{ Post, PostLiteView, PostApi }
@@ -23,7 +21,6 @@ private[forumSearch] final class Indexer(
   def receive = {
 
     case Search(definition) => client execute definition pipeTo sender
-
     case Count(definition)  => client execute definition pipeTo sender
 
     case InsertPost(post) => postApi liteView post foreach {
@@ -42,7 +39,7 @@ private[forumSearch] final class Indexer(
       delete from indexType where s"${Fields.topicId}:$id"
     }
 
-    case Indexer.Reset =>
+    case Reset =>
       lila.search.ElasticSearch.createType(client, indexName, typeName)
       try {
         client.putMapping(indexName) {
@@ -56,16 +53,17 @@ private[forumSearch] final class Indexer(
             Fields.date typed DateType
           )
         }
-        import play.api.libs.json._
-        import play.api.libs.iteratee._
+        import scala.concurrent.Await
+        import scala.concurrent.duration._
+        import play.api.libs.json.Json
         import lila.db.api._
         import lila.forum.tube.postTube
         Await.result(
-          $enumerate.bulk[Option[Post]]($query[Post](Json.obj()), 1000) { postOptions =>
-            (postApi liteViews postOptions.flatten) map { views =>
+          $enumerate.bulk[Option[Post]]($query[Post](Json.obj()), 200) { postOptions =>
+            (postApi liteViews postOptions.flatten) flatMap { views =>
               client bulk {
                 views.map { indexInto(indexType, _) }: _*
-              }
+              } void
             }
           }, 20 minutes)
         sender ! ()
@@ -77,7 +75,7 @@ private[forumSearch] final class Indexer(
       }
   }
 
-  def indexInto(indexType: String, view: PostLiteView) =
+  private def indexInto(indexType: String, view: PostLiteView) =
     index into indexType fields {
       List(
         Fields.body -> view.post.text.take(10000),
@@ -89,9 +87,4 @@ private[forumSearch] final class Indexer(
         Fields.date -> view.post.createdAt.getDate
       ): _*
     } id view.post.id
-}
-
-private[forumSearch] object Indexer {
-
-  case object Reset
 }
