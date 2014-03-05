@@ -7,8 +7,10 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.json.Json
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+import reactivemongo.bson._
 
 import lila.db.api._
+import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.JsTube.Helpers.{ rename, writeDate, readDate }
 import lila.db.Types._
 import lila.game.Player
@@ -28,7 +30,13 @@ final class Evaluator(
   }
 
   def find(user: User): Fu[Option[Evaluation]] =
-    coll.find(Json.obj("_id" -> user.id)).one[JsObject] map { _ map readEvaluation }
+    coll.find(BSONDocument("_id" -> user.id)).one[JsObject] map { _ map readEvaluation }
+
+  def evaluatedAt(user: User): Fu[Option[DateTime]] =
+    coll.find(
+      BSONDocument("_id" -> user.id),
+      BSONDocument("date" -> true)
+    ).one[BSONDocument] map { _ flatMap (_.getAs[DateTime]("date")) }
 
   def generate(user: User, deep: Boolean): Fu[Option[Evaluation]] = generate(user.id, user.perfs, deep)
 
@@ -44,7 +52,6 @@ final class Evaluator(
         }
         eval ← scala.concurrent.Future(readEvaluation(evalJs))
         _ ← coll.update(Json.obj("_id" -> userId), evalJs, upsert = true)
-        _ ← UserRepo.setEvaluated(userId, true)
       } yield eval.some
     }
   } andThen {
@@ -58,12 +65,18 @@ final class Evaluator(
   }
 
   def autoGenerate(user: User, player: Player) {
-    UserRepo isEvaluated user.id foreach { evaluated =>
-      if (!evaluated && deviationIsLow(user.perfs) && ratingIsHigh(user.perfs)) {
-        logger.info(s"auto evaluate $user")
-        generate(user.id, user.perfs, false) foreach {
-          case Some(eval) if eval.report(user.perfs) => reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
-          case _                                     =>
+    if (!user.engine && deviationIsLow(user.perfs) && (progressIsHigh(user) || ratingIsHigh(user.perfs))) {
+      evaluatedAt(user) foreach { date =>
+        if (date.fold(true)(_ isBefore (DateTime.now minusDays 7))) {
+          logger.info(s"auto evaluate $user")
+          generate(user.id, user.perfs, false) foreach {
+            case Some(eval) if eval.report(user.perfs) =>
+              reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
+            case Some(eval) if eval.mark(user.perfs) =>
+              marker ! lila.hub.actorApi.mod.MarkCheater(user.id)
+              reporter ! lila.hub.actorApi.report.Check(user.id)
+            case _ =>
+          }
         }
       }
     }
