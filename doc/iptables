@@ -1,13 +1,13 @@
 -- local
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6661 -j DNAT --to 192.168.1.59:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6662 -j DNAT --to 192.168.1.59:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6663 -j DNAT --to 192.168.1.59:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6664 -j DNAT --to 192.168.1.59:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6665 -j DNAT --to 192.168.1.59:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6666 -j DNAT --to 192.168.1.59:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6667 -j DNAT --to 192.168.1.59:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6668 -j DNAT --to 192.168.1.59:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6669 -j DNAT --to 192.168.1.59:80
+sudo iptables -t nat -A OUTPUT -p tcp --dport 6661 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -A OUTPUT -p tcp --dport 6662 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -A OUTPUT -p tcp --dport 6663 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -A OUTPUT -p tcp --dport 6664 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -A OUTPUT -p tcp --dport 6665 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -A OUTPUT -p tcp --dport 6666 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -A OUTPUT -p tcp --dport 6667 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -A OUTPUT -p tcp --dport 6668 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -A OUTPUT -p tcp --dport 6669 -j DNAT --to 127.0.0.1:80
 
 -- prod
 iptables -t nat -A PREROUTING -p tcp --dport 6661 -j DNAT --to 91.121.106.120:80
