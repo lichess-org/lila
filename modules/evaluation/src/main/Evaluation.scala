@@ -46,7 +46,7 @@ object Evaluation {
   import play.api.libs.functional.syntax._
 
   private[evaluation] val greatRatingThreshold = 2100
-  private[evaluation] val ratingThreshold = 1700
+  private[evaluation] val ratingThreshold = 1600
   private[evaluation] val deviationThreshold = 120
 
   def deviationIsLow(perfs: Perfs) = perfs.global.glicko.deviation < deviationThreshold
