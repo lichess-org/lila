@@ -22,9 +22,7 @@ private[teamSearch] final class Indexer(
     case Search(definition) => client execute definition pipeTo sender
     case Count(definition)  => client execute definition pipeTo sender
 
-    case InsertTeam(team) => client execute {
-      indexInto(indexType, team)
-    }
+    case InsertTeam(team) => client execute store(team)
 
     case RemoveTeam(id) => client execute {
       delete id id from indexType
@@ -49,7 +47,7 @@ private[teamSearch] final class Indexer(
         Await.result(
           $enumerate.bulk[Option[Team]]($query[Team](Json.obj("enabled" -> true)), 100) { teamOptions =>
             client bulk {
-              teamOptions.flatten.map { indexInto(indexType, _) }: _*
+              (teamOptions.flatten map store): _*
             } void
           }, 20 minutes)
         sender ! ()
@@ -61,7 +59,7 @@ private[teamSearch] final class Indexer(
       }
   }
 
-  private def indexInto(indexType: String, team: Team) =
+  private def store(team: Team) =
     index into indexType fields {
       List(
         Fields.name -> team.name,

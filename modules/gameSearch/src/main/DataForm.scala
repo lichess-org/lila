@@ -60,7 +60,8 @@ private[gameSearch] case class SearchData(
     analysed: Option[Int] = None,
     sort: SearchSort = SearchSort()) {
 
-  lazy val query = Query(
+  def query(indexType: String) = Query(
+    indexType = indexType,
     user1 = players.cleanA,
     user2 = players.cleanB,
     winner = players.cleanWinner,
@@ -77,7 +78,10 @@ private[gameSearch] case class SearchData(
     analysed = analysed map (_ == 1),
     sorting = Sorting(sort.field, sort.order))
 
-  def nonEmptyQuery = query.nonEmpty option query
+  def nonEmptyQuery(indexType: String) = {
+    val q = query(indexType)
+    q.nonEmpty option q
+  }
 
   private val DateDelta = """^(\d+)(\w)$""".r
   private def toDate(delta: String): Option[DateTime] = delta match {

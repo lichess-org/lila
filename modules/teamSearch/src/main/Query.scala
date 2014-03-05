@@ -32,6 +32,6 @@ object Query {
   private val searchableFields = List(Fields.name, Fields.description, Fields.location)
 
   def apply(indexType: String, text: String): Query = new Query(
-    indexType, ElasticSearch.Request decomposeTextQuery text
+    indexType, ElasticSearch decomposeTextQuery text
   )
 }

@@ -2,14 +2,15 @@ package lila.gameSearch
 
 import chess.{ Variant, Mode, Status, EcoDb }
 import com.github.nscala_time.time.Imports._
-import Game.fields
-import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
+import com.sksamuel.elastic4s.ElasticDsl._
+import com.sksamuel.elastic4s.QueryDefinition
 import org.joda.time.DateTime
 
 import lila.rating.RatingRange
 import lila.search.{ ElasticSearch, Range }
 
 case class Query(
+    indexType: String,
     user1: Option[String] = None,
     user2: Option[String] = None,
     winner: Option[String] = None,
@@ -26,6 +27,8 @@ case class Query(
     sorting: Sorting = Sorting.default,
     analysed: Option[Boolean] = None) extends lila.search.Query {
 
+  import Fields._
+
   def nonEmpty =
     user1.nonEmpty ||
       user2.nonEmpty ||
@@ -41,37 +44,36 @@ case class Query(
       date.nonEmpty ||
       duration.nonEmpty
 
-  def searchDef(from: Int = 0, size: Int = 10) = ???
-  // ElasticSearch.Request.Search(
-  //   query = matchAllQuery,
-  //   filter = filters,
-  //   sortings = List(sorting.fieldSort),
-  //   from = from,
-  //   size = size)
+  def searchDef(from: Int = 0, size: Int = 10) =
+    search in indexType query makeQuery sort sorting.definition start from size size
 
-  def countDef = ???
-  // ElasticSearch.Request.Count(matchAllQuery, filters)
+  def countDef = count from indexType query makeQuery
+
+  private lazy val makeQuery = filteredQuery query matchall filter {
+    List(
+      usernames map { termFilter(Fields.uids, _) },
+      toFilters(winner, Fields.winner),
+      turns filters Fields.turns,
+      averageRating filters Fields.averageRating,
+      duration map (60 *) filters Fields.duration,
+      date map ElasticSearch.Date.formatter.print filters Fields.date,
+      hasAiFilters,
+      (hasAi | true).fold(aiLevel filters Fields.ai, Nil),
+      toFilters(variant, Fields.variant),
+      toFilters(rated, Fields.rated),
+      toFilters(opening, Fields.opening),
+      toFilters(status, Fields.status),
+      toFilters(analysed, Fields.analysed)
+    ).flatten match {
+        case Nil => matchAllFilter
+        case filters => must(filters: _*)
+      }
+  }
 
   def usernames = List(user1, user2).flatten
 
-  private def filters = List(
-    usernames map { termFilter(fields.uids, _) },
-    toFilters(winner, fields.winner),
-    turns filters fields.turns,
-    averageRating filters fields.averageRating,
-    duration map (60 *) filters fields.duration,
-    date map ElasticSearch.Date.formatter.print filters fields.date,
-    hasAiFilters,
-    (hasAi | true).fold(aiLevel filters fields.ai, Nil),
-    toFilters(variant, fields.variant),
-    toFilters(rated, fields.rated),
-    toFilters(opening, fields.opening),
-    toFilters(status, fields.status),
-    toFilters(analysed, fields.analysed)
-  ).flatten.toNel map { fs => andFilter(fs.list: _*) }
-
   private def hasAiFilters = hasAi.toList map { a =>
-    a.fold(existsFilter(fields.ai), missingFilter(fields.ai))
+    a.fold(existsFilter(Fields.ai), missingFilter(Fields.ai))
   }
 
   private def toFilters(query: Option[_], name: String) = query.toList map {
