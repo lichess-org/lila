@@ -98,10 +98,6 @@ trait UserRepo {
     case None    => $update($select(id), $unset("title"))
   }
 
-  def setEvaluated(id: ID, v: Boolean): Funit = $update.field(id, "evaluated", v)
-  def isEvaluated(id: ID): Fu[Boolean] =
-    $primitive.one($select(id), "evaluated")(_.asOpt[Boolean]) map (~_)
-
   val enabledSelect = Json.obj("enabled" -> true)
   def engineSelect(v: Boolean) = Json.obj(User.BSONFields.engine -> v.fold(JsBoolean(true), $ne(true)))
   val stableSelect = Json.obj("perfs.global.gl.d" -> $lt(82))
