@@ -155,6 +155,7 @@ tournament=Torneig
 tournaments=Tornejos
 tournamentPoints=Punts de tornejos
 viewTournament=Mira el torneig
+backToTournament=Torna al torneig
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Joc d'escacs gratuït online. Juga ara a escacs amb una interfície elegant. No cal registrar-s'hi, sense anuncis, no calen connectors. Juga a escacs amb la màquina, amics o oponents a l'atzar.
 teams=Equips
 nbMembers=%s membres
