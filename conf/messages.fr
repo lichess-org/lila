@@ -155,6 +155,7 @@ tournament=Tournoi
 tournaments=Tournois
 tournamentPoints=Score de tournoi
 viewTournament=Voir le tournoi
+backToTournament=Retour au tournoi
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Jeu d'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs contre l'ordinateur, des amis ou des adversaires en ligne.
 teams=Équipes
 nbMembers=%s membres
