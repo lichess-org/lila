@@ -26,21 +26,15 @@ final class Env(
     ElasticClient.remote(settings, ESHost -> ESPort)
   }
 
-  // {
-  //   import scala.concurrent.duration._
-
-  //   scheduler.effect(1 hour, "search: optimize index") {
-  //     esIndexer foreach { es =>
-  //       try {
-  //         es optimize IndexesToOptimize
-  //       }
-  //       catch {
-  //         case e: org.elasticsearch.indices.IndexMissingException =>
-  //           play.api.Logger("search").warn(e.toString)
-  //       }
-  //     }
-  //   }
-  // }
+  {
+    import scala.concurrent.duration._
+    import com.sksamuel.elastic4s.ElasticDsl._
+    scheduler.effect(1 hour, "search: optimize index") {
+      client execute {
+        optimize index IndexesToOptimize
+      }
+    }
+  }
 }
 
 object Env {
