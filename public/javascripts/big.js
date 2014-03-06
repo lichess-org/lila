@@ -448,10 +448,12 @@ var storage = {
       },
       params: {},
       options: {
-        baseUrls: _.map(_.range(1, 10), function(i) {
-          return 'socket.' + document.domain + ':' + (6660 + i);
-        }),
-        baseUrlKey: 'surl2',
+        baseUrls: _.union(
+          'socket.' + document.domain,
+          _.map(_.range(1, 10), function(i) {
+            return 'socket.' + document.domain + ':' + (9020 + i);
+          })),
+        baseUrlKey: 'surl3',
         name: "site",
         lagTag: $('#connection_lag'),
         debug: location.search.indexOf('debug-ws') != -1,
