@@ -1,24 +1,24 @@
 -- local
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6661 -j DNAT --to 127.0.0.1:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6662 -j DNAT --to 127.0.0.1:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6663 -j DNAT --to 127.0.0.1:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6664 -j DNAT --to 127.0.0.1:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6665 -j DNAT --to 127.0.0.1:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6666 -j DNAT --to 127.0.0.1:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6667 -j DNAT --to 127.0.0.1:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6668 -j DNAT --to 127.0.0.1:80
-sudo iptables -t nat -A OUTPUT -p tcp --dport 6669 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -D OUTPUT -p tcp --dport 9021 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -D OUTPUT -p tcp --dport 9022 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -D OUTPUT -p tcp --dport 9023 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -D OUTPUT -p tcp --dport 9024 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -D OUTPUT -p tcp --dport 9025 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -D OUTPUT -p tcp --dport 9026 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -D OUTPUT -p tcp --dport 9027 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -D OUTPUT -p tcp --dport 9028 -j DNAT --to 127.0.0.1:80
+sudo iptables -t nat -D OUTPUT -p tcp --dport 9029 -j DNAT --to 127.0.0.1:80
 
 -- prod
-iptables -t nat -A PREROUTING -p tcp --dport 6661 -j DNAT --to 91.121.106.120:80
-iptables -t nat -A PREROUTING -p tcp --dport 6662 -j DNAT --to 91.121.106.120:80
-iptables -t nat -A PREROUTING -p tcp --dport 6663 -j DNAT --to 91.121.106.120:80
-iptables -t nat -A PREROUTING -p tcp --dport 6664 -j DNAT --to 91.121.106.120:80
-iptables -t nat -A PREROUTING -p tcp --dport 6665 -j DNAT --to 91.121.106.120:80
-iptables -t nat -A PREROUTING -p tcp --dport 6666 -j DNAT --to 91.121.106.120:80
-iptables -t nat -A PREROUTING -p tcp --dport 6667 -j DNAT --to 91.121.106.120:80
-iptables -t nat -A PREROUTING -p tcp --dport 6668 -j DNAT --to 91.121.106.120:80
-iptables -t nat -A PREROUTING -p tcp --dport 6669 -j DNAT --to 91.121.106.120:80
+iptables -t nat -A PREROUTING -p tcp --dport 9021 -j DNAT --to 91.121.106.120:80
+iptables -t nat -A PREROUTING -p tcp --dport 9022 -j DNAT --to 91.121.106.120:80
+iptables -t nat -A PREROUTING -p tcp --dport 9023 -j DNAT --to 91.121.106.120:80
+iptables -t nat -A PREROUTING -p tcp --dport 9024 -j DNAT --to 91.121.106.120:80
+iptables -t nat -A PREROUTING -p tcp --dport 9025 -j DNAT --to 91.121.106.120:80
+iptables -t nat -A PREROUTING -p tcp --dport 9026 -j DNAT --to 91.121.106.120:80
+iptables -t nat -A PREROUTING -p tcp --dport 9027 -j DNAT --to 91.121.106.120:80
+iptables -t nat -A PREROUTING -p tcp --dport 9028 -j DNAT --to 91.121.106.120:80
+iptables -t nat -A PREROUTING -p tcp --dport 9029 -j DNAT --to 91.121.106.120:80
 
 iptables-save > /etc/iptables.rules
 
