@@ -155,6 +155,7 @@ tournament=Turniej
 tournaments=Turnieje
 tournamentPoints=Punkty Turniejowe
 viewTournament=Zobacz turniej
+backToTournament=Wróć do turnieju
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Darmowa gra w szachy online. Zagraj teraz w szachy. Prosty interfejs. Bez rejestracji, bez reklam, bez instalowania wtyczek. Graj w szachy z komputerem, przyjaciółmi lub losowymi przeciwnikami.
 teams=Zespoły
 nbMembers=%s członkowie
