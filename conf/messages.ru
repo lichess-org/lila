@@ -155,6 +155,7 @@ tournament=Турнир
 tournaments=Соревнования
 tournamentPoints=Турнирные очки
 viewTournament=Просмотр турнира
+backToTournament=Вернуться к турниру
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Бесплатные онлайн-шахматы. Играйте в шахматы прямо сейчас в понятном интерфейсе. Без регистрации, рекламы и дополнений. Играйте в шахматы с компьютером, друзьями или случайными соперниками.
 teams=Команды
 nbMembers=%s участников
