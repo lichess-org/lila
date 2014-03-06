@@ -155,6 +155,7 @@ tournament=Turnering
 tournaments=Turneringar
 tournamentPoints=Turneringpoäng
 viewTournament=Visa turnering
+backToTournament=Tillbaka till turnering
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Gratis Schack på internet. Spela Schack nu, med ett enkelt gränssnitt. Ingen registrering, inga annonser, inga instickningsprogram behövs. Spela Schack mot datorn, vänner eller vem som helst.
 teams=Lag
 nbMembers=%s medlemmar
