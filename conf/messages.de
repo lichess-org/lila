@@ -155,6 +155,7 @@ tournament=Turnier
 tournaments=Turniere
 tournamentPoints=Turnierpunkte
 viewTournament=Turnier betrachten
+backToTournament=Zurück zum Turnier
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Freies und kostenloses Online-Schachspiel. Jetzt in einer einladenden Umgebung Schach spielen! Keine Registrierung, keine Werbung und kein Plugin erforderlich. Schach kann gegen den Computer, Freunde oder zufällige Gegner gespielt werden.
 teams=Mannschaften
 nbMembers=%s Mitglieder
