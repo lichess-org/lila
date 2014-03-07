@@ -155,6 +155,7 @@ tournament=Турнір
 tournaments=Турніры
 tournamentPoints=Турнірныя балы
 viewTournament=Назіраць за турнірам
+backToTournament=Вараціцца да турніру
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Бясплатныя он-лайн шахматы. Гуляй у шахматы са зручным інтэрфэйсам. Без рэгістрацыі, без рэклямы, без дадатковых праграм. Гуляй у шахматы з камп'ютарам, сябрамі ці выпадковым супернікам.
 teams=Каманды
 nbMembers=%s чальцоў
