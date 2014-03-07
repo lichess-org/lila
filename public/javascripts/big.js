@@ -450,6 +450,7 @@ var storage = {
       options: {
         baseUrls: _.union(
           'socket.' + document.domain,
+          document.domain + ':' + $('body').data('port'),
           _.map(_.range(1, 10), function(i) {
             return 'socket.' + document.domain + ':' + (9020 + i);
           })),

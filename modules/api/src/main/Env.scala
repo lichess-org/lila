@@ -21,6 +21,7 @@ final class Env(
     val Domain = config getString "net.domain"
     val Protocol = config getString "net.protocol"
     val BaseUrl = config getString "net.base_url"
+    val Port = config getInt "http.port"
     val AssetDomain = config getString "net.asset.domain"
     val AssetVersion = config getInt "net.asset.version"
   }
