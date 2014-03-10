@@ -79,7 +79,7 @@ private[i18n] object Contributors {
     "kn" -> List("preetam"),
     "ko" -> List("Xnuk"),
     "mg" -> List("RAZAFIMAHEFA Aina"),
-    "k2" -> List("Taqbaylit"))
+    "kb" -> List(""))
 
   def apply(code: String): List[String] = ~(all get code)
 }
