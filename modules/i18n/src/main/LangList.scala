@@ -62,7 +62,7 @@ object LangList {
     "ff" -> "Fulfulde, Pulaar, Pular",
     "gl" -> "Galego",
     "ka" -> "ქართულ",
-    "k2" -> "Taqbaylit",
+    "kb" -> "Taqbaylit",
     "de" -> "Deutsch",
     "el" -> "Ελληνικά",
     "gn" -> "avañe'ẽ",
