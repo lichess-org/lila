@@ -77,8 +77,7 @@ private[gameSearch] final class Indexer(
               nbSkipped = nbSkipped + gameOptions.size - nbGames
               val perS = (batchSize * 1000) / math.max(1, (nowMillis - started))
               started = nowMillis
-              loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(
-                nb, size, nbSkipped, perS))
+              loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(nb, size, nbSkipped, perS))
             }
           },
           10 hours)
