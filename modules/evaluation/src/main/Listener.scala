@@ -2,6 +2,7 @@ package lila.evaluation
 
 import akka.actor._
 import chess.{ White, Black }
+import lila.user.User
 
 private[evaluation] final class Listener(evaluator: Evaluator) extends Actor {
 
@@ -13,5 +14,7 @@ private[evaluation] final class Listener(evaluator: Evaluator) extends Actor {
       white foreach { user => evaluator.autoGenerate(user, game player White) }
       black foreach { user => evaluator.autoGenerate(user, game player Black) }
     }
+
+    case user: User => evaluator.generate(user, true)
   }
 }
