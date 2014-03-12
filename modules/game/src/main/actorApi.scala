@@ -8,7 +8,11 @@ import play.api.templates.Html
 
 case class RenderFeaturedJs(game: Game)
 
-case class FinishGame(game: Game, white: Option[User], black: Option[User])
+case class FinishGame(game: Game, white: Option[User], black: Option[User]) {
+
+  def isVsSelf = white.isDefined && white == black
+}
+
 case class InsertGame(game: Game)
 
 private[game] case object NewCaptcha
