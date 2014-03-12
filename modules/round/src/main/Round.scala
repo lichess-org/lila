@@ -8,6 +8,7 @@ import akka.pattern.{ ask, pipe }
 import actorApi._, round._
 import lila.game.{ Game, GameRepo, Pov, PovRef, PlayerRef, Event, Progress }
 import lila.hub.actorApi.map._
+import lila.hub.actorApi.{ Deploy, RemindDeployPost }
 import lila.hub.SequentialActor
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import makeTimeout.large
@@ -24,6 +25,8 @@ private[round] final class Round(
     moretimeDuration: Duration) extends SequentialActor {
 
   context setReceiveTimeout 30.seconds
+
+  context.system.lilaBus.subscribe(self, 'deploy)
 
   def process = {
 
@@ -117,9 +120,24 @@ private[round] final class Round(
       pov.game.clock.filter(_ => pov.game.moretimeable) ?? { clock =>
         val newClock = clock.giveTime(!pov.color, moretimeDuration.toSeconds)
         val progress = (pov.game withClock newClock) + Event.Clock(newClock)
-        messenger.system(progress.game, (_.untranslated(
+        messenger.system(pov.game, (_.untranslated(
           "%s + %d seconds".format(!pov.color, moretimeDuration.toSeconds)
         )))
+        GameRepo save progress inject progress.events
+      }
+    }
+
+    case Deploy(RemindDeployPost, _) => handle { game =>
+      game.clock.filter(_ => game.playable) ?? { clock =>
+        import chess.Color
+        val freeSeconds = 12
+        val newClock = clock.giveTime(Color.White, freeSeconds).giveTime(Color.Black, freeSeconds)
+        val progress = (game withClock newClock) + Event.Clock(newClock)
+        messenger.system(game, (_.untranslated("Deploy in progress")))
+        Color.all.foreach { c =>
+          messenger.system(game, (_.untranslated(s"$c + $freeSeconds seconds")))
+        }
+        messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
         GameRepo save progress inject progress.events
       }
     }
