@@ -2,13 +2,25 @@
 
 @import scala.math.floor
 
+@bar = {
+<div class="bar bar_@position bar_@color"><span></span></div>
+}
+
 @defining(clock.remainingTime(color)) { time =>
+@if(position == "bottom") {
+@bar
+}
 <div class="clock
   clock_@position
   clock_@color
   @{ (time == 0).fold("outoftime", "") }"
+  data-color="@color"
   data-time="@time"
-  data-emerg="@{ clock.emergTime }">
+  data-emerg="@{ clock.emergTime }"
+  data-bar-time="@{clock.limit + 4 * clock.increment}">
   @{ """%02d:%02d""".format(floor(time / 60d).toInt, (time % 60).toInt) }
 </div>
+@if(position == "top") {
+@bar
+}
 }
