@@ -13,7 +13,7 @@ object I18n extends LilaController {
   private def env = Env.i18n
 
   def contribute = Open { implicit ctx =>
-    val mines = (ctx.req.acceptLanguages map env.transInfos.get).toList.flatten
+    val mines = (ctx.req.acceptLanguages map env.transInfos.get).toList.flatten.distinct
     Ok(html.i18n.contribute(env.transInfos.all, mines)).fuccess
   }
 
