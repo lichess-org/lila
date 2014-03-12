@@ -117,8 +117,9 @@ object Setup extends LilaController with TheftPrevention {
   def join(id: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo game id) { game =>
       env.friendJoiner(game, ctx.me).fold(
-        err => fulogwarn("setup join " + err) inject
-          Redirect(routes.Round.watcher(id, "white")),
+        err => fuccess {
+          Redirect(routes.Round.watcher(id, "white"))
+        },
         _ map {
           case (p, events) => {
             Env.hub.socket.round ! lila.hub.actorApi.map.Tell(p.gameId, events)

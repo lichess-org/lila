@@ -43,9 +43,9 @@ final class RelationApi(
     }).sequenceFu map (_ sortBy (-_._2) take max map (_._1)) flatMap UserRepo.byOrderedIds
 
   def follow(u1: ID, u2: ID): Funit =
-    if (u1 == u2) fufail("Cannot follow yourself")
+    if (u1 == u2) funit
     else relation(u1, u2) flatMap {
-      case Some(Follow) => fufail("Already following")
+      case Some(Follow) => funit
       case _            => doFollow(u1, u2)
     }
 
@@ -59,26 +59,26 @@ final class RelationApi(
       ).toFriendsOf(u1).toUsers(List(u2)))
 
   def block(u1: ID, u2: ID): Funit =
-    if (u1 == u2) fufail("Cannot block yourself")
+    if (u1 == u2) funit
     else relation(u1, u2) flatMap {
-      case Some(Block) => fufail("Already blocking")
+      case Some(Block) => funit
       case _ => RelationRepo.block(u1, u2) >> refresh(u1, u2) >>-
         bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation)
     }
 
   def unfollow(u1: ID, u2: ID): Funit =
-    if (u1 == u2) fufail("Cannot unfollow yourself")
+    if (u1 == u2) funit
     else relation(u1, u2) flatMap {
       case Some(Follow) => RelationRepo.unfollow(u1, u2) >> refresh(u1, u2)
-      case _            => fufail("Not following")
+      case _            => funit
     }
 
   def unblock(u1: ID, u2: ID): Funit =
-    if (u1 == u2) fufail("Cannot unblock yourself")
+    if (u1 == u2) funit
     else relation(u1, u2) flatMap {
       case Some(Block) => RelationRepo.unblock(u1, u2) >> refresh(u1, u2) >>-
         bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), 'relation)
-      case _ => fufail("Not blocking")
+      case _ => funit
     }
 
   private def refresh(u1: ID, u2: ID): Funit =
