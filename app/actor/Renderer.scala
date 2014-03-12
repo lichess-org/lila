@@ -23,9 +23,8 @@ private[app] final class Renderer extends Actor {
 
     case lila.hub.actorApi.setup.RemindChallenge(gameId, from, _) => {
       val replyTo = sender
-      (GameRepo game gameId) zip (UserRepo named from) foreach {
+      (GameRepo game gameId) zip (UserRepo named from) onSuccess {
         case (Some(game), Some(user)) => replyTo ! V.setup.challengeNotification(game, user)
-        case x                        => logwarn(s"remind challenge $x")
       }
     }
 
