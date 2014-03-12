@@ -1414,11 +1414,20 @@ var storage = {
         this.holdStart = null;
         if (this.holds.length > nb) {
           this.holds.shift();
-          var mean = this.holds.reduce(function(a, b) { return a + b; }) / nb;
+          var mean = this.holds.reduce(function(a, b) {
+            return a + b;
+          }) / nb;
           if (mean < 80) {
-            var diffs = this.holds.map(function(a) { return Math.pow(a - mean, 2); });
-            var sd = Math.sqrt(diffs.reduce(function(a, b) { return a + b; }) / nb);
-            if (sd < 10) lichess.socket.send('hold', { mean: Math.round(mean), sd: Math.round(sd) });
+            var diffs = this.holds.map(function(a) {
+              return Math.pow(a - mean, 2);
+            });
+            var sd = Math.sqrt(diffs.reduce(function(a, b) {
+              return a + b;
+            }) / nb);
+            if (sd < 10) lichess.socket.send('hold', {
+              mean: Math.round(mean),
+              sd: Math.round(sd)
+            });
           }
         }
       }
@@ -1471,10 +1480,13 @@ var storage = {
       if (!this.hasClock()) return;
       var self = this;
       self.$table.find('div.clock').each(function() {
-        $(this).clock({
+        var $c = $(this);
+        $c.clock({
           showTenths: self.options.clockTenths,
-          time: $(this).attr('data-time'),
-          emerg: $(this).attr('data-emerg'),
+          time: $c.data('time'),
+          bar: $c.siblings('div.bar_' + $c.data('color')).find('>span'),
+          barTime: $c.data('bar-time'),
+          emerg: $c.data('emerg'),
           buzzer: function() {
             if (!self.options.game.finished && !self.options.player.spectator) {
               self.outoftime();
@@ -1699,10 +1711,11 @@ var storage = {
 
   $.widget("lichess.clock", {
     _create: function() {
+      var o = this.options;
       this.options.time = parseFloat(this.options.time) * 1000;
+      this.options.barTime = parseFloat(this.options.barTime) * 1000;
       this.options.emerg = parseFloat(this.options.emerg) * 1000;
       $.extend(this.options, {
-        duration: this.options.time,
         state: 'ready'
       });
       this.element.addClass('clock_enabled');
@@ -1754,6 +1767,10 @@ var storage = {
       if (html != this.element.html()) {
         this.element.html(html);
         this.element.toggleClass('emerg', this.options.time < this.options.emerg);
+      }
+      if (this.options.bar) {
+        var barWidth = Math.max(0, Math.min(100, (this.options.time / this.options.barTime) * 100));
+        this.options.bar.css('width', barWidth + '%');
       }
     },
 

@@ -286,6 +286,7 @@ div.lichess_table_wrap {
 }
 div.lichess_table {
   border: 1px solid #ccc;
+  border-width: 0 1px 0 1px;
   height: auto;
   padding: 10px;
 }
@@ -314,6 +315,19 @@ div.lichess_table a.button.strong {
   padding-bottom: 1em;
   font-weight: bold;
   font-size: 1.2em;
+}
+div.lichess_table_wrap > div.bar {
+  display: block;
+  width: 240px;
+  height: 10px;
+  /* background: #808080; */
+  border: 1px solid #ccc;
+}
+div.lichess_table_wrap > div.bar > span {
+  display: block;
+  height: 10px;
+  width: 100%;
+  background: #808080;
 }
 div.clock {
   display: inline-block;
