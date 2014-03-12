@@ -72,6 +72,7 @@ themepicker = true) {
 
     <div class="advice_summary">
       @round.blurs(game)
+      @round.holdAlerts(game)
       @analysis.filter(_.done).map { a =>
       <table>
         @for((color, pairs) <- a.summary) {

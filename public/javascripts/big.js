@@ -854,6 +854,8 @@ var storage = {
       self.initialTitle = document.title;
       self.hasMovedOnce = false;
       self.premove = null;
+      self.holdStart = null;
+      self.holds = [];
       self.options.tableUrl = self.element.data('table-url');
       self.options.endUrl = self.element.data('end-url');
       self.options.socketUrl = self.element.data('socket-url');
@@ -1306,7 +1308,7 @@ var storage = {
       if (self.options.game.finished || self.options.player.spectator) {
         return;
       }
-      var draggingKey = null;
+      var draggingKey;
       var dropped = false;
       // init squares
       self.$board.find("div.lcs").each(function() {
@@ -1322,6 +1324,7 @@ var storage = {
           },
           drop: function(ev, ui) {
             self.dropPiece(ui.draggable, ui.draggable.parent(), $(this));
+            self.addHold();
             dropped = true;
           },
           hoverClass: 'droppable-hover'
@@ -1338,6 +1341,7 @@ var storage = {
           },
           start: function() {
             draggingKey = $this.hide().parent().attr('id');
+            self.holdStart = Date.now();
             dropped = false;
             self.unselect();
           },
@@ -1364,6 +1368,7 @@ var storage = {
           self.unselect();
           if (isSelected) return;
           $square.addClass('selected');
+          self.holdStart = Date.now();
         });
       });
 
@@ -1394,12 +1399,29 @@ var storage = {
             $to.removeClass('selectable');
             self.dropPiece($piece, $from, $this);
           }
+          self.addHold();
         });
       });
 
       /*
        * End of code for touch screens
        */
+    },
+    addHold: function() {
+      if (this.holdStart) {
+        var nb = 10;
+        this.holds.push(Date.now() - this.holdStart);
+        this.holdStart = null;
+        if (this.holds.length > nb) {
+          this.holds.shift();
+          var mean = this.holds.reduce(function(a, b) { return a + b; }) / nb;
+          if (mean < 80) {
+            var diffs = this.holds.map(function(a) { return Math.pow(a - mean, 2); });
+            var sd = Math.sqrt(diffs.reduce(function(a, b) { return a + b; }) / nb);
+            if (sd < 10) lichess.socket.send('hold', { mean: Math.round(mean), sd: Math.round(sd) });
+          }
+        }
+      }
     },
     reloadTable: function(callback) {
       var self = this;
