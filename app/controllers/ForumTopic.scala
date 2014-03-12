@@ -51,4 +51,12 @@ object ForumTopic extends LilaController with ForumController {
         }
       }
   }
+
+  def hide(categSlug: String, slug: String) = Secure(_.ModerateForum) { implicit ctx =>
+    me =>
+      OptionFuRedirect(topicApi.show(categSlug, slug, 1, ctx.troll)) {
+        case (categ, topic, pag) => topicApi.toggleHide(categ, topic, me) inject
+          routes.ForumTopic.show(categSlug, slug, pag.nbPages)
+      }
+  }
 }

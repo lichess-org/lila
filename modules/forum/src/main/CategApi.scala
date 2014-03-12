@@ -51,6 +51,7 @@ private[forum] final class CategApi(env: Env) {
         text = "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
         number = 1,
         troll = false,
+        hidden = topic.hidden,
         lang = "en".some,
         categId = categ.id)
       $insert(categ) >>

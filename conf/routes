@@ -181,6 +181,7 @@ GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: St
 POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug: String)
 GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug: String, slug: String)
+POST  /forum/:categSlug/:slug/hide     controllers.ForumTopic.hide(categSlug: String, slug: String)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/:categSlug/delete/:id     controllers.ForumPost.delete(categSlug: String, id: String)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String)

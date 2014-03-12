@@ -255,7 +255,7 @@ div.bar div.pagination {
   margin-left: 0;
 }
 
-#lichess_forum div.topic form.close {
+#lichess_forum div.topic form.mod {
   float: right;
   margin-right: 24px;
 }
