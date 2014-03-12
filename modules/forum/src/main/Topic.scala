@@ -17,13 +17,15 @@ case class Topic(
     nbPostsTroll: Int,
     lastPostIdTroll: String,
     troll: Boolean,
-    closed: Boolean) {
+    closed: Boolean,
+    hidden: Boolean) {
 
   def updatedAt(troll: Boolean): DateTime = troll.fold(updatedAtTroll, updatedAt)
   def nbPosts(troll: Boolean): Int = troll.fold(nbPostsTroll, nbPosts)
   def lastPostId(troll: Boolean): String = troll.fold(lastPostIdTroll, lastPostId)
 
   def open = !closed
+  def visibleOnHome = !hidden
 
   def withPost(post: Post): Topic = copy(
     nbPosts = post.troll.fold(nbPosts, nbPosts + 1),
@@ -63,7 +65,8 @@ object Topic {
     nbPostsTroll = 0,
     lastPostIdTroll = "",
     troll = troll,
-    closed = false)
+    closed = false,
+    hidden = false)
 
   import lila.db.JsTube
   import JsTube.Helpers._

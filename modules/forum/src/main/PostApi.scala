@@ -37,6 +37,7 @@ final class PostApi(
           number = number + 1,
           lang = lang map (_.language),
           troll = ctx.troll,
+          hidden = topic.hidden,
           categId = categ.id)
         $insert(post) >>
           $update(topic withPost post) >>

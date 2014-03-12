@@ -48,6 +48,7 @@ private[forum] final class TopicApi(
           userId = ctx.me map (_.id),
           ip = ctx.isAnon option ctx.req.remoteAddress,
           troll = ctx.troll,
+          hidden = topic.hidden,
           text = data.post.text,
           lang = lang map (_.language),
           number = 1,
@@ -77,8 +78,7 @@ private[forum] final class TopicApi(
     maxPerPage = maxPerPage)
 
   def delete(categ: Categ, topic: Topic): Funit =
-    (PostRepo removeByTopic topic.id) >>
-      $remove(topic) >>
+    (PostRepo removeByTopic topic.id zip $remove(topic)) >>
       (env.categApi denormalize categ) >>-
       (indexer ! RemoveTopic(topic.id)) >>
       env.recent.invalidate
@@ -87,6 +87,14 @@ private[forum] final class TopicApi(
     TopicRepo.close(topic.id, topic.open) >> {
       MasterGranter(_.ModerateForum)(mod) ??
         modLog.toggleCloseTopic(mod, categ.name, topic.name, topic.open)
+    }
+
+  def toggleHide(categ: Categ, topic: Topic, mod: User): Funit =
+    TopicRepo.hide(topic.id, topic.visibleOnHome) >> {
+      MasterGranter(_.ModerateForum)(mod) ?? {
+        PostRepo.hideByTopic(topic.id, topic.visibleOnHome) zip
+          modLog.toggleHideTopic(mod, categ.name, topic.name, topic.visibleOnHome)
+      } >> env.recent.invalidate
     }
 
   def denormalize(topic: Topic): Funit = for {

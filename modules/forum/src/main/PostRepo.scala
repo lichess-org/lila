@@ -4,6 +4,7 @@ import play.api.libs.json.Json
 
 import lila.db.api._
 import lila.db.Implicits._
+import reactivemongo.bson.BSONDocument
 import tube.postTube
 
 object PostRepo extends PostRepo(false) {
@@ -40,16 +41,25 @@ sealed abstract class PostRepo(troll: Boolean) {
     $find.one($query(selectTopics(topics)) sort $sort.createdDesc)
 
   def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
-    $find($query(selectCategs(categIds) ++ selectLangs(langs)) sort $sort.createdDesc, nb)
+    $find($query(
+      selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden
+    ) sort $sort.createdDesc, nb)
 
   def removeByTopic(topicId: String): Fu[Unit] =
     $remove(selectTopic(topicId))
+
+  def hideByTopic(topicId: String, value: Boolean): Fu[Unit] = $update(
+    selectTopic(topicId),
+    BSONDocument("$set" -> BSONDocument("hidden" -> value)),
+    multi = true)
 
   def selectTopic(topicId: String) = Json.obj("topicId" -> topicId) ++ trollFilter
   def selectTopics(topicIds: List[String]) = Json.obj("topicId" -> $in(topicIds)) ++ trollFilter
 
   def selectCateg(categId: String) = Json.obj("categId" -> categId) ++ trollFilter
   def selectCategs(categIds: List[String]) = Json.obj("categId" -> $in(categIds)) ++ trollFilter
+
+  val selectNotHidden = Json.obj("hidden" -> false)
 
   def selectLangs(langs: List[String]) =
     if (langs.isEmpty) Json.obj()

@@ -40,9 +40,14 @@ title = topic.name) {
     }
   </div>
 
+  @if(isGranted(_.ModerateForum)) {
+  <form class="mod" method="post" action="@routes.ForumTopic.hide(categ.slug, topic.slug)">
+    <button class="button">@topic.hidden.fold("Show the topic on homepage", "Hide the topic on homepage")</button>
+  </form>
+  }
   @if(isGrantedMod(categ.slug)) {
-  <form class="close" method="post" action="@routes.ForumTopic.close(categ.slug, topic.slug)">
-    <button>@topic.closed.fold("Reopen the topic", "Close the topic") </button>
+  <form class="mod" method="post" action="@routes.ForumTopic.close(categ.slug, topic.slug)">
+    <button class="button">@topic.closed.fold("Reopen the topic", "Close the topic")</button>
   </form>
   }
 

@@ -21,6 +21,8 @@ case class Modlog(
     case Modlog.reopenAccount => "reopen account"
     case Modlog.openTopic     => "reopen topic"
     case Modlog.closeTopic    => "close topic"
+    case Modlog.showTopic     => "show topic"
+    case Modlog.hideTopic     => "hide topic"
     case Modlog.setTitle      => "set FIDE title"
     case Modlog.removeTitle   => "remove FIDE title"
     case a                    => a
@@ -39,8 +41,10 @@ object Modlog {
   val reopenAccount = "reopenAccount"
   val ipunban = "ipunban"
   val deletePost = "deletePost"
-  val closeTopic = "closeTopic"
   val openTopic = "openTopic"
+  val closeTopic = "closeTopic"
+  val showTopic = "showTopic"
+  val hideTopic = "hideTopic"
   val setTitle = "setTitle"
   val removeTitle = "removeTitle"
 

@@ -24,6 +24,9 @@ sealed abstract class TopicRepo(troll: Boolean) {
   def close(id: String, value: Boolean): Funit =
     $update.field(id, "closed", value)
 
+  def hide(id: String, value: Boolean): Funit =
+    $update.field(id, "hidden", value)
+
   def byCateg(categ: Categ): Fu[List[Topic]] =
     $find(byCategQuery(categ))
 

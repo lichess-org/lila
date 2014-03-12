@@ -15,6 +15,7 @@ case class Post(
     text: String,
     number: Int,
     troll: Boolean,
+    hidden: Boolean,
     lang: Option[String],
     createdAt: DateTime) {
 
@@ -40,7 +41,8 @@ object Post {
     text: String,
     number: Int,
     lang: Option[String],
-    troll: Boolean): Post = Post(
+    troll: Boolean,
+    hidden: Boolean): Post = Post(
     id = Random nextStringUppercase idSize,
     topicId = topicId,
     author = author,
@@ -50,6 +52,7 @@ object Post {
     number = number,
     lang = lang,
     troll = troll,
+    hidden = hidden,
     createdAt = DateTime.now,
     categId = categId)
 

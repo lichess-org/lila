@@ -27,7 +27,7 @@ final class ModlogApi {
   }
 
   def setTitle(mod: String, user: String, title: Option[String]) = add {
-    val name = title flatMap lila.user.User.titlesMap.get 
+    val name = title flatMap lila.user.User.titlesMap.get
     Modlog(mod, user.some, name.isDefined.fold(Modlog.setTitle, Modlog.removeTitle), details = name)
   }
 
@@ -43,6 +43,12 @@ final class ModlogApi {
 
   def toggleCloseTopic(mod: String, categ: String, topic: String, closed: Boolean) = add {
     Modlog(mod, none, closed ? Modlog.closeTopic | Modlog.openTopic, details = Some(
+      categ + " / " + topic
+    ))
+  }
+
+  def toggleHideTopic(mod: String, categ: String, topic: String, hidden: Boolean) = add {
+    Modlog(mod, none, hidden ? Modlog.hideTopic | Modlog.showTopic, details = Some(
       categ + " / " + topic
     ))
   }
