@@ -160,6 +160,9 @@ div.user_show .evaluation {
   max-height: 226px;
   overflow: auto;
 }
+div.user_show .evaluation time {
+  display: inline;
+}
 div.user_show .evaluation strong {
   display: inline;
   text-transform: uppercase;
