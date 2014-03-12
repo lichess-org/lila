@@ -75,6 +75,11 @@ private[round] final class SocketHandler(
         case ("talk", o) => o str "d" foreach { text =>
           messenger.owner(gameId, member, text, socket)
         }
+        case ("hold", o) => for {
+          d ← o obj "d"
+          mean ← d int "mean"
+          sd ← d int "sd"
+        } round(HoldAlert(playerId, mean, sd))
       }
     }
   }

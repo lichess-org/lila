@@ -17,6 +17,7 @@ case class Player(
     rating: Option[Int] = None,
     ratingDiff: Option[Int] = None,
     blurs: Int = 0,
+    holdAlert: Option[Player.HoldAlert] = None,
     name: Option[String] = None) {
 
   def encodePieces(allPieces: Iterable[(Pos, Piece, Boolean)]): String =
@@ -42,6 +43,8 @@ case class Player(
   def userInfos: Option[(String, Int)] = (userId |@| rating).tupled
 
   def wins = isWinner getOrElse false
+
+  def hasHoldAlert = holdAlert.isDefined
 
   def finish(winner: Boolean) = copy(
     isWinner = if (winner) Some(true) else None
@@ -85,6 +88,11 @@ object Player {
 
   def black = make(Color.Black, None)
 
+  case class HoldAlert(ply: Int, mean: Int, sd: Int)
+
+  import reactivemongo.bson.Macros
+  implicit val holdAlertBSONHandler = Macros.handler[HoldAlert]
+
   object BSONFields {
 
     val aiLevel = "ai"
@@ -95,6 +103,7 @@ object Player {
     val rating = "e"
     val ratingDiff = "d"
     val blurs = "b"
+    val holdAlert = "h"
     val name = "na"
   }
 
@@ -123,6 +132,7 @@ object Player {
       rating = r intO rating,
       ratingDiff = r intO ratingDiff,
       blurs = r intD blurs,
+      holdAlert = r.getO[HoldAlert](holdAlert),
       name = r strO name)
 
     def writes(w: BSON.Writer, o: Builder) =
@@ -136,6 +146,7 @@ object Player {
           rating -> p.rating,
           ratingDiff -> p.ratingDiff,
           blurs -> w.intO(p.blurs),
+          holdAlert -> p.holdAlert,
           name -> p.name)
       }
   }

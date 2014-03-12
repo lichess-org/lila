@@ -102,4 +102,5 @@ package round {
   case object Outoftime
   case object Abandon
   case class Cheat(color: Color)
+  case class HoldAlert(playerId: String, mean: Int, sd: Int)
 }

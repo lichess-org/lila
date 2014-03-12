@@ -100,6 +100,13 @@ private[round] final class Round(
       }
     }
 
+    case HoldAlert(playerId, mean, sd) => handle(playerId) { pov =>
+      !pov.player.hasHoldAlert ?? {
+        play.api.Logger("round").info(s"Hold alert $pov mean: $mean SD: $sd")
+        GameRepo.setHoldAlert(pov, mean, sd) inject List[Event]()
+      }
+    }
+
     case RematchYes(playerRef)  => handle(playerRef)(rematcher.yes)
     case RematchNo(playerRef)   => handle(playerRef)(rematcher.no)
 

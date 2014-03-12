@@ -1,0 +1,12 @@
+@(game: Game)(implicit ctx: Context)
+
+@if(isGranted(_.ViewBlurs)) {
+@game.players.map { p =>
+@p.holdAlert.map { h =>
+<div class="player_blurs">
+  @playerLink(p, cssClass = p.color.name.some) hold alert<br />
+  (ply: @h.ply, mean: @h.mean ms, SD: @h.sd ms)<br />
+</div>
+}
+}
+}
