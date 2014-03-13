@@ -33,6 +33,12 @@ object AnalysisRepo {
   def doneById(id: ID): Fu[Option[Analysis]] =
     $find.one($select(id) ++ Json.obj("done" -> true))
 
+  def doneByIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] = $find byOrderedIds ids map { as =>
+    ids.map { id =>
+      as find { a => a.id == id && a.done }
+    }
+  }
+
   def doneByIdNotOld(id: ID): Fu[Option[Analysis]] =
     $find.one($select(id) ++ Json.obj("done" -> true, "old" -> $exists(false)))
 
