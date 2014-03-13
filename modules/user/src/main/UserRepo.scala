@@ -29,9 +29,9 @@ trait UserRepo {
   def all: Fu[List[User]] = $find.all
 
   def topRating(nb: Int): Fu[List[User]] =
-    $find(goodLadQuery sort sortRatingDesc, nb)
+    $find($query(stableGoodLadSelect) sort sortRatingDesc, nb)
   def topRatingSince(since: DateTime, nb: Int): Fu[List[User]] =
-    $find($query(goodLadSelect ++ perfSince("global", since)) sort sortRatingDesc, nb)
+    $find($query(stableGoodLadSelect ++ perfSince("global", since)) sort sortRatingDesc, nb)
 
   def topProgress(nb: Int): Fu[List[User]] =
     $find($query(stableGoodLadSelect) sort sortProgressDesc, nb)
