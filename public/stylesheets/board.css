@@ -286,7 +286,6 @@ div.lichess_table_wrap {
 }
 div.lichess_table {
   border: 1px solid #ccc;
-  border-width: 0 1px 0 1px;
   height: auto;
   padding: 10px;
 }
@@ -316,20 +315,29 @@ div.lichess_table a.button.strong {
   font-weight: bold;
   font-size: 1.2em;
 }
-div.lichess_table_wrap > div.bar {
-  display: block;
-  width: 240px;
-  height: 10px;
-  /* background: #808080; */
-  border: 1px solid #ccc;
-}
-div.lichess_table_wrap > div.bar > span {
-  display: block;
-  height: 10px;
-  width: 100%;
-  background: #808080;
-}
 div.clock {
+  position: relative;
+}
+div.clock > div.bar {
+  position: absolute;
+  width: 242px;
+  height: 5px;
+  /* background: #808080; */
+  z-index: 1;
+}
+div.clock_top > div.bar {
+  bottom: -3px;
+}
+div.clock_bottom > div.bar {
+  top: -3px;
+}
+div.clock > div.bar > span {
+  display: block;
+  height: 5px;
+  width: 0px;
+  background: #759900;
+}
+div.clock > div.time {
   display: inline-block;
   border: 1px solid #ccc;
   padding: 4px 10px 2px 10px;
@@ -337,27 +345,27 @@ div.clock {
   font-family: monospace;
   font-weight: bold;
 }
-div.clock > span {
+div.clock > div.time > span {
   font-size: 80%;
 }
-div.clock.running {
+div.clock.running > div.time {
   background: #fff077;
   color: #444;
 }
-div.clock.running.emerg {
+div.clock.running.emerg > div.time {
   background-color: #eFAAAA;
   color: #444;
 }
-div.clock.outoftime {
+div.clock.outoftime > div.time {
   background-color: #eFAAAA;
   font-weight: bold;
   color: #444;
 }
-div.clock_top {
+div.clock_top > div.time {
   border-bottom: 0;
   border-radius: 4px 4px 0 0;
 }
-div.clock_bottom {
+div.clock_bottom > div.time {
   border-top: 0;
   border-radius: 0 0 4px 4px;
 }

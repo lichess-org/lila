@@ -1484,7 +1484,6 @@ var storage = {
         $c.clock({
           showTenths: self.options.clockTenths,
           time: $c.data('time'),
-          bar: $c.siblings('div.bar_' + $c.data('color')).find('>span'),
           barTime: $c.data('bar-time'),
           emerg: $c.data('emerg'),
           buzzer: function() {
@@ -1718,7 +1717,8 @@ var storage = {
       $.extend(this.options, {
         state: 'ready'
       });
-      this.element.addClass('clock_enabled');
+      this.$time = this.element.find('>div.time');
+      this.$bar = this.element.find('>div.bar>span');
       this._show();
     },
     destroy: function() {
@@ -1764,14 +1764,12 @@ var storage = {
 
     _show: function() {
       var html = this._formatDate(new Date(this.options.time));
-      if (html != this.element.html()) {
-        this.element.html(html);
+      if (html != this.$time.html()) {
+        this.$time.html(html);
         this.element.toggleClass('emerg', this.options.time < this.options.emerg);
       }
-      if (this.options.bar) {
-        var barWidth = Math.max(0, Math.min(100, (this.options.time / this.options.barTime) * 100));
-        this.options.bar.css('width', barWidth + '%');
-      }
+      var barWidth = Math.max(0, Math.min(100, (this.options.time / this.options.barTime) * 100));
+      this.$bar.css('width', barWidth + '%');
     },
 
     _formatDate: function(date) {
