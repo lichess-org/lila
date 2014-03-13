@@ -46,6 +46,7 @@ object Evaluation {
   import play.api.libs.functional.syntax._
 
   private[evaluation] def progressIsHigh(user: User) = user.progress > 80
+  private[evaluation] def progressIsVeryHigh(user: User) = user.progress > 100
   private[evaluation] def deviationIsLow(perfs: Perfs) = perfs.global.glicko.deviation < 130
   private[evaluation] def ratingIsHigh(perfs: Perfs) = perfs.global.glicko.rating >= 1600
   private[evaluation] def ratingIsGreat(perfs: Perfs) = perfs.global.glicko.rating >= 2100
