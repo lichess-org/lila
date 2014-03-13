@@ -28,20 +28,20 @@ private[api] final class GameApi(
     G.playerUids -> username,
     G.rated -> rated.map(_.fold(JsBoolean(true), $exists(false)))
   ).noNull) sort lila.game.Query.sortCreated, makeNb(nb)) flatMap { games =>
-    (games map { g =>
-      makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) zip (AnalysisRepo doneById g.id)
-    }).sequenceFu map { data =>
-      val validToken = check(token)
-      Json.obj(
-        "list" -> JsArray(
-          games zip data map {
-            case (g, (url, analysisOption)) =>
-              GameApi.gameToJson(g, url, analysisOption,
-                withBlurs = validToken,
-                withMoveTimes = validToken)
-          }
+    AnalysisRepo doneByIds games.map(_.id) flatMap { analysisOptions =>
+      (games map { g => makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) }).sequenceFu map { urls =>
+        val validToken = check(token)
+        Json.obj(
+          "list" -> JsArray(
+            games zip urls zip analysisOptions map {
+              case ((g, url), analysisOption) =>
+                GameApi.gameToJson(g, url, analysisOption,
+                  withBlurs = validToken,
+                  withMoveTimes = validToken)
+            }
+          )
         )
-      )
+      }
     }
   }
 
