@@ -67,7 +67,10 @@ final class Evaluator(
   def autoGenerate(user: User, player: Player) {
     if (!user.engine && deviationIsLow(user.perfs) && (progressIsHigh(user) || ratingIsHigh(user.perfs))) {
       evaluatedAt(user) foreach { date =>
-        if (date.fold(true)(_ isBefore (DateTime.now minusDays 7))) {
+        def freshness = if (progressIsVeryHigh(user)) DateTime.now minusMinutes 30
+        else if (progressIsHigh(user)) DateTime.now minusHours 1
+        else DateTime.now minusDays 5
+        if (date.fold(true)(_ isBefore freshness)) {
           logger.info(s"auto evaluate $user")
           generate(user.id, user.perfs, false) foreach {
             case Some(eval) if eval.report(user.perfs) =>
