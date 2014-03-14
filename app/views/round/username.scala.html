@@ -1,14 +1,14 @@
-@(player: Player, engine: Boolean = false)(implicit ctx: Context)
+@(player: Player, engine: Boolean = false, withStatus: Boolean = false)(implicit ctx: Context)
 
 @ai(level: Int) = {
 <div class="username connected">
-  @aiName(level)
+  @aiName(level)@if(withStatus) { <span class="status" data-icon="J"></span> }
 </div>
 }
 
 @human = {
 <div class="username @player.color.name">
-  @playerLink(player, Some("blank_if_play"), engine = engine)
+  @playerLink(player, Some("blank_if_play"), engine = engine, withStatus = withStatus)
 </div>
 }
 

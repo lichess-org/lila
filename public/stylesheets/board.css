@@ -303,8 +303,14 @@ div.lichess_table_not_started {
 div.lichess_table div.username {
   display: inline-block;
 }
-div.lichess_table div.username.connected {
-  border-bottom: 1px solid #859900;
+div.lichess_table div.username span.status {
+  display: inline-block;
+  color: #ac524f;
+  font-size: 7px;
+  vertical-align: 1px;
+}
+div.lichess_table div.username.connected span.status {
+  color: #759900;
 }
 div.lichess_table div.username a:hover {
   text-decoration: none;
