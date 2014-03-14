@@ -1483,6 +1483,7 @@ var storage = {
         var $c = $(this);
         $c.clock({
           showTenths: self.options.clockTenths,
+          showBar: self.options.clockBar,
           time: $c.data('time'),
           barTime: $c.data('bar-time'),
           emerg: $c.data('emerg'),
@@ -1768,8 +1769,10 @@ var storage = {
         this.$time.html(html);
         this.element.toggleClass('emerg', this.options.time < this.options.emerg);
       }
-      var barWidth = Math.max(0, Math.min(100, (this.options.time / this.options.barTime) * 100));
-      this.$bar.css('width', barWidth + '%');
+      if (this.options.showBar) {
+        var barWidth = Math.max(0, Math.min(100, (this.options.time / this.options.barTime) * 100));
+        this.$bar.css('width', barWidth + '%');
+      }
     },
 
     _formatDate: function(date) {

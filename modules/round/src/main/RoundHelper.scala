@@ -42,6 +42,7 @@ trait RoundHelper {
       "animation_delay" -> animationDelay(pov),
       "autoQueen" -> pref.autoQueen,
       "clockTenths" -> pref.clockTenths,
+      "clockBar" -> pref.clockBar,
       "enablePremove" -> pref.premove,
       "tournament_id" -> game.tournamentId
     )
@@ -70,6 +71,7 @@ trait RoundHelper {
       "possible_moves" -> possibleMoves(pov),
       "animation_delay" -> animationDelay(pov),
       "clockTenths" -> pref.clockTenths,
+      "clockBar" -> pref.clockBar,
       "tv" -> tv
     )
   }

@@ -24,6 +24,10 @@
           <p class="help">Only visible under 10 seconds.</p>
         </li>
         <li>
+          @base.checkbox(form("clockBar"), "Chess clock: show progress bars", 1)
+          <p class="help">Horizontal green bar showing the remaining time.</p>
+        </li>
+        <li>
           @base.checkbox(form("premove"), "Player: enable premoves", 1)
           <p class="help">Make a move before the opponent response</p>
         </li>

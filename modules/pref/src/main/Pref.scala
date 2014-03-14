@@ -11,6 +11,7 @@ case class Pref(
     theme: String,
     autoQueen: Int,
     clockTenths: Boolean,
+    clockBar: Boolean,
     premove: Boolean,
     chat: Pref.ChatPref) {
 
@@ -74,6 +75,7 @@ object Pref {
     theme = Theme.default.name,
     autoQueen = AutoQueen.PREMOVE,
     clockTenths = true,
+    clockBar = true,
     premove = true,
     chat = ChatPref.default)
 
@@ -93,6 +95,7 @@ object Pref {
     "theme" -> default.theme,
     "autoQueen" -> default.autoQueen,
     "clockTenths" -> default.clockTenths,
+    "clockBar" -> default.clockBar,
     "premove" -> default.premove,
     "chat" -> default.chat)
 }
