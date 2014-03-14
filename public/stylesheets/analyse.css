@@ -10,6 +10,9 @@ div.moves_wrap {
   margin-left: 532px;
   position: relative;
 }
+div.moves_wrap p {
+  line-height: 2em;
+}
 span.board_mark {
   position: absolute;
   text-transform: uppercase;
