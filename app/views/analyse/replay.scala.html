@@ -69,6 +69,11 @@ themepicker = true) {
       }.getOrElse { "Unknown" }
     </p>
     }
+    @game.next.map { n =>
+    <p>
+      <a href="@routes.Round.watcher(n, pov.opponent.color.name)" data-icon="v">&nbsp;@trans.viewRematch()</a>
+    </p>
+    }
 
     <div class="advice_summary">
       @round.blurs(game)
