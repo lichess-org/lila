@@ -62,7 +62,7 @@ object LangList {
     "ff" -> "Fulfulde, Pulaar, Pular",
     "gl" -> "Galego",
     "ka" -> "ქართულ",
-    "kb" -> "Taqbaylit", // should be kab http://en.wikipedia.org/wiki/Kabyle_language
+    "kb" -> "Taqvaylit", // should be kab http://en.wikipedia.org/wiki/Kabyle_language
     "de" -> "Deutsch",
     "el" -> "Ελληνικά",
     "gn" -> "avañe'ẽ",
