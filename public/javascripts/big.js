@@ -860,7 +860,7 @@ var storage = {
       self.options.endUrl = self.element.data('end-url');
       self.options.socketUrl = self.element.data('socket-url');
 
-      $("div.game_tournament .clock").each(function() {
+      $("div.game_tournament div.clock").each(function() {
         $(this).clock({
           time: $(this).data("time"),
           showTenths: self.options.clockTenths
@@ -2191,7 +2191,6 @@ var storage = {
         var pos = $timeline.offset().top,
           max = $('#lichess').offset().top + 536;
         while (pos + $timeline.outerHeight() > max) {
-          console.debug($timeline.outerHeight());
           $timeline.find('div.entry:last').remove();
         }
       }
@@ -2495,7 +2494,7 @@ var storage = {
     });
 
     function startClock() {
-      $("span.tournament_clock").each(function() {
+      $("div.tournament_clock").each(function() {
         $(this).clock({
           time: $(this).data("time")
         }).clock("start");

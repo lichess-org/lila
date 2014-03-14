@@ -50,7 +50,9 @@
   case Some(t: lila.tournament.Started) => {
   <div class="game_tournament box">
     <span class="title">@t.nameT</span>
-    <span class="clock" data-icon="p" data-time="@t.remainingSeconds"> @t.clockStatus</span>
+    <div class="clock" data-time="@t.remainingSeconds">
+      <div class="time" data-icon="p">@t.clockStatus</div>
+    </div>
   </div>
   }
   case _ => {
