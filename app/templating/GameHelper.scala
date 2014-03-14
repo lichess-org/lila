@@ -57,7 +57,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withOnline: Boolean = true,
     withRating: Boolean = true,
     withDiff: Boolean = true,
-    engine: Boolean = false)(implicit ctx: UserContext) = Html {
+    engine: Boolean = false,
+    withStatus: Boolean = false)(implicit ctx: UserContext) = Html {
     player.userId match {
       case None =>
         val klass = cssClass.??(" " + _)
@@ -71,7 +72,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           val diff = (player.ratingDiff ifTrue withDiff).fold(Html(""))(showRatingDiff)
           val mark = engine ?? s"""<span class="engine_mark" title="${trans.thisPlayerUsesChessComputerAssistance()}"></span>"""
           val dataIcon = withOnline ?? """data-icon="r""""
-          s"""<a $dataIcon $klass href="$href">&nbsp;$content$diff$mark</a>"""
+          val statusIcon = withStatus ?? """ <span class="status" data-icon="J"></span>"""
+          s"""<a $dataIcon $klass href="$href">&nbsp;$content$diff$mark$statusIcon</a>"""
         }
     }
   }
