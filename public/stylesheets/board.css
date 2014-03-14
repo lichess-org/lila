@@ -322,8 +322,6 @@ div.clock > div.bar {
   position: absolute;
   width: 242px;
   height: 5px;
-  /* background: #808080; */
-  z-index: 1;
 }
 div.clock_top > div.bar {
   bottom: -3px;
@@ -374,8 +372,8 @@ div.lichess_table_wrap a.moretime {
   position: absolute;
   text-decoration: none;
   font-size: 20px;
-  left: 130px;
-  top: 7px;
+  right: 0px;
+  top: 3px;
 }
 div.lichess_table_wrap a.moretime:hover {
   opacity: 1;
