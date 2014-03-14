@@ -7,7 +7,7 @@
   data-color="@color"
   data-time="@time"
   data-emerg="@clock.emergTime"
-  data-bar-time="@{clock.limit + 4 * clock.increment}">
+  data-bar-time="@{math.min(clock.limit, 2) + 5 * clock.increment}">
   <div class="bar"><span></span></div>
   <div class="time">@{ """%02d:%02d""".format(floor(time / 60d).toInt, (time % 60).toInt) }</div>
 </div>
