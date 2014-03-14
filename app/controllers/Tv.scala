@@ -18,9 +18,10 @@ object Tv extends LilaController {
         confrontation(game) zip
         (game.tournamentId ?? TournamentRepo.byId) map {
           case (((v, games), confrontation), tour) =>
+            val flip = getBool("flip")
             Ok(html.tv.index(
-              getBool("flip").fold(Pov second game, Pov first game),
-              v, games, confrontation, tour))
+              flip.fold(Pov second game, Pov first game),
+              v, games, confrontation, tour, flip))
         }
     }
   }
