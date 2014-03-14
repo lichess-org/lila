@@ -701,6 +701,12 @@ div.lichess_goodies div.confrontation {
 div.lichess_goodies div.confrontation div.vs {
   margin-bottom: 5px;
 }
+div.lichess_goodies div.buttons {
+  width: 228px;
+  margin-left: -30px;
+  margin-top: 2em;
+  text-align: center;
+}
 #site_header div.side_menu {
   margin-top: 15px;
 }

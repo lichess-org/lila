@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, games: List[Game], confrontation: Option[lila.user.Confrontation], tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, version: Int, games: List[Game], confrontation: Option[lila.user.Confrontation], tour: Option[lila.tournament.Tournament], flip: Boolean)(implicit ctx: Context)
 
 @title = @{ "TV" }
 
@@ -28,6 +28,9 @@
     @if(pov.game.rated) {
     , @trans.rated()
     }
+  </div>
+  <div class="buttons">
+    <a class="flip button" data-icon="B" href="@routes.Tv.index()@if(!flip){?flip=1}"> @trans.flipBoard()</a>
   </div>
 </div>
 }
