@@ -327,17 +327,17 @@ div.clock {
 div.clock > div.bar {
   position: absolute;
   width: 242px;
-  height: 5px;
+  height: 4px;
 }
 div.clock_top > div.bar {
-  bottom: -3px;
+  bottom: -4px;
 }
 div.clock_bottom > div.bar {
-  top: -3px;
+  top: -4px;
 }
 div.clock > div.bar > span {
   display: block;
-  height: 5px;
+  height: 4px;
   width: 0px;
   background: #759900;
 }
