@@ -1250,6 +1250,15 @@ div.vstext .right {
   float: right;
   text-align: right;
 }
+#daily_puzzle {
+  width: 224px;
+  position: absolute;
+  top: 529px;
+  left: 0;
+}
+#daily_puzzle > div.vstext {
+  text-align: center;
+}
 div.extra_top {
   float: right;
   margin: 20px 20px 0 0;

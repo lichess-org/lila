@@ -33,5 +33,8 @@ private[app] final class Renderer extends Actor {
 
     case lila.tournament.actorApi.TournamentTable(tours) =>
       sender ! V.tournament.createdTable(tours)
+
+    case lila.puzzle.RenderDaily(puzzle, fen, lastMove) =>
+      sender ! V.puzzle.daily(puzzle, fen, lastMove)
   }
 }

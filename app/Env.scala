@@ -26,7 +26,8 @@ final class Env(
     relations = Env.relation.api,
     leaderboard = Env.user.cached.topRatingDay.apply,
     progress = Env.user.cached.topProgressDay.apply,
-    timelineEntries = Env.timeline.getter.userEntries _)
+    timelineEntries = Env.timeline.getter.userEntries _,
+    dailyPuzzle = Env.puzzle.daily)
 
   lazy val userInfo = mashup.UserInfo(
     countUsers = () => Env.user.countEnabled,

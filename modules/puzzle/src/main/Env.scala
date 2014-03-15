@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import akka.actor.{ ActorSystem, Props }
+import akka.actor.{ ActorSelection, ActorSystem, Props }
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
@@ -8,6 +8,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     db: lila.db.Env,
+    renderer: ActorSelection,
     system: ActorSystem) {
 
   private val settings = new {
@@ -32,6 +33,12 @@ final class Env(
 
   lazy val forms = DataForm
 
+  lazy val daily = new Daily(
+    puzzleColl,
+    renderer,
+    system.scheduler
+  ).apply _
+
   private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
   private[puzzle] lazy val attemptColl = db(CollectionAttempt)
 }
@@ -41,5 +48,6 @@ object Env {
   lazy val current: Env = "[boot] puzzle" describes new Env(
     config = lila.common.PlayApp loadConfig "puzzle",
     db = lila.db.Env.current,
+    renderer = lila.hub.Env.current.actor.renderer,
     system = lila.common.PlayApp.system)
 }
