@@ -83,7 +83,7 @@ themepicker = true) {
       @p.html
       <div class="vstext">
         @trans.puzzleOfTheDay()<br />
-        @trans.findTheBestMoveForColor(p.color.name)
+        @p.color.fold(trans.whitePlays, trans.blackPlays)()
       </div>
     </div>
     }
