@@ -7,8 +7,8 @@
 </div>
 <div class="lichess_control buttons">
   @game.tournamentId.map { tourId =>
-  <a 
-    class="button @tour.fold(false)(_.isRunning).fold("strong", "") view_tournament" 
+  <a
+    class="button @tour.fold(false)(_.isRunning).fold("strong", "") view_tournament"
     href="@routes.Tournament.show(tourId)" data-icon="G"> @trans.backToTournament()</a>
   }.getOrElse {
   @if(opponent.isHuman) {
