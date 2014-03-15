@@ -1416,7 +1416,7 @@ var storage = {
           var mean = this.holds.reduce(function(a, b) {
             return a + b;
           }) / nb;
-          if (mean < 80) {
+          if (mean > 3 && mean < 80) {
             var diffs = this.holds.map(function(a) {
               return Math.pow(a - mean, 2);
             });
