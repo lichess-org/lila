@@ -654,7 +654,9 @@ var storage = {
 
     function translateTexts() {
       $('.trans_me').each(function() {
-        $(this).removeClass('trans_me').text($.trans($(this).text()));
+        $(this).removeClass('trans_me');
+        if ($(this).val()) $(this).val($.trans($(this).val()));
+        else $(this).text($.trans($(this).text()));
       });
     }
     translateTexts();
