@@ -22,13 +22,13 @@ object Analyse extends LilaController {
   private def env = Env.analyse
   private def bookmarkApi = Env.bookmark.api
 
-  def computer(id: String, color: String) = Auth { implicit ctx =>
+  def computer(id: String) = Auth { implicit ctx =>
     me =>
       env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) effectFold (
         e => logerr("[analysis] " + e.getMessage),
         _ => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
       )
-      Redirect(routes.Round.watcher(id, color)).fuccess
+      fuccess(Ok(html.analyse.computing()))
   }
 
   def replay(pov: Pov)(implicit ctx: Context) =
@@ -38,7 +38,7 @@ object Analyse extends LilaController {
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.isAuth ?? {
         Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
-      })  map {
+      }) map {
         case ((((version, pgn), analysis), tour), chat) =>
           Ok(html.analyse.replay(
             pov,

@@ -108,7 +108,7 @@ themepicker = true) {
   <div class="panel computer_analysis active">
     @analysis.map { a =>
     @if(a.old && ctx.isAuth) {
-    <form class="request_analysis future_game_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
+    <form class="request_analysis future_game_analysis" action="@routes.Analyse.computer(gameId)" method="post">
       <button type="submit" class="button">
         <span class="is3" data-icon="A"> Request a better computer analysis</span>
       </button>
@@ -121,19 +121,16 @@ themepicker = true) {
       data-max="@lila.analyse.AdvantageChart.max"
       data-rows="@chart"></div>
     }.getOrElse {
-    <div class="future_game_analysis">
-      @trans.computerAnalysisInProgress()
-      <div class="spinner"></div>
-    </div>
+    @analyse.computing()
     }
     }.getOrElse {
     @if(game.analysable && analysis.isEmpty) {
-    <form class="future_game_analysis@{ctx.isAnon ?? " must_login"}" action="@routes.Analyse.computer(gameId, color.name)" method="post">
+    <form class="future_game_analysis@if(ctx.isAnon) {  must_login }" action="@routes.Analyse.computer(gameId)" method="post">
       <button type="submit" class="button"><span class="is3" data-icon="A"> @trans.requestAComputerAnalysis()</span></button>
     </form>
     }
     }
-    <div class="view_game_analysis future_game_analysis">
+    <div class="view_game_analysis future_game_analysis" data-href="@routes.Round.watcher(pov.gameId, pov.color.name)">
       <a class="button" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
         <span class="is3" data-icon="A"> @trans.viewTheComputerAnalysis()</span>
       </a>

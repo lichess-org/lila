@@ -427,11 +427,6 @@ var storage = {
             }
           }
         },
-        analysisAvailable: function() {
-          $(".future_game_analysis").hide().filter('.view_game_analysis').show();
-          $.sound.dong();
-          document.title = "/!\\ ANALYSIS READY! " + document.title;
-        },
         deployPre: function(html) {
           $('#notifications').append(html);
           setTimeout(function() {
@@ -2583,8 +2578,17 @@ var storage = {
       if (panel == 'move_times') $.renderMoveTimesChart();
     });
 
-    $panels.find('form.must_login').submit(function() {
-      return confirm($.trans('You need an account to do that') + '.');
+    $panels.find('form.future_game_analysis').submit(function() {
+      if (!$(this).hasClass('must_login') || confirm($.trans('You need an account to do that') + '.')) {
+        $.ajax({
+          method: 'post',
+          url: $(this).attr('action'),
+          success: function(html) {
+            $panels.filter('.panel.computer_analysis').html(html);
+          }
+        });
+      }
+      return false;
     });
 
     lichess.socket = new strongSocket(
@@ -2596,6 +2600,10 @@ var storage = {
           ignoreUnknownMessages: true
         },
         events: {
+          analysisAvailable: function() {
+            $.sound.dong();
+            location.reload();
+          },
           crowd: function(event) {
             $watchers.watchers("set", event.watchers);
           }
