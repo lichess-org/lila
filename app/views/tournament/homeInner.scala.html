@@ -16,15 +16,15 @@
       <tr>
         <td>@linkTo(tour)</td>
         <td class="small">
-          @if(tour.variant.exotic) { 
+          @if(tour.variant.exotic) {
           960
           }
           @if(tour.rated) {
           @trans.rated()
           }
         </td>
-        <td>@tour.clock.show | @{tour.minutes}m</td>
-        <td>@tour.playerRatio</td>
+        <td data-icon="p">&nbsp;@tour.clock.show | @{tour.minutes}m</td>
+        <td data-icon="r">&nbsp;@tour.playerRatio</td>
         <td>
           @ctx.me.map { me =>
           @if(tour contains me) {
@@ -70,15 +70,15 @@
       <tr>
         <td>@linkTo(tour)</td>
         <td class="small">
-          @if(tour.variant.exotic) { 
+          @if(tour.variant.exotic) {
           960
           }
           @if(tour.rated) {
           @trans.rated()
           }
         </td>
-        <td>@tour.clock.show | @{tour.minutes}m</td>
-        <td>@tour.playerRatio</td>
+        <td data-icon="p">&nbsp;@tour.clock.show | @{tour.minutes}m</td>
+        <td data-icon="r">&nbsp;@tour.playerRatio</td>
         <td>@tour.winner.map { player =>
           @userInfosLink(player.username, player.rating.some, withOnline = false)
           }
@@ -101,15 +101,15 @@
       <tr>
         <td>@linkTo(tour)</td>
         <td class="small">
-          @if(tour.variant.exotic) { 
+          @if(tour.variant.exotic) {
           960
           }
           @if(tour.rated) {
           @trans.rated()
           }
         </td>
-        <td>@tour.clock.show | @{tour.minutes}m</td>
-        <td>@tour.playerRatio</td>
+        <td data-icon="p">&nbsp;@tour.clock.show | @{tour.minutes}m</td>
+        <td data-icon="r">&nbsp;@tour.playerRatio</td>
         <td>@tour.winner.map { player =>
           @userInfosLink(player.username, player.rating.some, withOnline = false)
           }

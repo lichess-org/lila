@@ -21,9 +21,9 @@
     rated
     }
   </td>
-  <td>@tour.clock.show</td>
+  <td data-icon="p">&nbsp;@tour.clock.show</td>
   <td>@{tour.minutes}m</td>
-  <td>@tour.playerRatio</td>
+  <td data-icon="r">&nbsp;@tour.playerRatio</td>
   <td>
     <form action="@routes.Tournament.join(tour.id)" method="POST">
       <input type="submit" class="submit button" value="Join" />
