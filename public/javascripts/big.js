@@ -450,7 +450,7 @@ var storage = {
       options: {
         baseUrls: _.union(
           'socket.' + document.domain,
-          _.map($('body').data('ports').split(','), function(port) {
+          _.map(($('body').data('ports') + '').split(','), function(port) {
             return 'socket.' + document.domain + ':' + port;
           })),
         baseUrlKey: 'surl3',
