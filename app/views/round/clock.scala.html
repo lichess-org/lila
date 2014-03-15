@@ -7,7 +7,7 @@
   data-color="@color"
   data-time="@time"
   data-emerg="@clock.emergTime"
-  data-bar-time="@{math.min(clock.limit, 2) + 5 * clock.increment}">
+  data-bar-time="@{math.max(clock.limit, 2) + 5 * clock.increment}">
   @if(ctx.pref.clockBar) {
   <div class="bar"><span></span></div>
   }

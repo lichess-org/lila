@@ -45,7 +45,7 @@ body.dark #puzzle div.box,
 body.dark #puzzle h1,
 body.dark div.lichess_table,
 body.dark div.lichess_separator,
-body.dark div.clock > div.time,
+body.dark div.lichess_table_wrap > div.clock > div.time,
 body.dark #GameText,
 body.dark #tournament_side,
 body.dark #GameBoard,
@@ -158,7 +158,7 @@ body.dark div.undertable_inner,
 body.dark div.lichess_goodies div.box,
 body.dark div.undertable td,
 body.dark div.lichess_table,
-body.dark div.lichess_table_wrap div.clock > div.time,
+body.dark div.lichess_table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
 body.dark div.footer_wrap {
   background: #242424;
@@ -293,12 +293,12 @@ body.dark div.game_row span.black,
 body.dark .player.color.black {
   background-image: url(../images/piece/invert/wK-full.svg);
 }
-body.dark div.lichess_table_wrap div.clock.running > div.time {
+body.dark div.lichess_table_wrap > div.clock.running > div.time {
   background: #505a60;
   color: #fff;
 }
-body.dark div.lichess_table_wrap div.clock.running.emerg > div.time,
-body.dark div.lichess_table_wrap div.clock.outoftime > div.time {
+body.dark div.lichess_table_wrap > div.clock.running.emerg > div.time,
+body.dark div.lichess_table_wrap > div.clock.outoftime > div.time {
   background-color: #a00000;
   color: #d0d0d0;
 }
