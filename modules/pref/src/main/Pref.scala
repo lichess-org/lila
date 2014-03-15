@@ -12,8 +12,7 @@ case class Pref(
     autoQueen: Int,
     clockTenths: Boolean,
     clockBar: Boolean,
-    premove: Boolean,
-    chat: Pref.ChatPref) {
+    premove: Boolean) {
 
   import Pref._
 
@@ -29,34 +28,9 @@ case class Pref(
     case "theme" => Theme.allByName get value map { t => copy(theme = t.name) }
     case _       => none
   }
-
-  def updateChat(f: ChatPref => ChatPref) = copy(chat = f(chat))
 }
 
 object Pref {
-
-  case class ChatPref(
-      on: Boolean,
-      height: Int,
-      chans: List[String],
-      activeChans: Set[String],
-      mainChan: Option[String]) {
-
-    def isDefault = this == ChatPref.default
-  }
-
-  object ChatPref {
-
-    val default = ChatPref(false, 195, Nil, Set.empty, none)
-
-    private[pref] implicit lazy val tube = JsTube[ChatPref](
-      (__.json update merge(defaults)) andThen Json.reads[ChatPref],
-      Json.writes[ChatPref])
-
-    private[pref] def defaults = Json.obj(
-      "on" -> ChatPref.default.on,
-      "height" -> ChatPref.default.height)
-  }
 
   object AutoQueen {
     val NEVER = 1
@@ -76,15 +50,12 @@ object Pref {
     autoQueen = AutoQueen.PREMOVE,
     clockTenths = true,
     clockBar = true,
-    premove = true,
-    chat = ChatPref.default)
+    premove = true)
 
   val default = create("")
 
   private val booleans = Map("true" -> true, "false" -> false)
   private val bgs = Map("light" -> false, "dark" -> true)
-
-  import ChatPref.tube
 
   private[pref] lazy val tube = JsTube[Pref](
     (__.json update merge(defaults)) andThen Json.reads[Pref],
@@ -96,6 +67,5 @@ object Pref {
     "autoQueen" -> default.autoQueen,
     "clockTenths" -> default.clockTenths,
     "clockBar" -> default.clockBar,
-    "premove" -> default.premove,
-    "chat" -> default.chat)
+    "premove" -> default.premove)
 }

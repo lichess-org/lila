@@ -26,9 +26,6 @@ final class PrefApi(cacheTtl: Duration) {
   def setPref(userId: String, change: Pref => Pref): Funit =
     getPref(userId) map change flatMap setPref
 
-  def setChatPref(userId: String, change: Pref.ChatPref => Pref.ChatPref): Funit =
-    getPref(userId) map (_ updateChat change) flatMap setPref
-
   def setPrefString(user: User, name: String, value: String): Funit =
     getPref(user) map { _.set(name, value) } flatten
       s"Bad pref ${user.id} $name -> $value" flatMap setPref
