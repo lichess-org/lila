@@ -12,7 +12,9 @@
 } else {
 @tours.map { tour =>
 <tr>
-  <td>@tournament.linkTo(tour)</td>
+  <td>
+    <a data-icon="g" href="@routes.Tournament.show(tour.id)">&nbsp;@tour.name</a>
+  </td>
   <td class="small">
     @if(tour.variant.exotic) {
     960

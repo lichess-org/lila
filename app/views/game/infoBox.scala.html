@@ -49,7 +49,7 @@
   @tour match {
   case Some(t: lila.tournament.Started) => {
   <div class="game_tournament box">
-    <span class="title">@t.nameT</span>
+    <span class="title">@trans.xTournament(t.name)</span>
     <div class="clock" data-time="@t.remainingSeconds">
       <div class="time" data-icon="p">@t.clockStatus</div>
     </div>

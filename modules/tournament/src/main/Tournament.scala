@@ -34,7 +34,6 @@ sealed trait Tournament {
   def numerotedPairings: Seq[(Int, Pairing)] = (pairings.size to 1 by -1) zip pairings
 
   def name = data.name
-  def nameT = name + " tournament"
 
   def clock = data.clock
   def minutes = data.minutes
