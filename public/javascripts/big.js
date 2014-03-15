@@ -2579,15 +2579,19 @@ var storage = {
     });
 
     $panels.find('form.future_game_analysis').submit(function() {
-      if (!$(this).hasClass('must_login') || confirm($.trans('You need an account to do that') + '.')) {
-        $.ajax({
-          method: 'post',
-          url: $(this).attr('action'),
-          success: function(html) {
-            $panels.filter('.panel.computer_analysis').html(html);
-          }
-        });
+      if ($(this).hasClass('must_login')) {
+        if (confirm($.trans('You need an account to do that') + '.')) {
+          location.href = '/signup';
+        }
+        return false;
       }
+      $.ajax({
+        method: 'post',
+        url: $(this).attr('action'),
+        success: function(html) {
+          $panels.filter('.panel.computer_analysis').html(html);
+        }
+      });
       return false;
     });
 
