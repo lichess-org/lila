@@ -1,4 +1,4 @@
-@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game], leaderboard: List[User], progress: List[User])(implicit ctx: Context)
+@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game], leaderboard: List[User], progress: List[User], puzzle: Option[lila.puzzle.DailyPuzzle])(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game" title="@trans.watchLichessTV()">
@@ -46,7 +46,7 @@ themepicker = true) {
   @translationCall.map(i18n.callBox(_))
 </div>
 <div class="clearfix lichess_homepage">
-  <div class="lichess_board_wrap lichess_player_white">
+  <div class="lichess_board_wrap">
     <div id="hooks_wrap">
       <div class="tabs">
         <a data-tab="list" class="list">@trans.list()</a>
@@ -78,6 +78,15 @@ themepicker = true) {
       <a class="lichess_button button config_@b.code" href="@b.route" onclick="return false" title="@b.title()">@b.name()</a>
       }
     </div>
+    @puzzle.map { p =>
+    <div id="daily_puzzle">
+      @p.html
+      <div class="vstext">
+        @trans.puzzleOfTheDay()<br />
+        @trans.findTheBestMoveForColor(p.color.name)
+      </div>
+    </div>
+    }
   </div>
   @lobby.undertable(forumRecent, tours, leaderboard, progress)
 </div>

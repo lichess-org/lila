@@ -272,6 +272,7 @@ toTrackYourProgress=To track your progress:
 trainingSignupExplanation=Lichess will provide puzzles that match your ability, making for better training sessions.
 recentlyPlayedPuzzles=Recently played puzzles
 puzzleId=Puzzle %s
+puzzleOfTheDay=Puzzle of the day
 goodMove=Good move
 butYouCanDoBetter=But you can do better.
 bestMove=Best move!
