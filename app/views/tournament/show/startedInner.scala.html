@@ -9,7 +9,7 @@
 @pov.map { p =>
 <a class="pov button shadowed" href="@routes.Round.player(p.fullId)">
   You are playing against @userIdToUsername(p.opponent.userId)
-  <span class="pov_join">Join the game</span>
+  <span class="pov_join">@trans.joinTheGame()</span>
 </a>
 }
 
