@@ -83,7 +83,7 @@ var storage = {
       storage.remove(self.options.baseUrlKey);
     }
     if (self.options.prodPipe) {
-      self.options.baseUrls = ['en.lichess.org:6661'];
+      self.options.baseUrls = ['en.lichess.org:9021'];
     }
     self.connect();
     $(window).on('unload', function() {
@@ -450,9 +450,8 @@ var storage = {
       options: {
         baseUrls: _.union(
           'socket.' + document.domain,
-          document.domain + ':' + $('body').data('port'),
-          _.map(_.range(1, 10), function(i) {
-            return 'socket.' + document.domain + ':' + (9020 + i);
+          _.map($('body').data('ports').split(','), function(port) {
+            return 'socket.' + document.domain + ':' + port;
           })),
         baseUrlKey: 'surl3',
         name: "site",
