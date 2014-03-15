@@ -226,10 +226,9 @@ div.lichess_overboard p.explanations {
   background: #d85000;
   z-index: 50;
 }
-div.lichess_id_input {
+#lichess_id_input {
   margin-top: 10px;
-  border: none;
-  width: 100%;
+  width: 90%;
   text-align: center;
   font-size: 1.2em;
   padding: 1em 0;

@@ -26,7 +26,7 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
       </div>
       }.getOrElse {
       @trans.toInviteSomeoneToPlayGiveThisUrl():
-      <div class="lichess_id_input">@protocol@commonDomain@routes.Round.watcher(gameId, "white")</div>
+      <input id="lichess_id_input" class="copyable" spellcheck="false" readonly="true" value="@protocol@commonDomain@routes.Round.watcher(gameId, "white")" />
       <p class="explanations">
         @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()
         <a href="@routes.Setup.cancel(fullId)">@trans.cancel()</a>
