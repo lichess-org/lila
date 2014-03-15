@@ -2,6 +2,7 @@ package lila.api
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.collection.JavaConversions._
 
 final class Env(
     config: Config,
@@ -22,6 +23,7 @@ final class Env(
     val Protocol = config getString "net.protocol"
     val BaseUrl = config getString "net.base_url"
     val Port = config getInt "http.port"
+    val ExtraPorts = (config getStringList "net.extra_ports").toList
     val AssetDomain = config getString "net.asset.domain"
     val AssetVersion = config getInt "net.asset.version"
   }
