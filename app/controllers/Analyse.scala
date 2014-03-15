@@ -49,7 +49,7 @@ object Analyse extends LilaController {
             version,
             chat,
             tour,
-            new TimeChart(pov.game)))
+            new TimeChart(pov.game, pov.game.pgnMoves)))
       }
 
   def pgn(id: String) = Open { implicit ctx =>
