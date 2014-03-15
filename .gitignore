@@ -17,6 +17,7 @@ bin/.translate_version
 data/
 dist/
 todos/
+deploy
 
 db/lib/
 
