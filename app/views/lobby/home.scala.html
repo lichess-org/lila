@@ -79,7 +79,7 @@ themepicker = true) {
       }
     </div>
     @puzzle.map { p =>
-    <div id="daily_puzzle">
+    <div id="daily_puzzle" title="@trans.clickToSolve()">
       @p.html
       <div class="vstext">
         @trans.puzzleOfTheDay()<br />
