@@ -200,6 +200,16 @@ $(function() {
           marginTop: 0,
           spacing: [0, 0, 0, 0]
         },
+        tooltip: {
+          formatter: function() {
+            var seconds = Math.abs(this.point.y);
+            var unit = seconds > 1 ? 'seconds' : 'second';
+            var white = this.point.x % 2;
+            var dots = white === 0 ? '.' : '...';
+            var turn = Math.ceil(this.point.x / 2 + (white ? 0 : 1));
+            return turn + dots + ' ' + this.point.name + '<br /><strong>' + seconds + '</strong> ' + unit;
+          }
+        },
         plotOptions: {
           area: {
             color: theme.colors[7],
