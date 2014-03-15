@@ -739,7 +739,7 @@ var storage = {
     $('div.content').on('click', 'a.bookmark', function() {
       var t = $(this).toggleClass("bookmarked");
       $.post(t.attr("href"));
-      var count = (parseInt(t.html(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
+      var count = (parseInt(t.text(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
       t.find('span').html(count > 0 ? ' ' + count : "");
       return false;
     });
