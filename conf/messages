@@ -273,6 +273,7 @@ trainingSignupExplanation=Lichess will provide puzzles that match your ability, 
 recentlyPlayedPuzzles=Recently played puzzles
 puzzleId=Puzzle %s
 puzzleOfTheDay=Puzzle of the day
+clickToSolve=Click to solve
 goodMove=Good move
 butYouCanDoBetter=But you can do better.
 bestMove=Best move!
