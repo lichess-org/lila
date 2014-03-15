@@ -48,7 +48,7 @@
     <br /><br />
     }
     @g.tournamentId.map { tourId =>
-    <a data-icon="g" href="@routes.Tournament.show(tourId)">Tournament</a>
+    <a data-icon="g" href="@routes.Tournament.show(tourId)">&nbsp;@trans.tournament()</a>
     <br />
     }
     @if(g.rated) {
