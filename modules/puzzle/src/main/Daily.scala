@@ -46,7 +46,7 @@ private[puzzle] final class Daily(
   }
 
   private def findCurrent = coll.find(
-    BSONDocument("day" -> BSONDocument("$gt" -> DateTime.now.minusDays(1)))
+    BSONDocument("day" -> BSONDocument("$gt" -> DateTime.now.minusMinutes(24 * 60 - 15)))
   ).one[Puzzle]
 
   private def findNew = coll.find(
