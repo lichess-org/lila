@@ -21,6 +21,7 @@ final class Env(
     val CaptcherName = config getString "captcher.name"
     val CaptcherDuration = config duration "captcher.duration"
     val CollectionGame = config getString "collection.game"
+    val CollectionCrosstable = config getString "collection.crosstable"
     val JsPathRaw = config getString "js_path.raw"
     val JsPathCompiled = config getString "js_path.compiled"
     val ActorName = config getString "actor.name"
@@ -56,6 +57,8 @@ final class Env(
   lazy val pgnDump = new PgnDump(
     router = hub.actor.router,
     findUser = lila.user.UserRepo.named)
+
+  lazy val crosstable = new Crosstable(db(CollectionCrosstable))
 
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)

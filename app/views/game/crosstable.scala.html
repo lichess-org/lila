@@ -1,0 +1,30 @@
+@(crosstable: lila.game.Crosstable.Summary)(implicit ctx: Context)
+
+<div id="crosstable">
+  <table>
+    <tbody>
+      @crosstable.userIds.map { uid =>
+      <tr>
+        <th>@userIdLink(uid.some)</th>
+        @crosstable.results.map { r =>
+        <td>
+          <a href="@routes.Round.watcher(r.gameId, "white")">
+            @r.winnerId match {
+            case Some(w) if w == uid => { <span class="win">1</span> }
+            case None => { ½ }
+            case _ => { <span class="loss">0</span> }
+            }
+          </a>
+        </td>
+        }
+        <td class="score @crosstable.winnerId match {
+          case Some(w) if w == uid => { win }
+          case Some(_) => { loss }
+          }">
+          @crosstable.showScore(crosstable score uid)
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

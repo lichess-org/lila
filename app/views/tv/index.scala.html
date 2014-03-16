@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, games: List[Game], confrontation: Option[lila.user.Confrontation], tour: Option[lila.tournament.Tournament], flip: Boolean)(implicit ctx: Context)
+@(pov: Pov, version: Int, games: List[Game], confrontation: Option[lila.user.Confrontation], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable.Summary], flip: Boolean)(implicit ctx: Context)
 
 @title = @{ "TV" }
 
@@ -61,5 +61,8 @@ goodies = goodies,
 underchat = underchat.some,
 active = siteMenu.tv.some) {
 @round.watcherGame(pov)
+@cross.map { c =>
+@game.crosstable(c)
+}
 @embedJs("var _ld_ = " + roundWatcherJsData(pov, version, true, ctx.pref))
 }

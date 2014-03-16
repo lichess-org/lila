@@ -78,6 +78,19 @@ trait UserRepo {
 
   def rank(user: User) = $count(enabledSelect ++ Json.obj("rating" -> $gt(Glicko.default.rating))) map (1+)
 
+  def orderByGameCount(u1: String, u2: String): Fu[Option[(String, String)]] =
+    userTube.coll.find(
+      BSONDocument("_id" -> BSONDocument("$in" -> List(u1, u2))),
+      BSONDocument("count.game" -> true)
+    ).cursor[BSONDocument].collect[List]() map { docs =>
+        docs.sortBy {
+          _.getAs[BSONDocument]("count") flatMap (_.getAs[Int]("game")) getOrElse 0
+        }.map(_.getAs[String]("_id")).flatten match {
+          case List(u1, u2) => (u1, u2).some
+          case _            => none
+        }
+      }
+
   def lichess = byId("lichess")
 
   def setPerfs(user: User, perfs: Perfs, progress: Int) = $update($select(user.id), $setBson(
