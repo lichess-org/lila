@@ -16,7 +16,7 @@ import lila.db.api._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.Implicits._
-import lila.user.{ User, Confrontation }
+import lila.user.User
 
 object GameRepo extends GameRepo {
   protected def gameTube = tube.gameTube
@@ -292,40 +292,6 @@ trait GameRepo {
     doc.getAs[BSONBinary](F.binaryPgn) map { bin =>
       BinaryFormat.pgn read { ByteArray.ByteArrayBSONHandler read bin }
     }
-
-  // gets 2 users (id, nbGames)
-  // returns user1 wins, draws, losses
-  // the 2 userIds SHOULD be sorted by game count desc
-  // this method is cached in lila.game.Cached
-  private[game] def confrontation(users: ((String, Int), (String, Int))): Fu[Confrontation] = users match {
-    case (user1, user2) => {
-      import reactivemongo.bson._
-      import reactivemongo.core.commands._
-      val userIds = List(user1, user2).sortBy(_._2).map(_._1)
-      val command = Aggregate(gameTube.coll.name, Seq(
-        Match(BSONDocument(
-          F.playerUids -> BSONDocument("$all" -> userIds),
-          F.status -> BSONDocument("$gte" -> chess.Status.Mate.id)
-        )),
-        GroupField(F.winnerId)("nb" -> SumValue(1))
-      ))
-      gameTube.coll.db.command(command) map { stream =>
-        val res = (stream.toList map { obj =>
-          toJSON(obj).asOpt[JsObject] flatMap { o =>
-            o int "nb" map { nb =>
-              ~(o str "_id") -> nb
-            }
-          }
-        }).flatten.toMap
-        Confrontation(
-          user1._1, user2._1,
-          ~(res get user1._1),
-          ~(res get ""),
-          ~(res get user2._1)
-        )
-      }
-    }
-  }
 
   // u1, u2 alread sorted by count.game asc
   private[game] def recentOpponentGameIds(u1: String, u2: String, nb: Int): Fu[List[String]] =

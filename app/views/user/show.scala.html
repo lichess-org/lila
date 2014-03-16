@@ -103,9 +103,6 @@ themepicker = true) {
       <p class="bio">@shorten(bio, 400)</p>
       }
       }
-      @info.confrontation.map { c =>
-      @user.confrontation(c.pov(ctx.userId))
-      }
       <div class="stats">
         @u.profileOrDefault.nonEmptyLocation.map { l =>
         <span class="location">@l</span>,
