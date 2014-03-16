@@ -1448,7 +1448,9 @@ var storage = {
         if (data.players.me) $('#user_tag span').text(data.players.me);
         self.$tableInner.html(data.table);
         self.initTable();
-        $('div.lichess_goodies').replaceWith(data.infobox);
+        if (!(self.options.player.spectator && self.options.tv)) {
+          $('div.lichess_goodies').replaceWith(data.infobox);
+        }
         if (self.$chat) self.$chat.chat('resize');
         if ($.isFunction(callback)) callback();
         $('body').trigger('lichess.content_loaded');
