@@ -690,7 +690,7 @@ div.lichess_goodies div.undertable {
   margin-top: 15px;
 }
 div.lichess_goodies div.undertable_inner {
-  height: 260px;
+  height: 250px;
 }
 div.lichess_goodies div.undertable td:last-child {
   text-align: right;
@@ -1867,6 +1867,38 @@ div.lichess_overboard.joining a.decline {
 div.lichess_overboard.joining .mini_board {
   margin: 10px auto;
 }
+
+#crosstable {
+  width: 512px;
+}
+#crosstable table {
+  width: 512px;
+  margin: 1em 0;
+}
+#crosstable td {
+  text-align: center;
+  border: 1px solid #f7f7f7;
+  padding: 0;
+  min-width: 15px;
+}
+#crosstable td a {
+  line-height: 2em;
+  display: block;
+  width: 100%;
+  background: #fff;
+  text-decoration: none;
+}
+#crosstable .win {
+  font-weight: bold;
+  color: #759900;
+}
+#crosstable .loss {
+  color: #ac524f;
+}
+#crosstable .score {
+  font-size: 1.3em;
+}
+
 #timeline {
   margin-top: 2em;
   border-top: 1px solid #e4e4e4;

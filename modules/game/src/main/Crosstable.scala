@@ -1,55 +1,101 @@
 package lila.game
 
 import lila.db.Types._
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 import reactivemongo.core.commands.Count
 
 import reactivemongo.bson.{ BSONDocument, BSONArray }
 
 private[game] final class Crosstable(coll: Coll) {
 
-  def apply(u1: User, u2: User): Fu[List[Game]] =
-    coll.find(select(u1.id, u2.id)).one[BSONDocument] flatMap {
-      case None      => create(u1, u2) flatMap GameRepo.games
-      case Some(doc) => doc.getAs[List[String]]("d") ?? GameRepo.games
-    }
+  import Crosstable._
 
-  def add(game: Game): Funit = (game.rated && game.userIds.distinct.size == 2) ?? {
-    exists(game.userIds).flatMap {
-      case false => UserRepo byIds game.userIds flatMap {
-        case u1 :: u2 :: Nil => create(u1, u2)
-        case _               => funit
-      }
-      case true => funit
-    } >> coll.update(
-      select(game.userIds),
-      BSONDocument("$push" -> BSONDocument("d" -> BSONDocument(
-        "$each" -> List(game.id),
-        "$slice" -> -Crosstable.maxGames
-      )))).void
+  def apply(game: Game): Fu[Option[Summary]] = game.userIds.distinct match {
+    case List(u1, u2) => apply(u1, u2)
+    case _            => fuccess(none)
   }
 
-  private def exists(us: List[String]) =
-    coll.db command Count(coll.name, select(us).some) map (0 !=)
+  def apply(u1: String, u2: String): Fu[Option[Summary]] =
+    coll.find(select(u1, u2)).one[BSONDocument].flatMap {
+      case None      => create(u1, u2) flatMap toResults
+      case Some(doc) => doc.getAs[List[String]]("d") ?? toResults
+    } map { Summary(u1, u2, _).nonEmpty }
 
-  private def create(u1: User, u2: User): Fu[List[String]] =
-    GameRepo.recentOpponentGameIds(u1, u2, Crosstable.maxGames) flatMap { ids =>
-      coll.insert(BSONDocument(
-        "_id" -> makeKey(u1.id, u2.id),
-        "d" -> ids
-      )) inject ids
+  def add(game: Game): Funit = game.userIds.distinct match {
+    case List(u1, u2) if game.rated =>
+      exists(u1, u2).flatMap {
+        case false => create(u1, u2)
+        case true  => funit
+      } >> coll.update(
+        select(u1, u2),
+        BSONDocument("$push" -> BSONDocument("d" -> BSONDocument(
+          "$each" -> List(game.id),
+          "$slice" -> -maxGames
+        )))).void
+    case _ => funit
+  }
+
+  private def toResults(gameIds: List[String]): Fu[List[Result]] = tube.gameTube.coll.find(
+    BSONDocument("_id" -> BSONDocument("$in" -> gameIds)),
+    BSONDocument(Game.BSONFields.winnerId -> true)
+  ).cursor[BSONDocument].collect[List](maxGames) map { docs =>
+      docs.map { doc =>
+        doc.getAs[String]("_id") map { id =>
+          Result(id, doc.getAs[String](Game.BSONFields.winnerId))
+        }
+      }.flatten
+    }
+
+  private def exists(u1: String, u2: String) =
+    coll.db command Count(coll.name, select(u1, u2).some) map (0 !=)
+
+  private def create(x1: String, x2: String): Fu[List[String]] =
+    UserRepo.orderByGameCount(x1, x2) flatMap {
+      case Some((u1, u2)) =>
+        GameRepo.recentOpponentGameIds(u1, u2, maxGames) flatMap { ids =>
+          coll.insert(BSONDocument(
+            "_id" -> makeKey(u1, u2),
+            "d" -> ids
+          )) inject ids
+        }
+      case _ => fuccess(Nil)
     }
 
   private def select(u1: String, u2: String) = BSONDocument("_id" -> makeKey(u1, u2))
-  private def select(us: List[String]) = BSONDocument("_id" -> makeKey(us))
 
   private def makeKey(u1: String, u2: String): String = makeKey(List(u1, u2))
   private def makeKey(us: List[String]): String = us.sorted mkString "/"
 }
 
-private object Crosstable {
+object Crosstable {
 
   val maxGames = 20
 
-  case class Data(games: List[Game])
+  case class Result(gameId: String, winnerId: Option[String])
+
+  case class Summary(u1: String, u2: String, results: List[Result]) {
+
+    def nonEmpty = results.nonEmpty option this
+
+    def userIds = List(u1, u2)
+
+    def score(u: String) = if (u == u1) score1 else score2
+
+    private lazy val score1 = computeScore(u1)
+    private lazy val score2 = computeScore(u2)
+
+    // multiplied by ten
+    private def computeScore(userId: String): Int = results.foldLeft(0) {
+      case (s, Result(_, Some(w))) if w == userId => s + 10
+      case (s, Result(_, None))                   => s + 5
+      case (s, _)                                 => s
+    }
+
+    def winnerId =
+      if (score1 > score2) Some(u1)
+      else if (score1 < score2) Some(u2)
+      else None
+
+    def showScore(byTen: Int) = s"${byTen / 10}${(byTen % 10 != 0).??("½")}"
+  }
 }

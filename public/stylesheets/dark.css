@@ -24,6 +24,9 @@ body.dark div.analysis_menu > a.active {
 body.dark div.analysis_menu > a.active {
   border-top-color: #1a1a1a;
 }
+body.dark #crosstable td {
+  border-color: #1a1a1a;
+}
 body.dark #reconnecting,
 body.dark #chessboard .board-b72b1,
 body.dark .mini_board,
@@ -150,7 +153,8 @@ body.dark div.undertable_top span.title {
 }
 body.dark #GameText a:hover,
 body.dark #hooks_wrap a.filter:hover,
-body.dark #hooks_wrap a.filter.active {
+body.dark #hooks_wrap a.filter.active,
+body.dark #crosstable td a {
   background: #000;
 }
 body.dark #chat .messages,

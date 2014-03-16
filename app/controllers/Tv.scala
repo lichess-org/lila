@@ -16,12 +16,13 @@ object Tv extends LilaController {
       Env.round.version(game.id) zip
         (GameRepo onTv 10) zip
         confrontation(game) zip
+        Env.game.crosstable(game) zip
         (game.tournamentId ?? TournamentRepo.byId) map {
-          case (((v, games), confrontation), tour) =>
+          case ((((v, games), confrontation), cross), tour) =>
             val flip = getBool("flip")
             Ok(html.tv.index(
               flip.fold(Pov second game, Pov first game),
-              v, games, confrontation, tour, flip))
+              v, games, confrontation, tour, cross, flip))
         }
     }
   }

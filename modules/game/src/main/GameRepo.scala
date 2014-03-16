@@ -327,6 +327,9 @@ trait GameRepo {
     }
   }
 
-  private[game] def recentOpponentGameIds(u1: User, u2: User, nb: Int): Fu[List[String]] =
-    $primitive(Query.opponents(u1, u2), "_id", _ sort Query.sortCreated)(_.asOpt[String])
+  // u1, u2 alread sorted by count.game asc
+  private[game] def recentOpponentGameIds(u1: String, u2: String, nb: Int): Fu[List[String]] =
+    $primitive(
+      Json.obj(F.playerUids -> $all(List(u1, u2))), "_id", _ sort Query.sortCreated, nb.some
+    )(_.asOpt[String])
 }
