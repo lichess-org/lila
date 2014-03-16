@@ -288,39 +288,6 @@ trait GameRepo {
     }
   }
 
-  // TODO fixme
-  def recentAverageRating(minutes: Int): Fu[(Int, Int)] = fuccess(0 -> 0)
-  // {
-  //   val command = MapReduce(
-  //     collectionName = gameTube.coll.name,
-  //     mapFunction = """function() {
-  //       emit(!!this.ra, [this.p0, this.p1]);
-  //     }""",
-  //     reduceFunction = """function(rated, values) {
-  // var sum = 0, nb = 0;
-  // values.forEach(function(game) {
-  //   game.forEach(function(player) {
-  //     if(player && player.e) {
-  //       sum += player.e;
-  //       ++nb;
-  //     }
-  //   });
-  // });
-  // return nb == 0 ? nb : Math.round(sum / nb);
-  // }""",
-  //     query = Some(JsObjectWriter write {
-  //       Json.obj(
-  //         F.createdAt -> $gte($date(DateTime.now - minutes.minutes))
-  //       ) ++ $or(List(Json.obj("p0.e" -> $exists(true)), Json.obj("p1.e" -> $exists(true))))
-  //     })
-  //   )
-  //   gameTube.coll.db.command(command) map { res =>
-  //     toJSON(res).arr("results").flatMap { r =>
-  //       (r(0) int "value") |@| (r(1) int "value") tupled
-  //     }
-  //   } map (~_)
-  // }
-
   private def extractPgnMoves(doc: BSONDocument) =
     doc.getAs[BSONBinary](F.binaryPgn) map { bin =>
       BinaryFormat.pgn read { ByteArray.ByteArrayBSONHandler read bin }
@@ -359,4 +326,7 @@ trait GameRepo {
       }
     }
   }
+
+  private[game] def recentOpponentGameIds(u1: User, u2: User, nb: Int): Fu[List[String]] =
+    $primitive(Query.opponents(u1, u2), "_id", _ sort Query.sortCreated)(_.asOpt[String])
 }

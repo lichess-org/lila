@@ -5,8 +5,8 @@ import play.api.libs.json._
 import play.api.mvc._
 
 import lila.app._
-import lila.socket.actorApi.PopulationGet
 import lila.monitor.actorApi._
+import lila.socket.actorApi.PopulationGet
 import makeTimeout.short
 
 object Monitor extends LilaController {
@@ -24,10 +24,7 @@ object Monitor extends LilaController {
   def status = Action.async { implicit req =>
     (~get("key", req) match {
       case "rating" => {
-        lila.user.UserRepo.idsAverageRating(Env.user.onlineUserIdMemo.keys) zip
-          lila.game.GameRepo.recentAverageRating(5) map {
-            case (users, (rated, casual)) => List(users, rated, casual) mkString " "
-          }
+        lila.user.UserRepo.idsAverageRating(Env.user.onlineUserIdMemo.keys)
       } map { Ok(_) }
       case "moves" => (env.reporting ? GetNbMoves).mapTo[Int] map { Ok(_) }
       case "players" => {
