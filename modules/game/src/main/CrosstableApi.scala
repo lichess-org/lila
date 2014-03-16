@@ -59,8 +59,8 @@ final class CrosstableApi(coll: Coll) {
               doc.getAs[String](Game.BSONFields.id).map { id =>
                 Result(id, doc.getAs[String](Game.BSONFields.winnerId))
               }
-            }.flatten
-          } zip (tube.gameTube.coll.db command Count(tube.gameTube.coll.name, selector.some)).thenPp map {
+            }.flatten.reverse
+          } zip (tube.gameTube.coll.db command Count(tube.gameTube.coll.name, selector.some)) map {
             case (results, nbGames) => Crosstable(u1, u2, results, nbGames)
           }
       } flatMap { crosstable =>
