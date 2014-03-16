@@ -34,6 +34,7 @@ final class Env(
     bookmarkApi = Env.bookmark.api,
     relationApi = Env.relation.api,
     gameCached = Env.game.cached,
+    crosstableApi = Env.game.crosstableApi,
     postApi = Env.forum.postApi,
     getRatingChart = Env.user.ratingChart,
     getRank = Env.user.ranking.get) _

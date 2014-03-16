@@ -1,101 +1,80 @@
 package lila.game
 
-import lila.db.Types._
-import lila.user.UserRepo
-import reactivemongo.core.commands.Count
+case class Crosstable(
+    user1: String,
+    user2: String,
+    results: List[Crosstable.Result],
+    nbGames: Int) {
 
-import reactivemongo.bson.{ BSONDocument, BSONArray }
+  import Crosstable.Result
 
-private[game] final class Crosstable(coll: Coll) {
+  def nonEmpty = results.nonEmpty option this
 
-  import Crosstable._
+  def userIds = List(user1, user2)
 
-  def apply(game: Game): Fu[Option[Summary]] = game.userIds.distinct match {
-    case List(u1, u2) => apply(u1, u2)
-    case _            => fuccess(none)
+  def score(u: String) = if (u == user1) score1 else score2
+
+  private lazy val score1 = computeScore(user1)
+  private lazy val score2 = computeScore(user2)
+
+  // multiplied by ten
+  private def computeScore(userId: String): Int = results.foldLeft(0) {
+    case (s, Result(_, Some(w))) if w == userId => s + 10
+    case (s, Result(_, None))                   => s + 5
+    case (s, _)                                 => s
   }
 
-  def apply(u1: String, u2: String): Fu[Option[Summary]] =
-    coll.find(select(u1, u2)).one[BSONDocument].flatMap {
-      case None      => create(u1, u2) flatMap toResults
-      case Some(doc) => doc.getAs[List[String]]("d") ?? toResults
-    } map { Summary(u1, u2, _).nonEmpty }
+  def winnerId =
+    if (score1 > score2) Some(user1)
+    else if (score1 < score2) Some(user2)
+    else None
 
-  def add(game: Game): Funit = game.userIds.distinct match {
-    case List(u1, u2) if game.rated =>
-      exists(u1, u2).flatMap {
-        case false => create(u1, u2)
-        case true  => funit
-      } >> coll.update(
-        select(u1, u2),
-        BSONDocument("$push" -> BSONDocument("d" -> BSONDocument(
-          "$each" -> List(game.id),
-          "$slice" -> -maxGames
-        )))).void
-    case _ => funit
-  }
-
-  private def toResults(gameIds: List[String]): Fu[List[Result]] = tube.gameTube.coll.find(
-    BSONDocument("_id" -> BSONDocument("$in" -> gameIds)),
-    BSONDocument(Game.BSONFields.winnerId -> true)
-  ).cursor[BSONDocument].collect[List](maxGames) map { docs =>
-      docs.map { doc =>
-        doc.getAs[String]("_id") map { id =>
-          Result(id, doc.getAs[String](Game.BSONFields.winnerId))
-        }
-      }.flatten
-    }
-
-  private def exists(u1: String, u2: String) =
-    coll.db command Count(coll.name, select(u1, u2).some) map (0 !=)
-
-  private def create(x1: String, x2: String): Fu[List[String]] =
-    UserRepo.orderByGameCount(x1, x2) flatMap {
-      case Some((u1, u2)) =>
-        GameRepo.recentOpponentGameIds(u1, u2, maxGames) flatMap { ids =>
-          coll.insert(BSONDocument(
-            "_id" -> makeKey(u1, u2),
-            "d" -> ids
-          )) inject ids
-        }
-      case _ => fuccess(Nil)
-    }
-
-  private def select(u1: String, u2: String) = BSONDocument("_id" -> makeKey(u1, u2))
-
-  private def makeKey(u1: String, u2: String): String = makeKey(List(u1, u2))
-  private def makeKey(us: List[String]): String = us.sorted mkString "/"
+  def showScore(byTen: Int) = s"${byTen / 10}${(byTen % 10 != 0).??("½")}"
 }
 
 object Crosstable {
 
-  val maxGames = 20
-
   case class Result(gameId: String, winnerId: Option[String])
 
-  case class Summary(u1: String, u2: String, results: List[Result]) {
+  private[game] def makeKey(u1: String, u2: String): String = List(u1, u2).sorted mkString "/"
 
-    def nonEmpty = results.nonEmpty option this
+  import reactivemongo.bson._
+  import lila.db.BSON
 
-    def userIds = List(u1, u2)
+  object BSONFields {
 
-    def score(u: String) = if (u == u1) score1 else score2
+    val id = "_id"
+    val results = "r"
+    val nbGames = "n"
+  }
 
-    private lazy val score1 = computeScore(u1)
-    private lazy val score2 = computeScore(u2)
+  implicit val crosstableBSONHandler = new BSON[Crosstable] {
 
-    // multiplied by ten
-    private def computeScore(userId: String): Int = results.foldLeft(0) {
-      case (s, Result(_, Some(w))) if w == userId => s + 10
-      case (s, Result(_, None))                   => s + 5
-      case (s, _)                                 => s
+    import BSONFields._
+
+    def reads(r: BSON.Reader): Crosstable = r str id split '/' match {
+      case Array(u1, u2) => Crosstable(
+        user1 = u1,
+        user2 = u2,
+        results = r.get[List[String]](results).map {
+          _ split '/' match {
+            case Array(gameId, res) => Result(gameId, Some(if (res == "1") u1 else u2))
+            case Array(gameId)      => Result(gameId, none)
+            case x                  => sys error s"Invalid result string $x"
+          }
+        },
+        nbGames = r int nbGames)
+      case x => sys error s"Invalid crosstable id $x"
     }
 
-    def winnerId =
-      if (score1 > score2) Some(u1)
-      else if (score1 < score2) Some(u2)
-      else None
+    def writeResult(result: Result, u1: String): String = {
+      val res = result.winnerId ?? { w => s"/${if (w == u1) 1 else 0}" }
+      s"${result.gameId}$res"
+    }
 
-    def showScore(byTen: Int) = s"${byTen / 10}${(byTen % 10 != 0).??("½")}"
+    def writes(w: BSON.Writer, o: Crosstable) = BSONDocument(
+      id -> makeKey(o.user1, o.user2),
+      results -> o.results.map { writeResult(_, o.user1) },
+      nbGames -> w.int(o.nbGames))
   }
 }

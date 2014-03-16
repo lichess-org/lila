@@ -173,3 +173,6 @@ div.user_show div.content_box_inter.tabs {
   width: 775px;
   border: 1px solid #ccc;
 }
+div.user_show #crosstable {
+  margin: 25px auto 15px auto;
+}

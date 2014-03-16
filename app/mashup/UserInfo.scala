@@ -6,7 +6,7 @@ import chess.Color
 import lila.api.Context
 import lila.bookmark.BookmarkApi
 import lila.forum.PostApi
-import lila.game.{ GameRepo, Game }
+import lila.game.{ GameRepo, Game, Crosstable }
 import lila.relation.RelationApi
 import lila.security.Granter
 import lila.user.User
@@ -15,6 +15,7 @@ case class UserInfo(
     user: User,
     rank: Option[(Int, Int)],
     nbPlaying: Int,
+    crosstable: Option[Crosstable],
     nbBookmark: Int,
     ratingChart: Option[String],
     nbFollowing: Int,
@@ -24,7 +25,7 @@ case class UserInfo(
 
   def nbRated = user.count.rated
 
-  def nbWithMe = 0
+  def nbWithMe = crosstable ?? (_.nbGames)
 
   def percentRated: Int = math.round(nbRated / user.count.game.toFloat * 100)
 }
@@ -36,15 +37,15 @@ object UserInfo {
     bookmarkApi: BookmarkApi,
     relationApi: RelationApi,
     gameCached: lila.game.Cached,
+    crosstableApi: lila.game.CrosstableApi,
     postApi: PostApi,
     getRatingChart: User => Fu[Option[String]],
     getRank: String => Fu[Option[Int]])(user: User, ctx: Context): Fu[UserInfo] =
     (getRank(user.id) flatMap {
       _ ?? { rank => countUsers() map { nb => (rank -> nb).some } }
     }) zip
-      ((ctx is user) ?? {
-        gameCached nbPlaying user.id map (_.some)
-      }) zip
+      ((ctx is user) ?? { gameCached nbPlaying user.id map (_.some) }) zip
+      (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id) }) zip
       (bookmarkApi countByUser user) zip
       getRatingChart(user) zip
       relationApi.nbFollowing(user.id) zip
@@ -53,10 +54,11 @@ object UserInfo {
         relationApi.nbBlockers(user.id) map (_.some)
       }) zip
       postApi.nbByUser(user.id) map {
-        case (((((((rank, nbPlaying), nbBookmark), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts) => new UserInfo(
+        case ((((((((rank, nbPlaying), crosstable), nbBookmark), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts) => new UserInfo(
           user = user,
           rank = rank,
           nbPlaying = ~nbPlaying,
+          crosstable = crosstable,
           nbBookmark = nbBookmark,
           ratingChart = ratingChart,
           nbFollowing = nbFollowing,

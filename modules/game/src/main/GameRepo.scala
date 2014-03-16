@@ -292,10 +292,4 @@ trait GameRepo {
     doc.getAs[BSONBinary](F.binaryPgn) map { bin =>
       BinaryFormat.pgn read { ByteArray.ByteArrayBSONHandler read bin }
     }
-
-  // u1, u2 alread sorted by count.game asc
-  private[game] def recentOpponentGameIds(u1: String, u2: String, nb: Int): Fu[List[String]] =
-    $primitive(
-      Json.obj(F.playerUids -> $all(List(u1, u2))), "_id", _ sort Query.sortCreated, nb.some
-    )(_.asOpt[String])
 }

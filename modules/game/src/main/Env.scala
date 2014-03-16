@@ -58,7 +58,7 @@ final class Env(
     router = hub.actor.router,
     findUser = lila.user.UserRepo.named)
 
-  lazy val crosstable = new Crosstable(db(CollectionCrosstable))
+  lazy val crosstableApi = new CrosstableApi(db(CollectionCrosstable))
 
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
