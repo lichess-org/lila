@@ -31,10 +31,11 @@ final class CrosstableApi(coll: Coll) {
       val bson = BSONDocument(
         "$inc" -> BSONDocument(Crosstable.BSONFields.nbGames -> BSONInteger(1))
       ) ++ {
-          if (game.rated) BSONDocument("$push" -> BSONDocument("d" -> BSONDocument(
-            "$each" -> List(bsonResult),
-            "$slice" -> -maxGames
-          )))
+          if (game.rated) BSONDocument("$push" -> BSONDocument(
+            Crosstable.BSONFields.results -> BSONDocument(
+              "$each" -> List(bsonResult),
+              "$slice" -> -maxGames
+            )))
           else BSONDocument()
         }
       coll.update(select(u1, u2), bson)
@@ -52,8 +53,8 @@ final class CrosstableApi(coll: Coll) {
         tube.gameTube.coll.find(
           selector,
           BSONDocument(Game.BSONFields.winnerId -> true)
-          ).sort(BSONDocument(Game.BSONFields.createdAt -> -1))
-            .cursor[BSONDocument].collect[List](maxGames).map {
+        ).sort(BSONDocument(Game.BSONFields.createdAt -> -1))
+          .cursor[BSONDocument].collect[List](maxGames).map {
             _.map { doc =>
               doc.getAs[String](Game.BSONFields.id).map { id =>
                 Result(id, doc.getAs[String](Game.BSONFields.winnerId))
