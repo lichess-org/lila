@@ -920,9 +920,9 @@ var storage = {
       }
 
       if (self.options.player.spectator && self.options.tv) {
-        $('div.lichess_bot').on("click", "tr", function() {
-          location.href = $(this).find('a.watch').attr("href");
-        }).find('.undertable_inner').scrollTop(0);
+        $('div.goodietable').on("click", "tr", function() {
+          location.href = $(this).data('href');
+        });
       }
 
       lichess.socket = new strongSocket(
