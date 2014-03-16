@@ -28,27 +28,25 @@
     @if(pov.game.rated) {
     , @trans.rated()
     }
-  </div>  
-  <div class="lichess_bot goodietable">
-    <div class="goodietable_top">
+  </div>
+  <div class="undertable">
+    <div class="undertable_top">
       <span class="title">@trans.previouslyOnLichessTV()</span>
     </div>
-    <div class="goodietable_inner">
-      <div class="content">
-        <table>
-          <tbody>
-            @games.map { g =>
-            <tr>
-              <td>
-                @playerLink(g.firstPlayer, withOnline = true, withDiff = true)
-                @playerLink(g.secondPlayer, withOnline = true, withDiff = true)
-              </td>
-              <td data-icon="p">&nbsp;@shortClockName(g.clock)</td>
-            </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+    <div class="undertable_inner">
+      <table>
+        <tbody>
+          @games.map { g =>
+          <tr data-href="@routes.Round.watcher(g.id, g.firstPlayer.color.name)">
+            <td>
+              @playerLink(g.firstPlayer, withOnline = true, withDiff = true)
+              @playerLink(g.secondPlayer, withOnline = true, withDiff = true)
+            </td>
+            <td data-icon="p">&nbsp;@shortClockName(g.clock)</td>
+          </tr>
+          }
+        </tbody>
+      </table>
     </div>
   </div>
   <div class="buttons">
