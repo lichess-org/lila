@@ -16,6 +16,7 @@ private[round] final class Finisher(
     messenger: Messenger,
     perfsUpdater: PerfsUpdater,
     aiPerfApi: lila.ai.AiPerfApi,
+    crosstableApi: lila.game.CrosstableApi,
     bus: lila.common.Bus) {
 
   def apply(
@@ -43,7 +44,8 @@ private[round] final class Finisher(
 
   private def updateCountAndPerfs(finish: FinishGame): Funit = !finish.isVsSelf ?? {
     (finish.white |@| finish.black).tupled ?? {
-      case (white, black) => perfsUpdater.save(finish.game, white, black)
+      case (white, black) =>
+        crosstableApi add finish.game zip perfsUpdater.save(finish.game, white, black)
     } zip
       addAiGame(finish) zip
       (finish.white ?? incNbGames(finish.game)) zip

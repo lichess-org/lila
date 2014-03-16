@@ -109,7 +109,7 @@ object Featured {
     ratingHeuristic(Color.White) -> 1.2f,
     ratingHeuristic(Color.Black) -> 1.2f,
     speedHeuristic -> 0.5f,
-    progressHeuristic -> 1f)
+    progressHeuristic -> 0.7f)
 
   private[game] def ratingHeuristic(color: Color): Heuristic = game =>
     ratingBox(game.player(color).rating | 1100)

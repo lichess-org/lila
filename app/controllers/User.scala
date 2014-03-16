@@ -19,7 +19,7 @@ object User extends LilaController {
   private def forms = lila.user.DataForm
 
   def show(username: String) = Open { implicit ctx =>
-    filter(username, "all", 1)
+    filter(username, none, 1)
   }
 
   def showMini(username: String) = Open { implicit ctx =>
@@ -31,7 +31,7 @@ object User extends LilaController {
   }
 
   def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx =>
-    filter(username, filterName, page)
+    filter(username, filterName.some, page)
   }
 
   def online = Open { implicit req =>
@@ -40,19 +40,20 @@ object User extends LilaController {
     }
   }
 
-  private def filter(username: String, filterName: String, page: Int)(implicit ctx: Context) =
+  private def filter(username: String, filterOption: Option[String], page: Int)(implicit ctx: Context) =
     Reasonable(page) {
       OptionFuResult(UserRepo named username) { u =>
         (u.enabled || isGranted(_.UserSpy)).fold({
-          userShow(u, filterName, page) map { Ok(_) }
+          userShow(u, filterOption, page) map { Ok(_) }
         }, UserRepo isArtificial u.id map { artificial =>
           NotFound(html.user.disabled(u, artificial))
         })
       }
     }
 
-  private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) = for {
+  private def userShow(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: Context) = for {
     info ← Env.current.userInfo(u, ctx)
+    filterName = filterOption | (if (info.nbWithMe > 0) "me" else "all")
     filters = mashup.GameFilterMenu(info, ctx.me, filterName)
     pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query =>
       gamePaginator.recentlyCreated(query, filters.cachedNb)(page)

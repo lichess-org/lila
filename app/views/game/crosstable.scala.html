@@ -1,4 +1,4 @@
-@(crosstable: lila.game.Crosstable.Summary)(implicit ctx: Context)
+@(crosstable: lila.game.Crosstable)(implicit ctx: Context)
 
 <div id="crosstable">
   <table>
@@ -20,6 +20,7 @@
         <td class="score @crosstable.winnerId match {
           case Some(w) if w == uid => { win }
           case Some(_) => { loss }
+          case _ => {}
           }">
           @crosstable.showScore(crosstable score uid)
         </td>

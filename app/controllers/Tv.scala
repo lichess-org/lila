@@ -14,7 +14,7 @@ object Tv extends LilaController {
     OptionFuResult(Env.game.featured.one) { game =>
       Env.round.version(game.id) zip
         (GameRepo onTv 10) zip
-        Env.game.crosstable(game) zip
+        Env.game.crosstableApi(game) zip
         (game.tournamentId ?? TournamentRepo.byId) map {
           case (((v, games), cross), tour) =>
             val flip = getBool("flip")
