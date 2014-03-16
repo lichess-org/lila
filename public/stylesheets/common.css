@@ -684,6 +684,55 @@ table.slist td:first-child,
 table.slist th:first-child {
   padding-left: 25px;
 }
+div.goodietable {
+  margin-left: -30px;
+  width: 228px;
+  font-size: 11.5px;
+  margin-top: 15px;
+}
+div.goodietable_top {
+  border: 1px solid #ccc;
+  padding: 3px 5px;
+}
+div.goodietable_top a.more {
+  float: right;
+  padding-right: 2px;
+  text-decoration: none;
+  font-weight: normal;
+}
+div.goodietable_top span.title {
+  font-weight: bold;
+  color: #999;
+}
+div.goodietable_inner {
+  border: 1px solid #ccc;
+  border-top: 0;
+  height: 260px;
+  width: auto;
+  overflow: hidden;
+  background: #fff;
+}
+div.goodietable_inner:hover {
+  overflow-y: auto;
+}
+div.goodietable table {
+  width: 100%;
+  height: 100%;
+}
+div.goodietable td {
+  padding: 6px 5px 6px 5px;
+  background: #fff;
+  border-top: 1px solid #eaeaea;
+}
+div.goodietable tr:first-child td {
+  border-top: none;
+}
+div.goodietable td:last-child {
+  text-align: right;
+}
+div.goodietable tr:nth-child(even) td {
+  background: #f8f8f8;
+}
 div.lichess_goodies h2 {
   text-align: center;
   font-size: 1.5em;

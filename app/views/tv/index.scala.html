@@ -28,6 +28,28 @@
     @if(pov.game.rated) {
     , @trans.rated()
     }
+  </div>  
+  <div class="lichess_bot goodietable">
+    <div class="goodietable_top">
+      <span class="title">@trans.previouslyOnLichessTV()</span>
+    </div>
+    <div class="goodietable_inner">
+      <div class="content">
+        <table>
+          <tbody>
+            @games.map { g =>
+            <tr>
+              <td>
+                @playerLink(g.firstPlayer, withOnline = true, withDiff = true)
+                @playerLink(g.secondPlayer, withOnline = true, withDiff = true)
+              </td>
+              <td data-icon="p">&nbsp;@shortClockName(g.clock)</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <div class="buttons">
     <a class="flip button" data-icon="B" href="@routes.Tv.index()@if(!flip){?flip=1}"> @trans.flipBoard()</a>
@@ -42,28 +64,4 @@ underchat = underchat.some,
 active = siteMenu.tv.some) {
 @round.watcherGame(pov)
 @embedJs("var _ld_ = " + roundWatcherJsData(pov, version, true, ctx.pref))
-<div class="lichess_bot undertable">
-  <div class="undertable_top">
-    <span class="title">@trans.previouslyOnLichessTV()</span>
-  </div>
-  <div class="undertable_inner">
-    <div class="content">
-      <table>
-        <tbody>
-          @games.map { g =>
-          <tr>
-            <td><a class="watch" data-icon="v" href="@routes.Round.watcher(g.id, g.firstPlayer.color.name)"></a></td>
-            <td>
-              @playerLink(g.firstPlayer, withOnline = true, withDiff = true)
-              vs
-              @playerLink(g.secondPlayer, withOnline = true, withDiff = true)
-            </td>
-            <td data-icon="p">&nbsp;@shortClockName(g.clock)</td>
-          </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
 }
