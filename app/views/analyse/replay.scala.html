@@ -1,4 +1,4 @@
-@(pov: Pov, pgn: String, opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], version: Int, chat: Option[lila.chat.UserChat], tour: Option[lila.tournament.Tournament], timeChart: lila.analyse.TimeChart)(implicit ctx: Context)
+@(pov: Pov, pgn: String, opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], version: Int, chat: Option[lila.chat.UserChat], tour: Option[lila.tournament.Tournament], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable])(implicit ctx: Context)
 
 @import pov._
 
@@ -154,6 +154,11 @@ themepicker = true) {
   <a data-panel="fen_pgn">FEN &amp; PGN</a>
   @if(game.pgnImport.isEmpty) {
   <a data-panel="move_times">@trans.moveTimes()</a>
+  }
+</div>
+<div id="playing_crosstable">
+  @cross.map { c =>
+  @views.html.game.crosstable(c)
   }
 </div>
 }
