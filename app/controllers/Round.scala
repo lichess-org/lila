@@ -47,11 +47,13 @@ object Round extends LilaController with TheftPrevention {
             pov.opponent.userId.??(UserRepo.isEngine) zip
             (analyser has pov.gameId) zip
             (pov.game.tournamentId ?? TournamentRepo.byId) zip
+            Env.game.crosstableApi(pov.game) zip
             (pov.game.hasChat optionFu {
               Env.chat.api.playerChat find pov.gameId map (_ forUser ctx.me)
             }) map {
-              case ((((v, engine), analysed), tour), chat) =>
-                Ok(html.round.player(pov, v, engine, analysed, chat = chat, tour = tour))
+              case (((((v, engine), analysed), tour), crosstable), chat) =>
+                Ok(html.round.player(pov, v, engine, analysed,
+                  chat = chat, tour = tour, cross = crosstable))
             }
         },
         Redirect(routes.Setup.await(fullId)).fuccess
@@ -67,13 +69,14 @@ object Round extends LilaController with TheftPrevention {
   }
 
   private def watch(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =
-      env.version(pov.gameId) zip
+    env.version(pov.gameId) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
+      Env.game.crosstableApi(pov.game) zip
       (ctx.isAuth ?? {
         Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
       }) map {
-        case ((v, tour), chat) =>
-          Ok(html.round.watcher(pov, v, chat, tour))
+        case (((v, tour), crosstable), chat) =>
+          Ok(html.round.watcher(pov, v, chat, tour, crosstable))
       }
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =

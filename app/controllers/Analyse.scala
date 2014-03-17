@@ -36,10 +36,11 @@ object Analyse extends LilaController {
       Env.game.pgnDump(pov.game) zip
       (env.analyser get pov.game.id) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
+      Env.game.crosstableApi(pov.game) zip
       (ctx.isAuth ?? {
         Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
       }) map {
-        case ((((version, pgn), analysis), tour), chat) =>
+        case (((((version, pgn), analysis), tour), crosstable), chat) =>
           Ok(html.analyse.replay(
             pov,
             analysis.fold(pgn)(a => Env.analyse.annotator(pgn, a)).toString,
@@ -49,7 +50,8 @@ object Analyse extends LilaController {
             version,
             chat,
             tour,
-            new TimeChart(pov.game, pov.game.pgnMoves)))
+            new TimeChart(pov.game, pov.game.pgnMoves),
+            crosstable))
       }
 
   def pgn(id: String) = Open { implicit ctx =>
