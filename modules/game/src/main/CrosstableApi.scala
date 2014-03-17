@@ -22,10 +22,7 @@ final class CrosstableApi(coll: Coll) {
     coll.find(select(u1, u2)).one[Crosstable] orElse create(u1, u2)
 
   def add(game: Game): Funit = game.userIds.distinct.sorted match {
-    case List(u1, u2) => exists(u1, u2).flatMap {
-      case false => create(u1, u2)
-      case true  => funit
-    } >> {
+    case List(u1, u2) =>
       val result = Result(game.id, game.winnerUserId)
       val bsonResult = Crosstable.crosstableBSONHandler.writeResult(result, u1)
       val bson = BSONDocument(
@@ -38,8 +35,7 @@ final class CrosstableApi(coll: Coll) {
             )))
           else BSONDocument()
         }
-      coll.update(select(u1, u2), bson)
-    }.void
+      coll.update(select(u1, u2), bson).void
     case _ => funit
   }
 
