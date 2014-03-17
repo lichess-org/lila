@@ -59,11 +59,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withDiff: Boolean = true,
     engine: Boolean = false,
     withStatus: Boolean = false)(implicit ctx: UserContext) = Html {
+    val statusIcon = if (withStatus) """&nbsp;<span class="status" data-icon="J"></span>""" else ""
     player.userId match {
       case None =>
         val klass = cssClass.??(" " + _)
         val content = player.aiLevel.fold(player.name | User.anonymous) { aiName(_, withRating) }
-        s"""<span class="user_link$klass">$content</span>"""
+        s"""<span class="user_link$klass">$content$statusIcon</span>"""
       case Some(userId) =>
         userIdToUsername(userId) |> { username =>
           val klass = userClass(userId, cssClass, withOnline)
@@ -72,7 +73,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           val diff = (player.ratingDiff ifTrue withDiff).fold(Html(""))(showRatingDiff)
           val mark = engine ?? s"""<span class="engine_mark" title="${trans.thisPlayerUsesChessComputerAssistance()}"></span>"""
           val dataIcon = withOnline ?? """data-icon="r""""
-          val statusIcon = withStatus ?? """ <span class="status" data-icon="J"></span>"""
           s"""<a $dataIcon $klass href="$href">&nbsp;$content$diff$mark$statusIcon</a>"""
         }
     }
