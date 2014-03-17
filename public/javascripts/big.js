@@ -919,11 +919,9 @@ var storage = {
         });
       }
 
-      if (self.options.player.spectator && self.options.tv) {
-        $('div.goodietable').on("click", "tr", function() {
-          location.href = $(this).data('href');
-        });
-      }
+      $('#tv_history').on("click", "tr", function() {
+        location.href = $(this).find('a.view').attr('href');
+      });
 
       lichess.socket = new strongSocket(
         self.options.socketUrl,
