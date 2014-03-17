@@ -83,7 +83,7 @@ var storage = {
       storage.remove(self.options.baseUrlKey);
     }
     if (self.options.prodPipe) {
-      self.options.baseUrls = ['en.lichess.org:9021'];
+      self.options.baseUrls = ['socket.en.lichess.org:9021'];
     }
     self.connect();
     $(window).on('unload', function() {
