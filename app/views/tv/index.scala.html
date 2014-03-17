@@ -25,7 +25,7 @@
     , @trans.rated()
     }
   </div>
-  <div class="undertable">
+  <div id="tv_history" class="undertable">
     <div class="undertable_top">
       <span class="title">@trans.previouslyOnLichessTV()</span>
     </div>
@@ -33,12 +33,12 @@
       <table>
         <tbody>
           @games.map { g =>
-          <tr data-href="@routes.Round.watcher(g.id, g.firstPlayer.color.name)">
+          <tr>
+            <td><a class="view" href="@routes.Round.watcher(g.id, g.firstPlayer.color.name)" data-icon="v"></a></td>
             <td>
-              @playerLink(g.firstPlayer, withOnline = true, withDiff = true)
-              @playerLink(g.secondPlayer, withOnline = true, withDiff = true)
+              @playerLink(g.firstPlayer, withOnline = false, withDiff = true)<br />
+              @playerLink(g.secondPlayer, withOnline = false, withDiff = true)
             </td>
-            <td data-icon="p">&nbsp;@shortClockName(g.clock)</td>
           </tr>
           }
         </tbody>

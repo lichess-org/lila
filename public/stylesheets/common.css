@@ -684,16 +684,18 @@ table.slist td:first-child,
 table.slist th:first-child {
   padding-left: 25px;
 }
-div.lichess_goodies div.undertable {
+#tv_history {
   margin-left: -30px;
   width: 228px;
   margin-top: 15px;
+  cursor: pointer;
 }
-div.lichess_goodies div.undertable_inner {
+#tv_history div.undertable_inner {
   height: 250px;
 }
-div.lichess_goodies div.undertable td:last-child {
-  text-align: right;
+#tv_history a.view {
+  padding-left: 5px;
+  text-decoration: none;
 }
 div.lichess_goodies h2 {
   text-align: center;
