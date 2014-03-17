@@ -43,8 +43,8 @@ final class CrosstableApi(coll: Coll) {
     coll.db command Count(coll.name, select(u1, u2).some) map (0 !=)
 
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] =
-    UserRepo.orderByGameCount(x1, x2) flatMap {
-      case Some((u1, u2)) => {
+    UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
+      case (Some((u1, u2)), List(su1, su2)) => {
         val selector = BSONDocument(Game.BSONFields.playerUids -> BSONDocument("$all" -> List(u1, u2)))
         tube.gameTube.coll.find(
           selector,
@@ -57,7 +57,7 @@ final class CrosstableApi(coll: Coll) {
               }
             }.flatten.reverse
           } zip (tube.gameTube.coll.db command Count(tube.gameTube.coll.name, selector.some)) map {
-            case (results, nbGames) => Crosstable(u1, u2, results, nbGames)
+            case (results, nbGames) => Crosstable(su1, su2, results, nbGames)
           }
       } flatMap { crosstable =>
         coll insert crosstable inject crosstable.some
