@@ -7,13 +7,15 @@ import lila.game.{ Game, GameRepo, Pov }
 
 private[round] final class CheatDetector(reporter: ActorSelection) {
 
+  private val createReport = false
+
   def apply(game: Game): Fu[Option[Color]] = interesting(game) ?? {
     GameRepo findMirror game map {
       _ ?? { mirror =>
         mirror.players map (p => p -> p.userId) collectFirst {
           case (player, Some(userId)) => game.players find (_.userId == player.userId) map { cheater =>
             play.api.Logger("cheat detector").info(s"${cheater.color} ($userId) @ ${game.id} uses ${mirror.id}")
-            reporter ! lila.hub.actorApi.report.Cheater(userId,
+            if (createReport) reporter ! lila.hub.actorApi.report.Cheater(userId,
               s"Cheat detected on ${gameUrl(game.id)}, using lichess AI: ${gameUrl(mirror.id)}")
             cheater.color
           }
