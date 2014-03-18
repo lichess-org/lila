@@ -45,8 +45,8 @@ title = categ.name) {
       @topics.currentPageResults.map { topic =>
       <tr>
         <td class="subject"><a href="@routes.ForumTopic.show(categ.slug, topic.slug)">@topic.name</a></td>
-        <td class="right">@topic.views</td>
-        <td class="right">@(topic.nbPosts - 1)</td>
+        <td class="right">@topic.views.localize</td>
+        <td class="right">@(topic.nbPosts).localize</td>
         <td class="last_post">
           @topic.lastPost.map { post =>
           <a href="@routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)#@post.number">@timeago(post.createdAt)</a><br />by @Html(authorName(post))

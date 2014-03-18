@@ -17,8 +17,8 @@
 				<a class="category_name" href="@routes.ForumCateg.show(categ.slug)">@categ.name</a>
 				<h2 class="description">@categ.desc</h2>
 			</td>
-			<td class="right">@categ.nbTopics</td>
-			<td class="right">@categ.nbPosts</td>
+			<td class="right">@categ.nbTopics.localize</td>
+			<td class="right">@categ.nbPosts.localize</td>
 			<td class="last_post">
 				@categ.lastPost.map {
 				case (topic, post, page) => {
