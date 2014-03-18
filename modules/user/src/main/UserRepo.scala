@@ -84,7 +84,7 @@ trait UserRepo {
       BSONDocument("count.game" -> true)
     ).cursor[BSONDocument].collect[List]() map { docs =>
         docs.sortBy {
-          _.getAs[BSONDocument]("count") flatMap (_.getAs[Int]("game")) getOrElse 0
+          _.getAs[BSONDocument]("count") flatMap (_.getAs[Double]("game").map(_.toInt)) getOrElse 0
         }.map(_.getAs[String]("_id")).flatten match {
           case List(u1, u2) => (u1, u2).some
           case _            => none
