@@ -47,7 +47,7 @@ final class CrosstableApi(coll: Coll) {
       case (Some((u1, u2)), List(su1, su2)) => {
         val selector = BSONDocument(
           Game.BSONFields.playerUids -> BSONDocument("$all" -> List(u1, u2)),
-          Game.BSONFields.status -> BSONDocument("$gte" -> Status.Mate.id))
+          Game.BSONFields.status -> BSONDocument("$gte" -> chess.Status.Mate.id))
         tube.gameTube.coll.find(
           selector,
           BSONDocument(Game.BSONFields.winnerId -> true)
