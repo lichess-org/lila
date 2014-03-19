@@ -19,8 +19,9 @@
       @gameFenNoCtx(g, g.firstPlayer.color, tv = true, blank = true)
       @game.vstext(g)
     </div>
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    @jsTagCompiled("common.js")
+    @jsTagCompiled("tv.js")
+    @base.ga()
   </body>
-  <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-  @jsTagCompiled("common.js")
-  @jsTagCompiled("tv.js")
 </html>

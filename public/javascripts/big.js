@@ -456,10 +456,8 @@ var storage = {
         resetUrl: location.search.indexOf('reset-ws') != -1
       }
     },
-    idleTime: 20 * 60 * 1000,
-    onProduction: /.+\.lichess\.org/.test(document.domain)
+    idleTime: 20 * 60 * 1000
   };
-  // lichess.socketDefaults.options.debug = !lichess.onProduction;
 
   lichess.hasToReload = false;
   lichess.reload = function() {
