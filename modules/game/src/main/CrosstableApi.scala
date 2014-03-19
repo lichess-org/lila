@@ -45,7 +45,9 @@ final class CrosstableApi(coll: Coll) {
   private def create(x1: String, x2: String): Fu[Option[Crosstable]] =
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) => {
-        val selector = BSONDocument(Game.BSONFields.playerUids -> BSONDocument("$all" -> List(u1, u2)))
+        val selector = BSONDocument(
+          Game.BSONFields.playerUids -> BSONDocument("$all" -> List(u1, u2)),
+          Game.BSONFields.status -> BSONDocument("$gte" -> Status.Mate.id))
         tube.gameTube.coll.find(
           selector,
           BSONDocument(Game.BSONFields.winnerId -> true)
