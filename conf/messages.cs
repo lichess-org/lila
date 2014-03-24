@@ -76,6 +76,7 @@ signUp=Registrace
 games=Partie
 forum=Fórum
 xPostedInForumY=%s napsal do fóra %s
+latestForumPosts=Poslední příspěvky
 players=Hráči
 minutesPerSide=Minut pro každého hráče
 variant=Varianta
