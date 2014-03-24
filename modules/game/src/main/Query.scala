@@ -56,7 +56,7 @@ object Query {
 
   def loss(u: String) = user(u) ++
     Json.obj(F.status -> $in(Status.finishedWithWinner map (_.id))) ++
-    Json.obj(F.winnerId -> $ne(u))
+    Json.obj(F.winnerId -> ($ne(u) ++ $exists(true)))
 
   def opponents(u1: User, u2: User) =
     Json.obj(F.playerUids -> $all(List(u1, u2).sortBy(_.count.game).map(_.id)))
