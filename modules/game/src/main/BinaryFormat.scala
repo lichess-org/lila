@@ -203,9 +203,10 @@ object BinaryFormat {
 
   private val long40Max = math.pow(2, 40).toLong
   def writeLong40(long: Long) = {
-    val i = math.min(long40Max, long)
+    val i = math.min(long40Max, long) - 100000000000l
     Array(i >> 32, (i >> 24) & 255, (i >> 16) & 255, (i >> 8) & 255, i & 255) map (_.toInt)
   }
-  def readLong40(b1: Int, b2: Int, b3: Int, b4: Int, b5: Int) =
+  def readLong40(b1: Int, b2: Int, b3: Int, b4: Int, b5: Int) = {
     (b1.toLong << 32) + (b2 << 24) + (b3 << 16) + (b4 << 8) + b5
+  } + 100000000000l
 }
