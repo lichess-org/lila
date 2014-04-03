@@ -120,7 +120,6 @@ case class MakeTeam(id: String, name: String)
 }
 
 package ai {
-case object GetLoad
 case class Analyse(uciMoves: List[String], initialFen: Option[String])
 }
 

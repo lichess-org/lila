@@ -1,41 +1,51 @@
 package lila.ai
 
-import scala.concurrent.Future
-import scala.util.{ Success, Failure }
+import actorApi._
 
-trait Client extends Ai {
+import akka.actor._
+import akka.pattern.ask
 
-  val playUrl: String
+import lila.analyse.Info
+import lila.common.ws.WS
+import lila.game.{ Game, GameRepo }
+import chess.format.UciMove
 
-  protected def tryPing: Future[Int]
+final class Client(
+    config: Config,
+    endpoint: String,
+    val uciMemo: lila.game.UciMemo) {
 
-  // tells whether the remote AI is healthy or not
-  // frequently updated by a scheduled actor
-  protected var ping = none[Int]
-  protected val pingAlert = 5000
+  private def withValidSituation[A](game: Game)(op: => Fu[A]): Fu[A] =
+    if (game.toChess.situation playable true) op
+    else fufail("[ai stockfish] invalid game situation: " + game.toChess.situation)
 
-  def or(fallback: Ai) = if (currentHealth) this else fallback
-
-  def currentPing = ping
-  def currentHealth = isHealthy(ping)
-
-  def diagnose: Unit = tryPing onComplete {
-    case Failure(e) => {
-      logwarn("remote AI error: " + e.getMessage)
-      changePing(none)
-    }
-    case Success(p) => changePing(p.some)
+  def play(game: Game, level: Int): Fu[PlayResult] = withValidSituation(game) {
+    for {
+      fen ← game.variant.exotic ?? { GameRepo initialFen game.id }
+      uciMoves ← uciMemo.get(game)
+      moveResult ← move(uciMoves.toList, fen, level)
+      uciMove ← (UciMove(moveResult.move) toValid s"${game.id} wrong bestmove: $moveResult").future
+      result ← game.toChess(uciMove.orig, uciMove.dest, uciMove.promotion).future
+      (c, move) = result
+      progress = game.update(c, move)
+      _ ← (GameRepo save progress) >>- uciMemo.add(game, uciMove.uci)
+    } yield PlayResult(progress, move)
   }
 
-  private def changePing(p: Option[Int]) = {
-    if (isHealthy(p) && !currentHealth)
-      loginfo("remote AI is up, ping = " + p)
-    else if (!isHealthy(p) && currentHealth)
-      logerr("remote AI is down, ping = " + p)
-    ping = p
+  def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[MoveResult] = {
+    implicit val timeout = makeTimeout(config.playTimeout)
+    WS.url(s"$endpoint/play").withQueryString(
+      "uciMoves" -> uciMoves.mkString(" "),
+      "initialFen" -> ~initialFen,
+      "level" -> level.toString
+    ).get() map (_.body) map MoveResult.apply
   }
 
-  private def isHealthy(p: Option[Int]) = p ?? isFast
-
-  private def isFast(p: Int) = p < pingAlert
+  def analyse(uciMoves: List[String], initialFen: Option[String]): Fu[List[Info]] = {
+    implicit val timeout = makeTimeout(config.analyseTimeout)
+    WS.url(s"$endpoint/analyse").withQueryString(
+      "uciMoves" -> uciMoves.mkString(" "),
+      "initialFen" -> ~initialFen
+    ).get() map (_.body) map Info.decodeList flatten "Can't read analysis results: "
+  }
 }

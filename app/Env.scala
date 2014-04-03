@@ -51,7 +51,7 @@ final class Env(
     domain = Env.api.Net.Domain
   )), name = RouterName)
 
-  if (!Env.ai.isServer) {
+  if (!Env.ai.ServerOnly) {
     loginfo("[boot] Preloading modules")
     (Env.socket,
       Env.site,
@@ -77,7 +77,7 @@ final class Env(
     loginfo("[boot] Preloading complete")
   }
 
-  if (Env.ai.isServer) println("Running as AI server")
+  if (Env.ai.ServerOnly) println("Running as AI server")
 
   if (config getBoolean "simulation.enabled") {
     lila.simulation.Env.current.start

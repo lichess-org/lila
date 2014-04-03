@@ -1,5 +1,4 @@
 package lila.ai
-package stockfish
 
 import java.util.regex.Matcher.quoteReplacement
 

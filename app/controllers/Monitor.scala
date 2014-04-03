@@ -14,7 +14,7 @@ object Monitor extends LilaController {
   private def env = Env.monitor
 
   def index = Action {
-    Ok(views.html.monitor.monitor(Env.ai.nbStockfishRemotes))
+    Ok(views.html.monitor.monitor())
   }
 
   def websocket = Socket[JsValue] { implicit ctx =>
