@@ -1,5 +1,4 @@
 package lila.ai
-package stockfish
 
 import scala.concurrent.duration.FiniteDuration
 
@@ -9,11 +8,11 @@ private[ai] case class Config(
     execPath: String,
     hashSize: Int,
     nbThreads: Int,
+    nbInstances: Int,
     playMaxMoveTime: FiniteDuration,
     analyseMoveTime: FiniteDuration,
     playTimeout: FiniteDuration,
     analyseTimeout: FiniteDuration,
-    loadTimeout: FiniteDuration,
     debug: Boolean) {
 
   import Config._
@@ -64,7 +63,7 @@ private[ai] case class Config(
 
   private def position(fen: Option[String], moves: List[String]) =
     "position %s moves %s".format(
-      fen.fold("startpos")("fen " + _), 
+      fen.fold("startpos")("fen " + _),
       moves mkString " ")
 
   private def setoption(name: String, value: Any) =

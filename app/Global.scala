@@ -13,9 +13,9 @@ object Global extends GlobalSettings {
   }
 
   override def onRouteRequest(req: RequestHeader): Option[Handler] =
-    if (Env.ai.isServer) {
-      if (req.path startsWith "/ai/") super.onRouteRequest(req)
-      else Action(NotFound("I am an AI server")).some
+    if (req.path startsWith "/ai/") super.onRouteRequest(req)
+    else if (Env.ai.ServerOnly) {
+      Action(NotFound("I am an AI server")).some
     }
     else {
       Env.monitor.reporting ! AddRequest
@@ -26,7 +26,7 @@ object Global extends GlobalSettings {
     }
 
   private def niceError(req: RequestHeader): Boolean = req.method == "GET" && {
-    Env.ai.isServer || (lila.common.HTTPRequest isSynchronousHttp req)
+    Env.ai.ServerOnly || (lila.common.HTTPRequest isSynchronousHttp req)
   }
 
   override def onHandlerNotFound(req: RequestHeader) =

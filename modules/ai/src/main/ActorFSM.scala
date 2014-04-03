@@ -1,15 +1,14 @@
 package lila.ai
-package stockfish
 
 import actorApi._
 import akka.actor.{ Props, Actor, ActorRef, Status, FSM => AkkaFSM }
 
 import lila.analyse.Analysis
 
-private[stockfish] final class ActorFSM(
-  processBuilder: Process.Builder,
-  config: Config)
-    extends Actor with AkkaFSM[State, Option[Job]] {
+private[ai] final class ActorFSM(
+    name: String,
+    processBuilder: Process.Builder,
+    config: Config) extends Actor with AkkaFSM[State, Option[Job]] {
 
   private val process = processBuilder(
     out => self ! Out(out),
@@ -19,61 +18,48 @@ private[stockfish] final class ActorFSM(
   startWith(Starting, none)
 
   when(Starting) {
-    case Event(Out(t), _) if t startsWith "Stockfish" => {
+    case Event(Out(t), _) if t startsWith "Stockfish" =>
       process write "uci"
       stay
-    }
-    case Event(Out("uciok"), job) => {
+    case Event(Out("uciok"), job) =>
       config.init foreach process.write
-      loginfo("[ai] stockfish is ready")
+      loginfo(s"[$name] stockfish is ready")
       job.fold(goto(Idle))(start)
-    }
     case Event(req: Req, none) => stay using Job(req, sender, Nil).some
   }
   when(Idle) {
-    case Event(Out(t), _)   => { logwarn(t); stay }
+    case Event(Out(t), _)   => sys error s"[$name] Unexpected engine output $t"
     case Event(req: Req, _) => start(Job(req, sender, Nil))
   }
   when(IsReady) {
-    case Event(Out("readyok"), Some(Job(req, _, _))) => {
+    case Event(Out("readyok"), Some(Job(req, _, _))) =>
       println(req match {
-        case r: PlayReq => "P " + ("-" * (r.level))
-        case r: AnalReq => "A " + ("=" * (Config.levelMax + 2))
+        case r: PlayReq => s"$name P ${"-" * (r.level)}"
+        case r: AnalReq => s"$name A ${"=" * (Config.levelMax + 2)}"
       })
       config go req foreach process.write
       goto(Running)
-    }
   }
   when(Running) {
     case Event(Out(t), Some(job)) if t startsWith "info depth" =>
       stay using (job + t).some
-    case Event(Out(t), Some(job)) if t startsWith "bestmove" => {
-      job.sender ! (job complete t)
+    case Event(Out(t), Some(job)) if t startsWith "bestmove" =>
+      if (scala.util.Random.nextInt(10) != 0) job.sender ! (job complete t)
       goto(Idle) using none
-    }
   }
   whenUnhandled {
-    case Event(req: Req, _) => {
-      logerr("[stockfish] FSM unhandled request " + req)
-      stay
-    }
-    case Event(Out(t), _) => stay
+    case Event(req: Req, _) => sys error s"[$name] FSM unhandled request $req"
+    case Event(Out(t), _)   => stay
   }
 
   def start(job: Job) = job match {
-    case Job(req, sender, _) => {
+    case Job(req, sender, _) =>
       config prepare req foreach process.write
       process write "isready"
       goto(IsReady) using Job(req, sender, Nil).some
-    }
-  }
-
-  override def preStart() {
-    loginfo("[stockfish] start FSM")
   }
 
   override def postStop() {
-    loginfo("[stockfish] destroy FSM")
     process.destroy()
   }
 }

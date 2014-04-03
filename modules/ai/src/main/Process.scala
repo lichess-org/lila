@@ -1,11 +1,10 @@
 package lila.ai
-package stockfish
 
 import java.io.OutputStream
 import scala.io.Source.fromInputStream
 import scala.sys.process.{ Process => SProcess, ProcessBuilder, ProcessIO }
 
-private[stockfish] final class Process(
+private[ai] final class Process(
     builder: ProcessBuilder,
     name: String,
     out: String => Unit,
@@ -28,7 +27,7 @@ private[stockfish] final class Process(
       Thread sleep 300
     }
     catch {
-      case e: java.io.IOException => logwarn("[ai] process destroy " + e.getMessage)
+      case e: java.io.IOException => logwarn(s"[$name] process destroy " + e.getMessage)
     }
     process.destroy()
   }
@@ -53,7 +52,7 @@ private[stockfish] final class Process(
   }
 
   private def doLog(msg: String) {
-    loginfo("[%s] %s".format(name, msg))
+    loginfo(s"[$name] $msg")
   }
 }
 

@@ -12,7 +12,7 @@ private[app] final class AiStresser(env: lila.ai.Env, system: ActorSystem) {
 
   def apply {
 
-    (1 to 20) foreach { i =>
+    (1 to 100) foreach { i =>
       system.scheduler.scheduleOnce((i * 97) millis) {
         play(i % 8 + 1, true)
       }
@@ -32,14 +32,12 @@ private[app] final class AiStresser(env: lila.ai.Env, system: ActorSystem) {
     }
 
     def receive = {
-      case Game(moves, it) if it >= moves.size => {
-        if (loop) newGame pipeTo self
-      }
+      case Game(moves, it) if it >= moves.size => if (loop) newGame pipeTo self
       case Game(moves, it) =>
-        ai.move(moves take it, none, level).effectFold(e => {
+        env.client.move(moves take it, none, level).effectFold(e => {
           logwarn("[ai] play: " + e)
           newGame pipeTo self
-        }, { _ =>
+        }, { x =>
           system.scheduler.scheduleOnce(randomize(1 second)) {
             self ! Game(moves, it + 1)
           }
@@ -55,7 +53,7 @@ private[app] final class AiStresser(env: lila.ai.Env, system: ActorSystem) {
 
     def receive = {
       case Game(moves, _) =>
-        ai.analyse(moves, none).effectFold(e => {
+        env.client.analyse(moves, none).effectFold(e => {
           logwarn("[ai] server analyse: " + e)
           if (loop) newGame pipeTo self
         }, { _ =>
@@ -75,8 +73,6 @@ private[app] final class AiStresser(env: lila.ai.Env, system: ActorSystem) {
 
   private def randomize(d: FiniteDuration, ratio: Float = 0.1f): FiniteDuration =
     approximatly(ratio)(d.toMillis) millis
-
-  private val ai = env.stockfishClient
 
   private case class Game(moves: List[String], it: Int)
 }

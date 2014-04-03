@@ -5,14 +5,13 @@ import chess.Pos.posAt
 import chess.{ Status, Role, Color }
 
 import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult, Cheat }
-import lila.ai.Ai
+import akka.actor.ActorRef
 import lila.game.{ Game, GameRepo, Pov, Progress, UciMemo }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.MoveEvent
-import akka.actor.ActorRef
 
 private[round] final class Player(
-    engine: Ai,
+    engine: lila.ai.Client,
     bus: lila.common.Bus,
     finisher: Finisher,
     cheatDetector: CheatDetector,
@@ -37,7 +36,7 @@ private[round] final class Player(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
                     cheatDetector(progress.game) addEffect {
                       case Some(color) => round ! Cheat(color)
-                      case None => 
+                      case None =>
                         if (progress.game.playableByAi) round ! AiPlay
                         if (game.player.isOfferingDraw) round ! DrawNo(game.player.id)
                         if (game.player.isProposingTakeback) round ! TakebackNo(game.player.id)
@@ -55,8 +54,7 @@ private[round] final class Player(
   def ai(game: Game): Fu[Progress] =
     (game.playable && game.player.isAi).fold(
       engine.play(game, game.aiLevel | 1) flatMap {
-        case lila.ai.PlayResult(progress, move, host) => {
-          notifyProgress(move, progress, host.ip)
+        case lila.ai.actorApi.PlayResult(progress, move) => {
           moveFinish(progress.game, game.turnColor) map { progress.++ }
         }
       },

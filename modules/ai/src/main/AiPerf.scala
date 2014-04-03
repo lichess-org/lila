@@ -24,7 +24,7 @@ final class AiPerfApi(coll: Coll, cacheTtl: Duration) {
   private val TAU = 0.75d
   private val system = new RatingCalculator(VOLATILITY, TAU)
 
-  val levels = stockfish.Config.levels.toSet
+  private val levels = Config.levels.toSet
 
   private def default(level: Int) = AiPerf(level, Perf.default)
 

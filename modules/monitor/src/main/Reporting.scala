@@ -40,7 +40,6 @@ private[monitor] final class Reporting(
   var mps = 0
   var cpu = 0
   var mongoStatus = MongoStatus.default
-  var aiLoads = List[Option[Int]]()
 
   var idle = true
 
@@ -67,11 +66,10 @@ private[monitor] final class Reporting(
       case _ => {
         val before = nowMillis
         MongoStatus(db.db)(mongoStatus) zip
-          (hub.actor.ai ? lila.hub.actorApi.ai.GetLoad).mapTo[List[Option[Int]]] zip
           (hub.socket.round ? Size).mapTo[Int] zip
           (hub.actor.game ? lila.hub.actorApi.game.Count).mapTo[Int] onComplete {
             case Failure(e) => logwarn("[reporting] " + e.getMessage)
-            case Success((((mongoS, aiL), gameHubs), games)) => {
+            case Success(((mongoS, gameHubs), games)) => {
               latency = (nowMillis - before).toInt
               mongoStatus = mongoS
               nbGames = games
@@ -81,7 +79,6 @@ private[monitor] final class Reporting(
               rps = rpsProvider.rps
               mps = mpsProvider.rps
               cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
-              aiLoads = aiL
               socket ! MonitorData(monitorData(idle))
               idle = false
             }
@@ -89,8 +86,6 @@ private[monitor] final class Reporting(
       }
     }
   }
-
-  private def aiLoadString = aiLoads.map(_.fold("!!")(_.toString)) mkString ","
 
   private def monitorData(idle: Boolean) = List(
     "users" -> nbMembers,
@@ -104,8 +99,7 @@ private[monitor] final class Reporting(
     "dbMemory" -> mongoStatus.memory,
     "dbConn" -> mongoStatus.connection,
     "dbQps" -> idle.fold("??", mongoStatus.qps.toString),
-    "dbLock" -> math.round(mongoStatus.lock * 10) / 10d,
-    "ai" -> aiLoadString
+    "dbLock" -> math.round(mongoStatus.lock * 10) / 10d
   ) map {
       case (name, value) => value + ":" + name
     }

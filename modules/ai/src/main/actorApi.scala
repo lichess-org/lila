@@ -1,8 +1,10 @@
 package lila.ai
-package stockfish
 package actorApi
 
 import akka.actor.ActorRef
+
+case class MoveResult(move: String)
+case class PlayResult(progress: lila.game.Progress, move: chess.Move)
 
 case class AddTime(time: Int)
 

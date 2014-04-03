@@ -84,33 +84,6 @@ $(function() {
     }));
   }
 
-  function addAi(info, nb) {
-    ++counter;
-    $monitors.append($('<div>').attr('id', info.id).width(width).height(height));
-    var series = [];
-    for (i = 0; i < nb; i++) {
-      series.push({
-        name: info.title.replace(/nb/, i + 1),
-        data: []
-      });
-    }
-    charts[info.id] = new Highcharts.Chart($.extend(true, {}, chartDefaults, {
-      chart: {
-        defaultSeriesType: info.type || 'line',
-        renderTo: info.id,
-      },
-      title: {
-        text: 'AI Servers Usage',
-      },
-      yAxis: {
-        labels: {
-          format: info.format || '{value}'
-        }
-      },
-      series: series
-    }));
-  }
-
   add({
     id: 'users',
     title: 'Active Users'
@@ -129,13 +102,6 @@ $(function() {
     maxVal: 200,
     threshold: 0.9
   });
-
-  addAi({
-    id: 'ai',
-    title: 'AI nb Load',
-    maxVal: 100,
-    threshold: 0.8
-  }, nbAi);
 
   add({
     id: 'cpu',

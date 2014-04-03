@@ -167,7 +167,6 @@ GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 # AI
 GET   /ai/stockfish/play               controllers.Ai.playStockfish
 GET   /ai/stockfish/analyse            controllers.Ai.analyseStockfish
-GET   /ai/stockfish/load               controllers.Ai.loadStockfish
 
 # Bookmark
 POST   /bookmark/$gameId<[\w\-]{8}>    controllers.Bookmark.toggle(gameId: String)
