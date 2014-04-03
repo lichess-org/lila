@@ -44,7 +44,7 @@ private[ai] final class ActorFSM(
     case Event(Out(t), Some(job)) if t startsWith "info depth" =>
       stay using (job + t).some
     case Event(Out(t), Some(job)) if t startsWith "bestmove" =>
-      if (scala.util.Random.nextInt(10) != 0) job.sender ! (job complete t)
+      job.sender ! (job complete t)
       goto(Idle) using none
   }
   whenUnhandled {

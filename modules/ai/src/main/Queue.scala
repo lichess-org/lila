@@ -11,10 +11,11 @@ import akka.util.Timeout
 import actorApi._
 import lila.analyse.{ Evaluation, Info }
 
-private[ai] final class Queue(config: Config) extends Actor {
+private[ai] final class Queue(config: Config, waiterDispatcher: String) extends Actor {
 
   private val waiters =
     context.actorOf(Props(classOf[Waiter], config)
+      .withDispatcher(waiterDispatcher)
       .withRouter(SmallestMailboxRouter(
         config.nbInstances,
         supervisorStrategy = OneForOneStrategy() {
@@ -47,16 +48,3 @@ private[ai] final class Queue(config: Config) extends Actor {
     }
   }
 }
-
-import akka.dispatch.PriorityGenerator
-import akka.dispatch.UnboundedPriorityMailbox
-import com.typesafe.config.{ Config => TypesafeConfig }
-
-// We inherit, in this case, from UnboundedPriorityMailbox
-// and seed it with the priority generator
-final class QueueMailBox(settings: ActorSystem.Settings, config: TypesafeConfig)
-  extends UnboundedPriorityMailbox(PriorityGenerator {
-    case PlayReq(_, _, level) => level
-    case _: AnalReq           => 10
-    case _                    => 20
-  })
