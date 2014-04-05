@@ -2084,15 +2084,23 @@ var storage = {
 
     var $timeline = $("#timeline");
     var $newposts = $("div.new_posts");
-    var $hooks = $wrap.find('#hooks');
     var $canvas = $wrap.find('.canvas');
     var $table = $wrap.find('#hooks_table').sortable().find('th:eq(2)').click().end();
     var $tbody = $table.find('tbody');
+    var $tablebar = $table.find('.bar div');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0;
     var myRating = isRegistered ? parseInt($userTag.data('rating'), 10) : null;
     var animation = 500;
     var pool = [];
+
+    setInterval(function() {
+      $tbody.find('.disabled').remove();
+      $tablebar.toggleClass('off');
+    }, 5000);
+    setTimeout(function() {
+      $tablebar.toggleClass('off');
+    }, 10);
 
     $wrap.on('click', '>div.tabs>a', function() {
       var tab = $(this).data('tab');
@@ -2258,17 +2266,21 @@ var storage = {
       drawHooks();
     }
 
-    function addHook(hook, inBatch) {
+    function addHook(hook, flush) {
       if (!isRegistered && hook.mode == "Casual" && !hook.allowAnon) return;
       if (_.contains(lichess_preload.blocks, hook.username.toLowerCase())) return;
       if (!isRegistered && hook.mode == "Rated") hook.action = 'register';
       else hook.action = hook.uid == lichess_sri ? "cancel" : "join";
       if (hook.action == 'join' && hook.emin && myRating && (myRating < parseInt(hook.emin, 10) || myRating > parseInt(hook.emax, 10))) return;
       pool.push(hook);
-      drawHooks(inBatch || false);
+      drawHooks(flush);
     }
 
-    function undrawHook(id) {
+    function disableHook(id) {
+      $tbody.children('.' + id).addClass('disabled').attr('title', '');
+    }
+
+    function destroyHook(id) {
       $('#' + id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
         $.powerTip.destroy($(this));
         $(this).remove();
@@ -2276,7 +2288,7 @@ var storage = {
       $tbody.children('.' + id).remove();
     }
 
-    function drawHooks(inBatch) {
+    function drawHooks(flush) {
       var filter = lichess_preload.filter;
       var seen = [];
       var hidden = 0;
@@ -2286,7 +2298,7 @@ var storage = {
           (filter.rating && (!hook.rating || (hook.rating && (hook.rating < filter.rating[0] || hook.rating > filter.rating[1]))));
         var hash = hook.mode + hook.variant + hook.time + hook.rating;
         if (hide && hook.action != 'cancel') {
-          undrawHook(hook.id);
+          destroyHook(hook.id);
           hidden++;
         } else if (_.contains(seen, hash) && hook.action != 'cancel') {
           $('#' + hook.id).filter(':visible').hide();
@@ -2312,11 +2324,10 @@ var storage = {
         })), function(id) {
         if (!_.findWhere(pool, {
           id: id
-        })) undrawHook(id);
+        })) disableHook(id);
       });
 
-      if (!(inBatch || false)) {
-        $table.toggleClass('crowded', visible >= 12);
+      if (flush) {
         $wrap
           .find('a.filter')
           .toggleClass('on', hidden > 0)
@@ -2437,7 +2448,7 @@ var storage = {
     $tbody.on('click', 'a.ulink', function(e) {
       e.stopPropagation();
     });
-    $tbody.on('click', 'td', function() {
+    $tbody.on('click', 'td:not(.disabled)', function() {
       $('#' + $(this).parent().data('id')).click();
     });
     $canvas.on('click', '>span.plot:not(.hiding)', function() {
