@@ -15,7 +15,6 @@ final class Env(
     system: ActorSystem) {
 
   private val settings = new {
-    val IsClient = c getBoolean "client"
     val Endpoint = c getString "endpoint"
     val WaiterDispatcher = c getString "waiter.dispatcher"
     val ActorName = c getString "actor.name"
