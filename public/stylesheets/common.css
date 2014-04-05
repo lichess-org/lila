@@ -1557,11 +1557,26 @@ div.game_config div.color_submits button.random span {
   max-height: 512px;
   text-shadow: 0px 1px 0px #FFF;
 }
-#hooks_table th {
+#hooks_table tr.header th {
   cursor: pointer;
-  border-bottom: 1px solid #ccc;
   padding: 12px 12px;
   font-weight: lighter;
+}
+#hooks_table tr.bar {
+  height: 2px;
+}
+#hooks_table tr.bar th {
+  border-bottom: 1px solid #ccc;
+}
+#hooks_table tr.bar div {
+  width: 100%;
+  height: 2px;
+  background-color: #759900;
+  transition: width 5s linear;
+}
+#hooks_table tr.bar div.off {
+  float: right;
+  width: 0%;
 }
 #hooks_table th.sorting-asc,
 #hooks_table th.sorting-desc {
@@ -1577,14 +1592,20 @@ div.game_config div.color_submits button.random span {
   width: 110px;
 }
 #hooks_table td {
-  padding: 12px 12px;
+  padding: 8px 12px;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
 }
-#hooks_table.crowded td {
-  padding: 8px 12px;
+#hooks_table tr {
+  transition: opacity 0.5s;
+}
+#hooks_table tr.disabled {
+  opacity: 0.3;
+}
+#hooks_table tr.disabled td {
+  cursor: not-allowed;
 }
 #hooks_table tr:nth-child(odd) td {
   background: rgba(255, 255, 255, 0.6);
