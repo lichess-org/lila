@@ -2113,7 +2113,6 @@ var storage = {
         top: headHeight + 'px',
         height: (512 - headHeight) + 'px'
       });
-      flushHooks();
     }, 10);
 
     $wrap.on('click', '>div.tabs>a', function() {
@@ -2152,6 +2151,7 @@ var storage = {
                   success: function(filter) {
                     lichess_preload.filter = filter;
                     drawHooks();
+                    $('body').trigger('lichess.hook-flush');
                   }
                 });
               }, 500);
@@ -2213,10 +2213,9 @@ var storage = {
     }
     resizeTimeline();
 
-    _.each(lichess_preload.pool, function(h) {
-      addHook(h, true);
-    });
+    _.each(lichess_preload.pool, addHook);
     drawHooks();
+    $('body').trigger('lichess.hook-flush');
 
     lichess.socket = new strongSocket("/lobby/socket", lichess_preload.version, $.extend(true, lichess.socketDefaults, {
       events: {
@@ -2230,7 +2229,11 @@ var storage = {
             }
           });
         },
-        hook_add: addHook,
+        hook_add: function(hook) {
+          addHook(hook);
+          drawHooks();
+          if (hook.action == 'cancel') $('body').trigger('lichess.hook-flush');
+        },
         hook_remove: removeHook,
         hook_list: syncHookIds,
         featured: changeFeatured,
@@ -2280,15 +2283,13 @@ var storage = {
       drawHooks();
     }
 
-    function addHook(hook, flush) {
+    function addHook(hook) {
       if (!isRegistered && hook.mode == "Casual" && !hook.allowAnon) return;
       if (_.contains(lichess_preload.blocks, hook.username.toLowerCase())) return;
       if (!isRegistered && hook.mode == "Rated") hook.action = 'register';
       else hook.action = hook.uid == lichess_sri ? "cancel" : "join";
       if (hook.action == 'join' && hook.emin && myRating && (myRating < parseInt(hook.emin, 10) || myRating > parseInt(hook.emax, 10))) return;
       pool.push(hook);
-      drawHooks(flush);
-      if (hook.action == 'cancel') $('body').trigger('lichess.hook-flush');
     }
 
     function disableHook(id) {
@@ -2308,7 +2309,7 @@ var storage = {
       });
     }
 
-    function drawHooks(flush) {
+    function drawHooks() {
       var filter = lichess_preload.filter;
       var seen = [];
       var hidden = 0;
@@ -2347,15 +2348,12 @@ var storage = {
         })) disableHook(id);
       });
 
-      if (flush) {
-        $wrap
-          .find('a.filter')
-          .toggleClass('on', hidden > 0)
-          .find('span.number').text('(' + hidden + ')');
+      $wrap
+        .find('a.filter')
+        .toggleClass('on', hidden > 0)
+        .find('span.number').text('(' + hidden + ')');
 
-        $table.trigger('sortable.sort');
-        $('body').trigger('lichess.content_loaded');
-      }
+      $('body').trigger('lichess.content_loaded');
     }
 
     function renderPlot(hook) {

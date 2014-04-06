@@ -1620,10 +1620,7 @@ div.game_config div.color_submits button.random span {
   opacity: 0.3;
 }
 #hooks_table tr.notyet {
-  opacity: 0;
-}
-#hooks_table tr.notyet td {
-  border: none;
+  visibility: collapse;
 }
 #hooks_table tr td {
   transition: background 0.4s;
