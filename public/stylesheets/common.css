@@ -1515,7 +1515,7 @@ div.game_config div.color_submits button.random span {
   left: 0px;
   width: 512px;
   height: 0px;
-  background: rgba(80, 80, 80, 0.2);
+  background: rgba(80, 80, 80, 0.1);
   display: none;
 }
 #hook_overlay.show {
@@ -1618,6 +1618,12 @@ div.game_config div.color_submits button.random span {
 }
 #hooks_table tr.disabled {
   opacity: 0.3;
+}
+#hooks_table tr.notyet {
+  opacity: 0;
+}
+#hooks_table tr.notyet td {
+  border: none;
 }
 #hooks_table tr td {
   transition: background 0.4s;
