@@ -1516,10 +1516,10 @@ div.game_config div.color_submits button.random span {
   width: 512px;
   height: 0px;
   background: rgba(80, 80, 80, 0.2);
-  opacity: 0.2;
+  display: none;
 }
 #hook_overlay.show {
-  height: 512px;
+  display: block;
 }
 
 #hook_filter {
@@ -1589,7 +1589,7 @@ div.game_config div.color_submits button.random span {
   width: 100%;
   height: 2px;
   background-color: #759900;
-  transition: width 5s linear;
+  transition: width 10s linear;
 }
 #hooks_table tr.bar div.off {
   float: right;

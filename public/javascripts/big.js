@@ -1664,9 +1664,9 @@ var storage = {
       if (self.options.messages.length > 0) self._appendMany(self.options.messages);
     },
     resize: function() {
-      var headerHeight = this.element.parent().height();
-      this.element.css("top", headerHeight + 13);
-      this.$msgs.css('height', 459 - headerHeight).scrollTop(999999);
+      var headHeight = this.element.parent().height();
+      this.element.css("top", headHeight + 13);
+      this.$msgs.css('height', 459 - headHeight).scrollTop(999999);
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));
@@ -2095,14 +2095,20 @@ var storage = {
       $overlay.addClass('show');
       setTimeout(function() {
         $tbody.find('.disabled').remove();
+        $table.trigger('sortable.sort');
         $tablebar.toggleClass('off');
         setTimeout(function() {
           $overlay.removeClass('show');
-        }, 200);
-      }, 200);
-    }, 5000);
+        }, 300);
+      }, 300);
+    }, 10000);
     setTimeout(function() {
       $tablebar.toggleClass('off');
+      var headHeight = $table.find('thead').height();
+      $overlay.css({
+        top: headHeight + 'px',
+        height: (512 - headHeight) + 'px'
+      });
     }, 10);
 
     $wrap.on('click', '>div.tabs>a', function() {
