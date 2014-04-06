@@ -1508,17 +1508,34 @@ div.game_config div.color_submits button.random span {
 #hooks_wrap > a.filter.on span.number {
   display: inline;
 }
+#hook_overlay {
+  position: absolute;
+  z-index: 98;
+  top: 0px;
+  left: 0px;
+  width: 512px;
+  height: 0px;
+  background: rgba(80, 80, 80, 0.2);
+  opacity: 0.2;
+}
+#hook_overlay.show {
+  height: 512px;
+}
+
 #hook_filter {
   position: absolute;
   z-index: 99;
-  display: none;
   top: 0px;
   right: 0px;
-  min-height: 181px;
   width: 472px;
   height: 472px;
   padding: 20px;
   background: rgba(255, 255, 255, 0.8);
+  opacity: 0.8;
+  display: none;
+}
+#hook_filter.active {
+  display: block;
 }
 #hook_filter table {
   width: 100%;
@@ -1597,15 +1614,20 @@ div.game_config div.color_submits button.random span {
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
-}
-#hooks_table tr {
-  transition: opacity 0.5s;
+  transition: opacity 0.4s;
 }
 #hooks_table tr.disabled {
   opacity: 0.3;
 }
+#hooks_table tr td {
+  transition: background 0.4s;
+}
 #hooks_table tr.disabled td {
   cursor: not-allowed;
+  background: rgba(75, 99, 00, 0.2)!important;
+}
+#hooks_table .ulink {
+  text-decoration: none;
 }
 #hooks_table tr:nth-child(odd) td {
   background: rgba(255, 255, 255, 0.6);

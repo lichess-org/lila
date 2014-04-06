@@ -540,6 +540,8 @@ var storage = {
       var header = document.getElementById('site_header');
       $('a.ulpt').removeClass('ulpt').each(function() {
         $(this).powerTip({
+          fadeInTime: 100,
+          fadeOutTime: 100,
           placement: $(this).data('placement') || ($.contains(header, this) ? 'e' : 'w'),
           mouseOnToPopup: true,
           closeDelay: 200
@@ -710,12 +712,6 @@ var storage = {
         });
       });
     }
-
-    $('#lichess_translation_form_code').change(function() {
-      if ("0" != $(this).val()) {
-        location.href = $(this).closest('form').attr('data-change-url').replace(/__/, $(this).val());
-      }
-    });
 
     $('#incomplete_translation a.close').one('click', function() {
       $(this).parent().remove();
@@ -2085,6 +2081,7 @@ var storage = {
     var $timeline = $("#timeline");
     var $newposts = $("div.new_posts");
     var $canvas = $wrap.find('.canvas');
+    var $overlay = $('#hook_overlay');
     var $table = $wrap.find('#hooks_table').sortable().find('th:eq(2)').click().end();
     var $tbody = $table.find('tbody');
     var $tablebar = $table.find('.bar div');
@@ -2095,8 +2092,14 @@ var storage = {
     var pool = [];
 
     setInterval(function() {
-      $tbody.find('.disabled').remove();
-      $tablebar.toggleClass('off');
+      $overlay.addClass('show');
+      setTimeout(function() {
+        $tbody.find('.disabled').remove();
+        $tablebar.toggleClass('off');
+        setTimeout(function() {
+          $overlay.removeClass('show');
+        }, 200);
+      }, 200);
     }, 5000);
     setTimeout(function() {
       $tablebar.toggleClass('off');
@@ -2119,12 +2122,12 @@ var storage = {
           e.stopPropagation();
         });
         $('html').one('click', function(e) {
-          $div.off('click').fadeOut(200);
+          $div.off('click').removeClass('active');
           $a.removeClass('active');
         });
       }, 10);
       if ($(this).toggleClass('active').hasClass('active')) {
-        $div.fadeIn(200);
+        $div.addClass('active');
         if ($div.is(':empty')) {
           $.ajax({
             url: $(this).attr('href'),
@@ -2183,7 +2186,7 @@ var storage = {
           });
         }
       } else {
-        $div.fadeOut(500);
+        $div.removeClass('active');
       }
       return false;
     });
@@ -2278,14 +2281,19 @@ var storage = {
 
     function disableHook(id) {
       $tbody.children('.' + id).addClass('disabled').attr('title', '');
+      destroyChartHook(id);
     }
 
     function destroyHook(id) {
+      $tbody.children('.' + id).remove();
+      destroyChartHook(id);
+    }
+
+    function destroyChartHook(id) {
       $('#' + id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
         $.powerTip.destroy($(this));
         $(this).remove();
       });
-      $tbody.children('.' + id).remove();
     }
 
     function drawHooks(flush) {
