@@ -95,7 +95,7 @@ body.dark #powerTip,
 body.dark #powerTip > .title,
 body.dark #hooks_table th,
 body.dark #hooks_table td,
-body.dark #hooks_table tr.bar div,
+body.dark #hooks_table tr.bar th,
 body.dark #hooks_wrap > div.tabs > a,
 body.dark #hooks_chart > div.grid,
 body.dark div.analysis_menu,
@@ -188,6 +188,9 @@ body.dark #hook_filter td > label {
 }
 body.dark #hook_filter td > label.hover:hover {
   background: #000;
+}
+body.dark #hook_overlay {
+  background: rgba(180, 180, 180, 0.2);
 }
 body.dark div.undertable tr:nth-child(even) td,
 body.dark #hooks_wrap,
