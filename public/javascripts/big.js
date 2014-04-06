@@ -2113,6 +2113,7 @@ var storage = {
         top: headHeight + 'px',
         height: (512 - headHeight) + 'px'
       });
+      flushHooks();
     }, 10);
 
     $wrap.on('click', '>div.tabs>a', function() {
