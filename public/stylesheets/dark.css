@@ -190,7 +190,7 @@ body.dark #hook_filter td > label.hover:hover {
   background: #000;
 }
 body.dark #hook_overlay {
-  background: rgba(180, 180, 180, 0.2);
+  background: rgba(180, 180, 180, 0.1);
 }
 body.dark div.undertable tr:nth-child(even) td,
 body.dark #hooks_wrap,

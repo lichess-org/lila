@@ -2091,17 +2091,21 @@ var storage = {
     var animation = 500;
     var pool = [];
 
-    setInterval(function() {
+    var flushHooks = function() {
       $overlay.addClass('show');
+      $tbody.find('tr.disabled').remove();
+      $tbody.find('tr.notyet').removeClass('notyet');
+      $table.trigger('sortable.sort');
       setTimeout(function() {
-        $tbody.find('.disabled').remove();
-        $table.trigger('sortable.sort');
-        $tablebar.toggleClass('off');
-        setTimeout(function() {
-          $overlay.removeClass('show');
-        }, 300);
-      }, 300);
+        $overlay.removeClass('show');
+      }, 600);
+    };
+    setInterval(function() {
+      flushHooks();
+      $tablebar.toggleClass('off');
     }, 10000);
+    $('body').on('lichess.hook-flush', flushHooks);
+
     setTimeout(function() {
       $tablebar.toggleClass('off');
       var headHeight = $table.find('thead').height();
@@ -2283,6 +2287,7 @@ var storage = {
       if (hook.action == 'join' && hook.emin && myRating && (myRating < parseInt(hook.emin, 10) || myRating > parseInt(hook.emax, 10))) return;
       pool.push(hook);
       drawHooks(flush);
+      if (hook.action == 'cancel') $('body').trigger('lichess.hook-flush');
     }
 
     function disableHook(id) {
@@ -2426,7 +2431,7 @@ var storage = {
     function renderTr(hook) {
       var title = (hook.action == "join") ? $.trans('Join the game') : $.trans('cancel');
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
-      return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
+      return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + ' notyet">' + _.map([
         ['', '<span class="is2" data-icon="' + k + '"></span>'],
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous') +
           ((hook.engine && hook.action == 'join') ? ' <span data-icon="j"></span>' : '')
