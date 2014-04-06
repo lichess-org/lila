@@ -2095,6 +2095,7 @@ var storage = {
       $overlay.addClass('show');
       $tbody.find('tr.disabled').remove();
       $tbody.find('tr.notyet').removeClass('notyet');
+      $tbody.find('tr').hide().fadeIn(200);
       $table.trigger('sortable.sort');
       setTimeout(function() {
         $overlay.removeClass('show');
@@ -2109,10 +2110,6 @@ var storage = {
     setTimeout(function() {
       $tablebar.toggleClass('off');
       var headHeight = $table.find('thead').height();
-      $overlay.css({
-        top: headHeight + 'px',
-        height: (512 - headHeight) + 'px'
-      });
     }, 10);
 
     $wrap.on('click', '>div.tabs>a', function() {
