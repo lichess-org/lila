@@ -2084,7 +2084,6 @@ var storage = {
     var $overlay = $('#hook_overlay');
     var $table = $wrap.find('#hooks_table').sortable().find('th:eq(2)').click().end();
     var $tbody = $table.find('tbody');
-    var $tablebar = $table.find('.bar div');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0;
     var myRating = isRegistered ? parseInt($userTag.data('rating'), 10) : null;
@@ -2101,16 +2100,8 @@ var storage = {
         $overlay.removeClass('show');
       }, 600);
     };
-    setInterval(function() {
-      flushHooks();
-      $tablebar.toggleClass('off');
-    }, 10000);
+    setInterval(flushHooks, 8000);
     $('body').on('lichess.hook-flush', flushHooks);
-
-    setTimeout(function() {
-      $tablebar.toggleClass('off');
-      var headHeight = $table.find('thead').height();
-    }, 10);
 
     $wrap.on('click', '>div.tabs>a', function() {
       var tab = $(this).data('tab');

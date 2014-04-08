@@ -1511,9 +1511,9 @@ div.game_config div.color_submits button.random span {
 #hook_overlay {
   position: absolute;
   z-index: 98;
-  top: 0px;
+  top: 40px;
   left: 0px;
-  width: 512px;
+  width: 472px;
   height: 512px;
   display: none;
 }
@@ -1578,22 +1578,6 @@ div.game_config div.color_submits button.random span {
   cursor: pointer;
   padding: 12px 12px;
   font-weight: lighter;
-}
-#hooks_table tr.bar {
-  height: 2px;
-}
-#hooks_table tr.bar th {
-  border-bottom: 1px solid #ccc;
-}
-#hooks_table tr.bar div {
-  width: 100%;
-  height: 2px;
-  background-color: #759900;
-  transition: width 10s linear;
-}
-#hooks_table tr.bar div.off {
-  float: right;
-  width: 0%;
 }
 #hooks_table th.sorting-asc,
 #hooks_table th.sorting-desc {
