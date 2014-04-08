@@ -15,6 +15,9 @@
   <td>
     <a data-icon="g" href="@routes.Tournament.show(tour.id)">&nbsp;@tour.name</a>
   </td>
+  @tour.schedule.map { s =>
+  <td>@showTimeNoCtx(s.at)</td>
+  }.getOrElse {
   <td class="small">
     @if(tour.variant.exotic) {
     960
@@ -24,7 +27,8 @@
     }
   </td>
   <td data-icon="p">&nbsp;@tour.clock.show</td>
-  <td>@{tour.minutes}m</td>
+  }
+  <td>@tour.durationString</td>
   <td data-icon="r">&nbsp;@tour.playerRatio</td>
   <td>
     <form action="@routes.Tournament.join(tour.id)" method="POST">

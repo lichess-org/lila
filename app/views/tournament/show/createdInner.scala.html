@@ -11,7 +11,7 @@
     <thead>
       <tr>
         <th class="large">
-          @if(tour.readyToStart) {
+          @if(tour.enoughPlayersToStart) {
           @trans.tournamentIsStarting()
           } else {
           @trans.waitingForNbPlayers(tour.missingPlayers)
@@ -20,7 +20,7 @@
         @ctx.me.map { me =>
         <th>
           @if(tour contains me) {
-          @if(tour.isCreator(me.id) && tour.readyToEarlyStart) {
+          @if(tour.isCreator(me.id) && tour.enoughPlayersToEarlyStart) {
           <form class="inline" action="@routes.Tournament.earlyStart(tour.id)" method="POST">
             <input type="submit" class="submit button" value="Early Start" />
           </form>

@@ -78,7 +78,7 @@ private[tournament] object Player {
     "winStreak" -> 0,
     "score" -> 0)
 
-  private[tournament] lazy val tube = JsTube(
+  private[tournament] val tube = JsTube(
     (__.json update merge(defaults)) andThen Json.reads[Player],
     Json.writes[Player]
   )

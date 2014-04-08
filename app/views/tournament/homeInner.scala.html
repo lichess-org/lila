@@ -77,7 +77,7 @@
           @trans.rated()
           }
         </td>
-        <td data-icon="p">&nbsp;@tour.clock.show | @{tour.minutes}m</td>
+        <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
         <td data-icon="r">&nbsp;@tour.playerRatio</td>
         <td>@tour.winner.map { player =>
           @userInfosLink(player.username, player.rating.some, withOnline = false)
@@ -108,7 +108,7 @@
           @trans.rated()
           }
         </td>
-        <td data-icon="p">&nbsp;@tour.clock.show | @{tour.minutes}m</td>
+        <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
         <td data-icon="r">&nbsp;@tour.playerRatio</td>
         <td>@tour.winner.map { player =>
           @userInfosLink(player.username, player.rating.some, withOnline = false)

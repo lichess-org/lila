@@ -1,7 +1,7 @@
 package lila.tournament
 
-import org.joda.time.{ DateTime, Duration }
 import com.github.nscala_time.time.Imports._
+import org.joda.time.{ DateTime, Duration }
 import ornicar.scalalib.Random
 
 import chess.{ Variant, Mode }
@@ -16,6 +16,7 @@ private[tournament] case class Data(
   variant: Variant,
   mode: Mode,
   password: Option[String],
+  schedule: Option[Schedule],
   createdAt: DateTime,
   createdBy: String)
 
@@ -44,13 +45,18 @@ sealed trait Tournament {
   def rated = mode.rated
   def password = data.password
   def hasPassword = password.isDefined
+  def schedule = data.schedule
+  def scheduled = data.schedule.isDefined
 
   def userIds = players map (_.id)
   def activeUserIds = players filter (_.active) map (_.id)
   def nbActiveUsers = players count (_.active)
   def nbPlayers = players.size
   def minPlayers = data.minPlayers
-  def playerRatio = "%d/%d".format(nbPlayers, minPlayers)
+  def playerRatio = if (scheduled) nbPlayers.toString else s"$nbPlayers/$minPlayers"
+  def durationString =
+    if (minutes < 60) s"${minutes}m"
+    else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
   def contains(userId: String): Boolean = userIds contains userId
   def contains(user: User): Boolean = contains(user.id)
   def contains(user: Option[User]): Boolean = ~user.map(contains)
@@ -90,6 +96,7 @@ sealed trait StartedOrFinished extends Tournament {
     createdAt = data.createdAt,
     createdBy = data.createdBy,
     startedAt = startedAt.some,
+    schedule = data.schedule,
     players = players,
     pairings = pairings map (_.encode))
 
@@ -105,9 +112,9 @@ case class Created(
 
   override def isOpen = true
 
-  def readyToStart = players.size >= minPlayers
+  def enoughPlayersToStart = !scheduled && nbPlayers >= minPlayers
 
-  def readyToEarlyStart = players.size >= Tournament.minPlayers
+  def enoughPlayersToEarlyStart = !scheduled && nbPlayers >= Tournament.minPlayers
 
   def isEmpty = players.isEmpty
 
@@ -125,6 +132,7 @@ case class Created(
     password = data.password,
     minutes = data.minutes,
     minPlayers = data.minPlayers,
+    schedule = data.schedule,
     createdAt = data.createdAt,
     createdBy = data.createdBy,
     players = players)
@@ -144,7 +152,7 @@ case class Created(
 
   private def withPlayers(s: Players) = copy(players = s)
 
-  def startIfReady = readyToStart option start
+  def startIfReady = enoughPlayersToStart option start
 
   def start = Started(id, data, DateTime.now, players, Nil)
 }
@@ -241,16 +249,16 @@ object Tournament {
     RawTournament.tube.write(tour.encode) getOrElse JsUndefined("[db] Can't write tournament " + tour.id)
   )
 
-  private[tournament] lazy val tube: JsTube[Tournament] =
+  private[tournament] val tube: JsTube[Tournament] =
     JsTube(Reads(reader(_.decode)), writer)
 
-  private[tournament] lazy val createdTube: JsTube[Created] =
+  private[tournament] val createdTube: JsTube[Created] =
     JsTube(Reads(reader(_.created)), writer)
 
-  private[tournament] lazy val startedTube: JsTube[Started] =
+  private[tournament] val startedTube: JsTube[Started] =
     JsTube(Reads(reader(_.started)), writer)
 
-  private[tournament] lazy val finishedTube: JsTube[Finished] =
+  private[tournament] val finishedTube: JsTube[Finished] =
     JsTube(Reads(reader(_.finished)), writer)
 
   def make(
@@ -271,9 +279,24 @@ object Tournament {
       mode = mode,
       password = password,
       minutes = minutes,
+      schedule = None,
       minPlayers = minPlayers),
-    players = List(Player make createdBy)
-  )
+    players = List(Player make createdBy))
+
+  def schedule(sched: Schedule, minutes: Int) = Created(
+    id = Random nextStringUppercase 8,
+    data = Data(
+      name = sched.name,
+      clock = Schedule clockFor sched,
+      createdBy = "lichess",
+      createdAt = DateTime.now,
+      variant = Variant.Standard,
+      mode = Mode.Casual,
+      password = None,
+      minutes = minutes,
+      schedule = Some(sched),
+      minPlayers = 0),
+    players = List())
 }
 
 private[tournament] case class RawTournament(
@@ -290,7 +313,8 @@ private[tournament] case class RawTournament(
     players: List[Player] = Nil,
     pairings: List[RawPairing] = Nil,
     variant: Int = Variant.Standard.id,
-    mode: Int = Mode.Casual.id) {
+    mode: Int = Mode.Casual.id,
+    schedule: Option[Schedule] = None) {
 
   def decode: Option[Tournament] = created orElse started orElse finished
 
@@ -319,7 +343,17 @@ private[tournament] case class RawTournament(
     players = players,
     pairings = decodePairings)
 
-  private def data = Data(name, clock, minutes, minPlayers, Variant orDefault variant, Mode orDefault mode, password, createdAt, createdBy)
+  private def data = Data(
+    name,
+    clock,
+    minutes,
+    minPlayers,
+    Variant orDefault variant,
+    Mode orDefault mode,
+    password,
+    schedule,
+    createdAt,
+    createdBy)
 
   private def decodePairings = pairings map (_.decode) flatten
 
@@ -338,6 +372,7 @@ private[tournament] object RawTournament {
 
   private implicit def pairingTube = RawPairing.tube
   private implicit def clockTube = TournamentClock.tube
+  private implicit def scheduleTube = Schedule.tube
   private implicit def PlayerTube = Player.tube
 
   private def defaults = Json.obj(
@@ -346,9 +381,10 @@ private[tournament] object RawTournament {
     "players" -> List[Player](),
     "pairings" -> List[RawPairing](),
     "variant" -> Variant.Standard.id,
-    "mode" -> Mode.Casual.id)
+    "mode" -> Mode.Casual.id,
+    "schedule" -> none[Schedule])
 
-  private[tournament] lazy val tube = JsTube(
+  private[tournament] val tube = JsTube(
     (__.json update (
       merge(defaults) andThen readDate('createdAt) andThen readDateOpt('startedAt)
     )) andThen Json.reads[RawTournament],

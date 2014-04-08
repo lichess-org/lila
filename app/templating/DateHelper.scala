@@ -17,6 +17,7 @@ trait DateHelper { self: I18nHelper =>
 
   private val dateTimeFormatters = mutable.Map[String, DateTimeFormatter]()
   private val dateFormatters = mutable.Map[String, DateTimeFormatter]()
+  private val timeFormatter = DateTimeFormat forPattern "HH:mm"
 
   private val isoFormatter = ISODateTimeFormat.dateTime
 
@@ -35,6 +36,8 @@ trait DateHelper { self: I18nHelper =>
 
   def showDate(date: DateTime)(implicit ctx: Context): String =
     dateFormatter(ctx) print date
+
+  def showTimeNoCtx(date: DateTime): String = timeFormatter print date
 
   def timeago(date: DateTime)(implicit ctx: Context): Html = Html(
     """<time class="timeago" datetime="%s">%s</time>"""

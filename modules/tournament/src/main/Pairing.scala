@@ -146,7 +146,7 @@ private[tournament] object RawPairing {
     "w" -> none[String],
     "t" -> none[Int])
 
-  private[tournament] lazy val tube = JsTube(
+  private[tournament] val tube = JsTube(
     (__.json update merge(defaults)) andThen Json.reads[RawPairing],
     Json.writes[RawPairing]
   )
