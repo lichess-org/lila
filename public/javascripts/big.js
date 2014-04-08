@@ -582,6 +582,16 @@ var storage = {
     setTimeAgo();
     $('body').on('lichess.content_loaded', setTimeAgo);
 
+    function setMoment() {
+      $("time.moment").removeClass('moment').each(function() {
+        var parsed = moment.parseZone(this.getAttribute('datetime'));
+        var format = this.getAttribute('data-format');
+        this.textContent = format == 'calendar' ? parsed.calendar() : parsed.format(format);
+      });
+    }
+    setMoment();
+    $('body').on('lichess.content_loaded', setMoment);
+
     // Start game
     var $game = $('div.lichess_game').orNot();
     if ($game) $game.game(_ld_);

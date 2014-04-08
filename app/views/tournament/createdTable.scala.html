@@ -16,7 +16,7 @@
     <a data-icon="g" href="@routes.Tournament.show(tour.id)">&nbsp;@tour.name</a>
   </td>
   @tour.schedule.map { s =>
-  <td>@showTimeNoCtx(s.at)</td>
+  <td>@momentFormat(s.at)</td>
   }.getOrElse {
   <td class="small">
     @if(tour.variant.exotic) {
