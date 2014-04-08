@@ -11,6 +11,7 @@ final class Env(
     bus: lila.common.Bus,
     pgnDump: lila.game.PgnDump,
     userEnv: lila.user.Env,
+    analyseEnv: lila.analyse.Env,
     userIdsSharingIp: String => Fu[List[String]],
     val isProd: Boolean) {
 
@@ -41,6 +42,7 @@ final class Env(
 
   val analysisApi = new AnalysisApi(
     makeUrl = apiUrl,
+    nbAnalysis = () => analyseEnv.cached.nbAnalysis,
     pgnDump = pgnDump)
 
   private def apiUrl(msg: Any): Fu[String] = {
@@ -59,6 +61,7 @@ object Env {
     renderer = lila.hub.Env.current.actor.renderer,
     router = lila.hub.Env.current.actor.router,
     userEnv = lila.user.Env.current,
+    analyseEnv = lila.analyse.Env.current,
     pgnDump = lila.game.Env.current.pgnDump,
     userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp,
     bus = lila.common.PlayApp.system.lilaBus,
