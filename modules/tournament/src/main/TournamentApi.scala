@@ -56,10 +56,21 @@ private[tournament] final class TournamentApi(
         lobbyReload inject created
     }
 
+  def createScheduled(schedule: Schedule): Funit =
+    (Schedule durationFor schedule) match {
+      case None => funit
+      case Some(minutes) =>
+        val created = Tournament.schedule(schedule, minutes)
+        $insert(created) >>- reloadSiteSocket >>- lobbyReload
+    }
+
   def startIfReady(created: Created): Option[Funit] = created.startIfReady map doStart
 
   def earlyStart(created: Created): Option[Funit] =
-    created.readyToEarlyStart option doStart(created.start)
+    created.enoughPlayersToEarlyStart option doStart(created.start)
+
+  private[tournament] def startScheduled(created: Created) =
+    if (created.nbPlayers >= 4) doStart(created.start) else doWipe(created)
 
   private def doStart(started: Started): Funit =
     $update(started) >>-
@@ -67,12 +78,10 @@ private[tournament] final class TournamentApi(
       reloadSiteSocket >>-
       lobbyReload
 
-  def wipeEmpty(created: Created): Funit = created.isEmpty ?? {
-    loginfo("Remove empty tour " + created)
-    $remove(created) >>-
-      reloadSiteSocket >>-
-      lobbyReload
-  }
+  def wipeEmpty(created: Created): Funit = created.isEmpty ?? doWipe(created)
+
+  private def doWipe(created: Created): Funit =
+    $remove(created) >>- reloadSiteSocket >>- lobbyReload
 
   def finish(started: Started): Fu[Tournament] = started.readyToFinish.fold({
     val pairingsToAbort = started.playingPairings

@@ -6,9 +6,9 @@ import lila.socket.SocketMember
 import lila.user.User
 
 case class Member(
-    channel: JsChannel,
-    userId: Option[String],
-    troll: Boolean) extends SocketMember 
+  channel: JsChannel,
+  userId: Option[String],
+  troll: Boolean) extends SocketMember
 
 object Member {
   def apply(channel: JsChannel, user: Option[User]): Member = Member(
@@ -31,8 +31,11 @@ case class Joining(userId: String)
 case class Connected(enumerator: JsEnumerator, member: Member)
 
 // organizer
-case object CreatedTournaments
-case object StartedTournaments
+private[tournament] case object CreatedTournaments
+private[tournament] case object StartedTournaments
+private[tournament] case object ScheduledTournaments
 case class RemindTournaments(tours: List[Started])
 case class RemindTournament(tour: Started)
 case class TournamentTable(tours: List[Created])
+
+private[tournament] case object ScheduleNow

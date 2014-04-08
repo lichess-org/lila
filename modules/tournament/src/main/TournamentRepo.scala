@@ -35,7 +35,10 @@ object TournamentRepo {
     $find byId id map (_ flatMap as)
 
   def created: Fu[List[Created]] = $find(
-    $query(Json.obj("status" -> Status.Created.id)) sort $sort.createdDesc
+    $query(Json.obj(
+      "status" -> Status.Created.id,
+      "schedule" -> $exists(false)
+    )) sort $sort.createdDesc
   ) map { _.map(asCreated).flatten }
 
   def started: Fu[List[Started]] = $find(
@@ -52,6 +55,13 @@ object TournamentRepo {
       "status" -> Status.Created.id,
       "password" -> $exists(false)
     )) sort $sort.createdDesc
+  ) map { _.map(asCreated).flatten }
+
+  def scheduled: Fu[List[Created]] = $find(
+    $query(Json.obj(
+      "status" -> Status.Created.id,
+      "schedule" -> $exists(true)
+    )) sort $sort.desc("schedule.at")
   ) map { _.map(asCreated).flatten }
 
   def withdraw(userId: String): Fu[List[String]] = for {
