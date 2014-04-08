@@ -1574,10 +1574,24 @@ div.game_config div.color_submits button.random span {
   overflow: hidden;
   text-shadow: 0px 1px 0px #FFF;
 }
-#hooks_table tr.header th {
+#hooks_table thead th {
   cursor: pointer;
   padding: 12px 12px;
   font-weight: lighter;
+  border-bottom: 1px solid #ccc;
+}
+#hooks_table thead .reload {
+  display: block;
+  cursor: pointer;
+  margin-left: 2px;
+  opacity: 0.6;
+  transition: all 0.5s;
+}
+#hooks_table thead .reload.off {
+	opacity: 0;
+}
+#hooks_table thead .reload:hover {
+	opacity: 1;
 }
 #hooks_table th.sorting-asc,
 #hooks_table th.sorting-desc {

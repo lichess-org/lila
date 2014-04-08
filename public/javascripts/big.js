@@ -2083,6 +2083,7 @@ var storage = {
     var $canvas = $wrap.find('.canvas');
     var $overlay = $('#hook_overlay');
     var $table = $wrap.find('#hooks_table').sortable().find('th:eq(2)').click().end();
+    var $tablereload = $table.find('span.reload');
     var $tbody = $table.find('tbody');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0;
@@ -2100,7 +2101,21 @@ var storage = {
         $overlay.removeClass('show');
       }, 600);
     };
-    setInterval(flushHooks, 8000);
+    var preFlush = function() {
+      setTimeout(function() {
+        $tablereload.addClass('off');
+        setTimeout(function() {
+          $tablereload.removeClass('off');
+        }, 500);
+      }, 7000);
+    };
+    setInterval(function() {
+      flushHooks();
+      preFlush();
+    }, 8000);
+    preFlush();
+
+    $tablereload.click(flushHooks);
     $('body').on('lichess.hook-flush', flushHooks);
 
     $wrap.on('click', '>div.tabs>a', function() {
