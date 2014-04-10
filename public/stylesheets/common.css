@@ -1608,9 +1608,6 @@ div.game_config div.color_submits button.random span {
 #hooks_wrap table tr.disabled {
   opacity: 0.3;
 }
-#hooks_wrap table tr td {
-  transition: background 0.1s;
-}
 #hooks_wrap table tr.disabled td {
   cursor: not-allowed;
   background: rgba(75, 99, 00, 0.2)!important;
