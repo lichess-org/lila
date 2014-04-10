@@ -583,7 +583,7 @@ var storage = {
 
     function setMoment() {
       $("time.moment").removeClass('moment').each(function() {
-        var parsed = moment.parseZone(this.getAttribute('datetime'));
+        var parsed = moment(this.getAttribute('datetime'));
         var format = this.getAttribute('data-format');
         this.textContent = format == 'calendar' ? parsed.calendar() : parsed.format(format);
       });
@@ -593,7 +593,7 @@ var storage = {
 
     function setMomentFromNow() {
       $("time.moment-from-now").each(function() {
-        this.textContent = moment.parseZone(this.getAttribute('datetime')).fromNow();
+        this.textContent = moment(this.getAttribute('datetime')).fromNow();
       });
     }
     setMomentFromNow();
