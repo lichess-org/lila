@@ -52,16 +52,6 @@ object AnalysisRepo {
       "date" -> $gt($date(DateTime.now - 20.minutes))),
     "_id")(_.asOpt[String])
 
-  def getOrRemoveStaled(id: ID): Fu[Option[Analysis]] =
-    $find.one(
-      $select(id) ++
-        Json.obj("date" -> $lt($date(DateTime.now - 20.minutes))) ++
-        $or(List(Json.obj("done" -> false), Json.obj("data" -> "")))
-    ) flatMap {
-        case None          => $find byId id
-        case Some(stalled) => $remove byId id inject none
-      }
-
   def recent(nb: Int): Fu[List[Analysis]] =
     $find($query(Json.obj("done" -> true)) sort $sort.desc("date"), nb)
 

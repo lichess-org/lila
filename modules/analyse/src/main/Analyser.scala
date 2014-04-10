@@ -14,12 +14,9 @@ import lila.game.{ Game, GameRepo }
 import makeTimeout.veryLarge
 import tube.analysisTube
 
-final class Analyser(
-    ai: ActorSelection,
-    indexer: ActorSelection) {
+final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
 
-  def get(id: String): Fu[Option[Analysis]] =
-    AnalysisRepo getOrRemoveStaled id
+  def get(id: String): Fu[Option[Analysis]] = AnalysisRepo doneById id
 
   def has(id: String): Fu[Boolean] = AnalysisRepo isDone id
 
@@ -42,17 +39,17 @@ final class Analyser(
             _ ← AnalysisRepo.progress(id, userId)
             replay ← Replay(game.pgnMoves mkString " ", initialFen, game.variant).future
             uciMoves = UciDump(replay)
-            infos ← {
-              ai ? lila.hub.actorApi.ai.Analyse(uciMoves, initialFen)
-            } mapTo manifest[List[Info]]
+            infos ← ai ? lila.hub.actorApi.ai.Analyse(uciMoves, initialFen) mapTo manifest[List[Info]]
             analysis = Analysis(id, infos, true)
           } yield UciToPgn(replay, analysis)) flatFold (
             e => fufail[Analysis](e.getMessage), {
               case (a, errors) => {
                 errors foreach { e => logwarn(s"[analyser UciToPgn] $id $e") }
-                AnalysisRepo.done(id, a)
-                indexer ! InsertGame(game)
-                fuccess(a)
+                if (a.valid) {
+                  AnalysisRepo.done(id, a)
+                  indexer ! InsertGame(game)
+                  fuccess(a)
+                } else fufail(s"[analyse] invalid (empty infos): $id")
               }
             }
           )
