@@ -54,11 +54,14 @@
   font-size: 0.8em;
 }
 
-#tournament form.inline,
-#tournament span.joined {
+#tournament form.inline {
   display: inline;
   float: right;
   padding-right: 0.6em;
+}
+#tournament span.joined {
+  font-weight: bold;
+  color: #759900;
 }
 
 #tournament form.plain td {

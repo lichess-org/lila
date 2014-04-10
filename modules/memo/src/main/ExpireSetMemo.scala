@@ -7,7 +7,7 @@ final class ExpireSetMemo(ttl: Duration) {
 
   protected val cache = Builder.expiry[String, Boolean](ttl)
 
-  def get(key: String): Boolean = ~Option(cache getIfPresent key) 
+  def get(key: String): Boolean = Option(cache getIfPresent key) getOrElse false
 
   def put(key: String) { cache.put(key, true) }
 

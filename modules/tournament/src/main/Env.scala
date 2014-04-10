@@ -18,6 +18,7 @@ final class Env(
     hub: lila.hub.Env,
     roundMap: ActorRef,
     getUsername: String => Fu[Option[String]],
+    isOnline: String => Boolean,
     isDev: Boolean,
     scheduler: lila.common.Scheduler) {
 
@@ -66,6 +67,7 @@ final class Env(
     reminder = system.actorOf(Props(new Reminder(
       renderer = hub.actor.renderer
     )), name = ReminderName),
+    isOnline = isOnline,
     socketHub = socketHub
   )), name = OrganizerName)
 
@@ -124,6 +126,7 @@ object Env {
     hub = lila.hub.Env.current,
     roundMap = lila.round.Env.current.roundMap,
     getUsername = lila.user.Env.current.usernameOption,
+    isOnline = lila.user.Env.current.isOnline,
     isDev = lila.common.PlayApp.isDev,
     scheduler = lila.common.PlayApp.scheduler)
 }
