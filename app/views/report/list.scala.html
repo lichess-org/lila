@@ -2,14 +2,20 @@
 
 @title = @{ "User reports" }
 
-@goodies = {
-<a href="@routes.Mod.log">Moderator log</a>
+@moreJs = {
+<script>
+  $('#report form').submit(function() {
+    $.post($(this).attr('action'));
+    $(this).parents('tr').removeClass('new').end().remove();
+    return false;
+  });
+</script>
 }
 
 @base.layout(
 title = title,
 moreCss = cssTag("report.css"),
-goodies = goodies.some) {
+moreJs = moreJs) {
 
 <div id="report" class="content_box no_padding">
   <h1>@title (@reports.count(_.unprocessed) new)</h1>
@@ -34,7 +40,7 @@ goodies = goodies.some) {
         <td>@r.processedBy.map { u =>
           }.getOrElse {
           <form action="@routes.Report.process(r.id)" method="post">
-            <button type="submit" class="button">Check</button>
+            <button type="submit" data-icon="E" class="button"></button>
           </form>
           }
         </td>
