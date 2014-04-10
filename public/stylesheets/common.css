@@ -408,7 +408,6 @@ body {
   background-image: -ms-linear-gradient(top, #d7d7d7 0%, #f7f7f7 116px);
   background-image: linear-gradient(to bottom, #d7d7d7 0%, #f7f7f7 116px);
   background-repeat: no-repeat;
-  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#d7d7d7', endColorstr='#f7f7f7', GradientType=0);
 }
 a,
 a:visited,
@@ -490,6 +489,7 @@ body.tight #lichess {
   text-decoration: none;
   display: block;
   margin-bottom: 3px;
+  transition: all 0.1s;
 }
 body.tight #site_title {
   margin-left: 10px;
@@ -774,6 +774,7 @@ body.offline #nb_connected_players {
 }
 #top .goto_nav {
   border-bottom: 2px solid transparent;
+  transition: all 0.1s;
 }
 #top a.goto_nav:hover,
 #top a.toggle:hover,
@@ -821,6 +822,7 @@ a#sound_state:hover {
   padding: 6px 10px;
   text-decoration: none;
   text-transform: capitalize;
+  transition: all 0.1s;
 }
 #top div.auth .links a:hover {
   background: #F0F0F0;
@@ -841,6 +843,7 @@ form.wide textarea {
   display: block;
   padding-right: 4px;
   float: left;
+  transition: all 0.1s;
 }
 #top .dropdown {
   display: none;
@@ -928,6 +931,7 @@ ul.language_links li:last-child {
   float: left;
   padding: 7px;
   cursor: pointer;
+  transition: all 0.1s;
 }
 #top div.themepicker.shown div.theme:hover {
   background: #f0f0f0;
@@ -942,6 +946,7 @@ ul.language_links li:last-child {
 a#sound_state {
   opacity: 0.7;
   float: right;
+  transition: all 0.1s;
 }
 a#sound_state span.on,
 a#sound_state.sound_state_on span.off {
@@ -1069,7 +1074,6 @@ table.slist thead {
   background: -o-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
   background: -ms-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
   background: linear-gradient(to bottom, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
-  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#f5f5f5', GradientType=0);
   text-decoration: none;
   text-shadow: 0px 1px 0px #FFF;
   color: #848484;
@@ -1106,15 +1110,13 @@ a.button,
 .button:hover,
 a.button:hover,
 .ui-state-hover {
-  border-color: #dedede;
-  background: rgb(245, 245, 245);
-  background: -moz-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(245, 245, 245, 1)), color-stop(100%, rgba(240, 240, 240, 1)));
-  background: -webkit-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
-  background: -o-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
-  background: -ms-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
-  background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
-  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#f0f0f0', GradientType=0);
+  background: rgb(253, 253, 253);
+  background: -moz-linear-gradient(top, rgba(253, 253, 253, 1) 0%, rgba(248, 248, 248, 1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(253, 253, 253, 1)), color-stop(100%, rgba(248, 248, 248, 1)));
+  background: -webkit-linear-gradient(top, rgba(253, 253, 253, 1) 0%, rgba(248, 248, 248, 1) 100%);
+  background: -o-linear-gradient(top, rgba(253, 253, 253, 1) 0%, rgba(248, 248, 248, 1) 100%);
+  background: -ms-linear-gradient(top, rgba(253, 253, 253, 1) 0%, rgba(248, 248, 248, 1) 100%);
+  background: linear-gradient(to bottom, rgba(253, 253, 253, 1) 0%, rgba(248, 248, 248, 1) 100%);
 }
 .button:active,
 a.button:active {
@@ -1299,7 +1301,6 @@ div.all_games a.mini_board {
   background: -o-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
   background: -ms-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
   background: radial-gradient(ellipse at center, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
-  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#cfd85500', endColorstr='#00d85500', GradientType=1);
 }
 div.lcmp {
   position: absolute;
@@ -1390,6 +1391,7 @@ ul.language_links a {
   display: block;
   padding: 0.4em 0.5em;
   text-decoration: none;
+  transition: all 0.1s;
 }
 ul.language_links a.current,
 ul.language_links a.accepted {
@@ -1475,6 +1477,7 @@ div.game_config div.color_submits button.random span {
   padding: 0px 10px;
   border: 1px solid #ccc;
   background: #dadada;
+  transition: all 0.1s;
 }
 #hooks_wrap > div.tabs > a:hover,
 #hooks_wrap > div.tabs > a.active {
@@ -1494,10 +1497,11 @@ div.game_config div.color_submits button.random span {
   border-bottom: 0;
   display: block;
   text-decoration: none;
+  transition: all 0.1s;
 }
 #hooks_wrap > a.filter:hover,
 #hooks_wrap > a.filter.active {
-  background: #fff;
+  background: #f0f0f0;
 }
 #hooks_wrap > a.filter span.number {
   display: none;
