@@ -36,10 +36,9 @@ trait DateHelper { self: I18nHelper =>
   def showDate(date: DateTime)(implicit ctx: Context): String =
     dateFormatter(ctx) print date
 
-  def timeago(date: DateTime)(implicit ctx: Context): Html = Html(
-    """<time class="timeago" datetime="%s">%s</time>"""
-      .format(isoFormatter print date, showDateTime(date))
-  )
+  def timeago(date: DateTime)(implicit ctx: Context): Html = Html {
+    s"""<time class="timeago" datetime="${isoFormatter print date}"></time>"""
+  }
 
   def timeagoLocale(implicit ctx: Context): Option[String] =
     lang(ctx).language match {
