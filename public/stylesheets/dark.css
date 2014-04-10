@@ -6,7 +6,6 @@ body.dark {
   background-image: -o-linear-gradient(top, #303030 0%, #1a1a1a 116px);
   background-image: -ms-linear-gradient(top, #303030 0%, #1a1a1a 116px);
   background-image: linear-gradient(to bottom, #303030 0%, #1a1a1a 116px);
-  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#303030', endColorstr='#1a1a1a', GradientType=0);
   color: #8a8a8a;
 }
 body.dark a,
@@ -153,8 +152,6 @@ body.dark div.undertable_top span.title {
   color: #777;
 }
 body.dark #GameText a:hover,
-body.dark #hooks_wrap a.filter:hover,
-body.dark #hooks_wrap a.filter.active,
 body.dark #crosstable td a {
   background: #000;
 }
@@ -191,6 +188,8 @@ body.dark #hook_filter td > label.hover:hover {
 }
 body.dark div.undertable tr:nth-child(even) td,
 body.dark #hooks_wrap,
+body.dark #hooks_wrap a.filter:hover,
+body.dark #hooks_wrap a.filter.active,
 body.dark #hooks_wrap > div.tabs > a:hover,
 body.dark #hooks_wrap > div.tabs > a.active {
   background: #303030;
@@ -332,7 +331,6 @@ body.dark table.slist thead {
   background: -o-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
   background: -ms-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
   background: linear-gradient(to bottom, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
-  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#282828', endColorstr='#222222', GradientType=0);
   text-shadow: 0px 1px 0px #000;
 }
 body.dark .button,
@@ -353,7 +351,6 @@ body.dark .ui-state-hover {
   background: -o-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
   background: -ms-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
   background: linear-gradient(to bottom, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
-  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#2c2c2c', endColorstr='#282828', GradientType=0);
 }
 body.dark #hooks_chart .plot {
   box-shadow: 0 0 5px #000;
