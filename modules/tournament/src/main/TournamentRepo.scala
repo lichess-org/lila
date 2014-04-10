@@ -2,6 +2,7 @@ package lila.tournament
 
 import com.github.nscala_time.time.Imports._
 import play.api.libs.json._
+import reactivemongo.bson.BSONDocument
 
 import lila.db.api._
 import lila.db.Implicits._
@@ -50,18 +51,24 @@ object TournamentRepo {
     limit
   ) map { _.map(asFinished).flatten }
 
-  def createdUnprotected: Fu[List[Created]] = $find(
+  def enterable: Fu[List[Created]] = $find(
     $query(Json.obj(
       "status" -> Status.Created.id,
       "password" -> $exists(false)
-    )) sort $sort.createdDesc
+    ) ++ $or(Seq(
+        Json.obj("schedule" -> $exists(false)),
+        Json.obj("schedule.at" -> $lt($date(DateTime.now plusMinutes 15)))
+      ))) sort BSONDocument(
+      "schedule.at" -> 1,
+      "createdAt" -> 1
+    )
   ) map { _.map(asCreated).flatten }
 
   def scheduled: Fu[List[Created]] = $find(
     $query(Json.obj(
       "status" -> Status.Created.id,
       "schedule" -> $exists(true)
-    )) sort $sort.desc("schedule.at")
+    ))
   ) map { _.map(asCreated).flatten }
 
   def withdraw(userId: String): Fu[List[String]] = for {

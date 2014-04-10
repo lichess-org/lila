@@ -1,5 +1,15 @@
 @(forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], leaderboard: List[User], progress: List[User])(implicit ctx: Context)
 
+@if(tours.exists(_.scheduled)) {
+<div class="open_tournaments undertable">
+  <div class="undertable_inner">
+    <table class="scheduled tournaments">
+      @tournament.createdTable(tours.filter(_.scheduled))
+    </table>
+  </div>
+</div>
+}
+
 <div class="open_tournaments undertable">
   <div class="undertable_top">
     <a class="more" title="See all tournaments" href="@routes.Tournament.home()">@trans.more() »</a>
@@ -7,7 +17,7 @@
   </div>
   <div class="undertable_inner">
     <table class="tournaments">
-      @tournament.createdTable(tours)
+      @tournament.createdTable(tours.filterNot(_.scheduled))
     </table>
   </div>
 </div>
