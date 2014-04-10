@@ -24,7 +24,8 @@ case class Analysis(
     i.best map { b => i.ply -> b.keys }
   }).flatten.toMap
 
-  def encode: RawAnalysis = RawAnalysis(id, Info encodeList infos, done)
+  def encode: RawAnalysis = RawAnalysis(id, encodeInfos, done)
+  private def encodeInfos = Info encodeList infos
 
   def summary: List[(Color, List[(Nag, Int)])] = Color.all map { color =>
     color -> (Nag.badOnes map { nag =>
@@ -33,6 +34,8 @@ case class Analysis(
       })
     })
   }
+
+  def valid = encodeInfos.replace(";", "").nonEmpty
 }
 
 object Analysis {
