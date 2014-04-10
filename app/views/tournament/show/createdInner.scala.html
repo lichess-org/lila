@@ -30,17 +30,11 @@
           </form>
           }
           <form class="inline" action="@routes.Tournament.withdraw(tour.id)" method="POST">
-            <button type="submit" class="submit button" data-icon="b"> @trans.withdraw()</button>
+            <button type="submit" class="submit button" data-icon="b">&nbsp;@trans.withdraw()</button>
           </form>
           } else {
           <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
-            <button type="submit" class="submit button">
-              @if(tour.hasPassword) {
-              <span data-icon="a"> @trans.join()</span>
-              } else {
-              <span data-icon="F"> @trans.join()</span>
-              }
-            </button>
+            <button type="submit" class="submit button" data-icon="@tour.hasPassword.fold("a", "G")">&nbsp;@trans.join()</button>
           </form>
           }
         </th>
