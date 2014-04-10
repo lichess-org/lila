@@ -24,6 +24,7 @@ final class Env(
   private val settings = new {
     val CollectionTournament = config getString "collection.tournament"
     val MessageTtl = config duration "message.ttl"
+    val EnterableCacheTtl = config duration "enterable.cache.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
@@ -50,13 +51,11 @@ final class Env(
     chat = hub.actor.chat,
     flood = flood)
 
-  private lazy val history = () => new History(ttl = MessageTtl)
-
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
       def mkActor(tournamentId: String) = new Socket(
         tournamentId = tournamentId,
-        history = history(),
+        history = new History(ttl = MessageTtl),
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout,
         getUsername = getUsername)
@@ -74,6 +73,9 @@ final class Env(
 
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
+
+  private val enterable =
+    lila.memo.AsyncCache.single(TournamentRepo.enterable, timeToLive = EnterableCacheTtl)
 
   def cli = new lila.common.Cli {
     import tube.tournamentTube

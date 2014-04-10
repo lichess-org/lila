@@ -155,7 +155,13 @@ case class Created(
   def startIfReady = enoughPlayersToStart option start
 
   def start = Started(id, data, DateTime.now, players, Nil)
+
+  def asScheduled = schedule map { Scheduled(this, _) }
 }
+
+case class Scheduled(tour: Created, schedule: Schedule)
+
+case class Enterable(tours: List[Created], scheduled: List[Created])
 
 case class Started(
     id: String,
