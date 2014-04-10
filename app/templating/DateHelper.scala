@@ -42,8 +42,8 @@ trait DateHelper { self: I18nHelper =>
     s"""<time class="moment" datetime="${isoFormatter print date}" data-format="$format"></time>"""
   }
 
-  def timeago(date: DateTime)(implicit ctx: Context) = Html {
-    s"""<time class="timeago" datetime="${isoFormatter print date}">${showDateTime(date)}</time>"""
+  def timeago(date: DateTime)(implicit ctx: Context): Html = Html {
+    s"""<time class="timeago" datetime="${isoFormatter print date}"></time>"""
   }
 
   def timeagoLocale(implicit ctx: Context): Option[String] =
