@@ -1,10 +1,12 @@
-@(players: String = "all", rated: Option[Boolean] = None)
+@(nbPlayers: Option[String] = Some("all"), rated: Option[Boolean] = None)
 
 @text = {
 
+@nbPlayers.map { players =>
 ## When will the tournament start?
-As soon as @players players join it. 
-You will be notified when the tournament starts, so it is safe to 
+As soon as @players players join it.
+}
+You will be notified when the tournament starts, so it is safe to
 <a target="_blank" href="@routes.Lobby.home()">play in another tab</a> while waiting.
 
 ## Is it rated?
@@ -23,14 +25,14 @@ The players with the more points at the end of the tournament duration wins.
 A game win is worth 2 points, a draw 1 point, and a defeat 0 points.
 
 ## How does the pairing work?
-At the beginning of the tournament, players are paired randomly. 
-As soon as you finish a game, return to the tournament lobby: 
+At the beginning of the tournament, players are paired randomly.
+As soon as you finish a game, return to the tournament lobby:
 you will then be paired with the first available player. This ensures minimum wait time,
 but you may not play every other players of the tournament. It is normal.
 Play fast and return to the lobby to play more games and win more points.
 
 ## What is the win streak?
-It represents the number of games won in a row. It is added to the points you win. 
+It represents the number of games won in a row. It is added to the points you win.
 For instance, if you win 3 games in a row, you get 2 + 3 points for the last game.
 If you lose a game, your win streak returns to zero.
 

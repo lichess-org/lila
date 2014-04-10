@@ -1,9 +1,26 @@
+#tournament table.slist td:first-child a {
+  font-weight: bold;
+  text-decoration: none;
+}
+#tournament table.slist td:first-child a:hover {
+  text-decoration: underline;
+}
+#tournament table.slist tbody.scheduled a,
+#tournament.scheduled h1,
+#tournament table.standing tr:first-child td:first-child {
+  color: #d59120;
+}
+
 #tournament .title_tag {
   float: right;
   font-size: 20px;
   font-family: monospace;
   font-weight: bold;
   margin: 21px 25px 0 0;
+}
+
+#tournament.scheduled time.from-now::first-letter {
+  text-transform: none;
 }
 
 #tournament div.tournament_show {
@@ -37,7 +54,8 @@
   font-size: 0.8em;
 }
 
-#tournament form.inline {
+#tournament form.inline,
+#tournament span.joined {
   display: inline;
   float: right;
   padding-right: 0.6em;

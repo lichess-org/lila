@@ -1,47 +1,66 @@
 @(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished])(implicit ctx: Context)
 
+@joinButton(tour: lila.tournament.Created) = {
+@ctx.me.map { me =>
+@if(tour contains me) {
+<form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
+  <button data-icon="@tour.hasPassword.fold("a", "G")" type="submit" class="submit button">&nbsp;@trans.join()</button>
+</form>
+} else {
+<span class="joined label" data-icon="E">&nbsp;JOINED</span>
+}
+}
+}
+
+@tourMode(tour: lila.tournament.Tournament) = {
+@tour.schedule.map { s =>
+@momentFromNow(s.at)
+}.getOrElse {
+@if(tour.variant.exotic) { 960 }
+@if(tour.rated) { @trans.rated() }
+}
+}
+
 <div class="content_box tournament_box no_padding">
   <h1>@trans.tournaments()</h1>
-  <table class="slist all_tournaments">
+  <table class="slist">
+    @if(createds.exists(_.scheduled)) {
+    <thead>
+      <tr>
+        <th class="large">Official tournaments</th>
+        <th>Starts</th>
+        <th>@trans.timeControl()</th>
+        <th colspan="2">@trans.players()</th>
+      </tr>
+    </thead>
+    <tbody class="scheduled">
+      @createds.filter(_.scheduled).map { tour =>
+      <tr>
+        <td>@linkTo(tour)</td>
+        <td class="small">@tourMode(tour)</td>
+        <td data-icon="p">&nbsp;@tour.clock.show | @{tour.minutes}m</td>
+        <td data-icon="r">&nbsp;@tour.nbPlayers</td>
+        <td>@joinButton(tour)</td>
+      </tr>
+      }
+    </tbody>
+    }
     <thead>
       <tr>
         <th class="large">@trans.openTournaments()</th>
-        <th>@trans.mode()</th>
+        <th></th>
         <th>@trans.timeControl()</th>
         <th colspan="2">@trans.players()</th>
       </tr>
     </thead>
     <tbody>
-      @createds.map { tour =>
+      @createds.filterNot(_.scheduled).map { tour =>
       <tr>
         <td>@linkTo(tour)</td>
-        <td class="small">
-          @if(tour.variant.exotic) {
-          960
-          }
-          @if(tour.rated) {
-          @trans.rated()
-          }
-        </td>
+        <td class="small">@tourMode(tour)</td>
         <td data-icon="p">&nbsp;@tour.clock.show | @{tour.minutes}m</td>
         <td data-icon="r">&nbsp;@tour.playerRatio</td>
-        <td>
-          @ctx.me.map { me =>
-          @if(tour contains me) {
-          <span class="label">JOINED</span>
-          } else {
-          <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
-            <button type="submit" class="submit button">
-              @if(tour.hasPassword) {
-              <span data-icon="a"> @trans.join()</span>
-              } else {
-              @trans.join()
-              }
-            </button>
-          </form>
-          }
-          }
-        </td>
+        <td>@joinButton(tour)</td>
       </tr>
       }
       @if(ctx.isAuth) {
@@ -59,7 +78,7 @@
     <thead>
       <tr>
         <th class="large">@trans.playingRightNow()</th>
-        <th>@trans.mode()</th>
+        <th></th>
         <th>@trans.timeControl()</th>
         <th>@trans.players()</th>
         <th>Leader</th>
@@ -69,14 +88,7 @@
       @starteds.map { tour =>
       <tr>
         <td>@linkTo(tour)</td>
-        <td class="small">
-          @if(tour.variant.exotic) {
-          960
-          }
-          @if(tour.rated) {
-          @trans.rated()
-          }
-        </td>
+        <td class="small">@tourMode(tour)</td>
         <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
         <td data-icon="r">&nbsp;@tour.playerRatio</td>
         <td>@tour.winner.map { player =>
@@ -90,7 +102,7 @@
     <thead>
       <tr>
         <th class="large">@trans.finished()</th>
-        <th>@trans.mode()</th>
+        <th></th>
         <th>@trans.timeControl()</th>
         <th>@trans.players()</th>
         <th>@trans.winner()</th>
@@ -100,14 +112,7 @@
       @finisheds.map { tour =>
       <tr>
         <td>@linkTo(tour)</td>
-        <td class="small">
-          @if(tour.variant.exotic) {
-          960
-          }
-          @if(tour.rated) {
-          @trans.rated()
-          }
-        </td>
+        <td class="small">@tourMode(tour)</td>
         <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
         <td data-icon="r">&nbsp;@tour.playerRatio</td>
         <td>@tour.winner.map { player =>

@@ -40,7 +40,7 @@ object Tournament extends LilaController {
   }
 
   private def tournaments =
-    repo.created zip repo.started zip repo.finished(20)
+    repo.enterable zip repo.started zip repo.finished(20)
 
   def show(id: String) = Open { implicit ctx =>
     repo byId id flatMap {
@@ -82,7 +82,7 @@ object Tournament extends LilaController {
           tour.hasPassword.fold(
             fuccess(routes.Tournament.joinPassword(id)),
             env.api.join(tour, me, none).fold(
-              err => routes.Tournament.home(),
+              _ => routes.Tournament.show(tour.id),
               _ => routes.Tournament.show(tour.id)
             )
           )

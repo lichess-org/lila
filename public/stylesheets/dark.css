@@ -99,6 +99,7 @@ body.dark #hooks_chart > div.grid,
 body.dark div.analysis_menu,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
+body.dark #enterable_tournaments table.scheduled,
 body.dark div.analysis_menu > a {
   border-color: #3d3d3d;
 }

@@ -13,6 +13,7 @@ chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some) {
 <div
   id="tournament"
+  @if(tour.scheduled) { class="scheduled" }
   data-href="@routes.Tournament.reload(tour.id)"
   data-socket-url="@routes.Tournament.websocket(tour.id)">
   @tournament.show.inner(side)(body)

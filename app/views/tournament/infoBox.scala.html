@@ -4,7 +4,11 @@
   <div class="box">
     @trans.createdBy() @userIdLink(tour.createdBy.some, withOnline = false)
     <br />
+    @tour.schedule.map { s =>
+    @momentFormat(s.at, "calendar")
+    }.getOrElse {
     @timeago(tour.createdAt)
+    }
     @tour.password.map { password =>
     <br />
     <span data-icon="a">

@@ -42,6 +42,10 @@ trait DateHelper { self: I18nHelper =>
     s"""<time class="moment" datetime="${isoFormatter print date}" data-format="$format"></time>"""
   }
 
+  def momentFromNow(date: DateTime) = Html {
+    s"""<time class="moment-from-now from-now" datetime="${isoFormatter print date}"></time>"""
+  }
+
   def timeago(date: DateTime)(implicit ctx: Context): Html = Html {
     s"""<time class="timeago" datetime="${isoFormatter print date}"></time>"""
   }

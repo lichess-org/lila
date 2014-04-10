@@ -34,12 +34,13 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         Schedule(Daily, Blitz, at(today, 16)),
         Schedule(Daily, Slow, at(today, 18)),
         Schedule(Hourly, Bullet, at(nextHourDate, nextHour)),
+        Schedule(Hourly, Bullet, at(nextHourDate, rightNow.getHourOfDay, 43)),
         Schedule(Hourly, Blitz, at(nextHourDate, nextHour, 30))
       ).foldLeft(List[Schedule]()) {
-          case (scheds, sched) if sched.at.isBeforeNow              => scheds
-          case (scheds, sched) if dbScheds.exists(_.at == sched.at) => scheds
-          case (scheds, sched) if scheds.exists(_.at == sched.at)   => scheds
-          case (scheds, sched)                                      => sched :: scheds
+          case (scheds, sched) if sched.at.isBeforeNow       => scheds
+          case (scheds, sched) if dbScheds exists sched.like => scheds
+          case (scheds, sched) if scheds exists sched.like   => scheds
+          case (scheds, sched)                               => sched :: scheds
         }
 
       scheds foreach api.createScheduled

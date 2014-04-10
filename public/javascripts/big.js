@@ -591,6 +591,14 @@ var storage = {
     setMoment();
     $('body').on('lichess.content_loaded', setMoment);
 
+    function setMomentFromNow() {
+      $("time.moment-from-now").each(function() {
+        this.textContent = moment.parseZone(this.getAttribute('datetime')).fromNow();
+      });
+    }
+    setMomentFromNow();
+    setInterval(setMomentFromNow, 1000);
+
     // Start game
     var $game = $('div.lichess_game').orNot();
     if ($game) $game.game(_ld_);
@@ -859,12 +867,7 @@ var storage = {
       self.options.endUrl = self.element.data('end-url');
       self.options.socketUrl = self.element.data('socket-url');
 
-      $("div.game_tournament div.clock").each(function() {
-        $(this).clock({
-          time: $(this).data("time"),
-          showTenths: self.options.clockTenths
-        }).clock("start");
-      });
+      startTournamentClock();
 
       if (self.options.tournament_id) {
         $('body').data('tournament-id', self.options.tournament_id);
@@ -1451,6 +1454,7 @@ var storage = {
         self.initTable();
         if (!(self.options.player.spectator && self.options.tv)) {
           $('div.lichess_goodies').replaceWith(data.infobox);
+          startTournamentClock();
         }
         if (self.$chat) self.$chat.chat('resize');
         if ($.isFunction(callback)) callback();
@@ -1707,6 +1711,15 @@ var storage = {
       this.$msgs.scrollTop(999999);
     }
   });
+
+  var startTournamentClock = function() {
+    $("div.game_tournament div.clock").each(function() {
+      $(this).clock({
+        time: $(this).data("time"),
+        showTenths: false
+      }).clock("start");
+    });
+  };
 
   $.widget("lichess.clock", {
     _create: function() {
@@ -2259,7 +2272,8 @@ var storage = {
     }));
 
     function reloadTournaments(data) {
-      $("table.tournaments tbody").html(data);
+      $("#enterable_tournaments").html(data);
+      $('body').trigger('lichess.content_loaded');
     }
 
     function reloadForum() {
