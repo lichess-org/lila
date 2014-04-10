@@ -1459,10 +1459,12 @@ div.game_config div.color_submits button.random span {
   height: 512px;
   top: 0;
   left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   background: #f0f0f0 url(../images/wN-bg.svg);
   background-size: 100% 100%;
+}
+#hooks_wrap:hover {
+  overflow-y: auto;
 }
 #hooks_wrap > div.tabs {
   position: absolute;
@@ -1512,18 +1514,6 @@ div.game_config div.color_submits button.random span {
 #hooks_wrap > a.filter.on span.number {
   display: inline;
 }
-#hook_overlay {
-  position: absolute;
-  z-index: 98;
-  top: 40px;
-  left: 0px;
-  width: 472px;
-  height: 512px;
-  display: none;
-}
-#hook_overlay.show {
-  display: block;
-}
 
 #hook_filter {
   position: absolute;
@@ -1572,94 +1562,97 @@ div.game_config div.color_submits button.random span {
   padding: 6px;
   margin-left: 3px;
 }
-#hooks_table {
+#hooks_wrap table {
   width: 512px;
   max-height: 512px;
   overflow: hidden;
   text-shadow: 0px 1px 0px #FFF;
 }
-#hooks_table thead th {
+#hooks_wrap table thead th {
   cursor: pointer;
-  padding: 12px 12px;
+  padding: 13px 12px;
   font-weight: lighter;
   border-bottom: 1px solid #ccc;
 }
-#hooks_table thead .reload {
+#hooks_wrap table th.reload span {
   display: block;
   cursor: pointer;
   margin-left: 2px;
-  opacity: 0.6;
-  transition: all 0.5s;
+  opacity: 0.5;
+  transition: all 0.1s;
 }
-#hooks_table thead .reload.off {
-	opacity: 0;
+#hooks_wrap table th.reload:hover span {
+	opacity: 0.8;
 }
-#hooks_table thead .reload:hover {
-	opacity: 1;
-}
-#hooks_table th.sorting-asc,
-#hooks_table th.sorting-desc {
+#hooks_wrap table th.sorting-asc,
+#hooks_wrap table th.sorting-desc {
   font-weight: normal;
 }
-#hooks_table th.sorting-desc .is:before {
+#hooks_wrap table th.sorting-desc .is:before {
   content: "R";
 }
-#hooks_table th.sorting-asc .is:before {
+#hooks_wrap table th.sorting-asc .is:before {
   content: "S";
 }
-#hooks_table th.player {
+#hooks_wrap table th.player {
   width: 110px;
 }
-#hooks_table td {
+#hooks_wrap table td {
   padding: 8px 12px;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
-  transition: opacity 0.4s;
+  transition: all 0.1s;
 }
-#hooks_table tr.disabled {
+#hooks_wrap table tr.disabled {
   opacity: 0.3;
 }
-#hooks_table tr.notyet {
-  visibility: collapse;
-}
-#hooks_table tr td {
+#hooks_wrap table tr td {
   transition: background 0.1s;
 }
-#hooks_table tr.disabled td {
+#hooks_wrap table tr.disabled td {
   cursor: not-allowed;
   background: rgba(75, 99, 00, 0.2)!important;
 }
-#hooks_table .ulink {
+#hooks_wrap table .ulink {
   text-decoration: none;
 }
-#hooks_table tr:nth-child(odd) td {
+#hooks_wrap table tr:nth-child(odd) td {
   background: rgba(255, 255, 255, 0.6);
 }
-#hooks_table tr:nth-child(even) td {
+#hooks_wrap table tr:nth-child(even) td {
   background: rgba(230, 230, 230, 0.5);
 }
-#hooks_table tr.cancel td {
+#hooks_wrap table tr.cancel td {
   background: rgba(200, 255, 200, 0.7);
 }
-#hooks_table tr:hover td {
+#hooks_wrap table tr:hover td {
   background: rgba(191, 231, 255, 0.7);
 }
-#hooks_table td:first-child {
+#hooks_wrap table td:first-child {
   width: 16px;
 }
-#hooks_table td:first-child span {
+#hooks_wrap table td:first-child span {
   display: block;
   padding: 0;
   width: 16px;
   height: 16px;
   opacity: 0.7;
 }
-#hooks_table .chess960 {
+#hooks_wrap table .chess960 {
   padding-left: 1em;
   font-size: 0.9em;
   font-weight: bold;
+}
+#tableclone {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 98;
+}
+#tableclone thead {
+  opacity: 0;
 }
 #hooks_chart {
   position: absolute;

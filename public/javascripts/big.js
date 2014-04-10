@@ -2081,41 +2081,38 @@ var storage = {
     var $timeline = $("#timeline");
     var $newposts = $("div.new_posts");
     var $canvas = $wrap.find('.canvas');
-    var $overlay = $('#hook_overlay');
-    var $table = $wrap.find('#hooks_table').sortable().find('th:eq(2)').click().end();
-    var $tablereload = $table.find('span.reload');
+    var $table = $wrap.find('#hooks_table').sortable();
+    var $tablereload = $table.find('th.reload');
     var $tbody = $table.find('tbody');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0;
     var myRating = isRegistered ? parseInt($userTag.data('rating'), 10) : null;
     var animation = 500;
     var pool = [];
+    var nextHooks = [];
 
+    var flushHooksTimeout;
+    var flushHooksSchedule = function() {
+      flushHooksTimeout = setTimeout(flushHooks, 8000);
+    };
     var flushHooks = function() {
-      $overlay.addClass('show');
+      clearTimeout(flushHooksTimeout);
+      $tbody.fadeIn(700);
+      $table.clone().attr('id', 'tableclone').appendTo($wrap).fadeOut(700, function() {
+        $(this).remove();
+      });
       $tbody.find('tr.disabled').remove();
-      $tbody.find('tr.notyet').removeClass('notyet');
+      $tbody.append(nextHooks);
+      nextHooks = [];
       $tbody.find('tr').hide().fadeIn(200);
       $table.trigger('sortable.sort');
-      setTimeout(function() {
-        $overlay.removeClass('show');
-      }, 600);
+      flushHooksSchedule();
     };
-    var preFlush = function() {
-      setTimeout(function() {
-        $tablereload.addClass('off');
-        setTimeout(function() {
-          $tablereload.removeClass('off');
-        }, 500);
-      }, 7000);
-    };
-    setInterval(function() {
+    flushHooksSchedule();
+    $tablereload.click(function(e) {
+      e.stopPropagation();
       flushHooks();
-      preFlush();
-    }, 8000);
-    preFlush();
-
-    $tablereload.click(flushHooks);
+    });
     $('body').on('lichess.hook-flush', flushHooks);
 
     $wrap.on('click', '>div.tabs>a', function() {
@@ -2217,8 +2214,8 @@ var storage = {
     resizeTimeline();
 
     _.each(lichess_preload.pool, addHook);
-    drawHooks();
-    $('body').trigger('lichess.hook-flush');
+    drawHooks(true);
+    $table.find('th:eq(2)').click().end();
 
     lichess.socket = new strongSocket("/lobby/socket", lichess_preload.version, $.extend(true, lichess.socketDefaults, {
       events: {
@@ -2312,7 +2309,7 @@ var storage = {
       });
     }
 
-    function drawHooks() {
+    function drawHooks(initial) {
       var filter = lichess_preload.filter;
       var seen = [];
       var hidden = 0;
@@ -2331,7 +2328,8 @@ var storage = {
           visible++;
           if (!$('#' + hook.id).length) {
             $canvas.append($(renderPlot(hook)).fadeIn(animation));
-            $tbody.append(renderTr(hook));
+            if (initial) $tbody.append(renderTr(hook));
+            else nextHooks.push(renderTr(hook));
           } else {
             $('#' + hook.id).not(':visible').fadeIn(animation);
             $tbody.children('.' + hook.id).show();
@@ -2433,7 +2431,7 @@ var storage = {
     function renderTr(hook) {
       var title = (hook.action == "join") ? $.trans('Join the game') : $.trans('cancel');
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
-      return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + ' notyet">' + _.map([
+      return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
         ['', '<span class="is2" data-icon="' + k + '"></span>'],
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous') +
           ((hook.engine && hook.action == 'join') ? ' <span data-icon="j"></span>' : '')
