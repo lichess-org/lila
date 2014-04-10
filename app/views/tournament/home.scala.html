@@ -1,4 +1,4 @@
-@(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished], leaderboard: List[User])(implicit ctx: Context)
+@(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished], scheduled: List[lila.tournament.Created], leaderboard: List[User])(implicit ctx: Context)
 
 @goodies = {
 <div class="tournament_links">
@@ -6,9 +6,20 @@
 </div>
 <h2 class="leaderboard_title">@trans.leaderboard()</h2>
 <ol class="tournament_leaderboard">
-@leaderboard.map { user =>
-<li>@userLink(user, withOnline = false, text = Some(user.username + " [" + user.toints.localize + "]"))</li>
-}
+  @leaderboard.map { user =>
+  <li>@userLink(user, withOnline = false, text = Some(user.username + " [" + user.toints.localize + "]"))</li>
+  }
+</ol>
+<h2 class="leaderboard_title">Lichess tournaments</h2>
+<ol class="scheduled_tournaments">
+  @scheduled.map { tour =>
+  @tour.schedule.map { s =>
+  <li>
+    <a href="@routes.Tournament.show(tour.id)">@tour.name</a><br />
+    @momentFormat(s.at, "calendar")
+  </li>
+  }
+  }
 </ol>
 }
 
@@ -16,6 +27,6 @@
 title = trans.tournaments.str(),
 goodies = goodies.some) {
 <div id="tournament" data-href="@routes.Tournament.homeReload()">
-@tournament.homeInner(createds, starteds, finisheds)
+  @tournament.homeInner(createds, starteds, finisheds)
 </div>
 }

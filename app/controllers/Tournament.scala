@@ -24,22 +24,22 @@ object Tournament extends LilaController {
     }
 
   val home = Open { implicit ctx =>
-    tournaments zip UserRepo.allSortToints(10) map {
-      case (((created, started), finished), leaderboard) =>
-        Ok(html.tournament.home(created, started, finished, leaderboard))
+    fetchTournaments zip repo.scheduled zip UserRepo.allSortToints(10) map {
+      case ((((created, started), finished), scheduled), leaderboard) =>
+        Ok(html.tournament.home(created, started, finished, scheduled, leaderboard))
     }
   }
 
   val faq = Open { implicit ctx => Ok(html.tournament.faqPage()).fuccess }
 
   val homeReload = Open { implicit ctx =>
-    tournaments map {
+    fetchTournaments map {
       case ((created, started), finished) =>
         Ok(html.tournament.homeInner(created, started, finished))
     }
   }
 
-  private def tournaments =
+  private def fetchTournaments =
     repo.enterable zip repo.started zip repo.finished(20)
 
   def show(id: String) = Open { implicit ctx =>

@@ -170,3 +170,13 @@ ol.tournament_leaderboard li {
 ol.tournament_leaderboard a {
   text-decoration: none;
 }
+ol.scheduled_tournaments li {
+  padding: 5px 0;
+}
+ol.scheduled_tournaments a {
+  font-weight: bold;
+  text-decoration: none;
+}
+ol.scheduled_tournaments a:hover {
+  text-decoration: underline;
+}

@@ -68,7 +68,9 @@ object TournamentRepo {
     $query(Json.obj(
       "status" -> Status.Created.id,
       "schedule" -> $exists(true)
-    ))
+    )) sort BSONDocument(
+      "schedule.at" -> 1
+    )
   ) map { _.map(asCreated).flatten }
 
   def withdraw(userId: String): Fu[List[String]] = for {
