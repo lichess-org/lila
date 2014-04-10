@@ -1,0 +1,10 @@
+@(tours: List[lila.tournament.Created])
+
+@if(tours.exists(_.scheduled)) {
+<table class="scheduled tournaments">
+  @tournament.createdTable(tours.filter(_.scheduled))
+</table>
+}
+<table class="tournaments">
+  @tournament.createdTable(tours.filterNot(_.scheduled))
+</table>

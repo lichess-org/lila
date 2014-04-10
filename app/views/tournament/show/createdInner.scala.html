@@ -11,10 +11,14 @@
     <thead>
       <tr>
         <th class="large">
+          @tour.schedule.map { s =>
+          Starting @momentFromNow(s.at)
+          }.getOrElse {
           @if(tour.enoughPlayersToStart) {
           @trans.tournamentIsStarting()
           } else {
           @trans.waitingForNbPlayers(tour.missingPlayers)
+          }
           }
         </th>
         @ctx.me.map { me =>
@@ -44,13 +48,13 @@
       </tr>
     </thead>
     <tbody>
-    @tour.players.map { player =>
-    <tr>
-      <td colspan="2">@userInfosLink(player.username, player.rating.some)</td>
-    </tr>
-    }
+      @tour.players.map { player =>
+      <tr>
+        <td colspan="2">@userInfosLink(player.username, player.rating.some)</td>
+      </tr>
+      }
     </tbody>
   </table>
 </div>
 <br />
-<div class="content_box_content">@tournament.faq(tour.minPlayers.toString, tour.rated.some)</div>
+<div class="content_box_content">@tournament.faq(!tour.scheduled option tour.minPlayers.toString, tour.rated.some)</div>

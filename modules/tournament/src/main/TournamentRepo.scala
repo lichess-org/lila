@@ -57,7 +57,7 @@ object TournamentRepo {
       "password" -> $exists(false)
     ) ++ $or(Seq(
         Json.obj("schedule" -> $exists(false)),
-        Json.obj("schedule.at" -> $lt($date(DateTime.now plusMinutes 15)))
+        Json.obj("schedule.at" -> $lt($date(DateTime.now plusMinutes 30)))
       ))) sort BSONDocument(
       "schedule.at" -> 1,
       "createdAt" -> 1

@@ -70,7 +70,7 @@ private[tournament] final class TournamentApi(
     created.enoughPlayersToEarlyStart option doStart(created.start)
 
   private[tournament] def startScheduled(created: Created) =
-    if (created.nbPlayers >= 4) doStart(created.start) else doWipe(created)
+    if (created.nbPlayers >= 2) doStart(created.start) else doWipe(created)
 
   private def doStart(started: Started): Funit =
     $update(started) >>-
@@ -142,7 +142,7 @@ private[tournament] final class TournamentApi(
       .filter(_ => List(chess.Status.Timeout, chess.Status.Outoftime) contains game.status)
 
   private def lobbyReload {
-    TournamentRepo.created foreach { tours =>
+    TournamentRepo.enterable foreach { tours =>
       renderer ? TournamentTable(tours) map {
         case view: play.api.templates.Html => ReloadTournaments(view.body)
       } pipeToSelection lobby

@@ -21,18 +21,17 @@ private[app] final class Renderer extends Actor {
     case lila.tournament.actorApi.RemindTournament(tournament) =>
       sender ! V.tournament.reminder(tournament)
 
-    case lila.hub.actorApi.setup.RemindChallenge(gameId, from, _) => {
+    case lila.hub.actorApi.setup.RemindChallenge(gameId, from, _) =>
       val replyTo = sender
       (GameRepo game gameId) zip (UserRepo named from) onSuccess {
         case (Some(game), Some(user)) => replyTo ! V.setup.challengeNotification(game, user)
       }
-    }
 
     case lila.hub.actorApi.RemindDeployPre  => sender ! V.notification.deploy("pre")
     case lila.hub.actorApi.RemindDeployPost => sender ! V.notification.deploy("post")
 
     case lila.tournament.actorApi.TournamentTable(tours) =>
-      sender ! V.tournament.createdTable(tours)
+      sender ! V.tournament.enterable(tours)
 
     case lila.puzzle.RenderDaily(puzzle, fen, lastMove) =>
       sender ! V.puzzle.daily(puzzle, fen, lastMove)

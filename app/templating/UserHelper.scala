@@ -89,8 +89,9 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val klass = userClass(userId, cssClass, withOnline)
     val href = userHref(username, params = params)
     val content = truncate.fold(username)(username.take)
-    val dataIcon = withOnline ?? """data-icon="r""""
-    s"""<a $dataIcon $klass $href>&nbsp;$content</a>"""
+    val space = if (withOnline) "&nbsp;" else ""
+    val dataIcon = if (withOnline) """data-icon="r"""" else ""
+    s"""<a $dataIcon $klass $href>$space$content</a>"""
   }
 
   def userLink(
@@ -105,8 +106,9 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val href = userHref(user.username)
     val content = text | withRating.fold(user.usernameWithRating, user.username)
     val progress = withProgress ?? (" " + showProgress(user.progress))
-    val dataIcon = withOnline ?? """data-icon="r""""
-    s"""<a $dataIcon $klass $href>&nbsp;$content$progress</a>"""
+    val space = if (withOnline) "&nbsp;" else ""
+    val dataIcon = if (withOnline) """data-icon="r"""" else ""
+    s"""<a $dataIcon $klass $href>$space$content$progress</a>"""
   }
 
   def userInfosLink(
@@ -118,8 +120,9 @@ trait UserHelper { self: I18nHelper with StringHelper =>
       val klass = userClass(userId, cssClass, withOnline)
       val href = userHref(username)
       val content = rating.fold(username)(e => s"$username ($e)")
-    val dataIcon = withOnline ?? """data-icon="r""""
-      s"""<a $dataIcon $klass $href>&nbsp;$content</a>"""
+      val space = if (withOnline) "&nbsp;" else ""
+      val dataIcon = if (withOnline) """data-icon="r"""" else ""
+      s"""<a $dataIcon $klass $href>$space$content</a>"""
     }
   } await
 

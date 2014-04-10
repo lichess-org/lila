@@ -53,7 +53,6 @@ time {
 time::first-letter {
   text-transform: uppercase;
 }
-
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
@@ -79,7 +78,8 @@ time::first-letter {
   font-weight: normal;
   font-style: normal;
 }
-.is:before, [data-icon]:before {
+.is:before,
+[data-icon]:before {
   font-size: 1.2em;
   vertical-align: middle;
   font-family: "lichess" !important;
@@ -398,7 +398,7 @@ html {
   min-height: 100%;
 }
 body {
-  font: 12px 'Open Sans', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
+  font: 12px'Open Sans', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   color: #747474;
   background: #f7f7f7;
   background-image: -moz-linear-gradient(top, #d7d7d7 0%, #f7f7f7 116px);
@@ -478,7 +478,6 @@ body.tight #top {
 #lichess {
   margin-left: 211px;
 }
-
 body.tight #lichess {
   margin-left: 10px;
 }
@@ -617,7 +616,7 @@ div.content_box_inter {
   display: block;
 }
 div.content_box_inter .intertab {
-  display:inline-block;
+  display: inline-block;
   text-align: center;
   line-height: 1.4em;
   margin: 5px 0 -1px 0;
@@ -976,7 +975,7 @@ a#sound_state.unavailable {
 }
 #translation_call .button {
   margin: 5px 0 0 0;
-  display:inline-block;
+  display: inline-block;
 }
 #translation_call span.name {
   font-weight: bold;
@@ -1074,7 +1073,7 @@ table.slist thead {
   background: -o-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
   background: -ms-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
   background: linear-gradient(to bottom, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
-  text-decoration: none;
+  text-decoration: none !important;
   text-shadow: 0px 1px 0px #FFF;
   color: #848484;
 }
@@ -1474,7 +1473,7 @@ div.game_config div.color_submits button.random span {
   line-height: 20px;
 }
 #hooks_wrap > div.tabs > a {
-  display:inline-block;
+  display: inline-block;
   text-decoration: none;
   padding: 0px 10px;
   border: 1px solid #ccc;
@@ -1514,7 +1513,6 @@ div.game_config div.color_submits button.random span {
 #hooks_wrap > a.filter.on span.number {
   display: inline;
 }
-
 #hook_filter {
   position: absolute;
   z-index: 99;
@@ -1582,7 +1580,7 @@ div.game_config div.color_submits button.random span {
   transition: all 0.1s;
 }
 #hooks_wrap table th.reload:hover span {
-	opacity: 0.8;
+  opacity: 0.8;
 }
 #hooks_wrap table th.sorting-asc,
 #hooks_wrap table th.sorting-desc {
@@ -1868,17 +1866,38 @@ div.undertable.leaderboard td:first-child {
   max-width: 150px;
   overflow: hidden;
 }
-div.open_tournaments div.undertable_inner {
+#enterable_tournaments {
   height: auto;
 }
-div.open_tournaments input.submit {
-  padding: 0.2em 1em;
-}
-div.open_tournaments td:first-child {
+#enterable_tournaments td:first-child {
   padding-left: 1em;
 }
-div.open_tournaments tr.create td {
+#enterable_tournaments tr.create td {
   text-align: center;
+}
+#enterable_tournaments a {
+  text-decoration: none;
+}
+#enterable_tournaments button {
+  padding: 4px 8px;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+#enterable_tournaments tr:hover button {
+  opacity: 1;
+}
+#enterable_tournaments a:hover {
+  text-decoration: underline;
+}
+#enterable_tournaments table.scheduled {
+  border-bottom: 1px solid #ccc;
+}
+#enterable_tournaments table.scheduled a {
+  font-weight: bold;
+  color: #d59120;
+}
+#enterable_tournaments td:last-child {
+  width: 20px;
 }
 div.new_posts li {
   margin: 0.6em 0;
@@ -1907,7 +1926,6 @@ div.lichess_overboard.joining a.decline {
 div.lichess_overboard.joining .mini_board {
   margin: 10px auto;
 }
-
 #playing_crosstable {
   margin: 40px 0;
 }
@@ -1941,7 +1959,6 @@ div.lichess_overboard.joining .mini_board {
 #crosstable .score {
   font-size: 1.3em;
 }
-
 #timeline {
   margin-top: 2em;
   border-top: 1px solid #e4e4e4;
@@ -2082,7 +2099,7 @@ input.copyable {
 #board_editor .copyables .name {
   font-family: monospace;
   font-size: 1.2em;
-  display:inline-block;
+  display: inline-block;
   width: 40px;
 }
 #board_editor .copyable {
