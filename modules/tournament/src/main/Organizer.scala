@@ -12,6 +12,7 @@ import makeTimeout.short
 private[tournament] final class Organizer(
     api: TournamentApi,
     reminder: ActorRef,
+    isOnline: String => Boolean,
     socketHub: ActorRef) extends Actor {
 
   context.system.lilaBus.subscribe(self, 'finishGame)
@@ -22,6 +23,7 @@ private[tournament] final class Organizer(
       _ foreach { tour =>
         if (tour.isEmpty) api wipeEmpty tour
         else if (tour.enoughPlayersToStart) api startIfReady tour
+        else tour.userIds filterNot isOnline foreach { api.withdraw(tour, _) }
       }
     }
 
