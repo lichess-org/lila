@@ -274,6 +274,7 @@ goodMove=Dobrý tah
 butYouCanDoBetter=Ale není to nejlepší tah
 bestMove=Nejlepší tah!
 keepGoing=Pokračujte ....
+victory=Viťezství!
 giveUp=Vzdát se
 puzzleSolvedInXSeconds=Úloha vyřešena za %s vteřin
 thankYou=Díky!
