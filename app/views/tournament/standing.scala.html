@@ -1,6 +1,6 @@
 @(tour: lila.tournament.StartedOrFinished)(implicit ctx: Context)
 
-<table class="slist standing">
+<table class="slist standing @if(tour.scheduled) { scheduled }">
   <thead>
     <tr>
       <th class="large" colspan="2">@trans.standing()</th>
@@ -18,10 +18,10 @@
       <td>
         <span class="rank">@rank</span>
         @if(tour.isFinished && rank == 1) {
-        <span data-icon="g" title="@trans.winner"></span>
+        <span data-icon="g" title="@trans.winner()"></span>
         } else {
         @if(player.withdraw) {
-        <span data-icon="b" title="@trans.withdraw"></span>
+        <span data-icon="b" title="@trans.withdraw()"></span>
         }
         }
       </td>
