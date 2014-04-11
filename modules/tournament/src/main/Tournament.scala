@@ -297,7 +297,7 @@ object Tournament {
       createdBy = "lichess",
       createdAt = DateTime.now,
       variant = Variant.Standard,
-      mode = Mode.Casual,
+      mode = Mode.Rated,
       password = None,
       minutes = minutes,
       schedule = Some(sched),
