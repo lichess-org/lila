@@ -70,7 +70,7 @@ private[tournament] final class TournamentApi(
     created.enoughPlayersToEarlyStart option doStart(created.start)
 
   private[tournament] def startScheduled(created: Created) =
-    if (created.nbPlayers >= 2) doStart(created.start) else doWipe(created)
+    if (created.nbPlayers >= 4) doStart(created.start) else doWipe(created)
 
   private def doStart(started: Started): Funit =
     $update(started) >>-
@@ -83,17 +83,19 @@ private[tournament] final class TournamentApi(
   private def doWipe(created: Created): Funit =
     $remove(created) >>- reloadSiteSocket >>- lobbyReload
 
-  def finish(started: Started): Fu[Tournament] = started.readyToFinish.fold({
-    val pairingsToAbort = started.playingPairings
-    val finished = started.finish
-    $update(finished) >>-
-      sendTo(started.id, ReloadPage) >>-
-      reloadSiteSocket >>-
-      (pairingsToAbort foreach { pairing =>
-        roundMap ! Tell(pairing.gameId, AbortForce)
-      }) >>
-      finished.players.filter(_.score > 0).map(p => UserRepo.incToints(p.id)(p.score)).sequenceFu inject finished
-  }, fuccess(started))
+  def finish(started: Started): Fu[Tournament] =
+    if (started.pairings.isEmpty) $remove(started) >>- reloadSiteSocket >>- lobbyReload inject started
+    else started.readyToFinish.fold({
+      val pairingsToAbort = started.playingPairings
+      val finished = started.finish
+      $update(finished) >>-
+        sendTo(started.id, ReloadPage) >>-
+        reloadSiteSocket >>-
+        (pairingsToAbort foreach { pairing =>
+          roundMap ! Tell(pairing.gameId, AbortForce)
+        }) >>
+        finished.players.filter(_.score > 0).map(p => UserRepo.incToints(p.id)(p.score)).sequenceFu inject finished
+    }, fuccess(started))
 
   def join(tour: Created, me: User, password: Option[String]): Funit =
     (tour.join(me, password)).future flatMap { tour2 =>
