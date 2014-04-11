@@ -94,13 +94,13 @@
     </thead>
     <tbody>
       @spy.otherUsers.map { o =>
-      <tr@{(o == u).??(Html(" class='same'"))}>
-        <td>@userLink(o)</td>
+      <tr @if(o == u){class="same"}>
+        <td>@userLink(o, mod = true)</td>
         <td>@o.count.game</td>
-        <td>@{o.engine.??("ENGINE")}</td>
-        <td>@{o.troll.??("TROLL")}</td>
-        <td>@{o.ipBan.??("IPBAN")}</td>
-        <td>@{o.disabled.??("CLOSED")}</td>
+        <td>@if(o.engine){ENGINE}</td>
+        <td>@if(o.troll){TROLL}</td>
+        <td>@if(o.ipBan){IPBAN}</td>
+        <td>@if(o.disabled){CLOSED}</td>
         <td>@timeago(o.createdAt)</td>
       </tr>
       }
