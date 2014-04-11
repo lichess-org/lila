@@ -13,7 +13,7 @@
 }
 
 @tourMode(tour: lila.tournament.Tournament) = {
-@tour.schedule.map { s =>
+@tour.schedule.filter(_ => tour.isOpen).map { s =>
 @momentFromNow(s.at)
 }.getOrElse {
 @if(tour.variant.exotic) { 960 }
@@ -48,7 +48,7 @@
     <thead>
       <tr>
         <th class="large">@trans.openTournaments()</th>
-        <th></th>
+        <th>@trans.mode()</th>
         <th>@trans.timeControl()</th>
         <th colspan="2">@trans.players()</th>
       </tr>
@@ -78,7 +78,7 @@
     <thead>
       <tr>
         <th class="large">@trans.playingRightNow()</th>
-        <th></th>
+        <th>@trans.mode()</th>
         <th>@trans.timeControl()</th>
         <th>@trans.players()</th>
         <th>Leader</th>
@@ -102,7 +102,7 @@
     <thead>
       <tr>
         <th class="large">@trans.finished()</th>
-        <th></th>
+        <th>@trans.mode()</th>
         <th>@trans.timeControl()</th>
         <th>@trans.players()</th>
         <th>@trans.winner()</th>
