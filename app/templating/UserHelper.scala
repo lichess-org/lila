@@ -63,8 +63,8 @@ trait UserHelper { self: I18nHelper with StringHelper =>
   def userIdLinkMini(userId: String) = Html {
     Env.user usernameOption userId map { username =>
       val klass = userClass(userId, none, false)
-      val href = userHref(username | userId)
-      val content = username | userId
+      val href = userHref(username getOrElse userId)
+      val content = username getOrElse userId
       s"""<a data-icon="r" $klass $href>&nbsp;$content</a>"""
     } await
   }
@@ -101,11 +101,12 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     withProgress: Boolean = false,
     withOnline: Boolean = true,
     withPowerTip: Boolean = true,
-    text: Option[String] = None) = Html {
+    text: Option[String] = None,
+    mod: Boolean = false) = Html {
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
-    val href = userHref(user.username)
+    val href = userHref(user.username, if (mod) "?mod" else "")
     val content = text | withRating.fold(user.usernameWithRating, user.username)
-    val progress = withProgress ?? (" " + showProgress(user.progress))
+    val progress = if(withProgress) " " + showProgress(user.progress) else ""
     val space = if (withOnline) "&nbsp;" else ""
     val dataIcon = if (withOnline) """data-icon="r"""" else ""
     s"""<a $dataIcon $klass $href>$space$content$progress</a>"""
