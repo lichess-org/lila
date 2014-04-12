@@ -14,7 +14,7 @@
 
 @tourMode(tour: lila.tournament.Tournament) = {
 @tour.schedule.filter(_ => tour.isOpen).map { s =>
-@momentFromNow(s.at)
+@momentFormat(s.at)<br />@momentFromNow(s.at)
 }.getOrElse {
 @if(tour.variant.exotic) { 960 }
 @if(tour.rated) { @trans.rated() }
