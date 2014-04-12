@@ -20,6 +20,8 @@ case class Topic(
     closed: Boolean,
     hidden: Boolean) {
 
+  def nbReplies = nbPosts - 1
+
   def updatedAt(troll: Boolean): DateTime = troll.fold(updatedAtTroll, updatedAt)
   def nbPosts(troll: Boolean): Int = troll.fold(nbPostsTroll, nbPosts)
   def lastPostId(troll: Boolean): String = troll.fold(lastPostIdTroll, lastPostId)
