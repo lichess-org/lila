@@ -86,14 +86,12 @@ final class Env(
     }
   }
 
-  private lazy val joiner = new GameJoiner(
-    roundMap = roundMap,
-    system = system)
+  private lazy val joiner = new GameJoiner(roundMap = roundMap, system = system)
 
   {
     import scala.concurrent.duration._
 
-    scheduler.message(5 seconds) {
+    scheduler.message(3 seconds) {
       organizer -> actorApi.CreatedTournaments
     }
 

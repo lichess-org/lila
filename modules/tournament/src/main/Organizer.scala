@@ -23,13 +23,14 @@ private[tournament] final class Organizer(
       _ foreach { tour =>
         if (tour.isEmpty) api wipeEmpty tour
         else if (tour.enoughPlayersToStart) api startIfReady tour
-        else tour.userIds filterNot isOnline foreach { api.withdraw(tour, _) }
+        else ejectLeavers(tour)
       }
     }
 
     case ScheduledTournaments => TournamentRepo.scheduled foreach {
       _ foreach { tour =>
         if (tour.schedule ?? (_.at.isBeforeNow)) api startScheduled tour
+        else ejectLeavers(tour)
       }
     }
 
@@ -44,6 +45,9 @@ private[tournament] final class Organizer(
     case FinishGame(game, _, _) =>
       api finishGame game foreach { _ map (_.id) foreach api.socketReload }
   }
+
+  private def ejectLeavers(tour: Created) =
+    tour.userIds filterNot isOnline foreach { api.withdraw(tour, _) }
 
   private def startPairing(tour: Started) {
     withUserIds(tour.id) { ids =>
