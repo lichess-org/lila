@@ -92,8 +92,8 @@ body.dark div.user_show div.user-infos,
 body.dark div.game_config input[type="text"],
 body.dark #powerTip,
 body.dark #powerTip > .title,
-body.dark #hooks_wrap table th,
-body.dark #hooks_wrap table td,
+body.dark #hooks_wrap table.list th,
+body.dark #hooks_wrap table.list td,
 body.dark #hooks_wrap > div.tabs > a,
 body.dark #hooks_chart > div.grid,
 body.dark div.analysis_menu,
@@ -165,16 +165,16 @@ body.dark #friend_box .content a:hover,
 body.dark div.footer_wrap {
   background: #242424;
 }
-body.dark #hooks_wrap table tr:nth-child(even) td {
+body.dark #hooks_wrap table.list tr:nth-child(even) td {
   background: rgba(70, 70, 70, 0.5);
 }
-body.dark #hooks_wrap table tr:nth-child(odd) td {
+body.dark #hooks_wrap table.list tr:nth-child(odd) td {
   background: rgba(40, 40, 40, 0.6);
 }
-body.dark #hooks_wrap table tr.cancel td {
+body.dark #hooks_wrap table.list tr.cancel td {
   background: rgba(0, 80, 0, 0.7);
 }
-body.dark #hooks_wrap table tr:hover td {
+body.dark #hooks_wrap table.list tr:hover td {
   background: rgba(27, 51, 68, 0.7);
 }
 body.dark #hook_filter {
@@ -214,7 +214,7 @@ body.dark form.translation_form div.message {
   background: #2b2b2b;
 }
 body.dark #site_header div.side_menu a.active,
-body.dark #hooks_wrap table,
+body.dark #hooks_wrap table.list,
 body.dark div.content_box h1 {
   text-shadow: 0px 1px 0px #000;
 }
