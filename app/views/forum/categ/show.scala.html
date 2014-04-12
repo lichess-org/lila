@@ -46,7 +46,7 @@ title = categ.name) {
       <tr>
         <td class="subject"><a href="@routes.ForumTopic.show(categ.slug, topic.slug)">@topic.name</a></td>
         <td class="right">@topic.views.localize</td>
-        <td class="right">@topic.nbPosts.localize</td>
+        <td class="right">@topic.nbReplies.localize</td>
         <td class="last_post">
           @topic.lastPost.map { post =>
           <a href="@routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)#@post.number">@momentFormat(post.createdAt)</a><br />by @Html(authorName(post))
