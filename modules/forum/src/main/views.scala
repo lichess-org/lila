@@ -23,6 +23,7 @@ case class TopicView(
 
   def updatedAt = topic updatedAt troll
   def nbPosts = topic nbPosts troll
+  def nbReplies = topic nbReplies troll
   def lastPostId = topic lastPostId troll
 
   def id = topic.id
