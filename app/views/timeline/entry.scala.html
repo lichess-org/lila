@@ -17,5 +17,5 @@
   @trans.xPostedInForumY(userIdLink(userId.some), """<a href="%s" data-icon="d">&nbsp;%s</a>""".format(routes.ForumPost.redirect(postId), shorten(topicName, 30)))
   }
   }
-  @timeago(e.date)
+  @momentFormat(e.date)
 }

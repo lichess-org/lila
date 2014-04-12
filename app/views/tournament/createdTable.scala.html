@@ -16,7 +16,7 @@
     <a data-icon="g" href="@routes.Tournament.show(tour.id)">&nbsp;@tour.name</a>
   </td>
   @tour.schedule.map { s =>
-  <td>@momentFormat(s.at)</td>
+  <td>@momentFormat(s.at)<br />@momentFromNow(s.at)</td>
   }.getOrElse {
   <td class="small">
     <span data-icon="p">&nbsp;@tour.clock.show</span>

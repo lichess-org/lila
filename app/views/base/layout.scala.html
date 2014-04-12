@@ -199,8 +199,8 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     @moreJs
     @if(lang.language != "en") {
     @jsAt(s"trans/${lang.language}.js")
-    @timeagoLocale.map { l =>
-    @jsAt(s"vendor/timeago/locales/jquery.timeago.$l.js")
+    @momentLang.map { l =>
+    @jsAt(s"compiled/moment-lang/$l.min.js")
     }
     }
     @base.ga()

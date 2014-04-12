@@ -17,7 +17,7 @@
       <td>@userLink(request.user)</td>
       }
       <td>@autoLink(request.message)</td>
-      <td>@timeago(request.date)</td>
+      <td>@momentFormat(request.date)</td>
       <td class="process">
         <form class="process-request" action="@routes.Team.requestProcess(request.id)" method="post">
           <input type="hidden" name="url" value="@t.fold(routes.Team.requests())(te => routes.Team.show(te.id))" />

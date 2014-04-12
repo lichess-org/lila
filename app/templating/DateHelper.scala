@@ -38,32 +38,26 @@ trait DateHelper { self: I18nHelper =>
 
   def isoDate(date: DateTime): String = isoFormatter print date
 
-  def momentFormat(date: DateTime, format: String = "calendar") = Html {
+  def momentFormat(date: DateTime, format: String): Html = Html {
     s"""<time class="moment" datetime="${isoFormatter print date}" data-format="$format"></time>"""
   }
+  def momentFormat(date: DateTime): Html = momentFormat(date, "calendar")
 
   def momentFromNow(date: DateTime) = Html {
     s"""<time class="moment-from-now" datetime="${isoFormatter print date}"></time>"""
   }
 
-  def timeago(date: DateTime)(implicit ctx: Context): Html = Html {
-    s"""<time class="timeago" datetime="${isoFormatter print date}"></time>"""
+  def momentLang(implicit ctx: Context): Option[String] = lang(ctx).language match {
+    case "en" => none
+    case "pt" => "pt-br".some
+    case "zh" => "zh-cn".some
+    case l    => momentLangs(l) option l
   }
 
-  def timeagoLocale(implicit ctx: Context): Option[String] =
-    lang(ctx).language match {
-      case "en" => none
-      case "fr" => "fr-short".some
-      case "pt" => "pt-br".some
-      case "zh" => "zh-CN".some
-      case l    => timeagoLocales(l) option l
-    }
-
-  private lazy val timeagoLocales: Set[String] = {
-    import java.io.File
-    val Regex = """^jquery\.timeago\.(\w{2})\.js$""".r
-    (new File(Env.current.timeagoLocalesPath).listFiles map (_.getName) collect {
+  private lazy val momentLangs: Set[String] = {
+    val Regex = """^(\w{2})\.min\.js$""".r
+    (new java.io.File(Env.current.momentLangsPath).listFiles map (_.getName) collect {
       case Regex(l) => l
-    }).toSet: Set[String]
+    }).toSet
   }
 }

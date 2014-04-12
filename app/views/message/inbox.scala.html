@@ -21,9 +21,7 @@ title = trans.inbox.str()) {
       <td class="author">
         @userIdLink(thread.otherUserId(me), none)
       </td>
-      <td class="date">
-        @timeago(thread.updatedAt)
-      </td>
+      <td class="date">@momentFormat(thread.updatedAt)</td>
     </tr>
     }
   </tbody>

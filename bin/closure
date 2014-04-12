@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 . bin/lilarc
 
 mkdir -p public/compiled
@@ -7,6 +7,14 @@ for file in tv.js common.js big.js chart2.js user.js boardEditor.js pgn4hacks.js
   comp=public/compiled/$file
   if [[ ! -f $comp || $orig -nt $comp ]]; then
     lilalog "Compiling lila javascript - $file"
+    closure --js $orig --js_output_file $comp
+  fi
+done
+mkdir -p public/compiled/moment-lang
+for orig in public/javascripts/vendor/moment/lang/*.js; do
+  comp=$(echo $orig | sed -re 's#^.+/(.+)\.js$#public/compiled/moment-lang/\1.min.js#')
+  if [[ ! -f $comp || $orig -nt $comp ]]; then
+    lilalog "Compiling moment lang - $comp"
     closure --js $orig --js_output_file $comp
   fi
 done

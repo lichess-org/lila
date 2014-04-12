@@ -50,9 +50,6 @@ button {
 time {
   display: inline-block;
 }
-time::first-letter {
-  text-transform: uppercase;
-}
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;

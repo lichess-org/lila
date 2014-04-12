@@ -53,7 +53,7 @@
         <p class="meta clearfix">
           <a href="@routes.ForumPost.redirect(v.post.id)">@v.topic.name</a>
           @authorLink(v.post, withOnline = false)
-          @timeago(v.post.createdAt)
+          @momentFormat(v.post.createdAt)
         </p>
         <p>@shorten(v.post.text, 200)</p>
       </li>

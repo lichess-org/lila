@@ -10,7 +10,7 @@
     @if(g.isBeingPlayed) {
     <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)" data-icon="v"> @trans.playingRightNow()</a>,
     } else {
-    @timeago(g.createdAt)
+    @momentFormat(g.createdAt)
     }
     @if(g.finishedOrAborted) {
     @gameEndStatus(g)
