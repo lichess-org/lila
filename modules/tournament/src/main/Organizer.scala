@@ -19,18 +19,17 @@ private[tournament] final class Organizer(
 
   def receive = {
 
-    case CreatedTournaments => TournamentRepo.created foreach {
+    case EnterableTournaments => TournamentRepo.unsortedEnterable foreach {
       _ foreach { tour =>
-        if (tour.isEmpty) api wipeEmpty tour
-        else if (tour.enoughPlayersToStart) api startIfReady tour
-        else ejectLeavers(tour)
-      }
-    }
-
-    case ScheduledTournaments => TournamentRepo.scheduled foreach {
-      _ foreach { tour =>
-        if (tour.schedule ?? (_.at.isBeforeNow)) api startScheduled tour
-        else ejectLeavers(tour)
+        tour schedule match {
+          case None =>
+            if (tour.isEmpty) api wipeEmpty tour
+            else if (tour.enoughPlayersToStart) api startIfReady tour
+            else ejectLeavers(tour)
+          case Some(schedule) =>
+            if (schedule.at.isBeforeNow) api startScheduled tour
+            else ejectLeavers(tour)
+        }
       }
     }
 
