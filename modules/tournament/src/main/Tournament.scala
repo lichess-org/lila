@@ -159,7 +159,12 @@ case class Created(
   def asScheduled = schedule map { Scheduled(this, _) }
 }
 
-case class Scheduled(tour: Created, schedule: Schedule)
+case class Scheduled(tour: Created, schedule: Schedule) {
+
+  def endsAt = schedule.at plus (tour.minutes.toLong * 60 * 1000)
+  def interval = new org.joda.time.Interval(schedule.at, endsAt)
+  def overlaps(other: Scheduled) = interval overlaps other.interval
+}
 
 case class Enterable(tours: List[Created], scheduled: List[Created])
 
