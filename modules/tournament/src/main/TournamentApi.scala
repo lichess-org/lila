@@ -70,7 +70,7 @@ private[tournament] final class TournamentApi(
     created.enoughPlayersToEarlyStart option doStart(created.start)
 
   private[tournament] def startScheduled(created: Created) =
-    if (created.nbPlayers >= 4) doStart(created.start) else doWipe(created)
+    if (created.nbPlayers >= Tournament.minPlayers) doStart(created.start) else doWipe(created)
 
   private def doStart(started: Started): Funit =
     $update(started) >>-

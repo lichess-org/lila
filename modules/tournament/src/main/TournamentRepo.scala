@@ -51,18 +51,19 @@ object TournamentRepo {
     limit
   ) map { _.map(asFinished).flatten }
 
+  private val enterableQuery = $query(Json.obj(
+    "status" -> Status.Created.id,
+    "password" -> $exists(false)
+  ) ++ $or(Seq(
+      Json.obj("schedule" -> $exists(false)),
+      Json.obj("schedule.at" -> $lt($date(DateTime.now plusMinutes 30)))
+    )))
+
   def enterable: Fu[List[Created]] = $find(
-    $query(Json.obj(
-      "status" -> Status.Created.id,
-      "password" -> $exists(false)
-    ) ++ $or(Seq(
-        Json.obj("schedule" -> $exists(false)),
-        Json.obj("schedule.at" -> $lt($date(DateTime.now plusMinutes 30)))
-      ))) sort BSONDocument(
-      "schedule.at" -> 1,
-      "createdAt" -> 1
-    )
+    enterableQuery sort BSONDocument("schedule.at" -> 1, "createdAt" -> 1)
   ) map { _.map(asCreated).flatten }
+
+  def unsortedEnterable: Fu[List[Created]] = $find(enterableQuery) map { _.map(asCreated).flatten }
 
   def scheduled: Fu[List[Created]] = $find(
     $query(Json.obj(
