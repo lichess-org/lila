@@ -27,6 +27,6 @@ trait IRCHelper { self: TeamHelper with SecurityHelper with I18nHelper =>
     isGranted(_.StaffForum) ?? List("lichess-staff")
 
   private def langChans(implicit ctx: Context) =
-    List("lichess", lang.language + ".lichess")
+    List("lichess", lang.language + ".lichess") filterNot ("en.lichess" ==)
 }
 
