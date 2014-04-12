@@ -1557,42 +1557,42 @@ div.game_config div.color_submits button.random span {
   padding: 6px;
   margin-left: 3px;
 }
-#hooks_wrap table {
+#hooks_wrap table.list {
   width: 512px;
   max-height: 512px;
   overflow: hidden;
   text-shadow: 0px 1px 0px #FFF;
 }
-#hooks_wrap table thead th {
+#hooks_wrap table.list thead th {
   cursor: pointer;
   padding: 13px 12px;
   font-weight: lighter;
   border-bottom: 1px solid #ccc;
 }
-#hooks_wrap table th.reload span {
+#hooks_wrap table.list th.reload span {
   display: block;
   cursor: pointer;
   margin-left: 2px;
   opacity: 0.5;
   transition: all 0.1s;
 }
-#hooks_wrap table th.reload:hover span {
+#hooks_wrap table.list th.reload:hover span {
   opacity: 0.8;
 }
-#hooks_wrap table th.sorting-asc,
-#hooks_wrap table th.sorting-desc {
+#hooks_wrap table.list th.sorting-asc,
+#hooks_wrap table.list th.sorting-desc {
   font-weight: normal;
 }
-#hooks_wrap table th.sorting-desc .is:before {
+#hooks_wrap table.list th.sorting-desc .is:before {
   content: "R";
 }
-#hooks_wrap table th.sorting-asc .is:before {
+#hooks_wrap table.list th.sorting-asc .is:before {
   content: "S";
 }
-#hooks_wrap table th.player {
+#hooks_wrap table.list th.player {
   width: 110px;
 }
-#hooks_wrap table td {
+#hooks_wrap table.list td {
   padding: 8px 12px;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
@@ -1600,39 +1600,39 @@ div.game_config div.color_submits button.random span {
   overflow: hidden;
   transition: all 0.1s;
 }
-#hooks_wrap table tr.disabled {
+#hooks_wrap table.list tr.disabled {
   opacity: 0.3;
 }
-#hooks_wrap table tr.disabled td {
+#hooks_wrap table.list tr.disabled td {
   cursor: not-allowed;
   background: rgba(75, 99, 00, 0.2)!important;
 }
-#hooks_wrap table .ulink {
+#hooks_wrap table.list .ulink {
   text-decoration: none;
 }
-#hooks_wrap table tr:nth-child(odd) td {
+#hooks_wrap table.list tr:nth-child(odd) td {
   background: rgba(255, 255, 255, 0.6);
 }
-#hooks_wrap table tr:nth-child(even) td {
+#hooks_wrap table.list tr:nth-child(even) td {
   background: rgba(230, 230, 230, 0.5);
 }
-#hooks_wrap table tr.cancel td {
+#hooks_wrap table.list tr.cancel td {
   background: rgba(200, 255, 200, 0.7);
 }
-#hooks_wrap table tr:hover td {
+#hooks_wrap table.list tr:hover td {
   background: rgba(191, 231, 255, 0.7);
 }
-#hooks_wrap table td:first-child {
+#hooks_wrap table.list td:first-child {
   width: 16px;
 }
-#hooks_wrap table td:first-child span {
+#hooks_wrap table.list td:first-child span {
   display: block;
   padding: 0;
   width: 16px;
   height: 16px;
   opacity: 0.7;
 }
-#hooks_wrap table .chess960 {
+#hooks_wrap table.list .chess960 {
   padding-left: 1em;
   font-size: 0.9em;
   font-weight: bold;
