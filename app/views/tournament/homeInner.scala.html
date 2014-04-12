@@ -36,7 +36,7 @@
     <tbody class="scheduled">
       @createds.filter(_.scheduled).map { tour =>
       <tr>
-        <td>@linkTo(tour)</td>
+        <td>@tournamentLink(tour)</td>
         <td class="small">@tourMode(tour)</td>
         <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
         <td data-icon="r">&nbsp;@tour.nbPlayers</td>
@@ -56,7 +56,7 @@
     <tbody>
       @createds.filterNot(_.scheduled).map { tour =>
       <tr>
-        <td>@linkTo(tour)</td>
+        <td>@tournamentLink(tour)</td>
         <td class="small">@tourMode(tour)</td>
         <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
         <td data-icon="r">&nbsp;@tour.playerRatio</td>
@@ -81,20 +81,17 @@
         <th>@trans.mode()</th>
         <th>@trans.timeControl()</th>
         <th>@trans.players()</th>
-        <th>Leader</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       @starteds.map { tour =>
       <tr>
-        <td>@linkTo(tour)</td>
+        <td>@tournamentLink(tour)</td>
         <td class="small">@tourMode(tour)</td>
         <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
         <td data-icon="r">&nbsp;@tour.playerRatio</td>
-        <td>@tour.winner.map { player =>
-          @userInfosLink(player.username, player.rating.some, withOnline = false)
-          }
-        </td>
+        <td>@joinButton(tour)</td>
       </tr>
       }
     </tbody>

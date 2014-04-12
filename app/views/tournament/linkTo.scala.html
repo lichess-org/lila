@@ -1,3 +1,0 @@
-@(tour: lila.tournament.Tournament)(implicit ctx: Context)
-
-<a data-icon="g" href="@routes.Tournament.show(tour.id)">&nbsp;@if(tour.scheduled) {@tour.name} else {@trans.xTournament(tour.name)}</a>

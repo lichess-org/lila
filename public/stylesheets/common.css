@@ -102,6 +102,9 @@ time {
 [data-icon].is-green:before {
   color: #759900;
 }
+[data-icon].is-gold:before {
+  color: #d59120;
+}
 @font-face {
   font-family: 'pgn4web ChessSansPiratf';
   src: url("../vendor/pgn4web/fonts/ChessSansPiratf.eot");
