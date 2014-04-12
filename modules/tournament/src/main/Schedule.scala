@@ -37,7 +37,7 @@ object Schedule {
     def apply(name: String) = all find (_.name == name)
   }
 
-  private[tournament] def durationFor(sched: Schedule): Option[Int] = ((sched.freq, sched.speed) match {
+  private[tournament] def durationFor(sched: Schedule): Option[Int] = Some((sched.freq, sched.speed) match {
     case (Freq.Hourly, Speed.Bullet)  => 30
     case (Freq.Hourly, Speed.Blitz)   => 50
     case (Freq.Hourly, Speed.Slow)    => 0 // N/A
@@ -50,10 +50,7 @@ object Schedule {
     case (Freq.Monthly, Speed.Bullet) => 60
     case (Freq.Monthly, Speed.Blitz)  => 100
     case (Freq.Monthly, Speed.Slow)   => 150
-  }) |> {
-    case 0       => None
-    case minutes => Some(minutes)
-  }
+  }) filter (0!=)
 
   private[tournament] def clockFor(sched: Schedule) = sched.speed match {
     case Schedule.Speed.Bullet => TournamentClock(60, 0)

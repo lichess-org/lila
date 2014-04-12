@@ -105,7 +105,7 @@ final class Env(
       organizer -> actorApi.StartedTournaments
     }
 
-    scheduler.message(10 minutes) {
+    scheduler.message(5 minutes) {
       tournamentScheduler -> actorApi.ScheduleNow
     }
     tournamentScheduler ! actorApi.ScheduleNow
