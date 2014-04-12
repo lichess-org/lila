@@ -587,17 +587,12 @@ var storage = {
         var format = this.getAttribute('data-format');
         this.textContent = format == 'calendar' ? parsed.calendar() : parsed.format(format);
       });
-    }
-    setMoment();
-    $('body').on('lichess.content_loaded', setMoment);
-
-    function setMomentFromNow() {
-      $("time.moment-from-now").each(function() {
+      $("time.moment-from-now").removeClass('moment-from-now').each(function() {
         this.textContent = moment(this.getAttribute('datetime')).fromNow();
       });
     }
-    setMomentFromNow();
-    setInterval(setMomentFromNow, 1000);
+    setMoment();
+    $('body').on('lichess.content_loaded', setMoment);
 
     // Start game
     var $game = $('div.lichess_game').orNot();
