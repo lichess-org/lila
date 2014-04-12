@@ -1,6 +1,6 @@
-@(tours: List[lila.tournament.Created])
+@(tours: List[lila.tournament.Created], scheduled: Boolean)
 
-@if(tours.isEmpty) {
+@if(!scheduled && tours.isEmpty) {
 <tr class="create">
   <td>
     <br />
@@ -10,8 +10,8 @@
   </td>
 </tr>
 } else {
-@tours.map { tour =>
-<tr>
+@tours.filter(_.scheduled == scheduled).map { tour =>
+<tr @if(scheduled) { class="scheduled" }>
   <td>
     <a data-icon="g" href="@routes.Tournament.show(tour.id)">&nbsp;@tour.name</a>
   </td>
@@ -19,14 +19,14 @@
   <td>@momentFormat(s.at)</td>
   }.getOrElse {
   <td class="small">
+    <span data-icon="p">&nbsp;@tour.clock.show</span>
     @if(tour.variant.exotic) {
-    960
+    [960]
     }
     @if(tour.rated) {
     <span class="trans_me">@trans.rated.en()</span>
     }
   </td>
-  <td data-icon="p">&nbsp;@tour.clock.show</td>
   }
   <td>@tour.durationString</td>
   <td data-icon="r">&nbsp;@tour.playerRatio</td>
