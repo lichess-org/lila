@@ -45,7 +45,7 @@
   @eval.map { e =>
   <div class="evaluation">
     <p>
-      @e.isDeep.fold("Thoroughly", "Quickly") evaluated @timeago(e.date) as @e.percent% -> <strong>@e.verdict(u.perfs)</strong>.
+      @e.isDeep.fold("Thoroughly", "Quickly") evaluated @momentFormat(e.date) as @e.percent% -> <strong>@e.verdict(u.perfs)</strong>.
       @if(e.games.nonEmpty) {
       Most suspicious games found:
       } else {
@@ -101,7 +101,7 @@
         <td>@if(o.troll){TROLL}</td>
         <td>@if(o.ipBan){IPBAN}</td>
         <td>@if(o.disabled){CLOSED}</td>
-        <td>@timeago(o.createdAt)</td>
+        <td>@momentFormat(o.createdAt)</td>
       </tr>
       }
     </tbody>

@@ -19,10 +19,6 @@
   margin: 21px 25px 0 0;
 }
 
-#tournament.scheduled time.moment-from-now::first-letter {
-  text-transform: none;
-}
-
 #tournament div.tournament_show {
   width: 525px;
 }

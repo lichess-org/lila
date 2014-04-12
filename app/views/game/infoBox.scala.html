@@ -15,7 +15,7 @@
     @if(game.isBeingPlayed) {
     @trans.playingRightNow()
     } else {
-    @game.updatedAt.map(timeago)
+    @game.updatedAt.map(momentFormat)
     }
     <br />
     }

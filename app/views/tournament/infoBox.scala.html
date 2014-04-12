@@ -5,9 +5,9 @@
     @trans.createdBy() @userIdLink(tour.createdBy.some, withOnline = false)
     <br />
     @tour.schedule.map { s =>
-    @momentFormat(s.at, "calendar")
+    @momentFormat(s.at)
     }.getOrElse {
-    @timeago(tour.createdAt)
+    @momentFormat(tour.createdAt)
     }
     @tour.password.map { password =>
     <br />
