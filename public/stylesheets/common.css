@@ -1889,10 +1889,7 @@ div.undertable.leaderboard td:first-child {
 #enterable_tournaments a:hover {
   text-decoration: underline;
 }
-#enterable_tournaments table.scheduled {
-  border-bottom: 1px solid #ccc;
-}
-#enterable_tournaments table.scheduled a {
+#enterable_tournaments tr.scheduled a {
   font-weight: bold;
   color: #d59120;
 }
