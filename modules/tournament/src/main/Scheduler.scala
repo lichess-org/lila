@@ -24,15 +24,15 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       val nextHour = nextHourDate.getHourOfDay
 
       val scheds = List(
-        Schedule(Monthly, Bullet, at(lastFridayOfCurrentMonth, 15)),
-        Schedule(Monthly, Blitz, at(lastFridayOfCurrentMonth, 16)),
-        Schedule(Monthly, Slow, at(lastFridayOfCurrentMonth, 18)),
-        Schedule(Weekly, Bullet, at(nextFriday, 15)),
-        Schedule(Weekly, Blitz, at(nextFriday, 16)),
-        Schedule(Weekly, Slow, at(nextFriday, 18)),
-        Schedule(Daily, Bullet, at(today, 15)),
-        Schedule(Daily, Blitz, at(today, 16)),
-        Schedule(Daily, Slow, at(today, 18)),
+        Schedule(Monthly, Bullet, at(lastFridayOfCurrentMonth, 17)),
+        Schedule(Monthly, Blitz, at(lastFridayOfCurrentMonth, 18)),
+        Schedule(Monthly, Slow, at(lastFridayOfCurrentMonth, 20)),
+        Schedule(Weekly, Bullet, at(nextFriday, 17)),
+        Schedule(Weekly, Blitz, at(nextFriday, 18)),
+        Schedule(Weekly, Slow, at(nextFriday, 20)),
+        Schedule(Daily, Bullet, at(today, 17)),
+        Schedule(Daily, Blitz, at(today, 18)),
+        Schedule(Daily, Slow, at(today, 20)),
         Schedule(Hourly, Bullet, at(nextHourDate, nextHour)),
         Schedule(Hourly, Blitz, at(nextHourDate, nextHour, 30))
       ).foldLeft(List[Schedule]()) {
