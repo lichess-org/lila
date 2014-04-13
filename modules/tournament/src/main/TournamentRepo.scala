@@ -57,7 +57,7 @@ object TournamentRepo {
     limit
   ) map { _.map(asFinished).flatten }
 
-  private val allCreatedQuery = $query(Json.obj(
+  private def allCreatedQuery = $query(Json.obj(
     "status" -> Status.Created.id,
     "password" -> $exists(false)
   ) ++ $or(Seq(
