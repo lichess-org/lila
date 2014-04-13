@@ -28,7 +28,7 @@ case class Evaluation(
     else "clean"
 
   def reportText(maxGames: Int = 10) = {
-    val gameText = games take maxGames map { g => s"${g.url} $g" } mkString "\n"
+    val gameText = games take maxGames map { g => s"${g.url}\n$g" } mkString "\n"
     s"[AUTOREPORT] Cheat evaluation: $percent%\n\n$gameText"
   }
 
@@ -65,9 +65,9 @@ object Evaluation {
       error: Option[Int]) {
 
     override def toString = List(
-      moveTime map (x => s"Move time deviation: $x%"),
-      blur map (x => s"Blur rate: $x%"),
-      error map (x => s"Error rate: $x%")
+      moveTime map (x => s"Move time: $x%"),
+      blur map (x => s"Blur: $x%"),
+      error map (x => s"Analysis: $x%")
     ).flatten mkString ", "
   }
 
