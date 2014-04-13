@@ -52,8 +52,8 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
 
   private def endsAt(s: Schedule) = s.at plus ((~Schedule.durationFor(s)).toLong * 60 * 1000)
   private def interval(s: Schedule) = new org.joda.time.Interval(s.at, endsAt(s))
-  private def overlaps(s: Schedule, ss: Seq[Schedule]) = ss exists { s2 =>
-    interval(s) overlaps interval(s2)
+  private def overlaps(s: Schedule, ss: Seq[Schedule]) = ss exists {
+    case s2 if s sameSpeed s2 => interval(s) overlaps interval(s2)
   }
 
   private def at(day: DateTime, hour: Int, minute: Int = 0) =
