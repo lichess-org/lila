@@ -181,7 +181,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     }
     @ctx.me.map { me =>
     <div id="friend_box" data-preload="@ctx.friends">
-      <div class="title">@trans.onlineFriends() - <strong class="online"> </strong>/<span class="total"> </span></div>
+      <div class="title"><strong class="online"> </strong> @trans.onlineFriends()</div>
       <div class="content_wrap">
         <div class="content list"></div>
         <div class="nobody">
