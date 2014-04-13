@@ -136,6 +136,9 @@ div.lichess_piece {
   height: 64px;
   background-size: cover;
 }
+div.lichess_piece.ui-draggable-dragging {
+  z-index: 999;
+}
 div.my_turn div.lichess_piece.ui-draggable {
   cursor: move;
 }
