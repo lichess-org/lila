@@ -14,7 +14,7 @@
 
 @tourMode(tour: lila.tournament.Tournament) = {
 @tour.schedule.filter(_ => tour.isOpen).map { s =>
-@momentFormat(s.at)<br />@momentFromNow(s.at)
+@momentFromNow(s.at)
 }.getOrElse {
 @if(tour.variant.exotic) { 960 }
 @if(tour.rated) { @trans.rated() }
@@ -36,7 +36,7 @@
       @createds.filter(_.scheduled).map { tour =>
       <tr class="scheduled">
         <td>@tournamentLink(tour)</td>
-        <td class="small">@tourMode(tour)</td>
+        <td>@tourMode(tour)</td>
         <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
         <td data-icon="r">&nbsp;@tour.nbPlayers</td>
         <td>@joinButton(tour)</td>
@@ -45,7 +45,7 @@
       @createds.filterNot(_.scheduled).map { tour =>
       <tr>
         <td>@tournamentLink(tour)</td>
-        <td class="small">@tourMode(tour)</td>
+        <td>@tourMode(tour)</td>
         <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
         <td data-icon="r">&nbsp;@tour.playerRatio</td>
         <td>@joinButton(tour)</td>
@@ -76,7 +76,7 @@
       @starteds.map { tour =>
       <tr>
         <td>@tournamentLink(tour)</td>
-        <td class="small">@tourMode(tour)</td>
+        <td>@tourMode(tour)</td>
         <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
         <td data-icon="r">&nbsp;@tour.nbPlayers</td>
         <td>@joinButton(tour)</td>
@@ -97,7 +97,7 @@
       @finisheds.map { tour =>
       <tr>
         <td>@tournamentLink(tour)</td>
-        <td class="small">@tourMode(tour)</td>
+        <td>@tourMode(tour)</td>
         <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
         <td data-icon="r">&nbsp;@tour.nbPlayers</td>
         <td>@tour.winner.map { player =>
