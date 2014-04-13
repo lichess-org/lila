@@ -60,7 +60,7 @@ object Analyse extends LilaController {
         case Some(i) => fuccess(i.pgn)
         case None => for {
           pgn ← Env.game.pgnDump(game)
-          analysis ← env.analyser get game.id
+          analysis ← env.analyser getDone game.id
         } yield analysis.fold(pgn)(a => Env.analyse.annotator(pgn, a)).toString
       }) flatMap { content =>
         Env.game.pgnDump filename game map { filename =>

@@ -28,7 +28,7 @@ private[gameSearch] final class Indexer(
     case FinishGame(game, _, _) => self ! InsertGame(game)
 
     case InsertGame(game) => if (storable(game)) {
-      analyser has game.id foreach { analysed =>
+      analyser hasDone game.id foreach { analysed =>
         client execute store(game, analysed)
       }
     }
