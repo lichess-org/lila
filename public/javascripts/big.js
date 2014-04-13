@@ -1330,7 +1330,6 @@ var storage = {
       self.$board.find("div.lichess_piece." + self.options.player.color).each(function() {
         var $this = $(this);
         $this.draggable({
-          containment: self.$board,
           helper: function() {
             return $('<div>').attr('class', $this.attr('class')).appendTo(self.$board);
           },
