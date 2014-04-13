@@ -16,8 +16,10 @@ private[tournament] case class Player(
 
   def is(userId: String): Boolean = id == userId
   def is(user: User): Boolean = is(user.id)
+  def is(other: Player): Boolean = is(other.id)
 
   def doWithdraw = copy(withdraw = true)
+  def unWithdraw = copy(withdraw = false)
 }
 
 private[tournament] object Player {

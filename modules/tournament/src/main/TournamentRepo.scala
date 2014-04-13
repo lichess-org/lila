@@ -19,6 +19,10 @@ object TournamentRepo {
   private def asFinished(tour: Tournament): Option[Finished] = tour.some collect {
     case t: Finished => t
   }
+  private def asEnterable(tour: Tournament): Option[Enterable] = tour.some collect {
+    case t: Created => t
+    case t: Started => t
+  }
 
   def byId(id: String): Fu[Option[Tournament]] = $find byId id
 
@@ -26,6 +30,8 @@ object TournamentRepo {
     $primitive.one($select(id), "name")(_.asOpt[String])
 
   def createdById(id: String): Fu[Option[Created]] = byIdAs(id, asCreated)
+
+  def enterableById(id: String): Fu[Option[Enterable]] = byIdAs(id, asEnterable)
 
   def startedById(id: String): Fu[Option[Started]] = byIdAs(id, asStarted)
 
@@ -51,7 +57,7 @@ object TournamentRepo {
     limit
   ) map { _.map(asFinished).flatten }
 
-  private val enterableQuery = $query(Json.obj(
+  private val allCreatedQuery = $query(Json.obj(
     "status" -> Status.Created.id,
     "password" -> $exists(false)
   ) ++ $or(Seq(
@@ -59,11 +65,11 @@ object TournamentRepo {
       Json.obj("schedule.at" -> $lt($date(DateTime.now plusMinutes 30)))
     )))
 
-  def enterable: Fu[List[Created]] = $find(
-    enterableQuery sort BSONDocument("schedule.at" -> 1, "createdAt" -> 1)
+  def allCreatedSorted: Fu[List[Created]] = $find(
+    allCreatedQuery sort BSONDocument("schedule.at" -> 1, "createdAt" -> 1)
   ) map { _.map(asCreated).flatten }
 
-  def unsortedEnterable: Fu[List[Created]] = $find(enterableQuery) map { _.map(asCreated).flatten }
+  def allCreated: Fu[List[Created]] = $find(allCreatedQuery) map { _.map(asCreated).flatten }
 
   def scheduled: Fu[List[Created]] = $find(
     $query(Json.obj(

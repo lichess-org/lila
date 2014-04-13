@@ -19,7 +19,7 @@ private[tournament] final class Organizer(
 
   def receive = {
 
-    case EnterableTournaments => TournamentRepo.unsortedEnterable foreach {
+    case AllCreatedTournaments => TournamentRepo.allCreated foreach {
       _ foreach { tour =>
         tour schedule match {
           case None =>

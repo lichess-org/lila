@@ -13,6 +13,7 @@ package object tournament extends PackageObject with WithPlay with WithSocket{
       implicit lazy val anyTube = tournamentTube
       implicit lazy val createdTube = Tournament.createdTube inColl Env.current.tournamentColl
       implicit lazy val startedTube = Tournament.startedTube inColl Env.current.tournamentColl
+      implicit lazy val enterableTube = Tournament.enterableTube inColl Env.current.tournamentColl
       implicit lazy val finishedTube = Tournament.finishedTube inColl Env.current.tournamentColl
     }
   }

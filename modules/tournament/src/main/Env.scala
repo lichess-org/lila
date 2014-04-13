@@ -25,7 +25,7 @@ final class Env(
   private val settings = new {
     val CollectionTournament = config getString "collection.tournament"
     val MessageTtl = config duration "message.ttl"
-    val EnterableCacheTtl = config duration "enterable.cache.ttl"
+    val CreatedCacheTtl = config duration "created.cache.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
@@ -76,8 +76,8 @@ final class Env(
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
 
-  private val enterable =
-    lila.memo.AsyncCache.single(TournamentRepo.enterable, timeToLive = EnterableCacheTtl)
+  val allCreatedSorted =
+    lila.memo.AsyncCache.single(TournamentRepo.allCreatedSorted, timeToLive = CreatedCacheTtl)
 
   def cli = new lila.common.Cli {
     import tube.tournamentTube
@@ -92,7 +92,7 @@ final class Env(
     import scala.concurrent.duration._
 
     scheduler.message(2 seconds) {
-      organizer -> actorApi.EnterableTournaments
+      organizer -> actorApi.AllCreatedTournaments
     }
 
     scheduler.message(3 seconds) {
