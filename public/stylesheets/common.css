@@ -1609,6 +1609,7 @@ div.game_config div.color_submits button.random span {
   white-space: nowrap;
   overflow: hidden;
   transition: all 0.1s;
+  background: rgba(255, 255, 255, 0.6);
 }
 #hooks_wrap table.list tr.disabled {
   opacity: 0.3;
@@ -1619,12 +1620,6 @@ div.game_config div.color_submits button.random span {
 }
 #hooks_wrap table.list .ulink {
   text-decoration: none;
-}
-#hooks_wrap table.list tr:nth-child(odd) td {
-  background: rgba(255, 255, 255, 0.6);
-}
-#hooks_wrap table.list tr:nth-child(even) td {
-  background: rgba(230, 230, 230, 0.5);
 }
 #hooks_wrap table.list tr.cancel td {
   background: rgba(200, 255, 200, 0.7);
