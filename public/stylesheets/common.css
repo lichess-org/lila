@@ -1106,9 +1106,16 @@ a.button,
 .ui-widget-content {
   border-radius: 2px;
 }
+.button.shy,
+a.button.shy {
+  border-color: transparent;
+  background: transparent;
+  font-weight: normal;
+}
 .button:hover,
 a.button:hover,
 .ui-state-hover {
+  border-color: #e2e2e2;
   background: rgb(253, 253, 253);
   background: -moz-linear-gradient(top, rgba(253, 253, 253, 1) 0%, rgba(248, 248, 248, 1) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(253, 253, 253, 1)), color-stop(100%, rgba(248, 248, 248, 1)));

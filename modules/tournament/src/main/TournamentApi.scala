@@ -97,7 +97,7 @@ private[tournament] final class TournamentApi(
         finished.players.filter(_.score > 0).map(p => UserRepo.incToints(p.id)(p.score)).sequenceFu inject finished
     }, fuccess(started))
 
-  def join(tour: Created, me: User, password: Option[String]): Funit =
+  def join(tour: Enterable, me: User, password: Option[String]): Funit =
     (tour.join(me, password)).future flatMap { tour2 =>
       TournamentRepo withdraw me.id flatMap { withdrawIds =>
         $update(tour2) >>-
@@ -144,7 +144,7 @@ private[tournament] final class TournamentApi(
       .filter(_ => List(chess.Status.Timeout, chess.Status.Outoftime) contains game.status)
 
   private def lobbyReload {
-    TournamentRepo.enterable foreach { tours =>
+    TournamentRepo.allCreatedSorted foreach { tours =>
       renderer ? TournamentTable(tours) map {
         case view: play.api.templates.Html => ReloadTournaments(view.body)
       } pipeToSelection lobby

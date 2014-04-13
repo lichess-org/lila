@@ -51,6 +51,7 @@ sealed trait Tournament {
   def userIds = players map (_.id)
   def activeUserIds = players filter (_.active) map (_.id)
   def nbActiveUsers = players count (_.active)
+  def withdrawnPlayers = players filterNot (_.active)
   def nbPlayers = players.size
   def minPlayers = data.minPlayers
   def playerRatio = if (scheduled) nbPlayers.toString else s"$nbPlayers/$minPlayers"
@@ -69,6 +70,20 @@ sealed trait Tournament {
   def createdAt = data.createdAt
 
   def isCreator(userId: String) = data.createdBy == userId
+}
+
+sealed trait Enterable extends Tournament {
+
+  def withPlayers(s: Players): Enterable
+
+  def join(user: User, pass: Option[String]): Valid[Enterable]
+
+  def joinNew(user: User, pass: Option[String]): Valid[Enterable] = contains(user).fold(
+    !!("User %s is already part of the tournament" format user.id),
+    (pass != password).fold(
+      !!("Invalid tournament password"),
+      withPlayers(players :+ Player.make(user)).success
+    ))
 }
 
 sealed trait StartedOrFinished extends Tournament {
@@ -106,7 +121,7 @@ sealed trait StartedOrFinished extends Tournament {
 case class Created(
     id: String,
     data: Data,
-    players: Players) extends Tournament {
+    players: Players) extends Tournament with Enterable {
 
   import data._
 
@@ -137,26 +152,20 @@ case class Created(
     createdBy = data.createdBy,
     players = players)
 
-  def join(user: User, pass: Option[String]): Valid[Created] = contains(user).fold(
-    !!("User %s is already part of the tournament" format user.id),
-    (pass != password).fold(
-      !!("Invalid tournament password"),
-      withPlayers(players :+ Player.make(user)).success
-    )
-  )
-
   def withdraw(userId: String): Valid[Created] = contains(userId).fold(
     withPlayers(players filterNot (_ is userId)).success,
     !!("User %s is not part of the tournament" format userId)
   )
 
-  private def withPlayers(s: Players) = copy(players = s)
+  def withPlayers(s: Players) = copy(players = s)
 
   def startIfReady = enoughPlayersToStart option start
 
   def start = Started(id, data, DateTime.now, players, Nil)
 
   def asScheduled = schedule map { Scheduled(this, _) }
+
+  def join(user: User, pass: Option[String]) = joinNew(user, pass)
 }
 
 case class Scheduled(tour: Created, schedule: Schedule) {
@@ -166,14 +175,14 @@ case class Scheduled(tour: Created, schedule: Schedule) {
   def overlaps(other: Scheduled) = interval overlaps other.interval
 }
 
-case class Enterable(tours: List[Created], scheduled: List[Created])
+case class EnterableTournaments(tours: List[Created], scheduled: List[Created])
 
 case class Started(
     id: String,
     data: Data,
     startedAt: DateTime,
     players: Players,
-    pairings: List[Pairing]) extends StartedOrFinished {
+    pairings: List[Pairing]) extends StartedOrFinished with Enterable {
 
   override def isRunning = true
 
@@ -218,17 +227,29 @@ case class Started(
     !!("User %s is not part of the tournament" format userId)
   )
 
+  def withPlayers(s: Players) = copy(players = s)
+
   def quickLossStreak(user: String): Boolean = {
     userPairings(user) takeWhile { pair => (pair lostBy user) && pair.quickLoss }
   }.size >= 3
 
   private def userPairings(user: String) = pairings filter (_ contains user)
 
-  private def withPlayers(s: Players) = copy(players = s)
-
   private def refreshPlayers = withPlayers(Player refresh this)
 
   def encode = refreshPlayers.encode(Status.Started)
+
+  def join(user: User, pass: Option[String]) = joinNew(user, pass) orElse joinBack(user, pass)
+
+  private def joinBack(user: User, pass: Option[String]) = withdrawnPlayers.find(_ is user) match {
+    case None => !!("User %s is already part of the tournament" format user.id)
+    case Some(player) => (pass != password).fold(
+      !!("Invalid tournament password"),
+      withPlayers(players map {
+        case p if p is player => p.unWithdraw
+        case p                => p
+      }).success)
+  }
 }
 
 case class Finished(
@@ -262,6 +283,9 @@ object Tournament {
 
   private[tournament] val tube: JsTube[Tournament] =
     JsTube(Reads(reader(_.decode)), writer)
+
+  private[tournament] val enterableTube: JsTube[Enterable] =
+    JsTube(Reads(reader(_.enterable)), writer)
 
   private[tournament] val createdTube: JsTube[Created] =
     JsTube(Reads(reader(_.created)), writer)
@@ -353,6 +377,8 @@ private[tournament] case class RawTournament(
     startedAt = stAt,
     players = players,
     pairings = decodePairings)
+
+  def enterable: Option[Enterable] = created orElse started
 
   private def data = Data(
     name,

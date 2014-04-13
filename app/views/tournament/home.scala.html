@@ -15,7 +15,7 @@
   @scheduled.map { tour =>
   @tour.schedule.map { s =>
   <li>
-    @linkTo(tour)<br />
+    @tournamentLink(tour)<br />
     @momentFormat(s.at, "calendar")
   </li>
   }

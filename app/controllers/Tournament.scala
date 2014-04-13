@@ -40,7 +40,7 @@ object Tournament extends LilaController {
   }
 
   private def fetchTournaments =
-    repo.enterable zip repo.started zip repo.finished(20)
+    env allCreatedSorted true zip repo.started zip repo.finished(20)
 
   def show(id: String) = Open { implicit ctx =>
     repo byId id flatMap {
@@ -78,7 +78,7 @@ object Tournament extends LilaController {
   def join(id: String) = AuthBody { implicit ctx =>
     implicit me =>
       NoEngine {
-        TourOptionFuRedirect(repo createdById id) { tour =>
+        TourOptionFuRedirect(repo enterableById id) { tour =>
           tour.hasPassword.fold(
             fuccess(routes.Tournament.joinPassword(id)),
             env.api.join(tour, me, none).fold(

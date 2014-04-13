@@ -1,12 +1,12 @@
 @(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished])(implicit ctx: Context)
 
-@joinButton(tour: lila.tournament.Created) = {
+@joinButton(tour: lila.tournament.Enterable) = {
 @ctx.me.map { me =>
-@if(tour contains me) {
+@if(tour isActive me) {
 <span class="joined label" data-icon="E">&nbsp;JOINED</span>
 } else {
 <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
-  <button data-icon="@tour.hasPassword.fold("a", "G")" type="submit" class="submit button">&nbsp;@trans.join()</button>
+  <button data-icon="@tour.hasPassword.fold("a", "G")" type="submit" class="submit button @if(!tour.isOpen) { shy }">&nbsp;@trans.join()</button>
 </form>
 }
 }
@@ -108,7 +108,7 @@
     <tbody>
       @finisheds.map { tour =>
       <tr>
-        <td>@linkTo(tour)</td>
+        <td>@tournamentLink(tour)</td>
         <td class="small">@tourMode(tour)</td>
         <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
         <td data-icon="r">&nbsp;@tour.playerRatio</td>
