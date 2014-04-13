@@ -25,6 +25,7 @@ final class Env(
   private val settings = new {
     val CollectionTournament = config getString "collection.tournament"
     val MessageTtl = config duration "message.ttl"
+    val CreatedCacheTtl = config duration "created.cache.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
@@ -75,6 +76,9 @@ final class Env(
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
 
+  val allCreatedSorted =
+    lila.memo.AsyncCache.single(TournamentRepo.allCreatedSorted, timeToLive = CreatedCacheTtl)
+
   def cli = new lila.common.Cli {
     import tube.tournamentTube
     def process = {
@@ -95,7 +99,7 @@ final class Env(
       organizer -> actorApi.StartedTournaments
     }
 
-    scheduler.message(1 minute) {
+    scheduler.message(5 minutes) {
       tournamentScheduler -> actorApi.ScheduleNow
     }
     tournamentScheduler ! actorApi.ScheduleNow
