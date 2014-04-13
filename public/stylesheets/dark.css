@@ -165,10 +165,7 @@ body.dark #friend_box .content a:hover,
 body.dark div.footer_wrap {
   background: #242424;
 }
-body.dark #hooks_wrap table.list tr:nth-child(even) td {
-  background: rgba(70, 70, 70, 0.5);
-}
-body.dark #hooks_wrap table.list tr:nth-child(odd) td {
+body.dark #hooks_wrap table.list td {
   background: rgba(40, 40, 40, 0.6);
 }
 body.dark #hooks_wrap table.list tr.cancel td {
