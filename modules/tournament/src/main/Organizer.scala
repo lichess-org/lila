@@ -15,7 +15,7 @@ private[tournament] final class Organizer(
     isOnline: String => Boolean,
     socketHub: ActorRef) extends Actor {
 
-  context.system.lilaBus.subscribe(self, 'finishGame)
+  context.system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater)
 
   def receive = {
 
@@ -43,6 +43,8 @@ private[tournament] final class Organizer(
 
     case FinishGame(game, _, _) =>
       api finishGame game foreach { _ map (_.id) foreach api.socketReload }
+
+    case lila.hub.actorApi.mod.MarkCheater(userId) => api ejectCheater userId
   }
 
   private def ejectLeavers(tour: Created) =
