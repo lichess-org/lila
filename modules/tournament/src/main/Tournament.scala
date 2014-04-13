@@ -49,7 +49,8 @@ sealed trait Tournament {
   def scheduled = data.schedule.isDefined
 
   def userIds = players map (_.id)
-  def activeUserIds = players filter (_.active) map (_.id)
+  def activePlayers = players filter (_.active)
+  def activeUserIds = activePlayers map (_.id)
   def nbActiveUsers = players count (_.active)
   def withdrawnPlayers = players filterNot (_.active)
   def nbPlayers = players.size
@@ -78,12 +79,22 @@ sealed trait Enterable extends Tournament {
 
   def join(user: User, pass: Option[String]): Valid[Enterable]
 
+  def withdraw(userId: String): Valid[Enterable]
+
   def joinNew(user: User, pass: Option[String]): Valid[Enterable] = contains(user).fold(
     !!("User %s is already part of the tournament" format user.id),
     (pass != password).fold(
       !!("Invalid tournament password"),
       withPlayers(players :+ Player.make(user)).success
     ))
+
+  def ejectCheater(userId: String): Option[Enterable] =
+    activePlayers.find(_.id == userId) map { player =>
+      withPlayers(players map {
+        case p if p is player => p.doWithdraw
+        case p                => p
+      })
+    }
 }
 
 sealed trait StartedOrFinished extends Tournament {

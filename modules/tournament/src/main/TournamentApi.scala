@@ -151,6 +151,12 @@ private[tournament] final class TournamentApi(
     }
   }
 
+  def ejectCheater(userId: String) = TournamentRepo.allEnterable map {
+    _.map { tour =>
+      (tour ejectCheater userId) ?? { $update(_) }
+    }.sequence
+  }
+
   def socketReload(tourId: String) {
     sendTo(tourId, Reload)
   }

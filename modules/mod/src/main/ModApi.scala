@@ -9,12 +9,15 @@ final class ModApi(
     logApi: ModlogApi,
     userSpy: String => Fu[UserSpy],
     firewall: Firewall,
+    lilaBus: lila.common.Bus,
     lobbySocket: akka.actor.ActorSelection) {
 
   def adjust(mod: String, username: String): Funit = withUser(username) { user =>
     play.api.Logger("ModApi").info(s"$mod marks $username as engine")
     logApi.engine(mod, user.id, !user.engine) zip
-      UserRepo.toggleEngine(user.id) void
+      UserRepo.toggleEngine(user.id) >>- {
+        if (!user.engine) lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id), 'adjustCheater)
+      } void
   }
 
   def autoAdjust(username: String): Funit = adjust("lichess", username)

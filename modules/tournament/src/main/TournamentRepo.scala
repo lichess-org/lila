@@ -41,6 +41,10 @@ object TournamentRepo {
   private def byIdAs[A <: Tournament](id: String, as: Tournament => Option[A]): Fu[Option[A]] =
     $find byId id map (_ flatMap as)
 
+  def allEnterable: Fu[List[Enterable]] = $find(Json.obj(
+    "status" -> $in(List(Status.Created.id, Status.Started.id))
+  )) map { _.map(asEnterable).flatten }
+
   def created: Fu[List[Created]] = $find(
     $query(Json.obj(
       "status" -> Status.Created.id,

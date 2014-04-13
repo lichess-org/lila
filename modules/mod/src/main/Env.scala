@@ -25,6 +25,7 @@ final class Env(
     logApi = logApi,
     userSpy = userSpy,
     firewall = firewall,
+    lilaBus = system.lilaBus,
     lobbySocket = lobbySocket)
 
   // api actor
