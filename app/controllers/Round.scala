@@ -45,14 +45,13 @@ object Round extends LilaController with TheftPrevention {
         PreventTheft(pov) {
           env.version(pov.gameId) zip
             pov.opponent.userId.??(UserRepo.isEngine) zip
-            (analyser has pov.gameId) zip
             (pov.game.tournamentId ?? TournamentRepo.byId) zip
             Env.game.crosstableApi(pov.game) zip
             (pov.game.hasChat optionFu {
               Env.chat.api.playerChat find pov.gameId map (_ forUser ctx.me)
             }) map {
-              case (((((v, engine), analysed), tour), crosstable), chat) =>
-                Ok(html.round.player(pov, v, engine, analysed,
+              case ((((v, engine), tour), crosstable), chat) =>
+                Ok(html.round.player(pov, v, engine,
                   chat = chat, tour = tour, cross = crosstable))
             }
         },

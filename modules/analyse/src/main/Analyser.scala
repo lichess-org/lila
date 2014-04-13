@@ -4,6 +4,7 @@ import scala.concurrent.Future
 
 import akka.actor.ActorSelection
 import akka.pattern.ask
+import org.joda.time.DateTime
 import chess.format.UciDump
 import chess.Replay
 
@@ -16,9 +17,15 @@ import tube.analysisTube
 
 final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
 
-  def get(id: String): Fu[Option[Analysis]] = AnalysisRepo doneById id
+  def get(id: String): Fu[Option[Analysis]] = AnalysisRepo byId id flatMap evictStalled
 
-  def has(id: String): Fu[Boolean] = AnalysisRepo isDone id
+  def getDone(id: String): Fu[Option[Analysis]] = AnalysisRepo doneById id flatMap evictStalled
+
+  def evictStalled(oa: Option[Analysis]): Fu[Option[Analysis]] = oa ?? { a =>
+    if (a.stalled) (AnalysisRepo remove a) inject none[Analysis] else fuccess(a.some)
+  }
+
+  def hasDone(id: String): Fu[Boolean] = getDone(id) map (_.isDefined)
 
   def hasMany(ids: Seq[String]): Fu[Set[String]] =
     $primitive[Analysis, String]($select byIds ids, "_id")(_.asOpt[String]) map (_.toSet)
@@ -40,7 +47,7 @@ final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
             replay ← Replay(game.pgnMoves mkString " ", initialFen, game.variant).future
             uciMoves = UciDump(replay)
             infos ← ai ? lila.hub.actorApi.ai.Analyse(uciMoves, initialFen) mapTo manifest[List[Info]]
-            analysis = Analysis(id, infos, true)
+            analysis = Analysis(id, infos, true, DateTime.now)
           } yield UciToPgn(replay, analysis)) flatFold (
             e => fufail[Analysis](e.getMessage), {
               case (a, errors) => {

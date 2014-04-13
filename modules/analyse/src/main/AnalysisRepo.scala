@@ -30,6 +30,8 @@ object AnalysisRepo {
     )) ++ $unset("old", "data"),
     upsert = true)
 
+  def byId(id: ID): Fu[Option[Analysis]] = $find byId id
+
   def doneById(id: ID): Fu[Option[Analysis]] =
     $find.one($select(id) ++ Json.obj("done" -> true))
 
@@ -59,4 +61,6 @@ object AnalysisRepo {
     $find($query(Json.obj("done" -> true)) skip skip, nb)
 
   def count = $count($select.all)
+
+  def remove(a: Analysis) = $remove byId a.id
 }
