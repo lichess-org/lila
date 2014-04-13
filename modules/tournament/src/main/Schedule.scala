@@ -9,7 +9,7 @@ case class Schedule(
 
   def name = s"Lichess ${freq.toString} ${speed.toString}"
 
-  def like(other: Schedule) = speed == other.speed && at == other.at
+  def sameSpeed(other: Schedule) = speed == other.speed
 }
 
 object Schedule {
