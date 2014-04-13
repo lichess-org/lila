@@ -1150,12 +1150,6 @@ div.checkmateFen {
   margin-left: 110px;
   cursor: pointer;
 }
-div.checkmateFen .mini_board > div:hover {
-  background: #eebb77!important;
-}
-div.checkmateFen .mini_board > div.selected {
-  background: #77eeaa!important;
-}
 div.checkmateSection {
   float: left;
   font-size: 0.9em;
@@ -1314,6 +1308,10 @@ div.lcmp {
   height: 28px;
   background-size: 100% 100%;
 }
+.mini_board .ui-draggable-dragging {
+  z-index: 9;
+}
+
 /* opening.css */
 
 div.game_config button {

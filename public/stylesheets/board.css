@@ -705,6 +705,7 @@ div.lcs.premoved div.lcsi,
 div.lcs.droppable-hover div.lcsi,
 div.lichess_board div.lcs.selected div.lcsi,
 div.lichess_board div.lcs.selectable div.lcsi,
+div.checkmateFen .mini_board > div:hover,
 #GameBoard td img.bestmove {
   box-shadow: inset 0 0 10px 2px rgba(216, 85, 0, 0.9);
 }

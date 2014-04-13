@@ -1828,36 +1828,64 @@ var storage = {
 
     $('div.checkmateCaptcha').each(function() {
       var $captcha = $(this);
-      var color = $captcha.find('.mini_board').data('color');
+      var $board = $captcha.find('.mini_board');
+      var color = $board.data('color');
       var $squares = $captcha.find('.mini_board > div');
       var $input = $captcha.find('input').val('');
+      var submit = function(s) {
+        $input.val(s);
+        $.ajax({
+          url: $captcha.data('check-url'),
+          data: {
+            solution: $input.val()
+          },
+          success: function(data) {
+            $captcha.toggleClass('success', data == 1);
+            $captcha.toggleClass('failure', data != 1);
+            if (data == 1) {
+              $board.find('.ui-draggable').draggable('destroy');
+            } else {
+              parseFen($board);
+              boardInteractions();
+            }
+          }
+        });
+      };
       $captcha.find('button.retry').click(function() {
         $input.val("");
-        $squares.removeClass('selected');
+        $squares.removeClass('moved');
         $captcha.removeClass("success failure");
         return false;
       });
-      $captcha.on('click', '.mini_board > div', function() {
+      var boardInteractions = function() {
+        $board.find('.lcmp.' + color).draggable({
+          scroll: false,
+          distance: 10,
+        });
+        $board.find('> div').droppable({
+          drop: function(ev, ui) {
+            submit(ui.draggable.parent().data('key') + ' ' + $(this).data('key'));
+            $(this).empty().append(ui.draggable.css({
+              top: 0,
+              left: 0
+            }));
+          },
+          hoverClass: 'moved'
+        });
+      };
+      boardInteractions();
+      $board.on('click', '> div', function() {
         var key = $(this).data('key');
         $captcha.removeClass("success failure");
         if ($input.val().length == 2) {
-          $input.val($.trim($input.val() + " " + key));
-          $.ajax({
-            url: $captcha.data('check-url'),
-            data: {
-              solution: $input.val()
-            },
-            success: function(data) {
-              $captcha.addClass(data == 1 ? "success" : "failure");
-            }
-          });
+          submit($.trim($input.val() + " " + key));
         } else {
-          $squares.removeClass('selected');
+          $squares.removeClass('moved');
           // first click must be on an own piece
           if (!$(this).find('.' + color).length) return;
           $input.val(key);
         }
-        $(this).addClass('selected');
+        $(this).addClass('moved');
       });
     });
   });
