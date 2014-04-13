@@ -51,8 +51,13 @@ private[tournament] object Player {
       val (win, loss): Pair[Boolean, Boolean] = winner.fold(false -> false) { w =>
         if (w == player.id) true -> false else false -> true
       }
+
+      val basePoints = if (win) 2 else if (loss) 0 else 1
+      val extraPoint = if(!loss && prevWin) 1 else 0
+      val points = basePoints + extraPoint
+
       val newWinSeq = if (win) prevWin.fold(winSeq + 1, 1) else 0
-      val points = win.fold(1 + newWinSeq, loss.fold(0, 1))
+
       copy(
         nbWin = nbWin + win.fold(1, 0),
         nbLoss = nbLoss + loss.fold(1, 0),
