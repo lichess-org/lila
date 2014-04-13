@@ -1,6 +1,3 @@
 [submodule "scalachess"]
 	path = modules/chess
 	url = git://github.com/ornicar/scalachess.git
-[submodule "public/vendor/timeago"]
-	path = public/vendor/timeago
-	url = https://github.com/rmm5t/jquery-timeago
