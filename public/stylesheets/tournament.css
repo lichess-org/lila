@@ -7,7 +7,7 @@
 }
 #tournament table.slist tbody.scheduled a,
 #tournament.scheduled h1,
-#tournament table.standing.scheduled tr:first-child td:first-child {
+#tournament table tr.standing.scheduled:first-child td:first-child {
   color: #d59120;
 }
 

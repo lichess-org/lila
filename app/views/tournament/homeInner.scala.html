@@ -24,18 +24,17 @@
 <div class="content_box tournament_box no_padding">
   <h1>@trans.tournaments()</h1>
   <table class="slist">
-    @if(createds.exists(_.scheduled)) {
     <thead>
       <tr>
-        <th class="large">Official tournaments</th>
-        <th>Starts</th>
+        <th class="large">Open tournaments</th>
+        <th></th>
         <th>@trans.timeControl()</th>
         <th colspan="2">@trans.players()</th>
       </tr>
     </thead>
-    <tbody class="scheduled">
+    <tbody>
       @createds.filter(_.scheduled).map { tour =>
-      <tr>
+      <tr class="scheduled">
         <td>@tournamentLink(tour)</td>
         <td class="small">@tourMode(tour)</td>
         <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
@@ -43,17 +42,6 @@
         <td>@joinButton(tour)</td>
       </tr>
       }
-    </tbody>
-    }
-    <thead>
-      <tr>
-        <th class="large">@trans.openTournaments()</th>
-        <th>@trans.mode()</th>
-        <th>@trans.timeControl()</th>
-        <th colspan="2">@trans.players()</th>
-      </tr>
-    </thead>
-    <tbody>
       @createds.filterNot(_.scheduled).map { tour =>
       <tr>
         <td>@tournamentLink(tour)</td>
@@ -78,7 +66,7 @@
     <thead>
       <tr>
         <th class="large">@trans.playingRightNow()</th>
-        <th>@trans.mode()</th>
+        <th></th>
         <th>@trans.timeControl()</th>
         <th>@trans.players()</th>
         <th></th>
@@ -99,7 +87,7 @@
     <thead>
       <tr>
         <th class="large">@trans.finished()</th>
-        <th>@trans.mode()</th>
+        <th></th>
         <th>@trans.timeControl()</th>
         <th>@trans.players()</th>
         <th>@trans.winner()</th>
@@ -111,7 +99,7 @@
         <td>@tournamentLink(tour)</td>
         <td class="small">@tourMode(tour)</td>
         <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
-        <td data-icon="r">&nbsp;@tour.playerRatio</td>
+        <td data-icon="r">&nbsp;@tour.nbPlayers</td>
         <td>@tour.winner.map { player =>
           @userInfosLink(player.username, player.rating.some, withOnline = false)
           }
