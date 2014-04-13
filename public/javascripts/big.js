@@ -342,8 +342,8 @@ var storage = {
     socket: null,
     socketDefaults: {
       events: {
-        following_onlines: function(data) {
-          $('#friend_box').friends("set", data);
+        following_onlines: function(us) {
+          $('#friend_box').friends("set", us);
         },
         following_enters: function(name) {
           $('#friend_box').friends('enters', name);
@@ -1593,21 +1593,18 @@ var storage = {
       });
       if (storage.get('friends-hide') == 1) self.$title.click();
       self.$nbOnline = self.$title.find('.online');
-      self.$nbTotal = self.$title.find('.total');
       self.$nobody = self.element.find("div.nobody");
       self.set(self.element.data('preload'));
     },
     repaint: function() {
       this.users = _.uniq(this.users);
       this.$nbOnline.text(this.users.length);
-      this.$nbTotal.text(this.nb);
       this.$nobody.toggle(this.users.length === 0);
       this.$list.html(_.map(this.users, this._renderUser).join(""));
       $('body').trigger('lichess.content_loaded');
     },
-    set: function(data) {
-      this.nb = data.nb;
-      this.users = data.us;
+    set: function(us) {
+      this.users = us;
       this.repaint();
     },
     enters: function(user) {

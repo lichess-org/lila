@@ -7,7 +7,7 @@ import lila.pref.Pref
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
 
 case class PageData(
-  friends: Option[JsObject],
+  friends: Option[JsArray],
   pref: Pref,
   teams: Option[JsArray])
 
