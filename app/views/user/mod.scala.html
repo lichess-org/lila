@@ -45,21 +45,18 @@
   @eval.map { e =>
   <div class="evaluation">
     <p>
-      @e.isDeep.fold("Thoroughly", "Quickly") evaluated @momentFormat(e.date) as @e.percent% -> <strong>@e.verdict(u.perfs)</strong>.
-      @if(e.games.nonEmpty) {
-      Most suspicious games found:
-      } else {
-      No suspicious game found.
-      }
+      <strong>@e.verdict(u.perfs)</strong> @e.isDeep.fold("Thoroughly", "Quickly") evaluated @momentFromNow(e.date) as @e.percent%
+      <br />
+      <br />
     </p>
     @if(e.games.nonEmpty) {
     <table class="slist">
       <thead>
         <tr>
-          <th>Game</th>
-          <th>Move time deviation</th>
-          <th>Blur rate</th>
-          <th>Error rate</th>
+          <th>Most suspicious games found</th>
+          <th>Move time</th>
+          <th>Blur</th>
+          <th>Analysis</th>
         </tr>
       </thead>
       <tbody>
@@ -79,11 +76,10 @@
   @if(spy.otherUsers.size < 2) {
   <strong>No user found with same IPs</strong>
   } else {
-  <strong>@spy.otherUsers.size user(s) sharing IPs</strong>
   <table class="others slist">
     <thead>
       <tr>
-        <th>User</th>
+        <th>@spy.otherUsers.size user(s) sharing IPs</th>
         <th>Games</th>
         <th>Engine</th>
         <th>Troll</th>
@@ -101,20 +97,20 @@
         <td>@if(o.troll){TROLL}</td>
         <td>@if(o.ipBan){IPBAN}</td>
         <td>@if(o.disabled){CLOSED}</td>
-        <td>@momentFormat(o.createdAt)</td>
+        <td>@momentFromNow(o.createdAt)</td>
       </tr>
       }
     </tbody>
   </table>
   }
   <div class="listings clearfix">
-    <div style="float: left; width: 22%;">
-      <strong>@spy.ips.size IP addresses:</strong> <ul>@spy.ips.sorted.map { ip =>
+    <div style="float: left; margin-left: 1%; width: 21%;">
+      <strong>@spy.ips.size IP addresses</strong> <ul>@spy.ips.sorted.map { ip =>
         <li@{ip._2.??(Html(" class='blocked'"))}>@ip._1</li>
         }</ul>
     </div>
-    <div style="margin-left: 25%;">
-      <strong>@spy.uas.size User agent(s):</strong> <ul>@spy.uas.sorted.map { ua =>
+    <div style="margin-left: 24%;">
+      <strong>@spy.uas.size User agent(s)</strong> <ul>@spy.uas.sorted.map { ua =>
         <li>@ua</li>
         }</ul>
     </div>
