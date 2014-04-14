@@ -8,20 +8,24 @@ import ornicar.scalalib.Random.approximatly
 
 import makeTimeout.short
 
-private[app] final class AiStresser(env: lila.ai.Env, system: ActorSystem) {
+private[app] final class AiStresser(
+    env: lila.ai.Env,
+    system: ActorSystem,
+    uciMemo: lila.game.UciMemo) {
 
   def apply {
 
-    (1 to 100) foreach { i =>
+    (1 to 80) foreach { i =>
       system.scheduler.scheduleOnce((i * 97) millis) {
         play(i % 8 + 1, true)
+        // play(8, true)
       }
     }
-    // (1 to 3) foreach { i =>
-    //   system.scheduler.scheduleOnce((i * 131) millis) {
-    //     analyse(true)
-    //   }
-    // }
+    (1 to 5) foreach { i =>
+      system.scheduler.scheduleOnce((i * 131) millis) {
+        analyse(true)
+      }
+    }
 
   }
 
@@ -38,7 +42,7 @@ private[app] final class AiStresser(env: lila.ai.Env, system: ActorSystem) {
           logwarn("[ai] play: " + e)
           newGame pipeTo self
         }, { x =>
-          system.scheduler.scheduleOnce(randomize(1 second)) {
+          system.scheduler.scheduleOnce(randomize(5 second)) {
             self ! Game(moves, it + 1)
           }
         })
@@ -69,7 +73,10 @@ private[app] final class AiStresser(env: lila.ai.Env, system: ActorSystem) {
   //   Game(pgn.split(' ').toList, 1)
   // }
 
-  private def newGame = lila.game.GameRepo getOneRandomPgn 30000 map { Game(_, 1) }
+  private def newGame = lila.game.GameRepo findRandomStandardCheckmate 30000 flatMap {
+    case None    => fuccess(Game(Nil, 1))
+    case Some(g) => uciMemo get g map { moves => Game(moves.toList, 1) }
+  }
 
   private def randomize(d: FiniteDuration, ratio: Float = 0.1f): FiniteDuration =
     approximatly(ratio)(d.toMillis) millis

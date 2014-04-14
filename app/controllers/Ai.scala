@@ -7,7 +7,7 @@ import lila.app._
 
 object Ai extends LilaController {
 
-  def playStockfish = Action.async { req =>
+  def move = Action.async { req =>
     Env.ai.server.move(
       uciMoves = get("uciMoves", req) ?? (_.split(' ').toList),
       initialFen = get("initialFen", req),
@@ -15,13 +15,13 @@ object Ai extends LilaController {
     ) fold (
         err => {
           logwarn("[ai] stockfish server play: " + err)
-          InternalServerError(err.toString)
+          InternalServerError("AI server failed: " + err.toString)
         },
         res => Ok(res.move)
       )
   }
 
-  def analyseStockfish = Action.async { req =>
+  def analyse = Action.async { req =>
     Env.ai.server.analyse(
       uciMoves = get("uciMoves", req) ?? (_.split(' ').toList),
       initialFen = get("initialFen", req)
