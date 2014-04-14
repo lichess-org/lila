@@ -1857,7 +1857,7 @@ var storage = {
       var boardInteractions = function() {
         $board.find('.lcmp.' + color).draggable({
           scroll: false,
-          distance: 10,
+          distance: 10
         });
         $board.find('> div').droppable({
           drop: function(ev, ui) {
