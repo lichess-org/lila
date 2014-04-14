@@ -165,11 +165,11 @@ GET   /wiki                            controllers.Wiki.home
 GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 
 # AI
-GET   /ai/stockfish/play               controllers.Ai.playStockfish
-GET   /ai/stockfish/analyse            controllers.Ai.analyseStockfish
+GET   /ai/move                         controllers.Ai.move
+GET   /ai/analyse                      controllers.Ai.analyse
 
 # Bookmark
-POST   /bookmark/$gameId<[\w\-]{8}>    controllers.Bookmark.toggle(gameId: String)
+POST  /bookmark/$gameId<[\w\-]{8}>     controllers.Bookmark.toggle(gameId: String)
 
 # Forum
 GET   /forum                           controllers.ForumCateg.index

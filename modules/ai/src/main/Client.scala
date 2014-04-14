@@ -4,11 +4,12 @@ import actorApi._
 
 import akka.actor._
 import akka.pattern.ask
+import scala.concurrent.duration._
 
+import chess.format.UciMove
 import lila.analyse.Info
 import lila.common.ws.WS
 import lila.game.{ Game, GameRepo }
-import chess.format.UciMove
 
 final class Client(
     config: Config,
@@ -32,20 +33,36 @@ final class Client(
     } yield PlayResult(progress, move)
   }
 
+  private val networkLatency = 1 second
+
   def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[MoveResult] = {
-    implicit val timeout = makeTimeout(config.playTimeout)
-    WS.url(s"$endpoint/play").withQueryString(
-      "uciMoves" -> uciMoves.mkString(" "),
-      "initialFen" -> ~initialFen,
-      "level" -> level.toString
-    ).get() map (_.body) map MoveResult.apply
+    implicit val timeout = makeTimeout(config.playTimeout + networkLatency)
+    sendRequest {
+      WS.url(s"$endpoint/move").withQueryString(
+        "uciMoves" -> uciMoves.mkString(" "),
+        "initialFen" -> ~initialFen,
+        "level" -> level.toString)
+    } map MoveResult.apply
   }
 
   def analyse(uciMoves: List[String], initialFen: Option[String]): Fu[List[Info]] = {
-    implicit val timeout = makeTimeout(config.analyseTimeout)
-    WS.url(s"$endpoint/analyse").withQueryString(
-      "uciMoves" -> uciMoves.mkString(" "),
-      "initialFen" -> ~initialFen
-    ).get() map (_.body) map Info.decodeList flatten "Can't read analysis results: "
+    implicit val timeout = makeTimeout(config.analyseTimeout + networkLatency)
+    sendRequest {
+      WS.url(s"$endpoint/analyse").withQueryString(
+        "uciMoves" -> uciMoves.mkString(" "),
+        "initialFen" -> ~initialFen)
+    } map Info.decodeList flatten "Can't read analysis results: "
   }
+
+  private def sendRequest(req: WS.WSRequestHolder, isRetry: Boolean = false): Fu[String] =
+    req.get flatMap {
+      case res if res.status == 200 => fuccess(res.body)
+      case res =>
+        val message = s"AI client WS response ${res.status} ${res.body}"
+        if (isRetry) fufail(message)
+        else {
+          _root_.play.api.Logger("AI client").error(s"Retry: $message")
+          sendRequest(req, true)
+        }
+    }
 }

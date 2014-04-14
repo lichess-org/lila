@@ -246,12 +246,6 @@ trait GameRepo {
         }
       } map (_.flatten.toMap)
 
-  def getOneRandomPgn(distrib: Int): Fu[PgnMoves] = {
-    gameTube.coll.find($select.all) skip scala.util.Random.nextInt(distrib)
-  }.cursor[BSONDocument].collect[List](1) map {
-    _.headOption flatMap extractPgnMoves
-  } map (~_)
-
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] = {
     $find.one(Json.obj(
       F.playerUids -> Json.obj("$all" -> List(u1, u2)),
