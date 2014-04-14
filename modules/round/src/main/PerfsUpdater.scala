@@ -77,7 +77,10 @@ private final class PerfsUpdater {
     }
 
   private implicit def mkRating(perf: Perf) = new Rating(
-    perf.glicko.rating, perf.glicko.deviation, perf.glicko.volatility, perf.nb)
+    math.max(800, perf.glicko.rating),
+    perf.glicko.deviation,
+    perf.glicko.volatility,
+    perf.nb)
 
   private def mkRatings(perfs: Perfs) = new Ratings(
     global = perfs.global,
