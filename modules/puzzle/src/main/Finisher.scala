@@ -54,7 +54,9 @@ private[puzzle] final class Finisher(
   private val system = new RatingCalculator(VOLATILITY, TAU)
 
   private def mkRating(perf: Perf) = new Rating(
-    perf.glicko.rating, perf.glicko.deviation, perf.glicko.volatility, perf.nb)
+    math.max(1000, perf.glicko.rating),
+    perf.glicko.deviation,
+    perf.glicko.volatility, perf.nb)
 
   private def mkPerf(rating: Rating): Perf = Perf(
     Glicko(rating.getRating, rating.getRatingDeviation, rating.getVolatility),
