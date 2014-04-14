@@ -187,7 +187,7 @@ private[controllers] trait LilaController
           import akka.pattern.ask
           import makeTimeout.short
           Env.hub.actor.relation ? GetOnlineFriends(me.id) map {
-            case OnlineFriends(usernames) => Json.arr(usernames).some
+            case OnlineFriends(usernames) => usernames
           }
         }
       } zip {
