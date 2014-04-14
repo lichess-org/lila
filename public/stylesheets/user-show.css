@@ -128,14 +128,16 @@ div.user_show .profile {
 div.user_show .mod_zone {
   display: none;
   margin: 1em 20px;
-  border-bottom: 1px solid #c0c0c0;
 }
 div.user_show .mod_zone .actions {
   width: 100%;
   text-align: center;
 }
 div.user_show .mod_zone .slist {
+  border: 1px solid #ccc;
+  border-top: none;
   font-size: 0.9em;
+  margin-bottom: 1em;
 }
 div.user_show .mod_zone .same {
   font-style: italic;
@@ -144,8 +146,11 @@ div.user_show .mod_zone .same {
 div.user_show .mod_zone form {
   display: inline;
 }
+div.user_show .mod_zone .listings {
+  border: 1px solid #ccc;
+}
 div.user_show .mod_zone .listings > div {
-  max-height: 12em;
+  max-height: 20em;
   overflow: auto;
 }
 div.user_show .mod_zone .listings .blocked {
@@ -155,10 +160,6 @@ div.user_show .mod_zone .listings .blocked {
 div.user_show .mod_zone strong {
   display: block;
   margin-top: 0.5em;
-}
-div.user_show .evaluation {
-  max-height: 226px;
-  overflow: auto;
 }
 div.user_show .evaluation time {
   display: inline;

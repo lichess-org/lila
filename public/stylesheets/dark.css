@@ -87,7 +87,6 @@ body.dark #team.team_show div.content_box_top,
 body.dark .leaderboard_title,
 body.dark #friend_box,
 body.dark #friend_box .title,
-body.dark div.user_show div.mod_zone,
 body.dark div.user_show div.user-infos,
 body.dark div.game_config input[type="text"],
 body.dark #powerTip,
@@ -100,6 +99,8 @@ body.dark div.analysis_menu,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
 body.dark #enterable_tournaments table.scheduled,
+body.dark div.user_show .mod_zone .listings,
+body.dark div.user_show .mod_zone .slist,
 body.dark div.analysis_menu > a {
   border-color: #3d3d3d;
 }
