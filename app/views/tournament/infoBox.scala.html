@@ -33,7 +33,7 @@
     </form>
     } else {
     <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
-      <button data-icon="@tour.hasPassword.fold("a", "G")" type="submit" class="submit button @if(!tour.isOpen) { shy }">&nbsp;@trans.join()</button>
+      <button data-icon="@tour.hasPassword.fold("a", "G")" type="submit" class="submit button">&nbsp;@trans.join()</button>
     </form>
     }
     }
