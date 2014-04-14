@@ -1106,12 +1106,6 @@ a.button,
 .ui-widget-content {
   border-radius: 2px;
 }
-.button.shy,
-a.button.shy {
-  border-color: transparent!important;
-  background: transparent!important;
-  font-weight: normal;
-}
 .button:hover,
 a.button:hover,
 .ui-state-hover {
