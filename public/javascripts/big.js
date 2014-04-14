@@ -1594,7 +1594,7 @@ var storage = {
       if (storage.get('friends-hide') == 1) self.$title.click();
       self.$nbOnline = self.$title.find('.online');
       self.$nobody = self.element.find("div.nobody");
-      self.set(self.element.data('preload'));
+      self.set(self.element.data('preload').split(','));
     },
     repaint: function() {
       this.users = _.uniq(this.users);

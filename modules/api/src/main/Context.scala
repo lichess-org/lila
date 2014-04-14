@@ -7,12 +7,12 @@ import lila.pref.Pref
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
 
 case class PageData(
-  friends: Option[JsArray],
+  friends: List[String],
   pref: Pref,
   teams: Option[JsArray])
 
 object PageData {
-  val default = PageData(none, Pref.default, none)
+  val default = PageData(Nil, Pref.default, none)
 }
 
 sealed trait Context extends lila.user.UserContextWrapper {
@@ -24,8 +24,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def pref = pageData.pref
   def teams = pageData.teams
 
-  def currentTheme =
-    (ctxPref("theme") map lila.pref.Theme.apply) | Pref.default.realTheme
+  def currentTheme = ctxPref("theme").fold(Pref.default.realTheme)(lila.pref.Theme.apply)
 
   def currentBg = ctxPref("bg") | "light"
 
