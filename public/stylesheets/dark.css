@@ -235,9 +235,6 @@ body.dark #powerTip {
 body.dark #lichess_forum table.forum_table thead tr:nth-child(odd) {
   background: #2b2b2b;
 }
-body.dark #lichess_forum table.forum_table td.subject a {
-  color: #44a0b0;
-}
 body.dark #top ul.language_links a.accepted,
 body.dark #lichess_forum div.post .message,
 body.dark #lichess_message div.thread_message div.thread_message_body,

@@ -26,7 +26,7 @@ title = topic.name) {
     <div class="post" id="@post.number">
       <div class="metas clearfix">
         @authorLink(post, "author".some)
-        @momentFormat(post.createdAt)
+        @momentFromNow(post.createdAt)
         <a class="anchor" href="@routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)#@post.number">#@post.number</a>
         @if(isGranted(_.IpBan)) {
         <span class="postip">@post.ip</span>
