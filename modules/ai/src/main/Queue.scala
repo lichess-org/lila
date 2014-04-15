@@ -11,7 +11,7 @@ import akka.util.Timeout
 import actorApi._
 import lila.analyse.{ Evaluation, Info }
 
-private[ai] final class Queue(config: Config, waiterDispatcher: String) extends Actor {
+private[ai] final class Queue(config: Config) extends Actor {
 
   import Puller._
 
