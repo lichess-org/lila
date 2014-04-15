@@ -12,48 +12,50 @@ private[ai] final class Puller(config: Config, id: Int) extends Actor {
 
   import Puller._
 
-  private val name: String = s"sf-$id"
+  private val name: String = s"fsm-$id"
   private val master = context.parent
   private val worker: ActorRef = context.actorOf(
-    Props(new ActorFSM(name, Process(config.execPath, s"SF $id"), config)),
+    Props(new ActorFSM(name, Process(config.execPath, s"proc-$id"), config)),
     name = name)
 
   private def pull {
     context.system.scheduler.scheduleOnce(200 milliseconds, master, GimmeWork)
   }
 
-  def receiveIdle: Receive = {
+  def idle: Receive = {
 
     case NoWork => pull
 
-    case Task(req, replyTo, timeout, _, _) =>
-      context become receiveBusy
-      implicit val tm = timeout
-      worker ? req onComplete { res =>
-        self ! Complete(res, replyTo)
+    case task: Task =>
+      context become busy
+      implicit val tm = task.timeout
+      worker ? task.req onComplete { res =>
+        self ! Complete(task, res)
       }
 
     case c: Complete => play.api.Logger(name).warn("Received complete while idle!")
   }
 
-  def receiveBusy: Receive = {
+  def busy: Receive = {
 
-    case Complete(Success(res), replyTo) =>
-      replyTo ! res
-      context become receiveIdle
+    case Complete(task, Success(res)) =>
+      context become idle
+      task.replyTo ! res
       master ! GimmeWork
 
-    case Complete(Failure(err), replyTo) =>
-      replyTo ! Status.Failure(err)
+    case Complete(task, Failure(err)) =>
+      task.replyTo ! Status.Failure(err)
+      task.again map Enqueue.apply foreach master.!
       throw err
 
     case t: Task =>
       play.api.Logger(name).warn("Received task while busy! Sending back to master...")
       master ! Enqueue(t)
+
     case NoWork => play.api.Logger(name).warn("Received nowork while busy!")
   }
 
-  def receive = receiveIdle
+  def receive = idle
 
   override def preStart() {
     master ! GimmeWork
@@ -64,7 +66,7 @@ private[ai] object Puller {
 
   case object GimmeWork
   case object NoWork
-  case class Complete(res: Try[Any], replyTo: ActorRef)
+  case class Complete(task: Task, res: Try[Any])
   case class Enqueue(task: Task)
 
   case class Task(
@@ -72,9 +74,9 @@ private[ai] object Puller {
       replyTo: ActorRef,
       timeout: Timeout,
       date: Int = nowSeconds,
-      attempts: Int = 0) extends Ordered[Task] {
+      isRetry: Boolean = false) extends Ordered[Task] {
 
-    def again = copy(attempts = attempts + 1)
+    def again = !isRetry option copy(isRetry = true)
 
     def priority = req match {
       case _: PlayReq => 20

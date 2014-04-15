@@ -24,7 +24,7 @@ private[ai] final class Process(
     try {
       write("stop")
       write("quit")
-      Thread sleep 300
+      Thread sleep 200
     }
     catch {
       case e: java.io.IOException => logwarn(s"[$name] process destroy " + e.getMessage)

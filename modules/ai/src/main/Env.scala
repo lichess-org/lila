@@ -16,7 +16,6 @@ final class Env(
 
   private val settings = new {
     val Endpoint = c getString "endpoint"
-    val WaiterDispatcher = c getString "waiter.dispatcher"
     val ActorName = c getString "actor.name"
     val CollectionAiPerf = c getString "collection.ai_perf"
     val AiPerfCacheTtl = c duration "ai_perf.cache_ttl"
@@ -54,7 +53,7 @@ final class Env(
 
   lazy val server = new Server(
     config = config,
-    queue = system.actorOf(Props(new Queue(config, WaiterDispatcher))),
+    queue = system.actorOf(Props(new Queue(config))),
     uciMemo = uciMemo)
 }
 
