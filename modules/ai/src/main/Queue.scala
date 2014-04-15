@@ -52,9 +52,10 @@ private[ai] final class Queue(config: Config) extends Actor {
 
     case FullAnalReq(moves, fen) =>
       val mrSender = sender
+      val size = moves.size
       implicit val timeout = makeTimeout(config.analyseTimeout)
-      val futures = (0 to moves.size) map moves.take map { serie =>
-        self ? AnalReq(serie, fen) mapTo manifest[Option[Evaluation]]
+      val futures = (0 to size) map moves.take map { serie =>
+        self ? AnalReq(serie, fen, size) mapTo manifest[Option[Evaluation]]
       }
       Future.fold(futures)(Vector[Option[Evaluation]]())(_ :+ _) addFailureEffect {
         case e => mrSender ! Status.Failure(e)
