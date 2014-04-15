@@ -4,9 +4,9 @@ import scala.concurrent.Future
 
 import akka.actor.ActorSelection
 import akka.pattern.ask
-import org.joda.time.DateTime
 import chess.format.UciDump
 import chess.Replay
+import org.joda.time.DateTime
 
 import lila.db.api._
 import lila.game.actorApi.InsertGame
@@ -56,14 +56,15 @@ final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
                   AnalysisRepo.done(id, a)
                   indexer ! InsertGame(game)
                   fuccess(a)
-                } else fufail(s"[analyse] invalid (empty infos): $id")
+                }
+                else fufail(s"[analyse] invalid (empty infos): $id")
               }
             }
           )
           case _ => fufail[Analysis]("[analysis] %s no game or pgn found" format (id))
         }
 
-    AnalysisRepo doneByIdNotOld id flatMap {
+    get(id) flatMap {
       _.fold(generate)(fuccess(_))
     }
   }
