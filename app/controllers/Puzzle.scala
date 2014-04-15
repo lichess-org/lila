@@ -80,10 +80,15 @@ object Puzzle extends LilaController {
 
   def importBatch = Action.async(parse.json) { implicit req =>
     env.api.puzzle.importBatch(req.body, ~get("token", req)) map { ids =>
-      Ok("kthxbye " + ids.map(id => s"http://lichess.org/training/$id").mkString(" "))
+      Ok("kthxbye " + ids.map {
+        case Success(id) => s"http://lichess.org/training/$id"
+        case Failure(err) =>
+          play.api.Logger("puzzle import").info(err.getMessage)
+          err.getMessage
+      }.mkString(" "))
     } recover {
       case e =>
-        play.api.Logger("Puzzle import").warn(e.getMessage)
+        play.api.Logger("puzzle import").warn(e.getMessage)
         BadRequest(e.getMessage)
     }
   }

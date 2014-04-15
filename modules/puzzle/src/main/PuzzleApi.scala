@@ -34,27 +34,28 @@ private[puzzle] final class PuzzleApi(
         .cursor[Puzzle]
         .collect[List](nb)
 
-    def importBatch(json: JsValue, token: String): Fu[List[PuzzleId]] =
+    def importBatch(json: JsValue, token: String): Fu[List[Try[PuzzleId]]] =
       if (token != apiToken) fufail("Invalid API token")
       else {
         import Generated.generatedJSONRead
-        Future(json.as[List[Generated]]) flatMap {
-          _.map(_.toPuzzle).sequence.future flatMap insertPuzzles
-        }
+        insertPuzzles(json.as[List[Generated]] map (_.toPuzzle))
       }
 
-    def insertPuzzles(puzzles: List[PuzzleId => Puzzle]): Fu[List[PuzzleId]] = puzzles match {
+    def insertPuzzles(puzzles: List[Try[PuzzleId => Puzzle]]): Fu[List[Try[PuzzleId]]] = puzzles match {
       case Nil => fuccess(Nil)
-      case puzzle :: rest => findNextId flatMap { id =>
+      case Failure(err) :: rest => insertPuzzles(rest) map { ps =>
+        (Failure(err): Try[PuzzleId]) :: ps
+      }
+      case Success(puzzle) :: rest => findNextId flatMap { id =>
         val p = puzzle(id)
         val fenStart = p.fen.split(' ').take(2).mkString(" ")
         puzzleColl.db command Count(puzzleColl.name, BSONDocument(
           "fen" -> BSONRegex(fenStart.replace("/", "\\/"), "")
         ).some) flatMap {
           case 0 => (puzzleColl insert p) >> {
-            insertPuzzles(rest) map (id :: _)
+            insertPuzzles(rest) map (Success(id) :: _)
           }
-          case _ => insertPuzzles(rest)
+          case _ => insertPuzzles(rest) map (Failure(new Exception("Duplicate puzzle")) :: _)
         }
       }
     }
