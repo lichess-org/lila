@@ -44,8 +44,10 @@ private[ai] final class Puller(config: Config, id: Int) extends Actor {
       master ! GimmeWork
 
     case Complete(task, Failure(err)) =>
-      task.replyTo ! Status.Failure(err)
-      task.again map Enqueue.apply foreach master.!
+      task.retry match {
+        case Some(retry) => master ! Enqueue(retry)
+        case _           => task.replyTo ! Status.Failure(err)
+      }
       throw err
 
     case t: Task =>
@@ -76,7 +78,7 @@ private[ai] object Puller {
       date: Int = nowSeconds,
       isRetry: Boolean = false) extends Ordered[Task] {
 
-    def again = !isRetry option copy(isRetry = true)
+    def retry = !isRetry option copy(isRetry = true)
 
     def priority = req match {
       case _: PlayReq => 20
