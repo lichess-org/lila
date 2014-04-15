@@ -61,7 +61,7 @@ final class Client(
         val message = s"AI client WS response ${res.status} ${res.body}"
         if (isRetry) fufail(message)
         else {
-          _root_.play.api.Logger("AI client").error(s"Retry: $message")
+          _root_.play.api.Logger("AI client").error(s"Retry: ${~message.lines.toList.headOption}")
           sendRequest(req, true)
         }
     }
