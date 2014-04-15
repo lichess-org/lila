@@ -80,14 +80,6 @@ private[ai] object Puller {
 
     def retry = !isRetry option copy(isRetry = true)
 
-    def priority = req match {
-      case _: PlayReq => 20
-      case _: AnalReq => 10
-    }
-
-    def compare(other: Task): Int = priority compare other.priority match {
-      case 0 => other.date compare date
-      case x => x
-    }
+    def compare(other: Task): Int = this.req.priority compare other.req.priority
   }
 }

@@ -22,6 +22,7 @@ sealed trait Req {
   def moves: List[String]
   def fen: Option[String]
   def analyse: Boolean
+  def priority: Int
 
   def chess960 = fen.isDefined
 }
@@ -32,11 +33,16 @@ case class PlayReq(
     level: Int) extends Req {
 
   def analyse = false
+
+  val priority = 999999 - level
 }
 
 case class AnalReq(
     moves: List[String],
-    fen: Option[String]) extends Req {
+    fen: Option[String],
+    totalSize: Int) extends Req {
+
+  val priority = - totalSize
 
   def analyse = true
 
@@ -51,7 +57,7 @@ case class Job(req: Req, sender: akka.actor.ActorRef, buffer: List[String]) {
 
   // bestmove xyxy ponder xyxy
   def complete(str: String): Option[Any] = req match {
-    case r: PlayReq => str split ' ' lift 1
-    case AnalReq(moves, _) => buffer.headOption map EvaluationParser.apply
+    case _: PlayReq => str split ' ' lift 1
+    case _: AnalReq => buffer.headOption map EvaluationParser.apply
   }
 }
