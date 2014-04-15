@@ -79,11 +79,10 @@ private[ai] object Puller {
     def priority = req match {
       case _: PlayReq => 20
       case _: AnalReq => 10
-      case _          => 0
     }
 
     def compare(other: Task): Int = priority compare other.priority match {
-      case 0 => date compare other.date
+      case 0 => other.date compare date
       case x => x
     }
   }
