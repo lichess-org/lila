@@ -2,25 +2,22 @@ package lila.game
 
 import chess.Clock
 
-import lila.user.User
+import lila.common.LightUser
 import play.api.templates.Html
 
 object Namer {
 
-  def players(game: Game, withRatings: Boolean = true)(implicit getUsername: String => Fu[String]): Fu[(Html, Html)] =
-    player(game.firstPlayer, withRatings) zip player(game.secondPlayer, withRatings)
+  def players(game: Game, withRatings: Boolean = true)(implicit lightUser: String => Option[LightUser]): (Html, Html) =
+    player(game.firstPlayer, withRatings) -> player(game.secondPlayer, withRatings)
 
-  def player(player: Player, withRating: Boolean = true)(implicit getUsername: String => Fu[String]): Fu[Html] =
+  def player(player: Player, withRating: Boolean = true)(implicit lightUser: String => Option[LightUser]) = Html {
     player.aiLevel.fold(
-      player.userId.fold(fuccess(User.anonymous)) { id =>
-        getUsername(id) map { username =>
-          withRating.fold(
-            s"$username&nbsp;(${player.rating getOrElse "?"})",
-            username)
-        }
-      }) { level =>
-        fuccess("A.I.&nbsp;level&nbsp;" + level)
-      } map Html.apply
+      player.userId.flatMap(lightUser).fold(lila.user.User.anonymous) { user =>
+        withRating.fold(
+          s"${user.titleNameHtml}&nbsp;(${player.rating getOrElse "?"})",
+          user.titleName)
+      }) { level => s"A.I.&nbsp;level&nbsp;$level" }
+  }
 
   def shortClock(clock: Clock): Html = Html {
     s"${clock.limitInMinutes}&nbsp;+&nbsp;${clock.increment}"

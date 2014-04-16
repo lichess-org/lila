@@ -10,8 +10,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     ai: ActorSelection,
-    indexer: ActorSelection,
-    nameUser: String => Fu[String]) {
+    indexer: ActorSelection) {
 
   private val CollectionAnalysis = config getString "collection.analysis"
   private val NetDomain = config getString "net.domain"
@@ -47,6 +46,5 @@ object Env {
     config = lila.common.PlayApp loadConfig "analyse",
     db = lila.db.Env.current,
     ai = lila.hub.Env.current.actor.ai,
-    indexer = lila.hub.Env.current.actor.gameIndexer,
-    nameUser = lila.user.Env.current.usernameOrAnonymous)
+    indexer = lila.hub.Env.current.actor.gameIndexer)
 }

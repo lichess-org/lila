@@ -162,9 +162,9 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     }
   }
 
-  def showSpectators(users: List[String], nbAnons: Int) = nbAnons match {
-    case 0 => users
-    case x => users :+ ("Anonymous (%d)" format x)
+  def showSpectators(users: List[lila.common.LightUser], nbAnons: Int) = nbAnons match {
+    case 0 => users.map(_.titleName)
+    case x => users.map(_.titleName) :+ ("Anonymous (%d)" format x)
   }
 
   def registerLiveGames(uid: String, ids: List[String]) {

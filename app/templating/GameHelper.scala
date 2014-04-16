@@ -49,7 +49,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def playerUsername(player: Player, withRating: Boolean = true) =
-    Namer.player(player, withRating)(userEnv.usernameOrAnonymous).await
+    Namer.player(player, withRating)(userEnv.lightUser)
 
   def playerLink(
     player: Player,
@@ -60,21 +60,19 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     engine: Boolean = false,
     withStatus: Boolean = false)(implicit ctx: UserContext) = Html {
     val statusIcon = if (withStatus) """&nbsp;<span class="status" data-icon="J"></span>""" else ""
-    player.userId match {
+    player.userId.flatMap(lightUser) match {
       case None =>
         val klass = cssClass.??(" " + _)
         val content = player.aiLevel.fold(player.name | User.anonymous) { aiName(_, withRating) }
         s"""<span class="user_link$klass">$content$statusIcon</span>"""
-      case Some(userId) =>
-        userIdToUsername(userId) |> { username =>
-          val klass = userClass(userId, cssClass, withOnline)
-          val href = routes.User show username
-          val content = playerUsername(player, withRating)
-          val diff = (player.ratingDiff ifTrue withDiff).fold(Html(""))(showRatingDiff)
-          val mark = engine ?? s"""<span class="engine_mark" title="${trans.thisPlayerUsesChessComputerAssistance()}"></span>"""
-          val dataIcon = withOnline ?? """data-icon="r""""
-          s"""<a $dataIcon $klass href="$href">&nbsp;$content$diff$mark$statusIcon</a>"""
-        }
+      case Some(user) =>
+        val klass = userClass(user.id, cssClass, withOnline)
+        val href = routes.User show user.name
+        val content = playerUsername(player, withRating)
+        val diff = (player.ratingDiff ifTrue withDiff).fold(Html(""))(showRatingDiff)
+        val mark = engine ?? s"""<span class="engine_mark" title="${trans.thisPlayerUsesChessComputerAssistance()}"></span>"""
+        val dataIcon = withOnline ?? """data-icon="r""""
+        s"""<a $dataIcon $klass href="$href">&nbsp;$content$diff$mark$statusIcon</a>"""
     }
   }
 

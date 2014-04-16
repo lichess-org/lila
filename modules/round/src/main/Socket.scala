@@ -9,6 +9,7 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
+import lila.common.LightUser
 import lila.game.Event
 import lila.hub.TimeBomb
 import lila.round.actorApi.Bye
@@ -19,7 +20,7 @@ import makeTimeout.short
 private[round] final class Socket(
     gameId: String,
     history: History,
-    getUsername: String => Fu[Option[String]],
+    lightUser: String => Option[LightUser],
     uidTimeout: Duration,
     socketTimeout: Duration,
     disconnectTimeout: Duration,
@@ -107,16 +108,15 @@ private[round] final class Socket(
   }
 
   def notifyCrowd {
-    watchers.map(_.userId).toList.partition(_.isDefined) match {
-      case (users, anons) =>
-        (users.flatten.distinct map getUsername).sequenceFu map { userList =>
-          notify(Event.Crowd(
-            white = ownerOf(White).isDefined,
-            black = ownerOf(Black).isDefined,
-            watchers = showSpectators(userList.flatten, anons.size)
-          ) :: Nil)
-        } logFailure ("[round] notify crowd")
+    val (anons, users) = watchers.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
+      case ((anons, users), Some(user)) => anons -> (user :: users)
+      case ((anons, users), None)       => (anons + 1) -> users
     }
+    notify(Event.Crowd(
+      white = ownerOf(White).isDefined,
+      black = ownerOf(Black).isDefined,
+      watchers = showSpectators(users, anons)
+    ) :: Nil)
   }
 
   def notify(events: Events) {

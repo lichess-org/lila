@@ -187,15 +187,11 @@ private[controllers] trait LilaController
           import akka.pattern.ask
           import makeTimeout.short
           Env.hub.actor.relation ? GetOnlineFriends(me.id) map {
-            case OnlineFriends(usernames) => usernames
-          }
-        }
-      } zip {
-        (isPage ?? (Env.team.api mine me)) map { teams =>
-          JsArray(teams map { t => Json.obj("id" -> t.id, "name" -> t.name) }).some
+            case OnlineFriends(users) => users
+          } recover { case _ => Nil }
         }
       } map {
-        case ((pref, friends), teams) => PageData(friends, pref, teams)
+        case (pref, friends) => PageData(friends, pref)
       }
     }
 
