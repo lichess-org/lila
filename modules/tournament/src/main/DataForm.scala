@@ -18,11 +18,10 @@ final class DataForm(isDev: Boolean) {
   val clockIncrementDefault = 0
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
-  val minutes = isDev.fold(
-    (1 to 9) ++ (10 to 60 by 5),
-    10 to 60 by 5
-  )
-  val minuteDefault = 30
+  private val baseMinutes = (20 to 60 by 5) ++ (70 to 120 by 10)
+
+  val minutes = isDev.fold((1 to 9) ++ baseMinutes, baseMinutes)
+  val minuteDefault = 40
   val minuteChoices = options(minutes, "%d minute{s}")
 
   val minPlayers = isDev.fold(
