@@ -37,7 +37,7 @@ trait UserRepo {
     $find($query(stableGoodLadSelect) sort sortProgressDesc, nb)
 
   def topProgressSince(since: DateTime, nb: Int): Fu[List[User]] =
-    $find($query(stableGoodLadSelect ++ perfSince("global", since)) sort sortProgressDesc, nb)
+    $find($query(stableGoodLadSelect ++ minRatingSelect(1500) ++ perfSince("global", since)) sort sortProgressDesc, nb)
 
   def topBullet = topPerf("bullet") _
   def topBlitz = topPerf("blitz") _
@@ -116,6 +116,7 @@ trait UserRepo {
   val stableSelect = Json.obj("perfs.global.gl.d" -> $lt(100))
   val goodLadSelect = enabledSelect ++ engineSelect(false)
   val stableGoodLadSelect = stableSelect ++ goodLadSelect
+  def minRatingSelect(rating: Int) = Json.obj(User.BSONFields.rating -> $gt(rating))
   def perfSince(perf: String, since: DateTime) = Json.obj(
     s"perfs.$perf.la" -> Json.obj("$gt" -> $date(since))
   )
