@@ -43,15 +43,14 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     params: String = ""): Html = Html {
     userIdOption.fold(User.anonymous) { userId =>
       Env.user usernameOption userId map {
-        _.fold(User.anonymous) { username =>
-          userIdNameLink(
-            userId = userId,
-            username = username,
-            cssClass = cssClass,
-            withOnline = withOnline,
-            truncate = truncate,
-            params = params)
-        }
+        case None => User.anonymous
+        case Some(username) => userIdNameLink(
+          userId = userId,
+          username = username,
+          cssClass = cssClass,
+          withOnline = withOnline,
+          truncate = truncate,
+          params = params)
       } await
     }
   }
@@ -79,19 +78,26 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     }
   }
 
+  private def titleTag(title: Option[String]) = title match {
+    case None    => ""
+    case Some(t) => s"""<span class="title" title="${User titleName t}">$t</span>&nbsp;"""
+  }
+
   private def userIdNameLink(
     userId: String,
     username: String,
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
     truncate: Option[Int] = None,
+    title: Option[String] = None,
     params: String = ""): String = {
     val klass = userClass(userId, cssClass, withOnline)
     val href = userHref(username, params = params)
     val content = truncate.fold(username)(username.take)
+    val titleS = titleTag(title)
     val space = if (withOnline) "&nbsp;" else ""
     val dataIcon = if (withOnline) """data-icon="r"""" else ""
-    s"""<a $dataIcon $klass $href>$space$content</a>"""
+    s"""<a $dataIcon $klass $href>$space$titleS$content</a>"""
   }
 
   def userLink(
@@ -106,24 +112,27 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
     val href = userHref(user.username, if (mod) "?mod" else "")
     val content = text | withRating.fold(user.usernameWithRating, user.username)
-    val progress = if(withProgress) " " + showProgress(user.progress) else ""
+    val titleS = titleTag(user.title)
+    val progress = if (withProgress) " " + showProgress(user.progress) else ""
     val space = if (withOnline) "&nbsp;" else ""
     val dataIcon = if (withOnline) """data-icon="r"""" else ""
-    s"""<a $dataIcon $klass $href>$space$content$progress</a>"""
+    s"""<a $dataIcon $klass $href>$space$titleS$content$progress</a>"""
   }
 
   def userInfosLink(
     userId: String,
     rating: Option[Int],
     cssClass: Option[String] = None,
+    title: Option[String] = None,
     withOnline: Boolean = true) = Env.user usernameOption userId map (_ | userId) map { username =>
     Html {
       val klass = userClass(userId, cssClass, withOnline)
       val href = userHref(username)
-      val content = rating.fold(username)(e => s"$username ($e)")
+      val content = rating.fold(username)(e => s"$username&nbsp;($e)")
+      val titleS = titleTag(title)
       val space = if (withOnline) "&nbsp;" else ""
       val dataIcon = if (withOnline) """data-icon="r"""" else ""
-      s"""<a $dataIcon $klass $href>$space$content</a>"""
+      s"""<a $dataIcon $klass $href>$space$titleS$content</a>"""
     }
   } await
 
