@@ -69,13 +69,19 @@ object User {
   def normalize(username: String) = username.toLowerCase
 
   val titles = Seq(
-    "CM" -> "Candidate Master (CM)",
-    "NM" -> "National Master (NM)",
-    "FM" -> "FIDE Master (FM)",
-    "IM" -> "International Master (IM)",
-    "GM" -> "Grand Master (GM)")
+    "GM" -> "Grandmaster",
+    "WGM" -> "Woman Grandmaster",
+    "IM" -> "International Master",
+    "WIM" -> "Woman Intl. Master",
+    "FM" -> "FIDE Master",
+    "NM" -> "National Master",
+    "CM" -> "FIDE Candidate Master",
+    "WCM" -> "FIDE Woman Candidate Master",
+    "WNM" -> "Woman National Master")
 
   val titlesMap = titles.toMap
+
+  def titleName(title: String) = titlesMap get title getOrElse title
 
   object BSONFields {
     val id = "_id"
