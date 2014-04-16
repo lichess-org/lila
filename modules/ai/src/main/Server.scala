@@ -23,7 +23,7 @@ private[ai] final class Server(
 
   def analyse(uciMoves: List[String], initialFen: Option[String]): Fu[List[Info]] = {
     implicit val timeout = makeTimeout(config.analyseTimeout)
-    (queue ? FullAnalReq(uciMoves, initialFen map chess960Fen)) mapTo manifest[List[Info]]
+    (queue ? FullAnalReq(uciMoves take config.analyseMaxPlies, initialFen map chess960Fen)) mapTo manifest[List[Info]]
   }
 
   private def chess960Fen(fen: String) = (Forsyth << fen).fold(fen) { situation =>

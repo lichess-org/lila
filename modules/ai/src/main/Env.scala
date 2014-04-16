@@ -33,6 +33,7 @@ final class Env(
     analyseMoveTime = c duration "analyse.movetime",
     playTimeout = c duration "play.timeout",
     analyseTimeout = c duration "analyse.timeout",
+    analyseMaxPlies = c getInt "analyse.max_plies",
     debug = c getBoolean "debug")
 
   lazy val aiPerfApi = new AiPerfApi(db(CollectionAiPerf), AiPerfCacheTtl)
