@@ -37,7 +37,7 @@ final class Client(
 
   def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[MoveResult] = {
     implicit val timeout = makeTimeout(config.playTimeout + networkLatency)
-    sendRequest {
+    sendRequest(true) {
       WS.url(s"$endpoint/move").withQueryString(
         "uciMoves" -> uciMoves.mkString(" "),
         "initialFen" -> ~initialFen,
@@ -47,22 +47,21 @@ final class Client(
 
   def analyse(uciMoves: List[String], initialFen: Option[String]): Fu[List[Info]] = {
     implicit val timeout = makeTimeout(config.analyseTimeout + networkLatency)
-    sendRequest {
+    sendRequest(false) {
       WS.url(s"$endpoint/analyse").withQueryString(
         "uciMoves" -> uciMoves.mkString(" "),
         "initialFen" -> ~initialFen)
     } map Info.decodeList flatten "Can't read analysis results: "
   }
 
-  private def sendRequest(req: WS.WSRequestHolder, isRetry: Boolean = false): Fu[String] =
+  private def sendRequest(retriable: Boolean)(req: WS.WSRequestHolder): Fu[String] =
     req.get flatMap {
       case res if res.status == 200 => fuccess(res.body)
       case res =>
         val message = s"AI client WS response ${res.status} ${res.body}"
-        if (isRetry) fufail(message)
-        else {
+        if (retriable) {
           _root_.play.api.Logger("AI client").error(s"Retry: ${~message.lines.toList.headOption}")
-          sendRequest(req, true)
-        }
+          sendRequest(false)(req)
+        } else fufail(message)
     }
 }
