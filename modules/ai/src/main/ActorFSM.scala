@@ -11,6 +11,8 @@ private[ai] final class ActorFSM(
     config: Config,
     logger: String => Unit) extends Actor with AkkaFSM[State, Option[Job]] {
 
+  private var lastWrite = List[String]()
+
   private val process = processBuilder(
     out => self ! Out(out),
     err => self ! Err(err),
@@ -38,7 +40,8 @@ private[ai] final class ActorFSM(
         case r: PlayReq => s"$name P ${"-" * (r.level)}"
         case r: AnalReq => s"$name A ${"#" * (Config.levelMax + 2)}"
       })
-      config go req foreach process.write
+      lastWrite = config go req
+      lastWrite foreach process.write
       goto(Running)
   }
   when(Running) {
@@ -61,6 +64,7 @@ private[ai] final class ActorFSM(
   }
 
   override def postStop() {
+    println(s"======== $name\n${lastWrite mkString "\n"}\n========")
     process.destroy()
   }
 }
