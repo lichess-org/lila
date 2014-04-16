@@ -1,6 +1,8 @@
 package lila.hub
 package actorApi
 
+import lila.common.LightUser
+
 import akka.actor.ActorRef
 import play.api.libs.json._
 import play.api.templates.Html
@@ -145,7 +147,7 @@ case class Remove(gameIds: List[String])
 package relation {
 case class ReloadOnlineFriends(userId: String)
 case class GetOnlineFriends(userId: String)
-case class OnlineFriends(usernames: List[String])
+case class OnlineFriends(users: List[LightUser])
 case class Block(u1: String, u2: String)
 case class UnBlock(u1: String, u2: String)
 }

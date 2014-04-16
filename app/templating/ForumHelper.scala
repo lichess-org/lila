@@ -27,7 +27,7 @@ trait ForumHelper { self: UserHelper with StringHelper =>
     Granter.isGrantedMod(categSlug).await
 
   def authorName(post: Post) =
-    post.userId.fold(escape(post.showAuthor))(userIdToUsername)
+    post.userId.flatMap(lightUser).fold(escape(post.showAuthor))(_.titleName)
 
   def authorLink(
     post: Post,

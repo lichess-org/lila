@@ -5,6 +5,7 @@ import controllers.routes
 import mashup._
 import play.api.templates.Html
 
+import lila.common.LightUser
 import lila.user.{ User, UserContext }
 
 trait UserHelper { self: I18nHelper with StringHelper =>
@@ -27,11 +28,11 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     }
   }
 
-  def userIdToUsername(userId: String): String =
-    (Env.user usernameOrAnonymous userId).await
+  def lightUser(userId: String): Option[LightUser] = Env.user lightUser userId
+  def lightUser(userId: Option[String]): Option[LightUser] = userId flatMap lightUser
 
-  def userIdToUsername(userId: Option[String]): String =
-    userId.fold(User.anonymous)(userIdToUsername)
+  def usernameOrId(userId: String) = lightUser(userId).fold(userId)(_.titleName)
+  def usernameOrAnon(userId: Option[String]) = lightUser(userId).fold(User.anonymous)(_.titleName)
 
   def isOnline(userId: String) = Env.user isOnline userId
 
@@ -41,17 +42,15 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     withOnline: Boolean = true,
     truncate: Option[Int] = None,
     params: String = ""): Html = Html {
-    userIdOption.fold(User.anonymous) { userId =>
-      Env.user usernameOption userId map {
-        case None => User.anonymous
-        case Some(username) => userIdNameLink(
-          userId = userId,
-          username = username,
-          cssClass = cssClass,
-          withOnline = withOnline,
-          truncate = truncate,
-          params = params)
-      } await
+    userIdOption.flatMap(lightUser).fold(User.anonymous) { user =>
+      userIdNameLink(
+        userId = user.id,
+        username = user.name,
+        title = user.title,
+        cssClass = cssClass,
+        withOnline = withOnline,
+        truncate = truncate,
+        params = params)
     }
   }
 
@@ -60,12 +59,12 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     cssClass: Option[String]): Html = userIdLink(userId.some, cssClass)
 
   def userIdLinkMini(userId: String) = Html {
-    Env.user usernameOption userId map { username =>
-      val klass = userClass(userId, none, false)
-      val href = userHref(username getOrElse userId)
-      val content = username getOrElse userId
-      s"""<a data-icon="r" $klass $href>&nbsp;$content</a>"""
-    } await
+    val user = lightUser(userId)
+    val name = user.fold(userId)(_.name)
+    val content = user.fold(userId)(_.titleNameHtml)
+    val klass = userClass(userId, none, false)
+    val href = userHref(name)
+    s"""<a data-icon="r" $klass $href>&nbsp;$content</a>"""
   }
 
   def usernameLink(
@@ -124,17 +123,17 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     rating: Option[Int],
     cssClass: Option[String] = None,
     title: Option[String] = None,
-    withOnline: Boolean = true) = Env.user usernameOption userId map (_ | userId) map { username =>
-    Html {
-      val klass = userClass(userId, cssClass, withOnline)
-      val href = userHref(username)
-      val content = rating.fold(username)(e => s"$username&nbsp;($e)")
-      val titleS = titleTag(title)
-      val space = if (withOnline) "&nbsp;" else ""
-      val dataIcon = if (withOnline) """data-icon="r"""" else ""
-      s"""<a $dataIcon $klass $href>$space$titleS$content</a>"""
-    }
-  } await
+    withOnline: Boolean = true) = {
+    val user = lightUser(userId)
+    val name = user.fold(userId)(_.name)
+    val klass = userClass(userId, cssClass, withOnline)
+    val href = userHref(name)
+    val content = rating.fold(name)(e => s"$name&nbsp;($e)")
+    val titleS = titleTag(title)
+    val space = if (withOnline) "&nbsp;" else ""
+    val dataIcon = if (withOnline) """data-icon="r"""" else ""
+    Html(s"""<a $dataIcon $klass $href>$space$titleS$content</a>""")
+  }
 
   def perfTitle(perf: String): String = lila.user.Perfs.titles get perf getOrElse perf
 

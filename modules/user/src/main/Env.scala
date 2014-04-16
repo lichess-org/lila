@@ -27,6 +27,8 @@ final class Env(
 
   lazy val userColl = db(CollectionUser)
 
+  lazy val lightUserApi = new LightUserApi(userColl)
+
   lazy val paginator = new PaginatorBuilder(
     countUsers = cached.countEnabled,
     maxPerPage = PaginatorMaxPerPage)
@@ -39,9 +41,7 @@ final class Env(
 
   val forms = DataForm
 
-  def usernameOption(id: String): Fu[Option[String]] = cached username id
-
-  def usernameOrAnonymous(id: String): Fu[String] = cached usernameOrAnonymous id
+  def lightUser(id: String): Option[lila.common.LightUser] = lightUserApi get id
 
   def isOnline(userId: String) = onlineUserIdMemo get userId
 

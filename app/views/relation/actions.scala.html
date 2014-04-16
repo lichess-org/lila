@@ -4,7 +4,7 @@
 @if(myId != userId) {
 @if(!blocks(userId, myId)) {
 @if(!playing) {
-<a title="@trans.challengeToPlay()" href="@routes.Lobby.home()?username=@userIdToUsername(userId)#friend" class="icon button" href="#"><span data-icon="U"></span></a>
+<a title="@trans.challengeToPlay()" href="@routes.Lobby.home()?username=@usernameOrId(userId)#friend" class="icon button" href="#"><span data-icon="U"></span></a>
 }
 <a title="@trans.composeMessage()" href="@routes.Message.form()?username=@userId" class="icon button" href="#"><span data-icon="c"></span></a>
 }

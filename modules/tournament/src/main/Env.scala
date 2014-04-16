@@ -17,7 +17,7 @@ final class Env(
     flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMap: ActorRef,
-    getUsername: String => Fu[Option[String]],
+    lightUser: String => Option[lila.common.LightUser],
     isOnline: String => Boolean,
     isDev: Boolean,
     scheduler: lila.common.Scheduler) {
@@ -59,7 +59,7 @@ final class Env(
         history = new History(ttl = MessageTtl),
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout,
-        getUsername = getUsername)
+        lightUser = lightUser)
     }), name = SocketName)
 
   private val organizer = system.actorOf(Props(new Organizer(
@@ -119,7 +119,7 @@ object Env {
     flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
     roundMap = lila.round.Env.current.roundMap,
-    getUsername = lila.user.Env.current.usernameOption,
+    lightUser = lila.user.Env.current.lightUser,
     isOnline = lila.user.Env.current.isOnline,
     isDev = lila.common.PlayApp.isDev,
     scheduler = lila.common.PlayApp.scheduler)

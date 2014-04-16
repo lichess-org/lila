@@ -19,8 +19,9 @@ case class BsTube[Doc](handler: BSONHandler[BSONDocument, Doc]) extends Tube[Doc
 
   def read(bson: BSONDocument): Option[Doc] = handler readTry bson match {
     case Success(doc) => Some(doc)
-    case Failure(err) => logerr(s"[tube] Cannot read ${lila.db.BSON.debug(bson)}\n$err\n${err.printStackTrace}"); None
-    // case Failure(err) => logerr(s"[tube] $err"); None
+    case Failure(err) =>
+      logerr(s"[tube] Cannot read ${lila.db.BSON.debug(bson)}\n$err\n${err.printStackTrace}")
+      None
   }
 
   def write(doc: Doc): BSONDocument = handler write doc

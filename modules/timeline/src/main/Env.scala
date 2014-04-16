@@ -8,7 +8,6 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     getFriendIds: String => Fu[Set[String]],
-    getUsername: String => Fu[String],
     lobbySocket: ActorSelection,
     renderer: ActorSelection,
     system: ActorSystem) {
@@ -36,7 +35,6 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     getFriendIds = lila.relation.Env.current.api.friends _,
-    getUsername = lila.user.Env.current.usernameOrAnonymous _,
     lobbySocket = lila.hub.Env.current.socket.lobby,
     renderer = lila.hub.Env.current.actor.renderer,
     system = lila.common.PlayApp.system)

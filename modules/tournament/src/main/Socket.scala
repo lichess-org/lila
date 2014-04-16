@@ -11,11 +11,12 @@ import lila.hub.TimeBomb
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
+import lila.common.LightUser
 
 private[tournament] final class Socket(
     tournamentId: String,
     val history: History,
-    getUsername: String => Fu[Option[String]],
+    lightUser: String => Option[LightUser],
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member] {
 
@@ -81,12 +82,11 @@ private[tournament] final class Socket(
   override def userIds = (super.userIds ++ joiningMemo.keys).toList.distinct
 
   def notifyCrowd {
-    members.values.map(_.userId).toList.partition(_.isDefined) match {
-      case (users, anons) =>
-        (users.flatten.distinct.sorted map getUsername).sequenceFu foreach { userList =>
-          notifyVersion("crowd", showSpectators(userList.flatten, anons.size))
-        }
+    val (anons, users) = members.values.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
+      case ((anons, users), Some(user)) => anons -> (user :: users)
+      case ((anons, users), None)       => (anons + 1) -> users
     }
+    notifyVersion("crowd", showSpectators(users, anons))
   }
 
   def notifyReload {

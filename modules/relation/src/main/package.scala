@@ -9,8 +9,6 @@ package object relation extends PackageObject with WithPlay {
   private[relation] val Block: Relation = false
 
   private[relation] type ID = String
-  private[relation] type Username = String
-  private[relation] type User = (ID, Username)
 
   object tube {
 

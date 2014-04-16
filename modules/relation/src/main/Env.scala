@@ -11,7 +11,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     getOnlineUserIds: () => Set[String],
-    getUsername: String => Fu[String],
+    lightUser: String => Option[lila.common.LightUser],
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
@@ -34,7 +34,7 @@ final class Env(
 
   private[relation] val actor = system.actorOf(Props(new RelationActor(
     getOnlineUserIds = getOnlineUserIds,
-    getUsername = getUsername,
+    lightUser = lightUser,
     api = api
   )), name = ActorName)
 
@@ -63,7 +63,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     getOnlineUserIds = () => lila.user.Env.current.onlineUserIdMemo.keySet,
-    getUsername = lila.user.Env.current.usernameOrAnonymous,
+    lightUser = lila.user.Env.current.lightUser,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)
 }
