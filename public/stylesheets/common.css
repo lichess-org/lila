@@ -1042,6 +1042,10 @@ a.user_link span.rp.up {
 a.user_link span.rp.down {
   color: #ac524f;
 }
+.user_link span.title {
+  color: #d59120;
+  font-weight: bold;
+}
 div.warning {
   padding: 5px;
   background: #f2dede;
