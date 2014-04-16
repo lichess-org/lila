@@ -24,10 +24,11 @@ object Analyse extends LilaController {
 
   def computer(id: String) = Auth { implicit ctx =>
     me =>
-      env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) effectFold (
-        e => logerr("[analysis] " + e.getMessage),
-        _ => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
-      )
+      env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) addFailureEffect {
+        e => logerr("[analysis] " + e.getMessage)
+      } onComplete {
+        case _ => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
+      }
       fuccess(Ok(html.analyse.computing()))
   }
 

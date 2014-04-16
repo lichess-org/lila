@@ -53,7 +53,7 @@ case class FullAnalReq(moves: List[String], fen: Option[String])
 
 case class Job(req: Req, sender: akka.actor.ActorRef, buffer: List[String]) {
 
-  def +(str: String) = req.analyse.fold(copy(buffer = str :: buffer), this)
+  def +(str: String) = if (req.analyse) copy(buffer = str :: buffer) else  this
 
   // bestmove xyxy ponder xyxy
   def complete(str: String): Option[Any] = req match {

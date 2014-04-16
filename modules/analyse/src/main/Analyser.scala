@@ -22,7 +22,7 @@ final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
   def getDone(id: String): Fu[Option[Analysis]] = AnalysisRepo doneById id flatMap evictStalled
 
   def evictStalled(oa: Option[Analysis]): Fu[Option[Analysis]] = oa ?? { a =>
-    if (a.stalled) (AnalysisRepo remove a) inject none[Analysis] else fuccess(a.some)
+    if (a.stalled) (AnalysisRepo remove a.id) inject none[Analysis] else fuccess(a.some)
   }
 
   def hasDone(id: String): Fu[Boolean] = getDone(id) map (_.isDefined)
@@ -50,18 +50,20 @@ final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
             analysis = Analysis(id, infos, true, DateTime.now)
           } yield UciToPgn(replay, analysis)) flatFold (
             e => fufail[Analysis](e.getMessage), {
-              case (a, errors) => {
-                errors foreach { e => logwarn(s"[analyser UciToPgn] $id $e") }
-                if (a.valid) {
-                  AnalysisRepo.done(id, a)
-                  indexer ! InsertGame(game)
-                  fuccess(a)
-                }
-                else fufail(s"[analyse] invalid (empty infos): $id")
+            case (a, errors) => {
+              errors foreach { e => logwarn(s"[analyser UciToPgn] $id $e") }
+              if (a.valid) {
+                AnalysisRepo.done(id, a)
+                indexer ! InsertGame(game)
+                fuccess(a)
               }
+              else fufail(s"[analyse] invalid (empty infos): $id")
             }
+          }
           )
           case _ => fufail[Analysis]("[analysis] %s no game or pgn found" format (id))
+        } addFailureEffect {
+          _ => AnalysisRepo remove id
         }
 
     get(id) flatMap {

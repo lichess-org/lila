@@ -8,14 +8,17 @@ import akka.util.Timeout
 import scala.concurrent.duration._
 import scala.util.{ Try, Success, Failure }
 
-private[ai] final class Puller(config: Config, id: Int) extends Actor {
+private[ai] final class Puller(
+  config: Config,
+  id: Int,
+  logger: String => Unit) extends Actor {
 
   import Puller._
 
   private val name: String = s"fsm-$id"
   private val master = context.parent
   private val worker: ActorRef = context.actorOf(
-    Props(new ActorFSM(name, Process(config.execPath, s"proc-$id"), config)),
+    Props(classOf[ActorFSM], name, Process(config.execPath, s"proc-$id") _, config, logger),
     name = name)
 
   private def pull {

@@ -8,7 +8,8 @@ import lila.analyse.Analysis
 private[ai] final class ActorFSM(
     name: String,
     processBuilder: Process.Builder,
-    config: Config) extends Actor with AkkaFSM[State, Option[Job]] {
+    config: Config,
+    logger: String => Unit) extends Actor with AkkaFSM[State, Option[Job]] {
 
   private val process = processBuilder(
     out => self ! Out(out),
@@ -33,9 +34,9 @@ private[ai] final class ActorFSM(
   }
   when(IsReady) {
     case Event(Out("readyok"), Some(Job(req, _, _))) =>
-      println(req match {
+      logger(req match {
         case r: PlayReq => s"$name P ${"-" * (r.level)}"
-        case r: AnalReq => s"$name A ${"=" * (Config.levelMax + 2)}"
+        case r: AnalReq => s"$name A ${"#" * (Config.levelMax + 2)}"
       })
       config go req foreach process.write
       goto(Running)
