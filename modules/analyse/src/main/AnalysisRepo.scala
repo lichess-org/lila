@@ -51,7 +51,7 @@ object AnalysisRepo {
     Json.obj(
       "uid" -> uid,
       "done" -> false,
-      "date" -> $gt($date(DateTime.now - 20.minutes))),
+      "date" -> $gt($date(DateTime.now - 30.minutes))),
     "_id")(_.asOpt[String])
 
   def recent(nb: Int): Fu[List[Analysis]] =
