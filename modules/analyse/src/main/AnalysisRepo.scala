@@ -62,5 +62,5 @@ object AnalysisRepo {
 
   def count = $count($select.all)
 
-  def remove(a: Analysis) = $remove byId a.id
+  def remove(id: String) = $remove byId id
 }

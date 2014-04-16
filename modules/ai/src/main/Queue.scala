@@ -21,9 +21,12 @@ private[ai] final class Queue(config: Config) extends Actor {
     case e: Exception => Restart
   }
 
+  private case class Log(msg: String)
+  private val logger = (msg: String) => self ! Log(msg)
+
   (1 to config.nbInstances).toList map { id =>
     context.actorOf(
-      Props(classOf[Puller], config, id),
+      Props(classOf[Puller], config, id, logger),
       name = s"pull-$id")
   }
 
@@ -32,6 +35,8 @@ private[ai] final class Queue(config: Config) extends Actor {
   private val tasks = new scala.collection.mutable.PriorityQueue[Task]
 
   def receive = {
+
+    case Log(msg)      => println(s"[${tasks.size}] $msg")
 
     case Enqueue(task) => tasks += task
 
