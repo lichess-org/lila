@@ -75,7 +75,6 @@ private[ai] object Puller {
       req: Req,
       replyTo: ActorRef,
       timeout: Timeout,
-      date: Int = nowSeconds,
       isRetry: Boolean = false) extends Ordered[Task] {
 
     def retry = !isRetry option copy(isRetry = true)
