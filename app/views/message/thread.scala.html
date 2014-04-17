@@ -1,4 +1,4 @@
-@(thread: lila.message.Thread, form: Form[_])(implicit ctx: Context, me: User)
+@(thread: lila.message.Thread, form: Form[_], blocks: Boolean)(implicit ctx: Context, me: User)
 
 @message.layout(
 title = thread.name) {
@@ -23,7 +23,7 @@ title = thread.name) {
 
 @if(thread.creatorId != "lichess") {
 <div class="answer" id="bottom">
-  @if(blocks(thread.otherUserId(me), me.id)) {
+  @if(blocks) {
   <p>This user blocks you. You cannot answer.</p>
   } else {
   <form action="@routes.Message.answer(thread.id)" method="post">

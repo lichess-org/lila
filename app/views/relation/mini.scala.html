@@ -1,6 +1,6 @@
-@(userId: String)(implicit ctx: Context)
+@(userId: String, relation: Option[lila.relation.Relation] = None)(implicit ctx: Context)
 
-@relationWith(userId) match {
+@relation match {
 case None => {
 <a class="relation button" href="@routes.Relation.follow(userId)?mini=1">
   <span data-icon="h">&nbsp;@trans.follow()</span>
