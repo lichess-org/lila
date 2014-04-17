@@ -15,7 +15,7 @@ final class LightUserApi(coll: Coll) {
   catch {
     case e: java.util.concurrent.ExecutionException =>
       play.api.Logger("light user").warn(s"$id ${e.getMessage}")
-      None
+      LightUser(id, id, None).some
   }
 
   def invalidate = cache invalidate _
@@ -28,9 +28,7 @@ final class LightUserApi(coll: Coll) {
       title = doc.getAs[String](title))
   }
 
-  private val cache =
-    lila.memo.Builder.cache[String, Option[LightUser]](3 hours, fetch)
-
-  private def fetch(id: String) =
-    coll.find(BSONDocument(User.BSONFields.id -> id)).one[LightUser] await 1.second
+  private val cache = lila.memo.AsyncCache.mixed[String, Option[LightUser]](
+    (id: String) => coll.find(BSONDocument(User.BSONFields.id -> id)).one[LightUser],
+    timeToLive = 3 hours)
 }
