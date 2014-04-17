@@ -214,6 +214,36 @@ name | type | default | description
 }
 ```
 
+### `GET /api/puzzle/<id>` fetch one puzzle
+
+```
+> curl http://en.lichess.org/api/puzzle/23045
+```
+
+```javascript
+{
+  "id": 23045,
+  "position": "r2q1rk1/1pn2p1p/p1pp1bpQ/8/2PNR3/1P6/PB3PPP/4R1K1 b - - 1 21", // FEN initial position
+  "solution": ["h6g7", "d4f5", "f5h6"],                                       // solution moves
+  "rating": 1639                                                              // puzzle glicko2 rating
+}
+```
+
+### `GET /api/puzzle/daily` fetch daily puzzle
+
+```
+> curl http://en.lichess.org/api/puzzle/daily
+```
+
+```javascript
+{
+  "id": 23045,
+  "position": "r2q1rk1/1pn2p1p/p1pp1bpQ/8/2PNR3/1P6/PB3PPP/4R1K1 b - - 1 21", // FEN initial position
+  "solution": ["h6g7", "d4f5", "f5h6"],                                       // solution moves
+  "rating": 1639                                                              // puzzle glicko2 rating
+}
+```
+
 ### Read the move stream
 
 Lichess streams all played moves on http://en.lichess.org/stream using chunked HTTP response and the following format:

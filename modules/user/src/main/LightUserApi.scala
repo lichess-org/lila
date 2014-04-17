@@ -22,7 +22,7 @@ final class LightUserApi(coll: Coll) {
   }
 
   private val cache =
-    lila.memo.Builder.cache[String, Option[LightUser]](24 hours, fetch)
+    lila.memo.Builder.cache[String, Option[LightUser]](3 hours, fetch)
 
   private def fetch(id: String) =
     coll.find(BSONDocument(User.BSONFields.id -> id)).one[LightUser] await 2.seconds

@@ -10,6 +10,7 @@ object Api extends LilaController {
   private val userApi = Env.api.userApi
   private val gameApi = Env.api.gameApi
   private val analysisApi = Env.api.analysisApi
+  private val puzzleApi = Env.api.puzzleApi
 
   def user(username: String) = ApiResult { req =>
     userApi.one(
@@ -39,6 +40,14 @@ object Api extends LilaController {
     analysisApi.list(
       nb = getInt("nb", req)
     ) map (_.some)
+  }
+
+  def puzzle(id: String) = ApiResult { req =>
+    (id, parseIntOption(id)) match {
+      case ("daily", _) => puzzleApi.daily
+      case (_, Some(i)) => puzzleApi one i
+      case _            => fuccess(none)
+    }
   }
 
   private def ApiResult(js: RequestHeader => Fu[Option[JsValue]]) = Action async { req =>
