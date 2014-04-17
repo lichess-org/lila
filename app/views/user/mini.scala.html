@@ -1,4 +1,4 @@
-@(u: User, playing: Option[Game])(implicit ctx: Context)
+@(u: User, playing: Option[Game], blocked: Boolean, followed: Boolean)(implicit ctx: Context)
 <div class="title">
   @userLink(u, withPowerTip = false)
   @if(u.engine && ctx.me.fold(true)(u !=)) {
@@ -14,7 +14,7 @@
   }
   }
   <span class="follows">
-    @if(followsMe(u.id)) {
+    @if(followed) {
     @trans.followsYou()
     }
   </span>
@@ -27,7 +27,7 @@
 <table class="actions">
   <tbody>
     <tr>
-      @if(!blocks(u.id, myId)) {
+      @if(!blocked) {
       <td>
         <a class="button" href="@routes.Message.form()?username=@u.username" href="#">
           <span data-icon="c">&nbsp;@trans.chat()</span>

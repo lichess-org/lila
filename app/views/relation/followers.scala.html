@@ -1,4 +1,4 @@
-@(u: User, users: List[User])(implicit ctx: Context)
+@(u: User, users: List[User], following: Int)(implicit ctx: Context)
 
 @user.layout(title = u.username + " - " + trans.nbFollowers(users.size)) {
 <div class="content_box no_padding">
@@ -6,7 +6,7 @@
     @userLink(u, withOnline = false)
     @trans.nbFollowers(users.size)
     &amp;
-    <a href="@routes.Relation.following(u.username)">@trans.nbFollowing(nbFollowing(u.id))</a>
+    <a href="@routes.Relation.following(u.username)">@trans.nbFollowing(following)</a>
   </h1>
   @user.simpleTable(users)
 </div>
