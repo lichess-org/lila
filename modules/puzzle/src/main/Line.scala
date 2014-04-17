@@ -24,6 +24,35 @@ object Line {
     (1 + ~(walk(Vector(lines -> 1)))) / 2
   }
 
+  def solution(lines: Lines): List[String] = {
+
+    def getIn(lines: Lines, path: List[String]): Lines = path match {
+      case Nil => lines
+      case head :: rest => lines collectFirst {
+        case Node(move, lines) if move == head => getIn(lines, rest)
+        case w@Win(move) if move == head       => List(w)
+        case r@Retry(move) if move == head     => List(r)
+      } getOrElse Nil
+    }
+
+    def loop(paths: List[List[String]]): List[String] = paths match {
+      case Nil => Nil
+      case path :: siblings => getIn(lines, path) match {
+        case List(Win(m))   => path :+ m
+        case List(Retry(_)) => loop(siblings)
+        case ahead =>
+          val children = ahead collect { case Node(m, ls) => path :+ m }
+          loop(siblings ::: children)
+      }
+    }
+
+    loop(lines collect {
+      case Node(move, _) => List(move)
+    }).zipWithIndex.collect {
+      case (move, i) if i % 2 == 0 => move
+    }
+  }
+
   def toString(lines: Lines, level: Int = 0): String = {
     val indent = ". " * level
     lines map {

@@ -37,7 +37,7 @@ private[puzzle] final class Daily(
       sit2 <- sit1.move(uci.orig, uci.dest, uci.promotion).toOption map (_.situationAfter)
       fen = Forsyth >> sit2
     } yield renderer ? RenderDaily(puzzle, fen, move) map {
-      case html: play.api.templates.Html => DailyPuzzle(html, puzzle.color).some
+      case html: play.api.templates.Html => DailyPuzzle(html, puzzle.color, puzzle.id).some
     })
   } recover {
     case e: Exception =>
@@ -60,6 +60,6 @@ private[puzzle] final class Daily(
     }
 }
 
-case class DailyPuzzle(html: play.api.templates.Html, color: chess.Color)
+case class DailyPuzzle(html: play.api.templates.Html, color: chess.Color, id: Int)
 
 case class RenderDaily(puzzle: Puzzle, fen: String, lastMove: String)
