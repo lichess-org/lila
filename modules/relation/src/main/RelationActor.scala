@@ -59,7 +59,7 @@ private[relation] final class RelationActor(
   private def reloadOnlineFriends(userId: String) {
     onlineFriends(userId) foreach {
       case OnlineFriends(users) =>
-        bus.publish(SendTo(userId, "following_onlines", users.map(_.name)), 'users)
+        bus.publish(SendTo(userId, "following_onlines", users.map(_.titleName)), 'users)
     }
   }
 
@@ -67,7 +67,7 @@ private[relation] final class RelationActor(
     users foreach { user =>
       api followers user.id foreach { ids =>
         val notify = ids filter onlines.contains
-        if (notify.nonEmpty) bus.publish(SendTos(notify.toSet, message, user.name), 'users)
+        if (notify.nonEmpty) bus.publish(SendTos(notify.toSet, message, user.titleName), 'users)
       }
     }
   }
