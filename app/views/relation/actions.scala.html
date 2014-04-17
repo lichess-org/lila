@@ -1,4 +1,4 @@
-@(userId: String, signup: Boolean = false, playing: Boolean = false, relation: Option[lila.relation.Relation] = None, blocked: Boolean = false)(implicit ctx: Context)
+@(userId: String, relation: Option[lila.relation.Relation], signup: Boolean = false, playing: Boolean = false, blocked: Boolean = false)(implicit ctx: Context)
 
 @ctx.userId.map { myId =>
 @if(myId != userId) {

@@ -1,15 +1,17 @@
-@(users: List[User])(implicit ctx: Context)
+@(users: List[(User, Option[lila.relation.Relation])])(implicit ctx: Context)
 
 <table class="slist">
   @if(users.size > 0) {
   <tbody class="infinitescroll">
-    @users.map { u =>
+    @users.map {
+    case (u, rel) => {
     <tr>
       <td>@userLink(u)</td>
       <td>@u.rating Rating</td>
       <td>@u.count.game @trans.games()</td>
-      <td><div class="relation_actions">@relation.actions(u.id)</div></td>
+      <td><div class="relation_actions">@relation.actions(u.id, relation = rel)</div></td>
     </tr>
+    }
     }
   </tbody>
   } else {
