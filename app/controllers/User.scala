@@ -17,6 +17,7 @@ object User extends LilaController {
   private def env = Env.user
   private def gamePaginator = Env.game.paginator
   private def forms = lila.user.DataForm
+  private def relationApi = Env.relation.api
 
   def show(username: String) = Open { implicit ctx =>
     filter(username, none, 1)
@@ -25,8 +26,8 @@ object User extends LilaController {
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
       GameRepo nowPlaying user.id zip
-        (ctx.userId ?? { Env.relation.api.blocks(user.id, _) }) zip
-        (ctx.userId ?? { Env.relation.api.follows(user.id, _) }) map {
+        (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
+        (ctx.userId ?? { relationApi.follows(user.id, _) }) map {
           case ((game, blocked), followed) =>
             Ok(html.user.mini(user, game, blocked, followed)).withHeaders(CACHE_CONTROL -> "max-age=60")
         }
@@ -62,7 +63,8 @@ object User extends LilaController {
       gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
     })
     playing <- GameRepo nowPlaying u.id map (_.isDefined)
-  } yield html.user.show(u, info, pag, filters, playing)
+    relation <- ctx.userId ?? { relationApi.relation(_, u.id) }
+  } yield html.user.show(u, info, pag, filters, playing, relation)
 
   def list(page: Int) = Open { implicit ctx =>
     Reasonable(page) {
@@ -129,8 +131,12 @@ object User extends LilaController {
 
   def opponents(username: String) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
-      lila.game.BestOpponents(user.id, 50) map { ops =>
-        html.user.opponents(user, ops)
+      lila.game.BestOpponents(user.id, 50) flatMap {
+        _.map {
+          case (u, nb) => ctx.userId ?? { relationApi.relation(_, u.id) } map { (u, nb, _) }
+        }.sequenceFu map { ops =>
+          html.user.opponents(user, ops)
+        }
       }
     }
   }

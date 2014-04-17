@@ -42,9 +42,13 @@ object Relation extends LilaController {
 
   def following(username: String) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
-      env.api.following(user.id) flatMap UserRepo.byIds flatMap { users =>
-        env.api nbFollowers user.id map { followers =>
-          html.relation.following(user, users.sorted, followers)
+      env.api.following(user.id) flatMap UserRepo.byIds flatMap {
+        _.map { u =>
+          ctx.userId ?? { env.api.relation(_, u.id) } map (u -> _)
+        }.sequenceFu flatMap { users =>
+          env.api nbFollowers user.id map { followers =>
+            html.relation.following(user, users.sortBy(_._1), followers)
+          }
         }
       }
     }
@@ -52,9 +56,13 @@ object Relation extends LilaController {
 
   def followers(username: String) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
-      env.api.followers(user.id) flatMap UserRepo.byIds flatMap { users =>
-        env.api nbFollowing user.id map { following =>
-          html.relation.followers(user, users.sorted, following)
+      env.api.followers(user.id) flatMap UserRepo.byIds flatMap {
+        _.map { u =>
+          ctx.userId ?? { env.api.relation(_, u.id) } map (u -> _)
+        }.sequenceFu flatMap { users =>
+          env.api nbFollowing user.id map { following =>
+            html.relation.followers(user, users.sortBy(_._1), following)
+          }
         }
       }
     }
@@ -63,10 +71,15 @@ object Relation extends LilaController {
   def suggest(username: String) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
       lila.game.BestOpponents(user.id, 50) zip
-        env.api.onlinePopularUsers(20) map {
-          case (opponents, popular) => popular.filterNot(user ==).foldLeft(opponents) {
-            case (xs, x) => xs.exists(_._1 == x).fold(xs, xs :+ (x, 0))
-          } |> { html.relation.suggest(user, _) }
+        env.api.onlinePopularUsers(20) flatMap {
+          case (opponents, popular) =>
+            popular.filterNot(user ==).foldLeft(opponents) {
+              case (xs, x) => xs.exists(_._1 == x).fold(xs, xs :+ (x, 0))
+            }.map {
+              case (u, nb) => env.api.relation(user.id, u.id) map { (u, nb, _) }
+            }.sequenceFu map { users =>
+              html.relation.suggest(user, users)
+            }
         }
     }
   }

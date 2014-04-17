@@ -1,4 +1,4 @@
-@(u: User, sugs: List[(User, Int)])(implicit ctx: Context)
+@(u: User, sugs: List[(User, Int, Option[lila.relation.Relation])])(implicit ctx: Context)
 <table class="slist best_opponents">
   @if(sugs.size > 0) {
   <tbody>
@@ -13,7 +13,7 @@
         </a>
         }
       </td>
-      <td><div class="relation_actions">@relation.actions(sug._1.id)</div></td>
+      <td><div class="relation_actions">@relation.actions(sug._1.id, sug._3)</div></td>
     </tr>
     }
   </tbody>
