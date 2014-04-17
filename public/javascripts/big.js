@@ -1616,7 +1616,8 @@ var storage = {
       this.repaint();
     },
     _renderUser: function(user) {
-      return '<a class="ulpt" data-placement="nw" href="/@/' + user + '">' + user + '</a>';
+      var id = _.last(user.split(' '));
+      return '<a class="ulpt" data-placement="nw" href="/@/' + id + '">' + user + '</a>';
     }
   });
 
