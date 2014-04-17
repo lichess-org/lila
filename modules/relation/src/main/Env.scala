@@ -18,7 +18,6 @@ final class Env(
   private val settings = new {
     val CollectionRelation = config getString "collection.relation"
     val ActorNotifyFreq = config duration "actor.notify_freq"
-    val ActorResyncFreq = config duration "actor.resync_freq"
     val ActorName = config getString "actor.name"
   }
   import settings._
@@ -40,15 +39,10 @@ final class Env(
 
   {
     import scala.concurrent.duration._
-    import makeTimeout.short
 
     scheduler.once(5 seconds) {
       scheduler.message(ActorNotifyFreq) {
         actor -> actorApi.NotifyMovement
-      }
-
-      scheduler.message(ActorResyncFreq) {
-        actor -> actorApi.ReloadAllOnlineFriends
       }
     }
   }
