@@ -38,7 +38,7 @@ final class Env(
 
   lazy val aiPerfApi = new AiPerfApi(db(CollectionAiPerf), AiPerfCacheTtl)
 
-  def ratingOf(level: Int) = aiPerfApi.intRatings map (_ get level)
+  def ratingOf(level: Int) = aiPerfApi.intRatings get level
 
   // api actor
   system.actorOf(Props(new Actor {
