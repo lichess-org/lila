@@ -201,7 +201,7 @@ object BinaryFormat {
     if (i > int23Max) int23Max - i else i
   }
 
-  // this will break in 2046 
+  // this will break in 2046
   private val long40Max = math.pow(2, 40).toLong
   private val long40Decay = 100000000000l
   def writeLong40(long: Long) = {

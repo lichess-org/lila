@@ -32,9 +32,9 @@ object Lobby extends LilaController {
       tours = Env.tournament.allCreatedSorted(true),
       filter = Env.setup.filter
     ).map(_.fold(Redirect(_), {
-        case (preload, entries, posts, tours, featured, leaderboard, progress, puzzle) =>
+        case (preload, entries, posts, tours, featured, leaderboard, progress, puzzle, playing) =>
           val response = status(html.lobby.home(
-            Json stringify preload, entries, posts, tours, featured, leaderboard, progress, puzzle
+            Json stringify preload, entries, posts, tours, featured, leaderboard, progress, puzzle, playing
           ))
           // the session cookie is required for anon lobby filter storage
           ctx.req.session.data.contains(LilaCookie.sessionId).fold(

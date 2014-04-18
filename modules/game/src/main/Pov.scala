@@ -40,7 +40,10 @@ object Pov {
   def apply(game: Game, player: Player) = new Pov(game, player.color)
 
   def apply(game: Game, playerId: String): Option[Pov] =
-    game player playerId map { p => new Pov(game, p.color) }
+    game player playerId map { apply(game, _) }
+
+  def apply(game: Game, user: lila.user.User): Option[Pov] =
+    game player user map { apply(game, _) }
 }
 
 case class PovRef(gameId: String, color: Color) {
