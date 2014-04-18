@@ -1,7 +1,7 @@
 package lila.ai
 
 import lila.db.Types.Coll
-import lila.memo.AsyncCache
+import lila.memo.MixedCache
 import lila.rating.{ Perf, Glicko }
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
@@ -28,22 +28,16 @@ final class AiPerfApi(coll: Coll, cacheTtl: Duration) {
 
   private def default(level: Int) = AiPerf(level, Perf.default)
 
-  private val cache = AsyncCache.mixedSingle[Map[Int, AiPerf]](
+  private val cache = MixedCache.single[Map[Int, AiPerf]](
     coll.find(BSONDocument()).cursor[AiPerf].collect[List]() map { perfs =>
       levels.map { l =>
         l -> (perfs find (_.level == l) getOrElse default(l))
       }.toMap
     },
-    timeToLive = cacheTtl)
+    timeToLive = cacheTtl,
+    default = levels.map { i => i -> default(i) }.toMap)
 
-  def all: Map[Int, AiPerf] = try {
-    cache get true
-  }
-  catch {
-    case e: java.util.concurrent.ExecutionException =>
-      play.api.Logger("AI perf").warn(e.getMessage)
-      levels.map { i => i -> default(i) }.toMap
-  }
+  def all: Map[Int, AiPerf] = cache get true
 
   def intRatings: Map[Int, Int] = all map {
     case (level, perf) => level -> perf.intRating

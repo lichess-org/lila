@@ -12,12 +12,10 @@ private[forum] final class Recent(
     ttl: Duration,
     nb: Int) {
 
-  private type GetTeams = String => Fu[List[String]]
+  private type GetTeams = String => List[String]
 
   def apply(user: Option[User], getTeams: GetTeams): Fu[List[PostLiteView]] =
-    userCacheKey(user, getTeams) flatMap { key =>
-      cache(key)(fetch(key))
-    }
+    userCacheKey(user, getTeams) |> { key => cache(key)(fetch(key)) }
 
   def team(teamId: String): Fu[List[PostLiteView]] = {
     // prepend empty language list
@@ -29,14 +27,12 @@ private[forum] final class Recent(
 
   import makeTimeout.large
 
-  private def userCacheKey(user: Option[User], getTeams: GetTeams): Fu[String] =
-    user.map(_.id) ?? getTeams map { teams =>
-      user.fold("en")(_.langs.mkString(",")) :: {
-        (user.??(_.troll) ?? List("[troll]")) :::
-          (user ?? MasterGranter(Permission.StaffForum)).fold(staffCategIds, publicCategIds) :::
-          (teams map teamSlug)
-      }
-    } map (_ mkString ";")
+  private def userCacheKey(user: Option[User], getTeams: GetTeams): String =
+    user.fold("en")(_.langs.mkString(",")) :: {
+      (user.??(_.troll) ?? List("[troll]")) :::
+        (user ?? MasterGranter(Permission.StaffForum)).fold(staffCategIds, publicCategIds) :::
+        ((user.map(_.id) ?? getTeams) map teamSlug)
+    } mkString ";"
 
   private lazy val publicCategIds =
     CategRepo.withTeams(Nil).await.map(_.slug) filterNot ("staff" ==)

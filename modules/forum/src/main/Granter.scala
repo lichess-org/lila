@@ -8,7 +8,7 @@ trait Granter {
   private val TeamSlugPattern = """^team-([\w-]+)$""".r
   private val StaffSlug = "staff"
 
-  protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean]
+  protected def userBelongsToTeam(teamId: String, userId: String): Boolean
   protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean]
 
   def isGrantedRead(categSlug: String)(implicit ctx: UserContext): Boolean =
@@ -16,14 +16,13 @@ trait Granter {
       ctx.me exists Master(Permission.StaffForum),
       true)
 
-  def isGrantedWrite(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
-    fuccess(ctx.isAuth) >>& (categSlug match {
-      case StaffSlug =>
-        fuccess(ctx.me exists Master(Permission.StaffForum))
-      case TeamSlugPattern(teamId) =>
-        ctx.me.??(me => userBelongsToTeam(teamId, me.id))
-      case _ => fuccess(true)
-    })
+  def isGrantedWrite(categSlug: String)(implicit ctx: UserContext): Boolean = ctx.me ?? { me =>
+    categSlug match {
+      case StaffSlug               => Master(Permission.StaffForum)(me)
+      case TeamSlugPattern(teamId) => userBelongsToTeam(teamId, me.id)
+      case _                       => true
+    }
+  }
 
   def isGrantedMod(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
     categSlug match {

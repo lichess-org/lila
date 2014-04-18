@@ -12,7 +12,6 @@ final class Env(config: Config, hub: lila.hub.Env, db: lila.db.Env) {
     val CollectionRequest = config getString "collection.request"
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
     val PaginatorMaxUserPerPage = config getInt "paginator.max_user_per_page"
-    val CacheCapacity = config getInt "cache.capacity"
   }
   import settings._
 
@@ -31,7 +30,7 @@ final class Env(config: Config, hub: lila.hub.Env, db: lila.db.Env) {
 
   lazy val cli = new Cli(api)
 
-  lazy val cached = new Cached(CacheCapacity)
+  lazy val cached = new Cached
 
   private[team] lazy val teamColl = db(CollectionTeam)
   private[team] lazy val requestColl = db(CollectionRequest)

@@ -10,7 +10,7 @@ trait ForumHelper { self: UserHelper with StringHelper =>
 
   private object Granter extends lila.forum.Granter {
 
-    protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean] =
+    protected def userBelongsToTeam(teamId: String, userId: String): Boolean =
       Env.team.api.belongsTo(teamId, userId)
 
     protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean] =
@@ -18,10 +18,10 @@ trait ForumHelper { self: UserHelper with StringHelper =>
   }
 
   def isGrantedRead(categSlug: String)(implicit ctx: Context) =
-    Granter.isGrantedRead(categSlug)
+    Granter isGrantedRead categSlug
 
   def isGrantedWrite(categSlug: String)(implicit ctx: Context) =
-    Granter.isGrantedWrite(categSlug).await
+    Granter isGrantedWrite categSlug
 
   def isGrantedMod(categSlug: String)(implicit ctx: Context) =
     Granter.isGrantedMod(categSlug).await
