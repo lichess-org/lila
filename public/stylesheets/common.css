@@ -1309,7 +1309,6 @@ div.lcmp {
 .mini_board .ui-draggable-dragging {
   z-index: 9;
 }
-
 /* opening.css */
 
 div.game_config button {
@@ -1953,6 +1952,20 @@ div.lichess_overboard.joining .mini_board {
 }
 #crosstable .score {
   font-size: 1.3em;
+}
+#now_playing {
+  margin: 2em 0 2em -30px;
+  display: block;
+  text-align: center;
+  position: relative;
+  padding-left: 45px;
+}
+#now_playing::before {
+  content: 'U';
+  font-size: 32px;
+  position: absolute;
+  top: 7px;
+  left: 10px;
 }
 #timeline {
   margin-top: 2em;

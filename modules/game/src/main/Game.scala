@@ -65,8 +65,9 @@ case class Game(
 
   def turnColor = Color(0 == turns % 2)
 
-  def turnOf(p: Player) = p == player
-  def turnOf(c: Color) = c == turnColor
+  def turnOf(p: Player): Boolean = p == player
+  def turnOf(c: Color): Boolean = c == turnColor
+  def turnOf(u: User): Boolean = player(u) ?? turnOf
 
   def playedTurns = turns - startedAtTurn
 

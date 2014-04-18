@@ -62,7 +62,7 @@ object User extends LilaController {
     pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query =>
       gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
     })
-    playing <- GameRepo nowPlaying u.id map (_.isDefined)
+    playing <- GameRepo isNowPlaying u.id
     relation <- ctx.userId ?? { relationApi.relation(_, u.id) }
   } yield html.user.show(u, info, pag, filters, playing, relation)
 
