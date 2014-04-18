@@ -31,18 +31,4 @@ object AsyncCache {
     timeToLive: Duration = Duration.Inf) = new AsyncCache[Boolean, V](
     cache = LruCache(timeToLive = timeToLive),
     f = _ => f)
-
-  def mixed[K, V](
-    f: K => Fu[V],
-    timeToLive: Duration = Duration.Inf): com.google.common.cache.LoadingCache[K, V] = {
-    val asyncCache = apply(f, maxCapacity = 10000, timeToLive = 1 minute)
-    Builder.cache[K, V](timeToLive, (k: K) => asyncCache(k) await 10.millis)
-  }
-
-  def mixedSingle[V](
-    f: => Fu[V],
-    timeToLive: Duration = Duration.Inf): com.google.common.cache.LoadingCache[Boolean, V] = {
-    val asyncCache = single(f, timeToLive = 1 minute)
-    Builder.cache[Boolean, V](timeToLive, (_: Boolean) => asyncCache(true) await 10.millis)
-  }
 }

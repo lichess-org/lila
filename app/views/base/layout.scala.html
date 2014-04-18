@@ -44,13 +44,11 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
       @if(!zen) {
       @siteMenu.all(ctx.me).map { elem =>
       @elem.code match {
-      case "team" if teamNbRequests(ctx) > 0 => {
-      @defining(teamNbRequests(ctx)) { nbr =>
+      case "team" if ctx.teamNbRequests > 0 => {
       <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@routes.Team.requests()">
         @elem.name()
-        <span id="nb_messages" class="new_messages unread">@nbr</span>
+        <span id="nb_messages" class="new_messages unread">@ctx.teamNbRequests</span>
       </a>
-      }
       }
       case "team" => {
       <a class="goto_nav blank_if_play @elem.currentClass(active)"

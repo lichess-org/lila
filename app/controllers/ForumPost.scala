@@ -15,7 +15,7 @@ object ForumPost extends LilaController with ForumController {
   }
 
   def recent = Open { implicit ctx =>
-    Env.forum.recent(ctx.me, teamCache.teamIds.apply) map { posts =>
+    Env.forum.recent(ctx.me, teamCache.teamIds) map { posts =>
       html.forum.post.recent(posts)
     }
   }

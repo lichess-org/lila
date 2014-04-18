@@ -9,14 +9,7 @@ import User.BSONFields._
 
 final class LightUserApi(coll: Coll) {
 
-  def get(id: String): Option[LightUser] = try {
-    cache get id
-  }
-  catch {
-    case e: java.util.concurrent.ExecutionException =>
-      play.api.Logger("light user").warn(s"$id ${e.getMessage}")
-      LightUser(id, id, None).some
-  }
+  def get(id: String): Option[LightUser] = cache get id
 
   def invalidate = cache invalidate _
 
@@ -28,7 +21,8 @@ final class LightUserApi(coll: Coll) {
       title = doc.getAs[String](title))
   }
 
-  private val cache = lila.memo.AsyncCache.mixed[String, Option[LightUser]](
-    (id: String) => coll.find(BSONDocument(User.BSONFields.id -> id)).one[LightUser],
-    timeToLive = 3 hours)
+  private val cache = lila.memo.MixedCache[String, Option[LightUser]](
+    id => coll.find(BSONDocument(User.BSONFields.id -> id)).one[LightUser],
+    timeToLive = 3 hours,
+    default = id => LightUser(id, id, None).some)
 }

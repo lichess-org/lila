@@ -11,9 +11,9 @@
 @goodies = {
 <div class="side_menu">
   @defining(~currentTab) { tab =>
-  @if(teamNbRequests(ctx) > 0) {
+  @if(ctx.teamNbRequests > 0) {
   <a class="@tab.active("requests")" href="@routes.Team.requests()">
-    @teamNbRequests(ctx) join requests
+    @ctx.teamNbRequests join requests
   </a>
   }
   @if(ctx.me.??(_.canTeam)) {

@@ -34,13 +34,14 @@ final class TeamApi(
       irc = s.hasIrc,
       createdBy = me)
     $insert(team) >>
-      MemberRepo.add(team.id, me.id) >>
-      (cached.teamIds remove me.id) >>-
-      (forum ! MakeTeam(team.id, team.name)) >>-
-      (indexer ! InsertTeam(team)) >>-
-      (timeline ! Propagate(
-        TeamCreate(me.id, team.id)
-      ).toFriendsOf(me.id)) inject team
+      MemberRepo.add(team.id, me.id) >>- {
+        (cached.teamIdsCache invalidate me.id)
+        (forum ! MakeTeam(team.id, team.name))
+        (indexer ! InsertTeam(team))
+        (timeline ! Propagate(
+          TeamCreate(me.id, team.id)
+        ).toFriendsOf(me.id))
+      } inject team
   }
 
   def update(team: Team, edit: TeamEdit, me: User): Funit = edit.trim |> { e =>
@@ -51,8 +52,7 @@ final class TeamApi(
       irc = e.hasIrc) |> { team => $update(team) >>- (indexer ! InsertTeam(team)) }
   }
 
-  def mine(me: User): Fu[List[Team]] =
-    cached teamIds me.id flatMap $find.byOrderedIds[Team]
+  def mine(me: User): Fu[List[Team]] = $find.byIds[Team](cached teamIds me.id)
 
   def hasCreatedRecently(me: User): Fu[Boolean] =
     TeamRepo.userHasCreatedSince(me.id, creationPeriod)
@@ -88,7 +88,7 @@ final class TeamApi(
   } yield teamOption filter (_ => able)
 
   def requestable(team: Team, user: User): Fu[Boolean] =
-    RequestRepo.exists(team.id, user.id) zip belongsTo(team.id, user.id) map {
+    RequestRepo.exists(team.id, user.id).map { _ -> belongsTo(team.id, user.id) } map {
       case (false, false) => true
       case _              => false
     }
@@ -111,19 +111,17 @@ final class TeamApi(
     )
   } yield ()
 
-  def doJoin(team: Team, userId: String): Funit =
-    belongsTo(team.id, userId) flatMap { belongs =>
-      (!belongs) ?? {
-        MemberRepo userIdsByTeam team.id flatMap { previousMembers =>
-          MemberRepo.add(team.id, userId) >>
-            TeamRepo.incMembers(team.id, +1) >>
-            (cached.teamIds remove userId) >>-
-            (timeline ! Propagate(
-              TeamJoin(userId, team.id)
-            ).toFriendsOf(userId).toUsers(previousMembers))
+  def doJoin(team: Team, userId: String): Funit = (!belongsTo(team.id, userId)) ?? {
+    MemberRepo userIdsByTeam team.id flatMap { previousMembers =>
+      MemberRepo.add(team.id, userId) >>
+        TeamRepo.incMembers(team.id, +1) >>- {
+          (cached.teamIdsCache invalidate userId)
+          (timeline ! Propagate(
+            TeamJoin(userId, team.id)
+          ).toFriendsOf(userId).toUsers(previousMembers))
         }
-      }
     }
+  }
 
   def quit(teamId: String)(implicit ctx: UserContext): Fu[Option[Team]] = for {
     teamOption ← $find.byId[Team](teamId)
@@ -132,14 +130,11 @@ final class TeamApi(
     })
   } yield result
 
-  def doQuit(team: Team, userId: String): Funit =
-    belongsTo(team.id, userId) flatMap {
-      _ ?? {
-        MemberRepo.remove(team.id, userId) >>
-          TeamRepo.incMembers(team.id, -1) >>
-          (cached.teamIds remove userId)
-      }
-    }
+  def doQuit(team: Team, userId: String): Funit = belongsTo(team.id, userId) ?? {
+    MemberRepo.remove(team.id, userId) >>
+      TeamRepo.incMembers(team.id, -1) >>-
+      (cached.teamIdsCache invalidate userId)
+  }
 
   def quitAll(userId: String): Funit = MemberRepo.removeByUser(userId)
 
@@ -157,8 +152,8 @@ final class TeamApi(
       MemberRepo.removeByteam(team.id) >>-
       (indexer ! RemoveTeam(team.id))
 
-  def belongsTo(teamId: String, userId: String): Fu[Boolean] =
-    cached teamIds userId map (_ contains teamId)
+  def belongsTo(teamId: String, userId: String): Boolean =
+    cached.teamIds(userId) contains teamId
 
   def owns(teamId: String, userId: String): Fu[Boolean] =
     TeamRepo ownerOf teamId map (Some(userId) ==)

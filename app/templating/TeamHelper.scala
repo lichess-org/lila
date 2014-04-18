@@ -12,12 +12,11 @@ trait TeamHelper {
   private def api = teamEnv.api
 
   def myTeam(teamId: String)(implicit ctx: Context): Boolean =
-    ctx.me.??(me => api.belongsTo(teamId, me.id).await)
+    ctx.me.??(me => api.belongsTo(teamId, me.id))
 
-  def teamIds(userId: String): List[String] =
-    api.teamIds(userId).await
+  def teamIds(userId: String): List[String] = api teamIds userId
 
-  def teamIdToName(id: String): String = (api teamName id).await | id
+  def teamIdToName(id: String): String = api teamName id getOrElse id
 
   def teamLink(id: String, cssClass: Option[String] = None): Html = Html {
     val klass = cssClass.??(c => s""" class="$c"""")
@@ -27,7 +26,4 @@ trait TeamHelper {
   }
 
   def teamForumUrl(id: String) = routes.ForumCateg.show("team-" + id)
-
-  def teamNbRequests(ctx: Context) =
-    (ctx.userId ?? api.nbRequests).await
 }

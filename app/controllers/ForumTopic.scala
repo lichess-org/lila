@@ -33,11 +33,10 @@ object ForumTopic extends LilaController with ForumController {
   def show(categSlug: String, slug: String, page: Int) = Open { implicit ctx =>
     CategGrantRead(categSlug) {
       OptionFuOk(topicApi.show(categSlug, slug, page, ctx.troll)) {
-        case (categ, topic, posts) => isGrantedWrite(categSlug) flatMap { granted =>
-          (!posts.hasNextPage && granted && topic.open) ?? forms.postWithCaptcha.map(_.some) map { form =>
+        case (categ, topic, posts) =>
+          (!posts.hasNextPage && isGrantedWrite(categSlug) && topic.open) ?? forms.postWithCaptcha.map(_.some) map { form =>
             html.forum.topic.show(categ, topic, posts, form)
           }
-        }
       }
     }
   }

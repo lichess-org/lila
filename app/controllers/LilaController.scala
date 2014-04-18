@@ -186,12 +186,12 @@ private[controllers] trait LilaController
           import lila.hub.actorApi.relation._
           import akka.pattern.ask
           import makeTimeout.short
-          Env.hub.actor.relation ? GetOnlineFriends(me.id) map {
+          (Env.hub.actor.relation ? GetOnlineFriends(me.id) map {
             case OnlineFriends(users) => users
-          } recover { case _ => Nil }
+          } recover { case _ => Nil }) zip Env.team.api.nbRequests(me.id)
         }
       } map {
-        case (pref, friends) => PageData(friends, pref)
+        case (pref, (friends, teamNbRequests)) => PageData(friends, teamNbRequests, pref)
       }
     }
 
