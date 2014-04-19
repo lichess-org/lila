@@ -1,16 +1,19 @@
 package lila.bookmark
 
-import lila.memo.AsyncCache
+import scala.concurrent.duration._
+import lila.memo.MixedCache
 
 private[bookmark] final class Cached {
 
-  val gameIds = AsyncCache(
+  private[bookmark] val gameIdsCache = MixedCache[String, Set[String]](
     (userId: String) => BookmarkRepo gameIdsByUserId userId map (_.toSet),
-    maxCapacity = 50000)
+    timeToLive = 1 day,
+    default = _ => Set.empty)
 
-  def bookmarked(gameId: String, userId: String): Fu[Boolean] =
-    gameIds(userId) map (_ contains gameId)
+  def gameIds(userId: String) = gameIdsCache get userId
 
-  def count(userId: String): Fu[Int] =
-    gameIds(userId) map (_.size)
+  def bookmarked(gameId: String, userId: String): Boolean =
+    gameIds(userId) contains gameId
+
+  def count(userId: String): Int = gameIds(userId).size
 }
