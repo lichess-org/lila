@@ -17,7 +17,8 @@ final class Featured(
     rendererActor: ActorSelection,
     system: ActorSystem) {
 
-  implicit private def timeout = makeTimeout(2 seconds)
+  implicit private def timeout = makeTimeout(20 millis)
+
   private type Fuog = Fu[Option[Game]]
 
   private val bus = system.lilaBus
