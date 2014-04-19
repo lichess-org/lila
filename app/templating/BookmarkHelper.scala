@@ -9,5 +9,5 @@ import lila.user.User
 trait BookmarkHelper {
 
   def isBookmarked(game: Game, user: User): Boolean = 
-    bookmarkEnv.api.bookmarked(game, user).await
+    bookmarkEnv.api.bookmarked(game, user)
 }

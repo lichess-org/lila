@@ -46,7 +46,6 @@ object UserInfo {
     }) zip
       ((ctx is user) ?? { gameCached nbPlaying user.id map (_.some) }) zip
       (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id) }) zip
-      (bookmarkApi countByUser user) zip
       getRatingChart(user) zip
       relationApi.nbFollowing(user.id) zip
       relationApi.nbFollowers(user.id) zip
@@ -54,12 +53,12 @@ object UserInfo {
         relationApi.nbBlockers(user.id) map (_.some)
       }) zip
       postApi.nbByUser(user.id) map {
-        case ((((((((rank, nbPlaying), crosstable), nbBookmark), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts) => new UserInfo(
+        case (((((((rank, nbPlaying), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts) => new UserInfo(
           user = user,
           rank = rank,
           nbPlaying = ~nbPlaying,
           crosstable = crosstable,
-          nbBookmark = nbBookmark,
+          nbBookmark = bookmarkApi countByUser user,
           ratingChart = ratingChart,
           nbFollowing = nbFollowing,
           nbFollowers = nbFollowers,

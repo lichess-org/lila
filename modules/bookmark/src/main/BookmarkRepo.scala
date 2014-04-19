@@ -20,9 +20,6 @@ private[bookmark] object BookmarkRepo {
       ) inject !e
     }
 
-  def userIdsByGameId(gameId: String): Fu[List[String]] =
-    $primitive(Json.obj("g" -> gameId), "u")(_.asOpt[String])
-
   def gameIdsByUserId(userId: String): Fu[List[String]] =
     $primitive(userIdQuery(userId), "g")(_.asOpt[String])
 
