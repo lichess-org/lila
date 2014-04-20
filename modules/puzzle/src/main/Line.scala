@@ -48,9 +48,7 @@ object Line {
 
     loop(lines collect {
       case Node(move, _) => List(move)
-    }).zipWithIndex.collect {
-      case (move, i) if i % 2 == 0 => move
-    }
+    })
   }
 
   def toString(lines: Lines, level: Int = 0): String = {
