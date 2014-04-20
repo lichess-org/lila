@@ -1,12 +1,9 @@
 package lila.round
 
 import akka.actor.ActorRef
-import akka.pattern.{ ask, pipe }
 
-import actorApi._, round._
-import lila.db.api._
-import lila.game.tube.gameTube
-import lila.game.{ Game, GameRepo, PovRef, Pov }
+import actorApi.round._
+import lila.game.Pov
 import lila.hub.actorApi.map.Tell
 
 private[round] final class Meddler(roundMap: ActorRef, socketHub: ActorRef) {
