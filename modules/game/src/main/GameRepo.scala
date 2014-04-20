@@ -79,10 +79,12 @@ trait GameRepo {
       case (Nil, Nil) => funit
       case (sets, unsets) => gameTube.coll.update(
         $select(progress.origin.id),
-        if (unsets.isEmpty) BSONDocument("$set" -> BSONDocument(sets))
-        else BSONDocument("$set" -> BSONDocument(sets), "$unset" -> BSONDocument(unsets))
+        nonEmptyMod("$set", BSONDocument(sets)) ++ nonEmptyMod("$unset", BSONDocument(unsets))
       ).void
     }
+
+  def nonEmptyMod(mod: String, doc: BSONDocument) =
+    if (doc.isEmpty) BSONDocument() else BSONDocument(mod -> doc)
 
   def setRatingDiffs(id: ID, white: Int, black: Int) =
     $update($select(id), BSONDocument("$set" -> BSONDocument(
@@ -121,21 +123,18 @@ trait GameRepo {
 
   def finish(id: ID, winnerColor: Option[Color], winnerId: Option[String]) = $update(
     $select(id),
-    BSONDocument(
-      "$set" -> BSONDocument(
-        F.winnerId -> winnerId,
-        F.winnerColor -> winnerColor.map(_.white)
-      ),
-      "$unset" -> BSONDocument(
-        F.positionHashes -> true,
-        ("p0." + Player.BSONFields.lastDrawOffer) -> true,
-        ("p1." + Player.BSONFields.lastDrawOffer) -> true,
-        ("p0." + Player.BSONFields.isOfferingDraw) -> true,
-        ("p1." + Player.BSONFields.isOfferingDraw) -> true,
-        ("p0." + Player.BSONFields.isProposingTakeback) -> true,
-        ("p1." + Player.BSONFields.isProposingTakeback) -> true
-      )
-    )
+    nonEmptyMod("$set", BSONDocument(
+      F.winnerId -> winnerId,
+      F.winnerColor -> winnerColor.map(_.white)
+    )) ++ nonEmptyMod("$unset", BSONDocument(
+      F.positionHashes -> true,
+      ("p0." + Player.BSONFields.lastDrawOffer) -> true,
+      ("p1." + Player.BSONFields.lastDrawOffer) -> true,
+      ("p0." + Player.BSONFields.isOfferingDraw) -> true,
+      ("p1." + Player.BSONFields.isOfferingDraw) -> true,
+      ("p0." + Player.BSONFields.isProposingTakeback) -> true,
+      ("p1." + Player.BSONFields.isProposingTakeback) -> true
+    ))
   )
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] = $find.one(
