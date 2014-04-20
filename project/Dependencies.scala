@@ -51,7 +51,7 @@ object Dependencies {
     val test = "com.typesafe.play" %% "play-test" % version
   }
   object spray {
-    val version = "1.2.0"
+    val version = "1.2.1"
     val caching = "io.spray" % "spray-caching" % version
     val util = "io.spray" % "spray-util" % version
   }
