@@ -72,7 +72,7 @@ private[gameSearch] final class Indexer(
               client bulk {
                 games.map { g => store(g, analysedIds(g.id)) }: _*
               }
-            }) >>- {
+            }).void >>- {
               nb = nb + nbGames
               nbSkipped = nbSkipped + gameOptions.size - nbGames
               val perS = (batchSize * 1000) / math.max(1, (nowMillis - started))
