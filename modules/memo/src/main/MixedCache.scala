@@ -12,9 +12,7 @@ final class MixedCache[K, V] private (
     cache get k
   }
   catch {
-    case e: java.util.concurrent.ExecutionException =>
-      play.api.Logger("mixed cache").warn(s"$k ${e.getMessage}")
-      default(k)
+    case _: java.util.concurrent.TimeoutException => default(k)
   }
 
   def invalidate(k: K) {
@@ -27,7 +25,7 @@ object MixedCache {
   def apply[K, V](
     f: K => Fu[V],
     timeToLive: Duration = Duration.Inf,
-    awaitTime: FiniteDuration = 10.millis,
+    awaitTime: FiniteDuration = 5.millis,
     default: K => V): MixedCache[K, V] = {
     val asyncCache = AsyncCache(f, maxCapacity = 10000, timeToLive = 1 minute)
     val syncCache = Builder.cache[K, V](
