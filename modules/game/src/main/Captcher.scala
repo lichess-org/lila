@@ -21,9 +21,9 @@ private final class Captcher extends Actor {
 
     case AnyCaptcha             => sender ! Impl.current
 
-    case GetCaptcha(id: String) => sender ! Impl.get(id).await
+    case GetCaptcha(id: String) => Impl get id pipeTo sender
 
-    case actorApi.NewCaptcha    => Impl.refresh.await
+    case actorApi.NewCaptcha    => Impl.refresh
 
     case ValidCaptcha(id: String, solution: String) =>
       Impl get id map (_ valid solution) pipeTo sender
@@ -38,9 +38,9 @@ private final class Captcher extends Actor {
 
     def current = challenges.head
 
-    def refresh: Funit = createFromDb ~ (_ onSuccess {
+    def refresh = createFromDb onSuccess {
       case Some(captcha) => add(captcha)
-    }) void
+    }
 
     // Private stuff
 
