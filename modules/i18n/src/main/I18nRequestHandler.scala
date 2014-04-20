@@ -6,7 +6,7 @@ import play.api.mvc.{ Action, RequestHeader, Handler }
 
 final class I18nRequestHandler(pool: I18nPool, protocol: String) {
 
-  def apply(req: RequestHeader): Option[Handler] = 
+  def apply(req: RequestHeader): Option[Handler] =
     if (lila.common.HTTPRequest isSocket req) None
     else pool.domainLang(req).isDefined.fold(
       None,
@@ -15,8 +15,8 @@ final class I18nRequestHandler(pool: I18nPool, protocol: String) {
       } some
     )
 
-  private def redirectUrl(req: RequestHeader) = 
-    protocol + 
-    I18nDomain(req.domain).withLang(pool preferred req).domain +
-    req.uri
+  private def redirectUrl(req: RequestHeader) =
+    protocol +
+      I18nDomain(req.domain).withLang(pool preferred req).domain +
+      req.uri
 }
