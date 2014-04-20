@@ -12,8 +12,8 @@ import lila.user.User
 
 private[puzzle] final class Selector(puzzleColl: Coll) {
 
-  private val ratingToleranceDecay = 50
-  private val ratingToleranceStep = 150
+  private val ratingToleranceDecay = 40
+  private val ratingToleranceStep = 160
   private val ratingToleranceMax = 1000
 
   private val popularSelector = BSONDocument(
