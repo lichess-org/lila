@@ -14,7 +14,7 @@ private final class MoveBroadcast extends Actor {
   }
 
   private val format = Enumeratee.map[MoveEvent] { move =>
-    s"${move.gameId} ${move.move}${move.meta} ${move.ip}"
+    s"${move.gameId} ${move.ip}"
   }
 
   private val (enumerator, channel) =
