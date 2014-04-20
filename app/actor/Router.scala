@@ -4,9 +4,9 @@ package actor
 import lila.hub.actorApi.router._
 import lila.i18n.I18nDomain
 
-import controllers.{ routes => R }
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import controllers.{ routes => R }
 
 // returns String urls, not Call objects
 private[app] final class Router(
@@ -33,6 +33,9 @@ private[app] final class Router(
     case Watcher(gameId, color) => sender ! R.Round.watcher(gameId, color).url
     case Pgn(gameId)            => sender ! R.Analyse.pgn(gameId).url
     case Tourney(tourId)        => sender ! R.Tournament.show(tourId).url
+    case Puzzle(id)             => sender ! R.Puzzle.show(id).url
+
+    case msg                    => sender ! Status.Failure(new Exception(s"No route for $msg"))
   }
 
   private lazy val noLangBaseUrl = protocol + I18nDomain(domain).commonDomain

@@ -12,12 +12,18 @@ private[api] final class PuzzleApi(env: lila.puzzle.Env, makeUrl: Any => Fu[Stri
     case None    => fuccess(none)
   }
 
-  def one(id: Int): Fu[Option[JsObject]] = env.api.puzzle find id map2 toJson
+  def one(id: Int): Fu[Option[JsObject]] = env.api.puzzle find id flatMap {
+    case None    => fuccess(none)
+    case Some(p) => toJson(p) map (_.some)
+  }
 
-  private def toJson(p: Puzzle) = Json.obj(
-    "id" -> p.id,
-    "position" -> p.fen,
-    "solution" -> Line.solution(p.lines),
-    "rating" -> p.perf.intRating)
+  private def toJson(p: Puzzle) = makeUrl(R Puzzle p.id) map { url =>
+    Json.obj(
+      "id" -> p.id,
+      "url" -> url,
+      "color" -> p.color.name,
+      "position" -> p.fen,
+      "solution" -> Line.solution(p.lines),
+      "rating" -> p.perf.intRating)
+  }
 }
-

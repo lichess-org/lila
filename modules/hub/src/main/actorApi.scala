@@ -115,6 +115,7 @@ case class Player(fullId: String)
 case class Watcher(gameId: String, color: String)
 case class Pgn(gameId: String)
 case class Tourney(tourId: String)
+case class Puzzle(id: Int)
 }
 
 package forum {

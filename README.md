@@ -222,10 +222,13 @@ name | type | default | description
 
 ```javascript
 {
-  "id": 23045,
-  "position": "r2q1rk1/1pn2p1p/p1pp1bpQ/8/2PNR3/1P6/PB3PPP/4R1K1 b - - 1 21", // FEN initial position
-  "solution": ["h6g7", "d4f5", "f5h6"],                                       // solution moves
-  "rating": 1639                                                              // puzzle glicko2 rating
+  "id": 16177,
+  "url": "http://lichess.org/training/16177",         // URL of the puzzle
+  "color": "black",                                   // color of the player
+  "position": "6NK/5k2/2r5/2n3PP/8/8/8/8 w - - 7 39", // FEN initial position
+  "solution": ["c6h6", "g5h6", "c5e6", "h8h7", "e6g5",
+               "h7h8", "f7f8", "h6h7", "g5f7"],       // solution moves
+  "rating": 1799                                      // puzzle glicko2 rating
 }
 ```
 
@@ -237,10 +240,13 @@ name | type | default | description
 
 ```javascript
 {
-  "id": 23045,
-  "position": "r2q1rk1/1pn2p1p/p1pp1bpQ/8/2PNR3/1P6/PB3PPP/4R1K1 b - - 1 21", // FEN initial position
-  "solution": ["h6g7", "d4f5", "f5h6"],                                       // solution moves
-  "rating": 1639                                                              // puzzle glicko2 rating
+  "id": 16177,
+  "url": "http://lichess.org/training/16177",         // URL of the puzzle
+  "color": "black",                                   // color of the player
+  "position": "6NK/5k2/2r5/2n3PP/8/8/8/8 w - - 7 39", // FEN initial position
+  "solution": ["c6h6", "g5h6", "c5e6", "h8h7", "e6g5",
+               "h7h8", "f7f8", "h6h7", "g5f7"],       // solution moves
+  "rating": 1799                                      // puzzle glicko2 rating
 }
 ```
 
