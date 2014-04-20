@@ -17,6 +17,7 @@ private[round] final class Finisher(
     perfsUpdater: PerfsUpdater,
     aiPerfApi: lila.ai.AiPerfApi,
     crosstableApi: lila.game.CrosstableApi,
+    reminder: Reminder,
     bus: lila.common.Bus) {
 
   def apply(
@@ -39,18 +40,19 @@ private[round] final class Finisher(
               prog.events
             }
           }
-        }
+        } >>- (reminder remind g)
   }
 
-  private def updateCountAndPerfs(finish: FinishGame): Funit = !finish.isVsSelf ?? {
-    (finish.white |@| finish.black).tupled ?? {
-      case (white, black) =>
-        crosstableApi add finish.game zip perfsUpdater.save(finish.game, white, black)
-    } zip
-      addAiGame(finish) zip
-      (finish.white ?? incNbGames(finish.game)) zip
-      (finish.black ?? incNbGames(finish.game)) void
-  }
+  private def updateCountAndPerfs(finish: FinishGame): Funit =
+    (!finish.isVsSelf && !finish.game.aborted) ?? {
+      (finish.white |@| finish.black).tupled ?? {
+        case (white, black) =>
+          crosstableApi add finish.game zip perfsUpdater.save(finish.game, white, black)
+      } zip
+        addAiGame(finish) zip
+        (finish.white ?? incNbGames(finish.game)) zip
+        (finish.black ?? incNbGames(finish.game)) void
+    }
 
   private def addAiGame(finish: FinishGame): Funit = ~{
     import finish._
