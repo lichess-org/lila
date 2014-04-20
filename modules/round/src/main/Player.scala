@@ -32,13 +32,13 @@ private[round] final class Player(
             case (progress, move) =>
               (GameRepo save progress) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, move)) >>-
-                (reminder remind progress.game) >>-
                 notifyProgress(move, progress, ip) >>
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
                     cheatDetector(progress.game) addEffect {
                       case Some(color) => round ! Cheat(color)
                       case None =>
+                        reminder remind progress.game
                         if (progress.game.playableByAi) round ! AiPlay
                         if (game.player.isOfferingDraw) round ! DrawNo(game.player.id)
                         if (game.player.isProposingTakeback) round ! TakebackNo(game.player.id)

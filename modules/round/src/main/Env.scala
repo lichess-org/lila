@@ -96,6 +96,7 @@ final class Env(
     perfsUpdater = perfsUpdater,
     aiPerfApi = aiPerfApi,
     crosstableApi = crosstableApi,
+    reminder = reminder,
     bus = system.lilaBus)
 
   private lazy val rematcher = new Rematcher(
