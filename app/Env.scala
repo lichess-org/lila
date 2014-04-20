@@ -27,6 +27,7 @@ final class Env(
     leaderboard = Env.user.cached.topRatingDay.apply,
     progress = Env.user.cached.topProgressDay.apply,
     timelineEntries = Env.timeline.getter.userEntries _,
+    nowPlaying = Env.round.nowPlaying,
     dailyPuzzle = Env.puzzle.daily)
 
   lazy val userInfo = mashup.UserInfo(

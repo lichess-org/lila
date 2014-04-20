@@ -39,6 +39,7 @@ final class Env(
     val ActorName = config getString "actor.name"
     val HijackEnabled = config getBoolean "hijack.enabled"
     val HijackSalt = config getString "hijack.salt"
+    val CollectionReminder = config getString "collection.reminder"
   }
   import settings._
 
@@ -107,6 +108,7 @@ final class Env(
     bus = system.lilaBus,
     finisher = finisher,
     cheatDetector = cheatDetector,
+    reminder = reminder,
     uciMemo = uciMemo)
 
   // public access to AI play, for setup.Processor usage
@@ -134,6 +136,9 @@ final class Env(
 
   def version(gameId: String): Fu[Int] =
     socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
+
+  private lazy val reminder = new Reminder(db(CollectionReminder))
+  def nowPlaying = reminder.nowPlaying
 
   private[round] def animationDelay = AnimationDelay
   private[round] def moretimeSeconds = Moretime.toSeconds

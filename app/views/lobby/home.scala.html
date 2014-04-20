@@ -1,4 +1,4 @@
-@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game], leaderboard: List[User], progress: List[User], puzzle: Option[lila.puzzle.DailyPuzzle], playing: Option[Pov])(implicit ctx: Context)
+@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game], leaderboard: List[User], progress: List[User], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov])(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game" title="@trans.watchLichessTV()">
@@ -22,10 +22,14 @@
 
 @goodies = {
 @ctx.me.map { u =>
-@playing.map { p =>
-<a id="now_playing" class="is button" href="@routes.Round.player(p.fullId)">
-  @playerUsername(p.opponent)<br />@trans.yourTurn()
-</a>
+@if(playing.nonEmpty) {
+<div id="now_playing">
+  @playing.map { p =>
+  <a class="is button" href="@routes.Round.player(p.fullId)">
+    @playerUsername(p.opponent)<br />@trans.yourTurn()
+  </a>
+  }
+</div>
 }
 <div id="timeline" data-href="@routes.Lobby.timeline">
   @timeline.entries(userTimeline)

@@ -28,9 +28,10 @@ final class Preload(
     leaderboard: Int => Fu[List[User]],
     progress: Int => Fu[List[User]],
     timelineEntries: String => Fu[List[Entry]],
+    nowPlaying: (User, Int) => Fu[List[Pov]],
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]]) {
 
-  private type RightResponse = (JsObject, List[Entry], List[PostLiteView], List[Created], Option[Game], List[User], List[User], Option[lila.puzzle.DailyPuzzle], Option[Pov])
+  private type RightResponse = (JsObject, List[Entry], List[PostLiteView], List[Created], Option[Game], List[User], List[User], Option[lila.puzzle.DailyPuzzle], List[Pov])
   private type Response = Either[Call, RightResponse]
 
   def apply(
@@ -46,7 +47,7 @@ final class Preload(
       leaderboard(10) zip
       progress(10) zip
       dailyPuzzle() zip
-      (ctx.me ?? GameRepo.lastPlayingByUser) zip
+      (ctx.me ?? { nowPlaying(_, 3) }) zip
       filter map {
         case ((((((((((hooks, posts), tours), feat), blocks), entries), leaderboard), progress), puzzle), playing), filter) =>
           (Right((Json.obj(

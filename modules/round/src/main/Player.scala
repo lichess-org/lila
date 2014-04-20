@@ -15,6 +15,7 @@ private[round] final class Player(
     bus: lila.common.Bus,
     finisher: Finisher,
     cheatDetector: CheatDetector,
+    reminder: Reminder,
     uciMemo: UciMemo) {
 
   def human(play: HumanPlay, round: ActorRef)(pov: Pov): Fu[Events] = play match {
@@ -31,6 +32,7 @@ private[round] final class Player(
             case (progress, move) =>
               (GameRepo save progress) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, move)) >>-
+                (reminder remind progress.game) >>-
                 notifyProgress(move, progress, ip) >>
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
