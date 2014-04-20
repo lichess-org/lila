@@ -58,9 +58,9 @@ final class Client(
     req.get flatMap {
       case res if res.status == 200 => fuccess(res.body)
       case res =>
-        val message = s"AI client WS response ${res.status} ${res.body}"
+        val message = s"AI client WS response ${res.status} ${~res.body.lines.toList.headOption}"
         if (retriable) {
-          _root_.play.api.Logger("AI client").error(s"Retry: ${~message.lines.toList.headOption}")
+          _root_.play.api.Logger("AI client").error(s"Retry: $message")
           sendRequest(false)(req)
         } else fufail(message)
     }
