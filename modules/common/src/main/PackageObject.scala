@@ -117,7 +117,7 @@ trait WithPlay { self: PackageObject =>
 
   implicit final class LilaPimpedFuture[A](fua: Fu[A]) {
 
-    def >>-(sideEffect: => Unit): Funit = fua.void andThen {
+    def >>-(sideEffect: => Unit): Fu[A] = fua andThen {
       case _ => sideEffect
     }
 
@@ -196,6 +196,8 @@ trait WithPlay { self: PackageObject =>
     def orElse(other: => Fu[Option[A]]): Fu[Option[A]] = fua flatMap {
       _.fold(other) { x => fuccess(x.some) }
     }
+
+    def getOrElse(other: => Fu[A]): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
   }
 
   implicit final class LilaPimpedFutureValid[A](fua: Fu[Valid[A]]) {
