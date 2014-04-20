@@ -64,17 +64,12 @@ private[round] final class Player(
   private def notifyProgress(move: chess.Move, progress: Progress, ip: String) {
     val game = progress.game
     val chess = game.toChess
-    val meta = {
-      if (move.captures) "x" else ""
-    } + {
-      if (game.finished) "#" else if (chess.situation.check) "+" else ""
-    }
     bus.publish(MoveEvent(
       ip = ip,
       gameId = game.id,
       fen = Forsyth exportBoard chess.board,
-      move = move.keyString,
-      meta = meta), 'moveEvent)
+      move = move.keyString
+    ), 'moveEvent)
   }
 
   private def moveFinish(game: Game, color: Color): Fu[Events] = game.status match {

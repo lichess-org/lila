@@ -135,8 +135,7 @@ case class MoveEvent(
   gameId: String,
   fen: String,
   move: String,
-  ip: String,
-  meta: String) // x, +, #, +x, #x
+  ip: String)
 }
 
 package bookmark {
