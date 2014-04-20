@@ -70,11 +70,6 @@ trait GameRepo {
     $query(Query user userId) sort Query.sortCreated
   )
 
-  def lastPlayingByUser(user: User): Fu[Option[Pov]] =
-    (Set("thibault", "veloce") contains user.id) ?? $find(
-      $query(Query notFinished user.id) sort Query.sortCreated, 1
-    ) map (_.headOption filter (_ turnOf user) flatMap { Pov(_, user) })
-
   def chronologicalFinishedByUser(userId: String): Fu[List[Game]] = $find(
     $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc F.createdAt)
   )

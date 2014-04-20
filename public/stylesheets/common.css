@@ -1954,13 +1954,16 @@ div.lichess_overboard.joining .mini_board {
   font-size: 1.3em;
 }
 #now_playing {
-  margin: 2em 0 2em -30px;
+  margin: 2em 0 1em -30px;
+}
+#now_playing .button {
   display: block;
   text-align: center;
   position: relative;
   padding-left: 45px;
+  margin-bottom: 1em;
 }
-#now_playing::before {
+#now_playing .button::before {
   content: 'U';
   font-size: 32px;
   position: absolute;
