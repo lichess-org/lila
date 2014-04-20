@@ -163,8 +163,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   def showSpectators(users: List[lila.common.LightUser], nbAnons: Int) = nbAnons match {
-    case 0 => users.map(_.titleName)
-    case x => users.map(_.titleName) :+ ("Anonymous (%d)" format x)
+    case 0 => users.distinct.map(_.titleName)
+    case x => users.distinct.map(_.titleName) :+ ("Anonymous (%d)" format x)
   }
 
   def registerLiveGames(uid: String, ids: List[String]) {
