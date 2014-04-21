@@ -1,6 +1,8 @@
 package lila.app
 package templating
 
+import play.api.templates.Html
+
 import lila.user.UserContext
 
 trait AiHelper { self: I18nHelper =>
@@ -14,6 +16,9 @@ trait AiHelper { self: I18nHelper =>
     }
     s"$name$rating"
   }
+
+  def aiNameHtml(level: Int, withRating: Boolean = true)(implicit ctx: UserContext) =
+    Html(aiName(level, withRating).replace(" ", "&nbsp;"))
 
   def aiRating(level: Int): Option[Int] = Env.ai ratingOf level
 }

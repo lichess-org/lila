@@ -1,15 +1,11 @@
 @(player: Player, engine: Boolean = false, withStatus: Boolean = false)(implicit ctx: Context)
 
-@ai(level: Int) = {
+@player.aiLevel.map { level =>
 <div class="username connected">
-  @aiName(level)@if(withStatus) { <span class="status" data-icon="J"></span> }
+  @aiNameHtml(level)@if(withStatus) { <span class="status" data-icon="J"></span> }
 </div>
-}
-
-@human = {
+}.getOrElse {
 <div class="username @player.color.name">
   @playerLink(player, Some("blank_if_play"), engine = engine, withStatus = withStatus)
 </div>
 }
-
-@player.aiLevel.fold(human)(ai)
