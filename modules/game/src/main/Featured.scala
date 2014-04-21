@@ -24,7 +24,9 @@ final class Featured(
   private val bus = system.lilaBus
 
   def one: Fuog =
-    (actor ? Get mapTo manifest[Option[Game]]) nevermind "[featured] one"
+    (actor ? Get mapTo manifest[Option[String]]) recover {
+      case _: Exception => none
+    } flatMap { _ ?? $find.byId[Game] }
 
   private[game] val actor = system.actorOf(Props(new Actor {
 
@@ -32,31 +34,28 @@ final class Featured(
 
     def receive = {
 
-      case Get => oneId ?? $find.byId[Game] pipeTo sender
+      case Get => sender ! oneId
 
-      case Set(game) => {
+      case Set(game) =>
         oneId = game.id.some
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
           case html: Html =>
             bus.publish(lila.hub.actorApi.game.ChangeFeatured(game.id, html), 'changeFeaturedGame)
         }
         GameRepo setTv game.id
-      }
 
-      case Continue => {
+      case Continue =>
         oneId ?? $find.byId[Game] foreach {
           case None                       => feature foreach elect
           case Some(game) if !fresh(game) => wayBetter(game) orElse rematch(game) orElse featureIfOld(game) foreach elect
           case _                          =>
         }
-      }
 
-      case Disrupt => {
+      case Disrupt =>
         oneId ?? $find.byId[Game] foreach {
           case Some(game) if fresh(game) => wayBetter(game) foreach elect
           case _                         =>
         }
-      }
     }
 
     def elect(gameOption: Option[Game]) {
