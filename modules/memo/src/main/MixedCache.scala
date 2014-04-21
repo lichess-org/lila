@@ -12,7 +12,7 @@ final class MixedCache[K, V] private (
     cache get k
   }
   catch {
-    case _: java.util.concurrent.TimeoutException => default(k)
+    case _: java.util.concurrent.ExecutionException => default(k)
   }
 
   def invalidate(k: K) {
