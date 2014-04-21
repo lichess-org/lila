@@ -9,3 +9,5 @@ var Chess = {
 };
 jQuery.prototype.sparkline = function(points, options) {};
 jQuery.displayBoardMarks = function(board, white) {};
+jQuery.buttonset = function() {};
+jQuery.disableSelection = function() {};
