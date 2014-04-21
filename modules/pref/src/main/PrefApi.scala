@@ -14,6 +14,7 @@ final class PrefApi(cacheTtl: Duration) {
 
   def getPref(id: String): Fu[Pref] = cache(id) map (_ | Pref.create(id))
   def getPref(user: User): Fu[Pref] = getPref(user.id)
+  def getPref(user: Option[User]): Fu[Pref] = user.fold(fuccess(Pref.default))(getPref)
 
   def getPref[A](user: User, pref: Pref => A): Fu[A] = getPref(user) map pref
 

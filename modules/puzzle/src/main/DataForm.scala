@@ -5,6 +5,10 @@ import play.api.data.Forms._
 
 object DataForm {
 
+  val difficulty = Form(single(
+    "difficulty" -> number(min = 1, max = 3)
+  ))
+
   val attempt = Form(mapping(
     "win" -> number,
     "time" -> number(min = 1000)

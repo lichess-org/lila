@@ -112,6 +112,7 @@
         started-at (new js/Date)]
     (core/center-right! ($ :.right $puzzle))
     (core/board-marks! $puzzle)
+    (core/difficulty! ($ :.difficulty $puzzle))
     (core/user-chart! ($ :.user_chart $puzzle))
     (jq/bind ($ :.giveup $puzzle) :click #(put! giveup-chan %))
     (go
