@@ -1,17 +1,15 @@
 @(tour: lila.tournament.Tournament)(implicit ctx: Context)
 
+@showUser(p: lila.tournament.Pairing, u: String) = {
+<span class="@p.finished.fold(p.draw.fold("draw", p.wonBy(u).fold("win", "loss")), "playing")">@usernameOrId(u)</span>
+}
+
 <div class="pairings">
   @tour.numerotedPairings.map {
   case (number, pairing) => {
-     <a class="revert-underline" href="@routes.Round.watcher(pairing.gameId, "white")">
-       @number
-      @{ Html(pairing.users.map(u =>
-      "<span class='%s'>%s</span>".format(
-      pairing.finished.fold(pairing.draw.fold("draw", pairing.wonBy(u).fold("win", "loss")), "playing"),
-      usernameOrId(u)
-      )).mkString(" vs "))
-      }
-    </a>
+  <a class="revert-underline" href="@routes.Round.watcher(pairing.gameId, "white")">
+    @number @showUser(pairing, pairing.user1) <em>vs</em> @showUser(pairing, pairing.user2)
+  </a>
   }
   }
 </div>

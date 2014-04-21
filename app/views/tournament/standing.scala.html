@@ -1,44 +1,52 @@
 @(tour: lila.tournament.StartedOrFinished)(implicit ctx: Context)
 
-<table class="slist standing @if(tour.scheduled) { scheduled }">
-  <thead>
-    <tr>
-      <th class="large" colspan="2">@trans.standing()</th>
-      <th>@trans.points()</th>
-      <th>@trans.wins()</th>
-      <th>@trans.losses()</th>
-      <th>@trans.winStreak()</th>
-    </tr>
-  </thead>
-  <tbody>
-    @tour.rankedPlayers.map {
-    case (rank, player) => {
-    @defining(if(tour.isFinished && rank == 1) "winner" else if (player.withdraw) "withdraw" else "") { flag =>
-    <tr>
-      <td>
-        <span class="rank">@rank</span>
-        @if(tour.isFinished && rank == 1) {
-        <span data-icon="g" title="@trans.winner()"></span>
-        } else {
-        @if(player.withdraw) {
-        <span data-icon="b" title="@trans.withdraw()"></span>
-        }
-        }
-      </td>
-      <td>
-        @userInfosLink(player.username, player.rating.some, withOnline = false)
-      </td>
-      <td><strong>@player.score</strong></td>
-      <td>@player.nbWin</td>
-      <td>@player.nbLoss</td>
-      <td>
-        @if(player.winStreak > 1) {
-        @player.winStreak
-        }
-      </td>
-    </tr>
-    }
-    }
-    }
-  </tbody>
-</table>
+<div class="standing_wrap">
+  <table class="slist standing @if(tour.scheduled) { scheduled }">
+    <thead>
+      <tr>
+        <th class="large">@trans.standing()</th>
+        <th class="legend">
+          <span class="streakstarter">Streak starter</span>
+          <span class="double">Double points</span>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @tour.rankedPlayers.map {
+      case (rank, player) => {
+      @defining((
+      if(tour.isFinished && rank == 1) "winner" else if (player.withdraw) "withdraw" else "",
+      tour scoreSheet player
+      )) {
+      case (flag, scoreSheet) => {
+      <tr>
+        <td>
+          @if(player.withdraw) {
+          <span data-icon="b" title="@trans.withdraw()"></span>
+          } else {
+          @if(tour.isFinished && rank == 1) {
+          <span data-icon="g" title="@trans.winner()"></span>
+          } else {
+          <span class="rank">@rank</span>
+          }
+          }
+          @userInfosLink(player.username, none, withOnline = false)
+        </td>
+        <td class="sheet">
+          @scoreSheet.scores.take(20).reverse.map { score =>
+          <span class="@score.flag.toString.toLowerCase">@score.value</span>
+          }
+        </td>
+        <td class="total">
+          <strong@if(scoreSheet.onFire) { class="is-gold" data-icon="Q" }>@scoreSheet.total</strong>
+        </td>
+      </tr>
+      <tr><td class="around-bar" colspan="3"><div class="bar" data-value="@scoreSheet.total"></div></td></tr>
+      }
+      }
+      }
+      }
+    </tbody>
+  </table>
+</div>
