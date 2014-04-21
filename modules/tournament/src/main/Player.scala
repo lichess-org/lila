@@ -43,18 +43,18 @@ private[tournament] object Player {
       nbWin: Int = 0,
       nbLoss: Int = 0,
       score: Int = 0,
-      winSeq: Int = 0,
       bestWinSeq: Int = 0,
-      prevWin: Boolean = false) {
+      wins: List[Boolean] = Nil) {
 
     def +(winner: Option[String]) = {
+
       val (win, loss): Pair[Boolean, Boolean] = winner.fold(false -> false) { w =>
         if (w == player.id) true -> false else false -> true
       }
 
       val basePoints = if (win) 2 else if (loss) 0 else 1
-      val extraPoint = if(!loss && prevWin) 1 else 0
-      val points = basePoints + extraPoint
+      val isWinStreak = wins take 2 == List(true, true)
+      val points = if (isWinStreak) ti
 
       val newWinSeq = if (win) prevWin.fold(winSeq + 1, 1) else 0
 
@@ -64,7 +64,7 @@ private[tournament] object Player {
         score = score + points,
         winSeq = newWinSeq,
         bestWinSeq = math.max(bestWinSeq, newWinSeq),
-        prevWin = win)
+        wins = win :: wins)
     }
 
     def toPlayer = player.copy(

@@ -246,7 +246,7 @@ case class Started(
 
   private def userPairings(user: String) = pairings filter (_ contains user)
 
-  private def refreshPlayers = withPlayers(Player refresh this)
+  def refreshPlayers = withPlayers(Player refresh this)
 
   def encode = refreshPlayers.encode(Status.Started)
 

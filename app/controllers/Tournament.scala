@@ -40,13 +40,13 @@ object Tournament extends LilaController {
   }
 
   private def fetchTournaments =
-    env allCreatedSorted true zip repo.started zip repo.finished(20)
+    env allCreatedSorted true zip repo.started zip repo.finished(30)
 
   def show(id: String) = Open { implicit ctx =>
     repo byId id flatMap {
       _ match {
         case Some(tour: Created)  => showCreated(tour) map { Ok(_) }
-        case Some(tour: Started)  => showStarted(tour) map { Ok(_) }
+        case Some(tour: Started)  => showStarted(tour.refreshPlayers) map { Ok(_) }
         case Some(tour: Finished) => showFinished(tour) map { Ok(_) }
         case _                    => tournamentNotFound.fuccess
       }
