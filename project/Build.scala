@@ -16,6 +16,7 @@ object ApplicationBuild extends Build {
       PRM, spray.caching),
       scalacOptions := compilerOptions,
       sources in doc in Compile := List(),
+      incOptions := incOptions.value.withNameHashing(true),
       templatesImport ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.user.{ User, UserContext }",

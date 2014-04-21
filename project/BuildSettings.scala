@@ -10,6 +10,7 @@ object BuildSettings {
     resolvers ++= Dependencies.Resolvers.commons,
     parallelExecution in Test := false,
     scalacOptions := compilerOptions,
+    incOptions := incOptions.value.withNameHashing(true),
     sources in doc in Compile := List())
 
   def defaultDeps = Seq(
