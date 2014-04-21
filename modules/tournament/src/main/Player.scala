@@ -7,9 +7,6 @@ private[tournament] case class Player(
     username: String,
     rating: Int,
     withdraw: Boolean = false,
-    nbWin: Int = 0,
-    nbLoss: Int = 0,
-    winStreak: Int = 0,
     score: Int = 0) {
 
   def active = !withdraw
@@ -24,54 +21,15 @@ private[tournament] case class Player(
 
 private[tournament] object Player {
 
-  def make(user: User): Player = new Player(
+  private[tournament] def make(user: User): Player = new Player(
     id = user.id,
     username = user.username,
     rating = user.rating)
 
-  def refresh(tour: Tournament): Players = tour.players.map { player =>
-    tour.pairings
-      .filter(p => p.finished && (p contains player.id))
-      .foldLeft(Builder(player))(_ + _.winner)
-      .toPlayer
+  private[tournament] def refresh(tour: Tournament): Players = tour.players map { p =>
+    p.copy(score = Score.sheet(p.id, tour).total)
   } sortBy { p =>
     p.withdraw.fold(Int.MaxValue, 0) - p.score
-  }
-
-  private case class Builder(
-      player: Player,
-      nbWin: Int = 0,
-      nbLoss: Int = 0,
-      score: Int = 0,
-      bestWinSeq: Int = 0,
-      wins: List[Boolean] = Nil) {
-
-    def +(winner: Option[String]) = {
-
-      val (win, loss): Pair[Boolean, Boolean] = winner.fold(false -> false) { w =>
-        if (w == player.id) true -> false else false -> true
-      }
-
-      val basePoints = if (win) 2 else if (loss) 0 else 1
-      val isWinStreak = wins take 2 == List(true, true)
-      val points = if (isWinStreak) ti
-
-      val newWinSeq = if (win) prevWin.fold(winSeq + 1, 1) else 0
-
-      copy(
-        nbWin = nbWin + win.fold(1, 0),
-        nbLoss = nbLoss + loss.fold(1, 0),
-        score = score + points,
-        winSeq = newWinSeq,
-        bestWinSeq = math.max(bestWinSeq, newWinSeq),
-        wins = win :: wins)
-    }
-
-    def toPlayer = player.copy(
-      nbWin = nbWin,
-      nbLoss = nbLoss,
-      winStreak = bestWinSeq,
-      score = score)
   }
 
   import lila.db.JsTube

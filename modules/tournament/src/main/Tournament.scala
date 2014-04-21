@@ -71,6 +71,10 @@ sealed trait Tournament {
   def createdAt = data.createdAt
 
   def isCreator(userId: String) = data.createdBy == userId
+
+  def userPairings(user: String) = pairings filter (_ contains user)
+
+  def scoreSheet(player: Player) = Score.sheet(player.id, this)
 }
 
 sealed trait Enterable extends Tournament {
@@ -214,9 +218,8 @@ case class Started(
     "%02d:%02d".format(s / 60, s % 60)
   }
 
-  def userCurrentPov(userId: String): Option[PovRef] = {
-    playingPairings map { _ povRef userId }
-  }.flatten.headOption
+  def userCurrentPov(userId: String): Option[PovRef] =
+    playingPairings.map { _ povRef userId }.flatten.headOption
 
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.flatMap(u => userCurrentPov(u.id))
@@ -240,13 +243,10 @@ case class Started(
 
   def withPlayers(s: Players) = copy(players = s)
 
-  def quickLossStreak(user: String): Boolean = {
-    userPairings(user) takeWhile { pair => (pair lostBy user) && pair.quickLoss }
-  }.size >= 3
+  def quickLossStreak(user: String): Boolean =
+    userPairings(user).takeWhile { pair => (pair lostBy user) && pair.quickLoss }.size >= 3
 
-  private def userPairings(user: String) = pairings filter (_ contains user)
-
-  def refreshPlayers = withPlayers(Player refresh this)
+  private[tournament] def refreshPlayers = withPlayers(Player refresh this)
 
   def encode = refreshPlayers.encode(Status.Started)
 

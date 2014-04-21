@@ -46,7 +46,7 @@ object Tournament extends LilaController {
     repo byId id flatMap {
       _ match {
         case Some(tour: Created)  => showCreated(tour) map { Ok(_) }
-        case Some(tour: Started)  => showStarted(tour.refreshPlayers) map { Ok(_) }
+        case Some(tour: Started)  => showStarted(tour) map { Ok(_) }
         case Some(tour: Finished) => showFinished(tour) map { Ok(_) }
         case _                    => tournamentNotFound.fuccess
       }

@@ -1669,9 +1669,12 @@ var storage = {
       if (self.options.messages.length > 0) self._appendMany(self.options.messages);
     },
     resize: function() {
-      var headHeight = this.element.parent().height();
-      this.element.css("top", headHeight + 13);
-      this.$msgs.css('height', 459 - headHeight).scrollTop(999999);
+      var self = this;
+      setTimeout(function() {
+        var headHeight = self.element.parent().height();
+        self.element.css("top", headHeight + 13);
+        self.$msgs.css('height', 459 - headHeight).scrollTop(999999);
+      }, 10);
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));
@@ -2534,9 +2537,8 @@ var storage = {
     var $wrap = $('#tournament');
     if (!$wrap.length) return;
 
-    var $userTag = $('#user_tag');
-
     if (!strongSocket.available) return;
+
     if (typeof _ld_ == "undefined") {
       // handle tournament list
       lichess.socketDefaults.params.flag = "tournament";
@@ -2569,10 +2571,28 @@ var storage = {
     }
     startClock();
 
+    function drawBars() {
+      $wrap.find('table.standing').each(function() {
+        var $bars = $(this).find('.bar');
+        var max = _.max($bars.map(function() {
+          return parseInt($(this).data('value'));
+        }));
+        $bars.each(function() {
+          var width = Math.ceil((parseInt($(this).data('value')) * 100) / max);
+          $(this).animate({
+            'width': width + '%'
+          }, 500);
+        });
+        $('#tournament_side').css('maxHeight', $('div.tournament_show').height() - 6 + 'px');
+      });
+    }
+    drawBars();
+
     function reload() {
       $wrap.load($wrap.data("href"), function() {
         startClock();
         $('body').trigger('lichess.content_loaded');
+        drawBars();
       });
     }
 
