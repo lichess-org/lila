@@ -21,3 +21,14 @@
   }
   }
 </div>
+
+@if(ctx.isAuth) {
+<form class="difficulty" action="@routes.Puzzle.difficulty" method="POST">
+  @lila.pref.Pref.Difficulty.choices.map {
+  case (id, name) => {
+  <button type="submit" name="difficulty" value="@id"
+    @if(id == ctx.pref.puzzleDifficulty) { class="ui-state-active" disabled }>@name</button>
+  }
+  }
+</form>
+}

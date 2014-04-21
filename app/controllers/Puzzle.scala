@@ -16,7 +16,7 @@ object Puzzle extends LilaController {
   private def env = Env.puzzle
 
   def home = Open { implicit ctx =>
-    env selector ctx.me zip env.userInfos(ctx.me) map {
+    selectPuzzle(ctx.me) zip env.userInfos(ctx.me) map {
       case (puzzle, infos) => Ok(views.html.puzzle.show(puzzle, infos, true))
     }
   }
@@ -32,10 +32,26 @@ object Puzzle extends LilaController {
 
   // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx =>
-    env selector ctx.me zip (env userInfos ctx.me) map {
-      case (puzzle, infos) => Ok(views.html.puzzle.playMode(puzzle, infos, true))
-    }
+    selectPuzzle(ctx.me) zip
+      (env userInfos ctx.me) map {
+        case (puzzle, infos) => Ok(views.html.puzzle.playMode(puzzle, infos, true))
+      }
   }
+
+  def difficulty = AuthBody { implicit ctx =>
+    me =>
+      implicit val req = ctx.body
+      env.forms.difficulty.bindFromRequest.fold(
+        err => fuccess(Redirect(routes.Puzzle.home)),
+        value => Env.pref.api.setPref(me, (p: lila.pref.Pref) => p.copy(puzzleDifficulty = value)) inject
+          Redirect(routes.Puzzle.home)
+      )
+  }
+
+  private def selectPuzzle(user: Option[UserModel]) =
+    Env.pref.api.getPref(user) flatMap { pref =>
+      env.selector(user, pref.puzzleDifficulty)
+    }
 
   def attempt(id: PuzzleId) = OpenBody { implicit ctx =>
     implicit val req = ctx.body

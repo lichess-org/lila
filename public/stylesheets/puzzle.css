@@ -67,6 +67,14 @@
 #puzzle > .side .user_chart {
   margin: 0 0 -10px -9px;
 }
+#puzzle > .side .difficulty {
+  text-align: center;
+  margin-bottom: 1em;
+}
+#puzzle > .side .difficulty button {
+  margin: 0 -2px 0 -2px;
+  padding: 0;
+}
 #puzzle > .center {
   width: 512px;
 }

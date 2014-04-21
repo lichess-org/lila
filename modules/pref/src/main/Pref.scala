@@ -12,7 +12,8 @@ case class Pref(
     autoQueen: Int,
     clockTenths: Boolean,
     clockBar: Boolean,
-    premove: Boolean) {
+    premove: Boolean,
+    puzzleDifficulty: Int) {
 
   import Pref._
 
@@ -32,6 +33,17 @@ case class Pref(
 
 object Pref {
 
+  object Difficulty {
+    val EASY = 1
+    val NORMAL = 2
+    val HARD = 3
+
+    val choices = Seq(
+      EASY -> "Easy",
+      NORMAL -> "Normal",
+      HARD -> "Hard")
+  }
+
   object AutoQueen {
     val NEVER = 1
     val PREMOVE = 2
@@ -50,7 +62,8 @@ object Pref {
     autoQueen = AutoQueen.PREMOVE,
     clockTenths = true,
     clockBar = true,
-    premove = true)
+    premove = true,
+    puzzleDifficulty = Difficulty.NORMAL)
 
   val default = create("")
 
@@ -67,5 +80,6 @@ object Pref {
     "autoQueen" -> default.autoQueen,
     "clockTenths" -> default.clockTenths,
     "clockBar" -> default.clockBar,
-    "premove" -> default.premove)
+    "premove" -> default.premove,
+    "puzzleDifficulty" -> default.puzzleDifficulty)
 }
