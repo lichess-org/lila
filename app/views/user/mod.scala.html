@@ -8,12 +8,12 @@
   }
   @if(isGranted(_.MarkEngine)) {
   <form method="post" action="@routes.Mod.engine(u.username)">
-    <input class="confirm button" type="submit" value="@u.engine.fold("Un-mark as engine", "Mark as engine")" />
+    <input class="confirm button" type="submit" value="@u.engine.fold("Un-engine", "Engine")" />
   </form>
   }
   @if(isGranted(_.MarkTroll)) {
   <form method="post" action="@routes.Mod.troll(u.username)">
-    <input class="confirm button" type="submit" value="@u.troll.fold("Un-mark as troll", "Mark as troll")" />
+    <input class="confirm button" type="submit" value="@u.troll.fold("Un-troll", "Troll")" />
   </form>
   }
   @if(isGranted(_.IpBan)) {
