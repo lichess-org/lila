@@ -23,7 +23,7 @@ private[api] final class PuzzleApi(env: lila.puzzle.Env, makeUrl: Any => Fu[Stri
       "url" -> url,
       "color" -> p.color.name,
       "position" -> p.fen,
-      "solution" -> Line.solution(p.lines),
+      "solution" -> (p.initialMove :: Line.solution(p.lines)),
       "rating" -> p.perf.intRating)
   }
 }
