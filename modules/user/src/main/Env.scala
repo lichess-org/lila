@@ -61,13 +61,12 @@ final class Env(
   bus.subscribe(system.actorOf(
     Props(new Actor {
       def receive = {
-        case User.Active(user, lang) => {
+        case User.Active(user, lang) =>
           if (!user.seenRecently) UserRepo setSeenAt user.id
           if (user.lang != lang.some) UserRepo.setLang(user.id, lang)
           onlineUserIdMemo put user.id
-        }
       }
-    }), name = "user-active"), 'userActive)
+    })), 'userActive)
 
   {
     import scala.concurrent.duration._
