@@ -257,7 +257,7 @@ case class Game(
 
   def replayable = imported || finished
 
-  def analysable = replayable && !fromPosition
+  def analysable = replayable && !fromPosition && turns > 4
 
   def fromPosition = source ?? (Source.Position==)
 
