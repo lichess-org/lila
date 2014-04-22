@@ -68,6 +68,9 @@
   display: inline-block;
   width: 20px;
 }
+#tournament table.standing td:last-child {
+  padding-right: 15px;
+}
 #tournament table.standing .legend {
   text-align: right;
 }
