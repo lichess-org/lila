@@ -138,11 +138,6 @@ private[tournament] final class TournamentApi(
   private def tripleQuickLossWithdraw(tour: Started, loser: Option[String]): Funit =
     loser.filter(tour.quickLossStreak).??(withdraw(tour, _))
 
-  private def userIdWhoLostOnTimeWithoutMoving(game: Game): Option[String] =
-    game.playerWhoDidNotMove
-      .flatMap(_.userId)
-      .filter(_ => List(chess.Status.Timeout, chess.Status.Outoftime) contains game.status)
-
   private def lobbyReload {
     TournamentRepo.allCreatedSorted foreach { tours =>
       renderer ? TournamentTable(tours) map {
