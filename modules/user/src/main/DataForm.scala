@@ -5,6 +5,10 @@ import play.api.data.Forms._
 
 object DataForm {
 
+  val note = Form(single(
+    "text" -> nonEmptyText(minLength = 3, maxLength = 2000)
+  ))
+
   val profile = Form(mapping(
     "country" -> optional(nonEmptyText.verifying(Countries.codeSet contains _)),
     "location" -> optional(nonEmptyText(maxLength = 80)),

@@ -102,6 +102,8 @@ body.dark div.user_show div.content_box_inter.tabs,
 body.dark #enterable_tournaments table.scheduled,
 body.dark div.user_show .mod_zone .listings,
 body.dark div.user_show .mod_zone .slist,
+body.dark div.user_show .note_zone,
+body.dark div.user_show .note_zone div,
 body.dark div.analysis_menu > a {
   border-color: #3d3d3d;
 }
