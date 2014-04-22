@@ -24,8 +24,8 @@ case class Pairing(
   def playing = !finished
 
   def lostBy(user: String) = ~winner.map(user !=)
-  def quickLoss = finished && ~turns.map(10 >)
-  def quickDraw = draw && ~turns.map(10 >)
+  def quickLoss = finished && ~turns.map(20 >)
+  def quickDraw = draw && ~turns.map(20 >)
 
   def opponentOf(user: String): Option[String] =
     if (user == user1) user2.some else if (user == user2) user1.some else none
