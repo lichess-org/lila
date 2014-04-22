@@ -30,6 +30,13 @@ $(function() {
     if (location.search.indexOf('mod') != -1) $(this).click();
   });
 
+  $("div.user_show .note_zone_toggle").each(function() {
+    $(this).click(function() {
+      $("div.user_show .note_zone").toggle();
+    });
+    if (location.search.indexOf('note') != -1) $(this).click();
+  });
+
 });
 
 function str_repeat(input, multiplier) {

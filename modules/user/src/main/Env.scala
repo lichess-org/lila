@@ -20,6 +20,7 @@ final class Env(
     val RankingTtl = config duration "ranking.ttl"
     val CollectionUser = config getString "collection.user"
     val CollectionHistory = config getString "collection.history"
+    val CollectionNote = config getString "collection.note"
   }
   import settings._
 
@@ -36,6 +37,8 @@ final class Env(
   lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
 
   lazy val ranking = new Ranking(ttl = RankingTtl)
+
+  lazy val noteApi = new NoteApi(db(CollectionNote))
 
   def ratingChart = cached.ratingChart.apply _
 

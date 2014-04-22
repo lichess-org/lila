@@ -44,11 +44,15 @@ object User extends LilaController {
     }
   }
 
-  private def filter(username: String, filterOption: Option[String], page: Int)(implicit ctx: Context) =
+  private def filter(
+    username: String,
+    filterOption: Option[String],
+    page: Int,
+    status: Results.Status = Results.Ok)(implicit ctx: Context) =
     Reasonable(page) {
       OptionFuResult(UserRepo named username) { u =>
         (u.enabled || isGranted(_.UserSpy)).fold({
-          userShow(u, filterOption, page) map { Ok(_) }
+          userShow(u, filterOption, page) map { status(_) }
         }, UserRepo isArtificial u.id map { artificial =>
           NotFound(html.user.disabled(u, artificial))
         })
@@ -62,9 +66,13 @@ object User extends LilaController {
     pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query =>
       gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
     })
+    data <- GameRepo isNowPlaying u.id
     playing <- GameRepo isNowPlaying u.id
     relation <- ctx.userId ?? { relationApi.relation(_, u.id) }
-  } yield html.user.show(u, info, pag, filters, playing, relation)
+    notes <- ctx.me ?? { me =>
+      relationApi friends me.id flatMap { env.noteApi.get(u, me, _) }
+    }
+  } yield html.user.show(u, info, pag, filters, playing, relation, notes)
 
   def list(page: Int) = Open { implicit ctx =>
     Reasonable(page) {
@@ -123,9 +131,17 @@ object User extends LilaController {
 
   def evaluate(username: String) = Secure(_.UserEvaluate) { implicit ctx =>
     me => OptionFuResult(UserRepo named username) { user =>
-      Env.evaluation.evaluator.generate(user, true) map { _ =>
-        Redirect(routes.User.show(username).url + "?mod")
-      }
+      Env.evaluation.evaluator.generate(user, true) inject Redirect(routes.User.show(username).url + "?mod")
+    }
+  }
+
+  def writeNote(username: String) = AuthBody { implicit ctx =>
+    me => OptionFuResult(UserRepo named username) { user =>
+      implicit val req = ctx.body
+      env.forms.note.bindFromRequest.fold(
+        err => filter(username, none, 1, Results.BadRequest),
+        text => env.noteApi.write(user, text, me) inject Redirect(routes.User.show(username).url + "?note")
+      )
     }
   }
 
