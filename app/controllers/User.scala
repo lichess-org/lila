@@ -27,9 +27,11 @@ object User extends LilaController {
     OptionFuResult(UserRepo named username) { user =>
       GameRepo nowPlaying user.id zip
         (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
-        (ctx.userId ?? { relationApi.follows(user.id, _) }) map {
-          case ((game, blocked), followed) =>
-            Ok(html.user.mini(user, game, blocked, followed)).withHeaders(CACHE_CONTROL -> "max-age=60")
+        (ctx.userId ?? { relationApi.follows(user.id, _) }) zip
+        (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
+          case (((game, blocked), followed), relation) =>
+            Ok(html.user.mini(user, game, blocked, followed, relation))
+              .withHeaders(CACHE_CONTROL -> "max-age=60")
         }
     }
   }
