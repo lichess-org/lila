@@ -2579,9 +2579,7 @@ var storage = {
         }));
         $bars.each(function() {
           var width = Math.ceil((parseInt($(this).data('value')) * 100) / max);
-          $(this).animate({
-            'width': width + '%'
-          }, 500);
+          $(this).css('width', width + '%');
         });
         $('#tournament_side').css('maxHeight', $('div.tournament_show').height() - 6 + 'px');
       });
