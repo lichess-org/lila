@@ -17,7 +17,7 @@ object Score {
 
   case class Sheet(scores: List[Score]) {
     val total = scores.foldLeft(0)(_ + _.value)
-    def onFire = Score isDouble scores
+    def onFire = Score firstTwoAreWins scores
   }
 
   sealed trait Flag
@@ -31,9 +31,9 @@ object Score {
     filtered.zip(nexts).foldLeft(List[Score]()) {
       case (scores, (p, n)) => (p.winner match {
         case None if p.quickDraw => Score(Some(false), Normal)
-        case None                => Score(None, if (isDouble(scores)) Double else Normal)
+        case None                => Score(None, if (firstTwoAreWins(scores)) Double else Normal)
         case Some(w) if (user == w) => Score(Some(true),
-          if (isDouble(scores)) Double
+          if (firstTwoAreWins(scores)) Double
           else if (scores.headOption ?? (_.flag == StreakStarter)) StreakStarter
           else n.flatMap(_.winner) match {
             case Some(w) if (user == w) => StreakStarter
@@ -44,6 +44,6 @@ object Score {
     }
   }
 
-  private def isDouble(scores: List[Score]) =
-    (scores.size >= 2) && (scores take 2 forall (_.flag != Normal))
+  private def firstTwoAreWins(scores: List[Score]) =
+    (scores.size >= 2) && (scores take 2 forall (~_.win))
 }
