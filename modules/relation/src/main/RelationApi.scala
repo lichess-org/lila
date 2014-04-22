@@ -29,7 +29,10 @@ final class RelationApi(
   def nbFollowing(userId: ID) = following(userId) map (_.size)
   def nbBlockers(userId: ID) = blockers(userId) map (_.size)
 
-  def friends(userId: ID) = cached friends userId
+  def friends(userId: ID) = following(userId) zip followers(userId) map {
+    case (f1, f2) => f1 intersect f2
+  }
+
   def areFriends(u1: ID, u2: ID) = friends(u1) map (_ contains u2)
 
   def follows(u1: ID, u2: ID) = following(u1) map (_ contains u2)
