@@ -41,9 +41,8 @@ object User extends LilaController {
   }
 
   def online = Open { implicit req =>
-    UserRepo.byIdsSortRating(env.onlineUserIdMemo.keys, 1000) map { users =>
-      html.user.online(users)
-    }
+    val max = 1000
+    UserRepo.byIdsSortRating(env.onlineUserIdMemo.keys, max) map { html.user.online(_, max) }
   }
 
   private def filter(
