@@ -1,8 +1,10 @@
-@(users: List[User])(implicit ctx: Context)
+@(users: List[User], max: Int)(implicit ctx: Context)
 
 @user.layout(trans.onlinePlayers.str()) {
 <div class="content_box">
-  <h1>@trans.onlinePlayers() (@users.size)</h1>
+  @defining(users.size) { size =>
+  <h1>@trans.onlinePlayers() (@size@if(size > max){+})</h1>
+  }
   <br />
   <br />
   <div class="big_user_list clearfix">
