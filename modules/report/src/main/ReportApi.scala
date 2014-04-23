@@ -21,7 +21,7 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
         text = setup.text,
         createdBy = by)
       (!report.isCheat || !user.engine) ?? {
-        existsToday(user, reason) flatMap {
+        existsRecent(user, reason) flatMap {
           case true =>
             logger.info(s"Skip existing report creation: $reason $user")
             funit
@@ -55,9 +55,9 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
 
   def recent = $find($query.all sort $sort.createdDesc, 50)
 
-  def existsToday(user: User, reason: Reason) =
+  private def existsRecent(user: User, reason: Reason) =
     $count.exists(Json.obj(
-      "createdAt" -> (DateTime.now minusDays 1),
+      "createdAt" -> $gt($date(DateTime.now minusDays 3)),
       "user" -> user.id,
       "reason" -> reason.name))
 
