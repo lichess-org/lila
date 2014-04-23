@@ -2,7 +2,7 @@
 
 @import pov._
 
-@title = @{ "Watch %s - %s".format(gameId, color) }
+@title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in ${gameId}" }
 
 @underchat = {
 <div class="watchers" data-icon="v">

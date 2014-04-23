@@ -1,6 +1,6 @@
 @(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu, playing: Boolean, rel: Option[lila.relation.Relation], notes: List[lila.user.Note])(implicit ctx: Context)
 
-@title = @{ "%s : %s - page %d".format(u.username, userGameFilterTitleNoTag(info, filters.current), games.currentPage) }
+@title = @{ s"${u.username} : ${userGameFilterTitleNoTag(info, filters.current)} ${if(games.currentPage == 1) "" else "- page " + games.currentPage}" }
 
 @evenMoreJs = {
 @highchartsTag
