@@ -51,6 +51,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def playerUsername(player: Player, withRating: Boolean = true) =
     Namer.player(player, withRating)(userEnv.lightUser)
 
+  def playerText(player: Player) =
+    player.aiLevel.fold(
+      player.userId.flatMap(userEnv.lightUser).fold("Anon.") { user => user.titleName }
+    ) { level => s"A.I. level $level" }
+
   def playerLink(
     player: Player,
     cssClass: Option[String] = None,

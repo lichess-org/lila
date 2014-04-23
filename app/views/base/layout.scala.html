@@ -1,5 +1,6 @@
 @(
 title: String,
+fullTitle: Option[String] = None,
 active: Option[lila.app.ui.SiteMenu.Elem] = None,
 baseline: Option[Html] = None,
 goodies: Option[Html] = None,
@@ -15,7 +16,9 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <head>
-    <title>@isProd.fold("lichess", "[dev]") @title • @trans.freeOnlineChess()</title>
+    <title>@fullTitle.getOrElse {
+      @if(!isProd){ [dev] }@title • lichess.org
+      }</title>
     @if(ctx.currentBg == "dark") {
     @cssTag("dark.css")
     }

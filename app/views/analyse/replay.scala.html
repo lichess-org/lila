@@ -2,6 +2,8 @@
 
 @import pov._
 
+@title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in ${gameId} : ${opening.fold(trans.replayAndAnalyse.str())(_.fullName)}" }
+
 @moreCss = {
 @cssTag("analyse.css")
 }
@@ -34,7 +36,7 @@
 }
 
 @analyse.layout(
-title = trans.replayAndAnalyse() + " " + gameId,
+title = title,
 goodies = views.html.game.infoBox(pov, tour).some,
 chat = chat.map(c => base.chat(c, trans.spectatorRoom.str())),
 underchat = underchat.some,
