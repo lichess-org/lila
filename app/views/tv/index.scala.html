@@ -1,6 +1,6 @@
 @(pov: Pov, version: Int, games: List[Game], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], flip: Boolean)(implicit ctx: Context)
 
-@title = @{ "TV" }
+@title = @{ s"TV ${playerText(pov.player)} vs ${playerText(pov.opponent)}" }
 
 @underchat = {
 <div class="watchers" data-icon="v">
