@@ -130,16 +130,16 @@ div.lichess_board div.lcs.selected div.lcsi,
 div.lichess_board div.lcs.selectable div.lcsi {
   cursor: pointer;
 }
-div.lichess_piece {
+div.piece {
   position: absolute;
   width: 64px;
   height: 64px;
   background-size: cover;
 }
-div.lichess_piece.ui-draggable-dragging {
+div.piece.ui-draggable-dragging {
   z-index: 999;
 }
-div.my_turn div.lichess_piece.ui-draggable {
+div.my_turn div.piece.ui-draggable {
   cursor: move;
 }
 div.pawn.white {
@@ -248,7 +248,7 @@ div.lichess_promotion_choice {
   text-align: center;
   padding: 224px 0 0 108px;
 }
-div.lichess_promotion_choice div.lichess_piece {
+div.lichess_promotion_choice div.piece {
   float: left;
   position: static;
   padding: 5px;
@@ -259,7 +259,7 @@ div.lichess_promotion_choice div.lichess_piece {
   border-radius: 4px;
   box-shadow: 0 0 5px #444;
 }
-div.lichess_promotion_choice div.lichess_piece:hover {
+div.lichess_promotion_choice div.piece:hover {
   box-shadow: 0 0 10px blue;
 }
 div.lichess_join_url {
@@ -470,7 +470,7 @@ div.lichess_current_player div.lichess_player {
   position: absolute;
   margin-left: -5px;
 }
-div.lichess_current_player div.lichess_player div.lichess_piece {
+div.lichess_current_player div.lichess_player div.piece {
   top: 0;
   left: 0;
 }
@@ -508,7 +508,7 @@ div.lichess_cemetery div.lichess_tomb {
   width: 64px;
   height: 64px;
 }
-div.lichess_cemetery div.lichess_piece {
+div.lichess_cemetery div.piece {
   opacity: 0.5;
 }
 div.under_chat {
