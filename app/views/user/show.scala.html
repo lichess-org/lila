@@ -90,11 +90,13 @@ themepicker = true) {
     @if(notes.isEmpty) {
     <div>No note yet</div>
     }
+    @if(!ctx.is(u) || notes.nonEmpty) {
     @notes.map { note =>
     <div>
       <p class="meta">@userIdLink(note.from.some)<br />@momentFromNow(note.date)</p>
       <p class="text">@autoLink(note.text)</p>
     </div>
+    }
     }
   </div>
   <div class="mod_zone"></div>
