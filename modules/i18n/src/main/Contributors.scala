@@ -3,7 +3,7 @@ package lila.i18n
 private[i18n] object Contributors {
 
   val all = Map(
-    "fr" -> List("Thibault Duplessis"),
+    "fr" -> List("Thibault Duplessis", "Calinou"),
     "ru" -> List("Nikita Milovanov"),
     "de" -> List("Patrick Gawliczek", "Kurt Keller (DE)"),
     "tr" -> List("Yakup Ipek"),
