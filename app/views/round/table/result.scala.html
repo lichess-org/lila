@@ -2,7 +2,7 @@
 
 @winner(player: Player) = {
 <div class="lichess_player @player.color">
-  <div class="lichess_piece king @player.color"></div>
+  <div class="piece king @player.color"></div>
   <p>
     @gameEndStatus(game)<br />
     @player.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())

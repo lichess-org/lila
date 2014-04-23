@@ -35,11 +35,11 @@
 
         <div class="lichess_current_player">
           <div class="lichess_player white @puzzle.color.black.fold("", " none")">
-            <div class="lichess_piece king white"></div>
+            <div class="piece king white"></div>
             <p>@puzzle.color.white.fold(trans.yourTurn(), trans.waiting())</p>
           </div>
           <div class="lichess_player black @puzzle.color.white.fold("", " none")">
-            <div class="lichess_piece king black"></div>
+            <div class="piece king black"></div>
             <p>@puzzle.color.black.fold(trans.yourTurn(), trans.waiting())</p>
           </div>
         </div>

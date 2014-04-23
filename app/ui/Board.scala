@@ -21,7 +21,7 @@ object Board {
       s"""<div class="lcs ${s.color}$ccheck$cmoved" id="${s.pos.key}" style="top:${s.top}px;left:${s.left}px">""" ++
         """<div class="lcsi"></div>""" ++ {
           board(s.pos).??(piece =>
-            s"""<div class="lichess_piece ${piece.role.name} ${piece.color.name}"></div>"""
+            s"""<div class="piece ${piece.role.name} ${piece.color.name}"></div>"""
           )
         } ++
         "</div>"
