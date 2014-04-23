@@ -53,7 +53,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def playerText(player: Player) =
     player.aiLevel.fold(
-      player.userId.flatMap(userEnv.lightUser).fold("Anon.") { user => user.titleName }
+      player.userId.flatMap(userEnv.lightUser).fold("Anon.")(_.titleName)
     ) { level => s"A.I. level $level" }
 
   def playerLink(
