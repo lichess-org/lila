@@ -43,8 +43,9 @@ trait I18nHelper {
   def langLinks(lang: Lang)(implicit ctx: UserContext) = Html {
     langLinksCache.getOrElseUpdate(lang.language, {
       pool.names.toList sortBy (_._1) map {
-        case (code, name) => """<li><a lang="%s" href="%s"%s>%s</a></li>""".format(
+        case (code, name) => """<li><a lang="%s" title="%s" href="%s"%s>%s</a></li>""".format(
           code,
+          trans.freeOnlineChess.to(Lang(code))(),
           langUrl(Lang(code))(I18nDomain(ctx.req.domain)),
           (code == lang.language) ?? """ class="current"""",
           name)
