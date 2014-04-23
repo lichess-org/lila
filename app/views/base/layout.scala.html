@@ -32,6 +32,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     <meta content="noindex, nofollow" name="robots">
     }
     <meta name="google" content="notranslate" />
+    @langAnnotations
   </head>
   <body class="@ctx.currentTheme.cssClass @ctx.currentBg"
     data-ports="@portsString"
