@@ -16,9 +16,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <head>
-    <title>@fullTitle.getOrElse {
-      @if(!isProd){ [dev] }@title • lichess.org
-      }</title>
+    <title>@if(!isProd){ [dev] }@fullTitle.getOrElse{@title • lichess.org}</title>
     @if(ctx.currentBg == "dark") {
     @cssTag("dark.css")
     }
