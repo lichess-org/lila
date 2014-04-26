@@ -14,7 +14,7 @@ final class GameJoiner(
     roundMap: ActorRef,
     system: ActorSystem) {
 
-  private val secondsToMove = 20
+  private val secondsToMove = 30
 
   def apply(tour: Started)(pairing: Pairing): Fu[Game] = for {
     user1 ← getUser(pairing.user1)
