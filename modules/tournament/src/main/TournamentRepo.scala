@@ -43,23 +43,23 @@ object TournamentRepo {
 
   def allEnterable: Fu[List[Enterable]] = $find(Json.obj(
     "status" -> $in(List(Status.Created.id, Status.Started.id))
-  )) map { _.map(asEnterable).flatten }
+  )) map (_ flatMap asEnterable)
 
   def created: Fu[List[Created]] = $find(
     $query(Json.obj(
       "status" -> Status.Created.id,
       "schedule" -> $exists(false)
     )) sort $sort.createdDesc
-  ) map { _.map(asCreated).flatten }
+  ) map (_ flatMap asCreated)
 
   def started: Fu[List[Started]] = $find(
     $query(Json.obj("status" -> Status.Started.id)) sort $sort.createdDesc
-  ) map { _.map(asStarted).flatten }
+  ) map (_ flatMap asStarted)
 
   def finished(limit: Int): Fu[List[Finished]] = $find(
-    $query(Json.obj("status" -> Status.Finished.id)) sort $sort.createdDesc,
+    $query(Json.obj("status" -> Status.Finished.id)) sort $sort.desc("startedAt"),
     limit
-  ) map { _.map(asFinished).flatten }
+  ) map (_ flatMap asFinished)
 
   private def allCreatedQuery = $query(Json.obj(
     "status" -> Status.Created.id,
@@ -71,7 +71,7 @@ object TournamentRepo {
 
   def allCreatedSorted: Fu[List[Created]] = $find(
     allCreatedQuery sort BSONDocument("schedule.at" -> 1, "createdAt" -> 1)
-  ) map { _.map(asCreated).flatten }
+  ) map (_ flatMap asCreated)
 
   def allCreated: Fu[List[Created]] = $find(allCreatedQuery) map { _.map(asCreated).flatten }
 
@@ -82,7 +82,7 @@ object TournamentRepo {
     )) sort BSONDocument(
       "schedule.at" -> 1
     )
-  ) map { _.map(asCreated).flatten }
+  ) map (_ flatMap asCreated)
 
   def withdraw(userId: String): Fu[List[String]] = for {
     createds ← created
