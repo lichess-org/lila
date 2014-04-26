@@ -101,6 +101,13 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case _           => Html("")
   }
 
+  private def gameTitle(game: Game, color: Color): String = {
+    val u1 = playerText(game player color)
+    val u2 = playerText(game opponent color)
+    val clock = game.clock ?? { c => " • " + c.show }
+    s"$u1 vs $u2$clock"
+  }
+
   def gameFen(game: Game, color: Color, ownerLink: Boolean = false, tv: Boolean = false)(implicit ctx: UserContext) = Html {
     val owner = ownerLink.fold(ctx.me flatMap game.player, none)
     var live = game.isBeingPlayed
@@ -109,7 +116,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
     """<a href="%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"></a>""".format(
       tv.fold(routes.Tv.index, url),
-      trans.viewInFullSize(),
+      gameTitle(game, color),
       live ?? ("live live_" + game.id),
       live ?? game.id,
       color.name,
@@ -119,9 +126,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false, blank: Boolean = false) = Html {
     var live = game.isBeingPlayed
-    """<a href="%s%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s></a>""".format(
+    """<a href="%s%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s></a>""".format(
       blank ?? netBaseUrl,
       tv.fold(routes.Tv.index, routes.Round.watcher(game.id, color.name)),
+      gameTitle(game, color),
       live ?? ("live live_" + game.id),
       live ?? game.id,
       color.name,
