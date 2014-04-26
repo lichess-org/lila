@@ -40,20 +40,26 @@ case class PlayReq(
 case class AnalReq(
     moves: List[String],
     fen: Option[String],
-    totalSize: Int) extends Req {
+    totalSize: Int,
+    requestedByHuman: Boolean) extends Req {
 
-  val priority = - totalSize
+  val priority =
+    if (requestedByHuman) -totalSize
+    else -1000 - totalSize
 
   def analyse = true
 
   def isStart = moves.isEmpty && fen.isEmpty
 }
 
-case class FullAnalReq(moves: List[String], fen: Option[String])
+case class FullAnalReq(
+  moves: List[String],
+  fen: Option[String],
+  requestedByHuman: Boolean)
 
 case class Job(req: Req, sender: akka.actor.ActorRef, buffer: List[String]) {
 
-  def +(str: String) = if (req.analyse) copy(buffer = str :: buffer) else  this
+  def +(str: String) = if (req.analyse) copy(buffer = str :: buffer) else this
 
   // bestmove xyxy ponder xyxy
   def complete(str: String): Option[Any] = req match {

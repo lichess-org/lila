@@ -21,9 +21,16 @@ private[ai] final class Server(
       manifest[Option[String]] flatten "[stockfish] play failed" map MoveResult.apply
   }
 
+  // a player asked for it
   def analyse(uciMoves: List[String], initialFen: Option[String]): Fu[List[Info]] = {
     implicit val timeout = makeTimeout(config.analyseTimeout)
-    (queue ? FullAnalReq(uciMoves take config.analyseMaxPlies, initialFen map chess960Fen)) mapTo manifest[List[Info]]
+    (queue ? FullAnalReq(uciMoves take config.analyseMaxPlies, initialFen map chess960Fen, true)) mapTo manifest[List[Info]]
+  }
+
+  // lichess asked for it
+  def automaticAnalyse(uciMoves: List[String], initialFen: Option[String]): Fu[List[Info]] = {
+    implicit val timeout = makeTimeout(config.analyseTimeout * 3)
+    (queue ? FullAnalReq(uciMoves take config.analyseMaxPlies, initialFen map chess960Fen, false)) mapTo manifest[List[Info]]
   }
 
   private def chess960Fen(fen: String) = (Forsyth << fen).fold(fen) { situation =>
