@@ -911,7 +911,7 @@ var storage = {
 
       if (!self.options.player.spectator) {
         var okToLeave = function() {
-          return lichess.hasToReload || !self.options.game.started || self.options.game.finished;
+          return lichess.hasToReload || !self.options.game.started || self.options.game.finished || !self.options.game.clock;
         };
         $(window).on('beforeunload', function() {
           if (!okToLeave()) return 'There is a game in progress!';
