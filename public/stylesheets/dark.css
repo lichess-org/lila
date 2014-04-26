@@ -156,7 +156,9 @@ body.dark div.undertable_top span.title {
   color: #777;
 }
 body.dark #GameText a:hover,
-body.dark #crosstable td a {
+body.dark #crosstable td a,
+body.dark #hook_filter td > label.hover:hover,
+body.dark div.promotion_choice {
   background: #000;
 }
 body.dark #chat .messages,
@@ -183,9 +185,6 @@ body.dark #hook_filter {
 }
 body.dark #hook_filter td > label {
   color: #c0c0c0;
-}
-body.dark #hook_filter td > label.hover:hover {
-  background: #000;
 }
 body.dark div.undertable tr:nth-child(even) td,
 body.dark #hooks_wrap,
