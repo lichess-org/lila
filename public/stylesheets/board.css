@@ -236,7 +236,7 @@ div.lichess_overboard p.explanations {
   font-size: 1.2em;
   padding: 1em 0;
 }
-div.lichess_promotion_choice {
+div.promotion_choice {
   display: none;
   position: absolute;
   top: 0;
@@ -248,7 +248,7 @@ div.lichess_promotion_choice {
   text-align: center;
   padding: 224px 0 0 108px;
 }
-div.lichess_promotion_choice div.piece {
+div.promotion_choice div.piece {
   float: left;
   position: static;
   padding: 5px;
@@ -256,11 +256,11 @@ div.lichess_promotion_choice div.piece {
   height: 54px;
   margin: 0 5px;
   cursor: pointer;
-  border-radius: 4px;
-  box-shadow: 0 0 5px #444;
+  border-radius: 3px;
+  box-shadow: 0 0 4px #444;
 }
-div.lichess_promotion_choice div.piece:hover {
-  box-shadow: 0 0 10px blue;
+div.promotion_choice div.piece:hover {
+  box-shadow: 0 0 10px #d85000;
 }
 div.lichess_join_url {
   display: none;

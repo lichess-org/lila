@@ -1281,9 +1281,12 @@ var storage = {
           moveData.promotion = "queen";
           sendMoveRequest(moveData);
         } else {
-          var $choices = $('<div class="lichess_promotion_choice">')
+          var html = _.map(['queen', 'knight', 'rook', 'bishop'], function(p) {
+            return '<div data-piece="' + p + '" class="piece ' + p + ' ' + color + '"></div>';
+          }).join('');
+          var $choices = $('<div class="promotion_choice onbg">')
             .appendTo(self.$board)
-            .html('<div data-piece="queen" class="piece queen ' + color + '"></div><div data-piece="knight" class="lichess_piece knight ' + color + '"></div><div data-piece="rook" class="lichess_piece rook ' + color + '"></div><div data-piece="bishop" class="lichess_piece bishop ' + color + '"></div>')
+            .html(html)
             .fadeIn(self.options.animation_delay)
             .find('div.piece')
             .click(function() {
