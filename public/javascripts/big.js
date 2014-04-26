@@ -11,7 +11,6 @@ function withStorage(f) {
   try {
     return !!window.localStorage ? f(window.localStorage) : null;
   } catch (e) {
-    if (window.console) console.debug(e);
   }
 }
 var storage = {
@@ -1145,7 +1144,7 @@ var storage = {
         if ($.isFunction(callback || null)) callback();
       };
 
-      var animD = mine ? 0 : self.options.animation_delay;
+      var animD = mine ? 0 : self.animationDelay();
 
       $('body > div.piece').stop(true, true);
       if (animD < 100) {
@@ -1160,6 +1159,16 @@ var storage = {
           left: $to.offset().left
         }, animD, afterMove);
       }
+    },
+    animationDelay: function() {
+      var self = this;
+      if (self.hasClock()) {
+        var times = self.$table.find('div.clock').map(function() {
+          return parseInt($(this).clock('getTime')) / 1000;
+        }).get();
+        times.sort();
+        return this.options.animation_delay * Math.min(1, times[0] / 120);
+      } else return this.options.animation_delay;
     },
     highlightLastMove: function(notation) {
       var self = this;
@@ -1287,12 +1296,12 @@ var storage = {
           var $choices = $('<div class="promotion_choice onbg">')
             .appendTo(self.$board)
             .html(html)
-            .fadeIn(self.options.animation_delay)
+            .fadeIn(self.animationDelay())
             .find('div.piece')
             .click(function() {
               moveData.promotion = $(this).attr('data-piece');
               sendMoveRequest(moveData);
-              $choices.fadeOut(self.options.animation_delay, function() {
+              $choices.fadeOut(self.animationDelay(), function() {
                 $choices.remove();
               });
             }).end();
@@ -1764,6 +1773,10 @@ var storage = {
     setTime: function(time) {
       this.options.time = parseFloat(time) * 1000;
       this._show();
+    },
+
+    getTime: function() {
+      return this.options.time;
     },
 
     stop: function() {
