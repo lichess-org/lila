@@ -57,7 +57,7 @@ private[app] final class AiStresser(
 
     def receive = {
       case Game(moves, _) =>
-        env.client.analyse(moves, none).effectFold(e => {
+        env.client.analyse(moves, none, true).effectFold(e => {
           logwarn("[ai] server analyse: " + e)
           if (loop) newGame pipeTo self
         }, { _ =>

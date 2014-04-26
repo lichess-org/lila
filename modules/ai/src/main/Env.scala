@@ -43,9 +43,9 @@ final class Env(
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.ai.Analyse(uciMoves, fen) =>
+      case lila.hub.actorApi.ai.Analyse(uciMoves, fen, requestedByHuman) =>
         val replyTo = sender
-        client.analyse(uciMoves, fen) onComplete {
+        client.analyse(uciMoves, fen, requestedByHuman) onComplete {
           case scala.util.Success(a)   => replyTo ! a
           case scala.util.Failure(err) => replyTo ! Status.Failure(err)
         }

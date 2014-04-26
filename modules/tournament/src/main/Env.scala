@@ -68,7 +68,8 @@ final class Env(
       renderer = hub.actor.renderer
     )), name = ReminderName),
     isOnline = isOnline,
-    socketHub = socketHub
+    socketHub = socketHub,
+    evaluator = hub.actor.evaluator
   )), name = OrganizerName)
 
   private val tournamentScheduler = system.actorOf(Props(new Scheduler(api)))
@@ -97,6 +98,10 @@ final class Env(
 
     scheduler.message(3 seconds) {
       organizer -> actorApi.StartedTournaments
+    }
+
+    scheduler.message(6 minutes) {
+      organizer -> actorApi.CheckLeaders
     }
 
     scheduler.message(5 minutes) {

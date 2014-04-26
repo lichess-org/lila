@@ -33,6 +33,7 @@ case class Connected(enumerator: JsEnumerator, member: Member)
 // organizer
 private[tournament] case object AllCreatedTournaments
 private[tournament] case object StartedTournaments
+private[tournament] case object CheckLeaders
 case class RemindTournaments(tours: List[Started])
 case class RemindTournament(tour: Started)
 case class TournamentTable(tours: List[Created])

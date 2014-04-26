@@ -123,7 +123,8 @@ case class MakeTeam(id: String, name: String)
 }
 
 package ai {
-case class Analyse(uciMoves: List[String], initialFen: Option[String])
+case class Analyse(uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean)
+case class AutoAnalyse(gameId: String)
 }
 
 package monitor {
@@ -137,6 +138,10 @@ case class MoveEvent(
   fen: String,
   move: String,
   ip: String)
+}
+
+package evaluation {
+  case class AutoCheck(userId: String)
 }
 
 package bookmark {

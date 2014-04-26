@@ -3,6 +3,7 @@ package lila.evaluation
 import akka.actor._
 import chess.{ White, Black }
 import lila.user.User
+import lila.hub.actorApi.evaluation._
 
 private[evaluation] final class Listener(evaluator: Evaluator) extends Actor {
 
@@ -11,10 +12,12 @@ private[evaluation] final class Listener(evaluator: Evaluator) extends Actor {
   def receive = {
 
     case lila.game.actorApi.FinishGame(game, white, black) => if (game.rated) {
-      white foreach { user => evaluator.autoGenerate(user, game player White) }
-      black foreach { user => evaluator.autoGenerate(user, game player Black) }
+      white foreach { evaluator.autoGenerate(_, false, false) }
+      black foreach { evaluator.autoGenerate(_, false, false) }
     }
 
     case user: User => evaluator.generate(user, true)
+
+    case AutoCheck(userId) => evaluator.autoGenerate(userId, true, false)
   }
 }

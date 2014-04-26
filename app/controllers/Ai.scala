@@ -24,7 +24,8 @@ object Ai extends LilaController {
   def analyse = Action.async { req =>
     Env.ai.server.analyse(
       uciMoves = get("uciMoves", req) ?? (_.split(' ').toList),
-      initialFen = get("initialFen", req)
+      initialFen = get("initialFen", req),
+      requestedByHuman = getBool("human", req)
     ) fold (
         err => {
           logwarn("[ai] stockfish server analyse: " + err)

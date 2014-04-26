@@ -20,4 +20,7 @@ trait RequestGetter {
 
   protected def getBool(name: String)(implicit ctx: UserContext) =
     getInt(name) exists (1==)
+
+  protected def getBool(name: String, req: RequestHeader) =
+    getInt(name, req) exists (1==)
 }

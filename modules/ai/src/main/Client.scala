@@ -45,12 +45,13 @@ final class Client(
     } map MoveResult.apply
   }
 
-  def analyse(uciMoves: List[String], initialFen: Option[String]): Fu[List[Info]] = {
+  def analyse(uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean): Fu[List[Info]] = {
     implicit val timeout = makeTimeout(config.analyseTimeout + networkLatency)
     sendRequest(false) {
       WS.url(s"$endpoint/analyse").withQueryString(
         "uciMoves" -> uciMoves.mkString(" "),
-        "initialFen" -> ~initialFen)
+        "initialFen" -> ~initialFen,
+        "human" -> requestedByHuman.fold("1", "0"))
     } map Info.decodeList flatten "Can't read analysis results: "
   }
 
