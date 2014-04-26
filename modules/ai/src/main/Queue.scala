@@ -25,9 +25,7 @@ private[ai] final class Queue(config: Config) extends Actor {
   private val logger = (msg: String) => self ! Log(msg)
 
   (1 to config.nbInstances).toList map { id =>
-    context.actorOf(
-      Props(classOf[Puller], config, id, logger),
-      name = s"pull-$id")
+    context.actorOf(Props(classOf[Puller], config, id, logger), name = s"pull-$id")
   }
 
   private val extraStockfishTime = 1 second
@@ -55,12 +53,12 @@ private[ai] final class Queue(config: Config) extends Actor {
         tasks += Task(req, sender, timeout)
       }
 
-    case FullAnalReq(moves, fen) =>
+    case FullAnalReq(moves, fen, requestedByHuman) =>
       val mrSender = sender
       val size = moves.size
       implicit val timeout = makeTimeout(config.analyseTimeout)
       val futures = (0 to size) map moves.take map { serie =>
-        self ? AnalReq(serie, fen, size) mapTo manifest[Option[Evaluation]]
+        self ? AnalReq(serie, fen, size, requestedByHuman) mapTo manifest[Option[Evaluation]]
       }
       Future.fold(futures)(Vector[Option[Evaluation]]())(_ :+ _) addFailureEffect {
         case e => mrSender ! Status.Failure(e)
