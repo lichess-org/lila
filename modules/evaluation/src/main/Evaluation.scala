@@ -1,7 +1,7 @@
 package lila.evaluation
 
-import org.joda.time.DateTime
 import lila.user.{ User, Perfs }
+import org.joda.time.DateTime
 
 case class Evaluation(
     id: String,
@@ -38,6 +38,9 @@ case class Evaluation(
 
   def mark(perfs: Perfs) =
     action == Mark && deviationIsLow(perfs) && !ratingIsGreat(perfs)
+
+  def gameIdsToAnalyse: List[String] =
+    games take 6 filterNot (_.analysed) take 3 flatMap (_.gameId)
 }
 
 object Evaluation {
@@ -45,9 +48,9 @@ object Evaluation {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
-  private[evaluation] def progressIsHigh(user: User) = user.progress > 80
+  private[evaluation] def progressIsHigh(user: User) = user.progress > 70
   private[evaluation] def progressIsVeryHigh(user: User) = user.progress > 100
-  private[evaluation] def deviationIsLow(perfs: Perfs) = perfs.global.glicko.deviation < 150
+  private[evaluation] def deviationIsLow(perfs: Perfs) = perfs.global.glicko.deviation < 160
   private[evaluation] def ratingIsHigh(perfs: Perfs) = perfs.global.glicko.rating >= 1600
   private[evaluation] def ratingIsGreat(perfs: Perfs) = perfs.global.glicko.rating >= 2100
 
@@ -58,11 +61,20 @@ object Evaluation {
   case object Report extends Action
   case object Mark extends Action
 
+  private val GameIdRegex = """^.+(\w{8})(?:/black)?$""".r
+
   case class Game(
       url: String,
       moveTime: Option[Int],
       blur: Option[Int],
       error: Option[Int]) {
+
+    def analysed = ~error == 0
+
+    def gameId = url match {
+      case GameIdRegex(id) => id.some
+      case _               => none
+    }
 
     override def toString = List(
       moveTime map (x => s"Move time: $x%"),

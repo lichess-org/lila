@@ -30,7 +30,7 @@ final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
   def hasMany(ids: Seq[String]): Fu[Set[String]] =
     $primitive[Analysis, String]($select byIds ids, "_id")(_.asOpt[String]) map (_.toSet)
 
-  def getOrGenerate(id: String, userId: String, admin: Boolean): Fu[Analysis] = {
+  def getOrGenerate(id: String, userId: String, admin: Boolean, auto: Boolean = false): Fu[Analysis] = {
 
     def generate: Fu[Analysis] =
       admin.fold(fuccess(none), AnalysisRepo userInProgress userId) flatMap {
@@ -46,7 +46,8 @@ final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
             _ ← AnalysisRepo.progress(id, userId)
             replay ← Replay(game.pgnMoves mkString " ", initialFen, game.variant).future
             uciMoves = UciDump(replay)
-            infos ← ai ? lila.hub.actorApi.ai.Analyse(uciMoves, initialFen) mapTo manifest[List[Info]]
+            msg = lila.hub.actorApi.ai.Analyse(uciMoves, initialFen, requestedByHuman = !auto)
+            infos ← ai ? msg mapTo manifest[List[Info]]
             analysis = Analysis(id, infos, true, DateTime.now)
           } yield UciToPgn(replay, analysis)) flatFold (
             e => fufail[Analysis](e.getMessage), {

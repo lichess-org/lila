@@ -1,6 +1,7 @@
 package lila.analyse
 
-import akka.actor.ActorSelection
+import akka.actor._
+import akka.pattern.pipe
 import com.typesafe.config.Config
 import spray.caching.{ LruCache, Cache }
 
@@ -10,12 +11,14 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     ai: ActorSelection,
+    system: ActorSystem,
     indexer: ActorSelection) {
 
   private val CollectionAnalysis = config getString "collection.analysis"
   private val NetDomain = config getString "net.domain"
   private val CachedNbTtl = config duration "cached.nb.ttl"
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
+  private val ActorName = config getString "actor.name"
 
   private[analyse] lazy val analysisColl = db(CollectionAnalysis)
 
@@ -32,6 +35,14 @@ final class Env(
     def nbAnalysis: Fu[Int] = cache(true)(AnalysisRepo.count)
   }
 
+  // api actor
+  system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.hub.actorApi.ai.AutoAnalyse(gameId) =>
+        analyser.getOrGenerate(gameId, "lichess", admin = true, auto = true) pipeTo sender
+    }
+  }), name = ActorName)
+
   def cli = new lila.common.Cli {
     import tube.analysisTube
     def process = {
@@ -46,5 +57,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "analyse",
     db = lila.db.Env.current,
     ai = lila.hub.Env.current.actor.ai,
+    system = lila.common.PlayApp.system,
     indexer = lila.hub.Env.current.actor.gameIndexer)
 }

@@ -12,7 +12,7 @@ import tube.reportTube
 
 private[report] final class ReportApi(evaluator: ActorSelection) {
 
-  def create(setup: ReportSetup, by: User): Funit =
+  def create(setup: ReportSetup, by: User, update: Boolean = false): Funit =
     Reason(setup.reason).fold[Funit](fufail("Invalid report reason " + setup.reason)) { reason =>
       val user = setup.user
       val report = Report.make(
@@ -21,11 +21,13 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
         text = setup.text,
         createdBy = by)
       (!report.isCheat || !user.engine) ?? {
-        existsRecent(user, reason) flatMap {
-          case true =>
+        findRecent(user, reason) flatMap {
+          case Some(existing) if update =>
+            $update($select(existing.id), Json.obj("text" -> report.text))
+          case Some(_) =>
             logger.info(s"Skip existing report creation: $reason $user")
             funit
-          case false => $insert(report) >>- {
+          case None => $insert(report) >>- {
             if (report.isCheat && report.isManual) evaluator ! user
           }
         }
@@ -40,7 +42,7 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
         reason = "cheat",
         text = text,
         gameId = "",
-        move = ""), lichess)
+        move = ""), lichess, update = true)
       case _ => funit
     }
   }
@@ -55,8 +57,8 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
 
   def recent = $find($query.all sort $sort.createdDesc, 50)
 
-  private def existsRecent(user: User, reason: Reason) =
-    $count.exists(Json.obj(
+  private def findRecent(user: User, reason: Reason): Fu[Option[Report]] =
+    $find.one(Json.obj(
       "createdAt" -> $gt($date(DateTime.now minusDays 3)),
       "user" -> user.id,
       "reason" -> reason.name))

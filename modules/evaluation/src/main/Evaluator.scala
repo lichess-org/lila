@@ -3,6 +3,7 @@ package lila.evaluation
 import scala.util.{ Try, Success, Failure }
 
 import akka.actor.ActorSelection
+import akka.pattern.ask
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.json.Json
@@ -13,13 +14,13 @@ import lila.db.api._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.JsTube.Helpers.{ rename, writeDate, readDate }
 import lila.db.Types._
-import lila.game.Player
 import lila.user.{ User, UserRepo, Perfs }
 
 final class Evaluator(
     coll: Coll,
     script: String,
     reporter: ActorSelection,
+    analyser: ActorSelection,
     marker: ActorSelection) {
 
   import Evaluation._
@@ -64,21 +65,36 @@ final class Evaluator(
     case Failure(e) => logger.warn(s"generate: $e")
   }
 
-  def autoGenerate(user: User, player: Player) {
-    if (!user.engine && deviationIsLow(user.perfs) && (progressIsHigh(user) || ratingIsHigh(user.perfs))) {
+  private[evaluation] def autoGenerate(user: User, important: Boolean, forceRefresh: Boolean) {
+    if (!user.engine && (
+      important ||
+      (deviationIsLow(user.perfs) && (progressIsHigh(user) || ratingIsHigh(user.perfs)))
+    )) {
       evaluatedAt(user) foreach { date =>
         def freshness = if (progressIsVeryHigh(user)) DateTime.now minusMinutes 30
         else if (progressIsHigh(user)) DateTime.now minusHours 1
-        else DateTime.now minusDays 5
-        if (date.fold(true)(_ isBefore freshness)) {
+        else DateTime.now minusDays 3
+        if (forceRefresh || date.fold(true)(_ isBefore freshness)) {
           logger.info(s"auto evaluate $user")
-          generate(user.id, user.perfs, false) foreach {
-            case Some(eval) if eval.report(user.perfs) =>
-              reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
-            case _ =>
+          generate(user.id, user.perfs, true) foreach {
+            _ foreach { eval =>
+              eval.gameIdsToAnalyse foreach { gameId =>
+                implicit val tm = makeTimeout minutes 120
+                analyser ? lila.hub.actorApi.ai.AutoAnalyse(gameId) foreach {
+                  _ => autoGenerate(user, important, true)
+                }
+                if (eval report user.perfs)
+                  reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
+              }
+            }
           }
         }
       }
+    }
+  }
+  private[evaluation] def autoGenerate(userId: String, important: Boolean, forceRefresh: Boolean) {
+    UserRepo byId userId foreach {
+      _ foreach { autoGenerate(_, important, forceRefresh) }
     }
   }
 

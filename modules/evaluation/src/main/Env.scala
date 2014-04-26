@@ -17,6 +17,7 @@ final class Env(
     coll = db(CollectionEvaluation),
     script = EvaluatorScriptPath,
     reporter = hub.actor.report,
+    analyser = hub.actor.analyser,
     marker = hub.actor.mod)
 
   system.actorOf(Props(new Listener(evaluator)), name = ActorName)
