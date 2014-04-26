@@ -20,6 +20,7 @@ zen = true) {
           @base.captcha(form("move"), form("gameId"), captcha)
         </li>
         @errMsg(form)
+        <li data-icon="!">&nbsp;@trans.computersAreNotAllowedToPlay()</li>
         <li>
           <button type="submit" class="submit button" data-icon="F"> @trans.signUp()</button>
         </li>

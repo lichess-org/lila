@@ -73,6 +73,7 @@ signIn=Sign in
 newToLichess=New to Lichess?
 youNeedAnAccountToDoThat=You need an account to do that
 signUp=Register
+computersAreNotAllowedToPlay=Computers and computer-assisted players are not allowed to play. Please do not get assistance from chess engines, databases, or from other players while playing.
 games=Games
 forum=Forum
 xPostedInForumY=%s posted in topic %s
