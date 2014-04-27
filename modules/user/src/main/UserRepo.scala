@@ -148,7 +148,7 @@ trait UserRepo {
     $update($select(id), $incBson(incs: _*))
   }
 
-  def incToints(id: ID)(nb: Int) = $update($select(id), $incBson("toints" -> nb))
+  def incToints(id: ID, nb: Int) = $update($select(id), $incBson("toints" -> nb))
   def removeAllToints = $update($select.all, $unset("toints"), multi = true)
 
   def averageRating: Fu[Float] = $primitive($select.all, "rating")(_.asOpt[Float]) map { ratings =>

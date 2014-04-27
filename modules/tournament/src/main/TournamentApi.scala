@@ -94,7 +94,7 @@ private[tournament] final class TournamentApi(
         (pairingsToAbort foreach { pairing =>
           roundMap ! Tell(pairing.gameId, AbortForce)
         }) >>
-        finished.players.filter(_.score > 0).map(p => UserRepo.incToints(p.id)(p.score)).sequenceFu inject finished
+        finished.players.filter(_.score > 0).map(p => UserRepo.incToints(p.id, p.score)).sequenceFu inject finished
     }, fuccess(started))
 
   def join(tour: Enterable, me: User, password: Option[String]): Funit =
@@ -138,8 +138,10 @@ private[tournament] final class TournamentApi(
   def recountAll = UserRepo.removeAllToints >> funit
     $enumerate.over($query[Finished](TournamentRepo.finishedQuery)) { (tour: Finished) =>
       val tour2 = tour.refreshPlayers
+      val players = tour.players.filter(_.score > 0)
+      println(s"tour ${tour2.id}: ${players.size}")
       $update(tour2) zip
-        tour.players.filter(_.score > 0).map(p => UserRepo.incToints(p.id)(p.score)).sequenceFu void
+        players.map(p => UserRepo.incToints(p.id, p.score)).sequenceFu void
     }
 
   private def tripleQuickLossWithdraw(tour: Started, loser: Option[String]): Funit =
