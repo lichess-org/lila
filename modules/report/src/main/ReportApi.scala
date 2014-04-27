@@ -23,7 +23,7 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
       (!report.isCheat || !user.engine) ?? {
         findRecent(user, reason) flatMap {
           case Some(existing) if update =>
-            $update($select(existing.id), Json.obj("text" -> report.text))
+            $update($select(existing.id), $set("text" -> report.text))
           case Some(_) =>
             logger.info(s"Skip existing report creation: $reason $user")
             funit
