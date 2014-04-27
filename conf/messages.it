@@ -73,6 +73,7 @@ signIn=Entra
 newToLichess=Nuovo su Lichess?
 youNeedAnAccountToDoThat=Ti servei un account per farlo
 signUp=Registrati
+computersAreNotAllowedToPlay=Non è permesso giocare a computer o a giocatori che si fanno aiutare dai computer. Mentre giochi, non farti aiutare da programmi di scacchi, da database o da altre persone.
 games=Partite
 forum=Forum
 xPostedInForumY=%s ha postato nel forum %s
