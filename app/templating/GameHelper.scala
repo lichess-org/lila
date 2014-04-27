@@ -51,9 +51,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def playerUsername(player: Player, withRating: Boolean = true) =
     Namer.player(player, withRating)(userEnv.lightUser)
 
-  def playerText(player: Player) =
+  def playerText(player: Player, withRating: Boolean = false) =
     player.aiLevel.fold(
-      player.userId.flatMap(userEnv.lightUser).fold("Anon.")(_.titleName)
+      player.userId.flatMap(userEnv.lightUser).fold("Anon.") { u =>
+        player.rating.ifTrue(withRating).fold(u.titleName) { r => s"${u.titleName} ($r)" }
+      }
     ) { level => s"A.I. level $level" }
 
   def playerLink(
@@ -102,8 +104,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   private def gameTitle(game: Game, color: Color): String = {
-    val u1 = playerText(game player color)
-    val u2 = playerText(game opponent color)
+    val u1 = playerText(game player color, withRating = true)
+    val u2 = playerText(game opponent color, withRating = true)
     val clock = game.clock ?? { c => " • " + c.show }
     s"$u1 vs $u2$clock"
   }
