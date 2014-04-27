@@ -135,10 +135,12 @@ private[tournament] final class TournamentApi(
       }
     }
 
-  def reCountPoints(tour: Finished) = $update(tour.refreshPlayers)
-
-  def recountAll =
-    $enumerate.over($query[Finished](TournamentRepo.finishedQuery))(reCountPoints)
+  def recountAll = UserRepo.removeAllToints >> funit
+    $enumerate.over($query[Finished](TournamentRepo.finishedQuery)) { (tour: Finished) =>
+      val tour2 = tour.refreshPlayers
+      $update(tour2) zip
+        tour.players.filter(_.score > 0).map(p => UserRepo.incToints(p.id)(p.score)).sequenceFu void
+    }
 
   private def tripleQuickLossWithdraw(tour: Started, loser: Option[String]): Funit =
     loser.filter(tour.quickLossStreak).??(withdraw(tour, _))
