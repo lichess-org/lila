@@ -73,6 +73,7 @@ signIn=Entrar
 newToLichess=Novo no Lichess?
 youNeedAnAccountToDoThat=Precisa de uma conta para fazer isso
 signUp=Inscrever
+computersAreNotAllowedToPlay=Não é permitido o auxílio de computadores durante as partidas. Por favor, não utilize a ajuda de engines de xadrez, bases de dados ou de outros jogadores enquanto joga.
 games=Partidas
 forum=Fórum
 xPostedInForumY=%s postado em %s
