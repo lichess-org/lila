@@ -1027,7 +1027,8 @@ var storage = {
               } catch (e) {}
               setTimeout(function() {
                 self.element.find('.ui-draggable-dragging').remove();
-              }, 500);
+                self.$board.find('.piece:not(:visible)').show();
+              }, 300);
               $('div.underboard').hide().filter('.replay_and_analyse').show();
               // But enqueue the visible changes
               self.element.queue(function() {
