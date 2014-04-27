@@ -1987,7 +1987,7 @@ div.lichess_overboard.joining .mini_board {
   font-size: 0.9em;
 }
 #timeline a {
-  font-weight: normal;
+  font-weight: bold;
   color: #a0a0a0;
   text-decoration: none;
 }

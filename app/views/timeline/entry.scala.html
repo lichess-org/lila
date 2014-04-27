@@ -5,19 +5,19 @@
 @e.decode.map { decoded =>
 @decoded match {
 case Follow(u1, u2) => {
-@trans.xStartedFollowingY(userIdLink(u1.some), userIdLink(u2.some))
+@trans.xStartedFollowingY(userIdLink(u1.some, withOnline = false), userIdLink(u2.some, withOnline = false))
 }
 case TeamJoin(userId, teamId) => {
-@trans.xJoinedTeamY(userIdLink(userId.some), teamLink(teamId))
+@trans.xJoinedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
 }
 case TeamCreate(userId, teamId) => {
-@trans.xCreatedTeamY(userIdLink(userId.some), teamLink(teamId))
+@trans.xCreatedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
 }
 case ForumPost(userId, topicName, postId) => {
-@trans.xPostedInForumY(userIdLink(userId.some), """<a href="%s" data-icon="d">&nbsp;%s</a>""".format(routes.ForumPost.redirect(postId), shorten(topicName, 30)))
+@trans.xPostedInForumY(userIdLink(userId.some, withOnline = false), """<a href="%s">&nbsp;%s</a>""".format(routes.ForumPost.redirect(postId), shorten(topicName, 30)))
 }
 case NoteCreate(fromId, toId) => {
-@userIdLink(fromId.some) let a note on @userIdLink(toId.some, params = "?note")
+@userIdLink(fromId.some, withOnline = false) let a note on @userIdLink(toId.some, withOnline = false, params = "?note")
 }
 }
 @momentFromNow(e.date)
