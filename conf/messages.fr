@@ -73,6 +73,7 @@ signIn=Connexion
 newToLichess=Nouveau sur Lichess ?
 youNeedAnAccountToDoThat=Il vous faut un compte d'utilisateur pour faire cela
 signUp=Inscription
+computersAreNotAllowedToPlay=Les ordinateurs et les joueurs assistés par ordinateur ne sont pas autorisés à jouer. Veuillez ne pas vous aider de moteurs d'échecs, de bases de données ou d'autres joueurs quand vous êtes en train de jouer.
 games=Parties
 forum=Forum
 xPostedInForumY=%s a posté dans le forum %s
