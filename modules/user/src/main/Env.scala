@@ -10,6 +10,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     scheduler: lila.common.Scheduler,
+    timeline:ActorSelection,
     system: ActorSystem) {
 
   private val settings = new {
@@ -38,7 +39,7 @@ final class Env(
 
   lazy val ranking = new Ranking(ttl = RankingTtl)
 
-  lazy val noteApi = new NoteApi(db(CollectionNote))
+  lazy val noteApi = new NoteApi(db(CollectionNote), timeline)
 
   def ratingChart = cached.ratingChart.apply _
 
@@ -92,5 +93,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "user",
     db = lila.db.Env.current,
     scheduler = lila.common.PlayApp.scheduler,
+    timeline = lila.hub.Env.current.actor.timeline,
     system = lila.common.PlayApp.system)
 }

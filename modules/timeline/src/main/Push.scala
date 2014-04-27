@@ -2,8 +2,8 @@ package lila.timeline
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import org.joda.time.DateTime
 import com.github.nscala_time.time.Imports._
+import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.templates.Html
 
@@ -23,7 +23,7 @@ private[timeline] final class Push(
 
   def receive = {
 
-    case Propagate(data, propagations) => {
+    case Propagate(data, propagations) =>
       data match {
         case _: ForumPost => lobbySocket ! NewForumPost
         case _            =>
@@ -34,7 +34,6 @@ private[timeline] final class Push(
             lobbySocket ! ReloadTimeline(u)
           })
       }
-    }
   }
 
   private def propagate(propagations: List[Propagation]): Fu[List[String]] =

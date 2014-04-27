@@ -3,7 +3,7 @@ package lila.notification
 import scala.collection.mutable
 
 import akka.actor.ActorSelection
-import akka.pattern.{ ask, pipe }
+import akka.pattern.ask
 import play.api.templates.Html
 
 import lila.hub.actorApi.SendTo
@@ -19,11 +19,10 @@ private[notification] final class Api(bus: lila.common.Bus, renderer: ActorSelec
     repo.update(userId, notif :: get(userId))
     val request = actorApi.RenderNotification(notif.id, notif.from, notif.html)
     renderer ? request foreach {
-      case rendered: Html => {
+      case rendered: Html =>
         val event = SendTo(userId, "notificationAdd", rendered.toString)
         bus.publish(event, 'users)
-      }
-    } 
+    }
   }
 
   def get(userId: String): List[Notification] = ~(repo get userId)

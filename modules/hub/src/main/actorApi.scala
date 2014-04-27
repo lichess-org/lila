@@ -71,13 +71,14 @@ case class Follow(u1: String, u2: String) extends Atom
 case class TeamJoin(userId: String, teamId: String) extends Atom
 case class TeamCreate(userId: String, teamId: String) extends Atom
 case class ForumPost(userId: String, topicName: String, postId: String) extends Atom
+case class NoteCreate(from: String, to: String) extends Atom
 
 object atomFormat {
-
   implicit val followFormat = Json.format[Follow]
   implicit val teamJoinFormat = Json.format[TeamJoin]
   implicit val teamCreateFormat = Json.format[TeamCreate]
   implicit val forumPostFormat = Json.format[ForumPost]
+  implicit val noteCreateFormat = Json.format[NoteCreate]
 }
 
 object propagation {

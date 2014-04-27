@@ -3,19 +3,22 @@
 @import lila.hub.actorApi.timeline._
 
 @e.decode.map { decoded =>
-  @decoded match {
-  case Follow(u1, u2) => {
-  @trans.xStartedFollowingY(userIdLink(u1.some), userIdLink(u2.some))
-  }
-  case TeamJoin(userId, teamId) => {
-  @trans.xJoinedTeamY(userIdLink(userId.some), teamLink(teamId))
-  }
-  case TeamCreate(userId, teamId) => {
-  @trans.xCreatedTeamY(userIdLink(userId.some), teamLink(teamId))
-  }
-  case ForumPost(userId, topicName, postId) => {
-  @trans.xPostedInForumY(userIdLink(userId.some), """<a href="%s" data-icon="d">&nbsp;%s</a>""".format(routes.ForumPost.redirect(postId), shorten(topicName, 30)))
-  }
-  }
-  @momentFromNow(e.date)
+@decoded match {
+case Follow(u1, u2) => {
+@trans.xStartedFollowingY(userIdLink(u1.some), userIdLink(u2.some))
+}
+case TeamJoin(userId, teamId) => {
+@trans.xJoinedTeamY(userIdLink(userId.some), teamLink(teamId))
+}
+case TeamCreate(userId, teamId) => {
+@trans.xCreatedTeamY(userIdLink(userId.some), teamLink(teamId))
+}
+case ForumPost(userId, topicName, postId) => {
+@trans.xPostedInForumY(userIdLink(userId.some), """<a href="%s" data-icon="d">&nbsp;%s</a>""".format(routes.ForumPost.redirect(postId), shorten(topicName, 30)))
+}
+case NoteCreate(fromId, toId) => {
+@userIdLink(fromId.some) let a note on @userIdLink(toId.some, params = "?note")
+}
+}
+@momentFromNow(e.date)
 }

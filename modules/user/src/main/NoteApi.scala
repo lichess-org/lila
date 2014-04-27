@@ -10,7 +10,9 @@ case class Note(
   troll: Boolean,
   date: DateTime)
 
-final class NoteApi(coll: lila.db.Types.Coll) {
+final class NoteApi(
+    coll: lila.db.Types.Coll,
+    timeline: akka.actor.ActorSelection) {
 
   import reactivemongo.bson._
   import lila.db.BSON.BSONJodaDateTimeHandler
@@ -24,11 +26,20 @@ final class NoteApi(coll: lila.db.Types.Coll) {
       ) ++ me.troll.fold(BSONDocument(), BSONDocument("troll" -> false))
     ).sort(BSONDocument("date" -> -1)).cursor[Note].collect[List](100)
 
-  def write(to: User, text: String, from: User) = coll insert Note(
-    _id = ornicar.scalalib.Random nextStringUppercase 8,
-    from = from.id,
-    to = to.id,
-    text = text,
-    troll = from.troll,
-    date = DateTime.now)
+  def write(to: User, text: String, from: User) = {
+
+    val note = Note(
+      _id = ornicar.scalalib.Random nextStringUppercase 8,
+      from = from.id,
+      to = to.id,
+      text = text,
+      troll = from.troll,
+      date = DateTime.now)
+
+    import lila.hub.actorApi.timeline.{ Propagate, NoteCreate }
+
+    timeline ! (Propagate(NoteCreate(note.from, note.to)) toFriendsOf from.id)
+
+    coll insert note
+  }
 }
