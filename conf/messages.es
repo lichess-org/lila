@@ -73,6 +73,7 @@ signIn=Iniciar sesión
 newToLichess=¿Nuevo en Lichess?
 youNeedAnAccountToDoThat=Necesitas crear una cuenta para hacer eso
 signUp=Regístrate
+computersAreNotAllowedToPlay=Las computadoras y los jugadores con ayuda de computadora, no se les permite jugar. Por favor, no recibir ayuda de los motores de ajedrez, bases de datos o de otros jugadores durante el juego.
 games=Partidas
 forum=Foro
 xPostedInForumY=%s ha escrito en el foro %s
