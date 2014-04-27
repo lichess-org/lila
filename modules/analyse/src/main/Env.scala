@@ -3,6 +3,7 @@ package lila.analyse
 import akka.actor._
 import akka.pattern.pipe
 import com.typesafe.config.Config
+import scala.util.{ Success, Failure }
 import spray.caching.{ LruCache, Cache }
 
 import lila.common.PimpedConfig._
@@ -39,7 +40,16 @@ final class Env(
   system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.ai.AutoAnalyse(gameId) =>
-        analyser.getOrGenerate(gameId, "lichess", admin = true, auto = true) pipeTo sender
+        val replyTo = sender
+        play.api.Logger("analyse").info(s"auto analyse http://lichess.org/$gameId")
+        analyser.getOrGenerate(gameId, "lichess", admin = true, auto = true) onComplete {
+          case Failure(err) =>
+            play.api.Logger("analyse").warn(s"auto analyse http://lichess.org/$gameId failure: $err")
+            sender ! Status.Failure(err)
+          case Success(res) =>
+            play.api.Logger("analyse").info(s"auto analyse http://lichess.org/$gameId success")
+            sender ! res
+        }
     }
   }), name = ActorName)
 
