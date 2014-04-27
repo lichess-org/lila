@@ -73,6 +73,7 @@ signIn=Giriş
 newToLichess=Lichess'te yeni misiniz?
 youNeedAnAccountToDoThat=Bunu yapmanız için bir hesaba ihtiyacınız var
 signUp=Kayıt Ol
+computersAreNotAllowedToPlay=Bilgisayarlar ve bilgisayar destekli oyuncular oynayamazlar. Lütfen oynarken satranç motorlarından, veritabanlarından ya da başka oyunculardan destek almayınız.
 games=Oyunlar
 forum=Forum
 xPostedInForumY=%s %s forumunda yayınladı
