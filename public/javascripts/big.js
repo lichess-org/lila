@@ -10,8 +10,7 @@ function withStorage(f) {
   // can throw an exception when storage is full
   try {
     return !!window.localStorage ? f(window.localStorage) : null;
-  } catch (e) {
-  }
+  } catch (e) {}
 }
 var storage = {
   get: function(k) {
@@ -1164,7 +1163,7 @@ var storage = {
       var self = this;
       if (self.hasClock()) {
         var times = self.$table.find('div.clock').map(function() {
-          return parseInt($(this).clock('getTime')) / 1000;
+          return $(this).clock('getSeconds');
         }).get();
         times.sort();
         return this.options.animation_delay * Math.min(1, times[0] / 120);
@@ -1441,13 +1440,23 @@ var storage = {
     reloadTable: function(callback) {
       var self = this;
       self.get(self.options.tableUrl, {
-        success: function(html) {
-          self.$tableInner.html(html);
-          self.initTable();
-          if ($.isFunction(callback)) callback();
-          $('body').trigger('lichess.content_loaded');
-        }
-      }, false);
+          success: function(html) {
+            self.$tableInner.html(html);
+            self.initTable();
+            if ($.isFunction(callback)) callback();
+            $('body').trigger('lichess.content_loaded');
+            self.$tableInner.find('.lichess_claim_draw').each(function() {
+              var $link = $(this);
+              if (self.options.autoThreefold == 3) $link.click();
+              if (self.options.autoThreefold == 2) {
+                self.$table.find('.clock_bottom').each(function() {
+                  if ($(this).clock('getSeconds') < 30) $link.click();
+                });
+              }
+            });
+          }
+        },
+        false);
     },
     loadEnd: function(callback) {
       var self = this;
@@ -1775,8 +1784,8 @@ var storage = {
       this._show();
     },
 
-    getTime: function() {
-      return this.options.time;
+    getSeconds: function() {
+      return Math.round(this.options.time / 1000);
     },
 
     stop: function() {

@@ -9,31 +9,35 @@ private[pref] final class DataForm(api: PrefApi) {
 
   val pref = Form(mapping(
     "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
-    "clockTenths" -> optional(number),
-    "clockBar" -> optional(number),
-    "premove" -> optional(number)
+    "autoThreefold" -> number.verifying(Pref.AutoThreefold.choices.toMap contains _),
+    "clockTenths" -> number.verifying(Set(0, 1) contains _),
+    "clockBar" -> number.verifying(Set(0, 1) contains _),
+    "premove" -> number.verifying(Set(0, 1) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
   case class PrefData(
       autoQueen: Int,
-      clockTenths: Option[Int],
-      clockBar: Option[Int],
-      premove: Option[Int]) {
+      autoThreefold: Int,
+      clockTenths: Int,
+      clockBar: Int,
+      premove: Int) {
 
     def apply(pref: Pref) = pref.copy(
       autoQueen = autoQueen,
-      clockTenths = clockTenths.isDefined,
-      clockBar = clockBar.isDefined,
-      premove = premove.isDefined)
+      autoThreefold = autoThreefold,
+      clockTenths = clockTenths == 1,
+      clockBar = clockBar == 1,
+      premove = premove == 1)
   }
 
   object PrefData {
 
     def apply(pref: Pref): PrefData = PrefData(
       autoQueen = pref.autoQueen,
-      clockTenths = pref.clockTenths option 1,
-      clockBar = pref.clockBar option 1,
-      premove = pref.premove option 1)
+      autoThreefold = pref.autoThreefold,
+      clockTenths = pref.clockTenths.fold(1, 0),
+      clockBar = pref.clockBar.fold(1, 0),
+      premove = pref.premove.fold(1, 0))
   }
 
   def prefOf(user: User): Fu[Form[PrefData]] = api getPref user map { p =>

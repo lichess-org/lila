@@ -41,6 +41,7 @@ trait RoundHelper {
       "possible_moves" -> possibleMoves(pov),
       "animation_delay" -> animationDelay(pov),
       "autoQueen" -> pref.autoQueen,
+      "autoThreefold" -> pref.autoThreefold,
       "clockTenths" -> pref.clockTenths,
       "clockBar" -> pref.clockBar,
       "enablePremove" -> pref.premove,

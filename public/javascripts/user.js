@@ -37,6 +37,7 @@ $(function() {
     if (location.search.indexOf('note') != -1) $(this).click();
   });
 
+  $('.buttonset').buttonset().disableSelection();
 });
 
 function str_repeat(input, multiplier) {
