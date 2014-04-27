@@ -4,37 +4,34 @@
 
 @title = @{ s"${u.username} - ${trans.preferences.str()}" }
 
-@evenMoreCss = {
-@cssTag("user-form.css")
-}
-
 @account.layout(title = title, active = "preferences") {
-<div class="content_box small_box">
+<div class="content_box small_box prefs">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.preferences()</h1>
     <form action="@routes.Pref.formApply" method="POST">
       <ul>
-        <li class="field">
-          <label for="@form("autoQueen").id">Promotion</label>
-          @base.select(form("autoQueen"), Pref.AutoQueen.choices)
-          <p class="help">Automatic promotion or manual choice?</p>
+        <li>
+          <h2>Automatically promote to Queen</h2>
+          @base.radios(form("autoQueen"), Pref.AutoQueen.choices)
         </li>
         <li>
-          @base.checkbox(form("clockTenths"), "Chess clock: show tenths of seconds", 1)
-          <p class="help">Only visible under 10 seconds.</p>
+          <h2>Automatically claim draw on <a href="http://en.wikipedia.org/wiki/Threefold_repetition">threefold repetition</a></h2>
+          @base.radios(form("autoThreefold"), Pref.AutoThreefold.choices)
         </li>
         <li>
-          @base.checkbox(form("clockBar"), "Chess clock: show progress bars", 1)
-          <p class="help">Horizontal green bar showing the remaining time.</p>
+          <h2>Show tenths of seconds on the clock</h2>
+          @base.radios(form("clockTenths"), Seq(0 -> "Never", 1 -> "When time remaining < 10 seconds"))
         </li>
         <li>
-          @base.checkbox(form("premove"), "Player: enable premoves", 1)
-          <p class="help">Make a move before the opponent response</p>
+          <h2>Show horizontal green bars on the clock</h2>
+          @base.radios(form("clockBar"), Seq(0 -> "No", 1 -> "Yes"))
         </li>
         <li>
-          <button type="submit" class="submit button" data-icon="E">
-            @trans.apply()
-          </button>
+          <h2>Enable premoves (playing during opponent turn)</h2>
+          @base.radios(form("premove"), Seq(0 -> "No", 1 -> "Yes"))
+        </li>
+        <li>
+          <button type="submit" class="submit button" data-icon="E">@trans.apply()</button>
         </li>
       </ul>
     </form>

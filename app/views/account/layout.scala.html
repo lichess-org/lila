@@ -3,6 +3,9 @@
 @moreCss = {
 @cssTag("user-form.css")
 }
+@moreJs = {
+@jsTag("user.js")
+}
 
 @menu = {
 <a class="@active.active("editProfile")" href="@routes.Account.profile()">
@@ -23,4 +26,5 @@
 title = title,
 menu = menu.some,
 moreCss = moreCss,
+moreJs = moreJs,
 active = siteMenu.user.some)(body)

@@ -16,7 +16,6 @@
 }
 .content_box form button.submit {
   margin-left: 160px;
-  margin-right: 20px;
   padding: 3px 1em;
   font-size: 1.1em;
 }
@@ -27,4 +26,26 @@ form .error {
 form .help {
   font-size: 80%;
   margin-left: 160px;
+}
+
+div.content_box.prefs h2 {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 20px;
+}
+div.content_box.prefs div.buttonset {
+  display: block;
+  margin: 10px 0;
+}
+div.content_box.prefs div.buttonset label {
+  font-weight: normal;
+}
+
+div.content_box.prefs form li {
+  margin: 30px 0;
+  border-top: 1px solid #eaeaea;
+  padding: 30px 0 0 0;
+}
+div.content_box.prefs form button.submit {
+  margin: 0;
 }
