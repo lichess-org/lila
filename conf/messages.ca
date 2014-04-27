@@ -73,6 +73,7 @@ signIn=Inicia la sessió
 newToLichess=Ets nou al lichess?
 youNeedAnAccountToDoThat=Necessites un compte per fer això
 signUp=Registra't
+computersAreNotAllowedToPlay=Ni computadores ni jugadors assistits per computadores no tenen permès jugar. Si us plau, no us ajudeu amb programari, bases de dades, ni amb altres jugadors.
 games=Partides
 forum=Fòrum
 xPostedInForumY=%s ha penjat al fòrum %s
