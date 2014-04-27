@@ -73,6 +73,7 @@ signIn=Logga in
 newToLichess=Ny användare?
 youNeedAnAccountToDoThat=Du behöver ett konto för att göra det
 signUp=Registrera dig
+computersAreNotAllowedToPlay=Datorer och datorhjälp är inte tillåtet att spela med. Snälla, ta inte hjälp ifrån schackmotorer, databaser eller från andra spelare när du spelar.
 games=Partier
 forum=Forum
 xPostedInForumY=%s postade i forumet %s
