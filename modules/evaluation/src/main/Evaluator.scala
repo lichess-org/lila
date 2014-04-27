@@ -80,9 +80,9 @@ final class Evaluator(
             _ foreach { eval =>
               eval.gameIdsToAnalyse foreach { gameId =>
                 implicit val tm = makeTimeout minutes 120
-                analyser ? lila.hub.actorApi.ai.AutoAnalyse(gameId) foreach {
+                analyser ? lila.hub.actorApi.ai.AutoAnalyse(gameId) /* foreach {
                   _ => autoGenerate(user, important, true)
-                }
+                } */
                 if (eval report user.perfs)
                   reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
               }
