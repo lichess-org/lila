@@ -125,15 +125,20 @@ private[tournament] final class TournamentApi(
     case finished: Finished => fufail("Cannot withdraw from finished tournament " + finished.id)
   }
 
-  def finishGame(game: Game): Fu[Option[Tournament]] = for {
-    tour ← optionT(game.tournamentId ?? TournamentRepo.startedById)
-    result ← optionT {
-      val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId, game.turns))
-      $update(tour2) >>
-        tripleQuickLossWithdraw(tour2, game.loserUserId) inject
-        tour2.some
+  def finishGame(game: Game): Fu[Option[Tournament]] =
+    (game.tournamentId ?? TournamentRepo.startedById) flatMap {
+      _ ?? { tour =>
+        val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId, game.turns))
+        $update(tour2) >>
+          tripleQuickLossWithdraw(tour2, game.loserUserId) inject
+          tour2.some
+      }
     }
-  } yield result
+
+  def reCountPoints(tour: Finished) = $update(tour.refreshPlayers)
+
+  def recountAll =
+    $enumerate.over($query[Finished](TournamentRepo.finishedQuery))(reCountPoints)
 
   private def tripleQuickLossWithdraw(tour: Started, loser: Option[String]): Funit =
     loser.filter(tour.quickLossStreak).??(withdraw(tour, _))

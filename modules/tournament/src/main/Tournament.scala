@@ -104,6 +104,8 @@ sealed trait Enterable extends Tournament {
 sealed trait StartedOrFinished extends Tournament {
 
   def startedAt: DateTime
+  def withPlayers(s: Players): StartedOrFinished
+  def refreshPlayers: StartedOrFinished
 
   type RankedPlayers = List[(Int, Player)]
   def rankedPlayers: RankedPlayers = players.foldLeft(Nil: RankedPlayers) {
@@ -249,12 +251,11 @@ case class Started(
     !!("User %s is not part of the tournament" format userId)
   )
 
-  def withPlayers(s: Players) = copy(players = s)
-
   def quickLossStreak(user: String): Boolean =
     userPairings(user).takeWhile { pair => (pair lostBy user) && pair.quickLoss }.size >= 3
 
-  private[tournament] def refreshPlayers = withPlayers(Player refresh this)
+  def withPlayers(s: Players) = copy(players = s)
+  def refreshPlayers = withPlayers(Player refresh this)
 
   def encode = refreshPlayers.encode(Status.Started)
 
@@ -279,6 +280,9 @@ case class Finished(
     pairings: List[Pairing]) extends StartedOrFinished {
 
   override def isFinished = true
+
+  def withPlayers(s: Players) = copy(players = s)
+  def refreshPlayers = withPlayers(Player refresh this)
 
   def encode = encode(Status.Finished)
 }

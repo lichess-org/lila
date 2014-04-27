@@ -84,6 +84,7 @@ final class Env(
     import tube.tournamentTube
     def process = {
       case "tournament" :: "typecheck" :: Nil => lila.db.Typecheck.apply[Tournament]
+      case "tournament" :: "recount" :: Nil   => api.recountAll inject "Recount done!"
     }
   }
 

@@ -57,9 +57,11 @@ object TournamentRepo {
   ) map (_ flatMap asStarted)
 
   def finished(limit: Int): Fu[List[Finished]] = $find(
-    $query(Json.obj("status" -> Status.Finished.id)) sort $sort.desc("startedAt"),
+    $query(finishedQuery) sort $sort.desc("startedAt"),
     limit
   ) map (_ flatMap asFinished)
+
+  private[tournament] val finishedQuery = Json.obj("status" -> Status.Finished.id)
 
   private def allCreatedQuery = $query(Json.obj(
     "status" -> Status.Created.id,
