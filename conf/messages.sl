@@ -73,6 +73,7 @@ signIn=Prijava
 newToLichess=Novinec na Lichess?
 youNeedAnAccountToDoThat=Potrebuješ račun za to dejanje
 signUp=Registracija
+computersAreNotAllowedToPlay=Računalniška pomoč ni dovoljena. Prosimo ne pridobivajte pomoči motorjev, baz ali drugih igralcev med igro.
 games=Igre
 forum=Forum
 xPostedInForumY=%s poslal v temo %s
