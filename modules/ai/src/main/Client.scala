@@ -46,7 +46,7 @@ final class Client(
   }
 
   def analyse(uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean): Fu[List[Info]] = {
-    implicit val timeout = makeTimeout(config.analyseTimeout + networkLatency)
+    implicit val timeout = makeTimeout(config.analyseTimeout * requestedByHuman.fold(1, 3) + networkLatency)
     sendRequest(false) {
       WS.url(s"$endpoint/analyse").withQueryString(
         "uciMoves" -> uciMoves.mkString(" "),

@@ -12,7 +12,6 @@ import lila.db.api._
 import lila.game.actorApi.InsertGame
 import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo }
-import makeTimeout.veryLarge
 import tube.analysisTube
 
 final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
@@ -31,6 +30,8 @@ final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
     $primitive[Analysis, String]($select byIds ids, "_id")(_.asOpt[String]) map (_.toSet)
 
   def getOrGenerate(id: String, userId: String, admin: Boolean, auto: Boolean = false): Fu[Analysis] = {
+
+    implicit val tm = makeTimeout minutes 120
 
     def generate: Fu[Analysis] =
       admin.fold(fuccess(none), AnalysisRepo userInProgress userId) flatMap {
