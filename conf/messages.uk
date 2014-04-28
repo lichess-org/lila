@@ -73,6 +73,7 @@ signIn=Увійти
 newToLichess=Вперше на Lichess?
 youNeedAnAccountToDoThat=Для цього Вам потрібен аккаунт
 signUp=Зареєструватися
+computersAreNotAllowedToPlay=Заборонено використовувати для гри в lichess допомогу специфічного програмного забезпечення. Не використовуйте для допомоги інші ресурси окрім власного розуму.
 games=Партії
 forum=Форум
 xPostedInForumY=%s опублікованих на форумі %s
