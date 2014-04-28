@@ -73,6 +73,7 @@ signIn=Prijavi se
 newToLichess=Novi na Lichessu?
 youNeedAnAccountToDoThat=Treba Vam račun za to
 signUp=Registriraj se
+computersAreNotAllowedToPlay=Igracima koji koriste racunararske programe nije dozvoljeno da igraju.Molim vas da ne koristite pomoc sahovske masine,database-a ili drugih igraca dok igraju.
 games=Partije
 forum=Forum
 xPostedInForumY=%s objavljeno na forumu %s
