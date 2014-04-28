@@ -73,6 +73,7 @@ signIn=Bejelentkezés
 newToLichess=Új vagy a Lichess-en?
 youNeedAnAccountToDoThat=Ehhez egy fiókra van szükséged
 signUp=Regisztráció
+computersAreNotAllowedToPlay=Számítógépek és számítógép segítségét igénybevevő játékosok nem játszhatnak. Kérünk játék közbe ne vegyél igénybe segítéget sakk motoroktól, adatbázisoktól, vagy más játékosoktól.
 games=Játszmák
 forum=Fórum
 xPostedInForumY=%s írt üzenetet a fórumban %s
