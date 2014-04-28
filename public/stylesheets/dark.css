@@ -105,7 +105,11 @@ body.dark div.user_show .mod_zone .slist,
 body.dark div.user_show .note_zone,
 body.dark div.user_show .note_zone div,
 body.dark div.analysis_menu > a,
-body.dark div.content_box.prefs form li {
+body.dark div.content_box.prefs form li,
+body.dark #claim_draw_zone,
+body.dark div.force_resign_zone,
+body.dark div.proposed_takeback,
+body.dark div.offered_draw {
   border-color: #3d3d3d;
 }
 body.dark #timeline,
