@@ -73,6 +73,7 @@ signIn=Logg inn
 newToLichess=Er du ny på Lichess?
 youNeedAnAccountToDoThat=Du må melda deg inn for å gjera dette
 signUp=Registrer deg
+computersAreNotAllowedToPlay=Sjakkprogram eller spelarar som brukar desse har lov til å spela. Spel sjøl utan hjelp frå andre, sjakkprogram eller eller partisamlingar.
 games=Parti
 forum=Forum
 xPostedInForumY=%s postlagd i forumet %s
