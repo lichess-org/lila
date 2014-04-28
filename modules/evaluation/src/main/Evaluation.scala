@@ -69,7 +69,7 @@ object Evaluation {
       blur: Option[Int],
       error: Option[Int]) {
 
-    def analysed = ~error == 0
+    def analysed = ~error != 0
 
     def gameId = url match {
       case GameIdRegex(id) => id.some
