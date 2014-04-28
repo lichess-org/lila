@@ -73,6 +73,7 @@ signIn=Autentificare
 newToLichess=Nou pe Lichess?
 youNeedAnAccountToDoThat=Aveți nevoie de cont pentru această acțiune
 signUp=Înregistrare
+computersAreNotAllowedToPlay=Computerele și jucătorii asistați de computer nu au voie să joace. Vă rugăm ca în timpul partidei să nu primiți asistență de la motoare de șah, baze de date, sau de la alți jucători.
 games=Partide
 forum=Forum
 xPostedInForumY=%s a comentat la subiectul %s
