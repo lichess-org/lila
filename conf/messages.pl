@@ -73,6 +73,7 @@ signIn=Zaloguj
 newToLichess=Nowy na Lichess?
 youNeedAnAccountToDoThat=Musisz posiadać konto aby to zrobić
 signUp=Zarejestruj się
+computersAreNotAllowedToPlay=Programy komputerowe oraz gracze korzystający z pomocy programów szachowych nie są dopuszczani do gry. Prosimy nie korzystać podczas gry z pomocy programów szachowych, baz danych oraz innych graczy.
 games=Gry
 forum=Forum
 xPostedInForumY=%s postów na forum
