@@ -73,6 +73,7 @@ signIn=로그인
 newToLichess=Lichess가 처음이신가요?
 youNeedAnAccountToDoThat=해당 작업은 회원만 가능합니다
 signUp=회원 가입
+computersAreNotAllowedToPlay=컴퓨터나 컴퓨터의 도움을 받는 플레이어는 플레이가 금지됩니다. 플레이 시 체스 엔진, 데이터베이스, 다른 사람 등등에게 도움을 받지 마세요.
 games=게임
 forum=포럼
 xPostedInForumY=%s(이)가 %s 토론에 글을 씀
