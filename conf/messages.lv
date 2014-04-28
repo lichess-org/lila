@@ -73,6 +73,7 @@ signIn=Pieslēgties
 newToLichess=Jauns Lichess lietotājs?
 youNeedAnAccountToDoThat=Lai to izdarītu Jums nepieciešams savs konts
 signUp=Reģistrēties
+computersAreNotAllowedToPlay=Datoriem un spēlētājiem, kuru vietā spēlē dators, nav atļauts spēlēt. Lūdzu, spēlējot neizmanto šaha dzinēju, datubāžu vai citu spēlētāju palīdzību.
 games=Spēles
 forum=Forums
 xPostedInForumY=%s ziņas publicētas forumā %s
