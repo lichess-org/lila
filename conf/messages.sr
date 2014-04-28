@@ -73,6 +73,7 @@ signIn=Пријави се
 newToLichess=Нови у Lichess-у?
 youNeedAnAccountToDoThat=Треба вам налог да бисте то урадили
 signUp=Региструј се
+computersAreNotAllowedToPlay=Игра уз асистенцију рачунара није дозвољена. Молимо Вас да не користите шаховске програме, базе података, и помоћ других играча док играте.
 games=Партије
 forum=Форум
 xPostedInForumY=%s постовао на форуму %s
