@@ -73,6 +73,7 @@ signIn=Aanmelden
 newToLichess=Nieuw op Lichess?
 youNeedAnAccountToDoThat=Je hebt een account nodig om dat te doen
 signUp=Registreren
+computersAreNotAllowedToPlay=Computers en spelers met ondersteuning van engines mogen hier niet spelen. Maak a.u.b. geen gebruik van schaakengines, databases of de hulp van andere spelers terwijl je je partijen speelt.
 games=Partijen
 forum=Forum
 xPostedInForumY=%s plaatste een bericht in forum %s
