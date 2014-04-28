@@ -35,10 +35,7 @@ private[round] final class Drawer(messenger: Messenger, finisher: Finisher) {
   }
 
   def claim(pov: Pov): Fu[Events] =
-    (pov.game.playable &&
-      pov.game.player.color == pov.color &&
-      pov.game.toChessHistory.threefoldRepetition
-    ) ?? finisher(pov.game, _.Draw)
+    (pov.game.playable && pov.game.toChessHistory.threefoldRepetition) ?? finisher(pov.game, _.Draw)
 
   def force(game: Game): Fu[Events] = finisher(game, _.Draw, None, None)
 }

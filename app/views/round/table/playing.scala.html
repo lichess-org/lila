@@ -33,7 +33,7 @@
   <a class="force_draw socket-link" data-msg="draw-force">@trans.forceDraw()</a>
 </div>
 }
-@if(game.turnOf(player) && game.toChessHistory.threefoldRepetition) {
+@if(game.toChessHistory.threefoldRepetition) {
 <div id="claim_draw_zone">
     @trans.threefoldRepetition().&nbsp;
     <a class="lichess_claim_draw socket-link" data-msg="draw-claim">@trans.claimADraw()</a>
