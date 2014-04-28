@@ -40,7 +40,7 @@ case class Evaluation(
     action == Mark && deviationIsLow(perfs) && !ratingIsGreat(perfs)
 
   def gameIdsToAnalyse: List[String] =
-    games take 6 filterNot (_.analysed) take 3 flatMap (_.gameId)
+    games take 6 filterNot (_.analysed) take 1 flatMap (_.gameId)
 }
 
 object Evaluation {
