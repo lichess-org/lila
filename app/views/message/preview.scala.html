@@ -1,7 +1,7 @@
 @(me: User, threads: List[lila.message.Thread])(implicit ctx: Context)
 
 @if(threads.nonEmpty) {
-@threads.map { thread =>
+@threads.distinct.map { thread =>
 <a class="revert-underline" href="@routes.Message.thread(thread.id)">
   @thread.name
   <strong>@usernameOrId(thread otherUserId me)</strong>
