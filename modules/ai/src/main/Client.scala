@@ -18,7 +18,7 @@ final class Client(
 
   private def withValidSituation[A](game: Game)(op: => Fu[A]): Fu[A] =
     if (game.toChess.situation playable true) op
-    else fufail("[ai stockfish] invalid game situation: " + game.toChess.situation)
+    else fufail("[ai stockfish] invalid position")
 
   def play(game: Game, level: Int): Fu[PlayResult] = withValidSituation(game) {
     for {

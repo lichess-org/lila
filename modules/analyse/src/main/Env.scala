@@ -41,7 +41,6 @@ final class Env(
     def receive = {
       case lila.hub.actorApi.ai.AutoAnalyse(gameId) =>
         val replyTo = sender
-        play.api.Logger("analyse").info(s"auto analyse http://lichess.org/$gameId")
         analyser.getOrGenerate(gameId, "lichess", admin = true, auto = true) onComplete {
           case Failure(err) =>
             play.api.Logger("analyse").warn(s"auto analyse http://lichess.org/$gameId failure: $err")

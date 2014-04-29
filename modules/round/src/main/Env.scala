@@ -147,7 +147,7 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.future(0.33 hour, "game: finish by clock") {
+    scheduler.future(0.23 hour, "game: finish by clock") {
       titivate.finishByClock
     }
 

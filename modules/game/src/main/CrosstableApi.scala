@@ -20,9 +20,7 @@ final class CrosstableApi(coll: Coll) {
 
   def apply(u1: String, u2: String): Fu[Option[Crosstable]] =
     coll.find(select(u1, u2)).one[Crosstable] orElse create(u1, u2) recover {
-      case e: reactivemongo.core.commands.LastError =>
-        play.api.Logger("crosstable").info(e.getMessage)
-        none
+      case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") => none
     }
 
   def add(game: Game): Funit = game.userIds.distinct.sorted match {
