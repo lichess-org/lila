@@ -104,12 +104,22 @@
   </table>
   }
   <div class="listings clearfix">
-    <div style="float: left; margin-left: 1%; width: 21%;">
-      <strong>@spy.ips.size IP addresses</strong> <ul>@spy.ips.sorted.map { ip =>
-        <li@{ip._2.??(Html(" class='blocked'"))}>@ip._1</li>
-        }</ul>
+    <div class="spy_ips">
+      <strong>@spy.ips.size IP addresses</strong> <ul>@spy.ipsByLocations.map {
+        case (location, ips) => {
+        <li>
+          <p>@location</p>
+          <ul>
+            @ips.map { ip =>
+            <li@if(ip.blocked) { class="blocked" }>@ip.ip</li>
+            }
+          </ul>
+        </li>
+        }
+        }
+      </ul>
     </div>
-    <div style="margin-left: 24%;">
+    <div class="spy_uas">
       <strong>@spy.uas.size User agent(s)</strong> <ul>@spy.uas.sorted.map { ua =>
         <li>@ua</li>
         }</ul>

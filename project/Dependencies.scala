@@ -45,6 +45,8 @@ object Dependencies {
   val elastic4s = "com.sksamuel.elastic4s" %% "elastic4s" % "1.0.1.0"
   val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.0"
   val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.2"
+  val maxmind = "com.snowplowanalytics"  %% "scala-maxmind-geoip"  % "0.0.5"
+
   object play {
     val version = "2.2.1"
     val api = "com.typesafe.play" %% "play" % version

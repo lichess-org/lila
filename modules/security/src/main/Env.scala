@@ -24,6 +24,8 @@ final class Env(
     val FirewallCollectionFirewall = config getString "firewall.collection.firewall"
     val FirewallCachedIpsTtl = config duration "firewall.cached.ips.ttl"
     val FloodDuration = config duration "flood.duration"
+    val GeoIPFile = config getString "geoip.file"
+    val GeoIPCacheSize = config getInt "geoip.cache_size"
   }
   import settings._
 
@@ -40,7 +42,11 @@ final class Env(
 
   lazy val forms = new DataForm(captcher = captcher)
 
-  lazy val userSpy = UserSpy(firewall) _
+  private lazy val geoIP = new GeoIP(
+    file = new java.io.File(GeoIPFile),
+    cacheSize = GeoIPCacheSize)
+
+  lazy val userSpy = UserSpy(firewall, geoIP) _
 
   lazy val disconnect = Store disconnect _
 

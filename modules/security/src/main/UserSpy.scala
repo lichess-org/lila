@@ -14,25 +14,33 @@ import lila.user.{ User, UserRepo }
 import tube.storeTube
 
 case class UserSpy(
-    ips: List[(String, Boolean)],
+    ips: List[UserSpy.IPData],
     uas: List[String],
     otherUsers: List[User]) {
 
-  def ipStrings = ips map (_._1)
+  def ipStrings = ips map (_.ip)
+
+  def ipsByLocations: List[(Location, List[UserSpy.IPData])] =
+    ips.sortBy(_.ip).groupBy(_.location).toList.sortBy(_._1.comparable)
 }
 
-private[security] object UserSpy {
+object UserSpy {
 
   type IP = String
 
-  private[security] def apply(firewall: Firewall)(userId: String): Fu[UserSpy] = for {
+  case class IPData(ip: IP, blocked: Boolean, location: Location)
+
+  private[security] def apply(firewall: Firewall, geoIP: GeoIP)(userId: String): Fu[UserSpy] = for {
     user ← UserRepo named userId flatten "[spy] user not found"
     objs ← $find(Json.obj("user" -> user.id))
-    users ← explore(Set(user), Set.empty, Set(user))
-    ips = objs.map(_ str "ip").flatten.distinct
+    ips = objs.flatMap(_ str "ip").distinct
     blockedIps ← (ips map firewall.blocksIp).sequenceFu
+    locations <- (ips map geoIP.apply).sequenceFu
+    users ← explore(Set(user), Set.empty, Set(user))
   } yield UserSpy(
-    ips = ips zip blockedIps,
+    ips = ips zip blockedIps zip locations map {
+      case ((ip, blocked), location) => IPData(ip, blocked, location)
+    },
     uas = objs.map(_ str "ua").flatten.distinct,
     otherUsers = (users + user).toList.sortBy(_.createdAt)
   )

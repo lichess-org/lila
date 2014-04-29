@@ -13,7 +13,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache, scalaTime,
       csv, jgit, actuarius, elastic4s, findbugs, RM,
-      PRM, spray.caching),
+      PRM, spray.caching, maxmind),
       scalacOptions := compilerOptions,
       sources in doc in Compile := List(),
       incOptions := incOptions.value.withNameHashing(true),
@@ -145,7 +145,7 @@ object ApplicationBuild extends Build {
 
   lazy val security = project("security", Seq(common, hub, db, user)).settings(
     libraryDependencies ++= provided(
-      play.api, RM, PRM, spray.caching)
+      play.api, RM, PRM, maxmind)
   )
 
   lazy val relation = project("relation", Seq(common, db, memo, hub, user, game)).settings(
