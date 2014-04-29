@@ -73,6 +73,7 @@ signIn=Kirjaudu sisään
 newToLichess=Ensimmäistä kertaa Lichessin parissa?
 youNeedAnAccountToDoThat=Tarvitset tuohon käyttäjätunnuksen
 signUp=Rekisteröidy
+computersAreNotAllowedToPlay=Tietokoneita ja tietokoneita käyttäviä pelaajia eivät ole sallittuja pelaamaan. Kun pelaat, älä käytä apunasi shakkiohjelmia, shakkitetokantoja tai toisia pelaajia.
 games=Pelit
 forum=Keskustelualue
 xPostedInForumY=%s lähetti viestin alueelle %s
