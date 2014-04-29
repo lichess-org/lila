@@ -22,6 +22,7 @@ sealed trait Req {
   def moves: List[String]
   def fen: Option[String]
   def analyse: Boolean
+  def requestedByHuman: Boolean
   def priority: Int
 
   def chess960 = fen.isDefined
@@ -32,7 +33,8 @@ case class PlayReq(
     fen: Option[String],
     level: Int) extends Req {
 
-  def analyse = false
+  val analyse = false
+  val requestedByHuman = true
 
   val priority = 999999 - level
 }

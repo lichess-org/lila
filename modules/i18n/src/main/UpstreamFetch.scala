@@ -3,7 +3,7 @@ package lila.i18n
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
-import lila.common.ws.WS
+import play.api.libs.ws.WS
 import tube.translationTube
 
 private[i18n] final class UpstreamFetch(upstreamUrl: Int => String) {

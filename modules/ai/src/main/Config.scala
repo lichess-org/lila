@@ -12,7 +12,6 @@ private[ai] case class Config(
     playMaxMoveTime: FiniteDuration,
     analyseMoveTime: FiniteDuration,
     playTimeout: FiniteDuration,
-    analyseTimeout: FiniteDuration,
     analyseMaxPlies: Int,
     debug: Boolean) {
 

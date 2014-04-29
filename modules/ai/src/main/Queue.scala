@@ -32,9 +32,11 @@ private[ai] final class Queue(config: Config) extends Actor {
 
   private val tasks = new scala.collection.mutable.PriorityQueue[Task]
 
+  private val maxTasks = 500 * config.nbInstances
+
   def receive = {
 
-    case Log(msg)      => println(s"[${tasks.size}] $msg")
+    case Log(msg)      => println(s"[${tasks.count(_.req.requestedByHuman)}/${tasks.size}] $msg")
 
     case Enqueue(task) => tasks += task
 
@@ -53,10 +55,12 @@ private[ai] final class Queue(config: Config) extends Actor {
         tasks += Task(req, sender, timeout)
       }
 
-    case FullAnalReq(moves, fen, requestedByHuman) =>
+    case FullAnalReq(moves, fen, requestedByHuman) if (requestedByHuman || tasks.size < maxTasks) =>
       val mrSender = sender
       val size = moves.size
-      implicit val timeout = makeTimeout(config.analyseTimeout)
+      implicit val timeout = makeTimeout {
+        if (requestedByHuman) 1.hour else 24.hours
+      }
       val futures = (0 to size) map moves.take map { serie =>
         self ? AnalReq(serie, fen, size, requestedByHuman) mapTo manifest[Option[Evaluation]]
       }

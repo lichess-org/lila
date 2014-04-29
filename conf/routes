@@ -113,7 +113,8 @@ GET   /team/:id/kick                          controllers.Team.kickForm(id: Stri
 POST  /team/:id/kick                          controllers.Team.kick(id: String)
 
 # Analyse
-POST  /$gameId<[\w\-]{8}>/computer-analysis   controllers.Analyse.computer(gameId: String)
+POST  /$gameId<[\w\-]{8}>/request-analysis    controllers.Analyse.requestAnalysis(gameId: String)
+POST  /$gameId<[\w\-]{8}>/post-analysis       controllers.Analyse.postAnalysis(gameId: String)
 GET   /$gameId<[\w\-]{8}>/pgn                 controllers.Analyse.pgn(gameId: String)
 GET   /$gameId<[\w\-]{8}>/fen                 controllers.Analyse.fen(gameId: String)
 
@@ -168,7 +169,7 @@ GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 
 # AI
 GET   /ai/move                         controllers.Ai.move
-GET   /ai/analyse                      controllers.Ai.analyse
+POST  /ai/analyse                      controllers.Ai.analyse
 
 # Bookmark
 POST  /bookmark/$gameId<[\w\-]{8}>     controllers.Bookmark.toggle(gameId: String)

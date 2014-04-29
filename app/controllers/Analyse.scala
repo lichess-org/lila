@@ -22,14 +22,20 @@ object Analyse extends LilaController {
   private def env = Env.analyse
   private def bookmarkApi = Env.bookmark.api
 
-  def computer(id: String) = Auth { implicit ctx =>
+  def requestAnalysis(id: String) = Auth { implicit ctx =>
     me =>
-      env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) addFailureEffect {
-        e => logerr("[analysis] " + e.getMessage)
-      } onComplete {
-        case _ => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
+      env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) onComplete {
+        case Failure(err)                       => logerr("[analysis] " + err.getMessage)
+        case Success(analysis) if analysis.done => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
+        case _                                  =>
       }
       fuccess(Ok(html.analyse.computing()))
+  }
+
+  def postAnalysis(id: String) = Action(parse.text) { req =>
+    env.analyser.complete(id, req.body)
+    Env.hub.socket.round ! Tell(id, AnalysisAvailable)
+    Ok
   }
 
   def replay(pov: Pov)(implicit ctx: Context) =

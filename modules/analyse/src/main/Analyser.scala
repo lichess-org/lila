@@ -1,12 +1,11 @@
 package lila.analyse
 
 import scala.concurrent.Future
+import scala.util.{ Success, Failure }
 
 import akka.actor.ActorSelection
-import akka.pattern.ask
 import chess.format.UciDump
 import chess.Replay
-import org.joda.time.DateTime
 
 import lila.db.api._
 import lila.game.actorApi.InsertGame
@@ -31,8 +30,6 @@ final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
 
   def getOrGenerate(id: String, userId: String, admin: Boolean, auto: Boolean = false): Fu[Analysis] = {
 
-    implicit val tm = makeTimeout minutes 120
-
     def generate: Fu[Analysis] =
       admin.fold(fuccess(none), AnalysisRepo userInProgress userId) flatMap {
         _.fold(doGenerate) { progressId =>
@@ -43,33 +40,33 @@ final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
     def doGenerate: Fu[Analysis] =
       $find.byId[Game](id) map (_ filter (_.analysable)) zip
         (GameRepo initialFen id) flatMap {
-          case (Some(game), initialFen) => (for {
-            _ ← AnalysisRepo.progress(id, userId)
-            replay ← Replay(game.pgnMoves mkString " ", initialFen, game.variant).future
-            uciMoves = UciDump(replay)
-            msg = lila.hub.actorApi.ai.Analyse(uciMoves, initialFen, requestedByHuman = !auto)
-            infos ← ai ? msg mapTo manifest[List[Info]]
-            analysis = Analysis(id, infos, true, DateTime.now)
-          } yield UciToPgn(replay, analysis)) flatFold (
-            e => fufail[Analysis](e.getMessage), {
-            case (a, errors) => {
-              errors foreach { e => logwarn(s"[analyser UciToPgn] $id $e") }
-              if (a.valid) {
-                AnalysisRepo.done(id, a)
-                indexer ! InsertGame(game)
-                fuccess(a)
+          case (Some(game), initialFen) => AnalysisRepo.progress(id, userId) >> {
+            Replay(game.pgnMoves mkString " ", initialFen, game.variant).fold(
+              fufail(_),
+              replay => {
+                ai ! lila.hub.actorApi.ai.Analyse(game.id, UciDump(replay), initialFen, requestedByHuman = !auto)
+                AnalysisRepo byId id flatten "Missing analysis"
               }
-              else fufail(s"[analyse] invalid (empty infos): $id")
-            }
+            )
           }
-          )
-          case _ => fufail[Analysis]("[analysis] %s no game or pgn found" format (id))
-        } addFailureEffect {
-          _ => AnalysisRepo remove id
+          case _ => fufail(s"[analysis] game $id is missing")
         }
 
     get(id) flatMap {
       _.fold(generate)(fuccess(_))
     }
+  }
+
+  def complete(id: String, data: String) = $find.byId[Game](id) zip get(id) flatMap {
+    case (Some(game), Some(a1)) => Info decodeList data match {
+      case None => fufail(s"[analysis] invalid data $data")
+      case Some(infos) =>
+        val analysis = a1 complete infos
+        indexer ! InsertGame(game)
+        AnalysisRepo.done(id, analysis) inject analysis
+    }
+    case _ => fufail(s"[analysis] complete non-existing $id")
+  } addFailureEffect {
+    _ => AnalysisRepo remove id
   }
 }

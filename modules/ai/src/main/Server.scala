@@ -22,7 +22,9 @@ private[ai] final class Server(
   }
 
   def analyse(uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean): Fu[List[Info]] = {
-    implicit val timeout = makeTimeout(config.analyseTimeout * requestedByHuman.fold(1, 5))
+    implicit val timeout = makeTimeout {
+      if (requestedByHuman) 1.hour else 24.hours
+    }
     (queue ? FullAnalReq(uciMoves take config.analyseMaxPlies, initialFen map chess960Fen, requestedByHuman)) mapTo manifest[List[Info]]
   }
 

@@ -40,11 +40,6 @@ final class Env(
     getRatingChart = Env.user.ratingChart,
     getRank = Env.user.ranking.get) _
 
-  if (config getBoolean "ai.stress") {
-    println("Stressing AI...")
-    new AiStresser(Env.ai, system, Env.game.uciMemo).apply
-  }
-
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
   system.actorOf(Props(new actor.Router(

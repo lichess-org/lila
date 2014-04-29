@@ -5,6 +5,8 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 
+import play.api.libs.ws.WS
+
 object Ai extends LilaController {
 
   def move = Action.async { req =>
@@ -22,16 +24,17 @@ object Ai extends LilaController {
   }
 
   def analyse = Action.async { req =>
-    Env.ai.server.analyse(
-      uciMoves = get("uciMoves", req) ?? (_.split(' ').toList),
-      initialFen = get("initialFen", req),
-      requestedByHuman = getBool("human", req)
-    ) fold (
-        err => {
-          logwarn("[ai] stockfish server analyse: " + err)
-          InternalServerError(err.toString)
-        },
-        infos => Ok(lila.analyse.Info encodeList infos)
-      )
+    get("replyUrl", req) foreach { replyToUrl =>
+      Env.ai.server.analyse(
+        uciMoves = get("uciMoves", req) ?? (_.split(' ').toList),
+        initialFen = get("initialFen", req),
+        requestedByHuman = getBool("human", req)
+      ).effectFold(
+          err => WS.url(replyToUrl).post(err.toString),
+          infos => WS.url(replyToUrl).post(lila.analyse.Info encodeList infos)
+        )
+    }
+    funit
   }
+
 }

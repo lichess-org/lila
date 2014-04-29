@@ -110,7 +110,7 @@ themepicker = true) {
   <div class="panel computer_analysis active">
     @analysis.map { a =>
     @if(a.old && ctx.isAuth) {
-    <form class="request_analysis future_game_analysis" action="@routes.Analyse.computer(gameId)" method="post">
+    <form class="request_analysis future_game_analysis" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
       <button type="submit" class="button">
         <span class="is3" data-icon="A"> Request a better computer analysis</span>
       </button>
@@ -127,7 +127,7 @@ themepicker = true) {
     }
     }.getOrElse {
     @if(game.analysable && analysis.isEmpty) {
-    <form class="future_game_analysis@if(ctx.isAnon) {  must_login }" action="@routes.Analyse.computer(gameId)" method="post">
+    <form class="future_game_analysis@if(ctx.isAnon) {  must_login }" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
       <button type="submit" class="button"><span class="is3" data-icon="A"> @trans.requestAComputerAnalysis()</span></button>
     </form>
     }

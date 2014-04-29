@@ -27,6 +27,11 @@ case class Analysis(
     i.best map { b => i.ply -> b.keys }
   }).flatten.toMap
 
+  def complete(infos: List[Info]) = copy(
+    infos = infos,
+    done = true,
+    old = false)
+
   def encode: RawAnalysis = RawAnalysis(id, encodeInfos, done, date, old)
   private def encodeInfos = Info encodeList infos
 

@@ -8,12 +8,13 @@ import scala.concurrent.duration._
 
 import chess.format.UciMove
 import lila.analyse.Info
-import lila.common.ws.WS
 import lila.game.{ Game, GameRepo }
+import play.api.libs.ws.WS
 
 final class Client(
     config: Config,
     endpoint: String,
+    callbackUrl: String,
     val uciMemo: lila.game.UciMemo) {
 
   private def withValidSituation[A](game: Game)(op: => Fu[A]): Fu[A] =
@@ -23,7 +24,7 @@ final class Client(
   def play(game: Game, level: Int): Fu[PlayResult] = withValidSituation(game) {
     for {
       fen ← game.variant.exotic ?? { GameRepo initialFen game.id }
-      uciMoves ← uciMemo.get(game)
+      uciMoves ← uciMemo get game
       moveResult ← move(uciMoves.toList, fen, level)
       uciMove ← (UciMove(moveResult.move) toValid s"${game.id} wrong bestmove: $moveResult").future
       result ← game.toChess(uciMove.orig, uciMove.dest, uciMove.promotion).future
@@ -45,14 +46,12 @@ final class Client(
     } map MoveResult.apply
   }
 
-  def analyse(uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean): Fu[List[Info]] = {
-    implicit val timeout = makeTimeout(config.analyseTimeout * requestedByHuman.fold(1, 3) + networkLatency)
-    sendRequest(false) {
-      WS.url(s"$endpoint/analyse").withQueryString(
-        "uciMoves" -> uciMoves.mkString(" "),
-        "initialFen" -> ~initialFen,
-        "human" -> requestedByHuman.fold("1", "0"))
-    } map Info.decodeList flatten "Can't read analysis results: "
+  def analyse(gameId: String, uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean) {
+    WS.url(s"$endpoint/analyse").withQueryString(
+      "replyUrl" -> callbackUrl.replace("%", gameId),
+      "uciMoves" -> uciMoves.mkString(" "),
+      "initialFen" -> ~initialFen,
+      "human" -> requestedByHuman.fold("1", "0")).post("go")
   }
 
   private def sendRequest(retriable: Boolean)(req: WS.WSRequestHolder): Fu[String] =
@@ -63,6 +62,7 @@ final class Client(
         if (retriable) {
           _root_.play.api.Logger("AI client").error(s"Retry: $message")
           sendRequest(false)(req)
-        } else fufail(message)
+        }
+        else fufail(message)
     }
 }
