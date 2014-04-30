@@ -36,7 +36,10 @@ private[ai] final class Queue(config: Config) extends Actor {
 
   def receive = {
 
-    case Log(msg)      => println(s"[${tasks.count(_.req.requestedByHuman)}/${tasks.size}] $msg")
+    case Log(msg) =>
+      val nbByHuman = tasks.count(_.req.requestedByHuman)
+      val nbAuto = tasks.size - nbByHuman
+      println(s"[$nbByHuman/$nbAuto] $msg")
 
     case Enqueue(task) => tasks += task
 
