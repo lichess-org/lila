@@ -73,6 +73,7 @@ signIn=Log ind
 newToLichess=Nyt medlem hos Lichess?
 youNeedAnAccountToDoThat=Du skal have en konto for at gøre dette
 signUp=Registrer
+computersAreNotAllowedToPlay=Computere og computerassisterede spillere må ikke deltage Lad venligst være med at modtage assistance fra skakcomputere, databaser eller andre spillere mens du spiller
 games=Partier
 forum=Forum
 xPostedInForumY=%s skrev i forum %s
