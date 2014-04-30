@@ -27,17 +27,18 @@ trait AssetHelper {
 
   def jsTagCompiled(name: String) = if (isProd) jsAt("compiled/" + name) else jsTag(name)
 
-  lazy val jQueryTag = if (isProd) Html {
-    """<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>"""
-  }
+  val jQueryTag = if (isProd) cdnOrLocal(
+    cdn = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js",
+    test = "window.jQuery",
+    local = staticUrl("javascripts/vendor/jquery.min.js"))
   else jsTag("vendor/jquery.min.js")
 
-  lazy val highchartsTag = cdnOrLocal(
+  val highchartsTag = cdnOrLocal(
     cdn = "http://code.highcharts.com/3.0/highcharts.js",
     test = "window.Highcharts",
     local = staticUrl("vendor/highcharts/highcharts.js"))
 
-  lazy val highchartsMoreTag = cdnOrLocal(
+  val highchartsMoreTag = cdnOrLocal(
     cdn = "http://code.highcharts.com/3.0/highcharts-more.js",
     test = "window.Highcharts",
     local = staticUrl("vendor/highcharts/highcharts-more.js"))
