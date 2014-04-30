@@ -33,6 +33,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     @langAnnotations
   </head>
   <body class="@ctx.currentTheme.cssClass @ctx.currentBg"
+    data-sound-dir="@staticUrl("sound")"
     data-ports="@portsString"
     data-accept-languages="@acceptLanguages.mkString(",")">
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>

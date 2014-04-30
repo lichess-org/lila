@@ -763,9 +763,9 @@ var storage = {
   });
 
   $.sound = (function() {
-    var baseUrl = 'http://' + document.domain.replace(/^\w+/, 'static') + '/assets/sound/';
+    var baseUrl = $('body').data('sound-dir');
     var makeAudio = function(file, volume) {
-      var a = new Audio(baseUrl + file);
+      var a = new Audio(baseUrl + '/' + file);
       a.volume = volume;
       return a;
     };
