@@ -55,5 +55,8 @@ final class ModlogApi {
 
   def recent = $find($query($select.all) sort $sort.naturalDesc, 100)
 
-  private def add(m: Modlog): Funit = $insert(m)
+  private def add(m: Modlog): Funit = {
+    play.api.Logger("ModApi").info(m.toString)
+    $insert(m)
+  }
 }

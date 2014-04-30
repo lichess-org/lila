@@ -27,6 +27,8 @@ case class Modlog(
     case Modlog.removeTitle   => "remove FIDE title"
     case a                    => a
   }
+
+  override def toString = s"$mod $showAction $user"
 }
 
 object Modlog {
