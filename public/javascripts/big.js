@@ -2723,6 +2723,7 @@ var storage = {
         events: {
           analysisAvailable: function() {
             $.sound.dong();
+            location.href = location.href.split('#')[0] + '#' + CurrentPly;
             location.reload();
           },
           crowd: function(event) {
