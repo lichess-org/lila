@@ -57,16 +57,24 @@ final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
     }
   }
 
-  def complete(id: String, data: String) = $find.byId[Game](id) zip get(id) flatMap {
-    case (Some(game), Some(a1)) => Info decodeList data match {
-      case None => fufail(s"[analysis] invalid data $data")
-      case Some(infos) =>
-        val analysis = a1 complete infos
-        indexer ! InsertGame(game)
-        AnalysisRepo.done(id, analysis) inject analysis
+  def complete(id: String, data: String) =
+    $find.byId[Game](id) zip get(id) zip (GameRepo initialFen id) flatMap {
+      case ((Some(game), Some(a1)), initialFen) => Info decodeList data match {
+        case None => fufail(s"[analysis] invalid data $data")
+        case Some(infos) => Replay(game.pgnMoves mkString " ", initialFen, game.variant).fold(
+          fufail(_),
+          replay => UciToPgn(replay, a1 complete infos) match {
+            case (analysis, errors) =>
+              errors foreach { e => logwarn(s"[analysis UciToPgn] $id $e") }
+              if (analysis.valid) {
+                indexer ! InsertGame(game)
+                AnalysisRepo.done(id, analysis) inject analysis
+              }
+              else fufail(s"[analysis] invalid $id")
+          })
+      }
+      case _ => fufail(s"[analysis] complete non-existing $id")
+    } addFailureEffect {
+      _ => AnalysisRepo remove id
     }
-    case _ => fufail(s"[analysis] complete non-existing $id")
-  } addFailureEffect {
-    _ => AnalysisRepo remove id
-  }
 }
