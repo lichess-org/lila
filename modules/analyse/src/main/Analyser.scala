@@ -13,7 +13,10 @@ import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo }
 import tube.analysisTube
 
-final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
+final class Analyser(
+    ai: ActorSelection,
+    indexer: ActorSelection,
+    evaluator: ActorSelection) {
 
   def get(id: String): Fu[Option[Analysis]] = AnalysisRepo byId id flatMap evictStalled
 
@@ -67,8 +70,13 @@ final class Analyser(ai: ActorSelection, indexer: ActorSelection) {
             case (analysis, errors) =>
               errors foreach { e => logwarn(s"[analysis UciToPgn] $id $e") }
               if (analysis.valid) {
+                play.api.Logger("analysis").info(s"success http://lichess.org/$id")
                 indexer ! InsertGame(game)
-                AnalysisRepo.done(id, analysis) inject analysis
+                AnalysisRepo.done(id, analysis) >>- {
+                  game.userIds foreach { userId =>
+                    evaluator ! lila.hub.actorApi.evaluation.Refresh(userId)
+                  }
+                } inject analysis
               }
               else fufail(s"[analysis] invalid $id")
           })

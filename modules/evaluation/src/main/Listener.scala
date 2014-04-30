@@ -19,5 +19,7 @@ private[evaluation] final class Listener(evaluator: Evaluator) extends Actor {
     case user: User => evaluator.generate(user, true)
 
     case AutoCheck(userId) => evaluator.autoGenerate(userId, true, false)
+
+    case Refresh(userId) => evaluator.autoGenerate(userId, false, true)
   }
 }

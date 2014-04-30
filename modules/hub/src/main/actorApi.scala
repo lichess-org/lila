@@ -143,6 +143,7 @@ case class MoveEvent(
 
 package evaluation {
   case class AutoCheck(userId: String)
+  case class Refresh(userId: String)
 }
 
 package bookmark {

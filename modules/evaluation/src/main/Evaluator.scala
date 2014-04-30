@@ -80,9 +80,7 @@ final class Evaluator(
             _ foreach { eval =>
               eval.gameIdsToAnalyse foreach { gameId =>
                 implicit val tm = makeTimeout minutes 120
-                analyser ? lila.hub.actorApi.ai.AutoAnalyse(gameId) foreach {
-                  _ => autoGenerate(user, important, true)
-                }
+                analyser ! lila.hub.actorApi.ai.AutoAnalyse(gameId)
                 if (eval report user.perfs)
                   reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
               }
@@ -126,5 +124,5 @@ final class Evaluator(
       ) andThen
         (__ \ 'Error).json.prune
 
-  private val logger = play.api.Logger("Evaluator")
+  private val logger = play.api.Logger("evaluator")
 }

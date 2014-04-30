@@ -13,7 +13,8 @@ final class Env(
     db: lila.db.Env,
     ai: ActorSelection,
     system: ActorSystem,
-    indexer: ActorSelection) {
+    indexer: ActorSelection,
+    evaluator: ActorSelection) {
 
   private val CollectionAnalysis = config getString "collection.analysis"
   private val NetDomain = config getString "net.domain"
@@ -23,7 +24,7 @@ final class Env(
 
   private[analyse] lazy val analysisColl = db(CollectionAnalysis)
 
-  lazy val analyser = new Analyser(ai = ai, indexer = indexer)
+  lazy val analyser = new Analyser(ai = ai, indexer = indexer, evaluator = evaluator)
 
   lazy val paginator = new PaginatorBuilder(
     cached = cached,
@@ -40,15 +41,7 @@ final class Env(
   system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.ai.AutoAnalyse(gameId) =>
-        val replyTo = sender
-        analyser.getOrGenerate(gameId, "lichess", admin = true, auto = true) onComplete {
-          case Failure(err) =>
-            play.api.Logger("analyse").warn(s"auto analyse http://lichess.org/$gameId failure: $err")
-            sender ! Status.Failure(err)
-          case Success(res) =>
-            play.api.Logger("analyse").info(s"auto analyse http://lichess.org/$gameId success")
-            sender ! res
-        }
+        analyser.getOrGenerate(gameId, "lichess", admin = true, auto = true)
     }
   }), name = ActorName)
 
@@ -67,5 +60,6 @@ object Env {
     db = lila.db.Env.current,
     ai = lila.hub.Env.current.actor.ai,
     system = lila.common.PlayApp.system,
-    indexer = lila.hub.Env.current.actor.gameIndexer)
+    indexer = lila.hub.Env.current.actor.gameIndexer,
+    evaluator = lila.hub.Env.current.actor.evaluator)
 }
