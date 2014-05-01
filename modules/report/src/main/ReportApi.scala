@@ -25,7 +25,7 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
           case Some(existing) if update =>
             $update($select(existing.id), $set("text" -> report.text))
           case Some(_) =>
-            logger.info(s"Skip existing report creation: $reason $user")
+            logger.info(s"skip existing report creation: $reason $user")
             funit
           case None => $insert(report) >>- {
             if (report.isCheat && report.isManual) evaluator ! user
@@ -35,7 +35,7 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
     }
 
   def autoCheatReport(userId: String, text: String): Funit = {
-    logger.info(s"auto cheat reaport $userId: $text")
+    logger.info(s"auto cheat reaport $userId: ${~text.lines.toList.headOption}")
     UserRepo byId userId zip UserRepo.lichess flatMap {
       case (Some(user), Some(lichess)) => create(ReportSetup(
         user = user,
@@ -63,5 +63,5 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
       "user" -> user.id,
       "reason" -> reason.name))
 
-  private val logger = play.api.Logger("Report")
+  private val logger = play.api.Logger("report")
 }

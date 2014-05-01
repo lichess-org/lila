@@ -30,7 +30,8 @@ case class User(
     case _       => false
   }
 
-  override def toString = s"User $username games:${count.game} rating:$rating troll:$troll engine:$engine"
+  override def toString =
+    s"User $username($rating) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
 
   def langs = ("en" :: lang.toList).distinct.sorted
 
