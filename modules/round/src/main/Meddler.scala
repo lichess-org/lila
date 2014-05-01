@@ -8,10 +8,6 @@ import lila.hub.actorApi.map.Tell
 
 private[round] final class Meddler(roundMap: ActorRef, socketHub: ActorRef) {
 
-  def forceAbort(gameId: String) {
-    roundMap ! Tell(gameId, AbortForce)
-  }
-
   def resign(pov: Pov) {
     roundMap ! Tell(pov.gameId, Resign(pov.playerId))
   }

@@ -46,10 +46,6 @@ private[round] final class Round(
       pov.game.abortable ?? finisher(pov.game, _.Aborted)
     }
 
-    case AbortForce => handle { game =>
-      game.playable ?? finisher(game, _.Aborted)
-    }
-
     case Resign(playerId) => handle(playerId) { pov =>
       pov.game.resignable ?? finisher(pov.game, _.Resign, Some(!pov.color))
     }

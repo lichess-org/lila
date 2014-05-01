@@ -14,7 +14,7 @@ import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.router.Tourney
-import lila.round.actorApi.round.{ AbortForce, ResignColor }
+import lila.round.actorApi.round.ResignColor
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
@@ -86,15 +86,13 @@ private[tournament] final class TournamentApi(
   def finish(started: Started): Fu[Tournament] =
     if (started.pairings.isEmpty) $remove(started) >>- reloadSiteSocket >>- lobbyReload inject started
     else started.readyToFinish.fold({
-      val pairingsToAbort = started.playingPairings
       val finished = started.finish
       $update(finished) >>-
         sendTo(started.id, ReloadPage) >>-
         reloadSiteSocket >>-
-        (pairingsToAbort foreach { pairing =>
-          roundMap ! Tell(pairing.gameId, AbortForce)
-        }) >>
-        finished.players.filter(_.score > 0).map(p => UserRepo.incToints(p.id, p.score)).sequenceFu inject finished
+        finished.players.filter(_.score > 0).map { p =>
+          UserRepo.incToints(p.id, p.score)
+        }.sequenceFu inject finished
     }, fuccess(started))
 
   def join(tour: Enterable, me: User, password: Option[String]): Funit =
