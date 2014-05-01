@@ -14,10 +14,7 @@ import lila.game.{ Query, Game, GameRepo }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round.{ Outoftime, Abandon }
 
-private[round] final class Titivate(
-    roundMap: akka.actor.ActorRef,
-    meddler: Meddler,
-    scheduler: Scheduler) {
+private[round] final class Titivate(roundMap: akka.actor.ActorRef, scheduler: Scheduler) {
 
   def finishByClock: Funit =
     $primitive(Query.finishByClock, "_id", max = 5000.some)(_.asOpt[String]) addEffect { ids =>

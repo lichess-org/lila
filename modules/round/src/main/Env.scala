@@ -122,10 +122,6 @@ final class Env(
 
   private lazy val cheatDetector = new CheatDetector(reporter = hub.actor.report)
 
-  lazy val meddler = new Meddler(
-    roundMap = roundMap,
-    socketHub = socketHub)
-
   lazy val messenger = new Messenger(
     socketHub = socketHub,
     chat = hub.actor.chat,
@@ -157,7 +153,7 @@ final class Env(
     }
   }
 
-  private lazy val titivate = new Titivate(roundMap, meddler, scheduler)
+  private lazy val titivate = new Titivate(roundMap, scheduler)
 
   lazy val hijack = new Hijack(HijackTimeout, HijackSalt, HijackEnabled)
 
