@@ -73,6 +73,7 @@ signIn=Prisijungti
 newToLichess=Lichess naujokas?
 youNeedAnAccountToDoThat=Šiam veiksmui atlikti reikalinga būti registruotu vartotoju
 signUp=Prisiregistruoti
+computersAreNotAllowedToPlay=Kompiuteriams ir kompiuterių padedamiems žaidėjams žaisti draudžiama. Prašom nenaudoti šachmatų programų, duomenų bazių ar kitų žaidėjų pagalbos žaidimo metu.
 games=Žaidimai
 forum=Forumas
 xPostedInForumY=%s parašė pranešimus i %s forumus
