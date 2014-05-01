@@ -63,7 +63,7 @@ final class Analyser(
   def complete(id: String, data: String) =
     $find.byId[Game](id) zip get(id) zip (GameRepo initialFen id) flatMap {
       case ((Some(game), Some(a1)), initialFen) => Info decodeList data match {
-        case None => fufail(s"[analysis] invalid data $data")
+        case None => fufail(s"[analysis] $data")
         case Some(infos) => Replay(game.pgnMoves mkString " ", initialFen, game.variant).fold(
           fufail(_),
           replay => UciToPgn(replay, a1 complete infos) match {

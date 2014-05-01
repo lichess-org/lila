@@ -13,7 +13,7 @@
   @u.perfs.perfs.drop(1).zipWithIndex.map {
   case ((name, perf), i) => {
   <div class="sub_ratings @{ (i == 0 || i == 2 || i == 5 || i == 7) ?? "sep" }" title="@perfTitle(name)">
-    <h3>@if(name == "puzzle") { TRAINING } else { @name.toUpperCase }</h3>
+    <h3>@if(name == "puzzle") {TRAINING} else {@name.toUpperCase}</h3>
     <strong title="Glicko rating">@perf.glicko.intRating</strong>
     <small title="Glicko rating deviation"> ±@perf.glicko.intDeviationDoubled</small> /
     <span title="Number of games played">

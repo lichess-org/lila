@@ -45,7 +45,7 @@ case class Analysis(
 
   def valid = encodeInfos.replace(";", "").nonEmpty
 
-  def stalled = (done && !valid) || (!done && date.isBefore(DateTime.now minusMinutes 31))
+  def stalled = (done && !valid) || (!done && date.isBefore(DateTime.now minusHours 2))
 }
 
 object Analysis {

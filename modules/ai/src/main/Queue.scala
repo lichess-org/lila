@@ -72,5 +72,8 @@ private[ai] final class Queue(config: Config) extends Actor {
       } foreach { results =>
         mrSender ! Evaluation.toInfos(results.toList.map(_ | Evaluation.empty), moves)
       }
+
+    case FullAnalReq(moves, fen, requestedByHuman) =>
+      sender ! Status.Failure(new Exception("analysis queue is full"))
   }
 }
