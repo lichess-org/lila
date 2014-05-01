@@ -11,6 +11,7 @@ case class Pref(
     theme: String,
     autoQueen: Int,
     autoThreefold: Int,
+    takeback: Int,
     clockTenths: Boolean,
     clockBar: Boolean,
     premove: Boolean,
@@ -67,12 +68,24 @@ object Pref {
       TIME -> "When time remaining < 30 seconds")
   }
 
+  object Takeback {
+    val NEVER = 1
+    val CASUAL = 2
+    val ALWAYS = 3
+
+    val choices = Seq(
+      NEVER -> "Never",
+      ALWAYS -> "Always",
+      CASUAL -> "In casual games only")
+  }
+
   def create(id: String) = Pref(
     id = id,
     dark = false,
     theme = Theme.default.name,
     autoQueen = AutoQueen.PREMOVE,
     autoThreefold = AutoThreefold.TIME,
+    takeback = Takeback.ALWAYS,
     clockTenths = true,
     clockBar = true,
     premove = true,
@@ -92,6 +105,7 @@ object Pref {
     "theme" -> default.theme,
     "autoQueen" -> default.autoQueen,
     "autoThreefold" -> default.autoThreefold,
+    "takeback" -> default.takeback,
     "clockTenths" -> default.clockTenths,
     "clockBar" -> default.clockBar,
     "premove" -> default.premove,

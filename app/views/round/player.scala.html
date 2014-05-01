@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, engine: Boolean, chat: Option[lila.chat.MixedChat], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable])(implicit ctx: Context)
+@(pov: Pov, version: Int, engine: Boolean, chat: Option[lila.chat.MixedChat], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], takebackable: Boolean)(implicit ctx: Context)
 
 @import pov._
 
@@ -36,7 +36,7 @@ signedJs = pov.game.rated option routes.Round.signedJs(pov.gameId) map (_.toStri
         </div>
         <div class="lichess_separator"></div>
         <div class="table_inner">
-          @game.playable.fold(round.table.playing(pov), round.table.end(pov, tour))
+          @game.playable.fold(round.table.playing(pov, takebackable), round.table.end(pov, tour))
         </div>
       </div>
       @game.clock.map { c =>

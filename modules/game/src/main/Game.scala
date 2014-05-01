@@ -250,6 +250,7 @@ case class Game(
   )
 
   def rated = mode.rated
+  def casual = !rated
 
   def finished = status >= Status.Mate
 

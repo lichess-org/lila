@@ -17,6 +17,7 @@ final class PrefApi(cacheTtl: Duration) {
   def getPref(user: Option[User]): Fu[Pref] = user.fold(fuccess(Pref.default))(getPref)
 
   def getPref[A](user: User, pref: Pref => A): Fu[A] = getPref(user) map pref
+  def getPref[A](userId: String, pref: Pref => A): Fu[A] = getPref(userId) map pref
 
   def setPref(pref: Pref): Funit =
     $save(pref) >>- { cache remove pref.id }

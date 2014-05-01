@@ -31,6 +31,10 @@
           @base.radios(form("premove"), Seq(0 -> "No", 1 -> "Yes"))
         </li>
         <li>
+          <h2>Enable takebacks (with opponent approval)</h2>
+          @base.radios(form("takeback"), Pref.Takeback.choices)
+        </li>
+        <li>
           <button type="submit" class="submit button" data-icon="E">@trans.apply()</button>
         </li>
       </ul>

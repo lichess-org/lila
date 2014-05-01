@@ -49,10 +49,11 @@ object Round extends LilaController with TheftPrevention {
             Env.game.crosstableApi(pov.game) zip
             (pov.game.hasChat optionFu {
               Env.chat.api.playerChat find pov.gameId map (_ forUser ctx.me)
-            }) map {
-              case ((((v, engine), tour), crosstable), chat) =>
+            }) zip
+            (pov.game.playable ?? env.takebacker.isAllowedByPrefs(pov.game)) map {
+              case (((((v, engine), tour), crosstable), chat), takebackable) =>
                 Ok(html.round.player(pov, v, engine,
-                  chat = chat, tour = tour, cross = crosstable))
+                  chat = chat, tour = tour, cross = crosstable, takebackable = takebackable))
             }
         },
         Redirect(routes.Setup.await(fullId)).fuccess
@@ -92,11 +93,13 @@ object Round extends LilaController with TheftPrevention {
 
   def tablePlayer(fullId: String) = Open { implicit ctx =>
     OptionFuOk(GameRepo pov fullId) { pov =>
-      pov.game.tournamentId ?? TournamentRepo.byId map { tour =>
-        pov.game.playable.fold(
-          html.round.table.playing(pov),
-          html.round.table.end(pov, tour))
-      }
+      (pov.game.tournamentId ?? TournamentRepo.byId) zip
+        (pov.game.playable ?? env.takebacker.isAllowedByPrefs(pov.game)) map {
+          case (tour, takebackable) =>
+            pov.game.playable.fold(
+              html.round.table.playing(pov, takebackable),
+              html.round.table.end(pov, tour))
+        }
     }
   }
 

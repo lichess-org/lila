@@ -1,4 +1,4 @@
-@(pov: Pov)(implicit ctx: Context)
+@(pov: Pov, takebackable: Boolean)(implicit ctx: Context)
 
 @import pov._
 
@@ -20,7 +20,7 @@
   @if(game.playerCanOfferDraw(color)) {
   <a class="offer_draw socket-link" data-msg="draw-yes">@trans.offerDraw()</a>
   }
-  @if(game.playerCanProposeTakeback(color)) {
+  @if(takebackable && game.playerCanProposeTakeback(color)) {
   <a class="propose_takeback socket-link" data-msg="takeback-yes" title="@trans.proposeATakeback()">@trans.takeback()</a>
   }
   }
@@ -35,34 +35,34 @@
 }
 @if(game.toChessHistory.threefoldRepetition) {
 <div id="claim_draw_zone">
-    @trans.threefoldRepetition().&nbsp;
-    <a class="lichess_claim_draw socket-link" data-msg="draw-claim">@trans.claimADraw()</a>
+  @trans.threefoldRepetition().&nbsp;
+  <a class="lichess_claim_draw socket-link" data-msg="draw-claim">@trans.claimADraw()</a>
 </div>
 } else {
 @if(player.isOfferingDraw) {
 <div class="offered_draw">
-    @trans.drawOfferSent().&nbsp;
-    <a class="socket-link" data-msg="draw-no">@trans.cancel()</a>
+  @trans.drawOfferSent().&nbsp;
+  <a class="socket-link" data-msg="draw-no">@trans.cancel()</a>
 </div>
 } else {
 @if(opponent.isOfferingDraw) {
 <div class="offered_draw">
-    @trans.yourOpponentOffersADraw().<br />
-    <a class="socket-link" data-msg="draw-yes">@trans.accept()</a>&nbsp;
-    <a class="socket-link" data-msg="draw-no">@trans.decline()</a>
+  @trans.yourOpponentOffersADraw().<br />
+  <a class="socket-link" data-msg="draw-yes">@trans.accept()</a>&nbsp;
+  <a class="socket-link" data-msg="draw-no">@trans.decline()</a>
 </div>
 } else {
-@if(player.isProposingTakeback) {
+@if(takebackable && player.isProposingTakeback) {
 <div class="proposed_takeback">
-    @trans.takebackPropositionSent().&nbsp;
-    <a class="socket-link" data-msg="takeback-no">@trans.cancel()</a>
+  @trans.takebackPropositionSent().&nbsp;
+  <a class="socket-link" data-msg="takeback-no">@trans.cancel()</a>
 </div>
 } else {
-@if(opponent.isProposingTakeback) {
+@if(takebackable && opponent.isProposingTakeback) {
 <div class="offered_draw">
-    @trans.yourOpponentProposesATakeback().<br />
-    <a class="socket-link" data-msg="takeback-yes">@trans.accept()</a>&nbsp;
-    <a class="socket-link" data-msg="takeback-no">@trans.decline()</a>
+  @trans.yourOpponentProposesATakeback().<br />
+  <a class="socket-link" data-msg="takeback-yes">@trans.accept()</a>&nbsp;
+  <a class="socket-link" data-msg="takeback-no">@trans.decline()</a>
 </div>
 }
 }

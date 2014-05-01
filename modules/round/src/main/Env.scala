@@ -21,6 +21,7 @@ final class Env(
     uciMemo: lila.game.UciMemo,
     rematch960Cache: lila.memo.ExpireSetMemo,
     i18nKeys: lila.i18n.I18nKeys,
+    prefApi: lila.pref.PrefApi,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -160,9 +161,10 @@ final class Env(
 
   lazy val hijack = new Hijack(HijackTimeout, HijackSalt, HijackEnabled)
 
-  private lazy val takebacker = new Takebacker(
+  lazy val takebacker = new Takebacker(
     messenger = messenger,
-    uciMemo = uciMemo)
+    uciMemo = uciMemo,
+    prefApi = prefApi)
 
   lazy val moveBroadcast = system.actorOf(Props(new MoveBroadcast))
   lazy val tvBroadcast = system.actorOf(Props(new TvBroadcast))
@@ -182,5 +184,6 @@ object Env {
     uciMemo = lila.game.Env.current.uciMemo,
     rematch960Cache = lila.game.Env.current.cached.rematch960,
     i18nKeys = lila.i18n.Env.current.keys,
+    prefApi = lila.pref.Env.current.api,
     scheduler = lila.common.PlayApp.scheduler)
 }
