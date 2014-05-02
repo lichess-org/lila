@@ -28,7 +28,7 @@ private[i18n] object Contributors {
     "sl" -> List("Klemen Grm"),
     "az" -> List("elçin məmmədzadə", "amil isgəndərov"),
     "nn" -> List("Peropaal"),
-    "eo" -> List("LaPingvino"),
+    "eo" -> List("LaPingvino", "Timwi"),
     "tp" -> List("jan Mimoku"),
     "el" -> List("Tzortzakos Fivos", "Γιάννης Ανθυμίδης"),
     "fp" -> List("Alex"),

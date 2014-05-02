@@ -11,7 +11,7 @@
   }
   }.getOrElse {
   @if(isPlay) {
-  <p>@trans.findTheBestMoveForColor(puzzle.color.name)</p>
+  <p>@puzzle.color.fold(trans.findTheBestMoveForWhite(), trans.findTheBestMoveForBlack())</p>
   } else {
   <p>@trans.toTrackYourProgress()</p>
   <p class="signup">
