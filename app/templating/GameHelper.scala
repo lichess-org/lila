@@ -66,7 +66,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withDiff: Boolean = true,
     engine: Boolean = false,
     withStatus: Boolean = false)(implicit ctx: UserContext) = Html {
-    val statusIcon = if (withStatus) """&nbsp;<span class="status" data-icon="J"></span>""" else ""
+    val statusIcon = if (withStatus) """<span class="status" data-icon="3"></span>""" else ""
     player.userId.flatMap(lightUser) match {
       case None =>
         val klass = cssClass.??(" " + _)

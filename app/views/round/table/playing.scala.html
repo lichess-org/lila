@@ -12,31 +12,30 @@
     <p>@player.color.black.fold(trans.yourTurn(), trans.waiting())</p>
   </div>
 </div>
-<div class="lichess_control clearfix">
+<div class="lichess_control">
   @if(game.abortable) {
-  <a class="lichess_abort socket-link" data-msg="abort">@trans.abortGame()</a>
+  <a class="lichess_abort button socket-link" data-msg="abort" data-icon="L" title="@trans.abortGame()"></a>
   } else {
-  <a class="lichess_resign socket-link" data-msg="resign">@trans.resign()</a>
-  @if(game.playerCanOfferDraw(color)) {
-  <a class="offer_draw socket-link" data-msg="draw-yes">@trans.offerDraw()</a>
-  }
   @if(takebackable && game.playerCanProposeTakeback(color)) {
-  <a class="propose_takeback socket-link" data-msg="takeback-yes" title="@trans.proposeATakeback()">@trans.takeback()</a>
+  <a class="propose_takeback button socket-link" data-msg="takeback-yes" data-icon="i" data-title="@trans.takeback()" title="@trans.proposeATakeback()"></a>
   }
+  @if(game.playerCanOfferDraw(color)) {
+  <a class="offer_draw button socket-link" data-msg="draw-yes" data-icon="2" title="@trans.offerDraw()"></a>
+  }
+  <a class="lichess_resign button socket-link" data-msg="resign" data-icon="b" title="@trans.resign()"></a>
   }
 </div>
 @if(game.resignable && !game.hasAi) {
 <div class="force_resign_zone">
   @trans.theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim()<br />
-  <a class="force_resign socket-link" data-msg="resign-force">@trans.forceResignation()</a>
-  <br />
-  <a class="force_draw socket-link" data-msg="draw-force">@trans.forceDraw()</a>
+  <a class="force_resign button socket-link" data-msg="resign-force">@trans.forceResignation()</a>
+  <a class="force_draw button socket-link" data-msg="draw-force">@trans.forceDraw()</a>
 </div>
 }
 @if(game.toChessHistory.threefoldRepetition) {
 <div id="claim_draw_zone">
   @trans.threefoldRepetition().&nbsp;
-  <a class="lichess_claim_draw socket-link" data-msg="draw-claim">@trans.claimADraw()</a>
+  <a class="lichess_claim_draw button socket-link" data-msg="draw-claim">@trans.claimADraw()</a>
 </div>
 } else {
 @if(player.isOfferingDraw) {
@@ -48,8 +47,8 @@
 @if(opponent.isOfferingDraw) {
 <div class="offered_draw">
   @trans.yourOpponentOffersADraw().<br />
-  <a class="socket-link" data-msg="draw-yes">@trans.accept()</a>&nbsp;
-  <a class="socket-link" data-msg="draw-no">@trans.decline()</a>
+  <a class="socket-link button" data-msg="draw-yes" data-icon="E">&nbsp;@trans.accept()</a>&nbsp;
+  <a class="socket-link button" data-msg="draw-no" data-icon="L">&nbsp;@trans.decline()</a>
 </div>
 } else {
 @if(takebackable && player.isProposingTakeback) {
@@ -61,8 +60,8 @@
 @if(takebackable && opponent.isProposingTakeback) {
 <div class="offered_draw">
   @trans.yourOpponentProposesATakeback().<br />
-  <a class="socket-link" data-msg="takeback-yes">@trans.accept()</a>&nbsp;
-  <a class="socket-link" data-msg="takeback-no">@trans.decline()</a>
+  <a class="socket-link button" data-msg="takeback-yes" data-icon="E">&nbsp;@trans.accept()</a>&nbsp;
+  <a class="socket-link button" data-msg="takeback-no" data-icon="L">&nbsp;@trans.decline()</a>
 </div>
 }
 }

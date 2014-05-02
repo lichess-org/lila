@@ -70,13 +70,14 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font6/fonts/lichess.eot");
-  src: url("../font6/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font6/fonts/lichess.woff") format("woff"), url("../font6/fonts/lichess.ttf") format("truetype"), url("../font6/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font7/fonts/lichess.eot");
+  src: url("../font7/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font7/fonts/lichess.woff") format("woff"), url("../font7/fonts/lichess.ttf") format("truetype"), url("../font7/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 .is:before,
 [data-icon]:before {
+  transform: rotate(-90deg)
   font-size: 1.2em;
   vertical-align: middle;
   font-family: "lichess" !important;
@@ -2094,6 +2095,9 @@ button::-moz-focus-inner {
 }
 div.relation_actions {
   white-space: nowrap;
+}
+div.relation_actions .button {
+  margin: 0 -3px 0 -3px;
 }
 div.relation_actions a.relation.processing {
   opacity: 0.2

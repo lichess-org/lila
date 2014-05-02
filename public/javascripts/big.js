@@ -1489,6 +1489,13 @@ var storage = {
       var self = this;
       self.$table.find(".lichess_control").each(function() {
         $(this).toggleClass("none", $(this).html().trim() === "");
+        $(this).find('a.button:empty').each(function() {
+          $(this).hover(function() {
+            $(this).text(' ' + ($(this).data('title') || $(this).attr('title')));
+          }, function() {
+            $(this).text('');
+          });
+        });
       });
       self.$table.css('top', (256 - self.$table.height() / 2) + 'px');
     },

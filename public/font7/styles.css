@@ -203,9 +203,15 @@
 .icon-fontawesome-webfont-40:before {
   content: "!";
 }
+.icon-fontawesome-webfont-41:before {
+  content: "P";
+}
 .icon-fontawesome-webfont:before {
   content: "i";
 }
-.icon-fontawesome-webfont-41:before {
-  content: "P";
+.icon-hand-stop:before {
+  content: "2";
+}
+.icon-ionicons:before {
+  content: "3";
 }

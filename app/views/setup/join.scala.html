@@ -18,9 +18,8 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
       }
       @config.map { c =>
       <p class="explanations">
-        @trans.variant(): @variantName(c.variant)<br />
+        @variantName(c.variant), @modeName(c.mode)<br />
         <span data-icon="p"></span> @clockName(c.makeClock)<br />
-        @trans.mode(): @modeName(c.mode)
       </p>
       }
       @initialFen.map { fen =>
@@ -30,7 +29,7 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
       @if(game.rated && !game.hasClock) {
       <div class="join_warning warning">@trans.bewareTheGameIsRatedButHasNoClock()</div>
       }
-      <form action="@routes.Setup.join(gameId)" method="post">
+      <form style="margin-top: 20px" action="@routes.Setup.join(gameId)" method="post">
         <button name="submit" type="submit" class="submit button" data-icon="F">
           @trans.joinTheGame()
         </button>

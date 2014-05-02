@@ -307,9 +307,9 @@ div.lichess_table div.username {
 }
 div.lichess_table div.username span.status {
   display: inline-block;
+  margin-left: 5px;
   color: #ac524f;
-  font-size: 7px;
-  vertical-align: 1px;
+  font-size: 17px;
 }
 div.lichess_table div.username.connected span.status {
   color: #759900;
@@ -397,21 +397,18 @@ div.lichess_separator {
   border-bottom: 1px solid #ddd;
 }
 div.lichess_control {
-  margin-top: 20px;
+  margin: 10px 0 10px 3px;
+  text-align: center;
+  width: 100%;
 }
 div.lichess_control a {
   font-size: 90%;
 }
-div.lichess_control label {
-  margin-right: 1em;
-  cursor: pointer;
-}
-div.lichess_control input {
-  vertical-align: middle;
-  margin-right: 0.3em;
-}
 div.lichess_control a.lichess_play_again {
   margin-left: 1em;
+}
+div.lichess_control div.lichess_play_again_join {
+  text-align: left;
 }
 div.lichess_control div.lichess_play_again_join a.lichess_play_again {
   margin-left: 0;
@@ -430,15 +427,22 @@ div.lichess_control a.lichess_resign,
 div.lichess_control a.lichess_abort,
 div.lichess_control a.propose_takeback,
 div.lichess_control a.offer_draw {
-  float: right;
-  display: block;
-  margin-left: 1em;
+  display: inline-block;
+  margin: 0 -3px 0 -3px;
+  font-weight: normal;
+}
+div.lichess_control a.offer_draw:before {
+  display: inline-block;
+  transform: rotate(-90deg);
+  font-size: 1.1em;
+  vertical-align: -2px;
 }
 div.lichess_control.buttons a.button {
   display: block;
   margin-bottom: 0.7em;
   text-align: center;
   text-decoration: none;
+  font-weight: bold;
 }
 #claim_draw_zone,
 div.force_resign_zone,
@@ -448,8 +452,14 @@ div.offered_draw {
   padding-top: 10px;
   border-top: 1px solid #ddd;
 }
+div.offered_draw .button {
+  display: inline-block;
+}
 div.force_resign_zone {
   display: none;
+}
+div.force_resign_zone .button {
+  display:inline-block;
 }
 div.lichess_separator {
   margin: 10px 0;
