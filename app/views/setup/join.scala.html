@@ -30,9 +30,7 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
       <div class="join_warning warning">@trans.bewareTheGameIsRatedButHasNoClock()</div>
       }
       <form style="margin-top: 20px" action="@routes.Setup.join(gameId)" method="post">
-        <button name="submit" type="submit" class="submit button" data-icon="F">
-          @trans.joinTheGame()
-        </button>
+        <button name="submit" type="submit" class="submit button" data-icon="G">&nbsp;@trans.joinTheGame()</button>
       </form>
       } else {
       <hr />

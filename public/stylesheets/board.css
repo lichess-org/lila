@@ -308,10 +308,16 @@ div.lichess_table div.username {
 div.lichess_table div.username span.status {
   display: inline-block;
   margin-left: 5px;
-  color: #ac524f;
-  font-size: 17px;
 }
-div.lichess_table div.username.connected span.status {
+div.lichess_table div.username span.status:before {
+  font-family: 'lichess';
+  font-size: 17px;
+  vertical-align: -4px;
+  content: '0';
+  color: #ac524f;
+}
+div.lichess_table div.username.connected span.status:before {
+  content: '3';
   color: #759900;
 }
 div.lichess_table div.username a:hover {
