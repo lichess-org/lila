@@ -19,6 +19,8 @@ final class Env(
     val CollectionRelation = config getString "collection.relation"
     val ActorNotifyFreq = config duration "actor.notify_freq"
     val ActorName = config getString "actor.name"
+    val MaxFollow = config getInt "limit.follow"
+    val MaxBlock = config getInt "limit.block"
   }
   import settings._
 
@@ -27,7 +29,9 @@ final class Env(
     actor = hub.actor.relation,
     bus = system.lilaBus,
     getOnlineUserIds = getOnlineUserIds,
-    timeline = hub.actor.timeline)
+    timeline = hub.actor.timeline,
+    maxFollow = MaxFollow,
+    maxBlock = MaxBlock)
 
   private lazy val cached = new Cached
 

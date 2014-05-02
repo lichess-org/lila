@@ -42,5 +42,12 @@ private[relation] object RelationRepo {
 
   def remove(u1: ID, u2: ID): Funit = $remove byId makeId(u1, u2)
 
+  def drop(userId: ID, relation: Relation, nb: Int) =
+    $primitive(
+      Json.obj("u1" -> userId, "r" -> relation), "_id", max = nb.some
+    )(_.asOpt[String]) flatMap { ids =>
+        $remove(Json.obj("_id" -> $in(ids)))
+      }
+
   private def makeId(u1: String, u2: String) = u1 + "/" + u2
 }
