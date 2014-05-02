@@ -290,7 +290,6 @@ pleaseVotePuzzle=ช่วย lichess ปรับปรุงโดยใช้
 thankYou=ขอบคุณ!
 ratingX=ระดับคะแนน: %s
 playedXTimes=ถูกเล่น %s ครั้ง
-winRateX=อัตราชนะ: %s
 fromGameLink=จากเกม %s
 startTraining=เริ่มฝึก
 continueTraining=ฝึกต่อ

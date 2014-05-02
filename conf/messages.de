@@ -290,7 +290,6 @@ pleaseVotePuzzle=Mach lichess besser, indem Du votest.
 thankYou=Vielen Dank!
 ratingX=Schwierigkeitsgrad: %s
 playedXTimes=%s mal gespielt
-winRateX=Gewinnquote: %s
 fromGameLink=Aus dem Spiel %s
 startTraining=Training beginnen
 continueTraining=Training fortsetzen

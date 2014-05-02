@@ -290,7 +290,6 @@ pleaseVotePuzzle=위 또는 아래 화살표를 눌러 lichess를 향상시켜 �
 thankYou=감사합니다!
 ratingX=레이팅: %s
 playedXTimes=%s회 플레이
-winRateX=승률: %s
 fromGameLink=게임 %s에서
 startTraining=연습 시작
 continueTraining=연습 계속

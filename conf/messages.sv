@@ -290,7 +290,6 @@ pleaseVotePuzzle=Hjälp lichess att bli bättre genom att rösta, använd pil up
 thankYou=Tack!
 ratingX=Rating: %s
 playedXTimes=Spelat %s gånger
-winRateX=Vinstprocent: %s
 fromGameLink=Från parti: %s
 startTraining=Starta träning
 continueTraining=Fortsätt träning

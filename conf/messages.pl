@@ -290,7 +290,6 @@ pleaseVotePuzzle=Pomóż nam podnieść jakość zadań! Oceń zadanie naciskaj�
 thankYou=Dziękuję!
 ratingX=Ranking: %s
 playedXTimes=Rozwiązane %s razy
-winRateX=Procent poprawnych odpowiedzi: %s
 fromGameLink=Pochodzi z partii %s
 startTraining=Rozpocznij trening
 continueTraining=Kontynuuj trening

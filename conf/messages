@@ -290,7 +290,6 @@ pleaseVotePuzzle=Help lichess improve by voting, using the up or down arrow:
 thankYou=Thank you!
 ratingX=Rating: %s
 playedXTimes=Played %s times
-winRateX=Win rate: %s
 fromGameLink=From game %s
 startTraining=Start training
 continueTraining=Continue training

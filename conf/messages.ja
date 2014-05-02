@@ -289,7 +289,6 @@ pleaseVotePuzzle=改善のためご意見をお聞かせください。上矢印
 thankYou=ありがとうございます！
 ratingX=レーティング: %s
 playedXTimes=挑戦回数%s回
-winRateX=正解率: %s
 fromGameLink=ゲーム%sから
 startTraining=トレーニングを始める
 continueTraining=トレーニングを続ける

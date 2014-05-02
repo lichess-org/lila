@@ -290,7 +290,6 @@ pleaseVotePuzzle=Помогите сделать lichess лучше, голос�
 thankYou=Спасибо!
 ratingX=Рейтинг %s
 playedXTimes=Решено %s раз
-winRateX=Процент побед: %s
 fromGameLink=Из игры %s
 startTraining=Начать тренировку
 continueTraining=Продолжить тренировку

@@ -290,7 +290,6 @@ pleaseVotePuzzle=Ayuda a Lichess a mejorar votando, puedes usar flecha arriba o 
 thankYou=¡Gracias!
 ratingX=Puntuación: %s
 playedXTimes=Jugado %s veces
-winRateX=Promedio de triunfos: %s
 fromGameLink=Extraído de la partida %s
 startTraining=Iniciar entrenamiento
 continueTraining=Sigue entrenando

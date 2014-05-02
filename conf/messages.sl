@@ -290,7 +290,6 @@ pleaseVotePuzzle=Glasuj in pomagaj Lichess-u. Klikni na gor/dol puščici
 thankYou=Hvala!
 ratingX=Rejting: %s
 playedXTimes=Problem odigran %s krat
-winRateX=Uspešnost reševanja: %s
 fromGameLink=Iz igre %s
 startTraining=Začni z reševanjem
 continueTraining=Nadaljuj z reševanjem

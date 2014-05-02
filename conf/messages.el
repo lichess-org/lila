@@ -290,7 +290,6 @@ pleaseVotePuzzle=Βελτιώστε το lichess με την ψήφο σας. Μ
 thankYou=Σας ευχαριστώ!
 ratingX=Βαθμολογία: %s
 playedXTimes=Παίκτηκε %s φορές
-winRateX=Αναλογία νικών: %s
 fromGameLink=Από το παιχνίδι %s
 startTraining=Έναρξη εξάσκησης
 continueTraining=Συνέχεια εξάσκησης

@@ -290,7 +290,6 @@ pleaseVotePuzzle=Help lichess verbeteren door te stemmen met de pijl naar boven 
 thankYou=Dank u!
 ratingX=Niveau: %s
 playedXTimes=%s keer gespeeld
-winRateX=Win ratio: %s
 fromGameLink=Van spel %s
 startTraining=Begin training
 continueTraining=Ga verder met de training

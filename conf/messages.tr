@@ -290,7 +290,6 @@ pleaseVotePuzzle=Okları kullanarak oylayın, lichess'in gelişmesine yardımcı
 thankYou=Teşekkürler!
 ratingX=Puan: %s
 playedXTimes=%s defa oynandı
-winRateX=Çözülme oranı: %s
 fromGameLink=%s numaralı oyundan
 startTraining=Alıştırmalara başla
 continueTraining=Alıştırmalara devam et

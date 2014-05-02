@@ -290,7 +290,6 @@ pleaseVotePuzzle=Ajuda lichess a melhorar através do voto, usando a seta para c
 thankYou=Obrigado!
 ratingX=Classificação: %s
 playedXTimes=Jogado %s vezes
-winRateX=Taxa de vitórias: %s
 fromGameLink=Do jogo: %s
 startTraining=Comece o treinamento
 continueTraining=Continue o treinamento
