@@ -48,7 +48,7 @@ object Dependencies {
   val maxmind = "com.snowplowanalytics"  %% "scala-maxmind-geoip"  % "0.0.5"
 
   object play {
-    val version = "2.2.1"
+    val version = "2.2.3"
     val api = "com.typesafe.play" %% "play" % version
     val test = "com.typesafe.play" %% "play-test" % version
   }
