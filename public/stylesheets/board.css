@@ -434,6 +434,7 @@ div.lichess_control a.offer_draw {
 div.lichess_control a.offer_draw:before {
   display: inline-block;
   transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
   font-size: 1.1em;
   vertical-align: -2px;
 }

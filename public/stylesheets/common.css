@@ -77,7 +77,6 @@ time {
 }
 .is:before,
 [data-icon]:before {
-  transform: rotate(-90deg)
   font-size: 1.2em;
   vertical-align: middle;
   font-family: "lichess" !important;
