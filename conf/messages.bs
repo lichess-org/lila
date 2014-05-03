@@ -290,6 +290,7 @@ pleaseVotePuzzle=Pomozi da se Lichess poboljša, koristeći strelice gore/dolje
 thankYou=Hvala!
 ratingX=Rejting: %s
 playedXTimes=Odigrano %s puta
+winRateX=Postotak riješenosti: %s
 fromGameLink=Iz partije %s
 startTraining=Počnite vježbu
 continueTraining=Nastavite vježbu
