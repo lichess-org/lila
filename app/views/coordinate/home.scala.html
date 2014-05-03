@@ -1,0 +1,22 @@
+@()(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("coordinate.css")
+}
+
+@moreJs = {
+@jsTag("coordinate.js")
+}
+
+@base.layout(
+title = "Coordinate training",
+moreCss = moreCss,
+moreJs = moreJs,
+active = siteMenu.puzzle.some,
+themepicker = true) {
+<div id="coordinate_trainer">
+  @board.white()
+  <div id="progress_bar_container"><div id="progress_bar"></div></div>
+  <div id="next_coordinate"></div>
+</div>
+}

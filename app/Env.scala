@@ -125,5 +125,6 @@ object Env {
   def evaluation = lila.evaluation.Env.current
   def chat = lila.chat.Env.current
   def puzzle = lila.puzzle.Env.current
+  def coordinate = lila.coordinate.Env.current
   def tv = lila.tv.Env.current
 }

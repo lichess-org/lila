@@ -1,0 +1,17 @@
+div.my_turn.not_spectator div.lcs {
+  cursor: pointer;
+}
+#progress_bar_container {
+  margin-top: 10px;
+  width: 512px;
+}
+#progress_bar {
+  height: 10px;
+  background-color: #759900;
+}
+#next_coordinate {
+  width: 512px;
+  font-size: 90px;
+  text-align: center;
+  font-family: monospace;
+}

@@ -56,7 +56,10 @@ GET   /games/imported     controllers.Game.imported(page: Int ?= 1)
 # Search
 GET   /games/search       controllers.Game.search(page: Int ?= 1)
 
-# Puzzle
+# Training - Coordinate
+GET   /training/coordinate             controllers.Coordinate.home
+
+# Training - Puzzle
 GET   /training                        controllers.Puzzle.home
 POST  /training/difficulty             controllers.Puzzle.difficulty
 GET   /training/new                    controllers.Puzzle.newPuzzle
