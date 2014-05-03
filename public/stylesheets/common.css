@@ -70,8 +70,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font8/fonts/lichess.eot");
-  src: url("../font8/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font8/fonts/lichess.woff") format("woff"), url("../font8/fonts/lichess.ttf") format("truetype"), url("../font8/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font9/fonts/lichess.eot");
+  src: url("../font9/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font9/fonts/lichess.woff") format("woff"), url("../font9/fonts/lichess.ttf") format("truetype"), url("../font9/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -1969,6 +1969,14 @@ div.lichess_overboard.joining .mini_board {
   position: absolute;
   top: 7px;
   left: 10px;
+}
+#site_header a.stream {
+  display: block;
+  margin: 2em 0 2em -30px;
+  text-decoration: none;
+}
+#site_header a.stream:hover {
+  text-decoration: underline;
 }
 #timeline {
   margin-top: 2em;

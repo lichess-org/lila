@@ -28,7 +28,8 @@ final class Env(
     progress = Env.user.cached.topProgressDay.apply,
     timelineEntries = Env.timeline.getter.userEntries _,
     nowPlaying = Env.round.nowPlaying,
-    dailyPuzzle = Env.puzzle.daily)
+    dailyPuzzle = Env.puzzle.daily,
+    streamsOnAir = () => Env.tv.streamsOnAir)
 
   lazy val userInfo = mashup.UserInfo(
     countUsers = () => Env.user.countEnabled,
@@ -70,7 +71,8 @@ final class Env(
       Env.pref,
       Env.evaluation,
       Env.chat,
-      Env.puzzle)
+      Env.puzzle,
+      Env.tv)
     loginfo("[boot] Preloading complete")
   }
 

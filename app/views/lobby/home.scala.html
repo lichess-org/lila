@@ -1,4 +1,4 @@
-@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game], leaderboard: List[User], progress: List[User], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov])(implicit ctx: Context)
+@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game], leaderboard: List[User], progress: List[User], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir])(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game" title="@trans.watchLichessTV()">
@@ -30,6 +30,9 @@
   </a>
   }
 </div>
+}
+@streams.map { s =>
+<a class="stream" href="@s.url" data-icon="1">&nbsp;@s.name</a>
 }
 <div id="timeline" data-href="@routes.Lobby.timeline">
   @timeline.entries(userTimeline)

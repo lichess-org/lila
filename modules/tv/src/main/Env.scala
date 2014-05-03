@@ -12,11 +12,17 @@ final class Env(
 
   private val FeaturedContinue = config duration "featured.continue"
   private val FeaturedDisrupt = config duration "featured.disrupt"
+  private val StreamingSearch = config duration "streaming.search"
 
   lazy val featured = new Featured(
     lobbySocket = hub.socket.lobby,
     rendererActor = hub.actor.renderer,
     system = system)
+
+  private lazy val streaming = new Streaming(
+    system = system)
+
+  def streamsOnAir = streaming.onAir
 
   {
     import scala.concurrent.duration._
@@ -27,6 +33,10 @@ final class Env(
 
     scheduler.message(FeaturedDisrupt) {
       featured.actor -> Featured.Disrupt
+    }
+
+    scheduler.message(StreamingSearch) {
+      streaming.actor -> Streaming.Search
     }
   }
 }
