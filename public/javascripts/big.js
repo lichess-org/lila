@@ -1896,6 +1896,7 @@ var storage = {
       });
       var boardInteractions = function() {
         $board.find('.lcmp.' + color).draggable({
+          revert: 'invalid',
           scroll: false,
           distance: 10
         });
