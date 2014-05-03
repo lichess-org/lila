@@ -1113,6 +1113,10 @@ var storage = {
       }
     },
     movePiece: function(from, to, callback, mine) {
+
+      // must stop any animation first, so the piece can get killed
+      $('body > div.piece').stop(true, true);
+
       var self = this,
         $piece = self.$board.find("div#" + from + " div.piece"),
         $from = $("div#" + from, self.$board),
@@ -1146,8 +1150,7 @@ var storage = {
 
       var animD = mine ? 0 : self.animationDelay();
 
-      $('body > div.piece').stop(true, true);
-      if (animD < 100) {
+      if (animD < 50) {
         afterMove();
       } else {
         $("body").append($piece.css({
