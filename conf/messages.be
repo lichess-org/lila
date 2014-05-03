@@ -269,7 +269,6 @@ bestSlowPlayers=Лепшыя ў павольных гульнях
 bewareTheGameIsRatedButHasNoClock=Увага, гульня на рэйтынг але без абмежаваньня часу!
 training=Трэнаванне
 yourPuzzleRatingX=Твой рэйтынг у галаваломках: %s
-findTheBestMoveForColor=Знайсьці найлепшы ход для %s.
 toTrackYourProgress=Каб адсочваць твой прагрэс
 trainingSignupExplanation=Lichess забясьпечыць галаваломкамі якія адпавядаюць тваім здольнасьцям, што паляпшае трэнаваньне
 recentlyPlayedPuzzles=Нядаўнія галаваломкі

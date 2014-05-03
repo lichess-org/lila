@@ -269,7 +269,6 @@ bestSlowPlayers=Millors jugadors de lentes
 bewareTheGameIsRatedButHasNoClock=Compte, el joc està classificat però no te rellotje!
 training=Entrenament
 yourPuzzleRatingX=La vostra puntuació de puzles: %s
-findTheBestMoveForColor=Troba la millor jugada per a les %s.
 toTrackYourProgress=Per seguir el vostre progrés:
 trainingSignupExplanation=El Lichess us proporcionarà puzles adequats al vostre nivell, de manera que les sessions d'entrenament seran millors.
 recentlyPlayedPuzzles=Trencaclosques jugats recentment

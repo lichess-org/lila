@@ -269,7 +269,6 @@ bestSlowPlayers=Najlepsi gracze slow
 bewareTheGameIsRatedButHasNoClock=Uważaj, gra jest rankingowa, ale bez limitu czasu!
 training=Trening
 yourPuzzleRatingX=Twój ranking treningowy: %s
-findTheBestMoveForColor=Grają %s, znajdź najlepszy ruch.
 toTrackYourProgress=Aby móc śledzić swoje postępy:
 trainingSignupExplanation=Dzięki temu będziesz otrzymywać zadania dostosowane do Twoich umiejętności, aby jeszcze skuteczniej ćwiczyć.
 recentlyPlayedPuzzles=Ostatnio rozwiązywane zadania

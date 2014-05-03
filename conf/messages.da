@@ -269,7 +269,6 @@ bestSlowPlayers=Bedste langsomme spiller
 bewareTheGameIsRatedButHasNoClock=Bemærk: Spillet er ratet, men er uden tidsbegrænsning!
 training=Træning
 yourPuzzleRatingX=Din opgave-rating: %s
-findTheBestMoveForColor=Find det bedste træk for %s.
 toTrackYourProgress=Følg din udvikling:
 trainingSignupExplanation=Lichess vil forsyne opgaver som passer til dit niveau, hvilket forøger kvaliteten i træningen.
 recentlyPlayedPuzzles=For nyligt prøvede opgaver

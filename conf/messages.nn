@@ -269,7 +269,6 @@ bestSlowPlayers=Best i langsjakk
 bewareTheGameIsRatedButHasNoClock=Til informasjon, spelet er rata, men ikkje tidsavgrensa!
 training=Trening
 yourPuzzleRatingX=Treningsratinga di: %s
-findTheBestMoveForColor=Finn det beste trekket for %s ("svart" = black, "kvit" =white)
 toTrackYourProgress=Finn ut framgangen din:
 trainingSignupExplanation=Lichess gjev deg oppgåver som høver for deg
 recentlyPlayedPuzzles=Seinaste oppgåver som du har prøva

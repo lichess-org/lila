@@ -269,7 +269,6 @@ bestSlowPlayers=Najboljši v počasnem tempu
 bewareTheGameIsRatedButHasNoClock=Pozor, igra je rangirana, vendar ni časovno omejena!
 training=Šahovski problemi
 yourPuzzleRatingX=Tvoj rejting pri reševanju šahovskih problemov: %s
-findTheBestMoveForColor=Poišči najboljšo potezo za %s
 toTrackYourProgress=Spremljaj svoj napredek
 trainingSignupExplanation=Da bo reševanje uspešnejše, bo Lichess poiskal probleme primerne tvojemu rejtingu,
 recentlyPlayedPuzzles=Nedavno odigrani problemi

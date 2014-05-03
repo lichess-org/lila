@@ -269,7 +269,6 @@ bestSlowPlayers=Beste langzame schakers
 bewareTheGameIsRatedButHasNoClock=Let op, de partij is met rating maar heeft geen klok!
 training=Training
 yourPuzzleRatingX=Je puzzelscore: %s
-findTheBestMoveForColor=Vind de beste zet voor %s.
 toTrackYourProgress=Om je vooruitgang te volgen:
 trainingSignupExplanation=Lichess zal puzzels verschaffen die overeenkomen met je niveau, wat leidt tot betere trainingssessies.
 recentlyPlayedPuzzles=Recent gespeelde puzzels

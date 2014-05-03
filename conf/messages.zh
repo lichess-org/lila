@@ -268,7 +268,6 @@ bestSlowPlayers=最佳慢棋棋手
 bewareTheGameIsRatedButHasNoClock=注意，这局是评分的但不计时
 training=训练
 yourPuzzleRatingX=您的难题评级:%s
-findTheBestMoveForColor=找到最好的移动 %s.
 toTrackYourProgress=跟踪你的进度：
 trainingSignupExplanation=Lichess将提供符合您的能力，从而为更好地训练难题。
 recentlyPlayedPuzzles=最近在玩拼图

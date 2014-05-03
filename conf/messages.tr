@@ -269,7 +269,6 @@ bestSlowPlayers=En iyi slow oyuncuları
 bewareTheGameIsRatedButHasNoClock=Dikkat, oyun puanlı ama suresizdir.
 training=Alıştırma
 yourPuzzleRatingX=Bulmaca puanın: %s
-findTheBestMoveForColor=%s için en iyi hamleyi bul
 toTrackYourProgress=Gelişimini takip et
 trainingSignupExplanation=Daha iyi alıştırma seansları için Lichess size seviyenize uygun bulmacalar sunacaktır.
 recentlyPlayedPuzzles=Son bakılan bulmacalar

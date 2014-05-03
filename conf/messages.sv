@@ -269,7 +269,6 @@ bestSlowPlayers=Bästa långsamma spelare
 bewareTheGameIsRatedButHasNoClock=OBS! Spelet är rankat men har ingen tidsgräns.
 training=Träning
 yourPuzzleRatingX=Din problemlösarrating: %s
-findTheBestMoveForColor=Hitta bästa draget för %s.
 toTrackYourProgress=För att följa din utveckling:
 trainingSignupExplanation=Lichess kommer att erbjuda schackproblem som matchar din förmåga, vilket ger dig bättre träning.
 recentlyPlayedPuzzles=Nyligen lösta schackproblem

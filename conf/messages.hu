@@ -269,7 +269,6 @@ bestSlowPlayers=Legjobb lassú játékosok
 bewareTheGameIsRatedButHasNoClock=Időmérés nélküli játék, de rangsorolt meccs!
 training=Gyakorlás
 yourPuzzleRatingX=A feladatmegoldások értékelése: %s
-findTheBestMoveForColor=Találd meg a legjobb lépést %snek.
 toTrackYourProgress=Hogy kövesd a fejlődésed:
 trainingSignupExplanation=Lichess a képességeidnek megfelelő feladványokat biztosít, hogy  minnél jobb képzésben részesülj..
 recentlyPlayedPuzzles=A közelmúltban megoldott feladványok

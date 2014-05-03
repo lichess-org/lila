@@ -268,7 +268,6 @@ bestSlowPlayers=Най-добрите бавни играчи
 bewareTheGameIsRatedButHasNoClock=Внимание, играта е с рейтинг. но без ограничение във времето.
 training=Тренировка
 yourPuzzleRatingX=Вашият пъзел рейтинг е: %s
-findTheBestMoveForColor=Намери най-добрия ход за %s
 goodMove=Добър ход
 butYouCanDoBetter=Но можеш да се справиш по-добре
 bestMove=Най-добър ход!

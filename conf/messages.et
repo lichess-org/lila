@@ -266,7 +266,6 @@ bestSlowPlayers=Kõige aeglasemad mängijad
 bewareTheGameIsRatedButHasNoClock=Tähelepanu, mäng on reitinguga aga ilma ajakontrollita!
 training=Treeni
 yourPuzzleRatingX=Sinu lahendamisskoor: %s
-findTheBestMoveForColor=Leia parim käik %s jaoks
 toTrackYourProgress=Vaata oma arengut
 goodMove=Hea käik
 butYouCanDoBetter=Aga mitte parim võimalik.

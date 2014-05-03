@@ -269,7 +269,6 @@ bestSlowPlayers=Καλύτεροι παίκτες κανονικού
 bewareTheGameIsRatedButHasNoClock=Προσοχή, το παιχνίδι βαθμολογείται αλλά του λείπει ρολόι!
 training=Εξάσκηση
 yourPuzzleRatingX=Η βαθμολογία γρίφων σας : %s
-findTheBestMoveForColor=Βρήτε την καλύτερη κίνηση για τα %s.
 toTrackYourProgress=Για να παρακολουθήσετε τη πρόοδό σας:
 trainingSignupExplanation=Το lichess θα σας προσφέρει γρίφους που αντοιστιχούν με την ικανότητά σας, με αποτέλεσμα μια καλύτερη εμπειρία εξάσκησης στο σκάκι.
 recentlyPlayedPuzzles=Πρόσφατα παιγμένοι γρίφοι

@@ -269,7 +269,6 @@ bestSlowPlayers=최고 slow 플레이어
 bewareTheGameIsRatedButHasNoClock=조심하세요! 레이팅 게임이지만 시간 제한이 없습니다.
 training=연습
 yourPuzzleRatingX=퍼즐 레이팅: %s
-findTheBestMoveForColor=%s의 가장 좋은 수를 찾아보세요.
 toTrackYourProgress=기록을 저장하기 위해서:
 trainingSignupExplanation=Lichess는 더욱 좋은 연습을 위해 실력에 맞는 퍼즐을 제공할 겁니다.
 recentlyPlayedPuzzles=최근에 플레이한 퍼즐

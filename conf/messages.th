@@ -269,7 +269,6 @@ bestSlowPlayers=ผู้เล่นสโลว์ดีเด่น
 bewareTheGameIsRatedButHasNoClock=ระวัง, เกมนี้ถูกคิดคะแนนแต่ไม่จับเวลา!
 training=ฝึก
 yourPuzzleRatingX=ระดับคะแนนแก้ปริศนาของคุณ: %s
-findTheBestMoveForColor=หาการเดินที่ดีที่สุดสำหรับ %s
 toTrackYourProgress=เพื่อติดตามความก้าวหน้าของคุณ:
 trainingSignupExplanation=Lichess จะสรรหาปริศนาที่เหมาะสมกับความสามารถของคุณ, เพื่อสร้างโจทย์ฝึกที่ดียิ่งขึ้น
 recentlyPlayedPuzzles=ปริศนาที่เล่นเมื่อเร็วๆนี้

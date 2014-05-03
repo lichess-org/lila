@@ -269,7 +269,6 @@ bestSlowPlayers=Лучшие игроки в рапид
 bewareTheGameIsRatedButHasNoClock=Внимание, эта рейтинговая игра без ограничения по времени!
 training=Задачи
 yourPuzzleRatingX=Ваш рейтинг в решении задач: %s
-findTheBestMoveForColor=Найдите лучший ход для %s
 toTrackYourProgress=Для отслеживания прогресса:
 trainingSignupExplanation=Lichess подберет задачи для вашего уровня, что позволит повысить эффективность тренировок.
 recentlyPlayedPuzzles=Недавно решенные задачи

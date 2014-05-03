@@ -268,7 +268,6 @@ bestSlowPlayers=सर्वश्रेष्ठ slow  खिलाडी
 bewareTheGameIsRatedButHasNoClock=सावधान,खेल मूल्यांकन किया गया है लेकिन कोई घड़ी नहीं है.
 training=प्रशिक्षण
 yourPuzzleRatingX=आपकी पहेली-आधारित रेटिंग है: %s
-findTheBestMoveForColor=%s के लिए सबसे उत्तम चाल ढूँढे
 toTrackYourProgress=अपनी प्रगति का हिसाब देखने हेतु:
 trainingSignupExplanation=लीचेस आपकी काबिलियत पर आधारित आपको प्रशिक्षण के लिए पहेलियाँ देगा, ताकि आप बहतर प्रगति कर पायें|
 recentlyPlayedPuzzles=हाल ही मे खेली गयी पहेलियाँ

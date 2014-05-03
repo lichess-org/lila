@@ -269,7 +269,6 @@ bestSlowPlayers=Najbolji spori igrači
 bewareTheGameIsRatedButHasNoClock=Oprez, igra se za bodove ali ne i na vreme!
 training=Trening
 yourPuzzleRatingX=Tvoj rejting u problemima: %s
-findTheBestMoveForColor=nađi najbolji potez za %s
 toTrackYourProgress=za praćenje napretka
 trainingSignupExplanation=Lichess ce pronaći probleme prema tvojim mogućnostima, radi boljeg treninga
 recentlyPlayedPuzzles=Poslednje riješeni problemi

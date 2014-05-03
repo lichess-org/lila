@@ -269,7 +269,6 @@ bestSlowPlayers=Labākie lēnā šaha spēlētāji
 bewareTheGameIsRatedButHasNoClock=Uzmanību! Spēle ir ar reitinga aprēķinu, bet bez laika limita!
 training=Treniņš
 yourPuzzleRatingX=Jūsu pužļu reitings: %s
-findTheBestMoveForColor=Atrast vislabāko gājienu %s.
 toTrackYourProgress=Izsekot jūsu progresu:
 trainingSignupExplanation=Lichess sniegs puzles, kas atbilst jūsu spējām, tādējādi veidojot vislabākās treniņu sesijas.
 recentlyPlayedPuzzles=Nesen spēlētās puzles

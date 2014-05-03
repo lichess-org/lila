@@ -269,7 +269,6 @@ bestSlowPlayers=Mejores jugadores "Lentos"
 bewareTheGameIsRatedButHasNoClock=¡Cuidado, el juego es con puntaje pero sin reloj!
 training=Entrenamiento
 yourPuzzleRatingX=Tu puntuación en los puzzles es: %s
-findTheBestMoveForColor=Encuentra el mejor movimento para %s.
 toTrackYourProgress=Para monitorizar tu progreso:
 trainingSignupExplanation=Lichess te proporciona puzzles de acuerdo con tu habilidad de juego para optimizar tus sesiones de entrenamiento
 recentlyPlayedPuzzles=Puzzles jugados recientemente

@@ -269,7 +269,6 @@ bestSlowPlayers=Führende Spieler langsam
 bewareTheGameIsRatedButHasNoClock=Achtung, das Spiel ist zwar gewertet, wird aber ohne Uhr gespielt!
 training=Training
 yourPuzzleRatingX=Deine Rätselwertung: %s
-findTheBestMoveForColor=Finde den besten Zug für %s.
 toTrackYourProgress=Um deinen Fortschritt zu verfolgen:
 trainingSignupExplanation=Lichess wird Rätsel zeigen, die zu deinen Fähigkeiten passen, für besseres Training.
 recentlyPlayedPuzzles=Kürzlich gespielte Rätsel

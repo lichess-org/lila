@@ -269,7 +269,6 @@ bestSlowPlayers=Melhores jogadores de slow
 bewareTheGameIsRatedButHasNoClock=Cuidado, o jogo vale pontos de rating, mas não há controle de tempo!
 training=Treinamento
 yourPuzzleRatingX=Sua classificação de quebra-cabeças: %s
-findTheBestMoveForColor=Encontrar a melhor jogada para %s
 toTrackYourProgress=Para acompanhar o seu progresso
 trainingSignupExplanation=Lichess fornecerá quebra-cabeças que correspondem à sua habilidade, para fazer melhores sessões de treinamento.
 recentlyPlayedPuzzles=Quebra-cabeças jogados recentemente

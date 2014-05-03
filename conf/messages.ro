@@ -269,7 +269,6 @@ bestSlowPlayers=Cei mai buni jucători "Slow"
 bewareTheGameIsRatedButHasNoClock=Atenție, partida este oficială, dar se joaca fară ceas!
 training=Antrenament
 yourPuzzleRatingX=Rating probleme:  %s
-findTheBestMoveForColor=Gasiți cea mai bună mutare pentru %s
 toTrackYourProgress=Pentru urmărirea progresului
 trainingSignupExplanation=Lichess vă va oferi probleme conform nivelului dvs., ceea ce va duce la sesiuni mai bune de antrenament.
 recentlyPlayedPuzzles=Ultimele probleme jucate

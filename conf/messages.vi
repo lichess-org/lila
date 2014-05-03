@@ -268,7 +268,6 @@ bestSlowPlayers=Kỳ thủ cờ chậm mạnh nhất
 bewareTheGameIsRatedButHasNoClock=Đề phòng, ván cờ tính điểm nhưng không tính thời gian!
 training=Đào tạo
 yourPuzzleRatingX=Hệ số giải bài tập của bạn: %s
-findTheBestMoveForColor=Tìm nước đi mạnh nhất cho %s
 toTrackYourProgress=Theo dõi sự tiến bộ của bạn
 trainingSignupExplanation=Lichess sẽ cung cấp những câu đố phù hợp với kỹ năng của bạn, tạo nên hiệu quả đào taoh tốt hơn
 recentlyPlayedPuzzles=Những bài được chơi hiện tại

@@ -269,7 +269,6 @@ bestSlowPlayers=Parhaat hitaan shakin pelaajat
 bewareTheGameIsRatedButHasNoClock=Huomaa, että peli on pisteytetty, vaikka siinä ei ole aikarajoitetta.
 training=Harjoittelu
 yourPuzzleRatingX=Tehtävävahvuuslukusi: %s
-findTheBestMoveForColor=Löydä paras siirto (%s)
 toTrackYourProgress=Seurataksesi edistymistäsi:
 trainingSignupExplanation=Lichess tarjoaa tehtäviä jotka vastaavat kykyjäsi, luoden sopivampia harjoittelutuokioita.
 recentlyPlayedPuzzles=Viimeisimmät tehtäväsi

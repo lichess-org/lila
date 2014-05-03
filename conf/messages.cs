@@ -267,7 +267,6 @@ bestBlitzPlayers=Nejlepší hráčí rychlých her
 bestSlowPlayers=Nejlepší hráči pomalých her
 bewareTheGameIsRatedButHasNoClock=Pozor, hra je o body i když je bez hodin!
 training=Trénink
-findTheBestMoveForColor=%s na tahu
 puzzleId=Úloha %s
 puzzleOfTheDay=Úloha dne
 goodMove=Dobrý tah

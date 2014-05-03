@@ -268,7 +268,6 @@ bestSlowPlayers=Os mellores xogadores lentos
 bewareTheGameIsRatedButHasNoClock=Atento, o xogo é por ELO pero sen reloxio
 training=Entrenando
 yourPuzzleRatingX=O seu nivel de puzzle: %s
-findTheBestMoveForColor=ENcontra o mellor movemento para %s
 toTrackYourProgress=Para avaliar o teu progreso
 trainingSignupExplanation=Lichess proporcionarache problemas que poñan a proba a túa habilidade, mellorando as túas sesións de adestramento.
 recentlyPlayedPuzzles=Puzzles recen xogados

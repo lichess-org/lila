@@ -268,7 +268,6 @@ bestSlowPlayers=Slow （長時間）のレイティング上位
 bewareTheGameIsRatedButHasNoClock=注意！レイティング対象ですが時間無制限です
 training=トレーニング
 yourPuzzleRatingX=パズルのレイティング: %s
-findTheBestMoveForColor=%s 最善手は？
 toTrackYourProgress=履歴を保存するには:
 trainingSignupExplanation=Lichessに登録するとレベルに応じたパズルが出題され、効率的なトレーニングをすることができます。
 recentlyPlayedPuzzles=最近解いたパズル
