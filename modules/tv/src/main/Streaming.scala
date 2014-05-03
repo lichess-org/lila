@@ -4,10 +4,13 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.ws.WS
 
-private final class Streaming(system: ActorSystem) {
+private final class Streaming(
+    system: ActorSystem,
+    ustreamApiKey: String) {
 
   import Streaming._
   import Twitch.Reads._
+  import Ustream.Reads._
 
   def onAir: Fu[List[StreamOnAir]] = {
     import makeTimeout.short
@@ -22,17 +25,17 @@ private final class Streaming(system: ActorSystem) {
 
       case Get => sender ! onAir
 
-      case Search => WS.url("https://api.twitch.tv/kraken/search/streams")
-        .withQueryString("q" -> "lichess")
-        .withHeaders("Accept" -> "application/vnd.twitchtv.v2+json")
-        .get() map { res =>
-          res.json.asOpt[Twitch.Result] ?? (_.streams map (_.channel) map { s =>
-            StreamOnAir(
-              name = s.status,
-              url = s.url,
-              author = s.display_name)
-          })
-        } map StreamsOnAir.apply pipeTo self
+      case Search =>
+        val keyword = "lichess.org"
+        val max = 2
+        val twitch = WS.url("https://api.twitch.tv/kraken/search/streams")
+          .withQueryString("q" -> keyword)
+          .withHeaders("Accept" -> "application/vnd.twitchtv.v2+json")
+          .get().map { _.json.asOpt[Twitch.Result] ?? (_.streamsOnAir take max) }
+        val ustream = WS.url(s"http://api.ustream.tv/json/channel/live/search/title:like:$keyword")
+          .withQueryString("key" -> ustreamApiKey)
+          .get().map { _.json.asOpt[Ustream.Result] ?? (_.streamsOnAir take max) }
+        twitch |+| ustream map StreamsOnAir.apply pipeTo self
 
       case StreamsOnAir(streams) => onAir = streams
     }

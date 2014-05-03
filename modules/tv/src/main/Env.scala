@@ -13,6 +13,7 @@ final class Env(
   private val FeaturedContinue = config duration "featured.continue"
   private val FeaturedDisrupt = config duration "featured.disrupt"
   private val StreamingSearch = config duration "streaming.search"
+  private val UstreamApiKey = config getString "streaming.ustream_api_key"
 
   lazy val featured = new Featured(
     lobbySocket = hub.socket.lobby,
@@ -20,7 +21,8 @@ final class Env(
     system = system)
 
   private lazy val streaming = new Streaming(
-    system = system)
+    system = system,
+    ustreamApiKey = UstreamApiKey)
 
   def streamsOnAir = streaming.onAir
 
