@@ -25,8 +25,6 @@ final class Env(
     val JsPathRaw = config getString "js_path.raw"
     val JsPathCompiled = config getString "js_path.compiled"
     val ActorName = config getString "actor.name"
-    val FeaturedContinue = config duration "featured.continue"
-    val FeaturedDisrupt = config duration "featured.disrupt"
     val UciMemoTtl = config duration "uci_memo.ttl"
   }
   import settings._
@@ -38,11 +36,6 @@ final class Env(
   lazy val paginator = new PaginatorBuilder(
     cached = cached,
     maxPerPage = PaginatorMaxPerPage)
-
-  lazy val featured = new Featured(
-    lobbySocket = hub.socket.lobby,
-    rendererActor = hub.actor.renderer,
-    system = system)
 
   lazy val export = new Export(hub.actor.router).apply _
 
@@ -79,13 +72,6 @@ final class Env(
 
     scheduler.message(CaptcherDuration) {
       captcher -> actorApi.NewCaptcha
-    }
-
-    scheduler.message(FeaturedContinue) {
-      featured.actor -> Featured.Continue
-    }
-    scheduler.message(FeaturedDisrupt) {
-      featured.actor -> Featured.Disrupt
     }
   }
 

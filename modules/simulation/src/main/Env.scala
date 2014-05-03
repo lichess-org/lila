@@ -6,7 +6,7 @@ import akka.actor._
 
 final class Env(
     typesafeConfig: com.typesafe.config.Config,
-    gameEnv: lila.game.Env,
+    featured: lila.tv.Featured,
     lobbyEnv: lila.lobby.Env,
     roundEnv: lila.round.Env,
     system: ActorSystem) {
@@ -17,7 +17,7 @@ final class Env(
 
   private lazy val simulator = system.actorOf(Props(new Simulator(
     config = config,
-    gameEnv = gameEnv,
+    featured = featured,
     lobbyEnv = lobbyEnv,
     roundEnv = roundEnv
   )), name = "simulator")
@@ -31,7 +31,7 @@ object Env {
 
   lazy val current = "[boot] simulation" describes new Env(
     typesafeConfig = lila.common.PlayApp loadConfig "simulation",
-    gameEnv = lila.game.Env.current,
+    featured = lila.tv.Env.current.featured,
     lobbyEnv = lila.lobby.Env.current,
     roundEnv = lila.round.Env.current,
     system = lila.common.PlayApp.system)

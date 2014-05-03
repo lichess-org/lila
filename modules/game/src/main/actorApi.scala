@@ -6,8 +6,6 @@ import lila.user.User
 import play.api.libs.json.JsObject
 import play.api.templates.Html
 
-case class RenderFeaturedJs(game: Game)
-
 case class FinishGame(game: Game, white: Option[User], black: Option[User]) {
 
   def isVsSelf = white.isDefined && white == black

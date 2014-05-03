@@ -22,7 +22,7 @@ final class Env(
   lazy val preloader = new mashup.Preload(
     lobby = Env.lobby.lobby,
     history = Env.lobby.history,
-    featured = Env.game.featured,
+    featured = Env.tv.featured,
     relations = Env.relation.api,
     leaderboard = Env.user.cached.topRatingDay.apply,
     progress = Env.user.cached.topProgressDay.apply,
@@ -123,4 +123,5 @@ object Env {
   def evaluation = lila.evaluation.Env.current
   def chat = lila.chat.Env.current
   def puzzle = lila.puzzle.Env.current
+  def tv = lila.tv.Env.current
 }

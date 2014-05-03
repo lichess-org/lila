@@ -8,10 +8,11 @@ import chess.Color
 import ornicar.scalalib.Random
 
 import lila.user.User
+import lila.tv.Featured
 
 private[simulation] final class Simulator(
     config: Config,
-    gameEnv: lila.game.Env,
+    featured: lila.tv.Featured,
     lobbyEnv: lila.lobby.Env,
     roundEnv: lila.round.Env) extends SimulActor {
 
@@ -54,7 +55,7 @@ private[simulation] final class Simulator(
   }
 
   def mkPlayer(n: String) = new PlayerBot(n, playerConfig, lobbyEnv, roundEnv)
-  def mkWatcher(n: String) = new WatcherBot(n, gameEnv.featured, roundEnv)
+  def mkWatcher(n: String) = new WatcherBot(n, featured, roundEnv)
 }
 
 private[simulation] object Simulator {

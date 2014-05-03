@@ -11,7 +11,7 @@ import views._
 object Tv extends LilaController {
 
   def index = Open { implicit ctx =>
-    OptionFuResult(Env.game.featured.one) { game =>
+    OptionFuResult(Env.tv.featured.one) { game =>
       Env.round.version(game.id) zip
         (GameRepo onTv 10) zip
         Env.game.crosstableApi(game) zip
@@ -35,7 +35,7 @@ object Tv extends LilaController {
   }
 
   def frame = Action.async { req =>
-    Env.game.featured.one map {
+    Env.tv.featured.one map {
       case None => NotFound
       case Some(game) => Ok(views.html.tv.embed(
         game,

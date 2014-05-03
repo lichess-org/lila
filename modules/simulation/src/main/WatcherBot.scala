@@ -12,7 +12,7 @@ import lila.common.PimpedJson._
 
 private[simulation] final class WatcherBot(
     val name: String,
-    featured: lila.game.Featured,
+    featured: lila.tv.Featured,
     roundEnv: lila.round.Env) extends Bot with FSM[WatcherBot.State, WatcherBot.Data] {
 
   import Bot._

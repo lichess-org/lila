@@ -32,7 +32,7 @@ object ApplicationBuild extends Build {
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     ai, analyse, mod, monitor, site, round, lobby, setup,
     importer, tournament, relation, report, pref, simulation,
-    evaluation, chat, puzzle)
+    evaluation, chat, puzzle, tv)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -55,7 +55,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val simulation = project("simulation", Seq(
-    common, hub, socket, game, round, setup)).settings(
+    common, hub, socket, game, tv, round, setup)).settings(
     libraryDependencies ++= provided(play.api, RM)
   )
 
@@ -108,6 +108,11 @@ object ApplicationBuild extends Build {
   lazy val gameSearch = project("gameSearch", Seq(common, hub, chess, search, game, analyse)).settings(
     libraryDependencies ++= provided(
       play.api, RM, PRM, elastic4s)
+  )
+
+  lazy val tv = project("tv", Seq(common, db, hub, game, chess)).settings(
+    libraryDependencies ++= provided(
+      play.api, RM, PRM)
   )
 
   lazy val analyse = project("analyse", Seq(common, hub, chess, game, user)).settings(

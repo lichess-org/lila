@@ -29,7 +29,7 @@ object Game extends LilaController with BaseGame {
   }
 
   def realtime = Open { implicit ctx =>
-    GameRepo.featuredCandidates map lila.game.Featured.sort map (_ take 9) zip
+    GameRepo.featuredCandidates map lila.tv.Featured.sort map (_ take 9) zip
       makeListMenu map {
         case (games, menu) => html.game.realtime(games, menu)
       }

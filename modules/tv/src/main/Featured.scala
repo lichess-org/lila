@@ -1,4 +1,4 @@
-package lila.game
+package lila.tv
 
 import scala.concurrent.duration._
 
@@ -10,7 +10,8 @@ import Featured._
 import play.api.templates.Html
 
 import lila.db.api._
-import tube.gameTube
+import lila.game.tube.gameTube
+import lila.game.{ Game, GameRepo }
 
 final class Featured(
     lobbySocket: ActorSelection,
@@ -26,9 +27,9 @@ final class Featured(
   def one: Fuog =
     (actor ? Get mapTo manifest[Option[String]]) recover {
       case _: Exception => none
-    } flatMap { _ ?? $find.byId[Game] }
+    } flatMap { _ ?? GameRepo.game }
 
-  private[game] val actor = system.actorOf(Props(new Actor {
+  private[tv] val actor = system.actorOf(Props(new Actor {
 
     private var oneId = none[String]
 
@@ -93,7 +94,7 @@ object Featured {
 
   def sort(games: List[Game]): List[Game] = games sortBy { -score(_) }
 
-  private[game] def score(game: Game): Int = math.round {
+  private[tv] def score(game: Game): Int = math.round {
     (heuristics map {
       case (fn, coefficient) => heuristicBox(fn(game)) * coefficient
     }).sum * 1000
@@ -111,16 +112,16 @@ object Featured {
     speedHeuristic -> 0.5f,
     progressHeuristic -> 0.7f)
 
-  private[game] def ratingHeuristic(color: Color): Heuristic = game =>
+  private[tv] def ratingHeuristic(color: Color): Heuristic = game =>
     ratingBox(game.player(color).rating | 1100)
 
-  private[game] def speedHeuristic: Heuristic = game =>
+  private[tv] def speedHeuristic: Heuristic = game =>
     1 - timeBox(game.estimateTotalTime)
 
-  private[game] def progressHeuristic: Heuristic = game =>
+  private[tv] def progressHeuristic: Heuristic = game =>
     1 - turnBox(game.turns)
 
   // boxes and reduces to 0..1 range
-  private[game] def box(in: Range.Inclusive)(v: Float): Float =
+  private[tv] def box(in: Range.Inclusive)(v: Float): Float =
     (math.max(in.start, math.min(v, in.end)) - in.start) / (in.end - in.start).toFloat
 }

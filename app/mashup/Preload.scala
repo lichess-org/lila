@@ -9,7 +9,7 @@ import play.api.mvc.Call
 import controllers.routes
 import lila.api.Context
 import lila.forum.PostLiteView
-import lila.game.{ Game, GameRepo, Featured, Pov }
+import lila.game.{ Game, GameRepo, Pov }
 import lila.lobby.actorApi.GetOpen
 import lila.lobby.{ Hook, HookRepo }
 import lila.relation.RelationApi
@@ -17,6 +17,7 @@ import lila.setup.FilterConfig
 import lila.socket.History
 import lila.timeline.Entry
 import lila.tournament.Created
+import lila.tv.Featured
 import lila.user.User
 import makeTimeout.large
 
