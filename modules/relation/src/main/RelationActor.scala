@@ -21,7 +21,7 @@ private[relation] final class RelationActor(
 
   def receive = {
 
-    case GetOnlineFriends(userId)    => onlineFriends(userId) pipeTo sender
+    case GetOnlineFriends(userId) => onlineFriends(userId) pipeTo sender
 
     // triggers following reloading for this user id
     case ReloadOnlineFriends(userId) => onlineFriends(userId) foreach {
@@ -34,8 +34,8 @@ private[relation] final class RelationActor(
       val curIds = getOnlineUserIds()
       val leaveIds = (prevIds diff curIds).toList
       val enterIds = (curIds diff prevIds).toList
-      val leaves = leaveIds.map(lightUser).flatten
-      val enters = enterIds.map(lightUser).flatten
+      val leaves = leaveIds.flatMap(i => lightUser(i))
+      val enters = enterIds.flatMap(i => lightUser(i))
       onlines = onlines -- leaveIds ++ enters.map(e => e.id -> e)
       notifyFollowers(enters, "following_enters")
       notifyFollowers(leaves, "following_leaves")
@@ -45,7 +45,7 @@ private[relation] final class RelationActor(
 
   private def onlineFriends(userId: String): Fu[OnlineFriends] =
     api following userId map { ids =>
-      OnlineFriends(ids.map(onlines.get).flatten.toList)
+      OnlineFriends(ids.flatMap(onlines.get).toList)
     }
 
   private def notifyFollowers(users: List[LightUser], message: String) {

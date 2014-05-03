@@ -1,4 +1,4 @@
-@(u: User, playing: Option[Game], blocked: Boolean, followed: Boolean, rel: Option[lila.relation.Relation])(implicit ctx: Context)
+@(u: User, playing: Option[Game], blocked: Boolean, followed: Boolean, followable: Boolean, rel: Option[lila.relation.Relation])(implicit ctx: Context)
 <div class="title">
   @userLink(u, withPowerTip = false)
   @if(u.engine && ctx.me.fold(true)(u !=)) {
@@ -41,7 +41,7 @@
       </td>
       }
       }
-      <td class="relation_actions">@relation.mini(u.id, rel)</td>
+      <td class="relation_actions">@relation.mini(u.id, followable, rel)</td>
     </tr>
   </tbody>
 </table>

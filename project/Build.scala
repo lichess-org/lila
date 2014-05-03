@@ -148,7 +148,7 @@ object ApplicationBuild extends Build {
       play.api, RM, PRM, maxmind)
   )
 
-  lazy val relation = project("relation", Seq(common, db, memo, hub, user, game)).settings(
+  lazy val relation = project("relation", Seq(common, db, memo, hub, user, game, pref)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 

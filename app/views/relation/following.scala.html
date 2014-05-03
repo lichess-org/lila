@@ -1,4 +1,4 @@
-@(u: User, users: List[(User, Option[lila.relation.Relation])], followers: Int)(implicit ctx: Context)
+@(u: User, users: List[lila.relation.Related], followers: Int)(implicit ctx: Context)
 
 @user.layout(title = u.username + " - " + trans.nbFollowing(users.size)) {
 <div class="content_box no_padding">

@@ -28,9 +28,10 @@ object User extends LilaController {
       GameRepo nowPlaying user.id zip
         (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
         (ctx.userId ?? { relationApi.follows(user.id, _) }) zip
+        (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
         (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
-          case (((game, blocked), followed), relation) =>
-            Ok(html.user.mini(user, game, blocked, followed, relation))
+          case ((((game, blocked), followed), followable), relation) =>
+            Ok(html.user.mini(user, game, blocked, followed, followable, relation))
               .withHeaders(CACHE_CONTROL -> "max-age=60")
         }
     }
@@ -73,7 +74,8 @@ object User extends LilaController {
     notes <- ctx.me ?? { me =>
       relationApi friends me.id flatMap { env.noteApi.get(u, me, _) }
     }
-  } yield html.user.show(u, info, pag, filters, playing, relation, notes)
+    followable <- ctx.isAuth ?? { Env.pref.api followable u.id }
+  } yield html.user.show(u, info, pag, filters, playing, relation, notes, followable)
 
   def list(page: Int) = Open { implicit ctx =>
     Reasonable(page) {
@@ -148,18 +150,22 @@ object User extends LilaController {
 
   def opponents(username: String) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
-      lila.game.BestOpponents(user.id, 50) flatMap {
-        _.map {
-          case (u, nb) => ctx.userId ?? { relationApi.relation(_, u.id) } map { (u, nb, _) }
-        }.sequenceFu map { ops =>
-          html.user.opponents(user, ops)
+      lila.game.BestOpponents(user.id, 50) flatMap { ops =>
+        (ctx.isAuth ?? { Env.pref.api.followables(ops map (_._1.id)) }) flatMap { followables =>
+          (ops zip followables).map {
+            case ((u, nb), followable) => ctx.userId ?? { myId =>
+              relationApi.relation(myId, u.id)
+            } map { lila.relation.Related(u, nb, followable, _) }
+          }.sequenceFu map { relateds =>
+            html.user.opponents(user, relateds)
+          }
         }
       }
     }
   }
 
   def autocomplete = Open { implicit ctx =>
-    get("term", ctx.req).filter(""!=).fold(BadRequest("No search term provided").fuccess: Fu[SimpleResult]) { term =>
+    get("term", ctx.req).filter(_.nonEmpty).fold(BadRequest("No search term provided").fuccess: Fu[SimpleResult]) { term =>
       JsonOk(UserRepo usernamesLike term)
     }
   }

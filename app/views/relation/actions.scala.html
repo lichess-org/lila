@@ -1,4 +1,4 @@
-@(userId: String, relation: Option[lila.relation.Relation], signup: Boolean = false, playing: Boolean = false, blocked: Boolean = false)(implicit ctx: Context)
+@(userId: String, relation: Option[lila.relation.Relation], followable: Boolean, signup: Boolean = false, playing: Boolean = false, blocked: Boolean = false)(implicit ctx: Context)
 
 @ctx.userId.map { myId =>
 @if(myId != userId) {
@@ -10,20 +10,24 @@
 }
 @relation match {
 case None => {
+@if(followable) {
 <a
   class="icon button relation"
   href="@routes.Relation.follow(userId)"
   title="@trans.follow()"><span data-icon="h"></span></a>
+}
 <a
   class="icon button relation"
   href="@routes.Relation.block(userId)"
   title="@trans.block()"><span data-icon="k"></span></a>
 }
 case Some(true) => {
+@if(followable) {
 <a class="button relation hover_text" href="@routes.Relation.unfollow(userId)">
   <span data-icon="h" class="base">&nbsp;@trans.following()</span>
   <span data-icon="h" class="hover">&nbsp;@trans.unfollow()</span>
 </a>
+}
 }
 case Some(false) => {
 <a class="button relation hover_text" href="@routes.Relation.unblock(userId)">

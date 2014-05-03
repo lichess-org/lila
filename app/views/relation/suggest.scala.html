@@ -1,4 +1,4 @@
-@(u: User, sugs: List[(User, Int, Option[lila.relation.Relation])])(implicit ctx: Context)
+@(u: User, sugs: List[lila.relation.Related])(implicit ctx: Context)
 
 @title = @{ "%s - %s".format(u.username, trans.findFriends()) }
 

@@ -1,12 +1,12 @@
-@(userId: String, relation: Option[lila.relation.Relation] = None)(implicit ctx: Context)
+@(userId: String, followable: Boolean, relation: Option[lila.relation.Relation] = None)(implicit ctx: Context)
 
 @relation match {
-case None => {
+case None if followable => {
 <a class="relation button" href="@routes.Relation.follow(userId)?mini=1">
   <span data-icon="h">&nbsp;@trans.follow()</span>
 </a>
 }
-case Some(true) => {
+case Some(true) if followable => {
 <a class="relation button" title="@trans.unfollow()" href="@routes.Relation.unfollow(userId)?mini=1">
   <span data-icon="h">&nbsp;@trans.following()</span>
 </a>
@@ -15,5 +15,7 @@ case Some(false) => {
 <a class="relation button" title="@trans.unblock()" class="hover_text" href="@routes.Relation.unblock(userId)?mini=1">
   <span data-icon="k">&nbsp;@trans.blocked()</span>
 </a>
+}
+case _ => {
 }
 }

@@ -35,6 +35,10 @@
           @base.radios(form("takeback"), Pref.Takeback.choices)
         </li>
         <li>
+          <h2>Let other players follow you</h2>
+          @base.radios(form("follow"), Seq(0 -> "No", 1 -> "Yes"))
+        </li>
+        <li>
           <button type="submit" class="submit button" data-icon="E">@trans.apply()</button>
         </li>
       </ul>

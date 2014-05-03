@@ -1,4 +1,4 @@
-@(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu, playing: Boolean, rel: Option[lila.relation.Relation], notes: List[lila.user.Note])(implicit ctx: Context)
+@(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu, playing: Boolean, rel: Option[lila.relation.Relation], notes: List[lila.user.Note], followable: Boolean)(implicit ctx: Context)
 
 @title = @{ s"${u.username} : ${userGameFilterTitleNoTag(info, filters.current)}${if(games.currentPage == 1) "" else " - page " + games.currentPage}" }
 
@@ -71,7 +71,7 @@ themepicker = true) {
       <a class="button mod_zone_toggle" href="@routes.User.mod(u.username)" title="Mod zone"><span data-icon="y"></span></a>
       }
       @if(ctx.isAuth && !ctx.is(u)) {
-      @relation.actions(u.id, playing = playing, relation = rel)
+      @relation.actions(u.id, playing = playing, relation = rel, followable = followable)
       <a data-icon="!" title="@trans.reportXToModerators(u.username)" class="button" href="@routes.Report.form?username=@u.username"></a>
       } else {
       <form id="exportform" action="@routes.User.export(u.username)" method="POST">

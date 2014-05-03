@@ -15,6 +15,7 @@ case class Pref(
     clockTenths: Boolean,
     clockBar: Boolean,
     premove: Boolean,
+    follow: Boolean,
     puzzleDifficulty: Int) {
 
   import Pref._
@@ -89,6 +90,7 @@ object Pref {
     clockTenths = true,
     clockBar = true,
     premove = true,
+    follow = true,
     puzzleDifficulty = Difficulty.NORMAL)
 
   val default = create("")
@@ -109,5 +111,6 @@ object Pref {
     "clockTenths" -> default.clockTenths,
     "clockBar" -> default.clockBar,
     "premove" -> default.premove,
+    "follow" -> true,
     "puzzleDifficulty" -> default.puzzleDifficulty)
 }

@@ -13,6 +13,7 @@ private[pref] final class DataForm(api: PrefApi) {
     "takeback" -> number.verifying(Pref.Takeback.choices.toMap contains _),
     "clockTenths" -> number.verifying(Set(0, 1) contains _),
     "clockBar" -> number.verifying(Set(0, 1) contains _),
+    "follow" -> number.verifying(Set(0, 1) contains _),
     "premove" -> number.verifying(Set(0, 1) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
@@ -22,6 +23,7 @@ private[pref] final class DataForm(api: PrefApi) {
       takeback: Int,
       clockTenths: Int,
       clockBar: Int,
+      follow: Int,
       premove: Int) {
 
     def apply(pref: Pref) = pref.copy(
@@ -30,6 +32,7 @@ private[pref] final class DataForm(api: PrefApi) {
       takeback = takeback,
       clockTenths = clockTenths == 1,
       clockBar = clockBar == 1,
+      follow = follow == 1,
       premove = premove == 1)
   }
 
@@ -41,6 +44,7 @@ private[pref] final class DataForm(api: PrefApi) {
       takeback = pref.takeback,
       clockTenths = pref.clockTenths.fold(1, 0),
       clockBar = pref.clockBar.fold(1, 0),
+      follow = pref.follow.fold(1, 0),
       premove = pref.premove.fold(1, 0))
   }
 

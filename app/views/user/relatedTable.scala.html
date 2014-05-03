@@ -1,19 +1,19 @@
-@(u: User, sugs: List[(User, Int, Option[lila.relation.Relation])])(implicit ctx: Context)
+@(u: User, sugs: List[lila.relation.Related])(implicit ctx: Context)
 <table class="slist best_opponents">
   @if(sugs.size > 0) {
   <tbody>
-    @sugs.map { sug =>
+    @sugs.map { r =>
     <tr>
-      <td>@userLink(sug._1)</td>
-      <td>@sug._1.rating Rating</td>
+      <td>@userLink(r.user)</td>
+      <td>@r.user.rating Rating</td>
       <td>
-        @if(sug._2 > 0) {
-        <a href="@routes.Game.search()?players.a=@u.username&players.b=@sug._1.username">
-          @sug._2 @trans.games()
+        @if(r.nbGames > 0) {
+        <a href="@routes.Game.search()?players.a=@u.username&players.b=@r.user.username">
+          @r.nbGames @trans.games()
         </a>
         }
       </td>
-      <td><div class="relation_actions">@relation.actions(sug._1.id, sug._3)</div></td>
+      <td><div class="relation_actions">@relation.actions(r.user.id, r.relation, followable = r.followable)</div></td>
     </tr>
     }
   </tbody>

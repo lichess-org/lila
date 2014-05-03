@@ -17,6 +17,7 @@ final class RelationApi(
     bus: lila.common.Bus,
     getOnlineUserIds: () => Set[String],
     timeline: ActorSelection,
+    followable: String => Fu[Boolean],
     maxFollow: Int,
     maxBlock: Int) {
 
@@ -50,8 +51,9 @@ final class RelationApi(
 
   def follow(u1: ID, u2: ID): Funit =
     if (u1 == u2) funit
-    else relation(u1, u2) flatMap {
-      case Some(Follow) => funit
+    else followable(u2) zip relation(u1, u2) flatMap {
+      case (false, _)        => funit
+      case (_, Some(Follow)) => funit
       case _ => RelationRepo.follow(u1, u2) >> limitFollow(u1) >>
         refresh(u1, u2) >>-
         (timeline ! Propagate(
