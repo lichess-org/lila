@@ -9,43 +9,54 @@
   <div class="signup_box">
     <h1 class="lichess_title">@trans.preferences()</h1>
     <form action="@routes.Pref.formApply" method="POST">
-      <ul>
-        <li>
-          <h2>Automatically promote to Queen</h2>
-          @base.radios(form("autoQueen"), Pref.AutoQueen.choices)
-        </li>
-        <li>
-          <h2>Automatically claim draw on <a href="http://en.wikipedia.org/wiki/Threefold_repetition">threefold repetition</a></h2>
-          @base.radios(form("autoThreefold"), Pref.AutoThreefold.choices)
-        </li>
-        <li>
-          <h2>Show tenths of seconds on the clock</h2>
-          @base.radios(form("clockTenths"), Seq(0 -> "Never", 1 -> "When time remaining < 10 seconds"))
-        </li>
-        <li>
-          <h2>Show horizontal green bars on the clock</h2>
-          @base.radios(form("clockBar"), Seq(0 -> "No", 1 -> "Yes"))
-        </li>
-        <li>
-          <h2>Enable premoves (playing during opponent turn)</h2>
-          @base.radios(form("premove"), Seq(0 -> "No", 1 -> "Yes"))
-        </li>
-        <li>
-          <h2>Show captured pieces</h2>
-          @base.radios(form("captured"), Seq(0 -> "No", 1 -> "Yes"))
-        </li>
-        <li>
-          <h2>Enable takebacks (with opponent approval)</h2>
-          @base.radios(form("takeback"), Pref.Takeback.choices)
-        </li>
-        <li>
-          <h2>Let other players follow you</h2>
-          @base.radios(form("follow"), Seq(0 -> "No", 1 -> "Yes"))
-        </li>
-        <li>
-          <button type="submit" class="submit button" data-icon="E">@trans.apply()</button>
-        </li>
-      </ul>
+      <fieldset>
+        <legend>Game display</legend>
+        <ul>
+          <li>
+            <h2>Show tenths of seconds on the clock</h2>
+            @base.radios(form("clockTenths"), Seq(0 -> "Never", 1 -> "When time remaining < 10 seconds"))
+          </li>
+          <li>
+            <h2>Show horizontal green bars on the clock</h2>
+            @base.radios(form("clockBar"), Seq(0 -> "No", 1 -> "Yes"))
+          </li>
+          <li>
+            <h2>Show captured pieces</h2>
+            @base.radios(form("captured"), Seq(0 -> "No", 1 -> "Yes"))
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>Game behavior</legend>
+        <ul>
+          <li>
+            <h2>Enable premoves (playing during opponent turn)</h2>
+            @base.radios(form("premove"), Seq(0 -> "No", 1 -> "Yes"))
+          </li>
+          <li>
+            <h2>Enable takebacks (with opponent approval)</h2>
+            @base.radios(form("takeback"), Pref.Takeback.choices)
+          </li>
+          <li>
+            <h2>Automatically promote to Queen</h2>
+            @base.radios(form("autoQueen"), Pref.AutoQueen.choices)
+          </li>
+          <li>
+            <h2>Automatically claim draw on <a href="http://en.wikipedia.org/wiki/Threefold_repetition">threefold repetition</a></h2>
+            @base.radios(form("autoThreefold"), Pref.AutoThreefold.choices)
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>Privacy</legend>
+        <ul>
+          <li>
+            <h2>Let other players follow you</h2>
+            @base.radios(form("follow"), Seq(0 -> "No", 1 -> "Yes"))
+          </li>
+        </ul>
+      </fieldset>
+      <button type="submit" class="submit button" data-icon="E">@trans.apply()</button>
     </form>
   </div>
 </div>

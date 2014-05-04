@@ -28,6 +28,16 @@ form .help {
   margin-left: 160px;
 }
 
+div.content_box.prefs fieldset {
+  margin-bottom: 1em;
+  border: 1px #ccc solid;
+}
+div.content_box.prefs fieldset legend {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  padding: 0 10px;
+}
+
 div.content_box.prefs h2 {
   font-weight: bold;
   display: block;
@@ -46,6 +56,11 @@ div.content_box.prefs form li {
   border-top: 1px solid #eaeaea;
   padding: 30px 0 0 0;
 }
+div.content_box.prefs form li:first-child {
+  padding-top: 0;
+  border-top: none;
+}
 div.content_box.prefs form button.submit {
   margin: 0;
+  padding: 10px 20px;
 }
