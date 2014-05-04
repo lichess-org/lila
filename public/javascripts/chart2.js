@@ -374,7 +374,8 @@ Highcharts.theme = (function() {
     },
     plotOptions: {
       series: {
-        shadow: false
+        shadow: false,
+        nullColor: '#444444'
       },
       line: {
         dataLabels: {

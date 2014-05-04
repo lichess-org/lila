@@ -34,14 +34,14 @@ trait AssetHelper {
   else jsTag("vendor/jquery.min.js")
 
   val highchartsTag = cdnOrLocal(
-    cdn = "http://code.highcharts.com/3.0/highcharts.js",
+    cdn = "http://code.highcharts.com/4.0/highcharts.js",
     test = "window.Highcharts",
-    local = staticUrl("vendor/highcharts/highcharts.js"))
+    local = staticUrl("vendor/highcharts4/highcharts.js"))
 
   val highchartsMoreTag = cdnOrLocal(
-    cdn = "http://code.highcharts.com/3.0/highcharts-more.js",
+    cdn = "http://code.highcharts.com/4.0/highcharts-more.js",
     test = "window.Highcharts",
-    local = staticUrl("vendor/highcharts/highcharts-more.js"))
+    local = staticUrl("vendor/highcharts4/highcharts-more.js"))
 
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
     s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local?v=$assetVersion">\\x3C/script>')</script>"""
