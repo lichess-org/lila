@@ -38,7 +38,7 @@
 (defn center-right! [$right]
   (jq/css $right {:top (str (- 256 (/ (jq/height $right) 2)) "px")}))
 
-(defn difficulty! [$form] (.disableSelection (.buttonset $form)))
+(defn buttons! [$elem] (.disableSelection (.buttonset ($ :.buttons $elem))))
 
 (defn loading! [$elem] (jq/add-class $elem :spinner))
 

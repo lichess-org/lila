@@ -1,6 +1,7 @@
 @(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context)
 
 @moreCss = {
+@cssTag("training.css")
 @cssTag("coordinate.css")
 }
 
@@ -15,7 +16,7 @@ moreCss = moreCss,
 moreJs = moreJs,
 active = siteMenu.puzzle.some,
 themepicker = true) {
-<div id="trainer" class="init"
+<div id="trainer" class="training init"
   data-color-pref="@ctx.pref.coordColorName"
   data-color-url="@routes.Coordinate.color()"
   @if(ctx.isAuth) { data-score-url="@routes.Coordinate.score()" }>
@@ -24,12 +25,19 @@ themepicker = true) {
     <div class="black">@board.black()</div>
   </div>
   <div class="side">
-    @scoreOption.map { score =>
-    <div class="scores">
-      @scoreCharts(score)
+    <div class="box">
+      <h1>@trans.training()</h1>
+      <div class="tabs buttons">
+        <a href="@routes.Puzzle.home()" class="button">@trans.puzzles()</a>
+        <a href="@routes.Coordinate.home()" class="button active">@trans.coordinates()</a>
+      </div>
+      @scoreOption.map { score =>
+      <div class="scores">
+        @scoreCharts(score)
+      </div>
+      }
     </div>
-    }
-    <form class="color" action="@routes.Coordinate.color" method="POST">
+    <form class="color buttons" action="@routes.Coordinate.color" method="POST">
       @lila.pref.Pref.Color.choices.map {
       case (id, name) => {
       <button type="submit" name="color" value="@id"

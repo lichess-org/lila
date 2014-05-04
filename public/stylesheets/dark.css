@@ -28,6 +28,7 @@ body.dark #crosstable td {
 }
 body.dark #reconnecting,
 body.dark #chessboard .board-b72b1,
+body.dark #trainer .lichess_board {
 body.dark .mini_board,
 body.dark #nb_connected_players,
 body.dark #chat div.top,
@@ -43,8 +44,7 @@ body.dark div.game_config .optional_config,
 body.dark .ui-state-default,
 body.dark .ui-widget-content,
 body.dark div.lichess_goodies div.box,
-body.dark #puzzle div.box,
-body.dark #puzzle h1,
+body.dark div.training div.box,
 body.dark div.lichess_table,
 body.dark div.lichess_separator,
 body.dark div.lichess_table_wrap > div.clock > div.time,

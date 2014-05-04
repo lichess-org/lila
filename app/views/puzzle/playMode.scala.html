@@ -1,6 +1,6 @@
 @(puzzle: lila.puzzle.Puzzle, userInfos: Option[lila.puzzle.UserInfos], asPlay: Boolean)(implicit ctx: Context)
 
-<div id="puzzle" class="playing"
+<div id="puzzle" class="training playing"
   data-mode="@asPlay.fold("play", "try")"
   data-fen="@puzzle.fen"
   data-color="@puzzle.color"

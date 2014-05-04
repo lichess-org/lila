@@ -83,7 +83,7 @@
         chessboard (make-chessboard $puzzle)]
     (core/center-right! ($ :.right $puzzle))
     (core/board-marks! $puzzle)
-    (core/difficulty! ($ :.difficulty $puzzle))
+    (core/buttons! $puzzle)
     (core/user-chart! ($ :.user_chart $puzzle))
     (bind-vote! ($ :div.vote_wrap $puzzle))
     (bind-continue! ($ :button.continue $puzzle))

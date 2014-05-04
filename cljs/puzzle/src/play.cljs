@@ -48,7 +48,7 @@
         (core/await-in ch move animation-delay-plus)))
     ch))
 
-(defn set-status! [$puzzle status] (jq/attr $puzzle :class status))
+(defn set-status! [$puzzle status] (jq/attr $puzzle :class (str "training " status)))
 
 (defn post-attempt! [$puzzle win started-at]
   (let [chan (async/chan)]
@@ -112,7 +112,7 @@
         started-at (new js/Date)]
     (core/center-right! ($ :.right $puzzle))
     (core/board-marks! $puzzle)
-    (core/difficulty! ($ :.difficulty $puzzle))
+    (core/buttons! $puzzle)
     (core/user-chart! ($ :.user_chart $puzzle))
     (jq/bind ($ :.giveup $puzzle) :click #(put! giveup-chan %))
     (go

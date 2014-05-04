@@ -1,8 +1,6 @@
-#trainer {
-  position: relative;
-}
 #trainer .lichess_board {
   display: none;
+  border: 1px solid #c0c0c0;
 }
 #trainer.white .white .lichess_board,
 #trainer.black .black .lichess_board {
@@ -12,33 +10,9 @@
   cursor: pointer;
   box-shadow: inset 0 0 10px 2px rgba(216, 85, 0, 0.9);
 }
-#trainer > .side {
-  position: absolute;
-  top: 64px;
-  left: -222px;
-  width: 212px;
-}
-#trainer > .side .color {
-  text-align: center;
-}
-#trainer > .side .color button {
-  margin: 0 -2px 0 -2px;
-  padding: 0;
-}
-#trainer > .side .scores > div {
-  margin-bottom: 30px;
-}
-#trainer > .side .scores p {
-  margin-bottom: 3px;
-}
-#trainer > .right {
-  position: absolute;
-  left: 532px;
-  width: 242px;
-}
 #trainer .progress_bar_container {
   margin: 10px 0 10px 0;
-  width: 512px;
+  width: 514px;
   height: 10px;
 }
 #trainer .progress_bar {

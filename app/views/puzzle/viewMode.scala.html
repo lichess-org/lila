@@ -1,6 +1,6 @@
 @(puzzle: lila.puzzle.Puzzle, attempt: Option[lila.puzzle.Attempt], userInfos: Option[lila.puzzle.UserInfos], win: Option[Boolean], voted: Option[Boolean] = None)(implicit ctx: Context)
 
-<div id="puzzle"
+<div id="puzzle" class="training"
   data-mode="view"
   data-fen="@puzzle.fen"
   data-color="@puzzle.color"

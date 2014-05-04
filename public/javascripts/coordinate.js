@@ -9,7 +9,6 @@ $(function() {
     var $start = $right.find('.start');
     var $scoreCont = $trainer.find('.score_container');
     var $score = $scoreCont.find('strong');
-    var $colorForm = $trainer.find('form.color');
     var scoreUrl = $trainer.data('score-url');
     var colorUrl = $trainer.data('color-url');
     var duration = 30 * 1000;
@@ -18,13 +17,15 @@ $(function() {
     var color;
     var coordToGuess, startAt, score;
 
+    $trainer.find('.buttons').buttonset().disableSelection();
+
     var showColor = function() {
       color = colorPref == 'random' ? ['white', 'black'][_.random(0, 1)] : colorPref;
       $trainer.removeClass('white black').addClass(color);
     };
     showColor();
 
-    $colorForm.buttonset().disableSelection().on('click', 'button', function() {
+    $trainer.find('form.color').on('click', 'button', function() {
       colorPref = {
         1: 'white',
         2: 'random',

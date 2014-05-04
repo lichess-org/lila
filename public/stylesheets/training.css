@@ -1,0 +1,49 @@
+div.training {
+  position: relative;
+}
+div.training > .side {
+  position: absolute;
+  top: 64px;
+  left: -222px;
+  width: 212px;
+}
+div.training > .side h1 {
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+div.training > .side .buttons {
+  text-align: center;
+}
+div.training > .side .buttons > * {
+  margin: 0 -2px 0 -2px;
+  padding: 0;
+}
+div.training > .side .chart_container {
+  margin-top: 30px;
+}
+div.training > .side .chart_container p {
+  margin-bottom: 3px;
+}
+div.training div.box {
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  padding: 7px;
+}
+div.training > .side div.box {
+  margin-bottom: 20px;
+}
+div.training div.box > p, div.training div.box > div {
+  line-height: 1.8em;
+}
+
+div.training > .side .user_chart {
+  margin: 0 0 -10px -9px;
+}
+
+div.training > .right {
+  position: absolute;
+  left: 532px;
+  width: 242px;
+}

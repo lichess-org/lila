@@ -1,28 +1,3 @@
-#puzzle {
-  position: relative;
-}
-#puzzle > .side {
-  position: absolute;
-  margin-top: 64px;
-  left: -222px;
-  width: 212px;
-}
-#puzzle div.box {
-  margin-bottom: 1em;
-  border: 1px solid #ccc;
-  padding: 7px;
-}
-#puzzle > .side h1 {
-  text-align: center;
-  font-size: 1.4em;
-  font-weight: bold;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 8px;
-}
-#puzzle div.box > p, #puzzle div.box > div {
-  line-height: 1.8em;
-}
 #puzzle > .side .signup {
   margin: 1em auto;
   text-align: center;
@@ -64,24 +39,11 @@
 #puzzle.fail > .side div.fail {
   display: block;
 }
-#puzzle > .side .user_chart {
-  margin: 0 0 -10px -9px;
-}
 #puzzle > .side .difficulty {
-  text-align: center;
   margin-bottom: 1em;
-}
-#puzzle > .side .difficulty button {
-  margin: 0 -2px 0 -2px;
-  padding: 0;
 }
 #puzzle > .center {
   width: 512px;
-}
-#puzzle > .right {
-  position: absolute;
-  left: 532px;
-  width: 242px;
 }
 #puzzle > .right .box input {
   width: 214px;

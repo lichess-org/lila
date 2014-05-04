@@ -1,6 +1,7 @@
 @(title: String, evenMoreCss: Option[Html] = None, evenMoreJs: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
+@cssTag("training.css")
 @cssTag("puzzle.css")
 @evenMoreCss
 }

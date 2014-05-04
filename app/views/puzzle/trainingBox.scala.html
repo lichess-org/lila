@@ -2,12 +2,16 @@
 
 <div class="box">
   <h1>@trans.training()</h1>
+  <div class="tabs buttons">
+    <a href="@routes.Puzzle.home()" class="button active">@trans.puzzles()</a>
+    <a href="@routes.Coordinate.home()" class="button">@trans.coordinates()</a>
+  </div>
   @userInfos.map { i =>
-  @trans.yourPuzzleRatingX(s"<strong>${i.user.perfs.puzzle.intRating}</strong>")
-  @if(i.history.nonEmpty) {
-  <div class="user_chart" data-points="@toJson(i.chart)"></div>
-  } else {
-  <br />
+  <div class="chart_container">
+    <p>@trans.yourPuzzleRatingX(s"<strong>${i.user.perfs.puzzle.intRating}</strong>")</p>
+    @if(i.history.nonEmpty) {
+    <div class="user_chart" data-points="@toJson(i.chart)"></div>
+  </div>
   }
   }.getOrElse {
   @if(isPlay) {
@@ -23,7 +27,7 @@
 </div>
 
 @if(ctx.isAuth) {
-<form class="difficulty" action="@routes.Puzzle.difficulty" method="POST">
+<form class="difficulty buttons" action="@routes.Puzzle.difficulty" method="POST">
   @lila.pref.Pref.Difficulty.choices.map {
   case (id, name) => {
   <button type="submit" name="difficulty" value="@id"
