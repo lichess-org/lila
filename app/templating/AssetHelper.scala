@@ -27,11 +27,10 @@ trait AssetHelper {
 
   def jsTagCompiled(name: String) = if (isProd) jsAt("compiled/" + name) else jsTag(name)
 
-  val jQueryTag = if (isProd) cdnOrLocal(
+  val jQueryTag = cdnOrLocal(
     cdn = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js",
     test = "window.jQuery",
     local = staticUrl("javascripts/vendor/jquery.min.js"))
-  else jsTag("vendor/jquery.min.js")
 
   val highchartsTag = cdnOrLocal(
     cdn = "http://code.highcharts.com/4.0/highcharts.js",
@@ -48,8 +47,16 @@ trait AssetHelper {
     test = "window.moment",
     local = staticUrl("vendor/momentjs.min.js"))
 
+  val powertipTag = cdnOrLocal(
+    cdn = "http://cdnjs.cloudflare.com/ajax/libs/jquery-powertip/1.2.0/jquery.powertip.min.js",
+    test = "$.powerTip",
+    local = staticUrl("vendor/powertip.min.js"))
+
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
-    s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local?v=$assetVersion">\\x3C/script>')</script>"""
+    if (isProd)
+      s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local">\\x3C/script>')</script>"""
+    else
+      s"""<script src="$$local"></script>"""
   }
 
   def jsAt(path: String, static: Boolean = true) = Html {

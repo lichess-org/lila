@@ -197,6 +197,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     @jQueryTag
     @jsTag("deps.min.js")
     @momentjsTag
+    @powertipTag
     @jsTagCompiled("common.js")
     @signedJs.fold(jsTagCompiled("big.js"))(js => jsAt(js, false))
     @moreJs
