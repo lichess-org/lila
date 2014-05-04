@@ -28,8 +28,8 @@ themepicker = true) {
     <div class="box">
       <h1>@trans.training()</h1>
       <div class="tabs buttons">
-        <a href="@routes.Puzzle.home()" class="button">@trans.puzzles()</a>
-        <a href="@routes.Coordinate.home()" class="button active">@trans.coordinates()</a>
+        <a href="@routes.Puzzle.home()" class="button">Puzzle</a>
+        <a href="@routes.Coordinate.home()" class="button active">Coordinate</a>
       </div>
       @if(ctx.isAuth) {
       @scoreOption.map { score =>
