@@ -43,6 +43,11 @@ trait AssetHelper {
     test = "window.Highcharts",
     local = staticUrl("vendor/highcharts4/highcharts-more.js"))
 
+  val momentjsTag = cdnOrLocal(
+    cdn = "http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment.min.js",
+    test = "window.moment",
+    local = staticUrl("vendor/momentjs.min.js"))
+
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
     s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local?v=$assetVersion">\\x3C/script>')</script>"""
   }
