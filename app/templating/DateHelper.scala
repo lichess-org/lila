@@ -47,14 +47,14 @@ trait DateHelper { self: I18nHelper =>
     s"""<time class="moment-from-now" datetime="${isoFormatter print date}"></time>"""
   }
 
-  def momentLangTag(implicit ctx: Context): Option[String] = {
-    lang(ctx).language match {
+  def momentLangTag(implicit ctx: Context) = Html {
+    (lang(ctx).language match {
       case "en" => none
       case "pt" => "pt-br".some
       case "zh" => "zh-cn".some
       case l    => l.some
+    }) ?? { l =>
+      s"""<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/lang/$l.js"></script>"""
     }
-  } map { l =>
-    s"""<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/lang/$l.js"></script>"""
   }
 }
