@@ -79,9 +79,9 @@ final class Api(
 
   val unreadIds = unreadCache apply _
 
-  private def updateUser(user: String) {
+  def updateUser(user: String) {
     (unreadCache refresh user) mapTo manifest[List[String]] foreach { ids =>
       bus.publish(SendTo(user, "nbm", ids.size), 'users)
-    } 
+    }
   }
 }

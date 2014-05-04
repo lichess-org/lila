@@ -12,6 +12,6 @@ private[message] final class UnreadCache {
   def apply(userId: String): Fu[List[String]] =
     cache(userId)(ThreadRepo userUnreadIds userId)
 
-  def refresh(userId: String): Fu[List[String]] = 
+  def refresh(userId: String): Fu[List[String]] =
     (cache remove userId).fold(apply(userId))(_ >> apply(userId))
 }

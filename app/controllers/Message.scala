@@ -15,7 +15,9 @@ object Message extends LilaController {
   private def relationApi = Env.relation.api
 
   def inbox(page: Int) = Auth { implicit ctx =>
-    me => api.inbox(me, page) map { html.message.inbox(me, _) }
+    me =>
+      api updateUser me.id
+      api.inbox(me, page) map { html.message.inbox(me, _) }
   }
 
   def preview = Auth { implicit ctx =>
