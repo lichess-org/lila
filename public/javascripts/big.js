@@ -2618,7 +2618,6 @@ var storage = {
           var width = Math.ceil((parseInt($(this).data('value')) * 100) / max);
           $(this).css('width', width + '%');
         });
-        $('#tournament_side').css('maxHeight', $('div.tournament_show').height() - 6 + 'px');
       });
     }
     drawBars();

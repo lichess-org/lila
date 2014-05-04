@@ -164,7 +164,7 @@
 #tournament_side {
   float: right;
   width: 246px;
-  max-height: 860px;
+  max-height: 510px;
   overflow-y: hidden;
   border: 1px solid #ccc;
   padding: 3px;
