@@ -116,9 +116,14 @@ $(function() {
           if (hit) {
             score++;
             $score.text(score);
+            newCoord();
+          } else {
+            $coord.addClass('nope');
+            setTimeout(function() {
+              $coord.removeClass('nope');
+            }, 100);
           }
           $trainer.toggleClass('wrong', !hit);
-          newCoord();
         });
         newCoord();
         tick();

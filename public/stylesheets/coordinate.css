@@ -25,6 +25,11 @@
   font-size: 120px;
   font-family: monospace;
   text-transform: uppercase;
+  opacity: 1;
+  animate: opacity 0.1s linear;
+}
+#trainer .coord.nope {
+  opacity: 0;
 }
 #trainer .explanation {
   text-align: justify;

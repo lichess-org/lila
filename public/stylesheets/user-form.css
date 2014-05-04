@@ -29,7 +29,7 @@ form .help {
 }
 
 div.content_box.prefs fieldset {
-  margin-bottom: 1em;
+  margin: 1em 0;
   border: 1px #ccc solid;
 }
 div.content_box.prefs fieldset legend {
