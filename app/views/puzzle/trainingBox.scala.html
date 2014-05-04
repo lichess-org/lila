@@ -11,8 +11,8 @@
     <p>@trans.yourPuzzleRatingX(s"<strong>${i.user.perfs.puzzle.intRating}</strong>")</p>
     @if(i.history.nonEmpty) {
     <div class="user_chart" data-points="@toJson(i.chart)"></div>
+    }
   </div>
-  }
   }.getOrElse {
   <div class="register">
     <p>@trans.toTrackYourProgress()</p>
