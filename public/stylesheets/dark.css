@@ -28,7 +28,7 @@ body.dark #crosstable td {
 }
 body.dark #reconnecting,
 body.dark #chessboard .board-b72b1,
-body.dark #trainer .lichess_board {
+body.dark #trainer .lichess_board,
 body.dark .mini_board,
 body.dark #nb_connected_players,
 body.dark #chat div.top,

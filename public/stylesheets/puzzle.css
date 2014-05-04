@@ -1,7 +1,3 @@
-#puzzle > .side .signup {
-  margin: 1em auto;
-  text-align: center;
-}
 #puzzle > .side div.comment {
   padding: 10px 5px;
   text-align: center;
@@ -65,6 +61,10 @@
 }
 #puzzle > .right .please_vote.thanks .then {
   display: block;
+}
+#puzzle > .right .findit {
+  display: block;
+  margin: 1em 0 2em 0;
 }
 #puzzle > .right .lichess_control {
   text-align: center;

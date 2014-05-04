@@ -14,15 +14,13 @@
   </div>
   }
   }.getOrElse {
-  @if(isPlay) {
-  <p>@puzzle.color.fold(trans.findTheBestMoveForWhite(), trans.findTheBestMoveForBlack())</p>
-  } else {
-  <p>@trans.toTrackYourProgress()</p>
-  <p class="signup">
-    <a class="button" href="@routes.Auth.signup">@trans.signUp()</a>
-  </p>
-  <p>@trans.trainingSignupExplanation()</p>
-  }
+  <div class="register">
+    <p>@trans.toTrackYourProgress()</p>
+    <p class="signup">
+      <a class="button" href="@routes.Auth.signup">@trans.signUp()</a>
+    </p>
+    <p>@trans.trainingSignupExplanation()</p>
+  </div>
   }
 </div>
 

@@ -32,7 +32,6 @@
   <div class="right">
     <div class="lichess_table onbg">
       <div class="table_inner">
-
         <div class="lichess_current_player">
           <div class="lichess_player white @puzzle.color.black.fold("", " none")">
             <div class="piece king white"></div>
@@ -43,6 +42,7 @@
             <p>@puzzle.color.black.fold(trans.yourTurn(), trans.waiting())</p>
           </div>
         </div>
+        <p class="findit">@puzzle.color.fold(trans.findTheBestMoveForWhite(), trans.findTheBestMoveForBlack())</p>
         <div class="lichess_control">
           <a class="giveup button">@trans.giveUp()</a>
         </div>

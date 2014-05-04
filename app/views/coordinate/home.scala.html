@@ -31,22 +31,43 @@ themepicker = true) {
         <a href="@routes.Puzzle.home()" class="button">@trans.puzzles()</a>
         <a href="@routes.Coordinate.home()" class="button active">@trans.coordinates()</a>
       </div>
+      @if(ctx.isAuth) {
       @scoreOption.map { score =>
       <div class="scores">
         @scoreCharts(score)
+      </div>
+      }
+      } else {
+      <div class="register">
+        <p>@trans.toTrackYourProgress()</p>
+        <p class="signup">
+          <a class="button" href="@routes.Auth.signup">@trans.signUp()</a>
+        </p>
       </div>
       }
     </div>
     <form class="color buttons" action="@routes.Coordinate.color" method="POST">
       @lila.pref.Pref.Color.choices.map {
       case (id, name) => {
-      <button type="submit" name="color" value="@id"
-        @if(id == ctx.pref.coordColor) { class="ui-state-active" disabled }>@name</button>
+      <input type="radio" id="coord_color_@id" name="coord_color" value="@id"
+      @(if(id == ctx.pref.coordColor) "checked" else "") />
+      <label for="coord_color_@id">@name</label>
       }
       }
     </form>
   </div>
   <div class="right">
+    <div class="explanation">
+      <p>Knowing the chessboard coordinates is a very important chess skill:</p>
+      <ul>
+        <li>Most chess courses and exercises use the algebraic notation extensively.</li>
+        <li>It makes it easier to talk to your chess friends, since you both understand the “language of chess.”</li>
+        <li>You can analyse a game more effectively if you don’t need to search for square names.</li>
+      </ul>
+      <br />
+      <p>A square name appears next to the board and you must click on the correct square.</p>
+      <p>You have 30 seconds to recognize as much squares as possible!</p>
+    </div>
     <div class="coord"></div>
     <button class="start button">@trans.startTraining()</button>
   </div>

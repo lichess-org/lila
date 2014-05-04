@@ -7,6 +7,7 @@ $(function() {
     var $bar = $trainer.find('.progress_bar');
     var $coord = $right.find('.coord');
     var $start = $right.find('.start');
+    var $explanation = $right.find('.explanation');
     var $scoreCont = $trainer.find('.score_container');
     var $score = $scoreCont.find('strong');
     var scoreUrl = $trainer.data('score-url');
@@ -25,23 +26,20 @@ $(function() {
     };
     showColor();
 
-    $trainer.find('form.color').on('click', 'button', function() {
-      colorPref = {
+    $trainer.find('form.color').on('click', 'input', function() {
+      var c = {
         1: 'white',
         2: 'random',
         3: 'black'
       }[$(this).val()];
-      if (colorUrl) $.ajax({
+      if (colorUrl && c != colorPref) $.ajax({
         url: colorUrl,
         method: 'post',
         data: {
           color: $(this).val()
         }
       });
-      $(this).siblings()
-        .removeClass('ui-state-active').attr('disabled', false).end()
-        .addClass('ui-state-active').attr('disabled', true)
-        .parent().buttonset();
+      colorPref = c;
       showColor();
       return false;
     });
@@ -102,6 +100,7 @@ $(function() {
     };
 
     $start.click(function() {
+      $explanation.remove();
       $trainer.addClass('play');
       showColor();
       $coord.text('--');

@@ -26,6 +26,15 @@
   font-family: monospace;
   text-transform: uppercase;
 }
+#trainer .explanation {
+  text-align: justify;
+  margin-bottom: 20px;
+}
+#trainer .explanation li {
+  list-style: inside disc;
+  margin-top: 1em;
+}
+
 #trainer .start {
   font-size: 30px;
 }

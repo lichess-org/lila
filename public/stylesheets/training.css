@@ -37,6 +37,13 @@ div.training > .side div.box {
 div.training div.box > p, div.training div.box > div {
   line-height: 1.8em;
 }
+div.training > .side .register {
+  margin-top: 1em;
+}
+div.training > .side .register .signup {
+  margin: 1em auto;
+  text-align: center;
+}
 
 div.training > .side .user_chart {
   margin: 0 0 -10px -9px;

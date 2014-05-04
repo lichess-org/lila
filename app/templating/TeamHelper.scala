@@ -22,8 +22,9 @@ trait TeamHelper {
     val klass = cssClass.??(c => s""" class="$c"""")
     val href = routes.Team.show(id)
     val content = teamIdToName(id)
-    val icon = if(withIcon) """data-icon="f"""" else ""
-    s"""<a $icon $klass href="$href">&nbsp;$content</a>"""
+    val icon = if (withIcon) """data-icon="f"""" else ""
+    val space = if (withIcon) "&nbsp;" else ""
+    s"""<a $icon $klass href="$href">$space$content</a>"""
   }
 
   def teamForumUrl(id: String) = routes.ForumCateg.show("team-" + id)
