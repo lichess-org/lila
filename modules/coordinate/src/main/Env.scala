@@ -12,12 +12,14 @@ final class Env(
 
   lazy val api = new CoordinateApi(scoreColl = scoreColl)
 
+  lazy val forms = DataForm
+
   private[coordinate] lazy val scoreColl = db(CollectionScore)
 }
 
 object Env {
 
-  lazy val current: Env = "[boot] puzzle" describes new Env(
-    config = lila.common.PlayApp loadConfig "puzzle",
+  lazy val current: Env = "[boot] coordinate" describes new Env(
+    config = lila.common.PlayApp loadConfig "coordinate",
     db = lila.db.Env.current)
 }

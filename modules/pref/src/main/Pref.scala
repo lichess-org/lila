@@ -16,11 +16,14 @@ case class Pref(
     clockBar: Boolean,
     premove: Boolean,
     follow: Boolean,
+    coordColor: Int,
     puzzleDifficulty: Int) {
 
   import Pref._
 
   def realTheme = Theme(theme)
+
+  def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
 
   def get(name: String): Option[String] = name match {
     case "bg"    => dark.fold("dark", "light").some
@@ -45,6 +48,17 @@ object Pref {
       EASY -> "Easy",
       NORMAL -> "Normal",
       HARD -> "Hard")
+  }
+
+  object Color {
+    val WHITE = 1
+    val RANDOM = 2
+    val BLACK = 3
+
+    val choices = Seq(
+      WHITE -> "White",
+      RANDOM -> "Random",
+      BLACK -> "Black")
   }
 
   object AutoQueen {
@@ -91,6 +105,7 @@ object Pref {
     clockBar = true,
     premove = true,
     follow = true,
+    coordColor = Color.RANDOM,
     puzzleDifficulty = Difficulty.NORMAL)
 
   val default = create("")
@@ -112,5 +127,6 @@ object Pref {
     "clockBar" -> default.clockBar,
     "premove" -> default.premove,
     "follow" -> true,
+    "coordColor" -> default.coordColor,
     "puzzleDifficulty" -> default.puzzleDifficulty)
 }

@@ -45,7 +45,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[boot] importer" describes new Env(
+  lazy val current = "[boot] tv" describes new Env(
     config = lila.common.PlayApp loadConfig "tv",
     hub = lila.hub.Env.current,
     system = lila.common.PlayApp.system,

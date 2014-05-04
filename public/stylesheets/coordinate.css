@@ -1,17 +1,85 @@
-div.my_turn.not_spectator div.lcs {
+#trainer {
+  position: relative;
+}
+#trainer .lichess_board {
+  display: none;
+}
+#trainer.white .white .lichess_board,
+#trainer.black .black .lichess_board {
+  display: block;
+}
+#trainer.play div.lcs:hover {
   cursor: pointer;
+  box-shadow: inset 0 0 10px 2px rgba(216, 85, 0, 0.9);
 }
-#progress_bar_container {
-  margin-top: 10px;
+#trainer > .side {
+  position: absolute;
+  top: 64px;
+  left: -222px;
+  width: 212px;
+}
+#trainer > .side .color {
+  text-align: center;
+}
+#trainer > .side .color button {
+  margin: 0 -2px 0 -2px;
+  padding: 0;
+}
+#trainer > .side .scores > div {
+  margin-bottom: 30px;
+}
+#trainer > .side .scores p {
+  margin-bottom: 3px;
+}
+#trainer > .right {
+  position: absolute;
+  left: 532px;
+  width: 242px;
+}
+#trainer .progress_bar_container {
+  margin: 10px 0 10px 0;
   width: 512px;
+  height: 10px;
 }
-#progress_bar {
+#trainer .progress_bar {
+  width: 100%;
   height: 10px;
   background-color: #759900;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12) inset;
 }
-#next_coordinate {
-  width: 512px;
-  font-size: 90px;
-  text-align: center;
+#trainer .coord {
+  font-size: 120px;
   font-family: monospace;
+  text-transform: uppercase;
+}
+#trainer .start {
+  font-size: 30px;
+}
+#trainer .score_container {
+  width: 512px;
+  text-align: center;
+}
+#trainer strong.score {
+  font-family: monospace;
+  font-size: 70px;
+  display: block;
+  margin: auto;
+  width: 110px;
+  height: 110px;
+  line-height: 110px;
+  color: #fff;
+  background-color: #759900;
+  border-radius: 100px;
+}
+#trainer.wrong .progress_bar, #trainer.wrong strong.score {
+  background-color: #ac524f;
+}
+#trainer.play .start,
+#trainer .coord,
+#trainer .score_container,
+#trainer.play form.color {
+  display: none;
+}
+#trainer.play .coord {
+  display: block;
 }

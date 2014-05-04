@@ -1,11 +1,12 @@
-@()(implicit ctx: Context)
+@(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("coordinate.css")
 }
 
 @moreJs = {
-@jsTag("coordinate.js")
+@jsTag("vendor/sparkline.min.js")
+@jsTagCompiled("coordinate.js")
 }
 
 @base.layout(
@@ -14,9 +15,34 @@ moreCss = moreCss,
 moreJs = moreJs,
 active = siteMenu.puzzle.some,
 themepicker = true) {
-<div id="coordinate_trainer">
-  @board.white()
-  <div id="progress_bar_container"><div id="progress_bar"></div></div>
-  <div id="next_coordinate"></div>
+<div id="trainer" class="init"
+  data-color-pref="@ctx.pref.coordColorName"
+  data-color-url="@routes.Coordinate.color()"
+  @if(ctx.isAuth) { data-score-url="@routes.Coordinate.score()" }>
+  <div class="boards">
+    <div class="white">@board.white()</div>
+    <div class="black">@board.black()</div>
+  </div>
+  <div class="side">
+    @scoreOption.map { score =>
+    <div class="scores">
+      @scoreCharts(score)
+    </div>
+    }
+    <form class="color" action="@routes.Coordinate.color" method="POST">
+      @lila.pref.Pref.Color.choices.map {
+      case (id, name) => {
+      <button type="submit" name="color" value="@id"
+        @if(id == ctx.pref.coordColor) { class="ui-state-active" disabled }>@name</button>
+      }
+      }
+    </form>
+  </div>
+  <div class="right">
+    <div class="coord"></div>
+    <button class="start button">@trans.startTraining()</button>
+  </div>
+  <div class="progress_bar_container"><div class="progress_bar"></div></div>
+  <div class="score_container"><strong class="score">0</strong></div>
 </div>
 }
