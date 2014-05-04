@@ -47,17 +47,14 @@ trait DateHelper { self: I18nHelper =>
     s"""<time class="moment-from-now" datetime="${isoFormatter print date}"></time>"""
   }
 
-  def momentLang(implicit ctx: Context): Option[String] = lang(ctx).language match {
-    case "en" => none
-    case "pt" => "pt-br".some
-    case "zh" => "zh-cn".some
-    case l    => momentLangs(l) option l
-  }
-
-  private lazy val momentLangs: Set[String] = {
-    val Regex = """^(\w{2})\.min\.js$""".r
-    (new java.io.File(Env.current.momentLangsPath).listFiles map (_.getName) collect {
-      case Regex(l) => l
-    }).toSet
+  def momentLangTag(implicit ctx: Context): Option[String] = {
+    lang(ctx).language match {
+      case "en" => none
+      case "pt" => "pt-br".some
+      case "zh" => "zh-cn".some
+      case l    => l.some
+    }
+  } map { l =>
+    s"""<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/lang/$l.js"></script>"""
   }
 }

@@ -203,9 +203,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     @moreJs
     @if(lang.language != "en") {
     @jsAt(s"trans/${lang.language}.js")
-    @momentLang.map { l =>
-    @jsAt(s"compiled/moment-lang/$l.min.js")
-    }
+    @momentLangTag
     }
     @base.ga()
   </body>

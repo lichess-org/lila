@@ -16,6 +16,7 @@ trait AssetHelper {
 
   def cssTag(name: String, staticDomain: Boolean = true) = cssAt("stylesheets/" + name, staticDomain)
 
+
   def cssVendorTag(name: String, staticDomain: Boolean = true) = cssAt("vendor/" + name, staticDomain)
 
   def cssAt(path: String, staticDomain: Boolean = true) = Html {
@@ -53,7 +54,7 @@ trait AssetHelper {
     local = staticUrl("vendor/powertip.min.js"))
 
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
-    if (isProd)
+    if (isProd || true)
       s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local">\\x3C/script>')</script>"""
     else
       s"""<script src="$$local"></script>"""

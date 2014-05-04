@@ -10,14 +10,6 @@ for file in tv.js common.js big.js chart2.js user.js boardEditor.js coordinate.j
     closure --js $orig --js_output_file $comp
   fi
 done
-mkdir -p public/compiled/moment-lang
-for orig in public/javascripts/vendor/moment/lang/*.js; do
-  comp=$(echo $orig | sed -re 's#^.+/(.+)\.js$#public/compiled/moment-lang/\1.min.js#')
-  if [[ ! -f $comp || $orig -nt $comp ]]; then
-    lilalog "Compiling moment lang - $comp"
-    closure --js $orig --js_output_file $comp
-  fi
-done
 pgn4web_output=public/vendor/pgn4web/pgn4web-compacted.js
 if [ ! -f $pgn4web_output ]; then
   lilalog "Compiling pgn4web javascript"

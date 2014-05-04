@@ -13,9 +13,6 @@ final class Env(
   private val RendererName = config getString "app.renderer.name"
   private val RouterName = config getString "app.router.name"
   private val WebPath = config getString "app.web_path"
-  private val MomentLangPaths = config getString "app.moment_langs_path"
-
-  def momentLangsPath = appPath + "/" + MomentLangPaths
 
   lazy val bus = lila.common.Bus(system)
 
