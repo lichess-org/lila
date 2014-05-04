@@ -16,7 +16,7 @@ goodies = views.html.game.infoBox(pov, tour),
 chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some,
 signedJs = pov.game.rated option routes.Round.signedJs(pov.gameId) map (_.toString)) {
-<div class="lichess_game clearfix lichess_player_@color not_spectator"
+<div class="lichess_game clearfix lichess_player_@color not_spectator@if(!ctx.pref.captured) { hide_captured }"
   data-socket-url="@routes.Round.websocketPlayer(fullId)"
   data-table-url="@routes.Round.tablePlayer(fullId)"
   data-end-url="@routes.Round.endPlayer(fullId)">

@@ -510,6 +510,9 @@ div.lichess_cemetery {
   position: absolute;
   left: 0px;
 }
+div.lichess_game.hide_captured div.lichess_cemetery {
+  display: none;
+}
 div.lichess_cemetery_top {
   top: 0;
   margin-bottom: 10px;

@@ -15,6 +15,7 @@ case class Pref(
     clockTenths: Boolean,
     clockBar: Boolean,
     premove: Boolean,
+    captured: Boolean,
     follow: Boolean,
     coordColor: Int,
     puzzleDifficulty: Int) {
@@ -104,6 +105,7 @@ object Pref {
     clockTenths = true,
     clockBar = true,
     premove = true,
+    captured = true,
     follow = true,
     coordColor = Color.RANDOM,
     puzzleDifficulty = Difficulty.NORMAL)
@@ -126,6 +128,7 @@ object Pref {
     "clockTenths" -> default.clockTenths,
     "clockBar" -> default.clockBar,
     "premove" -> default.premove,
+    "captured" -> default.captured,
     "follow" -> true,
     "coordColor" -> default.coordColor,
     "puzzleDifficulty" -> default.puzzleDifficulty)

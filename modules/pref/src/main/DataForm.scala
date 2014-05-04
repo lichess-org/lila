@@ -14,7 +14,8 @@ private[pref] final class DataForm(api: PrefApi) {
     "clockTenths" -> number.verifying(Set(0, 1) contains _),
     "clockBar" -> number.verifying(Set(0, 1) contains _),
     "follow" -> number.verifying(Set(0, 1) contains _),
-    "premove" -> number.verifying(Set(0, 1) contains _)
+    "premove" -> number.verifying(Set(0, 1) contains _),
+    "captured" -> number.verifying(Set(0, 1) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
   case class PrefData(
@@ -24,7 +25,8 @@ private[pref] final class DataForm(api: PrefApi) {
       clockTenths: Int,
       clockBar: Int,
       follow: Int,
-      premove: Int) {
+      premove: Int,
+      captured: Int) {
 
     def apply(pref: Pref) = pref.copy(
       autoQueen = autoQueen,
@@ -33,7 +35,8 @@ private[pref] final class DataForm(api: PrefApi) {
       clockTenths = clockTenths == 1,
       clockBar = clockBar == 1,
       follow = follow == 1,
-      premove = premove == 1)
+      premove = premove == 1,
+      captured = captured == 1)
   }
 
   object PrefData {
@@ -45,7 +48,8 @@ private[pref] final class DataForm(api: PrefApi) {
       clockTenths = pref.clockTenths.fold(1, 0),
       clockBar = pref.clockBar.fold(1, 0),
       follow = pref.follow.fold(1, 0),
-      premove = pref.premove.fold(1, 0))
+      premove = pref.premove.fold(1, 0),
+      captured = pref.captured.fold(1, 0))
   }
 
   def prefOf(user: User): Fu[Form[PrefData]] = api getPref user map { p =>
