@@ -53,6 +53,11 @@ trait AssetHelper {
     test = "$.powerTip",
     local = staticUrl("vendor/powertip.min.js"))
 
+  val underscorejsTag = cdnOrLocal(
+    cdn = "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js",
+    test = "window._",
+    local = staticUrl("vendor/underscorejs.min.js"))
+
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
     if (isProd || true)
       s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local">\\x3C/script>')</script>"""
