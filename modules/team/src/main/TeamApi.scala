@@ -40,7 +40,7 @@ final class TeamApi(
         (indexer ! InsertTeam(team))
         (timeline ! Propagate(
           TeamCreate(me.id, team.id)
-        ).toFriendsOf(me.id))
+        ).toFollowersOf(me.id))
       } inject team
   }
 
@@ -118,7 +118,7 @@ final class TeamApi(
           (cached.teamIdsCache invalidate userId)
           (timeline ! Propagate(
             TeamJoin(userId, team.id)
-          ).toFriendsOf(userId).toUsers(previousMembers))
+          ).toFollowersOf(userId).toUsers(previousMembers))
         }
     }
   }
