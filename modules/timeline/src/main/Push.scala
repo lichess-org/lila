@@ -19,7 +19,8 @@ import tube.entryTube
 private[timeline] final class Push(
     lobbySocket: ActorSelection,
     renderer: ActorSelection,
-    getFriendIds: String => Fu[Set[String]]) extends Actor {
+    getFriendIds: String => Fu[Set[String]],
+    getFollowerIds: String => Fu[Set[String]]) extends Actor {
 
   def receive = {
 
@@ -38,8 +39,9 @@ private[timeline] final class Push(
 
   private def propagate(propagations: List[Propagation]): Fu[List[String]] =
     (propagations map {
-      case Users(ids)  => fuccess(ids)
-      case Friends(id) => getFriendIds(id) map (_.toList)
+      case Users(ids)    => fuccess(ids)
+      case Followers(id) => getFollowerIds(id) map (_.toList)
+      case Friends(id)   => getFriendIds(id) map (_.toList)
       case StaffFriends(id) => getFriendIds(id) flatMap UserRepo.byIds map {
         _ filter Granter(_.StaffForum) map (_.id)
       }
@@ -49,8 +51,8 @@ private[timeline] final class Push(
     Entry.make(users, data).fold(
       fufail[Entry]("[timeline] invalid entry data " + data)
     ) { entry =>
-        $find(Json.obj("typ" -> entry.typ, "date" -> $gt($date(DateTime.now - 1.hour)))) flatMap { entries =>
-          entries exists (_ similarTo entry) fold (
+        $find(Json.obj("typ" -> entry.typ, "date" -> $gt($date(DateTime.now - 50.minutes)))) flatMap { entries =>
+          entries.exists(_ similarTo entry) fold (
             fufail[Entry]("[timeline] a similar entry already exists"),
             $insert(entry) inject entry
           )

@@ -19,6 +19,9 @@ case ForumPost(userId, topicName, postId) => {
 case NoteCreate(fromId, toId) => {
 @userIdLink(fromId.some, withOnline = false) let a note on @userIdLink(toId.some, withOnline = false, params = "?note")
 }
+case TourJoin(userId, tourId, tourName) => {
+@userIdLink(userId.some, withOnline = false) competes in <a href="@routes.Tournament.show(tourId)">@trans.xTournament(tourName)</a>
+}
 }
 @momentFromNow(e.date)
 }

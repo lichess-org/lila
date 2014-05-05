@@ -72,6 +72,7 @@ case class TeamJoin(userId: String, teamId: String) extends Atom
 case class TeamCreate(userId: String, teamId: String) extends Atom
 case class ForumPost(userId: String, topicName: String, postId: String) extends Atom
 case class NoteCreate(from: String, to: String) extends Atom
+case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom
 
 object atomFormat {
   implicit val followFormat = Json.format[Follow]
@@ -79,11 +80,13 @@ object atomFormat {
   implicit val teamCreateFormat = Json.format[TeamCreate]
   implicit val forumPostFormat = Json.format[ForumPost]
   implicit val noteCreateFormat = Json.format[NoteCreate]
+  implicit val tourJoinFormat = Json.format[TourJoin]
 }
 
 object propagation {
   sealed trait Propagation
   case class Users(users: List[String]) extends Propagation
+  case class Followers(user: String) extends Propagation
   case class Friends(user: String) extends Propagation
   case class StaffFriends(user: String) extends Propagation
 }
@@ -92,6 +95,7 @@ import propagation._
 
 case class Propagate(data: Atom, propagations: List[Propagation] = Nil) {
   def toUsers(ids: List[String]) = copy(propagations = Users(ids) :: propagations)
+  def toFollowersOf(id: String) = copy(propagations = Followers(id) :: propagations)
   def toFriendsOf(id: String) = copy(propagations = Friends(id) :: propagations)
   def toStaffFriendsOf(id: String) = copy(propagations = StaffFriends(id) :: propagations)
 }

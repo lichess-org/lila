@@ -8,6 +8,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     getFriendIds: String => Fu[Set[String]],
+    getFollowerIds: String => Fu[Set[String]],
     lobbySocket: ActorSelection,
     renderer: ActorSelection,
     system: ActorSystem) {
@@ -22,7 +23,8 @@ final class Env(
   system.actorOf(Props(new Push(
     lobbySocket = lobbySocket,
     renderer = renderer,
-    getFriendIds = getFriendIds
+    getFriendIds = getFriendIds,
+    getFollowerIds = getFollowerIds
   )), name = UserActorName)
 
   private[timeline] lazy val entryColl = db(UserCollectionEntry)
@@ -35,6 +37,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     getFriendIds = lila.relation.Env.current.api.friends _,
+    getFollowerIds = lila.relation.Env.current.api.followers _,
     lobbySocket = lila.hub.Env.current.socket.lobby,
     renderer = lila.hub.Env.current.actor.renderer,
     system = lila.common.PlayApp.system)

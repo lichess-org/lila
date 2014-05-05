@@ -24,6 +24,7 @@ private[tournament] final class TournamentApi(
     joiner: GameJoiner,
     router: ActorSelection,
     renderer: ActorSelection,
+    timeline: ActorSelection,
     socketHub: ActorRef,
     site: ActorSelection,
     lobby: ActorSelection,
@@ -98,11 +99,14 @@ private[tournament] final class TournamentApi(
   def join(tour: Enterable, me: User, password: Option[String]): Funit =
     (tour.join(me, password)).future flatMap { tour2 =>
       TournamentRepo withdraw me.id flatMap { withdrawIds =>
-        $update(tour2) >>-
-          sendTo(tour.id, Joining(me.id)) >>-
-          ((tour.id :: withdrawIds) foreach socketReload) >>-
-          reloadSiteSocket >>-
+        $update(tour2) >>- {
+          sendTo(tour.id, Joining(me.id))
+          (tour.id :: withdrawIds) foreach socketReload
+          reloadSiteSocket
           lobbyReload
+          import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
+          timeline ! (Propagate(TourJoin(me.id, tour2.id, tour2.name)) toFollowersOf me.id)
+        }
       }
     }
 

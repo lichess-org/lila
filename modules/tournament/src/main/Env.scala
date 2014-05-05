@@ -41,6 +41,7 @@ final class Env(
     joiner = joiner,
     router = hub.actor.router,
     renderer = hub.actor.renderer,
+    timeline = hub.actor.timeline,
     socketHub = socketHub,
     site = hub.socket.site,
     lobby = hub.socket.lobby,

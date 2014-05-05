@@ -22,7 +22,8 @@ case class Entry(
     case "team-join"   => Json.fromJson[TeamJoin](data)
     case "team-create" => Json.fromJson[TeamCreate](data)
     case "forum-post"  => Json.fromJson[ForumPost](data)
-    case "note-create"  => Json.fromJson[NoteCreate](data)
+    case "note-create" => Json.fromJson[NoteCreate](data)
+    case "tour-join"   => Json.fromJson[TourJoin](data)
   }).asOpt
 }
 
@@ -33,7 +34,8 @@ object Entry {
     case d: TeamJoin   => "team-join" -> Json.toJson(d)
     case d: TeamCreate => "team-create" -> Json.toJson(d)
     case d: ForumPost  => "forum-post" -> Json.toJson(d)
-    case d: NoteCreate  => "note-create" -> Json.toJson(d)
+    case d: NoteCreate => "note-create" -> Json.toJson(d)
+    case d: TourJoin   => "tour-join" -> Json.toJson(d)
   }) match {
     case (typ, json) => json.asOpt[JsObject] map { new Entry(users, typ, _, DateTime.now) }
   }
