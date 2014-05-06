@@ -2,7 +2,7 @@ package lila.game
 
 import play.api.libs.json._
 
-case object AnonCookie {
+object AnonCookie {
 
   val name = "rk2"
   val maxAge = 604800 // one week
