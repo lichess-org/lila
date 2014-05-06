@@ -35,5 +35,7 @@ private[app] final class Renderer extends Actor {
 
     case lila.puzzle.RenderDaily(puzzle, fen, lastMove) =>
       sender ! V.puzzle.daily(puzzle, fen, lastMove)
+
+    case lila.tv.StreamsOnAir(streams) => sender ! V.tv.streamsOnAir(streams)
   }
 }

@@ -24,7 +24,7 @@ private[lobby] final class Socket(
     router: akka.actor.ActorSelection,
     uidTtl: Duration) extends SocketActor[Member](uidTtl) with Historical[Member] {
 
-  context.system.lilaBus.subscribe(self, 'changeFeaturedGame)
+  context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams)
 
   def receiveSpecific = {
 
@@ -67,6 +67,8 @@ private[lobby] final class Socket(
         }
 
     case HookIds(ids)         => notifyVersion("hook_list", ids)
+
+    case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
   }
 
   private def playerUrl(fullId: String) =

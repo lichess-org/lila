@@ -7,6 +7,7 @@ import play.api.libs.ws.WS
 private final class Streaming(
     system: ActorSystem,
     ustreamApiKey: String,
+    renderer: ActorSelection,
     isOnline: String => Boolean) {
 
   import Streaming._
@@ -31,16 +32,38 @@ private final class Streaming(
         val twitch = WS.url("https://api.twitch.tv/kraken/search/streams")
           .withQueryString("q" -> "lichess.org")
           .withHeaders("Accept" -> "application/vnd.twitchtv.v2+json")
-          .get().map { _.json.asOpt[Twitch.Result] ?? (_.streamsOnAir take max) }
+          .get().map {
+            _.json.asOpt[Twitch.Result] match {
+              case Some(data) => data.streamsOnAir take max
+              case None =>
+                logger.warn(s"twitch {res.status} {~res.body.lines.toList.headOption}")
+                Nil
+            }
+          }
         val chesswhiz = isOnline("chesswhiz") ??
           WS.url(s"http://api.ustream.tv/json/stream/recent/search/title:like:chesswhiz")
           .withQueryString("key" -> ustreamApiKey)
-          .get().map { _.json.asOpt[Ustream.Result] ?? (_.streamsOnAir take max) }
+          .get().map {
+            _.json.asOpt[Ustream.Result] match {
+              case Some(data) => data.streamsOnAir take max
+              case None =>
+                logger.warn(s"chesswhiz {res.status} {~res.body.lines.toList.headOption}")
+                Nil
+            }
+          }
         twitch |+| chesswhiz map StreamsOnAir.apply pipeTo self
 
-      case StreamsOnAir(streams) => onAir = streams
+      case event@StreamsOnAir(streams) if onAir != streams =>
+        onAir = streams
+        import makeTimeout.short
+        renderer ? event foreach {
+          case html: play.api.templates.Html =>
+            context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'stream)
+        }
     }
   }))
+
+  private def logger = play.api.Logger("tv.streaming")
 
   actor ! Search
 }

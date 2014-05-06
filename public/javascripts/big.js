@@ -2310,6 +2310,9 @@ var storage = {
             }
           });
         },
+        streams: function(html) {
+          $('#streams_on_air').html(html);
+        },
         hook_add: function(hook) {
           addHook(hook);
           drawHooks();

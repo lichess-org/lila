@@ -1,0 +1,4 @@
+@(ss: List[lila.tv.StreamOnAir])
+@ss.map { s =>
+<a class="stream" href="@s.url"><span data-icon="1">&nbsp;LIVE!</span> @s.name</a>
+}

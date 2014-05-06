@@ -31,9 +31,7 @@
   }
 </div>
 }
-@streams.map { s =>
-<a class="stream" href="@s.url"><span data-icon="1">&nbsp;LIVE!</span> @s.name</a>
-}
+<div id="streams_on_air">@tv.streamsOnAir(streams)</div>
 <div id="timeline" data-href="@routes.Lobby.timeline">
   @timeline.entries(userTimeline)
   <div class="links clearfix">

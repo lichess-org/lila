@@ -24,6 +24,7 @@ final class Env(
   private lazy val streaming = new Streaming(
     system = system,
     isOnline = isOnline,
+    renderer = hub.actor.renderer,
     ustreamApiKey = UstreamApiKey)
 
   def streamsOnAir = streaming.onAir

@@ -25,6 +25,7 @@ sealed abstract class RemindDeploy(val key: String)
 case object RemindDeployPre extends RemindDeploy("deployPre")
 case object RemindDeployPost extends RemindDeploy("deployPost")
 case class Deploy(event: RemindDeploy, html: String)
+case class StreamsOnAir(html: String)
 
 package map {
 case class Get(id: String)
