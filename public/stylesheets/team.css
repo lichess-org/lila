@@ -38,7 +38,7 @@
   margin: 20px;
 }
 #team table.slist td {
-  word-break: break-all;
+  /* word-break: break-all; */
   padding-top: 1em;
   padding-bottom: 1em;
 }
