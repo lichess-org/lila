@@ -59,10 +59,10 @@ trait AssetHelper {
     local = staticUrl("vendor/underscorejs.min.js"))
 
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
-    if (isProd || true)
+    if (isProd)
       s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local">\\x3C/script>')</script>"""
     else
-      s"""<script src="$$local"></script>"""
+      s"""<script src="$local"></script>"""
   }
 
   def jsAt(path: String, static: Boolean = true) = Html {
