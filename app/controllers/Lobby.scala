@@ -22,6 +22,7 @@ object Lobby extends LilaController {
       ))
     }
   }
+  def homeHead = Action { Ok("") }
 
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[SimpleResult] =
     reqToCtx(req) flatMap { ctx => renderHome(status)(ctx) }

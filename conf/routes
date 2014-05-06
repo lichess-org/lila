@@ -1,5 +1,6 @@
 # Lobby
 GET   /                                controllers.Lobby.home
+HEAD  /                                controllers.Lobby.homeHead
 GET   /lobby/socket                    controllers.Lobby.socket
 GET   /timeline                        controllers.Lobby.timeline
 GET   /timeline/more                   controllers.Lobby.timelineMore
