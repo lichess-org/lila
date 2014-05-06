@@ -41,7 +41,7 @@ private final class Streaming(
             }
           }
         val chesswhiz = isOnline("chesswhiz") ??
-          WS.url(s"http://api.ustream.tv/json/stream/recent/search/title:like:chesswhiz")
+          WS.url(s"http://api.ustream.tv/json/stream/recent/search/title:like:ChessWhiz")
           .withQueryString("key" -> ustreamApiKey)
           .get().map {
             _.json.asOpt[Ustream.Result] match {
@@ -58,7 +58,7 @@ private final class Streaming(
         import makeTimeout.short
         renderer ? event foreach {
           case html: play.api.templates.Html =>
-            context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'stream)
+            context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
         }
     }
   }))
