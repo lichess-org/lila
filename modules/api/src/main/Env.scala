@@ -42,6 +42,7 @@ final class Env(
     isOnline = userEnv.isOnline)
 
   val analysisApi = new AnalysisApi(
+    apiToken = apiToken,
     makeUrl = apiUrl,
     nbAnalysis = () => analyseEnv.cached.nbAnalysis,
     pgnDump = pgnDump)

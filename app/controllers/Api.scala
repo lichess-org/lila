@@ -38,7 +38,8 @@ object Api extends LilaController {
 
   def analysis = ApiResult { req =>
     analysisApi.list(
-      nb = getInt("nb", req)
+      nb = getInt("nb", req),
+      token = get("token", req)
     ) map (_.some)
   }
 

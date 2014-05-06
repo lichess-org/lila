@@ -13,6 +13,7 @@ import lila.game.{ Game, GameRepo, PgnDump }
 import lila.hub.actorApi.{ router => R }
 
 private[api] final class AnalysisApi(
+    apiToken: String,
     makeUrl: Any => Fu[String],
     nbAnalysis: () => Fu[Int],
     pgnDump: PgnDump) {
@@ -21,33 +22,35 @@ private[api] final class AnalysisApi(
 
   private def makeSkip = nbAnalysis() map { nb => scala.util.Random.nextInt(nb) }
 
-  def list(nb: Option[Int]): Fu[JsObject] = makeSkip flatMap { skip =>
-    AnalysisRepo.skipping(skip, makeNb(nb)) flatMap { as =>
-      GameRepo games as.map(_.id) flatMap { games =>
-        games.map { g =>
-          as find (_.id == g.id) map { _ -> g }
-        }.flatten.map {
-          case (a, g) => GameRepo initialFen g.id flatMap { initialFen =>
-            pgnDump(g) zip makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) map {
-              case (pgn, url) => (g, a, url, pgn, initialFen)
+  def list(nb: Option[Int], token: Option[String]): Fu[JsObject] =
+    if (~token != apiToken) fuccess(Json.obj("oh" -> "bummer"))
+    else makeSkip flatMap { skip =>
+      AnalysisRepo.skipping(skip, makeNb(nb)) flatMap { as =>
+        GameRepo games as.map(_.id) flatMap { games =>
+          games.map { g =>
+            as find (_.id == g.id) map { _ -> g }
+          }.flatten.map {
+            case (a, g) => GameRepo initialFen g.id flatMap { initialFen =>
+              pgnDump(g) zip makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) map {
+                case (pgn, url) => (g, a, url, pgn, initialFen)
+              }
             }
+          }.sequenceFu map { tuples =>
+            Json.obj(
+              "list" -> JsArray(tuples map {
+                case (game, analysis, url, pgn, fen) => Json.obj(
+                  "game" -> (GameApi.gameToJson(game, url, analysis.some) ++ {
+                    fen ?? { f => Json.obj("initialFen" -> f) }
+                  }),
+                  "analysis" -> AnalysisApi.analysisToJson(analysis, pgn),
+                  "uci" -> uciMovesOf(game, fen).map(_.mkString(" "))
+                ).noNull
+              })
+            )
           }
-        }.sequenceFu map { tuples =>
-          Json.obj(
-            "list" -> JsArray(tuples map {
-              case (game, analysis, url, pgn, fen) => Json.obj(
-                "game" -> (GameApi.gameToJson(game, url, analysis.some) ++ {
-                  fen ?? { f => Json.obj("initialFen" -> f) }
-                }),
-                "analysis" -> AnalysisApi.analysisToJson(analysis, pgn),
-                "uci" -> uciMovesOf(game, fen).map(_.mkString(" "))
-              ).noNull
-            })
-          )
         }
       }
     }
-  }
 
   private def uciMovesOf(game: Game, initialFen: Option[String]): Option[List[String]] =
     Replay(game.pgnMoves mkString " ", initialFen, game.variant).toOption map UciDump.apply
