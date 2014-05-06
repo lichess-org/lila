@@ -25,8 +25,8 @@ object Twitch {
 
 object Ustream {
   case class Channel(url: String, title: String)
-  case class Result(results: List[Channel]) {
-    def streamsOnAir = results map { c =>
+  case class Result(results: Option[List[Channel]]) {
+    def streamsOnAir = ~results map { c =>
       StreamOnAir(c.title, c.url)
     }
   }
