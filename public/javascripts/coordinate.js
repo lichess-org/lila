@@ -5,14 +5,13 @@ $(function() {
     var $side = $trainer.find('> .side');
     var $right = $trainer.find('> .right');
     var $bar = $trainer.find('.progress_bar');
-    var $coord = $right.find('.coord');
+    var $coord = $trainer.find('#next_coord').disableSelection();
     var $start = $right.find('.start');
     var $explanation = $right.find('.explanation');
-    var $scoreCont = $trainer.find('.score_container');
-    var $score = $scoreCont.find('strong');
+    var $score = $trainer.find('.score_container strong');
     var scoreUrl = $trainer.data('score-url');
     var colorUrl = $trainer.data('color-url');
-    var duration = 30 * 1000;
+    var duration = 10 * 1000;
     var tickDelay = 50;
     var colorPref = $trainer.data('color-pref');
     var color;
@@ -99,15 +98,18 @@ $(function() {
       else stop();
     };
 
+    $score.click(function() {
+      $start.filter(':visible').click();
+    });
+
     $start.click(function() {
       $explanation.remove();
-      $trainer.addClass('play');
+      $trainer.addClass('play').removeClass('init');
       showColor();
-      $coord.text('--');
+      $coord.text('');
       centerRight();
       score = 0;
       $score.text(score);
-      $scoreCont.show();
       $bar.css('width', 0);
       setTimeout(function() {
         startAt = new Date();

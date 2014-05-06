@@ -24,6 +24,8 @@ themepicker = true) {
     <div class="white">@board.white()</div>
     <div class="black">@board.black()</div>
   </div>
+  <div id="next_coord"></div>
+  <div class="score_container"><strong class="score">0</strong></div>
   <div class="side">
     <div class="box">
       <h1>@trans.training()</h1>
@@ -68,10 +70,8 @@ themepicker = true) {
       <p>A square name appears next to the board and you must click on the correct square.</p>
       <p>You have 30 seconds to recognize as many squares as possible!</p>
     </div>
-    <div class="coord"></div>
     <button class="start button">@trans.startTraining()</button>
   </div>
   <div class="progress_bar_container"><div class="progress_bar"></div></div>
-  <div class="score_container"><strong class="score">0</strong></div>
 </div>
 }

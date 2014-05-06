@@ -21,14 +21,26 @@
   background-color: #759900;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12) inset;
 }
-#trainer .coord {
-  font-size: 120px;
+#trainer #next_coord {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 514px;
+  height: 514px;
+  line-height: 512px;
+  text-align: center;
+  font-size: 150px;
   font-family: monospace;
+  font-weight: bold;
   text-transform: uppercase;
   opacity: 1;
+  pointer-events:none;
+  color: #fff;
+  text-shadow: 0 10px 10px #444;
+  opacity: 0.7;
   animate: opacity 0.1s linear;
 }
-#trainer .coord.nope {
+#trainer #next_coord.nope {
   opacity: 0;
 }
 #trainer .explanation {
@@ -43,31 +55,48 @@
 #trainer .start {
   font-size: 30px;
 }
-#trainer .score_container {
+#trainer .score {
+  position: absolute;
+  top: 202px;
+  left: 202px;
   width: 512px;
-  text-align: center;
-}
-#trainer strong.score {
   font-family: monospace;
   font-size: 70px;
   display: block;
   margin: auto;
   width: 110px;
   height: 110px;
+  text-align: center;
   line-height: 110px;
   color: #fff;
   background-color: #759900;
+  transition: all 1s;
+  opacity: 1;
+  box-shadow: 0 0 10px #fff;
+  border-radius: 3px;
+  transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  cursor: pointer;
+}
+#trainer.init .score {
+  opacity: 0;
+}
+#trainer.play .score {
+  opacity: 1;
+  top: 550px;
+  box-shadow: 0 0 1px #fff;
   border-radius: 100px;
+  transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
 }
 #trainer.wrong .progress_bar, #trainer.wrong strong.score {
   background-color: #ac524f;
 }
 #trainer.play .start,
-#trainer .coord,
-#trainer .score_container,
+#trainer #next_coord,
 #trainer.play form.color {
   display: none;
 }
-#trainer.play .coord {
+#trainer.play #next_coord {
   display: block;
 }
