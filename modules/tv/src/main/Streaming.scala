@@ -32,22 +32,22 @@ private final class Streaming(
         val twitch = WS.url("https://api.twitch.tv/kraken/search/streams")
           .withQueryString("q" -> "lichess.org")
           .withHeaders("Accept" -> "application/vnd.twitchtv.v2+json")
-          .get().map {
-            _.json.asOpt[Twitch.Result] match {
+          .get().map { res =>
+            res.json.asOpt[Twitch.Result] match {
               case Some(data) => data.streamsOnAir take max
               case None =>
-                logger.warn(s"twitch {res.status} {~res.body.lines.toList.headOption}")
+                logger.warn(s"twitch ${res.status} ${~res.body.lines.toList.headOption}")
                 Nil
             }
           }
         val chesswhiz = isOnline("chesswhiz") ??
           WS.url(s"http://api.ustream.tv/json/stream/recent/search/title:like:ChessWhiz")
           .withQueryString("key" -> ustreamApiKey)
-          .get().map {
-            _.json.asOpt[Ustream.Result] match {
+          .get().map { res =>
+            res.json.asOpt[Ustream.Result] match {
               case Some(data) => data.streamsOnAir take max
               case None =>
-                logger.warn(s"chesswhiz {res.status} {~res.body.lines.toList.headOption}")
+                logger.warn(s"chesswhiz ${res.status} ${~res.body.lines.toList.headOption}")
                 Nil
             }
           }
