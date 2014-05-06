@@ -2179,14 +2179,13 @@ var storage = {
     };
     var flushHooks = function() {
       clearTimeout(flushHooksTimeout);
-      $tbody.fadeIn(700);
-      $table.clone().attr('id', 'tableclone').appendTo($wrap).fadeOut(700, function() {
+      $tbody.fadeIn(500);
+      $table.clone().attr('id', 'tableclone').appendTo($wrap).fadeOut(500, function() {
         $(this).remove();
       });
       $tbody.find('tr.disabled').remove();
       $tbody.append(nextHooks);
       nextHooks = [];
-      $tbody.find('tr').hide().fadeIn(200);
       $table.trigger('sortable.sort');
       flushHooksSchedule();
     };
