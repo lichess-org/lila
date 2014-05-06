@@ -142,6 +142,11 @@ themepicker = true) {
         <p class="thin">@trans.lastLogin() @momentFormat(seen)</p>
         }
         <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
+        @*
+        <p>
+          Total time: @showPeriod(info.totalTime)
+        </p>
+        *@
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
           @teamLink(teamId, ("revert-underline" + myTeam(teamId).fold(" mine", "")).some)

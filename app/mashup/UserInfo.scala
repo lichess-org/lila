@@ -2,11 +2,12 @@ package lila.app
 package mashup
 
 import chess.Color
+import org.joda.time.Period
 
 import lila.api.Context
 import lila.bookmark.BookmarkApi
 import lila.forum.PostApi
-import lila.game.{ GameRepo, Game, Crosstable }
+import lila.game.{ GameRepo, Game, Crosstable, TimeCount }
 import lila.relation.RelationApi
 import lila.security.Granter
 import lila.user.User
@@ -21,7 +22,8 @@ case class UserInfo(
     nbFollowing: Int,
     nbFollowers: Int,
     nbBlockers: Option[Int],
-    nbPosts: Int) {
+    nbPosts: Int,
+    totalTime: Period) {
 
   def nbRated = user.count.rated
 
@@ -52,8 +54,9 @@ object UserInfo {
       ((ctx.me ?? Granter(_.UserSpy)) ?? {
         relationApi.nbBlockers(user.id) map (_.some)
       }) zip
-      postApi.nbByUser(user.id) map {
-        case (((((((rank, nbPlaying), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts) => new UserInfo(
+      postApi.nbByUser(user.id) zip
+      TimeCount.total(user.id) map {
+        case ((((((((rank, nbPlaying), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), totalTime) => new UserInfo(
           user = user,
           rank = rank,
           nbPlaying = ~nbPlaying,
@@ -63,6 +66,7 @@ object UserInfo {
           nbFollowing = nbFollowing,
           nbFollowers = nbFollowers,
           nbBlockers = nbBlockers,
-          nbPosts = nbPosts)
+          nbPosts = nbPosts,
+          totalTime = totalTime)
       }
 }

@@ -4,8 +4,8 @@ package templating
 import java.util.Locale
 import scala.collection.mutable
 
-import org.joda.time.DateTime
 import org.joda.time.format._
+import org.joda.time.{ Period, DateTime }
 import play.api.templates.Html
 
 import lila.api.Context
@@ -17,6 +17,7 @@ trait DateHelper { self: I18nHelper =>
 
   private val dateTimeFormatters = mutable.Map[String, DateTimeFormatter]()
   private val dateFormatters = mutable.Map[String, DateTimeFormatter]()
+  private val periodFormatters = mutable.Map[String, PeriodFormatter]()
 
   private val isoFormatter = ISODateTimeFormat.dateTime
 
@@ -30,11 +31,19 @@ trait DateHelper { self: I18nHelper =>
       lang(ctx).language,
       DateTimeFormat forStyle dateStyle withLocale new Locale(lang(ctx).language))
 
+  private def periodFormatter(ctx: Context): PeriodFormatter =
+    periodFormatters.getOrElseUpdate(
+      lang(ctx).language,
+      PeriodFormat wordBased new Locale(lang(ctx).language))
+
   def showDateTime(date: DateTime)(implicit ctx: Context): String =
     dateTimeFormatter(ctx) print date
 
   def showDate(date: DateTime)(implicit ctx: Context): String =
     dateFormatter(ctx) print date
+
+  def showPeriod(period: Period)(implicit ctx: Context): String =
+    periodFormatter(ctx) print period
 
   def isoDate(date: DateTime): String = isoFormatter print date
 

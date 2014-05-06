@@ -21,7 +21,7 @@ case class Game(
     clock: Option[Clock],
     castleLastMoveTime: CastleLastMoveTime,
     positionHashes: PositionHash = Array(),
-    moveTimes: Vector[Int] = Vector.empty,
+    moveTimes: Vector[Int] = Vector.empty, // tenths of seconds
     mode: Mode = Mode.default,
     variant: Variant = Variant.default,
     next: Option[String] = None,
