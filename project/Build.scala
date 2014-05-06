@@ -114,7 +114,7 @@ object ApplicationBuild extends Build {
       play.api, RM, PRM, elastic4s)
   )
 
-  lazy val tv = project("tv", Seq(common, db, hub, game, chess)).settings(
+  lazy val tv = project("tv", Seq(common, db, hub, game, user, chess)).settings(
     libraryDependencies ++= provided(
       play.api, RM, PRM)
   )

@@ -1978,6 +1978,13 @@ div.lichess_overboard.joining .mini_board {
 #site_header a.stream:hover {
   text-decoration: underline;
 }
+#site_header a.stream span {
+  color: #d59120;
+  font-weight: bold;
+}
+#site_header a.stream span:before {
+  vertical-align: -3px;
+}
 #timeline {
   margin-top: 2em;
   border-top: 1px solid #e4e4e4;

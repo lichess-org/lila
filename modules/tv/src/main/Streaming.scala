@@ -6,7 +6,8 @@ import play.api.libs.ws.WS
 
 private final class Streaming(
     system: ActorSystem,
-    ustreamApiKey: String) {
+    ustreamApiKey: String,
+    isOnline: String => Boolean) {
 
   import Streaming._
   import Twitch.Reads._
@@ -26,16 +27,16 @@ private final class Streaming(
       case Get => sender ! onAir
 
       case Search =>
-        val keyword = "lichess.org"
         val max = 2
         val twitch = WS.url("https://api.twitch.tv/kraken/search/streams")
-          .withQueryString("q" -> keyword)
+          .withQueryString("q" -> "lichess.org")
           .withHeaders("Accept" -> "application/vnd.twitchtv.v2+json")
           .get().map { _.json.asOpt[Twitch.Result] ?? (_.streamsOnAir take max) }
-        val ustream = WS.url(s"http://api.ustream.tv/json/stream/all/search/description:like:$keyword")
+        val chesswhiz = isOnline("chesswhiz") ??
+          WS.url(s"http://api.ustream.tv/json/stream/recent/search/title:like:chesswhiz")
           .withQueryString("key" -> ustreamApiKey)
           .get().map { _.json.asOpt[Ustream.Result] ?? (_.streamsOnAir take max) }
-        twitch |+| ustream map StreamsOnAir.apply pipeTo self
+        twitch |+| chesswhiz map StreamsOnAir.apply pipeTo self
 
       case StreamsOnAir(streams) => onAir = streams
     }
