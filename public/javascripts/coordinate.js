@@ -11,7 +11,7 @@ $(function() {
     var $score = $trainer.find('.score_container strong');
     var scoreUrl = $trainer.data('score-url');
     var colorUrl = $trainer.data('color-url');
-    var duration = 10 * 1000;
+    var duration = 30 * 1000;
     var tickDelay = 50;
     var colorPref = $trainer.data('color-pref');
     var color;
