@@ -25,7 +25,7 @@ private[lobby] final class Biter(blocks: (String, String) => Fu[Boolean]) {
       !creatorColor, userOption,
       blame(creatorColor, ownerOption, makeGame(hook))
     ).start
-    _ ← GameRepo insertDenormalized game 
+    _ ← GameRepo insertDenormalized game
   } yield JoinHook(uid, hook, game, creatorColor)
 
   def blame(color: ChessColor, userOption: Option[User], game: Game) =
@@ -51,7 +51,9 @@ private[lobby] final class Biter(blocks: (String, String) => Fu[Boolean]) {
     if (!hook.open) fuccess(false)
     else hook.realMode.casual.fold(
       user.isDefined || hook.allowAnon,
-      user ?? { u => hook.realRatingRange.fold(true)(_ contains u.rating) }
+      user ?? { u =>
+        !u.engine && hook.realRatingRange.fold(true)(_ contains u.rating)
+      }
     ) ?? !{
         (user |@| hook.userId).tupled ?? {
           case (u, hookUserId) => blocks(hookUserId, u.id) >>| blocks(u.id, hookUserId)

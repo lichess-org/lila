@@ -23,7 +23,7 @@ case class HookConfig(
     uid = uid,
     variant = variant,
     clock = makeClock,
-    mode = mode,
+    mode = user.fold(mode)(_.engine.fold(Mode.Casual, mode)),
     allowAnon = allowAnon,
     color = color.name,
     user = user,

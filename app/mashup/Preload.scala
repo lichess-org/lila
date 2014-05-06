@@ -57,7 +57,8 @@ final class Preload(
             "version" -> history.version,
             "pool" -> JsArray(hooks map (_.render)),
             "filter" -> filter.render,
-            "blocks" -> blocks
+            "blocks" -> blocks,
+            "engine" -> ctx.me.??(_.engine)
           ), entries, posts, tours, feat, leaderboard, progress, puzzle, playing, streams)))
       }
 }

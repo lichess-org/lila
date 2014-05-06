@@ -2554,6 +2554,10 @@ var storage = {
     });
     $canvas.on('click', '>span.plot:not(.hiding)', function() {
       var hook = $(this).data('hook');
+      if (lichess_preload.engine && hook.mode == 'Rated') {
+        disableHook(hook.id);
+        return;
+      }
       if (hook.action == 'register') {
         if (confirm($.trans('This game is rated') + '.\n' + $.trans('You need an account to do that') + '.')) location.href = '/signup';
         return;
