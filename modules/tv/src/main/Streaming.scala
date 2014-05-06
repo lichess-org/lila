@@ -32,7 +32,7 @@ private final class Streaming(
           .withQueryString("q" -> keyword)
           .withHeaders("Accept" -> "application/vnd.twitchtv.v2+json")
           .get().map { _.json.asOpt[Twitch.Result] ?? (_.streamsOnAir take max) }
-        val ustream = WS.url(s"http://api.ustream.tv/json/channel/live/search/title:like:$keyword")
+        val ustream = WS.url(s"http://api.ustream.tv/json/stream/all/search/description:like:$keyword")
           .withQueryString("key" -> ustreamApiKey)
           .get().map { _.json.asOpt[Ustream.Result] ?? (_.streamsOnAir take max) }
         twitch |+| ustream map StreamsOnAir.apply pipeTo self
