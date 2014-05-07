@@ -1,8 +1,0 @@
-# /etc/hosts, assuming local domain 'l.org'
-
-127.0.0.1	l.org
-127.0.0.1	en.l.org
-127.0.0.1	fr.l.org
-127.0.0.1	socket.en.l.org
-127.0.0.1	socket.fr.l.org
-127.0.0.1	static.l.org

@@ -129,7 +129,7 @@ object Pref {
     "clockBar" -> default.clockBar,
     "premove" -> default.premove,
     "captured" -> default.captured,
-    "follow" -> true,
+    "follow" -> default.follow,
     "coordColor" -> default.coordColor,
     "puzzleDifficulty" -> default.puzzleDifficulty)
 }
