@@ -1,6 +1,5 @@
 conf/application.conf
-conf/local.*
-bin/lilarc.local
+conf/base.conf
 logs
 project/project
 project/target
@@ -17,9 +16,6 @@ bin/.translate_version
 data/
 dist/
 todos/
-deploy
-
-db/lib/
 
 cljs/*/out
 cljs/*/repl
