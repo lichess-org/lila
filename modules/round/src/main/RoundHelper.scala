@@ -8,8 +8,11 @@ import lila.game.Pov
 import lila.pref.Pref
 import lila.round.Env.{ current => roundEnv }
 import lila.user.UserContext
+import lila.game.Game
 
 trait RoundHelper {
+
+  def hijackEnabled(game: Game) = game.rated && roundEnv.HijackEnabled
 
   def moretimeSeconds = roundEnv.moretimeSeconds
 

@@ -38,11 +38,12 @@ final class Env(
     val NetDomain = config getString "net.domain"
     val ActorMapName = config getString "actor.map.name"
     val ActorName = config getString "actor.name"
-    val HijackEnabled = config getBoolean "hijack.enabled"
     val HijackSalt = config getString "hijack.salt"
     val CollectionReminder = config getString "collection.reminder"
   }
   import settings._
+
+  val HijackEnabled = config getBoolean "hijack.enabled"
 
   lazy val history = () => new History(ttl = MessageTtl)
 
