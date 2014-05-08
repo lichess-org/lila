@@ -7,9 +7,9 @@
 <h1 data-icon="g">&nbsp;@if(tour.scheduled){@tour.name} else {@trans.xTournament(tour.name)}</h1>
 
 @pov.map { p =>
-<a class="pov button shadowed" href="@routes.Round.player(p.fullId)">
-  You are playing against @usernameOrAnon(p.opponent.userId)
-  <span class="pov_join">@trans.joinTheGame()</span>
+<a class="is pov button glowing" href="@routes.Round.player(p.fullId)">
+  You are playing @usernameOrAnon(p.opponent.userId)
+  <span class="pov_join" data-icon="G">&nbsp;@trans.joinTheGame()</span>
 </a>
 }
 

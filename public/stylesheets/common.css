@@ -76,6 +76,7 @@ time {
   font-style: normal;
 }
 .is:before,
+.is:after,
 [data-icon]:before {
   font-size: 1.2em;
   vertical-align: middle;

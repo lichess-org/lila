@@ -760,6 +760,10 @@ var storage = {
         }, duration);
       return true;
     });
+
+    setInterval(function() {
+      $('.glowing').toggleClass('glow');
+    }, 1500);
   });
 
   $.sound = (function() {

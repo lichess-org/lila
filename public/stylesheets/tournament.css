@@ -10,7 +10,6 @@
 #tournament table tr.standing.scheduled:first-child td:first-child {
   color: #d59120;
 }
-
 #tournament .title_tag {
   float: right;
   font-size: 20px;
@@ -18,31 +17,47 @@
   font-weight: bold;
   margin: 21px 25px 0 0;
 }
-
 #tournament div.tournament_show {
   width: 525px;
 }
-
 #tournament div.tournament_show div.game_list {
   margin: 25px 0 0 15px;
 }
-
 #tournament a.pov {
   display: block;
   margin: 0 25px 1em 25px;
   text-align: center;
   font-size: 1.5em;
+  position: relative;
+  border-radius: 100px;
+  transition: all 1.5s;
+}
+#tournament a.pov.glow {
+  box-shadow: 0 0 10px 3px #fff,
+  0 0 30px 5px #e89000,
+  0 0 60px 10px #d85000;
 }
 #tournament a.pov span {
   display: block;
   font-weight: bold;
 }
-
+#tournament a.pov::before,
+#tournament a.pov::after {
+  content: 'U';
+  font-size: 32px;
+  position: absolute;
+  top: 16px;
+}
+#tournament a.pov::before {
+  left: 15px;
+}
+#tournament a.pov::after {
+  right: 15px;
+}
 #tournament table.slist .create td {
   padding: 0.6em 1.2em 0.6em 0.6em;
   text-align: center;
 }
-
 #tournament table.slist span.rank {
   font-weight: bold;
 }
@@ -61,7 +76,8 @@
   width: 525px;
   border-bottom: none;
 }
-#tournament table.standing td:first-child, #tournament table.standing th:first-child {
+#tournament table.standing td:first-child,
+#tournament table.standing th:first-child {
   padding-left: 15px;
 }
 #tournament table.standing td:first-child span {
@@ -102,7 +118,6 @@
   background: #759900;
   opacity: 0.5;
 }
-
 #tournament form.inline {
   display: inline;
   float: right;
@@ -112,21 +127,17 @@
   font-weight: bold;
   color: #759900;
 }
-
 #tournament form.plain td {
   padding: 0.6em;
   white-space: nowrap;
 }
-
 #tournament form.plain label {
   margin-right: 10px;
 }
-
 #tournament form.plain input {
   width: 96%;
   padding: 0.5% 1%;
 }
-
 #tournament form.plain select {
   padding: 0.5% 1%;
   text-transform: capitalize;
@@ -135,19 +146,15 @@
 #tournament form.plain .inline select {
   width: 46%;
 }
-
 #tournament form.plain input.submit {
   width: 99%;
 }
-
 #tournament form.plain .error {
   color: red;
 }
-
 #tournament h1 .private {
   font-size: 12px;
 }
-
 #tournament .join_password {
   padding-top: 0;
 }
@@ -160,7 +167,6 @@
 #tournament .join_password input {
   padding: 3px 5px;
 }
-
 #tournament_side {
   float: right;
   width: 246px;
@@ -194,7 +200,6 @@
 #tournament_side div.pairings em {
   font-style: italic;
 }
-
 #tournament article.faq h2 {
   font-weight: bold;
   font-style: italic;
@@ -209,11 +214,9 @@ div.faq_page h1 {
 div.faq_box {
   margin-top: 15px;
 }
-
 div.header .tournament_links {
   margin-top: 30px;
 }
-
 .leaderboard_title {
   font-size: 1.5em;
   margin-top: 30px;
