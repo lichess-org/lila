@@ -511,7 +511,7 @@ var storage = {
       });
     }
 
-    $('#lichess').on('click', 'a.socket-link', function() {
+    $('#lichess').on('click', 'a.socket-link:not(.disabled)', function() {
       lichess.socket.send($(this).data('msg'), $(this).data('data'));
     });
 
@@ -1061,16 +1061,21 @@ var storage = {
                 });
               }
             },
-            crowd: function(event) {
-              $(["white", "black"]).each(function() {
-                self.$table.find("div.username." + this).toggleClass("connected", event[this]).toggleClass("offline", !event[this]);
+            crowd: function(e) {
+              _.each(["white", "black"], function(c) {
+                self.$table.find("div.username." + c)
+                  .addClass('statused')
+                  .toggleClass("connected", e[c])
+                  .toggleClass("offline", !e[c]);
               });
+              self.$table.find('.lichess_rematch.offer')
+                .toggleClass("disabled", !e[self.options.opponent.color]);
               self.$watchers.watchers("set", event.watchers);
             },
-            state: function(event) {
+            state: function(e) {
               self.element.queue(function() {
-                self.options.game.player = event.color;
-                self.options.game.turns = event.turns;
+                self.options.game.player = e.color;
+                self.options.game.turns = e.turns;
                 self.element.dequeue();
               });
             },

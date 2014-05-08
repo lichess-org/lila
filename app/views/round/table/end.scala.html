@@ -2,6 +2,10 @@
 
 @import pov._
 
+@rematchOfferButton = {
+<a class="lichess_rematch offer button socket-link" title="@trans.playWithTheSameOpponentAgain()" data-msg="rematch-yes">@trans.rematch()</a>
+}
+
 <div class="lichess_current_player">
   @round.table.result(game)
 </div>
@@ -27,11 +31,11 @@
     <a class="lichess_rematch_cancel socket-link" data-msg="rematch-no">@trans.cancelRematchOffer()</a>
   </div>
   } else {
-  <a class="lichess_rematch button socket-link" title="@trans.playWithTheSameOpponentAgain()" data-msg="rematch-yes">@trans.rematch()</a>
+  @rematchOfferButton
   }
   }
   } else {
-  <a class="lichess_rematch button socket-link" title="@trans.playWithTheSameOpponentAgain()" data-msg="rematch-yes">@trans.rematch()</a>
+  @rematchOfferButton
   }
   @if(!player.isOfferingRematch) {
   <a class="lichess_new_game button" title="@trans.playWithAnotherOpponent()" href="@routes.Lobby.home()">@trans.newOpponent()</a>

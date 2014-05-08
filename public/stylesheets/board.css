@@ -315,6 +315,10 @@ div.lichess_table div.username span.status:before {
   vertical-align: -4px;
   content: '0';
   color: #ac524f;
+  opacity: 0.1;
+}
+div.lichess_table div.username.statused span.status:before {
+  opacity: 1;
 }
 div.lichess_table div.username.connected span.status:before {
   content: '3';
@@ -448,6 +452,10 @@ div.lichess_control.buttons a.button {
   text-align: center;
   text-decoration: none;
   font-weight: bold;
+}
+div.lichess_control .lichess_rematch.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 #claim_draw_zone,
 div.force_resign_zone,
