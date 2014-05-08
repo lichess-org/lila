@@ -16,7 +16,7 @@ import lila.relation.RelationApi
 import lila.setup.FilterConfig
 import lila.socket.History
 import lila.timeline.Entry
-import lila.tournament.Created
+import lila.tournament.Enterable
 import lila.tv.{ Featured, StreamOnAir }
 import lila.user.User
 import makeTimeout.large
@@ -33,12 +33,12 @@ final class Preload(
     streamsOnAir: => () => Fu[List[StreamOnAir]],
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]]) {
 
-  private type RightResponse = (JsObject, List[Entry], List[PostLiteView], List[Created], Option[Game], List[User], List[User], Option[lila.puzzle.DailyPuzzle], List[Pov], List[StreamOnAir])
+  private type RightResponse = (JsObject, List[Entry], List[PostLiteView], List[Enterable], Option[Game], List[User], List[User], Option[lila.puzzle.DailyPuzzle], List[Pov], List[StreamOnAir])
   private type Response = Either[Call, RightResponse]
 
   def apply(
     posts: Fu[List[PostLiteView]],
-    tours: Fu[List[Created]],
+    tours: Fu[List[Enterable]],
     filter: Fu[FilterConfig])(implicit ctx: Context): Fu[Response] =
     (lobby ? GetOpen).mapTo[List[Hook]] zip
       posts zip

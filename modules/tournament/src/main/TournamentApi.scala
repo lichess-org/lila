@@ -137,7 +137,7 @@ private[tournament] final class TournamentApi(
       }
     }
 
-  def recountAll = UserRepo.removeAllToints >>
+  private[tournament] def recountAll = UserRepo.removeAllToints >>
     $enumerate.over($query[Finished](TournamentRepo.finishedQuery)) { (tour: Finished) =>
       val tour2 = tour.refreshPlayers
       $update(tour2) zip

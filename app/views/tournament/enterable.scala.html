@@ -1,6 +1,6 @@
-@(tours: List[lila.tournament.Created])
+@(tours: List[lila.tournament.Enterable])
 
 <table class="tournaments">
-  @tournament.createdTable(tours, true)
-  @tournament.createdTable(tours, false)
+  @tournament.enterableTable(tours, true)
+  @tournament.enterableTable(tours, false)
 </table>

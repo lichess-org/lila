@@ -77,6 +77,17 @@ object TournamentRepo {
 
   def allCreated: Fu[List[Created]] = $find(allCreatedQuery) map { _.map(asCreated).flatten }
 
+  def recentlyStartedSorted: Fu[List[Started]] = $find($query(Json.obj(
+    "status" -> Status.Started.id,
+    "password" -> $exists(false),
+    "startedAt" -> $gt($date(DateTime.now minusMinutes 15))
+  )) sort BSONDocument("schedule.at" -> 1, "createdAt" -> 1)
+  ) map (_ flatMap asStarted)
+
+  def enterable = allCreatedSorted zip recentlyStartedSorted map {
+    case (created, started) => created ::: started
+  }
+
   def scheduled: Fu[List[Created]] = $find(
     $query(Json.obj(
       "status" -> Status.Created.id,
