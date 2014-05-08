@@ -39,7 +39,7 @@
     }
     @tour.winner.filter(_ => tour.isFinished).map { winner =>
     <br /><br />
-    @trans.winner(): @userInfosLink(winner.username, none)
+    @trans.winner(): @userInfosLink(winner.id, none)
     }
   </div>
 </div>

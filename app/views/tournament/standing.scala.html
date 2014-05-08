@@ -31,7 +31,7 @@
           <span class="rank">@rank</span>
           }
           }
-          @userInfosLink(player.username, none, withOnline = false)
+          @userInfosLink(player.id, none, withOnline = false)
         </td>
         <td class="sheet">
           @scoreSheet.scores.take(20).reverse.map { score =>

@@ -101,7 +101,7 @@
         <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
         <td data-icon="r">&nbsp;@tour.nbPlayers</td>
         <td>@tour.winner.map { player =>
-          @userInfosLink(player.username, player.rating.some, withOnline = false)
+          @userInfosLink(player.id, player.rating.some, withOnline = false)
           }
         </td>
       </tr>

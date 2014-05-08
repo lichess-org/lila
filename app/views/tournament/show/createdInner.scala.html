@@ -44,7 +44,7 @@
     <tbody>
       @tour.players.map { player =>
       <tr>
-        <td colspan="2">@userInfosLink(player.username, player.rating.some)</td>
+        <td colspan="2">@userInfosLink(player.id, player.rating.some)</td>
       </tr>
       }
     </tbody>
