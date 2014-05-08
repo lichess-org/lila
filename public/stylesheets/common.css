@@ -691,9 +691,10 @@ div.lichess_goodies div.box {
 }
 div.lichess_goodies div.confrontation {
   text-align: center;
-}
-div.lichess_goodies div.confrontation div.vs {
   margin-bottom: 5px;
+}
+div.lichess_goodies div.confrontation em {
+  font-style: italic;
 }
 div.lichess_goodies div.buttons {
   width: 228px;
