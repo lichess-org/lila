@@ -9,7 +9,8 @@ final class Env(
     hub: lila.hub.Env,
     isOnline: String => Boolean,
     system: akka.actor.ActorSystem,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler,
+    isProd: Boolean) {
 
   private val FeaturedContinue = config duration "featured.continue"
   private val FeaturedDisrupt = config duration "featured.disrupt"
@@ -32,7 +33,7 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.message(FeaturedContinue) {
+    scheduler.message(isProd.fold(FeaturedContinue, 10.seconds)) {
       featured.actor -> Featured.Continue
     }
 
@@ -53,6 +54,7 @@ object Env {
     hub = lila.hub.Env.current,
     isOnline = lila.user.Env.current.isOnline,
     system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler)
+    scheduler = lila.common.PlayApp.scheduler,
+    isProd = lila.common.PlayApp.isProd)
 }
 
