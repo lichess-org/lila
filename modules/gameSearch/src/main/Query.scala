@@ -1,6 +1,6 @@
 package lila.gameSearch
 
-import chess.{ Variant, Mode, Status, EcoDb }
+import chess.{ Variant, Mode, Status, Openings }
 import com.github.nscala_time.time.Imports._
 import com.sksamuel.elastic4s.ElasticDsl._
 import com.sksamuel.elastic4s.QueryDefinition
@@ -92,8 +92,8 @@ object Query {
 
   val modes = Mode.all map { mode => mode.id -> mode.name }
 
-  val openings = EcoDb.db map {
-    case (code, name, _) => code -> (code + " " + name.take(50))
+  val openings = Openings.generals map {
+    case (code, name) => code -> s"$code ${name.take(50)}"
   }
 
   val turns = options(
