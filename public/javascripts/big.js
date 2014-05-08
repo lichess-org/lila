@@ -1073,7 +1073,7 @@ var storage = {
               });
               self.$table.find('.lichess_rematch.offer')
                 .toggleClass("disabled", !e[self.options.opponent.color]);
-              self.$watchers.watchers("set", event.watchers);
+              self.$watchers.watchers("set", e.watchers);
             },
             state: function(e) {
               self.element.queue(function() {
