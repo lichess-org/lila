@@ -67,7 +67,7 @@ themepicker = true) {
     @if(!game.fromPosition && !game.variant.exotic) {
     <p>
       <strong>@trans.opening()</strong> @opening.map { o =>
-      <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
+      @o.code @o.name
       }.getOrElse { "Unknown" }
     </p>
     }
