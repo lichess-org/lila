@@ -488,19 +488,18 @@ body.tight #site_title {
 body.tight #site_baseline {
   display: none;
 }
-div.footer_wrap {
+#footer_wrap {
   border-top: 1px solid #ddd;
   background: #EEE;
   padding: 30px 0;
-  display: block;
 }
-div.footer {
+#footer_wrap div.footer {
   width: 1000px;
   margin: auto;
   line-height: 2em;
   position: relative;
 }
-div.footer a {
+#footer_wrap div.footer a {
   text-decoration: none;
 }
 body.tight div.footer {

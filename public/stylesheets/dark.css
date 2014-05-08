@@ -39,7 +39,7 @@ body.dark div.undertable td,
 body.dark #chat form input,
 body.dark div.lichess_board_wrap,
 body.dark #translation_call,
-body.dark div.footer_wrap,
+body.dark #footer_wrap,
 body.dark div.game_config .optional_config,
 body.dark .ui-state-default,
 body.dark .ui-widget-content,
@@ -174,7 +174,7 @@ body.dark div.undertable td,
 body.dark div.lichess_table,
 body.dark div.lichess_table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
-body.dark div.footer_wrap {
+body.dark #footer_wrap {
   background: #242424;
 }
 body.dark #hooks_wrap table.list td {

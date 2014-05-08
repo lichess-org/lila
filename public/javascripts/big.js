@@ -495,8 +495,7 @@ var storage = {
     var bodyHeight = $('body').height();
     var winHeight = $(window).height();
     if (bodyHeight < winHeight) {
-      var $footer = $('div.footer_wrap');
-      $footer.css('marginTop', winHeight - bodyHeight + 30 + 'px');
+      $('#footer_wrap').css('marginTop', winHeight - bodyHeight + 30 + 'px');
     }
 
     if (!strongSocket.available) {
