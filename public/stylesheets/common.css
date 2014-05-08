@@ -211,25 +211,6 @@ ul.ui-autocomplete li a.ui-state-focus {
 .ui-slider-horizontal .ui-slider-range-max {
   right: 0;
 }
-.ui-resizable {
-  position: relative;
-}
-.ui-resizable-handle {
-  position: absolute;
-  font-size: 0.1px;
-  display: block;
-}
-.ui-resizable-disabled .ui-resizable-handle,
-.ui-resizable-autohide .ui-resizable-handle {
-  display: none;
-}
-.ui-resizable-n {
-  cursor: n-resize;
-  height: 7px;
-  width: 100%;
-  top: -5px;
-  left: 0;
-}
 #powerTip,
 #hook {
   width: 224px;
