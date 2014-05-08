@@ -201,9 +201,9 @@ trait UserRepo {
     val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), m => quoteReplacement(m group 1))
     val regex = "^" + escaped + ".*$"
     $primitive(
-      $select byId $regex(regex),
-      "username",
-      _ sort ("_id" -> $sort.desc),
+      $select.byId($regex(regex)) ++ enabledSelect,
+      F.username,
+      _ sort $sort.desc("_id"),
       max.some
     )(_.asOpt[String])
   }
