@@ -2050,6 +2050,12 @@ div.progressbar.flashy.green div {
   padding: 6px 8px 7px 8px;
   margin-bottom: 8px;
   border-radius: 2px;
+  transition: box-shadow 1.5s;
+}
+#notifications > div.glow {
+  box-shadow: 0 0 5px 2px #fff,
+  0 0 10px 3px #e89000,
+  0 0 20px 3px #d85000;
 }
 #notifications > div a.close {
   text-decoration: none;
@@ -2063,8 +2069,13 @@ div.progressbar.flashy.green div {
   width: 100%;
   margin: 3px 0 3px 0;
 }
-#notifications .action {
+#notifications a {
   margin-left: 10px;
+  font-weight: bold;
+  text-decoration: none;
+}
+#notifications a:hover {
+  text-decoration: underline;
 }
 a.hover_text > .base,
 a.hover_text:hover > .hover {

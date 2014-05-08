@@ -30,7 +30,7 @@
   font-size: 1.5em;
   position: relative;
   border-radius: 100px;
-  transition: all 1.5s;
+  transition: box-shadow 1.5s;
 }
 #tournament a.pov.glow {
   box-shadow: 0 0 10px 3px #fff,

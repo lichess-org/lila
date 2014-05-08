@@ -1,7 +1,7 @@
 @(tour: lila.tournament.Tournament)
 
-@notification.view("tournament_reminder", closable = false) {
+@notification.view("tournament_reminder", closable = false, glow = true) {
 <a data-icon="g" href="@routes.Tournament.show(tour.id)">&nbsp;@tour.name</a> in progress!
-<a class="action withdraw trans_me" href="@routes.Tournament.withdraw(tour.id)" data-icon="b"> @trans.withdraw.en()</a>
+<a class="action withdraw trans_me" href="@routes.Tournament.withdraw(tour.id)" data-icon="b">&nbsp;@trans.withdraw.en()</a>
 <a class="action trans_me" href="@routes.Tournament.show(tour.id)" data-icon="G">&nbsp;@trans.join.en()</a>
 }

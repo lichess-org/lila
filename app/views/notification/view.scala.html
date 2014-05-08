@@ -1,6 +1,6 @@
-@(id: String, from: Option[String] = None, closable: Boolean = true)(html: Html)
+@(id: String, from: Option[String] = None, closable: Boolean = true, glow: Boolean = false)(html: Html)
 
-<div id="@id" class="notification">
+<div id="@id" class="notification@if(glow) { glowing }">
   @if(closable) {
   <a class="close" href="@routes.Notification.remove(id)">X</a>
   }

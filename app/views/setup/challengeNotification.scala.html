@@ -7,7 +7,7 @@
   @modeNameNoCtx(game.mode)
 </div>
 <div class="actions">
-  <a class="action decline" href="@routes.Setup.decline(game.id)">@trans.decline.en()</a>
-  <a class="action" href="@routes.Round.watcher(game.id, "white")">View challenge</a>
+  <a class="action decline" href="@routes.Setup.decline(game.id)" data-icon="L">&nbsp;@trans.decline.en()</a>
+  <a class="action" href="@routes.Round.watcher(game.id, "white")" data-icon="v">&nbsp;View challenge</a>
 </div>
 }
