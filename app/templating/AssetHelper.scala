@@ -69,5 +69,5 @@ trait AssetHelper {
     s"""<script src="${static.fold(staticUrl(path), path)}?v=$assetVersion"></script>"""
   }
 
-  def embedJs(js: String): Html = Html(s"""<script type="text/javascript">/* <![CDATA[ */ $js /* ]]> */</script>""")
+  def embedJs(js: String): Html = Html(s"""<script>/* <![CDATA[ */ $js /* ]]> */</script>""")
 }
