@@ -12,7 +12,7 @@
 <div class="goodies">
   @u.perfs.perfs.drop(1).zipWithIndex.map {
   case ((name, perf), i) => {
-  <div class="sub_ratings @{ (i == 0 || i == 2 || i == 5 || i == 7) ?? "sep" }" title="@perfTitle(name)">
+  <div class="sub_ratings @if(Set(0, 2, 5, 7)(i)) { "sep" }" title="@perfTitle(name)">
     <h3>@if(name == "puzzle") {TRAINING} else {@name.toUpperCase}</h3>
     <strong title="Glicko rating">@perf.glicko.intRating</strong>
     <small title="Glicko rating deviation"> ±@perf.glicko.intDeviationDoubled</small> /
@@ -142,11 +142,11 @@ themepicker = true) {
         <p class="thin">@trans.lastLogin() @momentFormat(seen)</p>
         }
         <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
-        @*
-        <p>
-          Total time: @showPeriod(info.totalTime)
-        </p>
-        *@
+        <br />
+        <p>Total time: @showPeriod(info.playTime.totalPeriod)</p>
+        @info.playTime.tvPeriod.map { tvPeriod =>
+        <p>Time on TV: @showPeriod(tvPeriod)</p>
+        }
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
           @teamLink(teamId, ("revert-underline" + myTeam(teamId).fold(" mine", "")).some)

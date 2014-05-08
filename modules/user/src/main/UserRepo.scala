@@ -23,6 +23,7 @@ trait UserRepo {
   protected implicit def userTube: lila.db.BsTubeInColl[User]
 
   import User.ID
+  import User.{ BSONFields => F }
 
   val normalize = User normalize _
 
@@ -70,19 +71,19 @@ trait UserRepo {
 
   def byIdsSortRating(ids: Iterable[ID], max: Int) = $find($query byIds ids sort sortRatingDesc, max)
 
-  def allSortToints(nb: Int) = $find($query.all sort ($sort desc "toints"), nb)
+  def allSortToints(nb: Int) = $find($query.all sort ($sort desc F.toints), nb)
 
-  def usernameById(id: ID) = $primitive.one($select(id), "username")(_.asOpt[String])
+  def usernameById(id: ID) = $primitive.one($select(id), F.username)(_.asOpt[String])
 
-  def rank(user: User) = $count(enabledSelect ++ Json.obj("rating" -> $gt(Glicko.default.rating))) map (1+)
+  def rank(user: User) = $count(enabledSelect ++ Json.obj(F.rating -> $gt(Glicko.default.rating))) map (1+)
 
   def orderByGameCount(u1: String, u2: String): Fu[Option[(String, String)]] =
     userTube.coll.find(
       BSONDocument("_id" -> BSONDocument("$in" -> List(u1, u2))),
-      BSONDocument("count.game" -> true)
+      BSONDocument(s"${F.count}.game" -> true)
     ).cursor[BSONDocument].collect[List]() map { docs =>
         docs.sortBy {
-          _.getAs[BSONDocument]("count") flatMap (_.getAs[Double]("game").map(_.toInt)) getOrElse 0
+          _.getAs[BSONDocument](F.count) flatMap (_.getAs[Double]("game").map(_.toInt)) getOrElse 0
         }.map(_.getAs[String]("_id")).flatten match {
           case List(u1, u2) => (u1, u2).some
           case _            => none
@@ -92,29 +93,32 @@ trait UserRepo {
   def lichess = byId("lichess")
 
   def setPerfs(user: User, perfs: Perfs, progress: Int) = $update($select(user.id), $setBson(
-    "perfs" -> Perfs.tube.handler.write(perfs),
-    "rating" -> BSONInteger(user.engine.fold(Glicko.default, perfs.global.glicko).intRating),
-    "progress" -> BSONInteger(progress)
+    F.perfs -> Perfs.tube.handler.write(perfs),
+    F.rating -> BSONInteger(user.engine.fold(Glicko.default, perfs.global.glicko).intRating),
+    F.progress -> BSONInteger(progress)
   ))
 
   def setPerf(userId: String, perfName: String, perf: Perf) = $update($select(userId), $setBson(
-    s"perfs.$perfName" -> Perf.perfBSONHandler.write(perf)
+    s"${F.perfs}.$perfName" -> Perf.perfBSONHandler.write(perf)
   ))
 
   def setProfile(id: ID, profile: Profile): Funit =
-    $update($select(id), $setBson("profile" -> Profile.tube.handler.write(profile)))
+    $update($select(id), $setBson(F.profile -> Profile.tube.handler.write(profile)))
 
   def setTitle(id: ID, title: Option[String]): Funit = title match {
-    case Some(t) => $update.field(id, "title", t)
-    case None    => $update($select(id), $unset("title"))
+    case Some(t) => $update.field(id, F.title, t)
+    case None    => $update($select(id), $unset(F.title))
   }
 
-  val enabledSelect = Json.obj("enabled" -> true)
-  def engineSelect(v: Boolean) = Json.obj(User.BSONFields.engine -> v.fold(JsBoolean(true), $ne(true)))
+  def setPlayTime(u: User, playTime: User.PlayTime): Funit =
+    $update($select(u.id), $setBson(F.playTime -> User.playTimeHandler.write(playTime)))
+
+  val enabledSelect = Json.obj(F.enabled -> true)
+  def engineSelect(v: Boolean) = Json.obj(F.engine -> v.fold(JsBoolean(true), $ne(true)))
   val stableSelect = Json.obj("perfs.global.nb" -> $gte(50))
   val goodLadSelect = enabledSelect ++ engineSelect(false)
   val stableGoodLadSelect = stableSelect ++ goodLadSelect
-  def minRatingSelect(rating: Int) = Json.obj(User.BSONFields.rating -> $gt(rating))
+  def minRatingSelect(rating: Int) = Json.obj(F.rating -> $gt(rating))
   def perfSince(perf: String, since: DateTime) = Json.obj(
     s"perfs.$perf.la" -> Json.obj("$gt" -> $date(since))
   )
@@ -122,13 +126,13 @@ trait UserRepo {
 
   val sortRatingDesc = $sort desc "rating"
   val sortProgressDesc = $sort desc "progress"
-  val sortCreatedAtDesc = $sort desc User.BSONFields.createdAt
+  val sortCreatedAtDesc = $sort desc F.createdAt
 
-  def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Int) = {
+  def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Int, totalTime: Option[Int], tvTime: Option[Int]) = {
     val incs = List(
       "count.game".some,
-      "count.rated".some filter (_ => rated),
-      "count.ai".some filter (_ => ai),
+      rated option "count.rated",
+      ai option "count.ai",
       (result match {
         case -1 => "count.loss".some
         case 1  => "count.win".some
@@ -140,8 +144,11 @@ trait UserRepo {
         case 1  => "count.winH".some
         case 0  => "count.drawH".some
         case _  => none
-      }) filterNot (_ => ai)
-    ).flatten map (_ -> 1)
+      }) ifFalse ai
+    ).flatten.map(_ -> 1) ::: List(
+        totalTime map (s"${F.playTime}.total" -> _),
+        tvTime map (s"${F.playTime}.tv" -> _)
+      ).flatten
 
     $update($select(id), $incBson(incs: _*))
   }
@@ -242,12 +249,12 @@ trait UserRepo {
     import reactivemongo.core.commands._
     val command = Aggregate(userTube.coll.name, Seq(
       Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
-      Group(BSONBoolean(true))("rating" -> SumField("rating"))
+      Group(BSONBoolean(true))(F.rating -> SumField(F.rating))
     ))
     userTube.coll.db.command(command) map { stream =>
       stream.toList.headOption flatMap { obj =>
         toJSON(obj).asOpt[JsObject]
-      } flatMap { _ int "rating" }
+      } flatMap { _ int F.rating }
     } map (~_ / ids.size)
   }
 
@@ -255,17 +262,17 @@ trait UserRepo {
     import reactivemongo.core.commands._
     val command = Aggregate(userTube.coll.name, Seq(
       Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
-      Group(BSONBoolean(true))("toints" -> SumField("toints"))
+      Group(BSONBoolean(true))(F.toints -> SumField(F.toints))
     ))
     userTube.coll.db.command(command) map { stream =>
       stream.toList.headOption flatMap { obj =>
         toJSON(obj).asOpt[JsObject]
-      } flatMap { _ int "toints" }
+      } flatMap { _ int F.toints }
     } map (~_)
   }
 
   def filterByEngine(userIds: List[String]): Fu[List[String]] =
-    $primitive(Json.obj("_id" -> $in(userIds)) ++ engineSelect(true), "username")(_.asOpt[String])
+    $primitive(Json.obj("_id" -> $in(userIds)) ++ engineSelect(true), F.username)(_.asOpt[String])
 
   private def newUser(username: String, password: String) = {
 
@@ -274,20 +281,19 @@ trait UserRepo {
     implicit def countHandler = Count.tube.handler
     implicit def perfsHandler = Perfs.tube.handler
     import lila.db.BSON.BSONJodaDateTimeHandler
-    import User.BSONFields
 
     BSONDocument(
-      BSONFields.id -> normalize(username),
-      BSONFields.username -> username,
+      F.id -> normalize(username),
+      F.username -> username,
       "password" -> hash(password, salt),
       "salt" -> salt,
-      BSONFields.perfs -> perfs,
-      BSONFields.rating -> perfs.global.glicko.intRating,
-      BSONFields.progress -> 0,
-      BSONFields.count -> Count.default,
-      BSONFields.enabled -> true,
-      BSONFields.createdAt -> DateTime.now,
-      BSONFields.seenAt -> DateTime.now)
+      F.perfs -> perfs,
+      F.rating -> perfs.global.glicko.intRating,
+      F.progress -> 0,
+      F.count -> Count.default,
+      F.enabled -> true,
+      F.createdAt -> DateTime.now,
+      F.seenAt -> DateTime.now)
   }
 
   def artificialSetPassword(id: String, password: String) =

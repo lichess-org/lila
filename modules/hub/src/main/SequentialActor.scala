@@ -48,8 +48,8 @@ trait SequentialActor extends Actor {
       // we don't want to send Done after actor death
       case SequentialActor.Terminate => self ! PoisonPill
       case msg => {
-        (process orElse fallback)(msg) >>- 
-        (self ! Done)
+        (process orElse fallback)(msg) >>-
+          (self ! Done)
       }
     }
   }

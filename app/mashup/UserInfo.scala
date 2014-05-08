@@ -7,7 +7,7 @@ import org.joda.time.Period
 import lila.api.Context
 import lila.bookmark.BookmarkApi
 import lila.forum.PostApi
-import lila.game.{ GameRepo, Game, Crosstable, TimeCount }
+import lila.game.{ GameRepo, Game, Crosstable, PlayTime }
 import lila.relation.RelationApi
 import lila.security.Granter
 import lila.user.User
@@ -23,7 +23,7 @@ case class UserInfo(
     nbFollowers: Int,
     nbBlockers: Option[Int],
     nbPosts: Int,
-    totalTime: Period) {
+    playTime: User.PlayTime) {
 
   def nbRated = user.count.rated
 
@@ -51,12 +51,10 @@ object UserInfo {
       getRatingChart(user) zip
       relationApi.nbFollowing(user.id) zip
       relationApi.nbFollowers(user.id) zip
-      ((ctx.me ?? Granter(_.UserSpy)) ?? {
-        relationApi.nbBlockers(user.id) map (_.some)
-      }) zip
+      (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.nbBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
-      TimeCount.total(user.id) map {
-        case ((((((((rank, nbPlaying), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), totalTime) => new UserInfo(
+      PlayTime(user) map {
+        case ((((((((rank, nbPlaying), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), playTime) => new UserInfo(
           user = user,
           rank = rank,
           nbPlaying = ~nbPlaying,
@@ -67,6 +65,6 @@ object UserInfo {
           nbFollowers = nbFollowers,
           nbBlockers = nbBlockers,
           nbPosts = nbPosts,
-          totalTime = totalTime)
+          playTime = playTime)
       }
 }

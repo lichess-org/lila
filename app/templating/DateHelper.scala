@@ -5,7 +5,7 @@ import java.util.Locale
 import scala.collection.mutable
 
 import org.joda.time.format._
-import org.joda.time.{ Period, DateTime }
+import org.joda.time.{ Period, PeriodType, DurationFieldType, DateTime }
 import play.api.templates.Html
 
 import lila.api.Context
@@ -18,6 +18,10 @@ trait DateHelper { self: I18nHelper =>
   private val dateTimeFormatters = mutable.Map[String, DateTimeFormatter]()
   private val dateFormatters = mutable.Map[String, DateTimeFormatter]()
   private val periodFormatters = mutable.Map[String, PeriodFormatter]()
+  private val periodType = PeriodType forFields Array(
+    DurationFieldType.days,
+    DurationFieldType.hours,
+    DurationFieldType.minutes)
 
   private val isoFormatter = ISODateTimeFormat.dateTime
 
@@ -43,7 +47,7 @@ trait DateHelper { self: I18nHelper =>
     dateFormatter(ctx) print date
 
   def showPeriod(period: Period)(implicit ctx: Context): String =
-    periodFormatter(ctx) print period
+    periodFormatter(ctx) print period.normalizedStandard(periodType)
 
   def isoDate(date: DateTime): String = isoFormatter print date
 

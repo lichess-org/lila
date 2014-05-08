@@ -8,7 +8,6 @@ trait Steroids
   extends scalalib.Validation
   with scalalib.Common
   with scalalib.Regex
-  with scalalib.DateTime
   with scalalib.OrnicarMonoid.Instances
   with scalalib.Zero.Syntax
   with scalalib.Zero.Instances
@@ -40,6 +39,15 @@ trait Steroids
   with BooleanSteroids
   with OptionSteroids
   with ListSteroids
+
+  with JodaTimeSteroids
+
+trait JodaTimeSteroids {
+  implicit final class LilaPimpedDateTime(date: org.joda.time.DateTime) {
+    def getSeconds: Long = date.getMillis / 1000
+    def getDate: java.util.Date = date.toDate
+  }
+}
 
 trait ListSteroids {
 

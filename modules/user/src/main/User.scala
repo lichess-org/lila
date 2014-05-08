@@ -20,6 +20,7 @@ case class User(
     profile: Option[Profile] = None,
     engine: Boolean = false,
     toints: Int = 0,
+    playTime: Option[User.PlayTime] = None,
     title: Option[String] = None,
     createdAt: DateTime,
     seenAt: Option[DateTime],
@@ -67,6 +68,14 @@ object User {
 
   case class Active(user: User, lang: String)
 
+  case class PlayTime(total: Int, tv: Int) {
+    import org.joda.time.Period
+    def totalPeriod = new Period(total * 1000l)
+    def tvPeriod = (tv > 0) option new Period(tv * 1000l)
+  }
+  import lila.db.BSON.BSONJodaDateTimeHandler
+  implicit def playTimeHandler = reactivemongo.bson.Macros.handler[PlayTime]
+
   def normalize(username: String) = username.toLowerCase
 
   val titles = Seq(
@@ -99,6 +108,7 @@ object User {
     val profile = "profile"
     val engine = "engine"
     val toints = "toints"
+    val playTime = "time"
     val createdAt = "createdAt"
     val seenAt = "seenAt"
     val lang = "lang"
@@ -107,15 +117,14 @@ object User {
   }
 
   import lila.db.BSON
-  import lila.db.BSON.BSONJodaDateTimeHandler
 
   private def userBSONHandler = new BSON[User] {
 
     import BSONFields._
     import reactivemongo.bson.BSONDocument
-    implicit def countHandler = Count.tube.handler
-    implicit def profileHandler = Profile.tube.handler
-    implicit def perfsHandler = Perfs.tube.handler
+    private implicit def countHandler = Count.tube.handler
+    private implicit def profileHandler = Profile.tube.handler
+    private implicit def perfsHandler = Perfs.tube.handler
 
     def reads(r: BSON.Reader): User = User(
       id = r str id,
@@ -132,6 +141,7 @@ object User {
       profile = r.getO[Profile](profile),
       engine = r boolD engine,
       toints = r nIntD toints,
+      playTime = r.getO[PlayTime](playTime),
       createdAt = r date createdAt,
       seenAt = r dateO seenAt,
       lang = r strO lang,
@@ -152,6 +162,7 @@ object User {
       profile -> o.profile,
       engine -> w.boolO(o.engine),
       toints -> w.intO(o.toints),
+      playTime -> o.playTime,
       createdAt -> o.createdAt,
       seenAt -> o.seenAt,
       lang -> o.lang,
