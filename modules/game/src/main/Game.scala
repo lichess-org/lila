@@ -21,7 +21,7 @@ case class Game(
     clock: Option[Clock],
     castleLastMoveTime: CastleLastMoveTime,
     positionHashes: PositionHash = Array(),
-    moveTimes: Vector[Int] = Vector.empty, // tenths of seconds
+    binaryMoveTimes: ByteArray = ByteArray.empty, // tenths of seconds
     mode: Mode = Mode.default,
     variant: Variant = Variant.default,
     next: Option[String] = None,
@@ -89,6 +89,9 @@ case class Game(
   }
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
+  // in tenths of seconds
+  lazy val moveTimes: Vector[Int] = BinaryFormat.moveTime read binaryMoveTimes take turns
+
   def moveTimesInSeconds: Vector[Float] = moveTimes.map(_.toFloat / 10)
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
@@ -141,9 +144,9 @@ case class Game(
         lastMove = history.lastMove,
         lastMoveTime = Some(((nowMillis - createdAt.getMillis) / 100).toInt),
         check = situation.kingPos ifTrue situation.check),
-      moveTimes = isPgnImport.fold(
-        Vector.empty,
-        lastMoveTime.fold(Vector(0)) { lmt => moveTimes :+ (nowTenths - lmt).toInt }
+      binaryMoveTimes = isPgnImport.fold(
+        ByteArray.empty,
+        BinaryFormat.moveTime write lastMoveTime.fold(Vector(0)) { lmt => moveTimes :+ (nowTenths - lmt).toInt }
       ),
       status = situation.status | status,
       clock = game.clock)
@@ -456,7 +459,7 @@ object Game {
         clock = r.getO[Color => Clock](clock) map (_(Color(0 == nbTurns % 2))),
         positionHashes = r.bytesD(positionHashes).value,
         castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(castleLastMoveTimeBSONHandler),
-        moveTimes = ((r bytesO moveTimes) ?? BinaryFormat.moveTime.read _) take nbTurns,
+        binaryMoveTimes = (r bytesO moveTimes) | ByteArray.empty,
         mode = Mode(r boolD rated),
         variant = Variant(r intD variant) | Variant.Standard,
         next = r strO next,

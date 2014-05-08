@@ -29,7 +29,7 @@ object Rewind {
           lastMove = rewindedHistory.lastMove,
           lastMoveTime = Some(nowSeconds - game.createdAt.getSeconds.toInt),
           check = if (rewindedSituation.check) rewindedSituation.kingPos else None),
-        moveTimes = game.moveTimes take rewindedGame.turns,
+        binaryMoveTimes = BinaryFormat.moveTime write (game.moveTimes take rewindedGame.turns),
         status = game.status,
         clock = game.clock map (_.switch)
       ))
