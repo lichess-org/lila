@@ -1014,7 +1014,7 @@ var storage = {
               if (self.options.player.spectator && self.options.tv) {
                 // stop queue propagation here
                 self.element.queue(function() {
-                  lichess.reload();
+                  location.href = location.href;
                 });
               }
             },
