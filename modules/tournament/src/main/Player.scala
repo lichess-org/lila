@@ -4,7 +4,6 @@ import lila.user.User
 
 private[tournament] case class Player(
     id: String,
-    username: String,
     rating: Int,
     withdraw: Boolean = false,
     score: Int = 0) {
@@ -23,7 +22,6 @@ private[tournament] object Player {
 
   private[tournament] def make(user: User): Player = new Player(
     id = user.id,
-    username = user.username,
     rating = user.rating)
 
   private[tournament] def refresh(tour: Tournament): Players = tour.players map { p =>

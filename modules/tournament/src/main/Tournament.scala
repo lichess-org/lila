@@ -114,7 +114,7 @@ sealed trait StartedOrFinished extends Tournament {
   }.reverse
 
   def winner = players.headOption
-  def winnerUserId = winner map (_.username)
+  def winnerUserId = winner map (_.id)
 
   def playingPairings = pairings filter (_.playing)
   def recentGameIds(max: Int) = pairings take max map (_.gameId)
