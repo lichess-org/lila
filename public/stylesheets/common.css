@@ -928,13 +928,14 @@ ul.language_links li:last-child {
 }
 #top div.themepicker.shown div.piece_set {
   overflow: hidden;
-  background: url(../images/board/darksquares.jpg)
+  background: url(../images/board/darksquares.jpg);
+  box-shadow: inset 0 0 20px 2px #808080;
 }
 #top div.themepicker.shown div.set {
   float: left;
   padding: 8px;
   cursor: pointer;
-  transition: all 0.1s;
+  transition: all 0.2s;
 }
 #top div.themepicker.shown div.set:hover {
   background: rgba(240, 240, 240, 0.2);
@@ -1441,10 +1442,10 @@ div.game_config button.white span {
   background-size: 40px 40px;
 }
 div.game_config button.white span {
-  background-image: url(../piece/wK.svg);
+  background-image: url(../piece/cburnett/wK.svg);
 }
 div.game_config button.black span {
-  background-image: url(../piece/bK.svg);
+  background-image: url(../piece/cburnett/bK.svg);
 }
 div.game_config button.random {
   width: 75px;
@@ -1452,7 +1453,7 @@ div.game_config button.random {
   padding: 10px;
 }
 div.game_config div.color_submits button.random span {
-  background-image: url(../piece/wbK.svg);
+  background-image: url(../piece/cburnett/wbK.svg);
   background-size: 55px 55px;
   width: 55px;
   height: 55px;

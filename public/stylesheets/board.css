@@ -142,42 +142,42 @@ div.piece.ui-draggable-dragging {
 div.my_turn div.piece.ui-draggable {
   cursor: move;
 }
-body.wiki div.pawn.white {
-  background-image: url(../piece/wiki/wP.svg);
+body.cburnett div.pawn.white {
+  background-image: url(../piece/cburnett/wP.svg);
 }
-body.wiki div.bishop.white {
-  background-image: url(../piece/wiki/wB.svg);
+body.cburnett div.bishop.white {
+  background-image: url(../piece/cburnett/wB.svg);
 }
-body.wiki div.knight.white,
-#top div.piece_demo.wiki {
-  background-image: url(../piece/wiki/wN.svg);
+body.cburnett div.knight.white,
+#top div.piece_demo.cburnett {
+  background-image: url(../piece/cburnett/wN.svg);
 }
-body.wiki div.rook.white {
-  background-image: url(../piece/wiki/wR.svg);
+body.cburnett div.rook.white {
+  background-image: url(../piece/cburnett/wR.svg);
 }
-body.wiki div.queen.white {
-  background-image: url(../piece/wiki/wQ.svg);
+body.cburnett div.queen.white {
+  background-image: url(../piece/cburnett/wQ.svg);
 }
-body.wiki div.king.white {
-  background-image: url(../piece/wiki/wK.svg);
+body.cburnett div.king.white {
+  background-image: url(../piece/cburnett/wK.svg);
 }
-body.wiki div.pawn.black {
-  background-image: url(../piece/wiki/bP.svg);
+body.cburnett div.pawn.black {
+  background-image: url(../piece/cburnett/bP.svg);
 }
-body.wiki div.bishop.black {
-  background-image: url(../piece/wiki/bB.svg);
+body.cburnett div.bishop.black {
+  background-image: url(../piece/cburnett/bB.svg);
 }
-body.wiki div.knight.black {
-  background-image: url(../piece/wiki/bN.svg);
+body.cburnett div.knight.black {
+  background-image: url(../piece/cburnett/bN.svg);
 }
-body.wiki div.rook.black {
-  background-image: url(../piece/wiki/bR.svg);
+body.cburnett div.rook.black {
+  background-image: url(../piece/cburnett/bR.svg);
 }
-body.wiki div.queen.black {
-  background-image: url(../piece/wiki/bQ.svg);
+body.cburnett div.queen.black {
+  background-image: url(../piece/cburnett/bQ.svg);
 }
-body.wiki div.king.black {
-  background-image: url(../piece/wiki/bK.svg);
+body.cburnett div.king.black {
+  background-image: url(../piece/cburnett/bK.svg);
 }
 body.pirouetti div.pawn.white {
   background-image: url(../piece/pirouetti/wP.svg);

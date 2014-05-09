@@ -256,40 +256,40 @@ body.dark #hooks_wrap {
   background-image: url(../images/bN-bg.svg);
   background-size: 100% 100%;
 }
-body.dark.wiki div.onbg div.pawn.white {
+body.dark.cburnett div.onbg div.pawn.white {
   background-image: url(../piece/invert/bP.svg);
 }
-body.dark.wiki div.onbg div.bishop.white {
+body.dark.cburnett div.onbg div.bishop.white {
   background-image: url(../piece/invert/bB.svg);
 }
-body.dark.wiki div.onbg div.knight.white {
+body.dark.cburnett div.onbg div.knight.white {
   background-image: url(../piece/invert/bN.svg);
 }
-body.dark.wiki div.onbg div.rook.white {
+body.dark.cburnett div.onbg div.rook.white {
   background-image: url(../piece/invert/bR.svg);
 }
-body.dark.wiki div.onbg div.queen.white {
+body.dark.cburnett div.onbg div.queen.white {
   background-image: url(../piece/invert/bQ.svg);
 }
-body.dark.wiki div.onbg div.king.white {
+body.dark.cburnett div.onbg div.king.white {
   background-image: url(../piece/invert/bK.svg);
 }
-body.dark.wiki div.onbg div.pawn.black {
+body.dark.cburnett div.onbg div.pawn.black {
   background-image: url(../piece/invert/wP.svg);
 }
-body.dark.wiki div.onbg div.bishop.black {
+body.dark.cburnett div.onbg div.bishop.black {
   background-image: url(../piece/invert/wB.svg);
 }
-body.dark.wiki div.onbg div.knight.black {
+body.dark.cburnett div.onbg div.knight.black {
   background-image: url(../piece/invert/wN.svg);
 }
-body.dark.wiki div.onbg div.rook.black {
+body.dark.cburnett div.onbg div.rook.black {
   background-image: url(../piece/invert/wR.svg);
 }
-body.dark.wiki div.onbg div.queen.black {
+body.dark.cburnett div.onbg div.queen.black {
   background-image: url(../piece/invert/wQ.svg);
 }
-body.dark.wiki div.onbg div.king.black {
+body.dark.cburnett div.onbg div.king.black {
   background-image: url(../piece/invert/wK.svg);
 }
 body.dark div.game_row span.white,
