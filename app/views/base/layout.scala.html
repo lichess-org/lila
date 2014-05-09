@@ -33,6 +33,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     @langAnnotations
   </head>
   <body class="@ctx.currentTheme.cssClass @ctx.currentBg @ctx.currentPieceSet"
+    data-piece-set="@ctx.currentPieceSet"
     data-sound-dir="@staticUrl("sound")"
     data-ports="@portsString"
     data-accept-languages="@acceptLanguages.mkString(",")">

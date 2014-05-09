@@ -2690,8 +2690,8 @@ var storage = {
 
     if (!$("#GameBoard").length) return;
 
-    $('a.continue').click(function() {
-      $('div.continue').toggle();
+    $('div.game_control a.continue').click(function() {
+      $('div.game_control div.continue').toggle();
       return false;
     });
 
@@ -2699,7 +2699,7 @@ var storage = {
     // required to match e2e4 and highlight the moves on the board
     chessMovesRegExp = new RegExp("((\\d+(\\.{1,3}|\\s)\\s*)?((([KQRBN][a-h1-8]?)|[a-h])?x?[a-h][1-8](=[QRNB])?|O-O-O|O-O)[!?+#]*)", "g");
 
-    SetImagePath('http://' + document.domain.replace(/^\w+/, 'static') + "/assets/images/piece");
+    SetImagePath('http://' + document.domain.replace(/^\w+/, 'static') + "/assets/images/piece/" + $('body').data('piece-set'));
     SetImageType("svg");
     SetShortcutKeysEnabled(true);
     $('input').on('focus', function() {

@@ -38,7 +38,7 @@ $(function() {
       });
     }
 
-    var pieceTheme = 'http://' + document.domain.replace(/^\w+/, 'static') + '/assets/images/piece/{piece}.svg';
+    var pieceTheme = 'http://' + document.domain.replace(/^\w+/, 'static') + '/assets/images/piece/' + $('body').data('piece-set') + '/{piece}.svg';
     board = new ChessBoard('chessboard', {
       position: toBase($('#chessboard').data('fen')) || 'start',
       draggable: true,
