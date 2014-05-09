@@ -4,7 +4,7 @@
 
 // declare now, populate later in a distinct script.
 var lichess_translations = lichess_translations || [];
-var lichess_sri = Math.random().toString(36).substring(2); 
+var lichess_sri = Math.random().toString(36).substring(2);
 
 function withStorage(f) {
   // can throw an exception when storage is full

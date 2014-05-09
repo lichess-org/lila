@@ -908,10 +908,12 @@ ul.language_links li:last-child {
   display: block;
   width: 240px;
 }
-#top div.themepicker.shown div.board {
+#top div.themepicker.shown div.board,
+#top div.themepicker.shown div.piece_set {
   overflow: hidden;
 }
-#top div.themepicker.shown div.theme {
+#top div.themepicker.shown div.theme,
+#top div.themepicker.shown div.set {
   float: left;
   padding: 7px;
   cursor: pointer;
@@ -920,31 +922,27 @@ ul.language_links li:last-child {
 #top div.themepicker.shown div.theme:hover {
   background: #f0f0f0;
 }
+#top div.themepicker.shown div.color_demo,
+#top div.themepicker.shown div.piece_demo {
+  width: 64px;
+  height: 64px;
+}
 #top div.themepicker.shown div.color_demo {
   border: 1px solid #dadada;
   position: relative;
-  width: 64px;
-  height: 64px;
 }
 #top div.themepicker.shown div.piece_set {
-  overflow: hidden;
   background: url(../images/board/darksquares.jpg);
-  box-shadow: inset 0 0 20px 2px #808080;
+  box-shadow: inset 0 0 20px 3px #777;
 }
 #top div.themepicker.shown div.set {
-  float: left;
   padding: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
 }
 #top div.themepicker.shown div.set:hover {
-  background: rgba(240, 240, 240, 0.2);
+  background: rgba(250, 250, 250, 0.15);
 }
 #top div.themepicker.shown div.piece_demo {
   background-size: contain;
-  position: relative;
-  width: 64px;
-  height: 64px;
 }
 #top a.bgpicker,
 a#sound_state {
