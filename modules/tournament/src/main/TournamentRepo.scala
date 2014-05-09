@@ -80,7 +80,7 @@ object TournamentRepo {
   def recentlyStartedSorted: Fu[List[Started]] = $find($query(Json.obj(
     "status" -> Status.Started.id,
     "password" -> $exists(false),
-    "startedAt" -> $gt($date(DateTime.now minusMinutes 15))
+    "startedAt" -> $gt($date(DateTime.now minusMinutes 20))
   )) sort BSONDocument("schedule.at" -> 1, "createdAt" -> 1)
   ) map (_ flatMap asStarted)
 
