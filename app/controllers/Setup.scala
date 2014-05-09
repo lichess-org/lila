@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.data.Form
-import play.api.mvc.{ SimpleResult, Call, RequestHeader }
+import play.api.mvc.{ SimpleResult, Results, Call, RequestHeader, Accepting }
 
 import lila.api.{ Context, BodyContext }
 import lila.app._
@@ -10,14 +10,14 @@ import lila.game.{ GameRepo, Pov, AnonCookie }
 import lila.user.UserRepo
 import views._
 
-object Setup extends LilaController with TheftPrevention {
+object Setup extends LilaController with TheftPrevention with play.api.http.ContentTypes {
 
   private def env = Env.setup
 
   def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req)
       env.forms aiFilled get("fen") map { form =>
-        html.setup.ai(form, Env.ai.aiPerfApi.intRatings )
+        html.setup.ai(form, Env.ai.aiPerfApi.intRatings)
       }
     else fuccess {
       Redirect(routes.Lobby.home + "#ai")
@@ -174,9 +174,15 @@ object Setup extends LilaController with TheftPrevention {
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
       form(ctx).bindFromRequest.fold(
-        f => fuloginfo(f.errors.toString) inject Redirect(routes.Lobby.home),
-        config => op(config)(ctx) map {
-          case (pov, call) => redirectPov(pov, call)
+        f => negotiate(
+          html = fuloginfo(f.errors.toString) >> Lobby.renderHome(Results.BadRequest),
+          api = fuccess(BadRequest(f.errorsAsJson))
+        ),
+        config => op(config)(ctx) flatMap {
+          case (pov, call) => negotiate(
+            html = fuccess(redirectPov(pov, call)),
+            api = fuccess(Created(lila.api.Json.pov(pov)) as JSON)
+          )
         }
       )
     }

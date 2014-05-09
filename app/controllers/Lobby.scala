@@ -27,7 +27,7 @@ object Lobby extends LilaController {
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[SimpleResult] =
     reqToCtx(req) flatMap { ctx => renderHome(status)(ctx) }
 
-  def renderHome[A](status: Results.Status)(implicit ctx: Context): Fu[SimpleResult] =
+  def renderHome(status: Results.Status)(implicit ctx: Context): Fu[SimpleResult] =
     Env.current.preloader(
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds),
       tours = Env.tournament enterable true,

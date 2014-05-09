@@ -168,6 +168,15 @@ private[controllers] trait LilaController
   protected def authorizationFailed(req: RequestHeader): SimpleResult =
     Forbidden("no permission")
 
+  private val AcceptApi = play.api.mvc.Accepting("application/vnd.lichess.v1+json")
+  protected def negotiate(html: => Fu[SimpleResult], api: => Fu[SimpleResult])(implicit ctx: Context): Fu[SimpleResult] = {
+    implicit val req = ctx.req
+    render.async {
+      case AcceptApi() => api
+      case _           => html
+    }
+  }
+
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
     restoreUser(req) map { lila.user.UserContext(req, _) } flatMap { ctx =>
       pageDataBuilder(ctx) map { Context(ctx, _) }
