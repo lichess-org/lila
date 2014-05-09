@@ -48,12 +48,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case Mode.Rated  => trans.rated.en()
   }
 
-  def playerUsername(player: Player, withRating: Boolean = true) =
-    Namer.player(player, withRating)(userEnv.lightUser)
+  def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true) =
+    Namer.player(player, withRating, withTitle)(lightUser)
 
   def playerText(player: Player, withRating: Boolean = false) =
     player.aiLevel.fold(
-      player.userId.flatMap(userEnv.lightUser).fold("Anon.") { u =>
+      player.userId.flatMap(lightUser).fold("Anon.") { u =>
         player.rating.ifTrue(withRating).fold(u.titleName) { r => s"${u.titleName} ($r)" }
       }
     ) { level => s"A.I. level $level" }
