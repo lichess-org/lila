@@ -7,7 +7,7 @@ import play.api.mvc.Results.Ok
 import chess.format.Forsyth
 import lila.game.{ Game, Pov }
 
-object Json {
+object JsonView {
 
   def pov(p: Pov) = J.obj(
     "game" -> game(p.game),

@@ -4,7 +4,7 @@
 @game.players.map { p =>
 @if(game.playerBlurPercent(p.color) > 30) {
 <div class="player_blurs">
-  @playerLink(p, cssClass = p.color.name.some) @p.blurs/@game.playerMoves(p.color) blurs 
+  @playerLink(p, cssClass = p.color.name.some, mod = true) @p.blurs/@game.playerMoves(p.color) blurs
   <strong>@game.playerBlurPercent(p.color)%</strong>
 </div>
 }
