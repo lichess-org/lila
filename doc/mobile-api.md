@@ -7,11 +7,10 @@ The output is not documented. Instead, run the command example.
 ## Create a game
 
 ```sh
-http --form POST en.l.org/setup/ai variant=1 clock=false time=60 increment=60 level=3 color=random 'Accept:application/vnd.lichess.v1.json'
+http --form POST en.l.org/setup/ai variant=1 clock=false time=60 increment=60 level=3 color=random 'Accept:application/vnd.lichess.v1+json'
 ```
 - variant: 1 (standard) or 2 (chess960)
 - level: 1 to 8
-
 
 # WEBSOCKET
 
