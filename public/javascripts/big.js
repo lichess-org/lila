@@ -4,7 +4,7 @@
 
 // declare now, populate later in a distinct script.
 var lichess_translations = lichess_translations || [];
-var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
+var lichess_sri = Math.random().toString(36).substring(2); 
 
 function withStorage(f) {
   // can throw an exception when storage is full
@@ -2009,7 +2009,6 @@ var storage = {
       var myRating = parseInt($('#user_tag').data('rating'), 10);
       if (isHook) {
         var $formTag = $form.find('form');
-
         var ajaxSubmit = function(color) {
           $.ajax({
             url: $formTag.attr('action').replace(/uid-placeholder/, lichess_sri),
