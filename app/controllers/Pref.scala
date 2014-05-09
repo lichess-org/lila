@@ -43,6 +43,7 @@ object Pref extends LilaController {
 
   private lazy val setters = Map(
     "theme" -> (forms.theme -> save("theme") _),
+    "pieceSet" -> (forms.pieceSet -> save("pieceSet") _),
     "bg" -> (forms.bg -> save("bg") _))
 
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =

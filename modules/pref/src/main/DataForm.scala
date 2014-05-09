@@ -60,6 +60,10 @@ private[pref] final class DataForm(api: PrefApi) {
     "theme" -> nonEmptyText.verifying(Theme contains _)
   ))
 
+  val pieceSet = Form(single(
+    "set" -> nonEmptyText.verifying(PieceSet contains _)
+  ))
+
   val bg = Form(single(
     "bg" -> text.verifying(List("light", "dark") contains _)
   ))

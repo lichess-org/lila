@@ -2,20 +2,16 @@ package lila.pref
 
 import scalaz.NonEmptyList
 
-sealed class Theme private (val name: String) {
+sealed class PieceSet private (val name: String) {
 
   override def toString = name
 
   def cssClass = name
 }
 
-object Theme {
+object PieceSet {
 
-  val all = NonEmptyList(
-    "brown", "blue", "green",
-    "purple", "yellow", "grey",
-    "wood", "canvas", "leather"
-  ) map { name => new Theme(name) }
+  val all = NonEmptyList("wiki", "pirouetti") map { name => new PieceSet(name) }
 
   val list = all.list
 

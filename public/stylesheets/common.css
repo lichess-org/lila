@@ -904,9 +904,12 @@ ul.language_links li:last-child {
   text-decoration: none;
   line-height: normal;
 }
-#top div.themepicker.shown div.themes {
+#top div.themepicker.shown div.dropdown {
   display: block;
   width: 240px;
+}
+#top div.themepicker.shown div.board {
+  overflow: hidden;
 }
 #top div.themepicker.shown div.theme {
   float: left;
@@ -919,6 +922,25 @@ ul.language_links li:last-child {
 }
 #top div.themepicker.shown div.color_demo {
   border: 1px solid #dadada;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+#top div.themepicker.shown div.piece_set {
+  overflow: hidden;
+  background: url(../images/board/darksquares.jpg)
+}
+#top div.themepicker.shown div.set {
+  float: left;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+#top div.themepicker.shown div.set:hover {
+  background: rgba(240, 240, 240, 0.2);
+}
+#top div.themepicker.shown div.piece_demo {
+  background-size: contain;
   position: relative;
   width: 64px;
   height: 64px;

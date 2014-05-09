@@ -142,41 +142,88 @@ div.piece.ui-draggable-dragging {
 div.my_turn div.piece.ui-draggable {
   cursor: move;
 }
-div.pawn.white {
-  background-image: url(../images/piece/wP.svg);
+body.wiki div.pawn.white {
+  background-image: url(../images/piece/wiki/wP.svg);
 }
-div.bishop.white {
-  background-image: url(../images/piece/wB.svg);
+body.wiki div.bishop.white {
+  background-image: url(../images/piece/wiki/wB.svg);
 }
-div.knight.white {
-  background-image: url(../images/piece/wN.svg);
+body.wiki div.knight.white,
+#top div.piece_demo.wiki {
+  background-image: url(../images/piece/wiki/wN.svg);
 }
-div.rook.white {
-  background-image: url(../images/piece/wR.svg);
+body.wiki div.rook.white {
+  background-image: url(../images/piece/wiki/wR.svg);
 }
-div.queen.white {
-  background-image: url(../images/piece/wQ.svg);
+body.wiki div.queen.white {
+  background-image: url(../images/piece/wiki/wQ.svg);
 }
-div.king.white {
-  background-image: url(../images/piece/wK.svg);
+body.wiki div.king.white {
+  background-image: url(../images/piece/wiki/wK.svg);
 }
-div.pawn.black {
-  background-image: url(../images/piece/bP.svg);
+body.wiki div.pawn.black {
+  background-image: url(../images/piece/wiki/bP.svg);
 }
-div.bishop.black {
-  background-image: url(../images/piece/bB.svg);
+body.wiki div.bishop.black {
+  background-image: url(../images/piece/wiki/bB.svg);
 }
-div.knight.black {
-  background-image: url(../images/piece/bN.svg);
+body.wiki div.knight.black {
+  background-image: url(../images/piece/wiki/bN.svg);
 }
-div.rook.black {
-  background-image: url(../images/piece/bR.svg);
+body.wiki div.rook.black {
+  background-image: url(../images/piece/wiki/bR.svg);
 }
-div.queen.black {
-  background-image: url(../images/piece/bQ.svg);
+body.wiki div.queen.black {
+  background-image: url(../images/piece/wiki/bQ.svg);
 }
-div.king.black {
-  background-image: url(../images/piece/bK.svg);
+body.wiki div.king.black {
+  background-image: url(../images/piece/wiki/bK.svg);
+}
+body.pirouetti div.pawn.white {
+  background-image: url(../images/piece/pirouetti/wP.svg);
+}
+body.pirouetti div.bishop.white {
+  background-image: url(../images/piece/pirouetti/wB.svg);
+}
+body.pirouetti div.knight.white,
+#top div.piece_demo.pirouetti {
+  background-image: url(../images/piece/pirouetti/wN.svg);
+}
+body.pirouetti div.rook.white {
+  background-image: url(../images/piece/pirouetti/wR.svg);
+}
+body.pirouetti div.queen.white {
+  background-image: url(../images/piece/pirouetti/wQ.svg);
+}
+body.pirouetti div.king.white {
+  background-image: url(../images/piece/pirouetti/wK.svg);
+}
+body.pirouetti div.pawn.black {
+  background-image: url(../images/piece/pirouetti/bP.svg);
+}
+body.pirouetti div.bishop.black {
+  background-image: url(../images/piece/pirouetti/bB.svg);
+}
+body.pirouetti div.knight.black {
+  background-image: url(../images/piece/pirouetti/bN.svg);
+}
+body.pirouetti div.rook.black {
+  background-image: url(../images/piece/pirouetti/bR.svg);
+}
+body.pirouetti div.queen.black {
+  background-image: url(../images/piece/pirouetti/bQ.svg);
+}
+body.pirouetti div.king.black {
+  background-image: url(../images/piece/pirouetti/bK.svg);
+}
+body.pirouetti div.pawn,
+body.pirouetti div.bishop,
+body.pirouetti div.knight,
+body.pirouetti div.rook,
+body.pirouetti div.queen,
+body.pirouetti div.king,
+#top div.piece_demo.pirouetti {
+  background-position: 0 -2px;
 }
 div.lichess_game_not_started {
   position: relative;

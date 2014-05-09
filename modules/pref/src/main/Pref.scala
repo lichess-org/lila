@@ -9,6 +9,7 @@ case class Pref(
     id: String, // user id
     dark: Boolean,
     theme: String,
+    pieceSet: String,
     autoQueen: Int,
     autoThreefold: Int,
     takeback: Int,
@@ -23,18 +24,21 @@ case class Pref(
   import Pref._
 
   def realTheme = Theme(theme)
+  def realPieceSet = PieceSet(theme)
 
   def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
 
   def get(name: String): Option[String] = name match {
-    case "bg"    => dark.fold("dark", "light").some
-    case "theme" => theme.some
-    case _       => none
+    case "bg"       => dark.fold("dark", "light").some
+    case "theme"    => theme.some
+    case "pieceSet" => pieceSet.some
+    case _          => none
   }
   def set(name: String, value: String): Option[Pref] = name match {
-    case "bg"    => Pref.bgs get value map { b => copy(dark = b) }
-    case "theme" => Theme.allByName get value map { t => copy(theme = t.name) }
-    case _       => none
+    case "bg"       => Pref.bgs get value map { b => copy(dark = b) }
+    case "theme"    => Theme.allByName get value map { t => copy(theme = t.name) }
+    case "pieceSet" => PieceSet.allByName get value map { p => copy(pieceSet = p.name) }
+    case _          => none
   }
 }
 
@@ -99,6 +103,7 @@ object Pref {
     id = id,
     dark = false,
     theme = Theme.default.name,
+    pieceSet = PieceSet.default.name,
     autoQueen = AutoQueen.PREMOVE,
     autoThreefold = AutoThreefold.TIME,
     takeback = Takeback.ALWAYS,
@@ -122,6 +127,7 @@ object Pref {
   private def defaults = Json.obj(
     "dark" -> default.dark,
     "theme" -> default.theme,
+    "pieceSet" -> default.pieceSet,
     "autoQueen" -> default.autoQueen,
     "autoThreefold" -> default.autoThreefold,
     "takeback" -> default.takeback,

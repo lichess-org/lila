@@ -32,7 +32,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     <meta name="google" content="notranslate" />
     @langAnnotations
   </head>
-  <body class="@ctx.currentTheme.cssClass @ctx.currentBg"
+  <body class="@ctx.currentTheme.cssClass @ctx.currentBg @ctx.currentPieceSet"
     data-sound-dir="@staticUrl("sound")"
     data-ports="@portsString"
     data-accept-languages="@acceptLanguages.mkString(",")">
@@ -81,12 +81,21 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
         <span class="is2" data-icon="l"></span>
       </a>
       @if(themepicker) {
-      <div class="themepicker">
+      <div class="themepicker"
+        data-themes="@lila.pref.Theme.listString"
+        data-sets="@lila.pref.PieceSet.listString">
         <a class="theme_toggle toggle" href="#"><span data-icon="u">&nbsp;@trans.color()</span></a>
-        <div class="themes dropdown" data-href="@routes.Pref.set("theme")">
-          @lila.pref.Theme.list.map { theme =>
-          <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>
-          }
+        <div class="dropdown">
+          <div class="board" data-href="@routes.Pref.set("theme")">
+            @lila.pref.Theme.list.map { theme =>
+            <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>
+            }
+          </div>
+          <div class="piece_set" data-href="@routes.Pref.set("pieceSet")">
+            @lila.pref.PieceSet.list.map { set =>
+            <div class="set" data-set="@set.name"><div class="piece_demo @set.name"></div></div>
+            }
+          </div>
         </div>
       </div>
       }

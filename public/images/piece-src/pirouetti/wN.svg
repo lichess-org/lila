@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X5 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="42.3332mm" height="42.3332mm" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 4233 4233"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil1 {fill:#E3E3E3}
+    .fil0 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ <g id="Warstwa_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <path class="fil0" d="M1040 1733c-183,169 -132,155 -60,286 72,131 195,227 503,77 308,-150 390,-133 517,-103 127,30 159,91 167,157 8,66 -186,227 -400,433 -214,205 -402,243 -373,671 30,428 19,525 -42,592 -61,67 1074,263 1221,196 147,-68 543,-55 465,-460 -78,-406 -208,-900 -10,-1238 198,-338 398,-1042 -527,-1423 -925,-381 -558,35 -648,83 -90,47 -121,57 -175,83 -98,47 -463,485 -639,647z"/>
+  <rect class="fil0" x="1101" y="3595" width="2217" height="204"/>
+  <rect class="fil0" x="1271" y="3742" width="1885" height="153"/>
+  <rect class="fil0" x="1098" y="3861" width="2217" height="204"/>
+  <path class="fil1" d="M1826 2000c0,0 85,-124 262,-131 176,-7 75,-331 75,-331 0,0 227,293 227,444 0,151 -239,217 -239,217 0,0 -30,-182 -324,-200z"/>
+  <path class="fil1" d="M2831 1100c0,0 425,238 221,842 -204,604 -560,915 -498,1226 62,311 9,364 31,391 22,27 93,27 195,-4 102,-31 84,44 93,89 9,44 72,421 72,421l369 0 0 -204 -159 0 0 -63 163 0 0 -204 -277 0c0,0 -95,-448 -116,-728 -21,-280 58,-454 170,-653 111,-200 231,-777 -265,-1113z"/>
+  <polygon class="fil1" points="1272,3798 3156,3798 3156,3861 1272,3861 "/>
+ </g>
+</svg>

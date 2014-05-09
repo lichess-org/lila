@@ -615,14 +615,16 @@ var storage = {
 
     // themepicker
     var $body = $('body');
-    var $themes = $('#top div.themepicker div.theme');
-    var themes = $.makeArray($themes.map(function() {
-      return $(this).data("theme");
-    }));
-    var theme = $.map(document.body.className.split(/\s+/), function(a) {
-      return $.inArray(a, themes) < 0 ? null : a;
-    })[0];
-    $themes.hover(function() {
+    var $themepicker = $('#top div.themepicker');
+    var themes = $themepicker.data('themes').split(' ');
+    var theme = _.find(document.body.className.split(/\s+/), function(a) {
+      return _.contains(themes, a);
+    });
+    var sets = $themepicker.data('sets').split(' ');
+    var set = _.find(document.body.className.split(/\s+/), function(a) {
+      return _.contains(sets, a);
+    });
+    $themepicker.find('div.theme').hover(function() {
       $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
     }, function() {
       $body.removeClass(themes.join(' ')).addClass(theme);
@@ -630,6 +632,17 @@ var storage = {
       theme = $(this).data("theme");
       $.post($(this).parent().data("href"), {
         "theme": theme
+      });
+      $('#top .themepicker').removeClass("shown");
+    });
+    $themepicker.find('div.set').hover(function() {
+      $body.removeClass(sets.join(' ')).addClass($(this).data("set"));
+    }, function() {
+      $body.removeClass(sets.join(' ')).addClass(set);
+    }).click(function() {
+      set = $(this).data("set");
+      $.post($(this).parent().data("href"), {
+        "set": set
       });
       $('#top .themepicker').removeClass("shown");
     });

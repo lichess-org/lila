@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X5 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="42.3332mm" height="42.3332mm" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 4233 4233"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil1 {fill:#111111}
+    .fil0 {fill:#2E2E2E}
+   ]]>
+  </style>
+ </defs>
+ <g id="Warstwa_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0" x="1165" y="3595" width="1907" height="204"/>
+  <rect class="fil0" x="1310" y="3742" width="1621" height="153"/>
+  <rect class="fil0" x="1162" y="3862" width="1907" height="204"/>
+  <polygon class="fil1" points="1311,3799 2932,3799 2932,3861 1311,3861 "/>
+  <polygon class="fil0" points="1871,2415 2167,2411 2167,3693 1550,3684 "/>
+  <polygon class="fil0" points="2352,2415 2088,2411 2087,3693 2705,3684 "/>
+  <rect class="fil0" x="1566" y="2263" width="1115" height="158"/>
+  <ellipse class="fil0" cx="2101" cy="1905" rx="414" ry="433"/>
+  <path class="fil1" d="M2191 1482c0,0 195,147 218,349 36,315 -162,418 -446,351 -143,-34 -244,-110 -231,-82 0,0 21,51 59,90 37,39 82,75 82,75l457 0c0,0 74,-41 114,-117 40,-77 72,-137 72,-244 0,-107 -41,-199 -68,-237 -27,-38 -56,-71 -105,-114 -48,-44 -152,-71 -152,-71z"/>
+  <polygon class="fil1" points="2286,2263 2355,2421 2681,2421 2681,2263 "/>
+  <polygon class="fil1" points="1770,2421 2355,2421 2701,3663 2446,3663 2277,2568 "/>
+  <polygon class="fil1" points="2678,3595 2748,4065 3069,4065 3069,3862 2932,3861 2932,3799 3072,3799 3072,3595 "/>
+ </g>
+</svg>

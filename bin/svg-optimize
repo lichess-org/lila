@@ -2,17 +2,21 @@
 
 # PIECES
 
-from=public/images/piece-src
-to=public/images/piece
+for set (wiki pirouetti); do
 
-rm -rf $to/*
-mkdir -p $to/invert
+  from=public/images/piece-src/$set
+  to=public/images/piece/$set
 
-for file ($from/*.svg); do
-  svgcleaner-cli $file $(echo $file | sed 's#/piece-src/#/piece/#')
-done
-for file ($from/invert/*.svg); do
-  svgcleaner-cli $file $(echo $file | sed 's#/piece-src/#/piece/#')
+  rm -rf $to/*
+  mkdir -p $to/invert
+
+  for file ($from/*.svg); do
+    svgcleaner-cli $file $(echo $file | sed 's#/piece-src/#/piece/#')
+  done
+  for file ($from/invert/*.svg); do
+    svgcleaner-cli $file $(echo $file | sed 's#/piece-src/#/piece/#')
+  done
+
 done
 
 # LOGO

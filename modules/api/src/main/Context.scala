@@ -26,6 +26,8 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def currentTheme = ctxPref("theme").fold(Pref.default.realTheme)(lila.pref.Theme.apply)
 
+  def currentPieceSet = ctxPref("pieceSet").fold(Pref.default.realPieceSet)(lila.pref.PieceSet.apply)
+
   def currentBg = ctxPref("bg") | "light"
 
   private def ctxPref(name: String): Option[String] =
