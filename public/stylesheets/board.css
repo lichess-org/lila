@@ -216,14 +216,42 @@ body.pirouetti div.queen.black {
 body.pirouetti div.king.black {
   background-image: url(../images/piece/pirouetti/bK.svg);
 }
-body.pirouetti div.pawn,
-body.pirouetti div.bishop,
-body.pirouetti div.knight,
-body.pirouetti div.rook,
-body.pirouetti div.queen,
-body.pirouetti div.king,
-#top div.piece_demo.pirouetti {
-  background-position: 0 -2px;
+body.merida div.pawn.white {
+  background-image: url(../images/piece/merida/wP.svg);
+}
+body.merida div.bishop.white {
+  background-image: url(../images/piece/merida/wB.svg);
+}
+body.merida div.knight.white,
+#top div.piece_demo.merida {
+  background-image: url(../images/piece/merida/wN.svg);
+}
+body.merida div.rook.white {
+  background-image: url(../images/piece/merida/wR.svg);
+}
+body.merida div.queen.white {
+  background-image: url(../images/piece/merida/wQ.svg);
+}
+body.merida div.king.white {
+  background-image: url(../images/piece/merida/wK.svg);
+}
+body.merida div.pawn.black {
+  background-image: url(../images/piece/merida/bP.svg);
+}
+body.merida div.bishop.black {
+  background-image: url(../images/piece/merida/bB.svg);
+}
+body.merida div.knight.black {
+  background-image: url(../images/piece/merida/bN.svg);
+}
+body.merida div.rook.black {
+  background-image: url(../images/piece/merida/bR.svg);
+}
+body.merida div.queen.black {
+  background-image: url(../images/piece/merida/bQ.svg);
+}
+body.merida div.king.black {
+  background-image: url(../images/piece/merida/bK.svg);
 }
 div.lichess_game_not_started {
   position: relative;

@@ -2,7 +2,7 @@
 
 # PIECES
 
-for set (wiki pirouetti); do
+for set (wiki pirouetti merida spatial); do
 
   from=public/images/piece-src/$set
   to=public/images/piece/$set

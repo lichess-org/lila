@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: CorelDRAW -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xml:space="preserve"
+   width="50mm"
+   height="50mm"
+   shape-rendering="geometricPrecision"
+   text-rendering="geometricPrecision"
+   image-rendering="optimizeQuality"
+   fill-rule="evenodd"
+   clip-rule="evenodd"
+   viewBox="0 0 50 50"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.45"
+   sodipodi:docname="wr.svg"
+   sodipodi:docbase="/home/fkling/2/v0.1.2reduced/PieceThemes/Merida"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:modified="true"><metadata
+   id="metadata13"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+   id="defs11"><linearGradient
+     inkscape:collect="always"
+     id="linearGradient2165"><stop
+       style="stop-color:#ffffff;stop-opacity:1;"
+       offset="0"
+       id="stop2167" /><stop
+       style="stop-color:#ffffff;stop-opacity:0;"
+       offset="1"
+       id="stop2169" /></linearGradient><linearGradient
+     inkscape:collect="always"
+     xlink:href="#linearGradient2165"
+     id="linearGradient2171"
+     x1="21.375923"
+     y1="37.469288"
+     x2="77.641281"
+     y2="37.469288"
+     gradientUnits="userSpaceOnUse" /></defs><sodipodi:namedview
+   inkscape:window-height="625"
+   inkscape:window-width="944"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   guidetolerance="10.0"
+   gridtolerance="10.0"
+   objecttolerance="10.0"
+   borderopacity="1.0"
+   bordercolor="#666666"
+   pagecolor="#ffffff"
+   id="base"
+   inkscape:zoom="2.2972888"
+   inkscape:cx="92.275155"
+   inkscape:cy="88.582678"
+   inkscape:window-x="271"
+   inkscape:window-y="154"
+   inkscape:current-layer="svg2"
+   showgrid="true" />
+ <g
+   id="Layer_x0020_1">
+  <metadata
+   id="CorelCorpID_0Corel-Layer" />
+  <polygon
+   fill="#1F1A17"
+   points="28.4078,9.22 32.6242,9.22 32.6242,5.8249 39.423,5.8249 39.423,15.1213 33.9196,19.3631 33.9196,31.2249 38.136,35.4413 38.136,40.5213 41.9291,40.5213 41.9291,46.4479 8.0709,46.4479 8.0709,40.5213 11.864,40.5213 11.864,35.4413 16.1058,31.2249 16.1058,19.3631 10.6024,15.1213 10.6024,5.8249 17.3758,5.8249 17.3758,9.22 21.6176,9.22 21.6176,5.8249 28.4078,5.8249 "
+   id="polygon6" />
+  <path
+   fill="white"
+   d="M33.073 17.6782l3.1496 -2.5569 -22.4198 0 3.175 2.5569 16.0952 0zm7.1966 24.5279l-30.5138 0 0 2.557 30.5138 0 0 -2.557zm-3.8438 -5.0546l-22.8262 0 0 3.3698 22.8262 0 0 -3.3698zm-4.2164 -17.7884l-14.3934 0 0 11.8618 14.3934 0 0 -11.8618zm5.5033 -5.9267l0 -5.9267 -3.3951 0 0 3.3952 -7.6454 0 0 -3.3952 -3.3444 0 0 3.3952 -7.62 0 0 -3.3952 -3.3951 0 0 5.9267 25.4 0zm-1.9135 22.0049l-2.5484 -2.5316 -16.4508 0 -2.5992 2.5316 21.5984 0z"
+   id="path8"
+   style="fill-opacity:1.0;fill:url(#linearGradient2171)" />
+ </g>
+</svg>
