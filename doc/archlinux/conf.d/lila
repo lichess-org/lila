@@ -1,8 +1,0 @@
-#!/bin/bash
-
-PLAY_APP=/home/thib/lila # (required) Path of your play application
-PLAY_USER=root # (optional) The Linux user to use to run the play server. Using root if not setted
-PLAY_ARGS= # (optional) The play args to run the play server with. Setting to "--%prod" can be useful to override the play profile id
-
-
-
