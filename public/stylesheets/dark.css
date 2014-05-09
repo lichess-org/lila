@@ -294,11 +294,11 @@ body.dark.cburnett div.onbg div.king.black {
 }
 body.dark div.game_row span.white,
 body.dark .player.color.white {
-  background-image: url(../piece/invert/bK-full.svg);
+  background-image: url(../piece/cburnett/invert/bK-full.svg);
 }
 body.dark div.game_row span.black,
 body.dark .player.color.black {
-  background-image: url(../piece/invert/wK-full.svg);
+  background-image: url(../piece/cburnett/invert/wK-full.svg);
 }
 body.dark div.lichess_table_wrap > div.clock.running > div.time {
   background: #505a60;

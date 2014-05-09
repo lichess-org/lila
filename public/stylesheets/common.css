@@ -1225,11 +1225,11 @@ div.game_row span.color {
 }
 div.game_row span.white,
 .player.color.white {
-  background-image: url(../piece/wK-full.svg);
+  background-image: url(../piece/cburnett/wK-full.svg);
 }
 div.game_row span.black,
 .player.color.black {
-  background-image: url(../piece/bK-full.svg);
+  background-image: url(../piece/cburnett/bK-full.svg);
 }
 div.game_row .bookmark {
   margin-right: 26px;
@@ -1902,10 +1902,7 @@ div.new_posts li {
   line-height: 14px;
   white-space: nowrap;
 }
-div.new_posts a.post_link {
-  margin-right: 7px;
-}
-div.new_posts li span {
+div.new_posts a {
   margin-right: 6px;
 }
 div.new_posts li span.extract {
