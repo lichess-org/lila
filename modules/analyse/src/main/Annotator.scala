@@ -1,13 +1,18 @@
 package lila.analyse
 
 import chess.format.pgn.{ Pgn, Tag, Turn, Move }
+import chess.OpeningExplorer.Opening
 
 private[analyse] final class Annotator(netDomain: String) {
 
-  def apply(p: Pgn, analysis: Analysis): Pgn =
-    annotateTurns(p, analysis.advices).copy(
-      tags = p.tags :+ Tag("Annotator", netDomain)
-    )
+  def apply(p: Pgn, analysis: Option[Analysis], opening: Option[Opening]): Pgn =
+    annotateOpening(opening) {
+      annotateTurns(p, analysis ?? (_.advices))
+    }.copy(tags = p.tags :+ Tag("Annotator", netDomain))
+
+  private def annotateOpening(opening: Option[Opening])(p: Pgn) = opening.fold(p) { o =>
+    p.updatePly(o.size, _.copy(opening = o.name.some))
+  }
 
   private def annotateTurns(p: Pgn, advices: List[Advice]): Pgn =
     advices.foldLeft(p) {

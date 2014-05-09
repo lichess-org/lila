@@ -63,20 +63,11 @@ themepicker = true) {
   </div>
   <div class="moves_wrap">
     <div id="GameText"></div>
-
-    @if(!game.fromPosition && !game.variant.exotic) {
-    <p>
-      <strong>@trans.opening()</strong> @opening.map { o =>
-      @o.code @o.name
-      }.getOrElse { "Unknown" }
-    </p>
-    }
     @game.next.map { n =>
     <p>
       <a href="@routes.Round.watcher(n, pov.opponent.color.name)" data-icon="v">&nbsp;@trans.viewRematch()</a>
     </p>
     }
-
     <div class="advice_summary">
       @round.blurs(game)
       @round.holdAlerts(game)
