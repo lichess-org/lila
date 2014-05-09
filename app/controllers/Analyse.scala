@@ -10,7 +10,7 @@ import play.api.templates.Html
 import lila.analyse.{ TimeChart, AdvantageChart }
 import lila.api.Context
 import lila.app._
-import lila.game.{ Pov, GameRepo, PgnDump }
+import lila.game.{ Pov, Game => GameModel, GameRepo, PgnDump }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.AnalysisAvailable
 import lila.tournament.{ TournamentRepo, Tournament => Tourney }
@@ -48,11 +48,12 @@ object Analyse extends LilaController {
       (ctx.isAuth ?? {
         Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
       }) map {
-        case (((((version, pgn), analysis), tour), crosstable), chat) =>
+        case (((((version, pgn), analysis), tour), crosstable), chat) => {
+          val opening = gameOpening(pov.game)
           Ok(html.analyse.replay(
             pov,
-            analysis.fold(pgn)(a => Env.analyse.annotator(pgn, a)).toString,
-            chess.OpeningExplorer openingOf pov.game.pgnMoves,
+            Env.analyse.annotator(pgn, analysis, opening).toString,
+            opening,
             analysis,
             analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
             version,
@@ -60,6 +61,7 @@ object Analyse extends LilaController {
             tour,
             new TimeChart(pov.game, pov.game.pgnMoves),
             crosstable))
+        }
       }
 
   def pgn(id: String) = Open { implicit ctx =>
@@ -69,7 +71,7 @@ object Analyse extends LilaController {
         case None => for {
           pgn ← Env.game.pgnDump(game)
           analysis ← env.analyser getDone game.id
-        } yield analysis.fold(pgn)(a => Env.analyse.annotator(pgn, a)).toString
+        } yield Env.analyse.annotator(pgn, analysis, gameOpening(game)).toString
       }) flatMap { content =>
         Env.game.pgnDump filename game map { filename =>
           Ok(content).withHeaders(
@@ -80,6 +82,10 @@ object Analyse extends LilaController {
       }
     }
   }
+
+  private def gameOpening(game: GameModel) =
+    if (game.fromPosition || game.variant.exotic) none
+    else chess.OpeningExplorer openingOf game.pgnMoves
 
   def fen(id: String) = Open { implicit ctx =>
     OptionOk(GameRepo game id) { game =>
