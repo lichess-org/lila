@@ -17,6 +17,7 @@ object Dependencies {
     val localSonatype = "local sonatype repo" at home + "/local-repo/sonatype/snapshots"
     val local = "local repo" at home + "/local-repo"
     val roundeights = "RoundEights" at "http://maven.spikemark.net/roundeights"
+    val snowplow = "SnowPlow Repo" at "http://maven.snplow.com/releases/"
 
     val commons = Seq(
       local,
@@ -27,7 +28,7 @@ object Dependencies {
       typesafe,
       roundeights,
       // typesafeS,
-      t2v, jgitMaven, sprayRepo)
+      t2v, jgitMaven, sprayRepo, snowplow)
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.0.5"
