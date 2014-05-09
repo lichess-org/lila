@@ -28,7 +28,7 @@
     (new js/ChessBoard "chessboard"
          (clj->js (merge {:sparePieces false
                           :showNotation false
-                          :pieceTheme (str static-domain "/assets/images/piece/" piece-set "/{piece}.svg")}
+                          :pieceTheme (str static-domain "/assets/piece/" piece-set "/{piece}.svg")}
                          config)))))
 
 (defn board-marks! [$puzzle]

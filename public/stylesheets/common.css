@@ -1226,11 +1226,11 @@ div.game_row span.color {
 }
 div.game_row span.white,
 .player.color.white {
-  background-image: url(../images/piece/wK-full.svg);
+  background-image: url(../piece/wK-full.svg);
 }
 div.game_row span.black,
 .player.color.black {
-  background-image: url(../images/piece/bK-full.svg);
+  background-image: url(../piece/bK-full.svg);
 }
 div.game_row .bookmark {
   margin-right: 26px;
@@ -1441,10 +1441,10 @@ div.game_config button.white span {
   background-size: 40px 40px;
 }
 div.game_config button.white span {
-  background-image: url(../images/piece/wK.svg);
+  background-image: url(../piece/wK.svg);
 }
 div.game_config button.black span {
-  background-image: url(../images/piece/bK.svg);
+  background-image: url(../piece/bK.svg);
 }
 div.game_config button.random {
   width: 75px;
@@ -1452,7 +1452,7 @@ div.game_config button.random {
   padding: 10px;
 }
 div.game_config div.color_submits button.random span {
-  background-image: url(../images/piece/wbK.svg);
+  background-image: url(../piece/wbK.svg);
   background-size: 55px 55px;
   width: 55px;
   height: 55px;

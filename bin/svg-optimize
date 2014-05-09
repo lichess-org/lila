@@ -4,8 +4,8 @@
 
 for set (wiki pirouetti merida spatial); do
 
-  from=public/images/piece-src/$set
-  to=public/images/piece/$set
+  from=public/piece-src/$set
+  to=public/piece/$set
 
   rm -rf $to/*
   mkdir -p $to/invert

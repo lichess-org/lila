@@ -143,115 +143,115 @@ div.my_turn div.piece.ui-draggable {
   cursor: move;
 }
 body.wiki div.pawn.white {
-  background-image: url(../images/piece/wiki/wP.svg);
+  background-image: url(../piece/wiki/wP.svg);
 }
 body.wiki div.bishop.white {
-  background-image: url(../images/piece/wiki/wB.svg);
+  background-image: url(../piece/wiki/wB.svg);
 }
 body.wiki div.knight.white,
 #top div.piece_demo.wiki {
-  background-image: url(../images/piece/wiki/wN.svg);
+  background-image: url(../piece/wiki/wN.svg);
 }
 body.wiki div.rook.white {
-  background-image: url(../images/piece/wiki/wR.svg);
+  background-image: url(../piece/wiki/wR.svg);
 }
 body.wiki div.queen.white {
-  background-image: url(../images/piece/wiki/wQ.svg);
+  background-image: url(../piece/wiki/wQ.svg);
 }
 body.wiki div.king.white {
-  background-image: url(../images/piece/wiki/wK.svg);
+  background-image: url(../piece/wiki/wK.svg);
 }
 body.wiki div.pawn.black {
-  background-image: url(../images/piece/wiki/bP.svg);
+  background-image: url(../piece/wiki/bP.svg);
 }
 body.wiki div.bishop.black {
-  background-image: url(../images/piece/wiki/bB.svg);
+  background-image: url(../piece/wiki/bB.svg);
 }
 body.wiki div.knight.black {
-  background-image: url(../images/piece/wiki/bN.svg);
+  background-image: url(../piece/wiki/bN.svg);
 }
 body.wiki div.rook.black {
-  background-image: url(../images/piece/wiki/bR.svg);
+  background-image: url(../piece/wiki/bR.svg);
 }
 body.wiki div.queen.black {
-  background-image: url(../images/piece/wiki/bQ.svg);
+  background-image: url(../piece/wiki/bQ.svg);
 }
 body.wiki div.king.black {
-  background-image: url(../images/piece/wiki/bK.svg);
+  background-image: url(../piece/wiki/bK.svg);
 }
 body.pirouetti div.pawn.white {
-  background-image: url(../images/piece/pirouetti/wP.svg);
+  background-image: url(../piece/pirouetti/wP.svg);
 }
 body.pirouetti div.bishop.white {
-  background-image: url(../images/piece/pirouetti/wB.svg);
+  background-image: url(../piece/pirouetti/wB.svg);
 }
 body.pirouetti div.knight.white,
 #top div.piece_demo.pirouetti {
-  background-image: url(../images/piece/pirouetti/wN.svg);
+  background-image: url(../piece/pirouetti/wN.svg);
 }
 body.pirouetti div.rook.white {
-  background-image: url(../images/piece/pirouetti/wR.svg);
+  background-image: url(../piece/pirouetti/wR.svg);
 }
 body.pirouetti div.queen.white {
-  background-image: url(../images/piece/pirouetti/wQ.svg);
+  background-image: url(../piece/pirouetti/wQ.svg);
 }
 body.pirouetti div.king.white {
-  background-image: url(../images/piece/pirouetti/wK.svg);
+  background-image: url(../piece/pirouetti/wK.svg);
 }
 body.pirouetti div.pawn.black {
-  background-image: url(../images/piece/pirouetti/bP.svg);
+  background-image: url(../piece/pirouetti/bP.svg);
 }
 body.pirouetti div.bishop.black {
-  background-image: url(../images/piece/pirouetti/bB.svg);
+  background-image: url(../piece/pirouetti/bB.svg);
 }
 body.pirouetti div.knight.black {
-  background-image: url(../images/piece/pirouetti/bN.svg);
+  background-image: url(../piece/pirouetti/bN.svg);
 }
 body.pirouetti div.rook.black {
-  background-image: url(../images/piece/pirouetti/bR.svg);
+  background-image: url(../piece/pirouetti/bR.svg);
 }
 body.pirouetti div.queen.black {
-  background-image: url(../images/piece/pirouetti/bQ.svg);
+  background-image: url(../piece/pirouetti/bQ.svg);
 }
 body.pirouetti div.king.black {
-  background-image: url(../images/piece/pirouetti/bK.svg);
+  background-image: url(../piece/pirouetti/bK.svg);
 }
 body.merida div.pawn.white {
-  background-image: url(../images/piece/merida/wP.svg);
+  background-image: url(../piece/merida/wP.svg);
 }
 body.merida div.bishop.white {
-  background-image: url(../images/piece/merida/wB.svg);
+  background-image: url(../piece/merida/wB.svg);
 }
 body.merida div.knight.white,
 #top div.piece_demo.merida {
-  background-image: url(../images/piece/merida/wN.svg);
+  background-image: url(../piece/merida/wN.svg);
 }
 body.merida div.rook.white {
-  background-image: url(../images/piece/merida/wR.svg);
+  background-image: url(../piece/merida/wR.svg);
 }
 body.merida div.queen.white {
-  background-image: url(../images/piece/merida/wQ.svg);
+  background-image: url(../piece/merida/wQ.svg);
 }
 body.merida div.king.white {
-  background-image: url(../images/piece/merida/wK.svg);
+  background-image: url(../piece/merida/wK.svg);
 }
 body.merida div.pawn.black {
-  background-image: url(../images/piece/merida/bP.svg);
+  background-image: url(../piece/merida/bP.svg);
 }
 body.merida div.bishop.black {
-  background-image: url(../images/piece/merida/bB.svg);
+  background-image: url(../piece/merida/bB.svg);
 }
 body.merida div.knight.black {
-  background-image: url(../images/piece/merida/bN.svg);
+  background-image: url(../piece/merida/bN.svg);
 }
 body.merida div.rook.black {
-  background-image: url(../images/piece/merida/bR.svg);
+  background-image: url(../piece/merida/bR.svg);
 }
 body.merida div.queen.black {
-  background-image: url(../images/piece/merida/bQ.svg);
+  background-image: url(../piece/merida/bQ.svg);
 }
 body.merida div.king.black {
-  background-image: url(../images/piece/merida/bK.svg);
+  background-image: url(../piece/merida/bK.svg);
 }
 div.lichess_game_not_started {
   position: relative;
