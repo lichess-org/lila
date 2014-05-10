@@ -41,8 +41,11 @@ final class Env(
       featured.actor -> Featured.Disrupt
     }
 
-    scheduler.message(StreamingSearch) {
-      streaming.actor -> Streaming.Search
+    scheduler.once(2.seconds) {
+      streaming.actor ! Streaming.Search
+      scheduler.message(StreamingSearch) {
+        streaming.actor -> Streaming.Search
+      }
     }
   }
 }

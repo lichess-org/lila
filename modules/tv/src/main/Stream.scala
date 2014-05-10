@@ -1,19 +1,25 @@
 package lila.tv
 
+import com.roundeights.hasher.Implicits._
 import play.api.libs.json._
 
 case class StreamOnAir(
-  name: String,
-  url: String)
+    service: String,
+    name: String,
+    url: String,
+    streamId: String) {
+
+  val id = url.md5.hex take 8
+}
 
 case class StreamsOnAir(streams: List[StreamOnAir])
 
 object Twitch {
-  case class Channel(url: String, status: String)
+  case class Channel(url: String, status: String, name: String)
   case class Stream(channel: Channel)
   case class Result(streams: List[Stream]) {
     def streamsOnAir = streams map (_.channel) map { c =>
-      StreamOnAir(c.status, c.url)
+      StreamOnAir("twitch", c.status, c.url, c.name)
     }
   }
   object Reads {
@@ -24,10 +30,10 @@ object Twitch {
 }
 
 object Ustream {
-  case class Channel(url: String, title: String)
+  case class Channel(url: String, title: String, id: String)
   case class Result(results: Option[List[Channel]]) {
     def streamsOnAir = ~results map { c =>
-      StreamOnAir(c.title, c.url)
+      StreamOnAir("ustream", c.title, c.url, c.id)
     }
   }
   object Reads {

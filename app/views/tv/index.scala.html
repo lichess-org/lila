@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, games: List[Game], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], flip: Boolean)(implicit ctx: Context)
+@(pov: Pov, version: Int, games: List[Game], streams: List[lila.tv.StreamOnAir], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], flip: Boolean)(implicit ctx: Context)
 
 @title = @{ s"TV ${playerText(pov.player)} vs ${playerText(pov.opponent)}" }
 
@@ -27,6 +27,7 @@
     , @trans.rated()
     }
   </div>
+  @streamsOnAir(streams)
   <div id="tv_history" class="undertable">
     <div class="undertable_top">
       <span class="title">@trans.previouslyOnLichessTV()</span>

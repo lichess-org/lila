@@ -3,6 +3,7 @@ package controllers
 import play.api.mvc._
 import play.api.templates.Html
 
+import lila.api.Context
 import lila.app._
 import lila.game.{ GameRepo, Game => GameModel, Pov }
 import lila.tournament.TournamentRepo
@@ -11,18 +12,49 @@ import views._
 object Tv extends LilaController {
 
   def index = Open { implicit ctx =>
-    OptionFuResult(Env.tv.featured.one) { game =>
-      Env.round.version(game.id) zip
-        (GameRepo onTv 10) zip
-        Env.game.crosstableApi(game) zip
-        (game.tournamentId ?? TournamentRepo.byId) map {
-          case (((v, games), cross), tour) =>
-            val flip = getBool("flip")
-            Ok(html.tv.index(
-              flip.fold(Pov second game, Pov first game),
-              v, games, tour, cross, flip))
-        }
+    Env.tv.streamsOnAir flatMap {
+      case Nil           => lichessTv
+      case first :: rest => fuccess(Ok(html.tv.stream(first, rest)))
     }
+  }
+
+  def lichess = Open { implicit ctx =>
+    lichessTv
+  }
+
+  private def lichessTv(implicit ctx: Context) = OptionFuResult(Env.tv.featured.one) { game =>
+    Env.round.version(game.id) zip
+      (GameRepo onTv 10) zip
+      Env.game.crosstableApi(game) zip
+      Env.tv.streamsOnAir zip
+      (game.tournamentId ?? TournamentRepo.byId) map {
+        case ((((v, games), cross), streams), tour) =>
+          val flip = getBool("flip")
+          Ok(html.tv.index(
+            flip.fold(Pov second game, Pov first game),
+            v, games, streams, tour, cross, flip))
+      }
+  }
+
+  def streamIn(id: String) = Open { implicit ctx =>
+    Env.tv.streamsOnAir flatMap { streams =>
+      streams find (_.id == id) match {
+        case None    => notFound
+        case Some(s) => fuccess(Ok(html.tv.stream(s, streams filterNot (_.id == id))))
+      }
+    }
+  }
+
+  def streamOut = Action.async {
+    import makeTimeout.short
+    import akka.pattern.ask
+    import lila.round.TvBroadcast
+    import play.api.libs.EventSource
+    implicit val encoder = play.api.libs.Comet.CometMessage.jsonMessages
+    Env.round.tvBroadcast ? TvBroadcast.GetEnumerator mapTo
+      manifest[TvBroadcast.EnumeratorType] map { enum =>
+        Ok.chunked(enum &> EventSource()).as("text/event-stream")
+      }
   }
 
   def embed = Action { req =>
@@ -43,17 +75,5 @@ object Tv extends LilaController {
         lila.pref.Theme(~get("theme", req)).cssClass
       ))
     }
-  }
-
-  def stream = Action.async {
-    import makeTimeout.short
-    import akka.pattern.ask
-    import lila.round.TvBroadcast
-    import play.api.libs.EventSource
-    implicit val encoder = play.api.libs.Comet.CometMessage.jsonMessages
-    Env.round.tvBroadcast ? TvBroadcast.GetEnumerator mapTo
-      manifest[TvBroadcast.EnumeratorType] map { enum =>
-        Ok.chunked(enum &> EventSource()).as("text/event-stream")
-      }
   }
 }

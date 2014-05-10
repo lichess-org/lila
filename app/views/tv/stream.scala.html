@@ -1,0 +1,61 @@
+@(s: lila.tv.StreamOnAir, others: List[lila.tv.StreamOnAir])(implicit ctx: Context)
+
+@title = @{ s"TV ${s.name}" }
+
+@underchat = {
+<div class="watchers" data-icon="v">
+  @trans.spectators() <span class="list inline_userlist"></span>
+</div>
+}
+
+@goodies = {
+<div class="lichess_goodies">
+  <div class="box">
+    <h2 data-icon="1">&nbsp;Lichess TV</h2>
+    <div id="tv_selector">
+      <p><span class="current" data-icon="G">&nbsp;@s.name</span></p>
+      @others.map { other =>
+      <p><a href="@routes.Tv.streamIn(other.id)" data-icon="1">&nbsp;@other.name</a></p>
+      }
+      <p><a href="@routes.Tv.lichess" data-icon="1">&nbsp;Regular lichess TV</a></p>
+    </div>
+  </div>
+</div>
+}
+
+@round.layout(
+title = title,
+goodies = goodies,
+underchat = underchat.some,
+active = siteMenu.tv.some) {
+@s.service match {
+case "twitch" => {
+<object
+  type="application/x-shockwave-flash"
+  width="794"
+  height="488"
+  id="live_embed_player_flash"
+  data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=@s.streamId"
+  bgcolor="transparent">
+  <param name="allowFullScreen" value="true" />
+  <param name="allowScriptAccess" value="always" />
+  <param name="allowNetworking" value="all" />
+  <param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
+  <param name="flashvars" value="hostname=www.twitch.tv&channel=@s.streamId&auto_play=true&start_volume=25" />
+</object>
+}
+case "ustream" => {
+<iframe
+  width="794"
+  height="561"
+  src="http://www.ustream.tv/embed/@s.streamId?v=3&amp;wmode=direct"
+  scrolling="no"
+  frameborder="0"
+  style="border: 0px none transparent;">
+</iframe>
+}
+case _ => {
+???
+}
+}
+}
