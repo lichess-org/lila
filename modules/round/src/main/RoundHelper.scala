@@ -4,11 +4,11 @@ import scala.math.{ min, max, round }
 
 import play.api.libs.json.Json
 
+import lila.game.Game
 import lila.game.Pov
 import lila.pref.Pref
 import lila.round.Env.{ current => roundEnv }
 import lila.user.UserContext
-import lila.game.Game
 
 trait RoundHelper {
 
@@ -41,14 +41,14 @@ trait RoundHelper {
         "color" -> opponent.color.name,
         "ai" -> opponent.isAi
       ),
-      "possible_moves" -> possibleMoves(pov),
-      "animation_delay" -> animationDelay(pov),
+      "possibleMoves" -> possibleMoves(pov),
+      "animationDelay" -> animationDelay(pov),
       "autoQueen" -> pref.autoQueen,
       "autoThreefold" -> pref.autoThreefold,
       "clockTenths" -> pref.clockTenths,
       "clockBar" -> pref.clockBar,
       "enablePremove" -> pref.premove,
-      "tournament_id" -> game.tournamentId
+      "tournamentId" -> game.tournamentId
     )
   }
 
@@ -72,18 +72,18 @@ trait RoundHelper {
       "opponent" -> Json.obj(
         "color" -> opponent.color.name,
         "ai" -> opponent.isAi),
-      "possible_moves" -> possibleMoves(pov),
-      "animation_delay" -> animationDelay(pov),
+      "possibleMoves" -> possibleMoves(pov),
+      "animationDelay" -> animationDelay(pov),
       "clockTenths" -> pref.clockTenths,
       "clockBar" -> pref.clockBar,
       "tv" -> tv
     )
   }
 
-  private def possibleMoves(pov: Pov) = (pov.game playableBy pov.player) option {
+  def possibleMoves(pov: Pov) = (pov.game playableBy pov.player) option {
     pov.game.toChess.situation.destinations map {
-      case (from, dests) => from.key -> (dests.mkString)
-    } toMap
+      case (from, dests) => from.key -> dests.mkString
+    }
   }
 
   private def animationDelay(pov: Pov) = round {

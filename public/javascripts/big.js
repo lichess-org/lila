@@ -880,8 +880,8 @@ var storage = {
 
       startTournamentClock();
 
-      if (self.options.tournament_id) {
-        $('body').data('tournament-id', self.options.tournament_id);
+      if (self.options.tournamentId) {
+        $('body').data('tournament-id', self.options.tournamentId);
       }
 
       if (self.options.game.started) {
@@ -951,9 +951,9 @@ var storage = {
             ran: "--ranph--"
           },
           events: {
-            possible_moves: function(event) {
+            possibleMoves: function(event) {
               self.element.queue(function() {
-                self.options.possible_moves = event;
+                self.options.possibleMoves = event;
                 self.indicateTurn();
                 self.element.dequeue();
               });
@@ -1112,7 +1112,7 @@ var storage = {
       });
     },
     isMyTurn: function() {
-      return this.options.possible_moves !== null;
+      return this.options.possibleMoves !== null;
     },
     changeTitle: function(text) {
       if (this.options.player.spectator) return;
@@ -1193,8 +1193,8 @@ var storage = {
           return $(this).clock('getSeconds');
         }).get();
         times.sort();
-        return this.options.animation_delay * Math.min(1, times[0] / 120);
-      } else return this.options.animation_delay;
+        return this.options.animationDelay * Math.min(1, times[0] / 120);
+      } else return this.options.animationDelay;
     },
     highlightLastMove: function(notation) {
       var self = this;
@@ -1209,7 +1209,7 @@ var storage = {
         .append($("<div>").addClass('lichess_tomb').append($piece.css('position', 'relative')));
     },
     possibleMovesContain: function(from, to) {
-      return this.options.possible_moves !== null && typeof this.options.possible_moves[from] !== 'undefined' && this.options.possible_moves[from].indexOf(to) != -1;
+      return this.options.possibleMoves !== null && typeof this.options.possibleMoves[from] !== 'undefined' && this.options.possibleMoves[from].indexOf(to) != -1;
     },
     validMove: function(from, to, piece) {
       if (from == to) return false;
@@ -1298,7 +1298,7 @@ var storage = {
       self.unselect();
       self.hasMovedOnce = true;
       self.blur = 0;
-      self.options.possible_moves = null;
+      self.options.possibleMoves = null;
       self.movePiece($oldSquare.attr("id"), squareId, null, true);
 
       function sendMoveRequest(moveData) {
