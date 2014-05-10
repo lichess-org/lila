@@ -45,14 +45,13 @@ case "twitch" => {
 </object>
 }
 case "ustream" => {
-<iframe
-  width="794"
-  height="561"
-  src="http://www.ustream.tv/embed/@s.streamId?v=3&amp;wmode=direct"
-  scrolling="no"
-  frameborder="0"
-  style="border: 0px none transparent;">
-</iframe>
+<object width="794" height="478" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+  <param name="flashvars" value="cid=@s.streamId&amp;autoplay=false&amp;locale=fr_FR"/>
+  <param name="allowfullscreen" value="true"/>
+  <param name="allowscriptaccess" value="always"/>
+  <param name="src" value="http://www.ustream.tv/flash/viewer.swf"/>
+  <embed flashvars="cid=@s.streamId&amp;autoplay=true" width="794" height="478" allowfullscreen="true" allowscriptaccess="always" src="http://www.ustream.tv/flash/viewer.swf" type="application/x-shockwave-flash"></embed>
+</object>
 }
 case _ => {
 ???
