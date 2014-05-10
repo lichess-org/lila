@@ -615,36 +615,38 @@ var storage = {
 
     // themepicker
     var $body = $('body');
-    var $themepicker = $('#top div.themepicker');
-    var themes = $themepicker.data('themes').split(' ');
-    var theme = _.find(document.body.className.split(/\s+/), function(a) {
-      return _.contains(themes, a);
-    });
-    var sets = $themepicker.data('sets').split(' ');
-    var set = _.find(document.body.className.split(/\s+/), function(a) {
-      return _.contains(sets, a);
-    });
-    $themepicker.find('div.theme').hover(function() {
-      $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
-    }, function() {
-      $body.removeClass(themes.join(' ')).addClass(theme);
-    }).click(function() {
-      theme = $(this).data("theme");
-      $.post($(this).parent().data("href"), {
-        "theme": theme
+    $('#top div.themepicker').each(function() {
+      var $themepicker = $(this);
+      var themes = $themepicker.data('themes').split(' ');
+      var theme = _.find(document.body.className.split(/\s+/), function(a) {
+        return _.contains(themes, a);
       });
-      $('#top .themepicker').removeClass("shown");
-    });
-    $themepicker.find('div.set').hover(function() {
-      $body.removeClass(sets.join(' ')).addClass($(this).data("set"));
-    }, function() {
-      $body.removeClass(sets.join(' ')).addClass(set);
-    }).click(function() {
-      set = $(this).data("set");
-      $.post($(this).parent().data("href"), {
-        "set": set
+      var sets = $themepicker.data('sets').split(' ');
+      var set = _.find(document.body.className.split(/\s+/), function(a) {
+        return _.contains(sets, a);
       });
-      $('#top .themepicker').removeClass("shown");
+      $themepicker.find('div.theme').hover(function() {
+        $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
+      }, function() {
+        $body.removeClass(themes.join(' ')).addClass(theme);
+      }).click(function() {
+        theme = $(this).data("theme");
+        $.post($(this).parent().data("href"), {
+          "theme": theme
+        });
+        $('#top .themepicker').removeClass("shown");
+      });
+      $themepicker.find('div.set').hover(function() {
+        $body.removeClass(sets.join(' ')).addClass($(this).data("set"));
+      }, function() {
+        $body.removeClass(sets.join(' ')).addClass(set);
+      }).click(function() {
+        set = $(this).data("set");
+        $.post($(this).parent().data("href"), {
+          "set": set
+        });
+        $('#top .themepicker').removeClass("shown");
+      });
     });
 
     $('#top a.bgpicker').click(function() {
