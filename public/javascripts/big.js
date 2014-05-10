@@ -1316,7 +1316,7 @@ var storage = {
           var html = _.map(['queen', 'knight', 'rook', 'bishop'], function(p) {
             return '<div data-piece="' + p + '" class="piece ' + p + ' ' + color + '"></div>';
           }).join('');
-          var $choices = $('<div class="promotion_choice onbg">')
+          var $choices = $('<div id="promotion_choice">')
             .appendTo(self.$board)
             .html(html)
             .fadeIn(self.animationDelay())

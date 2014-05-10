@@ -164,8 +164,8 @@ body.dark div.undertable_top span.title {
 body.dark #GameText a:hover,
 body.dark #crosstable td a,
 body.dark #hook_filter td > label.hover:hover,
-body.dark div.promotion_choice {
-  background: #000;
+body.dark #promotion_choice {
+  background: rgba(0, 0, 0, 0.7);
 }
 body.dark #chat .messages,
 body.dark div.undertable_inner,
@@ -257,40 +257,40 @@ body.dark #hooks_wrap {
   background-size: 100% 100%;
 }
 body.dark.cburnett div.onbg div.pawn.white {
-  background-image: url(../piece/invert/bP.svg);
+  background-image: url(../piece/cburnett/invert/bP.svg);
 }
 body.dark.cburnett div.onbg div.bishop.white {
-  background-image: url(../piece/invert/bB.svg);
+  background-image: url(../piece/cburnett/invert/bB.svg);
 }
 body.dark.cburnett div.onbg div.knight.white {
-  background-image: url(../piece/invert/bN.svg);
+  background-image: url(../piece/cburnett/invert/bN.svg);
 }
 body.dark.cburnett div.onbg div.rook.white {
-  background-image: url(../piece/invert/bR.svg);
+  background-image: url(../piece/cburnett/invert/bR.svg);
 }
 body.dark.cburnett div.onbg div.queen.white {
-  background-image: url(../piece/invert/bQ.svg);
+  background-image: url(../piece/cburnett/invert/bQ.svg);
 }
 body.dark.cburnett div.onbg div.king.white {
-  background-image: url(../piece/invert/bK.svg);
+  background-image: url(../piece/cburnett/invert/bK.svg);
 }
 body.dark.cburnett div.onbg div.pawn.black {
-  background-image: url(../piece/invert/wP.svg);
+  background-image: url(../piece/cburnett/invert/wP.svg);
 }
 body.dark.cburnett div.onbg div.bishop.black {
-  background-image: url(../piece/invert/wB.svg);
+  background-image: url(../piece/cburnett/invert/wB.svg);
 }
 body.dark.cburnett div.onbg div.knight.black {
-  background-image: url(../piece/invert/wN.svg);
+  background-image: url(../piece/cburnett/invert/wN.svg);
 }
 body.dark.cburnett div.onbg div.rook.black {
-  background-image: url(../piece/invert/wR.svg);
+  background-image: url(../piece/cburnett/invert/wR.svg);
 }
 body.dark.cburnett div.onbg div.queen.black {
-  background-image: url(../piece/invert/wQ.svg);
+  background-image: url(../piece/cburnett/invert/wQ.svg);
 }
 body.dark.cburnett div.onbg div.king.black {
-  background-image: url(../piece/invert/wK.svg);
+  background-image: url(../piece/cburnett/invert/wK.svg);
 }
 body.dark div.game_row span.white,
 body.dark .player.color.white {

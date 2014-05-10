@@ -311,19 +311,18 @@ div.lichess_overboard p.explanations {
   font-size: 1.2em;
   padding: 1em 0;
 }
-div.promotion_choice {
+#promotion_choice {
   display: none;
   position: absolute;
   top: 0;
   left: 0;
   width: 404px;
   height: 288px;
-  background: #fff;
-  opacity: 0.8;
+  background: rgba(250, 250, 250, 0.7);
   text-align: center;
   padding: 224px 0 0 108px;
 }
-div.promotion_choice div.piece {
+#promotion_choice div.piece {
   float: left;
   position: static;
   padding: 5px;
@@ -332,9 +331,10 @@ div.promotion_choice div.piece {
   margin: 0 5px;
   cursor: pointer;
   border-radius: 3px;
-  box-shadow: 0 0 4px #444;
+  background-color: #b0b0b0;
+  box-shadow: inset 0 0 15px 3px #707070;
 }
-div.promotion_choice div.piece:hover {
+#promotion_choice div.piece:hover {
   box-shadow: 0 0 10px #d85000;
 }
 div.lichess_join_url {
