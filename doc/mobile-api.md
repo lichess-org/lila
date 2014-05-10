@@ -24,6 +24,14 @@ Suggestion of implementation:
 var clientId = Math.random().toString(36).substring(2);
 ```
 
+## Message format
+
+All websocket messages, sent or received, are composed of a type `t` and data `d`. Example:
+
+```javascript
+{t: 'move', d: {from: 'e2', to: 'e4'}}
+```
+
 ## Connect to a game as a player
 
 ```javascript
@@ -41,7 +49,8 @@ var socket = new WebSocket(socketUrl);
 The client should ping the server every second.
 
 ```javascript
-socket.send(JSON.stringify({t: 'p', v: socketVersion}));
+// send
+{t: 'p', v: socketVersion}
 ```
 
 ## Pong
@@ -49,7 +58,72 @@ socket.send(JSON.stringify({t: 'p', v: socketVersion}));
 The server answers client pings with a message of type `n`, containing the number of online players.
 
 ```javascript
+// receive
 {t: 'n', d: 1570}
 ```
 
 The delay between `ping` and `pong` can be used to calculate the client lag.
+
+## Send a move
+
+```javascript
+// send
+{t: 'move', d: {from: 'e2', to: 'e4'}}
+```
+
+## Receive game status
+
+The message data `d` is an array of events.
+Each event has a version number `v`, a type `t` and data `d`.
+
+```javascript
+// receive
+{
+  "t": "b",                   // "b" is the batch type.
+  "d": [{
+    "v": 8,                   // message version
+    "t": "possible_moves",    // list of moves you can play. Empty if not your turn to play.
+    "d": {
+      "b2": "b3b4",           // from b2, you can either go on b3 or b4.
+      "e1": "e2",
+      "g2": "g3g4",
+      "f1": "e2d3c4b5a6",
+      "c2": "c3c4",
+      "b1": "a3c3",
+      "g1": "f3h3e2",
+      "e4": "e5",
+      "h2": "h3h4",
+      "d2": "d3d4",
+      "d1": "e2f3g4h5",
+      "a2": "a3a4",
+      "f2": "f3f4"
+    }
+  }, {
+    "v": 9,
+    "t": "state",             // data about the game status
+    "d": {
+      "color": "white",
+      "turns": 2
+    }
+  }, {
+    "v": 10,
+    "t": "move",
+    "d": {
+      "type": "move",         // can be a move you played (server confirmation) or your opponent move.
+      "from": "e7",
+      "to": "e6",
+      "color": "black"
+    }
+  }, {
+    "v": 11,                  // if the user has set a premove, now is the time to play it.
+    "t": "premove",
+    "d": null
+  }, {
+    "v": 12,                  // ignore that for now.
+    "t": "reload_table",
+    "d": null
+  }, {
+    "v": 13                   // some events may come empty. Just increment the client socket version.
+  }]
+}
+```
