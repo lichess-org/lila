@@ -43,3 +43,13 @@ The client should ping the server every second.
 ```javascript
 socket.send(JSON.stringify({t: 'p', v: socketVersion}));
 ```
+
+## Pong
+
+The server answers client pings with a message of type `n`, containing the number of online players.
+
+```javascript
+{t: 'n', d: 1570}
+```
+
+The delay between `ping` and `pong` can be used to calculate the client lag.
