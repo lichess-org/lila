@@ -63,19 +63,18 @@ object TournamentRepo {
 
   private[tournament] val finishedQuery = Json.obj("status" -> Status.Finished.id)
 
-  private def allCreatedQuery = $query(Json.obj(
-    "status" -> Status.Created.id,
-    "password" -> $exists(false)
+  private def allCreatedSelect = Json.obj(
+    "status" -> Status.Created.id
   ) ++ $or(Seq(
       Json.obj("schedule" -> $exists(false)),
       Json.obj("schedule.at" -> $lt($date(DateTime.now plusMinutes 30)))
-    )))
+    ))
 
-  def allCreatedSorted: Fu[List[Created]] = $find(
-    allCreatedQuery sort BSONDocument("schedule.at" -> 1, "createdAt" -> 1)
+  def noPasswordCreatedSorted: Fu[List[Created]] = $find(
+    $query(allCreatedSelect ++ Json.obj("password" -> $exists(false))) sort BSONDocument("schedule.at" -> 1, "createdAt" -> 1)
   ) map (_ flatMap asCreated)
 
-  def allCreated: Fu[List[Created]] = $find(allCreatedQuery) map { _.map(asCreated).flatten }
+  def allCreated: Fu[List[Created]] = $find(allCreatedSelect) map { _.map(asCreated).flatten }
 
   def recentlyStartedSorted: Fu[List[Started]] = $find($query(Json.obj(
     "status" -> Status.Started.id,
@@ -84,7 +83,7 @@ object TournamentRepo {
   )) sort BSONDocument("schedule.at" -> 1, "createdAt" -> 1)
   ) map (_ flatMap asStarted)
 
-  def promotable = allCreatedSorted zip recentlyStartedSorted map {
+  def promotable = noPasswordCreatedSorted zip recentlyStartedSorted map {
     case (created, started) => created ::: started
   }
 
