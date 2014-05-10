@@ -110,7 +110,7 @@ sealed trait StartedOrFinished extends Tournament {
   type RankedPlayers = List[(Int, Player)]
   def rankedPlayers: RankedPlayers = players.foldLeft(Nil: RankedPlayers) {
     case (Nil, p)                  => (1, p) :: Nil
-    case (list@((r0, p0) :: _), p) => ((p0.score == p.score).fold(r0, r0 + 1), p) :: list
+    case (list@((r0, p0) :: _), p) => ((p0.score == p.score).fold(r0, list.size + 1), p) :: list
   }.reverse
 
   def winner = players.headOption
