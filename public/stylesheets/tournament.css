@@ -76,6 +76,9 @@
   width: 525px;
   border-bottom: none;
 }
+#tournament table.standing tr.me {
+  box-shadow: inset 0 0 18px 1px #c0c0c0;
+}
 #tournament table.standing td:first-child,
 #tournament table.standing th:first-child {
   padding-left: 15px;

@@ -20,7 +20,7 @@
       tour scoreSheet player
       )) {
       case (flag, scoreSheet) => {
-      <tr>
+      <tr @if(ctx.userId.exists(player.id==)) { class="me" }>
         <td>
           @if(player.withdraw) {
           <span data-icon="b" title="@trans.withdraw()"></span>
