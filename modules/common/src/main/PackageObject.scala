@@ -135,6 +135,14 @@ trait WithPlay { self: PackageObject =>
       }
     }
 
+    def andThenAnyway(sideEffect: => Unit): Fu[A] = {
+      fua onComplete {
+        case scala.util.Failure(_) => sideEffect
+        case scala.util.Success(_) => sideEffect
+      }
+      fua
+    }
+
     def fold[B](fail: Exception => B, succ: A => B): Fu[B] =
       fua map succ recover { case e: Exception => fail(e) }
 

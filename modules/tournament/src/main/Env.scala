@@ -6,6 +6,7 @@ import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
+import lila.hub.{ ActorMap, Sequencer }
 import lila.socket.actorApi.GetVersion
 import lila.socket.History
 import makeTimeout.short
@@ -31,6 +32,8 @@ final class Env(
     val SocketName = config getString "socket.name"
     val OrganizerName = config getString "organizer.name"
     val ReminderName = config getString "reminder.name"
+    val SequencerTimeout = config duration "sequencer.timeout"
+    val SequencerMapName = config getString "sequencer.map_name"
     val NetDomain = config getString "net.domain"
   }
   import settings._
@@ -38,6 +41,7 @@ final class Env(
   lazy val forms = new DataForm(isDev)
 
   lazy val api = new TournamentApi(
+    sequencers = sequencerMap,
     joiner = joiner,
     router = hub.actor.router,
     renderer = hub.actor.renderer,
@@ -62,6 +66,10 @@ final class Env(
         socketTimeout = SocketTimeout,
         lightUser = lightUser)
     }), name = SocketName)
+
+  private val sequencerMap = system.actorOf(Props(ActorMap { id =>
+    new Sequencer(SequencerTimeout)
+  }), name = SequencerMapName)
 
   private val organizer = system.actorOf(Props(new Organizer(
     api = api,

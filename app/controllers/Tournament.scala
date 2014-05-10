@@ -79,13 +79,13 @@ object Tournament extends LilaController {
     implicit me =>
       NoEngine {
         TourOptionFuRedirect(repo enterableById id) { tour =>
-          tour.hasPassword.fold(
-            fuccess(routes.Tournament.joinPassword(id)),
-            env.api.join(tour, me, none).fold(
-              _ => routes.Tournament.show(tour.id),
-              _ => routes.Tournament.show(tour.id)
-            )
-          )
+          fuccess {
+            if (tour.hasPassword) routes.Tournament.joinPassword(id)
+            else {
+              env.api.join(tour, me, none)
+              routes.Tournament.show(tour.id)
+            }
+          }
         }
       }
   }
@@ -108,11 +108,10 @@ object Tournament extends LilaController {
           _.fold(tournamentNotFound(ctx).fuccess) { tour =>
             env.forms.joinPassword.bindFromRequest.fold(
               err => renderJoinPassword(tour, err) map { BadRequest(_) },
-              password => env.api.join(tour, me, password.some) flatFold (
-                _ => renderJoinPassword(tour, env.forms.joinPassword) map { BadRequest(_) },
-                _ => fuccess(Redirect(routes.Tournament.show(tour.id)))
-              )
-            )
+              password => {
+                env.api.join(tour, me, password.some)
+                fuccess(Redirect(routes.Tournament.show(tour.id)))
+              })
           }
         }
       }
@@ -124,14 +123,16 @@ object Tournament extends LilaController {
   def withdraw(id: String) = Auth { implicit ctx =>
     me =>
       TourOptionFuRedirect(repo byId id) { tour =>
-        env.api.withdraw(tour, me.id) inject routes.Tournament.show(tour.id)
+        env.api.withdraw(tour, me.id)
+        fuccess(routes.Tournament.show(tour.id))
       }
   }
 
   def earlyStart(id: String) = Auth { implicit ctx =>
     implicit me =>
       TourOptionFuRedirect(repo.createdByIdAndCreator(id, me.id)) { tour =>
-        ~env.api.earlyStart(tour) inject routes.Tournament.show(tour.id)
+        env.api startIfReady tour
+        fuccess(routes.Tournament show tour.id)
       }
   }
 
