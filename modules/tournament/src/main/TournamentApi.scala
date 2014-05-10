@@ -89,7 +89,7 @@ private[tournament] final class TournamentApi(
     else started.readyToFinish.fold({
       val finished = started.finish
       $update(finished) >>-
-        sendTo(started.id, ReloadPage) >>-
+        sendTo(finished.id, ReloadPage) >>-
         reloadSiteSocket >>-
         finished.players.filter(_.score > 0).map { p =>
           UserRepo.incToints(p.id, p.score)
@@ -127,15 +127,13 @@ private[tournament] final class TournamentApi(
     case finished: Finished => fufail("Cannot withdraw from finished tournament " + finished.id)
   }
 
-  def finishGame(game: Game): Fu[Option[Tournament]] =
-    (game.tournamentId ?? TournamentRepo.startedById) flatMap {
-      _ ?? { tour =>
-        val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId, game.turns))
-        $update(tour2) >>
-          tripleQuickLossWithdraw(tour2, game.loserUserId) inject
-          tour2.some
-      }
+  def finishGame(game: Game): Funit = (game.tournamentId ?? TournamentRepo.startedById) flatMap {
+    _ ?? { tour =>
+      val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId, game.turns))
+      $update(tour2) >>
+        tripleQuickLossWithdraw(tour2, game.loserUserId) >>- socketReload(tour2.id)
     }
+  }
 
   private[tournament] def recountAll = UserRepo.removeAllToints >>
     $enumerate.over($query[Finished](TournamentRepo.finishedQuery)) { (tour: Finished) =>
@@ -161,7 +159,7 @@ private[tournament] final class TournamentApi(
     }.sequence
   }
 
-  def socketReload(tourId: String) {
+  private def socketReload(tourId: String) {
     sendTo(tourId, Reload)
   }
 

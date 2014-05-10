@@ -48,8 +48,7 @@ private[tournament] final class Organizer(
       }
     }
 
-    case FinishGame(game, _, _) =>
-      api finishGame game foreach { _ map (_.id) foreach api.socketReload }
+    case FinishGame(game, _, _) => api finishGame game
 
     case lila.hub.actorApi.mod.MarkCheater(userId) => api ejectCheater userId
   }
