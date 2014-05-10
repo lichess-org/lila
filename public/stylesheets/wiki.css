@@ -23,6 +23,10 @@
   margin: 1em;
 }
 
+#wiki div.wiki_box img {
+  max-width: 510px;
+}
+
 #wiki h2 {
   font-size: 1.5em;
   line-height: 2em;
