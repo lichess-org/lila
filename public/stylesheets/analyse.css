@@ -138,12 +138,15 @@ div.game_control a {
 #GameText {
   font-size: 15px;
   width: 242px;
-  height: 438px;
+  height: 502px;
   margin-bottom: 1em;
   padding: 5px 7px;
   background: #f7f7f7;
   border: 1px solid #ccc;
   overflow: auto;
+}
+#GameText.with_rematch {
+  height: 438px;
 }
 #GameText .move,
 #GameText .variation {

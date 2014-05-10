@@ -62,7 +62,7 @@ themepicker = true) {
     </div>
   </div>
   <div class="moves_wrap">
-    <div id="GameText"></div>
+    <div id="GameText" @if(game.next.isDefined) { class="with_rematch" }></div>
     @game.next.map { n =>
     <p>
       <a href="@routes.Round.watcher(n, pov.opponent.color.name)" data-icon="v">&nbsp;@trans.viewRematch()</a>
