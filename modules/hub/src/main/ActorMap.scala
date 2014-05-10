@@ -40,3 +40,11 @@ trait ActorMap[A <: Actor] extends Actor {
     }
   }
 }
+
+object ActorMap {
+
+  def apply[A <: Actor](make: String => A) = new ActorMap[A] {
+    def mkActor(id: String) = make(id)
+    def receive = actorMapReceive
+  }
+}

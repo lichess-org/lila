@@ -47,8 +47,8 @@ final class Env(
 
   lazy val history = () => new History(ttl = MessageTtl)
 
-  val roundMap = system.actorOf(Props(new lila.hub.ActorMap[Round] {
-    def mkActor(id: String) = new Round(
+  val roundMap = system.actorOf(Props(lila.hub.ActorMap { id =>
+    new Round(
       gameId = id,
       messenger = messenger,
       takebacker = takebacker,
@@ -58,7 +58,6 @@ final class Env(
       drawer = drawer,
       socketHub = socketHub,
       moretimeDuration = Moretime)
-    def receive = actorMapReceive
   }), name = ActorMapName)
 
   private val socketHub = {
