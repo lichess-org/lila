@@ -12,7 +12,7 @@
 
 @round.layout(
 title = title,
-goodies = views.html.game.infoBox(pov, tour),
+goodies = views.html.game.infoBox(pov, tour, withTourStanding = true),
 chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some,
 signedJs = hijackEnabled(pov.game) option routes.Round.signedJs(pov.gameId) map (_.toString)) {

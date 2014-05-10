@@ -12,7 +12,7 @@
 
 @round.layout(
 title = title,
-goodies = views.html.game.infoBox(pov, tour),
+goodies = views.html.game.infoBox(pov, tour, withTourStanding = false),
 chat = chat.map(c => base.chat(c, trans.spectatorRoom.str())),
 underchat = underchat.some) {
 @watcherGame(pov)

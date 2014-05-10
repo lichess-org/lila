@@ -718,6 +718,11 @@ div.under_chat .watchtv {
 div.game_tournament {
   text-align: center;
   line-height: 2em;
+  max-height: 400px;
+  overflow: hidden;
+}
+div.game_tournament:hover {
+  overflow-y: auto;
 }
 div.game_tournament .title {
   display: block;
@@ -729,6 +734,24 @@ div.game_tournament .clock {
   font-size: 20px;
   font-family: monospace;
   font-weight: bold;
+}
+div.game_tournament table.standing {
+  margin-top: 10px;
+  border-bottom: none;
+}
+div.game_tournament table.standing tr.me td {
+  background: #e4e4e4;
+}
+div.game_tournament table.standing td {
+  padding: 0;
+  text-align: left;
+}
+div.game_tournament table.standing td.name span {
+  display: inline-block;
+  width: 20px;
+}
+div.game_tournament table.standing td.total {
+  text-align: right;
 }
 span.inline_userlist {
   display: inline;
