@@ -10,26 +10,21 @@ trait SequentialActor extends Actor {
 
   def process: ReceiveAsync
 
-  def idle: Receive = {
+  private def idle: Receive = {
 
-    case msg => {
+    case msg =>
       context become busy
       processThenDone(msg)
-    }
   }
 
-  def busy: Receive = {
+  private def busy: Receive = {
 
-    case Done => {
-      dequeue match {
-        case None      => context become idle
-        case Some(msg) => processThenDone(msg)
-      }
+    case Done => dequeue match {
+      case None      => context become idle
+      case Some(msg) => processThenDone(msg)
     }
 
-    case msg => {
-      queue enqueue msg
-    }
+    case msg => queue enqueue msg
   }
 
   def receive = idle
@@ -40,17 +35,14 @@ trait SequentialActor extends Actor {
   private case object Done
 
   private def fallback: ReceiveAsync = {
-    case work => fuccess()
+    case _ => fuccess()
   }
 
   private def processThenDone(work: Any) {
     work match {
       // we don't want to send Done after actor death
       case SequentialActor.Terminate => self ! PoisonPill
-      case msg => {
-        (process orElse fallback)(msg) >>-
-          (self ! Done)
-      }
+      case msg                       => (process orElse fallback)(msg) andThenAnyway { self ! Done }
     }
   }
 }
