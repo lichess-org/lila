@@ -76,19 +76,17 @@
   width: 525px;
   border-bottom: none;
 }
-#tournament table.standing tr.me {
-  box-shadow: inset 0 0 18px 1px #c0c0c0;
-}
-#tournament table.standing td:first-child,
+#tournament table.standing td.name,
 #tournament table.standing th:first-child {
   padding-left: 15px;
 }
-#tournament table.standing td:first-child span {
+#tournament table.standing td.name span {
   display: inline-block;
   width: 20px;
 }
-#tournament table.standing td:last-child {
-  padding-right: 15px;
+#tournament table.standing tr.me td.name {
+  border-left: 10px solid #d59120;
+  padding-left: 9px;
 }
 #tournament table.standing .legend {
   text-align: right;
@@ -103,6 +101,9 @@
 #tournament table.standing .total {
   text-align: right;
   font-family: monospace;
+}
+#tournament table.standing td.total {
+  padding-right: 15px;
 }
 #tournament .double {
   color: #d59120;

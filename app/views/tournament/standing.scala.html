@@ -21,7 +21,7 @@
       )) {
       case (flag, scoreSheet) => {
       <tr @if(ctx.userId.exists(player.id==)) { class="me" }>
-        <td>
+        <td class="name">
           @if(player.withdraw) {
           <span data-icon="b" title="@trans.withdraw()"></span>
           } else {

@@ -380,9 +380,6 @@ body.dark #puzzle > .right .please_vote {
   background: #103410;
   color: #74a962;
 }
-body.dark #tournament table.standing tr.me {
-  box-shadow: inset 0 0 20px 1px #606060;
-}
 body.dark::-webkit-input-placeholder {
   color: #666;
 }
