@@ -1,16 +1,67 @@
 # HTTP
 
-All requests must contain the `Accept: "application/vnd.lichess.v1+json"` header.
-Examples use [httpie](https://github.com/jakubroztocil/httpie).
-The output is not documented. Instead, run the command example.
+All requests must contain the `Accept: "application/vnd.lichess.v1+json"` header. Examples use [httpie](https://github.com/jakubroztocil/httpie).
 
 ## Create a game
 
 ```sh
 http --form POST en.l.org/setup/ai variant=1 clock=false time=60 increment=60 level=3 color=random 'Accept:application/vnd.lichess.v1+json'
 ```
-- variant: 1 (standard) or 2 (chess960)
 - level: 1 to 8
+- color: white|black|random
+- variant: 1 (standard) or 2 (chess960)
+
+```javascript
+{
+  "game": {
+    "clock": false,
+    "clockRunning": false,
+    "finished": false,
+    "id": "39b12Ikl",
+    "lastMove": null,
+    "player": "white",
+    "started": true,
+    "startedAtTurn": 0,
+    "turns": 0
+  },
+  "player": {
+    "color": "white",
+    "id": "ErMy",
+    "spectator": false,
+    "version": 0
+  },
+  "opponent": {
+    "ai": true,
+    "color": "black"
+  },
+  "possibleMoves": {          // list of moves you can play. Empty if not your turn to play.
+    "a2": "a3a4",             // from a2, you can go on a3 or a4.
+    "b1": "a3c3",
+    "b2": "b3b4",
+    "c2": "c3c4",
+    "d2": "d3d4",
+    "e2": "e3e4",
+    "f2": "f3f4",
+    "g1": "f3h3",
+    "g2": "g3g4",
+    "h2": "h3h4"
+  },
+  "pref": {
+    "animationDelay": 240,
+    "autoQueen": 2,
+    "autoThreefold": 2,
+    "clockBar": true,
+    "clockTenths": true,
+    "enablePremove": true
+  },
+  "url": {
+    "end": "/39b12IklErMy/end",
+    "socket": "/39b12IklErMy/socket",
+    "table": "/39b12IklErMy/table"
+  },
+  "tournamentId": null
+}
+```
 
 # WEBSOCKET
 

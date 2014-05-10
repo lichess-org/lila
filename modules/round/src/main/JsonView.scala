@@ -5,7 +5,6 @@ import scala.math.{ min, max, round }
 
 import play.api.libs.json.Json
 
-import lila.common.PimpedJson._
 import lila.game.{ Pov, Game }
 import lila.pref.Pref
 
@@ -49,7 +48,7 @@ final class JsonView(baseAnimationDelay: Duration) {
       ),
       "possibleMoves" -> possibleMoves(pov),
       "tournamentId" -> game.tournamentId
-    ).noNull
+    )
   }
 
   def watcherJson(pov: Pov, version: Int, tv: Boolean, pref: Pref) = {
@@ -84,7 +83,7 @@ final class JsonView(baseAnimationDelay: Duration) {
       ),
       "possibleMoves" -> possibleMoves(pov),
       "tv" -> tv
-    ).noNull
+    )
   }
 
   private def possibleMoves(pov: Pov) = (pov.game playableBy pov.player) option {
