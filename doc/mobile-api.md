@@ -14,17 +14,32 @@ http --form POST en.l.org/setup/ai variant=1 clock=false time=60 increment=60 le
 
 # WEBSOCKET
 
-// connect
-var socket = new WebSocket("ws://en.lichess.org/api/socket");
+## Unique `clientId`
 
-// send a message
-socket.send(JSON.stringify({act: 'create', type: 'ai', level: 3}));
+The client is responsible for creating and storing its own unique `clientId`.
+It will be sent to the server when connecting to a websocket.
 
-// receive messages
-socket.onmessage = function(e) {
-  var msg = JSON.parse(e.data);
-  if (msg.act == 'start') console.debug(msg.game);
-};
+Suggestion of implementation:
+```javascript
+var clientId = Math.random().toString(36).substring(2);
+```
 
-CLIENT -> SERVER
+## Connect to a game as a player
 
+```javascript
+var playerId; // obtained from game creation API
+var clientId; // created by the client
+var socketVersion = 0; // last message version number seen on this socket. Starts at zero.
+
+var socketUrl = 'http://socket.en.l.org:9021/' + playerId + '/socket?sri=' + clientId + '&version=' + socketVersion;
+
+var socket = new WebSocket(socketUrl);
+```
+
+## Ping
+
+The client should ping the server every second.
+
+```javascript
+socket.send(JSON.stringify({t: 'p', v: socketVersion}));
+```

@@ -119,7 +119,7 @@ private[round] final class SocketHandler(
       user = user,
       version = version,
       color = pov.color,
-      playerId = playerId filterNot (_ => hijack(pov, token)),
+      playerId = playerId ifFalse hijack(pov, token),
       ip = ip)
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
       Handler(hub, socket, uid, join, user map (_.id)) {
