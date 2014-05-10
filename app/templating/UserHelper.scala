@@ -95,8 +95,8 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val content = truncate.fold(username)(username.take)
     val titleS = titleTag(title)
     val space = if (withOnline) "&nbsp;" else ""
-    val dataIcon = if (withOnline) """data-icon="r"""" else ""
-    s"""<a $dataIcon $klass $href>$space$titleS$content</a>"""
+    val dataIcon = if (withOnline) """ data-icon="r"""" else ""
+    s"""<a$dataIcon $klass $href>$space$titleS$content</a>"""
   }
 
   def userLink(
@@ -114,8 +114,8 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val titleS = titleTag(user.title)
     val progress = if (withProgress) " " + showProgress(user.progress) else ""
     val space = if (withOnline) "&nbsp;" else ""
-    val dataIcon = if (withOnline) """data-icon="r"""" else ""
-    s"""<a $dataIcon $klass $href>$space$titleS$content$progress</a>"""
+    val dataIcon = if (withOnline) """ data-icon="r"""" else ""
+    s"""<a$dataIcon $klass $href>$space$titleS$content$progress</a>"""
   }
 
   def userInfosLink(
@@ -131,8 +131,8 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val content = rating.fold(name)(e => s"$name&nbsp;($e)")
     val titleS = titleTag(title)
     val space = if (withOnline) "&nbsp;" else ""
-    val dataIcon = if (withOnline) """data-icon="r"""" else ""
-    Html(s"""<a $dataIcon $klass $href>$space$titleS$content</a>""")
+    val dataIcon = if (withOnline) """ data-icon="r"""" else ""
+    Html(s"""<a$dataIcon $klass $href>$space$titleS$content</a>""")
   }
 
   def perfTitle(perf: String): String = lila.user.Perfs.titles get perf getOrElse perf
