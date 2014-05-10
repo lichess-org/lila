@@ -134,15 +134,15 @@ private[simulation] final class PlayerBot(
       goto(RoundEnd)
     }
 
-    case Event(Message("possible_moves", obj), player: Player) =>
+    case Event(Message("possibleMoves", obj), player: Player) =>
       if (~getVersion(obj) <= player.v) {
-        log(s"skip possible_moves v ${getVersion(obj)} because at v ${player.v}")
+        log(s"skip possibleMoves v ${getVersion(obj)} because at v ${player.v}")
         stay
       }
       else {
         setVersion(obj)
         maybe(1d / 200)(self ! Resign)
-        log("possible_moves: " + (obj obj "d"))
+        log("possibleMoves: " + (obj obj "d"))
         // opponent move
         if ((obj obj "d").isEmpty) {
           val (_, nextPlayer) = player.nextMove

@@ -57,7 +57,7 @@ object Event {
   case class PossibleMoves(
       color: Color,
       moves: Map[Pos, List[Pos]]) extends Event {
-    def typ = "possible_moves"
+    def typ = "possibleMoves"
     def data =
       if (moves.isEmpty) JsNull
       else JsObject(moves map {
@@ -130,21 +130,21 @@ object Event {
   }
 
   object Threefold extends Empty {
-    def typ = "threefold_repetition"
+    def typ = "threefoldRepetition"
   }
 
   case class ReloadTable(color: Color) extends Event {
-    def typ = "reload_table"
+    def typ = "reloadTable"
     def data = JsNull
     override def only = Some(color)
   }
 
   case object ReloadTables extends Event {
-    def typ = "reload_table"
+    def typ = "reloadTable"
     def data = JsNull
   }
   case object ReloadTablesOwner extends Event {
-    def typ = "reload_table"
+    def typ = "reloadTable"
     def data = JsNull
     override def owner = true
   }

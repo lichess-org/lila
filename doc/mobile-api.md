@@ -11,6 +11,7 @@ http --form POST en.l.org/setup/ai variant=1 clock=false time=60 increment=60 le
 - color: white|black|random
 - variant: 1 (standard) or 2 (chess960)
 
+Response: `201 CREATED`
 ```javascript
 {
   "game": {
@@ -133,7 +134,7 @@ Each event has a version number `v`, a type `t` and data `d`.
   "t": "b",                   // "b" is the batch type.
   "d": [{
     "v": 8,                   // message version
-    "t": "possible_moves",    // list of moves you can play. Empty if not your turn to play.
+    "t": "possibleMoves",     // list of moves you can play. Empty if not your turn to play.
     "d": {
       "b2": "b3b4",           // from b2, you can either go on b3 or b4.
       "e1": "e2",
@@ -171,7 +172,7 @@ Each event has a version number `v`, a type `t` and data `d`.
     "d": null
   }, {
     "v": 12,                  // ignore that for now.
-    "t": "reload_table",
+    "t": "reloadTable",
     "d": null
   }, {
     "v": 13                   // some events may come empty. Just increment the client socket version.

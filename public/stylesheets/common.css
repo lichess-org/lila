@@ -1008,6 +1008,7 @@ a#sound_state.unavailable {
   display: block;
   max-height: 100px;
   overflow-y: auto;
+  transition: all 0.1s;
 }
 #friend_box .content a:hover {
   background: #F0F0F0;

@@ -1009,7 +1009,7 @@ var storage = {
                 }, 400);
               });
             },
-            threefold_repetition: function() {
+            threefoldRepetition: function() {
               self.element.queue(function() {
                 self.reloadTable(function() {
                   self.element.dequeue();
@@ -1055,7 +1055,7 @@ var storage = {
                 });
               });
             },
-            reload_table: function() {
+            reloadTable: function() {
               self.element.queue(function() {
                 self.reloadTable(function() {
                   self.element.dequeue();
