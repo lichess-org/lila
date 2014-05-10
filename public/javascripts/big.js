@@ -874,9 +874,6 @@ var storage = {
       self.premove = null;
       self.holdStart = null;
       self.holds = [];
-      self.options.tableUrl = self.element.data('table-url');
-      self.options.endUrl = self.element.data('end-url');
-      self.options.socketUrl = self.element.data('socket-url');
 
       startTournamentClock();
 
@@ -941,7 +938,7 @@ var storage = {
       });
 
       lichess.socket = new strongSocket(
-        self.options.socketUrl,
+        self.options.url.socket,
         self.options.player.version,
         $.extend(true, lichess.socketDefaults, {
           options: {
@@ -1072,7 +1069,7 @@ var storage = {
               });
             },
             premove: function() {
-              if (self.options.enablePremove) {
+              if (self.options.pref.enablePremove) {
                 self.element.queue(function() {
                   self.applyPremove();
                   self.element.dequeue();
@@ -1193,8 +1190,8 @@ var storage = {
           return $(this).clock('getSeconds');
         }).get();
         times.sort();
-        return this.options.animationDelay * Math.min(1, times[0] / 120);
-      } else return this.options.animationDelay;
+        return this.options.pref.animationDelay * Math.min(1, times[0] / 120);
+      } else return this.options.pref.animationDelay;
     },
     highlightLastMove: function(notation) {
       var self = this;
@@ -1243,7 +1240,7 @@ var storage = {
     },
     applyPremove: function() {
       var self = this;
-      if (self.options.enablePremove && self.premove && self.isMyTurn()) {
+      if (self.options.pref.enablePremove && self.premove && self.isMyTurn()) {
         var move = self.premove;
         self.unsetPremove();
         self.apiMove(move.from, move.to, true);
@@ -1251,7 +1248,7 @@ var storage = {
     },
     setPremove: function(move) {
       var self = this;
-      if (!self.options.enablePremove || self.isMyTurn()) return;
+      if (!self.options.pref.enablePremove || self.isMyTurn()) return;
       self.unsetPremove();
       if (!self.validMove(move.from, move.to, move.piece)) return;
       self.premove = move;
@@ -1311,7 +1308,7 @@ var storage = {
       var color = self.options.player.color;
       // promotion
       if ($piece.hasClass('pawn') && ((color == "white" && squareId[1] == 8) || (color == "black" && squareId[1] == 1))) {
-        var aq = self.options.autoQueen;
+        var aq = self.options.pref.autoQueen;
         if (aq == 3 || (isPremove && aq == 2)) {
           moveData.promotion = "queen";
           sendMoveRequest(moveData);
@@ -1466,7 +1463,7 @@ var storage = {
     },
     reloadTable: function(callback) {
       var self = this;
-      self.get(self.options.tableUrl, {
+      self.get(self.options.url.table, {
           success: function(html) {
             self.$tableInner.html(html);
             self.initTable();
@@ -1474,8 +1471,8 @@ var storage = {
             $('body').trigger('lichess.content_loaded');
             self.$tableInner.find('.lichess_claim_draw').each(function() {
               var $link = $(this);
-              if (self.options.autoThreefold == 3) $link.click();
-              if (self.options.autoThreefold == 2) {
+              if (self.options.pref.autoThreefold == 3) $link.click();
+              if (self.options.pref.autoThreefold == 2) {
                 self.$table.find('.clock_bottom').each(function() {
                   if ($(this).clock('getSeconds') < 30) $link.click();
                 });
@@ -1487,7 +1484,7 @@ var storage = {
     },
     loadEnd: function(callback) {
       var self = this;
-      $.getJSON(self.options.endUrl, function(data) {
+      $.getJSON(self.options.url.end, function(data) {
         $(['white', 'black']).each(function() {
           if (data.players[this]) self.$table.find('div.username.' + this).html(data.players[this]);
         });
@@ -1534,8 +1531,8 @@ var storage = {
       self.$table.find('div.clock').each(function() {
         var $c = $(this);
         $c.clock({
-          showTenths: self.options.clockTenths,
-          showBar: self.options.clockBar,
+          showTenths: self.options.pref.clockTenths,
+          showBar: self.options.pref.clockBar,
           time: $c.data('time'),
           barTime: $c.data('bar-time'),
           emerg: $c.data('emerg'),

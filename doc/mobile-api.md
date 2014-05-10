@@ -35,11 +35,11 @@ All websocket messages, sent or received, are composed of a type `t` and data `d
 ## Connect to a game as a player
 
 ```javascript
-var playerId; // obtained from game creation API
+var baseUrl; // obtained from game creation API (`url.socket`)
 var clientId; // created by the client
 var socketVersion = 0; // last message version number seen on this socket. Starts at zero.
 
-var socketUrl = 'http://socket.en.l.org:9021/' + playerId + '/socket?sri=' + clientId + '&version=' + socketVersion;
+var socketUrl = 'http://socket.en.l.org:9021' + baseUrl + '?sri=' + clientId + '&version=' + socketVersion;
 
 var socket = new WebSocket(socketUrl);
 ```

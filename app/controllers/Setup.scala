@@ -181,7 +181,9 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
         config => op(config)(ctx) flatMap {
           case (pov, call) => negotiate(
             html = fuccess(redirectPov(pov, call)),
-            api = fuccess(Created(lila.api.JsonView.pov(pov)) as JSON)
+            api = Env.round version pov.gameId map { v =>
+              Created(Env.round.jsonView.playerJson(pov, v, ctx.pref)) as JSON
+            }
           )
         }
       )

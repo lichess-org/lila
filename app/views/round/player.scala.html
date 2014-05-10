@@ -16,10 +16,7 @@ goodies = views.html.game.infoBox(pov, tour),
 chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some,
 signedJs = hijackEnabled(pov.game) option routes.Round.signedJs(pov.gameId) map (_.toString)) {
-<div class="lichess_game clearfix lichess_player_@color not_spectator@if(!ctx.pref.captured) { hide_captured }"
-  data-socket-url="@routes.Round.websocketPlayer(fullId)"
-  data-table-url="@routes.Round.tablePlayer(fullId)"
-  data-end-url="@routes.Round.endPlayer(fullId)">
+<div class="lichess_game clearfix lichess_player_@color not_spectator@if(!ctx.pref.captured) { hide_captured }">
   <div class="lichess_board_wrap">
     <div class="lichess_board with_marks">@Html(lila.app.ui.Board.render(pov))</div>
     <div id="premove_alert">@trans.premoveEnabledClickAnywhereToCancel()</div>
