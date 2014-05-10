@@ -84,7 +84,7 @@ object TournamentRepo {
   )) sort BSONDocument("schedule.at" -> 1, "createdAt" -> 1)
   ) map (_ flatMap asStarted)
 
-  def enterable = allCreatedSorted zip recentlyStartedSorted map {
+  def promotable = allCreatedSorted zip recentlyStartedSorted map {
     case (created, started) => created ::: started
   }
 

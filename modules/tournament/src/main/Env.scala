@@ -81,8 +81,8 @@ final class Env(
   val allCreatedSorted =
     lila.memo.AsyncCache.single(TournamentRepo.allCreatedSorted, timeToLive = CreatedCacheTtl)
 
-  val enterable =
-    lila.memo.AsyncCache.single(TournamentRepo.enterable, timeToLive = CreatedCacheTtl)
+  val promotable =
+    lila.memo.AsyncCache.single(TournamentRepo.promotable, timeToLive = CreatedCacheTtl)
 
   def cli = new lila.common.Cli {
     import tube.tournamentTube

@@ -36,6 +36,6 @@ private[tournament] case object StartedTournaments
 private[tournament] case object CheckLeaders
 case class RemindTournaments(tours: List[Started])
 case class RemindTournament(tour: Started)
-case class TournamentTable(tours: List[Created])
+case class TournamentTable(tours: List[Enterable])
 
 private[tournament] case object ScheduleNow

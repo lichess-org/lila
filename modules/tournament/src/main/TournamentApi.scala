@@ -148,7 +148,7 @@ private[tournament] final class TournamentApi(
     loser.filter(tour.quickLossStreak).??(withdraw(tour, _))
 
   private def lobbyReload {
-    TournamentRepo.allCreatedSorted foreach { tours =>
+    TournamentRepo.promotable foreach { tours =>
       renderer ? TournamentTable(tours) map {
         case view: play.api.templates.Html => ReloadTournaments(view.body)
       } pipeToSelection lobby
