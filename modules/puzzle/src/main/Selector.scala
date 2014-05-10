@@ -50,6 +50,7 @@ private[puzzle] final class Selector(puzzleColl: Coll) {
     Puzzle.BSONFields.users -> false
   )).projection(Puzzle.withoutUsers)
     .sort(BSONDocument(Puzzle.BSONFields.voteSum -> -1))
+    .hint(BSONDocument(Puzzle.BSONFields.voteSum -> -1, Puzzle.BSONFields.rating -> 1))
     .one[Puzzle] flatMap {
       case Some(puzzle) => fuccess(puzzle)
       case None => if ((tolerance + ratingToleranceStep) <= ratingToleranceMax)
