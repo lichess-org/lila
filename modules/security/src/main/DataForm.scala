@@ -34,7 +34,37 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
   ))
 
   private def userExists(data: SignupData) =
-    $count.exists(data.username.toLowerCase)
+    if (usernameSucks(data.username.toLowerCase)) fuccess(true)
+    else $count.exists(data.username.toLowerCase)
+
+  private def usernameSucks(u: String) = lameUsernames exists u.contains
+
+  private val lameUsernames = List(
+    "hitler",
+    "fuck",
+    "penis",
+    "vagin",
+    "anus",
+    "bastard",
+    "bitch",
+    "shit",
+    "shiz",
+    "cunniling",
+    "cunt",
+    "kunt",
+    "douche",
+    "faggot",
+    "jerk",
+    "lesb",
+    "nigg",
+    "piss",
+    "poon",
+    "prick",
+    "pussy",
+    "quee",
+    "slut",
+    "whore",
+    "nazi")
 }
 
 object DataForm {
