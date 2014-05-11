@@ -939,16 +939,15 @@ ul.language_links li:last-child {
 #themepicker div.theme:hover {
   background: #f0f0f0;
 }
-#themepicker div.color_demo,
-#themepicker div.piece_demo {
-  width: 64px;
-  height: 64px;
-}
 #themepicker div.color_demo {
-  border: 1px solid #dadada;
+  width: 64px;
+  height: 32px;
+  background-size: 256px;
+  border: 1px solid #d0d0d0;
   position: relative;
 }
 #themepicker div.piece_set {
+  margin-top: 10px;
   background: url(../images/board/darksquares.jpg);
   box-shadow: inset 0 0 20px 3px #777;
 }
@@ -959,10 +958,12 @@ ul.language_links li:last-child {
   background: rgba(250, 250, 250, 0.15);
 }
 #themepicker div.piece_demo {
+  width: 64px;
+  height: 64px;
   background-size: contain;
 }
 #themepicker div.background {
-  margin: 20px 0;
+  margin: 20px 0 10px 0;
   text-align: center;
 }
 #themepicker div.background a {

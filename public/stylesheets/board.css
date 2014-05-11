@@ -24,8 +24,7 @@ div.lichess_board {
 div.lichess_board,
 #GameBoard,
 #chessboard .board-b72b1,
-.mini_board,
-#top div.color_demo {
+.mini_board {
   background-size: contain;
 }
 div.lcs {
