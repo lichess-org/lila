@@ -2186,3 +2186,92 @@ input.copyable {
   width: 16px;
   height: 16px;
 }
+/*! Hint.css - v1.3.1 - 2013-11-23
+* http://kushagragour.in/lab/hint/
+* Copyright (c) 2013 Kushagra Gour; Licensed MIT */
+
+/* THIB HACK
+ * - removed all .hint classes
+ * - commented color and modifier classes
+ * - made them all rounded
+ */
+[data-hint] {
+  position: relative;
+  display: inline-block;
+}
+[data-hint]:before,
+[data-hint]:after {
+  position: absolute;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  visibility: hidden;
+  opacity: 0;
+  z-index: 1000000;
+  pointer-events: none;
+  transition: 0.2s ease;
+}
+[data-hint]:hover:before,
+[data-hint]:hover:after {
+  visibility: visible;
+  opacity: 1;
+}
+[data-hint]:before {
+  content: '';
+  position: absolute;
+  background: transparent;
+  border: 6px solid transparent;
+  z-index: 1000001;
+}
+[data-hint]:after {
+  content: attr(data-hint);
+  background: #404040;
+  color: #fafafa;
+  text-shadow: 0 -1px 0px black;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 12px;
+  white-space: nowrap;
+  border-radius: 2px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+.hint--bottom:before {
+  border-bottom-color: #404040;
+}
+.hint--bottom-left:before {
+  border-bottom-color: #404040;
+}
+.hint--bottom:before {
+  margin-top: -12px;
+}
+.hint--bottom:after {
+  margin-left: -18px;
+}
+.hint--bottom:before,
+.hint--bottom:after {
+  top: 100%;
+  left: 50%;
+}
+.hint--bottom:hover:after,
+.hint--bottom:hover:before {
+  -webkit-transform: translateY(8px);
+  -moz-transform: translateY(8px);
+  transform: translateY(8px);
+}
+.hint--bottom-left:before {
+  margin-top: -12px;
+}
+.hint--bottom-left:after {
+  margin-right: -6px;
+}
+.hint--bottom-left:before,
+.hint--bottom-left:after {
+  top: 100%;
+  right: 30%;
+}
+.hint--bottom-left:hover:after,
+.hint--bottom-left:hover:before {
+  -webkit-transform: translateY(8px);
+  -moz-transform: translateY(8px);
+  transform: translateY(8px);
+}
