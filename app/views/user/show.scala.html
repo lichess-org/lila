@@ -58,7 +58,7 @@ themepicker = true) {
     }
     <span class="intertab">@splitNumber(u.toints + " " + trans.tournamentPoints())</span>
     <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(info.nbPosts + " Forum posts")</a>
-    @if(ctx.isAuth) {
+    @if(ctx.isAuth && !ctx.is(u)) {
     <a class="intertab note_zone_toggle">@splitNumber(notes.size + " Notes")</a>
     }
     <div class="relation_actions">
@@ -80,25 +80,23 @@ themepicker = true) {
       }
     </div>
   </div>
+  @if(!(ctx is u)) {
   <div class="note_zone">
-    @if(!(ctx is u)) {
     <form class="wide" action="@routes.User.writeNote(u.username)?note" method="post">
       <textarea name="text" placeholder="Write a note about this user only you and your friends can read"></textarea>
       <button type="submit" class="button">@trans.send()</button>
     </form>
-    }
     @if(notes.isEmpty) {
     <div>No note yet</div>
     }
-    @if(!ctx.is(u) || notes.nonEmpty) {
     @notes.map { note =>
     <div>
       <p class="meta">@userIdLink(note.from.some)<br />@momentFromNow(note.date)</p>
       <p class="text">@autoLink(note.text)</p>
     </div>
     }
-    }
   </div>
+  }
   <div class="mod_zone"></div>
   <div class="meat">
     @info.ratingChart.map { ratingChart =>
