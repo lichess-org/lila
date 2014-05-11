@@ -2612,8 +2612,6 @@ var storage = {
 
     $('body').data('tournament-id', _ld_.tournament.id);
 
-    var $userList = $wrap.find("div.user_list");
-    var socketUrl = $wrap.data("socket-url");
     var $watchers = $("div.watchers").watchers();
 
     var $chat = $('#chat');
@@ -2646,10 +2644,16 @@ var storage = {
     drawBars();
 
     function reload() {
-      $wrap.load($wrap.data("href"), function() {
-        startClock();
-        $('body').trigger('lichess.content_loaded');
-        drawBars();
+      $.ajax({
+        url: $wrap.data('href'),
+        success: function(html) {
+          var $tour = $(html);
+          $wrap.find('table.standing tbody').replaceWith($tour.find('table.standing tbody'));
+          drawBars();
+          $wrap.find('div.pairings').replaceWith($tour.find('div.pairings'));
+          $wrap.find('div.game_list').replaceWith($tour.find('div.game_list'));
+          $('body').trigger('lichess.content_loaded');
+        }
       });
     }
 
@@ -2658,7 +2662,7 @@ var storage = {
       reload();
     }
 
-    lichess.socket = new strongSocket(socketUrl, _ld_.version, $.extend(true, lichess.socketDefaults, {
+    lichess.socket = new strongSocket($wrap.data("socket-url"), _ld_.version, $.extend(true, lichess.socketDefaults, {
       events: {
         start: start,
         reload: reload,
