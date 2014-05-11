@@ -39,7 +39,9 @@ signedJs = hijackEnabled(pov.game) option routes.Round.signedJs(pov.gameId) map 
       @game.clock.map { c =>
       @round.clock(c, pov.color, "bottom")
       @if(game.moretimeable) {
-      <a class="moretime" title="@trans.giveNbSeconds(moretimeSeconds)" data-icon="O"></a>
+      <a class="moretime hint--bottom-left" data-hint="@trans.giveNbSeconds(moretimeSeconds)">
+        <span data-icon="O"></span>
+      </a>
       }
       }
     </div>

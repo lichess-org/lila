@@ -40,12 +40,18 @@
 
     <div class="game_control">
       @puzzle.gameId.map { id =>
-      <a class="button" data-icon="v" title="@trans.fromGameLink(id)"
-        href="@routes.Round.watcher(id, puzzle.color.name)@{puzzle.initialPly.??("#" + _)}"></a>
+      <a class="button hint--bottom" data-hint="@trans.fromGameLink(id)"
+        href="@routes.Round.watcher(id, puzzle.color.name)@{puzzle.initialPly.??("#" + _)}">
+        <span data-icon="v"></span>
+      </a>
       }
-      <a class="fen_link button" title="@trans.boardEditor()" data-icon="m" href="@routes.Editor.index("")?fen="></a>
-      <a class="continue button" title="@trans.continueFromHere()" data-icon="U"></a>
-      <div id="GameButtons">
+      <a class="fen_link button hint--bottom" data-hint="@trans.boardEditor()" href="@routes.Editor.index("")?fen=">
+        <span data-icon="m"></span>
+      </a>
+      <a class="continue button hint--bottom" data-hint="@trans.continueFromHere()">
+        <span data-icon="U"></span>
+      </a>
+      <div id="GameButtons" class="hint--bottom" data-hint="Review puzzle solution">
         <a class="first button" data-value="first" data-icon="W"></a>
         <a class="prev button" data-value="prev" data-icon="Y"></a>
         <a class="next button" data-value="next" data-icon="X"></a>

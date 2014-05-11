@@ -121,7 +121,8 @@ div.continue {
   text-align: center;
 }
 div.game_control a {
-  font-size: 1.5em;
+  font-size: 16px;
+  height: 22px;
   display: inline-block;
 }
 #GameButtons {

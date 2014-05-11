@@ -510,7 +510,7 @@ div.lichess_control div.rematch_wait {
 }
 div.lichess_control.icons a.button {
   font-size: 16px;
-  height: 24px;
+  height: 22px;
 }
 div.lichess_control.icons a.takeback span:before {
   vertical-align: -7px;
@@ -519,7 +519,7 @@ div.lichess_control.icons a.draw span:before {
   display: inline-block;
   transform: rotate(-90deg);
   -webkit-transform: rotate(-90deg);
-  vertical-align: -3px;
+  vertical-align: -4px;
 }
 div.lichess_control.icons a.resign span:before {
   vertical-align: -6px;

@@ -101,4 +101,12 @@ function redrawBoardMarks() {
 
 function refreshButtonset() {
   $("#autoplayButton").addClass('button');
+  $('#GameButtons a[title]').each(function() {
+    $(this)
+    .html('<span data-icon="' + $(this).data('icon') + '"></span>')
+    .removeAttr('data-icon')
+    .attr('data-hint', $(this).attr('title'))
+    .removeAttr('title')
+    .addClass('hint--bottom');
+  });
 }

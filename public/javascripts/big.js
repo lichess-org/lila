@@ -2679,7 +2679,7 @@ var storage = {
     if (!$("#GameBoard").length) return;
 
     $('div.game_control a.continue').click(function() {
-      $('div.game_control div.continue').toggle();
+      $('div.board_wrap div.continue').toggle();
       return false;
     });
 
