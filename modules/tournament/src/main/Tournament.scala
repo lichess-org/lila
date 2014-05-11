@@ -220,6 +220,8 @@ case class Started(
     ((finishedAt.getMillis - nowMillis) / 1000).toFloat
   )
 
+  def isAlmostFinished = remainingSeconds < math.max(60, math.min(clock.limit / 2, 120))
+
   def clockStatus = remainingSeconds.toInt |> { s =>
     "%02d:%02d".format(s / 60, s % 60)
   }

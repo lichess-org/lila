@@ -48,7 +48,7 @@ private[tournament] final class Organizer(
       }
     }
 
-    case FinishGame(game, _, _) => api finishGame game
+    case FinishGame(game, _, _)                    => api finishGame game
 
     case lila.hub.actorApi.mod.MarkCheater(userId) => api ejectCheater userId
   }
@@ -57,10 +57,12 @@ private[tournament] final class Organizer(
     tour.userIds filterNot isOnline foreach { api.withdraw(tour, _) }
 
   private def startPairing(tour: Started) {
-    withUserIds(tour.id) { ids =>
-      (tour.activeUserIds intersect ids) |> { users =>
-        Pairing.createNewPairings(users, tour.pairings, tour.nbActiveUsers).toNel foreach { pairings =>
-          api.makePairings(tour, pairings)
+    if (!tour.isAlmostFinished) {
+      withUserIds(tour.id) { ids =>
+        (tour.activeUserIds intersect ids) |> { users =>
+          Pairing.createNewPairings(users, tour.pairings, tour.nbActiveUsers).toNel foreach { pairings =>
+            api.makePairings(tour, pairings)
+          }
         }
       }
     }
