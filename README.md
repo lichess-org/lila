@@ -175,11 +175,13 @@ name | type | default | description
 
 ### `GET /api/analysis` fetch many analysis
 
+This API requires a secret token to work.
 Analysis are returned by descendant chronological order.
 All parameters are optional.
 
 name | type | default | description
 --- | --- | --- | ---
+**token** | string | - | security token
 **nb** | int | 10 | maximum number of analysis to return
 
 ```
