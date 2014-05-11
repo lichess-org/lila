@@ -33,7 +33,12 @@ Installation
 
 > Also note that if I provide the source code, I do **not** offer support for your lichess instance. I will probably ignore any question about lichess installation and runtime issues.
 
-## API
+## HTTP API
+
+Feel free to use lichess API in your applications and websites.
+
+If the resource you need is not available yet,
+drop me an email at thibault.duplessis@gmail.com, and we'll discuss it.
 
 ### `GET /api/user/<username>` fetch one user
 
