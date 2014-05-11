@@ -22,6 +22,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     }
     @cssTag("common.css")
     @cssTag("board.css")
+    @cssTag("hint.css")
     @moreCss
     <meta content="@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()" name="description">
     <meta charset="utf-8">
@@ -40,7 +41,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
     <div id="top" class="clearfix">
       @if(!zen) {
-      <a title="@trans.toggleSound()" id="sound_state" class="available">
+      <a data-hint="@trans.toggleSound()" id="sound_state" class="available hint--bottom-left">
         <span class="is2 on" data-icon="n"></span>
         <span class="is2 off" data-icon="o"></span>
       </a>
@@ -78,7 +79,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
         @trans.nbConnectedPlayers("<strong>?</strong>")
       </div>
       <a id="reconnecting" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
-      <a href="@routes.Pref.set("bg")" title="@trans.toggleBackground()" class="bgpicker">
+      <a href="@routes.Pref.set("bg")" data-hint="@trans.toggleBackground()" class="bgpicker hint--bottom-left">
         <span class="is2" data-icon="l"></span>
       </a>
       @if(themepicker) {
