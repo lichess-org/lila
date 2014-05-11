@@ -2,12 +2,6 @@
 
 @title = @{ s"TV ${s.name}" }
 
-@underchat = {
-<div class="watchers" data-icon="v">
-  @trans.spectators() <span class="list inline_userlist"></span>
-</div>
-}
-
 @goodies = {
 <div class="lichess_goodies">
   <div class="box">
@@ -26,35 +20,54 @@
 @round.layout(
 title = title,
 goodies = goodies,
-underchat = underchat.some,
 active = siteMenu.tv.some) {
-@s.service match {
-case "twitch" => {
-<object
-  type="application/x-shockwave-flash"
-  width="794"
-  height="488"
-  id="live_embed_player_flash"
-  data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=@s.streamId"
-  bgcolor="transparent">
-  <param name="allowFullScreen" value="true" />
-  <param name="allowScriptAccess" value="always" />
-  <param name="allowNetworking" value="all" />
-  <param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
-  <param name="flashvars" value="hostname=www.twitch.tv&channel=@s.streamId&auto_play=true&start_volume=25" />
-</object>
-}
-case "ustream" => {
-<object width="794" height="478" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
-  <param name="flashvars" value="cid=@s.streamId&amp;autoplay=false&amp;locale=fr_FR"/>
-  <param name="allowfullscreen" value="true"/>
-  <param name="allowscriptaccess" value="always"/>
-  <param name="src" value="http://www.ustream.tv/flash/viewer.swf"/>
-  <embed flashvars="cid=@s.streamId&amp;autoplay=true" width="794" height="478" allowfullscreen="true" allowscriptaccess="always" src="http://www.ustream.tv/flash/viewer.swf" type="application/x-shockwave-flash"></embed>
-</object>
-}
-case _ => {
-???
-}
-}
+<style type="text/css">
+  .tv_stream .description {
+    text-align: center;
+  }
+  .tv_stream h1 {
+    font-size: 2.4em;
+    margin: 1em 0;
+  }
+  </div>
+</style>
+<div class="tv_stream">
+  @s.service match {
+  case "twitch" => {
+  <object
+    type="application/x-shockwave-flash"
+    width="794"
+    height="488"
+    id="live_embed_player_flash"
+    data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=@s.streamId"
+    bgcolor="transparent">
+    <param name="allowFullScreen" value="true" />
+    <param name="allowScriptAccess" value="always" />
+    <param name="allowNetworking" value="all" />
+    <param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
+    <param name="flashvars" value="hostname=www.twitch.tv&channel=@s.streamId&auto_play=true&start_volume=25" />
+  </object>
+  <div class="description">
+    <h1>@s.name</h1>
+    Open in twitch.tv <a href="@s.url">@s.url</a>
+  </div>
+  }
+  case "ustream" => {
+  <object width="794" height="478" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+    <param name="flashvars" value="cid=@s.streamId&amp;autoplay=false&amp;locale=fr_FR"/>
+    <param name="allowfullscreen" value="true"/>
+    <param name="allowscriptaccess" value="always"/>
+    <param name="src" value="http://www.ustream.tv/flash/viewer.swf"/>
+    <embed flashvars="cid=@s.streamId&amp;autoplay=true" width="794" height="478" allowfullscreen="true" allowscriptaccess="always" src="http://www.ustream.tv/flash/viewer.swf" type="application/x-shockwave-flash"></embed>
+  </object>
+  <div class="description">
+    <h1>@s.name</h1>
+    Open in ustream.tv <a href="@s.url">@s.url</a>
+  </div>
+  }
+  case _ => {
+  ???
+  }
+  }
+</div>
 }
