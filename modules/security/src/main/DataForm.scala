@@ -55,13 +55,11 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
     "douche",
     "faggot",
     "jerk",
-    "lesb",
     "nigg",
     "piss",
     "poon",
     "prick",
     "pussy",
-    "quee",
     "slut",
     "whore",
     "nazi")
