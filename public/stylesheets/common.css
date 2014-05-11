@@ -845,12 +845,13 @@ form.wide textarea {
 #top .dropdown {
   display: none;
   position: absolute;
-  right: -1px;
+  right: 0;
   top: 24px;
   background: #fff;
-  border: 1px solid #dadada;
-  border-top: none;
   z-index: 3;
+}
+#top .shown .dropdown {
+  box-shadow: 2px 5px 6px rgba(0,0,0,0.3);
 }
 span.progress > .positive {
   color: #759900;

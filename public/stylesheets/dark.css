@@ -74,7 +74,6 @@ body.dark div.progressbar,
 body.dark form.translation_form div.messages,
 body.dark form.translation_form input,
 body.dark #adv_chart,
-body.dark #top .dropdown,
 body.dark div.search_status,
 body.dark table.slist,
 body.dark table.slist thead th,
@@ -381,6 +380,11 @@ body.dark #puzzle > .right .please_vote {
 }
 body.dark div.game_tournament table.standing tr.me td {
   background: #333;
+}
+body.dark #top .shown .dropdown {
+  border: 1px solid #3d3d3d;
+  border-top: 0;
+  right: -1px;
 }
 body.dark::-webkit-input-placeholder {
   color: #666;
