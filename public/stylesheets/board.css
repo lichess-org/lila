@@ -508,18 +508,21 @@ div.lichess_control div.rematch_alert {
 div.lichess_control div.rematch_wait {
   margin-bottom: 1em;
 }
-div.lichess_control a.lichess_resign,
-div.lichess_control a.lichess_abort,
-div.lichess_control a.propose_takeback,
-div.lichess_control a.offer_draw {
-  display: inline-block;
-  margin: 0 -3px 0 -3px;
-  font-weight: normal;
+div.lichess_control.icons a.button {
+  font-size: 16px;
+  height: 24px;
 }
-div.lichess_control a.offer_draw:before {
+div.lichess_control.icons a.takeback span:before {
+  vertical-align: -7px;
+}
+div.lichess_control.icons a.draw span:before {
   display: inline-block;
   transform: rotate(-90deg);
   -webkit-transform: rotate(-90deg);
+  vertical-align: -3px;
+}
+div.lichess_control.icons a.resign span:before {
+  vertical-align: -6px;
 }
 div.lichess_control.buttons a.button {
   display: block;
