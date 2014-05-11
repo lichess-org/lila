@@ -615,8 +615,8 @@ var storage = {
 
     // themepicker
     var $body = $('body');
-    $('#top div.themepicker').each(function() {
-      var $themepicker = $(this);
+    $('#themepicker_toggle').one('click', function() {
+      var $themepicker = $('#themepicker');
       var themes = $themepicker.data('themes').split(' ');
       var theme = _.find(document.body.className.split(/\s+/), function(a) {
         return _.contains(themes, a);
@@ -625,6 +625,7 @@ var storage = {
       var set = _.find(document.body.className.split(/\s+/), function(a) {
         return _.contains(sets, a);
       });
+      var background = $('body').hasClass('dark') ? 'dark' : 'light';
       $themepicker.find('div.theme').hover(function() {
         $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
       }, function() {
@@ -634,7 +635,7 @@ var storage = {
         $.post($(this).parent().data("href"), {
           "theme": theme
         });
-        $('#top .themepicker').removeClass("shown");
+        $themepicker.removeClass("shown");
       });
       $themepicker.find('div.set').hover(function() {
         $body.removeClass(sets.join(' ')).addClass($(this).data("set"));
@@ -645,22 +646,28 @@ var storage = {
         $.post($(this).parent().data("href"), {
           "set": set
         });
-        $('#top .themepicker').removeClass("shown");
+        $themepicker.removeClass("shown");
       });
-    });
-
-    $('#top a.bgpicker').click(function() {
-      var bg = $body.hasClass("dark") ? "light" : "dark";
-      $body.removeClass('light dark').addClass(bg);
-      if (bg == 'dark' && $('link[href*="dark.css"]').length === 0) {
-        $('link[href*="common.css"]').clone().each(function() {
-          $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
+      var showBg = function(bg) {
+        $body.removeClass('light dark').addClass(bg);
+        if (bg == 'dark' && $('link[href*="dark.css"]').length === 0) {
+          $('link[href*="common.css"]').clone().each(function() {
+            $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
+          });
+        }
+      };
+      $themepicker.find('.background a').click(function() {
+        background = $(this).data('bg');
+        $.post($(this).parent().data('href'), {
+          bg: background
         });
-      }
-      $.post($(this).attr('href'), {
-        bg: bg
+        $themepicker.removeClass("shown");
+        return false;
+      }).hover(function() {
+        showBg($(this).data('bg'));
+      }, function() {
+        showBg(background);
       });
-      return false;
     });
 
     $.centerOverboard = function() {

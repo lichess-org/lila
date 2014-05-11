@@ -70,8 +70,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font9/fonts/lichess.eot");
-  src: url("../font9/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font9/fonts/lichess.woff") format("woff"), url("../font9/fonts/lichess.ttf") format("truetype"), url("../font9/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font10/fonts/lichess.eot");
+  src: url("../font10/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font10/fonts/lichess.woff") format("woff"), url("../font10/fonts/lichess.ttf") format("truetype"), url("../font10/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -731,7 +731,6 @@ body.tight div.side_menu a {
 #reconnecting,
 a.goto_nav,
 #top a.toggle,
-#top a.bgpicker,
 a#sound_state {
   text-decoration: none;
   font-size: 13px;
@@ -768,7 +767,6 @@ body.offline #nb_connected_players {
 }
 #top a.goto_nav:hover,
 #top a.toggle:hover,
-#top a.bgpicker:hover,
 a#sound_state:hover {
   color: #303030;
   border-color: #808080;
@@ -831,9 +829,18 @@ form.wide textarea {
 }
 #top a.toggle {
   display: block;
-  padding-right: 4px;
   float: left;
+  padding-left: 4px;
   transition: all 0.1s;
+}
+#top #themepicker_toggle, #top #sound_state {
+  padding-right: 4px;
+}
+#top #themepicker_toggle span {
+  font-size: 17px;
+}
+#top #themepicker_toggle span:before {
+  vertical-align: -5px;
 }
 #top .dropdown {
   display: none;
@@ -902,58 +909,75 @@ ul.language_links li:last-child {
   width: 50%;
   font-weight: bold;
 }
-#top div.themepicker {
+#themepicker {
   float: right;
   position: relative;
 }
-#top div.themepicker span.down {
+#themepicker span.down {
   display: block;
   margin: 3px 0.5em 0 0;
   padding: 1px 5px;
   text-decoration: none;
   line-height: normal;
 }
-#top div.themepicker.shown div.dropdown {
+#themepicker.shown div.dropdown {
   display: block;
   width: 240px;
 }
-#top div.themepicker.shown div.board,
-#top div.themepicker.shown div.piece_set {
+#themepicker div.background,
+#themepicker div.board,
+#themepicker div.piece_set {
   overflow: hidden;
 }
-#top div.themepicker.shown div.theme,
-#top div.themepicker.shown div.set {
+#themepicker div.theme,
+#themepicker div.set {
   float: left;
   padding: 7px;
   cursor: pointer;
   transition: all 0.1s;
 }
-#top div.themepicker.shown div.theme:hover {
+#themepicker div.theme:hover {
   background: #f0f0f0;
 }
-#top div.themepicker.shown div.color_demo,
-#top div.themepicker.shown div.piece_demo {
+#themepicker div.color_demo,
+#themepicker div.piece_demo {
   width: 64px;
   height: 64px;
 }
-#top div.themepicker.shown div.color_demo {
+#themepicker div.color_demo {
   border: 1px solid #dadada;
   position: relative;
 }
-#top div.themepicker.shown div.piece_set {
+#themepicker div.piece_set {
   background: url(../images/board/darksquares.jpg);
   box-shadow: inset 0 0 20px 3px #777;
 }
-#top div.themepicker.shown div.set {
+#themepicker div.set {
   padding: 8px;
 }
-#top div.themepicker.shown div.set:hover {
+#themepicker div.set:hover {
   background: rgba(250, 250, 250, 0.15);
 }
-#top div.themepicker.shown div.piece_demo {
+#themepicker div.piece_demo {
   background-size: contain;
 }
-#top a.bgpicker,
+#themepicker div.background a {
+  width: 120px;
+  text-align: center;
+  line-height: 100px;
+  font-size: 25px;
+  text-decoration: none;
+  float: left;
+  display: block;
+}
+#themepicker a.dark {
+  background: #1a1a1a;
+  color: #8a8a8a;
+}
+#themepicker a.light {
+  background: #fff;
+  color: #747474;
+}
 a#sound_state {
   opacity: 0.7;
   float: right;
@@ -2080,9 +2104,7 @@ div.progressbar.flashy.green div {
   transition: box-shadow 1.5s;
 }
 #notifications > div.glow {
-  box-shadow: 0 0 5px 2px #fff,
-  0 0 10px 3px #e89000,
-  0 0 20px 3px #d85000;
+  box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000;
 }
 #notifications > div a.close {
   text-decoration: none;

@@ -105,7 +105,6 @@ nbWins=%s хожсон
 nbLosses=%s хожигдсон
 nbDraws=%s тэнцсэн
 exportGames=Тоглолтыг хэвлэх
-color=Өнгө
 giveNbSeconds=%s секунд өгөх
 thisPlayerUsesChessComputerAssistance=Энэ тоглогч шатар тоглохдоо компьютерээс туслалцаа авж байна
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Үнэгүй онлайн шатар. Цэвэр интерфэйстэй, бүртгэл шаардахгүй, сурталчилгаа үзүүлэхгүй, нэмэлт програм нэхэхгүй шатар тоглоорой. Та найзтайгаа, дурын хүмүүстэй, хиймэл оюун ухаантай шатар тоглож болно.

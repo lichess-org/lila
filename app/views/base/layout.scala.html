@@ -79,15 +79,18 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
         @trans.nbConnectedPlayers("<strong>?</strong>")
       </div>
       <a id="reconnecting" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
-      <a href="@routes.Pref.set("bg")" data-hint="@trans.toggleBackground()" class="bgpicker hint--bottom-left">
-        <span class="is2" data-icon="l"></span>
-      </a>
       @if(themepicker) {
-      <div class="themepicker"
+      <div id="themepicker"
         data-themes="@lila.pref.Theme.listString"
         data-sets="@lila.pref.PieceSet.listString">
-        <a class="theme_toggle toggle" href="#"><span data-icon="u">&nbsp;@trans.color()</span></a>
+        <a id="themepicker_toggle" class="toggle icon hint--bottom-left" data-hint="Theming">
+          &nbsp;<span data-icon="v"></span>&nbsp;
+        </a>
         <div class="dropdown">
+          <div class="background" data-href="@routes.Pref.set("bg")">
+            <a class="light" data-bg="light" data-icon="5"></a>
+            <a class="dark" data-bg="dark" data-icon="4"></a>
+          </div>
           <div class="board" data-href="@routes.Pref.set("theme")">
             @lila.pref.Theme.list.map { theme =>
             <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>

@@ -123,7 +123,7 @@ body.dark #hooks_wrap > div.tabs > a.active {
 body.dark .ui-slider,
 body.dark div.progressbar,
 body.dark #translation_call div.progressbar,
-body.dark #top div.themepicker.shown div.theme:hover {
+body.dark #themepicker div.theme:hover {
   background-color: #505050;
 }
 body.dark #hooks_wrap > div.tabs > a,
@@ -138,7 +138,6 @@ body.dark #top a.toggle:hover,
 body.dark #top .dropdown,
 body.dark #top a.goto_nav.current,
 body.dark #top a.goto_nav:hover,
-body.dark #top a.bgpicker:hover,
 body.dark a#sound_state:hover {
   color: #c0c0c0;
 }
