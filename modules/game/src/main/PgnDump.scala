@@ -45,7 +45,10 @@ final class PgnDump(
   private def player(p: Player, u: Option[User]) =
     p.aiLevel.fold(u.fold(User.anonymous)(_.username))("AI-level-" + _)
 
-  private def tags(game: Game): Fu[List[Tag]] =
+  private def tags(game: Game): Fu[List[Tag]] = {
+    val opening =
+      if (game.fromPosition || game.variant.exotic) none
+      else chess.OpeningExplorer openingOf game.pgnMoves
     gameUsers(game) zip
       (game.variant.standard.fold(fuccess(none), GameRepo initialFen game.id)) zip
       gameUrl(game.id) map {
@@ -59,12 +62,16 @@ final class PgnDump(
           Tag("WhiteElo", rating(game.whitePlayer)),
           Tag("BlackElo", rating(game.blackPlayer)),
           Tag("PlyCount", game.turns),
-          Tag(_.Variant, game.variant.name.capitalize)
+          Tag(_.Variant, game.variant.name.capitalize),
+          Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit}+${c.increment}" }),
+          Tag(_.ECO, opening.fold("?")(_.code)),
+          Tag(_.Opening, opening.fold("?")(_.name))
         ) ::: game.variant.standard.fold(Nil, List(
             Tag(_.FEN, initialFen | "?"),
             Tag("SetUp", "1")
           ))
       }
+  }
 
   private def turns(moves: List[String], from: Int): List[chessPgn.Turn] =
     (moves grouped 2).zipWithIndex.toList map {
