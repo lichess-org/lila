@@ -53,12 +53,12 @@ body.green .mini_board,
 #top div.color_demo.green {
   background-image: url(../images/board/green.png);
 }
-body.yellow div.lichess_board,
-body.yellow #GameBoard,
-body.yellow #chessboard .board-b72b1,
-body.yellow .mini_board,
-#top div.color_demo.yellow {
-  background-image: url(../images/board/yellow.png);
+body.olive div.lichess_board,
+body.olive #GameBoard,
+body.olive #chessboard .board-b72b1,
+body.olive .mini_board,
+#top div.color_demo.olive {
+  background-image: url(../images/board/olive.jpg);
 }
 body.purple div.lichess_board,
 body.purple #GameBoard,

@@ -13,7 +13,7 @@ object Theme {
 
   val all = NonEmptyList(
     "brown", "blue", "green",
-    "purple", "yellow", "grey",
+    "purple", "olive", "grey",
     "wood", "canvas", "leather"
   ) map { name => new Theme(name) }
 
