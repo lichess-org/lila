@@ -48,7 +48,7 @@
 
   @tour match {
   case Some(t: lila.tournament.StartedOrFinished) => {
-  <div class="game_tournament box">
+  <div class="game_tournament box scroll-shadow">
     <span class="title">&nbsp;@if(t.scheduled) {@t.name} else {@trans.xTournament(t.name)}</span>
     @t match {
     case t: lila.tournament.Started => {

@@ -142,7 +142,7 @@ div.game_control a {
   height: 502px;
   margin-bottom: 1em;
   padding: 5px 7px;
-  background: #f7f7f7;
+  background-color: #f7f7f7;
   border: 1px solid #ccc;
   overflow: auto;
 }

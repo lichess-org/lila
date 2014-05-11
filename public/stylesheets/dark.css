@@ -389,16 +389,16 @@ body.dark #top .shown .dropdown {
 body.dark .scroll-shadow {
   background:
     /* Shadow covers */
-    linear-gradient(#242424 30%, rgba(42,42,42,0)),
-    linear-gradient(rgba(42,42,42,0), #242424 70%) 0 100%,
+    linear-gradient(#282828 30%, rgba(42,42,42,0)),
+    linear-gradient(rgba(42,42,42,0), #282828 70%) 0 100%,
 
     /* Shadows */
     radial-gradient(50% 0, farthest-side, rgba(0,0,0,.8), rgba(0,0,0,0)),
     radial-gradient(50% 100%,farthest-side, rgba(0,0,0,.8), rgba(0,0,0,0)) 0 100%;
   background:
     /* Shadow covers */
-    linear-gradient(#242424 30%, rgba(42,42,42,0)),
-    linear-gradient(rgba(42,42,42,0), #242424 70%) 0 100%,
+    linear-gradient(#282828 30%, rgba(42,42,42,0)),
+    linear-gradient(rgba(42,42,42,0), #282828 70%) 0 100%,
 
     /* Shadows */
     radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.8), rgba(0,0,0,0)),
