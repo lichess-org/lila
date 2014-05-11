@@ -169,12 +169,11 @@ body.dark #promotion_choice {
 body.dark #chat .messages,
 body.dark div.undertable_inner,
 body.dark div.lichess_goodies div.box,
-body.dark div.undertable td,
 body.dark div.lichess_table,
 body.dark div.lichess_table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
 body.dark #footer_wrap {
-  background: #242424;
+  background-color: #242424;
 }
 body.dark #hooks_wrap table.list td {
   background: rgba(40, 40, 40, 0.6);
@@ -191,15 +190,15 @@ body.dark #hook_filter {
 body.dark #hook_filter td > label {
   color: #c0c0c0;
 }
-body.dark div.undertable tr:nth-child(even) td,
 body.dark #hooks_wrap,
 body.dark #hooks_wrap a.filter:hover,
 body.dark #hooks_wrap a.filter.active,
 body.dark #hooks_wrap > div.tabs > a:hover,
 body.dark #hooks_wrap > div.tabs > a.active {
-  background: #303030;
+  background-color: #303030;
 }
-body.dark div.lichess_overboard {
+body.dark div.lichess_overboard,
+body.dark #tv_history tr:hover td {
   background: #2b2b2b;
 }
 body.dark div.lichess_overboard.game_config {
@@ -216,7 +215,7 @@ body.dark #GameText,
 body.dark #tournament_side,
 body.dark table.translations tbody tr,
 body.dark form.translation_form div.message {
-  background: #2b2b2b;
+  background-color: #2b2b2b;
 }
 body.dark #site_header div.side_menu a.active,
 body.dark #hooks_wrap table.list,
@@ -386,6 +385,30 @@ body.dark #top .shown .dropdown {
   border: 1px solid #3d3d3d;
   border-top: 0;
   right: -1px;
+}
+body.dark .scroll-shadow {
+  background:
+    /* Shadow covers */
+    linear-gradient(#242424 30%, rgba(42,42,42,0)),
+    linear-gradient(rgba(42,42,42,0), #242424 70%) 0 100%,
+
+    /* Shadows */
+    radial-gradient(50% 0, farthest-side, rgba(0,0,0,.8), rgba(0,0,0,0)),
+    radial-gradient(50% 100%,farthest-side, rgba(0,0,0,.8), rgba(0,0,0,0)) 0 100%;
+  background:
+    /* Shadow covers */
+    linear-gradient(#242424 30%, rgba(42,42,42,0)),
+    linear-gradient(rgba(42,42,42,0), #242424 70%) 0 100%,
+
+    /* Shadows */
+    radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.8), rgba(0,0,0,0)),
+    radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.8), rgba(0,0,0,0)) 0 100%;
+
+  background-repeat: no-repeat;
+  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+
+  /* Opera doesn't support this in the shorthand */
+  background-attachment: local, local, scroll, scroll;
 }
 body.dark::-webkit-input-placeholder {
   color: #666;

@@ -5,7 +5,7 @@
     <a class="more" title="See all tournaments" href="@routes.Tournament.home()">@trans.more() »</a>
     <span class="title"> @trans.openTournaments()</span>
   </div>
-  <div id="enterable_tournaments" class="undertable_inner">
+  <div id="enterable_tournaments" class="undertable_inner scroll-shadow">
     @tournament.enterable(tours)
   </div>
 </div>
@@ -16,7 +16,7 @@
         <a class="more" title="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
         <span class="title" data-icon="C"> @trans.todaysLeaders()</span>
       </div>
-      <div class="undertable_inner">
+      <div class="undertable_inner scroll-shadow">
         <table>
           <tbody>
             @leaderboard.map { u =>
@@ -37,7 +37,7 @@
         <a class="more" title="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
         <span class="title" data-icon="Q"> @trans.progressToday()</span>
       </div>
-      <div class="undertable_inner">
+      <div class="undertable_inner scroll-shadow">
         <table>
           <tbody>
             @progress.map { u =>
@@ -57,7 +57,7 @@
   <div class="undertable_top">
     <span class="title" data-icon="d"> @trans.latestForumPosts()</span>
   </div>
-  <div class="undertable_inner">
+  <div class="undertable_inner scroll-shadow">
     <div class="content">
       <ol>@forum.post.recent(forumRecent)</ol>
     </div>

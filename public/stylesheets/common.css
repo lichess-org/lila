@@ -686,6 +686,12 @@ table.slist th:first-child {
   padding-left: 5px;
   text-decoration: none;
 }
+#tv_history tr:hover td {
+  transition: 0.1s;
+}
+#tv_history tr:hover td {
+  background-color: #f8f8f8;
+}
 div.lichess_goodies h2 {
   text-align: center;
   font-size: 1.5em;
@@ -1854,7 +1860,7 @@ div.undertable_inner {
   height: 202px;
   width: auto;
   overflow: hidden;
-  background: #fff;
+  background-color: #fff;
 }
 div.undertable_inner:hover {
   overflow-y: auto;
@@ -1873,14 +1879,10 @@ div.undertable table {
 }
 div.undertable td {
   padding: 6px 5px 6px 5px;
-  background: #fff;
   border-top: 1px solid #eaeaea;
 }
 div.undertable tr:first-child td {
   border-top: none;
-}
-div.undertable tr:nth-child(even) td {
-  background: #f8f8f8;
 }
 div.undertable.half {
   width: 250px;
@@ -2185,6 +2187,30 @@ input.copyable {
   display: inline-block;
   width: 16px;
   height: 16px;
+}
+.scroll-shadow {
+  background:
+    /* Shadow covers */
+    linear-gradient(#fafafa 30%, rgba(255,255,255,0)),
+    linear-gradient(rgba(255,255,255,0), #fafafa 70%) 0 100%,
+
+    /* Shadows */
+    radial-gradient(50% 0, farthest-side, rgba(0,0,0,.2), rgba(0,0,0,0)),
+    radial-gradient(50% 100%,farthest-side, rgba(0,0,0,.2), rgba(0,0,0,0)) 0 100%;
+  background:
+    /* Shadow covers */
+    linear-gradient(#fafafa 30%, rgba(255,255,255,0)),
+    linear-gradient(rgba(255,255,255,0), #fafafa 70%) 0 100%,
+
+    /* Shadows */
+    radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.2), rgba(0,0,0,0)),
+    radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.2), rgba(0,0,0,0)) 0 100%;
+
+  background-repeat: no-repeat;
+  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+
+  /* Opera doesn't support this in the shorthand */
+  background-attachment: local, local, scroll, scroll;
 }
 /*! Hint.css - v1.3.1 - 2013-11-23
 * http://kushagragour.in/lab/hint/

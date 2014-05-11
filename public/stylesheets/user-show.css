@@ -78,9 +78,12 @@ div.user_show .user-infos {
   left: 449px;
   padding: 0 16px;
   border-left: 1px solid #c0c0c0;
-  overflow: auto;
+  overflow: hidden;
   width: 310px;
   height: 325px;
+}
+div.user_show .user-infos:hover {
+  overflow-y: auto;
 }
 div.user_show .name,
 div.user_show .bio,

@@ -178,7 +178,7 @@
   overflow-y: hidden;
   border: 1px solid #ccc;
   padding: 3px;
-  background: #f7f7f7;
+  background-color: #f7f7f7;
 }
 #tournament_side:hover {
   overflow-y: auto;

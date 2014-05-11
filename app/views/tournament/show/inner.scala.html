@@ -1,7 +1,7 @@
 @(side: Option[Html])(body: Html)(implicit ctx: Context)
 
 @side.map { s =>
-<div id="tournament_side">@s</div>
+<div id="tournament_side" class="scroll-shadow">@s</div>
 }
 <div id="tournament_main">
   <div class="content_box no_padding tournament_box tournament_show">
