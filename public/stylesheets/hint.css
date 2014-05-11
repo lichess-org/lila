@@ -133,7 +133,7 @@
 .hint--bottom-left:before {
   margin-top: -12px; }
 .hint--bottom-left:after {
-  margin-right: -12px; }
+  margin-right: -6px; }
 .hint--bottom-left:before, .hint--bottom-left:after {
   top: 100%;
   right: 30%; }
