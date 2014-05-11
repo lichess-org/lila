@@ -661,13 +661,14 @@ var storage = {
         $.post($(this).parent().data('href'), {
           bg: background
         });
+        $(this).addClass('active').siblings().removeClass('active');
         $themepicker.removeClass("shown");
         return false;
       }).hover(function() {
         showBg($(this).data('bg'));
       }, function() {
         showBg(background);
-      });
+      }).filter('.' + background).addClass('active');
     });
 
     $.centerOverboard = function() {

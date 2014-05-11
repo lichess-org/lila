@@ -88,8 +88,8 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
         </a>
         <div class="dropdown">
           <div class="background" data-href="@routes.Pref.set("bg")">
-            <a class="light" data-bg="light" data-icon="5"></a>
-            <a class="dark" data-bg="dark" data-icon="4"></a>
+            <a class="button" data-bg="light" data-icon="5"></a>
+            <a class="button" data-bg="dark" data-icon="4"></a>
           </div>
           <div class="board" data-href="@routes.Pref.set("theme")">
             @lila.pref.Theme.list.map { theme =>

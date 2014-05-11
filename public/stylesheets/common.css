@@ -924,7 +924,6 @@ ul.language_links li:last-child {
   display: block;
   width: 240px;
 }
-#themepicker div.background,
 #themepicker div.board,
 #themepicker div.piece_set {
   overflow: hidden;
@@ -961,22 +960,14 @@ ul.language_links li:last-child {
 #themepicker div.piece_demo {
   background-size: contain;
 }
-#themepicker div.background a {
-  width: 120px;
+#themepicker div.background {
+  margin: 20px 0;
   text-align: center;
-  line-height: 100px;
-  font-size: 25px;
-  text-decoration: none;
-  float: left;
-  display: block;
 }
-#themepicker a.dark {
-  background: #1a1a1a;
-  color: #8a8a8a;
-}
-#themepicker a.light {
-  background: #fff;
-  color: #747474;
+#themepicker div.background a {
+  font-size: 20px;
+  display: inline-block;
+  margin: 0 -2px 0 -3px;
 }
 a#sound_state {
   opacity: 0.7;
