@@ -972,7 +972,7 @@ ul.language_links li:last-child {
   margin: 0 -2px 0 -3px;
 }
 a#sound_state {
-  opacity: 0.7;
+  margin-right: 5px;
   float: right;
   transition: all 0.1s;
 }
