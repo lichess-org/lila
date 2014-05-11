@@ -34,6 +34,7 @@ final class JsonView(baseAnimationDelay: Duration) {
         "ai" -> opponent.isAi
       ),
       "url" -> Json.obj(
+        "pov" -> s"/$fullId",
         "socket" -> s"/$fullId/socket",
         "end" -> s"/$fullId/end",
         "table" -> s"/$fullId/table"

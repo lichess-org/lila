@@ -41,22 +41,27 @@ object Round extends LilaController with TheftPrevention {
   def player(fullId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo pov fullId) { pov =>
       if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
-      pov.game.started.fold(
-        PreventTheft(pov) {
-          env.version(pov.gameId) zip
-            pov.opponent.userId.??(UserRepo.isEngine) zip
-            (pov.game.tournamentId ?? TournamentRepo.byId) zip
-            Env.game.crosstableApi(pov.game) zip
-            (pov.game.hasChat optionFu {
-              Env.chat.api.playerChat find pov.gameId map (_ forUser ctx.me)
-            }) zip
-            (pov.game.playable ?? env.takebacker.isAllowedByPrefs(pov.game)) map {
-              case (((((v, engine), tour), crosstable), chat), takebackable) =>
-                Ok(html.round.player(pov, v, engine,
-                  chat = chat, tour = tour, cross = crosstable, takebackable = takebackable))
-            }
-        },
-        Redirect(routes.Setup.await(fullId)).fuccess
+      negotiate(
+        html = pov.game.started.fold(
+          PreventTheft(pov) {
+            env.version(pov.gameId) zip
+              pov.opponent.userId.??(UserRepo.isEngine) zip
+              (pov.game.tournamentId ?? TournamentRepo.byId) zip
+              Env.game.crosstableApi(pov.game) zip
+              (pov.game.hasChat optionFu {
+                Env.chat.api.playerChat find pov.gameId map (_ forUser ctx.me)
+              }) zip
+              (pov.game.playable ?? env.takebacker.isAllowedByPrefs(pov.game)) map {
+                case (((((v, engine), tour), crosstable), chat), takebackable) =>
+                  Ok(html.round.player(pov, v, engine,
+                    chat = chat, tour = tour, cross = crosstable, takebackable = takebackable))
+              }
+          },
+          Redirect(routes.Setup.await(fullId)).fuccess
+        ),
+        api = Env.round version pov.gameId map { v =>
+          Ok(Env.round.jsonView.playerJson(pov, v, ctx.pref)) as JSON
+        }
       )
     }
   }
