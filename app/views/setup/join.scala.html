@@ -6,8 +6,7 @@
 title = trans.playWithAFriend.str(),
 goodies = Html(""),
 signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
-<div class="lichess_game lichess_game_not_started clearfix lichess_player_@color"
-  data-socket-url="@routes.Round.websocketPlayer(fullId)" >
+<div class="lichess_game lichess_game_not_started clearfix lichess_player_@color">
   <div class="lichess_board_wrap">
     @color.fold(board.white(), board.black())
     <div class="lichess_overboard auto_center joining">
@@ -39,5 +38,5 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
     </div>
   </div>
 </div>
-@embedJs("var _ld_ = " + roundPlayerJsData(pov, version, ctx.pref))
+@embedJs("var _ld_ = " + roundPlayerJsData(pov, version, ctx.pref, apiVersion))
 }

@@ -176,13 +176,13 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
       form(ctx).bindFromRequest.fold(
         f => negotiate(
           html = fuloginfo(f.errors.toString) >> Lobby.renderHome(Results.BadRequest),
-          api = fuccess(BadRequest(f.errorsAsJson))
+          api = _ => fuccess(BadRequest(f.errorsAsJson))
         ),
         config => op(config)(ctx) flatMap {
           case (pov, call) => negotiate(
             html = fuccess(redirectPov(pov, call)),
-            api = Env.round version pov.gameId map { v =>
-              Created(Env.round.jsonView.playerJson(pov, v, ctx.pref)) as JSON
+            api = apiVersion => Env.round version pov.gameId map { v =>
+              Created(Env.round.jsonView.playerJson(pov, v, ctx.pref, apiVersion)) as JSON
             }
           )
         }

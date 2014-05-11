@@ -54,6 +54,8 @@ object Environment
 
   def isProd = apiEnv.isProd
 
+  def apiVersion = apiEnv.version
+
   lazy val siteMenu = new lila.app.ui.SiteMenu(trans)
 
   lazy val lobbyMenu = new lila.app.ui.LobbyMenu(trans)

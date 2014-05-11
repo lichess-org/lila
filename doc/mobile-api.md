@@ -58,7 +58,7 @@ Response: `201 CREATED`
   "url": {
     "pov": "/39b12IklErMy",
     "end": "/39b12IklErMy/end",
-    "socket": "/39b12IklErMy/socket",
+    "socket": "/39b12IklErMy/socket/v1",
     "table": "/39b12IklErMy/table"
   },
   "tournamentId": null
@@ -118,7 +118,7 @@ Response: `200 OK`
   "url": {
     "pov": "/39b12IklErMy",
     "end": "/39b12IklErMy/end",
-    "socket": "/39b12IklErMy/socket",
+    "socket": "/39b12IklErMy/socket/v1",
     "table": "/39b12IklErMy/table"
   },
   "tournamentId": null
@@ -240,3 +240,13 @@ Each event has a version number `v`, a type `t` and data `d`.
   }]
 }
 ```
+
+# API versioning
+
+Current version is v1.
+
+## Changelog
+
+### v1
+
+work in progress.

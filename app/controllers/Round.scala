@@ -28,7 +28,7 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def websocketPlayer(fullId: String) = Socket[JsValue] { implicit ctx =>
+  def websocketPlayer(fullId: String, apiVersion: Int) = Socket[JsValue] { implicit ctx =>
     (get("sri") |@| getInt("version")).tupled ?? {
       case (uid, version) => env.socketHandler.player(fullId, version, uid, ~get("ran"), ctx.me, ctx.ip)
     }
@@ -59,8 +59,8 @@ object Round extends LilaController with TheftPrevention {
           },
           Redirect(routes.Setup.await(fullId)).fuccess
         ),
-        api = Env.round version pov.gameId map { v =>
-          Ok(Env.round.jsonView.playerJson(pov, v, ctx.pref)) as JSON
+        api = apiVersion => Env.round version pov.gameId map { v =>
+          Ok(Env.round.jsonView.playerJson(pov, v, ctx.pref, apiVersion)) as JSON
         }
       )
     }

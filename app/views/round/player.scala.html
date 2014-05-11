@@ -48,7 +48,7 @@ signedJs = hijackEnabled(pov.game) option routes.Round.signedJs(pov.gameId) map 
     @round.cemetery(!pov, "bottom")
   </div>
 </div>
-@embedJs("var _ld_ = " + roundPlayerJsData(pov, version, ctx.pref))
+@embedJs("var _ld_ = " + roundPlayerJsData(pov, version, ctx.pref, apiVersion))
 @replayButton(pov)
 <div id="playing_crosstable">
   @cross.map { c =>

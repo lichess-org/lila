@@ -30,6 +30,8 @@ final class Env(
     val AssetVersion = config getInt "net.asset.version"
   }
 
+  val version = config getInt "api.version"
+
   val userApi = new UserApi(
     makeUrl = apiUrl,
     apiToken = apiToken,

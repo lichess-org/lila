@@ -168,13 +168,14 @@ private[controllers] trait LilaController
   protected def authorizationFailed(req: RequestHeader): SimpleResult =
     Forbidden("no permission")
 
-  private val AcceptApi = play.api.mvc.Accepting("application/vnd.lichess.v1+json")
-  protected def negotiate(html: => Fu[SimpleResult], api: => Fu[SimpleResult])(implicit ctx: Context): Fu[SimpleResult] = {
-    implicit val req = ctx.req
+  private val MediaSubTypeRegex = """^vnd\.lichess\.v(\d+)\+json""".r
+  protected def negotiate(html: => Fu[SimpleResult], api: Int => Fu[SimpleResult])(implicit ctx: Context): Fu[SimpleResult] = {
     render.async {
-      case AcceptApi() => api
-      case _           => html
-    }
+      case mediaRange => mediaRange.mediaSubType match {
+        case MediaSubTypeRegex(v) => parseIntOption(v).fold(html)(api)
+        case _                    => html
+      }
+    }(ctx.req)
   }
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =

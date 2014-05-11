@@ -10,7 +10,7 @@ import lila.pref.Pref
 
 final class JsonView(baseAnimationDelay: Duration) {
 
-  def playerJson(pov: Pov, version: Int, pref: Pref) = {
+  def playerJson(pov: Pov, version: Int, pref: Pref, apiVersion: Int) = {
     import pov._
     Json.obj(
       "game" -> Json.obj(
@@ -35,7 +35,7 @@ final class JsonView(baseAnimationDelay: Duration) {
       ),
       "url" -> Json.obj(
         "pov" -> s"/$fullId",
-        "socket" -> s"/$fullId/socket",
+        "socket" -> s"/$fullId/socket/v$apiVersion",
         "end" -> s"/$fullId/end",
         "table" -> s"/$fullId/table"
       ),
