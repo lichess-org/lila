@@ -72,7 +72,7 @@ body.grey #GameBoard,
 body.grey #chessboard .board-b72b1,
 body.grey .mini_board,
 #top div.color_demo.grey {
-  background-image: url(../images/board/grey.png);
+  background-image: url(../images/board/grey.jpg);
 }
 body.wood div.lichess_board,
 body.wood #GameBoard,
