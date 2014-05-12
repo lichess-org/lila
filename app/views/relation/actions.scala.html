@@ -4,22 +4,22 @@
 @if(myId != userId) {
 @if(!blocked) {
 @if(!playing) {
-<a title="@trans.challengeToPlay()" href="@routes.Lobby.home()?username=@usernameOrId(userId)#friend" class="icon button" href="#"><span data-icon="U"></span></a>
+<a data-hint="@trans.challengeToPlay()" href="@routes.Lobby.home()?username=@usernameOrId(userId)#friend" class="icon button hint--bottom" href="#"><span data-icon="U"></span></a>
 }
-<a title="@trans.composeMessage()" href="@routes.Message.form()?username=@userId" class="icon button" href="#"><span data-icon="c"></span></a>
+<a data-hint="@trans.composeMessage()" href="@routes.Message.form()?username=@userId" class="icon button hint--bottom" href="#"><span data-icon="c"></span></a>
 }
 @relation match {
 case None => {
 @if(followable) {
 <a
-  class="icon button relation"
+  class="icon button relation hint--bottom"
   href="@routes.Relation.follow(userId)"
-  title="@trans.follow()"><span data-icon="h"></span></a>
+  data-hint="@trans.follow()"><span data-icon="h"></span></a>
 }
 <a
-  class="icon button relation"
+  class="icon button relation hint--bottom"
   href="@routes.Relation.block(userId)"
-  title="@trans.block()"><span data-icon="k"></span></a>
+  data-hint="@trans.block()"><span data-icon="k"></span></a>
 }
 case Some(true) => {
 @if(followable) {

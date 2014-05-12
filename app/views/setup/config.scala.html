@@ -10,7 +10,7 @@
     @fields
     <div class="color_submits">
       @List("black" -> trans.black(), "random" -> trans.randomColor(), "white" -> trans.white()).map { color =>
-      <button title="@color._2" type="submit" class="submit @color._1" name="@form("color").id" value="@color._1"></button>
+      <button data-hint="@color._2" type="submit" class="submit hint--bottom @color._1" name="@form("color").id" value="@color._1"></button>
       }
     </div>
     }
