@@ -5,7 +5,9 @@ project/project
 project/target
 public/trans
 public/compiled
-public/piece
+public/piece/cburnett
+public/piece/pirouetti
+public/piece/merida
 public/wN-bg.svg
 public/bN-bg.svg
 public/vendor/pgn4web/pgn4web-compacted.js
