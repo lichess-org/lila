@@ -11,7 +11,6 @@ robots: Boolean = true,
 moreCss: Html = Html(""),
 moreJs: Html = Html(""),
 signedJs: Option[String] = None,
-themepicker: Boolean = false,
 zen: Boolean = false)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
@@ -78,7 +77,6 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
         @trans.nbConnectedPlayers("<strong>?</strong>")
       </div>
       <a id="reconnecting" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
-      @if(themepicker) {
       <div id="themepicker"
         data-themes="@lila.pref.Theme.listString"
         data-sets="@lila.pref.PieceSet.listString">
@@ -102,7 +100,6 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
           </div>
         </div>
       </div>
-      }
       <div class="lichess_language">
         <a class="toggle" href="#">
           <span data-icon="u">&nbsp;@langName(lang)</span>

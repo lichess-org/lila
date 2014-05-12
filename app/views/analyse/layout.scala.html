@@ -1,4 +1,4 @@
-@(title: String, goodies: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, moreCss: Html = Html(""), moreJs: Html = Html(""), themepicker: Boolean = false)(body: Html)(implicit ctx: Context)
+@(title: String, goodies: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, moreCss: Html = Html(""), moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
 
 @base.layout(
 title = title,
@@ -7,5 +7,4 @@ chat = chat,
 underchat = underchat,
 active = siteMenu.game.some,
 moreCss = moreCss,
-moreJs = moreJs,
-themepicker = themepicker)(body)
+moreJs = moreJs)(body)
