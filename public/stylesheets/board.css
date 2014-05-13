@@ -44,6 +44,27 @@ body.blue .mini_board,
 #top div.color_demo.blue {
   background-image: url(../images/board/blue.png);
 }
+body.blue2 div.lichess_board,
+body.blue2 #GameBoard,
+body.blue2 #chessboard .board-b72b1,
+body.blue2 .mini_board,
+#top div.color_demo.blue2 {
+  background-image: url(../images/board/blue2.jpg);
+}
+body.wood2 div.lichess_board,
+body.wood2 #GameBoard,
+body.wood2 #chessboard .board-b72b1,
+body.wood2 .mini_board,
+#top div.color_demo.wood2 {
+  background-image: url(../images/board/wood2.jpg);
+}
+body.marble div.lichess_board,
+body.marble #GameBoard,
+body.marble #chessboard .board-b72b1,
+body.marble .mini_board,
+#top div.color_demo.marble {
+  background-image: url(../images/board/marble.jpg);
+}
 body.brown div.lichess_board,
 body.brown #GameBoard,
 body.brown #chessboard .board-b72b1,

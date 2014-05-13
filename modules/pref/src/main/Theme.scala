@@ -12,9 +12,10 @@ sealed class Theme private (val name: String) {
 object Theme {
 
   val all = NonEmptyList(
-    "brown", "blue", "green",
-    "purple", "olive", "grey",
-    "wood", "canvas", "leather"
+    "brown", "blue", "green", 
+    "wood", "canvas", "marble",
+    "wood2", "blue2", "leather",
+    "olive", "grey", "purple"
   ) map { name => new Theme(name) }
 
   val list = all.list
