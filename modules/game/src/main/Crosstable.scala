@@ -10,7 +10,7 @@ case class Crosstable(
 
   def nonEmpty = results.nonEmpty option this
 
-  def userIds = List(user1, user2)
+  def userIds = List(user2, user1)
 
   def score(u: String) = if (u == user1) score1 else score2
 
@@ -30,6 +30,10 @@ case class Crosstable(
     else None
 
   def showScore(byTen: Int) = s"${byTen / 10}${(byTen % 10 != 0).??("½")}"
+
+  def fromPov(user: String) =
+    if (user == user2) copy(user1 = user2, user2 = user1)
+    else this
 }
 
 object Crosstable {

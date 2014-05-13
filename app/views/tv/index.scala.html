@@ -61,7 +61,7 @@ underchat = underchat.some,
 active = siteMenu.tv.some) {
 @round.watcherGame(pov)
 @cross.map { c =>
-@game.crosstable(c)
+@game.crosstable(pov.player.userId.fold(c)(c.fromPov))
 }
 @embedJs("var _ld_ = " + roundWatcherJsData(pov, version, true, ctx.pref))
 }

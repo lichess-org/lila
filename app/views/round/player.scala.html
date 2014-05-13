@@ -52,7 +52,7 @@ signedJs = hijackEnabled(pov.game) option routes.Round.signedJs(pov.gameId) map 
 @replayButton(pov)
 <div id="playing_crosstable">
   @cross.map { c =>
-  @views.html.game.crosstable(c)
+  @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov))
   }
 </div>
 }
