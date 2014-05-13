@@ -3,7 +3,7 @@
 @user.layout(trans.onlinePlayers.str()) {
 <div class="content_box">
   @defining(users.size) { size =>
-  <h1>@trans.onlinePlayers() (@size@if(size > max){+})</h1>
+  <h1>@trans.onlinePlayers() (@size@if(size >= max){+})</h1>
   }
   <br />
   <br />
