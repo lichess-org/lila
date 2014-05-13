@@ -2,6 +2,10 @@ div.lichess_board_wrap {
   float: left;
   border: 1px solid #ccc;
   position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 span.board_mark {
   position: absolute;
@@ -9,6 +13,7 @@ span.board_mark {
   font-size: 10px;
   color: #bbb;
   font-weight: bold;
+  cursor: default;
 }
 span.board_mark.vert {
   right: -10px;
