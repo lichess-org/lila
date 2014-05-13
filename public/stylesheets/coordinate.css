@@ -38,7 +38,7 @@
   color: #fff;
   text-shadow: 0 10px 10px #444;
   opacity: 0.7;
-  animate: opacity 0.1s linear;
+  transition: 0.2s;
 }
 #trainer #next_coord.nope {
   opacity: 0;
