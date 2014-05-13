@@ -315,6 +315,43 @@ body.spatial div.queen.black {
 body.spatial div.king.black {
   background-image: url(../piece/spatial/bK.svg);
 }
+body.alpha div.pawn.white {
+  background-image: url(../piece/alpha/wP.svg);
+}
+body.alpha div.bishop.white {
+  background-image: url(../piece/alpha/wB.svg);
+}
+body.alpha div.knight.white,
+#top div.piece_demo.alpha {
+  background-image: url(../piece/alpha/wN.svg);
+}
+body.alpha div.rook.white {
+  background-image: url(../piece/alpha/wR.svg);
+}
+body.alpha div.queen.white {
+  background-image: url(../piece/alpha/wQ.svg);
+}
+body.alpha div.king.white {
+  background-image: url(../piece/alpha/wK.svg);
+}
+body.alpha div.pawn.black {
+  background-image: url(../piece/alpha/bP.svg);
+}
+body.alpha div.bishop.black {
+  background-image: url(../piece/alpha/bB.svg);
+}
+body.alpha div.knight.black {
+  background-image: url(../piece/alpha/bN.svg);
+}
+body.alpha div.rook.black {
+  background-image: url(../piece/alpha/bR.svg);
+}
+body.alpha div.queen.black {
+  background-image: url(../piece/alpha/bQ.svg);
+}
+body.alpha div.king.black {
+  background-image: url(../piece/alpha/bK.svg);
+}
 div.lichess_game_not_started {
   position: relative;
 }
