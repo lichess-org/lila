@@ -2,12 +2,14 @@
 
 # PIECES
 
-for set (cburnett pirouetti merida); do
+for set (cburnett pirouetti merida spatial); do
 
   from=public/piece-src/$set
   to=public/piece/$set
+  echo $to
 
   rm -rf $to/*
+  mkdir -p $to
   mkdir -p $to/invert
 
   for file ($from/*.svg); do

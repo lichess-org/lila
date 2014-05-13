@@ -278,6 +278,43 @@ body.merida div.queen.black {
 body.merida div.king.black {
   background-image: url(../piece/merida/bK.svg);
 }
+body.spatial div.pawn.white {
+  background-image: url(../piece/spatial/wP.svg);
+}
+body.spatial div.bishop.white {
+  background-image: url(../piece/spatial/wB.svg);
+}
+body.spatial div.knight.white,
+#top div.piece_demo.spatial {
+  background-image: url(../piece/spatial/wN.svg);
+}
+body.spatial div.rook.white {
+  background-image: url(../piece/spatial/wR.svg);
+}
+body.spatial div.queen.white {
+  background-image: url(../piece/spatial/wQ.svg);
+}
+body.spatial div.king.white {
+  background-image: url(../piece/spatial/wK.svg);
+}
+body.spatial div.pawn.black {
+  background-image: url(../piece/spatial/bP.svg);
+}
+body.spatial div.bishop.black {
+  background-image: url(../piece/spatial/bB.svg);
+}
+body.spatial div.knight.black {
+  background-image: url(../piece/spatial/bN.svg);
+}
+body.spatial div.rook.black {
+  background-image: url(../piece/spatial/bR.svg);
+}
+body.spatial div.queen.black {
+  background-image: url(../piece/spatial/bQ.svg);
+}
+body.spatial div.king.black {
+  background-image: url(../piece/spatial/bK.svg);
+}
 div.lichess_game_not_started {
   position: relative;
 }

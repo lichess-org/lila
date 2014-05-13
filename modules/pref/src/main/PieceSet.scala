@@ -11,7 +11,7 @@ sealed class PieceSet private (val name: String) {
 
 object PieceSet {
 
-  val all = NonEmptyList("cburnett", "pirouetti", "merida") map { name => new PieceSet(name) }
+  val all = NonEmptyList("cburnett", "pirouetti", "merida", "spatial") map { name => new PieceSet(name) }
 
   val list = all.list
 
