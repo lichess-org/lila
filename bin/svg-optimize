@@ -2,7 +2,7 @@
 
 # PIECES
 
-for set (cburnett pirouetti merida spatial); do
+for set (cburnett pirouetti merida); do
 
   from=public/piece-src/$set
   to=public/piece/$set
