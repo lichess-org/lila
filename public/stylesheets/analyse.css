@@ -69,12 +69,13 @@ div.game_analysis {
   margin-top: 70px;
   text-align: center;
 }
-.future_game_analysis .spinner {
-  display: block;
-  margin: 20px auto;
-  width: 32px;
-  height: 32px;
-  background: url("../images/spinner-gray.gif");
+.future_game_analysis.progress {
+  margin-top: 0;
+  overflow: hidden;
+}
+.future_game_analysis .loader {
+  margin-top: 20px;
+  font-size: 15px;
 }
 .future_game_analysis .button {
   display: inline-block;
