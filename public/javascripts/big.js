@@ -707,11 +707,7 @@ var storage = {
       $(this).infinitescroll({
         navSelector: ".pager",
         nextSelector: ".pager a:last",
-        itemSelector: ".infinitescroll .paginated_element",
-        loading: {
-          msgText: "",
-          finishedMsg: "---"
-        }
+        itemSelector: ".infinitescroll .paginated_element"
       }, function() {
         $("#infscr-loading").remove();
         $('body').trigger('lichess.content_loaded');

@@ -99,7 +99,8 @@
 #team .best_players {
   margin-bottom: 20px;
 }
-#team .userlist > * {
+#team .userlist > li,
+#team .userlist > div.paginated_element {
   padding: 10px 0 10px 25px;
 }
 #team .actions {

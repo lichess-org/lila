@@ -370,6 +370,10 @@ body.dark div.lichess_table .loader:before,
 body.dark div.lichess_table .loader:after {
   background: #242424;
 }
+body.dark div.content_box .loader:before,
+body.dark div.content_box .loader:after {
+  background: #2b2b2b;
+}
 body.dark #puzzle > .side div.fail,
 body.dark #puzzle > .side div.loss {
   color: #e97472;
