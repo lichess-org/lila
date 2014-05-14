@@ -41,7 +41,8 @@
 
 (defn buttons! [$elem] (.disableSelection (.buttonset ($ :.buttons $elem))))
 
-(defn loading! [$elem] (jq/add-class $elem :spinner))
+(defn loading! [$elem]
+  (jq/replace-with $elem "<div class=\"loader fast\"></div>"))
 
 (defn user-chart! [$chart]
   (let [dark (jq/has-class ($ :body) :dark)

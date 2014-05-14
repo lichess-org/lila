@@ -360,11 +360,15 @@ body.dark #hooks_chart > span.label {
   text-shadow: 0 0 3px #000;
 }
 body.dark .loader {
-  box-shadow: inset 0 0 0 1em #3d3d3d;
+  box-shadow: inset 0 0 0 1em #444;
 }
 body.dark .loader:before,
 body.dark .loader:after {
   background: #1a1a1a;
+}
+body.dark div.lichess_table .loader:before,
+body.dark div.lichess_table .loader:after {
+  background: #242424;
 }
 body.dark #puzzle > .side div.fail,
 body.dark #puzzle > .side div.loss {

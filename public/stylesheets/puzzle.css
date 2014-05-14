@@ -86,16 +86,8 @@
   font-size: 1.3em;
   font-weight: bold;
 }
-#puzzle > .right .spinner {
-  color: transparent;
-  text-shadow: none !important;
-  border: none;
-  height: 32px;
-  display:inline-block;
-  background: url("../images/spinner-gray.gif") center center no-repeat;
-}
-#puzzle > .right.spinner > * {
-  display: none;
+#puzzle > .right .loader {
+  font-size: 3.5px;
 }
 #puzzle .game_control {
   text-align: center;
