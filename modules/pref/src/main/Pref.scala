@@ -4,6 +4,7 @@ import play.api.libs.json._
 
 import lila.db.JsTube
 import lila.db.JsTube.Helpers._
+import lila.user.User
 
 case class Pref(
     id: String, // user id
@@ -18,6 +19,7 @@ case class Pref(
     premove: Boolean,
     captured: Boolean,
     follow: Boolean,
+    challenge: Int,
     coordColor: Int,
     puzzleDifficulty: Int) {
 
@@ -99,6 +101,29 @@ object Pref {
       CASUAL -> "In casual games only")
   }
 
+  object Challenge {
+    val NEVER = 1
+    val RATING = 2
+    val FRIEND = 3
+    val ALWAYS = 4
+
+    private val ratingThreshold = 500
+
+    val choices = Seq(
+      NEVER -> "Never",
+      RATING -> s"If rating is ± $ratingThreshold",
+      FRIEND -> "Only friends",
+      ALWAYS -> "Always")
+
+    def block(from: User, to: User, pref: Int, follow: Boolean): Option[String] = pref match {
+      case NEVER => "{{user}} doesn't accept accept challenges.".some
+      case RATING if math.abs(from.rating - to.rating) > ratingThreshold =>
+        "${to.username} only accepts challenges if rating is ± $ratingThreshold.".some
+      case FRIEND if !follow => "{{user}} only accepts challenges from friends.".some
+      case _                 => none
+    }
+  }
+
   def create(id: String) = Pref(
     id = id,
     dark = false,
@@ -112,6 +137,7 @@ object Pref {
     premove = true,
     captured = true,
     follow = true,
+    challenge = Challenge.RATING,
     coordColor = Color.RANDOM,
     puzzleDifficulty = Difficulty.NORMAL)
 
@@ -136,6 +162,7 @@ object Pref {
     "premove" -> default.premove,
     "captured" -> default.captured,
     "follow" -> default.follow,
+    "challenge" -> default.challenge,
     "coordColor" -> default.coordColor,
     "puzzleDifficulty" -> default.puzzleDifficulty)
 }

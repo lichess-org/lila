@@ -1,9 +1,11 @@
-@(form: Form[_], typ: String, title: Html, route: Call, fields: Html, error: Option[String] = None)(implicit ctx: Context)
+@(form: Form[_], typ: String, title: Html, route: Call, fields: Html, error: Option[Html] = None)(implicit ctx: Context)
 
 <div class="lichess_overboard auto_center game_config game_config_@typ">
   <h2>@title</h2>
   @error.map { e =>
   <p class="error">@e</p>
+  <br />
+  <a href="@routes.Lobby.home" class="button" data-icon="L">&nbsp;@trans.cancel()</a>
   }.getOrElse {
   <div class="game_config_form">
     @helper.form(action = route, 'novalidate -> "novalidate") {

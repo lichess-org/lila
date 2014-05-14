@@ -32,18 +32,13 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
   }
 
   def friendForm(username: Option[String]) = Open { implicit ctx =>
-    if (HTTPRequest isXhr ctx.req) {
-      username ?? UserRepo.named flatMap {
-        case None => env.forms friendFilled get("fen") map {
-          html.setup.friend(_, none, none)
-        }
-        case Some(user) => challenge(user) flatMap {
-          case None => env.forms friendFilled get("fen") map {
-            html.setup.friend(_, user.username.some, none)
-          }
-          case Some(error) => fuccess {
-            html.setup.friend(env.forms.friend(ctx), none, error.some)
-          }
+    if (HTTPRequest isXhr ctx.req) username ?? UserRepo.named flatMap {
+      case None => env.forms friendFilled get("fen") map {
+        html.setup.friend(_, none, none)
+      }
+      case Some(user) => challenge(user) flatMap { error =>
+        env.forms friendFilled get("fen") map {
+          html.setup.friend(_, user.username.some, error)
         }
       }
     }
@@ -53,15 +48,11 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
   }
 
   private def challenge(user: lila.user.User)(implicit ctx: Context): Fu[Option[String]] = ctx.me match {
-    case None => fuccess("Only registered players can send challenges".some)
+    case None => fuccess("Only registered players can send challenges.".some)
     case Some(me) => Env.relation.api.blocks(user.id, me.id) flatMap {
-      case true => fuccess(s"${user.username} blocks you".some)
-      case false => user.rating > me.rating + 1000 match {
-        case false => fuccess(none)
-        case true => Env.relation.api.follows(user.id, me.id) map {
-          case true  => none
-          case false => s"${user.username} rating is too far from yours".some
-        }
+      case true => fuccess(s"{{user}} doesn't accept challenges from you.".some)
+      case false => Env.pref.api getPref user zip Env.relation.api.follows(user.id, me.id) map {
+        case (pref, follow) => lila.pref.Pref.Challenge.block(me, user, pref.challenge, follow)
       }
     }
   }

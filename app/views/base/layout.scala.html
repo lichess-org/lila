@@ -98,6 +98,9 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
             <div class="set" data-set="@set.name"><div class="piece_demo @set.name"></div></div>
             }
           </div>
+          @if(ctx.isAuth) {
+          <a class="prefs button" href="@routes.Pref.form"><span data-icon="q">&nbsp;@trans.preferences()</span></a>
+          }
         </div>
       </div>
       <div class="lichess_language">

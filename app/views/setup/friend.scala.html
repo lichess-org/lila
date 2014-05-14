@@ -24,4 +24,4 @@ form,
 username.isDefined.fold(trans.challengeToPlay, trans.playWithAFriend)(),
 routes.Setup.friend(username),
 fields,
-error)
+error.map(e => Html(e.replace("{{user}}", usernameLink(username).toString))))

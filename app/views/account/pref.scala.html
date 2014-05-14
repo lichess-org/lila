@@ -54,6 +54,10 @@
             <h2>Let other players follow you</h2>
             @base.radios(form("follow"), Seq(0 -> "No", 1 -> "Yes"))
           </li>
+          <li>
+            <h2>Let other players challenge you</h2>
+            @base.radios(form("challenge"), Pref.Challenge.choices)
+          </li>
         </ul>
       </fieldset>
       <button type="submit" class="submit button" data-icon="E">@trans.apply()</button>
