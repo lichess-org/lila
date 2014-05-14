@@ -14,6 +14,7 @@ private[pref] final class DataForm(api: PrefApi) {
     "clockTenths" -> number.verifying(Set(0, 1) contains _),
     "clockBar" -> number.verifying(Set(0, 1) contains _),
     "follow" -> number.verifying(Set(0, 1) contains _),
+    "highlight" -> number.verifying(Set(0, 1) contains _),
     "challenge" -> number.verifying(Pref.Challenge.choices.toMap contains _),
     "premove" -> number.verifying(Set(0, 1) contains _),
     "captured" -> number.verifying(Set(0, 1) contains _)
@@ -26,6 +27,7 @@ private[pref] final class DataForm(api: PrefApi) {
       clockTenths: Int,
       clockBar: Int,
       follow: Int,
+      highlight: Int,
       challenge: Int,
       premove: Int,
       captured: Int) {
@@ -37,6 +39,7 @@ private[pref] final class DataForm(api: PrefApi) {
       clockTenths = clockTenths == 1,
       clockBar = clockBar == 1,
       follow = follow == 1,
+      highlight = highlight == 1,
       challenge = challenge,
       premove = premove == 1,
       captured = captured == 1)
@@ -51,6 +54,7 @@ private[pref] final class DataForm(api: PrefApi) {
       clockTenths = pref.clockTenths.fold(1, 0),
       clockBar = pref.clockBar.fold(1, 0),
       follow = pref.follow.fold(1, 0),
+      highlight = pref.highlight.fold(1, 0),
       challenge = pref.challenge,
       premove = pref.premove.fold(1, 0),
       captured = pref.captured.fold(1, 0))

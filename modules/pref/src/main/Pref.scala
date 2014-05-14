@@ -19,6 +19,7 @@ case class Pref(
     premove: Boolean,
     captured: Boolean,
     follow: Boolean,
+    highlight: Boolean,
     challenge: Int,
     coordColor: Int,
     puzzleDifficulty: Int) {
@@ -137,6 +138,7 @@ object Pref {
     premove = true,
     captured = true,
     follow = true,
+    highlight = true,
     challenge = Challenge.RATING,
     coordColor = Color.RANDOM,
     puzzleDifficulty = Difficulty.NORMAL)
@@ -162,6 +164,7 @@ object Pref {
     "premove" -> default.premove,
     "captured" -> default.captured,
     "follow" -> default.follow,
+    "highlight" -> default.highlight,
     "challenge" -> default.challenge,
     "coordColor" -> default.coordColor,
     "puzzleDifficulty" -> default.puzzleDifficulty)

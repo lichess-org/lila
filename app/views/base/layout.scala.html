@@ -31,7 +31,7 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     <meta name="google" content="notranslate" />
     @langAnnotations
   </head>
-  <body class="@ctx.currentTheme.cssClass @ctx.currentBg @ctx.currentPieceSet"
+  <body class="@ctx.currentTheme.cssClass @ctx.currentBg @ctx.currentPieceSet@if(ctx.pref.highlight) { highlight}"
     data-piece-set="@ctx.currentPieceSet"
     data-sound-dir="@staticUrl("sound")"
     data-ports="@portsString"

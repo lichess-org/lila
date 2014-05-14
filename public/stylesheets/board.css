@@ -901,10 +901,10 @@ div.underboard.replay_and_analyse a {
   -ms-user-select: none;
   user-select: none;
 }
-#chessboard div.last,
-#GameBoard td.highlightWhiteSquare img,
-#GameBoard td.highlightBlackSquare img,
-div.lcs.moved div.lcsi {
+body.highlight #chessboard div.last,
+body.highlight #GameBoard td.highlightWhiteSquare img,
+body.highlight #GameBoard td.highlightBlackSquare img,
+body.highlight div.lcs.moved div.lcsi {
   background: -moz-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(155, 199, 00, 0.81)), color-stop(100%, rgba(155, 199, 00, 0)));
   background: -webkit-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
@@ -913,8 +913,8 @@ div.lcs.moved div.lcsi {
   background: radial-gradient(ellipse at center, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#cfd85500', endColorstr='#00d85500', GradientType=1);
 }
-#chessboard div.check,
-div.lcs.check div.lcsi {
+body.highlight #chessboard div.check,
+body.highlight div.lcs.check div.lcsi {
   background: -moz-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255, 0, 0, 1)), color-stop(25%, rgba(231, 0, 0, 1)), color-stop(89%, rgba(169, 0, 0, 0)), color-stop(100%, rgba(158, 0, 0, 0)));
   background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);

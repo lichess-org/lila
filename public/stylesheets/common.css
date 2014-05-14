@@ -1334,7 +1334,7 @@ div.all_games a.mini_board {
   width: 28px;
   height: 28px;
 }
-.mini_board > div.moved {
+body.highlight .mini_board > div.moved {
   background: -moz-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(155, 199, 00, 0.81)), color-stop(100%, rgba(155, 199, 00, 0)));
   background: -webkit-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
