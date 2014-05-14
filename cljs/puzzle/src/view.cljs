@@ -88,7 +88,7 @@
     (bind-vote! ($ :div.vote_wrap $puzzle))
     (bind-continue! ($ :button.continue $puzzle))
     (bind-browse! $browse)
-    (jq/bind ($ :a.continue) :click #(jq/toggle ($ :div.continue)))
+    (jq/bind ($ :a.continue.toggle) :click #(jq/toggle ($ :div.continue)))
     (go
       (loop [step (count progress) animate false]
         (let [[move fen] (get history step)
