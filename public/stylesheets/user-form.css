@@ -29,8 +29,9 @@ form .help {
 }
 
 div.content_box.prefs fieldset {
-  margin: 1em 0;
+  margin: 30px 0;
   border: 1px #ccc solid;
+  padding: 0 15px;
 }
 div.content_box.prefs fieldset legend {
   text-transform: uppercase;

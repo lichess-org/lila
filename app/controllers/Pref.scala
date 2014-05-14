@@ -28,7 +28,7 @@ object Pref extends LilaController {
       } { data =>
         api getPref me flatMap { pref =>
           api.setPref(data(pref))
-        } inject Redirect(routes.Pref.form)
+        } inject Ok("saved")
       }
   }
 

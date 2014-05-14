@@ -38,6 +38,17 @@ $(function() {
   });
 
   $('.buttonset').buttonset().disableSelection();
+
+  $('form.autosubmit').each(function() {
+    var $form = $(this);
+    $form.find('input').change(function() {
+      $.ajax({
+        url: $form.attr('action'),
+        method: $form.attr('method'),
+        data: $form.serialize()
+      });
+    });
+  });
 });
 
 function str_repeat(input, multiplier) {

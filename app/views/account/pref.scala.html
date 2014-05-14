@@ -8,7 +8,7 @@
 <div class="content_box small_box prefs">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.preferences()</h1>
-    <form action="@routes.Pref.formApply" method="POST">
+    <form class="autosubmit" action="@routes.Pref.formApply" method="POST">
       <fieldset>
         <legend>Game display</legend>
         <ul>
@@ -60,7 +60,7 @@
           </li>
         </ul>
       </fieldset>
-      <button type="submit" class="submit button" data-icon="E">@trans.apply()</button>
+      <p data-icon="E"> Your preferences have been saved.</p>
     </form>
   </div>
 </div>
