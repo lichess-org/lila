@@ -977,20 +977,26 @@ ul.language_links li:last-child {
   display: inline-block;
   margin: 0 -2px 0 -3px;
 }
-a#sound_state {
+#themepicker a.prefs {
+  padding: 10px;
+  text-align: center;
+  display: block;
+  text-decoration: none;
+}
+#sound_state {
   margin-right: 5px;
   float: right;
   transition: 0.13s;
 }
-a#sound_state span.on,
-a#sound_state.sound_state_on span.off {
+#sound_state span.on,
+#sound_state.sound_state_on span.off {
   display: none;
 }
-a#sound_state span.off,
-a#sound_state.sound_state_on span.on {
+#sound_state span.off,
+#sound_state.sound_state_on span.on {
   display: block;
 }
-a#sound_state.unavailable {
+#sound_state.unavailable {
   display: none;
 }
 #call_boxes {

@@ -869,7 +869,7 @@ span.inline_userlist a:hover {
 }
 div.underboard {
   width: 512px;
-  margin-top: 20px;
+  margin: 20px 0;
   text-align: center;
 }
 div.underboard a {
