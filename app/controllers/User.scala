@@ -32,7 +32,7 @@ object User extends LilaController {
         (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
           case ((((game, blocked), followed), followable), relation) =>
             Ok(html.user.mini(user, game, blocked, followed, followable, relation))
-              .withHeaders(CACHE_CONTROL -> "max-age=60")
+              .withHeaders(CACHE_CONTROL -> "max-age=5")
         }
     }
   }
