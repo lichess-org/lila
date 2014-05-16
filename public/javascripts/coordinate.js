@@ -71,7 +71,7 @@ $(function() {
       $.each($coords, function(i, e) {
         e.text('');
       });
-    }
+    };
 
     var newCoord = function(prevCoord) {
       // disallow the previous coordinate's row or file from being selected
@@ -79,7 +79,7 @@ $(function() {
       var fileIndex = files.indexOf(prevCoord[0]);
       files = files.slice(0, fileIndex) + files.slice(fileIndex + 1, 8);
 
-      var rows = '12345678';     
+      var rows = '12345678';
       var rowIndex = rows.indexOf(prevCoord[1]);
       rows = rows.slice(0, rowIndex) + rows.slice(rowIndex + 1, 8);
 
@@ -95,7 +95,7 @@ $(function() {
       lastElement.attr('id', 'next_coord' + ($coords.length));
       lastElement.text(newCoord($coords[$coords.length - 1].text()));
       $coords.push(lastElement);
-    }
+    };
 
     var stop = function() {
       clearCoords();
@@ -146,15 +146,15 @@ $(function() {
             $score.text(score);
             advanceCoords();
           } else {
-          $coords[0].addClass('nope');
-          setTimeout(function() {
-            $coords[0].removeClass('nope');
-          }, 500);
+            $coords[0].addClass('nope');
+            setTimeout(function() {
+              $coords[0].removeClass('nope');
+            }, 500);
           }
           $trainer.toggleClass('wrong', !hit);
         });
         $coords[0].text(newCoord('a1'));
-        for(i = 1; i < $coords.length; i++)       
+        for (i = 1; i < $coords.length; i++)
           $coords[i].text(newCoord($coords[i - 1].text()));
         tick();
       }, 1000);

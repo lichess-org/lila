@@ -1,133 +1,118 @@
 #trainer .lichess_board {
-    display: none;
-    border: 1px solid #c0c0c0;
+  display: none;
+  border: 1px solid #c0c0c0;
 }
-
-#trainer.white .white .lichess_board, #trainer.black .black .lichess_board {
-    display: block;
+#trainer.white .white .lichess_board,
+#trainer.black .black .lichess_board {
+  display: block;
 }
-
 #trainer.play div.lcs:hover {
-    cursor: pointer;
-    box-shadow: inset 0 0 10px 2px rgba(216,85,0,0.9);
+  cursor: pointer;
+  box-shadow: inset 0 0 10px 2px rgba(216, 85, 0, 0.9);
 }
-
 #trainer .progress_bar_container {
-    margin: 10px 0 10px 0;
-    width: 514px;
-    height: 10px;
+  margin: 10px 0 10px 0;
+  width: 514px;
+  height: 10px;
 }
-
 #trainer .progress_bar {
-    width: 100%;
-    height: 10px;
-    background-color: #759900;
-    box-shadow: 0px 1px 2px rgba(0,0,0,0.12) inset;
+  width: 100%;
+  height: 10px;
+  background-color: #759900;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12) inset;
 }
-
 #trainer .next_coord {
-    transition: all 0.1s ease;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 460px;
-    height: 514px;
-    line-height: 512px;
-    text-align: center;
-    font-size: 150px;
-    font-family: monospace;
-    font-weight: bold;
-    text-transform: uppercase;
-    opacity: 1;
-    pointer-events: none;
-    color: #eee;
-    text-shadow: 0 10px 10px #444;
-    opacity: 0.8;
-    transition: 0.2s;
+  transition: all 0.1s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 460px;
+  height: 514px;
+  line-height: 512px;
+  text-align: center;
+  font-size: 150px;
+  font-family: monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  opacity: 1;
+  pointer-events: none;
+  color: #eee;
+  text-shadow: 0 10px 10px #444;
+  opacity: 0.8;
+  transition: 0.2s;
 }
-
 #trainer .next_coord.nope {
-    color: red !important;
+  color: red !important;
 }
-
 #trainer #next_coord0 {
-    color: #fff;
+  color: #fff;
 }
-
 #trainer #next_coord1 {
-    left: 150px;
-    top: 50px;
-    font-size: 65px;
-    opacity: 0.7;
+  left: 150px;
+  top: 50px;
+  font-size: 65px;
+  opacity: 0.7;
 }
-
 #trainer #next_coord2 {
-    transition: none;
-      left: 235px;
-    top: 66px;
-    font-size: 30px;
-    opacity: 0.4;
+  transition: none;
+  left: 235px;
+  top: 66px;
+  font-size: 30px;
+  opacity: 0.4;
 }
-
 #trainer .explanation {
-    text-align: justify;
-    margin-bottom: 20px;
+  text-align: justify;
+  margin-bottom: 20px;
 }
-
-    #trainer .explanation li {
-        list-style: inside disc;
-        margin-top: 1em;
-    }
-
+#trainer .explanation li {
+  list-style: inside disc;
+  margin-top: 1em;
+}
 #trainer .start {
-    font-size: 30px;
+  font-size: 30px;
 }
-
 #trainer .score {
-    position: absolute;
-    top: 202px;
-    left: 202px;
-    width: 512px;
-    font-family: monospace;
-    font-size: 70px;
-    display: block;
-    margin: auto;
-    width: 110px;
-    height: 110px;
-    text-align: center;
-    line-height: 110px;
-    color: #fff;
-    background-color: #759900;
-    transition: all 1s;
-    opacity: 1;
-    box-shadow: 0 0 10px #fff;
-    border-radius: 3px;
-    transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    cursor: pointer;
+  position: absolute;
+  top: 202px;
+  left: 202px;
+  font-family: monospace;
+  font-size: 70px;
+  display: block;
+  margin: auto;
+  width: 110px;
+  height: 110px;
+  text-align: center;
+  line-height: 110px;
+  color: #fff;
+  background-color: #759900;
+  transition: all 1s;
+  opacity: 1;
+  box-shadow: 0 0 10px #fff;
+  border-radius: 3px;
+  transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  cursor: pointer;
 }
-
 #trainer.init .score {
-    opacity: 0;
+  opacity: 0;
 }
-
 #trainer.play .score {
-    opacity: 1;
-    top: 550px;
-    box-shadow: 0 0 1px #fff;
-    border-radius: 100px;
-    transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
+  opacity: 1;
+  top: 550px;
+  box-shadow: 0 0 1px #fff;
+  border-radius: 100px;
+  transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
 }
-
-#trainer.wrong .progress_bar, #trainer.wrong strong.score {
-    background-color: #ac524f;
+#trainer.wrong .progress_bar,
+#trainer.wrong strong.score {
+  background-color: #ac524f;
 }
-
-#trainer.play .start, #trainer #next_coord, #trainer.play form.color {
-    display: none;
+#trainer.play .start,
+#trainer #next_coord,
+#trainer.play form.color {
+  display: none;
 }
-
 #trainer.play #next_coord {
-    display: block;
+  display: block;
 }
