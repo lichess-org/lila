@@ -393,7 +393,7 @@ div.lichess_overboard p.explanations {
   display: none;
   position: absolute;
   top: 512px;
-  left: 0px;
+  left: -1px;
   width: 512px;
   text-align: center;
   padding: 5px 0;
