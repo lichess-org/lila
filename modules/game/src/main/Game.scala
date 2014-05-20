@@ -55,6 +55,8 @@ case class Game(
 
   def player: Player = player(turnColor)
 
+  def playerByUserId(userId: String): Option[Player] = players find (_.userId == Some(userId))
+
   def opponent(p: Player): Player = opponent(p.color)
 
   def opponent(c: Color): Player = player(!c)

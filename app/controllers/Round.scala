@@ -74,7 +74,9 @@ object Round extends LilaController with TheftPrevention {
   }
 
   private def watch(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =
-    env.version(pov.gameId) zip
+    if (pov.game.playable && ctx.userId.flatMap(pov.game.playerByUserId).isDefined)
+      fuccess(Redirect(routes.Round.player(pov.fullId)))
+    else env.version(pov.gameId) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       Env.game.crosstableApi(pov.game) zip
       (ctx.isAuth ?? {
