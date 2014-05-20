@@ -16,7 +16,7 @@ import lila.relation.RelationApi
 import lila.setup.FilterConfig
 import lila.socket.History
 import lila.timeline.Entry
-import lila.tournament.Enterable
+import lila.tournament.{ Enterable, Winner }
 import lila.tv.{ Featured, StreamOnAir }
 import lila.user.User
 import makeTimeout.large
@@ -27,13 +27,13 @@ final class Preload(
     featured: Featured,
     relations: RelationApi,
     leaderboard: Int => Fu[List[User]],
-    progress: Int => Fu[List[User]],
+    tournamentLeaderboard: Int => Fu[List[Winner]],
     timelineEntries: String => Fu[List[Entry]],
     nowPlaying: (User, Int) => Fu[List[Pov]],
     streamsOnAir: => () => Fu[List[StreamOnAir]],
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]]) {
 
-  private type RightResponse = (JsObject, List[Entry], List[PostLiteView], List[Enterable], Option[Game], List[User], List[User], Option[lila.puzzle.DailyPuzzle], List[Pov], List[StreamOnAir])
+  private type RightResponse = (JsObject, List[Entry], List[PostLiteView], List[Enterable], Option[Game], List[User], List[Winner], Option[lila.puzzle.DailyPuzzle], List[Pov], List[StreamOnAir])
   private type Response = Either[Call, RightResponse]
 
   def apply(
@@ -47,18 +47,18 @@ final class Preload(
       (ctx.userId ?? relations.blocks) zip
       (ctx.userId ?? timelineEntries) zip
       leaderboard(10) zip
-      progress(10) zip
+      tournamentLeaderboard(10) zip
       dailyPuzzle() zip
       (ctx.me ?? { nowPlaying(_, 3) }) zip
       filter zip
       streamsOnAir() map {
-        case (((((((((((hooks, posts), tours), feat), blocks), entries), leaderboard), progress), puzzle), playing), filter), streams) =>
+        case (((((((((((hooks, posts), tours), feat), blocks), entries), lead), tLead), puzzle), playing), filter), streams) =>
           (Right((Json.obj(
             "version" -> history.version,
             "pool" -> JsArray(hooks map (_.render)),
             "filter" -> filter.render,
             "blocks" -> blocks,
             "engine" -> ctx.me.??(_.engine)
-          ), entries, posts, tours, feat, leaderboard, progress, puzzle, playing, streams)))
+          ), entries, posts, tours, feat, lead, tLead, puzzle, playing, streams)))
       }
 }

@@ -1,4 +1,4 @@
-@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[User], progress: List[User], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir])(implicit ctx: Context)
+@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[User], tournamentLeaderboard: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir])(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game" title="@trans.watchLichessTV()">
@@ -100,6 +100,6 @@ underchat = underchat.some) {
     </div>
     }
   </div>
-  @lobby.undertable(forumRecent, tours, leaderboard, progress)
+  @lobby.undertable(forumRecent, tours, leaderboard, tournamentLeaderboard)
 </div>
 }

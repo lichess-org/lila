@@ -3,7 +3,7 @@ package lila
 import lila.db.{ JsTube, InColl }
 import lila.socket.WithSocket
 
-package object tournament extends PackageObject with WithPlay with WithSocket{
+package object tournament extends PackageObject with WithPlay with WithSocket {
 
   object tube {
 
@@ -29,4 +29,9 @@ package object tournament extends PackageObject with WithPlay with WithSocket{
 
     def apply(): String = names(scala.util.Random nextInt size)
   }
+}
+
+package tournament {
+
+  case class Winner(tour: Finished, user: lila.user.User)
 }

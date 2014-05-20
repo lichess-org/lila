@@ -27,6 +27,7 @@ final class Env(
     val CollectionTournament = config getString "collection.tournament"
     val MessageTtl = config duration "message.ttl"
     val CreatedCacheTtl = config duration "created.cache.ttl"
+    val LeaderboardCacheTtl = config duration "leaderboard.cache.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
@@ -56,6 +57,8 @@ final class Env(
     socketHub = socketHub,
     chat = hub.actor.chat,
     flood = flood)
+
+  lazy val leaderboard = new Leaderboard(LeaderboardCacheTtl)
 
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {

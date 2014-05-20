@@ -96,6 +96,14 @@ object TournamentRepo {
     )
   ) map (_ flatMap asCreated)
 
+  def lastFinishedScheduled(nb: Int): Fu[List[Finished]] = $find(
+    $query(finishedQuery ++ Json.obj(
+      "schedule" -> $exists(true)
+    )) sort BSONDocument(
+      "schedule.at" -> 1
+    ), nb
+  ) map (_ flatMap asFinished)
+
   def withdraw(userId: String): Fu[List[String]] = for {
     createds ← created
     createdIds ← (createds map (_ withdraw userId) collect {
