@@ -2260,14 +2260,12 @@ input.copyable {
   width: 460px;
 }
 #powerTip.messages {
-  width: 400px;
+  width: 500px;
   padding: 1em;
   min-height: 1em;
 }
 #powerTip.messages a {
   padding: 0.6em;
-  white-space: nowrap;
-  overflow: hidden;
   display: block;
 }
 .flag {
@@ -2278,8 +2276,7 @@ input.copyable {
 .scroll-shadow {
   background:
   /* Shadow covers */
-  linear-gradient(#fff 20px, rgba(255, 255, 255, 0)), 
-  linear-gradient(rgba(255, 255, 255, 0), #fff -20px) 0 100%,
+  linear-gradient(#fff 20px, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #fff -20px) 0 100%,
   /* Shadows */
   radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
   background-repeat: no-repeat;
@@ -2287,15 +2284,6 @@ input.copyable {
   /* Opera doesn't support this in the shorthand */
   background-attachment: local, local, scroll, scroll;
 }
-/*! Hint.css - v1.3.1 - 2013-11-23
-* http://kushagragour.in/lab/hint/
-* Copyright (c) 2013 Kushagra Gour; Licensed MIT */
-
-/* THIB HACK
- * - removed all .hint classes
- * - commented color and modifier classes
- * - made them all rounded
- */
 
 [data-hint] {
   position: relative;

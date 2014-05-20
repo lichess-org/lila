@@ -566,7 +566,13 @@ var storage = {
         $.ajax({
           url: $(this).data('href'),
           success: function(html) {
-            $('#powerTip').html(html).addClass('messages');
+            $('#powerTip').html(html).addClass('messages').find('a.mark_as_read').click(function() {
+              $.ajax({
+                url: $(this).attr('href'),
+                method: 'post'
+              });
+              return false;
+            });
           }
         });
       }

@@ -37,6 +37,8 @@ final class Api(
     )
   } yield threadOption
 
+  def markThreadAsRead(id: String, me: User): Funit = thread(id, me).void
+
   def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] =
     UserRepo named data.user.id flatMap {
       _.fold(fufail[Thread]("No such recipient")) { invited =>

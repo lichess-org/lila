@@ -1,13 +1,24 @@
 @(me: User, threads: List[lila.message.Thread])(implicit ctx: Context)
 
 @if(threads.nonEmpty) {
-@threads.distinct.map { thread =>
-<a class="revert-underline" href="@routes.Message.thread(thread.id)">
-  @thread.name
-  <strong>@usernameOrId(thread otherUserId me)</strong>
-  @thread.firstPostUnreadBy(me).map(p => shorten(p.text, 50))
-</a>
-}
+<table><tbody>
+    @threads.distinct.map { thread =>
+    <tr>
+      <td>
+        <a data-icon="c" class="revert-underline" href="@routes.Message.thread(thread.id)">
+          @thread.name
+          <strong>@usernameOrId(thread otherUserId me)</strong>
+          @thread.firstPostUnreadBy(me).map(p => shorten(p.text, 100))
+        </a>
+      </td>
+      <td>
+        <a class="button mark_as_read hint--bottom" data-hint="Mark as read" href="@routes.Message.markAsRead(thread.id)">
+          <span data-icon="E"></span>
+        </a>
+      </td>
+    </tr>
+    }
+</tbody></table>
 } else {
 @trans.noNewMessages()
 }

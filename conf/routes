@@ -204,6 +204,7 @@ GET   /inbox/preview                   controllers.Message.preview
 GET   /inbox/$id<[\w]{8}>              controllers.Message.thread(id: String)
 POST  /inbox/$id<[\w]{8}>              controllers.Message.answer(id: String)
 POST  /inbox/$id<[\w]{8}>/delete       controllers.Message.delete(id: String)
+POST  /inbox/$id<[\w]{8}>/read         controllers.Message.markAsRead(id: String)
 
 # Notification
 DELETE /notification/$id<[\w]{8}>      controllers.Notification.remove(id)

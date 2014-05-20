@@ -69,4 +69,9 @@ object Message extends LilaController {
     implicit me =>
       api.deleteThread(id, me) inject Redirect(routes.Message.inbox(1))
   }
+
+  def markAsRead(id: String) = AuthBody { implicit ctx =>
+    implicit me =>
+      api.markThreadAsRead(id, me)
+  }
 }
