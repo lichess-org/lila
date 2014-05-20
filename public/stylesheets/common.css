@@ -469,6 +469,7 @@ body {
   background-image: -ms-linear-gradient(top, #d7d7d7 0%, #f7f7f7 116px);
   background-image: linear-gradient(to bottom, #d7d7d7 0%, #f7f7f7 116px);
   background-repeat: no-repeat;
+  overflow-x: hidden;
 }
 a,
 a:visited,
