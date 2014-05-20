@@ -1,7 +1,7 @@
 playWithAFriend=Jogue com um amigo
 inviteAFriendToPlayWithYou=Convide um amigo para jogar consigo
 playWithTheMachine=Jogue contra o computador
-challengeTheArtificialIntelligence=Desafie a inteligência artificial
+challengeTheArtificialIntelligence=Desafie o computador
 toInviteSomeoneToPlayGiveThisUrl=Para convidar alguém para jogar, envie este endereço
 gameOver=Fim da Partida
 waitingForOpponent=Aguardando adversário
@@ -10,7 +10,7 @@ yourTurn=Sua vez
 aiNameLevelAiLevel=%s nível %s
 level=Nível
 toggleTheChat=Ativar/Desativar a conversação
-toggleSound=Ligar/Desligar som
+toggleSound=Ativar/Desativar som
 chat=Conversação
 resign=Desistir
 checkmate=Xeque-mate
