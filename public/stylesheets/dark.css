@@ -397,6 +397,12 @@ body.dark #top .shown .dropdown {
   border-top: 0;
   right: -1px;
 }
+body.pirouetti.dark div.lichess_cemetery div.piece.black {
+  -webkit-filter: brightness(2) contrast(150%) drop-shadow(0 0 0.5px #fff);
+}
+body.alpha.dark div.lichess_cemetery div.piece.black {
+  -webkit-filter: brightness(6) contrast(150%) drop-shadow(0 0 0.5px #fff);
+}
 body.dark .scroll-shadow {
   background:
     /* Shadow covers */

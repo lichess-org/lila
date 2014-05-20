@@ -204,6 +204,12 @@ body.cburnett div.queen.black {
 body.cburnett div.king.black {
   background-image: url(../piece/cburnett/bK.svg);
 }
+body.pirouetti div.piece.white {
+  -webkit-filter: drop-shadow(0 0 0.5px #000);
+}
+body.pirouetti div.piece.black {
+  -webkit-filter: drop-shadow(0 0 0.6px #e0e0e0);
+}
 body.pirouetti div.pawn.white {
   background-image: url(../piece/pirouetti/wP.svg);
 }
@@ -709,9 +715,10 @@ div.lichess_cemetery div.lichess_tomb {
   margin: -5px -16px;
   width: 64px;
   height: 64px;
-}
-div.lichess_cemetery div.piece {
   opacity: 0.5;
+}
+body.pirouetti.light div.lichess_cemetery div.piece.white {
+  -webkit-filter: brightness(0.7) contrast(160%) drop-shadow(0 0 0.5px #000);
 }
 div.under_chat {
   width: 224px;
