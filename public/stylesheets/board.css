@@ -735,6 +735,7 @@ div.under_chat .watchtv {
   margin-top: -24px;
 }
 #chat {
+  background: #fff;
   font-size: 11.5px;
   position: absolute;
   top: 205px;

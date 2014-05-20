@@ -166,8 +166,6 @@ body.dark #hook_filter td > label.hover:hover,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
 }
-body.dark #chat .messages,
-body.dark div.undertable_inner,
 body.dark div.lichess_goodies div.box,
 body.dark div.lichess_table,
 body.dark div.lichess_table_wrap > div.clock > div.time,
@@ -197,10 +195,6 @@ body.dark #hooks_wrap > div.tabs > a:hover,
 body.dark #hooks_wrap > div.tabs > a.active {
   background-color: #303030;
 }
-body.dark div.lichess_overboard,
-body.dark #tv_history tr:hover td {
-  background: #2b2b2b;
-}
 body.dark div.lichess_overboard.game_config {
   box-shadow: 0 0 20px #d0d0d0;
 }
@@ -208,6 +202,10 @@ body.dark div.lichess_table_not_started {
   box-shadow: none;
   background: none;
 }
+body.dark div.undertable_inner,
+body.dark div.lichess_overboard,
+body.dark #tv_history tr:hover td,
+body.dark #chat .messages,
 body.dark div.content_box,
 body.dark div.content_box_inter a.active,
 body.dark #site_header div.side_menu a.active,
@@ -406,8 +404,8 @@ body.alpha.dark div.lichess_cemetery div.piece.black {
 body.dark .scroll-shadow {
   background:
     /* Shadow covers */
-    linear-gradient(#282828 0%, rgba(42,42,42,0)),
-    linear-gradient(rgba(42,42,42,0), #282828 100%) 0 100%,
+    linear-gradient(#2b2b2b 20px, rgba(42,42,42,0)),
+    linear-gradient(rgba(42,42,42,0), #2b2b2b -20px) 0 100%,
 
     /* Shadows */
     radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.8), rgba(0,0,0,0)),
