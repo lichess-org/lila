@@ -12,7 +12,7 @@ case class RatingRange(min: Int, max: Int) {
 object RatingRange {
 
   val min = 800
-  val max = 2800
+  val max = 2900
 
   val broad = RatingRange(min, max)
   val default = broad
