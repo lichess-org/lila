@@ -1,0 +1,20 @@
+#side_header {
+  width: 300px;
+}
+#lichess {
+  margin-left: 311px;
+}
+.stream_title {
+  font-size: 2em;
+  line-height: 56px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+div.lichess_goodies div.box {
+  width: 312px;
+}
+div.lichess_goodies iframe {
+  margin-top: 1em;
+  width: 328px;
+  margin-left: -30px;
+}

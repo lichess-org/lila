@@ -2,8 +2,30 @@
 
 @title = @{ s"TV ${s.name}" }
 
+@moreCss = {
+@cssTag("stream.css")
+}
+
 @goodies = {
 <div class="lichess_goodies">
+  @s.service match {
+  case "twitch" => {
+  <iframe
+    frameborder="0"
+    scrolling="no"
+    src="http://twitch.tv/@s.streamId/chat?popout="
+    height="418"></iframe>
+  }
+  case "ustream" => {
+  <iframe
+    src="//www.ustream.tv/socialstream/@s.streamId"
+    style="border: 0 none transparent;"
+    frameborder="0"
+    height="400"></iframe>
+  }
+  case _ => {
+  }
+  }
   <div class="box">
     <h2 data-icon="1">&nbsp;Lichess TV</h2>
     <div id="tv_selector">
@@ -14,43 +36,23 @@
       <p><a href="@routes.Tv.lichess" data-icon="1">&nbsp;Regular lichess TV</a></p>
     </div>
   </div>
-  @s.service match {
-  case "twitch" => {
-  }
-  case "ustream" => {
-  <iframe
-    src="//www.ustream.tv/socialstream/@s.streamId"
-    style="border: 0 none transparent;"
-    frameborder="no"
-    height="400"></iframe>
-  }
-  case _ => {
-  }
-  }
 </div>
 }
 
-@round.layout(
+
+@base.layout(
 title = title,
-goodies = goodies,
-active = siteMenu.tv.some) {
-<style type="text/css">
-  .tv_stream .description {
-    text-align: center;
-  }
-  .tv_stream h1 {
-    font-size: 2.4em;
-    margin: 1em 0;
-  }
-  </div>
-</style>
+goodies = goodies.some,
+active = siteMenu.tv.some,
+moreCss = moreCss) {
 <div class="tv_stream">
+  <h2 class="stream_title">@s.name</h2>
   @s.service match {
   case "twitch" => {
   <object
     type="application/x-shockwave-flash"
-    width="794"
-    height="488"
+    width="694"
+    height="418"
     id="live_embed_player_flash"
     data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=@s.streamId"
     bgcolor="transparent">
@@ -60,25 +62,22 @@ active = siteMenu.tv.some) {
     <param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
     <param name="flashvars" value="hostname=www.twitch.tv&channel=@s.streamId&auto_play=true&start_volume=25" />
   </object>
-  <div class="description">
-    <h1>@s.name</h1>
-    Open in twitch.tv <a href="@s.url">@s.url</a>
-  </div>
   }
   case "ustream" => {
-
-  <object width="794" height="478" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+  <object width="694" height="495" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
     <param name="flashvars" value="cid=@s.streamId&amp;autoplay=false&amp;locale=fr_FR"/>
     <param name="allowfullscreen" value="true"/>
     <param name="allowscriptaccess" value="always"/>
     <param name="src" value="http://www.ustream.tv/flash/viewer.swf"/>
-    <embed flashvars="cid=@s.streamId&amp;autoplay=true" width="794" height="478" allowfullscreen="true" allowscriptaccess="always" src="http://www.ustream.tv/flash/viewer.swf" type="application/x-shockwave-flash"></embed>
+    <embed
+    flashvars="cid=@s.streamId&amp;autoplay=true"
+    width="694"
+    height="495"
+    allowfullscreen="true"
+    allowscriptaccess="always"
+    src="http://www.ustream.tv/flash/viewer.swf"
+    type="application/x-shockwave-flash"></embed>
   </object>
-
-  <div class="description">
-    <h1>@s.name</h1>
-    Open in ustream.tv <a href="@s.url">@s.url</a>
-  </div>
   }
   case service => {
   Not supported stream service @service
