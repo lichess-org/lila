@@ -783,6 +783,11 @@ div.lichess_goodies div.box {
   border: 1px solid #ccc;
   padding: 7px;
 }
+div.lichess_goodies iframe {
+  margin-top: 1em;
+  width: 228px;
+  margin-left: -30px;
+}
 div.lichess_goodies div.confrontation {
   text-align: center;
   margin-bottom: 5px;

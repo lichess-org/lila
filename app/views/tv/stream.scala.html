@@ -14,6 +14,19 @@
       <p><a href="@routes.Tv.lichess" data-icon="1">&nbsp;Regular lichess TV</a></p>
     </div>
   </div>
+  @s.service match {
+  case "twitch" => {
+  }
+  case "ustream" => {
+  <iframe
+    src="//www.ustream.tv/socialstream/@s.streamId"
+    style="border: 0 none transparent;"
+    frameborder="no"
+    height="400"></iframe>
+  }
+  case _ => {
+  }
+  }
 </div>
 }
 
@@ -53,6 +66,7 @@ active = siteMenu.tv.some) {
   </div>
   }
   case "ustream" => {
+
   <object width="794" height="478" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
     <param name="flashvars" value="cid=@s.streamId&amp;autoplay=false&amp;locale=fr_FR"/>
     <param name="allowfullscreen" value="true"/>
@@ -60,13 +74,14 @@ active = siteMenu.tv.some) {
     <param name="src" value="http://www.ustream.tv/flash/viewer.swf"/>
     <embed flashvars="cid=@s.streamId&amp;autoplay=true" width="794" height="478" allowfullscreen="true" allowscriptaccess="always" src="http://www.ustream.tv/flash/viewer.swf" type="application/x-shockwave-flash"></embed>
   </object>
+
   <div class="description">
     <h1>@s.name</h1>
     Open in ustream.tv <a href="@s.url">@s.url</a>
   </div>
   }
-  case _ => {
-  ???
+  case service => {
+  Not supported stream service @service
   }
   }
 </div>
