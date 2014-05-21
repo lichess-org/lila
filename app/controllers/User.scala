@@ -151,15 +151,18 @@ object User extends LilaController {
   def opponents(username: String) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
       lila.game.BestOpponents(user.id, 50) flatMap { ops =>
-        (ctx.isAuth ?? { Env.pref.api.followables(ops map (_._1.id)) }) flatMap { followables =>
-          (ops zip followables).map {
-            case ((u, nb), followable) => ctx.userId ?? { myId =>
-              relationApi.relation(myId, u.id)
-            } map { lila.relation.Related(u, nb, followable, _) }
-          }.sequenceFu map { relateds =>
-            html.user.opponents(user, relateds)
+        ctx.isAuth.fold(
+          Env.pref.api.followables(ops map (_._1.id)),
+          fuccess(List.fill(50)(true))
+        ) flatMap { followables =>
+            (ops zip followables).map {
+              case ((u, nb), followable) => ctx.userId ?? { myId =>
+                relationApi.relation(myId, u.id)
+              } map { lila.relation.Related(u, nb, followable, _) }
+            }.sequenceFu map { relateds =>
+              html.user.opponents(user, relateds)
+            }
           }
-        }
       }
     }
   }
