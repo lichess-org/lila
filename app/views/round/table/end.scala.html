@@ -20,7 +20,7 @@
   @if(opponent.isOfferingRematch) {
   <div class="lichess_play_again_join rematch_alert">
     @trans.yourOpponentWantsToPlayANewGameWithYou().&nbsp;
-    <a class="lichess_play_again lichess_rematch socket-link" title="@trans.playWithTheSameOpponentAgain()" data-msg="rematch-yes">@trans.joinTheGame()</a><br />
+    <a class="glowing button lichess_play_again lichess_rematch socket-link" title="@trans.playWithTheSameOpponentAgain()" data-msg="rematch-yes">@trans.joinTheGame()</a>
     <a class="lichess_rematch_decline socket-link" data-msg="rematch-no">@trans.declineInvitation()</a>
   </div>
   } else {

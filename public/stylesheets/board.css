@@ -587,7 +587,7 @@ div.lichess_separator {
   border-bottom: 1px solid #ddd;
 }
 div.lichess_control {
-  margin: 10px 0 10px 3px;
+  margin: 10px 0;
   text-align: center;
   width: 100%;
 }
@@ -606,9 +606,10 @@ div.lichess_control div.lichess_play_again_join a.lichess_play_again {
   display: block;
 }
 div.lichess_control div.rematch_alert {
-  background: url(../images/rematch.gif) center left no-repeat;
-  padding-left: 60px;
   margin-bottom: 1em;
+}
+div.lichess_control div.rematch_alert .button {
+  margin-top: 1em;
 }
 div.lichess_control div.rematch_wait {
   margin-bottom: 1em;

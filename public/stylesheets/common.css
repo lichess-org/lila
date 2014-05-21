@@ -2183,6 +2183,12 @@ div.progressbar div {
 div.progressbar.flashy.green div {
   background-color: #759900 !important;
 }
+.glowing {
+  transition: box-shadow 1.5s;
+}
+.glow {
+  box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000;
+}
 #notifications {
   width: 1005px;
   margin: 0 auto -10px auto;
@@ -2198,9 +2204,6 @@ div.progressbar.flashy.green div {
   margin-bottom: 8px;
   border-radius: 2px;
   transition: box-shadow 1.5s;
-}
-#notifications > div.glow {
-  box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000;
 }
 #notifications > div a.close {
   text-decoration: none;
