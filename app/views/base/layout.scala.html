@@ -143,13 +143,13 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
       }
       }
     </div>
-    @ctx.me.map { me =>
-    <div id="notifications">@notifications(me)</div>
-    }.getOrElse {
-    <div id="notifications"></div>
-    }
     <div class="content">
       <div id="site_header">
+        @ctx.me.map { me =>
+        <div id="notifications">@notifications(me)</div>
+        }.getOrElse {
+        <div id="notifications"></div>
+        }
         <h1>
           <a id="site_title" href="@routes.Lobby.home">
             lichess<span class="extension">.org</span>

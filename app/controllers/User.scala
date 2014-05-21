@@ -69,13 +69,12 @@ object User extends LilaController {
       gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
     })
     data <- GameRepo isNowPlaying u.id
-    playing <- GameRepo isNowPlaying u.id
     relation <- ctx.userId ?? { relationApi.relation(_, u.id) }
     notes <- ctx.me ?? { me =>
       relationApi friends me.id flatMap { env.noteApi.get(u, me, _) }
     }
     followable <- ctx.isAuth ?? { Env.pref.api followable u.id }
-  } yield html.user.show(u, info, pag, filters, playing, relation, notes, followable)
+  } yield html.user.show(u, info, pag, filters, relation, notes, followable)
 
   def list(page: Int) = Open { implicit ctx =>
     Reasonable(page) {

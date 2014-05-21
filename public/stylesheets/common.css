@@ -518,7 +518,7 @@ body.tight #site_header {
 }
 body > div.content {
   width: 1005px;
-  margin: 30px auto 30px auto;
+  margin: 20px auto 30px auto;
 }
 body.tight > div.content {
   width: auto;
@@ -2187,23 +2187,30 @@ div.progressbar.flashy.green div {
   transition: box-shadow 1.5s;
 }
 .glow {
-  box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000;
+  box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000!important;
 }
 #notifications {
-  width: 1005px;
-  margin: 0 auto -10px auto;
-}
-#notifications .deploy {
-  line-height: 16px;
+  position: absolute;
+  top: -20px;
+  left: -30px;
+  width: 228px;
 }
 #notifications > div {
-  margin-left: 211px;
-  width: 496px;
   border: 1px solid #c0c0c0;
   padding: 6px 8px 7px 8px;
   margin-bottom: 8px;
   border-radius: 2px;
-  transition: box-shadow 1.5s;
+  box-shadow: 0 0 3px 0px #d85000;
+  transition: all 1.5s;
+}
+#notifications > div.foldable {
+  line-height: 1.6em;
+  height: 1.5em;
+  overflow: hidden;
+}
+#notifications > div.foldable:hover {
+  line-height: inherit;
+  height: auto;
 }
 #notifications > div a.close {
   text-decoration: none;
@@ -2218,9 +2225,11 @@ div.progressbar.flashy.green div {
   margin: 3px 0 3px 0;
 }
 #notifications a {
-  margin-left: 10px;
   font-weight: bold;
   text-decoration: none;
+}
+#notifications .actions a {
+  margin-left: 10px;
 }
 #notifications a:hover {
   text-decoration: underline;

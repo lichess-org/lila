@@ -1,11 +1,10 @@
 @(game: Game, user: User)
 
-@notification.view("challenge_reminder", closable = false) {
-<div data-icon="U">
-  @userLink(user) @trans.challengeToPlay.en()
-  @clockNameNoCtx(game.clock)
-  @modeNameNoCtx(game.mode)
-</div>
+@notification.view("challenge_reminder_" + game.id, cssClass = "challenge_reminder foldable", closable = false) {
+@userLink(user)<br />
+@trans.challengeToPlay.en()<br />
+@clockNameNoCtx(game.clock)<br />
+@variantNameNoCtx(game.variant), @modeNameNoCtx(game.mode)
 <div class="actions">
   <a class="action decline" href="@routes.Setup.decline(game.id)" data-icon="L">&nbsp;@trans.decline.en()</a>
   <a class="action" href="@routes.Round.watcher(game.id, "white")" data-icon="v">&nbsp;View challenge</a>

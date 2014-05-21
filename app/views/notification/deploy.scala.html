@@ -1,6 +1,6 @@
 @(on: String)
 
-@notification.view("deploy_" + on, closable = false) {
+@notification.view("deploy_" + on, closable = false, glow = true) {
 @on match {
 case "pre" => {
 <p class="is3" data-icon="j">

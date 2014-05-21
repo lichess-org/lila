@@ -383,45 +383,38 @@ var storage = {
         },
         challengeReminder: function(data) {
           if (!storage.get('challenge-refused-' + data.id)) {
-            var autoDecline = $('#lichess a.lichess_resign').length;
-            var $overboard = $('div.lichess_overboard.joining');
+            var htmlId = 'challenge_reminder_' + data.id;
+            var $notif = $('#' + htmlId);
             var declineListener = function($a, callback) {
               return $a.click(function() {
                 $.post($(this).attr("href"));
                 storage.set('challenge-refused-' + data.id, 1);
-                $('#challenge_reminder').remove();
+                $('#' + htmlId).remove();
                 if ($.isFunction(callback)) callback();
                 return false;
               });
             };
-            if ($overboard.length) {
-              if (!$overboard.find('a.decline').length)
-                $overboard.find('form').append(
-                  declineListener($(data.html).find('a.decline'), function() {
-                    location.href = "/";
-                  })
-                );
-              return;
-            }
-            $('#challenge_reminder').each(function() {
-              clearTimeout($(this).data('timeout'));
-              $(this).remove();
+            $('div.lichess_overboard.joining.' + data.id).each(function() {
+              if (!$(this).find('a.decline').length) $(this).find('form').append(
+                declineListener($(data.html).find('a.decline'), function() {
+                  location.href = "/";
+                })
+              );
             });
-            $('#notifications').append($(data.html).toggle(!autoDecline));
-            declineListener($('#notifications a.decline'));
-            $('#challenge_reminder').data('timeout', setTimeout(function() {
-              $('#challenge_reminder').remove();
-            }, 3000));
-            // automatically decline when playing
-            if (autoDecline) {
-              $('#notifications a.decline').click();
-            } else {
+            if ($notif.length) clearTimeout($notif.data('timeout'));
+            else {
+              $('#notifications').append($(data.html));
+              $notif = $('#' + htmlId);
+              declineListener($notif.find('a.decline'));
               $('body').trigger('lichess.content_loaded');
               if (!storage.get('challenge-' + data.id)) {
                 $.sound.dong();
                 storage.set('challenge-' + data.id, 1);
               }
             }
+            $notif.data('timeout', setTimeout(function() {
+              $notif.remove();
+            }, 3000));
           }
         },
         deployPre: function(html) {
@@ -1725,7 +1718,7 @@ var storage = {
       setTimeout(function() {
         var headHeight = self.element.parent().height();
         self.element.css("top", headHeight + 13);
-        self.$msgs.css('height', 459 - headHeight).scrollTop(999999);
+        self.$msgs.css('height', 455 - headHeight).scrollTop(999999);
       }, 10);
     },
     append: function(msg) {
