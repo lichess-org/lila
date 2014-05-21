@@ -31,9 +31,9 @@ POST  /@/:username/note                controllers.User.writeNote(username: Stri
 GET   /@/:username/mini                controllers.User.showMini(username: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
-GET   /people                          controllers.User.list(page: Int ?= 1)
-GET   /people/online                   controllers.User.online
-GET   /people/autocomplete             controllers.User.autocomplete
+GET   /player                          controllers.User.list(page: Int ?= 1)
+GET   /player/online                   controllers.User.online
+GET   /player/autocomplete             controllers.User.autocomplete
 GET   /leaderboard                     controllers.User.leaderboard
 
 # Account

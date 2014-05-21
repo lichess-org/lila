@@ -1181,6 +1181,7 @@ div.join_warning {
 }
 /* soft inactive gradient */
 
+#crosstable th,
 #friend_box .title,
 #chat div.top,
 div.undertable_top,
@@ -2054,6 +2055,7 @@ div.lichess_overboard.joining .mini_board {
 }
 #crosstable td a {
   line-height: 2em;
+  font-size: 1.1em;
   display: block;
   width: 100%;
   background: #fff;
@@ -2066,8 +2068,20 @@ div.lichess_overboard.joining .mini_board {
 #crosstable .loss {
   color: #ac524f;
 }
+#crosstable td.last {
+  border-right: 1px solid #ccc;
+}
+#crosstable th {
+  border: 1px solid #ccc;
+  padding: 3px;
+}
 #crosstable .score {
   font-size: 1.3em;
+  text-align: right;
+  padding-right: 7px;
+}
+#crosstable .user {
+  padding-left: 7px;
 }
 #now_playing {
   margin: 2em 0 1em -30px;

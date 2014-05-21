@@ -3,27 +3,34 @@
 <div id="crosstable">
   <table>
     <tbody>
-      @crosstable.userIds.map { uid =>
+      @crosstable.users.map { u =>
       <tr>
-        <th>@userIdLink(uid.some)</th>
-        @crosstable.results.map { r =>
-        <td>
+        @crosstable.fill.map { index =>
+        <td @if(index == 20) { class="last" }>
+          <a>&nbsp;</a>
+        </td>
+        }
+        @crosstable.results.zipWithIndex.map {
+        case (r, index) => {
+        <td @if(index == crosstable.size - 1) { class="last" }>
           <a href="@routes.Round.watcher(r.gameId, "white")">
             @r.winnerId match {
-            case Some(w) if w == uid => { <span class="win">1</span> }
+            case Some(w) if w == u.id => { <span class="win">1</span> }
             case None => { ½ }
             case _ => { <span class="loss">0</span> }
             }
           </a>
         </td>
         }
-        <td class="score @crosstable.winnerId match {
-          case Some(w) if w == uid => { win }
+        }
+        <th class="score @crosstable.winnerId match {
+          case Some(w) if w == u.id => { win }
           case Some(_) => { loss }
           case _ => {}
           }">
-          @crosstable.showScore(crosstable score uid)
-        </td>
+          @crosstable.showScore(u.id)
+        </th>
+        <th class="user">@userIdLink(u.id.some, withOnline = false)</th>
       </tr>
       }
     </tbody>

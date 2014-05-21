@@ -58,6 +58,9 @@ div.analysis_panels > div {
 div.analysis_panels > div.active {
   display: block;
 }
+div.analysis_panels #crosstable {
+  margin-top: 60px;
+}
 div.game_analysis {
   padding: 10px;
   width: 492px;

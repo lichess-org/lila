@@ -108,10 +108,14 @@ body.dark div.content_box.prefs form li,
 body.dark div.content_box.prefs fieldset,
 body.dark #claim_draw_zone,
 body.dark #themepicker div.color_demo,
+body.dark #crosstable th,
 body.dark div.force_resign_zone,
 body.dark div.proposed_takeback,
 body.dark div.offered_draw {
   border-color: #3d3d3d;
+}
+body.dark #crosstable td.last {
+  border-right-color: #3d3d3d;
 }
 body.dark #timeline,
 body.dark #timeline > .entry {
@@ -312,6 +316,7 @@ body.dark div.content_box_top {
 }
 /* soft inactive gradient */
 
+body.dark #crosstable th,
 body.dark #chat div.top,
 body.dark #friend_box .title,
 body.dark div.undertable_top,

@@ -103,7 +103,7 @@ moreJs = moreJs) {
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
 <div class="analysis_panels">
-  <div class="panel computer_analysis active">
+  <div class="panel computer_analysis">
     @analysis.map { a =>
     @if(a.old && ctx.isAuth) {
     <form class="request_analysis future_game_analysis" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
@@ -146,17 +146,20 @@ moreJs = moreJs) {
       data-series="@timeChart.series"
       data-max="@timeChart.maxTime"></div>
   </div>
+  @cross.map { c =>
+  <div class="panel crosstable active">
+    @views.html.game.crosstable(c)
+  </div>
+  }
 </div>
 <div class="analysis_menu">
   <a data-panel="computer_analysis" class="active">@trans.computerAnalysis()</a>
   <a data-panel="fen_pgn">FEN &amp; PGN</a>
   @if(game.pgnImport.isEmpty) {
   <a data-panel="move_times">@trans.moveTimes()</a>
+  @if(cross.isDefined) {
+  <a data-panel="crosstable">Crosstable</a>
   }
-</div>
-<div id="playing_crosstable">
-  @cross.map { c =>
-  @views.html.game.crosstable(c)
   }
 </div>
 }
