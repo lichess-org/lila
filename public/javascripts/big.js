@@ -2729,6 +2729,24 @@ var storage = {
       if (panel == 'move_times') $.renderMoveTimesChart();
     });
 
+    var pgnLoader = function() {
+      $panels.find('.loader span').each(function() {
+        var t = this;
+        var moves = _.filter(_.values(
+          $('#ShowPgnText a').map(function() {
+            return $(this).text();
+          })
+        ), function(x) {
+          return typeof x == 'string';
+        });
+        var len = moves.length, it = 0;
+        setInterval(function() {
+          t.innerHTML = moves[it++ % len];
+        }, 100);
+      });
+    };
+    setTimeout(pgnLoader, 500);
+
     $panels.find('form.future_game_analysis').submit(function() {
       if ($(this).hasClass('must_login')) {
         if (confirm($.trans('You need an account to do that') + '.')) {
@@ -2741,6 +2759,7 @@ var storage = {
         url: $(this).attr('action'),
         success: function(html) {
           $panels.filter('.panel.computer_analysis').html(html);
+          pgnLoader();
         }
       });
       return false;

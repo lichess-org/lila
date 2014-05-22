@@ -236,12 +236,22 @@ ul.ui-autocomplete li a.ui-state-focus {
 }
 .loader {
   font-size: 11px;
-  text-indent: -99999em;
   margin: 0 auto;
   position: relative;
   width: 10em;
   height: 10em;
   box-shadow: inset 0 0 0 1em #ccc;
+}
+.loader span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  line-height: 8.5em;
+  z-index: 1;
+  font-size: 1.15em;
+  font-family: monospace;
 }
 .loader:after {
   width: 5.2em;
