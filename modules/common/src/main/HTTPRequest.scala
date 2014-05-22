@@ -13,12 +13,13 @@ object HTTPRequest {
 
   def isSynchronousHttp(req: RequestHeader) = !isXhr(req) && !isSocket(req)
 
-  def fullUrl(req: RequestHeader): String =
-    "http://" + req.host + req.uri
+  def isSafe(req: RequestHeader) = req.method == "GET"
 
-  def userAgent(req: RequestHeader): Option[String] =
-    req.headers get HeaderNames.USER_AGENT
+  def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req)
 
-  def sid(req: RequestHeader): Option[String] =
-    req.session get "sid"
+  def fullUrl(req: RequestHeader): String = "http://" + req.host + req.uri
+
+  def userAgent(req: RequestHeader): Option[String] = req.headers get HeaderNames.USER_AGENT
+
+  def sid(req: RequestHeader): Option[String] = req.session get "sid"
 }

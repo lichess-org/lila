@@ -9,7 +9,7 @@ import lila.common.HTTPRequest
 final class I18nRequestHandler(pool: I18nPool, protocol: String) {
 
   def apply(req: RequestHeader): Option[Handler] =
-    (HTTPRequest.isSynchronousHttp(req) && !pool.domainLang(req).isDefined) option Action {
+    (HTTPRequest.isRedirectable(req) && !pool.domainLang(req).isDefined) option Action {
       Redirect(redirectUrl(req))
     }
 
