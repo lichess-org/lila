@@ -103,7 +103,7 @@ moreJs = moreJs) {
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
 <div class="analysis_panels">
-  <div class="panel computer_analysis">
+  <div class="panel computer_analysis active">
     @analysis.map { a =>
     @if(a.old && ctx.isAuth) {
     <form class="request_analysis future_game_analysis" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
@@ -147,7 +147,7 @@ moreJs = moreJs) {
       data-max="@timeChart.maxTime"></div>
   </div>
   @cross.map { c =>
-  <div class="panel crosstable active">
+  <div class="panel crosstable">
     @views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov))
   </div>
   }
