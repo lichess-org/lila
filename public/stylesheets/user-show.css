@@ -15,11 +15,14 @@ div.user_show div.content_box_top > span strong {
   font-weight: normal;
   color: #666;
 }
-div.user_show div.content_box_top > img.best,
-div.user_show div.content_box_top > img.trophy {
+div.user_show div.content_box_top > .best,
+div.user_show div.content_box_top > .trophy {
   float: right;
   margin-top: -30px;
   margin-right: 10px;
+}
+div.user_show div.content_box_top > .trophy {
+  margin-right: -10px;
 }
 div.user_show .title {
   margin-top: 1em;

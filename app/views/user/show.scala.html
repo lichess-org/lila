@@ -36,7 +36,14 @@ evenMoreJs = evenMoreJs) {
     <img class="best" src="@staticUrl("images/best64.png")" width=64 height=64 title="Best player" />
     } else {
     @if(info.rank.exists(r => r._1 < r._2 / 100)) {
-    <img class="trophy" src="@staticUrl("images/trophy64.png")" width=64 height=64 title="Top 1% player" />
+    <span class="trophy hint--left" data-hint="Top 0.1% player">
+      <img src="@staticUrl("images/trophy64.png")" width=64 height=64 />
+    </span>
+    }
+    @if(info.rank.exists(r => r._1 < r._2 / 100)) {
+    <span class="trophy hint--left" data-hint="Top 1% player">
+      <img src="@staticUrl("images/trophy64.png")" width=50 height=50 />
+    </span>
     }
     }
     <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" } data-icon="r"></span> @u.username</h1>
