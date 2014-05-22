@@ -65,3 +65,11 @@
 #communication .post {
   margin: 1em 0;
 }
+body.dark #communication .player_chats .game:nth-child(odd),
+#communication .thread:nth-child(even) {
+  background: #202020;
+}
+body.dark #communication .player_chats,
+body.dark #communication .player_chats .game .title {
+  border-color: #3d3d3d;
+}
