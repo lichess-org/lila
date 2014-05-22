@@ -13,8 +13,6 @@ import lila.app._
 import lila.game.{ Pov, Game => GameModel, GameRepo, PgnDump }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.AnalysisAvailable
-import lila.tournament.{ TournamentRepo, Tournament => Tourney }
-import lila.user.{ UserRepo }
 import views._
 
 object Analyse extends LilaController {
@@ -24,13 +22,21 @@ object Analyse extends LilaController {
 
   def requestAnalysis(id: String) = Auth { implicit ctx =>
     me =>
-      env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) onComplete {
-        case Failure(err)                       => logerr("[analysis] " + err.getMessage)
-        case Success(analysis) if analysis.done => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
-        case _                                  =>
-      }
-      fuccess(Ok(html.analyse.computing()))
+      makeAnalysis(id, me) inject
+        Ok(html.analyse.computing())
   }
+
+  def betterAnalysis(id: String, color: String) = Auth { implicit ctx =>
+    me =>
+      makeAnalysis(id, me) inject
+        Redirect(routes.Round.watcher(id, color))
+  }
+
+  private def makeAnalysis(id: String, me: lila.user.User)(implicit ctx: Context) =
+    env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) andThen {
+      case Failure(err)                       => logerr("[analysis] " + err.getMessage)
+      case Success(analysis) if analysis.done => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
+    }
 
   def postAnalysis(id: String) = Action(parse.text) { req =>
     env.analyser.complete(id, req.body) >>- {
@@ -43,7 +49,7 @@ object Analyse extends LilaController {
     Env.round.version(pov.gameId) zip
       Env.game.pgnDump(pov.game) zip
       (env.analyser get pov.game.id) zip
-      (pov.game.tournamentId ?? TournamentRepo.byId) zip
+      (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
       Env.game.crosstableApi(pov.game) zip
       (ctx.isAuth ?? {
         Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)

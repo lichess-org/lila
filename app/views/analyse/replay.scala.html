@@ -105,13 +105,6 @@ moreJs = moreJs) {
 <div class="analysis_panels">
   <div class="panel computer_analysis active">
     @analysis.map { a =>
-    @if(a.old && ctx.isAuth) {
-    <form class="request_analysis future_game_analysis" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
-      <button type="submit" class="button">
-        <span class="is3" data-icon="A"> Request a better computer analysis</span>
-      </button>
-    </form>
-    }
     @advantageChart.map { chart =>
     <div
       id="adv_chart"
@@ -162,4 +155,11 @@ moreJs = moreJs) {
   }
   }
 </div>
+@analysis.filter(_.old && ctx.isAuth).map { a =>
+<form class="better_analysis" action="@routes.Analyse.betterAnalysis(gameId, color.name)" method="post">
+  <button type="submit" class="button">
+    <span class="is3" data-icon="A"> Request a better computer analysis</span>
+  </button>
+</form>
+}
 }

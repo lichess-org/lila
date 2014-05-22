@@ -55,7 +55,7 @@ final class Analyser(
           case _ => fufail(s"[analysis] game $id is missing")
         }
 
-    get(id) flatMap {
+    get(id) map (_ filterNot (_.old)) flatMap {
       _.fold(generate)(fuccess(_))
     }
   }

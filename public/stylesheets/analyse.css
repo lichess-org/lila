@@ -72,6 +72,11 @@ div.game_analysis {
   margin-top: 70px;
   text-align: center;
 }
+form.better_analysis {
+  margin-top: 20px;
+  width: 512px;
+  text-align: center;
+}
 .future_game_analysis.progress {
   margin-top: 0;
   overflow: hidden;
