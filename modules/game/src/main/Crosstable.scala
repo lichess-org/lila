@@ -38,8 +38,8 @@ case class Crosstable(
         case _                        => 0
       })))
 
-  def fromPov(user: String) =
-    if (user == user2) copy(user1 = user2, user2 = user1)
+  def fromPov(userId: String) =
+    if (userId == user2.id) copy(user1 = user2, user2 = user1)
     else this
 
   lazy val size = results.size
