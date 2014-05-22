@@ -3,7 +3,6 @@ body.dark {
   background-image: -moz-linear-gradient(top, #303030 0%, #1a1a1a 116px);
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #303030), color-stop(116px, #1a1a1a));
   background-image: -webkit-linear-gradient(top, #303030 0%, #1a1a1a 116px);
-  background-image: -o-linear-gradient(top, #303030 0%, #1a1a1a 116px);
   background-image: -ms-linear-gradient(top, #303030 0%, #1a1a1a 116px);
   background-image: linear-gradient(to bottom, #303030 0%, #1a1a1a 116px);
   color: #8a8a8a;
@@ -332,7 +331,6 @@ body.dark table.slist thead {
   background: -moz-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(40, 40, 40, 1)), color-stop(100%, rgba(34, 34, 34, 1)));
   background: -webkit-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
-  background: -o-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
   background: -ms-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
   background: linear-gradient(to bottom, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
   text-shadow: 0px 1px 0px #000;
@@ -352,7 +350,6 @@ body.dark .ui-state-hover {
   background: -moz-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(44, 44, 44, 1)), color-stop(100%, rgba(40, 40, 40, 1)));
   background: -webkit-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
-  background: -o-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
   background: -ms-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
   background: linear-gradient(to bottom, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
 }

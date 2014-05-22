@@ -465,7 +465,6 @@ body {
   background-image: -moz-linear-gradient(top, #d7d7d7 0%, #f7f7f7 116px);
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d7d7d7), color-stop(116px, #f7f7f7));
   background-image: -webkit-linear-gradient(top, #d7d7d7 0%, #f7f7f7 116px);
-  background-image: -o-linear-gradient(top, #d7d7d7 0%, #f7f7f7 116px);
   background-image: -ms-linear-gradient(top, #d7d7d7 0%, #f7f7f7 116px);
   background-image: linear-gradient(to bottom, #d7d7d7 0%, #f7f7f7 116px);
   background-repeat: no-repeat;
@@ -1198,7 +1197,6 @@ table.slist thead {
   background: -moz-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(250, 250, 250, 1)), color-stop(100%, rgba(245, 245, 245, 1)));
   background: -webkit-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
-  background: -o-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
   background: -ms-linear-gradient(top, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
   background: linear-gradient(to bottom, rgba(250, 250, 250, 1) 0%, rgba(245, 245, 245, 1) 100%);
   text-decoration: none !important;
@@ -1242,7 +1240,6 @@ a.button:hover,
   background: -moz-linear-gradient(top, rgba(253, 253, 253, 1) 0%, rgba(248, 248, 248, 1) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(253, 253, 253, 1)), color-stop(100%, rgba(248, 248, 248, 1)));
   background: -webkit-linear-gradient(top, rgba(253, 253, 253, 1) 0%, rgba(248, 248, 248, 1) 100%);
-  background: -o-linear-gradient(top, rgba(253, 253, 253, 1) 0%, rgba(248, 248, 248, 1) 100%);
   background: -ms-linear-gradient(top, rgba(253, 253, 253, 1) 0%, rgba(248, 248, 248, 1) 100%);
   background: linear-gradient(to bottom, rgba(253, 253, 253, 1) 0%, rgba(248, 248, 248, 1) 100%);
 }
@@ -1420,7 +1417,6 @@ body.highlight .mini_board > div.moved {
   background: -moz-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(155, 199, 00, 0.81)), color-stop(100%, rgba(155, 199, 00, 0)));
   background: -webkit-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
-  background: -o-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
   background: -ms-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
   background: radial-gradient(ellipse at center, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
 }

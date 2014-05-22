@@ -108,7 +108,6 @@ div.fen_pgn input.fen {
 }
 #GameBoard.flip table,
 #GameBoard.flip img.pieceImage {
-  -o-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
