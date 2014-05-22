@@ -403,8 +403,10 @@ var storage = {
             });
             if ($notif.length) clearTimeout($notif.data('timeout'));
             else {
-              $('#notifications').append($(data.html));
-              $notif = $('#' + htmlId);
+              $('#notifications').append(data.html);
+              $notif = $('#' + htmlId).one('mouseover', function() {
+                $(this).removeClass('glowing glow');
+              });
               declineListener($notif.find('a.decline'));
               $('body').trigger('lichess.content_loaded');
               if (!storage.get('challenge-' + data.id)) {
