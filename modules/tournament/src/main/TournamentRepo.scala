@@ -100,7 +100,7 @@ object TournamentRepo {
     $query(finishedQuery ++ Json.obj(
       "schedule" -> $exists(true)
     )) sort BSONDocument(
-      "schedule.at" -> 1
+      "schedule.at" -> -1
     ), nb
   ) map (_ flatMap asFinished)
 
