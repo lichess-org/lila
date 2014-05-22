@@ -1,0 +1,67 @@
+#communication h2 {
+  font-size: 2em;
+  margin: 1em;
+  text-align: center;
+  text-transform: capitalize;
+  letter-spacing: 2px;
+}
+#communication .user_link {
+  font-weight: bold;
+}
+#communication .player_chats {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  margin-top: 2em;
+}
+#communication .player_chats .game {
+  display: block;
+  float: left;
+  width: 33%;
+}
+#communication .player_chats .game:nth-child(odd) {
+  background: #f0f0f0;
+}
+#communication .player_chats .game .title,
+#communication .player_chats .game .chat {
+  display: block;
+  padding: 10px;
+}
+#communication .player_chats .game .title {
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+  border-bottom: 1px solid #ccc;
+}
+#communication .player_chats .game .chat {
+  padding-top: 0;
+  height: 200px;
+  overflow: hidden;
+}
+#communication .player_chats .game:hover .chat {
+  overflow-y: auto;
+}
+#communication .player_chats .line {
+  opacity: 0.5;
+}
+#communication .player_chats .line.author {
+  opacity: 1;
+}
+
+#communication .thread {
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 400px;
+}
+#communication .thread .title {
+  margin-bottom: 20px;
+}
+#communication .thread .title strong {
+  font-size: 1.2em;
+  display: block;
+}
+#communication .thread:nth-child(even) {
+  background: #f0f0f0;
+}
+#communication .post {
+  margin: 1em 0;
+}

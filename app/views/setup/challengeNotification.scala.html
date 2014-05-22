@@ -1,6 +1,6 @@
 @(game: Game, user: User)
 
-@notification.view("challenge_reminder_" + game.id, cssClass = "challenge_reminder foldable", closable = false) {
+@notification.view("challenge_reminder_" + game.id, cssClass = "challenge_reminder foldable glowing", closable = false) {
 @userLink(user)<br />
 @trans.challengeToPlay.en()<br />
 @clockNameNoCtx(game.clock)<br />

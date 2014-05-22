@@ -70,6 +70,10 @@ trait GameRepo {
     $query(Query user userId) sort Query.sortCreated
   )
 
+  def recentPovsByUser(user: User, nb: Int): Fu[List[Pov]] = $find(
+    $query(Query user user) sort Query.sortCreated, nb
+  ) map { _.flatMap(g => Pov(g, user)) }
+
   def chronologicalFinishedByUser(userId: String): Fu[List[Game]] = $find(
     $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc F.createdAt)
   )

@@ -20,6 +20,8 @@ case class Report(
 
   def isCheat = realReason == Reason.Cheat
 
+  def isCommunication = Reason.communication contains realReason
+
   def isManual = createdBy != "lichess"
 
   def process(by: User) = copy(processedBy = by.id.some)

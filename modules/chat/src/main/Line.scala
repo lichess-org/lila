@@ -5,6 +5,9 @@ import chess.Color
 sealed trait Line {
   def text: String
   def author: String
+  def isSystem = author == systemUserId
+  def isHuman = !isSystem
+  def humanAuthor = isHuman option author
 }
 
 case class UserLine(username: String, text: String, troll: Boolean) extends Line {

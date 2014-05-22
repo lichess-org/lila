@@ -1,0 +1,67 @@
+@(u: User, reported: Boolean, players: List[(Pov, lila.chat.MixedChat)], threads: List[lila.message.Thread])(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("mod-communication.css")
+}
+
+@goodies = {
+<br />
+<br />
+<a data-icon="i" href="@routes.Report.list">&nbsp;Back to the report list</a>
+}
+
+@base.layout(
+title = u.username + " communications",
+moreCss = moreCss,
+goodies = goodies.some) {
+
+<div id="communication" class="content_box">
+  <h1>@userLink(u) communications</h1>
+  @if(!reported) {
+  <h2>This user is not reported</h2>
+  } else {
+  <h2>Private chats</h2>
+  <div class="player_chats">
+    @players.map {
+    case (pov, chat) => {
+    <div class="game">
+      <a class="title" href="@routes.Round.player(pov.fullId)">
+        Game vs @usernameOrAnon(pov.opponent.userId)
+      </a>
+      <div class="chat">
+        @chat.lines.map { line =>
+        <div class="line @if(line.author.toLowerCase == u.id) { author }">
+          @userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false)
+          @Html(line.text)
+        </div>
+        }
+      </div>
+    </div>
+    }
+    }
+  </div>
+  <div class="threads">
+    <h2>Inbox messages</h2>
+    @threads.map { thread =>
+    <div class="thread">
+      <p class="title">
+        <strong>@thread.name</strong>
+        @momentFromNow(thread.createdAt)
+        @userIdLink(thread.creatorId.some) -&gt; @userIdLink(thread.invitedId.some)
+      </p>
+      @thread.posts.map { post =>
+      <div class="post">
+        @userIdLink(thread.senderOf(post).some)
+        @if(thread.isWrittenBy(post, u)) {
+        @autoLink(post.text)
+        } else {
+        [hidden]
+        }
+      </div>
+      }
+    </div>
+    }
+  </div>
+</div>
+}
+}

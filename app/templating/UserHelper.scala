@@ -40,6 +40,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     userIdOption: Option[String],
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
+    withTitle: Boolean = true,
     truncate: Option[Int] = None,
     params: String = ""): Html = Html {
     userIdOption.flatMap(lightUser).fold(User.anonymous) { user =>
@@ -49,6 +50,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
         title = user.title,
         cssClass = cssClass,
         withOnline = withOnline,
+        withTitle = withTitle,
         truncate = truncate,
         params = params)
     }
@@ -71,9 +73,10 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     usernameOption: Option[String],
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
+    withTitle: Boolean = true,
     truncate: Option[Int] = None): Html = Html {
     usernameOption.fold(User.anonymous) { username =>
-      userIdNameLink(username.toLowerCase, username, cssClass, withOnline, truncate)
+      userIdNameLink(username.toLowerCase, username, cssClass, withOnline, withTitle, truncate)
     }
   }
 
@@ -87,13 +90,14 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     username: String,
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
+    withTitle: Boolean = true,
     truncate: Option[Int] = None,
     title: Option[String] = None,
     params: String = ""): String = {
     val klass = userClass(userId, cssClass, withOnline)
     val href = userHref(username, params = params)
     val content = truncate.fold(username)(username.take)
-    val titleS = titleTag(title)
+    val titleS = if (withTitle) titleTag(title) else ""
     val space = if (withOnline) "&nbsp;" else ""
     val dataIcon = if (withOnline) """ data-icon="r"""" else ""
     s"""<a$dataIcon $klass $href>$space$titleS$content</a>"""

@@ -14,12 +14,13 @@ private[chat] final class ChatApi(
 
   import Chat.userChatBSONHandler
 
-  private val systemUserId = "lichess"
-
   object userChat {
 
+    def findOption(chatId: ChatId): Fu[Option[UserChat]] =
+      coll.find(BSONDocument("_id" -> chatId)).one[UserChat]
+
     def find(chatId: ChatId): Fu[UserChat] =
-      coll.find(BSONDocument("_id" -> chatId)).one[UserChat] map (_ | Chat.makeUser(chatId))
+      findOption(chatId) map (_ | Chat.makeUser(chatId))
 
     def write(chatId: ChatId, userId: String, text: String): Fu[Option[UserLine]] =
       makeLine(userId, text) flatMap {
@@ -43,8 +44,14 @@ private[chat] final class ChatApi(
 
   object playerChat {
 
+    def findOption(chatId: ChatId): Fu[Option[MixedChat]] =
+      coll.find(BSONDocument("_id" -> chatId)).one[MixedChat]
+
     def find(chatId: ChatId): Fu[MixedChat] =
-      coll.find(BSONDocument("_id" -> chatId)).one[MixedChat] map (_ | Chat.makeMixed(chatId))
+      findOption(chatId) map (_ | Chat.makeMixed(chatId))
+
+    def findNonEmpty(chatId: ChatId): Fu[Option[MixedChat]] =
+      findOption(chatId) map (_ filter (_.nonEmpty))
 
     def write(chatId: ChatId, color: Color, text: String): Fu[Option[Line]] =
       makeLine(chatId, color, text) ?? { line =>

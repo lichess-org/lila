@@ -53,9 +53,13 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
   def autoProcess(userId: String): Funit =
     $update(Json.obj("user" -> userId.toLowerCase), Json.obj("processedBy" -> "lichess"))
 
-  def nbUnprocessed = $count(Json.obj("processedBy" -> $exists(false)))
+  private val unprocessedSelect = Json.obj("processedBy" -> $exists(false))
+
+  def nbUnprocessed = $count(unprocessedSelect)
 
   def recent = $find($query.all sort $sort.createdDesc, 50)
+
+  def recentUnprocessed = $find($query(unprocessedSelect) sort $sort.createdDesc, 50)
 
   private def findRecent(user: User, reason: Reason): Fu[Option[Report]] =
     $find.one(Json.obj(

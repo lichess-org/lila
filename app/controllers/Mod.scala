@@ -53,6 +53,27 @@ object Mod extends LilaController {
     me => modLogApi.recent map { html.mod.log(_) }
   }
 
-  def redirect(username: String, mod: Boolean = true) = 
+  def communication(username: String) = Secure(_.MarkTroll) { implicit ctx =>
+    me =>
+      OptionFuOk(UserRepo named username) { user =>
+        for {
+          isReported <- Env.report.api.recentUnprocessed map {
+            _ exists (r => r.user == user.id && r.isCommunication)
+          }
+          povs <- isReported ?? lila.game.GameRepo.recentPovsByUser(user, 50)
+          chats <- povs.map(p => Env.chat.api.playerChat findNonEmpty p.gameId).sequence
+          povWithChats = (povs zip chats) collect {
+            case (p, Some(c)) => p -> c
+          } take 9
+          threads <- isReported ?? {
+            lila.message.ThreadRepo.visibleByUser(user.id, 50) map {
+              _ filter (_ hasPostsWrittenBy user.id) take 9
+            }
+          }
+        } yield html.mod.communication(user, isReported, povWithChats, threads)
+      }
+  }
+
+  def redirect(username: String, mod: Boolean = true) =
     Redirect(routes.User.show(username).url + mod.??("?mod"))
 }

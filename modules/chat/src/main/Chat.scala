@@ -14,6 +14,7 @@ sealed trait AnyChat {
 sealed trait Chat[L <: Line] extends AnyChat {
   def id: ChatId
   def lines: List[L]
+  def nonEmpty = lines exists (_.isHuman)
 }
 
 case class UserChat(

@@ -45,11 +45,15 @@ case class Thread(
 
   def receiverOf(post: Post) = post.isByCreator.fold(invitedId, creatorId)
 
+  def isWrittenBy(post: Post, user: User) = post.isByCreator == isCreator(user)
+
   def nonEmptyName = (name.trim.some filter (_.nonEmpty)) | "No subject"
 
   def deleteFor(user: User) = copy(
     visibleByUserIds = visibleByUserIds filter (user.id !=)
   )
+
+  def hasPostsWrittenBy(userId: String) = posts exists (_.isByCreator == (creatorId == userId))
 }
 
 object Thread {

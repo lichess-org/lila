@@ -21,6 +21,9 @@ object ThreadRepo {
   def visibleByUser(user: ID): Fu[List[Thread]] =
     $find($query(visibleByUserQuery(user)) sort recentSort)
 
+  def visibleByUser(user: ID, nb: Int): Fu[List[Thread]] =
+    $find($query(visibleByUserQuery(user)) sort recentSort, nb)
+
   def userUnreadIds(userId: String): Fu[List[String]] = {
     val command = MapReduce(
       collectionName = tube.threadTube.coll.name,
@@ -45,7 +48,7 @@ object ThreadRepo {
       sort = JsObjectWriter.write(Json.obj("updatedAt" -> -1)).some)
     tube.threadTube.coll.db.command(command) map { res =>
       toJSON(res).arr("results").flatMap(_.apply(0) str "value")
-    } map { 
+    } map {
       _ ?? (_ split ';' toList)
     }
   }
