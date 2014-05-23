@@ -75,7 +75,6 @@ final class Evaluator(
         else if (progressIsHigh(user)) DateTime.now minusHours 1
         else DateTime.now minusDays 3
         if (forceRefresh || date.fold(true)(_ isBefore freshness)) {
-          logger.info(s"auto evaluate $user")
           generate(user.id, user.perfs, true) foreach {
             _ foreach { eval =>
               eval.gameIdsToAnalyse foreach { gameId =>

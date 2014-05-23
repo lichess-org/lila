@@ -70,7 +70,6 @@ final class Analyser(
             case (analysis, errors) =>
               errors foreach { e => logwarn(s"[analysis UciToPgn] $id $e") }
               if (analysis.valid) {
-                play.api.Logger("analysis").info(s"success http://lichess.org/$id")
                 indexer ! InsertGame(game)
                 AnalysisRepo.done(id, analysis) >>- {
                   game.userIds foreach { userId =>
