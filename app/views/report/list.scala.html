@@ -36,7 +36,7 @@ moreJs = moreJs) {
         <td>
           <strong>@r.reason.capitalize</strong>
           - @autoLink(r.text)
-          @if(r.unprocessed) {
+          @if(r.unprocessed && r.isCommunication) {
           <a data-icon="y" style="display:inline-block" class="button" href="@routes.Mod.communication(r.user)">&nbsp;View the communication report</a>
           }
         </td>
