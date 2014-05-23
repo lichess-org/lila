@@ -35,7 +35,7 @@ evenMoreJs = evenMoreJs) {
     @if(info.rank.map(_._1).exists(1==)) {
     <img class="best" src="@staticUrl("images/best64.png")" width=64 height=64 title="Best player" />
     } else {
-    @if(info.rank.exists(r => r._1 < r._2 / 100)) {
+    @if(info.rank.exists(r => r._1 < r._2 / 1000)) {
     <span class="trophy hint--left" data-hint="Top 0.1% player">
       <img src="@staticUrl("images/trophy64.png")" width=64 height=64 />
     </span>
