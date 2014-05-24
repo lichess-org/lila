@@ -2339,29 +2339,25 @@ var storage = {
           $.lichessOpeningPreventClicks();
           $.redirect(e);
         },
-        tournaments: reloadTournaments,
-        reload_forum: reloadForum
+        tournaments: function(data) {
+          $("#enterable_tournaments").html(data);
+          $('body').trigger('lichess.content_loaded');
+        },
+        reload_forum: function() {
+          setTimeout(function() {
+            $.ajax($newposts.data('url'), {
+              success: function(data) {
+                $newposts.find('ol').html(data).end().scrollTop(0);
+                $('body').trigger('lichess.content_loaded');
+              }
+            });
+          }, Math.round(Math.random() * 5000));
+        }
       },
       options: {
         name: "lobby"
       }
     }));
-
-    function reloadTournaments(data) {
-      $("#enterable_tournaments").html(data);
-      $('body').trigger('lichess.content_loaded');
-    }
-
-    function reloadForum() {
-      setTimeout(function() {
-        $.ajax($newposts.data('url'), {
-          success: function(data) {
-            $newposts.find('ol').html(data).end().scrollTop(0);
-            $('body').trigger('lichess.content_loaded');
-          }
-        });
-      }, Math.round(Math.random() * 5000));
-    }
 
     function changeFeatured(o) {
       $('#featured_game').html(o.html);
@@ -2645,10 +2641,16 @@ var storage = {
         url: $wrap.data('href'),
         success: function(html) {
           var $tour = $(html);
-          $wrap.find('table.standing tbody').replaceWith($tour.find('table.standing tbody'));
-          drawBars();
-          $wrap.find('div.pairings').replaceWith($tour.find('div.pairings'));
-          $wrap.find('div.game_list').replaceWith($tour.find('div.game_list'));
+          if ($wrap.find('table.standing').length) {
+            // started
+            $wrap.find('table.standing tbody').replaceWith($tour.find('table.standing tbody'));
+            drawBars();
+            $wrap.find('div.pairings').replaceWith($tour.find('div.pairings'));
+            $wrap.find('div.game_list').replaceWith($tour.find('div.game_list'));
+          } else {
+            // created
+            $wrap.find('table.user_list').replaceWith($tour.find('table.user_list'));
+          }
           $('body').trigger('lichess.content_loaded');
         }
       });
@@ -2739,7 +2741,8 @@ var storage = {
         ), function(x) {
           return typeof x == 'string';
         });
-        var len = moves.length, it = 0;
+        var len = moves.length,
+          it = 0;
         setInterval(function() {
           t.innerHTML = moves[it++ % len];
         }, 200);
