@@ -81,7 +81,7 @@ object User extends LilaController {
       val nb = 10
       for {
         progressDay ← env.cached topProgressDay nb
-        tourneyWinners ← Env.tournament.leaderboard scheduled nb
+        tourneyWinners ← Env.tournament.winners scheduled nb
         toint <- env.cached topToints nb
         rating ← env.cached topRating nb
         ratingDay ← env.cached topRatingDay nb

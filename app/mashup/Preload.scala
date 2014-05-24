@@ -27,7 +27,7 @@ final class Preload(
     featured: Featured,
     relations: RelationApi,
     leaderboard: Int => Fu[List[User]],
-    tournamentLeaderboard: Int => Fu[List[Winner]],
+    tourneyWinners: Int => Fu[List[Winner]],
     timelineEntries: String => Fu[List[Entry]],
     nowPlaying: (User, Int) => Fu[List[Pov]],
     streamsOnAir: => () => Fu[List[StreamOnAir]],
@@ -47,18 +47,18 @@ final class Preload(
       (ctx.userId ?? relations.blocks) zip
       (ctx.userId ?? timelineEntries) zip
       leaderboard(10) zip
-      tournamentLeaderboard(10) zip
+      tourneyWinners(10) zip
       dailyPuzzle() zip
       (ctx.me ?? { nowPlaying(_, 3) }) zip
       filter zip
       streamsOnAir() map {
-        case (((((((((((hooks, posts), tours), feat), blocks), entries), lead), tLead), puzzle), playing), filter), streams) =>
+        case (((((((((((hooks, posts), tours), feat), blocks), entries), lead), tWinners), puzzle), playing), filter), streams) =>
           (Right((Json.obj(
             "version" -> history.version,
             "pool" -> JsArray(hooks map (_.render)),
             "filter" -> filter.render,
             "blocks" -> blocks,
             "engine" -> ctx.me.??(_.engine)
-          ), entries, posts, tours, feat, lead, tLead, puzzle, playing, streams)))
+          ), entries, posts, tours, feat, lead, tWinners, puzzle, playing, streams)))
       }
 }

@@ -1,4 +1,4 @@
-@(forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Enterable], leaderboard: List[User], tournamentLeaderboard: List[lila.tournament.Winner])(implicit ctx: Context)
+@(forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Enterable], leaderboard: List[User], tournamentWinners: List[lila.tournament.Winner])(implicit ctx: Context)
 
 <div class="open_tournaments undertable">
   <div class="undertable_top">
@@ -40,7 +40,7 @@
       <div class="undertable_inner scroll-shadow-hard">
         <table>
           <tbody>
-            @tournamentLeaderboard.map { w =>
+            @tournamentWinners.map { w =>
             <tr>
               <td>@userLink(w.user, withRating = false, cssClass="revert-underline".some)</td>
               <td><a href="@routes.Tournament.show(w.tour.id)" class="revert-underline">@w.tour.name.replace("Lichess ", "")</a></td>

@@ -4,7 +4,7 @@ import scala.concurrent.duration.FiniteDuration
 
 import lila.user.{ User, UserRepo }
 
-final class Leaderboard(ttl: FiniteDuration) {
+final class Winners(ttl: FiniteDuration) {
 
   private val scheduledCache =
     lila.memo.AsyncCache(fetchScheduled, timeToLive = ttl)

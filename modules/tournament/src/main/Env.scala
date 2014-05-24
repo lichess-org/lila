@@ -58,7 +58,7 @@ final class Env(
     chat = hub.actor.chat,
     flood = flood)
 
-  lazy val leaderboard = new Leaderboard(LeaderboardCacheTtl)
+  lazy val winners = new Winners(LeaderboardCacheTtl)
 
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {

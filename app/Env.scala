@@ -22,7 +22,7 @@ final class Env(
     featured = Env.tv.featured,
     relations = Env.relation.api,
     leaderboard = Env.user.cached.topRatingDay.apply,
-    tournamentLeaderboard = Env.tournament.leaderboard.scheduled,
+    tourneyWinners = Env.tournament.winners.scheduled,
     timelineEntries = Env.timeline.getter.userEntries _,
     nowPlaying = Env.round.nowPlaying,
     dailyPuzzle = Env.puzzle.daily,
