@@ -29,7 +29,7 @@
   <p class="description">
     @autoLink(t.description)
     @t.location.map { loc =>
-    <br />@trans.location(): @loc
+    <br />@trans.location(): @autoLink(loc)
     }
   </p>
   <div class="actions">
