@@ -16,7 +16,7 @@
 #communication .player_chats .game {
   display: block;
   float: left;
-  width: 33%;
+  width: 33.33%;
 }
 #communication .player_chats .game:nth-child(odd) {
   background: #f0f0f0;
@@ -66,7 +66,7 @@
   margin: 1em 0;
 }
 body.dark #communication .player_chats .game:nth-child(odd),
-#communication .thread:nth-child(even) {
+body.dark #communication .thread:nth-child(even) {
   background: #202020;
 }
 body.dark #communication .player_chats,
