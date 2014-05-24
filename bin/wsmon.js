@@ -4,33 +4,36 @@ var lichessSri = Math.random().toString(36).substring(2);
 
 var url = 'ws://socket.en.lichess.org/lobby/socket';
 var client = new WebSocketClient();
+var averageLag;
 
 var connect = function() {
-  console.log('Connect to ' + url);
+  console.log('[info] Connect to ' + url);
   client.connect(url + '?sri=' + lichessSri);
 };
 
 client.on('connectFailed', function(error) {
-  console.log('Connect Error: ' + error.toString());
+  console.log('[error] connectFailed: ' + error.toString());
   setTimeout(connect, 5000);
 });
 
 client.on('connect', function(connection) {
-  console.log('WebSocket client connected');
+  console.log('[info] Client connected. Average lag:');
   connection.on('error', function(error) {
-    console.log("Connection Error: " + error.toString());
+    console.log('[error] ' + error.toString());
   });
   connection.on('close', function() {
-    console.log('echo-protocol Connection Closed');
+    console.log('[info] Connection closed');
+    averageLag = null;
     setTimeout(connect, 5000);
   });
   connection.on('message', function(message) {
     var data = JSON.parse(message.utf8Data);
     if (data.t == 'n') {
       var lag = new Date() - pingAt;
-      process.stdout.write(lag + ' ');
-      if (lag > 100) console.log('Lag alert: ' + lag);
-      setTimeout(ping, 5000);
+      if (lag > 100) console.log('[alert] High lag: ' + lag);
+      if (!averageLag) averageLag = lag;
+      else averageLag = 0.2 * (lag - averageLag) + averageLag;
+      setTimeout(ping, 1000);
     }
   });
 
@@ -46,3 +49,8 @@ client.on('connect', function(connection) {
 });
 
 connect();
+
+setInterval(function() {
+  if (averageLag !== null)
+    console.log(Math.round(averageLag * 10) / 10);
+}, 10000);
