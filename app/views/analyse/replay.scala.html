@@ -67,10 +67,10 @@ moreJs = moreJs) {
     </div>
   </div>
   <div class="moves_wrap">
-    <div id="GameText" class="scroll-shadow-soft@if(game.next.isDefined) { with_rematch }"></div>
+    <div id="GameText" class="scroll-shadow"></div>
     @game.next.map { n =>
     <p>
-      <a href="@routes.Round.watcher(n, pov.opponent.color.name)" data-icon="v">&nbsp;@trans.viewRematch()</a>
+      <a class="button" href="@routes.Round.watcher(n, pov.opponent.color.name)" data-icon="G" style="margin-left: 65px;">&nbsp;@trans.viewRematch()</a>
     </p>
     }
     <div class="advice_summary">
@@ -147,13 +147,13 @@ moreJs = moreJs) {
 </div>
 <div class="analysis_menu">
   <a data-panel="computer_analysis" class="active">@trans.computerAnalysis()</a>
-  <a data-panel="fen_pgn">FEN &amp; PGN</a>
   @if(game.pgnImport.isEmpty) {
   <a data-panel="move_times">@trans.moveTimes()</a>
   @if(cross.isDefined) {
   <a data-panel="crosstable">Crosstable</a>
   }
   }
+  <a data-panel="fen_pgn">FEN &amp; PGN</a>
 </div>
 @analysis.filter(_.old && ctx.isAuth).map { a =>
 <form class="better_analysis" action="@routes.Analyse.betterAnalysis(gameId, color.name)" method="post">
