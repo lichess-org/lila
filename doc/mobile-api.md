@@ -9,7 +9,8 @@ http --form POST en.l.org/setup/ai variant=1 clock=false time=60 increment=60 le
 ```
 - level: 1 to 8
 - color: white|black|random
-- variant: 1 (standard) or 2 (chess960)
+- variant: 1 (standard) | 2 (chess960) | 3 (from position)
+- fen: if variant is 3, any valid FEN string
 
 Response: `201 CREATED`
 ```javascript
