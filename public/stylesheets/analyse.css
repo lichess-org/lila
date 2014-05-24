@@ -153,9 +153,6 @@ div.game_control a {
   border: 1px solid #ccc;
   overflow: auto;
 }
-#GameText.with_rematch {
-  height: 463px;
-}
 #GameText .move,
 #GameText .variation {
   font-family: 'pgn4web ChessSansPiratf', 'pgn4web Liberation Sans', sans-serif;
