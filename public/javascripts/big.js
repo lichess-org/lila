@@ -394,13 +394,6 @@ var storage = {
                 return false;
               });
             };
-            $('div.lichess_overboard.joining.' + data.id).each(function() {
-              if (!$(this).find('a.decline').length) $(this).find('form').append(
-                declineListener($(data.html).find('a.decline'), function() {
-                  location.href = "/";
-                })
-              );
-            });
             if ($notif.length) clearTimeout($notif.data('timeout'));
             else {
               $('#notifications').append(data.html);
@@ -414,6 +407,14 @@ var storage = {
                 storage.set('challenge-' + data.id, 1);
               }
             }
+            $('div.lichess_overboard.joining.' + data.id).each(function() {
+              $notif.hide();
+              if (!$(this).find('a.decline').length) $(this).find('form').append(
+                declineListener($(data.html).find('a.decline'), function() {
+                  location.href = "/";
+                })
+              );
+            });
             $notif.data('timeout', setTimeout(function() {
               $notif.remove();
             }, 3000));
