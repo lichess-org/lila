@@ -5,12 +5,10 @@
     <span class="title">@title</span>
     <input title="@trans.toggleTheChat()" class="toggle_chat" type="checkbox" />
   </div>
-  <div>
-    <ol class="messages content scroll-shadow"></ol>
-    <form action="#">
-      <input class="lichess_say" value="" placeholder="@trans.talkInChat()" />
-      <a class="send" data-icon="z"></a>
-    </form>
-  </div>
+  <ol class="messages content scroll-shadow-soft"></ol>
+  <form action="#">
+    <input class="lichess_say" value="" placeholder="@trans.talkInChat()" />
+    <a class="send" data-icon="z"></a>
+  </form>
 </div>
 @embedJs(s"""var lichess_chat=${chat.toJsonString};""")

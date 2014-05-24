@@ -792,6 +792,10 @@ div.lichess_goodies div.box {
   border: 1px solid #ccc;
   padding: 7px;
 }
+div.lichess_goodies div.box.no_padding {
+  width: 226px;
+  padding: 0;
+}
 div.lichess_goodies div.confrontation {
   text-align: center;
   margin-bottom: 5px;
@@ -2305,18 +2309,22 @@ input.copyable {
   width: 16px;
   height: 16px;
 }
-.scroll-shadow {
+.scroll-shadow-soft {
   background:
-  /* Shadow covers */
-  linear-gradient(#fff 20px, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #fff -20px) 0 100%,
-  /* Shadows */
+  linear-gradient(#f7f7f7 30%, rgba(247, 247, 247, 0)), linear-gradient(rgba(247, 247, 247, 0), #f7f7f7 70%) 0 100%,
   radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+}
+.scroll-shadow-hard {
+  background:
+  linear-gradient(#fff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #fff 70%) 0 100%,
+  radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+}
+.scroll-shadow-soft,
+.scroll-shadow-hard {
   background-repeat: no-repeat;
   background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
-  /* Opera doesn't support this in the shorthand */
   background-attachment: local, local, scroll, scroll;
 }
-
 [data-hint] {
   position: relative;
   display: inline-block;

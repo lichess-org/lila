@@ -116,10 +116,6 @@ body.dark div.offered_draw {
 body.dark #crosstable td.last {
   border-right-color: #3d3d3d;
 }
-body.dark #timeline,
-body.dark #timeline > .entry {
-  border-color: #2b2b2b;
-}
 body.dark #hooks_wrap > div.tabs > a.active {
   border-bottom-color: #303030;
 }
@@ -144,11 +140,6 @@ body.dark #top a.goto_nav:hover,
 body.dark a#sound_state:hover {
   color: #c0c0c0;
 }
-body.dark #top .dropdown,
-body.dark #top .shown a.toggle,
-body.dark div.analysis_menu > a {
-  background: #2a2a2a;
-}
 body.dark #site_title,
 body.dark #timeline a,
 body.dark #site_baseline,
@@ -169,11 +160,15 @@ body.dark #hook_filter td > label.hover:hover,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
 }
+body.dark #GameText,
+body.dark #chat .messages,
 body.dark div.lichess_goodies div.box,
 body.dark div.lichess_table,
 body.dark div.lichess_table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
-body.dark #footer_wrap {
+body.dark #footer_wrap,
+body.dark div.lichess_table .loader:before,
+body.dark div.lichess_table .loader:after {
   background-color: #242424;
 }
 body.dark #hooks_wrap table.list td {
@@ -205,17 +200,23 @@ body.dark div.lichess_table_not_started {
   box-shadow: none;
   background: none;
 }
+body.dark #timeline,
+body.dark #timeline > .entry,
+body.dark #top .dropdown,
+body.dark #top .shown a.toggle,
+body.dark div.analysis_menu > a,
 body.dark div.undertable_inner,
 body.dark div.lichess_overboard,
 body.dark #tv_history tr:hover td,
-body.dark #chat .messages,
 body.dark div.content_box,
 body.dark div.content_box_inter a.active,
 body.dark #site_header div.side_menu a.active,
-body.dark #GameText,
 body.dark #tournament_side,
 body.dark table.translations tbody tr,
-body.dark form.translation_form div.message {
+body.dark form.translation_form div.message,
+body.dark #lichess_forum table.forum_table thead tr:nth-child(odd),
+body.dark div.content_box .loader:before,
+body.dark div.content_box .loader:after {
   background-color: #2b2b2b;
 }
 body.dark #site_header div.side_menu a.active,
@@ -239,9 +240,6 @@ body.dark div.search_status,
 body.dark #friend_box,
 body.dark #powerTip {
   background: #343434;
-}
-body.dark #lichess_forum table.forum_table thead tr:nth-child(odd) {
-  background: #2b2b2b;
 }
 body.dark #top ul.language_links a.accepted,
 body.dark #lichess_forum div.post .message,
@@ -366,14 +364,6 @@ body.dark .loader:before,
 body.dark .loader:after {
   background: #1a1a1a;
 }
-body.dark div.lichess_table .loader:before,
-body.dark div.lichess_table .loader:after {
-  background: #242424;
-}
-body.dark div.content_box .loader:before,
-body.dark div.content_box .loader:after {
-  background: #2b2b2b;
-}
 body.dark #puzzle > .side div.fail,
 body.dark #puzzle > .side div.loss {
   color: #e97472;
@@ -403,20 +393,19 @@ body.pirouetti.dark div.lichess_cemetery div.piece.black {
 body.alpha.dark div.lichess_cemetery div.piece.black {
   -webkit-filter: brightness(6) contrast(150%) drop-shadow(0 0 0.5px #fff);
 }
-body.dark .scroll-shadow {
+body.dark .scroll-shadow-hard {
   background:
-    /* Shadow covers */
-    linear-gradient(#2b2b2b 20px, rgba(42,42,42,0)),
-    linear-gradient(rgba(42,42,42,0), #2b2b2b -20px) 0 100%,
-
-    /* Shadows */
-    radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.8), rgba(0,0,0,0)),
-    radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.8), rgba(0,0,0,0)) 0 100%;
-
+  linear-gradient(#242424 30%, rgba(36, 36, 36, 0)), linear-gradient(rgba(36, 36, 36, 0), #242424 70%) 0 100%,
+  radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)) 0 100%;
+}
+body.dark .scroll-shadow-soft {
+  background:
+  linear-gradient(#242424 30%, rgba(36, 36, 36, 0)), linear-gradient(rgba(36, 36, 36, 0), #242424 70%) 0 100%,
+  radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)) 0 100%;
+}
+body.dark .scroll-shadow-soft, body.dark .scroll-shadow-hard {
   background-repeat: no-repeat;
   background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
-
-  /* Opera doesn't support this in the shorthand */
   background-attachment: local, local, scroll, scroll;
 }
 body.dark::-webkit-input-placeholder {
