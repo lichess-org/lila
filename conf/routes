@@ -135,10 +135,10 @@ POST  /account/preferences             controllers.Pref.formApply
 # Setup
 GET   /setup/ai                        controllers.Setup.aiForm
 POST  /setup/ai                        controllers.Setup.ai
-GET   /setup/friend                    controllers.Setup.friendForm(username: Option[String] ?= None)
-POST  /setup/friend                    controllers.Setup.friend(username: Option[String] ?= None)
+GET   /setup/friend                    controllers.Setup.friendForm(user: Option[String] ?= None)
+POST  /setup/friend                    controllers.Setup.friend(user: Option[String] ?= None)
 POST  /setup/decline                   controllers.Setup.decline(gameId: String)
-GET   /$fullId<[\w\-]{12}>/await       controllers.Setup.await(fullId: String, username: Option[String] ?= None)
+GET   /$fullId<[\w\-]{12}>/await       controllers.Setup.await(fullId: String, user: Option[String] ?= None)
 GET   /$fullId<[\w\-]{12}>/cancel      controllers.Setup.cancel(fullId: String)
 POST  /$id<[\w\-]{8}>/join             controllers.Setup.join(id: String)
 GET   /setup/hook                      controllers.Setup.hookForm

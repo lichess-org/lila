@@ -3,8 +3,8 @@
 @ctx.userId.map { myId =>
 @if(myId != userId) {
 @if(!blocked) {
-<a data-hint="@trans.challengeToPlay()" href="@routes.Lobby.home()?username=@usernameOrId(userId)#friend" class="icon button hint--bottom" href="#"><span data-icon="U"></span></a>
-<a data-hint="@trans.composeMessage()" href="@routes.Message.form()?username=@userId" class="icon button hint--bottom" href="#"><span data-icon="c"></span></a>
+<a data-hint="@trans.challengeToPlay()" href="@routes.Lobby.home()?user=@userId#friend" class="icon button hint--bottom" href="#"><span data-icon="U"></span></a>
+<a data-hint="@trans.composeMessage()" href="@routes.Message.form()?user=@userId" class="icon button hint--bottom" href="#"><span data-icon="c"></span></a>
 }
 @relation match {
 case None => {

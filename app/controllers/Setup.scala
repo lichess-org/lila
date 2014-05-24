@@ -31,8 +31,8 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
       }
   }
 
-  def friendForm(username: Option[String]) = Open { implicit ctx =>
-    if (HTTPRequest isXhr ctx.req) username ?? UserRepo.named flatMap {
+  def friendForm(userId: Option[String]) = Open { implicit ctx =>
+    if (HTTPRequest isXhr ctx.req) userId ?? UserRepo.named flatMap {
       case None => env.forms friendFilled get("fen") map {
         html.setup.friend(_, none, none)
       }
@@ -57,10 +57,10 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
     }
   }
 
-  def friend(username: Option[String]) = process(env.forms.friend) { config =>
+  def friend(userId: Option[String]) = process(env.forms.friend) { config =>
     implicit ctx =>
       env.processor friend config map { pov =>
-        pov -> routes.Setup.await(pov.fullId, username)
+        pov -> routes.Setup.await(pov.fullId, userId)
       }
   }
 
@@ -121,12 +121,12 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
     }
   }
 
-  def await(fullId: String, username: Option[String]) = Open { implicit ctx =>
+  def await(fullId: String, userId: Option[String]) = Open { implicit ctx =>
     OptionFuResult(GameRepo pov fullId) { pov =>
       pov.game.started.fold(
         Redirect(routes.Round.player(pov.fullId)).fuccess,
         Env.round.version(pov.gameId) zip
-          (username ?? UserRepo.named) flatMap {
+          (userId ?? UserRepo.named) flatMap {
             case (version, user) => PreventTheft(pov) {
               Ok(html.setup.await(
                 pov,
