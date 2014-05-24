@@ -28,12 +28,6 @@ final class Cached(
   val topProgressDay = AsyncCache(
     (nb: Int) => UserRepo.topProgressSince(oneDayAgo, nb),
     timeToLive = 14 minutes)
-  val topProgressWeek = AsyncCache(
-    (nb: Int) => UserRepo.topProgressSince(oneWeekAgo, nb),
-    timeToLive = 29 minutes)
-  val topProgressMonth = AsyncCache(
-    (nb: Int) => UserRepo.topProgressSince(oneMonthAgo, nb),
-    timeToLive = 27 minutes)
   val topRatingDay = AsyncCache(
     (nb: Int) => UserRepo.topRatingSince(oneDayAgo, nb),
     timeToLive = 13 minutes)
@@ -49,4 +43,8 @@ final class Cached(
   val topOnline = AsyncCache(
     (nb: Int) => UserRepo.byIdsSortRating(onlineUserIdMemo.keys, nb),
     timeToLive = 2 seconds)
+
+  val topToints = AsyncCache(
+    (nb: Int) => UserRepo allSortToints nb,
+    timeToLive = 10 minutes)
 }

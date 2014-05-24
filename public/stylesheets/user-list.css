@@ -4,6 +4,11 @@ div.user_lists h2 {
   line-height: 1.5em;
   margin-bottom: 0.5em;
 }
+#lichess div.user_lists,
+#lichess div.user_lists div.group {
+  overflow: hidden;
+  width: 100%;
+}
 #lichess div.user_lists div.user_top {
   float: left;
   width: 31%;

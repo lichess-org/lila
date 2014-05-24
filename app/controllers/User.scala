@@ -80,29 +80,29 @@ object User extends LilaController {
     Reasonable(page) {
       val nb = 10
       for {
-        progressDay ← env.cached.topProgressDay(nb)
-        progressWeek ← env.cached.topProgressWeek(nb)
-        progressMonth ← env.cached.topProgressMonth(nb)
-        rating ← env.cached.topRating(nb)
-        ratingDay ← env.cached.topRatingDay(nb)
-        ratingWeek ← env.cached.topRatingWeek(nb)
-        online ← env.cached.topOnline(30)
-        bullet ← env.cached.topBullet(nb)
-        blitz ← env.cached.topBlitz(nb)
-        slow ← env.cached.topSlow(nb)
-        active ← env.cached.topNbGame(nb) map2 { (user: UserModel) =>
+        progressDay ← env.cached topProgressDay nb
+        tourneyWinners ← Env.tournament.leaderboard scheduled nb
+        toint <- env.cached topToints nb
+        rating ← env.cached topRating nb
+        ratingDay ← env.cached topRatingDay nb
+        ratingWeek ← env.cached topRatingWeek nb
+        online ← env.cached topOnline 30
+        bullet ← env.cached topBullet nb
+        blitz ← env.cached topBlitz nb
+        slow ← env.cached topSlow nb
+        active ← env.cached topNbGame nb map2 { (user: UserModel) =>
           user -> user.count.game
         }
-        activeDay ← Env.game.cached.activePlayerUidsDay(nb) flatMap { pairs =>
+        activeDay ← Env.game.cached activePlayerUidsDay nb flatMap { pairs =>
           UserRepo.byOrderedIds(pairs.map(_._1)) map (_ zip pairs.map(_._2))
         }
-        activeWeek ← Env.game.cached.activePlayerUidsWeek(nb) flatMap { pairs =>
+        activeWeek ← Env.game.cached activePlayerUidsWeek nb flatMap { pairs =>
           UserRepo.byOrderedIds(pairs.map(_._1)) map (_ zip pairs.map(_._2))
         }
       } yield html.user.list(
         progressDay = progressDay,
-        progressWeek = progressWeek,
-        progressMonth = progressMonth,
+        tourneyWinners = tourneyWinners,
+        toint = toint,
         rating = rating,
         ratingDay = ratingDay,
         ratingWeek = ratingWeek,

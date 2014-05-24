@@ -1,4 +1,4 @@
-@(progressDay: List[User], progressWeek: List[User], progressMonth: List[User], rating: List[User], ratingDay: List[User], ratingWeek: List[User], online: List[User], bullet: List[User], blitz: List[User], slow: List[User], nb: List[(User, Int)], nbDay: List[(User, Int)], nbWeek: List[(User, Int)])(implicit ctx: Context)
+@(progressDay: List[User], tourneyWinners: List[lila.tournament.Winner], toint: List[User], rating: List[User], ratingDay: List[User], ratingWeek: List[User], online: List[User], bullet: List[User], blitz: List[User], slow: List[User], nb: List[(User, Int)], nbDay: List[(User, Int)], nbWeek: List[(User, Int)])(implicit ctx: Context)
 
 @goodies = {
 <div class="goodies">
@@ -28,22 +28,42 @@
 
 @user.layout(trans.players.str(), goodies = goodies.some) {
 <div class="content_box">
-  <div class="user_lists clearfix">
-    @user.topLeader(progressDay, trans.progressToday(), icon = "Q".some)
-    @user.topLeader(ratingDay, trans.todaysLeaders(), icon = "C".some)
-    @user.topActive(nbDay, trans.activeToday(), true, icon = "T".some)
+  <div class="user_lists">
 
-    @user.topLeader(progressWeek, trans.progressThisWeek(), icon = "Q".some)
-    @user.topLeader(ratingWeek, trans.leaderboardThisWeek(), icon = "C".some)
-    @user.topActive(nbWeek, trans.activeThisWeek(), true, icon = "T".some)
+    <div class="group">
+      @user.topLeader(progressDay, trans.progressToday(), icon = "Q".some)
+      @user.topLeader(ratingDay, trans.todaysLeaders(), icon = "C".some)
+      @user.topActive(nbDay, trans.activeToday(), true, icon = "T".some)
+    </div>
 
-    @user.topLeader(progressMonth, trans.progressThisMonth(), icon = "Q".some)
-    @user.topLeader(rating, trans.leaderboard(), moreUrl = routes.User.leaderboard.url.some, icon = "C".some)
-    @user.topActive(nb, trans.activePlayers(), true, icon = "T".some)
+    <div class="group">
+      @user.topLeader(toint, "Tournament leaderboard", icon = "g".some, moreUrl = routes.Tournament.home.url.some)
+      @user.topLeader(ratingWeek, trans.leaderboardThisWeek(), icon = "C".some)
+      @user.topActive(nbWeek, trans.activeThisWeek(), true, icon = "T".some)
+    </div>
 
-    @user.top(bullet, trans.bestBulletPlayers())(u => Html(s"<td>${u.perfs.bullet.glicko.intRating}</td>"))
-    @user.top(blitz, trans.bestBlitzPlayers())(u => Html(s"<td>${u.perfs.blitz.glicko.intRating}</td>"))
-    @user.top(slow, trans.bestSlowPlayers(), true)(u => Html(s"<td>${u.perfs.slow.glicko.intRating}</td>"))
+    <div class="group">
+      <div class="user_top">
+        <h2 data-icon="g"><a href="@routes.Tournament.home">Tournament winners</a></h2>
+        <table><tbody>
+            @tourneyWinners.map { w =>
+            <tr>
+              <td>@userLink(w.user, withRating = false, cssClass="revert-underline".some)</td>
+              <td><a href="@routes.Tournament.show(w.tour.id)" class="revert-underline">@w.tour.name.replace("Lichess ", "")</a></td>
+            </tr>
+            }
+        </tbody></table>
+      </div>
+      @user.topLeader(rating, trans.leaderboard(), moreUrl = routes.User.leaderboard.url.some, icon = "C".some)
+      @user.topActive(nb, trans.activePlayers(), true, icon = "T".some)
+    </div>
+
+    <div class="group">
+      @user.top(bullet, trans.bestBulletPlayers())(u => Html(s"<td>${u.perfs.bullet.glicko.intRating}</td>"))
+      @user.top(blitz, trans.bestBlitzPlayers())(u => Html(s"<td>${u.perfs.blitz.glicko.intRating}</td>"))
+      @user.top(slow, trans.bestSlowPlayers(), true)(u => Html(s"<td>${u.perfs.slow.glicko.intRating}</td>"))
+    </div>
+
   </div>
 </div>
 }
