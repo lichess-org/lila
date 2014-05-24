@@ -18,9 +18,11 @@ Response: `201 CREATED`
   "game": {
     "clock": false,
     "clockRunning": false,
+    "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
     "finished": false,
     "id": "39b12Ikl",
     "lastMove": null,
+    "moves": "",
     "player": "white",
     "started": true,
     "startedAtTurn": 0,
@@ -78,13 +80,15 @@ Response: `200 OK`
   "game": {
     "clock": false,
     "clockRunning": false,
+    "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
     "finished": false,
     "id": "39b12Ikl",
     "lastMove": null,
+    "moves": "e4 d5 exd5 Qxd5 Nc3",
     "player": "white",
     "started": true,
     "startedAtTurn": 0,
-    "turns": 0
+    "turns": 5
   },
   "player": {
     "color": "white",
