@@ -8,6 +8,8 @@ import play.api.libs.json.Json
 import lila.game.{ Pov, Game }
 import lila.pref.Pref
 
+import chess.format.Forsyth
+
 final class JsonView(baseAnimationDelay: Duration) {
 
   def playerJson(pov: Pov, version: Int, pref: Pref, apiVersion: Int) = {
@@ -15,6 +17,8 @@ final class JsonView(baseAnimationDelay: Duration) {
     Json.obj(
       "game" -> Json.obj(
         "id" -> gameId,
+        "fen" -> (Forsyth >> game.toChess),
+        "moves" -> game.pgnMoves.mkString(" "),
         "started" -> game.started,
         "finished" -> game.finishedOrAborted,
         "clock" -> game.hasClock,
