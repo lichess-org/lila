@@ -13,6 +13,11 @@ import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo }
 import tube.analysisTube
 
+case class ConcurrentAnalysisException(userId: String, progressId: String, gameId: String) extends Exception {
+
+  override def getMessage = s"[analysis] $userId already analyses $progressId, won't process $gameId"
+}
+
 final class Analyser(
     ai: ActorSelection,
     indexer: ActorSelection,
@@ -36,7 +41,7 @@ final class Analyser(
     def generate: Fu[Analysis] =
       admin.fold(fuccess(none), AnalysisRepo userInProgress userId) flatMap {
         _.fold(doGenerate) { progressId =>
-          fufail("[analysis] %s already analyses %s, won't process %s".format(userId, progressId, id))
+          fufail(ConcurrentAnalysisException(userId, progressId, id))
         }
       }
 

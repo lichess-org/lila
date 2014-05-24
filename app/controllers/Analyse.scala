@@ -34,8 +34,9 @@ object Analyse extends LilaController {
 
   private def makeAnalysis(id: String, me: lila.user.User)(implicit ctx: Context) =
     env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) andThen {
-      case Failure(err)                       => logerr("[analysis] " + err.getMessage)
-      case Success(analysis) if analysis.done => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
+      case Failure(e: lila.analyse.ConcurrentAnalysisException) => BadRequest(e.getMessage)
+      case Failure(err)                                         => logerr("[analysis] " + err.getMessage)
+      case Success(analysis) if analysis.done                   => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
     }
 
   def postAnalysis(id: String) = Action(parse.text) { req =>
