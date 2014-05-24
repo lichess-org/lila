@@ -126,6 +126,33 @@ Response: `200 OK`
 }
 ```
 
+## Fetch informations about finished game
+
+When the `end` event is received on the socket,
+you may call the `end` URL provided by the API
+to retrieve informations about the result of the game.
+
+```sh
+http GET en.l.org/39b12IklErMy/end 'Accept:application/vnd.lichess.v1+json'
+```
+
+Response: `200 OK`
+```javascript
+{
+    "isEnd": true,
+    "status": {
+        "id": 31,
+        "name": "Resign",
+        "translated": "Black resigned"
+    },
+    "winner": {
+        "isMe": false,
+        "name": "Matador_Angelo (1864)",
+        "userId": "matador_angelo"
+    }
+}
+```
+
 # WEBSOCKET
 
 ## Unique `clientId`

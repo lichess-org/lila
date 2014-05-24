@@ -111,25 +111,41 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def endWatcher(gameId: String, color: String) = Open { implicit ctx =>
-    JsonOptionFuOk(GameRepo.pov(gameId, color)) { end(_, false) }
+    OptionFuResult(GameRepo.pov(gameId, color)) { end(_, false) }
   }
 
   def endPlayer(fullId: String) = Open { implicit ctx =>
-    JsonOptionFuOk(GameRepo pov fullId) { end(_, true) }
+    OptionFuResult(GameRepo pov fullId) { end(_, true) }
   }
 
   private def end(pov: Pov, player: Boolean)(implicit ctx: Context) = {
     import templating.Environment.playerLink
-    pov.game.tournamentId ?? TournamentRepo.byId map { tour =>
-      val players = (pov.game.players collect {
-        case player if player.isHuman => player.color.name -> playerLink(player, withStatus = true).body
-      } toMap) ++ ctx.me.??(me => Map("me" -> me.usernameWithRating))
-      val table = if (player) html.round.table.end(pov, tour) else html.round.table.watch(pov)
-      Json.obj(
-        "players" -> players,
-        "infobox" -> html.game.infoBox(pov, tour, withTourStanding = player).toString,
-        "table" -> table.toString)
-    }
+    negotiate(
+      html = pov.game.tournamentId ?? TournamentRepo.byId map { tour =>
+        val players = (pov.game.players collect {
+          case player if player.isHuman => player.color.name -> playerLink(player, withStatus = true).body
+        } toMap) ++ ctx.me.??(me => Map("me" -> me.usernameWithRating))
+        val table = if (player) html.round.table.end(pov, tour) else html.round.table.watch(pov)
+        Ok(Json.obj(
+          "players" -> players,
+          "infobox" -> html.game.infoBox(pov, tour, withTourStanding = player).toString,
+          "table" -> table.toString)) as JSON
+      },
+      api = apiVersion => fuccess(Ok(Json.obj(
+        "isEnd" -> pov.game.finished
+      ) ++ pov.game.finished.fold(Json.obj(
+        "winner" -> pov.game.winner.map(w =>
+          Json.obj(
+            "userId" -> w.userId,
+            "name" -> lila.game.Namer.playerString(w)(Env.user.lightUser),
+            "isMe" -> pov.player.isWinner
+          )),
+        "status" -> Json.obj(
+          "id" -> pov.game.status.id,
+          "name" -> pov.game.status.name,
+          "translated" -> lila.app.templating.Environment.gameEndStatus(pov.game).body)
+      ), Json.obj())) as JSON)
+    )
   }
 
   def continue(id: String, mode: String) = Open { implicit ctx =>
