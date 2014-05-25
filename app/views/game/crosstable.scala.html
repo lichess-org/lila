@@ -13,11 +13,15 @@
         @crosstable.results.zipWithIndex.map {
         case (r, index) => {
         <td @if(index == crosstable.size - 1) { class="last" }>
-          <a href="@routes.Round.watcher(r.gameId, "white")">
+          <a href="@routes.Round.watcher(r.gameId, "white")" class="@r.winnerId match {
+            case Some(w) if w == u.id => { win }
+            case None => {}
+            case _ => { loss }
+            }">
             @r.winnerId match {
-            case Some(w) if w == u.id => { <span class="win">1</span> }
+            case Some(w) if w == u.id => { 1 }
             case None => { ½ }
-            case _ => { <span class="loss">0</span> }
+            case _ => { 0 }
             }
           </a>
         </td>

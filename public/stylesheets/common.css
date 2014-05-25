@@ -2053,10 +2053,10 @@ div.lichess_overboard.joining .mini_board {
   margin: 10px 0;
 }
 #crosstable {
-  width: 512px;
+  width: 514px;
 }
 #crosstable table {
-  width: 512px;
+  width: 100%;
   margin: 1em 0;
 }
 #crosstable td {
