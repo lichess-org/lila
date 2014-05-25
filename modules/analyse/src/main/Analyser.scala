@@ -36,10 +36,14 @@ final class Analyser(
   def hasMany(ids: Seq[String]): Fu[Set[String]] =
     $primitive[Analysis, String]($select byIds ids, "_id")(_.asOpt[String]) map (_.toSet)
 
-  def getOrGenerate(id: String, userId: String, admin: Boolean, auto: Boolean = false): Fu[Analysis] = {
+  def getOrGenerate(
+    id: String,
+    userId: String,
+    concurrent: Boolean,
+    auto: Boolean): Fu[Analysis] = {
 
     def generate: Fu[Analysis] =
-      admin.fold(fuccess(none), AnalysisRepo userInProgress userId) flatMap {
+      concurrent.fold(fuccess(none), AnalysisRepo userInProgress userId) flatMap {
         _.fold(doGenerate) { progressId =>
           fufail(ConcurrentAnalysisException(userId, progressId, id))
         }

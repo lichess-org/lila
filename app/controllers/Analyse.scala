@@ -7,7 +7,7 @@ import play.api.http.ContentTypes
 import play.api.mvc._
 import play.api.templates.Html
 
-import lila.analyse.{ TimeChart, AdvantageChart }
+import lila.analyse.{ Analysis, TimeChart, AdvantageChart }
 import lila.api.Context
 import lila.app._
 import lila.game.{ Pov, Game => GameModel, GameRepo, PgnDump }
@@ -33,8 +33,13 @@ object Analyse extends LilaController {
   }
 
   private def makeAnalysis(id: String, me: lila.user.User)(implicit ctx: Context) =
-    env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) andThen {
-      case Failure(e: lila.analyse.ConcurrentAnalysisException) => BadRequest(e.getMessage)
+    addCallbacks(id) {
+      env.analyser.getOrGenerate(id, me.id, concurrent = isGranted(_.MarkEngine), auto = false)
+    }
+
+  private[controllers] def addCallbacks(id: String)(analysis: Fu[Analysis]): Fu[Analysis] =
+    analysis andThen {
+      case Failure(e: lila.analyse.ConcurrentAnalysisException) => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
       case Failure(err)                                         => logerr("[analysis] " + err.getMessage)
       case Success(analysis) if analysis.done                   => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
     }

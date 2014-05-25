@@ -41,7 +41,7 @@ final class Env(
   system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.ai.AutoAnalyse(gameId) =>
-        analyser.getOrGenerate(gameId, "lichess", admin = true, auto = true)
+        analyser.getOrGenerate(gameId, "lichess", concurrent = true, auto = true)
     }
   }), name = ActorName)
 

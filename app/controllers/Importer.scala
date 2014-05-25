@@ -20,6 +20,9 @@ object Importer extends LilaController with BaseGame {
         Ok(html.game.importGame(listMenu, failure))
       },
       data => env.importer(data, ctx.userId, ctx.req.remoteAddress) map { game =>
+        Analyse.addCallbacks(game.id) {
+          Env.analyse.analyser.getOrGenerate(game.id, ctx.userId | "lichess", concurrent = true, auto = false)
+        }
         Redirect(routes.Round.watcher(game.id, "white"))
       } recover {
         case e => {
