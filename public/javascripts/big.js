@@ -1050,7 +1050,9 @@ var storage = {
                 self.element.find('.ui-draggable-dragging').remove();
                 self.$board.find('.piece:not(:visible)').show();
               }, 300);
-              $('div.underboard').hide().filter('.replay_and_analyse').show();
+              if (!$('div.game_tournament .standing').length) {
+                $('div.underboard').hide().filter('.replay_and_analyse').show();
+              }
               // But enqueue the visible changes
               self.element.queue(function() {
                 self.changeTitle($.trans("Game Over"));
