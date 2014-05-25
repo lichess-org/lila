@@ -542,13 +542,15 @@ div.lichess_table_wrap > div.clock > div.bar > span {
 div.lichess_table_wrap > div.clock > div.time {
   display: inline-block;
   border: 1px solid #ccc;
-  padding: 4px 10px 2px 10px;
-  font-size: 22px;
+  padding: 0 8px;
+  font-size: 27px;
   font-family: monospace;
-  font-weight: bold;
 }
 div.lichess_table_wrap > div.clock > div.time > span {
   font-size: 80%;
+}
+div.lichess_table_wrap > div.clock > div.time b {
+  font-weight: bold;
 }
 div.lichess_table_wrap > div.clock.running > div.time {
   background: #fff077;
@@ -565,11 +567,11 @@ div.lichess_table_wrap > div.clock.outoftime > div.time {
 }
 div.lichess_table_wrap > div.clock_top > div.time {
   border-bottom: 0;
-  border-radius: 4px 4px 0 0;
+  border-radius: 2px 2px 0 0;
 }
 div.lichess_table_wrap > div.clock_bottom > div.time {
   border-top: 0;
-  border-radius: 0 0 4px 4px;
+  border-radius: 0 0 2px 2px;
 }
 div.lichess_table_wrap a.moretime {
   opacity: 0.4;

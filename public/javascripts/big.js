@@ -1842,14 +1842,15 @@ var storage = {
     _formatDate: function(date) {
       var minutes = this._prefixInteger(date.getUTCMinutes(), 2);
       var seconds = this._prefixInteger(date.getSeconds(), 2);
+      var b = function(x) { return '<b>' + x + '</b>'; };
       if (this.options.showTenths && this.options.time < 10000) {
         tenths = Math.floor(date.getMilliseconds() / 100);
-        return minutes + ':' + seconds + '<span>.' + tenths + '</span>';
+        return b(minutes) + ':' + b(seconds) + '<span>.' + b(tenths) + '</span>';
       } else if (this.options.time >= 3600000) {
         var hours = this._prefixInteger(date.getUTCHours(), 2);
-        return hours + ':' + minutes + ':' + seconds;
+        return b(hours) + ':' + b(minutes) + ':' + b(seconds);
       } else {
-        return minutes + ':' + seconds;
+        return b(minutes) + ':' + b(seconds);
       }
     },
 
