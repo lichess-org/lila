@@ -2,7 +2,7 @@ package lila.analyse
 
 import chess.format.pgn.{ Pgn, Tag, Turn, Move }
 import chess.OpeningExplorer.Opening
-import chess.{ Status, Color }
+import chess.{ Status, Color, Clock }
 
 private[analyse] final class Annotator(netDomain: String) {
 
@@ -11,12 +11,19 @@ private[analyse] final class Annotator(netDomain: String) {
     analysis: Option[Analysis],
     opening: Option[Opening],
     winner: Option[Color],
-    status: Status): Pgn =
+    status: Status,
+    clock: Option[Clock]): Pgn =
     annotateStatus(winner, status) {
       annotateOpening(opening) {
         annotateTurns(p, analysis ?? (_.advices))
-      }.copy(tags = p.tags :+ Tag("Annotator", netDomain))
+      }.copy(
+        tags = (p.tags ::: (clock ?? clockTags)) :+ Tag("Annotator", netDomain)
+      )
     }
+
+  private def clockTags(clock: Clock) = List(
+    Tag(_.WhiteClock, clock showTime (clock remainingTime Color.White)),
+    Tag(_.BlackClock, clock showTime (clock remainingTime Color.Black)))
 
   import chess.{ Status => S }
   private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) = (winner match {
