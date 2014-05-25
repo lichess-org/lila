@@ -2,12 +2,6 @@
 
 @title = @{ s"TV ${playerText(pov.player)} vs ${playerText(pov.opponent)}" }
 
-@underchat = {
-<div class="watchers" data-icon="v">
-  @trans.spectators() <span class="list inline_userlist"></span>
-</div>
-}
-
 @goodies = {
 <div class="lichess_goodies">
   <div class="box">
@@ -57,7 +51,7 @@
 @round.layout(
 title = title,
 goodies = goodies,
-underchat = underchat.some,
+underchat = game.watchers().some,
 active = siteMenu.tv.some) {
 @round.watcherGame(pov)
 @cross.map { c =>

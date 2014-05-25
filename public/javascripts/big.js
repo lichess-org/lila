@@ -1621,6 +1621,7 @@ var storage = {
   $.widget("lichess.watchers", {
     _create: function() {
       this.list = this.element.find("span.list");
+      this.number = this.element.find("span.number");
     },
     set: function(users) {
       var self = this;
@@ -1628,6 +1629,12 @@ var storage = {
         self.list.html(_.map(users, function(u) {
           return u.indexOf('(') === -1 ? $.userLink(u) : u.replace(/\s\(1\)/, '');
         }).join(", "));
+        var nb = _.reduce(users, function(nb, u) {
+          return nb + (
+            u.indexOf('(') === -1 ? 1 : parseInt(u.replace(/^.+\((\d+)\)$/, '$1'))
+          );
+        }, 0);
+        self.number.html(nb);
         self.element.show();
       } else {
         self.element.hide();
@@ -1842,7 +1849,9 @@ var storage = {
     _formatDate: function(date) {
       var minutes = this._prefixInteger(date.getUTCMinutes(), 2);
       var seconds = this._prefixInteger(date.getSeconds(), 2);
-      var b = function(x) { return '<b>' + x + '</b>'; };
+      var b = function(x) {
+        return '<b>' + x + '</b>';
+      };
       if (this.options.showTenths && this.options.time < 10000) {
         tenths = Math.floor(date.getMilliseconds() / 100);
         return b(minutes) + ':' + b(seconds) + '<span>.' + b(tenths) + '</span>';

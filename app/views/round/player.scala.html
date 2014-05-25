@@ -4,17 +4,11 @@
 
 @title = @{ s"${trans.play.str()} ${playerText(pov.opponent)} in $gameId" }
 
-@underchat = {
-<div class="watchers" data-icon="v">
-  @trans.spectators() <span class="list inline_userlist"></span>
-</div>
-}
-
 @round.layout(
 title = title,
 goodies = views.html.game.infoBox(pov, tour, withTourStanding = true),
 chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
-underchat = underchat.some,
+underchat = views.html.game.watchers().some,
 signedJs = hijackEnabled(pov.game) option routes.Round.signedJs(pov.gameId) map (_.toString)) {
 <div class="lichess_game clearfix lichess_player_@color not_spectator@if(!ctx.pref.captured) { hide_captured }">
   <div class="lichess_board_wrap">
