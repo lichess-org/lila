@@ -96,9 +96,9 @@ object TournamentRepo {
     )
   ) map (_ flatMap asCreated)
 
-  def lastFinishedScheduled(nb: Int): Fu[List[Finished]] = $find(
+  def lastFinishedScheduledByFreq(freq: Schedule.Freq, nb: Int): Fu[List[Finished]] = $find(
     $query(finishedQuery ++ Json.obj(
-      "schedule" -> $exists(true)
+      "schedule.freq" -> freq.name
     )) sort BSONDocument(
       "schedule.at" -> -1
     ), nb

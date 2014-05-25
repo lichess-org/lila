@@ -33,5 +33,5 @@ package object tournament extends PackageObject with WithPlay with WithSocket {
 
 package tournament {
 
-  case class Winner(tour: Finished, user: lila.user.User)
+  case class Winner(tourId: String, tourName: String, userId: String)
 }

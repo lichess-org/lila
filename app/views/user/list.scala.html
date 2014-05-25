@@ -44,12 +44,12 @@
 
     <div class="group">
       <div class="user_top">
-        <h2 data-icon="g"><a href="@routes.Tournament.home">Tournament winners</a></h2>
+        <h2 data-icon="g">&nbsp;<a href="@routes.Tournament.home">Tournament winners</a></h2>
         <table><tbody>
             @tourneyWinners.map { w =>
             <tr>
-              <td>@userLink(w.user, withRating = false, cssClass="revert-underline".some)</td>
-              <td><a href="@routes.Tournament.show(w.tour.id)" class="revert-underline">@w.tour.name.replace("Lichess ", "")</a></td>
+              <td>@userIdLink(w.userId.some, cssClass="revert-underline".some)</td>
+              <td><a href="@routes.Tournament.show(w.tourId)" class="revert-underline">@w.tourName.replace("Lichess ", "")</a></td>
             </tr>
             }
         </tbody></table>
