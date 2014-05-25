@@ -216,6 +216,14 @@ The delay between `ping` and `pong` can be used to calculate the client lag.
 {t: 'move', d: {from: 'e2', to: 'e4'}}
 ```
 
+To promote, specify an additional `promotion` key.
+Accepted values are `queen`, `knight`, `rook`, or `bishop`.
+
+```javascript
+// send
+{t: 'move', d: {from: 'e7', to: 'e8', promotion: 'knight'}}
+```
+
 ## Receive game status
 
 The message data `d` is an array of events.
