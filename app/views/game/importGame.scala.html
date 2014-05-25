@@ -10,6 +10,10 @@ menu = game.sideMenu(listMenu, "import").some,
 moreCss = moreCss) {
 <div id="import_game" class="content_box">
   <h1 class="title">@trans.importGame()</h1>
+  <p class="explanation">
+    When pasting a game PGN, you get a <strong>browsable replay</strong>,<br />
+    a <strong>computer analysis</strong>, a <strong>game chat</strong> and a <strong>sharable URL</strong>.
+  </p>
   <form class="import" action="@routes.Importer.sendGame()" method="post">
     <label>
       <span>@trans.pasteThePgnStringHere() :</span>
@@ -18,7 +22,7 @@ moreCss = moreCss) {
       @errMsg(field)
       }
     </label>
-    <button class="submit button" type="submit" data-icon="E"> @trans.importGame()</button>
+    <button class="submit button" type="submit" data-icon="G"> @trans.importGame()</button>
     <div class="progression"></div>
   </form>
 </div>

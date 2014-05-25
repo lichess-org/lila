@@ -1,5 +1,9 @@
+#import_game .explanation {
+  margin: 40px 0;
+  font-size: 1.3em;
+  text-align: center;
+}
 #import_game form {
-  margin-top: 2em;
   font-size: 1.3em;
 }
 #import_game form label {
@@ -18,8 +22,10 @@
   padding: 0.5em;
   font-size: 0.9em;
 }
-#import_game form.wide .submit {
-  margin-left: 110px;
+#import_game button.submit {
+  margin: auto;
+  display: block;
+  font-size: 2em;
 }
 
 #import_game form p.error {
