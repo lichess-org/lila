@@ -66,4 +66,16 @@ sealed abstract class PostRepo(troll: Boolean) {
     else Json.obj("lang" -> $in(langs))
 
   def sortQuery = $sort.createdAsc
+
+  def userIdsByTopicId(topicId: String): Fu[List[String]] = {
+    import reactivemongo.bson._
+    import reactivemongo.core.commands._
+    val command = Aggregate(postTube.coll.name, Seq(
+      Match(BSONDocument("topicId" -> topicId)),
+      GroupField("userId")()
+    ))
+    postTube.coll.db.command(command) map { stream =>
+      stream.toList flatMap (_.getAs[String]("_id"))
+    }
+  }
 }

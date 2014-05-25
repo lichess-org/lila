@@ -26,8 +26,8 @@ final class PostApi(
     categ: Categ,
     topic: Topic,
     data: DataForm.PostData)(implicit ctx: UserContext): Fu[Post] =
-    lastNumberOf(topic) zip detectLanguage(data.text) flatMap {
-      case (number, lang) =>
+    lastNumberOf(topic) zip detectLanguage(data.text) zip userIds(topic) flatMap {
+      case ((number, lang), topicUserIds) =>
         val post = Post.make(
           topicId = topic.id,
           author = data.author,
@@ -46,7 +46,10 @@ final class PostApi(
           (env.recent.invalidate inject post) >>-
           ((ctx.userId ifFalse post.troll) ?? { userId =>
             timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop =>
-              post.isStaff.fold(prop toStaffFriendsOf userId, prop toFollowersOf userId)
+              post.isStaff.fold(
+                prop toStaffFriendsOf userId,
+                prop toFollowersOf userId toUsers topicUserIds exceptUser userId
+              )
             )
           }) inject post
     }
@@ -123,4 +126,6 @@ final class PostApi(
   } yield ()).run.void
 
   def nbByUser(userId: String) = $count[Post](Json.obj("userId" -> userId))
+
+  def userIds(topic: Topic) = PostRepo userIdsByTopicId topic.id
 }
