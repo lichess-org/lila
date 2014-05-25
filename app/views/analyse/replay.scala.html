@@ -67,7 +67,7 @@ moreJs = moreJs) {
     </div>
   </div>
   <div class="moves_wrap">
-    <div id="GameText" class="scroll-shadow"></div>
+    <div id="GameText" class="scroll-shadow-soft"></div>
     @game.next.map { n =>
     <p>
       <a class="button" href="@routes.Round.watcher(n, pov.opponent.color.name)" data-icon="G" style="margin-left: 65px;">&nbsp;@trans.viewRematch()</a>

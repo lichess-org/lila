@@ -167,9 +167,10 @@ body.dark div.lichess_table,
 body.dark div.lichess_table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
 body.dark #footer_wrap,
+body.dark div.undertable_inner,
 body.dark div.lichess_table .loader:before,
 body.dark div.lichess_table .loader:after {
-  background-color: #242424;
+  background-color: #262626;
 }
 body.dark #hooks_wrap table.list td {
   background: rgba(40, 40, 40, 0.6);
@@ -200,12 +201,9 @@ body.dark div.lichess_table_not_started {
   box-shadow: none;
   background: none;
 }
-body.dark #timeline,
-body.dark #timeline > .entry,
 body.dark #top .dropdown,
 body.dark #top .shown a.toggle,
 body.dark div.analysis_menu > a,
-body.dark div.undertable_inner,
 body.dark div.lichess_overboard,
 body.dark #tv_history tr:hover td,
 body.dark div.content_box,
@@ -218,6 +216,10 @@ body.dark #lichess_forum table.forum_table thead tr:nth-child(odd),
 body.dark div.content_box .loader:before,
 body.dark div.content_box .loader:after {
   background-color: #2b2b2b;
+}
+body.dark #timeline,
+body.dark #timeline > .entry {
+  border-color: #2b2b2b;
 }
 body.dark #site_header div.side_menu a.active,
 body.dark #hooks_wrap table.list,
@@ -393,17 +395,21 @@ body.pirouetti.dark div.lichess_cemetery div.piece.black {
 body.alpha.dark div.lichess_cemetery div.piece.black {
   -webkit-filter: brightness(6) contrast(150%) drop-shadow(0 0 0.5px #fff);
 }
+body.dark .scroll-shadow-soft,
 body.dark .scroll-shadow-hard {
   background:
-  linear-gradient(#242424 30%, rgba(36, 36, 36, 0)), linear-gradient(rgba(36, 36, 36, 0), #242424 70%) 0 100%,
-  radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)) 0 100%;
-}
-body.dark .scroll-shadow-soft {
-  background:
-  linear-gradient(#242424 30%, rgba(36, 36, 36, 0)), linear-gradient(rgba(36, 36, 36, 0), #242424 70%) 0 100%,
+  linear-gradient(#262626 30%, rgba(36, 36, 36, 0)), linear-gradient(rgba(36, 36, 36, 0), #262626 70%) 0 100%,
   radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)) 0 100%;
 }
 body.dark .scroll-shadow-soft, body.dark .scroll-shadow-hard {
+  background-repeat: no-repeat;
+  background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
+  background-attachment: local, local, scroll, scroll;
+}
+body.dark div.user_show div.user-infos.scroll-shadow-hard {
+  background:
+  linear-gradient(#2b2b2b 30%, rgba(43, 43, 43, 0)), linear-gradient(rgba(43, 43, 43, 0), #2b2b2b 70%) 0 100%,
+  radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)) 0 100%;
   background-repeat: no-repeat;
   background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
   background-attachment: local, local, scroll, scroll;
