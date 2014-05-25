@@ -6,23 +6,28 @@ var url = 'ws://socket.en.lichess.org/lobby/socket';
 var client = new WebSocketClient();
 var averageLag;
 
+var logger = function(sev, msg) {
+  console.log();
+  console.log(new Date() + ' [' + sev + '] ' + msg);
+};
+
 var connect = function() {
-  console.log('[info] Connect to ' + url);
+  logger('info', 'Connect to ' + url);
   client.connect(url + '?sri=' + lichessSri);
 };
 
 client.on('connectFailed', function(error) {
-  console.log('[error] connectFailed: ' + error.toString());
+  logger('error', 'connectFailed: ' + error.toString());
   setTimeout(connect, 5000);
 });
 
 client.on('connect', function(connection) {
-  console.log('[info] Client connected. Average lag:');
+  logger('info', 'Client connected. Average lag:');
   connection.on('error', function(error) {
-    console.log('[error] ' + error.toString());
+    logger('error', error.toString());
   });
   connection.on('close', function() {
-    console.log('[info] Connection closed');
+    logger('info', 'Connection closed');
     averageLag = null;
     setTimeout(connect, 5000);
   });
@@ -30,7 +35,7 @@ client.on('connect', function(connection) {
     var data = JSON.parse(message.utf8Data);
     if (data.t == 'n') {
       var lag = new Date() - pingAt;
-      if (lag > 100) console.log('[alert] High lag: ' + lag);
+      if (lag > 100) logger('warn', 'High lag: ' + lag);
       if (!averageLag) averageLag = lag;
       else averageLag = 0.2 * (lag - averageLag) + averageLag;
       setTimeout(ping, 1000);
@@ -52,5 +57,5 @@ connect();
 
 setInterval(function() {
   if (averageLag !== null)
-    console.log(Math.round(averageLag * 10) / 10);
+    process.stdout.write(Math.round(averageLag) + ' ');
 }, 10000);
