@@ -38,7 +38,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
       }
       case Some(user) => challenge(user) flatMap { error =>
         env.forms friendFilled get("fen") map {
-          html.setup.friend(_, user.username.some, error)
+          html.setup.friend(_, user.some, error)
         }
       }
     }

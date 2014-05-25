@@ -235,6 +235,7 @@ ul.ui-autocomplete li a.ui-state-focus {
   animation: load2 2s infinite ease 1.5s;
 }
 .loader {
+  display: block;
   font-size: 11px;
   margin: 0 auto;
   position: relative;
@@ -293,6 +294,8 @@ ul.ui-autocomplete li a.ui-state-focus {
     transform: rotate(360deg);
   }
 }
+div.lichess_overboard .loader:before,
+div.lichess_overboard .loader:after,
 div.content_box .loader:before,
 div.content_box .loader:after {
   background: #fff;

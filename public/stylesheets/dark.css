@@ -194,9 +194,6 @@ body.dark #hooks_wrap > div.tabs > a:hover,
 body.dark #hooks_wrap > div.tabs > a.active {
   background-color: #303030;
 }
-body.dark div.lichess_overboard.game_config {
-  box-shadow: 0 0 20px #d0d0d0;
-}
 body.dark div.lichess_table_not_started {
   box-shadow: none;
   background: none;
@@ -213,6 +210,8 @@ body.dark #tournament_side,
 body.dark table.translations tbody tr,
 body.dark form.translation_form div.message,
 body.dark #lichess_forum table.forum_table thead tr:nth-child(odd),
+body.dark div.lichess_overboard .loader:before,
+body.dark div.lichess_overboard .loader:after,
 body.dark div.content_box .loader:before,
 body.dark div.content_box .loader:after {
   background-color: #2b2b2b;

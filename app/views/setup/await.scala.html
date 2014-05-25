@@ -12,10 +12,11 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
     <div class="lichess_overboard auto_center">
       @userOption.map { user =>
       <div id="challenge_await" data-user="@user.id">
-        <h2 data-icon="U"> @trans.challengeToPlay()</h2>
+        <h2>@trans.challengeToPlay()</h2>
         @userLink(user, cssClass="target".some)
+        <span class="loader"><span data-icon="U"></span></span>
         <p class="explanations">
-          @trans.waitingForOpponent()
+          @trans.waitingForOpponent()<br />
           <a href="@routes.Setup.cancel(fullId)">@trans.cancel()</a>
         </p>
       </div>
@@ -27,7 +28,7 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
       @trans.toInviteSomeoneToPlayGiveThisUrl():
       <input id="lichess_id_input" class="copyable" spellcheck="false" readonly="true" value="@protocol@commonDomain@routes.Round.watcher(gameId, "white")" />
       <p class="explanations">
-        @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()
+        @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()<br />
         <a href="@routes.Setup.cancel(fullId)">@trans.cancel()</a>
       </p>
       }

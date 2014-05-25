@@ -47,6 +47,7 @@ form.search_user_form {
   margin: 1em 0 0 0;
 }
 form.search_user_form input {
-  border: 1px solid #DADADA;
+  border: 1px solid #ccc;
   padding: 3px 5px;
+  width: 186px;
 }

@@ -374,8 +374,8 @@ div.lichess_overboard {
   font-size: 14px;
   line-height: 1.8em;
   text-decoration: none;
-  background: #FFF;
-  box-shadow: 0px 0px 30px #444;
+  background: #fff;
+  box-shadow: 0 0 95px 25px rgba(0,0,0,0.6);
   text-align: center;
 }
 div.lichess_overboard a.close {
@@ -390,12 +390,15 @@ div.lichess_overboard a.close {
 div.lichess_overboard a.close:hover {
   opacity: 1;
 }
+div.lichess_overboard .loader span {
+  font-size: 50px;
+  line-height: 103px;
+}
 div.lichess_overboard p.explanations {
-  margin-top: 1em;
+  margin: 1.5em 10px 0 10px;
   font-size: 12px;
   line-height: 1.4em;
-  text-align: left;
-  padding-left: 1em;
+  text-align: center;
 }
 #premove_alert,
 #dont_touch {
