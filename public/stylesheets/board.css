@@ -209,6 +209,10 @@ body.pirouetti div.piece.white {
 body.pirouetti div.piece.black {
   -webkit-filter: drop-shadow(0 0 0.6px #e0e0e0);
 }
+body.pirouetti div.piece.ui-draggable-dragging,
+body.pirouetti div.piece.animating {
+  -webkit-filter: none!important;
+}
 body.pirouetti div.pawn.white {
   background-image: url(../piece/pirouetti/wP.svg);
 }

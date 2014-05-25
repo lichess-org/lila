@@ -1183,10 +1183,13 @@ var storage = {
           top: $from.offset().top,
           left: $from.offset().left
         }));
-        $piece.animate({
+        $piece.addClass('animating').animate({
           top: $to.offset().top,
           left: $to.offset().left
-        }, animD, afterMove);
+        }, animD, function() {
+          $piece.removeClass('animating');
+          afterMove();
+        });
       }
     },
     animationDelay: function() {
