@@ -43,7 +43,7 @@ final class PgnDump(
   private def rating(p: Player) = p.rating.fold("?")(_.toString)
 
   private def player(p: Player, u: Option[User]) =
-    p.aiLevel.fold(u.fold(User.anonymous)(_.username))("AI-level-" + _)
+    p.aiLevel.fold(u.fold(User.anonymous)(_.username))("lichess AI level " + _)
 
   private def tags(game: Game): Fu[List[Tag]] = {
     val opening =
