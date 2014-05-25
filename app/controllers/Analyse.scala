@@ -59,7 +59,7 @@ object Analyse extends LilaController {
           val opening = gameOpening(pov.game)
           Ok(html.analyse.replay(
             pov,
-            Env.analyse.annotator(pgn, analysis, opening).toString,
+            Env.analyse.annotator(pgn, analysis, opening, pov.game.winnerColor, pov.game.status).toString,
             opening,
             analysis,
             analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
@@ -78,7 +78,7 @@ object Analyse extends LilaController {
         case None => for {
           pgn ← Env.game.pgnDump(game)
           analysis ← env.analyser getDone game.id
-        } yield Env.analyse.annotator(pgn, analysis, gameOpening(game)).toString
+        } yield Env.analyse.annotator(pgn, analysis, gameOpening(game), game.winnerColor, game.status).toString
       }) flatMap { content =>
         Env.game.pgnDump filename game map { filename =>
           Ok(content).withHeaders(
