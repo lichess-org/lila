@@ -9,6 +9,7 @@ import lila.game.{ Pov, Game }
 import lila.pref.Pref
 
 import chess.format.Forsyth
+import chess.{ Color, Clock }
 
 final class JsonView(baseAnimationDelay: Duration) {
 
@@ -27,6 +28,7 @@ final class JsonView(baseAnimationDelay: Duration) {
         "turns" -> game.turns,
         "startedAtTurn" -> game.startedAtTurn,
         "lastMove" -> game.castleLastMoveTime.lastMoveString),
+      "clock" -> game.clock.map(clockJson),
       "player" -> Json.obj(
         "id" -> playerId,
         "color" -> player.color.name,
@@ -90,6 +92,12 @@ final class JsonView(baseAnimationDelay: Duration) {
       "tv" -> tv
     )
   }
+
+  private def clockJson(clock: Clock) = Json.obj(
+    "white" -> clock.remainingTime(Color.White),
+    "black" -> clock.remainingTime(Color.Black),
+    "emerg" -> clock.emergTime
+  )
 
   private def possibleMoves(pov: Pov) = (pov.game playableBy pov.player) option {
     pov.game.toChess.situation.destinations map {

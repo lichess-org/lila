@@ -28,6 +28,12 @@ Response: `201 CREATED`
     "startedAtTurn": 0,
     "turns": 0
   },
+  "clock": {
+    // all durations are expressed in seconds
+    "black": 3600.0,
+    "emerg": 30,              // critical threshold
+    "white": 3600.0
+  },
   "player": {
     "color": "white",
     "id": "ErMy",
@@ -89,6 +95,12 @@ Response: `200 OK`
     "started": true,
     "startedAtTurn": 0,
     "turns": 5
+  },
+  "clock": {
+    // all durations are expressed in seconds
+    "black": 3600.0,
+    "emerg": 30,              // critical threshold
+    "white": 3600.0
   },
   "player": {
     "color": "white",
