@@ -4,6 +4,6 @@
   @base.input(field, placeholder=trans.pasteTheFenStringHere.str().some)
   <a class="board_editor" href="@routes.Editor.index(~field.value)">
     <span class="preview"></span>
-    <span data-icon="m">&nbsp;@trans.boardEditor()</span>
+    <span class="button thin" data-icon="m">&nbsp;@trans.boardEditor()</span>
   </a>
 </div>

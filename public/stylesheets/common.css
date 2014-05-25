@@ -1234,6 +1234,10 @@ table.slist thead {
 a.button {
   padding: 6px 11px;
 }
+.button.thin,
+a.button.thin {
+  padding: 0 8px;
+}
 .button,
 a.button,
 .ui-button,
@@ -1491,7 +1495,15 @@ div.game_config input[type="text"] {
   padding: 2px 3px;
 }
 div.game_config .fen_position {
+  padding: 8px 0;
   display: none;
+}
+div.game_config .fen_position .mini_board {
+  margin: 8px auto 0 auto;
+}
+div.game_config .fen_position .button {
+  display:inline-block;
+  margin-top: 8px;
 }
 div.game_config input {
   font-family: monospace;
@@ -1534,9 +1546,6 @@ ul.language_links a {
 ul.language_links a.current,
 ul.language_links a.accepted {
   font-weight: bold;
-}
-div.game_config .fen_position .mini_board {
-  margin: 10px auto 0 auto;
 }
 div.game_config .time_choice,
 div.game_config .increment_choice,
