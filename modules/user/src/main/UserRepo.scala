@@ -29,8 +29,8 @@ trait UserRepo {
 
   def all: Fu[List[User]] = $find.all
 
-  def topRating(nb: Int): Fu[List[User]] =
-    $find($query(stableGoodLadSelect) sort sortRatingDesc, nb)
+  def topRating(nb: Int): Fu[List[User]] = topRatingSince(DateTime.now minusMonths 2, nb)
+
   def topRatingSince(since: DateTime, nb: Int): Fu[List[User]] =
     $find($query(stableGoodLadSelect ++ perfSince("global", since)) sort sortRatingDesc, nb)
 
@@ -113,12 +113,11 @@ trait UserRepo {
   val enabledSelect = Json.obj(F.enabled -> true)
   def engineSelect(v: Boolean) = Json.obj(F.engine -> v.fold(JsBoolean(true), $ne(true)))
   val stableSelect = Json.obj("perfs.global.nb" -> $gte(50))
+  val activeSelect = perfSince("global", DateTime.now minusMonths 2)
   val goodLadSelect = enabledSelect ++ engineSelect(false)
   val stableGoodLadSelect = stableSelect ++ goodLadSelect
   def minRatingSelect(rating: Int) = Json.obj(F.rating -> $gt(rating))
-  def perfSince(perf: String, since: DateTime) = Json.obj(
-    s"perfs.$perf.la" -> Json.obj("$gt" -> $date(since))
-  )
+  def perfSince(perf: String, since: DateTime) = Json.obj(s"perfs.$perf.la" -> $gt($date(since)))
   val goodLadQuery = $query(goodLadSelect)
 
   val sortRatingDesc = $sort desc "rating"
