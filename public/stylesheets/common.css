@@ -1660,7 +1660,7 @@ div.game_config div.color_submits button.random span {
   width: 472px;
   height: 472px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.6);
   display: none;
 }
 #hook_filter.active {

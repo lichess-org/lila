@@ -182,7 +182,7 @@ body.dark #hooks_wrap table.list tr:hover td {
   background: rgba(27, 51, 68, 0.7);
 }
 body.dark #hook_filter {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.6);
 }
 body.dark #hook_filter td > label {
   color: #c0c0c0;
