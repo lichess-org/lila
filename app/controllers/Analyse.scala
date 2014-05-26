@@ -22,13 +22,13 @@ object Analyse extends LilaController {
 
   def requestAnalysis(id: String) = Auth { implicit ctx =>
     me =>
-      makeAnalysis(id, me) inject
+      makeAnalysis(id, me) injectAnyway
         Ok(html.analyse.computing())
   }
 
   def betterAnalysis(id: String, color: String) = Auth { implicit ctx =>
     me =>
-      makeAnalysis(id, me) inject
+      makeAnalysis(id, me) injectAnyway
         Redirect(routes.Round.watcher(id, color))
   }
 
@@ -38,7 +38,7 @@ object Analyse extends LilaController {
     }
 
   private[controllers] def addCallbacks(id: String)(analysis: Fu[Analysis]): Fu[Analysis] =
-    analysis andThen {
+    analysis andThenAnyway {
       case Failure(e: lila.analyse.ConcurrentAnalysisException) => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
       case Failure(err)                                         => logerr("[analysis] " + err.getMessage)
       case Success(analysis) if analysis.done                   => Env.hub.socket.round ! Tell(id, AnalysisAvailable)

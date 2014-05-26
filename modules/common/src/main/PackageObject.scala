@@ -127,6 +127,8 @@ trait WithPlay { self: PackageObject =>
 
     def inject[B](b: => B): Fu[B] = fua map (_ => b)
 
+    def injectAnyway[B](b: => B): Fu[B] = fua.fold(_ => b, _ => b)
+
     def effectFold(fail: Exception => Unit, succ: A => Unit) {
       fua onComplete {
         case scala.util.Failure(e: Exception) => fail(e)
