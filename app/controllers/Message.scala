@@ -49,7 +49,7 @@ object Message extends LilaController {
   def form = Auth { implicit ctx =>
     implicit me =>
       get("username") ?? UserRepo.named map { user =>
-        Ok(html.message.form(forms.thread(me), user))
+        Ok(html.message.form(forms.thread(me), user, get("title")))
       }
   }
 

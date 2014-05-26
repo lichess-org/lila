@@ -1,4 +1,4 @@
-@(form: Form[_], reqUser: Option[User] = None)(implicit ctx: Context)
+@(form: Form[_], reqUser: Option[User] = None, reqTitle: Option[String] = None)(implicit ctx: Context)
 
 @message.layout(
 title = trans.composeMessage.str()) {
@@ -33,7 +33,7 @@ title = trans.composeMessage.str()) {
         required="required"
         name="@form("subject").name"
         id="@form("subject").id"
-        value="@form("subject").value">
+        value="@form("subject").value.filter(_.nonEmpty).orElse(reqTitle)">
         @errMsg(form("subject"))
       </div>
       <div class="field_body">
