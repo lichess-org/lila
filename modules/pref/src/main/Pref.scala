@@ -22,7 +22,8 @@ case class Pref(
     highlight: Boolean,
     challenge: Int,
     coordColor: Int,
-    puzzleDifficulty: Int) {
+    puzzleDifficulty: Int,
+    tags: Map[String, String] = Map.empty) {
 
   import Pref._
 
@@ -30,6 +31,8 @@ case class Pref(
   def realPieceSet = PieceSet(theme)
 
   def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
+
+  def hasSeenVerifyTitle = tags contains Tag.verifyTitle
 
   def get(name: String): Option[String] = name match {
     case "bg"       => dark.fold("dark", "light").some
@@ -46,6 +49,10 @@ case class Pref(
 }
 
 object Pref {
+
+  object Tag {
+    val verifyTitle = "verifyTitle"
+  }
 
   object Difficulty {
     val EASY = 1
@@ -141,7 +148,8 @@ object Pref {
     highlight = true,
     challenge = Challenge.RATING,
     coordColor = Color.RANDOM,
-    puzzleDifficulty = Difficulty.NORMAL)
+    puzzleDifficulty = Difficulty.NORMAL,
+    tags = Map.empty)
 
   val default = create("")
 
@@ -167,5 +175,6 @@ object Pref {
     "highlight" -> default.highlight,
     "challenge" -> default.challenge,
     "coordColor" -> default.coordColor,
-    "puzzleDifficulty" -> default.puzzleDifficulty)
+    "puzzleDifficulty" -> default.puzzleDifficulty,
+    "tags" -> default.tags)
 }

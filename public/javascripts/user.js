@@ -49,6 +49,15 @@ $(function() {
       });
     });
   });
+
+  $("div.user_show .claim_title_zone").each(function() {
+    var $zone = $(this);
+    $zone.find('.actions a').click(function() {
+      $.post($(this).attr('href'));
+      $zone.remove();
+      return false;
+    });
+  });
 });
 
 function str_repeat(input, multiplier) {

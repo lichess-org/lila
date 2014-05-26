@@ -3,9 +3,9 @@ package controllers
 import play.api.data.Form
 import play.api.mvc._, Results._
 
+import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
-import lila.api.Context
 import views._
 
 object Pref extends LilaController {
@@ -39,6 +39,11 @@ object Pref extends LilaController {
         fn(v, ctx) map { Ok() withCookies _ }
       }
     }
+  }
+
+  def saveTag(name: String, value: String) = Auth { implicit ctx =>
+    me =>
+      api.saveTag(me, name, value)
   }
 
   private lazy val setters = Map(

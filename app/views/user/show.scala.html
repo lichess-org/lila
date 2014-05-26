@@ -107,6 +107,9 @@ evenMoreJs = evenMoreJs) {
     }
   </div>
   }
+  @if((ctx is u) && u.rating > 2500 && !u.hasTitle && !ctx.pref.hasSeenVerifyTitle ) {
+  @claimTitle(u)
+  }
   <div class="mod_zone"></div>
   <div class="meat">
     @info.ratingChart.map { ratingChart =>

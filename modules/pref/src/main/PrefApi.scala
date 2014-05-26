@@ -14,6 +14,9 @@ final class PrefApi(cacheTtl: Duration) {
   private def fetchPref(id: String): Fu[Option[Pref]] = $find byId id
   private val cache = AsyncCache(fetchPref, timeToLive = cacheTtl)
 
+  def saveTag(user: User, name: String, value: String) =
+    $update.field(user.id, s"tags.$name", value, upsert = true) >>- { cache remove user.id }
+
   def getPref(id: String): Fu[Pref] = cache(id) map (_ getOrElse Pref.create(id))
   def getPref(user: User): Fu[Pref] = getPref(user.id)
   def getPref(user: Option[User]): Fu[Pref] = user.fold(fuccess(Pref.default))(getPref)

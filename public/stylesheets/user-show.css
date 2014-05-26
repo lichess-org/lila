@@ -117,6 +117,21 @@ div.user_show div.games {
 div.user_show .profile {
   margin-bottom: 1em;
 }
+div.user_show .claim_title_zone {
+  padding: 30px;
+  font-size: 1.2em;
+  line-height: 1.5em;
+}
+div.user_show .claim_title_zone h2 {
+  font-size: 1.5em;
+}
+div.user_show .claim_title_zone p {
+  margin: 2em 0;
+}
+div.user_show .claim_title_zone .actions {
+  margin: 3em 0;
+  text-align: center;
+}
 div.user_show .note_zone {
   display: none;
   margin: 1em 20px;

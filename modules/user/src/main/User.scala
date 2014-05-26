@@ -52,6 +52,8 @@ case class User(
 
   def countRated = count.rated
 
+  def hasTitle = title.isDefined
+
   private val recentDuration = 10.minutes
   def seenRecently: Boolean = timeNoSee < recentDuration
 

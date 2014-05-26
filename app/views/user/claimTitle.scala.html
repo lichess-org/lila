@@ -1,0 +1,44 @@
+@(u: User)(implicit ctx: Context)
+
+@defining("lichess.opensource@gmail.com") { email =>
+
+<div class="claim_title_zone">
+
+  <h2 data-icon="C"> Congratulations for breaking the 2500 rating threshold!</h2>
+
+  <p>
+    We verify titled members, so they get the credits they deserve,
+    and stay clear from any cheating suspicions.
+    For instance, <a href="@routes.User.show("jeffforever")">jeffforever</a> and
+    <a href="@routes.User.show("milacek")">milacek</a> are verified FIDE master and Grandmaster.
+  </p>
+
+  <p>
+    In order to verify your title, you can take a picture of an ID document,
+    and send it at the email
+    <a href="mailto:@email" title="About title verification">@email</a>.
+  </p>
+
+  <p>
+    Another method is to write a statement about lichess on a website where you are known.
+    It could be twitter, facebook, chess.com or anything serious enough.
+    Then, let us know about it.
+  </p>
+
+  <p>
+    Go ahead now and verify your title!
+    If you need help or have any question,
+    feel free to ask <a href="@routes.User.show("thibault")">thibault</a>,
+    the developer of the site, using
+    <a href="@routes.Message.form()?user=thibault&title=About title verification">
+      lichess messages
+    </a>, or by email at
+    <a href="mailto:@email" title="About title verification">@email</a>.
+  </p>
+
+  <p class="actions">
+    <a class="gotit button" href="@routes.Pref.saveTag(lila.pref.Pref.Tag.verifyTitle, "1")" data-icon="E">&nbsp;Got it, thanks!</a>
+    <a class="button" href="@routes.Pref.saveTag(lila.pref.Pref.Tag.verifyTitle, "0")">I don't have an official title</a>
+  </p>
+</div>
+}

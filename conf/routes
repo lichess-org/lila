@@ -131,6 +131,7 @@ GET   /$gameId<[\w\-]{8}>/fen                 controllers.Analyse.fen(gameId: St
 POST  /pref/:name                      controllers.Pref.set(name: String)
 GET   /account/preferences             controllers.Pref.form
 POST  /account/preferences             controllers.Pref.formApply
+POST  /account/preferences/tag/:name/:value controllers.Pref.saveTag(name: String, value: String)
 
 # Setup
 GET   /setup/ai                        controllers.Setup.aiForm
