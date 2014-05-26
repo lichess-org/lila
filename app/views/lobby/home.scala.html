@@ -51,7 +51,15 @@ baseline = baseline.some,
 active = siteMenu.play.some,
 goodies = goodies.some,
 moreJs = moreJs,
-underchat = underchat.some) {
+underchat = underchat.some,
+openGraph = Map(
+'type -> "website",
+'image -> s"${staticUrl("images/large_tile.png")}",
+'title -> "The best free, adless Chess server",
+'site_name -> "lichess.org",
+'url -> netBaseUrl,
+'description -> trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents.str()
+)) {
 <div id="call_boxes">
   @translationCall.map(i18n.callBox(_))
 </div>

@@ -14,10 +14,11 @@ import lila.user.{ User, UserContext }
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper =>
 
   def netBaseUrl: String
+  def staticUrl(path: String): String
 
   def povOpenGraph(pov: Pov) = Map(
     'type -> "website",
-    'image -> s"$netBaseUrl${routes.Assets.at("images/large_tile.png")}",
+    'image -> s"${staticUrl("images/large_tile.png")}",
     'title -> s"${chess.Speed(pov.game.clock).toString} Chess - ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
     'site_name -> "lichess.org",
     'url -> s"$netBaseUrl${routes.Round.watcher(pov.game.id, pov.color.name).url}",
