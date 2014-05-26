@@ -51,9 +51,10 @@ final class RelationApi(
 
   def follow(u1: ID, u2: ID): Funit =
     if (u1 == u2) funit
-    else followable(u2) zip relation(u1, u2) flatMap {
-      case (false, _)        => funit
-      case (_, Some(Follow)) => funit
+    else followable(u2) zip relation(u1, u2) zip relation(u2, u1) flatMap {
+      case ((false, _), _)        => funit
+      case ((_, Some(Follow)), _) => funit
+      case ((_, _), Some(Block))  => funit
       case _ => RelationRepo.follow(u1, u2) >> limitFollow(u1) >>
         refresh(u1, u2) >>-
         (timeline ! Propagate(

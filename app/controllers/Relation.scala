@@ -18,7 +18,7 @@ object Relation extends LilaController {
       (ctx.isAuth ?? { Env.pref.api followable userId }) zip
       (ctx.userId ?? { env.api.blocks(userId, _) }) map {
         case ((relation, followable), blocked) => mini.fold(
-          html.relation.mini(userId, followable = followable, relation = relation),
+          html.relation.mini(userId, blocked = blocked, followable = followable, relation = relation),
           html.relation.actions(userId, relation = relation, blocked = blocked, followable = followable))
       } map { Ok(_) }
 

@@ -74,7 +74,8 @@ object User extends LilaController {
       relationApi friends me.id flatMap { env.noteApi.get(u, me, _) }
     }
     followable <- ctx.isAuth ?? { Env.pref.api followable u.id }
-  } yield html.user.show(u, info, pag, filters, relation, notes, followable)
+    blocked <- ctx.userId ?? { relationApi.blocks(u.id, _) }
+  } yield html.user.show(u, info, pag, filters, relation, notes, followable, blocked)
 
   def list(page: Int) = Open { implicit ctx =>
     Reasonable(page) {
