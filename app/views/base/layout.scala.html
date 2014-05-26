@@ -11,7 +11,8 @@ robots: Boolean = true,
 moreCss: Html = Html(""),
 moreJs: Html = Html(""),
 signedJs: Option[String] = None,
-zen: Boolean = false)(body: Html)(implicit ctx: Context)
+zen: Boolean = false,
+openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <head>
@@ -22,13 +23,18 @@ zen: Boolean = false)(body: Html)(implicit ctx: Context)
     @cssTag("common.css")
     @cssTag("board.css")
     @moreCss
-    <meta content="@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()" name="description">
+    <meta content="@openGraph.get('description).getOrElse(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())" name="description">
     <meta charset="utf-8">
     <link rel="shortcut icon" href="@routes.Assets.at("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
     <meta content="noindex, nofollow" name="robots">
     }
     <meta name="google" content="notranslate" />
+    @openGraph.map {
+    case (key, value) => {
+    <meta property="og:@key.name" content="@value" />
+    }
+    }
     @langAnnotations
   </head>
   <body class="@ctx.currentTheme.cssClass @ctx.currentBg @ctx.currentPieceSet@if(ctx.pref.highlight) { highlight}"

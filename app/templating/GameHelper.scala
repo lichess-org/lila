@@ -7,13 +7,44 @@ import controllers.routes
 import play.api.mvc.Call
 import play.api.templates.Html
 
-import lila.game.{ Game, Player, Namer }
+import lila.game.{ Game, Player, Namer, Pov }
 import lila.user.Env.{ current => userEnv }
 import lila.user.{ User, UserContext }
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper =>
 
   def netBaseUrl: String
+
+  def povOpenGraph(pov: Pov) = Map(
+    'type -> "website",
+    'image -> s"$netBaseUrl${routes.Assets.at("images/large_tile.png")}",
+    'title -> s"${chess.Speed(pov.game.clock).toString} Chess - ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
+    'site_name -> "lichess.org",
+    'url -> s"$netBaseUrl${routes.Round.watcher(pov.game.id, pov.color.name).url}",
+    'description -> describePov(pov))
+
+  def describePov(pov: Pov) = {
+    import pov._
+    val p1 = playerText(player, withRating = true)
+    val p2 = playerText(opponent, withRating = true)
+    val speedAndClock = game.clock.fold("unlimited") { c =>
+      s"${chess.Speed(c.some).shortName} (${c.showCondensed})"
+    }
+    val mode = game.mode.name
+    val variant = if (game.variant == chess.Variant.FromPosition) "position setup chess"
+    else if (game.variant.exotic) game.variant.name else "chess"
+    import chess.Status._
+    val result = (game.winner, game.loser, game.status) match {
+      case (Some(w), _, Mate)                   => s"${playerText(w)} won by checkmate"
+      case (_, Some(l), Mate | Timeout | Cheat) => s"${playerText(l)} resigned"
+      case (_, Some(l), Outoftime)              => s"${playerText(l)} forfeits by time"
+      case (_, _, Draw | Stalemate)             => "Game is a draw"
+      case (_, _, Aborted)                      => "Game has been aborted"
+      case _                                    => "Game is still being played"
+    }
+    val moves = s"${game.turns} moves"
+    s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
+  }
 
   def variantName(variant: Variant)(implicit ctx: UserContext) = variant match {
     case Variant.Standard     => trans.standard.str()
