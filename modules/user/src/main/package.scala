@@ -11,4 +11,6 @@ package object user extends PackageObject with WithPlay {
 
     private[user] implicit lazy val historyColl = Env.current.historyColl
   }
+
+  private[user] def maxInactivityDate = org.joda.time.DateTime.now minusMonths 3
 }

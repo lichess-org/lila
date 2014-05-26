@@ -29,7 +29,7 @@ trait UserRepo {
 
   def all: Fu[List[User]] = $find.all
 
-  def topRating(nb: Int): Fu[List[User]] = topRatingSince(DateTime.now minusMonths 2, nb)
+  def topRating(nb: Int): Fu[List[User]] = topRatingSince(maxInactivityDate, nb)
 
   def topRatingSince(since: DateTime, nb: Int): Fu[List[User]] =
     $find($query(stableGoodLadSelect ++ perfSince("global", since)) sort sortRatingDesc, nb)

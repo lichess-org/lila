@@ -20,7 +20,7 @@ private[user] final class Ranking(ttl: Duration) {
   private def compute: Fu[Map[String, Int]] =
     $primitive(
       UserRepo.stableGoodLadSelect ++
-        UserRepo.perfSince("global", DateTime.now minusMonths 2) ++
+        UserRepo.perfSince("global", maxInactivityDate) ++
         Json.obj("rating" -> $gt(Glicko.default.intRating)),
       "_id",
       _ sort UserRepo.sortRatingDesc
