@@ -40,7 +40,8 @@ trait StringHelper { self: NumberHelper =>
 
   def addLinks(text: String) = urlRegex.replaceAllIn(text, m => {
     val url = delocalize(quoteReplacement(m group 1))
-    "<a href='%s'>%s</a>".format(prependHttp(url), url)
+    val target = if (url contains netDomain) "" else " target='blank'"
+    s"<a$target href='${prependHttp(url)}'>$url</a>"
   })
 
   private def prependHttp(url: String): String =
