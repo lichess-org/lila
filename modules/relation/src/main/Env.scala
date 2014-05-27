@@ -31,6 +31,7 @@ final class Env(
     bus = system.lilaBus,
     getOnlineUserIds = getOnlineUserIds,
     timeline = hub.actor.timeline,
+    reporter = hub.actor.report,
     followable = followable,
     maxFollow = MaxFollow,
     maxBlock = MaxBlock)

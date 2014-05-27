@@ -47,6 +47,19 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
     }
   }
 
+  def autoBlockReport(userId: String, blocked: Int, followed: Int): Funit = {
+    logger.info(s"auto block reaport $userId: $blocked blockers & $followed followers")
+    UserRepo byId userId zip UserRepo.lichess flatMap {
+      case (Some(user), Some(lichess)) => create(ReportSetup(
+        user = user,
+        reason = "other",
+        text = s"[AUTOREPORT] Blocked $blocked times, followed by $followed players",
+        gameId = "",
+        move = ""), lichess)
+      case _ => funit
+    }
+  }
+
   def process(id: String, by: User): Funit =
     $update.field(id, "processedBy", by.id)
 

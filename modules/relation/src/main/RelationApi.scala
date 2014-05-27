@@ -1,11 +1,13 @@
 package lila.relation
 
 import akka.actor.ActorSelection
+import scala.util.Success
 
 import lila.db.api._
 import lila.db.Implicits._
 import lila.game.GameRepo
 import lila.hub.actorApi.relation.ReloadOnlineFriends
+import lila.hub.actorApi.report.Blocked
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
@@ -17,6 +19,7 @@ final class RelationApi(
     bus: lila.common.Bus,
     getOnlineUserIds: () => Set[String],
     timeline: ActorSelection,
+    reporter: ActorSelection,
     followable: String => Fu[Boolean],
     maxFollow: Int,
     maxBlock: Int) {
@@ -75,7 +78,11 @@ final class RelationApi(
     else relation(u1, u2) flatMap {
       case Some(Block) => funit
       case _ => RelationRepo.block(u1, u2) >> limitBlock(u1) >> refresh(u1, u2) >>-
-        bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation)
+        bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation) >>-
+        (nbBlockers(u2) zip nbFollowers(u2)).andThen {
+          case Success((blockers, followers)) if blockers > 3 && blockers > (followers / 10) =>
+            reporter ! Blocked(u2, blockers, followers)
+        }
     }
 
   def unfollow(u1: ID, u2: ID): Funit =

@@ -2761,7 +2761,7 @@ var storage = {
           it = 0;
         setInterval(function() {
           t.innerHTML = moves[it++ % len];
-        }, 50);
+        }, 100);
       });
     };
     setTimeout(pgnLoader, 500);
