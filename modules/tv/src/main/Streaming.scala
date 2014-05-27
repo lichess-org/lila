@@ -40,18 +40,7 @@ private final class Streaming(
                 Nil
             }
           }
-        val chesswhiz = isOnline("chesswhiz") ??
-          WS.url(s"http://api.ustream.tv/json/stream/recent/search/title:like:ChessWhiz")
-          .withQueryString("key" -> ustreamApiKey)
-          .get().map { res =>
-            res.json.asOpt[Ustream.Result] match {
-              case Some(data) => data.streamsOnAir take max
-              case None =>
-                logger.warn(s"chesswhiz ${res.status} ${~res.body.lines.toList.headOption}")
-                Nil
-            }
-          }
-        twitch |+| chesswhiz map StreamsOnAir.apply pipeTo self
+        twitch map StreamsOnAir.apply pipeTo self
 
       case event@StreamsOnAir(streams) if onAir != streams =>
         onAir = streams
