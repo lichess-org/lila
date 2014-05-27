@@ -29,7 +29,7 @@
     <tr>
       @if(!blocked) {
       <td>
-        <a class="button" href="@routes.Message.form()?username=@u.username" href="#">
+        <a class="button" href="@routes.Message.form()?user=@u.id" href="#">
           <span data-icon="c">&nbsp;@trans.chat()</span>
         </a>
       </td>
