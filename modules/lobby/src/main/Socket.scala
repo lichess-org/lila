@@ -28,19 +28,17 @@ private[lobby] final class Socket(
 
   def receiveSpecific = {
 
-    case PingVersion(uid, v) => {
+    case PingVersion(uid, v) =>
       ping(uid)
       withMember(uid) { m =>
         history.since(v).fold(resync(m))(_ foreach sendMessage(m))
       }
-    }
 
-    case Join(uid, user) => {
+    case Join(uid, user) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid, member)
       sender ! Connected(enumerator, member)
-    }
 
     case ReloadTournaments(html) => notifyTournaments(html)
 
@@ -66,7 +64,7 @@ private[lobby] final class Socket(
             ).noNull))
         }
 
-    case HookIds(ids)         => notifyVersion("hook_list", ids)
+    case HookIds(ids)                         => notifyVersion("hook_list", ids)
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
   }

@@ -115,7 +115,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     }
   }
 
-  private val resyncMessage = makeMessage("resync", JsNull)
+  private val resyncMessage = makeMessage("resync")
 
   protected def resync(member: M) {
     import scala.concurrent.duration._
