@@ -44,7 +44,7 @@ private[relation] object RelationRepo {
 
   def drop(userId: ID, relation: Relation, nb: Int) =
     $primitive(
-      Json.obj("u1" -> userId, "r" -> relation), "_id", max = nb.some
+      Json.obj("u1" -> userId, "r" -> relation), "_id", _ sort $sort.naturalAsc, max = nb.some
     )(_.asOpt[String]) flatMap { ids =>
         $remove(Json.obj("_id" -> $in(ids)))
       }

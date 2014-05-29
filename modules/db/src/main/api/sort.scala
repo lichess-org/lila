@@ -16,6 +16,7 @@ object $sort {
   val ascId = asc("_id")
   val descId = desc("_id")
 
+  val naturalAsc = asc("$natural")
   val naturalDesc = desc("$natural")
   val naturalOrder = naturalDesc
 
