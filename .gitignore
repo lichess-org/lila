@@ -20,6 +20,7 @@ bin/.translate_version
 data/
 dist/
 todos/
+node_modules/
 
 cljs/*/out
 cljs/*/repl
