@@ -11,6 +11,7 @@ title = "Blog") {
     <h1 class="blog_title"><a href="@routes.Blog.show(doc.id, doc.slug, prismic.maybeRef)">@title</a></h1>
     }
     @meta(doc)
+    <strong class="shortlede">@doc.getHtml("blog.shortlede", prismic.linkResolver).map(Html.apply)</strong>
     @doc.getImage("blog.image", "main").map { img =>
     <div class="illustration">
       <a href="@routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef)"><img src="@img.url" /></a>

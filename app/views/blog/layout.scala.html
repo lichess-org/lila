@@ -1,4 +1,4 @@
-@(title: String, goodies: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(title: String, goodies: Option[Html] = None, openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("blog.css")
@@ -7,7 +7,8 @@
 @base.layout(
 title = title,
 moreCss = moreCss,
-goodies = goodies) {
+goodies = goodies,
+openGraph = openGraph) {
 <div id="lichess_blog" class="content_box">
   @body
 </div>

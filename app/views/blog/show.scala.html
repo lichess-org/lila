@@ -7,10 +7,18 @@
 
 @layout(
 title = s"${doc.slug} | Blog",
-goodies = goodies.some) {
+goodies = goodies.some,
+openGraph = Map(
+'type -> "article",
+'image -> doc.getImage("blog.image", "main").??(_.url),
+'title -> ~doc.getText("blog.title"),
+'site_name -> "lichess.org",
+'url -> s"$netBaseUrl${routes.Blog.show(doc.id, doc.slug).url}",
+'description -> ~doc.getText("blog.shortlede"))) {
 
 <h1 class="blog_title">@doc.getText("blog.title")</h1>
 @meta(doc)
+<strong class="shortlede">@doc.getHtml("blog.shortlede", prismic.linkResolver).map(Html.apply)</strong>
 <div class="illustration">
   @doc.getImage("blog.image", "main").map { img =>
   <img src="@img.url" />

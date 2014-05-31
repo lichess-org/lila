@@ -18,7 +18,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def povOpenGraph(pov: Pov) = Map(
     'type -> "website",
-    'image -> s"${staticUrl("images/large_tile.png")}",
+    'image -> staticUrl("images/large_tile.png"),
     'title -> s"${chess.Speed(pov.game.clock).toString} Chess - ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
     'site_name -> "lichess.org",
     'url -> s"$netBaseUrl${routes.Round.watcher(pov.game.id, pov.color.name).url}",

@@ -1,7 +1,7 @@
 #lichess_blog .blog_title {
   display: block;
   text-align: center;
-  font-size: 2.2em;
+  font-size: 2.6em;
 }
 #lichess_blog h1 a {
   text-decoration: none;
@@ -23,10 +23,18 @@
 #lichess_blog .illustration img {
   max-height: 300px;
 }
+#lichess_blog .shortlede {
+  display: block;
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: normal;
+  font-style: italic;
+  margin: 20px 0;
+}
 #lichess_blog .body {
-  font-size: 16px;
+  font-size: 1.4em;
   line-height: 1.6;
-  padding-top: 10px;
+  margin: 20px 0 80px 0;
 }
 #lichess_blog .body p {
   margin: 15px 0;
@@ -51,9 +59,6 @@
 }
 
 #lichess_blog .list h1 {
-  font-size: 2.5em;
-  display: block;
-  text-align: center;
   border-bottom: 1px solid #eee;
   margin-top: 35px;
 }
