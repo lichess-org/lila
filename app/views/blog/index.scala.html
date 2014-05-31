@@ -19,9 +19,7 @@ title = "Blog") {
     }
     <div class="body">
       @doc.getStructuredText("blog.body").map { body =>
-      @Html(
-      body.blocks.takeWhile(_.isInstanceOf[io.prismic.Fragment.StructuredText.Block.Paragraph]).take(2).map { case io.prismic.Fragment.StructuredText.Block.Paragraph(text, _) => s"<p>$text</p>" case _ => "" }.mkString
-      )
+      @Html(lila.blog.BlogApi.extract(body))
       }
       <p class="more">
         <a href="@routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef)" data-icon="G"> Continue reading this post</a>

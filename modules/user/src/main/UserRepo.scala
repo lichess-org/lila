@@ -237,6 +237,12 @@ trait UserRepo {
     $update.fieldUnchecked(id, "seenAt", $date(DateTime.now))
   }
 
+  def recentlySeenIds(since: DateTime) =
+    $primitive(enabledSelect ++ Json.obj(
+      "seenAt" -> $gt($date(since)),
+      "count.game" -> $gt(4)
+    ), "_id")(_.asOpt[String])
+
   def setLang(id: ID, lang: String) {
     $update.fieldUnchecked(id, "lang", lang)
   }

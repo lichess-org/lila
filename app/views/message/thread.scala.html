@@ -21,7 +21,7 @@ title = thread.name) {
 </div>
 }
 
-@if(thread.creatorId != "lichess") {
+@if(!Set("lichess", "lichess-blog").contains(thread.creatorId)) {
 <div class="answer" id="bottom">
   @if(blocks) {
   <p>This user blocks you. You cannot answer.</p>

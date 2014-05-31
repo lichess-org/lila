@@ -13,7 +13,7 @@ object Blog extends LilaController {
 
   def index(ref: Option[String]) = Open { implicit ctx =>
     blogApi context ref flatMap { implicit prismic =>
-      blogApi recent 20 map { response =>
+      blogApi.recent(prismic.api, ref, 20) map { response =>
         Ok(views.html.blog.index(response))
       }
     }
@@ -21,7 +21,7 @@ object Blog extends LilaController {
 
   def show(id: String, slug: String, ref: Option[String]) = Open { implicit ctx =>
     blogApi context ref flatMap { implicit prismic =>
-      blogApi one id flatMap { maybeDocument =>
+      blogApi.one(prismic.api, ref, id) flatMap { maybeDocument =>
         checkSlug(maybeDocument, slug) {
           case Left(newSlug) => MovedPermanently(routes.Blog.show(id, newSlug, ref).url)
           case Right(doc)    => Ok(views.html.blog.show(doc))

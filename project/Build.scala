@@ -53,8 +53,8 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
-  lazy val blog = project("blog", Seq(common, message)).settings(
-    libraryDependencies ++= provided(play.api, prismic)
+  lazy val blog = project("blog", Seq(common, user, message)).settings(
+    libraryDependencies ++= provided(play.api, RM, PRM, prismic)
   )
 
   lazy val evaluation = project("evaluation", Seq(

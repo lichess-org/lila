@@ -5,13 +5,13 @@ import play.api.mvc.RequestHeader
 
 final class BlogApi(prismicUrl: String, collection: String) {
 
-  def recent(nb: Int)(implicit ctx: BlogApi.Context) =
-    ctx.api.forms(collection).ref(ctx.ref).pageSize(nb).page(1).submit()
+  def recent(api: Api, ref: Option[String], nb: Int) =
+    api.forms(collection).ref(ref | api.master.ref).pageSize(nb).page(1).submit()
 
-  def one(id: String)(implicit ctx: BlogApi.Context) =
-    ctx.api.forms(collection)
+  def one(api: Api, ref: Option[String], id: String) =
+    api.forms(collection)
       .query(s"""[[:d = at(document.id, "$id")]]""")
-      .ref(ctx.ref).submit() map (_.results.headOption)
+      .ref(ref | api.master.ref).submit() map (_.results.headOption)
 
   // -- Build a Prismic context
   def context(ref: Option[String])(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver) =
@@ -29,10 +29,18 @@ final class BlogApi(prismicUrl: String, collection: String) {
     case _      => play.api.Logger("prismic") info message
   }
 
-  private def prismicApi = Api.get(prismicUrl, cache = cache, logger = logger)
+  def prismicApi = Api.get(prismicUrl, cache = cache, logger = logger)
 }
 
 object BlogApi {
+
+  def extract(body: Fragment.StructuredText) =
+    body.blocks
+      .takeWhile(_.isInstanceOf[Fragment.StructuredText.Block.Paragraph])
+      .take(2).map {
+        case Fragment.StructuredText.Block.Paragraph(text, _) => s"<p>$text</p>"
+        case _ => ""
+      }.mkString
 
   case class Context(api: Api, ref: String, linkResolver: DocumentLinkResolver) {
     def maybeRef = Option(ref).filterNot(_ == api.master.ref)

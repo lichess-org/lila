@@ -65,6 +65,12 @@ object ThreadRepo {
   def deleteFor(user: ID)(thread: ID) =
     $update($select(thread), $pull("visibleByUserIds", user))
 
+  def reallyDeleteByCreatorId(user: ID) = $remove(Json.obj("creatorId" -> user))
+
+  def visibleByUserContainingExists(user: ID, containing: String): Fu[Boolean] =
+    $count.exists(visibleByUserQuery(user) ++ Json.obj(
+      "posts.0.text" -> $regex(containing)))
+
   def userQuery(user: String) = Json.obj("userIds" -> user)
 
   def visibleByUserQuery(user: String) = Json.obj("visibleByUserIds" -> user)
