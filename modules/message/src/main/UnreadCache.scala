@@ -14,4 +14,6 @@ private[message] final class UnreadCache {
 
   def refresh(userId: String): Fu[List[String]] =
     (cache remove userId).fold(apply(userId))(_ >> apply(userId))
+
+  def clear(userId: String) = (cache remove userId).fold(funit)(_.void)
 }

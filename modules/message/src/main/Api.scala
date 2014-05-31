@@ -60,7 +60,7 @@ final class Api(
       name = lt.subject,
       text = lt.message,
       creatorId = creatorId,
-      invitedId = lt.to)) >>- updateUser(lt.to)
+      invitedId = lt.to)) >> unreadCache.clear(lt.to)
 
   def makePost(thread: Thread, text: String, me: User) = {
     val post = Post.make(
