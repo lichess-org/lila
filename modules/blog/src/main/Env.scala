@@ -30,6 +30,9 @@ final class Env(
     scheduler.effect(NotifyDelay, "blog: notify check") {
       notifier.apply
     }
+    scheduler.once(1 minute) {
+      notifier.apply
+    }
   }
 }
 
