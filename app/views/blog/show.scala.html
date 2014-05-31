@@ -1,4 +1,4 @@
-@(doc: io.prismic.Document)(implicit ctx: Context, prismic: Prismic.Context)
+@(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context)
 
 @goodies = {
 <br />
@@ -30,5 +30,5 @@ goodies = goodies.some) {
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a></noscript>
+<noscript>Please enable JavaScript to view the comments.</noscript>
 }

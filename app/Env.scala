@@ -48,7 +48,7 @@ final class Env(
 
   if (!Env.ai.ServerOnly) {
     loginfo("[boot] Preloading modules")
-    (Env.socket,
+    List(Env.socket,
       Env.site,
       Env.tournament,
       Env.lobby,
@@ -69,7 +69,8 @@ final class Env(
       Env.evaluation,
       Env.chat,
       Env.puzzle,
-      Env.tv)
+      Env.tv,
+      Env.blog)
     loginfo("[boot] Preloading complete")
   }
 
@@ -124,4 +125,5 @@ object Env {
   def puzzle = lila.puzzle.Env.current
   def coordinate = lila.coordinate.Env.current
   def tv = lila.tv.Env.current
+  def blog = lila.blog.Env.current
 }

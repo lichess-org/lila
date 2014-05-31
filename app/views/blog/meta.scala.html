@@ -1,4 +1,4 @@
-@(doc: io.prismic.Document)(implicit ctx: Context, prismic: Prismic.Context)
+@(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context)
 <div class="meta">
   @doc.getText("blog.date").map { date =>
   <span data-icon="p"> @date</span>

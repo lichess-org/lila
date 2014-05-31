@@ -32,7 +32,7 @@ object ApplicationBuild extends Build {
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     ai, analyse, mod, monitor, site, round, lobby, setup,
     importer, tournament, relation, report, pref, simulation,
-    evaluation, chat, puzzle, tv, coordinate)
+    evaluation, chat, puzzle, tv, coordinate, blog)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -51,6 +51,10 @@ object ApplicationBuild extends Build {
 
   lazy val coordinate = project("coordinate", Seq(common, db)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
+  )
+
+  lazy val blog = project("blog", Seq(common, message)).settings(
+    libraryDependencies ++= provided(play.api, prismic)
   )
 
   lazy val evaluation = project("evaluation", Seq(
