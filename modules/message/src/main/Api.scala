@@ -55,11 +55,12 @@ final class Api(
       }
     }
 
-  def lichessThread(lt: LichessThread, creatorId: String = "lichess"): Funit = Thread.make(
-    name = lt.subject,
-    text = lt.message,
-    creatorId = creatorId,
-    invitedId = lt.to) |> { thread => $insert(thread) >>- updateUser(lt.to) }
+  def lichessThread(lt: LichessThread, creatorId: String = "lichess"): Funit =
+    $insert(Thread.make(
+      name = lt.subject,
+      text = lt.message,
+      creatorId = creatorId,
+      invitedId = lt.to)) >>- updateUser(lt.to)
 
   def makePost(thread: Thread, text: String, me: User) = {
     val post = Post.make(
