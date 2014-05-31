@@ -173,6 +173,7 @@ object LangList {
     //"twi" -> "Twi",
     "ty" -> "Reo Mā`ohi, Reo Tahiti",
     "uk" -> "українська",
+    "ur" -> "اُردُو",
     "ve" -> "Tshivenḓa",
     "vi" -> "Tiếng Việt",
     "vo" -> "Volapük",
