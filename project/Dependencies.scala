@@ -18,6 +18,7 @@ object Dependencies {
     val local = "local repo" at home + "/local-repo"
     val roundeights = "RoundEights" at "http://maven.spikemark.net/roundeights"
     val snowplow = "SnowPlow Repo" at "http://maven.snplow.com/releases/"
+    val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
 
     val commons = Seq(
       local,
@@ -47,6 +48,7 @@ object Dependencies {
   val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.0"
   val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.2"
   val maxmind = "com.snowplowanalytics"  %% "scala-maxmind-geoip"  % "0.0.5"
+  val prismic = "io.prismic" %% "scala-kit" % "1.0-M13"
 
   object play {
     val version = "2.2.3"

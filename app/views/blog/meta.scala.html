@@ -1,0 +1,12 @@
+@(doc: io.prismic.Document)(implicit ctx: Context, prismic: Prismic.Context)
+<div class="meta">
+  @doc.getText("blog.date").map { date =>
+  <span data-icon="p"> @date</span>
+  }
+  @doc.getText("blog.author").map { author =>
+  <span data-icon="r"> @author</span>
+  }
+  @doc.getText("blog.category").map { categ =>
+  <span data-icon="t"> @categ</span>
+  }
+</div>

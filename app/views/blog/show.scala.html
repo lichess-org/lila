@@ -1,0 +1,22 @@
+@(doc: io.prismic.Document)(implicit ctx: Context, prismic: Prismic.Context)
+
+@goodies = {
+<br />
+<a href="@routes.Blog.index(prismic.maybeRef)">Back to blog</a>
+}
+
+@layout(
+title = s"${doc.slug} | Blog",
+goodies = goodies.some) {
+
+<h1 class="blog_title">@doc.getText("blog.title")</h1>
+@meta(doc)
+<div class="illustration">
+  @doc.getImage("blog.image", "main").map { img =>
+  <img src="@img.url" />
+  }
+</div>
+<div class="body">
+  @doc.getHtml("blog.body", prismic.linkResolver).map(Html.apply)
+</div>
+}

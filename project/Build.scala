@@ -13,7 +13,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache, scalaTime,
       csv, jgit, actuarius, elastic4s, findbugs, RM,
-      PRM, spray.caching, maxmind),
+      PRM, spray.caching, maxmind, prismic),
       scalacOptions := compilerOptions,
       sources in doc in Compile := List(),
       incOptions := incOptions.value.withNameHashing(true),

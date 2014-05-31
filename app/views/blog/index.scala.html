@@ -1,0 +1,32 @@
+@(pager: io.prismic.Response)(implicit ctx: Context, prismic: Prismic.Context)
+
+@layout(
+title = "Blog") {
+
+<h1 class="lichess_title">Lichess Official Blog</h1>
+<div class="list">
+  @pager.results.map { doc =>
+  <article>
+    @doc.getText("blog.title").map { title =>
+    <h1 class="blog_title"><a href="@routes.Blog.show(doc.id, doc.slug, prismic.maybeRef)">@title</a></h1>
+    }
+    @meta(doc)
+    @doc.getImage("blog.image", "main").map { img =>
+    <div class="illustration">
+      <a href="@routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef)"><img src="@img.url" /></a>
+    </div>
+    }
+    <div class="body">
+      @doc.getStructuredText("blog.body").map { body =>
+      @Html(
+      body.blocks.takeWhile(_.isInstanceOf[io.prismic.Fragment.StructuredText.Block.Paragraph]).take(2).map { case io.prismic.Fragment.StructuredText.Block.Paragraph(text, _) => s"<p>$text</p>" case _ => "" }.mkString
+      )
+      }
+      <p class="more">
+        <a href="@routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef)" data-icon="G"> Continue reading this post</a>
+      </p>
+    </div>
+  </article>
+</div>
+}
+}

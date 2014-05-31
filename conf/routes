@@ -44,8 +44,12 @@ POST  /account/closeConfirm            controllers.Account.closeConfirm
 GET   /account/profile                 controllers.Account.profile
 POST  /account/profile                 controllers.Account.profileApply
 
-#Site
+# Site
 GET   /socket             controllers.Main.websocket
+
+# Blog
+GET   /blog               controllers.Blog.index(ref: Option[String] ?= None)
+GET   /blog/:id/:slug     controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 
 # Game
 GET   /games              controllers.Game.realtime

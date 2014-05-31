@@ -149,7 +149,7 @@ private[controllers] trait LilaController
   protected def OptionFuResult[A](fua: Fu[Option[A]])(op: A => Fu[SimpleResult])(implicit ctx: Context) =
     fua flatMap { _.fold(notFound(ctx))(a => op(a)) }
 
-  protected def notFound(implicit ctx: Context): Fu[SimpleResult] =
+  def notFound(implicit ctx: Context): Fu[SimpleResult] =
     if (HTTPRequest isSynchronousHttp ctx.req) Lobby renderHome Results.NotFound
     else Results.NotFound("resource not found").fuccess
 

@@ -1,0 +1,14 @@
+@(title: String, goodies: Option[Html] = None)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("blog.css")
+}
+
+@base.layout(
+title = title,
+moreCss = moreCss,
+goodies = goodies) {
+<div id="lichess_blog" class="content_box">
+  @body
+</div>
+}
