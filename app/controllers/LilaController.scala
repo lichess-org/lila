@@ -198,10 +198,13 @@ private[controllers] trait LilaController
           import makeTimeout.short
           (Env.hub.actor.relation ? GetOnlineFriends(me.id) map {
             case OnlineFriends(users) => users
-          } recover { case _ => Nil }) zip Env.team.api.nbRequests(me.id)
+          } recover { case _ => Nil }) zip
+            Env.team.api.nbRequests(me.id) zip
+            Env.message.api.unreadIds(me.id)
         }
       } map {
-        case (pref, (friends, teamNbRequests)) => PageData(friends, teamNbRequests, pref)
+        case (pref, ((friends, teamNbRequests), messageIds)) =>
+          PageData(friends, teamNbRequests, messageIds.size, pref)
       }
     }
 

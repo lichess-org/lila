@@ -27,7 +27,6 @@ object Environment
     with PaginatorHelper
     with FormHelper
     with SetupHelper
-    with MessageHelper
     with lila.round.RoundHelper
     with AiHelper
     with GameHelper
@@ -59,4 +58,7 @@ object Environment
   lazy val siteMenu = new lila.app.ui.SiteMenu(trans)
 
   lazy val lobbyMenu = new lila.app.ui.LobbyMenu(trans)
+
+  def reportNbUnprocessed(implicit ctx: lila.api.Context): Int =
+    isGranted(_.SeeReport) ?? lila.report.Env.current.api.nbUnprocessed.await
 }
