@@ -609,6 +609,7 @@ div.footer > .center {
 div.footer div.right {
   float: right;
   text-align: right;
+  margin-right: 74px;
 }
 #friend_box .nobody {
   text-align: center;
