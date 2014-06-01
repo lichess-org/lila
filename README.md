@@ -1,7 +1,7 @@
 [lichess.org](http://lichess.org)
 ---------------------------------
 
-It's a free online chess game focused on [realtime](http://lichess.org/games) and simplicity.
+It's a free online chess game focused on [realtime](http://lichess.org/games) and ease of use
 
 It haz a [search engine](http://lichess.org/games/search),
 [computer analysis](http://lichess.org/analyse/ief49lif),
@@ -9,15 +9,16 @@ It haz a [search engine](http://lichess.org/games/search),
 [forums](http://lichess.org/forum),
 [teams](http://lichess.org/team),
 [puzzles](http://lichess.org/training),
-and a weird [monitoring console](http://lichess.org/monitor).
-The UI is available in [72 languages](http://lichess.org/translation/contribute) thanks to the community.
+a weird [monitoring console](http://lichess.org/monitor),
+and a [world map](http://map.lichess.org).
+The UI is available in [80 languages](http://lichess.org/translation/contribute) thanks to the community.
 
-Lichess is written in [Scala 2.10](http://www.scala-lang.org/),
-and relies on [Play 2.2](http://www.playframework.com/) for the routing, templating, and JSON.
+Lichess is written in [Scala 2.11](http://www.scala-lang.org/),
+and relies on [Play 2.3](http://www.playframework.com/) for the routing, templating, and JSON.
 Pure chess logic is contained in [scalachess](http://github.com/ornicar/scalachess) submodule.
 The codebase is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
-Lichess talks to [Stockfish 4](http://stockfishchess.org/) using a [FSM Actor](https://github.com/ornicar/lila/blob/master/modules/ai/src/main/stockfish/ActorFSM.scala) to handle AI moves and analysis.
-It uses [MongoDB 2.4](http://mongodb.org) to store about 20 million games, which are indexed by [elasticsearch 0.90](http://elasticsearch.org).
+Lichess talks to [Stockfish 5](http://stockfishchess.org/) using a [FSM Actor](https://github.com/ornicar/lila/blob/master/modules/ai/src/main/stockfish/ActorFSM.scala) to handle AI moves and analysis.
+It uses [MongoDB 2.4](http://mongodb.org) to store more than 30 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
 HTTP requests and websocket connections are proxied by [nginx 1.4](http://nginx.org).
 New client-side features are written in [ClojureScript](https://github.com/ornicar/lila/tree/master/cljs/puzzle/src).
 
