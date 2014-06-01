@@ -40,7 +40,7 @@ if [ $mode == "main" ]; then
   bin/closure
 fi
 
-sbt ";play;stage;exit"
+sbt ";stage;exit"
 if [ $? != 0 ]; then
   lilalog "Deploy canceled"
   exit 1

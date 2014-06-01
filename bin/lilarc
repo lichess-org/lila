@@ -10,6 +10,3 @@ curl_prod () {
   lilalog "Test $PROD_URL"
   curl -sL -w "%{http_code}" -o /dev/null "$PROD_URL"
 }
-
-# load local config
-[ -f bin/lilarc.local ] && . bin/lilarc.local
