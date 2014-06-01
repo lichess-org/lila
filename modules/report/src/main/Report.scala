@@ -19,10 +19,13 @@ case class Report(
   def isCreator(user: String) = user == createdBy
 
   def isCheat = realReason == Reason.Cheat
+  def isOther = realReason == Reason.Other
+  def isTroll = realReason == Reason.Troll
 
   def isCommunication = Reason.communication contains realReason
 
-  def isManual = createdBy != "lichess"
+  def isAutomatic = createdBy == "lichess"
+  def isManual = !isAutomatic
 
   def process(by: User) = copy(processedBy = by.id.some)
 

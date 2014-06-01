@@ -20,7 +20,7 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
         reason = reason,
         text = setup.text,
         createdBy = by)
-      (!report.isCheat || !user.engine) ?? {
+      !isAlreadySlayed(report, user) ?? {
         findRecent(user, reason) flatMap {
           case Some(existing) if update =>
             $update($select(existing.id), $set("text" -> report.text))
@@ -33,6 +33,11 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
         }
       }
     }
+
+  private def isAlreadySlayed(report: Report, user: User) =
+    (report.isCheat && user.engine) ||
+      (report.isAutomatic && report.isOther && user.troll) ||
+      (report.isTroll && user.troll)
 
   def autoCheatReport(userId: String, text: String): Funit = {
     logger.info(s"auto cheat reaport $userId: ${~text.lines.toList.headOption}")
