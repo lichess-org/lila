@@ -14,14 +14,18 @@ final class Env(
   private val PrismicCollection = config getString "prismic.collection"
   private val NotifyDelay = config duration "notify.delay"
   private val NotifyUserId = config getString "notify.user_id"
+  private val LastPostCacheTtl = config duration "last_post_cache.ttl"
 
   lazy val api = new BlogApi(
     prismicUrl = PrismicApiUrl,
     collection = PrismicCollection)
 
+  lazy val lastPostCache = new LastPostCache(api, LastPostCacheTtl)
+
   private implicit lazy val notifier = new Notifier(
     blogApi = api,
     messageApi = messageApi,
+    lastPostCache = lastPostCache,
     lichessUserId = NotifyUserId)
 
   {

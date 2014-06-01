@@ -1,4 +1,4 @@
-@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[User], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir])(implicit ctx: Context)
+@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[User], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir], lastPost: Option[lila.blog.MiniPost])(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game" title="@trans.watchLichessTV()">
@@ -108,6 +108,87 @@ openGraph = Map(
     </div>
     }
   </div>
-  @lobby.undertable(forumRecent, tours, leaderboard, tournamentWinners)
+  <div class="open_tournaments undertable">
+    <div class="undertable_top">
+      <a class="more" title="See all tournaments" href="@routes.Tournament.home()">@trans.more() »</a>
+      <span class="title"> @trans.openTournaments()</span>
+    </div>
+    <div id="enterable_tournaments" class="undertable_inner scroll-shadow-hard">
+      @tournament.enterable(tours)
+    </div>
+  </div>
+  <div class="clearfix">
+    <div class="leaderboard undertable half">
+      <div class="user_top">
+        <div class="undertable_top">
+          <a class="more" title="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
+          <span class="title" data-icon="C"> @trans.todaysLeaders()</span>
+        </div>
+        <div class="undertable_inner scroll-shadow-hard">
+          <table>
+            <tbody>
+              @leaderboard.map { u =>
+              <tr>
+                <td>@userLink(u, withRating = false, cssClass="revert-underline".some)</td>
+                <td>@u.rating</td>
+                <td>@showProgress(u.progress)</td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="leaderboard undertable half">
+      <div class="user_top">
+        <div class="undertable_top">
+          <a class="more" title="@trans.players()" href="@routes.Tournament.home()">@trans.more() »</a>
+          <span class="title" data-icon="g"> Tournament winners</span>
+        </div>
+        <div class="undertable_inner scroll-shadow-hard">
+          <table>
+            <tbody>
+              @tournamentWinners.map { w =>
+              <tr>
+                <td>@userIdLink(w.userId.some, cssClass="revert-underline".some)</td>
+                <td><a href="@routes.Tournament.show(w.tourId)" class="revert-underline">@w.tourName.replace("Lichess ", "")</a></td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="new_posts undertable nomargin" data-url="@routes.ForumPost.recent">
+    <div class="undertable_top">
+      <span class="title" data-icon="d"> @trans.latestForumPosts()</span>
+    </div>
+    <div class="undertable_inner scroll-shadow-hard">
+      <div class="content">
+        <ol>@forum.post.recent(forumRecent)</ol>
+      </div>
+    </div>
+  </div>
+  @lastPost.map { post =>
+  <div class="blog undertable">
+    <div class="undertable_top">
+      <a class="more" title="Blog" href="@routes.Blog.index()">@trans.more() »</a>
+      <span class="title" data-icon="6"> Lastest update</span>
+    </div>
+    <div class="undertable_inner">
+      @defining(routes.Blog.show(post.id, post.slug)) { url =>
+      <a class="image" href="@url">
+        <img src="@post.image" />
+      </a>
+      <div class="post">
+        <span class="date">@post.date</span>
+        <a class="title revert-underline" href="@url">@post.title</a>
+        <p class="shortlede">@post.shortlede</p>
+      </div>
+      }
+    </div>
+  </div>
+  }
 </div>
 }

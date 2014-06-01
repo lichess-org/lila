@@ -70,8 +70,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font10/fonts/lichess.eot");
-  src: url("../font10/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font10/fonts/lichess.woff") format("woff"), url("../font10/fonts/lichess.ttf") format("truetype"), url("../font10/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font11/fonts/lichess.eot");
+  src: url("../font11/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font11/fonts/lichess.woff") format("woff"), url("../font11/fonts/lichess.ttf") format("truetype"), url("../font11/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -2004,6 +2004,30 @@ div.undertable.half:first-child {
 div.undertable.leaderboard td:first-child {
   max-width: 150px;
   overflow: hidden;
+}
+div.blog.undertable div.undertable_inner {
+  height: auto;
+  padding: 5px 5px 0 5px;
+}
+div.blog.undertable div.undertable_inner:hover {
+  overflow: hidden;
+}
+div.blog.undertable div.undertable_inner a.image {
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+div.blog.undertable div.undertable_inner a.image img {
+  height: 60px;
+}
+div.blog.undertable div.undertable_inner .title {
+  font-weight: bold;
+  line-height: 2;
+}
+div.blog.undertable div.undertable_inner .date {
+  float: right;
+  font-weight: 100;
+  line-height: 2;
 }
 #enterable_tournaments {
   height: auto;

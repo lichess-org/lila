@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 private[blog] final class Notifier(
     blogApi: BlogApi,
     messageApi: MessageApi,
+    lastPostCache: LastPostCache,
     lichessUserId: String) {
 
   def apply {
@@ -21,7 +22,7 @@ private[blog] final class Notifier(
                 val futures = userIds.toStream map { userId =>
                   messageApi.lichessThread(thread.copy(to = userId), lichessUserId)
                 }
-                lila.common.Future.lazyFold(futures)(())((_, _) => ())
+                lila.common.Future.lazyFold(futures)(())((_, _) => ()) >>- lastPostCache.clear
               }
             }
           }
