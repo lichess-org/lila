@@ -10,7 +10,8 @@ import lila.user.User
 private[forum] final class Recent(
     postApi: PostApi,
     ttl: Duration,
-    nb: Int) {
+    nb: Int,
+    publicCategIds: List[String]) {
 
   private type GetTeams = String => List[String]
 
@@ -33,9 +34,6 @@ private[forum] final class Recent(
         (user ?? MasterGranter(Permission.StaffForum)).fold(staffCategIds, publicCategIds) :::
         ((user.map(_.id) ?? getTeams) map teamSlug)
     } mkString ";"
-
-  private lazy val publicCategIds =
-    CategRepo.withTeams(Nil).await.map(_.slug) filterNot ("staff" ==)
 
   private lazy val staffCategIds = "staff" :: publicCategIds
 

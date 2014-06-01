@@ -25,6 +25,8 @@ final class Env(
     val CollectionTopic = config getString "collection.topic"
     val CollectionPost = config getString "collection.post"
     val ActorName = config getString "actor.name"
+    import scala.collection.JavaConversions._
+    val PublicCategIds = (config getStringList "public_categ_ids").toList
   }
   import settings._
 
@@ -47,7 +49,7 @@ final class Env(
     detectLanguage = detectLanguage)
 
   lazy val forms = new DataForm(hub.actor.captcher)
-  lazy val recent = new Recent(postApi, RecentTtl, RecentNb)
+  lazy val recent = new Recent(postApi, RecentTtl, RecentNb, PublicCategIds)
 
   def cli = new lila.common.Cli {
     import tube._
