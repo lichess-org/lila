@@ -257,44 +257,6 @@ name | type | default | description
 }
 ```
 
-### Read the move stream
-
-Lichess streams all played moves on http://en.lichess.org/stream using chunked HTTP response and the following format:
-
-```sh
-ChunkSize        # size of the next chunk, in hexadecimal
-GameId IpAddress # actual chunk of data
-```
-
-#### Try it with netcat
-
-```sh
-> echo "GET /stream HTTP/1.1\nHost: en.lichess.org\n" | netcat en.lichess.org 80
-
-HTTP/1.1 200 OK
-Server: nginx
-Date: Wed, 16 Oct 2013 20:01:11 GMT
-Content-Type: text/plain; charset=utf-8
-Transfer-Encoding: chunked
-Connection: keep-alive
-Vary: Accept-Encoding
-
-1a
-4om0thb7 91.121.7.111
-1b
-o2eg9xu3 89.77.165.159
-18
-g3ag6xm6 83.149.8.9
-1b
-hl0zbh3g 109.237.157.8
-1a
-g3ag6xm6 91.121.7.111
-1c
-tj2u3hus 117.199.47.140
-```
-
-By comparing game IDs, you can guess who plays against who.
-
 Credits
 -------
 
