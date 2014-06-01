@@ -11,7 +11,7 @@ import views._
 
 private[controllers] trait TheftPrevention {
 
-  protected def PreventTheft(pov: Pov)(ok: => Fu[SimpleResult])(implicit ctx: Context): Fu[SimpleResult] =
+  protected def PreventTheft(pov: Pov)(ok: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     isTheft(pov).fold(fuccess(Redirect(routes.Round.watcher(pov.gameId, pov.color.name))), ok)
 
   protected def isTheft(pov: Pov)(implicit ctx: Context) = pov.game.imported || pov.player.isAi || {

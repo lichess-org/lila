@@ -1,6 +1,6 @@
 @(field: play.api.data.Field, strict: Boolean)(implicit ctx: Context)
 
-<div class="fen_position optional_config" data-validate-url="@routes.Setup.validateFen@{strict.??("?strict=1")}">
+<div class="fen_position optional_config" data-validate-url="@{routes.Setup.validateFen()}@{strict.??("?strict=1")}">
   @base.input(field, placeholder=trans.pasteTheFenStringHere.str().some)
   <a class="board_editor" href="@routes.Editor.index(~field.value)">
     <span class="preview"></span>

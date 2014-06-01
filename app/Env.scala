@@ -76,9 +76,9 @@ final class Env(
 
   if (Env.ai.ServerOnly) println("Running as AI server")
 
-  if (config getBoolean "simulation.enabled") {
-    lila.simulation.Env.current.start
-  }
+  // if (config getBoolean "simulation.enabled") {
+  //   lila.simulation.Env.current.start
+  // }
 }
 
 object Env {

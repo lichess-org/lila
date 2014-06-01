@@ -168,7 +168,7 @@ object User extends LilaController {
   }
 
   def autocomplete = Open { implicit ctx =>
-    get("term", ctx.req).filter(_.nonEmpty).fold(BadRequest("No search term provided").fuccess: Fu[SimpleResult]) { term =>
+    get("term", ctx.req).filter(_.nonEmpty).fold(BadRequest("No search term provided").fuccess: Fu[Result]) { term =>
       JsonOk(UserRepo usernamesLike term)
     }
   }

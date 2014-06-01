@@ -45,5 +45,6 @@ private[forum] final class Recent(
     (key.split(";").toList match {
       case langs :: "[troll]" :: categs => PostRepoTroll.recentInCategs(nb)(categs, parseLangs(langs))
       case langs :: categs              => PostRepo.recentInCategs(nb)(categs, parseLangs(langs))
+      case categs => PostRepo.recentInCategs(nb)(categs, parseLangs("en"))
     }) flatMap postApi.liteViews
 }

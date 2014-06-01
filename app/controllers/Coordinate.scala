@@ -33,7 +33,7 @@ object Coordinate extends LilaController {
       implicit val req = ctx.body
       env.forms.color.bindFromRequest.fold(
         err => fuccess(BadRequest),
-        value => Env.pref.api.setPref(me, (p: lila.pref.Pref) => p.copy(coordColor = value)) inject Ok()
+        value => Env.pref.api.setPref(me, (p: lila.pref.Pref) => p.copy(coordColor = value)) inject Ok(())
       )
   }
 }

@@ -50,7 +50,7 @@ private[teamSearch] final class Indexer(
               (teamOptions.flatten map store): _*
             } void
           }, 20 minutes)
-        sender ! ()
+        sender ! (())
       }
       catch {
         case e: Exception =>

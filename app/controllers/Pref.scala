@@ -36,7 +36,7 @@ object Pref extends LilaController {
     implicit val req = ctx.body
     (setters get name) ?? {
       case (form, fn) => FormResult(form) { v =>
-        fn(v, ctx) map { Ok() withCookies _ }
+        fn(v, ctx) map { Ok(()) withCookies _ }
       }
     }
   }

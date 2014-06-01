@@ -6,7 +6,7 @@ import java.util.Date
 import java.util.regex.Matcher.quoteReplacement
 
 import lila.user.UserContext
-import org.apache.commons.lang3.StringEscapeUtils.escapeXml
+import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 import play.twirl.api.Html
 
 trait StringHelper { self: NumberHelper =>
@@ -32,7 +32,7 @@ trait StringHelper { self: NumberHelper =>
   // the replace quot; -> " is required
   // to avoid issues caused by addLinks
   // when an url is surrounded by quotes
-  def escape(text: String) = escapeXml(text).replace("&quot;", "\"")
+  def escape(text: String) = escapeHtml4(text).replace("&quot;", "\"")
 
   def nl2br(text: String) = text.replace("\r\n", "<br />").replace("\n", "<br />")
 

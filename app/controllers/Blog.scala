@@ -37,7 +37,7 @@ object Blog extends LilaController {
     }
 
   // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
-  private def checkSlug(document: Option[Document], slug: String)(callback: Either[String, Document] => SimpleResult)(implicit ctx: lila.api.Context) =
+  private def checkSlug(document: Option[Document], slug: String)(callback: Either[String, Document] => Result)(implicit ctx: lila.api.Context) =
     document.collect {
       case document if document.slug == slug         => fuccess(callback(Right(document)))
       case document if document.slugs.contains(slug) => fuccess(callback(Left(document.slug)))

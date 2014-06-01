@@ -6,6 +6,7 @@ import lila.api.Context
 import lila.app._
 
 import play.api.libs.ws.WS
+import play.api.Play.current
 
 object Ai extends LilaController {
 

@@ -77,9 +77,9 @@ private[chat] final class ChatApi(
   private object Writer {
 
     import java.util.regex.Matcher.quoteReplacement
-    import org.apache.commons.lang3.StringEscapeUtils.escapeXml
+    import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 
-    def preprocessUserInput(in: String) = delocalize(noPrivateUrl(escapeXml(in)))
+    def preprocessUserInput(in: String) = delocalize(noPrivateUrl(escapeHtml4(in)))
 
     def cut(text: String) = Some(text.trim take 140) filter (_.nonEmpty)
     val delocalize = new lila.common.String.Delocalizer(netDomain)

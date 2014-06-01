@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.data.Form
-import play.api.mvc.{ SimpleResult, Results, Call, RequestHeader, Accepting }
+import play.api.mvc.{ Result, Results, Call, RequestHeader, Accepting }
 
 import lila.api.{ Context, BodyContext }
 import lila.app._
@@ -99,8 +99,8 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
 
   def filter = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    env.forms.filter(ctx).bindFromRequest.fold[Fu[SimpleResult]](
-      f => fulogwarn(f.errors.toString) inject BadRequest(),
+    env.forms.filter(ctx).bindFromRequest.fold[Fu[Result]](
+      f => fulogwarn(f.errors.toString) inject BadRequest(()),
       config => JsonOk(env.processor filter config inject config.render)
     )
   }
@@ -158,7 +158,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
         if (parsed.situation playable strict)
         validated = chess.format.Forsyth >> parsed
       } yield html.game.miniBoard(validated, parsed.situation.color.name)
-    }.fold[SimpleResult](BadRequest)(Ok(_)).fuccess
+    }.fold[Result](BadRequest)(Ok(_)).fuccess
   }
 
   private def process[A](form: Context => Form[A])(op: A => BodyContext => Fu[(Pov, Call)]) =

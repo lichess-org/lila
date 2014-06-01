@@ -41,7 +41,7 @@
     <div class="game_control">
       @puzzle.gameId.map { id =>
       <a class="button hint--bottom" data-hint="@trans.fromGameLink(id)"
-        href="@routes.Round.watcher(id, puzzle.color.name)@{puzzle.initialPly.??("#" + _)}">
+        href="@{routes.Round.watcher(id, puzzle.color.name).url}@{puzzle.initialPly.??("#" + _)}">
         <span data-icon="v"></span>
       </a>
       }

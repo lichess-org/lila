@@ -15,7 +15,7 @@ case class Attempt(
     userRatingDiff: Int,
     vote: Option[Boolean]) {
 
-  def seconds = math.round(time / 1000)
+  def seconds = time / 1000
 
   def loss = !win
 

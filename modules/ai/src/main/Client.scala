@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 import chess.format.UciMove
 import lila.analyse.Info
 import lila.game.{ Game, GameRepo }
-import play.api.libs.ws.WS
+import play.api.libs.ws.{ WS, WSRequestHolder }
 import play.api.Play.current
 
 final class Client(
@@ -55,7 +55,7 @@ final class Client(
       "human" -> requestedByHuman.fold("1", "0")).post("go")
   }
 
-  private def sendRequest(retriable: Boolean)(req: WS.WSRequestHolder): Fu[String] =
+  private def sendRequest(retriable: Boolean)(req: WSRequestHolder): Fu[String] =
     req.get flatMap {
       case res if res.status == 200 => fuccess(res.body)
       case res =>

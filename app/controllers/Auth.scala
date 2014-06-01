@@ -93,6 +93,6 @@ object Auth extends LilaController {
     logoutSucceeded(req) withCookies LilaCookie.newSession
   }
 
-  private def logoutSucceeded(req: RequestHeader): SimpleResult =
+  private def logoutSucceeded(req: RequestHeader): Result =
     Redirect(routes.Lobby.home)
 }

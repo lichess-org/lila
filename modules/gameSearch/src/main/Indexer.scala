@@ -81,7 +81,7 @@ private[gameSearch] final class Indexer(
             }
           },
           10 hours)
-        sender ! ()
+        sender ! (())
       }
       catch {
         case e: Exception =>

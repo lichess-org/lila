@@ -93,7 +93,7 @@ object Team extends LilaController {
           BadRequest(html.team.form(err, captcha))
         },
         data => api.create(data, me) ?? {
-          _ map { team => Redirect(routes.Team.show(team.id)): SimpleResult }
+          _ map { team => Redirect(routes.Team.show(team.id)): Result }
         }
       )
     }
@@ -165,14 +165,14 @@ object Team extends LilaController {
     }
   }
 
-  private def OnePerWeek[A <: SimpleResult](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[SimpleResult] =
+  private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.hasCreatedRecently(me) flatMap { did =>
       (did && !Granter.superAdmin(me)) fold (
         Forbidden(views.html.team.createLimit()).fuccess,
         a)
     }
 
-  private def Owner(team: TeamModel)(a: => Fu[SimpleResult])(implicit ctx: Context): Fu[SimpleResult] = {
+  private def Owner(team: TeamModel)(a: => Fu[Result])(implicit ctx: Context): Fu[Result] = {
     ctx.me.??(me => team.isCreator(me.id) || Granter.superAdmin(me))
   }.fold(a, renderTeam(team) map { Forbidden(_) })
 }
