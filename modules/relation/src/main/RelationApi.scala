@@ -80,7 +80,7 @@ final class RelationApi(
       case _ => RelationRepo.block(u1, u2) >> limitBlock(u1) >> refresh(u1, u2) >>-
         bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation) >>-
         (nbBlockers(u2) zip nbFollowers(u2)).andThen {
-          case Success((blockers, followers)) if blockers > 3 && blockers > (followers / 10) =>
+          case Success((blockers, followers)) if blockers > 9 && blockers > (followers / 5) =>
             reporter ! Blocked(u2, blockers, followers)
         }
     }
