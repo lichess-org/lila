@@ -6,7 +6,7 @@ object BuildSettings {
 
   def buildSettings = Defaults.defaultSettings ++ Seq(
     organization := "org.lichess",
-    scalaVersion := "2.10.3",
+    scalaVersion := "2.11.1",
     resolvers ++= Dependencies.Resolvers.commons,
     parallelExecution in Test := false,
     scalacOptions := compilerOptions,

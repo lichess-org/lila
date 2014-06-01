@@ -5,7 +5,7 @@ import akka.pattern.{ ask, pipe }
 import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.db.api._
 import lila.hub.actorApi.lobby.NewForumPost

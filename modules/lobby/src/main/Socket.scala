@@ -6,7 +6,7 @@ import akka.actor._
 import akka.pattern.ask
 import play.api.libs.iteratee._
 import play.api.libs.json._
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import actorApi._
 import lila.common.PimpedJson._

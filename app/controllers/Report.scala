@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.mvc._
-import play.api.templates.Html
+import play.twirl.api.Html
 import views._
 
 import lila.app._

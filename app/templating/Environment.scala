@@ -2,7 +2,7 @@ package lila.app
 package templating
 
 import ornicar.scalalib
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.api.Env.{ current => apiEnv }
 

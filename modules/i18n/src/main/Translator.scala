@@ -2,7 +2,7 @@ package lila.i18n
 
 import play.api.i18n.{ MessagesApi, Lang }
 import play.api.mvc.RequestHeader
-import play.api.templates.Html
+import play.twirl.api.Html
 
 private[i18n] final class Translator(api: MessagesApi, pool: I18nPool) {
 

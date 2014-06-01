@@ -3,7 +3,7 @@ package templating
 
 import com.roundeights.hasher.Implicits._
 import eu.henkelmann.actuarius.ActuariusTransformer
-import play.api.templates.Html
+import play.twirl.api.Html
 
 trait MarkdownHelper {
 

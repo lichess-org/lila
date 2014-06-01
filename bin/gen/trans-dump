@@ -10,7 +10,7 @@ lila_keys_file = lila_dir + '/modules/i18n/src/main/I18nKeys.scala'
 code = """// Generated with bin/trans-dump
 package lila.i18n
 
-import play.api.templates.Html
+import play.twirl.api.Html
 import play.api.i18n.Lang
 
 import lila.user.UserContext

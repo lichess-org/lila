@@ -14,6 +14,7 @@ object Dependencies {
     val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
+    val sprayNightlies = "spray nightlies repo" at "http://nightlies.spray.io"
     val localSonatype = "local sonatype repo" at home + "/local-repo/sonatype/snapshots"
     val local = "local repo" at home + "/local-repo"
     val roundeights = "RoundEights" at "http://maven.spikemark.net/roundeights"
@@ -23,40 +24,40 @@ object Dependencies {
     val commons = Seq(
       local,
       // localSonatype,
-      // sonatypeS,
+      sonatypeS,
       sonatype,
       awesomepom, iliaz,
       typesafe,
       roundeights,
       // typesafeS,
-      t2v, jgitMaven, sprayRepo, snowplow)
+      t2v, jgitMaven, sprayRepo, sprayNightlies, snowplow)
   }
 
-  val scalaz = "org.scalaz" %% "scalaz-core" % "7.0.5"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "4.24"
-  val config = "com.typesafe" % "config" % "1.2.0"
-  val apache = "org.apache.commons" % "commons-lang3" % "3.2.1"
-  val scalaTime = "com.github.nscala-time" %% "nscala-time" % "0.8.0"
-  val guava = "com.google.guava" % "guava" % "16.0.1"
+  val scalaz = "org.scalaz" %% "scalaz-core" % "7.0.6"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "5.0"
+  val config = "com.typesafe" % "config" % "1.2.1"
+  val apache = "org.apache.commons" % "commons-lang3" % "3.3.2"
+  val scalaTime = "com.github.nscala-time" %% "nscala-time" % "1.2.0"
+  val guava = "com.google.guava" % "guava" % "17.0"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "2.0.3"
   val csv = "com.github.tototoshi" %% "scala-csv" % "1.0.0"
   val hasher = "com.roundeights" %% "hasher" % "1.0.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
-  val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.6-THIB"
+  val actuarius = "eu.henkelmann" % "actuarius_2.10.0" % "0.2.6"
   val jodaTime = "joda-time" % "joda-time" % "2.3"
-  val elastic4s = "com.sksamuel.elastic4s" %% "elastic4s" % "1.0.1.0"
-  val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.0"
-  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.2"
-  val maxmind = "com.snowplowanalytics"  %% "scala-maxmind-geoip"  % "0.0.5"
-  val prismic = "io.prismic" %% "scala-kit" % "1.0-M13"
+  val elastic4s = "com.sksamuel.elastic4s" %% "elastic4s" % "1.1.2.0"
+  val RM = "org.reactivemongo" %% "reactivemongo" % "0.11.0-SNAPSHOT"
+  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.11.0-SNAPSHOT"
+  val maxmind = "com.snowplowanalytics"  % "scala-maxmind-geoip_2.10"  % "0.0.5"
+  val prismic = "io.prismic" % "scala-kit_2.10" % "1.0-M13"
 
   object play {
-    val version = "2.2.3"
+    val version = "2.3.0"
     val api = "com.typesafe.play" %% "play" % version
     val test = "com.typesafe.play" %% "play-test" % version
   }
   object spray {
-    val version = "1.2.1"
+    val version = "1.3.1"
     val caching = "io.spray" % "spray-caching" % version
     val util = "io.spray" % "spray-util" % version
   }

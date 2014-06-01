@@ -3,7 +3,7 @@ package lila.tournament
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.json.Json
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import actorApi._
 import lila.hub.actorApi.SendTos

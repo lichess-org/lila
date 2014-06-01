@@ -2,7 +2,7 @@ package lila.app
 package templating
 
 import controllers.routes
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.api.Context
 import lila.team.Env.{ current => teamEnv }

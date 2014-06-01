@@ -3,7 +3,7 @@ package controllers
 import scala.util.{ Try, Success, Failure }
 
 import play.api.mvc._
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.app._
 import lila.puzzle.PuzzleId

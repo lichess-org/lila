@@ -181,7 +181,7 @@ private[tournament] final class TournamentApi(
   private def lobbyReload {
     TournamentRepo.promotable foreach { tours =>
       renderer ? TournamentTable(tours) map {
-        case view: play.api.templates.Html => ReloadTournaments(view.body)
+        case view: play.twirl.api.Html => ReloadTournaments(view.body)
       } pipeToSelection lobby
     }
   }

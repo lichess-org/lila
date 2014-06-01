@@ -4,7 +4,7 @@ import scala.collection.mutable
 
 import akka.actor.ActorSelection
 import akka.pattern.ask
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.hub.actorApi.SendTo
 import lila.user.User

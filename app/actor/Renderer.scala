@@ -2,7 +2,7 @@ package lila.app
 package actor
 
 import akka.actor._
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.game.GameRepo
 import lila.user.UserRepo

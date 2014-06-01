@@ -5,7 +5,7 @@ import scala.util.{ Success, Failure }
 import akka.pattern.ask
 import play.api.http.ContentTypes
 import play.api.mvc._
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.analyse.{ Analysis, TimeChart, AdvantageChart }
 import lila.api.Context

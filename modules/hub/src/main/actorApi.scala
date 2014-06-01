@@ -5,7 +5,7 @@ import lila.common.LightUser
 
 import akka.actor.ActorRef
 import play.api.libs.json._
-import play.api.templates.Html
+import play.twirl.api.Html
 
 case class SendTo(userId: String, message: JsObject)
 

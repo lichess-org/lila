@@ -2,6 +2,7 @@ package lila.tv
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import play.api.Play.current
 import play.api.libs.ws.WS
 
 private final class Streaming(
@@ -46,7 +47,7 @@ private final class Streaming(
         onAir = streams
         import makeTimeout.short
         renderer ? event foreach {
-          case html: play.api.templates.Html =>
+          case html: play.twirl.api.Html =>
             context.system.lilaBus.publish(lila.hub.actorApi.StreamsOnAir(html.body), 'streams)
         }
     }

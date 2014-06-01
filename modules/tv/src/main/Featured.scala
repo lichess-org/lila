@@ -7,7 +7,7 @@ import akka.actor.ActorSelection
 import akka.pattern.{ ask, pipe }
 import chess.Color
 import Featured._
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.db.api._
 import lila.game.tube.gameTube

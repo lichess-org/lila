@@ -7,7 +7,7 @@ import java.util.regex.Matcher.quoteReplacement
 
 import lila.user.UserContext
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
-import play.api.templates.Html
+import play.twirl.api.Html
 
 trait StringHelper { self: NumberHelper =>
 

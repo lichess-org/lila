@@ -110,9 +110,10 @@ trait WithPlay { self: PackageObject =>
   implicit def LilaJsResultZero[A]: Zero[JsResult[A]] =
     Zero.instance(JsError(Seq.empty))
 
-  implicit final class LilaTraversableFuture[A, M[_] <: TraversableOnce[_]](t: M[Fu[A]]) {
+  implicit final class LilaTraversableFuture[A, M[X] <: TraversableOnce[X]](t: M[Fu[A]]) {
 
-    def sequenceFu(implicit cbf: scala.collection.generic.CanBuildFrom[M[Fu[A]], A, M[A]]) = Future sequence t
+    def sequenceFu(implicit cbf: scala.collection.generic.CanBuildFrom[M[Fu[A]], A, M[A]]) =
+      Future sequence t
   }
 
   implicit final class LilaPimpedFuture[A](fua: Fu[A]) {

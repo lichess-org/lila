@@ -4,7 +4,7 @@ package templating
 import lila.user.User
 import lila.notification.Env.{ current => notificationEnv }
 
-import play.api.templates.Html
+import play.twirl.api.Html
 import play.api.mvc.Call
 
 trait NotificationHelper {

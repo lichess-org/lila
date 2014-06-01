@@ -6,7 +6,7 @@ import scala.util.Random.shuffle
 import controllers._
 import play.api.i18n.Lang
 import play.api.mvc.{ RequestHeader, Call }
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.i18n.Env.{ current => i18nEnv }
 import lila.i18n.{ LangList, I18nDomain }

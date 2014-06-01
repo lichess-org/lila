@@ -2,7 +2,7 @@ package lila.api
 
 import akka.actor.ActorSelection
 import akka.pattern.{ ask, pipe }
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.hub.actorApi.{ RemindDeploy, Deploy }
 import makeTimeout.short

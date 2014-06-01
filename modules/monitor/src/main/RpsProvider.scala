@@ -18,7 +18,7 @@ private[monitor] final class RpsProvider(timeout: FiniteDuration) {
     }
   }
 
-  def rps = math.round {
+  def rps = {
     val current = nowMillis
     val (precedent, (count, millis)) = counter.single()
     val since = current - millis

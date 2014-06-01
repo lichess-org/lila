@@ -7,7 +7,7 @@ import lila.tournament.Tournament
 import lila.user.User
 
 import play.api.libs.json.Json
-import play.api.templates.Html
+import play.twirl.api.Html
 
 trait TournamentHelper { self: I18nHelper =>
 

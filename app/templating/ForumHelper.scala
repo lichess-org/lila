@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.forum.Post
 import lila.api.Context

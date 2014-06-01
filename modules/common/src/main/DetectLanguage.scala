@@ -5,6 +5,8 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 import play.api.libs.ws.WS
 
+import play.api.Play.current
+
 // http://detectlanguage.com
 final class DetectLanguage(url: String, key: String) {
 

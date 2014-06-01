@@ -5,7 +5,7 @@ import scala.util.Random
 
 import akka.actor.{ Deploy => _, _ }
 import play.api.libs.json._
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import actorApi._
 import lila.hub.actorApi.game.ChangeFeatured

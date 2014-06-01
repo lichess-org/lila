@@ -8,11 +8,11 @@ import akka.pattern.{ ask, pipe }
 import makeTimeout.short
 import scalaz.Monoid
 
-trait ActorMap[A <: Actor] extends Actor {
+trait ActorMap extends Actor {
 
   private var actors = Map[String, ActorRef]()
 
-  def mkActor(id: String): A
+  def mkActor(id: String): Actor
 
   def actorMapReceive: Receive = {
 
@@ -43,7 +43,7 @@ trait ActorMap[A <: Actor] extends Actor {
 
 object ActorMap {
 
-  def apply[A <: Actor](make: String => A) = new ActorMap[A] {
+  def apply(make: String => Actor) = new ActorMap {
     def mkActor(id: String) = make(id)
     def receive = actorMapReceive
   }

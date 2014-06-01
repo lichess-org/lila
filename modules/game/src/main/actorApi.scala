@@ -4,7 +4,7 @@ package actorApi
 import lila.user.User
 
 import play.api.libs.json.JsObject
-import play.api.templates.Html
+import play.twirl.api.Html
 
 case class FinishGame(game: Game, white: Option[User], black: Option[User]) {
 

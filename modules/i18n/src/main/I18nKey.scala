@@ -1,7 +1,7 @@
 package lila.i18n
 
 import play.api.i18n.Lang
-import play.api.templates.Html
+import play.twirl.api.Html
 import lila.user.UserContext
 
 trait I18nKey {

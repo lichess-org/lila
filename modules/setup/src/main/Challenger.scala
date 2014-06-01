@@ -3,7 +3,7 @@ package lila.setup
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.json.Json
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.SendTo

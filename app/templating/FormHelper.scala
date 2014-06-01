@@ -3,7 +3,7 @@ package templating
 
 import lila.api.Context
 import play.api.data._
-import play.api.templates.Html
+import play.twirl.api.Html
 
 trait FormHelper { self: I18nHelper =>
 

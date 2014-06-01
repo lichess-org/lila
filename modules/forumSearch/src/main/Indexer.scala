@@ -64,7 +64,7 @@ private[forumSearch] final class Indexer(
               } void
             }
           }, 20 minutes)
-        sender ! ()
+        sender ! (())
       }
       catch {
         case e: Exception =>

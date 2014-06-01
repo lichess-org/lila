@@ -18,7 +18,7 @@ object $primitive {
         .genericQueryBuilder
         .query(query)
         .projection(Json.obj(field -> true))
-    } toList max map2 { (obj: BSONDocument) =>
+    } toList[BSONDocument] max map2 { (obj: BSONDocument) =>
       extract(JsObjectReader.read(obj) \ field)
     } map (_.flatten)
 
@@ -31,7 +31,7 @@ object $primitive {
         .genericQueryBuilder
         .query(query)
         .projection(Json.obj(field -> true))
-    }.one map2 { (obj: BSONDocument) =>
+    }.one[BSONDocument] map2 { (obj: BSONDocument) =>
       extract(JsObjectReader.read(obj) \ field)
     } map (_.flatten)
 }

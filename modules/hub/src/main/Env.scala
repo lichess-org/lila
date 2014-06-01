@@ -3,8 +3,6 @@ package lila.hub
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.common.PimpedConfig._
-
 final class Env(config: Config, system: ActorSystem) {
 
   object actor {

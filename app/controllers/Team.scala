@@ -8,7 +8,7 @@ import views._
 import lila.security.Granter
 
 import play.api.mvc._
-import play.api.templates.Html
+import play.twirl.api.Html
 
 object Team extends LilaController {
 

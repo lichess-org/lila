@@ -3,7 +3,7 @@ package templating
 
 import chess.format.Nag
 import play.api.data._
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.api.Context
 

@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump
 package lila.i18n
 
-import play.api.templates.Html
+import play.twirl.api.Html
 import play.api.i18n.Lang
 
 import lila.user.UserContext

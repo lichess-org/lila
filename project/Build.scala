@@ -1,5 +1,8 @@
-import play.Project._
 import sbt._, Keys._
+import play.Play.autoImport._
+import PlayKeys._
+import play._
+import play.twirl.sbt.Import._
 
 object ApplicationBuild extends Build {
 
@@ -8,16 +11,16 @@ object ApplicationBuild extends Build {
 
   override def rootProject = Some(lila)
 
-  lazy val lila = _root_.play.Project("lila", "5.0") settings (
+  lazy val lila = Project("lila", file(".")) enablePlugins PlayScala settings (
     offline := true,
     libraryDependencies ++= Seq(
-      scalaz, scalalib, hasher, config, apache, scalaTime,
+      ws, scalaz, scalalib, hasher, config, apache, scalaTime,
       csv, jgit, actuarius, elastic4s, findbugs, RM,
       PRM, spray.caching, maxmind, prismic),
       scalacOptions := compilerOptions,
       sources in doc in Compile := List(),
       incOptions := incOptions.value.withNameHashing(true),
-      templatesImport ++= Seq(
+      TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.user.{ User, UserContext }",
         "lila.security.Permission",
@@ -68,7 +71,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val common = project("common").settings(
-    libraryDependencies ++= provided(play.api, play.test, RM, csv)
+    libraryDependencies ++= provided(play.api, play.test, RM, csv, ws)
   )
 
   lazy val rating = project("rating", Seq(common, db)).settings(
@@ -119,8 +122,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val tv = project("tv", Seq(common, db, hub, game, user, chess)).settings(
-    libraryDependencies ++= provided(
-      play.api, RM, PRM)
+    libraryDependencies ++= provided(play.api, RM, PRM, ws)
   )
 
   lazy val analyse = project("analyse", Seq(common, hub, chess, game, user)).settings(
@@ -153,7 +155,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val ai = project("ai", Seq(common, hub, chess, game, analyse, rating)).settings(
-    libraryDependencies ++= provided(play.api, RM, PRM)
+    libraryDependencies ++= provided(play.api, RM, PRM, ws)
   )
 
   lazy val security = project("security", Seq(common, hub, db, user)).settings(
@@ -195,8 +197,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val i18n = project("i18n", Seq(common, db, user, hub)).settings(
-    libraryDependencies ++= provided(
-      play.api, RM, PRM, jgit)
+    libraryDependencies ++= provided(play.api, RM, PRM, jgit, ws)
   )
 
   lazy val bookmark = project("bookmark", Seq(common, memo, db, hub, user, game)).settings(

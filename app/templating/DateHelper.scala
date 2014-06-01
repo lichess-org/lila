@@ -6,7 +6,7 @@ import scala.collection.mutable
 
 import org.joda.time.format._
 import org.joda.time.{ Period, PeriodType, DurationFieldType, DateTime }
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.api.Context
 

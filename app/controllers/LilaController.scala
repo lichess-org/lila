@@ -7,7 +7,7 @@ import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.libs.json.{ Json, JsValue, JsObject, JsArray, Writes }
 import play.api.mvc._, Results._
 import play.api.mvc.WebSocket.FrameFormatter
-import play.api.templates.Html
+import play.twirl.api.Html
 import scalaz.Monoid
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }

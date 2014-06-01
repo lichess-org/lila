@@ -39,7 +39,7 @@ private[i18n] final class GitWrite(
       case branch: String => {
         loginfo("Checkout " + branch)
         git checkout branch
-        sender ! ()
+        sender ! (())
       }
 
       case translation: Translation => {

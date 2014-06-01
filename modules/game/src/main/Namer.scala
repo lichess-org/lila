@@ -3,7 +3,7 @@ package lila.game
 import chess.Clock
 
 import lila.common.LightUser
-import play.api.templates.Html
+import play.twirl.api.Html
 
 object Namer {
 

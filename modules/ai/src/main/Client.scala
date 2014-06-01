@@ -10,6 +10,7 @@ import chess.format.UciMove
 import lila.analyse.Info
 import lila.game.{ Game, GameRepo }
 import play.api.libs.ws.WS
+import play.api.Play.current
 
 final class Client(
     config: Config,

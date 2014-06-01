@@ -5,7 +5,7 @@ import chess.format.Forsyth
 import chess.{ Status => S, Variant, Color, Clock, Mode }
 import controllers.routes
 import play.api.mvc.Call
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.game.{ Game, Player, Namer, Pov }
 import lila.user.Env.{ current => userEnv }

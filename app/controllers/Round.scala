@@ -4,7 +4,7 @@ import akka.pattern.ask
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.mvc._
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._

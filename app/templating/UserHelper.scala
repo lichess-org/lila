@@ -3,7 +3,7 @@ package templating
 
 import controllers.routes
 import mashup._
-import play.api.templates.Html
+import play.twirl.api.Html
 
 import lila.common.LightUser
 import lila.user.{ User, UserContext }

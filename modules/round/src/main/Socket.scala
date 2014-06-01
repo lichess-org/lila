@@ -90,7 +90,7 @@ private[round] final class Socket(
     }
 
     case Nil            =>
-    case events: Events => notify(events)
+    case eventList: EventList => notify(eventList.events)
 
     case lila.chat.actorApi.ChatLine(chatId, line) => notify(List(line match {
       case l: lila.chat.UserLine   => Event.UserMessage(l, chatId endsWith "/w")
