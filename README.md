@@ -21,6 +21,7 @@ Lichess talks to [Stockfish 5](http://stockfishchess.org/) using a [FSM Actor](h
 It uses [MongoDB 2.4](http://mongodb.org) to store more than 30 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
 HTTP requests and websocket connections are proxied by [nginx 1.4](http://nginx.org).
 New client-side features are written in [ClojureScript](https://github.com/ornicar/lila/tree/master/cljs/puzzle/src).
+The [blog](http://lichess.org/blog) uses a free open content plan from [prismic.io](http://prismic.io).
 
 Join us on #lichess IRC channel on freenode for more info.
 See the roadmap on https://etherpad.mozilla.org/ep/pad/view/ro.3bIwxJwTQYW/latest.
