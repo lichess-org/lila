@@ -17,7 +17,7 @@ case ForumPost(userId, topicName, postId) => {
 @trans.xPostedInForumY(userIdLink(userId.some, withOnline = false), """<a href="%s">&nbsp;%s</a>""".format(routes.ForumPost.redirect(postId), shorten(topicName, 30)))
 }
 case NoteCreate(fromId, toId) => {
-@userIdLink(fromId.some, withOnline = false) let a note on @userIdLink(toId.some, withOnline = false, params = "?note")
+@userIdLink(fromId.some, withOnline = false) left a note on @userIdLink(toId.some, withOnline = false, params = "?note")
 }
 case TourJoin(userId, tourId, tourName) => {
 @userIdLink(userId.some, withOnline = false) competes in <a href="@routes.Tournament.show(tourId)">@trans.xTournament(tourName)</a>
