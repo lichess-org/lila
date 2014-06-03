@@ -113,7 +113,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
         },
         _ map {
           case (p, events) => {
-            Env.hub.socket.round ! lila.hub.actorApi.map.Tell(p.gameId, events)
+            Env.hub.socket.round ! lila.hub.actorApi.map.Tell(p.gameId, lila.round.actorApi.EventList(events))
             implicit val req = ctx.req
             redirectPov(p, routes.Round.player(p.fullId))
           }

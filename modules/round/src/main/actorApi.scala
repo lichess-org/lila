@@ -9,7 +9,7 @@ import lila.game.{ Game, Event, PlayerRef }
 import lila.socket.SocketMember
 import lila.user.User
 
-private[round] case class EventList(events: List[Event])
+case class EventList(events: List[Event])
 
 sealed trait Member extends SocketMember {
 
