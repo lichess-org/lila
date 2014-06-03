@@ -19,7 +19,7 @@ object Twitch {
   case class Stream(channel: Channel)
   case class Result(streams: List[Stream]) {
     def streamsOnAir = streams map (_.channel) map { c =>
-      StreamOnAir("twitch", c.status, c.url, c.name)
+      StreamOnAir("twitch", c.status, c.url, c.name.replace("(lichess.org)", ""))
     }
   }
   object Reads {
@@ -33,7 +33,7 @@ object Ustream {
   case class Channel(url: String, title: String, id: String)
   case class Result(results: Option[List[Channel]]) {
     def streamsOnAir = ~results map { c =>
-      StreamOnAir("ustream", c.title, c.url, c.id)
+      StreamOnAir("ustream", c.title.replace("(lichess.org)", ""), c.url, c.id)
     }
   }
   object Reads {
