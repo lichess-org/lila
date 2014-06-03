@@ -21,8 +21,7 @@ object Global extends GlobalSettings {
       Env.monitor.reporting ! AddRequest
       // Env.security.wiretap(req)
       // Env.security.firewall.requestHandler(req).await orElse
-      Env.i18n.requestHandler(req) orElse
-        super.onRouteRequest(req)
+      Env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
     }
 
   private def niceError(req: RequestHeader): Boolean = req.method == "GET" && {
