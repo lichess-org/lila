@@ -25,7 +25,6 @@ case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 case object Start
 case object Reload
 case object ReloadPage
-case object HubTimeout
 case class StartGame(game: Game)
 case class Joining(userId: String)
 case class Connected(enumerator: JsEnumerator, member: Member)

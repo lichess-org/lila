@@ -6,6 +6,7 @@ private[game] case class Metadata(
     source: Option[Source],
     pgnImport: Option[PgnImport],
     tournamentId: Option[String],
+    poolId: Option[String],
     tvAt: Option[DateTime]) {
 
   def pgnDate = pgnImport flatMap (_.date)

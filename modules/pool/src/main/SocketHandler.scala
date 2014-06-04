@@ -1,4 +1,4 @@
-package lila.tournament
+package lila.pool
 
 import scala.concurrent.duration._
 
@@ -7,7 +7,6 @@ import akka.pattern.ask
 
 import actorApi._
 import lila.common.PimpedJson._
-import lila.db.api.$count
 import lila.hub.actorApi.map._
 import lila.security.Flood
 import akka.actor.ActorSelection
@@ -15,27 +14,27 @@ import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.user.User
 import makeTimeout.short
-import tube.tournamentTube
 
-private[tournament] final class SocketHandler(
+private[pool] final class SocketHandler(
+  repo: PoolRepo,
     hub: lila.hub.Env,
     socketHub: ActorRef,
     chat: ActorSelection,
     flood: Flood) {
 
   def join(
-    tourId: String,
+    poolId: String,
     version: Int,
     uid: String,
     user: Option[User]): Fu[JsSocketHandler] =
-    $count.exists(tourId) flatMap {
-      _ ?? {
+    PoolRepo exists poolId flatMap {
+      _ ?? { pool =>
         for {
-          socket ← socketHub ? Get(tourId) mapTo manifest[ActorRef]
+          socket ← socketHub ? Get(poolId) mapTo manifest[ActorRef]
           join = Join(uid = uid, user = user, version = version)
           handler ← Handler(hub, socket, uid, join, user map (_.id)) {
             case Connected(enum, member) =>
-              controller(socket, tourId, uid, member) -> enum
+              controller(socket, poolId, uid, member) -> enum
           }
         } yield handler
       }
@@ -43,7 +42,7 @@ private[tournament] final class SocketHandler(
 
   private def controller(
     socket: ActorRef,
-    tourId: String,
+    poolId: String,
     uid: String,
     member: Member): Handler.Controller = {
     case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
@@ -52,8 +51,9 @@ private[tournament] final class SocketHandler(
     }
     case ("talk", o) => o str "d" foreach { text =>
       member.userId foreach { userId =>
-        chat ! lila.chat.actorApi.UserTalk(tourId, userId, text, socket)
+        chat ! lila.chat.actorApi.UserTalk(poolId, userId, text, socket)
       }
     }
   }
 }
+

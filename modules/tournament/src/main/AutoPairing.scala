@@ -10,7 +10,7 @@ import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round.ResignColor
 import lila.user.{ User, UserRepo }
 
-final class GameJoiner(
+final class AutoPairing(
     roundMap: ActorRef,
     system: ActorSystem) {
 

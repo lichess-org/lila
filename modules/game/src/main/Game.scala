@@ -340,6 +340,9 @@ case class Game(
   def withTournamentId(id: String) = this.copy(
     metadata = metadata.copy(tournamentId = id.some)
   )
+  def withPoolId(id: String) = this.copy(
+    metadata = metadata.copy(poolId = id.some)
+  )
 
   def withId(newId: String) = this.copy(id = newId)
 

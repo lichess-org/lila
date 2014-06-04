@@ -23,7 +23,7 @@ import tube.tournamentTubes._
 
 private[tournament] final class TournamentApi(
     sequencers: ActorRef,
-    joiner: GameJoiner,
+    autoPairing: AutoPairing,
     router: ActorSelection,
     renderer: ActorSelection,
     timeline: ActorSelection,
@@ -37,7 +37,7 @@ private[tournament] final class TournamentApi(
       TournamentRepo startedById oldTour.id flatMap {
         case Some(tour) =>
           val tour2 = tour addPairings pairings
-          $update(tour2) >> (pairings map joiner(tour2)).sequence map {
+          $update(tour2) >> (pairings map autoPairing(tour2)).sequence map {
             _.list foreach { game =>
               game.tournamentId foreach { tid =>
                 sendTo(tid, StartGame(game))
