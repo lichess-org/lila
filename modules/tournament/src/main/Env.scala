@@ -25,7 +25,7 @@ final class Env(
 
   private val settings = new {
     val CollectionTournament = config getString "collection.tournament"
-    val MessageTtl = config duration "message.ttl"
+    val HistoryMessageTtl = config duration "history.message.ttl"
     val CreatedCacheTtl = config duration "created.cache.ttl"
     val LeaderboardCacheTtl = config duration "leaderboard.cache.ttl"
     val UidTimeout = config duration "uid.timeout"
@@ -64,7 +64,7 @@ final class Env(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
       def mkActor(tournamentId: String) = new Socket(
         tournamentId = tournamentId,
-        history = new History(ttl = MessageTtl),
+        history = new History(ttl = HistoryMessageTtl),
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout,
         lightUser = lightUser)
