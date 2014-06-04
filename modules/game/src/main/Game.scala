@@ -394,6 +394,7 @@ object Game {
       source = source.some,
       pgnImport = pgnImport,
       tournamentId = none,
+      poolId = none,
       tvAt = none),
     createdAt = DateTime.now)
 
@@ -430,6 +431,7 @@ object Game {
     val source = "so"
     val pgnImport = "pgni"
     val tournamentId = "tid"
+    val poolId = "po"
     val tvAt = "tv"
     val winnerColor = "w"
     val winnerId = "wid"
@@ -475,6 +477,7 @@ object Game {
           source = r intO source flatMap Source.apply,
           pgnImport = r.getO[PgnImport](pgnImport)(PgnImport.pgnImportBSONHandler),
           tournamentId = r strO tournamentId,
+          poolId = r strO poolId,
           tvAt = r dateO tvAt)
       )
     }
@@ -503,6 +506,7 @@ object Game {
       source -> o.metadata.source.map(_.id),
       pgnImport -> o.metadata.pgnImport,
       tournamentId -> o.metadata.tournamentId,
+      poolId -> o.metadata.poolId,
       tvAt -> o.metadata.tvAt.map(w.date)
     )
   }

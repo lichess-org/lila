@@ -1,16 +1,30 @@
 package lila.pool
 
-import reactivemongo.bson._
+import com.typesafe.config.{ Config, ConfigObject }
+import lila.common.PimpedConfig._
+import scala.collection.JavaConversions._
+import scala.util.Try
 
-import lila.db.api._
-import lila.db.Implicits._
+private[pool] final class PoolRepo(config: Config) {
 
-private[pool] final class PoolRepo(coll: Coll) {
+  def pools: List[Pool] = config.root.map {
+    case (id, obj: ConfigObject) =>
+      val conf = obj.toConfig
+      for {
+        name <- Try(conf getString "name").toOption
+        clock <- Option(conf getConfig "clock")
+        clockLimit <- Try(clock getInt "limit").toOption
+        clockIncrement <- Try(clock getInt "increment").toOption
+        variant <- Try(conf getString "variant").toOption flatMap chess.Variant.apply
+      } yield Pool(id, name, clockLimit, clockIncrement, variant)
+    case _ => none
+  }.toList.flatten
 
-  def byId(id: ID) = coll.find(select(id)).one[Pool]
+  private val poolMap = pools.map { p =>
+    p.id -> p
+  }.toMap
 
-  def exists(id: ID) =
-    coll.db command Count(coll.name, select(id).some) map (0 !=)
+  def byId(id: ID) = poolMap get id
 
-  private def select(id: ID) = BSONDocument("_id" -> id)
+  def exists(id: ID) = poolMap contains id
 }

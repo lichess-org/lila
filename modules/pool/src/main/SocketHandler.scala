@@ -6,17 +6,17 @@ import akka.actor._
 import akka.pattern.ask
 
 import actorApi._
+import akka.actor.ActorSelection
 import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.security.Flood
-import akka.actor.ActorSelection
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.user.User
 import makeTimeout.short
 
 private[pool] final class SocketHandler(
-  repo: PoolRepo,
+    repo: PoolRepo,
     hub: lila.hub.Env,
     socketHub: ActorRef,
     chat: ActorSelection,
@@ -26,19 +26,16 @@ private[pool] final class SocketHandler(
     poolId: String,
     version: Int,
     uid: String,
-    user: Option[User]): Fu[JsSocketHandler] =
-    PoolRepo exists poolId flatMap {
-      _ ?? { pool =>
-        for {
-          socket ← socketHub ? Get(poolId) mapTo manifest[ActorRef]
-          join = Join(uid = uid, user = user, version = version)
-          handler ← Handler(hub, socket, uid, join, user map (_.id)) {
-            case Connected(enum, member) =>
-              controller(socket, poolId, uid, member) -> enum
-          }
-        } yield handler
+    user: Option[User]): Fu[JsSocketHandler] = (repo exists poolId) ?? {
+    for {
+      socket ← socketHub ? Get(poolId) mapTo manifest[ActorRef]
+      join = Join(uid = uid, user = user, version = version)
+      handler ← Handler(hub, socket, uid, join, user map (_.id)) {
+        case Connected(enum, member) =>
+          controller(socket, poolId, uid, member) -> enum
       }
-    }
+    } yield handler
+  }
 
   private def controller(
     socket: ActorRef,

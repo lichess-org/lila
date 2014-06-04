@@ -18,7 +18,7 @@ private[game] case class Metadata(
 
 private[game] object Metadata {
 
-  val empty = Metadata(None, None, None, None)
+  val empty = Metadata(None, None, None, None, None)
 }
 
 case class PgnImport(

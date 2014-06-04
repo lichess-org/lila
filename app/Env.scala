@@ -126,4 +126,5 @@ object Env {
   def coordinate = lila.coordinate.Env.current
   def tv = lila.tv.Env.current
   def blog = lila.blog.Env.current
+  def pool = lila.pool.Env.current
 }

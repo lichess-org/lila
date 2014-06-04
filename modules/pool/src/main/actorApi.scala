@@ -23,3 +23,5 @@ case class Join(
   version: Int)
 
 case class Talk(tourId: String, u: String, t: String, troll: Boolean)
+
+case class Connected(enumerator: JsEnumerator, member: Member)
