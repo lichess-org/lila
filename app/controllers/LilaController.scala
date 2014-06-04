@@ -203,7 +203,8 @@ private[controllers] trait LilaController
         }
       } map {
         case (pref, ((friends, teamNbRequests), messageIds)) =>
-          PageData(friends, teamNbRequests, messageIds.size, pref)
+          val blindMode = ctx.req.cookies.get(Env.api.accessibilityBlindCookieName).map(_.value) == "1".some
+          PageData(friends, teamNbRequests, messageIds.size, pref, blindMode)
       }
     }
 

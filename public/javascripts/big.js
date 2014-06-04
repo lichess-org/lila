@@ -593,6 +593,17 @@ var storage = {
     $('body').on('lichess.content_loaded', setMomentFromNow);
     setInterval(setMomentFromNow, 2000);
 
+    if ($('#blind_mode').hasClass('enabled')) {
+      console.debug('blind mode');
+      var setBlindMode = function() {
+        $('[data-hint]').each(function() {
+          $(this).attr('title', $(this).data('hint'));
+        });
+      };
+      setBlindMode();
+      $('body').on('lichess.content_loaded', setBlindMode);
+    }
+
     // Start game
     var $game = $('div.lichess_game').orNot();
     if ($game) $game.game(_ld_);
@@ -2147,14 +2158,15 @@ var storage = {
         }).trigger('mouseout');
       });
 
-      $form.prepend($('<a class="close" data-icon="L"></a>').click(function() {
+      $form.find('a.close.icon').click(function() {
         $form.remove();
         $startButtons.find('a.active').removeClass('active');
-      }));
+        return false;
+      });
     }
 
     $startButtons.find('a').click(function() {
-      $startButtons.find('a.active').removeClass('active');
+      $startButtons.removeClass('active');
       $(this).addClass('active');
       $('div.lichess_overboard').remove();
       $.ajax({
@@ -2164,6 +2176,7 @@ var storage = {
           $('div.lichess_board_wrap').prepend(html);
           prepareForm();
           $.centerOverboard();
+          $('body').trigger('lichess.content_loaded');
         }
       });
       return false;

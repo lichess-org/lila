@@ -10,10 +10,11 @@ case class PageData(
   friends: List[lila.common.LightUser],
   teamNbRequests: Int,
   nbMessages: Int,
-  pref: Pref)
+  pref: Pref,
+  blindMode: Boolean)
 
 object PageData {
-  val default = PageData(Nil, 0, 0, Pref.default)
+  val default = PageData(Nil, 0, 0, Pref.default, false)
 }
 
 sealed trait Context extends lila.user.UserContextWrapper {
@@ -25,6 +26,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def teamNbRequests = pageData.teamNbRequests
   def nbMessages = pageData.nbMessages
   def pref = pageData.pref
+  def blindMode = pageData.blindMode
 
   def currentTheme = ctxPref("theme").fold(Pref.default.realTheme)(lila.pref.Theme.apply)
 

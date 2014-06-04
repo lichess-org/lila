@@ -1,3 +1,6 @@
+# Accessibility
+POST  /toggle-blind-mode               controllers.Main.toggleBlindMode
+
 # Lobby
 GET   /                                controllers.Lobby.home
 GET   /lobby/socket                    controllers.Lobby.socket

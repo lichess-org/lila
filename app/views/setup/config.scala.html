@@ -1,6 +1,7 @@
 @(form: Form[_], typ: String, title: Html, route: Call, fields: Html, error: Option[Html] = None)(implicit ctx: Context)
 
 <div class="lichess_overboard auto_center game_config game_config_@typ">
+  <a href="@routes.Lobby.home" class="close icon" title="@trans.cancel()" data-icon="L"></a>
   <h2>@title</h2>
   @error.map { e =>
   <p class="error">@e</p>
