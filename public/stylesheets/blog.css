@@ -42,6 +42,9 @@
 #lichess_blog .body strong {
   font-weight: bold;
 }
+#lichess_blog .body em {
+  font-style: italic;
+}
 #lichess_blog ol li {
   list-style: decimal inside;
 }
@@ -52,6 +55,11 @@
   font-size: 1.4em;
   border-bottom: 1px solid #eee;
   margin: 35px 0;
+}
+#lichess_blog .body h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 25px 0;
 }
 #lichess_blog .body img {
   padding: 5px;
