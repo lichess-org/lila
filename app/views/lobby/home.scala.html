@@ -1,4 +1,4 @@
-@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[User], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir], lastPost: Option[lila.blog.MiniPost])(implicit ctx: Context)
+@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[User], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost])(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game" title="@trans.watchLichessTV()">
@@ -167,21 +167,25 @@ openGraph = Map(
       </div>
     </div>
   </div>
-  @lastPost.map { post =>
+  @if(lastPost.nonEmpty) {
   <div class="blog undertable">
     <div class="undertable_top">
       <a class="more" title="Blog" href="@routes.Blog.index()">@trans.more() »</a>
       <span class="title" data-icon="6"> Latest update</span>
     </div>
     <div class="undertable_inner">
-      @defining(routes.Blog.show(post.id, post.slug)) { url =>
-      <a class="image" href="@url">
-        <img src="@post.image" />
-      </a>
+      @lastPost.map { post =>
       <div class="post">
-        <span class="date">@post.date</span>
-        <a class="title revert-underline" href="@url">@post.title</a>
-        <p class="shortlede">@post.shortlede</p>
+        @defining(routes.Blog.show(post.id, post.slug)) { url =>
+        <a class="image" href="@url">
+          <img src="@post.image" />
+        </a>
+        <div class="text">
+          <span class="date">@post.date</span>
+          <a class="title revert-underline" href="@url">@post.title</a>
+          <p class="shortlede">@post.shortlede</p>
+        </div>
+        }
       </div>
       }
     </div>

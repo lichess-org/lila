@@ -2012,19 +2012,22 @@ div.blog.undertable div.undertable_inner {
 div.blog.undertable div.undertable_inner:hover {
   overflow: hidden;
 }
-div.blog.undertable div.undertable_inner a.image {
+div.blog.undertable div.post {
+  overflow: hidden;
+}
+div.blog.undertable div.post a.image {
   display: block;
   float: left;
   margin-right: 10px;
 }
-div.blog.undertable div.undertable_inner a.image img {
+div.blog.undertable div.post a.image img {
   height: 60px;
 }
-div.blog.undertable div.undertable_inner .title {
+div.blog.undertable div.post .title {
   font-weight: bold;
   line-height: 2;
 }
-div.blog.undertable div.undertable_inner .date {
+div.blog.undertable div.post .date {
   float: right;
   font-weight: 100;
   line-height: 2;
