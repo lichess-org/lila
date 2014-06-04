@@ -1,19 +1,21 @@
 package lila.blog
 
+import org.joda.time.DateTime
+
 case class MiniPost(
   id: String,
   slug: String,
   title: String,
   shortlede: String,
-  date: String,
+  date: DateTime,
   image: String)
 
 object MiniPost {
 
-  def fromDocument(doc: io.prismic.Document): Option[MiniPost] = for {
-    title <- doc getText "blog.title"
-    shortlede <- doc getText "blog.shortlede"
-    date <- doc getText "blog.date"
-    image <- doc.getImage("blog.image", "column").map(_.url)
+  def fromDocument(coll: String)(doc: io.prismic.Document): Option[MiniPost] = for {
+    title <- doc getText s"$coll.title"
+    shortlede = ~(doc getText s"$coll.shortlede")
+    date <- doc getDate s"$coll.date" map (_.value)
+    image = ~doc.getImage(s"$coll.image", "column").map(_.url)
   } yield MiniPost(doc.id, doc.slug, title, shortlede, date, image)
 }

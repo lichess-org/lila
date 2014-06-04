@@ -20,7 +20,7 @@ final class Env(
     prismicUrl = PrismicApiUrl,
     collection = PrismicCollection)
 
-  lazy val lastPostCache = new LastPostCache(api, LastPostCacheTtl)
+  lazy val lastPostCache = new LastPostCache(api, LastPostCacheTtl, PrismicCollection)
 
   private implicit lazy val notifier = new Notifier(
     blogApi = api,

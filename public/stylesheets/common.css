@@ -2027,7 +2027,7 @@ div.blog.undertable div.post .title {
   font-weight: bold;
   line-height: 2;
 }
-div.blog.undertable div.post .date {
+div.blog.undertable div.post time {
   float: right;
   font-weight: 100;
   line-height: 2;

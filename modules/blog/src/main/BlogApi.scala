@@ -6,7 +6,9 @@ import play.api.mvc.RequestHeader
 final class BlogApi(prismicUrl: String, collection: String) {
 
   def recent(api: Api, ref: Option[String], nb: Int) =
-    api.forms(collection).ref(ref | api.master.ref).pageSize(nb).page(1).submit()
+    api.forms(collection).ref(ref | api.master.ref)
+      .orderings(s"[my.$collection.date desc]")
+      .pageSize(nb).page(1).submit()
 
   def one(api: Api, ref: Option[String], id: String) =
     api.forms(collection)

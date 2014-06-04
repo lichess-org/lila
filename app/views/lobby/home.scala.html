@@ -181,7 +181,7 @@ openGraph = Map(
           <img src="@post.image" />
         </a>
         <div class="text">
-          <span class="date">@post.date</span>
+          @semanticDate(post.date)
           <a class="title revert-underline" href="@url">@post.title</a>
           <p class="shortlede">@post.shortlede</p>
         </div>

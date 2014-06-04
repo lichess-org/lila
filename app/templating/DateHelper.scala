@@ -46,6 +46,9 @@ trait DateHelper { self: I18nHelper =>
   def showDate(date: DateTime)(implicit ctx: Context): String =
     dateFormatter(ctx) print date
 
+  def semanticDate(date: DateTime)(implicit ctx: Context): String =
+    s"""<time datetime="${isoFormatter print date}">${showDate(date)}</time>"""
+
   def showPeriod(period: Period)(implicit ctx: Context): String =
     periodFormatter(ctx) print period.normalizedStandard(periodType)
 

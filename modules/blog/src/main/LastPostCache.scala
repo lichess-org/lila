@@ -2,11 +2,11 @@ package lila.blog
 
 import scala.concurrent.duration._
 
-final class LastPostCache(api: BlogApi, ttl: Duration) {
+final class LastPostCache(api: BlogApi, ttl: Duration, collection: String) {
 
   private val cache = lila.memo.MixedCache.single[List[MiniPost]](
     api.prismicApi flatMap { prismic =>
-      api.recent(prismic, none, 3) map (_.results flatMap MiniPost.fromDocument)
+      api.recent(prismic, none, 3) map (_.results flatMap MiniPost.fromDocument(collection))
     },
     timeToLive = ttl,
     default = Nil,
