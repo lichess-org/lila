@@ -114,8 +114,12 @@ time {
 .thin {
   font-weight: lighter;
 }
-/* jquery-ui */
+#blind_mode {
+  margin-left: -99999px;
+  height: 0;
+}
 
+/* jquery-ui */
 .ui-helper-hidden {
   display: none;
 }
@@ -566,6 +570,9 @@ body.tight #lichess {
 }
 body.tight #site_title {
   margin-left: 10px;
+}
+body.blind_mode #site_title {
+  color: red !important;
 }
 #site_title span.extension {
   font-weight: lighter;

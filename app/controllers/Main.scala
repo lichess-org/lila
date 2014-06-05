@@ -14,6 +14,25 @@ import views._
 
 object Main extends LilaController {
 
+  private lazy val blindForm = Form(tuple(
+    "enable" -> nonEmptyText,
+    "redirect" -> nonEmptyText
+  ))
+
+  def toggleBlindMode = OpenBody { implicit ctx =>
+    implicit val req = ctx.body
+    fuccess {
+      blindForm.bindFromRequest.fold(
+        err => BadRequest, {
+          case (enable, redirect) =>
+            Redirect(redirect) withCookies lila.common.LilaCookie.cookie(
+              Env.api.accessibilityBlindCookieName,
+              enable,
+              maxAge = Env.api.accessibilityBlindCookieMaxAge.some)
+        })
+    }
+  }
+
   def websocket = Socket { implicit ctx =>
     get("sri") ?? { uid =>
       Env.site.socketHandler(uid, ctx.userId, get("flag"))

@@ -593,6 +593,16 @@ var storage = {
     $('body').on('lichess.content_loaded', setMomentFromNow);
     setInterval(setMomentFromNow, 2000);
 
+    if ($('body').hasClass('blind_mode')) {
+      var setBlindMode = function() {
+        $('[data-hint]').each(function() {
+          $(this).attr('title', $(this).data('hint'));
+        });
+      };
+      setBlindMode();
+      $('body').on('lichess.content_loaded', setBlindMode);
+    }
+
     // Start game
     var $game = $('div.lichess_game').orNot();
     if ($game) $game.game(_ld_);
@@ -943,6 +953,29 @@ var storage = {
         location.href = $(this).find('a.view').attr('href');
       });
 
+      var bindTextualMove = function(el) {
+        $(el).find('form').submit(function() {
+          var text = $(this).find('.move').val();
+          var move = {
+            from: text.substring(0, 2),
+            to: text.substring(2, 4),
+            promotion: text.substring(4, 5)
+          };
+          lichess.socket.sendAckable("move", move);
+          return false;
+        }).find('.move').focus();
+      };
+      var loadTextualRepresentation = _.debounce(function() {
+        $('#lichess_board_blind').each(function() {
+          $(this).load($(this).data('href'), function() {
+            bindTextualMove(this);
+          });
+        });
+      }, 1000);
+      $('#lichess_board_blind').each(function() {
+        bindTextualMove(this);
+      });
+
       lichess.socket = new strongSocket(
         self.options.url.socket,
         self.options.player.version,
@@ -975,6 +1008,7 @@ var storage = {
                     self.element.dequeue();
                   }, false);
                 }
+                loadTextualRepresentation();
               });
             },
             castling: function(event) {
@@ -2147,14 +2181,15 @@ var storage = {
         }).trigger('mouseout');
       });
 
-      $form.prepend($('<a class="close" data-icon="L"></a>').click(function() {
+      $form.find('a.close.icon').click(function() {
         $form.remove();
         $startButtons.find('a.active').removeClass('active');
-      }));
+        return false;
+      });
     }
 
     $startButtons.find('a').click(function() {
-      $startButtons.find('a.active').removeClass('active');
+      $startButtons.removeClass('active');
       $(this).addClass('active');
       $('div.lichess_overboard').remove();
       $.ajax({
@@ -2164,6 +2199,7 @@ var storage = {
           $('div.lichess_board_wrap').prepend(html);
           prepareForm();
           $.centerOverboard();
+          $('body').trigger('lichess.content_loaded');
         }
       });
       return false;

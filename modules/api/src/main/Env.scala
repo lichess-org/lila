@@ -32,6 +32,9 @@ final class Env(
 
   val version = config getInt "api.version"
 
+  val accessibilityBlindCookieName = config getString "accessibility.blind.cookie.name"
+  val accessibilityBlindCookieMaxAge = config getInt "accessibility.blind.cookie.max_age"
+
   val userApi = new UserApi(
     makeUrl = apiUrl,
     apiToken = apiToken,

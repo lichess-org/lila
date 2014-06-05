@@ -1,3 +1,6 @@
+# Accessibility
+POST  /toggle-blind-mode               controllers.Main.toggleBlindMode
+
 # Lobby
 GET   /                                controllers.Lobby.home
 GET   /lobby/socket                    controllers.Lobby.socket
@@ -88,6 +91,9 @@ GET   /$gameId<[\w\-]{8}>/$color<white|black>/end    controllers.Round.endWatche
 GET   /$fullId<[\w\-]{12}>/end                       controllers.Round.endPlayer(fullId: String)
 GET   /$gameId<[\w\-]{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
 GET   /$gameId<[\w\-]{8}>/edit                       controllers.Editor.game(gameId: String)
+
+# Round accessibility: text representation
+GET   /$fullId<[\w\-]{12}>/text                      controllers.Round.text(fullId: String)
 
 # Tournament
 GET   /tournament                             controllers.Tournament.home
