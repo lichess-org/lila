@@ -102,8 +102,8 @@
   text-align: right;
   font-family: monospace;
 }
-#tournament table.standing td.total {
-  padding-right: 15px;
+#tournament div.standing_wrap:hover td.total {
+  padding-right: 22px;
 }
 #tournament .double {
   color: #d59120;
