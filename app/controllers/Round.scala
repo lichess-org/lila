@@ -110,6 +110,13 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
+  def text(fullId: String) = Open { implicit ctx =>
+    OptionResult(GameRepo pov fullId) { pov =>
+      if (ctx.blindMode) Ok(html.round.textualRepresentation(pov))
+      else BadRequest
+    }
+  }
+
   def endWatcher(gameId: String, color: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo.pov(gameId, color)) { end(_, false) }
   }
@@ -134,17 +141,17 @@ object Round extends LilaController with TheftPrevention {
       api = apiVersion => fuccess(Ok(Json.obj(
         "isEnd" -> pov.game.finished
       ) ++ pov.game.finished.fold(Json.obj(
-        "winner" -> pov.game.winner.map(w =>
-          Json.obj(
-            "userId" -> w.userId,
-            "name" -> lila.game.Namer.playerString(w)(Env.user.lightUser),
-            "isMe" -> pov.player.isWinner
-          )),
-        "status" -> Json.obj(
-          "id" -> pov.game.status.id,
-          "name" -> pov.game.status.name,
-          "translated" -> lila.app.templating.Environment.gameEndStatus(pov.game).body)
-      ), Json.obj())) as JSON)
+          "winner" -> pov.game.winner.map(w =>
+            Json.obj(
+              "userId" -> w.userId,
+              "name" -> lila.game.Namer.playerString(w)(Env.user.lightUser),
+              "isMe" -> pov.player.isWinner
+            )),
+          "status" -> Json.obj(
+            "id" -> pov.game.status.id,
+            "name" -> pov.game.status.name,
+            "translated" -> lila.app.templating.Environment.gameEndStatus(pov.game).body)
+        ), Json.obj())) as JSON)
     )
   }
 

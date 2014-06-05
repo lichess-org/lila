@@ -571,6 +571,9 @@ body.tight #lichess {
 body.tight #site_title {
   margin-left: 10px;
 }
+body.blind_mode #site_title {
+  color: red !important;
+}
 #site_title span.extension {
   font-weight: lighter;
 }

@@ -92,6 +92,9 @@ GET   /$fullId<[\w\-]{12}>/end                       controllers.Round.endPlayer
 GET   /$gameId<[\w\-]{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
 GET   /$gameId<[\w\-]{8}>/edit                       controllers.Editor.game(gameId: String)
 
+# Round accessibility: text representation
+GET   /$fullId<[\w\-]{12}>/text                      controllers.Round.text(fullId: String)
+
 # Tournament
 GET   /tournament                             controllers.Tournament.home
 GET   /tournament/reload                      controllers.Tournament.homeReload

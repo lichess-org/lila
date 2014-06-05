@@ -37,15 +37,15 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     }
     @langAnnotations
   </head>
-  <body class="@ctx.currentTheme.cssClass @ctx.currentBg @ctx.currentPieceSet@if(ctx.pref.highlight) { highlight}"
+  <body class="@ctx.currentTheme.cssClass @ctx.currentBg @ctx.currentPieceSet@if(ctx.pref.highlight) { highlight}@if(ctx.blindMode) { blind_mode}"
     data-piece-set="@ctx.currentPieceSet"
     data-sound-dir="@staticUrl("sound")"
     data-ports="@portsString"
     data-accept-languages="@acceptLanguages.mkString(",")">
-    <form id="blind_mode" @if(ctx.blindMode) { class="enabled" } action="@routes.Main.toggleBlindMode" method="POST">
+    <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
       <input type="hidden" name="enable" value="@ctx.blindMode.fold(0,1)" />
       <input type="hidden" name="redirect" value="@ctx.req.path" />
-      <button type="submit">Accessibility: @ctx.blindMode.fold("Dinable", "Enable") blind mode</button>
+      <button type="submit">Accessibility: @ctx.blindMode.fold("Disable", "Enable") blind mode</button>
     </form>
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
     <div id="top" class="clearfix">

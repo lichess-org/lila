@@ -1,0 +1,32 @@
+@(pov: lila.game.Pov)(implicit ctx: Context)
+
+<h1>Textual representation</h1>
+<dl>
+  <dt>Turn</dt>
+  <dd>@pov.game.turns</dd>
+  <dt>PGN</dt>
+  <dd>@pov.game.pgnMoves.mkString(" ")</dd>
+  <dt>FEN</dt>
+  <dd>@{chess.format.Forsyth.>>(pov.game.toChess)}</dd>
+  <dt>Your color</dt>
+  <dd>@pov.color.name</dd>
+  <dt>Opponent</dt>
+  <dd>@playerText(pov.opponent)</dd>
+  <dt>Game status</dt>
+  <dd>
+  @if(pov.game.finishedOrAborted) {
+  @gameEndStatus(pov.game)
+  } else {
+  @pov.game.turnColor plays
+  }
+  </dd>
+  @if(pov.game.playable && pov.game.turnOf(pov.player)) {
+  <form>
+    <label>
+      Your move in UCI format (e.g. e2e4 or d7d8Q)
+      <input name="move" class="move" type="text" value="" />
+      <button type="submit">Send move</button>
+    </label>
+  </form>
+  }
+</dl>

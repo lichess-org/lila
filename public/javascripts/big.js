@@ -593,8 +593,7 @@ var storage = {
     $('body').on('lichess.content_loaded', setMomentFromNow);
     setInterval(setMomentFromNow, 2000);
 
-    if ($('#blind_mode').hasClass('enabled')) {
-      console.debug('blind mode');
+    if ($('body').hasClass('blind_mode')) {
       var setBlindMode = function() {
         $('[data-hint]').each(function() {
           $(this).attr('title', $(this).data('hint'));
@@ -954,6 +953,29 @@ var storage = {
         location.href = $(this).find('a.view').attr('href');
       });
 
+      var bindTextualMove = function(el) {
+        $(el).find('form').submit(function() {
+          var text = $(this).find('.move').val();
+          var move = {
+            from: text.substring(0, 2),
+            to: text.substring(2, 4),
+            promotion: text.substring(4, 5)
+          };
+          lichess.socket.sendAckable("move", move);
+          return false;
+        }).find('.move').focus();
+      };
+      var loadTextualRepresentation = _.debounce(function() {
+        $('#lichess_board_blind').each(function() {
+          $(this).load($(this).data('href'), function() {
+            bindTextualMove(this);
+          });
+        });
+      }, 1000);
+      $('#lichess_board_blind').each(function() {
+        bindTextualMove(this);
+      });
+
       lichess.socket = new strongSocket(
         self.options.url.socket,
         self.options.player.version,
@@ -986,6 +1008,7 @@ var storage = {
                     self.element.dequeue();
                   }, false);
                 }
+                loadTextualRepresentation();
               });
             },
             castling: function(event) {
