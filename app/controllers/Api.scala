@@ -21,7 +21,7 @@ object Api extends LilaController {
   def users = ApiResult { req =>
     userApi.list(
       team = get("team", req),
-      engine = get("engine", req) map ("1"==),
+      engine = getBoolOpt("engine", req),
       token = get("token", req),
       nb = getInt("nb", req)
     ) map (_.some)
@@ -30,14 +30,19 @@ object Api extends LilaController {
   def games = ApiResult { req =>
     gameApi.list(
       username = get("username", req),
-      rated = get("rated", req) map ("1"==),
+      rated = getBoolOpt("rated", req),
+      analysed = getBoolOpt("analysed", req),
+      withAnalysis = getBoolOpt("with_analysis", req),
       token = get("token", req),
       nb = getInt("nb", req)
     ) map (_.some)
   }
 
   def game(id: String) = ApiResult { req =>
-    gameApi one (id take lila.game.Game.gameIdSize)
+    gameApi.one(
+      id = id take lila.game.Game.gameIdSize,
+      withAnalysis = getBoolOpt("with_analysis", req),
+      token = get("token", req))
   }
 
   def analysis = ApiResult { req =>

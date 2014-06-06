@@ -107,6 +107,10 @@ trait GameRepo {
     $update.fieldUnchecked(id, F.tvAt, $date(DateTime.now))
   }
 
+  def setAnalysed(id: ID) {
+    $update.fieldUnchecked(id, F.analysed, true)
+  }
+
   def onTv(nb: Int): Fu[List[Game]] = $find($query(Json.obj(F.tvAt -> $exists(true))) sort $sort.desc(F.tvAt), nb)
 
   def incBookmarks(id: ID, value: Int) =

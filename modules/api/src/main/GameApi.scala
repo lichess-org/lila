@@ -22,39 +22,37 @@ private[api] final class GameApi(
   def list(
     username: Option[String],
     rated: Option[Boolean],
+    analysed: Option[Boolean],
+    withAnalysis: Option[Boolean],
     token: Option[String],
     nb: Option[Int]): Fu[JsObject] = $find($query(Json.obj(
     G.status -> $gte(chess.Status.Mate.id),
     G.playerUids -> username,
-    G.rated -> rated.map(_.fold(JsBoolean(true), $exists(false)))
-  ).noNull) sort lila.game.Query.sortCreated, makeNb(nb)) flatMap { games =>
+    G.rated -> rated.map(_.fold(JsBoolean(true), $exists(false))),
+    G.analysed -> analysed.map(_.fold(JsBoolean(true), $exists(false)))
+  ).noNull) sort lila.game.Query.sortCreated, makeNb(nb)) flatMap
+    gamesJson(withAnalysis, token) map { games =>
+      Json.obj("list" -> games)
+    }
+
+  def one(
+    id: String,
+    withAnalysis: Option[Boolean],
+    token: Option[String]): Fu[Option[JsObject]] =
+    $find byId id map (_.toList) flatMap gamesJson(withAnalysis, token) map (_.headOption)
+
+  private def gamesJson(withAnalysis: Option[Boolean], token: Option[String])(games: List[Game]): Fu[List[JsObject]] =
     AnalysisRepo doneByIds games.map(_.id) flatMap { analysisOptions =>
       (games map { g => makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) }).sequenceFu map { urls =>
         val validToken = check(token)
-        Json.obj(
-          "list" -> JsArray(
-            games zip urls zip analysisOptions map {
-              case ((g, url), analysisOption) =>
-                GameApi.gameToJson(g, url, analysisOption,
-                  withBlurs = validToken,
-                  withMoveTimes = validToken)
-            }
-          )
-        )
+        games zip urls zip analysisOptions map {
+          case ((g, url), analysisOption) =>
+            GameApi.gameToJson(g, url, analysisOption,
+              withBlurs = validToken,
+              withMoveTimes = validToken)
+        }
       }
     }
-  }
-
-  def one(id: String): Fu[Option[JsObject]] = $find byId id flatMap {
-    case None => fuccess(none)
-    case Some(game) => AnalysisRepo doneById game.id flatMap { analysisOption =>
-      makeUrl(R.Watcher(game.id, game.firstPlayer.color.name)) map { url =>
-        GameApi.gameToJson(game, url, analysisOption,
-          withBlurs = false,
-          withMoveTimes = false)
-      }
-    } map (_.some)
-  }
 
   private def check(token: Option[String]) = token ?? (apiToken==)
 }

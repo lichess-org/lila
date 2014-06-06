@@ -130,7 +130,9 @@ name | type | default | description
 --- | --- | --- | ---
 **username** | string | - | filter games by user
 **rated** | 1 or 0 | - | filter rated or casual games
+**analysed** | 1 or 0 | - | filter only analysed (or not analysed) games
 **nb** | int | 10 | maximum number of games to return
+**with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
 **token** | string | - | security token (unlocks secret game data)
 
 ```
@@ -165,6 +167,26 @@ name | type | default | description
         },
         "black": ... // other player
       }
+      "analysis": [ // only if the with_analysis flag is set
+        {
+          "eval": -26, // board evaluation in centipawns
+          "move": "e4",
+          "ply": 1
+        },
+        {
+          "eval": -8,
+          "move": "b5",
+          "ply": 2
+        },
+        {
+          "comment": "(-0.08 → -0.66) Inaccuracy. The best move was c4.",
+          "eval": -66,
+          "move": "Nfe3",
+          "ply": 3,
+          "variation": "c4 bxc4 Nfe3 c5 Qf1 f6 Rxc4 Bb7 b4 Ba6"
+        },
+        // ... more moves
+      ],
     },
     {
       ... // other game
@@ -176,6 +198,14 @@ name | type | default | description
 (1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
 
 ### `GET /api/game/{id}` fetch one game by ID
+
+A single game is returned.
+All parameters are optional.
+
+name | type | default | description
+--- | --- | --- | ---
+**with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
+**token** | string | - | security token (unlocks secret game data)
 
 ```
 > curl http://en.lichess.org/api/game/x2kpaixn
@@ -206,7 +236,27 @@ name | type | default | description
       }
     },
     "black": ... // other player
-  }
+  },
+  "analysis": [ // only if the with_analysis flag is set
+    {
+      "eval": -26, // board evaluation in centipawns
+      "move": "e4",
+      "ply": 1
+    },
+    {
+      "eval": -8,
+      "move": "b5",
+      "ply": 2
+    },
+    {
+      "comment": "(-0.08 → -0.66) Inaccuracy. The best move was c4.",
+      "eval": -66,
+      "move": "Nfe3",
+      "ply": 3,
+      "variation": "c4 bxc4 Nfe3 c5 Qf1 f6 Rxc4 Bb7 b4 Ba6"
+    },
+    // ... more moves
+  ]
 }
 ```
 

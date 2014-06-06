@@ -84,7 +84,7 @@ final class Analyser(
                   game.userIds foreach { userId =>
                     evaluator ! lila.hub.actorApi.evaluation.Refresh(userId)
                   }
-                } inject analysis
+                } >>- GameRepo.setAnalysed(game.id) inject analysis
               }
               else fufail(s"[analysis] invalid $id")
           })
