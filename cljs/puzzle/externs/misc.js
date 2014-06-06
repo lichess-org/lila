@@ -5,7 +5,8 @@ var Chess = {
   load: function(fen) {},
   fen: function() {},
   turn: function() {},
-  in_check: function() {}
+  in_check: function() {},
+  undo: function() {}
 };
 jQuery.prototype.sparkline = function(points, options) {};
 jQuery.displayBoardMarks = function(board, white) {};
