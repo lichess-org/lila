@@ -2,20 +2,21 @@ package lila.api
 
 import play.api.libs.json._
 
+import chess.format.pgn.Pgn
 import lila.analyse.{ AnalysisRepo, Analysis }
 import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
-import lila.game.Game
 import lila.game.Game.{ BSONFields => G }
 import lila.game.tube.gameTube
+import lila.game.{ Game, PgnDump }
 import lila.hub.actorApi.{ router => R }
 import makeTimeout.short
 
 private[api] final class GameApi(
     makeUrl: Any => Fu[String],
     apiToken: String,
-    isOnline: String => Boolean) {
+    pgnDump: PgnDump) {
 
   private def makeNb(nb: Option[Int]) = math.min(100, nb | 10)
 
@@ -23,7 +24,7 @@ private[api] final class GameApi(
     username: Option[String],
     rated: Option[Boolean],
     analysed: Option[Boolean],
-    withAnalysis: Option[Boolean],
+    withAnalysis: Boolean,
     token: Option[String],
     nb: Option[Int]): Fu[JsObject] = $find($query(Json.obj(
     G.status -> $gte(chess.Status.Mate.id),
@@ -37,32 +38,34 @@ private[api] final class GameApi(
 
   def one(
     id: String,
-    withAnalysis: Option[Boolean],
+    withAnalysis: Boolean,
     token: Option[String]): Fu[Option[JsObject]] =
     $find byId id map (_.toList) flatMap gamesJson(withAnalysis, token) map (_.headOption)
 
-  private def gamesJson(withAnalysis: Option[Boolean], token: Option[String])(games: List[Game]): Fu[List[JsObject]] =
+  private def gamesJson(withAnalysis: Boolean, token: Option[String])(games: List[Game]): Fu[List[JsObject]] =
     AnalysisRepo doneByIds games.map(_.id) flatMap { analysisOptions =>
-      (games map { g => makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) }).sequenceFu map { urls =>
-        val validToken = check(token)
-        games zip urls zip analysisOptions map {
-          case ((g, url), analysisOption) =>
-            GameApi.gameToJson(g, url, analysisOption,
-              withBlurs = validToken,
-              withMoveTimes = validToken)
+      (games map { g => withAnalysis ?? (pgnDump(g) map (_.some)) }).sequenceFu flatMap { pgns =>
+        (games map { g => makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) }).sequenceFu map { urls =>
+          val validToken = check(token)
+          games zip urls zip analysisOptions zip pgns map {
+            case (((g, url), analysisOption), pgnOption) =>
+              gameToJson(g, url, analysisOption, pgnOption,
+                withAnalysis = withAnalysis,
+                withBlurs = validToken,
+                withMoveTimes = validToken)
+          }
         }
       }
     }
 
   private def check(token: Option[String]) = token ?? (apiToken==)
-}
 
-private[api] object GameApi {
-
-  def gameToJson(
+  private def gameToJson(
     g: Game,
     url: String,
     analysisOption: Option[Analysis],
+    pgnOption: Option[Pgn],
+    withAnalysis: Boolean,
     withBlurs: Boolean = false,
     withMoveTimes: Boolean = false) = Json.obj(
     "id" -> g.id,
@@ -93,6 +96,18 @@ private[api] object GameApi {
         )
       ).noNull
     }),
+    "analysis" -> analysisOption.ifTrue(withAnalysis).|@|(pgnOption).apply {
+      case (analysis, pgn) => JsArray(analysis.infoAdvices zip pgn.moves map {
+        case ((info, adviceOption), move) => Json.obj(
+          "ply" -> info.ply,
+          "move" -> move.san,
+          "eval" -> info.score.map(_.centipawns),
+          "mate" -> info.mate,
+          "variation" -> info.variation.isEmpty.fold(JsNull, info.variation mkString " "),
+          "comment" -> adviceOption.map(_.makeComment(true, true))
+        ).noNull
+      })
+    },
     "winner" -> g.winnerColor.map(_.name),
     "url" -> url
   ).noNull

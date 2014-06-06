@@ -246,7 +246,6 @@ GET   /api/user                        controllers.Api.users
 GET   /api/user/:id                    controllers.Api.user(id: String)
 GET   /api/game                        controllers.Api.games
 GET   /api/game/:id                    controllers.Api.game(id: String)
-GET   /api/analysis                    controllers.Api.analysis
 GET   /api/puzzle/:id                  controllers.Api.puzzle(id: String)
 POST  /api/puzzle                      controllers.Puzzle.importBatch
 

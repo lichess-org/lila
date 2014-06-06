@@ -262,54 +262,6 @@ name | type | default | description
 
 (1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
 
-### `GET /api/analysis` fetch many analysis
-
-This API requires a secret token to work.
-Analysis are returned by descendant chronological order.
-All parameters are optional.
-
-name | type | default | description
---- | --- | --- | ---
-**token** | string | - | security token
-**nb** | int | 10 | maximum number of analysis to return
-
-```
-> curl http://en.lichess.org/api/analysis?nb=10
-```
-
-```javascript
-{
-  "list": [
-    {
-      "analysis": [
-        {
-          "eval": -26, // board evaluation in centipawns
-          "move": "e4",
-          "ply": 1
-        },
-        {
-          "eval": -8,
-          "move": "b5",
-          "ply": 2
-        },
-        {
-          "comment": "(-0.08 → -0.66) Inaccuracy. The best move was c4.",
-          "eval": -66,
-          "move": "Nfe3",
-          "ply": 3,
-          "variation": "c4 bxc4 Nfe3 c5 Qf1 f6 Rxc4 Bb7 b4 Ba6"
-        },
-        // ... more moves
-      ],
-      "game": {
-        // similar to the game API format, see above
-      },
-      "uci": "e2e4 e7e5 d2d4 e5d4 g1f3 g8f6" // UCI compatible game moves
-    }
-  ]
-}
-```
-
 ### `GET /api/puzzle/<id>` fetch one puzzle
 
 ```

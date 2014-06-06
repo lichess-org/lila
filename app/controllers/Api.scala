@@ -9,7 +9,6 @@ object Api extends LilaController {
 
   private val userApi = Env.api.userApi
   private val gameApi = Env.api.gameApi
-  private val analysisApi = Env.api.analysisApi
   private val puzzleApi = Env.api.puzzleApi
 
   def user(username: String) = ApiResult { req =>
@@ -32,7 +31,7 @@ object Api extends LilaController {
       username = get("username", req),
       rated = getBoolOpt("rated", req),
       analysed = getBoolOpt("analysed", req),
-      withAnalysis = getBoolOpt("with_analysis", req),
+      withAnalysis = getBool("with_analysis", req),
       token = get("token", req),
       nb = getInt("nb", req)
     ) map (_.some)
@@ -41,15 +40,8 @@ object Api extends LilaController {
   def game(id: String) = ApiResult { req =>
     gameApi.one(
       id = id take lila.game.Game.gameIdSize,
-      withAnalysis = getBoolOpt("with_analysis", req),
+      withAnalysis = getBool("with_analysis", req),
       token = get("token", req))
-  }
-
-  def analysis = ApiResult { req =>
-    analysisApi.list(
-      nb = getInt("nb", req),
-      token = get("token", req)
-    ) map (_.some)
   }
 
   def puzzle(id: String) = ApiResult { req =>

@@ -44,12 +44,6 @@ final class Env(
   val gameApi = new GameApi(
     makeUrl = apiUrl,
     apiToken = apiToken,
-    isOnline = userEnv.isOnline)
-
-  val analysisApi = new AnalysisApi(
-    apiToken = apiToken,
-    makeUrl = apiUrl,
-    nbAnalysis = () => analyseEnv.cached.nbAnalysis,
     pgnDump = pgnDump)
 
   val puzzleApi = new PuzzleApi(
