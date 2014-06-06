@@ -6,6 +6,7 @@ import com.sksamuel.elastic4s.ElasticClient
 import com.sksamuel.elastic4s.ElasticDsl._
 import com.sksamuel.elastic4s.mapping.FieldType._
 
+import lila.game.GameRepo
 import lila.game.actorApi.{ InsertGame, FinishGame }
 import lila.search.actorApi._
 import lila.search.ElasticSearch
@@ -13,8 +14,7 @@ import lila.search.ElasticSearch
 private[gameSearch] final class Indexer(
     client: ElasticClient,
     indexName: String,
-    typeName: String,
-    analyser: lila.analyse.Analyser) extends Actor {
+    typeName: String) extends Actor {
 
   context.system.lilaBus.subscribe(self, 'finishGame)
 
@@ -28,7 +28,7 @@ private[gameSearch] final class Indexer(
     case FinishGame(game, _, _) => self ! InsertGame(game)
 
     case InsertGame(game) => if (storable(game)) {
-      analyser hasDone game.id foreach { analysed =>
+      GameRepo isAnalysed game.id foreach { analysed =>
         client execute store(game, analysed)
       }
     }
@@ -68,7 +68,7 @@ private[gameSearch] final class Indexer(
           $enumerate.bulk[Option[lila.game.Game]]($query.all, batchSize) { gameOptions =>
             val games = gameOptions.flatten filter storable
             val nbGames = games.size
-            (analyser hasMany games.map(_.id).toSeq flatMap { analysedIds =>
+            (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
               client bulk {
                 games.map { g => store(g, analysedIds(g.id)) }: _*
               }

@@ -107,11 +107,19 @@ trait GameRepo {
     $update.fieldUnchecked(id, F.tvAt, $date(DateTime.now))
   }
 
+  def onTv(nb: Int): Fu[List[Game]] = $find($query(Json.obj(F.tvAt -> $exists(true))) sort $sort.desc(F.tvAt), nb)
+
   def setAnalysed(id: ID) {
     $update.fieldUnchecked(id, F.analysed, true)
   }
 
-  def onTv(nb: Int): Fu[List[Game]] = $find($query(Json.obj(F.tvAt -> $exists(true))) sort $sort.desc(F.tvAt), nb)
+  private def selectAnalysed = Json.obj(F.analysed -> true)
+
+  def isAnalysed(id: ID): Fu[Boolean] =
+    $count.exists($select(id) ++ selectAnalysed)
+
+  def filterAnalysed(ids: Seq[String]): Fu[Set[String]] =
+    $primitive(($select byIds ids) ++ selectAnalysed, "_id")(_.asOpt[String]) map (_.toSet)
 
   def incBookmarks(id: ID, value: Int) =
     $update($select(id), $incBson("bm" -> value))

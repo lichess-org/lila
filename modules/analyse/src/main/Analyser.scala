@@ -31,11 +31,6 @@ final class Analyser(
     if (a.stalled) (AnalysisRepo remove a.id) inject none[Analysis] else fuccess(a.some)
   }
 
-  def hasDone(id: String): Fu[Boolean] = getDone(id) map (_.isDefined)
-
-  def hasMany(ids: Seq[String]): Fu[Set[String]] =
-    $primitive[Analysis, String]($select byIds ids, "_id")(_.asOpt[String]) map (_.toSet)
-
   def getOrGenerate(
     id: String,
     userId: String,
