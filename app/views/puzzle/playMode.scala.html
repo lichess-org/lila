@@ -6,7 +6,8 @@
   data-color="@puzzle.color"
   data-move="@puzzle.initialMove"
   data-lines="@lila.puzzle.Line.toJsonString(puzzle.lines)"
-  data-post-url="@routes.Puzzle.attempt(puzzle.id)">
+  data-post-url="@routes.Puzzle.attempt(puzzle.id)"
+  data-asset-url="@assetBaseUrl">
 
   <div class="side">
     @trainingBox(puzzle, userInfos, true)

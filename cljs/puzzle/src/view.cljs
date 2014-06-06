@@ -12,7 +12,8 @@
 (defn make-chessboard [$puzzle]
   (core/make-chessboard {:orientation (jq/data $puzzle :color)
                          :moveSpeed animation-delay
-                         :draggable false}))
+                         :draggable false}
+                        (jq/data $puzzle :asset-url)))
 
 (defn bind-vote! [$vote]
   (jq/on $vote :click ".enabled a:not(.active)"

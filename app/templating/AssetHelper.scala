@@ -10,9 +10,11 @@ trait AssetHelper {
 
   def isProd: Boolean
 
-  private val domain = lila.api.Env.current.Net.AssetDomain
+  val assetDomain = lila.api.Env.current.Net.AssetDomain
 
-  def staticUrl(path: String) = s"http://$domain${routes.Assets.at(path)}"
+  val assetBaseUrl = s"http://$assetDomain"
+
+  def staticUrl(path: String) = s"$assetBaseUrl${routes.Assets.at(path)}"
 
   def cssTag(name: String, staticDomain: Boolean = true) = cssAt("stylesheets/" + name, staticDomain)
 

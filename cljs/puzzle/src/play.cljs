@@ -19,7 +19,8 @@
                          :moveSpeed animation-delay
                          :draggable true
                          :dropOffBoard "snapback"
-                         :onDrop on-drop!}))
+                         :onDrop on-drop!}
+                        (jq/data $puzzle :asset-url)))
 
 (defn show-turn! [$puzzle]
   (let [color (if (= (.turn chess) "w") "white" "black")
