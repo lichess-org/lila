@@ -1,5 +1,7 @@
 @(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context)
 
+@import lila.pref.Pref.Color
+
 @moreCss = {
 @cssTag("training.css")
 @cssTag("coordinate.css")
@@ -50,11 +52,11 @@ active = siteMenu.puzzle.some) {
       }
     </div>
     <form class="color buttons" action="@routes.Coordinate.color" method="POST">
-      @lila.pref.Pref.Color.choices.map {
+      @List(Color.BLACK -> trans.black(), Color.RANDOM -> trans.randomColor(), Color.WHITE -> trans.white()).map {
       case (id, name) => {
       <input type="radio" id="coord_color_@id" name="coord_color" value="@id"
       @(if(id == ctx.pref.coordColor) "checked" else "") />
-      <label for="coord_color_@id">@name</label>
+      <label for="coord_color_@id" data-hint="@name" class="color color_@id hint--bottom"></label>
       }
       }
     </form>

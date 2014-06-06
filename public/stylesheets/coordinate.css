@@ -1,3 +1,21 @@
+form.color .color span {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-size: 30px 30px;
+  background-repeat: no-repeat;
+  padding: 0;
+  margin: 10px 15px;
+}
+form.color .color_1 span {
+  background-image: url(../piece/cburnett/wK.svg);
+}
+form.color .color_2 span {
+  background-image: url(../piece/cburnett/wbK.svg);
+}
+form.color .color_3 span {
+  background-image: url(../piece/cburnett/bK.svg);
+}
 #trainer .lichess_board {
   display: none;
   border: 1px solid #c0c0c0;
