@@ -11,6 +11,7 @@ $(function() {
       bq: 'q'
     };
     $wrap.find('.castling input').on('change', onChange);
+    var assetUrl = $wrap.data('asset-url');
 
     function getRich() {
       return toRich(board.fen());
@@ -38,7 +39,7 @@ $(function() {
       });
     }
 
-    var pieceTheme = 'http://' + document.domain.replace(/^\w+/, 'static') + '/assets/piece/' + $('body').data('piece-set') + '/{piece}.svg';
+    var pieceTheme = assetUrl + '/assets/piece/' + $('body').data('piece-set') + '/{piece}.svg';
     board = new ChessBoard('chessboard', {
       position: toBase($('#chessboard').data('fen')) || 'start',
       draggable: true,
