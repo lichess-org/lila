@@ -5,9 +5,9 @@ import lila.common.PimpedConfig._
 import scala.collection.JavaConversions._
 import scala.util.Try
 
-private[pool] final class PoolRepo(config: Config) {
+private[pool] final class PoolSetupRepo(config: Config) {
 
-  def pools: List[Pool] = config.root.map {
+  def setups: List[PoolSetup] = config.root.map {
     case (id, obj: ConfigObject) =>
       val conf = obj.toConfig
       for {
@@ -16,15 +16,15 @@ private[pool] final class PoolRepo(config: Config) {
         clockLimit <- Try(clock getInt "limit").toOption
         clockIncrement <- Try(clock getInt "increment").toOption
         variant <- Try(conf getString "variant").toOption flatMap chess.Variant.apply
-      } yield Pool(id, name, clockLimit, clockIncrement, variant)
+      } yield PoolSetup(id, name, clockLimit, clockIncrement, variant)
     case _ => none
   }.toList.flatten
 
-  private val poolMap = pools.map { p =>
+  private val setupMap = setups.map { p =>
     p.id -> p
   }.toMap
 
-  def byId(id: ID) = poolMap get id
+  def byId(id: ID) = setupMap get id
 
-  def exists(id: ID) = poolMap contains id
+  def exists(id: ID) = setupMap contains id
 }

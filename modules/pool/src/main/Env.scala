@@ -30,12 +30,10 @@ final class Env(
   }
   import settings._
 
-  private[pool] lazy val poolRepo = new PoolRepo(config getConfig "presets")
-
-  def pools = poolRepo.pools
+  private[pool] lazy val poolSetupRepo = new PoolSetupRepo(config getConfig "presets")
 
   lazy val socketHandler = new SocketHandler(
-    repo = poolRepo,
+    setupRepo = poolSetupRepo,
     hub = hub,
     socketHub = socketHub,
     chat = hub.actor.chat,

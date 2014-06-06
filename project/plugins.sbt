@@ -5,4 +5,4 @@ resolvers += "Typesafe Maven Repository" at "http://repo.typesafe.com/typesafe/m
 // The Play plugin
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.0")
 
-// addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.5")
+// addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.6")
