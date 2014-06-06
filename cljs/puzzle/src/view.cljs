@@ -9,11 +9,11 @@
 (def continue-chan (async/chan))
 (def animation-delay 200)
 
-(defn make-chessboard [$puzzle]
+(defn make-chessboard [$puzzle asset-url]
   (core/make-chessboard {:orientation (jq/data $puzzle :color)
                          :moveSpeed animation-delay
                          :draggable false}
-                        (jq/data $puzzle :asset-url)))
+                        asset-url))
 
 (defn bind-vote! [$vote]
   (jq/on $vote :click ".enabled a:not(.active)"
@@ -73,6 +73,7 @@
 
 (defn run! [progress]
   (let [$puzzle ($ :#puzzle)
+        assets (jq/data $puzzle :asset-url)
         $browse ($ :#GameButtons $puzzle)
         $first ($ :.first $browse)
         $prev ($ :.prev $browse)
@@ -81,7 +82,7 @@
         lines (js->clj (jq/data $puzzle :lines))
         line (find-best-line-from-progress lines progress)
         history (vec (make-history (jq/data $puzzle :fen) (conj (seq line) (jq/data $puzzle :move))))
-        chessboard (make-chessboard $puzzle)]
+        chessboard (make-chessboard $puzzle assets)]
     (core/center-right! ($ :.right $puzzle))
     (core/board-marks! $puzzle)
     (core/buttons! $puzzle)

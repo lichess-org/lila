@@ -13,14 +13,14 @@
 (defn on-drop! [orig, dest]
   (if (core/apply-move chess orig dest) (put! drop-chan (str orig dest)) "snapback"))
 
-(defn make-chessboard [$puzzle fen]
+(defn make-chessboard [$puzzle asset-url fen]
   (core/make-chessboard {:orientation (jq/data $puzzle :color)
                          :position fen
                          :moveSpeed animation-delay
                          :draggable true
                          :dropOffBoard "snapback"
                          :onDrop on-drop!}
-                        (jq/data $puzzle :asset-url)))
+                        asset-url))
 
 (defn show-turn! [$puzzle]
   (let [color (if (= (.turn chess) "w") "white" "black")
@@ -107,9 +107,10 @@
 
 (defn run! []
   (let [$puzzle ($ :#puzzle)
+        assets (jq/data $puzzle :asset-url)
         lines (js->clj (jq/data $puzzle :lines))
         initial-fen (jq/data $puzzle :fen)
-        chessboard (make-chessboard $puzzle initial-fen)
+        chessboard (make-chessboard $puzzle assets initial-fen)
         started-at (new js/Date)]
     (core/center-right! ($ :.right $puzzle))
     (core/board-marks! $puzzle)
