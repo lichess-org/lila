@@ -180,10 +180,10 @@ trait UserRepo {
       _ ?? (data => data.enabled && data.compare(password))
     }
 
-  def create(username: String, password: String): Fu[Option[User]] =
+  def create(username: String, password: String, blind: Boolean): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        $insert.bson(newUser(username, password)) >> named(normalize(username))
+        $insert.bson(newUser(username, password, blind)) >> named(normalize(username))
       }
     }
 
@@ -276,7 +276,7 @@ trait UserRepo {
   def filterByEngine(userIds: List[String]): Fu[List[String]] =
     $primitive(Json.obj("_id" -> $in(userIds)) ++ engineSelect(true), F.username)(_.asOpt[String])
 
-  private def newUser(username: String, password: String) = {
+  private def newUser(username: String, password: String, blind: Boolean) = {
 
     val salt = ornicar.scalalib.Random nextStringUppercase 32
     val perfs = Perfs.default
@@ -295,7 +295,9 @@ trait UserRepo {
       F.count -> Count.default,
       F.enabled -> true,
       F.createdAt -> DateTime.now,
-      F.seenAt -> DateTime.now)
+      F.seenAt -> DateTime.now) ++ {
+        if (blind) BSONDocument("blind" -> true) else BSONDocument()
+      }
   }
 
   def artificialSetPassword(id: String, password: String) =

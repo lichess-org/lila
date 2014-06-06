@@ -64,7 +64,7 @@ object Auth extends LilaController {
         BadRequest(html.auth.signup(err, captcha))
       },
       data => Firewall {
-        UserRepo.create(data.username, data.password) flatMap { userOption =>
+        UserRepo.create(data.username, data.password, ctx.blindMode) flatMap { userOption =>
           val user = userOption err "No user could be created for %s".format(data.username)
           HistoryRepo.create(user) >> gotoSignupSucceeded(user.username)
         }
