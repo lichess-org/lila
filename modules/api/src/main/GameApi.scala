@@ -45,6 +45,17 @@ private[api] final class GameApi(
     }
   }
 
+  def one(id: String): Fu[Option[JsObject]] = $find byId id flatMap {
+    case None => fuccess(none)
+    case Some(game) => AnalysisRepo doneById game.id flatMap { analysisOption =>
+      makeUrl(R.Watcher(game.id, game.firstPlayer.color.name)) map { url =>
+        GameApi.gameToJson(game, url, analysisOption,
+          withBlurs = false,
+          withMoveTimes = false)
+      }
+    } map (_.some)
+  }
+
   private def check(token: Option[String]) = token ?? (apiToken==)
 }
 

@@ -143,7 +143,7 @@ name | type | default | description
     {
       "id": "x2kpaixn",
       "rated": false,
-      "status": "mate",
+      "status": "mate", // (1)
       "clock":{          // all clock values are expressed in seconds
         "limit": 300,
         "increment": 8,
@@ -170,6 +170,43 @@ name | type | default | description
       ... // other game
     }
   ]
+}
+```
+
+(1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
+
+### `GET /api/game/{id}` fetch one game by ID
+
+```
+> curl http://en.lichess.org/api/game/x2kpaixn
+```
+
+```javascript
+{
+  "id": "x2kpaixn",
+  "rated": false,
+  "status": "mate", // (1)
+  "clock":{          // all clock values are expressed in seconds
+    "limit": 300,
+    "increment": 8,
+    "totalTime": 540  // evaluation of the game duration = limit + 30 * increment
+  },
+  "timestamp": 1389100907239,
+  "turns": 44,
+  "url": "http://lichess.org/x2kpaixn",
+  "winner": "black",
+  "players": {
+    "white": {
+      "userId": "thibault"
+      "rating": 1642,
+      "analysis": {
+        "blunder": 1,
+        "inaccuracy": 0,
+        "mistake": 2
+      }
+    },
+    "black": ... // other player
+  }
 }
 ```
 

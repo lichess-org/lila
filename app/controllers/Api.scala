@@ -36,6 +36,10 @@ object Api extends LilaController {
     ) map (_.some)
   }
 
+  def game(id: String) = ApiResult { req =>
+    gameApi one (id take lila.game.Game.gameIdSize)
+  }
+
   def analysis = ApiResult { req =>
     analysisApi.list(
       nb = getInt("nb", req),
