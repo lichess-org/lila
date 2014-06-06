@@ -513,6 +513,10 @@ a.revert-underline {
 a.revert-underline:hover {
   text-decoration: underline;
 }
+button.a {
+  border: none;
+  background: none;
+}
 strong {
   font-weight: bold;
 }
@@ -841,7 +845,7 @@ body.tight div.side_menu a {
 #reconnecting,
 a.goto_nav,
 #top a.toggle,
-a#sound_state {
+#sound_state {
   text-decoration: none;
   font-size: 13px;
   height: 24px;
@@ -877,7 +881,7 @@ body.offline #nb_connected_players {
 }
 #top a.goto_nav:hover,
 #top a.toggle:hover,
-a#sound_state:hover {
+#sound_state:hover {
   color: #303030;
   border-color: #808080;
 }
@@ -1723,7 +1727,7 @@ div.game_config div.color_submits button.random span {
 }
 #hooks_wrap table.list thead th {
   cursor: pointer;
-  padding: 13px 12px;
+  padding: 12.5px 12px;
   font-weight: lighter;
   border-bottom: 1px solid #ccc;
 }

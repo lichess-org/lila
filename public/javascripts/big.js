@@ -506,7 +506,7 @@ var storage = {
       });
     }
 
-    $('#lichess').on('click', 'a.socket-link:not(.disabled)', function() {
+    $('#lichess').on('click', '.socket-link:not(.disabled)', function() {
       lichess.socket.send($(this).data('msg'), $(this).data('data'));
     });
 

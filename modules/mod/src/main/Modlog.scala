@@ -28,7 +28,7 @@ case class Modlog(
     case a                    => a
   }
 
-  override def toString = s"$mod $showAction $user"
+  override def toString = s"$mod $showAction ${~user}"
 }
 
 object Modlog {
