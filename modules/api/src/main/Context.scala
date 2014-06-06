@@ -14,7 +14,10 @@ case class PageData(
   blindMode: Boolean)
 
 object PageData {
+
   val default = PageData(Nil, 0, 0, Pref.default, false)
+
+  def anon(blindMode: Boolean) = default.copy(blindMode = blindMode)
 }
 
 sealed trait Context extends lila.user.UserContextWrapper {
