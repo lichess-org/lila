@@ -2517,7 +2517,7 @@ var storage = {
       return $plot.data('hook', hook).powerTip({
         fadeInTime: 0,
         fadeOutTime: 0,
-        placement: 'ne',
+        placement: hook.rating > 2200 ? 'se' : 'ne',
         mouseOnToPopup: true,
         closeDelay: 200,
         intentPollInterval: 50,
