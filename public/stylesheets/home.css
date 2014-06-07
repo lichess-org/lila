@@ -1,0 +1,647 @@
+/********** POOLS **********/
+
+#pool_list {
+  overflow: hidden;
+  width: 512px;
+  height: 512px;
+}
+#pool_list > div {
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+  border-radius: 2px;
+  float: left;
+  width: 241px;
+  height: 241px;
+  margin: 10px 0 0 10px;
+  text-align: center;
+}
+#pool_list h2 {
+  font-size: 2.5em;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 2px 2px 0 0;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 0;
+}
+#pool_list .body {
+  padding: 10px;
+}
+#pool_list table {
+  text-align: left;
+}
+#pool_list td {
+  padding: 2px 5px;
+}
+#pool_list .button {
+  display: inline-block;
+  font-size: 1.5em;
+  margin-top: 10px;
+}
+
+/********** HOOKS **********/
+
+#hooks_wrap {
+  display: block;
+  width: 512px;
+  height: 512px;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: #f0f0f0 url(../images/wN-bg.svg);
+  background-size: 100% 100%;
+}
+#hooks_wrap:hover {
+  overflow-y: auto;
+}
+#hooks_wrap > div.tabs {
+  position: absolute;
+  top: -22px;
+  left: -1px;
+  height: 20px;
+  line-height: 20px;
+}
+#hooks_wrap > div.tabs > a {
+  display: inline-block;
+  text-decoration: none;
+  padding: 0px 10px;
+  border: 1px solid #ccc;
+  background: #dadada;
+  transition: 0.13s;
+}
+#hooks_wrap > div.tabs > a:hover,
+#hooks_wrap > div.tabs > a.active {
+  background: #f0f0f0;
+}
+#hooks_wrap > div.tabs > a.active {
+  font-weight: bold;
+  border-bottom-color: #f0f0f0;
+}
+#hooks_wrap > a.filter {
+  position: absolute;
+  top: -21px;
+  right: -1px;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 10px 0 10px;
+  border-bottom: 0;
+  display: block;
+  text-decoration: none;
+  transition: 0.13s;
+}
+#hooks_wrap > a.filter:hover,
+#hooks_wrap > a.filter.active {
+  background: #f0f0f0;
+}
+#hooks_wrap > a.filter span.number {
+  display: none;
+}
+#hooks_wrap > a.filter.on {
+  padding: 0 10px 0 2px;
+}
+#hooks_wrap > a.filter.on span.number {
+  display: inline;
+}
+#hook_filter {
+  position: absolute;
+  z-index: 99;
+  top: 0px;
+  right: 0px;
+  width: 472px;
+  height: 472px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  display: none;
+}
+#hook_filter.active {
+  display: block;
+}
+#hook_filter table {
+  width: 100%;
+}
+#hook_filter td {
+  padding: 20px 0;
+}
+#hook_filter td:first-child {
+  font-size: 1.3em;
+}
+#hook_filter td > label {
+  display: block;
+  padding: 3px 0;
+  color: #444;
+}
+#hook_filter label.hover,
+#hook_filter input {
+  cursor: pointer;
+}
+#hook_filter td > label.hover:hover {
+  background: #fff;
+}
+#hook_filter .range {
+  text-align: center;
+}
+#hook_filter .actions {
+  margin-top: 20px;
+  text-align: right;
+}
+#hook_filter .actions button {
+  padding: 6px;
+  margin-left: 3px;
+}
+#hooks_wrap table.list {
+  width: 512px;
+  max-height: 512px;
+  overflow: hidden;
+  text-shadow: 0px 1px 0px #FFF;
+}
+#hooks_wrap table.list thead th {
+  cursor: pointer;
+  padding: 12.5px 12px;
+  font-weight: lighter;
+  border-bottom: 1px solid #ccc;
+}
+#hooks_wrap table.list th.reload span {
+  display: block;
+  cursor: pointer;
+  margin-left: 2px;
+  opacity: 0.5;
+  transition: 0.13s;
+}
+#hooks_wrap table.list th.reload:hover span {
+  opacity: 0.8;
+}
+#hooks_wrap table.list th.sorting-asc,
+#hooks_wrap table.list th.sorting-desc {
+  font-weight: normal;
+}
+#hooks_wrap table.list th.sorting-desc .is:before {
+  content: "R";
+}
+#hooks_wrap table.list th.sorting-asc .is:before {
+  content: "S";
+}
+#hooks_wrap table.list th.player {
+  width: 110px;
+}
+#hooks_wrap table.list td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: 0.13s;
+  background: rgba(255, 255, 255, 0.6);
+}
+#hooks_wrap table.list tr.disabled {
+  opacity: 0.3;
+}
+#hooks_wrap table.list tr.disabled td {
+  cursor: not-allowed;
+  background: rgba(75, 99, 00, 0.2)!important;
+}
+#hooks_wrap table.list .ulink {
+  text-decoration: none;
+}
+#hooks_wrap table.list tr.cancel td {
+  background: rgba(200, 255, 200, 0.7);
+}
+#hooks_wrap table.list tr:hover td {
+  background: rgba(191, 231, 255, 0.7);
+}
+#hooks_wrap table.list td:first-child {
+  width: 16px;
+}
+#hooks_wrap table.list td:first-child span {
+  display: block;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+}
+#hooks_wrap table.list .chess960 {
+  padding-left: 1em;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+#tableclone {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 98;
+}
+#tableclone thead {
+  opacity: 0;
+}
+#hooks_chart {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 512px;
+  height: 512px;
+}
+#hooks_chart > span.label {
+  font-size: 8px;
+  position: absolute;
+  left: 3px;
+  bottom: 1px;
+  text-shadow: 0 0 3px #fff;
+  font-weight: bold;
+}
+#hooks_chart > div.grid {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}
+#hooks_chart > div.grid.horiz {
+  width: 100%;
+  border-top: 1px dashed #ccc;
+}
+#hooks_chart > div.grid.vert {
+  height: 100%;
+  border-right: 1px dashed #ccc;
+}
+#hooks_chart .canvas {
+  position: relative;
+  width: 512px;
+  height: 512px;
+}
+#hooks_chart .plot {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  background: #d0d0d0;
+  border: 3px solid #666;
+  box-shadow: 0 0 5px #777;
+  cursor: pointer;
+  z-index: 1;
+}
+#hooks_chart .plot:hover {
+  z-index: 2;
+}
+#hooks_chart .plot.casual {
+  border-radius: 16px;
+}
+#hooks_chart .plot.rated {
+  border-radius: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  width: 15px;
+  height: 15px;
+}
+#hooks_chart .plot.chess960 {
+  border-style: double;
+  border-width: 5px;
+}
+#hooks_chart .plot.casual.chess960 {
+  width: 13px;
+  height: 13px;
+}
+#hooks_chart .plot.rated.chess960 {
+  width: 11px;
+  height: 11px;
+}
+#hooks_chart .plot.cancel {
+  background: #666;
+}
+#hook {
+  display: none;
+  width: 120px;
+  height: 120px;
+  color: #444;
+  text-align: center;
+  border: none;
+  box-shadow: 0 0 9px #333;
+  background: #d0d0d0;
+}
+#hooks_chart .plot:hover {
+  background-color: #f6f6f6;
+}
+#hooks_chart .plot:hover {
+  box-shadow: 0 0 9px #d85000 !important;
+}
+#hook .opponent {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  padding: 5px 0;
+  background: #666;
+  color: #eee;
+  overflow: hidden;
+  text-decoration: none;
+}
+#hook a.opponent:hover {
+  text-decoration: underline;
+}
+#hook .clearfix {
+  width: 100%;
+  height: 30px;
+}
+#hook .rating,
+#hook .clock {
+  display: block;
+  width: 60px;
+  height: 20px;
+  padding: 5px 0;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+#hook .rating {
+  float: right;
+  color: #bbb;
+  background: #666;
+}
+#hook .clock {
+  float: left;
+  color: #555;
+}
+#hook .clock > span {
+  color: #909090;
+}
+#hook .clock.nope {
+  font-size: 2.3em;
+  padding-top: 3px;
+  line-height: 20px;
+}
+#hook .mode {
+  margin-top: 40px;
+}
+#hook .mode,
+#hook .chess960 {
+  font-size: 1.25em;
+  display: block;
+}
+#hook .color {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-position: 0 -240px;
+}
+#hook .color.black {
+  background-position: 0 -256px;
+}
+
+/*********** MISC *********/
+
+div.blog.undertable div.undertable_inner {
+  height: auto;
+  padding: 5px 5px 0 5px;
+}
+div.blog.undertable div.undertable_inner:hover {
+  overflow: hidden;
+}
+div.blog.undertable div.post {
+  overflow: hidden;
+}
+div.blog.undertable div.post a.image {
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+div.blog.undertable div.post a.image img {
+  height: 60px;
+}
+div.blog.undertable div.post .title {
+  font-weight: bold;
+  line-height: 2;
+}
+div.blog.undertable div.post time {
+  float: right;
+  font-weight: 100;
+  line-height: 2;
+}
+#enterable_tournaments {
+  height: auto;
+}
+#enterable_tournaments td:first-child {
+  padding-left: 1em;
+}
+#enterable_tournaments tr.create td {
+  text-align: center;
+}
+#enterable_tournaments a {
+  text-decoration: none;
+}
+#enterable_tournaments button {
+  padding: 4px 8px;
+  opacity: 0;
+  transition: 0.13s;
+}
+#enterable_tournaments tr:hover button {
+  opacity: 1;
+}
+#enterable_tournaments a:hover {
+  text-decoration: underline;
+}
+#enterable_tournaments tr.scheduled a {
+  font-weight: bold;
+  color: #d59120;
+}
+#enterable_tournaments td:last-child {
+  width: 20px;
+}
+div.new_posts li {
+  margin: 0.6em 0;
+  padding-left: 9px;
+  line-height: 14px;
+  white-space: nowrap;
+}
+div.new_posts a {
+  margin-right: 6px;
+}
+div.new_posts li span.extract {
+  font-weight: lighter;
+}
+#call_boxes {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  width: 250px;
+}
+#translation_call {
+  margin-top: 1em;
+  padding: 0.5em;
+  border: 1px solid #d0d0d0;
+  display: block;
+  border-radius: 2px;
+  text-decoration: none;
+  position: relative;
+}
+#translation_call .button {
+  margin: 5px 0 0 0;
+  display: inline-block;
+}
+#translation_call span.name {
+  font-weight: bold;
+}
+#translation_call div.progressbar {
+  margin-top: 0.5em;
+  background: #fff;
+  margin-bottom: 0.4em;
+}
+#daily_puzzle {
+  width: 224px;
+  position: absolute;
+  top: 529px;
+  left: 0;
+}
+#daily_puzzle > div.vstext {
+  text-align: center;
+}
+div.game_config div.ui-buttonset {
+  margin-bottom: 1em;
+}
+div.game_config .ui-button-text {
+  text-transform: capitalize;
+}
+#config_level .ui-button-text {
+  padding-left: 0.82em;
+  padding-right: 0.82em;
+}
+div.game_config div.ui-slider {
+  font-size: 1.3em;
+  margin: 0 15px;
+}
+div.game_config .optional_config {
+  background: #f4f4f4;
+  margin-bottom: 1em;
+  padding: 3px 0;
+  border-top: solid 1px #e4e4e4;
+  border-bottom: solid 1px #e4e4e4;
+}
+div.game_config input[type="text"] {
+  border: 1px solid #ccc;
+  width: 87%;
+  padding: 2px 3px;
+}
+div.game_config .fen_position {
+  padding: 8px 0;
+  display: none;
+}
+div.game_config .fen_position .mini_board {
+  margin: 8px auto 0 auto;
+}
+div.game_config .fen_position .button {
+  display:inline-block;
+  margin-top: 8px;
+}
+div.game_config input {
+  font-family: monospace;
+}
+div.game_config input#fen.success {
+  border-color: #00aa00;
+}
+div.game_config input#fen.failure {
+  border-color: #ac524f;
+}
+div.game_config .time_choice,
+div.game_config .increment_choice,
+div.game_config .rating_range_config {
+  padding-bottom: 1em;
+  text-align: left;
+  text-indent: 15px;
+}
+div.game_config .time_choice span {
+  font-weight: bold;
+}
+div.game_config label.pointer {
+  cursor: pointer;
+}
+div.game_config div.color_submits {
+  margin-top: 1em;
+  height: 65px;
+  text-align: center;
+}
+div.game_config button {
+  display: inline-block;
+  margin: 0 5px;
+}
+div.game_config button.black,
+div.game_config button.white {
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+}
+div.game_config button.black span,
+div.game_config button.white span {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background-size: 40px 40px;
+}
+div.game_config button.white span {
+  background-image: url(../piece/cburnett/wK.svg);
+}
+div.game_config button.black span {
+  background-image: url(../piece/cburnett/bK.svg);
+}
+div.game_config button.random {
+  width: 75px;
+  height: 75px;
+  padding: 10px;
+}
+div.game_config div.color_submits button.random span {
+  background-image: url(../piece/cburnett/wbK.svg);
+  background-size: 55px 55px;
+  width: 55px;
+  height: 55px;
+  padding: 0;
+}
+#now_playing {
+  margin: 2em 0 1em -30px;
+}
+#now_playing .button {
+  display: block;
+  text-align: center;
+  position: relative;
+  padding-left: 45px;
+  margin-bottom: 1em;
+}
+#now_playing .button::before {
+  content: 'U';
+  font-size: 32px;
+  position: absolute;
+  top: 7px;
+  left: 10px;
+}
+#timeline {
+  margin-top: 2em;
+  border-top: 1px solid #e4e4e4;
+  padding-top: 8px;
+  margin-left: -30px;
+  width: 230px;
+}
+#timeline > .entry {
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e4e4e4;
+  margin-bottom: 8px;
+  font-weight: lighter;
+}
+#timeline time {
+  font-size: 0.9em;
+}
+#timeline a {
+  font-weight: bold;
+  color: #a0a0a0;
+  text-decoration: none;
+}
+#timeline a:hover {
+  text-decoration: underline;
+}
+#timeline a.user_link {
+  padding-left: 0;
+}
+#timeline .links {
+  width: 100%;
+}
+#timeline .links a {
+  font-weight: normal;
+}
+#timeline a.more {
+  display: block;
+  float: right;
+}
+#timeline a.chat {
+  display: block;
+  float: left;
+}

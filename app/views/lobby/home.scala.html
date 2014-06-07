@@ -17,6 +17,10 @@
 @embedJs("var lichess_preload = " + preload)
 }
 
+@moreCss = {
+@cssTag("home.css")
+}
+
 @goodies = {
 @ctx.me.map { u =>
 @if(playing.nonEmpty) {
@@ -48,6 +52,7 @@ baseline = baseline.some,
 active = siteMenu.play.some,
 goodies = goodies.some,
 moreJs = moreJs,
+moreCss = moreCss,
 underchat = underchat.some,
 openGraph = Map(
 'type -> "website",
@@ -72,7 +77,7 @@ openGraph = Map(
         <span data-icon="D"> @trans.filterGames()</span>
         <span class="number">(0)</span>
       </a>
-      <div id="pools_list" class="tab pool none">@pool.homeList(pools)</div>
+      <div id="pool_list" class="tab pool none">@pool.homeList(pools)</div>
       <div id="hooks_chart" class="tab graph none"><div class="canvas"></div></div>
       <table id="hooks_table" class="tab list none">
         <thead>

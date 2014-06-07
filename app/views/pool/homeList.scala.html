@@ -1,6 +1,23 @@
 @(pools: List[lila.pool.Pool])(implicit ctx: Context)
 
-@pools.map { pool =>
-<div class="pool">
+@pools.zipWithIndex.map {
+case (pool, it) => {
+<div class="pool_@(it + 1)">
+  <h2>@pool.setup.name</h2>
+  <div class="body">
+    <table class="users">
+      <tbody>
+        @pool.sortedUsers.take(4).map { user =>
+        <tr>
+          <td>@userLink(user, withRating = false)</td>
+          <td>@pool.setup.ratingLens(user).intRating</td>
+        </tr>
+        }
+        <tr><td colspan=2>And 15 more</td></tr>
+      </tbody>
+    </table>
+    <a href="#" class="button" data-icon="G"> @trans.join()</a>
+  </div>
 </div>
+}
 }

@@ -18,7 +18,7 @@ private[pool] final class PoolSetupRepo(config: Config) {
         variant <- Try(conf getString "variant").toOption flatMap chess.Variant.apply
       } yield PoolSetup(id, name, clockLimit, clockIncrement, variant)
     case _ => none
-  }.toList.flatten
+  }.toList.flatten.sortBy(_.id)
 
   private val setupMap = setups.map { p =>
     p.id -> p
