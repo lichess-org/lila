@@ -170,19 +170,15 @@ name | type | default | description
       "analysis": [ // only if the with_analysis flag is set
         {
           "eval": -26, // board evaluation in centipawns
-          "move": "e4",
-          "ply": 1
+          "move": "e4"
         },
         {
           "eval": -8,
-          "move": "b5",
-          "ply": 2
+          "move": "b5"
         },
         {
-          "comment": "(-0.08 → -0.66) Inaccuracy. The best move was c4.",
           "eval": -66,
           "move": "Nfe3",
-          "ply": 3,
           "variation": "c4 bxc4 Nfe3 c5 Qf1 f6 Rxc4 Bb7 b4 Ba6"
         },
         // ... more moves
@@ -240,19 +236,15 @@ name | type | default | description
   "analysis": [ // only if the with_analysis flag is set
     {
       "eval": -26, // board evaluation in centipawns
-      "move": "e4",
-      "ply": 1
+      "move": "e4"
     },
     {
       "eval": -8,
-      "move": "b5",
-      "ply": 2
+      "move": "b5"
     },
     {
-      "comment": "(-0.08 → -0.66) Inaccuracy. The best move was c4.",
       "eval": -66,
       "move": "Nfe3",
-      "ply": 3,
       "variation": "c4 bxc4 Nfe3 c5 Qf1 f6 Rxc4 Bb7 b4 Ba6"
     },
     // ... more moves
