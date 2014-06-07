@@ -99,12 +99,10 @@ private[api] final class GameApi(
     "analysis" -> analysisOption.ifTrue(withAnalysis).|@|(pgnOption).apply {
       case (analysis, pgn) => JsArray(analysis.infoAdvices zip pgn.moves map {
         case ((info, adviceOption), move) => Json.obj(
-          "ply" -> info.ply,
           "move" -> move.san,
           "eval" -> info.score.map(_.centipawns),
           "mate" -> info.mate,
-          "variation" -> info.variation.isEmpty.fold(JsNull, info.variation mkString " "),
-          "comment" -> adviceOption.map(_.makeComment(true, true))
+          "variation" -> info.variation.isEmpty.fold(JsNull, info.variation mkString " ")
         ).noNull
       })
     },
