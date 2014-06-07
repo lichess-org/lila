@@ -118,7 +118,7 @@ object ApplicationBuild extends Build {
       play.api, RM, PRM)
   )
 
-  lazy val gameSearch = project("gameSearch", Seq(common, hub, chess, search, game, analyse)).settings(
+  lazy val gameSearch = project("gameSearch", Seq(common, hub, chess, search, game)).settings(
     libraryDependencies ++= provided(
       play.api, RM, PRM, elastic4s)
   )

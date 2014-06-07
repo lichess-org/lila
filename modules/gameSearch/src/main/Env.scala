@@ -10,8 +10,7 @@ import lila.game.tube.gameTube
 final class Env(
     config: Config,
     system: ActorSystem,
-    client: ElasticClient,
-    analyser: lila.analyse.Analyser) {
+    client: ElasticClient) {
 
   private val IndexName = config getString "index"
   private val TypeName = config getString "type"
@@ -21,8 +20,7 @@ final class Env(
   private val indexer: ActorRef = system.actorOf(Props(new Indexer(
     client = client,
     indexName = IndexName,
-    typeName = TypeName,
-    analyser = analyser
+    typeName = TypeName
   )), name = IndexerName)
 
   lazy val paginator = new lila.search.PaginatorBuilder(
@@ -49,6 +47,5 @@ object Env {
   lazy val current = "[boot] gameSearch" describes new Env(
     config = lila.common.PlayApp loadConfig "gameSearch",
     system = lila.common.PlayApp.system,
-    client = lila.search.Env.current.client,
-    analyser = lila.analyse.Env.current.analyser)
+    client = lila.search.Env.current.client)
 }

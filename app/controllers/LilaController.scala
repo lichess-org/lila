@@ -188,7 +188,7 @@ private[controllers] trait LilaController
     }
 
   private def pageDataBuilder(ctx: lila.user.UserContext): Fu[PageData] =
-    ctx.me.fold(fuccess(PageData.default)) { me =>
+    ctx.me.fold(fuccess(PageData anon blindMode(ctx.req))) { me =>
       val isPage = HTTPRequest.isSynchronousHttp(ctx.req)
       (Env.pref.api getPref me) zip {
         isPage ?? {
@@ -203,10 +203,12 @@ private[controllers] trait LilaController
         }
       } map {
         case (pref, ((friends, teamNbRequests), messageIds)) =>
-          val blindMode = ctx.req.cookies.get(Env.api.accessibilityBlindCookieName).map(_.value) == "1".some
-          PageData(friends, teamNbRequests, messageIds.size, pref, blindMode)
+          PageData(friends, teamNbRequests, messageIds.size, pref, blindMode(ctx.req))
       }
     }
+
+  private def blindMode(req: RequestHeader) =
+    req.cookies.get(Env.api.accessibilityBlindCookieName).map(_.value) == "1".some
 
   private def restoreUser(req: RequestHeader): Fu[Option[UserModel]] =
     Env.security.api restoreUser req addEffect {

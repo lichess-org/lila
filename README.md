@@ -130,7 +130,9 @@ name | type | default | description
 --- | --- | --- | ---
 **username** | string | - | filter games by user
 **rated** | 1 or 0 | - | filter rated or casual games
+**analysed** | 1 or 0 | - | filter only analysed (or not analysed) games
 **nb** | int | 10 | maximum number of games to return
+**with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
 **token** | string | - | security token (unlocks secret game data)
 
 ```
@@ -143,7 +145,7 @@ name | type | default | description
     {
       "id": "x2kpaixn",
       "rated": false,
-      "status": "mate",
+      "status": "mate", // (1)
       "clock":{          // all clock values are expressed in seconds
         "limit": 300,
         "increment": 8,
@@ -165,36 +167,7 @@ name | type | default | description
         },
         "black": ... // other player
       }
-    },
-    {
-      ... // other game
-    }
-  ]
-}
-```
-
-(1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
-
-### `GET /api/analysis` fetch many analysis
-
-This API requires a secret token to work.
-Analysis are returned by descendant chronological order.
-All parameters are optional.
-
-name | type | default | description
---- | --- | --- | ---
-**token** | string | - | security token
-**nb** | int | 10 | maximum number of analysis to return
-
-```
-> curl http://en.lichess.org/api/analysis?nb=10
-```
-
-```javascript
-{
-  "list": [
-    {
-      "analysis": [
+      "analysis": [ // only if the with_analysis flag is set
         {
           "eval": -26, // board evaluation in centipawns
           "move": "e4",
@@ -214,14 +187,80 @@ name | type | default | description
         },
         // ... more moves
       ],
-      "game": {
-        // similar to the game API format, see above
-      },
-      "uci": "e2e4 e7e5 d2d4 e5d4 g1f3 g8f6" // UCI compatible game moves
+    },
+    {
+      ... // other game
     }
   ]
 }
 ```
+
+(1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
+
+### `GET /api/game/{id}` fetch one game by ID
+
+A single game is returned.
+All parameters are optional.
+
+name | type | default | description
+--- | --- | --- | ---
+**with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
+**token** | string | - | security token (unlocks secret game data)
+
+```
+> curl http://en.lichess.org/api/game/x2kpaixn
+```
+
+```javascript
+{
+  "id": "x2kpaixn",
+  "rated": false,
+  "status": "mate", // (1)
+  "clock":{          // all clock values are expressed in seconds
+    "limit": 300,
+    "increment": 8,
+    "totalTime": 540  // evaluation of the game duration = limit + 30 * increment
+  },
+  "timestamp": 1389100907239,
+  "turns": 44,
+  "url": "http://lichess.org/x2kpaixn",
+  "winner": "black",
+  "players": {
+    "white": {
+      "userId": "thibault"
+      "rating": 1642,
+      "analysis": {
+        "blunder": 1,
+        "inaccuracy": 0,
+        "mistake": 2
+      }
+    },
+    "black": ... // other player
+  },
+  "analysis": [ // only if the with_analysis flag is set
+    {
+      "eval": -26, // board evaluation in centipawns
+      "move": "e4",
+      "ply": 1
+    },
+    {
+      "eval": -8,
+      "move": "b5",
+      "ply": 2
+    },
+    {
+      "comment": "(-0.08 → -0.66) Inaccuracy. The best move was c4.",
+      "eval": -66,
+      "move": "Nfe3",
+      "ply": 3,
+      "variation": "c4 bxc4 Nfe3 c5 Qf1 f6 Rxc4 Bb7 b4 Ba6"
+    },
+    // ... more moves
+  ]
+}
+```
+
+(1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
 
 ### `GET /api/puzzle/<id>` fetch one puzzle
 

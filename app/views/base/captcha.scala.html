@@ -1,5 +1,9 @@
 @(move: Field, gameId: Field, captcha: lila.common.Captcha)(implicit ctx: Context)
+
 <input type="hidden" name="@gameId.name" id="@gameId.id" value="@captcha.gameId" />
+@if(ctx.blindMode) {
+<input type="hidden" name="@move.name" id="@move.id" value="@captcha.solutions.head" />
+} else {
 <div class="checkmateCaptcha clearfix" data-check-url="@routes.Main.captchaCheck(captcha.gameId)">
   <div class="checkmateFen">
     <div
@@ -23,3 +27,4 @@
     <input type="hidden" name="@move.name" id="@move.id" value="" />
   </div>
 </div>
+}

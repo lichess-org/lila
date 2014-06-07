@@ -128,14 +128,14 @@ private[round] final class Round(
     case Deploy(RemindDeployPost, _) => handle { game =>
       game.clock.filter(_ => game.playable) ?? { clock =>
         import chess.Color
-        val freeSeconds = 12
+        val freeSeconds = 15
         val newClock = clock.giveTime(Color.White, freeSeconds).giveTime(Color.Black, freeSeconds)
         val progress = (game withClock newClock) + Event.Clock(newClock)
         messenger.system(game, (_.untranslated("Deploy in progress")))
+        messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
         Color.all.foreach { c =>
           messenger.system(game, (_.untranslated(s"$c + $freeSeconds seconds")))
         }
-        messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
         GameRepo save progress inject progress.events
       }
     }

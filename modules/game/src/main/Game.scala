@@ -423,6 +423,7 @@ object Game {
     val castleLastMoveTime = "cl"
     val moveTimes = "mt"
     val rated = "ra"
+    val analysed = "an"
     val variant = "v"
     val next = "ne"
     val bookmarks = "bm"

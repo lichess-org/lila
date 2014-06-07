@@ -22,13 +22,12 @@
       (jq/add-class ($ squares $puzzle) :last)
       (when $check (jq/add-class $check :check)))))
 
-(defn make-chessboard [config]
-  (let [static-domain (str "http://" (clojure.string/replace (.-domain js/document) #"^\w+" "static"))
-        piece-set (jq/data ($ :body) :piece-set)]
+(defn make-chessboard [config asset-url]
+  (let [piece-set (jq/data ($ :body) :piece-set)]
     (new js/ChessBoard "chessboard"
          (clj->js (merge {:sparePieces false
                           :showNotation false
-                          :pieceTheme (str static-domain "/assets/piece/" piece-set "/{piece}.svg")}
+                          :pieceTheme (str asset-url "/assets/piece/" piece-set "/{piece}.svg")}
                          config)))))
 
 (defn board-marks! [$puzzle]

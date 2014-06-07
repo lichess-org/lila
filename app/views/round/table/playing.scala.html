@@ -14,23 +14,23 @@
 </div>
 <div class="lichess_control icons">
   @if(game.abortable) {
-  <a class="abort button socket-link hint--bottom" data-msg="abort" data-hint="@trans.abortGame()">
+  <button class="abort button socket-link hint--bottom" data-msg="abort" data-hint="@trans.abortGame()">
     <span data-icon="L"></span>
-  </a>
+  </button>
   } else {
   @if(takebackable && game.playerCanProposeTakeback(color)) {
-  <a class="takeback button socket-link hint--bottom" data-msg="takeback-yes" data-hint="@trans.proposeATakeback()">
+  <button class="takeback button socket-link hint--bottom" data-msg="takeback-yes" data-hint="@trans.proposeATakeback()">
     <span data-icon="i"></span>
-  </a>
+  </button>
   }
   @if(game.playerCanOfferDraw(color)) {
-  <a class="draw button socket-link hint--bottom" data-msg="draw-yes" data-hint="@trans.offerDraw()">
+  <button class="draw button socket-link hint--bottom" data-msg="draw-yes" data-hint="@trans.offerDraw()">
     <span data-icon="2"></span>
-  </a>
+  </button>
   }
-  <a class="resign button socket-link hint--bottom" data-msg="resign" data-hint="@trans.resign()">
+  <button class="resign button socket-link hint--bottom" data-msg="resign" data-hint="@trans.resign()">
     <span data-icon="b"></span>
-  </a>
+  </button>
   }
 </div>
 @if(game.resignable && !game.hasAi) {

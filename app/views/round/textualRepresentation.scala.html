@@ -5,7 +5,7 @@
   <dt>Turn</dt>
   <dd>@pov.game.turns</dd>
   <dt>PGN</dt>
-  <dd>@pov.game.pgnMoves.mkString(" ")</dd>
+  <dd>@Html(pov.game.pgnMoves.mkString("<br />"))</dd>
   <dt>FEN</dt>
   <dd>@{chess.format.Forsyth.>>(pov.game.toChess)}</dd>
   <dt>Your color</dt>
@@ -25,8 +25,8 @@
     <label>
       Your move in UCI format (e.g. e2e4 or d7d8Q)
       <input name="move" class="move" type="text" value="" />
-      <button type="submit">Send move</button>
     </label>
+    <button type="submit">Send move</button>
   </form>
   }
 </dl>

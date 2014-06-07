@@ -50,10 +50,10 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
     <div id="top" class="clearfix">
       @if(!zen) {
-      <a data-hint="@trans.toggleSound()" id="sound_state" class="available hint--bottom-left">
+      <button data-hint="@trans.toggleSound()" id="sound_state" class="a available hint--bottom-left">
         <span class="is2 on" data-icon="n"></span>
         <span class="is2 off" data-icon="o"></span>
-      </a>
+      </button>
       }
       @if(!zen) {
       @siteMenu.all(ctx.me).map { elem =>
