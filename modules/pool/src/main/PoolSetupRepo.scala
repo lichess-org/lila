@@ -7,7 +7,7 @@ import scala.util.Try
 
 private[pool] final class PoolSetupRepo(config: Config) {
 
-  def setups: List[PoolSetup] = config.root.map {
+  lazy val setups: List[PoolSetup] = config.root.map {
     case (id, obj: ConfigObject) =>
       val conf = obj.toConfig
       for {

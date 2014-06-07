@@ -32,6 +32,12 @@ final class Env(
 
   private[pool] lazy val poolSetupRepo = new PoolSetupRepo(config getConfig "presets")
 
+  def pools = poolSetupRepo.setups.map { setup =>
+    lila.user.UserRepo.byIds(List("thibault", "neio", "clarkey", "hellball")) map { users =>
+      Pool(setup, users)
+    }
+  }.sequenceFu
+
   lazy val socketHandler = new SocketHandler(
     setupRepo = poolSetupRepo,
     hub = hub,
@@ -66,17 +72,17 @@ final class Env(
   // {
   //   import scala.concurrent.duration._
 
-    // scheduler.message(2 seconds) {
-    //   organizer -> actorApi.AllCreatedTournaments
-    // }
+  // scheduler.message(2 seconds) {
+  //   organizer -> actorApi.AllCreatedTournaments
+  // }
 
-    // scheduler.message(3 seconds) {
-    //   organizer -> actorApi.StartedTournaments
-    // }
+  // scheduler.message(3 seconds) {
+  //   organizer -> actorApi.StartedTournaments
+  // }
 
-    // scheduler.message(6 minutes) {
-    //   organizer -> actorApi.CheckLeaders
-    // }
+  // scheduler.message(6 minutes) {
+  //   organizer -> actorApi.CheckLeaders
+  // }
   // }
 }
 
