@@ -1,0 +1,19 @@
+#pool h1 form {
+  float: right;
+  margin-top: -5px;
+}
+
+#pool {
+  overflow: hidden;
+}
+#pool div.pool_box {
+  width: 525px;
+}
+#pool div.game_list {
+  float: right;
+  width: 246px;
+  max-height: 510px;
+  overflow-y: hidden;
+  border: 1px solid #ccc;
+  padding: 3px;
+}

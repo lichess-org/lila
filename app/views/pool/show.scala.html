@@ -1,0 +1,57 @@
+@(p: lila.pool.Pool, games: List[Game], version: Int, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("pool.css")
+}
+
+@goodies = {
+<div class="lichess_goodies">
+  <div class="box">
+    <span data-icon="p"> @(p.setup.clockLimit / 60) + @p.setup.clockIncrement</span>,
+    @variantName(p.setup.variant).capitalize, @trans.rated()
+  </div>
+</div>
+}
+
+@underchat = {
+<div class="watchers" data-icon="v">
+  <span class="list inline_userlist"></span>
+</div>
+}
+
+@base.layout(
+title = s"${p.setup.name} pool",
+moreCss = moreCss,
+goodies = goodies.some,
+chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
+underchat = underchat.some) {
+
+<div id="pool"
+  data-id="@p.setup.id"
+  data-version="@version"
+  data-socket-url="@routes.Pool.websocket(p.setup.id)">
+  <div class="game_list">
+    @games.map { g =>
+    <div>
+      @gameFen(g, g.firstPlayer.color)
+      @game.vstext(g)
+    </div>
+    }
+  </div>
+  <div class="content_box no_padding pool_box pool_show">
+    <h1 data-icon="8">
+      @p.setup.name Pool
+      @if(ctx.me ?? p.contains) {
+      <form action="@routes.Pool.leave(p.setup.id)" method="post">
+        <button class="button" data-icon="F">&nbsp;Leave the pool</button>
+      </form>
+      } else {
+      <form action="@routes.Pool.enter(p.setup.id)" method="post">
+        <button class="button" data-icon="G">&nbsp;Enter the pool</button>
+      </form>
+      }
+    </h1>
+    @pool.standing(p)
+  </div>
+</div>
+}

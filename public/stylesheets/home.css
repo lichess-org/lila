@@ -31,6 +31,9 @@
 #pool_list td {
   padding: 2px 5px;
 }
+#pool_list form {
+  display:inline-block;
+}
 #pool_list .button {
   display: inline-block;
   font-size: 1.5em;

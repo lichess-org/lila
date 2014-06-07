@@ -27,7 +27,7 @@ final class Env(
     nowPlaying = Env.round.nowPlaying,
     dailyPuzzle = Env.puzzle.daily,
     streamsOnAir = () => Env.tv.streamsOnAir,
-    getPools = () => Env.pool.pools)
+    getPools = () => Env.pool.repo.all)
 
   lazy val userInfo = mashup.UserInfo(
     countUsers = () => Env.user.countEnabled,

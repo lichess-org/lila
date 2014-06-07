@@ -18,7 +18,7 @@ import makeTimeout.short
 private[pool] final class SocketHandler(
     setupRepo: PoolSetupRepo,
     hub: lila.hub.Env,
-    socketHub: ActorRef,
+    poolHub: ActorRef,
     chat: ActorSelection,
     flood: Flood) {
 
@@ -28,7 +28,7 @@ private[pool] final class SocketHandler(
     uid: String,
     user: Option[User]): Fu[JsSocketHandler] = (setupRepo exists poolId) ?? {
     for {
-      socket ← socketHub ? Get(poolId) mapTo manifest[ActorRef]
+      socket ← poolHub ? Get(poolId) mapTo manifest[ActorRef]
       join = Join(uid = uid, user = user, version = version)
       handler ← Handler(hub, socket, uid, join, user map (_.id)) {
         case Connected(enum, member) =>

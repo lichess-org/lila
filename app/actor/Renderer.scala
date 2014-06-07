@@ -21,6 +21,9 @@ private[app] final class Renderer extends Actor {
     case lila.tournament.actorApi.RemindTournament(tournament) =>
       sender ! V.tournament.reminder(tournament)
 
+    case lila.pool.actorApi.RemindPool(pool) =>
+      sender ! V.pool.reminder(pool)
+
     case lila.hub.actorApi.setup.RemindChallenge(gameId, from, _) =>
       val replyTo = sender
       (GameRepo game gameId) zip (UserRepo named from) onSuccess {

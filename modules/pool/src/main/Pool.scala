@@ -6,7 +6,23 @@ case class Pool(
     setup: PoolSetup,
     users: List[User]) {
 
-  def sortedUsers = users.sortBy(u => -setup.ratingLens(u).intRating)
+  lazy val sortedUsers = users.sortBy(u => -setup.glickoLens(u).intRating)
 
-  def nbUsers = users.size
+  lazy val rankedUsers = sortedUsers.zipWithIndex map {
+    case (user, rank) => user -> (rank + 1)
+  }
+
+  lazy val nbUsers = users.size
+
+  def contains(u: User) = users contains u
+
+  def withUser(u: User) = copy(users = u :: users).distinctUsers
+
+  private def distinctUsers = copy(
+    users = users.map { u =>
+      u.id -> u
+    }.toMap.values.toList
+  )
+
+  def withoutUser(u: User) = copy(users = users filter (_.id != u.id))
 }

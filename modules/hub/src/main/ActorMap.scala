@@ -22,7 +22,9 @@ trait ActorMap extends Actor {
 
     case TellAll(msg)  => actors.values foreach (_ forward msg)
 
-    case Ask(id, msg)  => getOrMake(id) ? msg pipeTo sender
+    case Ask(id, msg)  => getOrMake(id) forward msg
+
+    case AskAll(msg)   => actors.values.map { _ ? msg }.sequenceFu pipeTo sender
 
     case Size          => sender ! actors.size
 

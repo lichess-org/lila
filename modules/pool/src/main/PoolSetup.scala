@@ -10,5 +10,5 @@ case class PoolSetup(
     clockIncrement: Int, // seconds
     variant: chess.Variant) {
 
-  def ratingLens = (user: User) => user.perfs.global.glicko
+  def glickoLens = (user: User) => user.perfs.global.glicko
 }

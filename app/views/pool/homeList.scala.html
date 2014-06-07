@@ -1,22 +1,37 @@
 @(pools: List[lila.pool.Pool])(implicit ctx: Context)
 
 @pools.zipWithIndex.map {
-case (pool, it) => {
+case (p, it) => {
 <div class="pool_@(it + 1)">
-  <h2>@pool.setup.name</h2>
+  <h2>@p.setup.name</h2>
   <div class="body">
+    @defining(4) { displayedUsers =>
     <table class="users">
       <tbody>
-        @pool.sortedUsers.take(4).map { user =>
+        @p.sortedUsers.take(displayedUsers).map { user =>
         <tr>
           <td>@userLink(user, withRating = false)</td>
-          <td>@pool.setup.ratingLens(user).intRating</td>
+          <td>@p.setup.glickoLens(user).intRating</td>
         </tr>
         }
+        @defining(p.nbUsers - displayedUsers) { moreUsers =>
+        @if(moreUsers > 0) {
         <tr><td colspan=2>And 15 more</td></tr>
+        }
+        }
       </tbody>
     </table>
-    <a href="#" class="button" data-icon="G"> @trans.join()</a>
+    }
+    <form action="@routes.Pool.enter(p.setup.id)" method="post">
+      <button class="button" data-icon="G"> Enter</button>
+    </form>
+    @if(ctx.me ?? p.contains) {
+      <form action="@routes.Pool.leave(p.setup.id)" method="post">
+        <button class="button" data-icon="F">&nbsp;Leave</button>
+      </form>
+    } else {
+    <a href="@routes.Pool.show(p.setup.id)" class="button" data-icon="v"> View</a>
+    }
   </div>
 </div>
 }

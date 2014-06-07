@@ -1,0 +1,28 @@
+@(p: lila.pool.Pool)(implicit ctx: Context)
+
+<div class="standing_wrap">
+  <table class="slist standing">
+    <thead>
+      <tr>
+        <th class="large">@trans.standing() (@p.nbUsers)</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @p.rankedUsers.map {
+      case (user, rank) => {
+      <tr @if(ctx is user) { class="me" }>
+        <td class="name">
+          <span class="rank">@rank</span>
+          @userLink(user, withRating = false)
+        </td>
+        <td class="rating">
+          @p.setup.glickoLens(user).intRating
+        </td>
+      </tr>
+      }
+      }
+    </tbody>
+  </table>
+</div>
+

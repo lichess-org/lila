@@ -7,6 +7,12 @@ GET   /lobby/socket                    controllers.Lobby.socket
 GET   /timeline                        controllers.Lobby.timeline
 GET   /timeline/more                   controllers.Lobby.timelineMore
 
+# Pool
+GET   /pool/:id                        controllers.Pool.show(id: String)
+GET   /pool/:id/socket                 controllers.Pool.websocket(id: String)
+POST  /pool/:id/enter                  controllers.Pool.enter(id: String)
+POST  /pool/:id/leave                  controllers.Pool.leave(id: String)
+
 # TV
 GET   /tv                              controllers.Tv.index
 GET   /tv/embed                        controllers.Tv.embed

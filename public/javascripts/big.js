@@ -381,6 +381,15 @@ var storage = {
             });
           }
         },
+        poolReminder: function(data) {
+          if (!$('#pool_reminder').length && $('body').data("pool-id") != data.id) {
+            $('#notifications').append(data.html).find("a.withdraw").click(function() {
+              $.post($(this).attr("href"));
+              $('#pool_reminder').remove();
+              return false;
+            });
+          }
+        },
         challengeReminder: function(data) {
           if (!storage.get('challenge-refused-' + data.id)) {
             var htmlId = 'challenge_reminder_' + data.id;
@@ -2631,6 +2640,50 @@ var storage = {
         lichess.socket.send(hook.action, hook.id);
       }
     });
+  });
+
+  ///////////////////
+  // pool.js //
+  ///////////////////
+
+  $(function() {
+
+    var $wrap = $('#pool');
+    if (!$wrap.length) return;
+    if (!strongSocket.available) return;
+
+    $('body').data('pool-id', $wrap.data('id'));
+
+    var $watchers = $("div.watchers").watchers();
+
+    var $chat = $('#chat');
+    if ($chat.length) $chat.chat({
+      resize: true,
+      messages: lichess_chat
+    });
+
+    function reload() {
+      $.ajax({
+        url: $wrap.data('href'),
+        success: function(html) {
+          var $pool = $(html);
+          $wrap.find('table.standing tbody').replaceWith($pool.find('table.standing tbody'));
+          $wrap.find('div.game_list').replaceWith($pool.find('div.game_list'));
+          $('body').trigger('lichess.content_loaded');
+        }
+      });
+    }
+
+    lichess.socket = new strongSocket($wrap.data('socket-url'), $wrap.data('version'), $.extend(true, lichess.socketDefaults, {
+      events: {
+        crowd: function(data) {
+          $watchers.watchers("set", data);
+        }
+      },
+      options: {
+        name: "pool"
+      }
+    }));
   });
 
   ///////////////////

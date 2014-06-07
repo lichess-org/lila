@@ -1,0 +1,9 @@
+@(p: lila.pool.Pool)
+
+@notification.view("pool_reminder", cssClass = "foldable", closable = false, glow = true) {
+<a data-icon="8" href="@routes.Pool.show(p.setup.id)">&nbsp;@p.setup.name pool</a> in progress!
+<div class="actions">
+  <a class="withdraw trans_me" href="@routes.Pool.leave(p.setup.id)" data-icon="F">&nbsp;Leave</a>
+  <a class="trans_me" href="@routes.Pool.show(p.setup.id)" data-icon="G">&nbsp;@trans.join.en()</a>
+</div>
+}
