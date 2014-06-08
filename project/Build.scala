@@ -237,7 +237,5 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api)
   )
 
-  lazy val chess = project("chess").settings(
-    libraryDependencies ++= Seq(hasher)
-  )
+  lazy val chess = project("chess")
 }
