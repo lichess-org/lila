@@ -124,7 +124,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val tv = project("tv", Seq(common, db, hub, game, user, chess)).settings(
-    libraryDependencies ++= provided(play.api, RM, PRM)
+    libraryDependencies ++= provided(play.api, RM, PRM, hasher)
   )
 
   lazy val analyse = project("analyse", Seq(common, hub, chess, game, user)).settings(
@@ -134,7 +134,7 @@ object ApplicationBuild extends Build {
 
   lazy val round = project("round", Seq(
     common, db, memo, hub, socket, chess, game, user, i18n, ai, pref, chat)).settings(
-    libraryDependencies ++= provided(play.api, RM, PRM)
+    libraryDependencies ++= provided(play.api, RM, PRM, hasher)
   )
 
   lazy val lobby = project("lobby", Seq(
@@ -242,7 +242,5 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api)
   )
 
-  lazy val chess = project("chess").settings(
-    libraryDependencies ++= Seq(hasher)
-  )
+  lazy val chess = project("chess")
 }
