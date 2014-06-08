@@ -39,7 +39,7 @@
           }
         </td>
         <td class="total">
-          <strong@if(scoreSheet.onFire) { class="is-gold" data-icon="Q" }>@scoreSheet.total</strong>
+          <strong@if(tour.isRunning && scoreSheet.onFire) { class="is-gold" data-icon="Q" }>@scoreSheet.total</strong>
         </td>
       </tr>
       <tr><td class="around-bar" colspan="3"><div class="bar" data-value="@scoreSheet.total"></div></td></tr>
