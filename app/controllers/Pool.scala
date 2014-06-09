@@ -14,8 +14,8 @@ object Pool extends LilaController {
 
   def show(id: String) = Open { implicit ctx =>
     OptionFuOk(env.repo byId id) { pool =>
-      env version id zip chatOf(pool.setup) map {
-        case (version, chat) => html.pool.show(pool, Nil, version, chat)
+      env version id zip chatOf(pool.setup) zip env.api.gamesOf(pool) map {
+        case ((version, chat), games) => html.pool.show(pool, games, version, chat)
       }
     }
   }

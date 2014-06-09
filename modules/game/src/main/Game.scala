@@ -79,11 +79,13 @@ case class Game(
   def fullIdOf(color: Color): String = id + player(color).id
 
   def tournamentId = metadata.tournamentId
+  def poolId = metadata.poolId
 
   def isTournament = tournamentId.isDefined
-  def nonTournament = tournamentId.isEmpty
+  def isMandatory = tournamentId.isDefined || poolId.isDefined
+  def nonMandatory = !isMandatory
 
-  def hasChat = nonTournament && nonAi
+  def hasChat = !isTournament && nonAi
 
   // in tenths
   private def lastMoveTime: Option[Long] = castleLastMoveTime.lastMoveTime map {
@@ -228,17 +230,17 @@ case class Game(
   def playerCanRematch(color: Color) =
     !player(color).isOfferingRematch &&
       finishedOrAborted &&
-      nonTournament
+      nonMandatory
 
   def playerCanProposeTakeback(color: Color) =
-    started && playable && nonTournament &&
+    started && playable && !isTournament &&
       bothPlayersHaveMoved &&
       !player(color).isProposingTakeback &&
       !opponent(color).isProposingTakeback
 
-  def moretimeable = playable && nonTournament && hasClock
+  def moretimeable = playable && nonMandatory && hasClock
 
-  def abortable = status == Status.Started && turns < 2 && nonTournament
+  def abortable = status == Status.Started && turns < 2 && nonMandatory
 
   def resignable = playable && !abortable
   def drawable = playable && !abortable
@@ -283,7 +285,7 @@ case class Game(
 
   def outoftimePlayer: Option[Player] = for {
     c ← clock
-    if started && playable && (bothPlayersHaveMoved || isTournament)
+    if started && playable && (bothPlayersHaveMoved || isMandatory)
     if (!c.isRunning && !c.isInit) || (c outoftime player.color)
   } yield player
 

@@ -904,6 +904,8 @@ var storage = {
 
       if (self.options.tournamentId) {
         $('body').data('tournament-id', self.options.tournamentId);
+      } else if (self.options.poolId) {
+        $('body').data('pool-id', self.options.poolId);
       }
 
       if (self.options.game.started) {
@@ -2676,6 +2678,10 @@ var storage = {
 
     lichess.socket = new strongSocket($wrap.data('socket-url'), $wrap.data('version'), $.extend(true, lichess.socketDefaults, {
       events: {
+        reload: reload,
+        redirect: function(e) {
+          $.redirect(e);
+        },
         crowd: function(data) {
           $watchers.watchers("set", data);
         }

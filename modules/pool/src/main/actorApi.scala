@@ -29,8 +29,10 @@ private[pool] case class Connected(enumerator: JsEnumerator, member: Member)
 private[pool] case object GetPool
 private[pool] case object Reload
 private[pool] case class Enter(user: User)
-private[pool] case class Leave(user: User)
-private[pool] case class Wave(user: User)
-private[pool] case object Pairing
+private[pool] case class Leave(userId: String)
+private[pool] case object PairPlayers
 private[pool] case object CheckLeaders
+private[pool] case object EjectLeavers
+private[pool] case object RemindPlayers
+private[pool] case class AddPairings(pairings: List[PairingWithGame])
 case class RemindPool(pool: Pool)

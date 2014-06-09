@@ -1,4 +1,4 @@
-@(pov: Pov, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, tourOption: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @import pov._
 
@@ -10,10 +10,13 @@
   @round.table.result(game)
 </div>
 <div class="lichess_control buttons">
-  @game.tournamentId.map { tourId =>
-  <a
-    class="button @tour.fold(false)(_.isRunning).fold("strong", "") view_tournament"
-    href="@routes.Tournament.show(tourId)" data-icon="G"> @trans.backToTournament()</a>
+  @tourOption.map { tour =>
+  <a class="button @if(tour.isRunning) {strong} view_tournament"
+    href="@routes.Tournament.show(tour.id)" data-icon="G"> @trans.backToTournament()</a>
+  }.getOrElse {
+  @game.poolId.map { poolId =>
+  <a class="button view_tournament"
+    href="@routes.Pool.show(poolId)" data-icon="8"> Back to pool</a>
   }.getOrElse {
   @if(opponent.isHuman) {
   <div class="lichess_separator"></div>
@@ -39,6 +42,7 @@
   }
   @if(!player.isOfferingRematch) {
   <a class="lichess_new_game button" title="@trans.playWithAnotherOpponent()" href="@routes.Lobby.home()">@trans.newOpponent()</a>
+  }
   }
   }
 </div>

@@ -7,11 +7,13 @@
   overflow: hidden;
 }
 #pool div.pool_box {
-  width: 525px;
+  width: 552px;
 }
 #pool div.game_list {
   float: right;
-  width: 246px;
-  max-height: 510px;
+  width: 226px;
   overflow-y: hidden;
+}
+#pool div.game_list > div {
+  margin-bottom: 10px;
 }

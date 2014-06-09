@@ -49,6 +49,7 @@ final class Env(
         uidTimeout = UidTimeout,
         lightUser = lightUser,
         isOnline = isOnline,
+        autoPairing = autoPairing,
         renderer = hub.actor.renderer)
     }), name = SocketName)
 
@@ -60,26 +61,24 @@ final class Env(
 
   lazy val api = new PoolApi(poolHub)
 
-  // private val organizer = system.actorOf(Props(new Organizer(
-  //   api = api,
-  //   reminder = system.actorOf(Props(new Reminder(
-  //     renderer = hub.actor.renderer
-  //   )), name = ReminderName),
-  //   isOnline = isOnline,
-  //   poolHub = poolHub,
-  //   evaluator = hub.actor.evaluator
-  // )), name = OrganizerName)
-
   def version(poolId: String): Fu[Int] =
     poolHub ? Ask(poolId, GetVersion) mapTo manifest[Int]
 
-  // private lazy val autoPairing = new AutoPairing(roundMap = roundMap, system = system)
+  private lazy val autoPairing = new AutoPairing(roundMap = roundMap, system = system)
 
   {
     import scala.concurrent.duration._
 
     scheduler.message(3 seconds) {
-      poolHub -> TellAll(actorApi.Pairing)
+      poolHub -> TellAll(actorApi.RemindPlayers)
+    }
+
+    scheduler.message(4 seconds) {
+      poolHub -> TellAll(actorApi.PairPlayers)
+    }
+
+    scheduler.message(5 seconds) {
+      poolHub -> TellAll(actorApi.EjectLeavers)
     }
 
     scheduler.message(7 minutes) {

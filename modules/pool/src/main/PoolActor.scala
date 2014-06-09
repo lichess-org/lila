@@ -3,11 +3,12 @@ package lila.pool
 import scala.concurrent.duration._
 
 import akka.actor._
-import akka.pattern.ask
+import akka.pattern.{ ask, pipe }
 import play.api.libs.json._
 
 import actorApi._
 import lila.common.LightUser
+import lila.game.actorApi.FinishGame
 import lila.hub.actorApi.SendTos
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
@@ -19,15 +20,18 @@ private[pool] final class PoolActor(
     lightUser: String => Option[LightUser],
     isOnline: String => Boolean,
     renderer: ActorSelection,
+    autoPairing: AutoPairing,
     uidTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member] {
 
-  private var pool = Pool(setup, Nil)
+  context.system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater)
+
+  private var pool = Pool(setup, Nil, Vector.empty)
   lila.user.UserRepo randomDudes scala.util.Random.nextInt(500) foreach { users =>
     pool = users.foldLeft(pool)(_ withUser _)
   }
 
   // last time each user waved to the pool
-  private val wavers = new lila.memo.ExpireSetMemo(10 seconds)
+  private val wavers = new lila.memo.ExpireSetMemo(20 seconds)
 
   def receiveSpecific = {
 
@@ -36,35 +40,22 @@ private[pool] final class PoolActor(
     case Enter(user) =>
       pool = pool withUser user
       wavers put user.id
+      notifyReload
       sender ! true
 
-    case Wave(user) =>
-      wavers put user.id
-
-    case Leave(user) =>
-      pool = pool withoutUser user
+    case Leave(userId) =>
+      pool = pool withoutUserId userId
+      notifyReload
       sender ! true
 
-    case Broom =>
-      broom
-      pool = pool filterPlayers { p =>
-        wavers get p.user.id
-      }
+    case EjectLeavers =>
       pool.players map (_.user.id) filter isOnline foreach wavers.put
+      pool.players filterNot (p => wavers get p.user.id) map (_.user.id) map Leave.apply foreach self.!
 
-    case GetVersion => sender ! history.version
+    case FinishGame(game, _, _) if game.poolId == Some(setup.id) =>
+      pool = pool finishGame game
 
-    // case StartGame(game) => game.players foreach { player =>
-    //   for {
-    //     userId ← player.userId
-    //     member ← memberByUserId(userId)
-    //   } {
-    //     notifyMember("redirect", game fullIdOf player.color)(member)
-    //     notifyReload
-    //   }
-    // }
-
-    case Pairing =>
+    case RemindPlayers =>
       import makeTimeout.short
       renderer ? RemindPool(pool) foreach {
         case html: play.twirl.api.Html =>
@@ -76,6 +67,20 @@ private[pool] final class PoolActor(
             )))
           context.system.lilaBus.publish(event, 'users)
       }
+
+    case PairPlayers =>
+      autoPairing(pool, userIds.toSet) map AddPairings.apply pipeTo self
+
+    case AddPairings(pairings) if pairings.nonEmpty =>
+      pool = pool withPairings pairings.map(_.pairing)
+      pairings.map(_.game) foreach { game =>
+        game.players foreach { player =>
+          player.userId flatMap memberByUserId foreach { member =>
+            notifyMember("redirect", game fullIdOf player.color)(member)
+          }
+        }
+      }
+      notifyReload
 
     case Reload => notifyReload
 
@@ -91,7 +96,7 @@ private[pool] final class PoolActor(
       case _ =>
     }
 
-    // case GetVersion => sender ! history.version
+    case GetVersion => sender ! history.version
 
     case Join(uid, user, version) =>
       import play.api.libs.iteratee._
@@ -101,10 +106,9 @@ private[pool] final class PoolActor(
       notifyCrowd
       sender ! Connected(enumerator, member)
 
-    case Quit(uid) => {
+    case Quit(uid) =>
       quit(uid)
       notifyCrowd
-    }
   }
 
   def notifyCrowd {

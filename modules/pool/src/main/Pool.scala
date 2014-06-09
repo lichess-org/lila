@@ -1,11 +1,13 @@
 package lila.pool
 
 import lila.common.LightUser
+import lila.game.Game
 import lila.user.User
 
 case class Pool(
     setup: PoolSetup,
-    players: List[Player]) {
+    players: List[Player],
+    pairings: Vector[Pairing]) {
 
   lazy val sortedPlayers = players.sortBy(-_.rating)
 
@@ -34,10 +36,20 @@ case class Pool(
   )
 
   def withoutPlayer(p: Player) = copy(players = players filterNot (_ is p))
-  def withoutUser(u: User) = copy(players = players filterNot (_.user.id == u.id))
+  def withoutUserId(id: String) = copy(players = players filterNot (_.user.id == id))
 
   def playersAround(uo: Option[User], nb: Int) = uo.fold(sortedPlayers take nb) { u =>
     val rating = setup.glickoLens(u).intRating
     players.sortBy(p => math.abs(rating - p.rating)) take nb sortBy (-_.rating)
   }
+
+  def withPairings(ps: List[Pairing]) =
+    copy(pairings = (pairings ++ ps) take math.max(100, nbPlayers))
+
+  def finishGame(game: Game) = copy(
+    pairings = pairings map {
+      case p if p.gameId == game.id => p.finish(game.status, game.turns)
+      case p                        => p
+    }
+  )
 }

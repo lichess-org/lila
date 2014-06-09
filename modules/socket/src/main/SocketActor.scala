@@ -149,7 +149,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def membersByUserIds(userIds: Set[String]): Iterable[M] =
     members.values filter (member => member.userId ?? userIds.contains)
 
-  def userIds: Iterable[String] = members.values.map(_.userId).flatten
+  def userIds: Iterable[String] = members.values.flatMap(_.userId)
 
   def notifyMove(move: MoveEvent) {
     lazy val msg = makeMessage("fen", Json.obj(

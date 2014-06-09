@@ -7,11 +7,11 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
+import lila.common.LightUser
 import lila.hub.TimeBomb
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
-import lila.common.LightUser
 
 private[tournament] final class Socket(
     tournamentId: String,
@@ -26,15 +26,13 @@ private[tournament] final class Socket(
 
   def receiveSpecific = {
 
-    case StartGame(game) => game.players foreach { player =>
-      for {
-        userId ← player.userId
-        member ← memberByUserId(userId)
-      } {
-        notifyMember("redirect", game fullIdOf player.color)(member)
-        notifyReload
+    case StartGame(game) =>
+      game.players foreach { player =>
+        player.userId flatMap memberByUserId foreach { member =>
+          notifyMember("redirect", game fullIdOf player.color)(member)
+        }
       }
-    }
+      notifyReload
 
     case Reload     => notifyReload
 

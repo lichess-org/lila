@@ -42,6 +42,7 @@ final class Evaluator(
   def generate(user: User, deep: Boolean): Fu[Option[Evaluation]] = generate(user.id, user.perfs, deep)
 
   def generate(userId: String, perfs: Perfs, deep: Boolean): Fu[Option[Evaluation]] = {
+    sys error "hehe"
     run(userId, deep) match {
       case Failure(e: Exception) if e.getMessage.contains("exit value: 1") => fuccess(none)
       case Failure(e: Exception) if e.getMessage.contains("exit value: 2") => fuccess(none)

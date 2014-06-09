@@ -54,7 +54,8 @@ final class JsonView(baseAnimationDelay: Duration) {
         "enablePremove" -> pref.premove
       ),
       "possibleMoves" -> possibleMoves(pov),
-      "tournamentId" -> game.tournamentId
+      "tournamentId" -> game.tournamentId,
+      "poolId" -> game.poolId
     )
   }
 
