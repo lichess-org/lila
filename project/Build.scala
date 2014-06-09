@@ -14,7 +14,7 @@ object ApplicationBuild extends Build {
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions := compilerOptions,
     incOptions := incOptions.value.withNameHashing(true),
-    offline := false,
+    offline := true,
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache, scalaTime,
       csv, jgit, actuarius, elastic4s, findbugs, RM,

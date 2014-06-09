@@ -219,6 +219,7 @@ body.dark div.content_box .loader:before,
 body.dark div.content_box .loader:after {
   background-color: #2b2b2b;
 }
+body.dark #pool_list h2,
 body.dark #timeline,
 body.dark #timeline > .entry {
   border-color: #2b2b2b;
@@ -415,6 +416,10 @@ body.dark div.user_show div.user-infos.scroll-shadow-hard {
   background-repeat: no-repeat;
   background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
   background-attachment: local, local, scroll, scroll;
+}
+body.dark #pool_list > div {
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 2px rgba(255,255,255,0.2);
 }
 body.dark::-webkit-input-placeholder {
   color: #666;

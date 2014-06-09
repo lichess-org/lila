@@ -5,18 +5,18 @@ case (p, it) => {
 <div class="pool_@(it + 1)">
   <h2>@p.setup.name</h2>
   <div class="body">
-    @defining(4) { displayedUsers =>
-    <table class="users">
+    @defining(4) { displayedPlayers =>
+    <table class="players">
       <tbody>
-        @p.sortedUsers.take(displayedUsers).map { user =>
+        @p.playersAround(ctx.me, displayedPlayers).map { player =>
         <tr>
-          <td>@userLink(user, withRating = false)</td>
-          <td>@p.setup.glickoLens(user).intRating</td>
+          <td>@lightUserLink(player.user)</td>
+          <td>@player.rating</td>
         </tr>
         }
-        @defining(p.nbUsers - displayedUsers) { moreUsers =>
-        @if(moreUsers > 0) {
-        <tr><td colspan=2>And 15 more</td></tr>
+        @defining(p.nbPlayers - displayedPlayers) { morePlayers =>
+        @if(morePlayers > 0) {
+        <tr><td colspan=2>And @morePlayers more</td></tr>
         }
         }
       </tbody>

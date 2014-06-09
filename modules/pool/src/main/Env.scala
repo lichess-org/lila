@@ -48,6 +48,7 @@ final class Env(
         history = new History(ttl = HistoryMessageTtl),
         uidTimeout = UidTimeout,
         lightUser = lightUser,
+        isOnline = isOnline,
         renderer = hub.actor.renderer)
     }), name = SocketName)
 

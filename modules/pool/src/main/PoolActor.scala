@@ -8,18 +8,26 @@ import play.api.libs.json._
 
 import actorApi._
 import lila.common.LightUser
+import lila.hub.actorApi.SendTos
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
-import lila.hub.actorApi.SendTos
+import lila.user.User
 
 private[pool] final class PoolActor(
     setup: PoolSetup,
     val history: History,
     lightUser: String => Option[LightUser],
+    isOnline: String => Boolean,
     renderer: ActorSelection,
     uidTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member] {
 
   private var pool = Pool(setup, Nil)
+  lila.user.UserRepo randomDudes scala.util.Random.nextInt(500) foreach { users =>
+    pool = users.foldLeft(pool)(_ withUser _)
+  }
+
+  // last time each user waved to the pool
+  private val wavers = new lila.memo.ExpireSetMemo(10 seconds)
 
   def receiveSpecific = {
 
@@ -27,11 +35,22 @@ private[pool] final class PoolActor(
 
     case Enter(user) =>
       pool = pool withUser user
+      wavers put user.id
       sender ! true
+
+    case Wave(user) =>
+      wavers put user.id
 
     case Leave(user) =>
       pool = pool withoutUser user
       sender ! true
+
+    case Broom =>
+      broom
+      pool = pool filterPlayers { p =>
+        wavers get p.user.id
+      }
+      pool.players map (_.user.id) filter isOnline foreach wavers.put
 
     case GetVersion => sender ! history.version
 
@@ -49,7 +68,7 @@ private[pool] final class PoolActor(
       import makeTimeout.short
       renderer ? RemindPool(pool) foreach {
         case html: play.twirl.api.Html =>
-          val event = SendTos(pool.users.map(_.id).toSet, Json.obj(
+          val event = SendTos(pool.players.map(_.user.id).toSet, Json.obj(
             "t" -> "poolReminder",
             "d" -> Json.obj(
               "id" -> pool.setup.id,
@@ -58,15 +77,13 @@ private[pool] final class PoolActor(
           context.system.lilaBus.publish(event, 'users)
       }
 
-    case Reload     => notifyReload
+    case Reload => notifyReload
 
     case PingVersion(uid, v) =>
       ping(uid)
       withMember(uid) { m =>
         history.since(v).fold(resync(m))(_ foreach sendMessage(m))
       }
-
-    case Broom => broom
 
     case lila.chat.actorApi.ChatLine(_, line) => line match {
       case line: lila.chat.UserLine =>

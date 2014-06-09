@@ -30,6 +30,7 @@ private[pool] case object GetPool
 private[pool] case object Reload
 private[pool] case class Enter(user: User)
 private[pool] case class Leave(user: User)
+private[pool] case class Wave(user: User)
 private[pool] case object Pairing
 private[pool] case object CheckLeaders
 case class RemindPool(pool: Pool)

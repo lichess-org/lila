@@ -72,6 +72,8 @@ trait UserRepo {
 
   def usernameById(id: ID) = $primitive.one($select(id), F.username)(_.asOpt[String])
 
+  def randomDudes(nb: Int) = $find($query(stableGoodLadSelect) sort BSONDocument("count.games" -> -1) skip scala.util.Random.nextInt(5000), nb)
+
   def rank(user: User) = $count(enabledSelect ++ Json.obj(F.rating -> $gt(Glicko.default.rating))) map (1+)
 
   def orderByGameCount(u1: String, u2: String): Fu[Option[(String, String)]] =
