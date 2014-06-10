@@ -20,7 +20,7 @@ private[pool] final class PoolSetupRepo(config: Config) {
     case _ => none
   }.toList.flatten.sortBy(_.id)
 
-  private val setupMap = setups.map { p =>
+  val setupMap = setups.map { p =>
     p.id -> p
   }.toMap
 

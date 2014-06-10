@@ -8,20 +8,42 @@
 @jsTagCompiled("chart2.js")
 }
 
+@showPerf(name: String, perf: lila.rating.Perf) = {
+<div class="hint--bottom" data-hint="@lila.user.Perfs.titles.get(name).getOrElse(name)">
+  <h3>@if(name == "puzzle") {TRAINING} else {@name.toUpperCase}</h3>
+  <strong title="Glicko rating">@perf.glicko.intRating</strong>
+  <small title="Glicko rating deviation"> ±@perf.glicko.intDeviationDoubled</small> /
+  <span title="Number of games played">
+    @perf.nb.localize @if(name == "puzzle") { Puzzles } else { @trans.games() }
+  </span>
+</div>
+}
+
 @goodies = {
-<div class="goodies">
-  @u.perfs.perfs.drop(1).zipWithIndex.map {
-  case ((name, perf), i) => {
-  <div class="sub_ratings @if(Set(0, 2, 5, 7)(i)) { "sep" }" title="@perfTitle(name)">
-    <h3>@if(name == "puzzle") {TRAINING} else {@name.toUpperCase}</h3>
-    <strong title="Glicko rating">@perf.glicko.intRating</strong>
-    <small title="Glicko rating deviation"> ±@perf.glicko.intDeviationDoubled</small> /
-    <span title="Number of games played">
-      @perf.nb.localize @if(name == "puzzle") { Puzzles } else { @trans.games() }
-    </span>
-  </div>
+<div class="goodies sub_ratings">
+  @showPerf("global", u.perfs.global)
+  <br />
+  @showPerf("standard", u.perfs.standard)
+  @showPerf("chess960", u.perfs.chess960)
+  <br />
+  @u.perfs.pools.map {
+  case (id, perf) => {
+  @poolSetups.get(id).map { setup =>
+  @showPerf(s"${setup.name} pool", perf)
   }
   }
+  }
+  @if(u.perfs.pools.nonEmpty) {
+  <br />
+  }
+  @showPerf("bullet", u.perfs.bullet)
+  @showPerf("blitz", u.perfs.blitz)
+  @showPerf("slow", u.perfs.slow)
+  <br />
+  @showPerf("white", u.perfs.white)
+  @showPerf("black", u.perfs.black)
+  <br />
+  @showPerf("puzzle", u.perfs.puzzle)
 </div>
 }
 

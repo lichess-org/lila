@@ -32,6 +32,8 @@ case class Player(
     userId = user.id.some,
     rating = user.rating.some)
 
+  def withRating(rating: Int) = copy(rating = rating.some)
+
   def isAi = aiLevel.isDefined
 
   def isHuman = !isAi

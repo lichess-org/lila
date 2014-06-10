@@ -158,8 +158,6 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     Html(s"""<a$dataIcon $klass $href>$space$titleS$content</a>""")
   }
 
-  def perfTitle(perf: String): String = lila.user.Perfs.titles get perf getOrElse perf
-
   private def userHref(username: String, params: String = "") =
     s"""href="${routes.User.show(username)}$params""""
 

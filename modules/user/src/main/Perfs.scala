@@ -14,7 +14,8 @@ case class Perfs(
     slow: Perf,
     white: Perf,
     black: Perf,
-    puzzle: Perf) {
+    puzzle: Perf,
+    pools: Map[String, Perf]) {
 
   def perfs = List(
     "global" -> global,
@@ -25,7 +26,11 @@ case class Perfs(
     "slow" -> slow,
     "white" -> white,
     "black" -> black,
-    "puzzle" -> puzzle)
+    "puzzle" -> puzzle) ::: pools.toList.map {
+      case (id, perf) => s"$id pool" -> perf
+  }
+
+  def pool(key: String) = pools get key getOrElse Perf.default
 
   override def toString = perfs map {
     case (name, perf) => s"$name:${perf.intRating}"
@@ -36,10 +41,11 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, Map.empty)
   }
 
   val titles = Map(
+    "global"   -> "All rated games",
     "bullet"   -> "Very fast games: less than 3 minutes",
     "blitz"    -> "Fast games: less than 8 minutes",
     "slow"     -> "Slow games: more than 8 minutes",
@@ -52,6 +58,7 @@ case object Perfs {
   private def PerfsBSONHandler = new BSON[Perfs] {
 
     implicit def perfHandler = Perf.tube.handler
+    import BSON.Map._
 
     def reads(r: BSON.Reader): Perfs = {
       def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default
@@ -64,7 +71,8 @@ case object Perfs {
         slow = perf("slow"),
         white = perf("white"),
         black = perf("black"),
-        puzzle = perf("puzzle"))
+        puzzle = perf("puzzle"),
+        pools = r.getO[Map[String, Perf]]("pools") getOrElse Map.empty)
     }
 
     def writes(w: BSON.Writer, o: Perfs) = BSONDocument(
@@ -76,7 +84,8 @@ case object Perfs {
       "slow" -> o.slow,
       "white" -> o.white,
       "black" -> o.black,
-      "puzzle" -> o.puzzle)
+      "puzzle" -> o.puzzle,
+      "pools" -> o.pools)
   }
 
   lazy val tube = lila.db.BsTube(PerfsBSONHandler)

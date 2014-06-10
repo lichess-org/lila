@@ -59,6 +59,8 @@ object Environment
 
   lazy val lobbyMenu = new lila.app.ui.LobbyMenu(trans)
 
+  lazy val poolSetups = Env.pool.setups
+
   def reportNbUnprocessed(implicit ctx: lila.api.Context): Int =
     isGranted(_.SeeReport) ?? lila.report.Env.current.api.nbUnprocessed.await
 }

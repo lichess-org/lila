@@ -30,10 +30,12 @@ final class Env(
   }
   import settings._
 
-  private[pool] val poolSetupRepo = new PoolSetupRepo(config getConfig "presets")
+  private[pool] val setupRepo = new PoolSetupRepo(config getConfig "presets")
+
+  def setups = setupRepo.setupMap
 
   lazy val socketHandler = new SocketHandler(
-    setupRepo = poolSetupRepo,
+    setupRepo = setupRepo,
     hub = hub,
     poolHub = poolHub,
     chat = hub.actor.chat,
@@ -42,7 +44,7 @@ final class Env(
   private val poolHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[PoolActor] {
       def mkActor(id: ID) = new PoolActor(
-        setup = poolSetupRepo byId id getOrElse {
+        setup = setupRepo byId id getOrElse {
           throw new IllegalArgumentException(s"Can't create pool for id $id")
         },
         history = new History(ttl = HistoryMessageTtl),
@@ -53,7 +55,8 @@ final class Env(
         renderer = hub.actor.renderer)
     }), name = SocketName)
 
-  poolSetupRepo.setups foreach { setup =>
+  // wake actors up
+  setupRepo.setups foreach { setup =>
     poolHub ! lila.hub.actorApi.map.Tell(setup.id, true)
   }
 

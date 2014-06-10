@@ -26,6 +26,25 @@ object BSON {
     def write(x: DateTime) = BSONDateTime(x.getMillis)
   }
 
+  object Map {
+
+    implicit def MapReader[V](implicit vr: BSONDocumentReader[V]): BSONDocumentReader[Map[String, V]] = new BSONDocumentReader[Map[String, V]] {
+      def read(bson: BSONDocument): Map[String, V] =
+        bson.elements.map { tuple =>
+          // assume that all values in the document are BSONDocuments
+          tuple._1 -> vr.read(tuple._2.seeAsTry[BSONDocument].get)
+        }.toMap
+    }
+
+    implicit def MapWriter[V](implicit vw: BSONDocumentWriter[V]): BSONDocumentWriter[Map[String, V]] = new BSONDocumentWriter[Map[String, V]] {
+      def write(map: Map[String, V]): BSONDocument = BSONDocument {
+        map.toStream.map { tuple =>
+          tuple._1 -> vw.write(tuple._2)
+        }
+      }
+    }
+  }
+
   final class Reader(val doc: BSONDocument) {
 
     val map = (doc.stream collect { case Success(e) => e }).toMap

@@ -21,7 +21,7 @@ final class AutoPairing(
     def inPoolRoom(p: Player) = userIds contains p.user.id
     def isPlaying(p: Player) = playingUserIds contains p.user.id
     val availablePlayers = pool.players filter inPoolRoom filterNot isPlaying
-    (availablePlayers.sortBy(-_.rating) grouped 2).map {
+    (availablePlayers.sortBy(-_.rating) grouped 2).map { scala.util.Random.shuffle(_) }.map {
       case List(p1, p2) =>
         val pairing = Pairing(p1.user.id, p2.user.id)
         startGame(pool, pairing) map {
@@ -34,13 +34,14 @@ final class AutoPairing(
   def startGame(pool: Pool, pairing: Pairing): Fu[Game] = for {
     user1 ← getUser(pairing.user1)
     user2 ← getUser(pairing.user2)
+    ratingLens = (user: User) => user.perfs.pool(pool.setup.id).intRating
     game = Game.make(
       game = chess.Game(
         board = chess.Board init pool.setup.variant,
         clock = pool.setup.clock.some
       ),
-      whitePlayer = GamePlayer.white withUser user1,
-      blackPlayer = GamePlayer.black withUser user2,
+      whitePlayer = GamePlayer.white withUser user1 withRating ratingLens(user1),
+      blackPlayer = GamePlayer.black withUser user2 withRating ratingLens(user2),
       mode = pool.setup.mode,
       variant = pool.setup.variant,
       source = Source.Pool,
