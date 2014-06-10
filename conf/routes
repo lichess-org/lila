@@ -94,7 +94,7 @@ GET   /$gameId<[\w\-]{8}>/edit                       controllers.Editor.game(gam
 
 # Round accessibility: text representation
 GET   /$fullId<[\w\-]{12}>/text                      controllers.Round.playerText(fullId: String)
-GET   /$gameId<[\w\-]{12}>/$color<white|black>/text  controllers.Round.watcherText(gameId: String, color: String)
+GET   /$gameId<[\w\-]{8}>/$color<white|black>/text   controllers.Round.watcherText(gameId: String, color: String)
 
 # Tournament
 GET   /tournament                             controllers.Tournament.home
