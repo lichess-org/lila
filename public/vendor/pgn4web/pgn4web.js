@@ -292,22 +292,22 @@ function pgn4web_handleKey(e) {
 
     // thib hack: removed lots of key bindings
 
-    case 37: // left-arrow
-    case 74: // j
+    case 38: // up-arrow
+    case 75: // k
       backButton(e);
       break;
 
-    case 38: // up-arrow
+    case 37: // left-arrow
     case 72: // h
       startButton(e);
       break;
 
-    case 39: // right-arrow
-    case 75: // k
+    case 40: // down-arrow
+    case 74: // j
       forwardButton(e);
       break;
 
-    case 40: // down-arrow
+    case 39: // right-arrow
     case 76: // l
       endButton(e);
       break;

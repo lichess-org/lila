@@ -57,7 +57,7 @@ object Mod extends LilaController {
     me =>
       OptionFuOk(UserRepo named username) { user =>
         for {
-          isReported <- Env.report.api.recent map {
+          isReported <- Env.report.api recent 100 map {
             _ exists (r => r.user == user.id && r.isCommunication)
           }
           povs <- isReported ?? lila.game.GameRepo.recentPovsByUser(user, 50)

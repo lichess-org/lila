@@ -17,7 +17,10 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
       Constraints maxLength 20,
       Constraints.pattern(
         regex = """^[\w-]+$""".r,
-        error = "Invalid username. Please use only letters, numbers and dash")
+        error = "Invalid username. Please use only letters, numbers and dash"),
+      Constraints.pattern(
+        regex = """^[^\d].+$""".r,
+        error = "The username must not start with a number")
     ),
     "password" -> text(minLength = 4),
     "gameId" -> nonEmptyText,
