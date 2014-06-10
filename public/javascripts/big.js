@@ -102,7 +102,6 @@ var storage = {
         else if (window.WebSocket) self.ws = new WebSocket(fullUrl);
         else throw "[lila] no websockets found on this browser!";
 
-        // if (self.options.debug) window.liws = self.ws;
         self.ws.onerror = function(e) {
           self.onError(e);
         };
@@ -274,19 +273,15 @@ var storage = {
       self.debug('error: ' + JSON.stringify(e));
       self.tryOtherUrl = true;
       setTimeout(function() {
-        if (!storage.get("wsok") && $("#websocket-fail").length === 0) {
-          $.ajax("/assets/websocket-fail.html", {
-            success: function(html) {
-              $('body').prepend("<div id='websocket-fail'>" + html + "</div>");
-            }
-          });
+        if (!$('#network_error').length) {
+          var msg = "Your browser supports websockets, but cannot get a connection. Maybe you are behind a proxy that does not support websockets. Ask your system administrator to fix it!";
+          $('#nb_connected_players').after('<span id="network_error" title="' + msg + '" data-icon="j"> Network error</span>');
         }
       }, 1000);
       clearTimeout(self.pingSchedule);
     },
     onSuccess: function() {
-      storage.set("wsok", 1);
-      $("#websocket-fail").remove();
+      $('#connect_error').remove();
     },
     baseUrl: function() {
       var key = this.options.baseUrlKey;
