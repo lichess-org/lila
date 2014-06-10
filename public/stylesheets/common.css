@@ -847,6 +847,7 @@ body.tight div.side_menu a {
 }
 #nb_connected_players,
 #reconnecting,
+#network_error,
 a.goto_nav,
 #top a.toggle,
 #sound_state {
@@ -859,7 +860,8 @@ a.goto_nav,
 #reconnecting {
   display: none;
 }
-body.offline #reconnecting {
+body.offline #reconnecting,
+#network_error {
   display: inline-block;
   color: #dc322f;
   float: left;
