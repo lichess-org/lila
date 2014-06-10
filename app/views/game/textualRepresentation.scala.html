@@ -27,7 +27,7 @@
   @pov.game.turnColor plays
   }
   </dd>
-  @if(pov.game.playable && pov.game.turnOf(pov.player)) {
+  @if(playing && pov.game.playable && pov.game.turnOf(pov.player)) {
   <form>
     <label>
       Your move in UCI format (e.g. e2e4 or d7d8Q)
