@@ -1,8 +1,8 @@
 playWithAFriend=إلعب مع صديق
-inviteAFriendToPlayWithYou=إرسال دعوة لصديق للعب معك
+inviteAFriendToPlayWithYou=إرسل دعوة لصديق للعّب معك
 playWithTheMachine=إلعب مع الحاسوب
-challengeTheArtificialIntelligence=تحدى الذكاء الصناعي
-toInviteSomeoneToPlayGiveThisUrl=لدعوة شخص ما للعب ، أعطه هذا الرابط
+challengeTheArtificialIntelligence=تحدى الّذكاء الصناعي
+toInviteSomeoneToPlayGiveThisUrl=لدعوة شخص ما للّعب ، أعطه هذا الرابط
 gameOver=إنتهت اللعبة
 waitingForOpponent=في إنتظار الخصم
 waiting=إنتظار
@@ -18,7 +18,7 @@ stalemate=الملك مخنوق
 white=أبيض
 black=أسود
 randomColor=لون عشوائي
-createAGame=انشئ لعبه
+createAGame=انشئ لعب
 whiteIsVictorious=الأبيض هو الفائز
 blackIsVictorious=الأسود هو الفائز
 playWithTheSameOpponentAgain=إلعب مع نفس الخصم مرة أخرى
@@ -28,16 +28,16 @@ yourOpponentWantsToPlayANewGameWithYou=الخصم يريد أن يلعب لعب�
 joinTheGame=الانضمام إلى لعبة
 whitePlays=دور الابيض
 blackPlays=دور الاسود
-theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=اللاعب الآخر ترك اللعب. يمكنك فرض الاستسلام ، أو الأنتظار حتى يعود.
+theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=اللاعب الآخر يمكن ان يكون ترك اللعب. يمكنك فرض الاستسلام ، أو الأنتظار حتى يعود.
 makeYourOpponentResign=اجعل خصمك يستسلم
 forceResignation=إجبار على الأستسلام
 forceDraw=تعادل الزامي
-talkInChat=نقاش في الدردشة
+talkInChat=دردش
 theFirstPersonToComeOnThisUrlWillPlayWithYou=أول شخص يأتي على هذا الرابط سوف يلعب معك.
 whiteCreatesTheGame=الأبيض انشأ اللعبة
 blackCreatesTheGame=الأسود انشأ اللعبة
-whiteJoinsTheGame=الأبيض ينضم إلى اللعبة
-blackJoinsTheGame=الأسود ينضم إلى اللعبة
+whiteJoinsTheGame=الأبيض انضمّ إلى اللعبة
+blackJoinsTheGame=الأسود انضمّ إلى اللعبة
 whiteResigned=الأبيض ينسحب
 blackResigned=الأسود ينسحب
 whiteLeftTheGame=الأبيض ترك اللعبة
@@ -46,7 +46,7 @@ shareThisUrlToLetSpectatorsSeeTheGame=شارك هذا الرابط للسماح 
 youAreViewingThisGameAsASpectator=أنت تشارك في هذه اللعبة بصفة متفرج
 replayAndAnalyse=إعادة وتحليل
 computerAnalysisInProgress=التحليل الحاسوبي قيد المعالجة
-theComputerAnalysisHasFailed=تعذر التحليل الحاسوبي
+theComputerAnalysisHasFailed=تعذّر التحليل الحاسوبي
 viewTheComputerAnalysis=عرض التحليل الحاسوبي
 requestAComputerAnalysis=اطلب تحليلاً حاسوبياً
 computerAnalysis=تحليل الحاسب
@@ -63,8 +63,8 @@ nbConnectedPlayers=%s المتواجدون الآن
 gamesBeingPlayedRightNow=الألعاب الجارية الآن
 viewAllNbGames=مشاهدة جميع الألعاب وعددها %s
 viewNbCheckmates=مشاهدة جميع الألعاب المنتهية بالفوز وعددها %s
-nbBookmarks=%s مفضلة
-nbPopularGames=%s لعبة رائجة
+nbBookmarks=%s الألعاب مفضلة
+nbPopularGames=%s ألعاب رائجة
 nbAnalysedGames=%s لعبة محلَلًة
 bookmarkedByNbPlayers=تم تفضيلها بواسطة %s لاعبين
 viewInFullSize=عرض بالحجم الكامل
@@ -73,11 +73,11 @@ signIn=دخول
 newToLichess=هل أنت جديد هنا؟
 youNeedAnAccountToDoThat=تحتاج لحساب في الموقع لإتمام هذا
 signUp=تسجيل
-computersAreNotAllowedToPlay=رایانه ها و بازیکانانی که از کامپیوتر بهره میگیرند مجاز به بازی نیستند. لطفا از برنامه های شطرنج و بازیکنانی که از برنامه های شطرنج استفاده میکنند کمک نگیرید.
+computersAreNotAllowedToPlay=الحواسيب و اللاعبين المستخدمين لحواسيب للعب غير مسموح لهم اللعب. الرجاء عدم الاستعانة بمرامج شطرنج أو لاعبين آخرين.
 games=ألعاب
 forum=المنتدى
 xPostedInForumY=%s منشور في المندى %s
-latestForumPosts=ىخر منشورات المنتدى
+latestForumPosts=آخر منشورات المنتدى
 players=لاعبي الشطرنج
 minutesPerSide=دقائق لكل طرف
 variant=النوع
@@ -91,27 +91,27 @@ changePassword=تغيير كلمة السر
 learnMoreAboutLichess=Lichess معرفة المزيد حول
 rank=المرتبة
 gamesPlayed=عدد مرات اللعب
-nbGamesWithYou=%s لعبة معاك
+nbGamesWithYou=%s لعبة معك
 declineInvitation=رفض الدعوة
 cancel=إلغاء
 timeOut=إنتهى الوقت
 drawOfferSent=تم إرسال عرض التعادل
 drawOfferDeclined=تم رفض عرض التعادل
 drawOfferAccepted=تم قبول عرض التعادل
-drawOfferCanceled=تم إلغاءعرض التعادل
+drawOfferCanceled=تم إلغاء عرض التعادل
 yourOpponentOffersADraw=الخصم يعرض عليك التعادل
 accept=قبول
 decline=رفض
-playingRightNow=يلعب في الوقت الراهن
+playingRightNow=يلعب في الوقت الرّاهن
 finished=انتهت
 abortGame=ايقاف اللعبة
 gameAborted=اللعبة أُوقفت
-standard=قياسي
+standard=عادي
 unlimited=غير محدود
 mode=النمط
-casual=غير مقيمة
-rated=مقيمة
-thisGameIsRated=هذه اللعبة تُقيم في جدول الترتيب العام
+casual=غير مقيّمة
+rated=مقيّمة
+thisGameIsRated=هذه اللعبة تُقيّم في جدول الترتيب العام
 rematch=إعادة المبارة
 rematchOfferSent=تم إرسال عرض مباراة ثانية
 rematchOfferAccepted=تم قبول عرض المباراة الثانية
