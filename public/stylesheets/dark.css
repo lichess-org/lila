@@ -247,6 +247,7 @@ body.dark #powerTip {
 }
 body.dark #top ul.language_links a.accepted,
 body.dark #lichess_forum div.post .message,
+body.dark #lichess_blog,
 body.dark #lichess_message div.thread_message div.thread_message_body,
 body.dark #GameText .move,
 body.dark form.translation_form div.message label,
