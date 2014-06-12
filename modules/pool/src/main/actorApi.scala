@@ -36,4 +36,5 @@ private[pool] case object EjectLeavers
 private[pool] case object RemindPlayers
 private[pool] case class AddPairings(pairings: List[PairingWithGame])
 private[pool] case class UpdateUsers(users: List[User])
+private[pool] case class Preload(games: List[Game], users: List[User])
 case class RemindPool(pool: Pool)

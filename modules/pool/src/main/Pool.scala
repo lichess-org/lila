@@ -7,7 +7,7 @@ import lila.user.User
 case class Pool(
     setup: PoolSetup,
     players: List[Player],
-    pairings: Vector[Pairing]) {
+    pairings: List[Pairing]) {
 
   lazy val sortedPlayers = players.sortBy(-_.rating)
 
@@ -55,7 +55,7 @@ case class Pool(
   private def nbPairingsToSave = math.max(100, nbPlayers * 5)
 
   def withPairings(ps: List[Pairing]) =
-    copy(pairings = (pairings ++ ps) take nbPairingsToSave)
+    copy(pairings = (ps ::: pairings) take nbPairingsToSave)
 
   def finishGame(game: Game) = copy(
     pairings = pairings map {

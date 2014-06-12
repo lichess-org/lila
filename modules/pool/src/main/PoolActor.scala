@@ -9,6 +9,7 @@ import play.api.libs.json._
 import actorApi._
 import lila.common.LightUser
 import lila.game.actorApi.FinishGame
+import lila.game.GameRepo
 import lila.hub.actorApi.SendTos
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
@@ -23,9 +24,16 @@ private[pool] final class PoolActor(
     joiner: Joiner,
     uidTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member] {
 
-  context.system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater)
+  private var pool = Pool(setup, Nil, Nil)
 
-  private var pool = Pool(setup, Nil, Vector.empty)
+  override def preStart() {
+    context.system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater)
+    GameRepo findCurrentPoolGames setup.id foreach { games =>
+      UserRepo byIds games.flatMap(_.userIds) foreach { users =>
+        self ! Preload(games, users)
+      }
+    }
+  }
 
   // last time each user waved to the pool
   private val wavers = new lila.memo.ExpireSetMemo(20 seconds)
@@ -40,7 +48,7 @@ private[pool] final class PoolActor(
       notifyReload
       sender ! true
 
-    case Leave(userId) =>
+    case Leave(userId) if pool.contains(userId) =>
       pool = pool withoutUserId userId
       notifyReload
       sender ! true
@@ -81,6 +89,26 @@ private[pool] final class PoolActor(
           }
         }
       }
+      notifyReload
+
+    case Preload(games, users) =>
+      pool = pool.copy(
+        pairings = games flatMap { game =>
+          (game.whitePlayer.userId |@| game.blackPlayer.userId) apply {
+            case (user1, user2) =>
+              Pairing(
+                gameId = game.id,
+                status = game.status,
+                user1 = user1,
+                user2 = user2,
+                turns = game.turns,
+                winnerId = game.winnerUserId)
+          }
+        },
+        players = users.map { user =>
+          Player(user.light, setup.glickoLens(user).intRating)
+        })
+      pool.players map (_.id) foreach wavers.put
       notifyReload
 
     case Reload => notifyReload

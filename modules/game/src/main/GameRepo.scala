@@ -122,7 +122,10 @@ trait GameRepo {
     $primitive(($select byIds ids) ++ selectAnalysed, "_id")(_.asOpt[String]) map (_.toSet)
 
   def incBookmarks(id: ID, value: Int) =
-    $update($select(id), $incBson("bm" -> value))
+    $update($select(id), $incBson(F.bookmarks -> value))
+
+  def findCurrentPoolGames(poolId: String) =
+    $find($query(Query.playable ++ Json.obj(F.poolId -> poolId)) sort Query.sortCreated)
 
   def setHoldAlert(pov: Pov, mean: Int, sd: Int) = {
     import Player.holdAlertBSONHandler
