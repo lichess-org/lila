@@ -1,4 +1,4 @@
-@(pov: lila.game.Pov)(implicit ctx: Context)
+@(pov: lila.game.Pov, playing: Boolean)(implicit ctx: Context)
 
 <h1>Textual representation</h1>
 <dl>
@@ -8,10 +8,17 @@
   <dd>@Html(pov.game.pgnMoves.mkString("<br />"))</dd>
   <dt>FEN</dt>
   <dd>@{chess.format.Forsyth.>>(pov.game.toChess)}</dd>
+  @if(playing) {
   <dt>Your color</dt>
   <dd>@pov.color.name</dd>
   <dt>Opponent</dt>
   <dd>@playerText(pov.opponent)</dd>
+  } else {
+  <dt>White player</dt>
+  <dd>@playerText(pov.game.whitePlayer)</dd>
+  <dt>Black player</dt>
+  <dd>@playerText(pov.game.blackPlayer)</dd>
+  }
   <dt>Game status</dt>
   <dd>
   @if(pov.game.finishedOrAborted) {
@@ -20,7 +27,7 @@
   @pov.game.turnColor plays
   }
   </dd>
-  @if(pov.game.playable && pov.game.turnOf(pov.player)) {
+  @if(playing && pov.game.playable && pov.game.turnOf(pov.player)) {
   <form>
     <label>
       Your move in UCI format (e.g. e2e4 or d7d8Q)

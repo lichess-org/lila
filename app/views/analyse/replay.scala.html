@@ -42,6 +42,11 @@ moreCss = moreCss,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov)) {
 <div class="analyse clearfix">
+  @if(ctx.blindMode) {
+  <div id="lichess_board_blind" data-href="@routes.Round.watcherText(gameId, color.name)">
+    @views.html.game.textualRepresentation(pov, false)
+  </div>
+  }
   <div class="board_wrap">
     <div
       id="GameBoard"

@@ -13,8 +13,8 @@ signedJs = hijackEnabled(pov.game) option routes.Round.signedJs(pov.gameId) map 
 openGraph = povOpenGraph(pov)) {
 <div class="lichess_game clearfix lichess_player_@color not_spectator@if(!ctx.pref.captured) { hide_captured }">
   @if(ctx.blindMode) {
-  <div id="lichess_board_blind" data-href="@routes.Round.text(fullId)">
-    @textualRepresentation(pov)
+  <div id="lichess_board_blind" data-href="@routes.Round.playerText(fullId)">
+    @views.html.game.textualRepresentation(pov, playing = true)
   </div>
   }
   <div class="lichess_board_wrap">

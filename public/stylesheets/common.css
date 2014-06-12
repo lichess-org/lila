@@ -106,6 +106,13 @@ time {
 [data-icon].is-gold:before {
   color: #d59120;
 }
+body.blind_mode .is:before,
+body.blind_mode .is:after,
+body.blind_mode [data-icon]:before {
+  content: none;
+  display: none;
+  visibility: hidden;
+}
 @font-face {
   font-family: 'pgn4web ChessSansPiratf';
   src: url("../vendor/pgn4web/fonts/ChessSansPiratf.eot");
@@ -313,6 +320,7 @@ div.content_box .loader:after {
 }
 #infscr-loading.loader {
   font-size: 4px;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 #powerTip,

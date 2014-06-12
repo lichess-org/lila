@@ -110,9 +110,16 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def text(fullId: String) = Open { implicit ctx =>
+  def playerText(fullId: String) = Open { implicit ctx =>
     OptionResult(GameRepo pov fullId) { pov =>
-      if (ctx.blindMode) Ok(html.round.textualRepresentation(pov))
+      if (ctx.blindMode) Ok(html.game.textualRepresentation(pov, true))
+      else BadRequest
+    }
+  }
+
+  def watcherText(gameId: String, color: String) = Open { implicit ctx =>
+    OptionResult(GameRepo.pov(gameId, color)) { pov =>
+      if (ctx.blindMode) Ok(html.game.textualRepresentation(pov, false))
       else BadRequest
     }
   }

@@ -281,7 +281,7 @@ var storage = {
       clearTimeout(self.pingSchedule);
     },
     onSuccess: function() {
-      $('#connect_error').remove();
+      $('#network_error').remove();
     },
     baseUrl: function() {
       var key = this.options.baseUrlKey;
@@ -600,7 +600,7 @@ var storage = {
     if ($('body').hasClass('blind_mode')) {
       var setBlindMode = function() {
         $('[data-hint]').each(function() {
-          $(this).attr('title', $(this).data('hint'));
+          $(this).attr('aria-label', $(this).data('hint'));
         });
       };
       setBlindMode();
