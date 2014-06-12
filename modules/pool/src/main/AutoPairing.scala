@@ -16,17 +16,17 @@ private[pool] object AutoPairing {
 
     def basedOnRating = availablePlayers.sortBy(-_.rating) grouped 2
 
-    def basedOnWins = {
-      availablePlayers.map { player =>
-        player -> pool.pairings.foldLeft(Sheet(0, 0)) {
-          case (sheet, _) if sheet.games > 5                   => sheet
-          case (sheet, pairing) if (pairing wonBy player.id)   => sheet add 1
-          case (sheet, pairing) if (pairing drawnBy player.id) => sheet add 0
-          case (sheet, pairing) if (pairing drawnBy player.id) => sheet add -1
-          case (sheet, _)                                      => sheet
-        }
-      }.sortBy(-_._2.average).map(_._1) grouped 2
-    }
+    def basedOnWins = availablePlayers.map { player =>
+      player -> pool.pairings.foldLeft(Sheet(0, 0)) {
+        case (sheet, _) if sheet.games > 5                   => sheet
+        case (sheet, pairing) if (pairing wonBy player.id)   => sheet add 1
+        case (sheet, pairing) if (pairing drawnBy player.id) => sheet add 0
+        case (sheet, pairing) if (pairing drawnBy player.id) => sheet add -1
+        case (sheet, _)                                      => sheet
+      }
+    }.sortBy {
+      case (player, sheet) => (-sheet.average, -player.rating)
+    }.map(_._1) grouped 2
 
     val pairs = basedOnWins
 
