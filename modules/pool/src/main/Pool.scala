@@ -43,8 +43,10 @@ case class Pool(
     players.sortBy(p => math.abs(rating - p.rating)) take nb sortBy (-_.rating)
   }
 
+  private def nbPairingsToSave = math.max(100, nbPlayers * 5)
+
   def withPairings(ps: List[Pairing]) =
-    copy(pairings = (pairings ++ ps) take math.max(100, nbPlayers))
+    copy(pairings = (pairings ++ ps) take nbPairingsToSave)
 
   def finishGame(game: Game) = copy(
     pairings = pairings map {
