@@ -28,8 +28,9 @@ private[pool] final class PoolActor(
 
   override def preStart() {
     context.system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater)
-    GameRepo findCurrentPoolGames setup.id foreach { games =>
-      UserRepo byIds games.flatMap(_.userIds) foreach { users =>
+    val findSinceMinutes = setup.clock.estimateTotalTime * 2 * 10 / 60
+    GameRepo.findRecentPoolGames(setup.id, findSinceMinutes) foreach { games =>
+      UserRepo byIds games.filter(_.playable).flatMap(_.userIds) foreach { users =>
         self ! Preload(games, users)
       }
     }

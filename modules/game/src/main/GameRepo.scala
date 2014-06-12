@@ -124,8 +124,11 @@ trait GameRepo {
   def incBookmarks(id: ID, value: Int) =
     $update($select(id), $incBson(F.bookmarks -> value))
 
-  def findCurrentPoolGames(poolId: String) =
-    $find($query(Query.playable ++ Json.obj(F.poolId -> poolId)) sort Query.sortCreated)
+  def findRecentPoolGames(poolId: String, sinceMinutes: Int) =
+    $find($query(Json.obj(
+      F.createdAt -> $gt($date(DateTime.now minusMinutes 60)),
+      F.poolId -> poolId
+    )) sort Query.sortCreated)
 
   def setHoldAlert(pov: Pov, mean: Int, sd: Int) = {
     import Player.holdAlertBSONHandler
