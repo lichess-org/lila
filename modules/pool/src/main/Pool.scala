@@ -28,10 +28,10 @@ case class Pool(
   ))
 
   def updatePlayers(users: List[User]) = copy(
-    players = users.foldLeft(players) {
-      case (players, user) => players map {
-        case player if player.id == user.id => player withRating setup.glickoLens(user).intRating
-        case player                         => player
+    players = players map { player =>
+      users find (_.id == player.id) match {
+        case Some(user) => player withRating setup.glickoLens(user).intRating
+        case None       => player
       }
     }
   )

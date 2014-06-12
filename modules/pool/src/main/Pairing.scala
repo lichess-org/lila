@@ -8,8 +8,8 @@ private[pool] case class Pairing(
     status: Status,
     user1: String,
     user2: String,
-    winnerId: Option[String],
-    turns: Option[Int]) {
+    turns: Int,
+    winnerId: Option[String]) {
 
   def users = List(user1, user2)
   def usersPair = user1 -> user2
@@ -18,8 +18,6 @@ private[pool] case class Pairing(
 
   def finished = status >= Status.Mate
   def playing = !finished
-
-  def quickLoss = finished && ~turns.map(20 >)
 
   def wonBy(userId: String) = finished && winnerId == userId
   def drawnBy(userId: String) = finished && contains(userId) && winnerId == None
@@ -39,7 +37,7 @@ private[pool] case class Pairing(
   def withStatus(s: Status) = copy(status = s)
 
   def finish(s: Status, t: Int, w: Option[String]) =
-    copy(status = s, turns = t.some, winnerId = w)
+    copy(status = s, turns = t, winnerId = w)
 }
 
 case class PairingWithGame(pairing: Pairing, game: Game)
@@ -51,6 +49,6 @@ private[pool] object Pairing {
     status = Status.Created,
     user1 = user1,
     user2 = user2,
-    winnerId = none,
-    turns = none)
+    turns = 0,
+    winnerId = none)
 }

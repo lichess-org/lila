@@ -12,7 +12,7 @@ import lila.game.actorApi.FinishGame
 import lila.hub.actorApi.SendTos
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
 private[pool] final class PoolActor(
     setup: PoolSetup,
@@ -50,7 +50,11 @@ private[pool] final class PoolActor(
       pool.players filterNot (p => wavers get p.user.id) map (_.user.id) map Leave.apply foreach self.!
 
     case FinishGame(game, Some(white), Some(black)) if game.poolId == Some(setup.id) =>
-      pool = pool finishGame game updatePlayers List(white, black)
+      pool = pool finishGame game
+      UserRepo byIds List(white.id, black.id) map UpdateUsers.apply foreach self.!
+
+    case UpdateUsers(users) =>
+      pool = pool updatePlayers users
 
     case RemindPlayers =>
       import makeTimeout.short
@@ -73,7 +77,7 @@ private[pool] final class PoolActor(
       pairings.map(_.game) foreach { game =>
         game.players foreach { player =>
           player.userId flatMap memberByUserId foreach { member =>
-           notifyMember("redirect", game fullIdOf player.color)(member)
+            notifyMember("redirect", game fullIdOf player.color)(member)
           }
         }
       }
