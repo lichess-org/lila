@@ -51,7 +51,7 @@ final class Env(
         uidTimeout = UidTimeout,
         lightUser = lightUser,
         isOnline = isOnline,
-        autoPairing = autoPairing,
+        joiner = joiner,
         renderer = hub.actor.renderer)
     }), name = SocketName)
 
@@ -67,7 +67,7 @@ final class Env(
   def version(poolId: String): Fu[Int] =
     poolHub ? Ask(poolId, GetVersion) mapTo manifest[Int]
 
-  private lazy val autoPairing = new AutoPairing(roundMap = roundMap, system = system)
+  private lazy val joiner = new Joiner(roundMap = roundMap, system = system)
 
   {
     import scala.concurrent.duration._

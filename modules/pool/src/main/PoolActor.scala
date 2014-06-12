@@ -20,7 +20,7 @@ private[pool] final class PoolActor(
     lightUser: String => Option[LightUser],
     isOnline: String => Boolean,
     renderer: ActorSelection,
-    autoPairing: AutoPairing,
+    joiner: Joiner,
     uidTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member] {
 
   context.system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater)
@@ -69,14 +69,14 @@ private[pool] final class PoolActor(
       }
 
     case PairPlayers =>
-      autoPairing(pool, userIds.toSet) map AddPairings.apply pipeTo self
+      joiner(pool.setup, AutoPairing(pool, userIds.toSet)) map AddPairings.apply pipeTo self
 
     case AddPairings(pairings) if pairings.nonEmpty =>
       pool = pool withPairings pairings.map(_.pairing)
       pairings.map(_.game) foreach { game =>
         game.players foreach { player =>
           player.userId flatMap memberByUserId foreach { member =>
-            notifyMember("redirect", game fullIdOf player.color)(member)
+           notifyMember("redirect", game fullIdOf player.color)(member)
           }
         }
       }
