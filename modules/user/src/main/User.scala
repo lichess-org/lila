@@ -34,6 +34,8 @@ case class User(
   override def toString =
     s"User $username($rating) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
 
+  def light = lila.common.LightUser(id = id, name = username, title = title)
+
   def langs = ("en" :: lang.toList).distinct.sorted
 
   def compare(other: User) = id compare other.id

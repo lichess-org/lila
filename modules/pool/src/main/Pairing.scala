@@ -38,7 +38,8 @@ private[pool] case class Pairing(
 
   def withStatus(s: Status) = copy(status = s)
 
-  def finish(s: Status, t: Int) = copy(status = s, turns = t.some)
+  def finish(s: Status, t: Int, w: Option[String]) =
+    copy(status = s, turns = t.some, winnerId = w)
 }
 
 case class PairingWithGame(pairing: Pairing, game: Game)

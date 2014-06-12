@@ -16,7 +16,7 @@ private final class PerfsUpdater {
   private val system = new RatingCalculator(VOLATILITY, TAU)
 
   def save(game: Game, white: User, black: User): Funit =
-    (game.rated && game.finished && game.turns >= 2 && !white.engine && !black.engine) ?? {
+    (game.rated && game.finished && game.accountable && !white.engine && !black.engine) ?? {
       val ratingsW = mkRatings(white.perfs, game.poolId)
       val ratingsB = mkRatings(black.perfs, game.poolId)
       val result = resultOf(game)

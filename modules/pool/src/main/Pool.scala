@@ -27,6 +27,15 @@ case class Pool(
     setup.glickoLens(u).intRating
   ))
 
+  def updatePlayers(users: List[User]) = copy(
+    players = users.foldLeft(players) {
+      case (players, user) => players map {
+        case player if player.id == user.id => player withRating setup.glickoLens(user).intRating
+        case player                         => player
+      }
+    }
+  )
+
   def filterPlayers(cond: Player => Boolean) = copy(players = players filter cond)
 
   private def distinctPlayers = copy(
@@ -50,7 +59,7 @@ case class Pool(
 
   def finishGame(game: Game) = copy(
     pairings = pairings map {
-      case p if p.gameId == game.id => p.finish(game.status, game.turns)
+      case p if p.gameId == game.id => p.finish(game.status, game.turns, game.winnerUserId)
       case p                        => p
     }
   )

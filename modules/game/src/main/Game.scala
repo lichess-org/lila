@@ -82,7 +82,8 @@ case class Game(
   def poolId = metadata.poolId
 
   def isTournament = tournamentId.isDefined
-  def isMandatory = tournamentId.isDefined || poolId.isDefined
+  def isPool = poolId.isDefined
+  def isMandatory = isTournament || isPool
   def nonMandatory = !isMandatory
 
   def hasChat = !isTournament && nonAi
@@ -262,6 +263,8 @@ case class Game(
   def finished = status >= Status.Mate
 
   def finishedOrAborted = finished || aborted
+
+  def accountable = turns >= 2 || isPool
 
   def replayable = imported || finished
 

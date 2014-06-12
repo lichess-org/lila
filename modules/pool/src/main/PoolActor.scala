@@ -26,9 +26,6 @@ private[pool] final class PoolActor(
   context.system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater)
 
   private var pool = Pool(setup, Nil, Vector.empty)
-  lila.user.UserRepo randomDudes scala.util.Random.nextInt(500) foreach { users =>
-    pool = users.foldLeft(pool)(_ withUser _)
-  }
 
   // last time each user waved to the pool
   private val wavers = new lila.memo.ExpireSetMemo(20 seconds)
@@ -52,8 +49,8 @@ private[pool] final class PoolActor(
       pool.players map (_.user.id) filter isOnline foreach wavers.put
       pool.players filterNot (p => wavers get p.user.id) map (_.user.id) map Leave.apply foreach self.!
 
-    case FinishGame(game, _, _) if game.poolId == Some(setup.id) =>
-      pool = pool finishGame game
+    case FinishGame(game, Some(white), Some(black)) if game.poolId == Some(setup.id) =>
+      pool = pool finishGame game updatePlayers List(white, black)
 
     case RemindPlayers =>
       import makeTimeout.short
