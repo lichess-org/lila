@@ -281,7 +281,7 @@ var storage = {
       clearTimeout(self.pingSchedule);
     },
     onSuccess: function() {
-      $('#connect_error').remove();
+      $('#network_error').remove();
     },
     baseUrl: function() {
       var key = this.options.baseUrlKey;
