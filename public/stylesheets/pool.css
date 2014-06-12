@@ -17,3 +17,38 @@
 #pool div.game_list > div {
   margin-bottom: 10px;
 }
+#pool div.game_list > td.rank {
+  font-weight: bold;
+}
+
+#pool a.pov {
+  display: block;
+  margin: 0 25px 1em 25px;
+  text-align: center;
+  font-size: 1.5em;
+  position: relative;
+  border-radius: 100px;
+  transition: box-shadow 1.5s;
+}
+#pool a.pov.glow {
+  box-shadow: 0 0 10px 3px #fff,
+  0 0 30px 5px #e89000,
+  0 0 60px 10px #d85000;
+}
+#pool a.pov span {
+  display: block;
+  font-weight: bold;
+}
+#pool a.pov::before,
+#pool a.pov::after {
+  content: 'U';
+  font-size: 32px;
+  position: absolute;
+  top: 16px;
+}
+#pool a.pov::before {
+  left: 15px;
+}
+#pool a.pov::after {
+  right: 15px;
+}

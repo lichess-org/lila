@@ -227,7 +227,7 @@ case class Started(
   }
 
   def userCurrentPov(userId: String): Option[PovRef] =
-    playingPairings.map { _ povRef userId }.flatten.headOption
+    playingPairings.flatMap(_ povRef userId).headOption
 
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.flatMap(u => userCurrentPov(u.id))

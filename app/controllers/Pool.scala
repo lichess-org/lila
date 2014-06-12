@@ -4,6 +4,7 @@ import play.api.libs.json.JsValue
 import play.api.mvc._
 
 import lila.api.Context
+import lila.game.GameRepo
 import lila.app._
 import lila.pool.{ Pool => PoolModel }
 import views._
@@ -14,9 +15,12 @@ object Pool extends LilaController {
 
   def show(id: String) = Open { implicit ctx =>
     OptionFuOk(env.repo byId id) { pool =>
-      env version id zip chatOf(pool.setup) zip env.api.gamesOf(pool) map {
-        case ((version, chat), games) => html.pool.show(pool, games, version, chat)
-      }
+      env version id zip
+        chatOf(pool.setup) zip
+        env.api.gamesOf(pool) zip
+        pool.userCurrentPov(ctx.me).??(GameRepo.pov) map {
+          case (((version, chat), games), pov) => html.pool.show(pool, games, version, chat, pov)
+        }
     }
   }
 

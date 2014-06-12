@@ -1,7 +1,7 @@
 package lila.pool
 
 import lila.common.LightUser
-import lila.game.Game
+import lila.game.{ Game, PovRef }
 import lila.user.User
 
 case class Pool(
@@ -51,6 +51,14 @@ case class Pool(
     val rating = setup.glickoLens(u).intRating
     players.sortBy(p => math.abs(rating - p.rating)) take nb sortBy (-_.rating)
   }
+
+  def playingPairings = pairings filter (_.playing)
+
+  def userCurrentPov(userId: String): Option[PovRef] =
+    playingPairings.flatMap(_ povRef userId).headOption
+
+  def userCurrentPov(user: Option[User]): Option[PovRef] =
+    user.flatMap(u => userCurrentPov(u.id))
 
   private def nbPairingsToSave = math.max(100, nbPlayers * 5)
 

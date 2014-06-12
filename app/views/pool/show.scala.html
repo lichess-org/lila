@@ -1,4 +1,4 @@
-@(p: lila.pool.Pool, games: List[Game], version: Int, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
+@(p: lila.pool.Pool, games: List[Game], version: Int, chat: Option[lila.chat.UserChat], pov: Option[Pov])(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("pool.css")
@@ -51,6 +51,12 @@ underchat = underchat.some) {
       </form>
       }
     </h1>
+    @pov.map { p =>
+    <a class="is pov button glowing" href="@routes.Round.player(p.fullId)">
+      You are playing @usernameOrAnon(p.opponent.userId)
+      <span class="pov_join" data-icon="G">&nbsp;@trans.joinTheGame()</span>
+    </a>
+    }
     @pool.standing(p)
   </div>
 </div>
