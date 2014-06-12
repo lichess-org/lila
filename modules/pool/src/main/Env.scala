@@ -62,7 +62,7 @@ final class Env(
 
   lazy val repo = new PoolRepo(poolHub)
 
-  lazy val api = new PoolApi(poolHub)
+  lazy val api = new PoolApi(setupRepo, poolHub)
 
   def version(poolId: String): Fu[Int] =
     poolHub ? Ask(poolId, GetVersion) mapTo manifest[Int]
