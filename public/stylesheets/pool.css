@@ -7,18 +7,46 @@
   overflow: hidden;
 }
 #pool div.pool_box {
-  width: 552px;
+  width: 525px;
+}
+#pool table.slist .rank {
+  font-weight: bold;
+}
+#pool_side {
+  float: right;
+  width: 246px;
+  max-height: 510px;
+  overflow-y: hidden;
+  border: 1px solid #ccc;
+  padding: 3px;
+}
+#pool_side:hover {
+  overflow-y: auto;
+}
+#pool_side div.pairings a {
+  padding: 0.3em 0.2em;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+}
+#pool_side div.pairings span {
+  font-weight: bold;
+}
+#pool_side div.pairings span.win {
+  color: #00aa00;
+}
+#pool_side div.pairings span.loss {
+  color: #aa0000;
+}
+#pool_side div.pairings span.draw {
+  color: #aaaa00;
+}
+#pool_side div.pairings em {
+  font-style: italic;
 }
 #pool div.game_list {
-  float: right;
-  width: 226px;
-  overflow-y: hidden;
-}
-#pool div.game_list > div {
-  margin-bottom: 10px;
-}
-#pool div.game_list > td.rank {
-  font-weight: bold;
+  margin: 25px 0 0 15px;
+  overflow: hidden;
 }
 
 #pool a.pov {

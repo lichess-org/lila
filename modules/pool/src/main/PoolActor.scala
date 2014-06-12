@@ -103,7 +103,7 @@ private[pool] final class PoolActor(
                 user1 = user1,
                 user2 = user2,
                 turns = game.turns,
-                winnerId = game.winnerUserId)
+                winner = game.winnerUserId)
           }
         },
         players = users.map { user =>

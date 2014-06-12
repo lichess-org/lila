@@ -23,14 +23,14 @@ case class Pairing(
   def finished = status >= chess.Status.Mate
   def playing = !finished
 
-  def lostBy(user: String) = ~winner.map(user !=)
-  def quickLoss = finished && ~turns.map(20 >)
-  def quickDraw = draw && ~turns.map(20 >)
+  def lostBy(user: String) = winner.??(user !=)
+  def quickLoss = finished && turns.??(20 >)
+  def quickDraw = draw && turns.??(20 >)
 
   def opponentOf(user: String): Option[String] =
     if (user == user1) user2.some else if (user == user2) user1.some else none
 
-  def wonBy(user: String): Boolean = ~winner.map(user ==)
+  def wonBy(user: String): Boolean = winner.??(user ==)
   def draw: Boolean = finished && winner.isEmpty
 
   def colorOf(userId: String): Option[Color] =

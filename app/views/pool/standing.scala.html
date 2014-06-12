@@ -4,7 +4,7 @@
   <table class="slist standing">
     <thead>
       <tr>
-        <th class="large">@trans.standing() (@p.nbPlayers)</th>
+        <th class="large" colspan="2">@trans.standing() (@p.nbPlayers)</th>
         <th></th>
       </tr>
     </thead>
@@ -12,8 +12,8 @@
       @p.rankedPlayers.map {
       case (player, rank) => {
       <tr @if(ctx.userId ?? (player.user.id==)) { class="me" }>
+        <td class="rank">@rank</td>
         <td class="name">
-          <span class="rank">@rank</span>
           @lightUserLink(player.user)
         </td>
         <td class="rating">

@@ -3,13 +3,13 @@ package lila.pool
 import chess.{ Color, Status }
 import lila.game.{ Game, PovRef, IdGenerator }
 
-private[pool] case class Pairing(
+case class Pairing(
     gameId: String,
     status: Status,
     user1: String,
     user2: String,
     turns: Int,
-    winnerId: Option[String]) {
+    winner: Option[String]) {
 
   def users = List(user1, user2)
   def usersPair = user1 -> user2
@@ -19,9 +19,10 @@ private[pool] case class Pairing(
   def finished = status >= Status.Mate
   def playing = !finished
 
-  def wonBy(userId: String) = finished && winnerId == userId
-  def drawnBy(userId: String) = finished && contains(userId) && winnerId == None
-  def lostBy(userId: String) = finished && contains(userId) && winnerId == userId
+  def draw = finished && winner.isEmpty
+  def drawnBy(userId: String) = draw && contains(userId)
+  def wonBy(userId: String) = finished && winner.??(userId ==)
+  def lostBy(userId: String) = finished && contains(userId) && winner.??(userId !=)
 
   def opponentOf(user: String): Option[String] =
     if (user == user1) user2.some else if (user == user2) user1.some else none
@@ -37,7 +38,7 @@ private[pool] case class Pairing(
   def withStatus(s: Status) = copy(status = s)
 
   def finish(s: Status, t: Int, w: Option[String]) =
-    copy(status = s, turns = t, winnerId = w)
+    copy(status = s, turns = t, winner = w)
 }
 
 case class PairingWithGame(pairing: Pairing, game: Game)
@@ -50,5 +51,5 @@ private[pool] object Pairing {
     user1 = user1,
     user2 = user2,
     turns = 0,
-    winnerId = none)
+    winner = none)
 }

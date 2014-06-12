@@ -1,6 +1,6 @@
 @(games: List[Game])(implicit ctx: Context)
 
-<div class="game_list realtime clearfix">
+<div class="game_list realtime">
   @games.map { g =>
   <div>
     @gameFen(g, g.firstPlayer.color)

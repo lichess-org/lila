@@ -19,6 +19,10 @@
 </div>
 }
 
+@showPairingUser(p: lila.pool.Pairing, u: String) = {
+<span class="@p.finished.fold(p.draw.fold("draw", p.wonBy(u).fold("win", "loss")), "playing")">@usernameOrId(u)</span>
+}
+
 @base.layout(
 title = s"${p.setup.name} pool",
 moreCss = moreCss,
@@ -26,18 +30,20 @@ goodies = goodies.some,
 chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some) {
 
+<div id="pool_side" class="scroll-shadow-soft">
+  <div class="pairings">
+    @p.pairings.take(50).map { pairing =>
+    <a class="revert-underline" href="@routes.Round.watcher(pairing.gameId, "white")">
+      @showPairingUser(pairing, pairing.user1) <em>vs</em> @showPairingUser(pairing, pairing.user2)
+    </a>
+    }
+  </div>
+</div>
+
 <div id="pool"
   data-id="@p.setup.id"
   data-version="@version"
   data-socket-url="@routes.Pool.websocket(p.setup.id)">
-  <div class="game_list">
-    @games.map { g =>
-    <div>
-      @gameFen(g, g.firstPlayer.color)
-      @game.vstext(g)
-    </div>
-    }
-  </div>
   <div class="content_box no_padding pool_box pool_show">
     <h1 data-icon="8">
       @p.setup.name Pool
@@ -58,6 +64,14 @@ underchat = underchat.some) {
     </a>
     }
     @pool.standing(p)
+  </div>
+  <div class="game_list realtime">
+    @games.map { g =>
+    <div>
+      @gameFen(g, g.firstPlayer.color)
+      @game.vstext(g)
+    </div>
+    }
   </div>
 </div>
 }
