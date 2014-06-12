@@ -29,7 +29,7 @@ private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
   private def filePage(file: File): Option[Page] = {
     val name = """^(.+)\.md$""".r.replaceAllIn(file.getName, _ group 1)
     if (name == "Home") None
-    else Page.make(name, toHtml(fileContent(file)))
+    else toHtml(fileContent(file)) flatMap { Page.make(name, _) }
   }
 
   private def getFiles: Fu[List[File]] = Future {
@@ -46,7 +46,13 @@ private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
   private def fileContent(file: File) =
     scala.io.Source.fromFile(file.getCanonicalPath).mkString
 
-  private def toHtml(input: String): String =
-    new ActuariusTransformer() apply input
-
+  private def toHtml(input: String): Option[String] = try {
+    Some(new ActuariusTransformer() apply input)
+  }
+  catch {
+    case e: NoSuchMethodError =>
+      println(input take 80)
+      println(e)
+      none
+  }
 }
