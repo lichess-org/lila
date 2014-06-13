@@ -19,7 +19,6 @@ object Environment
     with lila.OptionSteroids
     with StringHelper
     with JsonHelper
-    with MarkdownHelper
     with AssetHelper
     with RequestHelper
     with DateHelper
