@@ -12,6 +12,7 @@ GET   /pool/:id                        controllers.Pool.show(id: String)
 GET   /pool/:id/socket                 controllers.Pool.websocket(id: String)
 POST  /pool/:id/enter                  controllers.Pool.enter(id: String)
 POST  /pool/:id/leave                  controllers.Pool.leave(id: String)
+GET   /pool/:id/help                   controllers.Pool.help(id: String)
 
 # TV
 GET   /tv                              controllers.Tv.index

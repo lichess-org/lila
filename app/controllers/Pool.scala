@@ -24,6 +24,12 @@ object Pool extends LilaController {
     }
   }
 
+  def help(id: String) = Open { implicit ctx =>
+    OptionOk(fuccess(env.setups get id)) { setup =>
+      html.pool.help(setup)
+    }
+  }
+
   def enter(id: String) = AuthBody { implicit ctx =>
     implicit me =>
       NoEngine {

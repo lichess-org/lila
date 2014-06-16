@@ -80,3 +80,6 @@
 #pool a.pov::after {
   right: 15px;
 }
+#pool .help_box p {
+  margin: 1em 0;
+}
