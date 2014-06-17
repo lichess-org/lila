@@ -2669,6 +2669,7 @@ var storage = {
           var $pool = $(html);
           $wrap.find('table.standing thead').replaceWith($pool.find('table.standing thead'));
           $wrap.find('table.standing tbody').replaceWith($pool.find('table.standing tbody'));
+          $wrap.find('div.pairings').replaceWith($pool.find('div.pairings'));
           $wrap.find('div.game_list').replaceWith($pool.find('div.game_list'));
           $('body').trigger('lichess.content_loaded');
         }
