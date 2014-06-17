@@ -5,7 +5,7 @@ body.dark {
   background-image: -webkit-linear-gradient(top, #303030 0%, #1a1a1a 116px);
   background-image: -ms-linear-gradient(top, #303030 0%, #1a1a1a 116px);
   background-image: linear-gradient(to bottom, #303030 0%, #1a1a1a 116px);
-  color: #8a8a8a;
+  color: #8c8c8c;
 }
 body.dark a,
 body.dark a:visited,

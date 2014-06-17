@@ -2354,6 +2354,9 @@ var storage = {
       }
       return false;
     });
+    $wrap.on('click', '#pool_list > div', function() {
+      location.href = $(this).find('h2 a').attr('href');
+    });
 
     function resizeTimeline() {
       if ($timeline.length) {

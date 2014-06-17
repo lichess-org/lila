@@ -3,7 +3,7 @@
 @pools.zipWithIndex.map {
 case (p, it) => {
 <div class="pool_@(it + 1)">
-  <h2>@p.setup.name</h2>
+  <h2><a href="@routes.Pool.show(p.setup.id)">@p.setup.name</a></h2>
   <div class="body">
     @defining(4) { displayedPlayers =>
     <table class="players">
@@ -22,16 +22,7 @@ case (p, it) => {
       </tbody>
     </table>
     }
-    <form action="@routes.Pool.enter(p.setup.id)" method="post">
-      <button class="button" data-icon="G"> Enter</button>
-    </form>
-    @if(ctx.me ?? p.contains) {
-      <form action="@routes.Pool.leave(p.setup.id)" method="post">
-        <button class="button" data-icon="F">&nbsp;Leave</button>
-      </form>
-    } else {
-    <a href="@routes.Pool.show(p.setup.id)" class="button" data-icon="v"> View</a>
-    }
+    <span class="join" data-icon="G"></span>
   </div>
 </div>
 }

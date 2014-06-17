@@ -80,6 +80,8 @@
 #pool a.pov::after {
   right: 15px;
 }
-#pool .help_box p {
+div.pool_box.help_box p {
+  font-size: 1.2em;
+  display: block;
   margin: 1em 0;
 }
