@@ -424,6 +424,9 @@ body.dark #pool_list > div {
   background: rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 2px rgba(255,255,255,0.2);
 }
+body.dark #pool_list > div:hover {
+  background: rgba(27, 51, 68, 0.5);
+}
 body.dark::-webkit-input-placeholder {
   color: #666;
 }
