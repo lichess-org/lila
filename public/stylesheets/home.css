@@ -1,5 +1,14 @@
 /********** POOLS **********/
 
+div.tabs a.pool {
+  border-top-color: #d59120!important;
+  border-left-color: #d59120!important;
+  border-right-color: #d59120!important;
+}
+div.tabs .new {
+  font-weight: bold;
+  color: #d59120;
+}
 #pool_list {
   overflow: hidden;
   width: 512px;
