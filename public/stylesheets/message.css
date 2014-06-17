@@ -19,7 +19,7 @@ div.sidebar a {
   border-top: 1px solid #eaeaea;
 }
 #lichess_message tr:nth-child(even) {
-  background: #f7f7f7;
+  background: #eee;
 }
 
 #lichess_message td.subject a {

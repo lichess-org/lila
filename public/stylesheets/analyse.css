@@ -44,8 +44,8 @@ div.analysis_menu > a {
   cursor: pointer;
 }
 div.analysis_menu > a.active {
-  background-color: #f7f7f7;
-  border-top: 1px solid #f7f7f7;
+  background-color: #eee;
+  border-top: 1px solid #eee;
 }
 div.analysis_panels > div {
   width: 512px;
