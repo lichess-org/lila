@@ -51,6 +51,10 @@
     <a data-icon="g" href="@routes.Tournament.show(tourId)">&nbsp;@trans.tournament()</a>
     <br />
     }
+    @g.poolId.flatMap(poolSetups.get).map { p =>
+    <a data-icon="8" href="@routes.Pool.show(p.id)">&nbsp;@p.name Pool</a>
+    <br />
+    }
     @if(g.rated) {
     @trans.thisGameIsRated()
     <br /><br />
