@@ -16,7 +16,7 @@
   }.getOrElse {
   @game.poolId.map { poolId =>
   <a class="button view_tournament"
-    href="@routes.Pool.show(poolId)" data-icon="8"> Back to pool</a>
+    href="@routes.Pool.show(poolId)" data-icon="8"> Return to pool</a>
   }.getOrElse {
   @if(opponent.isHuman) {
   <div class="lichess_separator"></div>

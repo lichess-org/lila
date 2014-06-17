@@ -47,11 +47,11 @@ underchat = underchat.some) {
       @p.setup.name Pool
       @if(ctx.me ?? p.contains) {
       <form action="@routes.Pool.leave(p.setup.id)" method="post">
-        <button class="button" data-icon="F">&nbsp;Leave the pool</button>
+        <button class="button" data-icon="F">&nbsp;Leave pool</button>
       </form>
       } else {
       <form action="@routes.Pool.enter(p.setup.id)" method="post">
-        <button class="button" data-icon="G">&nbsp;Enter the pool</button>
+        <button class="button" data-icon="G">&nbsp;Enter pool</button>
       </form>
       }
     </h1>
