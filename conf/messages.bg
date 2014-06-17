@@ -285,6 +285,7 @@ victory=Победа!
 giveUp=Предавам се
 puzzleSolvedInXSeconds=Задачата е решена за %s секунди
 wasThisPuzzleAnyGood=Хареса ли Ви пъзела?
+pleaseVotePuzzle=Гласувайте, за да помогнете за подобряването на lichess, като използвате стрелките "нагоре" и "надолу"
 thankYou=Благодаря Ви!
 ratingX=Рейтинг: %s
 playedXTimes=Изиграна %s  пъти
