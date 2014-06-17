@@ -20,7 +20,7 @@ private final class PerfsUpdater {
       val ratingsW = mkRatings(white.perfs, game.poolId)
       val ratingsB = mkRatings(black.perfs, game.poolId)
       val result = resultOf(game)
-      updateRatings(ratingsW.global, ratingsB.global, result, system)
+      if (!game.isPool) updateRatings(ratingsW.global, ratingsB.global, result, system)
       updateRatings(ratingsW.white, ratingsB.black, result, system)
       game.variant match {
         case chess.Variant.Standard =>
