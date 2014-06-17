@@ -2667,6 +2667,7 @@ var storage = {
         url: $wrap.data('href'),
         success: function(html) {
           var $pool = $(html);
+          $wrap.find('table.standing thead').replaceWith($pool.find('table.standing thead'));
           $wrap.find('table.standing tbody').replaceWith($pool.find('table.standing tbody'));
           $wrap.find('div.game_list').replaceWith($pool.find('div.game_list'));
           $('body').trigger('lichess.content_loaded');
@@ -2752,6 +2753,7 @@ var storage = {
           var $tour = $(html);
           if ($wrap.find('table.standing').length) {
             // started
+            $wrap.find('table.standing thead').replaceWith($tour.find('table.standing thead'));
             $wrap.find('table.standing tbody').replaceWith($tour.find('table.standing tbody'));
             drawBars();
             $wrap.find('div.pairings').replaceWith($tour.find('div.pairings'));
