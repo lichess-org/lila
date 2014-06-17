@@ -24,7 +24,8 @@ case class Pool(
   def withPlayer(p: Player) = copy(players = p :: players).distinctPlayers
   def withUser(u: User) = withPlayer(Player(
     LightUser(u.id, u.username, u.title),
-    setup.glickoLens(u).intRating
+    setup.glickoLens(u).intRating,
+    false
   ))
 
   def updatePlayers(users: List[User]) = copy(

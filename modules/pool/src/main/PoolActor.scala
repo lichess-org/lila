@@ -78,8 +78,11 @@ private[pool] final class PoolActor(
           context.system.lilaBus.publish(event, 'users)
       }
 
-    case PairPlayers =>
-      joiner(pool.setup, AutoPairing(pool, userIds.toSet)) map AddPairings.apply pipeTo self
+    case PairPlayers => AutoPairing(pool, userIds.toSet) match {
+      case (pairings, players) =>
+        pool = pool.copy(players = players)
+        joiner(pool.setup, pairings) map AddPairings.apply pipeTo self
+    }
 
     case AddPairings(pairings) if pairings.nonEmpty =>
       pool = pool withPairings pairings.map(_.pairing)
@@ -107,7 +110,7 @@ private[pool] final class PoolActor(
           }
         },
         players = users.map { user =>
-          Player(user.light, setup.glickoLens(user).intRating)
+          Player(user.light, setup.glickoLens(user).intRating, false)
         })
       pool.players map (_.id) foreach wavers.put
       notifyReload

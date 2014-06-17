@@ -7,21 +7,21 @@ private[pool] object AutoPairing {
     def average = score.toFloat / games
   }
 
-  def apply(pool: Pool, userIds: Set[String]): List[Pairing] = {
+  def apply(pool: Pool, userIds: Set[String]): (List[Pairing], List[Player]) = {
 
     val playingUserIds = pool.pairings.filter(_.playing).flatMap(_.users).toSet
     def inPoolRoom(p: Player) = userIds contains p.user.id
     def isPlaying(p: Player) = playingUserIds contains p.user.id
     val availablePlayers = pool.players filter inPoolRoom filterNot isPlaying
-    val nbAvailablePlayers = availablePlayers.size
+    val (pairablePlayers, unpairablePlayers) = availablePlayers partition (_.pairable)
     val nbPlaying = pool.players count isPlaying
 
-    if (nbAvailablePlayers < (nbPlaying / 2)) Nil
+    val pairings = if (pairablePlayers.size < ((nbPlaying + unpairablePlayers.size) / 2)) Nil
     else {
 
-      def basedOnRating = availablePlayers.sortBy(-_.rating) grouped 2
+      def basedOnRating = pairablePlayers.sortBy(-_.rating) grouped 2
 
-      def basedOnWins = availablePlayers.map { player =>
+      def basedOnWins = pairablePlayers.map { player =>
         player -> pool.pairings.foldLeft(Sheet(0, 0)) {
           case (sheet, _) if sheet.games > 5                   => sheet
           case (sheet, pairing) if (pairing wonBy player.id)   => sheet add 1
@@ -39,6 +39,13 @@ private[pool] object AutoPairing {
         case List(p1, p2) => Pairing(p1.user.id, p2.user.id).some
         case _            => none
       }.toList.flatten
+    }
+
+    pairings -> pool.players.map {
+      case p if isPlaying(p) => p
+      case p if pairings.exists(_ contains p.user.id) => p.copy(pairable = false)
+      case p if availablePlayers contains p => p.copy(pairable = true)
+      case p => p
     }
   }
 }

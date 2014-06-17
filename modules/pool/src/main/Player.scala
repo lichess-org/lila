@@ -1,6 +1,9 @@
 package lila.pool
 
-case class Player(user: lila.common.LightUser, rating: Int) {
+case class Player(
+    user: lila.common.LightUser,
+    rating: Int,
+    pairable: Boolean) {
 
   def is(p: Player) = user.id == p.user.id
 
