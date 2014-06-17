@@ -45,6 +45,7 @@
 }
 #pool_list table {
   text-align: left;
+  margin: auto;
 }
 #pool_list td {
   padding: 2px 5px;

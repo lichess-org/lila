@@ -5,7 +5,7 @@ case (p, it) => {
 <div class="pool_@(it + 1)">
   <h2><a href="@routes.Pool.show(p.setup.id)">@p.setup.name</a></h2>
   <div class="body">
-    @defining(4) { displayedPlayers =>
+    @defining(7) { displayedPlayers =>
     <table class="players">
       <tbody>
         @p.playersAround(ctx.me, displayedPlayers).map { player =>
