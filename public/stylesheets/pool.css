@@ -23,6 +23,9 @@
 #pool_side:hover {
   overflow-y: auto;
 }
+#pool_side div.pairings {
+  text-align: center;
+}
 #pool_side div.pairings a {
   padding: 0.3em 0.2em;
   display: block;
