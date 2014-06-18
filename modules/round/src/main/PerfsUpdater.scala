@@ -44,16 +44,18 @@ private final class PerfsUpdater {
       val perfsB = mkPerfs(ratingsB, black.perfs, Pov black game)
       val intRatingLens = (perfs: Perfs) =>
         game.poolId.fold(perfs.global)(id => perfs.pool(id)).glicko.intRating
-      (HistoryRepo.addEntry(white.id, HistoryEntry(
-        DateTime.now,
-        perfsW.global.glicko.intRating,
-        perfsW.global.glicko.intDeviation,
-        black.perfs.global.glicko.intRating)) zip
-        HistoryRepo.addEntry(black.id, HistoryEntry(
+      ((!game.isPool ?? {
+        HistoryRepo.addEntry(white.id, HistoryEntry(
           DateTime.now,
-          perfsB.global.glicko.intRating,
-          perfsB.global.glicko.intDeviation,
-          white.perfs.global.glicko.intRating)) zip
+          perfsW.global.glicko.intRating,
+          perfsW.global.glicko.intDeviation,
+          black.perfs.global.glicko.intRating)) zip
+          HistoryRepo.addEntry(black.id, HistoryEntry(
+            DateTime.now,
+            perfsB.global.glicko.intRating,
+            perfsB.global.glicko.intDeviation,
+            white.perfs.global.glicko.intRating))
+      }) zip
         GameRepo.setRatingDiffs(game.id,
           intRatingLens(perfsW) - intRatingLens(white.perfs),
           intRatingLens(perfsB) - intRatingLens(black.perfs))) >> {
