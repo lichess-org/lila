@@ -11,3 +11,10 @@ case class Player(
 
   def withRating(r: Int) = copy(rating = r)
 }
+
+object Player {
+
+  case class Score(
+    ratingPercent: Int,
+    recentGames: List[Option[Boolean]])
+}

@@ -5,21 +5,34 @@
     <thead>
       <tr>
         <th class="large" colspan="2">@trans.standing() (@p.nbPlayers)</th>
-        <th></th>
+        <th>Recent games</th>
+        <th>@p.setup.name rating</th>
       </tr>
     </thead>
     <tbody>
       @p.rankedPlayers.map {
       case (player, rank) => {
+      @defining(p scoreOf player) { score =>
       <tr @if(ctx.userId ?? (player.user.id==)) { class="me" }>
         <td class="rank">@rank</td>
         <td class="name">
           @lightUserLink(player.user)
         </td>
+        <td class="recent_games">
+          @score.recentGames.map { res =>
+          <span class="@res match {
+            case None => {draw}
+            case Some(true) => {win}
+            case Some(false) => {loss}
+            }" data-icon="J"></span>
+          }
+        </td>
         <td class="rating">
           @player.rating
         </td>
       </tr>
+      <tr><td class="around-bar" colspan="4"><div class="bar" data-value="@score.ratingPercent"></div></td></tr>
+      }
       }
       }
     </tbody>

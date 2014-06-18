@@ -2662,6 +2662,20 @@ var storage = {
       messages: lichess_chat
     });
 
+    function drawBars() {
+      $wrap.find('table.standing').each(function() {
+        var $bars = $(this).find('.bar');
+        var max = _.max($bars.map(function() {
+          return parseInt($(this).data('value'));
+        }));
+        $bars.each(function() {
+          var width = Math.ceil((parseInt($(this).data('value')) * 100) / max);
+          $(this).css('width', width + '%');
+        });
+      });
+    }
+    drawBars();
+
     function reload() {
       $.ajax({
         url: $wrap.data('href'),
@@ -2669,6 +2683,7 @@ var storage = {
           var $pool = $(html);
           $wrap.find('table.standing thead').replaceWith($pool.find('table.standing thead'));
           $wrap.find('table.standing tbody').replaceWith($pool.find('table.standing tbody'));
+          drawBars();
           $wrap.find('div.pairings').replaceWith($pool.find('div.pairings'));
           $wrap.find('div.game_list').replaceWith($pool.find('div.game_list'));
           $('body').trigger('lichess.content_loaded');

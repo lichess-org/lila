@@ -1,6 +1,7 @@
 #pool h1 form {
   float: right;
   margin-top: -5px;
+  margin-right: -5px;
 }
 
 #pool {
@@ -50,6 +51,29 @@
 #pool div.game_list {
   margin: 25px 0 0 15px;
   overflow: hidden;
+}
+#pool table.standing td.around-bar {
+  padding: 0;
+}
+#pool table.standing div.bar {
+  height: 3px;
+  width: 0;
+  background: #759900;
+  opacity: 0.5;
+}
+#pool table.standing td.recent_games {
+  text-align: right;
+}
+#pool table.standing td.recent_games span {
+  font-size: 1.2em;
+  letter-spacing: -5px;
+  color: #b0b060;
+}
+#pool table.standing td.recent_games .win {
+  color: #759900;
+}
+#pool table.standing td.recent_games .loss {
+  color: #ac524f;
 }
 
 #pool a.pov {
