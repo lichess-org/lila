@@ -28,20 +28,19 @@ goodies = goodies.some,
 chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some) {
 
-<div id="pool_side" class="scroll-shadow-soft">
-  <div class="pairings">
-    @p.pairings.take(50).map { pairing =>
-    <a class="revert-underline" href="@routes.Round.watcher(pairing.gameId, "white")">
-      @showPairingUser(pairing, pairing.user1) <em>vs</em> @showPairingUser(pairing, pairing.user2)
-    </a>
-    }
-  </div>
-</div>
-
 <div id="pool"
   data-id="@p.setup.id"
   data-version="@version"
   data-socket-url="@routes.Pool.websocket(p.setup.id)">
+  <div class="pool_side scroll-shadow-soft">
+    <div class="pairings">
+      @p.pairings.take(50).map { pairing =>
+      <a class="revert-underline" href="@routes.Round.watcher(pairing.gameId, "white")">
+        @showPairingUser(pairing, pairing.user1) <em>vs</em> @showPairingUser(pairing, pairing.user2)
+      </a>
+      }
+    </div>
+  </div>
   <div class="content_box no_padding pool_box pool_show">
     <h1 data-icon="8">
       @p.setup.name Pool

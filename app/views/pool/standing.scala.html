@@ -1,12 +1,12 @@
 @(p: lila.pool.Pool)(implicit ctx: Context)
 
-<div class="standing_wrap">
+<div class="standing_wrap scroll-shadow-soft">
   <table class="slist standing">
     <thead>
       <tr>
         <th class="large" colspan="2">@trans.standing() (@p.nbPlayers)</th>
         <th>Recent games</th>
-        <th>@p.setup.name rating</th>
+        <th>Rating</th>
       </tr>
     </thead>
     <tbody>
@@ -19,17 +19,24 @@
           @lightUserLink(player.user)
         </td>
         <td class="recent_games">
-          @score.recentGames.map { res =>
-          <span class="@res match {
-            case None => {draw}
-            case Some(true) => {win}
-            case Some(false) => {loss}
-            }" data-icon="J"></span>
+          @score.recentPairings.map { pairing =>
+          <a href="@routes.Round.watcher(pairing.gameId, pairing.colorOf(player.user.id).??(_.toString))"
+            data-hint="@gameSummary(pairing.user1, pairing.user2, pairing.finished, pairing.booleanResult)"
+            class="hint--bottom-left
+            @if(pairing.finished) {
+            finished @if(pairing wonBy player.user.id) {win} else {
+            @if(pairing lostBy player.user.id) {loss} else {draw}}
+            ">@pairing.ratingDiffOf(player.user.id) match {
+            case Some(r) if r > 0 => {+@r}
+            case Some(r) if r < 0 => {@r}
+            case _ => {+0}
+            }
+            } else {
+            playing">*
+            }</a>
           }
         </td>
-        <td class="rating">
-          @player.rating
-        </td>
+        <td class="rating">@player.rating</td>
       </tr>
       <tr><td class="around-bar" colspan="4"><div class="bar" data-value="@score.ratingPercent"></div></td></tr>
       }
@@ -38,4 +45,3 @@
     </tbody>
   </table>
 </div>
-

@@ -4,16 +4,11 @@
   margin-right: -5px;
 }
 
-#pool {
+#pool > .pool_box {
+  width: 525px;
   overflow: hidden;
 }
-#pool div.pool_box {
-  width: 525px;
-}
-#pool table.slist .rank {
-  font-weight: bold;
-}
-#pool_side {
+#pool > .pool_side {
   float: right;
   width: 246px;
   max-height: 510px;
@@ -21,36 +16,51 @@
   border: 1px solid #ccc;
   padding: 3px;
 }
-#pool_side:hover {
+#pool > .pool_side:hover {
   overflow-y: auto;
 }
-#pool_side div.pairings {
+#pool div.pairings {
   text-align: center;
 }
-#pool_side div.pairings a {
+#pool div.pairings a {
   padding: 0.3em 0.2em;
   display: block;
   white-space: nowrap;
   overflow: hidden;
 }
-#pool_side div.pairings span {
+#pool div.pairings span {
   font-weight: bold;
 }
-#pool_side div.pairings span.win {
+#pool div.pairings span.win {
   color: #00aa00;
 }
-#pool_side div.pairings span.loss {
+#pool div.pairings span.loss {
   color: #aa0000;
 }
-#pool_side div.pairings span.draw {
+#pool div.pairings span.draw {
   color: #aaaa00;
 }
-#pool_side div.pairings em {
+#pool div.pairings em {
   font-style: italic;
 }
 #pool div.game_list {
   margin: 25px 0 0 15px;
   overflow: hidden;
+}
+#pool div.standing_wrap {
+  max-height: 485px;
+  overflow: hidden;
+  border-bottom: 1px solid #ccc;
+}
+#pool div.standing_wrap:hover {
+  overflow-y: auto;
+}
+#pool table.standing .rank {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+#pool table.standing .rating {
+  font-weight: bold;
 }
 #pool table.standing td.around-bar {
   padding: 0;
@@ -64,10 +74,13 @@
 #pool table.standing td.recent_games {
   text-align: right;
 }
-#pool table.standing td.recent_games span {
-  font-size: 1.2em;
-  letter-spacing: -5px;
-  color: #b0b060;
+#pool table.standing td.recent_games a {
+  color: #888;
+  text-decoration: none;
+  margin-left: 1px;
+}
+#pool table.standing td.recent_games a:hover {
+  text-decoration: underline;
 }
 #pool table.standing td.recent_games .win {
   color: #759900;

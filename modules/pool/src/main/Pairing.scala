@@ -8,6 +8,8 @@ case class Pairing(
     status: Status,
     user1: String,
     user2: String,
+    user1RatingDiff: Option[Int],
+    user2RatingDiff: Option[Int],
     turns: Int,
     winner: Option[String]) {
 
@@ -24,6 +26,12 @@ case class Pairing(
   def wonBy(userId: String) = finished && winner.??(userId ==)
   def lostBy(userId: String) = finished && contains(userId) && winner.??(userId !=)
 
+  def booleanResult = winner match {
+    case Some(uid) if user1 == uid => Some(true)
+    case Some(uid) if user2 == uid => Some(false)
+    case _                         => None
+  }
+
   def opponentOf(user: String): Option[String] =
     if (user == user1) user2.some else if (user == user2) user1.some else none
 
@@ -32,13 +40,23 @@ case class Pairing(
     else if (userId == user2) Color.Black.some
     else none
 
+  def ratingDiffOf(userId: String): Option[Int] =
+    if (userId == user1) user1RatingDiff
+    else if (userId == user2) user2RatingDiff
+    else none
+
   def povRef(userId: String): Option[PovRef] =
     colorOf(userId) map { PovRef(gameId, _) }
 
   def withStatus(s: Status) = copy(status = s)
 
-  def finish(s: Status, t: Int, w: Option[String]) =
-    copy(status = s, turns = t, winner = w)
+  def finish(game: Game) =
+    copy(
+      status = game.status,
+      turns = game.turns,
+      user1RatingDiff = game.whitePlayer.ratingDiff,
+      user2RatingDiff = game.blackPlayer.ratingDiff,
+      winner = game.winnerUserId)
 }
 
 case class PairingWithGame(pairing: Pairing, game: Game)
@@ -50,6 +68,8 @@ private[pool] object Pairing {
     status = Status.Created,
     user1 = user1,
     user2 = user2,
+    user1RatingDiff = none,
+    user2RatingDiff = none,
     turns = 0,
     winner = none)
 }

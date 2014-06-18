@@ -149,30 +149,40 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$u1 vs $u2$clock"
   }
 
+  // whiteUsername 1-0 blackUsername
+  def gameSummary(whiteUserId: String, blackUserId: String, finished: Boolean, result: Option[Boolean]) = {
+    val res = if (finished) result match {
+      case Some(true)  => "1-0"
+      case Some(false) => "0-1"
+      case None        => "½-½"
+    }
+    else "*"
+    s"${usernameOrId(whiteUserId)} $res ${usernameOrId(blackUserId)}"
+  }
+
   def gameFen(game: Game, color: Color, ownerLink: Boolean = false, tv: Boolean = false)(implicit ctx: UserContext) = Html {
     val owner = ownerLink.fold(ctx.me flatMap game.player, none)
-    var live = game.isBeingPlayed
+    var isLive = game.isBeingPlayed
     val url = owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
       routes.Round.player(game fullIdOf o.color)
     }
-    """<a href="%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"></a>""".format(
-      tv.fold(routes.Tv.index, url),
-      gameTitle(game, color),
-      live ?? ("live live_" + game.id),
-      live ?? game.id,
-      color.name,
-      Forsyth exportBoard game.toChess.board,
-      ~game.castleLastMoveTime.lastMoveString)
+    val href = tv.fold(routes.Tv.index, url)
+    val title = gameTitle(game, color)
+    val cssClass = isLive ?? ("live live_" + game.id)
+    val live = isLive ?? game.id
+    val fen = Forsyth exportBoard game.toChess.board
+    val lastMove = ~game.castleLastMoveTime.lastMoveString
+    s"""<a href="$href" title="$title" class="mini_board parse_fen $cssClass" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove"></a>"""
   }
 
   def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false, blank: Boolean = false) = Html {
-    var live = game.isBeingPlayed
+    var isLive = game.isBeingPlayed
     """<a href="%s%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s></a>""".format(
       blank ?? netBaseUrl,
       tv.fold(routes.Tv.index, routes.Round.watcher(game.id, color.name)),
       gameTitle(game, color),
-      live ?? ("live live_" + game.id),
-      live ?? game.id,
+      isLive ?? ("live live_" + game.id),
+      isLive ?? game.id,
       color.name,
       Forsyth exportBoard game.toChess.board,
       ~game.castleLastMoveTime.lastMoveString,

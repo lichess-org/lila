@@ -16,5 +16,5 @@ object Player {
 
   case class Score(
     ratingPercent: Int,
-    recentGames: List[Option[Boolean]])
+    recentPairings: List[Pairing])
 }

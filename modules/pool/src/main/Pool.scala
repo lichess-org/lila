@@ -18,14 +18,14 @@ case class Pool(
   lazy val nbPlayers = players.size
 
   def scoreOf(p: Player) = Player.Score(
-    ratingPercent = 100 * p.rating / bestRating,
-    recentGames = pairings.foldLeft(List[Option[Boolean]]()) {
-      case (res, pair) if pair.finished && pair.contains(p.user.id) && res.size <= 10 =>
-        pair.winner.map(p.user.id ==) :: res
+    ratingPercent = 100 * (p.rating - minRating) / math.max(1, (maxRating - minRating)),
+    recentPairings = pairings.foldLeft(List[Pairing]()) {
+      case (res, pairing) if pairing.contains(p.user.id) && res.size <= 10 => pairing :: res
       case (res, _) => res
     })
 
-  lazy val bestRating = players.map(_.rating).max
+  lazy val maxRating = players.map(_.rating).max
+  lazy val minRating = players.map(_.rating).min
 
   def contains(userId: String): Boolean = players exists (_.user.id == userId)
   def contains(u: User): Boolean = contains(u.id)
@@ -78,7 +78,7 @@ case class Pool(
 
   def finishGame(game: Game) = copy(
     pairings = pairings map {
-      case p if p.gameId == game.id => p.finish(game.status, game.turns, game.winnerUserId)
+      case p if p.gameId == game.id => p finish game
       case p                        => p
     }
   )

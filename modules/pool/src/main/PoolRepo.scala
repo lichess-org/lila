@@ -6,6 +6,7 @@ import akka.pattern.ask
 import lila.hub.actorApi.map.{ Ask, AskAll }
 import actorApi.GetPool
 import makeTimeout.short
+import scala.concurrent.duration._
 
 final class PoolRepo(hub: ActorRef) {
 
@@ -14,5 +15,9 @@ final class PoolRepo(hub: ActorRef) {
       case _: IllegalArgumentException => none
     }
 
-  def all: Fu[List[Pool]] = hub ? AskAll(GetPool) mapTo manifest[List[Pool]]
+  val all = lila.memo.AsyncCache.single(fetchAll, timeToLive = 10.seconds)
+
+  private def fetchAll: Fu[List[Pool]] = hub ? AskAll(GetPool) mapTo manifest[List[Pool]] map { pools =>
+    pools.sortBy(_.setup.id)
+  }
 }

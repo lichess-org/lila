@@ -16,8 +16,11 @@ private[pool] object AutoPairing {
     val (pairablePlayers, unpairablePlayers) = availablePlayers partition (_.pairable)
     val nbPlaying = pool.players count isPlaying
 
-    val pairings = if (pairablePlayers.size < ((nbPlaying + unpairablePlayers.size) / 2)) Nil
-    else {
+    val minPlayersForPairing = math.min(6, (nbPlaying + unpairablePlayers.size) / 3)
+    val nbPlayersForPairing = pairablePlayers.size
+    val canDoPairings = nbPlayersForPairing >= minPlayersForPairing && nbPlayersForPairing % 2 == 0
+
+    val pairings = canDoPairings ?? {
 
       def basedOnRating = pairablePlayers.sortBy(-_.rating) grouped 2
 

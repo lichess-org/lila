@@ -58,12 +58,17 @@ private[pool] final class PoolActor(
       pool.players map (_.user.id) filter isOnline foreach wavers.put
       pool.players filterNot (p => wavers get p.user.id) map (_.user.id) map Leave.apply foreach self.!
 
-    case FinishGame(game, Some(white), Some(black)) if game.poolId == Some(setup.id) =>
-      pool = pool finishGame game
-      UserRepo byIds List(white.id, black.id) map UpdateUsers.apply foreach self.!
+    case FinishGame(g, Some(white), Some(black)) if g.poolId == Some(setup.id) =>
+      GameRepo game g.id foreach {
+        _ foreach { game =>
+          pool = pool finishGame game
+          UserRepo byIds List(white.id, black.id) map UpdateUsers.apply foreach self.!
+        }
+      }
 
     case UpdateUsers(users) =>
       pool = pool updatePlayers users
+      notifyReload
 
     case RemindPlayers =>
       import makeTimeout.short
@@ -105,6 +110,8 @@ private[pool] final class PoolActor(
                 status = game.status,
                 user1 = user1,
                 user2 = user2,
+                user1RatingDiff = game.whitePlayer.ratingDiff,
+                user2RatingDiff = game.blackPlayer.ratingDiff,
                 turns = game.turns,
                 winner = game.winnerUserId)
           }
