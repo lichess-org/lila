@@ -49,9 +49,11 @@ private[pool] final class PoolActor(
       notifyReload
       sender ! true
 
-    case Leave(userId) if pool.contains(userId) =>
-      pool = pool withoutUserId userId
-      notifyReload
+    case Leave(userId) =>
+      if (pool.contains(userId)) {
+        pool = pool withoutUserId userId
+        notifyReload
+      }
       sender ! true
 
     case EjectLeavers =>
