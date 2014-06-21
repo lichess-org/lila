@@ -4,7 +4,6 @@ private[pool] object AutoPairing {
 
   private case class Sheet(score: Int, games: Int) {
     def add(by: Int) = copy(score = score + by, games = games + 1)
-    def average = score.toFloat / games
   }
 
   def apply(pool: Pool, userIds: Set[String]): (List[Pairing], List[Player]) = {
@@ -33,7 +32,7 @@ private[pool] object AutoPairing {
           case (sheet, _)                                      => sheet
         }
       }.sortBy {
-        case (player, sheet) => (-sheet.average, -player.rating)
+        case (player, sheet) => (-sheet.score, -player.rating)
       }.map(_._1) grouped 2
 
       val pairs = basedOnWins
