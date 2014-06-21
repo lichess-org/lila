@@ -5,6 +5,12 @@
   <div class="box">
     <span data-icon="p"> @(p.setup.clockLimit / 60) + @p.setup.clockIncrement</span>,
     @variantName(p.setup.variant).capitalize, @trans.rated()
+    @ctx.me.map(_.perfs.pool(p.setup.id)).map { perf =>
+    <br />
+    <br />
+    @trans.ratingX(s"""<strong>${perf.intRating}</strong> <small title="Glicko rating deviation"> ±${perf.glicko.intDeviationDoubled}</small>""")
+    }
+    <br />
     <br />
     <a href="@routes.Pool.help(p.setup.id)">@p.setup.name Pool help</a>
   </div>
