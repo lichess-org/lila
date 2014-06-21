@@ -599,8 +599,8 @@ div.lichess_control {
   text-align: center;
   width: 100%;
 }
-div.lichess_control a {
-  font-size: 90%;
+div.lichess_control button {
+  margin: auto;
 }
 div.lichess_control a.lichess_play_again {
   margin-left: 1em;
