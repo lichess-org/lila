@@ -32,6 +32,8 @@ case class Perfs(
 
   def pool(key: String) = pools get key getOrElse Perf.default
 
+  def globalAndPools = global :: pools.values.toList
+
   override def toString = perfs map {
     case (name, perf) => s"$name:${perf.intRating}"
   } mkString ", "

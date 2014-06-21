@@ -13,6 +13,4 @@ case class PoolSetup(
   val glickoLens = (user: User) => user.perfs.pool(id).glicko
 
   val clock = chess.Clock(clockLimit, clockIncrement)
-
-  def mode = chess.Mode.Rated
 }

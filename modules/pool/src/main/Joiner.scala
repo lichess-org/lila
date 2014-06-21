@@ -33,7 +33,7 @@ final class Joiner(
       ),
       whitePlayer = GamePlayer.white withUser user1 withRating ratingLens(user1),
       blackPlayer = GamePlayer.black withUser user2 withRating ratingLens(user2),
-      mode = setup.mode,
+      mode = chess.Mode.Rated,
       variant = setup.variant,
       source = Source.Pool,
       pgnImport = None

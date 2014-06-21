@@ -50,9 +50,15 @@ object Evaluation {
 
   private[evaluation] def progressIsHigh(user: User) = user.progress > 70
   private[evaluation] def progressIsVeryHigh(user: User) = user.progress > 100
-  private[evaluation] def deviationIsLow(perfs: Perfs) = perfs.global.glicko.deviation < 180
-  private[evaluation] def ratingIsHigh(perfs: Perfs) = perfs.global.glicko.rating >= 1600
-  private[evaluation] def ratingIsGreat(perfs: Perfs) = perfs.global.glicko.rating >= 2100
+  private[evaluation] def deviationIsLow(perfs: Perfs) = perfs.globalAndPools exists {
+    _.glicko.deviation < 180
+  }
+  private[evaluation] def ratingIsHigh(perfs: Perfs) = perfs.globalAndPools exists {
+    _.glicko.rating >= 1600
+  }
+  private[evaluation] def ratingIsGreat(perfs: Perfs) = perfs.globalAndPools exists {
+    _.glicko.rating >= 2100
+  }
 
   private type Percent = Int
 
