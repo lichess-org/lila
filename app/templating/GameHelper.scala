@@ -37,12 +37,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     else if (game.variant.exotic) game.variant.name else "chess"
     import chess.Status._
     val result = (game.winner, game.loser, game.status) match {
-      case (Some(w), _, Mate)                   => s"${playerText(w)} won by checkmate"
-      case (_, Some(l), Mate | Timeout | Cheat) => s"${playerText(l)} resigned"
-      case (_, Some(l), Outoftime)              => s"${playerText(l)} forfeits by time"
-      case (_, _, Draw | Stalemate)             => "Game is a draw"
-      case (_, _, Aborted)                      => "Game has been aborted"
-      case _                                    => "Game is still being played"
+      case (Some(w), _, Mate) => s"${playerText(w)} won by checkmate"
+      case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
+      case (_, Some(l), Outoftime) => s"${playerText(l)} forfeits by time"
+      case (_, _, Draw | Stalemate) => "Game is a draw"
+      case (_, _, Aborted) => "Game has been aborted"
+      case _ => "Game is still being played"
     }
     val moves = s"${game.turns} moves"
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
