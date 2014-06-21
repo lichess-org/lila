@@ -41,7 +41,6 @@ final class Joiner(
     ).withPoolId(setup.id)
       .withId(pairing.gameId)
       .start
-      .startClock(2)
     _ ← (GameRepo insertDenormalized game) >>-
       scheduleIdleCheck(PovRef(game.id, Color.White), secondsToMove)
   } yield game
