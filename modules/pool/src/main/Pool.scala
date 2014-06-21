@@ -20,7 +20,7 @@ case class Pool(
   def scoreOf(p: Player) = Player.Score(
     ratingPercent = 100 * (p.rating - minRating) / math.max(1, (maxRating - minRating)),
     recentPairings = pairings.foldLeft(List[Pairing]()) {
-      case (res, pairing) if pairing.contains(p.user.id) && res.size <= 10 => pairing :: res
+      case (res, pairing) if pairing.contains(p.user.id) && res.size <= 8 => pairing :: res
       case (res, _) => res
     })
 
@@ -71,7 +71,7 @@ case class Pool(
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.flatMap(u => userCurrentPov(u.id))
 
-  private def nbPairingsToSave = math.max(100, nbPlayers * 5)
+  private def nbPairingsToSave = math.max(100, nbPlayers * 10)
 
   def withPairings(ps: List[Pairing]) =
     copy(pairings = (ps ::: pairings) take nbPairingsToSave)

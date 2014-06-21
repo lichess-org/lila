@@ -26,7 +26,7 @@ private[pool] object AutoPairing {
 
       def basedOnWins = pairablePlayers.map { player =>
         player -> pool.pairings.foldLeft(Sheet(0, 0)) {
-          case (sheet, _) if sheet.games > 5                   => sheet
+          case (sheet, _) if sheet.games > 8                   => sheet
           case (sheet, pairing) if (pairing wonBy player.id)   => sheet add 1
           case (sheet, pairing) if (pairing drawnBy player.id) => sheet add 0
           case (sheet, pairing) if (pairing lostBy player.id)  => sheet add -1
