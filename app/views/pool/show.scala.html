@@ -32,7 +32,7 @@ underchat = underchat.some) {
   data-id="@p.setup.id"
   data-version="@version"
   data-socket-url="@routes.Pool.websocket(p.setup.id)">
-  <div class="pool_side scroll-shadow-soft">
+  <div class="pool_side scroll-shadow">
     <div class="pairings">
       @p.pairings.take(50).map { pairing =>
       <a class="revert-underline" href="@routes.Round.watcher(pairing.gameId, "white")">
