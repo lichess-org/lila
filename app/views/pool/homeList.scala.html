@@ -8,9 +8,9 @@ case (p, it) => {
     @defining(7) { displayedPlayers =>
     <table class="players">
       <tbody>
-        @p.playersAround(ctx.me, displayedPlayers).map { player =>
+        @p.players.take(displayedPlayers).map { player =>
         <tr>
-          <td>@lightUserLink(player.user)</td>
+          <td><span class="is-green" data-icon="r"> @player.user.name</span></td>
           <td>@player.rating</td>
         </tr>
         }
