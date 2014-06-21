@@ -1,8 +1,7 @@
 @(g: Game)(implicit ctx: Context)
 
 @ctx.me.map { m =>
-<a class="bookmark@isBookmarked(g, m).fold(" bookmarked", "") hint--bottom" href="@routes.Bookmark.toggle(g.id)"
-  data-hint="@trans.bookmarkThisGame()">
+<a class="bookmark@isBookmarked(g, m).fold(" bookmarked", "")" href="@routes.Bookmark.toggle(g.id)" title="@trans.bookmarkThisGame()">
   <span data-icon="t" class="on is3"> @g.showBookmarks</span>
   <span data-icon="s" class="off is3"> @g.showBookmarks</span>
 </a>
