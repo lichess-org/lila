@@ -12,9 +12,8 @@ import lila.user.{ User, UserRepo }
 
 final class Joiner(
     roundMap: ActorRef,
-    system: ActorSystem) {
-
-  private val secondsToMove = 30
+    system: ActorSystem,
+    secondsToMove: Int) {
 
   def apply(setup: PoolSetup, pairings: List[Pairing]): Fu[List[PairingWithGame]] =
     pairings.map { pairing =>

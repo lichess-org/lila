@@ -12,9 +12,8 @@ import lila.user.{ User, UserRepo }
 
 final class AutoPairing(
     roundMap: ActorRef,
-    system: ActorSystem) {
-
-  private val secondsToMove = 30
+    system: ActorSystem,
+    secondsToMove: Int) {
 
   def apply(tour: Started)(pairing: Pairing): Fu[Game] = for {
     user1 ← getUser(pairing.user1)
@@ -33,7 +32,6 @@ final class AutoPairing(
     ).withTournamentId(tour.id)
       .withId(pairing.gameId)
       .start
-      .startClock(2)
     _ ← (GameRepo insertDenormalized game) >>-
       scheduleIdleCheck(PovRef(game.id, Color.White), secondsToMove)
   } yield game

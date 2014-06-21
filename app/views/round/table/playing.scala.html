@@ -76,3 +76,8 @@
 }
 }
 }
+@if(game.isMandatory && !game.playerHasMoved(color)) {
+<div class="remove_on_first_move" data-icon="j">
+  @trans.youHaveNbSecondsToMakeYourFirstMove(mandatorySecondsToMove)
+</div>
+}

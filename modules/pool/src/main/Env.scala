@@ -20,6 +20,7 @@ final class Env(
     hub: lila.hub.Env,
     roundMap: ActorRef,
     isOnline: String => Boolean,
+    secondsToMove: Int,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -67,7 +68,10 @@ final class Env(
   def version(poolId: String): Fu[Int] =
     poolHub ? Ask(poolId, GetVersion) mapTo manifest[Int]
 
-  private lazy val joiner = new Joiner(roundMap = roundMap, system = system)
+  private lazy val joiner = new Joiner(
+    roundMap = roundMap,
+    system = system,
+    secondsToMove = secondsToMove)
 
   {
     import scala.concurrent.duration._
@@ -103,5 +107,6 @@ object Env {
     lightUser = lila.user.Env.current.lightUser,
     roundMap = lila.round.Env.current.roundMap,
     isOnline = lila.user.Env.current.isOnline,
+    secondsToMove = lila.game.Env.current.MandatorySecondsToMove,
     scheduler = lila.common.PlayApp.scheduler)
 }

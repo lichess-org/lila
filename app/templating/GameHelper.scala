@@ -8,13 +8,14 @@ import play.api.mvc.Call
 import play.twirl.api.Html
 
 import lila.game.{ Game, Player, Namer, Pov }
-import lila.user.Env.{ current => userEnv }
 import lila.user.{ User, UserContext }
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper =>
 
   def netBaseUrl: String
   def staticUrl(path: String): String
+
+  def mandatorySecondsToMove = lila.game.Env.current.MandatorySecondsToMove
 
   def povOpenGraph(pov: Pov) = Map(
     'type -> "website",
