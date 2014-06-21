@@ -1,14 +1,10 @@
 #!/bin/sh
 . bin/lilarc
 
-fail () {
-  echo "Deploy main or ai"
-  exit 1
-}
-
 mode=$1
 if [ -z $mode ]; then
-  fail
+  echo "Empty deploy target"
+  exit 1
 elif [ $mode = "main" ]; then
   REMOTE="hollie"
   REMOTE_DIR="/home/lila5"
@@ -21,11 +17,15 @@ elif [ $mode = "salim" ]; then
 elif [ $mode = "lizen" ]; then
   REMOTE="lizen"
   REMOTE_DIR="/home/lila5"
+elif [ $mode = "matthews" ]; then
+  REMOTE="matthews"
+  REMOTE_DIR="/home/lila5"
 elif [ $mode = "local" ]; then
   REMOTE="localhost"
   REMOTE_DIR="/tmp/lila5"
 else
-  fail
+  echo "Unknown deploy target $mode"
+  exit 1
 fi
 
 lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
