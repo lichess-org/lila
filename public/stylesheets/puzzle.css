@@ -152,3 +152,6 @@
   width: 40px;
   line-height: 1;
 }
+#puzzle #disqus_thread {
+  margin-top: 20px;
+}
