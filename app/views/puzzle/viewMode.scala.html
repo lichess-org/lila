@@ -91,7 +91,7 @@
       </h2>
       <p>
         @trans.ratingX(s"<strong>${puzzle.perf.intRating}</strong>")
-        <small title="Glicko rating deviation"> ±@puzzle.perf.glicko.intDeviationDoubled</small>
+        <small class="hint--bottom" data-hint="Glicko rating deviation"> ±@puzzle.perf.glicko.intDeviationDoubled</small>
       </p>
       <p>@trans.playedXTimes(s"<strong>${puzzle.attempts}</strong>")</p>
       <br />

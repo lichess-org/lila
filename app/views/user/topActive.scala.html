@@ -7,7 +7,7 @@
       @users.map { u =>
       <tr>
         <td>@userLink(u._1, withRating = false, cssClass="revert-underline".some)</td>
-        <td><span title="Number of games played">#@u._2.localize</span></td>
+        <td><span class="hint--bottom" data-hint="Number of games played">#@u._2.localize</span></td>
       </tr>
       }
     </tbody>

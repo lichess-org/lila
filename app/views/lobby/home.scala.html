@@ -1,7 +1,7 @@
 @(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[User], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], pools: List[lila.pool.Pool])(implicit ctx: Context)
 
 @underchat = {
-<div id="featured_game" title="@trans.watchLichessTV()">
+<div id="featured_game">
   @featured.map { g =>
   @gameFen(g, g.firstPlayer.color, tv = true)
   @game.vstext(g)
@@ -99,7 +99,7 @@ openGraph = Map(
   <div class="lichess_ground">
     <div class="lichess_table onbg lichess_table_not_started" id="start_buttons">
       @lobbyMenu.all.map { b =>
-      <a class="lichess_button button config_@b.code" href="@b.route" onclick="return false" title="@b.title()">@b.name()</a>
+      <a class="lichess_button button config_@b.code hint--bottom" href="@b.route" onclick="return false" data-hint="@b.title()">@b.name()</a>
       }
     </div>
     @puzzle.map { p =>
@@ -114,7 +114,7 @@ openGraph = Map(
   </div>
   <div class="open_tournaments undertable">
     <div class="undertable_top">
-      <a class="more" title="See all tournaments" href="@routes.Tournament.home()">@trans.more() »</a>
+      <a class="more hint--bottom" data-hint="See all tournaments" href="@routes.Tournament.home()">@trans.more() »</a>
       <span class="title"> @trans.openTournaments()</span>
     </div>
     <div id="enterable_tournaments" class="undertable_inner scroll-shadow-hard">
@@ -125,7 +125,7 @@ openGraph = Map(
     <div class="leaderboard undertable half">
       <div class="user_top">
         <div class="undertable_top">
-          <a class="more" title="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
+          <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
           <span class="title" data-icon="C"> @trans.todaysLeaders()</span>
         </div>
         <div class="undertable_inner scroll-shadow-hard">
@@ -146,7 +146,7 @@ openGraph = Map(
     <div class="leaderboard undertable half">
       <div class="user_top">
         <div class="undertable_top">
-          <a class="more" title="@trans.players()" href="@routes.Tournament.home()">@trans.more() »</a>
+          <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.Tournament.home()">@trans.more() »</a>
           <span class="title" data-icon="g"> Tournament winners</span>
         </div>
         <div class="undertable_inner scroll-shadow-hard">
@@ -166,6 +166,7 @@ openGraph = Map(
   </div>
   <div class="new_posts undertable nomargin" data-url="@routes.ForumPost.recent">
     <div class="undertable_top">
+      <a class="more hint--bottom" data-hint="@trans.forum()" href="@routes.ForumCateg.index()">@trans.more() »</a>
       <span class="title" data-icon="d"> @trans.latestForumPosts()</span>
     </div>
     <div class="undertable_inner scroll-shadow-hard">
@@ -177,7 +178,7 @@ openGraph = Map(
   @if(lastPost.nonEmpty) {
   <div class="blog undertable">
     <div class="undertable_top">
-      <a class="more" title="Blog" href="@routes.Blog.index()">@trans.more() »</a>
+      <a class="more hint--bottom" data-hint="Blog" href="@routes.Blog.index()">@trans.more() »</a>
       <span class="title" data-icon="6"> Latest updates</span>
     </div>
     <div class="undertable_inner">

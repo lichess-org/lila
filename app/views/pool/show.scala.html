@@ -8,7 +8,7 @@
     @ctx.me.map(_.perfs.pool(p.setup.id)).map { perf =>
     <br />
     <br />
-    @trans.ratingX(s"""<strong>${perf.intRating}</strong> <small title="Glicko rating deviation"> ±${perf.glicko.intDeviationDoubled}</small>""")
+    @trans.ratingX(s"""<strong>${perf.intRating}</strong> <small class="hint--bottom" data-hint="Glicko rating deviation"> ±${perf.glicko.intDeviationDoubled}</small>""")
     <br />
     <strong>@perf.nb</strong> @trans.gamesPlayed()
     }

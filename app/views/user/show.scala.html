@@ -9,12 +9,14 @@
 }
 
 @showPerf(name: String, perf: lila.rating.Perf) = {
-<div class="hint--bottom" data-hint="@lila.user.Perfs.titles.get(name).getOrElse(name)">
-  <h3>@if(name == "puzzle") {TRAINING} else {@name.toUpperCase}</h3>
-  <strong title="Glicko rating">@perf.glicko.intRating</strong>
-  <small title="Glicko rating deviation"> ±@perf.glicko.intDeviationDoubled</small> /
-  <span title="Number of games played">
-    @perf.nb.localize @if(name == "puzzle") { Puzzles } else { @trans.games() }
+<div>
+  <h3 @lila.user.Perfs.titles.get(name).map { title =>
+    class="hint--bottom" data-hint="@title"
+    }>@if(name == "puzzle") {TRAINING} else {@name.toUpperCase}</h3>
+  <strong class="hint--bottom" data-hint="Glicko rating">@perf.glicko.intRating</strong>
+  <small class="hint--bottom" data-hint="Glicko rating deviation"> ±@perf.glicko.intDeviationDoubled</small> /
+  <span class="hint--bottom" data-hint="Number of games played">
+    @perf.nb.localize @if(name == "puzzle") {Puzzles} else {@trans.games()}
   </span>
 </div>
 }
@@ -26,7 +28,7 @@
   @showPerf("standard", u.perfs.standard)
   @showPerf("chess960", u.perfs.chess960)
   <br />
-  @u.perfs.pools.map {
+  @u.perfs.pools.toList.sortBy(_._1).map {
   case (id, perf) => {
   @poolSetups.get(id).map { setup =>
   @showPerf(s"${setup.name} pool", perf)
@@ -71,10 +73,10 @@ evenMoreJs = evenMoreJs) {
     }
     }
     <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" } data-icon="r"></span> @u.username</h1>
-    <span class="rating">RATING <strong title="Glicko rating">@u.rating</strong><small title="Glicko rating deviation"> ±@u.perfs.global.glicko.intDeviationDoubled</small></span>
+    <span class="rating">RATING <strong class="hint--bottom" data-hint="Glicko rating">@u.rating</strong><small class="hint--bottom" data-hint="Glicko rating deviation"> ±@u.perfs.global.glicko.intDeviationDoubled</small></span>
     @showProgress(u.progress)
     @info.rank.map { r =>
-    <span class="rank" title="@trans.rank()">RANK <strong>@r._1.localize</strong>/@{r._2/1000}k</span>
+    <span class="rank hint--bottom" data-hint="@trans.rank()">RANK <strong>@r._1.localize</strong>/@{r._2/1000}k</span>
     }
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
@@ -135,7 +137,7 @@ evenMoreJs = evenMoreJs) {
   <div class="mod_zone"></div>
   <div class="meat">
     @info.ratingChart.map { ratingChart =>
-    <div class="rating_history" title="Rating history" data-rows="@ratingChart">
+    <div class="rating_history hint--bottom" data-hint="Rating history" data-rows="@ratingChart">
       <span>Chart loading&#8230;</span>
     </div>
     }
