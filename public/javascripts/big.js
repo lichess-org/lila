@@ -310,7 +310,9 @@ var storage = {
     return $.userLinkLimit(u, false);
   };
   $.userLinkLimit = function(u, limit, klass) {
-    return (u || false) ? '<a class="user_link ulpt ' + (klass || '') + '" href="/@/' + u + '">' + ((limit || false) ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
+    var split = u.split(' ');
+    var id = split.length == 1 ? split[0] : split[1];
+    return (u || false) ? '<a class="user_link ulpt ' + (klass || '') + '" href="/@/' + id + '">' + ((limit || false) ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   };
   $.redirect = function(obj) {
     var url;
