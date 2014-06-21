@@ -90,6 +90,7 @@ package round {
   case class Resign(playerId: String)
   case class ResignColor(color: Color)
   case class ResignForce(playerId: String)
+  case class NoStartColor(color: Color)
   case class DrawForce(playerId: String)
   case class DrawClaim(playerId: String)
   case class DrawYes(playerId: String)

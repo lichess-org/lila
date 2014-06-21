@@ -139,8 +139,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
     case S.Draw      => trans.draw()
     case S.Outoftime => trans.timeOut()
-    case S.Cheat     => Html("Cheat detected")
-    case _           => Html("")
+    case S.NoStart => Html {
+      val color = game.loser.fold(Color.white)(_.color).name.capitalize
+      s"$color didn't move"
+    }
+    case S.Cheat => Html("Cheat detected")
+    case _       => Html("")
   }
 
   private def gameTitle(game: Game, color: Color): String = {

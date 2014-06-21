@@ -7,7 +7,7 @@ import akka.actor.{ ActorRef, ActorSystem, ActorSelection }
 import chess.Color
 import lila.game.{ Game, Player => GamePlayer, GameRepo, Pov, PovRef, Source }
 import lila.hub.actorApi.map.Tell
-import lila.round.actorApi.round.ResignColor
+import lila.round.actorApi.round.NoStartColor
 import lila.user.{ User, UserRepo }
 
 final class AutoPairing(
@@ -54,7 +54,7 @@ final class AutoPairing(
               lmt - nowSeconds + secondsToMove
             })
           },
-          roundMap ! Tell(pov.gameId, ResignColor(pov.color))
+          roundMap ! Tell(pov.gameId, NoStartColor(pov.color))
         )
       }
     }

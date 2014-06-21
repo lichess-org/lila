@@ -63,6 +63,10 @@ private[round] final class Round(
       }
     }
 
+    case NoStartColor(color) => handle(color) { pov =>
+      finisher(pov.game, _.NoStart, Some(!pov.color))
+    }
+
     case DrawForce(playerId) => handle(playerId) { pov =>
       (pov.game.drawable && !pov.game.hasAi) ?? {
         socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
