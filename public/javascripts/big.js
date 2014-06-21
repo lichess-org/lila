@@ -1306,6 +1306,11 @@ var storage = {
       $("#" + move.from + ",#" + move.to).addClass("premoved");
       self.unselect();
       $("#premove_alert").show();
+      self.$board.one('contextmenu', function(e) {
+        e.stopPropagation();
+        self.unsetPremove();
+        return false;
+      });
     },
     unsetPremove: function() {
       var self = this;
