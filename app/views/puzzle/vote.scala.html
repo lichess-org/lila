@@ -4,15 +4,15 @@
 <div class="upvote @if(attempt.isDefined) { enabled }"
   data-post-url="@routes.Puzzle.vote(puzzle.id)">
   <a
-    data-hint="@trans.thisPuzzleIsCorrect()"
+    title="@trans.thisPuzzleIsCorrect()"
     data-vote="1"
     data-icon="S"
-    class="hint--bottom upvote @if(attempt.flatMap(_.vote) == Some(true)) { active }"></a>
+    class="upvote @if(attempt.flatMap(_.vote) == Some(true)) { active }"></a>
   <span data-hint="Popularity" class="count hint--bottom">@puzzle.vote.sum</span>
   <a
-    data-hint="@trans.thisPuzzleIsWrong()"
+    title="@trans.thisPuzzleIsWrong()"
     data-vote="0"
     data-icon="R"
-    class="hint--bottom downvote @if(attempt.flatMap(_.vote) == Some(false)) { active }"></a>
+    class="downvote @if(attempt.flatMap(_.vote) == Some(false)) { active }"></a>
 </div>
 }
