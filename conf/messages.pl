@@ -295,3 +295,4 @@ continueTraining=Kontynuuj trening
 retryThisPuzzle=Spróbuj ponownie
 thisPuzzleIsCorrect=To zadanie jest poprawne i ciekawe
 thisPuzzleIsWrong=To zadanie jest niepoprawne i nudne
+youHaveNbSecondsToMakeYourFirstMove=Masz %s sekund na pierwszy ruch!
