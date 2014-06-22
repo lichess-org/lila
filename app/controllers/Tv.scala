@@ -11,11 +11,14 @@ import views._
 
 object Tv extends LilaController {
 
+  private val defaultToStream = false
+
   def index = Open { implicit ctx =>
-    Env.tv.streamsOnAir flatMap {
+    if (defaultToStream) Env.tv.streamsOnAir flatMap {
       case Nil           => lichessTv
       case first :: rest => fuccess(Ok(html.tv.stream(first, rest)))
     }
+    else lichessTv
   }
 
   def lichess = Open { implicit ctx =>
