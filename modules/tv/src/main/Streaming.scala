@@ -9,7 +9,7 @@ private final class Streaming(
     system: ActorSystem,
     ustreamApiKey: String,
     renderer: ActorSelection,
-    isOnline: String => Boolean) {
+    whitelist: Set[String]) {
 
   import Streaming._
   import Twitch.Reads._
@@ -35,7 +35,9 @@ private final class Streaming(
           .withHeaders("Accept" -> "application/vnd.twitchtv.v2+json")
           .get().map { res =>
             res.json.asOpt[Twitch.Result] match {
-              case Some(data) => data.streamsOnAir take max
+              case Some(data) => data.streamsOnAir filter { stream =>
+                whitelist contains stream.name
+              } take max
               case None =>
                 logger.warn(s"twitch ${res.status} ${~res.body.lines.toList.headOption}")
                 Nil

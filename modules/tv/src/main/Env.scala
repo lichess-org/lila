@@ -4,10 +4,11 @@ import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
 
+import scala.collection.JavaConversions._
+
 final class Env(
     config: Config,
     hub: lila.hub.Env,
-    isOnline: String => Boolean,
     system: akka.actor.ActorSystem,
     scheduler: lila.common.Scheduler,
     isProd: Boolean) {
@@ -16,6 +17,7 @@ final class Env(
   private val FeaturedDisrupt = config duration "featured.disrupt"
   private val StreamingSearch = config duration "streaming.search"
   private val UstreamApiKey = config getString "streaming.ustream_api_key"
+  private val Whitelist = (config getStringList "streaming.whitelist").toSet
 
   lazy val featured = new Featured(
     lobbySocket = hub.socket.lobby,
@@ -24,9 +26,9 @@ final class Env(
 
   private lazy val streaming = new Streaming(
     system = system,
-    isOnline = isOnline,
     renderer = hub.actor.renderer,
-    ustreamApiKey = UstreamApiKey)
+    ustreamApiKey = UstreamApiKey,
+    whitelist = Whitelist)
 
   def streamsOnAir = streaming.onAir
 
@@ -55,7 +57,6 @@ object Env {
   lazy val current = "[boot] tv" describes new Env(
     config = lila.common.PlayApp loadConfig "tv",
     hub = lila.hub.Env.current,
-    isOnline = lila.user.Env.current.isOnline,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     isProd = lila.common.PlayApp.isProd)
