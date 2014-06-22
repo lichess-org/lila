@@ -8,6 +8,7 @@ import scala.collection.JavaConversions._
 
 final class Env(
     config: Config,
+    db: lila.db.Env,
     hub: lila.hub.Env,
     system: akka.actor.ActorSystem,
     scheduler: lila.common.Scheduler,
@@ -17,7 +18,7 @@ final class Env(
   private val FeaturedDisrupt = config duration "featured.disrupt"
   private val StreamingSearch = config duration "streaming.search"
   private val UstreamApiKey = config getString "streaming.ustream_api_key"
-  private val Whitelist = (config getStringList "streaming.whitelist").toSet
+  private val CollectionWhitelist = config getString "streaming.collection.whitelist"
 
   lazy val featured = new Featured(
     lobbySocket = hub.socket.lobby,
@@ -28,7 +29,9 @@ final class Env(
     system = system,
     renderer = hub.actor.renderer,
     ustreamApiKey = UstreamApiKey,
-    whitelist = Whitelist)
+    whitelist = whitelist)
+
+  private lazy val whitelist = new Whitelist(db(CollectionWhitelist))
 
   def streamsOnAir = streaming.onAir
 
@@ -56,6 +59,7 @@ object Env {
 
   lazy val current = "[boot] tv" describes new Env(
     config = lila.common.PlayApp loadConfig "tv",
+    db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,

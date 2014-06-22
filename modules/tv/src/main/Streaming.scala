@@ -2,14 +2,14 @@ package lila.tv
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import play.api.Play.current
 import play.api.libs.ws.WS
+import play.api.Play.current
 
 private final class Streaming(
     system: ActorSystem,
     ustreamApiKey: String,
     renderer: ActorSelection,
-    whitelist: Set[String]) {
+    whitelist: Whitelist) {
 
   import Streaming._
   import Twitch.Reads._
@@ -29,19 +29,23 @@ private final class Streaming(
       case Get => sender ! onAir
 
       case Search =>
-        val max = 2
-        val twitch = WS.url("https://api.twitch.tv/kraken/search/streams")
-          .withQueryString("q" -> "lichess.org")
+        val max = 3
+        val keyword = "lichess.org"
+        val twitch = whitelist.apply zip WS.url("https://api.twitch.tv/kraken/search/streams")
+          .withQueryString("q" -> keyword)
           .withHeaders("Accept" -> "application/vnd.twitchtv.v2+json")
-          .get().map { res =>
-            res.json.asOpt[Twitch.Result] match {
-              case Some(data) => data.streamsOnAir filter { stream =>
-                whitelist contains stream.streamer.toLowerCase
-              } take max
-              case None =>
-                logger.warn(s"twitch ${res.status} ${~res.body.lines.toList.headOption}")
-                Nil
-            }
+          .get() map {
+            case (authorizedStreamers, res) =>
+              res.json.asOpt[Twitch.Result] match {
+                case Some(data) => data.streamsOnAir filter { stream =>
+                  authorizedStreamers contains stream.streamer.toLowerCase
+                } filter { stream =>
+                  stream.name contains keyword
+                } take max
+                case None =>
+                  logger.warn(s"twitch ${res.status} ${~res.body.lines.toList.headOption}")
+                  Nil
+              }
           }
         twitch map StreamsOnAir.apply pipeTo self
 
