@@ -295,3 +295,4 @@ continueTraining=استمر في التدريب
 retryThisPuzzle=أعد لعب هذا اللغز
 thisPuzzleIsCorrect=هذا اللغز صحيح وممتع
 thisPuzzleIsWrong=هذا اللغز خطأ وممل
+youHaveNbSecondsToMakeYourFirstMove=لديك %s  ثانية لتقوم بأول نقلة
