@@ -8,7 +8,7 @@ case (p, it) => {
     @defining(7) { displayedPlayers =>
     <table class="players">
       <tbody>
-        @p.players.take(displayedPlayers).map { player =>
+        @p.sortedPlayers.take(displayedPlayers).map { player =>
         <tr>
           <td><span class="is-green" data-icon="r"> @player.user.name</span></td>
           <td>@player.rating</td>
