@@ -288,7 +288,7 @@ case class Game(
 
   def outoftimePlayer: Option[Player] = for {
     c ← clock
-    if started && playable && (bothPlayersHaveMoved || isMandatory)
+    if started && playable && bothPlayersHaveMoved
     if (!c.isRunning && !c.isInit) || (c outoftime player.color)
   } yield player
 
