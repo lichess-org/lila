@@ -92,7 +92,7 @@ object User {
     "CM" -> "FIDE Candidate Master",
     "WCM" -> "FIDE Woman Candidate Master",
     "WNM" -> "Woman National Master",
-    "LM" -> "Liches Master")
+    "LM" -> "Lichess Master")
 
   val titlesMap = titles.toMap
 
