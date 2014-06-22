@@ -295,4 +295,4 @@ continueTraining=Συνέχεια εξάσκησης
 retryThisPuzzle=Επανάληψη γρίφου
 thisPuzzleIsCorrect=Ο γρίφος είναι σωστός και ενδιαφέρον
 thisPuzzleIsWrong=Ο γρίφος είναι λανθασμένος ή βαρετός
-youHaveNbSecondsToMakeYourFirstMove=Έχεις %s δευτερόλεπτα για να κάνεις την πρώτη σου κίνηση!
+youHaveNbSecondsToMakeYourFirstMove=Έχετε %s δευτερόλεπτα για να κάνετε τη πρώτη σας κίνηση!
