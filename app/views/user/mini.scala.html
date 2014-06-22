@@ -2,7 +2,7 @@
 <div class="title">
   @userLink(u, withPowerTip = false)
   @if(u.engine && ctx.me.fold(true)(u !=)) {
-  <span title="@trans.thisPlayerUsesChessComputerAssistance()" data-icon="j"></span>
+  <span class="hint--bottom" data-hint="@trans.thisPlayerUsesChessComputerAssistance()" data-icon="j"></span>
   }
   @u.profileOrDefault.countryInfo.map {
   case (code, name) => {
