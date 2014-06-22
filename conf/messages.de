@@ -295,4 +295,4 @@ continueTraining=Training fortsetzen
 retryThisPuzzle=Probiere es von Neuem
 thisPuzzleIsCorrect=Dieses Rätsel ist korrekt und interessant.
 thisPuzzleIsWrong=Dieses Rätsel ist falsch oder langweilig.
-youHaveNbSecondsToMakeYourFirstMove=Sie haben %s Sekunden für den ersten Zug Zeit.
+youHaveNbSecondsToMakeYourFirstMove=Du hast %s Sekunden um deinen ersten Zug zu machen!
