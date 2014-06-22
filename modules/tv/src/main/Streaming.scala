@@ -13,7 +13,7 @@ private final class Streaming(
 
   import Streaming._
   import Twitch.Reads._
-  import Ustream.Reads._
+  // import Ustream.Reads._
 
   def onAir: Fu[List[StreamOnAir]] = {
     import makeTimeout.short
@@ -36,7 +36,7 @@ private final class Streaming(
           .get().map { res =>
             res.json.asOpt[Twitch.Result] match {
               case Some(data) => data.streamsOnAir filter { stream =>
-                whitelist contains stream.name
+                whitelist contains stream.streamer.toLowerCase
               } take max
               case None =>
                 logger.warn(s"twitch ${res.status} ${~res.body.lines.toList.headOption}")
