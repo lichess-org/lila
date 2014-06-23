@@ -295,3 +295,4 @@ continueTraining=Ga verder met de training
 retryThisPuzzle=Probeer het opnieuw
 thisPuzzleIsCorrect=De puzzel is correct en interessant
 thisPuzzleIsWrong=De puzzel is fout of saai
+youHaveNbSecondsToMakeYourFirstMove=U hebt %s seconden om je zet te doen!
