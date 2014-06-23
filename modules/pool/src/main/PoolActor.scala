@@ -151,6 +151,9 @@ private[pool] final class PoolActor(
     case Quit(uid) =>
       quit(uid)
       notifyCrowd
+
+    case lila.hub.actorApi.mod.MarkCheater(userId) =>
+      pool = pool withoutUserId userId
   }
 
   def notifyCrowd {
