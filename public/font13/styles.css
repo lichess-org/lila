@@ -233,3 +233,12 @@
 .icon-rocket:before {
   content: "8";
 }
+.icon-chart-line:before {
+  content: "9";
+}
+.icon-link:before {
+  content: "\"";
+}
+.icon-ionicons-1:before {
+  content: "7";
+}

@@ -1,15 +1,27 @@
 package lila.pool
 
+import org.joda.time.{ DateTime, Seconds }
+
 case class Player(
     user: lila.common.LightUser,
     rating: Int,
-    pairable: Boolean) {
+    waitingSince: Option[DateTime]) {
 
   def is(p: Player) = user.id == p.user.id
 
   def id = user.id
 
   def withRating(r: Int) = copy(rating = r)
+
+  def waiting = waitingSince.isDefined
+
+  def pairable = waitingSince ?? { date =>
+    Seconds.secondsBetween(date, DateTime.now).getSeconds >= 3
+  }
+
+  def setWaiting(v: Boolean) = copy(
+    waitingSince = v ?? { waitingSince orElse DateTime.now.some }
+  )
 }
 
 object Player {

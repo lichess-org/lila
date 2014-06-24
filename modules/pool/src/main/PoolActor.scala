@@ -91,7 +91,7 @@ private[pool] final class PoolActor(
         joiner(pool.setup, pairings) map AddPairings.apply pipeTo self
     }
 
-    case AddPairings(pairings) if pairings.nonEmpty =>
+    case AddPairings(pairings) =>
       pool = pool withPairings pairings.map(_.pairing)
       pairings.map(_.game) foreach { game =>
         game.players foreach { player =>
@@ -119,7 +119,7 @@ private[pool] final class PoolActor(
           }
         },
         players = users.map { user =>
-          Player(user.light, setup.glickoLens(user).intRating, false)
+          Player(user.light, setup.glickoLens(user).intRating, none)
         })
       pool.players map (_.id) foreach wavers.put
       notifyReload

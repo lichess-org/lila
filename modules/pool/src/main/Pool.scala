@@ -57,10 +57,12 @@ case class Pool(
   def withoutPlayer(p: Player) = copy(players = players filterNot (_ is p))
   def withoutUserId(id: String) = copy(players = players filterNot (_.user.id == id))
 
-  def playingPairings = pairings filter (_.playing)
+  lazy val playingPairings = pairings filter (_.playing)
 
   def userCurrentPov(userId: String): Option[PovRef] =
     playingPairings.flatMap(_ povRef userId).headOption
+
+  def userIsPlaying(userId: String) = playingPairings exists (_ contains userId)
 
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.flatMap(u => userCurrentPov(u.id))

@@ -16,7 +16,19 @@
       <tr class="@ctx.me.filter(_.id == player.user.id).map { me =>
         me @if(p contains me) {playing} else {watching}
         }">
-        <td class="rank">@rank</td>
+        <td class="rank">@rank
+          @if(p.userIsPlaying(player.user.id)) {
+          <span class="playing hint--bottom" data-hint="Playing">
+            <span data-icon='"'></span>
+          </span>
+          } else {
+          @if(player.waiting) {
+          <span class="playing hint--bottom" data-hint="Waiting for pairing">
+            <span data-icon="7"></span>
+          </span>
+          }
+          }
+        </td>
         <td class="name">
           @if(ctx.me ?? (m => m.id == player.user.id && !p.contains(player))) {
           <span class="link">

@@ -77,11 +77,11 @@ final class Env(
     import scala.concurrent.duration._
 
     scheduler.message(3 seconds) {
-      poolHub -> TellAll(actorApi.RemindPlayers)
+      poolHub -> TellAll(actorApi.PairPlayers)
     }
 
     scheduler.message(4 seconds) {
-      poolHub -> TellAll(actorApi.PairPlayers)
+      poolHub -> TellAll(actorApi.RemindPlayers)
     }
 
     scheduler.message(5 seconds) {

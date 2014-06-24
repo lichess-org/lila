@@ -17,5 +17,5 @@ case class PoolSetup(
   def playerOf(user: User) = Player(
     lila.common.LightUser(user.id, user.username, user.title),
     rating = glickoLens(user).intRating,
-    pairable = false)
+    waitingSince = none)
 }
