@@ -61,7 +61,7 @@ final class Env(
     poolHub ! lila.hub.actorApi.map.Tell(setup.id, true)
   }
 
-  lazy val repo = new PoolRepo(poolHub)
+  lazy val repo = new PoolRepo(poolHub, setupRepo)
 
   lazy val api = new PoolApi(setupRepo, poolHub)
 
