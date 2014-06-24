@@ -1,5 +1,7 @@
 package lila.pool
 
+import chess.Color
+
 private[pool] object AutoPairing {
 
   private case class Sheet(score: Int, games: Int) {
@@ -19,11 +21,19 @@ private[pool] object AutoPairing {
     val nbPlayersForPairing = pairablePlayers.size
     val canDoPairings = nbPlayersForPairing >= minPlayersForPairing && nbPlayersForPairing % 2 == 0
 
+    def makePairing(user1: String, user2: String) =
+      pool moreRecentPairingOf user1 filter (_ contains user2) match {
+        case Some(prev) => prev colorOf user1 match {
+          case Some(Color.White) => Pairing(user2, user1)
+          case _                 => Pairing(user1, user2)
+        }
+        case None => if (pool.whiteFrequencyOf(user1) > pool.whiteFrequencyOf(user2))
+          Pairing(user2, user1) else Pairing(user1, user2)
+      }
+
     val pairings = canDoPairings ?? {
 
-      def basedOnRating = pairablePlayers.sortBy(-_.rating) grouped 2
-
-      def basedOnWins = pairablePlayers.map { player =>
+      def pairs = pairablePlayers.map { player =>
         player -> pool.pairings.foldLeft(Sheet(0, 0)) {
           case (sheet, _) if sheet.games > 8                   => sheet
           case (sheet, pairing) if (pairing wonBy player.id)   => sheet add 1
@@ -35,10 +45,8 @@ private[pool] object AutoPairing {
         case (player, sheet) => (-sheet.score, -player.rating)
       }.map(_._1) grouped 2
 
-      val pairs = basedOnWins
-
       pairs.map { scala.util.Random.shuffle(_) }.map {
-        case List(p1, p2) => Pairing(p1.user.id, p2.user.id).some
+        case List(p1, p2) => makePairing(p1.user.id, p2.user.id).some
         case _            => none
       }.toList.flatten
     }

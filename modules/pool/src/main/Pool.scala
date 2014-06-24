@@ -3,6 +3,7 @@ package lila.pool
 import lila.common.LightUser
 import lila.game.{ Game, PovRef }
 import lila.user.User
+import chess.Color
 
 case class Pool(
     setup: PoolSetup,
@@ -66,6 +67,16 @@ case class Pool(
 
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.flatMap(u => userCurrentPov(u.id))
+
+  def moreRecentPairingOf(userId: String): Option[Pairing] = pairings find (_ contains userId)
+
+  def pairingsOf(userId: String): List[Pairing] = pairings filter (_ contains userId)
+
+  def whiteFrequencyOf(userId: String): Float = {
+    val ps = pairingsOf(userId)
+    if (ps.isEmpty) 0.5f
+    else ps.count(_.colorOf(userId) == Some(Color.White)).toFloat / ps.size
+  }
 
   private def nbPairingsToSave = math.max(100, nbPlayers * 10)
 
