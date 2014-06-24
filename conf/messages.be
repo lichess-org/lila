@@ -295,3 +295,4 @@ continueTraining=Працягнуць трэнаваньне
 retryThisPuzzle=Паспрабаваць разьвязаць зноў
 thisPuzzleIsCorrect=Гэтая галаваломка правільная й цікавая
 thisPuzzleIsWrong=Гэтая галаваломка няправільная або нудная
+youHaveNbSecondsToMakeYourFirstMove=У вас %s секундаў, каб зрабіць свой першы ход!
