@@ -1,8 +1,8 @@
-import sbt._, Keys._
-import play.Play.autoImport._
-import PlayKeys._
 import play._
+import play.Play.autoImport._
 import play.twirl.sbt.Import._
+import PlayKeys._
+import sbt._, Keys._
 
 object ApplicationBuild extends Build {
 
@@ -15,6 +15,9 @@ object ApplicationBuild extends Build {
     scalacOptions := compilerOptions,
     incOptions := incOptions.value.withNameHashing(true),
     offline := true,
+    // watchSources := (watchSources.value
+    //   --- baseDirectory.value / "public" ** "*"
+    // ).get,
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache, scalaTime,
       csv, jgit, actuarius, elastic4s, findbugs, RM,
