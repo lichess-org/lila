@@ -295,3 +295,4 @@ continueTraining=연습 계속
 retryThisPuzzle=다시 풀기
 thisPuzzleIsCorrect=이 퍼즐은 정확하고 재밌습니다.
 thisPuzzleIsWrong=이 퍼즐은 오류가 있거나 지루합니다.
+youHaveNbSecondsToMakeYourFirstMove=첫 수를 %s초 안에 놓으세요!
