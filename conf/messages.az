@@ -295,3 +295,4 @@ continueTraining=Təlimə davam et
 retryThisPuzzle=Bu tapmacanı yenidən sınayın
 thisPuzzleIsCorrect=Bu tapmaca doğrudur və maraqlıdır
 thisPuzzleIsWrong=Bu tapmaca yanlışdır və ya maraqsızdır
+youHaveNbSecondsToMakeYourFirstMove=İlk gediş üçün %s saniyə qalır
