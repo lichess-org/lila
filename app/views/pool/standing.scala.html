@@ -18,15 +18,13 @@
         }">
         <td class="rank">@rank
           @if(p.userIsPlaying(player.user.id)) {
-          <span class="playing hint--bottom" data-hint="Playing">
+          <span class="hint--bottom" data-hint="Playing">
             <span data-icon='"'></span>
           </span>
           } else {
-          @if(player.waiting) {
-          <span class="playing hint--bottom" data-hint="Waiting for pairing">
+          <span class="hint--bottom @if(!player.waiting) {away}" data-hint="Waiting for pairing">
             <span data-icon="7"></span>
           </span>
-          }
           }
         </td>
         <td class="name">

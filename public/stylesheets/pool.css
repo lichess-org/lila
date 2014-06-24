@@ -74,6 +74,9 @@
 #pool table.standing td.rank {
   padding-left: 15px;
 }
+#pool table.standing td.rank span.away {
+  visibility: hidden;
+}
 #pool table.standing tr.me td.rank {
   border-left: 10px solid #d59120;
   padding-left: 10px;
