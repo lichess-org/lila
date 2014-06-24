@@ -13,4 +13,9 @@ case class PoolSetup(
   val glickoLens = (user: User) => user.perfs.pool(id).glicko
 
   val clock = chess.Clock(clockLimit, clockIncrement)
+
+  def playerOf(user: User) = Player(
+    lila.common.LightUser(user.id, user.username, user.title),
+    rating = glickoLens(user).intRating,
+    pairable = false)
 }

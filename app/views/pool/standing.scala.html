@@ -10,13 +10,24 @@
       </tr>
     </thead>
     <tbody>
-      @p.rankedPlayers.map {
+      @p.rankedPlayersWith(ctx.me).map {
       case (player, rank) => {
       @defining(p scoreOf player) { score =>
-      <tr @if(ctx.userId ?? (player.user.id==)) { class="me" }>
+      <tr class="@ctx.me.filter(_.id == player.user.id).map { me =>
+        me @if(p contains me) {playing} else {watching}
+        }">
         <td class="rank">@rank</td>
         <td class="name">
+          @if(ctx.me ?? (m => m.id == player.user.id && !p.contains(player))) {
+          <span class="link">
+            @lightUserLink(player.user)
+          </span>
+          <form action="@routes.Pool.enter(p.setup.id)" method="post">
+            <button class="button" data-icon="G">&nbsp;Enter pool</button>
+          </form>
+          } else {
           @lightUserLink(player.user)
+          }
         </td>
         <td class="recent_games">
           @score.recentPairings.map { pairing =>

@@ -124,6 +124,7 @@ body.dark #crosstable td.last {
 body.dark #hooks_wrap > div.tabs > a.active {
   border-bottom-color: #303030;
 }
+body.dark #pool table.standing tr.me.watching td,
 body.dark .ui-slider,
 body.dark div.progressbar,
 body.dark #translation_call div.progressbar,

@@ -71,6 +71,29 @@
   background: #759900;
   opacity: 0.5;
 }
+#pool table.standing td.rank {
+  padding-left: 15px;
+}
+#pool table.standing tr.me td.rank {
+  border-left: 10px solid #d59120;
+  padding-left: 10px;
+}
+#pool table.standing tr.me.watching td {
+  background: #d0d0d0;
+  opacity: 0.7;
+}
+#pool table.standing tr.me.watching form {
+  display: none;
+}
+#pool table.standing tr.me.watching:hover td {
+  opacity: 1;
+}
+#pool table.standing tr.me.watching:hover .link {
+  display: none;
+}
+#pool table.standing tr.me.watching:hover form {
+  display: block;
+}
 #pool table.standing td.recent_games {
   text-align: right;
 }
