@@ -54,8 +54,7 @@ private[pool] object AutoPairing {
     pairings -> pool.players.map {
       case p if isPlaying(p) => p
       case p if pairings.exists(_ contains p.user.id) => p setWaiting false
-      case p if availablePlayers contains p => p setWaiting true
-      case p => p
+      case p => p setWaiting (availablePlayers contains p)
     }
   }
 }
