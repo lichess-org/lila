@@ -73,13 +73,17 @@
 }
 #pool table.standing td.rank {
   padding-left: 15px;
-}
-#pool table.standing td.rank span.away {
-  visibility: hidden;
+  padding-right: 5px;
 }
 #pool table.standing tr.me.playing td.rank {
   border-left: 10px solid #d59120;
   padding-left: 10px;
+}
+#pool table.standing td.status {
+  padding: 0;
+}
+#pool table.standing td.status span.away {
+  visibility: hidden;
 }
 #pool table.standing tr.me.watching td {
   background: #d0d0d0;

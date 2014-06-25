@@ -4,7 +4,7 @@
   <table class="slist standing">
     <thead>
       <tr>
-        <th class="large" colspan="2">@trans.standing() (@p.nbPlayers)</th>
+        <th class="large" colspan="3">@trans.standing() (@p.nbPlayers)</th>
         <th>Recent games</th>
         <th>Rating</th>
       </tr>
@@ -16,7 +16,8 @@
       <tr class="@ctx.me.filter(_.id == player.user.id).map { me =>
         me @if(p contains me) {playing} else {watching}
         }">
-        <td class="rank">@rank
+        <td class="rank">@rank</td>
+        <td class="status">
           @if(p.userIsPlaying(player.user.id)) {
           <span class="hint--bottom" data-hint="Playing">
             <span data-icon='"'></span>
@@ -59,7 +60,7 @@
         </td>
         <td class="rating">@player.rating</td>
       </tr>
-      <tr><td class="around-bar" colspan="4"><div class="bar" data-value="@score.ratingPercent"></div></td></tr>
+      <tr><td class="around-bar" colspan="5"><div class="bar" data-value="@score.ratingPercent"></div></td></tr>
       }
       }
       }
