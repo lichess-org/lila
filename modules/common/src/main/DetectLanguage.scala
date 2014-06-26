@@ -32,8 +32,11 @@ final class DetectLanguage(url: String, key: String) {
           .sortBy(-_.confidence)
           .headOption map (_.language) flatMap Lang.get
       }
+    } recover {
+      case e: Exception =>
+        play.api.Logger("detect language").warn(e.getMessage)
+        none
     }
-
 }
 
 object DetectLanguage {
