@@ -52,7 +52,7 @@ object Dependencies {
   val prismic = "io.prismic" %% "scala-kit" % "1.0-M13"
 
   object play {
-    val version = "2.3.0"
+    val version = "2.3.1"
     val api = "com.typesafe.play" %% "play" % version
     val test = "com.typesafe.play" %% "play-test" % version
   }

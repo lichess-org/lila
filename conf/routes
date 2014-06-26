@@ -235,7 +235,7 @@ POST  /paste                           controllers.Importer.sendGame
 
 # Edit
 GET   /editor                          controllers.Editor.index(fen: String = "")
-GET   /editor/*fen                     controllers.Editor.index(fen: String)
+GET   /editor/*urlFen                  controllers.Editor.index(urlFen: String)
 
 # Monitor
 GET   /monitor                         controllers.Monitor.index
