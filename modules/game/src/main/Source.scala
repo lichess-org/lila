@@ -15,6 +15,7 @@ object Source {
   case object Position extends Source(id = 6)
   case object Import extends Source(id = 7)
   case object Pool extends Source(id = 8)
+  case object ImportLive extends Source(id = 9)
 
   val all = List(Lobby, Friend, Ai, Api, Tournament, Position, Import, Pool)
   val byId = all map { v => (v.id, v) } toMap

@@ -14,6 +14,8 @@ final class Env(
   lazy val forms = new DataForm
 
   lazy val importer = new Importer(roundMap, bookmark, Delay)
+
+  lazy val live = new Live(roundMap)
 }
 
 object Env {

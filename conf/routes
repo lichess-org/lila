@@ -233,6 +233,10 @@ DELETE /notification/$id<[\w]{8}>      controllers.Notification.remove(id)
 GET   /paste                           controllers.Importer.importGame
 POST  /paste                           controllers.Importer.sendGame
 
+# Progressive import API
+POST  /api/import/live                     controllers.Importer.liveCreate
+POST  /api/import/live/$id<[\w]{8}>/:move  controllers.Importer.liveMove(id: String, move: String)
+
 # Edit
 GET   /editor                          controllers.Editor.index(fen: String = "")
 GET   /editor/*urlFen                  controllers.Editor.index(urlFen: String)
