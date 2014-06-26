@@ -16,7 +16,7 @@ case class Player(
   def waiting = waitingSince.isDefined
 
   def pairable = waitingSince ?? { date =>
-    Seconds.secondsBetween(date, DateTime.now).getSeconds >= 3
+    Seconds.secondsBetween(date, DateTime.now).getSeconds >= 2
   }
 
   def setWaiting(v: Boolean) = copy(
