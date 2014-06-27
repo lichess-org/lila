@@ -295,3 +295,4 @@ continueTraining=Nastavi trening
 retryThisPuzzle=Pokusaj ponovo problem
 thisPuzzleIsCorrect=Ovaj problem je točan i zanimljiv
 thisPuzzleIsWrong=Ovaj problem je pogresan i dosadan
+youHaveNbSecondsToMakeYourFirstMove=Imate %s sekundi da napravite prvi potez!
