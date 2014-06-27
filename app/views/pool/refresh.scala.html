@@ -4,19 +4,25 @@
 <span class="@p.finished.fold(p.draw.fold("draw", p.wonBy(u).fold("win", "loss")), "playing")">@usernameOrId(u)</span>
 }
 
-<div class="pairings">
-  @p.pairings.take(50).map { pairing =>
-  <a class="revert-underline" href="@routes.Round.watcher(pairing.gameId, "white")">
-    @showPairingUser(pairing, pairing.user1) <em>vs</em> @showPairingUser(pairing, pairing.user2)
-  </a>
-  }
-</div>
-@pool.standing(p)
-<div class="game_list realtime">
-  @games.map { g =>
-  <div>
-    @gameFen(g, g.firstPlayer.color)
-    @game.vstext(g)
-  </div>
-  }
-</div>
+<html>
+  <body>
+    <div>
+      <div class="pairings">
+        @p.pairings.take(50).map { pairing =>
+        <a class="revert-underline" href="@routes.Round.watcher(pairing.gameId, "white")">
+          @showPairingUser(pairing, pairing.user1) <em>vs</em> @showPairingUser(pairing, pairing.user2)
+        </a>
+        }
+      </div>
+      @pool.standing(p)
+      <div class="game_list realtime">
+        @games.map { g =>
+        <div>
+          @gameFen(g, g.firstPlayer.color)
+          @game.vstext(g)
+        </div>
+        }
+      </div>
+    </div>
+  </body>
+</html>
