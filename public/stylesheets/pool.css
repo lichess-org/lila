@@ -28,7 +28,6 @@
 }
 #pool div.pairings {
   max-height: 510px;
-  overflow-y: hidden;
   border: 1px solid #ccc;
   padding: 3px;
   text-align: center;

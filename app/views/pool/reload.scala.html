@@ -1,20 +1,16 @@
 @(p: lila.pool.Pool, games: List[Game])(implicit ctx: Context)
 
-<html>
-  <body>
+<div>
+  <div class="pool_side">
+    @side(p)
+  </div>
+  @pool.standing(p)
+  <div class="game_list realtime">
+    @games.map { g =>
     <div>
-      <div class="pool_side">
-        @side(p)
-      </div>
-      @pool.standing(p)
-      <div class="game_list realtime">
-        @games.map { g =>
-        <div>
-          @gameFen(g, g.firstPlayer.color)
-          @game.vstext(g)
-        </div>
-        }
-      </div>
+      @gameFen(g, g.firstPlayer.color)
+      @game.vstext(g)
     </div>
-  </body>
-</html>
+    }
+  </div>
+</div>
