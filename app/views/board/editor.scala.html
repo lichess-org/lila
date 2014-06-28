@@ -24,7 +24,7 @@ moreCss = moreCss) {
     </div>
     <div>
       <a class="button flip" data-icon="B"> @trans.flipBoard()</a>
-      <a class="button load" data-url="@routes.Editor.index("xxx")">@trans.loadPosition()</a>
+      <a class="button load" data-url="@routes.Editor.load("xxx")">@trans.loadPosition()</a>
     </div>
     <div>
       <select class="color">
@@ -54,7 +54,7 @@ moreCss = moreCss) {
       <strong class="name">FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen-string" />
     </p>
     <p>
-      @defining(netBaseUrl + routes.Editor.index("xxx")) { url =>
+      @defining(netBaseUrl + routes.Editor.load("xxx")) { url =>
       <strong class="name">URL</strong><input  data-url="@url" type="input" readonly="true" spellcheck="false" class="copyable permalink" value="@url" />
       }
     </p>

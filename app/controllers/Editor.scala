@@ -11,8 +11,10 @@ object Editor extends LilaController with BaseGame {
 
   private def env = Env.importer
 
-  def index(urlFen: String) = Open { implicit ctx =>
-    val fenStr = Some(urlFen.trim).filter(_.nonEmpty) orElse get("fen")
+  def index = load("")
+
+  def load(urlFen: String) = Open { implicit ctx =>
+    val fenStr = Some(urlFen.trim.replace("_", " ")).filter(_.nonEmpty) orElse get("fen")
     makeListMenu map { listMenu =>
       val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }.filter(_.nonEmpty)
       val situation = (decodedFen flatMap Forsyth.<<< map (_.situation)) | Situation(Variant.Standard)
@@ -23,7 +25,7 @@ object Editor extends LilaController with BaseGame {
 
   def game(id: String) = Open { implicit ctx =>
     OptionResult(GameRepo game id) { game =>
-      Redirect(routes.Editor.index(
+      Redirect(routes.Editor.load(
         get("fen") | (chess.format.Forsyth >> game.toChess)
       ))
     }

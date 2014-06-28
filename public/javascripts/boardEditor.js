@@ -28,6 +28,10 @@ $(function() {
       return fen.split(' ')[0];
     }
 
+    function encodeURIFen(fen) {
+      return encodeURIComponent(fen.replace(/ /g, '_')).replace(/%2F/g, '/');
+    }
+
     function onChange() {
       var rich = getRich();
       $string.val(rich);
@@ -35,7 +39,7 @@ $(function() {
         $(this).attr('href', $(this).attr('href').replace(/fen=[^#]*#/, "fen=" + rich + '#'));
       });
       $wrap.find('input.permalink').each(function() {
-        $(this).val($(this).data('url').replace('xxx', encodeURIComponent(rich)));
+        $(this).val($(this).data('url').replace('xxx', encodeURIFen(rich)));
       });
     }
 

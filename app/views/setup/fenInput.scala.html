@@ -2,7 +2,7 @@
 
 <div class="fen_position optional_config" data-validate-url="@{routes.Setup.validateFen()}@{strict.??("?strict=1")}">
   @base.input(field, placeholder=trans.pasteTheFenStringHere.str().some)
-  <a class="board_editor" href="@routes.Editor.index(~field.value)">
+  <a class="board_editor" href="@field.value.fold(routes.Editor.index)(routes.Editor.load).url">
     <span class="preview"></span>
     <span class="button thin" data-icon="m">&nbsp;@trans.boardEditor()</span>
   </a>
