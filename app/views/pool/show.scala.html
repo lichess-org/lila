@@ -38,7 +38,7 @@ underchat = underchat.some) {
   data-socket-url="@routes.Pool.websocket(p.setup.id)"
   data-href="@routes.Pool.reload(p.setup.id)">
   <div class="pool_side scroll-shadow">
-    @pairings(p.pairings take 50)
+    @side(p)
   </div>
   <div class="content_box no_padding pool_box pool_show">
     <h1 data-icon="8">

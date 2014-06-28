@@ -4,11 +4,15 @@ import chess.Color
 import lila.common.LightUser
 import lila.game.{ Game, PovRef }
 import lila.user.User
+import org.joda.time.{ DateTime, Seconds }
 
 case class Pool(
     setup: PoolSetup,
     players: List[Player],
-    pairings: List[Pairing]) {
+    pairings: List[Pairing],
+    nextWaveAt: DateTime) {
+
+  def secondsToNextWave = Seconds.secondsBetween(DateTime.now, nextWaveAt).getSeconds
 
   def sortedPlayers = players.sortBy(-_.rating)
 
@@ -59,6 +63,8 @@ case class Pool(
   def withoutUserId(id: String) = copy(players = players filterNot (_.user.id == id))
 
   lazy val playingPairings = pairings filter (_.playing)
+
+  def isPlaying(userId: String) = playingPairings exists (_ contains userId)
 
   def userCurrentPov(userId: String): Option[PovRef] =
     playingPairings.flatMap(_ povRef userId).headOption

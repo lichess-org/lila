@@ -4,6 +4,7 @@ import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import org.joda.time.DateTime
 import play.api.libs.json._
 
 import actorApi._
@@ -24,7 +25,7 @@ private[pool] final class PoolActor(
     joiner: Joiner,
     uidTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member] {
 
-  private var pool = Pool(setup, Nil, Nil)
+  private var pool = Pool(setup, Nil, Nil, DateTime.now plusSeconds 5)
 
   override def preStart() {
     context.system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater)
@@ -88,11 +89,27 @@ private[pool] final class PoolActor(
           context.system.lilaBus.publish(event, 'users)
       }
 
-    case PairPlayers => AutoPairing(pool, userIds.toSet) match {
-      case (pairings, players) =>
-        pool = pool.copy(players = players)
-        joiner(pool.setup, pairings) map AddPairings.apply pipeTo self
-    }
+    case CheckWave if (pool.nextWaveAt isBefore DateTime.now) =>
+      pool = pool.copy(nextWaveAt = Wave calculateNext pool)
+      self ! PairPlayers
+
+    case CheckPlayers =>
+      val waitingUserIds = userIds.toSet
+      val oldPlayers = pool.players
+      val newPlayers = oldPlayers map { p =>
+        p setWaiting {
+          if (pool.isPlaying(p.user.id)) false
+          else waitingUserIds(p.user.id)
+        }
+      }
+      if (newPlayers != oldPlayers) {
+        pool = pool.copy(players = newPlayers)
+        notifyReload
+      }
+
+    case PairPlayers =>
+      val pairings = AutoPairing(pool, userIds.toSet)
+      joiner(pool.setup, pairings) map AddPairings.apply pipeTo self
 
     case AddPairings(pairings) =>
       pool = pool withPairings pairings.map(_.pairing)

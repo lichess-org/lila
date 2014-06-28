@@ -18,4 +18,6 @@ case class PoolSetup(
     lila.common.LightUser(user.id, user.username, user.title),
     rating = glickoLens(user).intRating,
     waitingSince = none)
+
+
 }

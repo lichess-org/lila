@@ -15,6 +15,17 @@
 #pool > .pool_side:hover {
   overflow-y: auto;
 }
+#pool div.next_wave {
+  text-align: center;
+  margin-bottom: 10px;
+}
+#pool div.next_wave p {
+  font-size: 2em;
+}
+#pool div.next_wave .wave_at {
+  font-size: 5em;
+  font-style: monospace;
+}
 #pool div.pairings {
   max-height: 510px;
   overflow-y: hidden;

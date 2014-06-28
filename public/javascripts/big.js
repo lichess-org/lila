@@ -2689,12 +2689,21 @@ var storage = {
           $wrap.find('table.standing thead').replaceWith($pool.find('table.standing thead'));
           $wrap.find('table.standing tbody').replaceWith($pool.find('table.standing tbody'));
           drawBars();
-          $wrap.find('div.pool_side').replaceWith($pool.find('div.pool_side'));
+          $wrap.find('div.pairing_boxes').replaceWith($pool.find('div.pairing_boxes'));
           $wrap.find('div.game_list').replaceWith($pool.find('div.game_list'));
+          var curWave = parseInt($wrap.find('.wave_at').text()) | 0;
+          var newWave = parseInt($pool.find('.wave_at').text());
+          if (newWave > (curWave + 3)) $wrap.find('.wave_at').text(newWave);
           $('body').trigger('lichess.content_loaded');
         }
       });
     }
+
+    setInterval(function() {
+      var $el = $wrap.find('.wave_at');
+      var wave = parseInt($el.text());
+      if (wave > 0) $el.text(wave -1);
+    }, 1000);
 
     lichess.socket = new strongSocket($wrap.data('socket-url'), $wrap.data('version'), $.extend(true, lichess.socketDefaults, {
       events: {
