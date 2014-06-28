@@ -9,6 +9,7 @@ GET   /timeline/more                   controllers.Lobby.timelineMore
 
 # Pool
 GET   /pool/:id                        controllers.Pool.show(id: String)
+GET   /pool/:id/reload                 controllers.Pool.reload(id: String)
 GET   /pool/:id/socket                 controllers.Pool.websocket(id: String)
 POST  /pool/:id/enter                  controllers.Pool.enter(id: String)
 POST  /pool/:id/leave                  controllers.Pool.leave(id: String)

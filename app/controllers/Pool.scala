@@ -15,15 +15,20 @@ object Pool extends LilaController {
 
   def show(id: String) = Open { implicit ctx =>
     OptionFuOk(env.repo byId id) { pool =>
-      if (lila.common.HTTPRequest isXhr ctx.req) env.api.gamesOf(pool) map { games =>
-        html.pool.refresh(pool, games)
-      }
-      else env version id zip
+      env version id zip
         chatOf(pool.setup) zip
         env.api.gamesOf(pool) zip
         pool.userCurrentPov(ctx.me).??(GameRepo.pov) map {
           case (((version, chat), games), pov) => html.pool.show(pool, games, version, chat, pov)
         }
+    }
+  }
+
+  def reload(id: String) = Open { implicit ctx =>
+    OptionFuOk(env.repo byId id) { pool =>
+      env.api.gamesOf(pool) map { games =>
+        html.pool.reload(pool, games)
+      }
     }
   }
 
