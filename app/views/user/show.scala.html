@@ -204,12 +204,7 @@ evenMoreJs = evenMoreJs) {
   @game.crosstable(c)
   }
   }
-  <div class="games infinitescroll all_games">
-    @games.nextPage.map { np =>
-    <div class="pager none"><a href="@routes.User.showFilter(u.username, filters.current.name, np)">Next</a></div>
-    }
-    @game.widgets(games.currentPageResults, user = u.some, ownerLink = ctx is u)
-  </div>
+  @views.html.user.games(u, games, filters.current.name)
   }
 </div>
 }

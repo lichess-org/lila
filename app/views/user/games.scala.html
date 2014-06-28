@@ -1,0 +1,8 @@
+@(u: User, gs: Paginator[Game], filterName: String)(implicit ctx: Context)
+
+<div class="games infinitescroll all_games">
+  @gs.nextPage.map { np =>
+  <div class="pager none"><a href="@routes.User.showFilter(u.username, filterName, np)">Next</a></div>
+  }
+  @game.widgets(gs.currentPageResults, user = u.some, ownerLink = ctx is u)
+</div>

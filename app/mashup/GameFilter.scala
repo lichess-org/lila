@@ -1,8 +1,8 @@
 package lila.app
 package mashup
 
-import lila.user.User
 import lila.game.{ Game, Query }
+import lila.user.User
 
 import play.api.libs.json._
 import scalaz.NonEmptyList
@@ -35,6 +35,8 @@ object GameFilterMenu {
   import GameFilter._
   import lila.db.Implicits.docId
 
+  val all = NonEmptyList.nel(All, List(Me, Rated, Win, Loss, Draw, Playing, Bookmark))
+
   def apply(
     info: UserInfo,
     me: Option[User],
@@ -42,7 +44,7 @@ object GameFilterMenu {
 
     val user = info.user
 
-    val all = NonEmptyList.nel(All, List(
+    val filters = NonEmptyList.nel(All, List(
       (info.nbWithMe > 0) option Me,
       (info.nbRated > 0) option Rated,
       (info.user.count.win > 0) option Win,
@@ -52,28 +54,35 @@ object GameFilterMenu {
       (info.nbBookmark > 0) option Bookmark
     ).flatten)
 
-    val current = (all.list find (_.name == currentName)) | all.head
+    val current = currentOf(filters, currentName)
 
-    val query: Option[JsObject] = current match {
-      case All      => Some(Query started user)
-      case Me       => Some(Query.opponents(user, me | user))
-      case Rated    => Some(Query rated user)
-      case Win      => Some(Query win user)
-      case Loss     => Some(Query loss user)
-      case Draw     => Some(Query draw user)
-      case Playing  => Some(Query notFinished user)
-      case Bookmark => None
-    }
+    val query = queryOf(current, user, me)
 
-    val cachedNb: Option[Int] = current match {
-      case All   => info.user.count.game.some
-      case Rated => info.user.count.rated.some
-      case Win   => info.user.count.win.some
-      case Loss  => info.user.count.loss.some
-      case Draw  => info.user.count.draw.some
-      case _     => None
-    }
+    val cachedNb = cachedNbOf(user, current)
 
-    new GameFilterMenu(all, current, query, cachedNb)
+    new GameFilterMenu(filters, current, query, cachedNb)
+  }
+
+  def currentOf(filters: NonEmptyList[GameFilter], name: String) =
+    (filters.list find (_.name == name)) | filters.head
+
+  def queryOf(filter: GameFilter, user: User, me: Option[User]) = filter match {
+    case All      => Some(Query started user)
+    case Me       => Some(Query.opponents(user, me | user))
+    case Rated    => Some(Query rated user)
+    case Win      => Some(Query win user)
+    case Loss     => Some(Query loss user)
+    case Draw     => Some(Query draw user)
+    case Playing  => Some(Query notFinished user)
+    case Bookmark => None
+  }
+
+  def cachedNbOf(user: User, filter: GameFilter): Option[Int] = filter match {
+    case All   => user.count.game.some
+    case Rated => user.count.rated.some
+    case Win   => user.count.win.some
+    case Loss  => user.count.loss.some
+    case Draw  => user.count.draw.some
+    case _     => None
   }
 }

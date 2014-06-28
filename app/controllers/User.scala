@@ -4,6 +4,7 @@ import play.api.mvc._, Results._
 
 import lila.api.Context
 import lila.app._
+import lila.app.mashup.GameFilterMenu
 import lila.common.LilaCookie
 import lila.db.api.$find
 import lila.game.GameRepo
@@ -54,21 +55,24 @@ object User extends LilaController {
     Reasonable(page) {
       OptionFuResult(UserRepo named username) { u =>
         (u.enabled || isGranted(_.UserSpy)).fold({
-          userShow(u, filterOption, page) map { status(_) }
-        }, UserRepo isArtificial u.id map { artificial =>
-          NotFound(html.user.disabled(u, artificial))
-        })
+          if (lila.common.HTTPRequest.isSynchronousHttp(ctx.req))
+            userShow(u, filterOption, page)
+          else
+            userGames(u, filterOption, page)
+        } map { status(_) },
+          UserRepo isArtificial u.id map { artificial =>
+            NotFound(html.user.disabled(u, artificial))
+          })
       }
     }
 
   private def userShow(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: Context) = for {
     info ← Env.current.userInfo(u, ctx)
-    filterName = filterOption | (if (info.nbWithMe > 0) "me" else "all")
-    filters = mashup.GameFilterMenu(info, ctx.me, filterName)
+    filterName = filterOption | "all"
+    filters = GameFilterMenu(info, ctx.me, filterName)
     pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query =>
       gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
     })
-    data <- GameRepo isNowPlaying u.id
     relation <- ctx.userId ?? { relationApi.relation(_, u.id) }
     notes <- ctx.me ?? { me =>
       relationApi friends me.id flatMap { env.noteApi.get(u, me, _) }
@@ -76,6 +80,16 @@ object User extends LilaController {
     followable <- ctx.isAuth ?? { Env.pref.api followable u.id }
     blocked <- ctx.userId ?? { relationApi.blocks(u.id, _) }
   } yield html.user.show(u, info, pag, filters, relation, notes, followable, blocked)
+
+  private def userGames(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: Context) = {
+    val filterName = filterOption | "all"
+    val current = GameFilterMenu.currentOf(GameFilterMenu.all, filterName)
+    val query = GameFilterMenu.queryOf(current, u, ctx.me)
+    val cachedNb = GameFilterMenu.cachedNbOf(u, current)
+    query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query =>
+      gamePaginator.recentlyCreated(query, cachedNb)(page)
+    } map { html.user.games(u, _, filterName) }
+  }
 
   def list(page: Int) = Open { implicit ctx =>
     Reasonable(page) {
