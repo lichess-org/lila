@@ -18,13 +18,16 @@
         }">
         <td class="rank">@rank</td>
         <td class="status">
-          @if(p.userIsPlaying(player.user.id)) {
-          <span class="hint--bottom" data-hint="Playing">
+          @p.userCurrentPairingPov(player.user.id).map {
+          case (pairing, pov) => {
+          <a href="@routes.Round.watcher(pairing.gameId, pov.color.name)" class="hint--bottom"
+            data-hint="Now playing @usernameOrAnon(pairing opponentOf player.user.id)">
             <span data-icon='"'></span>
-          </span>
-          } else {
+          </a>
+          }
+          }.getOrElse {
           <span class="hint--bottom @if(!player.waiting) {away}" data-hint="Ready for pairing">
-            <span data-icon="7"></span>
+            <span class="is-gold" data-icon="7"></span>
           </span>
           }
         </td>

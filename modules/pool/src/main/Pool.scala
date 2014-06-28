@@ -1,9 +1,9 @@
 package lila.pool
 
+import chess.Color
 import lila.common.LightUser
 import lila.game.{ Game, PovRef }
 import lila.user.User
-import chess.Color
 
 case class Pool(
     setup: PoolSetup,
@@ -63,12 +63,19 @@ case class Pool(
   def userCurrentPov(userId: String): Option[PovRef] =
     playingPairings.flatMap(_ povRef userId).headOption
 
-  def userIsPlaying(userId: String) = playingPairings exists (_ contains userId)
-
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.flatMap(u => userCurrentPov(u.id))
 
-  def moreRecentPairingOf(userId: String): Option[Pairing] = pairings find (_ contains userId)
+  def userCurrentPairing(userId: String): Option[Pairing] =
+    playingPairings find (_ contains userId)
+
+  def userCurrentPairingPov(userId: String): Option[(Pairing, PovRef)] =
+    userCurrentPairing(userId) flatMap { pairing =>
+      pairing.povRef(userId) map (pairing -> _)
+    }
+
+  def moreRecentPairingOf(userId: String): Option[Pairing] =
+    pairings find (_ contains userId)
 
   def pairingsOf(userId: String): List[Pairing] = pairings filter (_ contains userId)
 

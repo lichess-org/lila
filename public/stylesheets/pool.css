@@ -82,6 +82,9 @@
 #pool table.standing td.status {
   padding: 0;
 }
+#pool table.standing td.status a {
+  text-decoration: none;
+}
 #pool table.standing td.status span.away {
   visibility: hidden;
 }
