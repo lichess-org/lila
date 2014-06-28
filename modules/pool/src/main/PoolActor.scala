@@ -63,10 +63,13 @@ private[pool] final class PoolActor(
     case FinishGame(g, Some(white), Some(black)) if g.poolId == Some(setup.id) =>
       GameRepo game g.id foreach {
         _ foreach { game =>
-          pool = pool finishGame game
-          UserRepo byIds List(white.id, black.id) map UpdateUsers.apply foreach self.!
+          self ! DoFinishGame(game, white, black)
         }
       }
+
+    case DoFinishGame(game, white, black) =>
+      pool = pool finishGame game
+      UserRepo byIds List(white.id, black.id) map UpdateUsers.apply foreach self.!
 
     case UpdateUsers(users) =>
       pool = pool updatePlayers users
