@@ -2689,7 +2689,7 @@ var storage = {
           $wrap.find('table.standing thead').replaceWith($pool.find('table.standing thead'));
           $wrap.find('table.standing tbody').replaceWith($pool.find('table.standing tbody'));
           drawBars();
-          $wrap.find('div.pairings').replaceWith($pool.find('div.pairings'));
+          $wrap.find('div.pool_side').replaceWith($pool.find('div.pool_side'));
           $wrap.find('div.game_list').replaceWith($pool.find('div.game_list'));
           $('body').trigger('lichess.content_loaded');
         }

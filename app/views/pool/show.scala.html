@@ -25,10 +25,6 @@
 </div>
 }
 
-@showPairingUser(p: lila.pool.Pairing, u: String) = {
-<span class="@p.finished.fold(p.draw.fold("draw", p.wonBy(u).fold("win", "loss")), "playing")">@usernameOrId(u)</span>
-}
-
 @base.layout(
 title = s"${p.setup.name} pool",
 moreCss = cssTag("pool.css"),
@@ -42,13 +38,7 @@ underchat = underchat.some) {
   data-socket-url="@routes.Pool.websocket(p.setup.id)"
   data-href="@routes.Pool.reload(p.setup.id)">
   <div class="pool_side scroll-shadow">
-    <div class="pairings">
-      @p.pairings.take(50).map { pairing =>
-      <a class="revert-underline" href="@routes.Round.watcher(pairing.gameId, "white")">
-        @showPairingUser(pairing, pairing.user1) <em>vs</em> @showPairingUser(pairing, pairing.user2)
-      </a>
-      }
-    </div>
+    @pairings(p.pairings take 50)
   </div>
   <div class="content_box no_padding pool_box pool_show">
     <h1 data-icon="8">
