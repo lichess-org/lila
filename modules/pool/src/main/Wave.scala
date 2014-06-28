@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 object Wave {
 
   def calculateNext(pool: Pool) = {
-    val nbPlayers = pool.players.size
+    val nbPlayers = pool.playingPlayers.size
     val id = pool.setup.id
     val seconds = math.min(
       upperBound(id),
@@ -14,7 +14,6 @@ object Wave {
         equation(id)(nbPlayers).toInt
       )
     )
-    println(s"$id $nbPlayers $seconds")
     DateTime.now plusSeconds seconds
   }
 

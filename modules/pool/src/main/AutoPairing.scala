@@ -10,7 +10,7 @@ private[pool] object AutoPairing {
 
   def apply(pool: Pool, userIds: Set[String]): List[Pairing] = {
 
-    val playingUserIds = pool.playingPairings.flatMap(_.users).toSet
+    val playingUserIds = pool.playingPlayers
     val pairablePlayers = pool.players filter { p =>
       p.pairable && userIds(p.user.id) && !playingUserIds(p.user.id)
     }

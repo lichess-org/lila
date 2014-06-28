@@ -75,6 +75,8 @@ case class Pool(
   def userCurrentPairing(userId: String): Option[Pairing] =
     playingPairings find (_ contains userId)
 
+  def playingPlayers = playingPairings.flatMap(_.users).toSet
+
   def userCurrentPairingPov(userId: String): Option[(Pairing, PovRef)] =
     userCurrentPairing(userId) flatMap { pairing =>
       pairing.povRef(userId) map (pairing -> _)

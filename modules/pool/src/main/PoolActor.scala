@@ -90,8 +90,8 @@ private[pool] final class PoolActor(
       }
 
     case CheckWave if (pool.nextWaveAt isBefore DateTime.now) =>
-      pool = pool.copy(nextWaveAt = Wave calculateNext pool)
-      self ! PairPlayers
+      val pairings = AutoPairing(pool, userIds.toSet)
+      joiner(pool.setup, pairings) map AddPairings.apply pipeTo self
 
     case CheckPlayers =>
       val waitingUserIds = userIds.toSet
@@ -107,12 +107,9 @@ private[pool] final class PoolActor(
         notifyReload
       }
 
-    case PairPlayers =>
-      val pairings = AutoPairing(pool, userIds.toSet)
-      joiner(pool.setup, pairings) map AddPairings.apply pipeTo self
-
     case AddPairings(pairings) =>
-      pool = pool withPairings pairings.map(_.pairing)
+      pool = pool.withPairings(pairings.map(_.pairing))
+      pool = pool.copy(nextWaveAt = Wave calculateNext pool)
       pairings.map(_.game) foreach { game =>
         game.players foreach { player =>
           player.userId flatMap memberByUserId foreach { member =>

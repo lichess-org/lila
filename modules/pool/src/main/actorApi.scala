@@ -31,7 +31,6 @@ private[pool] case object Reload
 private[pool] case class Enter(user: User)
 private[pool] case class Leave(userId: String)
 private[pool] case class DoFinishGame(game: Game, white: User, black: User)
-private[pool] case object PairPlayers
 private[pool] case object CheckWave
 private[pool] case object CheckPlayers
 private[pool] case object CheckLeaders
