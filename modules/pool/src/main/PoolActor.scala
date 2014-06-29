@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 
 import actorApi._
-import lila.common.LightUser
+import lila.common.{ LightUser, Debouncer }
 import lila.game.actorApi.FinishGame
 import lila.game.GameRepo
 import lila.hub.actorApi.SendTos
@@ -47,13 +47,13 @@ private[pool] final class PoolActor(
     case Enter(user) =>
       pool = pool withUser user
       wavers put user.id
-      notifyReload
+      reloadNotifier ! true
       sender ! true
 
     case Leave(userId) =>
       if (pool.contains(userId)) {
         pool = pool withoutUserId userId
-        notifyReload
+        reloadNotifier ! true
       }
       sender ! true
 
@@ -74,7 +74,7 @@ private[pool] final class PoolActor(
 
     case UpdateUsers(users) =>
       pool = pool updatePlayers users
-      notifyReload
+      reloadNotifier ! true
 
     case RemindPlayers =>
       import makeTimeout.short
@@ -104,7 +104,7 @@ private[pool] final class PoolActor(
       }
       if (newPlayers != oldPlayers) {
         pool = pool.copy(players = newPlayers)
-        notifyReload
+        reloadNotifier ! true
       }
 
     case AddPairings(pairings) =>
@@ -117,7 +117,7 @@ private[pool] final class PoolActor(
           }
         }
       }
-      notifyReload
+      reloadNotifier ! true
 
     case Preload(games, users) =>
       pool = pool.copy(
@@ -139,9 +139,9 @@ private[pool] final class PoolActor(
           Player(user.light, setup.glickoLens(user).intRating, none)
         })
       pool.players map (_.id) foreach wavers.put
-      notifyReload
+      reloadNotifier ! true
 
-    case Reload => notifyReload
+    case Reload => reloadNotifier ! true
 
     case PingVersion(uid, v) =>
       ping(uid)
@@ -162,28 +162,30 @@ private[pool] final class PoolActor(
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid, member)
-      notifyCrowd
+      crowdNotifier ! members.values
       sender ! Connected(enumerator, member)
 
     case Quit(uid) =>
       quit(uid)
-      notifyCrowd
+      crowdNotifier ! members.values
 
     case lila.hub.actorApi.mod.MarkCheater(userId) =>
       pool = pool withoutUserId userId
   }
 
-  def notifyCrowd {
-    val (anons, users) = members.values.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
-      case ((anons, users), Some(user)) => anons -> (user :: users)
-      case ((anons, users), None)       => (anons + 1) -> users
-    }
-    notifyAll(makeMessage("crowd", showSpectators(users, anons)))
-  }
+  val crowdNotifier =
+    context.system.actorOf(Props(new Debouncer(1.seconds, (ms: Iterable[Member]) => {
+      val (anons, users) = ms.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
+        case ((anons, users), Some(user)) => anons -> (user :: users)
+        case ((anons, users), None)       => (anons + 1) -> users
+      }
+      notifyAll(makeMessage("crowd", showSpectators(users, anons)))
+    })))
 
-  def notifyReload {
-    notifyAll(makeMessage("reload"))
-  }
+  val reloadNotifier =
+    context.system.actorOf(Props(new Debouncer(1.seconds, (_: Boolean) => {
+      notifyAll(makeMessage("reload"))
+    })))
 
   def notifyVersionTrollable[A: Writes](t: String, data: A, troll: Boolean) {
     val vmsg = history += History.Message(makeMessage(t, data), troll)

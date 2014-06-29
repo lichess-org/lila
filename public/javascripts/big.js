@@ -2701,12 +2701,12 @@ var storage = {
     setInterval(function() {
       var $el = $wrap.find('.wave_at');
       var wave = parseInt($el.text());
-      if (wave > 0) $el.text(wave -1);
+      if (wave > 0) $el.text(wave - 1);
     }, 1000);
 
     lichess.socket = new strongSocket($wrap.data('socket-url'), $wrap.data('version'), $.extend(true, lichess.socketDefaults, {
       events: {
-        reload: _.debounce(reload, 1000),
+        reload: reload,
         redirect: function(e) {
           $.redirect(e);
         },
