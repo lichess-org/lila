@@ -1,3 +1,6 @@
+#pool {
+  overflow: hidden;
+}
 #pool h1 form {
   float: right;
   margin-top: -5px;
@@ -27,7 +30,6 @@
   font-style: monospace;
 }
 #pool div.pairings {
-  max-height: 510px;
   border: 1px solid #ccc;
   padding: 3px;
   text-align: center;
