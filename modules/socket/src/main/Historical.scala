@@ -8,7 +8,8 @@ trait Historical[M <: SocketMember] { self: SocketActor[M] =>
 
   def notifyVersion[A : Writes](t: String, data: A, troll: Boolean = false) {
     val vmsg = history += History.Message(makeMessage(t, data), troll)
-    members.values.foreach(sendMessage(vmsg))
+    val send = sendMessage(vmsg) _
+    members.values.foreach(send)
   }
 
   def sendMessage(message: History.Message)(member: M) {

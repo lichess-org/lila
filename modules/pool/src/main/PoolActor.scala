@@ -178,11 +178,11 @@ private[pool] final class PoolActor(
       case ((anons, users), Some(user)) => anons -> (user :: users)
       case ((anons, users), None)       => (anons + 1) -> users
     }
-    notifyVersion("crowd", showSpectators(users, anons))
+    notifyAll(makeMessage("crowd", showSpectators(users, anons)))
   }
 
   def notifyReload {
-    notifyVersion("reload", JsNull)
+    notifyAll(makeMessage("reload"))
   }
 
   def notifyVersionTrollable[A: Writes](t: String, data: A, troll: Boolean) {

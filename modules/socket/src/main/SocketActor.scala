@@ -176,7 +176,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   private def notifyFeatured(html: Html) {
-    val msg = makeMessage("featured", Json.obj("html" -> html.toString))
-    members.values foreach { _.channel push msg }
+    notifyAll(makeMessage("featured", Json.obj("html" -> html.toString)))
   }
 }
