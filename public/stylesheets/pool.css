@@ -56,9 +56,6 @@
 #pool div.pairings em {
   font-style: italic;
 }
-#pool div.standing_wrap {
-  border-bottom: 1px solid #ccc;
-}
 #pool table.standing .rank {
   font-weight: bold;
   font-size: 1.2em;
