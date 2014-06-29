@@ -20,7 +20,13 @@ zen = true) {
           @base.captcha(form("move"), form("gameId"), captcha)
         </li>
         @errMsg(form)
-        <li data-icon="!">&nbsp;@trans.computersAreNotAllowedToPlay()</li>
+        <li data-icon="!">&nbsp;
+          @trans.computersAreNotAllowedToPlay()<br />
+          <small>
+            Do you want to read the
+            <a target="_blank" href="@routes.Main.tos">fascinating Terms of Service</a>?
+          </small>
+        </li>
         <li>
           <button type="submit" class="submit button" data-icon="F"> @trans.signUp()</button>
         </li>
