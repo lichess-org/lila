@@ -21,32 +21,22 @@ object Donation extends LilaController {
     }
   }
 
-  def ipn = Action { req =>
-    println(req.queryString)
-    val donation = for {
-      txn <- get("txn_id", req)
-      txnType <- get("txn_type", req)
-      if Set("express_checkout", "web_accept", "recurring_payment")(txnType)
-      amount <- get("mc_gross", req) flatMap parseFloatOption
-      userId = get("custom", req)
-      email = get("payer_email", req)
-      firstName = get("first_name", req)
-      lastName = get("last_name", req)
-      name = (firstName |@| lastName) apply { _ + " " + _ }
-    } yield lila.donation.Donation.make(
-      payPalTnx = txn.some,
-      userId = userId,
-      email = email,
-      name = name,
-      amount = (amount * 100).toInt,
-      message = "")
-    donation match {
-      case Some(d) =>
-        println("Created donation " + d)
-        Env.donation.api create d
-      case None =>
-        println("Failed to create donation")
-    }
-    Ok
+  def ipn = Action.async { implicit req =>
+    Env.donation.forms.ipn.bindFromRequest.fold(
+      err => {
+        println(err)
+        fuccess(BadRequest)
+      },
+      ipn => {
+        val donation = lila.donation.Donation.make(
+          payPalTnx = ipn.txnId.some,
+          userId = ipn.userId,
+          email = ipn.email,
+          name = ipn.name,
+          amount = ipn.cents,
+          message = "")
+        println(donation)
+        Env.donation.api create donation inject Ok
+      })
   }
 }

@@ -9,6 +9,8 @@ final class Env(
 
   private val CollectionDonation = config getString "collection.donation"
 
+  def forms = DataForm
+
   lazy val api = new DonationApi(db(CollectionDonation))
 }
 
