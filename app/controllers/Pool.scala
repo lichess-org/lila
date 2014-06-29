@@ -17,9 +17,8 @@ object Pool extends LilaController {
     OptionFuOk(env.repo byId id) { pool =>
       env version id zip
         chatOf(pool.setup) zip
-        env.api.gamesOf(pool) zip
         pool.userCurrentPov(ctx.me).??(GameRepo.pov) map {
-          case (((version, chat), games), pov) => html.pool.show(pool, games, version, chat, pov)
+          case ((version, chat), pov) => html.pool.show(pool, version, chat, pov)
         }
     }
   }

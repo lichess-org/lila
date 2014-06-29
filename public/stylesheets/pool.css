@@ -54,17 +54,8 @@
 #pool div.pairings em {
   font-style: italic;
 }
-#pool div.game_list {
-  margin: 25px 0 0 15px;
-  overflow: hidden;
-}
 #pool div.standing_wrap {
-  max-height: 485px;
-  overflow: hidden;
   border-bottom: 1px solid #ccc;
-}
-#pool div.standing_wrap:hover {
-  overflow-y: auto;
 }
 #pool table.standing .rank {
   font-weight: bold;

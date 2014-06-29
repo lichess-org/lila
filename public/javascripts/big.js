@@ -2690,7 +2690,6 @@ var storage = {
           $wrap.find('table.standing tbody').replaceWith($pool.find('table.standing tbody'));
           drawBars();
           $wrap.find('div.pairing_boxes').replaceWith($pool.find('div.pairing_boxes'));
-          $wrap.find('div.game_list').replaceWith($pool.find('div.game_list'));
           var curWave = parseInt($wrap.find('.wave_at').text()) | 0;
           var newWave = parseInt($pool.find('.wave_at').text());
           if (newWave > (curWave + 3)) $wrap.find('.wave_at').text(newWave);

@@ -1,4 +1,4 @@
-@(p: lila.pool.Pool, games: List[Game], version: Int, chat: Option[lila.chat.UserChat], pov: Option[Pov])(implicit ctx: Context)
+@(p: lila.pool.Pool, version: Int, chat: Option[lila.chat.UserChat], pov: Option[Pov])(implicit ctx: Context)
 
 @goodies = {
 <div class="lichess_goodies">
@@ -60,14 +60,6 @@ underchat = underchat.some) {
     </a>
     }
     @pool.standing(p)
-    <div class="game_list realtime">
-      @games.map { g =>
-      <div>
-        @gameFen(g, g.firstPlayer.color)
-        @game.vstext(g)
-      </div>
-      }
-    </div>
   </div>
 </div>
 }
