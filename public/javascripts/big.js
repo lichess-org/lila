@@ -915,7 +915,7 @@ var storage = {
           messages: lichess_chat
         });
         self.$watchers.watchers();
-        if (self.isMyTurn() && self.options.game.turns === 0) {
+        if (self.options.game.turns === 0) {
           $.sound.dong();
         }
         if (!self.options.game.finished && !self.options.player.spectator) {
