@@ -29,7 +29,7 @@ private[pool] object AutoPairing {
           else Pairing(user1, user2)
       }
 
-    def pairs = pairablePlayers.map { player =>
+    def pairs = dropExtraPlayer(pairablePlayers).map { player =>
       player -> pool.pairings.foldLeft(Sheet(0, 0)) {
         case (sheet, _) if sheet.games > 8                   => sheet
         case (sheet, pairing) if (pairing wonBy player.id)   => sheet add 1
@@ -46,4 +46,11 @@ private[pool] object AutoPairing {
       case _            => none
     }.toList.flatten
   }
+
+  def dropExtraPlayer(players: List[Player]) =
+    if (players.size % 2 == 0) players else {
+      players.sortBy { p =>
+        - p.waitingSince.fold(0L)(_.getSeconds)
+      } drop 1
+    }
 }
