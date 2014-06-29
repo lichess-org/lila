@@ -295,3 +295,4 @@ continueTraining=Pokračovat v tréninku
 retryThisPuzzle=Znovu zkusit tuto úlohu
 thisPuzzleIsCorrect=Tato úloha je správná a zajímavá
 thisPuzzleIsWrong=Tato úloha je špatná nebo nudná
+youHaveNbSecondsToMakeYourFirstMove=Máte %s sekund na provedení prvního tahu!
