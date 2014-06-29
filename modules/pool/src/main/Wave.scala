@@ -24,5 +24,8 @@ object Wave {
     case "5-5" | _ => (x: Int) => 495.45 * math.exp(-0.04 * x)
   }
   def lowerBound(id: String) = 20
-  def upperBound(id: String) = 80
+  def upperBound(id: String) = id match {
+    case "1-0" => 60
+    case _     => 80
+  }
 }
