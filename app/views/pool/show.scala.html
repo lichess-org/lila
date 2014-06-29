@@ -4,7 +4,8 @@
 <div class="lichess_goodies">
   <div class="box">
     <span data-icon="p"> @(p.setup.clockLimit / 60) + @p.setup.clockIncrement</span>,
-    @variantName(p.setup.variant).capitalize, @trans.rated()
+    @variantName(p.setup.variant).capitalize, @trans.rated() -
+    <a href="@routes.Pool.help(p.setup.id)">Help</a>
     @ctx.me.map(_.perfs.pool(p.setup.id)).map { perf =>
     <br />
     <br />
@@ -12,9 +13,6 @@
     <br />
     <strong>@perf.nb</strong> @trans.gamesPlayed()
     }
-    <br />
-    <br />
-    <a href="@routes.Pool.help(p.setup.id)">@p.setup.name Pool help</a>
   </div>
 </div>
 }
