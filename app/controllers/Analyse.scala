@@ -78,11 +78,11 @@ object Analyse extends LilaController {
 
   def pgn(id: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo game id) { game =>
-      (game.pgnImport match {
+      (game.pgnImport.ifTrue(~get("as") == "imported") match {
         case Some(i) => fuccess(i.pgn)
         case None => for {
           pgn ← Env.game.pgnDump(game)
-          analysis ← env.analyser getDone game.id
+          analysis ← (~get("as") != "raw") ?? (env.analyser getDone game.id)
         } yield Env.analyse.annotator(pgn, analysis, gameOpening(game), game.winnerColor, game.status, game.clock).toString
       }) flatMap { content =>
         Env.game.pgnDump filename game map { filename =>

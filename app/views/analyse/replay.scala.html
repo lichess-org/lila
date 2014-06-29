@@ -133,7 +133,17 @@ openGraph = povOpenGraph(pov)) {
   </div>
   <div class="panel fen_pgn">
     <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen" /></p>
-    <p><strong>PGN</strong>(<a data-icon="x" href="@routes.Analyse.pgn(game.id)"> Download it</a>)</p>
+    <p><strong>PGN</strong>
+      <a data-icon="x" href="@routes.Analyse.pgn(game.id)"> Download annotated</a>
+      @if(analysis.isDefined) {
+      /
+      <a data-icon="x" href="@routes.Analyse.pgn(game.id)?as=raw"> Download raw</a>
+      }
+      @if(game.isPgnImport) {
+      /
+      <a data-icon="x" href="@routes.Analyse.pgn(game.id)?as=imported"> Download imported</a>
+      }
+    </p>
     <div class="pgn">@Html(nl2br(escape(pgn)))</div>
   </div>
   <div class="panel move_times">
