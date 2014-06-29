@@ -1,5 +1,22 @@
 @(p: lila.pool.Pool)(implicit ctx: Context)
 
+@pairingLink(player: lila.pool.Player, pairing: lila.pool.Pairing) = {
+<a href="@routes.Round.watcher(pairing.gameId, pairing.colorOf(player.user.id).??(_.toString))"
+  data-hint="@gameSummary(pairing.user1, pairing.user2, pairing.finished, pairing.booleanResult)"
+  class="hint--top-left @if(pairing.finished) {
+  finished @if(pairing wonBy player.user.id) {win} else {
+  @if(pairing lostBy player.user.id) {loss} else {draw}}
+  ">@pairing.ratingDiffOf(player.user.id) match {
+  case Some(r) if r > 0 => {+@r}
+  case Some(r) if r < 0 => {@r}
+  case _ if (pairing lostBy player.user.id) => {-0}
+  case _ => {+0}
+  }
+  } else {
+  playing">*
+  }</a>
+}
+
 <div class="standing_wrap scroll-shadow">
   <table class="slist standing">
     <thead>
@@ -45,21 +62,7 @@
         </td>
         <td class="recent_games">
           @score.recentPairings.map { pairing =>
-          <a href="@routes.Round.watcher(pairing.gameId, pairing.colorOf(player.user.id).??(_.toString))"
-            data-hint="@gameSummary(pairing.user1, pairing.user2, pairing.finished, pairing.booleanResult)"
-            class="hint--top-left
-            @if(pairing.finished) {
-            finished @if(pairing wonBy player.user.id) {win} else {
-            @if(pairing lostBy player.user.id) {loss} else {draw}}
-            ">@pairing.ratingDiffOf(player.user.id) match {
-            case Some(r) if r > 0 => {+@r}
-            case Some(r) if r < 0 => {@r}
-            case _ if (pairing lostBy player.user.id) => {-0}
-            case _ => {+0}
-            }
-            } else {
-            playing">*
-            }</a>
+          @pairingLink(player, pairing)
           }
         </td>
         <td class="rating">@player.rating</td>
