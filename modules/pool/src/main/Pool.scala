@@ -93,7 +93,7 @@ case class Pool(
     else ps.count(_.colorOf(userId) == Some(Color.White)).toFloat / ps.size
   }
 
-  private def nbPairingsToSave = math.max(100, nbPlayers * 10)
+  private def nbPairingsToSave = math.max(200, nbPlayers * 12)
 
   def withPairings(ps: List[Pairing]) =
     copy(pairings = (ps ::: pairings) take nbPairingsToSave)
