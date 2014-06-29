@@ -48,6 +48,10 @@ case class User(
 
   def usernameWithRating = s"$username ($rating)"
 
+  def titleUsername = title.fold(username)(_ + " " + username)
+
+  def titleUsernameWithRating = title.fold(usernameWithRating)(_ + " " + usernameWithRating)
+
   def profileOrDefault = profile | Profile.default
 
   def hasGames = count.game > 0

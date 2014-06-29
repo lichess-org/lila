@@ -1,4 +1,4 @@
-@(title: String, goodies: Option[Html] = None, robots: Boolean = true, evenMoreJs: Html = Html(""), evenMoreCss: Html = Html(""))(body: Html)(implicit ctx: Context)
+@(title: String, goodies: Option[Html] = None, robots: Boolean = true, evenMoreJs: Html = Html(""), evenMoreCss: Html = Html(""), openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("user-list.css")
@@ -18,4 +18,5 @@ goodies = goodies,
 moreCss = moreCss,
 moreJs = moreJs,
 robots = robots,
-active = siteMenu.user.some)(body)
+active = siteMenu.user.some,
+openGraph = openGraph)(body)

@@ -63,15 +63,15 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     withTitle: Boolean = true,
     truncate: Option[Int] = None,
     params: String = ""): Html = Html {
-      userIdNameLink(
-        userId = user.id,
-        username = user.name,
-        title = user.title,
-        cssClass = cssClass,
-        withOnline = withOnline,
-        withTitle = withTitle,
-        truncate = truncate,
-        params = params)
+    userIdNameLink(
+      userId = user.id,
+      username = user.name,
+      title = user.title,
+      cssClass = cssClass,
+      withOnline = withOnline,
+      withTitle = withTitle,
+      truncate = truncate,
+      params = params)
   }
 
   def userIdLink(
@@ -186,4 +186,12 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     case GameFilter.Playing  => info.nbPlaying + " playing"
     case GameFilter.Bookmark => trans.nbBookmarks(info.nbBookmark)
   }).toString)
+
+  def describeUser(user: User) = {
+    val name = user.titleUsername
+    val nbGames = user.count.game
+    val createdAt = org.joda.time.format.DateTimeFormat forStyle "M-" print user.createdAt
+    val rating = user.perfs.global.intRating
+    s"$name played $nbGames games since $createdAt. Current rating: $rating."
+  }
 }
