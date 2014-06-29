@@ -2707,7 +2707,7 @@ var storage = {
 
     lichess.socket = new strongSocket($wrap.data('socket-url'), $wrap.data('version'), $.extend(true, lichess.socketDefaults, {
       events: {
-        reload: reload,
+        reload: _.debounce(reload, 1000),
         redirect: function(e) {
           $.redirect(e);
         },
