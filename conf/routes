@@ -270,6 +270,7 @@ GET   /embed                           controllers.Main.embed
 GET   /irc                             controllers.Main.irc
 GET   /stream                          controllers.Main.stream
 GET   /thanks                          controllers.Main.thanks
+GET   /terms-of-service                controllers.Main.tos
 
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)

@@ -1,0 +1,29 @@
+@(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context)
+
+@site.layout(
+title = s"${~doc.getText("doc.title")}") {
+
+<style type="text/css">
+  h2 {
+    font-size: 1.5em;
+    margin: 1.5em 0;
+  }
+  p {
+    margin: 1em 0;
+    font-size: 1.2em;
+  }
+  ul li {
+    list-style: disc inside;
+    margin-left: 2em;
+  }
+</style>
+
+<div class="content_box small_box">
+
+  <h1 class="lichess_title">@doc.getText("doc.title")</h1>
+
+  <div class="body">
+    @Html(~doc.getHtml("doc.content", resolver))
+  </div>
+</div>
+}

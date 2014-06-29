@@ -75,4 +75,13 @@ object Main extends LilaController {
       views.html.site.thanks()
     }
   }
+
+  def tos = Open { implicit ctx =>
+    import Prismic._
+    fetchPrismicApi flatMap { api =>
+      OptionOk(getBookmark(api)("tos")) { doc =>
+        views.html.site.tos(doc, makeLinkResolver(api))
+      }
+    }
+  }
 }
