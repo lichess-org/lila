@@ -270,6 +270,7 @@ GET   /embed                           controllers.Main.embed
 GET   /irc                             controllers.Main.irc
 GET   /stream                          controllers.Main.stream
 GET   /thanks                          controllers.Main.thanks
+GET   /help-lichess                    controllers.Main.helpLichess
 GET   /terms-of-service                controllers.Main.tos
 
 # Assets

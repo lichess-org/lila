@@ -84,4 +84,14 @@ object Main extends LilaController {
       }
     }
   }
+
+  def helpLichess = Open { implicit ctx =>
+    import Prismic._
+    println("help")
+    fetchPrismicApi flatMap { api =>
+      OptionOk(getBookmark(api)("help")) { doc =>
+        views.html.site.helpLichess(doc, makeLinkResolver(api))
+      }
+    }
+  }
 }
