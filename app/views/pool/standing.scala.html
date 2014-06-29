@@ -20,13 +20,13 @@
         <td class="status">
           @p.userCurrentPairingPov(player.user.id).map {
           case (pairing, pov) => {
-          <a href="@routes.Round.watcher(pairing.gameId, pov.color.name)" class="hint--bottom"
+          <a href="@routes.Round.watcher(pairing.gameId, pov.color.name)" class="hint--top"
             data-hint="Now playing @usernameOrAnon(pairing opponentOf player.user.id)">
             <span data-icon='"'></span>
           </a>
           }
           }.getOrElse {
-          <span class="hint--bottom @if(!player.waiting) {away}" data-hint="Ready for pairing">
+          <span class="hint--top @if(!player.waiting) {away}" data-hint="Ready for pairing">
             <span class="is-gold" data-icon="7"></span>
           </span>
           }
@@ -47,7 +47,7 @@
           @score.recentPairings.map { pairing =>
           <a href="@routes.Round.watcher(pairing.gameId, pairing.colorOf(player.user.id).??(_.toString))"
             data-hint="@gameSummary(pairing.user1, pairing.user2, pairing.finished, pairing.booleanResult)"
-            class="hint--bottom-left
+            class="hint--top-left
             @if(pairing.finished) {
             finished @if(pairing wonBy player.user.id) {win} else {
             @if(pairing lostBy player.user.id) {loss} else {draw}}

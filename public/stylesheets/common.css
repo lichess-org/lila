@@ -1824,11 +1824,13 @@ input.copyable {
   border-radius: 2px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
-.hint--bottom:before {
-  border-bottom-color: #404040;
-}
+.hint--bottom:before,
 .hint--bottom-left:before {
   border-bottom-color: #404040;
+}
+.hint--top:before,
+.hint--top-left:before {
+  border-top-color: #404040;
 }
 .hint--bottom:before {
   margin-top: -12px;
@@ -1846,6 +1848,40 @@ input.copyable {
   -webkit-transform: translateY(8px);
   -moz-transform: translateY(8px);
   transform: translateY(8px);
+}
+.hint--top:before {
+  margin-bottom: -12px;
+}
+.hint--top:after {
+  margin-left: -18px;
+}
+.hint--top:before,
+.hint--top:after {
+  bottom: 100%;
+  left: 50%;
+}
+.hint--top:hover:after,
+.hint--top:hover:before {
+  -webkit-transform: translateY(-8px);
+  -moz-transform: translateY(-8px);
+  transform: translateY(-8px);
+}
+.hint--top-left:before {
+  margin-bottom: -12px;
+}
+.hint--top-left:after {
+  margin-right: -6px;
+}
+.hint--top-left:before,
+.hint--top-left:after {
+  bottom: 100%;
+  right: 30%;
+}
+.hint--top-left:hover:after,
+.hint--top-left:hover:before {
+  -webkit-transform: translateY(-8px);
+  -moz-transform: translateY(-8px);
+  transform: translateY(-8px);
 }
 .hint--bottom-left:before {
   margin-top: -12px;
