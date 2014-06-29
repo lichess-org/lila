@@ -273,5 +273,10 @@ GET   /thanks                          controllers.Main.thanks
 GET   /help-lichess                    controllers.Main.helpLichess
 GET   /terms-of-service                controllers.Main.tos
 
+# Donate
+GET   /donate                          controllers.Donation.index
+GET   /donate/thanks                   controllers.Donation.thanks
+POST  /donate/ipn                      controllers.Donation.ipn
+
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)

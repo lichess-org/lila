@@ -37,7 +37,8 @@ final class Env(
     crosstableApi = Env.game.crosstableApi,
     postApi = Env.forum.postApi,
     getRatingChart = Env.user.ratingChart,
-    getRank = Env.user.ranking.get) _
+    getRank = Env.user.ranking.get,
+    getDonated = Env.donation.api.donatedByUser) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
@@ -128,4 +129,5 @@ object Env {
   def tv = lila.tv.Env.current
   def blog = lila.blog.Env.current
   def pool = lila.pool.Env.current
+  def donation = lila.donation.Env.current
 }

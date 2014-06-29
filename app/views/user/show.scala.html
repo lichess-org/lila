@@ -156,8 +156,11 @@ openGraph = Map(
       </div>
       } else {
       @u.title.flatMap(lila.user.User.titlesMap.get).map { title =>
-      <p data-icon="E" class="title"> @title</p>
+      <p data-icon="E" class="nonorific title"> @title</p>
       }
+      }
+      @if(info.donated >= 200) {
+      <p data-icon="t" class="honorific donator"> Lichess Donator</p>
       }
       @u.profile.map { p =>
       @p.nonEmptyRealName.map { name =>

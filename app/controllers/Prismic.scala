@@ -31,6 +31,12 @@ object Prismic {
       .query(s"""[[:d = at(document.id, "$id")]]""")
       .ref(prismicApi.master.ref)
       .submit() map {
-      _.results.headOption
+        _.results.headOption
+      }
+
+  def oneShotBookmark(name: String) = fetchPrismicApi flatMap { api =>
+    getBookmark(api)(name) map2 { (doc: io.prismic.Document) =>
+      doc -> makeLinkResolver(api)
     }
+  }
 }

@@ -23,7 +23,8 @@ case class UserInfo(
     nbFollowers: Int,
     nbBlockers: Option[Int],
     nbPosts: Int,
-    playTime: User.PlayTime) {
+    playTime: User.PlayTime,
+    donated: Int) {
 
   def nbRated = user.count.rated
 
@@ -42,7 +43,8 @@ object UserInfo {
     crosstableApi: lila.game.CrosstableApi,
     postApi: PostApi,
     getRatingChart: User => Fu[Option[String]],
-    getRank: String => Fu[Option[Int]])(user: User, ctx: Context): Fu[UserInfo] =
+    getRank: String => Fu[Option[Int]],
+    getDonated: String => Fu[Int])(user: User, ctx: Context): Fu[UserInfo] =
     (getRank(user.id) flatMap {
       _ ?? { rank => countUsers() map { nb => (rank -> nb).some } }
     }) zip
@@ -53,8 +55,9 @@ object UserInfo {
       relationApi.nbFollowers(user.id) zip
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.nbBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
+      getDonated(user.id) zip
       PlayTime(user) map {
-        case ((((((((rank, nbPlaying), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), playTime) => new UserInfo(
+        case (((((((((rank, nbPlaying), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), donated), playTime) => new UserInfo(
           user = user,
           rank = rank,
           nbPlaying = ~nbPlaying,
@@ -65,6 +68,7 @@ object UserInfo {
           nbFollowers = nbFollowers,
           nbBlockers = nbBlockers,
           nbPosts = nbPosts,
-          playTime = playTime)
+          playTime = playTime,
+          donated = donated)
       }
 }
