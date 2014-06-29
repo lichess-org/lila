@@ -54,6 +54,7 @@
             ">@pairing.ratingDiffOf(player.user.id) match {
             case Some(r) if r > 0 => {+@r}
             case Some(r) if r < 0 => {@r}
+            case _ if (pairing lostBy player.user.id) => {-0}
             case _ => {+0}
             }
             } else {
