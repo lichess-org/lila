@@ -87,36 +87,36 @@ POST  /training/:id/attempt            controllers.Puzzle.attempt(id: Int)
 POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
 
 # Round
-GET   /$gameId<[\w\-]{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
-GET   /$gameId<[\w\-]{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)
-GET   /$fullId<[\w\-]{12}>                           controllers.Round.player(fullId: String)
-GET   /$gameId<[\w\-]{8}>/$color<white|black>/socket controllers.Round.websocketWatcher(gameId: String, color: String)
-GET   /$gameId<[\w\-]{8}>/s.js                       controllers.Round.signedJs(gameId: String)
-GET   /$fullId<[\w\-]{12}>/socket/v:apiVersion       controllers.Round.websocketPlayer(fullId: String, apiVersion: Int)
-GET   /$gameId<[\w\-]{8}>/$color<white|black>/table  controllers.Round.tableWatcher(gameId: String, color: String)
-GET   /$fullId<[\w\-]{12}>/table                     controllers.Round.tablePlayer(fullId: String)
-GET   /$gameId<[\w\-]{8}>/$color<white|black>/end    controllers.Round.endWatcher(gameId: String, color: String)
-GET   /$fullId<[\w\-]{12}>/end                       controllers.Round.endPlayer(fullId: String)
-GET   /$gameId<[\w\-]{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
-GET   /$gameId<[\w\-]{8}>/edit                       controllers.Editor.game(gameId: String)
+GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
+GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)
+GET   /$fullId<\w{12}>                           controllers.Round.player(fullId: String)
+GET   /$gameId<\w{8}>/$color<white|black>/socket controllers.Round.websocketWatcher(gameId: String, color: String)
+GET   /$gameId<\w{8}>/s.js                       controllers.Round.signedJs(gameId: String)
+GET   /$fullId<\w{12}>/socket/v:apiVersion       controllers.Round.websocketPlayer(fullId: String, apiVersion: Int)
+GET   /$gameId<\w{8}>/$color<white|black>/table  controllers.Round.tableWatcher(gameId: String, color: String)
+GET   /$fullId<\w{12}>/table                     controllers.Round.tablePlayer(fullId: String)
+GET   /$gameId<\w{8}>/$color<white|black>/end    controllers.Round.endWatcher(gameId: String, color: String)
+GET   /$fullId<\w{12}>/end                       controllers.Round.endPlayer(fullId: String)
+GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
+GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: String)
 
 # Round accessibility: text representation
-GET   /$fullId<[\w\-]{12}>/text                      controllers.Round.playerText(fullId: String)
-GET   /$gameId<[\w\-]{8}>/$color<white|black>/text   controllers.Round.watcherText(gameId: String, color: String)
+GET   /$fullId<\w{12}>/text                      controllers.Round.playerText(fullId: String)
+GET   /$gameId<\w{8}>/$color<white|black>/text   controllers.Round.watcherText(gameId: String, color: String)
 
 # Tournament
 GET   /tournament                             controllers.Tournament.home
 GET   /tournament/reload                      controllers.Tournament.homeReload
 GET   /tournament/new                         controllers.Tournament.form
 POST  /tournament/new                         controllers.Tournament.create
-GET   /tournament/$id<[\w\-]{8}>              controllers.Tournament.show(id: String)
-GET   /tournament/$id<[\w\-]{8}>/socket       controllers.Tournament.websocket(id: String)
-POST  /tournament/$id<[\w\-]{8}>/join         controllers.Tournament.join(id: String)
-GET   /tournament/$id<[\w\-]{8}>/join/password controllers.Tournament.joinPasswordForm(id: String)
-POST  /tournament/$id<[\w\-]{8}>/join/password controllers.Tournament.joinPassword(id: String)
-POST  /tournament/$id<[\w\-]{8}>/withdraw     controllers.Tournament.withdraw(id: String)
-GET   /tournament/$id<[\w\-]{8}>/reload       controllers.Tournament.reload(id: String)
-POST  /tournament/$id<[\w\-]{8}>/early-start  controllers.Tournament.earlyStart(id: String)
+GET   /tournament/$id<\w{8}>              controllers.Tournament.show(id: String)
+GET   /tournament/$id<\w{8}>/socket       controllers.Tournament.websocket(id: String)
+POST  /tournament/$id<\w{8}>/join         controllers.Tournament.join(id: String)
+GET   /tournament/$id<\w{8}>/join/password controllers.Tournament.joinPasswordForm(id: String)
+POST  /tournament/$id<\w{8}>/join/password controllers.Tournament.joinPassword(id: String)
+POST  /tournament/$id<\w{8}>/withdraw     controllers.Tournament.withdraw(id: String)
+GET   /tournament/$id<\w{8}>/reload       controllers.Tournament.reload(id: String)
+POST  /tournament/$id<\w{8}>/early-start  controllers.Tournament.earlyStart(id: String)
 GET   /tournament/faq                         controllers.Tournament.faq
 
 # Team
@@ -139,11 +139,11 @@ GET   /team/:id/kick                          controllers.Team.kickForm(id: Stri
 POST  /team/:id/kick                          controllers.Team.kick(id: String)
 
 # Analyse
-POST  /$gameId<[\w\-]{8}>/request-analysis    controllers.Analyse.requestAnalysis(gameId: String)
-POST  /$gameId<[\w\-]{8}>/better-analysis/$color<white|black> controllers.Analyse.betterAnalysis(gameId: String, color: String)
-POST  /$gameId<[\w\-]{8}>/post-analysis       controllers.Analyse.postAnalysis(gameId: String)
-GET   /$gameId<[\w\-]{8}>/pgn                 controllers.Analyse.pgn(gameId: String)
-GET   /$gameId<[\w\-]{8}>/fen                 controllers.Analyse.fen(gameId: String)
+POST  /$gameId<\w{8}>/request-analysis    controllers.Analyse.requestAnalysis(gameId: String)
+POST  /$gameId<\w{8}>/better-analysis/$color<white|black> controllers.Analyse.betterAnalysis(gameId: String, color: String)
+POST  /$gameId<\w{8}>/post-analysis       controllers.Analyse.postAnalysis(gameId: String)
+GET   /$gameId<\w{8}>/pgn                 controllers.Analyse.pgn(gameId: String)
+GET   /$gameId<\w{8}>/fen                 controllers.Analyse.fen(gameId: String)
 
 # Pref
 POST  /pref/:name                      controllers.Pref.set(name: String)
@@ -157,9 +157,9 @@ POST  /setup/ai                        controllers.Setup.ai
 GET   /setup/friend                    controllers.Setup.friendForm(user: Option[String] ?= None)
 POST  /setup/friend                    controllers.Setup.friend(user: Option[String] ?= None)
 POST  /setup/decline                   controllers.Setup.decline(gameId: String)
-GET   /$fullId<[\w\-]{12}>/await       controllers.Setup.await(fullId: String, user: Option[String] ?= None)
-GET   /$fullId<[\w\-]{12}>/cancel      controllers.Setup.cancel(fullId: String)
-POST  /$id<[\w\-]{8}>/join             controllers.Setup.join(id: String)
+GET   /$fullId<\w{12}>/await       controllers.Setup.await(fullId: String, user: Option[String] ?= None)
+GET   /$fullId<\w{12}>/cancel      controllers.Setup.cancel(fullId: String)
+POST  /$id<\w{8}>/join             controllers.Setup.join(id: String)
 GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook/:uid                 controllers.Setup.hook(uid: String)
 GET   /setup/filter                    controllers.Setup.filterForm
@@ -201,7 +201,7 @@ GET   /ai/move                         controllers.Ai.move
 POST  /ai/analyse                      controllers.Ai.analyse
 
 # Bookmark
-POST  /bookmark/$gameId<[\w\-]{8}>     controllers.Bookmark.toggle(gameId: String)
+POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)
 
 # Forum
 GET   /forum                           controllers.ForumCateg.index
@@ -222,13 +222,13 @@ GET   /inbox                           controllers.Message.inbox(page: Int ?= 1)
 GET   /inbox/new                       controllers.Message.form
 POST  /inbox/new                       controllers.Message.create
 GET   /inbox/preview                   controllers.Message.preview
-GET   /inbox/$id<[\w]{8}>              controllers.Message.thread(id: String)
-POST  /inbox/$id<[\w]{8}>              controllers.Message.answer(id: String)
-POST  /inbox/$id<[\w]{8}>/delete       controllers.Message.delete(id: String)
-POST  /inbox/$id<[\w]{8}>/read         controllers.Message.markAsRead(id: String)
+GET   /inbox/$id<\w{8}>              controllers.Message.thread(id: String)
+POST  /inbox/$id<\w{8}>              controllers.Message.answer(id: String)
+POST  /inbox/$id<\w{8}>/delete       controllers.Message.delete(id: String)
+POST  /inbox/$id<\w{8}>/read         controllers.Message.markAsRead(id: String)
 
 # Notification
-DELETE /notification/$id<[\w]{8}>      controllers.Notification.remove(id)
+DELETE /notification/$id<\w{8}>      controllers.Notification.remove(id)
 
 # Paste
 GET   /paste                           controllers.Importer.importGame
@@ -236,7 +236,7 @@ POST  /paste                           controllers.Importer.sendGame
 
 # Progressive import API
 POST  /api/import/live                     controllers.Importer.liveCreate
-POST  /api/import/live/$id<[\w]{8}>/:move  controllers.Importer.liveMove(id: String, move: String)
+POST  /api/import/live/$id<\w{8}>/:move  controllers.Importer.liveMove(id: String, move: String)
 
 # Edit
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen: String)
@@ -264,7 +264,7 @@ POST  /api/puzzle                      controllers.Puzzle.importBatch
 
 # Misc
 POST  /cli                             controllers.Cli.command
-GET   /captcha/$id<[\w]{8}>            controllers.Main.captchaCheck(id: String)
+GET   /captcha/$id<\w{8}>            controllers.Main.captchaCheck(id: String)
 GET   /developers                      controllers.Main.developers
 GET   /embed                           controllers.Main.embed
 GET   /irc                             controllers.Main.irc
