@@ -47,13 +47,13 @@ private[pool] final class PoolActor(
     case Enter(user) =>
       pool = pool withUser user
       wavers put user.id
-      reloadNotifier ! true
+      reloadNotifier ! Debouncer.Nothing
       sender ! true
 
     case Leave(userId) =>
       if (pool.contains(userId)) {
         pool = pool withoutUserId userId
-        reloadNotifier ! true
+        reloadNotifier ! Debouncer.Nothing
       }
       sender ! true
 
@@ -74,7 +74,7 @@ private[pool] final class PoolActor(
 
     case UpdateUsers(users) =>
       pool = pool updatePlayers users
-      reloadNotifier ! true
+      reloadNotifier ! Debouncer.Nothing
 
     case RemindPlayers =>
       import makeTimeout.short
@@ -104,7 +104,7 @@ private[pool] final class PoolActor(
       }
       if (newPlayers != oldPlayers) {
         pool = pool.copy(players = newPlayers)
-        reloadNotifier ! true
+        reloadNotifier ! Debouncer.Nothing
       }
 
     case AddPairings(pairings) =>
@@ -117,7 +117,7 @@ private[pool] final class PoolActor(
           }
         }
       }
-      reloadNotifier ! true
+      reloadNotifier ! Debouncer.Nothing
 
     case Preload(games, users) =>
       pool = pool.copy(
@@ -139,9 +139,9 @@ private[pool] final class PoolActor(
           Player(user.light, setup.glickoLens(user).intRating, none)
         })
       pool.players map (_.id) foreach wavers.put
-      reloadNotifier ! true
+      reloadNotifier ! Debouncer.Nothing
 
-    case Reload => reloadNotifier ! true
+    case Reload => reloadNotifier ! Debouncer.Nothing
 
     case PingVersion(uid, v) =>
       ping(uid)
@@ -183,7 +183,7 @@ private[pool] final class PoolActor(
     })))
 
   val reloadNotifier =
-    context.system.actorOf(Props(new Debouncer(1.seconds, (_: Boolean) => {
+    context.system.actorOf(Props(new Debouncer(1.seconds, (_: Debouncer.Nothing) => {
       notifyAll(makeMessage("reload"))
     })))
 
