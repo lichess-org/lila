@@ -188,7 +188,7 @@ private[pool] final class PoolActor(
     })))
 
   def notifyVersionTrollable[A: Writes](t: String, data: A, troll: Boolean) {
-    val vmsg = history += History.Message(makeMessage(t, data), troll)
+    val vmsg = history.+=(makeMessage(t, data), troll)
     members.values.foreach(sendMessage(vmsg))
   }
 }

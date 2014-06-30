@@ -25,9 +25,9 @@ final class History(ttl: Duration) {
 
   private def message(v: Int) = Option(messages getIfPresent v)
 
-  def +=(msg: Message): Message = {
+  def +=(payload: JsObject, troll: Boolean): Message = {
     privateVersion = privateVersion + 1
-    val vmsg = msg ++ JsObject(Seq("v" -> JsNumber(privateVersion)))
+    val vmsg = Message(payload, privateVersion, troll)
     messages.put(privateVersion, vmsg)
     vmsg
   }
@@ -35,8 +35,12 @@ final class History(ttl: Duration) {
 
 object History {
 
-  case class Message(msg: JsObject, troll: Boolean = false) {
+  case class Message(payload: JsObject, version: Int, troll: Boolean = false) {
 
-    def ++(obj: JsObject) = copy(msg ++ obj)
+    lazy val fullMsg = payload + ("v" -> JsNumber(version))
+
+    lazy val skipMsg = Json.obj("v" -> version)
+
+    def ++(obj: JsObject) = copy(payload = payload ++ obj)
   }
 }
