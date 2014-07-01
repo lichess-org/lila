@@ -27,7 +27,6 @@ private[pool] case class Talk(tourId: String, u: String, t: String, troll: Boole
 private[pool] case class Connected(enumerator: JsEnumerator, member: Member)
 
 private[pool] case object GetPool
-private[pool] case object Reload
 private[pool] case class Enter(user: User)
 private[pool] case class Leave(userId: String)
 private[pool] case class DoFinishGame(game: Game, white: User, black: User)

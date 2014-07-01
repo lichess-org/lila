@@ -141,8 +141,6 @@ private[pool] final class PoolActor(
       pool.players map (_.id) foreach wavers.put
       reloadNotifier ! Debouncer.Nothing
 
-    case Reload => reloadNotifier ! Debouncer.Nothing
-
     case PingVersion(uid, v) =>
       ping(uid)
       withMember(uid) { m =>
