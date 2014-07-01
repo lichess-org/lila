@@ -5,11 +5,9 @@
 }
 
 <div class="pairings">
-  @tour.numerotedPairings.map {
-  case (number, pairing) => {
+  @tour.pairings.map { pairing =>
   <a class="revert-underline" href="@routes.Round.watcher(pairing.gameId, "white")">
-    @number @showUser(pairing, pairing.user1) <em>vs</em> @showUser(pairing, pairing.user2)
+    @showUser(pairing, pairing.user1) <em>vs</em> @showUser(pairing, pairing.user2)
   </a>
-  }
   }
 </div>

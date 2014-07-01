@@ -32,8 +32,6 @@ sealed trait Tournament {
   def isRunning: Boolean = false
   def isFinished: Boolean = false
 
-  def numerotedPairings: Seq[(Int, Pairing)] = (pairings.size to 1 by -1) zip pairings
-
   def name = data.name
 
   def clock = data.clock

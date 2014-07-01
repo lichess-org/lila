@@ -29,11 +29,17 @@
   font-size: 5em;
   font-style: monospace;
 }
+#pool div.pairing_boxes .numbers {
+  text-align: center;
+}
+#pool div.pairing_boxes .numbers span {
+  margin: 0 5px;
+}
 #pool div.pairings {
   border: 1px solid #ccc;
   padding: 3px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 #pool div.pairings a {
   padding: 0.3em 0.2em;

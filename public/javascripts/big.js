@@ -132,8 +132,8 @@ var storage = {
             self.pong();
           } else self.debug(e.data);
           if (m.t == "b") {
-            $(m.d || []).each(function() {
-              self.handle(this);
+            _.each(m.d, function(mm) {
+              self.handle(mm);
             });
           } else {
             self.handle(m);

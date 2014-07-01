@@ -77,6 +77,8 @@ case class Pool(
 
   def playingPlayers = playingPairings.flatMap(_.users).toSet
 
+  def nbWaitingPlayers = players count (_.waiting)
+
   def userCurrentPairingPov(userId: String): Option[(Pairing, PovRef)] =
     userCurrentPairing(userId) flatMap { pairing =>
       pairing.povRef(userId) map (pairing -> _)

@@ -11,6 +11,10 @@
 
 @defining(p.pairings take 30) { pairings =>
 <div class="pairing_boxes">
+  <div class="numbers">
+    <span class="is-gold" data-icon="7"> @p.nbWaitingPlayers Ready</span>
+    <span data-icon='"'> @p.playingPlayers.size Playing</span>
+  </div>
   @List(true, false).map { playing =>
   <div class="pairings">
     @pairings.filter(_.playing == playing).map { pairing =>

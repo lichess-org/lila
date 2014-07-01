@@ -44,6 +44,11 @@ trait UserRepo {
   def topPerf(perf: String)(nb: Int): Fu[List[User]] =
     $find($query(stableGoodLadSelect) sort ($sort desc s"perfs.$perf.gl.r"), nb)
 
+  def topPool(poolId: String, nb: Int): Fu[List[User]] =
+    $find($query(
+      goodLadSelect ++ Json.obj(s"perfs.pools.$poolId.nb" -> $gte(40))
+    ) sort ($sort desc s"perfs.pools.$poolId.gl.r"), nb)
+
   def topNbGame(nb: Int): Fu[List[User]] =
     $find($query(enabledSelect) sort ($sort desc "count.game"), nb)
 
