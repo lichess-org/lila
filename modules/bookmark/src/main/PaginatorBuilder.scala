@@ -30,8 +30,8 @@ private[bookmark] final class PaginatorBuilder(maxPerPage: Int) {
 
     def slice(offset: Int, length: Int): Fu[Seq[Bookmark]] = for {
       gameIds ← $primitive(
-        selector, 
-        "g", 
+        selector,
+        "g",
         _ sort sorting skip offset,
         length.some)(_.asOpt[String])
       games ← lila.game.tube.gameTube |> { implicit t =>

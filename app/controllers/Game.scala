@@ -60,14 +60,6 @@ object Game extends LilaController with BaseGame {
       }
   }
 
-  def popular(page: Int) = Open { implicit ctx =>
-    Reasonable(page) {
-      paginator popular page zip makeListMenu map {
-        case (pag, menu) => html.game.popular(pag, menu)
-      }
-    }
-  }
-
   def analysed(page: Int) = Open { implicit ctx =>
     Reasonable(page) {
       analysePaginator games page zip makeListMenu map {
