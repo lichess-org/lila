@@ -203,7 +203,7 @@ var storage = {
       if (!self.averageLag) self.averageLag = self.currentLag;
       else self.averageLag = 0.2 * (self.currentLag - self.averageLag) + self.averageLag;
       if (self.options.lagTag) {
-        self.options.lagTag.html('<strong>' + self.currentLag + "</strong> ms");
+        self.options.lagTag.html(Math.round(self.averageLag));
       }
     },
     pingData: function() {
@@ -449,7 +449,7 @@ var storage = {
           })),
         baseUrlKey: 'surl3',
         name: "site",
-        lagTag: $('#connection_lag'),
+        lagTag: $('#top .ping strong'),
         debug: location.search.indexOf('debug-ws') != -1,
         prodPipe: location.search.indexOf('prod-ws') != -1,
         resetUrl: location.search.indexOf('reset-ws') != -1

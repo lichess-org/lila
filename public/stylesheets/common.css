@@ -926,13 +926,12 @@ body.offline #nb_connected_players {
   float: right;
   position: relative;
 }
-#top div.auth.shown form,
 #top div.auth.shown .links {
   display: block;
 }
-#top div.auth .links a {
+#top div.auth .links > a {
   display: block;
-  padding: 6px 10px;
+  padding: 5px 10px;
   text-decoration: none;
   text-transform: capitalize;
   transition: 0.13s;
@@ -941,11 +940,15 @@ body.offline #nb_connected_players {
   background: #F0F0F0;
   color: #444;
 }
-#top div.auth .links .goto_logout {
-  background-position: 0 -48px;
+#top div.auth .sep {
+  display: block;
+  padding-top: 5px;
+  margin-top: 5px;
+  border-top: 1px solid #d4d4d4;
 }
-#top div.auth .links .goto_profile {
-  background-position: 0 -208px;
+#top div.auth .ping {
+  display: block;
+  padding: 5px 10px 10px 10px;
 }
 form.wide input[type="text"],
 form.wide textarea {
