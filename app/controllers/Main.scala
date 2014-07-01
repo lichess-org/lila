@@ -69,22 +69,4 @@ object Main extends LilaController {
       views.html.site.irc(_)
     }
   }
-
-  def thanks = Open { implicit ctx =>
-    fuccess {
-      views.html.site.thanks()
-    }
-  }
-
-  def tos = Open { implicit ctx =>
-    OptionOk(Prismic.oneShotBookmark("tos")) {
-      case (doc, resolver) => views.html.site.tos(doc, resolver)
-    }
-  }
-
-  def helpLichess = Open { implicit ctx =>
-    OptionOk(Prismic.oneShotBookmark("help")) {
-      case (doc, resolver) => views.html.site.helpLichess(doc, resolver)
-    }
-  }
 }

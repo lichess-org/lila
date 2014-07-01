@@ -268,9 +268,12 @@ GET   /developers                      controllers.Main.developers
 GET   /embed                           controllers.Main.embed
 GET   /irc                             controllers.Main.irc
 GET   /stream                          controllers.Main.stream
-GET   /thanks                          controllers.Main.thanks
-GET   /help-lichess                    controllers.Main.helpLichess
-GET   /terms-of-service                controllers.Main.tos
+
+# Pages
+GET   /thanks                          controllers.Page.thanks
+GET   /help-lichess                    controllers.Page.helpLichess
+GET   /terms-of-service                controllers.Page.tos
+GET   /how-to-stream-on-lichess        controllers.Page.streamHowTo
 
 # Donate
 GET   /donate                          controllers.Donation.index

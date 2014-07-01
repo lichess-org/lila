@@ -21,6 +21,7 @@ div.user_show div.content_box_top > .trophy {
   margin-right: -10px;
 }
 div.user_show .honorific {
+  display: inline-block;
   margin-top: 1em;
   font-weight: bold;
   font-size: 1.4em;

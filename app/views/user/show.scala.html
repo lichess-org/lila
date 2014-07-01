@@ -160,7 +160,7 @@ openGraph = Map(
       }
       }
       @if(info.donated >= 200) {
-      <p data-icon="t" class="honorific donator"> Lichess Donator</p>
+      <a href="@routes.Donation.index" data-icon="t" class="honorific donator"> Lichess Donator</a>
       }
       @u.profile.map { p =>
       @p.nonEmptyRealName.map { name =>
