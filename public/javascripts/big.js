@@ -1568,7 +1568,7 @@ var storage = {
       var self = this;
       self.$table.css('top', (256 - self.$table.height() / 2) + 'px');
     },
-    outoftime: _.debounce(function() {
+    outoftime: _.throttle(function() {
       lichess.socket.send('outoftime');
     }, 200),
     initClocks: function() {
