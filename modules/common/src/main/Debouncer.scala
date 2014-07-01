@@ -3,25 +3,33 @@ package lila.common
 import akka.actor._
 import scala.concurrent.duration._
 
-final class Debouncer[A: Manifest](timeout: FiniteDuration, function: A => Unit) extends Actor {
+final class Debouncer[A: Manifest](length: FiniteDuration, function: A => Unit) extends Actor {
 
-  private var scheduled: Cancellable = new Cancellable {
-    def cancel() = true
-    def isCancelled = true
-  }
+  private case object DelayEnd
 
-  private case class DoItNow(a: A)
+  private var delayed: Option[A] = none
 
-  def receive = {
+  def ready: Receive = {
 
     case a: A =>
-      if (!scheduled.isCancelled) scheduled.cancel()
-      scheduled = context.system.scheduler.scheduleOnce(timeout, self, DoItNow(a))
-
-    case DoItNow(a) => function(a)
-
-    case a => println("debouncer unprocessed " + a)
+      function(a)
+      context.system.scheduler.scheduleOnce(length, self, DelayEnd)
+      context become delay
   }
+
+  def delay: Receive = {
+
+    case a: A => delayed = a.some
+
+    case DelayEnd =>
+      context become ready
+      delayed foreach { a =>
+        self ! a
+        delayed = none
+      }
+  }
+
+  def receive = ready
 }
 
 object Debouncer {
