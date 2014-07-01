@@ -8,10 +8,11 @@ final class Env(
     db: lila.db.Env) {
 
   private val CollectionDonation = config getString "collection.donation"
+  private val MonthlyGoal = config getInt "monthly_goal"
 
   def forms = DataForm
 
-  lazy val api = new DonationApi(db(CollectionDonation))
+  lazy val api = new DonationApi(db(CollectionDonation), MonthlyGoal)
 }
 
 object Env {

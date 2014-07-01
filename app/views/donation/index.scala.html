@@ -1,28 +1,55 @@
-@(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, donations: List[lila.donation.Donation])(implicit ctx: Context)
+@(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, donations: List[lila.donation.Donation], top: List[lila.donation.Donation], progress: lila.donation.Progress)(implicit ctx: Context)
 
 @payPalVars = {
 <input type="hidden" name="cmd" value="_s-xclick">
 <input type="hidden" name="custom" value="@ctx.userId">
 }
 
-@site.layout(
-moreCss = cssTag("doc.css"),
-title = s"${~doc.getText("doc.title")}") {
+@goodies = {
+<h2>@progress.month Progress</h2>
+<div class="progress">
+  <div class="progressbar @if(progress.complete) {green} flashy">
+    <div style="width: @progress.percent%"></div>
+  </div>
+  <div class="text">
+    <span class="current">$@(progress.current / 100)</span>
+    @progress.percent%
+    <span class="goal">$@(progress.goal / 100)</span>
+  </div>
+</div>
+<h2>Top Donators</h2>
+<table class="donators">
+  <tbody>
+    @top.map { donation =>
+    <tr>
+      <td>@userIdLink(donation.userId)</td>
+      <td>@momentFromNow(donation.date)</td>
+    </tr>
+    }
+  </tbody>
+</table>
+<h2>Recent Donators</h2>
+<table class="donators">
+  <tbody>
+    @donations.take(10).map { donation =>
+    <tr>
+      <td>@userIdLink(donation.userId)</td>
+      <td>@momentFromNow(donation.date)</td>
+    </tr>
+    }
+  </tbody>
+</table>
+}
 
-<style type="text/css">
-  .donate_box form {
-    margin: 20px 0;
-  }
-  .donate_box form input {
-    vertical-align: middle;
-  }
-  .donate_box .donators {
-    margin-top: 1em;
-  }
-  .donate_box .donators em {
-    font-style: italic;
-  }
-</style>
+@moreCss = {
+@cssTag("page.css")
+@cssTag("donation.css")
+}
+
+@site.layout(
+moreCss = moreCss,
+goodies = goodies.some,
+title = s"${~doc.getText("doc.title")}") {
 
 <div class="content_box small_box doc_box donate_box">
 
@@ -75,11 +102,7 @@ title = s"${~doc.getText("doc.title")}") {
       <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
       <!-- <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1"> -->
     </form>
-
-    <h2 id="donators">They support lichess:</h2>
-  </div>
-
-  <div class="donations">
+    <h2>Thank you to all lichess.org donators!</h2>
     <table class="slist donators">
       <tbody>
         @donations.map { donation =>

@@ -12,12 +12,12 @@
     @transInfos.map { info =>
     <tr>
       <td>
-        @i18n.translationLink(info) { _ => 
+        @i18n.translationLink(info) { _ =>
         @info.codeAndName
         }
       </td>
       <td class="progress">
-        <div class="progressbar @info.complete.fold("green", "") flashy">
+        <div class="progressbar @if(info.complete) {green} flashy">
           <div style="width: @info.percent%"></div>
         </div>
       </td>

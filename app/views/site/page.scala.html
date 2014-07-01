@@ -1,7 +1,7 @@
 @(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context)
 
 @site.layout(
-moreCss = cssTag("doc.css"),
+moreCss = cssTag("page.css"),
 title = s"${~doc.getText("doc.title")}") {
 
 <div class="content_box small_box doc_box">

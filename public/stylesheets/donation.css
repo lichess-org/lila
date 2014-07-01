@@ -1,0 +1,37 @@
+.donate_box form {
+  margin: 20px 0;
+}
+.donate_box form input {
+  vertical-align: middle;
+}
+#site_header h2 {
+  font-size: 1.4em;
+  margin: 30px 0 10px 0;
+}
+#site_header table {
+  width: 100%;
+}
+#site_header td {
+  padding: 5px 0;
+}
+#site_header a.user_link {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.donate_box .donators em {
+  font-style: italic;
+}
+#site_header .progress div.progressbar div {
+  height: 30px;
+}
+#site_header .progress .text {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+#site_header .progress .current {
+  float: left;
+}
+#site_header .progress .goal {
+  float: right;
+}
