@@ -5,9 +5,10 @@ import scala.concurrent.duration.Duration
 import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
+import scala.concurrent.duration._
 
 import actorApi._
-import lila.common.LightUser
+import lila.common.{ LightUser, Debouncer }
 import lila.hub.TimeBomb
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -32,9 +33,9 @@ private[tournament] final class Socket(
           notifyMember("redirect", game fullIdOf player.color)(member)
         }
       }
-      notifyReload
+      reloadNotifier ! Debouncer.Nothing
 
-    case Reload     => notifyReload
+    case Reload     => reloadNotifier ! Debouncer.Nothing
 
     case Start      => notifyVersion("start", JsNull)
 
@@ -61,35 +62,35 @@ private[tournament] final class Socket(
 
     case GetVersion => sender ! history.version
 
-    case Join(uid, user, version) => {
+    case Join(uid, user, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid, member)
-      notifyCrowd
+      crowdNotifier ! members.values
       sender ! Connected(enumerator, member)
-    }
 
-    case Quit(uid) => {
+    case Quit(uid) =>
       quit(uid)
-      notifyCrowd
-    }
+      crowdNotifier ! members.values
 
     case Joining(userId) => joiningMemo put userId
   }
 
   override def userIds = (super.userIds ++ joiningMemo.keys).toList.distinct
 
-  def notifyCrowd {
-    val (anons, users) = members.values.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
-      case ((anons, users), Some(user)) => anons -> (user :: users)
-      case ((anons, users), None)       => (anons + 1) -> users
-    }
-    notifyVersion("crowd", showSpectators(users, anons))
-  }
+  val crowdNotifier =
+    context.system.actorOf(Props(new Debouncer(1.seconds, (ms: Iterable[Member]) => {
+      val (anons, users) = members.values.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
+        case ((anons, users), Some(user)) => anons -> (user :: users)
+        case ((anons, users), None)       => (anons + 1) -> users
+      }
+      notifyAll("crowd", showSpectators(users, anons))
+    })))
 
-  def notifyReload {
-    notifyVersion("reload", JsNull)
-  }
+  val reloadNotifier =
+    context.system.actorOf(Props(new Debouncer(1.seconds, (_: Debouncer.Nothing) => {
+      notifyAll(makeMessage("reload"))
+    })))
 
   def notifyVersionTrollable[A: Writes](t: String, data: A, troll: Boolean) {
     val vmsg = history.+=(makeMessage(t, data), troll)
