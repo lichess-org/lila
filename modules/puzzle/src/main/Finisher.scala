@@ -35,7 +35,7 @@ private[puzzle] final class Finisher(
           puzzleRatingDiff = puzzlePerf.intRating - puzzle.perf.intRating,
           userRating = user.perfs.puzzle.intRating,
           userRatingDiff = userPerf.intRating - user.perfs.puzzle.intRating)
-        (api.attempt add a) >> {
+        ((api.attempt add a) >> {
           puzzleColl.update(
             BSONDocument("_id" -> puzzle.id),
             BSONDocument("$inc" -> BSONDocument(
@@ -46,6 +46,8 @@ private[puzzle] final class Finisher(
             )) ++ BSONDocument("$addToSet" -> BSONDocument(
               Puzzle.BSONFields.users -> user.id
             ))) zip UserRepo.setPerf(user.id, "puzzle", userPerf)
+        }.void) recover {
+          case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") => ()
         } inject (a -> none)
     }
 
