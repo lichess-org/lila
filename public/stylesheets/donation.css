@@ -8,14 +8,14 @@
   font-size: 1.4em;
   margin: 30px 0 10px 0;
 }
-#site_header .donators div {
+#site_header .donors div {
   padding: 5px 0;
 }
 #site_header a.user_link {
   font-size: 1.1em;
   font-weight: bold;
 }
-.donate_box .donators em {
+.donate_box .donors em {
   font-style: italic;
 }
 #site_header .progress div.progressbar {

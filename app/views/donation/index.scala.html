@@ -17,14 +17,14 @@
     <span class="goal">$@(progress.goal / 100)</span>
   </div>
 </div>
-<h2>Top Donators</h2>
-<div class="donators">
+<h2>Top Donors</h2>
+<div class="donors">
   @top.map { donation =>
   <div>@userIdLink(donation.userId)</div>
   }
 </div>
-<h2>Recent Donators</h2>
-<div class="donators">
+<h2>Recent Donors</h2>
+<div class="donors">
   @donations.take(10).map { donation =>
   <div>@userIdLink(donation.userId)</div>
   }
@@ -107,9 +107,9 @@ title = s"${~doc.getText("doc.title")}") {
       <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribe_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
     </form>
 
-    <h2>Thank you to all lichess.org donators!</h2>
+    <h2>Thank you to all lichess.org donors!</h2>
 
-    <table class="slist donators">
+    <table class="slist donors">
       <tbody>
         @donations.map { donation =>
         <tr>
