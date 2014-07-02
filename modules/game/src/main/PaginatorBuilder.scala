@@ -16,13 +16,10 @@ private[game] final class PaginatorBuilder(cached: Cached, maxPerPage: Int) {
   def checkmate(page: Int): Fu[Paginator[Game]] =
     paginator(checkmateAdapter, page)
 
-  def popular(page: Int): Fu[Paginator[Game]] =
-    paginator(popularAdapter, page)
-
   def imported(page: Int): Fu[Paginator[Game]] =
     paginator(importedAdapter, page)
 
-  def recentlyCreated(selector: JsObject, nb: Option[Int] = None) = 
+  def recentlyCreated(selector: JsObject, nb: Option[Int] = None) =
     apply(selector, Seq(Query.sortCreated), nb) _
 
   def apply(selector: JsObject, sort: Sort, nb: Option[Int] = None)(page: Int): Fu[Paginator[Game]] =
@@ -38,9 +35,6 @@ private[game] final class PaginatorBuilder(cached: Cached, maxPerPage: Int) {
 
   private val checkmateAdapter =
     cacheAdapter(Query.mate, Seq(Query.sortCreated), cached.nbMates)
-
-  private val popularAdapter =
-    cacheAdapter(Query.popular, Seq(Query.sortPopular), cached.nbPopular)
 
   private def importedAdapter =
     cacheAdapter(Query.imported, Seq(Query.sortCreated), cached.nbImported)

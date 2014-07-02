@@ -40,8 +40,6 @@ object Query {
 
   val frozen = Json.obj(F.status -> $gte(Status.Mate.id))
 
-  val popular = Json.obj(F.bookmarks -> $gt(0))
-
   val imported = Json.obj(s"${F.source}" -> Source.Import.id)
 
   def pgnImport(pgn: String) = imported ++ Json.obj(s"${F.pgnImport}.pgn" -> pgn)
@@ -82,7 +80,4 @@ object Query {
   )
 
   val sortCreated = $sort desc F.createdAt
-
-  val sortPopular = $sort desc F.bookmarks
-
 }

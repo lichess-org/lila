@@ -5,7 +5,6 @@ import lila.user.User
 case class ListMenu(
   nbGames: Int,
   nbMates: Int,
-  nbPopular: Int,
   nbBookmarks: Option[Int],
   nbAnalysed: Int,
   nbImported: Int)
@@ -18,14 +17,12 @@ object ListMenu {
     me: Option[User]): Fu[ListMenu] =
     cached.nbGames zip
       cached.nbMates zip
-      cached.nbPopular zip
       countAnalysed() zip
       cached.nbImported map {
-        case ((((nbGames, nbMates), nbPopular), nbAnalysed), nbImported) =>
+        case (((nbGames, nbMates), nbAnalysed), nbImported) =>
           new ListMenu(
             nbGames = nbGames,
             nbMates = nbMates,
-            nbPopular = nbPopular,
             nbBookmarks = me.??(countBookmarks).some.filterNot(0 ==),
             nbAnalysed = nbAnalysed,
             nbImported = nbImported)
