@@ -15,6 +15,8 @@ case class Donation(
     publicAmount: Boolean) {
 
   def nonEmptyMessage = Some(message.trim) filter (_.nonEmpty)
+
+  def afterFees = Donation afterFees amount
 }
 
 object Donation {
@@ -36,4 +38,8 @@ object Donation {
     message = message,
     public = true,
     publicAmount = false)
+
+  def afterFees(amount: Int) = math.max(0, math.round(
+    amount * 0.966f - 30
+  ))
 }

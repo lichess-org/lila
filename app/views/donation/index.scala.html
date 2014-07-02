@@ -8,7 +8,7 @@
 @goodies = {
 <h2>@progress.month Progress</h2>
 <div class="progress">
-  <div class="progressbar @if(progress.complete) {green} flashy">
+  <div class="progressbar green flashy">
     <div style="width: @progress.percent%"></div>
   </div>
   <div class="text">
@@ -18,27 +18,17 @@
   </div>
 </div>
 <h2>Top Donators</h2>
-<table class="donators">
-  <tbody>
-    @top.map { donation =>
-    <tr>
-      <td>@userIdLink(donation.userId)</td>
-      <td>@momentFromNow(donation.date)</td>
-    </tr>
-    }
-  </tbody>
-</table>
+<div class="donators">
+  @top.map { donation =>
+  <div>@userIdLink(donation.userId)</div>
+  }
+</div>
 <h2>Recent Donators</h2>
-<table class="donators">
-  <tbody>
-    @donations.take(10).map { donation =>
-    <tr>
-      <td>@userIdLink(donation.userId)</td>
-      <td>@momentFromNow(donation.date)</td>
-    </tr>
-    }
-  </tbody>
-</table>
+<div class="donators">
+  @donations.take(10).map { donation =>
+  <div>@userIdLink(donation.userId)</div>
+  }
+</div>
 }
 
 @moreCss = {
@@ -64,7 +54,6 @@ title = s"${~doc.getText("doc.title")}") {
       <input type="hidden" name="hosted_button_id" value="7R3N7MNXDM7A6">
       <strong>$2</strong> = <strong>6 hours</strong> of lichess server:
       <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-      <!-- <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"> -->
     </form>
 
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -73,7 +62,6 @@ title = s"${~doc.getText("doc.title")}") {
       <input type="hidden" name="hosted_button_id" value="JBSUYNPRCMT9U">
       <strong>$5</strong> = <strong>18 hours</strong> of lichess server:
       <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-      <!-- <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1"> -->
     </form>
 
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -82,7 +70,6 @@ title = s"${~doc.getText("doc.title")}") {
       <input type="hidden" name="hosted_button_id" value="ZZ96PGW3UNRPQ">
       <strong>$10</strong> = <strong>1 day and 15 hours</strong> of lichess server:
       <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-      <!-- <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1"> -->
     </form>
 
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -91,7 +78,6 @@ title = s"${~doc.getText("doc.title")}") {
       <input type="hidden" name="hosted_button_id" value="VTKN4LNQZ2FNL">
       <strong>$20</strong> = <strong>3 days and 8 hours</strong> of lichess server:
       <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-      <!-- <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1"> -->
     </form>
 
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -100,9 +86,29 @@ title = s"${~doc.getText("doc.title")}") {
       <input type="hidden" name="hosted_button_id" value="EDV5QHA9HYGJS">
       Or specify any other amount:
       <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-      <!-- <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1"> -->
     </form>
+
+    <h2>Even better: monthly donation</h2>
+
+    <p>Because I pay for lichess servers every month, please consider a recurring donation!</p>
+
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+      <! -- recurring -->
+      @payPalVars
+      <input type="hidden" name="hosted_button_id" value="36KH4D465UB9G">
+      <input type="hidden" name="on0" value="Monthly donation">Monthly donation
+      <select name="os0">
+        <option value="6 hours of server">6 hours of server : $2,00 USD - monthly</option>
+        <option value="18 hours of server">18 hours of server : $5,00 USD - monthly</option>
+        <option value="1 day and 15 hours of server">1 day and 15 hours of server : $10,00 USD - monthly</option>
+        <option value="3 days and 8 hours of server">3 days and 8 hours of server : $20,00 USD - monthly</option>
+      </select>
+      <input type="hidden" name="currency_code" value="USD">
+      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribe_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+    </form>
+
     <h2>Thank you to all lichess.org donators!</h2>
+
     <table class="slist donators">
       <tbody>
         @donations.map { donation =>

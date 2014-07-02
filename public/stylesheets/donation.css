@@ -8,10 +8,7 @@
   font-size: 1.4em;
   margin: 30px 0 10px 0;
 }
-#site_header table {
-  width: 100%;
-}
-#site_header td {
+#site_header .donators div {
   padding: 5px 0;
 }
 #site_header a.user_link {
@@ -20,6 +17,9 @@
 }
 .donate_box .donators em {
   font-style: italic;
+}
+#site_header .progress div.progressbar {
+  overflow: hidden;
 }
 #site_header .progress div.progressbar div {
   height: 30px;
