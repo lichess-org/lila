@@ -46,7 +46,7 @@ final class JsonView(baseAnimationDelay: Duration) {
         "table" -> s"/$fullId/table"
       ),
       "pref" -> Json.obj(
-        "animationDelay" -> animationDelay(pov),
+        "animationDelay" -> animationDelay(pov, pref),
         "autoQueen" -> pref.autoQueen,
         "autoThreefold" -> pref.autoThreefold,
         "clockTenths" -> pref.clockTenths,
@@ -85,7 +85,7 @@ final class JsonView(baseAnimationDelay: Duration) {
         "table" -> s"/$gameId/${color.name}/table"
       ),
       "pref" -> Json.obj(
-        "animationDelay" -> animationDelay(pov),
+        "animationDelay" -> animationDelay(pov, pref),
         "clockTenths" -> pref.clockTenths,
         "clockBar" -> pref.clockBar
       ),
@@ -106,8 +106,16 @@ final class JsonView(baseAnimationDelay: Duration) {
     }
   }
 
-  private def animationDelay(pov: Pov) = round {
-    baseAnimationDelay.toMillis * max(0, min(1.2,
+  private def animationFactor(pref: Pref): Float = pref.animation match {
+    case 0 => 0
+    case 1 => 0.5f
+    case 2 => 1
+    case 3 => 2
+    case _ => 1
+  }
+
+  private def animationDelay(pov: Pov, pref: Pref) = round {
+    animationFactor(pref) * baseAnimationDelay.toMillis * max(0, min(1.2,
       ((pov.game.estimateTotalTime - 60) / 60) * 0.2
     ))
   }

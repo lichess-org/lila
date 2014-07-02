@@ -13,6 +13,10 @@
         <legend>Game display</legend>
         <ul>
           <li>
+            <h2>Piece animation</h2>
+            @base.radios(form("animation"), Seq(0 -> "None", 1 -> "Fast", 2 -> "Normal", 3 -> "Slow"))
+          </li>
+          <li>
             <h2>Show captured pieces</h2>
             @base.radios(form("captured"), Seq(0 -> "No", 1 -> "Yes"))
           </li>
