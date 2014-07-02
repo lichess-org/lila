@@ -9,6 +9,7 @@ case class Evaluation(
     deep: Option[Evaluation.Percent],
     moveTime: Evaluation.Percent,
     blur: Evaluation.Percent,
+    hold: Evaluation.Percent,
     analysis: Evaluation.Percent,
     progress: Evaluation.Percent,
     sharedIP: Evaluation.Percent,
@@ -73,7 +74,8 @@ object Evaluation {
       url: String,
       moveTime: Option[Int],
       blur: Option[Int],
-      error: Option[Int]) {
+      error: Option[Int],
+      hold: Option[Int]) {
 
     def analysed = ~error != 0
 
@@ -85,6 +87,7 @@ object Evaluation {
     override def toString = List(
       moveTime map (x => s"Move time: $x%"),
       blur map (x => s"Blur: $x%"),
+      hold.filter(0!=) map (x => s"Bot: $x%"),
       error map (x => s"Analysis: $x%")
     ).flatten mkString ", "
   }
@@ -97,6 +100,7 @@ object Evaluation {
     (__ \ 'deep).readNullable[Int] and
     (__ \ 'moveTime).read[Int] and
     (__ \ 'blur).read[Int] and
+    (__ \ 'hold).readNullable[Int].map(~_) and
     (__ \ 'analysis).read[Int] and
     (__ \ 'progress).read[Int] and
     (__ \ 'sharedIP).read[Int] and

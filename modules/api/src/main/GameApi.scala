@@ -53,6 +53,7 @@ private[api] final class GameApi(
               gameToJson(g, url, analysisOption, pgnOption,
                 withAnalysis = withAnalysis,
                 withBlurs = validToken,
+                withHold = validToken,
                 withMoveTimes = validToken)
           }
         }
@@ -68,6 +69,7 @@ private[api] final class GameApi(
     pgnOption: Option[Pgn],
     withAnalysis: Boolean,
     withBlurs: Boolean = false,
+    withHold: Boolean = false,
     withMoveTimes: Boolean = false) = Json.obj(
     "id" -> g.id,
     "rated" -> g.rated,
@@ -86,10 +88,17 @@ private[api] final class GameApi(
       case (p, i) => p.color.name -> Json.obj(
         "userId" -> p.userId,
         "rating" -> p.rating,
-        "moveTimes" -> (withMoveTimes.fold(
+        "moveTimes" -> withMoveTimes.fold(
           g.moveTimes.zipWithIndex.filter(_._2 % 2 == i).map(_._1),
-          JsNull)),
+          JsNull),
         "blurs" -> withBlurs.option(p.blurs),
+        "hold" -> p.holdAlert.ifTrue(withHold).fold[JsValue](JsNull) { h =>
+          Json.obj(
+            "ply" -> h.ply,
+            "mean" -> h.mean,
+            "sd" -> h.sd
+          )
+        },
         "analysis" -> analysisOption.map(_.summary).flatMap(_.find(_._1 == p.color).map(_._2)).map(s =>
           JsObject(s map {
             case (nag, nb) => nag.toString.toLowerCase -> JsNumber(nb)

@@ -47,6 +47,7 @@ case class Player(
   def wins = isWinner getOrElse false
 
   def hasHoldAlert = holdAlert.isDefined
+  def hasSuspiciousHoldAlert = holdAlert ?? (_.suspicious)
 
   def finish(winner: Boolean) = copy(
     isWinner = if (winner) Some(true) else None
@@ -90,7 +91,10 @@ object Player {
 
   def black = make(Color.Black, None)
 
-  case class HoldAlert(ply: Int, mean: Int, sd: Int)
+  case class HoldAlert(ply: Int, mean: Int, sd: Int) {
+
+    def suspicious = ply >= 20 && ply <= 30
+  }
 
   import reactivemongo.bson.Macros
   implicit val holdAlertBSONHandler = Macros.handler[HoldAlert]

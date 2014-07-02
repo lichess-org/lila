@@ -51,7 +51,7 @@ final class Evaluator(
           case JsSuccess(v, _) => fuccess(v)
           case JsError(e)      => fufail(lila.common.LilaException(s"Can't parse evaluator output: $e on $output"))
         }
-        eval ← scala.concurrent.Future(readEvaluation(evalJs))
+        eval = readEvaluation(evalJs)
         _ ← coll.update(Json.obj("_id" -> userId), evalJs, upsert = true)
       } yield eval.some
     }
@@ -65,20 +65,23 @@ final class Evaluator(
     case Failure(e) => logger.warn(s"generate: $e")
   }
 
-  private[evaluation] def autoGenerate(user: User, important: Boolean, forceRefresh: Boolean) {
+  private[evaluation] def autoGenerate(
+    user: User,
+    important: Boolean,
+    forceRefresh: Boolean,
+    suspiciousHold: Boolean = false) {
     if (!user.engine && (
-      important ||
+      important || suspiciousHold ||
       (deviationIsLow(user.perfs) && (progressIsHigh(user) || ratingIsHigh(user.perfs)))
     )) {
       evaluatedAt(user) foreach { date =>
         def freshness = if (progressIsVeryHigh(user)) DateTime.now minusMinutes 30
         else if (progressIsHigh(user)) DateTime.now minusHours 1
         else DateTime.now minusDays 3
-        if (forceRefresh || date.fold(true)(_ isBefore freshness)) {
+        if (suspiciousHold || forceRefresh || date.fold(true)(_ isBefore freshness)) {
           generate(user.id, user.perfs, true) foreach {
             _ foreach { eval =>
               eval.gameIdsToAnalyse foreach { gameId =>
-                implicit val tm = makeTimeout minutes 120
                 analyser ! lila.hub.actorApi.ai.AutoAnalyse(gameId)
                 if (eval report user.perfs)
                   reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
