@@ -84,7 +84,7 @@ private[tournament] final class Socket(
         case ((anons, users), Some(user)) => anons -> (user :: users)
         case ((anons, users), None)       => (anons + 1) -> users
       }
-      notifyAll("crowd", showSpectators(users, anons))
+      notifyVersion("crowd", showSpectators(users, anons))
     })))
 
   val reloadNotifier =

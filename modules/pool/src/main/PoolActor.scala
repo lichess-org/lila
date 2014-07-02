@@ -177,7 +177,7 @@ private[pool] final class PoolActor(
         case ((anons, users), Some(user)) => anons -> (user :: users)
         case ((anons, users), None)       => (anons + 1) -> users
       }
-      notifyAll(makeMessage("crowd", showSpectators(users, anons)))
+      notifyVersion("crowd", showSpectators(users, anons))
     })))
 
   val reloadNotifier =
