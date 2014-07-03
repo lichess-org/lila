@@ -1,7 +1,9 @@
 package controllers
 
+import play.api.data.Form
 import play.api.mvc._
 
+import lila.api.Context
 import lila.app._
 import lila.qa.{ QuestionId, Question, AnswerId, Answer, QuestionWithUsers, QaAuth }
 import views._
@@ -38,18 +40,24 @@ object QaQuestion extends QaController {
     }
   }
 
-  def ask = TODO
-  // WithUser { implicit req =>
-  //   renderAsk(forms.question, Results.Ok)
-  // }
+  private def renderAsk(form: Form[_], status: Results.Status)(implicit ctx: Context) =
+    api.question popular 10 zip api.tag.all map {
+      case (popular, tags) => status(views.html.qa.ask(form, tags, popular))
+    }
 
-  def doAsk = TODO
-  // WithUser { implicit req =>
-  //   forms.question.bindFromRequest.fold(
-  //     err => renderAsk(err, Results.BadRequest),
-  //     data => QaApi.question.create(data, req.ctx.user) map { q =>
-  //       Redirect(routes.Question.show(q.id, q.slug))
-  //     }
-  //   )
-  // }
+  def ask = Auth { implicit ctx =>
+    _ =>
+      renderAsk(forms.question, Results.Ok)
+  }
+
+  def doAsk = AuthBody { implicit ctx =>
+    me =>
+      implicit val req = ctx.body
+      forms.question.bindFromRequest.fold(
+        err => renderAsk(err, Results.BadRequest),
+        data => api.question.create(data, me) map { q =>
+          Redirect(routes.QaQuestion.show(q.id, q.slug))
+        }
+      )
+  }
 }

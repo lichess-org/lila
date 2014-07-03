@@ -1,12 +1,17 @@
 @(title: String, goodies: Option[Html] = None, openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
 
+@side = {
+@searchForm()
+<a href="@routes.QaQuestion.ask">Ask a question</a>
+@goodies
+}
+
 @base.layout(
 title = title,
 moreCss = cssTag("qa.css"),
-goodies = goodies,
+goodies = side.some,
 openGraph = openGraph) {
 <div id="lichess_qa" class="content_box">
-  @searchForm()
   @body
 </div>
 }
