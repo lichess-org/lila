@@ -88,7 +88,8 @@ object Evaluation {
       moveTime map (x => s"Move time: $x%"),
       blur map (x => s"Blur: $x%"),
       hold.filter(0!=) map (x => s"Bot: $x%"),
-      error map (x => s"Analysis: $x%")
+      error map (x => s"Analysis: $x%"),
+      hold map (x => s"Bot: $x%")
     ).flatten mkString ", "
   }
 
