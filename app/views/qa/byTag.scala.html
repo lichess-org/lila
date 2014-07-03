@@ -1,0 +1,21 @@
+@(tag: String, questions: List[lila.qa.QuestionWithUser], popular: List[lila.qa.Question])(implicit ctx: Context)
+
+@title = @{ s""""$tag" questions""" }
+
+@layout(title = title) {
+
+<h1>@title</h1>
+
+<p class="nb_results">
+  @questions.size match {
+  case 0 => { No question found. }
+  case 1 => { One question found. }
+  case x => { @x questions found. }
+  }
+</p>
+<table class="previews">
+  @questions.map { q =>
+  @questionPreview(q)
+  }
+</table>
+}

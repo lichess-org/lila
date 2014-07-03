@@ -22,7 +22,7 @@ final class QaApi(questionColl: Coll, answerColl: Coll, mailer: Mailer) {
     private implicit val voteBSONHandler = Macros.handler[Vote]
     private[qa] implicit val questionBSONHandler = Macros.handler[Question]
 
-    def create(data: Forms.QuestionData, user: User): Fu[Question] =
+    def create(data: DataForms.QuestionData, user: User): Fu[Question] =
       lila.db.Util findNextId questionColl flatMap { id =>
         val q = Question(
           _id = id,
@@ -45,7 +45,7 @@ final class QaApi(questionColl: Coll, answerColl: Coll, mailer: Mailer) {
           relation.clearCache inject q
       }
 
-    def edit(data: Forms.QuestionData, id: QuestionId): Fu[Option[Question]] = findById(id) flatMap {
+    def edit(data: DataForms.QuestionData, id: QuestionId): Fu[Option[Question]] = findById(id) flatMap {
       case None => fuccess(none)
       case Some(q) =>
         val q2 = q.copy(title = data.title, body = data.body, tags = data.tags).editNow
@@ -194,7 +194,7 @@ final class QaApi(questionColl: Coll, answerColl: Coll, mailer: Mailer) {
     private implicit val voteBSONHandler = Macros.handler[Vote]
     private implicit val answerBSONHandler = Macros.handler[Answer]
 
-    def create(data: Forms.AnswerData, q: Question, user: User): Fu[Answer] =
+    def create(data: DataForms.AnswerData, q: Question, user: User): Fu[Answer] =
       lila.db.Util findNextId answerColl flatMap { id =>
         val a = Answer(
           _id = id,
@@ -215,7 +215,7 @@ final class QaApi(questionColl: Coll, answerColl: Coll, mailer: Mailer) {
           } inject a
       }
 
-    def edit(data: Forms.AnswerData, id: AnswerId): Fu[Option[Answer]] = findById(id) flatMap {
+    def edit(data: DataForms.AnswerData, id: AnswerId): Fu[Option[Answer]] = findById(id) flatMap {
       case None => fuccess(none)
       case Some(a) =>
         val a2 = a.copy(body = data.body).editNow
@@ -309,7 +309,7 @@ final class QaApi(questionColl: Coll, answerColl: Coll, mailer: Mailer) {
 
   object comment {
 
-    def create(data: Forms.CommentData, subject: Either[Question, Answer], user: User): Fu[Comment] = {
+    def create(data: DataForms.CommentData, subject: Either[Question, Answer], user: User): Fu[Comment] = {
       val c = Comment(
         id = ornicar.scalalib.Random nextStringUppercase 8,
         userId = user.id,

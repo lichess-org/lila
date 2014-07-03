@@ -1,0 +1,12 @@
+@(title: String, goodies: Option[Html] = None, openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
+
+@base.layout(
+title = title,
+moreCss = cssTag("qa.css"),
+goodies = goodies,
+openGraph = openGraph) {
+<div id="lichess_qa" class="content_box">
+  @searchForm()
+  @body
+</div>
+}

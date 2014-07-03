@@ -8,15 +8,24 @@ final class Env(
     db: lila.db.Env) {
 
   private val CollectionQuestion = config getString "collection.question"
+  private val CollectionAnswer = config getString "collection.answer"
+  private val NotifyUserId = config getString "notify.user_id"
 
-  // def forms = DataForm
+  private lazy val questionColl = db(CollectionQuestion)
 
-  // lazy val api = new qaApi(db(Collectionqa), MonthlyGoal)
+  lazy val api = new QaApi(
+    questionColl = questionColl,
+    answerColl = db(CollectionAnswer),
+    mailer = new Mailer(NotifyUserId))
+
+  lazy val search = new Search(questionColl)
+
+  def forms = DataForms
 }
 
 object Env {
 
-  lazy val current = "[boot] donation" describes new Env(
-    config = lila.common.PlayApp loadConfig "donation",
+  lazy val current = "[boot] qa" describes new Env(
+    config = lila.common.PlayApp loadConfig "qa",
     db = lila.db.Env.current)
 }

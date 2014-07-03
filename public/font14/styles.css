@@ -74,17 +74,8 @@
 .icon-fontawesome-webfont-12:before {
   content: "m";
 }
-.icon-fontawesome-webfont-13:before {
-  content: "n";
-}
-.icon-fontawesome-webfont-14:before {
-  content: "o";
-}
 .icon-fontawesome-webfont-15:before {
   content: "p";
-}
-.icon-fontawesome-webfont-16:before {
-  content: "q";
 }
 .icon-fontawesome-webfont-17:before {
   content: "r";
@@ -106,9 +97,6 @@
 }
 .icon-fontawesome-webfont-22:before {
   content: "x";
-}
-.icon-camera-surveillance-1:before {
-  content: "y";
 }
 .icon-fontawesome-webfont-23:before {
   content: "z";
@@ -241,4 +229,19 @@
 }
 .icon-ionicons-1:before {
   content: "7";
+}
+.icon-unmute:before {
+  content: "#";
+}
+.icon-mute:before {
+  content: "$";
+}
+.icon-gear:before {
+  content: "%";
+}
+.icon-repo:before {
+  content: "&";
+}
+.icon-law:before {
+  content: "n";
 }

@@ -7,7 +7,7 @@
 @account.layout(title = title, active = "preferences") {
 <div class="content_box small_box prefs">
   <div class="signup_box">
-    <h1 class="lichess_title">@trans.preferences()</h1>
+    <h1 class="lichess_title" data-icon="%"> @trans.preferences()</h1>
     <form class="autosubmit" action="@routes.Pref.formApply" method="POST">
       <fieldset>
         <legend>Game display</legend>

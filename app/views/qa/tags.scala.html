@@ -1,0 +1,13 @@
+@(tags: Seq[String])
+<div class="tags">
+  @defining(tags.size - 1) { last =>
+  @tags.zipWithIndex.map {
+  case (tag, i) => {
+  <a href="@routes.QaQuestion.byTag(tag)">@tag</a>@if(i != last) {,}
+  }
+  }
+  }
+  @if(tags.isEmpty) {
+  &nbsp;
+  }
+</div>

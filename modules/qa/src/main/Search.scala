@@ -6,7 +6,7 @@ import reactivemongo.core.commands._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Types.Coll
 
-final class SearchEngine(collection: Coll) {
+final class Search(collection: Coll) {
 
   private implicit val commentBSONHandler = Macros.handler[Comment]
   private implicit val voteBSONHandler = Macros.handler[Vote]

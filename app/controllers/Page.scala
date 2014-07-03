@@ -20,4 +20,6 @@ object Page extends LilaController {
   def helpLichess = page("help")
 
   def streamHowTo = page("stream-howto")
+
+  def contact = page("contact")
 }

@@ -51,8 +51,8 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     <div id="top" class="clearfix">
       @if(!zen) {
       <button data-hint="@trans.toggleSound()" id="sound_state" class="a available hint--bottom-left">
-        <span class="is2 on" data-icon="n"></span>
-        <span class="is2 off" data-icon="o"></span>
+        <span class="is2 on" data-icon="#"></span>
+        <span class="is2 off" data-icon="$"></span>
       </button>
       }
       @if(!zen) {
@@ -110,7 +110,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
             }
           </div>
           @if(ctx.isAuth) {
-          <a class="prefs button" href="@routes.Pref.form"><span data-icon="q">&nbsp;@trans.preferences()</span></a>
+          <a class="prefs button" href="@routes.Pref.form"><span data-icon="%">&nbsp;@trans.preferences()</span></a>
           }
         </div>
       </div>
@@ -133,7 +133,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
         </a>
         <div class="links dropdown">
           <a href="@routes.User.show(me.username)" class="blank_if_play"><span data-icon="r">&nbsp;@trans.profile()</span></a>
-          <a href="@routes.Pref.form"><span data-icon="q">&nbsp;@trans.preferences()</span></a>
+          <a href="@routes.Pref.form"><span data-icon="%">&nbsp;@trans.preferences()</span></a>
           <a href="@routes.Auth.logout"><span data-icon="w">&nbsp;@trans.logOut()</span></a>
           @if(isGranted(_.StaffForum)) {
           <span class="sep"></span>
@@ -188,18 +188,19 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     <div id="footer_wrap">
       <div class="footer">
         <div class="right">
-          <a href="http://github.com/ornicar">github.com/ornicar</a> | <a class="js_email">email me</a><br />
-          <a href="@routes.Main.developers">Developers</a> |
+          <a href="http://github.com/ornicar/lila" target="_blank">Source Code</a> |
+          <a href="@routes.Main.developers">Developers</a><br />
+          <a href="@routes.Page.contact">Contact</a> |
           <a href="@routes.Page.thanks">Thanks</a> |
           <a href="@routes.Page.tos">ToS</a>
         </div>
         <div class="center">
           <a href="@routes.Donation.index" class="button">Donate</a>
         </div>
-        <a href="@routes.Wiki.home()" title="@trans.learnMoreAboutLichess()">Wiki</a> |
-        <a href="http://map.lichess.org" title="Realtime world map of chess moves">World Map</a> |
-        <a href="http://github.com/ornicar/lila" target="_blank" title="See what's inside, fork and contribute">Source Code</a><br />
         <a href="@routes.Blog.index()">Blog</a> |
+        <a href="@routes.QaQuestion.index()" title="Questions &amp; Answers">Q&amp;A</a> |
+        <a href="@routes.Wiki.home()" title="@trans.learnMoreAboutLichess()">Wiki</a><br />
+        <a href="http://map.lichess.org" title="Realtime world map of chess moves">Map</a> |
         <a href="@routes.Monitor.index">Monitor</a> |
         <a href="@routes.Page.helpLichess">Help lichess.org</a>
       </div>

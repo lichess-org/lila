@@ -1,0 +1,24 @@
+@(questions: Paginator[lila.qa.QuestionWithUser], popular: List[lila.qa.Question])(implicit ctx: Context)
+
+@goodies = {
+@popularBox(popular)
+}
+
+@layout(
+title = "Questions & answers",
+goodies = goodies.some) {
+
+<h1 data-icon="&" class="is4"> Questions &amp; Answers</h1>
+<div class="infinitescroll">
+  <table class="previews">
+    @questions.currentPageResults.map { q =>
+    @questionPreview(q)
+    }
+  </table>
+  <div class="navigation">
+    @questions.nextPage.map { next =>
+    <a class="next" href="@routes.QaQuestion.index(next.some)">Next</a>
+    }
+  </div>
+</div>
+}

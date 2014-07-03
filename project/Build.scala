@@ -61,7 +61,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
-  lazy val qa = project("qa", Seq(common, db, memo, user)).settings(
+  lazy val qa = project("qa", Seq(common, db, memo, user, security)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
