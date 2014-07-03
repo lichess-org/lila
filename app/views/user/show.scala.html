@@ -176,7 +176,7 @@ openGraph = Map(
         }
         @u.profileOrDefault.countryInfo.map {
         case (code, name) => {
-        <span class="country"><img class="flag" src="@routes.Assets.at(s"images/flags/$code.png")" /> @name</span>
+        <span class="country"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
         }
         }
         @u.lang.flatMap(langName).map { name =>
