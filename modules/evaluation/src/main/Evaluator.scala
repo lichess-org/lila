@@ -21,7 +21,8 @@ final class Evaluator(
     script: String,
     reporter: ActorSelection,
     analyser: ActorSelection,
-    marker: ActorSelection) {
+    marker: ActorSelection,
+    token: String) {
 
   import Evaluation._
 
@@ -105,7 +106,7 @@ final class Evaluator(
     }
 
   private def run(userId: String, deep: Boolean): Try[String] = {
-    val command = s"""$script $userId ${deep ?? "true"}"""
+    val command = s"""$script $userId ${deep.fold("true", "false")} $token""".pp
     Try {
       import scala.sys.process._
       command!!

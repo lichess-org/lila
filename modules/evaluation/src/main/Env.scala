@@ -12,13 +12,15 @@ final class Env(
   private val CollectionEvaluation = config getString "collection.evaluation"
   private val EvaluatorScriptPath = config getString "evaluator.script_path"
   private val ActorName = config getString "actor.name"
+  private val ApiToken = config getString "api.token"
 
   lazy val evaluator = new Evaluator(
     coll = db(CollectionEvaluation),
     script = EvaluatorScriptPath,
     reporter = hub.actor.report,
     analyser = hub.actor.analyser,
-    marker = hub.actor.mod)
+    marker = hub.actor.mod,
+    token = ApiToken)
 
   system.actorOf(Props(new Listener(evaluator)), name = ActorName)
 }
