@@ -32,11 +32,13 @@ object Donation extends LilaController {
       },
       ipn => {
         val donation = lila.donation.Donation.make(
-          payPalTnx = ipn.txnId.some,
+          payPalTnx = ipn.txnId,
+          payPalSub = ipn.subId,
           userId = ipn.userId,
           email = ipn.email,
           name = ipn.name,
-          amount = ipn.cents,
+          gross = ipn.grossCents,
+          fee = ipn.feeCents,
           message = "")
         println(donation)
         Env.donation.api create donation inject Ok

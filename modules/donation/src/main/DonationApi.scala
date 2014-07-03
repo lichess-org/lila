@@ -9,7 +9,7 @@ final class DonationApi(coll: Coll, monthlyGoal: Int) {
 
   private implicit val donationBSONHandler = Macros.handler[Donation]
 
-  private val decentAmount = BSONDocument("amount" -> BSONDocument("$gte" -> BSONInteger(2)))
+  private val decentAmount = BSONDocument("net" -> BSONDocument("$gte" -> BSONInteger(1)))
 
   def list = coll.find(decentAmount)
     .sort(BSONDocument("date" -> -1))
@@ -17,7 +17,7 @@ final class DonationApi(coll: Coll, monthlyGoal: Int) {
     .collect[List]()
 
   def top(nb: Int) = coll.find(BSONDocument())
-    .sort(BSONDocument("amount" -> -1, "date" -> -1))
+    .sort(BSONDocument("net" -> -1, "date" -> -1))
     .cursor[Donation]
     .collect[List](nb)
 
@@ -30,9 +30,9 @@ final class DonationApi(coll: Coll, monthlyGoal: Int) {
   def donatedByUser(userId: String): Fu[Int] =
     coll.find(
       decentAmount ++ BSONDocument("userId" -> userId),
-      BSONDocument("amount" -> true, "_id" -> false)
+      BSONDocument("net" -> true, "_id" -> false)
     ).cursor[BSONDocument].collect[List]() map2 { (obj: BSONDocument) =>
-        ~obj.getAs[Int]("amount")
+        ~obj.getAs[Int]("net")
       } map (_.sum)
 
   def progress: Fu[Progress] = {
@@ -43,9 +43,9 @@ final class DonationApi(coll: Coll, monthlyGoal: Int) {
         "$gte" -> from,
         "$lt" -> to
       )),
-      BSONDocument("amount" -> true, "_id" -> false)
+      BSONDocument("net" -> true, "_id" -> false)
     ).cursor[BSONDocument].collect[List]() map2 { (obj: BSONDocument) =>
-        Donation afterFees ~obj.getAs[Int]("amount")
+        ~obj.getAs[Int]("net")
       } map (_.sum) map { amount =>
         Progress(from, monthlyGoal, amount)
       }
