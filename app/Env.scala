@@ -130,4 +130,5 @@ object Env {
   def blog = lila.blog.Env.current
   def pool = lila.pool.Env.current
   def donation = lila.donation.Env.current
+  def qa = lila.qa.Env.current
 }

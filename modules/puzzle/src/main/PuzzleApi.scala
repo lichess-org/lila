@@ -46,7 +46,7 @@ private[puzzle] final class PuzzleApi(
       case Failure(err) :: rest => insertPuzzles(rest) map { ps =>
         (Failure(err): Try[PuzzleId]) :: ps
       }
-      case Success(puzzle) :: rest => findNextId flatMap { id =>
+      case Success(puzzle) :: rest => lila.db.Util findNextId puzzleColl flatMap { id =>
         val p = puzzle(id)
         val fenStart = p.fen.split(' ').take(2).mkString(" ")
         puzzleColl.db command Count(puzzleColl.name, BSONDocument(
@@ -59,13 +59,6 @@ private[puzzle] final class PuzzleApi(
         }
       }
     }
-
-    private def findNextId: Fu[PuzzleId] =
-      puzzleColl.find(BSONDocument(), BSONDocument("_id" -> true))
-        .sort(BSONDocument("_id" -> -1))
-        .one[BSONDocument] map {
-          _ flatMap { doc => doc.getAs[Int]("_id") map (1+) } getOrElse 1
-        }
   }
 
   object attempt {
