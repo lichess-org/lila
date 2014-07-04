@@ -24,6 +24,8 @@
     @variantName(tour.variant).capitalize,
     @{ tour.rated.fold(trans.rated(), trans.casual()) }
     <br /><br />
+    @trans.system(): @systemName(tour.system).capitalize
+    <br /><br />
     @trans.duration(): @tour.minutes minutes
     @if(tour.isRunning) {
     <br /><br />

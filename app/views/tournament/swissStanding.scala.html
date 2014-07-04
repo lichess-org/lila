@@ -1,25 +1,23 @@
 @(tour: lila.tournament.StartedOrFinished)(implicit ctx: Context)
 
+@import lila.tournament.swiss.SwissSystem
+
 <div class="standing_wrap scroll-shadow-soft">
   <table class="slist standing @if(tour.scheduled) { scheduled }">
     <thead>
       <tr>
         <th class="large">@trans.standing() (@tour.nbPlayers)</th>
-        <th class="legend">
-          <span class="streakstarter">Streak starter</span>
-          <span class="double">Double points</span>
-        </th>
+        <th></th>
         <th></th>
       </tr>
     </thead>
     <tbody>
+      @defining(SwissSystem.scoreSheets(tour)) {
+      case scoreSheets => {
       @tour.rankedPlayers.map {
       case (rank, player) => {
-      @defining((
-      if(tour.isFinished && rank == 1) "winner" else if (player.withdraw) "withdraw" else "",
-      tour scoreSheet player
-      )) {
-      case (flag, scoreSheet) => {
+      @defining(scoreSheets(player.id)) {
+      case scoreSheet => {
       <tr @if(ctx.userId.exists(player.id==)) { class="me" }>
         <td class="name">
           @if(player.withdraw) {
@@ -34,15 +32,17 @@
           @userInfosLink(player.id, none, withOnline = false)
         </td>
         <td class="sheet">
-          @scoreSheet.scores.take(20).reverse.map { score =>
-          <span class="@score.flag.toString.toLowerCase">@score.value</span>
+          @scoreSheet.scores.reverse.map { score =>
+          <span class="normal">@score.repr</span>
           }
         </td>
         <td class="total">
-          <strong@if(tour.isRunning && scoreSheet.onFire) { class="is-gold" data-icon="Q" }>@scoreSheet.total</strong>
+          <strong>@scoreSheet.totalRepr</strong> (@scoreSheet.neustadtlRepr)
         </td>
       </tr>
       <tr><td class="around-bar" colspan="3"><div class="bar" data-value="@scoreSheet.total"></div></td></tr>
+      }
+      }
       }
       }
       }

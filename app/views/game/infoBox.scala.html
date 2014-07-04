@@ -1,6 +1,7 @@
 @(pov: Pov, tour: Option[lila.tournament.Tournament], withTourStanding: Boolean)(implicit ctx: Context)
 
 @import pov._
+@import lila.tournament.arena
 
 <div class="goodies">
   <div class="box">
@@ -69,10 +70,13 @@
         @t.rankedPlayers.map {
         case (rank, player) => {
         @defining((
-        if(t.isFinished && rank == 1) "winner" else if (player.withdraw) "withdraw" else "",
-        t scoreSheet player
-        )) {
-        case (flag, scoreSheet) => {
+        t scoreSheet player,
+        // TODO FIXME that's a little ugly I must say.
+        t.system.scoringSystem match {
+            case ss @ arena.ScoringSystem => ss.scoreSheet(t, player.id).onFire
+            case _                        => false
+        })) {
+        case (scoreSheet, onFire) => {
         <tr @if(ctx.userId.exists(player.id==)) { class="me" }>
           <td class="name">
             @if(player.withdraw) {
@@ -87,7 +91,7 @@
             @userInfosLink(player.id, none, withOnline = false)
           </td>
           <td class="total">
-            <strong@if(scoreSheet.onFire) { class="is-gold" data-icon="Q" }>@scoreSheet.total</strong>
+            <strong@if(onFire) { class="is-gold" data-icon="Q" }>@scoreSheet.total</strong>
           </td>
         </tr>
         <tr><td class="around-bar" colspan="3"><div class="bar" data-value="@scoreSheet.total"></div></td></tr>

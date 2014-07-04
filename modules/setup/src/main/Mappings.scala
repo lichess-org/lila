@@ -22,4 +22,5 @@ object Mappings {
   val level = number.verifying(AiConfig.levels contains _)
   val speed = number.verifying(Config.speeds contains _)
   val fen = optional(nonEmptyText)
+  val system = number.verifying(Config.systems contains _)
 }
