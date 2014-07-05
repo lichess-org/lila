@@ -15,9 +15,6 @@ object ApplicationBuild extends Build {
     scalacOptions := compilerOptions,
     incOptions := incOptions.value.withNameHashing(true),
     offline := true,
-    // watchSources := (watchSources.value
-    //   --- baseDirectory.value / "public" ** "*"
-    // ).get,
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache, scalaTime,
       csv, jgit, actuarius, elastic4s, findbugs, RM,
@@ -31,7 +28,10 @@ object ApplicationBuild extends Build {
         "lila.security.Permission",
         "lila.app.templating.Environment._",
         "lila.api.Context",
-        "lila.common.paginator.Paginator")
+        "lila.common.paginator.Paginator"),
+        watchSources := (watchSources.value
+          --- baseDirectory.value / "public" ** "*"
+        ).get
   ) dependsOn api aggregate api
 
   lazy val modules = Seq(
