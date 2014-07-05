@@ -42,8 +42,4 @@ object DataForms {
   val vote = Form(single(
     "vote" -> number
   ))
-
-  val favorite = Form(single(
-    "favorite" -> number
-  ))
 }

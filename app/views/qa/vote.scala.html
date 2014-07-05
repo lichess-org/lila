@@ -1,0 +1,17 @@
+@(url: String, vote: lila.qa.Vote)(implicit ctx: Context)
+
+@defining(ctx.userId.flatMap(vote.of)) { myVote =>
+<div class="upvote @if(ctx.isAuth) {enabled}" data-post-url="url">
+  <a
+    title="This question shows research effort; it is useful and clear"
+    data-vote="1"
+    data-icon="S"
+    class="upvote @if(myVote == Some(true)) {active}"></a>
+  <span data-hint="Popularity" class="count hint--bottom">@vote.score</span>
+  <a
+    title="This question does not show any research effort; it is unclear or not useful"
+    data-vote="0"
+    data-icon="R"
+    class="downvote @if(myVote == Some(true)) {active}"></a>
+</div>
+}

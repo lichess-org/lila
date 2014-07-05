@@ -1,19 +1,10 @@
 @(title: String, searchText: String = "", goodies: Option[Html] = None, moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
 
-@moreCss = {
-@cssTag("forum.css")
-}
-
-@forumJs = {
-@moreJs
-@jsTag("forum.js")
-}
-
 @base.layout(
 title = title,
 goodies = goodies,
-moreCss = moreCss,
-moreJs = forumJs,
+moreCss = cssTag("forum.css"),
+moreJs = moreJs,
 active = siteMenu.forum.some) {
 <div id="lichess_forum" class="content_box no_padding">
   @forum.searchForm(searchText.trim)

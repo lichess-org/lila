@@ -18,7 +18,6 @@ trait AssetHelper {
 
   def cssTag(name: String, staticDomain: Boolean = true) = cssAt("stylesheets/" + name, staticDomain)
 
-
   def cssVendorTag(name: String, staticDomain: Boolean = true) = cssAt("vendor/" + name, staticDomain)
 
   def cssAt(path: String, staticDomain: Boolean = true) = Html {
@@ -59,6 +58,16 @@ trait AssetHelper {
     cdn = "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js",
     test = "window._",
     local = staticUrl("vendor/underscorejs.min.js"))
+
+  val tagmanagerTag = cdnOrLocal(
+    cdn = "http://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
+    test = "$.tagsManager",
+    local = staticUrl("vendor/tagmanager/tagmanager.js"))
+
+  val typeaheadTag = cdnOrLocal(
+    cdn = "http://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.2/typeahead.bundle.min.js",
+    test = "$.typeahead",
+    local = staticUrl("vendor/typeahead.bundle.min.js"))
 
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
     if (isProd)

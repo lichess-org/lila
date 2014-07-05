@@ -3,13 +3,16 @@
 @title = @{ "Q&A - Ask a new question" }
 
 @layout(
-title = title,
+title = "Ask a new question" ,
 goodies = popularBox(popular).some) {
 
-<h1>@title</h1>
+<h1>
+  <a href="@routes.QaQuestion.index()" data-icon="&"></a>
+  Ask a new question
+</h1>
 
-<form action="@routes.QaQuestion.ask()" method="post">
+<form class="wide question" action="@routes.QaQuestion.ask()" method="post">
   @questionForm(form, tags)
-  <button type="submit" class="pure button">Post your question</button>
+  <button type="submit" class="pure submit button">Post your question</button>
 </form>
 }

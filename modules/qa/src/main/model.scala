@@ -11,7 +11,6 @@ case class Question(
     body: String, // markdown
     tags: List[String],
     vote: Vote,
-    favoriters: Set[String],
     comments: List[Comment],
     views: Int,
     answers: Int,
@@ -39,12 +38,6 @@ case class Question(
   def editNow = copy(editedAt = Some(DateTime.now)).updateNow
 
   def accepted = acceptedAt.isDefined
-
-  def favorite(user: User): Boolean = favoriters(user.id)
-
-  def setFavorite(userId: String, v: Boolean) = copy(
-    favoriters = if (v) favoriters + userId else favoriters - userId
-  )
 }
 
 case class QuestionWithUser(question: Question, user: User)

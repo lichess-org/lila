@@ -55,11 +55,11 @@ final class Api(
       }
     }
 
-  def lichessThread(lt: LichessThread, creatorId: String = "lichess"): Funit =
+  def lichessThread(lt: LichessThread): Funit =
     $insert(Thread.make(
       name = lt.subject,
       text = lt.message,
-      creatorId = creatorId,
+      creatorId = lt.from,
       invitedId = lt.to)) >> unreadCache.clear(lt.to)
 
   def makePost(thread: Thread, text: String, me: User) = {

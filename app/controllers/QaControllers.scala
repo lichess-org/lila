@@ -25,14 +25,22 @@ trait QaController extends LilaController {
         case _ => notFound
       }
 
+  protected def WithQuestion(id: QuestionId)(block: Question => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    OptionFuResult(api.question findById id)(block)
+
   protected def WithQuestion(id: QuestionId, slug: String)(block: Question => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    OptionFuResult(api.question findById id) { q =>
+    WithQuestion(id) { q =>
       if (slug != q.slug) fuccess(Redirect {
         controllers.routes.QaQuestion.show(id, q.slug)
       })
       else block(q)
     }
 
+  protected def WithOwnQuestion(id: QuestionId)(block: Question => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    WithQuestion(id) { q =>
+      if (QaAuth canEdit q) block(q)
+      else fuccess(Unauthorized)
+    }
   protected def WithOwnQuestion(id: QuestionId, slug: String)(block: Question => Fu[Result])(implicit ctx: Context): Fu[Result] =
     WithQuestion(id, slug) { q =>
       if (QaAuth canEdit q) block(q)

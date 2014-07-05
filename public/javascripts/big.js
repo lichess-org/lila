@@ -2929,6 +2929,14 @@ var storage = {
       }));
   });
 
+  /////////////// forum.js ////////////////////
+
+  $('#lichess_forum').on('click', 'a.delete', function() {
+    $.post($(this).attr("href"));
+    $(this).closest(".post").slideUp(100);
+    return false;
+  });
+
   $.fn.sortable = function(sortFns) {
     return this.each(function() {
       var $table = $(this);

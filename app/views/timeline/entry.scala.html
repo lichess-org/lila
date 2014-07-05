@@ -22,6 +22,15 @@ case NoteCreate(fromId, toId) => {
 case TourJoin(userId, tourId, tourName) => {
 @userIdLink(userId.some, withOnline = false) competes in <a href="@routes.Tournament.show(tourId)">@trans.xTournament(tourName)</a>
 }
+case QaQuestion(userId, id, title) => {
+@userIdLink(userId.some, withOnline = false) asked <a href="@routes.QaQuestion.show(id, "redirect")">@title</a>
+}
+case QaAnswer(userId, id, title, answerId) => {
+@userIdLink(userId.some, withOnline = false) answered <a href="@routes.QaQuestion.show(id, "redirect")#answer-@answerId">@title</a>
+}
+case QaComment(userId, id, title, commentId) => {
+@userIdLink(userId.some, withOnline = false) commented <a href="@routes.QaQuestion.show(id, "redirect")#comment-@commentId">@title</a>
+}
 }
 @momentFromNow(e.date)
 }

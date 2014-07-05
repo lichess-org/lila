@@ -1,16 +1,15 @@
-.metas .delete,
-.metas .postip {
+div.post .metas .mod {
   margin-left: 1em;
   font-size: 0.9em;
+  visibility: hidden;
 }
-.forum_topics_list .delete {
-  margin-right: 1em;
+div.post:hover .metas .mod {
+  visibility: visible;
 }
 
 ol.crumbs {
   padding: 20px 24px 0 24px;
 }
-
 
 ol.crumbs li {
   display: inline;

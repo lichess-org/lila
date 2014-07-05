@@ -70,8 +70,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font14/fonts/lichess.eot");
-  src: url("../font14/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font14/fonts/lichess.woff") format("woff"), url("../font14/fonts/lichess.ttf") format("truetype"), url("../font14/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font15/fonts/lichess.eot");
+  src: url("../font15/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font15/fonts/lichess.woff") format("woff"), url("../font15/fonts/lichess.ttf") format("truetype"), url("../font15/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }

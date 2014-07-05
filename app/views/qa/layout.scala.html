@@ -6,12 +6,19 @@
 @goodies
 }
 
+@moreJs = {
+@tagmanagerTag
+@typeaheadTag
+@jsTag("qa.js")
+}
+
 @base.layout(
-title = title,
+title = s"Q&A - $title",
 moreCss = cssTag("qa.css"),
+moreJs = moreJs,
 goodies = side.some,
 openGraph = openGraph) {
-<div id="lichess_qa" class="content_box">
+<div id="qa" class="content_box">
   @body
 </div>
 }

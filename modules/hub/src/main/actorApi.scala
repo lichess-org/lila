@@ -76,6 +76,9 @@ case class TeamCreate(userId: String, teamId: String) extends Atom
 case class ForumPost(userId: String, topicName: String, postId: String) extends Atom
 case class NoteCreate(from: String, to: String) extends Atom
 case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom
+case class QaQuestion(userId: String, id: Int, title: String) extends Atom
+case class QaAnswer(userId: String, id: Int, title: String, answerId: Int) extends Atom
+case class QaComment(userId: String, id: Int, title: String, commentId: String) extends Atom
 
 object atomFormat {
   implicit val followFormat = Json.format[Follow]
@@ -84,6 +87,9 @@ object atomFormat {
   implicit val forumPostFormat = Json.format[ForumPost]
   implicit val noteCreateFormat = Json.format[NoteCreate]
   implicit val tourJoinFormat = Json.format[TourJoin]
+  implicit val qaQuestionFormat = Json.format[QaQuestion]
+  implicit val qaAnswerFormat = Json.format[QaAnswer]
+  implicit val qaCommentFormat = Json.format[QaComment]
 }
 
 object propagation {
@@ -99,6 +105,7 @@ import propagation._
 
 case class Propagate(data: Atom, propagations: List[Propagation] = Nil) {
   def toUsers(ids: List[String]) = add(Users(ids))
+  def toUser(id: String) = add(Users(List(id)))
   def toFollowersOf(id: String) = add(Followers(id))
   def toFriendsOf(id: String) = add(Friends(id))
   def toStaffFriendsOf(id: String) = add(StaffFriends(id))
@@ -113,7 +120,7 @@ case object Count
 }
 
 package message {
-case class LichessThread(to: String, subject: String, message: String)
+case class LichessThread(from: String, to: String, subject: String, message: String)
 }
 
 package router {

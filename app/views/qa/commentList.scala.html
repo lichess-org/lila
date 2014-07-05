@@ -1,0 +1,20 @@
+@(q: lila.qa.Question, comments: List[lila.qa.CommentWithUser], action: String)(implicit ctx: Context)
+
+@comments.map { c =>
+<div class="comment" id="comment-@c.comment.id">
+  <div class="metadata">
+    @userLink(c.user) commented @momentFromNow(c.comment.createdAt):
+    @nope("Remove", routes.QaComment.remove(q.id, c.comment.id))
+  </div>
+  @autoLink(c.comment.body)
+</div>
+}
+@ctx.me.map { user =>
+<div class="your-comment @if(comments.isEmpty) {no-comment}">
+  <a class="thin toggle">Add comment</a>
+  <form action="@action" method="post">
+    <textarea name="body"></textarea>
+    <button class="pure button" type="submit">Post your comment</button>
+  </form>
+</div>
+}

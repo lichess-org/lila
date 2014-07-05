@@ -14,7 +14,7 @@ import lila.db.paginator._
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
 
-final class QaApi(questionColl: Coll, answerColl: Coll, mailer: Mailer) {
+final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
 
   object question {
 
@@ -31,7 +31,6 @@ final class QaApi(questionColl: Coll, answerColl: Coll, mailer: Mailer) {
           body = data.body,
           tags = data.tags,
           vote = Vote(Set.empty, Set.empty, 0),
-          favoriters = Set.empty,
           comments = Nil,
           views = 0,
           answers = 0,
@@ -42,7 +41,8 @@ final class QaApi(questionColl: Coll, answerColl: Coll, mailer: Mailer) {
 
         (questionColl insert q) >>
           tag.clearCache >>
-          relation.clearCache inject q
+          relation.clearCache >>-
+          notifier.createQuestion(q, user) inject q
       }
 
     def edit(data: DataForms.QuestionData, id: QuestionId): Fu[Option[Question]] = findById(id) flatMap {
@@ -88,13 +88,6 @@ final class QaApi(questionColl: Coll, answerColl: Coll, mailer: Mailer) {
       questionColl.find(BSONDocument("userId" -> u.id))
         .sort(BSONDocument("createdAt" -> -1))
         .cursor[Question].collect[List](max)
-
-    def favoriteByUser(u: User, max: Int): Fu[List[Question]] =
-      questionColl.find(BSONDocument("favoriters" -> u.id))
-        .sort(BSONDocument("createdAt" -> -1))
-        .cursor[Question].collect[List](max)
-
-    def favoriters(q: Question): Fu[List[User]] = UserRepo byIds q.favoriters.toList
 
     def popular(max: Int): Fu[List[Question]] =
       questionColl.find(BSONDocument())
@@ -144,17 +137,6 @@ final class QaApi(questionColl: Coll, answerColl: Coll, mailer: Mailer) {
             BSONDocument("_id" -> q.id),
             BSONDocument("$set" -> BSONDocument("vote" -> newVote, "updatedAt" -> DateTime.now))
           ) >> profile.clearCache inject Some(newVote)
-        case None => fuccess(none)
-      }
-
-    def favorite(id: QuestionId, user: User, v: Boolean): Fu[Option[Question]] =
-      question findById id flatMap {
-        case Some(q) =>
-          val newFavs = q.setFavorite(user.id, v)
-          questionColl.update(
-            BSONDocument("_id" -> q.id),
-            BSONDocument("$set" -> BSONDocument("favoriters" -> newFavs.favoriters, "updatedAt" -> DateTime.now))
-          ) >> profile.clearCache inject Some(newFavs)
         case None => fuccess(none)
       }
 
@@ -208,11 +190,8 @@ final class QaApi(questionColl: Coll, answerColl: Coll, mailer: Mailer) {
           editedAt = None)
 
         (answerColl insert a) >>
-          (question recountAnswers q.id) >> {
-            question favoriters q flatMap {
-              mailer.createAnswer(q, a, user, _)
-            }
-          } inject a
+          (question recountAnswers q.id) >>-
+          notifier.createAnswer(q, a, user) inject a
       }
 
     def edit(data: DataForms.AnswerData, id: AnswerId): Fu[Option[Answer]] = findById(id) flatMap {
@@ -315,12 +294,13 @@ final class QaApi(questionColl: Coll, answerColl: Coll, mailer: Mailer) {
         userId = user.id,
         body = data.body,
         createdAt = DateTime.now)
-      subject.fold(question addComment c, answer addComment c) >> {
+      subject.fold(question addComment c, answer addComment c) >>- {
         subject match {
-          case Left(q) => funit
-          case Right(a) => question findById a.questionId flatMap {
-            case None    => funit
-            case Some(q) => mailer.createAnswerComment(q, a, c, user)
+          case Left(q) => notifier.createQuestionComment(q, c, user)
+          case Right(a) => question findById a.questionId foreach {
+            _ foreach { q =>
+              notifier.createAnswerComment(q, a, c, user)
+            }
           }
         }
       } inject c
@@ -365,7 +345,7 @@ final class QaApi(questionColl: Coll, answerColl: Coll, mailer: Mailer) {
       question.recentByUser(u, 300) zip answer.recentByUser(u, 500) map {
         case (qs, as) => Profile(
           reputation = math.max(0, qs.map { q =>
-            q.vote.score + q.favoriters.size
+            q.vote.score
           }.sum + as.map { a =>
             a.vote.score + (if (a.accepted && !qs.exists(_.userId == a.userId)) 5 else 0)
           }.sum),

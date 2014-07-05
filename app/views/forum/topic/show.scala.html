@@ -29,10 +29,10 @@ title = topic.name) {
         @momentFromNow(post.createdAt)
         <a class="anchor" href="@routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)#@post.number">#@post.number</a>
         @if(isGranted(_.IpBan)) {
-        <span class="postip">@post.ip</span>
+        <span class="mod postip">@post.ip</span>
         }
         @if(isGrantedMod(categ.slug)) {
-        <a class="delete" href="@routes.ForumPost.delete(categ.slug, post.id)">Delete</a>
+        <a class="mod thin delete button" href="@routes.ForumPost.delete(categ.slug, post.id)" data-icon="q"> Delete</a>
         }
       </div>
       <p class="message">@autoLink(post.text)</p>

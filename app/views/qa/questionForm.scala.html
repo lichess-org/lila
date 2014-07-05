@@ -1,15 +1,16 @@
 @(form: Form[_], tags: List[String])(implicit ctx: Context)
 
-<input class="title" name="@form("title").name" value="@form("title").value" placeholder="What's your question? Be specific." />
+<input hint="What's your question?" class="title" name="@form("title").name" value="@form("title").value" placeholder="What's your question? Be specific." />
 @errMsg(form("title"))
 <textarea name="@form("body").name">@form("body").value</textarea>
 @errMsg(form("body"))
-<div class="tags-wrap">
+<div class="tags_wrap">
   <input
   type="text"
   name="tags"
   data-tags="@tags.mkString(",")"
   data-prefill="@form("hidden-tags").value"
-  placeholder="Add a tag"
+  placeholder="Add a tag and press Enter"
   class="tags tm-input"/>
+  <div class="tags"></div>
 </div>

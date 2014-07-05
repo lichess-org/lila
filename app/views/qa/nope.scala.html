@@ -1,0 +1,6 @@
+@(title: String, url: Call)(implicit ctx: Context)
+@if(isGranted(_.ModerateQa)) {
+<form class="mod" action="@url" method="post">
+  <button type="submit" title="@title" class="thin confirm button" data-icon="q"> @title</button>
+</form>
+}
