@@ -12,10 +12,13 @@ import lila.common.paginator._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.paginator._
 import lila.db.Types.Coll
-import lila.user.{ User, UserRepo }
 import lila.memo.AsyncCache
+import lila.user.{ User, UserRepo }
 
-final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
+final class QaApi(
+    questionColl: Coll,
+    answerColl: Coll,
+    notifier: Notifier) {
 
   object question {
 
