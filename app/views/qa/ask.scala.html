@@ -1,18 +1,28 @@
-@(form: Form[_], tags: List[String], popular: List[lila.qa.Question])(implicit ctx: Context)
-
-@title = @{ "Q&A - Ask a new question" }
+@(form: Form[_], tags: List[String], popular: List[lila.qa.Question], captcha: lila.common.Captcha)(implicit ctx: Context)
 
 @layout(
 title = "Ask a new question" ,
 goodies = popularBox(popular).some) {
 
-<h1>
-  <a href="@routes.QaQuestion.index()" data-icon="&"></a>
-  Ask a new question
-</h1>
+<div class="content_box_top">
+  <h1 class="lichess_title">
+    <a href="@routes.QaQuestion.index()" data-icon="&"></a>
+    Ask a new question
+  </h1>
+</div>
 
-<form class="wide question" action="@routes.QaQuestion.ask()" method="post">
-  @questionForm(form, tags)
-  <button type="submit" class="pure submit button">Post your question</button>
-</form>
+<div class="meta content_box_inter">
+  Before asking a question, please make sure it hasn't been answered already!<br />
+  Use the search engine on the left.
+</div>
+
+<div class="content_box_content">
+  <form class="wide question" action="@routes.QaQuestion.ask()" method="post">
+    @questionForm(form, tags, captcha)
+    <button type="submit" class="pure submit button" data-icon="E"> Post your question</button>
+    <br />
+    <br />
+    <a href="@routes.QaQuestion.index()">@trans.cancel()</a>
+  </form>
+</div>
 }

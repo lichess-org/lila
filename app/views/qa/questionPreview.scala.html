@@ -1,30 +1,31 @@
-@(p: lila.qa.QuestionWithUser, a: Option[lila.qa.Answer] = None)
+@(q: lila.qa.Question, a: Option[lila.qa.Answer] = None)
 
 <tr>
   <td class="meat">
-    @tags(p.question.tags)
-    <p class="title">
-      @a.map { ans =>
-      <a href="@routes.QaQuestion.show(p.question.id, p.question.slug)#answer-@ans.id">@p.question.title</a>
-      }.getOrElse {
-      <a href="@routes.QaQuestion.show(p.question.id, p.question.slug)">@p.question.title</a>
-      }
-    </p>
-    <div class="metadata">
-      @momentFromNow(p.question.createdAt)
-      by @userIdLink(p.question.userId.some)
+    <div class="tags">@tags(q.tags)</div>
+    @a.map { ans =>
+    <a class="title" href="@routes.QaQuestion.show(q.id, q.slug)#answer-@ans.id">@q.title</a>
+    }.getOrElse {
+    <a class="title" href="@routes.QaQuestion.show(q.id, q.slug)">@q.title</a>
+    }
+    <div class="meta light">
+      @momentFromNow(q.createdAt) by @userIdLink(q.userId.some)
     </div>
   </td>
-  <td class="votes number">
-    <p class="count">@p.question.vote.score</p>
-    <span>votes</span>
-  </td>
   <td class="answers number">
-    <p class="count @if(p.question.accepted) { accepted }">@p.question.answers</p>
+    @if(q.accepted) {
+    <p class="count is-green" data-icon="E"> @q.answers</p>
+    } else {
+    <p class="count">@q.answers</p>
+    }
     <span>answers</span>
   </td>
+  <td class="votes number">
+    <p class="count">@q.vote.score</p>
+    <span>votes</span>
+  </td>
   <td class="views number">
-    <p class="count">@p.question.views</p>
+    <p class="count">@q.views</p>
     <span>views</span>
   </td>
 </tr>

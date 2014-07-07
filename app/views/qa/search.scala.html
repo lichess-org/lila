@@ -1,25 +1,26 @@
-@(q: String, questions: List[lila.qa.QuestionWithUser], popular: List[lila.qa.Question])(implicit ctx: Context)
+@(q: String, questions: List[lila.qa.Question], popular: List[lila.qa.Question])(implicit ctx: Context)
 
 @title = @{ trans.search.str() + " \"" + q.trim + "\"" }
 
 @layout(title = title) {
 
-<h1>@title</h1>
+<div class="content_box_top">
+  <h1 class="lichess_title" data-icon="y"> @q</h1>
+</div>
 
-<p class="nb_results">
+<div class="meta content_box_inter">
   @questions.size match {
   case 0 => { No question found. }
   case 1 => { One question found. }
   case x => { @x questions found. }
   }
-</p>
-<table class="previews">
+</div>
+<table class="previews slist">
   @questions.map { q =>
   @questionPreview(q)
   }
 </table>
-<p>
-  <br />
+<p class="help">
   If you can't find an answer, feel free to <a href="@routes.QaQuestion.ask()">ask your question</a>!
 </p>
 }

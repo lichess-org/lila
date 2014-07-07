@@ -6,7 +6,7 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.qa.{ QuestionId, Question, AnswerId, Answer, QuestionWithUsers, QaAuth }
+import lila.qa.{ QuestionId, Question, AnswerId, Answer, QaAuth }
 
 trait QaController extends LilaController {
 
@@ -14,16 +14,21 @@ trait QaController extends LilaController {
   protected def forms = Env.qa.forms
 
   protected def renderQuestion(q: Question, answerForm: Option[Form[_]] = None)(implicit ctx: Context): Fu[Result] =
-    (api.answer popular q.id flatMap api.answer.zipWithUsers) zip
-      (api.question popular 10) zip
+    (api.answer popular q.id) zip
+      fetchPopular zip
       api.relation.questions(q, 10) zip
-      (api.question withUsers q) flatMap {
-        case (((answers, popular), related), Some(QuestionWithUsers(q, u, comments))) => fuccess {
-          Ok(views.html.qa.questionShow(q, u, answers, comments, popular, related,
-            answerForm = if (ctx.isAuth) answerForm orElse Some(forms.answer) else None))
+      (QaAuth.canAsk ?? { forms.anyCaptcha map (_.some) }) flatMap {
+        case (((answers, popular), related), captcha) => fuccess {
+          Ok(views.html.qa.questionShow(q, answers, popular, related,
+            answerForm = if (QaAuth canAnswer q) answerForm orElse Some(forms.answer) else None,
+            captcha = captcha))
         }
         case _ => notFound
       }
+
+  protected def renderN00b(implicit ctx: Context) = fetchPopular map { popular =>
+    Forbidden(views.html.qa.n00b(popular))
+  }
 
   protected def WithQuestion(id: QuestionId)(block: Question => Fu[Result])(implicit ctx: Context): Fu[Result] =
     OptionFuResult(api.question findById id)(block)
@@ -53,4 +58,6 @@ trait QaController extends LilaController {
       case (Some(q), Some(a))                       => fuccess(Unauthorized)
       case _                                        => notFound
     }
+
+  protected def fetchPopular = api.question popular 10
 }

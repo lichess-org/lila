@@ -42,12 +42,3 @@ div.big_user_list > a {
   width: 25%;
   margin-bottom: 5px;
 }
-
-form.search_user_form {
-  margin: 1em 0 0 0;
-}
-form.search_user_form input {
-  border: 1px solid #ccc;
-  padding: 3px 5px;
-  width: 186px;
-}

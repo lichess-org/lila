@@ -5,7 +5,7 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.qa.{ QuestionId, Question, AnswerId, Answer, QuestionWithUsers, QaAuth }
+import lila.qa.{ QuestionId, Question, AnswerId, Answer, QaAuth }
 import views._
 
 object QaAnswer extends QaController {
@@ -27,7 +27,7 @@ object QaAnswer extends QaController {
     me =>
       (api.question findById questionId) zip (api.answer findById answerId) flatMap {
         case (Some(q), Some(a)) if (QaAuth canEdit q) =>
-          api.answer.accept(q, a) inject Redirect(routes.QaQuestion.show(q.id, q.slug) + "#answer-" + a.id)
+          api.answer.accept(q, a) inject Redirect(routes.QaQuestion.show(q.id, q.slug))
         case _ => notFound
       }
   }
@@ -49,9 +49,9 @@ object QaAnswer extends QaController {
       WithOwnAnswer(questionId, answerId) { q =>
         a =>
           implicit val req = ctx.body
-          forms.answer.bindFromRequest.fold(
+          forms.editAnswer.bindFromRequest.fold(
             err => renderQuestion(q),
-            data => api.answer.edit(data, a.id) map {
+            body => api.answer.edit(body, a.id) map {
               case None     => NotFound
               case Some(a2) => Redirect(routes.QaQuestion.show(q.id, q.slug) + "#answer-" + a2.id)
             }

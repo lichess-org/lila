@@ -21,8 +21,7 @@ private[report] final class DataForm(val captcher: akka.actor.ActorSelection) ex
         text = text,
         gameId = gameId,
         move = move)
-    })(_.export.some)
-    .verifying(captchaFailMessage, validateCaptcha _))
+    })(_.export.some).verifying(captchaFailMessage, validateCaptcha _))
 
   def createWithCaptcha = withCaptcha(create)
 

@@ -13,6 +13,7 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.paginator._
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
+import lila.memo.AsyncCache
 
 final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
 
@@ -22,7 +23,7 @@ final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
     private implicit val voteBSONHandler = Macros.handler[Vote]
     private[qa] implicit val questionBSONHandler = Macros.handler[Question]
 
-    def create(data: DataForms.QuestionData, user: User): Fu[Question] =
+    def create(data: QuestionData, user: User): Fu[Question] =
       lila.db.Util findNextId questionColl flatMap { id =>
         val q = Question(
           _id = id,
@@ -30,7 +31,7 @@ final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
           title = data.title,
           body = data.body,
           tags = data.tags,
-          vote = Vote(Set.empty, Set.empty, 0),
+          vote = Vote(Set(user.id), Set.empty, 1),
           comments = Nil,
           views = 0,
           answers = 0,
@@ -45,13 +46,13 @@ final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
           notifier.createQuestion(q, user) inject q
       }
 
-    def edit(data: DataForms.QuestionData, id: QuestionId): Fu[Option[Question]] = findById(id) flatMap {
-      case None => fuccess(none)
-      case Some(q) =>
+    def edit(data: QuestionData, id: QuestionId): Fu[Option[Question]] = findById(id) flatMap {
+      _ ?? { q =>
         val q2 = q.copy(title = data.title, body = data.body, tags = data.tags).editNow
         questionColl.update(BSONDocument("_id" -> q2.id), q2) >>
           tag.clearCache >>
-          relation.clearCache inject Some(q2)
+          relation.clearCache inject q2.some
+      }
     }
 
     def findById(id: QuestionId): Fu[Option[Question]] =
@@ -67,63 +68,34 @@ final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
 
     def count: Fu[Int] = questionColl.db command Count(questionColl.name, None)
 
-    def paginatorWithUsers(page: Int, perPage: Int): Fu[Paginator[QuestionWithUser]] =
+    def recentPaginator(page: Int, perPage: Int): Fu[Paginator[Question]] =
+      paginator(BSONDocument("updatedAt" -> -1), page, perPage)
+
+    private def paginator(selector: BSONDocument, page: Int, perPage: Int): Fu[Paginator[Question]] =
       Paginator(
         adapter = new BSONAdapter[Question](
           collection = questionColl,
           selector = BSONDocument(),
-          sort = BSONDocument("createdAt" -> -1)
-        ) mapFutureList {
-          (qs: Seq[Question]) => zipWithUsers(qs.toList)
-        },
+          sort = BSONDocument("updatedAt" -> -1)
+        ),
         currentPage = page,
         maxPerPage = perPage)
 
-    def recent(max: Int): Fu[List[Question]] =
-      questionColl.find(BSONDocument())
-        .sort(BSONDocument("createdAt" -> -1))
-        .cursor[Question].collect[List](max)
-
-    def recentByUser(u: User, max: Int): Fu[List[Question]] =
-      questionColl.find(BSONDocument("userId" -> u.id))
-        .sort(BSONDocument("createdAt" -> -1))
-        .cursor[Question].collect[List](max)
-
-    def popular(max: Int): Fu[List[Question]] =
-      questionColl.find(BSONDocument())
+    private def popularCache = AsyncCache(
+      (nb: Int) => questionColl.find(BSONDocument())
         .sort(BSONDocument("vote.score" -> -1))
-        .cursor[Question].collect[List](max)
+        .cursor[Question].collect[List](nb),
+      timeToLive = 1 hour)
+
+    def popular(max: Int): Fu[List[Question]] = popularCache(max)
 
     def byTag(tag: String, max: Int): Fu[List[Question]] =
       questionColl.find(BSONDocument("tags" -> tag))
-        .sort(BSONDocument("createdAt" -> -1))
+        .sort(BSONDocument("updatedAt" -> -1))
         .cursor[Question].collect[List](max)
 
     def byTags(tags: List[String], max: Int): Fu[List[Question]] =
       questionColl.find(BSONDocument("tags" -> BSONDocument("$in" -> tags))).cursor[Question].collect[List](max)
-
-    def zipWithUsers(questions: List[Question]): Fu[List[QuestionWithUser]] =
-      UserRepo byIds questions.map(_.userId) map { users =>
-        questions flatMap { question =>
-          users find (_.id == question.userId) map question.withUser
-        }
-      }
-
-    def withUsers(question: Question): Fu[Option[QuestionWithUsers]] = {
-      val userIds = question.userId :: question.comments.map(_.userId)
-      UserRepo byIds userIds map { users =>
-        users find (_.id == question.userId) map { questionUser =>
-          question.withUsers(questionUser, question.comments flatMap { comment =>
-            users find (_.id == comment.userId) map comment.withUser
-          })
-        }
-      }
-    }
-
-    def withUser(question: Question): Fu[Option[QuestionWithUser]] =
-      UserRepo byId question.userId map {
-        _ map { QuestionWithUser(question, _) }
-      }
 
     def addComment(c: Comment)(q: Question) = questionColl.update(
       BSONDocument("_id" -> q.id),
@@ -131,13 +103,13 @@ final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
 
     def vote(id: QuestionId, user: User, v: Boolean): Fu[Option[Vote]] =
       question findById id flatMap {
-        case Some(q) =>
+        _ ?? { q =>
           val newVote = q.vote.add(user.id, v)
           questionColl.update(
             BSONDocument("_id" -> q.id),
             BSONDocument("$set" -> BSONDocument("vote" -> newVote, "updatedAt" -> DateTime.now))
-          ) >> profile.clearCache inject Some(newVote)
-        case None => fuccess(none)
+          ) >> profile.clearCache >> popularCache.clear inject newVote.some
+        }
       }
 
     def incViews(q: Question) = questionColl.update(
@@ -176,14 +148,14 @@ final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
     private implicit val voteBSONHandler = Macros.handler[Vote]
     private implicit val answerBSONHandler = Macros.handler[Answer]
 
-    def create(data: DataForms.AnswerData, q: Question, user: User): Fu[Answer] =
+    def create(data: AnswerData, q: Question, user: User): Fu[Answer] =
       lila.db.Util findNextId answerColl flatMap { id =>
         val a = Answer(
           _id = id,
           questionId = q.id,
           userId = user.id,
           body = data.body,
-          vote = Vote(Set.empty, Set.empty, 0),
+          vote = Vote(Set(user.id), Set.empty, 1),
           comments = Nil,
           acceptedAt = None,
           createdAt = DateTime.now,
@@ -194,11 +166,11 @@ final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
           notifier.createAnswer(q, a, user) inject a
       }
 
-    def edit(data: DataForms.AnswerData, id: AnswerId): Fu[Option[Answer]] = findById(id) flatMap {
-      case None => fuccess(none)
-      case Some(a) =>
-        val a2 = a.copy(body = data.body).editNow
-        answerColl.update(BSONDocument("_id" -> a2.id), a2) inject Some(a2)
+    def edit(body: String, id: AnswerId): Fu[Option[Answer]] = findById(id) flatMap {
+      _ ?? { a =>
+        val a2 = a.copy(body = body).editNow
+        answerColl.update(BSONDocument("_id" -> a2.id), a2) inject a2.some
+      }
     }
 
     def findById(id: AnswerId): Fu[Option[Answer]] =
@@ -213,40 +185,16 @@ final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
         BSONDocument("$set" -> BSONDocument("acceptedAt" -> DateTime.now))
       ) >> profile.clearCache
 
-    def recentByUser(u: User, max: Int): Fu[List[Answer]] =
-      answerColl.find(BSONDocument("userId" -> u.id))
-        .sort(BSONDocument("createdAt" -> -1))
-        .cursor[Answer].collect[List](max)
-
     def popular(questionId: QuestionId): Fu[List[Answer]] =
       answerColl.find(BSONDocument("questionId" -> questionId))
         .sort(BSONDocument("vote.score" -> -1))
         .cursor[Answer].collect[List]()
 
     def zipWithQuestions(answers: List[Answer]): Fu[List[AnswerWithQuestion]] =
-      question.findByIds(answers.map(_.questionId)) flatMap question.zipWithUsers map { qs =>
+      question.findByIds(answers.map(_.questionId)) map { qs =>
         answers flatMap { a =>
-          qs find (_.question.id == a.questionId) map { AnswerWithQuestion(a, _) }
+          qs find (_.id == a.questionId) map { AnswerWithQuestion(a, _) }
         }
-      }
-
-    def zipWithUsers(answers: List[Answer]): Fu[List[AnswerWithUserAndComments]] = {
-      val userIds = (answers.map(_.userId) ::: answers.flatMap(_.comments.map(_.userId)))
-      UserRepo byIds userIds.distinct map { users =>
-        answers flatMap { answer =>
-          users find (_.id == answer.userId) map { answerUser =>
-            val commentsWithUsers = answer.comments flatMap { comment =>
-              users find (_.id == comment.userId) map comment.withUser
-            }
-            answer.withUserAndComments(answerUser, commentsWithUsers)
-          }
-        }
-      }
-    }
-
-    def withUser(answer: Answer): Fu[Option[AnswerWithUser]] =
-      UserRepo byId answer.userId map {
-        _ map { AnswerWithUser(answer, _) }
       }
 
     def addComment(c: Comment)(a: Answer) = answerColl.update(
@@ -255,13 +203,13 @@ final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
 
     def vote(id: QuestionId, user: User, v: Boolean): Fu[Option[Vote]] =
       answer findById id flatMap {
-        case Some(a) =>
+        _ ?? { a =>
           val newVote = a.vote.add(user.id, v)
           answerColl.update(
             BSONDocument("_id" -> a.id),
             BSONDocument("$set" -> BSONDocument("vote" -> newVote, "updatedAt" -> DateTime.now))
-          ) >> profile.clearCache inject Some(newVote)
-        case None => fuccess(none)
+          ) >> profile.clearCache inject newVote.some
+        }
       }
 
     def remove(a: Answer): Fu[Unit] =
@@ -269,10 +217,7 @@ final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
         profile.clearCache >>
         (question recountAnswers a.questionId).void
 
-    def remove(id: AnswerId): Fu[Unit] = findById(id) flatMap {
-      case None    => funit
-      case Some(a) => remove(a)
-    }
+    def remove(id: AnswerId): Fu[Unit] = findById(id) flatMap { _ ?? remove }
 
     def removeByQuestion(id: QuestionId) =
       answerColl.remove(BSONDocument("questionId" -> id)) >> profile.clearCache
@@ -288,7 +233,7 @@ final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
 
   object comment {
 
-    def create(data: DataForms.CommentData, subject: Either[Question, Answer], user: User): Fu[Comment] = {
+    def create(data: CommentData, subject: Either[Question, Answer], user: User): Fu[Comment] = {
       val c = Comment(
         id = ornicar.scalalib.Random nextStringUppercase 8,
         userId = user.id,
@@ -337,22 +282,22 @@ final class QaApi(questionColl: Coll, answerColl: Coll, notifier: Notifier) {
 
   object profile {
 
-    private val cache: Cache[Profile] = LruCache(timeToLive = 1.day)
+    // private val cache: Cache[Profile] = LruCache(timeToLive = 1.day)
 
-    def clearCache = fuccess(cache.clear)
+    def clearCache = funit // fuccess(cache.clear)
 
-    def apply(u: User): Fu[Profile] = cache(u.id) {
-      question.recentByUser(u, 300) zip answer.recentByUser(u, 500) map {
-        case (qs, as) => Profile(
-          reputation = math.max(0, qs.map { q =>
-            q.vote.score
-          }.sum + as.map { a =>
-            a.vote.score + (if (a.accepted && !qs.exists(_.userId == a.userId)) 5 else 0)
-          }.sum),
-          questions = qs.size,
-          answers = as.size)
-      }
-    }
+    // def apply(u: User): Fu[Profile] = cache(u.id) {
+    //   question.recentByUser(u, 300) zip answer.recentByUser(u, 500) map {
+    //     case (qs, as) => Profile(
+    //       reputation = math.max(0, qs.map { q =>
+    //         q.vote.score
+    //       }.sum + as.map { a =>
+    //         a.vote.score + (if (a.accepted && !qs.exists(_.userId == a.userId)) 5 else 0)
+    //       }.sum),
+    //       questions = qs.size,
+    //       answers = as.size)
+    //   }
+    // }
   }
 
   object relation {

@@ -1,17 +1,22 @@
 @(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
 
-@goodies = {
-<br />
-@report.speech(true)
-}
-
-@forum.layout(title = "New forum topic", goodies = goodies.some) {
+@forum.layout(title = "New forum topic") {
 <ol class="crumbs">
   <li><a style="text-decoration:none" data-icon="d" class="is4" href="@routes.ForumCateg.index"> Forum</a></li>
   <li><h1>@categ.name</h1></li>
 </ol>
-<br />
-<h1>New topic</h1>
+<div class="warning">
+  <h1 data-icon="!">Important</h1>
+  <p>
+    To report a user for cheating or bad behaviour,<br />
+    <strong><a href="@routes.Report.form">use the report form</a></strong>.
+  </p>
+  <p>
+    To ask a question about lichess or chess rules,<br />
+    <strong><a href="@routes.QaQuestion.index()">use the Question &amp; Answers site</a></strong>.
+  </p>
+</div>
+
 <form class="wide" action="@routes.ForumTopic.create(categ.slug)" method="POST" novalidate>
   <label>
     <span class="required">@trans.subject()</span>

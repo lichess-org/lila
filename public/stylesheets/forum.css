@@ -35,6 +35,22 @@ ol.crumbs li:first-child {
   vertical-align: middle;
 }
 
+#lichess_forum .warning {
+  margin: 20px;
+  background: #f4f4f4;
+  text-align: center;
+  font-size: 1.6em;
+}
+#lichess_forum .warning h1 {
+  margin: 1em 0 0 0;
+  padding: 0;
+  font-weight: bold;
+}
+#lichess_forum .warning p {
+  margin: 1.8em 0;
+  line-height: 1.5em;
+}
+
 #lichess_forum .nb_results {
   padding-left: 25px;
 }

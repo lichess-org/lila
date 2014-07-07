@@ -1,7 +1,7 @@
 @(p: lila.pool.Pool, version: Int, chat: Option[lila.chat.UserChat], pov: Option[Pov])(implicit ctx: Context)
 
 @goodies = {
-<div class="lichess_goodies">
+<div class="goodies">
   <div class="box">
     <span data-icon="p"> @(p.setup.clockLimit / 60) + @p.setup.clockIncrement</span>,
     @variantName(p.setup.variant).capitalize, @trans.rated() -

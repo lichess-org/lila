@@ -1,4 +1,4 @@
-@(questions: Paginator[lila.qa.QuestionWithUser], popular: List[lila.qa.Question])(implicit ctx: Context)
+@(questions: Paginator[lila.qa.Question], popular: List[lila.qa.Question])(implicit ctx: Context)
 
 @goodies = {
 @popularBox(popular)
@@ -8,9 +8,16 @@
 title = "Questions & Answers",
 goodies = goodies.some) {
 
-<h1 data-icon="&" class="is4"> Questions &amp; Answers</h1>
+<div class="content_box_top">
+  <h1 data-icon="&" class="is4 lichess_title"> Questions &amp; Answers</h1>
+</div>
+<div class="content_box_inter meta">
+  <div class="big_search">
+    @searchForm()
+  </div>
+</div>
 <div class="infinitescroll">
-  <table class="previews">
+  <table class="previews slist">
     @questions.currentPageResults.map { q =>
     @questionPreview(q)
     }

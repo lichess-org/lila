@@ -70,14 +70,14 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font15/fonts/lichess.eot");
-  src: url("../font15/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font15/fonts/lichess.woff") format("woff"), url("../font15/fonts/lichess.ttf") format("truetype"), url("../font15/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font16/fonts/lichess.eot");
+  src: url("../font16/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font16/fonts/lichess.woff") format("woff"), url("../font16/fonts/lichess.ttf") format("truetype"), url("../font16/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
-.is:before,
-.is:after,
-[data-icon]:before {
+.is::before,
+.is::after,
+[data-icon]::before {
   font-size: 1.2em;
   vertical-align: middle;
   font-family: "lichess" !important;
@@ -91,24 +91,24 @@ time {
   -moz-osx-font-smoothing: grayscale;
   content: attr(data-icon);
 }
-[data-icon].is2:before {
+[data-icon].is2::before {
   font-size: 20px;
 }
-[data-icon].is3:before {
+[data-icon].is3::before {
   font-size: 22px;
 }
-[data-icon].is4:before {
+[data-icon].is4::before {
   font-size: 30px;
 }
-[data-icon].is-green:before {
+[data-icon].is-green::before {
   color: #759900;
 }
-[data-icon].is-gold:before {
+[data-icon].is-gold::before {
   color: #d59120;
 }
-body.blind_mode .is:before,
-body.blind_mode .is:after,
-body.blind_mode [data-icon]:before {
+body.blind_mode .is::before,
+body.blind_mode .is::after,
+body.blind_mode [data-icon]::before {
   content: none;
   display: none;
   visibility: hidden;
@@ -673,7 +673,7 @@ div.content_box.no_padding h1 {
   display: block;
   padding: 20px 25px;
 }
-.content_box_title {
+div.content_box .content_box_title {
   padding: 20px 20px 0 20px;
 }
 div.content_box_top {
@@ -683,15 +683,6 @@ div.content_box_top {
   text-decoration: none;
   text-shadow: 0px 1px 0px #FFF;
 }
-div.content_box_top a {
-  float: right;
-  text-decoration: none;
-  font-size: 1.2em;
-  font-weight: bold;
-  line-height: 40px;
-  padding: 0 12px;
-  border-left: 1px solid #ccc;
-}
 div.content_box_top .link:hover {
   background: #fff;
 }
@@ -699,8 +690,8 @@ div.content_box_top h1.lichess_title {
   display: inline;
   padding: 0;
 }
-.content_box_content {
-  padding: 20px 25px 25px 25px;
+div.content_box .content_box_content {
+  padding: 20px;
 }
 div.content_box_inter {
   padding-left: 25px;
@@ -805,33 +796,49 @@ table.slist th:first-child {
 #tv_history tr:hover td {
   background-color: #f8f8f8;
 }
-div.lichess_goodies h2 {
+div.goodies h2 {
   text-align: center;
   font-size: 1.5em;
 }
-div.lichess_goodies div.box {
+div.goodies div.box {
   margin-top: 1em;
   margin-left: -30px;
   width: 212px;
   border: 1px solid #ccc;
   padding: 7px;
 }
-div.lichess_goodies div.box.no_padding {
+div.goodies div.box.no_padding {
   width: 226px;
   padding: 0;
 }
-div.lichess_goodies div.confrontation {
+div.goodies div.box .title {
+  border-bottom: 1px solid #ccc;
+  padding: 3px 5px;
+  font-weight: bold;
+}
+div.goodies div.box .content {
+  padding: 7px;
+}
+div.goodies div.confrontation {
   text-align: center;
   margin-bottom: 5px;
 }
-div.lichess_goodies div.confrontation em {
+div.goodies div.confrontation em {
   font-style: italic;
 }
-div.lichess_goodies div.buttons {
+div.goodies div.buttons {
   width: 228px;
   margin-left: -30px;
   margin-top: 2em;
   text-align: center;
+}
+div.goodies form.search {
+  margin: 1em 0 0 0;
+}
+div.goodies form.search input {
+  border: 1px solid #ccc;
+  padding: 3px 5px;
+  width: 186px;
 }
 #site_header div.side_menu {
   margin-top: 15px;
@@ -1199,6 +1206,7 @@ div.join_warning {
 #crosstable th,
 #friend_box .title,
 #chat div.top,
+div.goodies div.box .title,
 div.undertable_top,
 .button,
 a.button,
@@ -1208,6 +1216,7 @@ a.button,
 #notifications > div,
 div.vstext,
 div.user_show div.content_box_inter.tabs,
+#qa .answers-header,
 table.slist thead {
   background: rgb(245, 245, 245);
   background: -moz-linear-gradient(top, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 245, 1) 100%);

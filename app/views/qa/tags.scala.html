@@ -1,8 +1,4 @@
 @(tags: Seq[String])
-@defining(tags.size - 1) { last =>
-@tags.zipWithIndex.map {
-case (tag, i) => {
-<a href="@routes.QaQuestion.byTag(tag)" class="tag" data-icon="o">@tag</a>@if(i != last) {,}
-}
-}
+@tags.map { tag =>
+<a href="@routes.QaQuestion.byTag(tag)" class="tag" data-icon="o">@tag</a>
 }

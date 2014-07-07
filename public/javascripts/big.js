@@ -473,7 +473,7 @@ var storage = {
         $('#site_header .side_menu').prependTo('div.content_box:first');
       } else {
         $(document.body).removeClass("tight");
-        $('#timeline, div.lichess_goodies div.box, div.under_chat').each(function() {
+        $('#timeline, div.goodies div.box, div.under_chat').each(function() {
           var ol = $(this).offset().left;
           if (ol < 3) {
             var dec = 3 - ol;
@@ -1548,7 +1548,7 @@ var storage = {
         self.$tableInner.html(data.table);
         self.initTable();
         if (!(self.options.player.spectator && self.options.tv)) {
-          $('div.lichess_goodies').replaceWith(data.infobox);
+          $('div.goodies').replaceWith(data.infobox);
           startTournamentClock();
         }
         if (self.$chat) self.$chat.chat('resize');

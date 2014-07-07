@@ -1,4 +1,4 @@
-@(form: Form[_], q: lila.qa.Question, tags: List[String], popular: List[lila.qa.Question])(implicit ctx: Context)
+@(form: Form[_], q: lila.qa.Question, tags: List[String], popular: List[lila.qa.Question], captcha: lila.common.Captcha)(implicit ctx: Context)
 
 @title = @{ s"""Edit question "${q.title}"""" }
 
@@ -6,10 +6,24 @@
 title = title,
 goodies = popularBox(popular).some) {
 
-<h1>@title</h1>
+<div class="content_box_top">
+  <h1 class="lichess_title">
+    <a href="@routes.QaQuestion.index()" data-icon="&"></a>
+    @title
+  </h1>
+</div>
 
-<form class="wide question" action="@routes.QaQuestion.doEdit(q.id)" method="post">
-  @questionForm(form, tags)
-  <button type="submit" class="pure submit button">Update your question</button>
-</form>
+<div class="meta content_box_inter">
+  Can you make your question more precise?
+</div>
+
+<div class="content_box_content">
+  <form class="wide question" action="@routes.QaQuestion.doEdit(q.id)" method="post">
+    @questionForm(form, tags, captcha)
+    <button type="submit" class="pure submit button" data-icon="E"> Update your question</button>
+    <br />
+    <br />
+    <a href="@routes.QaQuestion.show(q.id, q.slug)">@trans.cancel()</a>
+  </form>
+</div>
 }

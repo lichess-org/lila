@@ -2,26 +2,26 @@ $(function() {
   var $qa = $('#qa');
   $qa.find('form.question').each(function() {
     var $form = $(this);
-    $form.find('input.tm-input').each(function() {
-      var $input = $(this);
-      var tagApi;
-      tagApi = $input.tagsManager({
-        prefilled: $input.data('prefill'),
+    var $tmInput = $form.find('input.tm-input');
+    $tmInput.each(function() {
+      var tagApi = $tmInput.tagsManager({
+        prefilled: $tmInput.data('prefill'),
         backspace: [],
         delimiters: [13, 44],
-        tagsContainer: $form.find('.tags')
+        tagsContainer: $form.find('.tags_list'),
+        maxTags: 5
       });
       var tagSource = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        local: $.map($input.data('tags').split(','), function(t) {
+        local: $.map($tmInput.data('tags').split(','), function(t) {
           return {
             value: t
           };
         })
       });
       tagSource.initialize();
-      $input.typeahead({
+      $tmInput.typeahead({
         minLength: 1,
         highlight: true
       }, {
@@ -31,10 +31,31 @@ $(function() {
         limit: 15
       }).on('typeahead:selected', function(e, d) {
         tagApi.tagsManager("pushTag", d.value);
-        $input.val('');
+        $tmInput.val('');
+      });
+      $form.submit(function() {
+        var tag = $tmInput.val();
+        if (tag) {
+          tagApi.tagsManager("pushTag", tag);
+        }
       });
     });
   });
+
+  $qa.on('click', '.upvote.enabled a', function() {
+    var $a = $(this);
+    $.ajax({
+      method: 'post',
+      url: $a.parent().data('post-url'),
+      data: {
+        vote: $a.data('vote')
+      },
+      success: function(html) {
+        $a.parent().replaceWith(html);
+      }
+    });
+  });
+
   $qa.on('click', '.your-comment .toggle', function() {
     var $form = $(this).siblings('form');
     $form.toggle(200, function() {
@@ -46,5 +67,20 @@ $(function() {
       alert("Comment must be longer than 20 characters");
       return false;
     }
+  });
+  $qa.find('.answer').each(function() {
+    var $answer = $(this);
+    $answer.on('click', '.toggle-edit-answer', function() {
+      $answer.toggleClass('edit');
+      if (!$answer.hasClass('edit-loaded')) {
+        $answer.addClass('edit-loaded');
+        $answer.find('form.edit-answer').submit(function() {
+          if ($(this).find('textarea').val().length < 30) {
+            alert("Answer must be longer than 30 characters");
+            return false;
+          }
+        });
+      }
+    });
   });
 });

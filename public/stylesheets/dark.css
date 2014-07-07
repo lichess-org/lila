@@ -31,6 +31,7 @@ body.dark #trainer .lichess_board,
 body.dark .mini_board,
 body.dark #nb_connected_players,
 body.dark #chat div.top,
+body.dark div.goodies div.box .title,
 body.dark #chat .messages,
 body.dark div.undertable_top,
 body.dark div.undertable_inner,
@@ -42,7 +43,7 @@ body.dark #footer_wrap,
 body.dark div.game_config .optional_config,
 body.dark .ui-state-default,
 body.dark .ui-widget-content,
-body.dark div.lichess_goodies div.box,
+body.dark div.goodies div.box,
 body.dark div.training div.box,
 body.dark div.lichess_table,
 body.dark div.lichess_separator,
@@ -60,7 +61,7 @@ body.dark div.content_box_inter a:hover,
 body.dark input.copyable,
 body.dark #site_header div.side_menu a.active,
 body.dark div.game_row,
-body.dark form.search_user_form input,
+body.dark div.goodies form.search input,
 body.dark div.user_show div.boxed_data,
 body.dark #lichess_forum div.post,
 body.dark #lichess_forum textarea,
@@ -75,6 +76,13 @@ body.dark form.translation_form div.messages,
 body.dark form.translation_form input,
 body.dark #adv_chart,
 body.dark div.search_status,
+body.dark #qa input,
+body.dark #qa textarea,
+body.dark #qa .answers-header,
+body.dark #qa .question .comments,
+body.dark #qa .comments .comment,
+body.dark #qa .answer-wrap,
+body.dark #qa .tm-tag,
 body.dark table.slist,
 body.dark table.slist thead th,
 body.dark #notifications > div,
@@ -169,7 +177,7 @@ body.dark #promotion_choice {
 }
 body.dark #GameText,
 body.dark #chat .messages,
-body.dark div.lichess_goodies div.box,
+body.dark div.goodies div.box,
 body.dark div.lichess_table,
 body.dark div.lichess_table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
@@ -326,6 +334,7 @@ body.dark div.content_box_top {
 
 body.dark #crosstable th,
 body.dark #chat div.top,
+body.dark div.goodies div.box .title,
 body.dark #friend_box .title,
 body.dark div.undertable_top,
 body.dark .button,
@@ -335,6 +344,7 @@ body.dark #translation_call,
 body.dark #notifications > div,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
+body.dark #qa .answers-header,
 body.dark table.slist thead {
   background: rgb(40, 40, 40);
   background: -moz-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);
@@ -406,26 +416,23 @@ body.alpha.dark div.lichess_cemetery div.piece.black {
 }
 body.dark .scroll-shadow-soft,
 body.dark .scroll-shadow-hard {
-  background:
-  linear-gradient(#262626 30%, rgba(36, 36, 36, 0)), linear-gradient(rgba(36, 36, 36, 0), #262626 70%) 0 100%,
-  radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)) 0 100%;
+  background: linear-gradient(#262626 30%, rgba(36, 36, 36, 0)), linear-gradient(rgba(36, 36, 36, 0), #262626 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)) 0 100%;
 }
-body.dark .scroll-shadow-soft, body.dark .scroll-shadow-hard {
+body.dark .scroll-shadow-soft,
+body.dark .scroll-shadow-hard {
   background-repeat: no-repeat;
   background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
   background-attachment: local, local, scroll, scroll;
 }
 body.dark div.user_show div.user-infos.scroll-shadow-hard {
-  background:
-  linear-gradient(#2b2b2b 30%, rgba(43, 43, 43, 0)), linear-gradient(rgba(43, 43, 43, 0), #2b2b2b 70%) 0 100%,
-  radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)) 0 100%;
+  background: linear-gradient(#2b2b2b 30%, rgba(43, 43, 43, 0)), linear-gradient(rgba(43, 43, 43, 0), #2b2b2b 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)) 0 100%;
   background-repeat: no-repeat;
   background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
   background-attachment: local, local, scroll, scroll;
 }
 body.dark #pool_list > div {
   background: rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 2px rgba(255,255,255,0.2);
+  box-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
 }
 body.dark #pool_list > div:hover {
   background: rgba(27, 51, 68, 0.5);

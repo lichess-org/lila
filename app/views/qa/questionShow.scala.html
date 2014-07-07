@@ -1,4 +1,4 @@
-@(q: lila.qa.Question, user: User, answers: List[lila.qa.AnswerWithUserAndComments], comments: List[lila.qa.CommentWithUser], popular: List[lila.qa.Question], related: List[lila.qa.Question], answerForm: Option[Form[_]])(implicit ctx: Context)
+@(q: lila.qa.Question, answers: List[lila.qa.Answer], popular: List[lila.qa.Question], related: List[lila.qa.Question], answerForm: Option[Form[_]], captcha: Option[lila.common.Captcha])(implicit ctx: Context)
 
 @goodies = {
 @relatedBox(related)
@@ -10,54 +10,76 @@ title = q.title,
 goodies = goodies.some) {
 
 <div class="question">
-  <h1>
-    <a href="@routes.QaQuestion.index()" data-icon="&"></a>@q.title
-  </h1>
-  <table class="meta">
-    <tbody>
-      <tr>
-        <th>Asked</th>
-        <td>@momentFromNow(q.createdAt) by @userLink(user)</td>
-      </tr>
-      @if(q.tags.nonEmpty) {
-      <tr>
-        <th>Tags</th>
-        <td>@tags(q.tags)</td>
-      </tr>
+  <div class="content_box_top">
+    <h1 class="lichess_title">
+      <a href="@routes.QaQuestion.index()" data-icon="&"></a>@q.title
+    </h1>
+  </div>
+  <div class="content_box_inter meta">
+    <div class="actions">
+      @if(lila.qa.QaAuth canEdit q) {
+      <a class="button" data-icon="m" href="@routes.QaQuestion.edit(q.id, q.slug)"> Edit question</a>
       }
-      <tr>
-        <th>Activity</th>
-        <td>Viewed @q.views times, last updated @momentFromNow(q.updatedAt)</td>
-      </tr>
-      <tr>
-        <th>Actions</th>
-        <td>
-          @if(lila.qa.QaAuth canEdit q) {
-          <a class="thin button" data-icon="m" href="@routes.QaQuestion.edit(q.id, q.slug)"> Edit question</a>
-          }
-          @nope("Remove question", routes.QaQuestion.remove(q.id))
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="body">
-    @autoLink(q.body)
+      @nope("Delete", routes.QaQuestion.remove(q.id))
+    </div>
+    <table>
+      <tbody>
+        <tr>
+          <th>Asked</th>
+          <td>@momentFromNow(q.createdAt) by @userIdLink(q.userId.some)</td>
+        </tr>
+        @if(q.tags.nonEmpty) {
+        <tr>
+          <th>Tags</th>
+          <td>@tags(q.tags)</td>
+        </tr>
+        }
+        <tr>
+          <th>Activity</th>
+          <td>Viewed @q.views times, last updated @momentFromNow(q.updatedAt)</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="comments" id="question-@q.id-comments">
-    @views.html.qa.commentList(q, comments, routes.QaComment.question(q.id).url)
-  </div>
-  @answerList(q, answers)
-  @answerForm.map { form =>
-  <div class="your-answer">
-    @if(answers.nonEmpty) {
-    <p class="title answers-header">Your answer</p>
+  <div class="wrap">
+    <div class="head">
+      <div class="side">
+        @views.html.qa.vote(routes.QaQuestion.vote(q.id).url, q.vote)
+      </div>
+      <div class="content">
+        <div class="body">
+          @autoLink(q.body)
+        </div>
+        <div class="comments" id="question-@q.id-comments">
+          @views.html.qa.commentList(q, q.comments, routes.QaComment.question(q.id).url)
+        </div>
+      </div>
+    </div>
+    @answerList(q, answers)
+    @if(ctx.me.fold(true)(lila.qa.QaAuth.isN00b)) {
+    <p class="help">
+      Only registered members with one week of lichess activity can contribute to the Q&amp;A.
+    </p>
+    } else {
+    @(answerForm, captcha) match {
+    case (Some(form), Some(captcha)) => {
+    <div id="your-answer">
+      @if(answers.nonEmpty) {
+      <p class="title answers-header content_box_inter">Your answer</p>
+      }
+      <form class="wide" action="@routes.QaAnswer.create(q.id).url#your-answer" method="post">
+        <textarea class="answer-body" name="@form("body").name">@form("body").value</textarea>
+        @errMsg(form("body"))
+        @base.captcha(form("move"), form("gameId"), captcha)
+        <button class="pure submit button" type="submit">Post your answer</button>
+      </form>
+    </div>
     }
-    <form class="wide" action="@routes.QaAnswer.create(q.id).url#your-answer" method="post">
-      <textarea class="answer-body" name="@form("body").name">@form("body").value</textarea>
-      @errMsg(form("body"))
-      <button class="pure submit button" type="submit">Post your answer</button>
-    </form>
+    case _ => {
+    You cannot answer this question.
+    }
+    }
+    }
   </div>
 </div>
-}
 }

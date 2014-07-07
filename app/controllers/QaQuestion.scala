@@ -5,31 +5,31 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.qa.{ QuestionId, Question, AnswerId, Answer, QuestionWithUsers, QaAuth }
+import lila.qa.{ QuestionId, Question, AnswerId, Answer, QaAuth }
 import views._
 
 object QaQuestion extends QaController {
 
   def index(page: Option[Int] = None) = Open { implicit ctx =>
-    api.question.paginatorWithUsers(page getOrElse 1, 20) zip
-      (api.question popular 10) map {
+    api.question.recentPaginator(page getOrElse 1, 20) zip
+      fetchPopular map {
         case (questions, popular) => Ok(html.qa.index(questions, popular))
       }
   }
 
   def search = Open { implicit ctx =>
-    val query = ~get("q")
-    (query match {
-      case "" => (api.question recent 20 flatMap api.question.zipWithUsers)
-      case _  => Env.qa search query flatMap api.question.zipWithUsers
-    }) zip (api.question popular 10) map {
+    val query = (~get("q")).trim
+    if (query.isEmpty) fuccess {
+      Redirect(routes.QaQuestion.index())
+    }
+    else Env.qa search query zip fetchPopular map {
       case (questions, popular) => Ok(html.qa.search(query, questions, popular))
     }
   }
 
   def byTag(tag: String) = Open { implicit ctx =>
-    (api.question.byTag(tag, 20) flatMap api.question.zipWithUsers) zip
-      (api.question popular 10) map {
+    api.question.byTag(tag, 20) zip
+      fetchPopular map {
         case (questions, popular) => Ok(html.qa.byTag(tag, questions, popular))
       }
   }
@@ -41,24 +41,28 @@ object QaQuestion extends QaController {
   }
 
   private def renderAsk(form: Form[_], status: Results.Status)(implicit ctx: Context) =
-    api.question popular 10 zip api.tag.all map {
-      case (popular, tags) => status(html.qa.ask(form, tags, popular))
+    fetchPopular zip api.tag.all zip forms.anyCaptcha map {
+      case ((popular, tags), captcha) => status(html.qa.ask(form, tags, popular, captcha))
     }
 
   def ask = Auth { implicit ctx =>
     _ =>
-      renderAsk(forms.question, Results.Ok)
+      if (QaAuth.canAsk) renderAsk(forms.question, Results.Ok)
+      else renderN00b
   }
 
   def doAsk = AuthBody { implicit ctx =>
     me =>
-      implicit val req = ctx.body
-      forms.question.bindFromRequest.fold(
-        err => renderAsk(err, Results.BadRequest),
-        data => api.question.create(data, me) map { q =>
-          Redirect(routes.QaQuestion.show(q.id, q.slug))
-        }
-      )
+      if (QaAuth.canAsk) {
+        implicit val req = ctx.body
+        forms.question.bindFromRequest.fold(
+          err => renderAsk(err, Results.BadRequest),
+          data => api.question.create(data, me) map { q =>
+            Redirect(routes.QaQuestion.show(q.id, q.slug))
+          }
+        )
+      }
+      else renderN00b
   }
 
   def edit(id: QuestionId, slug: String) = Auth { implicit ctx =>
@@ -83,8 +87,8 @@ object QaQuestion extends QaController {
   }
 
   private def renderEdit(form: Form[_], q: Question, status: Results.Status)(implicit ctx: Context) =
-    api.question popular 10 zip api.tag.all map {
-      case (popular, tags) => status(html.qa.edit(form, q, tags, popular))
+    fetchPopular zip api.tag.all zip forms.anyCaptcha map {
+      case ((popular, tags), captcha) => status(html.qa.edit(form, q, tags, popular, captcha))
     }
 
   def vote(id: QuestionId) = AuthBody { implicit ctx =>

@@ -1,13 +1,10 @@
 @(qs: List[lila.qa.Question])(implicit ctx: Context)
 
-<div class="related box">
-  <p class="title">Related questions</p>
-  <div class="questions">
+<div class="related box no_padding">
+  <p class="title" data-icon="o"> Related questions</p>
+  <div class="questions content">
     @qs.map { q =>
-    <a href="@routes.QaQuestion.show(q.id, q.slug)">
-      <span class="number">@q.vote.score</span>
-      <span class="name">@q.title</span>
-    </a>
+    <a href="@routes.QaQuestion.show(q.id, q.slug)">@q.title</a>
     }
   </div>
 </div>

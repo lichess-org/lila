@@ -1,19 +1,21 @@
-@(tag: String, questions: List[lila.qa.QuestionWithUser], popular: List[lila.qa.Question])(implicit ctx: Context)
+@(tag: String, questions: List[lila.qa.Question], popular: List[lila.qa.Question])(implicit ctx: Context)
 
 @title = @{ s""""$tag" questions""" }
 
 @layout(title = title) {
 
-<h1>@title</h1>
+<div class="content_box_top">
+  <h1 class="lichess_title" data-icon="o"> @tag</h1>
+</div>
 
-<p class="nb_results">
+<div class="meta content_box_inter">
   @questions.size match {
   case 0 => { No question found. }
   case 1 => { One question found. }
   case x => { @x questions found. }
   }
-</p>
-<table class="previews">
+</div>
+<table class="previews slist">
   @questions.map { q =>
   @questionPreview(q)
   }

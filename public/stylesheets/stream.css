@@ -10,10 +10,10 @@
   overflow: hidden;
   white-space: nowrap;
 }
-div.lichess_goodies div.box {
+div.goodies div.box {
   width: 312px;
 }
-div.lichess_goodies iframe {
+div.goodies iframe {
   margin-top: 1em;
   width: 328px;
   margin-left: -30px;

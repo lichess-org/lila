@@ -1,9 +1,11 @@
 @(title: String, goodies: Option[Html] = None, openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
 
 @side = {
-@searchForm()
-<a href="@routes.QaQuestion.ask">Ask a question</a>
-@goodies
+<div class="goodies">
+  @searchForm()
+  <a class="ask" href="@routes.QaQuestion.ask">Ask a question</a>
+  @goodies
+</div>
 }
 
 @moreJs = {
@@ -18,7 +20,7 @@ moreCss = cssTag("qa.css"),
 moreJs = moreJs,
 goodies = side.some,
 openGraph = openGraph) {
-<div id="qa" class="content_box">
+<div id="qa" class="content_box no_padding">
   @body
 </div>
 }

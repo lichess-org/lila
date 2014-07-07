@@ -26,10 +26,6 @@ case class Question(
     if (s.isEmpty) "-" else s
   }
 
-  def withUser(user: User) = QuestionWithUser(this, user)
-  def withUsers(user: User, commentsWithUsers: List[CommentWithUser]) =
-    QuestionWithUsers(this, user, commentsWithUsers)
-
   def ownBy(user: User) = userId == user.id
 
   def withVote(f: Vote => Vote) = copy(vote = f(vote))
@@ -39,9 +35,6 @@ case class Question(
 
   def accepted = acceptedAt.isDefined
 }
-
-case class QuestionWithUser(question: Question, user: User)
-case class QuestionWithUsers(question: Question, user: User, comments: List[CommentWithUser])
 
 case class Answer(
     _id: AnswerId,
@@ -60,18 +53,12 @@ case class Answer(
 
   def withVote(f: Vote => Vote) = copy(vote = f(vote))
 
-  def withUserAndComments(user: User, commentsWithUsers: List[CommentWithUser]) =
-    AnswerWithUserAndComments(this, user, commentsWithUsers)
-
   def ownBy(user: User) = userId == user.id
 
   def editNow = copy(editedAt = Some(DateTime.now))
 }
 
-case class AnswerWithUser(answer: Answer, user: User)
-case class AnswerWithUserAndComments(answer: Answer, user: User, comments: List[CommentWithUser])
-
-case class AnswerWithQuestion(answer: Answer, question: QuestionWithUser)
+case class AnswerWithQuestion(answer: Answer, question: Question)
 
 case class Vote(up: Set[String], down: Set[String], score: Int) {
 
@@ -88,15 +75,7 @@ case class Vote(up: Set[String], down: Set[String], score: Int) {
 }
 
 case class Comment(
-    id: CommentId, // random string
-    userId: String,
-    body: String,
-    createdAt: DateTime) {
-
-  def withUser(user: User) = CommentWithUser(this, user)
-}
-
-case class CommentWithUser(comment: Comment, user: User)
-
-case class Profile(reputation: Int, questions: Int, answers: Int)
-
+  id: CommentId, // random string
+  userId: String,
+  body: String,
+  createdAt: DateTime)

@@ -26,7 +26,7 @@ final class Env(
 
   lazy val search = new Search(questionColl)
 
-  def forms = DataForms
+  lazy val forms = new DataForm(hub.actor.captcher)
 }
 
 object Env {
