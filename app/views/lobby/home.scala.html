@@ -13,6 +13,10 @@
 <span id="site_baseline">@trans.freeOnlineChess()</span>
 }
 
+@moreJs = {
+@embedJs(s"var lichess_preload = $preload;")
+}
+
 @goodies = {
 @ctx.me.map { u =>
 @if(playing.nonEmpty) {
@@ -43,7 +47,7 @@ fullTitle = Some("lichess.org • " + trans.freeOnlineChess.str()),
 baseline = baseline.some,
 active = siteMenu.play.some,
 goodies = goodies.some,
-moreJs = Html(s"var lichess_preload = $preload;"),
+moreJs = moreJs,
 moreCss = cssTag("home.css"),
 underchat = underchat.some,
 openGraph = Map(

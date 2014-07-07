@@ -2240,7 +2240,8 @@ var storage = {
     var $timeline = $("#timeline");
     var $newposts = $("div.new_posts");
     var $canvas = $wrap.find('.canvas');
-    var $table = $wrap.find('#hooks_list table').sortable();
+    var $hooksList = $wrap.find('#hooks_list').sortable();
+    var $table = $hooksList.find('table').sortable();
     var $tablereload = $table.find('th.reload');
     var $tbody = $table.find('tbody');
     var $userTag = $('#user_tag');
@@ -2257,7 +2258,7 @@ var storage = {
     var flushHooks = function() {
       clearTimeout(flushHooksTimeout);
       $tbody.fadeIn(500);
-      $table.clone().attr('id', 'tableclone').appendTo($wrap).fadeOut(500, function() {
+      $table.clone().attr('id', 'tableclone').appendTo($hooksList).fadeOut(500, function() {
         $(this).remove();
       });
       $tbody.find('tr.disabled').remove();

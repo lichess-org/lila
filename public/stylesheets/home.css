@@ -19,6 +19,7 @@
   text-align: center;
   cursor: pointer;
   position: relative;
+  transition: 0.13s;
 }
 #pool_list > div:hover {
   background: rgba(191, 231, 255, 0.5);
@@ -198,6 +199,7 @@
   border-left: 1px solid #ccc;
   text-decoration: none;
   background: rgba(255, 255, 255, 0.3);
+  transition: 0.13s;
 }
 #hooks_list .pool_buttons > a:hover {
   background: rgba(191, 231, 255, 0.5);
