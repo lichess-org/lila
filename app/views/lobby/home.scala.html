@@ -13,14 +13,6 @@
 <span id="site_baseline">@trans.freeOnlineChess()</span>
 }
 
-@moreJs = {
-@embedJs("var lichess_preload = " + preload)
-}
-
-@moreCss = {
-@cssTag("home.css")
-}
-
 @goodies = {
 @ctx.me.map { u =>
 @if(playing.nonEmpty) {
@@ -51,8 +43,8 @@ fullTitle = Some("lichess.org • " + trans.freeOnlineChess.str()),
 baseline = baseline.some,
 active = siteMenu.play.some,
 goodies = goodies.some,
-moreJs = moreJs,
-moreCss = moreCss,
+moreJs = Html(s"var lichess_preload = $preload;"),
+moreCss = cssTag("home.css"),
 underchat = underchat.some,
 openGraph = Map(
 'type -> "website",
@@ -71,7 +63,7 @@ openGraph = Map(
       <div class="tabs">
         <a data-tab="list" class="list">@trans.list()</a>
         <a data-tab="graph" class="graph">@trans.graph()</a>
-        <a data-tab="pool" class="pool">Pools <span class="new" data-icon="8"> NEW</span></a>
+        <a data-tab="pool" class="pool">Pools</a>
       </div>
       <a class="filter" href="@routes.Setup.filterForm()">
         <span data-icon="D"> @trans.filterGames()</span>
@@ -79,19 +71,26 @@ openGraph = Map(
       </a>
       <div id="pool_list" class="tab pool none">@pool.homeList(pools)</div>
       <div id="hooks_chart" class="tab graph none"><div class="canvas"></div></div>
-      <table id="hooks_table" class="tab list none">
-        <thead>
-          <tr>
-            <th class="reload"><span data-icon="P"></span></th>
-            <th data-sort="string" class="player"><span class="is">&nbsp;@trans.player()</span></th>
-            <th data-sort="int" class="rating"><span class="is">&nbsp;Rating</span></th>
-            <th data-sort="int"><span class="is">&nbsp;@trans.time()</span></th>
-            <th data-sort="string"><span class="is">&nbsp;@trans.mode()</span></th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+      <div id="hooks_list" class="tab list none">
+        <table>
+          <thead>
+            <tr>
+              <th class="reload"><span data-icon="P"></span></th>
+              <th data-sort="string" class="player"><span class="is">&nbsp;@trans.player()</span></th>
+              <th data-sort="int" class="rating"><span class="is">&nbsp;Rating</span></th>
+              <th data-sort="int"><span class="is">&nbsp;@trans.time()</span></th>
+              <th data-sort="string"><span class="is">&nbsp;@trans.mode()</span></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="pool_title">auto-pairing pools</div>
+        <div class="pool_buttons">
+          @pools.map { p =>
+          <a href="@routes.Pool.show(p.setup.id)"><h2 data-icon="8"> @p.setup.name</h2></a>
+          }
+        </div>
+      </div>
       <div id="hook_overlay"></div>
       <div id="hook_filter"></div>
     </div>

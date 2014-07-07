@@ -99,8 +99,8 @@ body.dark div.user_show div.user-infos,
 body.dark div.game_config input[type="text"],
 body.dark #powerTip,
 body.dark #powerTip > .title,
-body.dark #hooks_wrap table.list th,
-body.dark #hooks_wrap table.list td,
+body.dark #hooks_list table th,
+body.dark #hooks_list table td,
 body.dark #hooks_wrap > div.tabs > a,
 body.dark #hooks_chart > div.grid,
 body.dark div.analysis_menu,
@@ -122,6 +122,9 @@ body.dark #lichess_blog .body h2,
 body.dark #lichess_blog .body img,
 body.dark #top div.auth .sep,
 body.dark div.doc_box h2,
+body.dark #hooks_list .pool_buttons,
+body.dark #hooks_list .pool_buttons > a,
+body.dark #hooks_list .pool_title,
 body.dark div.force_resign_zone,
 body.dark div.proposed_takeback,
 body.dark div.offered_draw {
@@ -187,13 +190,13 @@ body.dark div.lichess_table .loader:before,
 body.dark div.lichess_table .loader:after {
   background-color: #262626;
 }
-body.dark #hooks_wrap table.list td {
+body.dark #hooks_list table td {
   background: rgba(40, 40, 40, 0.6);
 }
-body.dark #hooks_wrap table.list tr.cancel td {
+body.dark #hooks_list table tr.cancel td {
   background: rgba(0, 80, 0, 0.7);
 }
-body.dark #hooks_wrap table.list tr:hover td {
+body.dark #hooks_list table tr:hover td {
   background: rgba(27, 51, 68, 0.7);
 }
 body.dark #hook_filter {
@@ -238,7 +241,7 @@ body.dark #timeline > .entry {
   border-color: #2b2b2b;
 }
 body.dark #site_header div.side_menu a.active,
-body.dark #hooks_wrap table.list,
+body.dark #hooks_list table,
 body.dark div.content_box h1 {
   text-shadow: 0px 1px 0px #000;
 }
@@ -434,8 +437,15 @@ body.dark #pool_list > div {
   background: rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
 }
-body.dark #pool_list > div:hover {
+body.dark #hooks_list .pool_buttons > a {
+  background: rgba(0, 0, 0, 0.3);
+}
+body.dark #pool_list > div:hover,
+body.dark #hooks_list .pool_buttons > a:hover {
   background: rgba(27, 51, 68, 0.5);
+}
+body.dark #hooks_list > .pool_title {
+  background: rgba(0, 0, 0, 0.5);
 }
 body.dark::-webkit-input-placeholder {
   color: #666;

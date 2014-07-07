@@ -2227,7 +2227,7 @@ var storage = {
   });
 
   $.lichessOpeningPreventClicks = function() {
-    $('#hooks_table, #hooks_chart').hide();
+    $('#hooks_list, #hooks_chart').hide();
   };
 
   // hooks
@@ -2240,7 +2240,7 @@ var storage = {
     var $timeline = $("#timeline");
     var $newposts = $("div.new_posts");
     var $canvas = $wrap.find('.canvas');
-    var $table = $wrap.find('#hooks_table').sortable();
+    var $table = $wrap.find('#hooks_list table').sortable();
     var $tablereload = $table.find('th.reload');
     var $tbody = $table.find('tbody');
     var $userTag = $('#user_tag');

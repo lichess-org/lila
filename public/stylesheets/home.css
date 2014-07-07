@@ -1,14 +1,5 @@
 /********** POOLS **********/
 
-div.tabs a.pool {
-  border-top-color: #d59120!important;
-  border-left-color: #d59120!important;
-  border-right-color: #d59120!important;
-}
-div.tabs .new {
-  font-weight: bold;
-  color: #d59120;
-}
 #pool_list {
   overflow: hidden;
   width: 512px;
@@ -177,42 +168,76 @@ div.tabs .new {
   padding: 6px;
   margin-left: 3px;
 }
-#hooks_wrap table.list {
+#hooks_list .pool_title {
+  position: absolute;
+  bottom: 48px;
+  height: 19px;
+  line-height: 19px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
   width: 512px;
-  max-height: 512px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  background: rgba(255, 255, 255, 0.5);
+}
+#hooks_list .pool_buttons {
+  position: absolute;
+  bottom: 0;
+  left: -1px;
+  width: 513px;
+  height: 47px;
+  font-size: 20px;
+  line-height: 47px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  overflow: hidden;
+}
+#hooks_list .pool_buttons > a {
+  float: left;
+  width: 127px;
+  border-left: 1px solid #ccc;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.3);
+}
+#hooks_list .pool_buttons > a:hover {
+  background: rgba(191, 231, 255, 0.5);
+}
+#hooks_list table {
+  width: 512px;
+  max-height: 452px;
   overflow: hidden;
   text-shadow: 0px 1px 0px #FFF;
 }
-#hooks_wrap table.list thead th {
+#hooks_list table thead th {
   cursor: pointer;
   padding: 12.5px 12px;
   font-weight: lighter;
   border-bottom: 1px solid #ccc;
 }
-#hooks_wrap table.list th.reload span {
+#hooks_list table th.reload span {
   display: block;
   cursor: pointer;
   margin-left: 2px;
   opacity: 0.5;
   transition: 0.13s;
 }
-#hooks_wrap table.list th.reload:hover span {
+#hooks_list table th.reload:hover span {
   opacity: 0.8;
 }
-#hooks_wrap table.list th.sorting-asc,
-#hooks_wrap table.list th.sorting-desc {
+#hooks_list table th.sorting-asc,
+#hooks_list table th.sorting-desc {
   font-weight: normal;
 }
-#hooks_wrap table.list th.sorting-desc .is:before {
+#hooks_list table th.sorting-desc .is:before {
   content: "R";
 }
-#hooks_wrap table.list th.sorting-asc .is:before {
+#hooks_list table th.sorting-asc .is:before {
   content: "S";
 }
-#hooks_wrap table.list th.player {
+#hooks_list table th.player {
   width: 110px;
 }
-#hooks_wrap table.list td {
+#hooks_list table td {
   padding: 8px 12px;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
@@ -221,33 +246,33 @@ div.tabs .new {
   transition: 0.13s;
   background: rgba(255, 255, 255, 0.6);
 }
-#hooks_wrap table.list tr.disabled {
+#hooks_list table tr.disabled {
   opacity: 0.3;
 }
-#hooks_wrap table.list tr.disabled td {
+#hooks_list table tr.disabled td {
   cursor: not-allowed;
   background: rgba(75, 99, 00, 0.2)!important;
 }
-#hooks_wrap table.list .ulink {
+#hooks_list table .ulink {
   text-decoration: none;
 }
-#hooks_wrap table.list tr.cancel td {
+#hooks_list table tr.cancel td {
   background: rgba(200, 255, 200, 0.7);
 }
-#hooks_wrap table.list tr:hover td {
+#hooks_list table tr:hover td {
   background: rgba(191, 231, 255, 0.7);
 }
-#hooks_wrap table.list td:first-child {
+#hooks_list table td:first-child {
   width: 16px;
 }
-#hooks_wrap table.list td:first-child span {
+#hooks_list table td:first-child span {
   display: block;
   padding: 0;
   width: 16px;
   height: 16px;
   opacity: 0.7;
 }
-#hooks_wrap table.list .chess960 {
+#hooks_list table .chess960 {
   padding-left: 1em;
   font-size: 0.9em;
   font-weight: bold;
