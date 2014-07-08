@@ -2839,7 +2839,7 @@ var storage = {
     // required to match e2e4 and highlight the moves on the board
     chessMovesRegExp = new RegExp("((\\d+(\\.{1,3}|\\s)\\s*)?((([KQRBN][a-h1-8]?)|[a-h])?x?[a-h][1-8](=[QRNB])?|O-O-O|O-O)[!?+#]*)", "g");
 
-    SetImagePath('http://' + document.domain.replace('lichess.org', 'lichess1.org') + "/assets/piece/" + $('body').data('piece-set'));
+    SetImagePath($('body').data('static-url') + '/piece/' + $('body').data('piece-set'));
     SetImageType("svg");
     SetShortcutKeysEnabled(true);
     $('input').on('focus', function() {

@@ -39,6 +39,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
   </head>
   <body class="@ctx.currentTheme.cssClass @ctx.currentBg @ctx.currentPieceSet@if(ctx.pref.highlight) { highlight}@if(ctx.blindMode) { blind_mode}"
     data-piece-set="@ctx.currentPieceSet"
+    data-static-url="@staticUrl("")"
     data-sound-dir="@staticUrl("sound")"
     data-ports="@portsString"
     data-accept-languages="@acceptLanguages.mkString(",")">
