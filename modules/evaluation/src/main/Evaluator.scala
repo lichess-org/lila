@@ -106,7 +106,7 @@ final class Evaluator(
     }
 
   private def run(userId: String, deep: Boolean): Try[String] = {
-    val command = s"""$script $userId ${deep.fold("true", "false")} $token""".pp
+    val command = s"""$script $userId ${deep.fold("true", "false")} $token"""
     Try {
       import scala.sys.process._
       command!!

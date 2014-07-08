@@ -61,7 +61,7 @@ trait AssetHelper {
 
   val tagmanagerTag = cdnOrLocal(
     cdn = "http://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
-    test = "$.tagsManagerzzzzzzzz",
+    test = "$.tagsManager",
     local = staticUrl("vendor/tagmanager/tagmanager.js"))
 
   val typeaheadTag = cdnOrLocal(
