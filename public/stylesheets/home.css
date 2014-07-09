@@ -72,9 +72,6 @@
   background: #f0f0f0 url(../images/wN-bg.svg);
   background-size: 100% 100%;
 }
-#hooks_wrap:hover {
-  overflow-y: auto;
-}
 #hooks_wrap > div.tabs {
   position: absolute;
   top: -22px;
@@ -204,10 +201,12 @@
 #hooks_list .pool_buttons > a:hover {
   background: rgba(191, 231, 255, 0.5);
 }
+#hooks_list div.table_wrap {
+  max-height: 444px;
+  overflow: hidden;
+}
 #hooks_list table {
   width: 512px;
-  max-height: 452px;
-  overflow: hidden;
   text-shadow: 0px 1px 0px #FFF;
 }
 #hooks_list table thead th {
@@ -283,6 +282,7 @@
   position: absolute;
   top: 0px;
   left: 0px;
+  max-height: 444px;
   z-index: 98;
 }
 #tableclone thead {
