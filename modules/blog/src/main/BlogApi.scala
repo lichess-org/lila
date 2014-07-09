@@ -36,7 +36,7 @@ final class BlogApi(prismicUrl: String, collection: String) {
 
 object BlogApi {
 
-  def extract(body: Fragment.StructuredText) =
+  def extract(body: Fragment.StructuredText): String =
     body.blocks
       .takeWhile(_.isInstanceOf[Fragment.StructuredText.Block.Paragraph])
       .take(2).map {

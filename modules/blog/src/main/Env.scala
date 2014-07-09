@@ -16,6 +16,8 @@ final class Env(
   private val NotifyUserId = config getString "notify.user_id"
   private val LastPostCacheTtl = config duration "last_post_cache.ttl"
 
+  val RssEmail = config getString "rss.email"
+
   lazy val api = new BlogApi(
     prismicUrl = PrismicApiUrl,
     collection = PrismicCollection)

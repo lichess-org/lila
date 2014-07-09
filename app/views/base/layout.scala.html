@@ -35,6 +35,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     <meta property="og:@key.name" content="@value" />
     }
     }
+    <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
     @langAnnotations
   </head>
   <body class="@ctx.currentTheme.cssClass @ctx.currentBg @ctx.currentPieceSet@if(ctx.pref.highlight) { highlight}@if(ctx.blindMode) { blind_mode}"

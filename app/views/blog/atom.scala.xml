@@ -1,0 +1,34 @@
+@(docs: List[io.prismic.Document])(implicit req: RequestHeader)
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+  <id>@routes.Blog.index().absoluteURL()</id>
+  <link rel="alternate" type="text/html" href="@routes.Blog.index().absoluteURL()"/>
+  <link rel="self" type="application/atom+xml" href="@routes.Blog.atom().absoluteURL()"/>
+  <title>lichess.org blog</title>
+  <updated>@(docs.headOption.flatMap(_.getDate("blog.date", "yyyy-MM-dd'T'HH:mm:ss'Z'")).??(_.toString))</updated>
+  @docs.map { doc =>
+  <entry>
+    <id>@routes.Blog.show(doc.id, doc.slug).absoluteURL()</id>
+    <published>@(doc.getDate("blog.date", "yyyy-MM-dd'T'HH:mm:ss'Z'").??(_.toString))</published>
+    <updated>@(doc.getDate("blog.date", "yyyy-MM-dd'T'HH:mm:ss'Z'").??(_.toString))</updated>
+    <link rel="alternate" type="text/html" href="@routes.Blog.show(doc.id, doc.slug).absoluteURL()"/>
+    <title>@doc.getText("blog.title")</title>
+    <category>@doc.getText("blog.category")</category>
+    <content type="html">
+    @doc.getText("blog.shortlede")
+
+    &lt;br /&gt;
+    @doc.getImage("blog.image", "main").map { img =>
+    &lt;img src="@img.url" style="max-width:100%;" /&gt;
+    }
+    &lt;br /&gt;
+    @(doc.getStructuredText("blog.body") ?? lila.blog.BlogApi.extract)
+    </content>
+    <media:thumbnail url="@doc.getImage(s"blog.image", "main").map(_.url)" />
+    <author>
+      <name>@doc.getText("blog.author")</name>
+    </author>
+  </entry>
+  }
+</feed>
+

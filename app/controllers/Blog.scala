@@ -32,6 +32,14 @@ object Blog extends LilaController {
     }
   }
 
+  def atom(ref: Option[String]) = Action.async { implicit req =>
+    blogApi context ref flatMap { implicit prismic =>
+      blogApi.recent(prismic.api, ref, 50) map (_.results) map { docs =>
+        Ok(views.xml.blog.atom(docs)) as XML
+      }
+    }
+  }
+
   // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
   private def checkSlug(document: Option[Document], slug: String)(callback: Either[String, Document] => Result)(implicit ctx: lila.api.Context) =
     document.collect {
