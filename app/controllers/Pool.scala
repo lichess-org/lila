@@ -67,13 +67,4 @@ object Pool extends LilaController {
     ctx.isAuth ?? {
       Env.chat.api.userChat find setup.id map (_.forUser(ctx.me).some)
     }
-
-  // private def showStarted(pool)(implicit ctx: Context) =
-  //   env.version(tour.id) zip
-  //     chatOf(tour) zip
-  //     GameRepo.games(tour recentGameIds 4) zip
-  //     tour.userCurrentPov(ctx.me).??(GameRepo.pov) map {
-  //       case (((version, chat), games), pov) =>
-  //         html.tournament.show.started(tour, version, chat, games, pov)
-  //     }
 }
