@@ -5,13 +5,15 @@
 <textarea name="@form("body").name">@form("body").value</textarea>
 @errMsg(form("body"))
 <div class="tags_wrap">
-  <input
-  type="text"
-  name="tags"
-  data-tags="@tags.mkString(",")"
-  data-prefill="@form("hidden-tags").value"
-  placeholder="Add a tag and press Enter"
-  class="tags tm-input"/>
+  <div class="tags_input">
+    <input
+    type="text"
+    name="tags"
+    data-tags="@tags.mkString(",")"
+    data-prefill="@form("hidden-tags").value"
+    placeholder="Add a tag and press Enter"
+    class="tags tm-input"/>
+  </div>
   <div class="tags_list"></div>
 </div>
 @base.captcha(form("move"), form("gameId"), captcha)

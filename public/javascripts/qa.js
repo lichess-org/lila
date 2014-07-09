@@ -9,7 +9,7 @@ $(function() {
         backspace: [],
         delimiters: [13, 44],
         tagsContainer: $form.find('.tags_list'),
-        maxTags: 5
+        maxTags: 10
       });
       var tagSource = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),

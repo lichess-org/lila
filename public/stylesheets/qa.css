@@ -19,8 +19,9 @@
 #qa form.wide .tags_wrap {
   margin-top: 20px;
 }
-#qa form.wide .tags_wrap input {
+#qa form.wide .tags_wrap .tags_input {
   display: block;
+  margin-bottom: 10px;
 }
 #qa form.wide .submit {
   margin-top: 20px;
