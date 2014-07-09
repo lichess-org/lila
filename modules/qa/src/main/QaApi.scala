@@ -72,14 +72,14 @@ final class QaApi(
     def count: Fu[Int] = questionColl.db command Count(questionColl.name, None)
 
     def recentPaginator(page: Int, perPage: Int): Fu[Paginator[Question]] =
-      paginator(BSONDocument("updatedAt" -> -1), page, perPage)
+      paginator(BSONDocument(), BSONDocument("createdAt" -> -1), page, perPage)
 
-    private def paginator(selector: BSONDocument, page: Int, perPage: Int): Fu[Paginator[Question]] =
+    private def paginator(selector: BSONDocument, sort: BSONDocument, page: Int, perPage: Int): Fu[Paginator[Question]] =
       Paginator(
         adapter = new BSONAdapter[Question](
           collection = questionColl,
-          selector = BSONDocument(),
-          sort = BSONDocument("updatedAt" -> -1)
+          selector = selector,
+          sort = sort
         ),
         currentPage = page,
         maxPerPage = perPage)
@@ -94,7 +94,7 @@ final class QaApi(
 
     def byTag(tag: String, max: Int): Fu[List[Question]] =
       questionColl.find(BSONDocument("tags" -> tag))
-        .sort(BSONDocument("updatedAt" -> -1))
+        .sort(BSONDocument("vote.score" -> -1))
         .cursor[Question].collect[List](max)
 
     def byTags(tags: List[String], max: Int): Fu[List[Question]] =
@@ -110,7 +110,7 @@ final class QaApi(
           val newVote = q.vote.add(user.id, v)
           questionColl.update(
             BSONDocument("_id" -> q.id),
-            BSONDocument("$set" -> BSONDocument("vote" -> newVote, "updatedAt" -> DateTime.now))
+            BSONDocument("$set" -> BSONDocument("vote" -> newVote))
           ) >> profile.clearCache >> popularCache.clear inject newVote.some
         }
       }
@@ -210,7 +210,7 @@ final class QaApi(
           val newVote = a.vote.add(user.id, v)
           answerColl.update(
             BSONDocument("_id" -> a.id),
-            BSONDocument("$set" -> BSONDocument("vote" -> newVote, "updatedAt" -> DateTime.now))
+            BSONDocument("$set" -> BSONDocument("vote" -> newVote))
           ) >> profile.clearCache inject newVote.some
         }
       }
