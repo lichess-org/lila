@@ -38,7 +38,6 @@ private[tournament] object Player {
     "withdraw" -> false,
     "nbWin" -> 0,
     "nbLoss" -> 0,
-    "winStreak" -> 0,
     "score" -> 0)
 
   private[tournament] val tube = JsTube(
