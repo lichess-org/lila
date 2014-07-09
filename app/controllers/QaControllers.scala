@@ -59,5 +59,5 @@ trait QaController extends LilaController {
       case _                                        => notFound
     }
 
-  protected def fetchPopular = api.question popular 10
+  protected def fetchPopular = api.question popular 20
 }

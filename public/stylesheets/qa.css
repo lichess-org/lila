@@ -32,7 +32,7 @@
 #qa form.mod {
   display: inline;
 }
-#qa form.question {} #qa .checkmateCaptcha {
+#qa .checkmateCaptcha {
   margin-top: 20px;
   display: block;
 }
@@ -49,14 +49,14 @@
 div.goodies form.search {
   margin-bottom: 1em;
 }
-div.goodies .questions {
-  overflow: hidden;
+div.goodies div.box .questions {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 div.goodies .questions a {
   display: block;
-  line-height: 2em;
   text-decoration: none;
-  white-space: nowrap;
+  padding: 5px 0;
 }
 div.goodies .questions a:hover {
   text-decoration: underline;
