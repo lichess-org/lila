@@ -1182,6 +1182,8 @@ var storage = {
     },
     movePiece: function(from, to, callback, mine) {
 
+      if (!this.$board.length) return;
+
       // must stop any animation first, so the piece can get killed
       $('body > div.piece').stop(true, true);
 
@@ -1657,6 +1659,7 @@ var storage = {
     },
     onError: function(error, reloadIfFail) {
       var self = this;
+      console.log(error);
       if (reloadIfFail) {
         lichess.reload();
       }

@@ -26,9 +26,10 @@ object Main extends LilaController {
         err => BadRequest, {
           case (enable, redirect) =>
             Redirect(redirect) withCookies lila.common.LilaCookie.cookie(
-              Env.api.accessibilityBlindCookieName,
-              enable,
-              maxAge = Env.api.accessibilityBlindCookieMaxAge.some)
+              Env.api.Accessibility.blindCookieName,
+              if (enable == "0") "" else Env.api.Accessibility.hash,
+              maxAge = Env.api.Accessibility.blindCookieMaxAge.some,
+              httpOnly = true.some)
         })
     }
   }

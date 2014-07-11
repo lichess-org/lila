@@ -14,7 +14,7 @@ import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest }
 import lila.security.{ Permission, Granter }
-import lila.user.{ User => UserModel }
+import lila.user.{ UserContext, User => UserModel }
 
 private[controllers] trait LilaController
     extends Controller
@@ -178,17 +178,17 @@ private[controllers] trait LilaController
   }
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
-    restoreUser(req) map { lila.user.UserContext(req, _) } flatMap { ctx =>
+    restoreUser(req) map { UserContext(req, _) } flatMap { ctx =>
       pageDataBuilder(ctx) map { Context(ctx, _) }
     }
 
   protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
-    restoreUser(req) map { lila.user.UserContext(req, _) } flatMap { ctx =>
+    restoreUser(req) map { UserContext(req, _) } flatMap { ctx =>
       pageDataBuilder(ctx) map { Context(ctx, _) }
     }
 
-  private def pageDataBuilder(ctx: lila.user.UserContext): Fu[PageData] =
-    ctx.me.fold(fuccess(PageData anon blindMode(ctx.req))) { me =>
+  private def pageDataBuilder(ctx: UserContext): Fu[PageData] =
+    ctx.me.fold(fuccess(PageData anon blindMode(ctx))) { me =>
       val isPage = HTTPRequest.isSynchronousHttp(ctx.req)
       (Env.pref.api getPref me) zip {
         isPage ?? {
@@ -203,12 +203,14 @@ private[controllers] trait LilaController
         }
       } map {
         case (pref, ((friends, teamNbRequests), messageIds)) =>
-          PageData(friends, teamNbRequests, messageIds.size, pref, blindMode(ctx.req))
+          PageData(friends, teamNbRequests, messageIds.size, pref, blindMode(ctx))
       }
     }
 
-  private def blindMode(req: RequestHeader) =
-    req.cookies.get(Env.api.accessibilityBlindCookieName).map(_.value) == "1".some
+  private def blindMode(implicit ctx: UserContext) =
+    ctx.req.cookies.get(Env.api.Accessibility.blindCookieName) ?? { c =>
+      c.value.nonEmpty && c.value == Env.api.Accessibility.hash
+    }
 
   private def restoreUser(req: RequestHeader): Fu[Option[UserModel]] =
     Env.security.api restoreUser req addEffect {

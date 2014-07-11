@@ -18,13 +18,15 @@ openGraph = povOpenGraph(pov)) {
   </div>
   }
   <div class="lichess_board_wrap">
+    @if(!ctx.blindMode) {
     <div class="lichess_board with_marks">@Html(lila.app.ui.Board.render(pov))</div>
     <div id="premove_alert">@trans.premoveEnabledClickAnywhereToCancel()</div>
+    }
   </div>
   <div class="lichess_ground">
     @round.cemetery(pov, "top")
     <div class="lichess_table_wrap">
-      @game.clock.map { c =>
+      @game.clock.ifFalse(ctx.blindMode).map { c =>
       @round.clock(c, !pov.color, "top")
       }
       <div class="lichess_table onbg@{ if(game.hasClock) " table_with_clock" }@{ if(game.finished) " finished" }">
@@ -36,7 +38,7 @@ openGraph = povOpenGraph(pov)) {
           @game.playable.fold(round.table.playing(pov, takebackable), round.table.end(pov, tour))
         </div>
       </div>
-      @game.clock.map { c =>
+      @game.clock.ifFalse(ctx.blindMode).map { c =>
       @round.clock(c, pov.color, "bottom")
       @if(game.moretimeable) {
       <a class="moretime hint--bottom-left" data-hint="@trans.giveNbSeconds(moretimeSeconds)">

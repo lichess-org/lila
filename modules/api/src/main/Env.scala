@@ -33,8 +33,15 @@ final class Env(
 
   val version = config getInt "api.version"
 
-  val accessibilityBlindCookieName = config getString "accessibility.blind.cookie.name"
-  val accessibilityBlindCookieMaxAge = config getInt "accessibility.blind.cookie.max_age"
+  object Accessibility {
+    val blindCookieName = config getString "accessibility.blind.cookie.name"
+    val blindCookieMaxAge = config getInt "accessibility.blind.cookie.max_age"
+    private val blindCookieSalt = config getString "accessibility.blind.cookie.salt"
+    def hash(implicit ctx: lila.user.UserContext) = {
+      import com.roundeights.hasher.Implicits._
+      (ctx.userId | "anon").salt(blindCookieSalt).md5.hex
+    }
+  }
 
   val userApi = new UserApi(
     makeUrl = apiUrl,
