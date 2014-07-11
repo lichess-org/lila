@@ -11,6 +11,7 @@ import play.api.libs.json._
 import actorApi._
 import lila.common.LightUser
 import lila.game.Event
+import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.TimeBomb
 import lila.round.actorApi.Bye
 import lila.socket._
@@ -53,7 +54,7 @@ private[round] final class Socket(
 
   def receiveSpecific = {
 
-    case PingVersion(uid, v) => {
+    case PingVersion(uid, v) =>
       timeBomb.delay
       ping(uid)
       ownerOf(uid) foreach { o =>
@@ -62,19 +63,17 @@ private[round] final class Socket(
       withMember(uid) { member =>
         (history getEventsSince v).fold(resyncNow(member))(batch(member, _))
       }
-    }
 
     case Bye(color) => playerDo(color, _.setBye)
 
     case Ack(uid)   => withMember(uid) { _.channel push ackEvent }
 
-    case Broom => {
+    case Broom =>
       broom
       if (timeBomb.boom) self ! PoisonPill
       else Color.all foreach { c =>
         if (playerGet(c, _.isGone)) notifyGone(c, true)
       }
-    }
 
     case GetVersion    => sender ! history.getVersion
 
@@ -89,7 +88,7 @@ private[round] final class Socket(
       sender ! Connected(enumerator, member)
     }
 
-    case Nil            =>
+    case Nil                  =>
     case eventList: EventList => notify(eventList.events)
 
     case lila.chat.actorApi.ChatLine(chatId, line) => notify(List(line match {
@@ -105,6 +104,10 @@ private[round] final class Socket(
       quit(uid)
       notifyCrowd
     }
+
+    case ChangeFeatured(_, html) =>
+      val msg = makeMessage("featured", Json.obj("html" -> html.toString))
+      watchers.foreach(_.channel push msg)
   }
 
   def notifyCrowd {
@@ -148,7 +151,7 @@ private[round] final class Socket(
   def ownerOf(uid: String): Option[Member] =
     members get uid filter (_.owner)
 
-  def watchers: List[Member] = members.values.filter(_.watcher).toList
+  def watchers: Iterable[Member] = members.values.filter(_.watcher)
 
   private def playerGet[A](color: Color, getter: Player => A): A =
     getter(color.fold(whitePlayer, blackPlayer))
