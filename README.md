@@ -17,7 +17,7 @@ Lichess is written in [Scala 2.11](http://www.scala-lang.org/),
 and relies on [Play 2.3](http://www.playframework.com/) for the routing, templating, and JSON.
 Pure chess logic is contained in [scalachess](http://github.com/ornicar/scalachess) submodule.
 The codebase is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
-Lichess talks to [Stockfish 5](http://stockfishchess.org/) using a [FSM Actor](https://github.com/ornicar/lila/blob/master/modules/ai/src/main/stockfish/ActorFSM.scala) to handle AI moves and analysis.
+Lichess talks to [Stockfish 5](http://stockfishchess.org/) using a [FSM Actor](https://github.com/ornicar/lila/blob/master/modules/ai/src/main/ActorFSM.scala) to handle AI moves and analysis.
 It uses [MongoDB 2.4](http://mongodb.org) to store more than 30 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
 HTTP requests and websocket connections are proxied by [nginx 1.4](http://nginx.org).
 New client-side features are written in [ClojureScript](https://github.com/ornicar/lila/tree/master/cljs/puzzle/src).
