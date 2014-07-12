@@ -76,8 +76,7 @@ private[tournament] final class TournamentApi(
   }
 
   private[tournament] def startScheduled(created: Created) {
-    if (created.nbPlayers > 0) doStart(created)
-    else doWipe(created)
+    doStart(created)
   }
 
   private def doStart(oldTour: Created) {
