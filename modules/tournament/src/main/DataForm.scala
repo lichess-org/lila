@@ -6,7 +6,6 @@ import play.api.data.validation.Constraints._
 
 import chess.{ Mode, Variant }
 import lila.common.Form._
-import lila.setup.Mappings
 
 final class DataForm(isDev: Boolean) {
 
@@ -36,8 +35,8 @@ final class DataForm(isDev: Boolean) {
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "minutes" -> numberIn(minuteChoices),
     "minPlayers" -> numberIn(minPlayerChoices),
-    "variant" -> Mappings.variant,
-    "mode" -> Mappings.mode(true),
+    "variant" -> number.verifying(Set(Variant.Standard.id, Variant.Chess960.id) contains _),
+    "mode" -> number.verifying(Mode.all map (_.id) contains _),
     "password" -> optional(nonEmptyText)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
@@ -49,7 +48,7 @@ final class DataForm(isDev: Boolean) {
     minPlayers = minPlayerDefault,
     variant = Variant.Standard.id,
     password = none,
-    mode = Mode.Casual.id.some)
+    mode = Mode.Casual.id)
 
   lazy val joinPassword = Form(single(
     "password" -> nonEmptyText
@@ -62,7 +61,7 @@ private[tournament] case class TournamentSetup(
     minutes: Int,
     minPlayers: Int,
     variant: Int,
-    mode: Option[Int],
+    mode: Int,
     password: Option[String]) {
 
   def validClock = (clockTime + clockIncrement) > 0

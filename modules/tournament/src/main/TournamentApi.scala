@@ -56,7 +56,7 @@ private[tournament] final class TournamentApi(
         clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
         minutes = setup.minutes,
         minPlayers = setup.minPlayers,
-        mode = Mode orDefault ~setup.mode,
+        mode = Mode orDefault setup.mode,
         password = setup.password,
         variant = Variant orDefault setup.variant)
       $insert(created) >>-
