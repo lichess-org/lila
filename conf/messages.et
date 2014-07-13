@@ -269,6 +269,7 @@ yourPuzzleRatingX=Sinu lahendamisskoor: %s
 findTheBestMoveForWhite=Leia parim käik valgele
 findTheBestMoveForBlack=Leia parim käik mustale
 toTrackYourProgress=Vaata oma arengut
+recentlyPlayedPuzzles=Hiljutised ülesanded
 goodMove=Hea käik
 butYouCanDoBetter=Aga mitte parim võimalik.
 bestMove=Parim käik
