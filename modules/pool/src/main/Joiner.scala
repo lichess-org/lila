@@ -22,7 +22,7 @@ final class Joiner(
       }
     }.sequenceFu
 
-  def startGame(setup: PoolSetup, pairing: Pairing): Fu[Game] = for {
+  private def startGame(setup: PoolSetup, pairing: Pairing): Fu[Game] = for {
     user1 ← getUser(pairing.user1)
     user2 ← getUser(pairing.user2)
     ratingLens = (user: User) => user.perfs.pool(setup.id).intRating

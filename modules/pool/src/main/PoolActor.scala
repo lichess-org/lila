@@ -89,7 +89,8 @@ private[pool] final class PoolActor(
           context.system.lilaBus.publish(event, 'users)
       }
 
-    case CheckWave if (pool.nextWaveAt isBefore DateTime.now) =>
+    case CheckWave if pool.readyForNextWave =>
+      pool.copy(lastWaveAt = DateTime.now.some)
       val pairings = AutoPairing(pool, userIds.toSet)
       joiner(pool.setup, pairings) map AddPairings.apply pipeTo self
 

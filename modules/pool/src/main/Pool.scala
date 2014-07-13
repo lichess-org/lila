@@ -10,9 +10,15 @@ case class Pool(
     setup: PoolSetup,
     players: List[Player],
     pairings: List[Pairing],
-    nextWaveAt: DateTime) {
+    nextWaveAt: DateTime,
+    lastWaveAt: Option[DateTime] = None) {
 
-  def secondsToNextWave = Seconds.secondsBetween(DateTime.now, nextWaveAt).getSeconds
+  def secondsToNextWave = math.max(0, Seconds.secondsBetween(DateTime.now, nextWaveAt).getSeconds)
+
+  def readyForNextWave = secondsToNextWave == 0 && lastWaveAt.fold(true) { wave =>
+    // keep a safety delay between waves to avoid double pairings
+    Seconds.secondsBetween(wave, DateTime.now).getSeconds >= Wave.lowerBound(setup.id)
+  }
 
   def sortedPlayers = players.sortBy(-_.rating)
 
