@@ -24,6 +24,7 @@ final class Env(
   lazy val api = new Api(
     unreadCache = unreadCache,
     maxPerPage = ThreadMaxPerPage,
+    blocks = blocks,
     bus = system.lilaBus)
 
   system.actorOf(Props(new Actor {

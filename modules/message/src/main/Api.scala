@@ -15,6 +15,7 @@ import tube.threadTube
 final class Api(
     unreadCache: UnreadCache,
     maxPerPage: Int,
+    blocks: (String, String) => Fu[Boolean],
     bus: lila.common.Bus) {
 
   def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
@@ -50,17 +51,21 @@ final class Api(
             val thread = (me.troll && !Granter(_.MarkTroll)(invited)).fold(
               t deleteFor invited,
               t)
-            $insert(thread) >>- updateUser(invited.id) inject thread
+            sendUnlessBlocked(thread) >>- updateUser(invited.id) inject thread
           }
       }
     }
 
-  def lichessThread(lt: LichessThread): Funit =
-    $insert(Thread.make(
-      name = lt.subject,
-      text = lt.message,
-      creatorId = lt.from,
-      invitedId = lt.to)) >> unreadCache.clear(lt.to)
+  def lichessThread(lt: LichessThread): Funit = sendUnlessBlocked(Thread.make(
+    name = lt.subject,
+    text = lt.message,
+    creatorId = lt.from,
+    invitedId = lt.to)) >> unreadCache.clear(lt.to)
+
+  private def sendUnlessBlocked(thread: Thread): Funit =
+    blocks(thread.invitedId, thread.creatorId) flatMap {
+      !_ ?? $insert(thread)
+    }
 
   def makePost(thread: Thread, text: String, me: User) = {
     val post = Post.make(
