@@ -25,7 +25,7 @@ private[tournament] object Player {
     rating = user.rating)
 
   private[tournament] def refresh(tour: Tournament): Players = tour.players map { p =>
-    p.copy(score = Score.sheet(p.id, tour).total)
+    p.copy(score = tour.system.scoringSystem.scoreSheet(tour, p.id).total)
   } sortBy { p =>
     p.withdraw.fold(Int.MaxValue, 0) - p.score
   }

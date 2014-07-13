@@ -35,6 +35,7 @@ final class DataForm(isDev: Boolean) {
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "minutes" -> numberIn(minuteChoices),
     "minPlayers" -> numberIn(minPlayerChoices),
+    "system" -> number.verifying(Set(System.Arena.id, System.Swiss.id) contains _),
     "variant" -> number.verifying(Set(Variant.Standard.id, Variant.Chess960.id) contains _),
     "mode" -> number.verifying(Mode.all map (_.id) contains _),
     "password" -> optional(nonEmptyText)
@@ -46,6 +47,7 @@ final class DataForm(isDev: Boolean) {
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
     minPlayers = minPlayerDefault,
+    system = System.default.id,
     variant = Variant.Standard.id,
     password = none,
     mode = Mode.Casual.id)
@@ -60,6 +62,7 @@ private[tournament] case class TournamentSetup(
     clockIncrement: Int,
     minutes: Int,
     minPlayers: Int,
+    system: Int,
     variant: Int,
     mode: Int,
     password: Option[String]) {
