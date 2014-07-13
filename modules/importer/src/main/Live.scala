@@ -26,7 +26,7 @@ final class Live(
 
   def move(id: String, move: String, ip: String) =
     GameRepo game id flatMap {
-      _ filter (_.playable) match {
+      _ filter (g => g.playable && g.imported) match {
         case None => fufail("No such playing game: " + id)
         case Some(game) => UciMove(move) match {
           case None => move match {
