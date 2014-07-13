@@ -29,8 +29,12 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def websocketPlayer(fullId: String, apiVersion: Int) = Socket[JsValue] { implicit ctx =>
-    (get("sri") |@| getInt("version")).tupled ?? {
-      case (uid, version) => env.socketHandler.player(fullId, version, uid, ~get("ran"), ctx.me, ctx.ip)
+    GameRepo pov fullId flatMap {
+      _.filterNot(isTheft) ?? { pov =>
+        (get("sri") |@| getInt("version")).tupled ?? {
+          case (uid, version) => env.socketHandler.player(pov, version, uid, ~get("ran"), ctx.me, ctx.ip)
+        }
+      }
     }
   }
 

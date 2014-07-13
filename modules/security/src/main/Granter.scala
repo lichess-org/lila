@@ -10,5 +10,5 @@ object Granter {
   def apply(f: Permission.type => Permission)(user: User): Boolean =
     apply(f(Permission))(user)
 
-  def superAdmin(user: User): Boolean =  apply(Permission.SuperAdmin)(user)
+  def superAdmin(user: User): Boolean = apply(Permission.SuperAdmin)(user)
 }

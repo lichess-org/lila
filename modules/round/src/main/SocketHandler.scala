@@ -96,15 +96,13 @@ private[round] final class SocketHandler(
     }
 
   def player(
-    fullId: String,
+    pov: Pov,
     version: Int,
     uid: String,
     token: String,
     user: Option[User],
     ip: String): Fu[JsSocketHandler] =
-    GameRepo.pov(fullId) flatMap {
-      _ ?? { join(_, Some(Game takePlayerId fullId), version, uid, token, user, ip) }
-    }
+    join(pov, Some(pov.playerId), version, uid, token, user, ip)
 
   private def join(
     pov: Pov,
