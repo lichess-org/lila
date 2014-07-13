@@ -47,19 +47,19 @@
 #qa .lichess_title a {
   text-decoration: none;
 }
-div.goodies form.search {
+div.side form.search {
   margin-bottom: 1em;
 }
-div.goodies div.box .questions {
+div.side div.box .questions {
   padding-top: 0;
   padding-bottom: 0;
 }
-div.goodies .questions a {
+div.side .questions a {
   display: block;
   text-decoration: none;
   padding: 5px 0;
 }
-div.goodies .questions a:hover {
+div.side .questions a:hover {
   text-decoration: underline;
 }
 #qa .big_search {

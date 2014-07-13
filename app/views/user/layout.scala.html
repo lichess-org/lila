@@ -1,4 +1,4 @@
-@(title: String, goodies: Option[Html] = None, robots: Boolean = true, evenMoreJs: Html = Html(""), evenMoreCss: Html = Html(""), openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
+@(title: String, side: Option[Html] = None, robots: Boolean = true, evenMoreJs: Html = Html(""), evenMoreCss: Html = Html(""), openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("user-list.css")
@@ -14,7 +14,7 @@
 
 @base.layout(
 title = title,
-goodies = goodies,
+side = side,
 moreCss = moreCss,
 moreJs = moreJs,
 robots = robots,

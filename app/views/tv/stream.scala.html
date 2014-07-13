@@ -6,8 +6,8 @@
 @cssTag("stream.css")
 }
 
-@goodies = {
-<div class="goodies">
+@side = {
+<div class="side">
   @s.service match {
   case "twitch" => {
   <iframe
@@ -42,7 +42,7 @@
 
 @base.layout(
 title = title,
-goodies = goodies.some,
+side = side.some,
 active = siteMenu.tv.some,
 moreCss = moreCss) {
 <div class="tv_stream">

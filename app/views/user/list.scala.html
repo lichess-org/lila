@@ -1,7 +1,7 @@
 @(progressDay: List[User], tourneyWinners: List[lila.tournament.Winner], toint: List[User], rating: List[User], ratingDay: List[User], ratingWeek: List[User], online: List[User], bullet: List[User], blitz: List[User], slow: List[User], nb: List[(User, Int)], nbDay: List[(User, Int)], nbWeek: List[(User, Int)])(implicit ctx: Context)
 
-@goodies = {
-<div class="goodies">
+@side = {
+<div class="side">
   <form class="search" action="@routes.User.show("")">
     <input placeholder="@trans.search()" class="search_user autocomplete" data-provider="@routes.User.autocomplete" />
   </form>
@@ -26,7 +26,7 @@
 </div>
 }
 
-@user.layout(trans.players.str(), goodies = goodies.some) {
+@user.layout(trans.players.str(), side = side.some) {
 <div class="content_box">
   <div class="user_lists">
 

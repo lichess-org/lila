@@ -6,7 +6,7 @@
 
 @round.layout(
 title = title,
-goodies = views.html.game.infoBox(pov, tour, withTourStanding = false),
+side = views.html.game.side(pov, tour, withTourStanding = false),
 chat = chat.map(c => base.chat(c, trans.spectatorRoom.str())),
 underchat = views.html.game.watchers().some,
 openGraph = povOpenGraph(pov)) {

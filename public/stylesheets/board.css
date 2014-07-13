@@ -733,11 +733,8 @@ body.pirouetti.light div.lichess_cemetery div.piece.white {
   -webkit-filter: brightness(0.7) contrast(160%) drop-shadow(0 0 0.5px #000);
 }
 div.under_chat {
-  width: 224px;
-  margin-left: -28px;
-  position: absolute;
-  top: 529px;
-  left: 0;
+  width: 228px;
+  margin: 10px 0 0 -30px;
 }
 div.under_chat .watchtv {
   display: block;
@@ -746,26 +743,10 @@ div.under_chat .watchtv {
   text-align: center;
   margin-top: -24px;
 }
-#chat {
-  font-size: 11.5px;
-  position: absolute;
-  top: 205px;
-  left: 0;
-  width: 228px;
-  margin-left: -30px;
-}
 #chat div.top {
-  border: 1px solid #ccc;
-  padding: 3px 5px;
+  position: relative;
 }
-#chat div.top span.title {
-  font-weight: bold;
-  color: #999;
-}
-#chat div.top span.title span {
-  font-weight: normal;
-}
-#chat input.toggle_chat {
+#chat div.top input.toggle_chat {
   cursor: pointer;
   position: absolute;
   top: 4px;
@@ -774,8 +755,6 @@ div.under_chat .watchtv {
 }
 #chat .messages {
   height: 263px;
-  border: 1px solid #ccc;
-  border-top: none;
   overflow: hidden;
   overflow-y: auto;
 }
@@ -783,8 +762,8 @@ div.under_chat .watchtv {
   position: relative;
 }
 #chat form input {
-  border: 1px solid #ccc;
-  border-top: 0;
+  border: 0;
+  border-top: 1px solid #ccc;
   padding: 2px 20px 2px 4px;
   width: 202px;
 }
@@ -837,24 +816,18 @@ div.under_chat .watchtv {
   opacity: 0;
 }
 div.game_tournament {
-  text-align: center;
-  line-height: 2em;
   max-height: 300px;
   overflow: hidden;
 }
 div.game_tournament:hover {
   overflow-y: auto;
 }
-div.game_tournament .title {
-  display: block;
-  font-weight: bold;
-  line-height: 3em;
-}
 div.game_tournament .clock {
-  display: block;
+  text-align: center;
   font-size: 20px;
   font-family: monospace;
   font-weight: bold;
+  margin: 10px 0;
 }
 div.game_tournament table.standing {
   border-bottom: none;
@@ -865,6 +838,7 @@ div.game_tournament table.standing tr.me td {
 div.game_tournament table.standing td {
   padding: 0 10px;
   text-align: left;
+  line-height: 2em;
 }
 div.game_tournament table.standing td.name span {
   display: inline-block;

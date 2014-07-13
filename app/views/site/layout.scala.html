@@ -1,7 +1,7 @@
-@(title: String, moreCss: Html = Html(""), goodies: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(title: String, moreCss: Html = Html(""), side: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @base.layout(
 title = title, 
-goodies = goodies,
+side = side,
 active = none,
 moreCss = moreCss)(body)

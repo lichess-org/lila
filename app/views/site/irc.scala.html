@@ -1,6 +1,6 @@
 @(teams: List[lila.team.Team])(implicit ctx: Context)
 
-@goodies = {
+@side = {
 <br />
 <br />
 You can chat here,<br />
@@ -19,7 +19,7 @@ Channels: <br />
 
 @site.layout(
 title = trans.chat.str(),
-goodies = goodies.some,
+side = side.some,
 moreCss = cssTag("irc.css")) {
 
 <div class="content_box irc_box">

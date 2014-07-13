@@ -10,10 +10,10 @@
   overflow: hidden;
   white-space: nowrap;
 }
-div.goodies div.box {
+div.side div.box {
   width: 312px;
 }
-div.goodies iframe {
+div.side iframe {
   margin-top: 1em;
   width: 328px;
   margin-left: -30px;

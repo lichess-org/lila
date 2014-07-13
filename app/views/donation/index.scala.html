@@ -5,7 +5,7 @@
 <input type="hidden" name="custom" value="@ctx.userId">
 }
 
-@goodies = {
+@side = {
 <h2>@progress.month Progress</h2>
 <div class="progress">
   <div class="progressbar green flashy">
@@ -38,7 +38,7 @@
 
 @site.layout(
 moreCss = moreCss,
-goodies = goodies.some,
+side = side.some,
 title = s"${~doc.getText("doc.title")}") {
 
 <div class="content_box small_box doc_box donate_box">

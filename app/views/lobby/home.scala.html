@@ -17,7 +17,7 @@
 @embedJs(s"var lichess_preload = $preload;")
 }
 
-@goodies = {
+@side = {
 @ctx.me.map { u =>
 @if(playing.nonEmpty) {
 <div id="now_playing">
@@ -46,7 +46,7 @@ title = "",
 fullTitle = Some("lichess.org • " + trans.freeOnlineChess.str()),
 baseline = baseline.some,
 active = siteMenu.play.some,
-goodies = goodies.some,
+side = side.some,
 moreJs = moreJs,
 moreCss = cssTag("home.css"),
 underchat = underchat.some,

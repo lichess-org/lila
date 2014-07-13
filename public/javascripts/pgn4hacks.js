@@ -2,7 +2,7 @@
 
 function customFunctionOnPgnGameLoad() {
 
-  $('div.goodies a.rotate_board').click(function() {
+  $('div.side a.rotate_board').click(function() {
     $('#GameBoard').toggleClass('flip');
     $('#player_links div:first').appendTo($('#player_links'));
     redrawBoardMarks();

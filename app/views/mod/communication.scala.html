@@ -4,7 +4,7 @@
 @cssTag("mod-communication.css")
 }
 
-@goodies = {
+@side = {
 <br />
 <br />
 <a data-icon="i" href="@routes.Report.list">&nbsp;Return to the report list</a>
@@ -13,7 +13,7 @@
 @base.layout(
 title = u.username + " communications",
 moreCss = moreCss,
-goodies = goodies.some) {
+side = side.some) {
 
 <div id="communication" class="content_box">
   <h1>@userLink(u) communications</h1>

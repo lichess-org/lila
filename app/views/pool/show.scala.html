@@ -1,19 +1,17 @@
 @(p: lila.pool.Pool, version: Int, chat: Option[lila.chat.UserChat], pov: Option[Pov])(implicit ctx: Context)
 
-@goodies = {
-<div class="goodies">
-  <div class="box">
-    <span data-icon="p"> @(p.setup.clockLimit / 60) + @p.setup.clockIncrement</span>,
-    @variantName(p.setup.variant).capitalize, @trans.rated() -
-    <a href="@routes.Pool.help(p.setup.id)">Help</a>
-    @ctx.me.map(_.perfs.pool(p.setup.id)).map { perf =>
-    <br />
-    <br />
-    @trans.ratingX(s"""<strong>${perf.intRating}</strong> <small class="hint--bottom" data-hint="Glicko rating deviation"> ±${perf.glicko.intDeviationDoubled}</small>""")
-    <br />
-    <strong>@perf.nb</strong> @trans.gamesPlayed()
-    }
-  </div>
+@side = {
+<div class="side_box padded">
+  <span data-icon="p"> @(p.setup.clockLimit / 60) + @p.setup.clockIncrement</span>,
+  @variantName(p.setup.variant).capitalize, @trans.rated() -
+  <a href="@routes.Pool.help(p.setup.id)">Help</a>
+  @ctx.me.map(_.perfs.pool(p.setup.id)).map { perf =>
+  <br />
+  <br />
+  @trans.ratingX(s"""<strong>${perf.intRating}</strong> <small class="hint--bottom" data-hint="Glicko rating deviation"> ±${perf.glicko.intDeviationDoubled}</small>""")
+  <br />
+  <strong>@perf.nb</strong> @trans.gamesPlayed()
+  }
 </div>
 }
 
@@ -26,7 +24,7 @@
 @base.layout(
 title = s"${p.setup.name} pool",
 moreCss = cssTag("pool.css"),
-goodies = goodies.some,
+side = side.some,
 chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some) {
 
@@ -36,7 +34,7 @@ underchat = underchat.some) {
   data-socket-url="@routes.Pool.websocket(p.setup.id)"
   data-href="@routes.Pool.reload(p.setup.id)">
   <div class="pool_side scroll-shadow">
-    @side(p)
+    @pairings(p)
   </div>
   <div class="content_box no_padding pool_box pool_show">
     <h1 data-icon="8">

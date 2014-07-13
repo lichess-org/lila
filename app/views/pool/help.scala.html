@@ -1,11 +1,11 @@
 @(setup: lila.pool.PoolSetup)(implicit ctx: Context)
 
-@goodies = {
+@side = {
 <a href="@routes.Pool.show(setup.id)">Return to the pool</a>
 }
 
 @base.layout(
-goodies = goodies.some,
+side = side.some,
 title = s"${setup.name} Pool help",
 moreCss = cssTag("pool.css")) {
 
