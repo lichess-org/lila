@@ -4,12 +4,18 @@ package templating
 import chess.{ Mode, Variant, Speed }
 import lila.setup._
 import lila.api.Context
+import lila.tournament.System
 
 trait SetupHelper { self: I18nHelper =>
 
   def translatedModeChoices(implicit ctx: Context) = List(
     Mode.Casual.id.toString -> trans.casual.str(),
     Mode.Rated.id.toString -> trans.rated.str()
+  )
+
+  def translatedSystemChoices(implicit ctx: Context) = List(
+    System.Arena.id.toString -> trans.arena.str(),
+    System.Swiss.id.toString -> trans.swiss.str()
   )
 
   def translatedVariantChoices(implicit ctx: Context) = List(

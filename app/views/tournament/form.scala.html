@@ -32,6 +32,10 @@ moreJs = moreJs) {
       }
       <table>
         <tr>
+          <th><label for="@form("system").id">@trans.system()</label></th>
+          <td>@base.select(form("system"), translatedSystemChoices)</td>
+        </tr>
+        <tr>
           <th><label for="@form("variant").id">@trans.variant()</label></th>
           <td>@base.select(form("variant"), translatedVariantChoices)</td>
         </tr>

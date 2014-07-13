@@ -3,8 +3,8 @@ package templating
 
 import controllers.routes
 import lila.api.Context
-import lila.tournament.Tournament
-import lila.user.User
+import lila.tournament.{ Tournament, System }
+import lila.user.{ User, UserContext }
 
 import play.api.libs.json.Json
 import play.twirl.api.Html
@@ -27,5 +27,10 @@ trait TournamentHelper { self: I18nHelper =>
     val url = routes.Tournament.show(tour.id)
     val name = if (tour.scheduled) tour.name else trans.xTournament(tour.name)
     s"""<a data-icon="g" class="$cssClass" href="$url">&nbsp;$name</a>"""
+  }
+
+  def systemName(sys: System)(implicit ctx: UserContext) = sys match {
+    case System.Arena  => trans.arena.str()
+    case System.Swiss  => trans.swiss.str()
   }
 }

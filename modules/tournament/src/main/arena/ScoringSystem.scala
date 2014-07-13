@@ -1,31 +1,41 @@
 package lila.tournament
+package arena
 
-case class Score(
-    win: Option[Boolean],
-    flag: Score.Flag) {
+import lila.tournament.{ ScoringSystem => AbstractScoringSystem }
+import lila.tournament.{ Score => AbstractScore }
 
-  val value = this match {
-    case Score(Some(true), Score.Double) => 4
-    case Score(Some(true), _)            => 2
-    case Score(None, Score.Double)       => 2
-    case Score(None, _)                  => 1
-    case _                               => 0
-  }
-}
-
-object Score {
-
-  case class Sheet(scores: List[Score]) {
-    val total = scores.foldLeft(0)(_ + _.value)
-    def onFire = Score firstTwoAreWins scores
-  }
-
+object ScoringSystem extends AbstractScoringSystem {
   sealed trait Flag
   case object StreakStarter extends Flag
   case object Double extends Flag
   case object Normal extends Flag
 
-  def sheet(user: String, tour: Tournament) = Sheet {
+  case class Score(
+      win: Option[Boolean],
+      flag: Flag) extends AbstractScore {
+
+    val value = this match {
+      case Score(Some(true), Double) => 4
+      case Score(Some(true), _)      => 2
+      case Score(None, Double)       => 2
+      case Score(None, _)            => 1
+      case _                         => 0
+    }
+  }
+
+  case class Sheet(scores: List[Score]) extends ScoreSheet {
+    val total = scores.foldLeft(0)(_ + _.value)
+    def onFire = firstTwoAreWins(scores)
+  }
+
+  override def rank(tour: Tournament, players: Players): RankedPlayers = {
+    players.foldLeft(Nil: RankedPlayers) {
+        case (Nil, p)                  => (1, p) :: Nil
+        case (list@((r0, p0) :: _), p) => ((p0.score == p.score).fold(r0, list.size + 1), p) :: list
+    }.reverse
+  }
+
+  override def scoreSheet(tour: Tournament, user: String) = Sheet {
     val filtered = tour userPairings user filter (_.finished) reverse
     val nexts = (filtered drop 1 map Some.apply) :+ None
     filtered.zip(nexts).foldLeft(List[Score]()) {
