@@ -17,13 +17,9 @@ private[analyse] final class Annotator(netDomain: String) {
       annotateOpening(opening) {
         annotateTurns(p, analysis ?? (_.advices))
       }.copy(
-        tags = (p.tags ::: (clock ?? clockTags)) :+ Tag("Annotator", netDomain)
+        tags = p.tags :+ Tag("Annotator", netDomain)
       )
     }
-
-  private def clockTags(clock: Clock) = List(
-    Tag(_.WhiteClock, clock showTime (clock remainingTime Color.White)),
-    Tag(_.BlackClock, clock showTime (clock remainingTime Color.Black)))
 
   import chess.{ Status => S }
   private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) = (winner match {
