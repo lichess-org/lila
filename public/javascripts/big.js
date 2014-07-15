@@ -760,7 +760,7 @@ var storage = {
             $links.prepend(_.map(list, function(lang) {
               var href = location.href.replace(/\/\/\w+\./, '//' + lang[0] + '.');
               var klass = _.contains(langs, lang[0]) ? 'class="accepted"' : '';
-              return '<li><a '+klass+' lang="'+lang[0]+'" href="' + href + '" title="' + lang[1] + '">' + lang[2] + '</a></li>';
+              return '<li><a '+klass+' lang="'+lang[0]+'" href="' + href + '">' + lang[1] + '</a></li>';
             }).join(''));
           }
         });

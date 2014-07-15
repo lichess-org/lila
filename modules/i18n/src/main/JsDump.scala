@@ -69,9 +69,7 @@ private[i18n] case class JsDump(
 
   private def writeRefs {
     val code = pool.names.toList.sortBy (_._1).map {
-      case (code, name) =>
-        val title = keys.freeOnlineChess.to(Lang(code))()
-        s"""["$code","$title","$name"]"""
+      case (code, name) => s"""["$code","$name"]"""
     }.mkString("[", ",", "]")
     val file = new File("%s/refs.json".format(pathFile.getCanonicalPath))
     val out = new PrintWriter(file)
