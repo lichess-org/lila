@@ -90,9 +90,13 @@ private[pool] final class PoolActor(
       }
 
     case CheckWave if pool.readyForNextWave =>
-      pool.copy(lastWaveAt = DateTime.now.some)
-      val pairings = AutoPairing(pool, userIds.toSet)
-      joiner(pool.setup, pairings) map AddPairings.apply pipeTo self
+      val uids = userIds.toSet
+      if (uids.nonEmpty) {
+        pool.copy(lastWaveAt = DateTime.now.some)
+        val pairings = AutoPairing(pool, uids)
+        loginfo(s"{${pool.setup.name}} pair ${uids.mkString(", ")} = ${pairings.size}")
+        joiner(pool.setup, pairings) map AddPairings.apply pipeTo self
+      }
 
     case CheckPlayers =>
       val waitingUserIds = userIds.toSet
