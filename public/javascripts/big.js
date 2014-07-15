@@ -752,9 +752,17 @@ var storage = {
     var acceptLanguages = $('body').data('accept-languages');
     if (acceptLanguages) {
       $('#top .lichess_language').one('mouseover', function() {
-        var $t = $(this);
-        _.each(acceptLanguages.split(','), function(lang) {
-          $t.find('a[lang="' + lang + '"]').addClass('accepted');
+        var $links = $(this).find('.language_links'),
+          langs = acceptLanguages.split(',');
+        $.ajax({
+          url: $links.data('url'),
+          success: function(list) {
+            $links.prepend(_.map(list, function(lang) {
+              var href = location.href.replace(/\/\/\w+\./, '//' + lang[0] + '.');
+              var klass = _.contains(langs, lang[0]) ? 'class="accepted"' : '';
+              return '<li><a '+klass+' lang="'+lang[0]+'" href="' + href + '" title="' + lang[1] + '">' + lang[2] + '</a></li>';
+            }).join(''));
+          }
         });
       });
     }

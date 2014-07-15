@@ -13,6 +13,7 @@ private[i18n] case class JsDump(
   def apply: Funit = Future {
     pathFile.mkdir
     pool.nonDefaultLangs foreach write
+    writeRefs
   } void
 
   private val messages = List(
@@ -65,6 +66,18 @@ private[i18n] case class JsDump(
     """lichess_translations = {%s};""".format(messages map { key =>
       """"%s":"%s"""".format(escape(key.to(pool.default)()), escape(key.to(lang)()))
     } mkString ",")
+
+  private def writeRefs {
+    val code = pool.names.toList.sortBy (_._1).map {
+      case (code, name) =>
+        val title = keys.freeOnlineChess.to(Lang(code))()
+        s"""["$code","$title","$name"]"""
+    }.mkString("[", ",", "]")
+    val file = new File("%s/refs.json".format(pathFile.getCanonicalPath))
+    val out = new PrintWriter(file)
+    try { out.print(code) }
+    finally { out.close }
+  }
 
   private def escape(text: String) = text.replace(""""""", """\"""")
 }

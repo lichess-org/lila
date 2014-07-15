@@ -37,22 +37,6 @@ trait I18nHelper {
   def transValidationPattern(trans: String) =
     (trans contains "%s") option ".*%s.*"
 
-  private lazy val langLinksCache =
-    scala.collection.mutable.Map[String, String]()
-
-  def langLinks(lang: Lang)(implicit ctx: UserContext) = Html {
-    langLinksCache.getOrElseUpdate(lang.language, {
-      pool.names.toList sortBy (_._1) map {
-        case (code, name) => """<li><a lang="%s" title="%s" href="%s"%s>%s</a></li>""".format(
-          code,
-          trans.freeOnlineChess.to(Lang(code))(),
-          langUrl(Lang(code))(I18nDomain(ctx.req.domain)),
-          (code == lang.language) ?? """ class="current"""",
-          name)
-      } mkString ""
-    }).replace(uriPlaceholder, ctx.req.uri)
-  }
-
   def langFallbackLinks(implicit ctx: UserContext) = Html {
     pool.preferredNames(ctx.req, 3).map {
       case (code, name) => """<a class="lang_fallback" lang="%s" href="%s">%s</a>""".format(
