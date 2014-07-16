@@ -87,7 +87,6 @@ object Analyse extends LilaController {
       }) flatMap { content =>
         Env.game.pgnDump filename game map { filename =>
           Ok(content).withHeaders(
-            CONTENT_LENGTH -> content.size.toString,
             CONTENT_TYPE -> ContentTypes.TEXT,
             CONTENT_DISPOSITION -> ("attachment; filename=" + filename))
         }
