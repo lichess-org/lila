@@ -15,10 +15,10 @@ private[forum] final class Recent(
 
   private type GetTeams = String => List[String]
 
-  def apply(user: Option[User], getTeams: GetTeams): Fu[List[PostLiteView]] =
+  def apply(user: Option[User], getTeams: GetTeams): Fu[List[MiniForumPost]] =
     userCacheKey(user, getTeams) |> { key => cache(key)(fetch(key)) }
 
-  def team(teamId: String): Fu[List[PostLiteView]] = {
+  def team(teamId: String): Fu[List[MiniForumPost]] = {
     // prepend empty language list
     val key = ";" + teamSlug(teamId)
     cache(key)(fetch(key))
@@ -37,14 +37,14 @@ private[forum] final class Recent(
 
   private lazy val staffCategIds = "staff" :: publicCategIds
 
-  private val cache: Cache[List[PostLiteView]] = LruCache(timeToLive = ttl)
+  private val cache: Cache[List[MiniForumPost]] = LruCache(timeToLive = ttl)
 
   private def parseLangs(langStr: String) = langStr.split(",").toList filter (_.nonEmpty)
 
-  private def fetch(key: String): Fu[List[PostLiteView]] =
+  private def fetch(key: String): Fu[List[MiniForumPost]] =
     (key.split(";").toList match {
       case langs :: "[troll]" :: categs => PostRepoTroll.recentInCategs(nb)(categs, parseLangs(langs))
       case langs :: categs              => PostRepo.recentInCategs(nb)(categs, parseLangs(langs))
-      case categs => PostRepo.recentInCategs(nb)(categs, parseLangs("en"))
-    }) flatMap postApi.liteViews
+      case categs                       => PostRepo.recentInCategs(nb)(categs, parseLangs("en"))
+    }) flatMap postApi.miniPosts
 }

@@ -48,14 +48,14 @@
   <div class="forum">
     <h2 data-icon="d"> <a href="@teamForumUrl(t.id)">@trans.forum() (@info.forumNbPosts)</a></h2>
     <ol class="posts">
-      @info.forumPosts.take(10).map { v =>
+      @info.forumPosts.take(10).map { p =>
       <li>
         <p class="meta clearfix">
-          <a href="@routes.ForumPost.redirect(v.post.id)">@v.topic.name</a>
-          @authorLink(v.post, withOnline = false)
-          @momentFormat(v.post.createdAt)
+          <a href="@routes.ForumPost.redirect(p.postId)">@p.topicName</a>
+          @userIdLink(p.userId, withOnline = false)
+          @momentFormat(p.createdAt)
         </p>
-        <p>@shorten(v.post.text, 200)</p>
+        <p>@shorten(p.text, 200)</p>
       </li>
       }
     </ol>

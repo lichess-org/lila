@@ -86,14 +86,28 @@ final class PostApi(
 
   def liteViews(posts: List[Post]): Fu[List[PostLiteView]] = for {
     topics ← $find.byIds[Topic](posts.map(_.topicId).distinct)
-  } yield posts map { post =>
+  } yield posts flatMap { post =>
     topics find (_.id == post.topicId) map { topic =>
       PostLiteView(post, topic)
     }
-  } flatten
+  }
 
   def liteView(post: Post): Fu[Option[PostLiteView]] =
     liteViews(List(post)) map (_.headOption)
+
+  def miniPosts(posts: List[Post]): Fu[List[MiniForumPost]] = for {
+    topics ← $find.byIds[Topic](posts.map(_.topicId).distinct)
+  } yield posts flatMap { post =>
+    topics find (_.id == post.topicId) map { topic =>
+      MiniForumPost(
+        isTeam = post.isTeam,
+        postId = post.id,
+        topicName = topic.name,
+        userId = post.userId,
+        text = post.text take 200,
+        createdAt = post.createdAt)
+    }
+  }
 
   def lastNumberOf(topic: Topic): Fu[Int] =
     PostRepo lastByTopics List(topic) map { _ ?? (_.number) }

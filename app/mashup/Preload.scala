@@ -8,7 +8,7 @@ import play.api.mvc.Call
 
 import controllers.routes
 import lila.api.Context
-import lila.forum.PostLiteView
+import lila.forum.MiniForumPost
 import lila.game.{ Game, GameRepo, Pov }
 import lila.lobby.actorApi.GetOpen
 import lila.lobby.{ Hook, HookRepo }
@@ -35,11 +35,10 @@ final class Preload(
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
     getPools: () => Fu[List[Pool]]) {
 
-  private type RightResponse = (JsObject, List[Entry], List[PostLiteView], List[Enterable], Option[Game], List[User], List[Winner], Option[lila.puzzle.DailyPuzzle], List[Pov], List[Pool], List[StreamOnAir])
-  private type Response = Either[Call, RightResponse]
+  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], Option[Game], List[User], List[Winner], Option[lila.puzzle.DailyPuzzle], List[Pov], List[Pool], List[StreamOnAir])
 
   def apply(
-    posts: Fu[List[PostLiteView]],
+    posts: Fu[List[MiniForumPost]],
     tours: Fu[List[Enterable]],
     filter: Fu[FilterConfig])(implicit ctx: Context): Fu[Response] =
     (lobby ? GetOpen).mapTo[List[Hook]] zip
@@ -56,12 +55,12 @@ final class Preload(
       getPools() zip
       streamsOnAir() map {
         case ((((((((((((hooks, posts), tours), feat), blocks), entries), lead), tWinners), puzzle), playing), filter), pools), streams) =>
-          (Right((Json.obj(
+          (Json.obj(
             "version" -> history.version,
             "pool" -> JsArray(hooks map (_.render)),
             "filter" -> filter.render,
             "blocks" -> blocks,
             "engine" -> ctx.me.??(_.engine)
-          ), entries, posts, tours, feat, lead, tWinners, puzzle, playing, pools, streams)))
+          ), entries, posts, tours, feat, lead, tWinners, puzzle, playing, pools, streams)
       }
 }

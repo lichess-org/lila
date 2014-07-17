@@ -31,7 +31,7 @@ object Lobby extends LilaController {
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds),
       tours = Env.tournament promotable true,
       filter = Env.setup.filter
-    ).map(_.fold(Redirect(_), {
+    ).map {
         case (preload, entries, posts, tours, featured, lead, tWinners, puzzle, playing, pools, streams) =>
           val response = status(html.lobby.home(
             Json stringify preload, entries, posts, tours, featured, lead, tWinners,
@@ -42,7 +42,7 @@ object Lobby extends LilaController {
             response,
             response withCookies LilaCookie.makeSessionId(ctx.req)
           )
-      }))
+      }
 
   def socket = Socket[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
