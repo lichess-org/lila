@@ -34,7 +34,6 @@ GET   /@/:username/suggestions         controllers.Relation.suggest(username: St
 
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
-POST  /@/:username/export              controllers.User.export(username: String)
 GET   /@/:username/mod                 controllers.User.mod(username: String)
 POST  /@/:username/evaluate            controllers.User.evaluate(username: String)
 POST  /@/:username/note                controllers.User.writeNote(username: String)
@@ -69,6 +68,7 @@ GET   /games/checkmate    controllers.Game.checkmate(page: Int ?= 1)
 GET   /games/bookmark     controllers.Game.bookmark(page: Int ?= 1)
 GET   /games/analysed     controllers.Game.analysed(page: Int ?= 1)
 GET   /games/imported     controllers.Game.imported(page: Int ?= 1)
+GET   /games/export/:user controllers.Game.export(user: String)
 
 # Search
 GET   /games/search       controllers.Game.search(page: Int ?= 1)
@@ -232,7 +232,7 @@ DELETE /notification/$id<\w{8}>      controllers.Notification.remove(id)
 
 # Paste
 GET   /paste                           controllers.Importer.importGame
-POST  /paste                           controllers.Importer.sendGame
+POST  /import                          controllers.Importer.sendGame
 
 # Progressive import API
 POST  /api/import/live                     controllers.Importer.liveCreate

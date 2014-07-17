@@ -186,12 +186,4 @@ object User extends LilaController {
       JsonOk(UserRepo usernamesLike term)
     }
   }
-
-  def export(username: String) = Open { implicit ctx =>
-    OptionFuResult(UserRepo named username) { u =>
-      Env.game export u map { url =>
-        Redirect(Env.api.Net.Protocol + Env.api.Net.AssetDomain + url)
-      }
-    }
-  }
 }

@@ -1,7 +1,10 @@
 package controllers
 
+import play.api.mvc.Action
+
 import lila.app._
 import lila.game.{ Game => GameModel, GameRepo }
+import play.api.http.ContentTypes
 import views._
 
 object Game extends LilaController with BaseGame {
@@ -74,5 +77,16 @@ object Game extends LilaController with BaseGame {
         case (pag, menu) => html.game.imported(pag, menu)
       }
     }
+  }
+
+  def export(user: String) = Auth { implicit ctx =>
+    me =>
+      if (me.id == user.toLowerCase) fuccess {
+        play.api.Logger("export").info(s"$user from ${ctx.req.remoteAddress}")
+        Ok.chunked(Env.game export user).withHeaders(
+          CONTENT_TYPE -> ContentTypes.TEXT,
+          CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_$user.pgn"))
+      }
+      else notFound
   }
 }

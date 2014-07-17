@@ -55,12 +55,12 @@ goodies = goodies.some,
 robots = false,
 evenMoreJs = evenMoreJs,
 openGraph = Map(
-    'type -> "website",
-    'image -> staticUrl("images/large_tile.png"),
-    'title -> u.titleUsernameWithRating,
-    'site_name -> "lichess.org",
-    'url -> s"$netBaseUrl${routes.User.show(u.username).url}",
-    'description -> describeUser(u))) {
+'type -> "website",
+'image -> staticUrl("images/large_tile.png"),
+'title -> u.titleUsernameWithRating,
+'site_name -> "lichess.org",
+'url -> s"$netBaseUrl${routes.User.show(u.username).url}",
+'description -> describeUser(u))) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
     @if(info.rank.map(_._1).exists(1==)) {
@@ -114,10 +114,9 @@ openGraph = Map(
       <a data-hint="@trans.reportXToModerators(u.username)" class="button hint--bottom-left" href="@routes.Report.form?username=@u.username">
         <span data-icon="!"></span>
       </a>
-      } else {
-      <form id="exportform" action="@routes.User.export(u.username)" method="POST">
-        <a class="button hint--bottom-left" onclick="document.getElementById('exportform').submit();" data-hint="@trans.exportGames()"><span data-icon="x"></span></a>
-      </form>
+      }
+      @if(ctx is u) {
+      <a class="button hint--bottom-left" href="@routes.Game.export(u.id)" data-hint="@trans.exportGames()"><span data-icon="x"></span></a>
       }
     </div>
   </div>

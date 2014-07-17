@@ -8,12 +8,12 @@ import chess.format.{ pgn => chessPgn }
 import makeTimeout.short
 import org.joda.time.format.DateTimeFormat
 
+import lila.common.LightUser
 import lila.hub.actorApi.router.{ Abs, Watcher }
-import lila.user.User
 
 final class PgnDump(
-    router: ActorSelection,
-    findUser: String => Fu[Option[User]]) {
+    netBaseUrl: String,
+    getLightUser: String => Option[LightUser]) {
 
   import PgnDump._
 
@@ -24,7 +24,7 @@ final class PgnDump(
       Pgn(ts, turns(moves2, fenSituation.map(_.fullMoveNumber) | 1))
     }
 
-  def filename(game: Game): Fu[String] = gameUsers(game) map {
+  def filename(game: Game): String = gameLightUsers(game) match {
     case (wu, bu) => "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
       dateFormat.print(game.createdAt),
       player(game.whitePlayer, wu),
@@ -32,29 +32,27 @@ final class PgnDump(
       game.id)
   }
 
-  private def gameUrl(id: String): Fu[String] =
-    router ? Abs(Watcher(id, "white")) mapTo manifest[String]
+  private def gameUrl(id: String) = s"$netBaseUrl/$id"
 
-  private def gameUsers(game: Game): Fu[(Option[User], Option[User])] =
-    (game.whitePlayer.userId ?? findUser) zip (game.blackPlayer.userId ?? findUser)
+  private def gameLightUsers(game: Game): (Option[LightUser], Option[LightUser]) =
+    (game.whitePlayer.userId ?? getLightUser) -> (game.blackPlayer.userId ?? getLightUser)
 
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 
   private def rating(p: Player) = p.rating.fold("?")(_.toString)
 
-  private def player(p: Player, u: Option[User]) =
-    p.aiLevel.fold(u.fold(User.anonymous)(_.username))("lichess AI level " + _)
+  private def player(p: Player, u: Option[LightUser]) =
+    p.aiLevel.fold(u.fold(lila.user.User.anonymous)(_.name))("lichess AI level " + _)
 
-  private def tags(game: Game): Fu[List[Tag]] = {
-    val opening =
-      if (game.fromPosition || game.variant.exotic) none
-      else chess.OpeningExplorer openingOf game.pgnMoves
-    gameUsers(game) zip
-      (game.variant.standard.fold(fuccess(none), GameRepo initialFen game.id)) zip
-      gameUrl(game.id) map {
-        case ((((wu, bu)), initialFen), url) => List(
+  private def tags(game: Game): Fu[List[Tag]] = gameLightUsers(game) match {
+    case (wu, bu) =>
+      val opening =
+        if (game.fromPosition || game.variant.exotic) none
+        else chess.OpeningExplorer openingOf game.pgnMoves
+      (game.variant.standard.fold(fuccess(none), GameRepo initialFen game.id)) map { initialFen =>
+        List(
           Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
-          Tag(_.Site, url),
+          Tag(_.Site, gameUrl(game.id)),
           Tag(_.Date, dateFormat.print(game.createdAt)),
           Tag(_.White, player(game.whitePlayer, wu)),
           Tag(_.Black, player(game.blackPlayer, bu)),

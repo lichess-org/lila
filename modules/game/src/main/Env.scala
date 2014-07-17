@@ -11,6 +11,7 @@ final class Env(
     db: lila.db.Env,
     system: ActorSystem,
     hub: lila.hub.Env,
+    getLightUser: String => Option[lila.common.LightUser],
     appPath: String,
     isProd: Boolean,
     scheduler: lila.common.Scheduler) {
@@ -26,6 +27,7 @@ final class Env(
     val JsPathCompiled = config getString "js_path.compiled"
     val ActorName = config getString "actor.name"
     val UciMemoTtl = config duration "uci_memo.ttl"
+    val netBaseUrl = config getString "net.base_url"
   }
   import settings._
 
@@ -39,7 +41,7 @@ final class Env(
     cached = cached,
     maxPerPage = PaginatorMaxPerPage)
 
-  lazy val export = new Export(hub.actor.router).apply _
+  lazy val export = new PgnExport(pgnDump).apply _
 
   lazy val listMenu = ListMenu(cached) _
 
@@ -50,8 +52,8 @@ final class Env(
   lazy val uciMemo = new UciMemo(UciMemoTtl)
 
   lazy val pgnDump = new PgnDump(
-    router = hub.actor.router,
-    findUser = lila.user.UserRepo.named)
+    netBaseUrl = netBaseUrl,
+    getLightUser = getLightUser)
 
   lazy val crosstableApi = new CrosstableApi(db(CollectionCrosstable))
 
@@ -92,6 +94,7 @@ object Env {
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
+    getLightUser = lila.user.Env.current.lightUser,
     appPath = play.api.Play.current.path.getCanonicalPath,
     isProd = lila.common.PlayApp.isProd,
     scheduler = lila.common.PlayApp.scheduler)

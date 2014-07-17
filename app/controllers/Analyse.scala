@@ -84,12 +84,10 @@ object Analyse extends LilaController {
           pgn ← Env.game.pgnDump(game)
           analysis ← (~get("as") != "raw") ?? (env.analyser getDone game.id)
         } yield Env.analyse.annotator(pgn, analysis, gameOpening(game), game.winnerColor, game.status, game.clock).toString
-      }) flatMap { content =>
-        Env.game.pgnDump filename game map { filename =>
-          Ok(content).withHeaders(
-            CONTENT_TYPE -> ContentTypes.TEXT,
-            CONTENT_DISPOSITION -> ("attachment; filename=" + filename))
-        }
+      }) map { content =>
+        Ok(content).withHeaders(
+          CONTENT_TYPE -> ContentTypes.TEXT,
+          CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.game.pgnDump filename game)))
       }
     }
   }
