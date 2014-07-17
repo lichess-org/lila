@@ -13,13 +13,16 @@
     <updated>@(doc.getDate("blog.date", "yyyy-MM-dd'T'HH:mm:ss'Z'").??(_.toString))</updated>
     <link rel="alternate" type="text/html" href="@routes.Blog.show(doc.id, doc.slug).absoluteURL()"/>
     <title>@doc.getText("blog.title")</title>
-    <category>@doc.getText("blog.category")</category>
+    <category>
+      <term>@doc.getText("blog.category")</term>
+      <label>@slugify(~doc.getText("blog.category"))</label>
+    </category>
     <content type="html">
     @doc.getText("blog.shortlede")
 
     &lt;br /&gt;
     @doc.getImage("blog.image", "main").map { img =>
-    &lt;img src="@img.url" style="max-width:100%;" /&gt;
+    &lt;img src="@img.url"/&gt;
     }
     &lt;br /&gt;
     @(doc.getStructuredText("blog.body") ?? lila.blog.BlogApi.extract)
