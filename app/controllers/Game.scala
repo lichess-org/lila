@@ -83,9 +83,12 @@ object Game extends LilaController with BaseGame {
     me =>
       if (me.id == user.toLowerCase) fuccess {
         play.api.Logger("export").info(s"$user from ${ctx.req.remoteAddress}")
+        import org.joda.time.DateTime
+        import org.joda.time.format.DateTimeFormat
+        val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
         Ok.chunked(Env.game export user).withHeaders(
           CONTENT_TYPE -> ContentTypes.TEXT,
-          CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_$user.pgn"))
+          CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user}_$date.pgn"))
       }
       else notFound
   }
