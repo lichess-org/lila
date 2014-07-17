@@ -2,4 +2,3 @@ User-agent: *
 Allow: /
 Disallow: /account
 Disallow: /timeline
-Disallow: /rel

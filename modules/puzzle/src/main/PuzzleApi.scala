@@ -4,8 +4,6 @@ import scala.concurrent.Future
 import scala.util.{ Try, Success, Failure }
 
 import org.joda.time.DateTime
-import play.api.libs.iteratee._
-import play.api.libs.iteratee.Enumerator
 import play.api.libs.json._
 import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex }
 import reactivemongo.core.commands.Count

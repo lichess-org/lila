@@ -45,7 +45,7 @@ trait I18nHelper {
   }
 
   private lazy val langAnnotationsBase: String =
-    pool.names.keySet diff Set("fp", "kb", "le", "tp") map { code =>
+    pool.names.keySet diff Set("fp", "kb", "le", "tp", "pi", "io") map { code =>
       s"""<link rel="alternate" hreflang="$code" href="http://$code.lichess.org%"/>"""
     } mkString ""
 
