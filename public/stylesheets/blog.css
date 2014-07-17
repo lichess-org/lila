@@ -6,8 +6,9 @@
 #lichess_blog h1 a {
   text-decoration: none;
 }
-#lichess_blog h1 a:hover {
-  text-decoration: underline;
+#lichess_blog h1 a.atom {
+  color: #ff6600;
+  float: right;
 }
 #lichess_blog .meta {
   text-align: center;

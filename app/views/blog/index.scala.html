@@ -1,9 +1,11 @@
 @(pager: io.prismic.Response)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context)
 
-@layout(
-title = "Blog") {
+@layout(title = "Blog") {
 
-<h1 class="lichess_title" data-icon="6"> Lichess Official Blog</h1>
+<h1 class="lichess_title" data-icon="6">
+  <a class="atom" href="@routes.Blog.atom()" data-icon="3"></a>
+  Lichess Official Blog
+</h1>
 <div class="list">
   @pager.results.map { doc =>
   <article>
