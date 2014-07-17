@@ -33,7 +33,8 @@ object Global extends GlobalSettings {
     else fuccess(NotFound)
 
   override def onBadRequest(req: RequestHeader, error: String) =
-    if (niceError(req)) {
+    if (error startsWith "Illegal character in path") fuccess(Redirect("/"))
+    else if (niceError(req)) {
       logwarn("[global] bad request: " + error)
       controllers.Lobby.handleStatus(req, Results.BadRequest)
     }
