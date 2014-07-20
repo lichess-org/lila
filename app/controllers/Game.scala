@@ -88,7 +88,7 @@ object Game extends LilaController with BaseGame {
         val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
         Ok.chunked(Env.game export user).withHeaders(
           CONTENT_TYPE -> ContentTypes.TEXT,
-          CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${user}_$date.pgn"))
+          CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${me.username}_$date.pgn"))
       }
       else notFound
   }
