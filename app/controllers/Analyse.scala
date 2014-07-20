@@ -95,11 +95,4 @@ object Analyse extends LilaController {
   private def gameOpening(game: GameModel) =
     if (game.fromPosition || game.variant.exotic) none
     else chess.OpeningExplorer openingOf game.pgnMoves
-
-  def fen(id: String) = Open { implicit ctx =>
-    OptionOk(GameRepo game id) { game =>
-      Env.round fenUrlWatch game
-      chess.format.Forsyth >> game.toChess
-    }
-  }
 }

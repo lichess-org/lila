@@ -143,7 +143,6 @@ POST  /$gameId<\w{8}>/request-analysis    controllers.Analyse.requestAnalysis(ga
 POST  /$gameId<\w{8}>/better-analysis/$color<white|black> controllers.Analyse.betterAnalysis(gameId: String, color: String)
 POST  /$gameId<\w{8}>/post-analysis       controllers.Analyse.postAnalysis(gameId: String)
 GET   /$gameId<\w{8}>/pgn                 controllers.Analyse.pgn(gameId: String)
-GET   /$gameId<\w{8}>/fen                 controllers.Analyse.fen(gameId: String)
 
 # Pref
 POST  /pref/:name                      controllers.Pref.set(name: String)

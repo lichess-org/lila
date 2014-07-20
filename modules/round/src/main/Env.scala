@@ -128,11 +128,6 @@ final class Env(
     chat = hub.actor.chat,
     i18nKeys = i18nKeys)
 
-  lazy val fenUrlWatch = new FenUrlWatch(
-    roundMap = roundMap,
-    reporter = hub.actor.report,
-    scheduler = system.scheduler)
-
   def version(gameId: String): Fu[Int] =
     socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
 
