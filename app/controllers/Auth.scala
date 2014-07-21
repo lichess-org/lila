@@ -48,7 +48,12 @@ object Auth extends LilaController {
   }
 
   def logout = Open { implicit ctx =>
-    gotoLogoutSucceeded(ctx.req) fuccess
+    implicit val req = ctx.req
+    req.session get "sessionId" foreach lila.security.Store.delete
+    negotiate(
+      html = fuccess(Redirect(routes.Lobby.home)),
+      api = apiVersion => fuccess(Ok("ok") as JSON)
+    ) map (_ withCookies LilaCookie.newSession)
   }
 
   def signup = Open { implicit ctx =>
@@ -92,12 +97,4 @@ object Auth extends LilaController {
         )
       }
   }
-
-  private def gotoLogoutSucceeded(implicit req: RequestHeader) = {
-    req.session get "sessionId" foreach lila.security.Store.delete
-    logoutSucceeded(req) withCookies LilaCookie.newSession
-  }
-
-  private def logoutSucceeded(req: RequestHeader): Result =
-    Redirect(routes.Lobby.home)
 }

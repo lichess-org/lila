@@ -206,6 +206,25 @@ Set-Cookie: lila2="3b5cc8c80f0af258a31dc4fd1b5381cabe7388c7-sessionId=80q7V5stkK
 }
 ```
 
+## Account info
+
+Requires authentication.
+
+```sh
+http GET en.l.org/account/info
+```
+
+Response: `200` OK
+See `user` object in `Login` section, above.
+
+## Logout
+
+```sh
+http GET en.l.org/logout
+```
+
+Response: `200` OK
+
 # WEBSOCKET
 
 ## Unique `clientId`

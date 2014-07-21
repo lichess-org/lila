@@ -35,6 +35,16 @@ object Account extends LilaController {
       Ok(html.account.passwd(me, forms.passwd)).fuccess
   }
 
+  def info = Auth { implicit ctx =>
+    me =>
+      negotiate(
+        html = notFound,
+        api = apiVersion => fuccess {
+          Ok(Env.user.jsonView me me) as JSON
+        }
+      )
+  }
+
   def passwdApply = AuthBody { implicit ctx =>
     me =>
       implicit val req = ctx.body

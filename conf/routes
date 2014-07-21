@@ -52,6 +52,7 @@ GET   /account/close                   controllers.Account.close
 POST  /account/closeConfirm            controllers.Account.closeConfirm
 GET   /account/profile                 controllers.Account.profile
 POST  /account/profile                 controllers.Account.profileApply
+GET   /account/info                    controllers.Account.info
 
 # Site
 GET   /socket             controllers.Main.websocket
