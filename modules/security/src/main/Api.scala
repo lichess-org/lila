@@ -18,9 +18,9 @@ private[security] final class Api(firewall: Firewall) {
     .verifying("Invalid username or password", _.isDefined)
   )
 
-  def saveAuthentication(username: String)(implicit req: RequestHeader): Fu[String] = {
+  def saveAuthentication(id: String)(implicit req: RequestHeader): Fu[String] = {
     val sessionId = Random nextStringUppercase 12
-    Store.save(sessionId, username.toLowerCase, req) inject sessionId
+    Store.save(sessionId, id, req) inject sessionId
   }
 
   // blocking function, required by Play2 form

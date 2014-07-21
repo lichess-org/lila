@@ -41,6 +41,8 @@ final class Env(
 
   lazy val noteApi = new NoteApi(db(CollectionNote), timeline)
 
+  lazy val jsonView = new JsonView
+
   def ratingChart = cached.ratingChart.apply _
 
   val forms = DataForm

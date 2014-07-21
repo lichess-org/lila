@@ -31,6 +31,7 @@ private[api] final class UserApi(
   }
   private implicit val userWrites: OWrites[User] = OWrites { u =>
     Json.obj(
+      "id" -> u.id,
       "username" -> u.username,
       "rating" -> u.rating,
       "rd" -> u.perfs.global.glicko.deviation,

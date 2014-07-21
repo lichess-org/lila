@@ -169,6 +169,43 @@ Response: `200 OK`
 }
 ```
 
+## Login
+
+Returns an authentication cookie and a `user` object.
+
+```sh
+http --form POST en.l.org/login username=thibault password=xxxxxxxx 'Accept:application/vnd.lichess.v1+json'
+```
+
+Response: `200 OK`
+```
+Set-Cookie: lila2="3b5cc8c80f0af258a31dc4fd1b5381cabe7388c7-sessionId=80q7V5stkKIu"; Expires=Tue, 21 Jul 2015 20:31:43 GMT; Path=/; Domain=.l.org; HTTPOnly
+```
+```javascript
+{
+    "id": "thibault",
+    "username": "thibault"
+    "title": null,
+    "rating": 1438, // shortcut to global perf rating
+    "progress": -55, // rating progress over last 10 games
+    "count": { // number of games played
+        "ai": 256,
+        "draw": 72, // total draws
+        "drawH": 74, // draws against human only
+        "game": 2682, // total games played
+        "loss": 1471,
+        "lossH": 1403,
+        "rated": 1337,
+        "win": 1132,
+        "winH": 1131
+    },
+    "playTime": { // total seconds spent playing
+        "total": 558788,
+        "tv": 6255
+    }
+}
+```
+
 # WEBSOCKET
 
 ## Unique `clientId`

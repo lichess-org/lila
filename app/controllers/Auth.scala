@@ -13,19 +13,6 @@ object Auth extends LilaController {
   private def api = Env.security.api
   private def forms = Env.security.forms
 
-  private def gotoLoginSucceeded[A](username: String, referrer: Option[String])(implicit req: RequestHeader) =
-    api saveAuthentication username map { sessionId =>
-      val uri = referrer.filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
-      Redirect(uri) withCookies LilaCookie.withSession { session =>
-        session + ("sessionId" -> sessionId) - api.AccessUri
-      }
-    }
-
-  private def gotoSignupSucceeded[A](username: String)(implicit req: RequestHeader) =
-    api saveAuthentication username map { sessionId =>
-      Redirect(routes.User.show(username)) withCookies LilaCookie.session("sessionId", sessionId)
-    }
-
   def login = Open { implicit ctx =>
     val referrer = get("referrer")
     Ok(html.auth.login(api.loginForm, referrer)) fuccess
@@ -40,7 +27,20 @@ object Auth extends LilaController {
         _.fold(InternalServerError("authenticate error").fuccess) { u =>
           u.ipBan.fold(
             Env.security.firewall.blockIp(req.remoteAddress) inject BadRequest("blocked by firewall"),
-            gotoLoginSucceeded(u.username, referrer)
+            api saveAuthentication u.id flatMap { sessionId =>
+              negotiate(
+                html = Redirect {
+                  referrer.filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
+                }.fuccess,
+                api = apiVersion => fuccess {
+                  Ok(Env.user.jsonView me u) as JSON
+                }
+              ) map {
+                  _ withCookies LilaCookie.withSession { session =>
+                    session + ("sessionId" -> sessionId) - api.AccessUri
+                  }
+                }
+            }
           )
         }
       )
@@ -66,7 +66,12 @@ object Auth extends LilaController {
       data => Firewall {
         UserRepo.create(data.username, data.password, ctx.blindMode) flatMap { userOption =>
           val user = userOption err "No user could be created for %s".format(data.username)
-          HistoryRepo.create(user) >> gotoSignupSucceeded(user.username)
+          HistoryRepo.create(user) >> {
+            api saveAuthentication user.id map { sessionId =>
+              Redirect(routes.User.show(user.username)) withCookies LilaCookie.session("sessionId", sessionId)
+            }
+          }
+
         }
       }
     )
