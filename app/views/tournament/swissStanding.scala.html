@@ -12,12 +12,10 @@
       </tr>
     </thead>
     <tbody>
-      @defining(SwissSystem.scoreSheets(tour)) {
-      case scoreSheets => {
+      @defining(SwissSystem.scoreSheets(tour)) { scoreSheets =>
       @tour.rankedPlayers.map {
       case (rank, player) => {
-      @defining(scoreSheets(player.id)) {
-      case scoreSheet => {
+      @defining(scoreSheets(player.id)) { scoreSheet =>
       <tr @if(ctx.userId.exists(player.id==)) { class="me" }>
         <td class="name">
           @if(player.withdraw) {
@@ -41,8 +39,6 @@
         </td>
       </tr>
       <tr><td class="around-bar" colspan="3"><div class="bar" data-value="@scoreSheet.total"></div></td></tr>
-      }
-      }
       }
       }
       }

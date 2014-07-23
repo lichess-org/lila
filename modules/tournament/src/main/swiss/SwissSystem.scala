@@ -25,10 +25,10 @@ object SwissSystem extends PairingSystem with ScoringSystem {
 
   case class Sheet(scores: List[Score], total: Int, neustadtl: Int) extends ScoreSheet {
     private def f(d: Int): String = d match {
-      case 0 => ""
       case 1 => "¼"
       case 2 => "½"
       case 3 => "¾"
+      case _ => ""
     }
     lazy val totalRepr: String = (total/2) + f(2*(total%2))
     lazy val neustadtlRepr: String = (neustadtl/4) + f(neustadtl%4)

@@ -120,7 +120,6 @@ sealed trait StartedOrFinished extends Tournament {
   def winner = players.headOption
   def winnerUserId = winner map (_.id)
 
-  def playingPairings = pairings filter (_.playing)
   def recentGameIds(max: Int) = pairings take max map (_.gameId)
 
   def encode(status: Status) = new RawTournament(
@@ -216,6 +215,10 @@ case class Started(
     events: List[Event]) extends StartedOrFinished with Enterable {
 
   override def isRunning = true
+
+  def playingPairings = pairings filter (_.playing)
+
+  def playingUserIds = playingPairings.flatMap(_.users).distinct
 
   def addPairings(ps: scalaz.NonEmptyList[Pairing]) =
     copy(pairings = ps.list ::: pairings)

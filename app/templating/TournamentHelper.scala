@@ -29,7 +29,7 @@ trait TournamentHelper { self: I18nHelper =>
   }
 
   def systemName(sys: System)(implicit ctx: UserContext) = sys match {
-    case System.Arena  => trans.arena.str()
-    case System.Swiss  => trans.swiss.str()
+    case System.Arena  => System.Arena.toString
+    case System.Swiss  => System.Swiss.toString
   }
 }
