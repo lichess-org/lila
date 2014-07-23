@@ -155,7 +155,6 @@ tournaments=Turniri
 tournamentPoints=Bodovi na turniru
 viewTournament=Pogledajte turnir
 backToTournament=Vratite se na turnir
-xTournament=%s Turnir
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Besplatni internet-šah. Igrajte šah sa čistim interfejsom. Registracija nije neophodna, nema reklama, ne zahtijevaju se priključci za preglednik. Igrajte protiv računara, prijatelja ili slučajnih protivnika.
 teams=Ekipe
 nbMembers=%s članova

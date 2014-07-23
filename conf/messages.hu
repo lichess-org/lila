@@ -155,7 +155,6 @@ tournaments=Versenyek
 tournamentPoints=Verseny pontok
 viewTournament=Verseny nézése
 backToTournament=Vissza a versenyre
-xTournament=%s féle bajnokság
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Ingyenes online sakk játék. Játssz sakkot letisztult kezelőfelületen. Nem szükséges regisztráció vagy pluginok, és hirdetéseket sem kell nézned. Játssz sakkot a számítógéppel, barátokkal vagy véletlenszerű ellenfelekkel.
 teams=Csoportok
 nbMembers=%s tagok

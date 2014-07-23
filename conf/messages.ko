@@ -155,7 +155,6 @@ tournaments=토너먼트
 tournamentPoints=토너먼트 점수
 viewTournament=토너먼트 보기
 backToTournament=토너먼트로 돌아가기
-xTournament=%s 토너먼트
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=회원가입, 광고, 플러그인 없이 즐길 수 있는 깔끔한 인터페이스의 무료 온라인 체스 게임입니다. 컴퓨터, 친구 또는 무작위로 고른 상대와 함께 체스를 즐겨보세요.
 teams=팀
 nbMembers=멤버 %s명

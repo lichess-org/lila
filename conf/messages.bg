@@ -155,7 +155,6 @@ tournaments=Турнити
 tournamentPoints=Точки от турнири
 viewTournament=Виж турнир
 backToTournament=Връщане към турнира
-xTournament=%s турнир
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Безплатна онлайн шах игра. Играй шах сега в изчистен интерфейс. Без нужда от регистрация, реклами или добавки. Играй шах с компютъра, с приятели или случайни противници.
 teams=Отбори
 nbMembers=%s членове

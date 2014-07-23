@@ -20,7 +20,7 @@ case NoteCreate(fromId, toId) => {
 @userIdLink(fromId.some, withOnline = false) left a note on @userIdLink(toId.some, withOnline = false, params = "?note")
 }
 case TourJoin(userId, tourId, tourName) => {
-@userIdLink(userId.some, withOnline = false) competes in <a href="@routes.Tournament.show(tourId)">@trans.xTournament(tourName)</a>
+@userIdLink(userId.some, withOnline = false) competes in <a href="@routes.Tournament.show(tourId)">@tourName</a>
 }
 case QaQuestion(userId, id, title) => {
 @userIdLink(userId.some, withOnline = false) asked <a href="@routes.QaQuestion.show(id, "redirect")">@title</a>

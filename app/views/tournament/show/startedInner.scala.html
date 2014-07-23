@@ -4,7 +4,7 @@
   <div class="time" data-icon="p">@tour.clockStatus</div>
 </div>
 
-<h1 data-icon="g">&nbsp;@if(tour.scheduled){@tour.name} else {@trans.xTournament(tour.name)}</h1>
+<h1 data-icon="g">&nbsp;@tour.fullName</h1>
 
 @pov.map { p =>
 <a class="is pov button glowing" href="@routes.Round.player(p.fullId)">

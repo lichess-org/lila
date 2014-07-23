@@ -155,7 +155,6 @@ tournaments=ทัวร์นาเมนต์
 tournamentPoints=แต้มทัวร์นาเมนต์
 viewTournament=ดูทัวร์นาเมนต์
 backToTournament=กลับสู่ทัวร์นาเมนต์
-xTournament=ทัวร์นาเมนต์ %s
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=เกมหมากรุกสากลออนไลน์ฟรี เล่นได้ทันทีในรูปลักษณ์ที่สะอาดตา โดยไม่จำเป็นต้องลงทะเบียน, ไม่มีโฆษณา, ไม่ต้องการปลั๊กอิน, เล่นหมากรุกกับคอมพิวเตอร์หรือเพื่อน หรือสุ่มคู่แข่งก็ได้
 teams=ทีม
 nbMembers=%s สมาชิก

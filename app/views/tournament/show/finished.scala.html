@@ -6,6 +6,6 @@ side = tournament.side(tour),
 chat = chat,
 version = version,
 pairings = tournament.pairings(tour).some,
-title = trans.xTournament.str(tour.name)) {
+title = tour.fullName) {
 @tournament.show.finishedInner(tour, games)
 }

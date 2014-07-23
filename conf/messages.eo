@@ -155,7 +155,6 @@ tournaments=Turniroj
 tournamentPoints=Turniraj poentoj
 viewTournament=Vidi turniron
 backToTournament=Reen al turniro
-xTournament=Turniro %s
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Senpaga interreta ŝakludo. Ludu ŝakon nun en simpla interfaco. Sen registriĝo, sen reklamoj, sen neceso por aldonaĵo. Ludu ŝakon kun la komputilo, amikoj aŭ hazardaj kontraŭuloj.
 teams=Teamoj
 nbMembers=%s teamanoj

@@ -154,7 +154,6 @@ tournaments=Fèill-chluichean
 tournamentPoints=Puingean fèill-chluich
 viewTournament=Seall an fhèill-chluich
 backToTournament=Till dhan fhèill-chluich
-xTournament=Fèill-chluich %s
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Tàileasg air loidhne an-asgaidh. Cluich tàileasg ann am prògram air a bheil dreach glan. Gun chlàradh, gun sanasachd, gun fheum air plugan. Cluich tàileasg an aghaidh a’ choimpiutair, charaidean no nàimhdean air thuaiream.
 teams=Sgiobaidhean
 nbMembers=%s ball

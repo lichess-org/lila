@@ -36,6 +36,7 @@ sealed trait Tournament {
   def isFinished: Boolean = false
 
   def name = data.name
+  def fullName = s"$name $system"
 
   def clock = data.clock
   def minutes = data.minutes

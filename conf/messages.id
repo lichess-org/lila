@@ -155,7 +155,6 @@ tournaments=Kejuaraan
 tournamentPoints=Poin Turnamen
 viewTournament=lihat turnamen
 backToTournament=Kembali ke turnamen
-xTournament=Turnamen %s
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Permainan Catur gratis. Main Catur sekarang dengan antarmuka yang bersih. Tanpa registrasi, tanpa iklan, dan tanpa plugin tambahan. Bermain Catur dengan komputer, teman atau musuh teracak.
 teams=Tim
 nbMembers=%s anggota

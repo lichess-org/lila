@@ -128,7 +128,7 @@ private[tournament] final class TournamentApi(
               reloadSiteSocket
               lobbyReload
               import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
-              timeline ! (Propagate(TourJoin(me.id, tour2.id, tour2.name)) toFollowersOf me.id)
+              timeline ! (Propagate(TourJoin(me.id, tour2.id, tour2.fullName)) toFollowersOf me.id)
             }
           }
         }

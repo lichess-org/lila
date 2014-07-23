@@ -25,8 +25,7 @@ trait TournamentHelper { self: I18nHelper =>
   def tournamentLink(tour: Tournament)(implicit ctx: Context) = Html {
     val cssClass = if (tour.scheduled) "is-gold" else ""
     val url = routes.Tournament.show(tour.id)
-    val name = if (tour.scheduled) tour.name else trans.xTournament(tour.name)
-    s"""<a data-icon="g" class="$cssClass" href="$url">&nbsp;$name</a>"""
+    s"""<a data-icon="g" class="$cssClass" href="$url">&nbsp;${tour.fullName}</a>"""
   }
 
   def systemName(sys: System)(implicit ctx: UserContext) = sys match {

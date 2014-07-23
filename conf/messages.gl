@@ -155,7 +155,6 @@ tournaments=Torneos
 tournamentPoints=Puntos nos torneos
 viewTournament=Ver torneo
 backToTournament=Volta ó torneo
-xTournament=Torneo %s
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Xadrez libre en liña. Xoga ó xadrez cunha interface limpa. Sen rexistrarse, sen anuncios, sen necesidade de plugins. Xoga ó xadrez contra o ordenador, amigos ou rivais aleatorios.
 teams=Equipos
 nbMembers=%s membros
