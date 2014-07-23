@@ -43,8 +43,14 @@
     }
     <br />
     <span data-icon="p"> @shortClockName(game.clock)</span>
-    @if(game.variant.exotic) {
+    @game.variant match {
+    case chess.Variant.Chess960 => {
     , @variantName(game.variant).capitalize
+    }
+    case chess.Variant.Center => {
+    , <a data-hint="Bring your king to the center to win the game" class="hint--bottom">@variantName(game.variant).capitalize</a>
+    }
+    case _ => {}
     }
     @if(game.rated) {
     , @trans.rated()<br />

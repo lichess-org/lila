@@ -82,7 +82,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
       }
       @defining(reportNbUnprocessed) { nb =>
       @if(nb > 0) {
-      <a class="goto_nav" href="@routes.Report.list" data-icon="j"><strong>@nb</strong></a>
+      <a class="goto_nav" href="@routes.Report.list" data-icon="n"><strong>@nb</strong></a>
       }
       }
       @if(!zen) {

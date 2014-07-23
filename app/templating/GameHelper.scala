@@ -37,11 +37,15 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     else if (game.variant.exotic) game.variant.name else "chess"
     import chess.Status._
     val result = (game.winner, game.loser, game.status) match {
-      case (Some(w), _, Mate) => s"${playerText(w)} won by checkmate"
+      case (Some(w), _, Mate)                               => s"${playerText(w)} won by checkmate"
       case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
-      case (_, Some(l), Outoftime) => s"${playerText(l)} forfeits by time"
-      case (_, _, Draw | Stalemate) => "Game is a draw"
-      case (_, _, Aborted) => "Game has been aborted"
+      case (_, Some(l), Outoftime)                          => s"${playerText(l)} forfeits by time"
+      case (_, _, Draw | Stalemate)                         => "Game is a draw"
+      case (_, _, Aborted)                                  => "Game has been aborted"
+      case (_, _, VariantEnd) => game.variant match {
+        case Variant.Center => "King in the center"
+        case _              => "Variant ending"
+      }
       case _ => "Game is still being played"
     }
     val moves = s"${game.turns} moves"
@@ -146,7 +150,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       s"$color didn't move"
     }
     case S.Cheat => Html("Cheat detected")
-    case _       => Html("")
+    case S.VariantEnd => game.variant match {
+      case Variant.Center => Html("King in the center")
+      case _              => Html("Variant ending")
+    }
+    case _ => Html("")
   }
 
   private def gameTitle(game: Game, color: Color): String = {

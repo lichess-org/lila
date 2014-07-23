@@ -27,7 +27,7 @@ trait SetupHelper { self: I18nHelper =>
     translatedVariantChoices(ctx) :+ (Variant.FromPosition.id.toString -> "FEN")
 
   def translatedVariantChoicesWithCenterAndFen(implicit ctx: Context) =
-    translatedVariantChoicesWithFen(ctx) :+
+    translatedVariantChoices(ctx) :+
       (Variant.Center.id.toString -> "CenterChess") :+
       (Variant.FromPosition.id.toString -> "FEN")
 
