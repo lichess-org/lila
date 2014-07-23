@@ -14,8 +14,8 @@ trait SetupHelper { self: I18nHelper =>
   )
 
   def translatedSystemChoices(implicit ctx: Context) = List(
-    System.Arena.id.toString -> System.Arena.toString,
-    System.Swiss.id.toString -> System.Swiss.toString
+    System.Arena.id.toString -> "Arena",
+    System.Swiss.id.toString -> "Swiss [beta]"
   )
 
   def translatedVariantChoices(implicit ctx: Context) = List(

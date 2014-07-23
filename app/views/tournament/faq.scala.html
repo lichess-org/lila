@@ -1,5 +1,7 @@
 @(nbPlayers: Option[String] = Some("all"), rated: Option[Boolean] = None, system: Option[lila.tournament.System] = None)
 
+@import lila.tournament.System
+
 <article class="faq">
   @nbPlayers.map { players =>
   <h2>When will the tournament start?</h2>
@@ -21,8 +23,8 @@
 
 
   <h2>How are scores calculated?</h2>
-  @system.map { s =>
-  @if(s == lila.tournament.System.Arena) {
+  @system match {
+  case Some(System.Arena) => {
   A win has a base score of 2 points, a draw: 1 point, and a loss is worth no points.
   If you win two games consecutively you will start a double point streak, known as a
   <span class="streakstarter">Streak Starter</span>.
@@ -31,7 +33,8 @@
   worth no points.
 
   For example, two wins followed by a draw will be worth 6 points: 2 + 2 + 2x1
-  } else {
+  }
+  case Some(System.Swiss) => {
   A win is worth 1 point, a draw: ½ point, and a loss is worth no points. If at
   a given round there are an odd number of players, the player which does not get
   assigned a pairing receives a bye. A bye is worth as much as a victory.
@@ -41,12 +44,13 @@
   tie-breaker, called the Neustadtl or Sonnenborn-Berger score, is indicated in
   parentheses next to the standard score.
   }
-  }.getOrElse {
+  case _ => {
   How scores are calculated depends on the system used for the tournament. In
   all cases a win is worth twice as much as a draw, and a loss is worth no
   points. In the Arena system, winning games in succession yields an additional
   bonus. In the Swiss system, winning against stronger opponents helps in tie
   breaks.
+  }
   }
 
   <h2>How is the winner decided?</h2>
@@ -54,25 +58,27 @@
   will be announced winner(s).
 
   <h2>How does the pairing work?</h2>
-  @system.map { s =>
-  @if(s == lila.tournament.System.Arena) {
+  @system match {
+  case Some(System.Arena) => {
   At the beginning of the tournament, players are paired randomly.
   As soon as you finish a game, return to the tournament lobby:
   you will then be paired with the first available player. This ensures minimum wait time,
   however you may not face all other players in the tournament.
   Play fast and return to the lobby to play more games and win more points.
-  } else {
+  }
+  case Some(System.Swiss) => {
   Pairings are generated on a round basis, meaning everyone plays the same
   number of games.  Players with equal scores in the tournament are paired
   together to the extent possible. Two players can play against each other at
   most once in the tournament. The system additionally ensures that each player
   plays approximately as often as white and as black.
   }
-  }.getOrElse {
+  case _ => {
   The pairing mechanism depends on the system used for the tournament. In the
   Arena system, new pairings are generated as soon as enough players are
   available in the lobby, in with the Swiss system, pairings are generated on
   a round basis.
+  }
   }
 
   <h2>How does it end?</h2>

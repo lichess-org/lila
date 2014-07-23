@@ -79,6 +79,8 @@ sealed trait Tournament {
 
   def scoreSheet(player: Player) = system.scoringSystem.scoreSheet(this, player.id)
 
+  def isSwiss = system == System.Swiss
+
   // Oldest first!
   def pairingsAndEvents: List[Either[Pairing,Event]] =
     (pairings.reverse.map(Left(_)) ::: events.map(Right(_))).sorted(Tournament.PairingEventOrdering)

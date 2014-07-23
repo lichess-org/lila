@@ -7,7 +7,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.game.{ Pov, GameRepo }
-import lila.tournament.{ TournamentRepo, Created, Started, Finished, Tournament => Tourney }
+import lila.tournament.{ System, TournamentRepo, Created, Started, Finished, Tournament => Tourney }
 import lila.user.UserRepo
 import views._
 
@@ -30,7 +30,14 @@ object Tournament extends LilaController {
     }
   }
 
-  val faq = Open { implicit ctx => Ok(html.tournament.faqPage()).fuccess }
+  def help(sysStr: Option[String]) = Open { implicit ctx =>
+    val system = sysStr flatMap {
+      case "arena" => System.Arena.some
+      case "swiss" => System.Swiss.some
+      case _ => none
+    }
+    Ok(html.tournament.faqPage(system)).fuccess
+  }
 
   val homeReload = Open { implicit ctx =>
     fetchTournaments map {

@@ -219,8 +219,12 @@ div.faq_page h1 {
 div.faq_box {
   margin-top: 15px;
 }
-div.header .tournament_links {
-  margin-top: 30px;
+#site_header .tournament_links {
+  margin-top: 10px;
+}
+#site_header .tournament_links a {
+  line-height: 2em;
+  display: block;
 }
 .leaderboard_title {
   font-size: 1.5em;

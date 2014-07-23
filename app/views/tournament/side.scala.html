@@ -24,6 +24,7 @@
   @{ tour.rated.fold(trans.rated(), trans.casual()) }
   <br /><br />
   System: @systemName(tour.system).capitalize
+  (<a href="@routes.Tournament.help(tour.system.toString.toLowerCase.some)">help</a>)
   <br /><br />
   @trans.duration(): @tour.minutes minutes
   @if(tour.isRunning) {

@@ -2,7 +2,8 @@
 
 @side = {
 <div class="tournament_links">
-  <a href="@routes.Tournament.faq()">Tournament help</a>
+  <a href="@routes.Tournament.help("arena".some)">Arena tournament help</a>
+  <a href="@routes.Tournament.help("swiss".some)">Swiss tournament help</a>
 </div>
 <h2 class="leaderboard_title">@trans.leaderboard()</h2>
 <ol class="tournament_leaderboard">
