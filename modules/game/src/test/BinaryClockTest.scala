@@ -56,7 +56,7 @@ class BinaryClockTest extends Specification {
       val c3 = clock.giveTime(chess.Black, 5)
       isomorphism(c3) must_== c3
 
-      val c4 = clock.run
+      val c4 = clock.start
       isomorphism(c4).timerOption.get must beCloseTo(c4.timerOption.get, 1)
 
       Clock(2, 60) |> { c =>
