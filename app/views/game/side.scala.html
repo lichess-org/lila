@@ -45,10 +45,10 @@
     <span data-icon="p"> @shortClockName(game.clock)</span>
     @game.variant match {
     case chess.Variant.Chess960 => {
-    , @variantName(game.variant).capitalize
+    , <a data-hint="@variantDesc.Chess960" class="hint--bottom">@variantName(game.variant).capitalize</a>
     }
     case chess.Variant.Center => {
-    , <a data-hint="Bring your king to the center to win the game" class="hint--bottom">@variantName(game.variant).capitalize</a>
+    , <a data-hint="@variantDesc.Center" class="hint--bottom">@variantName(game.variant).capitalize</a>
     }
     case _ => {}
     }

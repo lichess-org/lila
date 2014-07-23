@@ -1,10 +1,12 @@
-@(form: Form[_], key: String, index: Int, value: String, checks: List[String], text: Html)
+@(form: Form[_], key: String, index: Int, value: String, checks: List[String], text: Html, hint: Option[String])
 
-<label class="hover">
-  <input 
-  type="checkbox" 
-  name="@{form(key).name}[@index]" 
-  value="@value" 
+<label @hint.map { h =>
+  data-hint="@h" class="hover hint--bottom"
+  }.getOrElse {class="hover"}>
+  <input
+  type="checkbox"
+  name="@{form(key).name}[@index]"
+  value="@value"
   @(if(checks contains value) "checked" else "") />
   @text
 </label>

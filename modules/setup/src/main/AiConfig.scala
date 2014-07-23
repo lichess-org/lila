@@ -62,7 +62,7 @@ object AiConfig extends BaseConfig {
 
   val levels = (1 to 8).toList
 
-  val levelChoices = levels map { l => l.toString -> l.toString }
+  val levelChoices = levels map { l => (l.toString, l.toString, none) }
 
   import lila.db.JsTube
   import play.api.libs.json._

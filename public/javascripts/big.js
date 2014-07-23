@@ -2052,9 +2052,11 @@ var storage = {
       var $modeChoicesWrap = $form.find('.mode_choice');
       var $modeChoices = $modeChoicesWrap.find('input');
       var $variantChoices = $form.find('.variants input');
+      var $variantDescriptions = $form.find('.variant_descriptions p');
       var $casual = $modeChoices.eq(0),
         $rated = $modeChoices.eq(1);
       var $fenVariant = $variantChoices.filter('#variant_3');
+      var $centerVariant = $variantChoices.filter('#variant_4');
       var $fenPosition = $form.find(".fen_position");
       var $clockCheckbox = $form.find('.clock_choice input');
       var $timeInput = $form.find('.time_choice input');
@@ -2173,11 +2175,13 @@ var storage = {
 
       $variantChoices.on('change', function() {
         var fen = $fenVariant.prop('checked');
+        var center = $centerVariant.prop('checked');
         if (fen && $fenInput.val() !== '') validateFen();
         $fenPosition.toggle(fen);
-        $modeChoicesWrap.toggle(!fen);
-        if (fen) $casual.click();
+        $modeChoicesWrap.toggle(!fen && !center);
+        if (fen || center) $casual.click();
         $.centerOverboard();
+        $variantDescriptions.hide().filter('.variant_' + $(this).val()).show();
       }).trigger('change');
 
       $form.find('div.level').each(function() {
@@ -2199,8 +2203,7 @@ var storage = {
     }
 
     $startButtons.find('a').click(function() {
-      $startButtons.removeClass('active');
-      $(this).addClass('active');
+      $(this).addClass('active').siblings().removeClass('active');
       $('div.lichess_overboard').remove();
       $.ajax({
         url: $(this).attr('href'),

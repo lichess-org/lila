@@ -104,7 +104,7 @@ openGraph = Map(
   <div class="lichess_ground">
     <div class="lichess_table onbg lichess_table_not_started" id="start_buttons">
       @lobbyMenu.all.map { b =>
-      <a class="lichess_button button config_@b.code hint--bottom" href="@b.route" onclick="return false">@b.name()</a>
+      <a class="fat button config_@b.code hint--bottom" href="@b.route" onclick="return false">@b.name()</a>
       }
     </div>
     @puzzle.map { p =>

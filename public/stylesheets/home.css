@@ -610,6 +610,10 @@ div.game_config div.color_submits {
   height: 65px;
   text-align: center;
 }
+div.game_config div.variant_descriptions p {
+  font-size: 0.8em;
+  display: none;
+}
 div.game_config button {
   display: inline-block;
   margin: 0 5px;

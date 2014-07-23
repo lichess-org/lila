@@ -672,7 +672,7 @@ div.lichess_separator {
   margin: 10px 0;
   border-bottom: 1px solid #ddd;
 }
-div.lichess_table .lichess_button {
+#start_buttons a {
   margin: 2.5em 0 0 0;
   font-size: 1.3em;
   padding: 1em;
