@@ -473,7 +473,7 @@ var storage = {
         $('#site_header .side_menu').prependTo('div.content_box:first');
       } else {
         $(document.body).removeClass("tight");
-        $('#timeline, div.goodies div.box, div.under_chat').each(function() {
+        $('#timeline, div.side_box, div.under_chat').each(function() {
           var ol = $(this).offset().left;
           if (ol < 3) {
             var dec = 3 - ol;
@@ -919,7 +919,6 @@ var storage = {
         self.initTable();
         self.initClocks();
         if (self.$chat) self.$chat.chat({
-          resize: true,
           messages: lichess_chat
         });
         self.$watchers.watchers();
@@ -1558,10 +1557,9 @@ var storage = {
         self.$tableInner.html(data.table);
         self.initTable();
         if (!(self.options.player.spectator && self.options.tv)) {
-          $('div.goodies').replaceWith(data.infobox);
+          $('div.side').replaceWith(data.side);
           startTournamentClock();
         }
-        if (self.$chat) self.$chat.chat('resize');
         if ($.isFunction(callback)) callback();
         $('body').trigger('lichess.content_loaded');
       });
@@ -1740,15 +1738,13 @@ var storage = {
   $.widget("lichess.chat", {
     _create: function() {
       this.options = $.extend({
-        messages: [],
-        resize: false
+        messages: []
       }, this.options);
       var self = this;
       self.$msgs = self.element.find('.messages');
       self.$msgs.on('click', 'a', function() {
         $(this).attr('target', '_blank');
       });
-      if (self.options.resize) self.resize();
       var $form = self.element.find('form');
       var $input = self.element.find('input.lichess_say');
 
@@ -1783,14 +1779,6 @@ var storage = {
         self.element.addClass('hidden');
       }
       if (self.options.messages.length > 0) self._appendMany(self.options.messages);
-    },
-    resize: function() {
-      var self = this;
-      setTimeout(function() {
-        var headHeight = self.element.parent().height();
-        self.element.css("top", headHeight + 13);
-        self.$msgs.css('height', 455 - headHeight).scrollTop(999999);
-      }, 10);
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));
@@ -2676,7 +2664,6 @@ var storage = {
 
     var $chat = $('#chat');
     if ($chat.length) $chat.chat({
-      resize: true,
       messages: lichess_chat
     });
 
@@ -2761,7 +2748,6 @@ var storage = {
 
     var $chat = $('#chat');
     if ($chat.length) $chat.chat({
-      resize: true,
       messages: lichess_chat
     });
 
@@ -2871,7 +2857,6 @@ var storage = {
     });
     var $chat = $('#chat');
     if ($chat.length) $chat.chat({
-      resize: true,
       messages: lichess_chat
     });
     var $watchers = $("div.watchers").watchers();

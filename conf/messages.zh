@@ -155,7 +155,6 @@ tournaments=锦标赛
 tournamentPoints=比赛成績
 viewTournament=当前赛事
 backToTournament=回到大赛
-xTournament=%s 大赛
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=免费的在线国际象棋游戏。现在在一个干净的界面下棋。无需注册，无广告，无插件需要。和电脑，朋友或随机对手的下棋。
 teams=团队
 nbMembers=%s 成员

@@ -1,8 +1,9 @@
 @(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished], scheduled: List[lila.tournament.Created], leaderboard: List[User])(implicit ctx: Context)
 
-@goodies = {
+@side = {
 <div class="tournament_links">
-  <a href="@routes.Tournament.faq()">Tournament help</a>
+  <a href="@routes.Tournament.help("arena".some)">Arena tournament help</a>
+  <a href="@routes.Tournament.help("swiss".some)">Swiss tournament help</a>
 </div>
 <h2 class="leaderboard_title">@trans.leaderboard()</h2>
 <ol class="tournament_leaderboard">
@@ -25,7 +26,7 @@
 
 @tournament.layout(
 title = trans.tournaments.str(),
-goodies = goodies.some) {
+side = side.some) {
 <div id="tournament" data-href="@routes.Tournament.homeReload()">
   @tournament.homeInner(createds, starteds, finisheds)
 </div>

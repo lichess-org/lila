@@ -153,7 +153,6 @@ tournaments=Tournaments
 tournamentPoints=Tournament points
 viewTournament=View tournament
 backToTournament=Return to tournament
-xTournament=%s tournament
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Free online Chess game. Play Chess now in a clean interface. No registration, no ads, no plugin required. Play Chess with the computer, friends or random opponents.
 teams=Teams
 nbMembers=%s members

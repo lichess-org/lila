@@ -155,7 +155,6 @@ tournaments=Turneringer
 tournamentPoints=Turneringspoint
 viewTournament=Se turneringen
 backToTournament=Tilbage til turneringen
-xTournament=%s turnering
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Gratis online skakspil. Spil skak med det samme i et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.
 teams=Hold
 nbMembers=%s medlemmer

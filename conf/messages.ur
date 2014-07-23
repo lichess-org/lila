@@ -128,7 +128,6 @@ tournament=ٹورنامنٹ
 tournaments=ٹورنامنٹ
 viewTournament=ٹورنامنٹ ملاحظہ فرمائیں
 backToTournament=واپس ٹورنامنٹ کی جانب
-xTournament=ٹورنامنٹ %s
 teams=ٹیمیں
 nbMembers=%s اراکین
 allTeams=تمام ٹیمیں

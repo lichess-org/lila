@@ -1,8 +1,8 @@
 @(chat: lila.chat.AnyChat, title: String)(implicit ctx: Context)
 
-<div id="chat">
+<div id="chat" class="side_box">
   <div class="top">
-    <span class="title">@title</span>
+    <span>@title</span>
     <input title="@trans.toggleTheChat()" class="toggle_chat" type="checkbox" />
   </div>
   <ol class="messages content scroll-shadow-soft"></ol>

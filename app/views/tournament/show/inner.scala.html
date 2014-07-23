@@ -1,6 +1,6 @@
-@(side: Option[Html])(body: Html)(implicit ctx: Context)
+@(pairings: Option[Html])(body: Html)(implicit ctx: Context)
 
-@side.map { s =>
+@pairings.map { s =>
 <div id="tournament_side" class="scroll-shadow-soft">@s</div>
 }
 <div id="tournament_main">

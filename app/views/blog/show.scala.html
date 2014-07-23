@@ -1,6 +1,6 @@
 @(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context)
 
-@goodies = {
+@side = {
 <br />
 <a href="@routes.Blog.index(prismic.maybeRef)" data-icon="I"> Return to blog</a>
 <br />
@@ -10,7 +10,7 @@
 
 @layout(
 title = s"${~doc.getText("blog.title")} | Blog",
-goodies = goodies.some,
+side = side.some,
 openGraph = Map(
 'type -> "article",
 'image -> doc.getImage("blog.image", "main").??(_.url),

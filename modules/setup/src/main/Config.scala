@@ -5,6 +5,7 @@ import chess.{ Game => ChessGame, Board, Situation, Variant, Clock, Speed }
 
 import lila.game.{ GameRepo, Game, Pov }
 import lila.lobby.Color
+import lila.tournament.{ System => TournamentSystem }
 
 private[setup] trait Config {
 
@@ -81,6 +82,8 @@ trait Positional { self: Config =>
 object Config extends BaseConfig
 
 trait BaseConfig {
+  val systems = List(TournamentSystem.Arena.id, TournamentSystem.Swiss.id)
+  val systemDefault = TournamentSystem.default
 
   val variants = List(Variant.Standard.id, Variant.Chess960.id)
   val variantDefault = Variant.Standard

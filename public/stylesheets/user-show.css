@@ -86,7 +86,6 @@ div.user_show .user-infos:hover {
 }
 div.user_show .name,
 div.user_show .bio,
-div.user_show .boxed_data,
 div.user_show .stats,
 div.user_show .tournament_points,
 div.user_show .teams {
@@ -99,17 +98,6 @@ div.user_show .bio {
 div.user_show .teams a {
   display: block;
   margin: 5px 0;
-}
-div.user_show div.boxed_data {
-  width: 292px;
-  padding: 5px 8px;
-  border: 1px solid #eaeaea;
-  background: #fafafa;
-  text-align: center;
-}
-div.user_show div.boxed_data a.user_link {
-  font-weight: bold;
-  text-decoration: none;
 }
 div.user_show div.games {
   margin-top: 10px;

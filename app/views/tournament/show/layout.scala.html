@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Tournament, chat: Option[lila.chat.UserChat], title: String, version: Int, goodies: Html, side: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(tour: lila.tournament.Tournament, chat: Option[lila.chat.UserChat], title: String, version: Int, side: Html, pairings: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @underchat = {
 <div class="watchers" data-icon="v">
@@ -8,7 +8,7 @@
 
 @tournament.layout(
 title = title,
-goodies = goodies.some,
+side = side.some,
 chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some) {
 <div
@@ -16,7 +16,7 @@ underchat = underchat.some) {
   @if(tour.scheduled) { class="scheduled" }
   data-href="@routes.Tournament.reload(tour.id)"
   data-socket-url="@routes.Tournament.websocket(tour.id)">
-  @tournament.show.inner(side)(body)
+  @tournament.show.inner(pairings)(body)
 </div>
 @embedJs("var _ld_ = " + tournamentJsData(tour, version, ctx.me))
 }

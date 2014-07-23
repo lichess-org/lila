@@ -155,7 +155,6 @@ tournaments=Մրցաշարեր
 tournamentPoints=Մրցաշարային  միավորներ
 viewTournament=Դիտել մրցաշարը
 backToTournament=Վերադարձ դեպի մրցաշարը
-xTournament=%s մրցաշար
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Անճար օնլայն շախմատ: Խաղացցեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:
 teams=Թիմեր
 nbMembers=%s անդամ

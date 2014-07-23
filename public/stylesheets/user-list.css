@@ -18,14 +18,14 @@ div.user_lists h2 {
 #lichess div.user_lists div.user_top.last {
   margin-right: 0;
 }
-div.goodies div.user_top {
+div.side div.user_top {
   margin-top: 1em;
 }
-div.goodies div.user_top td:first-child {
+div.side div.user_top td:first-child {
   max-width: 140px;
   overflow: hidden;
 }
-div.goodies a.more {
+div.side a.more {
   display: block;
   text-align: right;
   margin-top: 0.5em;

@@ -1,9 +1,10 @@
 @(pov: Pov, tour: Option[lila.tournament.Tournament], withTourStanding: Boolean)(implicit ctx: Context)
 
 @import pov._
+@import lila.tournament.arena
 
-<div class="goodies">
-  <div class="box">
+<div class="side">
+  <div class="side_box padded">
     @bookmark.toggle(game)
     @game.pgnImport.flatMap(_.date).map { date =>
     PGN Import - @date
@@ -20,7 +21,7 @@
     <br />
     }
     <br />
-    @tour.map { t =>
+    @tour.filter(_.isFinished).map { t =>
     @tournamentLink(t)
     <br /><br />
     }
@@ -52,8 +53,8 @@
 
   @tour match {
   case Some(t: lila.tournament.StartedOrFinished) => {
-  <div class="game_tournament box no_padding scroll-shadow-soft">
-    <span class="title">&nbsp;@if(t.scheduled) {@t.name} else {@trans.xTournament(t.name)}</span>
+  <div class="game_tournament side_box no_padding scroll-shadow-soft">
+    <p class="top" data-icon="g"> @t.fullName</p>
     @t match {
     case t: lila.tournament.Started => {
     <div class="clock" data-time="@t.remainingSeconds">
@@ -69,10 +70,13 @@
         @t.rankedPlayers.map {
         case (rank, player) => {
         @defining((
-        if(t.isFinished && rank == 1) "winner" else if (player.withdraw) "withdraw" else "",
-        t scoreSheet player
-        )) {
-        case (flag, scoreSheet) => {
+        t scoreSheet player,
+        // TODO FIXME that's a little ugly I must say.
+        t.system.scoringSystem match {
+            case ss @ arena.ScoringSystem => ss.scoreSheet(t, player.id).onFire
+            case _                        => false
+        })) {
+        case (scoreSheet, onFire) => {
         <tr @if(ctx.userId.exists(player.id==)) { class="me" }>
           <td class="name">
             @if(player.withdraw) {
@@ -87,7 +91,7 @@
             @userInfosLink(player.id, none, withOnline = false)
           </td>
           <td class="total">
-            <strong@if(scoreSheet.onFire) { class="is-gold" data-icon="Q" }>@scoreSheet.total</strong>
+            <strong@if(onFire) { class="is-gold" data-icon="Q" }>@scoreSheet.total</strong>
           </td>
         </tr>
         <tr><td class="around-bar" colspan="3"><div class="bar" data-value="@scoreSheet.total"></div></td></tr>

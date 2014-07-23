@@ -146,7 +146,7 @@ object Round extends LilaController with TheftPrevention {
         val table = if (player) html.round.table.end(pov, tour) else html.round.table.watch(pov)
         Ok(Json.obj(
           "players" -> players,
-          "infobox" -> html.game.infoBox(pov, tour, withTourStanding = player).toString,
+          "side" -> html.game.side(pov, tour, withTourStanding = player).toString,
           "table" -> table.toString)) as JSON
       },
       api = apiVersion => fuccess(Ok(Json.obj(

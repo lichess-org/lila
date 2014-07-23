@@ -3,7 +3,7 @@ title: String,
 fullTitle: Option[String] = None,
 active: Option[lila.app.ui.SiteMenu.Elem] = None,
 baseline: Option[Html] = None,
-goodies: Option[Html] = None,
+side: Option[Html] = None,
 menu: Option[Html] = None,
 chat: Option[Html] = None,
 underchat: Option[Html] = None,
@@ -175,7 +175,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
         @menu.map { side =>
         <div class="side_menu">@side</div>
         }
-        @goodies
+        @side
         @chat
         @underchat.map { g =>
         <div class="under_chat">@g</div>

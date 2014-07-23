@@ -1,6 +1,6 @@
 @(p: lila.pool.Pool, games: List[Game])(implicit ctx: Context)
 
 <div>
-  <div class="pool_side">@side(p)</div>
+  <div class="pool_side">@pairings(p)</div>
   @pool.standing(p)
 </div>

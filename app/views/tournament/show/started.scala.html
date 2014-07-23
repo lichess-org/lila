@@ -2,10 +2,10 @@
 
 @tournament.show.layout(
 tour = tour,
-goodies = tournament.infoBox(tour),
+side = tournament.side(tour),
 chat = chat,
 version = version,
-side = tournament.pairings(tour).some,
-title = trans.xTournament.str(tour.name)) {
+pairings = tournament.pairings(tour).some,
+title = tour.fullName) {
 @tournament.show.startedInner(tour, games, pov)
 }

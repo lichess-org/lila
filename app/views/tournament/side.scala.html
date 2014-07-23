@@ -1,0 +1,46 @@
+@(tour: lila.tournament.Tournament)(implicit ctx: Context)
+
+<div class="side_box padded">
+  @trans.createdBy() @userIdLink(tour.createdBy.some, withOnline = false)
+  <br />
+  @tour.schedule.map { s =>
+  @momentFormat(s.at)
+  }.getOrElse {
+  @momentFormat(tour.createdAt)
+  }
+  @tour.password.map { password =>
+  <br />
+  <span data-icon="a">
+    @if(ctx.userId == tour.createdBy.some) {
+    @trans.password(): @tour.password
+    } else {
+    @trans.isPrivate()
+    }
+  </span>
+  }
+  <br /><br />
+  <span data-icon="p"> @tour.clock.show</span>,
+  @variantName(tour.variant).capitalize,
+  @{ tour.rated.fold(trans.rated(), trans.casual()) }
+  <br /><br />
+  System: @systemName(tour.system).capitalize
+  (<a href="@routes.Tournament.help(tour.system.toString.toLowerCase.some)">help</a>)
+  <br /><br />
+  @trans.duration(): @tour.minutes minutes
+  @if(tour.isRunning) {
+  <br /><br />
+  @if(tour isActive ctx.me) {
+  <form action="@routes.Tournament.withdraw(tour.id)" method="POST">
+    <button type="submit" class="submit button strong" data-icon="b"> @trans.withdraw()</button>
+  </form>
+  } else {
+  <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
+    <button data-icon="@tour.hasPassword.fold("a", "G")" type="submit" class="submit button">&nbsp;@trans.join()</button>
+  </form>
+  }
+  }
+  @tour.winner.filter(_ => tour.isFinished).map { winner =>
+  <br /><br />
+  @trans.winner(): @userInfosLink(winner.id, none)
+  }
+</div>

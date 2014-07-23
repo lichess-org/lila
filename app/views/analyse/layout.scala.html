@@ -1,8 +1,8 @@
-@(title: String, goodies: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, moreCss: Html = Html(""), moreJs: Html = Html(""), openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
+@(title: String, side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, moreCss: Html = Html(""), moreJs: Html = Html(""), openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
 
 @base.layout(
 title = title,
-goodies = goodies,
+side = side,
 chat = chat,
 underchat = underchat,
 active = siteMenu.game.some,

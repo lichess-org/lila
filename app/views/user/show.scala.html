@@ -21,8 +21,8 @@
 </div>
 }
 
-@goodies = {
-<div class="goodies sub_ratings">
+@side = {
+<div class="side sub_ratings">
   @showPerf("global", u.perfs.global)
   <br />
   @showPerf("standard", u.perfs.standard)
@@ -51,7 +51,7 @@
 
 @user.layout(
 title = title,
-goodies = goodies.some,
+side = side.some,
 robots = false,
 evenMoreJs = evenMoreJs,
 openGraph = Map(

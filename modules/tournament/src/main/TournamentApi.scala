@@ -32,12 +32,14 @@ private[tournament] final class TournamentApi(
     lobby: ActorSelection,
     roundMap: ActorRef) {
 
-  def makePairings(oldTour: Started, pairings: NonEmptyList[Pairing]) {
+  def makePairings(oldTour: Started, pairings: NonEmptyList[Pairing], postEvents: Events) {
     sequence(oldTour.id) {
       TournamentRepo startedById oldTour.id flatMap {
         case Some(tour) =>
           val tour2 = tour addPairings pairings
-          $update(tour2) >> (pairings map autoPairing(tour2)).sequence map {
+          val tour3 = if(postEvents.isEmpty) tour2 else { tour2 addEvents postEvents }
+
+          $update(tour3) >> (pairings map autoPairing(tour3)).sequence map {
             _.list foreach { game =>
               game.tournamentId foreach { tid =>
                 sendTo(tid, StartGame(game))
@@ -58,6 +60,7 @@ private[tournament] final class TournamentApi(
         minPlayers = setup.minPlayers,
         mode = Mode orDefault setup.mode,
         password = setup.password,
+        system = System orDefault setup.system,
         variant = Variant orDefault setup.variant)
       $insert(created) >>-
         (withdrawIds foreach socketReload) >>-
@@ -125,7 +128,7 @@ private[tournament] final class TournamentApi(
               reloadSiteSocket
               lobbyReload
               import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
-              timeline ! (Propagate(TourJoin(me.id, tour2.id, tour2.name)) toFollowersOf me.id)
+              timeline ! (Propagate(TourJoin(me.id, tour2.id, tour2.fullName)) toFollowersOf me.id)
             }
           }
         }

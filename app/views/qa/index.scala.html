@@ -1,12 +1,12 @@
 @(questions: Paginator[lila.qa.Question], popular: List[lila.qa.Question])(implicit ctx: Context)
 
-@goodies = {
+@side = {
 @popularBox(popular)
 }
 
 @layout(
 title = "Questions & Answers",
-goodies = goodies.some) {
+side = side.some) {
 
 <div class="content_box_top">
   <h1 data-icon="&" class="is4 lichess_title"> Questions &amp; Answers</h1>

@@ -1,13 +1,13 @@
 @(q: lila.qa.Question, answers: List[lila.qa.Answer], popular: List[lila.qa.Question], related: List[lila.qa.Question], answerForm: Option[Form[_]], captcha: Option[lila.common.Captcha])(implicit ctx: Context)
 
-@goodies = {
+@side = {
 @relatedBox(related)
 @popularBox(popular)
 }
 
 @layout(
 title = q.title,
-goodies = goodies.some) {
+side = side.some) {
 
 <div class="question">
   <div class="content_box_top">
