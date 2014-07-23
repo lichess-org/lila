@@ -182,7 +182,7 @@ object SwissSystem extends PairingSystem with ScoringSystem {
         r._1 find(_.contains(player)) map { p =>
           if(p.playing) Ongoing
           else if(p.wonBy(player)) Win
-          else if(p.draw) Draw else Loss
+          else if(p.draw && !p.quickDraw) Draw else Loss
         } getOrElse {
           if(r._2.exists(e => e match {
             case Bye(u, _) if u == player => true
