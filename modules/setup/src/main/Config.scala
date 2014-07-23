@@ -90,6 +90,8 @@ trait BaseConfig {
 
   val variantsWithFen = variants :+ Variant.FromPosition.id
 
+  val variantsWithFenAndCenter = variantsWithFen :+ Variant.Center.id
+
   val speeds = Speed.all map (_.id)
 
   private val timeMin = 0

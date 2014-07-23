@@ -58,7 +58,7 @@ private[setup] final class FormFactory {
 
   def friend(ctx: UserContext) = Form(
     mapping(
-      "variant" -> variantWithFen,
+      "variant" -> variantWithFenAndCenter,
       "clock" -> boolean,
       "time" -> time,
       "increment" -> increment,
