@@ -242,9 +242,6 @@
 .icon-repo:before {
   content: "&";
 }
-.icon-law:before {
-  content: "n";
-}
 .icon-tag:before {
   content: "o";
 }
@@ -253,4 +250,7 @@
 }
 .icon-search-find:before {
   content: "y";
+}
+.icon-sheriff-badge:before {
+  content: "n";
 }
