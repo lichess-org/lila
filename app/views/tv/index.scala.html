@@ -4,7 +4,7 @@
 
 @side = {
 <div class="side">
-  <div class="box">
+  <div class="side_box padded">
     <h2 data-icon="1">&nbsp;Lichess TV</h2>
     <br />
     <div class="confrontation">
@@ -13,20 +13,15 @@
       @playerLink(pov.game.secondPlayer, withRating = false, withOnline = false, withDiff = false)
     </div>
     <br />
-    <span data-icon="p"> @shortClockName(pov.game.clock)</span>
-    @if(pov.game.variant.exotic) {
-    , @variantName(pov.game.variant).capitalize
-    }
+    <span data-icon="p"> @shortClockName(pov.game.clock)</span>, @game.variantLink(pov.game.variant, variantName(pov.game.variant))
     @if(pov.game.rated) {
     , @trans.rated()
     }
   </div>
   @streamsOnAir(streams)
-  <div id="tv_history" class="undertable">
-    <div class="undertable_top">
-      <span class="title">@trans.previouslyOnLichessTV()</span>
-    </div>
-    <div class="undertable_inner scroll-shadow-soft">
+  <div id="tv_history" class="side_box no_padding">
+    <div class="top title">@trans.previouslyOnLichessTV()</div>
+    <div class="content scroll-shadow-hard">
       <table>
         <tbody>
           @games.map { g =>
@@ -52,7 +47,8 @@
 title = title,
 side = side,
 underchat = game.watchers().some,
-active = siteMenu.tv.some) {
+active = siteMenu.tv.some,
+moreCss = cssTag("tv.css")) {
 @round.watcherGame(pov)
 @cross.map { c =>
 @game.crosstable(pov.player.userId.fold(c)(c.fromPov))

@@ -9,6 +9,6 @@ value="@v._1"
 @(if(field.value == Some(v._1)) "checked" else "")
 />
 <label @v._3.map { hint =>
-  data-hint="@hint" class="required hint--bottom"
+  data-hint="@hint" class="required hint--top"
   }.getOrElse {class="required"} for="@(field.id)_@v._1">@v._2</label>
 }

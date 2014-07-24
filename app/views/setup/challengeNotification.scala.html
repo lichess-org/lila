@@ -1,12 +1,12 @@
-@(game: Game, user: User)
+@(g: Game, user: User)
 
-@notification.view("challenge_reminder_" + game.id, cssClass = "challenge_reminder foldable glowing", closable = false) {
+@notification.view("challenge_reminder_" + g.id, cssClass = "challenge_reminder foldable glowing", closable = false) {
 @userLink(user)<br />
 @trans.challengeToPlay.en()<br />
-@clockNameNoCtx(game.clock)<br />
-@variantNameNoCtx(game.variant), @modeNameNoCtx(game.mode)
+@clockNameNoCtx(g.clock)<br />
+@game.variantLink(g.variant, variantNameNoCtx(g.variant)), @modeNameNoCtx(g.mode)
 <div class="actions">
-  <a class="action decline" href="@routes.Setup.decline(game.id)" data-icon="L">&nbsp;@trans.decline.en()</a>
-  <a class="action" href="@routes.Round.watcher(game.id, "white")" data-icon="v">&nbsp;View challenge</a>
+  <a class="action decline" href="@routes.Setup.decline(g.id)" data-icon="L">&nbsp;@trans.decline.en()</a>
+  <a class="action" href="@routes.Round.watcher(g.id, "white")" data-icon="v">&nbsp;View challenge</a>
 </div>
 }

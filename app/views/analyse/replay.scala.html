@@ -109,7 +109,8 @@ openGraph = povOpenGraph(pov)) {
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
 <div class="analysis_panels">
-  <div class="panel computer_analysis active">
+  @if(game.analysable) {
+  <div class="panel computer_analysis">
     @analysis.map { a =>
     @advantageChart.map { chart =>
     <div
@@ -121,7 +122,7 @@ openGraph = povOpenGraph(pov)) {
     @analyse.computing()
     }
     }.getOrElse {
-    @if(game.analysable && analysis.isEmpty) {
+    @if(analysis.isEmpty) {
     <form class="future_game_analysis@if(ctx.isAnon) {  must_login }" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
       <button type="submit" class="button"><span class="is3" data-icon="A"> @trans.requestAComputerAnalysis()</span></button>
     </form>
@@ -133,6 +134,7 @@ openGraph = povOpenGraph(pov)) {
       </a>
     </div>
   </div>
+  }
   <div class="panel fen_pgn">
     <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen" /></p>
     <p><strong>PGN</strong>
@@ -162,8 +164,10 @@ openGraph = povOpenGraph(pov)) {
   }
 </div>
 <div class="analysis_menu">
-  <a data-panel="computer_analysis" class="active">@trans.computerAnalysis()</a>
-  @if(game.pgnImport.isEmpty) {
+  @if(game.analysable) {
+  <a data-panel="computer_analysis">@trans.computerAnalysis()</a>
+  }
+  @if(!game.isPgnImport) {
   <a data-panel="move_times">@trans.moveTimes()</a>
   @if(cross.isDefined) {
   <a data-panel="crosstable">Crosstable</a>

@@ -20,8 +20,8 @@
   }
   <br /><br />
   <span data-icon="p"> @tour.clock.show</span>,
-  @variantName(tour.variant).capitalize,
-  @{ tour.rated.fold(trans.rated(), trans.casual()) }
+  @game.variantLink(tour.variant, variantName(tour.variant)),
+  @tour.rated.fold(trans.rated(), trans.casual())
   <br /><br />
   System: @systemName(tour.system).capitalize
   (<a href="@routes.Tournament.help(tour.system.toString.toLowerCase.some)">help</a>)

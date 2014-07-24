@@ -6,7 +6,7 @@
 title = trans.playWithAFriend.str(),
 side = Html(""),
 signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
-<div class="lichess_game lichess_game_not_started clearfix lichess_player_@color">
+<div class="lichess_game lichess_game_not_started clearfix pov_@color">
   <div class="lichess_board_wrap">
     @color.fold(board.white(), board.black())
     <div class="lichess_overboard auto_center joining @game.id">
@@ -17,7 +17,7 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
       }
       @config.map { c =>
       <p class="explanations">
-        @variantName(c.variant), @modeName(c.mode)<br />
+        @views.html.game.variantLink(c.variant, variantName(c.variant)), @modeName(c.mode)<br />
         <span data-icon="p"></span> @clockName(c.makeClock)<br />
       </p>
       }

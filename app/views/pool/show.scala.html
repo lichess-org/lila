@@ -3,7 +3,7 @@
 @side = {
 <div class="side_box padded">
   <span data-icon="p"> @(p.setup.clockLimit / 60) + @p.setup.clockIncrement</span>,
-  @variantName(p.setup.variant).capitalize, @trans.rated() -
+  @game.variantLink(p.setup.variant, variantName(p.setup.variant)), @trans.rated() -
   <a href="@routes.Pool.help(p.setup.id)">Help</a>
   @ctx.me.map(_.perfs.pool(p.setup.id)).map { perf =>
   <br />

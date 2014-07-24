@@ -83,7 +83,6 @@ time {
   font-family: "lichess" !important;
   font-style: normal !important;
   font-weight: normal !important;
-  font-variant: normal !important;
   text-transform: none !important;
   speak: none;
   line-height: 1;
@@ -767,34 +766,6 @@ table.slist tbody tr:nth-child(even) {
 table.slist td:first-child,
 table.slist th:first-child {
   padding-left: 25px;
-}
-#tv_selector {
-  margin: 30px 0 20px 0;
-}
-#tv_selector p {
-  margin: 20px 10px;
-}
-#tv_selector .current {
-  font-weight: bold;
-}
-#tv_history {
-  margin-left: -30px;
-  width: 228px;
-  margin-top: 15px;
-  cursor: pointer;
-}
-#tv_history div.undertable_inner {
-  height: 250px;
-}
-#tv_history a.view {
-  padding-left: 5px;
-  text-decoration: none;
-}
-#tv_history tr:hover td {
-  transition: 0.13s;
-}
-#tv_history tr:hover td {
-  background-color: #f8f8f8;
 }
 div.side h2 {
   text-align: center;
@@ -1533,12 +1504,8 @@ div.undertable_inner:hover {
   overflow-y: auto;
 }
 div.undertable a.user_link {
-  text-decoration: none;
   font-weight: bold;
   color: #a0a0a0;
-}
-div.undertable a.user_link:hover {
-  text-decoration: underline;
 }
 div.undertable table {
   width: 100%;

@@ -1,0 +1,19 @@
+@(variant: chess.Variant, name: String)
+@variant match {
+case chess.Variant.Standard => {
+<a href="https://en.wikipedia.org/wiki/Chess" target="_blank"
+  data-hint="@variantDesc.Standard" class="hint--bottom">@name</a>
+}
+case chess.Variant.Chess960 => {
+<a href="https://en.wikipedia.org/wiki/Chess960" target="_blank"
+  data-hint="@variantDesc.Chess960" class="hint--bottom">@name</a>
+}
+case chess.Variant.Center => {
+<a href="http://www.chessvariants.org/diffobjective.dir/center_of_attention.html" target="_blank"
+  data-hint="@variantDesc.Center" class="hint--bottom">@name</a>
+}
+case chess.Variant.FromPosition => {
+<a data-hint="@variantDesc.Position" class="hint--bottom">@name</a>
+}
+case x => { x }
+}

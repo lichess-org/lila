@@ -2,14 +2,14 @@
 
 @import pov._
 
-<div class="lichess_game clearfix lichess_player_@color">
+<div class="lichess_game clearfix pov_@color">
   @if(ctx.blindMode) {
   <div id="lichess_board_blind" data-href="@routes.Round.watcherText(gameId, color.name)">
     @views.html.game.textualRepresentation(pov, playing = false)
   </div>
   }
   <div class="lichess_board_wrap">
-    <div class="lichess_board with_marks">@Html(lila.app.ui.Board.render(pov))</div>
+    <div class="lichess_board with_marks variant_@game.variant.id">@Html(lila.app.ui.Board.render(pov))</div>
     <div id="dont_touch">@trans.youAreViewingThisGameAsASpectator()</div>
   </div>
   <div class="lichess_ground">

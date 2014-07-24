@@ -486,7 +486,7 @@ var storage = {
           }
         });
         $('#featured_game').each(function() {
-          $(this).children().toggle($(this).width() == 224);
+          $(this).children().toggle($(this).width() == 228);
         });
         $('div.content_box .side_menu').appendTo('#site_header');
       }
@@ -628,7 +628,7 @@ var storage = {
 
     var $board = $('div.with_marks');
     if ($board.length > 0) {
-      $.displayBoardMarks($board.parent(), $('#lichess > div.lichess_player_white').length);
+      $.displayBoardMarks($board.parent(), $('#lichess > div.pov_white').length);
     }
 
     // themepicker
@@ -2869,8 +2869,8 @@ var storage = {
       var panel = $(this).data('panel');
       $(this).siblings('.active').removeClass('active').end().addClass('active');
       $panels.removeClass('active').filter('.' + panel).addClass('active');
-      if (panel == 'move_times') $.renderMoveTimesChart();
-    });
+      if (panel == 'move_times') try { $.renderMoveTimesChart(); } catch(e){}
+    }).find('a:first').click();
 
     var pgnLoader = function() {
       $panels.find('.loader span').each(function() {

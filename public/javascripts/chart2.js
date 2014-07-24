@@ -262,6 +262,7 @@ $(function() {
       }));
     });
   };
+  if ($('#movetimes_chart:visible:not(.rendered)').length) $.renderMoveTimesChart();
 });
 
 Highcharts.makeFont = function(size) {

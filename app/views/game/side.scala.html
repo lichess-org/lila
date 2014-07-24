@@ -42,16 +42,8 @@
     </div>
     }
     <br />
-    <span data-icon="p"> @shortClockName(game.clock)</span>
-    @game.variant match {
-    case chess.Variant.Chess960 => {
-    , <a data-hint="@variantDesc.Chess960" class="hint--bottom">@variantName(game.variant).capitalize</a>
-    }
-    case chess.Variant.Center => {
-    , <a data-hint="@variantDesc.Center" class="hint--bottom">@variantName(game.variant).capitalize</a>
-    }
-    case _ => {}
-    }
+    <span data-icon="p"> @shortClockName(game.clock)</span>,
+    @variantLink(game.variant, variantName(game.variant))
     @if(game.rated) {
     , @trans.rated()<br />
     }

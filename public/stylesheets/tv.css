@@ -1,0 +1,45 @@
+#tv_selector {
+  margin: 30px 0 20px 0;
+}
+#tv_selector p {
+  margin: 20px 10px;
+}
+#tv_selector .current {
+  font-weight: bold;
+}
+#tv_history {
+  margin-top: 15px;
+  cursor: pointer;
+}
+#tv_history div.content {
+  height: 250px;
+  overflow: hidden;
+  background-color: #fff;
+}
+#tv_history div.content:hover {
+  overflow-y: auto;
+}
+#tv_history table {
+  width: 100%;
+}
+#tv_history a.user_link {
+  font-weight: bold;
+  color: #a0a0a0;
+}
+#tv_history a.view {
+  padding-left: 5px;
+  text-decoration: none;
+}
+#tv_history td {
+  padding: 6px 5px 6px 5px;
+  border-top: 1px solid #eaeaea;
+}
+#tv_history tr:first-child td {
+  border-top: none;
+}
+#tv_history tr:hover td {
+  transition: 0.13s;
+}
+#tv_history tr:hover td {
+  background-color: #f8f8f8;
+}
