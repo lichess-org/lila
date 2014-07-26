@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import akka.actor.{ ActorRef, ActorSystem, ActorSelection }
 
 import chess.Color
-import lila.game.{ Game, Player => GamePlayer, GameRepo, Pov, PovRef, Source }
+import lila.game.{ Game, Player => GamePlayer, GameRepo, Pov, PovRef, Source, PerfPicker }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round.NoStartColor
 import lila.user.{ User, UserRepo }
@@ -25,24 +25,25 @@ final class Joiner(
   private def startGame(setup: PoolSetup, pairing: Pairing): Fu[Game] = for {
     user1 ← getUser(pairing.user1)
     user2 ← getUser(pairing.user2)
-    ratingLens = (user: User) => user.perfs.pool(setup.id).intRating
-    game = Game.make(
+    game1 = Game.make(
       game = chess.Game(
         board = chess.Board init setup.variant,
         clock = setup.clock.some
       ),
-      whitePlayer = GamePlayer.white withUser user1 withRating ratingLens(user1),
-      blackPlayer = GamePlayer.black withUser user2 withRating ratingLens(user2),
+      whitePlayer = GamePlayer.white,
+      blackPlayer = GamePlayer.black,
       mode = chess.Mode.Rated,
       variant = setup.variant,
       source = Source.Pool,
       pgnImport = None
-    ).withPoolId(setup.id)
-      .withId(pairing.gameId)
+    ).withPoolId(setup.id).withId(pairing.gameId)
+    game2 = game1
+      .updatePlayer(Color.White, _.withUser(user1.id, PerfPicker.mainOrDefault(game1)(user1.perfs)))
+      .updatePlayer(Color.Black, _.withUser(user2.id, PerfPicker.mainOrDefault(game1)(user2.perfs)))
       .start
-    _ ← (GameRepo insertDenormalized game) >>-
-      scheduleIdleCheck(PovRef(game.id, Color.White), secondsToMove)
-  } yield game
+    _ ← (GameRepo insertDenormalized game2) >>-
+      scheduleIdleCheck(PovRef(game2.id, Color.White), secondsToMove)
+  } yield game2
 
   private def getUser(userId: String): Fu[User] =
     UserRepo byId userId flatten s"No user $userId"

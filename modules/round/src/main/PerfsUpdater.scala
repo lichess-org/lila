@@ -5,7 +5,7 @@ import org.goochjs.glicko2._
 import org.joda.time.DateTime
 import play.api.Logger
 
-import lila.game.{ GameRepo, Game, Pov }
+import lila.game.{ GameRepo, Game, Pov, PerfPicker }
 import lila.rating.{ Glicko, Perf }
 import lila.user.{ UserRepo, User, Perfs }
 
@@ -16,36 +16,36 @@ private final class PerfsUpdater {
   private val system = new RatingCalculator(VOLATILITY, TAU)
 
   def save(game: Game, white: User, black: User): Funit =
-    Perfs.variantLens(game.variant) ?? { perfLens =>
+    PerfPicker.main(game) ?? { mainPerf =>
       (game.rated && game.finished && game.accountable && !white.engine && !black.engine) ?? {
         val ratingsW = mkRatings(white.perfs, game.poolId)
         val ratingsB = mkRatings(black.perfs, game.poolId)
         val result = resultOf(game)
-        updateRatings(ratingsW.white, ratingsB.black, result, system)
         game.variant match {
           case chess.Variant.Standard =>
             updateRatings(ratingsW.standard, ratingsB.standard, result, system)
           case chess.Variant.Chess960 =>
             updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
+          case chess.Variant.KingOfTheHill =>
+            updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result, system)
           case _ =>
         }
-        chess.Speed(game.clock) match {
-          case chess.Speed.Bullet =>
-            updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
-          case chess.Speed.Blitz =>
-            updateRatings(ratingsW.blitz, ratingsB.blitz, result, system)
-          case chess.Speed.Slow | chess.Speed.Unlimited =>
-            updateRatings(ratingsW.slow, ratingsB.slow, result, system)
+        if (game.variant.standard) {
+          game.speed match {
+            case chess.Speed.Bullet =>
+              updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
+            case chess.Speed.Blitz =>
+              updateRatings(ratingsW.blitz, ratingsB.blitz, result, system)
+            case chess.Speed.Slow | chess.Speed.Unlimited =>
+              updateRatings(ratingsW.slow, ratingsB.slow, result, system)
+          }
         }
         (ratingsW.pool |@| ratingsB.pool) apply {
           case ((_, prW), (_, prB)) => updateRatings(prW, prB, result, system)
         }
-        val perfsW = mkPerfs(ratingsW, white.perfs, Pov white game)
-        val perfsB = mkPerfs(ratingsB, black.perfs, Pov black game)
-        val intRatingLens = (perfs: Perfs) =>
-          game.poolId.fold(Perfs.variantLens(game.variant).fold(perfs.standard)(_(perfs))) { id =>
-            perfs.pool(id)
-          }.glicko.intRating
+        val perfsW = mkPerfs(ratingsW, white.perfs, game)
+        val perfsB = mkPerfs(ratingsB, black.perfs, game)
+        def intRatingLens(perfs: Perfs) = mainPerf(perfs).glicko.intRating
         GameRepo.setRatingDiffs(game.id,
           intRatingLens(perfsW) - intRatingLens(white.perfs),
           intRatingLens(perfsB) - intRatingLens(black.perfs)) zip
@@ -57,21 +57,19 @@ private final class PerfsUpdater {
   private final case class Ratings(
     standard: Rating,
     chess960: Rating,
+    kingOfTheHill: Rating,
     bullet: Rating,
     blitz: Rating,
     slow: Rating,
-    white: Rating,
-    black: Rating,
     pool: Option[(String, Rating)])
 
   private def mkRatings(perfs: Perfs, poolId: Option[String]) = new Ratings(
     standard = perfs.standard.toRating,
     chess960 = perfs.chess960.toRating,
+    kingOfTheHill = perfs.kingOfTheHill.toRating,
     bullet = perfs.bullet.toRating,
     blitz = perfs.blitz.toRating,
     slow = perfs.slow.toRating,
-    white = perfs.white.toRating,
-    black = perfs.black.toRating,
     pool = poolId map (id => id -> perfs.pool(id).toRating))
 
   private def resultOf(game: Game): Glicko.Result =
@@ -96,17 +94,18 @@ private final class PerfsUpdater {
     }
   }
 
-  private def mkPerfs(ratings: Ratings, perfs: Perfs, pov: Pov): Perfs = {
-    import pov._
-    val speed = chess.Speed(game.clock)
+  private val slowSpeeds: Set[Speed] = Set(Speed.Slow, Speed.Unlimited)
+
+  private def mkPerfs(ratings: Ratings, perfs: Perfs, game: Game): Perfs = {
+    val speed = game.speed
+    val isStd = game.variant.standard
     val perfs1 = perfs.copy(
-      standard = game.variant.standard.fold(perfs.standard add ratings.standard, perfs.standard),
+      standard = isStd.fold(perfs.standard add ratings.standard, perfs.standard),
       chess960 = game.variant.chess960.fold(perfs.chess960 add ratings.chess960, perfs.chess960),
-      bullet = (speed == Speed.Bullet).fold(perfs.bullet add ratings.bullet, perfs.bullet),
-      blitz = (speed == Speed.Blitz).fold(perfs.blitz add ratings.blitz, perfs.blitz),
-      slow = (speed == Speed.Slow).fold(perfs.slow add ratings.slow, perfs.slow),
-      white = color.white.fold(perfs.white add ratings.white, perfs.white),
-      black = color.black.fold(perfs.black add ratings.black, perfs.black))
+      kingOfTheHill = game.variant.kingOfTheHill.fold(perfs.kingOfTheHill add ratings.kingOfTheHill, perfs.kingOfTheHill),
+      bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet add ratings.bullet, perfs.bullet),
+      blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz add ratings.blitz, perfs.blitz),
+      slow = (isStd && slowSpeeds(speed)).fold(perfs.slow add ratings.slow, perfs.slow))
     ratings.pool.fold(perfs1) {
       case (id, poolRating) => perfs1.copy(
         pools = perfs1.pools + (id -> perfs.pool(id).add(poolRating))

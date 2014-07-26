@@ -284,7 +284,6 @@ trait UserRepo {
   private def newUser(username: String, password: String, blind: Boolean) = {
 
     val salt = ornicar.scalalib.Random nextStringUppercase 32
-    val perfs = Perfs.default
     implicit def countHandler = Count.tube.handler
     implicit def perfsHandler = Perfs.tube.handler
     import lila.db.BSON.BSONJodaDateTimeHandler
@@ -294,8 +293,8 @@ trait UserRepo {
       F.username -> username,
       "password" -> hash(password, salt),
       "salt" -> salt,
-      F.perfs -> perfs,
-      F.rating -> perfs.standard.glicko.intRating,
+      F.perfs -> Json.obj(),
+      F.rating -> Perfs.default.standard.glicko.intRating,
       F.count -> Count.default,
       F.enabled -> true,
       F.createdAt -> DateTime.now,

@@ -28,9 +28,9 @@ case class Player(
       }
     } mkString ""
 
-  def withUser(user: User): Player = copy(
-    userId = user.id.some,
-    rating = user.rating.some)
+  def withUser(id: String, perf: lila.rating.Perf): Player = copy(
+    userId = id.some,
+    rating = perf.intRating.some)
 
   def withRating(rating: Int) = copy(rating = rating.some)
 

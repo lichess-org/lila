@@ -190,6 +190,8 @@ case class Game(
     }
   )
 
+  def speed = chess.Speed(clock)
+
   def started = status >= Status.Started
 
   def notStarted = !started

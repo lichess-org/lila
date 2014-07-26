@@ -1,0 +1,47 @@
+package lila.history
+
+import org.joda.time.{ Days, DateTime }
+
+case class History(
+  standard: RatingsMap,
+  chess960: RatingsMap,
+  kingOfTheHill: RatingsMap,
+  bullet: RatingsMap,
+  blitz: RatingsMap,
+  slow: RatingsMap,
+  puzzle: RatingsMap,
+  pools: Map[String, RatingsMap])
+
+object History {
+
+  // def days(date: DateTime) = Days.daysBetween(epoch, date.withTimeAtStartOfDay).getDays
+
+  import reactivemongo.bson._
+  import lila.db.BSON
+  import BSON.Map.MapReader
+
+  private[history] implicit val BSONReader = new BSONDocumentReader[History] {
+
+    private implicit val ratingsMapReader = new BSONDocumentReader[RatingsMap] {
+      def read(doc: BSONDocument): RatingsMap = doc.stream.flatMap {
+        case scala.util.Success((k, BSONInteger(v))) => parseIntOption(k) map (_ -> v)
+        case _                                       => none[(Int, Int)]
+      }.toMap
+    }
+
+    def read(doc: BSONDocument): History = {
+      def ratingsMap(key: String): RatingsMap = doc.getAs[RatingsMap](key) | Map.empty
+      History(
+        standard = ratingsMap("standard"),
+        chess960 = ratingsMap("chess960"),
+        kingOfTheHill = ratingsMap("koth"),
+        bullet = ratingsMap("bullet"),
+        blitz = ratingsMap("blitz"),
+        slow = ratingsMap("slow"),
+        puzzle = ratingsMap("puzzle"),
+        pools = doc.getAs[Map[String, RatingsMap]]("pools") | Map.empty)
+
+      // pools = doc.getAs[Map[String, RatingsMap]]("pools") getOrElse Map.empty)
+    }
+  }
+}

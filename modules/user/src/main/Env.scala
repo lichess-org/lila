@@ -20,12 +20,9 @@ final class Env(
     val OnlineTtl = config duration "online.ttl"
     val RankingTtl = config duration "ranking.ttl"
     val CollectionUser = config getString "collection.user"
-    val CollectionHistory = config getString "collection.history"
     val CollectionNote = config getString "collection.note"
   }
   import settings._
-
-  lazy val historyColl = db(CollectionHistory)
 
   lazy val userColl = db(CollectionUser)
 

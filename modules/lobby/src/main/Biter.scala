@@ -5,7 +5,7 @@ import chess.{ Game => ChessGame, Board, Variant, Mode, Clock, Color => ChessCol
 import org.joda.time.DateTime
 
 import actorApi.{ RemoveHook, BiteHook, JoinHook }
-import lila.game.{ GameRepo, Game, Player, Pov, Progress }
+import lila.game.{ GameRepo, Game, Player, Pov, Progress, PerfPicker }
 import lila.user.{ User, UserRepo }
 
 private[lobby] final class Biter(blocks: (String, String) => Fu[Boolean]) {
@@ -29,7 +29,9 @@ private[lobby] final class Biter(blocks: (String, String) => Fu[Boolean]) {
   } yield JoinHook(uid, hook, game, creatorColor)
 
   def blame(color: ChessColor, userOption: Option[User], game: Game) =
-    userOption.fold(game)(user => game.updatePlayer(color, _ withUser user))
+    userOption.fold(game) { user =>
+      game.updatePlayer(color, _.withUser(user.id, PerfPicker.mainOrDefault(game)(user.perfs)))
+    }
 
   private def makeGame(hook: Hook) = Game.make(
     game = ChessGame(

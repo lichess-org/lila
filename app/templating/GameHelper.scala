@@ -43,8 +43,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case (_, _, Draw | Stalemate)                         => "Game is a draw"
       case (_, _, Aborted)                                  => "Game has been aborted"
       case (_, _, VariantEnd) => game.variant match {
-        case Variant.Center => "King in the center"
-        case _              => "Variant ending"
+        case Variant.KingOfTheHill => "King in the center"
+        case _                     => "Variant ending"
       }
       case _ => "Game is still being played"
     }
@@ -53,17 +53,17 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def variantName(variant: Variant)(implicit ctx: UserContext) = variant match {
-    case Variant.Standard     => trans.standard.str()
-    case Variant.Chess960     => "Chess960"
-    case Variant.FromPosition => trans.fromPosition.str()
-    case Variant.Center       => "CenterChess"
+    case Variant.Standard      => trans.standard.str()
+    case Variant.Chess960      => "Chess960"
+    case Variant.FromPosition  => trans.fromPosition.str()
+    case Variant.KingOfTheHill => "King Of The Hill"
   }
 
   def variantNameNoCtx(variant: Variant) = variant match {
-    case Variant.Standard     => trans.standard.en()
-    case Variant.Chess960     => "Chess960"
-    case Variant.FromPosition => trans.fromPosition.en()
-    case Variant.Center       => "CenterChess"
+    case Variant.Standard      => trans.standard.en()
+    case Variant.Chess960      => "Chess960"
+    case Variant.FromPosition  => trans.fromPosition.en()
+    case Variant.KingOfTheHill => "King Of The Hill"
   }
 
   def clockName(clock: Option[Clock])(implicit ctx: UserContext): String =
@@ -151,8 +151,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
     case S.Cheat => Html("Cheat detected")
     case S.VariantEnd => game.variant match {
-      case Variant.Center => Html("King in the center")
-      case _              => Html("Variant ending")
+      case Variant.KingOfTheHill => Html("King in the center")
+      case _                     => Html("Variant ending")
     }
     case _ => Html("")
   }

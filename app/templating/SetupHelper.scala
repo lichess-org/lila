@@ -26,9 +26,9 @@ trait SetupHelper { self: I18nHelper =>
     translatedVariantChoices(ctx) :+
       (Variant.FromPosition.id.toString, "FEN", variantDesc.Position.some)
 
-  def translatedVariantChoicesWithCenterAndFen(implicit ctx: Context) =
+  def translatedVariantChoicesWithKothAndFen(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
-      (Variant.Center.id.toString, "Center", variantDesc.Center.some) :+
+      (Variant.KingOfTheHill.id.toString, Variant.KingOfTheHill.name.capitalize, variantDesc.KingOfTheHill.some) :+
       (Variant.FromPosition.id.toString, "FEN", variantDesc.Position.some)
 
   def translatedSpeedChoices(implicit ctx: Context) = Speed.all map { s =>
@@ -44,7 +44,7 @@ trait SetupHelper { self: I18nHelper =>
   object variantDesc {
     val Standard = "Standard rules of chess (FIDE)"
     val Chess960 = "Starting position of the home rank pieces is randomized"
-    val Center = "Bring your king to the center to win the game"
+    val KingOfTheHill = "Bring your king to the center to win the game"
     val Position = "Custom starting position"
   }
 }

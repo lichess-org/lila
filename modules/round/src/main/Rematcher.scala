@@ -8,7 +8,7 @@ import ChessColor.{ White, Black }
 
 import lila.db.api._
 import lila.game.tube.gameTube
-import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie }
+import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie, PerfPicker }
 import lila.memo.ExpireSetMemo
 import lila.user.UserRepo
 import makeTimeout.short
@@ -84,12 +84,16 @@ private[round] final class Rematcher(
     source = pov.game.source | Source.Lobby,
     pgnImport = None)
 
-  private def returnPlayer(game: Game, color: ChessColor): Fu[lila.game.Player] =
-    lila.game.Player.make(color = color, aiLevel = game.opponent(color).aiLevel) |> { player =>
-      game.player(!color).userId.fold(fuccess(player)) { userId =>
-        UserRepo byId userId map { _.fold(player)(player.withUser) }
+  private def returnPlayer(game: Game, color: ChessColor): Fu[lila.game.Player] = {
+    val player = lila.game.Player.make(color = color, aiLevel = game.opponent(color).aiLevel)
+    game.player(!color).userId.fold(fuccess(player)) { userId =>
+      UserRepo byId userId map {
+        _.fold(player) { u =>
+          player.withUser(u.id, PerfPicker.mainOrDefault(game)(u.perfs))
+        }
       }
     }
+  }
 
   private def redirectEvents(game: Game): Fu[Events] =
     router ? lila.hub.actorApi.router.Player(game fullIdOf White) zip

@@ -7,7 +7,7 @@ import play.api.libs.json.{ Json, JsObject }
 
 import lila.db.api._
 import lila.game.tube.gameTube
-import lila.game.{ Game, GameRepo, Pov, Progress }
+import lila.game.{ Game, GameRepo, Pov, Progress, PerfPicker }
 import lila.i18n.I18nDomain
 import lila.lobby.actorApi.AddHook
 import lila.lobby.Hook
@@ -25,22 +25,26 @@ private[setup] final class Processor(
     saveConfig(_ withFilter config)
 
   def ai(config: AiConfig)(implicit ctx: UserContext): Fu[Pov] = {
-    val pov = config.pov
-    val game = ctx.me.fold(pov.game)(user => pov.game.updatePlayer(pov.color, _ withUser user))
+    val pov = blamePov(config.pov, ctx.me)
     saveConfig(_ withAi config) >>
-      (GameRepo insertDenormalized game) >>
-      game.player.isHuman.fold(
+      (GameRepo insertDenormalized pov.game) >>
+      pov.game.player.isHuman.fold(
         fuccess(pov),
-        aiPlay(game) map { progress => pov withGame progress.game }
+        aiPlay(pov.game) map { progress => pov withGame progress.game }
       )
   }
 
   def friend(config: FriendConfig)(implicit ctx: UserContext): Fu[Pov] = {
-    val pov = config.pov
-    val game = ctx.me.fold(pov.game)(user => pov.game.updatePlayer(pov.color, _ withUser user))
+    val pov = blamePov(config.pov, ctx.me)
     saveConfig(_ withFriend config) >>
-      (GameRepo.insertDenormalized(game, false)) >>-
+      (GameRepo.insertDenormalized(pov.game, false)) >>-
       friendConfigMemo.set(pov.game.id, config) inject pov
+  }
+
+  private def blamePov(pov: Pov, user: Option[User]): Pov = pov withGame {
+    user.fold(pov.game) { u =>
+      pov.game.updatePlayer(pov.color, _.withUser(u.id, PerfPicker.mainOrDefault(pov.game)(u.perfs)))
+    }
   }
 
   def hook(

@@ -90,7 +90,7 @@ trait BaseConfig {
 
   val variantsWithFen = variants :+ Variant.FromPosition.id
 
-  val variantsWithFenAndCenter = variantsWithFen :+ Variant.Center.id
+  val variantsWithFenAndKoth = variantsWithFen :+ Variant.KingOfTheHill.id
 
   val speeds = Speed.all map (_.id)
 
