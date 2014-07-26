@@ -30,6 +30,7 @@ object Dependencies {
       typesafe,
       roundeights,
       // typesafeS,
+      prismic,
       t2v, jgitMaven, sprayRepo, sprayNightlies, snowplow)
   }
 
