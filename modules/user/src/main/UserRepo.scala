@@ -34,9 +34,6 @@ trait UserRepo {
   def topRatingSince(since: DateTime, nb: Int): Fu[List[User]] =
     $find($query(stableGoodLadSelect ++ perfSince("global", since)) sort sortRatingDesc, nb)
 
-  def topProgressSince(since: DateTime, nb: Int): Fu[List[User]] =
-    $find($query(stableGoodLadSelect ++ minRatingSelect(1500) ++ perfSince("global", since)) sort sortProgressDesc, nb)
-
   def topBullet = topPerf("bullet") _
   def topBlitz = topPerf("blitz") _
   def topSlow = topPerf("slow") _
@@ -99,10 +96,9 @@ trait UserRepo {
 
   def lichess = byId("lichess")
 
-  def setPerfs(user: User, perfs: Perfs, progress: Int) = $update($select(user.id), $setBson(
+  def setPerfs(user: User, perfs: Perfs) = $update($select(user.id), $setBson(
     F.perfs -> Perfs.tube.handler.write(perfs),
-    F.rating -> BSONInteger(user.engine.fold(Glicko.default, perfs.standard.glicko).intRating),
-    F.progress -> BSONInteger(progress)
+    F.rating -> BSONInteger(user.engine.fold(Glicko.default, perfs.standard.glicko).intRating)
   ))
 
   def setPerf(userId: String, perfName: String, perf: Perf) = $update($select(userId), $setBson(
@@ -131,7 +127,6 @@ trait UserRepo {
   val goodLadQuery = $query(goodLadSelect)
 
   val sortRatingDesc = $sort desc "rating"
-  val sortProgressDesc = $sort desc "progress"
   val sortCreatedAtDesc = $sort desc F.createdAt
 
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Int, totalTime: Option[Int], tvTime: Option[Int]) = {
@@ -301,7 +296,6 @@ trait UserRepo {
       "salt" -> salt,
       F.perfs -> perfs,
       F.rating -> perfs.standard.glicko.intRating,
-      F.progress -> 0,
       F.count -> Count.default,
       F.enabled -> true,
       F.createdAt -> DateTime.now,

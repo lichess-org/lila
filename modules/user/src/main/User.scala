@@ -9,7 +9,6 @@ case class User(
     id: String,
     username: String,
     rating: Int,
-    progress: Int,
     perfs: Perfs,
     count: Count,
     artificial: Boolean = false,
@@ -33,6 +32,8 @@ case class User(
 
   override def toString =
     s"User $username($rating) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
+
+  def progress = perfs.standard.progress
 
   def light = lila.common.LightUser(id = id, name = username, title = title)
 
@@ -106,7 +107,6 @@ object User {
     val id = "_id"
     val username = "username"
     val rating = "rating"
-    val progress = "progress"
     val artificial = "artificial"
     val perfs = "perfs"
     val count = "count"
@@ -139,7 +139,6 @@ object User {
       id = r str id,
       username = r str username,
       rating = r nInt rating,
-      progress = r intD progress,
       perfs = r.getO[Perfs](perfs) | Perfs.default,
       count = r.get[Count](count),
       artificial = r boolD artificial,
@@ -160,7 +159,6 @@ object User {
       id -> o.id,
       username -> o.username,
       rating -> w.int(o.rating),
-      progress -> w.int(o.progress),
       perfs -> o.perfs,
       count -> o.count,
       artificial -> w.boolO(o.artificial),

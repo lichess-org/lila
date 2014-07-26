@@ -33,7 +33,7 @@ case class Perfs(
 
   def standardAndPools = standard :: pools.values.toList
 
-  override def toString = perfs map {
+  def inShort = perfs map {
     case (name, perf) => s"$name:${perf.intRating}"
   } mkString ", "
 }

@@ -5,7 +5,7 @@ import play.api.mvc._, Results._
 
 import lila.app._
 import lila.common.LilaCookie
-import lila.user.{ UserRepo, HistoryRepo }
+import lila.user.UserRepo
 import views._
 
 object Auth extends LilaController {
@@ -71,12 +71,9 @@ object Auth extends LilaController {
       data => Firewall {
         UserRepo.create(data.username, data.password, ctx.blindMode) flatMap { userOption =>
           val user = userOption err "No user could be created for %s".format(data.username)
-          HistoryRepo.create(user) >> {
-            api saveAuthentication user.id map { sessionId =>
-              Redirect(routes.User.show(user.username)) withCookies LilaCookie.session("sessionId", sessionId)
-            }
+          api saveAuthentication user.id map { sessionId =>
+            Redirect(routes.User.show(user.username)) withCookies LilaCookie.session("sessionId", sessionId)
           }
-
         }
       }
     )

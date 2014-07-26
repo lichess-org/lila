@@ -147,7 +147,7 @@ private[round] final class Round(
 
   private def outOfTime(game: Game)(p: lila.game.Player) =
     finisher(game, _.Outoftime, Some(!p.color) filterNot { color =>
-      game.toChess.variant.drawsOnInsufficientMaterial &&
+      game.toChess.board.variant.drawsOnInsufficientMaterial &&
         chess.InsufficientMatingMaterial(game.toChess.board, color)
     })
 

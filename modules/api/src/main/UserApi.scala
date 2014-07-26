@@ -34,7 +34,7 @@ private[api] final class UserApi(
       "id" -> u.id,
       "username" -> u.username,
       "rating" -> u.rating,
-      "rd" -> u.perfs.global.glicko.deviation,
+      "rd" -> u.perfs.standard.glicko.deviation,
       "progress" -> u.progress)
   }
 

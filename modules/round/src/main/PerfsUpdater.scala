@@ -48,13 +48,10 @@ private final class PerfsUpdater {
           }.glicko.intRating
         GameRepo.setRatingDiffs(game.id,
           intRatingLens(perfsW) - intRatingLens(white.perfs),
-          intRatingLens(perfsB) - intRatingLens(black.perfs)) >> {
-            (makeProgress(white.id) zip makeProgress(black.id)) flatMap {
-              case (proW, proB) =>
-                (UserRepo.setPerfs(white, perfsW, proW) zip UserRepo.setPerfs(black, perfsB, proB)) void
-            }
-          }
-      }
+          intRatingLens(perfsB) - intRatingLens(black.perfs)) zip
+          UserRepo.setPerfs(white, perfsW) zip
+          UserRepo.setPerfs(black, perfsB)
+      }.void
     }
 
   private final case class Ratings(
@@ -67,23 +64,15 @@ private final class PerfsUpdater {
     black: Rating,
     pool: Option[(String, Rating)])
 
-  private def makeProgress(userId: String): Fu[Int] = fuccess(0)
-
-  private implicit def mkRating(perf: Perf) = new Rating(
-    math.max(800, perf.glicko.rating),
-    perf.glicko.deviation,
-    perf.glicko.volatility,
-    perf.nb)
-
   private def mkRatings(perfs: Perfs, poolId: Option[String]) = new Ratings(
-    standard = perfs.standard,
-    chess960 = perfs.chess960,
-    bullet = perfs.bullet,
-    blitz = perfs.blitz,
-    slow = perfs.slow,
-    white = perfs.white,
-    black = perfs.black,
-    pool = poolId map (id => id -> perfs.pool(id)))
+    standard = perfs.standard.toRating,
+    chess960 = perfs.chess960.toRating,
+    bullet = perfs.bullet.toRating,
+    blitz = perfs.blitz.toRating,
+    slow = perfs.slow.toRating,
+    white = perfs.white.toRating,
+    black = perfs.black.toRating,
+    pool = poolId map (id => id -> perfs.pool(id).toRating))
 
   private def resultOf(game: Game): Glicko.Result =
     game.winnerColor match {
@@ -107,27 +96,20 @@ private final class PerfsUpdater {
     }
   }
 
-  private def mkPerf(perfs: Perfs, date: DateTime)(rating: Rating, isLatest: Boolean, lens: Perfs => Perf): Perf = Perf(
-    Glicko(rating.getRating, rating.getRatingDeviation, rating.getVolatility),
-    nb = rating.getNumberOfResults,
-    progress = lens(perfs).progress,
-    latest = (isLatest option date) orElse lens(perfs).latest)
-
   private def mkPerfs(ratings: Ratings, perfs: Perfs, pov: Pov): Perfs = {
     import pov._
     val speed = chess.Speed(game.clock)
-    val mk = mkPerfs(perfs, game.createdAt) _
     val perfs1 = perfs.copy(
-      standard = mk(ratings.standard, game.variant.standard, _.standard),
-      chess960 = mk(ratings.chess960, game.variant.chess960, _.chess960),
-      bullet = mk(ratings.bullet, (speed == Speed.Bullet), _.bullet),
-      blitz = mk(ratings.blitz, (speed == Speed.Blitz), _.blitz),
-      slow = mk(ratings.slow, (speed == Speed.Slow || speed == Speed.Unlimited), _.slow),
-      white = mk(ratings.white, color.white, _.white),
-      black = mk(ratings.black, color.black, _.black))
+      standard = game.variant.standard.fold(perfs.standard add ratings.standard, perfs.standard),
+      chess960 = game.variant.chess960.fold(perfs.chess960 add ratings.chess960, perfs.chess960),
+      bullet = (speed == Speed.Bullet).fold(perfs.bullet add ratings.bullet, perfs.bullet),
+      blitz = (speed == Speed.Blitz).fold(perfs.blitz add ratings.blitz, perfs.blitz),
+      slow = (speed == Speed.Slow).fold(perfs.slow add ratings.slow, perfs.slow),
+      white = color.white.fold(perfs.white add ratings.white, perfs.white),
+      black = color.black.fold(perfs.black add ratings.black, perfs.black))
     ratings.pool.fold(perfs1) {
-      case (id, pool) => perfs1.copy(
-        pools = perfs1.pools + (id -> mk(pool, true, _ pools id))
+      case (id, poolRating) => perfs1.copy(
+        pools = perfs1.pools + (id -> perfs.pool(id).add(poolRating))
       )
     }
   }

@@ -95,7 +95,7 @@ object User extends LilaController {
     Reasonable(page) {
       val nb = 10
       for {
-        progressDay ← env.cached topProgressDay nb
+        progressDay ← fuccess(Nil)
         tourneyWinners ← Env.tournament.winners scheduled nb
         toint <- env.cached topToints nb
         rating ← env.cached topRating nb

@@ -22,6 +22,8 @@ case class Glicko(
 
 case object Glicko {
 
+  val minRating = 800
+
   val default = Glicko(1500d, 350d, 0.06d)
 
   def range(rating: Double, deviation: Double) = (

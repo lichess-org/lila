@@ -18,13 +18,12 @@
   <span class="hint--bottom" data-hint="Number of games played">
     @perf.nb.localize @if(name == "puzzle") {Puzzles} else {@trans.games()}
   </span>
+  @showProgress(perf.progress)
 </div>
 }
 
 @side = {
 <div class="side sub_ratings">
-  @showPerf("global", u.perfs.global)
-  <br />
   @showPerf("standard", u.perfs.standard)
   @showPerf("chess960", u.perfs.chess960)
   <br />
@@ -80,7 +79,7 @@ openGraph = Map(
     }
     }
     <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" } data-icon="r"></span> @u.username</h1>
-    <span class="rating">RATING <strong class="hint--bottom" data-hint="Glicko rating">@u.rating</strong><small class="hint--bottom" data-hint="Glicko rating deviation"> ±@u.perfs.global.glicko.intDeviationDoubled</small></span>
+    <span class="rating">RATING <strong class="hint--bottom" data-hint="Glicko rating">@u.rating</strong><small class="hint--bottom" data-hint="Glicko rating deviation"> ±@u.perfs.standard.glicko.intDeviationDoubled</small></span>
     @showProgress(u.progress)
     @info.rank.map { r =>
     <span class="rank hint--bottom" data-hint="@trans.rank()">RANK <strong>@r._1.localize</strong>/@{r._2/1000}k</span>

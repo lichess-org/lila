@@ -11,7 +11,7 @@ import lila.user.{ User, UserContext }
 trait UserHelper { self: I18nHelper with StringHelper =>
 
   def showProgress(progress: Int) = Html {
-    val title = "Rating progression over the last ten games"
+    val title = "Rating progression over the last twelve games"
     val span = progress match {
       case 0          => ""
       case p if p > 0 => s"""<span class="positive" data-icon="N">$p</span>"""
@@ -191,7 +191,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val name = user.titleUsername
     val nbGames = user.count.game
     val createdAt = org.joda.time.format.DateTimeFormat forStyle "M-" print user.createdAt
-    val rating = user.perfs.global.intRating
+    val rating = user.rating
     s"$name played $nbGames games since $createdAt. Current rating: $rating."
   }
 }

@@ -1,5 +1,6 @@
 package lila.rating
 
+import org.goochjs.glicko2.Rating
 import org.joda.time.DateTime
 import reactivemongo.bson.BSONDocument
 
@@ -14,18 +15,30 @@ case class Perf(
   def intRating = glicko.rating.toInt
   def intDeviation = glicko.deviation.toInt
 
-  def progress: Option[Int] = recent.headOption flatMap { head =>
-    recent.lastOption map { last =>
-      head - last
-    }
+  def progress: Int = ~recent.headOption.flatMap { head =>
+    recent.lastOption map (head-)
   }
 
-  override def toString = s"#$nb $intRating $intDeviation"
+  def add(g: Glicko): Perf = copy(
+    glicko = g,
+    nb = nb + 1,
+    recent = (g.intRating :: recent) take Perf.recentMaxSize,
+    latest = DateTime.now.some)
+
+  def add(r: Rating): Perf = add(Glicko(r.getRating, r.getRatingDeviation, r.getVolatility))
+
+  def toRating = new Rating(
+    math.max(Glicko.minRating, glicko.rating),
+    glicko.deviation,
+    glicko.volatility,
+    nb)
 }
 
 case object Perf {
 
   val default = Perf(Glicko.default, 0, Nil, None)
+
+  val recentMaxSize = 12
 
   implicit val perfBSONHandler = new BSON[Perf] {
 

@@ -97,7 +97,9 @@ object BSON {
     }
     def docO(o: BSONDocument): Option[BSONDocument] = if (o.isEmpty) None else Some(o)
     def double(i: Double): BSONDouble = BSONDouble(i)
-    def intsO(l: List[Int]): Option[BSONArray] = if (l.isEmpty) None else Some(BSONArray(l))
+    def intsO(l: List[Int]): Option[BSONArray] =
+      if (l.isEmpty) None
+      else Some(BSONArray(l map BSONInteger.apply))
 
     import scalaz.Functor
     def map[M[_]: Functor, A, B <: BSONValue](a: M[A])(implicit writer: BSONWriter[A, B]): M[B] =

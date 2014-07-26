@@ -46,8 +46,8 @@ final class AiPerfApi(coll: Coll, cacheTtl: Duration) {
   def get(level: Int): Option[AiPerf] = all get level
 
   def add(level: Int, opponent: Perf, result: Glicko.Result): Funit = get(level) ?? { aiPerf =>
-    val aiRating = mkRating(aiPerf.perf)
-    val huRating = mkRating(opponent)
+    val aiRating = aiPerf.perf.toRating
+    val huRating = opponent.toRating
     val results = new RatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(aiRating, huRating)
@@ -55,18 +55,10 @@ final class AiPerfApi(coll: Coll, cacheTtl: Duration) {
       case Glicko.Result.Loss => results.addResult(huRating, aiRating)
     }
     system.updateRatings(results)
-    val newAiPerf = mkPerf(aiRating)
+    val newAiPerf = aiPerf.perf add aiRating
     coll.update(
       BSONDocument("_id" -> level),
       BSONDocument("$set" -> BSONDocument("perf" -> newAiPerf))
     ).void
   }
-
-  private def mkRating(perf: Perf) = new Rating(
-    perf.glicko.rating, perf.glicko.deviation, perf.glicko.volatility, perf.nb)
-
-  private def mkPerf(rating: Rating): Perf = Perf(
-    Glicko(rating.getRating, rating.getRatingDeviation, rating.getVolatility),
-    nb = rating.getNumberOfResults,
-    latest = DateTime.now.some)
 }

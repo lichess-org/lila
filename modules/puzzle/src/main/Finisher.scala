@@ -18,11 +18,11 @@ private[puzzle] final class Finisher(
     api.attempt.find(puzzle.id, user.id) flatMap {
       case Some(a) => fuccess(a -> data.isWin.some)
       case None =>
-        val userRating = mkRating(user.perfs.puzzle)
-        val puzzleRating = mkRating(puzzle.perf)
+        val userRating = user.perfs.puzzle.toRating
+        val puzzleRating = puzzle.perf.toRating
         updateRatings(userRating, puzzleRating, data.isWin.fold(Glicko.Result.Win, Glicko.Result.Loss))
-        val userPerf = mkPerf(userRating, user.perfs.puzzle)
-        val puzzlePerf = mkPerf(puzzleRating, puzzle.perf)
+        val userPerf = user.perfs.puzzle add userRating
+        val puzzlePerf = puzzle.perf add puzzleRating
         val a = new Attempt(
           id = Attempt.makeId(puzzle.id, user.id),
           puzzleId = puzzle.id,
@@ -59,12 +59,6 @@ private[puzzle] final class Finisher(
     math.max(1000, perf.glicko.rating),
     perf.glicko.deviation,
     perf.glicko.volatility, perf.nb)
-
-  private def mkPerf(rating: Rating, perf: Perf): Perf = Perf(
-    Glicko(rating.getRating, rating.getRatingDeviation, rating.getVolatility),
-    nb = rating.getNumberOfResults,
-    progress = perf.progress,
-    latest = DateTime.now.some)
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result) {
     val results = new RatingPeriodResults()
