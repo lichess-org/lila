@@ -148,6 +148,7 @@ object Countries {
     "PH" -> "Philippines",
     "PK" -> "Pakistan",
     "PL" -> "Poland",
+    "PS" -> "Palestine",
     "PT" -> "Portugal",
     "PW" -> "Palau",
     "PY" -> "Paraguay",
