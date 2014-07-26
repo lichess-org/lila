@@ -2,7 +2,7 @@
 
 @import pov._
 
-<div class="lichess_game clearfix pov_@color">
+<div class="lichess_game clearfix pov_@color@if(!ctx.pref.captured) { hide_captured }">
   @if(ctx.blindMode) {
   <div id="lichess_board_blind" data-href="@routes.Round.watcherText(gameId, color.name)">
     @views.html.game.textualRepresentation(pov, playing = false)

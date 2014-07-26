@@ -72,6 +72,7 @@ object BSON {
     def nInt(k: String) = get[BSONNumberLike](k).toInt
     def nIntO(k: String) = getO[BSONNumberLike](k) map (_.toInt)
     def nIntD(k: String) = nIntO(k) getOrElse 0
+    def intsD(k: String) = getO[List[Int]](k) getOrElse Nil
 
     def toList = doc.elements.toList
   }
@@ -96,6 +97,7 @@ object BSON {
     }
     def docO(o: BSONDocument): Option[BSONDocument] = if (o.isEmpty) None else Some(o)
     def double(i: Double): BSONDouble = BSONDouble(i)
+    def intsO(l: List[Int]): Option[BSONArray] = if (l.isEmpty) None else Some(BSONArray(l))
 
     import scalaz.Functor
     def map[M[_]: Functor, A, B <: BSONValue](a: M[A])(implicit writer: BSONWriter[A, B]): M[B] =

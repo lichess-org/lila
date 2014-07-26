@@ -146,8 +146,9 @@ private[round] final class Round(
   }
 
   private def outOfTime(game: Game)(p: lila.game.Player) =
-    finisher(game, _.Outoftime, Some(!p.color) filterNot {
-      chess.InsufficientMatingMaterial(game.toChess.board, _)
+    finisher(game, _.Outoftime, Some(!p.color) filterNot { color =>
+      game.toChess.variant.drawsOnInsufficientMaterial &&
+        chess.InsufficientMatingMaterial(game.toChess.board, color)
     })
 
   protected def handle[A](op: Game => Fu[Events]): Funit =

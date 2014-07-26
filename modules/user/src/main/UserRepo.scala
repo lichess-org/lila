@@ -101,7 +101,7 @@ trait UserRepo {
 
   def setPerfs(user: User, perfs: Perfs, progress: Int) = $update($select(user.id), $setBson(
     F.perfs -> Perfs.tube.handler.write(perfs),
-    F.rating -> BSONInteger(user.engine.fold(Glicko.default, perfs.global.glicko).intRating),
+    F.rating -> BSONInteger(user.engine.fold(Glicko.default, perfs.standard.glicko).intRating),
     F.progress -> BSONInteger(progress)
   ))
 
@@ -217,7 +217,7 @@ trait UserRepo {
   def toggleEngine(id: ID): Funit = $update.docBson[ID, User](id) { u =>
     $setBson(
       "engine" -> BSONBoolean(!u.engine),
-      "rating" -> BSONInteger(u.engine.fold(u.perfs.global.glicko, Glicko.default).intRating)
+      "rating" -> BSONInteger(u.engine.fold(u.perfs.standard.glicko, Glicko.default).intRating)
     )
   }
 
@@ -300,7 +300,7 @@ trait UserRepo {
       "password" -> hash(password, salt),
       "salt" -> salt,
       F.perfs -> perfs,
-      F.rating -> perfs.global.glicko.intRating,
+      F.rating -> perfs.standard.glicko.intRating,
       F.progress -> 0,
       F.count -> Count.default,
       F.enabled -> true,

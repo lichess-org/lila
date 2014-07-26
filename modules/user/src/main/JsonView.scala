@@ -17,7 +17,7 @@ final class JsonView {
     "username" -> u.username,
     "title" -> u.title,
     "rating" -> u.rating,
-    "rd" -> u.perfs.global.glicko.deviation,
+    "rd" -> u.perfs.standard.glicko.deviation,
     "progress" -> u.progress,
     "playTime" -> u.playTime.map { p =>
       Json.obj(

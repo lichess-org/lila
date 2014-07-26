@@ -21,8 +21,8 @@ private[puzzle] final class Finisher(
         val userRating = mkRating(user.perfs.puzzle)
         val puzzleRating = mkRating(puzzle.perf)
         updateRatings(userRating, puzzleRating, data.isWin.fold(Glicko.Result.Win, Glicko.Result.Loss))
-        val userPerf = mkPerf(userRating)
-        val puzzlePerf = mkPerf(puzzleRating)
+        val userPerf = mkPerf(userRating, user.perfs.puzzle)
+        val puzzlePerf = mkPerf(puzzleRating, puzzle.perf)
         val a = new Attempt(
           id = Attempt.makeId(puzzle.id, user.id),
           puzzleId = puzzle.id,
@@ -60,9 +60,10 @@ private[puzzle] final class Finisher(
     perf.glicko.deviation,
     perf.glicko.volatility, perf.nb)
 
-  private def mkPerf(rating: Rating): Perf = Perf(
+  private def mkPerf(rating: Rating, perf: Perf): Perf = Perf(
     Glicko(rating.getRating, rating.getRatingDeviation, rating.getVolatility),
     nb = rating.getNumberOfResults,
+    progress = perf.progress,
     latest = DateTime.now.some)
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result) {

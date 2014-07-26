@@ -10,7 +10,7 @@ import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Pov, Event }
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.user.tube.userTube
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, Perfs }
 
 private[round] final class Finisher(
     messenger: Messenger,
@@ -54,23 +54,25 @@ private[round] final class Finisher(
         (finish.black ?? incNbGames(finish.game)) void
     }
 
-  private def addAiGame(finish: FinishGame): Funit = ~{
-    import finish._
-    import lila.rating.Glicko.Result._
-    for {
-      level <- game.players.map(_.aiLevel).flatten.headOption
-      if game.turns > 10
-      if !game.fromPosition
-      humanColor <- game.players.find(_.isHuman).map(_.color)
-      user <- humanColor.fold(white, black)
-      if !user.engine
-      result = game.winnerColor match {
-        case Some(c) if c == humanColor => Loss
-        case Some(_)                    => Win
-        case None                       => Draw
+  private def addAiGame(finish: FinishGame): Funit =
+    Perfs.variantLens(finish.game.variant) ?? { perfLens =>
+      ~{
+        import finish._
+        import lila.rating.Glicko.Result._
+        for {
+          level <- game.players.map(_.aiLevel).flatten.headOption
+          if game.turns > 10
+          humanColor <- game.players.find(_.isHuman).map(_.color)
+          user <- humanColor.fold(white, black)
+          if !user.engine
+          result = game.winnerColor match {
+            case Some(c) if c == humanColor => Loss
+            case Some(_)                    => Win
+            case None                       => Draw
+          }
+        } yield aiPerfApi.add(level, perfLens(user.perfs), result)
       }
-    } yield aiPerfApi.add(level, user.perfs.global, result)
-  }
+    }
 
   private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
     val totalTime = user.playTime.isDefined option game.moveTimes.sum / 10

@@ -51,16 +51,16 @@ object Evaluation {
 
   private[evaluation] def progressIsHigh(user: User) = user.progress > 70
   private[evaluation] def progressIsVeryHigh(user: User) = user.progress > 100
-  private[evaluation] def deviationIsLow(perfs: Perfs) = perfs.globalAndPools exists {
+  private[evaluation] def deviationIsLow(perfs: Perfs) = perfs.standardAndPools exists {
     _.glicko.deviation < 190
   }
-  private[evaluation] def ratingIsHigh(perfs: Perfs) = perfs.globalAndPools exists {
+  private[evaluation] def ratingIsHigh(perfs: Perfs) = perfs.standardAndPools exists {
     _.glicko.rating >= 1600
   }
-  private[evaluation] def ratingIsGreat(perfs: Perfs) = perfs.globalAndPools exists {
+  private[evaluation] def ratingIsGreat(perfs: Perfs) = perfs.standardAndPools exists {
     _.glicko.rating >= 2300
   }
-  private[evaluation] def hasManyGames(perfs: Perfs) = perfs.globalAndPools exists {
+  private[evaluation] def hasManyGames(perfs: Perfs) = perfs.standardAndPools exists {
     _.nb >= 50
   }
   private[evaluation] def escapesAutoMark(perfs: Perfs) =
