@@ -16,7 +16,6 @@ final class Env(
   private val settings = new {
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
     val CachedNbTtl = config duration "cached.nb.ttl"
-    val CachedRatingChartTtl = config duration "cached.rating_chart.ttl"
     val OnlineTtl = config duration "online.ttl"
     val RankingTtl = config duration "ranking.ttl"
     val CollectionUser = config getString "collection.user"
@@ -39,8 +38,6 @@ final class Env(
   lazy val noteApi = new NoteApi(db(CollectionNote), timeline)
 
   lazy val jsonView = new JsonView
-
-  def ratingChart = cached.ratingChart.apply _
 
   val forms = DataForm
 
@@ -82,7 +79,6 @@ final class Env(
 
   lazy val cached = new Cached(
     nbTtl = CachedNbTtl,
-    ratingChartTtl = CachedRatingChartTtl,
     onlineUserIdMemo = onlineUserIdMemo)
 }
 

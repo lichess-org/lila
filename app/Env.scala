@@ -36,7 +36,7 @@ final class Env(
     gameCached = Env.game.cached,
     crosstableApi = Env.game.crosstableApi,
     postApi = Env.forum.postApi,
-    getRatingChart = Env.user.ratingChart,
+    getRatingChart = Env.history.ratingChartApi.apply,
     getRank = Env.user.ranking.get,
     getDonated = Env.donation.api.donatedByUser) _
 
@@ -131,4 +131,5 @@ object Env {
   def pool = lila.pool.Env.current
   def donation = lila.donation.Env.current
   def qa = lila.qa.Env.current
+  def history = lila.history.Env.current
 }

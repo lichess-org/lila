@@ -6,10 +6,11 @@ import org.joda.time.DateTime
 import play.api.Logger
 
 import lila.game.{ GameRepo, Game, Pov, PerfPicker }
+import lila.history.HistoryApi
 import lila.rating.{ Glicko, Perf }
 import lila.user.{ UserRepo, User, Perfs }
 
-private final class PerfsUpdater {
+private final class PerfsUpdater(historyApi: HistoryApi) {
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU = 0.75d
@@ -50,7 +51,9 @@ private final class PerfsUpdater {
           intRatingLens(perfsW) - intRatingLens(white.perfs),
           intRatingLens(perfsB) - intRatingLens(black.perfs)) zip
           UserRepo.setPerfs(white, perfsW) zip
-          UserRepo.setPerfs(black, perfsB)
+          UserRepo.setPerfs(black, perfsB) zip
+          historyApi.add(white, game, perfsW) zip
+          historyApi.add(black, game, perfsB)
       }.void
     }
 

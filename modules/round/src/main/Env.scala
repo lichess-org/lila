@@ -22,6 +22,7 @@ final class Env(
     rematch960Cache: lila.memo.ExpireSetMemo,
     i18nKeys: lila.i18n.I18nKeys,
     prefApi: lila.pref.PrefApi,
+    historyApi: lila.history.HistoryApi,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -91,7 +92,7 @@ final class Env(
     hijack = hijack,
     bus = system.lilaBus)
 
-  private lazy val perfsUpdater = new PerfsUpdater
+  private lazy val perfsUpdater = new PerfsUpdater(historyApi)
 
   private lazy val finisher = new Finisher(
     messenger = messenger,
@@ -178,5 +179,6 @@ object Env {
     rematch960Cache = lila.game.Env.current.cached.rematch960,
     i18nKeys = lila.i18n.Env.current.keys,
     prefApi = lila.pref.Env.current.api,
+    historyApi = lila.history.Env.current.api,
     scheduler = lila.common.PlayApp.scheduler)
 }

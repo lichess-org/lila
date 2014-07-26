@@ -28,43 +28,12 @@ $(function() {
   }
 
   $('div.rating_history').each(function() {
-    var $this = $(this);
-    var rows = $this.data('rows');
-    var size = rows.date.length;
-
-    function points(series) {
-      var ps = [];
-      for (var i = 0; i < size; i++) {
-        ps.push({
-          name: rows.date[i],
-          y: rows[series][i]
-        });
-      }
-      return ps;
-    }
-
-    function areaPoints(series) {
-      var ps = [];
-      for (var i = 0; i < size; i++) {
-        ps.push(rows[series][i]);
-      }
-      return ps;
-    }
-    var marker = {
-      enabled: false,
-      symbol: 'circle',
-      radius: 2,
-      states: {
-        hover: {
-          radius: 4
-        }
-      }
-    };
     $(this).highcharts(mergeDefaults({
       chart: {},
       colors: theme.light ? ['#0000ff', '#0000ff', theme.colors[3], '#909090'] : ['#4444ff', '#4444ff', theme.colors[3], '#707070'],
       title: noText,
       xAxis: {
+        type: 'datetime',
         labels: disabled,
         lineWidth: 0,
         tickWidth: 0,
@@ -84,29 +53,27 @@ $(function() {
       plotOptions: {
         line: {
           lineWidth: 2,
-          marker: marker
-        },
-        arearange: {
-          marker: marker,
-          lineWidth: 0,
-          enableMouseTracking: false,
-          fillOpacity: 0.2
+          marker: {
+            enabled: false,
+            symbol: 'circle',
+            radius: 2,
+            states: {
+              hover: {
+                radius: 4
+              }
+            }
+          }
         }
       },
-      series: [{
-        name: 'Deviation',
-        type: 'arearange',
-        data: areaPoints('range')
-      }, {
-        name: 'Rating',
-        type: 'line',
-        data: points('rating'),
-        threshold: null
-      }, {
-        name: 'Opponent',
-        type: 'line',
-        data: points('op')
-      }]
+      series: _.map($(this).data('series'), function(serie) {
+        return {
+          name: serie.name,
+          type: 'line',
+          data: _.map(serie.points, function(r) {
+            return [Date.UTC(r[0], r[1], r[2]), r[3]];
+          })
+        };
+      })
     }));
   });
 

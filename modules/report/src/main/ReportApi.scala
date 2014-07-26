@@ -40,7 +40,7 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
       (report.isTroll && user.troll)
 
   def autoCheatReport(userId: String, text: String): Funit = {
-    logger.info(s"auto cheat reaport $userId: ${~text.lines.toList.headOption}")
+    logger.info(s"auto cheat report $userId: ${~text.lines.toList.headOption}")
     UserRepo byId userId zip UserRepo.lichess flatMap {
       case (Some(user), Some(lichess)) => create(ReportSetup(
         user = user,
@@ -53,7 +53,7 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
   }
 
   def autoBlockReport(userId: String, blocked: Int, followed: Int): Funit = {
-    logger.info(s"auto block reaport $userId: $blocked blockers & $followed followers")
+    logger.info(s"auto block report $userId: $blocked blockers & $followed followers")
     UserRepo byId userId zip UserRepo.lichess flatMap {
       case (Some(user), Some(lichess)) => create(ReportSetup(
         user = user,

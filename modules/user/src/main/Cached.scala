@@ -11,16 +11,11 @@ import tube.userTube
 
 final class Cached(
     nbTtl: Duration,
-    ratingChartTtl: Duration,
     onlineUserIdMemo: ExpireSetMemo) {
 
   val count = AsyncCache((o: JsObject) => $count(o), timeToLive = nbTtl)
 
   def countEnabled: Fu[Int] = count(UserRepo.enabledSelect)
-
-  val ratingChart = AsyncCache(RatingChart.apply,
-    maxCapacity = 5000,
-    timeToLive = ratingChartTtl)
 
   private def oneDayAgo = DateTime.now minusDays 1
   private def oneWeekAgo = DateTime.now minusWeeks 1

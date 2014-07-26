@@ -14,8 +14,6 @@ case class History(
 
 object History {
 
-  // def days(date: DateTime) = Days.daysBetween(epoch, date.withTimeAtStartOfDay).getDays
-
   import reactivemongo.bson._
   import lila.db.BSON
   import BSON.Map.MapReader
@@ -26,11 +24,11 @@ object History {
       def read(doc: BSONDocument): RatingsMap = doc.stream.flatMap {
         case scala.util.Success((k, BSONInteger(v))) => parseIntOption(k) map (_ -> v)
         case _                                       => none[(Int, Int)]
-      }.toMap
+      }.toList sortBy (_._1)
     }
 
     def read(doc: BSONDocument): History = {
-      def ratingsMap(key: String): RatingsMap = doc.getAs[RatingsMap](key) | Map.empty
+      def ratingsMap(key: String): RatingsMap = ~doc.getAs[RatingsMap](key)
       History(
         standard = ratingsMap("standard"),
         chess960 = ratingsMap("chess960"),
@@ -40,8 +38,6 @@ object History {
         slow = ratingsMap("slow"),
         puzzle = ratingsMap("puzzle"),
         pools = doc.getAs[Map[String, RatingsMap]]("pools") | Map.empty)
-
-      // pools = doc.getAs[Map[String, RatingsMap]]("pools") getOrElse Map.empty)
     }
   }
 }
