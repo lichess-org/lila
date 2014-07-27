@@ -41,7 +41,12 @@ object RatingFest {
       _ = println("Reseting perfs")
       _ <- lila.user.tube.userTube.coll.update(
         BSONDocument(),
-        BSONDocument("$set" -> BSONDocument("perfs" -> BSONDocument())),
+        BSONDocument("$unset" -> BSONDocument(
+          List(
+            "standard", "chess960", "kingOfTheHill",
+            "bullet", "blitz", "slow", "pools"
+          ).map { name => s"perfs.$name" -> BSONBoolean(true) }
+        )),
         multi = true)
       _ = println("Gathering cheater IDs")
       engineIds <- UserRepo.engineIds
