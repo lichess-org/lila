@@ -6,8 +6,8 @@
 @user.map { u =>
 @userLink(u, cssClass="target".some)
 }
-<div class="variants buttons">
-  @setup.radios(form("variant"), translatedVariantChoicesWithKothAndFen)
+<div class="variants">
+  @trans.variant() @setup.select(form("variant"), translatedVariantChoicesWithKothAndFen)
 </div>
 @fenInput(form("fen"), false)
 @setup.clock(form, lila.setup.FriendConfig)

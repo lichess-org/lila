@@ -273,7 +273,8 @@
   height: 16px;
   opacity: 0.7;
 }
-#hooks_list table .chess960 {
+#hooks_list table .chess960,
+#hooks_list table .koth {
   padding-left: 1em;
   font-size: 0.9em;
   font-weight: bold;
@@ -344,15 +345,18 @@
   width: 15px;
   height: 15px;
 }
-#hooks_chart .plot.chess960 {
+#hooks_chart .plot.chess960,
+#hooks_chart .plot.koth {
   border-style: double;
   border-width: 5px;
 }
-#hooks_chart .plot.casual.chess960 {
+#hooks_chart .plot.casual.chess960,
+#hooks_chart .plot.casual.koth {
   width: 13px;
   height: 13px;
 }
-#hooks_chart .plot.rated.chess960 {
+#hooks_chart .plot.rated.chess960,
+#hooks_chart .plot.rated.koth {
   width: 11px;
   height: 11px;
 }
@@ -422,7 +426,8 @@
   margin-top: 40px;
 }
 #hook .mode,
-#hook .chess960 {
+#hook .chess960,
+#hook .koth {
   font-size: 1.25em;
   display: block;
 }
@@ -572,6 +577,12 @@ div.game_config input[type="text"] {
   width: 87%;
   padding: 2px 3px;
 }
+div.game_config .variants {
+  margin-bottom: 1em;
+}
+div.game_config .variants select {
+  font-weight: bold;
+}
 div.game_config .fen_position {
   padding: 8px 0;
   display: none;
@@ -609,10 +620,6 @@ div.game_config div.color_submits {
   margin-top: 1em;
   height: 65px;
   text-align: center;
-}
-div.game_config div.variant_descriptions p {
-  font-size: 0.8em;
-  display: none;
 }
 div.game_config button {
   display: inline-block;

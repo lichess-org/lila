@@ -2051,12 +2051,9 @@ var storage = {
       var $form = $('div.lichess_overboard');
       var $modeChoicesWrap = $form.find('.mode_choice');
       var $modeChoices = $modeChoicesWrap.find('input');
-      var $variantChoices = $form.find('.variants input');
-      var $variantDescriptions = $form.find('.variant_descriptions p');
       var $casual = $modeChoices.eq(0),
         $rated = $modeChoices.eq(1);
-      var $fenVariant = $variantChoices.filter('#variant_3');
-      var $centerVariant = $variantChoices.filter('#variant_4');
+      var $variantSelect = $form.find('.variants select');
       var $fenPosition = $form.find(".fen_position");
       var $clockCheckbox = $form.find('.clock_choice input');
       var $timeInput = $form.find('.time_choice input');
@@ -2173,15 +2170,13 @@ var storage = {
       }, 500);
       $fenInput.on('keyup', validateFen);
 
-      $variantChoices.on('change', function() {
-        var fen = $fenVariant.prop('checked');
-        var center = $centerVariant.prop('checked');
+      $variantSelect.on('change', function() {
+        var fen = $(this).val() == '3';
         if (fen && $fenInput.val() !== '') validateFen();
         $fenPosition.toggle(fen);
-        $modeChoicesWrap.toggle(!fen && !center);
-        if (fen || center) $casual.click();
+        $modeChoicesWrap.toggle(!fen);
+        if (fen) $casual.click();
         $.centerOverboard();
-        $variantDescriptions.hide().filter('.variant_' + $(this).val()).show();
       }).trigger('change');
 
       $form.find('div.level').each(function() {
@@ -2529,6 +2524,7 @@ var storage = {
         'plot',
         hook.mode == "Rated" ? 'rated' : 'casual',
         hook.variant == "Chess960" ? 'chess960' : '',
+        hook.variant == "KingOfTheHill" ? 'kingOfTheHill' : '',
         hook.action == 'cancel' ? 'cancel' : ''
       ].join(' ');
       var $plot = $('<span id="' + hook.id + '" class="' + klass + '" style="bottom:' + bottom + 'px;left:' + left + 'px;"></span>');
@@ -2584,6 +2580,7 @@ var storage = {
       html += '<span class="mode">';
       html += $.trans(hook.mode);
       if (hook.variant == 'Chess960') html += ', 960';
+      if (hook.variant == 'KingOfTheHill') html += ', KotH';
       html += '</span>';
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
       html += '<span class="is2" data-icon="' + k + '"></span>';
@@ -2603,7 +2600,9 @@ var storage = {
         ],
         [hook.rating || 0, hook.rating || ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
-        [hook.mode, $.trans(hook.mode) + (hook.variant == 'Chess960' ? '<span class="chess960">960</span>' : '')]
+        [hook.mode, $.trans(hook.mode) +
+        (hook.variant == 'Chess960' ? '<span class="chess960">960</span>' : '') +
+        (hook.variant == 'KingOfTheHill' ? '<span class="koth">KotH</span>' : '')]
       ], function(x) {
         return '<td data-sort-value="' + x[0] + '">' + x[1] + '</td>';
       }).join('') + '</tr>';
@@ -2629,6 +2628,14 @@ var storage = {
       } else return true;
     }
 
+    function confirmKotH(hook) {
+      if (hook.variant == "KingOfTheHill" && hook.action == "join" && !storage.get('koth')) {
+        var c = confirm("This is a King Of The Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://www.chessvariants.org/diffobjective.dir/center_of_attention.html");
+        if (c) storage.set('koth', 1);
+        return c;
+      } else return true;
+    }
+
     $tbody.on('click', 'a.ulink', function(e) {
       e.stopPropagation();
     });
@@ -2645,7 +2652,7 @@ var storage = {
         if (confirm($.trans('This game is rated') + '.\n' + $.trans('You need an account to do that') + '.')) location.href = '/signup';
         return;
       }
-      if (confirm960(hook)) {
+      if (confirm960(hook) && confirmKotH(hook)) {
         lichess.socket.send(hook.action, hook.id);
       }
     });

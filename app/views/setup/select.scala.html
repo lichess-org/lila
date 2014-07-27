@@ -1,0 +1,9 @@
+@(field: play.api.data.Field, options: Seq[(String,String, Option[String])])
+
+<select id="@field.id" name="@field.name">
+  @options.map { v =>
+  <option value="@v._1" class="@{field.name}_@v._1" @v._3.map { title =>
+  title="@title"
+  } @if(field.value.contains(v._1)){selected="selected"}>@v._2</option>
+  }
+</select>

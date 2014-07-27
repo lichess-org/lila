@@ -18,7 +18,8 @@ final class PoolRepo(hub: ActorRef, setupRepo: PoolSetupRepo) {
 
   val all = lila.memo.AsyncCache.single(fetchAll, timeToLive = 5.seconds)
 
-  private def fetchAll: Fu[List[Pool]] = hub ? AskAll(GetPool) mapTo manifest[List[Pool]] map { pools =>
-    pools.sortBy(_.setup.id)
-  }
+  private def fetchAll: Fu[List[Pool]] =
+    hub ? AskAll(GetPool) mapTo manifest[List[Pool]] map { pools =>
+      pools.sortBy(_.setup.id)
+    }
 }

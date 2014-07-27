@@ -1,8 +1,8 @@
 @(form: Form[_], ratings: Map[Int, Int])(implicit ctx: Context)
 
 @fields = {
-<div class="variants buttons">
-  @setup.radios(form("variant"), translatedVariantChoicesWithFen)
+<div class="variants">
+  @trans.variant() @setup.select(form("variant"), translatedVariantChoicesWithFen)
 </div>
 @fenInput(form("fen"), true)
 @setup.clock(form, lila.setup.AiConfig)

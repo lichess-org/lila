@@ -15,7 +15,7 @@ private[pool] final class PoolSetupRepo(config: Config) {
         clock <- Option(conf getConfig "clock")
         clockLimit <- Try(clock getInt "limit").toOption
         clockIncrement <- Try(clock getInt "increment").toOption
-        variant <- Try(conf getString "variant").toOption flatMap chess.Variant.apply
+        variant <- Try(conf getString "variant").toOption flatMap chess.Variant.byName
       } yield PoolSetup(id, name, clockLimit, clockIncrement, variant)
     case _ => none
   }.toList.flatten.sortBy(_.id)

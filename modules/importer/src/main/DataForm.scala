@@ -32,7 +32,7 @@ private[importer] case class ImportData(pgn: String) {
         tags find (_.name == which(Tag)) map (_.value)
 
       val initBoard = tag(_.FEN) flatMap Forsyth.<< map (_.board)
-      val variant = tag(_.Variant).flatMap(Variant.apply) | {
+      val variant = tag(_.Variant).flatMap(Variant.byName) | {
         initBoard.nonEmpty.fold(Variant.FromPosition, Variant.Standard)
       }
 

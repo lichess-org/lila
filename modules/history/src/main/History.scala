@@ -32,7 +32,7 @@ object History {
       History(
         standard = ratingsMap("standard"),
         chess960 = ratingsMap("chess960"),
-        kingOfTheHill = ratingsMap("koth"),
+        kingOfTheHill = ratingsMap("kingOfTheHill"),
         bullet = ratingsMap("bullet"),
         blitz = ratingsMap("blitz"),
         slow = ratingsMap("slow"),

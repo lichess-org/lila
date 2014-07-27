@@ -14,7 +14,7 @@
 <div>
   <h3 @lila.user.Perfs.titles.get(name).map { title =>
     class="hint--bottom" data-hint="@title"
-    }>@if(name == "puzzle") {TRAINING} else {@name.toUpperCase}</h3>
+    }>@lila.user.Perfs.names.get(name).getOrElse(name).toUpperCase</h3>
   <strong class="hint--bottom" data-hint="Glicko rating">@perf.glicko.intRating</strong>
   <small class="hint--bottom" data-hint="Glicko rating deviation"> ±@perf.glicko.intDeviationDoubled</small> /
   <span class="hint--bottom" data-hint="Number of games played">
@@ -27,11 +27,13 @@
 @side = {
 <div class="side sub_ratings">
   @showPerf("standard", u.perfs.standard)
-  @showPerf("chess960", u.perfs.chess960)
   <br />
   @showPerf("bullet", u.perfs.bullet)
   @showPerf("blitz", u.perfs.blitz)
   @showPerf("slow", u.perfs.slow)
+  <br />
+  @showPerf("chess960", u.perfs.chess960)
+  @showPerf("KingOfTheHill", u.perfs.kingOfTheHill)
   <br />
   @u.perfs.pools.toList.sortBy(_._1).map {
   case (id, perf) => {

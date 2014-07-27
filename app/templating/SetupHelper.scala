@@ -22,6 +22,10 @@ trait SetupHelper { self: I18nHelper =>
     (Variant.Chess960.id.toString, Variant.Chess960.name.capitalize, variantDesc.Chess960.some)
   )
 
+  def translatedVariantChoicesWithKoth(implicit ctx: Context) =
+    translatedVariantChoices(ctx) :+
+      (Variant.KingOfTheHill.id.toString, Variant.KingOfTheHill.name.capitalize, variantDesc.KingOfTheHill.some)
+
   def translatedVariantChoicesWithFen(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
       (Variant.FromPosition.id.toString, "FEN", variantDesc.Position.some)

@@ -37,7 +37,7 @@ moreJs = moreJs) {
         </tr>
         <tr>
           <th><label for="@form("variant").id">@trans.variant()</label></th>
-          <td>@base.select(form("variant"), translatedVariantChoices.map(x => x._1 -> x._2))</td>
+          <td>@base.select(form("variant"), translatedVariantChoicesWithKoth.map(x => x._1 -> x._2))</td>
         </tr>
         <tr>
           <th><label for="@form("mode").id">@trans.mode()</label></th>

@@ -11,6 +11,7 @@ object Mappings {
 
   val variant = number.verifying(Config.variants contains _)
   val variantWithFen = number.verifying(Config.variantsWithFen contains _)
+  val variantWithKoth = number.verifying(Config.variantsWithKoth contains _)
   val variantWithFenAndKoth = number.verifying(Config.variantsWithFenAndKoth contains _)
   val time = number.verifying(HookConfig validateTime _)
   val increment = number.verifying(HookConfig validateIncrement _)

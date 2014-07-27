@@ -43,6 +43,15 @@ case object Perfs {
     Perfs(p, p, p, p, p, p, p, Map.empty)
   }
 
+  val names = Map(
+    "bullet" -> "Bullet",
+    "blitz" -> "Blitz",
+    "slow" -> "Classical",
+    "standard" -> "Standard",
+    "chess960" -> "Chess960",
+    "kingOfTheHill" -> "King Of The Hill",
+    "puzzle" -> "Training")
+
   val titles = Map(
     "bullet" -> "Very fast games: less than 3 minutes",
     "blitz" -> "Fast games: less than 8 minutes",
@@ -78,7 +87,7 @@ case object Perfs {
       Perfs(
         standard = perf("standard"),
         chess960 = perf("chess960"),
-        kingOfTheHill = perf("koth"),
+        kingOfTheHill = perf("kingOfTheHill"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
         slow = perf("slow"),
@@ -91,7 +100,7 @@ case object Perfs {
     def writes(w: BSON.Writer, o: Perfs) = BSONDocument(
       "standard" -> notNew(o.standard),
       "chess960" -> notNew(o.chess960),
-      "koth" -> notNew(o.kingOfTheHill),
+      "kingOfTheHill" -> notNew(o.kingOfTheHill),
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
       "slow" -> notNew(o.slow),
