@@ -27,58 +27,26 @@ $(function() {
     return $.extend(true, {}, defaults, config);
   }
 
-  $('div.rating_history').each(function() {
-    $(this).highcharts(mergeDefaults({
-      chart: {},
-      // colors: theme.light ? ['#0000ff', '#0000ff', theme.colors[3], '#909090'] : ['#4444ff', '#4444ff', theme.colors[3], '#707070'],
-      colors: theme.colors,
-      title: noText,
-      xAxis: {
-        type: 'datetime',
-        labels: {
-          enabled: true
-        },
-        lineWidth: 1,
-        tickWidth: 1,
-        gridLineWidth: 1
-      },
-      yAxis: {
-        gridLineWidth: 1,
-        labels: {
-          enabled: true,
-          x: 0,
-          style: {
-            font: Highcharts.makeFont(10),
-            fontWeight: 'lighter'
-          }
-        }
-      },
-      plotOptions: {
-        line: {
-          lineWidth: 1,
-          marker: {
-            enabled: true,
-            symbol: 'circle',
-            radius: 2,
-            states: {
-              hover: {
-                radius: 4
-              }
-            }
-          }
-        }
-      },
-      series: _.map(lichess_rating_series, function(serie) {
-        return {
-          name: serie.name,
-          type: 'line',
-          data: _.map(serie.points, function(r) {
-            return [Date.UTC(r[0], r[1], r[2]), r[3]];
-          })
-        };
-      })
-    }));
-  });
+  $('div.rating_history').highcharts('StockChart', mergeDefaults({
+    rangeSelector: {
+      enabled: true,
+      selected: 1,
+      inputEnabled: false,
+      labelStyle: {
+        display: 'none'
+      }
+    },
+    scrollbar: disabled,
+    series: _.map(lichess_rating_series, function(serie) {
+      return {
+        name: serie.name,
+        type: 'line',
+        data: _.map(serie.points, function(r) {
+          return [Date.UTC(r[0], r[1], r[2]), r[3]];
+        })
+      };
+    })
+  }));
 
   $('#adv_chart').each(function() {
     var $this = $(this);
@@ -241,7 +209,7 @@ Highcharts.makeFont = function(size) {
 
 Highcharts.theme = (function() {
 
-  var light = document.body.className.indexOf('light') != -1;
+  var light = $('body').hasClass('light');
   var text = {
     weak: light ? '#a0a0a0' : '#707070',
     strong: light ? '#707070' : '#a0a0a0'
@@ -369,7 +337,58 @@ Highcharts.theme = (function() {
       candlestick: {
         lineColor: text.strong
       }
-    }
+    },
+
+    // highstock
+    rangeSelector: light ? {} : {
+      buttonTheme: {
+        fill: '#505053',
+        stroke: '#000000',
+        style: {
+          color: '#CCC'
+        },
+        states: {
+          hover: {
+            fill: '#707073',
+            stroke: '#000000',
+            style: {
+              color: 'white'
+            }
+          },
+          select: {
+            fill: '#000003',
+            stroke: '#000000',
+            style: {
+              color: 'white'
+            }
+          }
+        }
+      },
+      inputBoxBorderColor: '#505053',
+      inputStyle: {
+        backgroundColor: '#333',
+        color: 'silver'
+      },
+      labelStyle: {
+        color: 'silver'
+      }
+    },
+
+    navigator: light ? {} : {
+      handles: {
+        backgroundColor: '#666',
+        borderColor: '#AAA'
+      },
+      outlineColor: '#CCC',
+      maskFill: 'rgba(255,255,255,0.1)',
+      series: {
+        color: '#7798BF',
+        lineColor: '#A6C7ED'
+      },
+      xAxis: {
+        gridLineColor: '#505053'
+      }
+    },
   };
 })();
 Highcharts.setOptions(Highcharts.theme);

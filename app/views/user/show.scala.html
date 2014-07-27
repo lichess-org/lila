@@ -3,8 +3,7 @@
 @title = @{ s"${u.username} : ${userGameFilterTitleNoTag(info, filters.current)}${if(games.currentPage == 1) "" else " - page " + games.currentPage}" }
 
 @evenMoreJs = {
-@highchartsTag
-@highchartsMoreTag
+@highstockTag
 @jsTagCompiled("chart2.js")
 @info.ratingChart.map { ratingChart =>
 @embedJs(s"var lichess_rating_series = $ratingChart;")

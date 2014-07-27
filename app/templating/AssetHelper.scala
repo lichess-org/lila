@@ -44,6 +44,11 @@ trait AssetHelper {
     test = "window.Highcharts",
     local = staticUrl("vendor/highcharts4/highcharts-more.js"))
 
+  val highstockTag = cdnOrLocal(
+    cdn = "http://code.highcharts.com/stock/2.0/highstock.js",
+    test = "window.Highcharts.StockChart",
+    local = staticUrl("vendor/highcharts4/highstock.js"))
+
   val momentjsTag = cdnOrLocal(
     cdn = "http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment.min.js",
     test = "window.moment",
