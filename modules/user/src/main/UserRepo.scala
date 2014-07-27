@@ -107,8 +107,8 @@ trait UserRepo {
       "blitz" -> (_.blitz),
       "slow" -> (_.slow),
       "puzzle" -> (_.puzzle))
-    val poolLenses: PerfLenses = perfs.pools.toList.map {
-      case (k, p) => s"pools.$k" -> ((_: Perfs) => p)
+    val poolLenses: PerfLenses = perfs.pools.keys.toList.map { k =>
+      s"pools.$k" -> ((ps: Perfs) => ps pool k)
     }
     val lenses = baseLenses ::: poolLenses
     val diff = lenses.flatMap {
