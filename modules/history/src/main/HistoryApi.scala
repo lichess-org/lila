@@ -13,7 +13,7 @@ final class HistoryApi(coll: Coll) {
 
   import History.BSONReader
 
-  private val slowSpeeds: Set[Speed] = Set(Speed.Slow, Speed.Unlimited)
+  private val classicalSpeeds: Set[Speed] = Set(Speed.Classical, Speed.Unlimited)
 
   def add(user: User, game: Game, perfs: Perfs): Funit = {
     val isStd = game.variant.standard
@@ -23,7 +23,7 @@ final class HistoryApi(coll: Coll) {
       game.variant.kingOfTheHill.option("kingOfTheHill" -> perfs.kingOfTheHill),
       (isStd && game.speed == Speed.Bullet).option("bullet" -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz" -> perfs.blitz),
-      (isStd && slowSpeeds(game.speed)).option("slow" -> perfs.slow),
+      (isStd && classicalSpeeds(game.speed)).option("classical" -> perfs.classical),
       game.poolId.map(p => s"pools.$p" -> perfs.pool(p))
     ).flatten.map {
         case (k, p) => k -> p.intRating

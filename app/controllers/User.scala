@@ -104,7 +104,7 @@ object User extends LilaController {
         online ← env.cached topOnline 30
         bullet ← env.cached topBullet nb
         blitz ← env.cached topBlitz nb
-        slow ← env.cached topSlow nb
+        classical ← env.cached topClassical nb
         active ← env.cached topNbGame nb map2 { (user: UserModel) =>
           user -> user.count.game
         }
@@ -124,7 +124,7 @@ object User extends LilaController {
         online = online,
         bullet = bullet,
         blitz = blitz,
-        slow = slow,
+        classical = classical,
         nb = active,
         nbDay = activeDay,
         nbWeek = activeWeek)

@@ -37,8 +37,8 @@ final class PerfsUpdater(historyApi: HistoryApi) {
               updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
             case chess.Speed.Blitz =>
               updateRatings(ratingsW.blitz, ratingsB.blitz, result, system)
-            case chess.Speed.Slow | chess.Speed.Unlimited =>
-              updateRatings(ratingsW.slow, ratingsB.slow, result, system)
+            case chess.Speed.Classical | chess.Speed.Unlimited =>
+              updateRatings(ratingsW.classical, ratingsB.classical, result, system)
           }
         }
         (ratingsW.pool |@| ratingsB.pool) apply {
@@ -68,7 +68,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     kingOfTheHill: Rating,
     bullet: Rating,
     blitz: Rating,
-    slow: Rating,
+    classical: Rating,
     pool: Option[(String, Rating)])
 
   private def mkRatings(perfs: Perfs, poolId: Option[String]) = new Ratings(
@@ -77,7 +77,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     kingOfTheHill = perfs.kingOfTheHill.toRating,
     bullet = perfs.bullet.toRating,
     blitz = perfs.blitz.toRating,
-    slow = perfs.slow.toRating,
+    classical = perfs.classical.toRating,
     pool = poolId map (id => id -> perfs.pool(id).toRating))
 
   private def resultOf(game: Game): Glicko.Result =
@@ -102,7 +102,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     }
   }
 
-  private val slowSpeeds: Set[Speed] = Set(Speed.Slow, Speed.Unlimited)
+  private val classicalSpeeds: Set[Speed] = Set(Speed.Classical, Speed.Unlimited)
 
   private def mkPerfs(ratings: Ratings, perfs: Perfs, game: Game): Perfs = {
     val speed = game.speed
@@ -113,7 +113,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
       kingOfTheHill = game.variant.kingOfTheHill.fold(perfs.kingOfTheHill add ratings.kingOfTheHill, perfs.kingOfTheHill),
       bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet add ratings.bullet, perfs.bullet),
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz add ratings.blitz, perfs.blitz),
-      slow = (isStd && slowSpeeds(speed)).fold(perfs.slow add ratings.slow, perfs.slow))
+      classical = (isStd && classicalSpeeds(speed)).fold(perfs.classical add ratings.classical, perfs.classical))
     ratings.pool.fold(perfs1) {
       case (id, poolRating) => perfs1.copy(
         pools = perfs1.pools + (id -> perfs.pool(id).add(poolRating))

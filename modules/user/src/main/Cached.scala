@@ -30,7 +30,7 @@ final class Cached(
   val topRating = AsyncCache(UserRepo.topRating, timeToLive = 30 minutes)
   val topBullet = AsyncCache(UserRepo.topBullet, timeToLive = 31 minutes)
   val topBlitz = AsyncCache(UserRepo.topBlitz, timeToLive = 32 minutes)
-  val topSlow = AsyncCache(UserRepo.topSlow, timeToLive = 33 minutes)
+  val topClassical = AsyncCache(UserRepo.topClassical, timeToLive = 33 minutes)
   val topNbGame = AsyncCache(UserRepo.topNbGame, timeToLive = 34 minutes)
 
   val topPool = AsyncCache(

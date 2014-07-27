@@ -8,7 +8,7 @@ case class History(
   kingOfTheHill: RatingsMap,
   bullet: RatingsMap,
   blitz: RatingsMap,
-  slow: RatingsMap,
+  classical: RatingsMap,
   puzzle: RatingsMap,
   pools: Map[String, RatingsMap])
 
@@ -35,7 +35,7 @@ object History {
         kingOfTheHill = ratingsMap("kingOfTheHill"),
         bullet = ratingsMap("bullet"),
         blitz = ratingsMap("blitz"),
-        slow = ratingsMap("slow"),
+        classical = ratingsMap("classical"),
         puzzle = ratingsMap("puzzle"),
         pools = doc.getAs[Map[String, RatingsMap]]("pools") | Map.empty)
     }

@@ -12,7 +12,7 @@ case class Perfs(
     kingOfTheHill: Perf,
     bullet: Perf,
     blitz: Perf,
-    slow: Perf,
+    classical: Perf,
     puzzle: Perf,
     pools: Map[String, Perf]) {
 
@@ -22,7 +22,7 @@ case class Perfs(
     "kingOfTheHill" -> kingOfTheHill,
     "bullet" -> bullet,
     "blitz" -> blitz,
-    "slow" -> slow,
+    "classical" -> classical,
     "puzzle" -> puzzle) ::: pools.toList.map {
       case (id, perf) => s"$id pool" -> perf
     }
@@ -46,7 +46,7 @@ case object Perfs {
   val names = Map(
     "bullet" -> "Bullet",
     "blitz" -> "Blitz",
-    "slow" -> "Classical",
+    "classical" -> "Classical",
     "standard" -> "Standard",
     "chess960" -> "Chess960",
     "kingOfTheHill" -> "King Of The Hill",
@@ -55,7 +55,7 @@ case object Perfs {
   val titles = Map(
     "bullet" -> "Very fast games: less than 3 minutes",
     "blitz" -> "Fast games: less than 8 minutes",
-    "slow" -> "Slow games: more than 8 minutes",
+    "classical" -> "Classical games: more than 8 minutes",
     "standard" -> "Standard rules of chess",
     "chess960" -> "Chess960 variant",
     "kingOfTheHill" -> "King Of The Hill variant",
@@ -71,7 +71,7 @@ case object Perfs {
   def speedLens(speed: Speed): Perfs => Perf = speed match {
     case Speed.Bullet                 => perfs => perfs.bullet
     case Speed.Blitz                  => perfs => perfs.blitz
-    case Speed.Slow | Speed.Unlimited => perfs => perfs.slow
+    case Speed.Classical | Speed.Unlimited => perfs => perfs.classical
   }
 
   def poolLens(poolId: Option[String]): Perfs => Option[Perf] =
@@ -90,7 +90,7 @@ case object Perfs {
         kingOfTheHill = perf("kingOfTheHill"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
-        slow = perf("slow"),
+        classical = perf("classical"),
         puzzle = perf("puzzle"),
         pools = r.getO[Map[String, Perf]]("pools") getOrElse Map.empty)
     }
@@ -103,7 +103,7 @@ case object Perfs {
       "kingOfTheHill" -> notNew(o.kingOfTheHill),
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
-      "slow" -> notNew(o.slow),
+      "classical" -> notNew(o.classical),
       "puzzle" -> notNew(o.puzzle),
       "pools" -> o.pools.flatMap {
         case (k, r) => notNew(r) map (k -> _)

@@ -36,7 +36,7 @@ trait UserRepo {
 
   def topBullet = topPerf("bullet") _
   def topBlitz = topPerf("blitz") _
-  def topSlow = topPerf("slow") _
+  def topClassical = topPerf("classical") _
 
   def topPerf(perf: String)(nb: Int): Fu[List[User]] =
     $find($query(stableGoodLadSelect) sort ($sort desc s"perfs.$perf.gl.r"), nb)
@@ -105,7 +105,7 @@ trait UserRepo {
       "kingOfTheHill" -> (_.kingOfTheHill),
       "bullet" -> (_.bullet),
       "blitz" -> (_.blitz),
-      "slow" -> (_.slow),
+      "classical" -> (_.classical),
       "puzzle" -> (_.puzzle))
     val poolLenses: PerfLenses = perfs.pools.keys.toList.map { k =>
       s"pools.$k" -> ((ps: Perfs) => ps pool k)
