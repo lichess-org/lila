@@ -59,12 +59,9 @@ div.sub_ratings h3 {
   font-weight: bold;
 }
 div.user_show .rating_history {
-  position: absolute;
-  top: -10px;
-  left: -15px;
-  display: block;
-  width: 479px;
-  height: 350px;
+  margin-left: -15px;
+  width: 100%;
+  height: 250px;
 }
 div.user_show .rating_history span {
   position: absolute;
@@ -72,9 +69,6 @@ div.user_show .rating_history span {
   left: 232px;
 }
 div.user_show .user-infos {
-  position: absolute;
-  top: 0;
-  left: 449px;
   padding: 0 16px;
   border-left: 1px solid #c0c0c0;
   overflow: hidden;

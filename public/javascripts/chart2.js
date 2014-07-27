@@ -35,15 +35,17 @@ $(function() {
       title: noText,
       xAxis: {
         type: 'datetime',
-        labels: disabled,
-        lineWidth: 0,
-        tickWidth: 0,
-        gridLineWidth: 0
+        labels: {
+          enabled: true
+        },
+        lineWidth: 1,
+        tickWidth: 1,
+        gridLineWidth: 1
       },
       yAxis: {
-        gridLineWidth: 0,
+        gridLineWidth: 1,
         labels: {
-          enabled: false,
+          enabled: true,
           x: 0,
           style: {
             font: Highcharts.makeFont(10),
@@ -66,7 +68,7 @@ $(function() {
           }
         }
       },
-      series: _.map($(this).data('series'), function(serie) {
+      series: _.map(lichess_rating_series, function(serie) {
         return {
           name: serie.name,
           type: 'line',

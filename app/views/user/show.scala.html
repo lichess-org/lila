@@ -6,6 +6,9 @@
 @highchartsTag
 @highchartsMoreTag
 @jsTagCompiled("chart2.js")
+@info.ratingChart.map { ratingChart =>
+@embedJs(s"var lichess_rating_series = $ratingChart;")
+}
 }
 
 @showPerf(name: String, perf: lila.rating.Perf) = {
@@ -27,6 +30,10 @@
   @showPerf("standard", u.perfs.standard)
   @showPerf("chess960", u.perfs.chess960)
   <br />
+  @showPerf("bullet", u.perfs.bullet)
+  @showPerf("blitz", u.perfs.blitz)
+  @showPerf("slow", u.perfs.slow)
+  <br />
   @u.perfs.pools.toList.sortBy(_._1).map {
   case (id, perf) => {
   @poolSetups.get(id).map { setup =>
@@ -37,10 +44,6 @@
   @if(u.perfs.pools.nonEmpty) {
   <br />
   }
-  @showPerf("bullet", u.perfs.bullet)
-  @showPerf("blitz", u.perfs.blitz)
-  @showPerf("slow", u.perfs.slow)
-  <br />
   @showPerf("puzzle", u.perfs.puzzle)
 </div>
 }
@@ -139,7 +142,7 @@ openGraph = Map(
   <div class="mod_zone"></div>
   <div class="meat">
     @info.ratingChart.map { ratingChart =>
-    <div class="rating_history" title="Rating history" data-series="@ratingChart">
+    <div class="rating_history" title="Rating history">
       <span>Chart loading&#8230;</span>
     </div>
     }

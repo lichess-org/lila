@@ -43,25 +43,4 @@ final class HistoryApi(coll: Coll) {
 
   def get(userId: String): Fu[Option[History]] =
     coll.find(BSONDocument("_id" -> userId)).one[History]
-
-  // def set(userId: String, history: Iterable[HistoryEntry]): Funit =
-  //   coll.insert(BSONDocument(
-  //     "_id" -> userId,
-  //     "e" -> BSONArray(history map write)
-  //   )).void
-
-  // def addEntry(userId: String, entry: HistoryEntry): Funit =
-  //   coll.update(
-  //     BSONDocument("_id" -> userId),
-  //     BSONDocument("$push" -> BSONDocument("e" -> write(entry))),
-  //     upsert = true).void
-
-  // def create(perfs: Perfs) = coll.insert(BSONDocument(
-  //     "_id" -> user.id,
-  //     "e" -> BSONArray(write(HistoryEntry(
-  //       DateTime.now,
-  //       user.perfs.global.glicko.intRating,
-  //       user.perfs.global.glicko.intDeviation,
-  //       Glicko.default.intRating)))
-  //   )).void
 }

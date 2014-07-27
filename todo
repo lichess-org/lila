@@ -1,1 +1,5 @@
 the todo list has moved to https://etherpad.mozilla.org/ep/pad/view/ro.3bIwxJwTQYW/latest
+
+deploy
+
+db.user4.dropIndex("progress_-1_enabled_1_perfs.global.nb_1")
