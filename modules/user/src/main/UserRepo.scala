@@ -96,10 +96,32 @@ trait UserRepo {
 
   def lichess = byId("lichess")
 
-  def setPerfs(user: User, perfs: Perfs) = $update($select(user.id), $setBson(
-    F.perfs -> Perfs.tube.handler.write(perfs),
-    F.rating -> BSONInteger(user.engine.fold(Glicko.default, perfs.standard.glicko).intRating)
-  ))
+  private type PerfLenses = List[(String, Perfs => Perf)]
+
+  def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
+    val baseLenses: PerfLenses = List(
+      "standard" -> (_.standard),
+      "chess960" -> (_.chess960),
+      "kingOfTheHill" -> (_.kingOfTheHill),
+      "bullet" -> (_.bullet),
+      "blitz" -> (_.blitz),
+      "slow" -> (_.slow),
+      "puzzle" -> (_.puzzle))
+    val poolLenses: PerfLenses = perfs.pools.toList.map {
+      case (k, p) => s"pools.$k" -> ((_: Perfs) => p)
+    }
+    val lenses = baseLenses ::: poolLenses
+    val diff = lenses.flatMap {
+      case (name, lens) =>
+        lens(perfs).nb > lens(prev).nb option {
+          s"perfs.$name" -> Perf.perfBSONHandler.write(lens(perfs))
+        }
+    }
+    val setter = BSONDocument(diff) ++ BSONDocument(
+      F.rating -> BSONInteger(user.engine.fold(Glicko.default, perfs.standard.glicko).intRating)
+    )
+    $update($select(user.id), BSONDocument("$set" -> setter))
+  }
 
   def setPerf(userId: String, perfName: String, perf: Perf) = $update($select(userId), $setBson(
     s"${F.perfs}.$perfName" -> Perf.perfBSONHandler.write(perf)

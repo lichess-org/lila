@@ -16,7 +16,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
   private val TAU = 0.75d
   private val system = new RatingCalculator(VOLATILITY, TAU)
 
-  def save(game: Game, white: User, black: User): Funit =
+  def save(game: Game, white: User, black: User, resetGameRatings: Boolean = false): Funit =
     PerfPicker.main(game) ?? { mainPerf =>
       (game.rated && game.finished && game.accountable && !white.engine && !black.engine) ?? {
         val ratingsW = mkRatings(white.perfs, game.poolId)
@@ -47,11 +47,16 @@ final class PerfsUpdater(historyApi: HistoryApi) {
         val perfsW = mkPerfs(ratingsW, white.perfs, game)
         val perfsB = mkPerfs(ratingsB, black.perfs, game)
         def intRatingLens(perfs: Perfs) = mainPerf(perfs).glicko.intRating
-        GameRepo.setRatingDiffs(game.id,
-          intRatingLens(perfsW) - intRatingLens(white.perfs),
-          intRatingLens(perfsB) - intRatingLens(black.perfs)) zip
-          UserRepo.setPerfs(white, perfsW) zip
-          UserRepo.setPerfs(black, perfsB) zip
+        resetGameRatings.fold(
+          GameRepo.setRatingAndDiffs(game.id,
+            intRatingLens(white.perfs) -> (intRatingLens(perfsW) - intRatingLens(white.perfs)),
+            intRatingLens(black.perfs) -> (intRatingLens(perfsB) - intRatingLens(black.perfs))),
+          GameRepo.setRatingDiffs(game.id,
+            intRatingLens(perfsW) - intRatingLens(white.perfs),
+            intRatingLens(perfsB) - intRatingLens(black.perfs))
+        ) zip
+          UserRepo.setPerfs(white, perfsW, white.perfs) zip
+          UserRepo.setPerfs(black, perfsB, black.perfs) zip
           historyApi.add(white, game, perfsW) zip
           historyApi.add(black, game, perfsB)
       }.void

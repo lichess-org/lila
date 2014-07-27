@@ -86,15 +86,19 @@ case object Perfs {
         pools = r.getO[Map[String, Perf]]("pools") getOrElse Map.empty)
     }
 
+    private def notNew(p: Perf) = p.nb > 0 option p
+
     def writes(w: BSON.Writer, o: Perfs) = BSONDocument(
-      "standard" -> o.standard,
-      "chess960" -> o.chess960,
-      "koth" -> o.kingOfTheHill,
-      "bullet" -> o.bullet,
-      "blitz" -> o.blitz,
-      "slow" -> o.slow,
-      "puzzle" -> o.puzzle,
-      "pools" -> o.pools)
+      "standard" -> notNew(o.standard),
+      "chess960" -> notNew(o.chess960),
+      "koth" -> notNew(o.kingOfTheHill),
+      "bullet" -> notNew(o.bullet),
+      "blitz" -> notNew(o.blitz),
+      "slow" -> notNew(o.slow),
+      "puzzle" -> notNew(o.puzzle),
+      "pools" -> o.pools.flatMap {
+        case (k, r) => notNew(r) map (k -> _)
+      }.toMap)
   }
 
   lazy val tube = lila.db.BsTube(PerfsBSONHandler)

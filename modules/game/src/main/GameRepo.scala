@@ -102,6 +102,14 @@ trait GameRepo {
       s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(white),
       s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(black))))
 
+  // used by RatingFest
+  def setRatingAndDiffs(id: ID, white: (Int, Int), black: (Int, Int)) =
+    $update($select(id), BSONDocument("$set" -> BSONDocument(
+      s"${F.whitePlayer}.${Player.BSONFields.rating}" -> BSONInteger(white._1),
+      s"${F.blackPlayer}.${Player.BSONFields.rating}" -> BSONInteger(black._1),
+      s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(white._2),
+      s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(black._2))))
+
   def setUsers(id: ID, white: Option[(String, Int)], black: Option[(String, Int)]) =
     if (white.isDefined || black.isDefined) $update($select(id), BSONDocument("$set" -> BSONDocument(
       s"${F.whitePlayer}.${Player.BSONFields.rating}" -> white.map(_._2).map(BSONInteger.apply),
