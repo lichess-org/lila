@@ -41,6 +41,7 @@ final class Env(
     val ActorName = config getString "actor.name"
     val HijackSalt = config getString "hijack.salt"
     val CollectionReminder = config getString "collection.reminder"
+    val CasualOnly = config getBoolean "casual_only"
   }
   import settings._
 
@@ -92,7 +93,7 @@ final class Env(
     hijack = hijack,
     bus = system.lilaBus)
 
-  private lazy val perfsUpdater = new PerfsUpdater(historyApi)
+  lazy val perfsUpdater = new PerfsUpdater(historyApi)
 
   private lazy val finisher = new Finisher(
     messenger = messenger,
@@ -100,7 +101,8 @@ final class Env(
     aiPerfApi = aiPerfApi,
     crosstableApi = crosstableApi,
     reminder = reminder,
-    bus = system.lilaBus)
+    bus = system.lilaBus,
+    casualOnly = CasualOnly)
 
   private lazy val rematcher = new Rematcher(
     messenger = messenger,

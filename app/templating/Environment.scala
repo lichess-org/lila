@@ -60,6 +60,10 @@ object Environment
 
   lazy val poolSetups = Env.pool.setups
 
+  def globalCasualOnlyMessage = Env.setup.CasualOnly option {
+    "Due to temporary maintenance on the servers, only casual games are available."
+  }
+
   def reportNbUnprocessed(implicit ctx: lila.api.Context): Int =
     isGranted(_.SeeReport) ?? lila.report.Env.current.api.nbUnprocessed.await
 }

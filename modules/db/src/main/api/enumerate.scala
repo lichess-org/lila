@@ -18,7 +18,7 @@ object $enumerate {
     }
 
   def over[A: TubeInColl](query: QueryBuilder, limit: Int = Int.MaxValue)(op: A => Funit): Funit =
-    query.cursor[Option[A]].enumerate(limit) run {
+    query.cursor[Option[A]].enumerate(limit, false) run {
       Iteratee.foldM(()) {
         case (_, Some(obj)) => op(obj)
         case _              => funit

@@ -10,7 +10,7 @@ import lila.history.HistoryApi
 import lila.rating.{ Glicko, Perf }
 import lila.user.{ UserRepo, User, Perfs }
 
-private final class PerfsUpdater(historyApi: HistoryApi) {
+final class PerfsUpdater(historyApi: HistoryApi) {
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU = 0.75d

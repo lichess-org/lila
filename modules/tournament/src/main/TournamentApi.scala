@@ -58,7 +58,7 @@ private[tournament] final class TournamentApi(
         clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
         minutes = setup.minutes,
         minPlayers = setup.minPlayers,
-        mode = Mode orDefault setup.mode,
+        mode = setup.mode.fold(Mode.default)(Mode.orDefault),
         password = setup.password,
         system = System orDefault setup.system,
         variant = Variant orDefault setup.variant)

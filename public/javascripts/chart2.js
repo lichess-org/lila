@@ -30,7 +30,8 @@ $(function() {
   $('div.rating_history').each(function() {
     $(this).highcharts(mergeDefaults({
       chart: {},
-      colors: theme.light ? ['#0000ff', '#0000ff', theme.colors[3], '#909090'] : ['#4444ff', '#4444ff', theme.colors[3], '#707070'],
+      // colors: theme.light ? ['#0000ff', '#0000ff', theme.colors[3], '#909090'] : ['#4444ff', '#4444ff', theme.colors[3], '#707070'],
+      colors: theme.colors,
       title: noText,
       xAxis: {
         type: 'datetime',
@@ -52,9 +53,9 @@ $(function() {
       },
       plotOptions: {
         line: {
-          lineWidth: 2,
+          lineWidth: 1,
           marker: {
-            enabled: false,
+            enabled: true,
             symbol: 'circle',
             radius: 2,
             states: {

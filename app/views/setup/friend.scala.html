@@ -13,7 +13,9 @@
 @setup.clock(form, lila.setup.FriendConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
+  @globalCasualOnlyMessage.getOrElse {
   @setup.radios(form("mode"), translatedModeChoices)
+  }
 </div>
 }
 }

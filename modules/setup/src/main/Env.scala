@@ -19,7 +19,9 @@ final class Env(
   private val CollectionAnonConfig = config getString "collection.anon_config"
   private val ChallengerName = config getString "challenger.name"
 
-  lazy val forms = new FormFactory
+  val CasualOnly = config getBoolean "casual_only"
+
+  lazy val forms = new FormFactory(CasualOnly)
 
   def filter(implicit ctx: UserContext): Fu[FilterConfig] =
     ctx.me.fold(AnonConfigRepo filter ctx.req)(UserConfigRepo.filter)

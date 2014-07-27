@@ -37,7 +37,7 @@ final class DataForm(isDev: Boolean) {
     "minPlayers" -> numberIn(minPlayerChoices),
     "system" -> number.verifying(Set(System.Arena.id, System.Swiss.id) contains _),
     "variant" -> number.verifying(Set(Variant.Standard.id, Variant.Chess960.id) contains _),
-    "mode" -> number.verifying(Mode.all map (_.id) contains _),
+    "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
     "password" -> optional(nonEmptyText)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
@@ -50,7 +50,7 @@ final class DataForm(isDev: Boolean) {
     system = System.default.id,
     variant = Variant.Standard.id,
     password = none,
-    mode = Mode.Casual.id)
+    mode = Mode.Casual.id.some)
 
   lazy val joinPassword = Form(single(
     "password" -> nonEmptyText
@@ -64,7 +64,7 @@ private[tournament] case class TournamentSetup(
     minPlayers: Int,
     system: Int,
     variant: Int,
-    mode: Int,
+    mode: Option[Int],
     password: Option[String]) {
 
   def validClock = (clockTime + clockIncrement) > 0

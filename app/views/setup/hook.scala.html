@@ -10,7 +10,9 @@
 @setup.clock(form, lila.setup.HookConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
+  @globalCasualOnlyMessage.getOrElse {
   @setup.radios(form("mode"), translatedModeChoices)
+  }
 </div>
 <div class="range_and_members optional_config">
   @if(ctx.isAuth) {

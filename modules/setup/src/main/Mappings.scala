@@ -14,10 +14,10 @@ object Mappings {
   val variantWithFenAndKoth = number.verifying(Config.variantsWithFenAndKoth contains _)
   val time = number.verifying(HookConfig validateTime _)
   val increment = number.verifying(HookConfig validateIncrement _)
-  def mode(isAuth: Boolean) = optional(rawMode(isAuth))
-  def rawMode(isAuth: Boolean) = number
+  def mode(withRated: Boolean) = optional(rawMode(withRated))
+  def rawMode(withRated: Boolean) = number
     .verifying(HookConfig.modes contains _)
-    .verifying(m => m == Mode.Casual.id || isAuth)
+    .verifying(m => m == Mode.Casual.id || withRated)
   val ratingRange = nonEmptyText.verifying(RatingRange valid _)
   val color = nonEmptyText.verifying(Color.names contains _)
   val level = number.verifying(AiConfig.levels contains _)

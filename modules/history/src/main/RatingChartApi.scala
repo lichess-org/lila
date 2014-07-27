@@ -47,7 +47,7 @@ final class RatingChartApi(historyApi: HistoryApi, cacheTtl: Duration) {
           ratingsMapToJson("Bullet", history.bullet),
           ratingsMapToJson("Blitz", history.blitz),
           ratingsMapToJson("Classical", history.slow)
-        ).flatten.pp)
+        ).flatten)
       }
     }
   }

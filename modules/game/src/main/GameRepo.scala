@@ -78,6 +78,13 @@ trait GameRepo {
     $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc F.createdAt)
   )
 
+  def unrate(gameId: String) =
+    $update($select(gameId), BSONDocument("$unset" -> BSONDocument(
+      F.rated -> true,
+      s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> true,
+      s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> true
+    )))
+
   def save(progress: Progress): Funit =
     GameDiff(progress.origin, progress.game) |> {
       case (Nil, Nil) => funit

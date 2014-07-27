@@ -18,7 +18,8 @@ private[round] final class Finisher(
     aiPerfApi: lila.ai.AiPerfApi,
     crosstableApi: lila.game.CrosstableApi,
     reminder: Reminder,
-    bus: lila.common.Bus) {
+    bus: lila.common.Bus,
+    casualOnly: Boolean) {
 
   def apply(
     game: Game,
@@ -26,21 +27,25 @@ private[round] final class Finisher(
     winner: Option[Color] = None,
     message: Option[SelectI18nKey] = None): Fu[Events] = {
     val prog = game.finish(status(Status), winner)
-    val g = prog.game
-    (GameRepo save prog) >>
-      GameRepo.finish(g.id, winner, winner flatMap (g.player(_).userId)) >>
-      UserRepo.pair(
-        g.player(White).userId,
-        g.player(Black).userId).flatMap {
-          case (whiteO, blackO) => {
-            val finish = FinishGame(g, whiteO, blackO)
-            updateCountAndPerfs(finish) inject {
-              message foreach { messenger.system(g, _) }
-              bus.publish(finish, 'finishGame)
-              prog.events
-            }
-          }
-        } >>- (reminder remind g)
+    casualOnly.fold(
+      GameRepo unrate prog.game.id inject prog.game.copy(mode = chess.Mode.Casual),
+      fuccess(prog.game)
+    ) flatMap { g =>
+        (GameRepo save prog) >>
+          GameRepo.finish(g.id, winner, winner flatMap (g.player(_).userId)) >>
+          UserRepo.pair(
+            g.whitePlayer.userId,
+            g.blackPlayer.userId).flatMap {
+              case (whiteO, blackO) => {
+                val finish = FinishGame(g, whiteO, blackO)
+                updateCountAndPerfs(finish) inject {
+                  message foreach { messenger.system(g, _) }
+                  bus.publish(finish, 'finishGame)
+                  prog.events
+                }
+              }
+            } >>- (reminder remind g)
+      }
   }
 
   private def updateCountAndPerfs(finish: FinishGame): Funit =

@@ -9,7 +9,7 @@ import play.api.data._
 import play.api.data.Forms._
 import tube.{ userConfigTube, anonConfigTube }
 
-private[setup] final class FormFactory {
+private[setup] final class FormFactory(casualOnly: Boolean) {
 
   import Mappings._
 
@@ -19,7 +19,7 @@ private[setup] final class FormFactory {
   def filter(ctx: UserContext) = Form(
     mapping(
       "variant" -> list(variant),
-      "mode" -> list(rawMode(true)),
+      "mode" -> list(rawMode(withRated = true)),
       "speed" -> list(speed),
       "ratingRange" -> ratingRange
     )(FilterConfig.<<)(_.>>)
@@ -62,7 +62,7 @@ private[setup] final class FormFactory {
       "clock" -> boolean,
       "time" -> time,
       "increment" -> increment,
-      "mode" -> mode(ctx.isAuth),
+      "mode" -> mode(withRated = ctx.isAuth && !casualOnly),
       "color" -> color,
       "fen" -> fen
     )(FriendConfig.<<)(_.>>)
@@ -81,7 +81,7 @@ private[setup] final class FormFactory {
       "clock" -> boolean,
       "time" -> time,
       "increment" -> increment,
-      "mode" -> mode(ctx.isAuth),
+      "mode" -> mode(ctx.isAuth && !casualOnly),
       "membersOnly" -> boolean,
       "ratingRange" -> optional(ratingRange),
       "color" -> nonEmptyText.verifying(Color.names contains _)
