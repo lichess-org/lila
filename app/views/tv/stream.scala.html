@@ -4,6 +4,7 @@
 
 @moreCss = {
 @cssTag("stream.css")
+@cssTag("tv.css")
 }
 
 @side = {
@@ -26,8 +27,8 @@
   case _ => {
   }
   }
-  <div class="box">
-    <h2 data-icon="1">&nbsp;Lichess TV</h2>
+  <div class="side_box padded for_selector">
+    <h2 data-icon="1" class="top">&nbsp;Lichess TV</h2>
     <div id="tv_selector">
       <p><span class="current" data-icon="G">&nbsp;@s.name</span></p>
       @others.map { other =>

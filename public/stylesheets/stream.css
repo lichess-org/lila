@@ -1,8 +1,17 @@
-#side_header {
-  width: 300px;
-}
 #lichess {
   margin-left: 311px;
+}
+div.side_box.for_selector {
+  width: 312px;
+}
+div.side_box.for_selector .top {
+  padding-bottom: 10px;
+}
+#tv_selector p {
+  margin: 10px 10px;
+}
+#tv_selector .current {
+  font-weight: bold;
 }
 .stream_title {
   font-size: 2em;
