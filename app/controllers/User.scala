@@ -95,7 +95,7 @@ object User extends LilaController {
     Reasonable(page) {
       val nb = 10
       for {
-        progressDay ← fuccess(Nil)
+        pool10 ← env.cached topPool1_0 nb
         tourneyWinners ← Env.tournament.winners scheduled nb
         toint <- env.cached topToints nb
         rating ← env.cached topRating nb
@@ -115,7 +115,7 @@ object User extends LilaController {
           UserRepo.byOrderedIds(pairs.map(_._1)) map (_ zip pairs.map(_._2))
         }
       } yield html.user.list(
-        progressDay = progressDay,
+        pool10 = pool10,
         tourneyWinners = tourneyWinners,
         toint = toint,
         rating = rating,

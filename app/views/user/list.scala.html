@@ -1,4 +1,4 @@
-@(progressDay: List[User], tourneyWinners: List[lila.tournament.Winner], toint: List[User], rating: List[User], ratingDay: List[User], ratingWeek: List[User], online: List[User], bullet: List[User], blitz: List[User], classical: List[User], nb: List[(User, Int)], nbDay: List[(User, Int)], nbWeek: List[(User, Int)])(implicit ctx: Context)
+@(pool10: List[User], tourneyWinners: List[lila.tournament.Winner], toint: List[User], rating: List[User], ratingDay: List[User], ratingWeek: List[User], online: List[User], bullet: List[User], blitz: List[User], classical: List[User], nb: List[(User, Int)], nbDay: List[(User, Int)], nbWeek: List[(User, Int)])(implicit ctx: Context)
 
 @side = {
 <div class="side">
@@ -31,7 +31,7 @@
   <div class="user_lists">
 
     <div class="group">
-      @user.topLeader(progressDay, trans.progressToday(), icon = "Q".some)
+      @user.topLeader(pool10, "1+0 Pool leaderboard", icon = "8".some)
       @user.topLeader(ratingDay, trans.todaysLeaders(), icon = "C".some)
       @user.topActive(nbDay, trans.activeToday(), true, icon = "T".some)
     </div>

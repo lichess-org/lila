@@ -52,7 +52,7 @@ drop me an email at thibault.duplessis@gmail.com, and we'll discuss it.
 {
   "username": "thibault",
   "url": "http://lichess.org/@/thibault",   // profile url
-  "rating": 1503,                           // global Glicko2 rating
+  "rating": 1503,                           // standard Glicko2 rating
   "progress": 36,                           // rating change over the last ten games
   "online": true,                           // is the player currently using lichess?
   "playing": "http://lichess.org/abcdefgh", // game being played, if any
@@ -93,7 +93,7 @@ name | type | default | description
     {
       "username": "thibault",
       "url": "http://lichess.org/@/thibault",   // profile url
-      "rating": 1503,                           // global Glicko2 rating
+      "rating": 1503,                           // standard Glicko2 rating
       "progress": 36,                           // rating change over the last ten games
       "online": true,                           // is the player currently using lichess?
       "engine": false                           // true if the user is known to use a chess engine

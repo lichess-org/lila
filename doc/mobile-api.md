@@ -186,7 +186,7 @@ Set-Cookie: lila2="3b5cc8c80f0af258a31dc4fd1b5381cabe7388c7-sessionId=80q7V5stkK
     "id": "thibault",
     "username": "thibault"
     "title": null,
-    "rating": 1438, // shortcut to global perf rating
+    "rating": 1438, // shortcut to standard perf rating
     "progress": -55, // rating progress over last 10 games
     "count": { // number of games played
         "ai": 256,
