@@ -38,5 +38,5 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
     </div>
   </div>
 </div>
-@embedJs("var _ld_ = " + roundPlayerJsData(pov, version, ctx.pref, apiVersion))
+@embedJs("var _ld_ = " + roundWatcherJsData(pov, version, false, ctx.pref))
 }
