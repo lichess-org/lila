@@ -36,6 +36,12 @@ $(function() {
         display: 'none'
       }
     },
+    xAxis: {
+      title: noText,
+      labels: disabled,
+      lineWidth: 0,
+      tickWidth: 0
+    },
     scrollbar: disabled,
     series: _.map(lichess_rating_series, function(serie) {
       return {
