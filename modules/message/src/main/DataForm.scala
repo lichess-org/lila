@@ -10,11 +10,11 @@ private[message] final class DataForm(blocks: (String, String) => Fu[Boolean]) {
   import DataForm._
 
   def thread(me: User) = Form(mapping(
-    "username" -> nonEmptyText
+    "username" -> nonEmptyText(maxLength = 20)
       .verifying("Unknown username", { fetchUser(_).isDefined })
       .verifying("This user blocks you", canMessage(me) _),
-    "subject" -> text(minLength = 3),
-    "text" -> text(minLength = 3)
+    "subject" -> text(minLength = 3, maxLength = 100),
+    "text" -> text(minLength = 3, maxLength = 8000)
   )({
       case (username, subject, text) => ThreadData(
         user = fetchUser(username) err "Unknown username " + username,
