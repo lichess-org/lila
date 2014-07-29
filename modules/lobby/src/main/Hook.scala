@@ -1,12 +1,12 @@
 package lila.lobby
 
-import chess.{ Variant, Mode, Clock }
+import chess.{ Variant, Mode, Clock, Speed }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 
 import lila.rating.RatingRange
-import lila.user.User
+import lila.user.{ User, Perfs }
 
 case class Hook(
     id: String,
@@ -52,7 +52,9 @@ case class Hook(
   def userId = user map (_.id)
   def isMember = user.nonEmpty
   def username = user.fold(User.anonymous)(_.username)
-  def rating = user map (_.rating)
+  def rating = user map { u =>
+    Perfs.speedLens(speed)(u.perfs).intRating
+  }
   def engine = user ?? (_.engine)
 
   def render: JsObject = Json.obj(
@@ -71,7 +73,9 @@ case class Hook(
     "color" -> chess.Color(color).??(_.name),
     "engine" -> engine)
 
-  private def clockOption = (time filter (_ => hasClock)) |@| increment apply Clock.apply
+  private def clockOption = (time ifTrue hasClock) |@| increment apply Clock.apply
+
+  private def speed = Speed(clockOption)
 
   private def renderClock(time: Int, inc: Int) = "%d + %d".format(time / 60, inc)
 }
