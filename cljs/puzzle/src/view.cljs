@@ -65,7 +65,7 @@
 (defn switch-class! [$elem klass switch]
   ((if switch jq/add-class jq/remove-class) $elem klass))
 
-(defn update-fen-links! [fen]
+(defn update-fen-links! [fen $puzzle]
   (doseq [link ($ :a.fen_link $puzzle)]
     (let [href1 (jq/attr ($ link) :href)
           href2 (clojure.string/replace href1 #"fen=[^#]*(#.+)?$" #(str "fen=" fen %2))]
@@ -102,7 +102,7 @@
           (switch-class! $last :disabled is-last)
           (.position chessboard fen animate)
           (.load core/chess fen)
-          (update-fen-links! fen)
+          (update-fen-links! fen $puzzle)
           (core/color-move! $puzzle move)
           (<! (timeout (+ 50 animation-delay)))
           (let [[browse ch] (alts! [browse-chan continue-chan])]
