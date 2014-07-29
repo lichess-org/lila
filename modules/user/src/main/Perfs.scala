@@ -49,7 +49,7 @@ case object Perfs {
     "classical" -> "Classical",
     "standard" -> "Standard",
     "chess960" -> "Chess960",
-    "kingOfTheHill" -> "King Of The Hill",
+    "kingOfTheHill" -> "King of the Hill",
     "puzzle" -> "Training")
 
   val titles = Map(
@@ -58,7 +58,7 @@ case object Perfs {
     "classical" -> "Classical games: more than 8 minutes",
     "standard" -> "Standard rules of chess",
     "chess960" -> "Chess960 variant",
-    "kingOfTheHill" -> "King Of The Hill variant",
+    "kingOfTheHill" -> "King of the Hill variant",
     "puzzle" -> "Training puzzles")
 
   def variantLens(variant: Variant): Option[Perfs => Perf] = variant match {

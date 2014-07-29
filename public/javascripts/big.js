@@ -2630,7 +2630,7 @@ var storage = {
 
     function confirmKotH(hook) {
       if (hook.variant == "KingOfTheHill" && hook.action == "join" && !storage.get('koth')) {
-        var c = confirm("This is a King Of The Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://www.chessvariants.org/diffobjective.dir/center_of_attention.html");
+        var c = confirm("This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill");
         if (c) storage.set('koth', 1);
         return c;
       } else return true;
