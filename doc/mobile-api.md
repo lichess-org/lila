@@ -4,12 +4,14 @@ All requests must contain the `Accept: "application/vnd.lichess.v1+json"` header
 
 ## Create a game
 
+### With A.I.
+
 ```sh
 http --form POST en.l.org/setup/ai variant=1 clock=false time=60 increment=60 level=3 color=random 'Accept:application/vnd.lichess.v1+json'
 ```
 - level: 1 to 8
-- color: white|black|random
-- variant: 1 (standard) | 2 (chess960) | 3 (from position)
+- color: white | black | random
+- variant: 1 (standard) | 2 (chess960) | 3 (from position) | 4 (KotH)
 - fen: if variant is 3, any valid FEN string
 
 Response: `201 CREATED`
@@ -73,6 +75,25 @@ Response: `201 CREATED`
   "tournamentId": null
 }
 ```
+
+### Seek for human opponent
+
+```sh
+http --form POST en.l.org/setup/hook/{uid} variant=1 clock=false time=60 increment=60 mode=casual 'Accept:application/vnd.lichess.v1+json'
+```
+- uid: random, unique, persistent client ID - to be created by, and persisted on, the client
+  implementation example: `Math.random().toString(36).substring(2)`
+- variant: 1 (standard) | 2 (chess960) | 3 (from position) | 4 (KotH)
+- mode: casual | rated
+
+Response: `200 OK`
+```
+ok
+```
+
+Now you're waiting for someone to accept the seek. The response will come as a socket message.
+
+#### FIXME - document lobby socket
 
 ## Fetch a game as a player (POV)
 
