@@ -22,4 +22,6 @@ object Page extends LilaController {
   def streamHowTo = page("stream-howto")
 
   def contact = page("contact")
+
+  def kingOfTheHill = page("king-of-the-hill")
 }
