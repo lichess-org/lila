@@ -23,8 +23,6 @@ final class PerfsUpdater(historyApi: HistoryApi) {
         val ratingsB = mkRatings(black.perfs, game.poolId)
         val result = resultOf(game)
         game.variant match {
-          case chess.Variant.Standard =>
-            updateRatings(ratingsW.standard, ratingsB.standard, result, system)
           case chess.Variant.Chess960 =>
             updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
           case chess.Variant.KingOfTheHill =>
@@ -63,7 +61,6 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     }
 
   private final case class Ratings(
-    standard: Rating,
     chess960: Rating,
     kingOfTheHill: Rating,
     bullet: Rating,
@@ -72,7 +69,6 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     pool: Option[(String, Rating)])
 
   private def mkRatings(perfs: Perfs, poolId: Option[String]) = new Ratings(
-    standard = perfs.standard.toRating,
     chess960 = perfs.chess960.toRating,
     kingOfTheHill = perfs.kingOfTheHill.toRating,
     bullet = perfs.bullet.toRating,
@@ -109,15 +105,15 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     val isStd = game.variant.standard
     val date = game.updatedAt | game.createdAt
     val perfs1 = perfs.copy(
-      standard = isStd.fold(perfs.standard.add(ratings.standard, date), perfs.standard),
       chess960 = game.variant.chess960.fold(perfs.chess960.add(ratings.chess960, date), perfs.chess960),
       kingOfTheHill = game.variant.kingOfTheHill.fold(perfs.kingOfTheHill.add(ratings.kingOfTheHill, date), perfs.kingOfTheHill),
       bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
       classical = (isStd && classicalSpeeds(speed)).fold(perfs.classical.add(ratings.classical, date), perfs.classical))
-    ratings.pool.fold(perfs1) {
-      case (id, poolRating) => perfs1.copy(
-        pools = perfs1.pools + (id -> perfs.pool(id).add(poolRating, date))
+    val perfs2 = if (isStd) perfs1.updateStandard else perfs1
+    ratings.pool.fold(perfs2) {
+      case (id, poolRating) => perfs2.copy(
+        pools = perfs2.pools + (id -> perfs.pool(id).add(poolRating, date))
       )
     }
   }

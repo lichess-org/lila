@@ -4,7 +4,7 @@ import reactivemongo.bson.BSONDocument
 
 import chess.{ Variant, Speed }
 import lila.db.BSON
-import lila.rating.Perf
+import lila.rating.{ Perf, Glicko }
 
 case class Perfs(
     standard: Perf,
@@ -34,6 +34,24 @@ case class Perfs(
   def inShort = perfs map {
     case (name, perf) => s"$name:${perf.intRating}"
   } mkString ", "
+
+  def updateStandard = copy(
+    standard = {
+      val subs = List(bullet, blitz, classical)
+      subs.maxBy(_.latest.fold(0l)(_.getMillis)).latest.fold(standard) { date =>
+        val nb = subs.map(_.nb).sum
+        val glicko = Glicko(
+          rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
+          deviation = subs.map(s => s.glicko.deviation * (s.nb / nb.toDouble)).sum,
+          volatility = subs.map(s => s.glicko.volatility * (s.nb / nb.toDouble)).sum)
+        Perf(
+          glicko = glicko,
+          nb = nb,
+          recent = (glicko.intRating :: standard.recent) take Perf.recentMaxSize,
+          latest = date.some)
+      }
+    }
+  )
 }
 
 case object Perfs {
@@ -69,8 +87,8 @@ case object Perfs {
   }
 
   def speedLens(speed: Speed): Perfs => Perf = speed match {
-    case Speed.Bullet                 => perfs => perfs.bullet
-    case Speed.Blitz                  => perfs => perfs.blitz
+    case Speed.Bullet => perfs => perfs.bullet
+    case Speed.Blitz => perfs => perfs.blitz
     case Speed.Classical | Speed.Unlimited => perfs => perfs.classical
   }
 

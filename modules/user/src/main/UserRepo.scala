@@ -117,7 +117,7 @@ trait UserRepo {
     val lenses = baseLenses ::: poolLenses
     val diff = lenses.flatMap {
       case (name, lens) =>
-        lens(perfs).nb > lens(prev).nb option {
+        lens(perfs).nb != lens(prev).nb option {
           s"perfs.$name" -> Perf.perfBSONHandler.write(lens(perfs))
         }
     }
