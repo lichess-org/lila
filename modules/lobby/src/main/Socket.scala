@@ -51,26 +51,23 @@ private[lobby] final class Socket(
     case RemoveHook(hookId)      => notifyVersion("hook_remove", hookId)
 
     case JoinHook(uid, hook, game, creatorColor) =>
-      playerUrl(game fullIdOf creatorColor) zip
-        playerUrl(game fullIdOf !creatorColor) foreach {
-          case (creatorUrl, invitedUrl) =>
-            withMember(hook.uid)(notifyMember("redirect", Json.obj(
-              "url" -> creatorUrl,
-              "cookie" -> AnonCookie.json(game, creatorColor)
-            ).noNull))
-            withMember(uid)(notifyMember("redirect", Json.obj(
-              "url" -> invitedUrl,
-              "cookie" -> AnonCookie.json(game, !creatorColor)
-            ).noNull))
-        }
+      withMember(hook.uid)(notifyMember("redirect", Json.obj(
+        "id" -> (game fullIdOf creatorColor),
+        "url" -> playerUrl(game fullIdOf creatorColor),
+        "cookie" -> AnonCookie.json(game, creatorColor)
+      ).noNull))
+      withMember(uid)(notifyMember("redirect", Json.obj(
+        "id" -> (game fullIdOf !creatorColor),
+        "url" -> playerUrl(game fullIdOf !creatorColor),
+        "cookie" -> AnonCookie.json(game, !creatorColor)
+      ).noNull))
 
     case HookIds(ids)                         => notifyVersion("hook_list", ids)
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
   }
 
-  private def playerUrl(fullId: String) =
-    router ? Player(fullId) mapTo manifest[String]
+  private def playerUrl(fullId: String) = s"/$fullId"
 
   private def notifyTournaments(html: String) {
     notifyAll(makeMessage("tournaments", html))

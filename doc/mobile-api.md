@@ -84,7 +84,7 @@ First you need to connect to the lobby websocket, from which you'll receive the 
 var clientId = Math.random().toString(36).substring(2); // created and stored by the client
 var socketVersion = 0; // last message version number seen on this socket. Starts at zero.
 
-var socketUrl = 'http://socket.en.l.org:9021/lobby/socket?sri=' + clientId + '&version=' + socketVersion;
+var socketUrl = 'http://socket.en.l.org:9021/lobby/socket?mobile=1&sri=' + clientId + '&version=' + socketVersion;
 
 var socket = new WebSocket(socketUrl);
 ```
@@ -103,9 +103,15 @@ Response: `200 OK`
 ok
 ```
 
-Now you're waiting for someone to accept the seek. The response will come as a socket message.
+Now you're waiting for someone to accept the seek. The response will come as a socket message:
 
-#### FIXME - document lobby socket
+```javascript
+// the seek was accepted
+{
+  "t": "redirect", // means we should move on to the game
+  "id": "abcdefgh1234"
+}
+```
 
 ## Fetch a game as a player (POV)
 
