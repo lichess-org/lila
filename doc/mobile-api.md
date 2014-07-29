@@ -78,11 +78,23 @@ Response: `201 CREATED`
 
 ### Seek for human opponent
 
-```sh
-http --form POST en.l.org/setup/hook/{uid} variant=1 clock=false time=60 increment=60 mode=casual 'Accept:application/vnd.lichess.v1+json'
+First you need to connect to the lobby websocket, from which you'll receive the game creation event.
+
+```javascript
+var clientId = Math.random().toString(36).substring(2); // created and stored by the client
+var socketVersion = 0; // last message version number seen on this socket. Starts at zero.
+
+var socketUrl = 'http://socket.en.l.org:9021/lobby/socket?sri=' + clientId + '&version=' + socketVersion;
+
+var socket = new WebSocket(socketUrl);
 ```
-- uid: random, unique, persistent client ID - to be created by, and persisted on, the client
-  implementation example: `Math.random().toString(36).substring(2)`
+
+Once connected, you can send seeks over HTTP, using the same clientId
+
+```sh
+http --form POST en.l.org/setup/hook/{clientId} variant=1 clock=false time=60 increment=60 mode=casual 'Accept:application/vnd.lichess.v1+json'
+```
+- clientId: same random ID created by the client and used to connect to the lobby websocket
 - variant: 1 (standard) | 2 (chess960) | 3 (from position) | 4 (KotH)
 - mode: casual | rated
 
@@ -270,7 +282,7 @@ All websocket messages, sent or received, are composed of a type `t` and data `d
 
 ```javascript
 var baseUrl; // obtained from game creation API (`url.socket`)
-var clientId; // created by the client
+var clientId = Math.random().toString(36).substring(2); // created and stored by the client
 var socketVersion = 0; // last message version number seen on this socket. Starts at zero.
 
 var socketUrl = 'http://socket.en.l.org:9021' + baseUrl + '?sri=' + clientId + '&version=' + socketVersion;
