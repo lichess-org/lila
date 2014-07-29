@@ -2,9 +2,9 @@
   :description "lichess.org puzzle solver"
   :source-paths ["src-clj"]
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2202" :exclusions [org.apache.ant/ant]]
-                 [org.clojure/core.async "0.1.278.0-76b25b-alpha"]
-                 [jayq "2.5.0"]]
+                 [org.clojure/clojurescript "0.0-2268" :exclusions [org.apache.ant/ant]]
+                 [org.clojure/core.async "0.1.303.0-886421-alpha"]
+                 [jayq "2.5.1"]]
   :plugins [[lein-cljsbuild "1.0.3"]]
   :cljsbuild {
               :builds {
