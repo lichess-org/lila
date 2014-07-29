@@ -43,8 +43,9 @@ object RatingFest {
         BSONDocument(),
         BSONDocument("$unset" -> BSONDocument(
           List(
+            "global", "white", "black",
             "standard", "chess960", "kingOfTheHill",
-            "bullet", "blitz", "classical", "pools"
+            "bullet", "blitz", "classical", "slow", "pools"
           ).map { name => s"perfs.$name" -> BSONBoolean(true) }
         )),
         multi = true)
