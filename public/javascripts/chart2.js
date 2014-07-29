@@ -27,32 +27,34 @@ $(function() {
     return $.extend(true, {}, defaults, config);
   }
 
-  $('div.rating_history').highcharts('StockChart', mergeDefaults({
-    rangeSelector: {
-      enabled: true,
-      selected: 1,
-      inputEnabled: false,
-      labelStyle: {
-        display: 'none'
-      }
-    },
-    xAxis: {
-      title: noText,
-      labels: disabled,
-      lineWidth: 0,
-      tickWidth: 0
-    },
-    scrollbar: disabled,
-    series: _.map(lichess_rating_series, function(serie) {
-      return {
-        name: serie.name,
-        type: 'line',
-        data: _.map(serie.points, function(r) {
-          return [Date.UTC(r[0], r[1], r[2]), r[3]];
-        })
-      };
-    })
-  }));
+  if ($('div.rating_history').length) {
+    $('div.rating_history').highcharts('StockChart', mergeDefaults({
+      rangeSelector: {
+        enabled: true,
+        selected: 1,
+        inputEnabled: false,
+        labelStyle: {
+          display: 'none'
+        }
+      },
+      xAxis: {
+        title: noText,
+        labels: disabled,
+        lineWidth: 0,
+        tickWidth: 0
+      },
+      scrollbar: disabled,
+      series: _.map(lichess_rating_series, function(serie) {
+        return {
+          name: serie.name,
+          type: 'line',
+          data: _.map(serie.points, function(r) {
+            return [Date.UTC(r[0], r[1], r[2]), r[3]];
+          })
+        };
+      })
+    }));
+  }
 
   $('#adv_chart').each(function() {
     var $this = $(this);
@@ -394,7 +396,7 @@ Highcharts.theme = (function() {
       xAxis: {
         gridLineColor: '#505053'
       }
-    },
+    }
   };
 })();
 Highcharts.setOptions(Highcharts.theme);
