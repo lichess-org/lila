@@ -78,17 +78,18 @@ object Round extends LilaController with TheftPrevention {
   }
 
   private def watch(pov: Pov)(implicit ctx: Context): Fu[Result] =
-    if (pov.game.playable && ctx.userId.flatMap(pov.game.playerByUserId).isDefined)
-      fuccess(Redirect(routes.Round.player(pov.fullId)))
-    else env.version(pov.gameId) zip
-      (pov.game.tournamentId ?? TournamentRepo.byId) zip
-      Env.game.crosstableApi(pov.game) zip
-      (ctx.isAuth ?? {
-        Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
-      }) map {
-        case (((v, tour), crosstable), chat) =>
-          Ok(html.round.watcher(pov, v, chat, tour, crosstable))
-      }
+    ctx.userId.flatMap(pov.game.playerByUserId).ifTrue(pov.game.playable) match {
+      case Some(player) => fuccess(Redirect(routes.Round.player(pov.game fullIdOf player.color)))
+      case None => env.version(pov.gameId) zip
+        (pov.game.tournamentId ?? TournamentRepo.byId) zip
+        Env.game.crosstableApi(pov.game) zip
+        (ctx.isAuth ?? {
+          Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
+        }) map {
+          case (((v, tour), crosstable), chat) =>
+            Ok(html.round.watcher(pov, v, chat, tour, crosstable))
+        }
+    }
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
     GameRepo initialFen pov.gameId zip
