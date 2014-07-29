@@ -446,6 +446,14 @@
 
 /*********** MISC *********/
 
+#site_header {
+  position: relative;
+}
+#featured_game {
+  position: absolute;
+  top: 529px;
+}
+
 div.blog.undertable div.undertable_inner {
   height: auto;
   padding: 5px 5px 0 5px;
