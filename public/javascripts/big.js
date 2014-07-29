@@ -2234,6 +2234,7 @@ var storage = {
     if (!$wrap.length) return;
     if (!strongSocket.available) return;
 
+    var socketUrl = $wrap.data('socket-url');
     var $timeline = $("#timeline");
     var $newposts = $("div.new_posts");
     var $canvas = $wrap.find('.canvas');
@@ -2377,7 +2378,7 @@ var storage = {
     drawHooks(true);
     $table.find('th:eq(2)').click().end();
 
-    lichess.socket = new strongSocket("/lobby/socket", lichess_preload.version, $.extend(true, lichess.socketDefaults, {
+    lichess.socket = new strongSocket(socketUrl, lichess_preload.version, $.extend(true, lichess.socketDefaults, {
       events: {
         reload_timeline: function() {
           $.ajax({

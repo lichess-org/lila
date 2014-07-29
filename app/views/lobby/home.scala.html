@@ -63,7 +63,7 @@ openGraph = Map(
 </div>
 <div class="clearfix lichess_homepage">
   <div class="lichess_board_wrap">
-    <div id="hooks_wrap">
+    <div id="hooks_wrap" data-socket-url="@routes.Lobby.socket(apiVersion)">
       <div class="tabs">
         <a data-tab="list" class="list">@trans.list()</a>
         <a data-tab="graph" class="graph">@trans.graph()</a>
