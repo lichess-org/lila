@@ -1,6 +1,6 @@
 @(u: User, playing: Option[Game], blocked: Boolean, followed: Boolean, followable: Boolean, rel: Option[lila.relation.Relation])(implicit ctx: Context)
 <div class="title">
-  @userLink(u, withPowerTip = false) @showProgress(u.perfs.standard.progress)
+  <div>@userLink(u, withPowerTip = false) @showProgress(u.perfs.standard.progress)</div>
   @if(u.engine && ctx.me.fold(true)(u !=)) {
   <span class="hint--bottom" data-hint="@trans.thisPlayerUsesChessComputerAssistance()" data-icon="j"></span>
   }

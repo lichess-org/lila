@@ -345,9 +345,6 @@ div.content_box .loader:after {
 #powerTip a.mini_board {
   border-width: 0 0 1px 0;
 }
-#powerTip a.user_link {
-  display: block;
-}
 #powerTip .country,
 #powerTip .lang {
   float: right;
