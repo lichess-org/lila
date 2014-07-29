@@ -21,8 +21,9 @@ private[puzzle] final class Finisher(
         val userRating = user.perfs.puzzle.toRating
         val puzzleRating = puzzle.perf.toRating
         updateRatings(userRating, puzzleRating, data.isWin.fold(Glicko.Result.Win, Glicko.Result.Loss))
-        val userPerf = user.perfs.puzzle add userRating
-        val puzzlePerf = puzzle.perf add puzzleRating
+        val date = DateTime.now
+        val userPerf = user.perfs.puzzle.add(userRating, date)
+        val puzzlePerf = puzzle.perf.add(puzzleRating, date)
         val a = new Attempt(
           id = Attempt.makeId(puzzle.id, user.id),
           puzzleId = puzzle.id,

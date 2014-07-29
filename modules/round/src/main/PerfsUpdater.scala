@@ -107,16 +107,17 @@ final class PerfsUpdater(historyApi: HistoryApi) {
   private def mkPerfs(ratings: Ratings, perfs: Perfs, game: Game): Perfs = {
     val speed = game.speed
     val isStd = game.variant.standard
+    val date = game.updatedAt | game.createdAt
     val perfs1 = perfs.copy(
-      standard = isStd.fold(perfs.standard add ratings.standard, perfs.standard),
-      chess960 = game.variant.chess960.fold(perfs.chess960 add ratings.chess960, perfs.chess960),
-      kingOfTheHill = game.variant.kingOfTheHill.fold(perfs.kingOfTheHill add ratings.kingOfTheHill, perfs.kingOfTheHill),
-      bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet add ratings.bullet, perfs.bullet),
-      blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz add ratings.blitz, perfs.blitz),
-      classical = (isStd && classicalSpeeds(speed)).fold(perfs.classical add ratings.classical, perfs.classical))
+      standard = isStd.fold(perfs.standard.add(ratings.standard, date), perfs.standard),
+      chess960 = game.variant.chess960.fold(perfs.chess960.add(ratings.chess960, date), perfs.chess960),
+      kingOfTheHill = game.variant.kingOfTheHill.fold(perfs.kingOfTheHill.add(ratings.kingOfTheHill, date), perfs.kingOfTheHill),
+      bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
+      blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
+      classical = (isStd && classicalSpeeds(speed)).fold(perfs.classical.add(ratings.classical, date), perfs.classical))
     ratings.pool.fold(perfs1) {
       case (id, poolRating) => perfs1.copy(
-        pools = perfs1.pools + (id -> perfs.pool(id).add(poolRating))
+        pools = perfs1.pools + (id -> perfs.pool(id).add(poolRating, date))
       )
     }
   }

@@ -19,19 +19,21 @@ case class Perf(
     recent.lastOption map (head-)
   }
 
-  def add(g: Glicko): Perf = copy(
+  def add(g: Glicko, date: DateTime): Perf = copy(
     glicko = g,
     nb = nb + 1,
     recent = (g.intRating :: recent) take Perf.recentMaxSize,
-    latest = DateTime.now.some)
+    latest = date.some)
 
-  def add(r: Rating): Perf = add(Glicko(r.getRating, r.getRatingDeviation, r.getVolatility))
+  def add(r: Rating, date: DateTime): Perf = add(Glicko(r.getRating, r.getRatingDeviation, r.getVolatility), date)
 
   def toRating = new Rating(
     math.max(Glicko.minRating, glicko.rating),
     glicko.deviation,
     glicko.volatility,
     nb)
+
+  def nonEmpty = nb > 0
 }
 
 case object Perf {

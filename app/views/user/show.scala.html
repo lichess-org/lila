@@ -27,13 +27,16 @@
 @side = {
 <div class="side sub_ratings">
   @showPerf("standard", u.perfs.standard)
+  @if(u.perfs.chess960.nonEmpty) {
+  @showPerf("chess960", u.perfs.chess960)
+  }
+  @if(u.perfs.kingOfTheHill.nonEmpty) {
+  @showPerf("KingOfTheHill", u.perfs.kingOfTheHill)
+  }
   <br />
   @showPerf("bullet", u.perfs.bullet)
   @showPerf("blitz", u.perfs.blitz)
   @showPerf("classical", u.perfs.classical)
-  <br />
-  @showPerf("chess960", u.perfs.chess960)
-  @showPerf("KingOfTheHill", u.perfs.kingOfTheHill)
   <br />
   @u.perfs.pools.toList.sortBy(_._1).map {
   case (id, perf) => {

@@ -55,7 +55,7 @@ final class AiPerfApi(coll: Coll, cacheTtl: Duration) {
       case Glicko.Result.Loss => results.addResult(huRating, aiRating)
     }
     system.updateRatings(results)
-    val newAiPerf = aiPerf.perf add aiRating
+    val newAiPerf = aiPerf.perf.add(aiRating, DateTime.now)
     coll.update(
       BSONDocument("_id" -> level),
       BSONDocument("$set" -> BSONDocument("perf" -> newAiPerf))
