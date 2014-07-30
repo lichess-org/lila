@@ -45,7 +45,7 @@ final class RatingChartApi(historyApi: HistoryApi, cacheTtl: Duration) {
           ratingsMapToJson("standard", history.standard),
           ratingsMapToJson("chess960", history.chess960),
           ratingsMapToJson("kingOfTheHill", history.kingOfTheHill),
-          ratingsMapToJson("threeChecks", history.threeChecks),
+          ratingsMapToJson("threeCheck", history.threeCheck),
           ratingsMapToJson("bullet", history.bullet),
           ratingsMapToJson("blitz", history.blitz),
           ratingsMapToJson("classical", history.classical),

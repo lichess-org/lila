@@ -70,8 +70,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font17/fonts/lichess.eot");
-  src: url("../font17/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font17/fonts/lichess.woff") format("woff"), url("../font17/fonts/lichess.ttf") format("truetype"), url("../font17/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font18/fonts/lichess.eot");
+  src: url("../font18/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font18/fonts/lichess.woff") format("woff"), url("../font18/fonts/lichess.ttf") format("truetype"), url("../font18/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -345,13 +345,16 @@ div.content_box .loader:after {
 #powerTip a.mini_board {
   border-width: 0 0 1px 0;
 }
-#powerTip .country,
-#powerTip .lang {
+#powerTip .countrylang {
   float: right;
-}
-#powerTip .follows {
   font-size: 0.9em;
-  display: inline-block;
+}
+#powerTip .ratings {
+  text-align: center;
+  margin-top: 5px;
+}
+#powerTip .ratings > span {
+  margin: 0 5px;
 }
 #powerTip > .actions {
   width: 100%;
@@ -1742,6 +1745,7 @@ input.copyable {
   display: inline-block;
   width: 16px;
   height: 16px;
+  vertical-align: middle;
 }
 .scroll-shadow-soft {
   background:

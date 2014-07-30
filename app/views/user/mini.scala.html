@@ -1,23 +1,25 @@
 @(u: User, playing: Option[Game], blocked: Boolean, followed: Boolean, followable: Boolean, rel: Option[lila.relation.Relation])(implicit ctx: Context)
 <div class="title">
-  <div>@userLink(u, withPowerTip = false) @showProgress(u.perfs.standard.progress)</div>
-  @if(u.engine && ctx.me.fold(true)(u !=)) {
-  <span class="hint--bottom" data-hint="@trans.thisPlayerUsesChessComputerAssistance()" data-icon="j"></span>
-  }
-  @u.profileOrDefault.countryInfo.map {
-  case (code, name) => {
-  <span class="country"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
-  }
-  }.getOrElse {
-  @u.lang.flatMap(langName).map { name =>
-  <span class="lang" data-icon="c">&nbsp;@name</span>
-  }
-  }
-  <span class="follows">
-    @if(followed) {
-    @trans.followsYou()
+  <div>
+    @u.profileOrDefault.countryInfo.map {
+    case (code, name) => {
+    <span class="countrylang"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
     }
-  </span>
+    }.getOrElse {
+    @u.lang.flatMap(shortLangName).map { name =>
+    <span class="countrylang" data-icon="c">&nbsp;@name</span>
+    }
+    }
+    @userLink(u, withPowerTip = false, withRating = false)
+    @if(u.engine && ctx.me.fold(true)(u !=)) {
+    <span class="hint--bottom" data-hint="@trans.thisPlayerUsesChessComputerAssistance()" data-icon="j"></span>
+    }
+  </div>
+  <div class="ratings">
+    @userPerfsSummary(u, 3).map {
+    case (key, _) => { @showPerfRating(u, key) }
+    }
+  </div>
 </div>
 @playing.map { g =>
 @gameFen(g, g.player(u).getOrElse(g.firstPlayer).color)

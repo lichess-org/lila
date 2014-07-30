@@ -52,7 +52,7 @@
     <br />
     }
     @g.poolId.flatMap(poolSetups.get).map { p =>
-    <a data-icon="8" href="@routes.Pool.show(p.id)">&nbsp;@p.name Pool</a>
+    <a data-icon="," href="@routes.Pool.show(p.id)">&nbsp;@p.name Pool</a>
     <br />
     }
     @if(g.rated) {

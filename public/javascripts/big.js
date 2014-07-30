@@ -2524,9 +2524,6 @@ var storage = {
       var klass = [
         'plot',
         hook.mode == "Rated" ? 'rated' : 'casual',
-        hook.variant == "Chess960" ? 'chess960' : '',
-        hook.variant == "King of the Hill" ? 'kingOfTheHill' : '',
-        hook.variant == "Three-check" ? 'threeChecks' : '',
         hook.action == 'cancel' ? 'cancel' : ''
       ].join(' ');
       var $plot = $('<span id="' + hook.id + '" class="' + klass + '" style="bottom:' + bottom + 'px;left:' + left + 'px;"></span>');

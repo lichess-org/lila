@@ -52,11 +52,12 @@ div.sub_ratings h3 {
   font-weight: 100;
   font-size: 1.2em;
   letter-spacing: 2px;
-  margin-bottom: 0;
+  margin-bottom: 2px;
   display: inline-block;
 }
 #site_header div.sub_ratings strong {
   font-weight: bold;
+  font-size: 1.2em;
 }
 div.user_show .rating_history {
   position: absolute;

@@ -218,9 +218,6 @@
 .icon-ink-pen:before {
   content: "6";
 }
-.icon-rocket:before {
-  content: "8";
-}
 .icon-chart-line:before {
   content: "9";
 }
@@ -253,4 +250,31 @@
 }
 .icon-sheriff-badge:before {
   content: "n";
+}
+.icon-crown:before {
+  content: "8";
+}
+.icon-die-six:before {
+  content: "'";
+}
+.icon-flag:before {
+  content: "(";
+}
+.icon-flame:before {
+  content: ")";
+}
+.icon-bolt:before {
+  content: "*";
+}
+.icon-hourglass:before {
+  content: "+";
+}
+.icon-droplet:before {
+  content: ",";
+}
+.icon-arrow-streamline-target:before {
+  content: "-";
+}
+.icon-buffer:before {
+  content: ".";
 }

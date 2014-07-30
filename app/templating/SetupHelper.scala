@@ -25,7 +25,7 @@ trait SetupHelper { self: I18nHelper =>
   def translatedVariantChoicesWithVariants(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
       (Variant.KingOfTheHill.id.toString, Variant.KingOfTheHill.name, variantDesc.KingOfTheHill.some) :+
-      (Variant.ThreeChecks.id.toString, Variant.ThreeChecks.name, variantDesc.ThreeChecks.some)
+      (Variant.ThreeCheck.id.toString, Variant.ThreeCheck.name, variantDesc.ThreeCheck.some)
 
   def translatedVariantChoicesWithFen(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
@@ -49,7 +49,7 @@ trait SetupHelper { self: I18nHelper =>
     val Standard = "Standard rules of chess (FIDE)"
     val Chess960 = "Starting position of the home rank pieces is randomized"
     val KingOfTheHill = "Bring your king to the center to win the game"
-    val ThreeChecks = "Check your opponent 3 times to win the game"
+    val ThreeCheck = "Check your opponent 3 times to win the game"
     val Position = "Custom starting position"
   }
 }

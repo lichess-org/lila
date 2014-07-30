@@ -39,7 +39,7 @@ case class FilterConfig(
 
 object FilterConfig {
 
-  val variants = List(Variant.Standard, Variant.Chess960, Variant.KingOfTheHill, Variant.ThreeChecks)
+  val variants = List(Variant.Standard, Variant.Chess960, Variant.KingOfTheHill, Variant.ThreeCheck)
   val modes = Mode.all
   val speeds = Speed.all
 

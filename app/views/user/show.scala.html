@@ -10,16 +10,16 @@
 }
 }
 
-@showPerf(name: String, perf: lila.rating.Perf) = {
+@showPerf(key: String, perf: lila.rating.Perf, icon: Option[Char] = None) = {
 <div>
-  <h3 @lila.user.Perfs.titles.get(name).map { title =>
-    class="hint--top" data-hint="@title"
-    }>@lila.user.Perfs.names.get(name).getOrElse(name).toUpperCase</h3>
+  <h3 @lila.user.Perfs.titles.get(key).map { title => class="hint--top" data-hint="@title" }>
+    <span data-icon="@icon.getOrElse(perfIconChar(key))"> @lila.user.Perfs.names.get(key).getOrElse(key).toUpperCase</span>
+  </h3>
   <br />
   <strong class="hint--bottom" data-hint="Glicko rating">@perf.glicko.intRating</strong>
   <small class="hint--bottom" data-hint="Glicko rating deviation"> ±@perf.glicko.intDeviationDoubled</small> /
   <span class="hint--bottom" data-hint="Number of games played">
-    @perf.nb.localize @if(name == "puzzle") {Puzzles} else {@trans.games()}
+    @perf.nb.localize @if(key == "puzzle") {Puzzles} else {@trans.games()}
   </span>
   @showProgress(perf.progress)
 </div>
@@ -38,14 +38,14 @@
   @if(u.perfs.kingOfTheHill.nonEmpty) {
   @showPerf("kingOfTheHill", u.perfs.kingOfTheHill)
   }
-  @if(u.perfs.threeChecks.nonEmpty) {
-  @showPerf("threeChecks", u.perfs.threeChecks)
+  @if(u.perfs.threeCheck.nonEmpty) {
+  @showPerf("threeCheck", u.perfs.threeCheck)
   }
   <br />
   @u.perfs.pools.toList.sortBy(_._1).map {
   case (id, perf) if poolSetups.contains(id) => {
   @poolSetups.get(id).map { setup =>
-  @showPerf(s"${setup.name} pool", perf)
+  @showPerf(s"${setup.name} pool", perf, perfIconChar("pool").some)
   }
   }
   case _ => {}

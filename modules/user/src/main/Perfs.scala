@@ -10,7 +10,7 @@ case class Perfs(
     standard: Perf,
     chess960: Perf,
     kingOfTheHill: Perf,
-    threeChecks: Perf,
+    threeCheck: Perf,
     bullet: Perf,
     blitz: Perf,
     classical: Perf,
@@ -21,13 +21,23 @@ case class Perfs(
     "standard" -> standard,
     "chess960" -> chess960,
     "kingOfTheHill" -> kingOfTheHill,
-    "threeChecks" -> threeChecks,
+    "threeCheck" -> threeCheck,
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
     "puzzle" -> puzzle) ::: pools.toList.map {
       case (id, perf) => s"$id pool" -> perf
     }
+
+  lazy val perfsMap: Map[String, Perf] = Map(
+    "standard" -> standard,
+    "chess960" -> chess960,
+    "kingOfTheHill" -> kingOfTheHill,
+    "threeCheck" -> threeCheck,
+    "bullet" -> bullet,
+    "blitz" -> blitz,
+    "classical" -> classical,
+    "puzzle" -> puzzle)
 
   def pool(key: String) = pools get key getOrElse Perf.default
 
@@ -70,7 +80,7 @@ case object Perfs {
     "standard" -> "Standard",
     "chess960" -> "Chess960",
     "kingOfTheHill" -> "King of the Hill",
-    "threeChecks" -> "Three-check",
+    "threeCheck" -> "Three-check",
     "puzzle" -> "Training")
 
   val titles = Map(
@@ -80,14 +90,14 @@ case object Perfs {
     "standard" -> "Standard rules of chess",
     "chess960" -> "Chess960 variant",
     "kingOfTheHill" -> "King of the Hill variant",
-    "threeChecks" -> "Three-check variant",
+    "threeCheck" -> "Three-check variant",
     "puzzle" -> "Training puzzles")
 
   def variantLens(variant: Variant): Option[Perfs => Perf] = variant match {
     case Variant.Standard      => Some(_.standard)
     case Variant.Chess960      => Some(_.chess960)
     case Variant.KingOfTheHill => Some(_.kingOfTheHill)
-    case Variant.ThreeChecks   => Some(_.threeChecks)
+    case Variant.ThreeCheck    => Some(_.threeCheck)
     case Variant.FromPosition  => none
   }
 
@@ -111,7 +121,7 @@ case object Perfs {
         standard = perf("standard"),
         chess960 = perf("chess960"),
         kingOfTheHill = perf("kingOfTheHill"),
-        threeChecks = perf("threeChecks"),
+        threeCheck = perf("threeCheck"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
         classical = perf("classical"),
@@ -125,7 +135,7 @@ case object Perfs {
       "standard" -> notNew(o.standard),
       "chess960" -> notNew(o.chess960),
       "kingOfTheHill" -> notNew(o.kingOfTheHill),
-      "threeChecks" -> notNew(o.threeChecks),
+      "threeCheck" -> notNew(o.threeCheck),
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
       "classical" -> notNew(o.classical),

@@ -26,6 +26,9 @@ trait I18nHelper {
   def langName(lang: Lang): Option[String] = langName(lang.language)
   def langName(lang: String): Option[String] = LangList name lang
 
+  def shortLangName(lang: Lang): Option[String] = shortLangName(lang.language)
+  def shortLangName(lang: String): Option[String] = langName(lang) map (_ takeWhile (','!=))
+
   def translationCall(implicit ctx: UserContext) =
     if (ctx.isAnon || ctx.req.cookies.get(hideCallsCookieName).isDefined) None
     else {

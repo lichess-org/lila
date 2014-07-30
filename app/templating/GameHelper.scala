@@ -44,7 +44,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case (_, _, Aborted)                                  => "Game has been aborted"
       case (_, _, VariantEnd) => game.variant match {
         case Variant.KingOfTheHill => "King in the center"
-        case Variant.ThreeChecks   => "Three checks"
+        case Variant.ThreeCheck    => "Three checks"
         case _                     => "Variant ending"
       }
       case _ => "Game is still being played"
@@ -58,7 +58,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case Variant.Chess960      => "Chess960"
     case Variant.FromPosition  => trans.fromPosition.str()
     case Variant.KingOfTheHill => "King of the Hill"
-    case Variant.ThreeChecks   => "Three-check"
+    case Variant.ThreeCheck    => "Three-check"
   }
 
   def variantNameNoCtx(variant: Variant) = variant match {
@@ -66,7 +66,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case Variant.Chess960      => "Chess960"
     case Variant.FromPosition  => trans.fromPosition.en()
     case Variant.KingOfTheHill => "King of the Hill"
-    case Variant.ThreeChecks   => "Three-check"
+    case Variant.ThreeCheck    => "Three-check"
   }
 
   def clockName(clock: Option[Clock])(implicit ctx: UserContext): String =
@@ -155,7 +155,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case S.Cheat => Html("Cheat detected")
     case S.VariantEnd => game.variant match {
       case Variant.KingOfTheHill => Html("King in the center")
-      case Variant.ThreeChecks   => Html("Three checks")
+      case Variant.ThreeCheck    => Html("Three checks")
       case _                     => Html("Variant ending")
     }
     case _ => Html("")

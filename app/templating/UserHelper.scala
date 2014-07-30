@@ -6,7 +6,7 @@ import mashup._
 import play.twirl.api.Html
 
 import lila.common.LightUser
-import lila.user.{ User, UserContext }
+import lila.user.{ User, UserContext, Perfs }
 
 trait UserHelper { self: I18nHelper with StringHelper =>
 
@@ -19,6 +19,33 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     }
     s"""<span data-hint="$title" class="progress hint--bottom">$span</span>"""
   }
+
+  def showPerfRating(rating: Int, name: String, nb: Int, icon: Char) = Html {
+    s"""<span data-hint="$name rating over $nb games" class="hint--bottom"><span data-icon="$icon">$rating</span></span>"""
+  }
+
+  def showPerfRating(u: User, perfKey: String): Option[Html] = for {
+    perf <- u.perfs.perfsMap get perfKey
+    name <- Perfs.names get perfKey
+  } yield showPerfRating(perf.intRating, name, perf.nb, perfIconChar(perfKey))
+
+  def perfIconChar(perfKey: String): Char = perfKey match {
+    case "standard"      => '8'
+    case "bullet"        => ')'
+    case "blitz"         => '*'
+    case "classical"     => '+'
+    case "chess960"      => '''
+    case "kingOfTheHill" => '('
+    case "threeCheck"    => '.'
+    case "puzzle"        => '-'
+    case "pool"          => ','
+    case _               => '8'
+  }
+
+  def userPerfsSummary(u: User, nb: Int) =
+    List("bullet", "blitz", "classical", "chess960", "kingOfTheHill", "threeCheck") flatMap { key =>
+      u.perfs.perfsMap get key map (key -> _)
+    } sortBy (-_._2.nb) take nb
 
   def showRatingDiff(diff: Int) = Html {
     diff match {

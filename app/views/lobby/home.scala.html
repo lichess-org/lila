@@ -93,7 +93,7 @@ openGraph = Map(
         <div class="pool_title">auto-pairing pools</div>
         <div class="pool_buttons">
           @pools.map { p =>
-          <a href="@routes.Pool.show(p.setup.id)"><h2 data-icon="8"> @p.setup.name</h2></a>
+          <a href="@routes.Pool.show(p.setup.id)"><h2 data-icon=","> @p.setup.name</h2></a>
           }
         </div>
       </div>
