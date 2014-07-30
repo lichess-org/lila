@@ -2598,7 +2598,7 @@ var storage = {
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous') +
           ((hook.engine && hook.action == 'join') ? ' <span data-icon="j"></span>' : '')
         ],
-        [hook.rating || 0, hook.rating || ''],
+        [hook.rating || 0, hook.rating ? ('<span data-icon="' + hook.perfIcon + '">' + hook.rating + '</span>') : ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
         [hook.mode, $.trans(hook.mode) +
         (hook.variant == 'Chess960' ? '<span class="varname">960</span>' : '') +

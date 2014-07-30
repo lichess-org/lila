@@ -74,11 +74,13 @@ case class Hook(
     "emin" -> realRatingRange.map(_.min),
     "emax" -> realRatingRange.map(_.max),
     "color" -> chess.Color(color).??(_.name),
-    "engine" -> engine)
+    "engine" -> engine,
+    "perfIcon" -> Perfs.iconChars.get(PerfPicker.key(speed, realVariant, none)).getOrElse('8').toString
+  )
 
   private def clockOption = (time ifTrue hasClock) |@| increment apply Clock.apply
 
-  private def speed = Speed(clockOption)
+  private lazy val speed = Speed(clockOption)
 
   private def renderClock(time: Int, inc: Int) = "%d + %d".format(time / 60, inc)
 }

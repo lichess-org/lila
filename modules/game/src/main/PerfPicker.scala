@@ -8,6 +8,13 @@ object PerfPicker {
 
   val default = (perfs: Perfs) => perfs.standard
 
+  def key(speed: Speed, variant: Variant, poolId: Option[String]): String =
+    poolId match {
+      case Some(_)                  => "pool"
+      case None if variant.standard => speed.key
+      case _                        => variant.key
+    }
+
   def main(speed: Speed, variant: Variant, poolId: Option[String]): Option[Perfs => Perf] =
     poolId match {
       case Some(id)                 => Some(_ pool id)

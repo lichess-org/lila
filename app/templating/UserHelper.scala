@@ -29,18 +29,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     name <- Perfs.names get perfKey
   } yield showPerfRating(perf.intRating, name, perf.nb, perfIconChar(perfKey))
 
-  def perfIconChar(perfKey: String): Char = perfKey match {
-    case "standard"      => '8'
-    case "bullet"        => ')'
-    case "blitz"         => '*'
-    case "classical"     => '+'
-    case "chess960"      => '''
-    case "kingOfTheHill" => '('
-    case "threeCheck"    => '.'
-    case "puzzle"        => '-'
-    case "pool"          => ','
-    case _               => '8'
-  }
+  def perfIconChar(perfKey: String): Char = Perfs.iconChars get perfKey getOrElse '8'
 
   def userPerfsSummary(u: User, nb: Int) =
     List("bullet", "blitz", "classical", "chess960", "kingOfTheHill", "threeCheck") flatMap { key =>
