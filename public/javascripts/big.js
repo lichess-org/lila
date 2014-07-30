@@ -2525,7 +2525,8 @@ var storage = {
         'plot',
         hook.mode == "Rated" ? 'rated' : 'casual',
         hook.variant == "Chess960" ? 'chess960' : '',
-        hook.variant == "KingOfTheHill" ? 'kingOfTheHill' : '',
+        hook.variant == "King of the Hill" ? 'kingOfTheHill' : '',
+        hook.variant == "Three-check" ? 'threeChecks' : '',
         hook.action == 'cancel' ? 'cancel' : ''
       ].join(' ');
       var $plot = $('<span id="' + hook.id + '" class="' + klass + '" style="bottom:' + bottom + 'px;left:' + left + 'px;"></span>');
@@ -2581,7 +2582,8 @@ var storage = {
       html += '<span class="mode">';
       html += $.trans(hook.mode);
       if (hook.variant == 'Chess960') html += ', 960';
-      if (hook.variant == 'KingOfTheHill') html += ', KotH';
+      if (hook.variant == 'King of the Hill') html += ', KotH';
+      if (hook.variant == 'Three-check') html += ', 3check';
       html += '</span>';
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
       html += '<span class="is2" data-icon="' + k + '"></span>';
@@ -2602,8 +2604,9 @@ var storage = {
         [hook.rating || 0, hook.rating || ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
         [hook.mode, $.trans(hook.mode) +
-        (hook.variant == 'Chess960' ? '<span class="chess960">960</span>' : '') +
-        (hook.variant == 'KingOfTheHill' ? '<span class="koth">KotH</span>' : '')]
+        (hook.variant == 'Chess960' ? '<span class="varname">960</span>' : '') +
+        (hook.variant == 'King of the Hill' ? '<span class="varname">KotH</span>' : '') +
+        (hook.variant == 'Three-check' ? '<span class="varname">3check</span>' : '')]
       ], function(x) {
         return '<td data-sort-value="' + x[0] + '">' + x[1] + '</td>';
       }).join('') + '</tr>';
@@ -2621,22 +2624,6 @@ var storage = {
           '<div class="grid vert" style="width:' + (l + 7) + 'px"></div>';
       }).join(''));
 
-    function confirm960(hook) {
-      if (hook.variant == "Chess960" && hook.action == "join" && !storage.get('c960')) {
-        var c = confirm("This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?");
-        if (c) storage.set('c960', 1);
-        return c;
-      } else return true;
-    }
-
-    function confirmKotH(hook) {
-      if (hook.variant == "KingOfTheHill" && hook.action == "join" && !storage.get('koth')) {
-        var c = confirm("This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill");
-        if (c) storage.set('koth', 1);
-        return c;
-      } else return true;
-    }
-
     $tbody.on('click', 'a.ulink', function(e) {
       e.stopPropagation();
     });
@@ -2653,7 +2640,18 @@ var storage = {
         if (confirm($.trans('This game is rated') + '.\n' + $.trans('You need an account to do that') + '.')) location.href = '/signup';
         return;
       }
-      if (confirm960(hook) && confirmKotH(hook)) {
+      var variantConfirms = {
+        'c960': ['Chess960',"This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?"],
+        'koth': ['King of the Hill', "This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill"],
+        '3check': ['Three-check',"This is a Three-check game!\n\nThe game can be won by checking the opponent 3 times.\nRead more: http://en.wikipedia.org/wiki/Three-check_chess"]
+      };
+      if (hook.action != 'join' || _.every(variantConfirms, function(variant, key) {
+        if (hook.variant == variant[0] && !storage.get(key)) {
+          var c = confirm(variant[1]);
+          if (c) storage.set(key, 1);
+          return c;
+        } else return true;
+      })) {
         lichess.socket.send(hook.action, hook.id);
       }
     });

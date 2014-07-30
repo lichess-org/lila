@@ -171,7 +171,9 @@ private[controllers] trait LilaController
   protected def negotiate(html: => Fu[Result], api: Int => Fu[Result])(implicit ctx: Context): Fu[Result] = {
     render.async {
       case mediaRange => mediaRange.mediaSubType match {
-        case MediaSubTypeRegex(v) => parseIntOption(v).fold(html)(api)
+        case MediaSubTypeRegex(v) => parseIntOption(v).fold(html) { version =>
+          api(version) map (_ as JSON)
+        }
         case _                    => html
       }
     }(ctx.req)

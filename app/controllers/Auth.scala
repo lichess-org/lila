@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.data._, Forms._
+import play.api.libs.json.Json
 import play.api.mvc._, Results._
 
 import lila.app._
@@ -23,7 +24,10 @@ object Auth extends LilaController {
     Firewall {
       implicit val req = ctx.body
       api.loginForm.bindFromRequest.fold(
-        err => BadRequest(html.auth.login(err, referrer)).fuccess,
+        err => negotiate(
+          html = Unauthorized(html.auth.login(err, referrer)).fuccess,
+          api = _ => Unauthorized(err.errorsAsJson).fuccess
+        ),
         _.fold(InternalServerError("authenticate error").fuccess) { u =>
           u.ipBan.fold(
             Env.security.firewall.blockIp(req.remoteAddress) inject BadRequest("blocked by firewall"),
@@ -32,9 +36,7 @@ object Auth extends LilaController {
                 html = Redirect {
                   referrer.filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
                 }.fuccess,
-                api = apiVersion => fuccess {
-                  Ok(Env.user.jsonView me u) as JSON
-                }
+                api = _ => Ok(Env.user.jsonView me u).fuccess
               ) map {
                   _ withCookies LilaCookie.withSession { session =>
                     session + ("sessionId" -> sessionId) - api.AccessUri
@@ -52,7 +54,7 @@ object Auth extends LilaController {
     req.session get "sessionId" foreach lila.security.Store.delete
     negotiate(
       html = fuccess(Redirect(routes.Lobby.home)),
-      api = apiVersion => fuccess(Ok("ok") as JSON)
+      api = apiVersion => Ok("ok").fuccess
     ) map (_ withCookies LilaCookie.newSession)
   }
 

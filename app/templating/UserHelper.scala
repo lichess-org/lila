@@ -17,7 +17,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
       case p if p > 0 => s"""<span class="positive" data-icon="N">$p</span>"""
       case p if p < 0 => s"""<span class="negative" data-icon="M">${math.abs(p)}</span>"""
     }
-    s"""<span title="$title" class="progress">$span</span>"""
+    s"""<span data-hint="$title" class="progress hint--bottom">$span</span>"""
   }
 
   def showRatingDiff(diff: Int) = Html {

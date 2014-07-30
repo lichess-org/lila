@@ -18,7 +18,7 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
 
   def filter(ctx: UserContext) = Form(
     mapping(
-      "variant" -> list(variantWithKoth),
+      "variant" -> list(variantWithVariants),
       "mode" -> list(rawMode(withRated = true)),
       "speed" -> list(speed),
       "ratingRange" -> ratingRange
@@ -58,7 +58,7 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
 
   def friend(ctx: UserContext) = Form(
     mapping(
-      "variant" -> variantWithFenAndKoth,
+      "variant" -> variantWithFenAndVariants,
       "clock" -> boolean,
       "time" -> time,
       "increment" -> increment,
@@ -77,7 +77,7 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
 
   def hook(ctx: UserContext) = Form(
     mapping(
-      "variant" -> variantWithKoth,
+      "variant" -> variantWithVariants,
       "clock" -> boolean,
       "time" -> time,
       "increment" -> increment,

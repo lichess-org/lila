@@ -53,7 +53,7 @@ div.sub_ratings h3 {
   font-size: 1.2em;
   letter-spacing: 2px;
   margin-bottom: 0;
-  display: block;
+  display: inline-block;
 }
 #site_header div.sub_ratings strong {
   font-weight: bold;

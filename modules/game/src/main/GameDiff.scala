@@ -1,12 +1,12 @@
 package lila.game
 
-import chess.{ Clock, Pos }
+import chess.{ Clock, Pos, CheckCount }
 import Game.BSONFields._
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-import lila.db.ByteArray
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.ByteArray
 
 private[game] object GameDiff {
 
@@ -47,6 +47,7 @@ private[game] object GameDiff {
     d(moveTimes, _.moveTimes, (x: Vector[Int]) => ByteArray.ByteArrayBSONHandler.write(BinaryFormat.moveTime write x))
     dOpt(positionHashes, _.positionHashes, w.bytesO)
     dOpt(clock, _.clock, (o: Option[Clock]) => o map { c => Game.clockBSONHandler.write(_ => c) })
+    dOpt(checkCount, _.checkCount, (o: CheckCount) => o.nonEmpty option { Game.checkCountWriter write o })
     for (i ← 0 to 1) {
       import Player.BSONFields._
       val name = s"p$i."

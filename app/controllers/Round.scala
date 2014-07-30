@@ -64,7 +64,7 @@ object Round extends LilaController with TheftPrevention {
           Redirect(routes.Setup.await(fullId)).fuccess
         ),
         api = apiVersion => Env.round version pov.gameId map { v =>
-          Ok(Env.round.jsonView.playerJson(pov, v, ctx.pref, apiVersion)) as JSON
+          Ok(Env.round.jsonView.playerJson(pov, v, ctx.pref, apiVersion))
         }
       )
     }
@@ -163,7 +163,7 @@ object Round extends LilaController with TheftPrevention {
             "id" -> pov.game.status.id,
             "name" -> pov.game.status.name,
             "translated" -> lila.app.templating.Environment.gameEndStatus(pov.game).body)
-        ), Json.obj())) as JSON)
+        ), Json.obj())))
     )
   }
 

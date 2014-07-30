@@ -107,6 +107,7 @@ trait UserRepo {
       "standard" -> (_.standard),
       "chess960" -> (_.chess960),
       "kingOfTheHill" -> (_.kingOfTheHill),
+      "threeChecks" -> (_.threeChecks),
       "bullet" -> (_.bullet),
       "blitz" -> (_.blitz),
       "classical" -> (_.classical),

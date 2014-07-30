@@ -27,6 +27,8 @@ final class PerfsUpdater(historyApi: HistoryApi) {
             updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
           case chess.Variant.KingOfTheHill =>
             updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result, system)
+          case chess.Variant.ThreeChecks =>
+            updateRatings(ratingsW.threeChecks, ratingsB.threeChecks, result, system)
           case _ =>
         }
         if (game.variant.standard) {
@@ -63,6 +65,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
   private final case class Ratings(
     chess960: Rating,
     kingOfTheHill: Rating,
+    threeChecks: Rating,
     bullet: Rating,
     blitz: Rating,
     classical: Rating,
@@ -71,6 +74,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
   private def mkRatings(perfs: Perfs, poolId: Option[String]) = new Ratings(
     chess960 = perfs.chess960.toRating,
     kingOfTheHill = perfs.kingOfTheHill.toRating,
+    threeChecks = perfs.threeChecks.toRating,
     bullet = perfs.bullet.toRating,
     blitz = perfs.blitz.toRating,
     classical = perfs.classical.toRating,
@@ -107,6 +111,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     val perfs1 = perfs.copy(
       chess960 = game.variant.chess960.fold(perfs.chess960.add(ratings.chess960, date), perfs.chess960),
       kingOfTheHill = game.variant.kingOfTheHill.fold(perfs.kingOfTheHill.add(ratings.kingOfTheHill, date), perfs.kingOfTheHill),
+      threeChecks = game.variant.threeChecks.fold(perfs.threeChecks.add(ratings.threeChecks, date), perfs.threeChecks),
       bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
       classical = (isStd && classicalSpeeds(speed)).fold(perfs.classical.add(ratings.classical, date), perfs.classical))

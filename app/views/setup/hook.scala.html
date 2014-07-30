@@ -5,7 +5,7 @@
 
 @fields = {
 <div class="variants">
-  @trans.variant() @setup.select(form("variant"), translatedVariantChoicesWithKoth)
+  @trans.variant() @setup.select(form("variant"), translatedVariantChoicesWithVariants)
 </div>
 @setup.clock(form, lila.setup.HookConfig)
 @if(ctx.isAuth) {

@@ -11,8 +11,10 @@ import lila.user.{ User, Perfs }
 
 final class RatingChartApi(historyApi: HistoryApi, cacheTtl: Duration) {
 
+  def apply(user: User): Fu[Option[String]] = cache(user)
+
   private val cache = lila.memo.AsyncCache(build,
-    maxCapacity = 5000,
+    maxCapacity = 50,
     timeToLive = cacheTtl)
 
   private val columns = Json stringify {
@@ -24,9 +26,7 @@ final class RatingChartApi(historyApi: HistoryApi, cacheTtl: Duration) {
     )
   }
 
-  def apply(user: User): Fu[Option[String]] = cache(user)
-
-  def build(user: User): Fu[Option[String]] = {
+  private def build(user: User): Fu[Option[String]] = {
 
     def ratingsMapToJson(name: String, ratingsMap: RatingsMap) = ratingsMap.nonEmpty option {
       Json.obj(
@@ -45,6 +45,7 @@ final class RatingChartApi(historyApi: HistoryApi, cacheTtl: Duration) {
           ratingsMapToJson("standard", history.standard),
           ratingsMapToJson("chess960", history.chess960),
           ratingsMapToJson("kingOfTheHill", history.kingOfTheHill),
+          ratingsMapToJson("threeChecks", history.threeChecks),
           ratingsMapToJson("bullet", history.bullet),
           ratingsMapToJson("blitz", history.blitz),
           ratingsMapToJson("classical", history.classical),

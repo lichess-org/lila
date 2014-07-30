@@ -11,8 +11,8 @@ object Mappings {
 
   val variant = number.verifying(Config.variants contains _)
   val variantWithFen = number.verifying(Config.variantsWithFen contains _)
-  val variantWithKoth = number.verifying(Config.variantsWithKoth contains _)
-  val variantWithFenAndKoth = number.verifying(Config.variantsWithFenAndKoth contains _)
+  val variantWithVariants = number.verifying(Config.variantsWithVariants contains _)
+  val variantWithFenAndVariants = number.verifying(Config.variantsWithFenAndVariants contains _)
   val time = number.verifying(HookConfig validateTime _)
   val increment = number.verifying(HookConfig validateIncrement _)
   def mode(withRated: Boolean) = optional(rawMode(withRated))

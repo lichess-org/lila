@@ -21,6 +21,7 @@ final class HistoryApi(coll: Coll) {
       isStd.option("standard" -> perfs.standard),
       game.variant.chess960.option("chess960" -> perfs.chess960),
       game.variant.kingOfTheHill.option("kingOfTheHill" -> perfs.kingOfTheHill),
+      game.variant.threeChecks.option("threeChecks" -> perfs.threeChecks),
       (isStd && game.speed == Speed.Bullet).option("bullet" -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz" -> perfs.blitz),
       (isStd && classicalSpeeds(game.speed)).option("classical" -> perfs.classical),

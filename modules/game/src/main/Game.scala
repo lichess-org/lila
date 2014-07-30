@@ -2,7 +2,7 @@ package lila.game
 
 import chess.Color._
 import chess.Pos.piotr, chess.Role.forsyth
-import chess.{ History => ChessHistory, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Variant, Mode, PositionHash }
+import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Variant, Mode, PositionHash }
 import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 
@@ -21,6 +21,7 @@ case class Game(
     clock: Option[Clock],
     castleLastMoveTime: CastleLastMoveTime,
     positionHashes: PositionHash = Array(),
+    checkCount: CheckCount = CheckCount(0, 0),
     binaryMoveTimes: ByteArray = ByteArray.empty, // tenths of seconds
     mode: Mode = Mode.default,
     variant: Variant = Variant.default,
@@ -118,7 +119,8 @@ case class Game(
   lazy val toChessHistory = ChessHistory(
     lastMove = castleLastMoveTime.lastMove,
     castles = castleLastMoveTime.castles,
-    positionHashes = positionHashes)
+    positionHashes = positionHashes,
+    checkCount = checkCount)
 
   def update(
     game: ChessGame,
@@ -144,6 +146,7 @@ case class Game(
       binaryPgn = BinaryFormat.pgn write game.pgnMoves,
       turns = game.turns,
       positionHashes = history.positionHashes,
+      checkCount = history.checkCount,
       castleLastMoveTime = CastleLastMoveTime(
         castles = history.castles,
         lastMove = history.lastMove,
@@ -428,6 +431,7 @@ object Game {
     val startedAtTurn = "st"
     val clock = "c"
     val positionHashes = "ph"
+    val checkCount = "cc"
     val castleLastMoveTime = "cl"
     val moveTimes = "mt"
     val rated = "ra"
@@ -444,6 +448,10 @@ object Game {
     val tvAt = "tv"
     val winnerColor = "w"
     val winnerId = "wid"
+  }
+
+  private[game] implicit val checkCountWriter = new BSONWriter[CheckCount, BSONArray] {
+    def write(cc: CheckCount) = BSONArray(cc.white, cc.black)
   }
 
   implicit val gameBSONHandler = new BSON[Game] {
@@ -474,6 +482,10 @@ object Game {
         startedAtTurn = r intD startedAtTurn,
         clock = r.getO[Color => Clock](clock) map (_(Color(0 == nbTurns % 2))),
         positionHashes = r.bytesD(positionHashes).value,
+        checkCount = {
+          val counts = r.intsD(checkCount)
+          CheckCount(~counts.headOption, ~counts.lastOption)
+        },
         castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(castleLastMoveTimeBSONHandler),
         binaryMoveTimes = (r bytesO moveTimes) | ByteArray.empty,
         mode = Mode(r boolD rated),
@@ -504,6 +516,7 @@ object Game {
       startedAtTurn -> w.intO(o.startedAtTurn),
       clock -> (o.clock map { c => clockBSONHandler.write(_ => c) }),
       positionHashes -> w.bytesO(o.positionHashes),
+      checkCount -> o.checkCount.nonEmpty.option(o.checkCount),
       castleLastMoveTime -> castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
       moveTimes -> (BinaryFormat.moveTime write o.moveTimes),
       rated -> w.boolO(o.mode.rated),

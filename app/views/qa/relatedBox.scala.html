@@ -1,8 +1,8 @@
 @(qs: List[lila.qa.Question])(implicit ctx: Context)
 
-<div class="related box no_padding">
-  <p class="title" data-icon="o"> Related questions</p>
-  <div class="questions content">
+<div class="related side_box no_padding">
+  <p class="top" data-icon="o"> Related questions</p>
+  <div class="questions padded">
     @qs.map { q =>
     <a href="@routes.QaQuestion.show(q.id, q.slug)">@q.title</a>
     }

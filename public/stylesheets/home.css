@@ -273,8 +273,7 @@
   height: 16px;
   opacity: 0.7;
 }
-#hooks_list table .chess960,
-#hooks_list table .koth {
+#hooks_list table .varname {
   padding-left: 1em;
   font-size: 0.9em;
   font-weight: bold;
@@ -345,18 +344,15 @@
   width: 15px;
   height: 15px;
 }
-#hooks_chart .plot.chess960,
-#hooks_chart .plot.koth {
+#hooks_chart .plot.varname {
   border-style: double;
   border-width: 5px;
 }
-#hooks_chart .plot.casual.chess960,
-#hooks_chart .plot.casual.koth {
+#hooks_chart .plot.casual.varname {
   width: 13px;
   height: 13px;
 }
-#hooks_chart .plot.rated.chess960,
-#hooks_chart .plot.rated.koth {
+#hooks_chart .plot.rated.varname {
   width: 11px;
   height: 11px;
 }
@@ -426,8 +422,7 @@
   margin-top: 40px;
 }
 #hook .mode,
-#hook .chess960,
-#hook .koth {
+#hook .varname {
   font-size: 1.25em;
   display: block;
 }

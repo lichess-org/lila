@@ -19,21 +19,21 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedVariantChoices(implicit ctx: Context) = List(
     (Variant.Standard.id.toString, trans.standard.str(), variantDesc.Standard.some),
-    (Variant.Chess960.id.toString, Variant.Chess960.name.capitalize, variantDesc.Chess960.some)
+    (Variant.Chess960.id.toString, Variant.Chess960.name, variantDesc.Chess960.some)
   )
 
-  def translatedVariantChoicesWithKoth(implicit ctx: Context) =
+  def translatedVariantChoicesWithVariants(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
-      (Variant.KingOfTheHill.id.toString, Variant.KingOfTheHill.name.capitalize, variantDesc.KingOfTheHill.some)
+      (Variant.KingOfTheHill.id.toString, Variant.KingOfTheHill.name, variantDesc.KingOfTheHill.some) :+
+      (Variant.ThreeChecks.id.toString, Variant.ThreeChecks.name, variantDesc.ThreeChecks.some)
 
   def translatedVariantChoicesWithFen(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
-      (Variant.FromPosition.id.toString, "FEN", variantDesc.Position.some)
+      (Variant.FromPosition.id.toString, Variant.FromPosition.name, variantDesc.Position.some)
 
-  def translatedVariantChoicesWithKothAndFen(implicit ctx: Context) =
-    translatedVariantChoices(ctx) :+
-      (Variant.KingOfTheHill.id.toString, Variant.KingOfTheHill.name.capitalize, variantDesc.KingOfTheHill.some) :+
-      (Variant.FromPosition.id.toString, "FEN", variantDesc.Position.some)
+  def translatedVariantChoicesWithVariantsAndFen(implicit ctx: Context) =
+    translatedVariantChoicesWithVariants :+
+      (Variant.FromPosition.id.toString, Variant.FromPosition.name, variantDesc.Position.some)
 
   def translatedSpeedChoices(implicit ctx: Context) = Speed.all map { s =>
     (s.id.toString, {
@@ -49,6 +49,7 @@ trait SetupHelper { self: I18nHelper =>
     val Standard = "Standard rules of chess (FIDE)"
     val Chess960 = "Starting position of the home rank pieces is randomized"
     val KingOfTheHill = "Bring your king to the center to win the game"
+    val ThreeChecks = "Check your opponent 3 times to win the game"
     val Position = "Custom starting position"
   }
 }

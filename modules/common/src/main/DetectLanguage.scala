@@ -35,7 +35,7 @@ final class DetectLanguage(url: String, key: String) {
     } recover {
       case e: Exception =>
         play.api.Logger("detect language").warn(e.getMessage)
-        none
+        Lang("en").some
     }
 }
 
