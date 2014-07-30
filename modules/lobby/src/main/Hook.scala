@@ -7,6 +7,7 @@ import play.api.libs.json._
 
 import lila.rating.RatingRange
 import lila.user.{ User, Perfs }
+import lila.game.PerfPicker
 
 case class Hook(
     id: String,
@@ -52,8 +53,10 @@ case class Hook(
   def userId = user map (_.id)
   def isMember = user.nonEmpty
   def username = user.fold(User.anonymous)(_.username)
-  def rating = user map { u =>
-    Perfs.speedLens(speed)(u.perfs).intRating
+  def rating = user flatMap { u =>
+    PerfPicker.main(speed, realVariant, none) map {
+      _(u.perfs).intRating
+    }
   }
   def engine = user ?? (_.engine)
 
