@@ -34,11 +34,15 @@ object RatingFest {
     def unrate(game: Game) =
       (game.whitePlayer.ratingDiff.isDefined || game.blackPlayer.ratingDiff.isDefined) ?? GameRepo.unrate(game.id).void
 
+    def log(x: Any) {
+      play.api.Logger.info(x.toString)
+    }
+
     var nb = 0
     for {
-      _ <- fuccess(println("Removing history"))
+      _ <- fuccess(log("Removing history"))
       _ <- db("history3").remove(BSONDocument())
-      _ = println("Reseting perfs")
+      _ = log("Reseting perfs")
       _ <- lila.user.tube.userTube.coll.update(
         BSONDocument(),
         BSONDocument("$unset" -> BSONDocument(
@@ -49,10 +53,10 @@ object RatingFest {
           ).map { name => s"perfs.$name" -> BSONBoolean(true) }
         )),
         multi = true)
-      _ = println("Gathering cheater IDs")
+      _ = log("Gathering cheater IDs")
       engineIds <- UserRepo.engineIds
-      _ = println(s"Found ${engineIds.size} cheaters")
-      _ = println("Starting the party")
+      _ = log(s"Found ${engineIds.size} cheaters")
+      _ = log("Starting the party")
       _ <- lila.game.tube.gameTube |> { implicit gameTube =>
         val query = $query(lila.game.Query.rated)
           // val query = $query.all
@@ -64,7 +68,7 @@ object RatingFest {
           if (nb % 1000 == 0) {
             val perS = 1000 * 1000 / math.max(1, nowMillis - started)
             started = nowMillis
-            println("Processed %d games at %d/s".format(nb, perS))
+            log("Processed %d games at %d/s".format(nb, perS))
           }
           games.map { game =>
             game.userIds match {
@@ -77,7 +81,7 @@ object RatingFest {
               case _ => funit
             }
           }.sequenceFu.void
-        } andThen { case _ => println(nb) }
+        } andThen { case _ => log(nb) }
       }
     } yield ()
   }
