@@ -29,8 +29,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     import pov._
     val p1 = playerText(player, withRating = true)
     val p2 = playerText(opponent, withRating = true)
-    val speedAndClock = game.clock.fold("unlimited") { c =>
-      s"${chess.Speed(c.some).shortName} (${c.showCondensed})"
+    val speedAndClock = game.clock.fold(chess.Speed.Unlimited.name) { c =>
+      s"${chess.Speed(c.some).name} (${c.showCondensed})"
     }
     val mode = game.mode.name
     val variant = if (game.variant == chess.Variant.FromPosition) "position setup chess"
@@ -54,19 +54,15 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def variantName(variant: Variant)(implicit ctx: UserContext) = variant match {
-    case Variant.Standard      => trans.standard.str()
-    case Variant.Chess960      => "Chess960"
-    case Variant.FromPosition  => trans.fromPosition.str()
-    case Variant.KingOfTheHill => "King of the Hill"
-    case Variant.ThreeCheck    => "Three-check"
+    case Variant.Standard     => trans.standard.str()
+    case Variant.FromPosition => trans.fromPosition.str()
+    case v                    => v.name
   }
 
   def variantNameNoCtx(variant: Variant) = variant match {
-    case Variant.Standard      => trans.standard.en()
-    case Variant.Chess960      => "Chess960"
-    case Variant.FromPosition  => trans.fromPosition.en()
-    case Variant.KingOfTheHill => "King of the Hill"
-    case Variant.ThreeCheck    => "Three-check"
+    case Variant.Standard     => trans.standard.en()
+    case Variant.FromPosition => trans.fromPosition.en()
+    case v                    => v.name
   }
 
   def clockName(clock: Option[Clock])(implicit ctx: UserContext): String =

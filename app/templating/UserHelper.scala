@@ -6,6 +6,7 @@ import mashup._
 import play.twirl.api.Html
 
 import lila.common.LightUser
+import lila.rating.PerfType
 import lila.user.{ User, UserContext, Perfs }
 
 trait UserHelper { self: I18nHelper with StringHelper =>
@@ -27,10 +28,8 @@ trait UserHelper { self: I18nHelper with StringHelper =>
 
   def showPerfRating(u: User, perfKey: String): Option[Html] = for {
     perf <- u.perfs.perfsMap get perfKey
-    name <- Perfs.names get perfKey
-  } yield showPerfRating(perf.intRating, name, perf.nb, perfIconChar(perfKey))
-
-  def perfIconChar(perfKey: String): Char = Perfs.iconChars get perfKey getOrElse '8'
+    perfType <- PerfType(perfKey)
+  } yield showPerfRating(perf.intRating, perfType.name, perf.nb, perfType.iconChar)
 
   def userPerfsSummary(u: User, nb: Int) =
     List("bullet", "blitz", "classical", "chess960", "kingOfTheHill", "threeCheck") flatMap { key =>

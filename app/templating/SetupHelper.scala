@@ -17,23 +17,26 @@ trait SetupHelper { self: I18nHelper =>
     System.Swiss.id.toString -> "Swiss [beta]"
   )
 
+  private def variantTuple(variant: Variant): (String, String, Option[String]) =
+    (variant.id.toString, variant.name, variant.title.some)
+
   def translatedVariantChoices(implicit ctx: Context) = List(
-    (Variant.Standard.id.toString, trans.standard.str(), variantDesc.Standard.some),
-    (Variant.Chess960.id.toString, Variant.Chess960.name, variantDesc.Chess960.some)
+    (Variant.Standard.id.toString, trans.standard.str(), Variant.Standard.title.some),
+    variantTuple(Variant.Chess960)
   )
 
   def translatedVariantChoicesWithVariants(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
-      (Variant.KingOfTheHill.id.toString, Variant.KingOfTheHill.name, variantDesc.KingOfTheHill.some) :+
-      (Variant.ThreeCheck.id.toString, Variant.ThreeCheck.name, variantDesc.ThreeCheck.some)
+      variantTuple(Variant.KingOfTheHill) :+
+      variantTuple(Variant.ThreeCheck)
 
   def translatedVariantChoicesWithFen(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
-      (Variant.FromPosition.id.toString, Variant.FromPosition.name, variantDesc.Position.some)
+      variantTuple(Variant.FromPosition)
 
   def translatedVariantChoicesWithVariantsAndFen(implicit ctx: Context) =
     translatedVariantChoicesWithVariants :+
-      (Variant.FromPosition.id.toString, Variant.FromPosition.name, variantDesc.Position.some)
+      variantTuple(Variant.FromPosition)
 
   def translatedSpeedChoices(implicit ctx: Context) = Speed.all map { s =>
     (s.id.toString, {
@@ -43,13 +46,5 @@ trait SetupHelper { self: I18nHelper =>
         case (x, y)            => s.toString + " - " + trans.xToYMinutes(x / 60, y / 60 + 1)
       }
     }, none)
-  }
-
-  object variantDesc {
-    val Standard = "Standard rules of chess (FIDE)"
-    val Chess960 = "Starting position of the home rank pieces is randomized"
-    val KingOfTheHill = "Bring your king to the center to win the game"
-    val ThreeCheck = "Check your opponent 3 times to win the game"
-    val Position = "Custom starting position"
   }
 }

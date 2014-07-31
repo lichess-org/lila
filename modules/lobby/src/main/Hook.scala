@@ -75,7 +75,7 @@ case class Hook(
     "emax" -> realRatingRange.map(_.max),
     "color" -> chess.Color(color).??(_.name),
     "engine" -> engine,
-    "perfIcon" -> Perfs.iconChars.get(PerfPicker.key(speed, realVariant, none)).getOrElse('1').toString
+    "perfIcon" -> PerfPicker.perfType(speed, realVariant, none).map(_.iconChar.toString)
   )
 
   private def clockOption = (time ifTrue hasClock) |@| increment apply Clock.apply

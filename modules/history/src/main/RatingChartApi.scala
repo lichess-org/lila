@@ -6,7 +6,7 @@ import scala.math.round
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-import lila.rating.Glicko
+import lila.rating.{ Glicko, PerfType }
 import lila.user.{ User, Perfs }
 
 final class RatingChartApi(historyApi: HistoryApi, cacheTtl: Duration) {
@@ -28,9 +28,9 @@ final class RatingChartApi(historyApi: HistoryApi, cacheTtl: Duration) {
 
   private def build(user: User): Fu[Option[String]] = {
 
-    def ratingsMapToJson(name: String, ratingsMap: RatingsMap) = ratingsMap.nonEmpty option {
+    def ratingsMapToJson(key: String, ratingsMap: RatingsMap) = ratingsMap.nonEmpty option {
       Json.obj(
-        "name" -> Perfs.names.get(name).|(name),
+        "name" -> PerfType(key).map(_.name),
         "points" -> ratingsMap.map {
           case (days, rating) =>
             val date = user.createdAt plusDays days

@@ -89,7 +89,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, play.test, RM, csv)
   )
 
-  lazy val rating = project("rating", Seq(common, db)).settings(
+  lazy val rating = project("rating", Seq(common, db, chess)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 

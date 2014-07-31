@@ -48,7 +48,7 @@
     , @trans.rated()<br />
     }
     @if(game.variant.threeCheck) {
-    <div class="check_count" data-icon="@lila.user.Perfs.iconChars.get("threeCheck")">
+    <div class="check_count" data-icon="@lila.rating.PerfType("threeCheck").map(_.iconChar)">
       Checks given:
       @* Note that they are stored the other way round, as checks received *@
       <span class="player color white">@game.checkCount.black</span>

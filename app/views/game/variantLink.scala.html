@@ -1,23 +1,12 @@
 @(variant: chess.Variant, name: String)
+@import chess.Variant
+@url = {
 @variant match {
-case chess.Variant.Standard => {
-<a href="https://en.wikipedia.org/wiki/Chess" target="_blank"
-  data-hint="@variantDesc.Standard" class="hint--bottom">@name</a>
+case chess.Variant.Standard => {https://en.wikipedia.org/wiki/Chess}
+case chess.Variant.Chess960 => {https://en.wikipedia.org/wiki/Chess960}
+case chess.Variant.KingOfTheHill => {@routes.Page.kingOfTheHill}
+case chess.Variant.ThreeCheck => {http://en.wikipedia.org/wiki/Three-check_chess}
+case chess.Variant.FromPosition => {@routes.Editor.index}
 }
-case chess.Variant.Chess960 => {
-<a href="https://en.wikipedia.org/wiki/Chess960" target="_blank"
-  data-hint="@variantDesc.Chess960" class="hint--bottom">@name</a>
 }
-case chess.Variant.KingOfTheHill => {
-<a href="@routes.Page.kingOfTheHill" target="_blank"
-  data-hint="@variantDesc.KingOfTheHill" class="hint--bottom">@name</a>
-}
-case chess.Variant.ThreeCheck => {
-<a href="http://en.wikipedia.org/wiki/Three-check_chess" target="_blank"
-  data-hint="@variantDesc.ThreeCheck" class="hint--bottom">@name</a>
-}
-case chess.Variant.FromPosition => {
-<a data-hint="@variantDesc.Position" class="hint--bottom">@name</a>
-}
-case x => { x }
-}
+<a href="@url" target="_blank" data-hint="@variant.title" class="hint--bottom">@name</a>

@@ -1,20 +1,23 @@
 package lila.game
 
 import chess.{ Variant, Speed }
-import lila.rating.Perf
+import lila.rating.{ Perf, PerfType }
 import lila.user.Perfs
 
 object PerfPicker {
 
   val default = (perfs: Perfs) => perfs.standard
 
+  def perfType(speed: Speed, variant: Variant, poolId: Option[String]): Option[PerfType] =
+    PerfType(key(speed, variant, poolId))
+
   def key(speed: Speed, variant: Variant, poolId: Option[String]): String =
-    poolId match {
-      case Some(_) => "pool"
-      case _ if variant.standard && speed == Speed.Unlimited => Speed.Classical.key
-      case _ if variant.standard => speed.key
-      case _ => variant.key
+    if (poolId.isDefined) "pool"
+    else if (variant.standard) {
+      if (speed == Speed.Unlimited) Speed.Classical.key
+      else speed.key
     }
+    else variant.key
 
   def main(speed: Speed, variant: Variant, poolId: Option[String]): Option[Perfs => Perf] =
     poolId match {
