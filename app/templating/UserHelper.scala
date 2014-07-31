@@ -10,14 +10,15 @@ import lila.user.{ User, UserContext, Perfs }
 
 trait UserHelper { self: I18nHelper with StringHelper =>
 
-  def showProgress(progress: Int) = Html {
-    val title = "Rating progression over the last twelve games"
+  def showProgress(progress: Int, withTitle: Boolean = true) = Html {
     val span = progress match {
       case 0          => ""
       case p if p > 0 => s"""<span class="positive" data-icon="N">$p</span>"""
       case p if p < 0 => s"""<span class="negative" data-icon="M">${math.abs(p)}</span>"""
     }
-    s"""<span data-hint="$title" class="progress hint--bottom">$span</span>"""
+    val title = if (withTitle) """data-hint="Rating progression over the last twelve games"""" else ""
+    val klass = if (withTitle) "progress hint--bottom" else "progress"
+    s"""<span $title class="$klass">$span</span>"""
   }
 
   def showPerfRating(rating: Int, name: String, nb: Int, icon: Char) = Html {

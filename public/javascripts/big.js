@@ -760,7 +760,7 @@ var storage = {
             $links.prepend(_.map(list, function(lang) {
               var href = location.href.replace(/\/\/\w+\./, '//' + lang[0] + '.');
               var klass = _.contains(langs, lang[0]) ? 'class="accepted"' : '';
-              return '<li><a '+klass+' lang="'+lang[0]+'" href="' + href + '">' + lang[1] + '</a></li>';
+              return '<li><a ' + klass + ' lang="' + lang[0] + '" href="' + href + '">' + lang[1] + '</a></li>';
             }).join(''));
           }
         });
@@ -823,7 +823,7 @@ var storage = {
       moveB: makeAudio('move.ogg', 0.6),
       take: makeAudio('take.ogg', 0.6)
     };
-    var canPlay = !! audio.moveW.canPlayType && audio.moveW.canPlayType('audio/ogg; codecs="vorbis"');
+    var canPlay = !!audio.moveW.canPlayType && audio.moveW.canPlayType('audio/ogg; codecs="vorbis"');
     var $toggle = $('#sound_state').toggleClass('sound_state_on', storage.get('sound') == 1);
     var enabled = function() {
       return $toggle.hasClass("sound_state_on");
@@ -1123,6 +1123,15 @@ var storage = {
                 self.element.dequeue();
               });
             },
+            checkCount: function(e) {
+              self.element.queue(function() {
+                var $elem = $('div.check_count');
+                // note that data is about checks received, not given
+                $elem.find('.white').text(e.black);
+                $elem.find('.black').text(e.white);
+                self.element.dequeue();
+              });
+            },
             premove: function() {
               if (self.options.pref.enablePremove) {
                 self.element.queue(function() {
@@ -1292,8 +1301,8 @@ var storage = {
         case 'king':
           return (Math.abs(t.x - f.x) <= 1 && Math.abs(t.y - f.y) <= 1) ||
             (f.y == t.y && (f.y == (color == 'white' ? 1 : 8)) && (
-            (f.x == 5 && (t.x == 3 || t.x == 7)) ||
-            $('#' + to + '>.rook.' + color).length == 1));
+              (f.x == 5 && (t.x == 3 || t.x == 7)) ||
+              $('#' + to + '>.rook.' + color).length == 1));
         case 'queen':
           return Math.abs(t.x - f.x) == Math.abs(t.y - f.y) || t.x == f.x || t.y == f.y;
       }
@@ -2524,7 +2533,8 @@ var storage = {
       var klass = [
         'plot',
         hook.mode == "Rated" ? 'rated' : 'casual',
-        hook.action == 'cancel' ? 'cancel' : ''
+        hook.action == 'cancel' ? 'cancel' : '',
+        hook.variant != 'STD' ? 'variant' : ''
       ].join(' ');
       var $plot = $('<span id="' + hook.id + '" class="' + klass + '" style="bottom:' + bottom + 'px;left:' + left + 'px;"></span>');
       return $plot.data('hook', hook).powerTip({
@@ -2578,9 +2588,7 @@ var storage = {
       }
       html += '<span class="mode">';
       html += $.trans(hook.mode);
-      if (hook.variant == 'Chess960') html += ', 960';
-      if (hook.variant == 'King of the Hill') html += ', KotH';
-      if (hook.variant == 'Three-check') html += ', 3check';
+      if (hook.variant) html += ', ' + hook.variant;
       html += '</span>';
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
       html += '<span class="is2" data-icon="' + k + '"></span>';
@@ -2601,9 +2609,8 @@ var storage = {
         [hook.rating || 0, hook.rating ? ('<span data-icon="' + hook.perfIcon + '">' + hook.rating + '</span>') : ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
         [hook.mode, $.trans(hook.mode) +
-        (hook.variant == 'Chess960' ? '<span class="varname">960</span>' : '') +
-        (hook.variant == 'King of the Hill' ? '<span class="varname">KotH</span>' : '') +
-        (hook.variant == 'Three-check' ? '<span class="varname">3check</span>' : '')]
+          (hook.variant != 'STD' ? ('<span class="varname">' + hook.variant + '</span>') : '')
+        ]
       ], function(x) {
         return '<td data-sort-value="' + x[0] + '">' + x[1] + '</td>';
       }).join('') + '</tr>';
@@ -2638,13 +2645,13 @@ var storage = {
         return;
       }
       var variantConfirms = {
-        'c960': ['Chess960',"This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?"],
-        'koth': ['King of the Hill', "This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill"],
-        '3check': ['Three-check',"This is a Three-check game!\n\nThe game can be won by checking the opponent 3 times.\nRead more: http://en.wikipedia.org/wiki/Three-check_chess"]
+        '960': "This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?",
+        'KotH': "This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill",
+        '3+': "This is a Three-check game!\n\nThe game can be won by checking the opponent 3 times.\nRead more: http://en.wikipedia.org/wiki/Three-check_chess"
       };
       if (hook.action != 'join' || _.every(variantConfirms, function(variant, key) {
-        if (hook.variant == variant[0] && !storage.get(key)) {
-          var c = confirm(variant[1]);
+        if (hook.variant == key && !storage.get(key)) {
+          var c = confirm(variant);
           if (c) storage.set(key, 1);
           return c;
         } else return true;
@@ -2872,7 +2879,9 @@ var storage = {
       var panel = $(this).data('panel');
       $(this).siblings('.active').removeClass('active').end().addClass('active');
       $panels.removeClass('active').filter('.' + panel).addClass('active');
-      if (panel == 'move_times') try { $.renderMoveTimesChart(); } catch(e){}
+      if (panel == 'move_times') try {
+        $.renderMoveTimesChart();
+      } catch (e) {}
     }).find('a:first').click();
 
     var pgnLoader = function() {

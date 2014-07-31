@@ -20,9 +20,7 @@
   }.getOrElse {
   <td class="small">
     <span data-icon="p">&nbsp;@tour.clock.show</span>
-    @if(tour.variant.exotic) {
-    [960]
-    }
+    @if(tour.variant.exotic) { @tour.variant.shortName }
     @if(tour.rated) {
     <span class="trans_me">@trans.rated.en()</span>
     }

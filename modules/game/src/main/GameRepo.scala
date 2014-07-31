@@ -165,7 +165,6 @@ trait GameRepo {
       F.winnerColor -> winnerColor.map(_.white)
     )) ++ nonEmptyMod("$unset", BSONDocument(
       F.positionHashes -> true,
-      F.checkCount -> true,
       ("p0." + Player.BSONFields.lastDrawOffer) -> true,
       ("p1." + Player.BSONFields.lastDrawOffer) -> true,
       ("p0." + Player.BSONFields.isOfferingDraw) -> true,

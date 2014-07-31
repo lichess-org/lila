@@ -131,8 +131,8 @@ body.blind_mode #blind_mode {
   margin-left: 0;
   height: auto;
 }
-
 /* jquery-ui */
+
 .ui-helper-hidden {
   display: none;
 }
@@ -1211,6 +1211,7 @@ table.slist thead {
 .button,
 a.button {
   padding: 6px 11px;
+  white-space: nowrap;
 }
 .button.thin,
 a.button.thin {
@@ -1332,10 +1333,13 @@ div.game_row span.color,
   line-height: 16px;
   height: 16px;
   display: inline-block;
-  margin: 1px 1em 1px 0;
+  margin: 1px 0 1px 0;
   padding-left: 20px;
   background-size: contain;
   background-repeat: no-repeat;
+}
+div.game_row .color {
+  margin-right: 1em !important;
 }
 div.game_row span.color {
   font-weight: lighter;
@@ -1748,14 +1752,10 @@ input.copyable {
   vertical-align: middle;
 }
 .scroll-shadow-soft {
-  background:
-  linear-gradient(#eee 30%, rgba(247, 247, 247, 0)), linear-gradient(rgba(247, 247, 247, 0), #eee 70%) 0 100%,
-  radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+  background: linear-gradient(#eee 30%, rgba(247, 247, 247, 0)), linear-gradient(rgba(247, 247, 247, 0), #eee 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
 }
 .scroll-shadow-hard {
-  background:
-  linear-gradient(#fff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #fff 70%) 0 100%,
-  radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+  background: linear-gradient(#fff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #fff 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
 }
 .scroll-shadow-soft,
 .scroll-shadow-hard {

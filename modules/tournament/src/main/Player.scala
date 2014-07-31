@@ -1,6 +1,8 @@
 package lila.tournament
 
-import lila.user.User
+import lila.rating.Perf
+import lila.user.{ User, Perfs}
+import lila.game.PerfPicker
 
 private[tournament] case class Player(
     id: String,
@@ -20,9 +22,9 @@ private[tournament] case class Player(
 
 private[tournament] object Player {
 
-  private[tournament] def make(user: User): Player = new Player(
+  private[tournament] def make(user: User, perfLens: Perfs => Perf): Player = new Player(
     id = user.id,
-    rating = user.rating)
+    rating = perfLens(user.perfs).intRating)
 
   private[tournament] def refresh(tour: Tournament): Players = tour.players map { p =>
     p.copy(score = tour.system.scoringSystem.scoreSheet(tour, p.id).total)

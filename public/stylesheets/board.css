@@ -871,6 +871,13 @@ div.underboard a {
 div.underboard.replay_and_analyse a {
   font-size: 1.4em;
 }
+
+div.check_count span.player.color {
+  display:inline-block;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
 /* chessboardjs */
 
 #chessboard {

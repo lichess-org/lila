@@ -168,6 +168,14 @@ object Event {
       clock remainingTime Color.Black)
   }
 
+  case class CheckCount(white: Int, black: Int) extends Event {
+    def typ = "checkCount"
+    def data = Json.obj(
+      "white" -> white,
+      "black" -> black
+    )
+  }
+
   case class State(color: Color, turns: Int) extends Event {
     def typ = "state"
     def data = Json.obj(

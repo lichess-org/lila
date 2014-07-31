@@ -47,6 +47,14 @@
     @if(game.rated) {
     , @trans.rated()<br />
     }
+    @if(game.variant.threeCheck) {
+    <div class="check_count" data-icon="@lila.user.Perfs.iconChars.get("threeCheck")">
+      Checks given:
+      @* Note that they are stored the other way round, as checks received *@
+      <span class="player color white">@game.checkCount.black</span>
+      <span class="player color black">@game.checkCount.white</span>
+    </div>
+    }
   </div>
 
   @tour match {

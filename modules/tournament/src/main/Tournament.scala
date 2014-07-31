@@ -4,10 +4,9 @@ import com.github.nscala_time.time.Imports._
 import org.joda.time.{ DateTime, Duration }
 import ornicar.scalalib.Random
 
-import chess.{ Variant, Mode }
-import lila.game.PovRef
+import chess.{ Variant, Speed, Mode }
+import lila.game.{ PovRef, PerfPicker }
 import lila.user.User
-
 
 private[tournament] case class Data(
   name: String,
@@ -45,11 +44,14 @@ sealed trait Tournament {
   def system = data.system
   def variant = data.variant
   def mode = data.mode
+  def speed = Speed(clock.chessClock.some)
   def rated = mode.rated
   def password = data.password
   def hasPassword = password.isDefined
   def schedule = data.schedule
   def scheduled = data.schedule.isDefined
+
+  def perfLens = PerfPicker.mainOrDefault(speed, variant, none)
 
   def userIds = players map (_.id)
   def activePlayers = players filter (_.active)
@@ -82,7 +84,7 @@ sealed trait Tournament {
   def isSwiss = system == System.Swiss
 
   // Oldest first!
-  def pairingsAndEvents: List[Either[Pairing,Event]] =
+  def pairingsAndEvents: List[Either[Pairing, Event]] =
     (pairings.reverse.map(Left(_)) ::: events.map(Right(_))).sorted(Tournament.PairingEventOrdering)
 }
 
@@ -98,7 +100,7 @@ sealed trait Enterable extends Tournament {
     !!("User %s is already part of the tournament" format user.id),
     (pass != password).fold(
       !!("Invalid tournament password"),
-      withPlayers(players :+ Player.make(user)).success
+      withPlayers(players :+ Player.make(user, perfLens)).success
     ))
 
   def ejectCheater(userId: String): Option[Enterable] =
@@ -111,7 +113,7 @@ sealed trait Enterable extends Tournament {
 }
 
 sealed trait StartedOrFinished extends Tournament {
-  type RankedPlayers = List[(Int,Player)]
+  type RankedPlayers = List[(Int, Player)]
 
   def startedAt: DateTime
   def withPlayers(s: Players): StartedOrFinished
@@ -349,21 +351,24 @@ object Tournament {
     system: System,
     variant: Variant,
     mode: Mode,
-    password: Option[String]): Created = Created(
-    id = Random nextStringUppercase 8,
-    data = Data(
-      name = RandomName(),
-      system = system,
-      clock = clock,
-      createdBy = createdBy.id,
-      createdAt = DateTime.now,
-      variant = variant,
-      mode = mode,
-      password = password,
-      minutes = minutes,
-      schedule = None,
-      minPlayers = minPlayers),
-    players = List(Player make createdBy))
+    password: Option[String]): Created = {
+    val tour = Created(
+      id = Random nextStringUppercase 8,
+      data = Data(
+        name = RandomName(),
+        system = system,
+        clock = clock,
+        createdBy = createdBy.id,
+        createdAt = DateTime.now,
+        variant = variant,
+        mode = mode,
+        password = password,
+        minutes = minutes,
+        schedule = None,
+        minPlayers = minPlayers),
+      players = Nil)
+    tour withPlayers List(Player.make(createdBy, tour.perfLens))
+  }
 
   def schedule(sched: Schedule, minutes: Int) = Created(
     id = Random nextStringUppercase 8,
@@ -384,16 +389,16 @@ object Tournament {
   // To sort combined sequences of pairings and events.
   // This sorts all pairings/events in chronological order. Pairings without a timestamp
   // are assumed to have happened at the origin of time (i.e. before anything else).
-  object PairingEventOrdering extends Ordering[Either[Pairing,Event]] {
-    def compare(x: Either[Pairing,Event], y: Either[Pairing,Event]): Int = {
+  object PairingEventOrdering extends Ordering[Either[Pairing, Event]] {
+    def compare(x: Either[Pairing, Event], y: Either[Pairing, Event]): Int = {
       val ot1: Option[DateTime] = x.fold(_.pairedAt, e => Some(e.timestamp))
       val ot2: Option[DateTime] = y.fold(_.pairedAt, e => Some(e.timestamp))
 
-      (ot1,ot2) match {
-        case (None,None)         => 0
-        case (None,Some(_))      => -1
-        case (Some(_),None)      => 1
-        case (Some(t1),Some(t2)) => if(t1 equals t2) 0 else if(t1 isBefore t2) -1 else 1
+      (ot1, ot2) match {
+        case (None, None)         => 0
+        case (None, Some(_))      => -1
+        case (Some(_), None)      => 1
+        case (Some(t1), Some(t2)) => if (t1 equals t2) 0 else if (t1 isBefore t2) -1 else 1
       }
     }
   }

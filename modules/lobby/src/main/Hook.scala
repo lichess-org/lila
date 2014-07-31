@@ -65,7 +65,7 @@ case class Hook(
     "uid" -> uid,
     "username" -> username,
     "rating" -> rating,
-    "variant" -> realVariant.toString,
+    "variant" -> realVariant.shortName,
     "mode" -> realMode.toString,
     "allowAnon" -> allowAnon,
     "clock" -> clockOption.map(c => renderClock(c.limit, c.increment)),
@@ -75,7 +75,7 @@ case class Hook(
     "emax" -> realRatingRange.map(_.max),
     "color" -> chess.Color(color).??(_.name),
     "engine" -> engine,
-    "perfIcon" -> Perfs.iconChars.get(PerfPicker.key(speed, realVariant, none)).getOrElse('8').toString
+    "perfIcon" -> Perfs.iconChars.get(PerfPicker.key(speed, realVariant, none)).getOrElse('1').toString
   )
 
   private def clockOption = (time ifTrue hasClock) |@| increment apply Clock.apply

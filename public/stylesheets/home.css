@@ -344,15 +344,15 @@
   width: 15px;
   height: 15px;
 }
-#hooks_chart .plot.varname {
+#hooks_chart .plot.variant {
   border-style: double;
   border-width: 5px;
 }
-#hooks_chart .plot.casual.varname {
+#hooks_chart .plot.casual.variant {
   width: 13px;
   height: 13px;
 }
-#hooks_chart .plot.rated.varname {
+#hooks_chart .plot.rated.variant {
   width: 11px;
   height: 11px;
 }

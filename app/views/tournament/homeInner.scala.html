@@ -16,7 +16,7 @@
 @tour.schedule.filter(_ => tour.isOpen).map { s =>
 @momentFromNow(s.at)
 }.getOrElse {
-@if(tour.variant.exotic) { 960 }
+@if(tour.variant.exotic) { @tour.variant.shortName }
 @if(tour.rated) { @trans.rated() }
 }
 }

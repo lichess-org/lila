@@ -26,7 +26,7 @@ case class FilterConfig(
   ).some
 
   def render = Json.obj(
-    "variant" -> variant.map(_.toString),
+    "variant" -> variant.map(_.shortName),
     "mode" -> mode.map(_.toString),
     "speed" -> speed.map(_.id),
     "rating" -> ratingRange.notBroad.map(rr => List(rr.min, rr.max)))

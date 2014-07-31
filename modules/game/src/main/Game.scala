@@ -165,6 +165,12 @@ case class Game(
           playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
         })
       )).??(Color.all map Event.ReloadTable)
+    } ::: {
+      // abstraction leak, I know.
+      (updated.variant.threeCheck && situation.check) ?? List(Event.CheckCount(
+        white = updated.checkCount.white,
+        black = updated.checkCount.black
+      ))
     }
 
     Progress(this, updated, finalEvents)
