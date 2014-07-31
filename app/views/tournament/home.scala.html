@@ -15,8 +15,8 @@
 <ol class="scheduled_tournaments">
   @scheduled.map { tour =>
   @tour.schedule.map { s =>
-  <li>
-    @tournamentLink(tour)<br />
+  <li data-icon="g" class="is-gold">
+    <a href="@routes.Tournament.show(tour.id)">@tour.fullName</a>
     @momentFormat(s.at, "calendar")
   </li>
   }

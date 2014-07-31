@@ -57,6 +57,9 @@ div.sub_ratings > div::before {
   margin-right: 5px;
   opacity: 0.6;
 }
+div.sub_ratings > div:hover::before {
+  opacity: 1;
+}
 div.sub_ratings h3 {
   font-weight: 100;
   font-size: 1.2em;

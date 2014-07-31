@@ -242,6 +242,15 @@ ol.tournament_leaderboard a {
 ol.scheduled_tournaments li {
   padding: 5px 0;
 }
+ol.scheduled_tournaments li::before {
+  font-size: 30px;
+  float: left;
+  margin: 3px 5px 0 0;
+  opacity: 0.7;
+}
+ol.scheduled_tournaments li:hover::before {
+  opacity: 1;
+}
 ol.scheduled_tournaments a {
   font-weight: bold;
   text-decoration: none;

@@ -17,8 +17,7 @@ final class Env(
   private val UserDisplayMax = config getInt "user.display_max"
   private val UserActorName = config getString "user.actor.name"
 
-  lazy val getter = new Getter(
-    userMax = UserDisplayMax)
+  lazy val getter = new Getter(userMax = UserDisplayMax)
 
   system.actorOf(Props(new Push(
     lobbySocket = lobbySocket,
