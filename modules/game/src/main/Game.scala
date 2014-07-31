@@ -7,6 +7,7 @@ import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 
 import lila.db.ByteArray
+import lila.rating.PerfType
 import lila.user.User
 
 case class Game(
@@ -200,6 +201,8 @@ case class Game(
   )
 
   def speed = chess.Speed(clock)
+
+  def perfType = PerfType(PerfPicker.key(this))
 
   def started = status >= Status.Started
 

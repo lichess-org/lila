@@ -7,25 +7,25 @@
   @gameFen(g, firstPlayer.color, ownerLink)
   <div class="infos">
     @bookmark.toggle(g)
-    @if(g.isBeingPlayed) {
-    <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)" data-icon="v"> @trans.playingRightNow()</a>,
-    } else {
-    @momentFormat(g.createdAt)
-    }
-    @if(g.finishedOrAborted) {
-    @gameEndStatus(g)
-    @g.winner.map { winner =>
-    , <span class="@{ fromPlayer.map(p => (p == winner).fold("win", "loss")) }">
-      @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
-    </span>
-    }
-    } else {
-    @g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
-    }
-    @if(g.variant.exotic) {
-    <br />
-    @trans.variant(): <strong>@variantLink(g.variant, variantName(g.variant))</strong>
-    }
+    <div class="perf_block" @g.perfType.map { p => data-icon="@p.iconChar"}>
+      @if(g.isBeingPlayed) {
+      <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)" data-icon="v"> @trans.playingRightNow()</a>,
+      } else {
+      @momentFormat(g.createdAt)
+      }
+      @if(g.finishedOrAborted) {
+      @gameEndStatus(g)
+      @g.winner.map { winner =>
+      , <span class="@{ fromPlayer.map(p => (p == winner).fold("win", "loss")) }">
+        @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+      </span>
+      }
+      } else {
+      @g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
+      }
+      <br />
+      @trans.variant(): <strong>@variantLink(g.variant, variantName(g.variant))</strong>
+    </div>
     @g.pgnImport.flatMap(_.date).map { date =>
     <br />
     PGN Import @date

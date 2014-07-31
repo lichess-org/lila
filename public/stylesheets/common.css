@@ -1319,6 +1319,11 @@ div.game_row div.infos span.win {
 div.game_row div.infos span.loss {
   color: #ac524f;
 }
+div.game_row div.perf_block::before {
+  font-size: 30px;
+  float: left;
+  margin: 5px 8px 0 -5px;
+}
 div.game_row a.go_analyse {
   position: absolute;
   bottom: 16px;

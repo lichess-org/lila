@@ -19,6 +19,8 @@ object PerfPicker {
     }
     else variant.key
 
+  def key(game: Game): String = key(game.speed, game.variant, game.poolId)
+
   def main(speed: Speed, variant: Variant, poolId: Option[String]): Option[Perfs => Perf] =
     poolId match {
       case Some(id)              => Some(_ pool id)
