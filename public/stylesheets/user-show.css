@@ -48,11 +48,20 @@ div.user_show div.meat {
 div.engine_warning {
   margin: 10px 0;
 }
+div.sub_ratings > div {
+  margin: 20px 0 0 -10px;
+}
+div.sub_ratings > div::before {
+  font-size: 40px;
+  float: left;
+  margin-right: 5px;
+  opacity: 0.6;
+}
 div.sub_ratings h3 {
   font-weight: 100;
   font-size: 1.2em;
   letter-spacing: 2px;
-  margin-bottom: 2px;
+  margin: 0;
   display: inline-block;
 }
 #site_header div.sub_ratings strong {
