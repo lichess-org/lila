@@ -43,7 +43,7 @@ case class Hook(
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this)
 
   private def ratingRangeCompatibleWith(h: Hook) = realRatingRange.fold(true) {
-    range => rating ?? range.contains
+    range => h.rating ?? range.contains
   }
 
   private def compatibilityProperties = (variant, time, increment, mode)
