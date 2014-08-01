@@ -61,8 +61,8 @@ private[controllers] trait LilaController
 
   protected def Auth[A](p: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      reqToCtx(req) flatMap { ctx =>
-        ctx.me.fold(authenticationFailed(ctx.req).fuccess)(me => f(ctx)(me))
+      reqToCtx(req) flatMap { implicit ctx =>
+        ctx.me.fold(authenticationFailed)(me => f(ctx)(me))
       }
     }
 
@@ -71,8 +71,8 @@ private[controllers] trait LilaController
 
   protected def AuthBody[A](p: BodyParser[A])(f: BodyContext => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
-      reqToCtx(req) flatMap { ctx =>
-        ctx.me.fold(authenticationFailed(ctx.req).fuccess)(me => f(ctx)(me))
+      reqToCtx(req) flatMap { implicit ctx =>
+        ctx.me.fold(authenticationFailed)(me => f(ctx)(me))
       }
     }
 
@@ -161,8 +161,14 @@ private[controllers] trait LilaController
   protected def isGranted(permission: Permission)(implicit ctx: Context): Boolean =
     ctx.me ?? Granter(permission)
 
-  protected def authenticationFailed(implicit req: RequestHeader): Result =
-    Redirect(routes.Auth.signup) withCookies LilaCookie.session(Env.security.api.AccessUri, req.uri)
+  protected def authenticationFailed(implicit ctx: Context): Fu[Result] =
+    negotiate(
+      html = fuccess {
+        implicit val req = ctx.req
+        Redirect(routes.Auth.signup) withCookies LilaCookie.session(Env.security.api.AccessUri, req.uri)
+      },
+      api = _ => Unauthorized("Login required").fuccess
+    )
 
   protected def authorizationFailed(req: RequestHeader): Result =
     Forbidden("no permission")
@@ -174,7 +180,7 @@ private[controllers] trait LilaController
         case MediaSubTypeRegex(v) => parseIntOption(v).fold(html) { version =>
           api(version) map (_ as JSON)
         }
-        case _                    => html
+        case _ => html
       }
     }(ctx.req)
   }
