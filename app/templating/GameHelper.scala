@@ -160,7 +160,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   private def gameTitle(game: Game, color: Color): String = {
     val u1 = playerText(game player color, withRating = true)
     val u2 = playerText(game opponent color, withRating = true)
-    val clock = game.clock ?? { c => " • " + c.show }
+    val clock = game.clock ?? { c => " • " + c.showCondensed }
     s"$u1 vs $u2$clock"
   }
 
@@ -175,19 +175,24 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"${usernameOrId(whiteUserId)} $res ${usernameOrId(blackUserId)}"
   }
 
-  def gameFen(game: Game, color: Color, ownerLink: Boolean = false, tv: Boolean = false)(implicit ctx: UserContext) = Html {
+  def gameFen(
+    game: Game,
+    color: Color,
+    ownerLink: Boolean = false,
+    tv: Boolean = false,
+    withTitle: Boolean = true)(implicit ctx: UserContext) = Html {
     val owner = ownerLink.fold(ctx.me flatMap game.player, none)
     var isLive = game.isBeingPlayed
     val url = owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
       routes.Round.player(game fullIdOf o.color)
     }
     val href = tv.fold(routes.Tv.index, url)
-    val title = gameTitle(game, color)
+    val title = withTitle ?? s"""title="${gameTitle(game, color)}""""
     val cssClass = isLive ?? ("live live_" + game.id)
     val live = isLive ?? game.id
     val fen = Forsyth exportBoard game.toChess.board
     val lastMove = ~game.castleLastMoveTime.lastMoveString
-    s"""<a href="$href" title="$title" class="mini_board parse_fen $cssClass" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove"></a>"""
+    s"""<a href="$href" $title class="mini_board parse_fen $cssClass" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove"></a>"""
   }
 
   def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false, blank: Boolean = false) = Html {

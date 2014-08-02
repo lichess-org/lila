@@ -4,6 +4,8 @@ import chess.{ Pos, Piece, Color }
 
 import lila.user.User
 
+case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
+
 case class Player(
     id: String,
     color: Color,
@@ -19,6 +21,10 @@ case class Player(
     blurs: Int = 0,
     holdAlert: Option[Player.HoldAlert] = None,
     name: Option[String] = None) {
+
+  def playerUser = userId flatMap { uid =>
+    rating map { PlayerUser(uid, _, ratingDiff) }
+  }
 
   def encodePieces(allPieces: Iterable[(Pos, Piece, Boolean)]): String =
     allPieces collect {
@@ -70,6 +76,11 @@ case class Player(
 
   def withName(name: String) = copy(name = name.some)
 
+  def nameSplit: Option[(String, Int)] = name flatMap {
+    case Player.nameSplitRegex(n, r) => parseIntOption(r) map (n -> _)
+    case _                           => none
+  }
+
   def before(other: Player) = ((rating, id), (other.rating, other.id)) match {
     case ((Some(a), _), (Some(b), _)) if a != b => a < b
     case ((Some(_), _), (None, _))              => true
@@ -79,6 +90,8 @@ case class Player(
 }
 
 object Player {
+
+  private val nameSplitRegex = """^([^\(]+)\((\d+)\)$""".r
 
   def make(
     color: Color,

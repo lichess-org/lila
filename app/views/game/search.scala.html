@@ -150,7 +150,7 @@ moreCss = moreCss) {
       @pager.nbResults.localize games found -
       <a class="permalink" href="@routes.Game.search()">Permalink</a>
     </div>
-    <div class="all_games search_infinitescroll">
+    <div class="search_infinitescroll">
       @pager.nextPage.map { n =>
       <div class="pager none"><a href="@routes.Game.search(n)">Next</a></div>
       }.getOrElse {

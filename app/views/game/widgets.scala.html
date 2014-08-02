@@ -1,64 +1,77 @@
 @(games: Seq[Game], user: Option[User] = None, ownerLink: Boolean = false, mini: Boolean = false)(implicit ctx: Context)
 
+@gamePlayer(player: Player) = {
+<div class="player @player.color.name">
+  @player.playerUser.map { playerUser =>
+  <a href="@routes.User.show(playerUser.id)" class="user_link ulpt">@usernameOrId(playerUser.id)</a><br />
+  @playerUser.rating @playerUser.ratingDiff.map(showRatingDiff)
+  }.getOrElse {
+  <span>@player.nameSplit match {
+    case Some((name, rating)) => {
+    <span>@name</span><br />@rating
+    }
+    case _ => {<span class="anon">@User.anonymous</span>}
+    }</span>
+  }
+</div>
+}
+
 @games.map { g =>
 <div class="game_row paginated_element clearfix">
   @defining(user flatMap g.player) { fromPlayer =>
   @defining(fromPlayer | g.firstPlayer ) { firstPlayer =>
-  @gameFen(g, firstPlayer.color, ownerLink)
-  <div class="infos">
+  @gameFen(g, firstPlayer.color, ownerLink, withTitle = false)
+  <div class="infos" @g.perfType.map { p => data-icon="@p.iconChar"}>
     @bookmark.toggle(g)
-    <div class="perf_block" @g.perfType.map { p => data-icon="@p.iconChar"}>
-      @if(g.isBeingPlayed) {
-      <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)" data-icon="v"> @trans.playingRightNow()</a>,
-      } else {
-      @momentFormat(g.createdAt)
-      }
+    <div class="header">
+      <strong>
+        @g.clock.fold(trans.unlimited.str())(_.showCondensed)
+        • @g.perfType.map(_.name)
+        • @g.rated.fold(trans.rated(), trans.casual())
+      </strong>
+      @g.pgnImport.flatMap(_.date).getOrElse(momentFormat(g.createdAt))
+    </div>
+    <div class="versus">
+      @gamePlayer(g.whitePlayer)
+      <div class="swords" data-icon="U"></div>
+      @gamePlayer(g.blackPlayer)
+    </div>
+    <div class="result">
+      @if(g.isBeingPlayed) {@trans.playingRightNow()} else {
       @if(g.finishedOrAborted) {
-      @gameEndStatus(g)
-      @g.winner.map { winner =>
-      , <span class="@{ fromPlayer.map(p => (p == winner).fold("win", "loss")) }">
-        @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+      <span class="@{ g.winner.flatMap(w => fromPlayer.map(p => (p == w).fold("up", "down"))) }">
+        @gameEndStatus(g)@g.winner.map { winner =>, @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious()) }
       </span>
-      }
       } else {
       @g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
       }
-      <br />
-      @trans.variant(): <strong>@variantLink(g.variant, variantName(g.variant))</strong>
-    </div>
-    @g.pgnImport.flatMap(_.date).map { date =>
-    <br />
-    PGN Import @date
-    @g.pgnImport.flatMap(_.user).map { user =>
-    - @userIdLinkMini(user)
-    }
-    }
-    <br /><br />
-    <table class="game_players">
-      @List(g.opponent(firstPlayer), firstPlayer).map { p =>
-      <tr>
-        <td><span class="color @p.color.name">@p.color.fold(trans.white(), trans.black())</span></td>
-        <td>@playerLink(p)</td>
-      </tr>
       }
-    </table>
-    <br />
-    @g.clock.map { c =>
-    <span data-icon="p"> @clockName(c)</span>
-    <br /><br />
+    </div>
+    @if(g.turns > 0) {
+    @defining(g openingPgnMoves 20) { pgnMoves =>
+    @chess.OpeningExplorer.openingOf(pgnMoves).map { opening =>
+    <div class="opening">@opening.name</div>
     }
-    @g.tournamentId.map { tourId =>
-    <a data-icon="g" href="@routes.Tournament.show(tourId)">&nbsp;@trans.tournament()</a>
-    <br />
+    <div class="pgn">@pgnMoves.take(6).grouped(2).zipWithIndex.map {
+      case (List(w, b), i) => {@(i+1). @w @b}
+      case (List(w), i) => {@(i+1). @w}
+      case _ => {}
+      }.mkString(" ")@if(g.turns > 6) { ... @g.turns moves }
+    </div>
     }
-    @g.poolId.flatMap(poolSetups.get).map { p =>
-    <a data-icon="," href="@routes.Pool.show(p.id)">&nbsp;@p.name Pool</a>
-    <br />
     }
-    @if(g.rated) {
-    @trans.thisGameIsRated()
-    <br /><br />
-    }
+    <div class="metadata">
+      @if(g.metadata.analysed) {<span data-icon="A"> Computer analysis available</span><br />}
+      @g.pgnImport.flatMap(_.user).map { user =>
+      PGN import by @userIdLinkMini(user)<br />
+      }
+      @g.tournamentId.map { tourId =>
+      <a data-icon="g" href="@routes.Tournament.show(tourId)">&nbsp;@trans.tournament()</a><br />
+      }
+      @g.poolId.flatMap(poolSetups.get).map { p =>
+      <a data-icon="," href="@routes.Pool.show(p.id)">&nbsp;@p.name Pool</a><br />
+      }
+    </div>
   </div>
   }
   }

@@ -410,9 +410,6 @@
   float: left;
   color: #555;
 }
-#hook .clock > span {
-  color: #909090;
-}
 #hook .clock.nope {
   font-size: 2.3em;
   padding-top: 3px;

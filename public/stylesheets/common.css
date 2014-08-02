@@ -1301,64 +1301,90 @@ div.checkmateCaptcha.failure div.failure {
 
 div.game_row {
   display: block;
-  padding: 1.4em 20px;
+  padding: 15px 20px;
   height: 224px;
-  line-height: 1.6em;
   border-bottom: 1px solid #eaeaea;
   position: relative;
+  cursor: pointer;
+  transition: 0.17s;
 }
 div.game_row:nth-child(odd) {
   background: #f4f4f4;
 }
-div.game_row time {
+div.game_row:hover {
+  background: rgba(191, 231, 255, 0.5);
+}
+div.game_row a.mini_board {
+  position: absolute;
+  top: 15px;
+  left 10px;
+}
+div.game_row div.infos {
+  position: absolute;
+  top: 15px;
+  left: 298px;
+  width: 476px;
+  height: 226px;
+}
+div.game_row div.infos::before {
+  position: absolute;
+  top: 0;
+  left: -45px;
+  font-size: 40px;
+  opacity: 0.7;
+}
+div.game_row div.header strong {
+  font-size: 1.4em;
+  text-transform: uppercase;
+  font-weight: normal;
+  display: block;
+}
+div.game_row div.versus {
+  overflow: hidden;
+}
+div.game_row div.versus {
+  margin: 10px 0 0 -52px;
+}
+div.game_row div.versus > div {
+  float: left;
+}
+div.game_row div.versus .swords {
+  width: 60px;
+  text-align: center;
+  font-size: 30px;
+  margin-top: 2px;
+  opacity: 0.7;
+}
+div.game_row div.versus .player {
+  font-size: 1.5em;
+  width: 234px;
+  text-align: right;
+}
+div.game_row div.versus .player.black {
+  text-align: left;
+}
+div.game_row div.versus span.anon {
+  line-height: 2.5em;
+}
+div.game_row div.result {
+  display: block;
+  font-size: 1.3em;
+  margin: 5px 0 0 -52px;
+  width: 528px;
+  text-align: center;
+}
+div.game_row div.opening {
+  margin-top: 10px;
   font-weight: bold;
 }
-div.game_row div.infos span.win {
+div.game_row span.up {
   color: #759900;
 }
-div.game_row div.infos span.loss {
+div.game_row span.down {
   color: #ac524f;
 }
-div.game_row div.perf_block::before {
-  font-size: 30px;
-  float: left;
-  margin: 5px 8px 0 -5px;
-}
-div.game_row a.go_analyse {
-  position: absolute;
-  bottom: 16px;
-  right: 25px;
-  text-decoration: none;
-}
-div.game_row table td {
-  padding: 4px 0;
-}
-div.game_row span.color,
-.player.color {
-  line-height: 16px;
-  height: 16px;
-  display: inline-block;
-  margin: 1px 0 1px 0;
-  padding-left: 20px;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-div.game_row .color {
-  margin-right: 1em !important;
-}
-div.game_row span.color {
-  font-weight: lighter;
-}
-div.game_row span.white,
-.player.color.white {
-  background-image: url(../piece/cburnett/wK-full.svg);
-}
-div.game_row span.black,
-.player.color.black {
-  background-image: url(../piece/cburnett/bK-full.svg);
-}
-div.game_row .bookmark {
-  margin-right: 26px;
+div.game_row div.metadata {
+  margin-top: 10px;
 }
 div.game_list.realtime {
   margin-top: 1.4em;
@@ -1402,10 +1428,6 @@ div.extra_top {
   position: relative;
   display: block;
   border: 1px solid #ccc;
-}
-div.all_games a.mini_board {
-  float: left;
-  margin: 0 20px 20px 10px;
 }
 .mini_board > div {
   position: absolute;

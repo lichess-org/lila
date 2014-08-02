@@ -7,7 +7,8 @@ private[game] case class Metadata(
     pgnImport: Option[PgnImport],
     tournamentId: Option[String],
     poolId: Option[String],
-    tvAt: Option[DateTime]) {
+    tvAt: Option[DateTime],
+    analysed: Boolean) {
 
   def pgnDate = pgnImport flatMap (_.date)
 
@@ -18,7 +19,7 @@ private[game] case class Metadata(
 
 private[game] object Metadata {
 
-  val empty = Metadata(None, None, None, None, None)
+  val empty = Metadata(None, None, None, None, None, false)
 }
 
 case class PgnImport(

@@ -103,6 +103,8 @@ case class Game(
 
   lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
 
+  def openingPgnMoves(nb: Int): PgnMoves = BinaryFormat.pgn.read(binaryPgn, nb)
+
   lazy val toChess: ChessGame = {
 
     val (pieces, deads) = BinaryFormat.piece read binaryPieces
@@ -415,7 +417,8 @@ object Game {
       pgnImport = pgnImport,
       tournamentId = none,
       poolId = none,
-      tvAt = none),
+      tvAt = none,
+      analysed = false),
     createdAt = DateTime.now)
 
   private[game] lazy val tube = lila.db.BsTube(gameBSONHandler)
@@ -508,7 +511,8 @@ object Game {
           pgnImport = r.getO[PgnImport](pgnImport)(PgnImport.pgnImportBSONHandler),
           tournamentId = r strO tournamentId,
           poolId = r strO poolId,
-          tvAt = r dateO tvAt)
+          tvAt = r dateO tvAt,
+        analysed = r boolD analysed)
       )
     }
 
@@ -538,7 +542,8 @@ object Game {
       pgnImport -> o.metadata.pgnImport,
       tournamentId -> o.metadata.tournamentId,
       poolId -> o.metadata.poolId,
-      tvAt -> o.metadata.tvAt.map(w.date)
+      tvAt -> o.metadata.tvAt.map(w.date),
+      analysed -> w.boolO(o.metadata.analysed)
     )
   }
 

@@ -16,6 +16,9 @@ object BinaryFormat {
 
     def read(ba: ByteArray): PgnMoves =
       format.pgn.Binary.readMoves(ba.value.toList).get
+
+    def read(ba: ByteArray, nb: Int): PgnMoves =
+      format.pgn.Binary.readMoves(ba.value.toList, nb).get
   }
 
   object moveTime {

@@ -534,6 +534,10 @@ var storage = {
       return false;
     });
 
+    $('body').on('click', '.game_row', function() {
+      location.href = $(this).find('a.mini_board').attr('href');
+    });
+
     function userPowertips() {
       var header = document.getElementById('site_header');
       $('a.ulpt').removeClass('ulpt').each(function() {
@@ -2073,10 +2077,12 @@ var storage = {
         var key;
         switch ($variantSelect.val()) {
           case '1':
-            var time = $timeInput.val() * 60 + $incrementInput.val() * 30;
-            if (time < 180) key = 'bullet';
-            else if (time < 480) key = 'blitz';
-            else key = 'classical';
+            if ($clockCheckbox.is(':checked')) {
+              var time = $timeInput.val() * 60 + $incrementInput.val() * 30;
+              if (time < 180) key = 'bullet';
+              else if (time < 480) key = 'blitz';
+              else key = 'classical';
+            } else key = 'classical';
             break;
           case '2':
             key = 'chess960';
@@ -2600,8 +2606,7 @@ var storage = {
         html += '<span class="opponent anon">Anonymous</span>';
       }
       if (hook.clock) {
-        var clock = hook.clock.replace(/\s/g, '').replace(/\+/, '<span>+</span>');
-        html += '<span class="clock">' + clock + '</span>';
+        html += '<span class="clock">' + hook.clock + '</span>';
       } else {
         html += '<span class="clock nope">∞</span>';
       }

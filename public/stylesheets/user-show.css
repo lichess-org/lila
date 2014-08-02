@@ -54,7 +54,7 @@ div.sub_ratings > div {
 div.sub_ratings > div::before {
   font-size: 40px;
   float: left;
-  margin-right: 5px;
+  margin: 1px 5px 0 0;
   opacity: 0.6;
 }
 div.sub_ratings > div:hover::before {

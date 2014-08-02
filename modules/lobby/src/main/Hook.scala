@@ -65,7 +65,7 @@ case class Hook(
     "variant" -> realVariant.shortName,
     "mode" -> realMode.toString,
     "allowAnon" -> allowAnon,
-    "clock" -> clockOption.map(c => renderClock(c.limit, c.increment)),
+    "clock" -> clockOption.map(_.showCondensed),
     "time" -> clockOption.map(_.estimateTotalTime),
     "speed" -> chess.Speed(clockOption).id,
     "emin" -> realRatingRange.map(_.min),
@@ -77,7 +77,7 @@ case class Hook(
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
-  private def clockOption = (time ifTrue hasClock) |@| increment apply Clock.apply
+  private lazy val clockOption = (time ifTrue hasClock) |@| increment apply Clock.apply
 
   private lazy val speed = Speed(clockOption)
 
