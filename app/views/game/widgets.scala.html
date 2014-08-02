@@ -30,7 +30,7 @@
     <div class="header">
       <strong>
         @g.clock.fold(trans.unlimited.str())(_.show)
-        • @g.perfType.map(_.name)
+        • @g.perfType.map(_.name).getOrElse {@chess.Variant.FromPosition.name}
         • @g.rated.fold(trans.rated(), trans.casual())
       </strong>
       @g.pgnImport.flatMap(_.date).getOrElse(momentFormat(g.createdAt))
@@ -51,7 +51,7 @@
       }
       }
     </div>
-    @if(g.turns > 0) {
+    @if(!g.fromPosition && g.turns > 0) {
     @defining(g openingPgnMoves 20) { pgnMoves =>
     @chess.OpeningExplorer.openingOf(pgnMoves).map { opening =>
     <div class="opening">@opening.name</div>
@@ -63,6 +63,8 @@
       }.mkString(" ")@if(g.turns > 6) { ... @g.turns moves }
     </div>
     }
+    } else {
+    <br /><br />
     }
     <div class="metadata">
       @if(g.metadata.analysed) {<span data-icon="A"> Computer analysis available</span><br />}
