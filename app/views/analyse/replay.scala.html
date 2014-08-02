@@ -115,6 +115,7 @@ openGraph = povOpenGraph(pov)) {
     @advantageChart.map { chart =>
     <div
       id="adv_chart"
+      title="Advantage (up: white, down: black)"
       data-max="@lila.analyse.AdvantageChart.max"
       data-rows="@chart"></div>
     }.getOrElse {
@@ -152,6 +153,7 @@ openGraph = povOpenGraph(pov)) {
   <div class="panel move_times">
     <div
       id="movetimes_chart"
+      title="@trans.moveTimes()"
       data-series="@timeChart.series"
       data-max="@timeChart.maxTime"></div>
   </div>
