@@ -14,13 +14,13 @@ object PerfType {
     key = "bullet",
     name = Speed.Bullet.name,
     title = Speed.Bullet.title,
-    iconChar = ')')
+    iconChar = 'T')
 
   case object Blitz extends PerfType(
     key = "blitz",
     name = Speed.Blitz.name,
     title = Speed.Blitz.title,
-    iconChar = '*')
+    iconChar = ')')
 
   case object Classical extends PerfType(
     key = "classical",

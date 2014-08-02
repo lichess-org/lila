@@ -1,4 +1,4 @@
-@(name: String, paginator: Paginator[Game], next: Option[Call], menu: Html, extraTop: Option[Html] = None)(implicit ctx: Context)
+@(name: String, paginator: Paginator[Game], next: Option[Call], menu: Html, extraTop: Option[Html] = None, iconChar: Option[Char] = None)(implicit ctx: Context)
 
 @title = @{ "%s - page %d".format(name, paginator.currentPage) }
 
@@ -14,7 +14,11 @@ menu = menu.some) {
   @extraTop.map { extra =>
   <div class="extra_top">@extra</div>
   }
+  @iconChar.map { char =>
+  <h1 data-icon="@char" class="title"> @name</h1>
+  }.getOrElse {
   <h1 class="title">@name</h1>
+  }
   <div class="infinitescroll">
     @next.map { n =>
     <div class="pager none"><a href="@n">Next</a></div>

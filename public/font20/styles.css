@@ -263,9 +263,6 @@
 .icon-flame:before {
   content: ")";
 }
-.icon-bolt:before {
-  content: "*";
-}
 .icon-hourglass:before {
   content: "+";
 }
@@ -277,4 +274,7 @@
 }
 .icon-buffer:before {
   content: ".";
+}
+.icon-upload-cloud:before {
+  content: "/";
 }

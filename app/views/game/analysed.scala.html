@@ -2,6 +2,7 @@
 
 @game.list(
 name = trans.nbAnalysedGames.str(listMenu.nbAnalysed.localize),
+iconChar = 'A'.some,
 paginator = paginator,
 next = paginator.nextPage map { n => routes.Game.analysed(n) },
 menu = sideMenu(listMenu, "analysed"))

@@ -21,7 +21,11 @@
   @defining(user flatMap g.player) { fromPlayer =>
   @defining(fromPlayer | g.firstPlayer ) { firstPlayer =>
   @gameFen(g, firstPlayer.color, ownerLink, withTitle = false)
-  <div class="infos" @g.perfType.map { p => data-icon="@p.iconChar"}>
+  <div class="infos" @if(g.imported) {
+    data-icon="/"
+    } else {
+    @g.perfType.map { p => data-icon="@p.iconChar"}
+    }>
     @bookmark.toggle(g)
     <div class="header">
       <strong>
