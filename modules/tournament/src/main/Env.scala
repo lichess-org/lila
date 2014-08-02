@@ -61,6 +61,8 @@ final class Env(
 
   lazy val winners = new Winners(LeaderboardCacheTtl)
 
+  lazy val cached = new Cached
+
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
       def mkActor(tournamentId: String) = new Socket(
