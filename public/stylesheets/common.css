@@ -1379,6 +1379,9 @@ div.game_row div.versus .player {
 div.game_row div.versus .player.black {
   text-align: left;
 }
+div.game_row div.versus a {
+  font-weight: bold;
+}
 div.game_row div.versus span.anon {
   line-height: 2.5em;
 }
