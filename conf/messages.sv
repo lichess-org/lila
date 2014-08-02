@@ -1,7 +1,5 @@
 playWithAFriend=Spela med en vän
-inviteAFriendToPlayWithYou=Bjud in en vän att spela med dig
 playWithTheMachine=Spela mot datorn
-challengeTheArtificialIntelligence=Utmana datorn
 toInviteSomeoneToPlayGiveThisUrl=För att bjuda in någon att spela, ge dem den här länken
 gameOver=Partiet är slut
 waitingForOpponent=Väntar på motståndare
@@ -260,9 +258,6 @@ leaderboardThisMonth=Utveckling denna vecka
 activeToday=Aktiva i dag
 activeThisWeek=Aktiva denna vecka
 activePlayers=Aktiva spelare
-bestBulletPlayers=Bästa bullet spelare
-bestBlitzPlayers=Bästa blitz spelare
-bestSlowPlayers=Bästa långsamma spelare
 bewareTheGameIsRatedButHasNoClock=OBS! Spelet är rankat men har ingen tidsgräns.
 training=Träning
 yourPuzzleRatingX=Din problemlösarrating: %s

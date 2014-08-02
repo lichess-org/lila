@@ -1,7 +1,5 @@
 playWithAFriend=ஒரு தோழரோடு விளையாடு
-inviteAFriendToPlayWithYou=ஒரு தோழரை நும்மோடு விளையாட அழைக்க
 playWithTheMachine=கணினியோடு விளையாடு
-challengeTheArtificialIntelligence=செயற்கையறிவோடு பந்தயம் வை
 toInviteSomeoneToPlayGiveThisUrl=விளையாட்டுக்கு  அழைக்க இந்தச்சுட்டியை அனுப்பு
 gameOver=ஆட்டம் முடிந்தது
 waitingForOpponent=எதிராளிக்காகக் காத்திருக்கின்றது
@@ -260,9 +258,6 @@ leaderboardThisMonth=இம்மாத முன்னேற்றம்
 activeToday=இன்று பங்குபெற்றவர்கள்
 activeThisWeek=இந்த வாரம் பங்குபெற்றவர்கள்
 activePlayers=பங்குபெற்ற விளையாட்டாளர்கள்
-bestBulletPlayers=சிறந்த புல்லட் விளையாட்டாளர்கள்
-bestBlitzPlayers=சிறந்த பிலிட்ஸ் விளையாட்டாளர்கள்
-bestSlowPlayers=சிறந்த குறைவேக விளையாட்டாளர்கள்
 bewareTheGameIsRatedButHasNoClock=எச்சரிக்கை, மதிப்போடான இவ்விளையாட்டில் கடிகாரம் இல்லை
 training=பயிற்சி
 yourPuzzleRatingX=உங்கள் புதிர் மதிப்பீடு: %s

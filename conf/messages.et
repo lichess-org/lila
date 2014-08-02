@@ -1,7 +1,5 @@
 playWithAFriend=Mängi sõbraga
-inviteAFriendToPlayWithYou=Kutsu sõber endaga mängima
 playWithTheMachine=Mängi arvuti vastu
-challengeTheArtificialIntelligence=Esita väljakutse tehisintellektile
 toInviteSomeoneToPlayGiveThisUrl=Et kutsuda kedagi mängima, anna talle see URL
 gameOver=Mäng läbi
 waitingForOpponent=Ootan vastast
@@ -260,9 +258,6 @@ leaderboardThisMonth=edasiliigutud see kuu
 activeToday=aktiivne täna
 activeThisWeek=aktiivne see nädal
 activePlayers=aktiivsed mängijad
-bestBulletPlayers=Kõige kiiremad mängijad
-bestBlitzPlayers=Parimad pommitajad
-bestSlowPlayers=Kõige aeglasemad mängijad
 bewareTheGameIsRatedButHasNoClock=Tähelepanu, mäng on reitinguga aga ilma ajakontrollita!
 training=Treeni
 yourPuzzleRatingX=Sinu lahendamisskoor: %s

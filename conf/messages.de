@@ -1,7 +1,5 @@
 playWithAFriend=Mit einem Freund spielen
-inviteAFriendToPlayWithYou=Einen Freund zum Spiel einladen
 playWithTheMachine=Mit dem Computer spielen
-challengeTheArtificialIntelligence=Die künstliche Intelligenz herausfordern
 toInviteSomeoneToPlayGiveThisUrl=Um jemanden zum Spiel einzuladen, versende diese URL
 gameOver=Spiel vorbei
 waitingForOpponent=Auf den Gegner warten
@@ -260,9 +258,6 @@ leaderboardThisMonth=Führende Spieler dieser Monat
 activeToday=Heute aktiv
 activeThisWeek=Diese Woche aktiv
 activePlayers=Aktive Spieler
-bestBulletPlayers=Führende Spieler bullet
-bestBlitzPlayers=Führende Spieler blitz
-bestSlowPlayers=Führende Spieler langsam
 bewareTheGameIsRatedButHasNoClock=Achtung! Das Spiel wird zwar gewertet, jedoch ohne Uhr gespielt!
 training=Training
 yourPuzzleRatingX=Deine Rätselwertung: %s

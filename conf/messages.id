@@ -1,7 +1,5 @@
 playWithAFriend=Bermain bersama teman
-inviteAFriendToPlayWithYou=Undang teman untuk bermain
 playWithTheMachine=Bermain bersama komputer
-challengeTheArtificialIntelligence=Tantang kecerdasan buatan
 toInviteSomeoneToPlayGiveThisUrl=Untuk mengundang seseorang untuk bermain, berikan url berikut
 gameOver=Permainan berakhir
 waitingForOpponent=Menunggu lawan
@@ -260,9 +258,6 @@ leaderboardThisMonth=Progres bulan ini
 activeToday=Aktif hari ini
 activeThisWeek=Aktif minggu ini
 activePlayers=Pemain aktif
-bestBulletPlayers=Pemain kencang terbaik
-bestBlitzPlayers=Pemain cepat terbaik
-bestSlowPlayers=Pemain lambat terbaik
 bewareTheGameIsRatedButHasNoClock=Awas, permainan ini berperingkat namun tanpa menunjukkan adanya waktu!
 training=Latihan
 yourPuzzleRatingX=Rating puzzle anda: %s

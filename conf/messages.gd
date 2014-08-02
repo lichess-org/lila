@@ -1,7 +1,5 @@
 playWithAFriend=Cluich còmhla ri caraid
-inviteAFriendToPlayWithYou=Thoir cuireadh do charaid gus cluich còmhla riut
 playWithTheMachine=Cluich an aghaidh a' choimpiutair
-challengeTheArtificialIntelligence=Thoir ionnsaigh air an inntinn fhuadain
 toInviteSomeoneToPlayGiveThisUrl=Gus cuireadh a thoirt do chuideigin, thoir an url seo dha
 gameOver=Crìoch a’ gheama
 waitingForOpponent=A’ feitheamh air nàmhaid
@@ -259,9 +257,6 @@ leaderboardThisMonth=Sàr-chluicheadairean a’ mhìosa
 activeToday=Gnìomhach an-diugh
 activeThisWeek=Gnìomhach an seachdain seo
 activePlayers=Cluicheadairean gnìomhach
-bestBulletPlayers=Na cluicheadairean bullet as fhearr
-bestBlitzPlayers=Na cluicheadairean blitz as fhearr
-bestSlowPlayers=Na cluicheadairean slow as fhearr
 bewareTheGameIsRatedButHasNoClock=Thoir an aire, thèid an geama seo rangachadh ach chan eil uaireadair aige!
 training=Trèanadh
 yourPuzzleRatingX=An rangachadh agad: %s

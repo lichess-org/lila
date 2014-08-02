@@ -1,7 +1,5 @@
 playWithAFriend=Igraj protiv prijatelja
-inviteAFriendToPlayWithYou=Pozovi prijatelja na igru
 playWithTheMachine=Igraj protiv računala
-challengeTheArtificialIntelligence=Izazovi umjetnu inteligenciju
 toInviteSomeoneToPlayGiveThisUrl=Za poziv na igru, pošalji ovaj URL
 gameOver=Igra gotova
 waitingForOpponent=Čekam protivnika
@@ -260,9 +258,6 @@ leaderboardThisMonth=Vodeći ovog mjeseca
 activeToday=Danas aktivni
 activeThisWeek=Aktivni oveg tjedna
 activePlayers=Aktivni igrači
-bestBulletPlayers=Najbolji bullet igrači
-bestBlitzPlayers=Najbolji blitz igrači
-bestClassicalPlayers=Najbolji spori igrači
 bewareTheGameIsRatedButHasNoClock=Oprez, igra se za bodove ali ne i na vreme!
 training=Trening
 yourPuzzleRatingX=Tvoj rejting u problemima: %s

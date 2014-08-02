@@ -1,7 +1,5 @@
 playWithAFriend=Játssz egy ismerőssel
-inviteAFriendToPlayWithYou=Hívj egy ismerőst játszani
 playWithTheMachine=Játék gép ellen
-challengeTheArtificialIntelligence=Hívd ki a mesterséges intelligenciát
 toInviteSomeoneToPlayGiveThisUrl=Hogy meghívj valakit játszani, küldd el neki ezt a linket
 gameOver=Játszma vége
 waitingForOpponent=Várakozás az ellenfélre
@@ -260,9 +258,6 @@ leaderboardThisMonth=Havi folyamat
 activeToday=Aktív ma
 activeThisWeek=Aktív a héten
 activePlayers=Aktív játékosok
-bestBulletPlayers=Legjobb bullet játékosok
-bestBlitzPlayers=Legjobb villám játékosok
-bestSlowPlayers=Legjobb lassú játékosok
 bewareTheGameIsRatedButHasNoClock=Időmérés nélküli játék, de rangsorolt meccs!
 training=Gyakorlás
 yourPuzzleRatingX=A feladatmegoldások értékelése: %s

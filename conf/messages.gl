@@ -1,7 +1,5 @@
 playWithAFriend=Xogar cun amigo
-inviteAFriendToPlayWithYou=Convidar a un amigo a xogar contra vostede
 playWithTheMachine=Xogar contra a máquina
-challengeTheArtificialIntelligence=Desafiar á intelixencia artificial
 toInviteSomeoneToPlayGiveThisUrl=Iinvitar alguén a xogar, déalle este URL
 gameOver=Rematou a partida
 waitingForOpponent=Agardando ó rival
@@ -260,9 +258,6 @@ leaderboardThisMonth=Progreso de este mes
 activeToday=Activo hoy
 activeThisWeek=Activo esta semana
 activePlayers=Jugadores  activos
-bestBulletPlayers=mejores jugadores bala
-bestBlitzPlayers=mejores jugadores blitz
-bestSlowPlayers=Os mellores xogadores lentos
 bewareTheGameIsRatedButHasNoClock=Atento, o xogo é por ELO pero sen reloxio
 training=Entrenando
 yourPuzzleRatingX=O seu nivel de puzzle: %s

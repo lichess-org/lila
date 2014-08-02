@@ -1,7 +1,5 @@
 playWithAFriend=שחק עם חבר
-inviteAFriendToPlayWithYou=הזמן חבר לשחק איתך
 playWithTheMachine=שחק עם המחשב
-challengeTheArtificialIntelligence=אתגר את הבינה המלאכותית
 toInviteSomeoneToPlayGiveThisUrl=כדי להזמין מישהוא לשחק, תן את הכתובת הזאת
 gameOver=המשחק נגמר
 waitingForOpponent=ממתין ליריב
@@ -260,9 +258,6 @@ leaderboardThisMonth=שחקנים מובילים החודש
 activeToday=הכי פעילים היום
 activeThisWeek=הכי פעילים השבוע
 activePlayers=הכי פעילים
-bestBulletPlayers=הכי טובים במשחקי בזק
-bestBlitzPlayers=הכי טובים במשחקים מהירים
-bestSlowPlayers=הכי טובים במשחקים איטיים
 bewareTheGameIsRatedButHasNoClock=היזהר, המשחק מדורג אך אין שעון.
 training=אימון
 yourPuzzleRatingX=דירוג הפאזלים שלך: %s

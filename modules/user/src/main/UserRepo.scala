@@ -34,13 +34,6 @@ trait UserRepo {
   def topRatingSince(since: DateTime, nb: Int, sincePerf: String = "standard"): Fu[List[User]] =
     $find($query(stableGoodLadSelect ++ perfSince(sincePerf, since)) sort sortRatingDesc, nb)
 
-  def topChess960 = topPerf("chess960") _
-
-  def topPool1_0 = topPerf("pools.1-0") _
-
-  def topPerf(perf: String)(nb: Int): Fu[List[User]] =
-    $find($query(stableGoodLadSelect ++ activeSelect(perf)) sort ($sort desc s"perfs.$perf.gl.r"), nb)
-
   def topPerfSince(perf: String, since: DateTime)(nb: Int): Fu[List[User]] =
     $find($query(goodLadSelect ++ stablePerfSelect(perf) ++ perfSince(perf, since)) sort ($sort desc s"perfs.$perf.gl.r"), nb)
 

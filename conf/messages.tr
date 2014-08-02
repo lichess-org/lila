@@ -1,7 +1,5 @@
 playWithAFriend=Bir arkadaşınla oyna
-inviteAFriendToPlayWithYou=Bir arkadaşını oyuna davet et
 playWithTheMachine=Bilgisayara karşı oyna
-challengeTheArtificialIntelligence=Yapay zekaya meydan oku
 toInviteSomeoneToPlayGiveThisUrl=Oynamaya davet etmek için, bu linki gönderin
 gameOver=Oyun bitti
 waitingForOpponent=Rakip bekleniyor
@@ -260,9 +258,6 @@ leaderboardThisMonth=Aylık gelişim
 activeToday=Bugün aktif
 activeThisWeek=Bu hafta aktif
 activePlayers=Aktif oyuncular
-bestBulletPlayers=En iyi mermi oyuncuları
-bestBlitzPlayers=En iyi yıldırım oyuncuları
-bestSlowPlayers=En iyi slow oyuncuları
 bewareTheGameIsRatedButHasNoClock=Dikkat, oyun puanlı ama suresizdir.
 training=Alıştırma
 yourPuzzleRatingX=Bulmaca puanın: %s

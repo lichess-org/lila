@@ -1,7 +1,5 @@
 playWithAFriend=Παίξτε με φίλο
-inviteAFriendToPlayWithYou=Προσκαλέστε έναν φίλο να παίξει μαζί σας
 playWithTheMachine=Παίξτε με τον υπολογιστή
-challengeTheArtificialIntelligence=Προκαλέστε την τεχνητή νοημοσύνη
 toInviteSomeoneToPlayGiveThisUrl=Για να προσκαλέσετε κάποιον σε παιχνίδι, στείλτε τους αυτήν τη διεύθυνση
 gameOver=Τέλος παιχνιδιού
 waitingForOpponent=Αναμονή για αντίπαλο
@@ -260,9 +258,6 @@ leaderboardThisMonth=Πρόοδος αυτόν τον μήνα
 activeToday=Ενεργοί σήμερα
 activeThisWeek=Ενεργοί αυτήν την εβδομάδα
 activePlayers=Ενεργοί παίκτες
-bestBulletPlayers=Καλύτεροι παίκτες μπούλετ
-bestBlitzPlayers=Καλύτεροι παίκτες μπλιτς
-bestSlowPlayers=Καλύτεροι παίκτες κανονικού
 bewareTheGameIsRatedButHasNoClock=Προσοχή, το παιχνίδι βαθμολογείται αλλά του λείπει ρολόι!
 training=Εξάσκηση
 yourPuzzleRatingX=Η βαθμολογία γρίφων σας : %s

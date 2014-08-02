@@ -1,7 +1,5 @@
 playWithAFriend=بازی دوستانه
-inviteAFriendToPlayWithYou=دعوت از یک دوست برای بازی
 playWithTheMachine=بازی با کامپیوتر
-challengeTheArtificialIntelligence=جدال با هوش مصنوعی
 toInviteSomeoneToPlayGiveThisUrl=دعوت کردن برای بازی با استفاده از این لینک
 gameOver=بازی تمام شد
 waitingForOpponent=منتظر حریف
@@ -260,9 +258,6 @@ leaderboardThisMonth=پیشرفت این ماه
 activeToday=فعالیت امروز
 activeThisWeek=فعالیت این هفته
 activePlayers=بازیکنان فعال
-bestBulletPlayers=بهترین بازیکنان بولت
-bestBlitzPlayers=بهترین بازیکنان بلیتز
-bestClassicalPlayers=بهترین بازیکنان اسلو
 bewareTheGameIsRatedButHasNoClock=مراقب باشید،این بازی رتبه بنذی میشود اما بدون ساعت!
 training=تمرین
 yourPuzzleRatingX=نمره حل جدول شما : %s

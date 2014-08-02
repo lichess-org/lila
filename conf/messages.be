@@ -1,7 +1,5 @@
 playWithAFriend=Гуляць зь сябрам
-inviteAFriendToPlayWithYou=Запрасіць сябра да гульні
 playWithTheMachine=Гуляць з камп'ютарам
-challengeTheArtificialIntelligence=Выклік штучнаму інтэлекту
 toInviteSomeoneToPlayGiveThisUrl=Выкарыстай гэтую спасылку каб запрасіць кагосьці да гульні
 gameOver=Гульня скончана
 waitingForOpponent=Чакай апанэнта
@@ -260,9 +258,6 @@ leaderboardThisMonth=Месячны прагрэс
 activeToday=Актыўныя сёньня
 activeThisWeek=Актыўныя на гэтым тыдні
 activePlayers=Актыўныя гульцы
-bestBulletPlayers=Лепшыя ў звышхуткіх гульнях
-bestBlitzPlayers=Лепшыя ў бліц-гульнях
-bestSlowPlayers=Лепшыя ў павольных гульнях
 bewareTheGameIsRatedButHasNoClock=Увага, гульня на рэйтынг але без абмежаваньня часу!
 training=Трэнаваньне
 yourPuzzleRatingX=Твой рэйтынг у галаваломках: %s

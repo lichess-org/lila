@@ -1,7 +1,5 @@
 playWithAFriend=Spil mod en ven
-inviteAFriendToPlayWithYou=Inviter en ven til at spille med dig
 playWithTheMachine=Spil mod computeren
-challengeTheArtificialIntelligence=Udfordr computeren
 toInviteSomeoneToPlayGiveThisUrl=Inviter en til at spille ved at give denne URL
 gameOver=Spillet er slut
 waitingForOpponent=Venter på modstander
@@ -260,9 +258,6 @@ leaderboardThisMonth=Denne måneds bedste
 activeToday=Aktiv i dag
 activeThisWeek=Aktiv denne uge
 activePlayers=Aktive spillere
-bestBulletPlayers=Bedste agrasive spiller
-bestBlitzPlayers=Bedste lynspiller
-bestSlowPlayers=Bedste langsomme spiller
 bewareTheGameIsRatedButHasNoClock=Bemærk: Spillet er ratet, men er uden tidsbegrænsning!
 training=Træning
 yourPuzzleRatingX=Din opgave-rating: %s

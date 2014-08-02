@@ -1,7 +1,5 @@
 playWithAFriend=Сыграть с другом
-inviteAFriendToPlayWithYou=Пригласить друга для игры с вами
 playWithTheMachine=Партия с компьютером
-challengeTheArtificialIntelligence=Сразиться с искусственным интеллектом
 toInviteSomeoneToPlayGiveThisUrl=Чтобы сыграть с другом, отправьте ему эту ссылку
 gameOver=Игра окончена
 waitingForOpponent=Ожидание противника
@@ -260,9 +258,6 @@ leaderboardThisMonth=Лидеры в этом месяце
 activeToday=Активные сегодня
 activeThisWeek=Активные на этой неделе
 activePlayers=Активные игроки
-bestBulletPlayers=Лучшие игроки в пулю
-bestBlitzPlayers=Лучшие игроки в блиц
-bestSlowPlayers=Лучшие игроки в рапид
 bewareTheGameIsRatedButHasNoClock=Внимание, эта рейтинговая игра без ограничения по времени!
 training=Задачи
 yourPuzzleRatingX=Ваш рейтинг в решении задач: %s

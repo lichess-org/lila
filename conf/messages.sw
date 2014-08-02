@@ -1,5 +1,4 @@
 playWithAFriend=cheza na rafiki
-inviteAFriendToPlayWithYou=alika rafiki mcheze naye
 playWithTheMachine=cheza na tarakilishi
 toInviteSomeoneToPlayGiveThisUrl=kumwalika mtu acheze, mpe anwani hii
 gameOver=mchezo kwisha

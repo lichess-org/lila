@@ -1,7 +1,5 @@
 playWithAFriend=Žaisti su draugu
-inviteAFriendToPlayWithYou=Pakviesti draugą žaisti kartu
 playWithTheMachine=Žaisti prieš kompiuterį
-challengeTheArtificialIntelligence=Mesti iššūkį dirbtiniam intelektui
 toInviteSomeoneToPlayGiveThisUrl=Norint pakviesti kąnors žaidimui, nusiųsk šią nuorodą
 gameOver=Žaidimas baigtas
 waitingForOpponent=Laukiama priešininko
@@ -260,9 +258,6 @@ leaderboardThisMonth=Šios mėnesio pažanga
 activeToday=Šios dienos aktivistai
 activeThisWeek=Šios savaitės aktivistai
 activePlayers=Aktyvūs žaidėjai
-bestBulletPlayers=Geriausi žaidėjai (super blicas)
-bestBlitzPlayers=Geriausi žaidėjai (blicas)
-bestClassicalPlayers=Geriausi klasikiniai žaidėjai
 bewareTheGameIsRatedButHasNoClock=Dėmesio, žaidimas įvertinamas, tačiau žaidimas be laikrodžio
 training=Treniruotė
 yourPuzzleRatingX=Užduočių sprendimo reitingas: %s

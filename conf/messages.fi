@@ -1,7 +1,5 @@
 playWithAFriend=Pelaa ystäväsi kanssa
-inviteAFriendToPlayWithYou=Kutsu ystäväsi pelaamaan
 playWithTheMachine=Pelaa tietokonetta vastaan
-challengeTheArtificialIntelligence=Haasta tekoäly
 toInviteSomeoneToPlayGiveThisUrl=Anna tämä linkki ystävällesi pelataksesi hänen kanssaan
 gameOver=Peli ohi
 waitingForOpponent=Odotetaan vastustajaa
@@ -260,9 +258,6 @@ leaderboardThisMonth=Parhaat tässä kuussa
 activeToday=Aktiivisena tänään
 activeThisWeek=Aktiivisena tällä viikolla
 activePlayers=Aktiiviset pelaajat
-bestBulletPlayers=Parhaat bullet-pelaajat
-bestBlitzPlayers=Parhaat blitz-pelaajat
-bestSlowPlayers=Parhaat hitaan shakin pelaajat
 bewareTheGameIsRatedButHasNoClock=Huomaa, että peli on pisteytetty, vaikka siinä ei ole aikarajoitetta.
 training=Harjoittelu
 yourPuzzleRatingX=Tehtävävahvuuslukusi: %s

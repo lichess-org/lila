@@ -1,7 +1,5 @@
 playWithAFriend=Tefla við vin
-inviteAFriendToPlayWithYou=Bjóða vini að tefla við þig
 playWithTheMachine=Tefla við tölvuna
-challengeTheArtificialIntelligence=Skora á gervigreindina
 toInviteSomeoneToPlayGiveThisUrl=Til að bjóða einhverjum að tefla, gefðu vefslóðina
 gameOver=Taflið búið
 waitingForOpponent=Bið eftir andstæðingi
@@ -260,9 +258,6 @@ leaderboardThisMonth=Framfarir mánaðarins
 activeToday=Virkir í dag
 activeThisWeek=Virkir í vikunni
 activePlayers=Virkir notendur
-bestBulletPlayers=Bestu bullet spilarar
-bestBlitzPlayers=Bestu blitz spilarar
-bestSlowPlayers=Bestu slow spilararar
 bewareTheGameIsRatedButHasNoClock=Varúð, leikurinn gildir til stiga, en er án klukku!
 training=Æfingar
 yourPuzzleRatingX=Skákdæma-stig: %s

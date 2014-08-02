@@ -1,7 +1,5 @@
 playWithAFriend=സുഹൃത്തിനോടൊപ്പം കളിക്കുക
-inviteAFriendToPlayWithYou=സുഹൃത്തിനെ കളിക്കുവാനായി ക്ഷണിക്കുക
 playWithTheMachine=മെഷീനോടൊത്തു മത്സരിക്കുക
-challengeTheArtificialIntelligence=മെഷീനേ വെല്ലുവിളിചാലോ?
 toInviteSomeoneToPlayGiveThisUrl=മറ്റാരുടെയെങ്കിലും കൂടെ മത്സരിക്കുവാനായി ഈ ലിങ്ക് നല്കുക
 gameOver=കളി അവസാനിച്ചിരിക്കുന്നു
 waitingForOpponent=മൽസരാർഥിക്കായി കാത്തിരിക്കുന്നു

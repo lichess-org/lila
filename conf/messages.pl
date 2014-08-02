@@ -1,7 +1,5 @@
 playWithAFriend=Zagraj z przyjacielem
-inviteAFriendToPlayWithYou=Zaproś przyjaciela do gry
 playWithTheMachine=Zagraj z komputerem
-challengeTheArtificialIntelligence=Staw czoła sztucznej inteligencji
 toInviteSomeoneToPlayGiveThisUrl=Aby zaprosić kogokolwiek do gry, przekaż mu ten adres:
 gameOver=Koniec gry
 waitingForOpponent=Oczekiwanie na przeciwnika
@@ -260,9 +258,6 @@ leaderboardThisMonth=Miesięczny postęp
 activeToday=Aktywni dzisiaj
 activeThisWeek=Aktywnio w tym tygodniu
 activePlayers=Aktywni gracze
-bestBulletPlayers=Najlepsi gracze bullet
-bestBlitzPlayers=Najlepsi gracze blitz
-bestSlowPlayers=Najlepsi gracze slow
 bewareTheGameIsRatedButHasNoClock=Uważaj, gra jest rankingowa, ale bez limitu czasu!
 training=Trening
 yourPuzzleRatingX=Twój ranking treningowy: %s

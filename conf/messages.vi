@@ -1,7 +1,5 @@
 playWithAFriend=Chơi với bạn
-inviteAFriendToPlayWithYou=Mời bạn bè chơi với bạn
 playWithTheMachine=Chơi với máy tính
-challengeTheArtificialIntelligence=Thách thức trí tuệ nhân tạo
 toInviteSomeoneToPlayGiveThisUrl=Để mời ai đó chơi, hãy gửi đường dẫn này
 gameOver=Kết thúc
 waitingForOpponent=Đang chờ đối thủ
@@ -260,9 +258,6 @@ leaderboardThisMonth=Tiến trình tháng này
 activeToday=Hoạt động trong ngày
 activeThisWeek=Hoạt động tuần này
 activePlayers=Các kỳ thủ tích cực
-bestBulletPlayers=Kỳ thủ bullet mạnh nhất
-bestBlitzPlayers=Kỳ thủ blitz mạnh nhất
-bestSlowPlayers=Kỳ thủ cờ chậm mạnh nhất
 bewareTheGameIsRatedButHasNoClock=Đề phòng, ván cờ tính điểm nhưng không tính thời gian!
 training=Đào tạo
 yourPuzzleRatingX=Hệ số giải bài tập của bạn: %s

@@ -1,7 +1,5 @@
 playWithAFriend=ეთამაშე მეგობარს
-inviteAFriendToPlayWithYou=მოიწვიე მეგობარი შენთან სათამაშოთ
 playWithTheMachine=ეთამაშე კომპიუტერს
-challengeTheArtificialIntelligence=შეეჯიბრე ხელოვნურ ინტელექტს
 toInviteSomeoneToPlayGiveThisUrl=ოპონენტის მოსაწვევად, გაუგზავნეთ მას ეს მისამართი
 gameOver=თამაში დასრულებულია
 waitingForOpponent=ველოდებით ოპონენტს
@@ -259,9 +257,6 @@ leaderboardThisMonth=მიმდინარე თვის ლიდერე
 activeToday=აქტიურები დღეს
 activeThisWeek=აქტიურები ამ კვირაში
 activePlayers=აქტიური მოთამაშეები
-bestBulletPlayers=საუკეთესო სწრაფი მოთამაშეები
-bestBlitzPlayers=საუკეთესი ბლიც მოთამაშეები
-bestSlowPlayers=საუკეთესო ნელი მოთამაშეები
 findTheBestMoveForWhite=იპოვე საუკეთესო სვლა თეთრისათვის
 findTheBestMoveForBlack=იპოვე საუკეთესო სვლა შავისათვის
 goodMove=კარგი სვლა

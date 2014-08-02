@@ -1,7 +1,5 @@
 playWithAFriend=Milalaova miaraka amin'ny namana
-inviteAFriendToPlayWithYou=Asao ny namana hilalao aminao
 playWithTheMachine=Milalaova miaraka amin'ny solosaina
-challengeTheArtificialIntelligence=Challenge the artificial intelligence
 toInviteSomeoneToPlayGiveThisUrl=Raha te hanasa olona hilalao dia alefaso any aminy ity URL ity
 gameOver=Vita ny lalao
 waitingForOpponent=Miandry mpifanandrina
@@ -254,7 +252,4 @@ leaderboardThisMonth=Ny mpifaninana mendrika tamin'ity volana ity
 activeToday=Mpifaninana nilalao be indrindra androany
 activeThisWeek=Mpifaninana nilalao be indrindra tamin'ity erinandro ity
 activePlayers=Mpifaninana nilalao be indrindra
-bestBulletPlayers=Mpifaninana bullet mendrika indrindra
-bestBlitzPlayers=Mpifaninana blitz mendrika indrindra
-bestSlowPlayers=Mpifaninana meda mendrika indrindra
 bewareTheGameIsRatedButHasNoClock=Tandremo, voasokajy ny lalao nefa tsy misy famataram-potoana !

@@ -1,5 +1,4 @@
 playWithAFriend=Досынмен ойнау
-inviteAFriendToPlayWithYou=Досынды ойынға шақыру
 playWithTheMachine=Компьютермен ойын
 toInviteSomeoneToPlayGiveThisUrl=Танысыңызбен ойнау үшін бұл сілтемені жіберіңіз
 gameOver=Ойынның соңы

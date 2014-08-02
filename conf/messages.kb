@@ -1,7 +1,5 @@
 playWithAFriend=Urar yed umddakul
-inviteAFriendToPlayWithYou=Sneftegh amddakul ad yurar yid-wen
 playWithTheMachine=Urar mgal aselkim
-challengeTheArtificialIntelligence=Ḥecc tigzi taragmawant
 toInviteSomeoneToPlayGiveThisUrl=Blik ad-snnefteghed yiwen ad urar, fka-s tuqqna agi
 gameOver=Timlilit ikfa
 waitingForOpponent=S taganit sɣuṛ afna
@@ -259,9 +257,6 @@ leaderboardThisMonth=Imawayen n wayyur
 activeToday=Urmid ass-a
 activeThisWeek=Urmid dduṛt-a
 activePlayers=Imariren urmiden
-bestBulletPlayers=Imariren imawayen n bullet
-bestBlitzPlayers=Imariren imawayen n blitz
-bestClassicalPlayers=Imariren imawayen di taẓayt
 bewareTheGameIsRatedButHasNoClock=Ɣuṛ-ek, timlilit t-serkem, acku mbla tallast n wakud
 training=Asluɣmu
 yourPuzzleRatingX=Abellez inek d usluɣmu : %s

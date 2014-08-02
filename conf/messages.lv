@@ -1,7 +1,5 @@
 playWithAFriend=Spēle ar draugu
-inviteAFriendToPlayWithYou=Ielūdz draugu spēlēt ar tevi
 playWithTheMachine=Spēle ar datoru
-challengeTheArtificialIntelligence=Izaicināt mākslīgo intelektu
 toInviteSomeoneToPlayGiveThisUrl=Lai uzaicinātu kādu spēlēt, dod šo šaiti
 gameOver=Spēles beigas
 waitingForOpponent=Gaidām pretinieku
@@ -260,9 +258,6 @@ leaderboardThisMonth=Progress šajā mēnesī
 activeToday=Aktīvākie šodien
 activeThisWeek=Aktīvākie šajā nedēļā
 activePlayers=Aktīvākie spēlētāji
-bestBulletPlayers=Labākie ātrā šaha spēlētāji
-bestBlitzPlayers=Labākie blica spēlētāji
-bestSlowPlayers=Labākie lēnā šaha spēlētāji
 bewareTheGameIsRatedButHasNoClock=Uzmanību! Spēle ir ar reitinga aprēķinu, bet bez laika limita!
 training=Treniņš
 yourPuzzleRatingX=Jūsu pužļu reitings: %s

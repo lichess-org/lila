@@ -1,7 +1,5 @@
 playWithAFriend=友達と対局する
-inviteAFriendToPlayWithYou=友達を対局に招待する
 playWithTheMachine=AIと対局する
-challengeTheArtificialIntelligence=AIと対局する
 toInviteSomeoneToPlayGiveThisUrl=対局に招待するときこのURLを知らせてください
 gameOver=終局
 waitingForOpponent=相手を待っています
@@ -260,9 +258,6 @@ leaderboardThisMonth=今月の変動上位
 activeToday=今日の対局数上位
 activeThisWeek=今週の対局数上位
 activePlayers=総対局数上位
-bestBulletPlayers=bullet （超短時間）のレイティング上位
-bestBlitzPlayers=Blitz （短時間）のレイティング上位
-bestSlowPlayers=Slow （長時間）のレイティング上位
 bewareTheGameIsRatedButHasNoClock=注意！レイティング対象ですが時間無制限です
 training=トレーニング
 yourPuzzleRatingX=パズルのレイティング: %s

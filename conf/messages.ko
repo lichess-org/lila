@@ -1,7 +1,5 @@
 playWithAFriend=친구랑 게임하기
-inviteAFriendToPlayWithYou=친구 초대
 playWithTheMachine=체스 엔진과 게임하기
-challengeTheArtificialIntelligence=AI에게 도전
 toInviteSomeoneToPlayGiveThisUrl=친구에게 이 URL을 알려주세요
 gameOver=게임 끝
 waitingForOpponent=상대를 기다리는 중
@@ -260,9 +258,6 @@ leaderboardThisMonth=한 달간 최고 레이팅
 activeToday=오늘의 활동적인 플레이어
 activeThisWeek=한 주간 활동적인 플레이어
 activePlayers=활동적인 플레이어
-bestBulletPlayers=최고 bullet 플레이어
-bestBlitzPlayers=최고 bitz 플레이어
-bestSlowPlayers=최고 slow 플레이어
 bewareTheGameIsRatedButHasNoClock=조심하세요! 레이팅 게임이지만 시간 제한이 없습니다.
 training=연습
 yourPuzzleRatingX=퍼즐 레이팅: %s

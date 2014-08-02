@@ -1,7 +1,5 @@
 playWithAFriend=Chwarae efo ffrind
-inviteAFriendToPlayWithYou=Gwahodd ffrind i chwarae gyda chi
 playWithTheMachine=Chwarae gyda'r cyfrifiadur
-challengeTheArtificialIntelligence=Herio'r cyfrifiadur
 toInviteSomeoneToPlayGiveThisUrl=I wahodd rhywyn I chwarae, rhowch yr cyfeiriad hyn
 gameOver=Gêm drosodd
 waitingForOpponent=Aros am gwrthwynebydd

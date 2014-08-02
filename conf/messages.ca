@@ -1,7 +1,5 @@
 playWithAFriend=Juga amb un amic
-inviteAFriendToPlayWithYou=Convida un amic a jugar amb tu
 playWithTheMachine=Juga amb la màquina
-challengeTheArtificialIntelligence=Desafia la intel·ligència artificial
 toInviteSomeoneToPlayGiveThisUrl=Per convidar algú a jugar, envia-li aquesta URL
 gameOver=Joc finalitzat
 waitingForOpponent=Esperant oponent
@@ -260,9 +258,6 @@ leaderboardThisMonth=Progrés d'aquest mes
 activeToday=Actius avui
 activeThisWeek=Actius aquesta setmana
 activePlayers=Jugadors actius
-bestBulletPlayers=Millors jugados de bullet
-bestBlitzPlayers=Millors jugadors de blitz
-bestSlowPlayers=Millors jugadors de lentes
 bewareTheGameIsRatedButHasNoClock=Compte, el joc està classificat però no te rellotje!
 training=Entrenament
 yourPuzzleRatingX=La vostra puntuació de puzles: %s

@@ -1,7 +1,5 @@
 playWithAFriend=Joyèr avoy un amì
-inviteAFriendToPlayWithYou=Invitar un amì a joyèr avoy-t’
 playWithTheMachine=Joyèr contra la machina
-challengeTheArtificialIntelligence=Defiyar l’ inteligènci artificèla
 toInviteSomeoneToPlayGiveThisUrl=Per invitar quarqu'un a joyèr, balyi cetì lèm
 gameOver=Finit
 waitingForOpponent=Atendant l’ adverséro

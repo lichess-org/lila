@@ -1,7 +1,5 @@
 playWithAFriend=pL@Y wI7h @ FrI3Nd
-inviteAFriendToPlayWithYou=InVi73 @ fRI3nd t0 pL@y with you
 playWithTheMachine=pl@y Wi7H 7h3 MachiN3
-challengeTheArtificialIntelligence=ch@LL3nG3 7h3 @R7Ifici@L in73Llig3nc3
 toInviteSomeoneToPlayGiveThisUrl=70 invi73 50M30n3 70 Pl@Y, GIv3 7hi$ UrL
 gameOver=G@m3 0v3r
 waitingForOpponent=w@i7Ing f0r 0pP0n3n7
@@ -260,9 +258,6 @@ leaderboardThisMonth=l3@D3R5 7Hi$ M0n7h
 activeToday=aC7iv3 7od@Y
 activeThisWeek=@C7iv3 7hI$ W33K
 activePlayers=@C7IV3 Pl@Yer$
-bestBulletPlayers=83$7 8uLl3t pl@Y3R$
-bestBlitzPlayers=8357 8li7z PL@Y3r5
-bestSlowPlayers=83$7 $Low PL@Y3R5
 bewareTheGameIsRatedButHasNoClock=83W@R3, 7H3 G@M3 I5 R@73D 8u7 h@5 n0 cl0ck!
 training=7r@iNiNg
 yourPuzzleRatingX=Y0Ur pUZZl3 R@7InG: %s

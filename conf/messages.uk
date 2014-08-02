@@ -1,7 +1,5 @@
 playWithAFriend=Грати з другом
-inviteAFriendToPlayWithYou=Запросити до гри друга
 playWithTheMachine=Грати з комп’ютером
-challengeTheArtificialIntelligence=Кинути виклик штучному інтелекту
 toInviteSomeoneToPlayGiveThisUrl=Щоб запросити когось до гри, дайте це посилання
 gameOver=Гру завершено
 waitingForOpponent=Очікування суперника
@@ -260,9 +258,6 @@ leaderboardThisMonth=Прогрес цього місяця
 activeToday=Активність сьогодні
 activeThisWeek=Активність цього тижня
 activePlayers=Активні ігроки
-bestBulletPlayers=Найкращі ігроки у категорії швидких шахів
-bestBlitzPlayers=Кращі гравці в бліц
-bestSlowPlayers=Найкращі ігроки у довгій грі
 bewareTheGameIsRatedButHasNoClock=Зверніть увагу на те що гра є рейтинговою, але облік часу не ведеться!
 training=Тренування
 yourPuzzleRatingX=Ваш рівень по задачах: %s

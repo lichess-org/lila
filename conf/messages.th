@@ -1,7 +1,5 @@
 playWithAFriend=เล่นกับเพื่อน
-inviteAFriendToPlayWithYou=เชิญเพื่อนมาเล่นกับคุณ
 playWithTheMachine=เล่นกับคอมพิวเตอร์
-challengeTheArtificialIntelligence=ท้าแข่งกับปัญญาเทียม
 toInviteSomeoneToPlayGiveThisUrl=โปรดให้ URL นี้ แก่ผู้ที่จะเชิญให้มาเล่น,
 gameOver=จบเกม
 waitingForOpponent=กำลังรอคู่แข่ง
@@ -260,9 +258,6 @@ leaderboardThisMonth=ผู้นำในเดือนนี้
 activeToday=มุ่งมั่นในวันนี้
 activeThisWeek=มุ่งมั่นในสัปดาห์นี้
 activePlayers=ผู้เล่นมุ่งมั่น
-bestBulletPlayers=ผู้เล่นบุลลิทดีเด่น
-bestBlitzPlayers=ผู้เล่นบลิทซ์ดีเด่น
-bestSlowPlayers=ผู้เล่นสโลว์ดีเด่น
 bewareTheGameIsRatedButHasNoClock=ระวัง, เกมนี้ถูกคิดคะแนนแต่ไม่จับเวลา!
 training=ฝึก
 yourPuzzleRatingX=ระดับคะแนนแก้ปริศนาของคุณ: %s

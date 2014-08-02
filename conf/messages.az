@@ -1,7 +1,5 @@
 playWithAFriend=Yoldaşınla oyna
-inviteAFriendToPlayWithYou=Yoldaşını oyuna dəvət et
 playWithTheMachine=Komputerlə oyna
-challengeTheArtificialIntelligence=Süni zəkaya meydan oxu
 toInviteSomeoneToPlayGiveThisUrl=Kimisə onuya dəvət üçün bu ünvanı ver
 gameOver=Oyunu uduzdun
 waitingForOpponent=Rəqibi gözləyin
@@ -260,9 +258,6 @@ leaderboardThisMonth=Bu ayın liderləri
 activeToday=Bu gün aktiv olanlar
 activeThisWeek=Bu həftə aktiv olanlar
 activePlayers=Aktiv oyunçular
-bestBulletPlayers=Ən yaxşı sürətli oyunçular
-bestBlitzPlayers=Ən yaxşı cəld oyunçular
-bestSlowPlayers=Ən yaxşı asta oyunçular
 bewareTheGameIsRatedButHasNoClock=Ehtiyatlı olun, oyunda vaxt limiti olmasa da, nəticəsi dəyərləndiriləcək
 training=Təlim
 yourPuzzleRatingX=Sizin tapmaca reytinginiz: %s

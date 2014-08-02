@@ -1,7 +1,5 @@
 playWithAFriend=Խաղալ ընկերոջ հետ
-inviteAFriendToPlayWithYou=Հրավիրել ընկերոջը խաղի
 playWithTheMachine=Խաղալ համակարգչի հետ
-challengeTheArtificialIntelligence=Ձեռնոց նետել արհեստական բանականությանը
 toInviteSomeoneToPlayGiveThisUrl=Որևէ մեկին խաղի հրավիրելու համար հարկավոր է տալ նրան հետևյալ ինտերնետային հասցեն
 gameOver=Խաղն ավարտված է
 waitingForOpponent=Սպասում եմ հակառակորդին
@@ -260,9 +258,6 @@ leaderboardThisMonth=Նախորդ ամսվա առաջատարը
 activeToday=Ակտիվ այսօր
 activeThisWeek=Ակտիվ այս շաբաթ
 activePlayers=Ակտիվ խաղացողներ
-bestBulletPlayers=Լավագույն bullet (արագ) խաղացողներ
-bestBlitzPlayers=Լավագույն բլից խաղացող
-bestSlowPlayers=Լավագույն slow (դանդաղ) խաղացողներ
 bewareTheGameIsRatedButHasNoClock=Զգուշացում․ խաղը միավորներով է սակայն առանց ժամանակի
 training=Մարզում
 yourPuzzleRatingX=Խնդիրներ լուծելու Ձեր վարկանիշը՝ %s

@@ -1,7 +1,5 @@
 playWithAFriend=Ludar kun amiko
-inviteAFriendToPlayWithYou=Invitar amiko por ludar kun vu
 playWithTheMachine=Ludar kun komputero
-challengeTheArtificialIntelligence=Defiar la artificala inteligenteso
 toInviteSomeoneToPlayGiveThisUrl=Por invitar ulu por ludar, donez ica URL
 gameOver=Ludo Finis
 waitingForOpponent=Vartanta stroko di adverso

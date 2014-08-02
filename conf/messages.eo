@@ -1,7 +1,5 @@
 playWithAFriend=Ludi kun amiko
-inviteAFriendToPlayWithYou=Inviti amikon por ludi kun vi
 playWithTheMachine=Ludi kontraŭ la maŝino
-challengeTheArtificialIntelligence=Defii la artefaritan inteligenton
 toInviteSomeoneToPlayGiveThisUrl=Por inviti iun por ludi, donu ĉi tiun ligilon
 gameOver=Finiĝis
 waitingForOpponent=Atendante kontraŭulon
@@ -260,9 +258,6 @@ leaderboardThisMonth=Ĉi-monataj estroj
 activeToday=Aktivaj hodiaŭ
 activeThisWeek=Aktivaj ĉisemajne
 activePlayers=Aktivaj ludantoj
-bestBulletPlayers=Plej bonaj rapidegaj ludistoj
-bestBlitzPlayers=Plej bonaj rapidaj ludistoj
-bestClassicalPlayers=Plej bonaj malrapidaj ludistoj
 bewareTheGameIsRatedButHasNoClock=Atentu: la partio estas rankumita, sed ne havas tempolimiton!
 training=Trejnado
 yourPuzzleRatingX=Puzlo-poentoj: %s

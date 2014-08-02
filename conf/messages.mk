@@ -1,7 +1,5 @@
 playWithAFriend=Играј со пријател
-inviteAFriendToPlayWithYou=Покани пријател да игра со тебе
 playWithTheMachine=Играј со компјутерот
-challengeTheArtificialIntelligence=Предизвикај ја вештачката интелегенција
 toInviteSomeoneToPlayGiveThisUrl=Да поканиш некој да игра, прати му го овој линк
 gameOver=Крај на играта
 waitingForOpponent=Се чека противникот
@@ -257,9 +255,6 @@ leaderboardThisMonth=Овој месец во водство
 activeToday=Активни денес
 activeThisWeek=Активни оваа недела
 activePlayers=Активни играчи
-bestBulletPlayers=Најдобар секавичен ( куршум ) играч
-bestBlitzPlayers=Најдобар блиц ( брз ) играч
-bestSlowPlayers=Најдобар спор играч
 bewareTheGameIsRatedButHasNoClock=Внимавајте, играта е оценета но нема часовник.
 pleaseVotePuzzle=Помош lichess се подобри преку гласање, со користење нагоре или надолу стрелка:
 thankYou=Благодарам!

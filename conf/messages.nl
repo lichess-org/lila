@@ -1,7 +1,5 @@
 playWithAFriend=Speel tegen een vriend
-inviteAFriendToPlayWithYou=Nodig een vriend uit om tegen u te spelen
 playWithTheMachine=Speel tegen de computer
-challengeTheArtificialIntelligence=Daag het schaakprogramma uit
 toInviteSomeoneToPlayGiveThisUrl=Deel deze link als u iemand wilt uitnodigen om met u te spelen
 gameOver=Partij afgelopen
 waitingForOpponent=Wachtend op een tegenstander
@@ -260,9 +258,6 @@ leaderboardThisMonth=Vooruitgang deze maand
 activeToday=Vandaag actief
 activeThisWeek=Deze week actief
 activePlayers=Actieve spelers
-bestBulletPlayers=Beste bulletschakers
-bestBlitzPlayers=Beste blitzschakers
-bestSlowPlayers=Beste langzame schakers
 bewareTheGameIsRatedButHasNoClock=Let op, de partij is met rating maar heeft geen klok!
 training=Training
 yourPuzzleRatingX=Je puzzelscore: %s

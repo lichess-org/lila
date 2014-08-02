@@ -1,7 +1,5 @@
 playWithAFriend=Spill mot en venn
-inviteAFriendToPlayWithYou=Invitér en venn å spille mot
 playWithTheMachine=Spill mot maskinen
-challengeTheArtificialIntelligence=Prøv deg mot kunstig intelligens
 toInviteSomeoneToPlayGiveThisUrl=For å invitere noen til et spill, gi dem denne lenken
 gameOver=Spillet er slutt
 waitingForOpponent=Venter på motstander
@@ -260,9 +258,6 @@ leaderboardThisMonth=Månedens ledere
 activeToday=Aktive i dag
 activeThisWeek=Aktive denne uken
 activePlayers=Aktive spillere
-bestBulletPlayers=Beste spillere - bullet
-bestBlitzPlayers=Beste spillere - lyn
-bestClassicalPlayers=Beste spillere - klassisk
 bewareTheGameIsRatedButHasNoClock=Obs! - spillet er ratet, men har ingen tidskontroll!
 training=Trening
 yourPuzzleRatingX=Din problemrangering: %s

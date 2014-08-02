@@ -1,7 +1,5 @@
 playWithAFriend=Spel mot ein ven
-inviteAFriendToPlayWithYou=Inviter ein ven til å spela med deg
 playWithTheMachine=Spel mot datamaskina
-challengeTheArtificialIntelligence=Utmana maskina
 toInviteSomeoneToPlayGiveThisUrl=For å invitere nokon å spela mot, gje denne lenka
 gameOver=Partiet er ferdig
 waitingForOpponent=Venter på motstandar
@@ -260,9 +258,6 @@ leaderboardThisMonth=Leiarar denne månaden
 activeToday=Aktive i dag
 activeThisWeek=Aktive denne veka
 activePlayers=Aktive spelarar
-bestBulletPlayers=Beste bulletspelarar
-bestBlitzPlayers=Beste blitzspelarar
-bestSlowPlayers=Best i langsjakk
 bewareTheGameIsRatedButHasNoClock=Til informasjon, spelet er rata, men ikkje tidsavgrensa!
 training=Trening
 yourPuzzleRatingX=Treningsratinga di: %s

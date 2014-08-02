@@ -1,7 +1,5 @@
 playWithAFriend=Vyzvat kamaráda
-inviteAFriendToPlayWithYou=Zobrazí pozvánku do hry, kterou odešlete kamarádovi
 playWithTheMachine=Hrát proti počítači
-challengeTheArtificialIntelligence=Změřte síly s umělou inteligencí
 toInviteSomeoneToPlayGiveThisUrl=Pro přizvání kamaráda k partii mu pošlete tento odkaz
 gameOver=Konec hry
 waitingForOpponent=Čekání na soupeře
@@ -260,9 +258,6 @@ leaderboardThisMonth=Růst tento měsíc
 activeToday=Aktivní dnes
 activeThisWeek=Aktivní tento týden
 activePlayers=Aktivní hráči
-bestBulletPlayers=Nejlepší hráči superrychlých her
-bestBlitzPlayers=Nejlepší hráčí rychlých her
-bestSlowPlayers=Nejlepší hráči pomalých her
 bewareTheGameIsRatedButHasNoClock=Pozor, hra je o body i když je bez hodin!
 training=Trénink
 yourPuzzleRatingX=Váš rating (v úlohách): %s

@@ -1,5 +1,4 @@
 playWithAFriend=دوست کے ساتھ کھیلیں
-inviteAFriendToPlayWithYou=دوستوں کو کھیلنے کی دعوت دیں
 playWithTheMachine=کمپیوٹر کے ساتھ کھیلیں
 toInviteSomeoneToPlayGiveThisUrl=مقابلے کی دعوت کے لیے اس URL کا استعمال کریں
 gameOver=کھیل ختم
@@ -208,9 +207,6 @@ leaderboardThisMonth=ماہانہ لیڈر
 activeToday=آج سب سے فعال
 activeThisWeek=اس ہفتے سب سے فعال
 activePlayers=فعال کھلاڑی
-bestBulletPlayers=بلٹ کے بہترین کھلاڑی
-bestBlitzPlayers=بلٹز کے بہترین کھلاڑی
-bestSlowPlayers=بہترین کھلاڑی
 bewareTheGameIsRatedButHasNoClock=مقابلہ سنجیدہ ہے مگر دورانیہ لامحدود ہے
 training=تربیت
 findTheBestMoveForWhite=سفید کے لیے بہترین چال کریں

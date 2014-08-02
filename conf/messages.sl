@@ -1,7 +1,5 @@
 playWithAFriend=Igraj s prijateljem
-inviteAFriendToPlayWithYou=Povabi prijatelja k igri
 playWithTheMachine=Igraj proti računalniku
-challengeTheArtificialIntelligence=Izzovi računalniški program
 toInviteSomeoneToPlayGiveThisUrl=Kopiraj URL in povabi prijatelja k igri
 gameOver=Konec igre
 waitingForOpponent=Čakam nasprotnika
@@ -260,9 +258,6 @@ leaderboardThisMonth=Vodilni ta mesec
 activeToday=Aktivnost danes
 activeThisWeek=Altivnost ta teden
 activePlayers=Aktivni igralci
-bestBulletPlayers=Najboljši v hitrem tempu
-bestBlitzPlayers=Najboljši v pospešenem tempu
-bestSlowPlayers=Najboljši v počasnem tempu
 bewareTheGameIsRatedButHasNoClock=Pozor, igra je rangirana, vendar ni časovno omejena!
 training=Šahovski problemi
 yourPuzzleRatingX=Tvoj rejting pri reševanju šahovskih problemov: %s
