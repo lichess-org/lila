@@ -54,7 +54,7 @@ openGraph = povOpenGraph(pov)) {
       id="GameBoard"
       data-version="@version"
       data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
-      class="@color.fold("", "flip")"></div>
+      class="@color.fold("", "flip") @pov.game.variant.key"></div>
     <div class="game_control">
       <a class="button flip hint--bottom" data-hint="@trans.flipBoard()" href="@routes.Round.watcher(gameId, (!color).name)#0">
         <span data-icon="B"></span>

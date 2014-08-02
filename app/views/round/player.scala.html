@@ -19,7 +19,7 @@ openGraph = povOpenGraph(pov)) {
   }
   <div class="lichess_board_wrap">
     @if(!ctx.blindMode) {
-    <div class="lichess_board with_marks variant_@game.variant.id">@Html(lila.app.ui.Board.render(pov))</div>
+    <div class="lichess_board with_marks @game.variant.key">@Html(lila.app.ui.Board.render(pov))</div>
     <div id="premove_alert">@trans.premoveEnabledClickAnywhereToCancel()</div>
     }
   </div>
