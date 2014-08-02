@@ -112,7 +112,7 @@ $(function() {
         }
       },
       title: {
-        text: $this.attr('title'),
+        text: $this.data('title'),
         align: 'left',
         y: 5
       },
