@@ -1,5 +1,3 @@
 the todo list has moved to https://etherpad.mozilla.org/ep/pad/view/ro.3bIwxJwTQYW/latest
 
-check rating filter http://en.lichess.org/inbox/XqdVCPMw#bottom
-replica set is fucked up
-variant icons
+['bullet','blitz','classical','chess960','kingOfTheHill','threeCheck'].forEach(function(p) { var i = {}; i['perfs.'+p+'.la'] = -1; i['perfs.'+p+'.gl.r'] = -1; db.user4.ensureIndex(i,{scarce:1}) });

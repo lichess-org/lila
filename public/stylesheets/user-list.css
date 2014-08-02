@@ -15,7 +15,7 @@ div.user_lists h2 {
   margin-bottom: 1em;
   margin-right: 3%;
 }
-#lichess div.user_lists div.user_top.last {
+#lichess div.user_lists div.user_top:last-child {
   margin-right: 0;
 }
 div.side div.user_top {

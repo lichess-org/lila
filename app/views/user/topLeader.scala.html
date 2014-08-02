@@ -1,5 +1,0 @@
-@(users: List[User], title: Any, last: Boolean = false, moreUrl: Option[String] = None, icon: Option[String] = None)(implicit ctx: Context)
-@user.top(users, title, moreUrl = moreUrl, icon = icon) { u =>
-<td>@u.rating</td>
-<td>@showProgress(u.progress)</td>
-}

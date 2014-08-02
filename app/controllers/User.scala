@@ -91,44 +91,34 @@ object User extends LilaController {
     } map { html.user.games(u, _, filterName) }
   }
 
-  def list(page: Int) = Open { implicit ctx =>
-    Reasonable(page) {
-      val nb = 10
-      for {
-        pool10 ← env.cached topPool1_0 nb
-        tourneyWinners ← Env.tournament.winners scheduled nb
-        toint <- env.cached topToints nb
-        rating ← env.cached topRating nb
-        ratingDay ← env.cached topRatingDay nb
-        ratingWeek ← env.cached topRatingWeek nb
-        online ← env.cached topOnline 30
-        bullet ← env.cached topBullet nb
-        blitz ← env.cached topBlitz nb
-        classical ← env.cached topClassical nb
-        active ← env.cached topNbGame nb map2 { (user: UserModel) =>
-          user -> user.count.game
-        }
-        activeDay ← Env.game.cached activePlayerUidsDay nb flatMap { pairs =>
-          UserRepo.byOrderedIds(pairs.map(_._1)) map (_ zip pairs.map(_._2))
-        }
-        activeWeek ← Env.game.cached activePlayerUidsWeek nb flatMap { pairs =>
-          UserRepo.byOrderedIds(pairs.map(_._1)) map (_ zip pairs.map(_._2))
-        }
-      } yield html.user.list(
-        pool10 = pool10,
-        tourneyWinners = tourneyWinners,
-        toint = toint,
-        rating = rating,
-        ratingDay = ratingDay,
-        ratingWeek = ratingWeek,
-        online = online,
-        bullet = bullet,
-        blitz = blitz,
-        classical = classical,
-        nb = active,
-        nbDay = activeDay,
-        nbWeek = activeWeek)
-    }
+  def list = Open { implicit ctx =>
+    val nb = 10
+    for {
+      bullet ← env.cached topBulletWeek nb
+      blitz ← env.cached topBlitzWeek nb
+      classical ← env.cached topClassicalWeek nb
+      chess960 ← env.cached topClassicalWeek nb
+      kingOfTheHill ← env.cached topKingOfTheHillWeek nb
+      threeCheck ← env.cached topThreeCheckWeek nb
+      nbAllTime ← env.cached topNbGame nb map2 { (user: UserModel) =>
+        user -> user.count.game
+      }
+      nbWeek ← Env.game.cached activePlayerUidsWeek nb flatMap { pairs =>
+        UserRepo.byOrderedIds(pairs.map(_._1)) map (_ zip pairs.map(_._2))
+      }
+      tourneyWinners ← Env.tournament.winners scheduled nb
+      online ← env.cached topOnline 30
+    } yield html.user.list(
+      tourneyWinners = tourneyWinners,
+      online = online,
+      bullet = bullet,
+      blitz = blitz,
+      classical = classical,
+      chess960 = chess960,
+      kingOfTheHill = kingOfTheHill,
+      threeCheck = threeCheck,
+      nbWeek = nbWeek,
+      nbAllTime = nbAllTime)
   }
 
   def leaderboard = Open { implicit ctx =>

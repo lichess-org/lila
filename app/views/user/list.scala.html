@@ -1,4 +1,38 @@
-@(pool10: List[User], tourneyWinners: List[lila.tournament.Winner], toint: List[User], rating: List[User], ratingDay: List[User], ratingWeek: List[User], online: List[User], bullet: List[User], blitz: List[User], classical: List[User], nb: List[(User, Int)], nbDay: List[(User, Int)], nbWeek: List[(User, Int)])(implicit ctx: Context)
+@(tourneyWinners: List[lila.tournament.Winner], online: List[User], bullet: List[User], blitz: List[User], classical: List[User], chess960: List[User], kingOfTheHill: List[User], threeCheck: List[User], nbWeek: List[(User, Int)], nbAllTime: List[(User, Int)])(implicit ctx: Context)
+
+@import lila.rating.PerfType
+
+@userTopPerf(users: List[User], perfType: PerfType) = {
+<div class="user_top">
+  <h2 data-icon="@perfType.iconChar"> @perfType.name</h2>
+  <table>
+    <tbody>
+      @users.map { u =>
+      <tr>
+        <td>@userLink(u, withRating = false, cssClass="revert-underline".some)</td>
+        <td>@u.perfs(perfType.key).map(_.intRating)</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}
+
+@userTopActive(users: List[(User, Int)], title: Any, icon: Option[Char] = None) = {
+<div class="user_top">
+  <h2 @icon.map { i => data-icon="@i" }> @title</h2>
+  <table>
+    <tbody>
+      @users.map { u =>
+      <tr>
+        <td>@userLink(u._1, withRating = false, cssClass="revert-underline".some)</td>
+        <td><span class="hint--bottom" data-hint="Number of games played">#@u._2.localize</span></td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}
 
 @side = {
 <div class="side">
@@ -31,15 +65,15 @@
   <div class="user_lists">
 
     <div class="group">
-      @user.topLeader(pool10, "1+0 Pool leaderboard", icon = ",".some)
-      @user.topLeader(ratingDay, trans.todaysLeaders(), icon = "C".some)
-      @user.topActive(nbDay, trans.activeToday(), true, icon = "T".some)
+      @userTopPerf(bullet, PerfType.Bullet)
+      @userTopPerf(blitz, PerfType.Blitz)
+      @userTopPerf(classical, PerfType.Classical)
     </div>
 
     <div class="group">
-      @user.topLeader(toint, "Tournament leaderboard", icon = "g".some, moreUrl = routes.Tournament.home.url.some)
-      @user.topLeader(ratingWeek, trans.leaderboardThisWeek(), icon = "C".some)
-      @user.topActive(nbWeek, trans.activeThisWeek(), true, icon = "T".some)
+      @userTopPerf(chess960, PerfType.Chess960)
+      @userTopPerf(kingOfTheHill, PerfType.KingOfTheHill)
+      @userTopPerf(threeCheck, PerfType.ThreeCheck)
     </div>
 
     <div class="group">
@@ -54,14 +88,8 @@
             }
         </tbody></table>
       </div>
-      @user.topLeader(rating, trans.leaderboard(), moreUrl = routes.User.leaderboard.url.some, icon = "C".some)
-      @user.topActive(nb, trans.activePlayers(), true, icon = "T".some)
-    </div>
-
-    <div class="group">
-      @user.top(bullet, trans.bestBulletPlayers())(u => Html(s"<td>${u.perfs.bullet.glicko.intRating}</td>"))
-      @user.top(blitz, trans.bestBlitzPlayers())(u => Html(s"<td>${u.perfs.blitz.glicko.intRating}</td>"))
-      @user.top(classical, trans.bestClassicalPlayers(), true)(u => Html(s"<td>${u.perfs.classical.glicko.intRating}</td>"))
+      @userTopActive(nbWeek, trans.activeThisWeek(), icon = 'U'.some)
+      @userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some)
     </div>
 
   </div>

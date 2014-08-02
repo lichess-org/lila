@@ -27,12 +27,13 @@ final class Cached(
   val topRatingWeek = AsyncCache(
     (nb: Int) => UserRepo.topRatingSince(oneWeekAgo, nb),
     timeToLive = 28 minutes)
-  val topRating = AsyncCache(UserRepo.topRating, timeToLive = 30 minutes)
-  val topBullet = AsyncCache(UserRepo.topBullet, timeToLive = 31 minutes)
-  val topBlitz = AsyncCache(UserRepo.topBlitz, timeToLive = 32 minutes)
-  val topClassical = AsyncCache(UserRepo.topClassical, timeToLive = 33 minutes)
-  val topChess960 = AsyncCache(UserRepo.topChess960, timeToLive = 36 minutes)
-  val topPool1_0 = AsyncCache(UserRepo.topPool1_0, timeToLive = 31 minutes)
+  // val topRating = AsyncCache(UserRepo.topRating, timeToLive = 30 minutes)
+  val topBulletWeek = AsyncCache(UserRepo.topPerfSince("bullet", oneWeekAgo), timeToLive = 31 minutes)
+  val topBlitzWeek = AsyncCache(UserRepo.topPerfSince("blitz", oneWeekAgo), timeToLive = 32 minutes)
+  val topClassicalWeek = AsyncCache(UserRepo.topPerfSince("classical", oneWeekAgo), timeToLive = 33 minutes)
+  val topChess960Week = AsyncCache(UserRepo.topPerfSince("chess960", oneWeekAgo), timeToLive = 36 minutes)
+  val topKingOfTheHillWeek = AsyncCache(UserRepo.topPerfSince("kingOfTheHill", oneWeekAgo), timeToLive = 36 minutes)
+  val topThreeCheckWeek = AsyncCache(UserRepo.topPerfSince("threeCheck", oneWeekAgo), timeToLive = 36 minutes)
   val topNbGame = AsyncCache(UserRepo.topNbGame, timeToLive = 34 minutes)
 
   val topPool = AsyncCache(
