@@ -90,7 +90,9 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
       err => negotiate(
         html = BadRequest("Invalid form data").fuccess,
         api = _ => BadRequest(err.errorsAsJson).fuccess),
-      config => env.processor.hook(config, uid, lila.common.HTTPRequest sid req)
+      config => (ctx.userId ?? Env.relation.api.blocking) flatMap {
+        env.processor.hook(config, uid, lila.common.HTTPRequest sid req, _)
+      }
     )
   }
 

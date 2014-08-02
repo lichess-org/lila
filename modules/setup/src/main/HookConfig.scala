@@ -19,7 +19,7 @@ case class HookConfig(
   // allowAnons -> membersOnly
   def >> = (variant.id, clock, time, increment, mode.id.some, !allowAnon, ratingRange.toString.some, color.name).some
 
-  def hook(uid: String, user: Option[User], sid: Option[String]) = Hook.make(
+  def hook(uid: String, user: Option[User], sid: Option[String], blocking: Set[String]) = Hook.make(
     uid = uid,
     variant = variant,
     clock = makeClock,
@@ -27,6 +27,7 @@ case class HookConfig(
     allowAnon = allowAnon,
     color = color.name,
     user = user,
+    blocking = blocking,
     sid = sid,
     ratingRange = ratingRange)
 

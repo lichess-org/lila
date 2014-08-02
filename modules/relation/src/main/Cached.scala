@@ -4,11 +4,11 @@ import lila.memo.AsyncCache
 
 private[relation] final class Cached {
 
-  private[relation] val followers = AsyncCache(RelationRepo.followers, maxCapacity = 8000)
-  private[relation] val following = AsyncCache(RelationRepo.following, maxCapacity = 8000)
-  private[relation] val blockers = AsyncCache(RelationRepo.blockers, maxCapacity = 8000)
-  private[relation] val blocking = AsyncCache(RelationRepo.blocking, maxCapacity = 8000)
-  private[relation] val relation = AsyncCache(findRelation, maxCapacity = 80000)
+  private[relation] val followers = AsyncCache(RelationRepo.followers, maxCapacity = 2000)
+  private[relation] val following = AsyncCache(RelationRepo.following, maxCapacity = 2000)
+  private[relation] val blockers = AsyncCache(RelationRepo.blockers, maxCapacity = 2000)
+  private[relation] val blocking = AsyncCache(RelationRepo.blocking, maxCapacity = 2000)
+  private[relation] val relation = AsyncCache(findRelation, maxCapacity = 20000)
 
   private def findRelation(pair: (String, String)): Fu[Option[Relation]] = pair match {
     case (u1, u2) => following(u1) flatMap { f =>

@@ -50,9 +50,10 @@ private[setup] final class Processor(
   def hook(
     config: HookConfig,
     uid: String,
-    sid: Option[String])(implicit ctx: UserContext): Funit =
+    sid: Option[String],
+    blocking: Set[String])(implicit ctx: UserContext): Funit =
     saveConfig(_ withHook config) >>- {
-      lobby ! AddHook(config.hook(uid, ctx.me, sid))
+      lobby ! AddHook(config.hook(uid, ctx.me, sid, blocking))
     }
 
   private def saveConfig(map: UserConfig => UserConfig)(implicit ctx: UserContext): Funit =

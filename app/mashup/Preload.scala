@@ -41,11 +41,10 @@ final class Preload(
     posts: Fu[List[MiniForumPost]],
     tours: Fu[List[Enterable]],
     filter: Fu[FilterConfig])(implicit ctx: Context): Fu[Response] =
-    (lobby ? GetOpen).mapTo[List[Hook]] zip
+    (lobby ? GetOpen(ctx.me)).mapTo[List[Hook]] zip
       posts zip
       tours zip
       featured.one zip
-      (ctx.userId ?? relations.blocks) zip
       (ctx.userId ?? timelineEntries) zip
       leaderboard(10) zip
       tourneyWinners(10) zip
@@ -54,12 +53,11 @@ final class Preload(
       filter zip
       getPools() zip
       streamsOnAir() map {
-        case ((((((((((((hooks, posts), tours), feat), blocks), entries), lead), tWinners), puzzle), playing), filter), pools), streams) =>
+        case (((((((((((hooks, posts), tours), feat), entries), lead), tWinners), puzzle), playing), filter), pools), streams) =>
           (Json.obj(
             "version" -> lobbyVersion(),
             "pool" -> JsArray(hooks map (_.render)),
             "filter" -> filter.render,
-            "blocks" -> blocks,
             "engine" -> ctx.me.??(_.engine)
           ), entries, posts, tours, feat, lead, tWinners, puzzle, playing, pools, streams)
       }

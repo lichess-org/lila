@@ -16,7 +16,8 @@ import makeTimeout.short
 private[lobby] final class SocketHandler(
     hub: lila.hub.Env,
     lobby: ActorRef,
-    socket: ActorRef) {
+    socket: ActorRef,
+    blocking: String => Fu[Set[String]]) {
 
   private def controller(
     socket: ActorRef,
@@ -24,7 +25,7 @@ private[lobby] final class SocketHandler(
     member: Member): Handler.Controller = {
     case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
     case ("join", o) => o str "d" foreach { id =>
-      lobby ! BiteHook(id, uid, member.userId)
+      lobby ! BiteHook(id, uid, member.user)
     }
     case ("cancel", o) => lobby ! CancelHook(uid)
     case ("liveGames", o) => o str "d" foreach { ids =>
@@ -32,11 +33,12 @@ private[lobby] final class SocketHandler(
     }
   }
 
-  def apply(uid: String, user: Option[User]): Fu[JsSocketHandler] = {
-    val join = Join(uid = uid, user = user)
-    Handler(hub, socket, uid, join, user map (_.id)) {
-      case Connected(enum, member) =>
-        controller(socket, uid, member) -> enum
+  def apply(uid: String, user: Option[User]): Fu[JsSocketHandler] =
+    (user ?? (u => blocking(u.id))) flatMap { blockedUserIds =>
+      val join = Join(uid = uid, user = user, blocking = blockedUserIds)
+      Handler(hub, socket, uid, join, user map (_.id)) {
+        case Connected(enum, member) =>
+          controller(socket, uid, member) -> enum
+      }
     }
-  }
 }

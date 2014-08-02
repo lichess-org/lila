@@ -5,9 +5,10 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 
+import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.{ User, Perfs }
-import lila.game.PerfPicker
+import actorApi.LobbyUser
 
 case class Hook(
     id: String,
@@ -20,7 +21,7 @@ case class Hook(
     mode: Int,
     allowAnon: Boolean,
     color: String,
-    user: Option[User],
+    user: Option[LobbyUser],
     ratingRange: String,
     gameId: Option[String] = None,
     createdAt: DateTime) {
@@ -39,7 +40,7 @@ case class Hook(
   def compatibleWith(h: Hook) =
     compatibilityProperties == h.compatibilityProperties &&
       (realColor compatibleWith h.realColor) &&
-      (memberOnly || h.memberOnly).fold(isMember && h.isMember, true) &&
+      (memberOnly || h.memberOnly).fold(isAuth && h.isAuth, true) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this)
 
   private def ratingRangeCompatibleWith(h: Hook) = realRatingRange.fold(true) {
@@ -51,13 +52,9 @@ case class Hook(
   lazy val realRatingRange: Option[RatingRange] = RatingRange noneIfDefault ratingRange
 
   def userId = user map (_.id)
-  def isMember = user.nonEmpty
+  def isAuth = user.nonEmpty
   def username = user.fold(User.anonymous)(_.username)
-  def rating = user flatMap { u =>
-    PerfPicker.main(speed, realVariant, none) map {
-      _(u.perfs).intRating
-    }
-  }
+  def rating = user flatMap { u => perfType map (_.key) flatMap u.ratingMap.get }
   def engine = user ?? (_.engine)
 
   def render: JsObject = Json.obj(
@@ -75,8 +72,10 @@ case class Hook(
     "emax" -> realRatingRange.map(_.max),
     "color" -> chess.Color(color).??(_.name),
     "engine" -> engine,
-    "perfIcon" -> PerfPicker.perfType(speed, realVariant, none).map(_.iconChar.toString)
+    "perfIcon" -> perfType.map(_.iconChar.toString)
   )
+
+  lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
   private def clockOption = (time ifTrue hasClock) |@| increment apply Clock.apply
 
@@ -98,7 +97,8 @@ object Hook {
     color: String,
     user: Option[User],
     sid: Option[String],
-    ratingRange: RatingRange): Hook = new Hook(
+    ratingRange: RatingRange,
+    blocking: Set[String]): Hook = new Hook(
     id = Random nextStringUppercase idSize,
     uid = uid,
     variant = variant.id,
@@ -108,7 +108,7 @@ object Hook {
     mode = mode.id,
     allowAnon = allowAnon || user.isEmpty,
     color = color,
-    user = user,
+    user = user map { LobbyUser.make(_, blocking) },
     sid = sid,
     ratingRange = ratingRange.toString,
     createdAt = DateTime.now)

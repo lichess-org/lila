@@ -15,18 +15,23 @@ import makeTimeout.short
 import org.joda.time.DateTime
 
 private[lobby] final class Lobby(
-    biter: Biter,
-    socket: ActorRef) extends Actor {
+    socket: ActorRef,
+    blocking: String => Fu[Set[String]]) extends Actor {
 
   def receive = {
 
-    case GetOpen => sender ! HookRepo.allOpen
+    case GetOpen(userOption) =>
+      val replyTo = sender
+      (userOption.map(_.id) ?? blocking) foreach { blocks =>
+        val lobbyUser = userOption map { LobbyUser.make(_, blocks) }
+        replyTo ! HookRepo.allOpen.filter { Biter.canJoin(_, lobbyUser) }
+      }
 
     case msg@AddHook(hook) => {
       HookRepo byUid hook.uid foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
       findCompatible(hook) foreach {
-        case Some(h) => self ! BiteHook(h.id, hook.uid, hook.user map (_.id))
+        case Some(h) => self ! BiteHook(h.id, hook.uid, hook.user)
         case None    => self ! SaveHook(msg)
       }
     }
@@ -40,9 +45,9 @@ private[lobby] final class Lobby(
       HookRepo byUid uid foreach remove
     }
 
-    case BiteHook(hookId, uid, userId) => HookRepo byId hookId foreach { hook =>
+    case BiteHook(hookId, uid, user) => HookRepo byId hookId foreach { hook =>
       HookRepo byUid uid foreach remove
-      biter(hook, userId, uid) pipeTo self
+      Biter(hook, uid, user) pipeTo self
     }
 
     case msg@JoinHook(_, hook, _, _) => {
@@ -67,7 +72,7 @@ private[lobby] final class Lobby(
 
   private def findCompatibleIn(hook: Hook, in: List[Hook]): Fu[Option[Hook]] = in match {
     case Nil => fuccess(none)
-    case h :: rest => biter.canJoin(h, hook.user) >>& !{
+    case h :: rest => Biter.canJoin(h, hook.user) ?? !{
       (h.user |@| hook.user).tupled ?? {
         case (u1, u2) =>
           GameRepo.lastGameBetween(u1.id, u2.id, DateTime.now minusHours 1) map {

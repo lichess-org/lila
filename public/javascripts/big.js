@@ -2278,7 +2278,6 @@ var storage = {
     var $tbody = $table.find('tbody');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0;
-    var myRating = isRegistered ? parseInt($userTag.data('rating'), 10) : null;
     var animation = 500;
     var pool = [];
     var nextHooks = [];
@@ -2478,11 +2477,7 @@ var storage = {
     }
 
     function addHook(hook) {
-      if (!isRegistered && hook.mode == "Casual" && !hook.allowAnon) return;
-      if (_.contains(lichess_preload.blocks, hook.username.toLowerCase())) return;
-      if (!isRegistered && hook.mode == "Rated") hook.action = 'register';
-      else hook.action = hook.uid == lichess_sri ? "cancel" : "join";
-      if (hook.action == 'join' && hook.emin && myRating && (myRating < parseInt(hook.emin, 10) || myRating > parseInt(hook.emax, 10))) return;
+      hook.action = hook.uid == lichess_sri ? "cancel" : "join";
       pool.push(hook);
     }
 
@@ -2662,10 +2657,6 @@ var storage = {
       var hook = $(this).data('hook');
       if (lichess_preload.engine && hook.mode == 'Rated') {
         disableHook(hook.id);
-        return;
-      }
-      if (hook.action == 'register') {
-        if (confirm($.trans('This game is rated') + '.\n' + $.trans('You need an account to do that') + '.')) location.href = '/signup';
         return;
       }
       var variantConfirms = {

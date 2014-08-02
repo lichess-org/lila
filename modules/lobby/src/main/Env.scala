@@ -11,7 +11,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    blocks: (String, String) => Fu[Boolean],
+    blocking: String => Fu[Set[String]],
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
@@ -32,16 +32,17 @@ final class Env(
   )), name = SocketName)
 
   val lobby = system.actorOf(Props(new Lobby(
-    biter = biter,
-    socket = socket
+    socket = socket,
+    blocking = blocking
   )), name = ActorName)
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     lobby = lobby,
-    socket = socket)
+    socket = socket,
+    blocking = blocking)
 
-  lazy val history = new History[actorApi.Messadata.type](ttl = MessageTtl)
+  lazy val history = new History[actorApi.Messadata](ttl = MessageTtl)
 
   {
     import scala.concurrent.duration._
@@ -55,8 +56,6 @@ final class Env(
       }
     }
   }
-
-  private lazy val biter = new Biter(blocks)
 }
 
 object Env {
@@ -65,7 +64,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "lobby",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    blocks = lila.relation.Env.current.api.blocks,
+    blocking = lila.relation.Env.current.api.blocking,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)
 }
