@@ -444,7 +444,8 @@ body.dark #hooks_list .pool_buttons > a {
   background: rgba(0, 0, 0, 0.3);
 }
 body.dark #pool_list > div:hover,
-body.dark #hooks_list .pool_buttons > a:hover {
+body.dark #hooks_list .pool_buttons > a:hover,
+body.dark div.game_row:hover {
   background: rgba(27, 51, 68, 0.5);
 }
 body.dark #hooks_list > .pool_title {
