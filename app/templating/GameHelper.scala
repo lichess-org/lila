@@ -161,7 +161,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val u1 = playerText(game player color, withRating = true)
     val u2 = playerText(game opponent color, withRating = true)
     val clock = game.clock ?? { c => " • " + c.showCondensed }
-    s"$u1 vs $u2$clock"
+    val variant = game.variant.exotic ?? { " • " + game.variant.name }
+    s"$u1 vs $u2$clock$variant"
   }
 
   // whiteUsername 1-0 blackUsername
