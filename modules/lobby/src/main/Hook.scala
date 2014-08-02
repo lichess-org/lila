@@ -64,7 +64,7 @@ case class Hook(
     "rating" -> rating,
     "variant" -> realVariant.shortName,
     "mode" -> realMode.toString,
-    "clock" -> clockOption.map(_.showCondensed),
+    "clock" -> clockOption.map(_.show),
     "time" -> clockOption.map(_.estimateTotalTime),
     "speed" -> chess.Speed(clockOption).id,
     "color" -> chess.Color(color).??(_.name),

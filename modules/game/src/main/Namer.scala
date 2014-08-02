@@ -21,8 +21,4 @@ object Namer {
 
   def playerString(p: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit lightUser: String => Option[LightUser]) =
     player(p, withRating, withTitle)(lightUser).body.replace("&nbsp;", " ")
-
-  def shortClock(clock: Clock): Html = Html {
-    s"${clock.limitInMinutes}&nbsp;+&nbsp;${clock.increment}"
-  }
 }

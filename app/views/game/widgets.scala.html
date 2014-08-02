@@ -29,7 +29,7 @@
     @bookmark.toggle(g)
     <div class="header">
       <strong>
-        @g.clock.fold(trans.unlimited.str())(_.showCondensed)
+        @g.clock.fold(trans.unlimited.str())(_.show)
         • @g.perfType.map(_.name)
         • @g.rated.fold(trans.rated(), trans.casual())
       </strong>

@@ -17,20 +17,24 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def mandatorySecondsToMove = lila.game.Env.current.MandatorySecondsToMove
 
-  def povOpenGraph(pov: Pov) = Map(
+  def povOpenGraph(pov: Pov) = {
+    val speed = chess.Speed(pov.game.clock).name
+    val variant = pov.game.variant.exotic ?? s" ${pov.game.variant.name}"
+    Map(
     'type -> "website",
     'image -> staticUrl("images/large_tile.png"),
-    'title -> s"${chess.Speed(pov.game.clock).toString} Chess - ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
+    'title -> s"$speed$variant Chess - ${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}",
     'site_name -> "lichess.org",
     'url -> s"$netBaseUrl${routes.Round.watcher(pov.game.id, pov.color.name).url}",
     'description -> describePov(pov))
+  }
 
   def describePov(pov: Pov) = {
     import pov._
     val p1 = playerText(player, withRating = true)
     val p2 = playerText(opponent, withRating = true)
     val speedAndClock = game.clock.fold(chess.Speed.Unlimited.name) { c =>
-      s"${chess.Speed(c.some).name} (${c.showCondensed})"
+      s"${chess.Speed(c.some).name} (${c.show})"
     }
     val mode = game.mode.name
     val variant = if (game.variant == chess.Variant.FromPosition) "position setup chess"
@@ -78,9 +82,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     trans.nbMinutesPerSidePlusNbSecondsPerMove.en(clock.limitInMinutes, clock.increment)
 
   def shortClockName(clock: Option[Clock])(implicit ctx: UserContext): Html =
-    clock.fold(trans.unlimited())(Namer.shortClock)
+    clock.fold(trans.unlimited())(shortClockName)
 
-  def shortClockName(clock: Clock): Html = Namer shortClock clock
+  def shortClockName(clock: Clock): Html = Html(clock.show)
 
   def modeName(mode: Mode)(implicit ctx: UserContext): String = mode match {
     case Mode.Casual => trans.casual.str()
@@ -160,8 +164,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   private def gameTitle(game: Game, color: Color): String = {
     val u1 = playerText(game player color, withRating = true)
     val u2 = playerText(game opponent color, withRating = true)
-    val clock = game.clock ?? { c => " • " + c.showCondensed }
-    val variant = game.variant.exotic ?? { " • " + game.variant.name }
+    val clock = game.clock ?? { c => " • " + c.show }
+    val variant = game.variant.exotic ?? s" • ${game.variant.name}"
     s"$u1 vs $u2$clock$variant"
   }
 
