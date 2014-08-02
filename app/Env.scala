@@ -20,7 +20,6 @@ final class Env(
     lobby = Env.lobby.lobby,
     lobbyVersion = () => Env.lobby.history.version,
     featured = Env.tv.featured,
-    relations = Env.relation.api,
     leaderboard = Env.user.cached.topRatingDay.apply,
     tourneyWinners = Env.tournament.winners.scheduled,
     timelineEntries = Env.timeline.getter.userEntries _,

@@ -49,12 +49,15 @@ private[lobby] object Biter {
     pgnImport = None)
 
   def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean = hook.open &&
-    hook.realMode.casual.fold(user.isDefined || hook.allowAnon, user ?? (!_.engine)) &&
-    !(hook.userId ?? (user ?? (_.blocking)).contains) &&
-    !((user map (_.id)) ?? (hook.user ?? (_.blocking)).contains) &&
-    hook.realRatingRange.fold(true) { range =>
-      user ?? { u =>
-        (hook.perfType map (_.key) flatMap u.ratingMap.get) ?? range.contains
+    hook.realMode.casual.fold(
+      user.isDefined || hook.allowAnon,
+      user ?? { _.engine == hook.engine }
+    ) &&
+      !(hook.userId ?? (user ?? (_.blocking)).contains) &&
+      !((user map (_.id)) ?? (hook.user ?? (_.blocking)).contains) &&
+      hook.realRatingRange.fold(true) { range =>
+        user ?? { u =>
+          (hook.perfType map (_.key) flatMap u.ratingMap.get) ?? range.contains
+        }
       }
-    }
 }

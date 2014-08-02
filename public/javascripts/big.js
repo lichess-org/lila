@@ -2616,9 +2616,6 @@ var storage = {
       html += '</span>';
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
       html += '<span class="is2" data-icon="' + k + '"></span>';
-      if (hook.engine && hook.action == 'join') {
-        html += '<span class="is2" data-icon="j"></span>';
-      }
       return html;
     }
 
@@ -2627,9 +2624,7 @@ var storage = {
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
       return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
         ['', '<span class="is2" data-icon="' + k + '"></span>'],
-        [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous') +
-          ((hook.engine && hook.action == 'join') ? ' <span data-icon="j"></span>' : '')
-        ],
+        [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous')],
         [hook.rating || 0, hook.rating ? ('<span data-icon="' + hook.perfIcon + '">' + hook.rating + '</span>') : ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
         [hook.mode, $.trans(hook.mode) +
@@ -2660,10 +2655,6 @@ var storage = {
     });
     $canvas.on('click', '>span.plot:not(.hiding)', function() {
       var hook = $(this).data('hook');
-      if (lichess_preload.engine && hook.mode == 'Rated') {
-        disableHook(hook.id);
-        return;
-      }
       var variantConfirms = {
         '960': "This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?",
         'KotH': "This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill",

@@ -13,7 +13,6 @@ import lila.game.{ Game, GameRepo, Pov }
 import lila.lobby.actorApi.GetOpen
 import lila.lobby.{ Hook, HookRepo }
 import lila.pool.Pool
-import lila.relation.RelationApi
 import lila.setup.FilterConfig
 import lila.socket.History
 import lila.timeline.Entry
@@ -26,7 +25,6 @@ final class Preload(
     lobby: ActorRef,
     lobbyVersion: () => Int,
     featured: Featured,
-    relations: RelationApi,
     leaderboard: Int => Fu[List[User]],
     tourneyWinners: Int => Fu[List[Winner]],
     timelineEntries: String => Fu[List[Entry]],

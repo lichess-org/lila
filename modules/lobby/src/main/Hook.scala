@@ -64,14 +64,10 @@ case class Hook(
     "rating" -> rating,
     "variant" -> realVariant.shortName,
     "mode" -> realMode.toString,
-    "allowAnon" -> allowAnon,
     "clock" -> clockOption.map(_.showCondensed),
     "time" -> clockOption.map(_.estimateTotalTime),
     "speed" -> chess.Speed(clockOption).id,
-    "emin" -> realRatingRange.map(_.min),
-    "emax" -> realRatingRange.map(_.max),
     "color" -> chess.Color(color).??(_.name),
-    "engine" -> engine,
     "perfIcon" -> perfType.map(_.iconChar.toString)
   )
 
