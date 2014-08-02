@@ -73,9 +73,9 @@ div.sub_ratings h3 {
 }
 div.user_show .rating_history {
   position: absolute;
-  left: -11px;
+  left: -10px;
   display: block;
-  width: 479px;
+  width: 477px;
   height: 339px;
 }
 div.user_show .rating_history span {

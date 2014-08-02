@@ -48,6 +48,10 @@ $(function() {
         return {
           name: serie.name,
           type: 'line',
+          marker: {
+            enabled: true,
+            radius: 2
+          },
           data: _.map(serie.points, function(r) {
             return [Date.UTC(r[0], r[1], r[2]), r[3]];
           })
