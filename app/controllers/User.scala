@@ -97,7 +97,7 @@ object User extends LilaController {
       bullet ← env.cached topBulletWeek nb
       blitz ← env.cached topBlitzWeek nb
       classical ← env.cached topClassicalWeek nb
-      chess960 ← env.cached topClassicalWeek nb
+      chess960 ← env.cached topChess960Week nb
       kingOfTheHill ← env.cached topKingOfTheHillWeek nb
       threeCheck ← env.cached topThreeCheckWeek nb
       nbAllTime ← env.cached topNbGame nb map2 { (user: UserModel) =>
