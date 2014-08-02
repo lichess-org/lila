@@ -39,6 +39,8 @@ case class Perfs(
     "classical" -> classical,
     "puzzle" -> puzzle)
 
+  def apply(key: String): Option[Perf] = perfsMap get key
+
   def pool(key: String) = pools get key getOrElse Perf.default
 
   def standardAndPools = standard :: pools.values.toList

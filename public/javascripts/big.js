@@ -2068,7 +2068,28 @@ var storage = {
       var $timeInput = $form.find('.time_choice input');
       var $incrementInput = $form.find('.increment_choice input');
       var isHook = $form.hasClass('game_config_hook');
-      var myRating = parseInt($('#user_tag').data('rating'), 10);
+      var $ratings = $form.find('.ratings > div');
+      var showRating = function() {
+        var key;
+        switch ($variantSelect.val()) {
+          case '1':
+            var time = $timeInput.val() * 60 + $incrementInput.val() * 30;
+            if (time < 180) key = 'bullet';
+            else if (time < 480) key = 'blitz';
+            else key = 'classical';
+            break;
+          case '2':
+            key = 'chess960';
+            break;
+          case '4':
+            key = 'kingOfTheHill';
+            break;
+          case '5':
+            key = 'threeCheck';
+        }
+        console.log(key);
+        $ratings.hide().filter('.' + key).show();
+      };
       if (isHook) {
         var $formTag = $form.find('form');
         var ajaxSubmit = function(color) {
@@ -2103,6 +2124,7 @@ var storage = {
             time = sliderTime(ui.value);
             $value.text(time);
             $input.attr('value', time);
+            showRating();
             $form.find('.color_submits button').toggle(
               $timeInput.val() > 0 || $incrementInput.val() > 0);
           }
@@ -2146,6 +2168,7 @@ var storage = {
         if (isHook && !checked) {
           $casual.click();
         }
+        showRating();
         $.centerOverboard();
       }).trigger('change');
       var $ratingRangeConfig = $form.find('.rating_range_config');
@@ -2185,6 +2208,7 @@ var storage = {
         $fenPosition.toggle(fen);
         $modeChoicesWrap.toggle(!fen);
         if (fen) $casual.click();
+        showRating();
         $.centerOverboard();
       }).trigger('change');
 

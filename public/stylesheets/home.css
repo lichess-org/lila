@@ -554,6 +554,9 @@ div.new_posts li span.extract {
 #daily_puzzle > div.vstext {
   text-align: center;
 }
+div.game_config {
+  padding-bottom: 0;
+}
 div.game_config div.ui-buttonset {
   margin-bottom: 1em;
 }
@@ -569,11 +572,14 @@ div.game_config div.ui-slider {
   margin: 0 15px;
 }
 div.game_config .optional_config {
-  background: #f4f4f4;
   margin-bottom: 1em;
   padding: 3px 0;
-  border-top: solid 1px #e4e4e4;
   border-bottom: solid 1px #e4e4e4;
+}
+div.game_config .optional_config,
+div.game_config .ratings {
+  background: #f4f4f4;
+  border-top: solid 1px #e4e4e4;
 }
 div.game_config input[type="text"] {
   border: 1px solid #ccc;
@@ -618,6 +624,15 @@ div.game_config .time_choice span {
 }
 div.game_config label.pointer {
   cursor: pointer;
+}
+div.game_config .ratings {
+  margin-top: 1.7em;
+  line-height: 50px;
+  width: 100%;
+  text-align: center;
+}
+div.game_config .ratings > div {
+  display: none;
 }
 div.game_config div.color_submits {
   margin-top: 1em;
