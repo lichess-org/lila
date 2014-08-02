@@ -24,7 +24,7 @@ import makeTimeout.large
 
 final class Preload(
     lobby: ActorRef,
-    history: History,
+    lobbyVersion: () => Int,
     featured: Featured,
     relations: RelationApi,
     leaderboard: Int => Fu[List[User]],
@@ -56,7 +56,7 @@ final class Preload(
       streamsOnAir() map {
         case ((((((((((((hooks, posts), tours), feat), blocks), entries), lead), tWinners), puzzle), playing), filter), pools), streams) =>
           (Json.obj(
-            "version" -> history.version,
+            "version" -> lobbyVersion(),
             "pool" -> JsArray(hooks map (_.render)),
             "filter" -> filter.render,
             "blocks" -> blocks,

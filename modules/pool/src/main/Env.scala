@@ -48,7 +48,7 @@ final class Env(
         setup = setupRepo byId id getOrElse {
           throw new IllegalArgumentException(s"Can't create pool for id $id")
         },
-        history = new History(ttl = HistoryMessageTtl),
+        history = new History[actorApi.Messadata](ttl = HistoryMessageTtl),
         uidTimeout = UidTimeout,
         lightUser = lightUser,
         isOnline = isOnline,

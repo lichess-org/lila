@@ -7,9 +7,9 @@ import play.api.libs.json._
 import actorApi._
 import lila.memo
 
-final class History(ttl: Duration) {
+final class History[Metadata](ttl: Duration) {
 
-  import History._
+  type Message = History.Message[Metadata]
 
   private var privateVersion = 0
   private val messages = memo.Builder.expiry[Int, Message](ttl)
@@ -25,9 +25,9 @@ final class History(ttl: Duration) {
 
   private def message(v: Int) = Option(messages getIfPresent v)
 
-  def +=(payload: JsObject, troll: Boolean): Message = {
+  def +=(payload: JsObject, metadata: Metadata): Message = {
     privateVersion = privateVersion + 1
-    val vmsg = Message(payload, privateVersion, troll)
+    val vmsg = History.Message(payload, privateVersion, metadata)
     messages.put(privateVersion, vmsg)
     vmsg
   }
@@ -35,7 +35,7 @@ final class History(ttl: Duration) {
 
 object History {
 
-  case class Message(payload: JsObject, version: Int, troll: Boolean = false) {
+  case class Message[Metadata](payload: JsObject, version: Int, metadata: Metadata) {
 
     lazy val fullMsg = payload + ("v" -> JsNumber(version))
 

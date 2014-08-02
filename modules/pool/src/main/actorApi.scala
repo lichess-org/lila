@@ -17,6 +17,8 @@ private[pool] object Member {
     troll = user.??(_.troll))
 }
 
+private[pool] case class Messadata(trollish: Boolean = false)
+
 private[pool] case class Join(
   uid: String,
   user: Option[User],

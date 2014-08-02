@@ -18,7 +18,7 @@ final class Env(
 
   lazy val preloader = new mashup.Preload(
     lobby = Env.lobby.lobby,
-    history = Env.lobby.history,
+    lobbyVersion = () => Env.lobby.history.version,
     featured = Env.tv.featured,
     relations = Env.relation.api,
     leaderboard = Env.user.cached.topRatingDay.apply,

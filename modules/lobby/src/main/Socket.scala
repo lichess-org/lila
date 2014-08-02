@@ -20,9 +20,9 @@ import lila.socket.{ SocketActor, History, Historical }
 import makeTimeout.short
 
 private[lobby] final class Socket(
-    val history: History,
+    val history: History[Messadata.type],
     router: akka.actor.ActorSelection,
-    uidTtl: Duration) extends SocketActor[Member](uidTtl) with Historical[Member] {
+    uidTtl: Duration) extends SocketActor[Member](uidTtl) with Historical[Member, Messadata.type] {
 
   context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams)
 
@@ -46,9 +46,9 @@ private[lobby] final class Socket(
 
     case ReloadTimeline(user)    => sendTo(user, makeMessage("reload_timeline", JsNull))
 
-    case AddHook(hook)           => notifyVersion("hook_add", hook.render)
+    case AddHook(hook)           => notifyVersion("hook_add", hook.render, Messadata)
 
-    case RemoveHook(hookId)      => notifyVersion("hook_remove", hookId)
+    case RemoveHook(hookId)      => notifyVersion("hook_remove", hookId, Messadata)
 
     case JoinHook(uid, hook, game, creatorColor) =>
       withMember(hook.uid)(notifyMember("redirect", Json.obj(
@@ -62,10 +62,12 @@ private[lobby] final class Socket(
         "cookie" -> AnonCookie.json(game, !creatorColor)
       ).noNull))
 
-    case HookIds(ids)                         => notifyVersion("hook_list", ids)
+    case HookIds(ids)                         => notifyVersion("hook_list", ids, Messadata)
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
   }
+
+  protected def shouldSkipMessageFor(message: Message, member: Member) = false
 
   private def playerUrl(fullId: String) = s"/$fullId"
 

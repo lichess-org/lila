@@ -16,10 +16,10 @@ import lila.socket.{ SocketActor, History, Historical }
 
 private[tournament] final class Socket(
     tournamentId: String,
-    val history: History,
+    val history: History[Messadata],
     lightUser: String => Option[LightUser],
     uidTimeout: Duration,
-    socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member] {
+    socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
   val joiningMemo = new ExpireSetMemo(uidTimeout)
 
@@ -37,9 +37,9 @@ private[tournament] final class Socket(
 
     case Reload     => reloadNotifier ! Debouncer.Nothing
 
-    case Start      => notifyVersion("start", JsNull)
+    case Start      => notifyVersion("start", JsNull, Messadata())
 
-    case ReloadPage => notifyVersion("reloadPage", JsNull)
+    case ReloadPage => notifyVersion("reloadPage", JsNull, Messadata())
 
     case PingVersion(uid, v) => {
       ping(uid)
@@ -56,7 +56,7 @@ private[tournament] final class Socket(
 
     case lila.chat.actorApi.ChatLine(_, line) => line match {
       case line: lila.chat.UserLine =>
-        notifyVersionTrollable("message", lila.chat.Line toJson line, troll = line.troll)
+        notifyVersion("message", lila.chat.Line toJson line, Messadata(line.troll))
       case _ =>
     }
 
@@ -78,22 +78,20 @@ private[tournament] final class Socket(
 
   override def userIds = (super.userIds ++ joiningMemo.keys).toList.distinct
 
+  protected def shouldSkipMessageFor(message: Message, member: Member) =
+    message.metadata.trollish && !member.troll
+
   val crowdNotifier =
     context.system.actorOf(Props(new Debouncer(1.seconds, (ms: Iterable[Member]) => {
       val (anons, users) = members.values.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
         case ((anons, users), Some(user)) => anons -> (user :: users)
         case ((anons, users), None)       => (anons + 1) -> users
       }
-      notifyVersion("crowd", showSpectators(users, anons))
+      notifyVersion("crowd", showSpectators(users, anons), Messadata())
     })))
 
   val reloadNotifier =
     context.system.actorOf(Props(new Debouncer(1.seconds, (_: Debouncer.Nothing) => {
       notifyAll(makeMessage("reload"))
     })))
-
-  def notifyVersionTrollable[A: Writes](t: String, data: A, troll: Boolean) {
-    val vmsg = history.+=(makeMessage(t, data), troll)
-    members.values.foreach(sendMessage(vmsg))
-  }
 }

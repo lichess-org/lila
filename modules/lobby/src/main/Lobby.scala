@@ -11,8 +11,8 @@ import lila.game.GameRepo
 import lila.hub.actorApi.GetUids
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.Broom
-import org.joda.time.DateTime
 import makeTimeout.short
+import org.joda.time.DateTime
 
 private[lobby] final class Lobby(
     biter: Biter,

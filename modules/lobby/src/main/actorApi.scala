@@ -17,6 +17,8 @@ object Member {
     troll = user.??(_.troll))
 }
 
+case object Messadata
+
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class WithHooks(op: Iterable[String] => Unit)
 case class AddHook(hook: Hook)

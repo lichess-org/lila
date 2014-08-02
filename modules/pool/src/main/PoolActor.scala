@@ -18,12 +18,12 @@ import lila.user.{ User, UserRepo }
 
 private[pool] final class PoolActor(
     setup: PoolSetup,
-    val history: History,
+    val history: History[Messadata],
     lightUser: String => Option[LightUser],
     isOnline: String => Boolean,
     renderer: ActorSelection,
     joiner: Joiner,
-    uidTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member] {
+    uidTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
   private var pool = Pool(setup, Nil, Nil, DateTime.now plusSeconds 5)
 
@@ -154,7 +154,7 @@ private[pool] final class PoolActor(
 
     case lila.chat.actorApi.ChatLine(_, line) => line match {
       case line: lila.chat.UserLine =>
-        notifyVersionTrollable("message", lila.chat.Line toJson line, troll = line.troll)
+        notifyVersion("message", lila.chat.Line toJson line, Messadata(line.troll))
       case _ =>
     }
 
@@ -176,22 +176,20 @@ private[pool] final class PoolActor(
       pool = pool withoutUserId userId
   }
 
+  protected def shouldSkipMessageFor(message: Message, member: Member) =
+    message.metadata.trollish && !member.troll
+
   val crowdNotifier =
     context.system.actorOf(Props(new Debouncer(1.seconds, (ms: Iterable[Member]) => {
       val (anons, users) = ms.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
         case ((anons, users), Some(user)) => anons -> (user :: users)
         case ((anons, users), None)       => (anons + 1) -> users
       }
-      notifyVersion("crowd", showSpectators(users, anons))
+      notifyVersion("crowd", showSpectators(users, anons), Messadata())
     })))
 
   val reloadNotifier =
     context.system.actorOf(Props(new Debouncer(1.seconds, (_: Debouncer.Nothing) => {
       notifyAll(makeMessage("reload"))
     })))
-
-  def notifyVersionTrollable[A: Writes](t: String, data: A, troll: Boolean) {
-    val vmsg = history.+=(makeMessage(t, data), troll)
-    members.values.foreach(sendMessage(vmsg))
-  }
 }

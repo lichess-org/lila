@@ -41,7 +41,7 @@ final class Env(
     lobby = lobby,
     socket = socket)
 
-  lazy val history = new History(ttl = MessageTtl)
+  lazy val history = new History[actorApi.Messadata.type](ttl = MessageTtl)
 
   {
     import scala.concurrent.duration._
