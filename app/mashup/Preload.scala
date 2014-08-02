@@ -55,8 +55,7 @@ final class Preload(
           (Json.obj(
             "version" -> lobbyVersion(),
             "pool" -> JsArray(hooks map (_.render)),
-            "filter" -> filter.render,
-            "engine" -> ctx.me.??(_.engine)
+            "filter" -> filter.render
           ), entries, posts, tours, feat, lead, tWinners, puzzle, playing, pools, streams)
       }
 }

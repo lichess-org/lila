@@ -2620,12 +2620,12 @@ var storage = {
     }
 
     function renderTr(hook) {
-      var title = (hook.action == "join") ? $.trans('Join the game') : $.trans('cancel');
+      var title = (hook.action == "join") ? $.trans('Join the game') + ' - ' + hook.perf.name : $.trans('cancel');
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
       return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
         ['', '<span class="is2" data-icon="' + k + '"></span>'],
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous')],
-        [hook.rating || 0, hook.rating ? ('<span data-icon="' + hook.perfIcon + '">' + hook.rating + '</span>') : ''],
+        [hook.rating || 0, hook.rating ? ('<span data-icon="' + hook.perf.icon + '">' + hook.rating + '</span>') : ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
         [hook.mode, $.trans(hook.mode) +
           (hook.variant != 'STD' ? ('<span class="varname">' + hook.variant + '</span>') : '')

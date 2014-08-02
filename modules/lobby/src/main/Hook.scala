@@ -68,7 +68,9 @@ case class Hook(
     "time" -> clockOption.map(_.estimateTotalTime),
     "speed" -> chess.Speed(clockOption).id,
     "color" -> chess.Color(color).??(_.name),
-    "perfIcon" -> perfType.map(_.iconChar.toString)
+    "perf" -> Json.obj(
+      "icon" -> perfType.map(_.iconChar.toString),
+      "name" -> perfType.map(_.name))
   )
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
