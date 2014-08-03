@@ -40,6 +40,8 @@ case object Perf {
 
   type Key = String
 
+  case class Typed(perf: Perf, perfType: PerfType)
+
   val default = Perf(Glicko.default, 0, Nil, None)
 
   val recentMaxSize = 12

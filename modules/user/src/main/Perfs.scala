@@ -29,6 +29,17 @@ case class Perfs(
       case (id, perf) => s"$id pool" -> perf
     }
 
+  def bestPerf: Option[(PerfType, Perf)] = {
+    val ps = PerfType.nonPoolPuzzle map { pt => pt -> apply(pt) }
+    val minNb = ps.foldLeft(0)(_ + _._2.nb) / 10
+    ps.foldLeft(none[(PerfType, Perf)]) {
+      case (ro, p) if p._2.nb >= minNb => ro.fold(p.some) { r =>
+        Some(if (p._2.intRating > r._2.intRating) p else r)
+      }
+      case (ro, _) => ro
+    }
+  }
+
   def bestRating: Int = {
     val ps = List(bullet, blitz, classical, chess960, kingOfTheHill, threeCheck)
     val minNb = ps.foldLeft(0)(_ + _.nb) / 10

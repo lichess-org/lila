@@ -223,7 +223,9 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val name = user.titleUsername
     val nbGames = user.count.game
     val createdAt = org.joda.time.format.DateTimeFormat forStyle "M-" print user.createdAt
-    val rating = user.rating
-    s"$name played $nbGames games since $createdAt. Current rating: $rating."
+    val currentRating = user.perfs.bestPerf ?? {
+      case (pt, perf) => s" Current ${pt.name} rating: $perf."
+    }
+    s"$name played $nbGames games since $createdAt.$currentRating"
   }
 }
