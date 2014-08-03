@@ -43,7 +43,6 @@ GET   /@/:username                     controllers.User.show(username: String)
 GET   /player                          controllers.User.list
 GET   /player/online                   controllers.User.online
 GET   /player/autocomplete             controllers.User.autocomplete
-GET   /leaderboard                     controllers.User.leaderboard
 
 # Account
 GET   /account/passwd                  controllers.Account.passwd

@@ -1,4 +1,4 @@
-@(u: User, playing: Option[Game], blocked: Boolean, followed: Boolean, followable: Boolean, rel: Option[lila.relation.Relation])(implicit ctx: Context)
+@(u: User, playing: Option[Game], blocked: Boolean, followable: Boolean, rel: Option[lila.relation.Relation])(implicit ctx: Context)
 <div class="title">
   <div>
     @u.profileOrDefault.countryInfo.map {
@@ -17,9 +17,7 @@
   </div>
   <div class="ratings">
     @miniViewSortedPerfTypes.map { pt =>
-    @u.perfs(pt.key).map { perf =>
-    @showPerfRating(pt, perf)
-    }
+    @showPerfRating(u, pt)
     }
   </div>
 </div>

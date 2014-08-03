@@ -4,7 +4,7 @@
 @userLink(user)<br />
 @trans.challengeToPlay.en()<br />
 @clockNameNoCtx(g.clock)<br />
-@game.variantLink(g.variant, variantNameNoCtx(g.variant)), @modeNameNoCtx(g.mode)
+@game.variantLink(g.variant, variantNameNoCtx(g.variant), hintAsTitle = true), @modeNameNoCtx(g.mode)
 <div class="actions">
   <a class="action decline" href="@routes.Setup.decline(g.id)" data-icon="L">&nbsp;@trans.decline.en()</a>
   <a class="action" href="@routes.Round.watcher(g.id, "white")" data-icon="v">&nbsp;View challenge</a>

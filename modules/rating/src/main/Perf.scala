@@ -38,6 +38,8 @@ case class Perf(
 
 case object Perf {
 
+  type Key = String
+
   val default = Perf(Glicko.default, 0, Nil, None)
 
   val recentMaxSize = 12

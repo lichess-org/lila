@@ -21,9 +21,9 @@ div.user_lists h2 {
 div.side div.user_top {
   margin-top: 1em;
 }
-div.side div.user_top td:first-child {
-  max-width: 140px;
-  overflow: hidden;
+div.side div.user_top li {
+  display: block;
+  margin: 5px 0;
 }
 div.side a.more {
   display: block;

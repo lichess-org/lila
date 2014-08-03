@@ -1,4 +1,4 @@
-@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[User], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], pools: List[lila.pool.Pool])(implicit ctx: Context)
+@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], pools: List[lila.pool.Pool])(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
@@ -136,12 +136,14 @@ openGraph = Map(
         <div class="undertable_inner scroll-shadow-hard">
           <table>
             <tbody>
-              @leaderboard.map { u =>
+              @leaderboard.map {
+              case (u, pt) => {
               <tr>
                 <td>@userLink(u, cssClass="revert-underline".some)</td>
-                <td>@u.rating</td>
-                <td>@showProgress(u.progress, withTitle = false)</td>
+                <td>@showPerfRating(u, pt, klass = "title")</td>
+                <td>@showProgress(u.perfs(pt).progress, withTitle = false)</td>
               </tr>
+              }
               }
             </tbody>
           </table>

@@ -2281,7 +2281,6 @@ var storage = {
     var $table = $tableWrap.find('table').sortable();
     var $tablereload = $table.find('th.reload');
     var $tbody = $table.find('tbody');
-    var isRegistered = $userTag.length > 0;
     var animation = 500;
     var pool = [];
     var nextHooks = [];

@@ -46,10 +46,7 @@ private[api] final class UserApi(
     case Some(teamId) => lila.team.MemberRepo.userIdsByTeam(teamId) flatMap UserRepo.enabledByIds
     case None => $find(pimpQB($query(
       UserRepo.enabledSelect ++ (engine ?? UserRepo.engineSelect)
-    )) sort ((~engine).fold(
-      UserRepo.sortCreatedAtDesc,
-      UserRepo.sortRatingDesc
-    )), makeNb(nb, token))
+    )) sort UserRepo.sortPerfDesc(lila.rating.PerfType.Standard.key), makeNb(nb, token))
   }) flatMap { users =>
     users.map(u => makeUrl(R User u.username)).sequenceFu map { urls =>
       Json.obj(

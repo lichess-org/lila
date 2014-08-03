@@ -39,17 +39,19 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     PerfType.ThreeCheck)
 
   def showPerfRating(rating: Int, name: String, nb: Int, icon: Char, klass: String) = Html {
-    s"""<span data-hint="$name rating over $nb games" class="$klass"><span data-icon="$icon">${(nb > 0).fold(rating, "&nbsp;&nbsp;&nbsp;-")}</span></span>"""
+    val title = s"$name rating over $nb games"
+    val attr = if (klass == "title") "title" else "data-hint"
+    s"""<span $attr="$title" class="$klass"><span data-icon="$icon">${(nb > 0).fold(rating, "&nbsp;&nbsp;&nbsp;-")}</span></span>"""
   }
 
-  def showPerfRating(perfType: PerfType, perf: Perf, klass: String = "hint--bottom"): Html =
+  def showPerfRating(perfType: PerfType, perf: Perf, klass: String): Html =
     showPerfRating(perf.intRating, perfType.name, perf.nb, perfType.iconChar, klass)
 
-  def showPerfRating(u: User, perfType: PerfType): Option[Html] =
-    u.perfs.perfsMap get perfType.key map { showPerfRating(perfType, _) }
+  def showPerfRating(u: User, perfType: PerfType, klass: String = "hint--bottom"): Html =
+    showPerfRating(perfType, u perfs perfType, klass)
 
   def showPerfRating(u: User, perfKey: String): Option[Html] =
-    PerfType(perfKey) flatMap { showPerfRating(u, _) }
+    PerfType(perfKey) map { showPerfRating(u, _) }
 
   def showRatingDiff(diff: Int) = Html {
     diff match {

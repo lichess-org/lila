@@ -42,9 +42,11 @@
   <div class="user_lists">
     <div class="user_top">
       <h2>@trans.onlinePlayers()</h2>
-      @online.map { u =>
-      @userLink(u, cssClass="revert-underline".some)
-      }
+      <ul>
+        @online.map { u =>
+        <li>@userLink(u, cssClass="revert-underline".some)</li>
+        }
+      </ul>
     </div>
     <a class="more" href="@routes.User.online">@trans.more() »</a>
   </div>

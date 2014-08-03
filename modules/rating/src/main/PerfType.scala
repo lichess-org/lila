@@ -3,7 +3,7 @@ package lila.rating
 import chess.{ Variant, Speed }
 
 sealed abstract class PerfType(
-  val key: String,
+  val key: Perf.Key,
   val name: String,
   val title: String,
   val iconChar: Char)
@@ -69,8 +69,8 @@ object PerfType {
 
   val default = Standard
 
-  def apply(key: String): Option[PerfType] = byKey get key
-  def orDefault(key: String): PerfType = apply(key) | default
+  def apply(key: Perf.Key): Option[PerfType] = byKey get key
+  def orDefault(key: Perf.Key): PerfType = apply(key) | default
 
   val nonPoolPuzzle: List[PerfType] = List(Bullet, Blitz, Classical, Chess960, KingOfTheHill, ThreeCheck)
 }

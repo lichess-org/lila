@@ -1705,6 +1705,7 @@ div.progressbar.flashy.green div {
   top: -20px;
   left: -30px;
   width: 228px;
+  z-index: 2;
 }
 #notifications > div {
   border: 1px solid #c0c0c0;

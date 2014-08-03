@@ -11,6 +11,7 @@ import lila.game.GameRepo
 import lila.security.Permission
 import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
+import lila.rating.PerfType
 import views._
 
 object User extends LilaController {
@@ -28,11 +29,10 @@ object User extends LilaController {
     OptionFuResult(UserRepo named username) { user =>
       GameRepo nowPlaying user.id zip
         (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
-        (ctx.userId ?? { relationApi.follows(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
         (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
-          case ((((game, blocked), followed), followable), relation) =>
-            Ok(html.user.mini(user, game, blocked, followed, followable, relation))
+          case (((game, blocked), followable), relation) =>
+            Ok(html.user.mini(user, game, blocked, followable, relation))
               .withHeaders(CACHE_CONTROL -> "max-age=5")
         }
     }
@@ -94,12 +94,12 @@ object User extends LilaController {
   def list = Open { implicit ctx =>
     val nb = 10
     for {
-      bullet ← env.cached topBulletWeek nb
-      blitz ← env.cached topBlitzWeek nb
-      classical ← env.cached topClassicalWeek nb
-      chess960 ← env.cached topChess960Week nb
-      kingOfTheHill ← env.cached topKingOfTheHillWeek nb
-      threeCheck ← env.cached topThreeCheckWeek nb
+      bullet ← env.cached topPerf PerfType.Bullet.key
+      blitz ← env.cached topPerf PerfType.Blitz.key
+      classical ← env.cached topPerf PerfType.Classical.key
+      chess960 ← env.cached topPerf PerfType.Chess960.key
+      kingOfTheHill ← env.cached topPerf PerfType.KingOfTheHill.key
+      threeCheck ← env.cached topPerf PerfType.ThreeCheck.key
       nbAllTime ← env.cached topNbGame nb map2 { (user: UserModel) =>
         user -> user.count.game
       }
@@ -119,12 +119,6 @@ object User extends LilaController {
       threeCheck = threeCheck,
       nbWeek = nbWeek,
       nbAllTime = nbAllTime)
-  }
-
-  def leaderboard = Open { implicit ctx =>
-    UserRepo topRating 500 map { users =>
-      html.user.leaderboard(users)
-    }
   }
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>

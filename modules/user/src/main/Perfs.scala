@@ -4,7 +4,7 @@ import reactivemongo.bson.BSONDocument
 
 import chess.{ Variant, Speed }
 import lila.db.BSON
-import lila.rating.{ Perf, Glicko }
+import lila.rating.{ Perf, PerfType, Glicko }
 
 case class Perfs(
     standard: Perf,
@@ -53,6 +53,18 @@ case class Perfs(
   def ratingMap: Map[String, Int] = perfsMap mapValues (_.intRating)
 
   def apply(key: String): Option[Perf] = perfsMap get key
+
+  def apply(perfType: PerfType): Perf = perfType match {
+    case PerfType.Standard      => standard
+    case PerfType.Bullet        => bullet
+    case PerfType.Blitz         => blitz
+    case PerfType.Classical     => classical
+    case PerfType.Chess960      => chess960
+    case PerfType.KingOfTheHill => kingOfTheHill
+    case PerfType.ThreeCheck    => threeCheck
+    case PerfType.Puzzle        => puzzle
+    case PerfType.Pool          => Perf.default
+  }
 
   def pool(key: String) = pools get key getOrElse Perf.default
 

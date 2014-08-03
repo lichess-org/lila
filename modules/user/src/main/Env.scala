@@ -17,7 +17,6 @@ final class Env(
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
     val CachedNbTtl = config duration "cached.nb.ttl"
     val OnlineTtl = config duration "online.ttl"
-    val RankingTtl = config duration "ranking.ttl"
     val CollectionUser = config getString "collection.user"
     val CollectionNote = config getString "collection.note"
   }
@@ -27,13 +26,7 @@ final class Env(
 
   lazy val lightUserApi = new LightUserApi(userColl)
 
-  lazy val paginator = new PaginatorBuilder(
-    countUsers = cached.countEnabled,
-    maxPerPage = PaginatorMaxPerPage)
-
   lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
-
-  lazy val ranking = new Ranking(ttl = RankingTtl)
 
   lazy val noteApi = new NoteApi(db(CollectionNote), timeline)
 

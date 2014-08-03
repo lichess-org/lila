@@ -1,4 +1,4 @@
-@(variant: chess.Variant, name: String)
+@(variant: chess.Variant, name: String, hintAsTitle: Boolean = false)
 @import chess.Variant
 @url = {
 @variant match {
@@ -9,4 +9,4 @@ case chess.Variant.ThreeCheck => {http://en.wikipedia.org/wiki/Three-check_chess
 case chess.Variant.FromPosition => {@routes.Editor.index}
 }
 }
-<a href="@url" target="_blank" data-hint="@variant.title" class="hint--bottom">@name</a>
+<a href="@url" target="_blank" @if(hintAsTitle){title}else{data-hint}="@variant.title" class="hint--bottom">@name</a>

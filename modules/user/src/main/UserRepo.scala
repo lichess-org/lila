@@ -11,7 +11,7 @@ import reactivemongo.bson._
 import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
-import lila.rating.{ Glicko, Perf }
+import lila.rating.{ Glicko, Perf, PerfType }
 import tube.userTube
 
 object UserRepo extends UserRepo {
@@ -29,13 +29,11 @@ trait UserRepo {
 
   def all: Fu[List[User]] = $find.all
 
-  def topRating(nb: Int): Fu[List[User]] = topRatingSince(maxInactivityDate, nb)
+  def topPerfSince(perf: String, since: DateTime, nb: Int): Fu[List[User]] =
+    $find($query(topPerfSinceSelect(perf, since)) sort sortPerfDesc(perf), nb)
 
-  def topRatingSince(since: DateTime, nb: Int, sincePerf: String = "standard"): Fu[List[User]] =
-    $find($query(stableGoodLadSelect ++ perfSince(sincePerf, since)) sort sortRatingDesc, nb)
-
-  def topPerfSince(perf: String, since: DateTime)(nb: Int): Fu[List[User]] =
-    $find($query(goodLadSelect ++ stablePerfSelect(perf) ++ perfSince(perf, since)) sort ($sort desc s"perfs.$perf.gl.r"), nb)
+  def topPerfSinceSelect(perf: String, since: DateTime) =
+    goodLadSelect ++ stablePerfSelect(perf) ++ perfSince(perf, since)
 
   def topPool(poolId: String, nb: Int): Fu[List[User]] =
     $find($query(
@@ -67,13 +65,12 @@ trait UserRepo {
 
   def nameds(usernames: List[String]): Fu[List[User]] = $find byIds usernames.map(normalize)
 
-  def byIdsSortRating(ids: Iterable[ID], max: Int) = $find($query byIds ids sort sortRatingDesc, max)
+  def byIdsSortRating(ids: Iterable[ID], max: Int) =
+    $find($query byIds ids sort sortPerfDesc(PerfType.Standard.key), max)
 
   def allSortToints(nb: Int) = $find($query.all sort ($sort desc F.toints), nb)
 
   def usernameById(id: ID) = $primitive.one($select(id), F.username)(_.asOpt[String])
-
-  def randomDudes(nb: Int) = $find($query(stableGoodLadSelect) sort BSONDocument("count.games" -> -1) skip scala.util.Random.nextInt(5000), nb)
 
   def rank(user: User) = $count(enabledSelect ++ Json.obj(F.rating -> $gt(Glicko.default.rating))) map (1+)
 
@@ -138,15 +135,14 @@ trait UserRepo {
   val enabledSelect = Json.obj(F.enabled -> true)
   def engineSelect(v: Boolean) = Json.obj(F.engine -> v.fold(JsBoolean(true), $ne(true)))
   val stableSelect = Json.obj("perfs.standard.nb" -> $gte(50))
-  def stablePerfSelect(perf: String) = Json.obj(s"perfs.$perf.nb" -> $gte(20))
+  def stablePerfSelect(perf: String) = Json.obj(s"perfs.$perf.nb" -> $gte(30))
   def activeSelect(sincePerf: String = "standard") = perfSince(sincePerf, DateTime.now minusMonths 2)
   val goodLadSelect = enabledSelect ++ engineSelect(false)
-  val stableGoodLadSelect = stableSelect ++ goodLadSelect
   def minRatingSelect(rating: Int) = Json.obj(F.rating -> $gt(rating))
   def perfSince(perf: String, since: DateTime) = Json.obj(s"perfs.$perf.la" -> $gt($date(since)))
   val goodLadQuery = $query(goodLadSelect)
 
-  val sortRatingDesc = $sort desc "rating"
+  def sortPerfDesc(perf: String) = $sort desc s"perfs.$perf.gl.r"
   val sortCreatedAtDesc = $sort desc F.createdAt
 
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Int, totalTime: Option[Int], tvTime: Option[Int]) = {

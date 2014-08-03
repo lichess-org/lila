@@ -20,7 +20,7 @@ final class Env(
     lobby = Env.lobby.lobby,
     lobbyVersion = () => Env.lobby.history.version,
     featured = Env.tv.featured,
-    leaderboard = Env.user.cached.topRatingDay.apply,
+    leaderboard = Env.user.cached.topToday.apply,
     tourneyWinners = Env.tournament.winners.scheduled,
     timelineEntries = Env.timeline.getter.userEntries _,
     nowPlaying = Env.round.nowPlaying,
@@ -29,14 +29,13 @@ final class Env(
     getPools = () => Env.pool.repo.all apply true)
 
   lazy val userInfo = mashup.UserInfo(
-    countUsers = () => Env.user.countEnabled,
     bookmarkApi = Env.bookmark.api,
     relationApi = Env.relation.api,
     gameCached = Env.game.cached,
     crosstableApi = Env.game.crosstableApi,
     postApi = Env.forum.postApi,
     getRatingChart = Env.history.ratingChartApi.apply,
-    getRank = Env.user.ranking.get,
+    getRanks = Env.user.cached.ranking.getAll,
     getDonated = Env.donation.api.donatedByUser) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
