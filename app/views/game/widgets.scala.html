@@ -6,12 +6,16 @@
   <a href="@routes.User.show(playerUser.id)" class="user_link ulpt">@usernameOrId(playerUser.id)</a><br />
   @playerUser.rating @playerUser.ratingDiff.map(showRatingDiff)
   }.getOrElse {
+  @player.aiLevel.map { level =>
+  <span>@trans.aiNameLevelAiLevel.str(aiName, level)</span><br />@aiRating(level)
+  }.getOrElse {
   <span>@player.nameSplit match {
     case Some((name, rating)) => {
     <span>@name</span><br />@rating
     }
     case _ => {<span class="anon">@User.anonymous</span>}
     }</span>
+  }
   }
 </div>
 }
@@ -21,11 +25,13 @@
   @defining(user flatMap g.player) { fromPlayer =>
   @defining(fromPlayer | g.firstPlayer ) { firstPlayer =>
   @gameFen(g, firstPlayer.color, ownerLink, withTitle = false)
-  <div class="infos" @if(g.imported) {
-    data-icon="/"
-    } else {
-    @g.perfType.map { p => data-icon="@p.iconChar"}
-    }>
+  <div class="infos" data-icon="@g.perfType match {
+    case _ if g.fromPosition => {*}
+    case _ if g.hasAi => {:}
+    case _ if g.imported => {/}
+    case Some(p) => {@p.iconChar}
+    case _ => {8}
+    }">
     @bookmark.toggle(g)
     <div class="header">
       <strong>

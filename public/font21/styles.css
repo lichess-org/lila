@@ -278,3 +278,9 @@
 .icon-upload-cloud:before {
   content: "/";
 }
+.icon-feather:before {
+  content: "*";
+}
+.icon-gears-setting:before {
+  content: ":";
+}
