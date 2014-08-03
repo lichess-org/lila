@@ -29,6 +29,7 @@ final class Env(
     getPools = () => Env.pool.repo.all apply true)
 
   lazy val userInfo = mashup.UserInfo(
+    countUsers = () => Env.user.countEnabled,
     bookmarkApi = Env.bookmark.api,
     relationApi = Env.relation.api,
     gameCached = Env.game.cached,

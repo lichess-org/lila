@@ -134,7 +134,6 @@ trait UserRepo {
 
   val enabledSelect = Json.obj(F.enabled -> true)
   def engineSelect(v: Boolean) = Json.obj(F.engine -> v.fold(JsBoolean(true), $ne(true)))
-  val stableSelect = Json.obj("perfs.standard.nb" -> $gte(50))
   def stablePerfSelect(perf: String) = Json.obj(s"perfs.$perf.nb" -> $gte(30))
   def activeSelect(sincePerf: String = "standard") = perfSince(sincePerf, DateTime.now minusMonths 2)
   val goodLadSelect = enabledSelect ++ engineSelect(false)

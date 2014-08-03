@@ -16,9 +16,10 @@ final class Cached(
     nbTtl: Duration,
     onlineUserIdMemo: ExpireSetMemo) {
 
-  // private def oneDayAgo = DateTime.now minusDays 1
-  private def oneDayAgo = DateTime.now minusMonths 4
+  private def oneDayAgo = DateTime.now minusDays 1
+  // private def oneDayAgo = DateTime.now minusMonths 6
   private def twoWeeksAgo = DateTime.now minusWeeks 2
+  // private def twoWeeksAgo = DateTime.now minusMonths 6
 
   private val perfs = PerfType.nonPoolPuzzle
   private val perfKeys = perfs.map(_.key)

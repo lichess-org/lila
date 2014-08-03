@@ -32,4 +32,5 @@ case QaComment(userId, id, title, commentId) => {
 @userIdLink(userId.some, withOnline = false) commented <a href="@routes.QaQuestion.show(id, "redirect")#comment-@commentId">@title</a>
 }
 }
+@momentFromNow(e.date)
 }

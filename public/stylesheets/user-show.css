@@ -18,7 +18,9 @@ div.user_show div.content_box_top > span strong {
 div.user_show div.content_box_top > .trophy {
   float: right;
   margin-top: -30px;
-  margin-right: -10px;
+}
+div.user_show div.content_box_top > .trophy_80 {
+  margin-top: -46px;
 }
 div.user_show .honorific {
   display: inline-block;
