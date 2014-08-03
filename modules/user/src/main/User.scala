@@ -47,11 +47,11 @@ case class User(
 
   def disabled = !enabled
 
-  def usernameWithRating = s"$username ($rating)"
+  def usernameWithBestRating = s"$username (${perfs.bestRating})"
 
   def titleUsername = title.fold(username)(_ + " " + username)
 
-  def titleUsernameWithRating = title.fold(usernameWithRating)(_ + " " + usernameWithRating)
+  def titleUsernameWithBestRating = title.fold(usernameWithBestRating)(_ + " " + usernameWithBestRating)
 
   def profileOrDefault = profile | Profile.default
 

@@ -10,7 +10,7 @@
     <span class="countrylang" data-icon="c">&nbsp;@name</span>
     }
     }
-    @userLink(u, withPowerTip = false, withRating = false)
+    @userLink(u, withPowerTip = false)
     @if(u.engine && ctx.me.fold(true)(u !=)) {
     <span class="hint--bottom" data-hint="@trans.thisPlayerUsesChessComputerAssistance()" data-icon="j"></span>
     }

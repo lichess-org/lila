@@ -155,7 +155,6 @@ trait UserHelper { self: I18nHelper with StringHelper =>
   def userLink(
     user: User,
     cssClass: Option[String] = None,
-    withRating: Boolean = true,
     withProgress: Boolean = false,
     withOnline: Boolean = true,
     withPowerTip: Boolean = true,
@@ -164,7 +163,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     mod: Boolean = false) = Html {
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
     val href = userHref(user.username, if (mod) "?mod" else "")
-    val content = text | withRating.fold(user.usernameWithRating, user.username)
+    val content = text | user.username
     val titleS = if (withTitle) titleTag(user.title) else ""
     val progress = if (withProgress) " " + showProgress(user.progress) else ""
     val space = if (withOnline) "&nbsp;" else ""

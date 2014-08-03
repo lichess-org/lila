@@ -29,6 +29,17 @@ case class Perfs(
       case (id, perf) => s"$id pool" -> perf
     }
 
+  def bestRating: Int = {
+    val ps = List(bullet, blitz, classical, chess960, kingOfTheHill, threeCheck)
+    val minNb = ps.foldLeft(0)(_ + _.nb) / 10
+    ps.foldLeft(none[Int]) {
+      case (ro, p) if p.nb >= minNb => ro.fold(p.intRating.some) { r =>
+        Some(if (p.intRating > r) p.intRating else r)
+      }
+      case (ro, _) => ro
+    } | Perf.default.intRating
+  }
+
   lazy val perfsMap: Map[String, Perf] = Map(
     "standard" -> standard,
     "chess960" -> chess960,

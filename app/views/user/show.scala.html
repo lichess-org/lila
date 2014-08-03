@@ -64,7 +64,7 @@ evenMoreJs = evenMoreJs,
 openGraph = Map(
 'type -> "website",
 'image -> staticUrl("images/large_tile.png"),
-'title -> u.titleUsernameWithRating,
+'title -> u.titleUsernameWithBestRating,
 'site_name -> "lichess.org",
 'url -> s"$netBaseUrl${routes.User.show(u.username).url}",
 'description -> describeUser(u))) {

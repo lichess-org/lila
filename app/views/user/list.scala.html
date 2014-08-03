@@ -9,7 +9,7 @@
     <tbody>
       @users.map { u =>
       <tr>
-        <td>@userLink(u, withRating = false, cssClass="revert-underline".some)</td>
+        <td>@userLink(u, cssClass="revert-underline".some)</td>
         <td>@u.perfs(perfType.key).map(_.intRating)</td>
       </tr>
       }
@@ -25,7 +25,7 @@
     <tbody>
       @users.map { u =>
       <tr>
-        <td>@userLink(u._1, withRating = false, cssClass="revert-underline".some)</td>
+        <td>@userLink(u._1, cssClass="revert-underline".some)</td>
         <td><span class="hint--bottom" data-hint="Number of games played">#@u._2.localize</span></td>
       </tr>
       }
@@ -43,7 +43,7 @@
     <div class="user_top">
       <h2>@trans.onlinePlayers()</h2>
       @online.map { u =>
-      @userLink(u, withRating = false, cssClass="revert-underline".some)
+      @userLink(u, cssClass="revert-underline".some)
       }
     </div>
     <a class="more" href="@routes.User.online">@trans.more() »</a>

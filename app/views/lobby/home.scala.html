@@ -138,7 +138,7 @@ openGraph = Map(
             <tbody>
               @leaderboard.map { u =>
               <tr>
-                <td>@userLink(u, withRating = false, cssClass="revert-underline".some)</td>
+                <td>@userLink(u, cssClass="revert-underline".some)</td>
                 <td>@u.rating</td>
                 <td>@showProgress(u.progress, withTitle = false)</td>
               </tr>
