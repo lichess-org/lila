@@ -68,7 +68,7 @@
       case (List(w, b), i) => {@(i+1). @w @b}
       case (List(w), i) => {@(i+1). @w}
       case _ => {}
-      }.mkString(" ")@if(g.turns > 6) { ... @g.turns moves }
+      }.mkString(" ")@if(g.turns > 6) { ... @g.fullMoveNumber moves }
     </div>
     }
     } else {
