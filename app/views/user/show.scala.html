@@ -31,7 +31,6 @@
   @showPerf( u.perfs.blitz, PerfType.Blitz)
   @showPerf( u.perfs.classical, PerfType.Classical)
   <br />
-  @showPerf( u.perfs.standard, PerfType.Standard)
   @if(u.perfs.chess960.nonEmpty) {
   @showPerf( u.perfs.chess960, PerfType.Chess960)
   }
@@ -88,11 +87,6 @@ openGraph = Map(
     }
     }
     <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" } data-icon="r"></span> @u.username</h1>
-    <span class="rating">RATING <strong class="hint--bottom" data-hint="Glicko rating">@u.rating</strong><small class="hint--bottom" data-hint="Glicko rating deviation"> ±@u.perfs.standard.glicko.intDeviationDoubled</small></span>
-    @showProgress(u.progress)
-    @info.rank.map { r =>
-    <span class="rank hint--bottom" data-hint="@trans.rank()">RANK <strong>@r._1.localize</strong>/@{r._2/1000}k</span>
-    }
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
     }
