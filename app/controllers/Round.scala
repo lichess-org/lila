@@ -141,9 +141,9 @@ object Round extends LilaController with TheftPrevention {
     import templating.Environment.playerLink
     negotiate(
       html = pov.game.tournamentId ?? TournamentRepo.byId map { tour =>
-        val players = (pov.game.players collect {
-          case player if player.isHuman => player.color.name -> playerLink(player, withStatus = true).body
-        } toMap) ++ ctx.me.??(me => Map("me" -> me.usernameWithRating))
+        val players = pov.game.players.collect {
+          case p if p.isHuman => p.color.name -> playerLink(p, withStatus = true).body
+        }.toMap
         val table = if (player) html.round.table.end(pov, tour) else html.round.table.watch(pov)
         Ok(Json.obj(
           "players" -> players,

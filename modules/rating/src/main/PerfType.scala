@@ -71,4 +71,6 @@ object PerfType {
 
   def apply(key: String): Option[PerfType] = byKey get key
   def orDefault(key: String): PerfType = apply(key) | default
+
+  val nonPoolPuzzle: List[PerfType] = List(Bullet, Blitz, Classical, Chess960, KingOfTheHill, ThreeCheck)
 }

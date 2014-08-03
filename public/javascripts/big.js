@@ -1566,7 +1566,6 @@ var storage = {
         $(['white', 'black']).each(function() {
           if (data.players[this]) self.$table.find('div.username.' + this).html(data.players[this]);
         });
-        if (data.players.me) $('#user_tag span').text(data.players.me);
         self.$tableInner.html(data.table);
         self.initTable();
         if (!(self.options.player.spectator && self.options.tv)) {
@@ -2282,7 +2281,6 @@ var storage = {
     var $table = $tableWrap.find('table').sortable();
     var $tablereload = $table.find('th.reload');
     var $tbody = $table.find('tbody');
-    var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0;
     var animation = 500;
     var pool = [];

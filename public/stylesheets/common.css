@@ -915,6 +915,9 @@ body.offline #nb_connected_players {
   border-color: #d85000;
   padding: 1px 5px;
 }
+#user_tag {
+  font-weight: bold;
+}
 #top div.auth {
   float: right;
   position: relative;
@@ -926,7 +929,6 @@ body.offline #nb_connected_players {
   display: block;
   padding: 5px 10px;
   text-decoration: none;
-  text-transform: capitalize;
   transition: 0.13s;
 }
 #top div.auth .links a:hover {
@@ -938,6 +940,17 @@ body.offline #nb_connected_players {
   padding-top: 5px;
   margin-top: 5px;
   border-top: 1px solid #d4d4d4;
+}
+#top div.auth .perfs {
+  padding-top: 5px;
+  text-align: center;
+  font-size: 1.1em;
+  min-width: 120px;
+}
+#top div.auth .perfs > span {
+  padding: 5px 3% 5px 3%;
+  width: 38%;
+  text-align: left;
 }
 #top div.auth .ping {
   display: block;
@@ -1840,7 +1853,7 @@ input.copyable {
 [data-hint]:after {
   content: attr(data-hint);
   background: #404040;
-  color: #fafafa;
+  color: #e0e0e0;
   text-shadow: 0 -1px 0px black;
   padding: 8px 10px;
   line-height: 12px;

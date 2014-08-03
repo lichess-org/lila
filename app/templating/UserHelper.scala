@@ -6,7 +6,7 @@ import mashup._
 import play.twirl.api.Html
 
 import lila.common.LightUser
-import lila.rating.PerfType
+import lila.rating.{ PerfType, Perf }
 import lila.user.{ User, UserContext, Perfs }
 
 trait UserHelper { self: I18nHelper with StringHelper =>
@@ -22,18 +22,30 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     s"""<span $title class="$klass">$span</span>"""
   }
 
-  def showPerfRating(rating: Int, name: String, nb: Int, icon: Char) = Html {
-    s"""<span data-hint="$name rating over $nb games" class="hint--bottom"><span data-icon="$icon">$rating</span></span>"""
+  val topBarSortedPerfTypes: List[PerfType] = List(
+    PerfType.Bullet,
+    PerfType.Chess960,
+    PerfType.Blitz,
+    PerfType.KingOfTheHill,
+    PerfType.Classical,
+    PerfType.ThreeCheck)
+
+  def showPerfRating(rating: Int, name: String, nb: Int, icon: Char, klass: String) = Html {
+    s"""<span data-hint="$name rating over $nb games" class="$klass"><span data-icon="$icon">${(nb > 0).fold(rating, "&nbsp;&nbsp;&nbsp;-")}</span></span>"""
   }
 
-  def showPerfRating(u: User, perfKey: String): Option[Html] = for {
-    perf <- u.perfs.perfsMap get perfKey
-    perfType <- PerfType(perfKey)
-  } yield showPerfRating(perf.intRating, perfType.name, perf.nb, perfType.iconChar)
+  def showPerfRating(perfType: PerfType, perf: Perf, klass: String = "hint--bottom"): Html =
+    showPerfRating(perf.intRating, perfType.name, perf.nb, perfType.iconChar, klass)
 
-  def userPerfsSummary(u: User, nb: Int) =
-    List("bullet", "blitz", "classical", "chess960", "kingOfTheHill", "threeCheck") flatMap { key =>
-      u.perfs.perfsMap get key map (key -> _)
+  def showPerfRating(u: User, perfType: PerfType): Option[Html] =
+    u.perfs.perfsMap get perfType.key map { showPerfRating(perfType, _) }
+
+  def showPerfRating(u: User, perfKey: String): Option[Html] =
+    PerfType(perfKey) flatMap { showPerfRating(u, _) }
+
+  def userPerfsSummary(u: User, nb: Int): List[(PerfType, Perf)] =
+    PerfType.nonPoolPuzzle flatMap { perfType =>
+      u.perfs.perfsMap get perfType.key map (perfType -> _)
     } sortBy (-_._2.nb) take nb
 
   def showRatingDiff(diff: Int) = Html {
