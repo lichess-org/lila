@@ -57,10 +57,12 @@
       }
       }
     </div>
-    @if(!g.fromPosition && g.turns > 0) {
+    @if(g.turns > 0) {
     @defining(g openingPgnMoves 20) { pgnMoves =>
+    @if(!g.fromPosition) {
     @chess.OpeningExplorer.openingOf(pgnMoves).map { opening =>
     <div class="opening">@opening.name</div>
+    }
     }
     <div class="pgn">@pgnMoves.take(6).grouped(2).zipWithIndex.map {
       case (List(w, b), i) => {@(i+1). @w @b}

@@ -1388,12 +1388,11 @@ div.game_row div.versus span.anon {
 div.game_row div.result {
   display: block;
   font-size: 1.3em;
-  margin: 5px 0 0 -52px;
+  margin: 5px 0 20px -52px;
   width: 528px;
   text-align: center;
 }
 div.game_row div.opening {
-  margin-top: 20px;
   font-weight: bold;
 }
 div.game_row span.up {
