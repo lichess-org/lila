@@ -351,10 +351,12 @@ div.content_box .loader:after {
 }
 #powerTip .ratings {
   text-align: center;
-  margin-top: 5px;
+  margin-top: 3px;
 }
 #powerTip .ratings > span {
-  margin: 0 5px;
+  padding: 2px 5px;
+  width: 20%;
+  text-align: left;
 }
 #powerTip > .actions {
   width: 100%;

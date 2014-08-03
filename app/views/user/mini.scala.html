@@ -16,8 +16,10 @@
     }
   </div>
   <div class="ratings">
-    @userPerfsSummary(u, 3).map {
-    case (key, _) => { @showPerfRating(u, key) }
+    @miniViewSortedPerfTypes.map { pt =>
+    @u.perfs(pt.key).map { perf =>
+    @showPerfRating(pt, perf)
+    }
     }
   </div>
 </div>

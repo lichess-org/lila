@@ -22,6 +22,8 @@ final class Env(
     val SocketUidTtl = config duration "socket.uid.ttl"
     val OrphanHookTtl = config duration "orphan_hook.ttl"
     val ActorName = config getString "actor.name"
+    val BroomPeriod = config duration "broom_period"
+    val ResyncIdsPeriod = config duration "resync_ids_period"
   }
   import settings._
 
@@ -48,10 +50,10 @@ final class Env(
     import scala.concurrent.duration._
 
     scheduler.once(5 seconds) {
-      scheduler.message(1 seconds) {
+      scheduler.message(BroomPeriod) {
         lobby -> lila.socket.actorApi.Broom
       }
-      scheduler.message(10 seconds) {
+      scheduler.message(ResyncIdsPeriod) {
         lobby -> actorApi.Resync
       }
     }

@@ -30,6 +30,14 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     PerfType.Classical,
     PerfType.ThreeCheck)
 
+  val miniViewSortedPerfTypes: List[PerfType] = List(
+    PerfType.Bullet,
+    PerfType.Blitz,
+    PerfType.Classical,
+    PerfType.Chess960,
+    PerfType.KingOfTheHill,
+    PerfType.ThreeCheck)
+
   def showPerfRating(rating: Int, name: String, nb: Int, icon: Char, klass: String) = Html {
     s"""<span data-hint="$name rating over $nb games" class="$klass"><span data-icon="$icon">${(nb > 0).fold(rating, "&nbsp;&nbsp;&nbsp;-")}</span></span>"""
   }
@@ -42,11 +50,6 @@ trait UserHelper { self: I18nHelper with StringHelper =>
 
   def showPerfRating(u: User, perfKey: String): Option[Html] =
     PerfType(perfKey) flatMap { showPerfRating(u, _) }
-
-  def userPerfsSummary(u: User, nb: Int): List[(PerfType, Perf)] =
-    PerfType.nonPoolPuzzle flatMap { perfType =>
-      u.perfs.perfsMap get perfType.key map (perfType -> _)
-    } sortBy (-_._2.nb) take nb
 
   def showRatingDiff(diff: Int) = Html {
     diff match {
