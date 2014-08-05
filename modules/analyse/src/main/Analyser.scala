@@ -51,7 +51,7 @@ final class Analyser(
             Replay(game.pgnMoves mkString " ", initialFen, game.variant).fold(
               fufail(_),
               replay => {
-                ai ! lila.hub.actorApi.ai.Analyse(game.id, UciDump(replay), initialFen, requestedByHuman = !auto)
+                ai ! lila.hub.actorApi.ai.Analyse(game.id, UciDump(replay), initialFen, requestedByHuman = !auto, game.variant.kingOfTheHill)
                 AnalysisRepo byId id flatten "Missing analysis"
               }
             )

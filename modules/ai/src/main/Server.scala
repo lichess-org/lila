@@ -15,17 +15,17 @@ private[ai] final class Server(
     config: Config,
     uciMemo: lila.game.UciMemo) {
 
-  def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[MoveResult] = {
+  def move(uciMoves: List[String], initialFen: Option[String], level: Int, kingOfTheHill: Boolean): Fu[MoveResult] = {
     implicit val timeout = makeTimeout(config.playTimeout)
-    queue ? PlayReq(uciMoves, initialFen map chess960Fen, level) mapTo
+    queue ? PlayReq(uciMoves, initialFen map chess960Fen, level, kingOfTheHill) mapTo
       manifest[Option[String]] flatten "[stockfish] play failed" map MoveResult.apply
   }
 
-  def analyse(uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean): Fu[List[Info]] = {
+  def analyse(uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean, kingOfTheHill: Boolean): Fu[List[Info]] = {
     implicit val timeout = makeTimeout {
       if (requestedByHuman) 1.hour else 24.hours
     }
-    (queue ? FullAnalReq(uciMoves take config.analyseMaxPlies, initialFen map chess960Fen, requestedByHuman)) mapTo manifest[List[Info]]
+    (queue ? FullAnalReq(uciMoves take config.analyseMaxPlies, initialFen map chess960Fen, requestedByHuman, kingOfTheHill)) mapTo manifest[List[Info]]
   }
 
   private def chess960Fen(fen: String) = (Forsyth << fen).fold(fen) { situation =>

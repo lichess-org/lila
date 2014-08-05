@@ -84,7 +84,7 @@ private[chat] final class ChatApi(
     def cut(text: String) = Some(text.trim take 140) filter (_.nonEmpty)
     val delocalize = new lila.common.String.Delocalizer(netDomain)
     val domainRegex = netDomain.replace(".", """\.""")
-    val gameUrlRegex = (domainRegex + """/([\w-]{8})[\w-]{4}""").r
+    val gameUrlRegex = (domainRegex + """\b/([\w]{8})[\w]{4}\b""").r
     def noPrivateUrl(str: String): String =
       gameUrlRegex.replaceAllIn(str, m => quoteReplacement(netDomain + "/" + (m group 1)))
   }

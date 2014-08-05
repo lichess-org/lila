@@ -24,6 +24,7 @@ sealed trait Req {
   def analyse: Boolean
   def requestedByHuman: Boolean
   def priority: Int
+  def kingOfTheHill: Boolean
 
   def chess960 = fen.isDefined
 }
@@ -31,7 +32,8 @@ sealed trait Req {
 case class PlayReq(
     moves: List[String],
     fen: Option[String],
-    level: Int) extends Req {
+    level: Int,
+    kingOfTheHill: Boolean) extends Req {
 
   val analyse = false
   val requestedByHuman = true
@@ -43,7 +45,8 @@ case class AnalReq(
     moves: List[String],
     fen: Option[String],
     totalSize: Int,
-    requestedByHuman: Boolean) extends Req {
+    requestedByHuman: Boolean,
+    kingOfTheHill: Boolean) extends Req {
 
   val priority =
     if (requestedByHuman) -totalSize
@@ -57,7 +60,8 @@ case class AnalReq(
 case class FullAnalReq(
   moves: List[String],
   fen: Option[String],
-  requestedByHuman: Boolean)
+  requestedByHuman: Boolean,
+  kingOfTheHill: Boolean)
 
 case class Job(req: Req, sender: akka.actor.ActorRef, buffer: List[String]) {
 

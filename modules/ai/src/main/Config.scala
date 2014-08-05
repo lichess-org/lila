@@ -44,11 +44,13 @@ private[ai] case class Config(
       setoption("Uci_AnalyseMode", false),
       setoption("Skill Level", skill(r.level)),
       setoption("UCI_Chess960", r.chess960),
+      setoption("UCI_KingOfTheHill", r.kingOfTheHill),
       setoption("OwnBook", ownBook(r.level)))
     case r: AnalReq => List(
       setoption("Uci_AnalyseMode", true),
       setoption("Skill Level", skillMax),
       setoption("UCI_Chess960", r.chess960),
+      setoption("UCI_KingOfTheHill", r.kingOfTheHill),
       setoption("OwnBook", true))
   }
 

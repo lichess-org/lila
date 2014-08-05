@@ -141,7 +141,7 @@ case class MakeTeam(id: String, name: String)
 }
 
 package ai {
-case class Analyse(gameId: String, uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean)
+case class Analyse(gameId: String, uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean, kingOfTheHill: Boolean)
 case class AutoAnalyse(gameId: String)
 }
 

@@ -291,7 +291,7 @@ case class Game(
 
   def replayable = imported || finished
 
-  private val analysableVariants: Set[Variant] = Set(Variant.Standard, Variant.Chess960)
+  private val analysableVariants: Set[Variant] = Set(Variant.Standard, Variant.Chess960, Variant.KingOfTheHill)
   def analysable = replayable && turns > 4 && analysableVariants(variant)
 
   def fromPosition = source ?? (Source.Position==)
