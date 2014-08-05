@@ -65,8 +65,8 @@ trait UserRepo {
 
   def nameds(usernames: List[String]): Fu[List[User]] = $find byIds usernames.map(normalize)
 
-  def byIdsSortRating(ids: Iterable[ID], max: Int) =
-    $find($query byIds ids sort sortPerfDesc(PerfType.Standard.key), max)
+  def byIdsSortRating(ids: Iterable[ID]) =
+    $find($query byIds ids sort sortPerfDesc(PerfType.Standard.key))
 
   def allSortToints(nb: Int) = $find($query.all sort ($sort desc F.toints), nb)
 
