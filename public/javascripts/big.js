@@ -497,7 +497,7 @@ var storage = {
     var bodyHeight = $('body').height();
     var winHeight = $(window).height();
     if (bodyHeight < winHeight) {
-      $('#footer_wrap').css('marginTop', winHeight - bodyHeight + 30 + 'px');
+      $('#footer_wrap').css('marginTop', winHeight - bodyHeight + 29 + 'px');
     }
 
     if (!strongSocket.available) {
@@ -2092,7 +2092,6 @@ var storage = {
           case '5':
             key = 'threeCheck';
         }
-        console.log(key);
         $ratings.hide().filter('.' + key).show();
       };
       if (isHook) {
@@ -2453,6 +2452,9 @@ var storage = {
               }
             });
           }, Math.round(Math.random() * 5000));
+        },
+        nbr: function(data) {
+          $('#site_baseline').show().find('span').text(data || '0');
         }
       },
       options: {

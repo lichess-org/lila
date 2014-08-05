@@ -34,6 +34,7 @@ case class TellAll(msg: Any)
 case class Ask(id: String, msg: Any)
 case class AskAll(msg: Any)
 case object Size
+case class OnSizeChange(size: Int)
 }
 
 case class WithUserIds(f: Iterable[String] => Unit)
@@ -159,8 +160,8 @@ case class MoveEvent(
 }
 
 package evaluation {
-  case class AutoCheck(userId: String)
-  case class Refresh(userId: String)
+case class AutoCheck(userId: String)
+case class Refresh(userId: String)
 }
 
 package bookmark {

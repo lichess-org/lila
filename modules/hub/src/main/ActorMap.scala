@@ -33,12 +33,14 @@ trait ActorMap extends Actor {
       actors filter (_._2 == actor) foreach {
         case (id, _) => actors = actors - id
       }
+      self ! OnSizeChange(actors.size)
   }
 
   private def getOrMake(id: String) = (actors get id) | {
     context.actorOf(Props(mkActor(id)), name = id) ~ { actor =>
       actors = actors + (id -> actor)
       context watch actor
+      self ! OnSizeChange(actors.size)
     }
   }
 }

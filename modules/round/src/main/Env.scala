@@ -1,5 +1,6 @@
 package lila.round
 
+import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
@@ -7,6 +8,7 @@ import com.typesafe.config.Config
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
 import lila.socket.actorApi.GetVersion
+import lila.memo.AsyncCache
 import makeTimeout.large
 
 final class Env(
@@ -50,8 +52,8 @@ final class Env(
 
   lazy val history = () => new History(ttl = MessageTtl)
 
-  val roundMap = system.actorOf(Props(lila.hub.ActorMap { id =>
-    new Round(
+  val roundMap = system.actorOf(Props(new lila.hub.ActorMap {
+    def mkActor(id: String) = new Round(
       gameId = id,
       messenger = messenger,
       takebacker = takebacker,
@@ -62,7 +64,15 @@ final class Env(
       socketHub = socketHub,
       moretimeDuration = Moretime,
       activeTtl = ActiveTtl)
+    def receive: Receive = ({
+      case onSizeChange: lila.hub.actorApi.map.OnSizeChange =>
+        hub.socket.lobby ! onSizeChange
+    }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
+
+  val count = AsyncCache.single(
+    f = roundMap ? lila.hub.actorApi.map.Size mapTo manifest[Int],
+    timeToLive = 1 second)
 
   private val socketHub = {
     val actor = system.actorOf(

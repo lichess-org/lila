@@ -579,11 +579,9 @@ body.tight #lichess {
 #site_title {
   width: 130px;
   font-size: 30px;
-  color: #afafaf;
   text-decoration: none;
   display: block;
   margin-bottom: 3px;
-  transition: 0.13s;
 }
 body.tight #site_title {
   margin-left: 10px;
@@ -591,12 +589,8 @@ body.tight #site_title {
 #site_title span.extension {
   font-weight: lighter;
 }
-#site_title:hover,
-#site_title:hover span.extension {
-  color: inherit !important;
-}
-#site_baseline {
-  color: #afafaf;
+#site_baseline span {
+  font-weight: bold;
 }
 body.tight #site_baseline {
   display: none;

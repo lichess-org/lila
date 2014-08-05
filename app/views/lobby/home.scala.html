@@ -1,4 +1,4 @@
-@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], pools: List[lila.pool.Pool])(implicit ctx: Context)
+@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], pools: List[lila.pool.Pool], nbRounds: Int)(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
@@ -10,7 +10,7 @@
 }
 
 @baseline = {
-<span id="site_baseline">@trans.freeOnlineChess()</span>
+<span id="site_baseline">@trans.nbGamesInPlay(s"<span>${nbRounds}</span>")</span>
 }
 
 @moreJs = {

@@ -29,6 +29,10 @@ private[round] final class Round(
 
   context.system.lilaBus.subscribe(self, 'deploy)
 
+  override def postStop() {
+    context.system.lilaBus unsubscribe self
+  }
+
   def process = {
 
     case ReceiveTimeout => fuccess {

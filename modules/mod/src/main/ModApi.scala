@@ -9,8 +9,7 @@ final class ModApi(
     logApi: ModlogApi,
     userSpy: String => Fu[UserSpy],
     firewall: Firewall,
-    lilaBus: lila.common.Bus,
-    lobbySocket: akka.actor.ActorSelection) {
+    lilaBus: lila.common.Bus) {
 
   def adjust(mod: String, username: String): Funit = withUser(username) { user =>
     logApi.engine(mod, user.id, !user.engine) zip

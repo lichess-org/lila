@@ -10,7 +10,6 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     system: ActorSystem,
-    lobbySocket: akka.actor.ActorSelection,
     firewall: Firewall,
     userSpy: String => Fu[UserSpy]) {
 
@@ -25,8 +24,7 @@ final class Env(
     logApi = logApi,
     userSpy = userSpy,
     firewall = firewall,
-    lilaBus = system.lilaBus,
-    lobbySocket = lobbySocket)
+    lilaBus = system.lilaBus)
 
   // api actor
   system.actorOf(Props(new Actor {
@@ -42,7 +40,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "mod",
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
-    lobbySocket = lila.hub.Env.current.socket.lobby,
     firewall = lila.security.Env.current.firewall,
     userSpy = lila.security.Env.current.userSpy)
 }
