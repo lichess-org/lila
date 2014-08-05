@@ -5,6 +5,7 @@ import akka.pattern.ask
 import chess.format.Forsyth
 import chess.format.pgn.{ Pgn, Tag }
 import chess.format.{ pgn => chessPgn }
+import chess.{ Variant, OpeningExplorer }
 import makeTimeout.short
 import org.joda.time.format.DateTimeFormat
 
@@ -44,13 +45,13 @@ final class PgnDump(
   private def player(p: Player, u: Option[LightUser]) =
     p.aiLevel.fold(u.fold(lila.user.User.anonymous)(_.name))("lichess AI level " + _)
 
-  private val customStartPosition = Set(Variant.Chess960, Variant.FromPosition)
+  private val customStartPosition: Set[Variant] = Set(Variant.Chess960, Variant.FromPosition)
 
   private def tags(game: Game): Fu[List[Tag]] = gameLightUsers(game) match {
     case (wu, bu) =>
-      val opening = !customStartPosition(game.variant) option {
-        chess.OpeningExplorer openingOf game.pgnMoves
-      }
+      val opening: Option[OpeningExplorer.Opening] =
+        if (customStartPosition(game.variant)) none
+        else OpeningExplorer openingOf game.pgnMoves
       (game.variant.standard.fold(fuccess(none), GameRepo initialFen game.id)) map { initialFen =>
         List(
           Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
