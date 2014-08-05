@@ -42,6 +42,7 @@ final class Env(
     val HijackSalt = config getString "hijack.salt"
     val CollectionReminder = config getString "collection.reminder"
     val CasualOnly = config getBoolean "casual_only"
+    val ActiveTtl = config duration "active.ttl"
   }
   import settings._
 
@@ -59,7 +60,8 @@ final class Env(
       player = player,
       drawer = drawer,
       socketHub = socketHub,
-      moretimeDuration = Moretime)
+      moretimeDuration = Moretime,
+      activeTtl = ActiveTtl)
   }), name = ActorMapName)
 
   private val socketHub = {
@@ -162,8 +164,8 @@ final class Env(
     uciMemo = uciMemo,
     prefApi = prefApi)
 
-  lazy val moveBroadcast = system.actorOf(Props(new MoveBroadcast))
-  lazy val tvBroadcast = system.actorOf(Props(new TvBroadcast))
+  lazy val moveBroadcast = system.actorOf(Props(classOf[MoveBroadcast]))
+  lazy val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
 }
 
 object Env {

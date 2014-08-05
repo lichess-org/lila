@@ -22,9 +22,10 @@ private[round] final class Round(
     player: Player,
     drawer: Drawer,
     socketHub: ActorRef,
-    moretimeDuration: Duration) extends SequentialActor {
+    moretimeDuration: Duration,
+    activeTtl: Duration) extends SequentialActor {
 
-  context setReceiveTimeout 30.seconds
+  context setReceiveTimeout activeTtl
 
   context.system.lilaBus.subscribe(self, 'deploy)
 
