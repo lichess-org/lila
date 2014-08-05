@@ -5,7 +5,7 @@ case class TournamentClock(limit: Int, increment: Int) {
 
   def limitInMinutes = limit / 60
 
-  def show = limitInMinutes.toString + " + " + increment.toString
+  def show = s"${limitInMinutes}+${increment}"
 
   def chessClock = chess.Clock(limit, increment)
 }

@@ -42,7 +42,6 @@ final class RatingChartApi(historyApi: HistoryApi, cacheTtl: Duration) {
     historyApi get user.id map2 { (history: History) =>
       Json stringify {
         Json.toJson(List(
-          ratingsMapToJson("standard", history.standard),
           ratingsMapToJson("chess960", history.chess960),
           ratingsMapToJson("kingOfTheHill", history.kingOfTheHill),
           ratingsMapToJson("threeCheck", history.threeCheck),

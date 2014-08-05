@@ -161,16 +161,20 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     withOnline: Boolean = true,
     withPowerTip: Boolean = true,
     withTitle: Boolean = true,
+    withBestRating: Boolean = false,
     text: Option[String] = None,
     mod: Boolean = false) = Html {
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
     val href = userHref(user.username, if (mod) "?mod" else "")
     val content = text | user.username
     val titleS = if (withTitle) titleTag(user.title) else ""
-    val progress = if (withProgress) " " + showProgress(user.progress) else ""
+    val progress = if (withProgress) s" ${showProgress(user.progress)}" else ""
     val space = if (withOnline) "&nbsp;" else ""
     val dataIcon = if (withOnline) """ data-icon="r"""" else ""
-    s"""<a$dataIcon $klass $href>$space$titleS$content$progress</a>"""
+    val rating = user.bestPerf ifTrue withBestRating ?? {
+      case (pt, perf) => s" ${showPerfRating(pt, perf)}"
+    }
+    s"""<a$dataIcon $klass $href>$space$titleS$content$rating$progress</a>"""
   }
 
   def userInfosLink(

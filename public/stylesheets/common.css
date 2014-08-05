@@ -944,7 +944,6 @@ body.offline #nb_connected_players {
   border-top: 1px solid #d4d4d4;
 }
 #top div.auth .perfs {
-  padding-top: 5px;
   text-align: center;
   font-size: 1.1em;
   min-width: 120px;
