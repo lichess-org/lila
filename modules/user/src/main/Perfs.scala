@@ -97,7 +97,7 @@ case class Perfs(
         Perf(
           glicko = glicko,
           nb = nb,
-          recent = (glicko.intRating :: standard.recent) take Perf.recentMaxSize,
+          recent = Nil,
           latest = date.some)
       }
     }
