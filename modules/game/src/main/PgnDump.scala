@@ -44,11 +44,13 @@ final class PgnDump(
   private def player(p: Player, u: Option[LightUser]) =
     p.aiLevel.fold(u.fold(lila.user.User.anonymous)(_.name))("lichess AI level " + _)
 
+  private val customStartPosition = Set(Variant.Chess960, Variant.FromPosition)
+
   private def tags(game: Game): Fu[List[Tag]] = gameLightUsers(game) match {
     case (wu, bu) =>
-      val opening =
-        if (game.fromPosition || game.variant.exotic) none
-        else chess.OpeningExplorer openingOf game.pgnMoves
+      val opening = !customStartPosition(game.variant) option {
+        chess.OpeningExplorer openingOf game.pgnMoves
+      }
       (game.variant.standard.fold(fuccess(none), GameRepo initialFen game.id)) map { initialFen =>
         List(
           Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
@@ -64,7 +66,7 @@ final class PgnDump(
           Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit}+${c.increment}" }),
           Tag(_.ECO, opening.fold("?")(_.code)),
           Tag(_.Opening, opening.fold("?")(_.name))
-        ) ::: game.variant.standard.fold(Nil, List(
+        ) ::: customStartPosition(game.variant).??(List(
             Tag(_.FEN, initialFen | "?"),
             Tag("SetUp", "1")
           ))
