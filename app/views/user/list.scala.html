@@ -44,7 +44,7 @@
       <h2>@trans.onlinePlayers()</h2>
       <ul>
         @online.map { u =>
-        <li>@userLink(u, cssClass="revert-underline".some)</li>
+        <li>@userLink(u, withBestRating = true, cssClass="revert-underline".some)</li>
         }
       </ul>
     </div>

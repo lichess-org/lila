@@ -171,8 +171,8 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val progress = if (withProgress) s" ${showProgress(user.progress)}" else ""
     val space = if (withOnline) "&nbsp;" else ""
     val dataIcon = if (withOnline) """ data-icon="r"""" else ""
-    val rating = user.bestPerf ifTrue withBestRating ?? {
-      case (pt, perf) => s" ${showPerfRating(pt, perf)}"
+    val rating = (user.perfs.bestPerf ifTrue withBestRating) ?? {
+      case (pt, perf) => s"&nbsp;${showPerfRating(pt, perf, "hint--bottom")}"
     }
     s"""<a$dataIcon $klass $href>$space$titleS$content$rating$progress</a>"""
   }
