@@ -486,7 +486,7 @@ var storage = {
           }
         });
         $('#featured_game').each(function() {
-          $(this).children().toggle($(this).width() == 226);
+          $(this).children().toggle($(this).width() >= 220);
         });
         $('div.content_box .side_menu').appendTo('#site_header');
       }
