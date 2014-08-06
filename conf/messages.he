@@ -290,3 +290,4 @@ retryThisPuzzle=נסה שוב את הפאזל.
 thisPuzzleIsCorrect=הפאזל נכון ומעניין.
 thisPuzzleIsWrong=הפאזל לא נכון או משעמם
 youHaveNbSecondsToMakeYourFirstMove=יש לך %s שניות לבצע את המהלך הראשון!
+nbGamesInPlay=%s משחקים בתהליך
