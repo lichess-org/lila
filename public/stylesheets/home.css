@@ -168,7 +168,7 @@
 }
 #hooks_list .pool_title {
   position: absolute;
-  bottom: 43px;
+  bottom: 48px;
   height: 19px;
   line-height: 19px;
   text-transform: uppercase;
@@ -183,7 +183,7 @@
   bottom: 0;
   left: -1px;
   width: 513px;
-  height: 42px;
+  height: 47px;
   font-size: 20px;
   line-height: 47px;
   text-align: center;
@@ -209,36 +209,36 @@
   width: 512px;
   text-shadow: 0px 1px 0px #FFF;
 }
-#hooks_list table thead th {
+#hooks_list thead th {
   cursor: pointer;
   padding: 12.5px 12px;
   font-weight: lighter;
   border-bottom: 1px solid #ccc;
 }
-#hooks_list table th.reload span {
+#hooks_list th.reload span {
   display: block;
   cursor: pointer;
   margin-left: 2px;
   opacity: 0.5;
   transition: 0.13s;
 }
-#hooks_list table th.reload:hover span {
+#hooks_list th.reload:hover span {
   opacity: 0.8;
 }
-#hooks_list table th.sorting-asc,
-#hooks_list table th.sorting-desc {
+#hooks_list th.sorting-asc,
+#hooks_list th.sorting-desc {
   font-weight: normal;
 }
-#hooks_list table th.sorting-desc .is:before {
+#hooks_list th.sorting-desc .is:before {
   content: "R";
 }
-#hooks_list table th.sorting-asc .is:before {
+#hooks_list th.sorting-asc .is:before {
   content: "S";
 }
-#hooks_list table th.player {
+#hooks_list th.player {
   width: 110px;
 }
-#hooks_list table td {
+#hooks_list td {
   padding: 8px 12px;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
@@ -247,37 +247,42 @@
   transition: 0.13s;
   background: rgba(255, 255, 255, 0.6);
 }
-#hooks_list table tr.disabled {
+#hooks_list tr.disabled {
   opacity: 0.3;
 }
-#hooks_list table tr.disabled td {
+#hooks_list tr.disabled td {
   cursor: default;
   background: transparent!important;
   border-color: transparent;
 }
-#hooks_list table .ulink {
+#hooks_list a {
   text-decoration: none;
 }
-#hooks_list table tr.cancel td {
+#hooks_list tr.cancel td {
   background: rgba(200, 255, 200, 0.7);
 }
-#hooks_list table tr:hover td {
+#hooks_list tr:hover td {
   background: rgba(191, 231, 255, 0.7);
 }
-#hooks_list table td:first-child {
+#hooks_list td:first-child {
   width: 16px;
 }
-#hooks_list table td:first-child span {
+#hooks_list td:first-child span {
   display: block;
   padding: 0;
   width: 16px;
   height: 16px;
   opacity: 0.7;
 }
-#hooks_list table .varname {
-  padding-left: 1em;
-  font-size: 0.9em;
-  font-weight: bold;
+#hooks_list .varicon::before {
+  margin-right: 8px;
+  line-height: 12px;
+  font-size: 20px;
+  opacity: 0.7;
+}
+#hooks_list tr:hover .varicon::before,
+#hooks_list tr:hover td:first-child span {
+  opacity: 1;
 }
 #tableclone {
   position: absolute;
@@ -419,10 +424,13 @@
 #hook .mode {
   margin-top: 40px;
 }
-#hook .mode,
-#hook .varname {
+#hook .mode {
   font-size: 1.25em;
   display: block;
+}
+#hook .varicon::before {
+  font-size: 30px;
+  margin-right: 10px;
 }
 #hook .color {
   position: absolute;
