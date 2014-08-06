@@ -42,11 +42,16 @@
   <div class="user_lists">
     <div class="user_top">
       <h2>@trans.onlinePlayers()</h2>
-      <ul>
-        @online.map { u =>
-        <li>@userLink(u, withBestRating = true, cssClass="revert-underline".some)</li>
-        }
-      </ul>
+      <table><tbody>
+          @online.map { u =>
+          <tr>
+            <td>@userLink(u, cssClass="revert-underline".some)</td>
+            <td>@u.perfs.bestPerf.map {
+              case (pt, p) => {@showPerfRating(pt, p, "hint--bottom")}
+              }</td>
+          </tr>
+          }
+      </tbody></table>
     </div>
     <a class="more" href="@routes.User.online">@trans.more() »</a>
   </div>

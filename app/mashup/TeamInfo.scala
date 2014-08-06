@@ -32,7 +32,7 @@ object TeamInfo {
     mine = me.??(m => api.belongsTo(team.id, m.id))
     requestedByMe ← !mine ?? me.??(m => RequestRepo.exists(team.id, m.id))
     userIds ← MemberRepo userIdsByTeam team.id
-    bestPlayers ← UserRepo.byIdsSortRating(userIds take 10)
+    bestPlayers ← UserRepo.byIdsSortRating(userIds, 10)
     averageRating ← UserRepo.idsAverageRating(userIds)
     toints ← UserRepo.idsSumToints(userIds)
     forumNbPosts ← getForumNbPosts(team.id)
