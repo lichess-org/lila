@@ -164,7 +164,7 @@ final class Env(
       titivate.finishAbandoned
     }
 
-    scheduler.message(0.9 seconds)(roundMap -> actorApi.BroadcastSize)
+    scheduler.message(1.3 seconds)(roundMap -> actorApi.BroadcastSize)
   }
 
   private lazy val titivate = new Titivate(roundMap, scheduler)

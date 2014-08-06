@@ -2453,8 +2453,22 @@ var storage = {
             });
           }, Math.round(Math.random() * 5000));
         },
-        nbr: function(data) {
-          $('#site_baseline').show().find('span').text(data || '0');
+        nbr: function(e) {
+          var $tag = $('#site_baseline span');
+          if ($tag.length && e) {
+            var prev = parseInt($tag.text(), 10);
+            var k = 5;
+            var interv = 1200 / k;
+            _.each(_.range(k), function(it) {
+              setTimeout(function() {
+                var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
+                if (val != prev) {
+                  $tag.text(val);
+                  prev = val;
+                }
+              }, Math.round(it * interv));
+            });
+          }
         }
       },
       options: {
