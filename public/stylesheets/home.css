@@ -168,7 +168,7 @@
 }
 #hooks_list .pool_title {
   position: absolute;
-  bottom: 48px;
+  bottom: 43px;
   height: 19px;
   line-height: 19px;
   text-transform: uppercase;
@@ -183,7 +183,7 @@
   bottom: 0;
   left: -1px;
   width: 513px;
-  height: 47px;
+  height: 42px;
   font-size: 20px;
   line-height: 47px;
   text-align: center;
@@ -202,7 +202,7 @@
   background: rgba(191, 231, 255, 0.5);
 }
 #hooks_list div.table_wrap {
-  max-height: 444px;
+  max-height: 448px;
   overflow: hidden;
 }
 #hooks_list table {
@@ -251,8 +251,9 @@
   opacity: 0.3;
 }
 #hooks_list table tr.disabled td {
-  cursor: not-allowed;
-  background: rgba(75, 99, 00, 0.2)!important;
+  cursor: default;
+  background: transparent!important;
+  border-color: transparent;
 }
 #hooks_list table .ulink {
   text-decoration: none;
@@ -694,6 +695,7 @@ div.game_config div.color_submits button.random span {
   padding-top: 8px;
   margin-left: -30px;
   width: 230px;
+  font-size: 0.9em;
 }
 #timeline > .entry {
   padding-bottom: 8px;
