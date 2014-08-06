@@ -36,6 +36,9 @@ div.user_lists div.user_top table {
 div.user_lists div.user_top td {
   padding: 2px 0;
 }
+div.user_lists div.user_top td:last-child {
+  text-align: right;
+}
 
 div.big_user_list > a {
   float: left;
