@@ -5,7 +5,7 @@ import lila.common.LightUser
 import lila.db.Types._
 import reactivemongo.bson._
 import scala.concurrent.duration._
-import User.BSONFields._
+import User.{ BSONFields => F }
 
 final class LightUserApi(coll: Coll) {
 
@@ -16,13 +16,16 @@ final class LightUserApi(coll: Coll) {
   private implicit val lightUserReader = new BSONDocumentReader[LightUser] {
 
     def read(doc: BSONDocument) = LightUser(
-      id = doc.getAs[String](id) err "LightUser id missing",
-      name = doc.getAs[String](username) err "LightUser username missing",
-      title = doc.getAs[String](title))
+      id = doc.getAs[String](F.id) err "LightUser id missing",
+      name = doc.getAs[String](F.username) err "LightUser username missing",
+      title = doc.getAs[String](F.title))
   }
 
   private val cache = lila.memo.MixedCache[String, Option[LightUser]](
-    id => coll.find(BSONDocument(User.BSONFields.id -> id)).one[LightUser],
-    timeToLive = 1 hour,
+    id => coll.find(
+      BSONDocument(User.BSONFields.id -> id),
+      BSONDocument(F.username -> true, F.title -> true)
+    ).one[LightUser],
+    timeToLive = 30 minutes,
     default = id => LightUser(id, id, None).some)
 }
