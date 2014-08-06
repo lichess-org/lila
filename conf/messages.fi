@@ -290,3 +290,4 @@ retryThisPuzzle=Yritä uudestaan
 thisPuzzleIsCorrect=Tämä tehtävä toimii ja on mielenkiintoinen
 thisPuzzleIsWrong=Tämä tehtävä on tylsä tai virheellinen
 youHaveNbSecondsToMakeYourFirstMove=Sinulla on %s sekuntia aikaa ensimmäisen siirtosi tekemiseen
+nbGamesInPlay=%s peliä meneillään
