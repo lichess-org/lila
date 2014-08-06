@@ -34,7 +34,6 @@ case class TellAll(msg: Any)
 case class Ask(id: String, msg: Any)
 case class AskAll(msg: Any)
 case object Size
-case class OnSizeChange(size: Int)
 }
 
 case class WithUserIds(f: Iterable[String] => Unit)
@@ -157,6 +156,7 @@ case class MoveEvent(
   fen: String,
   move: String,
   ip: String)
+case class NbRounds(nb: Int)
 }
 
 package evaluation {

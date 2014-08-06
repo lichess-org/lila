@@ -67,7 +67,7 @@ private[lobby] final class Socket(
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
 
-    case lila.hub.actorApi.map.OnSizeChange(nb) => notifyAll(makeMessage("nbr", nb))
+    case lila.hub.actorApi.round.NbRounds(nb) => notifyAll(makeMessage("nbr", nb))
   }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =

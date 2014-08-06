@@ -73,36 +73,38 @@ case class Ack(uid: String)
 
 package round {
 
-  case class HumanPlay(
-    playerId: String,
-    ip: String,
-    orig: String,
-    dest: String,
-    prom: Option[String],
-    blur: Boolean,
-    lag: FiniteDuration,
-    onFailure: Exception => Unit)
-  case object AiPlay
+case class HumanPlay(
+  playerId: String,
+  ip: String,
+  orig: String,
+  dest: String,
+  prom: Option[String],
+  blur: Boolean,
+  lag: FiniteDuration,
+  onFailure: Exception => Unit)
+case object AiPlay
 
-  case class PlayResult(events: Events, fen: String, lastMove: Option[String])
+case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 
-  case class Abort(playerId: String)
-  case class Resign(playerId: String)
-  case class ResignColor(color: Color)
-  case class ResignForce(playerId: String)
-  case class NoStartColor(color: Color)
-  case class DrawForce(playerId: String)
-  case class DrawClaim(playerId: String)
-  case class DrawYes(playerId: String)
-  case class DrawNo(playerId: String)
-  case object DrawForce
-  case class RematchYes(playerId: String)
-  case class RematchNo(playerId: String)
-  case class TakebackYes(playerId: String)
-  case class TakebackNo(playerId: String)
-  case class Moretime(playerId: String)
-  case object Outoftime
-  case object Abandon
-  case class Cheat(color: Color)
-  case class HoldAlert(playerId: String, mean: Int, sd: Int)
+case class Abort(playerId: String)
+case class Resign(playerId: String)
+case class ResignColor(color: Color)
+case class ResignForce(playerId: String)
+case class NoStartColor(color: Color)
+case class DrawForce(playerId: String)
+case class DrawClaim(playerId: String)
+case class DrawYes(playerId: String)
+case class DrawNo(playerId: String)
+case object DrawForce
+case class RematchYes(playerId: String)
+case class RematchNo(playerId: String)
+case class TakebackYes(playerId: String)
+case class TakebackNo(playerId: String)
+case class Moretime(playerId: String)
+case object Outoftime
+case object Abandon
+case class Cheat(color: Color)
+case class HoldAlert(playerId: String, mean: Int, sd: Int)
 }
+
+private[round] case object BroadcastSize

@@ -1,14 +1,14 @@
 package lila.round
 
-import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
-import lila.socket.actorApi.GetVersion
 import lila.memo.AsyncCache
+import lila.socket.actorApi.GetVersion
 import makeTimeout.large
 
 final class Env(
@@ -65,8 +65,7 @@ final class Env(
       moretimeDuration = Moretime,
       activeTtl = ActiveTtl)
     def receive: Receive = ({
-      case onSizeChange: lila.hub.actorApi.map.OnSizeChange =>
-        hub.socket.lobby ! onSizeChange
+      case actorApi.BroadcastSize => hub.socket.lobby ! lila.hub.actorApi.round.NbRounds(size)
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
 
@@ -163,6 +162,8 @@ final class Env(
     scheduler.effect(0.41 hour, "game: finish abandoned") {
       titivate.finishAbandoned
     }
+
+    scheduler.message(0.9 seconds)(roundMap -> actorApi.BroadcastSize)
   }
 
   private lazy val titivate = new Titivate(roundMap, scheduler)
