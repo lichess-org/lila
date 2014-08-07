@@ -13,7 +13,7 @@ import lila.db.api._
 import lila.db.Types.Coll
 import tube._
 
-private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
+private[wiki] final class Fetch(gitUrl: String, markdownPath: String)(implicit coll: Coll) {
 
   def apply: Funit = getFiles flatMap { files =>
     val (defaultPages, langPages) = files.map(filePage).flatten partition (_.isDefaultLang)
@@ -42,6 +42,9 @@ private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
     dir.listFiles.toList filter (_.isFile) sortBy (_.getName)
   }
 
-  private def toHtml(file: File): String =
-    laika.api.Transform from laika.parse.markdown.Markdown to laika.render.HTML fromFile file toString
+  private def toHtml(file: File): String = {
+    val command = s"""$markdownPath ${file.getAbsolutePath}"""
+    import scala.sys.process._
+    command!!
+  }
 }
