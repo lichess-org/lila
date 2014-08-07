@@ -290,3 +290,4 @@ retryThisPuzzle=Prøv denne opgave igen
 thisPuzzleIsCorrect=Denne opgave er korrekt og interessant
 thisPuzzleIsWrong=Denne opgave er forkert eller kedelig
 youHaveNbSecondsToMakeYourFirstMove=Du har %s sekunder til at udføre dit første træk!
+nbGamesInPlay=%s partier i gang
