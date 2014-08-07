@@ -14,6 +14,7 @@ import lila.db.api._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.JsTube.Helpers.{ rename, writeDate, readDate }
 import lila.db.Types._
+import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserRepo, Perfs }
 
 final class Evaluator(
@@ -40,9 +41,10 @@ final class Evaluator(
       BSONDocument("date" -> true)
     ).one[BSONDocument] map { _ flatMap (_.getAs[DateTime]("date")) }
 
-  def generate(user: User, deep: Boolean): Fu[Option[Evaluation]] = generate(user.id, user.perfs, deep)
+  def generate(user: User, perf: Perf, deep: Boolean): Fu[Option[Evaluation]] = 
+    generate(user.id, perf, deep)
 
-  def generate(userId: String, perfs: Perfs, deep: Boolean): Fu[Option[Evaluation]] = {
+  def generate(userId: String, perf: Perf, deep: Boolean): Fu[Option[Evaluation]] = {
     run(userId, deep) match {
       case Failure(e: Exception) if e.getMessage.contains("exit value: 1") => fuccess(none)
       case Failure(e: Exception) if e.getMessage.contains("exit value: 2") => fuccess(none)
@@ -57,7 +59,7 @@ final class Evaluator(
       } yield eval.some
     }
   } andThen {
-    case Success(Some(eval)) if eval.mark(perfs) => UserRepo byId userId foreach {
+    case Success(Some(eval)) if eval.mark(perf) => UserRepo byId userId foreach {
       _ filterNot (_.engine) foreach { user =>
         marker ! lila.hub.actorApi.mod.MarkCheater(user.id)
         reporter ! lila.hub.actorApi.report.Check(user.id)
@@ -68,12 +70,14 @@ final class Evaluator(
 
   private[evaluation] def autoGenerate(
     user: User,
+    perfType: PerfType,
     important: Boolean,
     forceRefresh: Boolean,
     suspiciousHold: Boolean = false) {
+    val perf = user.perfs(perfType)
     if (!user.engine && (
       important || suspiciousHold ||
-      (deviationIsLow(user.perfs) && (progressIsHigh(user) || ratingIsHigh(user.perfs)))
+      (deviationIsLow(perf) && (progressIsHigh(user) || ratingIsHigh(perf)))
     )) {
       evaluatedAt(user) foreach { date =>
         def freshness = if (progressIsVeryHigh(user)) DateTime.now minusMinutes 30
@@ -84,7 +88,7 @@ final class Evaluator(
             _ foreach { eval =>
               eval.gameIdsToAnalyse foreach { gameId =>
                 analyser ! lila.hub.actorApi.ai.AutoAnalyse(gameId)
-                if (eval report user.perfs)
+                if (eval report perf)
                   reporter ! lila.hub.actorApi.report.Cheater(user.id, eval reportText 3)
               }
             }

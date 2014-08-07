@@ -1,7 +1,7 @@
 package lila.evaluation
 
 import akka.actor._
-import chess.{ White, Black }
+import chess.{ Speed, White, Black }
 import lila.hub.actorApi.evaluation._
 import lila.user.User
 
@@ -11,15 +11,21 @@ private[evaluation] final class Listener(evaluator: Evaluator) extends Actor {
 
   def receive = {
 
-    case lila.game.actorApi.FinishGame(game, white, black) => if (game.rated) {
-      List(
-        game.whitePlayer -> white,
-        game.blackPlayer -> black
-      ) foreach {
-          case (p, Some(u)) => evaluator.autoGenerate(u, false, false, suspiciousHold = p.hasSuspiciousHoldAlert)
-          case _            =>
-        }
-    }
+    case lila.game.actorApi.FinishGame(game, white, black) =>
+      PerfType(PerfPicker.noPoolKey(game.speed, game.variant)) ifTrue game.rated map { perfType =>
+        List(
+          game.whitePlayer -> white,
+          game.blackPlayer -> black
+        ) foreach {
+            case (p, Some(u)) => evaluator.autoGenerate(
+              user = u,
+              perfType = perfType,
+              important = p.wins && game.isTournament && game.speed != Speed.Bullet,
+              forceRefresh = false,
+              suspiciousHold = p.hasSuspiciousHoldAlert)
+            case _ =>
+          }
+      }
 
     case user: User        => evaluator.generate(user, true)
 

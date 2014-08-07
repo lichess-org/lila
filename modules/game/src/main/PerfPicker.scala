@@ -11,6 +11,13 @@ object PerfPicker {
   def perfType(speed: Speed, variant: Variant, poolId: Option[String]): Option[PerfType] =
     PerfType(key(speed, variant, poolId))
 
+  def noPoolKey(speed: Speed, variant: Variant): String =
+    if (variant.standard) {
+      if (speed == Speed.Unlimited) Speed.Classical.key
+      else speed.key
+    }
+    else variant.key
+
   def key(speed: Speed, variant: Variant, poolId: Option[String]): String =
     if (poolId.isDefined) "pool"
     else if (variant.standard) {

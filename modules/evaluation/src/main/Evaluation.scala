@@ -1,6 +1,7 @@
 package lila.evaluation
 
-import lila.user.{ User, Perfs }
+import lila.user.User
+import lila.rating.Perf
 import org.joda.time.DateTime
 
 case class Evaluation(
@@ -23,9 +24,9 @@ case class Evaluation(
 
   def isDeep = deep.isDefined
 
-  def verdict(perfs: Perfs) =
-    if (mark(perfs)) "definitely cheating"
-    else if (report(perfs)) "suspicious"
+  def verdict(perf: Perf) =
+    if (mark(perf)) "definitely cheating"
+    else if (report(perf)) "suspicious"
     else "clean"
 
   def reportText(maxGames: Int = 10) = {
@@ -33,12 +34,12 @@ case class Evaluation(
     s"[AUTOREPORT] Cheat evaluation: $percent%\n\n$gameText"
   }
 
-  def report(perfs: Perfs) = action == Report || {
-    action == Mark && !mark(perfs)
+  def report(perf: Perf) = action == Report || {
+    action == Mark && !mark(perf)
   }
 
-  def mark(perfs: Perfs) =
-    action == Mark && deviationIsLow(perfs) && !escapesAutoMark(perfs)
+  def mark(perf: Perf) =
+    action == Mark && heuristics.deviationIsLow(perf) && !heuristics.escapesAutoMark(perf)
 
   def gameIdsToAnalyse: List[String] =
     games take 6 filterNot (_.analysed) take 1 flatMap (_.gameId)
@@ -49,22 +50,16 @@ object Evaluation {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
-  private[evaluation] def progressIsHigh(user: User) = user.progress > 70
-  private[evaluation] def progressIsVeryHigh(user: User) = user.progress > 100
-  private[evaluation] def deviationIsLow(perfs: Perfs) = perfs.standardAndPools exists {
-    _.glicko.deviation < 190
+  private[evaluation] object heuristics {
+
+    def progressIsHigh(perf: Perf) = perf.progress > 70
+    def progressIsVeryHigh(perf: Perf) = perf.progress > 100
+    def deviationIsLow(perf: Perf) = perf.glicko.deviation < 190
+    def ratingIsHigh(perf: Perf) = perf.glicko.rating >= 1600
+    def ratingIsGreat(perf: Perf) = perf.glicko.rating >= 2300
+    def hasManyGames(perf: Perf) = perf.nb >= 50
+    def escapesAutoMark(perf: Perf) = ratingIsGreat(perf) && hasManyGames(perf)
   }
-  private[evaluation] def ratingIsHigh(perfs: Perfs) = perfs.standardAndPools exists {
-    _.glicko.rating >= 1600
-  }
-  private[evaluation] def ratingIsGreat(perfs: Perfs) = perfs.standardAndPools exists {
-    _.glicko.rating >= 2300
-  }
-  private[evaluation] def hasManyGames(perfs: Perfs) = perfs.standardAndPools exists {
-    _.nb >= 50
-  }
-  private[evaluation] def escapesAutoMark(perfs: Perfs) =
-    ratingIsGreat(perfs) && hasManyGames(perfs)
 
   private type Percent = Int
 

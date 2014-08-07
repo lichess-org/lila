@@ -18,7 +18,6 @@ final class JsonView {
     "title" -> u.title,
     "rating" -> u.rating,
     "rd" -> u.perfs.standard.glicko.deviation,
-    "progress" -> u.progress,
     "playTime" -> u.playTime.map { p =>
       Json.obj(
         "total" -> p.total,
