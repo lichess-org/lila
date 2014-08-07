@@ -17,7 +17,7 @@ object ApplicationBuild extends Build {
     offline := true,
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache, scalaTime,
-      csv, jgit, actuarius, elastic4s, findbugs, RM,
+      csv, jgit, laika, elastic4s, findbugs, RM,
       PRM, spray.caching, maxmind, prismic),
       scalacOptions := compilerOptions,
       sources in doc in Compile := List(),
@@ -50,7 +50,7 @@ object ApplicationBuild extends Build {
     .settings(
       libraryDependencies ++= provided(
         play.api, hasher, config, apache, csv, jgit,
-        actuarius, elastic4s, findbugs, RM)
+        laika, elastic4s, findbugs, RM)
     ) aggregate (moduleRefs: _*)
 
   lazy val puzzle = project("puzzle", Seq(
@@ -231,7 +231,7 @@ object ApplicationBuild extends Build {
 
   lazy val wiki = project("wiki", Seq(common, db)).settings(
     libraryDependencies ++= provided(
-      play.api, RM, PRM, jgit, actuarius, guava)
+      play.api, RM, PRM, jgit, laika, guava)
   )
 
   lazy val report = project("report", Seq(common, db, user)).settings(

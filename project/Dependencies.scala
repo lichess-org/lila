@@ -44,7 +44,7 @@ object Dependencies {
   val csv = "com.github.tototoshi" %% "scala-csv" % "1.0.0"
   val hasher = "com.roundeights" %% "hasher" % "1.0.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
-  val actuarius = "eu.henkelmann" % "actuarius_2.10.0" % "0.2.6"
+  val laika = "org.planet42" % "laika-core_2.10" % "0.5.0"
   val jodaTime = "joda-time" % "joda-time" % "2.3"
   val elastic4s = "com.sksamuel.elastic4s" %% "elastic4s" % "1.1.2.0"
   val RM = "org.reactivemongo" %% "reactivemongo" % "0.11.0-SNAPSHOT"
