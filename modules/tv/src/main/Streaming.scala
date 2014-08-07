@@ -13,6 +13,7 @@ private final class Streaming(
 
   import Streaming._
   import Twitch.Reads._
+  import Hitbox.Reads._
   // import Ustream.Reads._
 
   def onAir: Fu[List[StreamOnAir]] = {
@@ -28,26 +29,34 @@ private final class Streaming(
 
       case Get => sender ! onAir
 
-      case Search =>
+      case Search => whitelist.apply foreach { authorizedStreamers =>
         val max = 3
         val keyword = "lichess.org"
-        val twitch = whitelist.apply zip WS.url("https://api.twitch.tv/kraken/search/streams")
+        val twitch = WS.url("https://api.twitch.tv/kraken/search/streams")
           .withQueryString("q" -> keyword)
           .withHeaders("Accept" -> "application/vnd.twitchtv.v2+json")
-          .get() map {
-            case (authorizedStreamers, res) =>
-              res.json.asOpt[Twitch.Result] match {
-                case Some(data) => data.streamsOnAir filter { stream =>
-                  authorizedStreamers contains stream.streamer.toLowerCase
-                } filter { stream =>
-                  stream.name contains keyword
-                } take max
-                case None =>
-                  logger.warn(s"twitch ${res.status} ${~res.body.lines.toList.headOption}")
-                  Nil
-              }
+          .get() map { res =>
+            res.json.asOpt[Twitch.Result] match {
+              case Some(data) => data.streamsOnAir filter { stream =>
+                authorizedStreamers contains stream.streamer.toLowerCase
+              } filter { stream =>
+                stream.name contains keyword
+              } take max
+              case None =>
+                logger.warn(s"twitch ${res.status} ${~res.body.lines.toList.headOption}")
+                Nil
+            }
           }
-        twitch map StreamsOnAir.apply pipeTo self
+        val hitbox = WS.url("http://api.hitbox.tv/media/live/" + authorizedStreamers.mkString(",")).get() map { res =>
+          res.json.asOpt[Hitbox.Result] match {
+            case Some(data) => data.streamsOnAir filter (_.name contains keyword) take max
+            case None =>
+              logger.warn(s"hitbox ${res.status} ${~res.body.lines.toList.headOption}")
+              Nil
+          }
+        }
+        (twitch |+| hitbox) map StreamsOnAir.apply pipeTo self
+      }
 
       case event@StreamsOnAir(streams) if onAir != streams =>
         onAir = streams
