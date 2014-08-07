@@ -1,16 +1,16 @@
 package lila.security
 
-import com.snowplowanalytics.maxmind.geoip.{ IpGeo, IpLocation }
+import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
 
 import lila.memo.AsyncCache
 import scala.concurrent.Future
 
-private[security] final class GeoIP(file: java.io.File, cacheSize: Int) {
+private[security] final class GeoIP(file: String, cacheSize: Int) {
 
-  private val ipgeo = new IpGeo(dbFile = file, memCache = false, lruCache = 0)
+  private val geoIp = MaxMindIpGeo(file, 0)
 
   private val cache = AsyncCache(
-    f = (ip: String) => Future { ipgeo getLocation ip },
+    f = (ip: String) => Future { geoIp getLocation ip },
     maxCapacity = cacheSize)
 
   def apply(ip: String): Future[Location] =
@@ -34,5 +34,5 @@ object Location {
   val unknown = Location("Solar System", none, none)
 
   def apply(ipLoc: IpLocation): Location =
-    Location(ipLoc.countryName, ipLoc.region, ipLoc.city)
+    Location(ipLoc.countryName | unknown.country, ipLoc.region, ipLoc.city)
 }
