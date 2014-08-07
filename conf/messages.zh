@@ -290,3 +290,4 @@ retryThisPuzzle=重试这个难题
 thisPuzzleIsCorrect=这个难题既正确又有趣
 thisPuzzleIsWrong=这个难题出错了，或是很无聊
 youHaveNbSecondsToMakeYourFirstMove=你还剩%s秒来走第一步！
+nbGamesInPlay=玩 %s 棋了

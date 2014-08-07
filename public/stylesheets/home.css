@@ -251,12 +251,12 @@
   background: rgba(255, 255, 255, 0.6);
 }
 #hooks_list tr.disabled {
-  opacity: 0.3;
+  opacity: 0.4;
 }
 #hooks_list tr.disabled td {
   cursor: default;
   background: transparent!important;
-  border-color: transparent;
+  border-color: transparent!important;
 }
 #hooks_list a {
   text-decoration: none;

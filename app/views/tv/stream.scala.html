@@ -24,6 +24,14 @@
     frameborder="0"
     height="400"></iframe>
   }
+  case "hitbox" => {
+  <iframe
+    width="330"
+    height="392"
+    src="http://www.hitbox.tv/embedchat/@s.streamId"
+    frameborder="0"
+    allowfullscreen></iframe>
+  }
   case _ => {
   }
   }
@@ -79,6 +87,13 @@ moreCss = moreCss) {
     src="http://www.ustream.tv/flash/viewer.swf"
     type="application/x-shockwave-flash"></embed>
   </object>
+  }
+  case "hitbox" => {
+  <iframe
+    width="694"
+    height="391"
+    src="http://hitbox.tv/#!/embed/@s.streamId?autoplay=true"
+    frameborder="0" allowfullscreen></iframe>
   }
   case service => {
   Not supported stream service @service

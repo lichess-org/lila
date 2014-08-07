@@ -290,3 +290,4 @@ retryThisPuzzle=Thử lại câu này
 thisPuzzleIsCorrect=Câu đố này đúng và rất thú vị
 thisPuzzleIsWrong=Câu đố này sai hoặc dở ẹc
 youHaveNbSecondsToMakeYourFirstMove=Bạn có %s để thực hiện nước đi đầu tiên!
+nbGamesInPlay=%s trận đang chơi

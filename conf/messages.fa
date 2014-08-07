@@ -290,3 +290,4 @@ retryThisPuzzle=این جدول را دوباره امتحان کنید
 thisPuzzleIsCorrect=این جدول صحیح و جالب است
 thisPuzzleIsWrong=این جدول اشتباه یا خسته کننده است
 youHaveNbSecondsToMakeYourFirstMove=! ثانیه فرصت دارید  %s شما برای انجام اولین حرکت خود فقط
+nbGamesInPlay=بازی در حال انجام است %s
