@@ -290,3 +290,4 @@ retryThisPuzzle=Επανάληψη γρίφου
 thisPuzzleIsCorrect=Ο γρίφος είναι σωστός και ενδιαφέρων
 thisPuzzleIsWrong=Ο γρίφος είναι λανθασμένος ή βαρετός
 youHaveNbSecondsToMakeYourFirstMove=Έχετε %s δευτερόλεπτα για να κάνετε τη πρώτη σας κίνηση!
+nbGamesInPlay=%s παιχνίδια σε εξέλιξη
