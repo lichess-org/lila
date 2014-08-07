@@ -290,3 +290,4 @@ retryThisPuzzle=このパズルに再挑戦する
 thisPuzzleIsCorrect=このパズルはよく出来ていて興味深い。
 thisPuzzleIsWrong=このパズルには間違いがある/あまり意味が無い
 youHaveNbSecondsToMakeYourFirstMove=%s 秒以内に初手を指してください
+nbGamesInPlay=%s 試合プレイ中
