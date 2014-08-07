@@ -290,3 +290,4 @@ retryThisPuzzle=Coba lagi puzzle ini
 thisPuzzleIsCorrect=Puzzle ini benar dan menarik
 thisPuzzleIsWrong=Puzzle ini salah atau membosankan
 youHaveNbSecondsToMakeYourFirstMove=Anda punya waktu %s detik untuk langkah pertama.
+nbGamesInPlay=%s pertandingan sedang berlangsung
