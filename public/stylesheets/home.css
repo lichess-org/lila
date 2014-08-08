@@ -287,6 +287,10 @@
 #hooks_list tr:hover td:first-child span {
   opacity: 1;
 }
+#hooks_list tr.disabled:hover .varicon::before,
+#hooks_list tr.disabled:hover td:first-child span {
+  opacity: 0.7;
+}
 #tableclone {
   position: absolute;
   top: 0px;

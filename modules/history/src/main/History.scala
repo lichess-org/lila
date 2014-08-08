@@ -1,17 +1,31 @@
 package lila.history
 
 import org.joda.time.{ Days, DateTime }
+import lila.rating.PerfType
 
 case class History(
-  standard: RatingsMap,
-  chess960: RatingsMap,
-  kingOfTheHill: RatingsMap,
-  threeCheck: RatingsMap,
-  bullet: RatingsMap,
-  blitz: RatingsMap,
-  classical: RatingsMap,
-  puzzle: RatingsMap,
-  pools: Map[String, RatingsMap])
+    standard: RatingsMap,
+    chess960: RatingsMap,
+    kingOfTheHill: RatingsMap,
+    threeCheck: RatingsMap,
+    bullet: RatingsMap,
+    blitz: RatingsMap,
+    classical: RatingsMap,
+    puzzle: RatingsMap,
+    pools: Map[String, RatingsMap]) {
+
+  def apply(perfType: PerfType): RatingsMap = perfType match {
+    case PerfType.Standard      => standard
+    case PerfType.Bullet        => bullet
+    case PerfType.Blitz         => blitz
+    case PerfType.Classical     => classical
+    case PerfType.Chess960      => chess960
+    case PerfType.KingOfTheHill => kingOfTheHill
+    case PerfType.ThreeCheck    => threeCheck
+    case PerfType.Puzzle        => puzzle
+    case PerfType.Pool          => Nil
+  }
+}
 
 object History {
 
