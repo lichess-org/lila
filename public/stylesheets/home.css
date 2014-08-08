@@ -201,44 +201,47 @@
 #hooks_list .pool_buttons > a:hover {
   background: rgba(191, 231, 255, 0.5);
 }
+#hooks_list .pool_buttons h2::before {
+  opacity: 0.7;
+}
 #hooks_list div.table_wrap {
-  max-height: 444px;
+  max-height: 448px;
   overflow: hidden;
 }
 #hooks_list table {
   width: 512px;
   text-shadow: 0px 1px 0px #FFF;
 }
-#hooks_list table thead th {
+#hooks_list thead th {
   cursor: pointer;
   padding: 12.5px 12px;
   font-weight: lighter;
   border-bottom: 1px solid #ccc;
 }
-#hooks_list table th.reload span {
+#hooks_list th.reload span {
   display: block;
   cursor: pointer;
   margin-left: 2px;
   opacity: 0.5;
   transition: 0.13s;
 }
-#hooks_list table th.reload:hover span {
+#hooks_list th.reload:hover span {
   opacity: 0.8;
 }
-#hooks_list table th.sorting-asc,
-#hooks_list table th.sorting-desc {
+#hooks_list th.sorting-asc,
+#hooks_list th.sorting-desc {
   font-weight: normal;
 }
-#hooks_list table th.sorting-desc .is:before {
+#hooks_list th.sorting-desc .is:before {
   content: "R";
 }
-#hooks_list table th.sorting-asc .is:before {
+#hooks_list th.sorting-asc .is:before {
   content: "S";
 }
-#hooks_list table th.player {
+#hooks_list th.player {
   width: 110px;
 }
-#hooks_list table td {
+#hooks_list td {
   padding: 8px 12px;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
@@ -247,36 +250,46 @@
   transition: 0.13s;
   background: rgba(255, 255, 255, 0.6);
 }
-#hooks_list table tr.disabled {
-  opacity: 0.3;
+#hooks_list tr.disabled {
+  opacity: 0.4;
 }
-#hooks_list table tr.disabled td {
-  cursor: not-allowed;
-  background: rgba(75, 99, 00, 0.2)!important;
+#hooks_list tr.disabled td {
+  cursor: default;
+  background: transparent!important;
+  border-color: transparent!important;
 }
-#hooks_list table .ulink {
+#hooks_list a {
   text-decoration: none;
 }
-#hooks_list table tr.cancel td {
+#hooks_list tr.cancel td {
   background: rgba(200, 255, 200, 0.7);
 }
-#hooks_list table tr:hover td {
+#hooks_list tr:hover td {
   background: rgba(191, 231, 255, 0.7);
 }
-#hooks_list table td:first-child {
+#hooks_list td:first-child {
   width: 16px;
 }
-#hooks_list table td:first-child span {
+#hooks_list td:first-child span {
   display: block;
   padding: 0;
   width: 16px;
   height: 16px;
   opacity: 0.7;
 }
-#hooks_list table .varname {
-  padding-left: 1em;
-  font-size: 0.9em;
-  font-weight: bold;
+#hooks_list .varicon::before {
+  margin-right: 8px;
+  line-height: 12px;
+  font-size: 20px;
+  opacity: 0.7;
+}
+#hooks_list tr:hover .varicon::before,
+#hooks_list tr:hover td:first-child span {
+  opacity: 1;
+}
+#hooks_list tr.disabled:hover .varicon::before,
+#hooks_list tr.disabled:hover td:first-child span {
+  opacity: 0.7;
 }
 #tableclone {
   position: absolute;
@@ -418,10 +431,13 @@
 #hook .mode {
   margin-top: 40px;
 }
-#hook .mode,
-#hook .varname {
+#hook .mode {
   font-size: 1.25em;
   display: block;
+}
+#hook .varicon::before {
+  font-size: 30px;
+  margin-right: 10px;
 }
 #hook .color {
   position: absolute;
@@ -694,6 +710,7 @@ div.game_config div.color_submits button.random span {
   padding-top: 8px;
   margin-left: -30px;
   width: 230px;
+  font-size: 0.9em;
 }
 #timeline > .entry {
   padding-bottom: 8px;

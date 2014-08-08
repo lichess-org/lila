@@ -290,3 +290,4 @@ retryThisPuzzle=Rešuj ponovno ta problem
 thisPuzzleIsCorrect=Ta problem je pravilen in zanimiv
 thisPuzzleIsWrong=Ta problem je napačen oz. dolgočasen
 youHaveNbSecondsToMakeYourFirstMove=Imaš še %s sekund za prvo potezo
+nbGamesInPlay=%s igranih partij

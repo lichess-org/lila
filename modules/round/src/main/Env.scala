@@ -3,9 +3,11 @@ package lila.round
 import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
+import lila.memo.AsyncCache
 import lila.socket.actorApi.GetVersion
 import makeTimeout.large
 
@@ -42,6 +44,8 @@ final class Env(
     val HijackSalt = config getString "hijack.salt"
     val CollectionReminder = config getString "collection.reminder"
     val CasualOnly = config getBoolean "casual_only"
+    val ActiveTtl = config duration "active.ttl"
+    val StreamApiSalt = config getString "stream_api.salt"
   }
   import settings._
 
@@ -49,8 +53,8 @@ final class Env(
 
   lazy val history = () => new History(ttl = MessageTtl)
 
-  val roundMap = system.actorOf(Props(lila.hub.ActorMap { id =>
-    new Round(
+  val roundMap = system.actorOf(Props(new lila.hub.ActorMap {
+    def mkActor(id: String) = new Round(
       gameId = id,
       messenger = messenger,
       takebacker = takebacker,
@@ -59,8 +63,16 @@ final class Env(
       player = player,
       drawer = drawer,
       socketHub = socketHub,
-      moretimeDuration = Moretime)
+      moretimeDuration = Moretime,
+      activeTtl = ActiveTtl)
+    def receive: Receive = ({
+      case actorApi.BroadcastSize => hub.socket.lobby ! lila.hub.actorApi.round.NbRounds(size)
+    }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
+
+  val count = AsyncCache.single(
+    f = roundMap ? lila.hub.actorApi.map.Size mapTo manifest[Int],
+    timeToLive = 1 second)
 
   private val socketHub = {
     val actor = system.actorOf(
@@ -151,6 +163,8 @@ final class Env(
     scheduler.effect(0.41 hour, "game: finish abandoned") {
       titivate.finishAbandoned
     }
+
+    scheduler.message(1.3 seconds)(roundMap -> actorApi.BroadcastSize)
   }
 
   private lazy val titivate = new Titivate(roundMap, scheduler)
@@ -162,8 +176,8 @@ final class Env(
     uciMemo = uciMemo,
     prefApi = prefApi)
 
-  lazy val moveBroadcast = system.actorOf(Props(new MoveBroadcast))
-  lazy val tvBroadcast = system.actorOf(Props(new TvBroadcast))
+  lazy val moveBroadcast = system.actorOf(Props(classOf[MoveBroadcast], StreamApiSalt))
+  lazy val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
 }
 
 object Env {

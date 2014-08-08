@@ -156,11 +156,12 @@ case class MoveEvent(
   fen: String,
   move: String,
   ip: String)
+case class NbRounds(nb: Int)
 }
 
 package evaluation {
-  case class AutoCheck(userId: String)
-  case class Refresh(userId: String)
+case class AutoCheck(userId: String)
+case class Refresh(userId: String)
 }
 
 package bookmark {

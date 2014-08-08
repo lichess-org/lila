@@ -9,10 +9,11 @@ final class Env(config: Config, db: lila.db.Env) {
 
   private val CollectionPage = config getString "collection.page"
   private val GitUrl = config getString "git.url"
+  private val MarkdownPath = config getString "markdown_path"
 
   lazy val api = new Api
 
-  private lazy val fetcher = new Fetch(gitUrl = GitUrl)(pageColl)
+  private lazy val fetcher = new Fetch(gitUrl = GitUrl, markdownPath = MarkdownPath)(pageColl)
 
   private[wiki] lazy val pageColl = db(CollectionPage)
 

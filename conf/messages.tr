@@ -290,3 +290,4 @@ retryThisPuzzle=Bu bulmacayı yeniden dene
 thisPuzzleIsCorrect=Bu bulmaca doğru ve ilginç
 thisPuzzleIsWrong=Bu bulmaca yanlış veya sıkıcı
 youHaveNbSecondsToMakeYourFirstMove=İlk hamleni yapman için %s saniyen kaldı!
+nbGamesInPlay=Şu anda %s oyun oynanıyor

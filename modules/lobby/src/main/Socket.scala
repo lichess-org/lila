@@ -66,6 +66,8 @@ private[lobby] final class Socket(
     case HookIds(ids)                         => notifyVersion("hook_list", ids, Messadata())
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
+
+    case lila.hub.actorApi.round.NbRounds(nb) => notifyAll(makeMessage("nbr", nb))
   }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =

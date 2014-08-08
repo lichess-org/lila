@@ -26,7 +26,7 @@ trait ActorMap extends Actor {
 
     case AskAll(msg)   => actors.values.map { _ ? msg }.sequenceFu pipeTo sender
 
-    case Size          => sender ! actors.size
+    case Size          => sender ! size
 
     case Terminated(actor) =>
       context unwatch actor
@@ -34,6 +34,8 @@ trait ActorMap extends Actor {
         case (id, _) => actors = actors - id
       }
   }
+
+  protected def size = actors.size
 
   private def getOrMake(id: String) = (actors get id) | {
     context.actorOf(Props(mkActor(id)), name = id) ~ { actor =>

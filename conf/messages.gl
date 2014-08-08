@@ -290,3 +290,4 @@ retryThisPuzzle=Reintentar este puzzle
 thisPuzzleIsCorrect=Este puzzle e correcto e interesante
 thisPuzzleIsWrong=Este puzzle e erroneo e aburrido
 youHaveNbSecondsToMakeYourFirstMove=tes %s segundos para facer o teu primeiro movemento!
+nbGamesInPlay=%s partidas en juego

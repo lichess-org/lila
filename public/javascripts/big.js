@@ -486,7 +486,7 @@ var storage = {
           }
         });
         $('#featured_game').each(function() {
-          $(this).children().toggle($(this).width() == 226);
+          $(this).children().toggle($(this).width() >= 220);
         });
         $('div.content_box .side_menu').appendTo('#site_header');
       }
@@ -497,7 +497,7 @@ var storage = {
     var bodyHeight = $('body').height();
     var winHeight = $(window).height();
     if (bodyHeight < winHeight) {
-      $('#footer_wrap').css('marginTop', winHeight - bodyHeight + 30 + 'px');
+      $('#footer_wrap').css('marginTop', winHeight - bodyHeight + 29 + 'px');
     }
 
     if (!strongSocket.available) {
@@ -2092,7 +2092,6 @@ var storage = {
           case '5':
             key = 'threeCheck';
         }
-        console.log(key);
         $ratings.hide().filter('.' + key).show();
       };
       if (isHook) {
@@ -2453,6 +2452,23 @@ var storage = {
               }
             });
           }, Math.round(Math.random() * 5000));
+        },
+        nbr: function(e) {
+          var $tag = $('#site_baseline span');
+          if ($tag.length && e) {
+            var prev = parseInt($tag.text(), 10);
+            var k = 5;
+            var interv = 1200 / k;
+            _.each(_.range(k), function(it) {
+              setTimeout(function() {
+                var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
+                if (val != prev) {
+                  $tag.text(val);
+                  prev = val;
+                }
+              }, Math.round(it * interv));
+            });
+          }
         }
       },
       options: {
@@ -2607,10 +2623,8 @@ var storage = {
       } else {
         html += '<span class="clock nope">∞</span>';
       }
-      html += '<span class="mode">';
-      html += $.trans(hook.mode);
-      if (hook.variant) html += ', ' + hook.variant;
-      html += '</span>';
+      html += '<span class="mode">' +
+      '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' + $.trans(hook.mode) + '</span>';
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
       html += '<span class="is2" data-icon="' + k + '"></span>';
       return html;
@@ -2622,10 +2636,11 @@ var storage = {
       return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
         ['', '<span class="is2" data-icon="' + k + '"></span>'],
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous')],
-        [hook.rating || 0, hook.rating ? ('<span data-icon="' + hook.perf.icon + '">' + hook.rating + '</span>') : ''],
+        [hook.rating || 0, hook.rating ? hook.rating : ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
-        [hook.mode, $.trans(hook.mode) +
-          (hook.variant != 'STD' ? ('<span class="varname">' + hook.variant + '</span>') : '')
+        [hook.mode,
+          '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' +
+          $.trans(hook.mode)
         ]
       ], function(x) {
         return '<td data-sort-value="' + x[0] + '">' + x[1] + '</td>';

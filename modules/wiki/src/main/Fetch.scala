@@ -5,7 +5,6 @@ import scala.collection.JavaConversions._
 import scala.concurrent.Future
 
 import com.google.common.io.Files
-import eu.henkelmann.actuarius.ActuariusTransformer
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.Repository
 import Page.DefaultLang
@@ -14,7 +13,7 @@ import lila.db.api._
 import lila.db.Types.Coll
 import tube._
 
-private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
+private[wiki] final class Fetch(gitUrl: String, markdownPath: String)(implicit coll: Coll) {
 
   def apply: Funit = getFiles flatMap { files =>
     val (defaultPages, langPages) = files.map(filePage).flatten partition (_.isDefaultLang)
@@ -29,7 +28,7 @@ private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
   private def filePage(file: File): Option[Page] = {
     val name = """^(.+)\.md$""".r.replaceAllIn(file.getName, _ group 1)
     if (name == "Home") None
-    else toHtml(fileContent(file)) flatMap { Page.make(name, _) }
+    else Page.make(name, toHtml(file))
   }
 
   private def getFiles: Fu[List[File]] = Future {
@@ -43,16 +42,11 @@ private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
     dir.listFiles.toList filter (_.isFile) sortBy (_.getName)
   }
 
-  private def fileContent(file: File) =
-    scala.io.Source.fromFile(file.getCanonicalPath).mkString
-
-  private def toHtml(input: String): Option[String] = try {
-    Some(new ActuariusTransformer() apply input)
-  }
-  catch {
-    case e: NoSuchMethodError =>
-      println(input take 80)
-      println(e)
-      none
+  private def toHtml(file: File): String = {
+    val command = s"""$markdownPath ${file.getAbsolutePath}"""
+    val output = new java.io.ByteArrayOutputStream
+    import scala.sys.process._
+    (command #> output).!
+    new String(output.toByteArray, "UTF-8")
   }
 }

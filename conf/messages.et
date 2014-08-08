@@ -290,3 +290,4 @@ retryThisPuzzle=Proovi uuesti
 thisPuzzleIsCorrect=See ülesanne on korrektne ja huvitav
 thisPuzzleIsWrong=See ülesanne on vale ja igav
 youHaveNbSecondsToMakeYourFirstMove=Sul on %s sekundit esimese käigu tegemiseks!
+nbGamesInPlay=%s mängitud mängu

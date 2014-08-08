@@ -25,7 +25,7 @@ object Twitch {
         name = c.status,
         streamer = c.name,
         url = c.url,
-        streamId = c.name.replace("(lichess.org)", "")
+        streamId = c.name
       )
     }
   }
@@ -33,6 +33,26 @@ object Twitch {
     implicit val twitchChannelReads = Json.reads[Channel]
     implicit val twitchStreamReads = Json.reads[Stream]
     implicit val twitchResultReads: Reads[Result] = Json.reads[Result]
+  }
+}
+
+object Hitbox {
+  case class Channel(channel_link: String)
+  case class Stream(channel: Channel, media_name: String, media_user_name: String, media_status: String, media_is_live: String)
+  case class Result(livestream: List[Stream]) {
+    def streamsOnAir = livestream flatMap { s =>
+      (s.media_is_live == "1") option StreamOnAir(
+        service = "hitbox",
+        name = s.media_status,
+        streamer = s.media_user_name,
+        url = s.channel.channel_link,
+        streamId = s.media_name)
+    }
+  }
+  object Reads {
+    implicit val hitboxChannelReads = Json.reads[Channel]
+    implicit val hitboxStreamReads = Json.reads[Stream]
+    implicit val hitboxResultReads: Reads[Result] = Json.reads[Result]
   }
 }
 

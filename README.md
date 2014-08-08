@@ -51,12 +51,56 @@ drop me an email at thibault.duplessis@gmail.com, and we'll discuss it.
 ```javascript
 {
   "username": "thibault",
+  "title": null,                            // chess title like FM or LM (lichess master)
   "url": "http://lichess.org/@/thibault",   // profile url
-  "rating": 1503,                           // standard Glicko2 rating
-  "progress": 36,                           // rating change over the last ten games
   "online": true,                           // is the player currently using lichess?
   "playing": "http://lichess.org/abcdefgh", // game being played, if any
-  "engine": false                           // true if the user is known to use a chess engine
+  "engine": false,                          // true if the user is known to use a chess engine
+  "language": "en",                         // prefered language
+  "profile": {
+    "bio": "Developer of lichess",
+    "country": "FR",
+    "firstName": "Thibault",
+    "lastName": "Duplessis",
+    "location": "Paris"
+  },
+  "perfs": {                                // user performances in different games
+    "bullet": {
+      "games": 35,                          // number of rated games played
+      "rating": 1624,                       // Glicko2 rating
+      "rd": 80                              // Glicko2 rating deviation
+    },
+    "chess960": {
+      "games": 1,
+      "rating": 1739,
+      "rd": 277
+    },
+    "classical": {
+      "games": 331,
+      "rating": 1603,
+      "rd": 65
+    },
+    "kingOfTheHill": {
+      "games": 3,
+      "rating": 1622,
+      "rd": 223
+    },
+    "puzzle": {
+      "games": 9,
+      "rating": 902,
+      "rd": 117
+    },
+    "standard": {
+      "games": 736,
+      "rating": 1576,
+      "rd": 79
+    },
+    "threeCheck": {
+      "games": 1,
+      "rating": 1662,
+      "rd": 290
+    }
+  }
 }
 ```
 
@@ -91,12 +135,7 @@ name | type | default | description
 {
   "list": [
     {
-      "username": "thibault",
-      "url": "http://lichess.org/@/thibault",   // profile url
-      "rating": 1503,                           // standard Glicko2 rating
-      "progress": 36,                           // rating change over the last ten games
-      "online": true,                           // is the player currently using lichess?
-      "engine": false                           // true if the user is known to use a chess engine
+      ... // see user document above
     },
     ... // other users
   ]

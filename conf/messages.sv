@@ -290,3 +290,4 @@ retryThisPuzzle=Testa detta schackproblem igen
 thisPuzzleIsCorrect=Det här schackproblemet är korrekt och intressant
 thisPuzzleIsWrong=Det här schackproblemet är fel eller tråkigt
 youHaveNbSecondsToMakeYourFirstMove=du har %s sekunder för att göra första draget
+nbGamesInPlay=%s partier spelas

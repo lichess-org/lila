@@ -290,3 +290,4 @@ retryThisPuzzle=Опитай отново тази задача
 thisPuzzleIsCorrect=Тази задача е правилна и интересна
 thisPuzzleIsWrong=Тази задача е грешна или скучна
 youHaveNbSecondsToMakeYourFirstMove=Имате %s секунди да направите първия си ход!
+nbGamesInPlay=%s игри в процес
