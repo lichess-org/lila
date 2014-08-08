@@ -39,7 +39,7 @@ object Account extends LilaController {
     me =>
       negotiate(
         html = notFound,
-        api = apiVersion => Ok(Env.user.jsonView me me).fuccess
+        api = apiVersion => Ok(Env.user.jsonView(me, extended = true)).fuccess
       )
   }
 

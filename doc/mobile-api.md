@@ -222,26 +222,55 @@ Set-Cookie: lila2="3b5cc8c80f0af258a31dc4fd1b5381cabe7388c7-sessionId=80q7V5stkK
 ```
 ```javascript
 {
-    "id": "thibault",
-    "username": "thibault"
-    "title": null,
-    "rating": 1438, // shortcut to standard perf rating
-    "progress": -55, // rating progress over last 10 games
-    "count": { // number of games played
-        "ai": 256,
-        "draw": 72, // total draws
-        "drawH": 74, // draws against human only
-        "game": 2682, // total games played
-        "loss": 1471,
-        "lossH": 1403,
-        "rated": 1337,
-        "win": 1132,
-        "winH": 1131
+  "username": "thibault",
+  "title": null,                            // chess title like FM or LM (lichess master)
+  "online": true,                           // is the player currently using lichess?
+  "engine": false,                          // true if the user is known to use a chess engine
+  "language": "en",                         // prefered language
+  "profile": {
+    "bio": "Developer of lichess",
+    "country": "FR",
+    "firstName": "Thibault",
+    "lastName": "Duplessis",
+    "location": "Paris"
+  },
+  "perfs": {                                // user performances in different games
+    "bullet": {
+      "games": 35,                          // number of rated games played
+      "rating": 1624,                       // Glicko2 rating
+      "rd": 80                              // Glicko2 rating deviation
     },
-    "playTime": { // total seconds spent playing
-        "total": 558788,
-        "tv": 6255
+    "chess960": {
+      "games": 1,
+      "rating": 1739,
+      "rd": 277
+    },
+    "classical": {
+      "games": 331,
+      "rating": 1603,
+      "rd": 65
+    },
+    "kingOfTheHill": {
+      "games": 3,
+      "rating": 1622,
+      "rd": 223
+    },
+    "puzzle": {
+      "games": 9,
+      "rating": 1902,
+      "rd": 117
+    },
+    "standard": {
+      "games": 736,
+      "rating": 1576,
+      "rd": 79
+    },
+    "threeCheck": {
+      "games": 1,
+      "rating": 1662,
+      "rd": 290
     }
+  }
 }
 ```
 

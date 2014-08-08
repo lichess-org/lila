@@ -46,8 +46,8 @@ object UserInfo {
     getRatingChart: User => Fu[Option[String]],
     getRanks: String => Fu[Map[String, Int]],
     getDonated: String => Fu[Int])(user: User, ctx: Context): Fu[UserInfo] =
-      countUsers() zip
-    getRanks(user.id) zip
+    countUsers() zip
+      getRanks(user.id) zip
       ((ctx is user) ?? { gameCached nbPlaying user.id map (_.some) }) zip
       (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id) }) zip
       getRatingChart(user) zip

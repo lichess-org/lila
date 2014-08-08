@@ -30,7 +30,7 @@ final class Env(
 
   lazy val noteApi = new NoteApi(db(CollectionNote), timeline)
 
-  lazy val jsonView = new JsonView
+  lazy val jsonView = new JsonView(isOnline)
 
   val forms = DataForm
 

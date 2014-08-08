@@ -44,10 +44,10 @@ final class Env(
   }
 
   val userApi = new UserApi(
+    jsonView = userEnv.jsonView,
     makeUrl = apiUrl,
     apiToken = apiToken,
-    userIdsSharingIp = userIdsSharingIp,
-    isOnline = userEnv.isOnline)
+    userIdsSharingIp = userIdsSharingIp)
 
   val gameApi = new GameApi(
     makeUrl = apiUrl,

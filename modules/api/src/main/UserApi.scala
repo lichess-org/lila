@@ -9,34 +9,14 @@ import lila.game.GameRepo
 import lila.hub.actorApi.{ router => R }
 import lila.rating.Perf
 import lila.user.tube.userTube
-import lila.user.{ UserRepo, User, Perfs }
+import lila.user.{ UserRepo, User, Perfs, Profile }
 import makeTimeout.short
 
 private[api] final class UserApi(
+    jsonView: lila.user.JsonView,
     makeUrl: Any => Fu[String],
     apiToken: String,
-    userIdsSharingIp: String => Fu[List[String]],
-    isOnline: String => Boolean) {
-
-  private implicit val perfWrites: Writes[Perf] = Writes { o =>
-    Json.obj(
-      "nbGames" -> o.nb,
-      "rating" -> o.glicko.rating.toInt,
-      "deviation" -> o.glicko.deviation.toInt)
-  }
-  private implicit val perfsWrites: Writes[Perfs] = Writes { o =>
-    JsObject(o.perfs map {
-      case (name, perf) => name -> perfWrites.writes(perf)
-    })
-  }
-  private implicit val userWrites: OWrites[User] = OWrites { u =>
-    Json.obj(
-      "id" -> u.id,
-      "username" -> u.username,
-      "rating" -> u.rating,
-      "rd" -> u.perfs.standard.glicko.deviation,
-      "progress" -> u.progress)
-  }
+    userIdsSharingIp: String => Fu[List[String]]) {
 
   def list(
     team: Option[String],
@@ -52,11 +32,7 @@ private[api] final class UserApi(
       Json.obj(
         "list" -> JsArray(
           users zip urls map {
-            case (u, url) => userWrites.writes(u) ++ Json.obj(
-              "url" -> url,
-              "online" -> isOnline(u.id),
-              "engine" -> u.engine
-            ).noNull
+            case (u, url) => jsonView(u, extended = team.isDefined) ++ Json.obj("url" -> url).noNull
           }
         )
       )
@@ -71,11 +47,9 @@ private[api] final class UserApi(
         case ((gameOption, userUrl), knownEngines) => gameOption ?? { g =>
           makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) map (_.some)
         } map { gameUrlOption =>
-          userWrites.writes(u) ++ Json.obj(
+          jsonView(u, extended = true) ++ Json.obj(
             "url" -> userUrl,
-            "online" -> isOnline(u.id),
             "playing" -> gameUrlOption,
-            "engine" -> u.engine,
             "knownEnginesSharingIp" -> knownEngines
           ).noNull
         }
