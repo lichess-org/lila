@@ -290,3 +290,4 @@ retryThisPuzzle=Prøv om att
 thisPuzzleIsCorrect=Denne oppgåva var bra
 thisPuzzleIsWrong=Denne oppgåva var ikkje så bra
 youHaveNbSecondsToMakeYourFirstMove=Gjer det fyrste trekket ditt innan %s sekund!
+nbGamesInPlay=%s spel igang

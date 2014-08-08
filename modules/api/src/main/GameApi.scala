@@ -31,7 +31,8 @@ private[api] final class GameApi(
     G.status -> $gte(chess.Status.Mate.id),
     G.playerUids -> username,
     G.rated -> rated.map(_.fold(JsBoolean(true), $exists(false))),
-    G.analysed -> analysed.map(_.fold(JsBoolean(true), $exists(false)))
+    G.analysed -> analysed.map(_.fold(JsBoolean(true), $exists(false))),
+    G.variant -> check(token).option(Game.analysableVariants.map(_.id))
   ).noNull) sort lila.game.Query.sortCreated, makeNb(token, nb)) flatMap
     gamesJson(withAnalysis, token) map { games =>
       Json.obj("list" -> games)

@@ -14,7 +14,8 @@ object Ai extends LilaController {
     Env.ai.server.move(
       uciMoves = get("uciMoves", req) ?? (_.split(' ').toList),
       initialFen = get("initialFen", req),
-      level = getInt("level", req) | 1
+      level = getInt("level", req) | 1,
+      kingOfTheHill = getBool("kingOfTheHill", req)
     ) fold (
         err => {
           logwarn("[ai] stockfish server play: " + err)
@@ -29,7 +30,8 @@ object Ai extends LilaController {
       Env.ai.server.analyse(
         uciMoves = get("uciMoves", req) ?? (_.split(' ').toList),
         initialFen = get("initialFen", req),
-        requestedByHuman = getBool("human", req)
+        requestedByHuman = getBool("human", req),
+        kingOfTheHill = getBool("kingOfTheHill", req)
       ).effectFold(
           err => WS.url(replyToUrl).post(err.toString),
           infos => WS.url(replyToUrl).post(lila.analyse.Info encodeList infos)

@@ -6,9 +6,11 @@
 
 @evenMoreJs = {
 @highstockTag
+@if(!u.engine || ctx.is(u) || isGranted(_.UserSpy)) {
 @jsTagCompiled("chart2.js")
 @info.ratingChart.map { ratingChart =>
 @embedJs(s"var lichess_rating_series = $ratingChart;")
+}
 }
 }
 
@@ -27,6 +29,7 @@
 
 @side = {
 <div class="side sub_ratings">
+  @if(!u.engine || ctx.is(u) || isGranted(_.UserSpy)) {
   @showPerf( u.perfs.bullet, PerfType.Bullet)
   @showPerf( u.perfs.blitz, PerfType.Blitz)
   @showPerf( u.perfs.classical, PerfType.Classical)
@@ -51,6 +54,7 @@
   }
   @if(u.perfs.pools.nonEmpty) {
   <br />
+  }
   }
   @showPerf(u.perfs.puzzle, PerfType.Puzzle)
 </div>
@@ -153,7 +157,7 @@ openGraph = Map(
   }
   <div class="mod_zone"></div>
   <div class="meat">
-    @info.ratingChart.map { ratingChart =>
+    @info.ratingChart.ifTrue(!u.engine || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
     <div class="rating_history">
       <span>Chart loading&#8230;</span>
     </div>

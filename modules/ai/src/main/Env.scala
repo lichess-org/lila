@@ -43,8 +43,8 @@ final class Env(
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.ai.Analyse(gameId, uciMoves, fen, requestedByHuman) =>
-        client.analyse(gameId, uciMoves, fen, requestedByHuman)
+      case lila.hub.actorApi.ai.Analyse(gameId, uciMoves, fen, requestedByHuman, kingOfTheHill) =>
+        client.analyse(gameId, uciMoves, fen, requestedByHuman, kingOfTheHill)
     }
   }), name = ActorName)
 

@@ -1,31 +1,33 @@
 package lila.user
 
 import lila.rating.{ Perf, Glicko }
-import play.api.libs.json.Json
+import play.api.libs.json._
+import lila.common.PimpedJson._
 
-final class JsonView {
+final class JsonView(isOnline: String => Boolean) {
 
-  private implicit val countWrites = Json.writes[Count]
-  private implicit val glickoWrite = Json.writes[Glicko]
-  private implicit val perfWrite = Json.writes[Perf]
-  private implicit val perfsWrites = Json.writes[Perfs]
-
-  def me(u: User) = user(u)
-
-  def user(u: User) = Json.obj(
-    "id" -> u.id,
-    "username" -> u.username,
-    "title" -> u.title,
-    "rating" -> u.rating,
-    "rd" -> u.perfs.standard.glicko.deviation,
-    "playTime" -> u.playTime.map { p =>
-      Json.obj(
-        "total" -> p.total,
-        "tv" -> p.tv)
+  private implicit val perfWrites: Writes[Perf] = Writes { o =>
+    Json.obj(
+      "games" -> o.nb,
+      "rating" -> o.glicko.rating.toInt,
+      "rd" -> o.glicko.deviation.toInt)
+  }
+  private implicit val perfsWrites: Writes[Perfs] = Writes { o =>
+    JsObject(o.perfsMap.toList map {
+      case (name, perf) => name -> perfWrites.writes(perf)
     })
+  }
+  private implicit val profileWrites = Json.writes[Profile]
 
-  def full(u: User) = user(u) ++ Json.obj(
-    "count" -> countWrites.writes(u.count),
-    "perfs" -> perfsWrites.writes(u.perfs)
-  )
+  def apply(u: User, extended: Boolean) = Json.obj(
+    "id" -> u.id,
+    "username" -> u.username
+  ) ++ extended.??(Json.obj(
+      "title" -> u.title,
+      "online" -> isOnline(u.id),
+      "engine" -> u.engine,
+      "language" -> u.lang,
+      "profile" -> u.profile.??(profileWrites.writes).noNull,
+      "perfs" -> u.perfs
+    )).noNull
 }

@@ -46,7 +46,7 @@ final class Cached(
 
   val topOnline = AsyncCache(
     (nb: Int) => UserRepo.byIdsSortRating(onlineUserIdMemo.keys, nb),
-    timeToLive = 2 seconds)
+    timeToLive = 3 seconds)
 
   val topToints = AsyncCache(
     (nb: Int) => UserRepo allSortToints nb,

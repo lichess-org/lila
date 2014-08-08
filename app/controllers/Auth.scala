@@ -36,7 +36,7 @@ object Auth extends LilaController {
                 html = Redirect {
                   referrer.filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
                 }.fuccess,
-                api = _ => Ok(Env.user.jsonView me u).fuccess
+                api = _ => Ok(Env.user.jsonView(u, extended = true)).fuccess
               ) map {
                   _ withCookies LilaCookie.withSession { session =>
                     session + ("sessionId" -> sessionId) - api.AccessUri
