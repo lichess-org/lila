@@ -27,41 +27,42 @@ private[importer] case class ImportData(pgn: String) {
 
   private val maxPlies = 600
 
-  def preprocess(user: Option[String]): Valid[Preprocessed] = (Parser(pgn) |@| Reader(pgn)) apply {
-    case (ParsedPgn(tags, _), replay@Replay(_, _, game)) if replay.moves.size < maxPlies => {
+  def preprocess(user: Option[String]): Valid[Preprocessed] =
+    (Parser(pgn) |@| Reader(pgn)).tupled flatMap {
+      case (ParsedPgn(tags, _), replay@Replay(_, _, game)) if replay.moves.size < maxPlies => {
 
-      def tag(which: Tag.type => TagType): Option[String] =
-        tags find (_.name == which(Tag)) map (_.value)
+        def tag(which: Tag.type => TagType): Option[String] =
+          tags find (_.name == which(Tag)) map (_.value)
 
-      val initBoard = tag(_.FEN) flatMap Forsyth.<< map (_.board)
-      val variant = tag(_.Variant).flatMap(Variant.byName) | {
-        initBoard.nonEmpty.fold(Variant.FromPosition, Variant.Standard)
+        val initBoard = tag(_.FEN) flatMap Forsyth.<< map (_.board)
+        val variant = tag(_.Variant).flatMap(Variant.byName) | {
+          initBoard.nonEmpty.fold(Variant.FromPosition, Variant.Standard)
+        }
+
+        val result = tag(_.Result) filterNot (_ => game.situation.end) collect {
+          case "1-0"     => Result(Status.Resign, Color.White.some)
+          case "0-1"     => Result(Status.Resign, Color.Black.some)
+          case "1/2-1/2" => Result(Status.Draw, none)
+        }
+
+        val date = tag(_.Date)
+
+        def name(whichName: TagPicker, whichRating: TagPicker): String = tag(whichName).fold("?") { n =>
+          n + ~tag(whichRating).map(e => " (%s)" format e)
+        }
+
+        val dbGame = Game.make(
+          game = ChessGame(board = initBoard | (Board init variant)),
+          whitePlayer = Player.white withName name(_.White, _.WhiteElo),
+          blackPlayer = Player.black withName name(_.Black, _.BlackElo),
+          mode = Mode.Casual,
+          variant = variant,
+          source = Source.Import,
+          pgnImport = PgnImport(user = user, date = date, pgn = pgn).some
+        )
+
+        success(Preprocessed(dbGame, replay.chronoMoves, result))
       }
-
-      val result = tag(_.Result) filterNot (_ => game.situation.end) collect {
-        case "1-0"     => Result(Status.Resign, Color.White.some)
-        case "0-1"     => Result(Status.Resign, Color.Black.some)
-        case "1/2-1/2" => Result(Status.Draw, none)
-      }
-
-      val date = tag(_.Date)
-
-      def name(whichName: TagPicker, whichRating: TagPicker): String = tag(whichName).fold("?") { n =>
-        n + ~tag(whichRating).map(e => " (%s)" format e)
-      }
-
-      val dbGame = Game.make(
-        game = ChessGame(board = initBoard | (Board init variant)),
-        whitePlayer = Player.white withName name(_.White, _.WhiteElo),
-        blackPlayer = Player.black withName name(_.Black, _.BlackElo),
-        mode = Mode.Casual,
-        variant = variant,
-        source = Source.Import,
-        pgnImport = PgnImport(user = user, date = date, pgn = pgn).some
-      )
-
-      Preprocessed(dbGame, replay.chronoMoves, result)
+      case _ => !!("Replay is too long")
     }
-    case _ => none
-  }
 }
