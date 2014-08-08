@@ -120,16 +120,16 @@ $.ajax({
 
 ### `GET /api/user` fetch many users
 
+```
+> curl http://en.lichess.org/api/user?team=coders&nb=100
+```
+
 All parameters are optional.
 
 name | type | default | description
 --- | --- | --- | ---
 **team** | string | - | filter users by team
 **nb** | int | 10 | maximum number of users to return
-
-```
-> curl http://en.lichess.org/api/user?team=coders&nb=100
-```
 
 ```javascript
 {
@@ -162,6 +162,10 @@ $.ajax({
 
 ### `GET /api/game` fetch many games
 
+```
+> curl http://en.lichess.org/api/game?username=thibault&rated=1&nb=10
+```
+
 Games are returned by descendant chronological order.
 All parameters are optional.
 
@@ -173,10 +177,6 @@ name | type | default | description
 **nb** | int | 10 | maximum number of games to return
 **with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
 **token** | string | - | security token (unlocks secret game data)
-
-```
-> curl http://en.lichess.org/api/game?username=thibault&rated=1&nb=10
-```
 
 ```javascript
 {
@@ -234,6 +234,10 @@ name | type | default | description
 
 ### `GET /api/game/{id}` fetch one game by ID
 
+```
+> curl http://en.lichess.org/api/game/x2kpaixn
+```
+
 A single game is returned.
 All parameters are optional.
 
@@ -241,10 +245,6 @@ name | type | default | description
 --- | --- | --- | ---
 **with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
 **token** | string | - | security token (unlocks secret game data)
-
-```
-> curl http://en.lichess.org/api/game/x2kpaixn
-```
 
 ```javascript
 {
@@ -295,11 +295,11 @@ name | type | default | description
 
 ### `GET /{id}/pgn` fetch one game PGN by ID
 
-This returns the raw PGN for a game.
-
 ```
 > curl http://en.lichess.org/Qa7FJNk2/pgn
 ```
+
+This returns the raw PGN for a game.
 
 ```
 [Event "Rated game"]
