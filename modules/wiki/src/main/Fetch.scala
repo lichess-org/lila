@@ -44,7 +44,9 @@ private[wiki] final class Fetch(gitUrl: String, markdownPath: String)(implicit c
 
   private def toHtml(file: File): String = {
     val command = s"""$markdownPath ${file.getAbsolutePath}"""
+    val output = new java.io.ByteArrayOutputStream
     import scala.sys.process._
-    command!!
+    (command #> output).!
+    new String(output.toByteArray, "UTF-8")
   }
 }
