@@ -129,7 +129,6 @@ final class Env(
     scheduler.message(5 minutes) {
       tournamentScheduler -> actorApi.ScheduleNow
     }
-    tournamentScheduler ! actorApi.ScheduleNow
   }
 
   private[tournament] lazy val tournamentColl = db(CollectionTournament)

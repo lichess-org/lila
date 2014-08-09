@@ -21,6 +21,7 @@ data/
 dist/
 todos/
 node_modules/
+local/
 
 cljs/*/out
 cljs/*/repl
