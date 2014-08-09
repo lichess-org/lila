@@ -46,9 +46,7 @@
           @online.map { u =>
           <tr>
             <td>@userLink(u, cssClass="revert-underline".some)</td>
-            <td>@u.perfs.bestPerf.map {
-              case (pt, p) => {@showPerfRating(pt, p, "hint--bottom")}
-              }</td>
+            <td>@showBestPerf(u)</td>
           </tr>
           }
       </tbody></table>

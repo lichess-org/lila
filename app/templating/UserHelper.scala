@@ -53,6 +53,10 @@ trait UserHelper { self: I18nHelper with StringHelper =>
   def showPerfRating(u: User, perfKey: String): Option[Html] =
     PerfType(perfKey) map { showPerfRating(u, _) }
 
+  def showBestPerf(u: User): Option[Html] = u.perfs.bestPerf map {
+    case (pt, perf) => showPerfRating(pt, perf, klass = "hint--bottom")
+  }
+
   def showRatingDiff(diff: Int) = Html {
     diff match {
       case 0          => """<span class="rp null">+0</span>"""
@@ -157,7 +161,6 @@ trait UserHelper { self: I18nHelper with StringHelper =>
   def userLink(
     user: User,
     cssClass: Option[String] = None,
-    withProgress: Boolean = false,
     withOnline: Boolean = true,
     withPowerTip: Boolean = true,
     withTitle: Boolean = true,
@@ -168,7 +171,6 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val href = userHref(user.username, if (mod) "?mod" else "")
     val content = text | user.username
     val titleS = if (withTitle) titleTag(user.title) else ""
-    val progress = if (withProgress) s" ${showProgress(user.progress)}" else ""
     val space = if (withOnline) "&nbsp;" else ""
     val dataIcon = if (withOnline) """ data-icon="r"""" else ""
     val rating = withBestRating ?? {
@@ -176,7 +178,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
         case (pt, perf) => s"&nbsp;${showPerfRating(pt, perf, "hint--bottom")}"
       }
     }
-    s"""<a$dataIcon $klass $href>$space$titleS$content$rating$progress</a>"""
+    s"""<a$dataIcon $klass $href>$space$titleS$content$rating</a>"""
   }
 
   def userInfosLink(

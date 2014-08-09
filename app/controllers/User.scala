@@ -132,7 +132,7 @@ object User extends LilaController {
 
   def evaluate(username: String) = Secure(_.UserEvaluate) { implicit ctx =>
     me => OptionFuResult(UserRepo named username) { user =>
-      Env.evaluation.evaluator.generate(user, true) inject Redirect(routes.User.show(username).url + "?mod")
+      Env.evaluation.evaluator.generate(user.id, true) inject Redirect(routes.User.show(username).url + "?mod")
     }
   }
 

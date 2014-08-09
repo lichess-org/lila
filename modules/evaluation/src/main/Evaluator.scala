@@ -25,12 +25,7 @@ final class Evaluator(
     marker: ActorSelection,
     token: String) {
 
-  import Evaluation._
-
-  def findOrGenerate(user: User, deep: Boolean): Fu[Option[Evaluation]] = find(user) flatMap {
-    case x@Some(eval) if (!deep || eval.isDeep) => fuccess(x)
-    case _                                      => generate(user, deep)
-  }
+  import Evaluation._, heuristics._
 
   def find(user: User): Fu[Option[Evaluation]] =
     coll.find(BSONDocument("_id" -> user.id)).one[JsObject] map { _ map readEvaluation }
@@ -41,50 +36,51 @@ final class Evaluator(
       BSONDocument("date" -> true)
     ).one[BSONDocument] map { _ flatMap (_.getAs[DateTime]("date")) }
 
-  def generate(user: User, perf: Perf, deep: Boolean): Fu[Option[Evaluation]] = 
-    generate(user.id, perf, deep)
-
-  def generate(userId: String, perf: Perf, deep: Boolean): Fu[Option[Evaluation]] = {
-    run(userId, deep) match {
-      case Failure(e: Exception) if e.getMessage.contains("exit value: 1") => fuccess(none)
-      case Failure(e: Exception) if e.getMessage.contains("exit value: 2") => fuccess(none)
-      case Failure(e: Exception) => fufail(e)
-      case Success(output) => for {
-        evalJs ← (Json parse output).transform(evaluationTransformer) match {
-          case JsSuccess(v, _) => fuccess(v)
-          case JsError(e)      => fufail(lila.common.LilaException(s"Can't parse evaluator output: $e on $output"))
+  def generate(userId: String, deep: Boolean): Fu[Option[Evaluation]] =
+    UserRepo byId userId flatMap {
+      _ ?? { user =>
+        (run(userId, deep) match {
+          case Failure(e: Exception) if e.getMessage.contains("exit value: 1") => fuccess(none)
+          case Failure(e: Exception) if e.getMessage.contains("exit value: 2") => fuccess(none)
+          case Failure(e: Exception) => fufail(e)
+          case Success(output) => for {
+            evalJs ← (Json parse output).transform(evaluationTransformer) match {
+              case JsSuccess(v, _) => fuccess(v)
+              case JsError(e)      => fufail(lila.common.LilaException(s"Can't parse evaluator output: $e on $output"))
+            }
+            eval = readEvaluation(evalJs)
+            _ ← coll.update(Json.obj("_id" -> userId), evalJs, upsert = true)
+          } yield eval.some
+        }) andThen {
+          case Success(Some(eval)) if user.perfs.timesAndVariants exists eval.mark =>
+            UserRepo byId userId foreach {
+              _ filterNot (_.engine) foreach { user =>
+                marker ! lila.hub.actorApi.mod.MarkCheater(user.id)
+                reporter ! lila.hub.actorApi.report.Check(user.id)
+              }
+            }
+          case Failure(e) => logger.warn(s"generate: $e")
         }
-        eval = readEvaluation(evalJs)
-        _ ← coll.update(Json.obj("_id" -> userId), evalJs, upsert = true)
-      } yield eval.some
-    }
-  } andThen {
-    case Success(Some(eval)) if eval.mark(perf) => UserRepo byId userId foreach {
-      _ filterNot (_.engine) foreach { user =>
-        marker ! lila.hub.actorApi.mod.MarkCheater(user.id)
-        reporter ! lila.hub.actorApi.report.Check(user.id)
       }
     }
-    case Failure(e) => logger.warn(s"generate: $e")
-  }
 
   private[evaluation] def autoGenerate(
     user: User,
     perfType: PerfType,
     important: Boolean,
     forceRefresh: Boolean,
-    suspiciousHold: Boolean = false) {
+    suspiciousHold: Boolean) {
     val perf = user.perfs(perfType)
     if (!user.engine && (
       important || suspiciousHold ||
-      (deviationIsLow(perf) && (progressIsHigh(user) || ratingIsHigh(perf)))
+      (deviationIsLow(perf) && (progressIsHigh(perf) || ratingIsHigh(perf)))
     )) {
       evaluatedAt(user) foreach { date =>
-        def freshness = if (progressIsVeryHigh(user)) DateTime.now minusMinutes 30
-        else if (progressIsHigh(user)) DateTime.now minusHours 1
+        def freshness = if (progressIsVeryHigh(perf)) DateTime.now minusMinutes 30
+        else if (progressIsHigh(perf)) DateTime.now minusHours 1
         else DateTime.now minusDays 3
         if (suspiciousHold || forceRefresh || date.fold(true)(_ isBefore freshness)) {
-          generate(user.id, user.perfs, true) foreach {
+          generate(user.id, true) foreach {
             _ foreach { eval =>
               eval.gameIdsToAnalyse foreach { gameId =>
                 analyser ! lila.hub.actorApi.ai.AutoAnalyse(gameId)
@@ -97,9 +93,18 @@ final class Evaluator(
       }
     }
   }
+  private[evaluation] def autoGenerate(
+    user: User,
+    important: Boolean,
+    forceRefresh: Boolean,
+    suspiciousHold: Boolean) {
+    user.perfs.bestPerf foreach {
+      case (pt, _) => autoGenerate(user, pt, important, forceRefresh, suspiciousHold)
+    }
+  }
   private[evaluation] def autoGenerate(userId: String, important: Boolean, forceRefresh: Boolean) {
     UserRepo byId userId foreach {
-      _ foreach { autoGenerate(_, important, forceRefresh) }
+      _ foreach { autoGenerate(_, important, forceRefresh, false) }
     }
   }
 

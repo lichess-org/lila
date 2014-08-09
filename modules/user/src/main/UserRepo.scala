@@ -72,8 +72,6 @@ trait UserRepo {
 
   def usernameById(id: ID) = $primitive.one($select(id), F.username)(_.asOpt[String])
 
-  def rank(user: User) = $count(enabledSelect ++ Json.obj(F.rating -> $gt(Glicko.default.rating))) map (1+)
-
   def orderByGameCount(u1: String, u2: String): Fu[Option[(String, String)]] =
     userTube.coll.find(
       BSONDocument("_id" -> BSONDocument("$in" -> List(u1, u2))),
@@ -111,10 +109,7 @@ trait UserRepo {
           s"perfs.$name" -> Perf.perfBSONHandler.write(lens(perfs))
         }
     }
-    val setter = BSONDocument(diff) ++ BSONDocument(
-      F.rating -> BSONInteger(user.engine.fold(Glicko.default, perfs.standard.glicko).intRating)
-    )
-    $update($select(user.id), BSONDocument("$set" -> setter))
+    $update($select(user.id), BSONDocument("$set" -> BSONDocument(diff)))
   }
 
   def setPerf(userId: String, perfName: String, perf: Perf) = $update($select(userId), $setBson(
@@ -135,9 +130,7 @@ trait UserRepo {
   val enabledSelect = Json.obj(F.enabled -> true)
   def engineSelect(v: Boolean) = Json.obj(F.engine -> v.fold(JsBoolean(true), $ne(true)))
   def stablePerfSelect(perf: String) = Json.obj(s"perfs.$perf.nb" -> $gte(30))
-  def activeSelect(sincePerf: String = "standard") = perfSince(sincePerf, DateTime.now minusMonths 2)
   val goodLadSelect = enabledSelect ++ engineSelect(false)
-  def minRatingSelect(rating: Int) = Json.obj(F.rating -> $gt(rating))
   def perfSince(perf: String, since: DateTime) = Json.obj(s"perfs.$perf.la" -> $gt($date(since)))
   val goodLadQuery = $query(goodLadSelect)
 
@@ -171,10 +164,6 @@ trait UserRepo {
 
   def incToints(id: ID, nb: Int) = $update($select(id), $incBson("toints" -> nb))
   def removeAllToints = $update($select.all, $unset("toints"), multi = true)
-
-  def averageRating: Fu[Float] = $primitive($select.all, "rating")(_.asOpt[Float]) map { ratings =>
-    ratings.sum / ratings.size.toFloat
-  }
 
   def authenticate(id: ID, password: String): Fu[Option[User]] =
     checkPassword(id, password) flatMap { _ ?? ($find byId id) }
@@ -225,10 +214,7 @@ trait UserRepo {
   }
 
   def toggleEngine(id: ID): Funit = $update.docBson[ID, User](id) { u =>
-    $setBson(
-      "engine" -> BSONBoolean(!u.engine),
-      "rating" -> BSONInteger(u.engine.fold(u.perfs.standard.glicko, Glicko.default).intRating)
-    )
+    $setBson("engine" -> BSONBoolean(!u.engine))
   }
 
   def toggleIpBan(id: ID) = $update.doc[ID, User](id) { u => $set("ipBan" -> !u.ipBan) }
@@ -267,19 +253,6 @@ trait UserRepo {
     $update.fieldUnchecked(id, "lang", lang)
   }
 
-  def idsAverageRating(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
-    import reactivemongo.core.commands._
-    val command = Aggregate(userTube.coll.name, Seq(
-      Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
-      Group(BSONBoolean(true))(F.rating -> SumField(F.rating))
-    ))
-    userTube.coll.db.command(command) map { stream =>
-      stream.toList.headOption flatMap { obj =>
-        toJSON(obj).asOpt[JsObject]
-      } flatMap { _ int F.rating }
-    } map (~_ / ids.size)
-  }
-
   def idsSumToints(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
     import reactivemongo.core.commands._
     val command = Aggregate(userTube.coll.name, Seq(
@@ -309,7 +282,6 @@ trait UserRepo {
       "password" -> hash(password, salt),
       "salt" -> salt,
       F.perfs -> Json.obj(),
-      F.rating -> Perfs.default.standard.glicko.intRating,
       F.count -> Count.default,
       F.enabled -> true,
       F.createdAt -> DateTime.now,

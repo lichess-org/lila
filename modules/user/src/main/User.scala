@@ -8,7 +8,6 @@ import org.joda.time.DateTime
 case class User(
     id: String,
     username: String,
-    rating: Int,
     perfs: Perfs,
     count: Count,
     artificial: Boolean = false,
@@ -31,7 +30,7 @@ case class User(
   }
 
   override def toString =
-    s"User $username($rating) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
+    s"User $username(${perfs.bestRating}) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
 
   def light = lila.common.LightUser(id = id, name = username, title = title)
 
@@ -104,7 +103,6 @@ object User {
   object BSONFields {
     val id = "_id"
     val username = "username"
-    val rating = "rating"
     val artificial = "artificial"
     val perfs = "perfs"
     val count = "count"
@@ -136,7 +134,6 @@ object User {
     def reads(r: BSON.Reader): User = User(
       id = r str id,
       username = r str username,
-      rating = r nInt rating,
       perfs = r.getO[Perfs](perfs) | Perfs.default,
       count = r.get[Count](count),
       artificial = r boolD artificial,
@@ -156,7 +153,6 @@ object User {
     def writes(w: BSON.Writer, o: User) = BSONDocument(
       id -> o.id,
       username -> o.username,
-      rating -> w.int(o.rating),
       perfs -> o.perfs,
       count -> o.count,
       artificial -> w.boolO(o.artificial),

@@ -1,9 +1,11 @@
 package lila.evaluation
 
 import akka.actor._
+import lila.game.PerfPicker
 import chess.{ Speed, White, Black }
 import lila.hub.actorApi.evaluation._
 import lila.user.User
+import lila.rating.PerfType
 
 private[evaluation] final class Listener(evaluator: Evaluator) extends Actor {
 
@@ -27,7 +29,7 @@ private[evaluation] final class Listener(evaluator: Evaluator) extends Actor {
           }
       }
 
-    case user: User        => evaluator.generate(user, true)
+    case user: User        => evaluator.generate(user.id, true)
 
     case AutoCheck(userId) => evaluator.autoGenerate(userId, true, false)
 

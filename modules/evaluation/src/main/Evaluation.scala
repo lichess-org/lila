@@ -1,7 +1,7 @@
 package lila.evaluation
 
-import lila.user.User
 import lila.rating.Perf
+import lila.user.{ User, Perfs }
 import org.joda.time.DateTime
 
 case class Evaluation(
@@ -23,6 +23,11 @@ case class Evaluation(
   def percent = deep getOrElse shallow
 
   def isDeep = deep.isDefined
+
+  def verdict(perfs: Perfs) =
+    if (perfs.timesAndVariants exists mark) "definitely cheating"
+    else if (perfs.timesAndVariants exists report) "suspicious"
+    else "clean"
 
   def verdict(perf: Perf) =
     if (mark(perf)) "definitely cheating"

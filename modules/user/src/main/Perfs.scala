@@ -79,7 +79,7 @@ case class Perfs(
 
   def pool(key: String) = pools get key getOrElse Perf.default
 
-  def standardAndPools = standard :: pools.values.toList
+  def timesAndVariants: List[Perf] = List(bullet, blitz, classical, chess960, kingOfTheHill, threeCheck)
 
   def inShort = perfs map {
     case (name, perf) => s"$name:${perf.intRating}"

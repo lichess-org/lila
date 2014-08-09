@@ -43,8 +43,6 @@ final class Env(
   def cli = new lila.common.Cli {
     import tube.userTube
     def process = {
-      case "user" :: "average" :: "rating" :: Nil =>
-        UserRepo.averageRating map { rating => "Average rating is %f" format rating }
       case "user" :: "typecheck" :: Nil => lila.db.Typecheck.apply[User]
     }
   }
