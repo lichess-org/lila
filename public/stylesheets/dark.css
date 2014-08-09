@@ -192,6 +192,7 @@ body.dark div.lichess_table .loader:after {
 }
 body.dark #hooks_list table td {
   background: rgba(40, 40, 40, 0.6);
+  border-color: #242424;
 }
 body.dark #hooks_list table tr.cancel td {
   background: rgba(0, 80, 0, 0.7);

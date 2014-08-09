@@ -216,7 +216,7 @@
   cursor: pointer;
   padding: 12.5px 12px;
   font-weight: lighter;
-  border-bottom: 1px solid #ccc;
+  border-bottom: transparent;
 }
 #hooks_list th.reload span {
   display: block;
