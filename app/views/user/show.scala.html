@@ -76,29 +76,27 @@ openGraph = Map(
   <div class="content_box_top">
     @info.ranks.map {
     case (perf, rank) if rank == 1 => {
-    <span class="trophy trophy_80 hint--left" data-hint="@PerfType.name(perf) Champion!">
-      <img src="@staticUrl("images/trophy/gold_80.png")" width=62 height=80 />
+    <span class="trophy hint--left" data-hint="@PerfType.name(perf) Champion!">
+      <img src="@staticUrl("images/trophy/Big-Gold-Cup.png")" height=80 />
     </span>
     }
     case (perf, rank) if rank <= 10 => {
     <span class="trophy hint--left" data-hint="@PerfType.name(perf) Top 10!">
-      <img src="@staticUrl("images/trophy/gold_64.png")" width=64 height=64 />
+      <img src="@staticUrl("images/trophy/Big-Silver-Cup.png")" height=80 />
+    </span>
+    }
+    case (perf, rank) if rank <= 50 => {
+    <span class="trophy hint--left" data-hint="@PerfType.name(perf) Top 100 player!">
+      <img src="@staticUrl("images/trophy/Fancy-Gold.png")" height=80 />
     </span>
     }
     case (perf, rank) if rank <= 100 => {
     <span class="trophy hint--left" data-hint="@PerfType.name(perf) Top 100 player!">
-      <img src="@staticUrl("images/trophy64.png")" width=64 height=64 />
+      <img src="@staticUrl("images/trophy/Gold-Cup.png")" height=80 />
     </span>
     }
     case _ => {}
     }
-    @*
-    case (perf, rank) if rank < info.nbUsers / 100 => {
-    <span class="trophy hint--left" data-hint="@PerfType.name(perf) Top 1% player!">
-      <img src="@staticUrl("images/trophy64.png")" width=50 height=50 />
-    </span>
-    }
-    *@
     <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" } data-icon="r"></span> @u.titleUsername</h1>
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
