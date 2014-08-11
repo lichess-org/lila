@@ -54,7 +54,7 @@ private[i18n] object Contributors {
     "cy" -> List("cavejohnson"),
     "gd" -> List("GunChleoc"),
     "ga" -> List("Anonymous"),
-    "sq" -> List("Indrit Bleta"),
+    "sq" -> List("Indrit Bleta", "Xhevad Klaiqi"),
     "be" -> List("Palenik Siarhei"),
     "ka" -> List("Giorgi Javakhidze"),
     "sw" -> List("Anonymous"),
