@@ -68,32 +68,32 @@ drop me an email at thibault.duplessis@gmail.com, and we'll discuss it.
     "bullet": {
       "games": 35,                          // number of rated games played
       "rating": 1624,                       // Glicko2 rating
-      "rd": 80                              // Glicko2 rating deviation
+      "rd": 80,                             // Glicko2 rating deviation
+      "prog": -13                           // progress over the last twelve games
     },
     "chess960": {
       "games": 1,
       "rating": 1739,
-      "rd": 277
+      "rd": 277,
+      "prog": 33
     },
     "classical": {
       "games": 331,
       "rating": 1603,
-      "rd": 65
+      "rd": 65,
+      "prog": 9
     },
     "kingOfTheHill": {
       "games": 3,
       "rating": 1622,
-      "rd": 223
+      "rd": 223,
+      "prog": -62
     },
     "puzzle": {
       "games": 9,
       "rating": 902,
-      "rd": 117
-    },
-    "standard": {
-      "games": 736,
-      "rating": 1576,
-      "rd": 79
+      "rd": 117,
+      "prog": -328
     },
     "threeCheck": {
       "games": 1,

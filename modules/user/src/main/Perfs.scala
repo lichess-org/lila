@@ -52,7 +52,6 @@ case class Perfs(
   }
 
   lazy val perfsMap: Map[String, Perf] = Map(
-    "standard" -> standard,
     "chess960" -> chess960,
     "kingOfTheHill" -> kingOfTheHill,
     "threeCheck" -> threeCheck,

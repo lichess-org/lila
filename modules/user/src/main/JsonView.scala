@@ -10,7 +10,8 @@ final class JsonView(isOnline: String => Boolean) {
     Json.obj(
       "games" -> o.nb,
       "rating" -> o.glicko.rating.toInt,
-      "rd" -> o.glicko.deviation.toInt)
+      "rd" -> o.glicko.deviation.toInt,
+      "prog" -> o.progress)
   }
   private implicit val perfsWrites: Writes[Perfs] = Writes { o =>
     JsObject(o.perfsMap.toList map {
