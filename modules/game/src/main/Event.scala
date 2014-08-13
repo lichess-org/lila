@@ -82,11 +82,12 @@ object Event {
 
   case class RedirectOwner(
       color: Color,
-      url: String,
+      id: String,
       cookie: Option[JsObject]) extends Event {
     def typ = "redirect"
     def data = Json.obj(
-      "url" -> url,
+      "id" -> id,
+      "url" -> s"/$id",
       "cookie" -> cookie
     ).noNull
     override def only = Some(color)

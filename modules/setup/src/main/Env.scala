@@ -1,5 +1,6 @@
 package lila.setup
 
+
 import akka.actor._
 import com.typesafe.config.{ Config => AppConfig }
 
@@ -32,9 +33,7 @@ final class Env(
     router = hub.actor.router,
     aiPlay = aiPlay)
 
-  lazy val friendJoiner = new FriendJoiner(
-    friendConfigMemo = friendConfigMemo,
-    router = hub.actor.router)
+  lazy val friendJoiner = new FriendJoiner(friendConfigMemo = friendConfigMemo)
 
   lazy val friendConfigMemo = new FriendConfigMemo(ttl = FriendMemoTtl)
 

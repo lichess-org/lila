@@ -51,7 +51,10 @@ Response: `201 CREATED`
   "opponent": {
     "color": "black",
     "ai": false,
-    "user_id": "ozzie"        // request more info at /api/user/ozzie
+    "user_id": "ozzie",       // request more info at /api/user/ozzie
+    "isOfferingRematch": false,
+    "isOfferingDraw": false,
+    "isProposingTakeback": false
   },
   "possibleMoves": {          // list of moves you can play. Empty if not your turn to play.
     "a2": "a3a4",             // from a2, you can go on a3 or a4.
@@ -162,7 +165,10 @@ Response: `200 OK`
   },
   "opponent": {
     "ai": true,
-    "color": "black"
+    "color": "black",
+    "isOfferingRematch": false,
+    "isOfferingDraw": false,
+    "isProposingTakeback": false
   },
   "possibleMoves": {          // list of moves you can play. Empty if not your turn to play.
     "a2": "a3a4",             // from a2, you can go on a3 or a4.
@@ -421,8 +427,8 @@ Each event has a version number `v`, a type `t` and data `d`.
     "t": "premove",
     "d": null
   }, {
-    "v": 12,                  // ignore that for now.
-    "t": "reloadTable",
+    "v": 12,                  // game metadata has changed (could be rematch negociation, for instance)
+    "t": "reloadTable",       // fetch the game document for more info
     "d": null
   }, {
     "v": 13                   // some events may come empty. Just increment the client socket version.
@@ -435,6 +441,39 @@ Each event has a version number `v`, a type `t` and data `d`.
 ```javascript
 // send
 {t: 'resign'}
+```
+
+## Rematch negociation
+
+When the opponent proposes or declines a rematch,
+a `reloadTable` event is sent to the client.
+You should then fetch the game document to learn about
+the rematch negociation state, in `opponent.isOfferingRematch`.
+
+### Propose or accept rematch
+
+```javascript
+// send
+{t: 'rematch-yes'}
+```
+
+### Decline rematch offer
+
+```javascript
+// send
+{t: 'rematch-no'}
+```
+
+### Move on to the next game
+
+When a rematch is accepted, the client receives a `redirect` event.
+
+```javascript
+// the seek was accepted
+{
+  "t": "redirect", // means we should move on to the game
+  "id": "abcdefgh1234"
+}
 ```
 
 # API versioning

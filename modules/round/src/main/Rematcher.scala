@@ -15,7 +15,6 @@ import makeTimeout.short
 
 private[round] final class Rematcher(
     messenger: Messenger,
-    router: ActorSelection,
     rematch960Cache: ExpireSetMemo) {
 
   def yes(pov: Pov): Fu[Events] = pov match {
@@ -41,7 +40,7 @@ private[round] final class Rematcher(
 
   private def rematchExists(pov: Pov)(nextId: String): Fu[Events] =
     GameRepo game nextId flatMap {
-      _.fold(rematchJoin(pov))(redirectEvents)
+      _.fold(rematchJoin(pov))(g => fuccess(redirectEvents(g)))
     }
 
   private def rematchJoin(pov: Pov): Fu[Events] = for {
@@ -53,8 +52,7 @@ private[round] final class Rematcher(
         if (pov.game.variant == Variant.Chess960 && !rematch960Cache.get(pov.game.id))
           rematch960Cache.put(nextId)
       }
-    events ← redirectEvents(nextGame)
-  } yield events
+  } yield redirectEvents(nextGame)
 
   private def rematchCreate(pov: Pov): Fu[Events] = GameRepo save {
     messenger.system(pov.game, _.rematchOfferSent)
@@ -95,14 +93,14 @@ private[round] final class Rematcher(
     }
   }
 
-  private def redirectEvents(game: Game): Fu[Events] =
-    router ? lila.hub.actorApi.router.Player(game fullIdOf White) zip
-      router ? lila.hub.actorApi.router.Player(game fullIdOf Black) collect {
-        case (whiteUrl: String, blackUrl: String) => List(
-          Event.RedirectOwner(White, blackUrl, AnonCookie.json(game, Black)),
-          Event.RedirectOwner(Black, whiteUrl, AnonCookie.json(game, White)),
-          // tell spectators to reload the table
-          Event.ReloadTable(White),
-          Event.ReloadTable(Black))
-      }
+  private def redirectEvents(game: Game): Events = {
+    val whiteId = game fullIdOf White
+    val blackId = game fullIdOf Black
+    List(
+      Event.RedirectOwner(White, blackId, AnonCookie.json(game, Black)),
+      Event.RedirectOwner(Black, whiteId, AnonCookie.json(game, White)),
+      // tell spectators to reload the table
+      Event.ReloadTable(White),
+      Event.ReloadTable(Black))
+  }
 }

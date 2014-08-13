@@ -118,7 +118,6 @@ final class Env(
 
   private lazy val rematcher = new Rematcher(
     messenger = messenger,
-    router = hub.actor.router,
     rematch960Cache = rematch960Cache)
 
   private lazy val player: Player = new Player(
