@@ -639,7 +639,6 @@ div.game_config label.pointer {
   cursor: pointer;
 }
 div.game_config .ratings {
-  margin-top: 1.7em;
   line-height: 50px;
   width: 100%;
   text-align: center;
@@ -648,8 +647,7 @@ div.game_config .ratings > div {
   display: none;
 }
 div.game_config div.color_submits {
-  margin-top: 1em;
-  height: 65px;
+  margin: 1em auto;
   text-align: center;
 }
 div.game_config button {
