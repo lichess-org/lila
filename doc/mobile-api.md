@@ -430,6 +430,13 @@ Each event has a version number `v`, a type `t` and data `d`.
 }
 ```
 
+## Resign
+
+```javascript
+// send
+{t: 'resign'}
+```
+
 # API versioning
 
 Current version is v1.
