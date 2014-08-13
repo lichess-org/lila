@@ -253,6 +253,16 @@ Set-Cookie: lila2="3b5cc8c80f0af258a31dc4fd1b5381cabe7388c7-sessionId=80q7V5stkK
     "lastName": "Duplessis",
     "location": "Paris"
   },
+  "nowPlaying": [                           // list of games waiting for your move
+    {
+      "id": "abcdefgh1234",
+      "opponent": {
+        "id": "supercopter",
+        "username": "SuperCopter",
+        "rating": 2399
+    },
+    // more games maybe
+  ],
   "perfs": {                                // user performances in different games
     "bullet": {
       "games": 35,                          // number of rated games played

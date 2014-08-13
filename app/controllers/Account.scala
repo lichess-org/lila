@@ -39,7 +39,23 @@ object Account extends LilaController {
     me =>
       negotiate(
         html = notFound,
-        api = apiVersion => Ok(Env.user.jsonView(me, extended = true)).fuccess
+        api = _ => Env.round.nowPlaying(me, 5) map { nowPlaying =>
+          Ok {
+            import play.api.libs.json._
+            Env.user.jsonView(me, extended = true) ++ Json.obj(
+              "nowPlaying" -> JsArray(nowPlaying map { pov =>
+                Json.obj(
+                  "id" -> pov.fullId,
+                  "opponent" -> Json.obj(
+                    "id" -> pov.opponent.userId,
+                    "username" -> lila.game.Namer.playerString(pov.opponent, withRating = false)(Env.user.lightUser),
+                    "rating" -> pov.opponent.rating
+                  )
+                )
+              })
+            )
+          }
+        }
       )
   }
 
