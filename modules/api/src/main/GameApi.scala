@@ -32,7 +32,7 @@ private[api] final class GameApi(
     G.playerUids -> username,
     G.rated -> rated.map(_.fold(JsBoolean(true), $exists(false))),
     G.analysed -> analysed.map(_.fold(JsBoolean(true), $exists(false))),
-    G.variant -> check(token).option($in(Game.analysableVariants.map(_.id)))
+    G.variant -> check(token).option($nin(Game.unanalysableVariants.map(_.id)))
   ).noNull) sort lila.game.Query.sortCreated, makeNb(token, nb)) flatMap
     gamesJson(withAnalysis, token) map { games =>
       Json.obj("list" -> games)
@@ -80,7 +80,7 @@ private[api] final class GameApi(
     "status" -> g.status.name.toLowerCase,
     "clock" -> g.clock.map { clock =>
       Json.obj(
-        "limit" -> clock.limit,
+        "initial" -> clock.limit,
         "increment" -> clock.increment,
         "totalTime" -> clock.estimateTotalTime
       )

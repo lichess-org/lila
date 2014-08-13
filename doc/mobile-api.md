@@ -11,18 +11,22 @@ http --form POST en.l.org/setup/ai variant=1 clock=false time=60 increment=60 le
 ```
 - level: 1 to 8
 - color: white | black | random
-- variant: 1 (standard) | 2 (chess960) | 3 (from position) | 4 (KotH)
+- variant: 1 (standard) | 2 (chess960) | 3 (from position) | 4 (KotH) | 5 (three-check)
 - fen: if variant is 3, any valid FEN string
 
 Response: `201 CREATED`
 ```javascript
 {
   "game": {
+    "id": "39b12Ikl",
+    "variant": "chess960", // standard/chess960/fromPosition/kingOfTheHill/threeCheck
+    "speed": "blitz", // bullet|blitz|classical|unlimited
+    "perf": "chess960", // bullet|blitz|classical|chess960|kingOfTheHill|threeCheck
+    "rated": true,
     "clock": false,
     "clockRunning": false,
     "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
     "finished": false,
-    "id": "39b12Ikl",
     "lastMove": null,
     "moves": "",
     "player": "white",
@@ -32,9 +36,11 @@ Response: `201 CREATED`
   },
   "clock": {
     // all durations are expressed in seconds
-    "black": 3600.0,
-    "emerg": 30,              // critical threshold
-    "white": 3600.0
+    "initial": 300,           // initial time of the clock, here 5 minutes
+    "increment": 8,           // fisher increment
+    "black": 36.0,            // current time left for black
+    "white": 78.0,            // current time left for white
+    "emerg": 30               // critical threshold
   },
   "player": {
     "color": "white",
@@ -43,8 +49,9 @@ Response: `201 CREATED`
     "version": 0
   },
   "opponent": {
-    "ai": true,
-    "color": "black"
+    "color": "black",
+    "ai": false,
+    "user_id": "ozzie"        // request more info at /api/user/ozzie
   },
   "possibleMoves": {          // list of moves you can play. Empty if not your turn to play.
     "a2": "a3a4",             // from a2, you can go on a3 or a4.
@@ -123,11 +130,15 @@ Response: `200 OK`
 ```javascript
 {
   "game": {
+    "id": "39b12Ikl",
+    "variant": "chess960", // standard/chess960/fromPosition/kingOfTheHill/threeCheck
+    "speed": "blitz", // bullet|blitz|classical|unlimited
+    "perf": "chess960", // bullet|blitz|classical|chess960|kingOfTheHill|threeCheck
+    "rated": true,
     "clock": false,
     "clockRunning": false,
     "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
     "finished": false,
-    "id": "39b12Ikl",
     "lastMove": null,
     "moves": "e4 d5 exd5 Qxd5 Nc3",
     "player": "white",
@@ -137,9 +148,11 @@ Response: `200 OK`
   },
   "clock": {
     // all durations are expressed in seconds
-    "black": 3600.0,
-    "emerg": 30,              // critical threshold
-    "white": 3600.0
+    "initial": 300,           // initial time of the clock, here 5 minutes
+    "increment": 8,           // fisher increment
+    "black": 36.0,            // current time left for black
+    "white": 78.0,            // current time left for white
+    "emerg": 30               // critical threshold
   },
   "player": {
     "color": "white",

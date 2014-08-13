@@ -30,7 +30,7 @@ final class Cached(
 
   val topPerf = AsyncCache[Perf.Key, List[User]](
     f = (perf: Perf.Key) => UserRepo.topPerfSince(perf, twoWeeksAgo, leaderboardSize),
-    timeToLive = 30 minutes)
+    timeToLive = 10 minutes)
 
   val topToday = AsyncCache.single[List[(User, PerfType)]](
     f = perfs.map { perf =>

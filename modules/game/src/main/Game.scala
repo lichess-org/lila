@@ -389,6 +389,7 @@ object Game {
 
 
   val analysableVariants: Set[Variant] = Set(Variant.Standard, Variant.Chess960, Variant.KingOfTheHill)
+  val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
 
   val gameIdSize = 8
   val playerIdSize = 4

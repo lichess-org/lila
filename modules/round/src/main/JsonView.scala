@@ -5,7 +5,7 @@ import scala.math.{ min, max, round }
 
 import play.api.libs.json.Json
 
-import lila.game.{ Pov, Game }
+import lila.game.{ Pov, Game, PerfPicker }
 import lila.pref.Pref
 
 import chess.format.Forsyth
@@ -18,6 +18,10 @@ final class JsonView(baseAnimationDelay: Duration) {
     Json.obj(
       "game" -> Json.obj(
         "id" -> gameId,
+        "variant" -> game.variant.key,
+        "speed" -> game.speed.key,
+        "perf" -> PerfPicker.key(game),
+        "rated" -> game.rated,
         "fen" -> (Forsyth >> game.toChess),
         "moves" -> game.pgnMoves.mkString(" "),
         "started" -> game.started,
@@ -37,7 +41,8 @@ final class JsonView(baseAnimationDelay: Duration) {
       ),
       "opponent" -> Json.obj(
         "color" -> opponent.color.name,
-        "ai" -> opponent.isAi
+        "ai" -> opponent.isAi,
+        "userId" -> opponent.userId
       ),
       "url" -> Json.obj(
         "pov" -> s"/$fullId",
@@ -64,6 +69,10 @@ final class JsonView(baseAnimationDelay: Duration) {
     Json.obj(
       "game" -> Json.obj(
         "id" -> gameId,
+        "variant" -> game.variant.key,
+        "speed" -> game.speed.key,
+        "perf" -> PerfPicker.key(game),
+        "rated" -> game.rated,
         "started" -> game.started,
         "finished" -> game.finishedOrAborted,
         "clock" -> game.hasClock,
@@ -95,6 +104,8 @@ final class JsonView(baseAnimationDelay: Duration) {
   }
 
   private def clockJson(clock: Clock) = Json.obj(
+    "initial" -> clock.limit,
+    "increment" -> clock.increment,
     "white" -> clock.remainingTime(Color.White),
     "black" -> clock.remainingTime(Color.Black),
     "emerg" -> clock.emergTime

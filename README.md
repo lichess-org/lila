@@ -182,13 +182,16 @@ name | type | default | description
 {
   "list": [
     {
-      "id": "x2kpaixn",
-      "rated": false,
+      "id": "39b12Ikl",
+      "variant": "chess960", // standard/chess960/fromPosition/kingOfTheHill/threeCheck
+      "speed": "blitz", // bullet|blitz|classical|unlimited
+      "perf": "chess960", // bullet|blitz|classical|chess960|kingOfTheHill|threeCheck
+      "rated": true,
       "status": "mate", // (1)
       "clock":{          // all clock values are expressed in seconds
-        "limit": 300,
+        "initial": 300,
         "increment": 8,
-        "totalTime": 540  // evaluation of the game duration = limit + 30 * increment
+        "totalTime": 540  // evaluation of the game duration = initial + 30 * increment
       },
       "timestamp": 1389100907239,
       "turns": 44,
@@ -248,13 +251,16 @@ name | type | default | description
 
 ```javascript
 {
-  "id": "x2kpaixn",
-  "rated": false,
+  "id": "39b12Ikl",
+  "variant": "chess960", // standard/chess960/fromPosition/kingofthehill/threeCheck
+  "speed": "blitz", // bullet|blitz|classical|unlimited
+  "perf": "chess960", // bullet|blitz|classical|chess960|kingOfTheHill|threeCheck
+  "rated": true,
   "status": "mate", // (1)
   "clock":{          // all clock values are expressed in seconds
-    "limit": 300,
+    "initial": 300,
     "increment": 8,
-    "totalTime": 540  // evaluation of the game duration = limit + 30 * increment
+    "totalTime": 540  // evaluation of the game duration = initial + 30 * increment
   },
   "timestamp": 1389100907239,
   "turns": 44,
