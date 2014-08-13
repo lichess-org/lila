@@ -9,7 +9,7 @@ import lila.db.api._
 import lila.db.Implicits._
 import lila.game.Game.{ BSONFields => G }
 import lila.game.tube.gameTube
-import lila.game.{ Game, PgnDump }
+import lila.game.{ Game, PgnDump, PerfPicker }
 import lila.hub.actorApi.{ router => R }
 import makeTimeout.short
 
@@ -74,7 +74,9 @@ private[api] final class GameApi(
     withMoveTimes: Boolean = false) = Json.obj(
     "id" -> g.id,
     "rated" -> g.rated,
-    "variant" -> g.variant.name,
+    "variant" -> g.variant.key,
+    "speed" -> g.speed.key,
+    "perf" -> PerfPicker.key(g),
     "timestamp" -> g.createdAt.getDate,
     "turns" -> g.turns,
     "status" -> g.status.name.toLowerCase,
