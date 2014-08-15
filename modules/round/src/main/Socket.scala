@@ -10,6 +10,7 @@ import play.api.libs.json._
 
 import actorApi._
 import lila.common.LightUser
+import lila.game.actorApi.UserStartGame
 import lila.game.Event
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.TimeBomb
@@ -26,8 +27,6 @@ private[round] final class Socket(
     socketTimeout: Duration,
     disconnectTimeout: Duration,
     ragequitTimeout: Duration) extends SocketActor[Member](uidTimeout) {
-
-  context.system.lilaBus.subscribe(self, 'chatOut)
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -51,6 +50,10 @@ private[round] final class Socket(
 
   private val whitePlayer = new Player(White)
   private val blackPlayer = new Player(Black)
+
+  override def preStart() {
+    refreshSubscriptions
+  }
 
   def receiveSpecific = {
 
@@ -79,13 +82,14 @@ private[round] final class Socket(
 
     case IsGone(color) => sender ! playerGet(color, _.isGone)
 
-    case Join(uid, user, version, color, playerId, ip) => {
+    case Join(uid, user, version, color, playerId, ip, userTv) => {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, color, playerId, ip)
+      val member = Member(channel, user, color, playerId, ip, userTv = userTv)
       addMember(uid, member)
       notifyCrowd
       playerDo(color, _.ping)
       sender ! Connected(enumerator, member)
+      if (member.userTv.isDefined) refreshSubscriptions
     }
 
     case Nil                  =>
@@ -100,14 +104,20 @@ private[round] final class Socket(
 
     case lila.hub.actorApi.setup.DeclineChallenge(_) => notifyAll("declined", JsNull)
 
-    case Quit(uid) => {
-      quit(uid)
-      notifyCrowd
-    }
+    case Quit(uid) =>
+      members get uid foreach { member =>
+        quit(uid)
+        notifyCrowd
+        if (member.userTv.isDefined) refreshSubscriptions
+      }
 
     case ChangeFeatured(_, html) =>
       val msg = makeMessage("featured", Json.obj("html" -> html.toString))
       watchers.foreach(_.channel push msg)
+
+    case UserStartGame(userId, game) => watchers filter (_ onUserTv userId) foreach {
+      _.channel push makeMessage("reloadPage")
+    }
   }
 
   def notifyCrowd {
@@ -158,5 +168,13 @@ private[round] final class Socket(
 
   private def playerDo(color: Color, effect: Player => Unit) {
     effect(color.fold(whitePlayer, blackPlayer))
+  }
+
+  private def refreshSubscriptions {
+    context.system.lilaBus.unsubscribe(self)
+    context.system.lilaBus.subscribe(self, 'chatOut)
+    watchers.flatMap(_.userTv).toList.distinct foreach { userId =>
+      context.system.lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
+    }
   }
 }

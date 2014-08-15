@@ -29,15 +29,20 @@
 <table class="actions">
   <tbody>
     <tr>
+      <td>
+        <a class="button hint--bottom" data-hint="Watch games" href="@routes.User.tv(u.username)">
+          <span data-icon="1"></span>
+        </a>
+      </td>
       @if(!blocked) {
       <td>
-        <a class="button" href="@routes.Message.form()?user=@u.id" href="#">
-          <span data-icon="c">&nbsp;@trans.chat()</span>
+        <a class="button hint--bottom" data-hint="@trans.chat()" href="@routes.Message.form()?user=@u.username">
+          <span data-icon="c"></span>
         </a>
       </td>
       <td>
-        <a class="button" href="@routes.Lobby.home()?user=@u.username#friend" href="#">
-          <span data-icon="U">&nbsp;@trans.play()</span>
+        <a class="button hint--bottom" data-hint="@trans.play()" href="@routes.Lobby.home()?user=@u.username#friend">
+          <span data-icon="U"></span>
         </a>
       </td>
       }

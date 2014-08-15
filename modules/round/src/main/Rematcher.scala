@@ -15,6 +15,7 @@ import makeTimeout.short
 
 private[round] final class Rematcher(
     messenger: Messenger,
+    onStart: String => Unit,
     rematch960Cache: ExpireSetMemo) {
 
   def yes(pov: Pov): Fu[Events] = pov match {
@@ -52,7 +53,10 @@ private[round] final class Rematcher(
         if (pov.game.variant == Variant.Chess960 && !rematch960Cache.get(pov.game.id))
           rematch960Cache.put(nextId)
       }
-  } yield redirectEvents(nextGame)
+  } yield {
+    onStart(nextGame.id)
+    redirectEvents(nextGame)
+  }
 
   private def rematchCreate(pov: Pov): Fu[Events] = GameRepo save {
     messenger.system(pov.game, _.rematchOfferSent)

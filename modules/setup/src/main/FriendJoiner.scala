@@ -8,7 +8,9 @@ import lila.game.{ GameRepo, Game, Pov, Event, Progress, AnonCookie, PerfPicker 
 import lila.user.User
 import makeTimeout.short
 
-private[setup] final class FriendJoiner(friendConfigMemo: FriendConfigMemo) {
+private[setup] final class FriendJoiner(
+    friendConfigMemo: FriendConfigMemo,
+    onStart: String => Unit) {
 
   def apply(game: Game, user: Option[User]): Valid[Fu[(Pov, List[Event])]] =
     game.notStarted option {
@@ -28,6 +30,9 @@ private[setup] final class FriendJoiner(friendConfigMemo: FriendConfigMemo) {
           p2.game fullIdOf !color,
           AnonCookie.json(p2.game, !color))
         _ ← GameRepo save p3
-      } yield Pov(p3.game, color) -> p3.events
+      } yield {
+        onStart(p3.game.id)
+        Pov(p3.game, color) -> p3.events
+      }
     } toValid "Can't join started game " + game.id
 }

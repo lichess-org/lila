@@ -7,11 +7,11 @@ import lila.app._
 import lila.app.mashup.GameFilterMenu
 import lila.common.LilaCookie
 import lila.db.api.$find
-import lila.game.GameRepo
+import lila.game.{ GameRepo, Pov }
+import lila.rating.PerfType
 import lila.security.Permission
 import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
-import lila.rating.PerfType
 import views._
 
 object User extends LilaController {
@@ -20,6 +20,17 @@ object User extends LilaController {
   private def gamePaginator = Env.game.paginator
   private def forms = lila.user.DataForm
   private def relationApi = Env.relation.api
+
+  def tv(username: String) = Open { implicit ctx =>
+    OptionFuResult(UserRepo named username) { user =>
+      (GameRepo nowPlaying user.id) orElse
+        (GameRepo lastPlayed user.id) flatMap {
+          _.flatMap { Pov(_, user) }.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
+            Round.watch(pov, userTv = user.some)
+          }
+        }
+    }
+  }
 
   def show(username: String) = Open { implicit ctx =>
     filter(username, none, 1)

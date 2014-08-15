@@ -1,4 +1,4 @@
-@(pov: Pov, tour: Option[lila.tournament.Tournament], withTourStanding: Boolean)(implicit ctx: Context)
+@(pov: Pov, tour: Option[lila.tournament.Tournament], withTourStanding: Boolean, userTv: Option[User] = None)(implicit ctx: Context)
 
 @import pov._
 @import lila.tournament.arena
@@ -57,6 +57,12 @@
     }
   </div>
 
+  @userTv.map { u =>
+  <div class="side_box">
+    <h2 class="top user_tv" data-user-tv="@u.id" data-icon="1">&nbsp;@u.titleUsername</h2>
+  </div>
+  }
+
   @tour match {
   case Some(t: lila.tournament.StartedOrFinished) => {
   <div class="game_tournament side_box no_padding scroll-shadow-soft">
@@ -79,8 +85,8 @@
         t scoreSheet player,
         // TODO FIXME that's a little ugly I must say.
         t.system.scoringSystem match {
-            case ss @ arena.ScoringSystem => ss.scoreSheet(t, player.id).onFire
-            case _                        => false
+        case ss @ arena.ScoringSystem => ss.scoreSheet(t, player.id).onFire
+        case _                        => false
         })) {
         case (scoreSheet, onFire) => {
         <tr @if(ctx.userId.exists(player.id==)) { class="me" }>

@@ -61,7 +61,7 @@ final class Bus(system: ActorSystem) extends Extension with EventBus {
     type Event = Bus.Event
     type Classifier = Symbol
 
-    override def mapSize() = 16
+    override protected val mapSize = 2048
 
     def classify(event: Event): Symbol = event.channel
 

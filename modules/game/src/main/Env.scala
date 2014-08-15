@@ -81,6 +81,18 @@ final class Env(
 
   def cli = new Cli(db, system)
 
+  def onStart(gameId: String) = GameRepo game gameId foreach {
+    _ foreach { game =>
+      // nobody needs it for now
+      // system.lilaBus.publish(actorApi.StartGame(game), 'startGame)
+      game.userIds foreach { userId =>
+        system.lilaBus.publish(
+          actorApi.UserStartGame(userId, game),
+          Symbol(s"userStartGame:$userId"))
+      }
+    }
+  }
+
   lazy val maintenance = new Maintenance(scheduler, hub.actor.bookmark)
 
   private def jsPath =

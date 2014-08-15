@@ -1003,7 +1003,8 @@ var storage = {
             name: "game"
           },
           params: {
-            ran: "--ranph--"
+            ran: "--ranph--",
+            userTv: $('.user_tv').data('user-tv')
           },
           events: {
             possibleMoves: function(event) {
@@ -1067,6 +1068,9 @@ var storage = {
                   $.redirect(event);
                 }, 400);
               });
+            },
+            reloadPage: function() {
+              lichess.reload();
             },
             threefoldRepetition: function() {
               self.element.queue(function() {

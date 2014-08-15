@@ -375,79 +375,82 @@ div.content_box .loader:after {
   cursor: pointer;
   border-width: 0 1px 0 0;
 }
+#powerTip > .actions a span::before {
+  font-size: 1.5em;
+}
 #powerTip > .actions td:last-child a {
   border-right: 0;
 }
-#powerTip:before,
-#hook:before {
+#powerTip::before,
+#hook::before {
   content: "";
   position: absolute;
 }
-#powerTip.n:before,
-#powerTip.s:before {
+#powerTip.n::before,
+#powerTip.s::before {
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   left: 50%;
   margin-left: -5px;
 }
-#powerTip.e:before,
-#powerTip.w:before {
+#powerTip.e::before,
+#powerTip.w::before {
   border-bottom: 5px solid transparent;
   border-top: 5px solid transparent;
   margin-top: -5px;
   top: 50%;
 }
-#powerTip.n:before {
+#powerTip.n::before {
   border-top: 10px solid #acacac;
   border-top: 10px solid rgba(172, 172, 172, 0.8);
   bottom: -10px;
 }
-#powerTip.e:before {
+#powerTip.e::before {
   border-right: 10px solid #acacac;
   border-right: 10px solid rgba(172, 172, 172, 0.8);
   left: -10px;
 }
-#powerTip.s:before {
+#powerTip.s::before {
   border-bottom: 10px solid #acacac;
   border-bottom: 10px solid rgba(172, 172, 172, 0.8);
   top: -10px;
 }
-#powerTip.w:before {
+#powerTip.w::before {
   border-left: 10px solid #acacac;
   border-left: 10px solid rgba(172, 172, 172, 0.8);
   right: -10px;
 }
-#powerTip.ne:before,
-#hook.ne:before,
-#powerTip.se:before {
+#powerTip.ne::before,
+#hook.ne::before,
+#powerTip.se::before {
   border-right: 10px solid transparent;
   border-left: 0;
   left: 10px;
 }
-#powerTip.nw:before,
-#powerTip.sw:before {
+#powerTip.nw::before,
+#powerTip.sw::before {
   border-left: 10px solid transparent;
   border-right: 0;
   right: 10px;
 }
-#powerTip.ne:before,
-#hook.ne:before,
-#powerTip.nw:before {
+#powerTip.ne::before,
+#hook.ne::before,
+#powerTip.nw::before {
   border-top: 10px solid #acacac;
   border-top: 10px solid rgba(172, 172, 172, 0.8);
   bottom: -10px;
 }
-#powerTip.se:before,
-#powerTip.sw:before {
+#powerTip.se::before,
+#powerTip.sw::before {
   border-bottom: 10px solid #acacac;
   border-bottom: 10px solid rgba(172, 172, 172, 0.8);
   top: -10px;
 }
-#powerTip.nw-alt:before,
-#powerTip.ne-alt:before,
-#hook.ne-alt:before,
-#powerTip.sw-alt:before,
-#powerTip.se-alt:before {
+#powerTip.nw-alt::before,
+#powerTip.ne-alt::before,
+#hook.ne-alt::before,
+#powerTip.sw-alt::before,
+#powerTip.se-alt::before {
   border-top: 10px solid #acacac;
   border-top: 10px solid rgba(172, 172, 172, 0.8);
   bottom: -10px;
@@ -455,24 +458,24 @@ div.content_box .loader:after {
   border-right: 5px solid transparent;
   left: 10px;
 }
-#powerTip.ne-alt:before,
-#hook.ne-alt:before {
+#powerTip.ne-alt::before,
+#hook.ne-alt::before {
   left: auto;
   right: 10px;
 }
-#powerTip.sw-alt:before,
-#powerTip.se-alt:before {
+#powerTip.sw-alt::before,
+#powerTip.se-alt::before {
   border-top: none;
   border-bottom: 10px solid #acacac;
   border-bottom: 10px solid rgba(172, 172, 172, 0.8);
   bottom: auto;
   top: -10px;
 }
-#powerTip.se-alt:before {
+#powerTip.se-alt::before {
   left: auto;
   right: 10px;
 }
-.clearfix:after {
+.clearfix::after {
   content: ".";
   display: block;
   height: 0;

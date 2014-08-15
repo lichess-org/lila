@@ -122,6 +122,9 @@ openGraph = Map(
       @if(isGranted(_.UserSpy)) {
       <a class="button mod_zone_toggle hint--bottom-left" href="@routes.User.mod(u.username)" data-hint="Mod zone"><span data-icon="n"></span></a>
       }
+      @if(!ctx.is(u)) {
+      <a class="button hint--bottom-left" href="@routes.User.tv(u.username)" data-hint="Watch games"><span data-icon="1"></span></a>
+      }
       @if(ctx.isAuth && !ctx.is(u)) {
       @relation.actions(u.id, relation = rel, followable = followable, blocked = blocked)
       <a data-hint="@trans.reportXToModerators(u.username)" class="button hint--bottom-left" href="@routes.Report.form?username=@u.username">

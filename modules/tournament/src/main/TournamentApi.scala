@@ -30,6 +30,7 @@ private[tournament] final class TournamentApi(
     socketHub: ActorRef,
     site: ActorSelection,
     lobby: ActorSelection,
+    onStart: String => Unit,
     roundMap: ActorRef) {
 
   def makePairings(oldTour: Started, pairings: NonEmptyList[Pairing], postEvents: Events) {
@@ -37,7 +38,7 @@ private[tournament] final class TournamentApi(
       TournamentRepo startedById oldTour.id flatMap {
         case Some(tour) =>
           val tour2 = tour addPairings pairings
-          val tour3 = if(postEvents.isEmpty) tour2 else { tour2 addEvents postEvents }
+          val tour3 = if (postEvents.isEmpty) tour2 else { tour2 addEvents postEvents }
 
           $update(tour3) >> (pairings map autoPairing(tour3)).sequence map {
             _.list foreach { game =>
@@ -87,7 +88,10 @@ private[tournament] final class TournamentApi(
       TournamentRepo createdById oldTour.id flatMap {
         case Some(created) =>
           val started = created.start
-          $update(started) >>- sendTo(started.id, Start) >>- reloadSiteSocket >>- lobbyReload
+          $update(started) >>-
+            sendTo(started.id, Start) >>-
+            reloadSiteSocket >>-
+            lobbyReload >>- onStart(created.id)
         case None => fufail("Can't start missing tournament " + oldTour.id)
       }
     }

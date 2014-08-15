@@ -21,6 +21,7 @@ final class Env(
     lightUser: String => Option[lila.common.LightUser],
     isOnline: String => Boolean,
     isDev: Boolean,
+    onStart: String => Unit,
     secondsToMove: Int,
     scheduler: lila.common.Scheduler) {
 
@@ -51,6 +52,7 @@ final class Env(
     socketHub = socketHub,
     site = hub.socket.site,
     lobby = hub.socket.lobby,
+    onStart = onStart,
     roundMap = roundMap)
 
   lazy val socketHandler = new SocketHandler(
@@ -148,6 +150,7 @@ object Env {
     lightUser = lila.user.Env.current.lightUser,
     isOnline = lila.user.Env.current.isOnline,
     isDev = lila.common.PlayApp.isDev,
+    onStart = lila.game.Env.current.onStart,
     secondsToMove = lila.game.Env.current.MandatorySecondsToMove,
     scheduler = lila.common.PlayApp.scheduler)
 }

@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, chat: Option[lila.chat.UserChat], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable])(implicit ctx: Context)
+@(pov: Pov, version: Int, chat: Option[lila.chat.UserChat], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], userTv: Option[User] = None)(implicit ctx: Context)
 
 @import pov._
 
@@ -6,7 +6,7 @@
 
 @round.layout(
 title = title,
-side = views.html.game.side(pov, tour, withTourStanding = false),
+side = views.html.game.side(pov, tour, withTourStanding = false, userTv = userTv),
 chat = chat.map(c => base.chat(c, trans.spectatorRoom.str())),
 underchat = views.html.game.watchers().some,
 openGraph = povOpenGraph(pov)) {

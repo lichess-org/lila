@@ -215,10 +215,13 @@ trait GameRepo {
 
   def nowPlaying(userId: String): Fu[Option[Game]] =
     $find.one(Query.status(Status.Started) ++ Query.user(userId) ++ Json.obj(
-      F.createdAt -> $gt($date(DateTime.now - 30.minutes))
+      F.createdAt -> $gt($date(DateTime.now - 1.hour))
     ))
 
   def isNowPlaying(userId: String): Fu[Boolean] = nowPlaying(userId) map (_.isDefined)
+
+  def lastPlayed(userId: String): Fu[Option[Game]] =
+    $find($query(Query user userId) sort ($sort desc F.createdAt), 1) map (_.headOption)
 
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
     import reactivemongo.bson._

@@ -16,7 +16,8 @@ import org.joda.time.DateTime
 
 private[lobby] final class Lobby(
     socket: ActorRef,
-    blocking: String => Fu[Set[String]]) extends Actor {
+    blocking: String => Fu[Set[String]],
+    onStart: String => Unit) extends Actor {
 
   def receive = {
 
@@ -50,7 +51,8 @@ private[lobby] final class Lobby(
       Biter(hook, uid, user) pipeTo self
     }
 
-    case msg@JoinHook(_, hook, _, _) => {
+    case msg@JoinHook(_, hook, game, _) => {
+      onStart(game.id)
       socket ! msg
       remove(hook)
     }

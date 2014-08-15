@@ -19,6 +19,7 @@ private[setup] final class Processor(
     lobby: ActorSelection,
     friendConfigMemo: FriendConfigMemo,
     router: ActorSelection,
+    onStart: String => Unit,
     aiPlay: Game => Fu[Progress]) {
 
   def filter(config: FilterConfig)(implicit ctx: UserContext): Funit =
@@ -27,7 +28,8 @@ private[setup] final class Processor(
   def ai(config: AiConfig)(implicit ctx: UserContext): Fu[Pov] = {
     val pov = blamePov(config.pov, ctx.me)
     saveConfig(_ withAi config) >>
-      (GameRepo insertDenormalized pov.game) >>
+      (GameRepo insertDenormalized pov.game) >>-
+      onStart(pov.game.id) >>
       pov.game.player.isHuman.fold(
         fuccess(pov),
         aiPlay(pov.game) map { progress => pov withGame progress.game }

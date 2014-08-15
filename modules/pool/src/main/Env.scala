@@ -20,6 +20,7 @@ final class Env(
     hub: lila.hub.Env,
     roundMap: ActorRef,
     isOnline: String => Boolean,
+    onStart: String => Unit,
     secondsToMove: Int,
     scheduler: lila.common.Scheduler) {
 
@@ -71,6 +72,7 @@ final class Env(
   private lazy val joiner = new Joiner(
     roundMap = roundMap,
     system = system,
+    onStart = onStart,
     secondsToMove = secondsToMove)
 
   {
@@ -111,6 +113,7 @@ object Env {
     lightUser = lila.user.Env.current.lightUser,
     roundMap = lila.round.Env.current.roundMap,
     isOnline = lila.user.Env.current.isOnline,
+    onStart = lila.game.Env.current.onStart,
     secondsToMove = lila.game.Env.current.MandatorySecondsToMove,
     scheduler = lila.common.PlayApp.scheduler)
 }

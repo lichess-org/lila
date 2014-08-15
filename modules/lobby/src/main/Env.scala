@@ -11,6 +11,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
+    onStart: String => Unit,
     blocking: String => Fu[Set[String]],
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
@@ -35,7 +36,8 @@ final class Env(
 
   val lobby = system.actorOf(Props(new Lobby(
     socket = socket,
-    blocking = blocking
+    blocking = blocking,
+    onStart = onStart
   )), name = ActorName)
 
   lazy val socketHandler = new SocketHandler(
@@ -66,6 +68,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "lobby",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
+    onStart = lila.game.Env.current.onStart,
     blocking = lila.relation.Env.current.api.blocking,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)

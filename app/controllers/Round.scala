@@ -12,7 +12,7 @@ import lila.game.{ Pov, PlayerRef, GameRepo, Game => GameModel }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
 import lila.tournament.{ TournamentRepo, Tournament => Tourney }
-import lila.user.UserRepo
+import lila.user.{ User => UserModel, UserRepo }
 import makeTimeout.large
 import views._
 
@@ -24,7 +24,14 @@ object Round extends LilaController with TheftPrevention {
 
   def websocketWatcher(gameId: String, color: String) = Socket[JsValue] { implicit ctx =>
     (get("sri") |@| getInt("version")).tupled ?? {
-      case (uid, version) => env.socketHandler.watcher(gameId, color, version, uid, ctx.me, ctx.ip)
+      case (uid, version) => env.socketHandler.watcher(
+        gameId = gameId,
+        colorName = color,
+        version = version,
+        uid = uid,
+        user = ctx.me,
+        ip = ctx.ip,
+        userTv = get("userTv"))
     }
   }
 
@@ -73,11 +80,11 @@ object Round extends LilaController with TheftPrevention {
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
       if (pov.game.replayable) Analyse replay pov
-      else pov.game.joinable.fold(join _, watch _)(pov)
+      else pov.game.joinable.fold(join _, (pov: Pov) => watch(pov))(pov)
     }
   }
 
-  private def watch(pov: Pov)(implicit ctx: Context): Fu[Result] =
+  def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
     ctx.userId.flatMap(pov.game.playerByUserId).ifTrue(pov.game.playable) match {
       case Some(player) => fuccess(Redirect(routes.Round.player(pov.game fullIdOf player.color)))
       case None => env.version(pov.gameId) zip
@@ -87,7 +94,7 @@ object Round extends LilaController with TheftPrevention {
           Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
         }) map {
           case (((v, tour), crosstable), chat) =>
-            Ok(html.round.watcher(pov, v, chat, tour, crosstable))
+            Ok(html.round.watcher(pov, v, chat, tour, crosstable, userTv = userTv))
         }
     }
 

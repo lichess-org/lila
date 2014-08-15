@@ -1,6 +1,5 @@
 package lila.setup
 
-
 import akka.actor._
 import com.typesafe.config.{ Config => AppConfig }
 
@@ -12,6 +11,7 @@ final class Env(
     config: AppConfig,
     db: lila.db.Env,
     hub: lila.hub.Env,
+    onStart: String => Unit,
     aiPlay: Game => Fu[Progress],
     system: ActorSystem) {
 
@@ -31,9 +31,12 @@ final class Env(
     lobby = hub.actor.lobby,
     friendConfigMemo = friendConfigMemo,
     router = hub.actor.router,
+    onStart = onStart,
     aiPlay = aiPlay)
 
-  lazy val friendJoiner = new FriendJoiner(friendConfigMemo = friendConfigMemo)
+  lazy val friendJoiner = new FriendJoiner(
+    friendConfigMemo = friendConfigMemo,
+    onStart = onStart)
 
   lazy val friendConfigMemo = new FriendConfigMemo(ttl = FriendMemoTtl)
 
@@ -52,6 +55,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "setup",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
+    onStart = lila.game.Env.current.onStart,
     aiPlay = lila.round.Env.current.aiPlay,
     system = lila.common.PlayApp.system)
 }

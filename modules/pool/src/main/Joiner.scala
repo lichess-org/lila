@@ -13,6 +13,7 @@ import lila.user.{ User, UserRepo }
 final class Joiner(
     roundMap: ActorRef,
     system: ActorSystem,
+    onStart: String => Unit,
     secondsToMove: Int) {
 
   def apply(setup: PoolSetup, pairings: List[Pairing]): Fu[List[PairingWithGame]] =
@@ -41,9 +42,12 @@ final class Joiner(
       .updatePlayer(Color.White, _.withUser(user1.id, PerfPicker.mainOrDefault(game1)(user1.perfs)))
       .updatePlayer(Color.Black, _.withUser(user2.id, PerfPicker.mainOrDefault(game1)(user2.perfs)))
       .start
-    _ ← (GameRepo insertDenormalized game2) >>-
-      scheduleIdleCheck(PovRef(game2.id, Color.White), secondsToMove)
-  } yield game2
+    _ ← (GameRepo insertDenormalized game2)
+  } yield {
+    scheduleIdleCheck(PovRef(game2.id, Color.White), secondsToMove)
+    onStart(game2.id)
+    game2
+  }
 
   private def getUser(userId: String): Fu[User] =
     UserRepo byId userId flatten s"No user $userId"
