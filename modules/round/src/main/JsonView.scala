@@ -7,6 +7,7 @@ import play.api.libs.json.Json
 
 import lila.game.{ Pov, Game, PerfPicker }
 import lila.pref.Pref
+import lila.common.PimpedJson._
 
 import chess.format.Forsyth
 import chess.{ Color, Clock }
