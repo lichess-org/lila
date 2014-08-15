@@ -47,10 +47,7 @@ Response: `201 CREATED`
   "opponent": {
     "color": "black",
     "ai": false,
-    "user_id": "ozzie",       // request more info at /api/user/ozzie
-    "isOfferingRematch": false,
-    "isOfferingDraw": false,
-    "isProposingTakeback": false
+    "user_id": "ozzie"        // request more info at /api/user/ozzie
   },
   "possibleMoves": {          // list of moves you can play. Empty if not your turn to play.
     "a2": "a3a4",             // from a2, you can go on a3 or a4.

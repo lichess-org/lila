@@ -38,14 +38,17 @@ Response: `200 OK`
     "color": "white",
     "id": "ErMy",
     "spectator": false,
-    "version": 0
+    "version": 0,
+    "isOfferingRematch": true,  // field is missing when false
+    "isOfferingDraw": true,     // field is missing when false
+    "isProposingTakeback": true // field is missing when false
   },
   "opponent": {
     "ai": true,
     "color": "black",
-    "isOfferingRematch": false,
-    "isOfferingDraw": false,
-    "isProposingTakeback": false
+    "isOfferingRematch": true,  // field is missing when false
+    "isOfferingDraw": true,     // field is missing when false
+    "isProposingTakeback": true // field is missing when false
   },
   "possibleMoves": {          // list of moves you can play. Empty if not your turn to play.
     "a2": "a3a4",             // from a2, you can go on a3 or a4.
