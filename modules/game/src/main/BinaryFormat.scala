@@ -1,5 +1,6 @@
 package lila.game
 
+import org.joda.time.DateTime
 import scala.util.{ Try, Success, Failure }
 
 import chess._
@@ -54,11 +55,11 @@ object BinaryFormat {
     }.toVector
   }
 
-  object clock {
+  case class clock(since: DateTime) {
 
     def write(clock: Clock): ByteArray = ByteArray {
       def time(t: Float) = writeSignedInt24((t * 100).toInt)
-      def timer(seconds: Double) = writeLong40((seconds * 100).toLong)
+      def timer(seconds: Double) = writeTimer((seconds * 100).toLong)
       Array(writeInt8(clock.limit / 60), writeInt8(clock.increment)) ++
         time(clock.whiteTime) ++
         time(clock.blackTime) ++
@@ -66,8 +67,8 @@ object BinaryFormat {
     }
 
     def read(ba: ByteArray): Color => Clock = color => ba.value map toInt match {
-      case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13) =>
-        readLong40(b9, b10, b11, b12, b13) match {
+      case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12) =>
+        readTimer(b9, b10, b11, b12) match {
           case 0 => PausedClock(
             color = color,
             limit = b1 * 60,
@@ -82,7 +83,27 @@ object BinaryFormat {
             blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
             timer = timer.toDouble / 100)
         }
+      // compatibility with 5 bytes timers
+      // #TODO remove me!
+      case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, _) =>
+        PausedClock(
+          color = color,
+          limit = b1 * 60,
+          increment = b2,
+          whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
+          blackTime = readSignedInt24(b6, b7, b8).toFloat / 100)
       case x => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
+    }
+
+    private def decay = (since.getMillis / 10) - 10
+
+    private def writeTimer(long: Long) = {
+      val i = math.max(0, long - decay).toInt
+      Array(i >> 24, (i >> 16) & 255, (i >> 8) & 255, i & 255)
+    }
+    private def readTimer(b1: Int, b2: Int, b3: Int, b4: Int) = {
+      val l = (b1 << 24) + (b2 << 16) + (b3 << 8) + b4
+      if (l == 0) 0 else l + decay
     }
   }
 
@@ -202,19 +223,5 @@ object BinaryFormat {
   def readSignedInt24(b1: Int, b2: Int, b3: Int) = {
     val i = (b1 << 16) + (b2 << 8) + b3
     if (i > int23Max) int23Max - i else i
-  }
-
-  // this will break in 2046
-  private val long40Max = math.pow(2, 40).toLong
-  private val long40Decay = 100000000000l
-  def writeLong40(long: Long) = {
-    val truncated = long - long40Decay
-    if (truncated > long40Max) throw new Exception("long40 overflow!")
-    val i = math.max(0, math.min(long40Max, truncated))
-    Array(i >> 32, (i >> 24) & 255, (i >> 16) & 255, (i >> 8) & 255, i & 255) map (_.toInt)
-  }
-  def readLong40(b1: Int, b2: Int, b3: Int, b4: Int, b5: Int) = {
-    val l = (b1.toLong << 32) + (b2 << 24) + (b3 << 16) + (b4 << 8) + b5
-    if (l == 0) 0 else l + long40Decay
   }
 }

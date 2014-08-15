@@ -493,6 +493,7 @@ object Game {
         val win = winC map (_ == color)
         builder(color)(id)(uid)(win)
       }
+      val createdAtValue = r date createdAt
       Game(
         id = r str id,
         whitePlayer = player(whitePlayer, White, whiteId, whiteUid),
@@ -502,7 +503,7 @@ object Game {
         status = Status(r int status) err "Invalid status",
         turns = nbTurns,
         startedAtTurn = r intD startedAtTurn,
-        clock = r.getO[Color => Clock](clock) map (_(Color(0 == nbTurns % 2))),
+        clock = r.getO[Color => Clock](clock)(clockBSONHandler(createdAtValue)) map (_(Color(0 == nbTurns % 2))),
         positionHashes = r.bytesD(positionHashes).value,
         checkCount = {
           val counts = r.intsD(checkCount)
@@ -514,7 +515,7 @@ object Game {
         variant = Variant(r intD variant) | Variant.Standard,
         next = r strO next,
         bookmarks = r intD bookmarks,
-        createdAt = r date createdAt,
+        createdAt = createdAtValue,
         updatedAt = r dateO updatedAt,
         metadata = Metadata(
           source = r intO source flatMap Source.apply,
@@ -537,7 +538,7 @@ object Game {
       status -> o.status.id,
       turns -> o.turns,
       startedAtTurn -> w.intO(o.startedAtTurn),
-      clock -> (o.clock map { c => clockBSONHandler.write(_ => c) }),
+      clock -> (o.clock map { c => clockBSONHandler(o.createdAt).write(_ => c) }),
       positionHashes -> w.bytesO(o.positionHashes),
       checkCount -> o.checkCount.nonEmpty.option(o.checkCount),
       castleLastMoveTime -> castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
@@ -559,12 +560,12 @@ object Game {
 
   import lila.db.ByteArray.ByteArrayBSONHandler
 
-  implicit val clockBSONHandler = new BSONHandler[BSONBinary, Color => Clock] {
-    def read(bin: BSONBinary) = BinaryFormat.clock read {
+  def clockBSONHandler(since: DateTime) = new BSONHandler[BSONBinary, Color => Clock] {
+    def read(bin: BSONBinary) = BinaryFormat clock since read {
       ByteArrayBSONHandler read bin
     }
     def write(clock: Color => Clock) = ByteArrayBSONHandler write {
-      BinaryFormat.clock write clock(chess.White)
+      BinaryFormat clock since write clock(chess.White)
     }
   }
 }
