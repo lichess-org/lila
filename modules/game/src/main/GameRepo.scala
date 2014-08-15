@@ -18,13 +18,9 @@ import lila.db.ByteArray
 import lila.db.Implicits._
 import lila.user.User
 
-object GameRepo extends GameRepo {
-  protected def gameTube = tube.gameTube
-}
+object GameRepo {
 
-trait GameRepo {
-
-  protected implicit def gameTube: lila.db.BsTubeInColl[Game]
+  import tube.gameTube
 
   type ID = String
 
