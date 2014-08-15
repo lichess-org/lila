@@ -37,16 +37,19 @@ final class JsonView(baseAnimationDelay: Duration) {
         "id" -> playerId,
         "color" -> player.color.name,
         "version" -> version,
-        "spectator" -> false
-      ),
+        "spectator" -> false,
+        "isOfferingRematch" -> player.isOfferingRematch.option(true),
+        "isOfferingDraw" -> player.isOfferingDraw.option(true),
+        "isProposingTakeback" -> player.isProposingTakeback.option(true)
+      ).noNull,
       "opponent" -> Json.obj(
         "color" -> opponent.color.name,
         "ai" -> opponent.isAi,
         "userId" -> opponent.userId,
-        "isOfferingRematch" -> opponent.isOfferingRematch,
-        "isOfferingDraw" -> opponent.isOfferingDraw,
-        "isProposingTakeback" -> opponent.isProposingTakeback
-      ),
+        "isOfferingRematch" -> opponent.isOfferingRematch.option(true),
+        "isOfferingDraw" -> opponent.isOfferingDraw.option(true),
+        "isProposingTakeback" -> opponent.isProposingTakeback.option(true)
+      ).noNull,
       "url" -> Json.obj(
         "pov" -> s"/$fullId",
         "socket" -> s"/$fullId/socket/v$apiVersion",
