@@ -70,9 +70,13 @@ object Round extends LilaController with TheftPrevention {
           },
           Redirect(routes.Setup.await(fullId)).fuccess
         ),
-        api = apiVersion => Env.round version pov.gameId map { v =>
-          Ok(Env.round.jsonView.playerJson(pov, v, ctx.pref, apiVersion))
-        }
+        api = apiVersion => (Env.round version pov.gameId) zip
+          (pov.game.hasChat optionFu {
+            Env.chat.api.playerChat find pov.gameId map (_ forUser ctx.me)
+          }) map {
+            case (v, chat) =>
+              Ok(Env.round.jsonView.playerJson(pov, v, ctx.pref, chat, apiVersion))
+          }
       )
     }
   }

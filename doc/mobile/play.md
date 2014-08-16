@@ -76,6 +76,18 @@ Response: `200 OK`
     "socket": "/39b12IklErMy/socket/v1",
     "table": "/39b12IklErMy/table"
   },
+  "chat": {
+    "lines": [
+      {
+        "u": "legend",
+        "t": "Hi there, I'm logged in, my name is legend"
+      },
+      {
+        "c": "black",
+        "t": "Hello! I'm anonymous, playing with the black pieces"
+      }
+    ]
+  },
   "tournamentId": null
 }
 ```

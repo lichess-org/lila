@@ -3,18 +3,18 @@ package lila.round
 import scala.concurrent.duration._
 import scala.math.{ min, max, round }
 
-import play.api.libs.json.Json
+import play.api.libs.json._
 
+import lila.common.PimpedJson._
 import lila.game.{ Pov, Game, PerfPicker }
 import lila.pref.Pref
-import lila.common.PimpedJson._
 
 import chess.format.Forsyth
 import chess.{ Color, Clock }
 
 final class JsonView(baseAnimationDelay: Duration) {
 
-  def playerJson(pov: Pov, version: Int, pref: Pref, apiVersion: Int) = {
+  def playerJson(pov: Pov, version: Int, pref: Pref, chat: Option[lila.chat.MixedChat], apiVersion: Int) = {
     import pov._
     Json.obj(
       "game" -> Json.obj(
@@ -65,6 +65,16 @@ final class JsonView(baseAnimationDelay: Duration) {
         "clockBar" -> pref.clockBar,
         "enablePremove" -> pref.premove
       ),
+      "chat" -> chat.map { c =>
+        JsArray(c.lines map {
+          case lila.chat.UserLine(username, text, _) => Json.obj(
+            "u" -> username,
+            "t" -> text)
+          case lila.chat.PlayerLine(color, text) => Json.obj(
+            "c" -> color.name,
+            "t" -> text)
+        })
+      },
       "possibleMoves" -> possibleMoves(pov),
       "tournamentId" -> game.tournamentId,
       "poolId" -> game.poolId

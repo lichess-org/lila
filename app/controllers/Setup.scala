@@ -178,7 +178,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
           case (pov, call) => negotiate(
             html = fuccess(redirectPov(pov, call)),
             api = apiVersion => Env.round version pov.gameId map { v =>
-              Created(Env.round.jsonView.playerJson(pov, v, ctx.pref, apiVersion)) as JSON
+              Created(Env.round.jsonView.playerJson(pov, v, ctx.pref, chat = none, apiVersion)) as JSON
             }
           )
         }
