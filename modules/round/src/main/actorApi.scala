@@ -94,6 +94,7 @@ case object AiPlay
 case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 
 case class Abort(playerId: String)
+case object AbortForMaintenance
 case class Resign(playerId: String)
 case class ResignColor(color: Color)
 case class ResignForce(playerId: String)

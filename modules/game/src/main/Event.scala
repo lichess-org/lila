@@ -134,19 +134,16 @@ object Event {
     def typ = "threefoldRepetition"
   }
 
-  case class ReloadTable(color: Color) extends Event {
+  case class ReloadTable(color: Color) extends Empty {
     def typ = "reloadTable"
-    def data = JsNull
     override def only = Some(color)
   }
 
-  case object ReloadTables extends Event {
+  case object ReloadTables extends Empty {
     def typ = "reloadTable"
-    def data = JsNull
   }
-  case object ReloadTablesOwner extends Event {
+  case object ReloadTablesOwner extends Empty {
     def typ = "reloadTable"
-    def data = JsNull
     override def owner = true
   }
 

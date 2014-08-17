@@ -79,7 +79,7 @@ final class Env(
     }
   }
 
-  def cli = new Cli(db, system)
+  def cli = new Cli(db, system = system)
 
   def onStart(gameId: String) = GameRepo game gameId foreach {
     _ foreach { game =>

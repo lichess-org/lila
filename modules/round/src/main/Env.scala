@@ -139,6 +139,8 @@ final class Env(
 
   private lazy val cheatDetector = new CheatDetector(reporter = hub.actor.report)
 
+  lazy val cli = new Cli(db, roundMap = roundMap, system = system)
+
   lazy val messenger = new Messenger(
     socketHub = socketHub,
     chat = hub.actor.chat,

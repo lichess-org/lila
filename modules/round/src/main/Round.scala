@@ -148,6 +148,12 @@ private[round] final class Round(
         GameRepo save progress inject progress.events
       }
     }
+
+    case AbortForMaintenance => handle { game =>
+      messenger.system(game, (_.untranslated("Game aborted for server maintenance")))
+      messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
+      game.playable ?? finisher(game, _.Aborted)
+    }
   }
 
   private def outOfTime(game: Game)(p: lila.game.Player) =
