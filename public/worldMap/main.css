@@ -1,0 +1,41 @@
+body {
+  /* based on lichess dark theme */
+  font: 12px 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
+  color: #909090;
+  background: url("bluegrid.jpg") center repeat;
+  margin-top: 50px;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Trebuchet MS', 'Helvetica Neue', Arial, Sans-Serif;
+  font-size: 30px;
+  font-weight: normal;
+  margin-bottom: 50px;
+}
+
+h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a {
+  color: inherit;
+}
+
+.extension {
+  color: #606060;
+}
+
+.wrapL {
+  float: left;
+  margin-right: 20px;
+}
+
+.clear {
+  clear: both;
+}
+
+#stats {
+  position: absolute;
+}

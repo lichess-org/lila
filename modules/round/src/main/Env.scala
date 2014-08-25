@@ -46,7 +46,6 @@ final class Env(
     val CollectionReminder = config getString "collection.reminder"
     val CasualOnly = config getBoolean "casual_only"
     val ActiveTtl = config duration "active.ttl"
-    val StreamApiSalt = config getString "stream_api.salt"
   }
   import settings._
 
@@ -179,7 +178,6 @@ final class Env(
     uciMemo = uciMemo,
     prefApi = prefApi)
 
-  lazy val moveBroadcast = system.actorOf(Props(classOf[MoveBroadcast], StreamApiSalt))
   lazy val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
 }
 

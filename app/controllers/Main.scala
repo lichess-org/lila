@@ -40,12 +40,6 @@ object Main extends LilaController {
     }
   }
 
-  def stream = Action.async {
-    import lila.round.MoveBroadcast
-    Env.round.moveBroadcast ? MoveBroadcast.GetEnumerator mapTo
-      manifest[Enumerator[String]] map { e => Ok.feed(e) }
-  }
-
   def captchaCheck(id: String) = Open { implicit ctx =>
     Env.hub.actor.captcher ? ValidCaptcha(id, ~get("solution")) map {
       case valid: Boolean => Ok(valid fold (1, 0))
@@ -61,13 +55,13 @@ object Main extends LilaController {
 
   def developers = Open { implicit ctx =>
     fuccess {
-      views.html.site.developers()
+      html.site.developers()
     }
   }
 
   def irc = Open { implicit ctx =>
     ctx.me ?? Env.team.api.mine map {
-      views.html.site.irc(_)
+      html.site.irc(_)
     }
   }
 }

@@ -42,7 +42,7 @@ final class Env(
 
   lazy val forms = new DataForm(captcher = captcher)
 
-  private lazy val geoIP = new GeoIP(
+  lazy val geoIP = new GeoIP(
     file = GeoIPFile,
     cacheSize = GeoIPCacheSize)
 

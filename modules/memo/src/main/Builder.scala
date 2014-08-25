@@ -21,6 +21,12 @@ object Builder {
   def expiry[K, V](ttl: Duration): Cache[K, V] =
     cacheBuilder[K, V](ttl).build[K, V]
 
+  def size[K, V](max: Int): Cache[K, V] =
+    CacheBuilder.newBuilder()
+      .maximumSize(max)
+      .asInstanceOf[CacheBuilder[K, V]]
+      .build[K, V]
+
   private def cacheBuilder[K, V](ttl: Duration): CacheBuilder[K, V] =
     CacheBuilder.newBuilder()
       .expireAfterWrite(ttl, TimeUnit.MILLISECONDS)

@@ -35,7 +35,7 @@ object UserSpy {
     objs ← $find(Json.obj("user" -> user.id))
     ips = objs.flatMap(_ str "ip").distinct
     blockedIps ← (ips map firewall.blocksIp).sequenceFu
-    locations <- (ips map geoIP.apply).sequenceFu
+    locations <- scala.concurrent.Future { ips flatMap geoIP.apply }
     users ← explore(Set(user), Set.empty, Set(user))
   } yield UserSpy(
     ips = ips zip blockedIps zip locations map {

@@ -2,19 +2,11 @@ package lila.security
 
 import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
 
-import lila.memo.AsyncCache
-import scala.concurrent.Future
+final class GeoIP(file: String, cacheSize: Int) {
 
-private[security] final class GeoIP(file: String, cacheSize: Int) {
+  private val geoIp = MaxMindIpGeo(file, cacheSize)
 
-  private val geoIp = MaxMindIpGeo(file, 0)
-
-  private val cache = AsyncCache(
-    f = (ip: String) => Future { geoIp getLocation ip },
-    maxCapacity = cacheSize)
-
-  def apply(ip: String): Future[Location] =
-    cache(ip) map (_.fold(Location.unknown)(Location.apply))
+  def apply(ip: String): Option[Location] = geoIp getLocation ip map Location.apply
 }
 
 case class Location(

@@ -284,11 +284,14 @@ POST  /api/puzzle                      controllers.Puzzle.importBatch
 
 # Misc
 POST  /cli                             controllers.Cli.command
-GET   /captcha/$id<\w{8}>            controllers.Main.captchaCheck(id: String)
+GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id: String)
 GET   /developers                      controllers.Main.developers
 GET   /embed                           controllers.Main.embed
 GET   /irc                             controllers.Main.irc
-GET   /stream                          controllers.Main.stream
+
+# Map
+GET   /world-map                       controllers.WorldMap.index
+GET   /world-map/stream                controllers.WorldMap.stream
 
 # Pages
 GET   /thanks                          controllers.Page.thanks

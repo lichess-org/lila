@@ -15,14 +15,11 @@ case class VersionedEvent(
     watcher: Boolean,
     troll: Boolean) {
 
-  def jsFor(m: Member): JsObject = visibleBy(m).fold(
-    Json.obj(
-      "v" -> version,
-      "t" -> typ,
-      "d" -> data
-    ),
-    Json.obj("v" -> version)
-  )
+  def jsFor(m: Member): JsObject = if (visibleBy(m)) {
+    if (data == JsNull) Json.obj("v" -> version, "t" -> typ)
+    else Json.obj("v" -> version, "t" -> typ, "d" -> data)
+  }
+  else Json.obj("v" -> version)
 
   private def visibleBy(m: Member): Boolean =
     if (watcher && m.owner) false

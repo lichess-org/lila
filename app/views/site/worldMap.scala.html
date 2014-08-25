@@ -1,0 +1,31 @@
+@()
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Lichess World Map</title>
+    <link rel="shortcut icon" href="@routes.Assets.at("images/favicon-32-white.png")" type="image/x-icon" />
+    @cssAt("worldMap/main.css")
+  </head>
+  <body>
+    <h1><a href="http://lichess.org">lichess<span class="extension">.org</span></a> activity</h1>
+    <div id="worldmap"></div>
+    <div id="stats">
+      <div class="wrapL">
+        <div id="time">time: <span></span></div>
+        <div id="moves">moves: <span></span></div>
+        <div id="countries">countries: <span></span></div>
+      </div>
+      <div class="wrapL">
+        <div id="topCountries"></div>
+      </div>
+    </div>
+    @jQueryTag
+    @jsAt("worldMap/raphael-min.js")
+    @jsAt("worldMap/world.js")
+    @jsAt("worldMap/time.js")
+    @jsAt("worldMap/app.js")
+    @jsAt("worldMap/stats.js")
+  </body>
+</html>
