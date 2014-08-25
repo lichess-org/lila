@@ -18,9 +18,6 @@ private[api] final class GameApi(
     apiToken: String,
     pgnDump: PgnDump) {
 
-  private def makeNb(token: Option[String], nb: Option[Int]) =
-    math.min(check(token) ? 200 | 10, nb | 10)
-
   def list(
     username: Option[String],
     rated: Option[Boolean],
@@ -33,7 +30,7 @@ private[api] final class GameApi(
     G.rated -> rated.map(_.fold(JsBoolean(true), $exists(false))),
     G.analysed -> analysed.map(_.fold(JsBoolean(true), $exists(false))),
     G.variant -> check(token).option($nin(Game.unanalysableVariants.map(_.id)))
-  ).noNull) sort lila.game.Query.sortCreated, makeNb(token, nb)) flatMap
+  ).noNull) sort lila.game.Query.sortCreated, math.min(200, nb)) flatMap
     gamesJson(withAnalysis, token) map { games =>
       Json.obj("list" -> games)
     }
