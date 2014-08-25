@@ -1,5 +1,5 @@
 playWithAFriend=和朋友下棋
-playWithTheMachine=和电脑下棋
+playWithTheMachine=和机器下棋
 toInviteSomeoneToPlayGiveThisUrl=要邀请别人下棋，请给他这个网址
 gameOver=游戏结束
 waitingForOpponent=等待对手
@@ -12,7 +12,7 @@ toggleSound=声音开关
 chat=聊天
 resign=认输
 checkmate=将死
-stalemate=和棋
+stalemate=僵局
 white=白方
 black=黑方
 randomColor=随机选色
