@@ -290,4 +290,4 @@ retryThisPuzzle=أعد لعب هذا اللغز
 thisPuzzleIsCorrect=هذا اللغز صحيح وممتع
 thisPuzzleIsWrong=هذا اللغز خطأ وممل
 youHaveNbSecondsToMakeYourFirstMove=لديك %s  ثانية لتقوم بأول نقلة
-nbGamesInPlay=لعبة جارية حالياً %s
+nbGamesInPlay=%s لعبة جارية
