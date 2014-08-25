@@ -290,3 +290,4 @@ retryThisPuzzle=Reyna aftur við þessa þraut
 thisPuzzleIsCorrect=Þessi þraut er rétt og áhugaverð
 thisPuzzleIsWrong=Þessi þraut er röng eða leiðinleg
 youHaveNbSecondsToMakeYourFirstMove=Þú hefur %s sekúndur til þess að leika fyrsta leik!
+nbGamesInPlay=%s leikir í gangi
