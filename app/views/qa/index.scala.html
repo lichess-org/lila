@@ -6,6 +6,7 @@
 
 @layout(
 title = "Questions & Answers",
+moreJs = jsTag("vendor/jquery.infinitescroll.min.js"),
 side = side.some) {
 
 <div class="content_box_top">
@@ -16,16 +17,16 @@ side = side.some) {
     @searchForm()
   </div>
 </div>
-<div class="infinitescroll">
-  <table class="previews slist">
+<table class="previews slist">
+  <tbody class="infinitescroll">
     @questions.currentPageResults.map { q =>
     @questionPreview(q)
     }
-  </table>
-  <div class="navigation">
     @questions.nextPage.map { next =>
-    <a class="next" href="@routes.QaQuestion.index(next.some)">Next</a>
+    <tr><th class="pager none">
+        <a href="@routes.QaQuestion.index(next.some)">Next</a>
+    </th></tr>
     }
-  </div>
-</div>
+  </tbody>
+</table>
 }

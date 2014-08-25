@@ -1,6 +1,6 @@
 @(q: lila.qa.Question, a: Option[lila.qa.Answer] = None)
 
-<tr>
+<tr class="paginated_element">
   <td class="meat">
     <div class="tags">@tags(q.tags)</div>
     @a.map { ans =>
