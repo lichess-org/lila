@@ -30,7 +30,7 @@ private[api] final class GameApi(
     G.rated -> rated.map(_.fold(JsBoolean(true), $exists(false))),
     G.analysed -> analysed.map(_.fold(JsBoolean(true), $exists(false))),
     G.variant -> check(token).option($nin(Game.unanalysableVariants.map(_.id)))
-  ).noNull) sort lila.game.Query.sortCreated, math.min(200, nb)) flatMap
+  ).noNull) sort lila.game.Query.sortCreated, math.min(200, nb | 10)) flatMap
     gamesJson(withAnalysis, token) map { games =>
       Json.obj("list" -> games)
     }

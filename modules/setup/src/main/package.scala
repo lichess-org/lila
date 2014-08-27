@@ -14,10 +14,10 @@ package object setup extends PackageObject with WithPlay with WithSocket {
 
     private[setup] implicit lazy val filterConfigTube = FilterConfig.tube
 
-    private[setup] implicit lazy val userConfigTube = 
+    private[setup] implicit lazy val userConfigTube =
       UserConfig.tube inColl Env.current.userConfigColl
 
-    private[setup] implicit lazy val anonConfigTube = 
+    private[setup] implicit lazy val anonConfigTube =
       UserConfig.tube inColl Env.current.anonConfigColl
   }
 }
