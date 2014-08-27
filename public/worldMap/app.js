@@ -40,7 +40,7 @@ $(function() {
 
   if ( !! window.EventSource) {
     var density = {};
-    var source = new EventSource("/stream");
+    var source = new EventSource("/world-map/stream");
 
     source.addEventListener('message', function(e) {
       var data = JSON.parse(e.data);
