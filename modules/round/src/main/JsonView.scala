@@ -45,7 +45,7 @@ final class JsonView(baseAnimationDelay: Duration) {
       ).noNull,
       "opponent" -> Json.obj(
         "color" -> opponent.color.name,
-        "ai" -> opponent.isAi,
+        "ai" -> opponent.aiLevel,
         "userId" -> opponent.userId,
         "isOfferingRematch" -> opponent.isOfferingRematch.option(true),
         "isOfferingDraw" -> opponent.isOfferingDraw.option(true),
@@ -98,13 +98,14 @@ final class JsonView(baseAnimationDelay: Duration) {
         "turns" -> game.turns,
         "startedAtTurn" -> game.startedAtTurn,
         "lastMove" -> game.castleLastMoveTime.lastMoveString),
+      "clock" -> game.clock.map(clockJson),
       "player" -> Json.obj(
         "color" -> color.name,
         "version" -> version,
         "spectator" -> true),
       "opponent" -> Json.obj(
         "color" -> opponent.color.name,
-        "ai" -> opponent.isAi),
+        "ai" -> opponent.aiLevel),
       "url" -> Json.obj(
         "socket" -> s"/$gameId/${color.name}/socket",
         "end" -> s"/$gameId/${color.name}/end",
