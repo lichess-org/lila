@@ -815,20 +815,27 @@ var storage = {
   });
 
   $.sound = (function() {
-    var baseUrl = $('body').data('sound-dir');
-    var makeAudio = function(file, volume) {
-      var a = new Audio(baseUrl + '/' + file);
-      a.volume = volume;
-      return a;
-    };
+    var baseUrl = $('body').data('sound-dir') + '/';
+    var a = new Audio();
+    var hasOgg = !!a.canPlayType && a.canPlayType('audio/ogg; codecs="vorbis"');
+    var hasMp3 = !!a.canPlayType && a.canPlayType('audio/mpeg;');
+    var ext = hasOgg ? 'ogg' : 'mp3';
     var audio = {
-      dong: makeAudio('dong.ogg', 1),
-      moveW: makeAudio('move.ogg', 0.6),
-      moveB: makeAudio('move.ogg', 0.6),
-      take: makeAudio('take.ogg', 0.6)
+      dong: new Audio(baseUrl + 'dong.ogg'),
+      moveW: new Audio(baseUrl + 'wood_light_hit_1.' + ext),
+      moveB: new Audio(baseUrl + 'wood_light_hit_3.' + ext),
+      take: new Audio(baseUrl + 'wood_capture_hit_and_roll.' + ext)
     };
-    var canPlay = !!audio.moveW.canPlayType && audio.moveW.canPlayType('audio/ogg; codecs="vorbis"');
-    var $toggle = $('#sound_state').toggleClass('sound_state_on', storage.get('sound') == 1);
+    var volumes = {
+      dong: 0.6,
+      moveW: 0.7,
+      moveB: 1,
+      take: 0.1
+    };
+    var canPlay = hasOgg || hasMp3;
+    var $control = $('#sound_control');
+    var $toggle = $('#sound_state');
+    $control.add($toggle).toggleClass('sound_state_on', storage.get('sound') == 1);
     var enabled = function() {
       return $toggle.hasClass("sound_state_on");
     };
@@ -849,14 +856,42 @@ var storage = {
         if (shouldPlay()) audio.dong.play();
       }
     };
-    if (canPlay) $toggle.click(function() {
-      $toggle.toggleClass('sound_state_on', !enabled());
-      if (enabled()) storage.set('sound', 1);
-      else storage.remove('sound');
-      play.dong();
-      return false;
-    });
-    else $toggle.addClass('unavailable');
+    var getVolume = function() {
+      return storage.get('sound-volume') || 0.8;
+    };
+    var setVolume = function(v) {
+      storage.set('sound-volume', v);
+      _.each(audio, function(a, k) {
+        a.volume = v * volumes[k];
+      });
+    };
+    var manuallySetVolume = _.debounce(function(v) {
+      setVolume(v);
+      play.move(true);
+    }, 100);
+    setVolume(getVolume());
+    if (canPlay) {
+      $toggle.click(function() {
+        $control.add($toggle).toggleClass('sound_state_on', !enabled());
+        if (enabled()) storage.set('sound', 1);
+        else storage.remove('sound');
+        play.dong();
+        return false;
+      });
+      $toggle.one('mouseover', function() {
+        $toggle.parent().find('.slider').slider({
+          orientation: "vertical",
+          min: 0,
+          max: 1,
+          range: 'min',
+          step: 0.01,
+          value: getVolume(),
+          slide: function(e, ui) {
+            manuallySetVolume(ui.value);
+          }
+        });
+      });
+    } else $toggle.addClass('unavailable');
 
     return play;
   })();
@@ -2628,7 +2663,7 @@ var storage = {
         html += '<span class="clock nope">∞</span>';
       }
       html += '<span class="mode">' +
-      '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' + $.trans(hook.mode) + '</span>';
+        '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' + $.trans(hook.mode) + '</span>';
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
       html += '<span class="is2" data-icon="' + k + '"></span>';
       return html;

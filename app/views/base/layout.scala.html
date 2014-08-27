@@ -52,10 +52,13 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
     <div id="top" class="clearfix">
       @if(!zen) {
-      <button data-hint="@trans.toggleSound()" id="sound_state" class="a available hint--bottom-left">
-        <span class="is2 on" data-icon="#"></span>
-        <span class="is2 off" data-icon="$"></span>
-      </button>
+      <div id="sound_control">
+        <button id="sound_state" class="a available hint--bottom-left">
+          <span class="is2 on" data-icon="#"></span>
+          <span class="is2 off" data-icon="$"></span>
+        </button>
+        <div class="dropdown"><div class="slider"></div></div>
+      </div>
       }
       @if(!zen) {
       @siteMenu.all(ctx.me).map { elem =>
