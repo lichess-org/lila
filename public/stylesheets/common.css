@@ -1392,6 +1392,7 @@ div.game_row div.versus {
 }
 div.game_row div.versus {
   margin: 15px 0 0 -52px;
+  width: 528px;
 }
 div.game_row div.versus > div {
   float: left;
