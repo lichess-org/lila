@@ -46,6 +46,10 @@ object Account extends LilaController {
               "nowPlaying" -> JsArray(nowPlaying map { pov =>
                 Json.obj(
                   "id" -> pov.fullId,
+                  "variant" -> pov.game.variant.key,
+                  "speed" -> pov.game.speed.key,
+                  "perf" -> PerfPicker.key(pov.game),
+                  "rated" -> pov.game.rated,
                   "opponent" -> Json.obj(
                     "id" -> pov.opponent.userId,
                     "username" -> lila.game.Namer.playerString(pov.opponent, withRating = false)(Env.user.lightUser),

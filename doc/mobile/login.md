@@ -29,6 +29,10 @@ Set-Cookie: lila2="3b5cc8c80f0af258a31dc4fd1b5381cabe7388c7-sessionId=80q7V5stkK
   "nowPlaying": [                           // list of games waiting for your move
     {
       "id": "abcdefgh1234",
+      "variant": "chess960", // standard/chess960/fromPosition/kingOfTheHill/threeCheck
+      "speed": "blitz", // bullet|blitz|classical|unlimited
+      "perf": "chess960", // bullet|blitz|classical|chess960|kingOfTheHill|threeCheck
+      "rated": true,
       "opponent": {
         "id": "supercopter",
         "username": "SuperCopter",
