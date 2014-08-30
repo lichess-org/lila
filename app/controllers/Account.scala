@@ -48,7 +48,7 @@ object Account extends LilaController {
                   "id" -> pov.fullId,
                   "variant" -> pov.game.variant.key,
                   "speed" -> pov.game.speed.key,
-                  "perf" -> PerfPicker.key(pov.game),
+                  "perf" -> lila.game.PerfPicker.key(pov.game),
                   "rated" -> pov.game.rated,
                   "opponent" -> Json.obj(
                     "id" -> pov.opponent.userId,
