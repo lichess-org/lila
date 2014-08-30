@@ -88,6 +88,7 @@ private[api] final class GameApi(
       case (p, i) => p.color.name -> Json.obj(
         "userId" -> p.userId,
         "rating" -> p.rating,
+        "ratingDiff" -> p.ratingDiff,
         "moveTimes" -> withMoveTimes.fold(
           g.moveTimes.zipWithIndex.filter(_._2 % 2 == i).map(_._1),
           JsNull),
