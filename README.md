@@ -176,6 +176,7 @@ name | type | default | description
 **analysed** | 1 or 0 | - | filter only analysed (or not analysed) games
 **nb** | int | 10 | maximum number of games to return
 **with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
+**with_moves** | 1 or 0 | 0 | include a list of PGN moves
 **token** | string | - | security token (unlocks secret game data)
 
 ```javascript
@@ -225,6 +226,7 @@ name | type | default | description
         },
         // ... more moves
       ],
+      "moves": "Nf3 d5 g3 e6 Bg2 Be7 d3 Nf6 Nbd2 O-O O-O c6 Rfe1 b6 e4 Bb7" // with_moves option
     },
     {
       ... // other game
@@ -247,6 +249,7 @@ All parameters are optional.
 name | type | default | description
 --- | --- | --- | ---
 **with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
+**with_moves** | 1 or 0 | 0 | include a list of PGN moves
 **token** | string | - | security token (unlocks secret game data)
 
 ```javascript
@@ -293,7 +296,8 @@ name | type | default | description
       "variation": "c4 bxc4 Nfe3 c5 Qf1 f6 Rxc4 Bb7 b4 Ba6"
     },
     // ... more moves
-  ]
+  ],
+  "moves": "Nf3 d5 g3 e6 Bg2 Be7 d3 Nf6 Nbd2 O-O O-O c6 Rfe1 b6 e4 Bb7" // with_moves option
 }
 ```
 

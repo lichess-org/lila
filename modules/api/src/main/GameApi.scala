@@ -23,6 +23,7 @@ private[api] final class GameApi(
     rated: Option[Boolean],
     analysed: Option[Boolean],
     withAnalysis: Boolean,
+    withMoves: Boolean,
     token: Option[String],
     nb: Option[Int]): Fu[JsObject] = $find($query(Json.obj(
     G.status -> $gte(chess.Status.Mate.id),
@@ -31,17 +32,27 @@ private[api] final class GameApi(
     G.analysed -> analysed.map(_.fold(JsBoolean(true), $exists(false))),
     G.variant -> check(token).option($nin(Game.unanalysableVariants.map(_.id)))
   ).noNull) sort lila.game.Query.sortCreated, math.min(200, nb | 10)) flatMap
-    gamesJson(withAnalysis, token) map { games =>
-      Json.obj("list" -> games)
-    }
+    gamesJson(
+      withAnalysis = withAnalysis,
+      withMoves = withMoves,
+      token = token) map { games =>
+        Json.obj("list" -> games)
+      }
 
   def one(
     id: String,
     withAnalysis: Boolean,
+    withMoves: Boolean,
     token: Option[String]): Fu[Option[JsObject]] =
-    $find byId id map (_.toList) flatMap gamesJson(withAnalysis, token) map (_.headOption)
+    $find byId id map (_.toList) flatMap gamesJson(
+      withAnalysis = withAnalysis,
+      withMoves = withMoves,
+      token = token) map (_.headOption)
 
-  private def gamesJson(withAnalysis: Boolean, token: Option[String])(games: List[Game]): Fu[List[JsObject]] =
+  private def gamesJson(
+    withAnalysis: Boolean,
+    withMoves: Boolean,
+    token: Option[String])(games: List[Game]): Fu[List[JsObject]] =
     AnalysisRepo doneByIds games.map(_.id) flatMap { analysisOptions =>
       (games map { g => withAnalysis ?? (pgnDump(g) map (_.some)) }).sequenceFu flatMap { pgns =>
         (games map { g => makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) }).sequenceFu map { urls =>
@@ -50,6 +61,7 @@ private[api] final class GameApi(
             case (((g, url), analysisOption), pgnOption) =>
               gameToJson(g, url, analysisOption, pgnOption,
                 withAnalysis = withAnalysis,
+                withMoves = withMoves,
                 withBlurs = validToken,
                 withHold = validToken,
                 withMoveTimes = validToken)
@@ -66,6 +78,7 @@ private[api] final class GameApi(
     analysisOption: Option[Analysis],
     pgnOption: Option[Pgn],
     withAnalysis: Boolean,
+    withMoves: Boolean,
     withBlurs: Boolean = false,
     withHold: Boolean = false,
     withMoveTimes: Boolean = false) = Json.obj(
@@ -117,6 +130,7 @@ private[api] final class GameApi(
         ).noNull
       })
     },
+    "moves" -> withMoves.option(g.pgnMoves mkString " "),
     "winner" -> g.winnerColor.map(_.name),
     "url" -> url
   ).noNull

@@ -32,6 +32,7 @@ object Api extends LilaController {
       rated = getBoolOpt("rated", req),
       analysed = getBoolOpt("analysed", req),
       withAnalysis = getBool("with_analysis", req),
+      withMoves = getBool("with_moves", req),
       token = get("token", req),
       nb = getInt("nb", req)
     ) map (_.some)
@@ -41,6 +42,7 @@ object Api extends LilaController {
     gameApi.one(
       id = id take lila.game.Game.gameIdSize,
       withAnalysis = getBool("with_analysis", req),
+      withMoves = getBool("with_moves", req),
       token = get("token", req))
   }
 
