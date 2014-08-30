@@ -226,7 +226,7 @@ name | type | default | description
         },
         // ... more moves
       ],
-      "moves": "Nf3 d5 g3 e6 Bg2 Be7 d3 Nf6 Nbd2 O-O O-O c6 Rfe1 b6 e4 Bb7" // with_moves option
+      "moves": "Nf3 d5 g3 e6 Bg2 Be7 d3 Nf6 Nbd2 O-O O-O c6 Rfe1 b6 e4 Bb7" // with_moves flag
     },
     {
       ... // other game
@@ -250,6 +250,7 @@ name | type | default | description
 --- | --- | --- | ---
 **with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
 **with_moves** | 1 or 0 | 0 | include a list of PGN moves
+**with_fens** | 1 or 0 | 0 | include a list of FEN states
 **token** | string | - | security token (unlocks secret game data)
 
 ```javascript
@@ -297,7 +298,16 @@ name | type | default | description
     },
     // ... more moves
   ],
-  "moves": "Nf3 d5 g3 e6 Bg2 Be7 d3 Nf6 Nbd2 O-O O-O c6 Rfe1 b6 e4 Bb7" // with_moves option
+  "moves": "Nf3 d5 g3 e6 Bg2 Be7 d3 Nf6 Nbd2 O-O O-O c6 Rfe1 b6 e4 Bb7", // with_moves flag
+  "fens": [ // only if with_fens flag is set
+      "rnbqkbnr/pppppppp/8/8/8/5N2/PPPPPPPP/RNBQKB1R",
+      "rnbqkbnr/ppp1pppp/8/3p4/8/5N2/PPPPPPPP/RNBQKB1R",
+      "rnbqkbnr/ppp1pppp/8/3p4/8/5NP1/PPPPPP1P/RNBQKB1R",
+      "rnbqkbnr/ppp2ppp/4p3/3p4/8/5NP1/PPPPPP1P/RNBQKB1R",
+      "rnbqkbnr/ppp2ppp/4p3/3p4/8/5NP1/PPPPPPBP/RNBQK2R",
+      "rnbqk1nr/ppp1bppp/4p3/3p4/8/5NP1/PPPPPPBP/RNBQK2R",
+      // ... more fens
+  ]
 }
 ```
 

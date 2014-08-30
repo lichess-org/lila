@@ -194,6 +194,10 @@ object GameRepo {
   def initialFen(gameId: ID): Fu[Option[String]] =
     $primitive.one($select(gameId), "if")(_.asOpt[String])
 
+  def initialFen(game: Game): Fu[Option[String]] =
+    if (game.fromPosition || game.variant.chess960) initialFen(game.id)
+    else fuccess(none)
+
   def featuredCandidates: Fu[List[Game]] = $find(
     Query.playable ++ Query.clock(true) ++ Query.turnsGt(1) ++ Json.obj(
       F.createdAt -> $gt($date(DateTime.now - 3.minutes)),

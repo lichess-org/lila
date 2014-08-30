@@ -9,7 +9,7 @@ import lila.db.api._
 import lila.db.Implicits._
 import lila.game.Game.{ BSONFields => G }
 import lila.game.tube.gameTube
-import lila.game.{ Game, PgnDump, PerfPicker }
+import lila.game.{ Game, GameRepo, PgnDump, PerfPicker }
 import lila.hub.actorApi.{ router => R }
 import makeTimeout.short
 
@@ -35,6 +35,7 @@ private[api] final class GameApi(
     gamesJson(
       withAnalysis = withAnalysis,
       withMoves = withMoves,
+      withFens = false,
       token = token) map { games =>
         Json.obj("list" -> games)
       }
@@ -43,25 +44,31 @@ private[api] final class GameApi(
     id: String,
     withAnalysis: Boolean,
     withMoves: Boolean,
+    withFens: Boolean,
     token: Option[String]): Fu[Option[JsObject]] =
     $find byId id map (_.toList) flatMap gamesJson(
       withAnalysis = withAnalysis,
       withMoves = withMoves,
+      withFens = withFens,
       token = token) map (_.headOption)
+
+  private def makeUrl(game: Game) = s"${game.id}/${game.firstPlayer.color.name}"
 
   private def gamesJson(
     withAnalysis: Boolean,
     withMoves: Boolean,
+    withFens: Boolean,
     token: Option[String])(games: List[Game]): Fu[List[JsObject]] =
     AnalysisRepo doneByIds games.map(_.id) flatMap { analysisOptions =>
       (games map { g => withAnalysis ?? (pgnDump(g) map (_.some)) }).sequenceFu flatMap { pgns =>
-        (games map { g => makeUrl(R.Watcher(g.id, g.firstPlayer.color.name)) }).sequenceFu map { urls =>
+        (games map GameRepo.initialFen).sequenceFu map { initialFens =>
           val validToken = check(token)
-          games zip urls zip analysisOptions zip pgns map {
-            case (((g, url), analysisOption), pgnOption) =>
-              gameToJson(g, url, analysisOption, pgnOption,
+          games zip analysisOptions zip pgns zip initialFens map {
+            case (((g, analysisOption), pgnOption), initialFenOption) =>
+              gameToJson(g, makeUrl(g), analysisOption, pgnOption, initialFenOption,
                 withAnalysis = withAnalysis,
                 withMoves = withMoves,
+                withFens = withFens,
                 withBlurs = validToken,
                 withHold = validToken,
                 withMoveTimes = validToken)
@@ -77,12 +84,15 @@ private[api] final class GameApi(
     url: String,
     analysisOption: Option[Analysis],
     pgnOption: Option[Pgn],
+    initialFenOption: Option[String],
     withAnalysis: Boolean,
     withMoves: Boolean,
+    withFens: Boolean,
     withBlurs: Boolean = false,
     withHold: Boolean = false,
     withMoveTimes: Boolean = false) = Json.obj(
     "id" -> g.id,
+    "initialFen" -> initialFenOption,
     "rated" -> g.rated,
     "variant" -> g.variant.key,
     "speed" -> g.speed.key,
@@ -131,6 +141,13 @@ private[api] final class GameApi(
       })
     },
     "moves" -> withMoves.option(g.pgnMoves mkString " "),
+    "fens" -> withFens ?? {
+      chess.Replay(g.pgnMoves mkString " ", initialFenOption, g.variant).toOption map { replay =>
+        JsArray(replay.chronoMoves map { move =>
+          chess.format.Forsyth exportBoard move.after
+        } map JsString.apply)
+      }
+    },
     "winner" -> g.winnerColor.map(_.name),
     "url" -> url
   ).noNull
