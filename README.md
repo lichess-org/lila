@@ -256,6 +256,7 @@ name | type | default | description
 ```javascript
 {
   "id": "39b12Ikl",
+  "initialFen": "rkrqnnbb/pppppppp/8/8/8/8/PPPPPPPP/RKRQNNBB w KQkq - 0 1" // omitted is standard
   "variant": "chess960", // standard/chess960/fromPosition/kingofthehill/threeCheck
   "speed": "blitz", // bullet|blitz|classical|unlimited
   "perf": "chess960", // bullet|blitz|classical|chess960|kingOfTheHill|threeCheck
