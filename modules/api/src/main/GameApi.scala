@@ -24,6 +24,7 @@ private[api] final class GameApi(
     analysed: Option[Boolean],
     withAnalysis: Boolean,
     withMoves: Boolean,
+    withOpening: Boolean,
     token: Option[String],
     nb: Option[Int]): Fu[JsObject] = $find($query(Json.obj(
     G.status -> $gte(chess.Status.Mate.id),
@@ -35,6 +36,7 @@ private[api] final class GameApi(
     gamesJson(
       withAnalysis = withAnalysis,
       withMoves = withMoves,
+      withOpening = withOpening,
       withFens = false,
       token = token) map { games =>
         Json.obj("list" -> games)
@@ -44,11 +46,13 @@ private[api] final class GameApi(
     id: String,
     withAnalysis: Boolean,
     withMoves: Boolean,
+    withOpening: Boolean,
     withFens: Boolean,
     token: Option[String]): Fu[Option[JsObject]] =
     $find byId id map (_.toList) flatMap gamesJson(
       withAnalysis = withAnalysis,
       withMoves = withMoves,
+      withOpening = withOpening,
       withFens = withFens,
       token = token) map (_.headOption)
 
@@ -57,6 +61,7 @@ private[api] final class GameApi(
   private def gamesJson(
     withAnalysis: Boolean,
     withMoves: Boolean,
+    withOpening: Boolean,
     withFens: Boolean,
     token: Option[String])(games: List[Game]): Fu[List[JsObject]] =
     AnalysisRepo doneByIds games.map(_.id) flatMap { analysisOptions =>
@@ -68,6 +73,7 @@ private[api] final class GameApi(
               gameToJson(g, makeUrl(g), analysisOption, pgnOption, initialFenOption,
                 withAnalysis = withAnalysis,
                 withMoves = withMoves,
+                withOpening = withOpening,
                 withFens = withFens,
                 withBlurs = validToken,
                 withHold = validToken,
@@ -87,6 +93,7 @@ private[api] final class GameApi(
     initialFenOption: Option[String],
     withAnalysis: Boolean,
     withMoves: Boolean,
+    withOpening: Boolean,
     withFens: Boolean,
     withBlurs: Boolean = false,
     withHold: Boolean = false,
@@ -141,6 +148,11 @@ private[api] final class GameApi(
       })
     },
     "moves" -> withMoves.option(g.pgnMoves mkString " "),
+    "opening" -> withOpening.?? {
+      chess.OpeningExplorer.openingOf(g.pgnMoves) map { opening =>
+        Json.obj("code" -> opening.code, "name" -> opening.name)
+      }
+    },
     "fens" -> withFens ?? {
       chess.Replay(g.pgnMoves mkString " ", initialFenOption, g.variant).toOption map { replay =>
         JsArray(replay.chronoMoves map { move =>
