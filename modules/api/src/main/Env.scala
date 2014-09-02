@@ -50,7 +50,7 @@ final class Env(
     userIdsSharingIp = userIdsSharingIp)
 
   val gameApi = new GameApi(
-    makeUrl = apiUrl,
+    netBaseUrl = Net.BaseUrl,
     apiToken = apiToken,
     pgnDump = pgnDump)
 

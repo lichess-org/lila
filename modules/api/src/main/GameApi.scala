@@ -14,7 +14,7 @@ import lila.hub.actorApi.{ router => R }
 import makeTimeout.short
 
 private[api] final class GameApi(
-    makeUrl: Any => Fu[String],
+    netBaseUrl: String,
     apiToken: String,
     pgnDump: PgnDump) {
 
@@ -52,7 +52,7 @@ private[api] final class GameApi(
       withFens = withFens,
       token = token) map (_.headOption)
 
-  private def makeUrl(game: Game) = s"${game.id}/${game.firstPlayer.color.name}"
+  private def makeUrl(game: Game) = s"$netBaseUrl/${game.id}/${game.firstPlayer.color.name}"
 
   private def gamesJson(
     withAnalysis: Boolean,
