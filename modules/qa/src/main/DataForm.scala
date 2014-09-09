@@ -42,6 +42,10 @@ private[qa] final class DataForm(
         .verifying(languageMessage, validateLanguage _)
     ))
 
+  lazy val moveAnswer = Form(single(
+    "to" -> nonEmptyText
+  ))
+
   lazy val comment = Form(
     mapping(
       "body" -> nonEmptyText(minLength = 20)

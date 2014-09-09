@@ -38,6 +38,25 @@
           <a class="thin button toggle-edit-answer" data-icon="m"> Edit</a>
           }
           @nope("Remove", routes.QaAnswer.remove(q.id, a.id), "thin")
+          @if(isGranted(_.ModerateQa)) {
+          <br />
+          <form class="mod" action="@routes.QaAnswer.moveTo(q.id, a.id)" method="post">
+            Move to comment of
+            <button type="submit" name="to" value="question" title="Move to question comment" class="thin confirm button">Question</button>
+            @as.zipWithIndex.filterNot(_._1 == a).map { x =>
+            <button type="submit" name="to" value="@x._1.id" title="Move to answer @(x._2+1) comment" class="thin confirm button">
+              @(x._2+1) match {
+              case 1 => {first}
+              case 2 => {second}
+              case 3 => {third}
+              case 4 => {fourth}
+              case x => {@{x}th}
+              }
+              answer
+            </button>
+            }
+          </form>
+          }
         </div>
         <div class="body">@autoLink(a.body)</div>
         @if(lila.qa.QaAuth canEdit a) {

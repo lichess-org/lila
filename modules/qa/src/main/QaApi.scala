@@ -230,6 +230,27 @@ final class QaApi(
       BSONDocument("$pull" -> BSONDocument("comments" -> BSONDocument("id" -> c))),
       multi = true)
 
+    def moveToQuestionComment(a: Answer, q: Question) = {
+      val allComments = Comment(
+        id = Comment.makeId,
+        userId = a.userId,
+        body = a.body,
+        createdAt = a.createdAt) :: a.comments
+      allComments.map(c => question.addComment(c)(q)).sequenceFu >> remove(a)
+    }
+
+    def moveToAnswerComment(a: Answer, toAnswerId: AnswerId) =
+      findById(toAnswerId) flatMap {
+        _ ?? { toAnswer =>
+          val allComments = Comment(
+            id = Comment.makeId,
+            userId = a.userId,
+            body = a.body,
+            createdAt = a.createdAt) :: a.comments
+          allComments.map(c => addComment(c)(toAnswer)).sequenceFu >> remove(a)
+        }
+      }
+
     def countByQuestionId(id: QuestionId) =
       answerColl.db command Count(answerColl.name, Some(BSONDocument("questionId" -> id)))
   }
@@ -238,7 +259,7 @@ final class QaApi(
 
     def create(data: CommentData, subject: Either[Question, Answer], user: User): Fu[Comment] = {
       val c = Comment(
-        id = ornicar.scalalib.Random nextStringUppercase 8,
+        id = Comment.makeId,
         userId = user.id,
         body = data.body,
         createdAt = DateTime.now)

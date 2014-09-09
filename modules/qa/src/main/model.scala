@@ -79,3 +79,8 @@ case class Comment(
   userId: String,
   body: String,
   createdAt: DateTime)
+
+object Comment {
+
+  def makeId = ornicar.scalalib.Random nextStringUppercase 8
+}

@@ -259,13 +259,18 @@ div.side .questions a:hover {
   font-size: 3.2em;
   color: #759900;
 }
-#qa .answer .mod,
 #qa .answer .toggle-edit-answer {
   visibility: hidden;
 }
-#qa .answer:hover .mod,
 #qa .answer:hover .toggle-edit-answer {
   visibility: visible;
+}
+#qa .answer .mod {
+  display: none;
+  line-height: 2em;
+}
+#qa .answer:hover .mod {
+  display: inline;
 }
 #qa .answer .edit-answer,
 #qa .answer.edit .body {

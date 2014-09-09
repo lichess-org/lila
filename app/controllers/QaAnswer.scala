@@ -67,4 +67,22 @@ object QaAnswer extends QaController {
           routes.QaQuestion.show(questionId, "redirect")
       }
   }
+
+  def moveTo(questionId: QuestionId, answerId: AnswerId) = AuthBody { implicit ctx =>
+    me =>
+      WithOwnAnswer(questionId, answerId) { q =>
+        a =>
+          implicit val req = ctx.body
+          forms.moveAnswer.bindFromRequest.fold(
+            err => renderQuestion(q), {
+              case "question" => api.answer.moveToQuestionComment(a, q) inject
+                Redirect(routes.QaQuestion.show(q.id, q.slug))
+              case str => parseIntOption(str).fold(renderQuestion(q)) { answerId =>
+                api.answer.moveToAnswerComment(a, answerId) inject
+                  Redirect(routes.QaQuestion.show(q.id, q.slug))
+              }
+            }
+          )
+      }
+  }
 }
