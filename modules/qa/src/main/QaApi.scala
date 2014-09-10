@@ -294,7 +294,7 @@ final class QaApi(
       val command = Aggregate(questionColl.name, Seq(
         Project("tags" -> BSONBoolean(true)),
         Unwind("tags"),
-        Group(BSONBoolean(true))("tags" -> AddToSet("$tags"))
+        Group(BSONBoolean(true))("tags" -> AddToSet("tags"))
       ))
       questionColl.db.command(command) map {
         _.headOption flatMap {
