@@ -1,13 +1,14 @@
 #board_editor {
   position: relative;
 }
-#chessboard .board-b72b1 {
-  position: relative;
+#board_editor .cg-board {
+  width: 512px;
+  height: 512px;
 }
-#chessboard span.board_mark.vert {
-  right: -11px;
+#board_editor .cg-square.last-move {
+  background-color: transparent;
 }
-#chessboard .spare-pieces-bottom-ae20f {
+#board_editor .spare-pieces-bottom-ae20f {
   margin-top: 8px;
 }
 #chessboard_side {

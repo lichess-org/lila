@@ -1,5 +1,11 @@
 $(function() {
   $('#board_editor').each(function() {
+    org.lichess.editor.main({
+      fen: $(this).find('input.fen-string').val()
+    });
+  });
+
+  if (false) {
     var $wrap = $(this);
     var board;
     var $string = $wrap.find('input.fen-string');
@@ -76,5 +82,5 @@ $(function() {
       if (fen) window.location = $(this).data('url').replace('xxx', fen);
       return false;
     });
-  });
+  }
 });
