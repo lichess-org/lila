@@ -9,7 +9,7 @@ import play.api.mvc.{ RequestHeader, Call }
 import play.twirl.api.Html
 
 import lila.i18n.Env.{ current => i18nEnv }
-import lila.i18n.{ LangList, I18nDomain }
+import lila.i18n.{ LangList, I18nDomain, I18nKey }
 import lila.user.UserContext
 
 trait I18nHelper {
@@ -22,6 +22,9 @@ trait I18nHelper {
   lazy val protocol = i18nEnv.RequestHandlerProtocol
 
   implicit def lang(implicit ctx: UserContext) = pool lang ctx.req
+
+  def i18nJsObject(keys: I18nKey*)(implicit lang: Lang) =
+    i18nEnv.jsDump.keysToObject(keys, lang)
 
   def langName(lang: Lang): Option[String] = langName(lang.language)
   def langName(lang: String): Option[String] = LangList name lang

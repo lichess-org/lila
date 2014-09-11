@@ -38,29 +38,29 @@
       (d/label {} input label)
       (d/label {} label input))))
 
-(q/defcomponent Controls [{:keys [fen color castles]} base-url ctrl]
+(q/defcomponent Controls [{:keys [fen color castles]} i18n base-url ctrl]
   (d/div {:id "editor-side"}
          (d/div {}
                 (d/a {:className "button"
-                      :onClick #(ctrl :start nil)} "Start position")
+                      :onClick #(ctrl :start nil)} (:startPosition i18n))
                 (d/a {:className "button"
-                      :onClick #(ctrl :clear nil)} "Clear board"))
+                      :onClick #(ctrl :clear nil)} (:clearBoard i18n)))
          (d/div {}
                 (d/a {:className "button"
                       :data-icon "B"
-                      :onClick #(ctrl :toggle-orientation nil)} "Flip board")
+                      :onClick #(ctrl :toggle-orientation nil)} (str " " (:flipBoard i18n)))
                 (d/a {:className "button"
                       :onClick (fn []
                                  (let [fen (js/prompt "Paste FEN position")]
                                    (when (not= "" (.trim fen))
                                      (set! js/window.location (make-url base-url fen)))))}
-                     "Load position"))
+                     (:loadPosition i18n)))
          (d/div {}
                 (d/select {:className "color"
                            :defaultValue color
                            :onChange #(ctrl :set-color (-> % .-target .-value))}
-                          (d/option {:value "w"} "White plays")
-                          (d/option {:value "b"} "Black plays")))
+                          (d/option {:value "w"} (:whitePlays i18n))
+                          (d/option {:value "b"} (:blackPlays i18n))))
          (d/div {:className "castling"}
                 (d/strong {} "Castling")
                 (d/div {}
@@ -71,17 +71,17 @@
                        (CastleCheckbox castles "Black O-O-O" "k" ctrl true)))
          (d/div {}
                 (d/a {:className "button"
-                      :href (str "/?fen=" fen "#ai")} "Play with the machine")
+                      :href (str "/?fen=" fen "#ai")} (:playWithTheMachine i18n))
                 (d/a {:className "button"
-                      :href (str "/?fen=" fen "#friend")} "Play with a friend"))))
+                      :href (str "/?fen=" fen "#friend")} (:playWithAFriend i18n)))))
 
-(q/defcomponent Editor [{:keys [fen color castles cg-obj]} base-url ctrl]
+(q/defcomponent Editor [{:keys [fen color castles cg-obj]} i18n base-url ctrl]
   (d/div {:className "editor"}
-         (chessground.ui/board-component cg-obj)
+         (chessground.ui/board-component (chessground.ui/clj->react cg-obj ctrl))
          (Controls {:fen fen
                     :color color
                     :castles castles}
-                   base-url ctrl)
+                   i18n base-url ctrl)
          (d/div {:className "copyables"}
                 (FenInput fen)
                 (UrlInput fen base-url))))
@@ -90,6 +90,7 @@
   (Editor {:fen (:fen app)
            :color (:color app)
            :castles (:castles app)
-           :cg-obj (chessground.ui/clj->react (:chessground app) ctrl)}
+           :cg-obj (:chessground app)}
+          (:i18n app)
           (:base-url app)
           ctrl))

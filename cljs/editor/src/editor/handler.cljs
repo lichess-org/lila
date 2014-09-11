@@ -8,7 +8,6 @@
 (defn- do-chessground [f] #(update-in % [:chessground] f))
 
 (defn- do-process [k msg]
-  (pp [k msg])
   (case k
     :set-color        #(assoc % :color msg)
     :set-castle       #(data/set-castle % msg)

@@ -21,6 +21,7 @@
     {:color (:color config)
      :castles (chessground.common/stringify-keys (:castles config))
      :base-url (:baseUrl config)
+     :i18n (:i18n config)
      :chessground (chessground.api/main
                     {:fen (:fen config)
                      :orientation "white"

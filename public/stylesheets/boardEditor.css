@@ -1,5 +1,6 @@
 #board_editor {
   position: relative;
+  min-height: 600px;
 }
 #board_editor .cg-board {
   width: 512px;
@@ -32,6 +33,18 @@
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
+}
+#board_editor .copyables > p {
+  margin-top: 7px;
+}
+#board_editor .copyables .name {
+  font-family: monospace;
+  font-size: 1.2em;
+  display: inline-block;
+  width: 40px;
+}
+#board_editor .copyable {
+  width: 460px;
 }
 #editor-side .castling {
   margin-top: 1em;
