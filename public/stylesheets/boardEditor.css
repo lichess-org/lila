@@ -11,13 +11,13 @@
 #board_editor .spare-pieces-bottom-ae20f {
   margin-top: 8px;
 }
-#chessboard_side {
+#editor-side {
   position: absolute;
   left: 552px;
   top: 156px;
   width: 228px;
 }
-#chessboard_side > div {
+#editor-side > div {
   margin-bottom: 3em;
   text-align: center;
 }
@@ -33,6 +33,12 @@
   white-space: nowrap;
   overflow: hidden;
 }
-#chessboard_side .castling {
+#editor-side .castling {
   margin-top: 1em;
+}
+#editor-side .castling label,
+#editor-side .castling input {
+  display:inline-block;
+  margin: 3px;
+  vertical-align: middle;
 }
