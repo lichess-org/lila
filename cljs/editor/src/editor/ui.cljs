@@ -1,11 +1,9 @@
 (ns org.lichess.editor.ui
   (:require [org.lichess.editor.common :as common :refer [pp]]
-            [chessground.ui :as cg-ui]))
+            [chessground.ui :as cg-ui]
+            [quiescent :as q :include-macros true]
+            [quiescent.dom :as d]))
 
-(def ^:private dom (.-DOM js/React))
-(def ^:private div (.-div dom))
-(def ^:private p (.-p dom))
-(def ^:private a (.-a dom))
 (defn- str-replace [in pattern replacement flags]
   (.replace in (js/RegExp. pattern flags) replacement))
 
@@ -16,134 +14,82 @@
            (str-replace "%20" "_" "g")
            (str-replace "%2F" "/" "g"))))
 
-(def fen-input-component
-  (js/React.createClass
-    #js
-    {:displayName "Editor"
-     :render
-     (fn []
-       (this-as
-         this
-         (p #{}
-            ((.-strong dom) #js {:className "name"} "FEN")
-            ((.-input dom) #js {:className "copyable fen-string"
-                                :readOnly true
-                                :spellcheck false
-                                :value (aget (.-props this) "fen")}))))}))
+(q/defcomponent FenInput [fen]
+  (d/p {}
+       (d/strong {:className "name"} "FEN")
+       (d/input {:className "copyable fen-string"
+                 :readOnly true
+                 :spellCheck false
+                 :value fen})))
 
-(def url-input-component
-  (js/React.createClass
-    #js
-    {:displayName "Editor"
-     :render
-     (fn []
-       (this-as
-         this
-         (let [props (.-props this)
-               base-url (aget props "base-url")
-               fen (aget props "fen")
-               url (make-url base-url fen)]
-           (p #{}
-              ((.-strong dom) #js {:className "name"} "URL")
-              ((.-input dom) #js {:className "copyable permalink"
-                                  :readOnly true
-                                  :spellcheck false
-                                  :value url})))))}))
+(q/defcomponent UrlInput [fen base-url]
+  (d/p {}
+       (d/strong {:className "name"} "URL")
+       (d/input {:className "copyable permalink"
+                 :readOnly true
+                 :spellCheck false
+                 :value (make-url base-url fen)})))
 
-(def controls-component
-  (js/React.createClass
-    #js
-    {:displayName "Editor"
-     :render
-     (fn []
-       (this-as
-         this
-         (let [props (.-props this)
-               ctrl (aget props "ctrl")
-               color (aget props "color")
-               castles (aget props "castles")
-               fen (aget props "fen")
-               base-url (aget props "base-url")
-               castle-checkbox
-               (fn [label id reversed]
-                 (let [input ((.-input dom) #js {:id (str "castlink-" id)
-                                                 :type "checkbox"
-                                                 :defaultChecked (aget castles id)
-                                                 :onChange #(ctrl :set-castle [id (-> % .-target .-checked)])})]
-                   (if reversed
-                     ((.-label dom) #js {} input label)
-                     ((.-label dom) #js {} label input))))]
-           (div #js {:id "editor-side"}
-                (div #js {}
-                     (a #js {:className "button"
-                             :onClick #(ctrl :start nil)}
-                        "Start position")
-                     (a #js {:className "button"
-                             :onClick #(ctrl :clear nil)}
-                        "Clear board"))
-                (div #js {}
-                     (a #js {:className "button"
-                             :data-icon "B"
-                             :onClick #(ctrl :toggle-orientation nil)}
-                        "Flip board")
-                     (a #js {:className "button"
-                             :onClick (fn []
-                                        (let [fen (js/prompt "Paste FEN position")]
-                                          (when (not= "" (.trim fen))
-                                            (set! js/window.location (make-url base-url fen)))))}
-                        "Load position"))
-                (div #js {}
-                     ((.-select dom) #js {:className "color"
-                                          :defaultValue color
-                                          :onChange #(ctrl :set-color (-> % .-target .-value))}
-                      ((.-option dom) #js {:value "w"} "White plays")
-                      ((.-option dom) #js {:value "b"} "Black plays")))
-                (div #js {:className "castling"}
-                     ((.-strong dom) #js {} "Castling")
-                     (div #js {}
-                          (castle-checkbox "White O-O" "K" false)
-                          (castle-checkbox "White O-O-O" "Q" true))
-                     (div #js {}
-                          (castle-checkbox "Black O-O" "k" false)
-                          (castle-checkbox "Black O-O-O" "k" true)))
-                (div #js {}
-                     (a #js {:className "button"
-                             :href (str "/?fen=" fen "#ai")}
-                        "Play with the machine")
-                     (a #js {:className "button"
-                             :href (str "/?fen=" fen "#friend")}
-                        "Play with a friend"))))))}))
+(q/defcomponent CastleCheckbox [castles label id ctrl reversed]
+  (let [input (d/input {:type "checkbox"
+                        :defaultChecked (get castles id)
+                        :onChange #(ctrl :set-castle [id (-> % .-target .-checked)])})]
+    (if reversed
+      (d/label {} input label)
+      (d/label {} label input))))
 
+(q/defcomponent Controls [{:keys [fen color castles]} base-url ctrl]
+  (d/div {:id "editor-side"}
+         (d/div {}
+                (d/a {:className "button"
+                      :onClick #(ctrl :start nil)} "Start position")
+                (d/a {:className "button"
+                      :onClick #(ctrl :clear nil)} "Clear board"))
+         (d/div {}
+                (d/a {:className "button"
+                      :data-icon "B"
+                      :onClick #(ctrl :toggle-orientation nil)} "Flip board")
+                (d/a {:className "button"
+                      :onClick (fn []
+                                 (let [fen (js/prompt "Paste FEN position")]
+                                   (when (not= "" (.trim fen))
+                                     (set! js/window.location (make-url base-url fen)))))}
+                     "Load position"))
+         (d/div {}
+                (d/select {:className "color"
+                           :defaultValue color
+                           :onChange #(ctrl :set-color (-> % .-target .-value))}
+                          (d/option {:value "w"} "White plays")
+                          (d/option {:value "b"} "Black plays")))
+         (d/div {:className "castling"}
+                (d/strong {} "Castling")
+                (d/div {}
+                       (CastleCheckbox castles "White O-O" "K" ctrl false)
+                       (CastleCheckbox castles "White O-O-O" "Q" ctrl true))
+                (d/div {}
+                       (CastleCheckbox castles "Black O-O" "k" ctrl false)
+                       (CastleCheckbox castles "Black O-O-O" "k" ctrl true)))
+         (d/div {}
+                (d/a {:className "button"
+                      :href (str "/?fen=" fen "#ai")} "Play with the machine")
+                (d/a {:className "button"
+                      :href (str "/?fen=" fen "#friend")} "Play with a friend"))))
 
-(def editor-component
-  (js/React.createClass
-    #js
-    {:displayName "Editor"
-     :render
-     (fn []
-       (this-as
-         this
-         (let [props (.-props this)
-               ctrl (aget props "ctrl")
-               fen (aget props "fen")
-               base-url (aget props "base-url")]
-           (div #js {:className "editor"} ; won't work without the class name D:
-                (chessground.ui/board-component (aget props "chessground"))
-                (controls-component #js {:ctrl ctrl
-                                         :fen fen
-                                         :color (aget props "color")
-                                         :castles (aget props "castles")
-                                         :base-url base-url})
-                (div #js {:className "copyables"}
-                     (fen-input-component #js {:fen fen} )
-                     (url-input-component #js {:base-url base-url
-                                               :fen fen} ))))))}))
+(q/defcomponent Editor [{:keys [fen color castles cg-obj]} base-url ctrl]
+  (d/div {:className "editor"}
+         (chessground.ui/board-component cg-obj)
+         (Controls {:fen fen
+                    :color color
+                    :castles castles}
+                   base-url ctrl)
+         (d/div {:className "copyables"}
+                (FenInput fen)
+                (UrlInput fen base-url))))
 
 (defn root [app ctrl]
-  (editor-component
-    #js {:fen (:fen app)
-         :color (:color app)
-         :castles (clj->js (:castles app))
-         :base-url (:base-url app)
-         :ctrl ctrl
-         :chessground (chessground.ui/clj->react (:chessground app) ctrl)}))
+  (Editor {:fen (:fen app)
+           :color (:color app)
+           :castles (:castles app)
+           :cg-obj (chessground.ui/clj->react (:chessground app) ctrl)}
+          (:base-url app)
+          ctrl))
