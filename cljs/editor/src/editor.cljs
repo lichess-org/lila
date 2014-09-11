@@ -11,7 +11,7 @@
   [element config]
   (let [chan (a/chan)
         ctrl #(a/put! chan [%1 %2])
-        app (data/make config)
+        app (data/make (or (js->clj config :keywordize-keys true) {}))
         app-atom (atom app)
         render #(js/React.renderComponent (ui/root % ctrl) element)]
     (render app)

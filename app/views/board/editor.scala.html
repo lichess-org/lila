@@ -22,7 +22,15 @@ goog.require('org.lichess.editor');
 }
 @embedJs {
 org.lichess.editor.main(document.getElementById('board_editor'), {
-  fen: "@fen"
+  fen: "@fen.split(" ").headOption",
+  baseUrl: "@netBaseUrl@routes.Editor.load("")",
+  color: "@sit.color.letter",
+  castles: {
+    'K': @sit.canCastle(White).on(KingSide),
+    'Q': @sit.canCastle(White).on(QueenSide),
+    'k': @sit.canCastle(Black).on(KingSide),
+    'q': @sit.canCastle(Black).on(QueenSide)
+  }
 });
 }
 }
