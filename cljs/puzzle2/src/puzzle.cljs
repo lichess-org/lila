@@ -1,8 +1,8 @@
 (ns org.lichess.puzzle
-  (:require [org.lichess.puzzle.common :refer [pp]]
-            [org.lichess.editor.data :as data]
-            [org.lichess.editor.ui :as ui]
-            [org.lichess.editor.handler :as handler]
+  (:require [chessground.common :refer [pp]]
+            [org.lichess.puzzle.data :as data]
+            [org.lichess.puzzle.ui :as ui]
+            [org.lichess.puzzle.handler :as handler]
             [cljs.core.async :as a])
   (:require-macros [cljs.core.async.macros :as am]))
 
