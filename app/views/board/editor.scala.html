@@ -4,11 +4,45 @@
 @import chess.{ KingSide, QueenSide }
 
 @moreCss = {
+@cssTag("chessground.css")
 @cssTag("boardEditor.css")
 }
 @moreJs = {
-@jsTagCompiled("chessboard.js")
-@jsTagCompiled("boardEditor.js")
+@jsAt("vendor/interact.min.js")
+@if(isProd) {
+@reactTag
+@jsAt("compiled/editor/editor.prod.js")
+} else {
+@reactDevTag
+@jsAt("compiled/editor/out/goog/base.js")
+@jsAt("compiled/editor/editor.dev.js")
+@embedJs {
+goog.require('org.lichess.editor');
+}
+}
+@embedJs {
+org.lichess.editor.main(document.getElementById('board_editor'), {
+  fen: "@fen.split(" ").headOption",
+  baseUrl: "@netBaseUrl@routes.Editor.load("")",
+  color: "@sit.color.letter",
+  castles: {
+    K: @sit.canCastle(White).on(KingSide),
+    Q: @sit.canCastle(White).on(QueenSide),
+    k: @sit.canCastle(Black).on(KingSide),
+    q: @sit.canCastle(Black).on(QueenSide)
+  },
+  i18n: @i18nJsObject(
+    trans.startPosition,
+    trans.clearBoard,
+    trans.flipBoard,
+    trans.loadPosition,
+    trans.whitePlays,
+    trans.blackPlays,
+    trans.playWithTheMachine,
+    trans.playWithAFriend
+  )
+});
+}
 }
 
 @game.layout(
@@ -16,48 +50,5 @@ title = trans.boardEditor.str(),
 menu = game.sideMenu(listMenu, "edit").some,
 moreJs = moreJs,
 moreCss = moreCss) {
-<div id="board_editor" class="content_box" data-asset-url="@assetBaseUrl">
-  <div id="chessboard_side">
-    <div>
-      <a class="button start">@trans.startPosition()</a>
-      <a class="button clear">@trans.clearBoard()</a>
-    </div>
-    <div>
-      <a class="button flip" data-icon="B"> @trans.flipBoard()</a>
-      <a class="button load" data-url="@routes.Editor.load("xxx")">@trans.loadPosition()</a>
-    </div>
-    <div>
-      <select class="color">
-        <option value="w" @{"selected".when(sit.color.white)}>@trans.whitePlays()</option>
-        <option value="b" @{"selected".when(!sit.color.white)}>@trans.blackPlays()</option>
-      </select>
-      <div class="castling">
-        <p><strong>Castling</strong></p>
-        <div>
-          <label>White O-O <input @{"checked".when(sit.canCastle(White).on(KingSide))} type="checkbox" id="castling-wk"></label>
-          <label><input @{"checked".when(sit.canCastle(Black).on(KingSide))} type="checkbox" id="castling-bk"> Black O-O</label>
-        </div>
-        <div>
-          <label>White O-O-O <input @{"checked".when(sit.canCastle(White).on(QueenSide))} type="checkbox" id="castling-wq"></label>
-          <label><input @{"checked".when(sit.canCastle(Black).on(QueenSide))} type="checkbox" id="castling-bq"> Black O-O-O</label>
-        </div>
-      </div>
-    </div>
-    <div>
-      <a class="fen_link button big" href="@routes.Lobby.home()?fen=#ai">@trans.playWithTheMachine()</a>
-      <a class="fen_link button big" href="@routes.Lobby.home()?fen=#friend">@trans.playWithAFriend()</a>
-    </div>
-  </div>
-  <div id="chessboard" data-fen="@fen"></div>
-  <div class="copyables">
-    <p>
-      <strong class="name">FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen-string" />
-    </p>
-    <p>
-      @defining(netBaseUrl + routes.Editor.load("xxx")) { url =>
-      <strong class="name">URL</strong><input  data-url="@url" type="input" readonly="true" spellcheck="false" class="copyable permalink" value="@url" />
-      }
-    </p>
-  </div>
-</div>
+<div id="board_editor" class="content_box" data-asset-url="@assetBaseUrl"></div>
 }

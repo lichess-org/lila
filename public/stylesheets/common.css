@@ -1803,18 +1803,6 @@ input.copyable {
   padding: 3px 5px;
   border: 1px solid #ccc;
 }
-#board_editor .copyables > p {
-  margin-top: 7px;
-}
-#board_editor .copyables .name {
-  font-family: monospace;
-  font-size: 1.2em;
-  display: inline-block;
-  width: 40px;
-}
-#board_editor .copyable {
-  width: 460px;
-}
 #powerTip.messages {
   width: 500px;
   padding: 1em;

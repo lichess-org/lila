@@ -1,22 +1,24 @@
 #board_editor {
   position: relative;
+  min-height: 600px;
 }
-#chessboard .board-b72b1 {
-  position: relative;
+#board_editor .cg-board {
+  width: 512px;
+  height: 512px;
 }
-#chessboard span.board_mark.vert {
-  right: -11px;
+#board_editor .cg-square.last-move {
+  background-color: transparent;
 }
-#chessboard .spare-pieces-bottom-ae20f {
+#board_editor .spare-pieces-bottom-ae20f {
   margin-top: 8px;
 }
-#chessboard_side {
+#editor-side {
   position: absolute;
   left: 552px;
   top: 156px;
   width: 228px;
 }
-#chessboard_side > div {
+#editor-side > div {
   margin-bottom: 3em;
   text-align: center;
 }
@@ -32,6 +34,24 @@
   white-space: nowrap;
   overflow: hidden;
 }
-#chessboard_side .castling {
+#board_editor .copyables > p {
+  margin-top: 7px;
+}
+#board_editor .copyables .name {
+  font-family: monospace;
+  font-size: 1.2em;
+  display: inline-block;
+  width: 40px;
+}
+#board_editor .copyable {
+  width: 460px;
+}
+#editor-side .castling {
   margin-top: 1em;
+}
+#editor-side .castling label,
+#editor-side .castling input {
+  display:inline-block;
+  margin: 3px;
+  vertical-align: middle;
 }
