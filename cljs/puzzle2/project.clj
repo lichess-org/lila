@@ -7,13 +7,13 @@
                  [org.clojure/core.async "0.1.338.0-5c5012-alpha"]
                  [com.facebook/react "0.11.1"]
                  [quiescent "0.1.4"]
-                 [org.lichess/chessground "0.3.9"]]
+                 [org.lichess/chessground "0.3.10"]]
   :cljsbuild
   {:builds
    {:dev
     {:source-paths ["src"]
      :compiler
-     {:output-dir "../../public/compiled/puzzle"
+     {:output-dir "../../public/compiled/puzzle/out"
       :output-to "../../public/compiled/puzzle/puzzle.dev.js"
       :optimizations :none
       :source-map true}}

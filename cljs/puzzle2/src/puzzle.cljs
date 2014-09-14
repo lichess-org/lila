@@ -11,10 +11,11 @@
   [element config]
   (let [chan (a/chan)
         ctrl #(a/put! chan [%1 %2])
-        app (data/make (or (js->clj config :keywordize-keys true) {}))
+        app (data/make (or (js->clj config :keywordize-keys true) {}) ctrl)
         app-atom (atom app)
         render #(js/React.renderComponent (ui/root % ctrl) element)]
     (render app)
+    (js/setTimeout #(ctrl :play-initial-move nil) 1000)
     (am/go-loop
       []
       (let [[k msg] (a/<! chan)]

@@ -1,6 +1,7 @@
 @(title: String, evenMoreCss: Option[Html] = None, evenMoreJs: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
+@cssTag("chessground.css")
 @cssTag("training.css")
 @cssTag("puzzle.css")
 @evenMoreCss
@@ -10,7 +11,18 @@
 @jsTag("vendor/chess.min.js")
 @jsTagCompiled("chessboard.js")
 @jsTag("vendor/sparkline.min.js")
-@jsAt("compiled/puzzle.js")
+@jsAt("vendor/interact.min.js")
+@if(isProd) {
+@reactTag
+@jsAt("compiled/puzzle/puzzle.prod.js")
+} else {
+@reactDevTag
+@jsAt("compiled/puzzle/out/goog/base.js")
+@jsAt("compiled/puzzle/puzzle.dev.js")
+@embedJs {
+goog.require('org.lichess.puzzle');
+}
+}
 @evenMoreJs
 }
 

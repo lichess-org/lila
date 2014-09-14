@@ -1,3 +1,6 @@
+#puzzle {
+  min-height: 600px;
+}
 #puzzle > .side div.comment {
   padding: 10px 5px;
   text-align: center;
@@ -119,12 +122,9 @@
   color: transparent;
   text-shadow: none !important;
 }
-#chessboard_wrap {
-  position: relative;
-  margin-bottom: 25px;
-}
-#chessboard_wrap span.board_mark.vert {
-  right: -11px;
+div.cg-board {
+  width: 512px;
+  height: 512px;
 }
 #puzzle div.upvote {
   float: right;

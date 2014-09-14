@@ -7,12 +7,8 @@
 
 (defn- do-chessground [f] #(update-in % [:chessground] f))
 
-(defn- do-process [k msg]
-  (case k
-    (do-chessground   (chessground.handler/process k msg))))
-
-(defn process
+(defn process [k msg]
   "Return a function that transforms an app data"
-  [k msg]
-  (fn [app]
-    (do-process k msg)))
+  (case k
+    :play-initial-move  data/play-initial-move
+    (do-chessground     (chessground.handler/process k msg))))
