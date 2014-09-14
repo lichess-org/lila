@@ -10,6 +10,7 @@ import lila.puzzle.PuzzleId
 import lila.puzzle.{ Generated, Puzzle => PuzzleModel }
 import lila.user.{ User => UserModel, UserRepo }
 import views._
+import views.html.puzzle.JsData
 
 object Puzzle extends LilaController {
 
@@ -51,7 +52,7 @@ object Puzzle extends LilaController {
         value => Env.pref.api.setPref(me, (p: lila.pref.Pref) => p.copy(puzzleDifficulty = value)) >> {
           reqToCtx(ctx.req) flatMap { newCtx =>
             selectPuzzle(newCtx.me) zip env.userInfos(newCtx.me) map {
-              case (puzzle, infos) => Ok(views.html.puzzle.JsData(puzzle, infos, "play")(newCtx))
+              case (puzzle, infos) => Ok(JsData(puzzle, infos, "play")(newCtx))
             }
           }
         }
@@ -67,7 +68,7 @@ object Puzzle extends LilaController {
     implicit val req = ctx.body
     OptionFuResult(env.api.puzzle find id) { puzzle =>
       env.forms.attempt.bindFromRequest.fold(
-        err => fuccess(BadRequest(err.toString)),
+        err => fuccess(BadRequest(err.errorsAsJson)),
         data => ctx.me match {
           case Some(me) => env.finisher(puzzle, me, data) flatMap {
             case (newAttempt, None) => UserRepo byId me.id map (_ | me) flatMap { me2 =>
@@ -75,19 +76,24 @@ object Puzzle extends LilaController {
                 (env userInfos me2.some) zip
                 (env.api.attempt hasVoted me2) map {
                   case ((p2, infos), voted) => Ok {
-                    views.html.puzzle.viewMode(p2 | puzzle, newAttempt.some, infos, none, voted.some)
+                    JsData(p2 | puzzle, infos, "view",
+                      attempt = newAttempt.some,
+                      voted = voted.some)
                   }
                 }
             }
             case (oldAttempt, Some(win)) => env userInfos me.some map { infos =>
-              Ok(views.html.puzzle.viewMode(puzzle, oldAttempt.some, infos, win.some))
+              Ok(JsData(puzzle, infos, "view",
+                attempt = oldAttempt.some,
+                win = win.some))
             }
           }
           case None => fuccess {
-            Ok(views.html.puzzle.viewMode(puzzle, none, none, data.isWin.some))
+            Ok(JsData(puzzle, none, "view",
+              win = data.isWin.some))
           }
         }
-      )
+      ) map (_ as JSON)
     }
   }
 

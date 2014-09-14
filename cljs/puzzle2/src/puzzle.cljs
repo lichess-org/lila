@@ -15,7 +15,7 @@
         app-atom (atom app)
         render #(js/React.renderComponent (ui/root % ctrl) element)]
     (render app)
-    (js/setTimeout #(ctrl :play-initial-move nil) 100)
+    (js/setTimeout #(ctrl :play-initial-move nil) 200)
     (am/go-loop
       []
       (let [[k msg] (a/<! chan)]

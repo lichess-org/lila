@@ -6,19 +6,38 @@ import play.twirl.api.Html
 import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
+import lila.puzzle._
 
 object JsData extends lila.Steroids {
 
   def apply(
-    puzzle: lila.puzzle.Puzzle,
+    puzzle: Puzzle,
     userInfos: Option[lila.puzzle.UserInfos],
-    mode: String)(implicit ctx: Context) =
+    mode: String,
+    attempt: Option[Attempt] = None,
+    win: Option[Boolean] = None,
+    voted: Option[Boolean] = None)(implicit ctx: Context) =
     Html(Json.stringify(Json.obj(
+      "puzzle" -> Json.obj(
+        "fen" -> puzzle.fen,
+        "color" -> puzzle.color.name,
+        "initialMove" -> puzzle.initialMove,
+        "initialPly" -> puzzle.initialPly,
+        "gameId" -> puzzle.gameId,
+        "lines" -> lila.puzzle.Line.toJson(puzzle.lines),
+        "enabled" -> puzzle.enabled
+      ),
       "mode" -> mode,
-      "fen" -> puzzle.fen,
-      "color" -> puzzle.color.name,
-      "initialMove" -> puzzle.initialMove,
-      "lines" -> lila.puzzle.Line.toJson(puzzle.lines),
+      "attempt" -> attempt.map { a =>
+        Json.obj(
+          "userRatingDiff" -> a.userRatingDiff,
+          "seconds" -> a.seconds,
+          "win" -> a.win,
+          "vote" -> a.vote
+        )
+      },
+      "win" -> win,
+      "voted" -> voted,
       "user" -> userInfos.map { i =>
         Json.obj(
           "rating" -> i.user.perfs.puzzle.intRating,
@@ -38,7 +57,8 @@ object JsData extends lila.Steroids {
         "history" -> ctx.isAuth.option(routes.Puzzle.history.url),
         "difficulty" -> ctx.isAuth.option(routes.Puzzle.difficulty.url),
         "puzzle" -> routes.Puzzle.home.url,
-        "coordinate" -> routes.Coordinate.home.url
+        "coordinate" -> routes.Coordinate.home.url,
+        "editor" -> routes.Editor.load("").url
       ),
       "i18n" -> i18nJsObject(
         trans.training,
@@ -53,6 +73,22 @@ object JsData extends lila.Steroids {
         trans.waiting,
         trans.findTheBestMoveForBlack,
         trans.findTheBestMoveForWhite,
-        trans.giveUp)
+        trans.giveUp,
+        trans.victory,
+        trans.puzzleSolvedInXSeconds,
+        trans.fromGameLink,
+        trans.boardEditor,
+        trans.continueFromHere,
+        trans.playWithTheMachine,
+        trans.playWithAFriend,
+        trans.wasThisPuzzleAnyGood,
+        trans.pleaseVotePuzzle,
+        trans.thankYou,
+        trans.puzzleId,
+        trans.ratingX,
+        trans.playedXTimes,
+        trans.startTraining,
+        trans.continueTraining,
+        trans.retryThisPuzzle)
     )))
 }
