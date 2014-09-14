@@ -15,10 +15,10 @@
         app-atom (atom app)
         render #(js/React.renderComponent (ui/root % ctrl) element)]
     (render app)
-    (js/setTimeout #(ctrl :play-initial-move nil) 1000)
+    (js/setTimeout #(ctrl :play-initial-move nil) 100)
     (am/go-loop
       []
       (let [[k msg] (a/<! chan)]
-        (render (swap! app-atom (handler/process k msg)))
+        (render (swap! app-atom (handler/process k msg ctrl)))
         (recur)))
     ))

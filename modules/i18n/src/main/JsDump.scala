@@ -4,16 +4,17 @@ import java.io._
 import scala.concurrent.Future
 
 import play.api.i18n.Lang
+import play.api.libs.json.{ JsString, JsObject }
 
 private[i18n] final class JsDump(
     path: String,
     pool: I18nPool,
     keys: I18nKeys) {
 
-  def keysToObject(keys: Iterable[I18nKey], lang: Lang) = play.twirl.api.Html {
+  def keysToObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
     keys.map { k =>
-      s"""${k.key}:"${k.to(lang)()}""""
-    }.mkString("{", ",", "}")
+      k.key -> JsString(k.to(lang)())
+    }
   }
 
   def apply: Funit = Future {

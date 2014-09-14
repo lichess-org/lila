@@ -2,18 +2,9 @@
 
 @evenMoreJs = {
 @embedJs {
-org.lichess.puzzle.main(document.getElementById('puzzle'), {
-  mode: "@asPlay.fold("play", "try")",
-  fen: "@puzzle.fen",
-  color: "@puzzle.color",
-  initialMove: "@puzzle.initialMove",
-  lines: @Html(lila.puzzle.Line.toJsonString(puzzle.lines)),
-  postUrl: "@routes.Puzzle.attempt(puzzle.id)",
-  i18n: {}
-});
+org.lichess.puzzle.main(document.getElementById('lichess'), @JsData(puzzle, userInfos, asPlay.fold("play", "try")));
 }
 }
 
 @layout(trans.training.str(), evenMoreJs = Some(evenMoreJs)) {
-<div id="puzzle"></div>
 }

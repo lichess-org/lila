@@ -65,6 +65,4 @@ object Line {
     case Retry(move)      => move -> JsString("retry")
     case Node(move, more) => move -> toJson(more)
   })
-
-  def toJsonString(lines: Lines) = Json stringify toJson(lines)
 }

@@ -14,25 +14,24 @@
   width: 12.5%;
   height: 12.5%;
 }
-.cg-square[data-coord-x]::after {
-  position: absolute;
-  left: 1px;
-  bottom: 1px;
-  font-size: 10px;
-  line-height: 10px;
-  content: attr(data-coord-x);
-  color: #fff;
-  opacity: 0.5;
-}
+.cg-square[data-coord-x]::after,
 .cg-square[data-coord-y]::before {
   position: absolute;
-  right: 1px;
-  top: 1px;
   font-size: 10px;
   line-height: 10px;
-  content: attr(data-coord-y);
   color: #fff;
-  opacity: 0.5;
+  text-shadow: 0 1px 1px #000;
+  opacity: 0.7;
+}
+.cg-square[data-coord-x]::after {
+  content: attr(data-coord-x);
+  left: 1px;
+  bottom: 1px;
+}
+.cg-square[data-coord-y]::before {
+  content: attr(data-coord-y);
+  right: 1px;
+  top: 1px;
 }
 .cg-square.move-dest {
   background: radial-gradient(rgba(20, 85, 30, 0.5) 22%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
