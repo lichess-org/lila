@@ -3,6 +3,7 @@
             [chessground.data :as cg-data]
             [chessground.common :as cg-common]
             [chessground.api :as cg-api]
+            [org.lichess.puzzle.xhr :as xhr]
             [org.lichess.puzzle.chess :as chess]))
 
 (defn str->move
@@ -15,20 +16,26 @@
 
 (defn play-opponent-move [{ch :chess {color :color} :puzzle :as state} move]
   (chess/move ch move)
-  (-> state
-      (update-in [:chessground] #(chessground.data/api-move-piece % move))
-      (update-in [:chessground] #(chessground.data/set-movable-dests % (chess/dests ch)))
-      (update-in [:chessground] #(chessground.data/set-turn-color % color))
-      (dissoc :initial-move)))
+  (update-in state [:chessground] #(-> %
+                                       (chessground.data/api-move-piece move)
+                                       (chessground.data/with-fen (.fen ch))
+                                       (chessground.data/set-movable-dests (chess/dests ch))
+                                       (chessground.data/set-turn-color color)
+                                       chessground.data/play-premove)))
 
 (defn play-initial-move [state]
-  (play-opponent-move state (-> state :puzzle :initial-move)))
+  (-> state
+      (play-opponent-move (-> state :puzzle :initial-move))
+      (assoc :started-at (js/Date.))))
 
 (defn play-opponent-next-move [{:keys [puzzle progress] :as state}]
-  (let [move (first (first (get-in (:lines puzzle) progress)))]
-    (-> state
-        (play-opponent-move move)
-        (update-in [:progress] #(conj % move)))))
+  (let [move (first (first (get-in (:lines puzzle) progress)))
+        new-state (-> state
+                      (play-opponent-move move)
+                      (update-in [:progress] #(conj % move)))
+        new-lines (get-in (:lines puzzle) (:progress new-state))]
+    (when (= new-lines "win") (xhr/attempt new-state true))
+    new-state))
 
 (defn try-move [{:keys [puzzle progress]} move]
   (let [try-m (fn [m]
@@ -43,25 +50,34 @@
 
 (defn revert [state]
   (-> state
-      (update-in [:chessground] #(chessground.data/with-fen % (.fen (:chess state))))
-      (update-in [:chessground] #(chessground.data/set-movable-dests % (chess/dests (:chess state))))))
+      (update-in [:chessground]
+                 #(-> %
+                      (chessground.data/with-fen (.fen (:chess state)))
+                      (chessground.data/set-movable-dests (chess/dests (:chess state)))
+                      (chessground.data/set-last-move (chess/get-last-move (:chess state)))))))
 
-(defn user-move [{ch :chess puzzle :puzzle :as state} move ctrl]
+(defn user-finalize-move [{ch :chess puzzle :puzzle :as state} move new-progress]
+  (chess/move ch move)
+  (-> state
+      (assoc :comment :great :progress new-progress)
+      (update-in [:chessground] #(-> %
+                                     (chessground.data/with-fen (.fen ch))
+                                     (chessground.data/set-turn-color (:opponent-color puzzle))))))
+
+(defn user-move [{:keys [puzzle ctrl mode] :as state} move]
   (let [[new-progress new-lines] (try-move state move)]
     (case new-lines
-      "retry" (-> state
-                  revert
-                  (assoc :comment :retry))
-      "fail" (-> state
-                 revert
-                 (assoc :comment :fail))
-      "win" state
-      (do (chess/move ch move)
-          (js/setTimeout #(ctrl :play-opponent-next-move nil) 1000)
-          (-> state
-              (update-in [:chessground] #(chessground.data/set-turn-color % (:opponent-color puzzle)))
-              (assoc :progress new-progress
-                     :comment :great))))))
+      "retry" (do (js/setTimeout #(ctrl :revert nil) 500)
+                  (assoc state :comment :retry))
+      "fail" (do (when (= mode "play") (xhr/attempt state false))
+                 (js/setTimeout #(ctrl :revert nil) 500)
+                 (assoc state :comment :fail))
+      "win" (let [new-state (user-finalize-move state move new-progress)]
+              (xhr/attempt new-state true)
+              new-state)
+      (let [new-state (user-finalize-move state move new-progress)]
+        (js/setTimeout #(ctrl :play-opponent-next-move nil) 1000)
+        new-state))))
 
 (defn find-best-line [lines]
   (loop [paths (map (fn [p] [p]) (keys lines))]
@@ -77,15 +93,37 @@
 (defn find-best-line-from-progress [lines progress]
   (let [ahead (get-in lines progress)]
     (if (= ahead "win")
-      progress
+      (seq progress)
       (concat progress (find-best-line ahead)))))
 
 (defn make-history [{:keys [puzzle progress]}]
   (let [line (find-best-line-from-progress (:lines puzzle) progress)
         c (js/Chess. (:fen puzzle))]
-    (map (fn [move]
-           (chess/move c move)
-           [move (.fen c)]) line)))
+    (vec (map (fn [move]
+                (chess/move c move)
+                [move (.fen c)]) (conj line (:initial-move puzzle))))))
+
+(defn jump [{:keys [replay] :as state} f-to]
+  (let [step (-> replay :step f-to (max 0) (min (-> state :replay :history count dec)))
+        [move fen] (get-in replay [:history step])]
+    (-> state
+        (assoc-in [:replay :step] step)
+        (update-in [:chessground] #(chessground.data/with-fen % fen))
+        (update-in [:chessground] #(chessground.data/set-last-move % move)))))
+
+(defn initiate [{:keys [mode progress ctrl] :as state}]
+  (if (#{"play" "try"} mode)
+    (do (js/setTimeout #(ctrl :play-initial-move nil) 1000)
+        state)
+    (let [history (make-history state)]
+      (-> state
+          (assoc :replay {:step 0 :history history})
+          (jump #(count progress))))))
+
+(defn set-votes [state [user-vote puzzle-vote]]
+  (-> state
+      (assoc-in [:attempt :vote] user-vote)
+      (assoc-in [:puzzle :vote] puzzle-vote)))
 
 (defn- parse-lines [lines]
   (if (map? lines)
@@ -97,46 +135,45 @@
       (dissoc from)
       (assoc to (get hashmap from))))
 
-(defn make [config ctrl]
+(defn make [config ctrl router trans]
   (let [puzzle (-> (:puzzle config)
                    (rename-key :initialMove :initial-move)
                    (rename-key :initialPly :initial-ply)
                    (rename-key :gameId :game-id)
                    (update-in [:initial-move] str->move)
                    (update-in [:lines] parse-lines)
-                   (assoc :opponent-color (opposite-color (get-in config [:puzzle :color]))))
-        state {:puzzle puzzle
-               :mode (:mode config) ; view | play | try
-               :progress []
-               :comment nil ; :fail | :retry | :great
-               :attempt (rename-key (:attempt config) :userRatingDiff :user-rating-diff)
-               :win (:win config)
-               :voted (:voted config)
-               :started-at (js/Date.)
-               :user (:user config)
-               :difficulty (:difficulty config)
-               :urls (:urls config)
-               :i18n (:i18n config)
-               :chess (chess/make (:fen puzzle))
-               :chessground (chessground.api/main
-                              {:fen (:fen puzzle)
-                               :orientation (:color config)
-                               :turnColor (:opponent-color puzzle)
-                               :movable {:free false
-                                         :color (:color puzzle)
-                                         :events {:after #(ctrl :user-move [%1 %2])}}
-                               :animation {:enabled true
-                                           :duration 500}
-                               :premovable {:enabled false}})}]
-    (if (= (:mode state) "view")
-      (assoc state :history (make-history state))
-      state)))
+                   (assoc :opponent-color (opposite-color (get-in config [:puzzle :color]))))]
+    {:puzzle puzzle
+     :mode (:mode config) ; view | play | try
+     :progress []
+     :comment nil ; :fail | :retry | :great
+     :attempt (rename-key (:attempt config) :userRatingDiff :user-rating-diff)
+     :win (:win config)
+     :voted (:voted config)
+     :user (:user config)
+     :difficulty (:difficulty config)
+     :ctrl ctrl
+     :router router
+     :trans trans
+     :started-at (js/Date.)
+     :chess (chess/make (:fen puzzle))
+     :chessground (chessground.api/main
+                    {:fen (:fen puzzle)
+                     :orientation (:color puzzle)
+                     :turnColor (:opponent-color puzzle)
+                     :movable {:free false
+                               :color (when (#{"play" "try"} (:mode config))
+                                        (:color puzzle))
+                               :events {:after #(ctrl :user-move [%1 %2])}}
+                     :animation {:enabled (#{"play" "try"} (:mode config))
+                                 :duration 500}
+                     :premovable {:enabled true}})}))
 
-(defn reload [config ctrl]
-  (make (js->clj config :keywordize-keys true) ctrl))
+(defn reload [state config]
+  (-> config
+      (js->clj :keywordize-keys true)
+      (make (:ctrl state) (:router state) (:trans state))))
 
-(defn reload-with-progress [state config ctrl]
-  (make (assoc
-          (js->clj config :keywordize-keys true)
-          :progress
-          (:progress state)) ctrl))
+(defn reload-with-progress [state config]
+  (assoc (reload state config)
+         :progress (:progress state)))

@@ -6,19 +6,32 @@
             [cljs.core.async :as a])
   (:require-macros [cljs.core.async.macros :as am]))
 
+(defn- make-router [play-router]
+  (fn [action & args]
+    (let [actions (.split (name action) ".")
+          function (reduce (fn [o a] (aget o a)) (aget play-router "controllers") actions)]
+      (.-url (apply function args)))))
+
+(defn- make-trans [i18n]
+  (fn [k & args]
+    (reduce (fn [s v] (.replace s "%s" v)) (aget i18n (name k)) args)))
+
 (defn ^:export main
   "Application entry point; returns the public JavaScript API"
-  [element config]
+  [element config play-router i18n]
   (let [chan (a/chan)
         ctrl #(a/put! chan [%1 %2])
-        app (data/make (or (js->clj config :keywordize-keys true) {}) ctrl)
+        app (-> config
+                (js->clj :keywordize-keys true)
+                (or {})
+                (data/make ctrl (make-router play-router) (make-trans i18n)))
         app-atom (atom app)
-        render #(js/React.renderComponent (ui/root % ctrl) element)]
+        render #(js/React.renderComponent (ui/root %) element)]
     (render app)
-    (js/setTimeout #(ctrl :play-initial-move nil) 200)
+    (data/initiate app)
     (am/go-loop
       []
       (let [[k msg] (a/<! chan)]
-        (render (swap! app-atom (handler/process k msg ctrl)))
+        (render (swap! app-atom (handler/process k msg)))
         (recur)))
     ))

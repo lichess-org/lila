@@ -31,6 +31,16 @@ object Puzzle extends LilaController {
     }
   }
 
+  def load(id: PuzzleId) = Open { implicit ctx =>
+    OptionFuOk(env.api.puzzle find id) { puzzle =>
+      (env userInfos ctx.me) zip
+        { ctx.me ?? (u => env.api.attempt.hasPlayed(u, puzzle) map (_.some)) } map {
+          case (infos, played) =>
+            JsData(puzzle, infos, if (played == Some(false)) "play" else "try")
+        }
+    } map (_ as JSON)
+  }
+
   def history = Auth { implicit ctx =>
     me =>
       env userInfos me map { ui => Ok(views.html.puzzle.history(ui)) }
@@ -38,10 +48,9 @@ object Puzzle extends LilaController {
 
   // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx =>
-    selectPuzzle(ctx.me) zip
-      (env userInfos ctx.me) map {
-        case (puzzle, infos) => Ok(views.html.puzzle.playMode(puzzle, infos, true))
-      }
+    selectPuzzle(ctx.me) zip (env userInfos ctx.me) map {
+      case (puzzle, infos) => Ok(JsData(puzzle, infos, "play")) as JSON
+    }
   }
 
   def difficulty = AuthBody { implicit ctx =>
@@ -102,11 +111,11 @@ object Puzzle extends LilaController {
       implicit val req = ctx.body
       OptionFuResult(env.api.attempt.find(id, me.id)) { attempt =>
         env.forms.vote.bindFromRequest.fold(
-          err => fuccess(BadRequest(err.toString)),
+          err => fuccess(BadRequest(err.errorsAsJson)),
           vote => env.api.attempt.vote(attempt, vote == 1) map {
-            case (p, a) => Ok(views.html.puzzle.vote(p, a.some))
+            case (p, a) => Ok(play.api.libs.json.Json.arr(a.vote, p.vote.sum))
           }
-        )
+        ) map (_ as JSON)
       }
   }
 

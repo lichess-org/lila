@@ -26,14 +26,14 @@
       :onMount load-chart
       :onUpdate load-chart)))
 
-(q/defcomponent TrainingBox [{:keys [user]} urls trans]
+(q/defcomponent TrainingBox [{:keys [user]} router trans]
   (d/div {:className "box"}
          (d/h1 {} (trans :training))
          (d/div {:className "tabs buttons"}
                 (d/a {:className "button active"
-                      :href (:puzzle urls)} "Puzzle")
+                      :href (router :Puzzle.home)} "Puzzle")
                 (d/a {:className "button"
-                      :href (:coordinate urls)} "Coordinate"))
+                      :href (router :Coordinate.home)} "Coordinate"))
          (when user (UserInfos user trans))))
 
 (q/defcomponent CommentRetry [_ trans]
@@ -58,14 +58,14 @@
   (d/div {:className "comment win"}
          (d/h3 {:data-icon "E"}
                (d/strong {} (trans :victory))
-               (when attempt (RatingDiff (:userRatingDiff attempt))))
+               (when attempt (RatingDiff (:user-rating-diff attempt))))
          (when attempt (d/span {} (trans :puzzleSolvedInXSeconds (:seconds attempt))))))
 
 (q/defcomponent CommentLoss [attempt trans]
   (d/div {:className "comment loss"}
          (d/h3 {:data-icon "E"}
                (d/strong {} (trans :puzzleFailed))
-               (when attempt (RatingDiff (:userRatingDiff attempt))))))
+               (when attempt (RatingDiff (:user-rating-diff attempt))))))
 
 (q/defcomponent Difficulty [{:keys [choices current]} ctrl]
   (apply d/div {:className "difficulty buttons"}
@@ -76,10 +76,10 @@
                            :onClick #(ctrl :set-difficulty id)}
                           name)) choices)))
 
-(q/defcomponent Side [{:keys [commentary mode win attempt user difficulty]} urls trans ctrl]
+(q/defcomponent Side [{:keys [commentary mode win attempt user difficulty]} router trans ctrl]
   (d/div {:className "side"}
          (TrainingBox {:user user
-                       :difficulty difficulty} urls trans)
+                       :difficulty difficulty} router trans)
          (when difficulty (Difficulty difficulty ctrl))
          (case commentary
            :retry (CommentRetry nil trans)
@@ -112,27 +112,47 @@
   (d/div {:className (str "upvote" (when attempt " enabled"))}
          (d/a {:title (trans :thisPuzzleIsCorrect)
                :data-icon "S"
-               :className (str "upvote" (when (:vote attempt) " active"))})
+               :className (str "upvote" (when (:vote attempt) " active"))
+               :onClick #(ctrl :vote 1)})
          (d/span {:className "count hint--bottom"
-                  :data-hint "Popularity"} (-> puzzle :vote :sum))
+                  :data-hint "Popularity"} (:vote puzzle))
          (d/a {:title (trans :thisPuzzleIsWrong)
                :data-icon "R"
-               :className (str "downvote" (when (= (:vote attempt) false) " active"))})))
+               :className (str "downvote" (when (= (:vote attempt) false) " active"))
+               :onClick #(ctrl :vote 0)})))
 
-(q/defcomponent ViewTable [{:keys [puzzle voted attempt auth?]} trans ctrl]
+(q/defcomponent ViewTable [{:keys [puzzle voted attempt auth? win]} trans ctrl]
   (d/div {}
          (when (and (:enabled puzzle)
                     (= voted false))
            (d/div {:className "please_vote"}
                   (d/p {:className "first"}
                        (d/strong {} (trans :wasThisPuzzleAnyGood))
-                       (d/span {} (trans :pleasVotePuzzle)))
+                       (d/span {} (trans :pleaseVotePuzzle)))
                   (d/p {:className "then"}
                        (d/strong {} (trans :thankYou)))))
          (d/div {:className "box"}
                 (when (and auth? (:enabled puzzle))
                   (Vote {:puzzle puzzle
-                         :attempt attempt} trans ctrl)))))
+                         :attempt attempt} trans ctrl))
+                (d/h2 {}
+                      (d/a {:href (.-url (js/puzzleRoutes.controllers.Puzzle.show (:id puzzle)))}
+                           (trans :puzzleId (:id puzzle))))
+                (d/p {} (trans :ratingX (:rating puzzle)))
+                (d/p {} (trans :playedXTimes (:attempts puzzle)))
+                (d/p {} (d/input {:className "copyable" :value (:url puzzle) :spellcheck false})))
+         (d/div {:className "continue_wrap"}
+                (if (nil? win)
+                  (d/button {:className "continue button"
+                             :data-icon "G"
+                             :onClick #(ctrl :new nil)} (trans :continueTraining))
+                  (d/a {:className "continue button"
+                        :data-icon "G"
+                        :onClick #(ctrl :new nil)} (trans :startTraining)))
+                (when-not (if (nil? win) (:win attempt) win)
+                  (d/a {:className "retry"
+                        :data-icon "P"
+                        :onClick #(ctrl :retry nil)} (trans :retryThisPuzzle))))))
 
 (q/defcomponent Right [table trans ctrl]
   (letfn [(center-right [el]
@@ -147,7 +167,9 @@
     (d/div {:className "history"})
     :onMount (fn [el] (.load ($ el) url))))
 
-(q/defcomponent ViewControls [{{:keys [color game-id initial-ply]} :puzzle fen :fen} urls trans]
+(q/defcomponent ViewControls [{{:keys [color game-id initial-ply]} :puzzle
+                               fen :fen {step :step history :history} :replay}
+                              router trans ctrl]
   (d/div {:className "game_control"}
          (when game-id
            (d/a {:className "button hint--bottom"
@@ -156,7 +178,7 @@
                 (d/span {:data-icon "v"})))
          (d/a {:className "fen_link button hint--bottom"
                :data-hint (trans :boardEditor)
-               :href (str (:editor urls) fen)}
+               :href (router :Editor.load fen)}
               (d/span {:data-icon "m"}))
          (d/a {:className "continue toggle button hint--bottom"
                :data-hint (trans :continueFromHere)
@@ -165,10 +187,16 @@
          (apply d/div {:id "GameButtons"
                        :className "hint--bottom"
                        :data-hint "Review puzzle solution"}
-                (map (fn [[id icon]] (d/a {:className (str id " button")
-                                           :data-value id
-                                           :data-icon icon}))
-                     [["first" "W"] ["prev" "Y"] ["next" "X"] ["last" "V"]]))))
+                (map (fn [[id icon enabled]]
+                       (d/a {:className (str id " button" (when (not enabled) " disabled"))
+                             :data-value id
+                             :onClick #(when enabled (ctrl (keyword id)))
+                             :data-icon icon}))
+                     (let [hist-max (-> history count dec)]
+                       [["first" "W" (> step 0)]
+                        ["prev" "Y" (> step 0)]
+                        ["next" "X" (< step hist-max)]
+                        ["last" "V" (< step hist-max)]])))))
 
 (q/defcomponent ContinueLinks [fen trans]
   (d/div {:className "continue links none"}
@@ -177,46 +205,33 @@
          (d/a {:className "button"
                :href (str "/?fen=" fen "#friend")} (trans :playWithAFriend))))
 
-(q/defcomponent Puzzle [{:keys [cg-obj mode puzzle commentary win attempt user difficulty voted]}
-                        urls trans ctrl]
+(q/defcomponent Puzzle [{:keys [mode puzzle win attempt user difficulty voted replay] :as state}
+                        router trans ctrl]
   (d/div {:id "puzzle"
           :className "training"}
-         (Side {:commentary commentary
+         (Side {:commentary (:comment state)
                 :mode mode
                 :win win
                 :attempt attempt
                 :user user
-                :difficulty difficulty} urls trans ctrl)
+                :difficulty difficulty} router trans ctrl)
          (Right (if (= mode "view")
                   (ViewTable {:auth? (boolean user)
                               :attempt attempt
                               :voted voted
                               :puzzle puzzle} trans ctrl)
-                  (PlayTable {:turn-color (:turn-color cg-obj)
+                  (PlayTable {:turn-color (-> state :chessground :turn-color)
                               :color (:color puzzle)} trans ctrl)))
          (d/div {:className "center"}
-                (chessground.ui/board-component (chessground.ui/clj->react cg-obj ctrl))
+                (-> state :chessground
+                    (chessground.ui/clj->react ctrl)
+                    chessground.ui/board-component)
                 (when (= mode "view")
-                  (let [fen (-> cg-obj :chess cg-fen/dump)]
+                  (let [fen (-> state :chessground :chess cg-fen/dump)]
                     (d/div {}
-                           (ViewControls {:puzzle puzzle :fen fen} urls trans)
+                           (ViewControls {:puzzle puzzle :fen fen :replay replay} router trans ctrl)
                            (ContinueLinks fen trans))))
-                (History {} (:history urls)))))
+                (History {} (router :Puzzle.history)))))
 
-(defn make-trans [i18n]
-  (fn [k & args]
-    (reduce (fn [s v] (.replace s "%s" v)) (get i18n k) args)))
-
-(defn root [app ctrl]
-  (Puzzle {:mode (:mode app)
-           :puzzle (:puzzle app)
-           :commentary (:comment app)
-           :cg-obj (:chessground app)
-           :attempt (:attempt app)
-           :win (:win app)
-           :voted (:voted app)
-           :user (:user app)
-           :difficulty (:difficulty app)}
-          (:urls app)
-          (make-trans (:i18n app))
-          ctrl))
+(defn root [app]
+  (Puzzle app (:router app) (:trans app) (:ctrl app)))

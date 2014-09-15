@@ -1,8 +1,54 @@
 @(puzzle: lila.puzzle.Puzzle, userInfos: Option[lila.puzzle.UserInfos], asPlay: Boolean)(implicit ctx: Context)
 
 @evenMoreJs = {
+@helper.javascriptRouter("puzzleRoutes")(
+routes.javascript.Puzzle.attempt,
+routes.javascript.Puzzle.show,
+routes.javascript.Puzzle.history,
+routes.javascript.Puzzle.difficulty,
+routes.javascript.Puzzle.home,
+routes.javascript.Puzzle.newPuzzle,
+routes.javascript.Puzzle.load,
+routes.javascript.Puzzle.vote,
+routes.javascript.Coordinate.home,
+routes.javascript.Editor.load
+)(ctx.req)
 @embedJs {
-org.lichess.puzzle.main(document.getElementById('lichess'), @JsData(puzzle, userInfos, asPlay.fold("play", "try")));
+org.lichess.puzzle.main(
+document.getElementById('lichess'),
+@JsData(puzzle, userInfos, asPlay.fold("play", "try")),
+puzzleRoutes,
+@Html(J.stringify(i18nJsObject(
+trans.training,
+trans.yourPuzzleRatingX,
+trans.goodMove,
+trans.butYouCanDoBetter,
+trans.bestMove,
+trans.keepGoing,
+trans.puzzleFailed,
+trans.butYouCanKeepTrying,
+trans.yourTurn,
+trans.waiting,
+trans.findTheBestMoveForBlack,
+trans.findTheBestMoveForWhite,
+trans.giveUp,
+trans.victory,
+trans.puzzleSolvedInXSeconds,
+trans.fromGameLink,
+trans.boardEditor,
+trans.continueFromHere,
+trans.playWithTheMachine,
+trans.playWithAFriend,
+trans.wasThisPuzzleAnyGood,
+trans.pleaseVotePuzzle,
+trans.thankYou,
+trans.puzzleId,
+trans.ratingX,
+trans.playedXTimes,
+trans.startTraining,
+trans.continueTraining,
+trans.retryThisPuzzle)))
+);
 }
 }
 

@@ -14,4 +14,6 @@ trait JsonHelper {
   def toJson[A: Writes](a: A): String = Json stringify {
     Json toJson a
   }
+
+  def J = Json
 }
