@@ -21,8 +21,6 @@ $(function() {
     var color;
     var startAt, score;
 
-    $trainer.find('.buttons').buttonset().disableSelection();
-
     var showColor = function() {
       color = colorPref == 'random' ? ['white', 'black'][_.random(0, 1)] : colorPref;
       $trainer.removeClass('white black').addClass(color);

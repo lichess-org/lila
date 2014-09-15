@@ -9,7 +9,7 @@
 }
 @moreJs = {
 @jsAt("vendor/interact.min.js")
-@if(isProd) {
+@if(true || isProd) {
 @reactTag
 @jsAt("compiled/editor/editor.prod.js")
 } else {
@@ -31,7 +31,7 @@ org.lichess.editor.main(document.getElementById('board_editor'), {
     k: @sit.canCastle(Black).on(KingSide),
     q: @sit.canCastle(Black).on(QueenSide)
   },
-  i18n: @i18nJsObject(
+  i18n: @Html(J.stringify(i18nJsObject(
     trans.startPosition,
     trans.clearBoard,
     trans.flipBoard,
@@ -40,7 +40,7 @@ org.lichess.editor.main(document.getElementById('board_editor'), {
     trans.blackPlays,
     trans.playWithTheMachine,
     trans.playWithAFriend
-  )
+  )))
 });
 }
 }

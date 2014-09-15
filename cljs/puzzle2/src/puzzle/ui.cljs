@@ -6,9 +6,11 @@
             [quiescent.dom :as d]
             [jayq.core :as jq :refer [$]]))
 
-(defn- make-buttons [el] (.disableSelection (.buttonset ($ :.buttons el))))
-
 (defn- show-number [n] (if (> n 0) (str "+" n) n))
+
+(defn- strong [text] (str "<strong>" text "</strong>"))
+
+(defn- plain-html [html] {:dangerouslySetInnerHTML #js {:__html html}})
 
 (q/defcomponent UserInfos [{:keys [rating history]} trans]
   (letfn [(load-chart [el]
@@ -20,7 +22,7 @@
                                :fillColor (if dark "#222255" "#ccccff")})))]
     (q/wrapper
       (d/div {:className "chart_container"}
-             (d/p {} (trans :yourPuzzleRatingX rating))
+             (d/p (->> rating strong (trans :yourPuzzleRatingX) plain-html))
              (when history
                (d/div {:className "user_chart"})))
       :onMount load-chart
@@ -29,7 +31,7 @@
 (q/defcomponent TrainingBox [{:keys [user]} router trans]
   (d/div {:className "box"}
          (d/h1 {} (trans :training))
-         (d/div {:className "tabs buttons"}
+         (d/div {:className "tabs buttonset"}
                 (d/a {:className "button active"
                       :href (router :Puzzle.home)} "Puzzle")
                 (d/a {:className "button"
@@ -68,10 +70,10 @@
                (when attempt (RatingDiff (:user-rating-diff attempt))))))
 
 (q/defcomponent Difficulty [{:keys [choices current]} ctrl]
-  (apply d/div {:className "difficulty buttons"}
+  (apply d/div {:className "difficulty buttonset"}
          (map (fn [[id name]]
-                (d/button {:key id
-                           :className (when (= id current) "ui-state-active")
+                (d/a {:key id
+                           :className (str "button" (when (= id current) " active"))
                            :disabled (= id current)
                            :onClick #(ctrl :set-difficulty id)}
                           name)) choices)))
@@ -138,8 +140,8 @@
                 (d/h2 {}
                       (d/a {:href (.-url (js/puzzleRoutes.controllers.Puzzle.show (:id puzzle)))}
                            (trans :puzzleId (:id puzzle))))
-                (d/p {} (trans :ratingX (:rating puzzle)))
-                (d/p {} (trans :playedXTimes (:attempts puzzle)))
+                (d/p (->> puzzle :rating strong (trans :ratingX) plain-html))
+                (d/p (->> puzzle :attempts strong (trans :playedXTimes) plain-html))
                 (d/p {} (d/input {:className "copyable" :value (:url puzzle) :spellcheck false})))
          (d/div {:className "continue_wrap"}
                 (if (nil? win)

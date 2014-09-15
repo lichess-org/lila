@@ -163,6 +163,10 @@ div.ui-buttonset {
 div.ui-buttonset .ui-button {
   margin-right: -.4em;
 }
+.buttonset .button {
+  margin-left: -2px;
+  margin-right: -3px;
+}
 ul.ui-autocomplete {
   width: 200px;
   background: #FAFAFA;

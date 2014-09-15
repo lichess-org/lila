@@ -13,12 +13,9 @@ div.training > .side h1 {
   font-weight: bold;
   margin-bottom: 10px;
 }
-div.training > .side .buttons {
+div.training > .side .buttonset {
   text-align: center;
-}
-div.training > .side .buttons > * {
-  margin: 0 -2px 0 -2px;
-  padding: 0;
+  margin-top: 2em;
 }
 div.training > .side .chart_container {
   margin-top: 30px;
