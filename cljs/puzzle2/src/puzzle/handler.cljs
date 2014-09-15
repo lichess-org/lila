@@ -12,14 +12,14 @@
   (case k
     :reload                   #(data/initiate (data/reload % msg))
     :reload-with-progress     #(data/initiate (data/reload-with-progress % msg))
-    :play-initial-move        data/play-initial-move
-    :play-opponent-next-move  data/play-opponent-next-move
+    :play-initial-move        #(when (-> % :puzzle :id (= msg)) (data/play-initial-move %))
+    :play-opponent-next-move  #(when (-> % :puzzle :id (= msg)) (data/play-opponent-next-move %))
     :user-move                #(data/user-move % msg)
     :set-difficulty           #(xhr/set-difficulty % msg)
     :give-up                  #(xhr/attempt % false)
     :new                      #(xhr/new-puzzle %)
     :retry                    #(xhr/retry-puzzle %)
-    :revert                   data/revert
+    :revert                   #(when (-> % :puzzle :id (= msg)) (data/revert %))
     :vote                     #(xhr/vote % msg)
     :set-votes                #(data/set-votes % msg)
     :first                    #(data/jump % (fn [_] 0))

@@ -9,7 +9,7 @@
 }
 @moreJs = {
 @jsAt("vendor/interact.min.js")
-@if(true || isProd) {
+@if(isProd) {
 @reactTag
 @jsAt("compiled/editor/editor.prod.js")
 } else {

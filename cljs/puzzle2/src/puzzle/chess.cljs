@@ -9,7 +9,8 @@
 (defn move [ch [orig dest prom]]
   (.move ch #js {:from orig :to dest :promotion prom}))
 
-(defn parse-move [m] [(aget m "from") (aget m "to")])
+(defn parse-move [m]
+  (when m [(aget m "from") (aget m "to")]))
 
 (defn dests [ch]
   (let [moves (.moves ch #js {:verbose true})

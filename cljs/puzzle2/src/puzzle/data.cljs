@@ -67,16 +67,17 @@
 (defn user-move [{:keys [puzzle ctrl mode] :as state} move]
   (let [[new-progress new-lines] (try-move state move)]
     (case new-lines
-      "retry" (do (js/setTimeout #(ctrl :revert nil) 500)
+      "retry" (do (js/setTimeout #(ctrl :revert (:id puzzle)) 500)
                   (assoc state :comment :retry))
-      "fail" (do (when (= mode "play") (xhr/attempt state false))
-                 (js/setTimeout #(ctrl :revert nil) 500)
+      "fail" (do (if (= mode "play")
+                   (xhr/attempt state false)
+                   (js/setTimeout #(ctrl :revert (:id puzzle)) 500))
                  (assoc state :comment :fail))
       "win" (let [new-state (user-finalize-move state move new-progress)]
               (xhr/attempt new-state true)
               new-state)
       (let [new-state (user-finalize-move state move new-progress)]
-        (js/setTimeout #(ctrl :play-opponent-next-move nil) 1000)
+        (js/setTimeout #(ctrl :play-opponent-next-move (:id puzzle)) 1000)
         new-state))))
 
 (defn find-best-line [lines]
@@ -111,9 +112,9 @@
         (update-in [:chessground] #(chessground.data/with-fen % fen))
         (update-in [:chessground] #(chessground.data/set-last-move % move)))))
 
-(defn initiate [{:keys [mode progress ctrl] :as state}]
+(defn initiate [{:keys [mode puzzle progress ctrl] :as state}]
   (if (#{"play" "try"} mode)
-    (do (js/setTimeout #(ctrl :play-initial-move nil) 1000)
+    (do (js/setTimeout #(ctrl :play-initial-move (:id puzzle)) 1000)
         state)
     (let [history (make-history state)]
       (-> state

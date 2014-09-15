@@ -1,6 +1,11 @@
 #puzzle {
   min-height: 600px;
 }
+#puzzle .is::before,
+#puzzle .is::after,
+#puzzle [data-icon]::before {
+  margin-right: 3px;
+}
 #puzzle > .side div.comment {
   padding: 10px 5px;
   text-align: center;
@@ -40,7 +45,7 @@
   display: block;
 }
 #puzzle > .side .difficulty {
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 }
 #puzzle > .center {
   width: 512px;

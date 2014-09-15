@@ -24,6 +24,9 @@ form.color .color_3 span {
 #trainer.black .black .lichess_board {
   display: block;
 }
+#trainer form.color {
+  text-align: center;
+}
 #trainer.play div.lcs:hover {
   cursor: pointer;
   box-shadow: inset 0 0 10px 2px rgba(216, 85, 0, 0.9);

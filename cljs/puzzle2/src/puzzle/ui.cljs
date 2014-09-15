@@ -130,6 +130,7 @@
            (d/div {:className "please_vote"}
                   (d/p {:className "first"}
                        (d/strong {} (trans :wasThisPuzzleAnyGood))
+                       (d/br)
                        (d/span {} (trans :pleaseVotePuzzle)))
                   (d/p {:className "then"}
                        (d/strong {} (trans :thankYou)))))
