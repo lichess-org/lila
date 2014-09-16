@@ -6,8 +6,8 @@ if [ -z $mode ]; then
   echo "Empty deploy target"
   exit 1
 elif [ $mode = "main" ]; then
-  REMOTE="hollie"
-  REMOTE_DIR="/home/lila5"
+  REMOTE="frank"
+  REMOTE_DIR="/home/lichess"
 elif [ $mode = "paul" ]; then
   REMOTE="paul"
   REMOTE_DIR="/home/lila5"
@@ -35,7 +35,7 @@ lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
 if [ $mode == "main" ]; then
   lilalog "Notify users of pre deploy"
-  bin/cli-prod deploy pre
+  # bin/cli-prod deploy pre
 fi
 
 if [ $mode == "main" ]; then
@@ -74,12 +74,12 @@ read -n 1 -p "Press [Enter] to continue."
 
 if [ $mode == "main" ]; then
   lilalog "Notify users of post deploy"
-  bin/cli-prod deploy post
+  # bin/cli-prod deploy post
 fi
 
-if [ $mode != "local" ]; then
-  lilalog "Restart lila5"
-  ssh $REMOTE "service lila5 restart"
+if [ $mode == "main" ]; then
+  lilalog "Restart lichess"
+  # ssh $REMOTE "service lichess restart"
 fi
 
 lilalog "Deploy complete"

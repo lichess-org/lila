@@ -4,10 +4,10 @@ import akka.actor._
 import akka.pattern.pipe
 import com.sksamuel.elastic4s.ElasticClient
 import com.sksamuel.elastic4s.ElasticDsl._
-import com.sksamuel.elastic4s.mapping.FieldType._
+import com.sksamuel.elastic4s.mappings.FieldType._
 
-import lila.game.GameRepo
 import lila.game.actorApi.{ InsertGame, FinishGame }
+import lila.game.GameRepo
 import lila.search.actorApi._
 import lila.search.ElasticSearch
 
@@ -59,7 +59,7 @@ private[gameSearch] final class Indexer(
         import lila.db.api._
         import lila.game.tube.gameTube
         loginfo("[game search] counting games...")
-        val size = $count($select.all).await
+        val size = SprayPimpedFuture($count($select.all)).await
         val batchSize = 1000
         var nb = 0
         var nbSkipped = 0
@@ -69,8 +69,10 @@ private[gameSearch] final class Indexer(
             val games = gameOptions.flatten filter storable
             val nbGames = games.size
             (GameRepo filterAnalysed games.map(_.id).toSeq flatMap { analysedIds =>
-              client bulk {
-                games.map { g => store(g, analysedIds(g.id)) }: _*
+              client execute {
+                bulk {
+                  games.map { g => store(g, analysedIds(g.id)) }: _*
+                }
               }
             }).void >>- {
               nb = nb + nbGames
