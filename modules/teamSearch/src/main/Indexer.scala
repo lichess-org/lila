@@ -4,7 +4,7 @@ import akka.actor._
 import akka.pattern.pipe
 import com.sksamuel.elastic4s.ElasticClient
 import com.sksamuel.elastic4s.ElasticDsl._
-import com.sksamuel.elastic4s.mapping.FieldType._
+import com.sksamuel.elastic4s.mappings.FieldType._
 
 import lila.search.actorApi._
 import lila.team.actorApi._
@@ -22,7 +22,7 @@ private[teamSearch] final class Indexer(
     case Search(definition) => client execute definition pipeTo sender
     case Count(definition)  => client execute definition pipeTo sender
 
-    case InsertTeam(team) => client execute store(team)
+    case InsertTeam(team)   => client execute store(team)
 
     case RemoveTeam(id) => client execute {
       delete id id from indexType
@@ -46,8 +46,10 @@ private[teamSearch] final class Indexer(
         import lila.team.tube.teamTube
         Await.result(
           $enumerate.bulk[Option[Team]]($query[Team](Json.obj("enabled" -> true)), 100) { teamOptions =>
-            client bulk {
-              (teamOptions.flatten map store): _*
+            client execute {
+              bulk {
+                (teamOptions.flatten map store): _*
+              }
             } void
           }, 20 minutes)
         sender ! (())

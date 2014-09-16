@@ -4,7 +4,7 @@ import akka.actor._
 import akka.pattern.pipe
 import com.sksamuel.elastic4s.ElasticClient
 import com.sksamuel.elastic4s.ElasticDsl._
-import com.sksamuel.elastic4s.mapping.FieldType._
+import com.sksamuel.elastic4s.mappings.FieldType._
 
 import lila.forum.actorApi._
 import lila.forum.{ Post, PostLiteView, PostApi }
@@ -59,8 +59,10 @@ private[forumSearch] final class Indexer(
         Await.result(
           $enumerate.bulk[Option[Post]]($query[Post](Json.obj()), 200) { postOptions =>
             (postApi liteViews postOptions.flatten) flatMap { views =>
-              client bulk {
-                (views map store): _*
+              client execute {
+                bulk {
+                  (views map store): _*
+                }
               } void
             }
           }, 20 minutes)
