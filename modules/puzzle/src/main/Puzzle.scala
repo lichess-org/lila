@@ -100,10 +100,7 @@ object Puzzle {
     val attempts = "attempts"
     val wins = "wins"
     val time = "time"
-    val users = "users"
   }
-
-  val withoutUsers = BSONDocument(BSONFields.users -> false)
 
   implicit val puzzleBSONHandler = new BSON[Puzzle] {
 
