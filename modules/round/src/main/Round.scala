@@ -185,6 +185,6 @@ private[round] final class Round(
     events => if (events.nonEmpty) socketHub ! Tell(gameId, EventList(events))
   } addFailureEffect {
     case e: ClientErrorException =>
-    case e                       => logwarn("[round] " + e)
+    case e                       => logwarn(s"[round] ${gameId} $e")
   } void
 }
