@@ -9,7 +9,7 @@ final class DonationApi(coll: Coll, monthlyGoal: Int) {
 
   private implicit val donationBSONHandler = Macros.handler[Donation]
 
-  private val decentAmount = BSONDocument("net" -> BSONDocument("$gte" -> BSONInteger(1)))
+  private val decentAmount = BSONDocument("gross" -> BSONDocument("$gte" -> BSONInteger(200)))
 
   def list = coll.find(decentAmount)
     .sort(BSONDocument("date" -> -1))
@@ -17,7 +17,7 @@ final class DonationApi(coll: Coll, monthlyGoal: Int) {
     .collect[List]()
 
   def top(nb: Int) = coll.find(BSONDocument())
-    .sort(BSONDocument("net" -> -1, "date" -> -1))
+    .sort(BSONDocument("gross" -> -1, "date" -> -1))
     .cursor[Donation]
     .collect[List](nb)
 
