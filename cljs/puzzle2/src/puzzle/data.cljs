@@ -166,8 +166,8 @@
                                :color (when (#{"play" "try"} (:mode config))
                                         (:color puzzle))
                                :events {:after #(ctrl :user-move [%1 %2])}}
-                     :animation {:enabled (#{"play" "try"} (:mode config))
-                                 :duration 500}
+                     :animation {:enabled true
+                                 :duration 200}
                      :premovable {:enabled true}})}))
 
 (defn reload [state config]

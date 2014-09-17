@@ -73,10 +73,10 @@
   (apply d/div {:className "difficulty buttonset"}
          (map (fn [[id name]]
                 (d/a {:key id
-                           :className (str "button" (when (= id current) " active"))
-                           :disabled (= id current)
-                           :onClick #(ctrl :set-difficulty id)}
-                          name)) choices)))
+                      :className (str "button" (when (= id current) " active"))
+                      :disabled (= id current)
+                      :onClick #(ctrl :set-difficulty id)}
+                     name)) choices)))
 
 (q/defcomponent Side [{:keys [commentary mode win attempt user difficulty]} router trans ctrl]
   (d/div {:className "side"}
@@ -143,7 +143,10 @@
                            (trans :puzzleId (:id puzzle))))
                 (d/p (->> puzzle :rating strong (trans :ratingX) plain-html))
                 (d/p (->> puzzle :attempts strong (trans :playedXTimes) plain-html))
-                (d/p {} (d/input {:className "copyable" :value (:url puzzle) :spellcheck false})))
+                (d/p {} (d/input {:className "copyable"
+                                  :value (:url puzzle)
+                                  :readOnly true
+                                  :spellCheck false})))
          (d/div {:className "continue_wrap"}
                 (if (nil? win)
                   (d/button {:className "continue button"
