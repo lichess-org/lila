@@ -8,7 +8,7 @@
                  [com.facebook/react "0.11.1"]
                  [quiescent "0.1.4"]
                  [jayq "2.5.2"]
-                 [org.lichess/chessground "0.3.11"]]
+                 [org.lichess/chessground "0.4.0"]]
   :cljsbuild
   {:builds
    {:dev
