@@ -27,7 +27,7 @@ final class Env(
     api = api,
     puzzleColl = puzzleColl)
 
-  lazy val selector = new Selector(puzzleColl = puzzleColl, api = api)
+  lazy val selector = new Selector(puzzleColl = puzzleColl)
 
   lazy val userInfos = UserInfos(attemptColl = attemptColl)
 
