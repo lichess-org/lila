@@ -44,10 +44,8 @@ private[puzzle] final class Finisher(
               Puzzle.BSONFields.wins -> BSONInteger(data.isWin ? 1 | 0)
             )) ++ BSONDocument("$set" -> BSONDocument(
               Puzzle.BSONFields.perf -> Perf.perfBSONHandler.write(puzzlePerf)
-            )) ++ BSONDocument("$addToSet" -> BSONDocument(
-              Puzzle.BSONFields.users -> user.id
             ))) zip UserRepo.setPerf(user.id, "puzzle", userPerf)
-        }.void) recover {
+        }) recover {
           case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") => ()
         } inject (a -> none)
     }
