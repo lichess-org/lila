@@ -75,9 +75,9 @@ trait AssetHelper {
     local = staticUrl("vendor/typeahead.bundle.min.js"))
 
   val reactTag = cdnOrLocal(
-    cdn = "http://cdnjs.cloudflare.com/ajax/libs/react/0.11.1/react.min.js",
+    cdn = "http://cdnjs.cloudflare.com/ajax/libs/react/0.11.2/react.min.js",
     test = "window.React",
-    local = staticUrl("vendor/react-0.11.1.min.js"))
+    local = staticUrl("vendor/react-0.11.2.min.js"))
 
   val reactDevTag = jsAt("vendor/react-0.11.1.js")
 
