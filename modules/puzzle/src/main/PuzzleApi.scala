@@ -88,11 +88,12 @@ private[puzzle] final class PuzzleApi(
         Attempt.BSONFields.id -> Attempt.makeId(puzzle.id, user.id)
       ).some) map (0!=)
 
-    def playedIds(user: User): Fu[BSONArray] = {
+    def playedIds(user: User, max: Int): Fu[BSONArray] = {
       import reactivemongo.bson._
       import reactivemongo.core.commands._
       val command = Aggregate(attemptColl.name, Seq(
         Match(BSONDocument(Attempt.BSONFields.userId -> user.id)),
+        Limit(max),
         Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.puzzleId))
       ))
       attemptColl.db.command(command) map {

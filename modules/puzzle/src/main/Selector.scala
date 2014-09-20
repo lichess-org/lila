@@ -10,11 +10,13 @@ import reactivemongo.core.commands.Count
 import lila.db.Types.Coll
 import lila.user.User
 
-private[puzzle] final class Selector(puzzleColl: Coll, api: PuzzleApi) {
-
-  private val anonMinRating = 30
-  private val ratingToleranceStep = 160
-  private val ratingToleranceMax = 1000
+private[puzzle] final class Selector(
+    puzzleColl: Coll,
+    api: PuzzleApi,
+    anonMinRating: Int,
+    toleranceStep: Int,
+    toleranceMax: Int,
+    modulo: Int) {
 
   private val popularSelector = BSONDocument(
     Puzzle.BSONFields.voteSum -> BSONDocument("$gt" -> BSONInteger(anonMinRating))
@@ -36,8 +38,8 @@ private[puzzle] final class Selector(puzzleColl: Coll, api: PuzzleApi) {
         .options(QueryOpts(skipN = Random nextInt skipMax))
         .one[Puzzle] flatten "Can't find a puzzle for anon player!"
     }
-    case Some(user) => api.attempt.playedIds(user) flatMap { ids =>
-      tryRange(user, ratingToleranceStep, difficultyDecay(difficulty), ids)
+    case Some(user) => api.attempt.playedIds(user, modulo) flatMap { ids =>
+      tryRange(user, toleranceStep, difficultyDecay(difficulty), ids)
     }
   }
 
@@ -51,8 +53,8 @@ private[puzzle] final class Selector(puzzleColl: Coll, api: PuzzleApi) {
     )).sort(BSONDocument(Puzzle.BSONFields.voteSum -> -1))
       .one[Puzzle] flatMap {
         case Some(puzzle) => fuccess(puzzle)
-        case None => if ((tolerance + ratingToleranceStep) <= ratingToleranceMax)
-          tryRange(user, tolerance + ratingToleranceStep, decay, ids)
+        case None => if ((tolerance + toleranceStep) <= toleranceMax)
+          tryRange(user, tolerance + toleranceStep, decay, ids)
         else fufail(s"Can't find a puzzle for user $user!")
       }
 }
