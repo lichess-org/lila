@@ -16,7 +16,7 @@
   (letfn [(load-chart [el]
             (let [dark (jq/has-class ($ :body) :dark)]
               (.sparkline ($ :.user_chart el)
-                          (-> q/*component* .-_owner .-props (aget "value") :history clj->js)
+                          (-> q/*component* (aget "_owner") (aget "props") (aget "value") :history clj->js)
                           #js {:type "line" :width "213px" :height "80px"
                                :lineColor (if dark "#4444ff" "#0000ff")
                                :fillColor (if dark "#222255" "#ccccff")})))]
@@ -123,7 +123,7 @@
                :className (str "downvote" (when (= (:vote attempt) false) " active"))
                :onClick #(ctrl :vote 0)})))
 
-(q/defcomponent ViewTable [{:keys [puzzle voted attempt auth? win]} trans ctrl]
+(q/defcomponent ViewTable [{:keys [puzzle voted attempt auth? win]} router trans ctrl]
   (d/div {}
          (when (and (:enabled puzzle)
                     (= voted false))
@@ -139,7 +139,7 @@
                   (Vote {:puzzle puzzle
                          :attempt attempt} trans ctrl))
                 (d/h2 {}
-                      (d/a {:href (.-url (js/puzzleRoutes.controllers.Puzzle.show (:id puzzle)))}
+                      (d/a {:href (router :Puzzle.show (:id puzzle))}
                            (trans :puzzleId (:id puzzle))))
                 (d/p (->> puzzle :rating strong (trans :ratingX) plain-html))
                 (d/p (->> puzzle :attempts strong (trans :playedXTimes) plain-html))
@@ -225,7 +225,7 @@
                   (ViewTable {:auth? (boolean user)
                               :attempt attempt
                               :voted voted
-                              :puzzle puzzle} trans ctrl)
+                              :puzzle puzzle} router trans ctrl)
                   (PlayTable {:turn-color (-> state :chessground :turn-color)
                               :color (:color puzzle)} trans ctrl)))
          (d/div {:className "center"}

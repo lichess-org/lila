@@ -10,7 +10,7 @@
   (fn [action & args]
     (let [actions (.split (name action) ".")
           function (reduce (fn [o a] (aget o a)) (aget play-router "controllers") actions)]
-      (.-url (apply function args)))))
+      (aget (apply function args) "url"))))
 
 (defn- make-trans [i18n]
   (fn [k & args]

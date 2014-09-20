@@ -79,7 +79,7 @@ trait AssetHelper {
     test = "window.React",
     local = staticUrl("vendor/react-0.11.2.min.js"))
 
-  val reactDevTag = jsAt("vendor/react-0.11.1.js")
+  val reactDevTag = jsAt("vendor/react-0.11.2.js")
 
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
     if (isProd)
