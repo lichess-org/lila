@@ -68,4 +68,5 @@
 }
 .cg-piece.dragging {
   z-index: 9;
+  cursor: move;
 }

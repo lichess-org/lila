@@ -106,9 +106,6 @@
   height: 22px;
   display:inline-block;
 }
-#puzzle .game_control a.disabled {
-  opacity: 0.5;
-}
 #puzzle div.continue.links {
   margin: 20px 0 20px 0;
   text-align: center;
@@ -124,8 +121,8 @@
   margin-left: -2px;
   margin-right: -3px;
 }
-#puzzle #GameButtons a:disabled {
-  color: transparent;
+#puzzle #GameButtons a.disabled::before {
+  opacity: 0.5;
   text-shadow: none !important;
 }
 div.cg-board {
