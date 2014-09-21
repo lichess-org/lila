@@ -3,11 +3,11 @@
   :license {:name "MIT" :url "http://opensource.org/licenses/MIT"}
   :plugins [[lein-cljsbuild "1.0.3"]]
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2322"]
+                 [org.clojure/clojurescript "0.0-2342"]
                  [org.clojure/core.async "0.1.338.0-5c5012-alpha"]
-                 [com.facebook/react "0.11.1"]
+                 [com.facebook/react "0.11.2"]
                  [quiescent "0.1.4"]
-                 [org.lichess/chessground "0.3.11"]]
+                 [org.lichess/chessground "0.5.4"]]
   :cljsbuild
   {:builds
    {:dev
