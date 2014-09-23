@@ -74,13 +74,6 @@ trait AssetHelper {
     test = "$.typeahead",
     local = staticUrl("vendor/typeahead.bundle.min.js"))
 
-  val reactTag = cdnOrLocal(
-    cdn = "http://cdnjs.cloudflare.com/ajax/libs/react/0.11.2/react.min.js",
-    test = "window.React",
-    local = staticUrl("vendor/react-0.11.2.min.js"))
-
-  val reactDevTag = jsAt("vendor/react-0.11.2.js")
-
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
     if (isProd)
       s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local">\\x3C/script>')</script>"""

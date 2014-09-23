@@ -6,14 +6,14 @@
   width: 512px;
   height: 512px;
 }
-#board_editor .cg-square.last-move {
+#board_editor .cg-board > div.last-move {
   background-color: transparent;
 }
-#board_editor .cg-square:hover,
-#board_editor .cg-square.drag-over {
+#board_editor .cg-board > div:hover,
+#board_editor .cg-board > div.drag-over {
   background: rgba(255, 255, 255, 0.1);
 }
-#board_editor .cg-square.selected {
+#board_editor .cg-board > div.selected {
   background-color: rgba(20, 85, 30, 0.5);
 }
 #board_editor .spare-pieces-bottom-ae20f {

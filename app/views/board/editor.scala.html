@@ -8,20 +8,10 @@
 @cssTag("boardEditor.css")
 }
 @moreJs = {
-@jsAt("vendor/interact.min.js")
-@if(isProd) {
-@reactTag
-@jsAt("compiled/editor/editor.prod.js")
-} else {
-@reactDevTag
-@jsAt("compiled/editor/out/goog/base.js")
-@jsAt("compiled/editor/editor.dev.js")
+@* @jsAt(s"compiled/lichess.editor${isProd??(".min")}.js") *@
+@jsAt(s"compiled/lichess.editor.js")
 @embedJs {
-goog.require('org.lichess.editor');
-}
-}
-@embedJs {
-org.lichess.editor.main(document.getElementById('board_editor'), {
+LichessEditor(document.getElementById('board_editor'), {
   fen: "@fen.split(" ").headOption",
   baseUrl: "@netBaseUrl@routes.Editor.load("")",
   color: "@sit.color.letter",

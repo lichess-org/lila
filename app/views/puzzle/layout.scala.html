@@ -12,10 +12,8 @@
 @jsTagCompiled("chessboard.js")
 @jsTag("vendor/sparkline.min.js")
 @if(true && isProd) {
-@reactTag
 @jsAt("compiled/puzzle/puzzle.prod.js")
 } else {
-@reactDevTag
 @jsAt("compiled/puzzle/out/goog/base.js")
 @jsAt("compiled/puzzle/puzzle.dev.js")
 @embedJs {
