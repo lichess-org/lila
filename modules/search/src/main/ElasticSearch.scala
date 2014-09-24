@@ -10,9 +10,11 @@ object ElasticSearch {
   // synchronously create index and type, ignoring errors (already existing)
   def createType(client: ElasticClient, indexName: String, typeName: String) {
     try {
-      client.sync execute {
+      import scala.concurrent.Await
+      import scala.concurrent.duration._
+      Await.result(client execute {
         create index indexName
-      }
+      }, 10.seconds)
     }
     catch {
       case e: Exception => // println("create type: " + e)
