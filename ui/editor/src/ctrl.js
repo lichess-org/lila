@@ -18,14 +18,9 @@ module.exports = function(cfg) {
     }
   });
 
-  this.computeFen = function() {
-    var baseFen = chessground.fen.write(this.chessground.board.pieces.all);
-    return baseFen + ' ' + data.fenMetadatas.call(this.editor);
-  }.bind(this);
+  this.computeFen = data.computeFen.bind(this.editor, this.chessground.board);
 
-  this.trans = function(key) {
-    return this.editor.i18n[key];
-  }.bind(this);
+  this.trans = data.trans.bind(this.editor);
 
   this.startPosition = function() {
     this.chessground.reconfigure({
@@ -37,18 +32,6 @@ module.exports = function(cfg) {
     this.chessground.reconfigure({
       fen: '8/8/8/8/8/8/8/8'
     });
-  }.bind(this);
-
-  this.toggleOrientation = function() {
-    this.chessground.toggleOrientation();
-  }.bind(this);
-
-  this.setColor = function(color) {
-    this.editor.color = color;
-  }.bind(this);
-
-  this.setCastle = function(piece, available) {
-    this.editor.castles[piece] = available;
   }.bind(this);
 
   this.loadNewFen = function(fen) {

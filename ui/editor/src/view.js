@@ -1,14 +1,6 @@
 var chessground = require('chessground');
 var data = require('./data');
 
-// function handle(handler) {
-//   return function(event) {
-//     event.stopPropagation();
-//     event.preventDefault();
-//     return handler(event);
-//   }
-// }
-
 function promptNewFen(ctrl) {
   var fen = prompt('Paste FEN position').trim();
   if (fen) this.loadNewFen(fen);
@@ -16,9 +8,9 @@ function promptNewFen(ctrl) {
 
 function castleCheckBox(ctrl, id, label, reversed) {
   var input = m('input[type=checkbox]', {
-    checked: ctrl.editor.castles[id],
+    checked: ctrl.editor.castles[id](),
     onchange: function() {
-      ctrl.setCastle(id, this.checked);
+      ctrl.editor.castles[id](this.checked);
     }
   });
   return m('label', reversed ? [input, label] : [label, input]);
@@ -36,7 +28,7 @@ function controls(ctrl, fen) {
     ]),
     m('div', [
       m('a.button[data-icon=B]', {
-        onclick: ctrl.toggleOrientation
+        onclick: ctrl.chessground.toggleOrientation
       }, ctrl.trans('flipBoard')),
       m('a.button', {
         onclick: promptNewFen.bind(ctrl)
@@ -44,8 +36,8 @@ function controls(ctrl, fen) {
     ]),
     m('div', [
       m('select.color', {
-        value: ctrl.editor.color,
-        onchange: m.withAttr('value', ctrl.setColor)
+        value: ctrl.editor.color(),
+        onchange: m.withAttr('value', ctrl.editor.color)
       }, [
         m('option[value=w]', ctrl.trans('whitePlays')),
         m('option[value=b]', ctrl.trans('blackPlays'))
