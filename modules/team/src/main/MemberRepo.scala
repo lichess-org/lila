@@ -3,12 +3,12 @@ package lila.team
 import play.api.libs.json.Json
 import reactivemongo.api._
 
+import lila.db.JsTubeInColl
 import lila.db.api._
-import tube.memberTube
 
-object MemberRepo {
-
+trait MemberRepo {
   type ID = String
+  implicit def inColl: JsTubeInColl[Member]
 
   def userIdsByTeam(teamId: ID): Fu[List[ID]] = 
     $primitive(teamQuery(teamId), "user")(_.asOpt[ID])
@@ -34,4 +34,8 @@ object MemberRepo {
   def selectId(teamId: ID, userId: ID) = $select(Member.makeId(teamId, userId))
   def teamQuery(teamId: ID) = Json.obj("team" -> teamId)
   def userQuery(userId: ID) = Json.obj("user" -> userId)
+}
+
+object MemberRepo extends MemberRepo {
+  lazy val inColl = tube.memberTube
 }
