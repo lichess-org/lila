@@ -7,7 +7,6 @@ object Dependencies {
   object Resolvers {
     val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
     val typesafeS = "typesafe.com" at "http://repo.typesafe.com/typesafe/snapshots/"
-    val iliaz = "iliaz.com" at "http://scala.iliaz.com/"
     val sonatype = "sonatype" at "https://oss.sonatype.org/content/repositories/releases"
     val sonatypeS = "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
     val t2v = "t2v.jp repo" at "http://www.t2v.jp/maven-repo/"
@@ -26,7 +25,7 @@ object Dependencies {
       // localSonatype,
       sonatypeS,
       sonatype,
-      awesomepom, iliaz,
+      awesomepom,
       typesafe,
       roundeights,
       // typesafeS,
@@ -52,7 +51,7 @@ object Dependencies {
   val prismic = "io.prismic" %% "scala-kit" % "1.0-M16"
 
   object play {
-    val version = "2.3.3"
+    val version = "2.3.4"
     val api = "com.typesafe.play" %% "play" % version
     val test = "com.typesafe.play" %% "play-test" % version
   }
