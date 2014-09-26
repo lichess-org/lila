@@ -215,8 +215,8 @@ object ApplicationBuild extends Build {
   )
 
   lazy val team = project("team", Seq(common, memo, db, user, forum, security, hub)).settings(
-    libraryDependencies ++= provided(
-      play.api, RM, PRM)
+    libraryDependencies ++= provided(play.api, RM, PRM) :+ (
+      "org.eu.acolyte" %% "reactive-mongo" % "1.0.27" % "test")
   )
 
   lazy val teamSearch = project("teamSearch", Seq(common, hub, team, search)).settings(

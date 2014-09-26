@@ -6,13 +6,13 @@ import play.api.libs.json.Json
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 import reactivemongo.api._
 
+import lila.db.JsTubeInColl
 import lila.db.api._
 import lila.user.User
-import tube.teamTube
 
-object TeamRepo {
-
+trait TeamRepo {
   type ID = String
+  implicit def inColl: JsTubeInColl[Team]
 
   def owned(id: String, createdBy: String): Fu[Option[Team]] =
     $find.one($select(id) ++ Json.obj("createdBy" -> createdBy))
@@ -47,4 +47,8 @@ object TeamRepo {
   val enabledQuery = Json.obj("enabled" -> true)
 
   val sortPopular = $sort desc "nbMembers"
+}
+
+object TeamRepo extends TeamRepo {
+  lazy val inColl = tube.teamTube
 }
