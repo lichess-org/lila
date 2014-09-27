@@ -13,7 +13,7 @@ module.exports = function(ctrl, e) {
     return !ctrl.chessground.data.pieces[k];
   });
   if (!key) return;
-  var coords = util.key2pos(key);
+  var coords = util.key2pos(ctrl.chessground.data.orientation === 'white' ? key : util.invertKey(key));
   var obj = {};
   obj[key] = {
     role: role,
