@@ -1,7 +1,7 @@
 {
-  "name": "editor",
+  "name": "puzzle",
   "version": "1.0.0",
-  "description": "lichess.org board editor",
+  "description": "lichess.org puzzle solver",
   "main": "src/main.js",
   "repository": {
     "type": "git",
@@ -9,9 +9,9 @@
   },
   "keywords": [
     "chess",
-    "lichess.org",
-    "board",
-    "editor"
+    "lichess",
+    "puzzle",
+    "training"
   ],
   "author": "Thibault Duplessis",
   "license": "MIT",
@@ -30,6 +30,7 @@
     "watchify": "^1.0.2"
   },
   "dependencies": {
+    "chess.js": "^0.1.0",
     "lodash-node": "^2.4.1",
     "mithril": "git://github.com/lhorie/mithril.js.git#c16350de5ab64118"
   }

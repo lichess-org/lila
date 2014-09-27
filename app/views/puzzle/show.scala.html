@@ -14,10 +14,10 @@ routes.javascript.Coordinate.home,
 routes.javascript.Editor.load
 )(ctx.req)
 @embedJs {
-org.lichess.puzzle.main(
+LichessPuzzle(
 document.getElementById('lichess'),
 @JsData(puzzle, userInfos, asPlay.fold("play", "try")),
-puzzleRoutes,
+puzzleRoutes.controllers,
 @Html(J.stringify(i18nJsObject(
 trans.training,
 trans.yourPuzzleRatingX,

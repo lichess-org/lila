@@ -11,15 +11,8 @@
 @jsTag("vendor/chess.min.js")
 @jsTagCompiled("chessboard.js")
 @jsTag("vendor/sparkline.min.js")
-@if(true && isProd) {
-@jsAt("compiled/puzzle/puzzle.prod.js")
-} else {
-@jsAt("compiled/puzzle/out/goog/base.js")
-@jsAt("compiled/puzzle/puzzle.dev.js")
-@embedJs {
-goog.require('org.lichess.puzzle');
-}
-}
+@* @jsAt(s"compiled/lichess.puzzle${isProd??(".min")}.js") *@
+@jsAt(s"compiled/lichess.puzzle.js")
 @evenMoreJs
 }
 
