@@ -20,9 +20,8 @@
   margin-top: 8px;
 }
 #board_editor .spare {
-  width: 512px;
   height: 64px;
-  padding: 0 64px;
+  padding-left: 64px;
 }
 #board_editor .spare .cg-piece {
   width: 64px;
@@ -34,7 +33,7 @@
 #editor-side {
   position: absolute;
   left: 552px;
-  top: 156px;
+  top: 124px;
   width: 228px;
 }
 #editor-side > div {
@@ -65,8 +64,8 @@
 #board_editor .copyable {
   width: 460px;
 }
-#editor-side .castling {
-  margin-top: 1em;
+#editor-side > div.color {
+  margin-bottom: 1em;
 }
 #editor-side .castling label,
 #editor-side .castling input {
