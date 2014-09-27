@@ -1,43 +1,38 @@
-function start(ctrl, e) {
+var range = require('lodash-node/modern/arrays/range');
+var find = require('lodash-node/modern/collections/find');
+var util = require('chessground').util;
+
+module.exports = function(ctrl, e) {
   if (e.button !== 0) return; // only left click
   var role = e.target.getAttribute('data-role')
   color = e.target.getAttribute('data-color');
   if (!role || !color) return;
   e.stopPropagation();
   e.preventDefault();
-  var bounds = e.target.parentNode.parentNode.getBoundingClientRect();
-  var pieceBounds = e.target.getBoundingClientRect();
-  ctrl.data.extra = {
-    bounds: bounds,
+  var key = find(util.allKeys, function(k) {
+    return !ctrl.chessground.data.pieces[k];
+  });
+  if (!key) return;
+  var coords = util.key2pos(key);
+  var obj = {};
+  obj[key] = {
     role: role,
-    color: color,
-    left: e.clientX - bounds.left,
-    top: e.clientY - bounds.top,
-    dec: [
-      - pieceBounds.width / 2,
-      - pieceBounds.height / 2
-    ],
+    color: color
   };
-  console.log(ctrl.data.extra);
+  ctrl.chessground.setPieces(obj);
+  var bounds = ctrl.chessground.data.bounds();
+  var pieceBounds = e.target.getBoundingClientRect();
+  var rel = [
+    (coords[0] - 1) * pieceBounds.width + bounds.left,
+    (8 - coords[1]) * pieceBounds.height + bounds.top
+  ];
+  ctrl.chessground.data.draggable.current = {
+    orig: key,
+    rel: rel,
+    pos: [e.clientX - rel[0], e.clientY - rel[1]],
+    dec: [-pieceBounds.width / 2, -pieceBounds.height / 2],
+    bounds: bounds,
+    started: true
+  };
   m.redraw();
 }
-
-function move(ctrl, e) {
-  var cur = ctrl.data.extra;
-  if (!cur.role) return;
-  cur.left = e.clientX - cur.bounds.left;
-  cur.top = e.clientY - cur.bounds.top;
-  m.redraw();
-}
-
-function end(ctrl, e) {
-  if (!ctrl.data.extra.role) return;
-  ctrl.data.extra = {};
-  m.redraw();
-}
-
-module.exports = {
-  start: start,
-  move: move,
-  end: end
-};

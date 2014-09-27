@@ -113,16 +113,10 @@ module.exports = function(ctrl) {
   return m('div.editor', {
     config: function(el, isUpdate, context) {
       if (isUpdate) return;
-      var onstart = partial(drag.start, ctrl);
-      var onmove = partial(drag.move, ctrl);
-      var onend = partial(drag.end, ctrl);
+      var onstart = partial(drag, ctrl);
       document.addEventListener('mousedown', onstart);
-      document.addEventListener('mousemove', onmove);
-      document.addEventListener('mouseup', onend);
       context.onunload = function() {
         document.removeEventListener('mousedown', onstart);
-        document.removeEventListener('mousemove', onmove);
-        document.removeEventListener('mouseup', onend);
       };
     }
   }, [

@@ -16,6 +16,9 @@ module.exports = function(cfg) {
     },
     premovable: {
       enabled: false
+    },
+    draggable: {
+      showGhost: false
     }
   });
 
