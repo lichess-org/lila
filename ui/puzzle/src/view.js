@@ -1,5 +1,6 @@
 var partial = require('lodash-node/modern/functions/partial');
 var chessground = require('chessground');
+var m = require('mithril');
 var puzzle = require('./puzzle');
 
 // useful in translation arguments
@@ -98,6 +99,49 @@ function renderPlayTable(ctrl) {
   );
 }
 
+function renderVote(ctrl) {
+  return 'vote';
+}
+
+function renderViewTable(ctrl) {
+  return m('div', [
+    (ctrl.data.puzzle.enabled && ctrl.data.voted === false) ? m('div.please_vote', [
+      m('p.first', [
+        m('strong', ctrl.trans('wasThisPuzzleAnyGood')),
+        m('br'),
+        m('span', ctrl.trans('pleaseVotePuzzle'))
+      ]),
+      m('p.then',
+        m('strong', ctrl.trans('thankYou'))
+      )
+    ]) : null,
+    m('div.box', [
+      (ctrl.data.puzzle.enabled && ctrl.data.user) ? renderVote(ctrl) : null,
+      m('h2',
+        m('a', {
+          href: ctrl.router.Puzzle.show(ctrl.data.puzzle.id)
+        }, ctrl.trans('puzzleId', ctrl.data.puzzle.id))
+      ),
+      m('p', m.trust(ctrl.trans('ratingX', strong(ctrl.data.puzzle.rating)))),
+      m('p', m.trust(ctrl.trans('playedXTimes', strong(ctrl.data.puzzle.attempts)))),
+      m('p',
+        m('input.copyable[readonly][spellCheck=false]', {
+          value: ctrl.data.puzzle.url
+        })
+      )
+    ]),
+    m('div.continue_wrap', [
+      ctrl.data.win === null ? m('button.continue.button[data-icon=G]', {
+        onclick: ctrl.newPuzzle
+      }, ctrl.trans('continueTraining')) : m('a.continue.button[data-icon=G]', {
+        onclick: ctrl.newPuzzle
+      }, ctrl.trans('startTraining')), !(ctrl.data.win === null ? ctrl.data.attempt.win : ctrl.data.win) ? m('a.retry[data-icon=P]', {
+        onclick: ctrl.retry
+      }, ctrl.trans('retryThisPuzzle')) : null
+    ])
+  ]);
+}
+
 function renderRight(ctrl) {
   return m('div.right', {
       config: function(el, isUpdate, context) {
@@ -108,6 +152,10 @@ function renderRight(ctrl) {
   );
 }
 
+function renderHistory(ctrl) {
+  return m('div.history', ctrl.data.historyHtml ? m.trust(ctrl.data.historyHtml) : null);
+}
+
 module.exports = function(ctrl) {
   return m('div#puzzle.training', [
     renderSide(ctrl),
@@ -115,7 +163,7 @@ module.exports = function(ctrl) {
     m('div.center', [
       chessground.view(ctrl.chessground),
       // renderFooter(ctrl),
-      // renderHistory(ctrl)
+      renderHistory(ctrl)
     ])
   ]);
 };

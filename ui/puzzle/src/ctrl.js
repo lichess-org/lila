@@ -1,9 +1,11 @@
+var m = require('mithril');
 var partial = require('lodash-node/modern/functions/partial');
 var reduce = require('lodash-node/modern/collections/reduce');
 var chessground = require('chessground');
 var data = require('./data');
 var chess = require('./chess');
 var puzzle = require('./puzzle');
+var xhr = require('./xhr');
 
 module.exports = function(cfg, router, i18n) {
 
@@ -19,7 +21,7 @@ module.exports = function(cfg, router, i18n) {
         this.data.comment = 'retry';
         break;
       case 'fail':
-        if (this.data.mode == 'play') throw 'hum'; //xhr.attempt(this.data, false);
+        if (this.data.mode == 'play') xhr.attempt(this, false);
         else setTimeout(this.revert, 500);
         this.data.comment = 'fail';
         break;
@@ -91,9 +93,21 @@ module.exports = function(cfg, router, i18n) {
     this.data.startedAt = new Date();
   }.bind(this);
 
+  this.setHistoryHtml = function(html) {
+    this.data.historyHtml = html;
+    m.redraw();
+  }.bind(this);
+
   this.initiate = function() {
     if (this.data.mode == 'view') throw 'ahem';
     else setTimeout(this.playInitialMove, 1000);
+    $.get(this.router.Puzzle.history().url, this.setHistoryHtml);
+  }.bind(this);
+
+  this.reloadWithProgress = function(cfg) {
+    var progress = this.data.progress;
+    this.data = data(cfg);
+    this.progress = progress;
   }.bind(this);
 
   this.giveUp = function() {}.bind(this);
