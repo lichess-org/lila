@@ -39,6 +39,6 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.loadNewFen = function(fen) {
-    window.location = editor.makeUrl.call(this.data, fen);
+    window.location = editor.makeUrl(this.data, fen);
   }.bind(this);
 };

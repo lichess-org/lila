@@ -4,8 +4,8 @@ var editor = require('./editor');
 var drag = require('./drag');
 
 function promptNewFen(ctrl) {
-  var fen = prompt('Paste FEN position').trim();
-  if (fen) ctrl.loadNewFen(fen);
+  var fen = prompt('Paste FEN position');
+  if (fen) ctrl.loadNewFen(fen.trim());
 }
 
 function castleCheckBox(ctrl, id, label, reversed) {
@@ -33,7 +33,7 @@ function controls(ctrl, fen) {
         onclick: ctrl.chessground.toggleOrientation
       }, ctrl.trans('flipBoard')),
       m('a.button', {
-        onclick: promptNewFen.bind(ctrl)
+        onclick: partial(promptNewFen, ctrl)
       }, ctrl.trans('loadPosition'))
     ]),
     m('div.color', [
