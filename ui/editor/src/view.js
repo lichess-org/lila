@@ -19,7 +19,7 @@ function castleCheckBox(ctrl, id, label, reversed) {
 }
 
 function controls(ctrl, fen) {
-  return m('div#editor-side', [
+  return fen ? m('div#editor-side', [
     m('div', [
       m('a.button', {
         onclick: ctrl.startPosition
@@ -36,8 +36,8 @@ function controls(ctrl, fen) {
         onclick: promptNewFen.bind(ctrl)
       }, ctrl.trans('loadPosition'))
     ]),
-    m('div', [
-      m('select.color', {
+    m('div.color', [
+      m('select', {
         value: ctrl.data.color(),
         onchange: m.withAttr('value', ctrl.data.color)
       }, [
@@ -64,11 +64,11 @@ function controls(ctrl, fen) {
         href: '/?fen=' + fen + '#friend'
       }, ctrl.trans('playWithAFriend'))
     ])
-  ]);
+  ]) : {subtree: 'retain'};
 }
 
 function inputs(ctrl, fen) {
-  return m('div.copyables', [
+  return fen ? m('div.copyables', [
     m('p', [
       m('strong.name', 'FEN'),
       m('input.copyable[readonly][spellCheck=false]', {
@@ -81,7 +81,7 @@ function inputs(ctrl, fen) {
         value: editor.makeUrl(ctrl.data, fen)
       })
     ])
-  ]);
+  ]) : {subtree: 'retain'};
 }
 
 function sparePieces(ctrl, color) {
@@ -95,7 +95,7 @@ function sparePieces(ctrl, color) {
 }
 
 module.exports = function(ctrl) {
-  var fen = (ctrl.chessground.data.draggable.current && ctrl.chessground.data.draggable.current.orig) ? '' : ctrl.computeFen();
+  var fen = (ctrl.chessground.data.draggable.current && ctrl.chessground.data.draggable.current.orig) ? false : ctrl.computeFen();
   var color = ctrl.chessground.data.orientation;
   var opposite = color === 'white' ? 'black' : 'white';
   return m('div.editor', {
