@@ -1,5 +1,7 @@
+var partial = require('lodash-node/modern/functions/partial');
 var chessground = require('chessground');
 var editor = require('./editor');
+var drag = require('./drag');
 
 function promptNewFen(ctrl) {
   var fen = prompt('Paste FEN position').trim();
@@ -82,10 +84,54 @@ function inputs(ctrl, fen) {
   ]);
 }
 
+function sparePieces(ctrl, color) {
+  return m('div.spare', ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
+    return m('div', {
+      class: ['cg-piece', color, role].join(' '),
+      'data-color': color,
+      'data-role': role
+    })
+  }));
+}
+
+function extraPiece(ctrl) {
+  var cur = ctrl.data.extra;
+  if (!cur.role) return;
+  return m('div', {
+    class: ['extra-piece', 'cg-piece', cur.color, cur.role].join(' '),
+    style: {
+      left: cur.left + cur.dec[0] + 'px',
+      top: cur.top + cur.dec[1] + 'px'
+    }
+  });
+}
+
 module.exports = function(ctrl) {
   var fen = ctrl.computeFen();
-  return m('div.editor', [
-    chessground.view(ctrl.chessground),
+  var color = ctrl.chessground.data.orientation;
+  var opposite = color === 'white' ? 'black' : 'white';
+  return m('div.editor', {
+    config: function(el, isUpdate, context) {
+      if (isUpdate) return;
+      var onstart = partial(drag.start, ctrl);
+      var onmove = partial(drag.move, ctrl);
+      var onend = partial(drag.end, ctrl);
+      document.addEventListener('mousedown', onstart);
+      document.addEventListener('mousemove', onmove);
+      document.addEventListener('mouseup', onend);
+      context.onunload = function() {
+        document.removeEventListener('mousedown', onstart);
+        document.removeEventListener('mousemove', onmove);
+        document.removeEventListener('mouseup', onend);
+      };
+    }
+  }, [
+    m('div.board-and-spare', [
+      sparePieces(ctrl, opposite),
+      chessground.view(ctrl.chessground),
+      sparePieces(ctrl, color),
+      extraPiece(ctrl)
+    ]),
     controls(ctrl, fen),
     inputs(ctrl, fen)
   ]);
