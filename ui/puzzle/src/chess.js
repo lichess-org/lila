@@ -25,8 +25,8 @@ function dests(c) {
   var grouped = groupBy(moves.map(parseMove), function(m) {
     return m[0];
   });
-  return mapValues(grouped, function(m) {
-    return m[1];
+  return mapValues(grouped, function(ms) {
+    return ms.map(function(m) { return m[1]; });
   });
 }
 

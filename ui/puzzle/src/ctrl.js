@@ -7,13 +7,48 @@ var puzzle = require('./puzzle');
 
 module.exports = function(cfg, router, i18n) {
 
-  console.log(cfg);
-
   this.data = data(cfg);
+
+  this.userMove = function(orig, dest) {
+    var res = puzzle.tryMove(this.data, [orig, dest]);
+    var newProgress = res[0];
+    var newLines = res[1];
+    switch (newLines) {
+      case 'retry':
+        setTimeout(this.revert, 500);
+        this.data.comment = 'retry';
+        break;
+      case 'fail':
+        if (this.data.mode == 'play') throw 'hum'; //xhr.attempt(this.data, false);
+        else setTimeout(this.revert, 500);
+        this.data.comment = 'fail';
+        break;
+      case 'win':
+        this.userFinalizeMove([orig, dest], newProgress);
+        // xhr.attempt(this.data, true);
+        this.data.comment = 'retry';
+        break;
+      default:
+        this.userFinalizeMove([orig, dest], newProgress);
+        setTimeout(this.playOpponentNextMove, 1000);
+    }
+  }.bind(this);
+
+  this.userFinalizeMove = function(move, newProgress) {
+    chess.move(this.data.chess, move);
+    this.data.comment = 'great';
+    this.data.progress = newProgress;
+    this.chessground.reconfigure({
+      fen: this.data.chess.fen(),
+      lastMove: move,
+      turnColor: this.data.puzzle.opponentColor
+    });
+  }.bind(this);
 
   this.chessground = new chessground.controller({
     fen: cfg.puzzle.fen,
-    orientation: cfg.puzzle.color,
+    orientation: this.data.puzzle.color,
+    turnColor: this.data.puzzle.opponentColor,
     movable: {
       free: false,
       color: cfg.mode !== 'view' ? cfg.puzzle.color : null,
@@ -41,6 +76,14 @@ module.exports = function(cfg, router, i18n) {
       turnColor: this.data.puzzle.color
     });
     this.chessground.playPremove();
+  }.bind(this);
+
+  this.playOpponentNextMove = function() {
+    var move = puzzle.getOpponentNextMove(this.data);
+    this.playOpponentMove(puzzle.str2move(move));
+    this.data.progress.push(move);
+    var newLines = puzzle.getCurrentLines(this.data);
+    if (newLines == 'win') throw '(xhr/attempt new-state true))';
   }.bind(this);
 
   this.playInitialMove = function(data) {
