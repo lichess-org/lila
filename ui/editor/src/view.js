@@ -94,20 +94,8 @@ function sparePieces(ctrl, color) {
   }));
 }
 
-function extraPiece(ctrl) {
-  var cur = ctrl.data.extra;
-  if (!cur.role) return;
-  return m('div', {
-    class: ['extra-piece', 'cg-piece', cur.color, cur.role].join(' '),
-    style: {
-      left: cur.left + cur.dec[0] + 'px',
-      top: cur.top + cur.dec[1] + 'px'
-    }
-  });
-}
-
 module.exports = function(ctrl) {
-  var fen = ctrl.computeFen();
+  var fen = (ctrl.chessground.data.draggable.current && ctrl.chessground.data.draggable.current.orig) ? '' : ctrl.computeFen();
   var color = ctrl.chessground.data.orientation;
   var opposite = color === 'white' ? 'black' : 'white';
   return m('div.editor', {
@@ -120,12 +108,9 @@ module.exports = function(ctrl) {
       };
     }
   }, [
-    m('div.board-and-spare', [
-      sparePieces(ctrl, opposite),
-      chessground.view(ctrl.chessground),
-      sparePieces(ctrl, color),
-      extraPiece(ctrl)
-    ]),
+    sparePieces(ctrl, opposite),
+    chessground.view(ctrl.chessground),
+    sparePieces(ctrl, color),
     controls(ctrl, fen),
     inputs(ctrl, fen)
   ]);

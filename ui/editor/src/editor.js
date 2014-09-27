@@ -6,7 +6,6 @@ function init(cfg) {
   return {
     color: m.prop(cfg.color),
     castles: mapValues(cfg.castles, m.prop),
-    extra: {},
     baseUrl: cfg.baseUrl,
     i18n: cfg.i18n
   };

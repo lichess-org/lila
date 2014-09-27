@@ -2,9 +2,6 @@
   position: relative;
   min-height: 600px;
 }
-#board_editor .board-and-spare {
-  position: relative;
-}
 #board_editor .cg-board {
   width: 512px;
   height: 512px;
@@ -33,11 +30,6 @@
   position: static;
   display: inline-block;
   cursor: pointer;
-}
-#board_editor .extra-piece {
-  position: absolute;
-  width: 64px;
-  height: 64px;
 }
 #editor-side {
   position: absolute;
