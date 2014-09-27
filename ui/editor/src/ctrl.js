@@ -1,9 +1,10 @@
+var partial = require('lodash-node/modern/functions/partial');
 var chessground = require('chessground');
-var data = require('./data');
+var editor = require('./editor');
 
 module.exports = function(cfg) {
 
-  this.editor = data.init(cfg);
+  this.data = editor.init(cfg);
 
   this.chessground = new chessground.controller({
     fen: cfg.fen,
@@ -18,9 +19,9 @@ module.exports = function(cfg) {
     }
   });
 
-  this.computeFen = data.computeFen.bind(this.editor, this.chessground.board);
+  this.computeFen = partial(editor.computeFen, this.data, this.chessground.data);
 
-  this.trans = data.trans.bind(this.editor);
+  this.trans = partial(editor.trans, this.data);
 
   this.startPosition = function() {
     this.chessground.reconfigure({
@@ -35,6 +36,6 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.loadNewFen = function(fen) {
-    window.location = data.makeUrl.call(this.editor, fen);
+    window.location = editor.makeUrl.call(this.data, fen);
   }.bind(this);
 };

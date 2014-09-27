@@ -11,26 +11,25 @@ function init(cfg) {
   };
 }
 
-function fenMetadatas() {
+function fenMetadatas(data) {
   var castles = '';
-  forIn(this.castles, function(available, piece) {
+  forIn(data.castles, function(available, piece) {
     if (available()) castles += piece;
   });
-  return this.color() + ' ' + (castles.length ? castles : '-');
+  return data.color() + ' ' + (castles.length ? castles : '-');
 }
 
-function computeFen(cgBoard) {
-  console.log('compute fen');
-  var baseFen = chessground.fen.write(cgBoard.pieces.all);
-  return baseFen + ' ' + fenMetadatas.call(this);
+function computeFen(data, cgData) {
+  var baseFen = chessground.fen.write(cgData.pieces);
+  return baseFen + ' ' + fenMetadatas(data);
 }
 
-function makeUrl(fen) {
-  return this.baseUrl + encodeURIComponent(fen.replace(/%20/g, '_').replace(/%2F/g, '/'));
+function makeUrl(data, fen) {
+  return data.baseUrl + encodeURIComponent(fen.replace(/%20/g, '_').replace(/%2F/g, '/'));
 }
 
-function trans(key) {
-  return this.i18n[key];
+function trans(data, key) {
+  return data.i18n[key];
 }
 
 module.exports = {

@@ -1,16 +1,16 @@
 var chessground = require('chessground');
-var data = require('./data');
+var editor = require('./editor');
 
 function promptNewFen(ctrl) {
   var fen = prompt('Paste FEN position').trim();
-  if (fen) this.loadNewFen(fen);
+  if (fen) ctrl.loadNewFen(fen);
 }
 
 function castleCheckBox(ctrl, id, label, reversed) {
   var input = m('input[type=checkbox]', {
-    checked: ctrl.editor.castles[id](),
+    checked: ctrl.data.castles[id](),
     onchange: function() {
-      ctrl.editor.castles[id](this.checked);
+      ctrl.data.castles[id](this.checked);
     }
   });
   return m('label', reversed ? [input, label] : [label, input]);
@@ -36,8 +36,8 @@ function controls(ctrl, fen) {
     ]),
     m('div', [
       m('select.color', {
-        value: ctrl.editor.color(),
-        onchange: m.withAttr('value', ctrl.editor.color)
+        value: ctrl.data.color(),
+        onchange: m.withAttr('value', ctrl.data.color)
       }, [
         m('option[value=w]', ctrl.trans('whitePlays')),
         m('option[value=b]', ctrl.trans('blackPlays'))
@@ -76,7 +76,7 @@ function inputs(ctrl, fen) {
     m('p', [
       m('strong.name', 'URL'),
       m('input.copyable[readonly][spellCheck=false]', {
-        value: data.makeUrl(fen)
+        value: editor.makeUrl(ctrl.data, fen)
       })
     ])
   ]);

@@ -34,6 +34,6 @@
   },
   "dependencies": {
     "lodash-node": "^2.4.1",
-    "mithril": "^0.1.21"
+    "mithril": "git://github.com/lhorie/mithril.js.git#c16350de5ab64118"
   }
 }
