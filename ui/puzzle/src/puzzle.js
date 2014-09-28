@@ -1,5 +1,7 @@
 var compact = require('lodash-node/modern/arrays/compact')
+var keys = require('lodash-node/modern/objects/keys')
 var first = require('lodash-node/modern/arrays/first')
+var rest = require('lodash-node/modern/arrays/rest')
 var pairs = require('lodash-node/modern/objects/pairs')
 var chessground = require('chessground');
 var chess = require('./chess');
@@ -44,10 +46,46 @@ function getOpponentNextMove(data) {
   return first(first(pairs(getCurrentLines(data))));
 }
 
+function findBestLine(lines) {
+  var loop = function(paths) {
+    if (paths.length === 0) return [];
+    var path = first(paths);
+    var siblings = rest(paths);
+    var ahead = getPath(lines, path);
+    switch (ahead) {
+      case 'win':
+        return path;
+      case 'retry':
+        return loop(siblings);
+      default:
+        var children = keys(ahead).map(function(p) {
+          return path.concat([p]);
+        });
+        return loop(siblings.concat(children));
+    }
+  };
+  return loop(keys(lines).map(function(p) { return [p]; }));
+}
+
+function findBestLineFromProgress(lines, progress) {
+  var ahead = getPath(lines, progress);
+  return ahead == 'win' ? progress : progress.concat(findBestLine(ahead));
+}
+
+function makeHistory(data) {
+  var line = findBestLineFromProgress(data.puzzle.lines, data.progress);
+  var c = chess.make(data.puzzle.fen);
+  return [data.puzzle.initialMove].concat(line.map(str2move)).map(function(m) {
+    chess.move(c, m);
+    return [m, c.fen()];
+  });
+}
+
 module.exports = {
   str2move: str2move,
   move2str: move2str,
   tryMove: tryMove,
   getCurrentLines: getCurrentLines,
-  getOpponentNextMove: getOpponentNextMove
+  getOpponentNextMove: getOpponentNextMove,
+    makeHistory: makeHistory
 };

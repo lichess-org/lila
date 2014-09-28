@@ -1,7 +1,9 @@
 var partial = require('lodash-node/modern/functions/partial');
+var map = require('lodash-node/modern/collections/map');
 var chessground = require('chessground');
 var m = require('mithril');
 var puzzle = require('./puzzle');
+var xhr = require('./xhr');
 
 // useful in translation arguments
 function strong(txt) {
@@ -42,41 +44,98 @@ function renderTrainingBox(ctrl) {
   ]);
 }
 
-function renderSide(ctrl) {
-  return m('div.side', [
-    renderTrainingBox(ctrl),
-    // ctrl.difficulty ? renderDifficulty(ctrl) : null,
-    // renderCommentary(ctrl),
-    // renderResult(ctrl)
+function renderDifficulty(ctrl) {
+    return m('div.difficulty.buttonset', map(ctrl.data.difficulty.choices, function(dif) {
+      var id = dif[0],
+        name = dif[1];
+      return m('a.button' + (id == ctrl.data.difficulty.current ? '.active' : ''), {
+        disabled: id == ctrl.data.difficulty.current,
+        onclick: partial(xhr.setDifficulty, ctrl, id)
+      }, name);
+    }));
+  }
+  // (q/defcomponent CommentRetry [_ trans]
+  //   (d/div {:className "comment retry"}
+  //          (d/h3 {} (d/strong {} (trans :goodMove)))
+  //          (d/span {} (trans :butYouCanDoBetter))))
+
+// (q/defcomponent CommentGreat [_ trans]
+//   (d/div {:className "comment great"}
+//          (d/h3 {:data-icon "E"} (d/strong {} (trans :bestMove)))
+//          (d/span {} (trans :keepGoing))))
+
+// (q/defcomponent CommentFail [try-again trans]
+//   (d/div {:className "comment fail"}
+//          (d/h3 {:data-icon "k"} (d/strong {} (trans :puzzleFailed)))
+//          (when try-again (d/span {} (trans :butYouCanKeepTrying)))))
+
+function renderCommentary(ctrl) {
+  switch (ctrl.data.comment) {
+    case 'retry':
+      return m('div.comment.retry', [
+        m('h3', m('strong', ctrl.trans('goodMove'))),
+        m('span', ctrl.trans('butYouCanDoBetter'))
+      ]);
+    case 'great':
+      return m('div.comment.great', [
+        m('h3[data-icon=E]', m('strong', ctrl.trans('bestMove'))),
+        m('span', ctrl.trans('keepGoing'))
+      ]);
+    case 'fail':
+      return m('div.comment.fail', [
+        m('h3[data-icon=k]', m('strong', ctrl.trans('puzzleFailed'))),
+        ctrl.data.mode == 'try' ? m('span', ctrl.trans('butYouCanKeepTrying')) : null
+      ]);
+    default:
+      return ctrl.data.comment
+  }
+}
+
+function renderRatingDiff(diff) {
+  return m('strong.rating', diff > 0 ? '+' + diff : diff);
+}
+
+function renderWin(ctrl, attempt) {
+  return m('div.comment.win', [
+    m('h3[data-icon=E]', [
+      m('strong', ctrl.trans('victory')),
+      attempt ? renderRatingDiff(attempt.userRatingDiff) : null
+    ]),
+    attempt ? m('span', ctrl.trans('puzzleSolvedInXSeconds', attempt.seconds)) : null
   ]);
 }
 
-// (q/defcomponent Side [{:keys [commentary mode win attempt user difficulty]} router trans ctrl]
-//   (d/div {:className "side"}
-//          (TrainingBox {:user user
-//                        :difficulty difficulty} router trans)
-//          (when difficulty (Difficulty difficulty ctrl))
-//          (case commentary
-//            :retry (CommentRetry nil trans)
-//            :great (CommentGreat nil trans)
-//            :fail (CommentFail (= "try" mode) trans)
-//            commentary)
-//          (case win
-//            true (CommentWin nil trans)
-//            false (CommentLoss nil trans)
-//            (case (:win attempt)
-//              true (CommentWin attempt trans)
-//              false (CommentLoss attempt trans)
-//              ""))))
+function renderLoss(ctrl, attempt) {
+  return m('div.comment.loss',
+    m('h3[data-icon=k]', [
+      m('strong', ctrl.trans('puzzleFailed')),
+      attempt ? renderRatingDiff(attempt.userRatingDiff) : null
+    ])
+  );
+}
 
+function renderResult(ctrl) {
+  switch (ctrl.data.win) {
+    case true:
+      return renderWin(ctrl, null);
+    case false:
+      return renderLoss(ctrl, null);
+    default:
+      switch (ctrl.data.attempt && ctrl.data.attempt.win) {
+        case true:
+          return renderWin(ctrl, ctrl.data.attempt);
+        case false:
+          return renderLoss(ctrl, ctrl.data.attempt);
+      }
+  }
+}
 
-
-function renderFooter(ctrl) {
-  if (ctrl.data.mode != 'view') return null;
-  var fen = chessground.fen.write(ctrl.chessground.data.pieces);
-  return m('div', [
-    // renderViewControls(ctrl, fen),
-    // renderContinueLinks(ctrl)
+function renderSide(ctrl) {
+  return m('div.side', [
+    renderTrainingBox(ctrl),
+    ctrl.data.difficulty ? renderDifficulty(ctrl) : null,
+    renderCommentary(ctrl),
+    renderResult(ctrl)
   ]);
 }
 
@@ -92,7 +151,7 @@ function renderPlayTable(ctrl) {
       m('p.findit', ctrl.trans(ctrl.data.puzzle.color == 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')),
       m('div.lichess_control',
         m('a.button', {
-          onclick: ctrl.giveUp
+          onclick: partial(xhr.attempt, ctrl, 0)
         }, ctrl.trans('giveUp'))
       )
     ])
@@ -100,7 +159,19 @@ function renderPlayTable(ctrl) {
 }
 
 function renderVote(ctrl) {
-  return 'vote';
+  return m('div.upvote' + (ctrl.data.attempt ? '.enabled' : ''), [
+    m('a[data-icon=S]', {
+      title: ctrl.trans('thisPuzzleIsCorrect'),
+      class: ctrl.data.attempt.vote ? ' active' : '',
+      onclick: partial(xhr.vote, ctrl, 1)
+    }),
+    m('span.count.hint--bottom[data-hint=Popularity]', ctrl.data.puzzle.vote),
+    m('a[data-icon=R]', {
+      title: ctrl.trans('thisPuzzleIsWrong'),
+      class: ctrl.data.attempt.vote === false ? ' active' : '',
+      onclick: partial(xhr.vote, ctrl, 0)
+    })
+  ]);
 }
 
 function renderViewTable(ctrl) {
@@ -136,7 +207,7 @@ function renderViewTable(ctrl) {
       }, ctrl.trans('continueTraining')) : m('a.continue.button[data-icon=G]', {
         onclick: ctrl.newPuzzle
       }, ctrl.trans('startTraining')), !(ctrl.data.win === null ? ctrl.data.attempt.win : ctrl.data.win) ? m('a.retry[data-icon=P]', {
-        onclick: ctrl.retry
+        onclick: partial(xhr.retry, ctrl)
       }, ctrl.trans('retryThisPuzzle')) : null
     ])
   ]);
@@ -152,6 +223,59 @@ function renderRight(ctrl) {
   );
 }
 
+function renderViewControls(ctrl, fen) {
+  var history = ctrl.data.replay.history;
+  var step = ctrl.data.replay.step;
+  return m('div.game_control', [
+    ctrl.data.puzzle.gameId ? m('a.button.hint--bottom', {
+      'data-hint': ctrl.trans('fromGameLink', ctrl.data.puzzle.gameId),
+      href: ctrl.router.Round.watcher(ctrl.data.puzzle.gameId, ctrl.data.puzzle.color)
+    }, m('span[data-icon=v]')) : null,
+    m('a.fen_link.button.hint--bottom', {
+      'data-hint': ctrl.trans('boardEditor'),
+      href: ctrl.router.Editor.load(fen)
+    }, m('span[data-icon=m]')),
+    m('a.continiue.toggle.button.hint--bottom', {
+      'data-hint': ctrl.trans('continueFromHere'),
+      onclick: ctrl.toggleContinueLinks
+    }, m('span[data-icon=U]')),
+    m('div#GameButtons.hint--bottom', {
+      'data-hint': 'Review puzzle solution'
+    }, [
+      ['first', 'W', 0],
+      ['prev', 'Y', step - 1],
+      ['next', 'X', step + 1],
+      ['last', 'V', history.length - 1]
+    ].map(function(b) {
+      var enabled = step != b[2] && b[2] >= 0 && b[2] < history.length;
+      return m('a.button.' + b[0] + (enabled ? '' : '.disabled'), {
+        'data-icon': b[1],
+        onclick: enabled ? partial(ctrl.jump, b[2]) : null
+      });
+    }))
+  ]);
+}
+
+function renderContinueLinks(ctrl, fen) {
+  return m('div.continue.links', [
+    m('a.button', {
+      href: '/?fen=' + fen + '#ai'
+    }, ctrl.trans('playWithTheMachine')),
+    m('a.button', {
+      href: '/?fen=' + fen + '#friend'
+    }, ctrl.trans('playWithAFriend'))
+  ]);
+}
+
+function renderFooter(ctrl) {
+  if (ctrl.data.mode != 'view') return null;
+  var fen = chessground.fen.write(ctrl.chessground.data.pieces);
+  return m('div', [
+    renderViewControls(ctrl, fen),
+    ctrl.data.showContinueLinks() ? renderContinueLinks(ctrl, fen) : null
+  ]);
+}
+
 function renderHistory(ctrl) {
   return m('div.history', ctrl.data.historyHtml ? m.trust(ctrl.data.historyHtml) : null);
 }
@@ -162,7 +286,7 @@ module.exports = function(ctrl) {
     renderRight(ctrl),
     m('div.center', [
       chessground.view(ctrl.chessground),
-      // renderFooter(ctrl),
+      renderFooter(ctrl),
       renderHistory(ctrl)
     ])
   ]);

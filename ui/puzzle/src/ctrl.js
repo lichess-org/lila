@@ -15,25 +15,37 @@ module.exports = function(cfg, router, i18n) {
     var res = puzzle.tryMove(this.data, [orig, dest]);
     var newProgress = res[0];
     var newLines = res[1];
+    m.startComputation();
     switch (newLines) {
       case 'retry':
-        setTimeout(this.revert, 500);
+        setTimeout(partial(this.revert, this.data.puzzle.id), 500);
         this.data.comment = 'retry';
         break;
       case 'fail':
         if (this.data.mode == 'play') xhr.attempt(this, false);
-        else setTimeout(this.revert, 500);
+        else setTimeout(partial(this.revert, this.data.puzzle.id), 500);
         this.data.comment = 'fail';
         break;
       case 'win':
         this.userFinalizeMove([orig, dest], newProgress);
-        // xhr.attempt(this.data, true);
-        this.data.comment = 'retry';
+        xhr.attempt(this, true);
         break;
       default:
         this.userFinalizeMove([orig, dest], newProgress);
-        setTimeout(this.playOpponentNextMove, 1000);
+        setTimeout(partial(this.playOpponentNextMove, this.data.puzzle.id), 1000);
     }
+    m.endComputation(); // give feedback ASAP, don't wait for delayed action
+  }.bind(this);
+
+  this.revert = function(id) {
+    if (id != this.data.puzzle.id) return;
+    this.chessground.reconfigure({
+      fen: this.data.chess.fen(),
+      lastMove: chess.lastMove(this.data.chess),
+      movable: {
+        dests: chess.dests(this.data.chess)
+      }
+    });
   }.bind(this);
 
   this.userFinalizeMove = function(move, newProgress) {
@@ -57,15 +69,29 @@ module.exports = function(cfg, router, i18n) {
       events: {
         after: this.userMove
       },
-      animation: {
-        enabled: true,
-        duration: 200
-      },
-      premovable: {
-        enabled: true
-      }
+    },
+    animation: {
+      enabled: true,
+      duration: this.data.animation.duration
+    },
+    premovable: {
+      enabled: true
     }
   });
+
+  this.reload = function(cfg) {
+    this.data = data(cfg);
+    this.chessground.reset();
+    this.chessground.reconfigure({
+      orientation: this.data.puzzle.color,
+      fen: this.data.chess.fen(),
+      turnColor: this.data.puzzle.opponentColor,
+      movable: {
+        color: this.data.mode !== 'view' ? this.data.puzzle.color : null
+      }
+    });
+    this.initiate();
+  }.bind(this);
 
   this.playOpponentMove = function(move) {
     chess.move(this.data.chess, move);
@@ -77,40 +103,53 @@ module.exports = function(cfg, router, i18n) {
       },
       turnColor: this.data.puzzle.color
     });
-    this.chessground.playPremove();
+    setTimeout(this.chessground.playPremove, this.chessground.data.animation.duration);
   }.bind(this);
 
-  this.playOpponentNextMove = function() {
+  this.playOpponentNextMove = function(id) {
+    if (id != this.data.puzzle.id) return;
     var move = puzzle.getOpponentNextMove(this.data);
     this.playOpponentMove(puzzle.str2move(move));
     this.data.progress.push(move);
-    var newLines = puzzle.getCurrentLines(this.data);
-    if (newLines == 'win') throw '(xhr/attempt new-state true))';
+    if (puzzle.getCurrentLines(this.data) == 'win') xhr.attempt(this, true);
   }.bind(this);
 
-  this.playInitialMove = function(data) {
+  this.playInitialMove = function(id) {
+    if (id != this.data.puzzle.id) return;
     this.playOpponentMove(this.data.puzzle.initialMove);
     this.data.startedAt = new Date();
   }.bind(this);
 
   this.setHistoryHtml = function(html) {
+    m.startComputation();
     this.data.historyHtml = html;
-    m.redraw();
+    m.endComputation();
+  }.bind(this);
+
+  this.jump = function(to) {
+    var step = Math.max(0, Math.min(this.data.replay.history.length - 1, to));
+    this.data.replay.step = step;
+    this.chessground.reconfigure({
+      fen: this.data.replay.history[step][1],
+      lastMove: this.data.replay.history[step][0]
+    });
   }.bind(this);
 
   this.initiate = function() {
-    if (this.data.mode == 'view') throw 'ahem';
-    else setTimeout(this.playInitialMove, 1000);
+    if (this.data.mode == 'view') {
+      this.data.replay = {
+        step: 0,
+        history: puzzle.makeHistory(this.data)
+      };
+      this.jump(this.data.progress.length);
+    }
+    else setTimeout(partial(this.playInitialMove, this.data.puzzle.id), 1000);
     $.get(this.router.Puzzle.history().url, this.setHistoryHtml);
   }.bind(this);
 
-  this.reloadWithProgress = function(cfg) {
-    var progress = this.data.progress;
-    this.data = data(cfg);
-    this.progress = progress;
+  this.toggleContinueLinks = function() {
+    this.data.showContinueLinks(!this.data.showContinueLinks());
   }.bind(this);
-
-  this.giveUp = function() {}.bind(this);
 
   this.router = router;
 

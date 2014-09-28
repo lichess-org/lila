@@ -7,11 +7,12 @@ function make(fen) {
 }
 
 function move(c, m) {
-  c.move({
+  var m2 = {
     from: m[0],
-    to: m[1],
-    promotion: m[2]
-  });
+    to: m[1]
+  };
+  if (m[2]) m2.promotion = m[2];
+  c.move(m2);
 }
 
 function parseMove(m) {
@@ -30,7 +31,7 @@ function dests(c) {
   });
 }
 
-function getLastMove(c) {
+function lastMove(c) {
   var hist = c.history({
     verbose: true
   });
@@ -42,5 +43,5 @@ module.exports = {
   move: move,
   parseMove: parseMove,
   dests: dests,
-  getLastMove: getLastMove
+  lastMove: lastMove
 };

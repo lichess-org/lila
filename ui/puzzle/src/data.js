@@ -10,12 +10,16 @@ module.exports = function(cfg) {
       opponentColor: util.opposite(cfg.puzzle.color)
     },
     progress: [],
-    chess: chess.make(cfg.puzzle.fen)
+    chess: chess.make(cfg.puzzle.fen),
+    animation: {
+      duration: 200
+    }
   };
 
   merge(data, cfg);
 
   data.puzzle.initialMove = puzzle.str2move(data.puzzle.initialMove);
+  data.showContinueLinks = m.prop(false);
 
   return data;
 };
