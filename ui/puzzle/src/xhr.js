@@ -1,6 +1,10 @@
 var m = require('mithril');
 var data = require('./data');
 
+var xhrConfig = function(xhr) {
+  xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+}
+
 function attempt(ctrl, win) {
   m.request({
     method: 'POST',
@@ -8,7 +12,8 @@ function attempt(ctrl, win) {
     data: {
       win: win ? 1 : 0,
       time: new Date().getTime() - (ctrl.data.startedAt || new Date()).getTime()
-    }
+    },
+    config: xhrConfig
   }).then(function(cfg) {
     cfg.progress = ctrl.data.progress;
     ctrl.reload(cfg);
@@ -21,7 +26,8 @@ function vote(ctrl, v) {
     url: ctrl.router.Puzzle.vote(ctrl.data.puzzle.id).url,
     data: {
       vote: v
-    }
+    },
+    config: xhrConfig
   }).then(function(res) {
     ctrl.data.attempt.vote = res[0];
     ctrl.data.puzzle.vote = res[1];
@@ -31,7 +37,8 @@ function vote(ctrl, v) {
 function retry(ctrl) {
   m.request({
     method: 'GET',
-    url: ctrl.router.Puzzle.load(ctrl.data.puzzle.id).url
+    url: ctrl.router.Puzzle.load(ctrl.data.puzzle.id).url,
+    config: xhrConfig
   }).then(ctrl.reload);
 }
 
@@ -41,14 +48,16 @@ function setDifficulty(ctrl, d) {
     url: ctrl.router.Puzzle.difficulty().url,
     data: {
       difficulty: d
-    }
+    },
+    config: xhrConfig
   }).then(ctrl.reload);
 }
 
 function newPuzzle(ctrl) {
   m.request({
     method: 'GET',
-    url: ctrl.router.Puzzle.newPuzzle().url
+    url: ctrl.router.Puzzle.newPuzzle().url,
+    config: xhrConfig
   }).then(ctrl.reload);
 }
 
