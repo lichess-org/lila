@@ -3,6 +3,7 @@ package lila.api
 import akka.actor._
 import com.typesafe.config.Config
 import scala.collection.JavaConversions._
+import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
@@ -30,6 +31,7 @@ final class Env(
     val AssetVersion = config getInt "net.asset.version"
   }
   val PrismicApiUrl = config getString "prismic.api_url"
+  val EditorAnimationDuration = config duration "editor.animation.duration"
 
   val version = config getInt "api.version"
 

@@ -14,6 +14,9 @@ module.exports = function(cfg) {
       color: 'both',
       dropOff: 'trash'
     },
+    animation: {
+      duration: cfg.animation.duration
+    },
     premovable: {
       enabled: false
     },

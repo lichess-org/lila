@@ -1,4 +1,4 @@
-@(listMenu: lila.game.ListMenu, sit: chess.Situation, fen: String)(implicit ctx: Context)
+@(listMenu: lila.game.ListMenu, sit: chess.Situation, fen: String, animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
 
 @import chess.Color.{ White, Black }
 @import chess.{ KingSide, QueenSide }
@@ -8,8 +8,7 @@
 @cssTag("boardEditor.css")
 }
 @moreJs = {
-@* @jsAt(s"compiled/lichess.editor${isProd??(".min")}.js") *@
-@jsAt(s"compiled/lichess.editor.js")
+@jsAt(s"compiled/lichess.editor${isProd??(".min")}.js")
 @embedJs {
 LichessEditor(document.getElementById('board_editor'), {
   fen: "@fen.split(" ").headOption",
@@ -20,6 +19,9 @@ LichessEditor(document.getElementById('board_editor'), {
     Q: @sit.canCastle(White).on(QueenSide),
     k: @sit.canCastle(Black).on(KingSide),
     q: @sit.canCastle(Black).on(QueenSide)
+  },
+  animation: {
+    duration: @{ctx.pref.animationFactor * animationDuration.toMillis}
   },
   i18n: @Html(J.stringify(i18nJsObject(
     trans.startPosition,

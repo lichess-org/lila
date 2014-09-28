@@ -9,8 +9,6 @@ import views._
 
 object Editor extends LilaController with BaseGame {
 
-  private def env = Env.importer
-
   def index = load("")
 
   def load(urlFen: String) = Open { implicit ctx =>
@@ -19,7 +17,7 @@ object Editor extends LilaController with BaseGame {
       val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }.filter(_.nonEmpty)
       val situation = (decodedFen flatMap Forsyth.<<< map (_.situation)) | Situation(Variant.Standard)
       val fen = Forsyth >> situation
-      Ok(html.board.editor(listMenu, situation, fen))
+      Ok(html.board.editor(listMenu, situation, fen, animationDuration = Env.api.EditorAnimationDuration))
     }
   }
 
