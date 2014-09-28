@@ -5,6 +5,7 @@ import scala.util.{ Try, Success, Failure }
 import play.api.mvc._
 import play.twirl.api.Html
 
+import lila.api.Context
 import lila.app._
 import lila.puzzle.PuzzleId
 import lila.puzzle.{ Generated, Puzzle => PuzzleModel }
@@ -16,27 +17,30 @@ object Puzzle extends LilaController {
 
   private def env = Env.puzzle
 
+  private def renderShow(puzzle: PuzzleModel, mode: String)(implicit ctx: Context) =
+    env userInfos ctx.me map { infos =>
+      views.html.puzzle.show(puzzle, infos, mode, animationDuration = env.AnimationDuration)
+    }
+
   def home = Open { implicit ctx =>
-    selectPuzzle(ctx.me) zip env.userInfos(ctx.me) map {
-      case (puzzle, infos) => Ok(views.html.puzzle.show(puzzle, infos, true))
+    selectPuzzle(ctx.me) flatMap { puzzle =>
+      renderShow(puzzle, "play") map { Ok(_) }
     }
   }
 
   def show(id: PuzzleId) = Open { implicit ctx =>
     OptionFuOk(env.api.puzzle find id) { puzzle =>
-      (env userInfos ctx.me) zip
-        { ctx.me ?? (u => env.api.attempt.hasPlayed(u, puzzle) map (_.some)) } map {
-          case (infos, played) => views.html.puzzle.show(puzzle, infos, played == Some(false))
-        }
+      (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) }) flatMap { played =>
+        renderShow(puzzle, played.fold("try", "play"))
+      }
     }
   }
 
   def load(id: PuzzleId) = Open { implicit ctx =>
     OptionFuOk(env.api.puzzle find id) { puzzle =>
       (env userInfos ctx.me) zip
-        { ctx.me ?? (u => env.api.attempt.hasPlayed(u, puzzle) map (_.some)) } map {
-          case (infos, played) =>
-            JsData(puzzle, infos, if (played == Some(false)) "play" else "try")
+        (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) }) map {
+          case (infos, played) => JsData(puzzle, infos, played.fold("try", "play"), animationDuration = env.AnimationDuration)
         }
     } map (_ as JSON)
   }
@@ -49,7 +53,7 @@ object Puzzle extends LilaController {
   // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx =>
     selectPuzzle(ctx.me) zip (env userInfos ctx.me) map {
-      case (puzzle, infos) => Ok(JsData(puzzle, infos, "play")) as JSON
+      case (puzzle, infos) => Ok(JsData(puzzle, infos, "play", animationDuration = env.AnimationDuration)) as JSON
     }
   }
 
@@ -61,7 +65,7 @@ object Puzzle extends LilaController {
         value => Env.pref.api.setPref(me, (p: lila.pref.Pref) => p.copy(puzzleDifficulty = value)) >> {
           reqToCtx(ctx.req) flatMap { newCtx =>
             selectPuzzle(newCtx.me) zip env.userInfos(newCtx.me) map {
-              case (puzzle, infos) => Ok(JsData(puzzle, infos, "play")(newCtx))
+              case (puzzle, infos) => Ok(JsData(puzzle, infos, "play", animationDuration = env.AnimationDuration)(newCtx))
             }
           }
         }
@@ -87,19 +91,22 @@ object Puzzle extends LilaController {
                   case ((p2, infos), voted) => Ok {
                     JsData(p2 | puzzle, infos, "view",
                       attempt = newAttempt.some,
-                      voted = voted.some)
+                      voted = voted.some,
+                      animationDuration = env.AnimationDuration)
                   }
                 }
             }
             case (oldAttempt, Some(win)) => env userInfos me.some map { infos =>
               Ok(JsData(puzzle, infos, "view",
                 attempt = oldAttempt.some,
-                win = win.some))
+                win = win.some,
+                animationDuration = env.AnimationDuration))
             }
           }
           case None => fuccess {
             Ok(JsData(puzzle, none, "view",
-              win = data.isWin.some))
+              win = data.isWin.some,
+              animationDuration = env.AnimationDuration))
           }
         }
       ) map (_ as JSON)
@@ -119,21 +126,21 @@ object Puzzle extends LilaController {
       }
   }
 
-  def importBatch = Action.async(parse.json) { implicit req =>
-    env.api.puzzle.importBatch(req.body, ~get("token", req)) map { ids =>
-      Ok("kthxbye " + ids.map {
-        case Success(id) =>
-          val url = s"http://lichess.org/training/$id"
-          play.api.Logger("puzzle import").info(s"${req.remoteAddress} $url")
-          url
-        case Failure(err) =>
-          play.api.Logger("puzzle import").info(s"${req.remoteAddress} ${err.getMessage}")
-          err.getMessage
-      }.mkString(" "))
-    } recover {
-      case e =>
-        play.api.Logger("puzzle import").warn(e.getMessage)
-        BadRequest(e.getMessage)
-    }
-  }
+  // def importBatch = Action.async(parse.json) { implicit req =>
+  //   env.api.puzzle.importBatch(req.body, ~get("token", req)) map { ids =>
+  //     Ok("kthxbye " + ids.map {
+  //       case Success(id) =>
+  //         val url = s"http://lichess.org/training/$id"
+  //         play.api.Logger("puzzle import").info(s"${req.remoteAddress} $url")
+  //         url
+  //       case Failure(err) =>
+  //         play.api.Logger("puzzle import").info(s"${req.remoteAddress} ${err.getMessage}")
+  //         err.getMessage
+  //     }.mkString(" "))
+  //   } recover {
+  //     case e =>
+  //       play.api.Logger("puzzle import").warn(e.getMessage)
+  //       BadRequest(e.getMessage)
+  //   }
+  // }
 }

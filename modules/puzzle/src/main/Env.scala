@@ -18,6 +18,8 @@ final class Env(
   }
   import settings._
 
+  val AnimationDuration = config duration "animation.duration"
+
   lazy val api = new PuzzleApi(
     puzzleColl = puzzleColl,
     attemptColl = attemptColl,

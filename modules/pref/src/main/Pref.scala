@@ -47,6 +47,14 @@ case class Pref(
     case "pieceSet" => PieceSet.allByName get value map { p => copy(pieceSet = p.name) }
     case _          => none
   }
+
+  def animationFactor = animation match {
+    case Animation.NONE   => 0
+    case Animation.FAST   => 0.5f
+    case Animation.NORMAL => 1
+    case Animation.SLOW   => 2
+    case _                => 1
+  }
 }
 
 object Pref {
@@ -108,6 +116,19 @@ object Pref {
       NEVER -> "Never",
       ALWAYS -> "Always",
       CASUAL -> "In casual games only")
+  }
+
+  object Animation {
+    val NONE = 0
+    val FAST = 1
+    val NORMAL = 2
+    val SLOW = 3
+
+    val choices = Seq(
+      NONE -> "None",
+      FAST -> "Fast",
+      NORMAL -> "Normal",
+      SLOW -> "Slow")
   }
 
   object Challenge {

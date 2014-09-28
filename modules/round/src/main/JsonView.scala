@@ -12,7 +12,7 @@ import lila.pref.Pref
 import chess.format.Forsyth
 import chess.{ Color, Clock }
 
-final class JsonView(baseAnimationDelay: Duration) {
+final class JsonView(baseAnimationDuration: Duration) {
 
   def playerJson(pov: Pov, version: Int, pref: Pref, chat: Option[lila.chat.MixedChat], apiVersion: Int) = {
     import pov._
@@ -58,7 +58,7 @@ final class JsonView(baseAnimationDelay: Duration) {
         "table" -> s"/$fullId/table"
       ),
       "pref" -> Json.obj(
-        "animationDelay" -> animationDelay(pov, pref),
+        "animationDelay" -> animationDuration(pov, pref),
         "autoQueen" -> pref.autoQueen,
         "autoThreefold" -> pref.autoThreefold,
         "clockTenths" -> pref.clockTenths,
@@ -112,7 +112,7 @@ final class JsonView(baseAnimationDelay: Duration) {
         "table" -> s"/$gameId/${color.name}/table"
       ),
       "pref" -> Json.obj(
-        "animationDelay" -> animationDelay(pov, pref),
+        "animationDelay" -> animationDuration(pov, pref),
         "clockTenths" -> pref.clockTenths,
         "clockBar" -> pref.clockBar
       ),
@@ -143,8 +143,8 @@ final class JsonView(baseAnimationDelay: Duration) {
     case _ => 1
   }
 
-  private def animationDelay(pov: Pov, pref: Pref) = round {
-    animationFactor(pref) * baseAnimationDelay.toMillis * max(0, min(1.2,
+  private def animationDuration(pov: Pov, pref: Pref) = round {
+    animationFactor(pref) * baseAnimationDuration.toMillis * max(0, min(1.2,
       ((pov.game.estimateTotalTime - 60) / 60) * 0.2
     ))
   }

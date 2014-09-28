@@ -14,6 +14,7 @@ object JsData extends lila.Steroids {
     puzzle: Puzzle,
     userInfos: Option[lila.puzzle.UserInfos],
     mode: String,
+    animationDuration: scala.concurrent.duration.Duration,
     attempt: Option[Attempt] = None,
     win: Option[Boolean] = None,
     voted: Option[Boolean] = None)(implicit ctx: Context) =
@@ -31,6 +32,9 @@ object JsData extends lila.Steroids {
         "enabled" -> puzzle.enabled,
         "vote" -> puzzle.vote.sum,
         "url" -> s"$netBaseUrl${routes.Puzzle.show(puzzle.id)}"
+      ),
+      "animation" -> Json.obj(
+        "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
       ),
       "mode" -> mode,
       "attempt" -> attempt.map { a =>

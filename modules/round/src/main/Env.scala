@@ -33,7 +33,7 @@ final class Env(
     val UidTimeout = config duration "uid.timeout"
     val PlayerDisconnectTimeout = config duration "player.disconnect.timeout"
     val PlayerRagequitTimeout = config duration "player.ragequit.timeout"
-    val AnimationDelay = config duration "animation.delay"
+    val AnimationDuration = config duration "animation.duration"
     val Moretime = config duration "moretime"
     val SocketName = config getString "socket.name"
     val SocketTimeout = config duration "socket.timeout"
@@ -153,7 +153,7 @@ final class Env(
 
   private[round] def moretimeSeconds = Moretime.toSeconds
 
-  lazy val jsonView = new JsonView(AnimationDelay)
+  lazy val jsonView = new JsonView(AnimationDuration)
 
   {
     import scala.concurrent.duration._
