@@ -9,10 +9,8 @@
 
 @moreJs = {
 @jsTag("vendor/chess.min.js")
-@jsTagCompiled("chessboard.js")
 @jsTag("vendor/sparkline.min.js")
-@* @jsAt(s"compiled/lichess.puzzle${isProd??(".min")}.js") *@
-@jsAt(s"compiled/lichess.puzzle.js")
+@jsAt(s"compiled/lichess.puzzle${isProd??(".min")}.js")
 @evenMoreJs
 }
 
