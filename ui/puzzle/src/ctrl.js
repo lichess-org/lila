@@ -136,6 +136,12 @@ module.exports = function(cfg, router, i18n) {
 
   this.router = router;
 
+  this.costly = function(cell) {
+    return (this.chessground.data.draggable.current.orig || this.chessground.data.animation.current.start) ? {
+      subtree: 'retain'
+    } : cell();
+  }.bind(this);
+
   this.trans = function() {
     var key = arguments[0];
     var args = Array.prototype.slice.call(arguments, 1);
