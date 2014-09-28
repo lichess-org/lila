@@ -24,14 +24,14 @@ object Puzzle extends LilaController {
 
   def home = Open { implicit ctx =>
     selectPuzzle(ctx.me) flatMap { puzzle =>
-      renderShow(puzzle, "play") map { Ok(_) }
+      renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { Ok(_) }
     }
   }
 
   def show(id: PuzzleId) = Open { implicit ctx =>
     OptionFuOk(env.api.puzzle find id) { puzzle =>
-      (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) }) flatMap { played =>
-        renderShow(puzzle, played.fold("try", "play"))
+      (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) map (!_) }) flatMap { asPlay =>
+        renderShow(puzzle, asPlay.fold("play", "try"))
       }
     }
   }
@@ -39,8 +39,8 @@ object Puzzle extends LilaController {
   def load(id: PuzzleId) = Open { implicit ctx =>
     OptionFuOk(env.api.puzzle find id) { puzzle =>
       (env userInfos ctx.me) zip
-        (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) }) map {
-          case (infos, played) => JsData(puzzle, infos, played.fold("try", "play"), animationDuration = env.AnimationDuration)
+        (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) map (!_) }) map {
+          case (infos, asPlay) => JsData(puzzle, infos, asPlay.fold("play", "try"), animationDuration = env.AnimationDuration)
         }
     } map (_ as JSON)
   }
@@ -53,7 +53,7 @@ object Puzzle extends LilaController {
   // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx =>
     selectPuzzle(ctx.me) zip (env userInfos ctx.me) map {
-      case (puzzle, infos) => Ok(JsData(puzzle, infos, "play", animationDuration = env.AnimationDuration)) as JSON
+      case (puzzle, infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)) as JSON
     }
   }
 
@@ -65,7 +65,7 @@ object Puzzle extends LilaController {
         value => Env.pref.api.setPref(me, (p: lila.pref.Pref) => p.copy(puzzleDifficulty = value)) >> {
           reqToCtx(ctx.req) flatMap { newCtx =>
             selectPuzzle(newCtx.me) zip env.userInfos(newCtx.me) map {
-              case (puzzle, infos) => Ok(JsData(puzzle, infos, "play", animationDuration = env.AnimationDuration)(newCtx))
+              case (puzzle, infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)(newCtx))
             }
           }
         }

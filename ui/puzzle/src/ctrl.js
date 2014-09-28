@@ -82,7 +82,8 @@ module.exports = function(cfg, router, i18n) {
   this.initiate = function() {
     if (this.data.mode != 'view')
       setTimeout(partial(this.playInitialMove, this.data.puzzle.id), 1000);
-    $.get(this.router.Puzzle.history().url, this.setHistoryHtml);
+    if (this.data.user)
+      $.get(this.router.Puzzle.history().url, this.setHistoryHtml);
   }.bind(this);
 
   this.reload = function(cfg) {

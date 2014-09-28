@@ -40,20 +40,28 @@ function renderTrainingBox(ctrl) {
         href: ctrl.router.Coordinate.home().url
       }, 'Coordinate')
     ]),
-    ctrl.data.user ? renderUserInfos(ctrl) : null
+    ctrl.data.user ? renderUserInfos(ctrl) : m('div.register', [
+      m('p', ctrl.trans('toTrackYourProgress')),
+      m('p.signup',
+        m('a.button', {
+          href: ctrl.router.Auth.signup().url
+        }, ctrl.trans('signUp'))
+      ),
+      m('p', ctrl.trans('trainingSignupExplanation'))
+    ])
   ]);
 }
 
 function renderDifficulty(ctrl) {
-    return m('div.difficulty.buttonset', map(ctrl.data.difficulty.choices, function(dif) {
-      var id = dif[0],
-        name = dif[1];
-      return m('a.button' + (id == ctrl.data.difficulty.current ? '.active' : ''), {
-        disabled: id == ctrl.data.difficulty.current,
-        onclick: partial(xhr.setDifficulty, ctrl, id)
-      }, name);
-    }));
-  }
+  return m('div.difficulty.buttonset', map(ctrl.data.difficulty.choices, function(dif) {
+    var id = dif[0],
+      name = dif[1];
+    return m('a.button' + (id == ctrl.data.difficulty.current ? '.active' : ''), {
+      disabled: id == ctrl.data.difficulty.current,
+      onclick: partial(xhr.setDifficulty, ctrl, id)
+    }, name);
+  }));
+}
 
 function renderCommentary(ctrl) {
   switch (ctrl.data.comment) {
@@ -273,7 +281,7 @@ module.exports = function(ctrl) {
     m('div.center', [
       chessground.view(ctrl.chessground),
       renderFooter(ctrl),
-      renderHistory(ctrl)
+      ctrl.data.user ? renderHistory(ctrl) : null
     ])
   ]);
 };

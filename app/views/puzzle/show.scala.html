@@ -12,7 +12,8 @@ routes.javascript.Puzzle.load,
 routes.javascript.Puzzle.vote,
 routes.javascript.Coordinate.home,
 routes.javascript.Editor.load,
-routes.javascript.Round.watcher
+routes.javascript.Round.watcher,
+routes.javascript.Auth.signup
 )(ctx.req)
 @embedJs {
 LichessPuzzle(
@@ -48,7 +49,10 @@ trans.ratingX,
 trans.playedXTimes,
 trans.startTraining,
 trans.continueTraining,
-trans.retryThisPuzzle)))
+trans.retryThisPuzzle,
+trans.toTrackYourProgress,
+trans.signUp,
+trans.trainingSignupExplanation)))
 );
 }
 }
