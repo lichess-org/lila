@@ -22,8 +22,11 @@ module.exports = function(cfg, router, i18n) {
         this.data.comment = 'retry';
         break;
       case 'fail':
-        if (this.data.mode == 'play') xhr.attempt(this, false);
-        else setTimeout(partial(this.revert, this.data.puzzle.id), 500);
+        var t = this;
+        setTimeout(function() {
+          if (t.data.mode == 'play') xhr.attempt(t, false);
+          else t.revert(t.data.puzzle.id);
+        }, 500);
         this.data.comment = 'fail';
         break;
       case 'win':
