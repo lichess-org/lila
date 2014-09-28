@@ -44,4 +44,14 @@ module.exports = function(cfg) {
   this.loadNewFen = function(fen) {
     window.location = editor.makeUrl(this.data, fen);
   }.bind(this);
+
+  this.chessgroundIsAnimating = function() {
+    return this.chessground.data.draggable.current.orig || this.chessground.data.animation.current.start;
+  }.bind(this);
+
+  this.costly = function(cell) {
+    return this.chessgroundIsAnimating() ? {
+      subtree: 'retain'
+    } : cell();
+  }.bind(this);
 };

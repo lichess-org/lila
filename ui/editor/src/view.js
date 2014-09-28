@@ -95,7 +95,7 @@ function sparePieces(ctrl, color) {
 }
 
 module.exports = function(ctrl) {
-  var fen = (ctrl.chessground.data.draggable.current && ctrl.chessground.data.draggable.current.orig) ? false : ctrl.computeFen();
+  var fen = ctrl.chessgroundIsAnimating() ? false : ctrl.computeFen();
   var color = ctrl.chessground.data.orientation;
   var opposite = color === 'white' ? 'black' : 'white';
   return m('div.editor', {
@@ -108,10 +108,10 @@ module.exports = function(ctrl) {
       };
     }
   }, [
-    sparePieces(ctrl, opposite),
+    ctrl.costly(partial(sparePieces, ctrl, opposite)),
     chessground.view(ctrl.chessground),
-    sparePieces(ctrl, color),
-    controls(ctrl, fen),
-    inputs(ctrl, fen)
+    ctrl.costly(partial(sparePieces, ctrl, color)),
+    ctrl.costly(partial(controls, ctrl, fen)),
+    ctrl.costly(partial(inputs, ctrl, fen))
   ]);
 };
