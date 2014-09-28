@@ -37,23 +37,29 @@ object Puzzle extends LilaController {
   }
 
   def load(id: PuzzleId) = Open { implicit ctx =>
-    OptionFuOk(env.api.puzzle find id) { puzzle =>
-      (env userInfos ctx.me) zip
-        (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) map (!_) }) map {
-          case (infos, asPlay) => JsData(puzzle, infos, asPlay.fold("play", "try"), animationDuration = env.AnimationDuration)
-        }
-    } map (_ as JSON)
+    XhrOnly {
+      OptionFuOk(env.api.puzzle find id) { puzzle =>
+        (env userInfos ctx.me) zip
+          (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) map (!_) }) map {
+            case (infos, asPlay) => JsData(puzzle, infos, asPlay.fold("play", "try"), animationDuration = env.AnimationDuration)
+          }
+      } map (_ as JSON)
+    }
   }
 
   def history = Auth { implicit ctx =>
     me =>
-      env userInfos me map { ui => Ok(views.html.puzzle.history(ui)) }
+      XhrOnly {
+        env userInfos me map { ui => Ok(views.html.puzzle.history(ui)) }
+      }
   }
 
   // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx =>
-    selectPuzzle(ctx.me) zip (env userInfos ctx.me) map {
-      case (puzzle, infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)) as JSON
+    XhrOnly {
+      selectPuzzle(ctx.me) zip (env userInfos ctx.me) map {
+        case (puzzle, infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)) as JSON
+      }
     }
   }
 
