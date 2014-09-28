@@ -2,6 +2,15 @@
 . bin/lilarc
 
 mkdir -p public/compiled
+
+cd ui/editor
+gulp prod
+cd -
+
+cd ui/puzzle
+gulp prod
+cd -
+
 for file in tv.js common.js big.js chart2.js user.js boardEditor.js coordinate.js pgn4hacks.js chessboard.js; do
   orig=public/javascripts/$file
   comp=public/compiled/$file
@@ -10,6 +19,7 @@ for file in tv.js common.js big.js chart2.js user.js boardEditor.js coordinate.j
     closure --js $orig --js_output_file $comp
   fi
 done
+
 pgn4web_output=public/vendor/pgn4web/pgn4web-compacted.js
 if [ ! -f $pgn4web_output ]; then
   lilalog "Compiling pgn4web javascript"
