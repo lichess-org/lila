@@ -64,7 +64,9 @@ function findBestLine(lines) {
         return loop(siblings.concat(children));
     }
   };
-  return loop(keys(lines).map(function(p) { return [p]; }));
+  return loop(keys(lines).map(function(p) {
+    return [p];
+  }));
 }
 
 function findBestLineFromProgress(lines, progress) {
@@ -81,11 +83,39 @@ function makeHistory(data) {
   });
 }
 
+function jump(chessgroundData, data, to) {
+  data.replay.step = Math.max(0, Math.min(data.replay.history.length - 1, to));
+  chessground.configure(chessgroundData, {
+    fen: data.replay.history[data.replay.step][1],
+    lastMove: data.replay.history[data.replay.step][0]
+  });
+}
+
+function reload(chessgroundData, data, cfg) {
+  chessground.configure(chessgroundData, {
+    orientation: data.puzzle.color,
+    fen: data.chess.fen(),
+    turnColor: data.puzzle.opponentColor,
+    movable: {
+      color: data.mode == 'view' ? null : data.puzzle.color
+    }
+  });
+  if (data.mode == 'view') {
+    data.replay = {
+      step: 0,
+      history: makeHistory(data)
+    };
+    jump(chessgroundData, data, data.progress.length);
+  }
+}
+
 module.exports = {
   str2move: str2move,
   move2str: move2str,
   tryMove: tryMove,
   getCurrentLines: getCurrentLines,
   getOpponentNextMove: getOpponentNextMove,
-    makeHistory: makeHistory
+  makeHistory: makeHistory,
+  jump: jump,
+  reload: reload
 };

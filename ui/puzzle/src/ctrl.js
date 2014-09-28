@@ -79,17 +79,16 @@ module.exports = function(cfg, router, i18n) {
     }
   });
 
+  this.initiate = function() {
+    if (this.data.mode != 'view')
+      setTimeout(partial(this.playInitialMove, this.data.puzzle.id), 1000);
+    $.get(this.router.Puzzle.history().url, this.setHistoryHtml);
+  }.bind(this);
+
   this.reload = function(cfg) {
     this.data = data(cfg);
     this.chessground.reset();
-    this.chessground.reconfigure({
-      orientation: this.data.puzzle.color,
-      fen: this.data.chess.fen(),
-      turnColor: this.data.puzzle.opponentColor,
-      movable: {
-        color: this.data.mode !== 'view' ? this.data.puzzle.color : null
-      }
-    });
+    chessground.anim(puzzle.reload, this.chessground.data)(this.data, cfg);
     this.initiate();
   }.bind(this);
 
@@ -127,24 +126,7 @@ module.exports = function(cfg, router, i18n) {
   }.bind(this);
 
   this.jump = function(to) {
-    var step = Math.max(0, Math.min(this.data.replay.history.length - 1, to));
-    this.data.replay.step = step;
-    this.chessground.reconfigure({
-      fen: this.data.replay.history[step][1],
-      lastMove: this.data.replay.history[step][0]
-    });
-  }.bind(this);
-
-  this.initiate = function() {
-    if (this.data.mode == 'view') {
-      this.data.replay = {
-        step: 0,
-        history: puzzle.makeHistory(this.data)
-      };
-      this.jump(this.data.progress.length);
-    }
-    else setTimeout(partial(this.playInitialMove, this.data.puzzle.id), 1000);
-    $.get(this.router.Puzzle.history().url, this.setHistoryHtml);
+    chessground.anim(puzzle.jump, this.chessground.data)(this.data, to);
   }.bind(this);
 
   this.toggleContinueLinks = function() {

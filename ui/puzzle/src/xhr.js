@@ -45,9 +45,17 @@ function setDifficulty(ctrl, d) {
   }).then(ctrl.reload);
 }
 
+function newPuzzle(ctrl) {
+  m.request({
+    method: 'GET',
+    url: ctrl.router.Puzzle.newPuzzle().url
+  }).then(ctrl.reload);
+}
+
 module.exports = {
   attempt: attempt,
   vote: vote,
   retry: retry,
-  setDifficulty: setDifficulty
+  setDifficulty: setDifficulty,
+  newPuzzle: newPuzzle
 };

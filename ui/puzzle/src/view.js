@@ -54,20 +54,6 @@ function renderDifficulty(ctrl) {
       }, name);
     }));
   }
-  // (q/defcomponent CommentRetry [_ trans]
-  //   (d/div {:className "comment retry"}
-  //          (d/h3 {} (d/strong {} (trans :goodMove)))
-  //          (d/span {} (trans :butYouCanDoBetter))))
-
-// (q/defcomponent CommentGreat [_ trans]
-//   (d/div {:className "comment great"}
-//          (d/h3 {:data-icon "E"} (d/strong {} (trans :bestMove)))
-//          (d/span {} (trans :keepGoing))))
-
-// (q/defcomponent CommentFail [try-again trans]
-//   (d/div {:className "comment fail"}
-//          (d/h3 {:data-icon "k"} (d/strong {} (trans :puzzleFailed)))
-//          (when try-again (d/span {} (trans :butYouCanKeepTrying)))))
 
 function renderCommentary(ctrl) {
   switch (ctrl.data.comment) {
@@ -190,7 +176,7 @@ function renderViewTable(ctrl) {
       (ctrl.data.puzzle.enabled && ctrl.data.user) ? renderVote(ctrl) : null,
       m('h2',
         m('a', {
-          href: ctrl.router.Puzzle.show(ctrl.data.puzzle.id)
+          href: ctrl.router.Puzzle.show(ctrl.data.puzzle.id).url
         }, ctrl.trans('puzzleId', ctrl.data.puzzle.id))
       ),
       m('p', m.trust(ctrl.trans('ratingX', strong(ctrl.data.puzzle.rating)))),
@@ -203,9 +189,9 @@ function renderViewTable(ctrl) {
     ]),
     m('div.continue_wrap', [
       ctrl.data.win === null ? m('button.continue.button[data-icon=G]', {
-        onclick: ctrl.newPuzzle
+        onclick: partial(xhr.newPuzzle, ctrl)
       }, ctrl.trans('continueTraining')) : m('a.continue.button[data-icon=G]', {
-        onclick: ctrl.newPuzzle
+        onclick: partial(xhr.newPuzzle, ctrl)
       }, ctrl.trans('startTraining')), !(ctrl.data.win === null ? ctrl.data.attempt.win : ctrl.data.win) ? m('a.retry[data-icon=P]', {
         onclick: partial(xhr.retry, ctrl)
       }, ctrl.trans('retryThisPuzzle')) : null
@@ -229,11 +215,11 @@ function renderViewControls(ctrl, fen) {
   return m('div.game_control', [
     ctrl.data.puzzle.gameId ? m('a.button.hint--bottom', {
       'data-hint': ctrl.trans('fromGameLink', ctrl.data.puzzle.gameId),
-      href: ctrl.router.Round.watcher(ctrl.data.puzzle.gameId, ctrl.data.puzzle.color)
+      href: ctrl.router.Round.watcher(ctrl.data.puzzle.gameId, ctrl.data.puzzle.color).url + '#' + ctrl.data.puzzle.initialPly
     }, m('span[data-icon=v]')) : null,
     m('a.fen_link.button.hint--bottom', {
       'data-hint': ctrl.trans('boardEditor'),
-      href: ctrl.router.Editor.load(fen)
+      href: ctrl.router.Editor.load(fen).url
     }, m('span[data-icon=m]')),
     m('a.continiue.toggle.button.hint--bottom', {
       'data-hint': ctrl.trans('continueFromHere'),
