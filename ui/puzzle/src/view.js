@@ -15,7 +15,9 @@ function renderUserInfos(ctrl) {
     m('p', m.trust(ctrl.trans('yourPuzzleRatingX', strong(ctrl.data.user.rating)))),
     ctrl.data.user.history ? m('div.user_chart', {
       config: function(el, isUpdate, context) {
-        if (isUpdate) return;
+        var hash = ctrl.data.user.history.join('');
+        if (hash == context.hash) return;
+        context.hash = hash;
         var dark = document.body.classList.contains('dark');
         jQuery(el).sparkline(ctrl.data.user.history, {
           type: 'line',
