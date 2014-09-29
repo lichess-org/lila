@@ -1,6 +1,5 @@
 var m = require('mithril');
 var partial = require('lodash-node/modern/functions/partial');
-var reduce = require('lodash-node/modern/collections/reduce');
 var chessground = require('chessground');
 var data = require('./data');
 var chess = require('./chess');
@@ -146,10 +145,10 @@ module.exports = function(cfg, router, i18n) {
   }.bind(this);
 
   this.trans = function() {
-    var key = arguments[0];
-    var args = Array.prototype.slice.call(arguments, 1);
-    return reduce(args, function(str, arg) {
-      return str.replace('%s', arg);
-    }, i18n[key]);
+    var str = i18n[arguments[0]]
+    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
+      str = str.replace('%s', arg);
+    });
+    return str;
   };
 };
