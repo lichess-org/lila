@@ -1,5 +1,6 @@
 var m = require('mithril');
 var partial = require('lodash-node/modern/functions/partial');
+var last = require('lodash-node/modern/arrays/last');
 var chessground = require('chessground');
 var data = require('./data');
 var chess = require('./chess');
@@ -14,6 +15,7 @@ module.exports = function(cfg, router, i18n) {
     var res = puzzle.tryMove(this.data, [orig, dest]);
     var newProgress = res[0];
     var newLines = res[1];
+    var promotion = last(newProgress)[4];
     m.startComputation();
     switch (newLines) {
       case 'retry':
@@ -28,13 +30,11 @@ module.exports = function(cfg, router, i18n) {
         }, 500);
         this.data.comment = 'fail';
         break;
-      case 'win':
-        this.userFinalizeMove([orig, dest], newProgress);
-        xhr.attempt(this, true);
-        break;
       default:
-        this.userFinalizeMove([orig, dest], newProgress);
-        setTimeout(partial(this.playOpponentNextMove, this.data.puzzle.id), 1000);
+        this.userFinalizeMove([orig, dest, promotion], newProgress);
+        if (newLines == 'win') xhr.attempt(this, true);
+        else setTimeout(partial(this.playOpponentNextMove, this.data.puzzle.id), 1000);
+        break;
     }
     m.endComputation(); // give feedback ASAP, don't wait for delayed action
   }.bind(this);
