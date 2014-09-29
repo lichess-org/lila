@@ -4,13 +4,30 @@
 
 @title = @{ s"${trans.play.str()} ${playerText(pov.opponent)} in $gameId" }
 
+@moreJs = {
+@jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
+@helper.javascriptRouter("roundRoutes")(
+routes.javascript.Auth.signup
+)(ctx.req)
+@embedJs {
+LichessRound(
+document.getElementById('lichess'),
+@Html(play.api.libs.json.Json.stringify(roundPlayerJsData(pov, version, ctx.pref, apiVersion))),
+roundRoutes.controllers,
+@Html(J.stringify(i18nJsObject(
+trans.premoveEnabledClickAnywhereToCancel)))
+);
+}
+}
+
 @round.layout(
 title = title,
 side = views.html.game.side(pov, tour, withTourStanding = true),
 chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = views.html.game.watchers().some,
-signedJs = hijackEnabled(pov.game) option routes.Round.signedJs(pov.gameId) map (_.toString),
+moreJs = moreJs,
 openGraph = povOpenGraph(pov)) {
+@*
 <div class="lichess_game clearfix pov_@color not_spectator@if(!ctx.pref.captured) { hide_captured }">
   @if(ctx.blindMode) {
   <div id="lichess_board_blind" data-href="@routes.Round.playerText(fullId)">
@@ -57,4 +74,5 @@ openGraph = povOpenGraph(pov)) {
   @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov))
   }
 </div>
+*@
 }

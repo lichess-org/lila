@@ -21,6 +21,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     @cssTag("dark.css")
     }
     @cssTag("common.css")
+    @cssTag("chessground.css")
     @cssTag("board.css")
     @moreCss
     <meta content="@openGraph.get('description).getOrElse(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())" name="description">
@@ -233,6 +234,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     @momentjsTag
     @powertipTag
     @jsTagCompiled("common.js")
+    @jsTagCompiled("strongSocket.js")
     @signedJs.fold(jsTagCompiled("big.js"))(js => jsAt(js, false))
     @moreJs
     @if(lang.language != "en") {

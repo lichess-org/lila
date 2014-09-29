@@ -58,7 +58,7 @@ final class JsonView(baseAnimationDuration: Duration) {
         "table" -> s"/$fullId/table"
       ),
       "pref" -> Json.obj(
-        "animationDelay" -> animationDuration(pov, pref),
+        "animationDuration" -> animationDuration(pov, pref),
         "autoQueen" -> pref.autoQueen,
         "autoThreefold" -> pref.autoThreefold,
         "clockTenths" -> pref.clockTenths,

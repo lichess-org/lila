@@ -4,7 +4,6 @@
 
 // declare now, populate later in a distinct script.
 var lichess_translations = lichess_translations || [];
-var lichess_sri = Math.random().toString(36).substring(2);
 
 function withStorage(f) {
   // can throw an exception when storage is full
@@ -33,274 +32,6 @@ var storage = {
 };
 
 (function() {
-
-  //////////////////
-  // websocket.js //
-  //////////////////
-
-  var strongSocketDefaults = {
-    events: {
-      fen: function(e) {
-        $('a.live_' + e.id).each(function() {
-          parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
-        });
-      }
-    },
-    params: {
-      sri: lichess_sri
-    },
-    options: {
-      name: "unnamed",
-      pingMaxLag: 7000, // time to wait for pong before reseting the connection
-      pingDelay: 1000, // time between pong and ping
-      autoReconnectDelay: 1000,
-      lagTag: false, // jQuery object showing ping lag
-      ignoreUnknownMessages: false
-    }
-  };
-
-  var strongSocket = function(url, version, settings) {
-    var self = this;
-    self.settings = strongSocketDefaults;
-    $.extend(true, self.settings, settings);
-    self.url = url;
-    self.version = version;
-    self.options = self.settings.options;
-    self.ws = null;
-    self.pingSchedule = null;
-    self.connectSchedule = null;
-    self.ackableMessages = [];
-    self.lastPingTime = self.now();
-    self.currentLag = 0;
-    self.averageLag = 0;
-    self.tryOtherUrl = false;
-    self.autoReconnect = true;
-    self.debug('Debug is enabled');
-    if (self.options.resetUrl || self.options.prodPipe) {
-      storage.remove(self.options.baseUrlKey);
-    }
-    if (self.options.prodPipe) {
-      self.options.baseUrls = ['socket.en.lichess.org:9021'];
-    }
-    self.connect();
-    $(window).on('unload', function() {
-      self.destroy();
-    });
-  };
-  strongSocket.available = window.WebSocket || window.MozWebSocket;
-  strongSocket.prototype = {
-    connect: function() {
-      var self = this;
-      self.destroy();
-      self.autoReconnect = true;
-      var fullUrl = "ws://" + self.baseUrl() + self.url + "?" + $.param($.extend(self.settings.params, {
-        version: self.version
-      }));
-      self.debug("connection attempt to " + fullUrl, true);
-      try {
-        if (window.MozWebSocket) self.ws = new MozWebSocket(fullUrl);
-        else if (window.WebSocket) self.ws = new WebSocket(fullUrl);
-        else throw "[lila] no websockets found on this browser!";
-
-        self.ws.onerror = function(e) {
-          self.onError(e);
-        };
-        self.ws.onclose = function(e) {
-          if (self.autoReconnect) {
-            self.debug('Will autoreconnect in ' + self.options.autoReconnectDelay);
-            self.scheduleConnect(self.options.autoReconnectDelay);
-          }
-        };
-        self.ws.onopen = function() {
-          self.debug("connected to " + fullUrl, true);
-          self.onSuccess();
-          $('body').removeClass('offline');
-          self.pingNow();
-          $('body').trigger('socket.open');
-          if ($('#user_tag').length) setTimeout(function() {
-            self.send("following_onlines");
-          }, 500);
-          var resend = self.ackableMessages;
-          self.ackableMessages = [];
-          _.each(resend, function(x) {
-            self.send(x.t, x.d);
-          });
-        };
-        self.ws.onmessage = function(e) {
-          var m = JSON.parse(e.data);
-          if (m.t == "n") {
-            self.pong();
-          } else self.debug(e.data);
-          if (m.t == "b") {
-            _.each(m.d, function(mm) {
-              self.handle(mm);
-            });
-          } else {
-            self.handle(m);
-          }
-        };
-      } catch (e) {
-        self.onError(e);
-      }
-      self.scheduleConnect(self.options.pingMaxLag);
-    },
-    send: function(t, d) {
-      var self = this;
-      var data = d || {};
-      var message = JSON.stringify({
-        t: t,
-        d: data
-      });
-      self.debug("send " + message);
-      try {
-        self.ws.send(message);
-      } catch (e) {
-        self.debug(e);
-      }
-    },
-    sendAckable: function(t, d) {
-      this.ackableMessages.push({
-        t: t,
-        d: d
-      });
-      this.send(t, d);
-    },
-    scheduleConnect: function(delay) {
-      var self = this;
-      // self.debug('schedule connect ' + delay);
-      clearTimeout(self.pingSchedule);
-      clearTimeout(self.connectSchedule);
-      self.connectSchedule = setTimeout(function() {
-        $('body').addClass('offline');
-        self.tryOtherUrl = true;
-        self.connect();
-      }, delay);
-    },
-    schedulePing: function(delay) {
-      var self = this;
-      clearTimeout(self.pingSchedule);
-      self.pingSchedule = setTimeout(function() {
-        self.pingNow();
-      }, delay);
-    },
-    pingNow: function() {
-      var self = this;
-      clearTimeout(self.pingSchedule);
-      clearTimeout(self.connectSchedule);
-      try {
-        self.ws.send(self.pingData());
-        self.lastPingTime = self.now();
-      } catch (e) {
-        self.debug(e, true);
-      }
-      self.scheduleConnect(self.options.pingMaxLag);
-    },
-    pong: function() {
-      var self = this;
-      clearTimeout(self.connectSchedule);
-      self.schedulePing(self.options.pingDelay);
-      self.currentLag = self.now() - self.lastPingTime;
-      if (!self.averageLag) self.averageLag = self.currentLag;
-      else self.averageLag = 0.2 * (self.currentLag - self.averageLag) + self.averageLag;
-      if (self.options.lagTag) {
-        self.options.lagTag.html(Math.round(self.averageLag));
-      }
-    },
-    pingData: function() {
-      return JSON.stringify({
-        t: "p",
-        v: this.version
-      });
-    },
-    handle: function(m) {
-      var self = this;
-      if (m.v) {
-        if (m.v <= self.version) {
-          self.debug("already has event " + m.v);
-          return;
-        }
-        if (m.v > self.version + 1) {
-          self.debug("event gap detected from " + self.version + " to " + m.v);
-          if (!self.options.prodPipe) return;
-        }
-        self.version = m.v;
-      }
-      switch (m.t || false) {
-        case false:
-          break;
-        case 'resync':
-          if (!self.options.prodPipe) lichess.reload();
-          break;
-        case 'ack':
-          self.ackableMessages = [];
-          break;
-        default:
-          var h = self.settings.events[m.t];
-          if ($.isFunction(h)) h(m.d || null);
-          else if (!self.options.ignoreUnknownMessages) {
-            self.debug('Message not supported ' + JSON.stringify(m));
-          }
-      }
-    },
-    now: function() {
-      return new Date().getTime();
-    },
-    debug: function(msg, always) {
-      if ((always || this.options.debug) && window.console && console.debug) {
-        console.debug("[" + this.options.name + " " + lichess_sri + "]", msg);
-      }
-    },
-    destroy: function() {
-      clearTimeout(this.pingSchedule);
-      clearTimeout(this.connectSchedule);
-      this.disconnect();
-      this.ws = null;
-    },
-    disconnect: function() {
-      if (this.ws) {
-        this.debug("Disconnect", true);
-        this.autoReconnect = false;
-        this.ws.onerror = $.noop();
-        this.ws.onclose = $.noop();
-        this.ws.onopen = $.noop();
-        this.ws.onmessage = $.noop();
-        this.ws.close();
-      }
-    },
-    onError: function(e) {
-      var self = this;
-      self.options.debug = true;
-      self.debug('error: ' + JSON.stringify(e));
-      self.tryOtherUrl = true;
-      setTimeout(function() {
-        if (!$('#network_error').length) {
-          var msg = "Your browser supports websockets, but cannot get a connection. Maybe you are behind a proxy that does not support websockets. Ask your system administrator to fix it!";
-          $('#nb_connected_players').after('<span id="network_error" title="' + msg + '" data-icon="j"> Network error</span>');
-        }
-      }, 1000);
-      clearTimeout(self.pingSchedule);
-    },
-    onSuccess: function() {
-      $('#network_error').remove();
-    },
-    baseUrl: function() {
-      var key = this.options.baseUrlKey;
-      var urls = this.options.baseUrls;
-      var url = storage.get(key);
-      if (!url) {
-        url = urls[0];
-        storage.set(key, url);
-      } else if (this.tryOtherUrl) {
-        this.tryOtherUrl = false;
-        url = urls[(urls.indexOf(url) + 1) % urls.length];
-        storage.set(key, url);
-      }
-      return url;
-    },
-    pingInterval: function() {
-      return this.options.pingDelay + this.averageLag;
-    }
-  };
 
   /////////////
   // ctrl.js //
@@ -333,130 +64,123 @@ var storage = {
     location.href = 'http://' + location.hostname + '/' + url.replace(/^\//, '');
   };
 
-  var lichess = {
-    socket: null,
-    socketDefaults: {
-      events: {
-        following_onlines: function(us) {
-          $('#friend_box').friends("set", us);
-        },
-        following_enters: function(name) {
-          $('#friend_box').friends('enters', name);
-        },
-        following_leaves: function(name) {
-          $('#friend_box').friends('leaves', name);
-        },
-        n: function(e) {
-          var $tag = $('#nb_connected_players > strong');
-          if ($tag.length && e) {
-            var prev = parseInt($tag.text(), 10) || Math.max(0, (e - 10));
-            var k = 6;
-            var interv = lichess.socket.pingInterval() / k;
-            _.each(_.range(k), function(it) {
-              setTimeout(function() {
-                var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
-                if (val != prev) {
-                  $tag.text(val);
-                  prev = val;
-                }
-              }, Math.round(it * interv));
-            });
-          }
-        },
-        message: function(msg) {
-          $('#chat').chat("append", msg);
-        },
-        nbm: function(e) {
-          $('#nb_messages').text(e || "0").toggleClass("unread", e > 0);
-        },
-        tournamentReminder: function(data) {
-          if (!$('#tournament_reminder').length && $('body').data("tournament-id") != data.id) {
-            $('#notifications').append(data.html).find("a.withdraw").click(function() {
-              $.post($(this).attr("href"));
-              $('#tournament_reminder').remove();
-              return false;
-            });
-          }
-        },
-        poolReminder: function(data) {
-          if (!$('#pool_reminder').length && $('body').data("pool-id") != data.id) {
-            $('#notifications').append(data.html).find("a.withdraw").click(function() {
-              $.post($(this).attr("href"));
-              $('#pool_reminder').remove();
-              return false;
-            });
-          }
-        },
-        challengeReminder: function(data) {
-          if (!storage.get('challenge-refused-' + data.id)) {
-            var htmlId = 'challenge_reminder_' + data.id;
-            var $notif = $('#' + htmlId);
-            var declineListener = function($a, callback) {
-              return $a.click(function() {
-                $.post($(this).attr("href"));
-                storage.set('challenge-refused-' + data.id, 1);
-                $('#' + htmlId).remove();
-                if ($.isFunction(callback)) callback();
-                return false;
-              });
-            };
-            if ($notif.length) clearTimeout($notif.data('timeout'));
-            else {
-              $('#notifications').append(data.html);
-              $notif = $('#' + htmlId).one('mouseover', function() {
-                $(this).removeClass('glowing glow');
-              });
-              declineListener($notif.find('a.decline'));
-              $('body').trigger('lichess.content_loaded');
-              if (!storage.get('challenge-' + data.id)) {
-                $.sound.dong();
-                storage.set('challenge-' + data.id, 1);
+  var lichess = window.lichess = window.lichess || {};
+  lichess.socket = null;
+  lichess.idleTime = 20 * 60 * 1000;
+  $.extend(true, lichess.StrongSocket.defaults, {
+    events: {
+      following_onlines: function(us) {
+        $('#friend_box').friends("set", us);
+      },
+      following_enters: function(name) {
+        $('#friend_box').friends('enters', name);
+      },
+      following_leaves: function(name) {
+        $('#friend_box').friends('leaves', name);
+      },
+      n: function(e) {
+        var $tag = $('#nb_connected_players > strong');
+        if ($tag.length && e) {
+          var prev = parseInt($tag.text(), 10) || Math.max(0, (e - 10));
+          var k = 6;
+          var interv = lichess.socket.pingInterval() / k;
+          _.each(_.range(k), function(it) {
+            setTimeout(function() {
+              var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
+              if (val != prev) {
+                $tag.text(val);
+                prev = val;
               }
-            }
-            $('div.lichess_overboard.joining.' + data.id).each(function() {
-              $notif.hide();
-              if (!$(this).find('a.decline').length) $(this).find('form').append(
-                declineListener($(data.html).find('a.decline'), function() {
-                  location.href = "/";
-                })
-              );
-            });
-            $notif.data('timeout', setTimeout(function() {
-              $notif.remove();
-            }, 3000));
-          }
-        },
-        deployPre: function(html) {
-          $('#notifications').append(html);
-          setTimeout(function() {
-            $('#deploy_pre').fadeOut(1000).remove();
-          }, 10000);
-        },
-        deployPost: function(html) {
-          $('#notifications').append(html);
-          setTimeout(function() {
-            $('#deploy_post').fadeOut(1000).remove();
-          }, 10000);
-          lichess.socket.disconnect();
+            }, Math.round(it * interv));
+          });
         }
       },
-      params: {},
-      options: {
-        baseUrls: _.union(
-          'socket.' + document.domain,
-          _.map(($('body').data('ports') + '').split(','), function(port) {
-            return 'socket.' + document.domain + ':' + port;
-          })),
-        baseUrlKey: 'surl3',
-        name: "site",
-        lagTag: $('#top .ping strong'),
-        debug: location.search.indexOf('debug-ws') != -1,
-        prodPipe: location.search.indexOf('prod-ws') != -1,
-        resetUrl: location.search.indexOf('reset-ws') != -1
+      message: function(msg) {
+        $('#chat').chat("append", msg);
+      },
+      nbm: function(e) {
+        $('#nb_messages').text(e || "0").toggleClass("unread", e > 0);
+      },
+      tournamentReminder: function(data) {
+        if (!$('#tournament_reminder').length && $('body').data("tournament-id") != data.id) {
+          $('#notifications').append(data.html).find("a.withdraw").click(function() {
+            $.post($(this).attr("href"));
+            $('#tournament_reminder').remove();
+            return false;
+          });
+        }
+      },
+      poolReminder: function(data) {
+        if (!$('#pool_reminder').length && $('body').data("pool-id") != data.id) {
+          $('#notifications').append(data.html).find("a.withdraw").click(function() {
+            $.post($(this).attr("href"));
+            $('#pool_reminder').remove();
+            return false;
+          });
+        }
+      },
+      challengeReminder: function(data) {
+        if (!storage.get('challenge-refused-' + data.id)) {
+          var htmlId = 'challenge_reminder_' + data.id;
+          var $notif = $('#' + htmlId);
+          var declineListener = function($a, callback) {
+            return $a.click(function() {
+              $.post($(this).attr("href"));
+              storage.set('challenge-refused-' + data.id, 1);
+              $('#' + htmlId).remove();
+              if ($.isFunction(callback)) callback();
+              return false;
+            });
+          };
+          if ($notif.length) clearTimeout($notif.data('timeout'));
+          else {
+            $('#notifications').append(data.html);
+            $notif = $('#' + htmlId).one('mouseover', function() {
+              $(this).removeClass('glowing glow');
+            });
+            declineListener($notif.find('a.decline'));
+            $('body').trigger('lichess.content_loaded');
+            if (!storage.get('challenge-' + data.id)) {
+              $.sound.dong();
+              storage.set('challenge-' + data.id, 1);
+            }
+          }
+          $('div.lichess_overboard.joining.' + data.id).each(function() {
+            $notif.hide();
+            if (!$(this).find('a.decline').length) $(this).find('form').append(
+              declineListener($(data.html).find('a.decline'), function() {
+                location.href = "/";
+              })
+            );
+          });
+          $notif.data('timeout', setTimeout(function() {
+            $notif.remove();
+          }, 3000));
+        }
+      },
+      deployPre: function(html) {
+        $('#notifications').append(html);
+        setTimeout(function() {
+          $('#deploy_pre').fadeOut(1000).remove();
+        }, 10000);
+      },
+      deployPost: function(html) {
+        $('#notifications').append(html);
+        setTimeout(function() {
+          $('#deploy_post').fadeOut(1000).remove();
+        }, 10000);
+        lichess.socket.disconnect();
       }
     },
-    idleTime: 20 * 60 * 1000
-  };
+    params: {},
+    options: {
+      name: "site",
+      lagTag: $('#top .ping strong'),
+      debug: location.search.indexOf('debug-ws') != -1,
+      prodPipe: location.search.indexOf('prod-ws') != -1,
+      resetUrl: location.search.indexOf('reset-ws') != -1
+    }
+  });
 
   lichess.hasToReload = false;
   lichess.reload = function() {
@@ -500,7 +224,7 @@ var storage = {
       $('#footer_wrap').css('marginTop', winHeight - bodyHeight + 29 + 'px');
     }
 
-    if (!strongSocket.available) {
+    if (!lichess.StrongSocket.available) {
       $('#lichess').on('mouseover', function() {
         $('#lichess').off('mouseover');
         var inUrFaceUrl = window.opera ? '/assets/opera-websocket.html' : '/assets/browser.html';
@@ -615,11 +339,11 @@ var storage = {
 
     // Start game
     var $game = $('div.lichess_game').orNot();
-    if ($game) $game.game(_ld_);
+    if ($game && false) $game.game(_ld_);
 
     setTimeout(function() {
       if (lichess.socket === null) {
-        lichess.socket = new strongSocket("/socket", 0, lichess.socketDefaults);
+        lichess.socket = new lichess.StrongSocket("/socket", 0);
       }
       $(document).idleTimer(lichess.idleTime)
         .on('idle.idleTimer', function() {
@@ -1030,10 +754,10 @@ var storage = {
         bindTextualMove(this);
       });
 
-      lichess.socket = new strongSocket(
+      lichess.socket = new lichess.StrongSocket(
         self.options.url.socket,
         self.options.player.version,
-        $.extend(true, lichess.socketDefaults, {
+        {
           options: {
             name: "game"
           },
@@ -1206,7 +930,7 @@ var storage = {
               $('#challenge_declined').show();
             }
           }
-        }));
+        });
 
       $('#challenge_await').each(function() {
         var userId = $(this).data('user');
@@ -2062,7 +1786,7 @@ var storage = {
 
     var $startButtons = $('#start_buttons');
 
-    if (!strongSocket.available) {
+    if (!lichess.StrongSocket.available) {
       $startButtons.find('a').attr('href', '#');
       $("div.lichess_overboard.joining input.submit").remove();
       return;
@@ -2137,7 +1861,7 @@ var storage = {
         var $formTag = $form.find('form');
         var ajaxSubmit = function(color) {
           $.ajax({
-            url: $formTag.attr('action').replace(/uid-placeholder/, lichess_sri),
+            url: $formTag.attr('action').replace(/uid-placeholder/, lichess.StrongSocket.sri),
             data: $formTag.serialize() + "&color=" + color,
             type: 'post'
           });
@@ -2308,7 +2032,7 @@ var storage = {
 
     var $wrap = $('#hooks_wrap');
     if (!$wrap.length) return;
-    if (!strongSocket.available) return;
+    if (!lichess.StrongSocket.available) return;
 
     var socketUrl = $wrap.data('socket-url');
     var $timeline = $("#timeline");
@@ -2451,7 +2175,7 @@ var storage = {
     drawHooks(true);
     $table.find('th:eq(2)').click().end();
 
-    lichess.socket = new strongSocket(socketUrl, lichess_preload.version, $.extend(true, lichess.socketDefaults, {
+    lichess.socket = new lichess.StrongSocket(socketUrl, lichess_preload.version, {
       events: {
         reload_timeline: function() {
           $.ajax({
@@ -2513,7 +2237,7 @@ var storage = {
       options: {
         name: "lobby"
       }
-    }));
+    });
 
     function changeFeatured(o) {
       $('#featured_game').html(o.html);
@@ -2535,7 +2259,7 @@ var storage = {
     }
 
     function addHook(hook) {
-      hook.action = hook.uid == lichess_sri ? "cancel" : "join";
+      hook.action = hook.uid == lichess.StrongSocket.sri ? "cancel" : "join";
       pool.push(hook);
     }
 
@@ -2731,7 +2455,7 @@ var storage = {
 
     var $wrap = $('#pool');
     if (!$wrap.length) return;
-    if (!strongSocket.available) return;
+    if (!lichess.StrongSocket.available) return;
 
     $('body').data('pool-id', $wrap.data('id'));
 
@@ -2779,7 +2503,7 @@ var storage = {
       if (wave > 0) $el.text(wave - 1);
     }, 1000);
 
-    lichess.socket = new strongSocket($wrap.data('socket-url'), $wrap.data('version'), $.extend(true, lichess.socketDefaults, {
+    lichess.socket = new lichess.StrongSocket($wrap.data('socket-url'), $wrap.data('version'), {
       events: {
         reload: reload,
         redirect: function(e) {
@@ -2792,7 +2516,7 @@ var storage = {
       options: {
         name: "pool"
       }
-    }));
+    });
   });
 
   ///////////////////
@@ -2804,12 +2528,12 @@ var storage = {
     var $wrap = $('#tournament');
     if (!$wrap.length) return;
 
-    if (!strongSocket.available) return;
+    if (!lichess.StrongSocket.available) return;
 
     if (typeof _ld_ == "undefined") {
       // handle tournament list
-      lichess.socketDefaults.params.flag = "tournament";
-      lichess.socketDefaults.events.reload = function() {
+      lichess.StrongSocket.defaults.params.flag = "tournament";
+      lichess.StrongSocket.defaults.events.reload = function() {
         $wrap.load($wrap.data("href"), function() {
           $('body').trigger('lichess.content_loaded');
         });
@@ -2875,7 +2599,7 @@ var storage = {
       reload();
     }
 
-    lichess.socket = new strongSocket($wrap.data("socket-url"), _ld_.version, $.extend(true, lichess.socketDefaults, {
+    lichess.socket = new lichess.StrongSocket($wrap.data("socket-url"), _ld_.version, {
       events: {
         start: start,
         reload: reload,
@@ -2892,7 +2616,7 @@ var storage = {
       options: {
         name: "tournament"
       }
-    }));
+    });
   });
 
   ////////////////
@@ -2983,10 +2707,9 @@ var storage = {
       return false;
     });
 
-    lichess.socket = new strongSocket(
+    lichess.socket = new lichess.StrongSocket(
       $game.data("socket-url"),
-      parseInt($game.data("version"), 10),
-      $.extend(true, lichess.socketDefaults, {
+      parseInt($game.data("version"), 10), {
         options: {
           name: "analyse",
           ignoreUnknownMessages: true
@@ -3001,7 +2724,7 @@ var storage = {
             $watchers.watchers("set", event.watchers);
           }
         }
-      }));
+      });
   });
 
   /////////////// forum.js ////////////////////
