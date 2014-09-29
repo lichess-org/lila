@@ -15,7 +15,8 @@ module.exports = function(cfg, router, i18n) {
     var res = puzzle.tryMove(this.data, [orig, dest]);
     var newProgress = res[0];
     var newLines = res[1];
-    var promotion = last(newProgress)[4];
+    var lastMove = last(newProgress);
+    var promotion = lastMove ? lastMove[4] : undefined;
     m.startComputation();
     switch (newLines) {
       case 'retry':
