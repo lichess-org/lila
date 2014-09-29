@@ -11,15 +11,16 @@
     }
     }
     @userLink(u, withPowerTip = false)
-    @if(u.engine && ctx.me.fold(true)(u !=)) {
-    <span class="hint--bottom" data-hint="@trans.thisPlayerUsesChessComputerAssistance()" data-icon="j"></span>
-    }
   </div>
+  @if(u.engine && ctx.me.fold(true)(u !=)) {
+  <div class="warning" data-icon="j">@trans.thisPlayerUsesChessComputerAssistance()</div>
+  } else {
   <div class="ratings">
     @miniViewSortedPerfTypes.map { pt =>
     @showPerfRating(u, pt)
     }
   </div>
+  }
 </div>
 @playing.map { g =>
 @gameFen(g, g.player(u).getOrElse(g.firstPlayer).color)
