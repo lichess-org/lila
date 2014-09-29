@@ -30,8 +30,8 @@
     "watchify": "^1.0.2"
   },
   "dependencies": {
-    "chessground": "git://github.com/ornicar/chessground#3c390e33c50",
+    "chessground": "^1.0.0",
     "lodash-node": "^2.4.1",
-    "mithril": "git://github.com/lhorie/mithril.js.git#c16350de5ab64118"
+    "mithril": "^0.1.22"
   }
 }

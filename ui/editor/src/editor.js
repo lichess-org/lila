@@ -1,6 +1,5 @@
 var forIn = require('lodash-node/modern/objects/forIn')
 var mapValues = require('lodash-node/modern/objects/mapValues')
-var chessground = require('chessground');
 
 function init(cfg) {
   return {
@@ -19,9 +18,8 @@ function fenMetadatas(data) {
   return data.color() + ' ' + (castles.length ? castles : '-');
 }
 
-function computeFen(data, cgData) {
-  var baseFen = chessground.fen.write(cgData.pieces);
-  return baseFen + ' ' + fenMetadatas(data);
+function computeFen(data, getBaseFen) {
+  return getBaseFen() + ' ' + fenMetadatas(data);
 }
 
 function makeUrl(data, fen) {

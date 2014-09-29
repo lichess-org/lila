@@ -25,7 +25,7 @@ module.exports = function(cfg) {
     }
   });
 
-  this.computeFen = partial(editor.computeFen, this.data, this.chessground.data);
+  this.computeFen = partial(editor.computeFen, this.data, this.chessground.getFen);
 
   this.trans = partial(editor.trans, this.data);
 
