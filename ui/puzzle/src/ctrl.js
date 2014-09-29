@@ -85,8 +85,6 @@ module.exports = function(cfg, router, i18n) {
   this.initiate = function() {
     if (this.data.mode != 'view')
       setTimeout(partial(this.playInitialMove, this.data.puzzle.id), 1000);
-    if (this.data.user)
-      $.get(this.router.Puzzle.history().url, this.setHistoryHtml);
   }.bind(this);
 
   this.reload = function(cfg) {
@@ -121,12 +119,6 @@ module.exports = function(cfg, router, i18n) {
     if (id != this.data.puzzle.id) return;
     this.playOpponentMove(this.data.puzzle.initialMove);
     this.data.startedAt = new Date();
-  }.bind(this);
-
-  this.setHistoryHtml = function(html) {
-    m.startComputation();
-    this.data.historyHtml = html;
-    m.endComputation();
   }.bind(this);
 
   this.jump = function(to) {

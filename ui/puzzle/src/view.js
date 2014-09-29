@@ -273,7 +273,16 @@ function renderFooter(ctrl) {
 }
 
 function renderHistory(ctrl) {
-  return m('div.history', ctrl.data.historyHtml ? m.trust(ctrl.data.historyHtml) : null);
+  return m('div.history', {
+    config: function(el, isUpdate, context) {
+      var hash = ctrl.data.user.history.join('');
+      if (hash == context.hash) return;
+      context.hash = hash;
+      $.get(ctrl.router.Puzzle.history().url, function(html) {
+        el.innerHTML = html;
+      });
+    }
+  });
 }
 
 module.exports = function(ctrl) {
