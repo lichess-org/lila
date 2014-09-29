@@ -278,12 +278,12 @@ function renderHistory(ctrl) {
 
 module.exports = function(ctrl) {
   return m('div#puzzle.training', [
-    ctrl.costly(partial(renderSide, ctrl)),
-    ctrl.costly(partial(renderRight, ctrl)),
+    renderSide(ctrl),
+    renderRight(ctrl),
     m('div.center', [
       chessground.view(ctrl.chessground),
-      ctrl.costly(partial(renderFooter, ctrl)),
-      ctrl.data.user ? ctrl.costly(partial(renderHistory, ctrl)) : null
+      renderFooter(ctrl),
+      ctrl.data.user ? renderHistory(ctrl) : null
     ])
   ]);
 };
