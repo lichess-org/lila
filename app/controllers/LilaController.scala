@@ -174,10 +174,10 @@ private[controllers] trait LilaController
     Forbidden("no permission")
 
   protected def negotiate(html: => Fu[Result], api: Int => Fu[Result])(implicit ctx: Context): Fu[Result] = {
-    render.async {
-      case mediaRange if mediaRange.mediaSubType == "json" => api(1) map (_ as JSON)
-      case _ => html
-    }(ctx.req)
+    import play.api.mvc.Accepting
+    val accepts = ~ctx.req.headers.get(HeaderNames.ACCEPT)
+    if (accepts contains "application/vnd.lichess.v1+json") api(1) map (_ as JSON)
+    else html
   }
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
