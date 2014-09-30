@@ -1,5 +1,6 @@
 var m = require('mithril');
 var partial = require('lodash-node/modern/functions/partial');
+var merge = require('lodash-node/modern/objects/merge');
 var last = require('lodash-node/modern/arrays/last');
 var chessground = require('chessground');
 var data = require('./data');
@@ -62,7 +63,7 @@ module.exports = function(cfg, router, i18n) {
     });
   }.bind(this);
 
-  this.chessground = new chessground.controller({
+  this.chessground = new chessground.controller(merge({
     fen: cfg.puzzle.fen,
     orientation: this.data.puzzle.color,
     turnColor: this.data.puzzle.opponentColor,
@@ -80,7 +81,7 @@ module.exports = function(cfg, router, i18n) {
     premovable: {
       enabled: true
     }
-  });
+  }, this.data.chessground));
 
   this.initiate = function() {
     if (this.data.mode != 'view')
@@ -89,7 +90,7 @@ module.exports = function(cfg, router, i18n) {
 
   this.reload = function(cfg) {
     this.data = data(cfg);
-    this.chessground.reset();
+    chessground.board.reset(this.chessground.data);
     chessground.anim(puzzle.reload, this.chessground.data)(this.data, cfg);
     this.initiate();
   }.bind(this);

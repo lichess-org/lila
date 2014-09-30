@@ -33,6 +33,18 @@ object JsData extends lila.Steroids {
         "vote" -> puzzle.vote.sum,
         "url" -> s"$netBaseUrl${routes.Puzzle.show(puzzle.id)}"
       ),
+      "chessground" -> Json.obj(
+        "highlight" -> Json.obj(
+          "lastMove" -> ctx.pref.highlight,
+          "check" -> ctx.pref.highlight
+        ),
+        "movable" -> Json.obj(
+          "showDests" -> ctx.pref.destination
+        ),
+        "premovable" -> Json.obj(
+          "showDests" -> ctx.pref.destination
+        )
+      ),
       "animation" -> Json.obj(
         "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
       ),

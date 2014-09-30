@@ -35,11 +35,11 @@
   right: 1px;
   top: 1px;
 }
-body.highlight .cg-square.move-dest {
+.cg-square.move-dest {
   background: radial-gradient(rgba(20, 85, 30, 0.3) 22%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
   cursor: pointer;
 }
-body.highlight .cg-square.occupied.move-dest {
+.cg-square.occupied.move-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
 }
 /* .cg-square.occupied.move-dest .cg-piece::after { */
@@ -49,16 +49,15 @@ body.highlight .cg-square.occupied.move-dest {
 /*   height: 100%; */
 /*   background: radial-gradient(rgba(20, 85, 30, 0.5) 22%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0); */
 /* } */
-body.highlight .cg-square.premove-dest {
+.cg-square.premove-dest {
   background: radial-gradient(rgba(20, 30, 85, 0.3) 22%, #203085 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
 }
-body.highlight .cg-square.occupied.premove-dest {
+.cg-square.occupied.premove-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.3) 80%);
 }
 .cg-square.move-dest.drag-over,
 .cg-square.move-dest:hover {
   background: rgba(20, 85, 30, 0.3);
-  border: none;
 }
 /* .cg-square.move-dest.drag-over .cg-piece::after, */
 /* .cg-square.move-dest:hover .cg-piece::after { */
@@ -67,10 +66,10 @@ body.highlight .cg-square.occupied.premove-dest {
 .cg-square.selected {
   background-color: rgba(20, 85, 30, 0.5);
 }
-body.highlight .cg-square.last-move {
+.cg-square.last-move {
   background-color: rgba(155, 199, 0, 0.41);
 }
-body.highlight .cg-square.check {
+.cg-square.check {
   background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
 }
 .cg-square.current-premove {
