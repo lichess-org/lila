@@ -90,12 +90,6 @@ openGraph = Map(
             <tbody></tbody>
           </table>
         </div>
-        <div class="pool_title">auto-pairing pools</div>
-        <div class="pool_buttons">
-          @pools.map { p =>
-          <a href="@routes.Pool.show(p.setup.id)"><h2 data-icon=","> @p.setup.name</h2></a>
-          }
-        </div>
       </div>
       <div id="hook_overlay"></div>
       <div id="hook_filter"></div>

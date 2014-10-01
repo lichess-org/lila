@@ -166,46 +166,8 @@
   padding: 6px;
   margin-left: 3px;
 }
-#hooks_list .pool_title {
-  position: absolute;
-  bottom: 48px;
-  height: 19px;
-  line-height: 19px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  width: 512px;
-  text-align: center;
-  border-top: 1px solid #ccc;
-  background: rgba(255, 255, 255, 0.5);
-}
-#hooks_list .pool_buttons {
-  position: absolute;
-  bottom: 0;
-  left: -1px;
-  width: 513px;
-  height: 47px;
-  font-size: 20px;
-  line-height: 47px;
-  text-align: center;
-  border-top: 1px solid #ccc;
-  overflow: hidden;
-}
-#hooks_list .pool_buttons > a {
-  float: left;
-  width: 127px;
-  border-left: 1px solid #ccc;
-  text-decoration: none;
-  background: rgba(255, 255, 255, 0.3);
-  transition: 0.13s;
-}
-#hooks_list .pool_buttons > a:hover {
-  background: rgba(191, 231, 255, 0.5);
-}
-#hooks_list .pool_buttons h2::before {
-  opacity: 0.7;
-}
 #hooks_list div.table_wrap {
-  max-height: 448px;
+  max-height: 512px;
   overflow: hidden;
 }
 #hooks_list table {
