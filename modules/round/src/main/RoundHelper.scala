@@ -12,9 +12,6 @@ trait RoundHelper {
 
   def moretimeSeconds = roundEnv.moretimeSeconds
 
-  def roundPlayerJsData(pov: Pov, version: Int, pref: Pref, apiVersion: Int) =
-    roundEnv.jsonView.playerJson(pov, version, pref, chat = none, apiVersion = apiVersion)
-
   def roundWatcherJsData(pov: Pov, version: Int, tv: Boolean, pref: Pref) =
     roundEnv.jsonView.watcherJson(pov, version, tv, pref)
 }

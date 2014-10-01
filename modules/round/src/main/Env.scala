@@ -20,11 +20,13 @@ final class Env(
     aiPerfApi: lila.ai.AiPerfApi,
     crosstableApi: lila.game.CrosstableApi,
     lightUser: String => Option[lila.common.LightUser],
+    userJsonView: lila.user.JsonView,
     uciMemo: lila.game.UciMemo,
     rematch960Cache: lila.memo.ExpireSetMemo,
     onStart: String => Unit,
     i18nKeys: lila.i18n.I18nKeys,
     prefApi: lila.pref.PrefApi,
+    chatApi: lila.chat.ChatApi,
     historyApi: lila.history.HistoryApi,
     scheduler: lila.common.Scheduler) {
 
@@ -153,7 +155,11 @@ final class Env(
 
   private[round] def moretimeSeconds = Moretime.toSeconds
 
-  lazy val jsonView = new JsonView(AnimationDuration)
+  lazy val jsonView = new JsonView(
+    chatApi = chatApi,
+    userJsonView = userJsonView,
+    getVersion = version,
+    baseAnimationDuration = AnimationDuration)
 
   {
     import scala.concurrent.duration._
@@ -192,11 +198,13 @@ object Env {
     aiPerfApi = lila.ai.Env.current.aiPerfApi,
     crosstableApi = lila.game.Env.current.crosstableApi,
     lightUser = lila.user.Env.current.lightUser,
+    userJsonView = lila.user.Env.current.jsonView,
     uciMemo = lila.game.Env.current.uciMemo,
     rematch960Cache = lila.game.Env.current.cached.rematch960,
     onStart = lila.game.Env.current.onStart,
     i18nKeys = lila.i18n.Env.current.keys,
     prefApi = lila.pref.Env.current.api,
+    chatApi = lila.chat.Env.current.api,
     historyApi = lila.history.Env.current.api,
     scheduler = lila.common.PlayApp.scheduler)
 }

@@ -44,7 +44,6 @@ object Event {
   case class Move(orig: Pos, dest: Pos, color: Color) extends Event {
     def typ = "move"
     def data = Json.obj(
-      "type" -> "move",
       "from" -> orig.key,
       "to" -> dest.key,
       "color" -> color.name)

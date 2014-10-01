@@ -22,9 +22,10 @@ object PlayApp {
     enabled = enableScheduler && isServer,
     debug = loadConfig getBoolean "app.scheduler.debug")
 
-  def isDev = isMode(_.Dev)
-  def isTest = isMode(_.Test)
-  def isProd = isMode(_.Prod)
+  lazy val isDev = isMode(_.Dev)
+  lazy val isTest = isMode(_.Test)
+  lazy val isProd = isMode(_.Prod) && !loadConfig.getBoolean("forcedev")
   def isServer = !isTest
+
   def isMode(f: Mode.type => Mode.Mode) = withApp { _.mode == f(Mode) }
 }

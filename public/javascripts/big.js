@@ -338,8 +338,7 @@ var storage = {
     }
 
     // Start game
-    var $game = $('div.lichess_game').orNot();
-    if ($game && false) $game.game(_ld_);
+    if (lichess.round) $('#lichess').game(lichess.round);
 
     setTimeout(function() {
       if (lichess.socket === null) {
@@ -650,6 +649,23 @@ var storage = {
   $.widget("lichess.game", {
 
     _init: function() {
+      var cfg = this.options;
+      lichess.socket = new lichess.StrongSocket(
+        cfg.data.url.socket,
+        cfg.data.player.version,
+        {
+          options: {
+            name: "round"
+          },
+          params: {
+            ran: "--ranph--",
+            userTv: $('.user_tv').data('user-tv')
+          },
+          receive: function(t, d) { round.socketReceive(t, d); }
+        });
+      var round = LichessRound(this.element[0], cfg.data, cfg.routes, cfg.i18n, lichess.socket.send.bind(lichess.socket));
+    },
+    _old_init: function() {
       var self = this;
       self.$board = self.element.find("div.lichess_board");
       self.$table = self.element.find("div.lichess_table_wrap");

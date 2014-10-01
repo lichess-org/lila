@@ -55,28 +55,18 @@ object Round extends LilaController with TheftPrevention {
       negotiate(
         html = pov.game.started.fold(
           PreventTheft(pov) {
-            env.version(pov.gameId) zip
-              pov.opponent.userId.??(UserRepo.isEngine) zip
-              (pov.game.tournamentId ?? TournamentRepo.byId) zip
+            (pov.game.tournamentId ?? TournamentRepo.byId) zip
               Env.game.crosstableApi(pov.game) zip
-              (pov.game.hasChat optionFu {
-                Env.chat.api.playerChat find pov.gameId map (_ forUser ctx.me)
-              }) zip
-              (pov.game.playable ?? env.takebacker.isAllowedByPrefs(pov.game)) map {
-                case (((((v, engine), tour), crosstable), chat), takebackable) =>
-                  Ok(html.round.player(pov, v, engine,
-                    chat = chat, tour = tour, cross = crosstable, takebackable = takebackable))
+              (pov.game.playable ?? env.takebacker.isAllowedByPrefs(pov.game)) flatMap {
+                case ((tour, crosstable), takebackable) =>
+                  env.jsonView.playerJson(pov, ctx.pref, Env.api.version, ctx.me) map { data =>
+                    Ok(html.round.player(pov, data, tour = tour, cross = crosstable, takebackable = takebackable))
+                  }
               }
           },
           Redirect(routes.Setup.await(fullId)).fuccess
         ),
-        api = apiVersion => (Env.round version pov.gameId) zip
-          (pov.game.hasChat optionFu {
-            Env.chat.api.playerChat find pov.gameId map (_ forUser ctx.me)
-          }) map {
-            case (v, chat) =>
-              Ok(Env.round.jsonView.playerJson(pov, v, ctx.pref, chat, apiVersion))
-          }
+        api = apiVersion => env.jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me) map { Ok(_) }
       )
     }
   }
@@ -102,7 +92,7 @@ object Round extends LilaController with TheftPrevention {
         }
     },
     api = apiVersion => Env.round version pov.gameId map { v =>
-      Ok(Env.round.jsonView.watcherJson(pov, v, tv = false, pref = ctx.pref))
+      Ok(env.jsonView.watcherJson(pov, v, tv = false, pref = ctx.pref))
     })
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =

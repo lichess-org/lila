@@ -7,5 +7,10 @@ module.exports = function(cfg) {
 
   merge(data, cfg);
 
+  if (data.clock) {
+    data.clock.showTenths = data.pref.clockTenths;
+    data.clock.showBar = data.pref.clockBar;
+  }
+
   return data;
 };

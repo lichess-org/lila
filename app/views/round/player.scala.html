@@ -1,29 +1,32 @@
-@(pov: Pov, version: Int, engine: Boolean, chat: Option[lila.chat.MixedChat], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], takebackable: Boolean)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], takebackable: Boolean)(implicit ctx: Context)
 
 @import pov._
 
 @title = @{ s"${trans.play.str()} ${playerText(pov.opponent)} in $gameId" }
 
 @moreJs = {
+@*
 @jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
+*@
+@jsAt(s"compiled/lichess.round.js")
 @helper.javascriptRouter("roundRoutes")(
 routes.javascript.Auth.signup
 )(ctx.req)
 @embedJs {
-LichessRound(
-document.getElementById('lichess'),
-@Html(play.api.libs.json.Json.stringify(roundPlayerJsData(pov, version, ctx.pref, apiVersion))),
-roundRoutes.controllers,
-@Html(J.stringify(i18nJsObject(
+lichess = lichess || {};
+lichess.round = {
+data: @Html(play.api.libs.json.Json.stringify(data)),
+routes: roundRoutes.controllers,
+i18n: @Html(J.stringify(i18nJsObject(
 trans.premoveEnabledClickAnywhereToCancel)))
-);
+};
 }
 }
 
 @round.layout(
 title = title,
 side = views.html.game.side(pov, tour, withTourStanding = true),
-chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
+chat = none,
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov)) {

@@ -8,78 +8,90 @@ import play.api.libs.json._
 import lila.common.PimpedJson._
 import lila.game.{ Pov, Game, PerfPicker }
 import lila.pref.Pref
+import lila.user.{ User, UserRepo }
 
 import chess.format.Forsyth
 import chess.{ Color, Clock }
 
-final class JsonView(baseAnimationDuration: Duration) {
+final class JsonView(
+    chatApi: lila.chat.ChatApi,
+    userJsonView: lila.user.JsonView,
+    getVersion: String => Fu[Int],
+    baseAnimationDuration: Duration) {
 
-  def playerJson(pov: Pov, version: Int, pref: Pref, chat: Option[lila.chat.MixedChat], apiVersion: Int) = {
-    import pov._
-    Json.obj(
-      "game" -> Json.obj(
-        "id" -> gameId,
-        "variant" -> game.variant.key,
-        "speed" -> game.speed.key,
-        "perf" -> PerfPicker.key(game),
-        "rated" -> game.rated,
-        "fen" -> (Forsyth >> game.toChess),
-        "moves" -> game.pgnMoves.mkString(" "),
-        "started" -> game.started,
-        "finished" -> game.finishedOrAborted,
-        "clock" -> game.hasClock,
-        "clockRunning" -> game.isClockRunning,
-        "player" -> game.turnColor.name,
-        "turns" -> game.turns,
-        "startedAtTurn" -> game.startedAtTurn,
-        "lastMove" -> game.castleLastMoveTime.lastMoveString),
-      "clock" -> game.clock.map(clockJson),
-      "player" -> Json.obj(
-        "id" -> playerId,
-        "color" -> player.color.name,
-        "version" -> version,
-        "spectator" -> false,
-        "isOfferingRematch" -> player.isOfferingRematch.option(true),
-        "isOfferingDraw" -> player.isOfferingDraw.option(true),
-        "isProposingTakeback" -> player.isProposingTakeback.option(true)
-      ).noNull,
-      "opponent" -> Json.obj(
-        "color" -> opponent.color.name,
-        "ai" -> opponent.aiLevel,
-        "userId" -> opponent.userId,
-        "isOfferingRematch" -> opponent.isOfferingRematch.option(true),
-        "isOfferingDraw" -> opponent.isOfferingDraw.option(true),
-        "isProposingTakeback" -> opponent.isProposingTakeback.option(true)
-      ).noNull,
-      "url" -> Json.obj(
-        "pov" -> s"/$fullId",
-        "socket" -> s"/$fullId/socket/v$apiVersion",
-        "end" -> s"/$fullId/end",
-        "table" -> s"/$fullId/table"
-      ),
-      "pref" -> Json.obj(
-        "animationDuration" -> animationDuration(pov, pref),
-        "autoQueen" -> pref.autoQueen,
-        "autoThreefold" -> pref.autoThreefold,
-        "clockTenths" -> pref.clockTenths,
-        "clockBar" -> pref.clockBar,
-        "enablePremove" -> pref.premove
-      ),
-      "chat" -> chat.map { c =>
-        JsArray(c.lines map {
-          case lila.chat.UserLine(username, text, _) => Json.obj(
-            "u" -> username,
-            "t" -> text)
-          case lila.chat.PlayerLine(color, text) => Json.obj(
-            "c" -> color.name,
-            "t" -> text)
-        })
-      },
-      "possibleMoves" -> possibleMoves(pov),
-      "tournamentId" -> game.tournamentId,
-      "poolId" -> game.poolId
-    )
-  }
+  def playerJson(
+    pov: Pov,
+    pref: Pref,
+    apiVersion: Int,
+    playerUser: Option[User]): Fu[JsObject] =
+    getVersion(pov.game.id) zip
+      (pov.opponent.userId ?? UserRepo.byId) zip
+      getChat(pov.game, playerUser) map {
+        case ((version, opponentUser), chat) =>
+          import pov._
+          Json.obj(
+            "game" -> Json.obj(
+              "id" -> gameId,
+              "variant" -> game.variant.key,
+              "speed" -> game.speed.key,
+              "perf" -> PerfPicker.key(game),
+              "rated" -> game.rated,
+              "fen" -> (Forsyth >> game.toChess),
+              "moves" -> game.pgnMoves.mkString(" "),
+              "started" -> game.started,
+              "finished" -> game.finishedOrAborted,
+              "clock" -> game.hasClock,
+              "clockRunning" -> game.isClockRunning,
+              "player" -> game.turnColor.name,
+              "turns" -> game.turns,
+              "startedAtTurn" -> game.startedAtTurn,
+              "lastMove" -> game.castleLastMoveTime.lastMoveString),
+            "clock" -> game.clock.map(clockJson),
+            "player" -> Json.obj(
+              "id" -> playerId,
+              "color" -> player.color.name,
+              "version" -> version,
+              "spectator" -> false,
+              "user" -> playerUser.map { userJsonView(_, true) },
+              "isOfferingRematch" -> player.isOfferingRematch.option(true),
+              "isOfferingDraw" -> player.isOfferingDraw.option(true),
+              "isProposingTakeback" -> player.isProposingTakeback.option(true)
+            ).noNull,
+            "opponent" -> Json.obj(
+              "color" -> opponent.color.name,
+              "ai" -> opponent.aiLevel,
+              "user" -> opponentUser.map { userJsonView(_, true) },
+              "isOfferingRematch" -> opponent.isOfferingRematch.option(true),
+              "isOfferingDraw" -> opponent.isOfferingDraw.option(true),
+              "isProposingTakeback" -> opponent.isProposingTakeback.option(true)
+            ).noNull,
+            "url" -> Json.obj(
+              "socket" -> s"/$fullId/socket/v$apiVersion"
+            ),
+            "pref" -> Json.obj(
+              "animationDuration" -> animationDuration(pov, pref),
+              "highlight" -> pref.highlight,
+              "destination" -> pref.destination,
+              "autoQueen" -> pref.autoQueen,
+              "autoThreefold" -> pref.autoThreefold,
+              "clockTenths" -> pref.clockTenths,
+              "clockBar" -> pref.clockBar,
+              "enablePremove" -> pref.premove
+            ),
+            "chat" -> chat.map { c =>
+              JsArray(c.lines map {
+                case lila.chat.UserLine(username, text, _) => Json.obj(
+                  "u" -> username,
+                  "t" -> text)
+                case lila.chat.PlayerLine(color, text) => Json.obj(
+                  "c" -> color.name,
+                  "t" -> text)
+              })
+            },
+            "possibleMoves" -> possibleMoves(pov),
+            "tournamentId" -> game.tournamentId,
+            "poolId" -> game.poolId)
+      }
 
   def watcherJson(pov: Pov, version: Int, tv: Boolean, pref: Pref) = {
     import pov._
@@ -120,6 +132,14 @@ final class JsonView(baseAnimationDuration: Duration) {
       "tv" -> tv
     )
   }
+
+  private def getChat(game: Game, forUser: Option[User]) = game.hasChat optionFu {
+    chatApi.playerChat find game.id map (_ forUser forUser)
+  }
+
+  private def getUsers(game: Game) = UserRepo.pair(
+    game.whitePlayer.userId,
+    game.blackPlayer.userId)
 
   private def clockJson(clock: Clock) = Json.obj(
     "initial" -> clock.limit,
