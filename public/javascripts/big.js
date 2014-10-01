@@ -345,13 +345,7 @@ var storage = {
       if (lichess.socket === null) {
         lichess.socket = new lichess.StrongSocket("/socket", 0);
       }
-      $(document).idleTimer(lichess.idleTime)
-        .on('idle.idleTimer', function() {
-          lichess.socket.destroy();
-        })
-        .on('active.idleTimer', function() {
-          lichess.socket.connect();
-        });
+      $.idleTimer(lichess.idleTime, lichess.socket.destroy.bind(lichess.socket), lichess.socket.connect.bind(lichess.socket));
     }, 200);
 
     var $board = $('div.with_marks');
@@ -2836,4 +2830,35 @@ var storage = {
     });
   };
 
+  $.idleTimer = function(delay, onIdle, onWakeUp) {
+    var eventType = 'mousemove';
+    var listening = false;
+    var active = true;
+    var lastSeenActive = new Date();
+    var onActivity = function() {
+      if (!active) onWakeUp();
+      active = true;
+      lastSeenActive = new Date();
+      stopListening();
+    };
+    var startListening = function() {
+      if (!listening) {
+        document.addEventListener(eventType, onActivity);
+        listening = true;
+      }
+    };
+    var stopListening = function() {
+      if (listening) {
+        document.removeEventListener(eventType, onActivity);
+        listening = false;
+      }
+    };
+    setInterval(function() {
+      if (active && new Date() - lastSeenActive > delay) {
+        onIdle();
+        active = false;
+        startListening();
+      } else startListening();
+    }, 5000);
+  };
 })();

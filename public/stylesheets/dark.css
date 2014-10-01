@@ -26,7 +26,6 @@ body.dark #crosstable td {
   border-color: #1a1a1a;
 }
 body.dark #reconnecting,
-body.dark #chessboard .board-b72b1,
 body.dark #trainer .lichess_board,
 body.dark .mini_board,
 body.dark #nb_connected_players,

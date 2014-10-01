@@ -10,10 +10,7 @@ module.exports = function(cfg) {
       opponentColor: util.opposite(cfg.puzzle.color)
     },
     progress: [],
-    chess: chess.make(cfg.puzzle.fen),
-    animation: {
-      duration: 200
-    }
+    chess: chess.make(cfg.puzzle.fen)
   };
 
   merge(data, cfg);

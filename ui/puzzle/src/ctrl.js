@@ -1,6 +1,7 @@
 var m = require('mithril');
 var partial = require('lodash-node/modern/functions/partial');
-var reduce = require('lodash-node/modern/collections/reduce');
+var merge = require('lodash-node/modern/objects/merge');
+var last = require('lodash-node/modern/arrays/last');
 var chessground = require('chessground');
 var data = require('./data');
 var chess = require('./chess');
@@ -15,6 +16,8 @@ module.exports = function(cfg, router, i18n) {
     var res = puzzle.tryMove(this.data, [orig, dest]);
     var newProgress = res[0];
     var newLines = res[1];
+    var lastMove = last(newProgress);
+    var promotion = lastMove ? lastMove[4] : undefined;
     m.startComputation();
     switch (newLines) {
       case 'retry':
@@ -29,13 +32,11 @@ module.exports = function(cfg, router, i18n) {
         }, 500);
         this.data.comment = 'fail';
         break;
-      case 'win':
-        this.userFinalizeMove([orig, dest], newProgress);
-        xhr.attempt(this, true);
-        break;
       default:
-        this.userFinalizeMove([orig, dest], newProgress);
-        setTimeout(partial(this.playOpponentNextMove, this.data.puzzle.id), 1000);
+        this.userFinalizeMove([orig, dest, promotion], newProgress);
+        if (newLines == 'win') xhr.attempt(this, true);
+        else setTimeout(partial(this.playOpponentNextMove, this.data.puzzle.id), 1000);
+        break;
     }
     m.endComputation(); // give feedback ASAP, don't wait for delayed action
   }.bind(this);
@@ -62,7 +63,7 @@ module.exports = function(cfg, router, i18n) {
     });
   }.bind(this);
 
-  this.chessground = new chessground.controller({
+  this.chessground = new chessground.controller(merge({
     fen: cfg.puzzle.fen,
     orientation: this.data.puzzle.color,
     turnColor: this.data.puzzle.opponentColor,
@@ -80,23 +81,22 @@ module.exports = function(cfg, router, i18n) {
     premovable: {
       enabled: true
     }
-  });
+  }, this.data.chessground));
 
   this.initiate = function() {
     if (this.data.mode != 'view')
       setTimeout(partial(this.playInitialMove, this.data.puzzle.id), 1000);
-    if (this.data.user)
-      $.get(this.router.Puzzle.history().url, this.setHistoryHtml);
   }.bind(this);
 
   this.reload = function(cfg) {
     this.data = data(cfg);
-    this.chessground.reset();
+    chessground.board.reset(this.chessground.data);
     chessground.anim(puzzle.reload, this.chessground.data)(this.data, cfg);
     this.initiate();
   }.bind(this);
 
   this.playOpponentMove = function(move) {
+    m.startComputation();
     chess.move(this.data.chess, move);
     this.chessground.reconfigure({
       fen: this.data.chess.fen(),
@@ -107,6 +107,7 @@ module.exports = function(cfg, router, i18n) {
       turnColor: this.data.puzzle.color
     });
     setTimeout(this.chessground.playPremove, this.chessground.data.animation.duration);
+    m.endComputation();
   }.bind(this);
 
   this.playOpponentNextMove = function(id) {
@@ -123,12 +124,6 @@ module.exports = function(cfg, router, i18n) {
     this.data.startedAt = new Date();
   }.bind(this);
 
-  this.setHistoryHtml = function(html) {
-    m.startComputation();
-    this.data.historyHtml = html;
-    m.endComputation();
-  }.bind(this);
-
   this.jump = function(to) {
     chessground.anim(puzzle.jump, this.chessground.data)(this.data, to);
   }.bind(this);
@@ -139,17 +134,11 @@ module.exports = function(cfg, router, i18n) {
 
   this.router = router;
 
-  this.costly = function(cell) {
-    return (this.chessground.data.draggable.current.orig || this.chessground.data.animation.current.start) ? {
-      subtree: 'retain'
-    } : cell();
-  }.bind(this);
-
   this.trans = function() {
-    var key = arguments[0];
-    var args = Array.prototype.slice.call(arguments, 1);
-    return reduce(args, function(str, arg) {
-      return str.replace('%s', arg);
-    }, i18n[key]);
+    var str = i18n[arguments[0]]
+    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
+      str = str.replace('%s', arg);
+    });
+    return str;
   };
 };

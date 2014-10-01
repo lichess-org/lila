@@ -265,7 +265,7 @@ function renderContinueLinks(ctrl, fen) {
 
 function renderFooter(ctrl) {
   if (ctrl.data.mode != 'view') return null;
-  var fen = chessground.fen.write(ctrl.chessground.data.pieces);
+  var fen = ctrl.chessground.getFen();
   return m('div', [
     renderViewControls(ctrl, fen),
     ctrl.data.showContinueLinks() ? renderContinueLinks(ctrl, fen) : null
@@ -273,17 +273,26 @@ function renderFooter(ctrl) {
 }
 
 function renderHistory(ctrl) {
-  return m('div.history', ctrl.data.historyHtml ? m.trust(ctrl.data.historyHtml) : null);
+  return m('div.history', {
+    config: function(el, isUpdate, context) {
+      var hash = ctrl.data.user.history.join('');
+      if (hash == context.hash) return;
+      context.hash = hash;
+      $.get(ctrl.router.Puzzle.history().url, function(html) {
+        el.innerHTML = html;
+      });
+    }
+  });
 }
 
 module.exports = function(ctrl) {
   return m('div#puzzle.training', [
-    ctrl.costly(partial(renderSide, ctrl)),
-    ctrl.costly(partial(renderRight, ctrl)),
+    renderSide(ctrl),
+    renderRight(ctrl),
     m('div.center', [
       chessground.view(ctrl.chessground),
-      ctrl.costly(partial(renderFooter, ctrl)),
-      ctrl.data.user ? ctrl.costly(partial(renderHistory, ctrl)) : null
+      renderFooter(ctrl),
+      ctrl.data.user ? renderHistory(ctrl) : null
     ])
   ]);
 };

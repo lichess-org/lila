@@ -58,7 +58,6 @@
 .cg-square.move-dest.drag-over,
 .cg-square.move-dest:hover {
   background: rgba(20, 85, 30, 0.3);
-  border: none;
 }
 /* .cg-square.move-dest.drag-over .cg-piece::after, */
 /* .cg-square.move-dest:hover .cg-piece::after { */

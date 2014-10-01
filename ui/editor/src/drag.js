@@ -1,6 +1,7 @@
 var range = require('lodash-node/modern/arrays/range');
 var find = require('lodash-node/modern/collections/find');
 var util = require('chessground').util;
+var drag = require('chessground').drag;
 
 module.exports = function(ctrl, e) {
   if (e.button !== 0) return; // only left click
@@ -29,10 +30,11 @@ module.exports = function(ctrl, e) {
   ctrl.chessground.data.draggable.current = {
     orig: key,
     rel: rel,
+    epos: [e.clientX, e.clientY],
     pos: [e.clientX - rel[0], e.clientY - rel[1]],
     dec: [-pieceBounds.width / 2, -pieceBounds.height / 2],
     bounds: bounds,
     started: true
   };
-  m.redraw();
+  drag.processDrag(ctrl.chessground.data);
 }
