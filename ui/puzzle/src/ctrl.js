@@ -96,6 +96,7 @@ module.exports = function(cfg, router, i18n) {
   }.bind(this);
 
   this.playOpponentMove = function(move) {
+    m.startComputation();
     chess.move(this.data.chess, move);
     this.chessground.reconfigure({
       fen: this.data.chess.fen(),
@@ -106,6 +107,7 @@ module.exports = function(cfg, router, i18n) {
       turnColor: this.data.puzzle.color
     });
     setTimeout(this.chessground.playPremove, this.chessground.data.animation.duration);
+    m.endComputation();
   }.bind(this);
 
   this.playOpponentNextMove = function(id) {
