@@ -265,7 +265,7 @@ function renderContinueLinks(ctrl, fen) {
 
 function renderFooter(ctrl) {
   if (ctrl.data.mode != 'view') return null;
-  var fen = ctrl.chessground.getFen();
+  var fen = ctrl.data.replay.history[ctrl.data.replay.step].fen;
   return m('div', [
     renderViewControls(ctrl, fen),
     ctrl.data.showContinueLinks() ? renderContinueLinks(ctrl, fen) : null
