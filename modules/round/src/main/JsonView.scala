@@ -17,6 +17,7 @@ final class JsonView(
     chatApi: lila.chat.ChatApi,
     userJsonView: lila.user.JsonView,
     getVersion: String => Fu[Int],
+    canTakeback: Game => Fu[Boolean],
     baseAnimationDuration: Duration) {
 
   def playerJson(
@@ -26,8 +27,9 @@ final class JsonView(
     playerUser: Option[User]): Fu[JsObject] =
     getVersion(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
+      canTakeback(pov.game) zip
       getChat(pov.game, playerUser) map {
-        case ((version, opponentUser), chat) =>
+        case (((version, opponentUser), takebackable), chat) =>
           import pov._
           Json.obj(
             "game" -> Json.obj(
@@ -66,7 +68,8 @@ final class JsonView(
               "isProposingTakeback" -> opponent.isProposingTakeback.option(true)
             ).noNull,
             "url" -> Json.obj(
-              "socket" -> s"/$fullId/socket/v$apiVersion"
+              "socket" -> s"/$fullId/socket/v$apiVersion",
+              "round" -> s"/$fullId"
             ),
             "pref" -> Json.obj(
               "animationDuration" -> animationDuration(pov, pref),
@@ -90,7 +93,8 @@ final class JsonView(
             },
             "possibleMoves" -> possibleMoves(pov),
             "tournamentId" -> game.tournamentId,
-            "poolId" -> game.poolId)
+            "poolId" -> game.poolId,
+            "takebackable" -> takebackable)
       }
 
   def watcherJson(pov: Pov, version: Int, tv: Boolean, pref: Pref) = {

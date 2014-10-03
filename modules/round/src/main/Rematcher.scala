@@ -31,11 +31,11 @@ private[round] final class Rematcher(
     case Pov(game, color) if pov.player.isOfferingRematch => GameRepo save {
       messenger.system(game, _.rematchOfferCanceled)
       Progress(game) map { g => g.updatePlayer(color, _.removeRematchOffer) }
-    } inject List(Event.ReloadTablesOwner)
+    } inject List(Event.ReloadOwner)
     case Pov(game, color) if pov.opponent.isOfferingRematch => GameRepo save {
       messenger.system(game, _.rematchOfferDeclined)
       Progress(game) map { g => g.updatePlayer(!color, _.removeRematchOffer) }
-    } inject List(Event.ReloadTablesOwner)
+    } inject List(Event.ReloadOwner)
     case _ => ClientErrorException.future("[rematcher] invalid no " + pov)
   }
 
@@ -61,7 +61,7 @@ private[round] final class Rematcher(
   private def rematchCreate(pov: Pov): Fu[Events] = GameRepo save {
     messenger.system(pov.game, _.rematchOfferSent)
     Progress(pov.game) map { g => g.updatePlayer(pov.color, _ offerRematch) }
-  } inject List(Event.ReloadTablesOwner)
+  } inject List(Event.ReloadOwner)
 
   private def returnGame(pov: Pov): Fu[Game] = for {
     pieces ← pov.game.variant.standard.fold(

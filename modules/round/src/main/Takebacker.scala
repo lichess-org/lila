@@ -15,7 +15,7 @@ private[round] final class Takebacker(
       case Pov(game, color) if (game playerCanProposeTakeback color) => GameRepo save {
         messenger.system(game, _.takebackPropositionSent)
         Progress(game) map { g => g.updatePlayer(color, _.proposeTakeback) }
-      } inject List(Event.ReloadTablesOwner)
+      } inject List(Event.ReloadOwner)
       case _ => ClientErrorException.future("[takebacker] invalid yes " + pov)
     }
   }
@@ -25,11 +25,11 @@ private[round] final class Takebacker(
       case Pov(game, color) if pov.player.isProposingTakeback => GameRepo save {
         messenger.system(game, _.takebackPropositionCanceled)
         Progress(game) map { g => g.updatePlayer(color, _.removeTakebackProposition) }
-      } inject List(Event.ReloadTablesOwner)
+      } inject List(Event.ReloadOwner)
       case Pov(game, color) if pov.opponent.isProposingTakeback => GameRepo save {
         messenger.system(game, _.takebackPropositionDeclined)
         Progress(game) map { g => g.updatePlayer(!color, _.removeTakebackProposition) }
-      } inject List(Event.ReloadTablesOwner)
+      } inject List(Event.ReloadOwner)
       case _ => ClientErrorException.future("[takebacker] invalid no " + pov)
     }
   }

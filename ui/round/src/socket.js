@@ -1,6 +1,7 @@
 var m = require('mithril');
 var round = require('./round');
-var ground = require('chessground');
+var ground = require('./ground');
+var xhr = require('./xhr');
 
 module.exports = function(send, ctrl) {
 
@@ -8,14 +9,14 @@ module.exports = function(send, ctrl) {
 
   var handlers = {
     possibleMoves: function(o) {
-      ctrl.chessground.reconfigure({
+      ctrl.chessground.set({
         movable: {
           dests: round.parsePossibleMoves(o)
         }
       });
     },
     state: function(o) {
-      ctrl.chessground.reconfigure({
+      ctrl.chessground.set({
         turnColor: o.color
       });
       ctrl.data.game.player = o.color;
@@ -42,7 +43,7 @@ module.exports = function(send, ctrl) {
       ctrl.chessground.setPieces(pieces);
     },
     check: function(o) {
-      ctrl.chessground.reconfigure({
+      ctrl.chessground.set({
         check: o
       });
     },
@@ -58,11 +59,30 @@ module.exports = function(send, ctrl) {
         $.redirect(o);
       }, 400);
     },
+    reload: function(o) {
+      xhr.reload(ctrl.data).then(ctrl.reload);
+    },
     threefoldRepetition: function() {
       // ???
     },
     clock: function(o) {
       if (ctrl.clock) ctrl.clock.update(o.white, o.black);
+    },
+    crowd: function(o) {
+      m.startComputation();
+      ['white', 'black'].forEach(function(c) {
+        round.getPlayer(ctrl.data, c).statused = true;
+        round.getPlayer(ctrl.data, c).connected = o[c];
+      });
+      ctrl.data.watchers = o.watchers;
+      m.endComputation();
+    },
+    end: function() {
+      m.startComputation();
+      ctrl.data.game.finished = true;
+      m.endComputation();
+      ground.end(ctrl.chessground);
+      xhr.reload(ctrl.data).then(ctrl.reload);
     }
   };
 

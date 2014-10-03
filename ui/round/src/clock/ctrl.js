@@ -1,4 +1,4 @@
-module.exports = function(data) {
+module.exports = function(data, onFlag) {
 
   var lastUpdate;
 
@@ -22,7 +22,8 @@ module.exports = function(data) {
 
   this.tick = function(color) {
     m.startComputation();
-    this.data[color] = lastUpdate[color] - (new Date() - lastUpdate.at) / 1000;
+    this.data[color] = Math.max(0, lastUpdate[color] - (new Date() - lastUpdate.at) / 1000);
+    if (this.data[color] === 0) onFlag();
     m.endComputation();
   }.bind(this);
 }

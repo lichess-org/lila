@@ -159,6 +159,7 @@ final class Env(
     chatApi = chatApi,
     userJsonView = userJsonView,
     getVersion = version,
+    canTakeback = takebacker.isAllowedByPrefs,
     baseAnimationDuration = AnimationDuration)
 
   {

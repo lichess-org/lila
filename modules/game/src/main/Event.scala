@@ -93,10 +93,6 @@ object Event {
     override def owner = true
   }
 
-  object Reload extends Empty {
-    def typ = "resync"
-  }
-
   case class Promotion(role: PromotableRole, pos: Pos) extends Event {
     def typ = "promotion"
     def data = Json.obj(
@@ -141,8 +137,12 @@ object Event {
   case object ReloadTables extends Empty {
     def typ = "reloadTable"
   }
-  case object ReloadTablesOwner extends Empty {
-    def typ = "reloadTable"
+
+  case object Reload extends Empty {
+    def typ = "reload"
+  }
+  case object ReloadOwner extends Empty {
+    def typ = "reload"
     override def owner = true
   }
 

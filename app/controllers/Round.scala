@@ -56,11 +56,10 @@ object Round extends LilaController with TheftPrevention {
         html = pov.game.started.fold(
           PreventTheft(pov) {
             (pov.game.tournamentId ?? TournamentRepo.byId) zip
-              Env.game.crosstableApi(pov.game) zip
-              (pov.game.playable ?? env.takebacker.isAllowedByPrefs(pov.game)) flatMap {
-                case ((tour, crosstable), takebackable) =>
+              Env.game.crosstableApi(pov.game) flatMap {
+                case (tour, crosstable) =>
                   env.jsonView.playerJson(pov, ctx.pref, Env.api.version, ctx.me) map { data =>
-                    Ok(html.round.player(pov, data, tour = tour, cross = crosstable, takebackable = takebackable))
+                    Ok(html.round.player(pov, data, tour = tour, cross = crosstable))
                   }
               }
           },

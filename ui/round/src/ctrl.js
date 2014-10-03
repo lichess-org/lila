@@ -1,11 +1,12 @@
 var m = require('mithril');
 var partial = require('lodash-node/modern/functions/partial');
+var throttle = require('lodash-node/modern/functions/throttle');
 var chessground = require('chessground');
 var data = require('./data');
 var round = require('./round');
+var ground = require('./ground');
 var socket = require('./socket');
 var clockCtrl = require('./clock/ctrl');
-var util = require('./util');
 
 module.exports = function(cfg, router, i18n, socketSend) {
 
@@ -24,36 +25,17 @@ module.exports = function(cfg, router, i18n, socketSend) {
     });
   }.bind(this);
 
-  this.chessground = new chessground.controller({
-    fen: cfg.game.fen,
-    orientation: this.data.player.color,
-    turnColor: this.data.game.player,
-    lastMove: util.str2move(this.data.game.lastMove),
-    highlight: {
-      lastMove: this.data.pref.highlight,
-      check: this.data.pref.highlight,
-      dragOver: true
-    },
-    movable: {
-      free: false,
-      color: round.isPlayerPlaying(this.data) ? this.data.player.color : null,
-      dests: round.parsePossibleMoves(this.data.possibleMoves),
-      showDests: this.data.pref.destination,
-      events: {
-        after: this.userMove
-      },
-    },
-    animation: {
-      enabled: true,
-      duration: this.data.pref.animationDuration
-    },
-    premovable: {
-      enabled: this.data.pref.enablePremove,
-      showDests: this.data.pref.destination
-    }
-  });
+  this.chessground = ground.make(this.data, cfg.game.fen, this.userMove);
 
-  this.clock = this.data.clock ? new clockCtrl(this.data.clock) : false;
+  this.reload = function(cfg) {
+    this.data = data(cfg);
+    ground.reload(this.chessground, this.data, cfg.game.fen);
+  }.bind(this);
+
+  this.clock = this.data.clock ? new clockCtrl(
+    this.data.clock,
+    throttle(partial(this.socket.send, 'outoftime'), 500)
+  ) : false;
 
   this.isClockRunning = function() {
     return !this.data.game.finished && ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.game.clockRunning);

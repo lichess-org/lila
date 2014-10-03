@@ -709,14 +709,13 @@ div.lichess_control .lichess_rematch.disabled {
 }
 #claim_draw_zone,
 div.force_resign_zone,
-div.proposed_takeback,
-div.offered_draw {
+div.negociation {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #ddd;
 }
 #claim_draw_zone .button,
-div.offered_draw .button,
+div.negociation .button,
 div.force_resign_zone .button {
   display: inline-block;
 }
@@ -742,7 +741,9 @@ div.lichess_current_player div.lichess_player {
   position: absolute;
   margin-left: -5px;
 }
-div.lichess_current_player div.lichess_player div.piece {
+div.lichess_current_player div.lichess_player div.cg-piece {
+  width: 64px;
+  height: 64px;
   top: 0;
   left: 0;
 }
