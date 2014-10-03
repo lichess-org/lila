@@ -7,3 +7,6 @@
 [submodule "modules/swisssystem"]
 	path = modules/swisssystem
 	url = https://github.com/psuter/swisssystem
+[submodule "public/staunton"]
+	path = public/staunton
+	url = https://github.com/clarkerubber/Staunton-Pieces

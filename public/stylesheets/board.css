@@ -1,11 +1,10 @@
+div.lichess_game {
+  display: table;
+}
 div.lichess_board_wrap {
-  float: left;
+  display: table-cell;
   border: 1px solid #ccc;
   position: relative;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 span.board_mark {
   position: absolute;
@@ -36,7 +35,6 @@ div.lcs {
   width: 64px;
   height: 64px;
 }
-
 body.blue div.lichess_board,
 body.blue #GameBoard,
 body.blue .mini_board,
@@ -122,6 +120,7 @@ body.leather .cg-board,
   background-image: url(../images/board/leather-512.jpg);
 }
 /* KotH boards */
+
 body.blue div.lichess_board.kingOfTheHill,
 body.blue #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/blue.jpg);
@@ -170,7 +169,6 @@ body.leather div.lichess_board.kingOfTheHill,
 body.leather #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/leather.jpg);
 }
-
 @media
 
 only screen and (-webkit-min-device-pixel-ratio:2),
@@ -178,11 +176,7 @@ only screen and (min--moz-device-pixel-ratio:2),
 only screen and (min-device-pixel-ratio:2),
 only screen and (min-resolution:192dpi),
 only screen and (min-resolution:2dppx) {
-  body.wood div.lichess_board,
-  body.wood #GameBoard,
-  body.wood .mini_board,
-  body.wood .cg-board,
-  #top div.color_demo.wood {
+  body.wood div.lichess_board, body.wood #GameBoard, body.wood .mini_board, body.wood .cg-board, #top div.color_demo.wood {
     background-image: url(../images/board/wood3-1024.jpg);
   }
   body.canvas div.lichess_board,
@@ -416,6 +410,50 @@ body.alpha div.queen.black {
 body.alpha div.king.black {
   background-image: url(../piece/alpha/bK.svg);
 }
+body.staunton div.pawn.white {
+  background-image: url(../staunton/Renders/Pieces/Wood/White-Pawn.png);
+}
+body.staunton div.bishop.white {
+  background-image: url(../staunton/Renders/Pieces/Wood/White-Bishop.png);
+}
+body.staunton div.knight.white,
+#top div.piece_demo.staunton {
+  background-image: url(../staunton/Renders/Pieces/Wood/White-Knight.png);
+}
+body.staunton div.rook.white {
+  background-image: url(../staunton/Renders/Pieces/Wood/White-Rook.png);
+}
+body.staunton div.queen.white {
+  background-image: url(../staunton/Renders/Pieces/Wood/White-Queen.png);
+}
+body.staunton div.king.white {
+  background-image: url(../staunton/Renders/Pieces/Wood/White-King.png);
+}
+body.staunton div.pawn.black {
+  background-image: url(../staunton/Renders/Pieces/Wood/Black-Pawn.png);
+}
+body.staunton div.bishop.black {
+  background-image: url(../staunton/Renders/Pieces/Wood/Black-Bishop.png);
+}
+body.staunton div.knight.black {
+  background-image: url(../staunton/Renders/Pieces/Wood/Black-Knight.png);
+}
+body.staunton div.rook.black {
+  background-image: url(../staunton/Renders/Pieces/Wood/Black-Rook.png);
+}
+body.staunton div.queen.black {
+  background-image: url(../staunton/Renders/Pieces/Wood/Black-Queen.png);
+}
+body.staunton div.king.black {
+  background-image: url(../staunton/Renders/Pieces/Wood/Black-King.png);
+}
+body.staunton div.cg-piece {
+  height: 140%;
+  width: 120%;
+  left: -10%;
+  top: -10%;
+  z-index: 3;
+}
 div.lichess_game_not_started {
   position: relative;
 }
@@ -430,7 +468,7 @@ div.lichess_overboard {
   line-height: 1.8em;
   text-decoration: none;
   background: #fff;
-  box-shadow: 0 0 95px 25px rgba(0,0,0,0.6);
+  box-shadow: 0 0 95px 25px rgba(0, 0, 0, 0.6);
   text-align: center;
 }
 div.lichess_overboard a.close {
@@ -517,14 +555,11 @@ div.lichess_join_url span {
   border: 1px solid #D4D4D4;
 }
 div.lichess_ground {
-  position: relative;
-  margin-left: 532px;
-  height: 514px;
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 15px;
 }
 div.lichess_table_wrap {
-  position: absolute;
-  top: 176px;
-  left: 0px;
   width: 242px;
 }
 div.lichess_table {
@@ -926,9 +961,8 @@ div.underboard a {
 div.underboard.replay_and_analyse a {
   font-size: 1.4em;
 }
-
 div.check_count span.player.color {
-  display:inline-block;
+  display: inline-block;
   margin-left: 5px;
   font-weight: bold;
 }

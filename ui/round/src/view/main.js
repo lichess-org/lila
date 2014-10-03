@@ -8,7 +8,7 @@ module.exports = function(ctrl) {
       if (isUpdate) return;
       $('body').trigger('lichess.content_loaded');
     },
-    class: 'lichess_game clearfix not_spectator pov_' + ctrl.data.player.color
+    class: 'lichess_game not_spectator pov_' + ctrl.data.player.color
   }, [
     ctrl.data.blindMode ? m('div#lichess_board_blind') : null,
     m('div.lichess_board_wrap', ctrl.data.blindMode ? null : [

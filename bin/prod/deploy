@@ -60,7 +60,8 @@ RSYNC_OPTIONS=" \
   --exclude logs \
   --exclude RUNNING_PID \
   --exclude bin/.translate_version \
-  --exclude local";
+  --exclude local
+  --exclude '*.psd'";
 
 lilalog "Rsync scripts, binaries and assets"
 stage="target/universal/stage"
