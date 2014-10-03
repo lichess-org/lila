@@ -63,7 +63,8 @@ module.exports = function(send, ctrl) {
       xhr.reload(ctrl.data).then(ctrl.reload);
     },
     threefoldRepetition: function() {
-      // ???
+      // show the draw button
+      xhr.reload(ctrl.data).then(ctrl.reload);
     },
     clock: function(o) {
       if (ctrl.clock) ctrl.clock.update(o.white, o.black);
@@ -78,9 +79,6 @@ module.exports = function(send, ctrl) {
       m.endComputation();
     },
     end: function() {
-      m.startComputation();
-      ctrl.data.game.finished = true;
-      m.endComputation();
       ground.end(ctrl.chessground);
       xhr.reload(ctrl.data).then(ctrl.reload);
     }

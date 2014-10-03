@@ -1,12 +1,5 @@
 var mapValues = require('lodash-node/modern/objects/mapValues');
-
-function isGamePlaying(data) {
-  return data.game.started && !data.game.finished;
-}
-
-function isPlayerPlaying(data) {
-  return isGamePlaying(data) && !data.player.spectator;
-}
+var status = require('./status');
 
 function parsePossibleMoves(possibleMoves) {
   return mapValues(possibleMoves, function(moves) {
@@ -15,7 +8,11 @@ function parsePossibleMoves(possibleMoves) {
 }
 
 function playable(data) {
-  return data.game.started && !data.game.finished;
+  return status.started(data) && !status.finished(data);
+}
+
+function isPlayerPlaying(data) {
+  return playable(data) && !data.player.spectator;
 }
 
 function mandatory(data) {
@@ -39,17 +36,23 @@ function resignable(data) {
 }
 
 function getPlayer(data, color) {
-  return data.player.color == color ? data.player : data.opponent;
+  if (data.player.color == color) return data.player;
+  if (data.opponent.color == color) return data.opponent;
+  return null;
+}
+
+function nbMoves(data, color) {
+  return data.turns + (color == 'white' ? 1 : 0) / 2;
 }
 
 module.exports = {
-  isGamePlaying: isGamePlaying,
   isPlayerPlaying: isPlayerPlaying,
   playable: playable,
   abortable: abortable,
   takebackable: takebackable,
   drawable: drawable,
   resignable: resignable,
+  mandatory: mandatory,
   getPlayer: getPlayer,
   parsePossibleMoves: parsePossibleMoves
 };

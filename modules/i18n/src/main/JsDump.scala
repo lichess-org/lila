@@ -19,11 +19,12 @@ private[i18n] final class JsDump(
 
   def apply: Funit = Future {
     pathFile.mkdir
-    pool.nonDefaultLangs foreach write
+    pool.nonDefaultLangs foreach write(jsMessages)
     writeRefs
+    writeFullJson
   } void
 
-  private val messages = List(
+  private val jsMessages = List(
     keys.standard,
     keys.rated,
     keys.casual,
@@ -61,27 +62,37 @@ private[i18n] final class JsDump(
 
   private val pathFile = new File(path)
 
-  private def write(lang: Lang) {
-    val code = dump(lang)
+  private def write(messages: List[I18nKey])(lang: Lang) {
+    val code = s"""lichess_translations = ${dump(messages, lang)};"""
     val file = new File("%s/%s.js".format(pathFile.getCanonicalPath, lang.language))
     val out = new PrintWriter(file)
     try { out.print(code) }
     finally { out.close }
   }
 
-  private def dump(lang: Lang): String =
-    """lichess_translations = {%s};""".format(messages map { key =>
+  private def dump(messages: List[I18nKey], lang: Lang): String =
+    messages.map { key =>
       """"%s":"%s"""".format(escape(key.to(pool.default)()), escape(key.to(lang)()))
-    } mkString ",")
+    }.mkString("{", ",", "}")
 
   private def writeRefs {
-    val code = pool.names.toList.sortBy (_._1).map {
+    val code = pool.names.toList.sortBy(_._1).map {
       case (code, name) => s"""["$code","$name"]"""
     }.mkString("[", ",", "]")
     val file = new File("%s/refs.json".format(pathFile.getCanonicalPath))
     val out = new PrintWriter(file)
     try { out.print(code) }
     finally { out.close }
+  }
+
+  private def writeFullJson {
+    pool.langs foreach { lang =>
+      val code = dump(keys.keys, lang)
+      val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.language))
+      val out = new PrintWriter(file)
+      try { out.print(code) }
+      finally { out.close }
+    }
   }
 
   private def escape(text: String) = text.replace(""""""", """\"""")

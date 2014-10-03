@@ -24,6 +24,7 @@ final class JsonView(
     pov: Pov,
     pref: Pref,
     apiVersion: Int,
+    tourOption: Option[lila.tournament.Tournament],
     playerUser: Option[User]): Fu[JsObject] =
     getVersion(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
@@ -34,20 +35,26 @@ final class JsonView(
           Json.obj(
             "game" -> Json.obj(
               "id" -> gameId,
-              "variant" -> game.variant.key,
+              "variant" -> Json.obj(
+                "key" -> game.variant.key,
+                "name" -> game.variant.name,
+                "short" -> game.variant.shortName,
+                "title" -> game.variant.title),
               "speed" -> game.speed.key,
               "perf" -> PerfPicker.key(game),
               "rated" -> game.rated,
               "fen" -> (Forsyth >> game.toChess),
               "moves" -> game.pgnMoves.mkString(" "),
-              "started" -> game.started,
-              "finished" -> game.finishedOrAborted,
               "clock" -> game.hasClock,
               "clockRunning" -> game.isClockRunning,
               "player" -> game.turnColor.name,
+              "winner" -> game.winnerColor.map(_.name),
               "turns" -> game.turns,
               "startedAtTurn" -> game.startedAtTurn,
-              "lastMove" -> game.castleLastMoveTime.lastMoveString),
+              "lastMove" -> game.castleLastMoveTime.lastMoveString,
+              "status" -> Json.obj(
+                "id" -> pov.game.status.id,
+                "name" -> pov.game.status.lowerName)),
             "clock" -> game.clock.map(clockJson),
             "player" -> Json.obj(
               "id" -> playerId,
@@ -91,8 +98,12 @@ final class JsonView(
                   "t" -> text)
               })
             },
+            "tournament" -> tourOption.map { tour =>
+              Json.obj(
+                "id" ->game.tournamentId
+                )
+            },
             "possibleMoves" -> possibleMoves(pov),
-            "tournamentId" -> game.tournamentId,
             "poolId" -> game.poolId,
             "takebackable" -> takebackable)
       }

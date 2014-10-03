@@ -4,6 +4,7 @@ var throttle = require('lodash-node/modern/functions/throttle');
 var chessground = require('chessground');
 var data = require('./data');
 var round = require('./round');
+var status = require('./status');
 var ground = require('./ground');
 var socket = require('./socket');
 var clockCtrl = require('./clock/ctrl');
@@ -38,7 +39,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
   ) : false;
 
   this.isClockRunning = function() {
-    return !this.data.game.finished && ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.game.clockRunning);
+    return round.playable(this.data) && ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.game.clockRunning);
   }.bind(this);
 
   this.clockTick = function() {

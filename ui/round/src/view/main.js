@@ -1,10 +1,12 @@
 var map = require('lodash-node/modern/collections/map');
 var chessground = require('chessground');
-var round = require('./round');
+var round = require('../round');
+var status = require('../status');
 var opposite = chessground.util.opposite;
 var classSet = chessground.util.classSet;
 var partial = chessground.util.partial;
-var clockView = require('./clock/view');
+var renderClock = require('../clock/view');
+var renderStatus = require('./status');
 var m = require('mithril');
 
 function renderOpponent(ctrl) {
@@ -38,7 +40,25 @@ function renderOpponent(ctrl) {
   );
 }
 
-function renderTableEnd(ctrl) {}
+function renderResult(ctrl) {
+  var winner = round.getPlayer(ctrl.data, ctrl.data.game.winner);
+  return winner ? m('div.lichess_player.' + winner.color, [
+      m('div.cg-piece.king.' + winner.color),
+      m('p', [
+        renderStatus(ctrl),
+        m('br'),
+        ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious')
+      ])
+    ]) :
+    m('div.lichess_player', renderStatus(ctrl));
+}
+
+function renderTableEnd(ctrl) {
+  var d = ctrl.data;
+  return [
+    m('div.lichess_current_player', renderResult(ctrl))
+  ];
+}
 
 function renderButton(ctrl, condition, icon, hint, socketMsg) {
   return condition(ctrl.data) ? m('button', {
@@ -96,7 +116,9 @@ function renderTablePlay(ctrl) {
       m('a.button[data-icon=L]', {
         onclick: partial(ctrl.socket.send, 'takeback-no', null)
       }, ctrl.trans('decline')),
-    ]) : null,
+    ]) : null, (round.mandatory(d) && round.nbMoves(d, d.player.color) === 0) ? m('div[data-icon=j]',
+      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove')
+    ) : null
   ];
 }
 
@@ -111,16 +133,16 @@ module.exports = function(ctrl) {
   }, [
     ctrl.data.blindMode ? m('div#lichess_board_blind') : null,
     m('div.lichess_board_wrap', ctrl.data.blindMode ? null : [
-      m('div.lichess_board.' + ctrl.data.game.variant, chessground.view(ctrl.chessground)),
+      m('div.lichess_board.' + ctrl.data.game.variant.key, chessground.view(ctrl.chessground)),
       m('div#premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel'))
     ]),
     m('div.lichess_ground',
       m('div.lichess_table_wrap', [
-        (ctrl.clock && !ctrl.data.blindMode) ? clockView(ctrl.clock, opposite(ctrl.data.player.color), "top", clockRunningColor) : null,
+        (ctrl.clock && !ctrl.data.blindMode) ? renderClock(ctrl.clock, opposite(ctrl.data.player.color), "top", clockRunningColor) : null,
         m('div', {
           class: 'lichess_table onbg ' + classSet({
             'table_with_clock': ctrl.clock,
-            'finished': ctrl.data.game.finished
+            'finished': status.finished(ctrl.data)
           })
         }, [
           m('div.lichess_opponent', renderOpponent(ctrl)),
@@ -128,7 +150,7 @@ module.exports = function(ctrl) {
           m('div.table_inner',
             round.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
           )
-        ]), (ctrl.clock && !ctrl.data.blindMode) ? clockView(ctrl.clock, ctrl.data.player.color, "bottom", clockRunningColor) : null,
+        ]), (ctrl.clock && !ctrl.data.blindMode) ? renderClock(ctrl.clock, ctrl.data.player.color, "bottom", clockRunningColor) : null,
       ])
     )
   ]);

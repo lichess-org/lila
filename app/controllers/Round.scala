@@ -142,32 +142,16 @@ object Round extends LilaController with TheftPrevention {
 
   private def end(pov: Pov, player: Boolean)(implicit ctx: Context) = {
     import templating.Environment.playerLink
-    negotiate(
-      html = pov.game.tournamentId ?? TournamentRepo.byId map { tour =>
-        val players = pov.game.players.collect {
-          case p if p.isHuman => p.color.name -> playerLink(p, withStatus = true).body
-        }.toMap
-        val table = if (player) html.round.table.end(pov, tour) else html.round.table.watch(pov)
-        Ok(Json.obj(
-          "players" -> players,
-          "side" -> html.game.side(pov, tour, withTourStanding = player).toString,
-          "table" -> table.toString)) as JSON
-      },
-      api = apiVersion => fuccess(Ok(Json.obj(
-        "isEnd" -> pov.game.finished
-      ) ++ pov.game.finished.fold(Json.obj(
-          "winner" -> pov.game.winner.map(w =>
-            Json.obj(
-              "userId" -> w.userId,
-              "name" -> lila.game.Namer.playerString(w)(Env.user.lightUser),
-              "isMe" -> pov.player.isWinner
-            )),
-          "status" -> Json.obj(
-            "id" -> pov.game.status.id,
-            "name" -> pov.game.status.name,
-            "translated" -> lila.app.templating.Environment.gameEndStatus(pov.game).body)
-        ), Json.obj())))
-    )
+    pov.game.tournamentId ?? TournamentRepo.byId map { tour =>
+      val players = pov.game.players.collect {
+        case p if p.isHuman => p.color.name -> playerLink(p, withStatus = true).body
+      }.toMap
+      val table = if (player) html.round.table.end(pov, tour) else html.round.table.watch(pov)
+      Ok(Json.obj(
+        "players" -> players,
+        "side" -> html.game.side(pov, tour, withTourStanding = player).toString,
+        "table" -> table.toString)) as JSON
+    }
   }
 
   def continue(id: String, mode: String) = Open { implicit ctx =>
