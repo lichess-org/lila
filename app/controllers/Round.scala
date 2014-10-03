@@ -58,14 +58,14 @@ object Round extends LilaController with TheftPrevention {
             (pov.game.tournamentId ?? TournamentRepo.byId) zip
               Env.game.crosstableApi(pov.game) flatMap {
                 case (tour, crosstable) =>
-                  env.jsonView.playerJson(pov, ctx.pref, Env.api.version, ctx.me) map { data =>
+                  Env.api.roundApi.player(pov, Env.api.version) map { data =>
                     Ok(html.round.player(pov, data, tour = tour, cross = crosstable))
                   }
               }
           },
           Redirect(routes.Setup.await(fullId)).fuccess
         ),
-        api = apiVersion => env.jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me) map { Ok(_) }
+        api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { Ok(_) }
       )
     }
   }

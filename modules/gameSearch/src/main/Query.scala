@@ -117,6 +117,6 @@ object Query {
 
   val statuses =
     Status.finishedNotCheated filterNot (_.is(_.Timeout)) map { s =>
-      s.id -> s.is(_.Outoftime).fold("Clock Flag", s.name)
+      s.id -> s.is(_.Outoftime).fold("Clock Flag", s.toString)
     }
 }

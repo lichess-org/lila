@@ -10,6 +10,8 @@ import tube.tournamentTube
 
 object TournamentRepo {
 
+  import LightTournament.lightTournamentBSONHandler
+
   private def asCreated(tour: Tournament): Option[Created] = tour.some collect {
     case t: Created => t
   }
@@ -25,6 +27,9 @@ object TournamentRepo {
   }
 
   def byId(id: String): Fu[Option[Tournament]] = $find byId id
+
+  def lightById(id: String): Fu[Option[LightTournament]] =
+    tournamentTube.coll.find(BSONDocument("_id" -> id)).one[LightTournament]
 
   def nameById(id: String): Fu[Option[String]] =
     $primitive.one($select(id), "name")(_.asOpt[String])

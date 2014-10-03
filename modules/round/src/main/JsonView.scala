@@ -24,7 +24,6 @@ final class JsonView(
     pov: Pov,
     pref: Pref,
     apiVersion: Int,
-    tourOption: Option[lila.tournament.Tournament],
     playerUser: Option[User]): Fu[JsObject] =
     getVersion(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
@@ -54,7 +53,7 @@ final class JsonView(
               "lastMove" -> game.castleLastMoveTime.lastMoveString,
               "status" -> Json.obj(
                 "id" -> pov.game.status.id,
-                "name" -> pov.game.status.lowerName)),
+                "name" -> pov.game.status.name)),
             "clock" -> game.clock.map(clockJson),
             "player" -> Json.obj(
               "id" -> playerId,
@@ -98,13 +97,12 @@ final class JsonView(
                   "t" -> text)
               })
             },
-            "tournament" -> tourOption.map { tour =>
-              Json.obj(
-                "id" ->game.tournamentId
-                )
-            },
             "possibleMoves" -> possibleMoves(pov),
-            "poolId" -> game.poolId,
+            "pool" -> game.poolId.map { pid =>
+              Json.obj(
+                "id" -> pid
+              )
+            },
             "takebackable" -> takebackable)
       }
 

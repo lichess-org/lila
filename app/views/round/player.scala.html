@@ -11,7 +11,10 @@
 @jsAt(s"compiled/lichess.round.js")
 @helper.javascriptRouter("roundRoutes")(
 routes.javascript.Auth.signup,
-routes.javascript.User.show
+routes.javascript.User.show,
+routes.javascript.Tournament.show,
+routes.javascript.Pool.show,
+routes.javascript.Pool.leave
 )(ctx.req)
 @embedJs {
 lichess = lichess || {};
@@ -53,7 +56,15 @@ trans.timeOut,
 trans.premoveEnabledClickAnywhereToCancel,
 trans.playingRightNow,
 trans.whiteIsVictorious,
-trans.blackIsVictorious
+trans.blackIsVictorious,
+trans.backToTournament,
+trans.joinTheGame,
+trans.playWithTheSameOpponentAgain,
+trans.declineInvitation,
+trans.rematch,
+trans.rematchOfferSent,
+trans.waitingForOpponent,
+trans.cancelRematchOffer
 )))
 };
 }

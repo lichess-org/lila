@@ -106,7 +106,7 @@ private[api] final class GameApi(
     "perf" -> PerfPicker.key(g),
     "timestamp" -> g.createdAt.getDate,
     "turns" -> g.turns,
-    "status" -> g.status.name.toLowerCase,
+    "status" -> g.status.name,
     "clock" -> g.clock.map { clock =>
       Json.obj(
         "initial" -> clock.limit,

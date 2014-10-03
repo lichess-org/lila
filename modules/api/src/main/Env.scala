@@ -10,6 +10,7 @@ final class Env(
     renderer: akka.actor.ActorSelection,
     router: akka.actor.ActorSelection,
     bus: lila.common.Bus,
+    roundJsonView: lila.round.JsonView,
     pgnDump: lila.game.PgnDump,
     userEnv: lila.user.Env,
     analyseEnv: lila.analyse.Env,
@@ -56,6 +57,9 @@ final class Env(
     apiToken = apiToken,
     pgnDump = pgnDump)
 
+  val roundApi = new RoundApi(
+    jsonView = roundJsonView)
+
   val puzzleApi = new PuzzleApi(
     env = puzzleEnv,
     makeUrl = apiUrl)
@@ -78,6 +82,7 @@ object Env {
     userEnv = lila.user.Env.current,
     analyseEnv = lila.analyse.Env.current,
     puzzleEnv = lila.puzzle.Env.current,
+    roundJsonView = lila.round.Env.current.jsonView,
     pgnDump = lila.game.Env.current.pgnDump,
     userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp,
     bus = lila.common.PlayApp.system.lilaBus,
