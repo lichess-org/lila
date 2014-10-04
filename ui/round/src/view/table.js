@@ -10,9 +10,10 @@ var renderStatus = require('./status');
 
 function renderOpponent(ctrl) {
   var op = ctrl.data.opponent;
-  return op.ai ? m('div.username.connected.statused',
-    ctrl.trans('aiNameLevelAiLevel', 'Stockfish', op.ai)
-  ) : m('div', {
+  return op.ai ? m('div.username.connected.statused', [
+    ctrl.trans('aiNameLevelAiLevel', 'Stockfish', op.ai),
+    m('span.status')
+  ]) : m('div', {
       class: 'username ' + op.color + ' ' + classSet({
         'statused': op.statused,
         'connected': op.connected,
