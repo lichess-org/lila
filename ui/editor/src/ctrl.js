@@ -1,5 +1,5 @@
-var partial = require('lodash-node/modern/functions/partial');
 var chessground = require('chessground');
+var partial = chessground.util.partial;
 var editor = require('./editor');
 
 module.exports = function(cfg) {
@@ -22,6 +22,9 @@ module.exports = function(cfg) {
     },
     draggable: {
       showGhost: false
+    },
+    events: {
+      change: m.redraw
     }
   });
 
@@ -43,15 +46,5 @@ module.exports = function(cfg) {
 
   this.loadNewFen = function(fen) {
     window.location = editor.makeUrl(this.data, fen);
-  }.bind(this);
-
-  this.chessgroundIsAnimating = function() {
-    return this.chessground.data.draggable.current.orig || this.chessground.data.animation.current.start;
-  }.bind(this);
-
-  this.costly = function(cell) {
-    return this.chessgroundIsAnimating() ? {
-      subtree: 'retain'
-    } : cell();
   }.bind(this);
 };
