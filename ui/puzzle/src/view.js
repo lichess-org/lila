@@ -171,7 +171,7 @@ function renderVote(ctrl) {
 }
 
 function renderViewTable(ctrl) {
-  return m('div', [
+  return [
     (ctrl.data.puzzle.enabled && ctrl.data.voted === false) ? m('div.please_vote', [
       m('p.first', [
         m('strong', ctrl.trans('wasThisPuzzleAnyGood')),
@@ -206,17 +206,7 @@ function renderViewTable(ctrl) {
         onclick: partial(xhr.retry, ctrl)
       }, ctrl.trans('retryThisPuzzle')) : null
     ])
-  ]);
-}
-
-function renderRight(ctrl) {
-  return m('div.right', {
-      config: function(el, isUpdate, context) {
-        el.style.top = (256 - el.offsetHeight / 2) + 'px';
-      }
-    },
-    ctrl.data.mode === 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl)
-  );
+  ];
 }
 
 function renderViewControls(ctrl, fen) {
@@ -288,9 +278,11 @@ function renderHistory(ctrl) {
 module.exports = function(ctrl) {
   return m('div#puzzle.training', [
     renderSide(ctrl),
-    renderRight(ctrl),
-    m('div.center', [
+    m('div.board_and_ground', [
       chessground.view(ctrl.chessground),
+      m('div.right', ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl))
+    ]),
+    m('div.center', [
       renderFooter(ctrl),
       ctrl.data.user ? renderHistory(ctrl) : null
     ])

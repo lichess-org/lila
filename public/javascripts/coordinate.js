@@ -3,7 +3,7 @@ $(function() {
     var $trainer = $(this);
     var $board = $trainer.find('.lichess_board');
     var $side = $trainer.find('> .side');
-    var $right = $trainer.find('> .right');
+    var $right = $trainer.find('.board_and_ground > .right');
     var $bar = $trainer.find('.progress_bar');
     var $coords = [
       $trainer.find('#next_coord0').disableSelection(),

@@ -48,58 +48,59 @@
   margin-bottom: 2em;
 }
 #puzzle > .center {
-  width: 512px;
+  width: 514px;
 }
-#puzzle > .right .box input {
+#puzzle .right .box input {
   width: 214px;
 }
-#puzzle > .right h2 {
+#puzzle .right h2 {
   font-size: 1.4em;
   margin-bottom: 7px;
 }
-#puzzle > .right .please_vote {
+#puzzle .right .please_vote {
   background: #DFF0D8;
   color: #3c763d;
   margin-bottom: 1em;
   text-align: center;
   padding: 10px 5px;
 }
-#puzzle > .right .please_vote .then,
-#puzzle > .right .please_vote.thanks .first {
+#puzzle .right .please_vote .then,
+#puzzle .right .please_vote.thanks .first {
   display: none;
 }
-#puzzle > .right .please_vote.thanks .then {
+#puzzle .right .please_vote.thanks .then {
   display: block;
 }
-#puzzle > .right .findit {
+#puzzle .right .findit {
   display: block;
   margin: 1em 0 2em 0;
 }
-#puzzle > .right .lichess_control {
+#puzzle .right .lichess_control {
   text-align: center;
   font-size: 1.3em;
   margin-bottom: 10px;
 }
-#puzzle > .right .continue_wrap {
+#puzzle .right .continue_wrap {
   width: 100%;
   text-align: center;
   margin-top: 20px;
 }
-#puzzle > .right .retry {
+#puzzle .right .retry {
   display: inline-block;
   margin-top: 20px;
 }
-#puzzle > .right .continue {
+#puzzle .right .continue {
   display: inline-block;
   white-space: nowrap;
   font-size: 1.3em;
   font-weight: bold;
 }
-#puzzle > .right .loader {
+#puzzle .right .loader {
   font-size: 3.5px;
 }
 #puzzle .game_control {
   text-align: center;
+  margin-top: 15px;
 }
 #puzzle .game_control a {
   font-size: 16px;
@@ -128,7 +129,6 @@
 div.cg-board {
   width: 512px;
   height: 512px;
-  margin-bottom: 20px;
 }
 #puzzle div.upvote {
   float: right;

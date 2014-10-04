@@ -1,6 +1,9 @@
 div.training {
   position: relative;
 }
+div.training .board_and_ground {
+  display: table;
+}
 div.training > .side {
   position: absolute;
   top: 64px;
@@ -46,8 +49,9 @@ div.training > .side .user_chart {
   margin: 0 0 -10px -9px;
 }
 
-div.training > .right {
-  position: absolute;
-  left: 532px;
+div.training > .board_and_ground > .right {
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 15px;
   width: 242px;
 }
