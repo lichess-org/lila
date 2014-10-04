@@ -25,6 +25,8 @@ private[round] final class Drawer(
   }.sequenceFu map (_.flatten.headOption)
 
   def yes(pov: Pov): Fu[Events] = pov match {
+    case pov if pov.game.toChessHistory.threefoldRepetition =>
+      finisher(pov.game, _.Draw)
     case pov if pov.opponent.isOfferingDraw =>
       finisher(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
     case Pov(g, color) if (g playerCanOfferDraw color) => GameRepo save {
