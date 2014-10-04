@@ -49,7 +49,7 @@ function renderResult(ctrl) {
         ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious')
       ])
     ]) :
-    m('div.lichess_player', renderStatus(ctrl));
+    m('div.lichess_player', m('p', renderStatus(ctrl)));
 }
 
 function renderRematchButton(ctrl) {
@@ -71,11 +71,7 @@ function renderTableEnd(ctrl) {
         m('form[method=post]', {
           action: router.Pool.leave(d.game.pool.id)
         }, m('button.button[type=submit]', 'Leave the pool'))
-      ] : (d.game.tournament ? m('a[data-icon=G]', {
-        class: classSet({
-          button: true,
-          strong: d.game.tournament.running
-        }),
+      ] : (d.game.tournament ? m('a.button' + (d.game.tournament.running ? '.strong' : '') + '[data-icon=G]', {
         href: ctrl.router.Tournament.show(d.game.tournament.id)
       }, ctrl.trans('backToTournament')) : (d.opponent.ai ? renderRematchButton(ctrl) : [
         m('div.lichess_separator'),

@@ -279,7 +279,7 @@ module.exports = function(ctrl) {
   return m('div#puzzle.training', [
     renderSide(ctrl),
     m('div.board_and_ground', [
-      chessground.view(ctrl.chessground),
+      m('div.cg-board-wrap', chessground.view(ctrl.chessground)),
       m('div.right', ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl))
     ]),
     m('div.center', [

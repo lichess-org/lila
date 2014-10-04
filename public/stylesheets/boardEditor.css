@@ -2,6 +2,10 @@
   position: relative;
   min-height: 600px;
 }
+#board_editor .cg-board-wrap {
+  width: 512px;
+  height: 512px;
+}
 #board_editor .cg-board {
   width: 512px;
   height: 512px;
@@ -62,7 +66,7 @@
   width: 40px;
 }
 #board_editor .copyable {
-  width: 460px;
+  width: 462px;
 }
 #editor-side > div.color {
   margin-bottom: 1em;

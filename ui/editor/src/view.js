@@ -109,7 +109,7 @@ module.exports = function(ctrl) {
     }
   }, [
     ctrl.costly(partial(sparePieces, ctrl, opposite)),
-    chessground.view(ctrl.chessground),
+    m('div.cg-board-wrap', chessground.view(ctrl.chessground)),
     ctrl.costly(partial(sparePieces, ctrl, color)),
     ctrl.costly(partial(controls, ctrl, fen)),
     ctrl.costly(partial(inputs, ctrl, fen))
