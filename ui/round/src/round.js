@@ -8,7 +8,7 @@ function parsePossibleMoves(possibleMoves) {
 }
 
 function playable(data) {
-  return status.started(data) && !status.finished(data);
+  return data.game.status.id < status.ids.aborted;
 }
 
 function isPlayerPlaying(data) {

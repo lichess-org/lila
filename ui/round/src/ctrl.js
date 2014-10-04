@@ -1,29 +1,37 @@
 var m = require('mithril');
-var partial = require('lodash-node/modern/functions/partial');
 var throttle = require('lodash-node/modern/functions/throttle');
 var chessground = require('chessground');
+var partial = chessground.util.partial;
 var data = require('./data');
 var round = require('./round');
 var status = require('./status');
 var ground = require('./ground');
 var socket = require('./socket');
+var xhr = require('./xhr');
+var promotion = require('./promotion');
 var clockCtrl = require('./clock/ctrl');
 
 module.exports = function(cfg, router, i18n, socketSend) {
 
   this.data = data(cfg);
+  console.log(this.data);
 
   this.socket = new socket(socketSend, this);
 
-  this.userMove = function(orig, dest) {
+  this.sendMove = function(orig, dest, prom) {
     var move = {
       from: orig,
       to: dest,
     };
+    if (prom) move.promotion = prom;
     if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
     this.socket.send('move', move, {
       ackable: true
     });
+  }.bind(this);
+
+  this.userMove = function(orig, dest, isPremove) {
+    if (!promotion.start(this, orig, dest, isPremove)) this.sendMove(orig, dest);
   }.bind(this);
 
   this.chessground = ground.make(this.data, cfg.game.fen, this.userMove);

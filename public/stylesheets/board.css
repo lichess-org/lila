@@ -3,7 +3,6 @@ div.lichess_game {
 }
 div.lichess_board_wrap {
   display: table-cell;
-  border: 1px solid #ccc;
   position: relative;
 }
 span.board_mark {
@@ -516,7 +515,6 @@ div.lichess_overboard p.explanations {
   padding: 1em 0;
 }
 #promotion_choice {
-  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -525,8 +523,9 @@ div.lichess_overboard p.explanations {
   background: rgba(250, 250, 250, 0.7);
   text-align: center;
   padding: 224px 0 0 108px;
+  z-index: 5;
 }
-#promotion_choice div.piece {
+#promotion_choice div.cg-piece {
   float: left;
   position: static;
   padding: 5px;
@@ -536,10 +535,13 @@ div.lichess_overboard p.explanations {
   cursor: pointer;
   border-radius: 3px;
   background-color: #b0b0b0;
-  box-shadow: inset 0 0 15px 3px #707070;
+  box-shadow: inset 0 0 25px 3px #808080;
+  transition: all 0.3s;
 }
-#promotion_choice div.piece:hover {
-  box-shadow: 0 0 10px #d85000;
+#promotion_choice div.cg-piece:hover {
+  padding: 15px;
+  margin: -10px 0px;
+  box-shadow: inset 0 0 15px 3px #909090;
 }
 div.lichess_join_url {
   display: none;

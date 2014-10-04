@@ -7,8 +7,6 @@ module.exports = function(send, ctrl) {
 
   this.send = send;
 
-  var d = ctrl.data;
-
   var handlers = {
     possibleMoves: function(o) {
       ctrl.chessground.set({
@@ -21,14 +19,15 @@ module.exports = function(send, ctrl) {
       ctrl.chessground.set({
         turnColor: o.color
       });
-      d.game.player = o.color;
-      d.game.turns = o.turns;
+      ctrl.data.game.player = o.color;
+      ctrl.data.game.turns = o.turns;
     },
     move: function(o) {
       ctrl.chessground.apiMove(o.from, o.to);
-      if (d.game.threefold) {
+      if (ctrl.data.game.threefold) {
+        console.log('unset threefold');
         m.startComputation();
-        d.game.threefold = false;
+        ctrl.data.game.threefold = false;
         m.endComputation();
       }
     },
@@ -67,12 +66,16 @@ module.exports = function(send, ctrl) {
       }, 400);
     },
     reload: function(o) {
-      xhr.reload(d).then(ctrl.reload);
+      xhr.reload(ctrl.data).then(ctrl.reload);
     },
     threefoldRepetition: function() {
+      console.log('set threefold');
       m.startComputation();
-      d.game.threefold = true;
+      ctrl.data.game.threefold = true;
       m.endComputation();
+    },
+    promotion: function(o) {
+      ground.promote(ctrl.chessground, o.key, o.pieceClass);
     },
     clock: function(o) {
       if (ctrl.clock) ctrl.clock.update(o.white, o.black);
@@ -80,20 +83,20 @@ module.exports = function(send, ctrl) {
     crowd: function(o) {
       m.startComputation();
       ['white', 'black'].forEach(function(c) {
-        round.getPlayer(d, c).statused = true;
-        round.getPlayer(d, c).connected = o[c];
+        round.getPlayer(ctrl.data, c).statused = true;
+        round.getPlayer(ctrl.data, c).connected = o[c];
       });
-      d.watchers = o.watchers;
+      ctrl.data.watchers = o.watchers;
       m.endComputation();
     },
     end: function() {
       ground.end(ctrl.chessground);
-      xhr.reload(d).then(ctrl.reload);
+      xhr.reload(ctrl.data).then(ctrl.reload);
     }
   };
 
   this.receive = function(type, data) {
-    console.log(type, data);
+    if (type != 'n') console.log(type, data);
     if (handlers[type]) {
       handlers[type](data);
       return true;

@@ -8,6 +8,7 @@ function makeConfig(data, fen) {
     orientation: data.player.color,
     turnColor: data.game.player,
     lastMove: util.str2move(data.game.lastMove),
+    check: data.game.check,
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,
@@ -42,6 +43,18 @@ function reload(ground, data, fen) {
   ground.set(makeConfig(data, fen));
 }
 
+function promote(ground, key, role) {
+  var pieces = {};
+  var piece = ground.data.pieces[key];
+  if (piece && piece.role == 'pawn') {
+    pieces[key] = {
+      color: piece.color,
+      role: role
+    };
+    ground.setPieces(pieces);
+  }
+}
+
 function end(ground) {
   ground.stop();
 }
@@ -49,5 +62,6 @@ function end(ground) {
 module.exports = {
   make: make,
   reload: reload,
+  promote: promote,
   end: end
 };
