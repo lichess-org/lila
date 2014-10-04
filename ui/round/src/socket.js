@@ -63,8 +63,9 @@ module.exports = function(send, ctrl) {
       xhr.reload(ctrl.data).then(ctrl.reload);
     },
     threefoldRepetition: function() {
-      // show the draw button
-      xhr.reload(ctrl.data).then(ctrl.reload);
+      m.startComputation();
+      ctrl.data.game.threefold = true;
+      m.endComputation();
     },
     clock: function(o) {
       if (ctrl.clock) ctrl.clock.update(o.white, o.black);

@@ -125,23 +125,31 @@ function renderTablePlay(ctrl) {
       renderButton(ctrl, round.drawable, '2', 'offerDraw', 'draw-yes'),
       renderButton(ctrl, round.resignable, 'b', 'resign', 'resign')
     ]),
-    d.player.isOfferingDraw ? m('div.negociation', [
-      ctrl.trans('drawOfferSent') + ' ',
-      m('a', {
-        onclick: partial(ctrl.socket.send, 'draw-no', null)
-      }, ctrl.trans('cancel'))
-    ]) : null,
-    d.opponent.isOfferingDraw ? m('div.negociation', [
-      ctrl.trans('yourOpponentOffersADraw'),
-      m('br'),
-      m('a.button[data-icon=E]', {
-        onclick: partial(ctrl.socket.send, 'draw-yes', null)
-      }, ctrl.trans('accept')),
+    d.game.threefold ? m('div#claim_draw_zone', [
+      ctrl.trans('threefoldRepetition'),
       m.trust('&nbsp;'),
-      m('a.button[data-icon=L]', {
-        onclick: partial(ctrl.socket.send, 'draw-no', null)
-      }, ctrl.trans('decline')),
-    ]) : null,
+      m('a.lichess_claim_draw.button', {
+        onclick: partial(ctrl.socket.send, 'draw-claim', null)
+      }, ctrl.trans('claimADraw'))
+    ]) : (
+      d.player.isOfferingDraw ? m('div.negociation', [
+        ctrl.trans('drawOfferSent') + ' ',
+        m('a', {
+          onclick: partial(ctrl.socket.send, 'draw-no', null)
+        }, ctrl.trans('cancel'))
+      ]) : null,
+      d.opponent.isOfferingDraw ? m('div.negociation', [
+        ctrl.trans('yourOpponentOffersADraw'),
+        m('br'),
+        m('a.button[data-icon=E]', {
+          onclick: partial(ctrl.socket.send, 'draw-yes', null)
+        }, ctrl.trans('accept')),
+        m.trust('&nbsp;'),
+        m('a.button[data-icon=L]', {
+          onclick: partial(ctrl.socket.send, 'draw-no', null)
+        }, ctrl.trans('decline')),
+      ]) : null
+    ),
     d.player.isProposingTakeback ? m('div.negociation', [
       ctrl.trans('takebackPropositionSent') + ' ',
       m('a', {

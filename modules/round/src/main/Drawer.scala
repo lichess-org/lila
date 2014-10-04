@@ -6,11 +6,23 @@ import chess.{ Game => ChessGame, Board, Clock, Variant }
 import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Event, Progress, Pov, PlayerRef, Namer, Source }
-import lila.user.tube.userTube
-import lila.user.User
+import lila.pref.{ Pref, PrefApi }
 import makeTimeout.short
 
-private[round] final class Drawer(messenger: Messenger, finisher: Finisher) {
+private[round] final class Drawer(
+    messenger: Messenger,
+    finisher: Finisher,
+    prefApi: PrefApi) {
+
+  def autoThreefold(game: Game): Fu[Option[Pov]] = Pov(game).map { pov =>
+    import Pref.PrefZero
+    pov.player.userId ?? prefApi.getPref map { pref =>
+      pref.autoThreefold == Pref.AutoThreefold.ALWAYS || {
+        pref.autoThreefold == Pref.AutoThreefold.TIME &&
+          game.clock ?? { _.remainingTime(pov.color) < 30 }
+      }
+    } map (_ option pov)
+  }.sequenceFu map (_.flatten.headOption)
 
   def yes(pov: Pov): Fu[Events] = pov match {
     case pov if pov.opponent.isOfferingDraw =>

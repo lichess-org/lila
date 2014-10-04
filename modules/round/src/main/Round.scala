@@ -108,6 +108,14 @@ private[round] final class Round(
       }
     }
 
+    case Threefold => GameRepo game gameId flatMap {
+      _ ?? drawer.autoThreefold map {
+        _ foreach { pov =>
+          self ! DrawClaim(pov.player.id)
+        }
+      }
+    }
+
     case HoldAlert(playerId, mean, sd) => handle(playerId) { pov =>
       !pov.player.hasHoldAlert ?? {
         play.api.Logger("hold").info(
@@ -181,8 +189,9 @@ private[round] final class Round(
     game flatten "game not found" flatMap op
   }
 
-  private def publish[A](op: Fu[Events]) = op addEffect {
-    events => if (events.nonEmpty) socketHub ! Tell(gameId, EventList(events))
+  private def publish[A](op: Fu[Events]) = op addEffect { events =>
+    if (events.nonEmpty) socketHub ! Tell(gameId, EventList(events))
+    if (events contains Event.Threefold) self ! Threefold
   } addFailureEffect {
     case e: ClientErrorException =>
     case e: ArrayIndexOutOfBoundsException =>

@@ -135,6 +135,7 @@ final class Env(
   val aiPlay = player ai _
 
   private lazy val drawer = new Drawer(
+    prefApi = prefApi,
     messenger = messenger,
     finisher = finisher)
 

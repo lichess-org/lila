@@ -178,6 +178,9 @@ object Pref {
 
   val default = create("")
 
+  import ornicar.scalalib.Zero
+  implicit def PrefZero: Zero[Pref] = Zero.instance(default)
+
   private val booleans = Map("true" -> true, "false" -> false)
   private val bgs = Map("light" -> false, "dark" -> true)
 

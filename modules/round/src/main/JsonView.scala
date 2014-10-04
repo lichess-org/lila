@@ -51,6 +51,7 @@ final class JsonView(
               "turns" -> game.turns,
               "startedAtTurn" -> game.startedAtTurn,
               "lastMove" -> game.castleLastMoveTime.lastMoveString,
+              "threefold" -> game.toChessHistory.threefoldRepetition,
               "status" -> Json.obj(
                 "id" -> pov.game.status.id,
                 "name" -> pov.game.status.name)),
@@ -82,7 +83,6 @@ final class JsonView(
               "highlight" -> pref.highlight,
               "destination" -> pref.destination,
               "autoQueen" -> pref.autoQueen,
-              "autoThreefold" -> pref.autoThreefold,
               "clockTenths" -> pref.clockTenths,
               "clockBar" -> pref.clockBar,
               "enablePremove" -> pref.premove
