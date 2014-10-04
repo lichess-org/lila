@@ -7,6 +7,8 @@ module.exports = function(send, ctrl) {
 
   this.send = send;
 
+  var d = ctrl.data;
+
   var handlers = {
     possibleMoves: function(o) {
       ctrl.chessground.set({
@@ -19,11 +21,16 @@ module.exports = function(send, ctrl) {
       ctrl.chessground.set({
         turnColor: o.color
       });
-      ctrl.data.game.player = o.color;
-      ctrl.data.game.turns = o.turns;
+      d.game.player = o.color;
+      d.game.turns = o.turns;
     },
     move: function(o) {
       ctrl.chessground.apiMove(o.from, o.to);
+      if (d.game.threefold) {
+        m.startComputation();
+        d.game.threefold = false;
+        m.endComputation();
+      }
     },
     premove: function() {
       ctrl.chessground.playPremove();
@@ -60,11 +67,11 @@ module.exports = function(send, ctrl) {
       }, 400);
     },
     reload: function(o) {
-      xhr.reload(ctrl.data).then(ctrl.reload);
+      xhr.reload(d).then(ctrl.reload);
     },
     threefoldRepetition: function() {
       m.startComputation();
-      ctrl.data.game.threefold = true;
+      d.game.threefold = true;
       m.endComputation();
     },
     clock: function(o) {
@@ -73,15 +80,15 @@ module.exports = function(send, ctrl) {
     crowd: function(o) {
       m.startComputation();
       ['white', 'black'].forEach(function(c) {
-        round.getPlayer(ctrl.data, c).statused = true;
-        round.getPlayer(ctrl.data, c).connected = o[c];
+        round.getPlayer(d, c).statused = true;
+        round.getPlayer(d, c).connected = o[c];
       });
-      ctrl.data.watchers = o.watchers;
+      d.watchers = o.watchers;
       m.endComputation();
     },
     end: function() {
       ground.end(ctrl.chessground);
-      xhr.reload(ctrl.data).then(ctrl.reload);
+      xhr.reload(d).then(ctrl.reload);
     }
   };
 
