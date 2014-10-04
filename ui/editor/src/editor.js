@@ -23,7 +23,7 @@ function computeFen(data, getBaseFen) {
 }
 
 function makeUrl(data, fen) {
-  return data.baseUrl + encodeURIComponent(fen.replace(/%20/g, '_').replace(/%2F/g, '/'));
+  return data.baseUrl + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
 }
 
 function trans(data, key) {

@@ -1,5 +1,5 @@
-var partial = require('lodash-node/modern/functions/partial');
 var chessground = require('chessground');
+var partial = chessground.util.partial;
 var editor = require('./editor');
 var drag = require('./drag');
 
@@ -19,7 +19,7 @@ function castleCheckBox(ctrl, id, label, reversed) {
 }
 
 function controls(ctrl, fen) {
-  return fen ? m('div#editor-side', [
+  return m('div#editor-side', [
     m('div', [
       m('a.button', {
         onclick: ctrl.startPosition
@@ -64,11 +64,11 @@ function controls(ctrl, fen) {
         href: '/?fen=' + fen + '#friend'
       }, ctrl.trans('playWithAFriend'))
     ])
-  ]) : {subtree: 'retain'};
+  ]);
 }
 
 function inputs(ctrl, fen) {
-  return fen ? m('div.copyables', [
+  return m('div.copyables', [
     m('p', [
       m('strong.name', 'FEN'),
       m('input.copyable[readonly][spellCheck=false]', {
@@ -81,7 +81,7 @@ function inputs(ctrl, fen) {
         value: editor.makeUrl(ctrl.data, fen)
       })
     ])
-  ]) : {subtree: 'retain'};
+  ]);
 }
 
 function sparePieces(ctrl, color) {
@@ -95,7 +95,7 @@ function sparePieces(ctrl, color) {
 }
 
 module.exports = function(ctrl) {
-  var fen = ctrl.chessgroundIsAnimating() ? false : ctrl.computeFen();
+  var fen = ctrl.computeFen();
   var color = ctrl.chessground.data.orientation;
   var opposite = color === 'white' ? 'black' : 'white';
   return m('div.editor', {
@@ -108,10 +108,10 @@ module.exports = function(ctrl) {
       };
     }
   }, [
-    ctrl.costly(partial(sparePieces, ctrl, opposite)),
+    sparePieces(ctrl, opposite),
     m('div.cg-board-wrap', chessground.view(ctrl.chessground)),
-    ctrl.costly(partial(sparePieces, ctrl, color)),
-    ctrl.costly(partial(controls, ctrl, fen)),
-    ctrl.costly(partial(inputs, ctrl, fen))
+    sparePieces(ctrl, color),
+    controls(ctrl, fen),
+    inputs(ctrl, fen)
   ]);
 };
