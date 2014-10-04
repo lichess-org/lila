@@ -1,3 +1,6 @@
+#trainer {
+  margin-bottom: 160px;
+}
 form.color .color span {
   display: block;
   width: 30px;
@@ -18,7 +21,7 @@ form.color .color_3 span {
 }
 #trainer .lichess_board {
   display: none;
-  border: 1px solid #c0c0c0;
+  border: 1px solid #ccc;
 }
 #trainer.white .white .lichess_board,
 #trainer.black .black .lichess_board {
@@ -46,6 +49,7 @@ form.color .color_3 span {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 2;
   width: 460px;
   height: 514px;
   line-height: 512px;
@@ -95,6 +99,7 @@ form.color .color_3 span {
   position: absolute;
   top: 202px;
   left: 202px;
+  z-index: 9;
   font-family: monospace;
   font-size: 70px;
   display: block;

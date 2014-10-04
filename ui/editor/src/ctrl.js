@@ -30,13 +30,13 @@ module.exports = function(cfg) {
   this.trans = partial(editor.trans, this.data);
 
   this.startPosition = function() {
-    this.chessground.reconfigure({
+    this.chessground.set({
       fen: 'start'
     });
   }.bind(this);
 
   this.clearBoard = function() {
-    this.chessground.reconfigure({
+    this.chessground.set({
       fen: '8/8/8/8/8/8/8/8'
     });
   }.bind(this);

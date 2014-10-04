@@ -21,10 +21,6 @@ active = siteMenu.puzzle.some) {
   data-color-pref="@ctx.pref.coordColorName"
   data-color-url="@routes.Coordinate.color()"
   @if(ctx.isAuth) { data-score-url="@routes.Coordinate.score()" }>
-  <div class="boards">
-    <div class="white">@board.white()</div>
-    <div class="black">@board.black()</div>
-  </div>
   <div class="next_coord" id="next_coord0"></div>
   <div class="next_coord" id="next_coord1"></div>
   <div class="next_coord" id="next_coord2"></div>
@@ -61,19 +57,25 @@ active = siteMenu.puzzle.some) {
       }
     </form>
   </div>
-  <div class="right">
-    <div class="explanation">
-      <p>Knowing the chessboard coordinates is a very important chess skill:</p>
-      <ul>
-        <li>Most chess courses and exercises use the algebraic notation extensively.</li>
-        <li>It makes it easier to talk to your chess friends, since you both understand the “language of chess.”</li>
-        <li>You can analyse a game more effectively if you don’t need to search for square names.</li>
-      </ul>
-      <br />
-      <p>A square name appears next to the board and you must click on the correct square.</p>
-      <p>You have 30 seconds to recognize as many squares as possible!</p>
+  <div class="board_and_ground">
+    <div class="boards">
+      <div class="white">@board.white()</div>
+      <div class="black">@board.black()</div>
     </div>
-    <button class="start button">@trans.startTraining()</button>
+    <div class="right">
+      <div class="explanation">
+        <p>Knowing the chessboard coordinates is a very important chess skill:</p>
+        <ul>
+          <li>Most chess courses and exercises use the algebraic notation extensively.</li>
+          <li>It makes it easier to talk to your chess friends, since you both understand the “language of chess.”</li>
+          <li>You can analyse a game more effectively if you don’t need to search for square names.</li>
+        </ul>
+        <br />
+        <p>A square name appears next to the board and you must click on the correct square.</p>
+        <p>You have 30 seconds to recognize as many squares as possible!</p>
+      </div>
+      <button class="start button">@trans.startTraining()</button>
+    </div>
   </div>
   <div class="progress_bar_container"><div class="progress_bar"></div></div>
 </div>

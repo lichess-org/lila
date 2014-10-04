@@ -43,7 +43,7 @@ module.exports = function(cfg, router, i18n) {
 
   this.revert = function(id) {
     if (id != this.data.puzzle.id) return;
-    this.chessground.reconfigure({
+    this.chessground.set({
       fen: this.data.chess.fen(),
       lastMove: chess.lastMove(this.data.chess),
       movable: {
@@ -56,7 +56,7 @@ module.exports = function(cfg, router, i18n) {
     chess.move(this.data.chess, move);
     this.data.comment = 'great';
     this.data.progress = newProgress;
-    this.chessground.reconfigure({
+    this.chessground.set({
       fen: this.data.chess.fen(),
       lastMove: move,
       turnColor: this.data.puzzle.opponentColor
@@ -98,7 +98,7 @@ module.exports = function(cfg, router, i18n) {
   this.playOpponentMove = function(move) {
     m.startComputation();
     chess.move(this.data.chess, move);
-    this.chessground.reconfigure({
+    this.chessground.set({
       fen: this.data.chess.fen(),
       lastMove: move,
       movable: {

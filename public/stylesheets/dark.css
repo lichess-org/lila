@@ -26,7 +26,6 @@ body.dark #crosstable td {
   border-color: #1a1a1a;
 }
 body.dark #reconnecting,
-body.dark #trainer .lichess_board,
 body.dark .mini_board,
 body.dark #nb_connected_players,
 body.dark #chat div.top,
@@ -37,6 +36,7 @@ body.dark div.undertable td,
 body.dark #tv_history td,
 body.dark #chat form input,
 body.dark div.lichess_board_wrap,
+body.dark div.cg-board,
 body.dark #translation_call,
 body.dark #footer_wrap,
 body.dark div.game_config .optional_config,
