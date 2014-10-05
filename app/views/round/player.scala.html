@@ -10,6 +10,7 @@
 *@
 @jsAt(s"compiled/lichess.round.js")
 @helper.javascriptRouter("roundRoutes")(
+routes.javascript.Lobby.home,
 routes.javascript.Auth.signup,
 routes.javascript.User.show,
 routes.javascript.Tournament.show,
@@ -64,7 +65,9 @@ trans.declineInvitation,
 trans.rematch,
 trans.rematchOfferSent,
 trans.waitingForOpponent,
-trans.cancelRematchOffer
+trans.cancelRematchOffer,
+trans.newOpponent,
+trans.playWithAnotherOpponent
 )))
 };
 }

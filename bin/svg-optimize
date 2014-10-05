@@ -2,7 +2,7 @@
 
 # PIECES
 
-for set (cburnett pirouetti merida spatial alpha); do
+for set (cburnett mono pirouetti merida spatial alpha); do
 
   from=public/piece-src/$set
   to=public/piece/$set

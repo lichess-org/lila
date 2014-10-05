@@ -35,7 +35,6 @@ body.dark div.undertable_inner,
 body.dark div.undertable td,
 body.dark #tv_history td,
 body.dark #chat form input,
-body.dark div.cg-board-wrap,
 body.dark #translation_call,
 body.dark #footer_wrap,
 body.dark div.game_config .optional_config,
@@ -99,6 +98,7 @@ body.dark #powerTip,
 body.dark #powerTip > .title,
 body.dark #hooks_list table th,
 body.dark #hooks_list table td,
+body.dark #hooks_wrap,
 body.dark #hooks_wrap > div.tabs > a,
 body.dark #hooks_chart > div.grid,
 body.dark div.analysis_menu,
@@ -273,40 +273,10 @@ body.dark #hooks_wrap {
   background-image: url(../images/bN-bg.svg);
   background-size: 100% 100%;
 }
-body.dark.cburnett div.onbg div.pawn.white {
-  background-image: url(../piece/cburnett/invert/bP.svg);
-}
-body.dark.cburnett div.onbg div.bishop.white {
-  background-image: url(../piece/cburnett/invert/bB.svg);
-}
-body.dark.cburnett div.onbg div.knight.white {
-  background-image: url(../piece/cburnett/invert/bN.svg);
-}
-body.dark.cburnett div.onbg div.rook.white {
-  background-image: url(../piece/cburnett/invert/bR.svg);
-}
-body.dark.cburnett div.onbg div.queen.white {
-  background-image: url(../piece/cburnett/invert/bQ.svg);
-}
-body.dark.cburnett div.onbg div.king.white {
+body.dark .onbg .king.white {
   background-image: url(../piece/cburnett/invert/bK.svg);
 }
-body.dark.cburnett div.onbg div.pawn.black {
-  background-image: url(../piece/cburnett/invert/wP.svg);
-}
-body.dark.cburnett div.onbg div.bishop.black {
-  background-image: url(../piece/cburnett/invert/wB.svg);
-}
-body.dark.cburnett div.onbg div.knight.black {
-  background-image: url(../piece/cburnett/invert/wN.svg);
-}
-body.dark.cburnett div.onbg div.rook.black {
-  background-image: url(../piece/cburnett/invert/wR.svg);
-}
-body.dark.cburnett div.onbg div.queen.black {
-  background-image: url(../piece/cburnett/invert/wQ.svg);
-}
-body.dark.cburnett div.onbg div.king.black {
+body.dark .onbg .king.black {
   background-image: url(../piece/cburnett/invert/wK.svg);
 }
 body.dark .player.color.white {
@@ -407,10 +377,10 @@ body.dark #top .shown .dropdown {
   border-top: 0;
   right: -1px;
 }
-body.pirouetti.dark div.lichess_cemetery div.piece.black {
+body.pirouetti.dark div.cemetery div.cg-piece.black {
   -webkit-filter: brightness(2) contrast(150%) drop-shadow(0 0 0.5px #fff);
 }
-body.alpha.dark div.lichess_cemetery div.piece.black {
+body.alpha.dark div.cemetery div.cg-piece.black {
   -webkit-filter: brightness(6) contrast(150%) drop-shadow(0 0 0.5px #fff);
 }
 body.dark .scroll-shadow-soft,

@@ -25,7 +25,6 @@ module.exports = function(send, ctrl) {
     move: function(o) {
       ctrl.chessground.apiMove(o.from, o.to);
       if (ctrl.data.game.threefold) {
-        console.log('unset threefold');
         m.startComputation();
         ctrl.data.game.threefold = false;
         m.endComputation();
@@ -69,7 +68,6 @@ module.exports = function(send, ctrl) {
       xhr.reload(ctrl.data).then(ctrl.reload);
     },
     threefoldRepetition: function() {
-      console.log('set threefold');
       m.startComputation();
       ctrl.data.game.threefold = true;
       m.endComputation();

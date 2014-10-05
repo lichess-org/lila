@@ -14,7 +14,6 @@ var clockCtrl = require('./clock/ctrl');
 module.exports = function(cfg, router, i18n, socketSend) {
 
   this.data = data(cfg);
-  console.log(this.data);
 
   this.socket = new socket(socketSend, this);
 

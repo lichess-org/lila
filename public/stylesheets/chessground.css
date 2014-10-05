@@ -1,6 +1,3 @@
-.cg-board-wrap {
-  border: 1px solid #ccc;
-}
 .cg-board {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -79,23 +76,19 @@
   background-color: rgba(20, 30, 85, 0.5);
 }
 .cg-piece {
-  position: absolute;
-  bottom: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background-size: cover;
-  z-index: 3;
+  position: absolute;
+  top: 0;
+  left: 0;
   transform: translate3d(0,0,0);
   -webkit-transform: translate3d(0,0,0);
   -moz-transform: translate3d(0,0,0);
 }
 .cg-piece.dragging {
-  z-index: 9;
+  z-index: 3;
   cursor: move;
-}
-.cg-piece.fading {
-  z-index: 2;
 }
 .cg-piece.ghost {
   opacity: 0.3;

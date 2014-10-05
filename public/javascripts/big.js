@@ -2014,7 +2014,7 @@ var storage = {
         url: $(this).attr('href'),
         success: function(html) {
           $('div.lichess_overboard').remove();
-          $('div.lichess_board_wrap').prepend(html);
+          $('#hooks_wrap').prepend(html);
           prepareForm();
           $.centerOverboard();
           $('body').trigger('lichess.content_loaded');

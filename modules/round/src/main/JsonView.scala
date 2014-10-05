@@ -86,7 +86,8 @@ final class JsonView(
               "autoQueen" -> pref.autoQueen,
               "clockTenths" -> pref.clockTenths,
               "clockBar" -> pref.clockBar,
-              "enablePremove" -> pref.premove
+              "enablePremove" -> pref.premove,
+              "showCaptured" -> pref.captured
             ),
             "chat" -> chat.map { c =>
               JsArray(c.lines map {

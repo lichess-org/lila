@@ -43,7 +43,7 @@ function renderOpponent(ctrl) {
 function renderResult(ctrl) {
   var winner = round.getPlayer(ctrl.data, ctrl.data.game.winner);
   return winner ? m('div.lichess_player.' + winner.color, [
-      m('div.cg-piece.king.' + winner.color),
+      m('div.no-square', m('div.cg-piece.king.' + winner.color)),
       m('p', [
         renderStatus(ctrl),
         m('br'),
@@ -94,7 +94,10 @@ function renderTableEnd(ctrl) {
             onclick: partial(ctrl.socket.send, 'rematch-no', null),
           }, ctrl.trans('cancelRematchOffer'))
         ]) : renderRematchButton(ctrl))
-      ]))
+      ])), !d.opponent.isOfferingRematch ? m('a.lichess_new_game.button.hint--bottom', {
+        'data-hint': ctrl.trans('playWithAnotherOpponent'),
+        href: ctrl.router.Lobby.home().url
+      }, ctrl.trans('newOpponent')) : null
     ])
   ];
 }
@@ -112,7 +115,7 @@ function renderTablePlay(ctrl) {
   return [
     m('div.lichess_current_player',
       m('div.lichess_player', [
-        m('div.cg-piece.king.' + d.game.player),
+        m('div.no-square', m('div.cg-piece.king.' + d.game.player)),
         m('p', ctrl.trans(d.game.player == d.player.color ? 'yourTurn' : 'waiting'))
       ])
     ),

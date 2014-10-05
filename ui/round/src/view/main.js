@@ -4,20 +4,39 @@ var partial = chessground.util.partial;
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
 
+function renderMaterial(ctrl, material) {
+  var children = [];
+  for (var role in material) {
+    var piece = m('div.grave', m('div.mono-piece.' + role));
+    var count = material[role];
+    var content;
+    if (count === 1) content = piece;
+    else {
+      content = [];
+      for (var i = 0; i < count; i++) content.push(piece);
+    }
+    children.push(m('div.tomb', content));
+  }
+  return m('div.cemetery', children);
+}
+
 module.exports = function(ctrl) {
-  return m('div', {
+  var material = ctrl.data.pref.showCaptured ? chessground.board.getMaterialDiff(ctrl.chessground.data) : false;
+  return m('div.lichess_game', {
     config: function(el, isUpdate, context) {
       if (isUpdate) return;
       $('body').trigger('lichess.content_loaded');
-    },
-    class: 'lichess_game not_spectator pov_' + ctrl.data.player.color
+    }
   }, [
     ctrl.data.blindMode ? m('div#lichess_board_blind') : null,
     m('div.lichess_board_wrap', ctrl.data.blindMode ? null : [
-      m('div.lichess_board.cg-board-wrap' + ctrl.data.game.variant.key, chessground.view(ctrl.chessground)),
+      m('div.lichess_board.' + ctrl.data.game.variant.key, chessground.view(ctrl.chessground)),
       m('div#premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')),
       renderPromotion(ctrl)
     ]),
-    m('div.lichess_ground', renderTable(ctrl))
+    m('div.lichess_ground',
+      material ? renderMaterial(ctrl, material[ctrl.data.opponent.color]) : null,
+      renderTable(ctrl),
+      material ? renderMaterial(ctrl, material[ctrl.data.player.color]) : null)
   ]);
 };
