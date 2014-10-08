@@ -31,7 +31,7 @@ module.exports = function(ctrl) {
     ctrl.data.blindMode ? m('div#lichess_board_blind') : null,
     m('div.lichess_board_wrap', ctrl.data.blindMode ? null : [
       m('div.lichess_board.' + ctrl.data.game.variant.key, chessground.view(ctrl.chessground)),
-      m('div#premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')),
+      ctrl.chessground.data.premovable.current ? m('div#premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
       renderPromotion(ctrl)
     ]),
     m('div.lichess_ground',
