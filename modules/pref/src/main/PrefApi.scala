@@ -3,6 +3,7 @@ package lila.pref
 import play.api.libs.json.Json
 import scala.concurrent.duration.Duration
 
+import lila.db.BSON
 import lila.db.Types._
 import lila.memo.AsyncCache
 import lila.user.User
@@ -13,10 +14,39 @@ final class PrefApi(coll: Coll, cacheTtl: Duration) {
   private def fetchPref(id: String): Fu[Option[Pref]] = coll.find(BSONDocument("_id" -> id)).one[Pref]
   private val cache = AsyncCache(fetchPref, timeToLive = cacheTtl)
 
-  import lila.db.BSON.MapValue._
-  implicit val reader = MapReader[String]
-  implicit val writer = MapWriter[String]
-  private implicit val prefBSONHandler = Macros.handler[Pref]
+  private implicit val prefBSONHandler = new BSON[Pref] {
+
+    import lila.db.BSON.MapValue._
+    implicit val tagsReader = MapReader[String]
+    implicit val tagsWriter = MapWriter[String]
+
+    def reads(r: BSON.Reader): Pref = Pref(
+      _id = r str "_id",
+      dark = r.getD("dark", Pref.default.dark),
+      is3d = r.getD("is3d", Pref.default.is3d),
+      theme = r.getD("theme", Pref.default.theme),
+      pieceSet = r.getD("pieceSet", Pref.default.pieceSet),
+      theme3d = r.getD("theme3d", Pref.default.theme3d),
+      pieceSet3d = r.getD("pieceSet3d", Pref.default.pieceSet3d),
+      autoQueen = r.getD("autoQueen", Pref.default.autoQueen),
+      autoThreefold = r.getD("autoThreefold", Pref.default.autoThreefold),
+      takeback = r.getD("takeback", Pref.default.takeback),
+      clockTenths = r.getD("clockTenths", Pref.default.clockTenths),
+      clockBar = r.getD("clockBar", Pref.default.clockBar),
+      premove = r.getD("premove", Pref.default.premove),
+      animation = r.getD("animation", Pref.default.animation),
+      captured = r.getD("captured", Pref.default.captured),
+      follow = r.getD("follow", Pref.default.follow),
+      highlight = r.getD("highlight", Pref.default.highlight),
+      destination = r.getD("destination", Pref.default.destination),
+      challenge = r.getD("challenge", Pref.default.challenge),
+      coordColor = r.getD("coordColor", Pref.default.coordColor),
+      puzzleDifficulty = r.getD("puzzleDifficulty", Pref.default.puzzleDifficulty),
+      tags = r.getD("tags", Pref.default.tags))
+
+    private val writer = Macros.writer[Pref]
+    def writes(w: BSON.Writer, o: Pref) = writer write o
+  }
 
   def saveTag(user: User, name: String, value: String) =
     coll.update(

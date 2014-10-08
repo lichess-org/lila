@@ -7,10 +7,13 @@ import lila.db.JsTube.Helpers._
 import lila.user.User
 
 case class Pref(
-    id: String, // user id
+    _id: String, // user id
     dark: Boolean,
+    is3d: Boolean,
     theme: String,
     pieceSet: String,
+    theme3d: String,
+    pieceSet3d: String,
     autoQueen: Int,
     autoThreefold: Int,
     takeback: Int,
@@ -28,6 +31,8 @@ case class Pref(
     tags: Map[String, String] = Map.empty) {
 
   import Pref._
+
+  def id = _id
 
   def realTheme = Theme(theme)
   def realPieceSet = PieceSet(theme)
@@ -155,11 +160,16 @@ object Pref {
     }
   }
 
-  def create(id: String) = Pref(
-    id = id,
+  def create(id: String) = default.copy(_id = id)
+
+  lazy val default = Pref(
+    _id = "",
     dark = false,
+    is3d = false,
     theme = Theme.default.name,
     pieceSet = PieceSet.default.name,
+    theme3d = Theme3d.default.name,
+    pieceSet3d = PieceSet3d.default.name,
     autoQueen = AutoQueen.PREMOVE,
     autoThreefold = AutoThreefold.TIME,
     takeback = Takeback.ALWAYS,
@@ -176,22 +186,19 @@ object Pref {
     puzzleDifficulty = Difficulty.NORMAL,
     tags = Map.empty)
 
-  val default = create("")
-
   import ornicar.scalalib.Zero
   implicit def PrefZero: Zero[Pref] = Zero.instance(default)
 
   private val booleans = Map("true" -> true, "false" -> false)
   private val bgs = Map("light" -> false, "dark" -> true)
 
-  private[pref] lazy val tube = JsTube[Pref](
-    (__.json update merge(defaults)) andThen Json.reads[Pref],
-    Json.writes[Pref])
-
   private def defaults = Json.obj(
     "dark" -> default.dark,
+    "is3d" -> default.is3d,
     "theme" -> default.theme,
     "pieceSet" -> default.pieceSet,
+    "theme3d" -> default.theme3d,
+    "pieceSet3d" -> default.pieceSet3d,
     "autoQueen" -> default.autoQueen,
     "autoThreefold" -> default.autoThreefold,
     "takeback" -> default.takeback,

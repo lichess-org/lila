@@ -2,26 +2,36 @@ package lila.pref
 
 import scalaz.NonEmptyList
 
-sealed class PieceSet private (val name: String) {
+sealed class PieceSet private[pref] (val name: String) {
 
   override def toString = name
 
   def cssClass = name
 }
 
-object PieceSet {
+sealed trait PieceSetObject {
 
-  val all = NonEmptyList("cburnett", "merida", "pirouetti", "alpha", "spatial", "staunton") map { name => new PieceSet(name) }
+  def all: NonEmptyList[PieceSet]
 
-  val list = all.list
+  lazy val list = all.list
 
-  val listString = list mkString " "
+  lazy val listString = list mkString " "
 
-  val allByName = list map { c => c.name -> c } toMap
+  lazy val allByName = list map { c => c.name -> c } toMap
 
-  val default = all.head
+  lazy val default = all.head
 
   def apply(name: String) = (allByName get name) | default
 
   def contains(name: String) = allByName contains name
+}
+
+object PieceSet extends PieceSetObject {
+
+  val all = NonEmptyList("cburnett", "merida", "pirouetti", "alpha", "spatial", "staunton-basic", "staunton-glass", "staunton-wood") map { name => new PieceSet(name) }
+}
+
+object PieceSet3d extends PieceSetObject {
+
+  val all = NonEmptyList("Basic", "Glass", "Metal", "Wood") map { name => new PieceSet(name) }
 }
