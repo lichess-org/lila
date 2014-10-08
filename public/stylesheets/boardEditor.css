@@ -2,10 +2,6 @@
   position: relative;
   min-height: 600px;
 }
-#board_editor .cg-board {
-  width: 512px;
-  height: 512px;
-}
 #board_editor .cg-square.last-move {
   background-color: transparent;
 }

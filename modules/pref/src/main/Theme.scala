@@ -47,7 +47,7 @@ object Theme3d extends ThemeObject {
     "China-Scarlet",
     "China-Yellow",
     "Classic-Blue",
-    "Glass",
+    "Transparent-Glass",
     "Gold-Silver",
     // "Green-Glass",
     "Light-Wood",

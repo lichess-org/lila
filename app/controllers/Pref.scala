@@ -49,6 +49,8 @@ object Pref extends LilaController {
   private lazy val setters = Map(
     "theme" -> (forms.theme -> save("theme") _),
     "pieceSet" -> (forms.pieceSet -> save("pieceSet") _),
+    "theme3d" -> (forms.theme3d -> save("theme3d") _),
+    "pieceSet3d" -> (forms.pieceSet3d -> save("pieceSet3d") _),
     "bg" -> (forms.bg -> save("bg") _),
     "is3d" -> (forms.is3d -> save("is3d") _))
 

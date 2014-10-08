@@ -35,25 +35,31 @@ case class Pref(
   def id = _id
 
   def realTheme = Theme(theme)
-  def realPieceSet = PieceSet(theme)
+  def realPieceSet = PieceSet(pieceSet)
+  def realTheme3d = Theme3d(theme3d)
+  def realPieceSet3d = PieceSet3d(pieceSet3d)
 
   def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
 
   def hasSeenVerifyTitle = tags contains Tag.verifyTitle
 
   def get(name: String): Option[String] = name match {
-    case "bg"       => dark.fold("dark", "light").some
-    case "theme"    => theme.some
-    case "pieceSet" => pieceSet.some
-    case "is3d"     => is3d.toString.some
-    case _          => none
+    case "bg"         => dark.fold("dark", "light").some
+    case "theme"      => theme.some
+    case "pieceSet"   => pieceSet.some
+    case "theme3d"    => theme3d.some
+    case "pieceSet3d" => pieceSet3d.some
+    case "is3d"       => is3d.toString.some
+    case _            => none
   }
   def set(name: String, value: String): Option[Pref] = name match {
-    case "bg"       => Pref.bgs get value map { b => copy(dark = b) }
-    case "theme"    => Theme.allByName get value map { t => copy(theme = t.name) }
-    case "pieceSet" => PieceSet.allByName get value map { p => copy(pieceSet = p.name) }
-    case "is3d"     => copy(is3d = value == "true").some
-    case _          => none
+    case "bg"         => Pref.bgs get value map { b => copy(dark = b) }
+    case "theme"      => Theme.allByName get value map { t => copy(theme = t.name) }
+    case "pieceSet"   => PieceSet.allByName get value map { p => copy(pieceSet = p.name) }
+    case "theme3d"    => Theme3d.allByName get value map { t => copy(theme3d = t.name) }
+    case "pieceSet3d" => PieceSet3d.allByName get value map { p => copy(pieceSet3d = p.name) }
+    case "is3d"       => copy(is3d = value == "true").some
+    case _            => none
   }
 
   def animationFactor = animation match {
@@ -191,29 +197,5 @@ object Pref {
   import ornicar.scalalib.Zero
   implicit def PrefZero: Zero[Pref] = Zero.instance(default)
 
-  private val booleans = Map("true" -> true, "false" -> false)
   private val bgs = Map("light" -> false, "dark" -> true)
-
-  private def defaults = Json.obj(
-    "dark" -> default.dark,
-    "is3d" -> default.is3d,
-    "theme" -> default.theme,
-    "pieceSet" -> default.pieceSet,
-    "theme3d" -> default.theme3d,
-    "pieceSet3d" -> default.pieceSet3d,
-    "autoQueen" -> default.autoQueen,
-    "autoThreefold" -> default.autoThreefold,
-    "takeback" -> default.takeback,
-    "clockTenths" -> default.clockTenths,
-    "clockBar" -> default.clockBar,
-    "premove" -> default.premove,
-    "animation" -> default.animation,
-    "captured" -> default.captured,
-    "follow" -> default.follow,
-    "highlight" -> default.highlight,
-    "destination" -> default.destination,
-    "challenge" -> default.challenge,
-    "coordColor" -> default.coordColor,
-    "puzzleDifficulty" -> default.puzzleDifficulty,
-    "tags" -> default.tags)
 }

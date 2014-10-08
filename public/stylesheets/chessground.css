@@ -1,14 +1,31 @@
+body.is3d .cg-board-wrap {
+  position: relative;
+  background-size: cover;
+}
+.cg-512 .cg-board-wrap {
+  width: 512px;
+  height: 512px;
+}
+body.is3d .cg-512 .cg-board-wrap {
+  height: 479.08572px;
+}
 .cg-board {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   line-height: 0;
   background-size: cover;
-  position: relative;
-  width: 100%;
-  height: 100%;
   cursor: pointer;
+}
+body.is3d .cg-board {
+  top: 0.6168702%;
+  height: 97.0229%;
 }
 .cg-square {
   position: absolute;
@@ -85,6 +102,16 @@
   transform: translate3d(0,0,0);
   -webkit-transform: translate3d(0,0,0);
   -moz-transform: translate3d(0,0,0);
+}
+body.is3d div.cg-piece {
+  /* original size:
+     width: 140.625%;
+     height: 179.6875%; */
+  /* size on 3D board, with height/width = 90.78571% */
+  width: 140.625%;
+  height: 197.92486231313927%;
+  left: -18%;
+  top: -77%;
 }
 .cg-piece.dragging {
   z-index: 3;

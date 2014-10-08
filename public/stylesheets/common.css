@@ -1064,6 +1064,14 @@ ul.language_links li:last-child {
   width: 240px;
   text-align: center;
 }
+body #themepicker div.is2d,
+body.is3d #themepicker div.is3d {
+  display: block;
+}
+body #themepicker div.is3d,
+body.is3d #themepicker div.is2d {
+  display: none;
+}
 #themepicker div.board,
 #themepicker div.piece_set {
   overflow: hidden;

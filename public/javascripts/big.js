@@ -357,6 +357,7 @@ var storage = {
     $('#themepicker_toggle').one('click', function() {
       var $themepicker = $('#themepicker');
       var themes = $themepicker.data('themes').split(' ');
+      console.log(themes);
       var theme = _.find(document.body.className.split(/\s+/), function(a) {
         return _.contains(themes, a);
       });
@@ -397,7 +398,7 @@ var storage = {
         }
       };
       var showDimensions = function(is3d) {
-        $body.toggleClass('is3d', is3d);
+        $body.removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
       };
       $themepicker.find('.background a').click(function() {
         background = $(this).data('bg');
@@ -420,7 +421,7 @@ var storage = {
         $themepicker.removeClass("shown");
         return false;
       }).hover(function() {
-        showDimensions($(this).data('is3d') == 'true');
+        showDimensions($(this).data('is3d'));
       }, function() {
         showDimensions(is3d);
       }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
