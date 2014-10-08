@@ -1,16 +1,22 @@
-var usersToMigrate = db.user2.find({settings:{$exists:1}},{settings:1});
-var collection = db.pref;
-
-print("Migrating " + usersToMigrate.count() + " prefs");
-
-collection.drop();
-
-usersToMigrate.forEach(function(u) {
-  db.user2.update({_id:u._id},{$unset:{'settings':true}});
-  collection.insert({
-    _id: u._id,
-    dark: u.settings.bg == 'dark',
-    theme: u.settings.theme
+var props = ['animation', 'autoQueen', 'autoThreefold', 'challenge', 'coordColor', 'puzzleDifficulty', 'takeback'];
+db.pref.find().forEach(function(p) {
+  var set = {}, unset = {};
+  props.forEach(function(prop) {
+    if (typeof p[prop] !== 'undefined') {
+      unset[prop] = true;
+      set[prop] = new NumberInt(p[prop]);
+    }
+  });
+  // must unset first, or update does not happen D:
+  db.pref.update({
+    _id: p._id,
+  }, {
+    '$unset': set
+  });
+  db.pref.update({
+    _id: p._id,
+  }, {
+    '$set': set
   });
 });
 
