@@ -3,15 +3,20 @@
 
 mkdir -p public/compiled
 
-# cd ui/editor
-# npm install
-# gulp prod
-# cd -
+cd ui/editor
+npm install
+gulp prod
+cd -
 
-# cd ui/puzzle
-# npm install
-# gulp prod
-# cd -
+cd ui/puzzle
+npm install
+gulp prod
+cd -
+
+cd ui/round
+npm install
+gulp prod
+cd -
 
 for file in tv.js common.js big.js chart2.js user.js coordinate.js pgn4hacks.js; do
   orig=public/javascripts/$file
