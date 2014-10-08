@@ -12,9 +12,7 @@ final class Env(
 
   def forms = new DataForm(api)
 
-  lazy val api = new PrefApi(CacheTtl)
-
-  private[pref] lazy val prefColl = db(CollectionPref)
+  lazy val api = new PrefApi(db(CollectionPref), CacheTtl)
 }
 
 object Env {

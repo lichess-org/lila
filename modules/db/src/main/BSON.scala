@@ -45,6 +45,24 @@ object BSON {
     }
   }
 
+  object MapValue {
+
+    implicit def MapReader[V](implicit vr: BSONReader[_ <: BSONValue, V]): BSONDocumentReader[Map[String, V]] = new BSONDocumentReader[Map[String, V]] {
+      def read(bson: BSONDocument): Map[String, V] =
+        bson.elements.map { tuple =>
+          tuple._1 -> vr.asInstanceOf[BSONReader[BSONValue, V]].read(tuple._2)
+        }.toMap
+    }
+
+    implicit def MapWriter[V](implicit vw: BSONWriter[V, _ <: BSONValue]): BSONDocumentWriter[Map[String, V]] = new BSONDocumentWriter[Map[String, V]] {
+      def write(map: Map[String, V]): BSONDocument = BSONDocument {
+        map.toStream.map { tuple =>
+          tuple._1 -> vw.write(tuple._2)
+        }
+      }
+    }
+  }
+
   final class Reader(val doc: BSONDocument) {
 
     val map = (doc.stream collect { case Success(e) => e }).toMap
