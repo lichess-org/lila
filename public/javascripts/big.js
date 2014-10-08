@@ -365,6 +365,7 @@ var storage = {
         return _.contains(sets, a);
       });
       var background = $('body').hasClass('dark') ? 'dark' : 'light';
+      var is3d = $('body').hasClass('is3d');
       $themepicker.find('div.theme').hover(function() {
         $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
       }, function() {
@@ -395,6 +396,9 @@ var storage = {
           });
         }
       };
+      var showDimensions = function(is3d) {
+        $body.toggleClass('is3d', is3d);
+      };
       $themepicker.find('.background a').click(function() {
         background = $(this).data('bg');
         $.post($(this).parent().data('href'), {
@@ -408,6 +412,18 @@ var storage = {
       }, function() {
         showBg(background);
       }).filter('.' + background).addClass('active');
+      $themepicker.find('.dimensions a').click(function() {
+        $.post($(this).parent().data('href'), {
+          is3d: $(this).data('is3d')
+        });
+        $(this).addClass('active').siblings().removeClass('active');
+        $themepicker.removeClass("shown");
+        return false;
+      }).hover(function() {
+        showDimensions($(this).data('is3d') == 'true');
+      }, function() {
+        showDimensions(is3d);
+      }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
     });
 
     $.centerOverboard = function() {

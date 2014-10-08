@@ -1062,6 +1062,7 @@ ul.language_links li:last-child {
 #themepicker.shown div.dropdown {
   display: block;
   width: 240px;
+  text-align: center;
 }
 #themepicker div.board,
 #themepicker div.piece_set {
@@ -1100,11 +1101,12 @@ ul.language_links li:last-child {
   height: 64px;
   background-size: contain;
 }
-#themepicker div.background {
-  margin: 20px 0 10px 0;
+#themepicker div.toggles {
+  display: inline-block;
+  margin: 20px 7px 10px 7px;
   text-align: center;
 }
-#themepicker div.background a {
+#themepicker div.toggles a {
   font-size: 20px;
   display: inline-block;
   margin: 0 -2px 0 -3px;

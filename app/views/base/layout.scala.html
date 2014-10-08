@@ -39,7 +39,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
     @langAnnotations
   </head>
-  <body class="@ctx.currentTheme.cssClass @ctx.currentBg @ctx.currentPieceSet@if(ctx.pref.highlight) { highlight}@if(ctx.blindMode) { blind_mode}"
+  <body class="@ctx.currentTheme.cssClass @ctx.currentBg @ctx.currentPieceSet@if(ctx.pref.highlight) { highlight}@if(ctx.blindMode) { blind_mode} @if(ctx.pref.is3d) { is3d}"
     data-piece-set="@ctx.currentPieceSet"
     data-static-url="@staticUrl("")"
     data-sound-dir="@staticUrl("sound")"
@@ -101,9 +101,13 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
           &nbsp;<span data-icon="v"></span>&nbsp;
         </a>
         <div class="dropdown">
-          <div class="background" data-href="@routes.Pref.set("bg")">
+          <div class="background toggles" data-href="@routes.Pref.set("bg")">
             <a class="light button" data-bg="light" data-icon="5"></a>
             <a class="dark button" data-bg="dark" data-icon="4"></a>
+          </div>
+          <div class="dimensions toggles" data-href="@routes.Pref.set("is3d")">
+            <a class="d2 button" data-is3d="false">2D</a>
+            <a class="d3 button" data-is3d="true">3D</a>
           </div>
           <div class="board" data-href="@routes.Pref.set("theme")">
             @lila.pref.Theme.list.map { theme =>

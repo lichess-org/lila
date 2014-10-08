@@ -49,7 +49,8 @@ object Pref extends LilaController {
   private lazy val setters = Map(
     "theme" -> (forms.theme -> save("theme") _),
     "pieceSet" -> (forms.pieceSet -> save("pieceSet") _),
-    "bg" -> (forms.bg -> save("bg") _))
+    "bg" -> (forms.bg -> save("bg") _),
+    "is3d" -> (forms.is3d -> save("is3d") _))
 
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me ?? { api.setPrefString(_, name, value) } inject LilaCookie.session(name, value)(ctx.req)

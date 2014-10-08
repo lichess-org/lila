@@ -83,4 +83,8 @@ private[pref] final class DataForm(api: PrefApi) {
   val bg = Form(single(
     "bg" -> text.verifying(List("light", "dark") contains _)
   ))
+
+  val is3d = Form(single(
+    "is3d" -> text.verifying(List("true", "false") contains _)
+  ))
 }

@@ -45,12 +45,14 @@ case class Pref(
     case "bg"       => dark.fold("dark", "light").some
     case "theme"    => theme.some
     case "pieceSet" => pieceSet.some
+    case "is3d"     => is3d.toString.some
     case _          => none
   }
   def set(name: String, value: String): Option[Pref] = name match {
     case "bg"       => Pref.bgs get value map { b => copy(dark = b) }
     case "theme"    => Theme.allByName get value map { t => copy(theme = t.name) }
     case "pieceSet" => PieceSet.allByName get value map { p => copy(pieceSet = p.name) }
+    case "is3d"     => copy(is3d = value == "true").some
     case _          => none
   }
 
