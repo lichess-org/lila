@@ -1504,33 +1504,14 @@ div.extra_top {
   float: right;
   margin: 20px 20px 0 0;
 }
-.mini_board {
+.mini_board .cg-board-wrap {
   width: 224px;
   height: 224px;
   position: relative;
-  display: block;
-  border: 1px solid #ccc;
 }
-.mini_board > div {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-}
-body.highlight .mini_board > div.moved {
-  background: -moz-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(155, 199, 00, 0.81)), color-stop(100%, rgba(155, 199, 00, 0)));
-  background: -webkit-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
-  background: -ms-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
-  background: radial-gradient(ellipse at center, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
-}
-div.lcmp {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  background-size: 100% 100%;
-}
-.mini_board .ui-draggable-dragging {
-  z-index: 9;
+body.is3d .mini_board .cg-board-wrap {
+  margin-top: 8px;
+  height: 209.6px;
 }
 /* opening.css */
 

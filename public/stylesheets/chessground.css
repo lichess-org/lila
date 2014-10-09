@@ -103,6 +103,7 @@ body.is3d .cg-board {
   transform: translate3d(0,0,0);
   -webkit-transform: translate3d(0,0,0);
   -moz-transform: translate3d(0,0,0);
+  z-index: 2; /* no less than 2 */
 }
 body.is3d .cg-piece {
   /* original size:
@@ -110,7 +111,7 @@ body.is3d .cg-piece {
      height: 179.6875%; */
   /* size on 3D board, with height/width = 90.78571% */
   width: 140.625%;
-  height: 197.92486231313927%;
+  height: 197.925%;
   left: -18%;
   top: -77%;
 }
