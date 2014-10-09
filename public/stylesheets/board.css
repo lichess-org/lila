@@ -808,10 +808,17 @@ div.lichess_overboard p.explanations {
   box-shadow: inset 0 0 25px 3px #808080;
   transition: all 0.3s;
 }
+body.is3d #promotion_choice div.cg-piece {
+  background-position: 0 -6px;
+}
 #promotion_choice div.cg-piece:hover {
   padding: 15px;
   margin: -10px 0px;
   box-shadow: inset 0 0 15px 3px #909090;
+  background-position: 0 84px;
+}
+body.is3d #promotion_choice div.cg-piece:hover {
+  background-position: 0 98px;
 }
 div.lichess_join_url {
   display: none;
@@ -1041,6 +1048,14 @@ div.lichess_current_player div.no-square {
   position: absolute;
   top: 0;
   left: 0;
+}
+body.is3d div.lichess_current_player div.cg-piece {
+  width: 100%;
+  height: 132%;
+  left: 0;
+  top: 0;
+  background-size: cover;
+  background-position: 0 67%;
 }
 div.lichess_current_player div.lichess_player p {
   height: 64px;

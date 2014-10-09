@@ -381,7 +381,7 @@ var storage = {
       }).click(function() {
         theme = $(this).data("theme");
         $.post($(this).parent().data("href"), {
-          "theme": theme
+          theme: theme
         });
         $themepicker.removeClass("shown");
       });
@@ -392,7 +392,7 @@ var storage = {
       }).click(function() {
         set = $(this).data("set");
         $.post($(this).parent().data("href"), {
-          "set": set
+          set: set
         });
         $themepicker.removeClass("shown");
       });
@@ -403,7 +403,7 @@ var storage = {
       }).click(function() {
         theme3d = $(this).data("theme");
         $.post($(this).parent().data("href"), {
-          "theme3d": theme3d
+          theme: theme3d
         });
         $themepicker.removeClass("shown");
       });
@@ -414,7 +414,7 @@ var storage = {
       }).click(function() {
         set3d = $(this).data("set");
         $.post($(this).parent().data("href"), {
-          "set": set3d
+          set: set3d
         });
         $themepicker.removeClass("shown");
       });

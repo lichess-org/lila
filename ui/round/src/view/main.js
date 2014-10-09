@@ -22,7 +22,7 @@ function renderMaterial(ctrl, material) {
 
 module.exports = function(ctrl) {
   var material = ctrl.data.pref.showCaptured ? chessground.board.getMaterialDiff(ctrl.chessground.data) : false;
-  return m('div.lichess_game', {
+  return m('div.lichess_game.cg-512', {
     config: function(el, isUpdate, context) {
       if (isUpdate) return;
       $('body').trigger('lichess.content_loaded');
