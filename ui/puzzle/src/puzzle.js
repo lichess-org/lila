@@ -79,16 +79,19 @@ function makeHistory(data) {
   var c = chess.make(data.puzzle.fen);
   return [data.puzzle.initialMove].concat(line.map(str2move)).map(function(m) {
     chess.move(c, m);
-    return {move: m, fen: c.fen()};
+    return {move: m, fen: c.fen(), check: c.in_check()};
   });
 }
 
 function jump(chessgroundData, data, to) {
   data.replay.step = Math.max(0, Math.min(data.replay.history.length - 1, to));
+  var state = data.replay.history[data.replay.step];
   chessground.configure(chessgroundData, {
-    fen: data.replay.history[data.replay.step].fen,
-    lastMove: data.replay.history[data.replay.step].move
+    fen: state.fen,
+    lastMove: state.move,
+    check: null
   });
+  if (state.check) chessground.board.setCheck(chessgroundData);
 }
 
 function reload(chessgroundData, data, cfg) {

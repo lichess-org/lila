@@ -1077,7 +1077,7 @@ body.is3d #themepicker div.is2d {
   overflow: hidden;
 }
 #themepicker div.theme,
-#themepicker div.set {
+#themepicker div.no-square {
   float: left;
   padding: 7px;
   cursor: pointer;
@@ -1086,11 +1086,18 @@ body.is3d #themepicker div.is2d {
 #themepicker div.theme:hover {
   background: #f0f0f0;
 }
-#themepicker div.color_demo {
+body.is2d #themepicker div.color_demo {
   width: 64px;
   height: 32px;
   background-size: 256px;
   border: 1px solid #d0d0d0;
+  position: relative;
+}
+body.is3d #themepicker div.color_demo {
+  width: 66px;
+  height: 30px;
+  background-size: 264px;
+  border: none;
   position: relative;
 }
 #themepicker div.piece_set {
@@ -1098,16 +1105,26 @@ body.is3d #themepicker div.is2d {
   background: url(../images/board/darksquares.jpg);
   box-shadow: inset 0 0 20px 3px #777;
 }
-#themepicker div.set {
-  padding: 8px;
-}
-#themepicker div.set:hover {
+#themepicker div.no-square:hover {
   background: rgba(250, 250, 250, 0.15);
 }
-#themepicker div.piece_demo {
+#themepicker .no-square {
   width: 64px;
   height: 64px;
-  background-size: contain;
+  padding: 8px;
+  position: relative;
+}
+#themepicker .is3d .no-square {
+  width: 72px;
+  height: 72px;
+}
+#themepicker .is3d .cg-piece {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-size: cover;
+  background-position: 0 67%;
 }
 #themepicker div.toggles {
   display: inline-block;

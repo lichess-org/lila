@@ -81,11 +81,11 @@ private[pref] final class DataForm(api: PrefApi) {
   ))
 
   val theme3d = Form(single(
-    "theme3d" -> nonEmptyText.verifying(Theme3d contains _)
+    "theme" -> nonEmptyText.verifying(Theme3d contains _)
   ))
 
   val pieceSet3d = Form(single(
-    "set3d" -> nonEmptyText.verifying(PieceSet3d contains _)
+    "set" -> nonEmptyText.verifying(PieceSet3d contains _)
   ))
 
   val bg = Form(single(

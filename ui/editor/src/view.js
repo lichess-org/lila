@@ -84,13 +84,13 @@ function inputs(ctrl, fen) {
   ]);
 }
 
-function sparePieces(ctrl, color) {
-  return m('div.spare', ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
-    return m('div', {
+function sparePieces(ctrl, color, orientation, position) {
+  return m('div.spare.'+position+'.orientation-' + orientation, ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
+    return m('div.no-square', m('div', {
       class: ['cg-piece', color, role].join(' '),
       'data-color': color,
       'data-role': role
-    })
+    }))
   }));
 }
 
@@ -108,9 +108,9 @@ module.exports = function(ctrl) {
       };
     }
   }, [
-    sparePieces(ctrl, opposite),
+    sparePieces(ctrl, opposite, color, 'top'),
     chessground.view(ctrl.chessground),
-    sparePieces(ctrl, color),
+    sparePieces(ctrl, color, color, 'bottom'),
     controls(ctrl, fen),
     inputs(ctrl, fen)
   ]);

@@ -12,19 +12,37 @@
 #board_editor .cg-square.selected {
   background-color: rgba(20, 85, 30, 0.5);
 }
-#board_editor .spare-pieces-bottom-ae20f {
-  margin-top: 8px;
-}
 #board_editor .spare {
   height: 64px;
   padding-left: 64px;
 }
-#board_editor .spare .cg-piece {
+/* body.is3d #board_editor .spare.top { */
+/*   margin-bottom: 20px; */
+/* } */
+/* body.is3d #board_editor .spare.bottom { */
+/*   margin-top: 20px; */
+/* } */
+#board_editor .spare .no-square {
+  position: relative;
+  display:inline-block;
   width: 64px;
   height: 64px;
-  position: static;
-  display: inline-block;
+}
+body.is3d #board_editor .spare .no-square {
+  height: 58.102px;
+}
+#board_editor .spare .cg-piece {
   cursor: pointer;
+}
+body.is3d .spare .cg-piece {
+  /* original size:
+     width: 140.625%;
+     height: 179.6875%; */
+  /* size on 3D board, with height/width = 90.78571% */
+  width: 100%;
+  height: 140.7465%;
+  left: 0%;
+  top: -36%;
 }
 #editor-side {
   position: absolute;

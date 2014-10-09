@@ -49,11 +49,10 @@ object Theme3d extends ThemeObject {
     "Classic-Blue",
     "Transparent-Glass",
     "Gold-Silver",
-    // "Green-Glass",
+    "Green-Glass",
     "Light-Wood",
     "Power-Coated",
     "Purple-Black",
-    "Rosewood",
-    "Wood-Glass"
+    "Rosewood"
   ) map { name => new Theme(name) }
 }

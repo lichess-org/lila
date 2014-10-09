@@ -40,12 +40,14 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     @langAnnotations
   </head>
   <body class="@List(
-    ctx.currentTheme.cssClass.some,
-    ctx.currentBg.some,
-    ctx.currentPieceSet.some,
-    ctx.pref.highlight option "highlight",
-    ctx.blindMode option "blind_mode",
-    Some(if (ctx.is3d) "is3d" else "is2d")).flatten.mkString(" ")"
+    ctx.currentTheme.cssClass,
+    ctx.currentTheme3d.cssClass,
+    ctx.currentBg,
+    ctx.currentPieceSet,
+    ctx.currentPieceSet3d,
+    ctx.pref.highlight ?? "highlight",
+    ctx.blindMode ?? "blind_mode",
+    if (ctx.is3d) "is3d" else "is2d").mkString(" ")"
     data-piece-set="@ctx.currentPieceSet"
     data-static-url="@staticUrl("")"
     data-sound-dir="@staticUrl("sound")"
@@ -101,8 +103,10 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
       </div>
       <a id="reconnecting" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
       <div id="themepicker"
-        data-themes="@lila.pref.Theme.listString @lila.pref.Theme3d.listString"
-        data-sets="@lila.pref.PieceSet.listString @lila.pref.PieceSet3d.listString">
+        data-themes="@lila.pref.Theme.listString"
+        data-theme3ds="@lila.pref.Theme3d.listString"
+        data-sets="@lila.pref.PieceSet.listString"
+        data-set3ds="@lila.pref.PieceSet3d.listString">
         <a id="themepicker_toggle" class="toggle icon hint--bottom-left" data-hint="Theming">
           &nbsp;<span data-icon="v"></span>&nbsp;
         </a>
@@ -123,19 +127,19 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
             </div>
             <div class="piece_set" data-href="@routes.Pref.set("pieceSet")">
               @lila.pref.PieceSet.list.map { set =>
-              <div class="set" data-set="@set.name"><div class="piece_demo @set.name"></div></div>
+              <div class="no-square" data-set="@set.name"><div class="cg-piece @set.name"></div></div>
               }
             </div>
           </div>
           <div class="is3d">
-            <div class="board3d" data-href="@routes.Pref.set("theme3d")">
+            <div class="board" data-href="@routes.Pref.set("theme3d")">
               @lila.pref.Theme3d.list.map { theme =>
               <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>
               }
             </div>
-            <div class="piece_set3d" data-href="@routes.Pref.set("pieceSet3d")">
+            <div class="piece_set" data-href="@routes.Pref.set("pieceSet3d")">
               @lila.pref.PieceSet3d.list.map { set =>
-              <div class="set" data-set="@set.name"><div class="piece_demo @set.name"></div></div>
+              <div class="no-square" data-set="@set.name"><div class="cg-piece @set.name"></div></div>
               }
             </div>
           </div>

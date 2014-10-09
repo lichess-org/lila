@@ -31,15 +31,19 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def pref = pageData.pref
   def blindMode = pageData.blindMode
 
-  lazy val is3d = ctxPref("is3d") ?? ("true" ==)
+  def is3d = ctxPref("is3d") ?? ("true" ==)
 
   def currentTheme =
-    if (is3d) ctxPref("theme3d").fold(Pref.default.realTheme3d)(lila.pref.Theme3d.apply)
-    else ctxPref("theme").fold(Pref.default.realTheme)(lila.pref.Theme.apply)
+    ctxPref("theme").fold(Pref.default.realTheme)(lila.pref.Theme.apply)
+
+  def currentTheme3d =
+    ctxPref("theme3d").fold(Pref.default.realTheme3d)(lila.pref.Theme3d.apply)
 
   def currentPieceSet =
-    if (is3d) ctxPref("pieceSet3d").fold(Pref.default.realPieceSet3d)(lila.pref.PieceSet3d.apply)
-    else ctxPref("pieceSet").fold(Pref.default.realPieceSet)(lila.pref.PieceSet.apply)
+    ctxPref("pieceSet").fold(Pref.default.realPieceSet)(lila.pref.PieceSet.apply)
+
+  def currentPieceSet3d =
+    ctxPref("pieceSet3d").fold(Pref.default.realPieceSet3d)(lila.pref.PieceSet3d.apply)
 
   def currentBg = ctxPref("bg") | "light"
 

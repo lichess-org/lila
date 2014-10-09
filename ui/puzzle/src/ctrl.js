@@ -59,8 +59,10 @@ module.exports = function(cfg, router, i18n) {
     this.chessground.set({
       fen: this.data.chess.fen(),
       lastMove: move,
-      turnColor: this.data.puzzle.opponentColor
+      turnColor: this.data.puzzle.opponentColor,
+      check: null
     });
+    if (this.data.chess.in_check()) this.chessground.setCheck();
   }.bind(this);
 
   this.chessground = new chessground.controller(merge({
@@ -104,8 +106,10 @@ module.exports = function(cfg, router, i18n) {
       movable: {
         dests: chess.dests(this.data.chess)
       },
-      turnColor: this.data.puzzle.color
+      turnColor: this.data.puzzle.color,
+      check: null
     });
+    if (this.data.chess.in_check()) this.chessground.setCheck();
     setTimeout(this.chessground.playPremove, this.chessground.data.animation.duration);
     m.endComputation();
   }.bind(this);

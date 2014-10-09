@@ -5,6 +5,7 @@ body.is3d .cg-board-wrap {
 .cg-512 .cg-board-wrap {
   width: 512px;
   height: 512px;
+  position: relative;
 }
 body.is3d .cg-512 .cg-board-wrap {
   height: 479.08572px;
@@ -103,7 +104,7 @@ body.is3d .cg-board {
   -webkit-transform: translate3d(0,0,0);
   -moz-transform: translate3d(0,0,0);
 }
-body.is3d div.cg-piece {
+body.is3d .cg-piece {
   /* original size:
      width: 140.625%;
      height: 179.6875%; */

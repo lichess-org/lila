@@ -357,7 +357,6 @@ var storage = {
     $('#themepicker_toggle').one('click', function() {
       var $themepicker = $('#themepicker');
       var themes = $themepicker.data('themes').split(' ');
-      console.log(themes);
       var theme = _.find(document.body.className.split(/\s+/), function(a) {
         return _.contains(themes, a);
       });
@@ -365,9 +364,17 @@ var storage = {
       var set = _.find(document.body.className.split(/\s+/), function(a) {
         return _.contains(sets, a);
       });
+      var theme3ds = $themepicker.data('theme3ds').split(' ');
+      var theme3d = _.find(document.body.className.split(/\s+/), function(a) {
+        return _.contains(theme3ds, a);
+      });
+      var set3ds = $themepicker.data('set3ds').split(' ');
+      var set3d = _.find(document.body.className.split(/\s+/), function(a) {
+        return _.contains(set3ds, a);
+      });
       var background = $('body').hasClass('dark') ? 'dark' : 'light';
       var is3d = $('body').hasClass('is3d');
-      $themepicker.find('div.theme').hover(function() {
+      $themepicker.find('.is2d div.theme').hover(function() {
         $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
       }, function() {
         $body.removeClass(themes.join(' ')).addClass(theme);
@@ -378,7 +385,7 @@ var storage = {
         });
         $themepicker.removeClass("shown");
       });
-      $themepicker.find('div.set').hover(function() {
+      $themepicker.find('.is2d div.no-square').hover(function() {
         $body.removeClass(sets.join(' ')).addClass($(this).data("set"));
       }, function() {
         $body.removeClass(sets.join(' ')).addClass(set);
@@ -386,6 +393,28 @@ var storage = {
         set = $(this).data("set");
         $.post($(this).parent().data("href"), {
           "set": set
+        });
+        $themepicker.removeClass("shown");
+      });
+      $themepicker.find('.is3d div.theme').hover(function() {
+        $body.removeClass(theme3ds.join(' ')).addClass($(this).data("theme"));
+      }, function() {
+        $body.removeClass(theme3ds.join(' ')).addClass(theme3d);
+      }).click(function() {
+        theme3d = $(this).data("theme");
+        $.post($(this).parent().data("href"), {
+          "theme3d": theme3d
+        });
+        $themepicker.removeClass("shown");
+      });
+      $themepicker.find('.is3d div.no-square').hover(function() {
+        $body.removeClass(set3ds.join(' ')).addClass($(this).data("set"));
+      }, function() {
+        $body.removeClass(set3ds.join(' ')).addClass(set3d);
+      }).click(function() {
+        set3d = $(this).data("set");
+        $.post($(this).parent().data("href"), {
+          "set": set3d
         });
         $themepicker.removeClass("shown");
       });
@@ -414,8 +443,9 @@ var storage = {
         showBg(background);
       }).filter('.' + background).addClass('active');
       $themepicker.find('.dimensions a').click(function() {
+        is3d = $(this).data('is3d');
         $.post($(this).parent().data('href'), {
-          is3d: $(this).data('is3d')
+          is3d: is3d
         });
         $(this).addClass('active').siblings().removeClass('active');
         $themepicker.removeClass("shown");
