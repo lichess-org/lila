@@ -1072,6 +1072,8 @@ div.lichess_table.finished div.lichess_player p {
 }
 div.cemetery {
   margin: 10px 0;
+  height: 32px;
+  line-height: 0;
 }
 div.cemetery .tomb {
   display: inline-block;

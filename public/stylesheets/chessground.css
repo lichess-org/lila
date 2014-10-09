@@ -122,3 +122,6 @@ body.is3d .cg-piece {
 .cg-piece.ghost {
   opacity: 0.3;
 }
+body.is3d .cg-piece.ghost {
+  opacity: 0.4;
+}

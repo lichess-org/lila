@@ -16,19 +16,21 @@ module.exports = function(send, ctrl) {
       });
     },
     state: function(o) {
+      m.startComputation();
       ctrl.chessground.set({
         turnColor: o.color
       });
       ctrl.data.game.player = o.color;
       ctrl.data.game.turns = o.turns;
+      m.endComputation();
     },
     move: function(o) {
+      m.startComputation();
       ctrl.chessground.apiMove(o.from, o.to);
       if (ctrl.data.game.threefold) {
-        m.startComputation();
         ctrl.data.game.threefold = false;
-        m.endComputation();
       }
+      m.endComputation();
     },
     premove: function() {
       ctrl.chessground.playPremove();
@@ -94,7 +96,7 @@ module.exports = function(send, ctrl) {
   };
 
   this.receive = function(type, data) {
-    if (type != 'n') console.log(type, data);
+    // if (type != 'n') console.log(type, data);
     if (handlers[type]) {
       handlers[type](data);
       return true;
