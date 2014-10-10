@@ -729,6 +729,104 @@ body.is3d.Metal .queen.black {
 body.is3d.Metal .king.black {
   background-image: url(../staunton/Renders/Metal/Scaled/Black-King.png);
 }
+body.is3d.Wax .pawn.white {
+  background-image: url(../staunton/Renders/Wax/Scaled/White-Pawn.png);
+}
+body.is3d.Wax .bishop.white {
+  background-image: url(../staunton/Renders/Wax/Scaled/White-Bishop.png);
+}
+body.is3d.Wax .orientation-black .bishop.white {
+  background-image: url(../staunton/Renders/Wax/Scaled/White-Bishop-Flipped.png);
+}
+body.is3d.Wax .knight.white,
+#top .is3d .cg-piece.Wax {
+  background-image: url(../staunton/Renders/Wax/Scaled/White-Knight.png);
+}
+body.is3d.Wax .orientation-black .knight.white {
+  background-image: url(../staunton/Renders/Wax/Scaled/White-Knight-Flipped.png);
+}
+body.is3d.Wax .rook.white {
+  background-image: url(../staunton/Renders/Wax/Scaled/White-Rook.png);
+}
+body.is3d.Wax .queen.white {
+  background-image: url(../staunton/Renders/Wax/Scaled/White-Queen.png);
+}
+body.is3d.Wax .king.white {
+  background-image: url(../staunton/Renders/Wax/Scaled/White-King.png);
+}
+body.is3d.Wax .pawn.black {
+  background-image: url(../staunton/Renders/Wax/Scaled/Black-Pawn.png);
+}
+body.is3d.Wax .bishop.black {
+  background-image: url(../staunton/Renders/Wax/Scaled/Black-Bishop.png);
+}
+body.is3d.Wax .orientation-white .bishop.black {
+  background-image: url(../staunton/Renders/Wax/Scaled/Black-Bishop-Flipped.png);
+}
+body.is3d.Wax .knight.black {
+  background-image: url(../staunton/Renders/Wax/Scaled/Black-Knight.png);
+}
+body.is3d.Wax .orientation-white .knight.black {
+  background-image: url(../staunton/Renders/Wax/Scaled/Black-Knight-Flipped.png);
+}
+body.is3d.Wax .rook.black {
+  background-image: url(../staunton/Renders/Wax/Scaled/Black-Rook.png);
+}
+body.is3d.Wax .queen.black {
+  background-image: url(../staunton/Renders/Wax/Scaled/Black-Queen.png);
+}
+body.is3d.Wax .king.black {
+  background-image: url(../staunton/Renders/Wax/Scaled/Black-King.png);
+}
+body.is3d.RedVBlue .pawn.white {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Pawn.png);
+}
+body.is3d.RedVBlue .bishop.white {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Bishop.png);
+}
+body.is3d.RedVBlue .orientation-black .bishop.white {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Bishop-Flipped.png);
+}
+body.is3d.RedVBlue .knight.white,
+#top .is3d .cg-piece.RedVBlue {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Knight.png);
+}
+body.is3d.RedVBlue .orientation-black .knight.white {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Knight-Flipped.png);
+}
+body.is3d.RedVBlue .rook.white {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Rook.png);
+}
+body.is3d.RedVBlue .queen.white {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Queen.png);
+}
+body.is3d.RedVBlue .king.white {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/White-King.png);
+}
+body.is3d.RedVBlue .pawn.black {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Pawn.png);
+}
+body.is3d.RedVBlue .bishop.black {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Bishop.png);
+}
+body.is3d.RedVBlue .orientation-white .bishop.black {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Bishop-Flipped.png);
+}
+body.is3d.RedVBlue .knight.black {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Knight.png);
+}
+body.is3d.RedVBlue .orientation-white .knight.black {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Knight-Flipped.png);
+}
+body.is3d.RedVBlue .rook.black {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Rook.png);
+}
+body.is3d.RedVBlue .queen.black {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Queen.png);
+}
+body.is3d.RedVBlue .king.black {
+  background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-King.png);
+}
 div.lichess_overboard {
   position: absolute;
   z-index: 199;
