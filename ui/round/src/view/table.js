@@ -8,27 +8,26 @@ var partial = chessground.util.partial;
 var renderClock = require('../clock/view');
 var renderStatus = require('./status');
 
-function renderOpponent(ctrl) {
-  var op = ctrl.data.opponent;
-  return op.ai ? m('div.username.connected.statused', [
-    ctrl.trans('aiNameLevelAiLevel', 'Stockfish', op.ai),
+function renderPlayer(ctrl, player) {
+  return player.ai ? m('div.username.connected.statused', [
+    ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai),
     m('span.status')
   ]) : m('div', {
-      class: 'username ' + op.color + ' ' + classSet({
-        'statused': op.statused,
-        'connected': op.connected,
-        'offline': !op.connected
+      class: 'username ' + player.color + ' ' + classSet({
+        'statused': player.statused,
+        'connected': player.connected,
+        'offline': !player.connected
       })
     },
-    op.user ? [
+    player.user ? [
       m('a', {
         class: 'user_link ulpt',
-        href: ctrl.router.User.show(op.user.username).url,
+        href: ctrl.router.User.show(player.user.username).url,
         target: round.playable(ctrl.data) ? '_blank' : null,
         'data-icon': 'r',
       }, [
-        (op.user.title ? op.user.title + ' ' : '') + op.user.username,
-        op.engine ? m('span[data-icon=j]', {
+        (player.user.title ? player.user.title + ' ' : '') + player.user.username,
+        player.engine ? m('span[data-icon=j]', {
           title: ctrl.trans('thisPlayerUsesChessComputerAssistance')
         }) : null
       ]),
@@ -42,7 +41,7 @@ function renderOpponent(ctrl) {
 
 function renderResult(ctrl) {
   var winner = round.getPlayer(ctrl.data, ctrl.data.game.winner);
-  return winner ? m('div.lichess_player.' + winner.color, [
+  return winner ? m('div.player.' + winner.color, [
       m('div.no-square', m('div.cg-piece.king.' + winner.color)),
       m('p', [
         renderStatus(ctrl),
@@ -50,11 +49,11 @@ function renderResult(ctrl) {
         ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious')
       ])
     ]) :
-    m('div.lichess_player', m('p', renderStatus(ctrl)));
+    m('div.player', m('p', renderStatus(ctrl)));
 }
 
 function renderRematchButton(ctrl) {
-  return m('a.lichess_rematch.offer.button.hint--bottom', {
+  return m('a.rematch.offer.button.hint--bottom', {
     'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
     onclick: partial(ctrl.socket.send, 'rematch-yes', null)
   }, ctrl.trans('rematch'));
@@ -63,22 +62,22 @@ function renderRematchButton(ctrl) {
 function renderTableEnd(ctrl) {
   var d = ctrl.data;
   return [
-    m('div.lichess_current_player', renderResult(ctrl)),
-    m('div.lichess_control.buttons', [
+    m('div.current_player', renderResult(ctrl)),
+    m('div.control.buttons', [
       d.game.pool ? [
         m('a.button[data-icon=,]', {
-          href: router.Pool.show(d.game.pool.id),
+          href: router.Pool.show(d.game.pool.id).url,
         }, 'Return to pool'),
         m('form[method=post]', {
-          action: router.Pool.leave(d.game.pool.id)
+          action: router.Pool.leave(d.game.pool.id).url
         }, m('button.button[type=submit]', 'Leave the pool'))
-      ] : (d.game.tournament ? m('a.button' + (d.game.tournament.running ? '.strong' : '') + '[data-icon=G]', {
-        href: ctrl.router.Tournament.show(d.game.tournament.id)
+      ] : (d.tournament ? m('a.button' + (d.tournament.running ? '.strong' : '') + '[data-icon=G]', {
+        href: ctrl.router.Tournament.show(d.tournament.id).url
       }, ctrl.trans('backToTournament')) : (d.opponent.ai ? renderRematchButton(ctrl) : [
-        m('div.lichess_separator'),
+        m('div.separator'),
         d.opponent.isOfferingRematch ? m('div.lichess_play_again_join.rematch_alert', [
           ctrl.trans('yourOpponentWantsToPlayANewGameWithYou'),
-          m('a.glowing.button.lichess_play_again.lichess_rematch.hint--bottom', {
+          m('a.glowing.button.lichess_play_again.rematch.hint--bottom', {
             'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
             onclick: partial(ctrl.socket.send, 'rematch-yes', null),
           }, ctrl.trans('joinTheGame')),
@@ -90,7 +89,7 @@ function renderTableEnd(ctrl) {
           m('br'),
           ctrl.trans('waitingForOpponent'),
           m('br'), m('br'),
-          m('a.lichess_rematch_cancel', {
+          m('a.rematch_cancel', {
             onclick: partial(ctrl.socket.send, 'rematch-no', null),
           }, ctrl.trans('cancelRematchOffer'))
         ]) : renderRematchButton(ctrl))
@@ -110,16 +109,37 @@ function renderButton(ctrl, condition, icon, hint, socketMsg) {
   }, m('span[data-icon=' + icon + ']')) : null;
 }
 
+function renderTableWatch(ctrl) {
+  var d = ctrl.data;
+  return [
+    m('div.current_player', (status.finished(d) || status.aborted(d)) ? renderResult(ctrl) : (
+      m('div.player', [
+        m('div.no-square', m('div.cg-piece.king.' + d.game.player)),
+        m('p', ctrl.trans(d.game.player == 'white' ? 'whitePlays' : 'blackPlays'))
+      ]))),
+    m('div.separator'),
+    renderPlayer(ctrl, d.player),
+    m('div.control.buttons', [
+      d.game.rematch ? m('a.button[data-icon=v]', {
+        href: ctrl.router.Round.watcher(d.game.rematch, d.opponent.color).url
+      }, ctrl.trans('viewRematch')) : null,
+      d.tournament ? m('a.button', {
+        href: ctrl.Tournament.show(d.tournament.id)
+      }, ctrl.trans('viewTournament')) : null
+    ])
+  ];
+}
+
 function renderTablePlay(ctrl) {
   var d = ctrl.data;
   return [
-    m('div.lichess_current_player',
-      m('div.lichess_player', [
+    m('div.current_player',
+      m('div.player', [
         m('div.no-square', m('div.cg-piece.king.' + d.game.player)),
         m('p', ctrl.trans(d.game.player == d.player.color ? 'yourTurn' : 'waiting'))
       ])
     ),
-    m('div.lichess_control.icons', [
+    m('div.control.icons', [
       renderButton(ctrl, round.abortable, 'L', 'abortGame', 'abort'),
       renderButton(ctrl, round.takebackable, 'i', 'proposeATakeback', 'takeback-yes'),
       renderButton(ctrl, round.drawable, '2', 'offerDraw', 'draw-yes'),
@@ -128,7 +148,7 @@ function renderTablePlay(ctrl) {
     d.game.threefold ? m('div#claim_draw_zone', [
       ctrl.trans('threefoldRepetition'),
       m.trust('&nbsp;'),
-      m('a.lichess_claim_draw.button', {
+      m('a.button', {
         onclick: partial(ctrl.socket.send, 'draw-claim', null)
       }, ctrl.trans('claimADraw'))
     ]) : (
@@ -174,18 +194,20 @@ function renderTablePlay(ctrl) {
 
 module.exports = function(ctrl) {
   var clockRunningColor = ctrl.isClockRunning() ? ctrl.data.game.player : null;
-  return m('div.lichess_table_wrap', [
+  return m('div.table_wrap', [
     (ctrl.clock && !ctrl.data.blindMode) ? renderClock(ctrl.clock, opposite(ctrl.data.player.color), "top", clockRunningColor) : null,
     m('div', {
-      class: 'lichess_table onbg ' + classSet({
+      class: 'table onbg ' + classSet({
         'table_with_clock': ctrl.clock,
         'finished': status.finished(ctrl.data)
       })
     }, [
-      m('div.lichess_opponent', renderOpponent(ctrl)),
-      m('div.lichess_separator'),
+      renderPlayer(ctrl, ctrl.data.opponent),
+      m('div.separator'),
       m('div.table_inner',
-        round.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
+        ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
+          round.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
+        )
       )
     ]), (ctrl.clock && !ctrl.data.blindMode) ? renderClock(ctrl.clock, ctrl.data.player.color, "bottom", clockRunningColor) : null,
   ])

@@ -1,6 +1,7 @@
 #board_editor {
   position: relative;
   min-height: 600px;
+  padding-top: 5px;
 }
 #board_editor .cg-square.last-move {
   background-color: transparent;
@@ -16,12 +17,6 @@
   height: 64px;
   padding-left: 64px;
 }
-/* body.is3d #board_editor .spare.top { */
-/*   margin-bottom: 20px; */
-/* } */
-/* body.is3d #board_editor .spare.bottom { */
-/*   margin-top: 20px; */
-/* } */
 #board_editor .spare .no-square {
   position: relative;
   display:inline-block;

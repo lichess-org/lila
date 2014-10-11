@@ -200,7 +200,8 @@ lichess.StrongSocket.prototype = {
       case false:
         break;
       case 'resync':
-        if (!self.options.prodPipe) lichess.reload();
+        console.log('resync');
+        // if (!self.options.prodPipe) lichess.reload();
         break;
       case 'ack':
         self.ackableMessages = [];

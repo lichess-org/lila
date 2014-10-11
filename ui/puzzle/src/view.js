@@ -136,16 +136,16 @@ function renderSide(ctrl) {
 }
 
 function renderPlayTable(ctrl) {
-  return m('div.lichess_table.onbg',
+  return m('div.table.onbg',
     m('div.table_inner', [
-      m('div.lichess_current_player',
-        m('div.lichess_player.' + ctrl.chessground.data.turnColor, [
+      m('div.current_player',
+        m('div.player.' + ctrl.chessground.data.turnColor, [
           m('div.no-square', m('div.cg-piece.king.' + ctrl.chessground.data.turnColor)),
           m('p', ctrl.trans(ctrl.chessground.data.turnColor == ctrl.data.puzzle.color ? 'yourTurn' : 'waiting'))
         ])
       ),
       m('p.findit', ctrl.trans(ctrl.data.puzzle.color == 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')),
-      m('div.lichess_control',
+      m('div.control',
         m('a.button', {
           onclick: partial(xhr.attempt, ctrl, 0)
         }, ctrl.trans('giveUp'))

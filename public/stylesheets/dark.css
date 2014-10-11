@@ -43,9 +43,9 @@ body.dark .ui-state-default,
 body.dark .ui-widget-content,
 body.dark div.side_box,
 body.dark div.side_box .top,
-body.dark div.lichess_table,
-body.dark div.lichess_separator,
-body.dark div.lichess_table_wrap > div.clock > div.time,
+body.dark div.table,
+body.dark div.separator,
+body.dark div.table_wrap > div.clock > div.time,
 body.dark #GameText,
 body.dark #tournament_side,
 body.dark #pool div.pairings,
@@ -177,14 +177,14 @@ body.dark #promotion_choice {
 body.dark #GameText,
 body.dark #chat .messages,
 body.dark div.side_box,
-body.dark div.lichess_table,
-body.dark div.lichess_table_wrap > div.clock > div.time,
+body.dark div.table,
+body.dark div.table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
 body.dark #footer_wrap,
 body.dark div.undertable_inner,
 body.dark #tv_history div.content,
-body.dark div.lichess_table .loader:before,
-body.dark div.lichess_table .loader:after {
+body.dark div.table .loader:before,
+body.dark div.table .loader:after {
   background-color: #262626;
 }
 body.dark #hooks_list table td {
@@ -210,7 +210,7 @@ body.dark #hooks_wrap > div.tabs > a:hover,
 body.dark #hooks_wrap > div.tabs > a.active {
   background-color: #303030;
 }
-body.dark div.lichess_table_not_started {
+body.dark div.table_not_started {
   box-shadow: none;
   background: none;
 }
@@ -285,12 +285,12 @@ body.dark .player.color.white {
 body.dark .player.color.black {
   background-image: url(../piece/cburnett/invert/wK-full.svg);
 }
-body.dark div.lichess_table_wrap > div.clock.running > div.time {
+body.dark div.table_wrap > div.clock.running > div.time {
   background: #505a60;
   color: #fff;
 }
-body.dark div.lichess_table_wrap > div.clock.running.emerg > div.time,
-body.dark div.lichess_table_wrap > div.clock.outoftime > div.time {
+body.dark div.table_wrap > div.clock.running.emerg > div.time,
+body.dark div.table_wrap > div.clock.outoftime > div.time {
   background-color: #a00000;
   color: #d0d0d0;
 }

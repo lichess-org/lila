@@ -24,6 +24,9 @@ body.is3d .cg-512 .cg-board-wrap {
   background-size: cover;
   cursor: pointer;
 }
+.cg-board-wrap.view-only .cg-board {
+  cursor: auto;
+}
 body.is3d .cg-board {
   top: 0.6168702%;
   height: 97.0229%;

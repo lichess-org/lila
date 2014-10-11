@@ -113,18 +113,18 @@ final class JsonView(
   def watcherJson(
     pov: Pov,
     pref: Pref,
-    version: Int,
+    apiVersion: Int,
     user: Option[User],
     tv: Boolean) =
-    getWatcherChat(pov.game, user) zip
+    getVersion(pov.game.id) zip
+      getWatcherChat(pov.game, user) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
-        case (chat, (playerUser, opponentUser)) =>
+        case ((version, chat), (playerUser, opponentUser)) =>
           import pov._
           Json.obj(
             "game" -> Json.obj(
               "id" -> gameId,
               "variant" -> variantJson(game.variant),
-              "variant" -> game.variant.key,
               "speed" -> game.speed.key,
               "perf" -> PerfPicker.key(game),
               "rated" -> game.rated,
@@ -136,6 +136,7 @@ final class JsonView(
               "startedAtTurn" -> game.startedAtTurn,
               "lastMove" -> game.castleLastMoveTime.lastMoveString,
               "check" -> game.check.map(_.key),
+              "rematch" -> game.next,
               "status" -> Json.obj(
                 "id" -> pov.game.status.id,
                 "name" -> pov.game.status.name)),
@@ -144,6 +145,7 @@ final class JsonView(
               "color" -> color.name,
               "version" -> version,
               "spectator" -> true,
+              "ai" -> opponent.aiLevel,
               "user" -> playerUser.map { userJsonView(_, true) }),
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,
