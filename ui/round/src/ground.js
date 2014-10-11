@@ -36,6 +36,7 @@ function make(data, fen, userMove) {
   config.movable.events = {
     after: userMove
   };
+  config.viewOnly = data.player.spectator;
   return new chessground.controller(config);
 }
 

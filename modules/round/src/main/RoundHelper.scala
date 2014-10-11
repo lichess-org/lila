@@ -11,7 +11,4 @@ trait RoundHelper {
   def hijackEnabled(game: Game) = game.rated && roundEnv.HijackEnabled
 
   def moretimeSeconds = roundEnv.moretimeSeconds
-
-  def roundWatcherJsData(pov: Pov, version: Int, tv: Boolean, pref: Pref) =
-    roundEnv.jsonView.watcherJson(pov, version, tv, pref)
 }

@@ -11,7 +11,7 @@ import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
 import chess.format.Forsyth
-import chess.{ Color, Clock }
+import chess.{ Color, Clock, Variant }
 
 final class JsonView(
     chatApi: lila.chat.ChatApi,
@@ -19,6 +19,12 @@ final class JsonView(
     getVersion: String => Fu[Int],
     canTakeback: Game => Fu[Boolean],
     baseAnimationDuration: Duration) {
+
+  private def variantJson(v: Variant) = Json.obj(
+    "key" -> v.key,
+    "name" -> v.name,
+    "short" -> v.shortName,
+    "title" -> v.title)
 
   def playerJson(
     pov: Pov,
@@ -28,17 +34,13 @@ final class JsonView(
     getVersion(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) zip
-      getChat(pov.game, playerUser) map {
+      getPlayerChat(pov.game, playerUser) map {
         case (((version, opponentUser), takebackable), chat) =>
           import pov._
           Json.obj(
             "game" -> Json.obj(
               "id" -> gameId,
-              "variant" -> Json.obj(
-                "key" -> game.variant.key,
-                "name" -> game.variant.name,
-                "short" -> game.variant.shortName,
-                "title" -> game.variant.title),
+              "variant" -> variantJson(game.variant),
               "speed" -> game.speed.key,
               "perf" -> PerfPicker.key(game),
               "rated" -> game.rated,
@@ -108,49 +110,76 @@ final class JsonView(
             "takebackable" -> takebackable)
       }
 
-  def watcherJson(pov: Pov, version: Int, tv: Boolean, pref: Pref) = {
-    import pov._
-    Json.obj(
-      "game" -> Json.obj(
-        "id" -> gameId,
-        "variant" -> game.variant.key,
-        "speed" -> game.speed.key,
-        "perf" -> PerfPicker.key(game),
-        "rated" -> game.rated,
-        "started" -> game.started,
-        "finished" -> game.finishedOrAborted,
-        "clock" -> game.hasClock,
-        "clockRunning" -> game.isClockRunning,
-        "player" -> game.turnColor.name,
-        "turns" -> game.turns,
-        "startedAtTurn" -> game.startedAtTurn,
-        "lastMove" -> game.castleLastMoveTime.lastMoveString),
-      "clock" -> game.clock.map(clockJson),
-      "player" -> Json.obj(
-        "color" -> color.name,
-        "version" -> version,
-        "spectator" -> true),
-      "opponent" -> Json.obj(
-        "color" -> opponent.color.name,
-        "ai" -> opponent.aiLevel),
-      "url" -> Json.obj(
-        "socket" -> s"/$gameId/${color.name}/socket",
-        "end" -> s"/$gameId/${color.name}/end",
-        "table" -> s"/$gameId/${color.name}/table"
-      ),
-      "pref" -> Json.obj(
-        "animationDelay" -> animationDuration(pov, pref),
-        "clockTenths" -> pref.clockTenths,
-        "clockBar" -> pref.clockBar
-      ),
-      "possibleMoves" -> possibleMoves(pov),
-      "tv" -> tv
-    )
-  }
+  def watcherJson(
+    pov: Pov,
+    pref: Pref,
+    version: Int,
+    user: Option[User],
+    tv: Boolean) =
+    getWatcherChat(pov.game, user) zip
+      UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
+        case (chat, (playerUser, opponentUser)) =>
+          import pov._
+          Json.obj(
+            "game" -> Json.obj(
+              "id" -> gameId,
+              "variant" -> variantJson(game.variant),
+              "variant" -> game.variant.key,
+              "speed" -> game.speed.key,
+              "perf" -> PerfPicker.key(game),
+              "rated" -> game.rated,
+              "fen" -> (Forsyth >> game.toChess),
+              "clock" -> game.hasClock,
+              "clockRunning" -> game.isClockRunning,
+              "player" -> game.turnColor.name,
+              "turns" -> game.turns,
+              "startedAtTurn" -> game.startedAtTurn,
+              "lastMove" -> game.castleLastMoveTime.lastMoveString,
+              "check" -> game.check.map(_.key),
+              "status" -> Json.obj(
+                "id" -> pov.game.status.id,
+                "name" -> pov.game.status.name)),
+            "clock" -> game.clock.map(clockJson),
+            "player" -> Json.obj(
+              "color" -> color.name,
+              "version" -> version,
+              "spectator" -> true,
+              "user" -> playerUser.map { userJsonView(_, true) }),
+            "opponent" -> Json.obj(
+              "color" -> opponent.color.name,
+              "ai" -> opponent.aiLevel,
+              "user" -> opponentUser.map { userJsonView(_, true) }),
+            "url" -> Json.obj(
+              "socket" -> s"/$gameId/${color.name}/socket",
+              "round" -> s"/$gameId/${color.name}"
+            ),
+            "pref" -> Json.obj(
+              "animationDelay" -> animationDuration(pov, pref),
+              "highlight" -> pref.highlight,
+              "clockTenths" -> pref.clockTenths,
+              "clockBar" -> pref.clockBar,
+              "showCaptured" -> pref.captured
+            ),
+            "tv" -> tv,
+            "chat" -> chat.map { c =>
+              JsArray(c.lines map {
+                case lila.chat.UserLine(username, text, _) => Json.obj(
+                  "u" -> username,
+                  "t" -> text)
+              })
+            }
+          )
+      }
 
-  private def getChat(game: Game, forUser: Option[User]) = game.hasChat optionFu {
-    chatApi.playerChat find game.id map (_ forUser forUser)
-  }
+  private def getPlayerChat(game: Game, forUser: Option[User]): Fu[Option[lila.chat.MixedChat]] =
+    game.hasChat optionFu {
+      chatApi.playerChat find game.id map (_ forUser forUser)
+    }
+
+  private def getWatcherChat(game: Game, forUser: Option[User]): Fu[Option[lila.chat.UserChat]] =
+    forUser ?? { user =>
+      chatApi.userChat find s"${game.id}/w" map (_ forUser user.some) map (_.some)
+    }
 
   private def getUsers(game: Game) = UserRepo.pair(
     game.whitePlayer.userId,

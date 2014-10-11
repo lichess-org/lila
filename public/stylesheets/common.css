@@ -1117,6 +1117,7 @@ body.is3d #themepicker div.color_demo {
 #themepicker .is3d .no-square {
   width: 72px;
   height: 72px;
+  margin: 0px -3px -3px -3px;
 }
 #themepicker .is3d .cg-piece {
   width: 100%;

@@ -1,12 +1,12 @@
 $(function() {
-  if (!window.EventSource) {
-    return;
-  }
   var $featured = $('#featured_game');
   var board = function() {
     return $featured.find('> .mini_board');
   };
   parseFen(board());
+  if (!window.EventSource) {
+    return;
+  }
   var source = new EventSource($('body').data('stream-url'));
   source.addEventListener('message', function(e) {
     var data = JSON.parse(e.data);

@@ -1,0 +1,10 @@
+@()(implicit ctx: Context)
+@helper.javascriptRouter("roundRoutes")(
+routes.javascript.Lobby.home,
+routes.javascript.Auth.signup,
+routes.javascript.User.show,
+routes.javascript.Tournament.show,
+routes.javascript.Pool.show,
+routes.javascript.Pool.leave,
+routes.javascript.Round.watcher
+)(ctx.req)

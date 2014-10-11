@@ -22,7 +22,6 @@ function renderMaterial(ctrl, material) {
 
 module.exports = function(ctrl) {
   var material = ctrl.data.pref.showCaptured ? chessground.board.getMaterialDiff(ctrl.chessground.data) : false;
-  console.log('render');
   return m('div.lichess_game.cg-512', {
     config: function(el, isUpdate, context) {
       if (isUpdate) return;
@@ -33,7 +32,11 @@ module.exports = function(ctrl) {
     m('div.lichess_board_wrap', ctrl.data.blindMode ? null : [
       m('div.lichess_board.' + ctrl.data.game.variant.key, chessground.view(ctrl.chessground)),
       ctrl.chessground.data.premovable.current ? m('div#premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
-      renderPromotion(ctrl)
+      renderPromotion(ctrl),
+      ctrl.data.player.spectator ? m('div.underboard',
+        m('a.button[data-icon=B]', {
+          href: ctrl.router.Round.watcher(ctrl.data.game.id, chessground.util.opposite(ctrl.data.player.color))
+        }, ctrl.trans('flipBoard'))) : null
     ]),
     m('div.lichess_ground',
       material ? renderMaterial(ctrl, material[ctrl.data.opponent.color]) : null,

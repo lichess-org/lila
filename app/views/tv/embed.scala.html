@@ -7,12 +7,13 @@
     @if(bg == "dark") {
     @cssTag("dark.css")
     }
+    @cssTag("chessground.css")
     @cssTag("common.css")
     @cssTag("board.css")
     <meta charset="utf-8">
   </head>
   <body
-    class="highlight embed-tv @bg @theme merida"
+    class="is2d highlight embed-tv @bg @theme merida"
     style="width: 226px; height: 266px; overflow: hidden;"
     data-stream-url="@routes.Tv.streamOut">
     <div id="featured_game" title="lichess.org TV">
@@ -20,6 +21,7 @@
       @game.vstext(g)
     </div>
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    @jsTag("vendor/chessground.min.js")
     @jsTagCompiled("common.js")
     @jsTagCompiled("tv.js")
     @base.ga()

@@ -1,21 +1,39 @@
-@(pov: Pov, version: Int, chat: Option[lila.chat.UserChat], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], userTv: Option[User] = None)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], userTv: Option[User] = None)(implicit ctx: Context)
 
 @import pov._
 
 @title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in $gameId" }
 
+@moreJs = {
+@*
+@jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
+*@
+@jsAt(s"compiled/lichess.round.js")
+@jsRoutes()
+@embedJs {
+lichess = lichess || {};
+lichess.round = {
+data: @Html(play.api.libs.json.Json.stringify(data)),
+routes: roundRoutes.controllers,
+i18n: @jsI18n()
+};
+}
+}
+
 @round.layout(
 title = title,
 side = views.html.game.side(pov, tour, withTourStanding = false, userTv = userTv),
-chat = chat.map(c => base.chat(c, trans.spectatorRoom.str())),
+chat = none, //chat.map(c => base.chat(c, trans.spectatorRoom.str())),
 underchat = views.html.game.watchers().some,
+moreJs = moreJs,
 openGraph = povOpenGraph(pov)) {
-@watcherGame(pov)
+@*
 @embedJs("var _ld_ = " + roundWatcherJsData(pov, version, false, ctx.pref))
 <div class="underboard during_game">
   <a class="button" data-icon="B" href="@routes.Round.watcher(gameId, (!color).name)"> @trans.flipBoard()</a>
 </div>
 @replayButton(pov)
+*@
 <div id="playing_crosstable">
   @cross.map { c =>
   @views.html.game.crosstable(c)

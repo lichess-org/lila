@@ -23,4 +23,18 @@ private[api] final class RoundApi(jsonView: JsonView) {
           )
         }
       }
+
+  def watcher(pov: Pov, apiVersion: Int, tv: Boolean)(implicit ctx: Context): Fu[JsObject] =
+    jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv) zip
+      (pov.game.tournamentId ?? TournamentRepo.byId) map {
+        case (json, tourOption) => tourOption.fold(json) { tour =>
+          json + (
+            "tournament" -> Json.obj(
+              "id" -> tour.id,
+              "name" -> tour.name,
+              "running" -> tour.isRunning
+            )
+          )
+        }
+      }
 }
