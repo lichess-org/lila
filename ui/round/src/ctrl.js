@@ -46,7 +46,8 @@ module.exports = function(cfg, router, i18n, socketSend) {
   ) : false;
 
   this.isClockRunning = function() {
-    return round.playable(this.data) && ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.game.clockRunning);
+    return this.data.clock && round.playable(this.data) && 
+      ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
   }.bind(this);
 
   this.clockTick = function() {

@@ -18,7 +18,8 @@ final class JsonView(
     userJsonView: lila.user.JsonView,
     getVersion: String => Fu[Int],
     canTakeback: Game => Fu[Boolean],
-    baseAnimationDuration: Duration) {
+    baseAnimationDuration: Duration,
+    moretimeSeconds: Int) {
 
   private def variantJson(v: Variant) = Json.obj(
     "key" -> v.key,
@@ -46,8 +47,6 @@ final class JsonView(
               "rated" -> game.rated,
               "fen" -> (Forsyth >> game.toChess),
               "moves" -> game.pgnMoves.mkString(" "),
-              "clock" -> game.hasClock,
-              "clockRunning" -> game.isClockRunning,
               "player" -> game.turnColor.name,
               "winner" -> game.winnerColor.map(_.name),
               "turns" -> game.turns,
@@ -129,8 +128,6 @@ final class JsonView(
               "perf" -> PerfPicker.key(game),
               "rated" -> game.rated,
               "fen" -> (Forsyth >> game.toChess),
-              "clock" -> game.hasClock,
-              "clockRunning" -> game.isClockRunning,
               "player" -> game.turnColor.name,
               "turns" -> game.turns,
               "startedAtTurn" -> game.startedAtTurn,
@@ -145,7 +142,7 @@ final class JsonView(
               "color" -> color.name,
               "version" -> version,
               "spectator" -> true,
-              "ai" -> opponent.aiLevel,
+              "ai" -> player.aiLevel,
               "user" -> playerUser.map { userJsonView(_, true) }),
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,
@@ -188,11 +185,13 @@ final class JsonView(
     game.blackPlayer.userId)
 
   private def clockJson(clock: Clock) = Json.obj(
+    "running" -> clock.isRunning,
     "initial" -> clock.limit,
     "increment" -> clock.increment,
     "white" -> clock.remainingTime(Color.White),
     "black" -> clock.remainingTime(Color.Black),
-    "emerg" -> clock.emergTime
+    "emerg" -> clock.emergTime,
+    "moretime" -> moretimeSeconds
   )
 
   private def possibleMoves(pov: Pov) = (pov.game playableBy pov.player) option {

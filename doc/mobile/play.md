@@ -15,8 +15,6 @@ Response: `200 OK`
     "speed": "blitz", // bullet|blitz|classical|unlimited
     "perf": "chess960", // bullet|blitz|classical|chess960|kingOfTheHill|threeCheck
     "rated": true,
-    "clock": false,
-    "clockRunning": false,
     "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
     "finished": false,
     "lastMove": null,
@@ -27,6 +25,7 @@ Response: `200 OK`
     "turns": 5
   },
   "clock": {
+    "running": true,
     // all durations are expressed in seconds
     "initial": 300,           // initial time of the clock, here 5 minutes
     "increment": 8,           // fisher increment

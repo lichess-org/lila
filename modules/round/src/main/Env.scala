@@ -154,14 +154,13 @@ final class Env(
   private lazy val reminder = new Reminder(db(CollectionReminder))
   def nowPlaying = reminder.nowPlaying
 
-  private[round] def moretimeSeconds = Moretime.toSeconds
-
   lazy val jsonView = new JsonView(
     chatApi = chatApi,
     userJsonView = userJsonView,
     getVersion = version,
     canTakeback = takebacker.isAllowedByPrefs,
-    baseAnimationDuration = AnimationDuration)
+    baseAnimationDuration = AnimationDuration,
+    moretimeSeconds = Moretime.toSeconds.toInt)
 
   {
     import scala.concurrent.duration._

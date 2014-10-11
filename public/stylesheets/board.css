@@ -31,16 +31,6 @@ span.board_mark.horz {
 div.lichess_board {
   position: relative;
 }
-div.lichess_board,
-#GameBoard,
-.mini_board {
-  background-size: contain;
-}
-div.lcs {
-  position: absolute;
-  width: 64px;
-  height: 64px;
-}
 body.is2d.blue div.lichess_board,
 body.is2d.blue #GameBoard,
 body.is2d.blue .mini_board,
@@ -863,6 +853,9 @@ div.lichess_overboard p.explanations {
 }
 div.premove_alert,
 div.dont_touch {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 512px;
   text-align: center;
   padding: 5px 0;
@@ -929,6 +922,7 @@ div.lichess_join_url span {
 }
 div.table_wrap {
   width: 242px;
+  position: relative;
 }
 div.table {
   border: 1px solid #ccc;
@@ -1036,8 +1030,8 @@ div.table_wrap a.moretime {
   position: absolute;
   text-decoration: none;
   font-size: 20px;
-  right: 0px;
-  top: 3px;
+  right: 0;
+  top: 0;
 }
 div.table_wrap a.moretime:hover {
   opacity: 1;
@@ -1311,8 +1305,8 @@ span.inline_userlist a:hover {
   text-decoration: underline;
 }
 div.underboard {
+  position: relative;
   width: 512px;
-  margin: 20px 0;
   text-align: center;
 }
 div.underboard a {

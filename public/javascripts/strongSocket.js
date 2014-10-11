@@ -207,12 +207,11 @@ lichess.StrongSocket.prototype = {
         self.ackableMessages = [];
         break;
       default:
-        if (!self.settings.receive || !self.settings.receive(m.t, m.d)) {
-          var h = self.settings.events[m.t];
-          if ($.isFunction(h)) h(m.d || null);
-          else if (!self.options.ignoreUnknownMessages) {
-            self.debug('Message not supported ' + JSON.stringify(m));
-          }
+        if (self.settings.receive) self.settings.receive(m.t, m.d);
+        var h = self.settings.events[m.t];
+        if ($.isFunction(h)) h(m.d || null);
+        else if (!self.options.ignoreUnknownMessages) {
+          self.debug('Message not supported ' + JSON.stringify(m));
         }
     }
   },

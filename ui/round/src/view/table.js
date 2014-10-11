@@ -197,10 +197,7 @@ module.exports = function(ctrl) {
   return m('div.table_wrap', [
     (ctrl.clock && !ctrl.data.blindMode) ? renderClock(ctrl.clock, opposite(ctrl.data.player.color), "top", clockRunningColor) : null,
     m('div', {
-      class: 'table onbg ' + classSet({
-        'table_with_clock': ctrl.clock,
-        'finished': status.finished(ctrl.data)
-      })
+      class: 'table onbg' + (status.finished(ctrl.data) ? 'finished' : '')
     }, [
       renderPlayer(ctrl, ctrl.data.opponent),
       m('div.separator'),
@@ -209,6 +206,12 @@ module.exports = function(ctrl) {
           round.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
         )
       )
-    ]), (ctrl.clock && !ctrl.data.blindMode) ? renderClock(ctrl.clock, ctrl.data.player.color, "bottom", clockRunningColor) : null,
+    ]), (ctrl.clock && !ctrl.data.blindMode) ? [
+      renderClock(ctrl.clock, ctrl.data.player.color, "bottom", clockRunningColor),
+      round.moretimeable(ctrl.data) ? m('a.moretime.hint--bottom-left', {
+        'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime),
+        onclick: partial(ctrl.socket.send, 'moretime', null)
+      }, m('span[data-icon=O]')) : null
+    ] : null
   ])
 }

@@ -187,6 +187,7 @@ div.lobby_and_ground {
   margin-left: 3px;
 }
 #hooks_list div.table_wrap {
+  width: 512px;
   max-height: 512px;
   overflow: hidden;
 }

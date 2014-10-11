@@ -26,7 +26,6 @@ object Environment
     with PaginatorHelper
     with FormHelper
     with SetupHelper
-    with lila.round.RoundHelper
     with AiHelper
     with GameHelper
     with UserHelper

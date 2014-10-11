@@ -21,7 +21,9 @@ function renderMaterial(ctrl, material) {
 }
 
 var dontTouch = m.prop(false);
-var toggleDontTouch = function() { dontTouch(!dontTouch()); };
+var toggleDontTouch = function() {
+  dontTouch(!dontTouch());
+};
 
 module.exports = function(ctrl) {
   var material = ctrl.data.pref.showCaptured ? chessground.board.getMaterialDiff(ctrl.chessground.data) : false;
@@ -45,13 +47,16 @@ module.exports = function(ctrl) {
           renderTable(ctrl),
           material ? renderMaterial(ctrl, material[ctrl.data.player.color]) : null)
       ])
-    ]), ctrl.chessground.data.premovable.current ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
-    dontTouch() ? m('div.dont_touch', {
-      onclick: toggleDontTouch
-    }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null,
-    ctrl.data.player.spectator ? m('div.underboard',
-      m('a.button[data-icon=B]', {
-        href: ctrl.router.Round.watcher(ctrl.data.game.id, chessground.util.opposite(ctrl.data.player.color)).url
-      }, ctrl.trans('flipBoard'))) : null
+    ]),
+    m('div.underboard', [
+      ctrl.chessground.data.premovable.current ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
+      dontTouch() ? m('div.dont_touch', {
+        onclick: toggleDontTouch
+      }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null,
+      ctrl.data.player.spectator ? m('div.underboard',
+        m('a.button[data-icon=B]', {
+          href: ctrl.router.Round.watcher(ctrl.data.game.id, chessground.util.opposite(ctrl.data.player.color)).url
+        }, ctrl.trans('flipBoard'))) : null
+    ])
   ];
 };

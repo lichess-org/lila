@@ -35,6 +35,10 @@ function resignable(data) {
   return playable(data) && !abortable(data);
 }
 
+function moretimeable(data) {
+  return data.clock && playable(data) && !mandatory(data);
+}
+
 function getPlayer(data, color) {
   if (data.player.color == color) return data.player;
   if (data.opponent.color == color) return data.opponent;
@@ -52,6 +56,7 @@ module.exports = {
   takebackable: takebackable,
   drawable: drawable,
   resignable: resignable,
+  moretimeable: moretimeable,
   mandatory: mandatory,
   getPlayer: getPlayer,
   parsePossibleMoves: parsePossibleMoves

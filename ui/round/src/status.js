@@ -27,7 +27,6 @@ function aborted(data) {
   return data.game.status.id == ids.aborted;
 }
 
-
 module.exports = {
   ids: ids,
   started: started,

@@ -697,6 +697,9 @@ var storage = {
 
     _init: function() {
       var cfg = this.options;
+      $('#chat').chat({
+        messages: cfg.data.chat
+      });
       lichess.socket = new lichess.StrongSocket(
         cfg.data.url.socket,
         cfg.data.player.version,
@@ -708,7 +711,9 @@ var storage = {
             ran: "--ranph--",
             userTv: $('.user_tv').data('user-tv')
           },
-          receive: function(t, d) { round.socketReceive(t, d); }
+          receive: function(t, d) { round.socketReceive(t, d); },
+          events: {
+          }
         });
       var round = LichessRound(this.element[0], cfg.data, cfg.routes, cfg.i18n, lichess.socket.send.bind(lichess.socket));
     },
