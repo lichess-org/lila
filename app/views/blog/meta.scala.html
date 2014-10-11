@@ -1,7 +1,7 @@
 @(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context)
 <div class="meta">
   @doc.getDate("blog.date").map { date =>
-  <span data-icon="p"> @semanticDate(date.value)</span>
+  <span data-icon="p"> @semanticDate(date.value.toDateTimeAtStartOfDay)</span>
   }
   @doc.getText("blog.author").map { author =>
   <span data-icon="r"> @author</span>

@@ -40,7 +40,7 @@ object BlogApi {
     body.blocks
       .takeWhile(_.isInstanceOf[Fragment.StructuredText.Block.Paragraph])
       .take(2).map {
-        case Fragment.StructuredText.Block.Paragraph(text, _) => s"<p>$text</p>"
+        case Fragment.StructuredText.Block.Paragraph(text, _, _) => s"<p>$text</p>"
         case _ => ""
       }.mkString
 

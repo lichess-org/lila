@@ -37,21 +37,21 @@ object Dependencies {
   val scalalib = "com.github.ornicar" %% "scalalib" % "5.0"
   val config = "com.typesafe" % "config" % "1.2.1"
   val apache = "org.apache.commons" % "commons-lang3" % "3.3.2"
-  val scalaTime = "com.github.nscala-time" %% "nscala-time" % "1.2.0"
-  val guava = "com.google.guava" % "guava" % "17.0"
-  val findbugs = "com.google.code.findbugs" % "jsr305" % "2.0.3"
+  val scalaTime = "com.github.nscala-time" %% "nscala-time" % "1.4.0"
+  val guava = "com.google.guava" % "guava" % "18.0"
+  // val findbugs = "com.google.code.findbugs" % "jsr305" % "2.0.3"
   val csv = "com.github.tototoshi" %% "scala-csv" % "1.0.0"
   val hasher = "com.roundeights" %% "hasher" % "1.0.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
-  val jodaTime = "joda-time" % "joda-time" % "2.3"
+  val jodaTime = "joda-time" % "joda-time" % "2.5"
   val elastic4s = "com.sksamuel.elastic4s" %% "elastic4s" % "1.3.2"
-  val RM = "org.reactivemongo" %% "reactivemongo" % "0.11.0-SNAPSHOT"
-  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.11.0-SNAPSHOT"
+  val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.5.0.akka23"
+  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.5.0.akka23"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.2-THIB"
-  val prismic = "io.prismic" %% "scala-kit" % "1.0-M16"
+  val prismic = "io.prismic" %% "scala-kit" % "1.2.4"
 
   object play {
-    val version = "2.3.4"
+    val version = "2.3.5"
     val api = "com.typesafe.play" %% "play" % version
     val test = "com.typesafe.play" %% "play-test" % version
   }
