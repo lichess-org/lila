@@ -52,19 +52,13 @@ object PerfType {
     title = "Three-check variant",
     iconChar = '.')
 
-  case object Pool extends PerfType(
-    key = "pool",
-    name = "Pool",
-    title = "Auto-pairing pool",
-    iconChar = ',')
-
   case object Puzzle extends PerfType(
     key = "puzzle",
     name = "Training",
     title = "Training puzzles",
     iconChar = '-')
 
-  val all: List[PerfType] = List(Bullet, Blitz, Classical, Standard, Chess960, KingOfTheHill, ThreeCheck, Pool, Puzzle)
+  val all: List[PerfType] = List(Bullet, Blitz, Classical, Standard, Chess960, KingOfTheHill, ThreeCheck, Puzzle)
   val byKey = all map { p => (p.key, p) } toMap
 
   val default = Standard
@@ -74,5 +68,5 @@ object PerfType {
 
   def name(key: Perf.Key): Option[String] = apply(key) map (_.name)
 
-  val nonPoolPuzzle: List[PerfType] = List(Bullet, Blitz, Classical, Chess960, KingOfTheHill, ThreeCheck)
+  val nonPuzzle: List[PerfType] = List(Bullet, Blitz, Classical, Chess960, KingOfTheHill, ThreeCheck)
 }

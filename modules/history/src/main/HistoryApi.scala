@@ -24,8 +24,7 @@ final class HistoryApi(coll: Coll) {
       game.variant.threeCheck.option("threeCheck" -> perfs.threeCheck),
       (isStd && game.speed == Speed.Bullet).option("bullet" -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz" -> perfs.blitz),
-      (isStd && classicalSpeeds(game.speed)).option("classical" -> perfs.classical),
-      game.poolId.map(p => s"pools.$p" -> perfs.pool(p))
+      (isStd && classicalSpeeds(game.speed)).option("classical" -> perfs.classical)
     ).flatten.map {
         case (k, p) => k -> p.intRating
       }

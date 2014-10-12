@@ -18,7 +18,7 @@ final class Cached(
 
   private def twoWeeksAgo = DateTime.now minusWeeks 2
 
-  private val perfs = PerfType.nonPoolPuzzle
+  private val perfs = PerfType.nonPuzzle
   private val perfKeys = perfs.map(_.key)
 
   val count = AsyncCache((o: JsObject) => $count(o), timeToLive = nbTtl)
@@ -39,10 +39,6 @@ final class Cached(
     timeToLive = 10 minutes)
 
   val topNbGame = AsyncCache(UserRepo.topNbGame, timeToLive = 34 minutes)
-
-  val topPool = AsyncCache(
-    (poolIdAndNb: (User.ID, Int)) => UserRepo.topPool(poolIdAndNb._1, poolIdAndNb._2),
-    timeToLive = 20 minutes)
 
   val topOnline = AsyncCache(
     (nb: Int) => UserRepo.byIdsSortRating(onlineUserIdMemo.keys, nb),

@@ -11,8 +11,7 @@ case class History(
     bullet: RatingsMap,
     blitz: RatingsMap,
     classical: RatingsMap,
-    puzzle: RatingsMap,
-    pools: Map[String, RatingsMap]) {
+    puzzle: RatingsMap) {
 
   def apply(perfType: PerfType): RatingsMap = perfType match {
     case PerfType.Standard      => standard
@@ -23,7 +22,6 @@ case class History(
     case PerfType.KingOfTheHill => kingOfTheHill
     case PerfType.ThreeCheck    => threeCheck
     case PerfType.Puzzle        => puzzle
-    case PerfType.Pool          => Nil
   }
 }
 
@@ -52,8 +50,7 @@ object History {
         bullet = ratingsMap("bullet"),
         blitz = ratingsMap("blitz"),
         classical = ratingsMap("classical"),
-        puzzle = ratingsMap("puzzle"),
-        pools = doc.getAs[Map[String, RatingsMap]]("pools") | Map.empty)
+        puzzle = ratingsMap("puzzle"))
     }
   }
 }

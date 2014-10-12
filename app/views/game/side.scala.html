@@ -25,10 +25,6 @@
     @tournamentLink(t)
     <br /><br />
     }
-    @game.poolId.flatMap(poolSetups.get).map { setup =>
-    <a href="@routes.Pool.show(setup.id)">@setup.name Pool</a>
-    <br /><br />
-    }
     @if(game.finishedOrAborted) {
     @gameEndStatus(game),
     @game.winner.map { winner =>

@@ -1458,9 +1458,6 @@ var storage = {
       }
       return false;
     });
-    $wrap.on('click', '#pool_list > div', function() {
-      location.href = $(this).find('h2 a').attr('href');
-    });
 
     function resizeTimeline() {
       if ($timeline.length) {
@@ -1745,75 +1742,6 @@ var storage = {
         } else return true;
       })) {
         lichess.socket.send(hook.action, hook.id);
-      }
-    });
-  });
-
-  ///////////////////
-  // pool.js //
-  ///////////////////
-
-  $(function() {
-
-    var $wrap = $('#pool');
-    if (!$wrap.length) return;
-    if (!lichess.StrongSocket.available) return;
-
-    $('body').data('pool-id', $wrap.data('id'));
-
-    var $watchers = $("div.watchers").watchers();
-
-    var $chat = $('#chat');
-    if ($chat.length) $chat.chat({
-      messages: lichess_chat
-    });
-
-    function drawBars() {
-      $wrap.find('table.standing').each(function() {
-        var $bars = $(this).find('.bar');
-        var max = _.max($bars.map(function() {
-          return parseInt($(this).data('value'));
-        }));
-        $bars.each(function() {
-          var width = Math.ceil((parseInt($(this).data('value')) * 100) / max);
-          $(this).css('width', width + '%');
-        });
-      });
-    }
-    drawBars();
-
-    function reload() {
-      $.ajax({
-        url: $wrap.data('href'),
-        success: function(html) {
-          var $pool = $(html);
-          $wrap.find('table.standing thead').replaceWith($pool.find('table.standing thead'));
-          $wrap.find('table.standing tbody').replaceWith($pool.find('table.standing tbody'));
-          drawBars();
-          $wrap.find('div.pairing_boxes').replaceWith($pool.find('div.pairing_boxes'));
-          var curWave = parseInt($wrap.find('.wave_at').text()) | 0;
-          var newWave = parseInt($pool.find('.wave_at').text());
-          if (newWave > (curWave + 3)) $wrap.find('.wave_at').text(newWave);
-          $('body').trigger('lichess.content_loaded');
-        }
-      });
-    }
-
-    setInterval(function() {
-      var $el = $wrap.find('.wave_at');
-      var wave = parseInt($el.text());
-      if (wave > 0) $el.text(wave - 1);
-    }, 1000);
-
-    lichess.socket = new lichess.StrongSocket($wrap.data('socket-url'), $wrap.data('version'), {
-      events: {
-        reload: reload,
-        crowd: function(data) {
-          $watchers.watchers("set", data);
-        }
-      },
-      options: {
-        name: "pool"
       }
     });
   });

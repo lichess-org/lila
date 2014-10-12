@@ -57,8 +57,6 @@ object Environment
 
   lazy val lobbyMenu = new lila.app.ui.LobbyMenu(trans)
 
-  lazy val poolSetups = Env.pool.setups
-
   def globalCasualOnlyMessage = Env.setup.CasualOnly option {
     "Due to temporary maintenance on the servers, only casual games are available."
   }

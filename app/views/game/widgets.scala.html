@@ -82,9 +82,6 @@
       @g.tournamentId.map { tourId =>
       @tournamentLink(tourId)<br />
       }
-      @g.poolId.flatMap(poolSetups.get).map { p =>
-      <a data-icon="," href="@routes.Pool.show(p.id)">&nbsp;@p.name Pool</a><br />
-      }
     </div>
   </div>
   }

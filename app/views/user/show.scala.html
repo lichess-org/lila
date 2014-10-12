@@ -44,17 +44,6 @@
   @showPerf( u.perfs.threeCheck, PerfType.ThreeCheck)
   }
   <br />
-  @u.perfs.pools.toList.sortBy(_._1).map {
-  case (id, perf) if poolSetups.contains(id) => {
-  @poolSetups.get(id).map { setup =>
-  @showPerf(perf, PerfType.Pool, s"${setup.name} pool".some)
-  }
-  }
-  case _ => {}
-  }
-  @if(u.perfs.pools.nonEmpty) {
-  <br />
-  }
   }
   @showPerf(u.perfs.puzzle, PerfType.Puzzle)
 </div>

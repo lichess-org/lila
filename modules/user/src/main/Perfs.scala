@@ -14,8 +14,7 @@ case class Perfs(
     bullet: Perf,
     blitz: Perf,
     classical: Perf,
-    puzzle: Perf,
-    pools: Map[String, Perf]) {
+    puzzle: Perf) {
 
   def perfs = List(
     "standard" -> standard,
@@ -25,12 +24,10 @@ case class Perfs(
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
-    "puzzle" -> puzzle) ::: pools.toList.map {
-      case (id, perf) => s"$id pool" -> perf
-    }
+    "puzzle" -> puzzle)
 
   def bestPerf: Option[(PerfType, Perf)] = {
-    val ps = PerfType.nonPoolPuzzle map { pt => pt -> apply(pt) }
+    val ps = PerfType.nonPuzzle map { pt => pt -> apply(pt) }
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 10)
     ps.foldLeft(none[(PerfType, Perf)]) {
       case (ro, p) if p._2.nb >= minNb => ro.fold(p.some) { r =>
@@ -73,10 +70,7 @@ case class Perfs(
     case PerfType.KingOfTheHill => kingOfTheHill
     case PerfType.ThreeCheck    => threeCheck
     case PerfType.Puzzle        => puzzle
-    case PerfType.Pool          => Perf.default
   }
-
-  def pool(key: String) = pools get key getOrElse Perf.default
 
   def timesAndVariants: List[Perf] = List(bullet, blitz, classical, chess960, kingOfTheHill, threeCheck)
 
@@ -107,7 +101,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, Map.empty)
+    Perfs(p, p, p, p, p, p, p, p)
   }
 
   def variantLens(variant: Variant): Option[Perfs => Perf] = variant match {
@@ -124,9 +118,6 @@ case object Perfs {
     case Speed.Classical | Speed.Unlimited => perfs => perfs.classical
   }
 
-  def poolLens(poolId: Option[String]): Perfs => Option[Perf] =
-    (perfs: Perfs) => poolId flatMap perfs.pools.get
-
   private def PerfsBSONHandler = new BSON[Perfs] {
 
     implicit def perfHandler = Perf.tube.handler
@@ -142,8 +133,7 @@ case object Perfs {
         bullet = perf("bullet"),
         blitz = perf("blitz"),
         classical = perf("classical"),
-        puzzle = perf("puzzle"),
-        pools = r.getO[Map[String, Perf]]("pools") getOrElse Map.empty)
+        puzzle = perf("puzzle"))
     }
 
     private def notNew(p: Perf) = p.nb > 0 option p
@@ -156,10 +146,7 @@ case object Perfs {
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
       "classical" -> notNew(o.classical),
-      "puzzle" -> notNew(o.puzzle),
-      "pools" -> o.pools.flatMap {
-        case (k, r) => notNew(r) map (k -> _)
-      }.toMap)
+      "puzzle" -> notNew(o.puzzle))
   }
 
   lazy val tube = lila.db.BsTube(PerfsBSONHandler)

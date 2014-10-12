@@ -19,8 +19,8 @@ final class PerfsUpdater(historyApi: HistoryApi) {
   def save(game: Game, white: User, black: User, resetGameRatings: Boolean = false): Funit =
     PerfPicker.main(game) ?? { mainPerf =>
       (game.rated && game.finished && game.accountable && !white.engine && !black.engine) ?? {
-        val ratingsW = mkRatings(white.perfs, game.poolId)
-        val ratingsB = mkRatings(black.perfs, game.poolId)
+        val ratingsW = mkRatings(white.perfs)
+        val ratingsB = mkRatings(black.perfs)
         val result = resultOf(game)
         game.variant match {
           case chess.Variant.Chess960 =>
@@ -40,9 +40,6 @@ final class PerfsUpdater(historyApi: HistoryApi) {
             case chess.Speed.Classical | chess.Speed.Unlimited =>
               updateRatings(ratingsW.classical, ratingsB.classical, result, system)
           }
-        }
-        (ratingsW.pool |@| ratingsB.pool) apply {
-          case ((_, prW), (_, prB)) => updateRatings(prW, prB, result, system)
         }
         val perfsW = mkPerfs(ratingsW, white.perfs, game)
         val perfsB = mkPerfs(ratingsB, black.perfs, game)
@@ -68,17 +65,15 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     threeCheck: Rating,
     bullet: Rating,
     blitz: Rating,
-    classical: Rating,
-    pool: Option[(String, Rating)])
+    classical: Rating)
 
-  private def mkRatings(perfs: Perfs, poolId: Option[String]) = new Ratings(
+  private def mkRatings(perfs: Perfs) = new Ratings(
     chess960 = perfs.chess960.toRating,
     kingOfTheHill = perfs.kingOfTheHill.toRating,
     threeCheck = perfs.threeCheck.toRating,
     bullet = perfs.bullet.toRating,
     blitz = perfs.blitz.toRating,
-    classical = perfs.classical.toRating,
-    pool = poolId map (id => id -> perfs.pool(id).toRating))
+    classical = perfs.classical.toRating)
 
   private def resultOf(game: Game): Glicko.Result =
     game.winnerColor match {
@@ -115,12 +110,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
       bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
       classical = (isStd && classicalSpeeds(speed)).fold(perfs.classical.add(ratings.classical, date), perfs.classical))
-    val perfs2 = if (isStd) perfs1.updateStandard else perfs1
-    ratings.pool.fold(perfs2) {
-      case (id, poolRating) => perfs2.copy(
-        pools = perfs2.pools + (id -> perfs.pool(id).add(poolRating, date))
-      )
-    }
+    if (isStd) perfs1.updateStandard else perfs1
   }
 
   private def logger = play.api.Logger("PerfsUpdater")

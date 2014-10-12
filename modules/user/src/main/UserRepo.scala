@@ -35,11 +35,6 @@ trait UserRepo {
   def topPerfSinceSelect(perf: String, since: DateTime) =
     goodLadSelect ++ stablePerfSelect(perf) ++ perfSince(perf, since)
 
-  def topPool(poolId: String, nb: Int): Fu[List[User]] =
-    $find($query(
-      goodLadSelect ++ Json.obj(s"perfs.pools.$poolId.nb" -> $gte(40))
-    ) sort ($sort desc s"perfs.pools.$poolId.gl.r"), nb)
-
   def topNbGame(nb: Int): Fu[List[User]] =
     $find($query(enabledSelect) sort ($sort desc "count.game"), nb)
 
@@ -90,7 +85,7 @@ trait UserRepo {
   private type PerfLenses = List[(String, Perfs => Perf)]
 
   def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
-    val baseLenses: PerfLenses = List(
+    val lenses: PerfLenses = List(
       "standard" -> (_.standard),
       "chess960" -> (_.chess960),
       "kingOfTheHill" -> (_.kingOfTheHill),
@@ -99,10 +94,6 @@ trait UserRepo {
       "blitz" -> (_.blitz),
       "classical" -> (_.classical),
       "puzzle" -> (_.puzzle))
-    val poolLenses: PerfLenses = perfs.pools.keys.toList.map { k =>
-      s"pools.$k" -> ((ps: Perfs) => ps pool k)
-    }
-    val lenses = baseLenses ::: poolLenses
     val diff = lenses.flatMap {
       case (name, lens) =>
         lens(perfs).nb != lens(prev).nb option {

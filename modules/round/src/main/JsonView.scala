@@ -104,11 +104,6 @@ final class JsonView(
               })
             },
             "possibleMoves" -> possibleMoves(pov),
-            "pool" -> game.poolId.map { pid =>
-              Json.obj(
-                "id" -> pid
-              )
-            },
             "takebackable" -> takebackable)
       }
 

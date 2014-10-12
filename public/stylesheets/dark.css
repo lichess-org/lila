@@ -48,7 +48,6 @@ body.dark div.separator,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #GameText,
 body.dark #tournament_side,
-body.dark #pool div.pairings,
 body.dark #tournament div.standing_wrap,
 body.dark #GameBoard,
 body.dark div.shortcuts .title,
@@ -120,9 +119,6 @@ body.dark #lichess_blog .body h2,
 body.dark #lichess_blog .body img,
 body.dark #top div.auth .sep,
 body.dark div.doc_box h2,
-body.dark #hooks_list .pool_buttons,
-body.dark #hooks_list .pool_buttons > a,
-body.dark #hooks_list .pool_title,
 body.dark div.training div.box,
 body.dark div.force_resign_zone,
 body.dark div.negotiation {
@@ -134,7 +130,6 @@ body.dark #crosstable td.last {
 body.dark #hooks_wrap > div.tabs > a.active {
   border-bottom-color: #303030;
 }
-body.dark #pool table.standing tr.me.watching td,
 body.dark .ui-slider,
 body.dark div.progressbar,
 body.dark #translation_call div.progressbar,
@@ -225,7 +220,6 @@ body.dark div.content_box,
 body.dark div.content_box_inter a.active,
 body.dark #site_header div.side_menu a.active,
 body.dark #tournament_side,
-body.dark #pool div.pairings,
 body.dark table.translations tbody tr,
 body.dark form.translation_form div.message,
 body.dark #lichess_forum table.forum_table thead tr:nth-child(odd),
@@ -235,7 +229,6 @@ body.dark div.content_box .loader:before,
 body.dark div.content_box .loader:after {
   background-color: #2b2b2b;
 }
-body.dark #pool_list h2,
 body.dark #timeline,
 body.dark #timeline > .entry {
   border-color: #2b2b2b;
@@ -401,20 +394,8 @@ body.dark div.user_show div.user-infos.scroll-shadow-hard {
   background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
   background-attachment: local, local, scroll, scroll;
 }
-body.dark #pool_list > div {
-  background: rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
-}
-body.dark #hooks_list .pool_buttons > a {
-  background: rgba(0, 0, 0, 0.3);
-}
-body.dark #pool_list > div:hover,
-body.dark #hooks_list .pool_buttons > a:hover,
 body.dark div.game_row:hover {
   background: rgba(27, 51, 68, 0.5);
-}
-body.dark #hooks_list > .pool_title {
-  background: rgba(0, 0, 0, 0.5);
 }
 body.dark::-webkit-input-placeholder {
   color: #666;

@@ -73,7 +73,7 @@ case class Hook(
       "name" -> perfType.map(_.name))
   )
 
-  lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
+  lazy val perfType = PerfPicker.perfType(speed, realVariant)
 
   private lazy val clockOption = (time ifTrue hasClock) |@| increment apply Clock.apply
 

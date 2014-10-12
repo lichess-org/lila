@@ -19,67 +19,6 @@ div.lobby_and_ground {
   display: block;
   letter-spacing: -1px;
 }
-/********** POOLS **********/
-
-#pool_list {
-  overflow: hidden;
-  width: 512px;
-  height: 512px;
-}
-#pool_list a {
-  text-decoration: none;
-}
-#pool_list > div {
-  background: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 0 2px rgba(0,0,0,0.3);
-  border-radius: 2px;
-  float: left;
-  width: 241px;
-  height: 241px;
-  margin: 10px 0 0 10px;
-  text-align: center;
-  cursor: pointer;
-  position: relative;
-  transition: 0.13s;
-}
-#pool_list > div:hover {
-  background: rgba(191, 231, 255, 0.5);
-}
-#pool_list > div .join {
-  display: none;
-  position: absolute;
-  top: 102px;
-  left: 100px;
-  font-size: 48px;
-}
-#pool_list > div:hover .join {
-  display: block;
-}
-#pool_list h2 {
-  font-size: 2.5em;
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 2px 2px 0 0;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 8px 0;
-}
-#pool_list .body {
-  padding: 10px;
-}
-#pool_list table {
-  text-align: left;
-  margin: auto;
-}
-#pool_list td {
-  padding: 2px 5px;
-}
-#pool_list form {
-  display:inline-block;
-}
-#pool_list .button {
-  display: inline-block;
-  font-size: 1.5em;
-  margin-top: 10px;
-}
 
 /********** HOOKS **********/
 

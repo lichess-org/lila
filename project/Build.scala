@@ -39,7 +39,7 @@ object ApplicationBuild extends Build {
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     ai, analyse, mod, monitor, site, round, lobby, setup,
-    importer, tournament, pool, relation, report, pref, // simulation,
+    importer, tournament, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, donation, qa,
     swisssystem, history, worldMap)
 
@@ -174,11 +174,6 @@ object ApplicationBuild extends Build {
 
   lazy val tournament = project("tournament", Seq(
     common, hub, socket, chess, game, round, security, chat, memo, swisssystem)).settings(
-    libraryDependencies ++= provided(play.api, RM, PRM)
-  )
-
-  lazy val pool = project("pool", Seq(
-    common, hub, socket, chess, game, round, setup, security, chat, memo, user, rating)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 

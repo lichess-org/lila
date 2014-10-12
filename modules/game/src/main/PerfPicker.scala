@@ -8,37 +8,26 @@ object PerfPicker {
 
   val default = (perfs: Perfs) => perfs.standard
 
-  def perfType(speed: Speed, variant: Variant, poolId: Option[String]): Option[PerfType] =
-    PerfType(key(speed, variant, poolId))
+  def perfType(speed: Speed, variant: Variant): Option[PerfType] =
+    PerfType(key(speed, variant))
 
-  def noPoolKey(speed: Speed, variant: Variant): String =
+  def key(speed: Speed, variant: Variant): String =
     if (variant.standard) {
       if (speed == Speed.Unlimited) Speed.Classical.key
       else speed.key
     }
     else variant.key
 
-  def key(speed: Speed, variant: Variant, poolId: Option[String]): String =
-    if (poolId.isDefined) "pool"
-    else if (variant.standard) {
-      if (speed == Speed.Unlimited) Speed.Classical.key
-      else speed.key
-    }
-    else variant.key
+  def key(game: Game): String = key(game.speed, game.variant)
 
-  def key(game: Game): String = key(game.speed, game.variant, game.poolId)
+  def main(speed: Speed, variant: Variant): Option[Perfs => Perf] =
+    if (variant.standard) Perfs.speedLens(speed).some
+    else Perfs variantLens variant
 
-  def main(speed: Speed, variant: Variant, poolId: Option[String]): Option[Perfs => Perf] =
-    poolId match {
-      case Some(id)              => Some(_ pool id)
-      case _ if variant.standard => Perfs.speedLens(speed).some
-      case _                     => Perfs variantLens variant
-    }
-
-  def main(game: Game): Option[Perfs => Perf] = main(game.speed, game.variant, game.poolId)
+  def main(game: Game): Option[Perfs => Perf] = main(game.speed, game.variant)
 
   def mainOrDefault(game: Game): Perfs => Perf = main(game) | default
 
-  def mainOrDefault(speed: Speed, variant: Variant, poolId: Option[String]): Perfs => Perf =
-    main(speed: Speed, variant: Variant, poolId: Option[String]) | default
+  def mainOrDefault(speed: Speed, variant: Variant): Perfs => Perf =
+    main(speed, variant) | default
 }

@@ -14,13 +14,6 @@
   <a class="button @if(tour.isRunning) {strong}"
     href="@routes.Tournament.show(tour.id)" data-icon="G"> @trans.backToTournament()</a>
   }.getOrElse {
-  @game.poolId.map { poolId =>
-  <a class="button"
-    href="@routes.Pool.show(poolId)" data-icon=","> Return to pool</a>
-  <form action="@routes.Pool.leave(poolId)" method="post">
-    <button type="submit" class="button">Leave the pool</button>
-  </form>
-  }.getOrElse {
   @if(opponent.isHuman) {
   <div class="lichess_separator"></div>
   @if(opponent.isOfferingRematch) {
@@ -45,7 +38,6 @@
   }
   @if(!player.isOfferingRematch) {
   <a class="lichess_new_game button hint--bottom" data-hint="@trans.playWithAnotherOpponent()" href="@routes.Lobby.home()">@trans.newOpponent()</a>
-  }
   }
   }
 </div>

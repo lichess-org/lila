@@ -20,7 +20,7 @@ function isPlayerTurn(data) {
 }
 
 function mandatory(data) {
-  return data.tournamentId || data.poolId;
+  return !!data.tournamentId;
 }
 
 function abortable(data) {

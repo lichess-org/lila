@@ -81,11 +81,9 @@ case class Game(
   def fullIdOf(color: Color): String = id + player(color).id
 
   def tournamentId = metadata.tournamentId
-  def poolId = metadata.poolId
 
   def isTournament = tournamentId.isDefined
-  def isPool = poolId.isDefined
-  def isMandatory = isTournament || isPool
+  def isMandatory = isTournament
   def nonMandatory = !isMandatory
 
   def hasChat = !isTournament && nonAi
@@ -287,7 +285,7 @@ case class Game(
 
   def finishedOrAborted = finished || aborted
 
-  def accountable = turns >= 2 || isPool
+  def accountable = turns >= 2
 
   def replayable = imported || finished
 
@@ -368,9 +366,6 @@ case class Game(
   def withTournamentId(id: String) = this.copy(
     metadata = metadata.copy(tournamentId = id.some)
   )
-  def withPoolId(id: String) = this.copy(
-    metadata = metadata.copy(poolId = id.some)
-  )
 
   def withId(newId: String) = this.copy(id = newId)
 
@@ -426,7 +421,6 @@ object Game {
       source = source.some,
       pgnImport = pgnImport,
       tournamentId = none,
-      poolId = none,
       tvAt = none,
       analysed = false),
     createdAt = DateTime.now)
@@ -466,7 +460,6 @@ object Game {
     val source = "so"
     val pgnImport = "pgni"
     val tournamentId = "tid"
-    val poolId = "po"
     val tvAt = "tv"
     val winnerColor = "w"
     val winnerId = "wid"
@@ -521,7 +514,6 @@ object Game {
           source = r intO source flatMap Source.apply,
           pgnImport = r.getO[PgnImport](pgnImport)(PgnImport.pgnImportBSONHandler),
           tournamentId = r strO tournamentId,
-          poolId = r strO poolId,
           tvAt = r dateO tvAt,
         analysed = r boolD analysed)
       )
@@ -552,7 +544,6 @@ object Game {
       source -> o.metadata.source.map(_.id),
       pgnImport -> o.metadata.pgnImport,
       tournamentId -> o.metadata.tournamentId,
-      poolId -> o.metadata.poolId,
       tvAt -> o.metadata.tvAt.map(w.date),
       analysed -> w.boolO(o.metadata.analysed)
     )
