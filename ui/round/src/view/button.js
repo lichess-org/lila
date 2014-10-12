@@ -1,6 +1,7 @@
 var chessground = require('chessground');
 var round = require('../round');
 var partial = chessground.util.partial;
+var throttle = require('lodash-node/modern/functions/throttle');
 
 module.exports = {
   standard: function(ctrl, condition, icon, hint, socketMsg) {
@@ -117,7 +118,7 @@ module.exports = {
   moretime: function(ctrl) {
     if (round.moretimeable(ctrl.data)) return m('a.moretime.hint--bottom-left', {
       'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime),
-      onclick: partial(ctrl.socket.send, 'moretime', null)
+      onclick: throttle(partial(ctrl.socket.send, 'moretime', null), 600)
     }, m('span[data-icon=O]'));
   },
   flip: function(ctrl) {

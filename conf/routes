@@ -98,8 +98,8 @@ GET   /$gameId<\w{8}>/s.js                       controllers.Round.signedJs(game
 GET   /$fullId<\w{12}>/socket/v:apiVersion       controllers.Round.websocketPlayer(fullId: String, apiVersion: Int)
 GET   /$gameId<\w{8}>/$color<white|black>/table  controllers.Round.tableWatcher(gameId: String, color: String)
 GET   /$fullId<\w{12}>/table                     controllers.Round.tablePlayer(fullId: String)
-GET   /$gameId<\w{8}>/$color<white|black>/end    controllers.Round.endWatcher(gameId: String, color: String)
-GET   /$fullId<\w{12}>/end                       controllers.Round.endPlayer(fullId: String)
+GET   /$gameId<\w{8}>/$color<white|black>/side   controllers.Round.sideWatcher(gameId: String, color: String)
+GET   /$fullId<\w{12}>/side                      controllers.Round.sidePlayer(fullId: String)
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: String)
 
@@ -159,9 +159,9 @@ POST  /setup/ai                        controllers.Setup.ai
 GET   /setup/friend                    controllers.Setup.friendForm(user: Option[String] ?= None)
 POST  /setup/friend                    controllers.Setup.friend(user: Option[String] ?= None)
 POST  /setup/decline                   controllers.Setup.decline(gameId: String)
-GET   /$fullId<\w{12}>/await       controllers.Setup.await(fullId: String, user: Option[String] ?= None)
-GET   /$fullId<\w{12}>/cancel      controllers.Setup.cancel(fullId: String)
-POST  /$id<\w{8}>/join             controllers.Setup.join(id: String)
+GET   /$fullId<\w{12}>/await           controllers.Setup.await(fullId: String, user: Option[String] ?= None)
+GET   /$fullId<\w{12}>/cancel          controllers.Setup.cancel(fullId: String)
+POST  /$id<\w{8}>/join                 controllers.Setup.join(id: String)
 GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook/:uid                 controllers.Setup.hook(uid: String)
 GET   /setup/filter                    controllers.Setup.filterForm

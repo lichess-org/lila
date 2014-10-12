@@ -129,27 +129,18 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def endWatcher(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color)) { end(_, false) }
+  def sideWatcher(gameId: String, color: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo.pov(gameId, color)) { side(_, false) }
   }
 
-  def endPlayer(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo pov fullId) { end(_, true) }
+  def sidePlayer(fullId: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo pov fullId) { side(_, true) }
   }
 
-  private def end(pov: Pov, player: Boolean)(implicit ctx: Context) = {
-    import templating.Environment.playerLink
+  private def side(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
     pov.game.tournamentId ?? TournamentRepo.byId map { tour =>
-      val players = pov.game.players.collect {
-        case p if p.isHuman => p.color.name -> playerLink(p, withStatus = true).body
-      }.toMap
-      val table = if (player) html.round.table.end(pov, tour) else html.round.table.watch(pov)
-      Ok(Json.obj(
-        "players" -> players,
-        "side" -> html.game.side(pov, tour, withTourStanding = player).toString,
-        "table" -> table.toString)) as JSON
+      Ok(html.game.side(pov, tour, withTourStanding = isPlayer))
     }
-  }
 
   def continue(id: String, mode: String) = Open { implicit ctx =>
     OptionResult(GameRepo game id) { game =>

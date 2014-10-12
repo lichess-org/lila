@@ -1,15 +1,27 @@
-@(pov: Pov, version: Int, config: Option[lila.setup.FriendConfig], userOption: Option[User])(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, config: Option[lila.setup.FriendConfig], userOption: Option[User])(implicit ctx: Context)
 
 @import pov._
 
+@moreJs = {
+@embedJs {
+lichess = lichess || {};
+lichess.await = {
+data: @Html(play.api.libs.json.Json.stringify(data)),
+};
+}
+}
+
 @round.layout(
 title = userOption.isDefined.fold(trans.challengeToPlay,trans.playWithAFriend).str(),
+moreJs = moreJs,
 side = Html(""),
 signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
-<div class="lichess_game lichess_game_not_started waiting_opponent clearfix pov_@color">
-  <div class="lichess_board_wrap">
-    @color.fold(board.white(), board.black())
-    <div class="lichess_overboard auto_center">
+<div class="top">
+  <div class="lichess_game cg-512">
+    <div class="lichess_board_wrap">
+      <div class="lichess_board"></div>
+    </div>
+    <div class="lichess_overboard">
       @userOption.map { user =>
       <div id="challenge_await" data-user="@user.id">
         <h2>@trans.challengeToPlay()</h2>
@@ -42,7 +54,4 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
     </div>
   </div>
 </div>
-@*
-@embedJs("var _ld_ = " + roundPlayerJsData(pov, version, ctx.pref, apiVersion))
-*@
 }

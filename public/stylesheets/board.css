@@ -817,10 +817,12 @@ body.is3d.Trimmed .king.black {
 }
 div.lichess_overboard {
   position: absolute;
-  z-index: 199;
+  z-index: 20;
   width: 305px;
-  top: 214px;
+  top: 50%;
   left: 105px;
+  transform: translate(0, -50%);
+  ms-transform: translate(0, -50%);
   padding: 15px 0 22px 0;
   font-size: 14px;
   line-height: 1.8em;

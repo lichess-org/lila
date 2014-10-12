@@ -5,10 +5,7 @@
 @title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in $gameId" }
 
 @moreJs = {
-@*
 @jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
-*@
-@jsAt(s"compiled/lichess.round.js")
 @jsRoutes()
 @embedJs {
 lichess = lichess || {};

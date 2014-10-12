@@ -58,13 +58,6 @@ module.exports = function(send, ctrl) {
       pieces.o = null;
       ctrl.chessground.setPieces(pieces);
     },
-    // still used by rematch join
-    redirect: function(o) {
-      setTimeout(function() {
-        lichess.hasToReload = true;
-        $.redirect(o);
-      }, 400);
-    },
     reload: function(o) {
       xhr.reload(ctrl.data).then(ctrl.reload);
     },
