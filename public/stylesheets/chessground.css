@@ -104,6 +104,10 @@ body.coords_2.is3d .cg-square[data-coord-y]::before {
 .cg-square.move-dest:hover {
   background: rgba(20, 85, 30, 0.3);
 }
+.cg-square.premove-dest.drag-over,
+.cg-square.premove-dest:hover {
+  background: rgba(20, 30, 85, 0.3);
+}
 /* .cg-square.move-dest.drag-over .cg-piece::after, */
 /* .cg-square.move-dest:hover .cg-piece::after { */
 /*   background: none; */

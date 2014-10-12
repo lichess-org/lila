@@ -15,6 +15,10 @@ function isPlayerPlaying(data) {
   return playable(data) && !data.player.spectator;
 }
 
+function isPlayerTurn(data) {
+  return isPlayerPlaying(data) && data.game.player == data.player.color;
+}
+
 function mandatory(data) {
   return data.tournamentId || data.poolId;
 }
@@ -51,6 +55,7 @@ function nbMoves(data, color) {
 
 module.exports = {
   isPlayerPlaying: isPlayerPlaying,
+  isPlayerTurn: isPlayerTurn,
   playable: playable,
   abortable: abortable,
   takebackable: takebackable,

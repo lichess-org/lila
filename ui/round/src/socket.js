@@ -23,13 +23,12 @@ module.exports = function(send, ctrl) {
       ctrl.data.game.player = o.color;
       ctrl.data.game.turns = o.turns;
       m.endComputation();
+      ctrl.setTitle();
     },
     move: function(o) {
       m.startComputation();
       ctrl.chessground.apiMove(o.from, o.to);
-      if (ctrl.data.game.threefold) {
-        ctrl.data.game.threefold = false;
-      }
+      if (ctrl.data.game.threefold) ctrl.data.game.threefold = false;
       m.endComputation();
     },
     premove: function() {

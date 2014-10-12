@@ -8,6 +8,7 @@ var status = require('./status');
 var ground = require('./ground');
 var socket = require('./socket');
 var xhr = require('./xhr');
+var title = require('./title');
 var promotion = require('./promotion');
 var clockCtrl = require('./clock/ctrl');
 
@@ -16,6 +17,8 @@ module.exports = function(cfg, router, i18n, socketSend) {
   this.data = data(cfg);
 
   this.socket = new socket(socketSend, this);
+
+  this.setTitle = partial(title.set, this);
 
   this.sendMove = function(orig, dest, prom) {
     var move = {
@@ -38,6 +41,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
   this.reload = function(cfg) {
     this.data = data(cfg);
     ground.reload(this.chessground, this.data, cfg.game.fen);
+    this.setTitle();
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(
@@ -46,7 +50,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
   ) : false;
 
   this.isClockRunning = function() {
-    return this.data.clock && round.playable(this.data) && 
+    return this.data.clock && round.playable(this.data) &&
       ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
   }.bind(this);
 
@@ -65,4 +69,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
     });
     return str;
   };
+
+  title.init(this);
+  this.setTitle();
 };

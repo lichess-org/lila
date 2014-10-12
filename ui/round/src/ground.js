@@ -27,7 +27,11 @@ function makeConfig(data, fen) {
     },
     premovable: {
       enabled: data.pref.enablePremove,
-      showDests: data.pref.destination
+      showDests: data.pref.destination,
+      events: {
+        set: m.redraw,
+        unset: m.redraw
+      }
     }
   };
 }

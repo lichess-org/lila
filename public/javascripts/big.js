@@ -218,12 +218,6 @@ var storage = {
     $(window).resize(onResize);
     onResize();
 
-    var bodyHeight = $('body').height();
-    var winHeight = $(window).height();
-    if (bodyHeight < winHeight) {
-      $('#footer_wrap').css('marginTop', winHeight - bodyHeight + 29 + 'px');
-    }
-
     if (!lichess.StrongSocket.available) {
       $('#lichess').on('mouseover', function() {
         $('#lichess').off('mouseover');
@@ -700,6 +694,7 @@ var storage = {
       $('#chat').chat({
         messages: cfg.data.chat
       });
+      var $watchers = $('#site_header div.watchers').watchers();
       lichess.socket = new lichess.StrongSocket(
         cfg.data.url.socket,
         cfg.data.player.version,
@@ -713,6 +708,9 @@ var storage = {
           },
           receive: function(t, d) { round.socketReceive(t, d); },
           events: {
+            crowd: function(e) {
+              $watchers.watchers("set", e.watchers);
+            }
           }
         });
       var round = LichessRound(this.element[0], cfg.data, cfg.routes, cfg.i18n, lichess.socket.send.bind(lichess.socket));
