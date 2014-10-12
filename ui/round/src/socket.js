@@ -30,6 +30,7 @@ module.exports = function(send, ctrl) {
       ctrl.chessground.apiMove(o.from, o.to);
       if (ctrl.data.game.threefold) ctrl.data.game.threefold = false;
       m.endComputation();
+      $.sound.move(o.color == 'white');
     },
     premove: function() {
       ctrl.chessground.playPremove();
@@ -91,6 +92,7 @@ module.exports = function(send, ctrl) {
     end: function() {
       ground.end(ctrl.chessground);
       xhr.reload(ctrl.data).then(ctrl.reload);
+      $.sound.dong();
     }
   };
 

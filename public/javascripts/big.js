@@ -581,12 +581,12 @@ var storage = {
     var audio = {
       dong: new Audio(baseUrl + 'dong.ogg'),
       moveW: new Audio(baseUrl + 'wood_light_hit_1.' + ext),
-      moveB: new Audio(baseUrl + 'wood_light_hit_3.' + ext),
+      moveB: new Audio(baseUrl + 'wood_light_hit_1.' + ext),
       take: new Audio(baseUrl + 'wood_capture_hit_and_roll.' + ext)
     };
     var volumes = {
       dong: 0.6,
-      moveW: 0.7,
+      moveW: 1,
       moveB: 1,
       take: 0.1
     };
@@ -695,6 +695,7 @@ var storage = {
         messages: cfg.data.chat
       });
       var $watchers = $('#site_header div.watchers').watchers();
+      if (cfg.tournament) $('body').data('tournament-id', cfg.tournament.id);
       lichess.socket = new lichess.StrongSocket(
         cfg.data.url.socket,
         cfg.data.player.version,
@@ -714,6 +715,7 @@ var storage = {
           }
         });
       var round = LichessRound(this.element[0], cfg.data, cfg.routes, cfg.i18n, lichess.socket.send.bind(lichess.socket));
+      startTournamentClock();
     },
     _old_init: function() {
       var self = this;

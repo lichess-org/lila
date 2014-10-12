@@ -11,6 +11,7 @@ var xhr = require('./xhr');
 var title = require('./title');
 var promotion = require('./promotion');
 var hold = require('./hold');
+var init = require('./init');
 var clockCtrl = require('./clock/ctrl');
 
 module.exports = function(cfg, router, i18n, socketSend) {
@@ -36,6 +37,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
   this.userMove = function(orig, dest, meta) {
     hold.register(meta.holdTime);
     if (!promotion.start(this, orig, dest, meta.premove)) this.sendMove(orig, dest);
+    $.sound.move(this.data.player.color == 'white');
   }.bind(this);
 
   this.chessground = ground.make(this.data, cfg.game.fen, this.userMove);
@@ -72,6 +74,5 @@ module.exports = function(cfg, router, i18n, socketSend) {
     return str;
   };
 
-  title.init(this);
-  this.setTitle();
+  init(this);
 };
