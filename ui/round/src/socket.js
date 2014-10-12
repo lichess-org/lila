@@ -70,9 +70,8 @@ module.exports = function(send, ctrl) {
       xhr.reload(ctrl.data).then(ctrl.reload);
     },
     threefoldRepetition: function() {
-      m.startComputation();
       ctrl.data.game.threefold = true;
-      m.endComputation();
+      m.redraw();
     },
     promotion: function(o) {
       ground.promote(ctrl.chessground, o.key, o.pieceClass);
@@ -81,19 +80,22 @@ module.exports = function(send, ctrl) {
       if (ctrl.clock) ctrl.clock.update(o.white, o.black);
     },
     crowd: function(o) {
-      m.startComputation();
       ['white', 'black'].forEach(function(c) {
-        round.getPlayer(ctrl.data, c).statused = true;
-        round.getPlayer(ctrl.data, c).connected = o[c];
+        round.getPlayer(ctrl.data, c).onGame = o[c];
       });
-      ctrl.data.watchers = o.watchers;
-      m.endComputation();
+      m.redraw();
     },
     end: function() {
       ground.end(ctrl.chessground);
       xhr.reload(ctrl.data).then(ctrl.reload);
       $.sound.dong();
-    }
+    },
+    gone: function(isGone) {
+      if (!ctrl.data.opponent.ai) {
+        ctrl.data.opponent.onGame = !isGone;
+        m.redraw();
+      }
+    },
   };
 
   this.receive = function(type, data) {

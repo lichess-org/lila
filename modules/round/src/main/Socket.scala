@@ -34,18 +34,21 @@ private[round] final class Socket(
 
     // when the player has been seen online for the last time
     private var time: Double = nowMillis
-    // wheter the player closed the window (JS unload event)
-    private var bye: Boolean = false
+    // wether the player closed the window intentionally
+    private var bye: Int = 0
 
     def ping {
       if (isGone) notifyGone(color, false)
-      bye = false
+      if (bye > 0) {
+        bye = bye - 1
+      }
       time = nowMillis
     }
     def setBye {
-      bye = true
+      bye = 2
     }
-    def isGone = bye && time < (nowMillis - bye.fold(ragequitTimeout, disconnectTimeout).toMillis)
+    def isBye = bye > 0
+    def isGone = isBye && time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis)
   }
 
   private val whitePlayer = new Player(White)
@@ -69,7 +72,7 @@ private[round] final class Socket(
 
     case Bye(color) => playerDo(color, _.setBye)
 
-    case Ack(uid)   => withMember(uid) { _.channel push ackEvent }
+    case Ack(uid) => withMember(uid) { _.channel push ackEvent }
 
     case Broom =>
       broom

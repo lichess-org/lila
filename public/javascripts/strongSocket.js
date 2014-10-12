@@ -23,7 +23,7 @@ lichess.StrongSocket = function(url, version, settings) {
     self.options.baseUrls = ['socket.en.lichess.org:9021'];
   }
   self.connect();
-  $(window).on('unload', function() {
+  window.addEventListener('unload', function() {
     self.destroy();
   });
 };
@@ -207,6 +207,7 @@ lichess.StrongSocket.prototype = {
         self.ackableMessages = [];
         break;
       default:
+        console.log(m.d, m.t);
         if (self.settings.receive) self.settings.receive(m.t, m.d);
         var h = self.settings.events[m.t];
         if ($.isFunction(h)) h(m.d || null);

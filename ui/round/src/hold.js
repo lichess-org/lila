@@ -1,11 +1,9 @@
-var socket = require('./socket');
-
 // Register move hold times and send socket alerts
 
 var holds = [];
 var nb = 10;
 
-var register = function(hold) {
+var register = function(socket, hold) {
   if (!hold) return;
   holds.push(hold);
   if (holds.length > nb) {

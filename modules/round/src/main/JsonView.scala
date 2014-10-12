@@ -64,17 +64,18 @@ final class JsonView(
               "version" -> version,
               "spectator" -> false,
               "user" -> playerUser.map { userJsonView(_, true) },
-              "isOfferingRematch" -> player.isOfferingRematch.option(true),
-              "isOfferingDraw" -> player.isOfferingDraw.option(true),
-              "isProposingTakeback" -> player.isProposingTakeback.option(true)
+              "offeringRematch" -> player.isOfferingRematch.option(true),
+              "offeringDraw" -> player.isOfferingDraw.option(true),
+              "proposingTakeback" -> player.isProposingTakeback.option(true)
             ).noNull,
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
               "user" -> opponentUser.map { userJsonView(_, true) },
-              "isOfferingRematch" -> opponent.isOfferingRematch.option(true),
-              "isOfferingDraw" -> opponent.isOfferingDraw.option(true),
-              "isProposingTakeback" -> opponent.isProposingTakeback.option(true)
+              "offeringRematch" -> opponent.isOfferingRematch.option(true),
+              "offeringDraw" -> opponent.isOfferingDraw.option(true),
+              "proposingTakeback" -> opponent.isProposingTakeback.option(true),
+              "onGame" -> true
             ).noNull,
             "url" -> Json.obj(
               "socket" -> s"/$fullId/socket/v$apiVersion",
@@ -144,11 +145,13 @@ final class JsonView(
               "version" -> version,
               "spectator" -> true,
               "ai" -> player.aiLevel,
-              "user" -> playerUser.map { userJsonView(_, true) }),
+              "user" -> playerUser.map { userJsonView(_, true) },
+              "onGame" -> true),
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
-              "user" -> opponentUser.map { userJsonView(_, true) }),
+              "user" -> opponentUser.map { userJsonView(_, true) },
+              "onGame" -> true),
             "url" -> Json.obj(
               "socket" -> s"/$gameId/${color.name}/socket",
               "round" -> s"/$gameId/${color.name}"

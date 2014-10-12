@@ -37,7 +37,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
   }.bind(this);
 
   this.userMove = function(orig, dest, meta) {
-    hold.register(meta.holdTime);
+    hold.register(this.socket, meta.holdTime);
     if (!promotion.start(this, orig, dest, meta.premove)) this.sendMove(orig, dest);
     $.sound.move(this.data.player.color == 'white');
   }.bind(this);

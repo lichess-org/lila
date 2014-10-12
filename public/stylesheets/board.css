@@ -953,12 +953,9 @@ div.table div.username span.status:before {
   vertical-align: -4px;
   content: '0';
   color: #ac524f;
-  opacity: 0.1;
-}
-div.table div.username.statused span.status:before {
   opacity: 1;
 }
-div.table div.username.connected span.status:before {
+div.table div.username.on-game span.status:before {
   content: '3';
   color: #759900;
 }

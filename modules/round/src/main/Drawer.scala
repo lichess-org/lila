@@ -33,7 +33,7 @@ private[round] final class Drawer(
       messenger.system(g, _.drawOfferSent)
       Progress(g) map { g => g.updatePlayer(color, _ offerDraw g.turns) }
     } inject List(Event.ReloadOwner)
-    case _ => fufail("[drawer] invalid yes " + pov)
+    case _ => fuccess(Nil)
   }
 
   def no(pov: Pov): Fu[Events] = pov match {
@@ -45,7 +45,7 @@ private[round] final class Drawer(
       messenger.system(g, _.drawOfferDeclined)
       Progress(g) map { g => g.updatePlayer(!color, _.removeDrawOffer) }
     } inject List(Event.ReloadOwner)
-    case _ => fufail("[drawer] invalid no " + pov)
+    case _ => fuccess(Nil)
   }
 
   def claim(pov: Pov): Fu[Events] =

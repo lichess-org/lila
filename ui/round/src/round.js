@@ -28,11 +28,11 @@ function abortable(data) {
 }
 
 function takebackable(data) {
-  return playable(data) && data.takebackable && !data.tournamentId && data.game.turns > 1 && !data.player.isProposingTakeback && !data.opponent.isProposingTakeback;
+  return playable(data) && data.takebackable && !data.tournamentId && data.game.turns > 1 && !data.player.proposingTakeback && !data.opponent.proposingTakeback;
 }
 
 function drawable(data) {
-  return playable(data) && data.game.turns >= 2 && !data.player.isOfferingDraw && !data.opponent.ai;
+  return playable(data) && data.game.turns >= 2 && !data.player.offeringDraw && !data.opponent.ai;
 }
 
 function resignable(data) {
@@ -64,5 +64,6 @@ module.exports = {
   moretimeable: moretimeable,
   mandatory: mandatory,
   getPlayer: getPlayer,
-  parsePossibleMoves: parsePossibleMoves
+  parsePossibleMoves: parsePossibleMoves,
+  nbMoves: nbMoves
 };
