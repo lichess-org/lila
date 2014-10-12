@@ -10,6 +10,7 @@ var socket = require('./socket');
 var xhr = require('./xhr');
 var title = require('./title');
 var promotion = require('./promotion');
+var hold = require('./hold');
 var clockCtrl = require('./clock/ctrl');
 
 module.exports = function(cfg, router, i18n, socketSend) {
@@ -32,8 +33,9 @@ module.exports = function(cfg, router, i18n, socketSend) {
     });
   }.bind(this);
 
-  this.userMove = function(orig, dest, isPremove) {
-    if (!promotion.start(this, orig, dest, isPremove)) this.sendMove(orig, dest);
+  this.userMove = function(orig, dest, meta) {
+    hold.register(meta.holdTime);
+    if (!promotion.start(this, orig, dest, meta.premove)) this.sendMove(orig, dest);
   }.bind(this);
 
   this.chessground = ground.make(this.data, cfg.game.fen, this.userMove);
