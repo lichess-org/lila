@@ -176,8 +176,10 @@ private[controllers] trait LilaController
   protected def negotiate(html: => Fu[Result], api: Int => Fu[Result])(implicit ctx: Context): Fu[Result] = {
     import play.api.mvc.Accepting
     val accepts = ~ctx.req.headers.get(HeaderNames.ACCEPT)
-    if (accepts contains "application/vnd.lichess.v1+json") api(1) map (_ as JSON)
-    else html
+    val response =
+      if (accepts contains "application/vnd.lichess.v1+json") api(1) map (_ as JSON)
+      else html
+    response map (_.withHeaders("Vary" -> "Accept"))
   }
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
