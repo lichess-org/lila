@@ -6,7 +6,7 @@ import scala.math.{ min, max, round }
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
-import lila.game.{ Pov, Game, PerfPicker }
+import lila.game.{ Pov, Game, PerfPicker, Source }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
@@ -54,6 +54,7 @@ final class JsonView(
               "lastMove" -> game.castleLastMoveTime.lastMoveString,
               "threefold" -> game.toChessHistory.threefoldRepetition,
               "check" -> game.check.map(_.key),
+              "source" -> game.source.map(sourceJson),
               "status" -> Json.obj(
                 "id" -> pov.game.status.id,
                 "name" -> pov.game.status.name)),
@@ -136,6 +137,7 @@ final class JsonView(
               "lastMove" -> game.castleLastMoveTime.lastMoveString,
               "check" -> game.check.map(_.key),
               "rematch" -> game.next,
+              "source" -> game.source.map(sourceJson),
               "status" -> Json.obj(
                 "id" -> pov.game.status.id,
                 "name" -> pov.game.status.name)),
@@ -196,8 +198,9 @@ final class JsonView(
     "white" -> clock.remainingTime(Color.White),
     "black" -> clock.remainingTime(Color.Black),
     "emerg" -> clock.emergTime,
-    "moretime" -> moretimeSeconds
-  )
+    "moretime" -> moretimeSeconds)
+
+  private def sourceJson(source: Source) = source.name
 
   private def possibleMoves(pov: Pov) = (pov.game playableBy pov.player) option {
     pov.game.toChess.situation.destinations map {

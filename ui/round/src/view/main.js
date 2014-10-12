@@ -1,8 +1,8 @@
 var m = require('mithril');
 var chessground = require('chessground');
-var partial = chessground.util.partial;
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
+var button = require('./button');
 
 function renderMaterial(ctrl, material) {
   var children = [];
@@ -53,10 +53,8 @@ module.exports = function(ctrl) {
       dontTouch() ? m('div.dont_touch', {
         onclick: toggleDontTouch
       }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null,
-      ctrl.data.player.spectator ? m('div.underboard',
-        m('a.button[data-icon=B]', {
-          href: ctrl.router.Round.watcher(ctrl.data.game.id, chessground.util.opposite(ctrl.data.player.color)).url
-        }, ctrl.trans('flipBoard'))) : null
+      button.flip(ctrl),
+      button.replayAndAnalyse(ctrl)
     ])
   ];
 };

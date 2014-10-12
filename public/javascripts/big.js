@@ -711,11 +711,17 @@ var storage = {
           events: {
             crowd: function(e) {
               $watchers.watchers("set", e.watchers);
-            }
+            },
+            featured: function(o) {
+              if (cfg.tv) lichess.reload();
+            },
           }
         });
       var round = LichessRound(this.element[0], cfg.data, cfg.routes, cfg.i18n, lichess.socket.send.bind(lichess.socket));
       startTournamentClock();
+      $('#tv_history').on("click", "tr", function() {
+        location.href = $(this).find('a.view').attr('href');
+      });
     },
     _old_init: function() {
       var self = this;

@@ -43,10 +43,20 @@ function moretimeable(data) {
   return data.clock && playable(data) && !mandatory(data);
 }
 
+function replayable(data) {
+  return data.source == 'import' || status.finished(data);
+}
+
 function getPlayer(data, color) {
   if (data.player.color == color) return data.player;
   if (data.opponent.color == color) return data.opponent;
   return null;
+}
+
+function setOnGame(data, color, onGame) {
+  var player = getPlayer(data, color);
+  player.onGame = onGame;
+  if (onGame && player.user) player.user.online = true;
 }
 
 function nbMoves(data, color) {
@@ -63,7 +73,9 @@ module.exports = {
   resignable: resignable,
   moretimeable: moretimeable,
   mandatory: mandatory,
+  replayable: replayable,
   getPlayer: getPlayer,
   parsePossibleMoves: parsePossibleMoves,
-  nbMoves: nbMoves
+  nbMoves: nbMoves,
+  setOnGame: setOnGame
 };

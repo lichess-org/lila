@@ -16,20 +16,19 @@ module.exports = function(send, ctrl) {
       });
     },
     state: function(o) {
-      m.startComputation();
       ctrl.chessground.set({
         turnColor: o.color
       });
       ctrl.data.game.player = o.color;
       ctrl.data.game.turns = o.turns;
-      m.endComputation();
+      m.redraw();
       ctrl.setTitle();
     },
     move: function(o) {
-      m.startComputation();
       ctrl.chessground.apiMove(o.from, o.to);
       if (ctrl.data.game.threefold) ctrl.data.game.threefold = false;
-      m.endComputation();
+      round.setOnGame(ctrl.data, o.color, true);
+      m.redraw();
       $.sound.move(o.color == 'white');
     },
     premove: function() {
@@ -81,7 +80,7 @@ module.exports = function(send, ctrl) {
     },
     crowd: function(o) {
       ['white', 'black'].forEach(function(c) {
-        round.getPlayer(ctrl.data, c).onGame = o[c];
+        round.setOnGame(ctrl.data, c, o[c]);
       });
       m.redraw();
     },
@@ -92,7 +91,7 @@ module.exports = function(send, ctrl) {
     },
     gone: function(isGone) {
       if (!ctrl.data.opponent.ai) {
-        ctrl.data.opponent.onGame = !isGone;
+        round.setOnGame(ctrl.data, ctrl.data.opponent.color, !isGone);
         m.redraw();
       }
     },

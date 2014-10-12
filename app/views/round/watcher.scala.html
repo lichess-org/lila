@@ -27,13 +27,6 @@ chat = pov.game.hasChat.option(base.chatDom(trans.spectatorRoom.str())),
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov)) {
-@*
-@embedJs("var _ld_ = " + roundWatcherJsData(pov, version, false, ctx.pref))
-<div class="underboard during_game">
-  <a class="button" data-icon="B" href="@routes.Round.watcher(gameId, (!color).name)"> @trans.flipBoard()</a>
-</div>
-@replayButton(pov)
-*@
 <div id="playing_crosstable">
   @cross.map { c =>
   @views.html.game.crosstable(c)

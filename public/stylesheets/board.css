@@ -1029,6 +1029,10 @@ div.table_wrap a.moretime {
   font-size: 20px;
   right: 0;
   top: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 div.table_wrap a.moretime:hover {
   opacity: 1;
@@ -1309,7 +1313,8 @@ div.underboard {
 div.underboard a {
   display: inline-block;
 }
-div.underboard.replay_and_analyse a {
+div.underboard .replay_and_analyse {
+  margin-top: 20px;
   font-size: 1.4em;
 }
 div.check_count span.player.color {

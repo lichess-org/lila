@@ -119,5 +119,16 @@ module.exports = {
       'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime),
       onclick: partial(ctrl.socket.send, 'moretime', null)
     }, m('span[data-icon=O]'));
+  },
+  flip: function(ctrl) {
+    if (ctrl.data.player.spectator) return m('div.underboard',
+      m('a.button[data-icon=B]', {
+        href: ctrl.router.Round.watcher(ctrl.data.game.id, chessground.util.opposite(ctrl.data.player.color)).url
+      }, ctrl.trans('flipBoard')));
+  },
+  replayAndAnalyse: function(ctrl) {
+    if (round.replayable(ctrl.data)) return m('a.button.replay_and_analyse[data-icon=G]', {
+      href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.player.color).url
+    }, ctrl.trans('replayAndAnalyse'));
   }
 };

@@ -55,7 +55,7 @@ function renderTableEnd(ctrl) {
       button.backToTournament(ctrl) || (
         d.opponent.ai ? button.rematch(ctrl) : [
           m('div.separator'),
-          button.answerOpponentRematch(ctrl) || cancelRematch(ctrl) || button.rematch(ctrl)
+          button.answerOpponentRematch(ctrl) || button.cancelRematch(ctrl) || button.rematch(ctrl)
         ]),
       button.newGame(ctrl)
     ])
