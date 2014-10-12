@@ -152,13 +152,13 @@ function renderTablePlay(ctrl) {
         onclick: partial(ctrl.socket.send, 'draw-claim', null)
       }, ctrl.trans('claimADraw'))
     ]) : (
-      d.player.isOfferingDraw ? m('div.negociation', [
+      d.player.isOfferingDraw ? m('div.negotiation', [
         ctrl.trans('drawOfferSent') + ' ',
         m('a', {
           onclick: partial(ctrl.socket.send, 'draw-no', null)
         }, ctrl.trans('cancel'))
       ]) : null,
-      d.opponent.isOfferingDraw ? m('div.negociation', [
+      d.opponent.isOfferingDraw ? m('div.negotiation', [
         ctrl.trans('yourOpponentOffersADraw'),
         m('br'),
         m('a.button[data-icon=E]', {
@@ -170,13 +170,13 @@ function renderTablePlay(ctrl) {
         }, ctrl.trans('decline')),
       ]) : null
     ),
-    d.player.isProposingTakeback ? m('div.negociation', [
+    d.player.isProposingTakeback ? m('div.negotiation', [
       ctrl.trans('takebackPropositionSent') + ' ',
       m('a', {
         onclick: partial(ctrl.socket.send, 'takeback-no', null)
       }, ctrl.trans('cancel'))
     ]) : null,
-    d.opponent.isProposingTakeback ? m('div.negociation', [
+    d.opponent.isProposingTakeback ? m('div.negotiation', [
       ctrl.trans('yourOpponentProposesATakeback'),
       m('br'),
       m('a.button[data-icon=E]', {

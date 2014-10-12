@@ -39,13 +39,36 @@ final class PrefApi(coll: Coll, cacheTtl: Duration) {
       follow = r.getD("follow", Pref.default.follow),
       highlight = r.getD("highlight", Pref.default.highlight),
       destination = r.getD("destination", Pref.default.destination),
+      coords = r.getD("coords", Pref.default.coords),
       challenge = r.getD("challenge", Pref.default.challenge),
       coordColor = r.getD("coordColor", Pref.default.coordColor),
       puzzleDifficulty = r.getD("puzzleDifficulty", Pref.default.puzzleDifficulty),
       tags = r.getD("tags", Pref.default.tags))
 
-    private val writer = Macros.writer[Pref]
-    def writes(w: BSON.Writer, o: Pref) = writer write o
+    def writes(w: BSON.Writer, o: Pref) = BSONDocument(
+      "_id" -> o._id,
+      "dark" -> o.dark,
+      "is3d" -> o.is3d,
+      "theme" -> o.theme,
+      "pieceSet" -> o.pieceSet,
+      "theme3d" -> o.theme3d,
+      "pieceSet3d" -> o.pieceSet3d,
+      "autoQueen" -> o.autoQueen,
+      "autoThreefold" -> o.autoThreefold,
+      "takeback" -> o.takeback,
+      "clockTenths" -> o.clockTenths,
+      "clockBar" -> o.clockBar,
+      "premove" -> o.premove,
+      "animation" -> o.animation,
+      "captured" -> o.captured,
+      "follow" -> o.follow,
+      "highlight" -> o.highlight,
+      "destination" -> o.destination,
+      "coords" -> o.coords,
+      "challenge" -> o.challenge,
+      "coordColor" -> o.coordColor,
+      "puzzleDifficulty" -> o.puzzleDifficulty,
+      "tags" -> o.tags)
   }
 
   def saveTag(user: User, name: String, value: String) =

@@ -9,6 +9,7 @@ function makeConfig(data, fen) {
     turnColor: data.game.player,
     lastMove: util.str2move(data.game.lastMove),
     check: data.game.check,
+    coordinates: data.pref.coords !== 0,
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,

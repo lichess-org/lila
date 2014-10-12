@@ -193,7 +193,7 @@ Each event has a version number `v`, a type `t` and data `d`.
     "t": "premove",
     "d": null
   }, {
-    "v": 12,                  // game metadata has changed (could be rematch negociation, for instance)
+    "v": 12,                  // game metadata has changed (could be rematch negotiation, for instance)
     "t": "reloadTable",       // fetch the game document for more info
     "d": null
   }, {
@@ -209,12 +209,12 @@ Each event has a version number `v`, a type `t` and data `d`.
 {t: 'resign'}
 ```
 
-## Rematch negociation
+## Rematch negotiation
 
 When the opponent proposes or declines a rematch,
 a `reloadTable` event is sent to the client.
 You should then fetch the game document to learn about
-the rematch negociation state, in `opponent.isOfferingRematch`.
+the rematch negotiation state, in `opponent.isOfferingRematch`.
 
 ### Propose or accept rematch
 

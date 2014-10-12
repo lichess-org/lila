@@ -84,6 +84,7 @@ final class JsonView(
               "animationDuration" -> animationDuration(pov, pref),
               "highlight" -> pref.highlight,
               "destination" -> pref.destination,
+              "coords" -> pref.coords,
               "autoQueen" -> pref.autoQueen,
               "clockTenths" -> pref.clockTenths,
               "clockBar" -> pref.clockBar,
@@ -155,6 +156,7 @@ final class JsonView(
             "pref" -> Json.obj(
               "animationDelay" -> animationDuration(pov, pref),
               "highlight" -> pref.highlight,
+              "coords" -> pref.coords,
               "clockTenths" -> pref.clockTenths,
               "clockBar" -> pref.clockBar,
               "showCaptured" -> pref.captured

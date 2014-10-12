@@ -41,8 +41,6 @@ body.is3d .cg-board {
   position: absolute;
   font-size: 11px;
   line-height: 11px;
-  color: #fff;
-  text-shadow: 0 1px 2px #000;
   opacity: 0.7;
   text-transform: uppercase;
 }
@@ -55,6 +53,32 @@ body.is3d .cg-board {
   content: attr(data-coord-y);
   right: 1px;
   top: 1px;
+}
+body.coords_1 .cg-square[data-coord-x]::after {
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
+}
+body.coords_1 .cg-square[data-coord-y]::before {
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
+}
+body.coords_2 .cg-square[data-coord-x]::after {
+  bottom: -11px;
+  left: 29px;
+  color: #bbb;
+  font-weight: bold;
+}
+body.coords_2.is3d .cg-square[data-coord-x]::after {
+  bottom: -22px;
+}
+body.coords_2 .cg-square[data-coord-y]::before {
+  right: -8px;
+  top: 26px;
+  color: #bbb;
+  font-weight: bold;
+}
+body.coords_2.is3d .cg-square[data-coord-y]::before {
+  top: 24px;
 }
 .cg-square.move-dest {
   background: radial-gradient(rgba(20, 85, 30, 0.3) 22%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);

@@ -47,7 +47,8 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     ctx.currentPieceSet3d,
     ctx.pref.highlight ?? "highlight",
     ctx.blindMode ?? "blind_mode",
-    if (ctx.is3d) "is3d" else "is2d").mkString(" ")"
+    if (ctx.is3d) "is3d" else "is2d",
+    "coords_" + ctx.pref.coords).mkString(" ")"
     data-piece-set="@ctx.currentPieceSet"
     data-static-url="@staticUrl("")"
     data-sound-dir="@staticUrl("sound")"

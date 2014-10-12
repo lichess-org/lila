@@ -1106,13 +1106,13 @@ div.control .rematch.disabled {
 }
 #claim_draw_zone,
 div.force_resign_zone,
-div.negociation {
+div.negotiation {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #ddd;
 }
 #claim_draw_zone .button,
-div.negociation .button,
+div.negotiation .button,
 div.force_resign_zone .button {
   display: inline-block;
 }
