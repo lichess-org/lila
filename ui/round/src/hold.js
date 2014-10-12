@@ -1,5 +1,7 @@
 var socket = require('./socket');
 
+// Register move hold times and send socket alerts
+
 var holds = [];
 var nb = 10;
 

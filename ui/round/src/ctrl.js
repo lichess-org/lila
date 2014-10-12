@@ -11,6 +11,7 @@ var xhr = require('./xhr');
 var title = require('./title');
 var promotion = require('./promotion');
 var hold = require('./hold');
+var blur = require('./blur');
 var init = require('./init');
 var clockCtrl = require('./clock/ctrl');
 
@@ -25,9 +26,10 @@ module.exports = function(cfg, router, i18n, socketSend) {
   this.sendMove = function(orig, dest, prom) {
     var move = {
       from: orig,
-      to: dest,
+      to: dest
     };
     if (prom) move.promotion = prom;
+    if (blur.get()) move.b = true;
     if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
     this.socket.send('move', move, {
       ackable: true
