@@ -38,7 +38,7 @@ lichess.StrongSocket.defaults = {
     }
   },
   params: {
-    sri: lichess.StrongSocket.sri,
+    sri: lichess.StrongSocket.sri
   },
   options: {
     name: "unnamed",

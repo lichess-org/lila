@@ -18,7 +18,7 @@ npm install
 gulp prod
 cd -
 
-for file in tv.js common.js big.js chart2.js user.js coordinate.js pgn4hacks.js; do
+for file in strongSocket.js tv.js common.js big.js chart2.js user.js coordinate.js pgn4hacks.js; do
   orig=public/javascripts/$file
   comp=public/compiled/$file
   if [[ ! -f $comp || $orig -nt $comp ]]; then

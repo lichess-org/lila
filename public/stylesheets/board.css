@@ -33,84 +33,72 @@ div.lichess_board {
 }
 body.is2d.blue div.lichess_board,
 body.is2d.blue #GameBoard,
-body.is2d.blue .mini_board,
 body.is2d.blue .cg-board,
 #top div.color_demo.blue {
   background-image: url(../images/board/blue.png);
 }
 body.is2d.blue2 div.lichess_board,
 body.is2d.blue2 #GameBoard,
-body.is2d.blue2 .mini_board,
 body.is2d.blue2 .cg-board,
 #top div.color_demo.blue2 {
   background-image: url(../images/board/blue2.jpg);
 }
 body.is2d.wood2 div.lichess_board,
 body.is2d.wood2 #GameBoard,
-body.is2d.wood2 .mini_board,
 body.is2d.wood2 .cg-board,
 #top div.color_demo.wood2 {
   background-image: url(../images/board/wood2.jpg);
 }
 body.is2d.marble div.lichess_board,
 body.is2d.marble #GameBoard,
-body.is2d.marble .mini_board,
 body.is2d.marble .cg-board,
 #top div.color_demo.marble {
   background-image: url(../images/board/marble.jpg);
 }
 body.is2d.brown div.lichess_board,
 body.is2d.brown #GameBoard,
-body.is2d.brown .mini_board,
 body.is2d.brown .cg-board,
 #top div.color_demo.brown {
   background-image: url(../images/board/brown.png);
 }
 body.is2d.green div.lichess_board,
 body.is2d.green #GameBoard,
-body.is2d.green .mini_board,
 body.is2d.green .cg-board,
 #top div.color_demo.green {
   background-image: url(../images/board/green.png);
 }
 body.is2d.olive div.lichess_board,
 body.is2d.olive #GameBoard,
-body.is2d.olive .mini_board,
 body.is2d.olive .cg-board,
 #top div.color_demo.olive {
   background-image: url(../images/board/olive.jpg);
 }
 body.is2d.purple div.lichess_board,
 body.is2d.purple #GameBoard,
-body.is2d.purple .mini_board,
 body.is2d.purple .cg-board,
 #top div.color_demo.purple {
   background-image: url(../images/board/purple.png);
 }
 body.is2d.grey div.lichess_board,
 body.is2d.grey #GameBoard,
-body.is2d.grey .mini_board,
 body.is2d.grey .cg-board,
 #top div.color_demo.grey {
   background-image: url(../images/board/grey.jpg);
 }
 body.is2d.wood div.lichess_board,
 body.is2d.wood #GameBoard,
-body.is2d.wood .mini_board,
 body.is2d.wood .cg-board,
 #top div.color_demo.wood {
   background-image: url(../images/board/wood3-512.jpg);
 }
 body.is2d.canvas div.lichess_board,
 body.is2d.canvas #GameBoard,
-body.is2d.canvas .mini_board,
 body.is2d.canvas .cg-board,
 #top div.color_demo.canvas {
   background-image: url(../images/board/canvas2-512.jpg);
 }
 body.is2d.leather div.lichess_board,
 body.is2d.leather #GameBoard,
-body.is2d.leather .mini_board,
 body.is2d.leather .cg-board,
 #top div.color_demo.leather {
   background-image: url(../images/board/leather-512.jpg);
@@ -236,18 +224,16 @@ only screen and (min--moz-device-pixel-ratio:2),
 only screen and (min-device-pixel-ratio:2),
 only screen and (min-resolution:192dpi),
 only screen and (min-resolution:2dppx) {
-  body.is2d.wood div.lichess_board, body.is2d.wood #GameBoard, body.is2d.wood .mini_board, body.is2d.wood .cg-board {
+  body.is2d.wood div.lichess_board, body.is2d.wood #GameBoard, body.is2d.wood .cg-board {
     background-image: url(../images/board/wood3-1024.jpg);
   }
   body.is2d.canvas div.lichess_board,
   body.is2d.canvas #GameBoard,
-  body.is2d.canvas .mini_board,
   body.is2d.canvas .cg-board {
     background-image: url(../images/board/canvas2-1024.jpg);
   }
   body.is2d.leather div.lichess_board,
   body.is2d.leather #GameBoard,
-  body.is2d.leather .mini_board,
   body.is2d.leather .cg-board {
     background-image: url(../images/board/leather-1024.jpg);
   }
@@ -1325,8 +1311,7 @@ div.check_count span.player.color {
   font-weight: bold;
 }
 body.highlight #GameBoard td.highlightWhiteSquare img,
-body.highlight #GameBoard td.highlightBlackSquare img,
-body.highlight div.lcs.moved div.lcsi {
+body.highlight #GameBoard td.highlightBlackSquare img {
   background: -moz-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(155, 199, 00, 0.81)), color-stop(100%, rgba(155, 199, 00, 0)));
   background: -webkit-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
@@ -1334,19 +1319,6 @@ body.highlight div.lcs.moved div.lcsi {
   background: radial-gradient(ellipse at center, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#cfd85500', endColorstr='#00d85500', GradientType=1);
 }
-body.highlight div.lcs.check div.lcsi {
-  background: -moz-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255, 0, 0, 1)), color-stop(25%, rgba(231, 0, 0, 1)), color-stop(89%, rgba(169, 0, 0, 0)), color-stop(100%, rgba(158, 0, 0, 0)));
-  background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
-  background: -ms-radial-gradient(center, ellipse cover, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
-  background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
-  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ff0000', endColorstr='#009e0000', GradientType=1);
-}
-div.lcs.premoved div.lcsi,
-div.lcs.droppable-hover div.lcsi,
-div.lichess_board div.lcs.selected div.lcsi,
-div.lichess_board div.lcs.selectable div.lcsi,
-div.checkmateFen .mini_board > div:hover,
 #GameBoard td img.bestmove {
   box-shadow: inset 0 0 10px 2px rgba(216, 85, 0, 0.9);
 }

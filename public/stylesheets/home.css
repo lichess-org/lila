@@ -24,6 +24,7 @@ div.lobby_and_ground {
 
 #hooks_wrap {
   display: table-cell;
+  min-width: 512px;
   width: 512px;
   height: 512px;
   overflow: hidden;
@@ -531,7 +532,7 @@ div.game_config .fen_position {
   padding: 8px 0;
   display: none;
 }
-div.game_config .fen_position .mini_board {
+div.game_config .fen_position .cg-board-wrap {
   margin: 8px auto 0 auto;
 }
 div.game_config .fen_position .button {

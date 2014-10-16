@@ -737,7 +737,7 @@ var storage = {
         },
         params: {
           ran: "--ranph--"
-        },
+        }
       });
 
     Chessground(element.querySelector('.lichess_board'), {
@@ -748,7 +748,7 @@ var storage = {
       coordinates: data.pref.coords !== 0,
       highlight: {
         check: data.pref.highlight
-      },
+      }
     });
     setTimeout(function() {
       $('.lichess_overboard_wrap', element).addClass('visible');
