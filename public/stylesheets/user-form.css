@@ -53,9 +53,9 @@ div.content_box.prefs div.buttonset label {
 }
 
 div.content_box.prefs form li {
-  margin: 30px 0;
+  margin: 20px 0;
   border-top: 1px solid #eaeaea;
-  padding: 30px 0 0 0;
+  padding: 15px 0 0 0;
 }
 div.content_box.prefs form li:first-child {
   padding-top: 0;
