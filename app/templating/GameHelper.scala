@@ -180,6 +180,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"${usernameOrId(whiteUserId)} $res ${usernameOrId(blackUserId)}"
   }
 
+  lazy val miniBoardContent = Html("""<div class="cg-board-wrap"></div>""")
+
   def gameFen(
     game: Game,
     color: Color,
@@ -197,12 +199,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val live = isLive ?? game.id
     val fen = Forsyth exportBoard game.toChess.board
     val lastMove = ~game.castleLastMoveTime.lastMoveString
-    s"""<a href="$href" $title class="mini_board parse_fen $cssClass" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove"></a>"""
+    s"""<a href="$href" $title class="mini_board parse_fen $cssClass" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</a>"""
   }
 
   def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false, blank: Boolean = false) = Html {
     var isLive = game.isBeingPlayed
-    """<a href="%s%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s></a>""".format(
+    s"""<a href="%s%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
       blank ?? netBaseUrl,
       tv.fold(routes.Tv.index, routes.Round.watcher(game.id, color.name)),
       gameTitle(game, color),
