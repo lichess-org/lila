@@ -1021,69 +1021,49 @@ var storage = {
       registerLiveGames();
     });
 
-    $('div.checkmateCaptcha').each(function() {
-      var $captcha = $(this);
-      var $board = $captcha.find('.mini_board');
-      var color = $board.data('color');
-      var $squares = $captcha.find('.mini_board > div');
-      var $input = $captcha.find('input').val('');
-      var submit = function(s) {
-        $input.val(s);
-        $.ajax({
-          url: $captcha.data('check-url'),
-          data: {
-            solution: $input.val()
-          },
-          success: function(data) {
-            $captcha.toggleClass('success', data == 1);
-            $captcha.toggleClass('failure', data != 1);
-            if (data == 1) {
-              $board.find('.ui-draggable').draggable('destroy');
-            } else {
-              parseFen($board);
-              boardInteractions();
+    setTimeout(function() {
+      $('div.checkmateCaptcha').each(function() {
+        var $captcha = $(this);
+        var $board = $captcha.find('.mini_board');
+        var color = $board.data('color');
+
+        $board.data('chessground').set({
+          orientation: color,
+          turnColor: color,
+          movable: {
+            free: false,
+            dests: $board.data('moves'),
+            color: color,
+            coordinates: false,
+            events: {
+              after: function(orig, dest) {
+                $captcha.removeClass("success failure");
+                submit(orig + ' ' + dest);
+              }
             }
           }
         });
-      };
-      $captcha.find('button.retry').click(function() {
-        $input.val("");
-        $squares.removeClass('moved');
-        $captcha.removeClass("success failure");
-        return false;
-      });
-      var boardInteractions = function() {
-        $board.find('.lcmp.' + color).draggable({
-          revert: 'invalid',
-          scroll: false,
-          distance: 10
+
+        var submit = function(s) {
+          $.ajax({
+            url: $captcha.data('check-url'),
+            data: {
+              solution: s
+            },
+            success: function(data) {
+              $captcha.toggleClass('success', data == 1);
+              $captcha.toggleClass('failure', data != 1);
+              if (data == 1) $board.data('chessground').stop();
+              else setTimeout(function() { parseFen($board); }, 300);
+            }
+          });
+        };
+        $captcha.find('button.retry').click(function() {
+          $captcha.removeClass("success failure");
+          return false;
         });
-        $board.find('> div').droppable({
-          drop: function(ev, ui) {
-            submit(ui.draggable.parent().data('key') + ' ' + $(this).data('key'));
-            $(this).empty().append(ui.draggable.css({
-              top: 0,
-              left: 0
-            }));
-          },
-          hoverClass: 'moved'
-        });
-      };
-      boardInteractions();
-      $board.on('click', '> div', function() {
-        var key = $(this).data('key');
-        $captcha.removeClass("success failure");
-        if ($input.val().length == 2) {
-          submit($.trim($input.val() + " " + key));
-        } else {
-          $squares.removeClass('moved');
-          // first click must be on an own piece
-          if (!$(this).find('.' + color).length) return;
-          $input.val(key);
-        }
-        $(this).addClass('moved');
       });
-    });
+    }, 100);
   });
 
   ////////////////

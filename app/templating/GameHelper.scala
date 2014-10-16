@@ -180,7 +180,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"${usernameOrId(whiteUserId)} $res ${usernameOrId(blackUserId)}"
   }
 
-  lazy val miniBoardContent = Html("""<div class="cg-board-wrap"></div>""")
+  lazy val miniBoardContent = Html("""<div class="cg-board-wrap"><div class="cg-board"></div></div>""")
 
   def gameFen(
     game: Game,

@@ -8,11 +8,12 @@ function parseFen($elem) {
     var lastMove = lm ? [lm[0] + lm[1], lm[2] + lm[3]] : [];
     var color = $this.data('color');
     var ground = $this.data('chessground');
+    var playable = $this.data('playable');
     var config = {
       coordinates: false,
-      viewOnly: true,
+      viewOnly: !playable,
       fen: $this.data('fen'),
-      lastMove: lm ? [lm[0] + lm[1], lm[2] + lm[3]] : []
+      lastMove: lm ? [lm[0] + lm[1], lm[2] + lm[3]] : null
     };
     if (color) config.orientation = color;
     if (ground) ground.set(config);
