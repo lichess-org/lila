@@ -1025,6 +1025,7 @@ var storage = {
       $('div.checkmateCaptcha').each(function() {
         var $captcha = $(this);
         var $board = $captcha.find('.mini_board');
+        var $input = $captcha.find('input').val('');
         var color = $board.data('color');
 
         $board.data('chessground').set({
@@ -1044,11 +1045,12 @@ var storage = {
           }
         });
 
-        var submit = function(s) {
+        var submit = function(solution) {
+          $input.val(solution);
           $.ajax({
             url: $captcha.data('check-url'),
             data: {
-              solution: s
+              solution: solution
             },
             success: function(data) {
               $captcha.toggleClass('success', data == 1);
@@ -1058,10 +1060,6 @@ var storage = {
             }
           });
         };
-        $captcha.find('button.retry').click(function() {
-          $captcha.removeClass("success failure");
-          return false;
-        });
       });
     }, 100);
   });
