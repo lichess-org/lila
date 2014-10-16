@@ -1,7 +1,8 @@
 $(function() {
   $('#trainer').each(function() {
     var $trainer = $(this);
-    var $board = $trainer.find('.lichess_board');
+    var $board = $trainer.find('.board');
+    var ground;
     var $side = $trainer.find('> .side');
     var $right = $trainer.find('.board_and_ground > .right');
     var $bar = $trainer.find('.progress_bar');
@@ -25,6 +26,17 @@ $(function() {
 
     var showColor = function() {
       color = colorPref == 'random' ? ['white', 'black'][_.random(0, 1)] : colorPref;
+      if (!ground) ground = Chessground($board[0], {
+        coordinates: false,
+        movable: {
+          free: false,
+          color: null
+        },
+        orientation: color
+      });
+      else ground.set({
+        orientation: color
+      });
       $trainer.removeClass('white black').addClass(color);
     };
     showColor();
@@ -102,7 +114,11 @@ $(function() {
       $trainer.removeClass('play');
       centerRight();
       $trainer.removeClass('wrong');
-      $board.off('click', '.lcs');
+      ground.set({
+        events: {
+          select: false
+        }
+      });
       if (scoreUrl) $.ajax({
         url: scoreUrl,
         method: 'post',
@@ -138,20 +154,25 @@ $(function() {
       $score.text(score);
       $bar.css('width', 0);
       setTimeout(function() {
+
         startAt = new Date();
-        $board.on('click', '.lcs', function() {
-          var hit = this.id == $coords[0].text();
-          if (hit) {
-            score++;
-            $score.text(score);
-            advanceCoords();
-          } else {
-            $coords[0].addClass('nope');
-            setTimeout(function() {
-              $coords[0].removeClass('nope');
-            }, 500);
+        ground.set({
+          events: {
+            select: function(key) {
+              var hit = key == $coords[0].text();
+              if (hit) {
+                score++;
+                $score.text(score);
+                advanceCoords();
+              } else {
+                $coords[0].addClass('nope');
+                setTimeout(function() {
+                  $coords[0].removeClass('nope');
+                }, 500);
+              }
+              $trainer.toggleClass('wrong', !hit);
+            }
           }
-          $trainer.toggleClass('wrong', !hit);
         });
         $coords[0].text(newCoord('a1'));
         for (i = 1; i < $coords.length; i++)
