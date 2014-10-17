@@ -329,7 +329,7 @@ var storage = {
     }
 
     if (lichess.round) startRound(document.getElementById('lichess'), lichess.round);
-    else if (lichess.await) startAwait(document.querySelector('.lichess_game'), lichess.await);
+    else if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
 
     setTimeout(function() {
       if (lichess.socket === null) {
@@ -727,13 +727,13 @@ var storage = {
     });
   }
 
-  function startAwait(element, cfg) {
+  function startPrelude(element, cfg) {
     var data = cfg.data;
     lichess.socket = new lichess.StrongSocket(
       data.url.socket,
       data.player.version, {
         options: {
-          name: "await"
+          name: "prelude"
         },
         params: {
           ran: "--ranph--"
@@ -742,7 +742,7 @@ var storage = {
 
     Chessground(element.querySelector('.lichess_board'), {
       viewOnly: true,
-      fen: data.fen,
+      fen: data.game.fen,
       orientation: data.player.color,
       check: data.game.check,
       coordinates: data.pref.coords !== 0,

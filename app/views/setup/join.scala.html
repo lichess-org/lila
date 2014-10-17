@@ -1,44 +1,51 @@
-@(pov: Pov, opponentUser: Option[User], version: Int, config: Option[lila.setup.FriendConfig], initialFen: Option[String])(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, opponentUser: Option[User], config: Option[lila.setup.FriendConfig], initialFen: Option[String])(implicit ctx: Context)
 
 @import pov._
 
+@moreJs = {
+@embedJs {
+lichess = lichess || {};
+lichess.prelude = {
+data: @Html(play.api.libs.json.Json.stringify(data)),
+};
+}
+}
+
 @round.layout(
 title = trans.playWithAFriend.str(),
+moreJs = moreJs,
 side = Html(""),
 signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
-<div class="lichess_game lichess_game_not_started clearfix pov_@color">
-  <div class="lichess_board_wrap">
-    <div class="ground cg-512"></div>
-    <div class="lichess_overboard auto_center joining @game.id">
-      @opponentUser.map { u =>
-      @userLink(u)
-      }.getOrElse {
-      @User.anonymous
-      }
-      @config.map { c =>
-      <p class="explanations">
-        @views.html.game.variantLink(c.variant, variantName(c.variant)), @modeName(c.mode)<br />
-        <span data-icon="p"></span> @clockName(c.makeClock)<br />
-      </p>
-      }
-      @initialFen.map { fen =>
-      @views.html.game.miniBoard(fen)
-      }
-      @if(!game.rated || ctx.isAuth) {
-      @if(game.rated && !game.hasClock) {
-      <div class="join_warning warning">@trans.bewareTheGameIsRatedButHasNoClock()</div>
-      }
-      <form style="margin-top: 20px" action="@routes.Setup.join(gameId)" method="post">
-        <button name="submit" type="submit" class="submit button" data-icon="G">&nbsp;@trans.joinTheGame()</button>
-      </form>
-      } else {
-      <hr />
-      <p class="error">This game is rated<br />You must <a href="@routes.Auth.login?referrer=@routes.Round.watcher(pov.gameId, "white")">log in</a> to join it.</p>
-      }
-    </div>
+<div class="lichess_game">
+  <div class="lichess_board_wrap cg-512">
+    <div class="lichess_board"></div>
+  </div>
+  <div class="lichess_overboard joining @game.id">
+    @opponentUser.map { u =>
+    @userLink(u)
+    }.getOrElse {
+    @User.anonymous
+    }
+    @config.map { c =>
+    <p class="explanations">
+      @views.html.game.variantLink(c.variant, variantName(c.variant)), @modeName(c.mode)<br />
+      <span data-icon="p"></span> @clockName(c.makeClock)<br />
+    </p>
+    }
+    @initialFen.map { fen =>
+    @views.html.game.miniBoard(fen, color = pov.color.name)
+    }
+    @if(!game.rated || ctx.isAuth) {
+    @if(game.rated && !game.hasClock) {
+    <div class="join_warning warning">@trans.bewareTheGameIsRatedButHasNoClock()</div>
+    }
+    <form style="margin-top: 20px" action="@routes.Setup.join(gameId)" method="post">
+      <button name="submit" type="submit" class="submit button" data-icon="G">&nbsp;@trans.joinTheGame()</button>
+    </form>
+    } else {
+    <hr />
+    <p class="error">This game is rated<br />You must <a href="@routes.Auth.login?referrer=@routes.Round.watcher(pov.gameId, "white")">log in</a> to join it.</p>
+    }
   </div>
 </div>
-@*
-@embedJs("var _ld_ = " + roundWatcherJsData(pov, version, false, ctx.pref))
-*@
 }

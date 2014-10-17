@@ -93,10 +93,10 @@ object Round extends LilaController with TheftPrevention {
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
     GameRepo initialFen pov.gameId zip
-      env.version(pov.gameId) zip
+      Env.api.roundApi.player(pov, Env.api.version) zip
       ((pov.player.userId orElse pov.opponent.userId) ?? UserRepo.byId) map {
-        case ((fen, version), opponent) => Ok(html.setup.join(
-          pov, opponent, version, Env.setup.friendConfigMemo get pov.game.id, fen))
+        case ((fen, data), opponent) => Ok(html.setup.join(
+          pov, data, opponent, Env.setup.friendConfigMemo get pov.game.id, fen))
       }
 
   def tableWatcher(gameId: String, color: String) = Open { implicit ctx =>

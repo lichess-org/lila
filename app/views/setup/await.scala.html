@@ -5,7 +5,7 @@
 @moreJs = {
 @embedJs {
 lichess = lichess || {};
-lichess.await = {
+lichess.prelude = {
 data: @Html(play.api.libs.json.Json.stringify(data)),
 };
 }
@@ -16,42 +16,40 @@ title = userOption.isDefined.fold(trans.challengeToPlay,trans.playWithAFriend).s
 moreJs = moreJs,
 side = Html(""),
 signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
-<div class="top">
-  <div class="lichess_game cg-512">
-    <div class="lichess_board_wrap">
-      <div class="lichess_board"></div>
-    </div>
-    <div class="lichess_overboard">
-      @userOption.map { user =>
-      <div id="challenge_await" data-user="@user.id">
-        <h2>@trans.challengeToPlay()</h2>
-        @userLink(user, cssClass="target".some)
-        <span class="loader"><span data-icon="U"></span></span>
-        <p class="explanations">
-          @trans.waitingForOpponent()<br />
-          <a href="@routes.Setup.cancel(fullId)">@trans.cancel()</a>
-        </p>
-      </div>
-      <div id="challenge_declined" class="none">
-        <h2>Challenge declined</h2>
-        <a href="@routes.Lobby.home()">@trans.playWithAnotherOpponent()</a>
-      </div>
-      }.getOrElse {
-      @trans.toInviteSomeoneToPlayGiveThisUrl():
-      <input id="lichess_id_input" class="copyable" spellcheck="false" readonly="true" value="@protocol@commonDomain@routes.Round.watcher(gameId, "white")" />
+<div class="lichess_game">
+  <div class="lichess_board_wrap cg-512">
+    <div class="lichess_board"></div>
+  </div>
+  <div class="lichess_overboard">
+    @userOption.map { user =>
+    <div id="challenge_await" data-user="@user.id">
+      <h2>@trans.challengeToPlay()</h2>
+      @userLink(user, cssClass="target".some)
+      <span class="loader"><span data-icon="U"></span></span>
       <p class="explanations">
-        @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()<br />
+        @trans.waitingForOpponent()<br />
         <a href="@routes.Setup.cancel(fullId)">@trans.cancel()</a>
       </p>
-      }
-      @config.map { c =>
-      <p class="explanations">
-        @trans.variant(): @views.html.game.variantLink(c.variant, variantName(c.variant))<br />
-        <span data-icon="p"></span> @clockName(c.makeClock)<br />
-        @trans.mode(): @modeName(c.mode)
-      </p>
-      }
     </div>
+    <div id="challenge_declined" class="none">
+      <h2>Challenge declined</h2>
+      <a href="@routes.Lobby.home()">@trans.playWithAnotherOpponent()</a>
+    </div>
+    }.getOrElse {
+    @trans.toInviteSomeoneToPlayGiveThisUrl():
+    <input id="lichess_id_input" class="copyable" spellcheck="false" readonly="true" value="@protocol@commonDomain@routes.Round.watcher(gameId, "white")" />
+    <p class="explanations">
+      @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()<br />
+      <a href="@routes.Setup.cancel(fullId)">@trans.cancel()</a>
+    </p>
+    }
+    @config.map { c =>
+    <p class="explanations">
+      @trans.variant(): @views.html.game.variantLink(c.variant, variantName(c.variant))<br />
+      <span data-icon="p"></span> @clockName(c.makeClock)<br />
+      @trans.mode(): @modeName(c.mode)
+    </p>
+    }
   </div>
 </div>
 }
