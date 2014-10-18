@@ -691,6 +691,7 @@ var storage = {
       messages: data.chat
     });
     var $watchers = $('#site_header div.watchers').watchers();
+    var round;
     if (data.tournament) $('body').data('tournament-id', data.tournament.id);
     lichess.socket = new lichess.StrongSocket(
       data.url.socket,
@@ -725,7 +726,7 @@ var storage = {
           }
         }
       });
-    var round = LichessRound(element.querySelector('.round'), cfg.data, cfg.routes, cfg.i18n, lichess.socket.send.bind(lichess.socket));
+    round = LichessRound(element.querySelector('.round'), cfg.data, cfg.routes, cfg.i18n, lichess.socket.send.bind(lichess.socket));
     startTournamentClock();
     $('.crosstable', element).prependTo($('.underboard .center', element)).show();
     $('#tv_history').on("click", "tr", function() {
