@@ -1,42 +1,41 @@
 @(crosstable: lila.game.Crosstable)(implicit ctx: Context)
 
-<div id="crosstable">
-  <table>
-    <tbody>
-      @crosstable.users.map { u =>
-      <tr>
-        @crosstable.fill.map { index =>
-        <td @if(index == 20) { class="last" }>
-          <a>&nbsp;</a>
-        </td>
-        }
-        @crosstable.results.zipWithIndex.map {
-        case (r, index) => {
-        <td @if(index == crosstable.size - 1) { class="last" }>
-          <a href="@routes.Round.watcher(r.gameId, "white")" class="@r.winnerId match {
-            case Some(w) if w == u.id => { win }
-            case None => {}
-            case _ => { loss }
-            }">
-            @r.winnerId match {
-            case Some(w) if w == u.id => { 1 }
-            case None => { ½ }
-            case _ => { 0 }
-            }
-          </a>
-        </td>
-        }
-        }
-        <th class="score @crosstable.winnerId match {
-          case Some(w) if w == u.id => { win }
-          case Some(_) => { loss }
-          case _ => {}
-          }">
-          @crosstable.showScore(u.id)
-        </th>
-        <th class="user">@userIdLink(u.id.some, withOnline = false)</th>
-      </tr>
+<table>
+  <tbody>
+    @crosstable.users.map { u =>
+    <tr>
+      @crosstable.fill.map { index =>
+      <td @if(index == 20) { class="last" }>
+        <a>&nbsp;</a>
+      </td>
       }
-    </tbody>
-  </table>
-</div>
+      @crosstable.results.zipWithIndex.map {
+      case (r, index) => {
+      <td @if(index == crosstable.size - 1) { class="last" }>
+        <a href="@routes.Round.watcher(r.gameId, "white")" class="@r.winnerId match {
+          case Some(w) if w == u.id => { win }
+          case None => {}
+          case _ => { loss }
+          }">
+          @r.winnerId match {
+          case Some(w) if w == u.id => { 1 }
+          case None => { ½ }
+          case _ => { 0 }
+          }
+        </a>
+      </td>
+      }
+      }
+      <th class="score @crosstable.winnerId match {
+        case Some(w) if w == u.id => { win }
+        case Some(_) => { loss }
+        case _ => {}
+        }">
+        @crosstable.showScore(u.id)
+      </th>
+      <th class="user">@userIdLink(u.id.some, withOnline = false)</th>
+    </tr>
+    }
+  </tbody>
+</table>
+

@@ -1638,23 +1638,17 @@ div.lichess_overboard.joining a.decline {
 div.lichess_overboard.joining .mini_board {
   margin: 10px auto;
 }
-#playing_crosstable {
-  margin: 10px 0;
-}
-#crosstable {
-  margin-top: 30px;
-}
-#crosstable table {
+.crosstable table {
   width: 100%;
   margin: 1em 0;
 }
-#crosstable td {
+.crosstable td {
   text-align: center;
   border: 1px solid #eee;
   padding: 0;
   min-width: 15px;
 }
-#crosstable td a {
+.crosstable td a {
   line-height: 2em;
   font-size: 1.1em;
   display: block;
@@ -1662,26 +1656,26 @@ div.lichess_overboard.joining .mini_board {
   background: #fff;
   text-decoration: none;
 }
-#crosstable .win {
+.crosstable .win {
   font-weight: bold;
   color: #759900;
 }
-#crosstable .loss {
+.crosstable .loss {
   color: #ac524f;
 }
-#crosstable td.last {
+.crosstable td.last {
   border-right: 1px solid #ccc;
 }
-#crosstable th {
+.crosstable th {
   border: 1px solid #ccc;
   padding: 3px;
 }
-#crosstable .score {
+.crosstable .score {
   font-size: 1.3em;
   text-align: right;
   padding-right: 7px;
 }
-#crosstable .user {
+.crosstable .user {
   padding-left: 7px;
 }
 #site_header a.stream {

@@ -215,7 +215,7 @@ openGraph = Map(
   </div>
   @if(filters.current.name == "me") {
   @info.crosstable.map { c =>
-  @game.crosstable(c)
+  <div class="crosstable">@game.crosstable(c)</div>
   }
   }
   @views.html.user.games(u, games, filters.current.name)
