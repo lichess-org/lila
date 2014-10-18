@@ -22,10 +22,9 @@ body.is3d .cg-512 .cg-board-wrap {
   user-select: none;
   line-height: 0;
   background-size: cover;
-  cursor: pointer;
 }
-.cg-board-wrap.view-only .cg-board {
-  cursor: auto;
+.manipulable .cg-board {
+  cursor: pointer;
 }
 body.is3d .cg-board {
   top: 0.6168702%;
