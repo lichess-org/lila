@@ -99,22 +99,6 @@ object Round extends LilaController with TheftPrevention {
           pov, data, opponent, Env.setup.friendConfigMemo get pov.game.id, fen))
       }
 
-  def tableWatcher(gameId: String, color: String) = Open { implicit ctx =>
-    OptionOk(GameRepo.pov(gameId, color)) { html.round.table.watch(_) }
-  }
-
-  def tablePlayer(fullId: String) = Open { implicit ctx =>
-    OptionFuOk(GameRepo pov fullId) { pov =>
-      (pov.game.tournamentId ?? TournamentRepo.byId) zip
-        (pov.game.playable ?? env.takebacker.isAllowedByPrefs(pov.game)) map {
-          case (tour, takebackable) =>
-            pov.game.playable.fold(
-              html.round.table.playing(pov, takebackable),
-              html.round.table.end(pov, tour))
-        }
-    }
-  }
-
   def playerText(fullId: String) = Open { implicit ctx =>
     OptionResult(GameRepo pov fullId) { pov =>
       if (ctx.blindMode) Ok(html.game.textualRepresentation(pov, true))
