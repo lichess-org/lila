@@ -716,6 +716,7 @@ var storage = {
           end: function() {
             $.get(data.url.round + '/side', function(html) {
               $('#site_header div.side').replaceWith(html);
+              $('body').trigger('lichess.content_loaded');
               startTournamentClock();
             });
           },
