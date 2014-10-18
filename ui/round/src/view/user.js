@@ -4,7 +4,11 @@ var round = require('../round');
 module.exports = function(ctrl, player, klass) {
   return player.user ? [
     m('a', {
-      class: 'user_link ulpt ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
+      config: function(el, isUpdate) {
+        if (isUpdate) return;
+        el.classList.add('ulpt');
+      },
+      class: 'user_link ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
       href: ctrl.router.User.show(player.user.username).url,
       target: round.playable(ctrl.data) ? '_blank' : null,
       'data-icon': 'r',
