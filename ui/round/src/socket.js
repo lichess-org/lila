@@ -25,11 +25,7 @@ module.exports = function(send, ctrl) {
       ctrl.setTitle();
     },
     move: function(o) {
-      ctrl.chessground.apiMove(o.from, o.to);
-      if (ctrl.data.game.threefold) ctrl.data.game.threefold = false;
-      round.setOnGame(ctrl.data, o.color, true);
-      m.redraw();
-      $.sound.move(o.color == 'white');
+      ctrl.apiMove(o);
     },
     premove: function() {
       ctrl.chessground.playPremove();

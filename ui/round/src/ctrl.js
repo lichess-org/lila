@@ -13,6 +13,7 @@ var promotion = require('./promotion');
 var hold = require('./hold');
 var blur = require('./blur');
 var init = require('./init');
+var blind = require('./blind');
 var clockCtrl = require('./clock/ctrl');
 
 module.exports = function(cfg, router, i18n, socketSend) {
@@ -42,12 +43,22 @@ module.exports = function(cfg, router, i18n, socketSend) {
     $.sound.move(this.data.player.color == 'white');
   }.bind(this);
 
+  this.apiMove = function(o) {
+    this.chessground.apiMove(o.from, o.to);
+    if (this.data.game.threefold) this.data.game.threefold = false;
+    round.setOnGame(this.data, o.color, true);
+    m.redraw();
+    $.sound.move(o.color == 'white');
+    if (this.data.blind) blind.reload(this);
+  }.bind(this);
+
   this.chessground = ground.make(this.data, cfg.game.fen, this.userMove);
 
   this.reload = function(cfg) {
     this.data = data(cfg);
     ground.reload(this.chessground, this.data, cfg.game.fen);
     this.setTitle();
+    if (this.data.blind) blind.reload(this);
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(

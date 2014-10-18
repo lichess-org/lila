@@ -8,6 +8,9 @@ body.is3d #lichess {
 div.lichess_game div.lichess_board_wrap {
   display: table-cell;
 }
+body.blind_mode .cg-board-wrap {
+  display: none;
+}
 div.lichess_game div.lichess_ground {
   display: table-cell;
   vertical-align: middle;

@@ -15,7 +15,7 @@ module.exports = function(ctrl) {
   if (round.playable(d) && round.nbMoves(d, d.player.color) === 0) $.sound.dong();
 
   if (round.isPlayerPlaying(d)) window.addEventListener('beforeunload', function(e) {
-    if (!lichess.hasToReload && round.playable(ctrl.data) && ctrl.data.clock) {
+    if (!lichess.hasToReload && !ctrl.data.blind && round.playable(ctrl.data) && ctrl.data.clock) {
       ctrl.socket.send('bye');
       var msg = 'There is a game in progress!';
       (e || window.event).returnValue = msg;

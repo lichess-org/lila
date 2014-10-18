@@ -6,6 +6,7 @@ var renderPromotion = require('../promotion').view;
 var renderUser = require('./user');
 var partial = require('chessground').util.partial;
 var button = require('./button');
+var blind = require('../blind');
 
 function renderMaterial(ctrl, material) {
   var children = [];
@@ -41,6 +42,26 @@ function holdOf(ctrl, player) {
   ]);
 }
 
+function visualBoard(ctrl) {
+  return m('div.lichess_board_wrap', ctrl.data.blindMode ? null : [
+    m('div.lichess_board.' + ctrl.data.game.variant.key, {
+      onclick: ctrl.data.player.spectator ? toggleDontTouch : null
+    }, chessground.view(ctrl.chessground)),
+    renderPromotion(ctrl)
+  ]);
+}
+
+function blindBoard(ctrl) {
+  return m('div.lichess_board_blind', [
+    m('div.textual', {
+      config: function(el, isUpdate) {
+        if (!isUpdate) blind.init(el, ctrl);
+      }
+    }),
+    chessground.view(ctrl.chessground)
+  ]);
+}
+
 var dontTouch = m.prop(false);
 
 function toggleDontTouch() {
@@ -57,13 +78,7 @@ module.exports = function(ctrl) {
           $('body').trigger('lichess.content_loaded');
         }
       }, [
-        ctrl.data.blindMode ? m('div#lichess_board_blind') : null,
-        m('div.lichess_board_wrap', ctrl.data.blindMode ? null : [
-          m('div.lichess_board.' + ctrl.data.game.variant.key, {
-            onclick: ctrl.data.player.spectator ? toggleDontTouch : null
-          }, chessground.view(ctrl.chessground)),
-          renderPromotion(ctrl)
-        ]),
+        ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground',
           material ? renderMaterial(ctrl, material[ctrl.data.opponent.color]) : null,
           renderTable(ctrl),
