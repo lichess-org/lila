@@ -22,7 +22,7 @@ body.dark div.analysis_menu > a.active {
 body.dark div.analysis_menu > a.active {
   border-top-color: #1a1a1a;
 }
-body.dark #crosstable td {
+body.dark .crosstable td {
   border-color: #1a1a1a;
 }
 body.dark #reconnecting,
@@ -113,7 +113,7 @@ body.dark div.content_box.prefs form li,
 body.dark div.content_box.prefs fieldset,
 body.dark #claim_draw_zone,
 body.dark.is2d #themepicker div.color_demo,
-body.dark #crosstable th,
+body.dark .crosstable th,
 body.dark #lichess_blog .list h1,
 body.dark #lichess_blog .body h2,
 body.dark #lichess_blog .body img,
@@ -124,7 +124,7 @@ body.dark div.force_resign_zone,
 body.dark div.negotiation {
   border-color: #3d3d3d;
 }
-body.dark #crosstable td.last {
+body.dark .crosstable td.last {
   border-right-color: #3d3d3d;
 }
 body.dark #hooks_wrap > div.tabs > a.active {
@@ -166,7 +166,7 @@ body.dark div.undertable_top span.title {
   color: #777;
 }
 body.dark #GameText a:hover,
-body.dark #crosstable td a,
+body.dark .crosstable td a,
 body.dark #hook_filter td > label.hover:hover,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
@@ -296,7 +296,7 @@ body.dark div.content_box_top {
 }
 /* soft inactive gradient */
 
-body.dark #crosstable th,
+body.dark .crosstable th,
 body.dark #chat div.top,
 body.dark div.side_box div.top,
 body.dark #friend_box .title,

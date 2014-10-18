@@ -21,7 +21,8 @@
   width: 525px;
 }
 #tournament div.tournament_show div.game_list {
-  margin: 25px 0 0 15px;
+  margin: 0 0 0 15px;
+  padding-top: 20px;
   overflow: hidden;
 }
 #tournament a.pov {
