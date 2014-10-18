@@ -62,7 +62,7 @@ function renderTableWatch(ctrl) {
         href: ctrl.router.Round.watcher(d.game.rematch, d.opponent.color).url
       }, ctrl.trans('viewRematch')) : null,
       d.tournament ? m('a.button', {
-        href: ctrl.Tournament.show(d.tournament.id)
+        href: ctrl.router.Tournament.show(d.tournament.id)
       }, ctrl.trans('viewTournament')) : null
     ])
   ];
