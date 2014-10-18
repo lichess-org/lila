@@ -60,7 +60,7 @@ function setOnGame(data, color, onGame) {
 }
 
 function nbMoves(data, color) {
-  return data.turns + (color == 'white' ? 1 : 0) / 2;
+  return Math.floor((data.game.turns + (color == 'white' ? 1 : 0)) / 2);
 }
 
 module.exports = {

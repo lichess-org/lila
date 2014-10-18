@@ -177,7 +177,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
         config => op(config)(ctx) flatMap {
           case (pov, call) => negotiate(
             html = fuccess(redirectPov(pov, call)),
-            api = apiVersion => Env.round.jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me) map { data =>
+            api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { data =>
               Created(data) as JSON
             }
           )

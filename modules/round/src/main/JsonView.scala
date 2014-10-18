@@ -31,7 +31,8 @@ final class JsonView(
     pov: Pov,
     pref: Pref,
     apiVersion: Int,
-    playerUser: Option[User]): Fu[JsObject] =
+    playerUser: Option[User],
+    withBlurs: Boolean): Fu[JsObject] =
     getVersion(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) zip
@@ -67,7 +68,9 @@ final class JsonView(
               "user" -> playerUser.map { userJsonView(_, true) },
               "offeringRematch" -> player.isOfferingRematch.option(true),
               "offeringDraw" -> player.isOfferingDraw.option(true),
-              "proposingTakeback" -> player.isProposingTakeback.option(true)
+              "proposingTakeback" -> player.isProposingTakeback.option(true),
+              "hold" -> (withBlurs option hold(player)),
+              "blurs" -> (withBlurs option blurs(game, player))
             ).noNull,
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,
@@ -76,7 +79,9 @@ final class JsonView(
               "offeringRematch" -> opponent.isOfferingRematch.option(true),
               "offeringDraw" -> opponent.isOfferingDraw.option(true),
               "proposingTakeback" -> opponent.isProposingTakeback.option(true),
-              "onGame" -> true
+              "onGame" -> true,
+              "hold" -> (withBlurs option hold(opponent)),
+              "blurs" -> (withBlurs option blurs(game, opponent))
             ).noNull,
             "url" -> Json.obj(
               "socket" -> s"/$fullId/socket/v$apiVersion",
@@ -112,7 +117,8 @@ final class JsonView(
     pref: Pref,
     apiVersion: Int,
     user: Option[User],
-    tv: Boolean) =
+    tv: Boolean,
+    withBlurs: Boolean) =
     getVersion(pov.game.id) zip
       getWatcherChat(pov.game, user) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
@@ -143,12 +149,18 @@ final class JsonView(
               "spectator" -> true,
               "ai" -> player.aiLevel,
               "user" -> playerUser.map { userJsonView(_, true) },
-              "onGame" -> true),
+              "onGame" -> true,
+              "hold" -> (withBlurs option hold(player)),
+              "blurs" -> (withBlurs option blurs(game, player))
+            ).noNull,
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
               "user" -> opponentUser.map { userJsonView(_, true) },
-              "onGame" -> true),
+              "onGame" -> true,
+              "hold" -> (withBlurs option hold(opponent)),
+              "blurs" -> (withBlurs option blurs(game, opponent))
+            ).noNull,
             "url" -> Json.obj(
               "socket" -> s"/$gameId/${color.name}/socket",
               "round" -> s"/$gameId/${color.name}"
@@ -171,6 +183,21 @@ final class JsonView(
             }
           )
       }
+
+  private def blurs(game: Game, player: lila.game.Player) = {
+    val percent = game.playerBlurPercent(player.color)
+    (percent > 30) option Json.obj(
+      "nb" -> player.blurs,
+      "percent" -> percent
+    )
+  }
+
+  private def hold(player: lila.game.Player) = player.holdAlert map { h =>
+    Json.obj(
+      "ply" -> h.ply,
+      "mean" -> h.mean,
+      "sd" -> h.sd)
+  }
 
   private def getPlayerChat(game: Game, forUser: Option[User]): Fu[Option[lila.chat.MixedChat]] =
     game.hasChat optionFu {

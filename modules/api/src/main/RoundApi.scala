@@ -5,13 +5,15 @@ import play.api.libs.json._
 import lila.game.Pov
 import lila.pref.Pref
 import lila.round.JsonView
+import lila.security.Granter
 import lila.tournament.TournamentRepo
 import lila.user.User
 
 private[api] final class RoundApi(jsonView: JsonView) {
 
   def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] =
-    jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me) zip
+    jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
+      withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) map {
         case (json, tourOption) => tourOption.fold(json) { tour =>
           json + (
@@ -25,7 +27,8 @@ private[api] final class RoundApi(jsonView: JsonView) {
       }
 
   def watcher(pov: Pov, apiVersion: Int, tv: Boolean)(implicit ctx: Context): Fu[JsObject] =
-    jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv) zip
+    jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
+      withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) map {
         case (json, tourOption) => tourOption.fold(json) { tour =>
           json + (

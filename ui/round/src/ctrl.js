@@ -29,7 +29,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
       to: dest
     };
     if (prom) move.promotion = prom;
-    if (blur.get()) move.b = true;
+    if (blur.get()) move.b = 1;
     if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
     this.socket.send('move', move, {
       ackable: true

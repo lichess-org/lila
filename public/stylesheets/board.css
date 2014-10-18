@@ -1025,9 +1025,6 @@ div.table_wrap a.moretime {
 div.table_wrap a.moretime:hover {
   opacity: 1;
 }
-div.player_blurs {
-  margin: 1em 0;
-}
 div.table_next {
   top: 145px;
 }
@@ -1293,10 +1290,16 @@ span.inline_userlist a {
 span.inline_userlist a:hover {
   text-decoration: underline;
 }
-div.underboard {
+div.underboard .center {
+  display: inline-block;
   position: relative;
   width: 512px;
   text-align: center;
+}
+div.underboard .right {
+  display: inline-block;
+  margin-left: 15px;
+  width: 242px;
 }
 div.underboard a {
   display: inline-block;

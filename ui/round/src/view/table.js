@@ -5,6 +5,7 @@ var status = require('../status');
 var opposite = chessground.util.opposite;
 var renderClock = require('../clock/view');
 var renderStatus = require('./status');
+var renderUser = require('./user');
 var button = require('./button');
 
 function renderPlayer(ctrl, player) {
@@ -14,23 +15,7 @@ function renderPlayer(ctrl, player) {
   ]) : m('div', {
       class: 'username ' + player.color + (player.onGame ? ' on-game' : '')
     },
-    player.user ? [
-      m('a', {
-        class: 'user_link ulpt ' + (player.user.online ? 'online is-green' : 'offline'),
-        href: ctrl.router.User.show(player.user.username).url,
-        target: round.playable(ctrl.data) ? '_blank' : null,
-        'data-icon': 'r',
-      }, [
-        (player.user.title ? player.user.title + ' ' : '') + player.user.username,
-        player.engine ? m('span[data-icon=j]', {
-          title: ctrl.trans('thisPlayerUsesChessComputerAssistance')
-        }) : null
-      ]),
-      m('span.status')
-    ] : m('span.user_link', [
-      'Anonymous',
-      m('span.status')
-    ])
+    renderUser(ctrl, player)
   );
 }
 

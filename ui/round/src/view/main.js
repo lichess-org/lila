@@ -1,7 +1,10 @@
 var m = require('mithril');
+var round = require('../round');
 var chessground = require('chessground');
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
+var renderUser = require('./user');
+var partial = require('chessground').util.partial;
 var button = require('./button');
 
 function renderMaterial(ctrl, material) {
@@ -20,10 +23,29 @@ function renderMaterial(ctrl, material) {
   return m('div.cemetery', children);
 }
 
+function blursOf(ctrl, player) {
+  if (player.blurs) return m('p', [
+    renderUser(ctrl, player, player.color),
+    ' ' + player.blurs.nb + '/' + round.nbMoves(ctrl.data, player.color) + ' blurs = ',
+    m('strong', player.blurs.percent + '%')
+  ]);
+}
+
+function holdOf(ctrl, player) {
+  var h = player.hold;
+  if (h) return m('p', [
+    renderUser(ctrl, player, player.color),
+    ' hold alert',
+    m('br'),
+    'ply=' + h.ply + ', mean=' + h.mean + ' ms, SD=' + h.sd
+  ]);
+}
+
 var dontTouch = m.prop(false);
-var toggleDontTouch = function() {
+
+function toggleDontTouch() {
   dontTouch(!dontTouch());
-};
+}
 
 module.exports = function(ctrl) {
   var material = ctrl.data.pref.showCaptured ? chessground.board.getMaterialDiff(ctrl.chessground.data) : false;
@@ -49,12 +71,17 @@ module.exports = function(ctrl) {
       ])
     ]),
     m('div.underboard', [
-      ctrl.chessground.data.premovable.current ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
-      dontTouch() ? m('div.dont_touch', {
-        onclick: toggleDontTouch
-      }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null,
-      button.flip(ctrl),
-      button.replayAndAnalyse(ctrl)
+      m('div.center', [
+        ctrl.chessground.data.premovable.current ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
+        dontTouch() ? m('div.dont_touch', {
+          onclick: toggleDontTouch
+        }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null,
+        button.flip(ctrl),
+        button.replayAndAnalyse(ctrl)
+      ]),
+      m('div.right', [
+        [ctrl.data.opponent, ctrl.data.player].map(partial(blursOf, ctrl)), [ctrl.data.opponent, ctrl.data.player].map(partial(holdOf, ctrl))
+      ])
     ])
   ];
 };

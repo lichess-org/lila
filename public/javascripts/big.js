@@ -720,11 +720,6 @@ var storage = {
     $('#tv_history').on("click", "tr", function() {
       location.href = $(element).find('a.view').attr('href');
     });
-    $('#challenge_await').each(function() {
-      setInterval(function() {
-        if ($('#challenge_await').length) lichess.socket.send('challenge', $(element).data('user'));
-      }, 1500);
-    });
   }
 
   function startPrelude(element, cfg) {
@@ -753,6 +748,13 @@ var storage = {
     setTimeout(function() {
       $('.lichess_overboard_wrap', element).addClass('visible');
     }, 100);
+    $('#challenge_await').each(function() {
+      setInterval(function() {
+        $('#challenge_await').each(function() {
+          lichess.socket.send('challenge', $(this).data('user'));
+        });
+      }, 1500);
+    });
   }
 
   $.widget("lichess.watchers", {
@@ -1056,7 +1058,9 @@ var storage = {
               $captcha.toggleClass('success', data == 1);
               $captcha.toggleClass('failure', data != 1);
               if (data == 1) $board.data('chessground').stop();
-              else setTimeout(function() { parseFen($board); }, 300);
+              else setTimeout(function() {
+                parseFen($board);
+              }, 300);
             }
           });
         };
