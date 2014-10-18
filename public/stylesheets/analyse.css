@@ -111,6 +111,7 @@ div.fen_pgn input.fen {
   width: 512px;
   height: 512px;
   border: 1px solid #ccc;
+  background-size: contain;
 }
 #GameBoard.flip table,
 #GameBoard.flip img.pieceImage {

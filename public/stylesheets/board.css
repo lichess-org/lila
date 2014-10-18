@@ -32,73 +32,73 @@ div.lichess_board {
   position: relative;
 }
 body.is2d.blue div.lichess_board,
-body.is2d.blue #GameBoard,
+body.blue #GameBoard,
 body.is2d.blue .cg-board,
 #top div.color_demo.blue {
   background-image: url(../images/board/blue.png);
 }
 body.is2d.blue2 div.lichess_board,
-body.is2d.blue2 #GameBoard,
+body.blue2 #GameBoard,
 body.is2d.blue2 .cg-board,
 #top div.color_demo.blue2 {
   background-image: url(../images/board/blue2.jpg);
 }
 body.is2d.wood2 div.lichess_board,
-body.is2d.wood2 #GameBoard,
+body.wood2 #GameBoard,
 body.is2d.wood2 .cg-board,
 #top div.color_demo.wood2 {
   background-image: url(../images/board/wood2.jpg);
 }
 body.is2d.marble div.lichess_board,
-body.is2d.marble #GameBoard,
+body.marble #GameBoard,
 body.is2d.marble .cg-board,
 #top div.color_demo.marble {
   background-image: url(../images/board/marble.jpg);
 }
 body.is2d.brown div.lichess_board,
-body.is2d.brown #GameBoard,
+body.brown #GameBoard,
 body.is2d.brown .cg-board,
 #top div.color_demo.brown {
   background-image: url(../images/board/brown.png);
 }
 body.is2d.green div.lichess_board,
-body.is2d.green #GameBoard,
+body.green #GameBoard,
 body.is2d.green .cg-board,
 #top div.color_demo.green {
   background-image: url(../images/board/green.png);
 }
 body.is2d.olive div.lichess_board,
-body.is2d.olive #GameBoard,
+body.olive #GameBoard,
 body.is2d.olive .cg-board,
 #top div.color_demo.olive {
   background-image: url(../images/board/olive.jpg);
 }
 body.is2d.purple div.lichess_board,
-body.is2d.purple #GameBoard,
+body.purple #GameBoard,
 body.is2d.purple .cg-board,
 #top div.color_demo.purple {
   background-image: url(../images/board/purple.png);
 }
 body.is2d.grey div.lichess_board,
-body.is2d.grey #GameBoard,
+body.grey #GameBoard,
 body.is2d.grey .cg-board,
 #top div.color_demo.grey {
   background-image: url(../images/board/grey.jpg);
 }
 body.is2d.wood div.lichess_board,
-body.is2d.wood #GameBoard,
+body.wood #GameBoard,
 body.is2d.wood .cg-board,
 #top div.color_demo.wood {
   background-image: url(../images/board/wood3-512.jpg);
 }
 body.is2d.canvas div.lichess_board,
-body.is2d.canvas #GameBoard,
+body.canvas #GameBoard,
 body.is2d.canvas .cg-board,
 #top div.color_demo.canvas {
   background-image: url(../images/board/canvas2-512.jpg);
 }
 body.is2d.leather div.lichess_board,
-body.is2d.leather #GameBoard,
+body.leather #GameBoard,
 body.is2d.leather .cg-board,
 #top div.color_demo.leather {
   background-image: url(../images/board/leather-512.jpg);
@@ -106,51 +106,51 @@ body.is2d.leather .cg-board,
 /* KotH boards */
 
 body.is2d.blue div.lichess_board.kingOfTheHill .cg-board,
-body.is2d.blue #GameBoard.kingOfTheHill {
+body.blue #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/blue.jpg);
 }
 body.is2d.blue2 div.lichess_board.kingOfTheHill .cg-board,
-body.is2d.blue2 #GameBoard.kingOfTheHill {
+body.blue2 #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/blue2.jpg);
 }
 body.is2d.wood2 div.lichess_board.kingOfTheHill .cg-board,
-body.is2d.wood2 #GameBoard.kingOfTheHill {
+body.wood2 #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/wood2.jpg);
 }
 body.is2d.marble div.lichess_board.kingOfTheHill .cg-board,
-body.is2d.marble #GameBoard.kingOfTheHill {
+body.marble #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/marble.jpg);
 }
 body.is2d.brown div.lichess_board.kingOfTheHill .cg-board,
-body.is2d.brown #GameBoard.kingOfTheHill {
+body.brown #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/brown.jpg);
 }
 body.is2d.green div.lichess_board.kingOfTheHill .cg-board,
-body.is2d.green #GameBoard.kingOfTheHill {
+body.green #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/green.jpg);
 }
 body.is2d.olive div.lichess_board.kingOfTheHill .cg-board,
-body.is2d.olive #GameBoard.kingOfTheHill {
+body.olive #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/olive.jpg);
 }
 body.is2d.purple div.lichess_board.kingOfTheHill .cg-board,
-body.is2d.purple #GameBoard.kingOfTheHill {
+body.purple #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/purple.jpg);
 }
 body.is2d.grey div.lichess_board.kingOfTheHill .cg-board,
-body.is2d.grey #GameBoard.kingOfTheHill {
+body.grey #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/grey.jpg);
 }
 body.is2d.wood div.lichess_board.kingOfTheHill .cg-board,
-body.is2d.wood #GameBoard.kingOfTheHill {
+body.wood #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/wood.jpg);
 }
 body.is2d.canvas div.lichess_board.kingOfTheHill .cg-board,
-body.is2d.canvas #GameBoard.kingOfTheHill {
+body.canvas #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/canvas.jpg);
 }
 body.is2d.leather div.lichess_board.kingOfTheHill .cg-board,
-body.is2d.leather #GameBoard.kingOfTheHill {
+body.leather #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/leather.jpg);
 }
 body.is3d.Black-White-Aluminium .cg-board-wrap,
