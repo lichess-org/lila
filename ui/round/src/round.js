@@ -20,7 +20,7 @@ function isPlayerTurn(data) {
 }
 
 function mandatory(data) {
-  return !!data.tournamentId;
+  return !!data.tournament.id;
 }
 
 function abortable(data) {
@@ -28,7 +28,7 @@ function abortable(data) {
 }
 
 function takebackable(data) {
-  return playable(data) && data.takebackable && !data.tournamentId && data.game.turns > 1 && !data.player.proposingTakeback && !data.opponent.proposingTakeback;
+  return playable(data) && data.takebackable && !data.tournament.id && data.game.turns > 1 && !data.player.proposingTakeback && !data.opponent.proposingTakeback;
 }
 
 function drawable(data) {

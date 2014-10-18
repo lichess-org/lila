@@ -111,7 +111,7 @@ module.exports = {
     }, ctrl.trans('newOpponent'));
   },
   backToTournament: function(ctrl) {
-    if (ctrl.data.tournament) return m('a[data-icon=G].button' + (ctrl.data.tournament.running ? '.strong' : ''), {
+    if (ctrl.data.tournament) return m('a[data-icon=G].button' + (ctrl.data.tournament.running ? '.strong.glowing' : ''), {
       href: ctrl.router.Tournament.show(ctrl.data.tournament.id).url
     }, ctrl.trans('backToTournament'));
   },

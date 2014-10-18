@@ -672,6 +672,15 @@ var storage = {
     return text.replace(exp, "<a href='http://$1'>$1</a>");
   }
 
+  var startTournamentClock = function() {
+    $("div.game_tournament div.clock").each(function() {
+      $(this).clock({
+        time: $(this).data("time"),
+        showTenths: false
+      }).clock("start");
+    });
+  };
+
   /////////////
   // game.js //
   /////////////
@@ -706,6 +715,7 @@ var storage = {
           end: function() {
             $.get(data.url.round + '/side', function(html) {
               $('#site_header div.side').replaceWith(html);
+              startTournamentClock();
             });
           },
           checkCount: function(e) {
@@ -896,15 +906,6 @@ var storage = {
       this.$msgs.scrollTop(999999);
     }
   });
-
-  var startTournamentClock = function() {
-    $("div.game_tournament div.clock").each(function() {
-      $(this).clock({
-        time: $(this).data("time"),
-        showTenths: false
-      }).clock("start");
-    });
-  };
 
   $.widget("lichess.clock", {
     _create: function() {

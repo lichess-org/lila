@@ -89,7 +89,7 @@ function renderTablePlay(ctrl) {
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
     button.answerOpponentTakebackProposition(ctrl), (round.mandatory(d) && round.nbMoves(d, d.player.color) === 0) ? m('div[data-icon=j]',
-      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove')
+      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 30)
     ) : null
   ];
 }
