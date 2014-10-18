@@ -80,6 +80,10 @@ body.coords_2 .cg-square[data-coord-y]::before {
 body.coords_2.is3d .cg-square[data-coord-y]::before {
   top: 24px;
 }
+.manipulable .cg-square:hover,
+.manipulable .cg-square.drag-over {
+  background: rgba(255, 255, 255, 0.1);
+}
 .cg-square.move-dest {
   background: radial-gradient(rgba(20, 85, 30, 0.3) 22%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
   cursor: pointer;
