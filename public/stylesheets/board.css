@@ -31,73 +31,61 @@ span.board_mark.horz {
 div.lichess_board {
   position: relative;
 }
-body.is2d.blue div.lichess_board,
 body.blue #GameBoard,
 body.is2d.blue .cg-board,
 #top div.color_demo.blue {
   background-image: url(../images/board/blue.png);
 }
-body.is2d.blue2 div.lichess_board,
 body.blue2 #GameBoard,
 body.is2d.blue2 .cg-board,
 #top div.color_demo.blue2 {
   background-image: url(../images/board/blue2.jpg);
 }
-body.is2d.wood2 div.lichess_board,
 body.wood2 #GameBoard,
 body.is2d.wood2 .cg-board,
 #top div.color_demo.wood2 {
   background-image: url(../images/board/wood2.jpg);
 }
-body.is2d.marble div.lichess_board,
 body.marble #GameBoard,
 body.is2d.marble .cg-board,
 #top div.color_demo.marble {
   background-image: url(../images/board/marble.jpg);
 }
-body.is2d.brown div.lichess_board,
 body.brown #GameBoard,
 body.is2d.brown .cg-board,
 #top div.color_demo.brown {
   background-image: url(../images/board/brown.png);
 }
-body.is2d.green div.lichess_board,
 body.green #GameBoard,
 body.is2d.green .cg-board,
 #top div.color_demo.green {
   background-image: url(../images/board/green.png);
 }
-body.is2d.olive div.lichess_board,
 body.olive #GameBoard,
 body.is2d.olive .cg-board,
 #top div.color_demo.olive {
   background-image: url(../images/board/olive.jpg);
 }
-body.is2d.purple div.lichess_board,
 body.purple #GameBoard,
 body.is2d.purple .cg-board,
 #top div.color_demo.purple {
   background-image: url(../images/board/purple.png);
 }
-body.is2d.grey div.lichess_board,
 body.grey #GameBoard,
 body.is2d.grey .cg-board,
 #top div.color_demo.grey {
   background-image: url(../images/board/grey.jpg);
 }
-body.is2d.wood div.lichess_board,
 body.wood #GameBoard,
 body.is2d.wood .cg-board,
 #top div.color_demo.wood {
   background-image: url(../images/board/wood3-512.jpg);
 }
-body.is2d.canvas div.lichess_board,
 body.canvas #GameBoard,
 body.is2d.canvas .cg-board,
 #top div.color_demo.canvas {
   background-image: url(../images/board/canvas2-512.jpg);
 }
-body.is2d.leather div.lichess_board,
 body.leather #GameBoard,
 body.is2d.leather .cg-board,
 #top div.color_demo.leather {
@@ -224,15 +212,13 @@ only screen and (min--moz-device-pixel-ratio:2),
 only screen and (min-device-pixel-ratio:2),
 only screen and (min-resolution:192dpi),
 only screen and (min-resolution:2dppx) {
-  body.is2d.wood div.lichess_board, body.is2d.wood #GameBoard, body.is2d.wood .cg-board {
+  body.is2d.wood #GameBoard, body.is2d.wood .cg-board {
     background-image: url(../images/board/wood3-1024.jpg);
   }
-  body.is2d.canvas div.lichess_board,
   body.is2d.canvas #GameBoard,
   body.is2d.canvas .cg-board {
     background-image: url(../images/board/canvas2-1024.jpg);
   }
-  body.is2d.leather div.lichess_board,
   body.is2d.leather #GameBoard,
   body.is2d.leather .cg-board {
     background-image: url(../images/board/leather-1024.jpg);
@@ -894,19 +880,6 @@ body.is3d #promotion_choice div.cg-piece {
 }
 body.is3d #promotion_choice div.cg-piece:hover {
   background-position: 0 98px;
-}
-div.lichess_join_url {
-  display: none;
-  background: none;
-  border: none;
-  margin: 1em 0 0 0;
-}
-div.lichess_join_url span {
-  display: block;
-  padding: 0.5em;
-  background: #fff;
-  margin-top: 1em;
-  border: 1px solid #D4D4D4;
 }
 div.table_wrap {
   width: 242px;
