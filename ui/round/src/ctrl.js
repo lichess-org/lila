@@ -63,7 +63,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
 
   this.clock = this.data.clock ? new clockCtrl(
     this.data.clock,
-    throttle(partial(this.socket.send, 'outoftime'), 500)
+    this.data.player.spectator ? function() {} : throttle(partial(this.socket.send, 'outoftime'), 500)
   ) : false;
 
   this.isClockRunning = function() {
