@@ -24,52 +24,10 @@ chat = pov.game.hasChat.option(base.chatDom(trans.chatRoom.str())),
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov)) {
-@*
-<div class="lichess_game clearfix pov_@color not_spectator@if(!ctx.pref.captured) { hide_captured }">
-  @if(ctx.blindMode) {
-  <div id="lichess_board_blind" data-href="@routes.Round.playerText(fullId)">
-    @views.html.game.textualRepresentation(pov, playing = true)
-  </div>
-  }
-  <div class="lichess_board_wrap">
-    @if(!ctx.blindMode) {
-    <div class="lichess_board with_marks @game.variant.key">@Html(lila.app.ui.Board.render(pov))</div>
-    <div id="premove_alert">@trans.premoveEnabledClickAnywhereToCancel()</div>
-    }
-  </div>
-  <div class="lichess_ground">
-    @round.cemetery(pov, "top")
-    <div class="lichess_table_wrap">
-      @game.clock.ifFalse(ctx.blindMode).map { c =>
-      @round.clock(c, !pov.color, "top")
-      }
-      <div class="lichess_table onbg@{ if(game.hasClock) " table_with_clock" }@{ if(game.finished) " finished" }">
-        <div class="lichess_opponent">
-          @round.username(pov.opponent, engine, withStatus = true)
-        </div>
-        <div class="lichess_separator"></div>
-        <div class="table_inner">
-          @game.playable.fold(round.table.playing(pov, takebackable), round.table.end(pov, tour))
-        </div>
-      </div>
-      @game.clock.ifFalse(ctx.blindMode).map { c =>
-      @round.clock(c, pov.color, "bottom")
-      @if(game.moretimeable) {
-      <a class="moretime hint--bottom-left" data-hint="@trans.giveNbSeconds(moretimeSeconds)">
-        <span data-icon="O"></span>
-      </a>
-      }
-      }
-    </div>
-    @round.cemetery(!pov, "bottom")
-  </div>
-</div>
-@embedJs("var _ld_ = " + roundPlayerJsData(pov, version, ctx.pref, apiVersion))
-@replayButton(pov)
-<div id="playing_crosstable">
+<div class="round"></div>
+<div class="crosstable" style="display:none">
   @cross.map { c =>
   @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov))
   }
 </div>
-*@
 }

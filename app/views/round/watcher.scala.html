@@ -24,7 +24,8 @@ chat = pov.game.hasChat.option(base.chatDom(trans.spectatorRoom.str())),
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov)) {
-<div id="playing_crosstable">
+<div class="round"></div>
+<div class="crosstable" style="display:none">
   @cross.map { c =>
   @views.html.game.crosstable(c)
   }

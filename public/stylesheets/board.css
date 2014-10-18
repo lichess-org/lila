@@ -831,7 +831,7 @@ div.lichess_overboard p.explanations {
 div.premove_alert,
 div.dont_touch {
   position: absolute;
-  top: 0;
+  top: -15px;
   left: 0;
   width: 512px;
   text-align: center;
@@ -1271,6 +1271,7 @@ div.underboard .center {
   position: relative;
   width: 512px;
   text-align: center;
+  padding-top: 15px;
 }
 div.underboard .right {
   display: inline-block;
@@ -1281,7 +1282,7 @@ div.underboard a {
   display: inline-block;
 }
 div.underboard .replay_and_analyse {
-  margin-top: 20px;
+  margin-top: 15px;
   font-size: 1.4em;
 }
 div.check_count span.player.color {

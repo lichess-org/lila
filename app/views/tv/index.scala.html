@@ -1,6 +1,19 @@
-@(pov: Pov, version: Int, games: List[Game], streams: List[lila.tv.StreamOnAir], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], flip: Boolean)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, games: List[Game], streams: List[lila.tv.StreamOnAir], tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], flip: Boolean)(implicit ctx: Context)
 
 @title = @{ s"TV ${playerText(pov.player)} vs ${playerText(pov.opponent)}" }
+
+@moreJs = {
+@jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
+@round.jsRoutes()
+@embedJs {
+lichess = lichess || {};
+lichess.round = {
+data: @Html(play.api.libs.json.Json.stringify(data)),
+routes: roundRoutes.controllers,
+i18n: @round.jsI18n()
+};
+}
+}
 
 @side = {
 <div class="side">
@@ -48,12 +61,12 @@ title = title,
 side = side,
 underchat = game.watchers().some,
 active = siteMenu.tv.some,
+moreJs = moreJs,
 moreCss = cssTag("tv.css")) {
-@round.watcherGame(pov)
-@cross.map { c =>
-@game.crosstable(pov.player.userId.fold(c)(c.fromPov))
-}
-@*
-@embedJs("var _ld_ = " + roundWatcherJsData(pov, version, true, ctx.pref))
-*@
+<div class="round"></div>
+<div class="crosstable" style="display:none">
+  @cross.map { c =>
+  @game.crosstable(pov.player.userId.fold(c)(c.fromPov))
+  }
+</div>
 }

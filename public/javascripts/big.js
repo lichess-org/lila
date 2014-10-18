@@ -678,7 +678,7 @@ var storage = {
 
   function startRound(element, cfg) {
     var data = cfg.data;
-    $('#chat').chat({
+    if (data.chat) $('#chat').chat({
       messages: data.chat
     });
     var $watchers = $('#site_header div.watchers').watchers();
@@ -715,10 +715,11 @@ var storage = {
           }
         }
       });
-    var round = LichessRound(element, cfg.data, cfg.routes, cfg.i18n, lichess.socket.send.bind(lichess.socket));
+    var round = LichessRound(element.querySelector('.round'), cfg.data, cfg.routes, cfg.i18n, lichess.socket.send.bind(lichess.socket));
     startTournamentClock();
+    $('.crosstable', element).prependTo($('.underboard .center', element)).show();
     $('#tv_history').on("click", "tr", function() {
-      location.href = $(element).find('a.view').attr('href');
+      location.href = $(this).find('a.view').attr('href');
     });
   }
 

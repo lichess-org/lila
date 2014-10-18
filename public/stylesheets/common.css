@@ -1642,7 +1642,7 @@ div.lichess_overboard.joining .mini_board {
   margin: 10px 0;
 }
 #crosstable {
-  width: 514px;
+  margin-top: 30px;
 }
 #crosstable table {
   width: 100%;
