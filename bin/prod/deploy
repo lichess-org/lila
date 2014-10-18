@@ -23,6 +23,9 @@ elif [ $mode = "hexal" ]; then
 elif [ $mode = "matthews" ]; then
   REMOTE="matthews"
   REMOTE_DIR="/home/thibault/lila"
+elif [ $mode = "nafis" ]; then
+  REMOTE="nafis"
+  REMOTE_DIR="/home/thib/lila"
 elif [ $mode = "local" ]; then
   REMOTE="localhost"
   REMOTE_DIR="/tmp/lila5"
@@ -60,8 +63,14 @@ RSYNC_OPTIONS=" \
   --exclude logs \
   --exclude RUNNING_PID \
   --exclude bin/.translate_version \
-  --exclude local
+  --exclude local \
   --exclude '*.psd'";
+
+if [ $mode != "main" ]; then
+  RSYNC_OPTIONS="$RSYNC_OPTIONS \
+  --exclude '*-assets.jar' \
+  --exclude public";
+fi
 
 lilalog "Rsync scripts, binaries and assets"
 stage="target/universal/stage"
