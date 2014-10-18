@@ -47,12 +47,9 @@ object Theme3d extends ThemeObject {
     "China-Scarlet",
     "China-Yellow",
     "Classic-Blue",
-    "Transparent-Glass",
     "Gold-Silver",
-    "Green-Glass",
     "Light-Wood",
     "Power-Coated",
-    "Purple-Black",
     "Rosewood"
   ) map { name => new Theme(name) }
 }
