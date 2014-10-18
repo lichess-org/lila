@@ -17,7 +17,7 @@ routes.javascript.Auth.signup
 )(ctx.req)
 @embedJs {
 LichessPuzzle(
-document.getElementById('lichess'),
+document.querySelector('#lichess .round'),
 @JsData(puzzle, userInfos, mode, animationDuration = animationDuration),
 puzzleRoutes.controllers,
 @Html(J.stringify(i18nJsObject(
@@ -58,4 +58,5 @@ trans.trainingSignupExplanation)))
 }
 
 @layout(trans.training.str(), evenMoreJs = Some(evenMoreJs)) {
+<div class="round cg-512">@miniBoardContent</div>
 }

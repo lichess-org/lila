@@ -98,7 +98,7 @@ module.exports = function(ctrl) {
   var fen = ctrl.computeFen();
   var color = ctrl.chessground.data.orientation;
   var opposite = color === 'white' ? 'black' : 'white';
-  return m('div.editor.cg-512', {
+  return m('div.editor', {
     config: function(el, isUpdate, context) {
       if (isUpdate) return;
       var onstart = partial(drag, ctrl);

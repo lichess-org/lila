@@ -276,7 +276,7 @@ function renderHistory(ctrl) {
 }
 
 module.exports = function(ctrl) {
-  return m('div#puzzle.training.cg-512', [
+  return m('div#puzzle.training', [
     renderSide(ctrl),
     m('div.board_and_ground', [
       chessground.view(ctrl.chessground),
