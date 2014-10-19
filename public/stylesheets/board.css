@@ -210,7 +210,7 @@ body.is3d.Wood-Glass .cg-board-wrap,
 }
 body.is3d.Marble .cg-board-wrap,
 #top .is3d .Marble {
-  background-image: url(../images/board/3d/marble.jpg);
+  background-image: url(../images/board/3d/marble.512.png);
 }
 @media
 
@@ -277,6 +277,9 @@ only screen and (min-resolution:2dppx) {
   }
   body.is3d.Wood-Glass .cg-board-wrap {
     background-image: url(../staunton/Boards/Scaled/1024/Wood-Glass.png);
+  }
+  body.is3d.Marble .cg-board-wrap {
+    background-image: url(../images/board/3d/marble.1024.png);
   }
 }
 body.is2d.cburnett .cg-piece.pawn.white {
