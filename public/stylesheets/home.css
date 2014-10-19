@@ -216,9 +216,9 @@ div.lobby_and_ground {
 }
 #tableclone {
   position: absolute;
-  top: 0px;
-  left: 0px;
-  max-height: 444px;
+  top: 1px;
+  left: 1px;
+  max-height: 512px;
   z-index: 98;
 }
 #tableclone thead {
