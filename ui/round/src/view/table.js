@@ -19,10 +19,16 @@ function renderPlayer(ctrl, player) {
   );
 }
 
+function renderKing(ctrl, color) {
+  return m('div.no-square',
+    ctrl.data.reloading ? m('div.loader', m('span')) : m('div.cg-piece.king.' + color)
+  );
+}
+
 function renderResult(ctrl) {
   var winner = round.getPlayer(ctrl.data, ctrl.data.game.winner);
   return winner ? m('div.player.' + winner.color, [
-      m('div.no-square', m('div.cg-piece.king.' + winner.color)),
+      renderKing(ctrl, winner.color),
       m('p', [
         renderStatus(ctrl),
         m('br'),
@@ -52,7 +58,7 @@ function renderTableWatch(ctrl) {
   return [
     m('div.current_player', (status.finished(d) || status.aborted(d)) ? renderResult(ctrl) : (
       m('div.player', [
-        m('div.no-square', m('div.cg-piece.king.' + d.game.player)),
+        renderKing(ctrl, d.game.player),
         m('p', ctrl.trans(d.game.player == 'white' ? 'whitePlays' : 'blackPlays'))
       ]))),
     m('div.separator'),
@@ -69,7 +75,7 @@ function renderTablePlay(ctrl) {
   return [
     m('div.current_player',
       m('div.player', [
-        m('div.no-square', m('div.cg-piece.king.' + d.game.player)),
+        renderKing(ctrl, d.game.player),
         m('p', ctrl.trans(d.game.player == d.player.color ? 'yourTurn' : 'waiting'))
       ])
     ),

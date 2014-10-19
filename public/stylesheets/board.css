@@ -1246,6 +1246,10 @@ div.current_player div.no-square {
   top: 0;
   left: 0;
 }
+div.current_player div.no-square .loader {
+  margin-top: 5px;
+  font-size: 5.8px;
+}
 body.is3d div.current_player div.cg-piece {
   width: 100%;
   height: 132%;

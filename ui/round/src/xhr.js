@@ -6,11 +6,17 @@ var xhrConfig = function(xhr) {
 }
 
 function reload(data) {
-  return m.request({
+  data.reloading = true;
+  m.redraw();
+  var req = m.request({
     method: 'GET',
     url: data.url.round,
     config: xhrConfig
   });
+  req.then(function() {
+    data.reloading = false;
+  });
+  return req;
 }
 
 module.exports = {
