@@ -137,7 +137,7 @@ div.lobby_and_ground {
 }
 #hooks_list thead th {
   cursor: pointer;
-  padding: 12.5px 12px;
+  padding: 14px 12px;
   font-weight: lighter;
   border-bottom: transparent;
 }
