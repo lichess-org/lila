@@ -12,7 +12,7 @@ module.exports = function(ctrl) {
 
   blur.init(ctrl);
 
-  if (round.playable(d) && round.nbMoves(d, d.player.color) === 0) $.sound.dong();
+  if (round.isPlayerPlaying(d) && round.nbMoves(d, d.player.color) === 0) $.sound.dong();
 
   if (round.isPlayerPlaying(d)) window.addEventListener('beforeunload', function(e) {
     if (!lichess.hasToReload && !ctrl.data.blind && round.playable(ctrl.data) && ctrl.data.clock) {

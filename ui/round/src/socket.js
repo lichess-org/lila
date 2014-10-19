@@ -76,7 +76,7 @@ module.exports = function(send, ctrl) {
     end: function() {
       ground.end(ctrl.chessground);
       xhr.reload(ctrl.data).then(ctrl.reload);
-      $.sound.dong();
+      if (!ctrl.data.player.spectator) $.sound.dong();
     },
     gone: function(isGone) {
       if (!ctrl.data.opponent.ai) {
