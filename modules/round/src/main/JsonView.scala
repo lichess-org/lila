@@ -171,7 +171,7 @@ final class JsonView(
               "round" -> s"/$gameId/${color.name}"
             ),
             "pref" -> Json.obj(
-              "animationDelay" -> animationDuration(pov, pref),
+              "animationDuration" -> animationDuration(pov, pref),
               "highlight" -> pref.highlight,
               "coords" -> pref.coords,
               "clockTenths" -> pref.clockTenths,
