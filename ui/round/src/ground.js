@@ -33,6 +33,9 @@ function makeConfig(data, fen) {
         unset: m.redraw
       }
     },
+    draggable: {
+      showGhost: data.pref.highlight
+    },
     events: {
       capture: $.sound.take
     }
