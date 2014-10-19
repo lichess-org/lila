@@ -15,6 +15,8 @@ function reload(data) {
   });
   req.then(function() {
     data.reloading = false;
+  }, function(err) {
+    lichess.reload();
   });
   return req;
 }
