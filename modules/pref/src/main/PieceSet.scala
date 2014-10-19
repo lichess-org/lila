@@ -33,5 +33,5 @@ object PieceSet extends PieceSetObject {
 
 object PieceSet3d extends PieceSetObject {
 
-  val all = NonEmptyList("Basic", "Glass", "Metal", "Wood", "RedVBlue", "Trimmed", "Experimental", "ModernJade") map { name => new PieceSet(name) }
+  val all = NonEmptyList("Basic", "Wood", "Metal", "RedVBlue", "ModernJade", "ModernWood", "Glass", "Trimmed", "Experimental") map { name => new PieceSet(name) }
 }

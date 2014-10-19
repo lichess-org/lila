@@ -888,6 +888,55 @@ body.is3d.ModernJade .queen.black {
 body.is3d.ModernJade .king.black {
   background-image: url(../staunton/Renders/ModernJade/Scaled/Black-King.png);
 }
+body.is3d.ModernWood .pawn.white {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/White-Pawn.png);
+}
+body.is3d.ModernWood .bishop.white {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/White-Bishop.png);
+}
+body.is3d.ModernWood .orientation-black .bishop.white {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/White-Bishop-Flipped.png);
+}
+body.is3d.ModernWood .knight.white,
+#top .is3d .cg-piece.ModernWood {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/White-Knight.png);
+}
+body.is3d.ModernWood .orientation-black .knight.white {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/White-Knight-Flipped.png);
+}
+body.is3d.ModernWood .rook.white {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/White-Rook.png);
+}
+body.is3d.ModernWood .queen.white {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/White-Queen.png);
+}
+body.is3d.ModernWood .king.white {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/White-King.png);
+}
+body.is3d.ModernWood .pawn.black {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Pawn.png);
+}
+body.is3d.ModernWood .bishop.black {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Bishop.png);
+}
+body.is3d.ModernWood .orientation-white .bishop.black {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Bishop-Flipped.png);
+}
+body.is3d.ModernWood .knight.black {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Knight.png);
+}
+body.is3d.ModernWood .orientation-white .knight.black {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Knight-Flipped.png);
+}
+body.is3d.ModernWood .rook.black {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Rook.png);
+}
+body.is3d.ModernWood .queen.black {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Queen.png);
+}
+body.is3d.ModernWood .king.black {
+  background-image: url(../staunton/Renders/ModernWood/Scaled/Black-King.png);
+}
 div.lichess_overboard {
   position: absolute;
   z-index: 20;
