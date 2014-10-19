@@ -48,7 +48,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
     if (this.data.game.threefold) this.data.game.threefold = false;
     round.setOnGame(this.data, o.color, true);
     m.redraw();
-    $.sound.move(o.color == 'white');
+    if (o.color != this.data.player.color) $.sound.move(o.color == 'white');
     if (this.data.blind) blind.reload(this);
   }.bind(this);
 
