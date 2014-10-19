@@ -32,6 +32,9 @@ function makeConfig(data, fen) {
         set: m.redraw,
         unset: m.redraw
       }
+    },
+    events: {
+      capture: $.sound.take
     }
   };
 }

@@ -577,7 +577,7 @@ var storage = {
       dong: 0.6,
       moveW: 1,
       moveB: 1,
-      take: 0.1
+      take: 0.3
     };
     var canPlay = hasOgg || hasMp3;
     var $control = $('#sound_control');

@@ -53,6 +53,7 @@ module.exports = function(send, ctrl) {
       var pieces = {};
       pieces[o] = null;
       ctrl.chessground.setPieces(pieces);
+      $.sound.take();
     },
     reload: function(o) {
       xhr.reload(ctrl.data).then(ctrl.reload);
