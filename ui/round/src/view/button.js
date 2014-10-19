@@ -105,7 +105,7 @@ module.exports = {
     ]);
   },
   newGame: function(ctrl) {
-    if (!ctrl.data.offeringRematch) return m('a.lichess_new_game.button.hint--bottom', {
+    if (!ctrl.data.offeringRematch && !ctrl.data.tournament) return m('a.lichess_new_game.button.hint--bottom', {
       'data-hint': ctrl.trans('playWithAnotherOpponent'),
       href: ctrl.router.Lobby.home().url
     }, ctrl.trans('newOpponent'));
