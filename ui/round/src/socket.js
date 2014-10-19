@@ -33,11 +33,11 @@ module.exports = function(send, ctrl) {
     castling: function(o) {
       var pieces = {};
       pieces[o.king[0]] = null;
+      pieces[o.rook[0]] = null;
       pieces[o.king[1]] = {
         role: 'king',
         color: o.color
       };
-      pieces[o.rook[0]] = null;
       pieces[o.rook[1]] = {
         role: 'rook',
         color: o.color
