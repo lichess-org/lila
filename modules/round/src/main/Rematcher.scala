@@ -61,7 +61,7 @@ private[round] final class Rematcher(
   private def rematchCreate(pov: Pov): Fu[Events] = GameRepo save {
     messenger.system(pov.game, _.rematchOfferSent)
     Progress(pov.game) map { g => g.updatePlayer(pov.color, _ offerRematch) }
-  } inject List(Event.ReloadOwner)
+  } inject List(Event.Reload)
 
   private def returnGame(pov: Pov): Fu[Game] = for {
     pieces ← pov.game.variant.standard.fold(
