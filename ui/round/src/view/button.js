@@ -122,7 +122,7 @@ module.exports = {
   },
   viewTournament: function(ctrl) {
     if (ctrl.data.tournament) return m('a.button', {
-      href: ctrl.router.Tournament.show(ctrl.data.tournament.id)
+      href: ctrl.router.Tournament.show(ctrl.data.tournament.id).url
     }, ctrl.trans('viewTournament'));
   },
   moretime: function(ctrl) {
