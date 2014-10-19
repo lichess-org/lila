@@ -122,10 +122,9 @@ module.exports = {
     }, m('span[data-icon=O]'));
   },
   flip: function(ctrl) {
-    if (ctrl.data.player.spectator) return m('div.underboard',
-      m('a.button[data-icon=B]', {
+    if (ctrl.data.player.spectator) return m('a.button[data-icon=B]', {
         href: ctrl.router.Round.watcher(ctrl.data.game.id, chessground.util.opposite(ctrl.data.player.color)).url
-      }, ctrl.trans('flipBoard')));
+      }, ctrl.trans('flipBoard'));
   },
   replayAndAnalyse: function(ctrl) {
     if (round.replayable(ctrl.data)) return m('a.button.replay_and_analyse[data-icon=G]', {

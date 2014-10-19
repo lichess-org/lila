@@ -91,8 +91,7 @@ module.exports = function(ctrl) {
         dontTouch() ? m('div.dont_touch', {
           onclick: toggleDontTouch
         }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null,
-        button.flip(ctrl),
-        button.replayAndAnalyse(ctrl)
+        button.replayAndAnalyse(ctrl) || button.flip(ctrl)
       ]),
       m('div.right', [
         [ctrl.data.opponent, ctrl.data.player].map(partial(blursOf, ctrl)), [ctrl.data.opponent, ctrl.data.player].map(partial(holdOf, ctrl))
