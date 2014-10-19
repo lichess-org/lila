@@ -68,6 +68,7 @@ final class JsonView(
               "version" -> version,
               "spectator" -> false,
               "user" -> playerUser.map { userJsonView(_, true) },
+              "ratingDiff" -> player.ratingDiff,
               "offeringRematch" -> player.isOfferingRematch.option(true),
               "offeringDraw" -> player.isOfferingDraw.option(true),
               "proposingTakeback" -> player.isProposingTakeback.option(true),
@@ -78,6 +79,7 @@ final class JsonView(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
               "user" -> opponentUser.map { userJsonView(_, true) },
+              "ratingDiff" -> opponent.ratingDiff,
               "offeringRematch" -> opponent.isOfferingRematch.option(true),
               "offeringDraw" -> opponent.isOfferingDraw.option(true),
               "proposingTakeback" -> opponent.isProposingTakeback.option(true),
@@ -154,6 +156,7 @@ final class JsonView(
               "spectator" -> true,
               "ai" -> player.aiLevel,
               "user" -> playerUser.map { userJsonView(_, true) },
+              "ratingDiff" -> player.ratingDiff,
               "onGame" -> !playerGone,
               "hold" -> (withBlurs option hold(player)),
               "blurs" -> (withBlurs option blurs(game, player))
@@ -162,6 +165,7 @@ final class JsonView(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
               "user" -> opponentUser.map { userJsonView(_, true) },
+              "ratingDiff" -> opponent.ratingDiff,
               "onGame" -> !opponentGone,
               "hold" -> (withBlurs option hold(opponent)),
               "blurs" -> (withBlurs option blurs(game, opponent))

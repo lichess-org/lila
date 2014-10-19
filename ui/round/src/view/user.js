@@ -8,6 +8,13 @@ function getPlayerRating(ctrl, player) {
   }
 }
 
+function ratingDiff(player) {
+  if (typeof player.ratingDiff === 'undefined') return null;
+  if (player.ratingDiff === 0) return m('span.rp.null', 0);
+  if (player.ratingDiff > 0) return m('span.rp.up', '+' + player.ratingDiff);
+  if (player.ratingDiff < 0) return m('span.rp.down', player.ratingDiff);
+}
+
 module.exports = function(ctrl, player, klass) {
   var rating = player.user ? player.user.perfs[ctrl.data.game.perf].rating : null;
   return player.user ? [
@@ -23,6 +30,7 @@ module.exports = function(ctrl, player, klass) {
     }, [
       (player.user.title ? player.user.title + ' ' : '') + player.user.username,
       rating ? ' (' + rating + ')' : '',
+      ratingDiff(player),
       player.engine ? m('span[data-icon=j]', {
         title: ctrl.trans('thisPlayerUsesChessComputerAssistance')
       }) : null
