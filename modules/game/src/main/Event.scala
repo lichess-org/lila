@@ -129,15 +129,6 @@ object Event {
     def typ = "threefoldRepetition"
   }
 
-  case class ReloadTable(color: Color) extends Empty {
-    def typ = "reloadTable"
-    override def only = Some(color)
-  }
-
-  case object ReloadTables extends Empty {
-    def typ = "reloadTable"
-  }
-
   case object Reload extends Empty {
     def typ = "reload"
   }

@@ -172,7 +172,7 @@ case class Game(
         abortable != updated.abortable || (Color.all exists { color =>
           playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
         })
-      )).??(Color.all map Event.ReloadTable)
+      )) ?? List(Event.Reload)
     } ::: {
       // abstraction leak, I know.
       (updated.variant.threeCheck && situation.check) ?? List(Event.CheckCount(
