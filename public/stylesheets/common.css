@@ -1184,6 +1184,7 @@ body.is3d #themepicker div.color_demo {
   position: fixed;
   bottom: 0px;
   right: 0px;
+  z-index: 3;
   background: #fff;
   border: 1px solid #ccc;
   border-right: 0;
