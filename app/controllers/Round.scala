@@ -72,24 +72,26 @@ object Round extends LilaController with TheftPrevention {
 
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
-      if (pov.game.replayable) Analyse replay pov
-      else pov.game.joinable.fold(join _, (pov: Pov) => watch(pov))(pov)
+      watch(pov)
     }
   }
 
-  def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] = negotiate(
-    html = ctx.userId.flatMap(pov.game.playerByUserId).ifTrue(pov.game.playable) match {
-      case Some(player) => fuccess(Redirect(routes.Round.player(pov.game fullIdOf player.color)))
-      case None =>
-        (pov.game.tournamentId ?? TournamentRepo.byId) zip
-          Env.game.crosstableApi(pov.game) zip
-          Env.api.roundApi.watcher(pov, Env.api.version, tv = false) map {
-            case ((tour, crosstable), data) =>
-              Ok(html.round.watcher(pov, data, tour, crosstable, userTv = userTv))
-          }
-    },
-    api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = false) map { Ok(_) }
-  )
+  def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
+    negotiate(
+      html = if (pov.game.replayable) Analyse replay pov
+      else if (pov.game.joinable) join(pov)
+      else ctx.userId.flatMap(pov.game.playerByUserId).ifTrue(pov.game.playable) match {
+        case Some(player) => fuccess(Redirect(routes.Round.player(pov.game fullIdOf player.color)))
+        case None =>
+          (pov.game.tournamentId ?? TournamentRepo.byId) zip
+            Env.game.crosstableApi(pov.game) zip
+            Env.api.roundApi.watcher(pov, Env.api.version, tv = false) map {
+              case ((tour, crosstable), data) =>
+                Ok(html.round.watcher(pov, data, tour, crosstable, userTv = userTv))
+            }
+      },
+      api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = false) map { Ok(_) }
+    )
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
     GameRepo initialFen pov.gameId zip
