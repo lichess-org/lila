@@ -208,6 +208,10 @@ body.is3d.Wood-Glass .cg-board-wrap,
 #top .is3d .Wood-Glass {
   background-image: url(../staunton/Boards/Scaled/512/Wood-Glass.png);
 }
+body.is3d.Marble .cg-board-wrap,
+#top .is3d .Marble {
+  background-image: url(../images/board/3d/marble.jpg);
+}
 @media
 
 only screen and (-webkit-min-device-pixel-ratio:2),
