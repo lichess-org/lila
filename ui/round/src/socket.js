@@ -51,7 +51,7 @@ module.exports = function(send, ctrl) {
     },
     enpassant: function(o) {
       var pieces = {};
-      pieces.o = null;
+      pieces[o] = null;
       ctrl.chessground.setPieces(pieces);
     },
     reload: function(o) {
