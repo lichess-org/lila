@@ -152,7 +152,7 @@ object Pref {
     val OUTSIDE = 2
 
     val choices = Seq(
-      NONE -> "Nope",
+      NONE -> "No",
       INSIDE -> "Inside the board",
       OUTSIDE -> "Outside the board")
   }
