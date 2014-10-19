@@ -39,13 +39,14 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
     @langAnnotations
   </head>
-  <body class="@List(
+  <body class="base @List(
     ctx.currentTheme.cssClass,
     ctx.currentTheme3d.cssClass,
     ctx.currentBg,
     ctx.currentPieceSet,
     ctx.currentPieceSet3d,
     ctx.pref.highlight ?? "highlight",
+    ctx.pref.destination ?? "destination",
     ctx.blindMode ?? "blind_mode",
     if (ctx.is3d) "is3d" else "is2d",
     "coords_" + ctx.pref.coords).mkString(" ")"
