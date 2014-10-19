@@ -96,51 +96,51 @@ body.is2d.leather .cg-board,
 }
 /* KotH boards */
 
-body.is2d.blue div.lichess_board.kingOfTheHill .cg-board,
+body.is2d.blue .kingOfTheHill .cg-board,
 body.blue #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/blue.jpg);
 }
-body.is2d.blue2 div.lichess_board.kingOfTheHill .cg-board,
+body.is2d.blue2 .kingOfTheHill .cg-board,
 body.blue2 #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/blue2.jpg);
 }
-body.is2d.wood2 div.lichess_board.kingOfTheHill .cg-board,
+body.is2d.wood2 .kingOfTheHill .cg-board,
 body.wood2 #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/wood2.jpg);
 }
-body.is2d.marble div.lichess_board.kingOfTheHill .cg-board,
+body.is2d.marble .kingOfTheHill .cg-board,
 body.marble #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/marble.jpg);
 }
-body.is2d.brown div.lichess_board.kingOfTheHill .cg-board,
+body.is2d.brown .kingOfTheHill .cg-board,
 body.brown #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/brown.jpg);
 }
-body.is2d.green div.lichess_board.kingOfTheHill .cg-board,
+body.is2d.green .kingOfTheHill .cg-board,
 body.green #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/green.jpg);
 }
-body.is2d.olive div.lichess_board.kingOfTheHill .cg-board,
+body.is2d.olive .kingOfTheHill .cg-board,
 body.olive #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/olive.jpg);
 }
-body.is2d.purple div.lichess_board.kingOfTheHill .cg-board,
+body.is2d.purple .kingOfTheHill .cg-board,
 body.purple #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/purple.jpg);
 }
-body.is2d.grey div.lichess_board.kingOfTheHill .cg-board,
+body.is2d.grey .kingOfTheHill .cg-board,
 body.grey #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/grey.jpg);
 }
-body.is2d.wood div.lichess_board.kingOfTheHill .cg-board,
+body.is2d.wood .kingOfTheHill .cg-board,
 body.wood #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/wood.jpg);
 }
-body.is2d.canvas div.lichess_board.kingOfTheHill .cg-board,
+body.is2d.canvas .kingOfTheHill .cg-board,
 body.canvas #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/canvas.jpg);
 }
-body.is2d.leather div.lichess_board.kingOfTheHill .cg-board,
+body.is2d.leather .kingOfTheHill .cg-board,
 body.leather #GameBoard.kingOfTheHill {
   background-image: url(../images/board/koth/leather.jpg);
 }

@@ -199,12 +199,14 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val live = isLive ?? game.id
     val fen = Forsyth exportBoard game.toChess.board
     val lastMove = ~game.castleLastMoveTime.lastMoveString
-    s"""<a href="$href" $title class="mini_board parse_fen $cssClass" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</a>"""
+    val variant = game.variant.key
+    s"""<a href="$href" $title class="mini_board parse_fen $cssClass $variant" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</a>"""
   }
 
   def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false, blank: Boolean = false) = Html {
     var isLive = game.isBeingPlayed
-    s"""<a href="%s%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
+    val variant = game.variant.key
+    s"""<a href="%s%s" title="%s" class="mini_board parse_fen %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
       blank ?? netBaseUrl,
       tv.fold(routes.Tv.index, routes.Round.watcher(game.id, color.name)),
       gameTitle(game, color),
