@@ -790,6 +790,55 @@ body.is3d.Trimmed .queen.black {
 body.is3d.Trimmed .king.black {
   background-image: url(../staunton/Renders/Trimmed/Scaled/Black-King.png);
 }
+body.is3d.Experimental .pawn.white {
+  background-image: url(../staunton/Renders/Experimental/Scaled/White-Pawn.png);
+}
+body.is3d.Experimental .bishop.white {
+  background-image: url(../staunton/Renders/Experimental/Scaled/White-Bishop.png);
+}
+body.is3d.Experimental .orientation-black .bishop.white {
+  background-image: url(../staunton/Renders/Experimental/Scaled/White-Bishop-Flipped.png);
+}
+body.is3d.Experimental .knight.white,
+#top .is3d .cg-piece.Experimental {
+  background-image: url(../staunton/Renders/Experimental/Scaled/White-Knight.png);
+}
+body.is3d.Experimental .orientation-black .knight.white {
+  background-image: url(../staunton/Renders/Experimental/Scaled/White-Knight-Flipped.png);
+}
+body.is3d.Experimental .rook.white {
+  background-image: url(../staunton/Renders/Experimental/Scaled/White-Rook.png);
+}
+body.is3d.Experimental .queen.white {
+  background-image: url(../staunton/Renders/Experimental/Scaled/White-Queen.png);
+}
+body.is3d.Experimental .king.white {
+  background-image: url(../staunton/Renders/Experimental/Scaled/White-King.png);
+}
+body.is3d.Experimental .pawn.black {
+  background-image: url(../staunton/Renders/Experimental/Scaled/Black-Pawn.png);
+}
+body.is3d.Experimental .bishop.black {
+  background-image: url(../staunton/Renders/Experimental/Scaled/Black-Bishop.png);
+}
+body.is3d.Experimental .orientation-white .bishop.black {
+  background-image: url(../staunton/Renders/Experimental/Scaled/Black-Bishop-Flipped.png);
+}
+body.is3d.Experimental .knight.black {
+  background-image: url(../staunton/Renders/Experimental/Scaled/Black-Knight.png);
+}
+body.is3d.Experimental .orientation-white .knight.black {
+  background-image: url(../staunton/Renders/Experimental/Scaled/Black-Knight-Flipped.png);
+}
+body.is3d.Experimental .rook.black {
+  background-image: url(../staunton/Renders/Experimental/Scaled/Black-Rook.png);
+}
+body.is3d.Experimental .queen.black {
+  background-image: url(../staunton/Renders/Experimental/Scaled/Black-Queen.png);
+}
+body.is3d.Experimental .king.black {
+  background-image: url(../staunton/Renders/Experimental/Scaled/Black-King.png);
+}
 div.lichess_overboard {
   position: absolute;
   z-index: 20;
