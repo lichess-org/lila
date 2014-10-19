@@ -568,16 +568,16 @@ var storage = {
     var hasMp3 = !!a.canPlayType && a.canPlayType('audio/mpeg;');
     var ext = hasOgg ? 'ogg' : 'mp3';
     var audio = {
-      dong: new Audio(baseUrl + 'dong.ogg'),
-      moveW: new Audio(baseUrl + 'wood_light_hit_1.' + ext),
-      moveB: new Audio(baseUrl + 'wood_light_hit_1.' + ext),
-      take: new Audio(baseUrl + 'wood_capture_hit_and_roll.' + ext)
+      dong: new Audio(baseUrl + 'dong2.' + ext),
+      moveW: new Audio(baseUrl + 'move2.' + ext),
+      moveB: new Audio(baseUrl + 'move2.' + ext),
+      take: new Audio(baseUrl + 'take2.' + ext)
     };
     var volumes = {
-      dong: 0.6,
+      dong: 1,
       moveW: 1,
       moveB: 1,
-      take: 0.3
+      take: 1
     };
     var canPlay = hasOgg || hasMp3;
     var $control = $('#sound_control');
