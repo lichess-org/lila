@@ -839,6 +839,55 @@ body.is3d.Experimental .queen.black {
 body.is3d.Experimental .king.black {
   background-image: url(../staunton/Renders/Experimental/Scaled/Black-King.png);
 }
+body.is3d.ModernJade .pawn.white {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/White-Pawn.png);
+}
+body.is3d.ModernJade .bishop.white {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/White-Bishop.png);
+}
+body.is3d.ModernJade .orientation-black .bishop.white {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/White-Bishop-Flipped.png);
+}
+body.is3d.ModernJade .knight.white,
+#top .is3d .cg-piece.ModernJade {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/White-Knight.png);
+}
+body.is3d.ModernJade .orientation-black .knight.white {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/White-Knight-Flipped.png);
+}
+body.is3d.ModernJade .rook.white {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/White-Rook.png);
+}
+body.is3d.ModernJade .queen.white {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/White-Queen.png);
+}
+body.is3d.ModernJade .king.white {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/White-King.png);
+}
+body.is3d.ModernJade .pawn.black {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Pawn.png);
+}
+body.is3d.ModernJade .bishop.black {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Bishop.png);
+}
+body.is3d.ModernJade .orientation-white .bishop.black {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Bishop-Flipped.png);
+}
+body.is3d.ModernJade .knight.black {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Knight.png);
+}
+body.is3d.ModernJade .orientation-white .knight.black {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Knight-Flipped.png);
+}
+body.is3d.ModernJade .rook.black {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Rook.png);
+}
+body.is3d.ModernJade .queen.black {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Queen.png);
+}
+body.is3d.ModernJade .king.black {
+  background-image: url(../staunton/Renders/ModernJade/Scaled/Black-King.png);
+}
 div.lichess_overboard {
   position: absolute;
   z-index: 20;
