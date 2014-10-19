@@ -40,7 +40,7 @@ function resignable(data) {
 }
 
 function moretimeable(data) {
-  return data.clock && playable(data) && !mandatory(data);
+  return data.clock && isPlayerPlaying(data) && !mandatory(data);
 }
 
 function replayable(data) {
