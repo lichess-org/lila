@@ -137,6 +137,7 @@ final class JsonView(
               "rated" -> game.rated,
               "fen" -> (Forsyth >> game.toChess),
               "player" -> game.turnColor.name,
+              "winner" -> game.winnerColor.map(_.name),
               "turns" -> game.turns,
               "startedAtTurn" -> game.startedAtTurn,
               "lastMove" -> game.castleLastMoveTime.lastMoveString,
