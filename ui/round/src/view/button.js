@@ -104,6 +104,11 @@ module.exports = {
       }, ctrl.trans('cancelRematchOffer'))
     ]);
   },
+  viewRematch: function(ctrl) {
+    if (ctrl.data.game.rematch) return m('a.button[data-icon=v]', {
+      href: ctrl.router.Round.watcher(ctrl.data.game.rematch, ctrl.data.opponent.color).url
+    }, ctrl.trans('viewRematch'));
+  },
   newGame: function(ctrl) {
     if (!ctrl.data.offeringRematch && !ctrl.data.tournament) return m('a.lichess_new_game.button.hint--bottom', {
       'data-hint': ctrl.trans('playWithAnotherOpponent'),
@@ -115,6 +120,11 @@ module.exports = {
       href: ctrl.router.Tournament.show(ctrl.data.tournament.id).url
     }, ctrl.trans('backToTournament'));
   },
+  viewTournament: function(ctrl) {
+    if (ctrl.data.tournament) return m('a.button', {
+      href: ctrl.router.Tournament.show(ctrl.data.tournament.id)
+    }, ctrl.trans('viewTournament'));
+  },
   moretime: function(ctrl) {
     if (round.moretimeable(ctrl.data)) return m('a.moretime.hint--bottom-left', {
       'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime),
@@ -123,8 +133,8 @@ module.exports = {
   },
   flip: function(ctrl) {
     if (ctrl.data.player.spectator) return m('a.button[data-icon=B]', {
-        href: ctrl.router.Round.watcher(ctrl.data.game.id, chessground.util.opposite(ctrl.data.player.color)).url
-      }, ctrl.trans('flipBoard'));
+      href: ctrl.router.Round.watcher(ctrl.data.game.id, chessground.util.opposite(ctrl.data.player.color)).url
+    }, ctrl.trans('flipBoard'));
   },
   replayAndAnalyse: function(ctrl) {
     if (round.replayable(ctrl.data)) return m('a.button.replay_and_analyse[data-icon=G]', {
