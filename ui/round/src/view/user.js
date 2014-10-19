@@ -2,7 +2,10 @@ var m = require('mithril');
 var round = require('../round');
 
 function getPlayerRating(ctrl, player) {
-  if (player.user) return player.user.perfs[ctrl.game.perf].rating;
+  if (player.user) {
+    var perf = player.user.perfs[ctrl.game.perf];
+    if (perf) return perf.rating;
+  }
 }
 
 module.exports = function(ctrl, player, klass) {
