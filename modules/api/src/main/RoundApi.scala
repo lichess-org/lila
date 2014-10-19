@@ -16,27 +16,37 @@ private[api] final class RoundApi(jsonView: JsonView) {
       withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) map {
         case (json, tourOption) => blindMode {
-          tourOption.fold(json) { tour =>
-            json + ("tournament" -> tournamentJson(tour))
+          withTournament(tourOption) {
+            json
           }
         }
       }
 
-  def watcher(pov: Pov, apiVersion: Int, tv: Boolean)(implicit ctx: Context): Fu[JsObject] =
+  def watcher(pov: Pov, apiVersion: Int, tv: Boolean, userTv: Option[User] = None)(implicit ctx: Context): Fu[JsObject] =
     jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
       withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) map {
         case (json, tourOption) => blindMode {
-          tourOption.fold(json) { tour =>
-            json + ("tournament" -> tournamentJson(tour))
+          withTournament(tourOption) {
+            withUserTv(userTv) {
+              json
+            }
           }
         }
       }
 
-  private def tournamentJson(tour: Tournament) = Json.obj(
-    "id" -> tour.id,
-    "name" -> tour.name,
-    "running" -> tour.isRunning)
+  private def withUserTv(userOption: Option[User])(json: JsObject) =
+    userOption.fold(json) { user =>
+      json + ("userTv" -> JsString(user.id))
+    }
+
+  private def withTournament(tourOption: Option[Tournament])(json: JsObject) =
+    tourOption.fold(json) { tour =>
+      json + ("tournament" -> Json.obj(
+        "id" -> tour.id,
+        "name" -> tour.name,
+        "running" -> tour.isRunning))
+    }
 
   private def blindMode(js: JsObject)(implicit ctx: Context) =
     ctx.blindMode.fold(js + ("blind" -> JsBoolean(true)), js)

@@ -18,7 +18,7 @@ var clockCtrl = require('./clock/ctrl');
 
 module.exports = function(cfg, router, i18n, socketSend) {
 
-  this.data = data(cfg);
+  this.data = data({}, cfg);
 
   this.socket = new socket(socketSend, this);
 
@@ -55,10 +55,12 @@ module.exports = function(cfg, router, i18n, socketSend) {
   this.chessground = ground.make(this.data, cfg.game.fen, this.userMove);
 
   this.reload = function(cfg) {
-    this.data = data(cfg);
+    this.data = data(this.data, cfg);
     ground.reload(this.chessground, this.data, cfg.game.fen);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
+    if (this.data.game.rematch && this.data.userTv)
+      location.href = this.router.Round.watcher(this.data.game.rematch, this.data.opponent.color).url;
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(

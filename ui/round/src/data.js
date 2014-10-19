@@ -1,6 +1,8 @@
-module.exports = function(cfg) {
+module.exports = function(old, cfg) {
 
   var data = cfg;
+
+  if (old.userTv) data.userTv = old.userTv;
 
   if (data.clock) {
     data.clock.showTenths = data.pref.clockTenths;
