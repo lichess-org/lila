@@ -54,6 +54,7 @@ final class Preload(
         case (((((((((((hooks, posts), tours), feat), entries), lead), tWinners), puzzle), playing), filter), streams), nbRounds) =>
           (Json.obj(
             "version" -> lobbyVersion(),
+            "pool" -> JsArray(hooks map (_.render)),
             "filter" -> filter.render
           ), entries, posts, tours, feat, lead, tWinners, puzzle, playing, streams, nbRounds)
       }
