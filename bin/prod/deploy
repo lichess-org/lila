@@ -64,11 +64,11 @@ RSYNC_OPTIONS=" \
   --exclude RUNNING_PID \
   --exclude bin/.translate_version \
   --exclude local \
-  --exclude '*.psd'";
+  --exclude '*.psd' \
+  --exclude lib/lila.lila-0.1-SNAPSHOT-assets.jar";
 
 if [ $mode != "main" ]; then
   RSYNC_OPTIONS="$RSYNC_OPTIONS \
-  --exclude '*-assets.jar' \
   --exclude public";
 fi
 
