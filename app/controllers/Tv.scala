@@ -25,6 +25,14 @@ object Tv extends LilaController {
     lichessTv
   }
 
+  def side(gameId: String, color: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
+      (GameRepo onTv 10) zip Env.tv.streamsOnAir map {
+        case (games, streams) => Ok(html.tv.side(pov, games, streams))
+      }
+    }
+  }
+
   private def lichessTv(implicit ctx: Context) = OptionFuResult(Env.tv.featured.one) { game =>
     val flip = getBool("flip")
     val pov = flip.fold(Pov second game, Pov first game)
