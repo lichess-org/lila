@@ -18,7 +18,7 @@ module.exports = function(ctrl, player, klass) {
       },
       class: 'user_link ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
       href: ctrl.router.User.show(player.user.username).url,
-      target: round.playable(ctrl.data) ? '_blank' : null,
+      target: round.isPlayerPlaying(ctrl.data) ? '_blank' : null,
       'data-icon': 'r',
     }, [
       (player.user.title ? player.user.title + ' ' : '') + player.user.username,
