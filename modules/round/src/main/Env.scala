@@ -9,6 +9,7 @@ import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
 import lila.memo.AsyncCache
 import lila.socket.actorApi.GetVersion
+import actorApi.IsGone
 import makeTimeout.large
 
 final class Env(
@@ -151,6 +152,9 @@ final class Env(
   def version(gameId: String): Fu[Int] =
     socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
 
+  private def isGone(gameId: String, color: chess.Color): Fu[Boolean] =
+    socketHub ? Ask(gameId, IsGone(color)) mapTo manifest[Boolean]
+
   private lazy val reminder = new Reminder(db(CollectionReminder))
   def nowPlaying = reminder.nowPlaying
 
@@ -158,6 +162,7 @@ final class Env(
     chatApi = chatApi,
     userJsonView = userJsonView,
     getVersion = version,
+    isGone = isGone,
     canTakeback = takebacker.isAllowedByPrefs,
     baseAnimationDuration = AnimationDuration,
     moretimeSeconds = Moretime.toSeconds.toInt)

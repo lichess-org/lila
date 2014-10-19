@@ -17,6 +17,7 @@ final class JsonView(
     chatApi: lila.chat.ChatApi,
     userJsonView: lila.user.JsonView,
     getVersion: String => Fu[Int],
+    isGone: (String, Color) => Fu[Boolean],
     canTakeback: Game => Fu[Boolean],
     baseAnimationDuration: Duration,
     moretimeSeconds: Int) {
@@ -34,10 +35,11 @@ final class JsonView(
     playerUser: Option[User],
     withBlurs: Boolean): Fu[JsObject] =
     getVersion(pov.game.id) zip
+    isGone(pov.game.id, pov.opponent.color) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) zip
       getPlayerChat(pov.game, playerUser) map {
-        case (((version, opponentUser), takebackable), chat) =>
+        case ((((version, opponentGone), opponentUser), takebackable), chat) =>
           import pov._
           Json.obj(
             "game" -> Json.obj(
@@ -79,7 +81,7 @@ final class JsonView(
               "offeringRematch" -> opponent.isOfferingRematch.option(true),
               "offeringDraw" -> opponent.isOfferingDraw.option(true),
               "proposingTakeback" -> opponent.isProposingTakeback.option(true),
-              "onGame" -> true,
+              "onGame" -> !opponentGone,
               "hold" -> (withBlurs option hold(opponent)),
               "blurs" -> (withBlurs option blurs(game, opponent))
             ).noNull,
@@ -120,9 +122,11 @@ final class JsonView(
     tv: Boolean,
     withBlurs: Boolean) =
     getVersion(pov.game.id) zip
+    isGone(pov.game.id, pov.color) zip
+    isGone(pov.game.id, pov.opponent.color) zip
       getWatcherChat(pov.game, user) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
-        case ((version, chat), (playerUser, opponentUser)) =>
+        case ((((version, playerGone), opponentGone), chat), (playerUser, opponentUser)) =>
           import pov._
           Json.obj(
             "game" -> Json.obj(
@@ -149,7 +153,7 @@ final class JsonView(
               "spectator" -> true,
               "ai" -> player.aiLevel,
               "user" -> playerUser.map { userJsonView(_, true) },
-              "onGame" -> true,
+              "onGame" -> !playerGone,
               "hold" -> (withBlurs option hold(player)),
               "blurs" -> (withBlurs option blurs(game, player))
             ).noNull,
@@ -157,7 +161,7 @@ final class JsonView(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
               "user" -> opponentUser.map { userJsonView(_, true) },
-              "onGame" -> true,
+              "onGame" -> !opponentGone,
               "hold" -> (withBlurs option hold(opponent)),
               "blurs" -> (withBlurs option blurs(game, opponent))
             ).noNull,
