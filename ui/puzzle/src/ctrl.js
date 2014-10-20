@@ -47,10 +47,12 @@ module.exports = function(cfg, router, i18n) {
       fen: this.data.chess.fen(),
       lastMove: chess.lastMove(this.data.chess),
       turnColor: this.data.puzzle.color,
+      check: null,
       movable: {
         dests: chess.dests(this.data.chess)
       }
     });
+    if (this.data.chess.in_check()) this.chessground.setCheck();
   }.bind(this);
 
   this.userFinalizeMove = function(move, newProgress) {
