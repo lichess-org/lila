@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "chess.js": "^0.1.0",
-    "chessground": "^1.7.1",
+    "chessground": "^1.7.2",
     "lodash-node": "^2.4.1",
     "mithril": "^0.1.22"
   }
