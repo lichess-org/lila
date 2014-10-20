@@ -22,7 +22,7 @@ private[api] final class RoundApi(jsonView: JsonView) {
         }
       }
 
-  def watcher(pov: Pov, apiVersion: Int, tv: Boolean, userTv: Option[User] = None)(implicit ctx: Context): Fu[JsObject] =
+  def watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean], userTv: Option[User] = None)(implicit ctx: Context): Fu[JsObject] =
     jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
       withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) map {

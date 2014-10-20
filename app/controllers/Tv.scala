@@ -36,7 +36,7 @@ object Tv extends LilaController {
   private def lichessTv(implicit ctx: Context) = OptionFuResult(Env.tv.featured.one) { game =>
     val flip = getBool("flip")
     val pov = flip.fold(Pov second game, Pov first game)
-    Env.api.roundApi.watcher(pov, Env.api.version, tv = true) zip
+    Env.api.roundApi.watcher(pov, Env.api.version, tv = flip.some) zip
       (GameRepo onTv 10) zip
       Env.game.crosstableApi(game) zip
       Env.tv.streamsOnAir zip

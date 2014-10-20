@@ -35,7 +35,7 @@ final class JsonView(
     playerUser: Option[User],
     withBlurs: Boolean): Fu[JsObject] =
     getVersion(pov.game.id) zip
-    isGone(pov.game.id, pov.opponent.color) zip
+      isGone(pov.game.id, pov.opponent.color) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) zip
       getPlayerChat(pov.game, playerUser) map {
@@ -121,11 +121,11 @@ final class JsonView(
     pref: Pref,
     apiVersion: Int,
     user: Option[User],
-    tv: Boolean,
+    tv: Option[Boolean],
     withBlurs: Boolean) =
     getVersion(pov.game.id) zip
-    isGone(pov.game.id, pov.color) zip
-    isGone(pov.game.id, pov.opponent.color) zip
+      isGone(pov.game.id, pov.color) zip
+      isGone(pov.game.id, pov.opponent.color) zip
       getWatcherChat(pov.game, user) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
         case ((((version, playerGone), opponentGone), chat), (playerUser, opponentUser)) =>
@@ -182,7 +182,9 @@ final class JsonView(
               "clockBar" -> pref.clockBar,
               "showCaptured" -> pref.captured
             ),
-            "tv" -> tv,
+            "tv" -> tv.map { flip =>
+              Json.obj("flip" -> flip)
+            },
             "chat" -> chat.map { c =>
               JsArray(c.lines map {
                 case lila.chat.UserLine(username, text, _) => Json.obj(

@@ -133,7 +133,7 @@ module.exports = {
   },
   flip: function(ctrl) {
     if (ctrl.data.player.spectator) return m('a.button[data-icon=B]', {
-      href: ctrl.router.Round.watcher(ctrl.data.game.id, chessground.util.opposite(ctrl.data.player.color)).url
+      href: ctrl.data.tv ? ctrl.router.Tv.index().url + (ctrl.data.tv.flip ? '' : '?flip=1') : ctrl.router.Round.watcher(ctrl.data.game.id, chessground.util.opposite(ctrl.data.player.color)).url
     }, ctrl.trans('flipBoard'));
   },
   replayAndAnalyse: function(ctrl) {

@@ -85,12 +85,12 @@ object Round extends LilaController with TheftPrevention {
         case None =>
           (pov.game.tournamentId ?? TournamentRepo.byId) zip
             Env.game.crosstableApi(pov.game) zip
-            Env.api.roundApi.watcher(pov, Env.api.version, tv = false, userTv = userTv) map {
+            Env.api.roundApi.watcher(pov, Env.api.version, tv = none, userTv = userTv) map {
               case ((tour, crosstable), data) =>
                 Ok(html.round.watcher(pov, data, tour, crosstable, userTv = userTv))
             }
       },
-      api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = false) map { Ok(_) }
+      api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = none) map { Ok(_) }
     )
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
