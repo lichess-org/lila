@@ -46,6 +46,7 @@ module.exports = function(cfg, router, i18n) {
     this.chessground.set({
       fen: this.data.chess.fen(),
       lastMove: chess.lastMove(this.data.chess),
+      turnColor: this.data.puzzle.color,
       movable: {
         dests: chess.dests(this.data.chess)
       }
