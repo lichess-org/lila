@@ -17,10 +17,10 @@ module.exports = {
         ctrl.trans('theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim'),
         m('br'),
         m('a.button', {
-          onclick: partial(ctrl.socket.send, 'resign-force'),
+          onclick: partial(ctrl.socket.send, 'resign-force', null),
         }, ctrl.trans('forceResignation')),
         m('a.button', {
-          onclick: partial(ctrl.socket.send, 'draw-force'),
+          onclick: partial(ctrl.socket.send, 'draw-force', null),
         }, ctrl.trans('forceDraw'))
       ]);
   },
