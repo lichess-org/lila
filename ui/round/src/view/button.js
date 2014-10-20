@@ -1,5 +1,6 @@
 var chessground = require('chessground');
 var round = require('../round');
+var status = require('../status');
 var partial = chessground.util.partial;
 var throttle = require('lodash-node/modern/functions/throttle');
 
@@ -76,7 +77,7 @@ module.exports = {
     ]);
   },
   rematch: function(ctrl) {
-    return m('a.rematch.offer.button.hint--bottom', {
+    if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && ctrl.data.opponent.onGame) return m('a.rematch.offer.button.hint--bottom', {
       'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
       onclick: partial(ctrl.socket.send, 'rematch-yes', null)
     }, ctrl.trans('rematch'));
