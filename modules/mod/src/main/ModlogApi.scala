@@ -3,6 +3,7 @@ package lila.mod
 import lila.db.api._
 import lila.db.Implicits._
 import tube.modlogTube
+import play.api.libs.json.Json
 
 final class ModlogApi {
 
@@ -66,6 +67,11 @@ final class ModlogApi {
   }
 
   def recent = $find($query($select.all) sort $sort.naturalDesc, 100)
+
+  def wasUnengined(userId: String) = $count.exists(Json.obj(
+    "user" -> userId,
+    "action" -> Modlog.unengine
+  ))
 
   private def add(m: Modlog): Funit = {
     play.api.Logger("ModApi").info(m.toString)

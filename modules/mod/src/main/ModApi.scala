@@ -18,7 +18,10 @@ final class ModApi(
       } void
   }
 
-  def autoAdjust(username: String): Funit = adjust("lichess", username)
+  def autoAdjust(username: String): Funit = logApi.wasUnengined(User.normalize(username)) flatMap {
+    case true  => funit
+    case false => adjust("lichess", username)
+  }
 
   def troll(mod: String, username: String): Fu[Boolean] = withUser(username) { u =>
     val user = u.copy(troll = !u.troll)
