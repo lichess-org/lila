@@ -54,12 +54,15 @@ function getPlayer(data, color) {
 }
 
 function setOnGame(data, color, onGame) {
-  getPlayer(data, color).onGame = onGame;
+  var player = getPlayer(data, color);
+  onGame = onGame || player.ai;
+  player.onGame = onGame;
   if (onGame) setIsGone(data, color, false);
 }
 
 function setIsGone(data, color, isGone) {
   var player = getPlayer(data, color);
+  isGone = isGone && !player.ai;
   player.isGone = isGone;
   if (!isGone && player.user) player.user.online = true;
 }
