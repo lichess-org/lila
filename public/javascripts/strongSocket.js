@@ -99,12 +99,10 @@ lichess.StrongSocket.prototype = {
           self.pong();
         } else self.debug(e.data);
         if (m.t == "b") {
-          _.each(m.d, function(mm) {
+          m.d.forEach(function(mm) {
             self.handle(mm);
           });
-        } else {
-          self.handle(m);
-        }
+        } else self.handle(m);
       };
     } catch (e) {
       self.onError(e);
@@ -209,7 +207,7 @@ lichess.StrongSocket.prototype = {
         // console.log(m.d, m.t);
         if (self.settings.receive) self.settings.receive(m.t, m.d);
         var h = self.settings.events[m.t];
-        if ($.isFunction(h)) h(m.d || null);
+        if (h) h(m.d || null);
         else if (!self.options.ignoreUnknownMessages) {
           self.debug('Message not supported ' + JSON.stringify(m));
         }
