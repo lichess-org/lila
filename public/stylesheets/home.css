@@ -219,7 +219,7 @@ div.lobby_and_ground {
   top: 1px;
   left: 1px;
   max-height: 512px;
-  z-index: 98;
+  z-index: 19;
 }
 #tableclone thead {
   opacity: 0;
