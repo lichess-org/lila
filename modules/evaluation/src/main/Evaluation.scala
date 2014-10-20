@@ -47,7 +47,7 @@ case class Evaluation(
     action == Mark && heuristics.deviationIsLow(perf) && !heuristics.escapesAutoMark(perf)
 
   def gameIdsToAnalyse: List[String] =
-    games take 6 filterNot (_.analysed) take 1 flatMap (_.gameId)
+    games take 7 filterNot (_.analysed) take 4 flatMap (_.gameId)
 }
 
 object Evaluation {

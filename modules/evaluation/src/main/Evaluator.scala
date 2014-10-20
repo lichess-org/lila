@@ -77,9 +77,9 @@ final class Evaluator(
       (deviationIsLow(perf) && (progressIsHigh(perf) || ratingIsHigh(perf)))
     )) {
       evaluatedAt(user) foreach { date =>
-        def freshness = if (progressIsVeryHigh(perf)) DateTime.now minusMinutes 30
+        def freshness = if (progressIsVeryHigh(perf)) DateTime.now minusMinutes 20
         else if (progressIsHigh(perf)) DateTime.now minusHours 1
-        else DateTime.now minusDays 3
+        else DateTime.now minusDays 2
         if (suspiciousHold || forceRefresh || date.fold(true)(_ isBefore freshness)) {
           generate(user.id, true) foreach {
             _ foreach { eval =>
