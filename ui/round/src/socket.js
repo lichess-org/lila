@@ -59,7 +59,7 @@ module.exports = function(send, ctrl) {
       xhr.reload(ctrl.data).then(ctrl.reload);
     },
     redirect: function() {
-      data.redirecting = true;
+      ctrl.data.redirecting = true;
       m.redraw();
     },
     threefoldRepetition: function() {
