@@ -16,7 +16,8 @@ function ratingDiff(player) {
 }
 
 module.exports = function(ctrl, player, klass) {
-  var rating = player.user ? player.user.perfs[ctrl.data.game.perf].rating : null;
+  var perf = player.user ? player.user.perfs[ctrl.data.game.perf] : null;
+  var rating = perf ? perf.rating : null;
   return player.user ? [
     m('a', {
       config: function(el, isUpdate) {
