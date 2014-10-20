@@ -136,7 +136,7 @@ function renderSide(ctrl) {
 }
 
 function renderPlayTable(ctrl) {
-  return m('div.table.onbg',
+  return m('div.table',
     m('div.table_inner', [
       m('div.current_player',
         m('div.player.' + ctrl.chessground.data.turnColor, [

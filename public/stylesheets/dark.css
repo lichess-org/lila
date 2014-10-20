@@ -268,18 +268,6 @@ body.dark #hooks_wrap {
   background-image: url(../images/bN-bg.svg);
   background-size: 100% 100%;
 }
-body.dark .onbg .king.white {
-  background-image: url(../piece/cburnett/invert/bK.svg);
-}
-body.dark .onbg .king.black {
-  background-image: url(../piece/cburnett/invert/wK.svg);
-}
-body.dark .player.color.white {
-  background-image: url(../piece/cburnett/invert/bK-full.svg);
-}
-body.dark .player.color.black {
-  background-image: url(../piece/cburnett/invert/wK-full.svg);
-}
 body.dark div.table_wrap > div.clock.running > div.time {
   background: #505a60;
   color: #fff;

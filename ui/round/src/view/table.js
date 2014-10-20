@@ -100,7 +100,7 @@ module.exports = function(ctrl) {
   return m('div.table_wrap', [
     (ctrl.clock && !ctrl.data.blindMode) ? renderClock(ctrl.clock, opposite(ctrl.data.player.color), "top", clockRunningColor) : null,
     m('div', {
-      class: 'table onbg' + (status.finished(ctrl.data) ? ' finished' : '')
+      class: 'table' + (status.finished(ctrl.data) ? ' finished' : '')
     }, [
       renderPlayer(ctrl, ctrl.data.opponent),
       m('div.separator'),
