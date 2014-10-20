@@ -1209,11 +1209,11 @@ div.control.icons .button {
   padding: 0 10px;
   margin: 0 3px;
 }
-div.control.icons .takeback span:before {
+div.control.icons .takeback-yes span:before {
   display: inline-block;
   transform: translateY(1px);
 }
-div.control.icons .draw span:before {
+div.control.icons .draw-yes span:before {
   display: inline-block;
   transform: translateY(-1px) rotate(-90deg);
   -webkit-transform: rotate(-90deg);
