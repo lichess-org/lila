@@ -58,6 +58,10 @@ module.exports = function(send, ctrl) {
     reload: function(o) {
       xhr.reload(ctrl.data).then(ctrl.reload);
     },
+    redirect: function() {
+      data.redirecting = true;
+      m.redraw();
+    },
     threefoldRepetition: function() {
       ctrl.data.game.threefold = true;
       m.redraw();
