@@ -45,10 +45,11 @@ private[round] final class Socket(
       time = nowMillis
     }
     def setBye {
-      bye = 2
+      bye = 3
     }
-    def isBye = bye > 0
-    def isGone = isBye && time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis)
+    private def isBye = bye > 0
+
+    def isGone = time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis)
   }
 
   private val whitePlayer = new Player(White)
@@ -72,7 +73,7 @@ private[round] final class Socket(
 
     case Bye(color) => playerDo(color, _.setBye)
 
-    case Ack(uid) => withMember(uid) { _.channel push ackEvent }
+    case Ack(uid)   => withMember(uid) { _.channel push ackEvent }
 
     case Broom =>
       broom
@@ -84,6 +85,13 @@ private[round] final class Socket(
     case GetVersion    => sender ! history.getVersion
 
     case IsGone(color) => sender ! playerGet(color, _.isGone)
+
+    case GetSocketStatus => sender ! SocketStatus(
+      version = history.getVersion,
+      whiteOnGame = ownerOf(White).isDefined,
+      whiteIsGone = playerGet(White, _.isGone),
+      blackOnGame = ownerOf(Black).isDefined,
+      blackIsGone = playerGet(Black, _.isGone))
 
     case Join(uid, user, version, color, playerId, ip, userTv) => {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]

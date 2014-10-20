@@ -54,9 +54,14 @@ function getPlayer(data, color) {
 }
 
 function setOnGame(data, color, onGame) {
+  getPlayer(data, color).onGame = onGame;
+  if (onGame) setIsGone(data, color, false);
+}
+
+function setIsGone(data, color, isGone) {
   var player = getPlayer(data, color);
-  player.onGame = onGame;
-  if (onGame && player.user) player.user.online = true;
+  player.isGone = isGone;
+  if (!isGone && player.user) player.user.online = true;
 }
 
 function nbMoves(data, color) {
@@ -77,5 +82,6 @@ module.exports = {
   getPlayer: getPlayer,
   parsePossibleMoves: parsePossibleMoves,
   nbMoves: nbMoves,
-  setOnGame: setOnGame
+  setOnGame: setOnGame,
+  setIsGone: setIsGone
 };

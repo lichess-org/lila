@@ -12,7 +12,7 @@ module.exports = {
     }, m('span[data-icon=' + icon + ']')) : null;
   },
   forceResign: function(ctrl) {
-    if (!ctrl.data.opponent.ai && !ctrl.data.opponent.onGame && round.resignable(ctrl.data))
+    if (!ctrl.data.opponent.ai && ctrl.data.opponent.isGone && round.resignable(ctrl.data))
       return m('div.force_resign_zone', [
         ctrl.trans('theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim'),
         m('br'),

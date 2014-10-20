@@ -81,7 +81,7 @@ module.exports = function(send, ctrl) {
     },
     gone: function(isGone) {
       if (!ctrl.data.opponent.ai) {
-        round.setOnGame(ctrl.data, ctrl.data.opponent.color, !isGone);
+        round.setIsGone(ctrl.data, ctrl.data.opponent.color, isGone);
         m.redraw();
       }
     },

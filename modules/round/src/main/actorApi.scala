@@ -77,6 +77,16 @@ case class Bye(color: Color)
 case class IsGone(color: Color)
 case object AnalysisAvailable
 case class Ack(uid: String)
+case object GetSocketStatus
+case class SocketStatus(
+    version: Int,
+    whiteOnGame: Boolean,
+    whiteIsGone: Boolean,
+    blackOnGame: Boolean,
+    blackIsGone: Boolean) {
+  def onGame(color: Color) = color.fold(whiteOnGame, blackOnGame)
+  def isGone(color: Color) = color.fold(whiteIsGone, blackIsGone)
+}
 
 package round {
 

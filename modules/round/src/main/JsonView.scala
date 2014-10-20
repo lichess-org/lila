@@ -13,11 +13,12 @@ import lila.user.{ User, UserRepo }
 import chess.format.Forsyth
 import chess.{ Color, Clock, Variant }
 
+import actorApi.SocketStatus
+
 final class JsonView(
     chatApi: lila.chat.ChatApi,
     userJsonView: lila.user.JsonView,
-    getVersion: String => Fu[Int],
-    isGone: (String, Color) => Fu[Boolean],
+    getSocketStatus: String => Fu[SocketStatus],
     canTakeback: Game => Fu[Boolean],
     baseAnimationDuration: Duration,
     moretimeSeconds: Int) {
@@ -34,12 +35,11 @@ final class JsonView(
     apiVersion: Int,
     playerUser: Option[User],
     withBlurs: Boolean): Fu[JsObject] =
-    getVersion(pov.game.id) zip
-      isGone(pov.game.id, pov.opponent.color) zip
+    getSocketStatus(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) zip
       getPlayerChat(pov.game, playerUser) map {
-        case ((((version, opponentGone), opponentUser), takebackable), chat) =>
+        case (((socket, opponentUser), takebackable), chat) =>
           import pov._
           Json.obj(
             "game" -> Json.obj(
@@ -65,7 +65,7 @@ final class JsonView(
             "player" -> Json.obj(
               "id" -> playerId,
               "color" -> player.color.name,
-              "version" -> version,
+              "version" -> socket.version,
               "spectator" -> false,
               "user" -> playerUser.map { userJsonView(_, true) },
               "ratingDiff" -> player.ratingDiff,
@@ -83,7 +83,8 @@ final class JsonView(
               "offeringRematch" -> opponent.isOfferingRematch.option(true),
               "offeringDraw" -> opponent.isOfferingDraw.option(true),
               "proposingTakeback" -> opponent.isProposingTakeback.option(true),
-              "onGame" -> !opponentGone,
+              "onGame" -> socket.onGame(opponent.color),
+              "isGone" -> socket.isGone(opponent.color),
               "hold" -> (withBlurs option hold(opponent)),
               "blurs" -> (withBlurs option blurs(game, opponent))
             ).noNull,
@@ -123,12 +124,10 @@ final class JsonView(
     user: Option[User],
     tv: Option[Boolean],
     withBlurs: Boolean) =
-    getVersion(pov.game.id) zip
-      isGone(pov.game.id, pov.color) zip
-      isGone(pov.game.id, pov.opponent.color) zip
+    getSocketStatus(pov.game.id) zip
       getWatcherChat(pov.game, user) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
-        case ((((version, playerGone), opponentGone), chat), (playerUser, opponentUser)) =>
+        case ((socket, chat), (playerUser, opponentUser)) =>
           import pov._
           Json.obj(
             "game" -> Json.obj(
@@ -152,12 +151,12 @@ final class JsonView(
             "clock" -> game.clock.map(clockJson),
             "player" -> Json.obj(
               "color" -> color.name,
-              "version" -> version,
+              "version" -> socket.version,
               "spectator" -> true,
               "ai" -> player.aiLevel,
               "user" -> playerUser.map { userJsonView(_, true) },
               "ratingDiff" -> player.ratingDiff,
-              "onGame" -> !playerGone,
+              "onGame" -> socket.onGame(player.color),
               "hold" -> (withBlurs option hold(player)),
               "blurs" -> (withBlurs option blurs(game, player))
             ).noNull,
@@ -166,7 +165,7 @@ final class JsonView(
               "ai" -> opponent.aiLevel,
               "user" -> opponentUser.map { userJsonView(_, true) },
               "ratingDiff" -> opponent.ratingDiff,
-              "onGame" -> !opponentGone,
+              "onGame" -> socket.onGame(opponent.color),
               "hold" -> (withBlurs option hold(opponent)),
               "blurs" -> (withBlurs option blurs(game, opponent))
             ).noNull,

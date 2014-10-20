@@ -5,11 +5,11 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import actorApi.{ GetSocketStatus, SocketStatus }
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
 import lila.memo.AsyncCache
 import lila.socket.actorApi.GetVersion
-import actorApi.IsGone
 import makeTimeout.large
 
 final class Env(
@@ -152,8 +152,8 @@ final class Env(
   def version(gameId: String): Fu[Int] =
     socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
 
-  private def isGone(gameId: String, color: chess.Color): Fu[Boolean] =
-    socketHub ? Ask(gameId, IsGone(color)) mapTo manifest[Boolean]
+  private def getSocketStatus(gameId: String): Fu[SocketStatus] =
+    socketHub ? Ask(gameId, GetSocketStatus) mapTo manifest[SocketStatus]
 
   private lazy val reminder = new Reminder(db(CollectionReminder))
   def nowPlaying = reminder.nowPlaying
@@ -161,8 +161,7 @@ final class Env(
   lazy val jsonView = new JsonView(
     chatApi = chatApi,
     userJsonView = userJsonView,
-    getVersion = version,
-    isGone = isGone,
+    getSocketStatus = getSocketStatus,
     canTakeback = takebacker.isAllowedByPrefs,
     baseAnimationDuration = AnimationDuration,
     moretimeSeconds = Moretime.toSeconds.toInt)

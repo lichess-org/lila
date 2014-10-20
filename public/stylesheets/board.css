@@ -1232,9 +1232,6 @@ div.negotiation .button,
 div.force_resign_zone .button {
   display: inline-block;
 }
-div.force_resign_zone {
-  display: none;
-}
 div.separator {
   margin: 10px 0;
   border-bottom: 1px solid #ddd;
