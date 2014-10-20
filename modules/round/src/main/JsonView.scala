@@ -83,8 +83,8 @@ final class JsonView(
               "offeringRematch" -> opponent.isOfferingRematch.option(true),
               "offeringDraw" -> opponent.isOfferingDraw.option(true),
               "proposingTakeback" -> opponent.isProposingTakeback.option(true),
-              "onGame" -> socket.onGame(opponent.color),
-              "isGone" -> socket.isGone(opponent.color),
+              "onGame" -> (opponent.isAi || socket.onGame(opponent.color)),
+              "isGone" -> (!opponent.isAi && socket.isGone(opponent.color)),
               "hold" -> (withBlurs option hold(opponent)),
               "blurs" -> (withBlurs option blurs(game, opponent))
             ).noNull,
@@ -156,7 +156,7 @@ final class JsonView(
               "ai" -> player.aiLevel,
               "user" -> playerUser.map { userJsonView(_, true) },
               "ratingDiff" -> player.ratingDiff,
-              "onGame" -> socket.onGame(player.color),
+              "onGame" -> (player.isAi || socket.onGame(player.color)),
               "hold" -> (withBlurs option hold(player)),
               "blurs" -> (withBlurs option blurs(game, player))
             ).noNull,
@@ -165,7 +165,7 @@ final class JsonView(
               "ai" -> opponent.aiLevel,
               "user" -> opponentUser.map { userJsonView(_, true) },
               "ratingDiff" -> opponent.ratingDiff,
-              "onGame" -> socket.onGame(opponent.color),
+              "onGame" -> (opponent.isAi || socket.onGame(opponent.color)),
               "hold" -> (withBlurs option hold(opponent)),
               "blurs" -> (withBlurs option blurs(game, opponent))
             ).noNull,
