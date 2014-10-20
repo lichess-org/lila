@@ -1894,7 +1894,7 @@ var storage = {
         var len = moves.length,
           it = 0;
         setInterval(function() {
-          t.innerHTML = moves[it++ % len];
+          t.innerHTML = moves[it++ % len] || '';
         }, 100);
       });
     };
