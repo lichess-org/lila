@@ -41,6 +41,9 @@ object JsData extends lila.Steroids {
         "movable" -> Json.obj(
           "showDests" -> ctx.pref.destination
         ),
+        "draggable" -> Json.obj(
+          "showGhost" -> ctx.pref.highlight
+        ),
         "premovable" -> Json.obj(
           "showDests" -> ctx.pref.destination
         )
