@@ -51,6 +51,8 @@ object Theme3d extends ThemeObject {
     "Light-Wood",
     "Power-Coated",
     "Rosewood",
-    "Marble"
+    "Marble",
+    "Wax",
+    "Jade"
   ) map { name => new Theme(name) }
 }

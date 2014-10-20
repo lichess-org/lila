@@ -208,6 +208,14 @@ body.is3d.Wood-Glass .cg-board-wrap,
 #top .is3d .Wood-Glass {
   background-image: url(../staunton/Boards/Scaled/512/Wood-Glass.png);
 }
+body.is3d.Wax .cg-board-wrap,
+#top .is3d .Wax {
+  background-image: url(../staunton/Boards/Scaled/512/Wax.png);
+}
+body.is3d.Jade .cg-board-wrap,
+#top .is3d .Jade {
+  background-image: url(../staunton/Boards/Scaled/512/Jade.png);
+}
 body.is3d.Marble .cg-board-wrap,
 #top .is3d .Marble {
   background-image: url(../images/board/3d/marble.512.png);
@@ -277,6 +285,12 @@ only screen and (min-resolution:2dppx) {
   }
   body.is3d.Wood-Glass .cg-board-wrap {
     background-image: url(../staunton/Boards/Scaled/1024/Wood-Glass.png);
+  }
+  body.is3d.Wax .cg-board-wrap {
+    background-image: url(../staunton/Boards/Scaled/1024/Wax.png);
+  }
+  body.is3d.Jade .cg-board-wrap {
+    background-image: url(../staunton/Boards/Scaled/1024/Jade.png);
   }
   body.is3d.Marble .cg-board-wrap {
     background-image: url(../images/board/3d/marble.1024.png);
