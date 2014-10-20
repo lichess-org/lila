@@ -1065,6 +1065,12 @@ var storage = {
               if (data == 1) $board.data('chessground').stop();
               else setTimeout(function() {
                 parseFen($board);
+                $board.data('chessground').set({
+                  turnColor: color,
+                  movable: {
+                    dests: $board.data('moves')
+                  }
+                });
               }, 300);
             }
           });
