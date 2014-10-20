@@ -75,26 +75,26 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   def notifyAll(msg: JsObject) {
-    members.values.foreach(_.channel push msg)
+    members.values.foreach(_ push msg)
   }
 
   def notifyMember[A: Writes](t: String, data: A)(member: M) {
-    member.channel push makeMessage(t, data)
+    member push makeMessage(t, data)
   }
 
   def makePong(nb: Int) = makeMessage("n", nb)
 
   def ping(uid: String) {
     setAlive(uid)
-    withMember(uid)(_.channel push pong)
+    withMember(uid)(_ push pong)
   }
 
   def sendTo(userId: String, msg: JsObject) {
-    memberByUserId(userId) foreach (_.channel push msg)
+    memberByUserId(userId) foreach (_ push msg)
   }
 
   def sendTos(userIds: Set[String], msg: JsObject) {
-    membersByUserIds(userIds) foreach (_.channel push msg)
+    membersByUserIds(userIds) foreach (_ push msg)
   }
 
   def broom {
@@ -103,7 +103,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def eject(uid: String) {
     withMember(uid) { member =>
-      member.channel.end()
+      member.end
       quit(uid)
     }
   }
@@ -129,7 +129,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   protected def resyncNow(member: M) {
-    member.channel push resyncMessage
+    member push resyncMessage
   }
 
   def addMember(uid: String, member: M) {
@@ -158,7 +158,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
       "lm" -> move.move
     ))
     members.values foreach { m =>
-      if (m liveGames move.gameId) m.channel push msg
+      if (m liveGames move.gameId) m push msg
     }
   }
 

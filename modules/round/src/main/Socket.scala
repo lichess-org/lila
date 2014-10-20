@@ -73,7 +73,7 @@ private[round] final class Socket(
 
     case Bye(color) => playerDo(color, _.setBye)
 
-    case Ack(uid)   => withMember(uid) { _.channel push ackEvent }
+    case Ack(uid)   => withMember(uid) { _ push ackEvent }
 
     case Broom =>
       broom
@@ -124,10 +124,10 @@ private[round] final class Socket(
 
     case ChangeFeatured(_, html) =>
       val msg = makeMessage("featured", Json.obj("html" -> html.toString))
-      watchers.foreach(_.channel push msg)
+      watchers.foreach(_ push msg)
 
     case UserStartGame(userId, game) => watchers filter (_ onUserTv userId) foreach {
-      _.channel push makeMessage("reloadPage")
+      _ push makeMessage("reloadPage")
     }
   }
 
@@ -150,13 +150,13 @@ private[round] final class Socket(
 
   def batch(member: Member, vevents: List[VersionedEvent]) {
     if (vevents.nonEmpty) {
-      member.channel push makeMessage("b", vevents map (_ jsFor member))
+      member push makeMessage("b", vevents map (_ jsFor member))
     }
   }
 
   def notifyOwner[A: Writes](color: Color, t: String, data: A) {
     ownerOf(color) foreach { m =>
-      m.channel push makeMessage(t, data)
+      m push makeMessage(t, data)
     }
   }
 
