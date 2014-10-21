@@ -18,7 +18,7 @@ module.exports = function(data, onFlag) {
     this.data.white = white;
     this.data.black = black;
     setLastUpdate();
-  };
+  }.bind(this);
 
   this.tick = function(color) {
     m.startComputation();
