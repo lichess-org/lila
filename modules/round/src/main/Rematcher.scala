@@ -104,7 +104,6 @@ private[round] final class Rematcher(
       Event.RedirectOwner(White, blackId, AnonCookie.json(game, Black)),
       Event.RedirectOwner(Black, whiteId, AnonCookie.json(game, White)),
       // tell spectators to reload
-      Event.Reload,
       Event.Reload)
   }
 }

@@ -183,7 +183,6 @@ private[round] final class Socket(
 
   private def refreshSubscriptions {
     context.system.lilaBus.unsubscribe(self)
-    context.system.lilaBus.subscribe(self, 'chatOut)
     watchers.flatMap(_.userTv).toList.distinct foreach { userId =>
       context.system.lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
     }

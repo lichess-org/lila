@@ -194,11 +194,6 @@ private[round] final class Round(
     if (events contains Event.Threefold) self ! Threefold
   } addFailureEffect {
     case e: ClientErrorException =>
-    case e: ArrayIndexOutOfBoundsException =>
-      val sw = new java.io.StringWriter
-      val pw = new java.io.PrintWriter(sw)
-      e.printStackTrace(pw)
-      logwarn(s"[round] ${gameId} $e $sw")
     case e => logwarn(s"[round] ${gameId} $e")
   } void
 }
