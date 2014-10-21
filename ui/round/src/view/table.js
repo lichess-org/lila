@@ -57,6 +57,10 @@ function renderTableEnd(ctrl) {
 
 function renderTableWatch(ctrl) {
   var d = ctrl.data;
+  var buttons = ctrl.vm.redirecting ? [] : [
+    button.viewRematch(ctrl),
+    button.viewTournament(ctrl)
+  ].filter(function(n){ return n !== undefined });
   return [
     m('div.current_player', (status.finished(d) || status.aborted(d)) ? renderResult(ctrl) : (
       m('div.player', [
@@ -65,10 +69,7 @@ function renderTableWatch(ctrl) {
       ]))),
     m('div.separator'),
     renderPlayer(ctrl, d.player),
-    m('div.control.buttons', ctrl.vm.redirecting ? null : [
-      button.viewRematch(ctrl),
-      button.viewTournament(ctrl)
-    ])
+    buttons.length > 0 ? m('div.control.buttons', buttons) : null
   ];
 }
 
