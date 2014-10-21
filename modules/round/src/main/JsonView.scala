@@ -57,6 +57,7 @@ final class JsonView(
               "lastMove" -> game.castleLastMoveTime.lastMoveString,
               "threefold" -> game.toChessHistory.threefoldRepetition,
               "check" -> game.check.map(_.key),
+              "rematch" -> game.next,
               "source" -> game.source.map(sourceJson),
               "status" -> Json.obj(
                 "id" -> pov.game.status.id,

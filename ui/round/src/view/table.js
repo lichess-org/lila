@@ -19,9 +19,10 @@ function renderPlayer(ctrl, player) {
   );
 }
 
+var loader = m('div.loader', m('span'));
+
 function renderKing(ctrl, color) {
-  var loader = ctrl.vm.reloading || ctrl.vm.redirecting;
-  return m('div.no-square', loader ? m('div.loader', m('span')) : m('div.cg-piece.king.' + color));
+  return m('div.no-square', (ctrl.vm.reloading || ctrl.vm.redirecting) ? loader : m('div.cg-piece.king.' + color));
 }
 
 function renderResult(ctrl) {
@@ -34,7 +35,10 @@ function renderResult(ctrl) {
         ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious')
       ])
     ]) :
-    m('div.player', m('p', renderStatus(ctrl)));
+    m('div.player', [
+      (ctrl.vm.reloading || ctrl.vm.redirecting) ? m('div.no-square', loader) : null,
+      m('p', renderStatus(ctrl))
+    ]);
 }
 
 function renderTableEnd(ctrl) {
@@ -42,12 +46,11 @@ function renderTableEnd(ctrl) {
   return [
     m('div.current_player', renderResult(ctrl)),
     m('div.control.buttons', ctrl.vm.redirecting ? null : [
-      button.backToTournament(ctrl) || (
-        d.opponent.ai ? button.rematch(ctrl) : [
-          m('div.separator'),
-          button.answerOpponentRematch(ctrl) || button.cancelRematch(ctrl) || button.rematch(ctrl)
-        ]),
-      button.newGame(ctrl)
+      m('div.separator'),
+      button.backToTournament(ctrl) || button.joinRematch(ctrl) || [
+        button.answerOpponentRematch(ctrl) || button.cancelRematch(ctrl) || button.rematch(ctrl),
+        button.newGame(ctrl)
+      ]
     ])
   ];
 }
