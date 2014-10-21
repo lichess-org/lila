@@ -1060,6 +1060,49 @@ div.table {
   height: auto;
   padding: 10px;
 }
+div.table .replay {
+  margin-bottom: 10px;
+}
+div.table .replay .moves {
+  height: 200px;
+  overflow: auto;
+}
+div.table .replay table {
+  width: 100%;
+}
+div.table .replay td:first-child {
+  width: 15%;
+  text-align: center;
+  font-weight: lighter;
+}
+div.table .replay td.move {
+  font-family: 'pgn4web ChessSansPiratf', 'pgn4web Liberation Sans', sans-serif;
+  font-size: 1.3em;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+div.table .replay td.move:hover {
+  background: #404040;
+}
+div.table .replay td.move.active {
+  background: #303090;
+}
+div.table .replay .buttons {
+  text-align: center;
+  margin-top: 15px;
+}
+div.table .replay .button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  margin-left: -2px;
+  margin-right: -3px;
+}
+div.table .replay a.disabled::before {
+  opacity: 0.5;
+  text-shadow: none !important;
+}
+
 div.table.spectator {
   top: 160px;
 }

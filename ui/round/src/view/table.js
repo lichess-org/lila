@@ -6,7 +6,9 @@ var opposite = chessground.util.opposite;
 var renderClock = require('../clock/view');
 var renderStatus = require('./status');
 var renderUser = require('./user');
+var renderReplay = require('./replay');
 var button = require('./button');
+var c = require('chess.js');
 
 function renderPlayer(ctrl, player) {
   return player.ai ? m('div.username.on-game', [
@@ -76,12 +78,12 @@ function renderTableWatch(ctrl) {
 function renderTablePlay(ctrl) {
   var d = ctrl.data;
   return [
-    m('div.current_player',
-      m('div.player', [
-        renderKing(ctrl, d.game.player),
-        m('p', ctrl.trans(d.game.player == d.player.color ? 'yourTurn' : 'waiting'))
-      ])
-    ),
+    // m('div.current_player',
+    //   m('div.player', [
+    //     renderKing(ctrl, d.game.player),
+    //     m('p', ctrl.trans(d.game.player == d.player.color ? 'yourTurn' : 'waiting'))
+    //   ])
+    // ),
     m('div.control.icons', [
       button.standard(ctrl, round.abortable, 'L', 'abortGame', 'abort'),
       button.standard(ctrl, round.takebackable, 'i', 'proposeATakeback', 'takeback-yes'),
@@ -95,7 +97,8 @@ function renderTablePlay(ctrl) {
     button.cancelTakebackProposition(ctrl),
     button.answerOpponentTakebackProposition(ctrl), (round.mandatory(d) && round.nbMoves(d, d.player.color) === 0) ? m('div[data-icon=j]',
       ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 30)
-    ) : null
+    ) : null,
+    renderReplay(ctrl)
   ];
 }
 

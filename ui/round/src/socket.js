@@ -9,6 +9,7 @@ module.exports = function(send, ctrl) {
 
   var handlers = {
     possibleMoves: function(o) {
+      ctrl.data.possibleMoves = o;
       ctrl.chessground.set({
         movable: {
           dests: round.parsePossibleMoves(o)

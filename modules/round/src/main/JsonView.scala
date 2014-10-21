@@ -6,7 +6,7 @@ import scala.math.{ min, max, round }
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
-import lila.game.{ Pov, Game, PerfPicker, Source }
+import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
@@ -35,11 +35,12 @@ final class JsonView(
     apiVersion: Int,
     playerUser: Option[User],
     withBlurs: Boolean): Fu[JsObject] =
-    getSocketStatus(pov.game.id) zip
+    getInitialFen(pov.game) zip
+      getSocketStatus(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) zip
       getPlayerChat(pov.game, playerUser) map {
-        case (((socket, opponentUser), takebackable), chat) =>
+        case ((((initialFen, socket), opponentUser), takebackable), chat) =>
           import pov._
           Json.obj(
             "game" -> Json.obj(
@@ -48,6 +49,7 @@ final class JsonView(
               "speed" -> game.speed.key,
               "perf" -> PerfPicker.key(game),
               "rated" -> game.rated,
+              "initialFen" -> initialFen,
               "fen" -> (Forsyth >> game.toChess),
               "moves" -> game.pgnMoves.mkString(" "),
               "player" -> game.turnColor.name,
@@ -59,6 +61,7 @@ final class JsonView(
               "check" -> game.check.map(_.key),
               "rematch" -> game.next,
               "source" -> game.source.map(sourceJson),
+              "moves" -> game.pgnMoves,
               "status" -> Json.obj(
                 "id" -> pov.game.status.id,
                 "name" -> pov.game.status.name)),
@@ -125,10 +128,11 @@ final class JsonView(
     user: Option[User],
     tv: Option[Boolean],
     withBlurs: Boolean) =
-    getSocketStatus(pov.game.id) zip
+    getInitialFen(pov.game) zip
+      getSocketStatus(pov.game.id) zip
       getWatcherChat(pov.game, user) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
-        case ((socket, chat), (playerUser, opponentUser)) =>
+        case (((initialFen, socket), chat), (playerUser, opponentUser)) =>
           import pov._
           Json.obj(
             "game" -> Json.obj(
@@ -137,6 +141,7 @@ final class JsonView(
               "speed" -> game.speed.key,
               "perf" -> PerfPicker.key(game),
               "rated" -> game.rated,
+              "initialFen" -> initialFen,
               "fen" -> (Forsyth >> game.toChess),
               "player" -> game.turnColor.name,
               "winner" -> game.winnerColor.map(_.name),
@@ -146,6 +151,7 @@ final class JsonView(
               "check" -> game.check.map(_.key),
               "rematch" -> game.next,
               "source" -> game.source.map(sourceJson),
+              "moves" -> game.pgnMoves,
               "status" -> Json.obj(
                 "id" -> pov.game.status.id,
                 "name" -> pov.game.status.name)),
@@ -194,6 +200,9 @@ final class JsonView(
             }
           )
       }
+
+  private def getInitialFen(game: Game): Fu[String] =
+    GameRepo initialFen game map (_ | chess.format.Forsyth.initial)
 
   private def blurs(game: Game, player: lila.game.Player) = {
     val percent = game.playerBlurPercent(player.color)

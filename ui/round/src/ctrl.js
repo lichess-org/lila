@@ -14,6 +14,7 @@ var hold = require('./hold');
 var blur = require('./blur');
 var init = require('./init');
 var blind = require('./blind');
+var replay = require('./replay');
 var clockCtrl = require('./clock/ctrl');
 
 module.exports = function(cfg, router, i18n, socketSend) {
@@ -61,6 +62,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
 
   this.reload = function(cfg) {
     this.data = data(this.data, cfg);
+    this.replay.active = false;
     ground.reload(this.chessground, this.data, cfg.game.fen);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
@@ -83,6 +85,8 @@ module.exports = function(cfg, router, i18n, socketSend) {
   }.bind(this);
 
   if (this.clock) setInterval(this.clockTick, 100);
+
+  this.replay = new replay(this);
 
   this.router = router;
 
