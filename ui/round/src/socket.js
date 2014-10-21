@@ -56,10 +56,10 @@ module.exports = function(send, ctrl) {
       $.sound.take();
     },
     reload: function(o) {
-      xhr.reload(ctrl.data).then(ctrl.reload);
+      xhr.reload(ctrl).then(ctrl.reload);
     },
     redirect: function() {
-      ctrl.data.redirecting = true;
+      ctrl.vm.redirecting = true;
       m.redraw();
     },
     threefoldRepetition: function() {
@@ -80,7 +80,7 @@ module.exports = function(send, ctrl) {
     },
     end: function() {
       ground.end(ctrl.chessground);
-      xhr.reload(ctrl.data).then(ctrl.reload);
+      xhr.reload(ctrl).then(ctrl.reload);
       if (!ctrl.data.player.spectator) $.sound.dong();
     },
     gone: function(isGone) {

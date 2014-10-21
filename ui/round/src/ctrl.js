@@ -20,6 +20,11 @@ module.exports = function(cfg, router, i18n, socketSend) {
 
   this.data = data({}, cfg);
 
+  this.vm = {
+    reloading: false,
+    redirecting: false
+  };
+
   this.socket = new socket(socketSend, this);
 
   this.setTitle = partial(title.set, this);

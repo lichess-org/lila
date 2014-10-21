@@ -5,16 +5,16 @@ var xhrConfig = function(xhr) {
   xhr.setRequestHeader('Accept', 'application/vnd.lichess.v1+json');
 }
 
-function reload(data) {
-  data.reloading = true;
+function reload(ctrl) {
+  ctrl.vm.reloading = true;
   m.redraw();
   var req = m.request({
     method: 'GET',
-    url: data.url.round,
+    url: ctrl.data.url.round,
     config: xhrConfig
   });
   req.then(function() {
-    data.reloading = false;
+    ctrl.vm.reloading = false;
   }, function(err) {
     lichess.reload();
   });
