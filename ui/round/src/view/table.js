@@ -46,14 +46,15 @@ function renderResult(ctrl) {
 function renderTableEnd(ctrl) {
   var d = ctrl.data;
   return [
-    m('div.current_player', renderResult(ctrl)),
+    // m('div.current_player', renderResult(ctrl)),
     m('div.control.buttons', ctrl.vm.redirecting ? null : [
       m('div.separator'),
       button.backToTournament(ctrl) || button.joinRematch(ctrl) || [
         button.answerOpponentRematch(ctrl) || button.cancelRematch(ctrl) || button.rematch(ctrl),
         button.newGame(ctrl)
       ]
-    ])
+    ]),
+    renderReplay(ctrl)
   ];
 }
 
@@ -64,14 +65,15 @@ function renderTableWatch(ctrl) {
     button.viewTournament(ctrl)
   ].filter(function(n){ return n !== undefined });
   return [
-    m('div.current_player', (status.finished(d) || status.aborted(d)) ? renderResult(ctrl) : (
-      m('div.player', [
-        renderKing(ctrl, d.game.player),
-        m('p', ctrl.trans(d.game.player == 'white' ? 'whitePlays' : 'blackPlays'))
-      ]))),
-    m('div.separator'),
-    renderPlayer(ctrl, d.player),
-    buttons.length > 0 ? m('div.control.buttons', buttons) : null
+    // m('div.current_player', (status.finished(d) || status.aborted(d)) ? renderResult(ctrl) : (
+    //   m('div.player', [
+    //     renderKing(ctrl, d.game.player),
+    //     m('p', ctrl.trans(d.game.player == 'white' ? 'whitePlays' : 'blackPlays'))
+    //   ]))),
+    // m('div.separator'),
+    buttons.length > 0 ? m('div.control.buttons', buttons) : null,
+    renderReplay(ctrl),
+    renderPlayer(ctrl, d.player)
   ];
 }
 
