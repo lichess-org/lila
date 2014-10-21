@@ -220,6 +220,10 @@ body.is3d.Marble .cg-board-wrap,
 #top .is3d .Marble {
   background-image: url(../images/board/3d/marble.512.png);
 }
+body.is3d.Woodi .cg-board-wrap,
+#top .is3d .Woodi {
+  background-image: url(../images/board/3d/woodi.512.png);
+}
 @media
 
 (-webkit-min-device-pixel-ratio:2),
@@ -293,6 +297,9 @@ body.is3d.Marble .cg-board-wrap,
   }
   body.is3d.Marble .cg-board-wrap {
     background-image: url(../images/board/3d/marble.1024.png);
+  }
+  body.is3d.Woodi .cg-board-wrap {
+    background-image: url(../images/board/3d/woodi.1024.png);
   }
 }
 body.is2d.cburnett .cg-piece.pawn.white {
@@ -1303,9 +1310,6 @@ div.cemetery .grave {
   height: 32px;
   position: relative;
   display: inline-block;
-}
-div.cemetery .cg-piece {} body.pirouetti.light div.cemetery div.cg-piece.white {
-  -webkit-filter: brightness(0.7) contrast(160%) drop-shadow(0 0 0.5px #000);
 }
 div.under_chat {
   width: 228px;
