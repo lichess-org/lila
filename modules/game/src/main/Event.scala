@@ -41,16 +41,17 @@ object Event {
     def typ = "start"
   }
 
-  case class Move(orig: Pos, dest: Pos, color: Color) extends Event {
+  case class Move(orig: Pos, dest: Pos, color: Color, san: String) extends Event {
     def typ = "move"
     def data = Json.obj(
       "from" -> orig.key,
       "to" -> dest.key,
-      "color" -> color.name)
+      "color" -> color.name,
+      "san" -> san)
   }
   object Move {
     def apply(move: ChessMove): Move =
-      Move(move.orig, move.dest, move.piece.color)
+      Move(move.orig, move.dest, move.piece.color, chess.format.pgn.Dumper(move))
   }
 
   case class PossibleMoves(

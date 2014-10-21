@@ -50,8 +50,9 @@ module.exports = function(cfg, router, i18n, socketSend) {
   }.bind(this);
 
   this.apiMove = function(o) {
-    this.chessground.apiMove(o.from, o.to);
+    if (!this.replay.active) this.chessground.apiMove(o.from, o.to);
     if (this.data.game.threefold) this.data.game.threefold = false;
+    this.data.game.moves.push(o.san);
     round.setOnGame(this.data, o.color, true);
     m.redraw();
     if (this.data.player.spectator || o.color != this.data.player.color) $.sound.move(o.color == 'white');
@@ -61,9 +62,9 @@ module.exports = function(cfg, router, i18n, socketSend) {
   this.chessground = ground.make(this.data, cfg.game.fen, this.userMove);
 
   this.reload = function(cfg) {
+    this.replay.onReload(cfg);
     this.data = data(this.data, cfg);
-    this.replay.active = false;
-    ground.reload(this.chessground, this.data, cfg.game.fen);
+    if (!this.replay.active) ground.reload(this.chessground, this.data, cfg.game.fen);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
     if (this.data.game.rematch && this.data.userTv)

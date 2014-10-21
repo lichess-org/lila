@@ -43,4 +43,8 @@ module.exports = function(ctrl) {
     if (this.active) enable();
     else disable();
   }.bind(this);
+
+  this.onReload = function(cfg) {
+    if (this.active && cfg.game.moves.join() != ctrl.data.game.moves.join()) this.active = false;
+  }.bind(this);
 }
