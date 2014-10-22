@@ -79,7 +79,6 @@ body.coords_2 .cg-square[data-coord-y]::before {
 body.coords_2.is3d .cg-square[data-coord-y]::before {
   top: 24px;
 }
-body.highlight .manipulable .cg-square:hover,
 body.highlight .manipulable .cg-square.drag-over {
   background: rgba(255, 255, 255, 0.1);
 }
