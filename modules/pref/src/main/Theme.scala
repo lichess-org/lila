@@ -45,7 +45,6 @@ object Theme3d extends ThemeObject {
     "China-Green",
     "China-Grey",
     "China-Scarlet",
-    "China-Yellow",
     "Classic-Blue",
     "Gold-Silver",
     "Light-Wood",
@@ -53,6 +52,7 @@ object Theme3d extends ThemeObject {
     "Rosewood",
     "Marble",
     "Wax",
-    "Jade"
+    "Jade",
+    "Woodi"
   ) map { name => new Theme(name) }
 }
