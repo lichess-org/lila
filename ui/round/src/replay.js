@@ -7,6 +7,10 @@ module.exports = function(ctrl) {
   this.ply = 0;
   this.late = false;
 
+  this.vm = {
+    hash: ''
+  };
+
   var situationCache = {};
 
   var computeSituation = function() {

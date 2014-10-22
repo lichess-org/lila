@@ -54,12 +54,12 @@ module.exports = function(ctrl) {
   if (ctrl.data.game.variant.key == 'chess960')
     return m('div.notyet', 'The in-game replay will be available for chess960 very soon');
   var curPly = ctrl.replay.active ? ctrl.replay.ply : ctrl.data.game.moves.length;
+  var h = curPly + ctrl.data.game.moves.join('');
+  if (ctrl.replay.vm.hash === h) return {subtree: 'retain'};
+  ctrl.replay.vm.hash = h;
   return m('div.replay', [
     m('div.moves', {
-      config: function(boxEl, isUpdate, context) {
-        var hash = curPly + ctrl.data.game.moves.join('');
-        if (hash === context.hash || hash == curPly) return;
-        context.hash = hash;
+      config: function(boxEl, isUpdate) {
         var plyEl = boxEl.querySelector('.active');
         boxEl.scrollTop = plyEl.offsetTop - boxEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
       }
