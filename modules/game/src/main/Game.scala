@@ -112,13 +112,12 @@ case class Game(
 
   lazy val toChess: ChessGame = {
 
-    val (pieces, deads) = BinaryFormat.piece read binaryPieces
+    val pieces = BinaryFormat.piece read binaryPieces
 
     ChessGame(
       board = Board(pieces, toChessHistory, variant),
       player = Color(0 == turns % 2),
       clock = clock,
-      deads = deads,
       turns = turns,
       startedAtTurn = startedAtTurn,
       pgnMoves = pgnMoves)
@@ -150,7 +149,7 @@ case class Game(
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
-      binaryPieces = BinaryFormat.piece write game.allPieces,
+      binaryPieces = BinaryFormat.piece write game.board.pieces,
       binaryPgn = BinaryFormat.pgn write game.pgnMoves,
       turns = game.turns,
       positionHashes = history.positionHashes,
@@ -339,10 +338,6 @@ case class Game(
     0
   )
 
-  def deadPiecesOf(color: Color): List[Role] = toChess.deads collect {
-    case piece if piece is color => piece.role
-  }
-
   def isBeingPlayed = !finishedOrAborted && !olderThan(60)
 
   def olderThan(seconds: Int) = updatedAt.??(_ < DateTime.now - seconds.seconds)
@@ -408,7 +403,7 @@ object Game {
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
     binaryPieces = if (game.isStandardInit) BinaryFormat.piece.standard
-    else BinaryFormat.piece write game.allPieces,
+    else BinaryFormat.piece write game.board.pieces,
     binaryPgn = ByteArray.empty,
     status = Status.Created,
     turns = game.turns,

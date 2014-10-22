@@ -20,7 +20,7 @@ object Rewind {
       Progress(game, game.copy(
         whitePlayer = rewindPlayer(game.whitePlayer),
         blackPlayer = rewindPlayer(game.blackPlayer),
-        binaryPieces = BinaryFormat.piece write rewindedGame.allPieces,
+        binaryPieces = BinaryFormat.piece write rewindedGame.board.pieces,
         binaryPgn = BinaryFormat.pgn write rewindedGame.pgnMoves,
         turns = rewindedGame.turns,
         positionHashes = rewindedHistory.positionHashes,

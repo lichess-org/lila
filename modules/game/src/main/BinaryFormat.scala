@@ -154,35 +154,27 @@ object BinaryFormat {
 
   object piece {
 
-    def write(all: AllPieces): ByteArray = {
-      val (alives, deads) = all
-      def posInt(pos: Pos): Int = (alives get pos).fold(0)(pieceInt)
+    def write(pieces: PieceMap): ByteArray = {
+      def posInt(pos: Pos): Int = (pieces get pos).fold(0)(pieceInt)
       def pieceInt(piece: Piece): Int =
         piece.color.fold(0, 8) + roleToInt(piece.role)
-      val aliveBytes: Iterator[Int] = Pos.all grouped 2 map {
-        case List(p1, p2) => (posInt(p1) << 4) + posInt(p2)
-      }
-      val deadBytes: Iterator[Int] = deads grouped 2 map {
-        case List(d1, d2) => (pieceInt(d1) << 4) + pieceInt(d2)
-        case List(d1)     => pieceInt(d1) << 4
-      }
-      val bytes = aliveBytes.toArray ++ deadBytes
-      ByteArray(bytes.map(_.toByte))
+      ByteArray(Pos.all grouped 2 map {
+        case List(p1, p2) => ((posInt(p1) << 4) + posInt(p2)).toByte
+      } toArray)
     }
 
-    def read(ba: ByteArray): AllPieces = {
+    def read(ba: ByteArray): PieceMap = {
       def splitInts(int: Int) = Array(int >> 4, int & 0x0F)
       def intPiece(int: Int): Option[Piece] =
         intToRole(int & 7) map { role => Piece(Color((int & 8) == 0), role) }
       val (aliveInts, deadInts) = ba.value map toInt flatMap splitInts splitAt 64
-      val alivePieces = (Pos.all zip aliveInts map {
+      (Pos.all zip aliveInts flatMap {
         case (pos, int) => intPiece(int) map (pos -> _)
-      }).flatten.toMap
-      alivePieces -> (deadInts map intPiece).toList.flatten
+      }).toMap
     }
 
     // cache standard start position
-    val standard = write(Board.init(Variant.Standard).pieces -> Nil)
+    val standard = write(Board.init(Variant.Standard).pieces)
 
     private def intToRole(int: Int): Option[Role] = int match {
       case 6 => Some(Pawn)

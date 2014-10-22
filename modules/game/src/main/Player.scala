@@ -26,14 +26,6 @@ case class Player(
     rating map { PlayerUser(uid, _, ratingDiff) }
   }
 
-  def encodePieces(allPieces: Iterable[(Pos, Piece, Boolean)]): String =
-    allPieces collect {
-      case (pos, piece, dead) if piece.color == color => pos.piotrStr + {
-        if (dead) piece.role.forsyth.toUpper
-        else piece.role.forsyth
-      }
-    } mkString ""
-
   def withUser(id: String, perf: lila.rating.Perf): Player = copy(
     userId = id.some,
     rating = perf.intRating.some)
