@@ -95,7 +95,9 @@ function renderTablePlay(ctrl) {
       button.standard(ctrl, round.resignable, 'b', 'resign', 'resign')
     ]),
     buttons.length > 0 ? m('div.control.buttons', buttons) : null,
-    renderReplay(ctrl)
+    renderReplay(ctrl),
+    m('div.whos_turn',
+        ctrl.trans(d.game.player == d.player.color ? 'yourTurn' : 'waitingForOpponent'))
   ];
 }
 

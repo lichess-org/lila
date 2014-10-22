@@ -14,8 +14,7 @@ data: @Html(play.api.libs.json.Json.stringify(data)),
 @round.layout(
 title = userOption.isDefined.fold(trans.challengeToPlay,trans.playWithAFriend).str(),
 moreJs = moreJs,
-side = Html(""),
-signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
+side = Html("")) {
 <div class="lichess_game">
   <div class="lichess_board_wrap cg-512">
     <div class="lichess_board"></div>
