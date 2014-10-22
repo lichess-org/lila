@@ -1,14 +1,14 @@
 var partial = require('chessground').util.partial;
 
 function renderTd(move, klass, ply, curPly) {
-  return {
+  return move ? {
     tag: 'td',
     attrs: {
       class: klass + (ply === curPly ? ' active' : ''),
       'data-ply': ply
     },
     children: move
-  };
+  } : null;
 }
 
 function renderTable(ctrl, curPly) {
@@ -32,17 +32,17 @@ function renderTable(ctrl, curPly) {
 
 function renderButtons(ctrl, curPly) {
   return m('div.buttons', [
-      ['first', 'W', 1],
-      ['prev', 'Y', curPly - 1],
-      ['next', 'X', curPly + 1],
-      ['last', 'V', ctrl.data.game.moves.length]
-    ].map(function(b) {
-      var enabled = curPly != b[2] && b[2] >= 1 && b[2] <= ctrl.data.game.moves.length;
-      return m('a.button.' + b[0] + (enabled ? '' : '.disabled'), {
-        'data-icon': b[1],
-        onclick: enabled ? partial(ctrl.replay.jump, b[2]) : null
-      });
-    }));
+    ['first', 'W', 1],
+    ['prev', 'Y', curPly - 1],
+    ['next', 'X', curPly + 1],
+    ['last', 'V', ctrl.data.game.moves.length]
+  ].map(function(b) {
+    var enabled = curPly != b[2] && b[2] >= 1 && b[2] <= ctrl.data.game.moves.length;
+    return m('a.button.' + b[0] + (enabled ? '' : '.disabled'), {
+      'data-icon': b[1],
+      onclick: enabled ? partial(ctrl.replay.jump, b[2]) : null
+    });
+  }));
 }
 
 module.exports = function(ctrl) {
@@ -50,7 +50,15 @@ module.exports = function(ctrl) {
     return m('div.notyet', 'The in-game replay will be available for chess960 very soon');
   var curPly = ctrl.replay.active ? ctrl.replay.ply : ctrl.data.game.moves.length;
   return m('div.replay', [
-    m('div.moves', renderTable(ctrl, curPly)),
+    m('div.moves', {
+      config: function(boxEl, isUpdate, context) {
+        var hash = curPly + ctrl.data.game.moves.join('');
+        if (hash === context.hash) return;
+        context.hash = hash;
+        var plyEl = boxEl.querySelector('.active');
+        boxEl.scrollTop = plyEl.offsetTop - boxEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
+      }
+    }, renderTable(ctrl, curPly)),
     renderButtons(ctrl, curPly)
   ]);
 }

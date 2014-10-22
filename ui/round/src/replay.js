@@ -6,20 +6,37 @@ module.exports = function(ctrl) {
   this.active = false;
   this.ply = 0;
 
-  var showFen = function() {
-    var moves = ctrl.data.game.moves;
-    var chess = new Chess(ctrl.data.game.initialFen);
-    var lastMove;
-    for (var i = 0; i < this.ply; i++) {
-      lastMove = chess.move(moves[i]);
+  var situationCache = {};
+
+  var computeSituation = function() {
+    var ply, move, cached, fen, hash, h, lm;
+    for (ply = 1; ply <= this.ply; ply++) {
+      move = ctrl.data.game.moves[ply - 1];
+      h += move;
+      cached = situationCache[h];
+      if (!cached) break;
+      hash = h;
+      fen = cached.fen;
     }
-    ctrl.chessground.set({
-      fen: chess.fen(),
-      check: null,
-      lastMove: [lastMove.from, lastMove.to],
-      turnColor: this.ply % 2 === 0 ? 'white' : 'black'
-    });
-    if (chess.in_check()) ctrl.chessground.setCheck();
+    if (cached && ply == this.ply) return cached;
+    var chess = new Chess(fen || ctrl.data.game.initialFen);
+    var moves = ctrl.data.game.moves.slice(ply - 1, this.ply - ply + 1);
+    for (ply = ply; ply <= this.ply; ply++) {
+      move = ctrl.data.game.moves[ply - 1];
+      hash += move;
+      lm = chess.move(move);
+      situationCache[hash] = {
+        fen: chess.fen(),
+        check: chess.in_check(),
+        lastMove: [lm.from, lm.to],
+        turnColor: ply % 2 === 0 ? 'white' : 'black'
+      };
+    }
+    return situationCache[hash];
+  }.bind(this);
+
+  var showFen = function() {
+    ctrl.chessground.set(computeSituation());
   }.bind(this);
 
   var enable = function() {

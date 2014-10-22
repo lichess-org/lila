@@ -1021,16 +1021,22 @@ div.table .replay td.move.active {
 div.table .replay .buttons {
   text-align: center;
   margin-top: 15px;
+  font-size: 0.8em;
 }
 div.table .replay .button {
+  opacity: 0.8;
+  padding: 4px 7px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   margin-left: -1px;
   margin-right: -1px;
 }
+div.table .replay a.disabled {
+  cursor: default;
+}
 div.table .replay a.disabled::before {
-  opacity: 0.5;
+  opacity: 0.4;
   text-shadow: none !important;
 }
 
