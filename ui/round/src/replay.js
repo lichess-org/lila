@@ -5,6 +5,7 @@ module.exports = function(ctrl) {
 
   this.active = false;
   this.ply = 0;
+  this.late = false;
 
   var situationCache = {};
 
@@ -45,6 +46,7 @@ module.exports = function(ctrl) {
   }.bind(this);
 
   var disable = function() {
+    this.late = false;
     showFen();
     ctrl.chessground.set({
       movable: {

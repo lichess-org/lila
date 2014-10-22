@@ -990,10 +990,10 @@ div.table {
   padding: 10px;
 }
 div.table .replay {
-  margin-bottom: 10px;
+  margin: 10px 0 15px 0;
 }
 div.table .replay .moves {
-  height: 150px;
+  height: 115px;
   overflow: auto;
 }
 div.table .replay table {
@@ -1009,9 +1009,9 @@ div.table .replay td.move {
   font-size: 1.3em;
   padding: 2px 5px;
   cursor: pointer;
+  transition: 0.13s;
 }
 div.table .replay td.move:hover {
-  /* background: #404040; */
   background: #e0e0e0;
 }
 div.table .replay td.move.active {
@@ -1024,7 +1024,7 @@ div.table .replay .buttons {
   font-size: 0.8em;
 }
 div.table .replay .button {
-  opacity: 0.8;
+  opacity: 0.9;
   padding: 4px 7px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -1156,7 +1156,7 @@ div.separator {
   border-bottom: 1px solid #ddd;
 }
 div.control {
-  margin: 10px 0;
+  margin-top: 10px;
   text-align: center;
   width: 100%;
 }
@@ -1203,8 +1203,7 @@ div.control.icons .resign span:before {
   transform: translateY(1px);
 }
 div.control.buttons .button {
-  display: block;
-  margin-bottom: 0.7em;
+  display: inline-block;
   text-align: center;
   text-decoration: none;
   font-weight: bold;
@@ -1216,9 +1215,10 @@ div.control .rematch.disabled {
 #claim_draw_zone,
 div.force_resign_zone,
 div.negotiation {
-  margin: 10px 0;
-  padding-top: 10px;
+  margin: 7px 0;
+  padding: 7px 0;
   border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 #claim_draw_zone .button,
 div.negotiation .button,
@@ -1272,6 +1272,7 @@ div.cemetery {
   margin: 10px 0;
   height: 32px;
   line-height: 0;
+  white-space: nowrap;
 }
 div.cemetery .tomb {
   display: inline-block;

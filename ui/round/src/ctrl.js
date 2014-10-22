@@ -50,7 +50,8 @@ module.exports = function(cfg, router, i18n, socketSend) {
   }.bind(this);
 
   this.apiMove = function(o) {
-    if (!this.replay.active) this.chessground.apiMove(o.from, o.to);
+    if (this.replay.active) this.replay.late = true;
+    else this.chessground.apiMove(o.from, o.to);
     if (this.data.game.threefold) this.data.game.threefold = false;
     this.data.game.moves.push(o.san);
     round.setOnGame(this.data, o.color, true);

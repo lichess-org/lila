@@ -13,7 +13,7 @@ var c = require('chess.js');
 function compact(elems) {
   return Object.prototype.toString.call(elems) === '[object Array]' ? elems.filter(function(n) {
     return n !== undefined
-  }) : elems;
+  }) : [];
 }
 
 function renderPlayer(ctrl, player) {
@@ -57,7 +57,6 @@ function renderTableEnd(ctrl) {
       button.newGame(ctrl)
     ]));
   return [
-    // m('div.current_player', renderResult(ctrl)),
     buttons.length > 0 ? m('div.control.buttons', buttons) : null,
     renderReplay(ctrl)
   ];
@@ -70,12 +69,6 @@ function renderTableWatch(ctrl) {
     button.viewTournament(ctrl)
   ]);
   return [
-    // m('div.current_player', (status.finished(d) || status.aborted(d)) ? renderResult(ctrl) : (
-    //   m('div.player', [
-    //     renderKing(ctrl, d.game.player),
-    //     m('p', ctrl.trans(d.game.player == 'white' ? 'whitePlays' : 'blackPlays'))
-    //   ]))),
-    // m('div.separator'),
     buttons.length > 0 ? m('div.control.buttons', buttons) : null,
     renderReplay(ctrl),
     renderPlayer(ctrl, d.player)
@@ -95,12 +88,6 @@ function renderTablePlay(ctrl) {
     ) : null
   ]);
   return [
-    // m('div.current_player',
-    //   m('div.player', [
-    //     renderKing(ctrl, d.game.player),
-    //     m('p', ctrl.trans(d.game.player == d.player.color ? 'yourTurn' : 'waiting'))
-    //   ])
-    // ),
     m('div.control.icons', [
       button.standard(ctrl, round.abortable, 'L', 'abortGame', 'abort'),
       button.standard(ctrl, round.takebackable, 'i', 'proposeATakeback', 'takeback-yes'),
@@ -120,7 +107,6 @@ module.exports = function(ctrl) {
       class: 'table' + (status.finished(ctrl.data) ? ' finished' : '')
     }, [
       renderPlayer(ctrl, ctrl.data.opponent),
-      m('div.separator'),
       m('div.table_inner',
         ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
           round.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)

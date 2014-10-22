@@ -1,4 +1,5 @@
 var partial = require('chessground').util.partial;
+var classSet = require('chessground').util.classSet;
 
 function renderTd(move, klass, ply, curPly) {
   return move ? {
@@ -24,7 +25,7 @@ function renderTable(ctrl, curPly) {
       },
       pairs.map(function(pair, i) {
         return m('tr',
-          m('td', i),
+          m('td', i + 1),
           renderTd(pair[0], 'move', 2 * i + 1, curPly),
           renderTd(pair[1], 'move', 2 * i + 2, curPly));
       })));
@@ -38,7 +39,11 @@ function renderButtons(ctrl, curPly) {
     ['last', 'V', ctrl.data.game.moves.length]
   ].map(function(b) {
     var enabled = curPly != b[2] && b[2] >= 1 && b[2] <= ctrl.data.game.moves.length;
-    return m('a.button.' + b[0] + (enabled ? '' : '.disabled'), {
+    return m('a', {
+      class: 'button ' + b[0] + ' ' + classSet({
+        disabled: !enabled,
+        glowing: ctrl.replay.late && b[0] === 'last'
+      }),
       'data-icon': b[1],
       onclick: enabled ? partial(ctrl.replay.jump, b[2]) : null
     });
@@ -53,7 +58,7 @@ module.exports = function(ctrl) {
     m('div.moves', {
       config: function(boxEl, isUpdate, context) {
         var hash = curPly + ctrl.data.game.moves.join('');
-        if (hash === context.hash) return;
+        if (hash === context.hash || hash == curPly) return;
         context.hash = hash;
         var plyEl = boxEl.querySelector('.active');
         boxEl.scrollTop = plyEl.offsetTop - boxEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
