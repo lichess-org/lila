@@ -5,13 +5,19 @@
 @moreJs = {
 <script>
   $(function() {
-    var $pass = $('#tournament .password');
+    var $pass = $('#tournament tr.password');
     var $check = $('#tournament #isprivate');
+    var $time = $('#tournament tr.time td');
+    var $minutes = $('#tournament tr.minutes td');
     function showPassword() {
       if ($check.prop('checked')) {
         $pass.show(500);
+        $time.html($('#tournament .private_time').html());
+        $minutes.html($('#tournament .private_minutes').html());
       } else {
-        $pass.val('').hide();
+        $pass.hide().find('input').val('');
+        $time.html($('#tournament .public_time').html());
+        $minutes.html($('#tournament .public_minutes').html());
       }
     };
     $check.on('change', showPassword);
@@ -26,11 +32,20 @@ moreJs = moreJs) {
 <div id="tournament">
   <div class="content_box small_box tournament_box">
     <h1>@trans.createANewTournament()</h1>
+
     <form class="plain create content_box_content" action="@routes.Tournament.create" method="POST">
       @form.globalError.map { error =>
       <p class="error">@error.message</p>
       }
       <table>
+        <tr>
+          <th><label for="isprivate">@trans.isPrivate()</label></th>
+          <td><input type="checkbox" id="isprivate" @if(form("password").value.filter(_.nonEmpty).isDefined) { checked } /></td>
+        </tr>
+        <tr class="password">
+          <th><label for="@form("password").id">@trans.password()</label></th>
+          <td>@base.input(form("password"))</td>
+        </tr>
         <tr>
           <th><label for="@form("system").id">System</label></th>
           <td>@base.select(form("system"), translatedSystemChoices)</td>
@@ -47,29 +62,17 @@ moreJs = moreJs) {
             }
           </td>
         </tr>
-        <tr>
+        <tr class="time">
           <th><label>@trans.timeControl()</label></th>
-          <td class="inline">
-            @base.select(form("clockTime"), config.clockTimeChoices)
-            +
-            @base.select(form("clockIncrement"), config.clockIncrementChoices)
-          </td>
+          <td class="inline"></td>
         </tr>
-        <tr>
+        <tr class="minutes">
           <th><label for="@form("minutes").id">@trans.duration()</label></th>
-          <td>@base.select(form("minutes"), config.minuteChoices)</td>
+          <td></td>
         </tr>
         <tr>
           <th><label for="@form("minPlayers").id">@trans.players()</label></th>
           <td>@base.select(form("minPlayers"), config.minPlayerChoices)</td>
-        </tr>
-        <tr>
-          <th><label for="isprivate">@trans.isPrivate()</label></th>
-          <td><input type="checkbox" id="isprivate" /></td>
-        </tr>
-        <tr class="password">
-          <th><label for="@form("password").id">@trans.password()</label></th>
-          <td>@base.input(form("password"))</td>
         </tr>
         <tr>
           <th></th>
@@ -83,6 +86,22 @@ moreJs = moreJs) {
         </tr>
       </table>
     </form>
+    <div class="none private_time">
+      @base.select(form("clockTime"), config.clockTimePrivateChoices)
+      +
+      @base.select(form("clockIncrement"), config.clockIncrementPrivateChoices)
+    </div>
+    <div class="none public_time">
+      @base.select(form("clockTime"), config.clockTimeChoices)
+      +
+      @base.select(form("clockIncrement"), config.clockIncrementChoices)
+    </div>
+    <div class="none private_minutes">
+      @base.select(form("minutes"), config.minutePrivateChoices)
+    </div>
+    <div class="none public_minutes">
+      @base.select(form("minutes"), config.minuteChoices)
+    </div>
   </div>
   <div class="content_box small_box faq_box tournament_box">
     <div class="content_box_content">@tournament.faq()</div>

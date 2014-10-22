@@ -10,18 +10,24 @@ import lila.common.Form._
 final class DataForm(isDev: Boolean) {
 
   val clockTimes = 0 to 7 by 1
+  val clockTimesPrivate = clockTimes ++ (10 to 30 by 5) ++ (40 to 60 by 10)
   val clockTimeDefault = 2
   val clockTimeChoices = options(clockTimes, "%d minute{s}")
+  val clockTimePrivateChoices = options(clockTimesPrivate, "%d minute{s}")
 
   val clockIncrements = 0 to 2 by 1
+  val clockIncrementsPrivate = clockIncrements ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
   val clockIncrementDefault = 0
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
+  val clockIncrementPrivateChoices = options(clockIncrementsPrivate, "%d second{s}")
 
   private val baseMinutes = (20 to 60 by 5) ++ (70 to 120 by 10)
 
   val minutes = isDev.fold((1 to 9) ++ baseMinutes, baseMinutes)
+  val minutesPrivate = minutes ++ (150 to 360 by 30)
   val minuteDefault = 40
   val minuteChoices = options(minutes, "%d minute{s}")
+  val minutePrivateChoices = options(minutesPrivate, "%d minute{s}")
 
   val minPlayers = isDev.fold(
     (2 to 9) ++ (10 to 30 by 5),
@@ -31,9 +37,9 @@ final class DataForm(isDev: Boolean) {
   val minPlayerChoices = options(minPlayers, "%d player{s}")
 
   lazy val create = Form(mapping(
-    "clockTime" -> numberIn(clockTimeChoices),
-    "clockIncrement" -> numberIn(clockIncrementChoices),
-    "minutes" -> numberIn(minuteChoices),
+    "clockTime" -> numberIn(clockTimePrivateChoices),
+    "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
+    "minutes" -> numberIn(minutePrivateChoices),
     "minPlayers" -> numberIn(minPlayerChoices),
     "system" -> number.verifying(Set(System.Arena.id, System.Swiss.id) contains _),
     "variant" -> number.verifying(Set(Variant.Standard.id, Variant.Chess960.id, Variant.KingOfTheHill.id, Variant.ThreeCheck.id) contains _),
