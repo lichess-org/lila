@@ -82,17 +82,17 @@ body.is2d.grey .cg-board,
 body.wood #GameBoard,
 body.is2d.wood .cg-board,
 #top div.color_demo.wood {
-  background-image: url(../images/board/wood3-512.jpg);
+  background-image: url(../images/board/wood3-1024.jpg);
 }
 body.canvas #GameBoard,
 body.is2d.canvas .cg-board,
 #top div.color_demo.canvas {
-  background-image: url(../images/board/canvas2-512.jpg);
+  background-image: url(../images/board/canvas2-1024.jpg);
 }
 body.leather #GameBoard,
 body.is2d.leather .cg-board,
 #top div.color_demo.leather {
-  background-image: url(../images/board/leather-512.jpg);
+  background-image: url(../images/board/leather-1024.jpg);
 }
 /* KotH boards */
 
@@ -146,161 +146,83 @@ body.leather #GameBoard.kingOfTheHill {
 }
 body.is3d.Black-White-Aluminium .cg-board-wrap,
 #top .is3d .Black-White-Aluminium {
-  background-image: url(../staunton/Boards/Scaled/512/Black-White-Aluminium.png);
+  background-image: url(../staunton/Boards/Scaled/1024/Black-White-Aluminium.png);
 }
 body.is3d.Brushed-Aluminium .cg-board-wrap,
 #top .is3d .Brushed-Aluminium {
-  background-image: url(../staunton/Boards/Scaled/512/Brushed-Aluminium.png);
+  background-image: url(../staunton/Boards/Scaled/1024/Brushed-Aluminium.png);
 }
 body.is3d.China-Blue .cg-board-wrap,
 #top .is3d .China-Blue {
-  background-image: url(../staunton/Boards/Scaled/512/China-Blue.png);
+  background-image: url(../staunton/Boards/Scaled/1024/China-Blue.png);
 }
 body.is3d.China-Green .cg-board-wrap,
 #top .is3d .China-Green {
-  background-image: url(../staunton/Boards/Scaled/512/China-Green.png);
+  background-image: url(../staunton/Boards/Scaled/1024/China-Green.png);
 }
 body.is3d.China-Grey .cg-board-wrap,
 #top .is3d .China-Grey {
-  background-image: url(../staunton/Boards/Scaled/512/China-Grey.png);
+  background-image: url(../staunton/Boards/Scaled/1024/China-Grey.png);
 }
 body.is3d.China-Scarlet .cg-board-wrap,
 #top .is3d .China-Scarlet {
-  background-image: url(../staunton/Boards/Scaled/512/China-Scarlet.png);
+  background-image: url(../staunton/Boards/Scaled/1024/China-Scarlet.png);
 }
 body.is3d.China-Yellow .cg-board-wrap,
 #top .is3d .China-Yellow {
-  background-image: url(../staunton/Boards/Scaled/512/China-Yellow.png);
+  background-image: url(../staunton/Boards/Scaled/1024/China-Yellow.png);
 }
 body.is3d.Classic-Blue .cg-board-wrap,
 #top .is3d .Classic-Blue {
-  background-image: url(../staunton/Boards/Scaled/512/Classic-Blue.png);
+  background-image: url(../staunton/Boards/Scaled/1024/Classic-Blue.png);
 }
 body.is3d.Transparent-Glass .cg-board-wrap,
 #top .is3d .Transparent-Glass {
-  background-image: url(../staunton/Boards/Scaled/512/Glass.png);
+  background-image: url(../staunton/Boards/Scaled/1024/Glass.png);
 }
 body.is3d.Gold-Silver .cg-board-wrap,
 #top .is3d .Gold-Silver {
-  background-image: url(../staunton/Boards/Scaled/512/Gold-Silver.png);
+  background-image: url(../staunton/Boards/Scaled/1024/Gold-Silver.png);
 }
 body.is3d.Green-Glass .cg-board-wrap,
 #top .is3d .Green-Glass {
-  background-image: url(../staunton/Boards/Scaled/512/Green-Glass.png);
+  background-image: url(../staunton/Boards/Scaled/1024/Green-Glass.png);
 }
 body.is3d.Light-Wood .cg-board-wrap,
 #top .is3d .Light-Wood {
-  background-image: url(../staunton/Boards/Scaled/512/Light-Wood.png);
+  background-image: url(../staunton/Boards/Scaled/1024/Light-Wood.png);
 }
 body.is3d.Power-Coated .cg-board-wrap,
 #top .is3d .Power-Coated {
-  background-image: url(../staunton/Boards/Scaled/512/Power-Coated.png);
+  background-image: url(../staunton/Boards/Scaled/1024/Power-Coated.png);
 }
 body.is3d.Purple-Black .cg-board-wrap,
 #top .is3d .Purple-Black {
-  background-image: url(../staunton/Boards/Scaled/512/Purple-Black.png);
+  background-image: url(../staunton/Boards/Scaled/1024/Purple-Black.png);
 }
 body.is3d.Rosewood .cg-board-wrap,
 #top .is3d .Rosewood {
-  background-image: url(../staunton/Boards/Scaled/512/Rosewood.png);
+  background-image: url(../staunton/Boards/Scaled/1024/Rosewood.png);
 }
 body.is3d.Wood-Glass .cg-board-wrap,
 #top .is3d .Wood-Glass {
-  background-image: url(../staunton/Boards/Scaled/512/Wood-Glass.png);
+  background-image: url(../staunton/Boards/Scaled/1024/Wood-Glass.png);
 }
 body.is3d.Wax .cg-board-wrap,
 #top .is3d .Wax {
-  background-image: url(../staunton/Boards/Scaled/512/Wax.png);
+  background-image: url(../staunton/Boards/Scaled/1024/Wax.png);
 }
 body.is3d.Jade .cg-board-wrap,
 #top .is3d .Jade {
-  background-image: url(../staunton/Boards/Scaled/512/Jade.png);
+  background-image: url(../staunton/Boards/Scaled/1024/Jade.png);
 }
 body.is3d.Marble .cg-board-wrap,
 #top .is3d .Marble {
-  background-image: url(../images/board/3d/marble.512.png);
+  background-image: url(../images/board/3d/marble.1024.png);
 }
 body.is3d.Woodi .cg-board-wrap,
 #top .is3d .Woodi {
-  background-image: url(../images/board/3d/woodi.512.png);
-}
-@media
-
-(-webkit-min-device-pixel-ratio:2),
-(min-device-pixel-ratio:2),
-(min-resolution:192dpi),
-(min-resolution:2dppx) {
-  body.is2d.wood #GameBoard, body.is2d.wood .cg-board {
-    background-image: url(../images/board/wood3-1024.jpg);
-  }
-  body.is2d.canvas #GameBoard,
-  body.is2d.canvas .cg-board {
-    background-image: url(../images/board/canvas2-1024.jpg);
-  }
-  body.is2d.leather #GameBoard,
-  body.is2d.leather .cg-board {
-    background-image: url(../images/board/leather-1024.jpg);
-  }
-  body.is3d.Black-White-Aluminium .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/Black-White-Aluminium.png);
-  }
-  body.is3d.Brushed-Aluminium .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/Brushed-Aluminium.png);
-  }
-  body.is3d.China-Blue .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/China-Blue.png);
-  }
-  body.is3d.China-Green .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/China-Green.png);
-  }
-  body.is3d.China-Grey .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/China-Grey.png);
-  }
-  body.is3d.China-Scarlet .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/China-Scarlet.png);
-  }
-  body.is3d.China-Yellow .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/China-Yellow.png);
-  }
-  body.is3d.Classic-Blue .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/Classic-Blue.png);
-  }
-  body.is3d.Transparent-Glass .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/Glass.png);
-  }
-  body.is3d.Gold-Silver .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/Gold-Silver.png);
-  }
-  body.is3d.Green-Glass .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/Green-Glass.png);
-  }
-  body.is3d.Light-Wood .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/Light-Wood.png);
-  }
-  body.is3d.Power-Coated .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/Power-Coated.png);
-  }
-  body.is3d.Purple-Black .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/Purple-Black.png);
-  }
-  body.is3d.Rosewood .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/Rosewood.png);
-  }
-  body.is3d.Wood-Glass .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/Wood-Glass.png);
-  }
-  body.is3d.Wax .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/Wax.png);
-  }
-  body.is3d.Jade .cg-board-wrap {
-    background-image: url(../staunton/Boards/Scaled/1024/Jade.png);
-  }
-  body.is3d.Marble .cg-board-wrap {
-    background-image: url(../images/board/3d/marble.1024.png);
-  }
-  body.is3d.Woodi .cg-board-wrap {
-    background-image: url(../images/board/3d/woodi.1024.png);
-  }
+  background-image: url(../images/board/3d/woodi.1024.png);
 }
 body.is2d.cburnett .cg-piece.pawn.white {
   background-image: url(../piece/cburnett/wP.svg);
