@@ -294,22 +294,22 @@ function pgn4web_handleKey(e) {
 
     case 38: // up-arrow
     case 75: // k
-      backButton(e);
+      startButton(e);
       break;
 
     case 37: // left-arrow
     case 72: // h
-      startButton(e);
+      backButton(e);
       break;
 
     case 40: // down-arrow
     case 74: // j
-      forwardButton(e);
+      endButton(e);
       break;
 
     case 39: // right-arrow
     case 76: // l
-      endButton(e);
+      forwardButton(e);
       break;
 
     case 73: // i

@@ -2,6 +2,7 @@ var title = require('./title');
 var blur = require('./blur');
 var round = require('./round');
 var status = require('./status');
+var keyboard = require('./keyboard');
 
 module.exports = function(ctrl) {
 
@@ -22,4 +23,6 @@ module.exports = function(ctrl) {
       return msg;
     }
   });
+
+  keyboard.init(ctrl);
 };

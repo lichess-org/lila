@@ -57,6 +57,7 @@ module.exports = function(ctrl) {
   }.bind(this);
 
   this.jump = function(ply) {
+    if (this.ply == ply || ply < 1 || ply > ctrl.data.game.moves.length) return;
     this.active = ply != ctrl.data.game.moves.length;
     this.ply = ply;
     if (this.active) enable();
