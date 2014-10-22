@@ -10,6 +10,12 @@ var renderReplay = require('./replay');
 var button = require('./button');
 var c = require('chess.js');
 
+function compact(elems) {
+  return Object.prototype.toString.call(elems) === '[object Array]' ? elems.filter(function(n) {
+    return n !== undefined
+  }) : elems;
+}
+
 function renderPlayer(ctrl, player) {
   return player.ai ? m('div.username.on-game', [
     ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai),
@@ -45,25 +51,24 @@ function renderResult(ctrl) {
 
 function renderTableEnd(ctrl) {
   var d = ctrl.data;
+  var buttons = compact(ctrl.vm.redirecting ? null : (
+    button.backToTournament(ctrl) || button.joinRematch(ctrl) || [
+      button.answerOpponentRematch(ctrl) || button.cancelRematch(ctrl) || button.rematch(ctrl),
+      button.newGame(ctrl)
+    ]));
   return [
     // m('div.current_player', renderResult(ctrl)),
-    m('div.control.buttons', ctrl.vm.redirecting ? null : [
-      m('div.separator'),
-      button.backToTournament(ctrl) || button.joinRematch(ctrl) || [
-        button.answerOpponentRematch(ctrl) || button.cancelRematch(ctrl) || button.rematch(ctrl),
-        button.newGame(ctrl)
-      ]
-    ]),
+    buttons.length > 0 ? m('div.control.buttons', buttons) : null,
     renderReplay(ctrl)
   ];
 }
 
 function renderTableWatch(ctrl) {
   var d = ctrl.data;
-  var buttons = ctrl.vm.redirecting ? [] : [
+  var buttons = compact(ctrl.vm.redirecting ? null : [
     button.viewRematch(ctrl),
     button.viewTournament(ctrl)
-  ].filter(function(n){ return n !== undefined });
+  ]);
   return [
     // m('div.current_player', (status.finished(d) || status.aborted(d)) ? renderResult(ctrl) : (
     //   m('div.player', [
@@ -79,6 +84,16 @@ function renderTableWatch(ctrl) {
 
 function renderTablePlay(ctrl) {
   var d = ctrl.data;
+  var buttons = compact([
+    button.forceResign(ctrl),
+    button.threefoldClaimDraw(ctrl),
+    button.cancelDrawOffer(ctrl),
+    button.answerOpponentDrawOffer(ctrl),
+    button.cancelTakebackProposition(ctrl),
+    button.answerOpponentTakebackProposition(ctrl), (round.mandatory(d) && round.nbMoves(d, d.player.color) === 0) ? m('div[data-icon=j]',
+      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 30)
+    ) : null
+  ]);
   return [
     // m('div.current_player',
     //   m('div.player', [
@@ -92,14 +107,7 @@ function renderTablePlay(ctrl) {
       button.standard(ctrl, round.drawable, '2', 'offerDraw', 'draw-yes'),
       button.standard(ctrl, round.resignable, 'b', 'resign', 'resign')
     ]),
-    button.forceResign(ctrl),
-    button.threefoldClaimDraw(ctrl),
-    button.cancelDrawOffer(ctrl),
-    button.answerOpponentDrawOffer(ctrl),
-    button.cancelTakebackProposition(ctrl),
-    button.answerOpponentTakebackProposition(ctrl), (round.mandatory(d) && round.nbMoves(d, d.player.color) === 0) ? m('div[data-icon=j]',
-      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 30)
-    ) : null,
+    buttons.length > 0 ? m('div.control.buttons', buttons) : null,
     renderReplay(ctrl)
   ];
 }

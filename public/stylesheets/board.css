@@ -993,7 +993,7 @@ div.table .replay {
   margin-bottom: 10px;
 }
 div.table .replay .moves {
-  height: 200px;
+  height: 150px;
   overflow: auto;
 }
 div.table .replay table {
@@ -1011,10 +1011,12 @@ div.table .replay td.move {
   cursor: pointer;
 }
 div.table .replay td.move:hover {
-  background: #404040;
+  /* background: #404040; */
+  background: #e0e0e0;
 }
 div.table .replay td.move.active {
-  background: #303090;
+  color: #d85000;
+  font-weight: bold;
 }
 div.table .replay .buttons {
   text-align: center;
@@ -1024,8 +1026,8 @@ div.table .replay .button {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  margin-left: -2px;
-  margin-right: -3px;
+  margin-left: -1px;
+  margin-right: -1px;
 }
 div.table .replay a.disabled::before {
   opacity: 0.5;
