@@ -35,7 +35,7 @@ module.exports = function(ctrl, color, position, runningColor) {
     ctrl.data.showBar ? m('div.bar',
       m('span', {
         style: {
-          width: Math.max(0, Math.min(100, (time / ctrl.data.barTime) * 100)) + 'px'
+          width: Math.max(0, Math.min(100, (time / ctrl.data.barTime) * 100)) + '%'
         }
       })
     ) : null,
