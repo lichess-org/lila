@@ -10,10 +10,14 @@ var renderUser = require('./user');
 var button = require('./button');
 var c = require('chess.js');
 
-function compact(elems) {
-  return Object.prototype.toString.call(elems) === '[object Array]' ? elems.filter(function(n) {
-    return n !== undefined
-  }) : [];
+function compact(x) {
+  if (Object.prototype.toString.call(x) === '[object Array]') {
+    var elems = x.filter(function(n) {
+      return n !== undefined
+    });
+    return elems.length > 0 ? elems : null;
+  }
+  return x;
 }
 
 function renderPlayer(ctrl, player) {
@@ -57,7 +61,7 @@ function renderTableEnd(ctrl) {
       button.newGame(ctrl)
     ]));
   return [
-    buttons.length > 0 ? m('div.control.buttons', buttons) : null,
+    buttons ? m('div.control.buttons', buttons) : null,
     renderReplay(ctrl.replay)
   ];
 }
@@ -69,7 +73,7 @@ function renderTableWatch(ctrl) {
     button.viewTournament(ctrl)
   ]);
   return [
-    buttons.length > 0 ? m('div.control.buttons', buttons) : null,
+    buttons ? m('div.control.buttons', buttons) : null,
     renderReplay(ctrl.replay),
     renderPlayer(ctrl, d.player)
   ];
@@ -94,10 +98,10 @@ function renderTablePlay(ctrl) {
       button.standard(ctrl, round.drawable, '2', 'offerDraw', 'draw-yes'),
       button.standard(ctrl, round.resignable, 'b', 'resign', 'resign')
     ]),
-    buttons.length > 0 ? m('div.control.buttons', buttons) : null,
+    buttons ? m('div.control.buttons', buttons) : null,
     renderReplay(ctrl.replay),
     m('div.whos_turn',
-        ctrl.trans(d.game.player == d.player.color ? 'yourTurn' : 'waitingForOpponent'))
+      ctrl.trans(d.game.player == d.player.color ? 'yourTurn' : 'waitingForOpponent'))
   ];
 }
 
