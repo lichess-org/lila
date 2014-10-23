@@ -35,7 +35,8 @@ function renderButtons(ctrl, curPly) {
   var nbMoves = ctrl.root.data.game.moves.length;
   return m('div.buttons', [
       m('a[data-icon=B]', {
-        class: 'button flip' + (ctrl.root.vm.flip ? ' active' : ''),
+        class: 'button flip hint--bottom' + (ctrl.root.vm.flip ? ' active' : ''),
+        'data-hint': ctrl.trans('flipBoard'),
         onclick: ctrl.root.flip
       }),
       [
