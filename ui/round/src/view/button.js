@@ -143,11 +143,6 @@ module.exports = {
       onclick: throttle(partial(ctrl.socket.send, 'moretime', null), 600)
     }, m('span[data-icon=O]'));
   },
-  flip: function(ctrl) {
-    if (ctrl.data.player.spectator) return m('a.button[data-icon=B]', {
-      href: ctrl.data.tv ? ctrl.router.Tv.index().url + (ctrl.data.tv.flip ? '' : '?flip=1') : ctrl.router.Round.watcher(ctrl.data.game.id, chessground.util.opposite(ctrl.data.player.color)).url
-    }, ctrl.trans('flipBoard'));
-  },
   replayAndAnalyse: function(ctrl) {
     if (round.replayable(ctrl.data)) return m('a.button.replay_and_analyse[data-icon=G]', {
       href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.player.color).url
