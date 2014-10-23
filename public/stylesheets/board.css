@@ -1021,9 +1021,14 @@ div.table .replay td.move.active {
   color: #d85000;
   font-weight: bold;
 }
+div.table .replay td.result {
+  font-weight: bold;
+  font-size: 1.3em;
+  padding: 2px 5px;
+}
 div.table .replay .buttons {
   text-align: center;
-  margin-top: 15px;
+  margin-top: 7px;
   font-size: 0.8em;
 }
 div.table .replay a.button {
