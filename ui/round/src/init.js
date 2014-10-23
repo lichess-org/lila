@@ -2,7 +2,7 @@ var title = require('./title');
 var blur = require('./blur');
 var round = require('./round');
 var status = require('./status');
-var keyboard = require('./keyboard');
+var keyboard = require('./replay/keyboard');
 
 module.exports = function(ctrl) {
 
