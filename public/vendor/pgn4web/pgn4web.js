@@ -293,7 +293,7 @@ function pgn4web_handleKey(e) {
     // thib hack: removed lots of key bindings
 
     case 38: // up-arrow
-    case 75: // k
+    case 74: // j
       startButton(e);
       break;
 
@@ -303,7 +303,7 @@ function pgn4web_handleKey(e) {
       break;
 
     case 40: // down-arrow
-    case 74: // j
+    case 75: // k
       endButton(e);
       break;
 
