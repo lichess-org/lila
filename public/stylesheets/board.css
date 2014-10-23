@@ -1023,7 +1023,7 @@ div.table .replay .buttons {
   margin-top: 15px;
   font-size: 0.8em;
 }
-div.table .replay .button {
+div.table .replay a.button {
   opacity: 0.9;
   padding: 4px 7px;
   -webkit-user-select: none;
@@ -1031,6 +1031,9 @@ div.table .replay .button {
   -ms-user-select: none;
   margin-left: -1px;
   margin-right: -1px;
+}
+div.table .replay a.flip {
+  margin-right: 10px;
 }
 div.table .replay a.disabled {
   cursor: default;

@@ -2,10 +2,10 @@ var chessground = require('chessground');
 var round = require('./round');
 var util = require('./util');
 
-function makeConfig(data, fen) {
+function makeConfig(data, fen, flip) {
   return {
     fen: fen,
-    orientation: data.player.color,
+    orientation: flip ? data.opponent.color : data.player.color,
     turnColor: data.game.player,
     lastMove: util.str2move(data.game.lastMove),
     check: data.game.check,
@@ -51,8 +51,8 @@ function make(data, fen, userMove) {
   return new chessground.controller(config);
 }
 
-function reload(ground, data, fen) {
-  ground.set(makeConfig(data, fen));
+function reload(ground, data, fen, flip) {
+  ground.set(makeConfig(data, fen, flip));
 }
 
 function promote(ground, key, role) {

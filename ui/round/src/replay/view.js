@@ -34,6 +34,11 @@ function renderTable(ctrl, curPly) {
 function renderButtons(ctrl, curPly) {
   var nbMoves = ctrl.root.data.game.moves.length;
   return m('div.buttons', [
+      m('a[data-icon=B]', {
+        class: 'button flip' + (ctrl.root.vm.flip ? ' active' : ''),
+        onclick: ctrl.root.flip
+      }),
+      [
     ['first', 'W', 1],
     ['prev', 'Y', curPly - 1],
     ['next', 'X', curPly + 1],
@@ -48,14 +53,14 @@ function renderButtons(ctrl, curPly) {
       'data-icon': b[1],
       onclick: enabled ? partial(ctrl.jump, b[2]) : null
     });
-  }));
+  })]);
 }
 
 module.exports = function(ctrl) {
   if (ctrl.root.data.game.variant.key == 'chess960')
     return m('div.notyet', 'The in-game replay will be available for chess960 very soon');
   var curPly = ctrl.active ? ctrl.ply : ctrl.root.data.game.moves.length;
-  var h = curPly + ctrl.root.data.game.moves.join('');
+  var h = curPly + ctrl.root.data.game.moves.join('') + ctrl.root.vm.flip;
   if (ctrl.vm.hash === h) return {subtree: 'retain'};
   ctrl.vm.hash = h;
   return m('div.replay', [

@@ -22,11 +22,19 @@ module.exports = function(cfg, router, i18n, socketSend) {
   this.data = data({}, cfg);
 
   this.vm = {
+    flip: false,
     reloading: false,
     redirecting: false
   };
 
   this.socket = new socket(socketSend, this);
+
+  this.flip = function() {
+    this.vm.flip = !this.vm.flip;
+    this.chessground.set({
+      orientation: this.vm.flip ? this.data.opponent.color : this.data.player.color
+    });
+  }.bind(this);
 
   this.setTitle = partial(title.set, this);
 
@@ -65,7 +73,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
   this.reload = function(cfg) {
     this.replay.onReload(cfg);
     this.data = data(this.data, cfg);
-    if (!this.replay.active) ground.reload(this.chessground, this.data, cfg.game.fen);
+    if (!this.replay.active) ground.reload(this.chessground, this.data, cfg.game.fen, this.vm.flip);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
     if (this.data.game.rematch && this.data.userTv)
