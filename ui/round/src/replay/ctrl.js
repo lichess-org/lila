@@ -71,6 +71,7 @@ module.exports = function(root) {
 
   this.onReload = function(cfg) {
     if (this.active && cfg.game.moves.join() != root.data.game.moves.join()) this.active = false;
+    this.vm.hash = null;
   }.bind(this);
 
   this.enabledByPref = function() {
