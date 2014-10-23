@@ -51,6 +51,7 @@ function renderButtons(ctrl, curPly) {
 }
 
 module.exports = function(ctrl) {
+  if (!ctrl.replay.enabledByPref()) return;
   if (ctrl.data.game.variant.key == 'chess960')
     return m('div.notyet', 'The in-game replay will be available for chess960 very soon');
   var curPly = ctrl.replay.active ? ctrl.replay.ply : ctrl.data.game.moves.length;

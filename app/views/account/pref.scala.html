@@ -32,6 +32,10 @@
             <h2>Show board coordinates (A-H, 1-8)</h2>
             @base.radios(form("coords"), Pref.Coords.choices)
           </li>
+          <li>
+            <h2>Show PGN move list while playing</h2>
+            @base.radios(form("replay"), Pref.Replay.choices)
+          </li>
         </ul>
       </fieldset>
       <fieldset>

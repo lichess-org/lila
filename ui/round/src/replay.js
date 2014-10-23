@@ -71,4 +71,11 @@ module.exports = function(ctrl) {
   this.onReload = function(cfg) {
     if (this.active && cfg.game.moves.join() != ctrl.data.game.moves.join()) this.active = false;
   }.bind(this);
+
+  this.enabledByPref = function() {
+    var d = ctrl.data;
+    return d.pref.replay === 2 || (
+      d.pref.replay === 1 && (d.game.speed === 'classical' || d.game.speed === 'unlimited')
+    );
+  }.bind(this);
 }

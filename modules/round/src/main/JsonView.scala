@@ -101,6 +101,7 @@ final class JsonView(
               "highlight" -> pref.highlight,
               "destination" -> pref.destination,
               "coords" -> pref.coords,
+              "replay" -> pref.replay,
               "autoQueen" -> pref.autoQueen,
               "clockTenths" -> pref.clockTenths,
               "clockBar" -> pref.clockBar,
@@ -184,6 +185,7 @@ final class JsonView(
               "animationDuration" -> animationDuration(pov, pref),
               "highlight" -> pref.highlight,
               "coords" -> pref.coords,
+              "replay" -> pref.replay,
               "clockTenths" -> pref.clockTenths,
               "clockBar" -> pref.clockBar,
               "showCaptured" -> pref.captured

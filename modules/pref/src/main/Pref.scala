@@ -26,6 +26,7 @@ case class Pref(
     highlight: Boolean,
     destination: Boolean,
     coords: Int,
+    replay: Int,
     challenge: Int,
     coordColor: Int,
     puzzleDifficulty: Int,
@@ -157,6 +158,17 @@ object Pref {
       OUTSIDE -> "Outside the board")
   }
 
+  object Replay {
+    val NEVER = 0
+    val SLOW = 1
+    val ALWAYS = 2
+
+    val choices = Seq(
+      NEVER -> "Never",
+      SLOW -> "On slow games",
+      ALWAYS -> "Always")
+  }
+
   object Challenge {
     val NEVER = 1
     val RATING = 2
@@ -202,6 +214,7 @@ object Pref {
     highlight = true,
     destination = true,
     coords = Coords.OUTSIDE,
+    replay = Replay.ALWAYS,
     challenge = Challenge.RATING,
     coordColor = Color.RANDOM,
     puzzleDifficulty = Difficulty.NORMAL,
