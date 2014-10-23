@@ -989,6 +989,9 @@ div.table {
   height: auto;
   padding: 10px;
 }
+div.table .notyet {
+  margin: 20px 0;
+}
 div.table .replay {
   margin: 10px 0 15px 0;
 }
