@@ -127,7 +127,7 @@ private[round] final class Socket(
       watchers.foreach(_ push msg)
 
     case UserStartGame(userId, game) => watchers filter (_ onUserTv userId) foreach {
-      _ push makeMessage("reloadPage")
+      _ push makeMessage("resync")
     }
   }
 

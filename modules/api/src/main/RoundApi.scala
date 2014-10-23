@@ -22,23 +22,16 @@ private[api] final class RoundApi(jsonView: JsonView) {
         }
       }
 
-  def watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean], userTv: Option[User] = None)(implicit ctx: Context): Fu[JsObject] =
+  def watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean])(implicit ctx: Context): Fu[JsObject] =
     jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
       withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) map {
         case (json, tourOption) => blindMode {
           withTournament(tourOption) {
-            withUserTv(userTv) {
-              json
-            }
+            json
           }
         }
       }
-
-  private def withUserTv(userOption: Option[User])(json: JsObject) =
-    userOption.fold(json) { user =>
-      json + ("userTv" -> JsString(user.id))
-    }
 
   private def withTournament(tourOption: Option[Tournament])(json: JsObject) =
     tourOption.fold(json) { tour =>
