@@ -34,27 +34,27 @@ function renderTable(ctrl, curPly) {
 function renderButtons(ctrl, curPly) {
   var nbMoves = ctrl.root.data.game.moves.length;
   return m('div.buttons', [
-      m('a[data-icon=B]', {
-        class: 'button flip hint--bottom' + (ctrl.root.vm.flip ? ' active' : ''),
-        'data-hint': ctrl.trans('flipBoard'),
-        onclick: ctrl.root.flip
-      }),
-      [
-    ['first', 'W', 1],
-    ['prev', 'Y', curPly - 1],
-    ['next', 'X', curPly + 1],
-    ['last', 'V', nbMoves]
-  ].map(function(b) {
-    var enabled = curPly != b[2] && b[2] >= 1 && b[2] <= nbMoves;
-    return m('a', {
-      class: 'button ' + b[0] + ' ' + classSet({
-        disabled: !enabled,
-        glowing: ctrl.vm.late && b[0] === 'last'
-      }),
-      'data-icon': b[1],
-      onclick: enabled ? partial(ctrl.jump, b[2]) : null
-    });
-  })]);
+    m('a', {
+      class: 'button flip hint--bottom' + (ctrl.root.vm.flip ? ' active' : ''),
+      'data-hint': ctrl.root.trans('flipBoard'),
+      onclick: ctrl.root.flip
+    }, m('span[data-icon=B]')), [
+      ['first', 'W', 1],
+      ['prev', 'Y', curPly - 1],
+      ['next', 'X', curPly + 1],
+      ['last', 'V', nbMoves]
+    ].map(function(b) {
+      var enabled = curPly != b[2] && b[2] >= 1 && b[2] <= nbMoves;
+      return m('a', {
+        class: 'button ' + b[0] + ' ' + classSet({
+          disabled: !enabled,
+          glowing: ctrl.vm.late && b[0] === 'last'
+        }),
+        'data-icon': b[1],
+        onclick: enabled ? partial(ctrl.jump, b[2]) : null
+      });
+    })
+  ]);
 }
 
 module.exports = function(ctrl) {
@@ -62,7 +62,9 @@ module.exports = function(ctrl) {
     return m('div.notyet', 'The in-game replay will be available for chess960 very soon');
   var curPly = ctrl.active ? ctrl.ply : ctrl.root.data.game.moves.length;
   var h = curPly + ctrl.root.data.game.moves.join('') + ctrl.root.vm.flip;
-  if (ctrl.vm.hash === h) return {subtree: 'retain'};
+  if (ctrl.vm.hash === h) return {
+    subtree: 'retain'
+  };
   ctrl.vm.hash = h;
   return m('div.replay', [
     ctrl.enabledByPref() ? m('div.moves', {
