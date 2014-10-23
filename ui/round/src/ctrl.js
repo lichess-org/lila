@@ -76,8 +76,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
     if (!this.replay.active) ground.reload(this.chessground, this.data, cfg.game.fen, this.vm.flip);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
-    if (this.data.game.rematch && this.data.userTv)
-      location.href = this.router.Round.watcher(this.data.game.rematch, this.data.opponent.color).url;
+    if (this.data.game.rematch && this.data.userTv) lichess.reload();
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(
