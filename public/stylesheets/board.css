@@ -1001,6 +1001,9 @@ div.table .replay .moves {
 }
 div.table .replay table {
   width: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 div.table .replay td:first-child {
   width: 15%;
