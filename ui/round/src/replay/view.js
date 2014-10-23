@@ -43,7 +43,7 @@ function renderButtons(ctrl, curPly) {
     return m('a', {
       class: 'button ' + b[0] + ' ' + classSet({
         disabled: !enabled,
-        glowing: ctrl.late && b[0] === 'last'
+        glowing: ctrl.vm.late && b[0] === 'last'
       }),
       'data-icon': b[1],
       onclick: enabled ? partial(ctrl.jump, b[2]) : null
@@ -54,7 +54,7 @@ function renderButtons(ctrl, curPly) {
 module.exports = function(ctrl) {
   if (ctrl.root.data.game.variant.key == 'chess960')
     return m('div.notyet', 'The in-game replay will be available for chess960 very soon');
-  var curPly = ctrl.replay.active ? ctrl.ply : ctrl.root.data.game.moves.length;
+  var curPly = ctrl.active ? ctrl.ply : ctrl.root.data.game.moves.length;
   var h = curPly + ctrl.root.data.game.moves.join('');
   if (ctrl.vm.hash === h) return {subtree: 'retain'};
   ctrl.vm.hash = h;

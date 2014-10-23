@@ -3,11 +3,12 @@ var round = require('../round');
 
 module.exports = function(root) {
 
+  this.root = root;
   this.active = false;
   this.ply = 0;
-  this.late = false;
 
   this.vm = {
+    late: false,
     hash: ''
   };
 
@@ -50,7 +51,7 @@ module.exports = function(root) {
   }.bind(this);
 
   var disable = function() {
-    this.late = false;
+    this.vm.late = false;
     showFen();
     root.chessground.set({
       movable: {

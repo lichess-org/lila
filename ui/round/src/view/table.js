@@ -4,9 +4,9 @@ var round = require('../round');
 var status = require('../status');
 var opposite = chessground.util.opposite;
 var renderClock = require('../clock/view');
+var renderReplay = require('../replay/view');
 var renderStatus = require('./status');
 var renderUser = require('./user');
-var renderReplay = require('./replay');
 var button = require('./button');
 var c = require('chess.js');
 
@@ -58,7 +58,7 @@ function renderTableEnd(ctrl) {
     ]));
   return [
     buttons.length > 0 ? m('div.control.buttons', buttons) : null,
-    renderReplay(ctrl)
+    renderReplay(ctrl.replay)
   ];
 }
 
@@ -70,7 +70,7 @@ function renderTableWatch(ctrl) {
   ]);
   return [
     buttons.length > 0 ? m('div.control.buttons', buttons) : null,
-    renderReplay(ctrl),
+    renderReplay(ctrl.replay),
     renderPlayer(ctrl, d.player)
   ];
 }
@@ -95,7 +95,7 @@ function renderTablePlay(ctrl) {
       button.standard(ctrl, round.resignable, 'b', 'resign', 'resign')
     ]),
     buttons.length > 0 ? m('div.control.buttons', buttons) : null,
-    renderReplay(ctrl),
+    renderReplay(ctrl.replay),
     m('div.whos_turn',
         ctrl.trans(d.game.player == d.player.color ? 'yourTurn' : 'waitingForOpponent'))
   ];
