@@ -62,7 +62,7 @@ module.exports = function(ctrl) {
     m('div.moves', {
       config: function(boxEl, isUpdate) {
         var plyEl = boxEl.querySelector('.active');
-        boxEl.scrollTop = plyEl.offsetTop - boxEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
+        if (plyEl) boxEl.scrollTop = plyEl.offsetTop - boxEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
       }
     }, renderTable(ctrl, curPly)),
     renderButtons(ctrl, curPly)
