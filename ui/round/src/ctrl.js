@@ -14,7 +14,7 @@ var hold = require('./hold');
 var blur = require('./blur');
 var init = require('./init');
 var blind = require('./blind');
-var replay = require('./replay');
+var replayCtrl = require('./replay/ctrl');
 var clockCtrl = require('./clock/ctrl');
 
 module.exports = function(cfg, router, i18n, socketSend) {
@@ -88,7 +88,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
 
   if (this.clock) setInterval(this.clockTick, 100);
 
-  this.replay = new replay(this);
+  this.replay = new replayCtrl(this);
 
   this.router = router;
 

@@ -13,14 +13,14 @@ function renderTd(move, klass, ply, curPly) {
 }
 
 function renderTable(ctrl, curPly) {
-  var moves = ctrl.data.game.moves;
+  var moves = ctrl.root.data.game.moves;
   var pairs = [];
   for (var i = 0; i < moves.length; i += 2) pairs.push([moves[i], moves[i + 1]]);
   return m('table',
     m('tbody', {
         onclick: function(e) {
           var ply = e.target.getAttribute('data-ply');
-          if (ply) ctrl.replay.jump(parseInt(ply));
+          if (ply) ctrl.jump(parseInt(ply));
         }
       },
       pairs.map(function(pair, i) {
@@ -32,33 +32,34 @@ function renderTable(ctrl, curPly) {
 }
 
 function renderButtons(ctrl, curPly) {
+  var nbMoves = ctrl.root.data.game.moves.length;
   return m('div.buttons', [
     ['first', 'W', 1],
     ['prev', 'Y', curPly - 1],
     ['next', 'X', curPly + 1],
-    ['last', 'V', ctrl.data.game.moves.length]
+    ['last', 'V', nbMoves]
   ].map(function(b) {
-    var enabled = curPly != b[2] && b[2] >= 1 && b[2] <= ctrl.data.game.moves.length;
+    var enabled = curPly != b[2] && b[2] >= 1 && b[2] <= nbMoves;
     return m('a', {
       class: 'button ' + b[0] + ' ' + classSet({
         disabled: !enabled,
-        glowing: ctrl.replay.late && b[0] === 'last'
+        glowing: ctrl.late && b[0] === 'last'
       }),
       'data-icon': b[1],
-      onclick: enabled ? partial(ctrl.replay.jump, b[2]) : null
+      onclick: enabled ? partial(ctrl.jump, b[2]) : null
     });
   }));
 }
 
 module.exports = function(ctrl) {
-  if (ctrl.data.game.variant.key == 'chess960')
+  if (ctrl.root.data.game.variant.key == 'chess960')
     return m('div.notyet', 'The in-game replay will be available for chess960 very soon');
-  var curPly = ctrl.replay.active ? ctrl.replay.ply : ctrl.data.game.moves.length;
-  var h = curPly + ctrl.data.game.moves.join('');
-  if (ctrl.replay.vm.hash === h) return {subtree: 'retain'};
-  ctrl.replay.vm.hash = h;
+  var curPly = ctrl.replay.active ? ctrl.ply : ctrl.root.data.game.moves.length;
+  var h = curPly + ctrl.root.data.game.moves.join('');
+  if (ctrl.vm.hash === h) return {subtree: 'retain'};
+  ctrl.vm.hash = h;
   return m('div.replay', [
-    ctrl.replay.enabledByPref() ? m('div.moves', {
+    ctrl.enabledByPref() ? m('div.moves', {
       config: function(boxEl, isUpdate) {
         var plyEl = boxEl.querySelector('.active');
         if (plyEl) boxEl.scrollTop = plyEl.offsetTop - boxEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
