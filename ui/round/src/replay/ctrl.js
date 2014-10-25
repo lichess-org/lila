@@ -1,4 +1,4 @@
-var Chess = require('chess.js').Chess;
+var Chess = require('chessli.js').Chess;
 var round = require('../round');
 
 module.exports = function(root) {
@@ -25,8 +25,10 @@ module.exports = function(root) {
       fen = cached.fen;
     }
     if (cached && ply == this.ply) return cached;
-    var chess = new Chess(fen || root.data.game.initialFen);
-    var moves = root.data.game.moves.slice(ply - 1, this.ply - ply + 1);
+    var chess = new Chess(
+      fen || root.data.game.initialFen,
+      root.data.game.variant.key == 'chess960' ? 1 : 0
+    );
     for (ply = ply; ply <= this.ply; ply++) {
       move = root.data.game.moves[ply - 1];
       hash += move;

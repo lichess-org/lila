@@ -77,8 +77,6 @@ function renderButtons(ctrl, curPly) {
 }
 
 module.exports = function(ctrl) {
-  if (ctrl.root.data.game.variant.key == 'chess960')
-    return m('div.notyet', 'The in-game replay will be available for chess960 very soon');
   var curPly = ctrl.active ? ctrl.ply : ctrl.root.data.game.moves.length;
   var h = curPly + ctrl.root.data.game.moves.join('') + ctrl.root.vm.flip;
   if (ctrl.vm.hash === h) return {

@@ -8,7 +8,6 @@ var renderReplay = require('../replay/view');
 var renderStatus = require('./status');
 var renderUser = require('./user');
 var button = require('./button');
-var c = require('chess.js');
 
 function compact(x) {
   if (Object.prototype.toString.call(x) === '[object Array]') {
