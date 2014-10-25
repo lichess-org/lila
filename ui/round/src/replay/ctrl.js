@@ -15,32 +15,37 @@ module.exports = function(root) {
   var situationCache = {};
 
   var computeSituation = function() {
-    var ply, move, cached, fen, hash, h, lm;
-    for (ply = 1; ply <= this.ply; ply++) {
-      move = root.data.game.moves[ply - 1];
-      h += move;
-      cached = situationCache[h];
-      if (!cached) break;
-      hash = h;
-      fen = cached.fen;
+    try {
+      var ply, move, cached, fen, hash, h, lm;
+      for (ply = 1; ply <= this.ply; ply++) {
+        move = root.data.game.moves[ply - 1];
+        h += move;
+        cached = situationCache[h];
+        if (!cached) break;
+        hash = h;
+        fen = cached.fen;
+      }
+      if (cached && ply == this.ply) return cached;
+      var chess = new Chess(
+        fen || root.data.game.initialFen,
+        root.data.game.variant.key == 'chess960' ? 1 : 0
+      );
+      for (ply = ply; ply <= this.ply; ply++) {
+        move = root.data.game.moves[ply - 1];
+        hash += move;
+        lm = chess.move(move);
+        situationCache[hash] = {
+          fen: chess.fen(),
+          check: chess.in_check(),
+          lastMove: [lm.from, lm.to],
+          turnColor: ply % 2 === 0 ? 'white' : 'black'
+        };
+      }
+      return situationCache[hash];
+    } catch (e) {
+      console.log(e);
+      lichess.reload();
     }
-    if (cached && ply == this.ply) return cached;
-    var chess = new Chess(
-      fen || root.data.game.initialFen,
-      root.data.game.variant.key == 'chess960' ? 1 : 0
-    );
-    for (ply = ply; ply <= this.ply; ply++) {
-      move = root.data.game.moves[ply - 1];
-      hash += move;
-      lm = chess.move(move);
-      situationCache[hash] = {
-        fen: chess.fen(),
-        check: chess.in_check(),
-        lastMove: [lm.from, lm.to],
-        turnColor: ply % 2 === 0 ? 'white' : 'black'
-      };
-    }
-    return situationCache[hash];
   }.bind(this);
 
   var showFen = function() {
