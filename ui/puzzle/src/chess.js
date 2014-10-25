@@ -1,6 +1,6 @@
 var groupBy = require('lodash-node/modern/collections/groupBy')
 var mapValues = require('lodash-node/modern/objects/mapValues')
-var Chess = require('chess.js').Chess;
+var Chess = require('chessli.js').Chess;
 
 function make(fen) {
   return new Chess(fen);
