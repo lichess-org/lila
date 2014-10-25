@@ -3,7 +3,7 @@ package lila.round
 import akka.actor.ActorSelection
 import akka.pattern.ask
 import chess.format.Forsyth
-import chess.{ Game => ChessGame, Board, Clock, Variant, Color => ChessColor }
+import chess.{ Game => ChessGame, Board, Clock, Variant, Color => ChessColor, Castles }
 import ChessColor.{ White, Black }
 
 import lila.db.api._
@@ -64,13 +64,13 @@ private[round] final class Rematcher(
   } inject List(Event.ReloadOwner)
 
   private def returnGame(pov: Pov): Fu[Game] = for {
-    pieces ← pov.game.variant.standard.fold(
-      fuccess(pov.game.variant.pieces),
+    initialFen <- GameRepo initialFen pov.game.id 
+    situation = initialFen flatMap Forsyth.<<<
+    pieces = pov.game.variant.standard.fold(
+      pov.game.variant.pieces,
       rematch960Cache.get(pov.game.id).fold(
-        fuccess(Variant.Chess960.pieces),
-        GameRepo initialFen pov.game.id map { fenOption =>
-          (fenOption flatMap Forsyth.<< map { _.board.pieces }) | pov.game.variant.pieces
-        }
+        Variant.Chess960.pieces,
+        situation.fold(pov.game.variant.pieces)(_.situation.board.pieces)
       )
     )
     whitePlayer ← returnPlayer(pov.game, White)
@@ -78,12 +78,15 @@ private[round] final class Rematcher(
   } yield Game.make(
     game = ChessGame(
       board = Board(pieces, variant = pov.game.variant),
-      clock = pov.game.clock map (_.reset)),
+      clock = pov.game.clock map (_.reset),
+      turns = situation ?? (_.turns),
+      startedAtTurn = situation ?? (_.turns)),
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
     mode = pov.game.mode,
     variant = pov.game.variant,
     source = pov.game.source | Source.Lobby,
+    castles = situation.fold(Castles.init)(_.situation.board.history.castles),
     pgnImport = None)
 
   private def returnPlayer(game: Game, color: ChessColor): Fu[lila.game.Player] = {

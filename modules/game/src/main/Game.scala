@@ -398,7 +398,8 @@ object Game {
     mode: Mode,
     variant: Variant,
     source: Source,
-    pgnImport: Option[PgnImport]): Game = Game(
+    pgnImport: Option[PgnImport],
+    castles: Castles = Castles.init): Game = Game(
     id = IdGenerator.game,
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
@@ -409,7 +410,7 @@ object Game {
     turns = game.turns,
     startedAtTurn = game.startedAtTurn,
     clock = game.clock,
-    castleLastMoveTime = CastleLastMoveTime.init,
+    castleLastMoveTime = CastleLastMoveTime.init.copy(castles = castles),
     mode = mode,
     variant = variant,
     metadata = Metadata(
