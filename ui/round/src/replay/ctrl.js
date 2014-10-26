@@ -1,10 +1,12 @@
 var Chess = require('chessli.js').Chess;
 var round = require('../round');
+var xhr = require('../xhr');
 
 module.exports = function(root) {
 
   this.root = root;
   this.active = false;
+  this.broken = false;
   this.ply = 0;
 
   this.vm = {
@@ -14,7 +16,7 @@ module.exports = function(root) {
 
   var situationCache = {};
 
-  var computeSituation = function() {
+  var showFen = function() {
     try {
       var ply, move, cached, fen, hash, h, lm;
       for (ply = 1; ply <= this.ply; ply++) {
@@ -41,25 +43,20 @@ module.exports = function(root) {
           turnColor: ply % 2 === 0 ? 'white' : 'black'
         };
       }
-      return situationCache[hash];
+      if (ply == 5) throw "oups";
+      root.chessground.set(situationCache[hash]);
     } catch (e) {
       console.log(e);
-      lichess.reload();
+      onBreak();
     }
-  }.bind(this);
-
-  var showFen = function() {
-    root.chessground.set(computeSituation());
   }.bind(this);
 
   var enable = function() {
     root.chessground.stop();
-    showFen();
   }.bind(this);
 
   var disable = function() {
     this.vm.late = false;
-    showFen();
     root.chessground.set({
       movable: {
         color: round.isPlayerPlaying(root.data) ? root.data.player.color : null,
@@ -68,12 +65,21 @@ module.exports = function(root) {
     });
   }.bind(this);
 
+  var onBreak = function() {
+    disable();
+    this.active = false;
+    this.broken = true;
+    xhr.reload(root).then(root.reload);
+  }.bind(this);
+
   this.jump = function(ply) {
+    if (this.broken) return;
     if (this.ply == ply || ply < 1 || ply > root.data.game.moves.length) return;
     this.active = ply != root.data.game.moves.length;
     this.ply = ply;
     if (this.active) enable();
     else disable();
+    showFen();
   }.bind(this);
 
   this.onReload = function(cfg) {

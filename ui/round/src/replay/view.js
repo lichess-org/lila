@@ -68,7 +68,7 @@ function renderButtons(ctrl, curPly) {
       var enabled = curPly != b[2] && b[2] >= 1 && b[2] <= nbMoves;
       return m('a', {
         class: 'button ' + b[0] + ' ' + classSet({
-          disabled: !enabled,
+          disabled: (ctrl.broken || !enabled),
           glowing: ctrl.vm.late && b[0] === 'last'
         }),
         'data-icon': b[1],
