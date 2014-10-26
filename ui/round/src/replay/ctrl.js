@@ -43,7 +43,6 @@ module.exports = function(root) {
           turnColor: ply % 2 === 0 ? 'white' : 'black'
         };
       }
-      if (ply == 5) throw "oups";
       root.chessground.set(situationCache[hash]);
     } catch (e) {
       console.log(e);
