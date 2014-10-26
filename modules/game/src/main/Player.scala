@@ -74,7 +74,7 @@ case class Player(
   }
 
   def before(other: Player) = ((rating, id), (other.rating, other.id)) match {
-    case ((Some(a), _), (Some(b), _)) if a != b => a < b
+    case ((Some(a), _), (Some(b), _)) if a != b => a > b
     case ((Some(_), _), (None, _))              => true
     case ((None, _), (Some(_), _))              => false
     case ((_, a), (_, b))                       => a < b
