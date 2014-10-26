@@ -1,6 +1,8 @@
 var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
+var round = require('../round');
 var status = require('../status');
+var renderStatus = require('../view/status');
 
 function renderTd(move, ply, curPly) {
   return move ? {
@@ -30,15 +32,18 @@ function renderTable(ctrl, curPly) {
   }
   var trs = pairs.map(function(pair, i) {
     return m('tr', [
-      m('td', i + 1),
+      m('td.index', i + 1),
       renderTd(pair[0], 2 * i + 1, curPly),
       renderTd(pair[1], 2 * i + 2, curPly)
     ]);
   });
   if (result) {
-    result = m('td.result', result);
-    if (moves.length % 2 === 0) trs.push(m('tr', [m('td'), result]));
-    else trs[trs.length - 1].children[2] = result;
+    trs.push(m('tr', m('td.result[colspan=3]', result)));
+    var winner = round.getPlayer(ctrl.root.data, ctrl.root.data.game.winner);
+    trs.push(m('tr.status', m('td[colspan=3]', [
+      renderStatus(ctrl.root),
+      winner ? ', ' + ctrl.root.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
+    ])));
   }
   return m('table',
     m('tbody', {

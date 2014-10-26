@@ -1005,7 +1005,7 @@ div.table .replay table {
   -moz-user-select: none;
   -ms-user-select: none;
 }
-div.table .replay td:first-child {
+div.table .replay td.index {
   width: 15%;
   text-align: center;
   font-weight: lighter;
@@ -1027,7 +1027,13 @@ div.table .replay td.move.active {
 div.table .replay td.result {
   font-weight: bold;
   font-size: 1.3em;
-  padding: 2px 5px;
+  padding: 4px 0;
+  text-align: center;
+}
+div.table .status td {
+  font-size: 1em;
+  text-align: center;
+  font-style: italic;
 }
 div.table .replay .buttons {
   text-align: center;
