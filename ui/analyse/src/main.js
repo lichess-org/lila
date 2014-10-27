@@ -9,4 +9,6 @@ module.exports = function(element, config, router, i18n, onChange) {
     controller: function () { return controller; },
     view: view
   });
+
+  return controller;
 };

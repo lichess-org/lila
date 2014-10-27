@@ -1872,7 +1872,7 @@ var storage = {
         }
       });
 
-    LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, function(fen, ply) {
+    var analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, function(fen, ply) {
       $(element).find('input.fen').val(fen);
       var $chart = $("#adv_chart");
       if ($chart.length) {
@@ -1897,6 +1897,7 @@ var storage = {
         }
       }
     });
+    lichess.analyse.jump = analyse.jump;
 
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
 

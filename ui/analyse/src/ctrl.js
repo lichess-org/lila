@@ -50,9 +50,11 @@ module.exports = function(cfg, router, i18n, onChange) {
   }.bind(this);
 
   this.jump = function(ply) {
+    m.startComputation();
     if (this.vm.ply == ply || ply < 1 || ply > this.data.game.moves.length) return;
     this.vm.ply = ply;
     showFen();
+    m.endComputation();
   }.bind(this);
 
   this.flip = function() {
