@@ -1,6 +1,9 @@
 #lichess {
   margin-left: 311px;
 }
+#lichess > div.content {
+  overflow: hidden;
+}
 div.side_box.for_selector {
   width: 312px;
 }
