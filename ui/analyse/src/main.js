@@ -9,8 +9,4 @@ module.exports = function(element, config, router, i18n) {
     controller: function () { return controller; },
     view: view
   });
-
-  return {
-    socketReceive: controller.socket.receive
-  };
 };

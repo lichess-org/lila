@@ -1841,9 +1841,40 @@ var storage = {
   // analyse.js //
   ////////////////
 
+  function startAnalyse(element, cfg) {
+    var data = cfg.data;
+    if (data.chat) $('#chat').chat({
+      messages: data.chat
+    });
+    var $watchers = $('#site_header div.watchers').watchers();
+    if (data.tournament) $('body').data('tournament-id', data.tournament.id);
+    lichess.socket = new lichess.StrongSocket(
+      data.url.socket,
+      data.player.version, {
+        options: {
+          name: "analyse"
+        },
+        params: {
+          ran: "--ranph--"
+        },
+        events: {
+          analysisAvailable: function() {
+            $.sound.dong();
+            location.href = location.href.split('#')[0] + '#' + CurrentPly;
+            location.reload();
+          },
+          crowd: function(event) {
+            $watchers.watchers("set", event.watchers);
+          }
+        }
+      });
+    LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n);
+    $('.crosstable', element).prependTo($('.underboard .center', element)).show();
+  }
+
   $(function() {
 
-    if (!$("#GameBoard").length) return;
+    if (true || !$("#GameBoard").length) return;
 
     $('div.game_control a').filter('.continue').click(function() {
       $('div.board_wrap div.continue').toggle();
