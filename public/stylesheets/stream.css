@@ -1,8 +1,8 @@
 #lichess {
   margin-left: 311px;
 }
-#lichess > div.content {
-  overflow: hidden;
+body > div.content {
+  margin-bottom: 180px;
 }
 div.side_box.for_selector {
   width: 312px;

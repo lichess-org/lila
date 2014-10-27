@@ -61,140 +61,138 @@ openGraph = Map(
 <div id="call_boxes">
   @translationCall.map(i18n.callBox(_))
 </div>
-<div class="clearfix lichess_homepage">
-  <div class="lobby_and_ground">
-    <div id="hooks_wrap" data-socket-url="@routes.Lobby.socket(apiVersion)">
-      <div class="tabs">
-        <a data-tab="list" class="list">@trans.list()</a>
-        <a data-tab="graph" class="graph">@trans.graph()</a>
-      </div>
-      <a class="filter" href="@routes.Setup.filterForm()">
-        <span data-icon="D"> @trans.filterGames()</span>
-        <span class="number">(0)</span>
-      </a>
-      <div id="hooks_chart" class="tab graph none"><div class="canvas"></div></div>
-      <div id="hooks_list" class="tab list none">
-        <div class="table_wrap">
-          <table>
-            <thead>
-              <tr>
-                <th class="reload"><span data-icon="P"></span></th>
-                <th data-sort="string" class="player"><span class="is">&nbsp;@trans.player()</span></th>
-                <th data-sort="int" class="rating"><span class="is">&nbsp;Rating</span></th>
-                <th data-sort="int"><span class="is">&nbsp;@trans.time()</span></th>
-                <th data-sort="string"><span class="is">&nbsp;@trans.mode()</span></th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-      <div id="hook_overlay"></div>
-      <div id="hook_filter"></div>
+<div class="lobby_and_ground">
+  <div id="hooks_wrap" data-socket-url="@routes.Lobby.socket(apiVersion)">
+    <div class="tabs">
+      <a data-tab="list" class="list">@trans.list()</a>
+      <a data-tab="graph" class="graph">@trans.graph()</a>
     </div>
-    <div id="start_buttons" class="lichess_ground">
-      @lobbyMenu.all.map { b =>
-      <a class="fat button config_@b.code hint--bottom" href="@b.route" onclick="return false">@b.name()</a>
-      }
-    </div>
-  </div>
-  @puzzle.map { p =>
-  <div id="daily_puzzle" title="@trans.clickToSolve()">
-    @p.html
-    <div class="vstext">
-      @trans.puzzleOfTheDay()<br />
-      @p.color.fold(trans.whitePlays, trans.blackPlays)()
-    </div>
-  </div>
-  }
-  <div class="open_tournaments undertable">
-    <div class="undertable_top">
-      <a class="more hint--bottom" data-hint="See all tournaments" href="@routes.Tournament.home()">@trans.more() »</a>
-      <span class="title"> @trans.openTournaments()</span>
-    </div>
-    <div id="enterable_tournaments" class="undertable_inner scroll-shadow-hard">
-      @tournament.enterable(tours)
-    </div>
-  </div>
-  <div class="clearfix">
-    <div class="leaderboard undertable half">
-      <div class="user_top">
-        <div class="undertable_top">
-          <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
-          <span class="title" data-icon="C"> @trans.todaysLeaders()</span>
-        </div>
-        <div class="undertable_inner scroll-shadow-hard">
-          <table>
-            <tbody>
-              @leaderboard.map {
-              case (u, pt) => {
-              <tr>
-                <td>@userLink(u, cssClass="revert-underline".some)</td>
-                <td>@showPerfRating(u, pt, klass = "title")</td>
-                <td>@showProgress(u.perfs(pt).progress, withTitle = false)</td>
-              </tr>
-              }
-              }
-            </tbody>
-          </table>
-        </div>
+    <a class="filter" href="@routes.Setup.filterForm()">
+      <span data-icon="D"> @trans.filterGames()</span>
+      <span class="number">(0)</span>
+    </a>
+    <div id="hooks_chart" class="tab graph none"><div class="canvas"></div></div>
+    <div id="hooks_list" class="tab list none">
+      <div class="table_wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="reload"><span data-icon="P"></span></th>
+              <th data-sort="string" class="player"><span class="is">&nbsp;@trans.player()</span></th>
+              <th data-sort="int" class="rating"><span class="is">&nbsp;Rating</span></th>
+              <th data-sort="int"><span class="is">&nbsp;@trans.time()</span></th>
+              <th data-sort="string"><span class="is">&nbsp;@trans.mode()</span></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
     </div>
-    <div class="leaderboard undertable half">
-      <div class="user_top">
-        <div class="undertable_top">
-          <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.Tournament.home()">@trans.more() »</a>
-          <span class="title" data-icon="g"> Tournament winners</span>
-        </div>
-        <div class="undertable_inner scroll-shadow-hard">
-          <table>
-            <tbody>
-              @tournamentWinners.map { w =>
-              <tr>
-                <td>@userIdLink(w.userId.some, cssClass="revert-underline".some)</td>
-                <td><a href="@routes.Tournament.show(w.tourId)" class="revert-underline">@w.tourName.replace("Lichess ", "")</a></td>
-              </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    <div id="hook_overlay"></div>
+    <div id="hook_filter"></div>
   </div>
-  <div class="new_posts undertable nomargin" data-url="@routes.ForumPost.recent">
-    <div class="undertable_top">
-      <a class="more hint--bottom" data-hint="@trans.forum()" href="@routes.ForumCateg.index()">@trans.more() »</a>
-      <span class="title" data-icon="d"> @trans.latestForumPosts()</span>
-    </div>
-    <div class="undertable_inner scroll-shadow-hard">
-      <div class="content">
-        <ol>@forum.post.recent(forumRecent)</ol>
-      </div>
-    </div>
+  <div id="start_buttons" class="lichess_ground">
+    @lobbyMenu.all.map { b =>
+    <a class="fat button config_@b.code hint--bottom" href="@b.route" onclick="return false">@b.name()</a>
+    }
   </div>
-  @if(lastPost.nonEmpty) {
-  <div class="blog undertable">
-    <div class="undertable_top">
-      <a class="more hint--bottom" data-hint="Blog" href="@routes.Blog.index()">@trans.more() »</a>
-      <span class="title" data-icon="6"> Latest updates</span>
-    </div>
-    <div class="undertable_inner">
-      @lastPost.map { post =>
-      <div class="post">
-        @defining(routes.Blog.show(post.id, post.slug)) { url =>
-        <a class="image" href="@url">
-          <img src="@post.image" />
-        </a>
-        <div class="text">
-          @semanticDate(post.date)
-          <a class="title revert-underline" href="@url">@post.title</a>
-          <p class="shortlede">@post.shortlede</p>
-        </div>
-        }
-      </div>
-      }
-    </div>
-  </div>
-  }
 </div>
+@puzzle.map { p =>
+<div id="daily_puzzle" title="@trans.clickToSolve()">
+  @p.html
+  <div class="vstext">
+    @trans.puzzleOfTheDay()<br />
+    @p.color.fold(trans.whitePlays, trans.blackPlays)()
+  </div>
+</div>
+}
+<div class="open_tournaments undertable">
+  <div class="undertable_top">
+    <a class="more hint--bottom" data-hint="See all tournaments" href="@routes.Tournament.home()">@trans.more() »</a>
+    <span class="title"> @trans.openTournaments()</span>
+  </div>
+  <div id="enterable_tournaments" class="undertable_inner scroll-shadow-hard">
+    @tournament.enterable(tours)
+  </div>
+</div>
+<div class="clearfix">
+  <div class="leaderboard undertable half">
+    <div class="user_top">
+      <div class="undertable_top">
+        <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.User.list()">@trans.more() »</a>
+        <span class="title" data-icon="C"> @trans.todaysLeaders()</span>
+      </div>
+      <div class="undertable_inner scroll-shadow-hard">
+        <table>
+          <tbody>
+            @leaderboard.map {
+            case (u, pt) => {
+            <tr>
+              <td>@userLink(u, cssClass="revert-underline".some)</td>
+              <td>@showPerfRating(u, pt, klass = "title")</td>
+              <td>@showProgress(u.perfs(pt).progress, withTitle = false)</td>
+            </tr>
+            }
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="leaderboard undertable half">
+    <div class="user_top">
+      <div class="undertable_top">
+        <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.Tournament.home()">@trans.more() »</a>
+        <span class="title" data-icon="g"> Tournament winners</span>
+      </div>
+      <div class="undertable_inner scroll-shadow-hard">
+        <table>
+          <tbody>
+            @tournamentWinners.map { w =>
+            <tr>
+              <td>@userIdLink(w.userId.some, cssClass="revert-underline".some)</td>
+              <td><a href="@routes.Tournament.show(w.tourId)" class="revert-underline">@w.tourName.replace("Lichess ", "")</a></td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="new_posts undertable nomargin" data-url="@routes.ForumPost.recent">
+  <div class="undertable_top">
+    <a class="more hint--bottom" data-hint="@trans.forum()" href="@routes.ForumCateg.index()">@trans.more() »</a>
+    <span class="title" data-icon="d"> @trans.latestForumPosts()</span>
+  </div>
+  <div class="undertable_inner scroll-shadow-hard">
+    <div class="content">
+      <ol>@forum.post.recent(forumRecent)</ol>
+    </div>
+  </div>
+</div>
+@if(lastPost.nonEmpty) {
+<div class="blog undertable">
+  <div class="undertable_top">
+    <a class="more hint--bottom" data-hint="Blog" href="@routes.Blog.index()">@trans.more() »</a>
+    <span class="title" data-icon="6"> Latest updates</span>
+  </div>
+  <div class="undertable_inner">
+    @lastPost.map { post =>
+    <div class="post">
+      @defining(routes.Blog.show(post.id, post.slug)) { url =>
+      <a class="image" href="@url">
+        <img src="@post.image" />
+      </a>
+      <div class="text">
+        @semanticDate(post.date)
+        <a class="title revert-underline" href="@url">@post.title</a>
+        <p class="shortlede">@post.shortlede</p>
+      </div>
+      }
+    </div>
+    }
+  </div>
+</div>
+}
 }
