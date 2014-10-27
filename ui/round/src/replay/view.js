@@ -83,6 +83,11 @@ function renderButtons(ctrl, curPly) {
   ]);
 }
 
+function autoScroll(movelist) {
+  var plyEl = movelist.querySelector('.active');
+  if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
+}
+
 module.exports = function(ctrl) {
   var curPly = ctrl.active ? ctrl.ply : ctrl.root.data.game.moves.length;
   var h = curPly + ctrl.root.data.game.moves.join('') + ctrl.root.vm.flip;
@@ -92,10 +97,10 @@ module.exports = function(ctrl) {
   ctrl.vm.hash = h;
   return m('div.replay', [
     ctrl.enabledByPref() ? m('div.moves', {
-      config: function(boxEl, isUpdate) {
-        var plyEl = boxEl.querySelector('.active');
-        if (plyEl) boxEl.scrollTop = plyEl.offsetTop - boxEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
-      }
+      config: function(el, isUpdate) {
+        autoScroll(el);
+        if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
+      },
     }, renderTable(ctrl, curPly)) : null,
     renderButtons(ctrl, curPly)
   ]);
