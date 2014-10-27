@@ -1850,7 +1850,7 @@ var storage = {
       messages: data.chat
     });
     var $watchers = $('#site_header div.watchers').watchers();
-    if (data.tournament) $('body').data('tournament-id', data.tournament.id);
+    var $panels;
     lichess.socket = new lichess.StrongSocket(
       data.url.socket,
       data.player.version, {
@@ -1871,8 +1871,81 @@ var storage = {
           }
         }
       });
-    LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n);
-    $('.crosstable', element).prependTo($('.underboard .center', element)).show();
+
+    LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, function(fen, ply) {
+      $(element).find('input.fen').val(fen);
+      var $chart = $("#adv_chart");
+      if ($chart.length) {
+        var chart = $chart.highcharts();
+        var variation = 0;
+        if (chart) {
+          if (variation !== 0) {
+            _.each(chart.getSelectedPoints(), function(point) {
+              point.select(false);
+            });
+          } else {
+            var point = chart.series[0].data[ply - 1];
+            if (typeof point != "undefined") {
+              point.select();
+              var adv = "Advantage: <strong>" + point.y + "</strong>";
+              var title = point.name + ' ' + adv;
+              chart.setTitle({
+                text: title
+              });
+            }
+          }
+        }
+      }
+    });
+
+    $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
+
+    $panels = $('div.analysis_panels > div');
+    $('div.analysis_menu').on('click', 'a', function() {
+      var panel = $(this).data('panel');
+      $(this).siblings('.active').removeClass('active').end().addClass('active');
+      $panels.removeClass('active').filter('.' + panel).addClass('active');
+      if (panel == 'move_times') try {
+        $.renderMoveTimesChart();
+      } catch (e) {}
+    }).find('a:first').click();
+
+    var pgnLoader = function() {
+      $panels.find('.loader span').each(function() {
+        var t = this;
+        var moves = _.filter(_.values(
+          $('#ShowPgnText a').map(function() {
+            return $(this).text();
+          })
+        ), function(x) {
+          return typeof x == 'string';
+        });
+        var len = moves.length,
+          it = 0;
+        setInterval(function() {
+          t.innerHTML = moves[it++ % len] || '';
+        }, 100);
+      });
+    };
+    setTimeout(pgnLoader, 500);
+
+    $panels.find('form.future_game_analysis').submit(function() {
+      if ($(this).hasClass('must_login')) {
+        if (confirm($.trans('You need an account to do that') + '.')) {
+          location.href = '/signup';
+        }
+        return false;
+      }
+      $.ajax({
+        method: 'post',
+        url: $(this).attr('action'),
+        success: function(html) {
+          $panels.filter('.panel.computer_analysis').html(html);
+          pgnLoader();
+        }
+      });
+      return false;
+    });
   }
 
   $(function() {

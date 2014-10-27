@@ -1015,7 +1015,7 @@ div.table .notyet {
   font-size: 1.3em;
   padding: 2px 5px;
   cursor: pointer;
-  transition: 0.13s;
+  transition: background-color 0.13s;
 }
 .lichess_ground .replay td.move:hover {
   background: #e0e0e0;
@@ -1433,15 +1433,16 @@ span.inline_userlist a:hover {
   text-decoration: underline;
 }
 div.underboard .center {
-  display: inline-block;
+  display: table-cell;
   position: relative;
   width: 512px;
   text-align: center;
   padding-top: 15px;
 }
 div.underboard .right {
-  display: inline-block;
-  margin-left: 15px;
+  display: table-cell;
+  vertical-align: top;
+  padding-left: 15px;
   width: 242px;
 }
 div.underboard a {

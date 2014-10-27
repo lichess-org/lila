@@ -48,6 +48,9 @@ div.analysis_menu > a.active {
   background-color: #eee;
   border-top: 1px solid #eee;
 }
+div.analysis_panels {
+  margin-top: 10px;
+}
 div.analysis_panels > div {
   width: 512px;
   height: 210px;
@@ -55,11 +58,12 @@ div.analysis_panels > div {
   display: none;
   overflow-x: hidden;
   overflow-y: auto;
+  text-align: left;
 }
 div.analysis_panels > div.active {
   display: block;
 }
-div.analysis_panels #crosstable {
+div.analysis_panels .crosstable table {
   margin-top: 60px;
 }
 div.game_analysis {
@@ -125,26 +129,24 @@ div.fen_pgn input.fen {
   height: 64px;
   display: block;
 }
-div.game_control,
-div.continue {
-  margin-top: 20px;
+div.game_control, div.continue {
   text-align: center;
+} 
+div.continue {
+  margin: 20px 0;
 }
 div.game_control a {
   font-size: 16px;
   height: 22px;
   display: inline-block;
-}
-#GameButtons {
-  display: inline-block;
-  margin-left: 10px;
-}
-#GameButtons a {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   margin-left: -1px;
   margin-right: -2px;
+}
+div.game_control .jumps {
+  margin-left: 1em;
 }
 .lichess_ground {
   height: 100%;
@@ -152,6 +154,18 @@ div.game_control a {
 .lichess_ground .replay {
   height: 100%;
   overflow: auto;
+}
+.lichess_ground .replay span {
+  font-size: 0.7em;
+  font-size: thinner;
+  float: right;
+  margin: 3px 5px 0 0;
+}
+div.underboard {
+  margin-top: 20px;
+}
+div.underboard .center {
+  padding: 0;
 }
 #GameText .move,
 #GameText .variation {

@@ -114,78 +114,80 @@ openGraph = povOpenGraph(pov)) {
   </div>
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
-<div class="analysis_panels">
-  @if(game.analysable) {
-  <div class="panel computer_analysis">
-    @analysis.map { a =>
-    @advantageChart.map { chart =>
-    <div
-      id="adv_chart"
-      data-title="Advantage (up: white, down: black)"
-      data-max="@lila.analyse.AdvantageChart.max"
-      data-rows="@chart"></div>
-    }.getOrElse {
-    @analyse.computing()
-    }
-    }.getOrElse {
-    @if(analysis.isEmpty) {
-    <form class="future_game_analysis@if(ctx.isAnon) {  must_login }" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
-      <button type="submit" class="button"><span class="is3" data-icon="A"> @trans.requestAComputerAnalysis()</span></button>
-    </form>
-    }
-    }
-    <div class="view_game_analysis future_game_analysis" data-href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-      <a class="button" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-        <span class="is3" data-icon="A"> @trans.viewTheComputerAnalysis()</span>
-      </a>
-    </div>
-  </div>
-  }
-  <div class="panel fen_pgn">
-    <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen" /></p>
-    <p><strong>PGN</strong>
-      <a data-icon="x" href="@routes.Analyse.pgn(game.id)"> Download annotated</a>
-      @if(analysis.isDefined) {
-      /
-      <a data-icon="x" href="@routes.Analyse.pgn(game.id)?as=raw"> Download raw</a>
-      }
-      @if(game.isPgnImport) {
-      /
-      <a data-icon="x" href="@routes.Analyse.pgn(game.id)?as=imported"> Download imported</a>
-      }
-    </p>
-    <div class="pgn">@Html(nl2br(escape(pgn)))</div>
-  </div>
-  <div class="panel move_times">
-    <div
-      id="movetimes_chart"
-      data-series="@timeChart.series"
-      data-max="@timeChart.maxTime"></div>
-  </div>
-  @cross.map { c =>
-  <div class="panel crosstable">
-    @views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov))
-  </div>
-  }
-</div>
-<div class="analysis_menu">
-  @if(game.analysable) {
-  <a data-panel="computer_analysis">@trans.computerAnalysis()</a>
-  }
-  @if(!game.isPgnImport) {
-  <a data-panel="move_times">@trans.moveTimes()</a>
-  @if(cross.isDefined) {
-  <a data-panel="crosstable">Crosstable</a>
-  }
-  }
-  <a data-panel="fen_pgn">FEN &amp; PGN</a>
-</div>
-@analysis.filter(_.old && ctx.isAuth).map { a =>
-<form class="better_analysis" action="@routes.Analyse.betterAnalysis(gameId, color.name)" method="post">
-  <button type="submit" class="button">
-    <span class="is3" data-icon="A"> Request a better computer analysis</span>
-  </button>
-</form>
-}
 *@
+<div class="underboard_content" style="display:none">
+  <div class="analysis_panels">
+    @if(game.analysable) {
+    <div class="panel computer_analysis">
+      @analysis.map { a =>
+      @advantageChart.map { chart =>
+      <div
+        id="adv_chart"
+        data-title="Advantage (up: white, down: black)"
+        data-max="@lila.analyse.AdvantageChart.max"
+        data-rows="@chart"></div>
+      }.getOrElse {
+      @analyse.computing()
+      }
+      }.getOrElse {
+      @if(analysis.isEmpty) {
+      <form class="future_game_analysis@if(ctx.isAnon) {  must_login }" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
+        <button type="submit" class="button"><span class="is3" data-icon="A"> @trans.requestAComputerAnalysis()</span></button>
+      </form>
+      }
+      }
+      <div class="view_game_analysis future_game_analysis" data-href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+        <a class="button" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+          <span class="is3" data-icon="A"> @trans.viewTheComputerAnalysis()</span>
+        </a>
+      </div>
+    </div>
+    }
+    <div class="panel fen_pgn">
+      <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen" /></p>
+      <p><strong>PGN</strong>
+        <a data-icon="x" href="@routes.Analyse.pgn(game.id)"> Download annotated</a>
+        @if(analysis.isDefined) {
+        /
+        <a data-icon="x" href="@routes.Analyse.pgn(game.id)?as=raw"> Download raw</a>
+        }
+        @if(game.isPgnImport) {
+        /
+        <a data-icon="x" href="@routes.Analyse.pgn(game.id)?as=imported"> Download imported</a>
+        }
+      </p>
+      <div class="pgn">@Html(nl2br(escape(pgn)))</div>
+    </div>
+    <div class="panel move_times">
+      <div
+        id="movetimes_chart"
+        data-series="@timeChart.series"
+        data-max="@timeChart.maxTime"></div>
+    </div>
+    @cross.map { c =>
+    <div class="panel crosstable">
+      @views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov))
+    </div>
+    }
+  </div>
+  <div class="analysis_menu">
+    @if(game.analysable) {
+    <a data-panel="computer_analysis">@trans.computerAnalysis()</a>
+    }
+    @if(!game.isPgnImport) {
+    <a data-panel="move_times">@trans.moveTimes()</a>
+    @if(cross.isDefined) {
+    <a data-panel="crosstable">Crosstable</a>
+    }
+    }
+    <a data-panel="fen_pgn">FEN &amp; PGN</a>
+  </div>
+  @analysis.filter(_.old && ctx.isAuth).map { a =>
+  <form class="better_analysis" action="@routes.Analyse.betterAnalysis(gameId, color.name)" method="post">
+    <button type="submit" class="button">
+      <span class="is3" data-icon="A"> Request a better computer analysis</span>
+    </button>
+  </form>
+</div>
+}
 }

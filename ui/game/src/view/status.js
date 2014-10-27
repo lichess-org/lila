@@ -1,3 +1,5 @@
+var m = require('mithril');
+
 module.exports = function(ctrl) {
   switch (ctrl.data.game.status.name) {
     case 'started':

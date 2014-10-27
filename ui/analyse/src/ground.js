@@ -1,9 +1,11 @@
 var chessground = require('chessground');
 
-function makeConfig(data, fen, flip) {
+function makeConfig(data, situation, flip) {
   return {
     viewOnly: true,
-    fen: fen,
+    fen: situation.fen,
+    check: situation.check,
+    lastMove: situation.lastMove,
     orientation: flip ? data.opponent.color : data.player.color,
     coordinates: data.pref.coords !== 0,
     highlight: {
@@ -21,15 +23,10 @@ function makeConfig(data, fen, flip) {
   };
 }
 
-function make(data, fen) {
-  return new chessground.controller(makeConfig(data, fen));
-}
-
-function reload(ground, data, fen, flip) {
-  ground.set(makeConfig(data, fen, flip));
+function make(data, situation) {
+  return new chessground.controller(makeConfig(data, situation));
 }
 
 module.exports = {
-  make: make,
-  reload: reload
+  make: make
 };

@@ -1,5 +1,5 @@
 var m = require('mithril');
-var game = require('game').game;
+var game = require('../game');
 
 function getPlayerRating(ctrl, player) {
   if (player.user) {

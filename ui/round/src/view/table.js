@@ -6,7 +6,7 @@ var opposite = chessground.util.opposite;
 var renderClock = require('../clock/view');
 var renderReplay = require('../replay/view');
 var renderStatus = require('./status');
-var renderUser = require('./user');
+var renderUser = require('game').view.user;
 var button = require('./button');
 
 function compact(x) {

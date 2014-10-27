@@ -3,7 +3,7 @@ var game = require('game').game;
 var chessground = require('chessground');
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
-var renderUser = require('./user');
+var mod = require('game').view.mod;
 var partial = require('chessground').util.partial;
 var button = require('./button');
 var blind = require('../blind');
@@ -22,24 +22,6 @@ function renderMaterial(ctrl, material) {
     children.push(m('div.tomb', content));
   }
   return m('div.cemetery', children);
-}
-
-function blursOf(ctrl, player) {
-  if (player.blurs) return m('p', [
-    renderUser(ctrl, player, player.color),
-    ' ' + player.blurs.nb + '/' + game.nbMoves(ctrl.data, player.color) + ' blurs = ',
-    m('strong', player.blurs.percent + '%')
-  ]);
-}
-
-function holdOf(ctrl, player) {
-  var h = player.hold;
-  if (h) return m('p', [
-    renderUser(ctrl, player, player.color),
-    ' hold alert',
-    m('br'),
-    'ply=' + h.ply + ', mean=' + h.mean + ' ms, SD=' + h.sd
-  ]);
 }
 
 function visualBoard(ctrl) {
@@ -94,7 +76,7 @@ module.exports = function(ctrl) {
         button.replayAndAnalyse(ctrl)
       ]),
       m('div.right', [
-        [ctrl.data.opponent, ctrl.data.player].map(partial(blursOf, ctrl)), [ctrl.data.opponent, ctrl.data.player].map(partial(holdOf, ctrl))
+        [ctrl.data.opponent, ctrl.data.player].map(partial(mod.blursOf, ctrl)), [ctrl.data.opponent, ctrl.data.player].map(partial(mod.holdOf, ctrl))
       ])
     ])
   ];
