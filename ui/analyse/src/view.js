@@ -2,6 +2,7 @@ var m = require('mithril');
 var chessground = require('chessground');
 var analyse = require('./analyse');
 var partial = require('chessground').util.partial;
+var renderStatus = require('game').view.status;
 
 function renderTd(move, ply, curPly) {
   return move ? {
@@ -82,7 +83,8 @@ module.exports = function(ctrl) {
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground',
-          renderMovelist(ctrl))
+          m('div.replay',
+            renderMovelist(ctrl)))
       ])
     ]),
     m('div.underboard', [

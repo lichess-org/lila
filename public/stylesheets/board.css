@@ -992,39 +992,39 @@ div.table {
 div.table .notyet {
   margin: 20px 0;
 }
-div.table .replay {
+.lichess_ground .table .replay {
   margin: 10px 0 15px 0;
 }
-div.table .replay .moves {
+.lichess_ground .replay .moves {
   height: 115px;
   overflow: auto;
 }
-div.table .replay table {
+.lichess_ground .replay table {
   width: 100%;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
 }
-div.table .replay td.index {
+.lichess_ground .replay td.index {
   width: 15%;
   text-align: center;
   font-weight: lighter;
 }
-div.table .replay td.move {
+.lichess_ground .replay td.move {
   font-family: 'pgn4web ChessSansPiratf', 'pgn4web Liberation Sans', sans-serif;
   font-size: 1.3em;
   padding: 2px 5px;
   cursor: pointer;
   transition: 0.13s;
 }
-div.table .replay td.move:hover {
+.lichess_ground .replay td.move:hover {
   background: #e0e0e0;
 }
-div.table .replay td.move.active {
+.lichess_ground .replay td.move.active {
   color: #d85000;
   font-weight: bold;
 }
-div.table .replay td.result {
+.lichess_ground .replay td.result {
   font-weight: bold;
   font-size: 1.3em;
   padding: 4px 0;
@@ -1035,12 +1035,12 @@ div.table .status td {
   text-align: center;
   font-style: italic;
 }
-div.table .replay .buttons {
+.lichess_ground .replay .buttons {
   text-align: center;
   margin-top: 7px;
   font-size: 0.8em;
 }
-div.table .replay a.button {
+.lichess_ground .replay a.button {
   opacity: 0.9;
   padding: 4px 7px;
   -webkit-user-select: none;
@@ -1049,13 +1049,13 @@ div.table .replay a.button {
   margin-left: -1px;
   margin-right: -1px;
 }
-div.table .replay a.flip {
+.lichess_ground .replay a.flip {
   margin-right: 10px;
 }
-div.table .replay a.disabled {
+.lichess_ground .replay a.disabled {
   cursor: default;
 }
-div.table .replay a.disabled::before {
+.lichess_ground .replay a.disabled::before {
   opacity: 0.4;
   text-shadow: none !important;
 }
