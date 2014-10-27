@@ -1,6 +1,6 @@
 var m = require('mithril');
 var chessground = require('chessground');
-var analyse = require('./analyse');
+var game = require('game').game;
 var partial = require('chessground').util.partial;
 var renderStatus = require('game').view.status;
 
@@ -39,7 +39,7 @@ function renderMovelist(ctrl) {
   });
   if (result) {
     trs.push(m('tr', m('td.result[colspan=3]', result)));
-    var winner = analyse.getPlayer(ctrl.data, ctrl.data.game.winner);
+    var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
     trs.push(m('tr.status', m('td[colspan=3]', [
       renderStatus(ctrl),
       winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null

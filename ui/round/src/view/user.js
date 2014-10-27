@@ -1,5 +1,5 @@
 var m = require('mithril');
-var round = require('../round');
+var game = require('game').game;
 
 function getPlayerRating(ctrl, player) {
   if (player.user) {
@@ -26,7 +26,7 @@ module.exports = function(ctrl, player, klass) {
       },
       class: 'user_link ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
       href: ctrl.router.User.show(player.user.username).url,
-      target: round.isPlayerPlaying(ctrl.data) ? '_blank' : null,
+      target: game.isPlayerPlaying(ctrl.data) ? '_blank' : null,
       'data-icon': 'r',
     }, [
       (player.user.title ? player.user.title + ' ' : '') + player.user.username,

@@ -1,7 +1,7 @@
 var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
-var round = require('../round');
-var status = require('../status');
+var game = require('game').game;
+var status = require('game').status;
 var renderStatus = require('../view/status');
 
 function renderTd(move, ply, curPly) {
@@ -39,7 +39,7 @@ function renderTable(ctrl, curPly) {
   });
   if (result) {
     trs.push(m('tr', m('td.result[colspan=3]', result)));
-    var winner = round.getPlayer(ctrl.root.data, ctrl.root.data.game.winner);
+    var winner = game.getPlayer(ctrl.root.data, ctrl.root.data.game.winner);
     trs.push(m('tr.status', m('td[colspan=3]', [
       renderStatus(ctrl.root),
       winner ? ', ' + ctrl.root.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null

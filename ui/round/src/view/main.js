@@ -1,5 +1,5 @@
 var m = require('mithril');
-var round = require('../round');
+var game = require('game').game;
 var chessground = require('chessground');
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
@@ -27,7 +27,7 @@ function renderMaterial(ctrl, material) {
 function blursOf(ctrl, player) {
   if (player.blurs) return m('p', [
     renderUser(ctrl, player, player.color),
-    ' ' + player.blurs.nb + '/' + round.nbMoves(ctrl.data, player.color) + ' blurs = ',
+    ' ' + player.blurs.nb + '/' + game.nbMoves(ctrl.data, player.color) + ' blurs = ',
     m('strong', player.blurs.percent + '%')
   ]);
 }

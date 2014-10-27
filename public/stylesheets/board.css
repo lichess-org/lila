@@ -1030,7 +1030,7 @@ div.table .notyet {
   padding: 4px 0;
   text-align: center;
 }
-div.table .status td {
+.lichess_ground .replay .status td {
   font-size: 1em;
   text-align: center;
   font-style: italic;

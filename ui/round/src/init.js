@@ -1,7 +1,7 @@
 var title = require('./title');
 var blur = require('./blur');
-var round = require('./round');
-var status = require('./status');
+var game = require('game').game;
+var status = require('game').status;
 var keyboard = require('./replay/keyboard');
 
 module.exports = function(ctrl) {
@@ -13,10 +13,10 @@ module.exports = function(ctrl) {
 
   blur.init(ctrl);
 
-  if (round.isPlayerPlaying(d) && round.nbMoves(d, d.player.color) === 0) $.sound.dong();
+  if (game.isPlayerPlaying(d) && game.nbMoves(d, d.player.color) === 0) $.sound.dong();
 
-  if (round.isPlayerPlaying(d)) window.addEventListener('beforeunload', function(e) {
-    if (!lichess.hasToReload && !ctrl.data.blind && round.playable(ctrl.data) && ctrl.data.clock) {
+  if (game.isPlayerPlaying(d)) window.addEventListener('beforeunload', function(e) {
+    if (!lichess.hasToReload && !ctrl.data.blind && game.playable(ctrl.data) && ctrl.data.clock) {
       ctrl.socket.send('bye');
       var msg = 'There is a game in progress!';
       (e || window.event).returnValue = msg;
