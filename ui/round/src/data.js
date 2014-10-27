@@ -7,5 +7,7 @@ module.exports = function(old, cfg) {
     data.clock.showBar = data.pref.clockBar;
   }
 
+  if (cfg.game.moves) data.game.moves = data.game.moves.split(' ');
+
   return data;
 };

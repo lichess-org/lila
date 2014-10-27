@@ -61,7 +61,6 @@ final class JsonView(
               "check" -> game.check.map(_.key),
               "rematch" -> game.next,
               "source" -> game.source.map(sourceJson),
-              "moves" -> game.pgnMoves,
               "status" -> Json.obj(
                 "id" -> pov.game.status.id,
                 "name" -> pov.game.status.name)),
@@ -152,7 +151,7 @@ final class JsonView(
               "check" -> game.check.map(_.key),
               "rematch" -> game.next,
               "source" -> game.source.map(sourceJson),
-              "moves" -> game.pgnMoves,
+              "moves" -> game.pgnMoves.mkString(" "),
               "status" -> Json.obj(
                 "id" -> pov.game.status.id,
                 "name" -> pov.game.status.name)),
