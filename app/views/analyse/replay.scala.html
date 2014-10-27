@@ -1,4 +1,4 @@
-@(pov: Pov, pgn: String, opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], version: Int, chat: Option[lila.chat.UserChat], tour: Option[lila.tournament.Tournament], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable])(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, pgn: String, opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable])(implicit ctx: Context)
 
 @import pov._
 
@@ -9,13 +9,17 @@
 }
 
 @moreJs = {
-@jsAt("vendor/pgn4web/pgn4web-compacted.js")
-@jsTag("vendor/jquery.mousewheel.js")
-@jsTagCompiled("pgn4hacks.js")
 @highchartsTag
 @jsTagCompiled("chart2.js")
-@analysis.map { a =>
-@embedJs(s"var lichess_best_moves=${toJson(a.bestMoves)};")
+@jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+@round.jsRoutes()
+@embedJs {
+lichess = lichess || {};
+lichess.analyse = {
+data: @Html(play.api.libs.json.Json.stringify(data)),
+routes: roundRoutes.controllers,
+i18n: @round.jsI18n()
+};
 }
 }
 
@@ -38,11 +42,13 @@
 @analyse.layout(
 title = title,
 side = views.html.game.side(pov, tour, withTourStanding = false).some,
-chat = chat.map(c => base.chat(c, trans.spectatorRoom.str())),
+chat = base.chatDom(trans.spectatorRoom.str()).some,
 underchat = underchat.some,
 moreCss = moreCss,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov)) {
+<div class="analyse cg-512">@miniBoardContent</div>
+@*
 <div class="analyse clearfix">
   @if(ctx.blindMode) {
   <div id="lichess_board_blind" data-href="@routes.Round.watcherText(gameId, color.name)">
@@ -181,4 +187,5 @@ openGraph = povOpenGraph(pov)) {
   </button>
 </form>
 }
+*@
 }

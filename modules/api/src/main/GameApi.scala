@@ -16,7 +16,8 @@ import makeTimeout.short
 private[api] final class GameApi(
     netBaseUrl: String,
     apiToken: String,
-    pgnDump: PgnDump) {
+    pgnDump: PgnDump,
+    analysisApi: AnalysisApi) {
 
   def list(
     username: Option[String],
@@ -130,23 +131,10 @@ private[api] final class GameApi(
             "sd" -> h.sd
           )
         },
-        "analysis" -> analysisOption.map(_.summary).flatMap(_.find(_._1 == p.color).map(_._2)).map(s =>
-          JsObject(s map {
-            case (nag, nb) => nag.toString.toLowerCase -> JsNumber(nb)
-          })
-        )
+        "analysis" -> analysisOption.flatMap(analysisApi.player(p.color))
       ).noNull
     }),
-    "analysis" -> analysisOption.ifTrue(withAnalysis).|@|(pgnOption).apply {
-      case (analysis, pgn) => JsArray(analysis.infoAdvices zip pgn.moves map {
-        case ((info, adviceOption), move) => Json.obj(
-          "move" -> move.san,
-          "eval" -> info.score.map(_.centipawns),
-          "mate" -> info.mate,
-          "variation" -> info.variation.isEmpty.fold(JsNull, info.variation mkString " ")
-        ).noNull
-      })
-    },
+    "analysis" -> analysisOption.ifTrue(withAnalysis).|@|(pgnOption).apply(analysisApi.game),
     "moves" -> withMoves.option(g.pgnMoves mkString " "),
     "opening" -> withOpening.?? {
       chess.OpeningExplorer.openingOf(g.pgnMoves) map { opening =>

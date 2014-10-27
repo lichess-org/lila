@@ -330,6 +330,7 @@ var storage = {
 
     if (lichess.round) startRound(document.getElementById('lichess'), lichess.round);
     else if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
+    else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
 
     setTimeout(function() {
       if (lichess.socket === null) {
