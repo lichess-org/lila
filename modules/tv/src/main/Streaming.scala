@@ -19,6 +19,12 @@ private final class Streaming(
   def onAir: Fu[List[StreamOnAir]] = {
     import makeTimeout.short
     actor ? Get mapTo manifest[List[StreamOnAir]]
+    // fuccess(List(StreamOnAir(
+    //   service = "twitch",
+    //   name = "test with lichess.org",
+    //   streamer = "thib",
+    //   url = "http://foo.com",
+    //   streamId = "test")))
   }
 
   private[tv] val actor = system.actorOf(Props(new Actor {
