@@ -43,7 +43,7 @@ function holdOf(ctrl, player) {
 }
 
 function visualBoard(ctrl) {
-  return m('div.lichess_board_wrap', ctrl.data.blindMode ? null : [
+  return m('div.lichess_board_wrap', [
     m('div.lichess_board.' + ctrl.data.game.variant.key, {
       onclick: ctrl.data.player.spectator ? toggleDontTouch : null
     }, chessground.view(ctrl.chessground)),

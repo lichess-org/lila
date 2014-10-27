@@ -107,7 +107,7 @@ function renderTablePlay(ctrl) {
 module.exports = function(ctrl) {
   var clockRunningColor = ctrl.isClockRunning() ? ctrl.data.game.player : null;
   return m('div.table_wrap', [
-    (ctrl.clock && !ctrl.data.blindMode) ? renderClock(ctrl.clock, opposite(ctrl.data.player.color), "top", clockRunningColor) : null,
+    (ctrl.clock && !ctrl.data.blind) ? renderClock(ctrl.clock, opposite(ctrl.data.player.color), "top", clockRunningColor) : null,
     m('div', {
       class: 'table' + (status.finished(ctrl.data) ? ' finished' : '')
     }, [
@@ -117,7 +117,7 @@ module.exports = function(ctrl) {
           round.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
         )
       )
-    ]), (ctrl.clock && !ctrl.data.blindMode) ? [
+    ]), (ctrl.clock && !ctrl.data.blind) ? [
       renderClock(ctrl.clock, ctrl.data.player.color, "bottom", clockRunningColor),
       button.moretime(ctrl)
     ] : null
