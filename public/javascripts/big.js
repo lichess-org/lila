@@ -1137,6 +1137,9 @@ var storage = {
       var $incrementInput = $form.find('.increment_choice input');
       var isHook = $form.hasClass('game_config_hook');
       var $ratings = $form.find('.ratings > div');
+      var toggleButtons = function() {
+        $form.find('.color_submits button').toggle(!$clockCheckbox.is(':checked') || $timeInput.val() > 0 || $incrementInput.val() > 0);
+      };
       var showRating = function() {
         var key;
         switch ($variantSelect.val()) {
@@ -1194,8 +1197,7 @@ var storage = {
             $value.text(time);
             $input.attr('value', time);
             showRating();
-            $form.find('.color_submits button').toggle(
-              $timeInput.val() > 0 || $incrementInput.val() > 0);
+            toggleButtons();
           }
         }));
       });
@@ -1233,6 +1235,7 @@ var storage = {
       $clockCheckbox.on('change', function() {
         var checked = $(this).is(':checked');
         $form.find('.time_choice, .increment_choice').toggle(checked);
+        toggleButtons();
         if (isHook && !checked) {
           $casual.click();
         }
