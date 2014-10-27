@@ -1,13 +1,16 @@
 var chessground = require('chessground');
 var round = require('./round');
-var util = require('./util');
+
+function str2move(m) {
+  return m ? [m.slice(0, 2), m.slice(2, 4)] : null;
+}
 
 function makeConfig(data, fen, flip) {
   return {
     fen: fen,
     orientation: flip ? data.opponent.color : data.player.color,
     turnColor: data.game.player,
-    lastMove: util.str2move(data.game.lastMove),
+    lastMove: str2move(data.game.lastMove),
     check: data.game.check,
     coordinates: data.pref.coords !== 0,
     highlight: {
