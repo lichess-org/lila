@@ -493,6 +493,7 @@ div.content_box .loader:after {
   display: none;
 }
 html {
+  position: relative;
   min-height: 100%;
 }
 body {
@@ -506,6 +507,7 @@ body {
   background-image: linear-gradient(to bottom, #d7d7d7 0%, #eeeeee 116px);
   background-repeat: no-repeat;
   overflow-x: hidden;
+  margin: 0 0 150px;
 }
 a,
 a:visited,
@@ -603,10 +605,14 @@ body.tight #site_baseline {
   display: none;
 }
 #footer_wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;
   border-top: 1px solid #c9c9c9;
   background: #e4e4e4;
   padding: 30px 0;
-  margin-top: 60px;
 }
 #footer_wrap div.footer {
   width: 1000px;
