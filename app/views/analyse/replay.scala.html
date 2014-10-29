@@ -85,36 +85,36 @@ openGraph = povOpenGraph(pov)) {
       <a class="button" href="@routes.Round.watcher(n, pov.opponent.color.name)" data-icon="G">&nbsp;@trans.viewRematch()</a>
     </p>
     }
-    <div class="advice_summary">
-      @round.blurs(game)
-      @round.holdAlerts(game)
-      @analysis.filter(_.done).map { a =>
-      <table>
-        @for((color, pairs) <- a.summary) {
-        <thead>
-          <tr>
-            <th colspan="3">
-              @playerLink(pov.game.player(color), withOnline = false, cssClass = Some("player color " + color.name))
-            </th>
-          </tr>
-        </thead>
-        @for((nag, nb) <- pairs) {
-        <tbody>
-          <tr>
-            <th>@nagName(nag)</th>
-            <td><strong>@nb</strong></td>
-            <td><strong>@("%.1f".format(100f * nb / pov.game.playerMoves(color)))</strong>%</td>
-          </tr>
-        </tbody>
-        }
-        }
-      </table>
-      }
-    </div>
   </div>
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
 *@
+<div class="advice_summary" style="display:none">
+  @round.blurs(game)
+  @round.holdAlerts(game)
+  @analysis.filter(_.done).map { a =>
+  <table>
+    @for((color, pairs) <- a.summary) {
+    <thead>
+      <tr>
+        <th colspan="3">
+          @playerLink(pov.game.player(color), withOnline = false, cssClass = Some("player color " + color.name))
+        </th>
+      </tr>
+    </thead>
+    @for((nag, nb) <- pairs) {
+    <tbody>
+      <tr>
+        <th>@nagName(nag)</th>
+        <td><strong>@nb</strong></td>
+        <td><strong>@("%.1f".format(100f * nb / pov.game.playerMoves(color)))</strong>%</td>
+      </tr>
+    </tbody>
+    }
+    }
+  </table>
+  }
+</div>
 <div class="underboard_content" style="display:none">
   <div class="analysis_panels">
     @if(game.analysable) {

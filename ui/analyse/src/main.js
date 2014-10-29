@@ -10,5 +10,13 @@ module.exports = function(element, config, router, i18n, onChange) {
     view: view
   });
 
-  return controller;
+  return {
+    jump: function(ply) {
+      controller.jump(ply);
+      m.redraw();
+    },
+    ply: function() {
+      return controller.vm.ply;
+    }
+  };
 };

@@ -16,26 +16,82 @@ function autoScroll(movelist) {
   if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
 }
 
-function renderTd(ctrl, move, ply) {
-  var analysis = ctrl.data.analysis.moves[ply - 1];
-  return move ? {
-    tag: 'td',
+var emptyMove = m('div.move.empty', '...');
+
+function renderMove(ctrl, move) {
+  if (!move) return emptyMove;
+  return {
+    tag: 'a',
     attrs: {
-      class: 'move' + (ply === ctrl.vm.ply ? ' active' : ''),
-      'data-ply': ply
+      class: 'move' + (move.ply === ctrl.vm.ply ? ' active' : ''),
+      'data-ply': move.ply
     },
     children: [
-      move,
-      analysis.eval ? m('span', renderEval(analysis.eval)) : (
-        analysis.mate ? m('span', '#' + analysis.mate) : null)
+      move.san,
+      move.eval ? m('span', renderEval(move.eval)) : (
+        move.mate ? m('span', '#' + move.mate) : null)
     ]
-  } : null;
+  };
 }
 
-function renderMovelist(ctrl) {
-  var moves = ctrl.data.game.moves;
-  var pairs = [];
-  for (var i = 0; i < moves.length; i += 2) pairs.push([moves[i], moves[i + 1]]);
+function renderVariation(ctrl, variation) {
+  return m('div.variation', variation.map(function(turn) {
+    return renderVariationTurn(ctrl, turn);
+  }));
+}
+
+function renderVariationTurn(ctrl, turn) {
+  var wMove = turn.white ? renderMove(ctrl, turn.white) : null;
+  var bMove = turn.black ? renderMove(ctrl, turn.black) : null;
+  if (turn.white) return [turn.turn + '.', wMove, (turn.black ? [m.trust('&nbsp;'), bMove] : ''), ' '];
+  return [turn.turn + '...', bMove, ' '];
+}
+
+function renderMeta(ctrl, move) {
+  if (!move || !move.comments || !move.variations) return;
+  return [
+    move.comments ? move.comments.map(function(comment) {
+      return m('div.comment', comment);
+    }) : null,
+    move.variations ? move.variations.map(function(variation) {
+      return renderVariation(ctrl, variation);
+    }) : null,
+  ];
+}
+
+function renderTurn(ctrl, turn) {
+  var index = m('div.index', turn.turn);
+  var wMove = turn.white ? renderMove(ctrl, turn.white) : null;
+  var bMove = turn.black ? renderMove(ctrl, turn.black) : null;
+  var wMeta = renderMeta(ctrl, turn.white);
+  var bMeta = renderMeta(ctrl, turn.black);
+  if (turn.white) {
+    if (turn.white.comments || turn.white.variations) return [
+      m('div.turn', [index, wMove, emptyMove]),
+      wMeta,
+      turn.black ? [
+        m('div.turn', [index, emptyMove, bMove]),
+        bMeta
+      ] : null,
+    ];
+    return [
+      m('div.turn', [index, wMove, bMove]),
+      bMeta
+    ];
+  }
+  return [
+    m('div.turn', [index, emptyMove, bMove]),
+    bMeta
+  ];
+}
+
+function renderTurns(ctrl, turns) {
+  return turns.map(function(turn) {
+    return renderTurn(ctrl, turn);
+  });
+}
+
+function renderAnalyse(ctrl) {
   var result;
   if (ctrl.data.game.status.id >= 30) switch (ctrl.data.game.winner) {
     case 'white':
@@ -47,29 +103,23 @@ function renderMovelist(ctrl) {
     default:
       result = '½-½';
   }
-  var trs = pairs.map(function(pair, i) {
-    return m('tr', [
-      m('td.index', i + 1),
-      renderTd(ctrl, pair[0], 2 * i + 1),
-      renderTd(ctrl, pair[1], 2 * i + 2)
-    ]);
-  });
+  var turns = renderTurns(ctrl, ctrl.analyse.turns);
   if (result) {
-    trs.push(m('tr', m('td.result[colspan=3]', result)));
+    turns.push(m('div.result', result));
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
-    trs.push(m('tr.status', m('td[colspan=3]', [
+    turns.push(m('div.status', [
       renderStatus(ctrl),
       winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
-    ])));
+    ]));
   }
-  return m('table',
-    m('tbody', {
-        onclick: function(e) {
-          var ply = e.target.getAttribute('data-ply') || e.target.parentNode.getAttribute('data-ply');
-          if (ply) ctrl.jump(parseInt(ply));
-        }
-      },
-      trs));
+  return m('div.analyse', {
+      onclick: function(e) {
+        var ply = e.target.getAttribute('data-ply') || e.target.parentNode.getAttribute('data-ply');
+        if (ply) ctrl.jump(parseInt(ply));
+        m.redraw();
+      }
+    },
+    turns);
 }
 
 function visualBoard(ctrl) {
@@ -154,14 +204,12 @@ module.exports = function(ctrl) {
                 if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
               }
             },
-            renderMovelist(ctrl)))
+            renderAnalyse(ctrl)))
       ])
     ]),
     m('div.underboard', [
       m('div.center', buttons(ctrl)),
-      m('div.right', [
-        [ctrl.data.opponent, ctrl.data.player].map(partial(mod.blursOf, ctrl)), [ctrl.data.opponent, ctrl.data.player].map(partial(mod.holdOf, ctrl))
-      ])
+      m('div.right')
     ])
   ];
 };

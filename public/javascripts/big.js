@@ -339,11 +339,6 @@ var storage = {
       $.idleTimer(lichess.idleTime, lichess.socket.destroy.bind(lichess.socket), lichess.socket.connect.bind(lichess.socket));
     }, 200);
 
-    var $board = $('div.with_marks');
-    if ($board.length > 0) {
-      $.displayBoardMarks($board.parent(), $('#lichess > div.pov_white').length);
-    }
-
     // themepicker
     var $body = $('body');
     $('#themepicker_toggle').one('click', function() {
@@ -650,22 +645,6 @@ var storage = {
 
   $.trans = function(text) {
     return lichess_translations[text] ? lichess_translations[text] : text;
-  };
-
-  $.displayBoardMarks = function($board, isWhite) {
-    var factor = 1,
-      base = 0;
-    if (!isWhite) {
-      factor = -1;
-      base = 575;
-    }
-    var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
-      marks = '';
-    for (i = 1; i < 9; i++) {
-      marks += '<span class="board_mark vert" style="bottom:' + (factor * i * 64 - 38 + base) + 'px;">' + i + '</span>';
-      marks += '<span class="board_mark horz" style="left:' + (factor * i * 64 - 35 + base) + 'px;">' + letters[i - 1] + '</span>';
-    }
-    $board.remove('span.board_mark').append(marks);
   };
 
   function urlToLink(text) {
@@ -1850,7 +1829,7 @@ var storage = {
       messages: data.chat
     });
     var $watchers = $('#site_header div.watchers').watchers();
-    var $panels;
+    var analyse, $panels;
     lichess.socket = new lichess.StrongSocket(
       data.url.socket,
       data.player.version, {
@@ -1863,7 +1842,7 @@ var storage = {
         events: {
           analysisAvailable: function() {
             $.sound.dong();
-            location.href = location.href.split('#')[0] + '#' + CurrentPly;
+            location.href = location.href.split('#')[0] + '#' + analyse.ply();
             location.reload();
           },
           crowd: function(event) {
@@ -1872,8 +1851,8 @@ var storage = {
         }
       });
 
-    var analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, function(fen, ply) {
-      $(element).find('input.fen').val(fen);
+    analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, function(fen, ply) {
+      $('input.fen', element).val(fen);
       var $chart = $("#adv_chart");
       if ($chart.length) {
         var chart = $chart.highcharts();
@@ -1900,6 +1879,7 @@ var storage = {
     lichess.analyse.jump = analyse.jump;
 
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
+    $('.advice_summary', element).appendTo($('.underboard .right', element)).show();
 
     $panels = $('div.analysis_panels > div');
     $('div.analysis_menu').on('click', 'a', function() {
