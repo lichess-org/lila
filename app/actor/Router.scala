@@ -31,7 +31,7 @@ private[app] final class Router(
     case User(username)         => sender ! R.User.show(username).url
     case Player(fullId)         => sender ! R.Round.player(fullId).url
     case Watcher(gameId, color) => sender ! R.Round.watcher(gameId, color).url
-    case Pgn(gameId)            => sender ! R.Analyse.pgn(gameId).url
+    case Pgn(gameId)            => sender ! R.Export.pgn(gameId).url
     case Tourney(tourId)        => sender ! R.Tournament.show(tourId).url
     case Puzzle(id)             => sender ! R.Puzzle.show(id).url
 

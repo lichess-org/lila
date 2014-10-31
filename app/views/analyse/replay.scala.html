@@ -138,14 +138,14 @@ openGraph = povOpenGraph(pov)) {
   <div class="panel fen_pgn">
     <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen" /></p>
     <p><strong>PGN</strong>
-      <a data-icon="x" href="@routes.Analyse.pgn(game.id)"> Download annotated</a>
+      <a data-icon="x" href="@routes.Export.pgn(game.id)"> Download annotated</a>
       @if(analysis.isDefined) {
       /
-      <a data-icon="x" href="@routes.Analyse.pgn(game.id)?as=raw"> Download raw</a>
+      <a data-icon="x" href="@routes.Export.pgn(game.id)?as=raw"> Download raw</a>
       }
       @if(game.isPgnImport) {
       /
-      <a data-icon="x" href="@routes.Analyse.pgn(game.id)?as=imported"> Download imported</a>
+      <a data-icon="x" href="@routes.Export.pgn(game.id)?as=imported"> Download imported</a>
       }
     </p>
     <div class="pgn">@Html(nl2br(escape(pgn)))</div>
@@ -173,7 +173,7 @@ openGraph = povOpenGraph(pov)) {
   }
   }
   <a data-panel="fen_pgn">FEN &amp; PGN</a>
-  <a target="_blank" href="@cdnUrl(routes.Analyse.pdf(game.id).url)">Print</a>
+  <a target="_blank" href="@cdnUrl(routes.Export.pdf(game.id).url)">Print</a>
 </div>
 @analysis.filter(_.old && ctx.isAuth).map { a =>
 <form class="better_analysis" action="@routes.Analyse.betterAnalysis(gameId, color.name)" method="post">

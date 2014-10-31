@@ -13,3 +13,6 @@
 [submodule "submodules/pdfexporter"]
 	path = submodules/pdfexporter
 	url = https://github.com/clarkerubber/lichessPDFExporter
+[submodule "submodules/boardcreator"]
+	path = submodules/boardcreator
+	url = https://github.com/clarkerubber/board-creator

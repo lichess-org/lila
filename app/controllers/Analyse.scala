@@ -6,7 +6,6 @@ import akka.pattern.ask
 import play.api.http.ContentTypes
 import play.api.mvc._
 import play.twirl.api.Html
-import play.api.libs.iteratee.{ Iteratee, Enumerator }
 
 import lila.analyse.{ Analysis, TimeChart, AdvantageChart }
 import lila.api.Context
@@ -76,29 +75,6 @@ object Analyse extends LilaController {
             crosstable))
         }
       }
-
-  def pgn(id: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo game id) { game =>
-      (game.pgnImport.ifTrue(~get("as") == "imported") match {
-        case Some(i) => fuccess(i.pgn)
-        case None => for {
-          pgn ← Env.game.pgnDump(game)
-          analysis ← (~get("as") != "raw") ?? (env.analyser getDone game.id)
-        } yield Env.analyse.annotator(pgn, analysis, gameOpening(game), game.winnerColor, game.status, game.clock).toString
-      }) map { content =>
-        Ok(content).withHeaders(
-          CONTENT_TYPE -> ContentTypes.TEXT,
-          CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.game.pgnDump filename game)))
-      }
-    }
-  }
-
-  def pdf(id: String) = Open { implicit ctx =>
-    OptionResult(GameRepo game id) { game =>
-      Ok.chunked(Enumerator.outputStream(Env.game.pdfExport(game.id))).withHeaders(
-        CONTENT_TYPE -> ContentTypes.withCharset("application/pdf"))
-    }
-  }
 
   private def gameOpening(game: GameModel) =
     if (game.fromPosition || game.variant.exotic) none

@@ -29,6 +29,7 @@ final class Env(
     val UciMemoTtl = config duration "uci_memo.ttl"
     val netBaseUrl = config getString "net.base_url"
     val PdfExecPath = config getString "pdf.exec_path"
+    val PngExecPath = config getString "png.exec_path"
   }
   import settings._
 
@@ -37,6 +38,8 @@ final class Env(
   private[game] lazy val gameColl = db(CollectionGame)
 
   lazy val pdfExport = PdfExport(PdfExecPath) _
+
+  lazy val pngExport = PngExport(PngExecPath) _
 
   lazy val cached = new Cached(ttl = CachedNbTtl)
 
