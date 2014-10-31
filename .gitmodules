@@ -10,3 +10,6 @@
 [submodule "public/staunton"]
 	path = public/staunton
 	url = https://github.com/clarkerubber/Staunton-Pieces
+[submodule "submodules/pdfexporter"]
+	path = submodules/pdfexporter
+	url = https://github.com/clarkerubber/lichessPDFExporter

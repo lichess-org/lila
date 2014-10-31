@@ -138,6 +138,8 @@ POST  /$gameId<\w{8}>/better-analysis/$color<white|black> controllers.Analyse.be
 POST  /$gameId<\w{8}>/post-analysis       controllers.Analyse.postAnalysis(gameId: String)
 GET   /$gameId<\w{8}>/pgn                 controllers.Analyse.pgn(gameId: String)
 
+GET   /game/pdf/$gameId<\w{8}>                 controllers.Analyse.pdf(gameId: String)
+
 # Pref
 POST  /pref/:name                      controllers.Pref.set(name: String)
 GET   /account/preferences             controllers.Pref.form

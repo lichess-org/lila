@@ -6,6 +6,7 @@ import akka.pattern.ask
 import play.api.http.ContentTypes
 import play.api.mvc._
 import play.twirl.api.Html
+import play.api.libs.iteratee.{ Iteratee, Enumerator }
 
 import lila.analyse.{ Analysis, TimeChart, AdvantageChart }
 import lila.api.Context
@@ -89,6 +90,13 @@ object Analyse extends LilaController {
           CONTENT_TYPE -> ContentTypes.TEXT,
           CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.game.pgnDump filename game)))
       }
+    }
+  }
+
+  def pdf(id: String) = Open { implicit ctx =>
+    OptionResult(GameRepo game id) { game =>
+      Ok.chunked(Enumerator.outputStream(Env.game.pdfExport(game.id))).withHeaders(
+        CONTENT_TYPE -> ContentTypes.withCharset("application/pdf"))
     }
   }
 
