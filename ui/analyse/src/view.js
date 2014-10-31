@@ -16,7 +16,7 @@ function autoScroll(movelist) {
   if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
 }
 
-var emptyMove = m('div.move.empty', '...');
+var emptyMove = m('em.move.empty', '...');
 
 function renderMove(ctrl, move) {
   if (!move) return emptyMove;
@@ -115,8 +115,10 @@ function renderAnalyse(ctrl) {
   return m('div.analyse', {
       onclick: function(e) {
         var ply = e.target.getAttribute('data-ply') || e.target.parentNode.getAttribute('data-ply');
-        if (ply) ctrl.jump(parseInt(ply));
-        m.redraw();
+        if (ply) {
+          ctrl.jump(parseInt(ply));
+          m.redraw();
+        }
       }
     },
     turns);
