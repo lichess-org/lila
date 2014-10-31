@@ -14,6 +14,7 @@ trait AssetHelper {
 
   val assetBaseUrl = s"http://$assetDomain"
 
+  def cdnUrl(path: String) = s"$assetBaseUrl$path"
   def staticUrl(path: String) = s"$assetBaseUrl${routes.Assets.at(path)}"
 
   def cssTag(name: String, staticDomain: Boolean = true) = cssAt("stylesheets/" + name, staticDomain)
