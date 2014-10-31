@@ -50,4 +50,25 @@ module.exports = function(game, analysis) {
 
   this.turns = makeTurns(game.moves, 1);
   if (analysis) applyAnalysis(this.turns, analysis.moves);
+
+  var moveList = function(path) {
+    var turns = this.turns;
+    var moves = [];
+    path.forEach(function(step) {
+      turns.forEach(function(turn) {
+        ['white', 'black'].forEach(function(color) {
+          if (!turn[color].ply) return;
+          if (step.ply > turn[color].ply)
+            moves.push(turn[color].san);
+          else if (step.ply === turn[color].ply) {
+            if (typeof step.variation !== 'undefined')
+              turns = turn[color].variations[step.variation];
+            else
+              moves.push(turn[color].san);
+          }
+        });
+      });
+    });
+    return moves;
+  };
 }
