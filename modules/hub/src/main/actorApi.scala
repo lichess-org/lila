@@ -43,7 +43,6 @@ case object GetUids
 package report {
 case class Cheater(userId: String, text: String)
 case class Check(userId: String)
-case class Blocked(userId: String, blocked: Int, followed: Int)
 }
 
 package mod {

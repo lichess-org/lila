@@ -20,7 +20,7 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
         reason = reason,
         text = setup.text,
         createdBy = by)
-      !isAlreadySlayed(report, user) ?? {
+      !isAlreadySlain(report, user) ?? {
         findRecent(user, reason) flatMap {
           case Some(existing) if update =>
             $update($select(existing.id), $set("text" -> report.text))
@@ -28,13 +28,13 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
             logger.info(s"skip existing report creation: $reason $user")
             funit
           case None => $insert(report) >>- {
-            if (report.isCheat && report.isManual) evaluator ! user
+            if (report.isCheat) evaluator ! user
           }
         }
       }
     }
 
-  private def isAlreadySlayed(report: Report, user: User) =
+  private def isAlreadySlain(report: Report, user: User) =
     (report.isCheat && user.engine) ||
       (report.isAutomatic && report.isOther && user.troll) ||
       (report.isTroll && user.troll)
@@ -48,19 +48,6 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
         text = text,
         gameId = "",
         move = ""), lichess, update = true)
-      case _ => funit
-    }
-  }
-
-  def autoBlockReport(userId: String, blocked: Int, followed: Int): Funit = {
-    logger.info(s"auto block report $userId: $blocked blockers & $followed followers")
-    UserRepo byId userId zip UserRepo.lichess flatMap {
-      case (Some(user), Some(lichess)) => create(ReportSetup(
-        user = user,
-        reason = "other",
-        text = s"[AUTOREPORT] Blocked $blocked times, followed by $followed players",
-        gameId = "",
-        move = ""), lichess)
       case _ => funit
     }
   }
