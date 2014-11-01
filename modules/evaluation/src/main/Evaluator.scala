@@ -119,7 +119,7 @@ final class Evaluator(
     val command = s"""$script $userId ${deep.fold("true", "false")} $token $apiUrl/"""
     Try {
       import scala.sys.process._
-      command!!
+      command.!!
     } match {
       case Failure(e) => Failure(new Exception(s"$command $e"))
       case x          => x

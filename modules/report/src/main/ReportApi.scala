@@ -12,7 +12,7 @@ import tube.reportTube
 
 private[report] final class ReportApi(evaluator: ActorSelection) {
 
-  def create(setup: ReportSetup, by: User, update: Boolean = false): Funit =
+  def create(setup: ReportSetup, by: User): Funit =
     Reason(setup.reason).fold[Funit](fufail("Invalid report reason " + setup.reason)) { reason =>
       val user = setup.user
       val report = Report.make(
@@ -21,16 +21,12 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
         text = setup.text,
         createdBy = by)
       !isAlreadySlain(report, user) ?? {
-        findRecent(user, reason) flatMap {
-          case Some(existing) if update =>
-            $update($select(existing.id), $set("text" -> report.text))
-          case Some(_) =>
-            logger.info(s"skip existing report creation: $reason $user")
-            funit
-          case None => $insert(report) >>- {
-            if (report.isCheat) evaluator ! user
+        reportTube.coll.update(
+          selectRecent(user, reason),
+          reportTube.toMongo(report).get,
+          upsert = true) map { res =>
+            if (report.isCheat && !res.updatedExisting) evaluator ! user
           }
-        }
       }
     }
 
@@ -47,7 +43,7 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
         reason = "cheat",
         text = text,
         gameId = "",
-        move = ""), lichess, update = true)
+        move = ""), lichess)
       case _ => funit
     }
   }
@@ -71,11 +67,13 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
 
   def recentProcessed(nb: Int) = $find($query(processedSelect) sort $sort.createdDesc, nb)
 
+  private def selectRecent(user: User, reason: Reason) = Json.obj(
+    "createdAt" -> $gt($date(DateTime.now minusDays 3)),
+    "user" -> user.id,
+    "reason" -> reason.name)
+
   private def findRecent(user: User, reason: Reason): Fu[Option[Report]] =
-    $find.one(Json.obj(
-      "createdAt" -> $gt($date(DateTime.now minusDays 3)),
-      "user" -> user.id,
-      "reason" -> reason.name))
+    $find.one(selectRecent(user, reason))
 
   private val logger = play.api.Logger("report")
 }
