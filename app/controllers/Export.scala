@@ -31,14 +31,16 @@ object Export extends LilaController {
   def pdf(id: String) = Open { implicit ctx =>
     OptionResult(GameRepo game id) { game =>
       Ok.chunked(Enumerator.outputStream(env.pdfExport(game.id))).withHeaders(
-        CONTENT_TYPE -> "application/pdf")
+        CONTENT_TYPE -> "application/pdf",
+        CACHE_CONTROL -> "max-age=7200")
     }
   }
 
   def png(id: String) = Open { implicit ctx =>
     OptionResult(GameRepo game id) { game =>
       Ok.chunked(Enumerator.outputStream(env.pngExport(game))).withHeaders(
-        CONTENT_TYPE -> "image/png")
+        CONTENT_TYPE -> "image/png",
+        CACHE_CONTROL -> "max-age=7200")
     }
   }
 
