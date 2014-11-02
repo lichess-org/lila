@@ -3,20 +3,11 @@
 
 mkdir -p public/compiled
 
-cd ui/editor
-npm install
-gulp prod
-cd -
-
-cd ui/puzzle
-npm install
-gulp prod
-cd -
-
-cd ui/round
-npm install
-gulp prod
-cd -
+for app in editor puzzle round analyse; do
+  cd ui/$app
+  npm install && gulp dev && gulp prod
+  cd -
+done
 
 for file in strongSocket.js tv.js common.js big.js chart2.js user.js coordinate.js pgn4hacks.js; do
   orig=public/javascripts/$file
@@ -26,9 +17,3 @@ for file in strongSocket.js tv.js common.js big.js chart2.js user.js coordinate.
     closure --js $orig --js_output_file $comp
   fi
 done
-
-pgn4web_output=public/vendor/pgn4web/pgn4web-compacted.js
-if [ ! -f $pgn4web_output ]; then
-  lilalog "Compiling pgn4web javascript"
-  closure --js public/vendor/pgn4web/pgn4web.js --js_output_file $pgn4web_output
-fi
