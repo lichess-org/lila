@@ -147,6 +147,8 @@ openGraph = povOpenGraph(pov)) {
       /
       <a data-icon="x" href="@routes.Export.pgn(game.id)?as=imported"> Download imported</a>
       }
+      /
+      <a data-icon="x" target="_blank" href="@cdnUrl(routes.Export.pdf(game.id).url)"> Print-friendly PDF</a>
     </p>
     <div class="pgn">@Html(nl2br(escape(pgn)))</div>
   </div>
@@ -173,7 +175,6 @@ openGraph = povOpenGraph(pov)) {
   }
   }
   <a data-panel="fen_pgn">FEN &amp; PGN</a>
-  <a target="_blank" href="@cdnUrl(routes.Export.pdf(game.id).url)">Print</a>
 </div>
 @analysis.filter(_.old && ctx.isAuth).map { a =>
 <form class="better_analysis" action="@routes.Analyse.betterAnalysis(gameId, color.name)" method="post">
