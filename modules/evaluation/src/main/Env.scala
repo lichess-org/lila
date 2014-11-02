@@ -10,14 +10,14 @@ final class Env(
     system: ActorSystem) {
 
   private val CollectionEvaluation = config getString "collection.evaluation"
-  private val EvaluatorScriptPath = config getString "evaluator.script_path"
+  private val EvaluatorExecPath = config getString "evaluator.exec_path"
   private val ActorName = config getString "actor.name"
   private val ApiToken = config getString "api.token"
   private val ApiUrl = config getString "api.url"
 
   lazy val evaluator = new Evaluator(
     coll = db(CollectionEvaluation),
-    script = EvaluatorScriptPath,
+    execPath = EvaluatorExecPath,
     reporter = hub.actor.report,
     analyser = hub.actor.analyser,
     marker = hub.actor.mod,

@@ -16,3 +16,6 @@
 [submodule "submodules/boardcreator"]
 	path = submodules/boardcreator
 	url = https://github.com/clarkerubber/board-creator
+[submodule "submodules/evaluator"]
+	path = submodules/evaluator
+	url = https://github.com/clarkerubber/engine-evaluator

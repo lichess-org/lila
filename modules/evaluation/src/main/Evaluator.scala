@@ -19,7 +19,7 @@ import lila.user.{ User, UserRepo, Perfs }
 
 final class Evaluator(
     coll: Coll,
-    script: String,
+    execPath: String,
     reporter: ActorSelection,
     analyser: ActorSelection,
     marker: ActorSelection,
@@ -116,12 +116,13 @@ final class Evaluator(
     }
 
   private def run(userId: String, deep: Boolean): Try[String] = {
-    val command = s"""$script $userId ${deep.fold("true", "false")} $token $apiUrl/"""
+    import scala.sys.process._
+    import java.io.File
+    val exec = Process(Seq("php", "engine-evaluator.php", userId, deep.fold("true", "false"), token, s"$apiUrl/"), new File(execPath))
     Try {
-      import scala.sys.process._
-      command.!!
+      exec.!!
     } match {
-      case Failure(e) => Failure(new Exception(s"$command $e"))
+      case Failure(e) => Failure(new Exception(s"$exec $e"))
       case x          => x
     }
   }
