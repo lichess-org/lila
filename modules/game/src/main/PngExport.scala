@@ -6,17 +6,13 @@ import scala.sys.process._
 
 object PngExport {
 
-  private val logger = ProcessLogger(
-    x => play.api.Logger("png").info(x),
-    x => play.api.Logger("png").error(x))
+  private val logger = ProcessLogger(_ => (), _ => ())
 
   def apply(execPath: String)(game: Game)(out: OutputStream) {
     val fen = (Forsyth >> game.toChess).split(' ').head
     val color = game.firstColor.letter.toString
     val lastMove = ~game.castleLastMoveTime.lastMoveString
-    val parts = Seq("php", "board-creator.php", fen, color, lastMove)
-    val exec = Process(parts, new File(execPath))
-    play.api.Logger("png").warn(parts mkString " ")
+    val exec = Process(Seq("php", "board-creator.php", fen, color, lastMove), new File(execPath))
     exec #> out ! logger
   }
 }
