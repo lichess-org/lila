@@ -1969,6 +1969,7 @@ var storage = {
     var $panels = $('div.analysis_panels > div');
     $('div.analysis_menu').on('click', 'a', function() {
       var panel = $(this).data('panel');
+      if (!panel) return;
       $(this).siblings('.active').removeClass('active').end().addClass('active');
       $panels.removeClass('active').filter('.' + panel).addClass('active');
       if (panel == 'move_times') try {

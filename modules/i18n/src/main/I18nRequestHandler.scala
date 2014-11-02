@@ -6,12 +6,18 @@ import play.api.mvc.{ Action, RequestHeader, Handler }
 
 import lila.common.HTTPRequest
 
-final class I18nRequestHandler(pool: I18nPool, protocol: String) {
+final class I18nRequestHandler(
+    pool: I18nPool,
+    protocol: String,
+    cdnDomain: String) {
 
   def apply(req: RequestHeader): Option[Handler] =
-    (HTTPRequest.isRedirectable(req) && !pool.domainLang(req).isDefined) option Action {
-      Redirect(redirectUrl(req))
-    }
+    (HTTPRequest.isRedirectable(req) &&
+      !pool.domainLang(req).isDefined &&
+      req.host != cdnDomain
+    ) option Action {
+        Redirect(redirectUrl(req))
+      }
 
   private def redirectUrl(req: RequestHeader) =
     protocol +

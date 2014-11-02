@@ -114,61 +114,28 @@ openGraph = povOpenGraph(pov)) {
     }
   </table>
   }
-</div>
-<div class="underboard_content" style="display:none">
-  <div class="analysis_panels">
-    @if(game.analysable) {
-    <div class="panel computer_analysis">
-      @analysis.map { a =>
-      @advantageChart.map { chart =>
-      <div
-        id="adv_chart"
-        data-title="Advantage (up: white, down: black)"
-        data-max="@lila.analyse.AdvantageChart.max"
-        data-rows="@chart"></div>
-      }.getOrElse {
-      @analyse.computing()
+  <div class="panel fen_pgn">
+    <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen" /></p>
+    <p><strong>PGN</strong>
+      <a data-icon="x" href="@routes.Export.pgn(game.id)"> Download annotated</a>
+      @if(analysis.isDefined) {
+      /
+      <a data-icon="x" href="@routes.Export.pgn(game.id)?as=raw"> Download raw</a>
       }
-      }.getOrElse {
-      @if(analysis.isEmpty) {
-      <form class="future_game_analysis@if(ctx.isAnon) {  must_login }" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
-        <button type="submit" class="button"><span class="is3" data-icon="A"> @trans.requestAComputerAnalysis()</span></button>
-      </form>
+      @if(game.isPgnImport) {
+      /
+      <a data-icon="x" href="@routes.Export.pgn(game.id)?as=imported"> Download imported</a>
       }
-      }
-      <div class="view_game_analysis future_game_analysis" data-href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-        <a class="button" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-          <span class="is3" data-icon="A"> @trans.viewTheComputerAnalysis()</span>
-        </a>
-      </div>
-    </div>
-    }
-    <div class="panel fen_pgn">
-      <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen" /></p>
-      <p><strong>PGN</strong>
-        <a data-icon="x" href="@routes.Analyse.pgn(game.id)"> Download annotated</a>
-        @if(analysis.isDefined) {
-        /
-        <a data-icon="x" href="@routes.Analyse.pgn(game.id)?as=raw"> Download raw</a>
-        }
-        @if(game.isPgnImport) {
-        /
-        <a data-icon="x" href="@routes.Analyse.pgn(game.id)?as=imported"> Download imported</a>
-        }
-      </p>
-      <div class="pgn">@Html(nl2br(escape(pgn)))</div>
-    </div>
-    <div class="panel move_times">
-      <div
-        id="movetimes_chart"
-        data-series="@timeChart.series"
-        data-max="@timeChart.maxTime"></div>
-    </div>
-    @cross.map { c =>
-    <div class="panel crosstable">
-      @views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov))
-    </div>
-    }
+      /
+      <a data-icon="x" target="_blank" href="@cdnUrl(routes.Export.pdf(game.id).url)"> Print-friendly PDF</a>
+    </p>
+    <div class="pgn">@Html(nl2br(escape(pgn)))</div>
+  </div>
+  <div class="panel move_times">
+    <div
+      id="movetimes_chart"
+      data-series="@timeChart.series"
+      data-max="@timeChart.maxTime"></div>
   </div>
   <div class="analysis_menu">
     @if(game.analysable) {

@@ -12,7 +12,7 @@ import tube.reportTube
 
 private[report] final class ReportApi(evaluator: ActorSelection) {
 
-  def create(setup: ReportSetup, by: User, update: Boolean = false): Funit =
+  def create(setup: ReportSetup, by: User): Funit =
     Reason(setup.reason).fold[Funit](fufail("Invalid report reason " + setup.reason)) { reason =>
       val user = setup.user
       val report = Report.make(
@@ -20,21 +20,17 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
         reason = reason,
         text = setup.text,
         createdBy = by)
-      !isAlreadySlayed(report, user) ?? {
-        findRecent(user, reason) flatMap {
-          case Some(existing) if update =>
-            $update($select(existing.id), $set("text" -> report.text))
-          case Some(_) =>
-            logger.info(s"skip existing report creation: $reason $user")
-            funit
-          case None => $insert(report) >>- {
-            if (report.isCheat && report.isManual) evaluator ! user
+      !isAlreadySlain(report, user) ?? {
+        reportTube.coll.update(
+          selectRecent(user, reason),
+          reportTube.toMongo(report).get,
+          upsert = true) map { res =>
+            if (report.isCheat && !res.updatedExisting) evaluator ! user
           }
-        }
       }
     }
 
-  private def isAlreadySlayed(report: Report, user: User) =
+  private def isAlreadySlain(report: Report, user: User) =
     (report.isCheat && user.engine) ||
       (report.isAutomatic && report.isOther && user.troll) ||
       (report.isTroll && user.troll)
@@ -46,19 +42,6 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
         user = user,
         reason = "cheat",
         text = text,
-        gameId = "",
-        move = ""), lichess, update = true)
-      case _ => funit
-    }
-  }
-
-  def autoBlockReport(userId: String, blocked: Int, followed: Int): Funit = {
-    logger.info(s"auto block report $userId: $blocked blockers & $followed followers")
-    UserRepo byId userId zip UserRepo.lichess flatMap {
-      case (Some(user), Some(lichess)) => create(ReportSetup(
-        user = user,
-        reason = "other",
-        text = s"[AUTOREPORT] Blocked $blocked times, followed by $followed players",
         gameId = "",
         move = ""), lichess)
       case _ => funit
@@ -84,11 +67,13 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
 
   def recentProcessed(nb: Int) = $find($query(processedSelect) sort $sort.createdDesc, nb)
 
+  private def selectRecent(user: User, reason: Reason) = Json.obj(
+    "createdAt" -> $gt($date(DateTime.now minusDays 3)),
+    "user" -> user.id,
+    "reason" -> reason.name)
+
   private def findRecent(user: User, reason: Reason): Fu[Option[Report]] =
-    $find.one(Json.obj(
-      "createdAt" -> $gt($date(DateTime.now minusDays 3)),
-      "user" -> user.id,
-      "reason" -> reason.name))
+    $find.one(selectRecent(user, reason))
 
   private val logger = play.api.Logger("report")
 }

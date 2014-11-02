@@ -63,6 +63,7 @@ openGraph = Map(
 'description -> describeUser(u))) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
+    @if(!u.engine) {
     @info.ranks.map {
     case (perf, rank) if rank == 1 => {
     <span class="trophy hint--left" data-hint="@PerfType.name(perf) Champion!">
@@ -85,6 +86,7 @@ openGraph = Map(
     </span>
     }
     case _ => {}
+    }
     }
     <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" } data-icon="r"></span> @u.titleUsername</h1>
     @if(u.disabled) {

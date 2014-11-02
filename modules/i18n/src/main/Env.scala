@@ -22,6 +22,7 @@ final class Env(
     val CollectionTranslation = config getString "collection.translation"
     val ContextGitUrl = config getString "context.git.url"
     val ContextGitFile = config getString "context.git.file"
+    val CdnDomain = config getString "cdn_domain"
   }
   import settings._
 
@@ -40,7 +41,10 @@ final class Env(
 
   lazy val keys = new I18nKeys(translator)
 
-  lazy val requestHandler = new I18nRequestHandler(pool, RequestHandlerProtocol)
+  lazy val requestHandler = new I18nRequestHandler(
+    pool,
+    RequestHandlerProtocol,
+    CdnDomain)
 
   lazy val jsDump = new JsDump(
     path = appPath + "/" + WebPathRelative,

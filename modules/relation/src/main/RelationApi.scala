@@ -7,7 +7,6 @@ import lila.db.api._
 import lila.db.Implicits._
 import lila.game.GameRepo
 import lila.hub.actorApi.relation.ReloadOnlineFriends
-import lila.hub.actorApi.report.Blocked
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
@@ -79,10 +78,7 @@ final class RelationApi(
       case Some(Block) => funit
       case _ => RelationRepo.block(u1, u2) >> limitBlock(u1) >> refresh(u1, u2) >>-
         bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation) >>-
-        (nbBlockers(u2) zip nbFollowers(u2)).andThen {
-          case Success((blockers, followers)) if blockers >= 20 && blockers > followers =>
-            reporter ! Blocked(u2, blockers, followers)
-        }
+        (nbBlockers(u2) zip nbFollowers(u2))
     }
 
   def unfollow(u1: ID, u2: ID): Funit =
