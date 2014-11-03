@@ -51,20 +51,22 @@ object Round extends LilaController with TheftPrevention {
 
   def player(fullId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo pov fullId) { pov =>
-      if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
       negotiate(
-        html = pov.game.started.fold(
-          PreventTheft(pov) {
-            (pov.game.tournamentId ?? TournamentRepo.byId) zip
-              Env.game.crosstableApi(pov.game) flatMap {
-                case (tour, crosstable) =>
-                  Env.api.roundApi.player(pov, Env.api.version) map { data =>
-                    Ok(html.round.player(pov, data, tour = tour, cross = crosstable))
-                  }
-              }
-          },
-          Redirect(routes.Setup.await(fullId)).fuccess
-        ),
+        html = {
+          if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
+          pov.game.started.fold(
+            PreventTheft(pov) {
+              (pov.game.tournamentId ?? TournamentRepo.byId) zip
+                Env.game.crosstableApi(pov.game) flatMap {
+                  case (tour, crosstable) =>
+                    Env.api.roundApi.player(pov, Env.api.version) map { data =>
+                      Ok(html.round.player(pov, data, tour = tour, cross = crosstable))
+                    }
+                }
+            },
+            Redirect(routes.Setup.await(fullId)).fuccess
+          )
+        },
         api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { Ok(_) }
       )
     }
