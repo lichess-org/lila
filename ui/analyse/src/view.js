@@ -5,6 +5,7 @@ var game = require('game').game;
 var partial = require('chessground').util.partial;
 var renderStatus = require('game').view.status;
 var mod = require('game').view.mod;
+var treePath = require('./path');
 
 function renderEval(e) {
   e = Math.round(e / 10) / 10;
@@ -18,13 +19,15 @@ function autoScroll(movelist) {
 
 var emptyMove = m('em.move.empty', '...');
 
-function renderMove(ctrl, move) {
+function renderMove(ctrl, move, path) {
   if (!move) return emptyMove;
+  treePath.setPly(path, move.ply);
+  var pathStr = treePath.write(path);
   return {
     tag: 'a',
     attrs: {
-      class: 'move' + (move.ply === ctrl.vm.ply ? ' active' : ''),
-      'data-ply': move.ply
+      class: 'move' + (pathStr === ctrl.vm.pathStr ? ' active' : ''),
+      'data-path': pathStr
     },
     children: [
       move.san,
@@ -34,37 +37,54 @@ function renderMove(ctrl, move) {
   };
 }
 
-function renderVariation(ctrl, variation) {
-  return m('div.variation', variation.map(function(turn) {
-    return renderVariationTurn(ctrl, turn);
+function plyToTurn(ply) {
+  return Math.floor((ply - 1) / 2) + 1;
+}
+
+function renderVariation(ctrl, variation, path) {
+  var turns = [];
+  if (variation[0].ply % 2 === 0) {
+    var move = variation.shift();
+    turns.push({
+      turn: plyToTurn(move.ply),
+      black: move
+    });
+  }
+  for (i = 0, nb = variation.length; i < nb; i += 2) turns.push({
+    turn: plyToTurn(variation[i].ply),
+    white: variation[i],
+    black: variation[i + 1]
+  });
+  return m('div.variation', turns.map(function(turn) {
+    return renderVariationTurn(ctrl, turn, path);
   }));
 }
 
-function renderVariationTurn(ctrl, turn) {
-  var wMove = turn.white ? renderMove(ctrl, turn.white) : null;
-  var bMove = turn.black ? renderMove(ctrl, turn.black) : null;
+function renderVariationTurn(ctrl, turn, path) {
+  var wMove = turn.white ? renderMove(ctrl, turn.white, path) : null;
+  var bMove = turn.black ? renderMove(ctrl, turn.black, path) : null;
   if (turn.white) return [turn.turn + '.', wMove, (turn.black ? [m.trust('&nbsp;'), bMove] : ''), ' '];
   return [turn.turn + '...', bMove, ' '];
 }
 
-function renderMeta(ctrl, move) {
+function renderMeta(ctrl, move, path) {
   if (!move || !move.comments.length || !move.variations.length) return;
   return [
     move.comments.length ? move.comments.map(function(comment) {
       return m('div.comment', comment);
     }) : null,
-    move.variations.length ? move.variations.map(function(variation) {
-      return renderVariation(ctrl, variation);
+    move.variations.length ? move.variations.map(function(variation, i) {
+      return renderVariation(ctrl, variation, treePath.withVariation(path, i + 1));
     }) : null,
   ];
 }
 
-function renderTurn(ctrl, turn) {
+function renderTurn(ctrl, turn, path) {
   var index = m('div.index', turn.turn);
-  var wMove = turn.white ? renderMove(ctrl, turn.white) : null;
-  var bMove = turn.black ? renderMove(ctrl, turn.black) : null;
-  var wMeta = renderMeta(ctrl, turn.white);
-  var bMeta = renderMeta(ctrl, turn.black);
+  var wMove = turn.white ? renderMove(ctrl, turn.white, path) : null;
+  var bMove = turn.black ? renderMove(ctrl, turn.black, path) : null;
+  var wMeta = renderMeta(ctrl, turn.white, path);
+  var bMeta = renderMeta(ctrl, turn.black, path);
   if (turn.white) {
     if (wMeta) return [
       m('div.turn', [index, wMove, emptyMove]),
@@ -92,8 +112,9 @@ function renderTree(ctrl, tree) {
     white: tree[i],
     black: tree[i + 1]
   });
+  var path = treePath.default;
   return turns.map(function(turn) {
-    return renderTurn(ctrl, turn);
+    return renderTurn(ctrl, turn, path);
   });
 }
 
@@ -120,9 +141,9 @@ function renderAnalyse(ctrl) {
   }
   return m('div.analyse', {
       onclick: function(e) {
-        var ply = e.target.getAttribute('data-ply') || e.target.parentNode.getAttribute('data-ply');
-        if (ply) {
-          ctrl.jump(parseInt(ply));
+        var path = e.target.getAttribute('data-path') || e.target.parentNode.getAttribute('data-path');
+        if (path) {
+          ctrl.jump(treePath.read(path));
           m.redraw();
         }
       }

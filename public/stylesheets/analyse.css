@@ -171,6 +171,9 @@ div.game_control .jumps {
   display: inline-block;
   padding: 2px 5px;
 }
+.lichess_ground .replay .turn .move.empty {
+  opacity: 0.5;
+}
 .lichess_ground .replay a.move {
   cursor: pointer;
   transition: background-color 0.13s;

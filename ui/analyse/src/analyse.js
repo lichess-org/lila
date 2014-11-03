@@ -1,9 +1,5 @@
 module.exports = function(game, analysis) {
 
-  var plyToTurn = function(ply) {
-    return Math.floor((ply - 1) / 2) + 1;
-  }
-
   var makeTree = function(sans, fromPly) {
     return sans.map(function(san, i) {
       return {
@@ -34,8 +30,8 @@ module.exports = function(game, analysis) {
     path.forEach(function(step) {
       for (i = 0, nb = tree.length; i < nb; i++) {
         var move = tree[i];
-        if (step.ply === move.ply && (step.variation || step.variation === 0)) {
-          tree = move.variations[step.variation];
+        if (step.ply === move.ply && step.variation) {
+          tree = move.variations[step.variation - 1];
           break;
         } else if (step.ply >= move.ply) moves.push(move.san);
         else break;

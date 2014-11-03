@@ -4,6 +4,7 @@ var data = require('./data');
 var analyse = require('./analyse');
 var ground = require('./ground');
 var keyboard = require('./keyboard');
+var treePath = require('./path');
 
 module.exports = function(cfg, router, i18n, onChange) {
 
@@ -12,10 +13,8 @@ module.exports = function(cfg, router, i18n, onChange) {
 
   this.vm = {
     flip: false,
-    path: [{
-      ply: 1,
-      variation: null
-    }],
+    path: treePath.default,
+    pathStr: treePath.write(treePath.default),
     situation: null,
     continue: false
   };
@@ -24,7 +23,7 @@ module.exports = function(cfg, router, i18n, onChange) {
   var showGround = function() {
     var moves = this.analyse.moveList(this.vm.path);
     var nbMoves = moves.length;
-    var ply, move, cached, fen, hash, h, lm;
+    var ply, move, cached, fen, hash = '', h, lm;
     for (ply = 1; ply <= nbMoves; ply++) {
       move = moves[ply - 1];
       h += move;
@@ -55,9 +54,11 @@ module.exports = function(cfg, router, i18n, onChange) {
     onChange(this.vm.situation.fen, this.vm.ply);
   }.bind(this);
 
-  this.jump = function(ply) {
-    if (this.vm.path.ply == ply || ply < 1 || ply > this.data.game.moves.length) return;
-    this.vm.path.ply = ply;
+  this.jump = function(path) {
+    // if (this.vm.path.ply == ply || ply < 1 || ply > this.data.game.moves.length) return;
+    this.vm.path = path;
+    this.vm.pathStr = treePath.write(path);
+    console.log(this.vm.path, this.vm.pathStr);
     showGround();
   }.bind(this);
 
