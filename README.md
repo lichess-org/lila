@@ -201,7 +201,8 @@ name | type | default | description
       "winner": "black",
       "players": {
         "white": {
-          "userId": "thibault"
+          "userId": "thibault",
+          "name": "Thibault D", // only in the case of imported game
           "rating": 1642,
           "analysis": {
             "blunder": 1,
@@ -278,7 +279,8 @@ name | type | default | description
   "winner": "black",
   "players": {
     "white": {
-      "userId": "thibault"
+      "userId": "thibault",
+      "name": "Thibault D", // only in the case of imported game
       "rating": 1642,
       "analysis": {
         "blunder": 1,

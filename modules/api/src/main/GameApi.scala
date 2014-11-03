@@ -117,6 +117,7 @@ private[api] final class GameApi(
     "players" -> JsObject(g.players.zipWithIndex map {
       case (p, i) => p.color.name -> Json.obj(
         "userId" -> p.userId,
+        "name" -> p.name,
         "rating" -> p.rating,
         "ratingDiff" -> p.ratingDiff,
         "moveTimes" -> withMoveTimes.fold(
