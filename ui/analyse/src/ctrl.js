@@ -22,9 +22,10 @@ module.exports = function(cfg, router, i18n, onChange) {
 
   var situationCache = {};
   var showGround = function() {
-    var moves = analyse.movelist(this.vm.path);
+    var moves = this.analyse.moveList(this.vm.path);
+    var nbMoves = moves.length;
     var ply, move, cached, fen, hash, h, lm;
-    for (ply = 1; ply <= this.vm.ply; ply++) {
+    for (ply = 1; ply <= nbMoves; ply++) {
       move = moves[ply - 1];
       h += move;
       cached = situationCache[h];
@@ -32,12 +33,12 @@ module.exports = function(cfg, router, i18n, onChange) {
       hash = h;
       fen = cached.fen;
     }
-    if (!cached || ply < this.vm.ply) {
+    if (!cached || ply < nbMoves) {
       var chess = new Chess(
         fen || this.data.game.initialFen,
         this.data.game.variant.key == 'chess960' ? 1 : 0
       );
-      for (ply = ply; ply <= this.vm.ply; ply++) {
+      for (ply = ply; ply <= nbMoves; ply++) {
         move = moves[ply - 1];
         hash += move;
         lm = chess.move(move);
@@ -55,8 +56,8 @@ module.exports = function(cfg, router, i18n, onChange) {
   }.bind(this);
 
   this.jump = function(ply) {
-    if (this.vm.ply == ply || ply < 1 || ply > this.data.game.moves.length) return;
-    this.vm.ply = ply;
+    if (this.vm.path.ply == ply || ply < 1 || ply > this.data.game.moves.length) return;
+    this.vm.path.ply = ply;
     showGround();
   }.bind(this);
 

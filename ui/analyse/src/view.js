@@ -48,12 +48,12 @@ function renderVariationTurn(ctrl, turn) {
 }
 
 function renderMeta(ctrl, move) {
-  if (!move || !move.comments || !move.variations) return;
+  if (!move || !move.comments.length || !move.variations.length) return;
   return [
-    move.comments ? move.comments.map(function(comment) {
+    move.comments.length ? move.comments.map(function(comment) {
       return m('div.comment', comment);
     }) : null,
-    move.variations ? move.variations.map(function(variation) {
+    move.variations.length ? move.variations.map(function(variation) {
       return renderVariation(ctrl, variation);
     }) : null,
   ];
@@ -66,7 +66,7 @@ function renderTurn(ctrl, turn) {
   var wMeta = renderMeta(ctrl, turn.white);
   var bMeta = renderMeta(ctrl, turn.black);
   if (turn.white) {
-    if (turn.white.comments || turn.white.variations) return [
+    if (wMeta) return [
       m('div.turn', [index, wMove, emptyMove]),
       wMeta,
       turn.black ? [
@@ -85,7 +85,13 @@ function renderTurn(ctrl, turn) {
   ];
 }
 
-function renderTurns(ctrl, turns) {
+function renderTree(ctrl, tree) {
+  var turns = [];
+  for (i = 0, nb = tree.length; i < nb; i += 2) turns.push({
+    turn: Math.floor(i / 2) + 1,
+    white: tree[i],
+    black: tree[i + 1]
+  });
   return turns.map(function(turn) {
     return renderTurn(ctrl, turn);
   });
@@ -103,11 +109,11 @@ function renderAnalyse(ctrl) {
     default:
       result = '½-½';
   }
-  var turns = renderTurns(ctrl, ctrl.analyse.turns);
+  var tree = renderTree(ctrl, ctrl.analyse.tree);
   if (result) {
-    turns.push(m('div.result', result));
+    tree.push(m('div.result', result));
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
-    turns.push(m('div.status', [
+    tree.push(m('div.status', [
       renderStatus(ctrl),
       winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
     ]));
@@ -121,7 +127,7 @@ function renderAnalyse(ctrl) {
         }
       }
     },
-    turns);
+    tree);
 }
 
 function visualBoard(ctrl) {
