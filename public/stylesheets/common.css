@@ -1507,6 +1507,9 @@ div.extra_top {
   float: right;
   margin: 20px 20px 0 0;
 }
+a.mini_board {
+  display: block;
+}
 .mini_board .cg-board-wrap {
   margin: auto;
   width: 224px;
