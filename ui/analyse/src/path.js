@@ -21,6 +21,10 @@ module.exports = {
     }).join(',');
   },
 
+  currentPly: function(path) {
+    return path[path.length - 1].ply;
+  },
+
   withPly: function(path, ply) {
     var p2 = path.slice(0);
     p2[p2.length - 1].ply = ply;

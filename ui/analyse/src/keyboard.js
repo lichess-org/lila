@@ -1,4 +1,5 @@
 var k = require('mousetrap');
+var control = require('./control');
 
 function preventing(f) {
   return function(e) {
@@ -15,19 +16,19 @@ function preventing(f) {
 module.exports = {
   init: function(ctrl) {
     k.bind(['left', 'h'], preventing(function() {
-      ctrl.jump(ctrl.vm.ply - 1);
+      control.prev(ctrl);
       m.redraw();
     }));
     k.bind(['right', 'l'], preventing(function() {
-      ctrl.jump(ctrl.vm.ply + 1);
+      control.next(ctrl);
       m.redraw();
     }));
     k.bind(['up', 'j'], preventing(function() {
-      ctrl.jump(1);
+      control.first(ctrl);
       m.redraw();
     }));
     k.bind(['down', 'k'], preventing(function() {
-      ctrl.jump(ctrl.data.game.moves.length);
+      control.last(ctrl);
       m.redraw();
     }));
   }

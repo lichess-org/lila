@@ -55,7 +55,6 @@ module.exports = function(cfg, router, i18n, onChange) {
   }.bind(this);
 
   this.jump = function(path) {
-    // if (this.vm.path.ply == ply || ply < 1 || ply > this.data.game.moves.length) return;
     this.vm.path = path;
     this.vm.pathStr = treePath.write(path);
     console.log(this.vm.path, this.vm.pathStr);

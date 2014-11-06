@@ -6,6 +6,7 @@ var partial = require('chessground').util.partial;
 var renderStatus = require('game').view.status;
 var mod = require('game').view.mod;
 var treePath = require('./path');
+var control = require('./control');
 
 function renderEval(e) {
   e = Math.round(e / 10) / 10;
@@ -189,19 +190,19 @@ function buttons(ctrl) {
       m('div.jumps.hint--bottom', {
         'data-hint': 'Tip: use your keyboard arrow keys!'
       }, [
-        ['first', 'W', 1],
-        ['prev', 'Y', ctrl.vm.ply - 1],
-        ['next', 'X', ctrl.vm.ply + 1],
-        ['last', 'V', nbMoves]
+        ['first', 'W', control.first],
+        ['prev', 'Y', control.prev],
+        ['next', 'X', control.next],
+        ['last', 'V', control.last]
       ].map(function(b) {
-        var enabled = ctrl.vm.ply != b[2] && b[2] >= 1 && b[2] <= nbMoves;
+        var enabled = true;
         return m('a', {
           class: 'button ' + b[0] + ' ' + classSet({
             disabled: (ctrl.broken || !enabled),
             glowing: ctrl.vm.late && b[0] === 'last'
           }),
           'data-icon': b[1],
-          onclick: enabled ? partial(ctrl.jump, b[2]) : null
+          onclick: enabled ? partial(b[2], ctrl) : null
         });
       }))
     ]),
