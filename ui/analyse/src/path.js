@@ -21,15 +21,17 @@ module.exports = {
     }).join(',');
   },
 
-  setPly: function(path, ply) {
-    path[path.length -1].ply = ply;
+  withPly: function(path, ply) {
+    var p2 = path.slice(0);
+    p2[p2.length - 1].ply = ply;
+    return p2;
   },
 
   withVariation: function(path, index) {
     var p2 = path.slice(0);
     var last = p2.length - 1;
     p2[last] = {
-      ply: p2[last].ply - 1,
+      ply: p2[last].ply,
       variation: index
     };
     p2.push({

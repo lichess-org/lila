@@ -21,8 +21,7 @@ var emptyMove = m('em.move.empty', '...');
 
 function renderMove(ctrl, move, path) {
   if (!move) return emptyMove;
-  treePath.setPly(path, move.ply);
-  var pathStr = treePath.write(path);
+  var pathStr = treePath.write(treePath.withPly(path, move.ply));
   return {
     tag: 'a',
     attrs: {
@@ -44,6 +43,7 @@ function plyToTurn(ply) {
 function renderVariation(ctrl, variation, path) {
   var turns = [];
   if (variation[0].ply % 2 === 0) {
+    variation = variation.slice(0);
     var move = variation.shift();
     turns.push({
       turn: plyToTurn(move.ply),
@@ -82,8 +82,8 @@ function renderMeta(ctrl, move, path) {
 function renderTurn(ctrl, turn, path) {
   var index = m('div.index', turn.turn);
   var wMove = turn.white ? renderMove(ctrl, turn.white, path) : null;
-  var bMove = turn.black ? renderMove(ctrl, turn.black, path) : null;
   var wMeta = renderMeta(ctrl, turn.white, path);
+  var bMove = turn.black ? renderMove(ctrl, turn.black, path) : null;
   var bMeta = renderMeta(ctrl, turn.black, path);
   if (turn.white) {
     if (wMeta) return [
