@@ -33,7 +33,7 @@ object Dependencies {
       t2v, jgitMaven, sprayRepo, sprayNightlies, snowplow)
   }
 
-  val scalaz = "org.scalaz" %% "scalaz-core" % "7.0.6"
+  val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.0"
   val scalalib = "com.github.ornicar" %% "scalalib" % "5.0"
   val config = "com.typesafe" % "config" % "1.2.1"
   val apache = "org.apache.commons" % "commons-lang3" % "3.3.2"
@@ -51,7 +51,7 @@ object Dependencies {
   val prismic = "io.prismic" %% "scala-kit" % "1.2.4"
 
   object play {
-    val version = "2.3.5"
+    val version = "2.3.6"
     val api = "com.typesafe.play" %% "play" % version
     val test = "com.typesafe.play" %% "play-test" % version
   }
