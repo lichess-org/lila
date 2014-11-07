@@ -34,7 +34,7 @@ object Dependencies {
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.0"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "5.0"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "5.1"
   val config = "com.typesafe" % "config" % "1.2.1"
   val apache = "org.apache.commons" % "commons-lang3" % "3.3.2"
   val scalaTime = "com.github.nscala-time" %% "nscala-time" % "1.4.0"
