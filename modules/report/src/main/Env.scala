@@ -18,6 +18,8 @@ final class Env(
 
   lazy val api = new ReportApi(hub.actor.evaluator)
 
+  api.autoCheatReport("thibault", "haha lololol")
+
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {
