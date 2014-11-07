@@ -23,7 +23,7 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
       !isAlreadySlain(report, user) ?? {
         if (by.id == UserRepo.lichessId) reportTube.coll.update(
           selectRecent(user, reason),
-          reportTube.toMongo(report).get - "_id" pp
+          reportTube.toMongo(report).get - "_id"
         ) map { res =>
             if (!res.updatedExisting) {
               if (report.isCheat) evaluator ! user
