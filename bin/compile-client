@@ -5,6 +5,7 @@ mkdir -p public/compiled
 
 for app in editor puzzle round analyse; do
   cd ui/$app
+  npm install ../game
   npm install && gulp dev && gulp prod
   cd -
 done
