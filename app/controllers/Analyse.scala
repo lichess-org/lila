@@ -57,11 +57,17 @@ object Analyse extends LilaController {
       (env.analyser get pov.game.id) zip
       (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
       Env.game.crosstableApi(pov.game) zip
+      (GameRepo initialFen pov.game.id) zip
       (ctx.isAuth ?? {
         Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
       }) map {
-        case (((((version, pgn), analysis), tour), crosstable), chat) => {
+        case ((((((version, pgn), analysis), tour), crosstable), initialFen), chat) => {
           val opening = gameOpening(pov.game)
+          val replay = chess.Replay(
+            pgn = pov.game.pgnMoves mkString " ",
+            initialFen = initialFen,
+            variant = pov.game.variant
+          ).toOption
           Ok(html.analyse.replay(
             pov,
             Env.analyse.annotator(pgn, analysis, opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
@@ -72,7 +78,8 @@ object Analyse extends LilaController {
             chat,
             tour,
             new TimeChart(pov.game, pov.game.pgnMoves),
-            crosstable))
+            crosstable,
+            replay))
         }
       }
 
