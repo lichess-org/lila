@@ -129,6 +129,7 @@ $(function() {
         gridLineWidth: 0
       }
     }));
+    lichess.analyse.onChange();
   });
 
   $.renderMoveTimesChart = function() {
@@ -211,6 +212,7 @@ $(function() {
         }
       }));
     });
+    lichess.analyse.onChange();
   };
   if ($('#movetimes_chart:visible:not(.rendered)').length) $.renderMoveTimesChart();
 });

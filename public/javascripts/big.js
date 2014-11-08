@@ -1859,8 +1859,11 @@ var storage = {
         point.select(false);
       });
     };
-    var chart, point, adv, title;
-    analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, function(fen, path) {
+    var lastFen, lastPath;
+    lichess.analyse.onChange = function(fen, path) {
+      lastFen = fen = fen || lastFen;
+      lastPath = path = path || lastPath;
+      var chart, point, adv, title;
       $inputFen.val(fen);
       if ($advChart.length) {
         chart = $advChart.highcharts();
@@ -1900,7 +1903,8 @@ var storage = {
           }
         }
       }
-    });
+    };
+    analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, lichess.analyse.onChange);
     lichess.analyse.jump = analyse.jump;
 
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
