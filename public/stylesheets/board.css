@@ -973,7 +973,7 @@ div.table .notyet {
   font-weight: lighter;
 }
 .lichess_ground .replay td.move {
-  font-family: 'pgn4web ChessSansPiratf', 'pgn4web Liberation Sans', sans-serif;
+  font-family: 'ChessSansPiratf', sans-serif;
   font-size: 1.3em;
   padding: 2px 5px;
   cursor: pointer;

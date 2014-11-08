@@ -48,47 +48,6 @@ moreCss = moreCss,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov)) {
 <div class="analyse cg-512">@miniBoardContent</div>
-@*
-<div class="analyse clearfix">
-  @if(ctx.blindMode) {
-  <div id="lichess_board_blind" data-href="@routes.Round.watcherText(gameId, color.name)">
-    @views.html.game.textualRepresentation(pov, false)
-  </div>
-  }
-  <div class="board_wrap">
-    <div
-      id="GameBoard"
-      data-version="@version"
-      data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
-      class="@color.fold("", "flip") @pov.game.variant.key"></div>
-    <div class="game_control">
-      <a class="button flip hint--bottom" data-hint="@trans.flipBoard()" href="@routes.Round.watcher(gameId, (!color).name)#0">
-        <span data-icon="B"></span>
-      </a>
-      <a class="fen_link button hint--bottom" data-hint="@trans.boardEditor()" href="@routes.Editor.game(game.id)?fen=">
-        <span data-icon="m"></span>
-      </a>
-      <a class="continue button hint--bottom" data-hint="@trans.continueFromHere()" href="#">
-        <span data-icon="U"></span>
-      </a>
-      <div id="GameButtons"></div>
-    </div>
-    <div class="continue none">
-      <a class="fen_link button" href="@routes.Round.continue(game.id, "ai")?fen=">@trans.playWithTheMachine()</a>
-      <a class="fen_link button" href="@routes.Round.continue(game.id, "friend")?fen=">@trans.playWithAFriend()</a>
-    </div>
-  </div>
-  <div class="moves_wrap">
-    <div id="GameText" class="scroll-shadow-soft"></div>
-    @game.next.map { n =>
-    <p class="rematch_wrap">
-      <a class="button" href="@routes.Round.watcher(n, pov.opponent.color.name)" data-icon="G">&nbsp;@trans.viewRematch()</a>
-    </p>
-    }
-  </div>
-</div>
-<textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
-*@
 <div class="advice_summary" style="display:none">
   @round.blurs(game)
   @round.holdAlerts(game)

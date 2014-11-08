@@ -1,6 +1,3 @@
-#pgnText {
-  display: none;
-}
 div.board_wrap {
   float: left;
   width: 514px;
@@ -97,25 +94,6 @@ div.fen_pgn strong {
 div.fen_pgn input.fen {
   width: 450px;
 }
-#GameBoard {
-  position: relative;
-  width: 512px;
-  height: 512px;
-  border: 1px solid #ccc;
-  background-size: contain;
-}
-#GameBoard.flip table,
-#GameBoard.flip img.pieceImage {
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-#GameBoard td img {
-  width: 64px;
-  height: 64px;
-  display: block;
-}
 div.game_control,
 div.continue {
   text-align: center;
@@ -139,7 +117,7 @@ div.game_control .jumps {
 .lichess_ground {
   height: 100%;
 }
-.lichess_ground .turn {} .lichess_ground .replay {
+.lichess_ground .replay {
   margin-left: 10px;
   width: 256px;
   height: 100%;
@@ -159,7 +137,7 @@ div.game_control .jumps {
 }
 .lichess_ground .replay .move {
   display: inline-block;
-  font-family: 'pgn4web ChessSansPiratf', 'pgn4web Liberation Sans', sans-serif;
+  font-family: 'ChessSansPiratf', sans-serif;
   text-decoration: none;
 }
 .lichess_ground .replay .turn .move {
@@ -197,9 +175,7 @@ div.game_control .jumps {
 }
 .lichess_ground .comment,
 .lichess_ground .variation {
-  /* background-color: #e0e0e0; */
-  background-color: rgb(214, 233, 243);
-  /* background: linear-gradient(to right, #fff 0%, #e0e0e0 3px); */
+  background-color: #e0e0e0;
 }
 .lichess_ground .comment {
   padding: 3px 0 0 5px;
@@ -228,17 +204,6 @@ div.game_control .jumps {
   font-style: italic;
   margin-bottom: 5px;
 }
-#GameText .comment {
-  display: block;
-}
-#GameText a:hover {
-  background: #e0e0e0;
-}
-#GameText .moveOn,
-#GameText .variationOn {
-  border: 1px solid #909090;
-  padding: 2px 3px;
-}
 div.underboard {
   margin-top: 25px;
 }
@@ -247,16 +212,13 @@ div.underboard .center {
 }
 div.advice_summary table {
   margin-top: 10px;
-  width: 100%;
 }
 div.advice_summary tr {
   width: 100%;
 }
+div.advice_summary th,
 div.advice_summary td {
-  padding: 3px 0;
-}
-div.advice_summary thead th {
-  padding: 3px 0;
+  padding: 3px 5px;
 }
 #adv_chart,
 #movetimes_chart {
