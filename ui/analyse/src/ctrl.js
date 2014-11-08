@@ -11,10 +11,12 @@ module.exports = function(cfg, router, i18n, onChange) {
   this.data = data({}, cfg);
   this.analyse = new analyse(this.data.game, this.data.analysis);
 
+  var initialPath = cfg.path ? treePath.read(cfg.path) : treePath.default();
+
   this.vm = {
     flip: false,
-    path: treePath.default(),
-    pathStr: treePath.write(treePath.default()),
+    path: initialPath,
+    pathStr: treePath.write(initialPath),
     situation: null,
     continue: false
   };

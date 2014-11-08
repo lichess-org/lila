@@ -1904,6 +1904,7 @@ var storage = {
         }
       }
     };
+    data.path = window.location.hash ? location.hash.replace(/#/, '') : '';
     analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, lichess.analyse.onChange);
     lichess.analyse.jump = analyse.jump;
 
