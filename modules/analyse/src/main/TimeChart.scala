@@ -21,8 +21,11 @@ final class TimeChart(game: Game, moves: List[String]) {
   private def points(white: Boolean) = indexedMoveTimes collect {
     case (m, ply) if (white ^ (ply % 2 == 1)) =>
       val mt = if (m < 0.5) 0 else m
+      val san = ~(pgnMoves lift ply)
+      val turn = 1 + (ply - 1) / 2
+      val dots = if (ply % 2 == 1) "..." else "."
       Json.obj(
-        "name" -> ~(pgnMoves lift ply),
+        "name" -> s"$turn$dots $san",
         "x" -> ply,
         "y" -> (if (white) mt else -mt)
       )

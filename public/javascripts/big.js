@@ -1863,7 +1863,7 @@ var storage = {
     lichess.analyse.onChange = function(fen, path) {
       lastFen = fen = fen || lastFen;
       lastPath = path = path || lastPath;
-      var chart, point, adv, title;
+      var chart, point, title;
       $inputFen.val(fen);
       if ($advChart.length) {
         chart = $advChart.highcharts();
@@ -1873,8 +1873,7 @@ var storage = {
             point = chart.series[0].data[path[0].ply - 1];
             if (typeof point != "undefined") {
               point.select();
-              adv = "Advantage: <strong>" + point.y + "</strong>";
-              title = point.name + ' ' + adv;
+              title = point.name + ' ' + 'Advantage: <strong>' + point.y + '</strong>';
               chart.setTitle({
                 text: title
               });
@@ -1891,11 +1890,9 @@ var storage = {
             var serie = white ? 0 : 1;
             var turn = Math.floor((path[0].ply - 1) / 2);
             point = chart.series[serie].data[turn];
-            var time = point.y * (white ? 1 : -1);
             if (typeof point != "undefined") {
               point.select();
-              adv = "time used: <strong>" + time + "</strong> s";
-              title = point.name + ' ' + adv;
+              title = point.name + ' ' + 'Time used: <strong>' + (point.y * (white ? 1 : -1)) + '</strong> s';
               chart.setTitle({
                 text: title
               });
