@@ -45,6 +45,7 @@ module.exports = function(cfg, router, i18n, onChange) {
         lm = chess.move(move);
         situationCache[hash] = {
           fen: chess.fen(),
+          turnColor: ply % 2 === 1 ? 'black' : 'white',
           check: chess.in_check(),
           lastMove: [lm.from, lm.to]
         };
