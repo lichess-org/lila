@@ -3,11 +3,11 @@ package lila
 import scala.concurrent.Future
 
 import ornicar.scalalib
-import scalaz.{ Monad, Monoid, OptionT }
+import scalaz.{ Monad, Monoid, OptionT, ~> }
 
 trait PackageObject extends Steroids with WithFuture {
 
-  def !![A](msg: String): Valid[A] = msg.failNel[A]
+  def !![A](msg: String): Valid[A] = msg.failureNel[A]
 
   def nowMillis: Long = System.currentTimeMillis
   def nowTenths: Long = nowMillis / 100
@@ -22,6 +22,11 @@ trait PackageObject extends Steroids with WithFuture {
   def fulogerr(s: String) = fuccess { logerr(s) }
 
   implicit final def runOptionT[F[+_], A](ot: OptionT[F, A]): F[Option[A]] = ot.run
+
+  // from scalaz. We don't want to import all OptionTFunctions, because of the classh with `some`
+  def optionT[M[_]] = new (({type λ[α] = M[Option[α]]})#λ ~> ({type λ[α] = OptionT[M, α]})#λ) {
+    def apply[A](a: M[Option[A]]) = new OptionT[M, A](a)
+  }
 
   implicit final class LilaPimpedString(s: String) {
 

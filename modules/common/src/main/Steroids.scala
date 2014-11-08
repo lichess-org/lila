@@ -17,7 +17,6 @@ trait Steroids
   with scalaz.std.OptionInstances
   with scalaz.std.OptionFunctions
   with scalaz.syntax.std.ToOptionIdOps
-  with scalaz.OptionTFunctions
 
   with scalaz.std.ListInstances
   with scalaz.std.ListFunctions
