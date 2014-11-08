@@ -1,12 +1,12 @@
-var round = require('./round');
-var status = require('./status');
+var game = require('game').game;
+var status = require('game').status;
 var partial = require('chessground').util.partial;
 
 var initialTitle = document.title;
 var tickDelay = 400;
 
 var tick = function(ctrl) {
-  if (status.started(ctrl.data) && round.isPlayerTurn(ctrl.data)) {
+  if (status.started(ctrl.data) && game.isPlayerTurn(ctrl.data)) {
     document.title = document.title.indexOf('/\\/') === 0 ? '\\/\\ ' + document.title.replace(/\/\\\/ /, '') : '/\\/ ' + document.title.replace(/\\\/\\ /, '');
   }
   setTimeout(partial(tick, ctrl), tickDelay);
@@ -21,7 +21,7 @@ var set = function(ctrl, text) {
   if (!text) {
     if (status.finished(ctrl.data)) {
       text = ctrl.trans('gameOver');
-    } else if (round.isPlayerTurn(ctrl.data)) {
+    } else if (game.isPlayerTurn(ctrl.data)) {
       text = ctrl.trans('yourTurn');
     } else {
       text = ctrl.trans('waitingForOpponent');

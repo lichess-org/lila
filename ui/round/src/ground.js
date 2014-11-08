@@ -1,5 +1,5 @@
 var chessground = require('chessground');
-var round = require('./round');
+var game = require('game').game;
 
 function str2move(m) {
   return m ? [m.slice(0, 2), m.slice(2, 4)] : null;
@@ -20,8 +20,8 @@ function makeConfig(data, fen, flip) {
     },
     movable: {
       free: false,
-      color: round.isPlayerPlaying(data) ? data.player.color : null,
-      dests: round.parsePossibleMoves(data.possibleMoves),
+      color: game.isPlayerPlaying(data) ? data.player.color : null,
+      dests: game.parsePossibleMoves(data.possibleMoves),
       showDests: data.pref.destination
     },
     animation: {

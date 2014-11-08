@@ -2,8 +2,8 @@ package lila.api
 
 import akka.actor._
 import com.typesafe.config.Config
-import scala.collection.JavaConversions._
 import lila.common.PimpedConfig._
+import scala.collection.JavaConversions._
 
 final class Env(
     config: Config,
@@ -52,13 +52,17 @@ final class Env(
     apiToken = apiToken,
     userIdsSharingIp = userIdsSharingIp)
 
+  val analysisApi = new AnalysisApi
+
   val gameApi = new GameApi(
     netBaseUrl = Net.BaseUrl,
     apiToken = apiToken,
-    pgnDump = pgnDump)
+    pgnDump = pgnDump,
+    analysisApi = analysisApi)
 
   val roundApi = new RoundApi(
-    jsonView = roundJsonView)
+    jsonView = roundJsonView,
+    analysisApi = analysisApi)
 
   val puzzleApi = new PuzzleApi(
     env = puzzleEnv,

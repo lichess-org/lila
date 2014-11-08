@@ -1,12 +1,12 @@
 var m = require('mithril');
 var chessground = require('chessground');
-var round = require('../round');
-var status = require('../status');
+var game = require('game').game;
+var status = require('game').status;
 var opposite = chessground.util.opposite;
 var renderClock = require('../clock/view');
 var renderReplay = require('../replay/view');
 var renderStatus = require('./status');
-var renderUser = require('./user');
+var renderUser = require('game').view.user;
 var button = require('./button');
 
 function compact(x) {
@@ -37,7 +37,7 @@ function renderKing(ctrl, color) {
 }
 
 function renderResult(ctrl) {
-  var winner = round.getPlayer(ctrl.data, ctrl.data.game.winner);
+  var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
   return winner ? m('div.player.' + winner.color, [
       renderKing(ctrl, winner.color),
       m('p', [
@@ -86,16 +86,16 @@ function renderTablePlay(ctrl) {
     button.cancelDrawOffer(ctrl),
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
-    button.answerOpponentTakebackProposition(ctrl), (round.mandatory(d) && round.nbMoves(d, d.player.color) === 0) ? m('div[data-icon=j]',
+    button.answerOpponentTakebackProposition(ctrl), (game.mandatory(d) && game.nbMoves(d, d.player.color) === 0) ? m('div[data-icon=j]',
       ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 30)
     ) : null
   ]);
   return [
     m('div.control.icons', [
-      button.standard(ctrl, round.abortable, 'L', 'abortGame', 'abort'),
-      button.standard(ctrl, round.takebackable, 'i', 'proposeATakeback', 'takeback-yes'),
-      button.standard(ctrl, round.drawable, '2', 'offerDraw', 'draw-yes'),
-      button.standard(ctrl, round.resignable, 'b', 'resign', 'resign')
+      button.standard(ctrl, game.abortable, 'L', 'abortGame', 'abort'),
+      button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes'),
+      button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
+      button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
     ]),
     buttons ? m('div.control.buttons', buttons) : null,
     renderReplay(ctrl.replay),
@@ -114,7 +114,7 @@ module.exports = function(ctrl) {
       renderPlayer(ctrl, ctrl.data.opponent),
       m('div.table_inner',
         ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
-          round.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
+          game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
         )
       )
     ]), (ctrl.clock && !ctrl.data.blind) ? [

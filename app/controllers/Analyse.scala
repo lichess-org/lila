@@ -52,35 +52,31 @@ object Analyse extends LilaController {
   }
 
   def replay(pov: Pov)(implicit ctx: Context) =
-    Env.round.version(pov.gameId) zip
-      Env.game.pgnDump(pov.game) zip
+    Env.game.pgnDump(pov.game) zip
       (env.analyser get pov.game.id) zip
       (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
-      Env.game.crosstableApi(pov.game) zip
       (GameRepo initialFen pov.game.id) zip
-      (ctx.isAuth ?? {
-        Env.chat.api.userChat find s"${pov.gameId}/w" map (_.forUser(ctx.me).some)
-      }) map {
-        case ((((((version, pgn), analysis), tour), crosstable), initialFen), chat) => {
-          val opening = gameOpening(pov.game)
-          val replay = chess.Replay(
-            pgn = pov.game.pgnMoves mkString " ",
-            initialFen = initialFen,
-            variant = pov.game.variant
-          ).toOption
-          Ok(html.analyse.replay(
-            pov,
-            Env.analyse.annotator(pgn, analysis, opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
-            opening,
-            analysis,
-            analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
-            version,
-            chat,
-            tour,
-            new TimeChart(pov.game, pov.game.pgnMoves),
-            crosstable,
-            replay))
-        }
+      Env.game.crosstableApi(pov.game) flatMap {
+        case ((((pgn, analysis), tour), initialFen), crosstable) =>
+          Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _)) map { data =>
+            val opening = gameOpening(pov.game)
+            val replay = chess.Replay(
+              pgn = pov.game.pgnMoves mkString " ",
+              initialFen = initialFen,
+              variant = pov.game.variant
+            ).toOption
+            Ok(html.analyse.replay(
+              pov,
+              data,
+              Env.analyse.annotator(pgn, analysis, opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
+              opening,
+              analysis,
+              analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
+              tour,
+              new TimeChart(pov.game, pov.game.pgnMoves),
+              crosstable,
+              replay))
+          }
       }
 
   private def gameOpening(game: GameModel) =

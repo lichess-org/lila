@@ -113,9 +113,9 @@ body.blind_mode [data-icon]::before {
   visibility: hidden;
 }
 @font-face {
-  font-family: 'pgn4web ChessSansPiratf';
-  src: url("../vendor/pgn4web/fonts/ChessSansPiratf.eot");
-  src: url("../vendor/pgn4web/fonts/ChessSansPiratf.eot?#iefix") format("embedded-opentype"), url("../vendor/pgn4web/fonts/ChessSansPiratf.woff") format("woff"), url("../vendor/pgn4web/fonts/ChessSansPiratf.ttf") format("truetype"), url("../vendor/pgn4web/fonts/ChessSansPiratf.svg#lichess") format("svg");
+  font-family: 'ChessSansPiratf';
+  src: url("../fonts/ChessSansPiratf.eot");
+  src: url("../fonts/ChessSansPiratf.eot?#iefix") format("embedded-opentype"), url("../fonts/ChessSansPiratf.woff") format("woff"), url("../fonts/ChessSansPiratf.ttf") format("truetype"), url("../fonts/ChessSansPiratf.svg#lichess") format("svg");
 }
 .thin {
   font-weight: lighter;

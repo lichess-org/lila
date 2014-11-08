@@ -330,6 +330,7 @@ var storage = {
 
     if (lichess.round) startRound(document.getElementById('lichess'), lichess.round);
     else if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
+    else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
 
     setTimeout(function() {
       if (lichess.socket === null) {
@@ -337,11 +338,6 @@ var storage = {
       }
       $.idleTimer(lichess.idleTime, lichess.socket.destroy.bind(lichess.socket), lichess.socket.connect.bind(lichess.socket));
     }, 200);
-
-    var $board = $('div.with_marks');
-    if ($board.length > 0) {
-      $.displayBoardMarks($board.parent(), $('#lichess > div.pov_white').length);
-    }
 
     // themepicker
     var $body = $('body');
@@ -649,22 +645,6 @@ var storage = {
 
   $.trans = function(text) {
     return lichess_translations[text] ? lichess_translations[text] : text;
-  };
-
-  $.displayBoardMarks = function($board, isWhite) {
-    var factor = 1,
-      base = 0;
-    if (!isWhite) {
-      factor = -1;
-      base = 575;
-    }
-    var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
-      marks = '';
-    for (i = 1; i < 9; i++) {
-      marks += '<span class="board_mark vert" style="bottom:' + (factor * i * 64 - 38 + base) + 'px;">' + i + '</span>';
-      marks += '<span class="board_mark horz" style="left:' + (factor * i * 64 - 35 + base) + 'px;">' + letters[i - 1] + '</span>';
-    }
-    $board.remove('span.board_mark').append(marks);
   };
 
   function urlToLink(text) {
@@ -1136,6 +1116,9 @@ var storage = {
       var $incrementInput = $form.find('.increment_choice input');
       var isHook = $form.hasClass('game_config_hook');
       var $ratings = $form.find('.ratings > div');
+      var toggleButtons = function() {
+        $form.find('.color_submits button').toggle(!$clockCheckbox.is(':checked') || $timeInput.val() > 0 || $incrementInput.val() > 0);
+      };
       var showRating = function() {
         var key;
         switch ($variantSelect.val()) {
@@ -1193,8 +1176,7 @@ var storage = {
             $value.text(time);
             $input.attr('value', time);
             showRating();
-            $form.find('.color_submits button').toggle(
-              $timeInput.val() > 0 || $incrementInput.val() > 0);
+            toggleButtons();
           }
         }));
       });
@@ -1232,6 +1214,7 @@ var storage = {
       $clockCheckbox.on('change', function() {
         var checked = $(this).is(':checked');
         $form.find('.time_choice, .increment_choice').toggle(checked);
+        toggleButtons();
         if (isHook && !checked) {
           $casual.click();
         }
@@ -1840,9 +1823,140 @@ var storage = {
   // analyse.js //
   ////////////////
 
+  function startAnalyse(element, cfg) {
+    var data = cfg.data;
+    if (data.chat) $('#chat').chat({
+      messages: data.chat
+    });
+    var $watchers = $('#site_header div.watchers').watchers();
+    var analyse, $panels;
+    lichess.socket = new lichess.StrongSocket(
+      data.url.socket,
+      data.player.version, {
+        options: {
+          name: "analyse"
+        },
+        params: {
+          ran: "--ranph--"
+        },
+        events: {
+          analysisAvailable: function() {
+            $.sound.dong();
+            location.href = location.href.split('#')[0] + '#' + analyse.pathStr();
+            location.reload();
+          },
+          crowd: function(event) {
+            $watchers.watchers("set", event.watchers);
+          }
+        }
+      });
+
+    var $advChart = $("#adv_chart");
+    var $timeChart = $("#movetimes_chart");
+    var $inputFen = $('input.fen', element);
+    var unselect = function(chart) {
+      chart.getSelectedPoints().forEach(function(point) {
+        point.select(false);
+      });
+    };
+    var chart, point, adv, title;
+    analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, function(fen, path) {
+      $inputFen.val(fen);
+      if ($advChart.length) {
+        chart = $advChart.highcharts();
+        if (chart) {
+          if (path.length > 1) unselect(chart);
+          else {
+            point = chart.series[0].data[path[0].ply - 1];
+            if (typeof point != "undefined") {
+              point.select();
+              adv = "Advantage: <strong>" + point.y + "</strong>";
+              title = point.name + ' ' + adv;
+              chart.setTitle({
+                text: title
+              });
+            } else unselect(chart);
+          }
+        }
+      }
+      if ($timeChart.length) {
+        chart = $timeChart.highcharts();
+        if (chart) {
+          if (path.length > 1) unselect(chart);
+          else {
+            var white = path[0].ply % 2 !== 0;
+            var serie = white ? 0 : 1;
+            var turn = Math.floor((path[0].ply - 1) / 2);
+            point = chart.series[serie].data[turn];
+            var time = point.y * (white ? 1 : -1);
+            if (typeof point != "undefined") {
+              point.select();
+              adv = "time used: <strong>" + time + "</strong> s";
+              title = point.name + ' ' + adv;
+              chart.setTitle({
+                text: title
+              });
+            } else unselect(chart);
+          }
+        }
+      }
+    });
+    lichess.analyse.jump = analyse.jump;
+
+    $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
+    $('.advice_summary', element).appendTo($('.underboard .right', element)).show();
+
+    $panels = $('div.analysis_panels > div');
+    $('div.analysis_menu').on('click', 'a', function() {
+      var panel = $(this).data('panel');
+      $(this).siblings('.active').removeClass('active').end().addClass('active');
+      $panels.removeClass('active').filter('.' + panel).addClass('active');
+      if (panel == 'move_times') try {
+        $.renderMoveTimesChart();
+      } catch (e) {}
+    }).find('a:first').click();
+
+    var pgnLoader = function() {
+      $panels.find('.loader span').each(function() {
+        var t = this;
+        var moves = _.filter(_.values(
+          $('#ShowPgnText a').map(function() {
+            return $(this).text();
+          })
+        ), function(x) {
+          return typeof x == 'string';
+        });
+        var len = moves.length,
+          it = 0;
+        setInterval(function() {
+          t.innerHTML = moves[it++ % len] || '';
+        }, 100);
+      });
+    };
+    setTimeout(pgnLoader, 500);
+
+    $panels.find('form.future_game_analysis').submit(function() {
+      if ($(this).hasClass('must_login')) {
+        if (confirm($.trans('You need an account to do that') + '.')) {
+          location.href = '/signup';
+        }
+        return false;
+      }
+      $.ajax({
+        method: 'post',
+        url: $(this).attr('action'),
+        success: function(html) {
+          $panels.filter('.panel.computer_analysis').html(html);
+          pgnLoader();
+        }
+      });
+      return false;
+    });
+  }
+
   $(function() {
 
-    if (!$("#GameBoard").length) return;
+    if (true || !$("#GameBoard").length) return;
 
     $('div.game_control a').filter('.continue').click(function() {
       $('div.board_wrap div.continue').toggle();

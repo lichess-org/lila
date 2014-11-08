@@ -1,6 +1,6 @@
 var chessground = require('chessground');
-var round = require('../round');
-var status = require('../status');
+var game = require('game').game;
+var status = require('game').status;
 var partial = chessground.util.partial;
 var throttle = require('lodash-node/modern/functions/throttle');
 
@@ -13,7 +13,7 @@ module.exports = {
     }, m('span[data-icon=' + icon + ']')) : null;
   },
   forceResign: function(ctrl) {
-    if (!ctrl.data.opponent.ai && ctrl.data.clock && ctrl.data.opponent.isGone && round.resignable(ctrl.data))
+    if (!ctrl.data.opponent.ai && ctrl.data.clock && ctrl.data.opponent.isGone && game.resignable(ctrl.data))
       return m('div.force_resign_zone', [
         ctrl.trans('theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim'),
         m('br'),
@@ -138,13 +138,13 @@ module.exports = {
     }, ctrl.trans('viewTournament'));
   },
   moretime: function(ctrl) {
-    if (round.moretimeable(ctrl.data)) return m('a.moretime.hint--bottom-left', {
+    if (game.moretimeable(ctrl.data)) return m('a.moretime.hint--bottom-left', {
       'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime),
       onclick: throttle(partial(ctrl.socket.send, 'moretime', null), 600)
     }, m('span[data-icon=O]'));
   },
   replayAndAnalyse: function(ctrl) {
-    if (round.replayable(ctrl.data)) return m('a.button.replay_and_analyse[data-icon=G]', {
+    if (game.replayable(ctrl.data)) return m('a.button.replay_and_analyse[data-icon=G]', {
       href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.player.color).url
     }, ctrl.trans('replayAndAnalyse'));
   }

@@ -46,10 +46,8 @@ body.dark div.side_box .top,
 body.dark div.table,
 body.dark div.separator,
 body.dark div.table_wrap > div.clock > div.time,
-body.dark #GameText,
 body.dark #tournament_side,
 body.dark #tournament div.standing_wrap,
-body.dark #GameBoard,
 body.dark div.shortcuts .title,
 body.dark div.content_box,
 body.dark div.content_box_inter,
@@ -157,7 +155,6 @@ body.dark div.undertable a.user_link,
 body.dark #tv_history a.user_link,
 body.dark #timeline a.user_link,
 body.dark #team .forum a.user_link,
-body.dark span.board_mark,
 body.dark.coords_2 .cg-square[data-coord-x]::after,
 body.dark.coords_2 .cg-square[data-coord-y]::before,
 body.dark div.user_show div.content_box_top > span,
@@ -165,13 +162,11 @@ body.dark span.progress > .zero,
 body.dark div.undertable_top span.title {
   color: #777;
 }
-body.dark #GameText a:hover,
 body.dark .crosstable td a,
 body.dark #hook_filter td > label.hover:hover,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
 }
-body.dark #GameText,
 body.dark #chat .messages,
 body.dark div.side_box,
 body.dark div.table,
@@ -242,7 +237,6 @@ body.dark div.game_row:nth-child(odd),
 body.dark #lichess_forum table.forum_table tr:nth-child(odd),
 body.dark #lichess_message tr:nth-child(even),
 body.dark div.content_box_inter,
-body.dark #GameText tr:nth-child(even),
 body.dark table.slist tbody tr:nth-child(even),
 body.dark #team .forum li:nth-child(odd),
 body.dark table.translations tbody tr:nth-child(odd),
@@ -252,7 +246,7 @@ body.dark div.game_config .optional_config,
 body.dark div.game_config .ratings,
 body.dark div.search_status,
 body.dark #friend_box,
-body.dark div.table .replay td.move:hover,
+body.dark .lichess_ground .replay .move:hover,
 body.dark #powerTip {
   background: #343434;
 }
@@ -260,7 +254,6 @@ body.dark #top ul.language_links a.accepted,
 body.dark #lichess_forum div.post .message,
 body.dark #lichess_blog,
 body.dark #lichess_message div.thread_message div.thread_message_body,
-body.dark #GameText .move,
 body.dark form.translation_form div.message label,
 body.dark div.user_show div.content_box_top > span strong {
   color: #b0b0b0;

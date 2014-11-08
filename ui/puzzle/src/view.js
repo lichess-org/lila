@@ -217,7 +217,7 @@ function renderViewControls(ctrl, fen) {
       'data-hint': ctrl.trans('fromGameLink', ctrl.data.puzzle.gameId),
       href: ctrl.router.Round.watcher(ctrl.data.puzzle.gameId, ctrl.data.puzzle.color).url + '#' + ctrl.data.puzzle.initialPly
     }, m('span[data-icon=v]')) : null,
-    m('a.fen_link.button.hint--bottom', {
+    m('a.button.hint--bottom', {
       'data-hint': ctrl.trans('boardEditor'),
       href: ctrl.router.Editor.load(fen).url
     }, m('span[data-icon=m]')),

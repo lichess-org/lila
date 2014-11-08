@@ -1,7 +1,7 @@
 {
-  "name": "round",
+  "name": "analyse",
   "version": "1.0.0",
-  "description": "lichess.org round",
+  "description": "lichess.org analyse",
   "main": "src/main.js",
   "repository": {
     "type": "git",

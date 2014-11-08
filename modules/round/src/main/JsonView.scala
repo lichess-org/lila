@@ -1,7 +1,7 @@
 package lila.round
 
 import scala.concurrent.duration._
-import scala.math.{ min, max, round }
+import scala.math
 
 import play.api.libs.json._
 
@@ -259,9 +259,10 @@ final class JsonView(
     case _ => 1
   }
 
-  private def animationDuration(pov: Pov, pref: Pref) = round {
-    animationFactor(pref) * baseAnimationDuration.toMillis * max(0, min(1.2,
-      ((pov.game.estimateTotalTime - 60) / 60) * 0.2
-    ))
+  private def animationDuration(pov: Pov, pref: Pref) = math.round {
+    animationFactor(pref) * baseAnimationDuration.toMillis * pov.game.finished.fold(
+      1,
+      math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
+    )
   }
 }

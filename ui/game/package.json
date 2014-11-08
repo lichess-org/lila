@@ -1,7 +1,7 @@
 {
-  "name": "round",
+  "name": "game",
   "version": "1.0.0",
-  "description": "lichess.org round",
+  "description": "lichess.org game",
   "main": "src/main.js",
   "repository": {
     "type": "git",
@@ -30,11 +30,7 @@
     "watchify": "^1.0.2"
   },
   "dependencies": {
-    "chessground": "^1.7.9",
-    "chessli.js": "^0.2.0",
-    "game": "file:../game",
     "lodash-node": "^2.4.1",
-    "mithril": "^0.1.22",
-    "mousetrap": "0.0.1"
+    "mithril": "^0.1.22"
   }
 }

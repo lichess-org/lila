@@ -90,7 +90,7 @@ $(function() {
             click: function(event) {
               if (event.point) {
                 event.point.select();
-                GoToMove(event.point.x + 1, 0);
+                lichess.analyse.jump(event.point.x + 1, 0);
               }
             }
           },
@@ -173,7 +173,7 @@ $(function() {
               click: function(event) {
                 if (event.point) {
                   event.point.select();
-                  GoToMove(event.point.x + 1, 0);
+                  lichess.analyse.jump(event.point.x + 1, 0);
                 }
               }
             },
