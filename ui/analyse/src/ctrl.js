@@ -14,7 +14,6 @@ module.exports = function(cfg, router, i18n, onChange) {
   var initialPath = cfg.path ? treePath.read(cfg.path) : treePath.default();
 
   this.vm = {
-    flip: false,
     path: initialPath,
     pathStr: treePath.write(initialPath),
     situation: null,
@@ -68,13 +67,6 @@ module.exports = function(cfg, router, i18n, onChange) {
       ply: ply,
       variation: null
     }]);
-  }.bind(this);
-
-  this.flip = function() {
-    this.vm.flip = !this.vm.flip;
-    this.chessground.set({
-      orientation: this.vm.flip ? this.data.opponent.color : this.data.player.color
-    });
   }.bind(this);
 
   this.router = router;

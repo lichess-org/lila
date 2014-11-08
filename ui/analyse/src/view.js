@@ -173,9 +173,9 @@ function buttons(ctrl) {
   var nbMoves = ctrl.data.game.moves.length;
   return [
     m('div.game_control', [
-      m('a.button.flip.hint--bottom', {
+      m('a.button.hint--bottom', {
         'data-hint': ctrl.trans('flipBoard'),
-        onclick: ctrl.flip
+        href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url
       }, m('span[data-icon=B]')),
       m('a.button.hint--bottom', {
         'data-hint': ctrl.trans('boardEditor'),

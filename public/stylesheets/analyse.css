@@ -141,12 +141,12 @@ div.game_control .jumps {
   text-decoration: none;
 }
 .lichess_ground .replay .turn .move {
-  width: 100px;
+  width: 96px;
   font-size: 17px;
   height: 22px;
   line-height: 22px;
   display: inline-block;
-  padding: 2px 5px;
+  padding: 2px 7px;
 }
 .lichess_ground .replay .turn .move.empty {
   opacity: 0.5;
