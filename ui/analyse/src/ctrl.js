@@ -23,7 +23,7 @@ module.exports = function(cfg, router, i18n, onChange) {
   var showGround = function() {
     var moves = this.analyse.moveList(this.vm.path);
     var nbMoves = moves.length;
-    var ply, move, cached, fen, hash = '', h, lm;
+    var ply, move, cached, fen, hash = '', h = '', lm;
     for (ply = 1; ply <= nbMoves; ply++) {
       move = moves[ply - 1];
       h += move;
@@ -57,7 +57,6 @@ module.exports = function(cfg, router, i18n, onChange) {
   this.jump = function(path) {
     this.vm.path = path;
     this.vm.pathStr = treePath.write(path);
-    console.log(this.vm.path, this.vm.pathStr);
     showGround();
   }.bind(this);
 
