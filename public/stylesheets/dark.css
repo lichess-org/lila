@@ -209,7 +209,7 @@ body.dark div.table_not_started {
   box-shadow: none;
   background: none;
 }
-body.dark .lichess_ground .replay .index,
+body.dark .lichess_ground .replay .turn .index,
 body.dark .lichess_ground .comment,
 body.dark .lichess_ground .variation,
 body.dark .lichess_ground .replay .move:hover,
