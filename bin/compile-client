@@ -5,16 +5,19 @@ mkdir -p public/compiled
 
 cd ui/editor
 npm install
+gulp dev
 gulp prod
 cd -
 
 cd ui/puzzle
 npm install
+gulp dev
 gulp prod
 cd -
 
 cd ui/round
 npm install
+gulp dev
 gulp prod
 cd -
 
