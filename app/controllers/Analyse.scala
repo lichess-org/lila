@@ -55,16 +55,11 @@ object Analyse extends LilaController {
     Env.game.pgnDump(pov.game) zip
       (env.analyser get pov.game.id) zip
       (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
-      (GameRepo initialFen pov.game.id) zip
+      lila.game.Divider(pov.game) zip
       Env.game.crosstableApi(pov.game) flatMap {
-        case ((((pgn, analysis), tour), initialFen), crosstable) =>
+        case ((((pgn, analysis), tour), division), crosstable) =>
           Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _)) map { data =>
             val opening = gameOpening(pov.game)
-            val replay = chess.Replay(
-              pgn = pov.game.pgnMoves mkString " ",
-              initialFen = initialFen,
-              variant = pov.game.variant
-            ).toOption
             Ok(html.analyse.replay(
               pov,
               data,
@@ -75,7 +70,7 @@ object Analyse extends LilaController {
               tour,
               new TimeChart(pov.game, pov.game.pgnMoves),
               crosstable,
-              replay))
+              division))
           }
       }
 
