@@ -12,11 +12,14 @@ module.exports = function(element, config, router, i18n, onChange) {
 
   return {
     jump: function(ply) {
-      controller.jump(ply);
+      controller.jumpToMain(ply);
       m.redraw();
     },
-    ply: function() {
-      return controller.vm.ply;
+    path: function() {
+      return controller.vm.path;
+    },
+    pathStr: function() {
+      return controller.vm.pathStr;
     }
   };
 };

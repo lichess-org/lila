@@ -91,7 +91,7 @@ div.fen_pgn .pgn {
 }
 div.fen_pgn strong {
   font-size: 1.1em;
-  display:inline-block;
+  display: inline-block;
   margin-right: 7px;
 }
 div.fen_pgn input.fen {
@@ -116,9 +116,10 @@ div.fen_pgn input.fen {
   height: 64px;
   display: block;
 }
-div.game_control, div.continue {
+div.game_control,
+div.continue {
   text-align: center;
-} 
+}
 div.continue {
   margin: 20px 0;
 }
@@ -138,9 +139,7 @@ div.game_control .jumps {
 .lichess_ground {
   height: 100%;
 }
-.lichess_ground .turn {
-}
-.lichess_ground .replay {
+.lichess_ground .turn {} .lichess_ground .replay {
   margin-left: 10px;
   width: 256px;
   height: 100%;
@@ -218,6 +217,17 @@ div.game_control .jumps {
 .lichess_ground .variation a.move:hover {
   background: #eee;
 }
+.lichess_ground .result {
+  font-weight: bold;
+  font-size: 1.3em;
+  text-align: center;
+}
+.lichess_ground .status {
+  font-size: 1em;
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 5px;
+}
 #GameText .comment {
   display: block;
 }
@@ -229,7 +239,6 @@ div.game_control .jumps {
   border: 1px solid #909090;
   padding: 2px 3px;
 }
-
 div.underboard {
   margin-top: 25px;
 }

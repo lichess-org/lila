@@ -1,9 +1,11 @@
 module.exports = {
 
-  default: [{
-    ply: 1,
-    variation: null
-  }],
+  default: function() {
+    return [{
+      ply: 1,
+      variation: null
+    }];
+  },
 
   read: function(str) {
     return str.split(',').map(function(step) {

@@ -13,8 +13,8 @@ module.exports = function(cfg, router, i18n, onChange) {
 
   this.vm = {
     flip: false,
-    path: treePath.default,
-    pathStr: treePath.write(treePath.default),
+    path: treePath.default(),
+    pathStr: treePath.write(treePath.default()),
     situation: null,
     continue: false
   };
@@ -51,13 +51,20 @@ module.exports = function(cfg, router, i18n, onChange) {
     this.vm.situation = situationCache[hash];
     if (this.chessground) this.chessground.set(this.vm.situation);
     else this.chessground = ground.make(this.data, this.vm.situation);
-    onChange(this.vm.situation.fen, this.vm.ply);
+    onChange(this.vm.situation.fen, this.vm.path);
   }.bind(this);
 
   this.jump = function(path) {
     this.vm.path = path;
     this.vm.pathStr = treePath.write(path);
     showGround();
+  }.bind(this);
+
+  this.jumpToMain = function(ply) {
+    this.jump([{
+      ply: ply,
+      variation: null
+    }]);
   }.bind(this);
 
   this.flip = function() {

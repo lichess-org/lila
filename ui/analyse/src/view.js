@@ -113,7 +113,7 @@ function renderTree(ctrl, tree) {
     white: tree[i],
     black: tree[i + 1]
   });
-  var path = treePath.default;
+  var path = treePath.default();
   return turns.map(function(turn) {
     return renderTurn(ctrl, turn, path);
   });

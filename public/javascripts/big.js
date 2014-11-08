@@ -1842,7 +1842,7 @@ var storage = {
         events: {
           analysisAvailable: function() {
             $.sound.dong();
-            location.href = location.href.split('#')[0] + '#' + analyse.ply();
+            location.href = location.href.split('#')[0] + '#' + analyse.pathStr();
             location.reload();
           },
           crowd: function(event) {
@@ -1851,27 +1851,52 @@ var storage = {
         }
       });
 
-    analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, function(fen, ply) {
-      $('input.fen', element).val(fen);
-      var $chart = $("#adv_chart");
-      if ($chart.length) {
-        var chart = $chart.highcharts();
-        var variation = 0;
+    var $advChart = $("#adv_chart");
+    var $timeChart = $("#movetimes_chart");
+    var $inputFen = $('input.fen', element);
+    var unselect = function(chart) {
+      chart.getSelectedPoints().forEach(function(point) {
+        point.select(false);
+      });
+    };
+    var chart, point, adv, title;
+    analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, function(fen, path) {
+      $inputFen.val(fen);
+      if ($advChart.length) {
+        chart = $advChart.highcharts();
         if (chart) {
-          if (variation !== 0) {
-            _.each(chart.getSelectedPoints(), function(point) {
-              point.select(false);
-            });
-          } else {
-            var point = chart.series[0].data[ply - 1];
+          if (path.length > 1) unselect(chart);
+          else {
+            point = chart.series[0].data[path[0].ply - 1];
             if (typeof point != "undefined") {
               point.select();
-              var adv = "Advantage: <strong>" + point.y + "</strong>";
-              var title = point.name + ' ' + adv;
+              adv = "Advantage: <strong>" + point.y + "</strong>";
+              title = point.name + ' ' + adv;
               chart.setTitle({
                 text: title
               });
-            }
+            } else unselect(chart);
+          }
+        }
+      }
+      if ($timeChart.length) {
+        chart = $timeChart.highcharts();
+        if (chart) {
+          if (path.length > 1) unselect(chart);
+          else {
+            var white = path[0].ply % 2 !== 0;
+            var serie = white ? 0 : 1;
+            var turn = Math.floor((path[0].ply - 1) / 2);
+            point = chart.series[serie].data[turn];
+            var time = point.y * (white ? 1 : -1);
+            if (typeof point != "undefined") {
+              point.select();
+              adv = "time used: <strong>" + time + "</strong> s";
+              title = point.name + ' ' + adv;
+              chart.setTitle({
+                text: title
+              });
+            } else unselect(chart);
           }
         }
       }
