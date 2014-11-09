@@ -181,6 +181,10 @@ div.game_control .jumps {
   padding: 3px 0 0 5px;
   border-top: 1px solid #ccc;
 }
+.lichess_ground .opening {
+  padding-bottom: 3px;
+  border-bottom: 1px solid #ccc;
+}
 .lichess_ground .variation {
   font-weight: lighter;
   padding: 3px 0 3px 5px;

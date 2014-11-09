@@ -68,9 +68,20 @@ function renderVariationTurn(ctrl, turn, path) {
   return [turn.turn + '...', bMove, ' '];
 }
 
+function renderOpening(ctrl, opening) {
+  return m('div.comment.opening', [
+    opening.code,
+    ': ',
+    opening.name
+  ]);
+}
+
 function renderMeta(ctrl, move, path) {
-  if (!move || !move.comments.length || !move.variations.length) return;
+  var opening = ctrl.data.game.opening;
+  opening = (move && opening && opening.size == move.ply) ? renderOpening(ctrl, opening) : null;
+  if (!move || (!opening && !move.comments.length && !move.variations.length)) return;
   return [
+    opening,
     move.comments.length ? move.comments.map(function(comment) {
       return m('div.comment', comment);
     }) : null,
