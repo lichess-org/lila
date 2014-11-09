@@ -95,7 +95,7 @@ $(function() {
       var rowIndex = rows.indexOf(prevCoord[1]);
       rows = rows.slice(0, rowIndex) + rows.slice(rowIndex + 1, 8);
 
-      return files[Math.round(Math.random() * 7)] + rows[Math.round(Math.random() * 7)];
+      return files[Math.round(Math.random() * (files.length - 1))] + rows[Math.round(Math.random() * (rows.length - 1))];
     };
 
     var advanceCoords = function() {

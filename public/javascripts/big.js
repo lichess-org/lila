@@ -63,6 +63,7 @@ var storage = {
     }
     location.href = 'http://' + location.hostname + '/' + url.replace(/^\//, '');
   };
+  $.fp = {};
   $.fp.range = function(to) {
     return Array.apply(null, Array(to)).map(function(_, i) {
       return i;
@@ -289,7 +290,7 @@ var storage = {
         $(this).powerTip({
           fadeInTime: 100,
           fadeOutTime: 100,
-          placement: $(this).data('placement') || ($.fp.contains(header, this) ? 'e' : 'w'),
+          placement: $(this).data('placement') || ($.contains(header, this) ? 'e' : 'w'),
           mouseOnToPopup: true,
           closeDelay: 200
         }).on({
@@ -634,8 +635,8 @@ var storage = {
     };
     var setVolume = function(v) {
       storage.set('sound-volume', v);
-      audio.forEach(function(a, k) {
-        a.volume = v * volumes[k];
+      Object.keys(audio).forEach(function(k) {
+        audio[k].volume = v * volumes[k];
       });
     };
     var manuallySetVolume = $.fp.debounce(function(v) {
