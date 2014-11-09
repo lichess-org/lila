@@ -17,7 +17,8 @@ module.exports = function(cfg, router, i18n, onChange) {
     path: initialPath,
     pathStr: treePath.write(initialPath),
     situation: null,
-    continue: false
+    continue: false,
+    comments: true
   };
 
   var situationCache = {};
