@@ -1721,8 +1721,7 @@ var storage = {
         var b = ratingY(v);
         return '<span class="y label" style="bottom:' + (b + 5) + 'px">' + v + '</span>' +
           '<div class="grid horiz" style="height:' + (b + 4) + 'px"></div>';
-      }).join('') +
-      [1, 2, 3, 5, 7, 10, 15, 20, 30].map(function(v) {
+      }).join('') + [1, 2, 3, 5, 7, 10, 15, 20, 30].map(function(v) {
         var l = clockX(v * 60);
         return '<span class="x label" style="left:' + l + 'px">' + v + '</span>' +
           '<div class="grid vert" style="width:' + (l + 7) + 'px"></div>';
@@ -1894,7 +1893,7 @@ var storage = {
     lichess.analyse.onChange = function(fen, path) {
       lastFen = fen = fen || lastFen;
       lastPath = path = path || lastPath;
-      var chart, point, title;
+      var chart, point;
       $inputFen.val(fen);
       if ($advChart.length) {
         chart = $advChart.highcharts();
@@ -1904,14 +1903,14 @@ var storage = {
             point = chart.series[0].data[path[0].ply - 1];
             if (typeof point != "undefined") {
               point.select();
-              title = point.name + ' ' + 'Advantage: <strong>' + point.y + '</strong>';
               chart.setTitle({
-                text: title
+                text: point.name + ' ' + 'Advantage: <strong>' + point.y + '</strong>'
               });
             } else unselect(chart);
           }
         }
       }
+      var timeChartFirstDisplay = true;
       if ($timeChart.length) {
         chart = $timeChart.highcharts();
         if (chart) {
@@ -1923,10 +1922,16 @@ var storage = {
             point = chart.series[serie].data[turn];
             if (typeof point != "undefined") {
               point.select();
-              title = point.name + ' ' + 'Time used: <strong>' + (point.y * (white ? 1 : -1)) + '</strong> s';
+              var title = point.name + ' ' + 'Time used: <strong>' + (point.y * (white ? 1 : -1)) + '</strong> s';
               chart.setTitle({
                 text: title
               });
+              if (timeChartFirstDisplay) {
+                chart.setTitle({
+                  text: title
+                });
+                timeChartFirstDisplay = false;
+              }
             } else unselect(chart);
           }
         }
