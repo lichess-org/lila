@@ -183,6 +183,9 @@ $(function() {
       var $this = $(this).addClass('rendered');
       var series = $this.data('series');
       var timeMax = parseInt($this.data('max'), 10);
+      var mid = parseInt($this.data('division-mid'));
+      var end = parseInt($this.data('division-end'));
+
       $(this).highcharts(mergeDefaults({
         series: [{
           name: 'White',
@@ -201,10 +204,7 @@ $(function() {
           formatter: function() {
             var seconds = Math.abs(this.point.y);
             var unit = seconds > 1 ? 'seconds' : 'second';
-            var white = this.point.x % 2;
-            var dots = white === 0 ? '.' : '...';
-            var turn = Math.ceil(this.point.x / 2 + (white ? 0 : 1));
-            return turn + dots + ' ' + this.point.name + '<br /><strong>' + seconds + '</strong> ' + unit;
+            return this.point.name + '<br /><strong>' + seconds + '</strong> ' + unit;
           }
         },
         plotOptions: {
@@ -248,7 +248,53 @@ $(function() {
           title: noText,
           labels: disabled,
           lineWidth: 0,
-          tickWidth: 0
+          tickWidth: 0,
+          plotLines: [
+          {
+            label: {
+              text: 'Opening',
+              verticalAlign: 'top',
+              align: 'left',
+              x: 6,
+              y: 30,
+              style: {
+                color: Highcharts.theme.lichess.text.weak
+              }
+            },
+            color: '#30cc4d',
+            width: 1,
+            value: 0
+          },
+          {
+            label: {
+              text: 'Mid-Game',
+              verticalAlign: 'top',
+              align: 'left',
+              x: 6,
+              y: 30,
+              style: {
+                color: Highcharts.theme.lichess.text.weak
+              }
+            },
+            color: '#3093cc',
+            width: mid === null ? 0 : 1,
+            value: mid
+          },
+          {
+            label: {
+              text: 'End-Game',
+              verticalAlign: 'top',
+              align: 'left',
+              x: 6,
+              y: 30,
+              style: {
+                color: Highcharts.theme.lichess.text.weak
+              }
+            },
+            color: '#cc9730',
+            width: end === null ? 0 : 1,
+            value: end
+          }]
         },
         yAxis: {
           min: -timeMax,
