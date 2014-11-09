@@ -49,9 +49,6 @@ final class PgnDump(
 
   private def tags(game: Game): Fu[List[Tag]] = gameLightUsers(game) match {
     case (wu, bu) =>
-      val opening: Option[OpeningExplorer.Opening] =
-        if (customStartPosition(game.variant)) none
-        else OpeningExplorer openingOf game.pgnMoves
       (game.variant.standard.fold(fuccess(none), GameRepo initialFen game.id)) map { initialFen =>
         List(
           Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
@@ -65,8 +62,8 @@ final class PgnDump(
           Tag("PlyCount", game.turns),
           Tag(_.Variant, game.variant.name.capitalize),
           Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit}+${c.increment}" }),
-          Tag(_.ECO, opening.fold("?")(_.code)),
-          Tag(_.Opening, opening.fold("?")(_.name))
+          Tag(_.ECO, game.opening.fold("?")(_.code)),
+          Tag(_.Opening, game.opening.fold("?")(_.name))
         ) ::: customStartPosition(game.variant).??(List(
             Tag(_.FEN, initialFen | "?"),
             Tag("SetUp", "1")

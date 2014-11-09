@@ -138,7 +138,7 @@ private[api] final class GameApi(
     "analysis" -> analysisOption.ifTrue(withAnalysis).|@|(pgnOption).apply(analysisApi.game),
     "moves" -> withMoves.option(g.pgnMoves mkString " "),
     "opening" -> withOpening.?? {
-      chess.OpeningExplorer.openingOf(g.pgnMoves) map { opening =>
+      g.opening map { opening =>
         Json.obj("code" -> opening.code, "name" -> opening.name)
       }
     },

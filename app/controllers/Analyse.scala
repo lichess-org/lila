@@ -59,12 +59,10 @@ object Analyse extends LilaController {
       Env.game.crosstableApi(pov.game) flatMap {
         case ((((pgn, analysis), tour), division), crosstable) =>
           Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _)) map { data =>
-            val opening = gameOpening(pov.game)
             Ok(html.analyse.replay(
               pov,
               data,
-              Env.analyse.annotator(pgn, analysis, opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
-              opening,
+              Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
               analysis,
               analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
               tour,
@@ -73,8 +71,4 @@ object Analyse extends LilaController {
               division))
           }
       }
-
-  private def gameOpening(game: GameModel) =
-    if (game.fromPosition || game.variant.exotic) none
-    else chess.OpeningExplorer openingOf game.pgnMoves
 }

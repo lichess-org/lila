@@ -60,7 +60,7 @@
     @if(g.turns > 0) {
     @defining(g openingPgnMoves 20) { pgnMoves =>
     @if(!g.fromPosition) {
-    @chess.OpeningExplorer.openingOf(pgnMoves).map { opening =>
+    @g.opening.map { opening =>
     <div class="opening">@opening.name</div>
     }
     }

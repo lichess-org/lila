@@ -1,8 +1,8 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, pgn: String, opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], division: lila.game.Divider.Division)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], division: lila.game.Divider.Division)(implicit ctx: Context)
 
 @import pov._
 
-@title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in $gameId : ${opening.fold(trans.replayAndAnalyse.str())(_.fullName)}" }
+@title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in $gameId : ${game.opening.fold(trans.replayAndAnalyse.str())(_.fullName)}" }
 
 @moreCss = {
 @cssTag("analyse.css")

@@ -372,11 +372,14 @@ case class Game(
 
   def resetTurns = copy(turns = 0)
 
+  lazy val opening =
+    if (playable || fromPosition || variant.exotic) none
+    else chess.OpeningExplorer openingOf pgnMoves
+
   private def playerMaps[A](f: Player => Option[A]): List[A] = players.map(f).flatten
 }
 
 object Game {
-
 
   val analysableVariants: Set[Variant] = Set(Variant.Standard, Variant.Chess960, Variant.KingOfTheHill)
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
@@ -511,7 +514,7 @@ object Game {
           pgnImport = r.getO[PgnImport](pgnImport)(PgnImport.pgnImportBSONHandler),
           tournamentId = r strO tournamentId,
           tvAt = r dateO tvAt,
-        analysed = r boolD analysed)
+          analysed = r boolD analysed)
       )
     }
 

@@ -19,7 +19,7 @@ object Export extends LilaController {
         case None => for {
           pgn ← Env.game.pgnDump(game)
           analysis ← (~get("as") != "raw") ?? (Env.analyse.analyser getDone game.id)
-        } yield Env.analyse.annotator(pgn, analysis, gameOpening(game), game.winnerColor, game.status, game.clock).toString
+        } yield Env.analyse.annotator(pgn, analysis, game.opening, game.winnerColor, game.status, game.clock).toString
       }) map { content =>
         Ok(content).withHeaders(
           CONTENT_TYPE -> ContentTypes.TEXT,

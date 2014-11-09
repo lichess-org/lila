@@ -136,8 +136,6 @@ final class JsonView(
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
         case (((initialFen, socket), chat), (playerUser, opponentUser)) =>
           import pov._
-          val opening = if (game.playable || initialFen.isDefined || game.fromPosition || game.variant.exotic) none
-          else chess.OpeningExplorer openingOf game.pgnMoves
           Json.obj(
             "game" -> Json.obj(
               "id" -> gameId,
@@ -156,7 +154,7 @@ final class JsonView(
               "rematch" -> game.next,
               "source" -> game.source.map(sourceJson),
               "moves" -> game.pgnMoves.mkString(" "),
-              "opening" -> opening.map { o =>
+              "opening" -> game.opening.map { o =>
                 Json.obj(
                   "code" -> o.code,
                   "name" -> o.name,
