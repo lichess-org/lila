@@ -132,7 +132,7 @@ $(function() {
             align: 'left',
             x: 6,
             style: {
-              color: Highcharts.theme.lichess.text.weak,
+              color: Highcharts.theme.lichess.text.weak
             }
           },
           color: '#30cc4d',
@@ -146,7 +146,7 @@ $(function() {
             align: 'left',
             x: 6,
             style: {
-              color: Highcharts.theme.lichess.text.weak,
+              color: Highcharts.theme.lichess.text.weak
             }
           },
           color: '#3093cc',
@@ -160,7 +160,7 @@ $(function() {
             align: 'left',
             x: 6,
             style: {
-              color: Highcharts.theme.lichess.text.weak,
+              color: Highcharts.theme.lichess.text.weak
             }
           },
           color: '#cc9730',
