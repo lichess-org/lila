@@ -34,7 +34,7 @@ body.is3d .cg-board {
   position: absolute;
   width: 12.5%;
   height: 12.5%;
-  transition: 0.5s;
+  transition: 0.25s;
 }
 .manipulable .cg-square {
   transition: 0.13s;
