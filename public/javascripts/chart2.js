@@ -63,6 +63,9 @@ $(function() {
   $('#adv_chart').each(function() {
     var $this = $(this);
     var cpMax = parseInt($this.data('max'), 10) / 100;
+    var mid = parseInt($this.data('division-mid'));
+    var end = parseInt($this.data('division-end'));
+
     $(this).highcharts(mergeDefaults({
       series: [{
         name: 'Advantage',
