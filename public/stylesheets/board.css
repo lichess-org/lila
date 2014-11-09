@@ -5,6 +5,12 @@
 body.is3d #lichess {
   min-height: 479.08572px;
 }
+div.lichess_game {
+  height: 512px;
+}
+body.is3d div.lichess_game {
+  height: 479.08572px;
+}
 div.lichess_game div.lichess_board_wrap {
   display: table-cell;
 }
@@ -15,7 +21,11 @@ div.lichess_game div.lichess_ground {
   display: table-cell;
   vertical-align: middle;
   padding-left: 15px;
+  height: 512px;
   width: 242px;
+}
+body.is3d div.lichess_game div.lichess_ground {
+  height: 479.08572px;
 }
 div.lichess_board {
   position: relative;
