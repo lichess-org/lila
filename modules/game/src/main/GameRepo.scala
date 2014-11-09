@@ -189,7 +189,7 @@ object GameRepo {
     $primitive.one($select(gameId), "if")(_.asOpt[String])
 
   def initialFen(game: Game): Fu[Option[String]] =
-    if (game.fromPosition || game.variant.chess960) initialFen(game.id)
+    if (game.fromPosition || game.imported || game.variant.chess960) initialFen(game.id)
     else fuccess(none)
 
   def featuredCandidates: Fu[List[Game]] = $find(
