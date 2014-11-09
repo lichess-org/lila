@@ -120,7 +120,50 @@ $(function() {
         title: noText,
         labels: disabled,
         lineWidth: 0,
-        tickWidth: 0
+        tickWidth: 0,
+        plotLines: [
+        {
+          label: {
+            text: 'Opening',
+            verticalAlign: 'top',
+            align: 'left',
+            x: 6,
+            style: {
+              color: Highcharts.theme.lichess.text.weak,
+            }
+          },
+          color: '#30cc4d',
+          width: 1,
+          value: 0
+        },
+        {
+          label: {
+            text: 'Mid-Game',
+            verticalAlign: 'top',
+            align: 'left',
+            x: 6,
+            style: {
+              color: Highcharts.theme.lichess.text.weak,
+            }
+          },
+          color: '#3093cc',
+          width: mid === null ? 0 : 1,
+          value: mid
+        },
+        {
+          label: {
+            text: 'End-Game',
+            verticalAlign: 'top',
+            align: 'left',
+            x: 6,
+            style: {
+              color: Highcharts.theme.lichess.text.weak,
+            }
+          },
+          color: '#cc9730',
+          width: end === null ? 0 : 1,
+          value: end
+        }]
       },
       yAxis: {
         min: -cpMax,
@@ -235,6 +278,10 @@ Highcharts.theme = (function() {
 
   return {
     light: light,
+    lichess: {
+      text: text,
+      line: line
+    },
     colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee",
       "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"
     ],
