@@ -1,6 +1,6 @@
 var m = require('mithril');
 var partial = require('lodash-node/modern/functions/partial');
-var merge = require('lodash-node/modern/objects/merge');
+var merge = require('merge');
 var last = require('lodash-node/modern/arrays/last');
 var chessground = require('chessground');
 var data = require('./data');
@@ -68,7 +68,7 @@ module.exports = function(cfg, router, i18n) {
     if (this.data.chess.in_check()) this.chessground.setCheck();
   }.bind(this);
 
-  this.chessground = new chessground.controller(merge({
+  this.chessground = new chessground.controller(merge.recursive({
     fen: cfg.puzzle.fen,
     orientation: this.data.puzzle.color,
     turnColor: this.data.puzzle.opponentColor,

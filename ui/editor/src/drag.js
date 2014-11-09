@@ -1,4 +1,3 @@
-var range = require('lodash-node/modern/arrays/range');
 var find = require('lodash-node/modern/collections/find');
 var util = require('chessground').util;
 var drag = require('chessground').drag;
