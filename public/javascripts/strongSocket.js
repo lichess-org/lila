@@ -47,9 +47,8 @@ lichess.StrongSocket.defaults = {
     autoReconnectDelay: 1000,
     lagTag: false, // jQuery object showing ping lag
     ignoreUnknownMessages: false,
-    baseUrls: _.union(
-      'socket.' + document.domain,
-      _.map(($('body').data('ports') + '').split(','), function(port) {
+    baseUrls: ['socket.' + document.domain].concat(
+      ($('body').data('ports') + '').split(',').map(function(port) {
         return 'socket.' + document.domain + ':' + port;
       })),
     baseUrlKey: 'surl3'
@@ -89,7 +88,7 @@ lichess.StrongSocket.prototype = {
         }, 500);
         var resend = self.ackableMessages;
         self.ackableMessages = [];
-        _.each(resend, function(x) {
+        resend.forEach(function(x) {
           self.send(x.t, x.d);
         });
       };

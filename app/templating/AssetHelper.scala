@@ -60,11 +60,6 @@ trait AssetHelper {
     test = "$.powerTip",
     local = staticUrl("vendor/powertip.min.js"))
 
-  val underscorejsTag = cdnOrLocal(
-    cdn = "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js",
-    test = "window._",
-    local = staticUrl("vendor/underscorejs.min.js"))
-
   val tagmanagerTag = cdnOrLocal(
     cdn = "http://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
     test = "$.tagsManager",

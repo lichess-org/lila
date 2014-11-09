@@ -63,6 +63,36 @@ var storage = {
     }
     location.href = 'http://' + location.hostname + '/' + url.replace(/^\//, '');
   };
+  $.fp.range = function(to) {
+    return Array.apply(null, Array(to)).map(function(_, i) {
+      return i;
+    });
+  };
+  $.fp.contains = function(list, needle) {
+    return list.indexOf(needle) !== -1;
+  };
+  $.fp.find = function(list, pred) {
+    for (var i = 0; i < length; i++) {
+      value = list[i];
+      if (pred(list[i])) return list[i];
+    }
+    return undefined;
+  };
+  $.fp.debounce = function(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this,
+        args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  };
 
   var lichess = window.lichess = window.lichess || {};
   lichess.socket = null;
@@ -84,7 +114,7 @@ var storage = {
           var prev = parseInt($tag.text(), 10) || Math.max(0, (e - 10));
           var k = 6;
           var interv = lichess.socket.pingInterval() / k;
-          _.each(_.range(k), function(it) {
+          $.fp.range(k).forEach(function(it) {
             setTimeout(function() {
               var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
               if (val != prev) {
@@ -259,7 +289,7 @@ var storage = {
         $(this).powerTip({
           fadeInTime: 100,
           fadeOutTime: 100,
-          placement: $(this).data('placement') || ($.contains(header, this) ? 'e' : 'w'),
+          placement: $(this).data('placement') || ($.fp.contains(header, this) ? 'e' : 'w'),
           mouseOnToPopup: true,
           closeDelay: 200
         }).on({
@@ -344,20 +374,20 @@ var storage = {
     $('#themepicker_toggle').one('click', function() {
       var $themepicker = $('#themepicker');
       var themes = $themepicker.data('themes').split(' ');
-      var theme = _.find(document.body.className.split(/\s+/), function(a) {
-        return _.contains(themes, a);
+      var theme = $.fp.find(document.body.className.split(/\s+/), function(a) {
+        return $.fp.contains(themes, a);
       });
       var sets = $themepicker.data('sets').split(' ');
-      var set = _.find(document.body.className.split(/\s+/), function(a) {
-        return _.contains(sets, a);
+      var set = $.fp.find(document.body.className.split(/\s+/), function(a) {
+        return $.fp.contains(sets, a);
       });
       var theme3ds = $themepicker.data('theme3ds').split(' ');
-      var theme3d = _.find(document.body.className.split(/\s+/), function(a) {
-        return _.contains(theme3ds, a);
+      var theme3d = $.fp.find(document.body.className.split(/\s+/), function(a) {
+        return $.fp.contains(theme3ds, a);
       });
       var set3ds = $themepicker.data('set3ds').split(' ');
-      var set3d = _.find(document.body.className.split(/\s+/), function(a) {
-        return _.contains(set3ds, a);
+      var set3d = $.fp.find(document.body.className.split(/\s+/), function(a) {
+        return $.fp.contains(set3ds, a);
       });
       var background = $('body').hasClass('dark') ? 'dark' : 'light';
       var is3d = $('body').hasClass('is3d');
@@ -504,9 +534,9 @@ var storage = {
         $.ajax({
           url: $links.data('url'),
           success: function(list) {
-            $links.prepend(_.map(list, function(lang) {
+            $links.prepend(list.map(function(lang) {
               var href = location.href.replace(/\/\/\w+\./, '//' + lang[0] + '.');
-              var klass = _.contains(langs, lang[0]) ? 'class="accepted"' : '';
+              var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
               return '<li><a ' + klass + ' lang="' + lang[0] + '" href="' + href + '">' + lang[1] + '</a></li>';
             }).join(''));
           }
@@ -604,11 +634,11 @@ var storage = {
     };
     var setVolume = function(v) {
       storage.set('sound-volume', v);
-      _.each(audio, function(a, k) {
+      audio.forEach(function(a, k) {
         a.volume = v * volumes[k];
       });
     };
-    var manuallySetVolume = _.debounce(function(v) {
+    var manuallySetVolume = $.fp.debounce(function(v) {
       setVolume(v);
       play.move(true);
     }, 100);
@@ -759,14 +789,13 @@ var storage = {
     set: function(users) {
       var self = this;
       if (users.length > 0) {
-        self.list.html(_.map(users, function(u) {
+        self.list.html(users.map(function(u) {
           return u.indexOf('(') === -1 ? $.userLink(u) : u.replace(/\s\(1\)/, '');
         }).join(", "));
-        var nb = _.reduce(users, function(nb, u) {
-          return nb + (
-            u.indexOf('(') === -1 ? 1 : parseInt(u.replace(/^.+\((\d+)\)$/, '$1'))
-          );
-        }, 0);
+        var nb = 0;
+        users.forEach(function(u) {
+          nb += (u.indexOf('(') === -1 ? 1 : parseInt(u.replace(/^.+\((\d+)\)$/, '$1')));
+        });
         self.number.html(nb);
         self.element.show();
       } else {
@@ -787,13 +816,13 @@ var storage = {
       if (storage.get('friends-hide') == 1) self.$title.click();
       self.$nbOnline = self.$title.find('.online');
       self.$nobody = self.element.find("div.nobody");
-      self.set(_.compact(self.element.data('preload').split(',')));
+      self.set(self.element.data('preload').split(','));
     },
     repaint: function() {
-      this.users = _.uniq(this.users);
+      this.users = $.unique(this.users);
       this.$nbOnline.text(this.users.length);
       this.$nobody.toggle(this.users.length === 0);
-      this.$list.html(_.map(this.users, this._renderUser).join(""));
+      this.$list.html(this.users.map(this._renderUser).join(""));
       $('body').trigger('lichess.content_loaded');
     },
     set: function(us) {
@@ -805,11 +834,13 @@ var storage = {
       this.repaint();
     },
     leaves: function(user) {
-      this.users = _.without(this.users, user);
+      this.users = this.users.filter(function(u) {
+        return u != user
+      });
       this.repaint();
     },
     _renderUser: function(user) {
-      var id = _.last(user.split(' '));
+      var id = $.fp.contains(user, ' ') ? user.split(' ')[1] : user;
       return '<a class="ulpt" data-placement="nw" href="/@/' + id + '">' + user + '</a>';
     }
   });
@@ -1223,7 +1254,7 @@ var storage = {
       var $ratingRangeConfig = $form.find('.rating_range_config');
       var $fenInput = $fenPosition.find('input');
 
-      var validateFen = _.debounce(function() {
+      var validateFen = $.fp.debounce(function() {
         $fenInput.removeClass("success failure");
         var fen = $fenInput.val();
         if (fen) {
@@ -1375,7 +1406,7 @@ var storage = {
           $.ajax({
             url: $(this).attr('href'),
             success: function(html) {
-              var save = _.throttle(function() {
+              var save = $.fp.debounce(function() {
                 var $form = $div.find('form');
                 $.ajax({
                   url: $form.attr('action'),
@@ -1446,7 +1477,7 @@ var storage = {
     }
     resizeTimeline();
 
-    _.each(lichess_preload.pool, addHook);
+    lichess_preload.pool.forEach(addHook);
     drawHooks(true);
     $table.find('th:eq(2)').click().end();
 
@@ -1497,7 +1528,7 @@ var storage = {
             var prev = parseInt($tag.text(), 10);
             var k = 5;
             var interv = 1200 / k;
-            _.each(_.range(k), function(it) {
+            $.fp.range(k).forEach(function(it) {
               setTimeout(function() {
                 var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
                 if (val != prev) {
@@ -1520,15 +1551,15 @@ var storage = {
     }
 
     function removeHook(id) {
-      pool = _.reject(pool, function(h) {
-        return h.id == id;
+      pool = pool.filter(function(h) {
+        return h.id != id;
       });
       drawHooks();
     }
 
     function syncHookIds(ids) {
-      pool = _.filter(pool, function(h) {
-        return _.contains(ids, h.id);
+      pool = pool.filter(function(h) {
+        return $.fp.contains(ids, h.id);
       });
       drawHooks();
     }
@@ -1560,14 +1591,14 @@ var storage = {
       var seen = [];
       var hidden = 0;
       var visible = 0;
-      _.each(pool, function(hook) {
-        var hide = !_.contains(filter.variant, hook.variant) || !_.contains(filter.mode, hook.mode) || !_.contains(filter.speed, hook.speed) ||
+      pool.forEach(function(hook) {
+        var hide = !$.fp.contains(filter.variant, hook.variant) || !$.fp.contains(filter.mode, hook.mode) || !$.fp.contains(filter.speed, hook.speed) ||
           (filter.rating && (!hook.rating || (hook.rating < filter.rating[0] || hook.rating > filter.rating[1])));
         var hash = hook.mode + hook.variant + hook.time + hook.rating;
         if (hide && hook.action != 'cancel') {
           destroyHook(hook.id);
           hidden++;
-        } else if (_.contains(seen, hash) && hook.action != 'cancel') {
+        } else if ($.fp.contains(seen, hash) && hook.action != 'cancel') {
           $('#' + hook.id).filter(':visible').hide();
           $tbody.children('.' + hook.id).hide();
         } else {
@@ -1583,15 +1614,14 @@ var storage = {
         }
         if (hook.action != 'cancel') seen.push(hash);
       });
-      _.each(_.union(
-        _.map($canvas.find('>span.plot'), function(o) {
-          return $(o).attr('id');
-        }),
-        _.map($tbody.children(), function(o) {
-          return $(o).data('id');
-        })), function(id) {
-        if (!_.findWhere(pool, {
-          id: id
+      $canvas.find('>span.plot').map(function(o) {
+        return o.getAttribute('data-id');
+      }).concat(
+        $tbody.children().map(function(o) {
+          return o.getAttribute('data-id');
+        })).forEach(function(id) {
+        if (!$.fp.find(pool, function(x) {
+          return x.id == id;
         })) disableHook(id);
       });
 
@@ -1671,7 +1701,7 @@ var storage = {
     function renderTr(hook) {
       var title = (hook.action == "join") ? $.trans('Join the game') + ' - ' + hook.perf.name : $.trans('cancel');
       var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
-      return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
+      return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + [
         ['', '<span class="is2" data-icon="' + k + '"></span>'],
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous')],
         [hook.rating || 0, hook.rating ? hook.rating : ''],
@@ -1680,18 +1710,18 @@ var storage = {
           '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' +
           $.trans(hook.mode)
         ]
-      ], function(x) {
+      ].map(function(x) {
         return '<td data-sort-value="' + x[0] + '">' + x[1] + '</td>';
       }).join('') + '</tr>';
     }
 
     $('#hooks_chart').append(
-      _.map([1000, 1200, 1400, 1500, 1600, 1800, 2000, 2200, 2400, 2600, 2800], function(v) {
+      [1000, 1200, 1400, 1500, 1600, 1800, 2000, 2200, 2400, 2600, 2800].map(function(v) {
         var b = ratingY(v);
         return '<span class="y label" style="bottom:' + (b + 5) + 'px">' + v + '</span>' +
           '<div class="grid horiz" style="height:' + (b + 4) + 'px"></div>';
       }).join('') +
-      _.map([1, 2, 3, 5, 7, 10, 15, 20, 30], function(v) {
+      [1, 2, 3, 5, 7, 10, 15, 20, 30].map(function(v) {
         var l = clockX(v * 60);
         return '<span class="x label" style="left:' + l + 'px">' + v + '</span>' +
           '<div class="grid vert" style="width:' + (l + 7) + 'px"></div>';
@@ -1710,7 +1740,7 @@ var storage = {
         'KotH': "This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill",
         '3+': "This is a Three-check game!\n\nThe game can be won by checking the opponent 3 times.\nRead more: http://en.wikipedia.org/wiki/Three-check_chess"
       };
-      if (hook.action != 'join' || _.every(variantConfirms, function(variant, key) {
+      if (hook.action != 'join' || variantConfirms.every(function(variant, key) {
         if (hook.variant == key && !storage.get(key)) {
           var c = confirm(variant);
           if (c) storage.set(key, 1);
@@ -1765,8 +1795,8 @@ var storage = {
     function drawBars() {
       $wrap.find('table.standing').each(function() {
         var $bars = $(this).find('.bar');
-        var max = _.max($bars.map(function() {
-          return parseInt($(this).data('value'));
+        var max = Math.max.apply(Math, $bars.map(function() {
+          return parseInt(this.getAttribute('data-value'));
         }));
         $bars.each(function() {
           var width = Math.ceil((parseInt($(this).data('value')) * 100) / max);
@@ -1918,25 +1948,6 @@ var storage = {
       } catch (e) {}
     }).find('a:first').click();
 
-    var pgnLoader = function() {
-      $panels.find('.loader span').each(function() {
-        var t = this;
-        var moves = _.filter(_.values(
-          $('#ShowPgnText a').map(function() {
-            return $(this).text();
-          })
-        ), function(x) {
-          return typeof x == 'string';
-        });
-        var len = moves.length,
-          it = 0;
-        setInterval(function() {
-          t.innerHTML = moves[it++ % len] || '';
-        }, 100);
-      });
-    };
-    setTimeout(pgnLoader, 500);
-
     $panels.find('form.future_game_analysis').submit(function() {
       if ($(this).hasClass('must_login')) {
         if (confirm($.trans('You need an account to do that') + '.')) {
@@ -1949,7 +1960,6 @@ var storage = {
         url: $(this).attr('action'),
         success: function(html) {
           $panels.filter('.panel.computer_analysis').html(html);
-          pgnLoader();
         }
       });
       return false;

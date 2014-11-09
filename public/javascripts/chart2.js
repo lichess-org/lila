@@ -44,7 +44,7 @@ $(function() {
         tickWidth: 0
       },
       scrollbar: disabled,
-      series: _.map(lichess_rating_series, function(serie) {
+      series: lichess_rating_series.map(function(serie) {
         return {
           name: serie.name,
           type: 'line',
@@ -52,7 +52,7 @@ $(function() {
             enabled: true,
             radius: 2
           },
-          data: _.map(serie.points, function(r) {
+          data: serie.points.map(function(r) {
             return [Date.UTC(r[0], r[1], r[2]), r[3]];
           })
         };
@@ -69,7 +69,7 @@ $(function() {
     $(this).highcharts(mergeDefaults({
       series: [{
         name: 'Advantage',
-        data: _.map($this.data('rows'), function(row) {
+        data: $this.data('rows').map(function(row) {
           row.y = row.y / 100;
           return row;
         })
