@@ -803,6 +803,12 @@ div.side_box .padded {
   background-size: contain;
   background-repeat: no-repeat;
 }
+.player.color.white {
+  background-image: url(../piece/cburnett/wK-full.svg);
+}
+.player.color.black {
+  background-image: url(../piece/cburnett/bK-full.svg);
+}
 div.side div.confrontation {
   text-align: center;
   margin-bottom: 5px;

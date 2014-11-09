@@ -1418,7 +1418,7 @@ var storage = {
                     $('body').trigger('lichess.hook-flush');
                   }
                 });
-              }, 200);
+              }, 500);
               $div.html(html).find('input').change(save);
               $div.find('button.reset').click(function() {
                 $div.find('label input').prop('checked', true).trigger('change');
