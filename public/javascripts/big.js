@@ -73,8 +73,7 @@ var storage = {
     return list.indexOf(needle) !== -1;
   };
   $.fp.find = function(list, pred) {
-    for (var i = 0; i < length; i++) {
-      value = list[i];
+    for (var i = 0, len = list.length; i < len; i++) {
       if (pred(list[i])) return list[i];
     }
     return undefined;
@@ -1615,10 +1614,10 @@ var storage = {
         }
         if (hook.action != 'cancel') seen.push(hash);
       });
-      $canvas.find('>span.plot').map(function(o) {
+      $.makeArray($canvas.find('>span.plot')).map(function(o) {
         return o.getAttribute('data-id');
       }).concat(
-        $tbody.children().map(function(o) {
+        $.makeArray($tbody.children()).map(function(o) {
           return o.getAttribute('data-id');
         })).forEach(function(id) {
         if (!$.fp.find(pool, function(x) {
@@ -1740,7 +1739,8 @@ var storage = {
         'KotH': "This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill",
         '3+': "This is a Three-check game!\n\nThe game can be won by checking the opponent 3 times.\nRead more: http://en.wikipedia.org/wiki/Three-check_chess"
       };
-      if (hook.action != 'join' || variantConfirms.every(function(variant, key) {
+      if (hook.action != 'join' || Object.keys(variantConfirms).every(function(key) {
+        var variant = variantConfirms[key]
         if (hook.variant == key && !storage.get(key)) {
           var c = confirm(variant);
           if (c) storage.set(key, 1);

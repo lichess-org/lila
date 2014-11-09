@@ -203,7 +203,6 @@ lichess.StrongSocket.prototype = {
         self.ackableMessages = [];
         break;
       default:
-        // console.log(m.d, m.t);
         if (self.settings.receive) self.settings.receive(m.t, m.d);
         var h = self.settings.events[m.t];
         if (h) h(m.d || null);
