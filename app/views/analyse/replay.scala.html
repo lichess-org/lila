@@ -127,6 +127,12 @@ openGraph = povOpenGraph(pov)) {
     </div>
     <div class="panel move_times">
       <div
+        @division match {
+        case (mid, end) => {
+        data-division-mid="@mid.getOrElse("null")"
+        data-division-end="@end.getOrElse("null")"
+        }
+        }
         id="movetimes_chart"
         data-series="@timeChart.series"
         data-max="@timeChart.maxTime"></div>
