@@ -10,7 +10,6 @@ function canGoForward(ctrl) {
       } else ok = step.ply < move.ply;
     }
   });
-  console.log(ok);
   return ok;
 }
 
