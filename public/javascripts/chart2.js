@@ -130,14 +130,13 @@ $(function() {
             text: 'Opening',
             verticalAlign: 'top',
             align: 'left',
-            x: 10,
+            x: 6,
             style: {
-              color: '#aaa',
-              fontWeight: 'bold'
+              color: Highcharts.theme.lichess.text.weak,
             }
           },
           color: '#30cc4d',
-          width: 2,
+          width: 1,
           value: 0
         },
         {
@@ -145,14 +144,13 @@ $(function() {
             text: 'Mid-Game',
             verticalAlign: 'top',
             align: 'left',
-            x: 10,
+            x: 6,
             style: {
-              color: '#aaa',
-              fontWeight: 'bold'
+              color: Highcharts.theme.lichess.text.weak,
             }
           },
           color: '#3093cc',
-          width: (mid == null)? 0 : 2,
+          width: mid === null ? 0 : 1,
           value: mid
         },
         {
@@ -160,14 +158,13 @@ $(function() {
             text: 'End-Game',
             verticalAlign: 'top',
             align: 'left',
-            x: 10,
+            x: 6,
             style: {
-              color: '#aaa',
-              fontWeight: 'bold'
+              color: Highcharts.theme.lichess.text.weak,
             }
           },
           color: '#cc9730',
-          width: (end == null)? 0 : 2,
+          width: end === null ? 0 : 1,
           value: end
         }]
       },
@@ -284,6 +281,10 @@ Highcharts.theme = (function() {
 
   return {
     light: light,
+    lichess: {
+      text: text,
+      line: line
+    },
     colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee",
       "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"
     ],
