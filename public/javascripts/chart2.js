@@ -63,9 +63,6 @@ $(function() {
   $('#adv_chart').each(function() {
     var $this = $(this);
     var cpMax = parseInt($this.data('max'), 10) / 100;
-    var mid = parseInt($this.data('division-mid'));
-    var end = parseInt($this.data('division-end'));
-
     $(this).highcharts(mergeDefaults({
       series: [{
         name: 'Advantage',
@@ -123,53 +120,7 @@ $(function() {
         title: noText,
         labels: disabled,
         lineWidth: 0,
-        tickWidth: 0,
-        plotLines: [
-        {
-          label: {
-            text: 'Opening',
-            verticalAlign: 'top',
-            align: 'left',
-            x: 10,
-            style: {
-              color: '#aaa',
-              weight: 'bold'
-            }
-          },
-          color: '#30cc4d',
-          width: 2,
-          value: 0
-        },
-        {
-          label: {
-            text: 'Mid-Game',
-            verticalAlign: 'top',
-            align: 'left',
-            x: 10,
-            style: {
-              color: '#aaa',
-              weight: 'bold'
-            }
-          },
-          color: '#3093cc',
-          width: (mid == null)? 0 : 2,
-          value: mid
-        },
-        {
-          label: {
-            text: 'End-Game',
-            verticalAlign: 'top',
-            align: 'left',
-            x: 10,
-            style: {
-              color: '#aaa',
-              weight: 'bold'
-            }
-          },
-          color: '#cc9730',
-          width: (end == null)? 0 : 2,
-          value: end
-        }]
+        tickWidth: 0
       },
       yAxis: {
         min: -cpMax,
