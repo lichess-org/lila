@@ -212,7 +212,7 @@ body.dark div.table_not_started {
 body.dark .lichess_ground .replay .turn .index,
 body.dark .lichess_ground .comment,
 body.dark .lichess_ground .variation,
-body.dark .lichess_ground .replay .move:hover,
+body.dark .lichess_ground .replay a.move:hover,
 body.dark #top .dropdown,
 body.dark #top .shown a.toggle,
 body.dark div.analysis_menu > a,

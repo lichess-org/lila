@@ -141,7 +141,7 @@ div.game_control .jumps {
   text-decoration: none;
 }
 .lichess_ground .replay .turn .move {
-  width: 96px;
+  width: calc(50% - 14px - 13px);
   font-size: 17px;
   height: 22px;
   line-height: 22px;
