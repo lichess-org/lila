@@ -133,7 +133,7 @@ $(function() {
             x: 10,
             style: {
               color: '#aaa',
-              weight: 'bold'
+              fontWeight: 'bold'
             }
           },
           color: '#30cc4d',
@@ -148,7 +148,7 @@ $(function() {
             x: 10,
             style: {
               color: '#aaa',
-              weight: 'bold'
+              fontWeight: 'bold'
             }
           },
           color: '#3093cc',
@@ -163,7 +163,7 @@ $(function() {
             x: 10,
             style: {
               color: '#aaa',
-              weight: 'bold'
+              fontWeight: 'bold'
             }
           },
           color: '#cc9730',
