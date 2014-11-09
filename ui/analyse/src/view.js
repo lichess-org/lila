@@ -7,7 +7,6 @@ var renderStatus = require('game').view.status;
 var mod = require('game').view.mod;
 var treePath = require('./path');
 var control = require('./control');
-var mousewheel = require('./mousewheel');
 
 function renderEval(e) {
   e = Math.round(e / 10) / 10;
@@ -169,7 +168,13 @@ function visualBoard(ctrl) {
   return m('div.lichess_board_wrap',
     m('div.lichess_board.' + ctrl.data.game.variant.key, {
         config: function(el, isUpdate) {
-          if (!isUpdate) mousewheel(ctrl, el);
+          if (!isUpdate) el.addEventListener('mousewheel', function(e) {
+            if (e.deltaY > 0) control.next(ctrl);
+            else if (e.deltaY < 0) control.prev(ctrl);
+            m.redraw();
+            e.preventDefault();
+            return false;
+          });
         }
       },
       chessground.view(ctrl.chessground)));
