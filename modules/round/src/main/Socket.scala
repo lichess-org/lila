@@ -28,6 +28,8 @@ private[round] final class Socket(
     disconnectTimeout: Duration,
     ragequitTimeout: Duration) extends SocketActor[Member](uidTimeout) {
 
+  private var hasAi = false
+
   private val timeBomb = new TimeBomb(socketTimeout)
 
   private final class Player(color: Color) {
@@ -57,9 +59,12 @@ private[round] final class Socket(
 
   override def preStart() {
     refreshSubscriptions
+    lila.game.GameRepo game gameId map SetGame.apply pipeTo self
   }
 
   def receiveSpecific = {
+
+    case SetGame(Some(game)) => hasAi = game.hasAi
 
     case PingVersion(uid, v) =>
       timeBomb.delay
@@ -78,7 +83,7 @@ private[round] final class Socket(
     case Broom =>
       broom
       if (timeBomb.boom) self ! PoisonPill
-      else Color.all foreach { c =>
+      else if (!hasAi) Color.all foreach { c =>
         if (playerGet(c, _.isGone)) notifyGone(c, true)
       }
 

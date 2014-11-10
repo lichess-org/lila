@@ -87,6 +87,7 @@ case class SocketStatus(
   def onGame(color: Color) = color.fold(whiteOnGame, blackOnGame)
   def isGone(color: Color) = color.fold(whiteIsGone, blackIsGone)
 }
+case class SetGame(game: Option[lila.game.Game])
 
 package round {
 
