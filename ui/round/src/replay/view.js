@@ -57,12 +57,14 @@ function renderTable(ctrl, curPly) {
 
 function renderButtons(ctrl, curPly) {
   var nbMoves = ctrl.root.data.game.moves.length;
+  var root = ctrl.root;
   var flipAttrs = {
-    class: 'button flip hint--bottom' + (ctrl.root.vm.flip ? ' active' : ''),
-    'data-hint': ctrl.root.trans('flipBoard'),
+    class: 'button flip hint--bottom' + (root.vm.flip ? ' active' : ''),
+    'data-hint': root.trans('flipBoard'),
   };
-  if (ctrl.root.data.player.spectator) flipAttrs.href = ctrl.root.router.Round.watcher(ctrl.root.data.game.id, ctrl.root.data.opponent.color).url;
-  else flipAttrs.onclick = ctrl.root.flip;
+  if (root.data.tv) flipAttrs.href = root.router.Tv.index().url + (root.data.tv.flip ? '' : '?flip=1');
+  else if (root.data.player.spectator) flipAttrs.href = root.router.Round.watcher(root.data.game.id, root.data.opponent.color).url;
+  else flipAttrs.onclick = root.flip;
   return m('div.buttons', [
     m('a', flipAttrs, m('span[data-icon=B]')), m('div.hint--bottom', {
       'data-hint': 'Tip: use your keyboard arrow keys!'
