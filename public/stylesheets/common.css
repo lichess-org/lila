@@ -1660,11 +1660,11 @@ div.lichess_overboard.joining .mini_board {
   background: #fff;
   text-decoration: none;
 }
-.crosstable .win {
+body.base .crosstable .win {
   font-weight: bold;
   color: #759900;
 }
-.crosstable .loss {
+body.base .crosstable .loss {
   color: #ac524f;
 }
 .crosstable td.last {
