@@ -52,23 +52,25 @@ object Analyse extends LilaController {
   }
 
   def replay(pov: Pov)(implicit ctx: Context) =
-    Env.game.pgnDump(pov.game) zip
+    GameRepo initialFen pov.game.id flatMap { initialFen =>
       (env.analyser get pov.game.id) zip
-      (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
-      lila.game.Divider(pov.game) zip
-      Env.game.crosstableApi(pov.game) flatMap {
-        case ((((pgn, analysis), tour), division), crosstable) =>
-          Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _)) map { data =>
-            Ok(html.analyse.replay(
-              pov,
-              data,
-              Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
-              analysis,
-              analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
-              tour,
-              new TimeChart(pov.game, pov.game.pgnMoves),
-              crosstable,
-              division))
-          }
-      }
+        (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
+        Env.game.crosstableApi(pov.game) flatMap {
+          case ((analysis, tour), crosstable) =>
+            val division = Env.game.cached.Divider(pov.game, initialFen)
+            val pgn = Env.game.pgnDump(pov.game, initialFen)
+            Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data =>
+              Ok(html.analyse.replay(
+                pov,
+                data,
+                Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
+                analysis,
+                analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
+                tour,
+                new TimeChart(pov.game, pov.game.pgnMoves),
+                crosstable,
+                division))
+            }
+        }
+    }
 }

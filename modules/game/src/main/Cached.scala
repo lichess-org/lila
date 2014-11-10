@@ -6,7 +6,7 @@ import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 
 import lila.db.api.$count
-import lila.memo.{ AsyncCache, ExpireSetMemo }
+import lila.memo.{ AsyncCache, ExpireSetMemo, Builder }
 import tube.gameTube
 
 final class Cached(ttl: Duration) {
@@ -28,4 +28,22 @@ final class Cached(ttl: Duration) {
     timeToLive = 6 hours)
 
   private val count = AsyncCache((o: JsObject) => $count(o), timeToLive = ttl)
+
+  object Divider {
+
+    private val cache = Builder.size[String, chess.Division](5000)
+    private val empty = chess.Division(none[Int], none[Int])
+
+    def apply(game: Game, initialFen: Option[String]): chess.Division = {
+      Option(cache getIfPresent game.id) | {
+        val div = chess.Replay(
+          pgn = game.pgnMoves mkString " ",
+          initialFen = initialFen,
+          variant = game.variant
+        ).toOption.fold(empty)(chess.Divider.apply)
+        cache.put(game.id, div)
+        div
+      }
+    }
+  }
 }

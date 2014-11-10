@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], division: lila.game.Divider.Division)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], division: chess.Division)(implicit ctx: Context)
 
 @import pov._
 
@@ -80,13 +80,9 @@ openGraph = povOpenGraph(pov)) {
       @analysis.map { a =>
       @advantageChart.map { chart =>
       <div
-        @division match {
-        case (mid, end) => {
-        data-division-mid="@mid.getOrElse("null")"
-        data-division-end="@end.getOrElse("null")"
-        }
-        }
         id="adv_chart"
+        data-division-mid="@division.mid.getOrElse("null")"
+        data-division-end="@division.end.getOrElse("null")"
         data-title="Advantage (up: white, down: black)"
         data-max="@lila.analyse.AdvantageChart.max"
         data-rows="@chart"></div>
@@ -126,13 +122,9 @@ openGraph = povOpenGraph(pov)) {
     </div>
     <div class="panel move_times">
       <div
-        @division match {
-        case (mid, end) => {
-        data-division-mid="@mid.getOrElse("null")"
-        data-division-end="@end.getOrElse("null")"
-        }
-        }
         id="movetimes_chart"
+        data-division-mid="@division.mid.getOrElse("null")"
+        data-division-end="@division.end.getOrElse("null")"
         data-series="@timeChart.series"
         data-max="@timeChart.maxTime"></div>
     </div>

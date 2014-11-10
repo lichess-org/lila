@@ -66,20 +66,19 @@ private[api] final class GameApi(
     withFens: Boolean,
     token: Option[String])(games: List[Game]): Fu[List[JsObject]] =
     AnalysisRepo doneByIds games.map(_.id) flatMap { analysisOptions =>
-      (games map { g => withAnalysis ?? (pgnDump(g) map (_.some)) }).sequenceFu flatMap { pgns =>
-        (games map GameRepo.initialFen).sequenceFu map { initialFens =>
-          val validToken = check(token)
-          games zip analysisOptions zip pgns zip initialFens map {
-            case (((g, analysisOption), pgnOption), initialFenOption) =>
-              gameToJson(g, makeUrl(g), analysisOption, pgnOption, initialFenOption,
-                withAnalysis = withAnalysis,
-                withMoves = withMoves,
-                withOpening = withOpening,
-                withFens = withFens,
-                withBlurs = validToken,
-                withHold = validToken,
-                withMoveTimes = validToken)
-          }
+      (games map GameRepo.initialFen).sequenceFu map { initialFens =>
+        val validToken = check(token)
+        games zip analysisOptions zip initialFens map {
+          case ((g, analysisOption), initialFen) =>
+            val pgnOption = withAnalysis option pgnDump(g, initialFen)
+            gameToJson(g, makeUrl(g), analysisOption, pgnOption, initialFen,
+              withAnalysis = withAnalysis,
+              withMoves = withMoves,
+              withOpening = withOpening,
+              withFens = withFens,
+              withBlurs = validToken,
+              withHold = validToken,
+              withMoveTimes = validToken)
         }
       }
     }
@@ -91,7 +90,7 @@ private[api] final class GameApi(
     url: String,
     analysisOption: Option[Analysis],
     pgnOption: Option[Pgn],
-    initialFenOption: Option[String],
+    initialFen: Option[String],
     withAnalysis: Boolean,
     withMoves: Boolean,
     withOpening: Boolean,
@@ -100,7 +99,7 @@ private[api] final class GameApi(
     withHold: Boolean = false,
     withMoveTimes: Boolean = false) = Json.obj(
     "id" -> g.id,
-    "initialFen" -> initialFenOption,
+    "initialFen" -> initialFen,
     "rated" -> g.rated,
     "variant" -> g.variant.key,
     "speed" -> g.speed.key,
@@ -143,7 +142,7 @@ private[api] final class GameApi(
       }
     },
     "fens" -> withFens ?? {
-      chess.Replay(g.pgnMoves mkString " ", initialFenOption, g.variant).toOption map { replay =>
+      chess.Replay(g.pgnMoves mkString " ", initialFen, g.variant).toOption map { replay =>
         JsArray(replay.chronoMoves map { move =>
           chess.format.Forsyth exportBoard move.after
         } map JsString.apply)

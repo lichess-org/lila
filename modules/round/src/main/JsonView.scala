@@ -129,8 +129,9 @@ final class JsonView(
     apiVersion: Int,
     user: Option[User],
     tv: Option[Boolean],
-    withBlurs: Boolean) =
-    GameRepo.initialFen(pov.game) zip
+    withBlurs: Boolean,
+    initialFen: Option[Option[String]] = None) =
+    initialFen.fold(GameRepo initialFen pov.game)(fuccess) zip
       getSocketStatus(pov.game.id) zip
       getWatcherChat(pov.game, user) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {

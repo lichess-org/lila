@@ -26,9 +26,11 @@ private[api] final class RoundApi(
         }
       }
 
-  def watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean], analysis: Option[(Pgn, Analysis)] = None)(implicit ctx: Context): Fu[JsObject] =
+  def watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean],
+    analysis: Option[(Pgn, Analysis)] = None,
+    initialFen: Option[Option[String]] = None)(implicit ctx: Context): Fu[JsObject] =
     jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
-      withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
+      withBlurs = ctx.me ?? Granter(_.ViewBlurs), initialFen = initialFen) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) map {
         case (json, tourOption) => blindMode {
           withTournament(tourOption) {
