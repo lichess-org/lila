@@ -23,7 +23,8 @@ case class Pov(game: Game, color: Color) {
 
   def ref = PovRef(game.id, color)
 
-  def withGame(g: Game) = Pov(g, color)
+  def withGame(g: Game) = copy(game = g)
+  def withColor(c: Color) = copy(color = c)
 
   override def toString = ref.toString
 }
