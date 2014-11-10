@@ -595,8 +595,8 @@ var storage = {
     var ext = hasOgg ? 'ogg' : 'mp3';
     var audio = {
       dong: new Audio(baseUrl + 'dong2.' + ext),
-      moveW: new Audio(baseUrl + 'move2.' + ext),
-      moveB: new Audio(baseUrl + 'move2.' + ext),
+      moveW: new Audio(baseUrl + 'move3.' + ext),
+      moveB: new Audio(baseUrl + 'move3.' + ext),
       take: new Audio(baseUrl + 'take2.' + ext)
     };
     var volumes = {
