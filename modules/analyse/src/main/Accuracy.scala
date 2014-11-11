@@ -25,11 +25,8 @@ object Accuracy {
       }
     val nb = diffs.size
     (nb != 0) option {
-      val avg = (diffs.sum / nb) |> {
-        case a if pov.color.white => -a
-        case a                    => a
-      }
-      avg
+      val avg = (diffs.sum / nb)
+      (if (pov.color.white) -avg else avg) max 0
     }
   }
 }
