@@ -92,28 +92,48 @@ function renderMeta(ctrl, move, path) {
   ];
 }
 
+function renderIndex(turn) {
+  return {
+    tag: 'div',
+    attrs: {
+      class: 'index'
+    },
+    children: turn.turn
+  };
+}
+
+function renderTurnDiv(children) {
+  return {
+    tag: 'div',
+    attrs: {
+      class: 'turn',
+    },
+    children: children
+  };
+}
+
 function renderTurn(ctrl, turn, path) {
-  var index = m('div.index', turn.turn);
+  var index = renderIndex(turn);
   var wMove = turn.white ? renderMove(ctrl, turn.white, path) : null;
   var wMeta = renderMeta(ctrl, turn.white, path);
   var bMove = turn.black ? renderMove(ctrl, turn.black, path) : null;
   var bMeta = renderMeta(ctrl, turn.black, path);
   if (turn.white) {
     if (wMeta) return [
-      m('div.turn', [index, wMove, emptyMove]),
+      renderTurnDiv([index, wMove, emptyMove]),
       wMeta,
       turn.black ? [
-        m('div.turn', [index, emptyMove, bMove]),
+        renderTurnDiv([index, emptyMove, bMove]),
         bMeta
       ] : null,
     ];
     return [
-      m('div.turn', [index, wMove, bMove]),
+      renderTurnDiv([index, wMove, bMove]),
       bMeta
     ];
   }
   return [
-    m('div.turn', [index, emptyMove, bMove]),
+    renderTurnDiv([index, emptyMove, bMove]),
     bMeta
   ];
 }
