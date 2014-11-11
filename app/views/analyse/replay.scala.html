@@ -25,6 +25,8 @@ i18n: @round.jsI18n()
 
 @underchat = {
 @views.html.game.watchers()
+@round.blurs(game)
+@round.holdAlerts(game)
 <div class="shortcuts">
   <p class="title" data-icon="u"> Keyboard Shortcuts</p>
   <div class="inner">
@@ -48,8 +50,6 @@ moreJs = moreJs,
 openGraph = povOpenGraph(pov)) {
 <div class="analyse cg-512">@miniBoardContent</div>
 <div class="advice_summary" style="display:none">
-  @round.blurs(game)
-  @round.holdAlerts(game)
   @analysis.filter(_.done).map { a =>
   <table>
     @for((color, pairs) <- a.summary) {
@@ -66,8 +66,11 @@ openGraph = povOpenGraph(pov)) {
         <th>@nagName(nag)</th>
       </tr>
       }
-      <td><strong>@lila.analyse.Accuracy(pov.withColor(color), a)</strong></td>
-      <th>Average centipawn loss</th>
+      <tr>
+        <td><strong>@lila.analyse.Accuracy(pov.withColor(color), a)</strong></td>
+        <th>Average centipawn loss</th>
+      </tr>
+      <tr><td class="spacerlol" colspan=2></td></tr>
     </tbody>
     }
   </table>
