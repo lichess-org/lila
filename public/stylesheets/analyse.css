@@ -217,15 +217,9 @@ div.underboard .center {
 div.advice_summary table {
   margin-top: 10px;
 }
-div.advice_summary tr {
-  width: 100%;
-}
-div.advice_summary th,
 div.advice_summary td {
-  padding: 3px 5px;
-}
-div.advice_summary td {
-  text-align: right;
+  padding: 2px 8px;
+  text-align: center;
 }
 #adv_chart,
 #movetimes_chart {

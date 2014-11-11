@@ -55,9 +55,8 @@ openGraph = povOpenGraph(pov)) {
     @for((color, pairs) <- a.summary) {
     <thead>
       <tr>
-        <th colspan="2">
-          @playerLink(pov.game.player(color), withOnline = false, cssClass = Some("player color " + color.name))
-        </th>
+        <td><img src="@{staticUrl("piece/cburnett/" + color.letter + "K-full.svg")}" width=16 height=16 /></td>
+        <th>@playerLink(pov.game.player(color), withOnline = false)</th>
       </tr>
     </thead>
     <tbody>
