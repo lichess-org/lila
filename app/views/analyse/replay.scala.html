@@ -63,11 +63,11 @@ openGraph = povOpenGraph(pov)) {
     <tbody>
       @for((nag, nb) <- pairs) {
       <tr>
-        <td style="text-align: right"><strong>@nb</strong></td>
-        <th>@nagName(nag)</th> 
+        <td><strong>@nb</strong></td>
+        <th>@nagName(nag)</th>
       </tr>
       }
-      <td style="text-align: right"><strong>@lila.analyse.Accuracy(pov.withColor(color), a)</strong></td>
+      <td><strong>@lila.analyse.Accuracy(pov.withColor(color), a)</strong></td>
       <th>Average centipawn loss</th>
     </tbody>
     }
