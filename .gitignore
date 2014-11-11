@@ -10,22 +10,11 @@ public/piece/pirouetti
 public/piece/merida
 public/piece/spatial
 public/piece/alpha
-public/wN-bg.svg
-public/bN-bg.svg
-public/vendor/pgn4web/pgn4web-compacted.js
-serve/
-serve/README
 target
 bin/.translate_version
 data/
 dist/
-todos/
 node_modules/
 local/
-
-cljs/*/out
-cljs/*/repl
-cljs/*/.repl
-cljs/*/.lein-repl-history
 
 RUNNING_PID
