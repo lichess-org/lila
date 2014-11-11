@@ -55,8 +55,17 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
     }
   }
 
-  def process(id: String, by: User): Funit =
-    $update.field(id, "processedBy", by.id)
+  def process(id: String, by: User): Funit = $find byId id flatMap {
+    _ ?? { report =>
+      $update(
+        Json.obj(
+          "user" -> report.user,
+          "reason" -> report.reason
+        ) ++ unprocessedSelect,
+        $set("processedBy" -> by.id),
+        multi = true)
+    }
+  }
 
   def autoProcess(userId: String): Funit =
     $update(Json.obj("user" -> userId.toLowerCase), Json.obj("processedBy" -> "lichess"))
