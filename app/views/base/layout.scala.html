@@ -50,9 +50,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     ctx.blindMode ?? "blind_mode",
     if (ctx.is3d) "is3d" else "is2d",
     "coords_" + ctx.pref.coords).mkString(" ")"
-    data-piece-set="@ctx.currentPieceSet"
-    data-static-url="@staticUrl("")"
-    data-sound-dir="@staticUrl("sound")"
+    data-sound-dir="@routes.Assets.at("sound")"
     data-ports="@portsString"
     data-accept-languages="@acceptLanguages.mkString(",")">
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
