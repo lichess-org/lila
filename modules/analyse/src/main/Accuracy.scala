@@ -29,7 +29,7 @@ object Accuracy {
         case a if pov.color.white => -a
         case a                    => a
       }
-      100 - avg
+      avg
     }
   }
 }
