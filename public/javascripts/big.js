@@ -819,14 +819,16 @@ var storage = {
       self.set(self.element.data('preload').split(','));
     },
     repaint: function() {
-      this.users = $.unique(this.users);
+      this.users = $.unique(this.users).filter(function(u) {
+        return u !== '';
+      });
       this.$nbOnline.text(this.users.length);
       this.$nobody.toggle(this.users.length === 0);
       this.$list.html(this.users.map(this._renderUser).join(""));
       $('body').trigger('lichess.content_loaded');
     },
     set: function(us) {
-      this.users = us;
+      this.users = us || [];
       this.repaint();
     },
     enters: function(user) {
