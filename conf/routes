@@ -138,7 +138,7 @@ POST  /$gameId<\w{8}>/better-analysis/$color<white|black> controllers.Analyse.be
 POST  /$gameId<\w{8}>/post-analysis       controllers.Analyse.postAnalysis(gameId: String)
 
 GET   /game/pgn/$gameId<\w{8}>.pgn     controllers.Export.pgn(gameId: String)
-GET   /game/export/pdf/$gameId<\w{8}>.pdf     controllers.Export.pdf(gameId: String)
+# GET   /game/export/pdf/$gameId<\w{8}>.pdf     controllers.Export.pdf(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: String)
 
 # Pref
