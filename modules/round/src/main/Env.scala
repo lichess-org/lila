@@ -41,18 +41,14 @@ final class Env(
     val SocketName = config getString "socket.name"
     val SocketTimeout = config duration "socket.timeout"
     val FinisherLockTimeout = config duration "finisher.lock.timeout"
-    val HijackTimeout = config duration "hijack.timeout"
     val NetDomain = config getString "net.domain"
     val ActorMapName = config getString "actor.map.name"
     val ActorName = config getString "actor.name"
-    val HijackSalt = config getString "hijack.salt"
     val CollectionReminder = config getString "collection.reminder"
     val CasualOnly = config getBoolean "casual_only"
     val ActiveTtl = config duration "active.ttl"
   }
   import settings._
-
-  val HijackEnabled = config getBoolean "hijack.enabled"
 
   lazy val history = () => new History(ttl = MessageTtl)
 
@@ -105,7 +101,6 @@ final class Env(
     roundMap = roundMap,
     socketHub = socketHub,
     messenger = messenger,
-    hijack = hijack,
     bus = system.lilaBus)
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi)
@@ -181,8 +176,6 @@ final class Env(
   }
 
   private lazy val titivate = new Titivate(roundMap, scheduler)
-
-  lazy val hijack = new Hijack(HijackTimeout, HijackSalt, HijackEnabled)
 
   lazy val takebacker = new Takebacker(
     messenger = messenger,

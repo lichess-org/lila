@@ -87,7 +87,6 @@ GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameI
 GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)
 GET   /$fullId<\w{12}>                           controllers.Round.player(fullId: String)
 GET   /$gameId<\w{8}>/$color<white|black>/socket controllers.Round.websocketWatcher(gameId: String, color: String)
-GET   /$gameId<\w{8}>/s.js                       controllers.Round.signedJs(gameId: String)
 GET   /$fullId<\w{12}>/socket/v:apiVersion       controllers.Round.websocketPlayer(fullId: String, apiVersion: Int)
 GET   /$gameId<\w{8}>/$color<white|black>/side   controllers.Round.sideWatcher(gameId: String, color: String)
 GET   /$fullId<\w{12}>/side                      controllers.Round.sidePlayer(fullId: String)

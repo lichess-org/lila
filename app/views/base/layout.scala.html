@@ -10,7 +10,6 @@ underchat: Option[Html] = None,
 robots: Boolean = true,
 moreCss: Html = Html(""),
 moreJs: Html = Html(""),
-signedJs: Option[String] = None,
 zen: Boolean = false,
 openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
 <!doctype html>
@@ -263,7 +262,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     @powertipTag
     @jsTagCompiled("common.js")
     @jsTagCompiled("strongSocket.js")
-    @signedJs.fold(jsTagCompiled("big.js"))(js => jsAt(js, false))
+    @jsTagCompiled("big.js")
     @moreJs
     @if(lang.language != "en") {
     @jsAt(s"trans/${lang.language}.js")

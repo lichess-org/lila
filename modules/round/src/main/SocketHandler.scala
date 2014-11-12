@@ -21,7 +21,6 @@ private[round] final class SocketHandler(
     socketHub: ActorRef,
     hub: lila.hub.Env,
     messenger: Messenger,
-    hijack: Hijack,
     bus: lila.common.Bus) {
 
   private def controller(
@@ -119,7 +118,7 @@ private[round] final class SocketHandler(
       user = user,
       version = version,
       color = pov.color,
-      playerId = playerId ifFalse hijack(pov, token),
+      playerId = playerId,
       ip = ip,
       userTv = userTv)
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>

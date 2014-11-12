@@ -45,10 +45,6 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def signedJs(gameId: String) = OpenNoCtx { req =>
-    JsOk(fuccess(Env.game.gameJs.sign(env.hijack tokenOf gameId)), CACHE_CONTROL -> "max-age=3600")
-  }
-
   def player(fullId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo pov fullId) { pov =>
       negotiate(
