@@ -32,6 +32,6 @@
   "dependencies": {
     "chessground": "^1.7.13",
     "lodash-node": "^2.4.1",
-    "mithril": "^0.1.22"
+    "mithril": "^0.1.23"
   }
 }

@@ -34,6 +34,6 @@
     "chessli.js": "file:../chessli",
     "lodash-node": "^2.4.1",
     "merge": "^1.2.0",
-    "mithril": "^0.1.22"
+    "mithril": "^0.1.23"
   }
 }
