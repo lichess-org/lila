@@ -16,7 +16,7 @@ private[i18n] final class Context(gitUrl: String, gitFile: String, keys: I18nKey
 
   def get: Fu[Contexts] = cache(true)
 
-  private val cache = AsyncCache.single[Contexts](fetch, timeToLive = 1 hour)
+  private val cache = AsyncCache.single[Contexts](fetch, timeToLive = 3 hours)
 
   private def parse(text: String): Contexts =
     text.lines.toList.map(_.trim).filter(_.nonEmpty).map(_.split('=')).foldLeft(Map[String, String]()) {

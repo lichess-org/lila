@@ -24,7 +24,7 @@ private[puzzle] final class Selector(
 
   private val popularCount = lila.memo.AsyncCache.single[Int](
     f = puzzleColl.db command Count(puzzleColl.name, popularSelector.some),
-    timeToLive = 3 hour)
+    timeToLive = 1 day)
 
   private def difficultyDecay(difficulty: Int) = difficulty match {
     case 1 => -200
