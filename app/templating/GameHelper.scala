@@ -23,7 +23,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val variant = pov.game.variant.exotic ?? s" ${pov.game.variant.name}"
     Map(
     'type -> "website",
-    'image -> cdnUrl(routes.Export.png(pov.game.id).url),
+    // 'image -> cdnUrl(routes.Export.png(pov.game.id).url),
     'title -> s"$speed$variant Chess - ${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}",
     'site_name -> "lichess.org",
     'url -> s"$netBaseUrl${routes.Round.watcher(pov.game.id, pov.color.name).url}",
