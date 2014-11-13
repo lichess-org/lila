@@ -5,14 +5,13 @@ import scala.concurrent.duration.Duration
 import play.api.libs.json._
 
 import actorApi._
-import lila.memo
 
 final class History[Metadata](ttl: Duration) {
 
   type Message = History.Message[Metadata]
 
   private var privateVersion = 0
-  private val messages = memo.Builder.expiry[Int, Message](ttl)
+  private val messages = lila.memo.Builder.expiry[Int, Message](ttl)
 
   def version = privateVersion
 

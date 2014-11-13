@@ -8,7 +8,7 @@ import com.google.common.io.Files
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.Repository
 
-import lila.memo.{ AsyncCache }
+import lila.memo.AsyncCache
 
 private[i18n] final class Context(gitUrl: String, gitFile: String, keys: I18nKeys) {
 
