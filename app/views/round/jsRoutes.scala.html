@@ -1,14 +1,15 @@
 @()(implicit ctx: Context)
 @helper.javascriptRouter("roundRoutes")(
-routes.javascript.Lobby.home,
-routes.javascript.Auth.signup,
-routes.javascript.User.show,
-routes.javascript.Tournament.show,
+/* routes.javascript.Lobby.home */,
+/* routes.javascript.Auth.signup */,
+/* routes.javascript.User.show */,
+/* routes.javascript.Tournament.show */,
 routes.javascript.Round.watcher,
 routes.javascript.Round.playerText,
 routes.javascript.Round.watcherText,
 routes.javascript.Round.sideWatcher,
 routes.javascript.Round.continue,
-routes.javascript.Tv.index,
-routes.javascript.Tv.side,
-routes.javascript.Editor.game)(ctx.req)
+/* routes.javascript.Tv.index */,
+routes.javascript.Tv.side
+/* routes.javascript.Editor.game */
+)(ctx.req)

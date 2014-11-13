@@ -62,7 +62,7 @@ function renderButtons(ctrl, curPly) {
     class: 'button flip hint--bottom' + (root.vm.flip ? ' active' : ''),
     'data-hint': root.trans('flipBoard'),
   };
-  if (root.data.tv) flipAttrs.href = root.router.Tv.index().url + (root.data.tv.flip ? '' : '?flip=1');
+  if (root.data.tv) flipAttrs.href = '/tv' + (root.data.tv.flip ? '' : '?flip=1');
   else if (root.data.player.spectator) flipAttrs.href = root.router.Round.watcher(root.data.game.id, root.data.opponent.color).url;
   else flipAttrs.onclick = root.flip;
   return m('div.buttons', [

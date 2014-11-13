@@ -25,7 +25,7 @@ module.exports = function(ctrl, player, klass) {
         el.classList.add('ulpt');
       },
       class: 'user_link ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
-      href: ctrl.router.User.show(player.user.username).url,
+      href: '/@/' + player.user.username,
       target: game.isPlayerPlaying(ctrl.data) ? '_blank' : null,
       'data-icon': 'r',
     }, [

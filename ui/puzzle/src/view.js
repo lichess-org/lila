@@ -36,17 +36,17 @@ function renderTrainingBox(ctrl) {
     m('h1', ctrl.trans('training')),
     m('div.tabs.buttonset', [
       m('a.button.active', {
-        href: ctrl.router.Puzzle.home().url
+        href: '/training'
       }, 'Puzzle'),
       m('a.button', {
-        href: ctrl.router.Coordinate.home().url
+        href: '/training/coordinate'
       }, 'Coordinate')
     ]),
     ctrl.data.user ? renderUserInfos(ctrl) : m('div.register', [
       m('p', ctrl.trans('toTrackYourProgress')),
       m('p.signup',
         m('a.button', {
-          href: ctrl.router.Auth.signup().url
+          href: '/signup',
         }, ctrl.trans('signUp'))
       ),
       m('p', ctrl.trans('trainingSignupExplanation'))
@@ -268,7 +268,7 @@ function renderHistory(ctrl) {
       var hash = ctrl.data.user.history.join('');
       if (hash == context.hash) return;
       context.hash = hash;
-      $.get(ctrl.router.Puzzle.history().url, function(html) {
+      $.get('/training/history', function(html) {
         el.innerHTML = html;
       });
     }

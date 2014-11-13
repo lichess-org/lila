@@ -124,17 +124,17 @@ module.exports = {
   newGame: function(ctrl) {
     if (!ctrl.data.offeringRematch && !ctrl.data.tournament) return m('a.lichess_new_game.button.hint--bottom', {
       'data-hint': ctrl.trans('playWithAnotherOpponent'),
-      href: ctrl.router.Lobby.home().url
+      href: '/',
     }, ctrl.trans('newOpponent'));
   },
   backToTournament: function(ctrl) {
     if (ctrl.data.tournament) return m('a[data-icon=G].button' + (ctrl.data.tournament.running ? '.strong.glowing' : ''), {
-      href: ctrl.router.Tournament.show(ctrl.data.tournament.id).url
+      href: '/tournament/' + ctrl.data.tournament.id
     }, ctrl.trans('backToTournament'));
   },
   viewTournament: function(ctrl) {
     if (ctrl.data.tournament) return m('a.button', {
-      href: ctrl.router.Tournament.show(ctrl.data.tournament.id).url
+      href: '/tournament/' + ctrl.data.tournament.id
     }, ctrl.trans('viewTournament'));
   },
   moretime: function(ctrl) {

@@ -221,7 +221,7 @@ function buttons(ctrl) {
       }, m('span[data-icon=B]')),
       m('a.button.hint--bottom', {
         'data-hint': ctrl.trans('boardEditor'),
-        href: ctrl.router.Editor.game(ctrl.data.game.id).url + '?fen=' + ctrl.vm.situation.fen
+        href: ctrl.data.game.id + '/edit?fen=' + ctrl.vm.situation.fen
       }, m('span[data-icon=m]')),
       m('a.button.hint--bottom', {
         'data-hint': ctrl.trans('continueFromHere'),

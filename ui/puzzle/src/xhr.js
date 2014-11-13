@@ -45,7 +45,7 @@ function retry(ctrl) {
 function setDifficulty(ctrl, d) {
   m.request({
     method: 'POST',
-    url: ctrl.router.Puzzle.difficulty().url,
+    url: '/training/difficulty',
     data: {
       difficulty: d
     },
@@ -56,7 +56,7 @@ function setDifficulty(ctrl, d) {
 function newPuzzle(ctrl) {
   m.request({
     method: 'GET',
-    url: ctrl.router.Puzzle.newPuzzle().url,
+    url: '/training/new',
     config: xhrConfig
   }).then(ctrl.reload);
 }
