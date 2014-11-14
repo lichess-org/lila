@@ -34,16 +34,17 @@ final class Cached(ttl: Duration) {
     private val cache = Builder.size[String, chess.Division](5000)
     private val empty = chess.Division(none[Int], none[Int])
 
-    def apply(game: Game, initialFen: Option[String]): chess.Division = {
-      Option(cache getIfPresent game.id) | {
-        val div = chess.Replay(
-          pgn = game.pgnMoves mkString " ",
-          initialFen = initialFen,
-          variant = game.variant
-        ).toOption.fold(empty)(chess.Divider.apply)
-        cache.put(game.id, div)
-        div
-      }
-    }
+    def apply(game: Game, initialFen: Option[String]): chess.Division = empty
+    // def apply(game: Game, initialFen: Option[String]): chess.Division = {
+      // Option(cache getIfPresent game.id) | {
+      //   val div = chess.Replay(
+      //     pgn = game.pgnMoves mkString " ",
+      //     initialFen = initialFen,
+      //     variant = game.variant
+      //   ).toOption.fold(empty)(chess.Divider.apply)
+      //   cache.put(game.id, div)
+      //   div
+      // }
+    // }
   }
 }
