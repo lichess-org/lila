@@ -14,11 +14,12 @@ module.exports = function(ctrl, e) {
   });
   if (!key) return;
   var coords = util.key2pos(ctrl.chessground.data.orientation === 'white' ? key : util.invertKey(key));
-  var obj = {};
-  obj[key] = {
+  var piece = {
     role: role,
     color: color
   };
+  var obj = {};
+  obj[key] = piece;
   ctrl.chessground.setPieces(obj);
   var bounds = ctrl.chessground.data.bounds();
   var squareBounds = e.target.parentNode.getBoundingClientRect();
@@ -28,6 +29,7 @@ module.exports = function(ctrl, e) {
   ];
   ctrl.chessground.data.draggable.current = {
     orig: key,
+    piece: piece.color + ' ' + piece.role,
     rel: rel,
     epos: [e.clientX, e.clientY],
     pos: [e.clientX - rel[0], e.clientY - rel[1]],
