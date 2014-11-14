@@ -30,8 +30,8 @@
     "watchify": "^1.0.2"
   },
   "dependencies": {
-    "chessground": "^1.7.13",
+    "chessground": "1.7.16",
     "lodash-node": "^2.4.1",
-    "mithril": "^0.1.23"
+    "mithril": "0.1.22"
   }
 }
