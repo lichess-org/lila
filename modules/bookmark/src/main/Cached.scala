@@ -7,7 +7,7 @@ private[bookmark] final class Cached {
 
   private[bookmark] val gameIdsCache = MixedCache[String, Set[String]](
     (userId: String) => BookmarkRepo gameIdsByUserId userId map (_.toSet),
-    timeToLive = 1 hour,
+    timeToLive = 1 day,
     default = _ => Set.empty)
 
   def gameIds(userId: String) = gameIdsCache get userId

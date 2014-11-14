@@ -26,6 +26,6 @@ final class LightUserApi(coll: Coll) {
       BSONDocument(User.BSONFields.id -> id),
       BSONDocument(F.username -> true, F.title -> true)
     ).one[LightUser],
-    timeToLive = 5 minutes,
+    timeToLive = 30 minutes,
     default = id => LightUser(id, id, None).some)
 }
