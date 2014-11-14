@@ -221,7 +221,8 @@ function buttons(ctrl) {
       }, m('span[data-icon=B]')),
       m('a.button.hint--bottom', {
         'data-hint': ctrl.trans('boardEditor'),
-        href: ctrl.data.game.id + '/edit?fen=' + ctrl.vm.situation.fen
+        href: ctrl.data.game.id + '/edit?fen=' + ctrl.vm.situation.fen,
+        rel: 'nofollow'
       }, m('span[data-icon=m]')),
       m('a.button.hint--bottom', {
         'data-hint': ctrl.trans('continueFromHere'),
@@ -250,10 +251,12 @@ function buttons(ctrl) {
     ]),
     ctrl.vm.continue ? m('div.continue', [
       m('a.button', {
-        href: ctrl.router.Round.continue(ctrl.data.game.id, 'ai').url + '?fen=' + ctrl.vm.situation.fen
+        href: ctrl.router.Round.continue(ctrl.data.game.id, 'ai').url + '?fen=' + ctrl.vm.situation.fen,
+        rel: 'nofollow'
       }, ctrl.trans('playWithTheMachine')),
       m('a.button', {
-        href: ctrl.router.Round.continue(ctrl.data.game.id, 'friend').url + '?fen=' + ctrl.vm.situation.fen
+        href: ctrl.router.Round.continue(ctrl.data.game.id, 'friend').url + '?fen=' + ctrl.vm.situation.fen,
+        rel: 'nofollow'
       }, ctrl.trans('playWithAFriend'))
     ]) : null
   ];

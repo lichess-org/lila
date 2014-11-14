@@ -245,10 +245,12 @@ function renderViewControls(ctrl, fen) {
 function renderContinueLinks(ctrl, fen) {
   return m('div.continue.links', [
     m('a.button', {
-      href: '/?fen=' + fen + '#ai'
+      href: '/?fen=' + fen + '#ai',
+      rel: 'nofollow'
     }, ctrl.trans('playWithTheMachine')),
     m('a.button', {
-      href: '/?fen=' + fen + '#friend'
+      href: '/?fen=' + fen + '#friend',
+      rel: 'nofollow'
     }, ctrl.trans('playWithAFriend'))
   ]);
 }
