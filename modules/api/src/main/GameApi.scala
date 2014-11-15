@@ -142,7 +142,7 @@ private[api] final class GameApi(
       }
     },
     "fens" -> withFens ?? {
-      chess.Replay(g.pgnMoves mkString " ", initialFen, g.variant).toOption map { replay =>
+      chess.Replay(g.pgnMoves, initialFen, g.variant).toOption map { replay =>
         JsArray(replay.chronoMoves map { move =>
           chess.format.Forsyth exportBoard move.after
         } map JsString.apply)
