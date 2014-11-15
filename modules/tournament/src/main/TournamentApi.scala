@@ -19,7 +19,6 @@ import lila.round.actorApi.round.ResignColor
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
-import tube.tournamentTubes._
 
 private[tournament] final class TournamentApi(
     sequencers: ActorRef,
@@ -40,7 +39,7 @@ private[tournament] final class TournamentApi(
           val tour2 = tour addPairings pairings
           val tour3 = if (postEvents.isEmpty) tour2 else { tour2 addEvents postEvents }
 
-          $update(tour3) >> (pairings map autoPairing(tour3)).sequence map {
+          TournamentRepo.update(tour3).void >> (pairings map autoPairing(tour3)).sequence map {
             _.list foreach { game =>
               game.tournamentId foreach { tid =>
                 sendTo(tid, StartGame(game))
@@ -63,7 +62,7 @@ private[tournament] final class TournamentApi(
         password = setup.password,
         system = System orDefault setup.system,
         variant = Variant orDefault setup.variant)
-      $insert(created) >>-
+      TournamentRepo.insert(created).void >>-
         (withdrawIds foreach socketReload) >>-
         reloadSiteSocket >>-
         lobbyReload inject created
@@ -72,7 +71,7 @@ private[tournament] final class TournamentApi(
   def createScheduled(schedule: Schedule): Funit =
     (Schedule durationFor schedule) ?? { minutes =>
       val created = Tournament.schedule(schedule, minutes)
-      $insert(created) >>- reloadSiteSocket >>- lobbyReload
+      TournamentRepo.insert(created).void >>- reloadSiteSocket >>- lobbyReload
     }
 
   def startIfReady(created: Created) {
@@ -88,7 +87,7 @@ private[tournament] final class TournamentApi(
       TournamentRepo createdById oldTour.id flatMap {
         case Some(created) =>
           val started = created.start
-          $update(started) >>-
+          TournamentRepo.update(started).void >>-
             sendTo(started.id, Start) >>-
             reloadSiteSocket >>-
             lobbyReload >>- onStart(created.id)
@@ -100,16 +99,16 @@ private[tournament] final class TournamentApi(
   def wipeEmpty(created: Created): Funit = created.isEmpty ?? doWipe(created)
 
   private def doWipe(created: Created): Funit =
-    $remove(created) >>- reloadSiteSocket >>- lobbyReload
+    TournamentRepo.remove(created).void >>- reloadSiteSocket >>- lobbyReload
 
   def finish(oldTour: Started) {
     sequence(oldTour.id) {
       TournamentRepo startedById oldTour.id flatMap {
         case Some(started) =>
-          if (started.pairings.isEmpty) $remove(started) >>- reloadSiteSocket >>- lobbyReload
+          if (started.pairings.isEmpty) TournamentRepo.remove(started).void >>- reloadSiteSocket >>- lobbyReload
           else started.readyToFinish ?? {
             val finished = started.finish
-            $update(finished) >>-
+            TournamentRepo.update(finished).void >>-
               sendTo(finished.id, ReloadPage) >>-
               reloadSiteSocket >>-
               finished.players.filter(_.score > 0).map { p =>
@@ -126,7 +125,7 @@ private[tournament] final class TournamentApi(
       TournamentRepo enterableById oldTour.id flatMap {
         case Some(tour) => (tour.join(me, password)).future flatMap { tour2 =>
           TournamentRepo withdraw me.id flatMap { withdrawIds =>
-            $update(tour2) >>- {
+            TournamentRepo.update(tour2).void >>- {
               sendTo(tour.id, Joining(me.id))
               (tour.id :: withdrawIds) foreach socketReload
               reloadSiteSocket
@@ -146,11 +145,11 @@ private[tournament] final class TournamentApi(
       TournamentRepo byId oldTour.id flatMap {
         case Some(created: Created) => (created withdraw userId).fold(
           err => fulogwarn(err.shows),
-          tour2 => $update(tour2) >>- socketReload(tour2.id) >>- reloadSiteSocket >>- lobbyReload
+          tour2 => TournamentRepo.update(tour2).void >>- socketReload(tour2.id) >>- reloadSiteSocket >>- lobbyReload
         )
         case Some(started: Started) => (started withdraw userId).fold(
           err => fufail(err.shows),
-          tour2 => $update(tour2) >>-
+          tour2 => TournamentRepo.update(tour2).void >>-
             (tour2.userCurrentPov(userId) ?? { povRef =>
               roundMap ! Tell(povRef.gameId, ResignColor(povRef.color))
             }) >>-
@@ -168,7 +167,7 @@ private[tournament] final class TournamentApi(
         TournamentRepo startedById tourId flatMap {
           _ ?? { tour =>
             val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId, game.turns))
-            $update(tour2) >>- {
+            TournamentRepo.update(tour2).void >>- {
               game.loserUserId.filter(tour2.quickLossStreak) foreach { withdraw(tour2, _) }
             } >>- socketReload(tour2.id)
           }
@@ -176,13 +175,6 @@ private[tournament] final class TournamentApi(
       }
     }
   }
-
-  private[tournament] def recountAll = UserRepo.removeAllToints >>
-    $enumerate.over($query[Finished](TournamentRepo.finishedQuery)) { (tour: Finished) =>
-      val tour2 = tour.refreshPlayers
-      $update(tour2) zip
-        tour.players.filter(_.score > 0).map(p => UserRepo.incToints(p.id, p.score)).sequenceFu void
-    }
 
   private def lobbyReload {
     TournamentRepo.promotable foreach { tours =>
@@ -199,7 +191,7 @@ private[tournament] final class TournamentApi(
           TournamentRepo enterableById oldTour.id flatMap {
             _ ?? { tour =>
               (tour ejectCheater userId) ?? { tour2 =>
-                $update(tour2) >>- socketReload(tour2.id)
+                TournamentRepo.update(tour2).void >>- socketReload(tour2.id)
               }
             }
           }

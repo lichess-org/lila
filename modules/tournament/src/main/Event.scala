@@ -30,18 +30,3 @@ private[tournament] case class RawEvent(
     if i == 10
   } yield Bye(usr, t)
 }
-
-private[tournament] object RawEvent {
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private def defaults = Json.obj(
-    "u" -> none[String]
-  )
-
-  private[tournament] val tube = JsTube(
-    (__.json update merge(defaults)) andThen Json.reads[RawEvent],
-    Json.writes[RawEvent]
-  )
-}

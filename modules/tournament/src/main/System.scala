@@ -1,7 +1,5 @@
 package lila.tournament
 
-import scala.concurrent.Future
-
 sealed abstract class System(val id: Int) {
   val pairingSystem: PairingSystem
   val scoringSystem: ScoringSystem
@@ -29,7 +27,7 @@ object System {
 }
 
 trait PairingSystem {
-  def createPairings(tournament: Tournament, users: List[String]): Future[(Pairings,Events)]
+  def createPairings(tournament: Tournament, users: List[String]): Fu[(Pairings,Events)]
 }
 
 trait Score {

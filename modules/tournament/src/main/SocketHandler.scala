@@ -15,7 +15,6 @@ import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.user.User
 import makeTimeout.short
-import tube.tournamentTube
 
 private[tournament] final class SocketHandler(
     hub: lila.hub.Env,
@@ -28,7 +27,7 @@ private[tournament] final class SocketHandler(
     version: Int,
     uid: String,
     user: Option[User]): Fu[JsSocketHandler] =
-    $count.exists(tourId) flatMap {
+    TournamentRepo.exists(tourId) flatMap {
       _ ?? {
         for {
           socket ← socketHub ? Get(tourId) mapTo manifest[ActorRef]

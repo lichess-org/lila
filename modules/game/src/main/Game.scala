@@ -492,7 +492,7 @@ object Game {
         blackPlayer = player(blackPlayer, Black, blackId, blackUid),
         binaryPieces = r bytes binaryPieces,
         binaryPgn = r bytesD binaryPgn,
-        status = Status(r int status) err "Invalid status",
+        status = Status(r int status) err "game invalid status",
         turns = nbTurns,
         startedAtTurn = r intD startedAtTurn,
         clock = r.getO[Color => Clock](clock)(clockBSONHandler(createdAtValue)) map (_(Color(0 == nbTurns % 2))),

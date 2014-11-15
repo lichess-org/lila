@@ -93,6 +93,7 @@ object BSON {
     def nIntO(k: String) = getO[BSONNumberLike](k) map (_.toInt)
     def nIntD(k: String) = nIntO(k) getOrElse 0
     def intsD(k: String) = getO[List[Int]](k) getOrElse Nil
+    def strsD(k: String) = getO[List[String]](k) getOrElse Nil
 
     def toList = doc.elements.toList
   }

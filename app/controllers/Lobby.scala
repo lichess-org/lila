@@ -7,7 +7,6 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.common.LilaCookie
-import lila.tournament.TournamentRepo
 import views._
 
 object Lobby extends LilaController {

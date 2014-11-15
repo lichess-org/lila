@@ -14,8 +14,6 @@ case class Pairing(
     turns: Option[Int],
     pairedAt: Option[DateTime]) {
 
-  def encode: RawPairing = RawPairing(gameId, status.id, users, winner, turns, pairedAt)
-
   def users = List(user1, user2)
   def usersPair = user1 -> user2
   def contains(user: String) = user1 == user || user2 == user
@@ -66,30 +64,4 @@ private[tournament] object Pairing {
     winner = none,
     turns = none,
     pairedAt = pa)
-}
-
-private[tournament] case class RawPairing(g: String, s: Int, u: List[String], w: Option[String], t: Option[Int], p: Option[DateTime]) {
-
-  def decode: Option[Pairing] = for {
-    status ← chess.Status(s)
-    user1 ← u.lift(0)
-    user2 ← u.lift(1)
-  } yield Pairing(g, status, user1, user2, w, t, p)
-}
-
-private[tournament] object RawPairing {
-
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private def defaults = Json.obj(
-    "w" -> none[String],
-    "t" -> none[Int],
-    "p" -> none[DateTime])
-
-  private[tournament] val tube = JsTube(
-    (__.json update merge(defaults)) andThen Json.reads[RawPairing],
-    Json.writes[RawPairing]
-  )
 }

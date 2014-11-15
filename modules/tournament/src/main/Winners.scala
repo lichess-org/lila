@@ -28,5 +28,5 @@ final class Winners(ttl: FiniteDuration) {
     UserRepo isEngine winner.userId map (!_ option winner)
   }.sequenceFu map (_.flatten)
 
-  def scheduled(nb: Int) = scheduledCache apply nb
+  def scheduled(nb: Int): Fu[List[Winner]] = fuccess(Nil) // scheduledCache apply nb
 }

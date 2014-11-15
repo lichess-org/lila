@@ -57,29 +57,4 @@ object Schedule {
     case Schedule.Speed.Blitz     => TournamentClock(5 * 60, 0)
     case Schedule.Speed.Classical => TournamentClock(10 * 60, 0)
   }
-
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-  private implicit val freqFormat = Format[Freq](
-    Reads[Freq] {
-      case JsString(name) => Freq(name) match {
-        case Some(freq) => JsSuccess(freq)
-        case None       => JsError()
-      }
-      case _ => JsError()
-    },
-    Writes[Freq](freq => JsString(freq.name)))
-  private implicit val speedFormat = Format[Speed](
-    Reads[Speed] {
-      case JsString(name) => Speed(name) match {
-        case Some(speed) => JsSuccess(speed)
-        case None        => JsError()
-      }
-      case _ => JsError()
-    },
-    Writes[Speed](speed => JsString(speed.name)))
-  private[tournament] val tube = JsTube(
-    (__.json update readDate('at)) andThen Json.reads[Schedule],
-    Json.writes[Schedule] andThen (__.json update writeDate('at)))
 }
