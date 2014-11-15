@@ -8,13 +8,6 @@ trait SocketMember extends Ordered[SocketMember] {
   val userId: Option[String]
   val troll: Boolean
 
-  // FIXME
-  private val privateLiveGames = new java.util.ArrayList[String]()
-
-  def hasLiveGame(id: String) = privateLiveGames contains id
-
-  def addLiveGames(ids: List[String]) { ids foreach privateLiveGames.add }
-
   def isAuth = userId.isDefined
 
   def compare(other: SocketMember) = ~userId compare ~other.userId

@@ -8,7 +8,7 @@ import play.api.libs.json._
 import actorApi._
 import lila.common.PimpedJson._
 import lila.socket._
-import lila.socket.actorApi.{ Connected, LiveGames }
+import lila.socket.actorApi.StartWatching
 
 private[site] final class SocketHandler(
     socket: ActorRef,
@@ -19,15 +19,14 @@ private[site] final class SocketHandler(
     userId: Option[String],
     flag: Option[String]): Fu[JsSocketHandler] = {
 
-    def controller: Handler.Controller = {
-      case ("liveGames", o) => o str "d" foreach { ids =>
-        socket ! LiveGames(uid, ids.split(' ').toList)
+    def controller(member: Member): Handler.Controller = {
+      case ("startWatching", o) => o str "d" foreach { ids =>
+        hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
       }
     }
 
     Handler(hub, socket, uid, Join(uid, userId, flag), userId) {
-      case Connected(enum, member) =>
-        controller -> enum
+      case Connected(enum, member) => controller(member) -> enum
     }
   }
 }

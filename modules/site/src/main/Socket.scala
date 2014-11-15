@@ -8,7 +8,7 @@ import play.api.libs.json._
 
 import actorApi._
 import lila.socket._
-import lila.socket.actorApi.{ Connected, SendToFlag }
+import lila.socket.actorApi.SendToFlag
 
 private[site] final class Socket(timeout: Duration) extends SocketActor[Member](timeout) {
 

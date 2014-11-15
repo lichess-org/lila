@@ -1025,20 +1025,20 @@ var storage = {
 
     var socketOpened = false;
 
-    function registerLiveGames() {
+    function startWatching() {
       if (!socketOpened) return;
       var ids = [];
       $('a.mini_board.live').removeClass("live").each(function() {
         ids.push($(this).data("live"));
       });
       if (ids.length > 0) {
-        lichess.socket.send("liveGames", ids.join(" "));
+        lichess.socket.send("startWatching", ids.join(" "));
       }
     }
-    $('body').on('lichess.content_loaded', registerLiveGames);
+    $('body').on('lichess.content_loaded', startWatching);
     $('body').on('socket.open', function() {
       socketOpened = true;
-      registerLiveGames();
+      startWatching();
     });
 
     setTimeout(function() {

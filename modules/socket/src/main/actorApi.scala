@@ -16,7 +16,6 @@ case class Quit(uid: String)
 case class SocketEnter[M <: SocketMember](uid: String, member: M)
 case class SocketLeave(uid: String)
 
-case class LiveGames(uid: String, gameIds: List[String])
 case class Resync(uid: String)
 
 case object GetVersion
@@ -26,3 +25,5 @@ case class SendToFlag(flag: String, message: JsObject)
 case object PopulationGet
 case object PopulationTell
 case class NbMembers(nb: Int)
+
+case class StartWatching(uid: String, member: SocketMember, gameIds: Set[String])

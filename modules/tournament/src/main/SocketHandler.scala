@@ -46,8 +46,8 @@ private[tournament] final class SocketHandler(
     uid: String,
     member: Member): Handler.Controller = {
     case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
-    case ("liveGames", o) => o str "d" foreach { ids =>
-      socket ! LiveGames(uid, ids.split(' ').toList)
+    case ("startWatching", o) => o str "d" foreach { ids =>
+      hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
     }
     case ("talk", o) => o str "d" foreach { text =>
       member.userId foreach { userId =>

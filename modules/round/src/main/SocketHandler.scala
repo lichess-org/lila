@@ -34,8 +34,8 @@ private[round] final class SocketHandler(
 
     member.playerIdOption.fold[Handler.Controller]({
       case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
-      case ("liveGames", o) => o str "d" foreach { ids =>
-        socket ! LiveGames(uid, ids.split(' ').toList)
+      case ("startWatching", o) => o str "d" foreach { ids =>
+        hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
       }
       case ("talk", o) => o str "d" foreach { text =>
         messenger.watcher(gameId, member, text, socket)
@@ -68,8 +68,8 @@ private[round] final class SocketHandler(
         case ("challenge", o) => ((o str "d") |@| member.userId) apply {
           case (to, from) => hub.actor.challenger ! lila.hub.actorApi.setup.RemindChallenge(gameId, from, to)
         }
-        case ("liveGames", o) => o str "d" foreach { ids =>
-          socket ! LiveGames(uid, ids.split(' ').toList)
+        case ("startWatching", o) => o str "d" foreach { ids =>
+          hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
         }
         case ("talk", o) => o str "d" foreach { text =>
           messenger.owner(gameId, member, text, socket)

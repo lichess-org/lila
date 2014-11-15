@@ -9,7 +9,6 @@ import play.twirl.api.Html
 
 import actorApi._
 import lila.hub.actorApi.game.ChangeFeatured
-import lila.hub.actorApi.round.MoveEvent
 import lila.hub.actorApi.{ Deploy, GetUids, WithUserIds, SendTo, SendTos }
 import lila.memo.ExpireSetMemo
 
@@ -46,10 +45,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     case WithUserIds(f)          => f(userIds)
 
     case GetUids                 => sender ! uids
-
-    case LiveGames(uid, gameIds) => registerLiveGames(uid, gameIds)
-
-    case move: MoveEvent         => notifyMove(move)
 
     case SendTo(userId, msg)     => sendTo(userId, msg)
 
@@ -151,24 +146,9 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def userIds: Iterable[String] = members.values.flatMap(_.userId)
 
-  def notifyMove(move: MoveEvent) {
-    lazy val msg = makeMessage("fen", Json.obj(
-      "id" -> move.gameId,
-      "fen" -> move.fen,
-      "lm" -> move.move
-    ))
-    members.values foreach { m =>
-      if (m hasLiveGame move.gameId) m push msg
-    }
-  }
-
   def showSpectators(users: List[lila.common.LightUser], nbAnons: Int) = nbAnons match {
     case 0 => users.distinct.map(_.titleName)
     case x => users.distinct.map(_.titleName) :+ ("Anonymous (%d)" format x)
-  }
-
-  def registerLiveGames(uid: String, ids: List[String]) {
-    withMember(uid)(_ addLiveGames ids)
   }
 
   def withMember(uid: String)(f: M => Unit) {
