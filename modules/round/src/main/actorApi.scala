@@ -128,3 +128,4 @@ case class HoldAlert(playerId: String, mean: Int, sd: Int)
 }
 
 private[round] case object BroadcastSize
+private[round] case class ChangeFeaturedMsg(msg: play.api.libs.json.JsObject)

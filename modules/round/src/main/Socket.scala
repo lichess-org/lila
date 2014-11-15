@@ -12,9 +12,8 @@ import actorApi._
 import lila.common.LightUser
 import lila.game.actorApi.UserStartGame
 import lila.game.Event
-import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.TimeBomb
-import lila.round.actorApi.Bye
+import lila.round.actorApi.{ Bye, ChangeFeaturedMsg }
 import lila.socket._
 import lila.socket.actorApi.{ Connected => _, _ }
 import makeTimeout.short
@@ -127,9 +126,7 @@ private[round] final class Socket(
         if (member.userTv.isDefined) refreshSubscriptions
       }
 
-    case ChangeFeatured(_, html) =>
-      val msg = makeMessage("featured", Json.obj("html" -> html.toString))
-      watchers.foreach(_ push msg)
+    case ChangeFeaturedMsg(msg) => watchers.foreach(_ push msg)
 
     case UserStartGame(userId, game) => watchers filter (_ onUserTv userId) foreach {
       _ push makeMessage("resync")
