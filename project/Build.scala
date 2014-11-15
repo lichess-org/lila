@@ -16,7 +16,7 @@ object ApplicationBuild extends Build {
     incOptions := incOptions.value.withNameHashing(true),
     offline := true,
     libraryDependencies ++= Seq(
-      scalaz, scalalib, hasher, config, apache, scalaTime,
+      scalaz, scalalib, hasher, config, apache,
       csv, jgit, elastic4s, findbugs, RM,
       PRM, spray.caching, maxmind, prismic),
       scalacOptions := compilerOptions,
