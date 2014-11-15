@@ -11,7 +11,7 @@ function renderTd(move, ply, curPly) {
       class: 'move' + (ply === curPly ? ' active' : ''),
       'data-ply': ply
     },
-    children: move
+    children: [move]
   } : null;
 }
 

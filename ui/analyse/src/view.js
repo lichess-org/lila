@@ -98,7 +98,7 @@ function renderIndex(turn) {
     attrs: {
       class: 'index'
     },
-    children: turn.turn
+    children: [turn.turn]
   };
 }
 
