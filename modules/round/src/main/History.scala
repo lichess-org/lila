@@ -20,7 +20,8 @@ private[round] final class History(ttl: Duration) {
   def getEventsSince(v: Int): Option[List[VersionedEvent]] =
     if (v > version) None
     else if (v == version) Some(Nil)
-    else ((v + 1 to version).toList map get).flatten |> { events =>
+    else {
+      val events = (v + 1 to version).toList flatMap get
       (events.size == (version - v)) option events
     }
 
