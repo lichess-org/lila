@@ -15,24 +15,26 @@ final class Stream(
 
   private val (enumerator, channel) = Concurrent.broadcast[MoveEvent]
 
+  def processMove(move: MoveEvent) =
+    geoIp getLocation move.ip flatMap Location.apply match {
+      case None => Input.Empty
+      case Some(loc) =>
+        val opponentLoc = players.getOpponentLocation(move.gameId, loc)
+        Input.El(Json.stringify {
+          Json.obj(
+            "country" -> loc.country,
+            "lat" -> loc.lat,
+            "lon" -> loc.lon,
+            "oLat" -> opponentLoc.map(_.lat),
+            "oLon" -> opponentLoc.map(_.lon)
+          )
+        })
+    }
+
   private val processor: Enumeratee[MoveEvent, String] =
     Enumeratee.mapInput[MoveEvent].apply[String] {
-      case Input.El(move) =>
-        geoIp getLocation move.ip flatMap Location.apply match {
-          case None => Input.Empty
-          case Some(loc) =>
-            val opponentLoc = players.getOpponentLocation(move.gameId, loc)
-            Input.El(Json.stringify {
-              Json.obj(
-                "country" -> loc.country,
-                "lat" -> loc.lat,
-                "lon" -> loc.lon,
-                "oLat" -> opponentLoc.map(_.lat),
-                "oLon" -> opponentLoc.map(_.lon)
-              )
-            })
-        }
-      case _ => Input.Empty
+      case Input.El(move) => processMove(move)
+      case _              => Input.Empty
     }
 
   val producer = enumerator &> processor
