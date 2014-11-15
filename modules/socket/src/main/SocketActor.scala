@@ -158,7 +158,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
       "lm" -> move.move
     ))
     members.values foreach { m =>
-      if (m liveGames move.gameId) m push msg
+      if (m hasLiveGame move.gameId) m push msg
     }
   }
 

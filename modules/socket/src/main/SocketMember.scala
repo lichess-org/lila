@@ -9,11 +9,11 @@ trait SocketMember extends Ordered[SocketMember] {
   val troll: Boolean
 
   // FIXME
-  private val privateLiveGames = collection.mutable.Set[String]()
+  private val privateLiveGames = new java.util.ArrayList[String]()
 
-  def liveGames: Set[String] = privateLiveGames.toSet
+  def hasLiveGame(id: String) = privateLiveGames contains id
 
-  def addLiveGames(ids: List[String]) { ids foreach privateLiveGames.+= }
+  def addLiveGames(ids: List[String]) { ids foreach privateLiveGames.add }
 
   def isAuth = userId.isDefined
 
