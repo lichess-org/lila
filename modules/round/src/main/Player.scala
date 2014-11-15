@@ -65,11 +65,10 @@ private[round] final class Player(
 
   private def notifyProgress(move: chess.Move, progress: Progress, ip: String) {
     val game = progress.game
-    val chess = game.toChess
     bus.publish(MoveEvent(
       ip = ip,
       gameId = game.id,
-      fen = Forsyth exportBoard chess.board,
+      fen = Forsyth exportBoard game.toChess.board,
       move = move.keyString
     ), 'moveEvent)
   }
