@@ -1,7 +1,6 @@
 package lila.gameSearch
 
 import chess.{ Variant, Mode, Status, Openings }
-import com.github.nscala_time.time.Imports._
 import com.sksamuel.elastic4s.ElasticDsl._
 import com.sksamuel.elastic4s.QueryDefinition
 import org.joda.time.DateTime

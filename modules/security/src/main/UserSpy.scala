@@ -2,7 +2,6 @@ package lila.security
 
 import scala.concurrent.Future
 
-import com.github.nscala_time.time.Imports._
 import play.api.libs.json._
 import play.api.mvc.RequestHeader
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
@@ -42,8 +41,7 @@ object UserSpy {
       case ((ip, blocked), location) => IPData(ip, blocked, location)
     },
     uas = objs.map(_ str "ua").flatten.distinct,
-    otherUsers = (users + user).toList.sortBy(_.createdAt)
-  )
+    otherUsers = (users + user).toList.sorted)
 
   private def explore(users: Set[User], ips: Set[IP], _users: Set[User]): Fu[Set[User]] = {
     nextIps(users, ips) flatMap { nIps =>

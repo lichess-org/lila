@@ -42,10 +42,12 @@ trait Steroids
   with JodaTimeSteroids
 
 trait JodaTimeSteroids {
-  implicit final class LilaPimpedDateTime(date: org.joda.time.DateTime) {
+  import org.joda.time.DateTime
+  implicit final class LilaPimpedDateTime(date: DateTime) {
     def getSeconds: Long = date.getMillis / 1000
     def getDate: java.util.Date = date.toDate
   }
+  implicit def dateTimeOrdering: Ordering[DateTime] = Ordering.fromLessThan(_ isBefore _)
 }
 
 trait ListSteroids {

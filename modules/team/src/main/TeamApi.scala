@@ -1,7 +1,6 @@
 package lila.team
 
-import com.github.nscala_time.time.Imports._
-
+import org.joda.time.Period
 import actorApi._
 import akka.actor.ActorSelection
 import lila.db.api._
@@ -18,7 +17,7 @@ final class TeamApi(
     indexer: ActorSelection,
     timeline: ActorSelection) {
 
-  val creationPeriod = 1.week
+  val creationPeriod = Period weeks 1
 
   def team(id: String) = $find.byId[Team](id)
 

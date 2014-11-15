@@ -4,7 +4,6 @@ import scala.util.Random
 
 import chess.format.Forsyth
 import chess.{ Color, Variant, Status }
-import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats.toJSON
@@ -201,22 +200,22 @@ object GameRepo {
 
   def featuredCandidates: Fu[List[Game]] = $find(
     Query.playable ++ Query.clock(true) ++ Query.turnsGt(1) ++ Json.obj(
-      F.createdAt -> $gt($date(DateTime.now - 3.minutes)),
-      F.updatedAt -> $gt($date(DateTime.now - 15.seconds))
+      F.createdAt -> $gt($date(DateTime.now minusMinutes 3)),
+      F.updatedAt -> $gt($date(DateTime.now minusSeconds 15))
     ))
 
   def count(query: Query.type => JsObject): Fu[Int] = $count(query(Query))
 
   def nbPerDay(days: Int): Fu[List[Int]] =
     ((days to 1 by -1).toList map { day =>
-      val from = DateTime.now.withTimeAtStartOfDay - day.days
-      val to = from + 1.day
+      val from = DateTime.now.withTimeAtStartOfDay minusDays 1
+      val to = from plusDays 1
       $count(Json.obj(F.createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
     }).sequenceFu
 
   def nowPlaying(userId: String): Fu[Option[Game]] =
     $find.one(Query.status(Status.Started) ++ Query.user(userId) ++ Json.obj(
-      F.createdAt -> $gt($date(DateTime.now - 1.hour))
+      F.createdAt -> $gt($date(DateTime.now minusHours 1))
     ))
 
   def isNowPlaying(userId: String): Fu[Boolean] = nowPlaying(userId) map (_.isDefined)
@@ -256,8 +255,8 @@ object GameRepo {
       F.id -> BSONDocument("$ne" -> game.id),
       F.playerUids -> BSONDocument("$in" -> game.userIds),
       F.status -> Status.Started.id,
-      F.createdAt -> BSONDocument("$gt" -> (DateTime.now - 15.minutes)),
-      F.updatedAt -> BSONDocument("$gt" -> (DateTime.now - 5.minutes)),
+      F.createdAt -> BSONDocument("$gt" -> (DateTime.now minusMinutes 15)),
+      F.updatedAt -> BSONDocument("$gt" -> (DateTime.now minusMinutes 5)),
       "$or" -> BSONArray(
         BSONDocument(s"${F.whitePlayer}.ai" -> BSONDocument("$exists" -> true)),
         BSONDocument(s"${F.blackPlayer}.ai" -> BSONDocument("$exists" -> true))

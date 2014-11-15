@@ -3,7 +3,6 @@ package lila.tournament
 import akka.actor.{ ActorRef, ActorSelection }
 import akka.pattern.{ ask, pipe }
 import chess.{ Mode, Variant }
-import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 import play.api.libs.json._
 import scalaz.NonEmptyList

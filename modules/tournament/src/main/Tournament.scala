@@ -1,6 +1,5 @@
 package lila.tournament
 
-import com.github.nscala_time.time.Imports._
 import org.joda.time.{ DateTime, Duration }
 import ornicar.scalalib.Random
 
@@ -125,7 +124,7 @@ sealed trait StartedOrFinished extends Tournament {
 
   def recentGameIds(max: Int) = pairings take max map (_.gameId)
 
-  def finishedAt = startedAt + duration
+  def finishedAt = startedAt plus duration
 }
 
 case class Created(

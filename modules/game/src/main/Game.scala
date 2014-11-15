@@ -3,7 +3,6 @@ package lila.game
 import chess.Color._
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Variant, Mode, PositionHash }
-import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 
 import lila.db.ByteArray
@@ -340,9 +339,9 @@ case class Game(
 
   def isBeingPlayed = !finishedOrAborted && !olderThan(60)
 
-  def olderThan(seconds: Int) = updatedAt.??(_ < DateTime.now - seconds.seconds)
+  def olderThan(seconds: Int) = updatedAt.??(_ isBefore DateTime.now.minusSeconds(seconds))
 
-  def abandoned = (status <= Status.Started) && (updatedAt | createdAt) < Game.abandonedDate
+  def abandoned = (status <= Status.Started) && ((updatedAt | createdAt) isBefore Game.abandonedDate)
 
   def hasBookmarks = bookmarks > 0
 
@@ -389,7 +388,7 @@ object Game {
   val fullIdSize = 12
   val tokenSize = 4
 
-  def abandonedDate = DateTime.now - 7.days
+  def abandonedDate = DateTime.now minusDays 7
 
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize

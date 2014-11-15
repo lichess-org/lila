@@ -1,7 +1,6 @@
 package lila.gameSearch
 
 import chess.{ Mode }
-import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
@@ -85,11 +84,11 @@ private[gameSearch] case class SearchData(
 
   private val DateDelta = """^(\d+)(\w)$""".r
   private def toDate(delta: String): Option[DateTime] = delta match {
-    case DateDelta(n, "h") => parseIntOption(n) map (DateTime.now - _.hours)
-    case DateDelta(n, "d") => parseIntOption(n) map (DateTime.now - _.days)
-    case DateDelta(n, "w") => parseIntOption(n) map (DateTime.now - _.weeks)
-    case DateDelta(n, "m") => parseIntOption(n) map (DateTime.now - _.months)
-    case DateDelta(n, "y") => parseIntOption(n) map (DateTime.now - _.years)
+    case DateDelta(n, "h") => parseIntOption(n) map (DateTime.now.minusHours)
+    case DateDelta(n, "d") => parseIntOption(n) map (DateTime.now.minusDays)
+    case DateDelta(n, "w") => parseIntOption(n) map (DateTime.now.minusWeeks)
+    case DateDelta(n, "m") => parseIntOption(n) map (DateTime.now.minusMonths)
+    case DateDelta(n, "y") => parseIntOption(n) map (DateTime.now.minusYears)
     case _                 => None
   }
 }

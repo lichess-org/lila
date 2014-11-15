@@ -2,7 +2,6 @@ package lila.game
 
 import chess.{ Color, Status }
 import org.joda.time.DateTime
-import com.github.nscala_time.time.Imports._
 import play.api.libs.json._
 
 import lila.db.api._
@@ -62,7 +61,7 @@ object Query {
   def turnsGt(nb: Int) = Json.obj(F.turns -> $gt(nb))
 
   def finishByClock = playable ++ clock(true) ++ Json.obj(
-    F.createdAt -> $gt($date(DateTime.now - 3.hour)))
+    F.createdAt -> $gt($date(DateTime.now minusHours 3)))
 
   def abandoned = {
     val date = $date(Game.abandonedDate)
@@ -75,8 +74,8 @@ object Query {
   def unplayed = Json.obj(
     F.turns -> $lt(2),
     F.createdAt -> (
-      $lt($date(DateTime.now - 24.hours)) ++
-      $gt($date(DateTime.now - 25.hours)))
+      $lt($date(DateTime.now minusHours 24)) ++
+      $gt($date(DateTime.now minusHours 25)))
   )
 
   val sortCreated = $sort desc F.createdAt
