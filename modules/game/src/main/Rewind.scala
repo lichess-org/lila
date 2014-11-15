@@ -1,12 +1,11 @@
 package lila.game
 
 import chess.format.{ pgn => chessPgn }
-import chess.Status
 
 object Rewind {
 
-  def apply(game: Game, initialFen: Option[String]): Valid[Progress] = chessPgn.Reader.withSans(
-    pgn = game.pgnMoves mkString " ",
+  def apply(game: Game, initialFen: Option[String]): Valid[Progress] = chessPgn.Reader.movesWithSans(
+    moveStrs = game.pgnMoves,
     op = sans => sans.isEmpty.fold(sans, sans.init),
     tags = initialFen.??(fen => List(
       chessPgn.Tag(_.FEN, fen),
