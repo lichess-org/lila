@@ -13,7 +13,7 @@ import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
 
-  var members = Map.empty[String, M]
+  val members = scala.collection.mutable.Map.empty[String, M]
   val aliveUids = new ExpireSetMemo(uidTtl)
   var pong = Socket.initialPong
 
@@ -72,7 +72,9 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   def broom {
-    members.keys filterNot aliveUids.get foreach eject
+    members.keys foreach { uid =>
+      if (!aliveUids.get(uid)) eject(uid)
+    }
   }
 
   def eject(uid: String) {
@@ -84,7 +86,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def quit(uid: String) {
     members get uid foreach { member =>
-      members = members - uid
+      members -= uid
       lilaBus.publish(SocketLeave(uid, member), 'socketDoor)
     }
   }
@@ -108,7 +110,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def addMember(uid: String, member: M) {
     eject(uid)
-    members = members + (uid -> member)
+    members += (uid -> member)
     setAlive(uid)
     lilaBus.publish(SocketEnter(uid, member), 'socketDoor)
   }
@@ -119,9 +121,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def memberByUserId(userId: String): Option[M] =
     members.values find (_.userId == Some(userId))
-
-  def membersByUserIds(userIds: Set[String]): Iterable[M] =
-    members.values filter (member => member.userId ?? userIds.contains)
 
   def userIds: Iterable[String] = members.values.flatMap(_.userId)
 
