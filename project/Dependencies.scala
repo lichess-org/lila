@@ -39,7 +39,6 @@ object Dependencies {
   val apache = "org.apache.commons" % "commons-lang3" % "3.3.2"
   val guava = "com.google.guava" % "guava" % "18.0"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "2.0.3"
-  val csv = "com.github.tototoshi" %% "scala-csv" % "1.0.0"
   val hasher = "com.roundeights" %% "hasher" % "1.0.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
   val jodaTime = "joda-time" % "joda-time" % "2.5"
