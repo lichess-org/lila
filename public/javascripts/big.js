@@ -756,6 +756,12 @@ var storage = {
         },
         params: {
           ran: "--ranph--"
+        },
+        events: {
+          declined: function() {
+            $('#challenge_await').remove();
+            $('#challenge_declined').show();
+          }
         }
       });
 
