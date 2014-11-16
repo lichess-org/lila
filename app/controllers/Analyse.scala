@@ -10,6 +10,7 @@ import play.twirl.api.Html
 import lila.analyse.{ Analysis, TimeChart, AdvantageChart }
 import lila.api.Context
 import lila.app._
+import lila.common.HTTPRequest
 import lila.game.{ Pov, Game => GameModel, GameRepo, PgnDump }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.AnalysisAvailable
@@ -19,6 +20,7 @@ object Analyse extends LilaController {
 
   private def env = Env.analyse
   private def bookmarkApi = Env.bookmark.api
+  private val divider = Env.game.cached.Divider
 
   def requestAnalysis(id: String) = Auth { implicit ctx =>
     me =>
@@ -57,7 +59,9 @@ object Analyse extends LilaController {
         (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
         Env.game.crosstableApi(pov.game) flatMap {
           case ((analysis, tour), crosstable) =>
-            val division = Env.game.cached.Divider(pov.game, initialFen)
+            val division =
+              if (HTTPRequest.isBot(ctx.req)) divider.empty
+              else divider(pov.game, initialFen)
             val pgn = Env.game.pgnDump(pov.game, initialFen)
             Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data =>
               Ok(html.analyse.replay(

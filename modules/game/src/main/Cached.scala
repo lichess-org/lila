@@ -32,7 +32,7 @@ final class Cached(ttl: Duration) {
   object Divider {
 
     private val cache = Builder.size[String, chess.Division](3000)
-    private val empty = chess.Division(none[Int], none[Int])
+    val empty = chess.Division(none[Int], none[Int])
 
     def apply(game: Game, initialFen: Option[String]): chess.Division = {
       Option(cache getIfPresent game.id) | {
