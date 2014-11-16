@@ -19,10 +19,10 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   val lilaBus = context.system.lilaBus
 
-  lilaBus.publish(lila.socket.SocketHub.Subscribe(self), 'socket)
+  lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
 
   override def postStop() {
-    lilaBus.publish(lila.socket.SocketHub.Unsubscribe(self), 'socket)
+    lilaBus.publish(lila.socket.SocketHub.Close(self), 'socket)
     members.keys foreach eject
   }
 
