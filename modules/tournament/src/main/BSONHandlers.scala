@@ -82,12 +82,10 @@ object BSONHandlers {
   }
 
   private implicit val eventHandler = new BSON[Event] {
-    def reads(r: BSON.Reader): Event = {
-      r int "i" match {
-        case 1  => RoundEnd(timestamp = r date "t")
-        case 10 => Bye(user = r str "u", timestamp = r date "t")
-        case x  => sys error s"tournament event id $x"
-      }
+    def reads(r: BSON.Reader): Event = r int "i" match {
+      case 1  => RoundEnd(timestamp = r date "t")
+      case 10 => Bye(user = r str "u", timestamp = r date "t")
+      case x  => sys error s"tournament event id $x"
     }
     def writes(w: BSON.Writer, o: Event) = o match {
       case RoundEnd(timestamp)  => BSONDocument("i" -> o.id, "t" -> w.date(timestamp))
@@ -116,7 +114,7 @@ object BSONHandlers {
         startedAt = r date "startedAt",
         players = r.get[Players]("players"),
         pairings = r.get[Pairings]("pairings"),
-        events = r.get[Events]("events"))
+        events = ~r.getO[Events]("events"))
     }
     def writes(w: BSON.Writer, o: Started) = dataHandler.write(o.data) ++ BSONDocument(
       "_id" -> o.id,
@@ -135,7 +133,7 @@ object BSONHandlers {
         startedAt = r date "startedAt",
         players = r.get[Players]("players"),
         pairings = r.get[Pairings]("pairings"),
-        events = r.get[Events]("events"))
+        events = ~r.getO[Events]("events"))
     }
     def writes(w: BSON.Writer, o: Finished) = dataHandler.write(o.data) ++ BSONDocument(
       "_id" -> o.id,

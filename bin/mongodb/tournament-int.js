@@ -4,7 +4,7 @@ function toInt(obj) {
   };
 }
 // db.tournament.find({_id:'fefNHKaL'}).forEach(function(tour) {
-db.tournament.find().forEach(function(tour) {
+db.tournament.find().sort({createdAt: -1}).forEach(function(tour) {
   ['status', 'mode', 'variant', 'system', 'minutes', 'minPlayers'].forEach(toInt(tour));
   if (tour.pairings) tour.pairings.forEach(function(pairing) {
     ['s', 't'].forEach(toInt(pairing));
