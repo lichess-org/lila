@@ -51,15 +51,15 @@ private[monitor] final class Reporting(
 
   def receive = {
 
-    case _: MoveEvent  => mpsProvider.add
+    case _: MoveEvent     => mpsProvider.add
 
-    case AddRequest    => rpsProvider.add
+    case AddRequest       => rpsProvider.add
 
-    case PopulationGet => sender ! nbMembers
+    case PopulationGet    => sender ! nbMembers
 
-    case NbMembers(nb) => nbMembers = nb
+    case NbMembers(nb, _) => nbMembers = nb
 
-    case GetNbMoves    => sender ! mpsProvider.rps
+    case GetNbMoves       => sender ! mpsProvider.rps
 
     case Update => socket ? PopulationGet foreach {
       case 0 => idle = true

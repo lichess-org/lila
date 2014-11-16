@@ -87,9 +87,12 @@ final class Env(
         def receive: Receive = ({
           case msg@lila.chat.actorApi.ChatLine(id, line) =>
             self ! lila.hub.actorApi.map.Tell(id take 8, msg)
+          case m: lila.hub.actorApi.game.ChangeFeatured =>
+            self ! lila.hub.actorApi.map.TellAll(m)
         }: Receive) orElse socketHubReceive
       }),
       name = SocketName)
+    system.lilaBus.subscribe(actor, 'changeFeaturedGame)
     actor
   }
 

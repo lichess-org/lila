@@ -65,11 +65,9 @@ private[round] final class Socket(
   }
 
   private def refreshSubscriptions {
-    val bus = context.system.lilaBus
-    bus.unsubscribe(self)
-    bus.subscribe(self, 'changeFeaturedGame)
+    lilaBus.unsubscribe(self)
     watchers.flatMap(_.userTv).toList.distinct foreach { userId =>
-      bus.subscribe(self, Symbol(s"userStartGame:$userId"))
+      lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
     }
   }
 

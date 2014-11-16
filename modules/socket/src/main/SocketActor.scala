@@ -15,7 +15,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   var members = Map.empty[String, M]
   val aliveUids = new ExpireSetMemo(uidTtl)
-  var pong = makePong(0)
+  var pong = Socket.initialPong
 
   val lilaBus = context.system.lilaBus
 
@@ -32,26 +32,26 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)              => ping(uid)
+    case Ping(uid)             => ping(uid)
 
-    case Broom                  => broom
+    case Broom                 => broom
 
     // when a member quits
-    case Quit(uid)              => quit(uid)
+    case Quit(uid)             => quit(uid)
 
-    case NbMembers(nb)          => pong = makePong(nb)
+    case NbMembers(_, pongMsg) => pong = pongMsg
 
-    case WithUserIds(f)         => f(userIds)
+    case WithUserIds(f)        => f(userIds)
 
-    case GetUids                => sender ! uids
+    case GetUids               => sender ! uids
 
-    case SendTo(userId, msg)    => sendTo(userId, msg)
+    case SendTo(userId, msg)   => sendTo(userId, msg)
 
-    case SendTos(userIds, msg)  => sendTos(userIds, msg)
+    case SendTos(userIds, msg) => sendTos(userIds, msg)
 
-    case Resync(uid)            => resync(uid)
+    case Resync(uid)           => resync(uid)
 
-    case Deploy(event, html)    => notifyAll(makeMessage(event.key, html))
+    case Deploy(event, html)   => notifyAll(makeMessage(event.key, html))
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -71,8 +71,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def notifyMember[A: Writes](t: String, data: A)(member: M) {
     member push makeMessage(t, data)
   }
-
-  def makePong(nb: Int) = makeMessage("n", nb)
 
   def ping(uid: String) {
     setAlive(uid)
