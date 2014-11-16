@@ -60,6 +60,19 @@ private[round] final class Socket(
     lila.game.GameRepo game gameId map SetGame.apply pipeTo self
   }
 
+  override def postStop() {
+    lilaBus.unsubscribe(self)
+  }
+
+  private def refreshSubscriptions {
+    val bus = context.system.lilaBus
+    bus.unsubscribe(self)
+    bus.subscribe(self, 'changeFeaturedGame)
+    watchers.flatMap(_.userTv).toList.distinct foreach { userId =>
+      bus.subscribe(self, Symbol(s"userStartGame:$userId"))
+    }
+  }
+
   def receiveSpecific = {
 
     case SetGame(Some(game)) => hasAi = game.hasAi
@@ -179,14 +192,5 @@ private[round] final class Socket(
 
   private def playerDo(color: Color, effect: Player => Unit) {
     effect(color.fold(whitePlayer, blackPlayer))
-  }
-
-  private def refreshSubscriptions {
-    val lilaBus = context.system.lilaBus
-    lilaBus.unsubscribe(self)
-    lilaBus.subscribe(self, 'changeFeaturedGame)
-    watchers.flatMap(_.userTv).toList.distinct foreach { userId =>
-      lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
-    }
   }
 }
