@@ -25,7 +25,9 @@ module.exports = function(cfg, router, i18n, onChange) {
   var showGround = function() {
     var moves = this.analyse.moveList(this.vm.path);
     var nbMoves = moves.length;
-    var ply, move, cached, fen, hash = '', h = '', lm;
+    var ply, move, cached, fen, hash = '',
+      h = '',
+      lm;
     for (ply = 1; ply <= nbMoves; ply++) {
       move = moves[ply - 1];
       h += move;
@@ -51,7 +53,12 @@ module.exports = function(cfg, router, i18n, onChange) {
         };
       }
     }
-    this.vm.situation = situationCache[hash];
+    this.vm.situation = situationCache[hash] || {
+      fen: this.data.game.initialFen,
+      turnColor: 'white',
+      check: false,
+      lastMove: null
+    };
     if (this.chessground) this.chessground.set(this.vm.situation);
     else this.chessground = ground.make(this.data, this.vm.situation);
     onChange(this.vm.situation.fen, this.vm.path);
