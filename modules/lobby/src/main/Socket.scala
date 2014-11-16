@@ -15,6 +15,7 @@ import lila.game.AnonCookie
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.router.{ Homepage, Player }
 import lila.hub.actorApi.timeline._
+import lila.hub.actorApi.game.ChangeFeatured
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
 import makeTimeout.short
@@ -68,6 +69,8 @@ private[lobby] final class Socket(
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
 
     case lila.hub.actorApi.round.NbRounds(nb) => notifyAll(makeMessage("nbr", nb))
+
+    case ChangeFeatured(_, msg)               => notifyAll(msg)
   }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =

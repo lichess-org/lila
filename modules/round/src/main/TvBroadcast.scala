@@ -23,9 +23,9 @@ private final class TvBroadcast extends Actor {
 
     case TvBroadcast.GetEnumerator => sender ! enumerator
 
-    case ChangeFeatured(id, html) =>
+    case ChangeFeatured(id, msg) =>
       featuredId = id.some
-      channel push makeMessage("featured", Json.obj("html" -> html.toString))
+      channel push msg
 
     case move: MoveEvent if Some(move.gameId) == featuredId =>
       channel push makeMessage("fen", Json.obj(

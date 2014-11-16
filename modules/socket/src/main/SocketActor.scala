@@ -8,7 +8,6 @@ import play.api.libs.json._
 import play.twirl.api.Html
 
 import actorApi._
-import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.{ Deploy, GetUids, WithUserIds, SendTo, SendTos }
 import lila.memo.ExpireSetMemo
 
@@ -33,30 +32,26 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)               => ping(uid)
+    case Ping(uid)              => ping(uid)
 
-    case Broom                   => broom
+    case Broom                  => broom
 
     // when a member quits
-    case Quit(uid)               => quit(uid)
+    case Quit(uid)              => quit(uid)
 
-    case NbMembers(nb)           => pong = makePong(nb)
+    case NbMembers(nb)          => pong = makePong(nb)
 
-    case WithUserIds(f)          => f(userIds)
+    case WithUserIds(f)         => f(userIds)
 
-    case GetUids                 => sender ! uids
+    case GetUids                => sender ! uids
 
-    case SendTo(userId, msg)     => sendTo(userId, msg)
+    case SendTo(userId, msg)    => sendTo(userId, msg)
 
-    case SendTos(userIds, msg)   => sendTos(userIds, msg)
+    case SendTos(userIds, msg)  => sendTos(userIds, msg)
 
-    case Resync(uid)             => resync(uid)
+    case Resync(uid)            => resync(uid)
 
-    case Deploy(event, html)     => notifyAll(makeMessage(event.key, html))
-
-    // the actor instance must subscribe to 'changeFeaturedGame to receive this message
-    // context.system.lilaBus.subscribe(self, 'changeFeaturedGame)
-    case ChangeFeatured(_, html) => notifyFeatured(html)
+    case Deploy(event, html)    => notifyAll(makeMessage(event.key, html))
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -153,9 +148,5 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def withMember(uid: String)(f: M => Unit) {
     members get uid foreach f
-  }
-
-  private def notifyFeatured(html: Html) {
-    notifyAll(makeMessage("featured", Json.obj("html" -> html.toString)))
   }
 }

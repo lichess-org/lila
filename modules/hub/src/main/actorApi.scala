@@ -114,7 +114,7 @@ case class Propagate(data: Atom, propagations: List[Propagation] = Nil) {
 }
 
 package game {
-case class ChangeFeatured(id: String, html: Html)
+case class ChangeFeatured(id: String, msg: JsObject)
 case object Count
 }
 
