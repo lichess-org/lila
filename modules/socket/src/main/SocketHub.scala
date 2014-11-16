@@ -13,7 +13,7 @@ final class SocketHub extends Actor {
 
   private val sockets = collection.mutable.Set[ActorRef]()
 
-  context.system.lilaBus.subscribe(self, 'users, 'deploy, 'nbMembers, 'socket)
+  context.system.lilaBus.subscribe(self, 'deploy, 'nbMembers, 'socket)
 
   override def postStop() {
     context.system.lilaBus.unsubscribe(self)

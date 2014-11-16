@@ -18,8 +18,6 @@ private final class MoveBroadcast extends Actor {
   val members = scala.collection.mutable.Map.empty[UID, WatchingMember]
   val games = scala.collection.mutable.Map.empty[GameId, Set[UID]]
 
-  def status = s"members: $members\ngames: $games"
-
   def receive = {
 
     case move: MoveEvent =>
@@ -40,7 +38,7 @@ private final class MoveBroadcast extends Actor {
         games += (id -> (~games.get(id) + uid))
       }
 
-    case SocketLeave(uid) => members get uid foreach { m =>
+    case SocketLeave(uid, _) => members get uid foreach { m =>
       members -= uid
       m.gameIds foreach { id =>
         games get id foreach { uids =>

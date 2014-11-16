@@ -124,9 +124,9 @@ private[round] final class Socket(
       case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
     }))
 
-    case AnalysisAvailable                           => notifyAll("analysisAvailable", true)
+    case AnalysisAvailable                           => notifyAll("analysisAvailable")
 
-    case lila.hub.actorApi.setup.DeclineChallenge(_) => notifyAll("declined", JsNull)
+    case lila.hub.actorApi.setup.DeclineChallenge(_) => notifyAll("declined")
 
     case Quit(uid) =>
       members get uid foreach { member =>

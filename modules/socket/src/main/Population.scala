@@ -18,9 +18,9 @@ private[socket] final class Population extends Actor {
   def receive = {
 
     case _: SocketEnter[_] => nb = nb + 1
-    case _: SocketLeave    => nb = nb - 1
+    case _: SocketLeave[_] => nb = nb - 1
 
-    case PopulationTell    =>
+    case PopulationTell =>
       bus.publish(NbMembers(nb, Socket.makeMessage("n", nb)), 'nbMembers)
   }
 }

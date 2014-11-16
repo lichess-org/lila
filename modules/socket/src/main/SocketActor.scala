@@ -8,7 +8,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 
 import actorApi._
-import lila.hub.actorApi.{ Deploy, GetUids, WithUserIds, SendTo, SendTos }
+import lila.hub.actorApi.{ Deploy, GetUids }
 import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
@@ -41,13 +41,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
     case NbMembers(_, pongMsg) => pong = pongMsg
 
-    case WithUserIds(f)        => f(userIds)
-
     case GetUids               => sender ! uids
-
-    case SendTo(userId, msg)   => sendTo(userId, msg)
-
-    case SendTos(userIds, msg) => sendTos(userIds, msg)
 
     case Resync(uid)           => resync(uid)
 
@@ -77,14 +71,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     withMember(uid)(_ push pong)
   }
 
-  def sendTo(userId: String, msg: JsObject) {
-    memberByUserId(userId) foreach (_ push msg)
-  }
-
-  def sendTos(userIds: Set[String], msg: JsObject) {
-    membersByUserIds(userIds) foreach (_ push msg)
-  }
-
   def broom {
     members.keys filterNot aliveUids.get foreach eject
   }
@@ -97,9 +83,9 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   def quit(uid: String) {
-    if (members contains uid) {
+    members get uid foreach { member =>
       members = members - uid
-      lilaBus.publish(SocketLeave(uid), 'socketDoor)
+      lilaBus.publish(SocketLeave(uid, member), 'socketDoor)
     }
   }
 

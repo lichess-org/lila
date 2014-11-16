@@ -14,7 +14,7 @@ case object Broom
 case class Quit(uid: String)
 
 case class SocketEnter[M <: SocketMember](uid: String, member: M)
-case class SocketLeave(uid: String)
+case class SocketLeave[M <: SocketMember](uid: String, member: M)
 
 case class Resync(uid: String)
 

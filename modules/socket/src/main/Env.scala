@@ -23,6 +23,8 @@ final class Env(
 
   system.actorOf(Props[MoveBroadcast], name = MoveBroadcastName)
 
+  system.actorOf(Props[UserRegister])
+
   scheduler.once(5 seconds) {
     scheduler.message(4 seconds) { socketHub -> actorApi.Broom }
     scheduler.message(1.02 seconds) { population -> PopulationTell }

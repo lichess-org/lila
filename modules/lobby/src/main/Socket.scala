@@ -12,10 +12,10 @@ import actorApi._
 import lila.common.PimpedJson._
 import lila.game.actorApi._
 import lila.game.AnonCookie
+import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.router.{ Homepage, Player }
 import lila.hub.actorApi.timeline._
-import lila.hub.actorApi.game.ChangeFeatured
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
 import makeTimeout.short
@@ -45,7 +45,8 @@ private[lobby] final class Socket(
 
     case NewForumPost            => notifyAll("reload_forum")
 
-    case ReloadTimeline(user)    => sendTo(user, makeMessage("reload_timeline", JsNull))
+    case ReloadTimeline(userId) =>
+      memberByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
 
     case AddHook(hook) =>
       notifyVersion("hook_add", hook.render, Messadata(hook = hook.some))
