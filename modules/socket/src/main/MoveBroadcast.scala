@@ -15,8 +15,8 @@ private final class MoveBroadcast extends Actor {
 
   case class WatchingMember(member: SocketMember, gameIds: Set[GameId])
 
-  var members = Map.empty[UID, WatchingMember]
-  var games = Map.empty[GameId, Set[UID]]
+  val members = scala.collection.mutable.Map.empty[UID, WatchingMember]
+  val games = scala.collection.mutable.Map.empty[GameId, Set[UID]]
 
   def status = s"members: $members\ngames: $games"
 
@@ -29,22 +29,24 @@ private final class MoveBroadcast extends Actor {
           "fen" -> move.fen,
           "lm" -> move.move
         ))
-        mIds flatMap members.get foreach (_.member push msg)
+        mIds foreach { mId =>
+          members get mId foreach (_.member push msg)
+        }
       }
 
     case StartWatching(uid, member, gameIds) =>
-      members = members + (uid -> WatchingMember(member, gameIds ++ members.get(uid).??(_.gameIds)))
+      members += (uid -> WatchingMember(member, gameIds ++ members.get(uid).??(_.gameIds)))
       gameIds foreach { id =>
-        games = games + (id -> (~games.get(id) + uid))
+        games += (id -> (~games.get(id) + uid))
       }
 
     case SocketLeave(uid) => members get uid foreach { m =>
-      members = members - uid
+      members -= uid
       m.gameIds foreach { id =>
         games get id foreach { uids =>
           val newUids = uids - uid
-          if (newUids.isEmpty) games = games - id
-          else games = games + (id -> newUids)
+          if (newUids.isEmpty) games -= id
+          else games += (id -> newUids)
         }
       }
     }
