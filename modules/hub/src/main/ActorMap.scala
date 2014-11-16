@@ -10,7 +10,7 @@ import scalaz.Monoid
 
 trait ActorMap extends Actor {
 
-  private var actors = Map[String, ActorRef]()
+  private val actors = scala.collection.mutable.Map.empty[String, ActorRef]
 
   def mkActor(id: String): Actor
 
@@ -24,22 +24,20 @@ trait ActorMap extends Actor {
 
     case Ask(id, msg)  => getOrMake(id) forward msg
 
-    case AskAll(msg)   => actors.values.map { _ ? msg }.sequenceFu pipeTo sender
-
     case Size          => sender ! size
 
     case Terminated(actor) =>
       context unwatch actor
-      actors filter (_._2 == actor) foreach {
-        case (id, _) => actors = actors - id
+      actors foreach {
+        case (id, a) => if (a == actor) actors -= id
       }
   }
 
   protected def size = actors.size
 
-  private def getOrMake(id: String) = (actors get id) | {
+  private def getOrMake(id: String) = actors get id getOrElse {
     context.actorOf(Props(mkActor(id)), name = id) ~ { actor =>
-      actors = actors + (id -> actor)
+      actors += (id -> actor)
       context watch actor
     }
   }
