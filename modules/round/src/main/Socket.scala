@@ -61,6 +61,7 @@ private[round] final class Socket(
   }
 
   override def postStop() {
+    super.postStop()
     lilaBus.unsubscribe(self)
   }
 

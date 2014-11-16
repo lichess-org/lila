@@ -27,7 +27,9 @@ private[round] final class Round(
 
   context setReceiveTimeout activeTtl
 
-  context.system.lilaBus.subscribe(self, 'deploy)
+  override def preStart() {
+    context.system.lilaBus.subscribe(self, 'deploy)
+  }
 
   override def postStop() {
     context.system.lilaBus unsubscribe self
