@@ -24,8 +24,6 @@ trait ActorMap extends Actor {
 
     case Ask(id, msg)  => getOrMake(id) forward msg
 
-    case Size          => sender ! size
-
     case Terminated(actor) =>
       context unwatch actor
       actors foreach {

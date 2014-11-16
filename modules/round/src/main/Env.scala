@@ -65,13 +65,14 @@ final class Env(
       moretimeDuration = Moretime,
       activeTtl = ActiveTtl)
     def receive: Receive = ({
-      case actorApi.BroadcastSize => hub.socket.lobby ! lila.hub.actorApi.round.NbRounds(size)
+      case actorApi.GetNbRounds =>
+        nbRounds = size
+        hub.socket.lobby ! lila.hub.actorApi.round.NbRounds(nbRounds)
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
 
-  val count = AsyncCache.single(
-    f = roundMap ? lila.hub.actorApi.map.Size mapTo manifest[Int],
-    timeToLive = 1 second)
+  private var nbRounds = 0
+  def count() = nbRounds
 
   private val socketHub = {
     val actor = system.actorOf(
@@ -172,7 +173,7 @@ final class Env(
       titivate.finishAbandoned
     }
 
-    scheduler.message(1.3 seconds)(roundMap -> actorApi.BroadcastSize)
+    scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
   }
 
   private lazy val titivate = new Titivate(roundMap, scheduler)

@@ -127,4 +127,4 @@ case class Cheat(color: Color)
 case class HoldAlert(playerId: String, mean: Int, sd: Int)
 }
 
-private[round] case object BroadcastSize
+private[round] case object GetNbRounds

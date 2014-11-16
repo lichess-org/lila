@@ -31,7 +31,7 @@ final class Preload(
     nowPlaying: (User, Int) => Fu[List[Pov]],
     streamsOnAir: => () => Fu[List[StreamOnAir]],
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
-    countRounds: () => Fu[Int]) {
+    countRounds: () => Int) {
 
   private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[Pov], List[StreamOnAir], Int)
 
@@ -49,13 +49,12 @@ final class Preload(
       dailyPuzzle() zip
       (ctx.me ?? { nowPlaying(_, 3) }) zip
       filter zip
-      streamsOnAir() zip
-      countRounds() map {
-        case (((((((((((hooks, posts), tours), feat), entries), lead), tWinners), puzzle), playing), filter), streams), nbRounds) =>
+      streamsOnAir() map {
+        case ((((((((((hooks, posts), tours), feat), entries), lead), tWinners), puzzle), playing), filter), streams) =>
           (Json.obj(
             "version" -> lobbyVersion(),
             "pool" -> JsArray(hooks map (_.render)),
             "filter" -> filter.render
-          ), entries, posts, tours, feat, lead, tWinners, puzzle, playing, streams, nbRounds)
+          ), entries, posts, tours, feat, lead, tWinners, puzzle, playing, streams, countRounds())
       }
 }

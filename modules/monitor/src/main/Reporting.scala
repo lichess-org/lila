@@ -9,7 +9,6 @@ import akka.pattern.{ ask, pipe }
 import play.api.libs.concurrent._
 
 import actorApi._
-import lila.hub.actorApi.map.Size
 import lila.hub.actorApi.monitor._
 import lila.hub.actorApi.round.MoveEvent
 import lila.socket.actorApi.{ NbMembers, PopulationGet }
@@ -30,7 +29,6 @@ private[monitor] final class Reporting(
   }
 
   var nbMembers = 0
-  var nbGames = 0
   var nbPlaying = 0
   var loadAvg = 0f
   var nbThreads = 0
@@ -66,13 +64,11 @@ private[monitor] final class Reporting(
       case _ => {
         val before = nowMillis
         MongoStatus(db.db)(mongoStatus) zip
-          (hub.socket.round ? Size).mapTo[Int] zip
           (hub.actor.game ? lila.hub.actorApi.game.Count).mapTo[Int] onComplete {
             case Failure(e) => logwarn("[reporting] " + e.getMessage)
-            case Success(((mongoS, gameHubs), games)) => {
+            case Success((mongoS, games)) => {
               latency = (nowMillis - before).toInt
               mongoStatus = mongoS
-              nbGames = games
               loadAvg = osStats.getSystemLoadAverage.toFloat
               nbThreads = threadStats.getThreadCount
               memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
