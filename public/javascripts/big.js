@@ -1535,7 +1535,7 @@ var storage = {
           if ($tag.length && e) {
             var prev = parseInt($tag.text(), 10);
             var k = 5;
-            var interv = 1200 / k;
+            var interv = 2000 / k;
             $.fp.range(k).forEach(function(it) {
               setTimeout(function() {
                 var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
