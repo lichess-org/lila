@@ -91,7 +91,6 @@ private[controllers] trait LilaController
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     Env.security.firewall.accepts(ctx.req) flatMap {
       _ fold (a, {
-        Env.security.firewall.logBlock(ctx.req)
         fuccess { Redirect(routes.Lobby.home()) }
       })
     }
