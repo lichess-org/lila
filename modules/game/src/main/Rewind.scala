@@ -10,7 +10,8 @@ object Rewind {
     tags = initialFen.??(fen => List(
       chessPgn.Tag(_.FEN, fen),
       chessPgn.Tag(_.Variant, game.variant.name)
-    ))
+    )),
+    trusted = true
   ) map { replay =>
       val rewindedGame = replay.state
       val rewindedHistory = rewindedGame.board.history

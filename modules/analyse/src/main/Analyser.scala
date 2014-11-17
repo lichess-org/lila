@@ -48,7 +48,7 @@ final class Analyser(
       $find.byId[Game](id) map (_ filter (_.analysable)) zip
         (GameRepo initialFen id) flatMap {
           case (Some(game), initialFen) => AnalysisRepo.progress(id, userId) >> {
-            Replay(game.pgnMoves, initialFen, game.variant).fold(
+            Replay(game.pgnMoves, initialFen, game.variant, trusted = true).fold(
               fufail(_),
               replay => {
                 ai ! lila.hub.actorApi.ai.Analyse(game.id, UciDump(replay), initialFen, requestedByHuman = !auto, game.variant.kingOfTheHill)
@@ -68,7 +68,7 @@ final class Analyser(
     $find.byId[Game](id) zip get(id) zip (GameRepo initialFen id) flatMap {
       case ((Some(game), Some(a1)), initialFen) => Info decodeList data match {
         case None => fufail(s"[analysis] $data")
-        case Some(infos) => Replay(game.pgnMoves, initialFen, game.variant).fold(
+        case Some(infos) => Replay(game.pgnMoves, initialFen, game.variant, trusted = true).fold(
           fufail(_),
           replay => UciToPgn(replay, a1 complete infos) match {
             case (analysis, errors) =>

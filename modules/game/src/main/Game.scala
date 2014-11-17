@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.Color._
+import chess.Color.{ White, Black }
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Variant, Mode, PositionHash }
 import org.joda.time.DateTime
@@ -32,11 +32,6 @@ case class Game(
     metadata: Metadata) {
 
   val players = List(whitePlayer, blackPlayer)
-
-  val playersByColor: Map[Color, Player] = Map(
-    White -> whitePlayer,
-    Black -> blackPlayer
-  )
 
   def player(color: Color): Player = color match {
     case White => whitePlayer

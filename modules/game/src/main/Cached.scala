@@ -36,10 +36,9 @@ final class Cached(ttl: Duration) {
 
     def apply(game: Game, initialFen: Option[String]): chess.Division = {
       Option(cache getIfPresent game.id) | {
-        val div = chess.Replay(
+        val div = chess.Replay.boards(
           moveStrs = game.pgnMoves,
-          initialFen = initialFen,
-          variant = game.variant
+          initialFen = initialFen
         ).toOption.fold(empty)(chess.Divider.apply)
         cache.put(game.id, div)
         div

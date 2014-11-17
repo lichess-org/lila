@@ -4,9 +4,9 @@ import scala.concurrent.Future
 import scala.util.{ Try, Success, Failure }
 
 import org.joda.time.DateTime
-import play.api.libs.json._
-import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex, BSONArray }
-import reactivemongo.core.commands.Count
+import play.api.libs.json.JsValue
+import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex, BSONArray, BSONBoolean }
+import reactivemongo.core.commands._
 
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
@@ -88,13 +88,13 @@ private[puzzle] final class PuzzleApi(
         Attempt.BSONFields.id -> Attempt.makeId(puzzle.id, user.id)
       ).some) map (0!=)
 
+    private val PlayedIdsGroup = Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.puzzleId))
+
     def playedIds(user: User, max: Int): Fu[BSONArray] = {
-      import reactivemongo.bson._
-      import reactivemongo.core.commands._
       val command = Aggregate(attemptColl.name, Seq(
         Match(BSONDocument(Attempt.BSONFields.userId -> user.id)),
         Limit(max),
-        Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.puzzleId))
+        PlayedIdsGroup
       ))
       attemptColl.db.command(command) map {
         _.headOption flatMap (_.getAs[BSONArray]("ids")) getOrElse BSONArray()
