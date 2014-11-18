@@ -13,10 +13,7 @@ import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
 
-private[importer] final class Importer(
-    roundMap: ActorRef,
-    bookmark: akka.actor.ActorSelection,
-    delay: Duration) {
+private[importer] final class Importer(roundMap: ActorRef, delay: Duration) {
 
   def apply(data: ImportData, user: Option[String], ip: String): Fu[Game] = {
 
