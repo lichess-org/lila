@@ -60,8 +60,9 @@ function renderTableEnd(ctrl) {
       button.newGame(ctrl)
     ]));
   return [
+    renderReplay(ctrl.replay),
     buttons ? m('div.control.buttons', buttons) : null,
-    renderReplay(ctrl.replay)
+    renderPlayer(ctrl, d.player)
   ];
 }
 
@@ -72,8 +73,8 @@ function renderTableWatch(ctrl) {
     button.viewTournament(ctrl)
   ]);
   return [
-    buttons ? m('div.control.buttons', buttons) : null,
     renderReplay(ctrl.replay),
+    buttons ? m('div.control.buttons', buttons) : null,
     renderPlayer(ctrl, d.player)
   ];
 }
@@ -91,6 +92,7 @@ function renderTablePlay(ctrl) {
     ) : null
   ]);
   return [
+    renderReplay(ctrl.replay),
     m('div.control.icons', [
       button.standard(ctrl, game.abortable, 'L', 'abortGame', 'abort'),
       button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes'),
@@ -98,9 +100,7 @@ function renderTablePlay(ctrl) {
       button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
     ]),
     buttons ? m('div.control.buttons', buttons) : null,
-    renderReplay(ctrl.replay),
-    m('div.whos_turn',
-      ctrl.trans(d.game.player == d.player.color ? 'yourTurn' : 'waitingForOpponent'))
+    renderPlayer(ctrl, d.player)
   ];
 }
 
