@@ -3,7 +3,7 @@ package lila.importer
 import scala.concurrent.duration._
 
 import akka.actor.ActorRef
-import akka.pattern.ask
+import akka.pattern.{ ask, after }
 import chess.{ Color, Move, Status }
 import makeTimeout.large
 
@@ -15,8 +15,8 @@ import lila.round.actorApi.round._
 
 private[importer] final class Importer(
     roundMap: ActorRef,
-    bookmark: akka.actor.ActorSelection,
-    delay: Duration) {
+    delay: FiniteDuration,
+    scheduler: akka.actor.Scheduler) {
 
   def apply(data: ImportData, user: Option[String], ip: String): Fu[Game] = {
 
@@ -31,18 +31,13 @@ private[importer] final class Importer(
       }
     }
 
-    def applyMoves(pov: Pov, moves: List[Move]) {
-      moves match {
-        case move :: rest => {
-          applyMove(pov, move)
-          Thread sleep delay.toMillis
-          applyMoves(!pov, rest)
-        }
-        case Nil =>
-      }
+    def applyMoves(pov: Pov, moves: List[Move]): Funit = moves match {
+      case Nil => after(delay, scheduler)(funit)
+      case move :: rest =>
+        after(delay, scheduler)(applyMove(pov, move)) >> applyMoves(!pov, rest)
     }
 
-    def applyMove(pov: Pov, move: Move) {
+    def applyMove(pov: Pov, move: Move) = scala.concurrent.Future {
       roundMap ! Tell(pov.gameId, HumanPlay(
         playerId = pov.playerId,
         ip = ip,
@@ -60,8 +55,7 @@ private[importer] final class Importer(
         case Preprocessed(game, moves, result) =>
           (GameRepo insertDenormalized game) >> {
             game.pgnImport.flatMap(_.user).isDefined ?? GameRepo.setImportCreatedAt(game)
-          } >>-
-            applyMoves(Pov(game, Color.white), moves) >>-
+          } >> applyMoves(Pov(game, Color.white), moves).thenPp >>-
             (result foreach { r => applyResult(game, r) }) inject game
       }
     }
