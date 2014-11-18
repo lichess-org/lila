@@ -178,6 +178,12 @@ object GameRepo {
     $insert bson bson
   }
 
+  // used to make a compound sparse index
+  def setImportCreatedAt(g: Game) =
+    $update($select(g.id), BSONDocument(
+      "$set" -> BSONDocument("pgni.ca" -> g.createdAt)
+    ))
+
   def saveNext(game: Game, nextId: ID): Funit = $update(
     $select(game.id),
     $set(F.next -> nextId) ++

@@ -19,6 +19,7 @@ case class UserInfo(
     nbPlaying: Int,
     crosstable: Option[Crosstable],
     nbBookmark: Int,
+    nbImported: Int,
     ratingChart: Option[String],
     nbFollowing: Int,
     nbFollowers: Int,
@@ -49,6 +50,7 @@ object UserInfo {
     countUsers() zip
       getRanks(user.id) zip
       ((ctx is user) ?? { gameCached nbPlaying user.id map (_.some) }) zip
+      gameCached.nbImportedBy(user.id) zip
       (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id) }) zip
       getRatingChart(user) zip
       relationApi.nbFollowing(user.id) zip
@@ -57,13 +59,14 @@ object UserInfo {
       postApi.nbByUser(user.id) zip
       getDonated(user.id) zip
       PlayTime(user) map {
-        case ((((((((((nbUsers, ranks), nbPlaying), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), donated), playTime) => new UserInfo(
+        case (((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), donated), playTime) => new UserInfo(
           user = user,
           ranks = ranks,
           nbUsers = nbUsers,
           nbPlaying = ~nbPlaying,
           crosstable = crosstable,
           nbBookmark = bookmarkApi countByUser user,
+          nbImported = nbImported,
           ratingChart = ratingChart,
           nbFollowing = nbFollowing,
           nbFollowers = nbFollowers,

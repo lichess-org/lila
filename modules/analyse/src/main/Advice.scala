@@ -80,7 +80,7 @@ private[analyse] object MateAdvice {
 
   def apply(prev: Info, info: Info): Option[MateAdvice] = {
     def reverse(m: Int) = info.color.fold(m, -m)
-    def prevScore = reverse(prev.score ?? (_.centipawns)).pp
+    def prevScore = reverse(prev.score ?? (_.centipawns))
     def nextScore = reverse(info.score ?? (_.centipawns))
     MateSequence(prev.mate map reverse, info.mate map reverse) map { sequence =>
       val nag = sequence match {

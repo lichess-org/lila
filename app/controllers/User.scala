@@ -81,9 +81,12 @@ object User extends LilaController {
     info ← Env.current.userInfo(u, ctx)
     filterName = filterOption | "all"
     filters = GameFilterMenu(info, ctx.me, filterName)
-    pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query =>
-      gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
-    })
+    pag <- GameFilterMenu.paginatorOf(
+      user = u,
+      info = info.some,
+      filter = filters.current,
+      me = ctx.me,
+      page = page)
     relation <- ctx.userId ?? { relationApi.relation(_, u.id) }
     notes <- ctx.me ?? { me =>
       relationApi friends me.id flatMap { env.noteApi.get(u, me, _) }
@@ -94,12 +97,13 @@ object User extends LilaController {
 
   private def userGames(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: Context) = {
     val filterName = filterOption | "all"
-    val current = GameFilterMenu.currentOf(GameFilterMenu.all, filterName)
-    val query = GameFilterMenu.queryOf(current, u, ctx.me)
-    val cachedNb = GameFilterMenu.cachedNbOf(u, current)
-    query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query =>
-      gamePaginator.recentlyCreated(query, cachedNb)(page)
-    } map { html.user.games(u, _, filterName) }
+    GameFilterMenu.paginatorOf(
+      user = u,
+      info = none,
+      filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
+      me = ctx.me,
+      page = page
+    ) map { html.user.games(u, _, filterName) }
   }
 
   def list = Open { implicit ctx =>
