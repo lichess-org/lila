@@ -1,8 +1,8 @@
 package lila.tournament
 package arena
 
-import lila.tournament.{ ScoringSystem => AbstractScoringSystem }
 import lila.tournament.{ Score => AbstractScore }
+import lila.tournament.{ ScoringSystem => AbstractScoringSystem }
 
 object ScoringSystem extends AbstractScoringSystem {
   sealed trait Flag
@@ -30,8 +30,8 @@ object ScoringSystem extends AbstractScoringSystem {
 
   override def rank(tour: Tournament, players: Players): RankedPlayers = {
     players.foldLeft(Nil: RankedPlayers) {
-        case (Nil, p)                  => (1, p) :: Nil
-        case (list@((r0, p0) :: _), p) => ((p0.score == p.score).fold(r0, list.size + 1), p) :: list
+      case (Nil, p)                  => (1, p) :: Nil
+      case (list@((r0, p0) :: _), p) => ((p0.score == p.score).fold(r0, list.size + 1), p) :: list
     }.reverse
   }
 
