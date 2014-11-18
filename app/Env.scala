@@ -71,7 +71,8 @@ final class Env(
       Env.chat,
       Env.puzzle,
       Env.tv,
-      Env.blog)
+      Env.blog,
+      Env.relay)
     loginfo("[boot] Preloading complete")
   }
 
@@ -131,4 +132,5 @@ object Env {
   def qa = lila.qa.Env.current
   def history = lila.history.Env.current
   def worldMap = lila.worldMap.Env.current
+  def relay = lila.relay.Env.current
 }

@@ -8,8 +8,7 @@ import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
 import scala.concurrent.duration._
 
-final class Live(
-    roundMap: ActorRef) {
+final class Live(roundMap: ActorRef) {
 
   def create = {
     val variant = chess.Variant.Standard
