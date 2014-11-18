@@ -5,52 +5,48 @@
 
 <div class="side">
   <div class="side_box padded">
-    @bookmark.toggle(game)
-    @game.pgnImport.flatMap(_.date).map { date =>
-    PGN Import - @date
-    @game.pgnImport.flatMap(_.user).map { user =>
-    <br />
-    @userIdLink(user.some)
-    }
-    }.getOrElse {
-    @if(game.isBeingPlayed) {
-    @trans.playingRightNow()
-    } else {
-    @game.updatedAt.map(momentFormat)
-    }
-    <br />
-    }
-    <br />
-    @tour.filter(_.isFinished).map { t =>
-    @tournamentLink(t)
-    <br /><br />
-    }
-    @if(game.finishedOrAborted) {
-    @gameEndStatus(game),
-    @game.winner.map { winner =>
-    @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
-    }
-    <br /><br />
-    }
-    @List(opponent, player).map { p =>
-    <div class="player">
-      @playerLink(p, withOnline = false, withDiff = true, cssClass = Some("player color " + p.color.name))
+    <div class="infos" data-icon="@game.perfType match {
+    case _ if game.fromPosition => {*}
+    case _ if game.hasAi => {:}
+    case _ if game.imported => {/}
+    case Some(p) => {@p.iconChar}
+    case _ => {8}
+    }">
+      
+      <div class="header">
+        <strong>
+          @game.clock.fold("∞")(_.show)
+          • @game.perfType.map(_.name match {
+          case "King of the Hill" => "KoTH"
+          case a => a
+          }).getOrElse {@chess.Variant.FromPosition.name}
+          • @game.rated.fold(trans.rated(), trans.casual())
+        </strong>
+        @game.pgnImport.flatMap(_.date).getOrElse(
+        game.isBeingPlayed.fold(trans.playingRightNow(), momentFormat(game.createdAt))
+        )
+      </div>
+      @game.pgnImport.flatMap(_.date).map { date =>
+      Imported
+      @game.pgnImport.flatMap(_.user).map { user =>
+      by
+      @userIdLink(user.some, None, false)
+      <br />
+      }
+      }
+      @tour.filter(_.isFinished).map { t =>
+      @tournamentLink(t)
+      <br /><br />
+      }
+      @if(game.variant.threeCheck) {
+      <div class="check_count" data-icon="@lila.rating.PerfType("threeCheck").map(_.iconChar)">
+        Checks given:
+        @* Note that they are stored the other way round, as checks received *@
+        <span class="player color white">@game.checkCount.black</span>
+        <span class="player color black">@game.checkCount.white</span>
+      </div>
+      }
     </div>
-    }
-    <br />
-    <span data-icon="p"> @shortClockName(game.clock)</span>,
-    @variantLink(game.variant, variantName(game.variant))
-    @if(game.rated) {
-    , @trans.rated()<br />
-    }
-    @if(game.variant.threeCheck) {
-    <div class="check_count" data-icon="@lila.rating.PerfType("threeCheck").map(_.iconChar)">
-      Checks given:
-      @* Note that they are stored the other way round, as checks received *@
-      <span class="player color white">@game.checkCount.black</span>
-      <span class="player color black">@game.checkCount.white</span>
-    </div>
-    }
   </div>
 
   @userTv.map { u =>
