@@ -55,6 +55,14 @@
         }
         
       </div>
+      @if(game.finishedOrAborted) {
+      <div class="status">
+        @gameEndStatus(game),
+        @game.winner.map { winner =>
+        @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+        }
+      </div>
+      }
       @if(game.variant.threeCheck) {
       <div class="check_count" data-icon="@lila.rating.PerfType("threeCheck").map(_.iconChar)">
         Checks given:

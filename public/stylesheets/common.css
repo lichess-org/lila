@@ -819,6 +819,11 @@ div.side_box div.swords {
   margin-left: -35px;
   margin-top: 10px;
 }
+div.side_box div.status {
+  text-align: center;
+  margin-left: -35px;
+  margin-top: 5px;
+}
 .player.color {
   line-height: 16px;
   height: 16px;
