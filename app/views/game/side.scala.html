@@ -38,6 +38,23 @@
       @tournamentLink(t)
       <br /><br />
       }
+      <div class="swords" data-icon="U"></div>
+      <div class="players">
+        @if(opponent.color.name == "white") {
+        @List(opponent, player).map { p =>
+        <div class="player">
+          @playerLink(p, withOnline = false, withDiff = true)
+        </div>
+        }
+        } else {
+        @List(player, opponent).map { p =>
+        <div class="player">
+          @playerLink(p, withOnline = false, withDiff = true)
+        </div>
+        }
+        }
+        
+      </div>
       @if(game.variant.threeCheck) {
       <div class="check_count" data-icon="@lila.rating.PerfType("threeCheck").map(_.iconChar)">
         Checks given:

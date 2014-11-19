@@ -810,6 +810,15 @@ div.side_box div.infos::before{
   font-size: 30px;
   opacity: 0.7;
 }
+div.side_box div.players {
+  margin-left: -10px;
+  margin-top: -26px;
+}
+div.side_box div.swords {
+  font-size: 15px;
+  margin-left: -35px;
+  margin-top: 10px;
+}
 .player.color {
   line-height: 16px;
   height: 16px;
