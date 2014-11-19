@@ -7,6 +7,7 @@ var mod = require('game').view.mod;
 var partial = require('chessground').util.partial;
 var button = require('./button');
 var blind = require('../blind');
+var keyboard = require('../replay/keyboard');
 
 function renderMaterial(ctrl, material) {
   var children = [];
@@ -27,6 +28,15 @@ function renderMaterial(ctrl, material) {
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
     m('div.lichess_board.' + ctrl.data.game.variant.key, {
+      config: function(el, isUpdate) {
+        if (!isUpdate) el.addEventListener('wheel', function(e) {
+          if (e.deltaY > 0) keyboard.next(ctrl);
+          else if (e.deltaY < 0) keyboard.prev(ctrl);
+          m.redraw();
+          e.preventDefault();
+          return false;
+        });
+      },
       onclick: ctrl.data.player.spectator ? toggleDontTouch : null
     }, chessground.view(ctrl.chessground)),
     renderPromotion(ctrl)
