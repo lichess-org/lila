@@ -1032,20 +1032,9 @@ div.table .notyet {
   text-shadow: none !important;
 }
 
-.lichess_ground .control.buttons a.rematch.offer.button,
-.lichess_ground .control.buttons a.viewRematch,
-.lichess_ground .control.buttons a.viewTournament,
-.lichess_ground .control.buttons a.rematch_cancel,
-.lichess_ground .control.buttons a.lichess_play_again,
-.lichess_ground .control.buttons a.lichess_new_game.button,
-.lichess_ground .control.buttons a.declineInvitation,
-.lichess_ground .control.buttons a.replay_and_analyse {
+.lichess_ground .control.buttons .button {
   width: 190px;
-}
-.lichess_ground .control.buttons a.lichess_new_game.button,
-.lichess_ground .control.buttons a.declineInvitation,
-.lichess_ground .control.buttons a.replay_and_analyse {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 .lichess_ground .control.buttons a.lichess_play_again {
   font-size: 150%;
