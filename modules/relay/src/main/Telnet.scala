@@ -11,7 +11,8 @@ private[relay] final class Telnet(remote: InetSocketAddress, listener: ActorRef)
   import context.system
 
   IO(Tcp) ! Connect(remote, options = List(
-    SO.ReceiveBufferSize(1024 * 1024)
+    SO.ReceiveBufferSize(1024 * 1024),
+    SO.SendBufferSize(1024 * 1024)
   ))
 
   def receive = {

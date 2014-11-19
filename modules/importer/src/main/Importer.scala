@@ -13,7 +13,7 @@ import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
 
-private[importer] final class Importer(
+final class Importer(
     roundMap: ActorRef,
     delay: FiniteDuration,
     scheduler: akka.actor.Scheduler) {
@@ -23,13 +23,12 @@ private[importer] final class Importer(
     def gameExists(processing: => Fu[Game]): Fu[Game] =
       $find.one(lila.game.Query pgnImport data.pgn) flatMap { _.fold(processing)(fuccess) }
 
-    def applyResult(game: Game, result: Result) {
-      result match {
-        case Result(Status.Draw, _)             => roundMap ! Tell(game.id, DrawForce)
-        case Result(Status.Resign, Some(color)) => roundMap ! Tell(game.id, Resign(game.player(!color).id))
-        case _                                  =>
-      }
+    gameExists {
+      doImport(data, user, ip)
     }
+  }
+
+  def doImport(data: ImportData, user: Option[String], ip: String): Fu[Game] = {
 
     def applyMoves(pov: Pov, moves: List[Move]): Funit = moves match {
       case Nil => after(delay, scheduler)(funit)
@@ -50,14 +49,21 @@ private[importer] final class Importer(
       ))
     }
 
-    gameExists {
-      (data preprocess user).future flatMap {
-        case Preprocessed(game, moves, result) =>
-          (GameRepo insertDenormalized game) >> {
-            game.pgnImport.flatMap(_.user).isDefined ?? GameRepo.setImportCreatedAt(game)
-          } >> applyMoves(Pov(game, Color.white), moves).thenPp >>-
-            (result foreach { r => applyResult(game, r) }) inject game
-      }
+    (data preprocess user).future flatMap {
+      case Preprocessed(game, moves, result) =>
+        (GameRepo insertDenormalized game) >> {
+          game.pgnImport.flatMap(_.user).isDefined ?? GameRepo.setImportCreatedAt(game)
+        } >>
+          applyMoves(Pov(game, Color.white), moves) >>-
+          (result foreach { r => applyResult(game, r) }) inject game
+    }
+  }
+
+  def applyResult(game: Game, result: Result) {
+    result match {
+      case Result(Status.Draw, _)             => roundMap ! Tell(game.id, DrawForce)
+      case Result(Status.Resign, Some(color)) => roundMap ! Tell(game.id, Resign(game.player(!color).id))
+      case _                                  =>
     }
   }
 }

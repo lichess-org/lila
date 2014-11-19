@@ -1,13 +1,16 @@
 package lila.relay
 
 import akka.actor.{ Props, Actor, ActorRef, Status, FSM => AkkaFSM }
+import scala.concurrent.duration._
 
 import actorApi._
 import lila.game.Game
 
 private[relay] final class RelayFSM(
-  importer: lila.importer.Live,
-  userId: String) extends Actor with AkkaFSM[State, Option[Game]] {
+    importer: lila.importer.Importer,
+    liveImporter: lila.importer.Live,
+    userId: String,
+    importIP: String) extends Actor with AkkaFSM[State, Option[Game]] {
 
   import Telnet._
 
@@ -35,20 +38,28 @@ private[relay] final class RelayFSM(
 
   when(Lobby) {
     case Event(In(str), _) if str endsWith "fics% " =>
+      for (v <- Seq("seek", "shout", "cshout", "kibitz", "pin", "gin"))
+        send(s"set $v 0")
+      for (c <- Seq(4, 53)) send(s"- channel $c")
       send("style 12")
-      send("observe /l")
+      send("observe /b")
       send("moves")
       goto(Create)
   }
 
   when(Create) {
     case Event(In(str), _) if str contains "Movelist for game " =>
-      log(str)
-      stay
+      val pgn = Parser pgn str
+      println(s"str##$str##")
+      println(s"pgn##$pgn##")
+      val game = scala.concurrent.Await.result(
+        importer.doImport(pgn, userId.some, importIP),
+        10 seconds).pp
+      goto(Observe) using game.some
   }
 
   when(Observe) {
-    case Event(In(str), _) if str contains "<12>" =>
+    case Event(In(str), Some(game)) if str contains "<12>" =>
       log(str)
       stay
   }
@@ -60,11 +71,12 @@ private[relay] final class RelayFSM(
   }
 
   def log(msg: String) {
-    if (!noise(msg)) println(s"*$stateName $msg*")
+    if (!noise(msg)) println(s"FICS<$stateName $msg")
   }
 
   val noiseR = List(
-    """(?s).*\("play \d+" to respond\).*""".r,
+    """(?s).*Welcome to the Free Internet Chess Server.*""".r,
+    // """^\n[a-zA-z]+(\([^\)]+\)){1,2}:\s.+\nfics\%\s$""".r, // people chating
     """(?s).*Starting FICS session.*""".r,
     """(?s).*ROBOadmin.*""".r)
 
