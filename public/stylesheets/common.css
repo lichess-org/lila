@@ -117,6 +117,9 @@ body.blind_mode [data-icon]::before {
 .is.color-icon.black::before {
   content: "J";
 }
+.is.color-icon.random::before {
+  content: "l";
+}
 
 @font-face {
   font-family: 'ChessSansPiratf';
@@ -801,7 +804,7 @@ div.side_box .padded {
   padding: 7px;
 }
 div.side_box div.game_infos {
-  padding-left: 38px;
+  padding-left: 36px;
   padding-bottom: 8px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 6px;

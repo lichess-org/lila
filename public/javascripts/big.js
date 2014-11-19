@@ -1701,16 +1701,14 @@ var storage = {
       }
       html += '<span class="mode">' +
         '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' + $.trans(hook.mode) + '</span>';
-      var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
-      html += '<span class="is2" data-icon="' + k + '"></span>';
+      html += '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>';
       return html;
     }
 
     function renderTr(hook) {
       var title = (hook.action == "join") ? $.trans('Join the game') + ' - ' + hook.perf.name : $.trans('cancel');
-      var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
       return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + [
-        ['', '<span class="is2" data-icon="' + k + '"></span>'],
+        ['', '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>'],
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous')],
         [hook.rating || 0, hook.rating ? hook.rating : ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
