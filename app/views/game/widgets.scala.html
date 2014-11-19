@@ -11,7 +11,9 @@
   }.getOrElse {
   <span>@player.nameSplit match {
     case Some((name, rating)) => {
-    <span>@name</span><br />@rating
+    <span>@name</span>@rating.map { r =>
+    <br />@rating
+    }
     }
     case _ => {<span class="anon">@User.anonymous</span>}
     }</span>

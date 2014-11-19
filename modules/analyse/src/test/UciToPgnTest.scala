@@ -3,6 +3,7 @@ package lila.analyse
 import chess.format.pgn.Reader
 import chess.format.UciMove
 import chess.Pos._
+import chess.{Replay, Variant}
 import org.specs2.mutable._
 import org.specs2.specification._
 import ornicar.scalalib.test.ValidationMatchers
@@ -42,7 +43,7 @@ final class UciToPgnTest extends Specification with ValidationMatchers {
     Info(29, None, Some(-2), List())), true, date = org.joda.time.DateTime.now)
 
   val pgn = "d4 d5 f3 e6 f4 g6 g3 Bg7 Nf3 Nf6 e3 O-O Bh3 Nc6 g4 h6 g5 hxg5 Nxg5 Ne4 Bxe6 fxe6 Nxe6 Bxe6 Rg1 Qh4+ Ke2 Qxh2+ Kd3 Nb4#"
-  val rep = Reader(pgn).toOption.get
+  val rep = Replay(pgn.split(' ').toList, None, Variant.Standard, true).toOption.get
 
   "convert UCI analysis to PGN" should {
     "work :)" in {
