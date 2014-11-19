@@ -76,7 +76,6 @@ time {
   font-style: normal;
 }
 .is::before,
-.is::after,
 [data-icon]::before {
   font-size: 1.2em;
   vertical-align: middle;
@@ -112,6 +111,13 @@ body.blind_mode [data-icon]::before {
   display: none;
   visibility: hidden;
 }
+.is.color-icon.white::before {
+  content: "K";
+}
+.is.color-icon.black::before {
+  content: "J";
+}
+
 @font-face {
   font-family: 'ChessSansPiratf';
   src: url("../fonts/ChessSansPiratf.eot");

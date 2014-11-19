@@ -41,7 +41,7 @@
     </div>
     <div class="players">
       @List(game.whitePlayer, game.blackPlayer).map { p =>
-      <div class="player" data-icon="@p.color.fold('K', 'J')">
+      <div class="player color-icon is @{p.color.name}">
         @playerLink(p, withOnline = false, withDiff = true)
       </div>
       }

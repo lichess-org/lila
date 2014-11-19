@@ -388,6 +388,12 @@ body.dark div.user_show div.user-infos.scroll-shadow-hard {
 body.dark div.game_row:hover {
   background: rgba(27, 51, 68, 0.5);
 }
+body.dark .is.color-icon.white::before {
+  content: "J";
+}
+body.dark .is.color-icon.black::before {
+  content: "K";
+}
 body.dark::-webkit-input-placeholder {
   color: #666;
 }
