@@ -802,6 +802,8 @@ div.side_box div.header strong{
 }
 div.side_box div.infos {
   padding-left: 35px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
 }
 div.side_box div.infos::before{
   position: absolute;
@@ -811,17 +813,15 @@ div.side_box div.infos::before{
   opacity: 0.7;
 }
 div.side_box div.players {
-  margin-left: -10px;
+  margin-left: 22px;
   margin-top: -26px;
 }
 div.side_box div.swords {
   font-size: 15px;
-  margin-left: -35px;
   margin-top: 10px;
 }
 div.side_box div.status {
   text-align: center;
-  margin-left: -35px;
   margin-top: 5px;
 }
 .player.color {
