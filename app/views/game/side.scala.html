@@ -5,7 +5,7 @@
 
 <div class="side">
   <div class="side_box padded">
-    <div class="infos" data-icon="@game.perfType match {
+    <div class="game_infos" data-icon="@game.perfType match {
       case _ if game.fromPosition => {*}
       case _ if game.hasAi => {:}
       case _ if game.imported => {/}
@@ -14,14 +14,14 @@
       }">
 
       <div class="header">
-        <strong>
+        <span class="setup">
           @game.clock.fold("∞")(_.show)
           • @game.perfType.map(_.name match {
           case "King of the Hill" => "KoTH"
           case a => a
           }).getOrElse {@chess.Variant.FromPosition.name}
           • @game.rated.fold(trans.rated(), trans.casual())
-        </strong>
+        </span>
         @game.pgnImport.flatMap(_.date).getOrElse(
         game.isBeingPlayed.fold(trans.playingRightNow(), momentFormat(game.createdAt))
         )
@@ -39,20 +39,11 @@
       <br /><br />
       }
     </div>
-    <div class="swords" data-icon="U"></div>
     <div class="players">
-      @if(opponent.color.name == "white") {
-      @List(opponent, player).map { p =>
-      <div class="player">
+      @List(game.whitePlayer, game.blackPlayer).map { p =>
+      <div class="player" data-icon="@p.color.fold('K', 'J')">
         @playerLink(p, withOnline = false, withDiff = true)
       </div>
-      }
-      } else {
-      @List(player, opponent).map { p =>
-      <div class="player">
-        @playerLink(p, withOnline = false, withDiff = true)
-      </div>
-      }
       }
 
     </div>

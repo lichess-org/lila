@@ -794,31 +794,25 @@ div.side_box .top {
 div.side_box .padded {
   padding: 7px;
 }
-div.side_box div.header strong{
-  font-size: 1em;
-  text-transform: uppercase;
-  font-weight: lighter;
-  display: block;
-}
-div.side_box div.infos {
-  padding-left: 35px;
-  padding-bottom: 5px;
+div.side_box div.game_infos {
+  padding-left: 38px;
+  padding-bottom: 8px;
   border-bottom: 1px solid #ccc;
+  margin-bottom: 6px;
+  position: relative;
 }
-div.side_box div.infos::before{
+div.side_box div.game_infos::before {
   position: absolute;
-  margin-top: 2px;
-  margin-left: -35px;
+  top: 2px;
+  left: 0px;
   font-size: 30px;
   opacity: 0.7;
 }
-div.side_box div.players {
-  margin-left: 22px;
-  margin-top: -26px;
+div.side_box .game_infos .setup {
+  text-transform: uppercase;
+  display: block;
 }
-div.side_box div.swords {
-  font-size: 15px;
-  margin-top: 10px;
+div.side_box div.players {
 }
 div.side_box div.status {
   text-align: center;
@@ -1408,7 +1402,6 @@ div.checkmateCaptcha.success div.success {
 div.checkmateCaptcha.failure div.failure {
   display: block;
 }
-
 /* gamelist.css */
 
 div.game_row {

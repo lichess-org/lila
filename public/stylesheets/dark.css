@@ -123,7 +123,7 @@ body.dark div.doc_box h2,
 body.dark div.training div.box,
 body.dark div.force_resign_zone,
 body.dark div.negotiation,
-body.dark div.side_box div.infos {
+body.dark div.side_box div.game_infos {
   border-color: #3d3d3d;
 }
 body.dark .crosstable td.last {
