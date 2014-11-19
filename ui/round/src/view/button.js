@@ -90,8 +90,7 @@ module.exports = {
       
   },
   answerOpponentRematch: function(ctrl) {
-    if (ctrl.data.opponent.offeringRematch) return m('div', [
-      ctrl.trans('yourOpponentWantsToPlayANewGameWithYou'),
+    if (ctrl.data.opponent.offeringRematch) return [
       m('a.glowing.button.lichess_play_again.rematch.hint--bottom', {
         'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
         onclick: partial(ctrl.socket.send, 'rematch-yes', null),
@@ -99,7 +98,7 @@ module.exports = {
       m('a.declineInvitation.button', {
         onclick: partial(ctrl.socket.send, 'rematch-no', null),
       }, ctrl.trans('declineInvitation'))
-    ]);
+    ];
   },
   cancelRematch: function(ctrl) {
     if (ctrl.data.player.offeringRematch) return m('a.rematch_cancel.button', {

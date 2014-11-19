@@ -1045,18 +1045,16 @@ div.table .notyet {
 .lichess_ground .control.buttons a.replay_and_analyse {
   width: 190px;
 }
-.lichess_ground .control.buttons a.lichess_new_game.button {
+.lichess_ground .control.buttons a.lichess_new_game.button,
+.lichess_ground .control.buttons a.declineInvitation,
+.lichess_ground .control.buttons a.replay_and_analyse {
   margin-top: 10px;
 }
 .lichess_ground .control.buttons a.lichess_play_again {
   font-size: 150%;
   margin-left: 0;
 }
-.lichess_ground .control.buttons a.declineInvitation {
-  margin-top: 10px;
-}
 .lichess_ground .control.buttons a.replay_and_analyse {
-  margin-top: 10px;
   margin-bottom: 10px;
 }
 
