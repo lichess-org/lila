@@ -311,7 +311,8 @@ body.dark .button,
 body.dark a.button,
 body.dark .ui-button,
 body.dark .ui-slider-handle,
-body.dark .ui-widget-content {
+body.dark .ui-widget-content,
+body.dark .lichess_ground .replay .moves {
   border-color: #323232;
 }
 body.dark .button:hover,

@@ -77,37 +77,37 @@ module.exports = {
     ]);
   },
   rematch: function(ctrl) {
-    if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && ctrl.data.opponent.onGame)
-      return m('a.rematch.offer.button.hint--bottom', {
-        'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
-        onclick: partial(ctrl.socket.send, 'rematch-yes', null)
-      }, ctrl.trans('rematch'));
+    if (status.finished(ctrl.data) || status.aborted(ctrl.data)){
+      if (ctrl.data.opponent.onGame) {
+        return m('a.rematch.offer.button.hint--bottom', {
+          'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
+          onclick: partial(ctrl.socket.send, 'rematch-yes', null)
+        }, ctrl.trans('rematch'));
+      } else {
+        return m('a.rematch.offer.button.disabled', ctrl.trans('rematch'));
+      }
+    }
+      
   },
   answerOpponentRematch: function(ctrl) {
-    if (ctrl.data.opponent.offeringRematch) return m('div.lichess_play_again_join.rematch_alert', [
+    if (ctrl.data.opponent.offeringRematch) return m('div', [
       ctrl.trans('yourOpponentWantsToPlayANewGameWithYou'),
       m('a.glowing.button.lichess_play_again.rematch.hint--bottom', {
         'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
         onclick: partial(ctrl.socket.send, 'rematch-yes', null),
       }, ctrl.trans('joinTheGame')),
-      m('a', {
+      m('a.declineInvitation.button', {
         onclick: partial(ctrl.socket.send, 'rematch-no', null),
       }, ctrl.trans('declineInvitation'))
     ]);
   },
   cancelRematch: function(ctrl) {
-    if (ctrl.data.player.offeringRematch) return m('div.lichess_play_again_join.rematch_wait', [
-      ctrl.trans('rematchOfferSent'),
-      m('br'),
-      ctrl.trans('waitingForOpponent'),
-      m('br'), m('br'),
-      m('a.rematch_cancel', {
+    if (ctrl.data.player.offeringRematch) return m('a.rematch_cancel.button', {
         onclick: partial(ctrl.socket.send, 'rematch-no', null),
-      }, ctrl.trans('cancelRematchOffer'))
-    ]);
+      }, ctrl.trans('cancelRematchOffer'));
   },
   viewRematch: function(ctrl) {
-    if (ctrl.data.game.rematch) return m('a.button[data-icon=v]', {
+    if (ctrl.data.game.rematch) return m('a.viewRematch.button[data-icon=v]', {
       href: ctrl.router.Round.watcher(ctrl.data.game.rematch, ctrl.data.opponent.color).url
     }, ctrl.trans('viewRematch'));
   },
@@ -133,7 +133,7 @@ module.exports = {
     }, ctrl.trans('backToTournament'));
   },
   viewTournament: function(ctrl) {
-    if (ctrl.data.tournament) return m('a.button', {
+    if (ctrl.data.tournament) return m('a.viewTournament.button', {
       href: '/tournament/' + ctrl.data.tournament.id
     }, ctrl.trans('viewTournament'));
   },

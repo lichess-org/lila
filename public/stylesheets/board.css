@@ -968,6 +968,9 @@ div.table .notyet {
   margin: 10px 0 15px 0;
 }
 .lichess_ground .replay .moves {
+  border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+  margin: 0 -10px 0 -10px;
   height: 115px;
   overflow: auto;
 }
@@ -1030,6 +1033,31 @@ div.table .notyet {
 .lichess_ground .replay a.disabled::before {
   opacity: 0.4;
   text-shadow: none !important;
+}
+
+.lichess_ground .control.buttons a.rematch.offer.button,
+.lichess_ground .control.buttons a.viewRematch,
+.lichess_ground .control.buttons a.viewTournament,
+.lichess_ground .control.buttons a.rematch_cancel,
+.lichess_ground .control.buttons a.lichess_play_again,
+.lichess_ground .control.buttons a.lichess_new_game.button,
+.lichess_ground .control.buttons a.declineInvitation,
+.lichess_ground .control.buttons a.replay_and_analyse {
+  width: 190px;
+}
+.lichess_ground .control.buttons a.lichess_new_game.button {
+  margin-top: 10px;
+}
+.lichess_ground .control.buttons a.lichess_play_again {
+  font-size: 150%;
+  margin-left: 0;
+}
+.lichess_ground .control.buttons a.declineInvitation {
+  margin-top: 10px;
+}
+.lichess_ground .control.buttons a.replay_and_analyse {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 div.table.spectator {

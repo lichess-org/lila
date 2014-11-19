@@ -72,8 +72,7 @@ module.exports = function(ctrl) {
         ctrl.chessground.data.premovable.current ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
         dontTouch() ? m('div.dont_touch', {
           onclick: toggleDontTouch
-        }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null,
-        button.replayAndAnalyse(ctrl)
+        }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null
       ]),
       m('div.right', [
         [ctrl.data.opponent, ctrl.data.player].map(partial(mod.blursOf, ctrl)), [ctrl.data.opponent, ctrl.data.player].map(partial(mod.holdOf, ctrl))
