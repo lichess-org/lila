@@ -1327,7 +1327,7 @@ div.under_chat .watchtv {
   z-index: 1;
 }
 #chat .messages {
-  height: 263px;
+  height: 350px;
   overflow: hidden;
   overflow-y: auto;
 }
