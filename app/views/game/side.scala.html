@@ -6,13 +6,13 @@
 <div class="side">
   <div class="side_box padded">
     <div class="infos" data-icon="@game.perfType match {
-    case _ if game.fromPosition => {*}
-    case _ if game.hasAi => {:}
-    case _ if game.imported => {/}
-    case Some(p) => {@p.iconChar}
-    case _ => {8}
-    }">
-      
+      case _ if game.fromPosition => {*}
+      case _ if game.hasAi => {:}
+      case _ if game.imported => {/}
+      case Some(p) => {@p.iconChar}
+      case _ => {8}
+      }">
+
       <div class="header">
         <strong>
           @game.clock.fold("∞")(_.show)
@@ -38,7 +38,7 @@
       @tournamentLink(t)
       <br /><br />
       }
-      </div>
+    </div>
     <div class="swords" data-icon="U"></div>
     <div class="players">
       @if(opponent.color.name == "white") {
@@ -54,7 +54,7 @@
       </div>
       }
       }
-      
+
     </div>
     @if(game.finishedOrAborted) {
     <div class="status">
