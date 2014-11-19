@@ -964,9 +964,6 @@ div.table {
 div.table .notyet {
   margin: 20px 0;
 }
-.lichess_ground .table .replay {
-  margin: 10px 0 15px 0;
-}
 .lichess_ground .replay .moves {
   border-top: 1px solid #e2e2e2;
   border-bottom: 1px solid #e2e2e2;
@@ -1012,7 +1009,7 @@ div.table .notyet {
 }
 .lichess_ground .replay .buttons {
   text-align: center;
-  margin-top: 7px;
+  margin: 2px 0 5px 0;
   font-size: 0.8em;
 }
 .lichess_ground .replay a.button {
@@ -1070,7 +1067,13 @@ div.table_not_started {
   padding: 0;
 }
 div.table div.username {
-  display: inline-block;
+  white-space: nowrap;
+}
+div.table div.username:first-child {
+  margin-bottom: 7px;
+}
+div.table div.username:last-child {
+  margin-top: 7px;
 }
 div.table div.username span.status {
   display: inline-block;
@@ -1174,7 +1177,7 @@ div.separator {
   border-bottom: 1px solid #ddd;
 }
 div.control {
-  margin-top: 10px;
+  margin-top: 5px;
   text-align: center;
   width: 100%;
 }
@@ -1445,10 +1448,6 @@ div.underboard .right {
 }
 div.underboard a {
   display: inline-block;
-}
-div.underboard .replay_and_analyse {
-  margin-top: 10px;
-  font-size: 1.4em;
 }
 div.check_count span.player.color {
   display: inline-block;

@@ -15,12 +15,10 @@
 
       <div class="header">
         <span class="setup">
-          @game.clock.fold("∞")(_.show)
-          • @game.perfType.map(_.name match {
-          case "King of the Hill" => "KoTH"
-          case a => a
-          }).getOrElse {@chess.Variant.FromPosition.name}
-          • @game.rated.fold(trans.rated(), trans.casual())
+          @game.clock.fold("∞")(_.show) • @game.perfType.map {
+          case lila.rating.PerfType.KingOfTheHill => {@chess.Variant.KingOfTheHill.shortName}
+          case pt => {@pt.name}
+          } • @game.rated.fold(trans.rated(), trans.casual())
         </span>
         @game.pgnImport.flatMap(_.date).getOrElse(
         game.isBeingPlayed.fold(trans.playingRightNow(), momentFormat(game.createdAt))
@@ -33,10 +31,6 @@
       @userIdLink(user.some, None, false)
       <br />
       }
-      }
-      @tour.filter(_.isFinished).map { t =>
-      @tournamentLink(t)
-      <br /><br />
       }
     </div>
     <div class="players">
