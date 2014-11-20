@@ -68,7 +68,7 @@
   @tour match {
   case Some(t: lila.tournament.StartedOrFinished) => {
   <div class="game_tournament side_box no_padding scroll-shadow-soft">
-    <p class="top" data-icon="g"> @t.fullName</p>
+    <p class="top" data-icon="g"> <a href="@routes.Tournament.show(t.id)">@t.fullName</a></p>
     @t match {
     case t: lila.tournament.Started => {
     <div class="clock" data-time="@t.remainingSeconds">
