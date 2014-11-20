@@ -77,7 +77,7 @@ module.exports = {
     ]);
   },
   rematch: function(ctrl) {
-    if (status.finished(ctrl.data) || status.aborted(ctrl.data)) {
+    if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament) {
       if (ctrl.data.opponent.onGame) {
         return m('a.button.hint--bottom', {
           'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
@@ -119,14 +119,14 @@ module.exports = {
   joinRematch: function(ctrl) {
     if (ctrl.data.game.rematch) return [
       ctrl.trans('rematchOfferAccepted'),
-      m('a.glowing.button.fat.hint--bottom', {
+      m('a.button.fat.hint--bottom', {
         'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
         href: ctrl.router.Round.watcher(ctrl.data.game.rematch, ctrl.data.opponent.color).url
       }, ctrl.trans('joinTheGame'))
     ];
   },
   backToTournament: function(ctrl) {
-    if (ctrl.data.tournament) return m('a[data-icon=G].button' + (ctrl.data.tournament.running ? '.strong.glowing' : ''), {
+    if (ctrl.data.tournament && ctrl.data.tournament.running) return m('a[data-icon=G].button.strong.glowing', {
       href: '/tournament/' + ctrl.data.tournament.id
     }, ctrl.trans('backToTournament'));
   },
