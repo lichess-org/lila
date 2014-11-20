@@ -76,6 +76,7 @@ final class JsonView(
               "offeringRematch" -> player.isOfferingRematch.option(true),
               "offeringDraw" -> player.isOfferingDraw.option(true),
               "proposingTakeback" -> player.isProposingTakeback.option(true),
+              "onGame" -> (player.isAi || socket.onGame(player.color)),
               "hold" -> (withBlurs option hold(player)),
               "blurs" -> (withBlurs option blurs(game, player))
             ).noNull,
