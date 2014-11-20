@@ -80,7 +80,8 @@ module.exports = function(cfg, router, i18n, socketSend) {
 
   this.clock = this.data.clock ? new clockCtrl(
     this.data.clock,
-    this.data.player.spectator ? function() {} : throttle(partial(this.socket.send, 'outoftime'), 500)
+    this.data.player.spectator ? function() {} : throttle(partial(this.socket.send, 'outoftime'), 500),
+    this.data.player.spectator ? null : this.data.player.color
   ) : false;
 
   this.isClockRunning = function() {

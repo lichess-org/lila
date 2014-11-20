@@ -597,13 +597,11 @@ var storage = {
       dong: new Audio(baseUrl + 'dong2.' + ext),
       moveW: new Audio(baseUrl + 'move3.' + ext),
       moveB: new Audio(baseUrl + 'move3.' + ext),
-      take: new Audio(baseUrl + 'take2.' + ext)
+      take: new Audio(baseUrl + 'take2.' + ext),
+      lowtime: new Audio(baseUrl + 'lowtime.' + ext)
     };
     var volumes = {
-      dong: 1,
-      moveW: 1,
-      moveB: 1,
-      take: 1
+      lowtime: 0.7
     };
     var canPlay = hasOgg || hasMp3;
     var $control = $('#sound_control');
@@ -627,6 +625,9 @@ var storage = {
       },
       dong: function() {
         if (shouldPlay()) audio.dong.play();
+      },
+      lowtime: function() {
+        if (shouldPlay()) audio.lowtime.play();
       }
     };
     var getVolume = function() {
@@ -635,7 +636,8 @@ var storage = {
     var setVolume = function(v) {
       storage.set('sound-volume', v);
       Object.keys(audio).forEach(function(k) {
-        audio[k].volume = v * volumes[k];
+        audio[k].volume = v;
+        audio[k].volume = v * (volumes[k] ? volumes[k] : 1);
       });
     };
     var manuallySetVolume = $.fp.debounce(function(v) {
