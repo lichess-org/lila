@@ -79,19 +79,20 @@ module.exports = {
   rematch: function(ctrl) {
     if (status.finished(ctrl.data) || status.aborted(ctrl.data)) {
       if (ctrl.data.opponent.onGame) {
-        return m('a.rematch.offer.button.hint--bottom', {
+        return m('a.button.hint--bottom', {
           'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
           onclick: partial(ctrl.socket.send, 'rematch-yes', null)
         }, ctrl.trans('rematch'));
       } else {
-        return m('a.rematch.offer.button.disabled', ctrl.trans('rematch'));
+        return m('a.button.disabled', ctrl.trans('rematch'));
       }
     }
 
   },
   answerOpponentRematch: function(ctrl) {
     if (ctrl.data.opponent.offeringRematch) return [
-      m('a.glowing.button.lichess_play_again.rematch.hint--bottom', {
+      ctrl.trans('yourOpponentWantsToPlayANewGameWithYou'),
+      m('a.glowing.button.fat.hint--bottom', {
         'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
         onclick: partial(ctrl.socket.send, 'rematch-yes', null),
       }, ctrl.trans('joinTheGame')),
@@ -101,9 +102,14 @@ module.exports = {
     ];
   },
   cancelRematch: function(ctrl) {
-    if (ctrl.data.player.offeringRematch) return m('a.rematch_cancel.button', {
-      onclick: partial(ctrl.socket.send, 'rematch-no', null),
-    }, ctrl.trans('cancelRematchOffer'));
+    if (ctrl.data.player.offeringRematch) return [
+      ctrl.trans('rematchOfferSent'),
+      m('br'),
+      ctrl.trans('waitingForOpponent'),
+      m('a.button', {
+        onclick: partial(ctrl.socket.send, 'rematch-no', null),
+      }, ctrl.trans('cancelRematchOffer'))
+    ];
   },
   viewRematch: function(ctrl) {
     if (ctrl.data.game.rematch) return m('a.viewRematch.button[data-icon=v]', {
@@ -113,8 +119,7 @@ module.exports = {
   joinRematch: function(ctrl) {
     if (ctrl.data.game.rematch) return [
       ctrl.trans('rematchOfferAccepted'),
-      m('br'), m('br'),
-      m('a.glowing.button.lichess_play_again.rematch.hint--bottom', {
+      m('a.glowing.button.fat.hint--bottom', {
         'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
         href: ctrl.router.Round.watcher(ctrl.data.game.rematch, ctrl.data.opponent.color).url
       }, ctrl.trans('joinTheGame'))
@@ -137,7 +142,7 @@ module.exports = {
     }, m('span[data-icon=O]'));
   },
   replayAndAnalyse: function(ctrl) {
-    if (game.replayable(ctrl.data)) return m('a.button.replay_and_analyse[data-icon=G]', {
+    if (game.replayable(ctrl.data) && !ctrl.data.player.offeringRematch) return m('a.button.replay_and_analyse', {
       href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.player.color).url
     }, ctrl.trans('replayAndAnalyse'));
   }

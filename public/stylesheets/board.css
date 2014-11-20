@@ -1036,9 +1036,8 @@ div.table .notyet {
   width: 190px;
   margin-top: 5px;
 }
-.lichess_ground .control.buttons a.lichess_play_again {
+.lichess_ground .control.buttons a.fat {
   font-size: 150%;
-  margin-left: 0;
 }
 .lichess_ground .control.buttons a.replay_and_analyse {
   margin-bottom: 10px;
@@ -1170,29 +1169,6 @@ div.control {
   text-align: center;
   width: 100%;
 }
-div.control button {
-  margin: auto;
-}
-div.control a.lichess_play_again {
-  margin-left: 1em;
-}
-div.control div.lichess_play_again_join {
-  text-align: left;
-}
-div.control div.lichess_play_again_join a.lichess_play_again {
-  margin-left: 0;
-  font-size: 150%;
-  display: block;
-}
-div.control div.rematch_alert {
-  margin-bottom: 1em;
-}
-div.control div.rematch_alert .button {
-  margin-top: 1em;
-}
-div.control div.rematch_wait {
-  margin-bottom: 1em;
-}
 div.control.icons .button {
   font-size: 16px;
   height: 34px;
@@ -1218,7 +1194,7 @@ div.control.buttons .button {
   text-decoration: none;
   font-weight: bold;
 }
-div.control .rematch.disabled {
+div.control .button.disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
