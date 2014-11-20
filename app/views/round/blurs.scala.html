@@ -4,7 +4,7 @@
 @game.players.map { p =>
 @if(game.playerBlurPercent(p.color) > 30) {
 <br />
-@playerLink(p, cssClass = p.color.name.some, mod = true) @p.blurs/@game.playerMoves(p.color) blurs
+@playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, mod = true) @p.blurs/@game.playerMoves(p.color) blurs
 <strong>@game.playerBlurPercent(p.color)%</strong>
 }
 }

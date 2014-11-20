@@ -827,21 +827,6 @@ div.side_box div.status {
   text-align: center;
   margin-top: 5px;
 }
-.player.color {
-  line-height: 16px;
-  height: 16px;
-  display: inline-block;
-  margin: 1px 1em 1px 0;
-  padding-left: 20px;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-.player.color.white {
-  background-image: url(../piece/cburnett/wK-full.svg);
-}
-.player.color.black {
-  background-image: url(../piece/cburnett/bK-full.svg);
-}
 div.side div.confrontation {
   text-align: center;
   margin-bottom: 5px;
