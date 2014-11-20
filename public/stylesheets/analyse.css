@@ -124,7 +124,7 @@ div.game_control .jumps {
 .lichess_ground .replay {
   margin-left: 10px;
   width: 256px;
-  height: 480px;
+  height: calc(100% - 30px);
   overflow: auto;
   border: 1px solid #ccc;
 }
