@@ -94,16 +94,10 @@ div.fen_pgn strong {
 div.fen_pgn input.fen {
   width: 450px;
 }
-div.game_control,
-div.continue {
-  text-align: center;
-}
 div.game_control {
-  width: 290px;
-  margin-left: -6px;
-}
-div.continue {
-  margin: 20px 0;
+  margin-top: 10px;
+  text-align: center;
+  white-space: nowrap
 }
 div.game_control a {
   font-size: 12px;
@@ -113,18 +107,13 @@ div.game_control a {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  margin-right: -1px;
+  margin: 0 -1px;
 }
 div.game_control .jumps {
-  margin-right: 1em;
-}
-.lichess_ground {
-  height: 100%;
+  margin-right: 10px;
 }
 .lichess_ground .replay {
-  margin-left: 10px;
-  width: 256px;
-  height: calc(100% - 30px);
+  height: calc(100% - 40px);
   overflow: auto;
   border: 1px solid #ccc;
 }
