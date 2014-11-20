@@ -61,7 +61,7 @@ function renderTableEnd(ctrl) {
       button.cancelRematch(ctrl) ||
       button.rematch(ctrl)
     ],
-    button.replayAndAnalyse(ctrl)
+    button.analysis(ctrl)
   ]);
   return [
     renderReplay(ctrl.replay),
@@ -75,7 +75,7 @@ function renderTableWatch(ctrl) {
   var buttons = compact(ctrl.vm.redirecting ? null : [
     button.viewRematch(ctrl),
     button.viewTournament(ctrl),
-    button.replayAndAnalyse(ctrl)
+    button.analysis(ctrl)
   ]);
   return [
     renderReplay(ctrl.replay),
