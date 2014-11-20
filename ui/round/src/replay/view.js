@@ -37,7 +37,7 @@ function renderTable(ctrl, curPly) {
       renderTd(pair[1], 2 * i + 2, curPly)
     ]);
   });
-  if (result) {
+  if (result || status.aborted(ctrl.root.data)) {
     trs.push(m('tr', m('td.result[colspan=3]', result)));
     var winner = game.getPlayer(ctrl.root.data, ctrl.root.data.game.winner);
     trs.push(m('tr.status', m('td[colspan=3]', [

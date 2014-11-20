@@ -43,9 +43,9 @@
     </div>
     @if(game.finishedOrAborted) {
     <div class="status">
-      @gameEndStatus(game),
+      @gameEndStatus(game)
       @game.winner.map { winner =>
-      @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+      • @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
       }
     </div>
     }
