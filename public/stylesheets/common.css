@@ -818,8 +818,13 @@ div.side_box div.game_infos::before {
   opacity: 0.7;
 }
 div.side_box div.game_infos .bookmark {
-  margin-top: -30px;
-  margin-right: -13px;
+  position: absolute;
+  right: 0px;
+  background: radial-gradient(ellipse at center, rgba(238, 238, 238, 1) 0%, rgba(238, 238, 238, 1) 25%, rgba(238, 238, 238, 0) 100%);
+  visibility: hidden;
+}
+div.side_box:hover > div.game_infos .bookmark {
+  visibility: visible;
 }
 div.side_box .game_infos .setup {
   text-transform: uppercase;
