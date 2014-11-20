@@ -16,10 +16,16 @@
       @bookmark.toggle(game)
       <div class="header">
         <span class="setup">
-          @game.clock.fold("∞")(_.show) • @game.perfType.map {
-          case lila.rating.PerfType.KingOfTheHill => {@chess.Variant.KingOfTheHill.shortName}
-          case pt => {@pt.name}
-          } • @game.rated.fold(trans.rated(), trans.casual())
+          @game.clock.map(_.show).getOrElse {
+          <span data-hint="@trans.unlimited()" class="hint--top">∞</span>
+          } •
+          @if(game.variant.exotic) {
+          @variantLink(game.variant, (if (game.variant ==  chess.Variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top")
+          } else {
+          @game.perfType.map { pt =>
+          <span class="hint--top" data-hint="@pt.title">@pt.name.toUpperCase</span>
+          }
+          } • @game.rated.fold(trans.rated.str(), trans.casual.str()).toUpperCase
         </span>
         @game.pgnImport.flatMap(_.date).getOrElse(
         game.isBeingPlayed.fold(trans.playingRightNow(), momentFormat(game.createdAt))
