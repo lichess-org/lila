@@ -105,10 +105,22 @@ function renderTablePlay(ctrl) {
   ];
 }
 
+function whosTurn(ctrl, color) {
+  return m('div.whos_turn',
+    ctrl.data.game.player == color ? ctrl.trans(
+      ctrl.data.game.player == ctrl.data.player.color ? 'yourTurn' : 'waitingForOpponent'
+    ) : ''
+  );
+}
+
 module.exports = function(ctrl) {
   var clockRunningColor = ctrl.isClockRunning() ? ctrl.data.game.player : null;
   return m('div.table_wrap', [
-    (ctrl.clock && !ctrl.data.blind) ? renderClock(ctrl.clock, opposite(ctrl.data.player.color), "top", clockRunningColor) : null,
+    (ctrl.clock && !ctrl.data.blind) ? renderClock(
+      ctrl.clock,
+      opposite(ctrl.data.player.color),
+      "top", clockRunningColor
+    ) : whosTurn(ctrl, ctrl.data.opponent.color),
     m('div', {
       class: 'table' + (status.finished(ctrl.data) ? ' finished' : '')
     }, [
@@ -121,6 +133,6 @@ module.exports = function(ctrl) {
     ]), (ctrl.clock && !ctrl.data.blind) ? [
       renderClock(ctrl.clock, ctrl.data.player.color, "bottom", clockRunningColor),
       button.moretime(ctrl)
-    ] : null
+    ] : whosTurn(ctrl, ctrl.data.player.color)
   ])
 }
