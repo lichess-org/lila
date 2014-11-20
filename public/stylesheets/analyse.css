@@ -33,7 +33,7 @@ div.analysis_menu > a.active {
   border-top: 1px solid #eee;
 }
 div.analysis_panels {
-  margin-top: 10px;
+  margin-top: -10px;
 }
 div.analysis_panels > div {
   width: 512px;
@@ -219,7 +219,7 @@ div.underboard .center {
   padding: 0;
 }
 div.advice_summary {
-  margin-top: 42px;
+  margin-top: -15px;
 }
 div.advice_summary td {
   padding: 2px 8px;
