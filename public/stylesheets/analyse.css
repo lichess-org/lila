@@ -1,6 +1,3 @@
-#pgnText {
-  display: none;
-}
 div.board_wrap {
   float: left;
   width: 514px;
@@ -13,19 +10,6 @@ div.moves_wrap {
 p.rematch_wrap {
   margin-top: 31px;
   text-align: center;
-}
-span.board_mark {
-  position: absolute;
-  text-transform: uppercase;
-  font-size: 10px;
-  color: #bbb;
-  font-weight: bold;
-}
-span.board_mark.vert {
-  right: -10px;
-}
-span.board_mark.horz {
-  bottom: -14px;
 }
 div.analysis_menu {
   width: 512px;
@@ -48,6 +32,9 @@ div.analysis_menu > a.active {
   background-color: #eee;
   border-top: 1px solid #eee;
 }
+div.analysis_panels {
+  margin-top: 10px;
+}
 div.analysis_panels > div {
   width: 512px;
   height: 210px;
@@ -55,11 +42,12 @@ div.analysis_panels > div {
   display: none;
   overflow-x: hidden;
   overflow-y: auto;
+  text-align: left;
 }
 div.analysis_panels > div.active {
   display: block;
 }
-div.analysis_panels #crosstable {
+div.analysis_panels .crosstable table {
   margin-top: 60px;
 }
 div.game_analysis {
@@ -100,117 +88,141 @@ div.fen_pgn .pgn {
 }
 div.fen_pgn strong {
   font-size: 1.1em;
-  display:inline-block;
+  display: inline-block;
   margin-right: 7px;
 }
 div.fen_pgn input.fen {
   width: 450px;
 }
-#GameBoard {
-  position: relative;
-  width: 512px;
-  height: 512px;
-  border: 1px solid #ccc;
-  background-size: contain;
-}
-#GameBoard.flip table,
-#GameBoard.flip img.pieceImage {
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-#GameBoard td img {
-  width: 64px;
-  height: 64px;
-  display: block;
-}
 div.game_control,
 div.continue {
-  margin-top: 20px;
   text-align: center;
+}
+div.continue {
+  margin: 20px 0;
 }
 div.game_control a {
   font-size: 16px;
   height: 22px;
   display: inline-block;
-}
-#GameButtons {
-  display: inline-block;
-  margin-left: 10px;
-}
-#GameButtons a {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   margin-left: -1px;
   margin-right: -2px;
 }
-#GameText {
-  font-size: 15px;
-  width: 242px;
-  height: 502px;
-  margin-bottom: 1em;
-  padding: 5px 7px;
-  border: 1px solid #ccc;
+div.game_control .jumps {
+  margin-left: 1em;
+}
+.lichess_ground {
+  height: 100%;
+}
+.lichess_ground .replay {
+  margin-left: 10px;
+  width: 256px;
+  height: 100%;
   overflow: auto;
+  border: 1px solid #ccc;
 }
-#GameText .move,
-#GameText .variation {
-  font-family: 'pgn4web ChessSansPiratf', 'pgn4web Liberation Sans', sans-serif;
-  text-decoration: none;
-  padding-top: 3px;
-  padding-bottom: 3px;
+.lichess_ground .replay .index {
   display: inline-block;
-  color: #b57600;
-}
-/* played */
-
-#GameText .move {
-  color: #444;
-}
-/* any move number */
-
-#GameText span {
-  padding-right: 0;
-}
-/* any move SAN */
-
-#GameText a {
-  padding-right: 4px;
-  padding-left: 4px;
-}
-#GameText .comment,
-#GameText .variation {
-  font-size: 80%;
-}
-#GameText .comment {
-  display: block;
-}
-#GameText a:hover {
+  width: 26px;
+  text-align: center;
+  font-size: 13px;
+  height: 22px;
+  display: inline-block;
+  line-height: 22px;
+  padding: 2px 0;
   background: #e0e0e0;
 }
-#GameText .moveOn,
-#GameText .variationOn {
-  border: 1px solid #909090;
-  padding: 2px 3px;
+.lichess_ground .replay .move {
+  display: inline-block;
+  font-family: 'ChessSansPiratf', sans-serif;
+  text-decoration: none;
+}
+.lichess_ground .replay .turn .move {
+  width: calc(50% - 14px - 13px);
+  font-size: 17px;
+  height: 22px;
+  line-height: 22px;
+  display: inline-block;
+  padding: 2px 7px;
+}
+.lichess_ground .replay .turn .move.empty {
+  opacity: 0.5;
+}
+.lichess_ground .replay a.move {
+  cursor: pointer;
+  transition: background-color 0.13s;
+}
+.lichess_ground .replay a.move:hover {
+  background: #e0e0e0;
+}
+.lichess_ground .replay a.move.active {
+  color: #d85000;
+  font-weight: bold;
+}
+.lichess_ground .replay span {
+  font-size: 0.8em;
+  font-weight: lighter;
+  float: right;
+  margin: 2px 5px 0 0;
+  opacity: 0.7;
+  transition: 0.13s;
+}
+.lichess_ground .replay .move:hover span {
+  opacity: 1;
+}
+.lichess_ground .comment,
+.lichess_ground .variation {
+  background-color: #e0e0e0;
+}
+.lichess_ground .comment {
+  padding: 3px 0 0 5px;
+  border-top: 1px solid #ccc;
+}
+.lichess_ground .opening {
+  padding-bottom: 3px;
+  border-bottom: 1px solid #ccc;
+}
+.lichess_ground .variation {
+  font-weight: lighter;
+  padding: 3px 0 3px 5px;
+  border-bottom: 1px solid #ccc;
+}
+.lichess_ground .variation .move {
+  padding: 2px 2px;
+  font-weight: normal;
+}
+.lichess_ground .variation a.move:hover {
+  background: #eee;
+}
+.lichess_ground .result {
+  font-weight: bold;
+  font-size: 1.3em;
+  text-align: center;
+}
+.lichess_ground .status {
+  font-size: 1em;
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 5px;
+}
+div.underboard {
+  margin-top: 25px;
+}
+div.underboard .center {
+  padding: 0;
 }
 div.advice_summary {
-  position: absolute;
-  top: 595px;
-  width: 280px;
-}
-div.advice_summary table {
-  width: 100%;
-}
-div.advice_summary tr {
-  width: 100%;
+  margin-top: 42px;
 }
 div.advice_summary td {
-  padding: 3px 0;
+  padding: 2px 8px;
+  text-align: center;
 }
-div.advice_summary thead th {
-  padding: 3px 0;
+div.advice_summary .spacerlol {
+  padding: 5px;
 }
 #adv_chart,
 #movetimes_chart {

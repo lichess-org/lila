@@ -1,6 +1,6 @@
 var chessground = require('chessground');
-var round = require('../round');
-var status = require('../status');
+var game = require('game').game;
+var status = require('game').status;
 var partial = chessground.util.partial;
 var throttle = require('lodash-node/modern/functions/throttle');
 
@@ -13,7 +13,7 @@ module.exports = {
     }, m('span[data-icon=' + icon + ']')) : null;
   },
   forceResign: function(ctrl) {
-    if (!ctrl.data.opponent.ai && ctrl.data.clock && ctrl.data.opponent.isGone && round.resignable(ctrl.data))
+    if (!ctrl.data.opponent.ai && ctrl.data.clock && ctrl.data.opponent.isGone && game.resignable(ctrl.data))
       return m('div.force_resign_zone', [
         ctrl.trans('theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim'),
         m('br'),
@@ -77,75 +77,73 @@ module.exports = {
     ]);
   },
   rematch: function(ctrl) {
-    if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && ctrl.data.opponent.onGame)
-      return m('a.rematch.offer.button.hint--bottom', {
-        'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
-        onclick: partial(ctrl.socket.send, 'rematch-yes', null)
-      }, ctrl.trans('rematch'));
+    if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament) {
+      if (ctrl.data.opponent.onGame) {
+        return m('a.button.hint--bottom', {
+          'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
+          onclick: partial(ctrl.socket.send, 'rematch-yes', null)
+        }, ctrl.trans('rematch'));
+      } else {
+        return m('a.button.disabled', ctrl.trans('rematch'));
+      }
+    }
+
   },
   answerOpponentRematch: function(ctrl) {
-    if (ctrl.data.opponent.offeringRematch) return m('div.lichess_play_again_join.rematch_alert', [
+    if (ctrl.data.opponent.offeringRematch) return [
       ctrl.trans('yourOpponentWantsToPlayANewGameWithYou'),
-      m('a.glowing.button.lichess_play_again.rematch.hint--bottom', {
+      m('a.glowing.button.fat.hint--bottom', {
         'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
         onclick: partial(ctrl.socket.send, 'rematch-yes', null),
       }, ctrl.trans('joinTheGame')),
-      m('a', {
+      m('a.declineInvitation.button', {
         onclick: partial(ctrl.socket.send, 'rematch-no', null),
       }, ctrl.trans('declineInvitation'))
-    ]);
+    ];
   },
   cancelRematch: function(ctrl) {
-    if (ctrl.data.player.offeringRematch) return m('div.lichess_play_again_join.rematch_wait', [
+    if (ctrl.data.player.offeringRematch) return [
       ctrl.trans('rematchOfferSent'),
       m('br'),
       ctrl.trans('waitingForOpponent'),
-      m('br'), m('br'),
-      m('a.rematch_cancel', {
+      m('a.button', {
         onclick: partial(ctrl.socket.send, 'rematch-no', null),
       }, ctrl.trans('cancelRematchOffer'))
-    ]);
+    ];
   },
   viewRematch: function(ctrl) {
-    if (ctrl.data.game.rematch) return m('a.button[data-icon=v]', {
+    if (ctrl.data.game.rematch) return m('a.viewRematch.button[data-icon=v]', {
       href: ctrl.router.Round.watcher(ctrl.data.game.rematch, ctrl.data.opponent.color).url
     }, ctrl.trans('viewRematch'));
   },
   joinRematch: function(ctrl) {
     if (ctrl.data.game.rematch) return [
       ctrl.trans('rematchOfferAccepted'),
-      m('br'), m('br'),
-      m('a.glowing.button.lichess_play_again.rematch.hint--bottom', {
+      m('a.button.fat.hint--bottom', {
         'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
         href: ctrl.router.Round.watcher(ctrl.data.game.rematch, ctrl.data.opponent.color).url
       }, ctrl.trans('joinTheGame'))
     ];
   },
-  newGame: function(ctrl) {
-    if (!ctrl.data.offeringRematch && !ctrl.data.tournament) return m('a.lichess_new_game.button.hint--bottom', {
-      'data-hint': ctrl.trans('playWithAnotherOpponent'),
-      href: ctrl.router.Lobby.home().url
-    }, ctrl.trans('newOpponent'));
-  },
   backToTournament: function(ctrl) {
-    if (ctrl.data.tournament) return m('a[data-icon=G].button' + (ctrl.data.tournament.running ? '.strong.glowing' : ''), {
-      href: ctrl.router.Tournament.show(ctrl.data.tournament.id).url
+    if (ctrl.data.tournament && ctrl.data.tournament.running) return m('a[data-icon=G].button.strong.glowing', {
+      href: '/tournament/' + ctrl.data.tournament.id
     }, ctrl.trans('backToTournament'));
   },
   viewTournament: function(ctrl) {
-    if (ctrl.data.tournament) return m('a.button', {
-      href: ctrl.router.Tournament.show(ctrl.data.tournament.id).url
+    if (ctrl.data.tournament) return m('a.viewTournament.button', {
+      href: '/tournament/' + ctrl.data.tournament.id
     }, ctrl.trans('viewTournament'));
   },
   moretime: function(ctrl) {
-    if (round.moretimeable(ctrl.data)) return m('a.moretime.hint--bottom-left', {
+    if (game.moretimeable(ctrl.data)) return m('a.moretime.hint--bottom-left', {
       'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime),
       onclick: throttle(partial(ctrl.socket.send, 'moretime', null), 600)
     }, m('span[data-icon=O]'));
   },
-  replayAndAnalyse: function(ctrl) {
-    if (round.replayable(ctrl.data)) return m('a.button.replay_and_analyse[data-icon=G]', {
+  analysis: function(ctrl) {
+    if (game.replayable(ctrl.data) && !ctrl.data.player.offeringRematch) return m('a.button.replay_and_analyse', {
       href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.player.color).url
-    }, ctrl.trans('replayAndAnalyse'));
+    }, ctrl.trans('analysis'));
   }
 };

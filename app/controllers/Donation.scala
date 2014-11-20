@@ -28,7 +28,7 @@ object Donation extends LilaController {
     Env.donation.forms.ipn.bindFromRequest.fold(
       err => {
         println(err)
-        fuccess(BadRequest)
+        fuccess(Ok)
       },
       ipn => {
         val donation = lila.donation.Donation.make(

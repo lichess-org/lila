@@ -1,11 +1,11 @@
-var round = require('./round');
+var game = require('game').game;
 
 // Register blur events to be sent as move metadata
 
 var blur = false;
 
 var init = function(ctrl) {
-  if (round.isPlayerPlaying(ctrl.data)) {
+  if (game.isPlayerPlaying(ctrl.data)) {
     window.addEventListener('blur', function() {
       blur = true;
     });

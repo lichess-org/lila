@@ -16,7 +16,8 @@ import makeTimeout.short
 private[api] final class GameApi(
     netBaseUrl: String,
     apiToken: String,
-    pgnDump: PgnDump) {
+    pgnDump: PgnDump,
+    analysisApi: AnalysisApi) {
 
   def list(
     username: Option[String],
@@ -65,20 +66,19 @@ private[api] final class GameApi(
     withFens: Boolean,
     token: Option[String])(games: List[Game]): Fu[List[JsObject]] =
     AnalysisRepo doneByIds games.map(_.id) flatMap { analysisOptions =>
-      (games map { g => withAnalysis ?? (pgnDump(g) map (_.some)) }).sequenceFu flatMap { pgns =>
-        (games map GameRepo.initialFen).sequenceFu map { initialFens =>
-          val validToken = check(token)
-          games zip analysisOptions zip pgns zip initialFens map {
-            case (((g, analysisOption), pgnOption), initialFenOption) =>
-              gameToJson(g, makeUrl(g), analysisOption, pgnOption, initialFenOption,
-                withAnalysis = withAnalysis,
-                withMoves = withMoves,
-                withOpening = withOpening,
-                withFens = withFens,
-                withBlurs = validToken,
-                withHold = validToken,
-                withMoveTimes = validToken)
-          }
+      (games map GameRepo.initialFen).sequenceFu map { initialFens =>
+        val validToken = check(token)
+        games zip analysisOptions zip initialFens map {
+          case ((g, analysisOption), initialFen) =>
+            val pgnOption = withAnalysis option pgnDump(g, initialFen)
+            gameToJson(g, makeUrl(g), analysisOption, pgnOption, initialFen,
+              withAnalysis = withAnalysis,
+              withMoves = withMoves,
+              withOpening = withOpening,
+              withFens = withFens,
+              withBlurs = validToken,
+              withHold = validToken,
+              withMoveTimes = validToken)
         }
       }
     }
@@ -90,7 +90,7 @@ private[api] final class GameApi(
     url: String,
     analysisOption: Option[Analysis],
     pgnOption: Option[Pgn],
-    initialFenOption: Option[String],
+    initialFen: Option[String],
     withAnalysis: Boolean,
     withMoves: Boolean,
     withOpening: Boolean,
@@ -99,7 +99,7 @@ private[api] final class GameApi(
     withHold: Boolean = false,
     withMoveTimes: Boolean = false) = Json.obj(
     "id" -> g.id,
-    "initialFen" -> initialFenOption,
+    "initialFen" -> initialFen,
     "rated" -> g.rated,
     "variant" -> g.variant.key,
     "speed" -> g.speed.key,
@@ -131,34 +131,19 @@ private[api] final class GameApi(
             "sd" -> h.sd
           )
         },
-        "analysis" -> analysisOption.map(_.summary).flatMap(_.find(_._1 == p.color).map(_._2)).map(s =>
-          JsObject(s map {
-            case (nag, nb) => nag.toString.toLowerCase -> JsNumber(nb)
-          })
-        )
+        "analysis" -> analysisOption.flatMap(analysisApi.player(p.color))
       ).noNull
     }),
-    "analysis" -> analysisOption.ifTrue(withAnalysis).|@|(pgnOption).apply {
-      case (analysis, pgn) => JsArray(analysis.infoAdvices zip pgn.moves map {
-        case ((info, adviceOption), move) => Json.obj(
-          "move" -> move.san,
-          "eval" -> info.score.map(_.centipawns),
-          "mate" -> info.mate,
-          "variation" -> info.variation.isEmpty.fold(JsNull, info.variation mkString " ")
-        ).noNull
-      })
-    },
+    "analysis" -> analysisOption.ifTrue(withAnalysis).|@|(pgnOption).apply(analysisApi.game),
     "moves" -> withMoves.option(g.pgnMoves mkString " "),
     "opening" -> withOpening.?? {
-      chess.OpeningExplorer.openingOf(g.pgnMoves) map { opening =>
+      g.opening map { opening =>
         Json.obj("code" -> opening.code, "name" -> opening.name)
       }
     },
     "fens" -> withFens ?? {
-      chess.Replay(g.pgnMoves mkString " ", initialFenOption, g.variant).toOption map { replay =>
-        JsArray(replay.chronoMoves map { move =>
-          chess.format.Forsyth exportBoard move.after
-        } map JsString.apply)
+      chess.Replay.boards(g.pgnMoves, initialFen).toOption map { boards =>
+        JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)
       }
     },
     "winner" -> g.winnerColor.map(_.name),

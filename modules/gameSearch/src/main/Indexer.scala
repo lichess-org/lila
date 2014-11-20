@@ -111,7 +111,7 @@ private[gameSearch] final class Indexer(
         ai -> game.aiLevel,
         date -> (ElasticSearch.Date.formatter print game.createdAt).some,
         duration -> game.estimateTotalTime.some,
-        opening -> (chess.OpeningExplorer openingOf game.pgnMoves map (_.code.toLowerCase)),
+        opening -> (game.opening map (_.code.toLowerCase)),
         analysed -> hasAnalyse.some
       ).collect {
           case (key, Some(value)) => key -> value

@@ -2,6 +2,7 @@ package controllers
 
 import play.api.data.Form
 import play.api.mvc.{ Result, Results, Call, RequestHeader, Accepting }
+import play.api.libs.json.Json
 
 import lila.api.{ Context, BodyContext }
 import lila.app._
@@ -90,8 +91,10 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
       err => negotiate(
         html = BadRequest("Invalid form data").fuccess,
         api = _ => BadRequest(err.errorsAsJson).fuccess),
-      config => (ctx.userId ?? Env.relation.api.blocking) flatMap {
-        env.processor.hook(config, uid, lila.common.HTTPRequest sid req, _)
+      config => (ctx.userId ?? Env.relation.api.blocking) flatMap { blocking =>
+        JsonOk {
+          env.processor.hook(config, uid, lila.common.HTTPRequest sid req, blocking) inject Json.obj("ok" -> true)
+        }
       }
     )
   }

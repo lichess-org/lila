@@ -70,7 +70,7 @@ object BSON {
     def get[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, A]): A =
       reader.asInstanceOf[BSONReader[BSONValue, A]] read map(k)
     def getO[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, A]): Option[A] =
-      map get k map reader.asInstanceOf[BSONReader[BSONValue, A]].read
+      map get k flatMap reader.asInstanceOf[BSONReader[BSONValue, A]].readOpt
     def getD[A](k: String, default: A)(implicit reader: BSONReader[_ <: BSONValue, A]): A =
       getO[A](k) getOrElse default
 
@@ -93,6 +93,7 @@ object BSON {
     def nIntO(k: String) = getO[BSONNumberLike](k) map (_.toInt)
     def nIntD(k: String) = nIntO(k) getOrElse 0
     def intsD(k: String) = getO[List[Int]](k) getOrElse Nil
+    def strsD(k: String) = getO[List[String]](k) getOrElse Nil
 
     def toList = doc.elements.toList
   }

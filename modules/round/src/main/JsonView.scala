@@ -1,7 +1,7 @@
 package lila.round
 
 import scala.concurrent.duration._
-import scala.math.{ min, max, round }
+import scala.math
 
 import play.api.libs.json._
 
@@ -35,7 +35,7 @@ final class JsonView(
     apiVersion: Int,
     playerUser: Option[User],
     withBlurs: Boolean): Fu[JsObject] =
-    getInitialFen(pov.game) zip
+    GameRepo.initialFen(pov.game) zip
       getSocketStatus(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) zip
@@ -49,7 +49,7 @@ final class JsonView(
               "speed" -> game.speed.key,
               "perf" -> PerfPicker.key(game),
               "rated" -> game.rated,
-              "initialFen" -> initialFen,
+              "initialFen" -> (initialFen | chess.format.Forsyth.initial),
               "fen" -> (Forsyth >> game.toChess),
               "moves" -> game.pgnMoves.mkString(" "),
               "player" -> game.turnColor.name,
@@ -71,6 +71,7 @@ final class JsonView(
               "version" -> socket.version,
               "spectator" -> false,
               "user" -> playerUser.map { userJsonView(_, true) },
+              "rating" -> player.rating,
               "ratingDiff" -> player.ratingDiff,
               "offeringRematch" -> player.isOfferingRematch.option(true),
               "offeringDraw" -> player.isOfferingDraw.option(true),
@@ -82,6 +83,7 @@ final class JsonView(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
               "user" -> opponentUser.map { userJsonView(_, true) },
+              "rating" -> opponent.rating,
               "ratingDiff" -> opponent.ratingDiff,
               "offeringRematch" -> opponent.isOfferingRematch.option(true),
               "offeringDraw" -> opponent.isOfferingDraw.option(true),
@@ -127,8 +129,9 @@ final class JsonView(
     apiVersion: Int,
     user: Option[User],
     tv: Option[Boolean],
-    withBlurs: Boolean) =
-    getInitialFen(pov.game) zip
+    withBlurs: Boolean,
+    initialFen: Option[Option[String]] = None) =
+    initialFen.fold(GameRepo initialFen pov.game)(fuccess) zip
       getSocketStatus(pov.game.id) zip
       getWatcherChat(pov.game, user) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
@@ -141,7 +144,7 @@ final class JsonView(
               "speed" -> game.speed.key,
               "perf" -> PerfPicker.key(game),
               "rated" -> game.rated,
-              "initialFen" -> initialFen,
+              "initialFen" -> (initialFen | chess.format.Forsyth.initial),
               "fen" -> (Forsyth >> game.toChess),
               "player" -> game.turnColor.name,
               "winner" -> game.winnerColor.map(_.name),
@@ -152,6 +155,13 @@ final class JsonView(
               "rematch" -> game.next,
               "source" -> game.source.map(sourceJson),
               "moves" -> game.pgnMoves.mkString(" "),
+              "opening" -> game.opening.map { o =>
+                Json.obj(
+                  "code" -> o.code,
+                  "name" -> o.name,
+                  "size" -> o.size
+                )
+              },
               "status" -> Json.obj(
                 "id" -> pov.game.status.id,
                 "name" -> pov.game.status.name)),
@@ -162,6 +172,7 @@ final class JsonView(
               "spectator" -> true,
               "ai" -> player.aiLevel,
               "user" -> playerUser.map { userJsonView(_, true) },
+              "rating" -> player.rating,
               "ratingDiff" -> player.ratingDiff,
               "onGame" -> (player.isAi || socket.onGame(player.color)),
               "hold" -> (withBlurs option hold(player)),
@@ -171,6 +182,7 @@ final class JsonView(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
               "user" -> opponentUser.map { userJsonView(_, true) },
+              "rating" -> opponent.rating,
               "ratingDiff" -> opponent.ratingDiff,
               "onGame" -> (opponent.isAi || socket.onGame(opponent.color)),
               "hold" -> (withBlurs option hold(opponent)),
@@ -201,9 +213,6 @@ final class JsonView(
             }
           )
       }
-
-  private def getInitialFen(game: Game): Fu[String] =
-    GameRepo initialFen game map (_ | chess.format.Forsyth.initial)
 
   private def blurs(game: Game, player: lila.game.Player) = {
     val percent = game.playerBlurPercent(player.color)
@@ -259,9 +268,10 @@ final class JsonView(
     case _ => 1
   }
 
-  private def animationDuration(pov: Pov, pref: Pref) = round {
-    animationFactor(pref) * baseAnimationDuration.toMillis * max(0, min(1.2,
-      ((pov.game.estimateTotalTime - 60) / 60) * 0.2
-    ))
+  private def animationDuration(pov: Pov, pref: Pref) = math.round {
+    animationFactor(pref) * baseAnimationDuration.toMillis * pov.game.finished.fold(
+      1,
+      math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
+    )
   }
 }

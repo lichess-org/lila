@@ -32,7 +32,7 @@ case class Info(
   def mateComment: Option[String] = mate map { m => s"Mate in ${math.abs(m)}" }
   def evalComment: Option[String] = scoreComment orElse mateComment
 
-  override def toString = s"Info [$ply] ${score.fold("?")(_.showPawns)} ${mate | 0} ${variation.mkString(" ")}"
+  override def toString = s"Info $color [$ply] ${score.fold("?")(_.showPawns)} ${mate | 0} ${variation.mkString(" ")}"
 }
 
 object Info {

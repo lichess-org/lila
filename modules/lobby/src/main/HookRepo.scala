@@ -1,6 +1,5 @@
 package lila.lobby
 
-import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 
 object HookRepo {
@@ -31,8 +30,8 @@ object HookRepo {
 
   // returns removed hooks
   def cleanupOld = {
-    val limit = DateTime.now - 10.minutes
-    partition(_.createdAt > limit)
+    val limit = DateTime.now minusMinutes 10
+    partition(_.createdAt isAfter limit)
   }
 
   // keeps hooks that hold true

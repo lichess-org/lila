@@ -10,15 +10,15 @@ object ApplicationBuild extends Build {
   import Dependencies._
 
   lazy val root = Project("lila", file(".")) enablePlugins PlayScala settings (
-    scalaVersion := "2.11.2",
+    scalaVersion := "2.11.4",
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions := compilerOptions,
     incOptions := incOptions.value.withNameHashing(true),
     offline := true,
     libraryDependencies ++= Seq(
-      scalaz, scalalib, hasher, config, apache, scalaTime,
-      csv, jgit, elastic4s, findbugs, RM,
-      PRM, spray.caching, maxmind, prismic),
+      scalaz, scalalib, hasher, config, apache,
+      jgit, elastic4s, findbugs, RM, PRM,
+      spray.caching, maxmind, prismic),
       scalacOptions := compilerOptions,
       sources in doc in Compile := List(),
       incOptions := incOptions.value.withNameHashing(true),
@@ -49,7 +49,7 @@ object ApplicationBuild extends Build {
   lazy val api = project("api", moduleCPDeps)
     .settings(
       libraryDependencies ++= provided(
-        play.api, hasher, config, apache, csv, jgit,
+        play.api, hasher, config, apache, jgit,
         elastic4s, findbugs, RM)
     ) aggregate (moduleRefs: _*)
 
@@ -90,7 +90,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val common = project("common").settings(
-    libraryDependencies ++= provided(play.api, play.test, RM, csv)
+    libraryDependencies ++= provided(play.api, play.test, RM)
   )
 
   lazy val rating = project("rating", Seq(common, db, chess)).settings(
@@ -144,7 +144,7 @@ object ApplicationBuild extends Build {
       play.api, RM, PRM, elastic4s)
   )
 
-  lazy val tv = project("tv", Seq(common, db, hub, game, user, chess)).settings(
+  lazy val tv = project("tv", Seq(common, db, hub, socket, game, user, chess)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM, hasher)
   )
 

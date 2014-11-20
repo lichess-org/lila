@@ -6,13 +6,12 @@ import actorApi._
 import akka.actor._
 
 import lila.game.Event
-import lila.memo.{ Builder => MemoBuilder }
 import lila.socket.actorApi.GetVersion
 
 private[round] final class History(ttl: Duration) {
 
   private var version = 0
-  private val events = MemoBuilder.expiry[Int, VersionedEvent](ttl)
+  private val events = lila.memo.Builder.expiry[Int, VersionedEvent](ttl)
 
   def getVersion = version
 
@@ -21,7 +20,8 @@ private[round] final class History(ttl: Duration) {
   def getEventsSince(v: Int): Option[List[VersionedEvent]] =
     if (v > version) None
     else if (v == version) Some(Nil)
-    else ((v + 1 to version).toList map get).flatten |> { events =>
+    else {
+      val events = (v + 1 to version).toList flatMap get
       (events.size == (version - v)) option events
     }
 

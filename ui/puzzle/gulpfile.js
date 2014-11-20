@@ -31,6 +31,15 @@ gulp.task('prod', function() {
 });
 
 gulp.task('dev', function() {
+  return browserify('./src/main.js', {
+    standalone: standalone
+  }).bundle()
+    .on('error', onError)
+    .pipe(source('lichess.puzzle.js'))
+    .pipe(gulp.dest(destination));
+});
+
+gulp.task('watch', function() {
   var opts = watchify.args;
   opts.debug = true;
   opts.standalone = standalone;
@@ -49,4 +58,4 @@ gulp.task('dev', function() {
   return rebundle();
 });
 
-gulp.task('default', ['dev']);
+gulp.task('default', ['watch']);

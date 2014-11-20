@@ -1,0 +1,40 @@
+{
+  "name": "analyse",
+  "version": "1.0.0",
+  "description": "lichess.org analyse",
+  "main": "src/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ornicar/lila"
+  },
+  "keywords": [
+    "chess",
+    "lichess",
+    "play",
+    "replay"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ornicar/lila/issues"
+  },
+  "homepage": "https://github.com/ornicar/lila",
+  "devDependencies": {
+    "browserify": "^5.12.0",
+    "gulp": "^3.8.8",
+    "gulp-jshint": "^1.8.4",
+    "gulp-streamify": "0.0.5",
+    "gulp-uglify": "^1.0.1",
+    "gulp-util": "^3.0.1",
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^1.0.2"
+  },
+  "dependencies": {
+    "chessground": "1.7.18",
+    "chessli.js": "file:../chessli",
+    "game": "file:../game",
+    "lodash-node": "^2.4.1",
+    "mithril": "0.1.24",
+    "mousetrap": "0.0.1"
+  }
+}

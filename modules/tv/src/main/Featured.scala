@@ -6,7 +6,6 @@ import akka.actor._
 import akka.actor.ActorSelection
 import akka.pattern.{ ask, pipe }
 import chess.Color
-import Featured._
 import play.twirl.api.Html
 
 import lila.db.api._
@@ -17,6 +16,8 @@ final class Featured(
     lobbySocket: ActorSelection,
     rendererActor: ActorSelection,
     system: ActorSystem) {
+
+  import Featured._
 
   implicit private def timeout = makeTimeout(50 millis)
 
@@ -41,7 +42,10 @@ final class Featured(
         oneId = game.id.some
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
           case html: Html =>
-            bus.publish(lila.hub.actorApi.game.ChangeFeatured(game.id, html), 'changeFeaturedGame)
+            val msg = lila.socket.Socket.makeMessage(
+              "featured",
+              play.api.libs.json.Json.obj("html" -> html.toString))
+            bus.publish(lila.hub.actorApi.game.ChangeFeatured(game.id, msg), 'changeFeaturedGame)
         }
         GameRepo setTv game.id
 
@@ -102,7 +106,7 @@ object Featured {
 
   private type Heuristic = Game => Float
   private val heuristicBox = box(0 to 1) _
-  private val ratingBox = box(1000 to 2600) _
+  private val ratingBox = box(1000 to 2700) _
   private val turnBox = box(1 to 25) _
 
   private val heuristics: List[(Heuristic, Float)] = List(
@@ -111,7 +115,7 @@ object Featured {
     progressHeuristic -> 0.7f)
 
   private[tv] def ratingHeuristic(color: Color): Heuristic = game =>
-    ratingBox(game.player(color).rating | 1100)
+    ratingBox(game.player(color).rating | 1400)
 
   private[tv] def progressHeuristic: Heuristic = game =>
     1 - turnBox(game.turns)

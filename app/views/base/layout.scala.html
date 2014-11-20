@@ -10,7 +10,6 @@ underchat: Option[Html] = None,
 robots: Boolean = true,
 moreCss: Html = Html(""),
 moreJs: Html = Html(""),
-signedJs: Option[String] = None,
 zen: Boolean = false,
 openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
 <!doctype html>
@@ -26,7 +25,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     @moreCss
     <meta content="@openGraph.get('description).getOrElse(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())" name="description">
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="@routes.Assets.at("images/favicon-32-white.png")" type="image/x-icon" />
+    <link rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
     <meta content="noindex, nofollow" name="robots">
     }
@@ -50,9 +49,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     ctx.blindMode ?? "blind_mode",
     if (ctx.is3d) "is3d" else "is2d",
     "coords_" + ctx.pref.coords).mkString(" ")"
-    data-piece-set="@ctx.currentPieceSet"
-    data-static-url="@staticUrl("")"
-    data-sound-dir="@staticUrl("sound")"
+    data-sound-dir="@routes.Assets.at("sound")"
     data-ports="@portsString"
     data-accept-languages="@acceptLanguages.mkString(",")">
     <form id="blind_mode" action="@routes.Main.toggleBlindMode" method="POST">
@@ -260,13 +257,12 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     }
     @jQueryTag
     @jsTag("vendor/chessground.min.js")
-    @underscorejsTag
     @jsTag("deps.min.js")
     @momentjsTag
     @powertipTag
     @jsTagCompiled("common.js")
     @jsTagCompiled("strongSocket.js")
-    @signedJs.fold(jsTagCompiled("big.js"))(js => jsAt(js, false))
+    @jsTagCompiled("big.js")
     @moreJs
     @if(lang.language != "en") {
     @jsAt(s"trans/${lang.language}.js")

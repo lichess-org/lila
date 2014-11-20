@@ -32,8 +32,6 @@ case class Get(id: String)
 case class Tell(id: String, msg: Any)
 case class TellAll(msg: Any)
 case class Ask(id: String, msg: Any)
-case class AskAll(msg: Any)
-case object Size
 }
 
 case class WithUserIds(f: Iterable[String] => Unit)
@@ -114,7 +112,7 @@ case class Propagate(data: Atom, propagations: List[Propagation] = Nil) {
 }
 
 package game {
-case class ChangeFeatured(id: String, html: Html)
+case class ChangeFeatured(id: String, msg: JsObject)
 case object Count
 }
 

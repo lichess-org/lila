@@ -184,8 +184,8 @@ $(function() {
           var id = d[1];
           var val = d[0];
           if (id == 'ai') {
-            var loads = _.map(val.split(','), parseLoad);
-            _.each(loads, updateAi);
+            var loads = val.split(',').map(parseLoad);
+            loads.forEach(updateAi);
           } else update(id, 0, parseFloat(val));
         }
       }

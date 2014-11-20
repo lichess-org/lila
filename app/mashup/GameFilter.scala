@@ -19,13 +19,12 @@ object GameFilter {
   case object Draw extends GameFilter("draw")
   case object Playing extends GameFilter("playing")
   case object Bookmark extends GameFilter("bookmark")
+  case object Imported extends GameFilter("import")
 }
 
 case class GameFilterMenu(
     all: NonEmptyList[GameFilter],
-    current: GameFilter,
-    query: Option[JsObject],
-    cachedNb: Option[Int]) {
+    current: GameFilter) {
 
   def list = all.list
 }
@@ -35,7 +34,7 @@ object GameFilterMenu {
   import GameFilter._
   import lila.db.Implicits.docId
 
-  val all = NonEmptyList.nel(All, List(Me, Rated, Win, Loss, Draw, Playing, Bookmark))
+  val all = NonEmptyList.nel(All, List(Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported))
 
   def apply(
     info: UserInfo,
@@ -51,38 +50,55 @@ object GameFilterMenu {
       (info.user.count.loss > 0) option Loss,
       (info.user.count.draw > 0) option Draw,
       (info.nbPlaying > 0) option Playing,
-      (info.nbBookmark > 0) option Bookmark
+      (info.nbBookmark > 0) option Bookmark,
+      (info.nbImported > 0) option Imported
     ).flatten)
 
     val current = currentOf(filters, currentName)
 
-    val query = queryOf(current, user, me)
-
-    val cachedNb = cachedNbOf(user, current)
-
-    new GameFilterMenu(filters, current, query, cachedNb)
+    new GameFilterMenu(filters, current)
   }
 
   def currentOf(filters: NonEmptyList[GameFilter], name: String) =
     (filters.list find (_.name == name)) | filters.head
 
-  def queryOf(filter: GameFilter, user: User, me: Option[User]) = filter match {
-    case All      => Some(Query started user)
-    case Me       => Some(Query.opponents(user, me | user))
-    case Rated    => Some(Query rated user)
-    case Win      => Some(Query win user)
-    case Loss     => Some(Query loss user)
-    case Draw     => Some(Query draw user)
-    case Playing  => Some(Query notFinished user)
-    case Bookmark => None
+  private def cachedNbOf(
+    user: User,
+    info: Option[UserInfo],
+    filter: GameFilter): Option[Int] = filter match {
+    case Bookmark => info.map(_.nbBookmark)
+    case Imported => info.map(_.nbImported)
+    case All      => user.count.game.some
+    case Rated    => user.count.rated.some
+    case Win      => user.count.win.some
+    case Loss     => user.count.loss.some
+    case Draw     => user.count.draw.some
+    case _        => None
   }
 
-  def cachedNbOf(user: User, filter: GameFilter): Option[Int] = filter match {
-    case All   => user.count.game.some
-    case Rated => user.count.rated.some
-    case Win   => user.count.win.some
-    case Loss  => user.count.loss.some
-    case Draw  => user.count.draw.some
-    case _     => None
+  import lila.common.paginator._
+  private def pag = Env.game.paginator
+  def paginatorOf(
+    user: User,
+    info: Option[UserInfo],
+    filter: GameFilter,
+    me: Option[User],
+    page: Int): Fu[Paginator[Game]] = {
+    val nb = cachedNbOf(user, info, filter)
+    def std(query: JsObject) = pag.recentlyCreated(query, nb)(page)
+    filter match {
+      case Bookmark => Env.bookmark.api.gamePaginatorByUser(user, page)
+      case Imported => pag.apply(
+        selector = Query imported user.id,
+        sort = Seq("pgni.ca" -> reactivemongo.api.SortOrder.Descending),
+        nb = nb)(page)
+      case All     => std(Query started user)
+      case Me      => std(Query.opponents(user, me | user))
+      case Rated   => std(Query rated user)
+      case Win     => std(Query win user)
+      case Loss    => std(Query loss user)
+      case Draw    => std(Query draw user)
+      case Playing => std(Query notFinished user)
+    }
   }
 }

@@ -68,9 +68,9 @@ case class Player(
 
   def withName(name: String) = copy(name = name.some)
 
-  def nameSplit: Option[(String, Int)] = name flatMap {
-    case Player.nameSplitRegex(n, r) => parseIntOption(r) map (n -> _)
-    case _                           => none
+  def nameSplit: Option[(String, Option[Int])] = name map {
+    case Player.nameSplitRegex(n, r) => n -> parseIntOption(r)
+    case n                           => n -> none
   }
 
   def before(other: Player) = ((rating, id), (other.rating, other.id)) match {
@@ -83,7 +83,7 @@ case class Player(
 
 object Player {
 
-  private val nameSplitRegex = """^([^\(]+)\((\d+)\)$""".r
+  private val nameSplitRegex = """^([^\(]+)\((.+)\)$""".r
 
   def make(
     color: Color,

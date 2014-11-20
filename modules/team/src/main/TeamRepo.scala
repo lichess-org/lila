@@ -1,6 +1,5 @@
 package lila.team
 
-import com.github.nscala_time.time.Imports._
 import org.joda.time.{ DateTime, Period }
 import play.api.libs.json.Json
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
@@ -25,7 +24,7 @@ object TeamRepo {
 
   def userHasCreatedSince(userId: String, duration: Period): Fu[Boolean] =
     $count.exists(Json.obj(
-      "createdAt" -> $gt($date(DateTime.now - duration)),
+      "createdAt" -> $gt($date(DateTime.now minus duration)),
       "createdBy" -> userId
     ))
 

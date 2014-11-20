@@ -9,6 +9,7 @@ import scala.concurrent.duration._
 
 import actorApi._
 import lila.common.{ LightUser, Debouncer }
+import lila.hub.actorApi.WithUserIds
 import lila.hub.TimeBomb
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -35,11 +36,13 @@ private[tournament] final class Socket(
       }
       reloadNotifier ! Debouncer.Nothing
 
-    case Reload     => reloadNotifier ! Debouncer.Nothing
+    case Reload         => reloadNotifier ! Debouncer.Nothing
 
-    case Start      => notifyVersion("start", JsNull, Messadata())
+    case Start          => notifyVersion("start", JsNull, Messadata())
 
-    case ReloadPage => notifyVersion("reloadPage", JsNull, Messadata())
+    case ReloadPage     => notifyVersion("reloadPage", JsNull, Messadata())
+
+    case WithUserIds(f) => f(userIds)
 
     case PingVersion(uid, v) => {
       ping(uid)

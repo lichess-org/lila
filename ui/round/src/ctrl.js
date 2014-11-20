@@ -3,8 +3,8 @@ var throttle = require('lodash-node/modern/functions/throttle');
 var chessground = require('chessground');
 var partial = chessground.util.partial;
 var data = require('./data');
-var round = require('./round');
-var status = require('./status');
+var game = require('game').game;
+var status = require('game').status;
 var ground = require('./ground');
 var socket = require('./socket');
 var xhr = require('./xhr');
@@ -62,7 +62,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
     else this.chessground.apiMove(o.from, o.to);
     if (this.data.game.threefold) this.data.game.threefold = false;
     this.data.game.moves.push(o.san);
-    round.setOnGame(this.data, o.color, true);
+    game.setOnGame(this.data, o.color, true);
     m.redraw();
     if (this.data.player.spectator || o.color != this.data.player.color) $.sound.move(o.color == 'white');
     if (this.data.blind) blind.reload(this);
@@ -84,7 +84,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
   ) : false;
 
   this.isClockRunning = function() {
-    return this.data.clock && round.playable(this.data) &&
+    return this.data.clock && game.playable(this.data) &&
       ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
   }.bind(this);
 

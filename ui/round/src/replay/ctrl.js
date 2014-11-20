@@ -1,5 +1,5 @@
 var Chess = require('chessli.js').Chess;
-var round = require('../round');
+var game = require('game').game;
 var xhr = require('../xhr');
 
 module.exports = function(root) {
@@ -59,8 +59,8 @@ module.exports = function(root) {
     this.vm.late = false;
     root.chessground.set({
       movable: {
-        color: round.isPlayerPlaying(root.data) ? root.data.player.color : null,
-        dests: round.parsePossibleMoves(root.data.possibleMoves)
+        color: game.isPlayerPlaying(root.data) ? root.data.player.color : null,
+        dests: game.parsePossibleMoves(root.data.possibleMoves)
       }
     });
   }.bind(this);

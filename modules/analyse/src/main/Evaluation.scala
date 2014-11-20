@@ -14,7 +14,7 @@ case class Evaluation(
 
 object Evaluation {
 
-  val start = Evaluation(Score(20).some, none, Nil)
+  val start = Evaluation(Score(30).some, none, Nil)
   val empty = Evaluation(none, none, Nil)
 
   def toInfos(evals: List[Evaluation], moves: List[String]): List[Info] =

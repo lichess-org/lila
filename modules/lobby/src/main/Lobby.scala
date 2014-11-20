@@ -9,7 +9,6 @@ import actorApi._
 import lila.db.api._
 import lila.game.GameRepo
 import lila.hub.actorApi.GetUids
-import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.Broom
 import makeTimeout.short
 import org.joda.time.DateTime

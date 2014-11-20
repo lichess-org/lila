@@ -11,7 +11,9 @@
   }.getOrElse {
   <span>@player.nameSplit match {
     case Some((name, rating)) => {
-    <span>@name</span><br />@rating
+    <span>@name</span>@rating.map { r =>
+    <br />@rating
+    }
     }
     case _ => {<span class="anon">@User.anonymous</span>}
     }</span>
@@ -60,7 +62,7 @@
     @if(g.turns > 0) {
     @defining(g openingPgnMoves 20) { pgnMoves =>
     @if(!g.fromPosition) {
-    @chess.OpeningExplorer.openingOf(pgnMoves).map { opening =>
+    @g.opening.map { opening =>
     <div class="opening">@opening.name</div>
     }
     }

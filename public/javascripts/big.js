@@ -63,6 +63,36 @@ var storage = {
     }
     location.href = 'http://' + location.hostname + '/' + url.replace(/^\//, '');
   };
+  $.fp = {};
+  $.fp.range = function(to) {
+    return Array.apply(null, Array(to)).map(function(_, i) {
+      return i;
+    });
+  };
+  $.fp.contains = function(list, needle) {
+    return list.indexOf(needle) !== -1;
+  };
+  $.fp.find = function(list, pred) {
+    for (var i = 0, len = list.length; i < len; i++) {
+      if (pred(list[i])) return list[i];
+    }
+    return undefined;
+  };
+  $.fp.debounce = function(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this,
+        args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  };
 
   var lichess = window.lichess = window.lichess || {};
   lichess.socket = null;
@@ -84,7 +114,7 @@ var storage = {
           var prev = parseInt($tag.text(), 10) || Math.max(0, (e - 10));
           var k = 6;
           var interv = lichess.socket.pingInterval() / k;
-          _.each(_.range(k), function(it) {
+          $.fp.range(k).forEach(function(it) {
             setTimeout(function() {
               var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
               if (val != prev) {
@@ -330,6 +360,7 @@ var storage = {
 
     if (lichess.round) startRound(document.getElementById('lichess'), lichess.round);
     else if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
+    else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
 
     setTimeout(function() {
       if (lichess.socket === null) {
@@ -338,30 +369,25 @@ var storage = {
       $.idleTimer(lichess.idleTime, lichess.socket.destroy.bind(lichess.socket), lichess.socket.connect.bind(lichess.socket));
     }, 200);
 
-    var $board = $('div.with_marks');
-    if ($board.length > 0) {
-      $.displayBoardMarks($board.parent(), $('#lichess > div.pov_white').length);
-    }
-
     // themepicker
     var $body = $('body');
     $('#themepicker_toggle').one('click', function() {
       var $themepicker = $('#themepicker');
       var themes = $themepicker.data('themes').split(' ');
-      var theme = _.find(document.body.className.split(/\s+/), function(a) {
-        return _.contains(themes, a);
+      var theme = $.fp.find(document.body.className.split(/\s+/), function(a) {
+        return $.fp.contains(themes, a);
       });
       var sets = $themepicker.data('sets').split(' ');
-      var set = _.find(document.body.className.split(/\s+/), function(a) {
-        return _.contains(sets, a);
+      var set = $.fp.find(document.body.className.split(/\s+/), function(a) {
+        return $.fp.contains(sets, a);
       });
       var theme3ds = $themepicker.data('theme3ds').split(' ');
-      var theme3d = _.find(document.body.className.split(/\s+/), function(a) {
-        return _.contains(theme3ds, a);
+      var theme3d = $.fp.find(document.body.className.split(/\s+/), function(a) {
+        return $.fp.contains(theme3ds, a);
       });
       var set3ds = $themepicker.data('set3ds').split(' ');
-      var set3d = _.find(document.body.className.split(/\s+/), function(a) {
-        return _.contains(set3ds, a);
+      var set3d = $.fp.find(document.body.className.split(/\s+/), function(a) {
+        return $.fp.contains(set3ds, a);
       });
       var background = $('body').hasClass('dark') ? 'dark' : 'light';
       var is3d = $('body').hasClass('is3d');
@@ -508,9 +534,9 @@ var storage = {
         $.ajax({
           url: $links.data('url'),
           success: function(list) {
-            $links.prepend(_.map(list, function(lang) {
+            $links.prepend(list.map(function(lang) {
               var href = location.href.replace(/\/\/\w+\./, '//' + lang[0] + '.');
-              var klass = _.contains(langs, lang[0]) ? 'class="accepted"' : '';
+              var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
               return '<li><a ' + klass + ' lang="' + lang[0] + '" href="' + href + '">' + lang[1] + '</a></li>';
             }).join(''));
           }
@@ -569,8 +595,8 @@ var storage = {
     var ext = hasOgg ? 'ogg' : 'mp3';
     var audio = {
       dong: new Audio(baseUrl + 'dong2.' + ext),
-      moveW: new Audio(baseUrl + 'move2.' + ext),
-      moveB: new Audio(baseUrl + 'move2.' + ext),
+      moveW: new Audio(baseUrl + 'move3.' + ext),
+      moveB: new Audio(baseUrl + 'move3.' + ext),
       take: new Audio(baseUrl + 'take2.' + ext)
     };
     var volumes = {
@@ -608,11 +634,11 @@ var storage = {
     };
     var setVolume = function(v) {
       storage.set('sound-volume', v);
-      _.each(audio, function(a, k) {
-        a.volume = v * volumes[k];
+      Object.keys(audio).forEach(function(k) {
+        audio[k].volume = v * volumes[k];
       });
     };
-    var manuallySetVolume = _.debounce(function(v) {
+    var manuallySetVolume = $.fp.debounce(function(v) {
       setVolume(v);
       play.move(true);
     }, 100);
@@ -649,22 +675,6 @@ var storage = {
 
   $.trans = function(text) {
     return lichess_translations[text] ? lichess_translations[text] : text;
-  };
-
-  $.displayBoardMarks = function($board, isWhite) {
-    var factor = 1,
-      base = 0;
-    if (!isWhite) {
-      factor = -1;
-      base = 575;
-    }
-    var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
-      marks = '';
-    for (i = 1; i < 9; i++) {
-      marks += '<span class="board_mark vert" style="bottom:' + (factor * i * 64 - 38 + base) + 'px;">' + i + '</span>';
-      marks += '<span class="board_mark horz" style="left:' + (factor * i * 64 - 35 + base) + 'px;">' + letters[i - 1] + '</span>';
-    }
-    $board.remove('span.board_mark').append(marks);
   };
 
   function urlToLink(text) {
@@ -746,6 +756,12 @@ var storage = {
         },
         params: {
           ran: "--ranph--"
+        },
+        events: {
+          declined: function() {
+            $('#challenge_await').remove();
+            $('#challenge_declined').show();
+          }
         }
       });
 
@@ -779,14 +795,13 @@ var storage = {
     set: function(users) {
       var self = this;
       if (users.length > 0) {
-        self.list.html(_.map(users, function(u) {
+        self.list.html(users.map(function(u) {
           return u.indexOf('(') === -1 ? $.userLink(u) : u.replace(/\s\(1\)/, '');
         }).join(", "));
-        var nb = _.reduce(users, function(nb, u) {
-          return nb + (
-            u.indexOf('(') === -1 ? 1 : parseInt(u.replace(/^.+\((\d+)\)$/, '$1'))
-          );
-        }, 0);
+        var nb = 0;
+        users.forEach(function(u) {
+          nb += (u.indexOf('(') === -1 ? 1 : parseInt(u.replace(/^.+\((\d+)\)$/, '$1')));
+        });
         self.number.html(nb);
         self.element.show();
       } else {
@@ -807,17 +822,19 @@ var storage = {
       if (storage.get('friends-hide') == 1) self.$title.click();
       self.$nbOnline = self.$title.find('.online');
       self.$nobody = self.element.find("div.nobody");
-      self.set(_.compact(self.element.data('preload').split(',')));
+      self.set(self.element.data('preload').split(','));
     },
     repaint: function() {
-      this.users = _.uniq(this.users);
+      this.users = $.unique(this.users).filter(function(u) {
+        return u !== '';
+      });
       this.$nbOnline.text(this.users.length);
       this.$nobody.toggle(this.users.length === 0);
-      this.$list.html(_.map(this.users, this._renderUser).join(""));
+      this.$list.html(this.users.map(this._renderUser).join(""));
       $('body').trigger('lichess.content_loaded');
     },
     set: function(us) {
-      this.users = us;
+      this.users = us || [];
       this.repaint();
     },
     enters: function(user) {
@@ -825,11 +842,13 @@ var storage = {
       this.repaint();
     },
     leaves: function(user) {
-      this.users = _.without(this.users, user);
+      this.users = this.users.filter(function(u) {
+        return u != user
+      });
       this.repaint();
     },
     _renderUser: function(user) {
-      var id = _.last(user.split(' '));
+      var id = $.fp.contains(user, ' ') ? user.split(' ')[1] : user;
       return '<a class="ulpt" data-placement="nw" href="/@/' + id + '">' + user + '</a>';
     }
   });
@@ -1012,20 +1031,20 @@ var storage = {
 
     var socketOpened = false;
 
-    function registerLiveGames() {
+    function startWatching() {
       if (!socketOpened) return;
       var ids = [];
       $('a.mini_board.live').removeClass("live").each(function() {
         ids.push($(this).data("live"));
       });
       if (ids.length > 0) {
-        lichess.socket.send("liveGames", ids.join(" "));
+        lichess.socket.send("startWatching", ids.join(" "));
       }
     }
-    $('body').on('lichess.content_loaded', registerLiveGames);
+    $('body').on('lichess.content_loaded', startWatching);
     $('body').on('socket.open', function() {
       socketOpened = true;
-      registerLiveGames();
+      startWatching();
     });
 
     setTimeout(function() {
@@ -1136,6 +1155,9 @@ var storage = {
       var $incrementInput = $form.find('.increment_choice input');
       var isHook = $form.hasClass('game_config_hook');
       var $ratings = $form.find('.ratings > div');
+      var toggleButtons = function() {
+        $form.find('.color_submits button').toggle(!$clockCheckbox.is(':checked') || $timeInput.val() > 0 || $incrementInput.val() > 0);
+      };
       var showRating = function() {
         var key;
         switch ($variantSelect.val()) {
@@ -1193,8 +1215,7 @@ var storage = {
             $value.text(time);
             $input.attr('value', time);
             showRating();
-            $form.find('.color_submits button').toggle(
-              $timeInput.val() > 0 || $incrementInput.val() > 0);
+            toggleButtons();
           }
         }));
       });
@@ -1232,6 +1253,7 @@ var storage = {
       $clockCheckbox.on('change', function() {
         var checked = $(this).is(':checked');
         $form.find('.time_choice, .increment_choice').toggle(checked);
+        toggleButtons();
         if (isHook && !checked) {
           $casual.click();
         }
@@ -1240,7 +1262,7 @@ var storage = {
       var $ratingRangeConfig = $form.find('.rating_range_config');
       var $fenInput = $fenPosition.find('input');
 
-      var validateFen = _.debounce(function() {
+      var validateFen = $.fp.debounce(function() {
         $fenInput.removeClass("success failure");
         var fen = $fenInput.val();
         if (fen) {
@@ -1392,7 +1414,7 @@ var storage = {
           $.ajax({
             url: $(this).attr('href'),
             success: function(html) {
-              var save = _.throttle(function() {
+              var save = $.fp.debounce(function() {
                 var $form = $div.find('form');
                 $.ajax({
                   url: $form.attr('action'),
@@ -1463,7 +1485,7 @@ var storage = {
     }
     resizeTimeline();
 
-    _.each(lichess_preload.pool, addHook);
+    lichess_preload.pool.forEach(addHook);
     drawHooks(true);
     $table.find('th:eq(2)').click().end();
 
@@ -1513,8 +1535,8 @@ var storage = {
           if ($tag.length && e) {
             var prev = parseInt($tag.text(), 10);
             var k = 5;
-            var interv = 1200 / k;
-            _.each(_.range(k), function(it) {
+            var interv = 2000 / k;
+            $.fp.range(k).forEach(function(it) {
               setTimeout(function() {
                 var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
                 if (val != prev) {
@@ -1537,15 +1559,15 @@ var storage = {
     }
 
     function removeHook(id) {
-      pool = _.reject(pool, function(h) {
-        return h.id == id;
+      pool = pool.filter(function(h) {
+        return h.id != id;
       });
       drawHooks();
     }
 
     function syncHookIds(ids) {
-      pool = _.filter(pool, function(h) {
-        return _.contains(ids, h.id);
+      pool = pool.filter(function(h) {
+        return $.fp.contains(ids, h.id);
       });
       drawHooks();
     }
@@ -1577,14 +1599,14 @@ var storage = {
       var seen = [];
       var hidden = 0;
       var visible = 0;
-      _.each(pool, function(hook) {
-        var hide = !_.contains(filter.variant, hook.variant) || !_.contains(filter.mode, hook.mode) || !_.contains(filter.speed, hook.speed) ||
+      pool.forEach(function(hook) {
+        var hide = !$.fp.contains(filter.variant, hook.variant) || !$.fp.contains(filter.mode, hook.mode) || !$.fp.contains(filter.speed, hook.speed) ||
           (filter.rating && (!hook.rating || (hook.rating < filter.rating[0] || hook.rating > filter.rating[1])));
         var hash = hook.mode + hook.variant + hook.time + hook.rating;
         if (hide && hook.action != 'cancel') {
           destroyHook(hook.id);
           hidden++;
-        } else if (_.contains(seen, hash) && hook.action != 'cancel') {
+        } else if ($.fp.contains(seen, hash) && hook.action != 'cancel') {
           $('#' + hook.id).filter(':visible').hide();
           $tbody.children('.' + hook.id).hide();
         } else {
@@ -1600,15 +1622,14 @@ var storage = {
         }
         if (hook.action != 'cancel') seen.push(hash);
       });
-      _.each(_.union(
-        _.map($canvas.find('>span.plot'), function(o) {
-          return $(o).attr('id');
-        }),
-        _.map($tbody.children(), function(o) {
-          return $(o).data('id');
-        })), function(id) {
-        if (!_.findWhere(pool, {
-          id: id
+      $.makeArray($canvas.find('>span.plot')).map(function(o) {
+        return o.getAttribute('data-id');
+      }).concat(
+        $.makeArray($tbody.children()).map(function(o) {
+          return o.getAttribute('data-id');
+        })).forEach(function(id) {
+        if (!$.fp.find(pool, function(x) {
+          return x.id == id;
         })) disableHook(id);
       });
 
@@ -1680,16 +1701,14 @@ var storage = {
       }
       html += '<span class="mode">' +
         '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' + $.trans(hook.mode) + '</span>';
-      var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
-      html += '<span class="is2" data-icon="' + k + '"></span>';
+      html += '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>';
       return html;
     }
 
     function renderTr(hook) {
       var title = (hook.action == "join") ? $.trans('Join the game') + ' - ' + hook.perf.name : $.trans('cancel');
-      var k = hook.color ? (hook.color == "black" ? "J" : "K") : "l";
-      return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
-        ['', '<span class="is2" data-icon="' + k + '"></span>'],
+      return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + [
+        ['', '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>'],
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous')],
         [hook.rating || 0, hook.rating ? hook.rating : ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
@@ -1697,18 +1716,17 @@ var storage = {
           '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' +
           $.trans(hook.mode)
         ]
-      ], function(x) {
+      ].map(function(x) {
         return '<td data-sort-value="' + x[0] + '">' + x[1] + '</td>';
       }).join('') + '</tr>';
     }
 
     $('#hooks_chart').append(
-      _.map([1000, 1200, 1400, 1500, 1600, 1800, 2000, 2200, 2400, 2600, 2800], function(v) {
+      [1000, 1200, 1400, 1500, 1600, 1800, 2000, 2200, 2400, 2600, 2800].map(function(v) {
         var b = ratingY(v);
         return '<span class="y label" style="bottom:' + (b + 5) + 'px">' + v + '</span>' +
           '<div class="grid horiz" style="height:' + (b + 4) + 'px"></div>';
-      }).join('') +
-      _.map([1, 2, 3, 5, 7, 10, 15, 20, 30], function(v) {
+      }).join('') + [1, 2, 3, 5, 7, 10, 15, 20, 30].map(function(v) {
         var l = clockX(v * 60);
         return '<span class="x label" style="left:' + l + 'px">' + v + '</span>' +
           '<div class="grid vert" style="width:' + (l + 7) + 'px"></div>';
@@ -1727,7 +1745,8 @@ var storage = {
         'KotH': "This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill",
         '3+': "This is a Three-check game!\n\nThe game can be won by checking the opponent 3 times.\nRead more: http://en.wikipedia.org/wiki/Three-check_chess"
       };
-      if (hook.action != 'join' || _.every(variantConfirms, function(variant, key) {
+      if (hook.action != 'join' || Object.keys(variantConfirms).every(function(key) {
+        var variant = variantConfirms[key]
         if (hook.variant == key && !storage.get(key)) {
           var c = confirm(variant);
           if (c) storage.set(key, 1);
@@ -1782,8 +1801,8 @@ var storage = {
     function drawBars() {
       $wrap.find('table.standing').each(function() {
         var $bars = $(this).find('.bar');
-        var max = _.max($bars.map(function() {
-          return parseInt($(this).data('value'));
+        var max = Math.max.apply(Math, $bars.map(function() {
+          return parseInt(this.getAttribute('data-value'));
         }));
         $bars.each(function() {
           var width = Math.ceil((parseInt($(this).data('value')) * 100) / max);
@@ -1840,72 +1859,106 @@ var storage = {
   // analyse.js //
   ////////////////
 
-  $(function() {
-
-    if (!$("#GameBoard").length) return;
-
-    $('div.game_control a').filter('.continue').click(function() {
-      $('div.board_wrap div.continue').toggle();
-      return false;
+  function startAnalyse(element, cfg) {
+    var data = cfg.data;
+    if (data.chat) $('#chat').chat({
+      messages: data.chat
     });
+    var $watchers = $('#site_header div.watchers').watchers();
+    var analyse, $panels;
+    lichess.socket = new lichess.StrongSocket(
+      data.url.socket,
+      data.player.version, {
+        options: {
+          name: "analyse"
+        },
+        params: {
+          ran: "--ranph--"
+        },
+        events: {
+          analysisAvailable: function() {
+            $.sound.dong();
+            location.href = location.href.split('#')[0] + '#' + analyse.pathStr();
+            location.reload();
+          },
+          crowd: function(event) {
+            $watchers.watchers("set", event.watchers);
+          }
+        }
+      });
 
-    // override to remove word boundaries (\b)
-    // required to match e2e4 and highlight the moves on the board
-    chessMovesRegExp = new RegExp("((\\d+(\\.{1,3}|\\s)\\s*)?((([KQRBN][a-h1-8]?)|[a-h])?x?[a-h][1-8](=[QRNB])?|O-O-O|O-O)[!?+#]*)", "g");
-
-    SetImagePath($('body').data('static-url') + '/piece/' + $('body').data('piece-set'));
-    SetImageType("svg");
-    SetShortcutKeysEnabled(true);
-    $('input').on('focus', function() {
-      SetShortcutKeysEnabled(false);
-    }).on('blur', function() {
-      SetShortcutKeysEnabled(true);
-    });
-    var $game = $("#GameBoard");
-    $game.mousewheel(function(event) {
-      if (event.deltaY == -1) {
-        $('#forwardButton').click();
-      } else if (event.deltaY == 1) {
-        $('#backButton').click();
+    var $advChart = $("#adv_chart");
+    var $timeChart = $("#movetimes_chart");
+    var $inputFen = $('input.fen', element);
+    var unselect = function(chart) {
+      chart.getSelectedPoints().forEach(function(point) {
+        point.select(false);
+      });
+    };
+    var lastFen, lastPath;
+    lichess.analyse.onChange = function(fen, path) {
+      lastFen = fen = fen || lastFen;
+      lastPath = path = path || lastPath;
+      var chart, point;
+      $inputFen.val(fen);
+      if ($advChart.length) {
+        chart = $advChart.highcharts();
+        if (chart) {
+          if (path.length > 1) unselect(chart);
+          else {
+            point = chart.series[0].data[path[0].ply - 1];
+            if (typeof point != "undefined") {
+              point.select();
+              chart.setTitle({
+                text: point.name + ' ' + 'Advantage: <strong>' + point.y + '</strong>'
+              });
+            } else unselect(chart);
+          }
+        }
       }
-      event.stopPropagation();
-      return false;
-    });
-    var $chat = $('#chat');
-    if ($chat.length) $chat.chat({
-      messages: lichess_chat
-    });
-    var $watchers = $("div.watchers").watchers();
+      var timeChartFirstDisplay = true;
+      if ($timeChart.length) {
+        chart = $timeChart.highcharts();
+        if (chart) {
+          if (path.length > 1) unselect(chart);
+          else {
+            var white = path[0].ply % 2 !== 0;
+            var serie = white ? 0 : 1;
+            var turn = Math.floor((path[0].ply - 1) / 2);
+            point = chart.series[serie].data[turn];
+            if (typeof point != "undefined") {
+              point.select();
+              var title = point.name + ' ' + 'Time used: <strong>' + (point.y * (white ? 1 : -1)) + '</strong> s';
+              chart.setTitle({
+                text: title
+              });
+              if (timeChartFirstDisplay) {
+                chart.setTitle({
+                  text: title
+                });
+                timeChartFirstDisplay = false;
+              }
+            } else unselect(chart);
+          }
+        }
+      }
+    };
+    data.path = window.location.hash ? location.hash.replace(/#/, '') : '';
+    analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, lichess.analyse.onChange);
+    lichess.analyse.jump = analyse.jump;
 
-    var $panels = $('div.analysis_panels > div');
+    $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
+    $('.advice_summary', element).appendTo($('.underboard .right', element)).show();
+
+    $panels = $('div.analysis_panels > div');
     $('div.analysis_menu').on('click', 'a', function() {
       var panel = $(this).data('panel');
-      if (!panel) return;
       $(this).siblings('.active').removeClass('active').end().addClass('active');
       $panels.removeClass('active').filter('.' + panel).addClass('active');
       if (panel == 'move_times') try {
         $.renderMoveTimesChart();
       } catch (e) {}
     }).find('a:first').click();
-
-    var pgnLoader = function() {
-      $panels.find('.loader span').each(function() {
-        var t = this;
-        var moves = _.filter(_.values(
-          $('#ShowPgnText a').map(function() {
-            return $(this).text();
-          })
-        ), function(x) {
-          return typeof x == 'string';
-        });
-        var len = moves.length,
-          it = 0;
-        setInterval(function() {
-          t.innerHTML = moves[it++ % len] || '';
-        }, 100);
-      });
-    };
-    setTimeout(pgnLoader, 500);
 
     $panels.find('form.future_game_analysis').submit(function() {
       if ($(this).hasClass('must_login')) {
@@ -1919,31 +1972,11 @@ var storage = {
         url: $(this).attr('action'),
         success: function(html) {
           $panels.filter('.panel.computer_analysis').html(html);
-          pgnLoader();
         }
       });
       return false;
     });
-
-    lichess.socket = new lichess.StrongSocket(
-      $game.data("socket-url"),
-      parseInt($game.data("version"), 10), {
-        options: {
-          name: "analyse",
-          ignoreUnknownMessages: true
-        },
-        events: {
-          analysisAvailable: function() {
-            $.sound.dong();
-            location.href = location.href.split('#')[0] + '#' + CurrentPly;
-            location.reload();
-          },
-          crowd: function(event) {
-            $watchers.watchers("set", event.watchers);
-          }
-        }
-      });
-  });
+  }
 
   /////////////// forum.js ////////////////////
 

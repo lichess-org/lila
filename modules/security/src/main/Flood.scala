@@ -3,12 +3,10 @@ package lila.security
 import scala.concurrent.duration.Duration
 
 import org.joda.time.DateTime
-import com.github.nscala_time.time.Imports._
 
 final class Flood(duration: Duration) {
 
   private val floodNumber = 4
-  private val floodDelay = 10 * 1000
 
   case class Message(text: String, date: DateTime) {
 
@@ -36,5 +34,5 @@ final class Flood(duration: Duration) {
     }
 
   private def quickPost(msg: Message, msgs: Messages): Boolean =
-    msgs.lift(floodNumber) ?? (_.date > (msg.date - floodDelay.millis))
+    msgs.lift(floodNumber) ?? (_.date isAfter msg.date.minusSeconds(10))
 }

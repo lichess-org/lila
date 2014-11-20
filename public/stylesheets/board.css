@@ -5,6 +5,12 @@
 body.is3d #lichess {
   min-height: 479.08572px;
 }
+div.lichess_game {
+  height: 512px;
+}
+body.is3d div.lichess_game {
+  height: 479.08572px;
+}
 div.lichess_game div.lichess_board_wrap {
   display: table-cell;
 }
@@ -15,133 +21,99 @@ div.lichess_game div.lichess_ground {
   display: table-cell;
   vertical-align: middle;
   padding-left: 15px;
+  height: 512px;
   width: 242px;
 }
-span.board_mark {
-  position: absolute;
-  text-transform: uppercase;
-  font-size: 10px;
-  color: #bbb;
-  font-weight: bold;
-  cursor: default;
-}
-span.board_mark.vert {
-  right: -10px;
-}
-span.board_mark.horz {
-  bottom: -14px;
+body.is3d div.lichess_game div.lichess_ground {
+  height: 479.08572px;
 }
 div.lichess_board {
   position: relative;
 }
-body.blue #GameBoard,
 body.is2d.blue .cg-board,
 #top div.color_demo.blue {
   background-image: url(../images/board/blue.png);
 }
-body.blue2 #GameBoard,
 body.is2d.blue2 .cg-board,
 #top div.color_demo.blue2 {
   background-image: url(../images/board/blue2.jpg);
 }
-body.wood2 #GameBoard,
 body.is2d.wood2 .cg-board,
 #top div.color_demo.wood2 {
   background-image: url(../images/board/wood2.jpg);
 }
-body.marble #GameBoard,
 body.is2d.marble .cg-board,
 #top div.color_demo.marble {
   background-image: url(../images/board/marble.jpg);
 }
-body.brown #GameBoard,
 body.is2d.brown .cg-board,
 #top div.color_demo.brown {
   background-image: url(../images/board/brown.png);
 }
-body.green #GameBoard,
 body.is2d.green .cg-board,
 #top div.color_demo.green {
   background-image: url(../images/board/green.png);
 }
-body.olive #GameBoard,
 body.is2d.olive .cg-board,
 #top div.color_demo.olive {
   background-image: url(../images/board/olive.jpg);
 }
-body.purple #GameBoard,
 body.is2d.purple .cg-board,
 #top div.color_demo.purple {
   background-image: url(../images/board/purple.png);
 }
-body.grey #GameBoard,
 body.is2d.grey .cg-board,
 #top div.color_demo.grey {
   background-image: url(../images/board/grey.jpg);
 }
-body.wood #GameBoard,
 body.is2d.wood .cg-board,
 #top div.color_demo.wood {
   background-image: url(../images/board/wood3-1024.jpg);
 }
-body.canvas #GameBoard,
 body.is2d.canvas .cg-board,
 #top div.color_demo.canvas {
   background-image: url(../images/board/canvas2-1024.jpg);
 }
-body.leather #GameBoard,
 body.is2d.leather .cg-board,
 #top div.color_demo.leather {
   background-image: url(../images/board/leather-1024.jpg);
 }
 /* KotH boards */
 
-body.is2d.blue .kingOfTheHill .cg-board,
-body.blue #GameBoard.kingOfTheHill {
+body.is2d.blue .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/blue.jpg);
 }
-body.is2d.blue2 .kingOfTheHill .cg-board,
-body.blue2 #GameBoard.kingOfTheHill {
+body.is2d.blue2 .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/blue2.jpg);
 }
-body.is2d.wood2 .kingOfTheHill .cg-board,
-body.wood2 #GameBoard.kingOfTheHill {
+body.is2d.wood2 .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/wood2.jpg);
 }
-body.is2d.marble .kingOfTheHill .cg-board,
-body.marble #GameBoard.kingOfTheHill {
+body.is2d.marble .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/marble.jpg);
 }
-body.is2d.brown .kingOfTheHill .cg-board,
-body.brown #GameBoard.kingOfTheHill {
+body.is2d.brown .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/brown.jpg);
 }
-body.is2d.green .kingOfTheHill .cg-board,
-body.green #GameBoard.kingOfTheHill {
+body.is2d.green .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/green.jpg);
 }
-body.is2d.olive .kingOfTheHill .cg-board,
-body.olive #GameBoard.kingOfTheHill {
+body.is2d.olive .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/olive.jpg);
 }
-body.is2d.purple .kingOfTheHill .cg-board,
-body.purple #GameBoard.kingOfTheHill {
+body.is2d.purple .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/purple.jpg);
 }
-body.is2d.grey .kingOfTheHill .cg-board,
-body.grey #GameBoard.kingOfTheHill {
+body.is2d.grey .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/grey.jpg);
 }
-body.is2d.wood .kingOfTheHill .cg-board,
-body.wood #GameBoard.kingOfTheHill {
+body.is2d.wood .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/wood.jpg);
 }
-body.is2d.canvas .kingOfTheHill .cg-board,
-body.canvas #GameBoard.kingOfTheHill {
+body.is2d.canvas .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/canvas.jpg);
 }
-body.is2d.leather .kingOfTheHill .cg-board,
-body.leather #GameBoard.kingOfTheHill {
+body.is2d.leather .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/leather.jpg);
 }
 body.is3d.Black-White-Aluminium .cg-board-wrap,
@@ -992,55 +964,55 @@ div.table {
 div.table .notyet {
   margin: 20px 0;
 }
-div.table .replay {
-  margin: 10px 0 15px 0;
-}
-div.table .replay .moves {
+.lichess_ground .replay .moves {
+  border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+  margin: 0 -10px 0 -10px;
   height: 115px;
   overflow: auto;
 }
-div.table .replay table {
+.lichess_ground .replay table {
   width: 100%;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
 }
-div.table .replay td.index {
+.lichess_ground .replay td.index {
   width: 15%;
   text-align: center;
   font-weight: lighter;
 }
-div.table .replay td.move {
-  font-family: 'pgn4web ChessSansPiratf', 'pgn4web Liberation Sans', sans-serif;
+.lichess_ground .replay td.move {
+  font-family: 'ChessSansPiratf', sans-serif;
   font-size: 1.3em;
   padding: 2px 5px;
   cursor: pointer;
-  transition: 0.13s;
+  transition: background-color 0.13s;
 }
-div.table .replay td.move:hover {
+.lichess_ground .replay td.move:hover {
   background: #e0e0e0;
 }
-div.table .replay td.move.active {
+.lichess_ground .replay td.move.active {
   color: #d85000;
   font-weight: bold;
 }
-div.table .replay td.result {
+.lichess_ground .replay td.result {
   font-weight: bold;
   font-size: 1.3em;
   padding: 4px 0;
   text-align: center;
 }
-div.table .status td {
+.lichess_ground .replay .status td {
   font-size: 1em;
   text-align: center;
   font-style: italic;
 }
-div.table .replay .buttons {
+.lichess_ground .replay .buttons {
   text-align: center;
-  margin-top: 7px;
+  margin: 2px 0 5px 0;
   font-size: 0.8em;
 }
-div.table .replay a.button {
+.lichess_ground .replay a.button {
   opacity: 0.9;
   padding: 4px 7px;
   -webkit-user-select: none;
@@ -1049,15 +1021,26 @@ div.table .replay a.button {
   margin-left: -1px;
   margin-right: -1px;
 }
-div.table .replay a.flip {
+.lichess_ground .replay a.flip {
   margin-right: 10px;
 }
-div.table .replay a.disabled {
+.lichess_ground .replay a.disabled {
   cursor: default;
 }
-div.table .replay a.disabled::before {
+.lichess_ground .replay a.disabled::before {
   opacity: 0.4;
   text-shadow: none !important;
+}
+
+.lichess_ground .control.buttons .button {
+  width: 190px;
+  margin-top: 5px;
+}
+.lichess_ground .control.buttons a.fat {
+  font-size: 150%;
+}
+.lichess_ground .control.buttons a.replay_and_analyse {
+  margin-bottom: 10px;
 }
 
 div.table.spectator {
@@ -1072,7 +1055,13 @@ div.table_not_started {
   padding: 0;
 }
 div.table div.username {
-  display: inline-block;
+  white-space: nowrap;
+}
+div.table div.username:first-child {
+  margin-bottom: 7px;
+}
+div.table div.username:last-child {
+  margin-top: 7px;
 }
 div.table div.username span.status {
   display: inline-block;
@@ -1099,57 +1088,64 @@ div.table .button.strong {
   font-weight: bold;
   font-size: 1.2em;
 }
-div.table_wrap > div.clock {
+div.table_wrap .whos_turn {
+  height: 2em;
+  line-height: 2em;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+div.table_wrap > .clock {
   position: relative;
 }
-div.table_wrap > div.clock > div.bar {
+div.table_wrap > .clock .bar {
   position: absolute;
   width: 242px;
   height: 4px;
 }
-div.table_wrap > div.clock_top > div.bar {
+div.table_wrap > .clock_top .bar {
   bottom: -4px;
 }
-div.table_wrap > div.clock_bottom > div.bar {
+div.table_wrap > .clock_bottom .bar {
   top: -4px;
 }
-div.table_wrap > div.clock > div.bar > span {
+div.table_wrap > .clock .bar span {
   display: block;
   height: 4px;
   width: 0px;
   background: #759900;
 }
-div.table_wrap > div.clock > div.time {
+div.table_wrap > .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;
   padding: 0 8px;
   font-size: 27px;
   font-family: monospace;
 }
-div.table_wrap > div.clock > div.time > span {
+div.table_wrap > .clock .time span {
   font-size: 80%;
 }
-div.table_wrap > div.clock > div.time b {
+div.table_wrap > .clock .time b {
   font-weight: bold;
 }
-div.table_wrap > div.clock.running > div.time {
+div.table_wrap > .clock.running .time {
   background: #fff077;
   color: #444;
 }
-div.table_wrap > div.clock.running.emerg > div.time {
+div.table_wrap > .clock.running.emerg .time {
   background-color: #eFAAAA;
   color: #444;
 }
-div.table_wrap > div.clock.outoftime > div.time {
+div.table_wrap > .clock.outoftime .time {
   background-color: #eFAAAA;
   font-weight: bold;
   color: #444;
 }
-div.table_wrap > div.clock_top > div.time {
+div.table_wrap > .clock_top .time {
   border-bottom: 0;
   border-radius: 2px 2px 0 0;
 }
-div.table_wrap > div.clock_bottom > div.time {
+div.table_wrap > .clock_bottom .time {
   border-top: 0;
   border-radius: 0 0 2px 2px;
 }
@@ -1176,32 +1172,9 @@ div.separator {
   border-bottom: 1px solid #ddd;
 }
 div.control {
-  margin-top: 10px;
+  margin-top: 5px;
   text-align: center;
   width: 100%;
-}
-div.control button {
-  margin: auto;
-}
-div.control a.lichess_play_again {
-  margin-left: 1em;
-}
-div.control div.lichess_play_again_join {
-  text-align: left;
-}
-div.control div.lichess_play_again_join a.lichess_play_again {
-  margin-left: 0;
-  font-size: 150%;
-  display: block;
-}
-div.control div.rematch_alert {
-  margin-bottom: 1em;
-}
-div.control div.rematch_alert .button {
-  margin-top: 1em;
-}
-div.control div.rematch_wait {
-  margin-bottom: 1em;
 }
 div.control.icons .button {
   font-size: 16px;
@@ -1228,7 +1201,7 @@ div.control.buttons .button {
   text-decoration: none;
   font-weight: bold;
 }
-div.control .rematch.disabled {
+div.control .button.disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -1327,7 +1300,7 @@ div.under_chat .watchtv {
   z-index: 1;
 }
 #chat .messages {
-  height: 263px;
+  height: 305px;
   overflow: hidden;
   overflow-y: auto;
 }
@@ -1433,38 +1406,23 @@ span.inline_userlist a:hover {
   text-decoration: underline;
 }
 div.underboard .center {
-  display: inline-block;
+  display: table-cell;
   position: relative;
   width: 512px;
   text-align: center;
   padding-top: 15px;
 }
 div.underboard .right {
-  display: inline-block;
-  margin-left: 15px;
+  display: table-cell;
+  vertical-align: top;
+  padding-left: 15px;
   width: 242px;
 }
 div.underboard a {
   display: inline-block;
 }
-div.underboard .replay_and_analyse {
-  margin-top: 10px;
-  font-size: 1.4em;
-}
 div.check_count span.player.color {
   display: inline-block;
   margin-left: 5px;
   font-weight: bold;
-}
-body.highlight #GameBoard td.highlightWhiteSquare img,
-body.highlight #GameBoard td.highlightBlackSquare img {
-  background: -moz-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(155, 199, 00, 0.81)), color-stop(100%, rgba(155, 199, 00, 0)));
-  background: -webkit-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
-  background: -ms-radial-gradient(center, ellipse cover, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
-  background: radial-gradient(ellipse at center, rgba(155, 199, 00, 0.81) 0%, rgba(155, 199, 00, 0) 100%);
-  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#cfd85500', endColorstr='#00d85500', GradientType=1);
-}
-#GameBoard td img.bestmove {
-  box-shadow: inset 0 0 10px 2px rgba(216, 85, 0, 0.9);
 }

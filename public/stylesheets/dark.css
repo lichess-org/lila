@@ -46,10 +46,8 @@ body.dark div.side_box .top,
 body.dark div.table,
 body.dark div.separator,
 body.dark div.table_wrap > div.clock > div.time,
-body.dark #GameText,
 body.dark #tournament_side,
 body.dark #tournament div.standing_wrap,
-body.dark #GameBoard,
 body.dark div.shortcuts .title,
 body.dark div.content_box,
 body.dark div.content_box_inter,
@@ -100,7 +98,6 @@ body.dark #hooks_list table td,
 body.dark #hooks_wrap,
 body.dark #hooks_wrap > div.tabs > a,
 body.dark #hooks_chart > div.grid,
-body.dark div.analysis_menu,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
 body.dark #enterable_tournaments table.scheduled,
@@ -108,7 +105,11 @@ body.dark div.user_show .mod_zone .listings,
 body.dark div.user_show .mod_zone .slist,
 body.dark div.user_show .note_zone,
 body.dark div.user_show .note_zone div,
+body.dark div.analysis_menu,
 body.dark div.analysis_menu > a,
+body.dark .lichess_ground .replay,
+body.dark .lichess_ground .comment,
+body.dark .lichess_ground .variation,
 body.dark div.content_box.prefs form li,
 body.dark div.content_box.prefs fieldset,
 body.dark #claim_draw_zone,
@@ -121,7 +122,8 @@ body.dark #top div.auth .sep,
 body.dark div.doc_box h2,
 body.dark div.training div.box,
 body.dark div.force_resign_zone,
-body.dark div.negotiation {
+body.dark div.negotiation,
+body.dark div.side_box div.game_infos {
   border-color: #3d3d3d;
 }
 body.dark .crosstable td.last {
@@ -157,7 +159,6 @@ body.dark div.undertable a.user_link,
 body.dark #tv_history a.user_link,
 body.dark #timeline a.user_link,
 body.dark #team .forum a.user_link,
-body.dark span.board_mark,
 body.dark.coords_2 .cg-square[data-coord-x]::after,
 body.dark.coords_2 .cg-square[data-coord-y]::before,
 body.dark div.user_show div.content_box_top > span,
@@ -165,13 +166,11 @@ body.dark span.progress > .zero,
 body.dark div.undertable_top span.title {
   color: #777;
 }
-body.dark #GameText a:hover,
 body.dark .crosstable td a,
 body.dark #hook_filter td > label.hover:hover,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
 }
-body.dark #GameText,
 body.dark #chat .messages,
 body.dark div.side_box,
 body.dark div.table,
@@ -211,6 +210,11 @@ body.dark div.table_not_started {
   box-shadow: none;
   background: none;
 }
+body.dark .lichess_ground .replay .turn .index,
+body.dark .lichess_ground .comment,
+body.dark .lichess_ground .variation,
+body.dark .lichess_ground .replay a.move:hover,
+body.dark .lichess_ground .replay td.move:hover,
 body.dark #top .dropdown,
 body.dark #top .shown a.toggle,
 body.dark div.analysis_menu > a,
@@ -242,7 +246,6 @@ body.dark div.game_row:nth-child(odd),
 body.dark #lichess_forum table.forum_table tr:nth-child(odd),
 body.dark #lichess_message tr:nth-child(even),
 body.dark div.content_box_inter,
-body.dark #GameText tr:nth-child(even),
 body.dark table.slist tbody tr:nth-child(even),
 body.dark #team .forum li:nth-child(odd),
 body.dark table.translations tbody tr:nth-child(odd),
@@ -252,7 +255,6 @@ body.dark div.game_config .optional_config,
 body.dark div.game_config .ratings,
 body.dark div.search_status,
 body.dark #friend_box,
-body.dark div.table .replay td.move:hover,
 body.dark #powerTip {
   background: #343434;
 }
@@ -260,7 +262,6 @@ body.dark #top ul.language_links a.accepted,
 body.dark #lichess_forum div.post .message,
 body.dark #lichess_blog,
 body.dark #lichess_message div.thread_message div.thread_message_body,
-body.dark #GameText .move,
 body.dark form.translation_form div.message label,
 body.dark div.user_show div.content_box_top > span strong {
   color: #b0b0b0;
@@ -311,7 +312,8 @@ body.dark .button,
 body.dark a.button,
 body.dark .ui-button,
 body.dark .ui-slider-handle,
-body.dark .ui-widget-content {
+body.dark .ui-widget-content,
+body.dark .lichess_ground .replay .moves {
   border-color: #323232;
 }
 body.dark .button:hover,
@@ -385,6 +387,12 @@ body.dark div.user_show div.user-infos.scroll-shadow-hard {
 }
 body.dark div.game_row:hover {
   background: rgba(27, 51, 68, 0.5);
+}
+body.dark .is.color-icon.white::before {
+  content: "J";
+}
+body.dark .is.color-icon.black::before {
+  content: "K";
 }
 body.dark::-webkit-input-placeholder {
   color: #666;

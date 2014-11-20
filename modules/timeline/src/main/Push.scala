@@ -2,7 +2,6 @@ package lila.timeline
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.twirl.api.Html
@@ -57,7 +56,7 @@ private[timeline] final class Push(
     Entry.make(users, data).fold(
       fufail[Entry]("[timeline] invalid entry data " + data)
     ) { entry =>
-        $find(Json.obj("typ" -> entry.typ, "date" -> $gt($date(DateTime.now - 50.minutes)))) flatMap { entries =>
+        $find(Json.obj("typ" -> entry.typ, "date" -> $gt($date(DateTime.now minusMinutes 50)))) flatMap { entries =>
           entries.exists(_ similarTo entry) fold (
             fufail[Entry]("[timeline] a similar entry already exists"),
             $insert(entry) inject entry

@@ -1,6 +1,5 @@
 package lila.analyse
 
-import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 import play.api.libs.json.Json
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
@@ -51,7 +50,7 @@ object AnalysisRepo {
     Json.obj(
       "uid" -> uid,
       "done" -> false,
-      "date" -> $gt($date(DateTime.now - 30.minutes))),
+      "date" -> $gt($date(DateTime.now minusMinutes 20))),
     "_id")(_.asOpt[String])
 
   def recent(nb: Int): Fu[List[Analysis]] =

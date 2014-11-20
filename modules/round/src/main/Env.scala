@@ -41,18 +41,14 @@ final class Env(
     val SocketName = config getString "socket.name"
     val SocketTimeout = config duration "socket.timeout"
     val FinisherLockTimeout = config duration "finisher.lock.timeout"
-    val HijackTimeout = config duration "hijack.timeout"
     val NetDomain = config getString "net.domain"
     val ActorMapName = config getString "actor.map.name"
     val ActorName = config getString "actor.name"
-    val HijackSalt = config getString "hijack.salt"
     val CollectionReminder = config getString "collection.reminder"
     val CasualOnly = config getBoolean "casual_only"
     val ActiveTtl = config duration "active.ttl"
   }
   import settings._
-
-  val HijackEnabled = config getBoolean "hijack.enabled"
 
   lazy val history = () => new History(ttl = MessageTtl)
 
@@ -69,13 +65,14 @@ final class Env(
       moretimeDuration = Moretime,
       activeTtl = ActiveTtl)
     def receive: Receive = ({
-      case actorApi.BroadcastSize => hub.socket.lobby ! lila.hub.actorApi.round.NbRounds(size)
+      case actorApi.GetNbRounds =>
+        nbRounds = size
+        hub.socket.lobby ! lila.hub.actorApi.round.NbRounds(nbRounds)
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
 
-  val count = AsyncCache.single(
-    f = roundMap ? lila.hub.actorApi.map.Size mapTo manifest[Int],
-    timeToLive = 1 second)
+  private var nbRounds = 0
+  def count() = nbRounds
 
   private val socketHub = {
     val actor = system.actorOf(
@@ -105,7 +102,6 @@ final class Env(
     roundMap = roundMap,
     socketHub = socketHub,
     messenger = messenger,
-    hijack = hijack,
     bus = system.lilaBus)
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi)
@@ -177,12 +173,10 @@ final class Env(
       titivate.finishAbandoned
     }
 
-    scheduler.message(1.3 seconds)(roundMap -> actorApi.BroadcastSize)
+    scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
   }
 
   private lazy val titivate = new Titivate(roundMap, scheduler)
-
-  lazy val hijack = new Hijack(HijackTimeout, HijackSalt, HijackEnabled)
 
   lazy val takebacker = new Takebacker(
     messenger = messenger,

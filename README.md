@@ -3,7 +3,7 @@
 
 It's a free online chess game focused on [realtime](http://lichess.org/games) and ease of use
 
-It haz a [search engine](http://lichess.org/games/search),
+It has a [search engine](http://lichess.org/games/search),
 [computer analysis](http://lichess.org/analyse/ief49lif),
 [tournaments](http://lichess.org/tournament),
 [forums](http://lichess.org/forum),

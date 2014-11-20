@@ -100,14 +100,6 @@ final class Env(
   val promotable =
     lila.memo.AsyncCache.single(TournamentRepo.promotable, timeToLive = CreatedCacheTtl)
 
-  def cli = new lila.common.Cli {
-    import tube.tournamentTube
-    def process = {
-      case "tournament" :: "typecheck" :: Nil => lila.db.Typecheck.apply[Tournament]
-      case "tournament" :: "recount" :: Nil   => api.recountAll inject "Recount done!"
-    }
-  }
-
   private lazy val autoPairing = new AutoPairing(
     roundMap = roundMap,
     system = system,

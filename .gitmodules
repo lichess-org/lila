@@ -19,3 +19,9 @@
 [submodule "submodules/evaluator"]
 	path = submodules/evaluator
 	url = https://github.com/clarkerubber/engine-evaluator
+[submodule "ui/chessli"]
+	path = ui/chessli
+	url = https://github.com/ornicar/chess.js
+[submodule "public/vendor/moment"]
+	path = public/vendor/moment
+	url = https://github.com/moment/moment

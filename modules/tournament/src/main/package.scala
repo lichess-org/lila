@@ -1,28 +1,14 @@
 package lila
 
-import lila.db.{ JsTube, InColl }
 import lila.socket.WithSocket
 
 package object tournament extends PackageObject with WithPlay with WithSocket {
 
-  object tube {
+  private[tournament]type Players = List[tournament.Player]
 
-    private[tournament] implicit lazy val tournamentTube = Tournament.tube inColl Env.current.tournamentColl
+  private[tournament]type Pairings = List[tournament.Pairing]
 
-    private[tournament] object tournamentTubes {
-      implicit lazy val anyTube = tournamentTube
-      implicit lazy val createdTube = Tournament.createdTube inColl Env.current.tournamentColl
-      implicit lazy val startedTube = Tournament.startedTube inColl Env.current.tournamentColl
-      implicit lazy val enterableTube = Tournament.enterableTube inColl Env.current.tournamentColl
-      implicit lazy val finishedTube = Tournament.finishedTube inColl Env.current.tournamentColl
-    }
-  }
-
-  private[tournament] type Players = List[tournament.Player]
-
-  private[tournament] type Pairings = List[tournament.Pairing]
-
-  private[tournament] type Events = List[tournament.Event]
+  private[tournament]type Events = List[tournament.Event]
 
   private[tournament] object RandomName {
 
@@ -35,5 +21,5 @@ package object tournament extends PackageObject with WithPlay with WithSocket {
 
 package tournament {
 
-  case class Winner(tourId: String, tourName: String, userId: String)
+case class Winner(tourId: String, tourName: String, userId: String)
 }

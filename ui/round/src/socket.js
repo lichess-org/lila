@@ -1,5 +1,5 @@
 var m = require('mithril');
-var round = require('./round');
+var game = require('game').game;
 var ground = require('./ground');
 var xhr = require('./xhr');
 
@@ -12,7 +12,7 @@ module.exports = function(send, ctrl) {
       ctrl.data.possibleMoves = o;
       if (!ctrl.replay.active) ctrl.chessground.set({
         movable: {
-          dests: round.parsePossibleMoves(o)
+          dests: game.parsePossibleMoves(o)
         }
       });
     },
@@ -76,7 +76,7 @@ module.exports = function(send, ctrl) {
     },
     crowd: function(o) {
       ['white', 'black'].forEach(function(c) {
-        round.setOnGame(ctrl.data, c, o[c]);
+        game.setOnGame(ctrl.data, c, o[c]);
       });
       m.redraw();
     },
@@ -87,7 +87,7 @@ module.exports = function(send, ctrl) {
     },
     gone: function(isGone) {
       if (!ctrl.data.opponent.ai) {
-        round.setIsGone(ctrl.data, ctrl.data.opponent.color, isGone);
+        game.setIsGone(ctrl.data, ctrl.data.opponent.color, isGone);
         m.redraw();
       }
     },

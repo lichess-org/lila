@@ -6,8 +6,12 @@ object Socket extends Socket
 
 private[socket] trait Socket {
 
-  def makeMessage[A: Writes](t: String, data: A): JsObject =
-    Json.obj("t" -> t, "d" -> data)
+  def makeMessage[A](t: String, data: A)(implicit writes: Writes[A]): JsObject =
+    JsObject(List("t" -> JsString(t), "d" -> writes.writes(data)))
 
-  def makeMessage(t: String): JsObject = Json.obj("t" -> t)
+  def makeMessage(t: String): JsObject = JsObject(List("t" -> JsString(t)))
+
+  def makePong(n: Int) = makeMessage("n", n)
+
+  val initialPong = makePong(0)
 }

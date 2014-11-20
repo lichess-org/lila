@@ -1,5 +1,5 @@
 var m = require('mithril');
-var round = require('../round');
+var game = require('../game');
 
 function getPlayerRating(ctrl, player) {
   if (player.user) {
@@ -17,7 +17,7 @@ function ratingDiff(player) {
 
 module.exports = function(ctrl, player, klass) {
   var perf = player.user ? player.user.perfs[ctrl.data.game.perf] : null;
-  var rating = perf ? perf.rating : null;
+  var rating = player.rating ? player.rating : (perf ? perf.rating : null);
   return player.user ? [
     m('a', {
       config: function(el, isUpdate) {
@@ -25,8 +25,8 @@ module.exports = function(ctrl, player, klass) {
         el.classList.add('ulpt');
       },
       class: 'user_link ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
-      href: ctrl.router.User.show(player.user.username).url,
-      target: round.isPlayerPlaying(ctrl.data) ? '_blank' : null,
+      href: '/@/' + player.user.username,
+      target: game.isPlayerPlaying(ctrl.data) ? '_blank' : null,
       'data-icon': 'r',
     }, [
       (player.user.title ? player.user.title + ' ' : '') + player.user.username,

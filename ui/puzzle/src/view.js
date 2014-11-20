@@ -36,17 +36,17 @@ function renderTrainingBox(ctrl) {
     m('h1', ctrl.trans('training')),
     m('div.tabs.buttonset', [
       m('a.button.active', {
-        href: ctrl.router.Puzzle.home().url
+        href: '/training'
       }, 'Puzzle'),
       m('a.button', {
-        href: ctrl.router.Coordinate.home().url
+        href: '/training/coordinate'
       }, 'Coordinate')
     ]),
     ctrl.data.user ? renderUserInfos(ctrl) : m('div.register', [
       m('p', ctrl.trans('toTrackYourProgress')),
       m('p.signup',
         m('a.button', {
-          href: ctrl.router.Auth.signup().url
+          href: '/signup',
         }, ctrl.trans('signUp'))
       ),
       m('p', ctrl.trans('trainingSignupExplanation'))
@@ -217,7 +217,7 @@ function renderViewControls(ctrl, fen) {
       'data-hint': ctrl.trans('fromGameLink', ctrl.data.puzzle.gameId),
       href: ctrl.router.Round.watcher(ctrl.data.puzzle.gameId, ctrl.data.puzzle.color).url + '#' + ctrl.data.puzzle.initialPly
     }, m('span[data-icon=v]')) : null,
-    m('a.fen_link.button.hint--bottom', {
+    m('a.button.hint--bottom', {
       'data-hint': ctrl.trans('boardEditor'),
       href: ctrl.router.Editor.load(fen).url
     }, m('span[data-icon=m]')),
@@ -245,10 +245,12 @@ function renderViewControls(ctrl, fen) {
 function renderContinueLinks(ctrl, fen) {
   return m('div.continue.links', [
     m('a.button', {
-      href: '/?fen=' + fen + '#ai'
+      href: '/?fen=' + fen + '#ai',
+      rel: 'nofollow'
     }, ctrl.trans('playWithTheMachine')),
     m('a.button', {
-      href: '/?fen=' + fen + '#friend'
+      href: '/?fen=' + fen + '#friend',
+      rel: 'nofollow'
     }, ctrl.trans('playWithAFriend'))
   ]);
 }
@@ -268,7 +270,7 @@ function renderHistory(ctrl) {
       var hash = ctrl.data.user.history.join('');
       if (hash == context.hash) return;
       context.hash = hash;
-      $.get(ctrl.router.Puzzle.history().url, function(html) {
+      $.get('/training/history', function(html) {
         el.innerHTML = html;
       });
     }

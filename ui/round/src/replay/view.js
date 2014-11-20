@@ -1,7 +1,7 @@
 var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
-var round = require('../round');
-var status = require('../status');
+var game = require('game').game;
+var status = require('game').status;
 var renderStatus = require('../view/status');
 
 function renderTd(move, ply, curPly) {
@@ -11,7 +11,7 @@ function renderTd(move, ply, curPly) {
       class: 'move' + (ply === curPly ? ' active' : ''),
       'data-ply': ply
     },
-    children: move
+    children: [move]
   } : null;
 }
 
@@ -37,9 +37,9 @@ function renderTable(ctrl, curPly) {
       renderTd(pair[1], 2 * i + 2, curPly)
     ]);
   });
-  if (result) {
+  if (result || status.aborted(ctrl.root.data)) {
     trs.push(m('tr', m('td.result[colspan=3]', result)));
-    var winner = round.getPlayer(ctrl.root.data, ctrl.root.data.game.winner);
+    var winner = game.getPlayer(ctrl.root.data, ctrl.root.data.game.winner);
     trs.push(m('tr.status', m('td[colspan=3]', [
       renderStatus(ctrl.root),
       winner ? ', ' + ctrl.root.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
@@ -57,12 +57,16 @@ function renderTable(ctrl, curPly) {
 
 function renderButtons(ctrl, curPly) {
   var nbMoves = ctrl.root.data.game.moves.length;
+  var root = ctrl.root;
+  var flipAttrs = {
+    class: 'button flip hint--top' + (root.vm.flip ? ' active' : ''),
+    'data-hint': root.trans('flipBoard'),
+  };
+  if (root.data.tv) flipAttrs.href = '/tv' + (root.data.tv.flip ? '' : '?flip=1');
+  else if (root.data.player.spectator) flipAttrs.href = root.router.Round.watcher(root.data.game.id, root.data.opponent.color).url;
+  else flipAttrs.onclick = root.flip;
   return m('div.buttons', [
-    m('a', {
-      class: 'button flip hint--bottom' + (ctrl.root.vm.flip ? ' active' : ''),
-      'data-hint': ctrl.root.trans('flipBoard'),
-      onclick: ctrl.root.flip
-    }, m('span[data-icon=B]')), m('div.hint--bottom', {
+    m('a', flipAttrs, m('span[data-icon=B]')), m('div.hint--top', {
       'data-hint': 'Tip: use your keyboard arrow keys!'
     }, [
       ['first', 'W', 1],
@@ -96,12 +100,12 @@ module.exports = function(ctrl) {
   };
   ctrl.vm.hash = h;
   return m('div.replay', [
+    renderButtons(ctrl, curPly),
     ctrl.enabledByPref() ? m('div.moves', {
       config: function(el, isUpdate) {
         autoScroll(el);
         if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
       },
-    }, renderTable(ctrl, curPly)) : null,
-    renderButtons(ctrl, curPly)
+    }, renderTable(ctrl, curPly)) : null
   ]);
 }

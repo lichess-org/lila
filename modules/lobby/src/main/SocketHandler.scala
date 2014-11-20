@@ -28,8 +28,8 @@ private[lobby] final class SocketHandler(
       lobby ! BiteHook(id, uid, member.user)
     }
     case ("cancel", o) => lobby ! CancelHook(uid)
-    case ("liveGames", o) => o str "d" foreach { ids =>
-      socket ! LiveGames(uid, ids.split(' ').toList)
+    case ("startWatching", o) => o str "d" foreach { ids =>
+      hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
     }
   }
 

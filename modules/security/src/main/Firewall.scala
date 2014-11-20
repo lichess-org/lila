@@ -40,12 +40,10 @@ final class Firewall(
   def accepts(req: RequestHeader): Fu[Boolean] = blocks(req) map (!_)
 
   def blockIp(ip: String): Funit = validIp(ip) ?? {
-    log("Block IP: " + ip)
     $update(Json.obj("_id" -> ip), Json.obj("_id" -> ip, "date" -> $date(DateTime.now)), upsert = true) >>- refresh
   }
 
   def unblockIp(ip: String): Funit = validIp(ip) ?? {
-    log("Unblock IP: " + ip)
     $remove($select(ip)) >>- refresh
   }
 
@@ -55,14 +53,9 @@ final class Firewall(
     Redirect("/") withCookies cookie
   }
 
-  def logBlock(req: RequestHeader) {
-    log("Block " + formatReq(req))
-  }
-
   def blocksIp(ip: String): Fu[Boolean] = ips.apply map (_ contains ip)
 
   private def refresh {
-    log("refresh IPs")
     ips.clear
   }
 

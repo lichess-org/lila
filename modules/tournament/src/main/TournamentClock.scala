@@ -9,14 +9,3 @@ case class TournamentClock(limit: Int, increment: Int) {
 
   def chessClock = chess.Clock(limit, increment)
 }
-
-object TournamentClock {
-
-  import lila.db.JsTube
-  import play.api.libs.json.Json
-
-  private[tournament] val tube = JsTube(
-    Json.reads[TournamentClock],
-    Json.writes[TournamentClock]
-  )
-}

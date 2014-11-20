@@ -1,4 +1,3 @@
-var forIn = require('lodash-node/modern/objects/forIn')
 var mapValues = require('lodash-node/modern/objects/mapValues')
 
 function init(cfg) {
@@ -12,8 +11,8 @@ function init(cfg) {
 
 function fenMetadatas(data) {
   var castles = '';
-  forIn(data.castles, function(available, piece) {
-    if (available()) castles += piece;
+  Object.keys(data.castles).forEach(function(piece) {
+    if (data.castles[piece]()) castles += piece;
   });
   return data.color() + ' ' + (castles.length ? castles : '-');
 }

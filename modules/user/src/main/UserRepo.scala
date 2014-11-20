@@ -80,7 +80,8 @@ trait UserRepo {
         }
       }
 
-  def lichess = byId("lichess")
+  val lichessId = "lichess"
+  def lichess = byId(lichessId)
 
   private type PerfLenses = List[(String, Perfs => Perf)]
 

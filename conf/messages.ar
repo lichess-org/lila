@@ -26,10 +26,10 @@ yourOpponentWantsToPlayANewGameWithYou=الخصم يريد أن يلعب لعب�
 joinTheGame=الانضمام إلى لعبة
 whitePlays=دور الابيض
 blackPlays=دور الاسود
-theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=اللاعب الآخر يمكن ان يكون ترك اللعب. يمكنك فرض الاستسلام ، أو الأنتظار حتى يعود.
+theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=اللاعب الآخر قد ترك اللعبة. يمكنك اعلان الفوز، طلب المباراة تعادل، أو الانتظار.
 makeYourOpponentResign=اجعل خصمك يستسلم
-forceResignation=إجبار على الأستسلام
-forceDraw=تعادل الزامي
+forceResignation=اعلان الفوز
+forceDraw=طلب تعادل
 talkInChat=دردش
 theFirstPersonToComeOnThisUrlWillPlayWithYou=أول شخص يأتي على هذا الرابط سوف يلعب معك.
 whiteCreatesTheGame=الأبيض انشأ اللعبة
@@ -63,7 +63,7 @@ viewAllNbGames=مشاهدة جميع الألعاب وعددها %s
 viewNbCheckmates=مشاهدة جميع الألعاب المنتهية بالفوز وعددها %s
 nbBookmarks=%s الألعاب مفضلة
 nbPopularGames=%s ألعاب رائجة
-nbAnalysedGames=%s لعبة محلَلًة
+nbAnalysedGames=%s أدوار محلَلًة
 bookmarkedByNbPlayers=تم تفضيلها بواسطة %s لاعبين
 viewInFullSize=عرض بالحجم الكامل
 logOut=خروج
@@ -71,7 +71,7 @@ signIn=دخول
 newToLichess=هل أنت جديد هنا؟
 youNeedAnAccountToDoThat=تحتاج لحساب في الموقع لإتمام هذا
 signUp=تسجيل
-computersAreNotAllowedToPlay=الحواسيب و اللاعبين المستخدمين لحواسيب للعب غير مسموح لهم اللعب. الرجاء عدم الاستعانة بمرامج شطرنج أو لاعبين آخرين.
+computersAreNotAllowedToPlay=الحواسيب و اللاعبين المستخدمين لحواسيب مساعدة غير مسموح لهم باللعب. الرجاء عدم الاستعانة ببرامج شطرنج أو قواعد بيانات أو لاعبين أخرين أثناء اللعب لاحظ أيضا أنه يحظر مشددا عمل حسابات متعددة و تعدد الحسابات يؤدي إلى حظرها
 games=ألعاب
 forum=المنتدى
 xPostedInForumY=%s منشور في المندى %s
@@ -109,7 +109,7 @@ unlimited=غير محدود
 mode=النمط
 casual=غير مقيّمة
 rated=مقيّمة
-thisGameIsRated=هذه اللعبة تُقيّم في جدول الترتيب العام
+thisGameIsRated=هذه المبارة مقيّمة
 rematch=إعادة المبارة
 rematchOfferSent=تم إرسال عرض مباراة ثانية
 rematchOfferAccepted=تم قبول عرض المباراة الثانية
@@ -135,24 +135,24 @@ nbDraws=%s تعادل
 exportGames=تصدير اللعب
 ratingRange=تصنيف Elo
 giveNbSeconds=اعطاء %s ثوان
-premoveEnabledClickAnywhereToCancel=إزالة تفعيل خاصية "اضغط في أي مكان للإلغاء"
+premoveEnabledClickAnywhereToCancel=لديك نقلة مسبقة"اضغط في أي مكان للإلغاء"
 thisPlayerUsesChessComputerAssistance=هذا اللاعب يستعين ببرامج شطرنج
 opening=افتتاحية
-takeback=استعادة
-proposeATakeback=اقترح استعادة
-takebackPropositionSent=تم إرسال مقترح الإستعادة
-takebackPropositionDeclined=تم رفض مقترح الإستعادة
-takebackPropositionAccepted=تم قبول مقترح الإستعادة
-takebackPropositionCanceled=تم رفض مقترح الإستعادة
-yourOpponentProposesATakeback=خصمك يقترح إستعادة
+takeback=تراجع عن النقلة
+proposeATakeback=اقتراح تراجع عن النقلة
+takebackPropositionSent=تم إرسال مقترح تراجع عن النقلة
+takebackPropositionDeclined=تم رفض مقترح تراجع عن النقلة
+takebackPropositionAccepted=تم قبول مقترح تراجع عن النقلة
+takebackPropositionCanceled=تم إلغاء مقترح تراجع عن النقلة
+yourOpponentProposesATakeback=خصمك يقترح تراجع عن النقلة
 bookmarkThisGame=أضف هذه اللعبة للمفضلة
 search=بحث
 advancedSearch=بحث متقدم
-tournament=دورة مباريات
-tournaments=مسابقات
-tournamentPoints=نقاط الدورة
-viewTournament=شاهد الدورة
-backToTournament=عودة الى الدورة
+tournament=بطولة
+tournaments=بطولات
+tournamentPoints=نقاط البطولة
+viewTournament=شاهد البطولة
+backToTournament=عودة الى البطولة
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=.لعبة شطرنج اون لاين مجانية. العب شطرنج الآن بواجهة نظيفه. لا تسجيل. لا دعايات. لا حاجه لوجود أي إضافات. العب الشطرنج مع الحاسوب، أو مع أصدقائك أو مع خصم عشوائي.
 teams=الفِرق
 nbMembers=%s عضو
@@ -163,7 +163,7 @@ noTeamFound=لايوجد فريق
 joinTeam=انضم للفريق
 quitTeam=انسحب من الفريق
 anyoneCanJoin=أي شخص يمكنه الإنضمام
-aConfirmationIsRequiredToJoin=التأكيد مطلوب على طلب الإنضمام
+aConfirmationIsRequiredToJoin=مطلوب التأكيد على طلب الإنضمام
 joiningPolicy=قوانين الإنضمام
 teamLeader=قائد الفريق
 teamBestPlayers=أفضل لاعبي الفريق
@@ -179,10 +179,10 @@ apply=قبول
 leaderboard=لوحة النقاط
 pasteTheFenStringHere=الصق مصفوفة الـ FEN هنا
 pasteThePgnStringHere=الصق مصفوفة الـ PGN هنا
-fromPosition=موقع الإبتداء
+fromPosition=من موقف
 continueFromHere=المتابعة من هنا
-importGame=استيراد لعبة
-nbImportedGames=اللعب المستوردة %s
+importGame=استيراد مباراة
+nbImportedGames=المباريات المستوردة %s
 thisIsAChessCaptcha=هذا اختبار شطرنجي  للتمييز بين الحاسب والإنسان
 clickOnTheBoardToMakeYourMove=.اضغط على اللوحة لإختيار النقلة، وبهذا يتم التأكد أن عقلاً بشرياً هنا
 notACheckmate=لم تنتهي بموت الملك
@@ -263,8 +263,8 @@ training=تدريب
 yourPuzzleRatingX=تصنيفك في حل الألغاز:  %s
 findTheBestMoveForWhite=أوجد أفضل نقلة للأبيض.
 findTheBestMoveForBlack=أوجد أفضل نقلة للأسود.
-toTrackYourProgress=لمتابعت تقدمك
-trainingSignupExplanation=سيقدم الموقع ألغازاً تناسبا قدراتك, لجعل التدريب أفضل.
+toTrackYourProgress=لمتابعة تقدمك
+trainingSignupExplanation=سيقدم الموقع ألغازاً تناسب قدراتك, لجعل التدريب أفضل.
 recentlyPlayedPuzzles=آخر الألغاز التي تم لعبها
 puzzleId=%s لعبة
 puzzleOfTheDay=لغز اليوم

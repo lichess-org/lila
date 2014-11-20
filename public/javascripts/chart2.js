@@ -44,7 +44,7 @@ $(function() {
         tickWidth: 0
       },
       scrollbar: disabled,
-      series: _.map(lichess_rating_series, function(serie) {
+      series: lichess_rating_series.map(function(serie) {
         return {
           name: serie.name,
           type: 'line',
@@ -52,7 +52,7 @@ $(function() {
             enabled: true,
             radius: 2
           },
-          data: _.map(serie.points, function(r) {
+          data: serie.points.map(function(r) {
             return [Date.UTC(r[0], r[1], r[2]), r[3]];
           })
         };
@@ -63,10 +63,58 @@ $(function() {
   $('#adv_chart').each(function() {
     var $this = $(this);
     var cpMax = parseInt($this.data('max'), 10) / 100;
+    var mid = parseInt($this.data('division-mid'));
+    var end = parseInt($this.data('division-end'));
+    var divisionLines = [];
+    if (mid) {
+      divisionLines.push({
+        label: {
+          text: 'Opening',
+          verticalAlign: 'top',
+          align: 'left',
+          x: 6,
+          style: {
+            color: Highcharts.theme.lichess.text.weak
+          }
+        },
+        color: '#30cc4d',
+        width: 1,
+        value: 0
+      });
+      divisionLines.push({
+        label: {
+          text: 'Mid-Game',
+          verticalAlign: 'top',
+          align: 'left',
+          x: 6,
+          style: {
+            color: Highcharts.theme.lichess.text.weak
+          }
+        },
+        color: '#3093cc',
+        width: mid === null ? 0 : 1,
+        value: mid
+      });
+    }
+    if (end) divisionLines.push({
+      label: {
+        text: 'End-Game',
+        verticalAlign: 'top',
+        align: 'left',
+        x: 6,
+        style: {
+          color: Highcharts.theme.lichess.text.weak
+        }
+      },
+      color: '#cc9730',
+      width: end === null ? 0 : 1,
+      value: end
+    });
+
     $(this).highcharts(mergeDefaults({
       series: [{
         name: 'Advantage',
-        data: _.map($this.data('rows'), function(row) {
+        data: $this.data('rows').map(function(row) {
           row.y = row.y / 100;
           return row;
         })
@@ -90,7 +138,7 @@ $(function() {
             click: function(event) {
               if (event.point) {
                 event.point.select();
-                GoToMove(event.point.x + 1, 0);
+                lichess.analyse.jump(event.point.x + 1, 0);
               }
             }
           },
@@ -120,7 +168,8 @@ $(function() {
         title: noText,
         labels: disabled,
         lineWidth: 0,
-        tickWidth: 0
+        tickWidth: 0,
+        plotLines: divisionLines
       },
       yAxis: {
         min: -cpMax,
@@ -129,6 +178,7 @@ $(function() {
         gridLineWidth: 0
       }
     }));
+    lichess.analyse.onChange();
   });
 
   $.renderMoveTimesChart = function() {
@@ -136,6 +186,57 @@ $(function() {
       var $this = $(this).addClass('rendered');
       var series = $this.data('series');
       var timeMax = parseInt($this.data('max'), 10);
+      var mid = parseInt($this.data('division-mid'));
+      var end = parseInt($this.data('division-end'));
+      var divisionLines = [];
+      if (mid) {
+        divisionLines.push({
+          label: {
+            text: 'Opening',
+            verticalAlign: 'top',
+            align: 'left',
+            x: 6,
+            y: 30,
+            style: {
+              color: Highcharts.theme.lichess.text.weak
+            }
+          },
+          color: '#30cc4d',
+          width: 1,
+          value: 0
+        });
+        divisionLines.push({
+          label: {
+            text: 'Mid-Game',
+            verticalAlign: 'top',
+            align: 'left',
+            x: 6,
+            y: 30,
+            style: {
+              color: Highcharts.theme.lichess.text.weak
+            }
+          },
+          color: '#3093cc',
+          width: mid === null ? 0 : 1,
+          value: mid
+        });
+      }
+      if (end) divisionLines.push({
+        label: {
+          text: 'End-Game',
+          verticalAlign: 'top',
+          align: 'left',
+          x: 6,
+          y: 30,
+          style: {
+            color: Highcharts.theme.lichess.text.weak
+          }
+        },
+        color: '#cc9730',
+        width: end === null ? 0 : 1,
+        value: end
+      });
+
       $(this).highcharts(mergeDefaults({
         series: [{
           name: 'White',
@@ -154,10 +255,7 @@ $(function() {
           formatter: function() {
             var seconds = Math.abs(this.point.y);
             var unit = seconds > 1 ? 'seconds' : 'second';
-            var white = this.point.x % 2;
-            var dots = white === 0 ? '.' : '...';
-            var turn = Math.ceil(this.point.x / 2 + (white ? 0 : 1));
-            return turn + dots + ' ' + this.point.name + '<br /><strong>' + seconds + '</strong> ' + unit;
+            return this.point.name + '<br /><strong>' + seconds + '</strong> ' + unit;
           }
         },
         plotOptions: {
@@ -173,7 +271,7 @@ $(function() {
               click: function(event) {
                 if (event.point) {
                   event.point.select();
-                  GoToMove(event.point.x + 1, 0);
+                  lichess.analyse.jump(event.point.x + 1, 0);
                 }
               }
             },
@@ -201,7 +299,8 @@ $(function() {
           title: noText,
           labels: disabled,
           lineWidth: 0,
-          tickWidth: 0
+          tickWidth: 0,
+          plotLines: divisionLines
         },
         yAxis: {
           min: -timeMax,
@@ -211,6 +310,7 @@ $(function() {
         }
       }));
     });
+    lichess.analyse.onChange();
   };
   if ($('#movetimes_chart:visible:not(.rendered)').length) $.renderMoveTimesChart();
 });
@@ -233,6 +333,10 @@ Highcharts.theme = (function() {
 
   return {
     light: light,
+    lichess: {
+      text: text,
+      line: line
+    },
     colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee",
       "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"
     ],

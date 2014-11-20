@@ -1,12 +1,13 @@
 var m = require('mithril');
-var round = require('../round');
+var game = require('game').game;
 var chessground = require('chessground');
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
-var renderUser = require('./user');
+var mod = require('game').view.mod;
 var partial = require('chessground').util.partial;
 var button = require('./button');
 var blind = require('../blind');
+var keyboard = require('../replay/keyboard');
 
 function renderMaterial(ctrl, material) {
   var children = [];
@@ -24,27 +25,18 @@ function renderMaterial(ctrl, material) {
   return m('div.cemetery', children);
 }
 
-function blursOf(ctrl, player) {
-  if (player.blurs) return m('p', [
-    renderUser(ctrl, player, player.color),
-    ' ' + player.blurs.nb + '/' + round.nbMoves(ctrl.data, player.color) + ' blurs = ',
-    m('strong', player.blurs.percent + '%')
-  ]);
-}
-
-function holdOf(ctrl, player) {
-  var h = player.hold;
-  if (h) return m('p', [
-    renderUser(ctrl, player, player.color),
-    ' hold alert',
-    m('br'),
-    'ply=' + h.ply + ', mean=' + h.mean + ' ms, SD=' + h.sd
-  ]);
-}
-
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
     m('div.lichess_board.' + ctrl.data.game.variant.key, {
+      config: function(el, isUpdate) {
+        if (!isUpdate) el.addEventListener('wheel', function(e) {
+          if (e.deltaY > 0) keyboard.next(ctrl);
+          else if (e.deltaY < 0) keyboard.prev(ctrl);
+          m.redraw();
+          e.preventDefault();
+          return false;
+        });
+      },
       onclick: ctrl.data.player.spectator ? toggleDontTouch : null
     }, chessground.view(ctrl.chessground)),
     renderPromotion(ctrl)
@@ -90,11 +82,10 @@ module.exports = function(ctrl) {
         ctrl.chessground.data.premovable.current ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
         dontTouch() ? m('div.dont_touch', {
           onclick: toggleDontTouch
-        }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null,
-        button.replayAndAnalyse(ctrl)
+        }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null
       ]),
       m('div.right', [
-        [ctrl.data.opponent, ctrl.data.player].map(partial(blursOf, ctrl)), [ctrl.data.opponent, ctrl.data.player].map(partial(holdOf, ctrl))
+        [ctrl.data.opponent, ctrl.data.player].map(partial(mod.blursOf, ctrl)), [ctrl.data.opponent, ctrl.data.player].map(partial(mod.holdOf, ctrl))
       ])
     ])
   ];

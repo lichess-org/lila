@@ -1,9 +1,8 @@
 package lila.game
 
-import chess.Color._
+import chess.Color.{ White, Black }
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Variant, Mode, PositionHash }
-import com.github.nscala_time.time.Imports._
 import org.joda.time.DateTime
 
 import lila.db.ByteArray
@@ -33,11 +32,6 @@ case class Game(
     metadata: Metadata) {
 
   val players = List(whitePlayer, blackPlayer)
-
-  val playersByColor: Map[Color, Player] = Map(
-    White -> whitePlayer,
-    Black -> blackPlayer
-  )
 
   def player(color: Color): Player = color match {
     case White => whitePlayer
@@ -340,9 +334,9 @@ case class Game(
 
   def isBeingPlayed = !finishedOrAborted && !olderThan(60)
 
-  def olderThan(seconds: Int) = updatedAt.??(_ < DateTime.now - seconds.seconds)
+  def olderThan(seconds: Int) = updatedAt.??(_ isBefore DateTime.now.minusSeconds(seconds))
 
-  def abandoned = (status <= Status.Started) && (updatedAt | createdAt) < Game.abandonedDate
+  def abandoned = (status <= Status.Started) && ((updatedAt | createdAt) isBefore Game.abandonedDate)
 
   def hasBookmarks = bookmarks > 0
 
@@ -372,11 +366,14 @@ case class Game(
 
   def resetTurns = copy(turns = 0)
 
+  lazy val opening =
+    if (playable || fromPosition || variant.exotic) none
+    else chess.OpeningExplorer openingOf pgnMoves
+
   private def playerMaps[A](f: Player => Option[A]): List[A] = players.map(f).flatten
 }
 
 object Game {
-
 
   val analysableVariants: Set[Variant] = Set(Variant.Standard, Variant.Chess960, Variant.KingOfTheHill)
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
@@ -386,7 +383,7 @@ object Game {
   val fullIdSize = 12
   val tokenSize = 4
 
-  def abandonedDate = DateTime.now - 7.days
+  def abandonedDate = DateTime.now minusDays 7
 
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
@@ -489,7 +486,7 @@ object Game {
         blackPlayer = player(blackPlayer, Black, blackId, blackUid),
         binaryPieces = r bytes binaryPieces,
         binaryPgn = r bytesD binaryPgn,
-        status = Status(r int status) err "Invalid status",
+        status = Status(r int status) err "game invalid status",
         turns = nbTurns,
         startedAtTurn = r intD startedAtTurn,
         clock = r.getO[Color => Clock](clock)(clockBSONHandler(createdAtValue)) map (_(Color(0 == nbTurns % 2))),
@@ -511,7 +508,7 @@ object Game {
           pgnImport = r.getO[PgnImport](pgnImport)(PgnImport.pgnImportBSONHandler),
           tournamentId = r strO tournamentId,
           tvAt = r dateO tvAt,
-        analysed = r boolD analysed)
+          analysed = r boolD analysed)
       )
     }
 

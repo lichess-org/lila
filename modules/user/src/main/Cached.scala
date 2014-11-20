@@ -21,9 +21,9 @@ final class Cached(
   private val perfs = PerfType.nonPuzzle
   private val perfKeys = perfs.map(_.key)
 
-  val count = AsyncCache((o: JsObject) => $count(o), timeToLive = nbTtl)
+  private val countCache = AsyncCache.single($count(UserRepo.enabledSelect), timeToLive = nbTtl)
 
-  def countEnabled: Fu[Int] = count(UserRepo.enabledSelect)
+  def countEnabled: Fu[Int] = countCache(true)
 
   val leaderboardSize = 10
   def activeSince = DateTime.now minusWeeks 2
@@ -38,14 +38,16 @@ final class Cached(
     }.sequenceFu map (_.flatten),
     timeToLive = 10 minutes)
 
-  val topNbGame = AsyncCache(UserRepo.topNbGame, timeToLive = 34 minutes)
+  val topNbGame = AsyncCache[Int, List[User]](
+    UserRepo.topNbGame,
+    timeToLive = 34 minutes)
 
-  val topOnline = AsyncCache(
-    (nb: Int) => UserRepo.byIdsSortRating(onlineUserIdMemo.keys, nb),
+  val topOnline = AsyncCache[Int, List[User]](
+    UserRepo.byIdsSortRating(onlineUserIdMemo.keys, _),
     timeToLive = 3 seconds)
 
-  val topToints = AsyncCache(
-    (nb: Int) => UserRepo allSortToints nb,
+  val topToints = AsyncCache[Int, List[User]](
+    UserRepo.allSortToints,
     timeToLive = 10 minutes)
 
   object ranking {
@@ -54,7 +56,7 @@ final class Cached(
       cache(perf) map { _ get id map (perf -> _) }
     }.sequenceFu map (_.flatten.toMap)
 
-    private val cache = AsyncCache(compute, timeToLive = 31 minutes)
+    private val cache = AsyncCache[Perf.Key, Map[User.ID, Int]](compute, timeToLive = 31 minutes)
 
     private def compute(perf: Perf.Key): Fu[Map[User.ID, Int]] =
       $primitive(

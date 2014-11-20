@@ -87,6 +87,7 @@ case class SocketStatus(
   def onGame(color: Color) = color.fold(whiteOnGame, blackOnGame)
   def isGone(color: Color) = color.fold(whiteIsGone, blackIsGone)
 }
+case class SetGame(game: Option[lila.game.Game])
 
 package round {
 
@@ -126,4 +127,4 @@ case class Cheat(color: Color)
 case class HoldAlert(playerId: String, mean: Int, sd: Int)
 }
 
-private[round] case object BroadcastSize
+private[round] case object GetNbRounds

@@ -18,12 +18,12 @@ final class PgnDump(
 
   import PgnDump._
 
-  def apply(game: Game): Fu[Pgn] =
-    tags(game) map { ts =>
-      val fenSituation = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) => Forsyth <<< fen }
-      val moves2 = (~fenSituation.map(_.situation.color.black)).fold(".." :: game.pgnMoves, game.pgnMoves)
-      Pgn(ts, turns(moves2, fenSituation.map(_.fullMoveNumber) | 1))
-    }
+  def apply(game: Game, initialFen: Option[String]): Pgn = {
+    val ts = tags(game, initialFen)
+    val fenSituation = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) => Forsyth <<< fen }
+    val moves2 = fenSituation.??(_.situation.color.black).fold(".." :: game.pgnMoves, game.pgnMoves)
+    Pgn(ts, turns(moves2, fenSituation.map(_.fullMoveNumber) | 1))
+  }
 
   def filename(game: Game): String = gameLightUsers(game) match {
     case (wu, bu) => "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
@@ -47,31 +47,25 @@ final class PgnDump(
 
   private val customStartPosition: Set[Variant] = Set(Variant.Chess960, Variant.FromPosition)
 
-  private def tags(game: Game): Fu[List[Tag]] = gameLightUsers(game) match {
-    case (wu, bu) =>
-      val opening: Option[OpeningExplorer.Opening] =
-        if (customStartPosition(game.variant)) none
-        else OpeningExplorer openingOf game.pgnMoves
-      (game.variant.standard.fold(fuccess(none), GameRepo initialFen game.id)) map { initialFen =>
-        List(
-          Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
-          Tag(_.Site, gameUrl(game.id)),
-          Tag(_.Date, dateFormat.print(game.createdAt)),
-          Tag(_.White, player(game.whitePlayer, wu)),
-          Tag(_.Black, player(game.blackPlayer, bu)),
-          Tag(_.Result, result(game)),
-          Tag("WhiteElo", rating(game.whitePlayer)),
-          Tag("BlackElo", rating(game.blackPlayer)),
-          Tag("PlyCount", game.turns),
-          Tag(_.Variant, game.variant.name.capitalize),
-          Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit}+${c.increment}" }),
-          Tag(_.ECO, opening.fold("?")(_.code)),
-          Tag(_.Opening, opening.fold("?")(_.name))
-        ) ::: customStartPosition(game.variant).??(List(
-            Tag(_.FEN, initialFen | "?"),
-            Tag("SetUp", "1")
-          ))
-      }
+  private def tags(game: Game, initialFen: Option[String]): List[Tag] = gameLightUsers(game) match {
+    case (wu, bu) => List(
+      Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
+      Tag(_.Site, gameUrl(game.id)),
+      Tag(_.Date, dateFormat.print(game.createdAt)),
+      Tag(_.White, player(game.whitePlayer, wu)),
+      Tag(_.Black, player(game.blackPlayer, bu)),
+      Tag(_.Result, result(game)),
+      Tag("WhiteElo", rating(game.whitePlayer)),
+      Tag("BlackElo", rating(game.blackPlayer)),
+      Tag("PlyCount", game.turns),
+      Tag(_.Variant, game.variant.name.capitalize),
+      Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit}+${c.increment}" }),
+      Tag(_.ECO, game.opening.fold("?")(_.code)),
+      Tag(_.Opening, game.opening.fold("?")(_.name))
+    ) ::: customStartPosition(game.variant).??(List(
+        Tag(_.FEN, initialFen | "?"),
+        Tag("SetUp", "1")
+      ))
   }
 
   private def turns(moves: List[String], from: Int): List[chessPgn.Turn] =

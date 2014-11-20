@@ -25,7 +25,7 @@ $(function() {
     $trainer.find('.buttons').buttonset().disableSelection();
 
     var showColor = function() {
-      color = colorPref == 'random' ? ['white', 'black'][_.random(0, 1)] : colorPref;
+      color = colorPref == 'random' ? ['white', 'black'][Math.round(Math.random())] : colorPref;
       if (!ground) ground = Chessground($board[0], {
         coordinates: false,
         movable: {
@@ -95,7 +95,7 @@ $(function() {
       var rowIndex = rows.indexOf(prevCoord[1]);
       rows = rows.slice(0, rowIndex) + rows.slice(rowIndex + 1, 8);
 
-      return files[_.random(0, files.length - 1)] + rows[_.random(0, rows.length - 1)];
+      return files[Math.round(Math.random() * (files.length - 1))] + rows[Math.round(Math.random() * (rows.length - 1))];
     };
 
     var advanceCoords = function() {

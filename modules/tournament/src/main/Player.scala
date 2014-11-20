@@ -31,19 +31,4 @@ private[tournament] object Player {
   } sortBy { p =>
     p.withdraw.fold(Int.MaxValue, 0) - p.score
   }
-
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private def defaults = Json.obj(
-    "withdraw" -> false,
-    "nbWin" -> 0,
-    "nbLoss" -> 0,
-    "score" -> 0)
-
-  private[tournament] val tube = JsTube(
-    (__.json update merge(defaults)) andThen Json.reads[Player],
-    Json.writes[Player]
-  )
 }

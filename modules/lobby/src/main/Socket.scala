@@ -12,6 +12,7 @@ import actorApi._
 import lila.common.PimpedJson._
 import lila.game.actorApi._
 import lila.game.AnonCookie
+import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.router.{ Homepage, Player }
 import lila.hub.actorApi.timeline._
@@ -44,7 +45,8 @@ private[lobby] final class Socket(
 
     case NewForumPost            => notifyAll("reload_forum")
 
-    case ReloadTimeline(user)    => sendTo(user, makeMessage("reload_timeline", JsNull))
+    case ReloadTimeline(userId) =>
+      memberByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
 
     case AddHook(hook) =>
       notifyVersion("hook_add", hook.render, Messadata(hook = hook.some))
@@ -68,6 +70,8 @@ private[lobby] final class Socket(
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
 
     case lila.hub.actorApi.round.NbRounds(nb) => notifyAll(makeMessage("nbr", nb))
+
+    case ChangeFeatured(_, msg)               => notifyAll(msg)
   }
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =
