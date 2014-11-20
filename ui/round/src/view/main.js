@@ -25,16 +25,21 @@ function renderMaterial(ctrl, material) {
   return m('div.cemetery', children);
 }
 
+function wheel(ctrl, e) {
+  if (game.isPlayerPlaying(ctrl.data)) return true;
+  if (e.deltaY > 0) keyboard.next(ctrl);
+  else if (e.deltaY < 0) keyboard.prev(ctrl);
+  m.redraw();
+  e.preventDefault();
+  return false;
+}
+
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
     m('div.lichess_board.' + ctrl.data.game.variant.key, {
       config: function(el, isUpdate) {
-        if (!isUpdate && ctrl.data.player.spectator) el.addEventListener('wheel', function(e) {
-          if (e.deltaY > 0) keyboard.next(ctrl);
-          else if (e.deltaY < 0) keyboard.prev(ctrl);
-          m.redraw();
-          e.preventDefault();
-          return false;
+        if (!isUpdate) el.addEventListener('wheel', function(e) {
+          return wheel(ctrl, e);
         });
       },
       onclick: ctrl.data.player.spectator ? toggleDontTouch : null
