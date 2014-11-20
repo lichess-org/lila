@@ -817,6 +817,10 @@ div.side_box div.game_infos::before {
   font-size: 30px;
   opacity: 0.7;
 }
+div.side_box div.game_infos .bookmark {
+  margin-top: -30px;
+  margin-right: -13px;
+}
 div.side_box .game_infos .setup {
   text-transform: uppercase;
   display: block;

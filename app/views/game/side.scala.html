@@ -13,6 +13,7 @@
       case _ => {8}
       }">
 
+      @bookmark.toggle(game)
       <div class="header">
         <span class="setup">
           @game.clock.fold("∞")(_.show) • @game.perfType.map {
