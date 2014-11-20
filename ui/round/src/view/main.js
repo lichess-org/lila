@@ -29,7 +29,7 @@ function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
     m('div.lichess_board.' + ctrl.data.game.variant.key, {
       config: function(el, isUpdate) {
-        if (!isUpdate) el.addEventListener('wheel', function(e) {
+        if (!isUpdate && ctrl.data.player.spectator) el.addEventListener('wheel', function(e) {
           if (e.deltaY > 0) keyboard.next(ctrl);
           else if (e.deltaY < 0) keyboard.prev(ctrl);
           m.redraw();
