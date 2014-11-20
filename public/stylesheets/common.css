@@ -821,10 +821,13 @@ div.side_box div.game_infos .bookmark {
   position: absolute;
   right: 0px;
   background: radial-gradient(ellipse at center, rgba(238, 238, 238, 1) 0%, rgba(238, 238, 238, 1) 25%, rgba(238, 238, 238, 0) 100%);
-  visibility: hidden;
+  opacity: 0;
+  transform: translate(0, -20px);
+  transition: 0.3s;
 }
 div.side_box:hover > div.game_infos .bookmark {
-  visibility: visible;
+  transform: translate(0, 0);
+  opacity: 1;
 }
 div.side_box .game_infos .setup {
   display: block;
