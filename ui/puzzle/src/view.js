@@ -277,11 +277,27 @@ function renderHistory(ctrl) {
   });
 }
 
+function wheel(ctrl, e) {
+  if (ctrl.data.mode != 'view') return true;
+  if (e.deltaY > 0) ctrl.jump(ctrl.data.replay.step + 1);
+  else if (e.deltaY < 0) ctrl.jump(ctrl.data.replay.step - 1);
+  m.redraw();
+  e.preventDefault();
+  return false;
+}
+
 module.exports = function(ctrl) {
   return m('div#puzzle.training', [
     renderSide(ctrl),
     m('div.board_and_ground', [
-      chessground.view(ctrl.chessground),
+      m('div', {
+          config: function(el, isUpdate) {
+            if (!isUpdate) el.addEventListener('wheel', function(e) {
+              return wheel(ctrl, e);
+            });
+          }
+        },
+        chessground.view(ctrl.chessground)),
       m('div.right', ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl))
     ]),
     m('div.center', [
