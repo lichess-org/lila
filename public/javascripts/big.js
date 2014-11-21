@@ -601,7 +601,7 @@ var storage = {
       lowtime: new Audio(baseUrl + 'lowtime.' + ext)
     };
     var volumes = {
-      lowtime: 0.7
+      lowtime: 0.6
     };
     var canPlay = hasOgg || hasMp3;
     var $control = $('#sound_control');
