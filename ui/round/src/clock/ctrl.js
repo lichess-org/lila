@@ -1,4 +1,4 @@
-module.exports = function(data, onFlag, playerColor) {
+module.exports = function(data, onFlag, soundColor) {
 
   var lastUpdate;
 
@@ -31,7 +31,7 @@ module.exports = function(data, onFlag, playerColor) {
     this.data[color] = Math.max(0, lastUpdate[color] - (new Date() - lastUpdate.at) / 1000);
     if (this.data[color] === 0) onFlag();
     m.endComputation();
-    if (playerColor && this.data[playerColor] < this.data.emerg) {
+    if (soundColor && this.data[soundColor] < this.data.emerg) {
       if (!emergSound.last || (data.increment && new Date() - emergSound.delay > emergSound.last)) {
         emergSound.play();
         emergSound.last = new Date();
