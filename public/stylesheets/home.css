@@ -456,12 +456,11 @@ div.new_posts li span.extract {
 }
 #call_boxes {
   position: absolute;
-  top: 30px;
+  top: 0px;
   right: 10px;
   width: 250px;
 }
 #translation_call {
-  margin-top: 1em;
   padding: 0.5em;
   border: 1px solid #d0d0d0;
   display: block;
