@@ -8,7 +8,8 @@
     <div class="game_infos" data-icon="@game.perfType match {
       case _ if game.fromPosition => {*}
       case _ if game.hasAi => {:}
-      case _ if game.imported => {/}
+      case _ if game.isPgnImport => {/}
+      case _ if game.isFicsRelay => {/}
       case Some(p) => {@p.iconChar}
       case _ => {8}
       }">
@@ -38,6 +39,9 @@
       @userIdLink(user.some, None, false)
       <br />
       }
+      }
+      @if(game.isFicsRelay) {
+      Relayed by @userIdLink("lichess-relay".some, withOnline = false)
       }
     </div>
     <div class="players">

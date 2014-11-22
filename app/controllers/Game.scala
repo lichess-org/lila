@@ -79,6 +79,14 @@ object Game extends LilaController with BaseGame {
     }
   }
 
+  def relayed(page: Int) = Open { implicit ctx =>
+    Reasonable(page) {
+      paginator relayed page zip makeListMenu map {
+        case (pag, menu) => html.game.relayed(pag, menu)
+      }
+    }
+  }
+
   def export(user: String) = Auth { implicit ctx =>
     me =>
       if (me.id == user.toLowerCase) fuccess {

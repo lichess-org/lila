@@ -15,6 +15,7 @@ final class Cached(ttl: Duration) {
   def nbMates: Fu[Int] = count(Query.mate)
   def nbImported: Fu[Int] = count(Query.imported)
   def nbImportedBy(userId: String): Fu[Int] = count(Query imported userId)
+  def nbRelayed: Fu[Int] = count(Query.relayed)
 
   def nbPlaying(userId: String): Fu[Int] = count(Query notFinished userId)
 

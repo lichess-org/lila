@@ -1,0 +1,13 @@
+@(paginator: Paginator[Game], listMenu: lila.game.ListMenu)(implicit ctx: Context)
+
+@extraTop = {
+<a class="button" href="@routes.Importer.importGame">@trans.importGame()</a>
+}
+
+@game.list(
+name = trans.nbImportedGames.str(listMenu.nbImported.localize),
+iconChar = '/'.some,
+paginator = paginator,
+next = paginator.nextPage map { n => routes.Game.imported(n) },
+menu = sideMenu(listMenu, "imported"),
+extraTop = extraTop.some)

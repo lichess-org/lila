@@ -62,6 +62,7 @@ GET   /games/checkmate    controllers.Game.checkmate(page: Int ?= 1)
 GET   /games/bookmark     controllers.Game.bookmark(page: Int ?= 1)
 GET   /games/analysed     controllers.Game.analysed(page: Int ?= 1)
 GET   /games/imported     controllers.Game.imported(page: Int ?= 1)
+GET   /games/relayed      controllers.Game.relayed(page: Int ?= 1)
 GET   /games/export/:user controllers.Game.export(user: String)
 
 # Search
@@ -228,10 +229,6 @@ DELETE /notification/$id<\w{8}>      controllers.Notification.remove(id)
 # Paste
 GET   /paste                           controllers.Importer.importGame
 POST  /import                          controllers.Importer.sendGame
-
-# Progressive import API
-POST  /api/import/live                     controllers.Importer.liveCreate
-POST  /api/import/live/$id<\w{8}>/:move  controllers.Importer.liveMove(id: String, move: String)
 
 # Edit
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen: String)

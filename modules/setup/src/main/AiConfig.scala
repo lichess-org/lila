@@ -29,7 +29,8 @@ case class AiConfig(
       mode = Mode.Casual,
       variant = variant,
       source = (variant == Variant.FromPosition).fold(Source.Position, Source.Ai),
-      pgnImport = None)
+      pgnImport = None,
+      ficsRelay = None)
   } start
 
   def encode = RawAiConfig(

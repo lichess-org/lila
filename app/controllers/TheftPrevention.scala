@@ -14,7 +14,7 @@ private[controllers] trait TheftPrevention {
   protected def PreventTheft(pov: Pov)(ok: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     isTheft(pov).fold(fuccess(Redirect(routes.Round.watcher(pov.gameId, pov.color.name))), ok)
 
-  protected def isTheft(pov: Pov)(implicit ctx: Context) = pov.game.imported || pov.player.isAi || {
+  protected def isTheft(pov: Pov)(implicit ctx: Context) = pov.game.isPgnImport || pov.game.isFicsRelay || pov.player.isAi || {
     (pov.player.userId, ctx.userId) match {
       case (Some(playerId), None) => true
       case (Some(playerId), Some(userId)) =>

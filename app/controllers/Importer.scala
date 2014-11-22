@@ -8,22 +8,6 @@ object Importer extends LilaController with BaseGame {
 
   private def env = Env.importer
 
-  def liveCreate = Open { implicit ctx =>
-    env.live.create map { g =>
-      Ok(Json.obj(
-        "id" -> g.id,
-        "url" -> s"${Env.api.Net.BaseUrl}${routes.Round.watcher(g.id, "white").url}"
-      )) as JSON
-    }
-  }
-
-  def liveMove(id: String, move: String) = Open { implicit ctx =>
-    env.live.move(id, move, ctx.ip) inject
-      (Ok(Json.obj()) as JSON) recover {
-        case e: Exception => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
-      }
-  }
-
   def importGame = Open { implicit ctx =>
     makeListMenu map { listMenu =>
       Ok(html.game.importGame(listMenu, env.forms.importForm))

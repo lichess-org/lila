@@ -7,7 +7,8 @@ case class ListMenu(
   nbMates: Int,
   nbBookmarks: Option[Int],
   nbAnalysed: Int,
-  nbImported: Int)
+  nbImported: Int,
+  nbRelayed: Int)
 
 object ListMenu {
 
@@ -18,13 +19,15 @@ object ListMenu {
     cached.nbGames zip
       cached.nbMates zip
       countAnalysed() zip
-      cached.nbImported map {
-        case (((nbGames, nbMates), nbAnalysed), nbImported) =>
+      cached.nbImported zip
+      cached.nbRelayed map {
+        case ((((nbGames, nbMates), nbAnalysed), nbImported), nbRelayed) =>
           new ListMenu(
             nbGames = nbGames,
             nbMates = nbMates,
             nbBookmarks = me.??(countBookmarks).some.filterNot(0 ==),
             nbAnalysed = nbAnalysed,
-            nbImported = nbImported)
+            nbImported = nbImported,
+            nbRelayed = nbRelayed)
       }
 }

@@ -30,7 +30,8 @@
   <div class="infos" data-icon="@g.perfType match {
     case _ if g.fromPosition => {*}
     case _ if g.hasAi => {:}
-    case _ if g.imported => {/}
+    case _ if g.isPgnImport => {/}
+    case _ if g.isFicsRelay => {/}
     case Some(p) => {@p.iconChar}
     case _ => {8}
     }">

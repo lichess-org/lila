@@ -40,7 +40,8 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
     if (usernameSucks(data.username.toLowerCase)) fuccess(true)
     else $count.exists(data.username.toLowerCase)
 
-  private def usernameSucks(u: String) = lameUsernames exists u.contains
+  private def usernameSucks(u: String) =
+    (lameUsernames exists u.contains) || (reservedUsernames exists u.contains)
 
   private val lameUsernames = List(
     "hitler",
@@ -66,6 +67,8 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
     "slut",
     "whore",
     "nazi")
+
+  private val reservedUsernames = List("lichess-")
 }
 
 object DataForm {

@@ -1,9 +1,9 @@
 package lila.setup
 
 import chess.{ Variant, Mode, Clock }
-import lila.rating.RatingRange
 import lila.game.{ Game, Player, Source }
 import lila.lobby.Color
+import lila.rating.RatingRange
 
 private[setup] case object ApiConfig extends Config with GameGenerator {
 
@@ -21,5 +21,6 @@ private[setup] case object ApiConfig extends Config with GameGenerator {
     mode = mode,
     variant = variant,
     source = Source.Api,
-    pgnImport = None)
+    pgnImport = None,
+    ficsRelay = None)
 }

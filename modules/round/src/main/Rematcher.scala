@@ -64,7 +64,7 @@ private[round] final class Rematcher(
   } inject List(Event.ReloadOwner)
 
   private def returnGame(pov: Pov): Fu[Game] = for {
-    initialFen <- GameRepo initialFen pov.game.id 
+    initialFen <- GameRepo initialFen pov.game.id
     situation = initialFen flatMap Forsyth.<<<
     pieces = pov.game.variant.standard.fold(
       pov.game.variant.pieces,
@@ -87,7 +87,8 @@ private[round] final class Rematcher(
     variant = pov.game.variant,
     source = pov.game.source | Source.Lobby,
     castles = situation.fold(Castles.init)(_.situation.board.history.castles),
-    pgnImport = None)
+    pgnImport = None,
+    ficsRelay = None)
 
   private def returnPlayer(game: Game, color: ChessColor): Fu[lila.game.Player] = {
     val player = lila.game.Player.make(color = color, aiLevel = game.opponent(color).aiLevel)

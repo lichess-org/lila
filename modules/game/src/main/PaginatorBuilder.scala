@@ -19,6 +19,9 @@ private[game] final class PaginatorBuilder(cached: Cached, maxPerPage: Int) {
   def imported(page: Int): Fu[Paginator[Game]] =
     paginator(importedAdapter, page)
 
+  def relayed(page: Int): Fu[Paginator[Game]] =
+    paginator(relayedAdapter, page)
+
   def recentlyCreated(selector: JsObject, nb: Option[Int] = None) =
     apply(selector, Seq(Query.sortCreated), nb) _
 
@@ -38,6 +41,9 @@ private[game] final class PaginatorBuilder(cached: Cached, maxPerPage: Int) {
 
   private def importedAdapter =
     cacheAdapter(Query.imported, Seq(Query.sortCreated), cached.nbImported)
+
+  private def relayedAdapter =
+    cacheAdapter(Query.relayed, Seq(Query.sortCreated), cached.nbRelayed)
 
   private def cacheAdapter(selector: JsObject, sort: Sort, nbResults: Fu[Int]): AdapterLike[Game] =
     new CachedAdapter(

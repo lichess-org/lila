@@ -1,9 +1,9 @@
 package lila.setup
 
 import chess.{ Variant, Mode, Clock, Color => ChessColor }
-import lila.rating.RatingRange
 import lila.game.{ Game, Player, Source }
 import lila.lobby.Color
+import lila.rating.RatingRange
 
 case class FriendConfig(
     variant: Variant,
@@ -26,7 +26,8 @@ case class FriendConfig(
       mode = (variant == Variant.FromPosition).fold(Mode.Casual, mode),
       variant = variant,
       source = (variant == Variant.FromPosition).fold(Source.Position, Source.Friend),
-      pgnImport = None)
+      pgnImport = None,
+      ficsRelay = None)
   }
 
   def encode = RawFriendConfig(

@@ -183,6 +183,7 @@ fromPosition=From position
 continueFromHere=Continue from here
 importGame=Import game
 nbImportedGames=%s Imported games
+nbRelayedGames=%s Relayed games
 thisIsAChessCaptcha=This is a chess CAPTCHA.
 clickOnTheBoardToMakeYourMove=Click on the board to make your move, and prove you are human.
 notACheckmate=Not a checkmate

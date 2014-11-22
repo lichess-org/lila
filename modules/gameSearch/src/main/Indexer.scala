@@ -93,7 +93,7 @@ private[gameSearch] final class Indexer(
   }
 
   private def storable(game: lila.game.Game) =
-    (game.finished || game.imported) && game.playedTurns > 4 && game.players.forall {
+    (game.finished || game.isPgnImport) && game.playedTurns > 4 && game.players.forall {
       _.rating.fold(true)(_ >= 1000)
     }
 

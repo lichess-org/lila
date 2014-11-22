@@ -11,8 +11,10 @@ private[relay] final class Telnet(remote: InetSocketAddress, listener: ActorRef)
   import context.system
 
   IO(Tcp) ! Connect(remote, options = List(
-    SO.ReceiveBufferSize(1024 * 1024),
-    SO.SendBufferSize(1024 * 1024)
+    SO.TcpNoDelay(false)
+    // next lines seem to have no effect at all, messages are still truncated
+    // SO.ReceiveBufferSize(1024 * 1024),
+    // SO.SendBufferSize(1024 * 1024)
   ))
 
   def receive = {
@@ -32,7 +34,9 @@ private[relay] final class Telnet(remote: InetSocketAddress, listener: ActorRef)
           // O/S buffer was full
           listener ! Telnet.WriteFailed
         case Received(data) =>
-          listener ! Telnet.In(data decodeString "UTF-8")
+          val msg = data decodeString "UTF-8"
+          println("{telnet} " + msg)
+          listener ! Telnet.In(msg)
         case "close" =>
           connection ! Close
         case _: ConnectionClosed =>

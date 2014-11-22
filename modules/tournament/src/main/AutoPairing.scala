@@ -28,8 +28,8 @@ final class AutoPairing(
       mode = tour.mode,
       variant = tour.variant,
       source = Source.Tournament,
-      pgnImport = None
-    )
+      pgnImport = None,
+      ficsRelay = None)
     game2 = game1
       .updatePlayer(Color.White, _.withUser(user1.id, PerfPicker.mainOrDefault(game1)(user1.perfs)))
       .updatePlayer(Color.Black, _.withUser(user2.id, PerfPicker.mainOrDefault(game1)(user2.perfs)))

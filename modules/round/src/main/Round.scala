@@ -105,7 +105,7 @@ private[round] final class Round(
     case DrawClaim(playerId) => handle(playerId)(drawer.claim)
     case DrawForce           => handle(drawer force _)
     case Cheat(color) => handle { game =>
-      (game.playable && !game.imported) ?? {
+      (game.playable && !game.isPgnImport) ?? {
         finisher(game, _.Cheat, Some(!color))
       }
     }
@@ -196,6 +196,6 @@ private[round] final class Round(
     if (events contains Event.Threefold) self ! Threefold
   } addFailureEffect {
     case e: ClientErrorException =>
-    case e => logwarn(s"[round] ${gameId} $e")
+    case e                       => logwarn(s"[round] ${gameId} $e")
   } void
 }
