@@ -613,6 +613,7 @@ body.tight #site_baseline {
 }
 #footer_wrap {
   border-top: 1px solid #c9c9c9;
+  border-bottom: 1px solid #c9c9c9;
   background: #e4e4e4;
   padding: 30px 0;
   margin-top: 60px;
