@@ -803,21 +803,21 @@ div.side_box .top {
 div.side_box .padded {
   padding: 7px;
 }
-div.side_box div.game_infos {
+div.side_box .game_infos {
   padding-left: 36px;
   padding-bottom: 8px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 6px;
   position: relative;
 }
-div.side_box div.game_infos::before {
+div.side_box .game_infos::before {
   position: absolute;
   top: 2px;
   left: 0px;
   font-size: 30px;
   opacity: 0.7;
 }
-div.side_box div.game_infos .bookmark {
+div.side_box .game_infos .bookmark {
   position: absolute;
   right: 0px;
   background: radial-gradient(ellipse at center, rgba(238, 238, 238, 1) 0%, rgba(238, 238, 238, 1) 25%, rgba(238, 238, 238, 0) 100%);
@@ -825,7 +825,7 @@ div.side_box div.game_infos .bookmark {
   transform: translate(0, -20px);
   transition: 0.3s;
 }
-div.side_box:hover > div.game_infos .bookmark {
+div.side_box .game_infos:hover .bookmark {
   transform: translate(0, 0);
   opacity: 1;
 }

@@ -636,7 +636,6 @@ var storage = {
     var setVolume = function(v) {
       storage.set('sound-volume', v);
       Object.keys(audio).forEach(function(k) {
-        audio[k].volume = v;
         audio[k].volume = v * (volumes[k] ? volumes[k] : 1);
       });
     };
