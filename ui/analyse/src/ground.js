@@ -1,13 +1,23 @@
 var chessground = require('chessground');
 
-function makeConfig(data, situation, flip) {
+function makeConfig(data, situation, onMove) {
   return {
-    viewOnly: true,
     fen: situation.fen,
     check: situation.check,
     lastMove: situation.lastMove,
-    orientation: flip ? data.opponent.color : data.player.color,
+    orientation: data.player.color,
     coordinates: data.pref.coords !== 0,
+    movable: {
+      free: false,
+      color: situation.movable.color,
+      dests: situation.movable.dests,
+      events: {
+        after: onMove
+      }
+    },
+    premovable: {
+      enabled: false
+    },
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,
@@ -23,8 +33,10 @@ function makeConfig(data, situation, flip) {
   };
 }
 
-function make(data, situation) {
-  return new chessground.controller(makeConfig(data, situation));
+function make(data, situation, onMove) {
+  var c = makeConfig(data, situation, onMove);
+  console.log(c);
+  return new chessground.controller(c);
 }
 
 module.exports = {

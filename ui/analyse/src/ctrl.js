@@ -21,6 +21,20 @@ module.exports = function(cfg, router, i18n, onChange) {
     comments: true
   };
 
+  var chessToDests = function(chess) {
+    var dests = {};
+    chess.SQUARES.forEach(function(s) {
+      var ms = chess.moves({
+        square: s,
+        verbose: true
+      });
+      if (ms.length) dests[s] = ms.map(function(m) {
+        return m.to;
+      });
+    });
+    return dests;
+  }
+
   var situationCache = {};
   var showGround = function() {
     var moves = this.analyse.moveList(this.vm.path);
@@ -45,22 +59,33 @@ module.exports = function(cfg, router, i18n, onChange) {
         move = moves[ply - 1];
         hash += move;
         lm = chess.move(move);
+        var turnColor = ply % 2 === 1 ? 'black' : 'white';
         situationCache[hash] = {
           fen: chess.fen(),
-          turnColor: ply % 2 === 1 ? 'black' : 'white',
+          turnColor: turnColor,
+          movable: {
+            color: turnColor,
+            dests: chessToDests(chess)
+          },
           check: chess.in_check(),
           lastMove: [lm.from, lm.to]
         };
       }
     }
+    // console.log(situationCache[hash]);
     this.vm.situation = situationCache[hash] || {
       fen: this.data.game.initialFen,
       turnColor: 'white',
+      movable: {
+        color: null
+      },
       check: false,
       lastMove: null
     };
-    if (this.chessground) this.chessground.set(this.vm.situation);
-    else this.chessground = ground.make(this.data, this.vm.situation);
+    if (!this.chessground)
+      this.chessground = ground.make(this.data, this.vm.situation, this.onMove);
+    this.chessground.stop();
+    this.chessground.set(this.vm.situation);
     onChange(this.vm.situation.fen, this.vm.path);
   }.bind(this);
 
@@ -75,6 +100,17 @@ module.exports = function(cfg, router, i18n, onChange) {
       ply: ply,
       variation: null
     }]);
+  }.bind(this);
+
+  this.onMove = function(orig, dest) {
+    console.log(this.analyse.tree);
+    var chess = new Chess(
+      this.vm.situation.fen,
+      this.data.game.variant.key == 'chess960' ? 1 : 0
+    );
+    var m = chess.move({from: orig, to: dest});
+    if (!m) return;
+    this.analyse.explore(this.vm.path, m.san);
   }.bind(this);
 
   this.router = router;

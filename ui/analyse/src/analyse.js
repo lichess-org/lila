@@ -39,4 +39,25 @@ module.exports = function(game, analysis) {
     });
     return moves;
   }.bind(this);
+
+  this.explore = function(path, san) {
+    var tree = this.tree;
+    var curMove = null;
+    path.forEach(function(step) {
+      for (i = 0, nb = tree.length; i < nb; i++) {
+        var move = tree[i];
+        if (step.ply === move.ply && step.variation) {
+          tree = move.variations[step.variation - 1];
+          break;
+        } else if (step.ply == move.ply) curMove = move;
+        else if (step.ply < move.ply) break;
+      }
+    });
+    curMove.variations = [[{
+      ply: curMove.ply + 1,
+      san: san,
+      comments: [],
+      variations: []
+    }]];
+  }.bind(this);
 }
