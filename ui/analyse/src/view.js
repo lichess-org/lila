@@ -215,21 +215,6 @@ function buttons(ctrl) {
   var nbMoves = ctrl.data.game.moves.length;
   return [
     m('div.game_control', [
-      m('a.button.hint--bottom', {
-        'data-hint': ctrl.trans('flipBoard'),
-        href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url
-      }, m('span[data-icon=B]')),
-      m('a.button.hint--bottom', {
-        'data-hint': ctrl.trans('boardEditor'),
-        href: '/' + ctrl.data.game.id + '/edit?fen=' + ctrl.vm.situation.fen,
-        rel: 'nofollow'
-      }, m('span[data-icon=m]')),
-      m('a.button.hint--bottom', {
-        'data-hint': ctrl.trans('continueFromHere'),
-        onclick: function() {
-          ctrl.vm.continue = !ctrl.vm.continue
-        }
-      }, m('span[data-icon=U]')),
       m('div.jumps.hint--bottom', {
         'data-hint': 'Tip: use your keyboard arrow keys!'
       }, [
@@ -247,7 +232,22 @@ function buttons(ctrl) {
           'data-icon': b[1],
           onclick: enabled ? partial(b[2], ctrl) : null
         });
-      }))
+      })),
+      m('a.button.hint--bottom', {
+        'data-hint': ctrl.trans('flipBoard'),
+        href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url
+      }, m('span[data-icon=B]')),
+      m('a.button.hint--bottom', {
+        'data-hint': ctrl.trans('boardEditor'),
+        href: '/' + ctrl.data.game.id + '/edit?fen=' + ctrl.vm.situation.fen,
+        rel: 'nofollow'
+      }, m('span[data-icon=m]')),
+      m('a.button.hint--bottom', {
+        'data-hint': ctrl.trans('continueFromHere'),
+        onclick: function() {
+          ctrl.vm.continue = !ctrl.vm.continue
+        }
+      }, m('span[data-icon=U]'))
     ]),
     ctrl.vm.continue ? m('div.continue', [
       m('a.button', {
@@ -279,11 +279,11 @@ module.exports = function(ctrl) {
                 if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
               }
             },
-            renderAnalyse(ctrl)))
+            renderAnalyse(ctrl)), buttons(ctrl))
       ])
     ]),
     m('div.underboard', [
-      m('div.center', buttons(ctrl)),
+      m('div.center'),
       m('div.right')
     ])
   ];

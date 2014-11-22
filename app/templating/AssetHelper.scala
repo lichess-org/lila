@@ -4,7 +4,7 @@ package templating
 import controllers.routes
 import play.twirl.api.Html
 
-trait AssetHelper {
+trait AssetHelper { self: I18nHelper =>
 
   val assetVersion = lila.api.Env.current.Net.AssetVersion
 
@@ -51,9 +51,18 @@ trait AssetHelper {
     local = staticUrl("vendor/highcharts4/highstock.js"))
 
   val momentjsTag = cdnOrLocal(
-    cdn = "http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js",
+    cdn = "http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js",
     test = "window.moment",
-    local = staticUrl("vendor/momentjs.min.js"))
+    local = staticUrl("vendor/moment/min/moment.min.js"))
+
+  def momentLangTag(implicit ctx: lila.api.Context) = (lang(ctx).language match {
+    case "en" => none
+    case "pt" => "pt-br".some
+    case "zh" => "zh-cn".some
+    case l    => l.some
+  }).fold(Html("")) { l =>
+    jsAt(s"vendor/moment/locale/$l.js", static = true)
+  }
 
   val powertipTag = cdnOrLocal(
     cdn = "http://cdnjs.cloudflare.com/ajax/libs/jquery-powertip/1.2.0/jquery.powertip.min.js",

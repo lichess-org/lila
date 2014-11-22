@@ -964,10 +964,10 @@ div.table {
 div.table .notyet {
   margin: 20px 0;
 }
-.lichess_ground .table .replay {
-  margin: 10px 0 15px 0;
-}
 .lichess_ground .replay .moves {
+  border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+  margin: 0 -10px 0 -10px;
   height: 115px;
   overflow: auto;
 }
@@ -1009,7 +1009,7 @@ div.table .notyet {
 }
 .lichess_ground .replay .buttons {
   text-align: center;
-  margin-top: 7px;
+  margin: 2px 0 5px 0;
   font-size: 0.8em;
 }
 .lichess_ground .replay a.button {
@@ -1032,6 +1032,17 @@ div.table .notyet {
   text-shadow: none !important;
 }
 
+.lichess_ground .control.buttons .button {
+  width: 190px;
+  margin-top: 5px;
+}
+.lichess_ground .control.buttons a.fat {
+  font-size: 150%;
+}
+.lichess_ground .control.buttons a.replay_and_analyse {
+  margin-bottom: 10px;
+}
+
 div.table.spectator {
   top: 160px;
 }
@@ -1044,7 +1055,13 @@ div.table_not_started {
   padding: 0;
 }
 div.table div.username {
-  display: inline-block;
+  white-space: nowrap;
+}
+div.table div.username:first-child {
+  margin-bottom: 7px;
+}
+div.table div.username:last-child {
+  margin-top: 7px;
 }
 div.table div.username span.status {
   display: inline-block;
@@ -1071,57 +1088,64 @@ div.table .button.strong {
   font-weight: bold;
   font-size: 1.2em;
 }
-div.table_wrap > div.clock {
+div.table_wrap .whos_turn {
+  height: 2em;
+  line-height: 2em;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+div.table_wrap > .clock {
   position: relative;
 }
-div.table_wrap > div.clock > div.bar {
+div.table_wrap > .clock .bar {
   position: absolute;
   width: 242px;
   height: 4px;
 }
-div.table_wrap > div.clock_top > div.bar {
+div.table_wrap > .clock_top .bar {
   bottom: -4px;
 }
-div.table_wrap > div.clock_bottom > div.bar {
+div.table_wrap > .clock_bottom .bar {
   top: -4px;
 }
-div.table_wrap > div.clock > div.bar > span {
+div.table_wrap > .clock .bar span {
   display: block;
   height: 4px;
   width: 0px;
   background: #759900;
 }
-div.table_wrap > div.clock > div.time {
+div.table_wrap > .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;
   padding: 0 8px;
   font-size: 27px;
   font-family: monospace;
 }
-div.table_wrap > div.clock > div.time > span {
+div.table_wrap > .clock .time span {
   font-size: 80%;
 }
-div.table_wrap > div.clock > div.time b {
+div.table_wrap > .clock .time b {
   font-weight: bold;
 }
-div.table_wrap > div.clock.running > div.time {
+div.table_wrap > .clock.running .time {
   background: #fff077;
   color: #444;
 }
-div.table_wrap > div.clock.running.emerg > div.time {
+div.table_wrap > .clock.running.emerg .time {
   background-color: #eFAAAA;
   color: #444;
 }
-div.table_wrap > div.clock.outoftime > div.time {
+div.table_wrap > .clock.outoftime .time {
   background-color: #eFAAAA;
   font-weight: bold;
   color: #444;
 }
-div.table_wrap > div.clock_top > div.time {
+div.table_wrap > .clock_top .time {
   border-bottom: 0;
   border-radius: 2px 2px 0 0;
 }
-div.table_wrap > div.clock_bottom > div.time {
+div.table_wrap > .clock_bottom .time {
   border-top: 0;
   border-radius: 0 0 2px 2px;
 }
@@ -1148,32 +1172,9 @@ div.separator {
   border-bottom: 1px solid #ddd;
 }
 div.control {
-  margin-top: 10px;
+  margin-top: 5px;
   text-align: center;
   width: 100%;
-}
-div.control button {
-  margin: auto;
-}
-div.control a.lichess_play_again {
-  margin-left: 1em;
-}
-div.control div.lichess_play_again_join {
-  text-align: left;
-}
-div.control div.lichess_play_again_join a.lichess_play_again {
-  margin-left: 0;
-  font-size: 150%;
-  display: block;
-}
-div.control div.rematch_alert {
-  margin-bottom: 1em;
-}
-div.control div.rematch_alert .button {
-  margin-top: 1em;
-}
-div.control div.rematch_wait {
-  margin-bottom: 1em;
 }
 div.control.icons .button {
   font-size: 16px;
@@ -1200,7 +1201,7 @@ div.control.buttons .button {
   text-decoration: none;
   font-weight: bold;
 }
-div.control .rematch.disabled {
+div.control .button.disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -1299,7 +1300,7 @@ div.under_chat .watchtv {
   z-index: 1;
 }
 #chat .messages {
-  height: 263px;
+  height: 305px;
   overflow: hidden;
   overflow-y: auto;
 }
@@ -1419,10 +1420,6 @@ div.underboard .right {
 }
 div.underboard a {
   display: inline-block;
-}
-div.underboard .replay_and_analyse {
-  margin-top: 10px;
-  font-size: 1.4em;
 }
 div.check_count span.player.color {
   display: inline-block;

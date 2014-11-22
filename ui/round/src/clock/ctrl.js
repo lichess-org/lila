@@ -1,6 +1,12 @@
-module.exports = function(data, onFlag) {
+module.exports = function(data, onFlag, soundColor) {
 
   var lastUpdate;
+
+  var emergSound = {
+    play: $.sound.lowtime,
+    last: null,
+    delay: 5000
+  };
 
   this.data = data;
   this.data.barTime = Math.max(this.data.initial, 2) + 5 * this.data.increment;
@@ -25,5 +31,11 @@ module.exports = function(data, onFlag) {
     this.data[color] = Math.max(0, lastUpdate[color] - (new Date() - lastUpdate.at) / 1000);
     if (this.data[color] === 0) onFlag();
     m.endComputation();
+    if (soundColor == color && this.data[soundColor] < this.data.emerg) {
+      if (!emergSound.last || (data.increment && new Date() - emergSound.delay > emergSound.last)) {
+        emergSound.play();
+        emergSound.last = new Date();
+      }
+    }
   }.bind(this);
 }

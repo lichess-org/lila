@@ -122,7 +122,8 @@ body.dark #top div.auth .sep,
 body.dark div.doc_box h2,
 body.dark div.training div.box,
 body.dark div.force_resign_zone,
-body.dark div.negotiation {
+body.dark div.negotiation,
+body.dark div.side_box div.game_infos {
   border-color: #3d3d3d;
 }
 body.dark .crosstable td.last {
@@ -311,7 +312,8 @@ body.dark .button,
 body.dark a.button,
 body.dark .ui-button,
 body.dark .ui-slider-handle,
-body.dark .ui-widget-content {
+body.dark .ui-widget-content,
+body.dark .lichess_ground .replay .moves {
   border-color: #323232;
 }
 body.dark .button:hover,
@@ -383,8 +385,17 @@ body.dark div.user_show div.user-infos.scroll-shadow-hard {
   background-size: 100% 20px, 100% 20px, 100% 10px, 100% 10px;
   background-attachment: local, local, scroll, scroll;
 }
+body.dark div.side_box div.game_infos .bookmark {
+  background: radial-gradient(ellipse at center, rgba(38, 38, 38, 1) 0%, rgba(38, 38, 38, 1) 25%, rgba(38, 38, 38, 0) 100%);
+}
 body.dark div.game_row:hover {
   background: rgba(27, 51, 68, 0.5);
+}
+body.dark .is.color-icon.white::before {
+  content: "J";
+}
+body.dark .is.color-icon.black::before {
+  content: "K";
 }
 body.dark::-webkit-input-placeholder {
   color: #666;

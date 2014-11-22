@@ -7,6 +7,7 @@ var mod = require('game').view.mod;
 var partial = require('chessground').util.partial;
 var button = require('./button');
 var blind = require('../blind');
+var keyboard = require('../replay/keyboard');
 
 function renderMaterial(ctrl, material) {
   var children = [];
@@ -24,9 +25,23 @@ function renderMaterial(ctrl, material) {
   return m('div.cemetery', children);
 }
 
+function wheel(ctrl, e) {
+  if (game.isPlayerPlaying(ctrl.data)) return true;
+  if (e.deltaY > 0) keyboard.next(ctrl);
+  else if (e.deltaY < 0) keyboard.prev(ctrl);
+  m.redraw();
+  e.preventDefault();
+  return false;
+}
+
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
     m('div.lichess_board.' + ctrl.data.game.variant.key, {
+      config: function(el, isUpdate) {
+        if (!isUpdate) el.addEventListener('wheel', function(e) {
+          return wheel(ctrl, e);
+        });
+      },
       onclick: ctrl.data.player.spectator ? toggleDontTouch : null
     }, chessground.view(ctrl.chessground)),
     renderPromotion(ctrl)
@@ -72,8 +87,7 @@ module.exports = function(ctrl) {
         ctrl.chessground.data.premovable.current ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
         dontTouch() ? m('div.dont_touch', {
           onclick: toggleDontTouch
-        }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null,
-        button.replayAndAnalyse(ctrl)
+        }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null
       ]),
       m('div.right', [
         [ctrl.data.opponent, ctrl.data.player].map(partial(mod.blursOf, ctrl)), [ctrl.data.opponent, ctrl.data.player].map(partial(mod.holdOf, ctrl))

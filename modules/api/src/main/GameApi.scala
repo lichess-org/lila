@@ -142,10 +142,8 @@ private[api] final class GameApi(
       }
     },
     "fens" -> withFens ?? {
-      chess.Replay(g.pgnMoves, initialFen, g.variant).toOption map { replay =>
-        JsArray(replay.chronoMoves map { move =>
-          chess.format.Forsyth exportBoard move.after
-        } map JsString.apply)
+      chess.Replay.boards(g.pgnMoves, initialFen).toOption map { boards =>
+        JsArray(boards map chess.format.Forsyth.exportBoard map JsString.apply)
       }
     },
     "winner" -> g.winnerColor.map(_.name),

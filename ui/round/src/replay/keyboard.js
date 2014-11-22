@@ -16,14 +16,24 @@ function preventing(f) {
   };
 }
 
+function prev(ctrl) {
+  ctrl.replay.jump(replayPly(ctrl) - 1);
+}
+
+function next(ctrl) {
+  ctrl.replay.jump(replayPly(ctrl) + 1);
+}
+
 module.exports = {
+  prev: prev,
+  next: next,
   init: function(ctrl) {
     k.bind(['left', 'h'], preventing(function() {
-      ctrl.replay.jump(replayPly(ctrl) - 1);
+      prev(ctrl);
       m.redraw();
     }));
     k.bind(['right', 'l'], preventing(function() {
-      ctrl.replay.jump(replayPly(ctrl) + 1);
+      next(ctrl);
       m.redraw();
     }));
     k.bind(['up', 'j'], preventing(function() {

@@ -33,7 +33,7 @@ div.analysis_menu > a.active {
   border-top: 1px solid #eee;
 }
 div.analysis_panels {
-  margin-top: 10px;
+  margin-top: -10px;
 }
 div.analysis_panels > div {
   width: 512px;
@@ -94,33 +94,26 @@ div.fen_pgn strong {
 div.fen_pgn input.fen {
   width: 450px;
 }
-div.game_control,
-div.continue {
+div.game_control {
+  margin-top: 10px;
   text-align: center;
-}
-div.continue {
-  margin: 20px 0;
+  white-space: nowrap
 }
 div.game_control a {
-  font-size: 16px;
-  height: 22px;
+  font-size: 12px;
+  height: 17px;
+  width: 12px;
   display: inline-block;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  margin-left: -1px;
-  margin-right: -2px;
+  margin: 0 -1px;
 }
 div.game_control .jumps {
-  margin-left: 1em;
-}
-.lichess_ground {
-  height: 100%;
+  margin-right: 10px;
 }
 .lichess_ground .replay {
-  margin-left: 10px;
-  width: 256px;
-  height: 100%;
+  height: calc(100% - 40px);
   overflow: auto;
   border: 1px solid #ccc;
 }
@@ -215,7 +208,7 @@ div.underboard .center {
   padding: 0;
 }
 div.advice_summary {
-  margin-top: 42px;
+  margin-top: -15px;
 }
 div.advice_summary td {
   padding: 2px 8px;

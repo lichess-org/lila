@@ -49,14 +49,14 @@ final class Importer(
       ))
     }
 
-    (data preprocess user).future flatMap {
-      case Preprocessed(game, moves, result) =>
-        (GameRepo insertDenormalized game) >> {
-          game.pgnImport.flatMap(_.user).isDefined ?? GameRepo.setImportCreatedAt(game)
+      (data preprocess user).future flatMap {
+        case Preprocessed(game, moves, result) =>
+          (GameRepo insertDenormalized game) >> {
+            game.pgnImport.flatMap(_.user).isDefined ?? GameRepo.setImportCreatedAt(game)
         } >>
           applyMoves(Pov(game, Color.white), moves) >>-
-          (result foreach { r => applyResult(game, r) }) inject game
-    }
+            (result foreach { r => applyResult(game, r) }) inject game
+      }
   }
 
   def applyResult(game: Game, result: Result) {

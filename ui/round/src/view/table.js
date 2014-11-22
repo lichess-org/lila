@@ -54,14 +54,19 @@ function renderResult(ctrl) {
 
 function renderTableEnd(ctrl) {
   var d = ctrl.data;
-  var buttons = compact(ctrl.vm.redirecting ? null : (
-    button.backToTournament(ctrl) || button.joinRematch(ctrl) || [
-      button.answerOpponentRematch(ctrl) || button.cancelRematch(ctrl) || button.rematch(ctrl),
-      button.newGame(ctrl)
-    ]));
+  var buttons = compact(ctrl.vm.redirecting ? null : [
+    button.backToTournament(ctrl) || [
+      button.joinRematch(ctrl) ||
+      button.answerOpponentRematch(ctrl) ||
+      button.cancelRematch(ctrl) ||
+      button.rematch(ctrl)
+    ],
+    button.replayAndAnalyse(ctrl)
+  ]);
   return [
+    renderReplay(ctrl.replay),
     buttons ? m('div.control.buttons', buttons) : null,
-    renderReplay(ctrl.replay)
+    renderPlayer(ctrl, d.player)
   ];
 }
 
@@ -69,11 +74,12 @@ function renderTableWatch(ctrl) {
   var d = ctrl.data;
   var buttons = compact(ctrl.vm.redirecting ? null : [
     button.viewRematch(ctrl),
-    button.viewTournament(ctrl)
+    button.viewTournament(ctrl),
+    button.replayAndAnalyse(ctrl)
   ]);
   return [
-    buttons ? m('div.control.buttons', buttons) : null,
     renderReplay(ctrl.replay),
+    buttons ? m('div.control.buttons', buttons) : null,
     renderPlayer(ctrl, d.player)
   ];
 }
@@ -91,6 +97,7 @@ function renderTablePlay(ctrl) {
     ) : null
   ]);
   return [
+    renderReplay(ctrl.replay),
     m('div.control.icons', [
       button.standard(ctrl, game.abortable, 'L', 'abortGame', 'abort'),
       button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes'),
@@ -98,16 +105,26 @@ function renderTablePlay(ctrl) {
       button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
     ]),
     buttons ? m('div.control.buttons', buttons) : null,
-    renderReplay(ctrl.replay),
-    m('div.whos_turn',
-      ctrl.trans(d.game.player == d.player.color ? 'yourTurn' : 'waitingForOpponent'))
+    renderPlayer(ctrl, d.player)
   ];
+}
+
+function whosTurn(ctrl, color) {
+  return m('div.whos_turn',
+    ctrl.data.game.player == color ? ctrl.trans(
+      ctrl.data.game.player == ctrl.data.player.color ? 'yourTurn' : 'waitingForOpponent'
+    ) : ''
+  );
 }
 
 module.exports = function(ctrl) {
   var clockRunningColor = ctrl.isClockRunning() ? ctrl.data.game.player : null;
   return m('div.table_wrap', [
-    (ctrl.clock && !ctrl.data.blind) ? renderClock(ctrl.clock, opposite(ctrl.data.player.color), "top", clockRunningColor) : null,
+    (ctrl.clock && !ctrl.data.blind) ? renderClock(
+      ctrl.clock,
+      opposite(ctrl.data.player.color),
+      "top", clockRunningColor
+    ) : whosTurn(ctrl, ctrl.data.opponent.color),
     m('div', {
       class: 'table' + (status.finished(ctrl.data) ? ' finished' : '')
     }, [
@@ -120,6 +137,6 @@ module.exports = function(ctrl) {
     ]), (ctrl.clock && !ctrl.data.blind) ? [
       renderClock(ctrl.clock, ctrl.data.player.color, "bottom", clockRunningColor),
       button.moretime(ctrl)
-    ] : null
+    ] : whosTurn(ctrl, ctrl.data.player.color)
   ])
 }

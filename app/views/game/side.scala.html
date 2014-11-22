@@ -5,50 +5,63 @@
 
 <div class="side">
   <div class="side_box padded">
-    @bookmark.toggle(game)
-    @game.pgnImport.flatMap(_.date).map { date =>
-    PGN Import - @date
-    @game.pgnImport.flatMap(_.user).map { user =>
-    <br />
-    @userIdLink(user.some)
-    }
-    }.getOrElse {
-    @if(game.isBeingPlayed) {
-    @trans.playingRightNow()
-    } else {
-    @game.updatedAt.map(momentFormat)
-    }
-    <br />
-    }
-    <br />
-    @tour.filter(_.isFinished).map { t =>
-    @tournamentLink(t)
-    <br /><br />
-    }
-    @if(game.finishedOrAborted) {
-    @gameEndStatus(game),
-    @game.winner.map { winner =>
-    @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
-    }
-    <br /><br />
-    }
-    @List(opponent, player).map { p =>
-    <div class="player">
-      @playerLink(p, withOnline = false, withDiff = true, cssClass = Some("player color " + p.color.name))
+    <div class="game_infos" data-icon="@game.perfType match {
+      case _ if game.fromPosition => {*}
+      case _ if game.hasAi => {:}
+      case _ if game.imported => {/}
+      case Some(p) => {@p.iconChar}
+      case _ => {8}
+      }">
+
+      @bookmark.toggle(game)
+      <div class="header">
+        <span class="setup">
+          @game.clock.map(_.show).getOrElse {
+          <span data-hint="@trans.unlimited()" class="hint--top">∞</span>
+          } •
+          @if(game.variant.exotic) {
+          @variantLink(game.variant, (if (game.variant ==  chess.Variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top")
+          } else {
+          @game.perfType.map { pt =>
+          <span class="hint--top" data-hint="@pt.title">@pt.name.toUpperCase</span>
+          }
+          } • @game.rated.fold(trans.rated.str(), trans.casual.str()).toUpperCase
+        </span>
+        @game.pgnImport.flatMap(_.date).getOrElse(
+        game.isBeingPlayed.fold(trans.playingRightNow(), momentFormat(game.createdAt))
+        )
+      </div>
+      @game.pgnImport.flatMap(_.date).map { date =>
+      Imported
+      @game.pgnImport.flatMap(_.user).map { user =>
+      by
+      @userIdLink(user.some, None, false)
+      <br />
+      }
+      }
     </div>
-    }
-    <br />
-    <span data-icon="p"> @shortClockName(game.clock)</span>,
-    @variantLink(game.variant, variantName(game.variant))
-    @if(game.rated) {
-    , @trans.rated()<br />
+    <div class="players">
+      @List(game.whitePlayer, game.blackPlayer).map { p =>
+      <div class="player color-icon is @{p.color.name}">
+        @playerLink(p, withOnline = false, withDiff = true)
+      </div>
+      }
+
+    </div>
+    @if(game.finishedOrAborted) {
+    <div class="status">
+      @gameEndStatus(game)
+      @game.winner.map { winner =>
+      • @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+      }
+    </div>
     }
     @if(game.variant.threeCheck) {
     <div class="check_count" data-icon="@lila.rating.PerfType("threeCheck").map(_.iconChar)">
       Checks given:
       @* Note that they are stored the other way round, as checks received *@
-      <span class="player color white">@game.checkCount.black</span>
-      <span class="player color black">@game.checkCount.white</span>
+      <span class="player is color-icon black">@game.checkCount.black</span>
+      <span class="player is color-icon white">@game.checkCount.white</span>
     </div>
     }
   </div>
@@ -62,7 +75,7 @@
   @tour match {
   case Some(t: lila.tournament.StartedOrFinished) => {
   <div class="game_tournament side_box no_padding scroll-shadow-soft">
-    <p class="top" data-icon="g"> @t.fullName</p>
+    <p class="top" data-icon="g"> <a href="@routes.Tournament.show(t.id)">@t.fullName</a></p>
     @t match {
     case t: lila.tournament.Started => {
     <div class="clock" data-time="@t.remainingSeconds">
