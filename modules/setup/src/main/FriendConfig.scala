@@ -26,8 +26,7 @@ case class FriendConfig(
       mode = (variant == Variant.FromPosition).fold(Mode.Casual, mode),
       variant = variant,
       source = (variant == Variant.FromPosition).fold(Source.Position, Source.Friend),
-      pgnImport = None,
-      ficsRelay = None)
+      pgnImport = None)
   }
 
   def encode = RawFriendConfig(

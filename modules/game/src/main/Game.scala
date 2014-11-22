@@ -285,6 +285,7 @@ case class Game(
   def analysable = replayable && turns > 4 && Game.analysableVariants(variant)
 
   def fromPosition = source ?? (Source.Position==)
+  def isFecsRelay = source ?? (Source.Relay==)
 
   def winner = players find (_.wins)
 
@@ -361,9 +362,6 @@ case class Game(
   def pgnImport = metadata.pgnImport
   def isPgnImport = pgnImport.isDefined
 
-  def ficsRelay = metadata.ficsRelay
-  def isFicsRelay = ficsRelay.isDefined
-
   def resetTurns = copy(turns = 0)
 
   lazy val opening =
@@ -396,7 +394,6 @@ object Game {
     variant: Variant,
     source: Source,
     pgnImport: Option[PgnImport],
-    ficsRelay: Option[FicsRelay],
     castles: Castles = Castles.init): Game = Game(
     id = IdGenerator.game,
     whitePlayer = whitePlayer,
@@ -414,7 +411,6 @@ object Game {
     metadata = Metadata(
       source = source.some,
       pgnImport = pgnImport,
-      ficsRelay = ficsRelay,
       tournamentId = none,
       tvAt = none,
       analysed = false),
@@ -426,7 +422,6 @@ object Game {
   import lila.db.BSON
   import Player.playerBSONHandler
   import PgnImport.pgnImportBSONHandler
-  import FicsRelay.ficsRelayBSONHandler
   import CastleLastMoveTime.castleLastMoveTimeBSONHandler
 
   object BSONFields {
@@ -455,7 +450,6 @@ object Game {
     val updatedAt = "ua"
     val source = "so"
     val pgnImport = "pgni"
-    val ficsRelay = "fics"
     val tournamentId = "tid"
     val tvAt = "tv"
     val winnerColor = "w"
@@ -510,7 +504,6 @@ object Game {
         metadata = Metadata(
           source = r intO source flatMap Source.apply,
           pgnImport = r.getO[PgnImport](pgnImport)(PgnImport.pgnImportBSONHandler),
-          ficsRelay = r.getO[FicsRelay](ficsRelay)(FicsRelay.ficsRelayBSONHandler),
           tournamentId = r strO tournamentId,
           tvAt = r dateO tvAt,
           analysed = r boolD analysed)
@@ -541,7 +534,6 @@ object Game {
       updatedAt -> o.updatedAt.map(w.date),
       source -> o.metadata.source.map(_.id),
       pgnImport -> o.metadata.pgnImport,
-      ficsRelay -> o.metadata.ficsRelay,
       tournamentId -> o.metadata.tournamentId,
       tvAt -> o.metadata.tvAt.map(w.date),
       analysed -> w.boolO(o.metadata.analysed)

@@ -87,8 +87,7 @@ private[round] final class Rematcher(
     variant = pov.game.variant,
     source = pov.game.source | Source.Lobby,
     castles = situation.fold(Castles.init)(_.situation.board.history.castles),
-    pgnImport = None,
-    ficsRelay = None)
+    pgnImport = None)
 
   private def returnPlayer(game: Game, color: ChessColor): Fu[lila.game.Player] = {
     val player = lila.game.Player.make(color = color, aiLevel = game.opponent(color).aiLevel)

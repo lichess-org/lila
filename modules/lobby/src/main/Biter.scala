@@ -46,8 +46,7 @@ private[lobby] object Biter {
     mode = hook.realMode,
     variant = hook.realVariant,
     source = lila.game.Source.Lobby,
-    pgnImport = None,
-    ficsRelay = None)
+    pgnImport = None)
 
   def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean = hook.open &&
     hook.realMode.casual.fold(

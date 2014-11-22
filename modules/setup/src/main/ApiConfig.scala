@@ -21,6 +21,5 @@ private[setup] case object ApiConfig extends Config with GameGenerator {
     mode = mode,
     variant = variant,
     source = Source.Api,
-    pgnImport = None,
-    ficsRelay = None)
+    pgnImport = None)
 }

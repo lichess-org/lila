@@ -7,7 +7,7 @@ import akka.actor.ActorRef
 import akka.pattern.after
 import chess.format.UciMove
 import chess.{ Color, Move, PromotableRole, Pos }
-import lila.game.{ Game, Player, Source, GameRepo, Pov, FicsRelay }
+import lila.game.{ Game, Player, Source, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
 
@@ -25,11 +25,7 @@ final class Importer(
       mode = chess.Mode.Casual,
       variant = replay.setup.board.variant,
       source = Source.Relay,
-      pgnImport = none,
-      ficsRelay = FicsRelay(
-        white = data.white,
-        black = data.black).some
-    ).start
+      pgnImport = none).start
 
     def applyMoves(pov: Pov, moves: List[Move]): Funit = moves match {
       case Nil => after(delay, scheduler)(funit)
