@@ -185,7 +185,7 @@ final class JsonView(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
               "user" -> opponentUser.map { userJsonView(_, true) },
-              "name" -> player.name,
+              "name" -> opponent.name,
               "rating" -> opponent.rating,
               "ratingDiff" -> opponent.ratingDiff,
               "onGame" -> (opponent.isAi || socket.onGame(opponent.color)),

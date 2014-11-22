@@ -285,7 +285,7 @@ case class Game(
   def analysable = replayable && turns > 4 && Game.analysableVariants(variant)
 
   def fromPosition = source ?? (Source.Position==)
-  def isFecsRelay = source ?? (Source.Relay==)
+  def isFicsRelay = source ?? (Source.Relay==)
 
   def winner = players find (_.wins)
 
