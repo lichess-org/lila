@@ -38,7 +38,7 @@ module.exports = function(ctrl, player, klass) {
     ]),
     m('span.status')
   ] : m('span.user_link', [
-    'Anonymous',
-    m('span.status')
+    player.name || 'Anonymous',
+    ctrl.data.game.source == 'relay' ? null : m('span.status')
   ]);
 }

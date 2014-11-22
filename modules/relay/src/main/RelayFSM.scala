@@ -46,7 +46,6 @@ private[relay] final class RelayFSM(importer: Importer) extends Actor with AkkaF
     case Event(In(str), _) if str endsWith "fics% " =>
       send("unobserve")
       send("observe /l")
-      send("moves")
       // wait so other messages pass and the movelist is full
       context.system.scheduler.scheduleOnce(700 millis) { send("moves") }
       goto(Create)
@@ -70,10 +69,6 @@ private[relay] final class RelayFSM(importer: Importer) extends Actor with AkkaF
     case Event(In(str), _) if (str contains "Removing game ") =>
       log(str)
       goto(Lobby) using none
-    case Event(In(str), None) if str contains "<12>" => stay
-    case Event(In(str), _) =>
-      println(str)
-      stay
   }
 
   when(Observe) {

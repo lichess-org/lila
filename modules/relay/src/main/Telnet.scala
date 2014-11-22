@@ -35,7 +35,7 @@ private[relay] final class Telnet(remote: InetSocketAddress, listener: ActorRef)
           listener ! Telnet.WriteFailed
         case Received(data) =>
           val msg = data decodeString "UTF-8"
-          println("{telnet} " + msg)
+          println(s"<telnet>$msg</telnet>")
           listener ! Telnet.In(msg)
         case "close" =>
           connection ! Close
