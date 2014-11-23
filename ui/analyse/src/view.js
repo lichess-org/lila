@@ -183,18 +183,7 @@ function renderAnalyse(ctrl) {
 
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap',
-    m('div.lichess_board.' + ctrl.data.game.variant.key, {
-        config: function(el, isUpdate) {
-          if (!isUpdate) el.addEventListener('wheel', function(e) {
-            if (e.deltaY > 0) control.next(ctrl);
-            else if (e.deltaY < 0) control.prev(ctrl);
-            m.redraw();
-            e.preventDefault();
-            return false;
-          });
-        }
-      },
-      chessground.view(ctrl.chessground)));
+    m('div.lichess_board.' + ctrl.data.game.variant.key, chessground.view(ctrl.chessground)));
 }
 
 function blindBoard(ctrl) {

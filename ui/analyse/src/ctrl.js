@@ -103,14 +103,14 @@ module.exports = function(cfg, router, i18n, onChange) {
   }.bind(this);
 
   this.onMove = function(orig, dest) {
-    console.log(this.analyse.tree);
     var chess = new Chess(
       this.vm.situation.fen,
       this.data.game.variant.key == 'chess960' ? 1 : 0
     );
-    var m = chess.move({from: orig, to: dest});
-    if (!m) return;
-    this.analyse.explore(this.vm.path, m.san);
+    var move = chess.move({from: orig, to: dest});
+    if (!move) return;
+    this.jump(this.analyse.explore(this.vm.path, move.san));
+    m.redraw();
   }.bind(this);
 
   this.router = router;
