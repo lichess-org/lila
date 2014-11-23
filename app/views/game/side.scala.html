@@ -13,9 +13,9 @@
       case _ => {8}
       }">
 
-      @bookmark.toggle(game)
       <div class="header">
         <span class="setup">
+          @bookmark.toggle(game)
           @game.clock.map(_.show).getOrElse {
           <span data-hint="@trans.unlimited()" class="hint--top">∞</span>
           } •
