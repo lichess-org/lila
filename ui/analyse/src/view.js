@@ -175,10 +175,7 @@ function renderAnalyse(ctrl) {
   return m('div.analyse', {
       onclick: function(e) {
         var path = e.target.getAttribute('data-path') || e.target.parentNode.getAttribute('data-path');
-        if (path) {
-          ctrl.jump(treePath.read(path));
-          m.redraw();
-        }
+        if (path) ctrl.jump(treePath.read(path));
       }
     },
     tree);
