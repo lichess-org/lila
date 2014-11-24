@@ -59,6 +59,8 @@ case class Perfs(
 
   def ratingMap: Map[String, Int] = perfsMap mapValues (_.intRating)
 
+  def ratingOf(pt: String): Option[Int] = perfsMap get pt map (_.intRating)
+
   def apply(key: String): Option[Perf] = perfsMap get key
 
   def apply(perfType: PerfType): Perf = perfType match {

@@ -12,7 +12,7 @@
       case _ => {8}
       }">
       <div class="header">
-        <strong>@usernameOrId(user.id)</strong><br />
+        <strong>@userLink(user, withOnline = false, withPerfRating = g.perfType)</strong><br />
         <span class="setup">
           @g.clock.map(_.show).getOrElse {∞} •
           @if(g.variant.exotic) {

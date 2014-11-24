@@ -165,6 +165,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     withPowerTip: Boolean = true,
     withTitle: Boolean = true,
     withBestRating: Boolean = false,
+    withPerfRating: Option[PerfType] = None,
     text: Option[String] = None,
     mod: Boolean = false) = Html {
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
@@ -173,9 +174,13 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val titleS = if (withTitle) titleTag(user.title) else ""
     val space = if (withOnline) "&nbsp;" else ""
     val dataIcon = if (withOnline) """ data-icon="r"""" else ""
-    val rating = withBestRating ?? {
-      user.perfs.bestPerf ?? {
-        case (pt, perf) => s"&nbsp;${showPerfRating(pt, perf, "hint--bottom")}"
+    val rating = withPerfRating map (_.key) flatMap user.perfs.ratingOf map { rating =>
+      s"&nbsp;($rating)"
+    } getOrElse {
+      withBestRating ?? {
+        user.perfs.bestPerf ?? {
+          case (pt, perf) => s"&nbsp;${showPerfRating(pt, perf, "hint--bottom")}"
+        }
       }
     }
     s"""<a$dataIcon $klass $href>$space$titleS$content$rating</a>"""
