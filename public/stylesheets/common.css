@@ -804,13 +804,26 @@ div.side_box .top {
 div.side_box .padded {
   padding: 7px;
 }
+.notification a.notification_link {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 10px);
+  top: 0;
+  left: 0;
+  text-decoration: none;
+  z-index: 3;
+}
+.notification .game_infos,
 div.side_box .game_infos {
   padding-left: 36px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 6px;
   position: relative;
 }
+div.side_box .game_infos {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+}
+.notification .game_infos::before,
 div.side_box .game_infos::before {
   position: absolute;
   top: 2px;
@@ -1792,9 +1805,11 @@ div.progressbar.flashy.green div {
   font-weight: bold;
 }
 #notifications .actions {
-  text-align: right;
-  width: 100%;
-  margin: 3px 0 3px 0;
+  position: absolute;
+  right: 5px;
+  top: 6px;
+  z-index: 4;
+  text-decoration: none;
 }
 #notifications a {
   font-weight: bold;
@@ -1802,9 +1817,10 @@ div.progressbar.flashy.green div {
 }
 #notifications .actions a {
   margin-left: 10px;
+  transition: color 0.5s;
 }
-#notifications a:hover {
-  text-decoration: underline;
+#notifications .actions a:hover {
+  color: #d85000;
 }
 a.hover_text > .base,
 a.hover_text:hover > .hover {
