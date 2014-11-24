@@ -174,8 +174,10 @@ var storage = {
           else {
             nbChallengesAdd();
             $('#challenge_notifications').append(data.html);
-            $notif = $('#' + htmlId).one('mouseover', function() {
-              $(this).removeClass('glowing glow');
+            $notif = $('#' + htmlId);
+            $notif.add($notif.find("a.disabled")).on('click', function() {
+              location.href = $notif.data('href');
+              return false;
             });
             declineListener($notif.find('a.decline'));
             $('body').trigger('lichess.content_loaded');

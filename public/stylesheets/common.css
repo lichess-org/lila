@@ -1005,21 +1005,13 @@ body.offline #nb_connected_players {
   padding: 5px 3% 5px 3%;
   text-align: center;
 }
-.notification a.notification_link {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  text-decoration: none;
-  z-index: 3;
-}
-#challenge_notifications > div.notification {
+#challenge_notifications div.notification {
+  cursor: pointer;
   border-top: 1px solid #c0c0c0;
   padding: 6px 8px 7px 8px;
   position: relative;
 }
-#challenge_notifications > div.notification:hover {
+#challenge_notifications div.notification:hover {
   background-color: #f0f0f0;
 }
 #challenge_notifications,
@@ -1055,6 +1047,12 @@ body.offline #nb_connected_players {
 #challenge_notifications > div a.close:hover,
 #notifications > div a.close:hover {
   font-weight: bold;
+}
+#challenge_notifications .user_link {
+  font-weight: bold;
+}
+#challenge_notifications .setup {
+  text-transform: uppercase;
 }
 #challenge_notifications .actions,
 #notifications .actions {
