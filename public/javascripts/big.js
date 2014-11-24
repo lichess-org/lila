@@ -150,7 +150,7 @@ var storage = {
         if (!storage.get('challenge-refused-' + data.id)) {
           var nbChallenges = function() {
             var nb = parseInt($('#nb_challenges').text());
-            return nb ? nb : 0;
+            return nb ? ((nb > 0) ? nb : 0) : 0;
           };
           var nbChallengesAdd = function() {
             $('#nb_challenges').text(nbChallenges() + 1).toggleClass("unread", true);
