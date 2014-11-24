@@ -1,33 +1,32 @@
 @(g: Game, user: User)
 
-
 <div id="challenge_reminder_@g.id" class="notification challenge_reminder">
-	<a class="notification_link" href="@routes.Round.watcher(g.id, "white")"></a>
-	<div class="inner">
-		<div class="actions">
-		  <a class="action decline" href="@routes.Setup.decline(g.id)" data-icon="L">&nbsp;</a>
-		</div>
-		<div class="game_infos" data-icon="@g.perfType match {
-		  case _ if g.fromPosition => {*}
-		  case _ if g.hasAi => {:}
-		  case _ if g.imported => {/}
-		  case Some(p) => {@p.iconChar}
-		  case _ => {8}
-		  }">
+  <a class="notification_link" href="@routes.Round.watcher(g.id, "white")"></a>
+  <div class="inner">
+    <div class="actions">
+      <a class="action decline" href="@routes.Setup.decline(g.id)" data-icon="L">&nbsp;</a>
+    </div>
+    <div class="game_infos" data-icon="@g.perfType match {
+      case _ if g.fromPosition => {*}
+      case _ if g.hasAi => {:}
+      case _ if g.imported => {/}
+      case Some(p) => {@p.iconChar}
+      case _ => {8}
+      }">
 
-		  <div class="header">
-		  	<b>@usernameOrId(user.id)</b><br />
-		    <span class="setup">
-		      @g.clock.map(_.show).getOrElse {∞} •
-		      @if(g.variant.exotic) {
-		      @((if (g.variant == chess.Variant.KingOfTheHill) g.variant.shortName else g.variant.name).toUpperCase)
-		      } else {
-		      @g.perfType.map { pt =>
-		      @pt.name.toUpperCase
-		      }
-		      } • @g.rated.fold(trans.rated.en(), trans.casual.en()).toUpperCase
-		    </span>
-		  </div>
-		</div>
-	</div>
+      <div class="header">
+        <b>@usernameOrId(user.id)</b><br />
+        <span class="setup">
+          @g.clock.map(_.show).getOrElse {∞} •
+          @if(g.variant.exotic) {
+          @((if (g.variant == chess.Variant.KingOfTheHill) g.variant.shortName else g.variant.name).toUpperCase)
+          } else {
+          @g.perfType.map { pt =>
+          @pt.name.toUpperCase
+          }
+          } • @g.rated.fold(trans.rated.en(), trans.casual.en()).toUpperCase
+        </span>
+      </div>
+    </div>
+  </div>
 </div>
