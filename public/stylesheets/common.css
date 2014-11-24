@@ -1888,7 +1888,7 @@ input.copyable {
   border: 1px solid #ccc;
 }
 #powerTip.messages {
-  width: 500px;
+  max-width: 500px;
   padding: 1em;
   min-height: 1em;
 }
