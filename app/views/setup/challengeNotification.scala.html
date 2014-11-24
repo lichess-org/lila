@@ -4,16 +4,13 @@
   <a class="notification_link" href="@routes.Round.watcher(g.id, "white")"></a>
   <div class="inner">
     <div class="actions">
-      <a class="action decline" href="@routes.Setup.decline(g.id)" data-icon="L">&nbsp;</a>
+      <a class="action decline" href="@routes.Setup.decline(g.id)" data-icon="L"></a>
     </div>
     <div class="game_infos" data-icon="@g.perfType match {
       case _ if g.fromPosition => {*}
-      case _ if g.hasAi => {:}
-      case _ if g.imported => {/}
       case Some(p) => {@p.iconChar}
       case _ => {8}
       }">
-
       <div class="header">
         <strong>@usernameOrId(user.id)</strong><br />
         <span class="setup">
