@@ -72,7 +72,6 @@ module.exports = function(cfg, router, i18n, onChange) {
         };
       }
     }
-    // console.log(situationCache[hash]);
     this.vm.situation = situationCache[hash] || {
       fen: this.data.game.initialFen,
       turnColor: 'white',
@@ -107,9 +106,13 @@ module.exports = function(cfg, router, i18n, onChange) {
       this.vm.situation.fen,
       this.data.game.variant.key == 'chess960' ? 1 : 0
     );
-    var move = chess.move({from: orig, to: dest});
-    if (!move) return;
-    this.jump(this.analyse.explore(this.vm.path, move.san));
+    var move = chess.move({
+      from: orig,
+      to: dest,
+      promotion: (dest[1] == 1 || dest[1] == 8) ? 'q' : null
+    });
+    if (move) this.jump(this.analyse.explore(this.vm.path, move.san));
+    else this.chessground.set(this.vm.situation);
     m.redraw();
   }.bind(this);
 

@@ -34,9 +34,7 @@ function makeConfig(data, situation, onMove) {
 }
 
 function make(data, situation, onMove) {
-  var c = makeConfig(data, situation, onMove);
-  console.log(c);
-  return new chessground.controller(c);
+  return new chessground.controller(makeConfig(data, situation, onMove));
 }
 
 module.exports = {

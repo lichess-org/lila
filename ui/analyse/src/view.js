@@ -13,6 +13,16 @@ function renderEval(e) {
   return (e > 0 ? '+' : '') + e;
 }
 
+function renderEvalTag(e) {
+  return {
+    tag: 'span',
+    attrs: {
+      class: 'eval'
+    },
+    children: [e]
+  };
+}
+
 function autoScroll(movelist) {
   var plyEl = movelist.querySelector('.active');
   if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
@@ -22,7 +32,7 @@ var emptyMove = m('em.move.empty', '...');
 
 function renderMove(ctrl, move, path) {
   if (!move) return emptyMove;
-  var pathStr = treePath.write(treePath.withPly(path, move.ply));
+  var pathStr = treePath.write(path);
   return {
     tag: 'a',
     attrs: {
@@ -31,8 +41,8 @@ function renderMove(ctrl, move, path) {
     },
     children: [
       move.san,
-      move.eval ? m('span', renderEval(move.eval)) : (
-        move.mate ? m('span', '#' + move.mate) : null)
+      move.eval ? renderEvalTag(renderEval(move.eval)) : (
+        move.mate ? renderEvalTag('#' + move.mate) : null)
     ]
   };
 }
@@ -41,7 +51,21 @@ function plyToTurn(ply) {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
-function renderVariation(ctrl, variation, path) {
+function renderVariation(ctrl, variation, path, border) {
+  return m('div', {
+    class: 'variation' + (border ? ' border' : '')
+  }, renderVariationContent(ctrl, variation, path));
+}
+
+function renderVariationNested(ctrl, variation, path) {
+  return m('span.variation', [
+    '(',
+    renderVariationContent(ctrl, variation, path),
+    ')'
+  ]);
+}
+
+function renderVariationContent(ctrl, variation, path) {
   var turns = [];
   if (variation[0].ply % 2 === 0) {
     variation = variation.slice(0);
@@ -56,24 +80,42 @@ function renderVariation(ctrl, variation, path) {
     white: variation[i],
     black: variation[i + 1]
   });
-  return m('div.variation', turns.map(function(turn) {
+  return turns.map(function(turn) {
     return renderVariationTurn(ctrl, turn, path);
-  }));
+  });
+}
+
+function renderVariationMeta(ctrl, move, path) {
+  if (!move || !move.variations.length) return;
+  return move.variations.map(function(variation, i) {
+    return renderVariationNested(ctrl, variation, treePath.withVariation(path, i + 1));
+  });
 }
 
 function renderVariationTurn(ctrl, turn, path) {
-  var wMove = turn.white ? renderMove(ctrl, turn.white, path) : null;
-  var bMove = turn.black ? renderMove(ctrl, turn.black, path) : null;
-  if (turn.white) return [turn.turn + '.', wMove, (turn.black ? [m.trust('&nbsp;'), bMove] : ''), ' '];
-  return [turn.turn + '...', bMove, ' '];
+  var wPath = turn.white ? treePath.withPly(path, turn.white.ply) : null;
+  var wMove = wPath ? renderMove(ctrl, turn.white, wPath) : null;
+  var wMeta = renderVariationMeta(ctrl, turn.white, wPath);
+  var bPath = turn.black ? treePath.withPly(path, turn.black.ply) : null;
+  var bMove = bPath ? renderMove(ctrl, turn.black, bPath) : null;
+  var bMeta = renderVariationMeta(ctrl, turn.black, bPath);
+  if (wMove) {
+    if (wMeta) return [
+      renderIndex(turn.turn + '.'),
+      wMove,
+      wMeta,
+      bMove ? [
+        bMove,
+        bMeta
+      ] : null
+    ];
+    return [renderIndex(turn.turn + '.'), wMove, (bMove ? [' ', bMove, bMeta] : '')];
+  }
+  return [renderIndex(turn.turn + '...'), bMove, bMeta];
 }
 
 function renderOpening(ctrl, opening) {
-  return m('div.comment.opening', [
-    opening.code,
-    ': ',
-    opening.name
-  ]);
+  return m('div.comment.opening', opening.code + ': ' + opening.name);
 }
 
 function renderMeta(ctrl, move, path) {
@@ -81,24 +123,26 @@ function renderMeta(ctrl, move, path) {
   var opening = ctrl.data.game.opening;
   opening = (move && opening && opening.size == move.ply) ? renderOpening(ctrl, opening) : null;
   if (!move || (!opening && !move.comments.length && !move.variations.length)) return;
-  return [
-    opening,
-    move.comments.length ? move.comments.map(function(comment) {
-      return m('div.comment', comment);
-    }) : null,
-    move.variations.length ? move.variations.map(function(variation, i) {
-      return renderVariation(ctrl, variation, treePath.withVariation(path, i + 1));
-    }) : null,
-  ];
+  var children = [];
+  if (opening) children.push(opening);
+  if (move.comments.length) move.comments.forEach(function(comment) {
+    children.push(m('div.comment', comment));
+  });
+  var border = children.length === 0;
+  if (move.variations.length) move.variations.forEach(function(variation, i) {
+    children.push(renderVariation(ctrl, variation, treePath.withVariation(path, i + 1), border));
+    border = false;
+  });
+  return children;
 }
 
-function renderIndex(turn) {
+function renderIndex(txt) {
   return {
-    tag: 'div',
+    tag: 'span',
     attrs: {
       class: 'index'
     },
-    children: [turn.turn]
+    children: [txt]
   };
 }
 
@@ -113,16 +157,18 @@ function renderTurnDiv(children) {
 }
 
 function renderTurn(ctrl, turn, path) {
-  var index = renderIndex(turn);
-  var wMove = turn.white ? renderMove(ctrl, turn.white, path) : null;
-  var wMeta = renderMeta(ctrl, turn.white, path);
-  var bMove = turn.black ? renderMove(ctrl, turn.black, path) : null;
-  var bMeta = renderMeta(ctrl, turn.black, path);
-  if (turn.white) {
+  var index = renderIndex(turn.turn);
+  var wPath = turn.white ? treePath.withPly(path, turn.white.ply) : null;
+  var wMove = wPath ? renderMove(ctrl, turn.white, wPath) : null;
+  var wMeta = renderMeta(ctrl, turn.white, wPath);
+  var bPath = turn.black ? treePath.withPly(path, turn.black.ply) : null;
+  var bMove = bPath ? renderMove(ctrl, turn.black, bPath) : null;
+  var bMeta = renderMeta(ctrl, turn.black, bPath);
+  if (wMove) {
     if (wMeta) return [
       renderTurnDiv([index, wMove, emptyMove]),
       wMeta,
-      turn.black ? [
+      bMove ? [
         renderTurnDiv([index, emptyMove, bMove]),
         bMeta
       ] : null,

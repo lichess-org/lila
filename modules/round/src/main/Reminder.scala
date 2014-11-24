@@ -27,7 +27,6 @@ private final class Reminder(coll: Coll) {
             -_.game.updatedAt.fold(0l)(_.getMillis)
           } take max
         }
-
     }
 
   private[round] def remind(game: Game) {

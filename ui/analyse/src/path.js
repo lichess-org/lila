@@ -1,3 +1,14 @@
+function copy(obj, newValues) {
+  var k, c = {};
+  for (k in obj) {
+    c[k] = obj[k];
+  }
+  for (k in newValues) {
+    c[k] = newValues[k];
+  }
+  return c;
+}
+
 module.exports = {
 
   default: function() {
@@ -29,19 +40,21 @@ module.exports = {
 
   withPly: function(path, ply) {
     var p2 = path.slice(0);
-    p2[p2.length - 1].ply = ply;
+    var last = p2.length - 1;
+    p2[last] = copy(p2[last], {ply: ply});
     return p2;
   },
 
   withVariation: function(path, index) {
     var p2 = path.slice(0);
     var last = p2.length - 1;
-    p2[last] = {
-      ply: p2[last].ply,
+    var ply = p2[last].ply;
+    p2[last] = copy(p2[last], {
+      ply: ply,
       variation: index
-    };
+    });
     p2.push({
-      ply: null,
+      ply: ply,
       variation: null
     });
     return p2;
