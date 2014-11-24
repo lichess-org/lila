@@ -20,7 +20,7 @@
 		    <span class="setup">
 		      @g.clock.map(_.show).getOrElse {∞} •
 		      @if(g.variant.exotic) {
-		      if (g.variant ==  chess.Variant.KingOfTheHill) g.variant.shortName else g.variant.name).toUpperCase
+		      @((if (g.variant == chess.Variant.KingOfTheHill) g.variant.shortName else g.variant.name).toUpperCase)
 		      } else {
 		      @g.perfType.map { pt =>
 		      @pt.name.toUpperCase

@@ -148,7 +148,16 @@ var storage = {
       },
       challengeReminder: function(data) {
         if (!storage.get('challenge-refused-' + data.id)) {
-          var nbChallenges = parseInt($('#nb_challenges').text());
+          var nbChallenges = function() {
+            var nb = parseInt($('#nb_challenges').text());
+            return nb ? nb : 0;
+          };
+          var nbChallengesAdd = function() {
+            $('#nb_challenges').text(nbChallenges() + 1).toggleClass("unread", true);
+          };
+          var nbChallengesMinus = function() {
+            $('#nb_challenges').text(nbChallenges() - 1).toggleClass("unread", nbChallenges() > 0);
+          };
           var htmlId = 'challenge_reminder_' + data.id;
           var $notif = $('#' + htmlId);
           var declineListener = function($a, callback) {
@@ -157,20 +166,13 @@ var storage = {
               storage.set('challenge-refused-' + data.id, 1);
               $('#' + htmlId).remove();
               if ($.isFunction(callback)) callback();
-              if (!nbChallenges) {
-                $('#nb_challenges').text(0).toggleClass("unread", false);
-              } else {
-                $('#nb_challenges').text(nbChallenges - 1).toggleClass("unread", nbChallenges - 1 > 0);
-              }
+              nbChallengesMinus();
               return false;
             });
           };
           if ($notif.length) clearTimeout($notif.data('timeout'));
           else {
-            if (!nbChallenges) {
-              nbChallenges = 0;
-            }
-            $('#nb_challenges').text(nbChallenges + 1).toggleClass("unread", true);
+            nbChallengesAdd();
             $('#challenge_notifications').append(data.html);
             $notif = $('#' + htmlId).one('mouseover', function() {
               $(this).removeClass('glowing glow');
@@ -184,6 +186,7 @@ var storage = {
           }
           $('div.lichess_overboard.joining.' + data.id).each(function() {
             $notif.hide();
+            nbChallengesMinus();
             if (!$(this).find('a.decline').length) $(this).find('form').append(
               declineListener($(data.html).find('a.decline'), function() {
                 location.href = "/";
@@ -192,6 +195,7 @@ var storage = {
           });
           $notif.data('timeout', setTimeout(function() {
             $notif.remove();
+            nbChallengesMinus();
           }, 3000));
         }
       },
