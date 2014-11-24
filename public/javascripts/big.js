@@ -148,6 +148,7 @@ var storage = {
       },
       challengeReminder: function(data) {
         if (!storage.get('challenge-refused-' + data.id)) {
+          var nbChallenges = parseInt($('#nb_challenges').text());
           var htmlId = 'challenge_reminder_' + data.id;
           var $notif = $('#' + htmlId);
           var declineListener = function($a, callback) {
@@ -156,12 +157,21 @@ var storage = {
               storage.set('challenge-refused-' + data.id, 1);
               $('#' + htmlId).remove();
               if ($.isFunction(callback)) callback();
+              if (!nbChallenges) {
+                $('#nb_challenges').text(0).toggleClass("unread", false);
+              } else {
+                $('#nb_challenges').text(nbChallenges - 1).toggleClass("unread", nbChallenges - 1 > 0);
+              }
               return false;
             });
           };
           if ($notif.length) clearTimeout($notif.data('timeout'));
           else {
-            $('#notifications').append(data.html);
+            if (!nbChallenges) {
+              nbChallenges = 0;
+            }
+            $('#nb_challenges').text(nbChallenges + 1).toggleClass("unread", true);
+            $('#challenge_notifications').append(data.html);
             $notif = $('#' + htmlId).one('mouseover', function() {
               $(this).removeClass('glowing glow');
             });

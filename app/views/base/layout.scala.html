@@ -184,6 +184,15 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
         <span class="is2" data-icon="e"></span>
         <span id="nb_messages" class="new_messages@if(ctx.nbMessages > 0) { unread}">@ctx.nbMessages</span>
       </a>
+      <div class="challenge_notifications">
+        <a id="challenge_notifications_tag" class="toggle toggle_challenge_notifications">
+          <span data-icon="U"></span>
+          <span id="nb_challenges" class="new_challenges">0</span>
+        </a>
+        <div id="challenge_notifications" class="links dropdown">
+          <div class="title">Pending challenges</div>
+        </div>
+      </div>
       }.getOrElse {
       <a href="@routes.Auth.login" class="signin button" data-icon="F">&nbsp;@trans.signIn()</a>
       }
