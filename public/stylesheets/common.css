@@ -613,6 +613,7 @@ body.tight #site_baseline {
 }
 #footer_wrap {
   border-top: 1px solid #c9c9c9;
+  border-bottom: 1px solid #c9c9c9;
   background: #e4e4e4;
   padding: 30px 0;
   margin-top: 60px;
@@ -803,13 +804,17 @@ div.side_box .top {
 div.side_box .padded {
   padding: 7px;
 }
+.notification .game_infos,
 div.side_box .game_infos {
   padding-left: 36px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 6px;
   position: relative;
 }
+div.side_box .game_infos {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+}
+.notification .game_infos::before,
 div.side_box .game_infos::before {
   position: absolute;
   top: 2px;
@@ -926,7 +931,8 @@ body.offline #nb_connected_players {
   color: #303030;
   border-color: #d85000;
 }
-#top span.new_messages {
+#top span.new_messages,
+#top span.new_challenges {
   display: none;
   padding: 1px 5px 1px 4px;
   background: #bbb;
@@ -935,7 +941,8 @@ body.offline #nb_connected_players {
   border-radius: 2px;
   font-size: 0.9em;
 }
-#top span.new_messages.unread {
+#top span.new_messages.unread,
+#top span.new_challenges.unread {
   display: inline;
 }
 #top .shown a.toggle {
@@ -951,13 +958,16 @@ body.offline #nb_connected_players {
 #user_tag {
   font-weight: bold;
 }
+#top div.challenge_notifications,
 #top div.auth {
   float: right;
   position: relative;
 }
+#top div.challenge_notifications.shown .links,
 #top div.auth.shown .links {
   display: block;
 }
+#top div.challenge_notifications .links > a,
 #top div.auth .links > a {
   display: block;
   padding: 5px 10px;
@@ -987,6 +997,84 @@ body.offline #nb_connected_players {
 #top div.auth .ping {
   display: block;
   padding: 5px 10px 10px 10px;
+}
+#top #challenge_notifications_tag span:before {
+  padding-left: 3px;
+}
+#top #challenge_notifications div.title {
+  padding: 5px 3% 5px 3%;
+  text-align: center;
+}
+.notification a.notification_link {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  text-decoration: none;
+  z-index: 3;
+}
+#challenge_notifications > div.notification {
+  border-top: 1px solid #c0c0c0;
+  padding: 6px 8px 7px 8px;
+  position: relative;
+}
+#challenge_notifications > div.notification:hover {
+  background-color: #f0f0f0;
+}
+#challenge_notifications,
+#notifications {
+  position: absolute;
+  top: -20px;
+  left: -30px;
+  width: 228px;
+  z-index: 2;
+}
+#notifications > div {
+  border: 1px solid #c0c0c0;
+  padding: 6px 8px 7px 8px;
+  margin-bottom: 8px;
+  border-radius: 2px;
+  box-shadow: 0 0 3px 0px #d85000;
+  transition: box-shadow 1.5s;
+}
+#notifications > div.foldable {
+  line-height: 1.6em;
+  height: 1.5em;
+  overflow: hidden;
+}
+#notifications > div.foldable:hover {
+  line-height: inherit;
+  height: auto;
+}
+#challenge_notifications > div a.close,
+#notifications > div a.close {
+  text-decoration: none;
+  float: right;
+}
+#challenge_notifications > div a.close:hover,
+#notifications > div a.close:hover {
+  font-weight: bold;
+}
+#challenge_notifications .actions,
+#notifications .actions {
+  position: relative;
+  float: right;
+  z-index: 4;
+  text-decoration: none;
+}
+#challenge_notifications a,
+#notifications a {
+  font-weight: bold;
+  text-decoration: none;
+}
+#challenge_notifications .actions a,
+#notifications .actions a {
+  margin-left: 10px;
+}
+#challenge_notifications .actions a:hover,
+#notifications .actions a:hover {
+  color: #d85000;
 }
 form.wide input[type="text"],
 form.wide textarea {
@@ -1366,7 +1454,8 @@ a.button:active {
 div.pagination span.current,
 #top span.new_messages,
 div.progressbar.flashy div,
-#import_game .progression {
+#import_game .progression,
+#top span.new_challenges {
   color: #fff !important;
   text-shadow: 0px 1px 0px #000 !important;
   background: #d85000 !important;
@@ -1759,52 +1848,6 @@ div.progressbar.flashy.green div {
 .glow {
   box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000!important;
 }
-#notifications {
-  position: absolute;
-  top: -20px;
-  left: -30px;
-  width: 228px;
-  z-index: 2;
-}
-#notifications > div {
-  border: 1px solid #c0c0c0;
-  padding: 6px 8px 7px 8px;
-  margin-bottom: 8px;
-  border-radius: 2px;
-  box-shadow: 0 0 3px 0px #d85000;
-  transition: all 1.5s;
-}
-#notifications > div.foldable {
-  line-height: 1.6em;
-  height: 1.5em;
-  overflow: hidden;
-}
-#notifications > div.foldable:hover {
-  line-height: inherit;
-  height: auto;
-}
-#notifications > div a.close {
-  text-decoration: none;
-  float: right;
-}
-#notifications > div a.close:hover {
-  font-weight: bold;
-}
-#notifications .actions {
-  text-align: right;
-  width: 100%;
-  margin: 3px 0 3px 0;
-}
-#notifications a {
-  font-weight: bold;
-  text-decoration: none;
-}
-#notifications .actions a {
-  margin-left: 10px;
-}
-#notifications a:hover {
-  text-decoration: underline;
-}
 a.hover_text > .base,
 a.hover_text:hover > .hover {
   display: inline-block;
@@ -1845,7 +1888,7 @@ input.copyable {
   border: 1px solid #ccc;
 }
 #powerTip.messages {
-  width: 500px;
+  max-width: 500px;
   padding: 1em;
   min-height: 1em;
 }
