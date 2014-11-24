@@ -1,5 +1,3 @@
-var groupBy = require('lodash-node/modern/collections/groupBy')
-var mapValues = require('lodash-node/modern/objects/mapValues')
 var Chess = require('chessli.js').Chess;
 
 function make(fen) {
@@ -19,18 +17,6 @@ function parseMove(m) {
   return m ? [m.from, m.to] : null;
 }
 
-function dests(c) {
-  var moves = c.moves({
-    verbose: true
-  });
-  var grouped = groupBy(moves.map(parseMove), function(m) {
-    return m[0];
-  });
-  return mapValues(grouped, function(ms) {
-    return ms.map(function(m) { return m[1]; });
-  });
-}
-
 function lastMove(c) {
   var hist = c.history({
     verbose: true
@@ -42,6 +28,5 @@ module.exports = {
   make: make,
   move: move,
   parseMove: parseMove,
-  dests: dests,
   lastMove: lastMove
 };

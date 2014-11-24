@@ -49,7 +49,7 @@ module.exports = function(cfg, router, i18n) {
       turnColor: this.data.puzzle.color,
       check: null,
       movable: {
-        dests: chess.dests(this.data.chess)
+        dests: this.data.chess.dests()
       }
     });
     if (this.data.chess.in_check()) this.chessground.setCheck();
@@ -107,7 +107,7 @@ module.exports = function(cfg, router, i18n) {
       fen: this.data.chess.fen(),
       lastMove: move,
       movable: {
-        dests: chess.dests(this.data.chess)
+        dests: this.data.chess.dests()
       },
       turnColor: this.data.puzzle.color,
       check: null

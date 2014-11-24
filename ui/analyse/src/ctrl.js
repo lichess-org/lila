@@ -21,20 +21,6 @@ module.exports = function(cfg, router, i18n, onChange) {
     comments: true
   };
 
-  var chessToDests = function(chess) {
-    var dests = {};
-    chess.SQUARES.forEach(function(s) {
-      var ms = chess.moves({
-        square: s,
-        verbose: true
-      });
-      if (ms.length) dests[s] = ms.map(function(m) {
-        return m.to;
-      });
-    });
-    return dests;
-  }
-
   var situationCache = {};
   var showGround = function() {
     var moves = this.analyse.moveList(this.vm.path);
@@ -65,7 +51,7 @@ module.exports = function(cfg, router, i18n, onChange) {
           turnColor: turnColor,
           movable: {
             color: turnColor,
-            dests: chessToDests(chess)
+            dests: chess.dests()
           },
           check: chess.in_check(),
           lastMove: [lm.from, lm.to]
