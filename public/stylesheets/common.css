@@ -804,6 +804,7 @@ div.side_box .top {
 div.side_box .padded {
   padding: 7px;
 }
+.notification .message_infos,
 .notification .game_infos,
 div.side_box .game_infos {
   padding-left: 36px;
@@ -814,6 +815,7 @@ div.side_box .game_infos {
   padding-bottom: 8px;
   margin-bottom: 6px;
 }
+.notification .message_infos::before,
 .notification .game_infos::before,
 div.side_box .game_infos::before {
   position: absolute;
@@ -958,15 +960,18 @@ body.offline #nb_connected_players {
 #user_tag {
   font-weight: bold;
 }
+#top div.message_notifications,
 #top div.challenge_notifications,
 #top div.auth {
   float: right;
   position: relative;
 }
+#top div.message_notifications.shown .links,
 #top div.challenge_notifications.shown .links,
 #top div.auth.shown .links {
   display: block;
 }
+#top div.message_notificatiosn .links > a,
 #top div.challenge_notifications .links > a,
 #top div.auth .links > a {
   display: block;
@@ -998,26 +1003,40 @@ body.offline #nb_connected_players {
   display: block;
   padding: 5px 10px 10px 10px;
 }
+#top #message_notifications_tag span:before,
 #top #challenge_notifications_tag span:before {
+  font-size: 1.45em;
   padding-left: 3px;
+}
+#top div.message_notifications div.title {
+  padding: 5px 3% 5px 3%;
+  text-align: center;
+  width: 200px;
+}
+#top div.message_notifications div.title a {
+  text-decoration: underline;
 }
 #top #challenge_notifications div.title {
   padding: 5px 3% 5px 3%;
   text-align: center;
 }
+#message_notifications div.notification,
 #challenge_notifications div.notification {
   border-top: 1px solid #c0c0c0;
   position: relative;
 }
+#message_notifications div.notification:hover,
 #challenge_notifications div.notification:hover {
   background-color: #f0f0f0;
 }
+#message_notifications span.inner,
 #challenge_notifications span.inner {
   display: block;
   width: calc(100% - 15px);
   height: 100%;
   padding: 6px 8px 7px 8px;
 }
+#message_notifications,
 #challenge_notifications,
 #notifications {
   position: absolute;
@@ -1053,18 +1072,23 @@ body.offline #nb_connected_players {
 #challenge_notifications .user_link {
   font-weight: bold;
 }
+#message_notifications_display .content,
 #challenge_notifications .setup {
-  text-transform: uppercase;
   display: block;
   margin-left: 37px;
   margin-bottom: -18px;
 }
+#challenge_notifications .setup {
+  text-transform: uppercase;
+}
+#message_notifications .actions,
 #challenge_notifications .actions,
 #notifications .actions {
   position: relative;
   float: right;
   text-decoration: none;
 }
+#message_notifications a,
 #challenge_notifications a {
   text-decoration: none;
 }
@@ -1072,6 +1096,7 @@ body.offline #nb_connected_players {
   font-weight: bold;
   text-decoration: none;
 }
+#message_notifications .actions a,
 #challenge_notifications .actions a {
   font-weight: bold;
   margin-right: 5px;
@@ -1079,6 +1104,7 @@ body.offline #nb_connected_players {
 #notifications .actions a {
   margin-left: 10px;
 }
+#message_notifications .actions a:hover,
 #challenge_notifications .actions a:hover,
 #notifications .actions a:hover {
   color: #d85000;
