@@ -1007,17 +1007,13 @@ body.offline #nb_connected_players {
   text-align: center;
 }
 #challenge_notifications div.notification {
+  cursor: pointer;
   border-top: 1px solid #c0c0c0;
+  padding: 6px 8px 7px 8px;
   position: relative;
 }
 #challenge_notifications div.notification:hover {
   background-color: #f0f0f0;
-}
-#challenge_notifications span.inner {
-  display: block;
-  width: calc(100% - 15px);
-  height: 100%;
-  padding: 6px 8px 7px 8px;
 }
 #challenge_notifications,
 #notifications {
@@ -1044,10 +1040,12 @@ body.offline #nb_connected_players {
   line-height: inherit;
   height: auto;
 }
+#challenge_notifications > div a.close,
 #notifications > div a.close {
   text-decoration: none;
   float: right;
 }
+#challenge_notifications > div a.close:hover,
 #notifications > div a.close:hover {
   font-weight: bold;
 }
@@ -1056,27 +1054,20 @@ body.offline #nb_connected_players {
 }
 #challenge_notifications .setup {
   text-transform: uppercase;
-  display: block;
-  margin-left: 37px;
-  margin-bottom: -18px;
 }
 #challenge_notifications .actions,
 #notifications .actions {
   position: relative;
   float: right;
+  z-index: 4;
   text-decoration: none;
 }
-#challenge_notifications a {
-  text-decoration: none;
-}
+#challenge_notifications a,
 #notifications a {
   font-weight: bold;
   text-decoration: none;
 }
-#challenge_notifications .actions a {
-  font-weight: bold;
-  margin-right: 5px;
-}
+#challenge_notifications .actions a,
 #notifications .actions a {
   margin-left: 10px;
 }

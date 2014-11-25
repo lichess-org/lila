@@ -175,6 +175,10 @@ var storage = {
             nbChallengesAdd();
             $('#challenge_notifications').append(data.html);
             $notif = $('#' + htmlId);
+            $notif.add($notif.find("a.disabled")).on('click', function() {
+              location.href = $notif.data('href');
+              return false;
+            });
             declineListener($notif.find('a.decline'));
             $('body').trigger('lichess.content_loaded');
             if (!storage.get('challenge-' + data.id)) {
