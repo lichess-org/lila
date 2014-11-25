@@ -125,7 +125,8 @@ body.dark div.training div.box,
 body.dark div.force_resign_zone,
 body.dark div.negotiation,
 body.dark div.side_box div.game_infos,
-body.dark #challenge_notifications > div.notification {
+body.dark #challenge_notifications div.notification,
+body.dark #message_notifications div.notification {
   border-color: #3d3d3d;
 }
 body.dark .crosstable td.last {
@@ -144,7 +145,8 @@ body.dark #hooks_wrap > div.tabs > a,
 body.dark #top div.auth .links a:hover,
 body.dark #top ul.language_links a:hover,
 body.dark #top ul.language_links a.current,
-body.dark #challenge_notifications > div.notification:hover {
+body.dark #challenge_notifications > div.notification:hover,
+body.dark #message_notifications div.notification:hover {
   background-color: #3e3e3e;
   color: #b0b0b0;
 }

@@ -175,10 +175,6 @@ var storage = {
             nbChallengesAdd();
             $('#challenge_notifications').append(data.html);
             $notif = $('#' + htmlId);
-            $notif.add($notif.find("a.disabled")).on('click', function() {
-              location.href = $notif.data('href');
-              return false;
-            });
             declineListener($notif.find('a.decline'));
             $('body').trigger('lichess.content_loaded');
             if (!storage.get('challenge-' + data.id)) {
@@ -323,26 +319,22 @@ var storage = {
     setTimeout(userPowertips, 600);
     $('body').on('lichess.content_loaded', userPowertips);
 
-    $('#top a.message').powerTip({
-      placement: 'sw',
-      mouseOnToPopup: true,
-      closeDelay: 200
-    }).on({
-      powerTipPreRender: function() {
-        $.ajax({
-          url: $(this).data('href'),
-          success: function(html) {
-            $('#powerTip').html(html).addClass('messages').find('a.mark_as_read').click(function() {
-              $.ajax({
-                url: $(this).attr('href'),
-                method: 'post'
-              });
-              return false;
+    $('#message_notifications_tag').on('click', function() {
+      $.ajax({
+        url: $(this).data('href'),
+        success: function(html) {
+          console.log(html);
+          $('#message_notifications_display').html(html).addClass('messages').find('a.mark_as_read').click(function() {
+            $.ajax({
+              url: $(this).attr('href'),
+              method: 'post'
             });
-          }
-        });
-      }
-    }).data('powertip', ' ');
+            $('#message_notifications_parent').toggleClass("shown", false);
+            return false;
+          });
+        }
+      });
+    });
 
     function setMoment() {
       $("time.moment").removeClass('moment').each(function() {

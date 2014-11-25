@@ -1,26 +1,28 @@
 @(g: Game, user: User)
 
 <div id="challenge_reminder_@g.id" data-href="@routes.Round.watcher(g.id, "white")" class="notification challenge_reminder">
-  <div class="inner">
-    <div class="actions">
-      <a class="action decline" href="@routes.Setup.decline(g.id)" data-icon="L"></a>
-    </div>
-    <div class="game_infos" data-icon="@g.perfType match {
-      case _ if g.fromPosition => {*}
-      case Some(p) => {@p.iconChar}
-      case _ => {8}
-      }">
-      <div class="header">
-        @userLink(user, withOnline = false, withPerfRating = g.perfType, cssClass = "disabled".some)<br />
-        <span class="setup">
-          @g.clock.map(_.show).getOrElse {∞} •
-          @if(g.variant.exotic) {
-          @(if (g.variant == chess.Variant.KingOfTheHill) g.variant.shortName else g.variant.name)
-          } else {
-          @g.perfType.map(_.name)
-          } • @g.rated.fold(trans.rated.en(), trans.casual.en())
-        </span>
-      </div>
-    </div>
+  <div class="actions">
+    <a class="action decline" href="@routes.Setup.decline(g.id)" data-icon="L"></a>
   </div>
+  <a href="@routes.Round.watcher(g.id, "white")">
+    <span class="inner">
+	    <span class="game_infos" data-icon="@g.perfType match {
+	      case _ if g.fromPosition => {*}
+	      case Some(p) => {@p.iconChar}
+	      case _ => {8}
+	      }">
+	      <span class="header">
+	        @userSpan(user, withOnline = false, withPerfRating = g.perfType, withPowerTip = false)
+	        <span class="setup">
+	          @g.clock.map(_.show).getOrElse {∞} •
+	          @if(g.variant.exotic) {
+	          @(if (g.variant == chess.Variant.KingOfTheHill) g.variant.shortName else g.variant.name)
+	          } else {
+	          @g.perfType.map(_.name)
+	          } • @g.rated.fold(trans.rated.en(), trans.casual.en())
+	        </span>
+	      </span>
+	    </span>
+    </span>
+  </a>
 </div>

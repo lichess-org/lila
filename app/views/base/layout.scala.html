@@ -180,10 +180,16 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
           <div class="ping">PING <strong>?</strong> ms</div>
         </div>
       </div>
-      <a data-href="@routes.Message.preview" class="goto_nav message blank_if_play @{(active exists (_.code == "message")).??("current")}" href="@routes.Message.inbox(page=1)">
-        <span class="is2" data-icon="e"></span>
-        <span id="nb_messages" class="new_messages@if(ctx.nbMessages > 0) { unread}">@ctx.nbMessages</span>
-      </a>
+      <div id="message_notifications_parent" class="message_notifications">
+        <a id="message_notifications_tag" class="toggle toggle_message_notifications" data-href="@routes.Message.preview">
+          <span data-icon="e"></span>
+          <span id="nb_messages" class="new_messages@if(ctx.nbMessages > 0) { unread}">@ctx.nbMessages</span>
+        </a>
+        <div id="message_notifications" class="links dropdown">
+          <div class="title">New messages (<a href="@routes.Message.inbox(page=1)">view all</a>)</div>
+          <div id="message_notifications_display" class="content">&nbsp;</div>
+        </div>
+      </div>
       <div class="challenge_notifications">
         <a id="challenge_notifications_tag" class="toggle toggle_challenge_notifications">
           <span data-icon="U"></span>
