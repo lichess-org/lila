@@ -88,6 +88,7 @@ module.exports = function(cfg, router, i18n, onChange) {
   }.bind(this);
 
   this.onMove = function(orig, dest) {
+    $.sound.move();
     var chess = new Chess(
       this.vm.situation.fen,
       this.data.game.variant.key == 'chess960' ? 1 : 0
