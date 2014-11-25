@@ -1,23 +1,24 @@
 @(me: User, threads: List[lila.message.Thread])(implicit ctx: Context)
 
 @if(threads.nonEmpty) {
+<table><tbody>
     @threads.distinct.map { thread =>
-    <div class="notification message_reminder">
-      <div class="actions">
-        <a class="action decline mark_as_read" href="@routes.Message.markAsRead(thread.id)" data-icon="L"></a>
-      </div>
-      <a href="@routes.Message.thread(thread.id)">
-        <span class="inner">
-          <span class="message_infos" data-icon="c">
-            <span class="header">
-              <strong>@usernameOrId(thread otherUserId me)</strong> • @thread.name
-              <span class="content">
-                @thread.firstPostUnreadBy(me).map(p => shorten(p.text, 100))
-              </span>
-            </span>
-          </span>
-        </span>
-      </a>
-    </div>
+    <tr>
+      <td>
+        <a data-icon="c" class="revert-underline" href="@routes.Message.thread(thread.id)">
+          @thread.name
+          <strong>@usernameOrId(thread otherUserId me)</strong>
+          @thread.firstPostUnreadBy(me).map(p => shorten(p.text, 100))
+        </a>
+      </td>
+      <td>
+        <a class="button mark_as_read hint--bottom" data-hint="Mark as read" href="@routes.Message.markAsRead(thread.id)">
+          <span data-icon="E"></span>
+        </a>
+      </td>
+    </tr>
     }
+</tbody></table>
+} else {
+@trans.noNewMessages()
 }

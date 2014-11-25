@@ -319,22 +319,26 @@ var storage = {
     setTimeout(userPowertips, 600);
     $('body').on('lichess.content_loaded', userPowertips);
 
-    $('#message_notifications_tag').on('click', function() {
-      $.ajax({
-        url: $(this).data('href'),
-        success: function(html) {
-          console.log(html);
-          $('#message_notifications_display').html(html).addClass('messages').find('a.mark_as_read').click(function() {
-            $.ajax({
-              url: $(this).attr('href'),
-              method: 'post'
+    $('#top a.message').powerTip({
+      placement: 'sw',
+      mouseOnToPopup: true,
+      closeDelay: 200
+    }).on({
+      powerTipPreRender: function() {
+        $.ajax({
+          url: $(this).data('href'),
+          success: function(html) {
+            $('#powerTip').html(html).addClass('messages').find('a.mark_as_read').click(function() {
+              $.ajax({
+                url: $(this).attr('href'),
+                method: 'post'
+              });
+              return false;
             });
-            $('#message_notifications_parent').toggleClass("shown", false);
-            return false;
-          });
-        }
-      });
-    });
+          }
+        });
+      }
+    }).data('powertip', ' ');
 
     function setMoment() {
       $("time.moment").removeClass('moment').each(function() {
