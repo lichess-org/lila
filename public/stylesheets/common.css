@@ -831,6 +831,7 @@ div.side_box .game_infos .bookmark {
   opacity: 0;
   transform: translate(0, -20px);
   transition: 0.3s;
+  z-index: 10; /* to go over the board */
 }
 div.side_box .game_infos:hover .bookmark {
   transform: translate(0, 0);
