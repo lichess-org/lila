@@ -203,6 +203,32 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     Html(s"""<a$dataIcon $klass $href>$space$titleS$content</a>""")
   }
 
+  def userSpan(
+    user: User,
+    cssClass: Option[String] = None,
+    withOnline: Boolean = true,
+    withPowerTip: Boolean = true,
+    withTitle: Boolean = true,
+    withBestRating: Boolean = false,
+    withPerfRating: Option[PerfType] = None,
+    text: Option[String] = None) = Html {
+    val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
+    val content = text | user.username
+    val titleS = if (withTitle) titleTag(user.title) else ""
+    val space = if (withOnline) "&nbsp;" else ""
+    val dataIcon = if (withOnline) """ data-icon="r"""" else ""
+    val rating = withPerfRating map (_.key) flatMap user.perfs.ratingOf map { rating =>
+      s"&nbsp;($rating)"
+    } getOrElse {
+      withBestRating ?? {
+        user.perfs.bestPerf ?? {
+          case (pt, perf) => s"&nbsp;${showPerfRating(pt, perf, "hint--bottom")}"
+        }
+      }
+    }
+    s"""<span$dataIcon $klass>$space$titleS$content$rating</span>"""
+  }
+
   private def userHref(username: String, params: String = "") =
     s"""href="${routes.User.show(username)}$params""""
 
