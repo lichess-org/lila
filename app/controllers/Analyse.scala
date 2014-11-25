@@ -60,7 +60,7 @@ object Analyse extends LilaController {
         Env.game.crosstableApi(pov.game) flatMap {
           case ((analysis, tour), crosstable) =>
             val division =
-              if (true || HTTPRequest.isBot(ctx.req)) divider.empty
+              if (HTTPRequest.isBot(ctx.req)) divider.empty
               else divider(pov.game, initialFen)
             val pgn = Env.game.pgnDump(pov.game, initialFen)
             Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data =>
