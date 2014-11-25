@@ -137,14 +137,14 @@ body.dark #hooks_wrap > div.tabs > a.active {
 body.dark .ui-slider,
 body.dark div.progressbar,
 body.dark #translation_call div.progressbar,
-body.dark #themepicker div.theme:hover,
-body.dark #challenge_notifications > div.notification:hover {
+body.dark #themepicker div.theme:hover {
   background-color: #505050;
 }
 body.dark #hooks_wrap > div.tabs > a,
 body.dark #top div.auth .links a:hover,
 body.dark #top ul.language_links a:hover,
-body.dark #top ul.language_links a.current {
+body.dark #top ul.language_links a.current,
+body.dark #challenge_notifications > div.notification:hover {
   background-color: #3e3e3e;
   color: #b0b0b0;
 }
