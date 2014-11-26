@@ -90,7 +90,7 @@ final class PrefApi(coll: Coll, cacheTtl: Duration) {
 
   def followable(userId: String): Fu[Boolean] =
     coll.find(BSONDocument("_id" -> userId), BSONDocument("follow" -> true)).one[BSONDocument] map {
-      _ flatMap (_.getAs[Boolean]("follow")) getOrElse false
+      _ flatMap (_.getAs[Boolean]("follow")) getOrElse Pref.default.follow
     }
 
   def unfollowableIds(userIds: List[String]): Fu[Set[String]] =
