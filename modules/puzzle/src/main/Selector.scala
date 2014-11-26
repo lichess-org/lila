@@ -19,12 +19,11 @@ private[puzzle] final class Selector(
     modulo: Int) {
 
   private val popularSelector = BSONDocument(
-    Puzzle.BSONFields.voteSum -> BSONDocument("$gt" -> BSONInteger(anonMinRating))
-  )
+    Puzzle.BSONFields.voteSum -> BSONDocument("$gt" -> BSONInteger(anonMinRating)))
 
-  private val popularCount = lila.memo.AsyncCache.single[Int](
-    f = puzzleColl.db command Count(puzzleColl.name, popularSelector.some),
-    timeToLive = 1 day)
+  private def mateSelector(mate: Boolean) = BSONDocument("mate" -> mate)
+
+  private lazy val popularCount = puzzleColl.db command Count(puzzleColl.name, popularSelector.some)
 
   private def difficultyDecay(difficulty: Int) = difficulty match {
     case 1 => -200
@@ -32,19 +31,22 @@ private[puzzle] final class Selector(
     case _ => 0
   }
 
-  def apply(me: Option[User], difficulty: Int): Fu[Puzzle] = me match {
-    case None => popularCount(true) map (_ - 1) flatMap { skipMax =>
-      puzzleColl.find(popularSelector)
-        .options(QueryOpts(skipN = Random nextInt skipMax))
-        .one[Puzzle] flatten "Can't find a puzzle for anon player!"
-    }
-    case Some(user) => api.attempt.playedIds(user, modulo) flatMap { ids =>
-      tryRange(user, toleranceStep, difficultyDecay(difficulty), ids)
+  def apply(me: Option[User], difficulty: Int): Fu[Puzzle] = {
+    val isMate = scala.util.Random.nextBoolean
+    me match {
+      case None => popularCount map (_ - 1) flatMap { skipMax =>
+        puzzleColl.find(popularSelector ++ mateSelector(isMate))
+          .options(QueryOpts(skipN = Random nextInt skipMax))
+          .one[Puzzle] flatten "Can't find a puzzle for anon player!"
+      }
+      case Some(user) => api.attempt.playedIds(user, modulo) flatMap { ids =>
+        tryRange(user, toleranceStep, difficultyDecay(difficulty), ids, isMate)
+      }
     }
   }
 
-  private def tryRange(user: User, tolerance: Int, decay: Int, ids: BSONArray): Fu[Puzzle] =
-    puzzleColl.find(BSONDocument(
+  private def tryRange(user: User, tolerance: Int, decay: Int, ids: BSONArray, isMate: Boolean): Fu[Puzzle] =
+    puzzleColl.find(mateSelector(isMate) ++ BSONDocument(
       Puzzle.BSONFields.id -> BSONDocument("$nin" -> ids),
       Puzzle.BSONFields.rating -> BSONDocument(
         "$gt" -> BSONInteger(user.perfs.puzzle.intRating - tolerance + decay),
@@ -54,7 +56,7 @@ private[puzzle] final class Selector(
       .one[Puzzle] flatMap {
         case Some(puzzle) => fuccess(puzzle)
         case None => if ((tolerance + toleranceStep) <= toleranceMax)
-          tryRange(user, tolerance + toleranceStep, decay, ids)
+          tryRange(user, tolerance + toleranceStep, decay, ids, isMate)
         else fufail(s"Can't find a puzzle for user $user!")
       }
 }

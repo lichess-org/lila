@@ -8,7 +8,6 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 
 case class Generated(
-    tags: List[String],
     position: String,
     solution: JsObject,
     id: String) {
@@ -20,7 +19,6 @@ case class Generated(
     fen ← Generated fenOf history
   } yield Puzzle.make(
     gameId = id.some,
-    tags = tags,
     history = position.trim.split(' ').toList,
     fen = fen,
     lines = lines)
