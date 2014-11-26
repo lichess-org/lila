@@ -113,6 +113,6 @@ module.exports = function(cfg, router, i18n, onChange) {
     return str;
   };
 
-  keyboard(this);
   showGround();
+  keyboard(this);
 };

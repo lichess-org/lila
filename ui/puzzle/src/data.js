@@ -13,6 +13,8 @@ module.exports = function(cfg) {
     chess: chess.make(cfg.puzzle.fen)
   };
 
+  if (cfg.user) cfg.user.history = cfg.user.history || [];
+
   merge(data, cfg);
 
   data.puzzle.initialMove = puzzle.str2move(data.puzzle.initialMove);

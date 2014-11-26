@@ -79,7 +79,12 @@ function makeHistory(data) {
   var c = chess.make(data.puzzle.fen);
   return [data.puzzle.initialMove].concat(line.map(str2move)).map(function(m) {
     chess.move(c, m);
-    return {move: m, fen: c.fen(), check: c.in_check()};
+    return {
+      move: m,
+      fen: c.fen(),
+      check: c.in_check(),
+      turnColor: c.turn() == 'w' ? 'white' : 'black'
+    };
   });
 }
 
@@ -89,9 +94,9 @@ function jump(chessgroundData, data, to) {
   chessground.configure(chessgroundData, {
     fen: state.fen,
     lastMove: state.move,
-    check: null
+    check: state.check,
+    turnColor: state.turnColor
   });
-  if (state.check) chessground.board.setCheck(chessgroundData);
 }
 
 function reload(chessgroundData, data, cfg) {

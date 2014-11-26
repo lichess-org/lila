@@ -1,4 +1,5 @@
 var m = require('mithril');
+var k = require('mousetrap');
 var partial = require('lodash-node/modern/functions/partial');
 var merge = require('merge');
 var last = require('lodash-node/modern/arrays/last');
@@ -87,6 +88,8 @@ module.exports = function(cfg, router, i18n) {
       enabled: true
     }
   }, this.data.chessground));
+
+  k.bind(['esc'], this.chessground.cancelMove);
 
   this.initiate = function() {
     if (this.data.mode != 'view')
