@@ -810,6 +810,10 @@ div.side_box .game_infos {
   padding-left: 36px;
   position: relative;
 }
+.notification .message_infos,
+.notification .game_infos {
+  display: block;
+}
 div.side_box .game_infos {
   border-bottom: 1px solid #ccc;
   padding-bottom: 8px;
@@ -1076,8 +1080,6 @@ body.offline #nb_connected_players {
 #message_notifications_display .content,
 #challenge_notifications .setup {
   display: block;
-  margin-left: 37px;
-  margin-bottom: -18px;
 }
 #challenge_notifications .setup {
   text-transform: uppercase;
@@ -1088,6 +1090,10 @@ body.offline #nb_connected_players {
   position: relative;
   float: right;
   text-decoration: none;
+}
+#message_notifications .actions,
+#challenge_notifications .actions {
+  z-index: 1;
 }
 #message_notifications a,
 #challenge_notifications a {
