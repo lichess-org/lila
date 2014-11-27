@@ -214,7 +214,7 @@ object GameRepo {
 
   def nbPerDay(days: Int): Fu[List[Int]] =
     ((days to 1 by -1).toList map { day =>
-      val from = DateTime.now.withTimeAtStartOfDay minusDays 1
+      val from = DateTime.now.withTimeAtStartOfDay minusDays day
       val to = from plusDays 1
       $count(Json.obj(F.createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
     }).sequenceFu
