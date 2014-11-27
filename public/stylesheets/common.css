@@ -1034,13 +1034,6 @@ body.offline #nb_connected_players {
 #challenge_notifications div.notification:hover {
   background-color: #f0f0f0;
 }
-#message_notifications span.inner,
-#challenge_notifications span.inner {
-  display: block;
-  width: calc(100% - 15px);
-  height: 100%;
-  padding: 6px 8px 7px 8px;
-}
 #message_notifications,
 #challenge_notifications,
 #notifications {
@@ -1080,8 +1073,6 @@ body.offline #nb_connected_players {
 #message_notifications_display .content,
 #challenge_notifications .setup {
   display: block;
-  margin-left: 37px;
-  margin-bottom: -18px;
 }
 #challenge_notifications .setup {
   text-transform: uppercase;
@@ -1100,6 +1091,11 @@ body.offline #nb_connected_players {
 #notifications a {
   font-weight: bold;
   text-decoration: none;
+}
+#message_notifications a.block,
+#challenge_notifications a.block {
+  display: block;
+  padding: 6px 8px 7px 8px;
 }
 #message_notifications .actions a,
 #challenge_notifications .actions a {
