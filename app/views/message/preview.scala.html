@@ -4,11 +4,12 @@
 @threads.distinct.map { thread =>
 <div class="notification message_reminder">
   <div class="actions">
-    <a class="action decline mark_as_read" href="@routes.Message.markAsRead(thread.id)" data-icon="L"></a>
+    <a class="action mark_as_read" href="@routes.Message.markAsRead(thread.id)" data-icon="L"></a>
   </div>
   <a class="block" href="@routes.Message.thread(thread.id)">
     <span class="message_infos" data-icon="c">
-      <strong>@usernameOrId(thread otherUserId me)</strong> • @thread.name
+      @userIdSpanMini(thread.otherUserId(me))
+      • <span class="title">@thread.name</span>
       <span class="content">
         @thread.firstPostUnreadBy(me).map(p => shorten(p.text, 100))
       </span>

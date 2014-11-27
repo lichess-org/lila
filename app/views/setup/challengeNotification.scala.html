@@ -10,7 +10,7 @@
       case Some(p) => {@p.iconChar}
       case _ => {8}
       }">
-      @userSpan(user, withOnline = false, withPerfRating = g.perfType, withPowerTip = false)
+      @userSpan(user, withOnline = false, withPerfRating = g.perfType)
       <span class="setup">
         @g.clock.map(_.show).getOrElse {∞} •
         @if(g.variant.exotic) {

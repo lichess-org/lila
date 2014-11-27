@@ -174,15 +174,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     val titleS = if (withTitle) titleTag(user.title) else ""
     val space = if (withOnline) "&nbsp;" else ""
     val dataIcon = if (withOnline) """ data-icon="r"""" else ""
-    val rating = withPerfRating map (_.key) flatMap user.perfs.ratingOf map { rating =>
-      s"&nbsp;($rating)"
-    } getOrElse {
-      withBestRating ?? {
-        user.perfs.bestPerf ?? {
-          case (pt, perf) => s"&nbsp;${showPerfRating(pt, perf, "hint--bottom")}"
-        }
-      }
-    }
+    val rating = userRating(user, withPerfRating, withBestRating)
     s"""<a$dataIcon $klass $href>$space$titleS$content$rating</a>"""
   }
 
@@ -213,11 +205,26 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     withPerfRating: Option[PerfType] = None,
     text: Option[String] = None) = Html {
     val klass = userClass(user.id, cssClass, withOnline, withPowerTip)
+    val href = s"data-${userHref(user.username)}"
     val content = text | user.username
     val titleS = if (withTitle) titleTag(user.title) else ""
     val space = if (withOnline) "&nbsp;" else ""
     val dataIcon = if (withOnline) """ data-icon="r"""" else ""
-    val rating = withPerfRating map (_.key) flatMap user.perfs.ratingOf map { rating =>
+    val rating = userRating(user, withPerfRating, withBestRating)
+    s"""<span$dataIcon $klass $href>$space$titleS$content$rating</span>"""
+  }
+
+  def userIdSpanMini(userId: String) = Html {
+    val user = lightUser(userId)
+    val name = user.fold(userId)(_.name)
+    val content = user.fold(userId)(_.titleNameHtml)
+    val klass = userClass(userId, none, false)
+    val href = s"data-${userHref(name)}"
+    s"""<span $klass $href>$content</span>"""
+  }
+
+  private def userRating(user: User, withPerfRating: Option[PerfType], withBestRating: Boolean) =
+    withPerfRating map (_.key) flatMap user.perfs.ratingOf map { rating =>
       s"&nbsp;($rating)"
     } getOrElse {
       withBestRating ?? {
@@ -226,8 +233,6 @@ trait UserHelper { self: I18nHelper with StringHelper =>
         }
       }
     }
-    s"""<span$dataIcon $klass>$space$titleS$content$rating</span>"""
-  }
 
   private def userHref(username: String, params: String = "") =
     s"""href="${routes.User.show(username)}$params""""

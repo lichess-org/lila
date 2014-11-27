@@ -181,23 +181,21 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
         </div>
       </div>
       <div id="message_notifications_parent" class="message_notifications">
-        <a id="message_notifications_tag" class="toggle toggle_message_notifications" data-href="@routes.Message.preview">
+        <a id="message_notifications_tag" class="toggle" data-href="@routes.Message.preview">
           <span data-icon="e"></span>
           <span id="nb_messages" class="new_messages@if(ctx.nbMessages > 0) { unread}">@ctx.nbMessages</span>
         </a>
         <div id="message_notifications" class="links dropdown">
-          <div class="title">New messages (<a href="@routes.Message.inbox(page=1)">view all</a>)</div>
-          <div id="message_notifications_display" class="content">&nbsp;</div>
+          <div id="message_notifications_display" class="content"></div>
+          <div class="title"><a href="@routes.Message.inbox(page=1)">@trans.inbox() »</a></div>
         </div>
       </div>
       <div class="challenge_notifications">
-        <a id="challenge_notifications_tag" class="toggle toggle_challenge_notifications">
+        <a id="challenge_notifications_tag" class="toggle none">
           <span data-icon="U"></span>
-          <span id="nb_challenges" class="new_challenges">0</span>
+          <span id="nb_challenges" class="new_challenges unread">0</span>
         </a>
-        <div id="challenge_notifications" class="links dropdown">
-          <div class="title">Pending challenges</div>
-        </div>
+        <div id="challenge_notifications" class="links dropdown"></div>
       </div>
       }.getOrElse {
       <a href="@routes.Auth.login" class="signin button" data-icon="F">&nbsp;@trans.signIn()</a>

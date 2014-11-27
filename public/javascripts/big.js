@@ -148,15 +148,10 @@ var storage = {
       },
       challengeReminder: function(data) {
         if (!storage.get('challenge-refused-' + data.id)) {
-          var nbChallenges = function() {
-            var nb = parseInt($('#nb_challenges').text());
-            return nb ? ((nb > 0) ? nb : 0) : 0;
-          };
-          var nbChallengesAdd = function() {
-            $('#nb_challenges').text(nbChallenges() + 1).toggleClass("unread", true);
-          };
-          var nbChallengesMinus = function() {
-            $('#nb_challenges').text(nbChallenges() - 1).toggleClass("unread", nbChallenges() > 0);
+          var refreshButton = function() {
+            var nb = $('#challenge_notifications > div').length;
+            $('#nb_challenges').text(nb);
+            $('#challenge_notifications_tag').toggleClass('none', !nb);
           };
           var htmlId = 'challenge_reminder_' + data.id;
           var $notif = $('#' + htmlId);
@@ -166,13 +161,12 @@ var storage = {
               storage.set('challenge-refused-' + data.id, 1);
               $('#' + htmlId).remove();
               if ($.isFunction(callback)) callback();
-              nbChallengesMinus();
+              refreshButton();
               return false;
             });
           };
           if ($notif.length) clearTimeout($notif.data('timeout'));
           else {
-            nbChallengesAdd();
             $('#challenge_notifications').append(data.html);
             $notif = $('#' + htmlId);
             declineListener($notif.find('a.decline'));
@@ -181,6 +175,7 @@ var storage = {
               $.sound.dong();
               storage.set('challenge-' + data.id, 1);
             }
+            refreshButton();
           }
           $('div.lichess_overboard.joining.' + data.id).each(function() {
             $notif.hide();
@@ -192,7 +187,7 @@ var storage = {
           });
           $notif.data('timeout', setTimeout(function() {
             $notif.remove();
-            nbChallengesMinus();
+            refreshButton();
           }, 3000));
         }
       },
@@ -296,7 +291,7 @@ var storage = {
 
     function userPowertips() {
       var header = document.getElementById('site_header');
-      $('a.ulpt').removeClass('ulpt').each(function() {
+      $('.ulpt').removeClass('ulpt').each(function() {
         $(this).powerTip({
           fadeInTime: 100,
           fadeOutTime: 100,
@@ -306,7 +301,7 @@ var storage = {
         }).on({
           powerTipPreRender: function() {
             $.ajax({
-              url: $(this).attr('href').replace(/\?.+$/, '') + '/mini',
+              url: ($(this).attr('href') || $(this).data('href')).replace(/\?.+$/, '') + '/mini',
               success: function(html) {
                 $('#powerTip').html(html);
                 $('body').trigger('lichess.content_loaded');
@@ -323,15 +318,15 @@ var storage = {
       $.ajax({
         url: $(this).data('href'),
         success: function(html) {
-          console.log(html);
-          $('#message_notifications_display').html(html).addClass('messages').find('a.mark_as_read').click(function() {
-            $.ajax({
-              url: $(this).attr('href'),
-              method: 'post'
+          $('#message_notifications_display').html(html)
+            .find('a.mark_as_read').click(function() {
+              $.ajax({
+                url: $(this).attr('href'),
+                method: 'post'
+              });
+              return false;
             });
-            $('#message_notifications_parent').toggleClass("shown", false);
-            return false;
-          });
+          $('body').trigger('lichess.content_loaded');
         }
       });
     });

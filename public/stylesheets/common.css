@@ -499,7 +499,7 @@ div.content_box .loader:after {
   display: inline-block;
 }
 .none {
-  display: none;
+  display: none!important;
 }
 html {
   min-height: 100%;
@@ -1014,9 +1014,8 @@ body.offline #nb_connected_players {
   padding-left: 3px;
 }
 #top div.message_notifications div.title {
-  padding: 5px 3% 5px 3%;
+  padding: 5px 0;
   text-align: center;
-  width: 200px;
 }
 #top div.message_notifications div.title a {
   text-decoration: underline;
@@ -1027,7 +1026,8 @@ body.offline #nb_connected_players {
 }
 #message_notifications div.notification,
 #challenge_notifications div.notification {
-  border-top: 1px solid #c0c0c0;
+  border-bottom: 1px solid #c0c0c0;
+  transition: 0.13s;
   position: relative;
 }
 #message_notifications div.notification:hover,
@@ -1067,7 +1067,9 @@ body.offline #nb_connected_players {
 #notifications > div a.close:hover {
   font-weight: bold;
 }
-#challenge_notifications .user_link {
+#message_notifications .user_link,
+#challenge_notifications .user_link,
+#message_notifications .block .title {
   font-weight: bold;
 }
 #message_notifications_display .content,
@@ -1080,9 +1082,13 @@ body.offline #nb_connected_players {
 #message_notifications .actions,
 #challenge_notifications .actions,
 #notifications .actions {
-  position: relative;
-  float: right;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1;
   text-decoration: none;
+  opacity: 0;
+  transition: 0.13s;
 }
 #message_notifications a,
 #challenge_notifications a {
@@ -1101,6 +1107,10 @@ body.offline #nb_connected_players {
 #challenge_notifications .actions a {
   font-weight: bold;
   margin-right: 5px;
+}
+#message_notifications .notification:hover .actions,
+#challenge_notifications .notification:hover .actions {
+  opacity: 0.7;
 }
 #notifications .actions a {
   margin-left: 10px;
@@ -1920,15 +1930,6 @@ input.copyable {
   font-family: monospace;
   padding: 3px 5px;
   border: 1px solid #ccc;
-}
-#powerTip.messages {
-  max-width: 500px;
-  padding: 1em;
-  min-height: 1em;
-}
-#powerTip.messages a {
-  padding: 0.6em;
-  display: block;
 }
 .flag {
   display: inline-block;
