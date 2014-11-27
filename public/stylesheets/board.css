@@ -78,6 +78,10 @@ body.is2d.leather .cg-board,
 #top div.color_demo.leather {
   background-image: url(../images/board/leather-1024.jpg);
 }
+body.is2d.metal .cg-board,
+#top div.color_demo.metal {
+  background-image: url(../images/board/metal-1024.jpg);
+}
 /* KotH boards */
 
 body.is2d.blue .kingOfTheHill .cg-board {
