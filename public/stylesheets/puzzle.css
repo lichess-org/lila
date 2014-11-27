@@ -126,10 +126,6 @@
   opacity: 0.5;
   text-shadow: none !important;
 }
-#puzzle div.cg-board {
-  width: 512px;
-  height: 512px;
-}
 #puzzle div.upvote {
   float: right;
   text-align: center;
