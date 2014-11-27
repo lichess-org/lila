@@ -23,7 +23,13 @@ module.exports = function(cfg, router, i18n, onChange) {
 
   var situationCache = {};
   var showGround = function() {
-    var moves = this.analyse.moveList(this.vm.path);
+    var moves;
+    try {
+      moves = this.analyse.moveList(this.vm.path);
+    } catch (e) {
+      this.vm.path = treePath.default();
+      moves = this.analyse.moveList(this.vm.path);
+    }
     var nbMoves = moves.length;
     var ply, move, cached, fen, hash = '',
       h = '',
