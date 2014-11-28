@@ -18,12 +18,10 @@ private[puzzle] final class Selector(
     toleranceMax: Int,
     modulo: Int) {
 
-  private val popularSelector = BSONDocument(
-    Puzzle.BSONFields.voteSum -> BSONDocument("$gt" -> BSONInteger(anonMinRating)))
+  private def popularSelector(mate: Boolean) = BSONDocument(
+    Puzzle.BSONFields.voteSum -> BSONDocument("$gt" -> BSONInteger(mate.fold(anonMinRating, 0))))
 
   private def mateSelector(mate: Boolean) = BSONDocument("mate" -> mate)
-
-  private lazy val popularCount = puzzleColl.db command Count(puzzleColl.name, popularSelector.some)
 
   private def difficultyDecay(difficulty: Int) = difficulty match {
     case 1 => -200
@@ -31,14 +29,15 @@ private[puzzle] final class Selector(
     case _ => 0
   }
 
+  val anonSkipMax = 2000
+
   def apply(me: Option[User], difficulty: Int): Fu[Puzzle] = {
     val isMate = scala.util.Random.nextBoolean
     me match {
-      case None => popularCount map (_ - 1) flatMap { skipMax =>
-        puzzleColl.find(popularSelector ++ mateSelector(isMate))
-          .options(QueryOpts(skipN = Random nextInt skipMax))
+      case None =>
+        puzzleColl.find(popularSelector(isMate) ++ mateSelector(isMate))
+          .options(QueryOpts(skipN = Random nextInt anonSkipMax))
           .one[Puzzle] flatten "Can't find a puzzle for anon player!"
-      }
       case Some(user) => api.attempt.playedIds(user, modulo) flatMap { ids =>
         tryRange(user, toleranceStep, difficultyDecay(difficulty), ids, isMate)
       }

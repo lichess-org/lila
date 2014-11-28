@@ -499,7 +499,7 @@ div.content_box .loader:after {
   display: inline-block;
 }
 .none {
-  display: none!important;
+  display: none;
 }
 html {
   min-height: 100%;
@@ -1008,8 +1008,11 @@ body.offline #nb_connected_players {
   display: block;
   padding: 5px 10px 10px 10px;
 }
-#top #message_notifications_tag span:before,
-#top #challenge_notifications_tag span:before {
+#challenge_notifications_tag.none {
+  display: none!important;
+}
+#message_notifications_tag span:before,
+#challenge_notifications_tag span:before {
   font-size: 1.45em;
   padding-left: 3px;
 }

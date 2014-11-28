@@ -384,42 +384,42 @@ body.is2d.spatial .cg-piece.queen.black {
 body.is2d.spatial .cg-piece.king.black {
   background-image: url(../piece/spatial/bK.svg);
 }
-body.is2d.light .cg-piece.pawn.white {
-  background-image: url(../piece/light/wP.png);
+body.is2d.lightp .cg-piece.pawn.white {
+  background-image: url(../piece/lightp/wP.png);
 }
-body.is2d.light .cg-piece.bishop.white {
-  background-image: url(../piece/light/wB.png);
+body.is2d.lightp .cg-piece.bishop.white {
+  background-image: url(../piece/lightp/wB.png);
 }
-body.is2d.light .cg-piece.knight.white,
-#top .cg-piece.light {
-  background-image: url(../piece/light/wN.png);
+body.is2d.lightp .cg-piece.knight.white,
+#top .cg-piece.lightp {
+  background-image: url(../piece/lightp/wN.png);
 }
-body.is2d.light .cg-piece.rook.white {
-  background-image: url(../piece/light/wR.png);
+body.is2d.lightp .cg-piece.rook.white {
+  background-image: url(../piece/lightp/wR.png);
 }
-body.is2d.light .cg-piece.queen.white {
-  background-image: url(../piece/light/wQ.png);
+body.is2d.lightp .cg-piece.queen.white {
+  background-image: url(../piece/lightp/wQ.png);
 }
-body.is2d.light .cg-piece.king.white {
-  background-image: url(../piece/light/wK.png);
+body.is2d.lightp .cg-piece.king.white {
+  background-image: url(../piece/lightp/wK.png);
 }
-body.is2d.light .cg-piece.pawn.black {
-  background-image: url(../piece/light/bP.png);
+body.is2d.lightp .cg-piece.pawn.black {
+  background-image: url(../piece/lightp/bP.png);
 }
-body.is2d.light .cg-piece.bishop.black {
-  background-image: url(../piece/light/bB.png);
+body.is2d.lightp .cg-piece.bishop.black {
+  background-image: url(../piece/lightp/bB.png);
 }
-body.is2d.light .cg-piece.knight.black {
-  background-image: url(../piece/light/bN.png);
+body.is2d.lightp .cg-piece.knight.black {
+  background-image: url(../piece/lightp/bN.png);
 }
-body.is2d.light .cg-piece.rook.black {
-  background-image: url(../piece/light/bR.png);
+body.is2d.lightp .cg-piece.rook.black {
+  background-image: url(../piece/lightp/bR.png);
 }
-body.is2d.light .cg-piece.queen.black {
-  background-image: url(../piece/light/bQ.png);
+body.is2d.lightp .cg-piece.queen.black {
+  background-image: url(../piece/lightp/bQ.png);
 }
-body.is2d.light .cg-piece.king.black {
-  background-image: url(../piece/light/bK.png);
+body.is2d.lightp .cg-piece.king.black {
+  background-image: url(../piece/lightp/bK.png);
 }
 body.is2d.alpha .cg-piece.pawn.white {
   background-image: url(../piece/alpha/wP.svg);
