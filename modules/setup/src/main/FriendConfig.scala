@@ -91,7 +91,7 @@ private[setup] case class RawFriendConfig(
   def decode = for {
     variant ← Variant(v)
     mode ← Mode(m)
-    timeMode <- TimeMode(t)
+    timeMode <- TimeMode(tm)
   } yield FriendConfig(
     variant = variant,
     timeMode = timeMode,

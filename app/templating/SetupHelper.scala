@@ -2,10 +2,17 @@ package lila.app
 package templating
 
 import chess.{ Mode, Variant, Speed }
+import lila.setup.TimeMode
 import lila.api.Context
 import lila.tournament.System
 
 trait SetupHelper { self: I18nHelper =>
+
+  def translatedTimeModeChoices(implicit ctx: Context) = List(
+    (TimeMode.Clock.id.toString, trans.clock.str(), none),
+    (TimeMode.Correspondance.id.toString, trans.correspondance.str(), none),
+    (TimeMode.Unlimited.id.toString, trans.unlimited.str(), none)
+  )
 
   def translatedModeChoices(implicit ctx: Context) = List(
     (Mode.Casual.id.toString, trans.casual.str(), none),

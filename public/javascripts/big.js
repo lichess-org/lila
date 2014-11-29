@@ -1150,6 +1150,7 @@ var storage = {
 
     function prepareForm() {
       var $form = $('div.lichess_overboard');
+      var $timeModeChoices = $form.find('.time_mode_choice input');
       var $modeChoicesWrap = $form.find('.mode_choice');
       var $modeChoices = $modeChoicesWrap.find('input');
       var $casual = $modeChoices.eq(0),
@@ -1159,6 +1160,7 @@ var storage = {
       var $clockCheckbox = $form.find('.clock_choice input');
       var $timeInput = $form.find('.time_choice input');
       var $incrementInput = $form.find('.increment_choice input');
+      var $daysInput = $form.find('.days_choice input');
       var isHook = $form.hasClass('game_config_hook');
       var $ratings = $form.find('.ratings > div');
       var toggleButtons = function() {
@@ -1206,7 +1208,7 @@ var storage = {
       }
       $form.find('div.buttons').buttonset().disableSelection();
       $form.find('button.submit').button().disableSelection();
-      $timeInput.add($incrementInput).each(function() {
+      $timeInput.add($incrementInput).add($daysInput).each(function() {
         var $input = $(this),
           $value = $input.siblings('span'),
           time;

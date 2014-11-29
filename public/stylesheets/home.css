@@ -525,7 +525,7 @@ div.game_config input[type="text"] {
 div.game_config .variants {
   margin-bottom: 1em;
 }
-div.game_config .variants select {
+div.game_config select {
   font-weight: bold;
 }
 div.game_config .fen_position {

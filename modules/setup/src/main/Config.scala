@@ -94,9 +94,9 @@ trait BaseConfig {
   val variantDefault = Variant.Standard
 
   val variantsWithFen = variants :+ Variant.FromPosition.id
-  val variantsWithFenAndKingOfTheHill = variantsWithFen :+ Variant.KingOfTheHill.id
+  val variantsWithFenAndKingOfTheHill = variants :+ Variant.KingOfTheHill.id :+ Variant.FromPosition.id
   val variantsWithVariants = variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id
-  val variantsWithFenAndVariants = variantsWithFen :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id
+  val variantsWithFenAndVariants = variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id :+ Variant.FromPosition.id
 
   val speeds = Speed.all map (_.id)
 

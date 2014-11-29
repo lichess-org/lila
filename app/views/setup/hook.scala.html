@@ -7,7 +7,7 @@
 <div class="variants">
   @trans.variant() @setup.select(form("variant"), translatedVariantChoicesWithVariants)
 </div>
-@setup.clock(form, lila.setup.HookConfig)
+@setup.timeMode(form, lila.setup.HookConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
   @globalCasualOnlyMessage.getOrElse {
