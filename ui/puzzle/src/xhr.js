@@ -5,7 +5,13 @@ var xhrConfig = function(xhr) {
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 }
 
+function showLoading(ctrl) {
+  ctrl.vm.loading = true;
+  m.redraw();
+}
+
 function attempt(ctrl, win) {
+  showLoading(ctrl);
   m.request({
     method: 'POST',
     url: ctrl.router.Puzzle.attempt(ctrl.data.puzzle.id).url,
@@ -35,6 +41,7 @@ function vote(ctrl, v) {
 }
 
 function retry(ctrl) {
+  showLoading(ctrl);
   m.request({
     method: 'GET',
     url: ctrl.router.Puzzle.load(ctrl.data.puzzle.id).url,
@@ -43,6 +50,7 @@ function retry(ctrl) {
 }
 
 function setDifficulty(ctrl, d) {
+  showLoading(ctrl);
   m.request({
     method: 'POST',
     url: '/training/difficulty',
@@ -54,6 +62,7 @@ function setDifficulty(ctrl, d) {
 }
 
 function newPuzzle(ctrl) {
+  showLoading(ctrl);
   m.request({
     method: 'GET',
     url: '/training/new',

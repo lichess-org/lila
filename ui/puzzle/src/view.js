@@ -286,6 +286,10 @@ function wheel(ctrl, e) {
   return false;
 }
 
+function renderLoading(ctrl) {
+  return m('div.loader.fast');
+}
+
 module.exports = function(ctrl) {
   return m('div#puzzle.training', [
     renderSide(ctrl),
@@ -298,7 +302,7 @@ module.exports = function(ctrl) {
           }
         },
         chessground.view(ctrl.chessground)),
-      m('div.right', ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl))
+      m('div.right', ctrl.vm.loading ? renderLoading(ctrl) : (ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl)))
     ]),
     m('div.center', [
       renderFooter(ctrl),

@@ -11,6 +11,10 @@ var xhr = require('./xhr');
 
 module.exports = function(cfg, router, i18n) {
 
+  this.vm = {
+    loading: false
+  };
+
   this.data = data(cfg);
 
   this.userMove = function(orig, dest) {
@@ -28,14 +32,20 @@ module.exports = function(cfg, router, i18n) {
       case 'fail':
         var t = this;
         setTimeout(function() {
-          if (t.data.mode == 'play') xhr.attempt(t, false);
+          if (t.data.mode == 'play') {
+            t.chessground.stop();
+            xhr.attempt(t, false);
+          }
           else t.revert(t.data.puzzle.id);
         }, 500);
         this.data.comment = 'fail';
         break;
       default:
         this.userFinalizeMove([orig, dest, promotion], newProgress);
-        if (newLines == 'win') xhr.attempt(this, true);
+        if (newLines == 'win') {
+          this.chessground.stop();
+          xhr.attempt(this, true);
+        }
         else setTimeout(partial(this.playOpponentNextMove, this.data.puzzle.id), 1000);
         break;
     }
@@ -97,6 +107,7 @@ module.exports = function(cfg, router, i18n) {
   }.bind(this);
 
   this.reload = function(cfg) {
+    this.vm.loading = false;
     this.data = data(cfg);
     chessground.board.reset(this.chessground.data);
     chessground.anim(puzzle.reload, this.chessground.data)(this.data, cfg);
