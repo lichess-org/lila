@@ -324,6 +324,9 @@ var storage = {
                 url: $(this).attr('href'),
                 method: 'post'
               });
+              $(this).parents('.notification').remove();
+              if ($('#message_notifications_display').children().length === 0)
+                $('#message_notifications_tag').click();
               return false;
             });
           $('body').trigger('lichess.content_loaded');
