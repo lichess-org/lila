@@ -1839,14 +1839,9 @@ var storage = {
       });
     }
 
-    function start() {
-      alert($.trans("Tournament is starting"));
-      reload();
-    }
-
     lichess.socket = new lichess.StrongSocket($wrap.data("socket-url"), _ld_.version, {
       events: {
-        start: start,
+        start: reload,
         reload: reload,
         reloadPage: function() {
           location.reload();

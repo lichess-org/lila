@@ -34,11 +34,9 @@ private[tournament] final class TournamentApi(
   def makePairings(oldTour: Started, pairings: NonEmptyList[Pairing], postEvents: Events) {
     sequence(oldTour.id) {
       TournamentRepo startedById oldTour.id flatMap {
-        case Some(tour) =>
-          val tour2 = tour addPairings pairings
-          val tour3 = if (postEvents.isEmpty) tour2 else { tour2 addEvents postEvents }
-
-          TournamentRepo.update(tour3).void >> (pairings map autoPairing(tour3)).sequence map {
+        case Some(t) =>
+          val tour = t addPairings pairings addEvents postEvents
+          TournamentRepo.update(tour).void >> (pairings map autoPairing(tour)).sequence map {
             _.list foreach { game =>
               game.tournamentId foreach { tid =>
                 sendTo(tid, StartGame(game))
@@ -210,9 +208,9 @@ private[tournament] final class TournamentApi(
     sendTo(tourId, Reload)
   }
 
-  private val reloadMessage = Json.obj("t" -> "reload")
+  private val reloadMessage = SendToFlag("tournament", Json.obj("t" -> "reload"))
   private def reloadSiteSocket {
-    site ! SendToFlag("tournament", reloadMessage)
+    site ! reloadMessage
   }
 
   private def sendTo(tourId: String, msg: Any) {
