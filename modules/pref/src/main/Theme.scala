@@ -33,7 +33,7 @@ object Theme extends ThemeObject {
     "wood", "canvas", "marble",
     "wood2", "blue2", "leather",
     "olive", "grey", "purple",
-    "metal"
+    "metal", "wood3", "blue3"
   ) map { name => new Theme(name) }
 }
 

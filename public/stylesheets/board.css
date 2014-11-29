@@ -42,6 +42,14 @@ body.is2d.wood2 .cg-board,
 #top div.color_demo.wood2 {
   background-image: url(../images/board/wood2.jpg);
 }
+body.is2d.wood3 .cg-board,
+#top div.color_demo.wood3 {
+  background-image: url(../images/board/wood3.jpg);
+}
+body.is2d.blue3 .cg-board,
+#top div.color_demo.blue3 {
+  background-image: url(../images/board/blue3.jpg);
+}
 body.is2d.marble .cg-board,
 #top div.color_demo.marble {
   background-image: url(../images/board/marble.jpg);
@@ -68,7 +76,7 @@ body.is2d.grey .cg-board,
 }
 body.is2d.wood .cg-board,
 #top div.color_demo.wood {
-  background-image: url(../images/board/wood3-1024.jpg);
+  background-image: url(../images/board/wood-1024.jpg);
 }
 body.is2d.canvas .cg-board,
 #top div.color_demo.canvas {
