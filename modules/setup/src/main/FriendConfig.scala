@@ -27,6 +27,7 @@ case class FriendConfig(
       mode = (variant == Variant.FromPosition).fold(Mode.Casual, mode),
       variant = variant,
       source = (variant == Variant.FromPosition).fold(Source.Position, Source.Friend),
+      correspondanceDayPerTurn = makeDaysPerTurn,
       pgnImport = None)
   }
 

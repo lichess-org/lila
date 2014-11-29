@@ -40,6 +40,8 @@ private[setup] trait Config {
   def makeClock = hasClock option {
     Clock(time * 60, clockHasTime.fold(increment, 1))
   }
+
+  def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondance) option days
 }
 
 trait GameGenerator { self: Config =>
