@@ -37,9 +37,10 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
   def ai(ctx: UserContext) = Form(
     mapping(
       "variant" -> variantWithFenAndKingOfTheHill,
-      "clock" -> boolean,
+      "timeMode" -> timeMode,
       "time" -> time,
       "increment" -> increment,
+      "days" -> days,
       "level" -> level,
       "color" -> color,
       "fen" -> fen
@@ -59,9 +60,10 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
   def friend(ctx: UserContext) = Form(
     mapping(
       "variant" -> variantWithFenAndVariants,
-      "clock" -> boolean,
+      "timeMode" -> timeMode,
       "time" -> time,
       "increment" -> increment,
+      "days" -> days,
       "mode" -> mode(withRated = ctx.isAuth && !casualOnly),
       "color" -> color,
       "fen" -> fen
@@ -78,9 +80,10 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
   def hook(ctx: UserContext) = Form(
     mapping(
       "variant" -> variantWithVariants,
-      "clock" -> boolean,
+      "timeMode" -> timeMode,
       "time" -> time,
       "increment" -> increment,
+      "days" -> days,
       "mode" -> mode(ctx.isAuth && !casualOnly),
       "membersOnly" -> boolean,
       "ratingRange" -> optional(ratingRange),

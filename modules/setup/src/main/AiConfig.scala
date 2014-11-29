@@ -6,16 +6,17 @@ import lila.lobby.Color
 
 case class AiConfig(
     variant: Variant,
-    clock: Boolean,
+    timeMode: TimeMode,
     time: Int,
     increment: Int,
+    days: Int,
     level: Int,
     color: Color,
     fen: Option[String] = None) extends Config with GameGenerator with Positional {
 
   val strictFen = true
 
-  def >> = (variant.id, clock, time, increment, level, color.name, fen).some
+  def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen).some
 
   def game = fenGame { chessGame =>
     Game.make(
@@ -34,29 +35,32 @@ case class AiConfig(
 
   def encode = RawAiConfig(
     v = variant.id,
-    k = clock,
+    tm = timeMode.id,
     t = time,
     i = increment,
+    d = days,
     l = level,
     f = ~fen)
 }
 
 object AiConfig extends BaseConfig {
 
-  def <<(v: Int, k: Boolean, t: Int, i: Int, level: Int, c: String, fen: Option[String]) = new AiConfig(
+  def <<(v: Int, tm: Int, t: Int, i: Int, d: Int, level: Int, c: String, fen: Option[String]) = new AiConfig(
     variant = Variant(v) err "Invalid game variant " + v,
-    clock = k,
+    timeMode = TimeMode(tm) err s"Invalid time mode $tm",
     time = t,
     increment = i,
+    days = d,
     level = level,
     color = Color(c) err "Invalid color " + c,
     fen = fen)
 
   val default = AiConfig(
     variant = variantDefault,
-    clock = false,
+    timeMode = TimeMode.Unlimited,
     time = 5,
     increment = 8,
+    days = 2,
     level = 1,
     color = Color.default)
 
@@ -83,19 +87,22 @@ object AiConfig extends BaseConfig {
 
 private[setup] case class RawAiConfig(
     v: Int,
-    k: Boolean,
+    tm: Int,
     t: Int,
     i: Int,
+    d: Int,
     l: Int,
     f: String = "") {
 
   def decode = for {
     variant ← Variant(v)
+    timeMode <- TimeMode(tm)
   } yield AiConfig(
     variant = variant,
-    clock = k,
+    timeMode = timeMode,
     time = t,
     increment = i,
+    days = d,
     level = l,
     color = Color.White,
     fen = f.some filter (_.nonEmpty))

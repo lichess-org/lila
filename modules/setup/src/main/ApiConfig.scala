@@ -10,9 +10,10 @@ private[setup] case object ApiConfig extends Config with GameGenerator {
   val color = Color.White
   val variant = Variant.Standard
   val mode = Mode.Casual
-  val clock = false
+  val timeMode = TimeMode.Unlimited
   val time = 5
   val increment = 8
+  val days = 2
 
   def game = Game.make(
     game = makeGame,

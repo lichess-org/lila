@@ -1,22 +1,23 @@
 package lila.setup
 
 import chess.{ Variant, Mode, Clock, Color => ChessColor }
-import lila.rating.RatingRange
 import lila.game.{ Game, Player, Source }
 import lila.lobby.Color
+import lila.rating.RatingRange
 
 case class FriendConfig(
     variant: Variant,
-    clock: Boolean,
+    timeMode: TimeMode,
     time: Int,
     increment: Int,
+    days: Int,
     mode: Mode,
     color: Color,
     fen: Option[String] = None) extends HumanConfig with GameGenerator with Positional {
 
   val strictFen = false
 
-  def >> = (variant.id, clock, time, increment, mode.id.some, color.name, fen).some
+  def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, color.name, fen).some
 
   def game = fenGame { chessGame =>
     Game.make(
@@ -31,30 +32,33 @@ case class FriendConfig(
 
   def encode = RawFriendConfig(
     v = variant.id,
-    k = clock,
+    tm = timeMode.id,
     t = time,
     i = increment,
+    d = days,
     m = mode.id,
     f = ~fen)
 }
 
 object FriendConfig extends BaseHumanConfig {
 
-  def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], c: String, fen: Option[String]) =
+  def <<(v: Int, tm: Int, t: Int, i: Int, d: Int, m: Option[Int], c: String, fen: Option[String]) =
     new FriendConfig(
       variant = Variant(v) err "Invalid game variant " + v,
-      clock = k,
+      timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
+      days = d,
       mode = m.fold(Mode.default)(Mode.orDefault),
       color = Color(c) err "Invalid color " + c,
       fen = fen)
 
   val default = FriendConfig(
     variant = variantDefault,
-    clock = false,
+    timeMode = TimeMode.Unlimited,
     time = 5,
     increment = 8,
+    days = 2,
     mode = Mode.default,
     color = Color.default)
 
@@ -77,20 +81,23 @@ object FriendConfig extends BaseHumanConfig {
 
 private[setup] case class RawFriendConfig(
     v: Int,
-    k: Boolean,
+    tm: Int,
     t: Int,
     i: Int,
+    d: Int,
     m: Int,
     f: String = "") {
 
   def decode = for {
     variant ← Variant(v)
     mode ← Mode(m)
+    timeMode <- TimeMode(t)
   } yield FriendConfig(
     variant = variant,
-    clock = k,
+    timeMode = timeMode,
     time = t,
     increment = i,
+    days = d,
     mode = mode,
     color = Color.White,
     fen = f.some filter (_.nonEmpty))
