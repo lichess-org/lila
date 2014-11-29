@@ -4,21 +4,18 @@
 
 <div class="time_mode_config optional_config">
   <div class="time_mode_choice">
-    @trans.timeControl()
     @setup.select(form("timeMode"), translatedTimeModeChoices)
   </div>
-  <div class="clock">
-    <div class="time_choice">
-      @trans.minutesPerSide(): <span>@form("time").value</span>
-      @setup.input(form("time"))
-    </div>
-    <div class="increment_choice">
-      @trans.incrementInSeconds(): <span>@form("increment").value</span>
-      @setup.input(form("increment"))
-    </div>
+  <div class="time_choice slider">
+    @trans.minutesPerSide(): <span>@form("time").value</span>
+    @setup.input(form("time"))
+  </div>
+  <div class="increment_choice slider">
+    @trans.incrementInSeconds(): <span>@form("increment").value</span>
+    @setup.input(form("increment"))
   </div>
   <div class="correspondance">
-    <div class="days_choice">
+    <div class="days_choice slider">
       @trans.daysPerTurn(): <span>@form("days").value</span>
       @setup.input(form("days"))
     </div>

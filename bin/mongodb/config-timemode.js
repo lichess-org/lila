@@ -1,4 +1,4 @@
-db.config.find({_id:'thibault'}).forEach(function(o) {
+db.config.find().forEach(function(o) {
   var sets = {};
   var unsets = {};
   ['friend', 'hook', 'ai'].forEach(function(type) {

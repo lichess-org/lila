@@ -5,7 +5,7 @@
 
 @fields = {
 <div class="variants">
-  @trans.variant() @setup.select(form("variant"), translatedVariantChoicesWithVariants)
+  @setup.select(form("variant"), translatedVariantChoicesWithVariants)
 </div>
 @setup.timeMode(form, lila.setup.HookConfig)
 @if(ctx.isAuth) {
@@ -21,7 +21,7 @@
     @setup.checkbox(form("membersOnly"))
   </div>
   }
-  <div class="rating_range_config">
+  <div class="rating_range_config slider">
     @trans.ratingRange(): <span class="range">? - ?</span>
     <div class="rating_range">
       @setup.input(

@@ -2,7 +2,7 @@
 
 @fields = {
 <div class="variants">
-  @trans.variant() @setup.select(form("variant"), translatedVariantChoicesWithFenAndKingOfTheHill)
+  @setup.select(form("variant"), translatedVariantChoicesWithFenAndKingOfTheHill)
 </div>
 @fenInput(form("fen"), true)
 @setup.timeMode(form, lila.setup.AiConfig)

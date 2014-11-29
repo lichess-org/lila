@@ -1148,29 +1148,46 @@ var storage = {
       }
     }
 
+    function sliderDays(v) {
+      if (v <= 3) return v;
+      switch (v) {
+        case 4:
+          return 5;
+        case 5:
+          return 7;
+        case 6:
+          return 10;
+        default:
+          return 14;
+      }
+    }
+
     function prepareForm() {
       var $form = $('div.lichess_overboard');
-      var $timeModeChoices = $form.find('.time_mode_choice input');
+      var $timeModeSelect = $form.find('.time_mode_choice select');
       var $modeChoicesWrap = $form.find('.mode_choice');
       var $modeChoices = $modeChoicesWrap.find('input');
       var $casual = $modeChoices.eq(0),
         $rated = $modeChoices.eq(1);
       var $variantSelect = $form.find('.variants select');
       var $fenPosition = $form.find(".fen_position");
-      var $clockCheckbox = $form.find('.clock_choice input');
       var $timeInput = $form.find('.time_choice input');
       var $incrementInput = $form.find('.increment_choice input');
       var $daysInput = $form.find('.days_choice input');
       var isHook = $form.hasClass('game_config_hook');
       var $ratings = $form.find('.ratings > div');
       var toggleButtons = function() {
-        $form.find('.color_submits button').toggle(!$clockCheckbox.is(':checked') || $timeInput.val() > 0 || $incrementInput.val() > 0);
+        var timeMode = $timeModeSelect.val();
+        var rated = $rated.prop('checked');
+        var timeOk = timeMode != '1' || $timeInput.val() > 0 || $incrementInput.val() > 0;
+        var ratedOk = !isHook || !rated || timeMode != '0';
+        $form.find('.color_submits button').toggle(timeOk && ratedOk);
       };
       var showRating = function() {
         var key;
         switch ($variantSelect.val()) {
           case '1':
-            if ($clockCheckbox.is(':checked')) {
+            if ($timeModeSelect.val() == '1') {
               var time = $timeInput.val() * 60 + $incrementInput.val() * 30;
               if (time < 180) key = 'bullet';
               else if (time < 480) key = 'blitz';
@@ -1208,10 +1225,9 @@ var storage = {
       }
       $form.find('div.buttons').buttonset().disableSelection();
       $form.find('button.submit').button().disableSelection();
-      $timeInput.add($incrementInput).add($daysInput).each(function() {
+      $timeInput.add($incrementInput).each(function() {
         var $input = $(this),
-          $value = $input.siblings('span'),
-          time;
+          $value = $input.siblings('span');
         $input.hide().after($('<div>').slider({
           value: $input.val(),
           min: 0,
@@ -1219,11 +1235,27 @@ var storage = {
           range: 'min',
           step: 1,
           slide: function(event, ui) {
-            time = sliderTime(ui.value);
+            var time = sliderTime(ui.value);
             $value.text(time);
             $input.attr('value', time);
             showRating();
             toggleButtons();
+          }
+        }));
+      });
+      $daysInput.each(function() {
+        var $input = $(this),
+          $value = $input.siblings('span');
+        $input.hide().after($('<div>').slider({
+          value: $input.val(),
+          min: 1,
+          max: 7,
+          range: 'min',
+          step: 1,
+          slide: function(event, ui) {
+            var days = sliderDays(ui.value);
+            $value.text(days);
+            $input.attr('value', days);
           }
         }));
       });
@@ -1252,19 +1284,15 @@ var storage = {
           var rated = $rated.prop('checked');
           var membersOnly = $form.find('.members_only input').prop('checked');
           $ratingRangeConfig.toggle(rated || membersOnly);
-          if (isHook && rated && !$clockCheckbox.prop('checked')) {
-            $clockCheckbox.click();
-          }
           $form.find('.members_only').toggle(!rated);
+          toggleButtons();
         }).trigger('change');
       });
-      $clockCheckbox.on('change', function() {
-        var checked = $(this).is(':checked');
-        $form.find('.time_choice, .increment_choice').toggle(checked);
+      $timeModeSelect.on('change', function() {
+        var timeMode = $(this).val();
+        $form.find('.time_choice, .increment_choice').toggle(timeMode == '1');
+        $form.find('.days_choice').toggle(timeMode == '2');
         toggleButtons();
-        if (isHook && !checked) {
-          $casual.click();
-        }
         showRating();
       }).trigger('change');
       var $ratingRangeConfig = $form.find('.rating_range_config');
