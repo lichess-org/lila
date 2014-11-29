@@ -98,8 +98,14 @@ body.is2d.blue .kingOfTheHill .cg-board {
 body.is2d.blue2 .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/blue2.jpg);
 }
+body.is2d.blue3 .kingOfTheHill .cg-board {
+  background-image: url(../images/board/koth/blue3.jpg);
+}
 body.is2d.wood2 .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/wood2.jpg);
+}
+body.is2d.wood3 .kingOfTheHill .cg-board {
+  background-image: url(../images/board/koth/wood3.jpg);
 }
 body.is2d.marble .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/marble.jpg);
@@ -127,6 +133,9 @@ body.is2d.canvas .kingOfTheHill .cg-board {
 }
 body.is2d.leather .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/leather.jpg);
+}
+body.is2d.metal .kingOfTheHill .cg-board {
+  background-image: url(../images/board/koth/metal.jpg);
 }
 body.is3d.Black-White-Aluminium .cg-board-wrap,
 #top .is3d .Black-White-Aluminium {
