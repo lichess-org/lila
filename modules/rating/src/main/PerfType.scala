@@ -28,6 +28,12 @@ object PerfType {
     title = Speed.Classical.title,
     iconChar = '+')
 
+  case object Correspondance extends PerfType(
+    key = "correspondance",
+    name = "Correspondance",
+    title = "Correspondance",
+    iconChar = 'e')
+
   case object Standard extends PerfType(
     key = "standard",
     name = Variant.Standard.name,

@@ -20,6 +20,7 @@ case class Game(
     startedAtTurn: Int,
     clock: Option[Clock],
     castleLastMoveTime: CastleLastMoveTime,
+    correspondanceDayPerTurn: Option[Int],
     positionHashes: PositionHash = Array(),
     checkCount: CheckCount = CheckCount(0, 0),
     binaryMoveTimes: ByteArray = ByteArray.empty, // tenths of seconds
@@ -306,6 +307,8 @@ case class Game(
     if (!c.isRunning && !c.isInit) || (c outoftime player.color)
   } yield player
 
+  def isCorrespondance = correspondanceDayPerTurn.isDefined
+
   def hasClock = clock.isDefined
 
   def isClockRunning = clock ?? (_.isRunning)
@@ -396,7 +399,8 @@ object Game {
     variant: Variant,
     source: Source,
     pgnImport: Option[PgnImport],
-    castles: Castles = Castles.init): Game = Game(
+    castles: Castles = Castles.init,
+    correspondanceDayPerTurn: Option[Int] = None): Game = Game(
     id = IdGenerator.game,
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
@@ -408,6 +412,7 @@ object Game {
     startedAtTurn = game.startedAtTurn,
     clock = game.clock,
     castleLastMoveTime = CastleLastMoveTime.init.copy(castles = castles),
+    correspondanceDayPerTurn = correspondanceDayPerTurn,
     mode = mode,
     variant = variant,
     metadata = Metadata(
@@ -442,6 +447,7 @@ object Game {
     val positionHashes = "ph"
     val checkCount = "cc"
     val castleLastMoveTime = "cl"
+    val correspondanceDayPerTurn = "cd"
     val moveTimes = "mt"
     val rated = "ra"
     val analysed = "an"
@@ -496,6 +502,7 @@ object Game {
           CheckCount(~counts.headOption, ~counts.lastOption)
         },
         castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(castleLastMoveTimeBSONHandler),
+        correspondanceDayPerTurn = r intO correspondanceDayPerTurn,
         binaryMoveTimes = (r bytesO moveTimes) | ByteArray.empty,
         mode = Mode(r boolD rated),
         variant = Variant(r intD variant) | Variant.Standard,
@@ -527,6 +534,7 @@ object Game {
       positionHashes -> w.bytesO(o.positionHashes),
       checkCount -> o.checkCount.nonEmpty.option(o.checkCount),
       castleLastMoveTime -> castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
+      correspondanceDayPerTurn -> o.correspondanceDayPerTurn,
       moveTimes -> (BinaryFormat.moveTime write o.moveTimes),
       rated -> w.boolO(o.mode.rated),
       variant -> o.variant.exotic.option(o.variant.id).map(w.int),
