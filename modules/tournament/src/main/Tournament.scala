@@ -49,7 +49,7 @@ sealed trait Tournament {
   def schedule = data.schedule
   def scheduled = data.schedule.isDefined
 
-  def perfLens = PerfPicker.mainOrDefault(speed, variant)
+  def perfLens = PerfPicker.mainOrDefault(speed, variant, none)
 
   def userIds = players map (_.id)
   def activePlayers = players filter (_.active)

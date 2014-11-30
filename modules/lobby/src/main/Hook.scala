@@ -5,10 +5,10 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 
+import actorApi.LobbyUser
 import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.{ User, Perfs }
-import actorApi.LobbyUser
 
 case class Hook(
     id: String,
@@ -18,6 +18,7 @@ case class Hook(
     hasClock: Boolean,
     time: Option[Int],
     increment: Option[Int],
+    daysPerTurn: Option[Int],
     mode: Int,
     allowAnon: Boolean,
     color: String,
@@ -47,7 +48,7 @@ case class Hook(
     range => h.rating ?? range.contains
   }
 
-  private def compatibilityProperties = (variant, time, increment, mode)
+  private def compatibilityProperties = (variant, time, increment, mode, daysPerTurn)
 
   lazy val realRatingRange: Option[RatingRange] = RatingRange noneIfDefault ratingRange
 
@@ -66,6 +67,7 @@ case class Hook(
     "mode" -> realMode.toString,
     "clock" -> clockOption.map(_.show),
     "time" -> clockOption.map(_.estimateTotalTime),
+    "days" -> daysPerTurn,
     "speed" -> chess.Speed(clockOption).id,
     "color" -> chess.Color(color).??(_.name),
     "perf" -> Json.obj(
@@ -73,7 +75,7 @@ case class Hook(
       "name" -> perfType.map(_.name))
   )
 
-  lazy val perfType = PerfPicker.perfType(speed, realVariant)
+  lazy val perfType = PerfPicker.perfType(speed, realVariant, daysPerTurn)
 
   private lazy val clockOption = (time ifTrue hasClock) |@| increment apply Clock.apply
 
@@ -90,6 +92,7 @@ object Hook {
     uid: String,
     variant: Variant,
     clock: Option[Clock],
+    daysPerTurn: Option[Int],
     mode: Mode,
     allowAnon: Boolean,
     color: String,
@@ -103,6 +106,7 @@ object Hook {
     hasClock = clock.isDefined,
     time = clock map (_.limit),
     increment = clock map (_.increment),
+    daysPerTurn = daysPerTurn,
     mode = mode.id,
     allowAnon = allowAnon || user.isEmpty,
     color = color,

@@ -1184,15 +1184,17 @@ var storage = {
         $form.find('.color_submits button').toggle(timeOk && ratedOk);
       };
       var showRating = function() {
+        var timeMode = $timeModeSelect.val();
         var key;
         switch ($variantSelect.val()) {
           case '1':
-            if ($timeModeSelect.val() == '1') {
+            if (timeMode == '1') {
               var time = $timeInput.val() * 60 + $incrementInput.val() * 30;
               if (time < 180) key = 'bullet';
               else if (time < 480) key = 'blitz';
               else key = 'classical';
-            } else key = 'classical';
+            } else if (timeMode == '2') key = 'correspondence';
+            else key = 'classical';
             break;
           case '2':
             key = 'chess960';
@@ -1732,6 +1734,8 @@ var storage = {
       }
       if (hook.clock) {
         html += '<span class="clock">' + hook.clock + '</span>';
+      } else if (hook.days) {
+        html += '<span class="clock">' + hook.days + 'D</span>';
       } else {
         html += '<span class="clock nope">∞</span>';
       }
@@ -1747,7 +1751,7 @@ var storage = {
         ['', '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>'],
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous')],
         [hook.rating || 0, hook.rating ? hook.rating : ''],
-        [hook.time || 9999, hook.clock ? hook.clock : '∞'],
+        [hook.time || 9999, hook.clock ? hook.clock : (hook.days ? hook.days + 'D' : '∞')],
         [hook.mode,
           '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' +
           $.trans(hook.mode)

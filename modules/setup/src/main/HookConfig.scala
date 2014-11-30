@@ -24,6 +24,7 @@ case class HookConfig(
     uid = uid,
     variant = variant,
     clock = makeClock,
+    daysPerTurn = makeDaysPerTurn,
     mode = mode,
     allowAnon = allowAnon,
     color = color.name,

@@ -14,7 +14,7 @@ private[evaluation] final class Listener(evaluator: Evaluator) extends Actor {
   def receive = {
 
     case lila.game.actorApi.FinishGame(game, white, black) =>
-      PerfType(PerfPicker.key(game.speed, game.variant)) ifTrue game.rated map { perfType =>
+      PerfType(PerfPicker key game) ifTrue game.rated map { perfType =>
         List(
           game.whitePlayer -> white,
           game.blackPlayer -> black
