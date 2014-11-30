@@ -70,7 +70,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
       OptionResult(GameRepo game gameId) { game =>
         if (game.started) BadRequest("Cannot decline started challenge")
         else {
-          Env.game.maintenance remove game.id
+          GameRepo remove game.id
           Env.hub.actor.challenger ! lila.hub.actorApi.setup.DeclineChallenge(gameId)
           Ok("ok")
         }
@@ -151,7 +151,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
     OptionResult(GameRepo pov fullId) { pov =>
       if (pov.game.started) Redirect(routes.Round.player(pov.fullId))
       else {
-        Env.game.maintenance remove pov.game.id
+        GameRepo remove pov.game.id
         Redirect(routes.Lobby.home)
       }
     }

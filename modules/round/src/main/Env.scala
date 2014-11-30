@@ -165,18 +165,12 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.future(0.23 hour, "game: finish by clock") {
-      titivate.finishByClock
-    }
-
-    scheduler.effect(0.41 hour, "game: finish abandoned") {
-      titivate.finishAbandoned
-    }
-
     scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
   }
 
-  private lazy val titivate = new Titivate(roundMap, scheduler)
+  system.actorOf(
+    Props(classOf[Titivate], roundMap, hub.actor.bookmark),
+    name = "titivate")
 
   lazy val takebacker = new Takebacker(
     messenger = messenger,

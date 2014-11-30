@@ -61,6 +61,8 @@ object GameRepo {
 
   def pov(ref: PovRef): Fu[Option[Pov]] = pov(ref.gameId, ref.color)
 
+  def remove(id: ID) = $remove($select(id))
+
   def recentByUser(userId: String): Fu[List[Game]] = $find(
     $query(Query user userId) sort Query.sortCreated
   )
@@ -152,8 +154,9 @@ object GameRepo {
     nonEmptyMod("$set", BSONDocument(
       F.winnerId -> winnerId,
       F.winnerColor -> winnerColor.map(_.white)
-    )) ++ nonEmptyMod("$unset", BSONDocument(
+    )) ++ BSONDocument("$unset" -> BSONDocument(
       F.positionHashes -> true,
+      F.checkAt -> true,
       ("p0." + Player.BSONFields.lastDrawOffer) -> true,
       ("p1." + Player.BSONFields.lastDrawOffer) -> true,
       ("p0." + Player.BSONFields.isOfferingDraw) -> true,
@@ -174,10 +177,16 @@ object GameRepo {
     else game
     val bson = (gameTube.handler write g2) ++ BSONDocument(
       F.initialFen -> g2.variant.exotic.option(Forsyth >> g2.toChess),
-      F.checkAt -> DateTime.now.plusHours(3)
+      F.checkAt -> (!game.isPgnImport).option(DateTime.now.plusHours(game.hasClock.fold(4, 24)))
     )
     $insert bson bson
   }
+
+  def setCheckAt(g: Game, at: DateTime) =
+    $update($select(g.id), BSONDocument("$set" -> BSONDocument(F.checkAt -> at)))
+
+  def unsetCheckAt(g: Game) =
+    $update($select(g.id), BSONDocument("$unset" -> BSONDocument(F.checkAt -> true)))
 
   // used to make a compound sparse index
   def setImportCreatedAt(g: Game) =

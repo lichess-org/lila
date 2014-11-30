@@ -163,7 +163,7 @@ case class Refresh(userId: String)
 
 package bookmark {
 case class Toggle(gameId: String, userId: String)
-case class Remove(gameIds: List[String])
+case class Remove(gameId: String)
 }
 
 package relation {

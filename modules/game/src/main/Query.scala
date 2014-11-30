@@ -62,23 +62,7 @@ object Query {
 
   def turnsGt(nb: Int) = Json.obj(F.turns -> $gt(nb))
 
-  def finishByClock = playable ++ clock(true) ++ Json.obj(
-    F.createdAt -> $gt($date(DateTime.now minusHours 3)))
-
-  def abandoned = {
-    val date = $date(Game.abandonedDate)
-    notFinished ++ $or(Seq(
-      Json.obj(F.updatedAt -> $lt(date)),
-      Json.obj(F.updatedAt -> $exists(false), F.createdAt -> $lt(date))
-    ))
-  }
-
-  def unplayed = Json.obj(
-    F.turns -> $lt(2),
-    F.createdAt -> (
-      $lt($date(DateTime.now minusHours 24)) ++
-      $gt($date(DateTime.now minusHours 25)))
-  )
+  def checkable = Json.obj(F.checkAt -> $lt($date(DateTime.now)))
 
   val sortCreated = $sort desc F.createdAt
 }

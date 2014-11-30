@@ -1,30 +1,57 @@
 package lila.round
 
+import akka.actor._
+import org.joda.time.DateTime
 import scala.concurrent.duration._
+import scala.concurrent.Future
 
-import play.api.libs.iteratee._
-import play.api.libs.json._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
-
-import lila.common.PimpedJson._
-import lila.common.Scheduler
 import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ Query, Game, GameRepo }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round.{ Outoftime, Abandon }
 
-private[round] final class Titivate(roundMap: akka.actor.ActorRef, scheduler: Scheduler) {
+private[round] final class Titivate(
+    roundMap: ActorRef,
+    bookmark: ActorSelection) extends Actor {
 
-  def finishByClock: Funit =
-    $primitive(Query.finishByClock, "_id", max = 5000.some)(_.asOpt[String]) addEffect { ids =>
-      loginfo("[titivate] Finish %d games by clock" format ids.size)
-      scheduler.throttle(100.millis)(ids) { id => roundMap ! Tell(id, Outoftime) }
-    } void
+  object Schedule
+  object Run
 
-  def finishAbandoned: Funit =
-    $primitive(Query.abandoned, "_id", max = 5000.some)(_.asOpt[String]) addEffect { ids =>
-      loginfo("[titivate] Finish %d abandoned games" format ids.size)
-      scheduler.throttle(100.millis)(ids) { id => roundMap ! Tell(id, Abandon) }
-    } void
+  def scheduler = context.system.scheduler
+
+  override def preStart() {
+    self ! Schedule
+  }
+
+  def delay(f: => Unit): Funit = akka.pattern.after(50 millis, scheduler)(Future(f))
+
+  def receive = {
+
+    case Schedule => scheduler.scheduleOnce(10 minutes)(self, Run)
+
+    case Run => $enumerate.over[Game]($query(Query.checkable), 5000) { game =>
+      if (game.finished || game.isPgnImport) GameRepo unsetCheckAt game
+      else if (game.outoftimePlayer.isDefined) delay {
+        roundMap ! Tell(game.id, Outoftime)
+      }
+      else if (game.abandoned) delay {
+        roundMap ! Tell(game.id, Abandon)
+      }
+      else if (game.unplayed) {
+        bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
+        GameRepo remove game.id
+      }
+      else if (game.hasClock) {
+        val hours = game.started.fold(1, 6)
+        GameRepo.setCheckAt(game, DateTime.now plusHours hours)
+      }
+      else {
+        val days = game.daysPerTurn | 3
+        GameRepo.setCheckAt(game, DateTime.now plusDays days)
+      }
+    }.void andThenAnyway {
+      self ! Schedule
+    }
+  }
 }

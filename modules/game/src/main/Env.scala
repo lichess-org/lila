@@ -73,16 +73,8 @@ final class Env(
     }
   }), name = ActorName)
 
-  {
-    import scala.concurrent.duration._
-
-    scheduler.effect(0.9 hours, "game: cleanup") {
-      maintenance.cleanupUnplayed
-    }
-
-    scheduler.message(CaptcherDuration) {
-      captcher -> actorApi.NewCaptcha
-    }
+  scheduler.message(CaptcherDuration) {
+    captcher -> actorApi.NewCaptcha
   }
 
   def cli = new Cli(db, system = system)
@@ -98,8 +90,6 @@ final class Env(
       }
     }
   }
-
-  lazy val maintenance = new Maintenance(scheduler, hub.actor.bookmark)
 
   private def jsPath =
     "%s/%s".format(appPath, isProd.fold(JsPathCompiled, JsPathRaw))

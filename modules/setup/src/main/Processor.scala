@@ -39,7 +39,7 @@ private[setup] final class Processor(
   def friend(config: FriendConfig)(implicit ctx: UserContext): Fu[Pov] = {
     val pov = blamePov(config.pov, ctx.me)
     saveConfig(_ withFriend config) >>
-      (GameRepo.insertDenormalized(pov.game, false)) >>-
+      (GameRepo.insertDenormalized(pov.game, ratedCheck = false)) >>-
       friendConfigMemo.set(pov.game.id, config) inject pov
   }
 

@@ -24,7 +24,7 @@ final class BookmarkApi(
 
   def countByUser(user: User): Int = cached count user.id
 
-  def removeByGameIds(ids: List[String]): Funit = BookmarkRepo removeByGameIds ids
+  def removeByGameId(id: String): Funit = BookmarkRepo removeByGameId id
 
   def gamePaginatorByUser(user: User, page: Int) =
     paginator.byUser(user, page) map2 { (b: Bookmark) => b.game }

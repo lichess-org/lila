@@ -367,6 +367,8 @@ case class Game(
 
   def olderThan(seconds: Int) = updatedAt.??(_ isBefore DateTime.now.minusSeconds(seconds))
 
+  def unplayed = turns < 2 && (createdAt isBefore Game.unplayedDate)
+
   def abandoned = (status <= Status.Started) && ((updatedAt | createdAt) isBefore Game.abandonedDate)
 
   def hasBookmarks = bookmarks > 0
@@ -414,7 +416,8 @@ object Game {
   val fullIdSize = 12
   val tokenSize = 4
 
-  def abandonedDate = DateTime.now minusDays 15
+  def unplayedDate = DateTime.now minusDays 1
+  def abandonedDate = DateTime.now minusDays 14
 
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
