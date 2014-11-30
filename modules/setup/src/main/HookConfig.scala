@@ -43,7 +43,7 @@ case class HookConfig(
     a = allowAnon,
     e = ratingRange.toString)
 
-  def noRatedUnlimited = mode.casual || hasClock
+  def noRatedUnlimited = mode.casual || hasClock || makeDaysPerTurn.isDefined
 }
 
 object HookConfig extends BaseHumanConfig {

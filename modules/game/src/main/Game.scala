@@ -209,17 +209,18 @@ case class Game(
     }
   )
 
-  def correspondenceClock: Option[CorrespondenceClock] = daysPerTurn ifTrue playable map { days =>
-    val increment = days * 24 * 60 * 60
-    val secondsLeft = lastMoveTimeDate.fold(increment) { lmd =>
-      val flagAt = lmd plusDays days
-      (flagAt.getSeconds - nowSeconds).toInt max 0
+  def correspondenceClock: Option[CorrespondenceClock] =
+    daysPerTurn ifTrue (playable && bothPlayersHaveMoved) map { days =>
+      val increment = days * 24 * 60 * 60
+      val secondsLeft = lastMoveTimeDate.fold(increment) { lmd =>
+        val flagAt = lmd plusDays days
+        (flagAt.getSeconds - nowSeconds).toInt max 0
+      }
+      CorrespondenceClock(
+        increment = increment,
+        whiteTime = turnColor.fold(secondsLeft, increment),
+        blackTime = turnColor.fold(increment, secondsLeft))
     }
-    CorrespondenceClock(
-      increment = increment,
-      whiteTime = turnColor.fold(secondsLeft, increment),
-      blackTime = turnColor.fold(increment, secondsLeft))
-  }
 
   def speed = chess.Speed(clock)
 
