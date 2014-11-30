@@ -4,7 +4,6 @@ package mashup
 import akka.actor.ActorRef
 import akka.pattern.ask
 import play.api.libs.json.{ Json, JsObject, JsArray }
-import play.api.mvc.Call
 
 import controllers.routes
 import lila.api.Context
