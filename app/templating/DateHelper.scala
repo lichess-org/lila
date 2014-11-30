@@ -63,4 +63,6 @@ trait DateHelper { self: I18nHelper =>
   def momentFromNow(date: DateTime) = Html {
     s"""<time class="moment-from-now" datetime="${isoFormatter print date}"></time>"""
   }
+
+  def secondsFromNow(seconds: Int) = momentFromNow(DateTime.now plusSeconds seconds)
 }

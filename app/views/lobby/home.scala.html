@@ -1,4 +1,4 @@
-@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], playing: List[Pov], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], nbRounds: Int)(implicit ctx: Context)
+@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], reminds: List[lila.round.Remind], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], nbRounds: Int)(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
@@ -19,11 +19,11 @@
 
 @side = {
 @ctx.me.map { u =>
-@if(playing.nonEmpty) {
+@if(reminds.nonEmpty) {
 <div id="now_playing">
-  @playing.map { p =>
-  <a class="is button" href="@routes.Round.player(p.fullId)">
-    @playerUsername(p.opponent)<br />@trans.yourTurn()
+  @reminds.map { r =>
+  <a class="is button" href="@routes.Round.player(r.pov.fullId)">
+    @playerUsername(r.pov.opponent)<br />@r.secondsLeft.fold(trans.yourTurn())(secondsFromNow)
   </a>
   }
 </div>

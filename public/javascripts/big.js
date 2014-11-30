@@ -1730,7 +1730,7 @@ var storage = {
     }
 
     function renderHookDays(days) {
-      return days === 1 ? $.trans('oneDay') : $.trans('%s days', days);
+      return days === 1 ? $.trans('One day') : $.trans('%s days', days);
     }
 
     function renderHook(hook) {

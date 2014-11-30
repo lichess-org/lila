@@ -5,14 +5,16 @@ import lila.game.{ Game, Pov, GameRepo }
 import lila.user.User
 import reactivemongo.bson._
 
+case class Remind(pov: Pov, secondsLeft: Option[Int])
+
 private final class Reminder(coll: Coll) {
 
-  private case class Remind(_id: String, g: List[String])
+  private case class DBRemind(_id: String, g: List[String])
 
-  private implicit val remindBSONHandler = Macros.handler[Remind]
+  private implicit val remindBSONHandler = Macros.handler[DBRemind]
 
-  val nowPlaying: (User, Int) => Fu[List[Pov]] = (user, max) =>
-    coll.find(BSONDocument("_id" -> user.id)).one[Remind] flatMap {
+  val nowPlaying: (User, Int) => Fu[List[Remind]] = (user, max) =>
+    coll.find(BSONDocument("_id" -> user.id)).one[DBRemind] flatMap {
       case None => fuccess(Nil)
       case Some(r) =>
         val ids = scala.util.Random.shuffle(r.g).take(max * 2)
@@ -25,7 +27,9 @@ private final class Reminder(coll: Coll) {
         } map {
           _.flatten flatMap { Pov(_, user) } sortBy {
             -_.game.updatedAt.fold(0l)(_.getMillis)
-          } take max
+          } take max map { pov =>
+            Remind(pov, pov.game.correspondenceClock map (_ remainingTime pov.color toInt))
+          }
         }
     }
 

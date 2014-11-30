@@ -39,11 +39,12 @@ object Account extends LilaController {
     me =>
       negotiate(
         html = notFound,
-        api = _ => Env.round.nowPlaying(me, 5) map { nowPlaying =>
+        api = _ => Env.round.nowPlaying(me, 5) map { reminds =>
           Ok {
             import play.api.libs.json._
             Env.user.jsonView(me, extended = true) ++ Json.obj(
-              "nowPlaying" -> JsArray(nowPlaying map { pov =>
+              "nowPlaying" -> JsArray(reminds map { remind =>
+                val pov = remind.pov
                 Json.obj(
                   "id" -> pov.fullId,
                   "variant" -> pov.game.variant.key,
@@ -53,9 +54,8 @@ object Account extends LilaController {
                   "opponent" -> Json.obj(
                     "id" -> pov.opponent.userId,
                     "username" -> lila.game.Namer.playerString(pov.opponent, withRating = false)(Env.user.lightUser),
-                    "rating" -> pov.opponent.rating
-                  )
-                )
+                    "rating" -> pov.opponent.rating),
+                  "secondsLeft" -> remind.secondsLeft)
               })
             )
           }

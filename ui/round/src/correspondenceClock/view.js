@@ -16,7 +16,7 @@ function formatClockTime(trans, time) {
   if (time >= 86400 * 1000) {
     var days = date.getUTCDate() - 1;
     str += (days === 1 ? trans('oneDay') : trans('nbDays', days)) + ' ';
-    if (time === 86400 || days > 1) return str;
+    if (time === 86400 * 1000 || days > 1) return str;
     str += ' &amp; ';
   }
   str += bold(prefixInteger(date.getUTCHours(), 2)) + ':' + bold(minutes);
