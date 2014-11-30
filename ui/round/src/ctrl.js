@@ -74,6 +74,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
   this.reload = function(cfg) {
     this.replay.onReload(cfg);
     this.data = data(this.data, cfg);
+    makeCorrespondenceClock();
     if (!this.replay.active) ground.reload(this.chessground, this.data, cfg.game.fen, this.vm.flip);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
@@ -93,17 +94,22 @@ module.exports = function(cfg, router, i18n, socketSend) {
     if (this.isClockRunning()) this.clock.tick(this.data.game.player);
   }.bind(this);
 
-  this.correspondenceClock = this.data.correspondence ? new correspondenceClockCtrl(
-    this.data.correspondence,
-    partial(this.socket.send, 'outoftime')
-  ) : false;
+  var makeCorrespondenceClock = function() {
+    if (this.data.correspondence && !this.correspondenceClock)
+      this.correspondenceClock = new correspondenceClockCtrl(
+        this.data.correspondence,
+        partial(this.socket.send, 'outoftime')
+      );
+  }.bind(this);
+  makeCorrespondenceClock();
 
   this.correspondenceClockTick = function() {
-    if (game.playable(this.data)) this.correspondenceClock.tick(this.data.game.player);
+    if (this.correspondenceClock && game.playable(this.data))
+      this.correspondenceClock.tick(this.data.game.player);
   }.bind(this);
 
   if (this.clock) setInterval(this.clockTick, 100);
-  else if (this.data.correspondence) setInterval(this.correspondenceClockTick, 1000);
+  else setInterval(this.correspondenceClockTick, 1000);
 
   this.replay = new replayCtrl(this);
 
