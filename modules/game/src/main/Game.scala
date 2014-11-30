@@ -20,7 +20,7 @@ case class Game(
     startedAtTurn: Int,
     clock: Option[Clock],
     castleLastMoveTime: CastleLastMoveTime,
-    correspondanceDayPerTurn: Option[Int],
+    daysPerTurn: Option[Int],
     positionHashes: PositionHash = Array(),
     checkCount: CheckCount = CheckCount(0, 0),
     binaryMoveTimes: ByteArray = ByteArray.empty, // tenths of seconds
@@ -87,6 +87,10 @@ case class Game(
   private def lastMoveTime: Option[Long] = castleLastMoveTime.lastMoveTime map {
     _.toLong + (createdAt.getMillis / 100)
   }
+  private def lastMoveTimeDate: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
+    createdAt plusMillis (lmt * 100)
+  }
+
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
   // in tenths of seconds
@@ -161,7 +165,11 @@ case class Game(
       status = situation.status | status,
       clock = game.clock)
 
-    val finalEvents = events ::: updated.clock.??(c => List(Event.Clock(c))) ::: {
+    val clockEvent = updated.clock map Event.Clock.apply orElse {
+      updated.correspondenceClock map Event.CorrespondenceClock.apply
+    }
+
+    val finalEvents = events ::: clockEvent.toList ::: {
       (updated.playable && (
         abortable != updated.abortable || (Color.all exists { color =>
           playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
@@ -200,6 +208,18 @@ case class Game(
       case c                    => c
     }
   )
+
+  def correspondenceClock: Option[CorrespondenceClock] = daysPerTurn ifTrue playable map { days =>
+    val increment = days * 24 * 60 * 60
+    val secondsLeft = lastMoveTimeDate.fold(increment) { lmd =>
+      val flagAt = lmd plusDays days
+      (flagAt.getSeconds - nowSeconds).toInt max 0
+    }
+    CorrespondenceClock(
+      increment = increment,
+      whiteTime = turnColor.fold(secondsLeft, increment),
+      blackTime = turnColor.fold(increment, secondsLeft))
+  }
 
   def speed = chess.Speed(clock)
 
@@ -307,7 +327,7 @@ case class Game(
     if (!c.isRunning && !c.isInit) || (c outoftime player.color)
   } yield player
 
-  def isCorrespondance = correspondanceDayPerTurn.isDefined
+  def isCorrespondence = daysPerTurn.isDefined
 
   def hasClock = clock.isDefined
 
@@ -400,7 +420,7 @@ object Game {
     source: Source,
     pgnImport: Option[PgnImport],
     castles: Castles = Castles.init,
-    correspondanceDayPerTurn: Option[Int] = None): Game = Game(
+    daysPerTurn: Option[Int] = None): Game = Game(
     id = IdGenerator.game,
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
@@ -412,7 +432,7 @@ object Game {
     startedAtTurn = game.startedAtTurn,
     clock = game.clock,
     castleLastMoveTime = CastleLastMoveTime.init.copy(castles = castles),
-    correspondanceDayPerTurn = correspondanceDayPerTurn,
+    daysPerTurn = daysPerTurn,
     mode = mode,
     variant = variant,
     metadata = Metadata(
@@ -447,7 +467,7 @@ object Game {
     val positionHashes = "ph"
     val checkCount = "cc"
     val castleLastMoveTime = "cl"
-    val correspondanceDayPerTurn = "cd"
+    val daysPerTurn = "cd"
     val moveTimes = "mt"
     val rated = "ra"
     val analysed = "an"
@@ -502,7 +522,7 @@ object Game {
           CheckCount(~counts.headOption, ~counts.lastOption)
         },
         castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(castleLastMoveTimeBSONHandler),
-        correspondanceDayPerTurn = r intO correspondanceDayPerTurn,
+        daysPerTurn = r intO daysPerTurn,
         binaryMoveTimes = (r bytesO moveTimes) | ByteArray.empty,
         mode = Mode(r boolD rated),
         variant = Variant(r intD variant) | Variant.Standard,
@@ -534,7 +554,7 @@ object Game {
       positionHashes -> w.bytesO(o.positionHashes),
       checkCount -> o.checkCount.nonEmpty.option(o.checkCount),
       castleLastMoveTime -> castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
-      correspondanceDayPerTurn -> o.correspondanceDayPerTurn,
+      daysPerTurn -> o.daysPerTurn,
       moveTimes -> (BinaryFormat.moveTime write o.moveTimes),
       rated -> w.boolO(o.mode.rated),
       variant -> o.variant.exotic.option(o.variant.id).map(w.int),

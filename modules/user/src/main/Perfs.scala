@@ -14,7 +14,7 @@ case class Perfs(
     bullet: Perf,
     blitz: Perf,
     classical: Perf,
-    correspondance: Perf,
+    correspondence: Perf,
     puzzle: Perf) {
 
   def perfs = List(
@@ -25,7 +25,7 @@ case class Perfs(
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
-    "correspondance" -> correspondance,
+    "correspondence" -> correspondence,
     "puzzle" -> puzzle)
 
   def bestPerf: Option[(PerfType, Perf)] = {
@@ -57,7 +57,7 @@ case class Perfs(
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
-    "correspondance" -> correspondance,
+    "correspondence" -> correspondence,
     "puzzle" -> puzzle)
 
   def ratingMap: Map[String, Int] = perfsMap mapValues (_.intRating)
@@ -71,7 +71,7 @@ case class Perfs(
     case PerfType.Bullet         => bullet
     case PerfType.Blitz          => blitz
     case PerfType.Classical      => classical
-    case PerfType.Correspondance => correspondance
+    case PerfType.Correspondence => correspondence
     case PerfType.Chess960       => chess960
     case PerfType.KingOfTheHill  => kingOfTheHill
     case PerfType.ThreeCheck     => threeCheck
@@ -86,7 +86,7 @@ case class Perfs(
 
   def updateStandard = copy(
     standard = {
-      val subs = List(bullet, blitz, classical, correspondance)
+      val subs = List(bullet, blitz, classical, correspondence)
       subs.maxBy(_.latest.fold(0l)(_.getMillis)).latest.fold(standard) { date =>
         val nb = subs.map(_.nb).sum
         val glicko = Glicko(
@@ -139,7 +139,7 @@ case object Perfs {
         bullet = perf("bullet"),
         blitz = perf("blitz"),
         classical = perf("classical"),
-        correspondance = perf("correspondance"),
+        correspondence = perf("correspondence"),
         puzzle = perf("puzzle"))
     }
 
@@ -153,7 +153,7 @@ case object Perfs {
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
       "classical" -> notNew(o.classical),
-      "correspondance" -> notNew(o.correspondance),
+      "correspondence" -> notNew(o.correspondence),
       "puzzle" -> notNew(o.puzzle))
   }
 

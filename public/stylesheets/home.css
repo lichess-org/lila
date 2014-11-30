@@ -527,6 +527,7 @@ div.game_config .variants {
 }
 div.game_config select {
   font-weight: bold;
+  padding: 5px 8px;
 }
 div.game_config .fen_position {
   padding: 8px 0;

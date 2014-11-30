@@ -10,7 +10,7 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedTimeModeChoices(implicit ctx: Context) = List(
     (TimeMode.Clock.id.toString, trans.clock.str(), none),
-    (TimeMode.Correspondance.id.toString, trans.correspondance.str(), none),
+    (TimeMode.Correspondence.id.toString, trans.correspondence.str(), none),
     (TimeMode.Unlimited.id.toString, trans.unlimited.str(), none)
   ).map { x =>
     x.copy(_2 = s"${trans.timeControl.str()}: ${x._2}")

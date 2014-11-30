@@ -6,9 +6,9 @@ object TimeMode {
 
   case object Unlimited extends TimeMode(0)
   case object Clock extends TimeMode(1)
-  case object Correspondance extends TimeMode(2)
+  case object Correspondence extends TimeMode(2)
 
-  val all = List(Unlimited, Clock, Correspondance)
+  val all = List(Unlimited, Clock, Correspondence)
 
   val ids = all map (_.id)
 

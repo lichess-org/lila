@@ -17,7 +17,11 @@
         <span class="setup">
           @bookmark.toggle(game)
           @game.clock.map(_.show).getOrElse {
+          @game.daysPerTurn.map { days =>
+          <span data-hint="@trans.correspondence()" class="hint--top">@trans.xDays(days)</span>
+          }.getOrElse {
           <span data-hint="@trans.unlimited()" class="hint--top">∞</span>
+          }
           } •
           @if(game.variant.exotic) {
           @variantLink(game.variant, (if (game.variant ==  chess.Variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top")

@@ -18,7 +18,7 @@ private[setup] trait Config {
   // Clock increment in seconds
   val increment: Int
 
-  // Correspondance days per turn
+  // Correspondence days per turn
   val days: Int
 
   // Game variant code
@@ -41,7 +41,7 @@ private[setup] trait Config {
     Clock(time * 60, clockHasTime.fold(increment, 1))
   }
 
-  def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondance) option days
+  def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
 }
 
 trait GameGenerator { self: Config =>

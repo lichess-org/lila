@@ -28,11 +28,11 @@ object PerfType {
     title = Speed.Classical.title,
     iconChar = '+')
 
-  case object Correspondance extends PerfType(
-    key = "correspondance",
-    name = "Correspondance",
-    title = "Correspondance",
-    iconChar = 'e')
+  case object Correspondence extends PerfType(
+    key = "correspondence",
+    name = "Correspondence",
+    title = "Correspondence",
+    iconChar = ';')
 
   case object Standard extends PerfType(
     key = "standard",
