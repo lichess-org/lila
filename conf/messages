@@ -220,7 +220,6 @@ xToYMinutes=%s to %s minutes
 textIsTooShort=Text is too short.
 textIsTooLong=Text is too long.
 required=Required.
-addToChrome=Add to Chrome
 openTournaments=Open tournaments
 duration=Duration
 winner=Winner
