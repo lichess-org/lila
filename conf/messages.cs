@@ -215,7 +215,6 @@ xToYMinutes=%s až %s minut
 textIsTooShort=Text je příliš krátký.
 textIsTooLong=Text je příliš dlouhý
 required=Vyžadováno.
-addToChrome=Přidat do Chrome
 openTournaments=Otevřené turnaje
 duration=Trvání
 winner=Vítěz

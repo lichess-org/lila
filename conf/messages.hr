@@ -215,7 +215,6 @@ xToYMinutes=%s do %s minuta
 textIsTooShort=Tekst je prekratak
 textIsTooLong=Tekst je predug
 required=Obvezno.
-addToChrome=Dodati Chromu
 openTournaments=Otvoreni turniri
 duration=Trajanje
 winner=Pobjednik

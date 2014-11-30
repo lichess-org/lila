@@ -215,7 +215,6 @@ xToYMinutes=%s tot %s minuten
 textIsTooShort=Te weinig tekst.
 textIsTooLong=Teveel tekst.
 required=Vereist.
-addToChrome=Voeg toe aan Chrome
 openTournaments=Open toernooien
 duration=Tijdsduur
 winner=Winnaar

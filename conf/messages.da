@@ -215,7 +215,6 @@ xToYMinutes=%s til %s minutter
 textIsTooShort=teksten er for kort
 textIsTooLong=teksten er for lang
 required=Påkrævet
-addToChrome=Tilføj til Chrome
 openTournaments=Åben turnering
 duration=Varighed
 winner=Vinder

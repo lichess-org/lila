@@ -215,7 +215,6 @@ xToYMinutes=%s -ից %s րոպե
 textIsTooShort=Տեքստը շատ կարճ է
 textIsTooLong=Տեքստը շատ երկար է
 required=Պարտադիր.
-addToChrome=Ավելացնել Chrome-ին
 openTournaments=Բաց մրցաշարեր
 duration=Տևողություն
 winner=Հաղթող

@@ -215,7 +215,6 @@ xToYMinutes=%s から %s 分
 textIsTooShort=テキストが短すぎます。
 textIsTooLong=テキストが長すぎます。
 required=必須です。
-addToChrome=Chromeに追加
 openTournaments=参加募集中のトーナメント
 duration=トーナメント打ち切りまでの時間
 winner=優勝者

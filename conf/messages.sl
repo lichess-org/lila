@@ -215,7 +215,6 @@ xToYMinutes=%s do %s minut
 textIsTooShort=Besedilo je prekratko
 textIsTooLong=Besedilo je predolgo
 required=Zahtevano
-addToChrome=Dodaj v Chrome
 openTournaments=Odprti turnirji
 duration=Trajanje
 winner=Zmagovalec

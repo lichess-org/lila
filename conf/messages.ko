@@ -215,7 +215,6 @@ xToYMinutes=%s~%s분
 textIsTooShort=입력한 텍스트가 너무 짧습니다
 textIsTooLong=입력한 텍스트가 너무 깁니다
 required=필수
-addToChrome=Chrome에 추가
 openTournaments=개최 중인 토너먼트
 duration=경기 시간
 winner=승자

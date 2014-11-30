@@ -215,7 +215,6 @@ xToYMinutes=%s ถึง %s นาที
 textIsTooShort=ข้อความสั้นไป
 textIsTooLong=ข้อความยาวไป
 required=ต้องการ
-addToChrome=เพิ่มสู่ Chrome
 openTournaments=ทัวร์นาเมนต์ที่เปิด
 duration=ระยะเวลา
 winner=ผู้ชนะ

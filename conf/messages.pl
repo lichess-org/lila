@@ -215,7 +215,6 @@ xToYMinutes=od %s do %s minut
 textIsTooShort=Tekst jest za krótki.
 textIsTooLong=Tekst jest za długi.
 required=Wymagane.
-addToChrome=Dodaj do Chrome
 openTournaments=Turnieje otwarte
 duration=Czas trwania
 winner=Zwycięzca

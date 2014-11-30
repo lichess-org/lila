@@ -215,7 +215,6 @@ xToYMinutes=nuo %s iki %s minučiu
 textIsTooShort=Tekstas per trumpas.
 textIsTooLong=Tekstas per ilgas.
 required=Būtina.
-addToChrome=Pridėti į Chrome
 openTournaments=Atidaryti turnyrus
 duration=Trukmė
 winner=Nugalėtojas

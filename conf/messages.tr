@@ -215,7 +215,6 @@ xToYMinutes=%s ile %s dakika arası
 textIsTooShort=Yazı çok kısa.
 textIsTooLong=Yazı çok uzun.
 required=Gerekli.
-addToChrome=Chrome'a ekle
 openTournaments=Açık Turnuvalar
 duration=Süre
 winner=Kazanan

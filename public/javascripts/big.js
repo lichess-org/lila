@@ -679,8 +679,13 @@ var storage = {
     return this.length === 0 ? false : this;
   };
 
-  $.trans = function(text) {
-    return lichess_translations[text] ? lichess_translations[text] : text;
+  $.trans = function() {
+    var str = lichess_translations[arguments[0]];
+    if (!str) return arguments[0];
+    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
+      str = str.replace('%s', arg);
+    });
+    return str;
   };
 
   function urlToLink(text) {
@@ -1751,7 +1756,7 @@ var storage = {
         ['', '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>'],
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous')],
         [hook.rating || 0, hook.rating ? hook.rating : ''],
-        [hook.time || 9999, hook.clock ? hook.clock : (hook.days ? hook.days + 'D' : '∞')],
+        [hook.time || 9999, hook.clock ? hook.clock : (hook.days ? $.trans('%s days', hook.days) : '∞')],
         [hook.mode,
           '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' +
           $.trans(hook.mode)

@@ -215,7 +215,6 @@ xToYMinutes=من %s إلى %s دقيقة
 textIsTooShort=النص قصير جداً
 textIsTooLong=النص طويل جداً
 required=مطلوب
-addToChrome=أضف إلى متصفح كروم
 openTournaments=المسابقات المفتوحة
 duration=المدة
 winner=الفائز
