@@ -37,7 +37,13 @@
     @bookmark.toggle(g)
     <div class="header">
       <strong>
-        @g.clock.fold(trans.unlimited.str())(_.show)
+        @g.clock.map(_.show).getOrElse {
+        @g.daysPerTurn.map { days =>
+        <span data-hint="@trans.correspondence()" class="hint--top">@trans.xDays(days)</span>
+        }.getOrElse {
+        <span data-hint="@trans.unlimited()" class="hint--top">∞</span>
+        }
+        }
         • @g.perfType.map(_.name).getOrElse {@chess.Variant.FromPosition.name}
         • @g.rated.fold(trans.rated(), trans.casual())
       </strong>
