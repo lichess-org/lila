@@ -4,6 +4,7 @@
 @import lila.rating.RatingRange
 
 @fields = {
+<div class="variants_title">@trans.variant()</div>
 <div class="variants">
   @setup.select(form("variant"), translatedVariantChoicesWithVariants)
 </div>

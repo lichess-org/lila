@@ -6,6 +6,7 @@
 @user.map { u =>
 @userLink(u, cssClass="target".some)
 }
+<div class="variants_title">@trans.variant()</div>
 <div class="variants">
   @setup.select(form("variant"), translatedVariantChoicesWithVariantsAndFen)
 </div>
