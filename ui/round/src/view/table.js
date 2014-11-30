@@ -111,6 +111,7 @@ function renderTablePlay(ctrl) {
 }
 
 function whosTurn(ctrl, color) {
+  if (status.finished(ctrl.data)) return;
   return m('div.whos_turn',
     ctrl.data.game.player == color ? ctrl.trans(
       ctrl.data.game.player == ctrl.data.player.color ? 'yourTurn' : 'waitingForOpponent'
