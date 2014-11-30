@@ -490,6 +490,8 @@ object Game {
     val tvAt = "tv"
     val winnerColor = "w"
     val winnerId = "wid"
+    val initialFen = "if"
+    val checkAt = "ck"
   }
 
   private[game] implicit val checkCountWriter = new BSONWriter[CheckCount, BSONArray] {

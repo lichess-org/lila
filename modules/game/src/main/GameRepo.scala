@@ -173,7 +173,8 @@ object GameRepo {
       game.copy(mode = chess.Mode.Casual)
     else game
     val bson = (gameTube.handler write g2) ++ BSONDocument(
-      "if" -> g2.variant.exotic.option(Forsyth >> g2.toChess)
+      F.initialFen -> g2.variant.exotic.option(Forsyth >> g2.toChess),
+      F.checkAt -> DateTime.now.plusHours(3)
     )
     $insert bson bson
   }
@@ -191,12 +192,12 @@ object GameRepo {
   )
 
   def initialFen(gameId: ID): Fu[Option[String]] =
-    $primitive.one($select(gameId), "if")(_.asOpt[String]) flatMap {
+    $primitive.one($select(gameId), F.initialFen)(_.asOpt[String]) flatMap {
       case None => fuccess(none)
       case Some(fen) => Forsyth fixCastles fen match {
-        case None                        => $update($select(gameId), $unset("if")) inject none
+        case None                        => $update($select(gameId), $unset(F.initialFen)) inject none
         case Some(fixed) if fen == fixed => fuccess(fixed.some)
-        case Some(fixed)                 => $update.field(gameId, "if", fixed) inject fixed.some
+        case Some(fixed)                 => $update.field(gameId, F.initialFen, fixed) inject fixed.some
       }
     }
 
