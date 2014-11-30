@@ -25,11 +25,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
   this.vm = {
     flip: false,
     reloading: false,
-    redirecting: false,
-    correspondenceTimeLeft: {
-      white: '',
-      black: ''
-    }
+    redirecting: false
   };
 
   this.socket = new socket(socketSend, this);

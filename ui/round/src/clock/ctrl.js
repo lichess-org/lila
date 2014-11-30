@@ -31,10 +31,9 @@ module.exports = function(data, onFlag, soundColor) {
   }.bind(this);
 
   this.tick = function(color) {
-    m.startComputation();
     this.data[color] = Math.max(0, lastUpdate[color] - (new Date() - lastUpdate.at) / 1000);
     if (this.data[color] === 0) onFlag();
-    m.endComputation();
+    m.redraw();
     if (soundColor == color && this.data[soundColor] < this.data.emerg && emergSound.playable[soundColor]) {
       if (!emergSound.last || (data.increment && new Date() - emergSound.delay > emergSound.last)) {
         emergSound.play();
