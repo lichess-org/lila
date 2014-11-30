@@ -141,9 +141,9 @@ module.exports = {
       onclick: throttle(partial(ctrl.socket.send, 'moretime', null), 600)
     }, m('span[data-icon=O]'));
   },
-  replayAndAnalyse: function(ctrl) {
+  analysis: function(ctrl) {
     if (game.replayable(ctrl.data) && !ctrl.data.player.offeringRematch) return m('a.button.replay_and_analyse', {
       href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.player.color).url
-    }, ctrl.trans('replayAndAnalyse'));
+    }, ctrl.trans('analysis'));
   }
 };

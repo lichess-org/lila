@@ -30,7 +30,7 @@ private[round] final class Drawer(
     case pov if pov.opponent.isOfferingDraw =>
       finisher(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
     case Pov(g, color) if (g playerCanOfferDraw color) => GameRepo save {
-      messenger.system(g, _.drawOfferSent)
+      messenger.system(g, color.fold(_.whiteOffersDraw, _.blackOffersDraw))
       Progress(g) map { g => g.updatePlayer(color, _ offerDraw g.turns) }
     } inject List(Event.ReloadOwner)
     case _ => fuccess(Nil)
@@ -42,7 +42,7 @@ private[round] final class Drawer(
       Progress(g) map { g => g.updatePlayer(color, _.removeDrawOffer) }
     } inject List(Event.ReloadOwner)
     case Pov(g, color) if pov.opponent.isOfferingDraw => GameRepo save {
-      messenger.system(g, _.drawOfferDeclined)
+      messenger.system(g, color.fold(_.whiteDeclinesDraw, _.blackDeclinesDraw))
       Progress(g) map { g => g.updatePlayer(!color, _.removeDrawOffer) }
     } inject List(Event.ReloadOwner)
     case _ => fuccess(Nil)
