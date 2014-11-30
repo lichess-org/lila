@@ -277,8 +277,8 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     @jsTagCompiled("strongSocket.js")
     @jsTagCompiled("big.js")
     @moreJs
-    @if(lang.language != "en") {
     @jsAt(s"trans/${lang.language}.js")
+    @if(lang.language != "en") {
     @momentLangTag
     }
     @base.ga()

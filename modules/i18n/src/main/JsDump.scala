@@ -19,7 +19,7 @@ private[i18n] final class JsDump(
 
   def apply: Funit = Future {
     pathFile.mkdir
-    pool.nonDefaultLangs foreach write(jsMessages)
+    pool.langs foreach write(jsMessages)
     writeRefs
     writeFullJson
   } void
