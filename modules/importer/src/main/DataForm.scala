@@ -30,13 +30,18 @@ private[importer] case class ImportData(pgn: String) {
   def preprocess(user: Option[String]): Valid[Preprocessed] = Parser.full(pgn) flatMap {
     case ParsedPgn(_, sans) if sans.size > maxPlies => !!("Replay is too long")
     case ParsedPgn(tags, sans) => Reader.full(pgn) map {
-      case replay@Replay(_, _, game) =>
+      case replay@Replay(setup, _, game) =>
         def tag(which: Tag.type => TagType): Option[String] =
           tags find (_.name == which(Tag)) map (_.value)
 
         val initBoard = tag(_.FEN) flatMap Forsyth.<< map (_.board)
-        val variant = tag(_.Variant).flatMap(Variant.byName) | {
-          initBoard.nonEmpty.fold(Variant.FromPosition, Variant.Standard)
+        val variant = {
+          tag(_.Variant).map(Chess960.fixVariantName).flatMap(Variant.byName) | {
+            initBoard.nonEmpty.fold(Variant.FromPosition, Variant.Standard)
+          }
+        } match {
+          case Variant.Chess960 if !Chess960.isStartPosition(setup.board) => Variant.FromPosition
+          case v => v
         }
 
         val result = tag(_.Result) filterNot (_ => game.situation.end) collect {
