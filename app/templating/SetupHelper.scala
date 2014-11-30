@@ -13,7 +13,7 @@ trait SetupHelper { self: I18nHelper =>
     (TimeMode.Correspondence.id.toString, trans.correspondence.str(), none),
     (TimeMode.Unlimited.id.toString, trans.unlimited.str(), none)
   ).map { x =>
-    x.copy(_2 = s"${trans.timeControl.str()}: ${x._2}")
+    x.copy(_2 = x._2)
   }
 
   def translatedModeChoices(implicit ctx: Context) = List(
@@ -26,7 +26,7 @@ trait SetupHelper { self: I18nHelper =>
     System.Swiss.id.toString -> "Swiss [beta]"
   )
 
-  private def variantPrefix(name: String)(implicit ctx: Context) = s"${trans.variant.str()}: ${name}"
+  private def variantPrefix(name: String)(implicit ctx: Context) = name
 
   private def variantTuple(variant: Variant)(implicit ctx: Context): (String, String, Option[String]) =
     (variant.id.toString, variantPrefix(variant.name), variant.title.some)
