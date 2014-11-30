@@ -229,7 +229,6 @@ winStreak=Secuencia de victorias
 createdBy=Creado por
 waitingForNbPlayers=Esperando por %s xogadores
 tournamentIsStarting=Comezando o Torneo
-nbMinutesPerSidePlusNbSecondsPerMove=%s minutos/lado + %s segundos/movemento
 membersOnly=Só membros.
 boardEditor=Editor do taboeiro
 startPosition=Posición de inicio

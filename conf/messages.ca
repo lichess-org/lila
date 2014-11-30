@@ -229,7 +229,6 @@ winStreak=Victòries consecutives
 createdBy=Creat per
 waitingForNbPlayers=S'estan esperant %s jugadors
 tournamentIsStarting=El torneig està començant
-nbMinutesPerSidePlusNbSecondsPerMove=%s minuts/jugador + %s segons/moviment
 membersOnly=Membres només
 boardEditor=Editor del tauler
 startPosition=Posició inicial

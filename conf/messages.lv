@@ -229,7 +229,6 @@ winStreak=Uzvaru sērija
 createdBy=Izveidoja
 waitingForNbPlayers=Gaidām %s spēlētājus
 tournamentIsStarting=Turnīrs tiek sākts
-nbMinutesPerSidePlusNbSecondsPerMove=%s minūtes katram + %s sekundes/gājiens
 membersOnly=Tikai dalībniekiem
 boardEditor=Lauciņa redaktors
 startPosition=Sākuma pozīcija

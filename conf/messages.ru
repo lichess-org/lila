@@ -229,7 +229,6 @@ winStreak=Серия побед
 createdBy=Создан
 waitingForNbPlayers=Ожидание %s игроков
 tournamentIsStarting=Турнир начинается
-nbMinutesPerSidePlusNbSecondsPerMove=%s минут каждой стороне + %s секунд на ход
 membersOnly=Только для зарегистрированных
 boardEditor=Редактор доски
 startPosition=Начальная позиция

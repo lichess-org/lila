@@ -229,7 +229,6 @@ winStreak=Järjest võidetuid
 createdBy=Lõi kasutaja
 waitingForNbPlayers=Ootan %s mängijat
 tournamentIsStarting=Turniir algab
-nbMinutesPerSidePlusNbSecondsPerMove=%s minutit/pool + %s sekundit/liigutus
 membersOnly=Ainult liikmetele
 boardEditor=Laua muutja
 startPosition=Algseis

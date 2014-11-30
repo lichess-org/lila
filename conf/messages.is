@@ -229,7 +229,6 @@ winStreak=Vinnings rák
 createdBy=Búið til af
 waitingForNbPlayers=Bíður eftir %s skákmönnum
 tournamentIsStarting=Mótin eru að byrja
-nbMinutesPerSidePlusNbSecondsPerMove=%s mínútur/hlið + %s sekúndur/leik
 membersOnly=Aðeins meðlimir
 boardEditor=Borð ritill
 startPosition=Byrjunar staða

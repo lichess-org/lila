@@ -229,7 +229,6 @@ winStreak=Uzastopne pobjede
 createdBy=Kreirao
 waitingForNbPlayers=Čekanje na %s igrača
 tournamentIsStarting=Turnir počinje
-nbMinutesPerSidePlusNbSecondsPerMove=%s minuta + %s sekundi po potezu
 membersOnly=Samo članovi
 boardEditor=Namjestite početnu poziciju
 startPosition=Početna pozicija

@@ -224,7 +224,6 @@ winStreak=Segetog
 createdBy=Geskep deur
 waitingForNbPlayers=Op wag vir %s spelers
 tournamentIsStarting=Toernooi is aan die begin
-nbMinutesPerSidePlusNbSecondsPerMove=%s minute/kant + %s sekondes/skuif
 membersOnly=Slegs lede
 boardEditor=Bord redigeerder
 startPosition=Begin posisie

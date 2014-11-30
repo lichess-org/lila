@@ -223,7 +223,6 @@ winStreak=Fandresena misesy
 createdBy=Noforonin'i
 waitingForNbPlayers=Miandry mpilalao %s
 tournamentIsStarting=Manomboka ny fifaninanana
-nbMinutesPerSidePlusNbSecondsPerMove=%s minitra/andaniny + %s segondra/hetsika
 membersOnly=Mpikambana ihany
 boardEditor=Board editor
 startPosition=Fipetrahana eo am-panombohana

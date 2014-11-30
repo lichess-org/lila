@@ -229,7 +229,6 @@ winStreak=Venka serio
 createdBy=Kreita de
 waitingForNbPlayers=Atendas %s ludantojn
 tournamentIsStarting=Turniro komenciĝas
-nbMinutesPerSidePlusNbSecondsPerMove=po %s minutoj por ludanto + po %s sekundoj por movo
 membersOnly=Nur membroj
 boardEditor=Tabulredaktilo
 startPosition=Komenca aranĝo

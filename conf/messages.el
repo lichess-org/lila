@@ -229,7 +229,6 @@ winStreak=Σερί νίκων
 createdBy=Δημιουργήθηκε από
 waitingForNbPlayers=Αναμονή για %s παίκτες
 tournamentIsStarting=Το πρωτάθλημα αρχίζει
-nbMinutesPerSidePlusNbSecondsPerMove=%s λεπτά/πλευρά + %s δευτερόλεπτα/κίνηση
 membersOnly=Μόνο για μέλη
 boardEditor=Προετοιμαστής σκακιέρας
 startPosition=Θέση έναρξης

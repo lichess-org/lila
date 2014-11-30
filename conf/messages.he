@@ -229,7 +229,6 @@ winStreak=רצף נצחונות
 createdBy=נוצר ע"י
 waitingForNbPlayers=מחכה ל-%s שחקנים
 tournamentIsStarting=הטורניר מתחיל
-nbMinutesPerSidePlusNbSecondsPerMove=%s דקות \ שחקן + %s שניות \ מהלך
 membersOnly=למנויים בלבד
 boardEditor=עריכת לוח
 startPosition=מצב התחלתי

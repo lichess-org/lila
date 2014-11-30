@@ -229,7 +229,6 @@ winStreak=Zmage zapored
 createdBy=Ustvaril
 waitingForNbPlayers=Čakanje na %s igralcev
 tournamentIsStarting=Turnir se začenja
-nbMinutesPerSidePlusNbSecondsPerMove=%s minut/igralca + %s sekund/potezo
 membersOnly=Samo za člane
 boardEditor=Urejanje igralne površine
 startPosition=Začetna pozicija

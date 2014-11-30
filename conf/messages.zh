@@ -229,7 +229,6 @@ winStreak=连胜
 createdBy=创建者为
 waitingForNbPlayers=等待%s位玩家
 tournamentIsStarting=比赛即将开始
-nbMinutesPerSidePlusNbSecondsPerMove=每方%s分钟 + 每步%s秒
 membersOnly=只限会员
 boardEditor=棋盘编辑器
 startPosition=开始位置

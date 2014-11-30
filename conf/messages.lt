@@ -229,7 +229,6 @@ winStreak=Laimėjimų streikas
 createdBy=Sukurta
 waitingForNbPlayers=Laukiama %s žaidėjų
 tournamentIsStarting=Turnyras prasideda
-nbMinutesPerSidePlusNbSecondsPerMove=%s minutės/likusioji dalis + %s sekundės/judesys
 membersOnly=Tik nariai
 boardEditor=Lentos redaktorius
 startPosition=Pradedamoji pozicija

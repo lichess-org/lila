@@ -234,7 +234,6 @@ winStreak=Win streak
 createdBy=Created by
 waitingForNbPlayers=Waiting for %s players
 tournamentIsStarting=The tournament is starting
-nbMinutesPerSidePlusNbSecondsPerMove=%s minutes/side + %s seconds/move
 membersOnly=Members only
 boardEditor=Board editor
 startPosition=Starting position

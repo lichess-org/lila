@@ -229,7 +229,6 @@ winStreak=Сьпіс пераможцаў
 createdBy=Стварыў
 waitingForNbPlayers=Чакаем %s гульцоў
 tournamentIsStarting=Турнір пачынаецца
-nbMinutesPerSidePlusNbSecondsPerMove=%s хвілінаў на чалавека + %s сэкунд на ход
 membersOnly=Толькі чальцы
 boardEditor=Рэдактар дошкі
 startPosition=Пачатковая пазыцыя

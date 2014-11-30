@@ -229,7 +229,6 @@ winStreak=Lojera te fituara njëpasnjë
 createdBy=Krijuar nga
 waitingForNbPlayers=Duke pritur per %s lojtar
 tournamentIsStarting=Turneu po fillon
-nbMinutesPerSidePlusNbSecondsPerMove=%s minuta/ane +%s seconda/levizje
 membersOnly=vetem anetaret
 boardEditor=bordi i editorëve
 startPosition=Pozicioni fillestar

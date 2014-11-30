@@ -229,7 +229,6 @@ winStreak=Voittoputki
 createdBy=Tekijä:
 waitingForNbPlayers=Odotetaan %s pelaajaa
 tournamentIsStarting=Turnaus alkaa
-nbMinutesPerSidePlusNbSecondsPerMove=%s minuuttia/puoli + %s sekuntia/siirto
 membersOnly=Vain jäsenet
 boardEditor=Lautaeditori
 startPosition=Alkuasema

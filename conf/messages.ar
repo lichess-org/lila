@@ -229,7 +229,6 @@ winStreak=فوز متتالي
 createdBy=أُنشئت بواسطة
 waitingForNbPlayers=بانتظار %s لاعبين
 tournamentIsStarting=المسابقة بدأت
-nbMinutesPerSidePlusNbSecondsPerMove=%s دقيقة / لكل طرف + %s ثانية / نقلة
 membersOnly=للأعضاء فقط
 boardEditor=محرر الرقعه
 startPosition=وضع البدايه

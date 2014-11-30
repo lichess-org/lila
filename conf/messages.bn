@@ -224,7 +224,6 @@ winStreak=ধারাবাহিক জয়
 createdBy=তৈরি করেছেন
 waitingForNbPlayers=%s জন খেলোয়াড়ের জন্য অপেক্ষা
 tournamentIsStarting=টুর্নামেন্ট শুরু হচ্ছে
-nbMinutesPerSidePlusNbSecondsPerMove=%s মিনিট/পক্ষ + %s সেকেন্ড/চাল
 membersOnly=শুধুমাত্র সদস্যদের জন্য
 boardEditor=বোর্ড সম্পাদক
 startPosition=শুরুর অবস্থান

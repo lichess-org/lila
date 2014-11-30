@@ -229,7 +229,6 @@ winStreak=Ardı ardına galibiyet
 createdBy=Oluşturan kişi
 waitingForNbPlayers=%s oyuncu için bekleniyor
 tournamentIsStarting=Turnuva başlıyor
-nbMinutesPerSidePlusNbSecondsPerMove=%s dakika / başlangıç + %s saniye / hamle
 membersOnly=Sadece üyeler
 boardEditor=Tahta yapıcı
 startPosition=Başlangıç konumu

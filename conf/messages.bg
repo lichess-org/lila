@@ -229,7 +229,6 @@ winStreak=Поредица спечелени игри
 createdBy=Създадена от
 waitingForNbPlayers=Изчакване на %sма играчи
 tournamentIsStarting=Турнирът започва
-nbMinutesPerSidePlusNbSecondsPerMove=%s минути на страна + %s секунди на ход
 membersOnly=Само за регистрирани
 boardEditor=Промени дъската
 startPosition=Стартова позиция

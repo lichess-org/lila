@@ -229,7 +229,6 @@ winStreak=Menang beruntun
 createdBy=Dibuat oleh
 waitingForNbPlayers=Menunggu %s pemain lagi
 tournamentIsStarting=Kejuaraan sudah dimulai
-nbMinutesPerSidePlusNbSecondsPerMove=%s menit/sisi + %s detik/langkah
 membersOnly=Hanya untuk anggota
 boardEditor=papan edit
 startPosition=Posisi memulai

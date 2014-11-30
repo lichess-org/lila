@@ -28,7 +28,7 @@ side = Html("")) {
     @config.map { c =>
     <p class="explanations">
       @views.html.game.variantLink(c.variant, variantName(c.variant)), @modeName(c.mode)<br />
-      <span data-icon="p"></span> @clockName(c.makeClock)<br />
+      <span data-icon="p"></span> @shortClockName(c.makeClock)<br />
     </p>
     }
     @initialFen.map { fen =>

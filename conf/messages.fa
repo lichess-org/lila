@@ -229,7 +229,6 @@ winStreak=برد متوالی
 createdBy=اساخته شده توسط
 waitingForNbPlayers=منتظر برای %s بازیکن
 tournamentIsStarting=مسابقه شروع شد
-nbMinutesPerSidePlusNbSecondsPerMove=%s دقیقه ها / کنار + %s ثانیه ها / حرکت
 membersOnly=فقط اعضا
 boardEditor=صفحه ویرایشگر
 startPosition=موقعیت شروع

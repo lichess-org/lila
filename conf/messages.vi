@@ -229,7 +229,6 @@ winStreak=Thắng chớp nhoáng
 createdBy=Được tạo bởi
 waitingForNbPlayers=Đang chờ người chơi %s
 tournamentIsStarting=Giải đấu đang diễn ra
-nbMinutesPerSidePlusNbSecondsPerMove=%s phút mỗi bên + %s giây/di chuyển
 membersOnly=Chỉ có thành viên
 boardEditor=Chỉnh sửa bàn cờ
 startPosition=Thế trận ban đầu

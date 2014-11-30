@@ -229,7 +229,6 @@ winStreak=Victorii consecutive
 createdBy=Creat de
 waitingForNbPlayers=Se așteaptă încă %s jucători
 tournamentIsStarting=Turneul începe
-nbMinutesPerSidePlusNbSecondsPerMove=%s minute/jucător + %s secunde/mutare
 membersOnly=Doar pentru membri
 boardEditor=Editorul de tablă
 startPosition=Poziția de start

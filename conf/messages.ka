@@ -228,7 +228,6 @@ winStreak=მოგებული ხაზი
 createdBy=შემქმნელი
 waitingForNbPlayers=%s მოთამაშის მოლოდინში
 tournamentIsStarting=ტურნირი იწყება
-nbMinutesPerSidePlusNbSecondsPerMove=%s წუთი/მხარე + %s წამი/სვლა
 membersOnly=მხოლოდ წევრები
 boardEditor=დაფის რედაქტირება
 startPosition=საწყისი პოზიცია

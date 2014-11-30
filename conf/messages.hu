@@ -229,7 +229,6 @@ winStreak=Győzelmi sorozat
 createdBy=Készítette:
 waitingForNbPlayers=Várakozás %s játékosra
 tournamentIsStarting=A verseny kezdődik
-nbMinutesPerSidePlusNbSecondsPerMove=%s percek / játékos + %s másodperc / lépés
 membersOnly=Csak tagoknak
 boardEditor=Tábla szerkesztő
 startPosition=Kezdő pozíció

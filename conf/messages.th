@@ -229,7 +229,6 @@ winStreak=ชนะรวด
 createdBy=สร้างโดย
 waitingForNbPlayers=กำลังรออีก %s ผู้เล่น
 tournamentIsStarting=ทัวร์นาเมนต์กำลังเริ่มต้น
-nbMinutesPerSidePlusNbSecondsPerMove=%s นาที/ฝ่าย + %s วินาที/การเดิน
 membersOnly=เฉพาะสมาชิก
 boardEditor=ตัวแก้ไขกระดาน
 startPosition=ตำแหน่งเริ่มต้น

@@ -229,7 +229,6 @@ winStreak=Vinte in sequenza
 createdBy=Creato da
 waitingForNbPlayers=Si aspettano %s giocatori
 tournamentIsStarting=Ha inizio il torneo
-nbMinutesPerSidePlusNbSecondsPerMove=%s minuti/parte + %s secondi/mossa
 membersOnly=Solo gli iscritti
 boardEditor=Editor scacchiera
 startPosition=Posizione iniziale

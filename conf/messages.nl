@@ -229,7 +229,6 @@ winStreak=Win-reeks
 createdBy=Gemaakt door
 waitingForNbPlayers=Wachtend op %s spelers
 tournamentIsStarting=Het toernooi begint
-nbMinutesPerSidePlusNbSecondsPerMove=%s minuten/speler + %s seconden/zet
 membersOnly=Alleen voor leden
 boardEditor=Bordbewerker
 startPosition=Beginopstelling

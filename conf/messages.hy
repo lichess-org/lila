@@ -229,7 +229,6 @@ winStreak=Անընդմեջ հաղթանակներ
 createdBy=Ստեղծող՝
 waitingForNbPlayers=Սպասել %s խաղացողների
 tournamentIsStarting=Մրցաշարը սկսվում է
-nbMinutesPerSidePlusNbSecondsPerMove=%s րոպե/կողմ + %s վայրկյան/քայլ
 membersOnly=Միայն անդամները
 boardEditor=Տախտակի խմբագրիչ
 startPosition=Սկզբնական դիրք

@@ -229,7 +229,6 @@ winStreak=வெற்றித் தொடர்கள்
 createdBy=படைத்தவர்
 waitingForNbPlayers=%s-க்காகக் காத்திருப்பு
 tournamentIsStarting=போட்டி தொடங்குகின்றது
-nbMinutesPerSidePlusNbSecondsPerMove=%s நிமிடங்கள்/கட்சி + %s நொடிகள்/நகர்வு
 membersOnly=உறுப்பினர் மட்டும்
 boardEditor=பலகை அமைப்பாளி
 startPosition=தொடக்க நிலை

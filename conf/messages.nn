@@ -229,7 +229,6 @@ winStreak=Sigersrekkje
 createdBy=Laga av
 waitingForNbPlayers=Ventar på %s deltakarar
 tournamentIsStarting=Tevlinga startar
-nbMinutesPerSidePlusNbSecondsPerMove=%s minutt/ side + %s sekund/ trekk
 membersOnly=Berre for medlemer
 boardEditor=Brettskipar
 startPosition=Utgangsposisjon

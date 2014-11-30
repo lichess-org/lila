@@ -229,7 +229,6 @@ winStreak=연속 승리
 createdBy=토너먼트 주최자:
 waitingForNbPlayers=플레이어 %s명을 기다리는 중
 tournamentIsStarting=토너먼트가 곧 시작됩니다
-nbMinutesPerSidePlusNbSecondsPerMove=%s분 + 턴당 %s초
 membersOnly=회원 전용
 boardEditor=보드 편집기
 startPosition=원래대로

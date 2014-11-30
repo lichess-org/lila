@@ -229,7 +229,6 @@ winStreak=victorias consecutivas
 createdBy=Creado por
 waitingForNbPlayers=Esperando a %s jugadores
 tournamentIsStarting=El torneo está comenzando
-nbMinutesPerSidePlusNbSecondsPerMove=%s minutos/lado + %s segundos/movimiento
 membersOnly=Sólo miembros
 boardEditor=Editor de tablero
 startPosition=Posición inicial

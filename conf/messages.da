@@ -229,7 +229,6 @@ winStreak=Sejrsstribe
 createdBy=Lavet af
 waitingForNbPlayers=Venter på %s spillere
 tournamentIsStarting=Turneringen er begyndt
-nbMinutesPerSidePlusNbSecondsPerMove=%s minutter/spiller + %s sek./træk
 membersOnly=Kun for medlemmer
 boardEditor=Rediger stilling
 startPosition=Udgangsstilling

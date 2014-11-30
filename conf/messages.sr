@@ -229,7 +229,6 @@ winStreak=Победнички низ
 createdBy=Направљено од
 waitingForNbPlayers=Чекајући %s играча
 tournamentIsStarting=Турнир почиње
-nbMinutesPerSidePlusNbSecondsPerMove=%s минута сваки + %s секунди по потезу
 membersOnly=Само за чланове
 boardEditor=Уредник табле
 startPosition=Почетна позиција

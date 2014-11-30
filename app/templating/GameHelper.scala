@@ -70,18 +70,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case v                    => v.name
   }
 
-  def clockName(clock: Option[Clock])(implicit ctx: UserContext): String =
-    clock.fold(trans.unlimited.str())(clockName)
-
-  def clockName(clock: Clock)(implicit ctx: UserContext): String =
-    trans.nbMinutesPerSidePlusNbSecondsPerMove.str(clock.limitInMinutes, clock.increment)
-
-  def clockNameNoCtx(clock: Option[Clock]): String =
-    clock.fold(trans.unlimited.en())(clockNameNoCtx)
-
-  def clockNameNoCtx(clock: Clock): String =
-    trans.nbMinutesPerSidePlusNbSecondsPerMove.en(clock.limitInMinutes, clock.increment)
-
   def shortClockName(clock: Option[Clock])(implicit ctx: UserContext): Html =
     clock.fold(trans.unlimited())(shortClockName)
 

@@ -229,7 +229,6 @@ winStreak=Seiersrekke
 createdBy=Laget av
 waitingForNbPlayers=Venter på %s spillere
 tournamentIsStarting=Turneringen begynner
-nbMinutesPerSidePlusNbSecondsPerMove=%s minutter/side + %s sekunder/trekk
 membersOnly=Kun for medlemmer
 boardEditor=Oppsett
 startPosition=Startposisjon

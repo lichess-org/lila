@@ -228,7 +228,6 @@ winStreak=Sreath de bhuaidhean
 createdBy=Air a chruthachadh le
 waitingForNbPlayers=A’ feitheamh air %s cluicheadairean
 tournamentIsStarting=Tha an fhèill-chluich gu bhith tòiseachadh
-nbMinutesPerSidePlusNbSecondsPerMove=%s mionaidean/taobh + %s diogan/gluasad
 membersOnly=Buill a-mhàin
 boardEditor=Deasaiche a’ bhùird
 startPosition=Suidheachadh an tòiseachaidh
