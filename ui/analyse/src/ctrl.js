@@ -21,6 +21,10 @@ module.exports = function(cfg, router, i18n, onChange) {
     comments: true
   };
 
+  var is960 = function() {
+    return ['chess960', 'fromPosition'].indexOf(this.data.game.variant.key) !== -1;
+  }.bind(this);
+
   var situationCache = {};
   var showGround = function() {
     var moves;
@@ -45,7 +49,7 @@ module.exports = function(cfg, router, i18n, onChange) {
     if (!cached || ply < nbMoves) {
       var chess = new Chess(
         fen || this.data.game.initialFen,
-        this.data.game.variant.key == 'chess960' ? 1 : 0
+        is960() ? 1 : 0
       );
       for (ply = ply; ply <= nbMoves; ply++) {
         move = moves[ply - 1];
@@ -97,7 +101,7 @@ module.exports = function(cfg, router, i18n, onChange) {
     $.sound.move();
     var chess = new Chess(
       this.vm.situation.fen,
-      this.data.game.variant.key == 'chess960' ? 1 : 0
+      is960() ? 1 : 0
     );
     var move = chess.move({
       from: orig,
