@@ -414,7 +414,7 @@ object Game {
   val fullIdSize = 12
   val tokenSize = 4
 
-  def abandonedDate = DateTime.now minusDays 7
+  def abandonedDate = DateTime.now minusDays 15
 
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
