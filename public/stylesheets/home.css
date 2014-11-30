@@ -508,9 +508,11 @@ div.game_config div.ui-slider {
   margin: 0 15px;
 }
 div.game_config .optional_config {
-  margin-bottom: 1em;
   padding: 8px 0;
   border-bottom: solid 1px #e4e4e4;
+}
+div.game_config .mode_choice {
+  margin-top: 1em;
 }
 div.game_config .optional_config,
 div.game_config .ratings {
@@ -523,9 +525,11 @@ div.game_config input[type="text"] {
   padding: 2px 3px;
 }
 div.game_config .label_select {
-  margin-bottom: 1em;
   overflow: hidden;
   text-align: left;
+}
+div.game_config .label_select.variant {
+  margin-bottom: 8px;
 }
 div.game_config .label_select label {
   display: block;

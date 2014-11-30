@@ -1169,12 +1169,12 @@ var storage = {
 
     function prepareForm() {
       var $form = $('div.lichess_overboard');
-      var $timeModeSelect = $form.find('.time_mode_choice select');
+      var $timeModeSelect = $form.find('#timeMode');
       var $modeChoicesWrap = $form.find('.mode_choice');
       var $modeChoices = $modeChoicesWrap.find('input');
       var $casual = $modeChoices.eq(0),
         $rated = $modeChoices.eq(1);
-      var $variantSelect = $form.find('.variants select');
+      var $variantSelect = $form.find('#variant');
       var $fenPosition = $form.find(".fen_position");
       var $timeInput = $form.find('.time_choice input');
       var $incrementInput = $form.find('.increment_choice input');
