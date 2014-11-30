@@ -8,14 +8,14 @@ function bold(x) {
   return '<b>' + x + '</b>';
 }
 
-function formatClockTime(ctrl, time) {
+function formatClockTime(trans, time) {
   var date = new Date(time);
   var minutes = prefixInteger(date.getUTCMinutes(), 2);
   var seconds = prefixInteger(date.getSeconds(), 2);
   var str = '';
   if (time >= 86400 * 1000) {
     var days = date.getUTCDate() - 1;
-    str += bold(days) + 'D ';
+    str += (days === 1 ? trans('oneDay') : trans('nbDays', days)) + ' ';
     if (time % 86400 === 0) return str;
   }
   str += bold(prefixInteger(date.getUTCHours(), 2)) + ':' + bold(minutes);
@@ -23,7 +23,7 @@ function formatClockTime(ctrl, time) {
   return str;
 }
 
-module.exports = function(ctrl, color, position, runningColor) {
+module.exports = function(ctrl, trans, color, position, runningColor) {
   var time = ctrl.data[color];
   return m('div', {
     class: 'correspondence clock clock_' + color + ' clock_' + position + ' ' + classSet({
@@ -39,6 +39,6 @@ module.exports = function(ctrl, color, position, runningColor) {
         }
       })
     ) : null,
-    m('div.time', m.trust(formatClockTime(ctrl, time * 1000)))
+    m('div.time', m.trust(formatClockTime(trans, time * 1000)))
   ]);
 }

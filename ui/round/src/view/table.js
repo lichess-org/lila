@@ -128,7 +128,7 @@ module.exports = function(ctrl) {
       "top", clockRunningColor
     ) : (
       ctrl.data.correspondence ? renderCorrespondenceClock(
-        ctrl.correspondenceClock, ctrl.data.opponent.color, "top", ctrl.data.game.player
+        ctrl.correspondenceClock, ctrl.trans, ctrl.data.opponent.color, "top", ctrl.data.game.player
       ) : whosTurn(ctrl, ctrl.data.opponent.color)
     ),
     m('div', {
@@ -145,7 +145,7 @@ module.exports = function(ctrl) {
       button.moretime(ctrl)
     ] : (
       ctrl.data.correspondence ? renderCorrespondenceClock(
-        ctrl.correspondenceClock, ctrl.data.player.color, "bottom", ctrl.data.game.player
+        ctrl.correspondenceClock, ctrl.trans, ctrl.data.player.color, "bottom", ctrl.data.game.player
       ) : whosTurn(ctrl, ctrl.data.player.color))
   ]);
 }
