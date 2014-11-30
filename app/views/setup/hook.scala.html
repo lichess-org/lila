@@ -4,10 +4,7 @@
 @import lila.rating.RatingRange
 
 @fields = {
-<div class="variants_title">@trans.variant()</div>
-<div class="variants">
-  @setup.select(form("variant"), translatedVariantChoicesWithVariants)
-</div>
+@setup.variant(form, translatedVariantChoicesWithVariants)
 @setup.timeMode(form, lila.setup.HookConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">

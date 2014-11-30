@@ -1,10 +1,7 @@
 @(form: Form[_], ratings: Map[Int, Int])(implicit ctx: Context)
 
 @fields = {
-<div class="variants_title">@trans.variant()</div>
-<div class="variants">
-  @setup.select(form("variant"), translatedVariantChoicesWithFenAndKingOfTheHill)
-</div>
+@setup.variant(form, translatedVariantChoicesWithFenAndKingOfTheHill)
 @fenInput(form("fen"), true)
 @setup.timeMode(form, lila.setup.AiConfig)
 @trans.level()

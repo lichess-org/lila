@@ -6,10 +6,7 @@
 @user.map { u =>
 @userLink(u, cssClass="target".some)
 }
-<div class="variants_title">@trans.variant()</div>
-<div class="variants">
-  @setup.select(form("variant"), translatedVariantChoicesWithVariantsAndFen)
-</div>
+@setup.variant(form, translatedVariantChoicesWithVariantsAndFen)
 @fenInput(form("fen"), false)
 @setup.timeMode(form, lila.setup.FriendConfig)
 @if(ctx.isAuth) {

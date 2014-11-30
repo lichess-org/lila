@@ -522,21 +522,20 @@ div.game_config input[type="text"] {
   width: 87%;
   padding: 2px 3px;
 }
-div.game_config .variants_title,
-div.game_config .time_mode_title {
-  position: absolute;
+div.game_config .label_select {
+  margin-bottom: 1em;
+  overflow: hidden;
+  text-align: left;
+}
+div.game_config .label_select label {
+  display: block;
+  float: left;
   width: 130px;
   text-align: right;
+  padding: 5px 0;
 }
-div.game_config .variants {
-  margin-bottom: 1em;
-}
-div.game_config .time_mode_choice,
-div.game_config .variants {
-  text-align: left;
-  margin-left: 140px;
-}
-div.game_config select {
+div.game_config .label_select select {
+  margin-left: 10px;
   font-weight: bold;
   padding: 5px 8px;
 }

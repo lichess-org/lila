@@ -3,8 +3,8 @@
 @import lila.setup.FriendConfig
 
 <div class="time_mode_config optional_config">
-  <div class="time_mode_title">@trans.timeControl()</div>
-  <div class="time_mode_choice">
+  <div class="label_select">
+    <label for="timeMode">@trans.timeControl()</label>
     @setup.select(form("timeMode"), translatedTimeModeChoices)
   </div>
   <div class="time_choice slider">
