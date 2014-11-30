@@ -157,6 +157,15 @@ object Event {
       clock remainingTime Color.Black)
   }
 
+  case class CorrespondenceClock(white: Float, black: Float) extends Event {
+    def typ = "cclock"
+    def data = Json.obj("white" -> white, "black" -> black)
+  }
+  object CorrespondenceClock {
+    def apply(clock: lila.game.CorrespondenceClock): CorrespondenceClock =
+      CorrespondenceClock(clock.whiteTime, clock.blackTime)
+  }
+
   case class CheckCount(white: Int, black: Int) extends Event {
     def typ = "checkCount"
     def data = Json.obj(

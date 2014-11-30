@@ -4,6 +4,7 @@ var game = require('game').game;
 var status = require('game').status;
 var opposite = chessground.util.opposite;
 var renderClock = require('../clock/view');
+var renderCorrespondenceClock = require('../correspondenceClock/view');
 var renderReplay = require('../replay/view');
 var renderStatus = require('./status');
 var renderUser = require('game').view.user;
@@ -122,9 +123,13 @@ module.exports = function(ctrl) {
   return m('div.table_wrap', [
     (ctrl.clock && !ctrl.data.blind) ? renderClock(
       ctrl.clock,
-      opposite(ctrl.data.player.color),
+      ctrl.data.opponent.color,
       "top", clockRunningColor
-    ) : whosTurn(ctrl, ctrl.data.opponent.color),
+    ) : (
+      ctrl.data.correspondence ? renderCorrespondenceClock(
+        ctrl.correspondenceClock, ctrl.data.opponent.color, "top", ctrl.data.game.player
+      ) : whosTurn(ctrl, ctrl.data.opponent.color)
+    ),
     m('div', {
       class: 'table' + (status.finished(ctrl.data) ? ' finished' : '')
     }, [
@@ -137,6 +142,9 @@ module.exports = function(ctrl) {
     ]), (ctrl.clock && !ctrl.data.blind) ? [
       renderClock(ctrl.clock, ctrl.data.player.color, "bottom", clockRunningColor),
       button.moretime(ctrl)
-    ] : whosTurn(ctrl, ctrl.data.player.color)
-  ])
+    ] : (
+      ctrl.data.correspondence ? renderCorrespondenceClock(
+        ctrl.correspondenceClock, ctrl.data.player.color, "bottom", ctrl.data.game.player
+      ) : whosTurn(ctrl, ctrl.data.player.color))
+  ]);
 }

@@ -8,21 +8,23 @@ import lila.user.User
 
 case class HookConfig(
     variant: Variant,
-    clock: Boolean,
+    timeMode: TimeMode,
     time: Int,
     increment: Int,
+    days: Int,
     mode: Mode,
     allowAnon: Boolean,
     color: Color,
     ratingRange: RatingRange) extends HumanConfig {
 
   // allowAnons -> membersOnly
-  def >> = (variant.id, clock, time, increment, mode.id.some, !allowAnon, ratingRange.toString.some, color.name).some
+  def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, !allowAnon, ratingRange.toString.some, color.name).some
 
   def hook(uid: String, user: Option[User], sid: Option[String], blocking: Set[String]) = Hook.make(
     uid = uid,
     variant = variant,
     clock = makeClock,
+    daysPerTurn = makeDaysPerTurn,
     mode = mode,
     allowAnon = allowAnon,
     color = color.name,
@@ -33,26 +35,28 @@ case class HookConfig(
 
   def encode = RawHookConfig(
     v = variant.id,
-    k = clock,
+    tm = timeMode.id,
     t = time,
     i = increment,
+    d = days,
     m = mode.id,
     a = allowAnon,
     e = ratingRange.toString)
 
-  def noRatedUnlimited = mode.casual || clock
+  def noRatedUnlimited = mode.casual || hasClock || makeDaysPerTurn.isDefined
 }
 
 object HookConfig extends BaseHumanConfig {
 
-  def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], membersOnly: Boolean, e: Option[String], c: String) = {
+  def <<(v: Int, tm: Int, t: Int, i: Int, d: Int, m: Option[Int], membersOnly: Boolean, e: Option[String], c: String) = {
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     val useRatingRange = realMode.rated || membersOnly
     new HookConfig(
       variant = Variant(v) err "Invalid game variant " + v,
-      clock = k,
+      timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
+      days = d,
       mode = realMode,
       allowAnon = !membersOnly, // membersOnly
       ratingRange = e.filter(_ => useRatingRange).fold(RatingRange.default)(RatingRange.orDefault),
@@ -61,9 +65,10 @@ object HookConfig extends BaseHumanConfig {
 
   val default = HookConfig(
     variant = variantDefault,
-    clock = true,
+    timeMode = TimeMode.Clock,
     time = 5,
     increment = 8,
+    days = 2,
     mode = Mode.default,
     allowAnon = true,
     ratingRange = RatingRange.default,
@@ -88,9 +93,10 @@ object HookConfig extends BaseHumanConfig {
 
 private[setup] case class RawHookConfig(
     v: Int,
-    k: Boolean,
+    tm: Int,
     t: Int,
     i: Int,
+    d: Int,
     m: Int,
     a: Boolean,
     e: String) {
@@ -99,11 +105,13 @@ private[setup] case class RawHookConfig(
     variant ← Variant(v)
     mode ← Mode(m)
     ratingRange ← RatingRange(e)
+    timeMode <- TimeMode(tm)
   } yield HookConfig(
     variant = variant,
-    clock = k,
+    timeMode = timeMode,
     time = t,
     increment = i,
+    days = d,
     mode = mode,
     allowAnon = a,
     ratingRange = ratingRange,

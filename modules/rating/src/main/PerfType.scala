@@ -28,6 +28,12 @@ object PerfType {
     title = Speed.Classical.title,
     iconChar = '+')
 
+  case object Correspondence extends PerfType(
+    key = "correspondence",
+    name = "Corresp.",
+    title = "Correspondence chess (turn based)",
+    iconChar = ';')
+
   case object Standard extends PerfType(
     key = "standard",
     name = Variant.Standard.name,
@@ -58,7 +64,7 @@ object PerfType {
     title = "Training puzzles",
     iconChar = '-')
 
-  val all: List[PerfType] = List(Bullet, Blitz, Classical, Standard, Chess960, KingOfTheHill, ThreeCheck, Puzzle)
+  val all: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Standard, Chess960, KingOfTheHill, ThreeCheck, Puzzle)
   val byKey = all map { p => (p.key, p) } toMap
 
   val default = Standard
@@ -68,5 +74,5 @@ object PerfType {
 
   def name(key: Perf.Key): Option[String] = apply(key) map (_.name)
 
-  val nonPuzzle: List[PerfType] = List(Bullet, Blitz, Classical, Chess960, KingOfTheHill, ThreeCheck)
+  val nonPuzzle: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck)
 }

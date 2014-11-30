@@ -215,7 +215,6 @@ xToYMinutes=%s-%s minuuttia
 textIsTooShort=Teksti on liian lyhyt.
 textIsTooLong=Teksti on liian pitkä.
 required=Vaadittu.
-addToChrome=Lisää Chromeen
 openTournaments=Avoimet turnaukset
 duration=Kesto
 winner=Voittaja

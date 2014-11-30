@@ -215,7 +215,6 @@ xToYMinutes=%s - %s dəqiqə arası
 textIsTooShort=Mətn çox qısadır.
 textIsTooLong=Mətn çox uzundur.
 required=Tələb olunur.
-addToChrome=Xroma əlavə et.
 openTournaments=Turnir açın.
 duration=Vaxt.
 winner=Qalib

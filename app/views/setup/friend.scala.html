@@ -7,10 +7,10 @@
 @userLink(u, cssClass="target".some)
 }
 <div class="variants">
-  @trans.variant() @setup.select(form("variant"), translatedVariantChoicesWithVariantsAndFen)
+  @setup.select(form("variant"), translatedVariantChoicesWithVariantsAndFen)
 </div>
 @fenInput(form("fen"), false)
-@setup.clock(form, lila.setup.FriendConfig)
+@setup.timeMode(form, lila.setup.FriendConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
   @globalCasualOnlyMessage.getOrElse {

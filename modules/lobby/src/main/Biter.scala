@@ -46,6 +46,7 @@ private[lobby] object Biter {
     mode = hook.realMode,
     variant = hook.realVariant,
     source = lila.game.Source.Lobby,
+    daysPerTurn = hook.daysPerTurn,
     pgnImport = None)
 
   def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean = hook.open &&

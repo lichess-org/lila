@@ -215,7 +215,6 @@ xToYMinutes=%s до %s хвилин
 textIsTooShort=Текст закороткий.
 textIsTooLong=Текст задовгий.
 required=Необхідно.
-addToChrome=Додати до Chrome
 openTournaments=Відкриті турніри
 duration=Тривалість
 winner=Переможець

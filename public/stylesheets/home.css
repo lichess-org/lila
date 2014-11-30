@@ -509,7 +509,7 @@ div.game_config div.ui-slider {
 }
 div.game_config .optional_config {
   margin-bottom: 1em;
-  padding: 3px 0;
+  padding: 8px 0;
   border-bottom: solid 1px #e4e4e4;
 }
 div.game_config .optional_config,
@@ -525,8 +525,9 @@ div.game_config input[type="text"] {
 div.game_config .variants {
   margin-bottom: 1em;
 }
-div.game_config .variants select {
+div.game_config select {
   font-weight: bold;
+  padding: 5px 8px;
 }
 div.game_config .fen_position {
   padding: 8px 0;
@@ -548,14 +549,12 @@ div.game_config input#fen.success {
 div.game_config input#fen.failure {
   border-color: #ac524f;
 }
-div.game_config .time_choice,
-div.game_config .increment_choice,
-div.game_config .rating_range_config {
-  padding-bottom: 1em;
+div.game_config .slider {
+  padding-top: 5px;
   text-align: left;
   text-indent: 15px;
 }
-div.game_config .time_choice span {
+div.game_config .slider span {
   font-weight: bold;
 }
 div.game_config label.pointer {

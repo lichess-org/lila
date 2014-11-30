@@ -214,7 +214,6 @@ xToYMinutes=%s до %s минути
 textIsTooShort=Текстот е прекраток.
 textIsTooLong=Текстот е предолг.
 required=Неопходно.
-addToChrome=Додади на Chrome
 openTournaments=Отворени турнири
 duration=Времетраење
 winner=Победник

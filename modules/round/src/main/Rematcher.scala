@@ -64,7 +64,7 @@ private[round] final class Rematcher(
   } inject List(Event.ReloadOwner)
 
   private def returnGame(pov: Pov): Fu[Game] = for {
-    initialFen <- GameRepo initialFen pov.game.id 
+    initialFen <- GameRepo initialFen pov.game.id
     situation = initialFen flatMap Forsyth.<<<
     pieces = pov.game.variant.standard.fold(
       pov.game.variant.pieces,
@@ -86,6 +86,7 @@ private[round] final class Rematcher(
     mode = pov.game.mode,
     variant = pov.game.variant,
     source = pov.game.source | Source.Lobby,
+    daysPerTurn = pov.game.daysPerTurn,
     castles = situation.fold(Castles.init)(_.situation.board.history.castles),
     pgnImport = None)
 

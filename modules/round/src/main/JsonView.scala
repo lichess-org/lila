@@ -6,7 +6,7 @@ import scala.math
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
-import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo }
+import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
@@ -62,9 +62,10 @@ final class JsonView(
               "rematch" -> game.next,
               "source" -> game.source.map(sourceJson),
               "status" -> Json.obj(
-                "id" -> pov.game.status.id,
-                "name" -> pov.game.status.name)),
+                "id" -> game.status.id,
+                "name" -> game.status.name)),
             "clock" -> game.clock.map(clockJson),
+            "correspondence" -> game.correspondenceClock.map(correspondenceJson),
             "player" -> Json.obj(
               "id" -> playerId,
               "color" -> player.color.name,
@@ -165,9 +166,10 @@ final class JsonView(
                 )
               },
               "status" -> Json.obj(
-                "id" -> pov.game.status.id,
-                "name" -> pov.game.status.name)),
+                "id" -> game.status.id,
+                "name" -> game.status.name)),
             "clock" -> game.clock.map(clockJson),
+            "correspondence" -> game.correspondenceClock.map(correspondenceJson),
             "player" -> Json.obj(
               "color" -> color.name,
               "version" -> socket.version,
@@ -253,6 +255,12 @@ final class JsonView(
     "black" -> clock.remainingTime(Color.Black),
     "emerg" -> clock.emergTime,
     "moretime" -> moretimeSeconds)
+
+  private def correspondenceJson(c: CorrespondenceClock) = Json.obj(
+      "increment" -> c.increment,
+      "white" -> c.whiteTime,
+      "black" -> c.blackTime,
+      "emerg" -> c.emerg)
 
   private def sourceJson(source: Source) = source.name
 

@@ -89,7 +89,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
     implicit val req = ctx.body
     env.forms.hook(ctx).bindFromRequest.fold(
       err => negotiate(
-        html = BadRequest("Invalid form data").fuccess,
+        html = BadRequest(err.errorsAsJson.toString).fuccess,
         api = _ => BadRequest(err.errorsAsJson).fuccess),
       config => (ctx.userId ?? Env.relation.api.blocking) flatMap { blocking =>
         JsonOk {

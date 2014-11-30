@@ -2,10 +2,19 @@ package lila.app
 package templating
 
 import chess.{ Mode, Variant, Speed }
+import lila.setup.TimeMode
 import lila.api.Context
 import lila.tournament.System
 
 trait SetupHelper { self: I18nHelper =>
+
+  def translatedTimeModeChoices(implicit ctx: Context) = List(
+    (TimeMode.Clock.id.toString, trans.clock.str(), none),
+    (TimeMode.Correspondence.id.toString, trans.correspondence.str(), none),
+    (TimeMode.Unlimited.id.toString, trans.unlimited.str(), none)
+  ).map { x =>
+    x.copy(_2 = s"${trans.timeControl.str()}: ${x._2}")
+  }
 
   def translatedModeChoices(implicit ctx: Context) = List(
     (Mode.Casual.id.toString, trans.casual.str(), none),
@@ -17,11 +26,13 @@ trait SetupHelper { self: I18nHelper =>
     System.Swiss.id.toString -> "Swiss [beta]"
   )
 
-  private def variantTuple(variant: Variant): (String, String, Option[String]) =
-    (variant.id.toString, variant.name, variant.title.some)
+  private def variantPrefix(name: String)(implicit ctx: Context) = s"${trans.variant.str()}: ${name}"
+
+  private def variantTuple(variant: Variant)(implicit ctx: Context): (String, String, Option[String]) =
+    (variant.id.toString, variantPrefix(variant.name), variant.title.some)
 
   def translatedVariantChoices(implicit ctx: Context) = List(
-    (Variant.Standard.id.toString, trans.standard.str(), Variant.Standard.title.some),
+    (Variant.Standard.id.toString, variantPrefix(trans.standard.str()), Variant.Standard.title.some),
     variantTuple(Variant.Chess960)
   )
 

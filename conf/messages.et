@@ -215,7 +215,6 @@ xToYMinutes=%s kuni %s minutit
 textIsTooShort=Tekst on liiga lühike
 textIsTooLong=Tekst on liiga pikk
 required=Nõutud
-addToChrome=Lisa Chrome
 openTournaments=Avatud turniirid
 duration=Kestvus
 winner=Võitja

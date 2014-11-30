@@ -215,7 +215,6 @@ xToYMinutes=%s - %s நிமிடங்கள்
 textIsTooShort=உரை மிகவும் குறுகல்
 textIsTooLong=உரை மிகவும் நீளம்
 required=கட்டாயம்
-addToChrome=கூகில் குரோமோடு சேர்த்து
 openTournaments=நுழைவேற்கும் போட்டிகள்
 duration=நேரம்
 winner=வெல்லி

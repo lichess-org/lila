@@ -209,7 +209,6 @@ xToYMinutes=%s hatramin'ny %s minitra
 textIsTooShort=Fohy loatra ny soratra.
 textIsTooLong=Lava loatra ny soratra.
 required=Ilaina.
-addToChrome=Ampio ao amin'ny Chrome
 openTournaments=Fifaninanana misokatra
 duration=Halavany
 winner=Mpandresy

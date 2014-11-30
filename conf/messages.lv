@@ -215,7 +215,6 @@ xToYMinutes=%s līdz %s minūtes
 textIsTooShort=Teksts ir par īsu.
 textIsTooLong=Teksts ir par garu.
 required=Obligāts.
-addToChrome=Pievienot Chrome
 openTournaments=Atvērt turnīrus
 duration=Ilgums
 winner=Uzvarētājs

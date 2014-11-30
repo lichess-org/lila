@@ -215,7 +215,6 @@ xToYMinutes=%s εώς %s λεπτά
 textIsTooShort=Το κείμενο είναι πολύ μικρό.
 textIsTooLong=Το κείμενο είναι πολύ μακρύ.
 required=Απαιτείται
-addToChrome=Προσθήκη στο Chrome
 openTournaments=Ανοικτά πρωταθλήματα
 duration=Διάρκεια
 winner=Νικητής

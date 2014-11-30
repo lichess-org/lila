@@ -214,7 +214,6 @@ xToYMinutes=%s დან %s წუთი
 textIsTooShort=ტექსთი ძალიან მოკლეა
 textIsTooLong=ტეასტი ზედმეტად დიდია
 required=საჭირო.
-addToChrome=დაამატეთ ქრომში
 openTournaments=გახსენით ტურნირი
 duration=ხანგრძლივობა
 winner=გამარჯვებული

@@ -215,7 +215,6 @@ xToYMinutes=%s till %s minuter
 textIsTooShort=Texten är för kort.
 textIsTooLong=Texten är för lång.
 required=Nödvändig.
-addToChrome=Lägg till Chrome
 openTournaments=Öppen turneringar
 duration=Varaktighet
 winner=Vinnare

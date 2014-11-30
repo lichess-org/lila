@@ -214,7 +214,6 @@ xToYMinutes=%s gu %s mionaidean
 textIsTooShort=Tha an teacsa ro ghoirid.
 textIsTooLong=Tha an teacsa ro fhada.
 required=Riatanach.
-addToChrome=Cuir ri Chrome
 openTournaments=Fèill-chluichean fosgailte
 duration=Faid
 winner=Buannaiche

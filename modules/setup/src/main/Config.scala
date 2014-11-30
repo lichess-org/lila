@@ -10,7 +10,7 @@ import lila.tournament.{ System => TournamentSystem }
 private[setup] trait Config {
 
   // Whether or not to use a clock
-  val clock: Boolean
+  val timeMode: TimeMode
 
   // Clock time in minutes
   val time: Int
@@ -18,23 +18,30 @@ private[setup] trait Config {
   // Clock increment in seconds
   val increment: Int
 
+  // Correspondence days per turn
+  val days: Int
+
   // Game variant code
   val variant: Variant
 
   // Creator player color
   val color: Color
 
+  def hasClock = timeMode == TimeMode.Clock
+
   lazy val creatorColor = color.resolve
 
   def makeGame = ChessGame(board = Board init variant, clock = makeClock)
 
-  def validClock = clock.fold(clockHasTime, true)
+  def validClock = hasClock.fold(clockHasTime, true)
 
   def clockHasTime = time + increment > 0
 
-  def makeClock = clock option {
+  def makeClock = hasClock option {
     Clock(time * 60, clockHasTime.fold(increment, 1))
   }
+
+  def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
 }
 
 trait GameGenerator { self: Config =>
@@ -89,9 +96,9 @@ trait BaseConfig {
   val variantDefault = Variant.Standard
 
   val variantsWithFen = variants :+ Variant.FromPosition.id
-  val variantsWithFenAndKingOfTheHill = variantsWithFen :+ Variant.KingOfTheHill.id
+  val variantsWithFenAndKingOfTheHill = variants :+ Variant.KingOfTheHill.id :+ Variant.FromPosition.id
   val variantsWithVariants = variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id
-  val variantsWithFenAndVariants = variantsWithFen :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id
+  val variantsWithFenAndVariants = variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id :+ Variant.FromPosition.id
 
   val speeds = Speed.all map (_.id)
 

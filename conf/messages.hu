@@ -215,7 +215,6 @@ xToYMinutes=%s perctől %s percig
 textIsTooShort=A szöveg túl rövid
 textIsTooLong=A szöveg túl hosszú
 required=Szükséges
-addToChrome=Hozzáadás a Chrome böngészőhöz
 openTournaments=Nyílt versenyek
 duration=Időtartam
 winner=Győztes

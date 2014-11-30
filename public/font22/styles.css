@@ -284,3 +284,6 @@
 .icon-gears-setting:before {
   content: ":";
 }
+.icon-email-plane:before {
+  content: ";";
+}

@@ -16,6 +16,8 @@ object Mappings {
   val variantWithFenAndVariants = number.verifying(Config.variantsWithFenAndVariants contains _)
   val time = number.verifying(HookConfig validateTime _)
   val increment = number.verifying(HookConfig validateIncrement _)
+  val days = number(min = 1, max = 14)
+  def timeMode = number.verifying(TimeMode.ids contains _)
   def mode(withRated: Boolean) = optional(rawMode(withRated))
   def rawMode(withRated: Boolean) = number
     .verifying(HookConfig.modes contains _)

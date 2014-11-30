@@ -679,8 +679,13 @@ var storage = {
     return this.length === 0 ? false : this;
   };
 
-  $.trans = function(text) {
-    return lichess_translations[text] ? lichess_translations[text] : text;
+  $.trans = function() {
+    var str = lichess_translations[arguments[0]];
+    if (!str) return arguments[0];
+    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
+      str = str.replace('%s', arg);
+    });
+    return str;
   };
 
   function urlToLink(text) {
@@ -1148,32 +1153,53 @@ var storage = {
       }
     }
 
+    function sliderDays(v) {
+      if (v <= 3) return v;
+      switch (v) {
+        case 4:
+          return 5;
+        case 5:
+          return 7;
+        case 6:
+          return 10;
+        default:
+          return 14;
+      }
+    }
+
     function prepareForm() {
       var $form = $('div.lichess_overboard');
+      var $timeModeSelect = $form.find('.time_mode_choice select');
       var $modeChoicesWrap = $form.find('.mode_choice');
       var $modeChoices = $modeChoicesWrap.find('input');
       var $casual = $modeChoices.eq(0),
         $rated = $modeChoices.eq(1);
       var $variantSelect = $form.find('.variants select');
       var $fenPosition = $form.find(".fen_position");
-      var $clockCheckbox = $form.find('.clock_choice input');
       var $timeInput = $form.find('.time_choice input');
       var $incrementInput = $form.find('.increment_choice input');
+      var $daysInput = $form.find('.days_choice input');
       var isHook = $form.hasClass('game_config_hook');
       var $ratings = $form.find('.ratings > div');
       var toggleButtons = function() {
-        $form.find('.color_submits button').toggle(!$clockCheckbox.is(':checked') || $timeInput.val() > 0 || $incrementInput.val() > 0);
+        var timeMode = $timeModeSelect.val();
+        var rated = $rated.prop('checked');
+        var timeOk = timeMode != '1' || $timeInput.val() > 0 || $incrementInput.val() > 0;
+        var ratedOk = !isHook || !rated || timeMode != '0';
+        $form.find('.color_submits button').toggle(timeOk && ratedOk);
       };
       var showRating = function() {
+        var timeMode = $timeModeSelect.val();
         var key;
         switch ($variantSelect.val()) {
           case '1':
-            if ($clockCheckbox.is(':checked')) {
+            if (timeMode == '1') {
               var time = $timeInput.val() * 60 + $incrementInput.val() * 30;
               if (time < 180) key = 'bullet';
               else if (time < 480) key = 'blitz';
               else key = 'classical';
-            } else key = 'classical';
+            } else if (timeMode == '2') key = 'correspondence';
+            else key = 'classical';
             break;
           case '2':
             key = 'chess960';
@@ -1208,8 +1234,7 @@ var storage = {
       $form.find('button.submit').button().disableSelection();
       $timeInput.add($incrementInput).each(function() {
         var $input = $(this),
-          $value = $input.siblings('span'),
-          time;
+          $value = $input.siblings('span');
         $input.hide().after($('<div>').slider({
           value: $input.val(),
           min: 0,
@@ -1217,11 +1242,27 @@ var storage = {
           range: 'min',
           step: 1,
           slide: function(event, ui) {
-            time = sliderTime(ui.value);
+            var time = sliderTime(ui.value);
             $value.text(time);
             $input.attr('value', time);
             showRating();
             toggleButtons();
+          }
+        }));
+      });
+      $daysInput.each(function() {
+        var $input = $(this),
+          $value = $input.siblings('span');
+        $input.hide().after($('<div>').slider({
+          value: $input.val(),
+          min: 1,
+          max: 7,
+          range: 'min',
+          step: 1,
+          slide: function(event, ui) {
+            var days = sliderDays(ui.value);
+            $value.text(days);
+            $input.attr('value', days);
           }
         }));
       });
@@ -1250,19 +1291,15 @@ var storage = {
           var rated = $rated.prop('checked');
           var membersOnly = $form.find('.members_only input').prop('checked');
           $ratingRangeConfig.toggle(rated || membersOnly);
-          if (isHook && rated && !$clockCheckbox.prop('checked')) {
-            $clockCheckbox.click();
-          }
           $form.find('.members_only').toggle(!rated);
+          toggleButtons();
         }).trigger('change');
       });
-      $clockCheckbox.on('change', function() {
-        var checked = $(this).is(':checked');
-        $form.find('.time_choice, .increment_choice').toggle(checked);
+      $timeModeSelect.on('change', function() {
+        var timeMode = $(this).val();
+        $form.find('.time_choice, .increment_choice').toggle(timeMode == '1');
+        $form.find('.days_choice').toggle(timeMode == '2');
         toggleButtons();
-        if (isHook && !checked) {
-          $casual.click();
-        }
         showRating();
       }).trigger('change');
       var $ratingRangeConfig = $form.find('.rating_range_config');
@@ -1702,6 +1739,8 @@ var storage = {
       }
       if (hook.clock) {
         html += '<span class="clock">' + hook.clock + '</span>';
+      } else if (hook.days) {
+        html += '<span class="clock">' + hook.days + 'D</span>';
       } else {
         html += '<span class="clock nope">∞</span>';
       }
@@ -1717,7 +1756,7 @@ var storage = {
         ['', '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>'],
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous')],
         [hook.rating || 0, hook.rating ? hook.rating : ''],
-        [hook.time || 9999, hook.clock ? hook.clock : '∞'],
+        [hook.time || 9999, hook.clock ? hook.clock : (hook.days ? $.trans('%s days', hook.days) : '∞')],
         [hook.mode,
           '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' +
           $.trans(hook.mode)

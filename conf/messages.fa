@@ -215,7 +215,6 @@ xToYMinutes=%s به %s دقیقه ها
 textIsTooShort=متن بیش از حد کوتاه است
 textIsTooLong=متن بیش از حد بلند است
 required=مورد نیاز است
-addToChrome=اضافه شدن به گوگل کروم
 openTournaments=باز کردن مسابقه
 duration=مدت
 winner=برنده

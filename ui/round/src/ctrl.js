@@ -16,6 +16,7 @@ var init = require('./init');
 var blind = require('./blind');
 var replayCtrl = require('./replay/ctrl');
 var clockCtrl = require('./clock/ctrl');
+var correspondenceClockCtrl = require('./correspondenceClock/ctrl');
 
 module.exports = function(cfg, router, i18n, socketSend) {
 
@@ -24,7 +25,11 @@ module.exports = function(cfg, router, i18n, socketSend) {
   this.vm = {
     flip: false,
     reloading: false,
-    redirecting: false
+    redirecting: false,
+    correspondenceTimeLeft: {
+      white: '',
+      black: ''
+    }
   };
 
   this.socket = new socket(socketSend, this);
@@ -80,8 +85,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
 
   this.clock = this.data.clock ? new clockCtrl(
     this.data.clock,
-    this.data.player.spectator ? function() {} : throttle(partial(this.socket.send, 'outoftime'), 500),
-    (this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
+    this.data.player.spectator ? function() {} : throttle(partial(this.socket.send, 'outoftime'), 500), (this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
   ) : false;
 
   this.isClockRunning = function() {
@@ -93,7 +97,17 @@ module.exports = function(cfg, router, i18n, socketSend) {
     if (this.isClockRunning()) this.clock.tick(this.data.game.player);
   }.bind(this);
 
+  this.correspondenceClock = this.data.correspondence ? new correspondenceClockCtrl(
+    this.data.correspondence,
+    partial(this.socket.send, 'outoftime')
+  ) : false;
+
+  this.correspondenceClockTick = function() {
+    if (game.playable(this.data)) this.correspondenceClock.tick(this.data.game.player);
+  }.bind(this);
+
   if (this.clock) setInterval(this.clockTick, 100);
+  else if (this.data.correspondence) setInterval(this.correspondenceClockTick, 1000);
 
   this.replay = new replayCtrl(this);
 

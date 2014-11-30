@@ -215,7 +215,6 @@ xToYMinutes=%s到%s分钟
 textIsTooShort=字数过少。
 textIsTooLong=字数过多。
 required=必填项目。
-addToChrome=添加到Chrome
 openTournaments=公开赛
 duration=持续时间
 winner=胜利者
