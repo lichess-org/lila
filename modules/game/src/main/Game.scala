@@ -213,8 +213,7 @@ case class Game(
     daysPerTurn ifTrue (playable && bothPlayersHaveMoved) map { days =>
       val increment = days * 24 * 60 * 60
       val secondsLeft = lastMoveTimeDate.fold(increment) { lmd =>
-        val flagAt = lmd plusDays days
-        (flagAt.getSeconds - nowSeconds).toInt max 0
+        (lmd.getSeconds + increment - nowSeconds).toInt max 0
       }
       CorrespondenceClock(
         increment = increment,
@@ -322,10 +321,18 @@ case class Game(
 
   def wonBy(c: Color): Option[Boolean] = winnerColor map (_ == c)
 
-  def outoftimePlayer: Option[Player] = for {
+  def outoftimePlayer: Option[Player] =
+    outoftimePlayerClock orElse outoftimePlayerCorrespondence
+
+  private def outoftimePlayerClock: Option[Player] = for {
     c ← clock
     if started && playable && bothPlayersHaveMoved
     if (!c.isRunning && !c.isInit) || (c outoftime player.color)
+  } yield player
+
+  private def outoftimePlayerCorrespondence: Option[Player] = for {
+    c ← correspondenceClock
+    if c outoftime player.color
   } yield player
 
   def isCorrespondence = daysPerTurn.isDefined
