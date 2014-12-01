@@ -83,6 +83,7 @@ variant=Variant
 timeControl=Control de temps
 clock=Rellotge
 correspondence=Correspondència
+daysPerTurn=Dies per torn
 oneDay=Un dia
 time=Temps
 username=Nom d'usuari
