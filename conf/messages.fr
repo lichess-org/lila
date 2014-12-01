@@ -48,6 +48,7 @@ theComputerAnalysisHasFailed=L'analyse automatique a échoué
 viewTheComputerAnalysis=Voir l'analyse automatique
 requestAComputerAnalysis=Demander une analyse automatique
 computerAnalysis=Analyse de l'ordinateur
+analysis=Analyse
 blunders=Gaffes
 mistakes=Erreurs
 inaccuracies=Imprécisions
