@@ -919,9 +919,9 @@ body.is3d.ModernWood .king.black {
 div.lichess_overboard {
   position: absolute;
   z-index: 20;
-  width: 305px;
+  width: 400px;
   top: 50%;
-  left: 105px;
+  left: 56px;
   transform: translate(0, -50%);
   ms-transform: translate(0, -50%);
   padding: 15px 0 22px 0;
