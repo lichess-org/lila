@@ -30,7 +30,7 @@
     "watchify": "^1.0.2"
   },
   "dependencies": {
-    "chessground": "1.7.24",
+    "chessground": "1.7.27",
     "chessli.js": "file:../chessli",
     "game": "file:../game",
     "lodash-node": "^2.4.1",

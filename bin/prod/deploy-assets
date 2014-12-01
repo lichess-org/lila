@@ -5,6 +5,6 @@ REMOTE="frank"
 REMOTE_DIR="/home/lichess"
 
 lilalog "Rsync scripts"
-rsync --archive --progress bin $REMOTE:$REMOTE_DIR
+rsync --archive --progress public $REMOTE:$REMOTE_DIR
 
 lilalog "Deploy complete"
