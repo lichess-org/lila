@@ -25,8 +25,8 @@ case class Evaluation(
   def isDeep = deep.isDefined
 
   def verdict(perfs: Perfs) =
-    if (perfs.timesAndVariants exists mark) "definitely cheating"
-    else if (perfs.timesAndVariants exists report) "suspicious"
+    if (watchPerfs(perfs) exists mark) "definitely cheating"
+    else if (watchPerfs(perfs) exists report) "suspicious"
     else "clean"
 
   def verdict(perf: Perf) =
@@ -54,6 +54,9 @@ object Evaluation {
 
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
+
+ private[evaluation] def watchPerfs(p: Perfs): List[Perf] =
+    List(p.bullet, p.blitz, p.classical, p.chess960, p.kingOfTheHill, p.threeCheck)
 
   private[evaluation] object heuristics {
 

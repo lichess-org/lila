@@ -49,7 +49,7 @@ object RatingFest {
           List(
             "global", "white", "black",
             "standard", "chess960", "kingOfTheHill", "threeCheck",
-            "bullet", "blitz", "classical", "slow"
+            "bullet", "blitz", "classical", "correspondence"
           ).map { name => s"perfs.$name" -> BSONBoolean(true) }
         )),
         multi = true)

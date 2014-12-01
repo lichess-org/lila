@@ -53,7 +53,7 @@ final class Evaluator(
             _ ← coll.update(Json.obj("_id" -> userId), evalJs, upsert = true)
           } yield eval.some
         }) andThen {
-          case Success(Some(eval)) if user.perfs.timesAndVariants exists eval.mark =>
+          case Success(Some(eval)) if Evaluation.watchPerfs(user.perfs) exists eval.mark =>
             UserRepo byId userId foreach {
               _ filterNot (_.engine) foreach { user =>
                 marker ! lila.hub.actorApi.mod.MarkCheater(user.id)

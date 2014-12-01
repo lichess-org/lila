@@ -40,7 +40,7 @@ case class Perfs(
   }
 
   def bestRating: Int = {
-    val ps = List(bullet, blitz, classical, chess960, kingOfTheHill, threeCheck)
+    val ps = List(bullet, blitz, classical, correspondence, chess960, kingOfTheHill, threeCheck)
     val minNb = ps.foldLeft(0)(_ + _.nb) / 10
     ps.foldLeft(none[Int]) {
       case (ro, p) if p.nb >= minNb => ro.fold(p.intRating.some) { r =>
@@ -77,8 +77,6 @@ case class Perfs(
     case PerfType.ThreeCheck     => threeCheck
     case PerfType.Puzzle         => puzzle
   }
-
-  def timesAndVariants: List[Perf] = List(bullet, blitz, classical, chess960, kingOfTheHill, threeCheck)
 
   def inShort = perfs map {
     case (name, perf) => s"$name:${perf.intRating}"

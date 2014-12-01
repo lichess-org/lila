@@ -17,6 +17,7 @@ final class HistoryApi(coll: Coll) {
 
   def add(user: User, game: Game, perfs: Perfs): Funit = {
     val isStd = game.variant.standard
+    val isCor = game.isCorrespondence
     val changes = List(
       isStd.option("standard" -> perfs.standard),
       game.variant.chess960.option("chess960" -> perfs.chess960),
@@ -24,7 +25,8 @@ final class HistoryApi(coll: Coll) {
       game.variant.threeCheck.option("threeCheck" -> perfs.threeCheck),
       (isStd && game.speed == Speed.Bullet).option("bullet" -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz" -> perfs.blitz),
-      (isStd && classicalSpeeds(game.speed)).option("classical" -> perfs.classical)
+      (isStd && !isCor && classicalSpeeds(game.speed)).option("classical" -> perfs.classical),
+      (isStd && isCor).option("correspondence" -> perfs.correspondence)
     ).flatten.map {
         case (k, p) => k -> p.intRating
       }

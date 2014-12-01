@@ -32,7 +32,9 @@ final class PerfsUpdater(historyApi: HistoryApi) {
           case _ =>
         }
         if (game.variant.standard) {
-          game.speed match {
+          if (game.isCorrespondence)
+            updateRatings(ratingsW.correspondence, ratingsB.correspondence, result, system)
+          else game.speed match {
             case chess.Speed.Bullet =>
               updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
             case chess.Speed.Blitz =>
@@ -65,7 +67,8 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     threeCheck: Rating,
     bullet: Rating,
     blitz: Rating,
-    classical: Rating)
+    classical: Rating,
+    correspondence: Rating)
 
   private def mkRatings(perfs: Perfs) = new Ratings(
     chess960 = perfs.chess960.toRating,
@@ -73,7 +76,8 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     threeCheck = perfs.threeCheck.toRating,
     bullet = perfs.bullet.toRating,
     blitz = perfs.blitz.toRating,
-    classical = perfs.classical.toRating)
+    classical = perfs.classical.toRating,
+    correspondence = perfs.correspondence.toRating)
 
   private def resultOf(game: Game): Glicko.Result =
     game.winnerColor match {
@@ -102,6 +106,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
   private def mkPerfs(ratings: Ratings, perfs: Perfs, game: Game): Perfs = {
     val speed = game.speed
     val isStd = game.variant.standard
+    val isCor = game.isCorrespondence
     val date = game.updatedAt | game.createdAt
     val perfs1 = perfs.copy(
       chess960 = game.variant.chess960.fold(perfs.chess960.add(ratings.chess960, date), perfs.chess960),
@@ -109,7 +114,8 @@ final class PerfsUpdater(historyApi: HistoryApi) {
       threeCheck = game.variant.threeCheck.fold(perfs.threeCheck.add(ratings.threeCheck, date), perfs.threeCheck),
       bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
-      classical = (isStd && classicalSpeeds(speed)).fold(perfs.classical.add(ratings.classical, date), perfs.classical))
+      classical = (!isCor && isStd && classicalSpeeds(speed)).fold(perfs.classical.add(ratings.classical, date), perfs.classical),
+      correspondence = (isCor && isStd).fold(perfs.correspondence.add(ratings.correspondence, date), perfs.correspondence))
     if (isStd) perfs1.updateStandard else perfs1
   }
 

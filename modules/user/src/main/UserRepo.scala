@@ -94,6 +94,7 @@ trait UserRepo {
       "bullet" -> (_.bullet),
       "blitz" -> (_.blitz),
       "classical" -> (_.classical),
+      "correspondence" -> (_.correspondence),
       "puzzle" -> (_.puzzle))
     val diff = lenses.flatMap {
       case (name, lens) =>
