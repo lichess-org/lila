@@ -18,7 +18,8 @@ function formatClockTime(trans, time) {
     var days = date.getUTCDate() - 1;
     var hours = date.getUTCHours();
     str += (days === 1 ? trans('oneDay') : trans('nbDays', days)) + ' ';
-    str += (hours === 1 ? 'one hour' : hours + ' hours');
+    if (hours != 0)
+      str += (hours === 1 ? 'one hour' : hours + ' hours');
   } else if (time >= 3600 * 1000) {
     // hours : minutes
     var hours = date.getUTCHours();
