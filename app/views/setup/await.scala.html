@@ -45,7 +45,12 @@ side = Html("")) {
     @config.map { c =>
     <p class="explanations">
       @trans.variant(): @views.html.game.variantLink(c.variant, variantName(c.variant))<br />
-      <span data-icon="p"></span> @shortClockName(c.makeClock)<br />
+      @game.daysPerTurn.map { days =>
+      <span data-icon=";"> @{(days == 1).fold(trans.oneDay(), trans.nbDays(days))}</span>
+      }.getOrElse {
+      <span data-icon="p"> @shortClockName(c.makeClock)</span>
+      }
+      <br />
       @trans.mode(): @modeName(c.mode)
     </p>
     }
