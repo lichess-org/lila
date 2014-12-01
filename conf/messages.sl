@@ -48,6 +48,7 @@ theComputerAnalysisHasFailed=Računalniška analiza je spodletela
 viewTheComputerAnalysis=Poglej računalniško analizo
 requestAComputerAnalysis=Zahtevaj računalniško analizo
 computerAnalysis=Računalniška analiza
+analysis=Analiza
 blunders=Hude napake
 mistakes=Napake
 inaccuracies=Nenatančnosti
