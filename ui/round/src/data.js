@@ -8,7 +8,7 @@ module.exports = function(old, cfg) {
   }
 
   if (data.correspondence) {
-  	data.correspondence.showBar = data.pref.clockBar;
+    data.correspondence.showBar = data.pref.clockBar;
   }
 
   if (cfg.game.moves) data.game.moves = data.game.moves.split(' ');
