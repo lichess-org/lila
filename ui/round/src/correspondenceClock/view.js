@@ -14,13 +14,19 @@ function formatClockTime(trans, time) {
   var seconds = prefixInteger(date.getSeconds(), 2);
   var str = '';
   if (time >= 86400 * 1000) {
+    // days : hours
     var days = date.getUTCDate() - 1;
+    var hours = date.getUTCHours();
     str += (days === 1 ? trans('oneDay') : trans('nbDays', days)) + ' ';
-    if (time === 86400 * 1000 || days > 1) return str;
-    str += ' &amp; ';
+    str += (hours === 1 ? 'one hour' : hours + ' hours');
+  } else if (time >= 3600 * 1000) {
+    // hours : minutes
+    var hours = date.getUTCHours();
+    str += bold(prefixInteger(hours, 2)) + ':' + bold(minutes);
+  } else {
+    // minutes : seconds
+    str += bold(minutes) + ':' + bold(seconds);
   }
-  str += bold(prefixInteger(date.getUTCHours(), 2)) + ':' + bold(minutes);
-  if (time < 3600 * 1000) str += ':' + bold(seconds);
   return str;
 }
 
