@@ -85,6 +85,7 @@ clock=Orologio
 correspondence=Corrispondenza
 daysPerTurn=Giorni per turno
 oneDay=Un giorno
+nbDays=%s giorni
 time=Tempo
 username=Username
 password=Password
