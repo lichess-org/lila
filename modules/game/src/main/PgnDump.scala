@@ -43,7 +43,7 @@ final class PgnDump(
   private def rating(p: Player) = p.rating.fold("?")(_.toString)
 
   private def player(p: Player, u: Option[LightUser]) =
-    p.aiLevel.fold(u.fold(lila.user.User.anonymous)(_.name))("lichess AI level " + _)
+    p.aiLevel.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))("lichess AI level " + _)
 
   private val customStartPosition: Set[Variant] = Set(Variant.Chess960, Variant.FromPosition)
 
