@@ -12,17 +12,17 @@ function formatClockTime(trans, time) {
   var date = new Date(time);
   var minutes = prefixInteger(date.getUTCMinutes(), 2);
   var seconds = prefixInteger(date.getSeconds(), 2);
-  var str = '';
+  var hours, str = '';
   if (time >= 86400 * 1000) {
     // days : hours
     var days = date.getUTCDate() - 1;
-    var hours = date.getUTCHours();
+    hours = date.getUTCHours();
     str += (days === 1 ? trans('oneDay') : trans('nbDays', days)) + ' ';
-    if (hours != 0)
+    if (hours !== 0)
       str += (hours === 1 ? 'one hour' : hours + ' hours');
   } else if (time >= 3600 * 1000) {
     // hours : minutes
-    var hours = date.getUTCHours();
+    hours = date.getUTCHours();
     str += bold(prefixInteger(hours, 2)) + ':' + bold(minutes);
   } else {
     // minutes : seconds
