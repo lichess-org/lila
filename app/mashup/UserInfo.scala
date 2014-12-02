@@ -63,7 +63,7 @@ object UserInfo {
           user = user,
           ranks = ranks,
           nbUsers = nbUsers,
-          nbPlaying = ~nbPlaying,
+          nbPlaying = nbPlaying,
           crosstable = crosstable,
           nbBookmark = bookmarkApi countByUser user,
           nbImported = nbImported,
