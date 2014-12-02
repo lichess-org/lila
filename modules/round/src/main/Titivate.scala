@@ -24,14 +24,14 @@ private[round] final class Titivate(
     self ! Schedule
   }
 
-  val delayDuration = 50 millis
+  val delayDuration = 100 millis
   def delayF(f: => Funit): Funit = akka.pattern.after(delayDuration, scheduler)(f)
   def delay(f: => Unit): Funit = akka.pattern.after(delayDuration, scheduler)(Future(f))
 
   def receive = {
 
     case Schedule =>
-      scheduler.scheduleOnce(5 minutes, self, Run)
+      scheduler.scheduleOnce(1 minute, self, Run)
 
     case Run =>
       loginfo("run")
