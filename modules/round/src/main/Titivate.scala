@@ -29,7 +29,7 @@ private[round] final class Titivate(
   def delay(f: => Unit): Funit = akka.pattern.after(delayDuration, scheduler)(Future(f))
 
   def log(msg: String) {
-    loginfo(s"[titivate] $msg)")
+    loginfo(s"[titivate] $msg")
   }
 
   def receive = {
@@ -60,7 +60,7 @@ private[round] final class Titivate(
           GameRepo remove game.id
         }
         else game.clock match {
-          case Some(clock) if game.bothPlayersHaveMoved => delayF {
+          case Some(clock) if clock.isRunning => delayF {
             val minutes = (clock.estimateTotalTime / 60).toInt
             log(s"$nb ${game.id} reschedule clock in $minutes minutes")
             GameRepo.setCheckAt(game, DateTime.now plusMinutes minutes)

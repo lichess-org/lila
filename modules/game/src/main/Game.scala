@@ -94,7 +94,7 @@ case class Game(
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
   // in tenths of seconds
-  lazy val moveTimes: Vector[Int] = BinaryFormat.moveTime read binaryMoveTimes take turns
+  lazy val moveTimes: Vector[Int] = BinaryFormat.moveTime read binaryMoveTimes take playedTurns
 
   def moveTimesInSeconds: Vector[Float] = moveTimes.map(_.toFloat / 10)
 
@@ -276,7 +276,7 @@ case class Game(
 
   def moretimeable = playable && nonMandatory && hasClock
 
-  def abortable = status == Status.Started && turns < 2 && nonMandatory
+  def abortable = status == Status.Started && playedTurns < 2 && nonMandatory
 
   def resignable = playable && !abortable
   def drawable = playable && !abortable
@@ -299,11 +299,11 @@ case class Game(
 
   def finishedOrAborted = finished || aborted
 
-  def accountable = turns >= 2
+  def accountable = playedTurns >= 2
 
   def replayable = imported || finished
 
-  def analysable = replayable && turns > 4 && Game.analysableVariants(variant)
+  def analysable = replayable && playedTurns > 4 && Game.analysableVariants(variant)
 
   def fromPosition = source ?? (Source.Position==)
 
@@ -345,20 +345,20 @@ case class Game(
 
   def estimateTotalTime = clock.fold(1200)(_.estimateTotalTime)
 
-  def playerWhoDidNotMove: Option[Player] = turns match {
+  def playerWhoDidNotMove: Option[Player] = playedTurns match {
     case 0 => player(White).some
     case 1 => player(Black).some
     case _ => none
   }
 
-  def onePlayerHasMoved = turns > 0
-  def bothPlayersHaveMoved = turns > 1
+  def onePlayerHasMoved = playedTurns > 0
+  def bothPlayersHaveMoved = playedTurns > 1
 
-  def playerMoves(color: Color): Int = (turns + color.fold(1, 0)) / 2
+  def playerMoves(color: Color): Int = (playedTurns + color.fold(1, 0)) / 2
 
   def playerHasMoved(color: Color) = playerMoves(color) > 0
 
-  def playerBlurPercent(color: Color): Int = (turns > 5).fold(
+  def playerBlurPercent(color: Color): Int = (playedTurns > 5).fold(
     (player(color).blurs * 100) / playerMoves(color),
     0
   )
@@ -397,7 +397,7 @@ case class Game(
 
   def isPgnImport = pgnImport.isDefined
 
-  def resetTurns = copy(turns = 0)
+  def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
   lazy val opening =
     if (playable || fromPosition || variant.exotic) none

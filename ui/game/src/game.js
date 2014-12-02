@@ -23,12 +23,16 @@ function mandatory(data) {
   return !!data.tournament;
 }
 
+function playedTurns(data) {
+  return data.game.turns - data.game.startedAtTurn;
+}
+
 function abortable(data) {
-  return playable(data) && data.game.turns < 2 && !mandatory(data);
+  return playable(data) && playedTurns(data) < 2 && !mandatory(data);
 }
 
 function takebackable(data) {
-  return playable(data) && data.takebackable && !data.tournament && data.game.turns > 1 && !data.player.proposingTakeback && !data.opponent.proposingTakeback;
+  return playable(data) && data.takebackable && !data.tournament && playedTurns(data) > 1 && !data.player.proposingTakeback && !data.opponent.proposingTakeback;
 }
 
 function drawable(data) {
