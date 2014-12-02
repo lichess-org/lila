@@ -24,7 +24,9 @@ private[round] final class Titivate(
     self ! Schedule
   }
 
-  def delay(f: => Unit): Funit = akka.pattern.after(50 millis, scheduler)(Future(f))
+  val delayDuration = 30 millis
+  def delayF(f: => Funit): Funit = akka.pattern.after(delayDuration, scheduler)(f)
+  def delay(f: => Unit): Funit = akka.pattern.after(delayDuration, scheduler)(Future(f))
 
   def receive = {
 
@@ -48,17 +50,17 @@ private[round] final class Titivate(
           loginfo(s"$nb ${game.id} abandon")
           roundMap ! Tell(game.id, Abandon)
         }
-        else if (game.unplayed) {
+        else if (game.unplayed) delayF {
           loginfo(s"$nb ${game.id} unplayed")
           bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
           GameRepo remove game.id
         }
-        else if (game.hasClock) {
-          val hours = game.started.fold(1, 6)
+        else if (game.hasClock) delayF {
+          val hours = game.bothPlayersHaveMoved.fold(1, 12)
           loginfo(s"$nb ${game.id} reschedule clock in $hours hours")
           GameRepo.setCheckAt(game, DateTime.now plusHours hours)
         }
-        else {
+        else delayF {
           val days = game.daysPerTurn | 3
           loginfo(s"$nb ${game.id} reschedule slow in $days days")
           GameRepo.setCheckAt(game, DateTime.now plusDays days)
