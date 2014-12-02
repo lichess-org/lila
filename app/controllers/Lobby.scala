@@ -43,6 +43,13 @@ object Lobby extends LilaController {
           )
       }
 
+  def playing = Auth { implicit ctx =>
+    me =>
+      lila.game.GameRepo nowPlaying me map { povs =>
+        html.lobby.playing(povs)
+      }
+  }
+
   def socket(apiVersion: Int) = Socket[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
       Env.lobby.socketHandler(uid = uid, user = ctx.me)

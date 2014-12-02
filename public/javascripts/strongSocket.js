@@ -32,7 +32,7 @@ lichess.StrongSocket.sri = Math.random().toString(36).substring(2);
 lichess.StrongSocket.defaults = {
   events: {
     fen: function(e) {
-      $('a.live_' + e.id).each(function() {
+      $('.live_' + e.id).each(function() {
         parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
       });
     }

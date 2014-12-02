@@ -1046,8 +1046,8 @@ var storage = {
     function startWatching() {
       if (!socketOpened) return;
       var ids = [];
-      $('a.mini_board.live').removeClass("live").each(function() {
-        ids.push($(this).data("live"));
+      $('.mini_board.live').removeClass("live").each(function() {
+        ids.push(this.getAttribute("data-live"));
       });
       if (ids.length > 0) {
         lichess.socket.send("startWatching", ids.join(" "));
@@ -1396,6 +1396,7 @@ var storage = {
     if (!lichess.StrongSocket.available) return;
 
     var socketUrl = $wrap.data('socket-url');
+    var $nowPlaying = $('#now_playing');
     var $timeline = $("#timeline");
     var $newposts = $("div.new_posts");
     var $canvas = $wrap.find('.canvas');
@@ -1590,6 +1591,18 @@ var storage = {
               }, Math.round(it * interv));
             });
           }
+        },
+        // override fen event to reload playing games list
+        fen: function(e) {
+          lichess.StrongSocket.defaults.events.fen(e);
+          if ($nowPlaying.find('.live_' + e.id).length) $.ajax({
+            url: $nowPlaying.data('href'),
+            success: function(html) {
+              $nowPlaying.html(html);
+              $('body').trigger('lichess.content_loaded');
+              $wrap.find('.tabs .now_playing').toggleClass('hilight', $nowPlaying.find('.my_turn').length);
+            }
+          });
         }
       },
       options: {

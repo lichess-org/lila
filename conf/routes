@@ -6,6 +6,7 @@ GET   /                                controllers.Lobby.home
 GET   /lobby/socket/v:apiVersion       controllers.Lobby.socket(apiVersion: Int)
 GET   /timeline                        controllers.Lobby.timeline
 GET   /timeline/more                   controllers.Lobby.timelineMore
+GET   /lobby/playing                   controllers.Lobby.playing
 
 # TV
 GET   /tv                              controllers.Tv.index

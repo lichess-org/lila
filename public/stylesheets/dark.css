@@ -188,14 +188,16 @@ body.dark div.table .loader:before,
 body.dark div.table .loader:after {
   background-color: #262626;
 }
-body.dark #hooks_list table td {
+body.dark #hooks_list table td,
+body.dark #now_playing > a {
   background: rgba(40, 40, 40, 0.6);
   border-color: #242424;
 }
 body.dark #hooks_list table tr.cancel td {
   background: rgba(0, 80, 0, 0.7);
 }
-body.dark #hooks_list table tr:hover td {
+body.dark #hooks_list table tr:hover td,
+body.dark #now_playing > a:hover {
   background: rgba(27, 51, 68, 0.7);
 }
 body.dark #hook_filter {

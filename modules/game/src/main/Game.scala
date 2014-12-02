@@ -363,7 +363,7 @@ case class Game(
     0
   )
 
-  def isBeingPlayed = !isPgnImport && !finishedOrAborted && !olderThan(60)
+  def isBeingPlayed = !isPgnImport && !finishedOrAborted
 
   def olderThan(seconds: Int) = updatedAt.??(_ isBefore DateTime.now.minusSeconds(seconds))
 

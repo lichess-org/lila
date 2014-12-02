@@ -47,20 +47,8 @@ openGraph = Map(
       <span data-icon="D"> @trans.filterGames()</span>
       <span class="number">(0)</span>
     </a>
-    <div id="now_playing" class="tab now_playing none">
-      @nowPlaying.sortBy(pov => pov.remainingSeconds | (Int.MaxValue - pov.isMyTurn.fold(1, 0))).map { pov =>
-      <a href="@routes.Round.player(pov.fullId)" class="@if(pov.isMyTurn){my_turn}">
-        @gameFen(pov.game, pov.color, withLink = false, withTitle = false)
-        <span class="meta">
-          @playerLink(pov.opponent, withRating = false)
-          <span class="indicator">
-            @if(pov.isMyTurn) {
-            @pov.remainingSeconds.fold(trans.yourTurn())(secondsFromNow)
-            } else {&nbsp;}
-          </span>
-        </span>
-      </a>
-      }
+    <div id="now_playing" class="tab now_playing none" data-href="@routes.Lobby.playing">
+      @playing(nowPlaying)
     </div>
     <div id="hooks_chart" class="tab graph none"><div class="canvas"></div></div>
     <div id="hooks_list" class="tab list none">
