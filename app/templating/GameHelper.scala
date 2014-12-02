@@ -22,12 +22,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val speed = chess.Speed(pov.game.clock).name
     val variant = pov.game.variant.exotic ?? s" ${pov.game.variant.name}"
     Map(
-    'type -> "website",
-    'image -> cdnUrl(routes.Export.png(pov.game.id).url),
-    'title -> s"$speed$variant Chess - ${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}",
-    'site_name -> "lichess.org",
-    'url -> s"$netBaseUrl${routes.Round.watcher(pov.game.id, pov.color.name).url}",
-    'description -> describePov(pov))
+      'type -> "website",
+      'image -> cdnUrl(routes.Export.png(pov.game.id).url),
+      'title -> s"$speed$variant Chess - ${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}",
+      'site_name -> "lichess.org",
+      'url -> s"$netBaseUrl${routes.Round.watcher(pov.game.id, pov.color.name).url}",
+      'description -> describePov(pov))
   }
 
   def describePov(pov: Pov) = {
@@ -176,20 +176,24 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     color: Color,
     ownerLink: Boolean = false,
     tv: Boolean = false,
-    withTitle: Boolean = true)(implicit ctx: UserContext) = Html {
-    val owner = ownerLink.fold(ctx.me flatMap game.player, none)
+    withTitle: Boolean = true,
+    withLink: Boolean = true)(implicit ctx: UserContext) = Html {
     var isLive = game.isBeingPlayed
-    val url = owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
-      routes.Round.player(game fullIdOf o.color)
+    val href = withLink ?? {
+      val owner = ownerLink.fold(ctx.me flatMap game.player, none)
+      val url = tv.fold(routes.Tv.index, owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
+        routes.Round.player(game fullIdOf o.color)
+      })
+      s"""href="$url""""
     }
-    val href = tv.fold(routes.Tv.index, url)
     val title = withTitle ?? s"""title="${gameTitle(game, color)}""""
     val cssClass = isLive ?? ("live live_" + game.id)
     val live = isLive ?? game.id
     val fen = Forsyth exportBoard game.toChess.board
     val lastMove = ~game.castleLastMoveTime.lastMoveString
     val variant = game.variant.key
-    s"""<a href="$href" $title class="mini_board parse_fen $cssClass $variant" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</a>"""
+    val tag = if (withLink) "a" else "span"
+    s"""<$tag $href $title class="mini_board parse_fen $cssClass $variant" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</$tag>"""
   }
 
   def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false, blank: Boolean = false) = Html {

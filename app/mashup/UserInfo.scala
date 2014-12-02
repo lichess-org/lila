@@ -49,7 +49,7 @@ object UserInfo {
     getDonated: String => Fu[Int])(user: User, ctx: Context): Fu[UserInfo] =
     countUsers() zip
       getRanks(user.id) zip
-      ((ctx is user) ?? { gameCached nbPlaying user.id map (_.some) }) zip
+      (gameCached nbPlaying user.id) zip
       gameCached.nbImportedBy(user.id) zip
       (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id) }) zip
       getRatingChart(user) zip

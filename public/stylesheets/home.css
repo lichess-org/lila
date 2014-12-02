@@ -19,7 +19,6 @@ div.lobby_and_ground {
   display: block;
   letter-spacing: -1px;
 }
-
 /********** HOOKS **********/
 
 #hooks_wrap {
@@ -54,6 +53,9 @@ div.lobby_and_ground {
 #hooks_wrap > div.tabs > a.active {
   font-weight: bold;
   border-bottom-color: #f0f0f0;
+}
+#hooks_wrap > div.tabs > a.hilight {
+  color: #d85000;
 }
 #hooks_wrap > a.filter {
   position: absolute;
@@ -374,7 +376,6 @@ div.lobby_and_ground {
 #hook .color.black {
   background-position: 0 -256px;
 }
-
 /*********** MISC *********/
 
 #site_header {
@@ -384,7 +385,6 @@ div.lobby_and_ground {
   position: absolute;
   top: 529px;
 }
-
 div.blog.undertable div.undertable_inner {
   height: auto;
   padding: 5px 5px 0 5px;
@@ -551,7 +551,7 @@ div.game_config .fen_position .cg-board-wrap {
   margin: 8px auto 0 auto;
 }
 div.game_config .fen_position .button {
-  display:inline-block;
+  display: inline-block;
   margin-top: 8px;
 }
 div.game_config input {
@@ -622,21 +622,41 @@ div.game_config div.color_submits button.random span {
   padding: 0;
 }
 #now_playing {
-  margin: 2em 0 1em -30px;
+  margin: 5px 0 0 5px;
 }
-#now_playing .button {
+#now_playing > a {
+  float: left;
+  padding: 5px;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.13s;
+}
+#now_playing > a:hover {
+  margin: -5px;
+  padding: 10px;
+  background: rgba(191, 231, 255, 0.7);
+}
+#now_playing .meta {
   display: block;
   text-align: center;
-  position: relative;
-  padding-left: 45px;
-  margin-bottom: 1em;
+  background: rgba(255, 255, 255, 0.6);
+  width: 157px;
+  overflow: hidden;
 }
-#now_playing .button::before {
-  content: 'U';
-  font-size: 32px;
-  position: absolute;
-  top: 7px;
-  left: 10px;
+#now_playing .indicator {
+  font-weight: bold;
+  color: #d85000;
+  margin-top: -3px;
+  display: block;
+}
+#now_playing .mini_board .cg-board-wrap {
+  width: 157px;
+  height: 157px;
+  box-shadow: 0 0 3px #888;
+}
+body.is3d #now_playing .mini_board .cg-board-wrap {
+  margin-top: 5.6px;
+  height: 146.9px;
 }
 #timeline {
   margin-top: 2em;

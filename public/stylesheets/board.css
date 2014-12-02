@@ -8,7 +8,8 @@ body.is3d #lichess {
 div.lichess_game {
   height: 512px;
 }
-body.is3d div.lichess_game {
+body.is3d div.lichess_game,
+body.is3d div.lichess_game div.lichess_ground {
   height: 479.08572px;
 }
 div.lichess_game div.lichess_board_wrap {
@@ -23,9 +24,6 @@ div.lichess_game div.lichess_ground {
   padding-left: 15px;
   height: 512px;
   width: 242px;
-}
-body.is3d div.lichess_game div.lichess_ground {
-  height: 479.08572px;
 }
 div.lichess_board {
   position: relative;

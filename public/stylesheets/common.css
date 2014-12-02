@@ -1500,9 +1500,9 @@ a.button:active {
 .ui-widget-header,
 div.pagination span.current,
 #top span.new_messages,
+#top span.new_challenges,
 div.progressbar.flashy div,
-#import_game .progression,
-#top span.new_challenges {
+#import_game .progression {
   color: #fff !important;
   text-shadow: 0px 1px 0px #000 !important;
   background: #d85000 !important;
