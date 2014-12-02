@@ -86,6 +86,7 @@ correspondence=Correspondence
 daysPerTurn=Days per turn
 oneDay=One day
 nbDays=%s days
+nbHours=%s hours
 time=Time
 username=User name
 password=Password
