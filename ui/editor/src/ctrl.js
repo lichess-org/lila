@@ -36,12 +36,14 @@ module.exports = function(cfg) {
     this.chessground.set({
       fen: 'start'
     });
+    this.data.castles = editor.castlesAt(true);
   }.bind(this);
 
   this.clearBoard = function() {
     this.chessground.set({
       fen: '8/8/8/8/8/8/8/8'
     });
+    this.data.castles = editor.castlesAt(false);
   }.bind(this);
 
   this.loadNewFen = function(fen) {

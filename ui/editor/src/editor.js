@@ -9,12 +9,21 @@ function init(cfg) {
   };
 }
 
+function castlesAt(v) {
+  return mapValues({
+    K: v,
+    Q: v,
+    k: v,
+    q: v
+  }, m.prop);
+}
+
 function fenMetadatas(data) {
   var castles = '';
   Object.keys(data.castles).forEach(function(piece) {
     if (data.castles[piece]()) castles += piece;
   });
-  return data.color() + ' ' + (castles.length ? castles : '-') + '-';
+  return data.color() + ' ' + (castles.length ? castles : '-') + ' -';
 }
 
 function computeFen(data, getBaseFen) {
@@ -33,5 +42,6 @@ module.exports = {
   init: init,
   makeUrl: makeUrl,
   computeFen: computeFen,
+  castlesAt: castlesAt,
   trans: trans
 };
