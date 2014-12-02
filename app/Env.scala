@@ -23,7 +23,6 @@ final class Env(
     leaderboard = Env.user.cached.topToday.apply,
     tourneyWinners = Env.tournament.winners.scheduled,
     timelineEntries = Env.timeline.getter.userEntries _,
-    nowPlaying = Env.round.nowPlaying,
     dailyPuzzle = Env.puzzle.daily,
     streamsOnAir = () => Env.tv.streamsOnAir,
     countRounds = Env.round.count)

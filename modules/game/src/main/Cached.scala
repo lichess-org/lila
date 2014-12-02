@@ -16,7 +16,7 @@ final class Cached(ttl: Duration) {
   def nbImported: Fu[Int] = count(Query.imported)
   def nbImportedBy(userId: String): Fu[Int] = count(Query imported userId)
 
-  def nbPlaying(userId: String): Fu[Int] = count(Query notFinished userId)
+  def nbPlaying(userId: String): Fu[Int] = count(Query nowPlaying userId)
 
   val rematch960 = new ExpireSetMemo(3.hours)
 

@@ -91,7 +91,7 @@ object GameRepo {
       ).void
     }
 
-  def nonEmptyMod(mod: String, doc: BSONDocument) =
+  private def nonEmptyMod(mod: String, doc: BSONDocument) =
     if (doc.isEmpty) BSONDocument() else BSONDocument(mod -> doc)
 
   def setRatingDiffs(id: ID, white: Int, black: Int) =
@@ -108,12 +108,18 @@ object GameRepo {
       s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(black._2))))
 
   def setUsers(id: ID, white: Option[(String, Int)], black: Option[(String, Int)]) =
-    if (white.isDefined || black.isDefined) $update($select(id), BSONDocument("$set" -> BSONDocument(
-      s"${F.whitePlayer}.${Player.BSONFields.rating}" -> white.map(_._2).map(BSONInteger.apply),
-      s"${F.blackPlayer}.${Player.BSONFields.rating}" -> black.map(_._2).map(BSONInteger.apply),
-      F.playerUids -> lila.db.BSON.writer.listO(List(~white.map(_._1), ~black.map(_._1)))
-    )))
-    else funit
+    (white.isDefined || black.isDefined) ?? {
+      $update($select(id), BSONDocument("$set" -> BSONDocument(
+        s"${F.whitePlayer}.${Player.BSONFields.rating}" -> white.map(_._2).map(BSONInteger.apply),
+        s"${F.blackPlayer}.${Player.BSONFields.rating}" -> black.map(_._2).map(BSONInteger.apply),
+        F.playerUids -> lila.db.BSON.writer.listO(List(~white.map(_._1), ~black.map(_._1))),
+        F.playingUids -> List(white.map(_._1), black.map(_._1)).flatten.distinct
+      )))
+    }
+
+  def nowPlaying(user: User): Fu[List[Pov]] = $find(Query nowPlaying user.id) map {
+    _ flatMap { Pov(_, user) }
+  }
 
   def setTv(id: ID) {
     $update.fieldUnchecked(id, F.tvAt, $date(DateTime.now))
@@ -157,6 +163,7 @@ object GameRepo {
     )) ++ BSONDocument("$unset" -> BSONDocument(
       F.positionHashes -> true,
       F.checkAt -> true,
+      F.playingUids -> true,
       ("p0." + Player.BSONFields.lastDrawOffer) -> true,
       ("p1." + Player.BSONFields.lastDrawOffer) -> true,
       ("p0." + Player.BSONFields.isOfferingDraw) -> true,
@@ -175,9 +182,11 @@ object GameRepo {
     val g2 = if (ratedCheck && game.rated && game.userIds.distinct.size != 2)
       game.copy(mode = chess.Mode.Casual)
     else game
+    val userIds = game.userIds.distinct
     val bson = (gameTube.handler write g2) ++ BSONDocument(
       F.initialFen -> g2.variant.exotic.option(Forsyth >> g2.toChess),
-      F.checkAt -> (!game.isPgnImport).option(DateTime.now.plusHours(game.hasClock.fold(1, 24)))
+      F.checkAt -> (!game.isPgnImport).option(DateTime.now.plusHours(game.hasClock.fold(1, 24))),
+      F.playingUids -> userIds.nonEmpty.option(userIds)
     )
     $insert bson bson
   }

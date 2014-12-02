@@ -35,8 +35,6 @@ object Query {
 
   val notFinished: JsObject = Json.obj(F.status -> $lte(Status.Started.id))
 
-  def notFinished(u: String): JsObject = user(u) ++ notFinished
-
   val frozen = Json.obj(F.status -> $gte(Status.Mate.id))
 
   val imported: JsObject = Json.obj(s"${F.source}" -> Source.Import.id)
@@ -49,6 +47,8 @@ object Query {
 
   def user(u: String) = Json.obj(F.playerUids -> u)
   def users(u: Seq[String]) = Json.obj(F.playerUids -> $in(u))
+
+  def nowPlaying(u: String) = Json.obj(F.playingUids -> u)
 
   // use the us index
   def win(u: String) = user(u) ++ Json.obj(F.winnerId -> u)

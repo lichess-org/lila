@@ -15,7 +15,6 @@ private[round] final class Player(
     bus: lila.common.Bus,
     finisher: Finisher,
     cheatDetector: CheatDetector,
-    reminder: Reminder,
     uciMemo: UciMemo) {
 
   def human(play: HumanPlay, round: ActorRef)(pov: Pov): Fu[Events] = play match {
@@ -38,7 +37,6 @@ private[round] final class Player(
                     cheatDetector(progress.game) addEffect {
                       case Some(color) => round ! Cheat(color)
                       case None =>
-                        reminder remind progress.game
                         if (progress.game.playableByAi) round ! AiPlay
                         if (game.player.isOfferingDraw) round ! DrawNo(game.player.id)
                         if (game.player.isProposingTakeback) round ! TakebackNo(game.player.id)

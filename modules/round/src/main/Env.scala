@@ -44,7 +44,6 @@ final class Env(
     val NetDomain = config getString "net.domain"
     val ActorMapName = config getString "actor.map.name"
     val ActorName = config getString "actor.name"
-    val CollectionReminder = config getString "collection.reminder"
     val CasualOnly = config getBoolean "casual_only"
     val ActiveTtl = config duration "active.ttl"
   }
@@ -111,7 +110,6 @@ final class Env(
     perfsUpdater = perfsUpdater,
     aiPerfApi = aiPerfApi,
     crosstableApi = crosstableApi,
-    reminder = reminder,
     bus = system.lilaBus,
     casualOnly = CasualOnly)
 
@@ -125,7 +123,6 @@ final class Env(
     bus = system.lilaBus,
     finisher = finisher,
     cheatDetector = cheatDetector,
-    reminder = reminder,
     uciMemo = uciMemo)
 
   // public access to AI play, for setup.Processor usage
@@ -150,9 +147,6 @@ final class Env(
 
   private def getSocketStatus(gameId: String): Fu[SocketStatus] =
     socketHub ? Ask(gameId, GetSocketStatus) mapTo manifest[SocketStatus]
-
-  private lazy val reminder = new Reminder(db(CollectionReminder))
-  def nowPlaying = reminder.nowPlaying
 
   lazy val jsonView = new JsonView(
     chatApi = chatApi,

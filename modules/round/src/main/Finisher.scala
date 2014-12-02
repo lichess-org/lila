@@ -17,7 +17,6 @@ private[round] final class Finisher(
     perfsUpdater: PerfsUpdater,
     aiPerfApi: lila.ai.AiPerfApi,
     crosstableApi: lila.game.CrosstableApi,
-    reminder: Reminder,
     bus: lila.common.Bus,
     casualOnly: Boolean) {
 
@@ -44,7 +43,7 @@ private[round] final class Finisher(
                   prog.events
                 }
               }
-            } >>- (reminder remind g)
+            }
       }
   }
 

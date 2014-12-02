@@ -98,7 +98,7 @@ object GameFilterMenu {
       case Win     => std(Query win user)
       case Loss    => std(Query loss user)
       case Draw    => std(Query draw user)
-      case Playing => std(Query notFinished user)
+      case Playing => std(Query nowPlaying user.id)
     }
   }
 }

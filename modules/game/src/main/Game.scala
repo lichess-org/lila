@@ -403,7 +403,7 @@ case class Game(
     if (playable || fromPosition || variant.exotic) none
     else chess.OpeningExplorer openingOf pgnMoves
 
-  private def playerMaps[A](f: Player => Option[A]): List[A] = players.map(f).flatten
+  private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
 }
 
 object Game {
@@ -471,6 +471,7 @@ object Game {
     val blackPlayer = "p1"
     val playerIds = "is"
     val playerUids = "us"
+    val playingUids = "pl"
     val binaryPieces = "ps"
     val binaryPgn = "pg"
     val status = "s"

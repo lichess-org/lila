@@ -9,7 +9,6 @@ import controllers.routes
 import lila.api.Context
 import lila.forum.MiniForumPost
 import lila.game.{ Game, GameRepo, Pov }
-import lila.round.Remind
 import lila.lobby.actorApi.GetOpen
 import lila.lobby.{ Hook, HookRepo }
 import lila.rating.PerfType
@@ -28,12 +27,11 @@ final class Preload(
     leaderboard: Boolean => Fu[List[(User, PerfType)]],
     tourneyWinners: Int => Fu[List[Winner]],
     timelineEntries: String => Fu[List[Entry]],
-    nowPlaying: (User, Int) => Fu[List[Remind]],
     streamsOnAir: => () => Fu[List[StreamOnAir]],
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
     countRounds: () => Int) {
 
-  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[Remind], List[StreamOnAir], Int)
+  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[Pov], List[StreamOnAir], Int)
 
   def apply(
     posts: Fu[List[MiniForumPost]],
@@ -47,14 +45,14 @@ final class Preload(
       leaderboard(true) zip
       tourneyWinners(10) zip
       dailyPuzzle() zip
-      (ctx.me ?? { nowPlaying(_, 3) }) zip
+      (ctx.me ?? GameRepo.nowPlaying ) zip
       filter zip
       streamsOnAir() map {
-        case ((((((((((hooks, posts), tours), feat), entries), lead), tWinners), puzzle), reminds), filter), streams) =>
+        case ((((((((((hooks, posts), tours), feat), entries), lead), tWinners), puzzle), povs), filter), streams) =>
           (Json.obj(
             "version" -> lobbyVersion(),
             "pool" -> JsArray(hooks map (_.render)),
             "filter" -> filter.render
-          ), entries, posts, tours, feat, lead, tWinners, puzzle, reminds, streams, countRounds())
+          ), entries, posts, tours, feat, lead, tWinners, puzzle, povs, streams, countRounds())
       }
 }
