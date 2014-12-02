@@ -177,7 +177,7 @@ object GameRepo {
     else game
     val bson = (gameTube.handler write g2) ++ BSONDocument(
       F.initialFen -> g2.variant.exotic.option(Forsyth >> g2.toChess),
-      F.checkAt -> (!game.isPgnImport).option(DateTime.now.plusHours(game.hasClock.fold(4, 24)))
+      F.checkAt -> (!game.isPgnImport).option(DateTime.now.plusHours(game.hasClock.fold(1, 24)))
     )
     $insert bson bson
   }

@@ -367,7 +367,7 @@ case class Game(
 
   def olderThan(seconds: Int) = updatedAt.??(_ isBefore DateTime.now.minusSeconds(seconds))
 
-  def unplayed = turns < 2 && (createdAt isBefore Game.unplayedDate)
+  def unplayed = !bothPlayersHaveMoved && (createdAt isBefore Game.unplayedDate)
 
   def abandoned = (status <= Status.Started) && ((updatedAt | createdAt) isBefore Game.abandonedDate)
 
@@ -416,8 +416,10 @@ object Game {
   val fullIdSize = 12
   val tokenSize = 4
 
-  def unplayedDate = DateTime.now minusDays 1
-  def abandonedDate = DateTime.now minusDays 14
+  val unplayedHours = 24
+  def unplayedDate = DateTime.now minusHours unplayedHours
+  val abandonedDays = 30
+  def abandonedDate = DateTime.now minusDays abandonedDays
 
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
