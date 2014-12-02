@@ -26,45 +26,41 @@ private[round] final class Titivate(
 
   def delay(f: => Unit): Funit = akka.pattern.after(50 millis, scheduler)(Future(f))
 
-  def log(msg: String) {
-    play.api.Logger.info(s"[titivate] $msg")
-  }
-
   def receive = {
 
     case Schedule =>
       scheduler.scheduleOnce(10 minutes, self, Run)
 
     case Run =>
-      log("run")
+      loginfo("run")
       var nb = 0
       $enumerate.over[Game]($query(Query.checkable), 5000) { game =>
         nb = nb + 1
         if (game.finished || game.isPgnImport) {
-          log(s"$nb ${game.id} unset")
+          loginfo(s"$nb ${game.id} unset")
           GameRepo unsetCheckAt game
         }
         else if (game.outoftimePlayer.isDefined) delay {
-          log(s"$nb ${game.id} outoftime")
+          loginfo(s"$nb ${game.id} outoftime")
           roundMap ! Tell(game.id, Outoftime)
         }
         else if (game.abandoned) delay {
-          log(s"$nb ${game.id} abandon")
+          loginfo(s"$nb ${game.id} abandon")
           roundMap ! Tell(game.id, Abandon)
         }
         else if (game.unplayed) {
-          log(s"$nb ${game.id} unplayed")
+          loginfo(s"$nb ${game.id} unplayed")
           bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
           GameRepo remove game.id
         }
         else if (game.hasClock) {
           val hours = game.started.fold(1, 6)
-          log(s"$nb ${game.id} reschedule clock in $hours hours")
+          loginfo(s"$nb ${game.id} reschedule clock in $hours hours")
           GameRepo.setCheckAt(game, DateTime.now plusHours hours)
         }
         else {
           val days = game.daysPerTurn | 3
-          log(s"$nb ${game.id} reschedule slow in $days days")
+          loginfo(s"$nb ${game.id} reschedule slow in $days days")
           GameRepo.setCheckAt(game, DateTime.now plusDays days)
         }
       }.void andThenAnyway {

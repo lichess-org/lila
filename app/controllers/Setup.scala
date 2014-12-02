@@ -174,7 +174,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
       implicit val req = ctx.body
       form(ctx).bindFromRequest.fold(
         f => negotiate(
-          html = fuloginfo(f.errors.toString) >> Lobby.renderHome(Results.BadRequest),
+          html = Lobby.renderHome(Results.BadRequest),
           api = _ => fuccess(BadRequest(f.errorsAsJson))
         ),
         config => op(config)(ctx) flatMap {
