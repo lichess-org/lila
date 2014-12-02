@@ -172,6 +172,7 @@ var storage = {
             declineListener($notif.find('a.decline'));
             $('body').trigger('lichess.content_loaded');
             if (!storage.get('challenge-' + data.id)) {
+              $('#top .challenge_notifications').addClass('shown');
               $.sound.dong();
               storage.set('challenge-' + data.id, 1);
             }
@@ -180,7 +181,7 @@ var storage = {
           $('div.lichess_overboard.joining.' + data.id).each(function() {
             $notif.hide();
             if (!$(this).find('a.decline').length) $(this).find('form').append(
-              declineListener($(data.html).find('a.decline'), function() {
+              declineListener($(data.html).find('a.decline').text($.trans('decline')), function() {
                 location.href = "/";
               })
             );
