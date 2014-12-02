@@ -14,7 +14,7 @@ function fenMetadatas(data) {
   Object.keys(data.castles).forEach(function(piece) {
     if (data.castles[piece]()) castles += piece;
   });
-  return data.color() + ' ' + (castles.length ? castles : '-');
+  return data.color() + ' ' + (castles.length ? castles : '-') + '-';
 }
 
 function computeFen(data, getBaseFen) {
