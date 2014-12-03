@@ -86,6 +86,7 @@ correspondence=Переписка
 daysPerTurn=Днів на хід
 oneDay=Один день
 nbDays=%s днів
+nbHours=%s годин
 time=Час
 username=Ім’я користувача
 password=Пароль
