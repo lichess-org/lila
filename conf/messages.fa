@@ -86,6 +86,7 @@ correspondence=مکاتبه ای
 daysPerTurn=روز برای هر حرکت
 oneDay=یک روز
 nbDays=روز %s
+nbHours=%s ساعت
 time=زمان
 username=نام کاربری
 password=رمزعبور
