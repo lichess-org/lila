@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 . bin/lilarc
 
 mkdir -p public/compiled
