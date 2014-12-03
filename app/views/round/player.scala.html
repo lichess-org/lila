@@ -29,14 +29,11 @@ openGraph = povOpenGraph(pov)) {
   @cross.map { c =>
   @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov))
   }
-  @if(otherGames.nonEmpty) {
-  <div id="now_playing">
-    <h3>Other correspondence games</h3>
-    @lobby.playing(otherGames take 6)
-    @if(otherGames.size > 6) {
-    <h3>...</h3>
-    }
-  </div>
-  }
 </div>
+@if(otherGames.nonEmpty) {
+<div id="now_playing" class="other_games">
+  <h3>Other correspondence games</h3>
+  @lobby.playing(otherGames take 6)
+</div>
+}
 }
