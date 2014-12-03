@@ -92,13 +92,16 @@ object GameFilterMenu {
         selector = Query imported user.id,
         sort = Seq("pgni.ca" -> reactivemongo.api.SortOrder.Descending),
         nb = nb)(page)
-      case All     => std(Query started user)
-      case Me      => std(Query.opponents(user, me | user))
-      case Rated   => std(Query rated user)
-      case Win     => std(Query win user)
-      case Loss    => std(Query loss user)
-      case Draw    => std(Query draw user)
-      case Playing => std(Query nowPlaying user.id)
+      case All   => std(Query started user)
+      case Me    => std(Query.opponents(user, me | user))
+      case Rated => std(Query rated user)
+      case Win   => std(Query win user)
+      case Loss  => std(Query loss user)
+      case Draw  => std(Query draw user)
+      case Playing => pag.apply(
+        selector = Query nowPlaying user.id,
+        sort = Seq(),
+        nb = nb)(page)
     }
   }
 }
