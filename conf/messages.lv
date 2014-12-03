@@ -1,6 +1,6 @@
 playWithAFriend=Spēle ar draugu
 playWithTheMachine=Spēle ar datoru
-toInviteSomeoneToPlayGiveThisUrl=Lai uzaicinātu kādu spēlēt, dod šo šaiti
+toInviteSomeoneToPlayGiveThisUrl=Lai uzaicinātu kādu spēlēt, iedod šo šaiti
 gameOver=Spēles beigas
 waitingForOpponent=Gaidām pretinieku
 waiting=Gaidām
@@ -31,7 +31,7 @@ makeYourOpponentResign=Lieciet pretiniekam padoties
 forceResignation=Piespiest padošanos
 forceDraw=Piespiedu neizšķirts
 talkInChat=Runā čatā
-theFirstPersonToComeOnThisUrlWillPlayWithYou=Pirmais cilvēks, kas izmantos šo saiti sāks spēlēt ar tevi
+theFirstPersonToComeOnThisUrlWillPlayWithYou=Pirmais, kurš izmantos šo saiti,  sāks ar Tevi spēlēt.
 whiteCreatesTheGame=Baltie izveido spēli
 blackCreatesTheGame=Melnie izveido spēli
 whiteJoinsTheGame=Baltie pievienojas spēlei
