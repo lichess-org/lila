@@ -86,6 +86,7 @@ correspondence=Korrespondance
 daysPerTurn=Dage per træk
 oneDay=En dag
 nbDays=%s dage
+nbHours=%s timer
 time=Tid
 username=Brugernavn
 password=Password
