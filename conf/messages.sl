@@ -86,6 +86,7 @@ correspondence=Korespondenčno
 daysPerTurn=Število dni na potezo
 oneDay=En dan
 nbDays=%s dni
+nbHours=%s ur
 time=Čas
 username=Uporabniško ime
 password=Geslo
