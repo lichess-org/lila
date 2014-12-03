@@ -194,7 +194,6 @@ winStreak=جیتوں کا تسلسل
 createdBy=خالق
 waitingForNbPlayers=%s کھلاڑیوں کا انتظار ہے
 tournamentIsStarting=ٹورنامنٹ شروع ہوا چاہتا ہے
-nbMinutesPerSidePlusNbSecondsPerMove=%s منٹ ہر فریق کیلیے، %s سیکنڈ ہر چال پر
 membersOnly=صرف اراکین کے لیے
 boardEditor=تختہ بنائیں
 startPosition=ابتدائی پوزیشن
