@@ -510,10 +510,9 @@ var storage = {
       }
     };
 
-    var manuallySetZoom = $.fp.debounce(function(v) {
-      setZoom(v);
-    }, 10);
-    setZoom(getZoom()); // Instantiate the page's zoom
+    var manuallySetZoom = $.fp.debounce(setZoom, 10);
+    var initialZoom = getZoom();
+    if (initialZoom > 1) setZoom(initialZoom); // Instantiate the page's zoom
 
     $('#themepicker').find('.slider').slider({
       orientation: "horizontal",
