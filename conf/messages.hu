@@ -86,6 +86,7 @@ correspondence=Levelezés
 daysPerTurn=Lépésenkénti napok száma
 oneDay=Egy nap
 nbDays=%s nap
+nbHours=%s óra
 time=Idő
 username=Felhasználónév
 password=Jelszó
