@@ -86,6 +86,7 @@ correspondence=Corrispondenza
 daysPerTurn=Giorni per turno
 oneDay=Un giorno
 nbDays=%s giorni
+nbHours=%s ore
 time=Tempo
 username=Username
 password=Password
