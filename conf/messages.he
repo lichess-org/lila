@@ -86,6 +86,7 @@ correspondence=התכתבות
 daysPerTurn=ימים לצעד
 oneDay=יום אחד
 nbDays=ימים %s
+nbHours=%s שעות
 time=זמן
 username=שם משתמש
 password=סיסמה
