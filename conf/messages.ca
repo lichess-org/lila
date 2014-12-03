@@ -86,6 +86,7 @@ correspondence=Correspondència
 daysPerTurn=Dies per torn
 oneDay=Un dia
 nbDays=%s dies
+nbHours=%s hores
 time=Temps
 username=Nom d'usuari
 password=Contrasenya
