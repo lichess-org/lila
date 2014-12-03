@@ -57,11 +57,13 @@ openGraph = Map(
     <div class="tabs">
       <a data-tab="list" class="list">@trans.list()</a>
       <a data-tab="graph" class="graph">@trans.graph()</a>
+      @if(nowPlaying.nonEmpty) {
       @defining(nowPlaying.count(_.isMyTurn)) { nb =>
       <a data-tab="now_playing" class="now_playing @if(nb > 0){hilight}">
         @trans.nbGamesInPlay(nowPlaying.size)
         <span class="unread">@nb</span>
       </a>
+      }
       }
     </div>
     <a class="filter" href="@routes.Setup.filterForm()">
