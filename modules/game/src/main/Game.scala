@@ -369,7 +369,7 @@ case class Game(
 
   def unplayed = !bothPlayersHaveMoved && (createdAt isBefore Game.unplayedDate)
 
-  def abandoned = (status <= Status.Started) && ((updatedAt | createdAt) isBefore Game.abandonedDate)
+  def abandoned = (status <= Status.Started) && ((updatedAt | createdAt) isBefore hasAi.fold(Game.aiAbandonedDate, Game.abandonedDate))
 
   def hasBookmarks = bookmarks > 0
 
@@ -418,8 +418,12 @@ object Game {
 
   val unplayedHours = 24
   def unplayedDate = DateTime.now minusHours unplayedHours
+
   val abandonedDays = 15
   def abandonedDate = DateTime.now minusDays abandonedDays
+
+  val aiAbandonedDays = 3
+  def aiAbandonedDate = DateTime.now minusDays abandonedDays
 
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
