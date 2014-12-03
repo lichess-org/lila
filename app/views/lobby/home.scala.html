@@ -9,6 +9,21 @@
 </div>
 }
 
+@side = {
+<div id="streams_on_air">@tv.streamsOnAir(streams)</div>
+@ctx.me.map { u =>
+<div id="timeline" data-href="@routes.Lobby.timeline">
+  @timeline.entries(userTimeline)
+  <div class="links clearfix">
+    @if(userTimeline.size >= 8) {
+    <a class="more" href="@routes.Lobby.timelineMore">@trans.more() »</a>
+    <a class="irc" href="@routes.Main.irc">@trans.chat()</a>
+    }
+  </div>
+</div>
+}
+}
+
 @baseline = {
 <span id="site_baseline">@trans.nbGamesInPlay(s"<span>${nbRounds}</span>")</span>
 }
@@ -22,6 +37,7 @@ title = "",
 fullTitle = Some("lichess.org • " + trans.freeOnlineChess.str()),
 baseline = baseline.some,
 active = siteMenu.play.some,
+side = side.some,
 moreJs = moreJs,
 moreCss = cssTag("home.css"),
 underchat = underchat.some,
