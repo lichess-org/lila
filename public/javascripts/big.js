@@ -492,21 +492,21 @@ var storage = {
       var $underBoard = $(".underboard_content");
       var $content = $("body > .content");
 
-      $boardWrap.css("width", 512*getZoom() + 'px');
+      $boardWrap.css("width", 512 * getZoom() + 'px');
       $underBoard.css("margin-left", (getZoom() - 1) * 250 + 'px');
       if ($('body').hasClass('is3d')) {
-        $boardWrap.css("height", 479.08572*getZoom() + 'px');
-        $lichessGame.css("height", 479.08572*getZoom() + 'px');
-        $lichessGame.css("padding-top", 50*(getZoom() - 1) + 'px');
+        $boardWrap.css("height", 479.08572 * getZoom() + 'px');
+        $lichessGame.css("height", 479.08572 * getZoom() + 'px');
+        $lichessGame.css("padding-top", 50 * (getZoom() - 1) + 'px');
       } else {
         $lichessGame.css("padding-top", '0px');
-        $boardWrap.css("height", 512*getZoom() + 'px');
-        $lichessGame.css("height", 512*getZoom() + 'px');
+        $boardWrap.css("height", 512 * getZoom() + 'px');
+        $lichessGame.css("height", 512 * getZoom() + 'px');
       }
 
       if ($lichessGame.length) {
         // if on a board with a game
-        $content.css("margin-left", 'calc( 50% - ' + (246.5 + 256*getZoom()) + 'px)');
+        $content.css("margin-left", 'calc( 50% - ' + (246.5 + 256 * getZoom()) + 'px)');
       }
     };
 
@@ -514,7 +514,7 @@ var storage = {
       setZoom(v);
     }, 10);
     setZoom(getZoom()); // Instantiate the page's zoom
-    
+
     $('#themepicker').find('.slider').slider({
       orientation: "horizontal",
       min: 1,
