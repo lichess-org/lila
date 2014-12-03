@@ -86,6 +86,7 @@ correspondence=Correspondensie
 daysPerTurn=Dagen per zet
 oneDay=Eén dag
 nbDays=%s dagen
+nbHours=%s uren
 time=Tijd
 username=Gebruikersnaam
 password=Wachtwoord
