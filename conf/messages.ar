@@ -86,6 +86,7 @@ correspondence=طويل الأمد
 daysPerTurn=يوم لكل نقلة
 oneDay=يوم واحد
 nbDays=%s يوم
+nbHours=%s ساعة
 time=الوقت
 username=إسم المستخدم
 password=كلمة السر
