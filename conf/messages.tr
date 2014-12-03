@@ -86,6 +86,7 @@ correspondence=Yazışma
 daysPerTurn=hamle için gün
 oneDay=bir gün
 nbDays=%s gün
+nbHours=%s saat
 time=Zaman
 username=Kullanıcı Adı
 password=Şifre
