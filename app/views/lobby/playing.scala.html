@@ -1,6 +1,6 @@
 @(povs: List[Pov])(implicit ctx: Context)
 
-@povs.sortBy(pov => pov.remainingSeconds | (99999999 - pov.isMyTurn.fold(1, 0))).map { pov =>
+@povs.sortBy(Pov.priority).map { pov =>
 <a href="@routes.Round.player(pov.fullId)" class="@if(pov.isMyTurn){my_turn}">
   @gameFen(pov.game, pov.color, withLink = false, withTitle = false)
   <span class="meta">

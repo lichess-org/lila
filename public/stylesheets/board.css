@@ -1179,7 +1179,7 @@ div.table_wrap > .clock > .time {
   font-family: monospace;
 }
 div.table_wrap > .correspondence.clock > .time {
-  font-size: 21px;
+  font-size: 20px;
 }
 div.table_wrap > .clock .time span {
   font-size: 80%;
