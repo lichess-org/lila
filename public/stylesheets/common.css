@@ -1308,9 +1308,13 @@ body.is3d #themepicker div.color_demo {
   display: block;
   text-decoration: none;
 }
+#themepicker .zoom_control i {
+  font-size: 18px;
+  margin-right: 5px;
+}
 #themepicker .zoom_control .slider {
   margin: auto;
-  width: 200px;
+  width: 175px;
   height: 10px;
 }
 #themepicker .zoom_control .slider .ui-slider-handle {
