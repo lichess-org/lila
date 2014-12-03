@@ -938,18 +938,17 @@ body.offline #nb_connected_players {
   color: #303030;
   border-color: #d85000;
 }
-#top span.new_messages,
-#top span.new_challenges {
-  display: none;
+.unread {
   padding: 1px 5px 1px 4px;
-  background: #bbb;
-  color: #fff;
   font-weight: bold;
   border-radius: 2px;
   font-size: 0.9em;
 }
-#top span.new_messages.unread,
-#top span.new_challenges.unread {
+#top .new_messages,
+#top .new_challenges {
+  display: none;
+}
+#top .unread {
   display: inline;
 }
 #top .shown a.toggle {
@@ -1515,7 +1514,7 @@ a.button:active {
 .ui-state-active,
 .ui-widget-header,
 div.pagination span.current,
-#top span.new_messages,
+.unread,
 #top span.new_challenges,
 div.progressbar.flashy div,
 #import_game .progression {

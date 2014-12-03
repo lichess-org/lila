@@ -1651,7 +1651,8 @@ var storage = {
             success: function(html) {
               $nowPlaying.html(html);
               $('body').trigger('lichess.content_loaded');
-              $wrap.find('.tabs .now_playing').toggleClass('hilight', $nowPlaying.find('.my_turn').length);
+              var nb = $nowPlaying.find('.my_turn').length;
+              $wrap.find('.tabs .now_playing').toggleClass('hilight', nb).find('.unread').text(nb);
             }
           });
         }

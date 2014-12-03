@@ -54,8 +54,11 @@ div.lobby_and_ground {
   font-weight: bold;
   border-bottom-color: #f0f0f0;
 }
-#hooks_wrap > div.tabs > a.hilight {
-  color: #d85000 !important;
+#hooks_wrap > div.tabs .unread {
+  display: none;
+}
+#hooks_wrap > div.tabs a.hilight .unread {
+  display: inline;
 }
 #hooks_wrap > a.filter {
   position: absolute;
