@@ -478,6 +478,17 @@ var storage = {
       }, function() {
         showDimensions(is3d);
       }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
+      $themepicker.find('.slider').slider({
+        orientation: "horizontal",
+        min: 1,
+        max: 2,
+        range: 'min',
+        step: 0.01,
+        value: getZoom(),
+        slide: function(e, ui) {
+          manuallySetZoom(ui.value);
+        }
+      });
     });
 
     // Zoom
@@ -490,41 +501,32 @@ var storage = {
       var $boardWrap = $(".lichess_game .cg-board-wrap");
       var $lichessGame = $(".lichess_game");
       var $underBoard = $(".underboard_content");
-      var $content = $("body > .content");
 
       $boardWrap.css("width", 512 * getZoom() + 'px');
       $underBoard.css("margin-left", (getZoom() - 1) * 250 + 'px');
       if ($('body').hasClass('is3d')) {
         $boardWrap.css("height", 479.08572 * getZoom() + 'px');
-        $lichessGame.css("height", 479.08572 * getZoom() + 'px');
-        $lichessGame.css("padding-top", 50 * (getZoom() - 1) + 'px');
+        $lichessGame.css({
+          height: 479.08572 * getZoom() + 'px',
+          paddingTop: 50 * (getZoom() - 1) + 'px'
+        });
       } else {
-        $lichessGame.css("padding-top", '0px');
         $boardWrap.css("height", 512 * getZoom() + 'px');
-        $lichessGame.css("height", 512 * getZoom() + 'px');
+        $lichessGame.css({
+          height: 512 * getZoom() + 'px',
+          paddingTop: '0px'
+        });
       }
 
       if ($lichessGame.length) {
         // if on a board with a game
-        $content.css("margin-left", 'calc( 50% - ' + (246.5 + 256 * getZoom()) + 'px)');
+        $("body > .content").css("margin-left", 'calc( 50% - ' + (246.5 + 256 * getZoom()) + 'px)');
       }
     };
 
     var manuallySetZoom = $.fp.debounce(setZoom, 10);
     var initialZoom = getZoom();
     if (initialZoom > 1) setZoom(initialZoom); // Instantiate the page's zoom
-
-    $('#themepicker').find('.slider').slider({
-      orientation: "horizontal",
-      min: 1,
-      max: 2,
-      range: 'min',
-      step: 0.01,
-      value: getZoom(),
-      slide: function(e, ui) {
-        manuallySetZoom(ui.value);
-      }
-    });
 
     $('.js_email').one('click', function() {
       var email = 'thibault.duplessis@gmail.com';
