@@ -451,6 +451,7 @@ var storage = {
       };
       var showDimensions = function(is3d) {
         $body.removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
+        setZoom(getZoom());
       };
       $themepicker.find('.background a').click(function() {
         background = $(this).data('bg');
@@ -478,6 +479,50 @@ var storage = {
       }, function() {
         showDimensions(is3d);
       }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
+
+      var $boardWrap = $(".lichess_game .cg-board-wrap");
+      var $lichessGame = $(".lichess_game");
+      var $underBoard = $(".underboard_content");
+      var $content = $(".content");
+
+      var getZoom = function() {
+        return storage.get('zoom') || 1;
+      };
+      var setZoom = function(v) {
+        storage.set('zoom', v);
+
+        $boardWrap.css("width", 512*getZoom() + 'px');
+        $underBoard.css("margin-left", (getZoom() - 1) * 250 + 'px');
+        if (is3d) {
+          $boardWrap.css("height", 479.08572*getZoom() + 'px');
+          $lichessGame.css("height", 479.08572*getZoom() + 'px');
+        } else {
+          $boardWrap.css("height", 512*getZoom() + 'px');
+          $lichessGame.css("height", 512*getZoom() + 'px');
+        }
+
+        if ($lichessGame.length) {
+          // if on a board with a game
+          $content.css("margin-left", 'calc( 50% - ' + (246.5 + 256*getZoom()) + 'px)');
+        }
+
+      };
+      var manuallySetZoom = $.fp.debounce(function(v) {
+        setZoom(v);
+      }, 10);
+      setZoom(getZoom()); // Instantiate the page's zoom
+      
+      $themepicker.find('.slider').slider({
+        orientation: "horizontal",
+        min: 1,
+        max: 2,
+        range: 'min',
+        step: 0.01,
+        value: getZoom(),
+        slide: function(e, ui) {
+          manuallySetZoom(ui.value);
+        }
+      });
     });
 
     $('.js_email').one('click', function() {

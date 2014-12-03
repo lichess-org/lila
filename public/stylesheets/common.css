@@ -1308,6 +1308,18 @@ body.is3d #themepicker div.color_demo {
   display: block;
   text-decoration: none;
 }
+#themepicker .zoom_control .slider {
+  margin: auto;
+  width: 200px;
+  height: 10px;
+}
+#themepicker .zoom_control .slider .ui-slider-handle {
+  margin: 0 0 -9px -3px;
+}
+#themepicker .zoom_control .slider .ui-widget-header {
+  width: 10px;
+  bottom: 0;
+}
 #sound_control {
   margin-right: 5px;
   float: right;
