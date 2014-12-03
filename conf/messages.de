@@ -86,6 +86,7 @@ correspondence=Fernschach
 daysPerTurn=Tage pro Zug
 oneDay=ein Tag
 nbDays=%s Tage
+nbHours=%s Stunden
 time=Zeit
 username=Benutzername
 password=Passwort
