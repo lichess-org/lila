@@ -86,6 +86,7 @@ correspondence=Fjernsjakk
 daysPerTurn=Dager per trekk
 oneDay=Én dag
 nbDays=%s dager
+nbHours=%s timer
 time=Tid
 username=Brukernavn
 password=Passord
