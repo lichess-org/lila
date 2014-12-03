@@ -86,6 +86,7 @@ correspondence=Korespondencšahs
 daysPerTurn=Dienu skaits uz gājienu
 oneDay=Viena diena
 nbDays=%s dienas
+nbHours=%s stundas
 time=Laiks
 username=Lietotājvārds
 password=Parole
