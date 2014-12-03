@@ -497,7 +497,9 @@ var storage = {
       if ($('body').hasClass('is3d')) {
         $boardWrap.css("height", 479.08572*getZoom() + 'px');
         $lichessGame.css("height", 479.08572*getZoom() + 'px');
+        $lichessGame.css("padding-top", 50*(getZoom() - 1) + 'px');
       } else {
+        $lichessGame.css("padding-top", '0px');
         $boardWrap.css("height", 512*getZoom() + 'px');
         $lichessGame.css("height", 512*getZoom() + 'px');
       }
@@ -507,7 +509,7 @@ var storage = {
         $content.css("margin-left", 'calc( 50% - ' + (246.5 + 256*getZoom()) + 'px)');
       }
     };
-    
+
     var manuallySetZoom = $.fp.debounce(function(v) {
       setZoom(v);
     }, 10);
