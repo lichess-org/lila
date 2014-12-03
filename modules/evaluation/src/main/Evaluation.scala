@@ -47,7 +47,7 @@ case class Evaluation(
     action == Mark && heuristics.deviationIsLow(perf) && !heuristics.escapesAutoMark(perf)
 
   def gameIdsToAnalyse: List[String] =
-    games take 7 filterNot (_.analysed) take 4 flatMap (_.gameId)
+    games take 9 filterNot (_.analysed) take 5 flatMap (_.gameId)
 }
 
 object Evaluation {
@@ -60,7 +60,7 @@ object Evaluation {
 
   private[evaluation] object heuristics {
 
-    def progressIsHigh(perf: Perf) = perf.progress > 70
+    def progressIsHigh(perf: Perf) = perf.progress > 60
     def progressIsVeryHigh(perf: Perf) = perf.progress > 100
     def deviationIsLow(perf: Perf) = perf.glicko.deviation < 190
     def ratingIsHigh(perf: Perf) = perf.glicko.rating >= 1600
