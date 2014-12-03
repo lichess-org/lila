@@ -86,6 +86,7 @@ correspondence=Korrespondens
 daysPerTurn=Dagar per speltur
 oneDay=En dag
 nbDays=%s dagar
+nbHours=%s timmar
 time=Tid
 username=Användarnamn
 password=Lösenord
