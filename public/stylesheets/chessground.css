@@ -67,21 +67,18 @@ body.coords_1 .cg-square[data-coord-y]::before {
 }
 body.coords_2 .cg-square[data-coord-x]::after {
   bottom: -11px;
-  left: 29px;
+  left: calc(50% - 3.5px);
   color: #bbb;
   font-weight: bold;
 }
 body.coords_2.is3d .cg-square[data-coord-x]::after {
-  bottom: -22px;
+  bottom: calc(-10px - 22%);
 }
 body.coords_2 .cg-square[data-coord-y]::before {
   right: -8px;
-  top: 26px;
+  top: calc(50% - 7px);
   color: #bbb;
   font-weight: bold;
-}
-body.coords_2.is3d .cg-square[data-coord-y]::before {
-  top: 24px;
 }
 body.highlight .manipulable .cg-square.drag-over {
   background: rgba(255, 255, 255, 0.1);
