@@ -86,6 +86,7 @@ correspondence=Korespodencija
 daysPerTurn=Dana po potezu
 oneDay=Jedan dan
 nbDays=%s dana
+nbHours=%s sati
 time=Vrijeme
 username=Korisničko ime
 password=Zaporka
