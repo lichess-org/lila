@@ -85,6 +85,7 @@ clock=S hodiny
 correspondence=Korespondenčně
 daysPerTurn=Dnů na tah
 oneDay=Jeden den
+nbDays=%s dní
 time=Tempo
 username=Uživatelské jméno
 password=Heslo
