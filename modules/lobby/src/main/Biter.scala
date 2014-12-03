@@ -36,9 +36,7 @@ private[lobby] object Biter {
     game = ChessGame(
       board = Board init hook.realVariant,
       clock = hook.hasClock.fold(
-        hook.time |@| hook.increment apply { (limit, inc) =>
-          Clock(limit = limit, increment = inc)
-        },
+        hook.time |@| hook.increment apply Clock.apply,
         none)
     ),
     whitePlayer = Player.white,
