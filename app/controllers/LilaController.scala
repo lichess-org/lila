@@ -166,7 +166,7 @@ private[controllers] trait LilaController
         implicit val req = ctx.req
         Redirect(routes.Auth.signup) withCookies LilaCookie.session(Env.security.api.AccessUri, req.uri)
       },
-      api = _ => Unauthorized("Login required").fuccess
+      api = _ => Unauthorized(Json.obj("error" -> "Login required")).fuccess
     )
 
   protected def authorizationFailed(req: RequestHeader): Result =

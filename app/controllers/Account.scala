@@ -54,7 +54,8 @@ object Account extends LilaController {
                     "id" -> pov.opponent.userId,
                     "username" -> lila.game.Namer.playerString(pov.opponent, withRating = false)(Env.user.lightUser),
                     "rating" -> pov.opponent.rating),
-                  "secondsLeft" -> pov.game.correspondenceClock.map(_ remainingTime pov.color toInt))
+                  "isMyTurn" -> pov.isMyTurn,
+                  "secondsLeft" -> pov.remainingSeconds)
               })
             )
           }
