@@ -78,6 +78,7 @@ players=Scaccorum lusores
 minutesPerSide=Minutae pro utriusque lusore
 variant=Varietas
 timeControl=Temporis curatio
+nbDays=%s dies
 time=Tempum
 username=Usoris nomen
 password=Tessera
