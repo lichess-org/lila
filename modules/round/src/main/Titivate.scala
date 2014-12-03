@@ -29,7 +29,7 @@ private[round] final class Titivate(
   def delay(f: => Unit): Funit = akka.pattern.after(delayDuration, scheduler)(Future(f))
 
   def log(msg: String) {
-    loginfo(s"[titivate] $msg")
+    // loginfo(s"[titivate] $msg")
   }
 
   def receive = {
