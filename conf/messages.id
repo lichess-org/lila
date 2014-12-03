@@ -86,6 +86,7 @@ correspondence=Korespondensi
 daysPerTurn=Hari per langkah
 oneDay=Satu hari
 nbDays=%s hari
+nbHours=%s jam
 time=Waktu
 username=Nama pengguna
 password=Kata kunci
