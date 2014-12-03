@@ -501,26 +501,27 @@ var storage = {
       var $boardWrap = $(".lichess_game .cg-board-wrap");
       var $lichessGame = $(".lichess_game");
       var $underBoard = $(".underboard_content");
+      var px = function(i) { return Math.round(i) + 'px'; };
 
       $boardWrap.css("width", 512 * getZoom() + 'px');
-      $underBoard.css("margin-left", (getZoom() - 1) * 250 + 'px');
+      $underBoard.css("margin-left", px((getZoom() - 1) * 250));
       if ($('body').hasClass('is3d')) {
-        $boardWrap.css("height", 479.08572 * getZoom() + 'px');
+        $boardWrap.css("height", px(479.08572 * getZoom()));
         $lichessGame.css({
-          height: 479.08572 * getZoom() + 'px',
-          paddingTop: 50 * (getZoom() - 1) + 'px'
+          height: px(479.08572 * getZoom()),
+          paddingTop: px(50 * (getZoom() - 1))
         });
       } else {
-        $boardWrap.css("height", 512 * getZoom() + 'px');
+        $boardWrap.css("height", px(512 * getZoom()));
         $lichessGame.css({
-          height: 512 * getZoom() + 'px',
-          paddingTop: '0px'
+          height: px(512 * getZoom()),
+          paddingTop: px(0)
         });
       }
 
       if ($lichessGame.length) {
         // if on a board with a game
-        $("body > .content").css("margin-left", 'calc( 50% - ' + (246.5 + 256 * getZoom()) + 'px)');
+        $("body > .content").css("margin-left", 'calc(50% - ' + px(246.5 + 256 * getZoom()) + ')');
       }
     };
 
