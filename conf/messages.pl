@@ -86,6 +86,7 @@ correspondence=Szachy korespondencyjne
 daysPerTurn=Dni na ruch
 oneDay=1 dzień na ruch
 nbDays=%s Dni
+nbHours=%s godzin
 time=Czas
 username=Nazwa użytkownika
 password=Hasło
