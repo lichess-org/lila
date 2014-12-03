@@ -86,6 +86,7 @@ correspondence=Αλληλογραφία
 daysPerTurn=Μέρες ανά σειρά
 oneDay=Μία μέρα
 nbDays=%s μέρες
+nbHours=%s ώρες
 time=Χρόνος
 username=Όνομα χρήστη
 password=Κωδικός
