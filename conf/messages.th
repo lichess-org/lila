@@ -86,6 +86,7 @@ correspondence=ยาวนาน
 daysPerTurn=วันต่อตาเดิน
 oneDay=หนึ่งวัน
 nbDays=%s วัน
+nbHours=%s ชั่วโมง
 time=เวลา
 username=ชื่อผู้ใช้
 password=รหัสผ่าน
