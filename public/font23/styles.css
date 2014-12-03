@@ -287,3 +287,9 @@
 .icon-email-plane:before {
   content: ";";
 }
+.icon-zoom-in:before {
+  content: "<";
+}
+.icon-screen-full:before {
+  content: "=";
+}
