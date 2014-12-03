@@ -1684,6 +1684,43 @@ body.is3d .mini_board .cg-board-wrap {
   margin-top: 8px;
   height: 209.6px;
 }
+#now_playing {
+  margin: 5px 0 0 5px;
+  overflow: hidden;
+}
+#now_playing h3 {
+  font-size: 1.4em;
+}
+#now_playing > a {
+  float: left;
+  padding: 5px;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.13s;
+  background: rgba(255, 255, 255, 0.6);
+}
+#now_playing > a:hover {
+  background: rgba(191, 231, 255, 0.7);
+}
+#now_playing .meta {
+  display: block;
+  text-align: center;
+  width: 157px;
+  overflow: hidden;
+}
+#now_playing .indicator {
+  color: #d85000;
+  margin-top: -3px;
+  display: block;
+}
+#now_playing .mini_board .cg-board-wrap {
+  width: 157px;
+  height: 157px;
+}
+body.is3d #now_playing .mini_board .cg-board-wrap {
+  margin-top: 5.6px;
+  height: 146.9px;
+}
 /* opening.css */
 
 div.game_config button {

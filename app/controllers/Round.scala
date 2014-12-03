@@ -53,10 +53,11 @@ object Round extends LilaController with TheftPrevention {
           pov.game.started.fold(
             PreventTheft(pov) {
               (pov.game.tournamentId ?? TournamentRepo.byId) zip
-                Env.game.crosstableApi(pov.game) flatMap {
-                  case (tour, crosstable) =>
+                Env.game.crosstableApi(pov.game) zip
+                otherGames(pov.game) flatMap {
+                  case ((tour, crosstable), otherGames) =>
                     Env.api.roundApi.player(pov, Env.api.version) map { data =>
-                      Ok(html.round.player(pov, data, tour = tour, cross = crosstable))
+                      Ok(html.round.player(pov, data, tour = tour, cross = crosstable, otherGames = otherGames))
                     }
                 }
             },
@@ -65,6 +66,14 @@ object Round extends LilaController with TheftPrevention {
         },
         api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { Ok(_) }
       )
+    }
+  }
+
+  private def otherGames(g: GameModel)(implicit ctx: Context) = ctx.me.ifFalse(g.hasClock) ?? { user =>
+    GameRepo nowPlaying user map {
+      _ filter { pov =>
+        pov.isMyTurn && pov.game.id != g.id
+      } sortBy Pov.priority
     }
   }
 

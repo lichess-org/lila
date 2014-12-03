@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable])(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], otherGames: List[Pov])(implicit ctx: Context)
 
 @import pov._
 
@@ -28,6 +28,15 @@ openGraph = povOpenGraph(pov)) {
 <div class="crosstable" style="display:none">
   @cross.map { c =>
   @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov))
+  }
+  @if(otherGames.nonEmpty) {
+  <div id="now_playing">
+    <h3>@trans.nbGamesInPlay(otherGames.size)</h3>
+    @lobby.playing(otherGames take 6)
+    @if(otherGames.size > 6) {
+    <h3>...</h3>
+    }
+  </div>
   }
 </div>
 }

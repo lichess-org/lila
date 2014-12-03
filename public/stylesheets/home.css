@@ -621,40 +621,6 @@ div.game_config div.color_submits button.random span {
   height: 55px;
   padding: 0;
 }
-#now_playing {
-  margin: 5px 0 0 5px;
-  overflow: hidden;
-}
-#now_playing > a {
-  float: left;
-  padding: 5px;
-  text-decoration: none;
-  text-align: center;
-  transition: background-color 0.13s;
-  background: rgba(255, 255, 255, 0.6);
-}
-#now_playing > a:hover {
-  background: rgba(191, 231, 255, 0.7);
-}
-#now_playing .meta {
-  display: block;
-  text-align: center;
-  width: 157px;
-  overflow: hidden;
-}
-#now_playing .indicator {
-  color: #d85000;
-  margin-top: -3px;
-  display: block;
-}
-#now_playing .mini_board .cg-board-wrap {
-  width: 157px;
-  height: 157px;
-}
-body.is3d #now_playing .mini_board .cg-board-wrap {
-  margin-top: 5.6px;
-  height: 146.9px;
-}
 #timeline {
   margin-top: 2em;
   border-top: 1px solid #e4e4e4;
