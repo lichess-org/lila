@@ -179,7 +179,6 @@ var storage = {
             refreshButton();
           }
           $('div.lichess_overboard.joining.' + data.id).each(function() {
-            $notif.hide();
             if (!$(this).find('a.decline').length) $(this).find('form').append(
               declineListener($(data.html).find('a.decline').text($.trans('decline')), function() {
                 location.href = "/";

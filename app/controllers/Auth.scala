@@ -54,7 +54,7 @@ object Auth extends LilaController {
     req.session get "sessionId" foreach lila.security.Store.delete
     negotiate(
       html = fuccess(Redirect(routes.Lobby.home)),
-      api = apiVersion => Ok("ok").fuccess
+      api = apiVersion => Ok(Json.obj("ok" -> true)).fuccess
     ) map (_ withCookies LilaCookie.newSession)
   }
 

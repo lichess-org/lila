@@ -1697,19 +1697,25 @@ body.is3d .mini_board .cg-board-wrap {
   height: 209.6px;
 }
 #now_playing {
-  margin: 5px 0 0 5px;
+  margin: 4px 0 0 4px;
   overflow: hidden;
+}
+#now_playing.other_games {
+  width: 512px;
 }
 #now_playing h3 {
   font-size: 1.4em;
 }
 #now_playing > a {
   float: left;
-  padding: 5px;
+  padding: 4px;
   text-decoration: none;
   text-align: center;
   transition: background-color 0.13s;
   background: rgba(255, 255, 255, 0.6);
+}
+#now_playing.other_games > a {
+  padding: 5px;
 }
 #now_playing > a:hover {
   background: rgba(191, 231, 255, 0.7);
@@ -1717,7 +1723,7 @@ body.is3d .mini_board .cg-board-wrap {
 #now_playing .meta {
   display: block;
   text-align: center;
-  width: 157px;
+  width: 160px;
   overflow: hidden;
 }
 #now_playing .indicator {
@@ -1726,12 +1732,12 @@ body.is3d .mini_board .cg-board-wrap {
   display: block;
 }
 #now_playing .mini_board .cg-board-wrap {
-  width: 157px;
-  height: 157px;
+  width: 160px;
+  height: 160px;
 }
 body.is3d #now_playing .mini_board .cg-board-wrap {
-  margin-top: 5.6px;
-  height: 146.9px;
+  margin-top: 6px;
+  height: 149.7px;
 }
 /* opening.css */
 

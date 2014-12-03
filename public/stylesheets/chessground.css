@@ -140,7 +140,14 @@ body.base .cg-board .cg-square.current-premove {
   transform: translate3d(0,0,0);
   -webkit-transform: translate3d(0,0,0);
   -moz-transform: translate3d(0,0,0);
+  -ms-transform: translate3d(0,0,0);
   z-index: 2; /* no less than 2 */
+}
+.mini_board .cg-piece {
+  transform: none;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
 }
 body.is3d .cg-piece {
   /* original size:

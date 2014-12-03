@@ -231,7 +231,6 @@ body.is2d.cburnett .cg-piece.rook.white {
 body.is2d.cburnett .cg-piece.queen.white {
   background-image: url(../piece/cburnett/wQ.svg);
 }
-.king.white,
 body.is2d.cburnett .cg-piece.king.white {
   background-image: url(../piece/cburnett/wK.svg);
 }
@@ -250,7 +249,6 @@ body.is2d.cburnett .cg-piece.rook.black {
 body.is2d.cburnett .cg-piece.queen.black {
   background-image: url(../piece/cburnett/bQ.svg);
 }
-.king.black,
 body.is2d.cburnett .cg-piece.king.black {
   background-image: url(../piece/cburnett/bK.svg);
 }
