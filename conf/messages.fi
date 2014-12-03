@@ -86,6 +86,7 @@ correspondence=Kirjeshakki
 daysPerTurn=Päivää per vuoro
 oneDay=Yksi päivä
 nbDays=%s päivää
+nbHours=%s tuntia
 time=Aika
 username=Käyttäjätunnus
 password=Salasana
