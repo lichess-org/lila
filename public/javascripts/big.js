@@ -1222,6 +1222,8 @@ var storage = {
             type: 'post'
           });
           $form.find('a.close').click();
+          if ($('#hooks_wrap .tabs .now_playing').hasClass('active'))
+            $('#hooks_wrap .tabs .list').click();
           return false;
         };
         $formTag.find('.color_submits button').click(function() {
