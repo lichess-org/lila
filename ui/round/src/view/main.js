@@ -89,7 +89,7 @@ module.exports = function(ctrl) {
           onclick: toggleDontTouch
         }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null
       ]),
-      m('div.right', [
+      m('div.blurs', [
         [ctrl.data.opponent, ctrl.data.player].map(partial(mod.blursOf, ctrl)), [ctrl.data.opponent, ctrl.data.player].map(partial(mod.holdOf, ctrl))
       ])
     ])
