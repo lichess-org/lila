@@ -1469,11 +1469,15 @@ div.underboard .center {
   text-align: center;
   padding-top: 15px;
 }
+div.underboard .blurs,
 div.underboard .right {
   display: table-cell;
   vertical-align: top;
   padding-left: 15px;
   width: 242px;
+}
+div.underboard .blurs {
+  padding-top: 25px;
 }
 div.underboard a {
   display: inline-block;
