@@ -142,7 +142,7 @@ module.exports = {
     }, m('span[data-icon=O]'));
   },
   analysis: function(ctrl) {
-    if (game.replayable(ctrl.data) && !ctrl.data.player.offeringRematch) return m('a.button.replay_and_analyse', {
+    if (game.replayable(ctrl.data)) return m('a.button.replay_and_analyse', {
       href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.player.color).url
     }, ctrl.trans('analysis'));
   }
