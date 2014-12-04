@@ -1252,8 +1252,7 @@ var storage = {
               if (time < 180) key = 'bullet';
               else if (time < 480) key = 'blitz';
               else key = 'classical';
-            } else if (timeMode == '2') key = 'correspondence';
-            else key = 'classical';
+            } else key = 'correspondence';
             break;
           case '2':
             key = 'chess960';

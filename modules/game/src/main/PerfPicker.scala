@@ -13,8 +13,7 @@ object PerfPicker {
 
   def key(speed: Speed, variant: Variant, daysPerTurn: Option[Int]): String =
     if (variant.standard) {
-      if (daysPerTurn.isDefined) PerfType.Correspondence.key
-      else if (speed == Speed.Unlimited) PerfType.Classical.key
+      if (daysPerTurn.isDefined || speed == Speed.Unlimited) PerfType.Correspondence.key
       else speed.key
     }
     else variant.key

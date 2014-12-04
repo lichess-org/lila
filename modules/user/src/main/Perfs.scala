@@ -119,7 +119,8 @@ case object Perfs {
   def speedLens(speed: Speed): Perfs => Perf = speed match {
     case Speed.Bullet => perfs => perfs.bullet
     case Speed.Blitz => perfs => perfs.blitz
-    case Speed.Classical | Speed.Unlimited => perfs => perfs.classical
+    case Speed.Classical => perfs => perfs.classical
+    case Speed.Unlimited => perfs => perfs.correspondence
   }
 
   private def PerfsBSONHandler = new BSON[Perfs] {

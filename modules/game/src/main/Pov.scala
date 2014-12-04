@@ -26,7 +26,7 @@ case class Pov(game: Game, color: Color) {
   def withGame(g: Game) = copy(game = g)
   def withColor(c: Color) = copy(color = c)
 
-  def isMyTurn = game.playable && game.turnColor == color
+  def isMyTurn = game.started && game.playable && game.turnColor == color
 
   def remainingSeconds: Option[Int] = game.clock.map(_.remainingTime(color).toInt).orElse {
     game.correspondenceClock.map(_.remainingTime(color).toInt)
