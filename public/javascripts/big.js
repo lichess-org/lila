@@ -500,23 +500,26 @@ var storage = {
 
       var $boardWrap = $(".lichess_game .cg-board-wrap");
       var $lichessGame = $(".lichess_game");
-      var $underBoard = $(".underboard_content");
       var px = function(i) { return Math.round(i) + 'px'; };
 
       $boardWrap.css("width", 512 * getZoom() + 'px');
-      $underBoard.css("margin-left", px((getZoom() - 1) * 250));
+      $(".underboard_content").css("margin-left", px((getZoom() - 1) * 250));
       if ($('body').hasClass('is3d')) {
         $boardWrap.css("height", px(479.08572 * getZoom()));
         $lichessGame.css({
           height: px(479.08572 * getZoom()),
           paddingTop: px(50 * (getZoom() - 1))
         });
+        $('#tv_history > .content').css("height", px(250 + 540*(getZoom() - 1)));
+        $('#chat > .content').css("height", px(267 + 523*(getZoom() - 1)));
       } else {
         $boardWrap.css("height", px(512 * getZoom()));
         $lichessGame.css({
           height: px(512 * getZoom()),
           paddingTop: px(0)
         });
+        $('#tv_history > .content').css("height", px(270 + 525*(getZoom() - 1)));
+        $('#chat > .content').css("height", px(305 + 502*(getZoom() - 1)));
       }
 
       if ($lichessGame.length) {
