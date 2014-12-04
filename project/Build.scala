@@ -13,15 +13,14 @@ object ApplicationBuild extends Build {
     scalaVersion := "2.11.4",
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions := compilerOptions,
-    incOptions := incOptions.value.withNameHashing(true),
     offline := true,
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache,
       jgit, elastic4s, findbugs, RM, PRM,
       spray.caching, maxmind, prismic),
       scalacOptions := compilerOptions,
+      // updateOptions := updateOptions.value.withCachedResolution(true),
       sources in doc in Compile := List(),
-      incOptions := incOptions.value.withNameHashing(true),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.user.{ User, UserContext }",
