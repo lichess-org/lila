@@ -502,9 +502,11 @@ var storage = {
       var $lichessGame = $(".lichess_game");
       var px = function(i) { return Math.round(i) + 'px'; };
 
-      $boardWrap.css("width", 512 * getZoom() + 'px');
-      $(".underboard_content").css("margin-left", px((getZoom() - 1) * 250));
-      $(".underboard").css("margin-left", px((getZoom() - 1) * 250));
+      $boardWrap.css("width", px(512 * getZoom()));
+      $('.progress_bar_container').css("width", px(512 * getZoom()));
+      $('.underboard_content').css("margin-left", px((getZoom() - 1) * 250));
+      $('.underboard').css("margin-left", px((getZoom() - 1) * 250));
+
       if ($('body').hasClass('is3d')) {
         $boardWrap.css("height", px(479.08572 * getZoom()));
         $lichessGame.css({
@@ -525,7 +527,7 @@ var storage = {
 
       if ($lichessGame.length) {
         // if on a board with a game
-        $("body > .content").css("margin-left", 'calc(50% - ' + px(246.5 + 256 * getZoom()) + ')');
+        $('body > .content').css("margin-left", 'calc(50% - ' + px(246.5 + 256 * getZoom()) + ')');
       }
     };
 
