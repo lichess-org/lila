@@ -18,7 +18,7 @@
 	url = https://github.com/clarkerubber/board-creator
 [submodule "submodules/evaluator"]
 	path = submodules/evaluator
-	url = https://github.com/clarkerubber/engine-evaluator
+	url = https://github.com/ornicar/engine-evaluator
 [submodule "ui/chessli"]
 	path = ui/chessli
 	url = https://github.com/ornicar/chess.js
