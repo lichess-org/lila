@@ -1,7 +1,6 @@
 @()(implicit ctx: Context)
 
-@site.layout(
-title = "Developers") {
+@site.layout(title = "Developers") {
 
 <div class="content_box small_box">
   <h1 class="lichess_title">Embed lichess in your site</h1>
@@ -52,5 +51,25 @@ title = "Developers") {
   <p>Read the documentation on
     <a href="https://github.com/ornicar/lila#http-api">lichess github page</a>.
   </p>
+</div>
+
+<br />
+<br />
+
+<div class="content_box small_box developers">
+  <h1 id="use-api" class="lichess_title">Lichess Widgets</h1>
+  <p>Let your website/blog visitors know that you're playing on lichess!</p>
+  <br />
+  <link rel="stylesheet" href="http://rubenwardy.github.io/lichess_widgets/lichess_widgets.css" />
+  @if(ctx.currentBg == "dark") {
+  <link rel="stylesheet" href="http://rubenwardy.github.io/lichess_widgets/dark.css" />
+  } else {
+  <link rel="stylesheet" href="http://rubenwardy.github.io/lichess_widgets/light.css" />
+  }
+  <script src="http://rubenwardy.github.io/lichess_widgets/lichess_widgets.js"></script>
+  @defining(ctx.me.fold("thibault")(_.id)) { userId =>
+  <script>lichess_widgets.profile_scores("@ctx.currentBg", "@userId");</script>
+  }
+  <p><a href="http://rubenwardy.github.io/lichess_widgets/">See more examples and installation instructions</a></p>
 </div>
 }
