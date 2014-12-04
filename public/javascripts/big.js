@@ -506,6 +506,7 @@ var storage = {
       $('.progress_bar_container').css("width", px(512 * getZoom()));
       $('.underboard_content').css("margin-left", px((getZoom() - 1) * 250));
       $('.underboard').css("margin-left", px((getZoom() - 1) * 250));
+      $('.lichess_game > .lichess_overboard').css("left", px(56 + (getZoom() - 1) * 254));
 
       if ($('body').hasClass('is3d')) {
         $boardWrap.css("height", px(479.08572 * getZoom()));
