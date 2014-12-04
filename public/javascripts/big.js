@@ -504,6 +504,7 @@ var storage = {
 
       $boardWrap.css("width", 512 * getZoom() + 'px');
       $(".underboard_content").css("margin-left", px((getZoom() - 1) * 250));
+      $(".underboard").css("margin-left", px((getZoom() - 1) * 250));
       if ($('body').hasClass('is3d')) {
         $boardWrap.css("height", px(479.08572 * getZoom()));
         $lichessGame.css({
