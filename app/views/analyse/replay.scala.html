@@ -43,7 +43,7 @@ i18n: @round.jsI18n()
 @analyse.layout(
 title = title,
 side = views.html.game.side(pov, tour, withTourStanding = false).some,
-chat = base.chatDom(trans.spectatorRoom.str()).some,
+chat = base.chatDom(trans.spectatorRoom.str(), game.perfType.map(_ == lila.rating.PerfType.Correspondence).getOrElse(false)).some,
 underchat = underchat.some,
 moreCss = moreCss,
 moreJs = moreJs,

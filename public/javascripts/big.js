@@ -513,7 +513,7 @@ var storage = {
           paddingTop: px(50 * (getZoom() - 1))
         });
         $('#tv_history > .content').css("height", px(250 + 540*(getZoom() - 1)));
-        $('#chat > .content').css("height", px(267 + 523*(getZoom() - 1)));
+        $('.chat_panels').css("height", px(290 + 529*(getZoom() - 1)));
       } else {
         $boardWrap.css("height", px(512 * getZoom()));
         $lichessGame.css({
@@ -521,7 +521,7 @@ var storage = {
           paddingTop: px(0)
         });
         $('#tv_history > .content').css("height", px(270 + 525*(getZoom() - 1)));
-        $('#chat > .content').css("height", px(305 + 502*(getZoom() - 1)));
+        $('.chat_panels').css("height", px(325 + 510*(getZoom() - 1)));
       }
 
       if ($lichessGame.length) {
@@ -951,7 +951,7 @@ var storage = {
       });
 
       // toggle the chat
-      var $toggle = self.element.find('input.toggle_chat');
+      var $toggle = $('input.toggle_chat');
       $toggle.change(function() {
         var enabled = $toggle.is(':checked');
         self.element.toggleClass('hidden', !enabled);
@@ -963,6 +963,22 @@ var storage = {
         self.element.addClass('hidden');
       }
       if (self.options.messages.length > 0) self._appendMany(self.options.messages);
+
+      // Toggle Notes/Chat display
+      $panels = $('div.chat_panels > div');
+      $('div.chat_menu').on('click', 'a', function() {
+        var panel = $(this).data('panel');
+        $(this).siblings('.active').removeClass('active').end().addClass('active');
+        $panels.removeClass('active').filter('.' + panel).addClass('active');
+      }).find('a:first').click();
+
+      $notes = $('#notes');
+
+      $notes.on('change', function() {
+        storage.set('notes', $notes.val());
+        console.log($notes.val());
+      });
+      $notes.val(storage.get('notes') || 'Type notes here.');
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));

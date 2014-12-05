@@ -20,7 +20,7 @@ i18n: @jsI18n()
 @round.layout(
 title = title,
 side = views.html.game.side(pov, tour, withTourStanding = true),
-chat = pov.game.hasChat.option(base.chatDom(trans.chatRoom.str())),
+chat = pov.game.hasChat.option(base.chatDom(trans.chatRoom.str(), game.perfType.map(_ == lila.rating.PerfType.Correspondence).getOrElse(false))),
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov)) {

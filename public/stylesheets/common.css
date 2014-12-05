@@ -804,6 +804,47 @@ div.side_box .top {
 div.side_box .padded {
   padding: 7px;
 }
+div.chat_menu {
+  margin-left: -30px;
+  margin-top: 12px;
+  margin-bottom: -12px;
+  width: 226px;
+  text-align: center;
+  font-weight: bold;
+  color: #999;
+}
+div.chat_menu > a {
+  text-decoration: none;
+  background: #f0f0f0;
+  border: 1px solid #c0c0c0;
+  height: 20px;
+  padding: 3px 8px 0 8px;
+  margin: -1px 0 -1px -5px;
+  display: inline-block;
+}
+div.chat_menu > a.active {
+  background-color: #eee;
+  border-bottom: 1px solid #eee;
+}
+div.chat_panels {
+  height: 325px;
+}
+div.chat_panels div.messages_container,
+div.chat_panels div.notes {
+  display: none;
+}
+div.chat_panels textarea {
+  resize: none;
+  height: calc(100% + 10px);
+  width: calc(100% - 12px);
+  padding: 0.5em;
+  border: none;
+  background-color: transparent;
+}
+div.chat_panels div.active {
+  display: block;
+  height: calc(100% - 22px);
+}
 .notification .message_infos,
 .notification .game_infos,
 div.side_box .game_infos {
