@@ -964,6 +964,7 @@ var storage = {
       if (self.options.messages.length > 0) self._appendMany(self.options.messages);
 
       // Toggle Notes/Chat display
+      var gameId = lichess.round.data.game.id || lichess.prelude.data.game.id || lichess.analyse.data.game.id;
       $panels = $('div.chat_panels > div');
       $('div.chat_menu').on('click', 'a', function() {
         var panel = $(this).data('panel');
@@ -974,10 +975,10 @@ var storage = {
       $notes = $('#notes');
 
       $notes.on('change', function() {
-        storage.set('notes', $notes.val());
+        storage.set('notes_'+gameId, $notes.val());
         console.log($notes.val());
       });
-      $notes.val(storage.get('notes') || 'Type notes here.');
+      $notes.val(storage.get('notes_'+gameId) || 'Type notes here.');
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));
