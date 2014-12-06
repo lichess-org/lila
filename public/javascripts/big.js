@@ -503,8 +503,6 @@ var storage = {
       var px = function(i) { return Math.round(i) + 'px'; };
 
       $boardWrap.css("width", px(512 * getZoom()));
-      $('.progress_bar_container').css("width", px(512 * getZoom()));
-      $('.underboard_content').css("margin-left", px((getZoom() - 1) * 250));
       $('.underboard').css("margin-left", px((getZoom() - 1) * 250));
       $('.lichess_game > .lichess_overboard').css("left", px(56 + (getZoom() - 1) * 254));
 
