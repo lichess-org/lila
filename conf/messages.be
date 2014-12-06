@@ -82,6 +82,7 @@ minutesPerSide=Хвілінаў на партыю
 variant=Варыянт
 timeControl=Абмежаваньне часу
 clock=Гадзіннік
+oneDay=Aдзін дзень
 time=Час
 username=Карыстальнік
 password=Пароль
