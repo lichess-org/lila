@@ -829,6 +829,9 @@ div.chat_menu > a.active {
 div.chat_panels {
   height: 325px;
 }
+body.is3d div.chat_panels {
+  height: 290px;
+}
 div.chat_panels div.messages_container,
 div.chat_panels div.notes {
   display: none;

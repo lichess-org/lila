@@ -533,7 +533,8 @@ var storage = {
     };
 
     var manuallySetZoom = $.fp.debounce(setZoom, 10);
-    setZoom(getZoom());// Instantiate the page's zoom
+    var initialZoom = getZoom();
+    if (initialZoom > 1) setZoom(initialZoom);// Instantiate the page's zoom
 
     $('.js_email').one('click', function() {
       var email = 'thibault.duplessis@gmail.com';
