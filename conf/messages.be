@@ -82,6 +82,7 @@ minutesPerSide=Хвілінаў на партыю
 variant=Варыянт
 timeControl=Абмежаваньне часу
 clock=Гадзіннік
+oneDay=Aдзін дзень
 nbDays=%s Дзён
 nbHours=%s Гадзін
 time=Час
