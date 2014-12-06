@@ -86,6 +86,7 @@ correspondence=Korešpondenčný šach
 daysPerTurn=Počet dní na ťah
 oneDay=Jeden deň
 nbDays=%s dní
+nbHours=%s hodín
 time=Čas
 username=Meno užívateľa
 password=Heslo

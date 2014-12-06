@@ -19,6 +19,7 @@ object ApplicationBuild extends Build {
       jgit, elastic4s, findbugs, RM, PRM,
       spray.caching, maxmind, prismic),
       scalacOptions := compilerOptions,
+      incOptions := incOptions.value.withNameHashing(true),
       // updateOptions := updateOptions.value.withCachedResolution(true),
       sources in doc in Compile := List(),
       TwirlKeys.templateImports ++= Seq(
