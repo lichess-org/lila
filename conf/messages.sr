@@ -86,6 +86,7 @@ correspondence=Коресподенције
 daysPerTurn=Дана по потезу
 oneDay=Један дан
 nbDays=%s дана
+nbHours=%s сати
 time=Време
 username=Корисничко име
 password=Лозинка
