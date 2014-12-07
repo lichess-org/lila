@@ -17,6 +17,7 @@ import actorApi.SocketStatus
 
 final class JsonView(
     chatApi: lila.chat.ChatApi,
+    noteApi: NoteApi,
     userJsonView: lila.user.JsonView,
     getSocketStatus: String => Fu[SocketStatus],
     canTakeback: Game => Fu[Boolean],
@@ -39,8 +40,9 @@ final class JsonView(
       getSocketStatus(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) zip
+      noteApi.get(pov.fullId) zip
       getPlayerChat(pov.game, playerUser) map {
-        case ((((initialFen, socket), opponentUser), takebackable), chat) =>
+        case (((((initialFen, socket), opponentUser), takebackable), note), chat) =>
           import pov._
           Json.obj(
             "game" -> Json.obj(
@@ -79,7 +81,8 @@ final class JsonView(
               "proposingTakeback" -> player.isProposingTakeback.option(true),
               "onGame" -> (player.isAi || socket.onGame(player.color)),
               "hold" -> (withBlurs option hold(player)),
-              "blurs" -> (withBlurs option blurs(game, player))
+              "blurs" -> (withBlurs option blurs(game, player)),
+              "note" -> note
             ).noNull,
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,

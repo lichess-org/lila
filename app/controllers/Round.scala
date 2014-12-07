@@ -130,6 +130,15 @@ object Round extends LilaController with TheftPrevention {
     OptionFuResult(GameRepo pov fullId) { side(_, true) }
   }
 
+  def writeNote(fullId: String) = OpenBody { implicit ctx =>
+    import play.api.data.Forms._
+    import play.api.data._
+    implicit val req = ctx.body
+    Form(single("text" -> text)).bindFromRequest.fold(
+      err => fuccess(BadRequest),
+      text => Env.round.noteApi.set(fullId, text))
+  }
+
   private def side(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
     pov.game.tournamentId ?? TournamentRepo.byId map { tour =>
       Ok(html.game.side(pov, tour, withTourStanding = isPlayer))

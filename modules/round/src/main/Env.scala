@@ -46,6 +46,7 @@ final class Env(
     val ActorName = config getString "actor.name"
     val CasualOnly = config getBoolean "casual_only"
     val ActiveTtl = config duration "active.ttl"
+    val CollectionNote = config getString "collection.note"
   }
   import settings._
 
@@ -150,11 +151,14 @@ final class Env(
 
   lazy val jsonView = new JsonView(
     chatApi = chatApi,
+    noteApi = noteApi,
     userJsonView = userJsonView,
     getSocketStatus = getSocketStatus,
     canTakeback = takebacker.isAllowedByPrefs,
     baseAnimationDuration = AnimationDuration,
     moretimeSeconds = Moretime.toSeconds.toInt)
+
+  lazy val noteApi = new NoteApi(db(CollectionNote))
 
   {
     import scala.concurrent.duration._
