@@ -26,6 +26,7 @@ object Mappings {
   val color = nonEmptyText.verifying(Color.names contains _)
   val level = number.verifying(AiConfig.levels contains _)
   val speed = number.verifying(Config.speeds contains _)
+  val speedWithCorrespondence = number.verifying(Config.speedsWithCorrespondence contains _)
   val fen = optional(nonEmptyText)
   val system = number.verifying(Config.systems contains _)
 }

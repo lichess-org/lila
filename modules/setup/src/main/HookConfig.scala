@@ -1,9 +1,9 @@
 package lila.setup
 
 import chess.{ Variant, Mode, Color => ChessColor }
-import lila.rating.RatingRange
 import lila.lobby.Color
 import lila.lobby.Hook
+import lila.rating.RatingRange
 import lila.user.User
 
 case class HookConfig(
@@ -32,16 +32,6 @@ case class HookConfig(
     blocking = blocking,
     sid = sid,
     ratingRange = ratingRange)
-
-  def encode = RawHookConfig(
-    v = variant.id,
-    tm = timeMode.id,
-    t = time,
-    i = increment,
-    d = days,
-    m = mode.id,
-    a = allowAnon,
-    e = ratingRange.toString)
 
   def noRatedUnlimited = mode.casual || hasClock || makeDaysPerTurn.isDefined
 }
@@ -74,59 +64,30 @@ object HookConfig extends BaseHumanConfig {
     ratingRange = RatingRange.default,
     color = Color.default)
 
-  import lila.db.JsTube
-  import play.api.libs.json._
+  import reactivemongo.bson._
+  import lila.db.BSON
 
-  private[setup] lazy val tube = JsTube(
-    reader = Reads[HookConfig](js =>
-      ~(for {
-        obj ← js.asOpt[JsObject]
-        raw ← RawHookConfig.tube.read(obj).asOpt
-        decoded ← raw.decode
-      } yield JsSuccess(decoded): JsResult[HookConfig])
-    ),
-    writer = Writes[HookConfig](config =>
-      RawHookConfig.tube.write(config.encode) getOrElse JsUndefined("[setup] Can't write config")
-    )
-  )
-}
+  private[setup] implicit val hookConfigBSONHandler = new BSON[HookConfig] {
 
-private[setup] case class RawHookConfig(
-    v: Int,
-    tm: Int,
-    t: Int,
-    i: Int,
-    d: Int,
-    m: Int,
-    a: Boolean,
-    e: String) {
+    def reads(r: BSON.Reader): HookConfig = HookConfig(
+      variant = Variant orDefault (r int "v"),
+      timeMode = TimeMode orDefault (r int "tm"),
+      time = r int "t",
+      increment = r int "i",
+      days = r int "d",
+      mode = Mode orDefault (r int "m"),
+      allowAnon = r bool "a",
+      color = Color.White,
+      ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default)
 
-  def decode = for {
-    variant ← Variant(v)
-    mode ← Mode(m)
-    ratingRange ← RatingRange(e)
-    timeMode <- TimeMode(tm)
-  } yield HookConfig(
-    variant = variant,
-    timeMode = timeMode,
-    time = t,
-    increment = i,
-    days = d,
-    mode = mode,
-    allowAnon = a,
-    ratingRange = ratingRange,
-    color = Color.White)
-}
-
-private[setup] object RawHookConfig {
-
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private[setup] lazy val tube = JsTube(
-    __.json update merge(defaults) andThen Json.reads[RawHookConfig],
-    Json.writes[RawHookConfig])
-
-  private def defaults = Json.obj("a" -> true)
+    def writes(w: BSON.Writer, o: HookConfig) = BSONDocument(
+      "v" -> o.variant.id,
+      "tm" -> o.timeMode.id,
+      "t" -> o.time,
+      "i" -> o.increment,
+      "d" -> o.days,
+      "m" -> o.mode.id,
+      "a" -> o.allowAnon,
+      "e" -> o.ratingRange.toString)
+  }
 }

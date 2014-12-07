@@ -33,15 +33,6 @@ case class AiConfig(
       daysPerTurn = makeDaysPerTurn,
       pgnImport = None)
   } start
-
-  def encode = RawAiConfig(
-    v = variant.id,
-    tm = timeMode.id,
-    t = time,
-    i = increment,
-    d = days,
-    l = level,
-    f = ~fen)
 }
 
 object AiConfig extends BaseConfig {
@@ -69,55 +60,28 @@ object AiConfig extends BaseConfig {
 
   val levelChoices = levels map { l => (l.toString, l.toString, none) }
 
-  import lila.db.JsTube
-  import play.api.libs.json._
+  import reactivemongo.bson._
+  import lila.db.BSON
 
-  private[setup] lazy val tube = JsTube(
-    reader = Reads[AiConfig](js =>
-      ~(for {
-        obj ← js.asOpt[JsObject]
-        raw ← RawAiConfig.tube.read(obj).asOpt
-        decoded ← raw.decode
-      } yield JsSuccess(decoded): JsResult[AiConfig])
-    ),
-    writer = Writes[AiConfig](config =>
-      RawAiConfig.tube.write(config.encode) getOrElse JsUndefined("[setup] Can't write config")
-    )
-  )
-}
+  private[setup] implicit val aiConfigBSONHandler = new BSON[AiConfig] {
 
-private[setup] case class RawAiConfig(
-    v: Int,
-    tm: Int,
-    t: Int,
-    i: Int,
-    d: Int,
-    l: Int,
-    f: String = "") {
+    def reads(r: BSON.Reader): AiConfig = AiConfig(
+      variant = Variant orDefault (r int "v"),
+      timeMode = TimeMode orDefault (r int "tm"),
+      time = r int "t",
+      increment = r int "i",
+      days = r int "d",
+      level = r int "l",
+      color = Color.White,
+      fen = r strO "f" filter (_.nonEmpty))
 
-  def decode = for {
-    variant ← Variant(v)
-    timeMode <- TimeMode(tm)
-  } yield AiConfig(
-    variant = variant,
-    timeMode = timeMode,
-    time = t,
-    increment = i,
-    days = d,
-    level = l,
-    color = Color.White,
-    fen = f.some filter (_.nonEmpty))
-}
-
-private[setup] object RawAiConfig {
-
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private def defaults = Json.obj("f" -> none[String])
-
-  private[setup] lazy val tube = JsTube(
-    reader = (__.json update merge(defaults)) andThen Json.reads[RawAiConfig],
-    writer = Json.writes[RawAiConfig])
+    def writes(w: BSON.Writer, o: AiConfig) = BSONDocument(
+      "v" -> o.variant.id,
+      "tm" -> o.timeMode.id,
+      "t" -> o.time,
+      "i" -> o.increment,
+      "d" -> o.days,
+      "l" -> o.level,
+      "f" -> o.fen)
+  }
 }
