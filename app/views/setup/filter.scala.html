@@ -11,7 +11,10 @@
   </tr>
   <tr>
     <td>@trans.timeControl()</td>
-    <td>@setup.filterCheckboxes(form, "speed", filter.speed.map(_.id.toString), translatedSpeedChoices)</td>
+    <td>
+      @setup.filterCheckboxes(form, "speed", filter.speed.map(lila.setup.FilterConfig.speedId).map(_.toString), translatedSpeedChoices)
+      @setup.filterCheckbox(form, "speed", 4, "99", filter.speed.map(lila.setup.FilterConfig.speedId).map(_.toString), trans.correspondence(), none)
+    </td>
   </tr>
   <tr>
     <td>@trans.mode()</td>

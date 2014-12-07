@@ -101,6 +101,8 @@ trait BaseConfig {
   val variantsWithFenAndVariants = variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id :+ Variant.FromPosition.id
 
   val speeds = Speed.all map (_.id)
+  val correspondenceSpeedId = 99
+  val speedsWithCorrespondence = speeds :+ correspondenceSpeedId
 
   private val timeMin = 0
   private val timeMax = 180
