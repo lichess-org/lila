@@ -976,8 +976,13 @@ var storage = {
 
       $notes = $('#notes');
 
-      var data = lichess.round.data || liches.analysis.data;
-
+      var data;
+      if (lichess.hasOwnProperty('analyse')) {
+        data = lichess.analyse.data;
+      } else {
+        data = lichess.round.data;
+      }
+      
       $notes.on('change keyup paste', $.fp.debounce(function() {
         $.post('/' + data.game.id + '/note', {text: $notes.val()});
       }, 1000));
