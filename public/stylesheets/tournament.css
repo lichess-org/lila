@@ -180,9 +180,7 @@
   overflow-y: hidden;
   border: 1px solid #ccc;
   padding: 3px;
-}
-#tournament_side:hover {
-  overflow-y: auto;
+  overflow: auto;
 }
 #tournament_side div.pairings {
   text-align: center;
