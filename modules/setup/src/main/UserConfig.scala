@@ -18,14 +18,6 @@ private[setup] case class UserConfig(
   def withFriend(c: FriendConfig) = copy(friend = c)
 
   def withHook(c: HookConfig) = copy(hook = c)
-
-  def encode = RawUserConfig(
-    id = id,
-    ai = ai.encode,
-    friend = friend.encode,
-    hook = hook.encode,
-    filter = filter.encode.some,
-    date = DateTime.now)
 }
 
 private[setup] object UserConfig {
@@ -37,57 +29,29 @@ private[setup] object UserConfig {
     hook = HookConfig.default,
     filter = FilterConfig.default)
 
-  import lila.db.JsTube
-  import play.api.libs.json._
+  import lila.db.{ BsTube, BSON }
+  import reactivemongo.bson._
+  import AiConfig.aiConfigBSONHandler
+  import FriendConfig.friendConfigBSONHandler
+  import HookConfig.hookConfigBSONHandler
+  import FilterConfig.filterConfigBSONHandler
 
-  private[setup] lazy val tube = JsTube(
-    reader = Reads[UserConfig](js =>
-      ~(for {
-        obj ← js.asOpt[JsObject]
-        raw ← RawUserConfig.tube.read(obj).asOpt
-        decoded ← raw.decode
-      } yield JsSuccess(decoded): JsResult[UserConfig])
-    ),
-    writer = Writes[UserConfig](config =>
-      RawUserConfig.tube.write(config.encode) getOrElse JsUndefined("[setup] Can't write config")
-    )
-  )
-}
+  private[setup] implicit val userConfigBSONHandler = new BSON[UserConfig] {
 
-private[setup] case class RawUserConfig(
-    id: String,
-    ai: RawAiConfig,
-    friend: RawFriendConfig,
-    hook: RawHookConfig,
-    filter: Option[RawFilterConfig],
-    date: DateTime) {
+    def reads(r: BSON.Reader): UserConfig = UserConfig(
+      id = r str "_id",
+      ai = r.getO[AiConfig]("ai") | AiConfig.default,
+      friend = r.getO[FriendConfig]("friend") | FriendConfig.default,
+      hook = r.getO[HookConfig]("hook") | HookConfig.default,
+      filter = r.getO[FilterConfig]("filter") | FilterConfig.default)
 
-  def decode: Option[UserConfig] = for {
-    trueAi ← ai.decode
-    trueFriend ← friend.decode
-    trueHook ← hook.decode
-    trueFilter = filter.flatMap(_.decode) | FilterConfig.default
-  } yield UserConfig(
-    id = id,
-    ai = trueAi,
-    friend = trueFriend,
-    hook = trueHook,
-    filter = trueFilter)
-}
+    def writes(w: BSON.Writer, o: UserConfig) = BSONDocument(
+      "_id" -> o.id,
+      "ai" -> o.ai,
+      "friend" -> o.friend,
+      "hook" -> o.hook,
+      "filter" -> o.filter)
+  }
 
-private[setup] object RawUserConfig {
-
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private implicit def aiTube = RawAiConfig.tube
-  private implicit def friendTube = RawFriendConfig.tube
-  private implicit def hookTube = RawHookConfig.tube
-  private implicit def filterTube = RawFilterConfig.tube
-
-  private[setup] lazy val tube = JsTube(
-    (__.json update readDate('date)) andThen Json.reads[RawUserConfig],
-    Json.writes[RawUserConfig] andThen (__.json update writeDate('date))
-  )
+  private[setup] val tube = BsTube(userConfigBSONHandler)
 }

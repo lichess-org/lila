@@ -30,15 +30,6 @@ case class FriendConfig(
       daysPerTurn = makeDaysPerTurn,
       pgnImport = None)
   }
-
-  def encode = RawFriendConfig(
-    v = variant.id,
-    tm = timeMode.id,
-    t = time,
-    i = increment,
-    d = days,
-    m = mode.id,
-    f = ~fen)
 }
 
 object FriendConfig extends BaseHumanConfig {
@@ -63,56 +54,28 @@ object FriendConfig extends BaseHumanConfig {
     mode = Mode.default,
     color = Color.default)
 
-  import lila.db.JsTube
-  import play.api.libs.json._
+  import reactivemongo.bson._
+  import lila.db.BSON
 
-  private[setup] lazy val tube = JsTube(
-    reader = Reads[FriendConfig](js =>
-      ~(for {
-        obj ← js.asOpt[JsObject]
-        raw ← RawFriendConfig.tube.read(obj).asOpt
-        decoded ← raw.decode
-      } yield JsSuccess(decoded): JsResult[FriendConfig])
-    ),
-    writer = Writes[FriendConfig](config =>
-      RawFriendConfig.tube.write(config.encode) getOrElse JsUndefined("[setup] Can't write config")
-    )
-  )
-}
+  private[setup] implicit val friendConfigBSONHandler = new BSON[FriendConfig] {
 
-private[setup] case class RawFriendConfig(
-    v: Int,
-    tm: Int,
-    t: Int,
-    i: Int,
-    d: Int,
-    m: Int,
-    f: String = "") {
+    def reads(r: BSON.Reader): FriendConfig = FriendConfig(
+      variant = Variant orDefault (r int "v"),
+      timeMode = TimeMode orDefault (r int "tm"),
+      time = r int "t",
+      increment = r int "i",
+      days = r int "d",
+      mode = Mode orDefault (r int "m"),
+      color = Color.White,
+      fen = r strO "f" filter (_.nonEmpty))
 
-  def decode = for {
-    variant ← Variant(v)
-    mode ← Mode(m)
-    timeMode <- TimeMode(tm)
-  } yield FriendConfig(
-    variant = variant,
-    timeMode = timeMode,
-    time = t,
-    increment = i,
-    days = d,
-    mode = mode,
-    color = Color.White,
-    fen = f.some filter (_.nonEmpty))
-}
-
-private[setup] object RawFriendConfig {
-
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private def defaults = Json.obj("f" -> none[String])
-
-  private[setup] lazy val tube = JsTube(
-    reader = (__.json update merge(defaults)) andThen Json.reads[RawFriendConfig],
-    writer = Json.writes[RawFriendConfig])
+    def writes(w: BSON.Writer, o: FriendConfig) = BSONDocument(
+      "v" -> o.variant.id,
+      "tm" -> o.timeMode.id,
+      "t" -> o.time,
+      "i" -> o.increment,
+      "d" -> o.days,
+      "m" -> o.mode.id,
+      "f" -> o.fen)
+  }
 }
