@@ -976,11 +976,12 @@ var storage = {
 
       $notes = $('#notes');
 
-      $notes.on('change', function() {
-        $.post({url: '/' + game.id + '/note', data:{text: $notes.val()}});
-      });
-      var noteText = lichess.round.data.note; //|| lichess.analysis.data.note || ''; // <- That makes it fail
-      $notes.val(noteText);
+      var data = lichess.round.data || liches.analysis.data;
+
+      $notes.on('change keyup paste', $.fp.debounce(function() {
+        $.post('/' + data.game.id + '/note', {text: $notes.val()});
+      }, 1000));
+      $notes.val(data.note || '');
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));
