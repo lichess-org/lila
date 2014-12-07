@@ -96,6 +96,8 @@ object BSON {
     def strsD(k: String) = getO[List[String]](k) getOrElse Nil
 
     def toList = doc.elements.toList
+
+    def debug = BSON debug doc
   }
 
   final class Writer {
