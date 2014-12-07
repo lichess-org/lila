@@ -13,15 +13,19 @@ import lila.user.User
 
 private[api] final class RoundApi(
     jsonView: JsonView,
+    noteApi: lila.round.NoteApi,
     analysisApi: AnalysisApi) {
 
   def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] =
     jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
       withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
-      (pov.game.tournamentId ?? TournamentRepo.byId) map {
-        case (json, tourOption) => blindMode {
+      (pov.game.tournamentId ?? TournamentRepo.byId) zip
+      (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
+        case ((json, tourOption), note) => blindMode {
           withTournament(tourOption) {
-            json
+            withNote(note) {
+              json
+            }
           }
         }
       }
@@ -31,15 +35,21 @@ private[api] final class RoundApi(
     initialFen: Option[Option[String]] = None)(implicit ctx: Context): Fu[JsObject] =
     jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
       withBlurs = ctx.me ?? Granter(_.ViewBlurs), initialFen = initialFen) zip
-      (pov.game.tournamentId ?? TournamentRepo.byId) map {
-        case (json, tourOption) => blindMode {
+      (pov.game.tournamentId ?? TournamentRepo.byId) zip
+      (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
+        case ((json, tourOption), note) => blindMode {
           withTournament(tourOption) {
             withAnalysis(analysis) {
-              json
+              withNote(note) {
+                json
+              }
             }
           }
         }
       }
+
+  private def withNote(note: String)(json: JsObject) =
+    if (note.isEmpty) json else json + ("note" -> JsString(note))
 
   private def withAnalysis(a: Option[(Pgn, Analysis)])(json: JsObject) = a.fold(json) {
     case (pgn, analysis) => json + ("analysis" -> Json.obj(
