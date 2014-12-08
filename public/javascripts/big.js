@@ -975,18 +975,15 @@ var storage = {
       }).find('a:first').click();
 
       $notes = $('#notes');
-
-      var data;
-      if (lichess.hasOwnProperty('analyse')) {
-        data = lichess.analyse.data;
-      } else {
-        data = lichess.round.data;
-      }
       
-      $notes.on('change keyup paste', $.fp.debounce(function() {
-        $.post('/' + data.game.id + '/note', {text: $notes.val()});
-      }, 1000));
-      $notes.val(data.note || '');
+      var data = lichess.analyse ? lichess.analyse.data : (lichess.round? lichess.round.data : false);
+
+      if (data) {
+        $notes.on('change keyup paste', $.fp.debounce(function() {
+          $.post('/' + data.game.id + '/note', {text: $notes.val()});
+        }, 1000));
+        $notes.val(data.note || '');
+      }      
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));
