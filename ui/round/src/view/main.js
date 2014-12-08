@@ -12,7 +12,7 @@ var keyboard = require('../replay/keyboard');
 function renderMaterial(ctrl, material) {
   var children = [];
   for (var role in material) {
-    var piece = m('div.grave', m('div.mono-piece.' + role));
+    var piece = m('div.mono-piece.' + role);
     var count = material[role];
     var content;
     if (count === 1) content = piece;
