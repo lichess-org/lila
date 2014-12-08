@@ -576,6 +576,7 @@ var storage = {
       var $p = $this.parent();
       $this.click(function() {
         $p.toggleClass('shown');
+        $p.siblings('.shown').removeClass('shown');
         setTimeout(function() {
           $p.click(function(e) {
             e.stopPropagation();
