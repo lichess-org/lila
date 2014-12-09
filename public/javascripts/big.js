@@ -767,7 +767,9 @@ var storage = {
   function startRound(element, cfg) {
     var data = cfg.data;
     if (data.chat) $('#chat').chat({
-      messages: data.chat
+      messages: data.chat,
+      initialNote: data.note,
+      gameId: data.game.id
     });
     var $watchers = $('#site_header div.watchers').watchers();
     var round;
@@ -925,7 +927,9 @@ var storage = {
   $.widget("lichess.chat", {
     _create: function() {
       this.options = $.extend({
-        messages: []
+        messages: [],
+        initialNote: '',
+        gameId: null
       }, this.options);
       var self = this;
       self.$msgs = self.element.find('.messages');
@@ -977,16 +981,13 @@ var storage = {
       }).find('a:first').click();
 
       $notes = self.element.find('.notes textarea');
-
-      var data = lichess.analyse ? lichess.analyse.data : (lichess.round ? lichess.round.data : false);
-
-      if (data) {
+      if (self.options.gameId && $notes.length) {
         $notes.on('change keyup paste', $.fp.debounce(function() {
-          $.post('/' + data.game.id + '/note', {
+          $.post('/' + self.options.gameId + '/note', {
             text: $notes.val()
           });
         }, 1000));
-        $notes.val(data.note || '');
+        $notes.val(self.options.initialNote || '');
       }
     },
     append: function(msg) {
@@ -2003,7 +2004,9 @@ var storage = {
   function startAnalyse(element, cfg) {
     var data = cfg.data;
     if (data.chat) $('#chat').chat({
-      messages: data.chat
+      messages: data.chat,
+      initialNote: data.note,
+      gameId: data.game.id
     });
     var $watchers = $('#site_header div.watchers').watchers();
     var analyse, $panels;
