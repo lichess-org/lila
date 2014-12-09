@@ -934,6 +934,7 @@ var storage = {
       });
       var $form = self.element.find('form');
       var $input = self.element.find('input.lichess_say');
+      var $menu = self.element.siblings('.chat_menu');
 
       // send a message
       $form.submit(function() {
@@ -954,7 +955,7 @@ var storage = {
       });
 
       // toggle the chat
-      var $toggle = self.element.parent().find('input.toggle_chat');
+      var $toggle = $menu.find('input.toggle_chat');
       $toggle.change(function() {
         var enabled = $toggle.is(':checked');
         self.element.toggleClass('hidden', !enabled);
@@ -968,14 +969,14 @@ var storage = {
       if (self.options.messages.length > 0) self._appendMany(self.options.messages);
 
       // Toggle Notes/Chat display
-      $panels = $('div.chat_panels > div');
-      $('div.chat_menu').on('click', 'a', function() {
+      $panels = self.element.find('div.chat_panels > div');
+      $menu.on('click', 'a', function() {
         var panel = $(this).data('panel');
         $(this).siblings('.active').removeClass('active').end().addClass('active');
         $panels.removeClass('active').filter('.' + panel).addClass('active');
       }).find('a:first').click();
 
-      $notes = $('#notes');
+      $notes = self.element.find('.notes textarea');
 
       var data = lichess.analyse ? lichess.analyse.data : (lichess.round ? lichess.round.data : false);
 
