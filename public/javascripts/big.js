@@ -536,11 +536,6 @@ var storage = {
     var initialZoom = getZoom();
     if (initialZoom > 1) setZoom(initialZoom); // Instantiate the page's zoom
 
-    $('.js_email').one('click', function() {
-      var email = 'thibault.duplessis@gmail.com';
-      $(this).replaceWith($('<a/>').text(email).attr('href', 'mailto:' + email));
-    });
-
     function translateTexts() {
       $('.trans_me').each(function() {
         $(this).removeClass('trans_me');
