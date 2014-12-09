@@ -938,7 +938,7 @@ var storage = {
       });
       var $form = self.element.find('form');
       var $input = self.element.find('input.lichess_say');
-      var $menu = self.element.siblings('.chat_menu');
+      var $parent = self.element.parent();
 
       // send a message
       $form.submit(function() {
@@ -959,7 +959,7 @@ var storage = {
       });
 
       // toggle the chat
-      var $toggle = $menu.find('input.toggle_chat');
+      var $toggle = $parent.find('input.toggle_chat');
       $toggle.change(function() {
         var enabled = $toggle.is(':checked');
         self.element.toggleClass('hidden', !enabled);
@@ -974,7 +974,7 @@ var storage = {
 
       // Toggle Notes/Chat display
       $panels = self.element.find('div.chat_panels > div');
-      $menu.on('click', 'a', function() {
+      $parent.on('click', 'a', function() {
         var panel = $(this).data('panel');
         $(this).siblings('.active').removeClass('active').end().addClass('active');
         $panels.removeClass('active').filter('.' + panel).addClass('active');
