@@ -954,7 +954,7 @@ var storage = {
       });
 
       // toggle the chat
-      var $toggle = $('input.toggle_chat');
+      var $toggle = self.element.parent().find('input.toggle_chat');
       $toggle.change(function() {
         var enabled = $toggle.is(':checked');
         self.element.toggleClass('hidden', !enabled);
