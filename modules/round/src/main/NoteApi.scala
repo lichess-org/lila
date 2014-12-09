@@ -11,10 +11,13 @@ final class NoteApi(coll: Coll) {
       _ flatMap (_.getAs[String]("t")) getOrElse ""
     }
 
-  def set(gameId: String, userId: String, text: String) = coll.update(
-    BSONDocument("_id" -> makeId(gameId, userId)),
-    BSONDocument("$set" -> BSONDocument("t" -> text)),
-    upsert = true).void
+  def set(gameId: String, userId: String, text: String) = {
+    if (text.isEmpty) coll.remove(BSONDocument("_id" -> makeId(gameId, userId)))
+    else coll.update(
+      BSONDocument("_id" -> makeId(gameId, userId)),
+      BSONDocument("$set" -> BSONDocument("t" -> text)),
+      upsert = true)
+  }.void
 
   private def makeId(gameId: String, userId: String) = s"$gameId$userId"
 }

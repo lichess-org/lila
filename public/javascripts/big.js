@@ -974,7 +974,7 @@ var storage = {
 
       // Toggle Notes/Chat display
       $panels = self.element.find('div.chat_panels > div');
-      $parent.on('click', 'a', function() {
+      $parent.find('.chat_menu').on('click', 'a', function() {
         var panel = $(this).data('panel');
         $(this).siblings('.active').removeClass('active').end().addClass('active');
         $panels.removeClass('active').filter('.' + panel).addClass('active');
