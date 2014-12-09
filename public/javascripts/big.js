@@ -515,7 +515,7 @@ var storage = {
           paddingTop: px(50 * (getZoom() - 1))
         });
         $('#tv_history > .content').css("height", px(250 + 540 * (getZoom() - 1)));
-        $('.chat_panels').css("height", px(290 + 529*(getZoom() - 1)));
+        $('.chat_panels').css("height", px(290 + 529 * (getZoom() - 1)));
       } else {
         $boardWrap.css("height", px(512 * getZoom()));
         $lichessGame.css({
@@ -523,7 +523,7 @@ var storage = {
           paddingTop: px(0)
         });
         $('#tv_history > .content').css("height", px(270 + 525 * (getZoom() - 1)));
-        $('.chat_panels').css("height", px(325 + 510*(getZoom() - 1)));
+        $('.chat_panels').css("height", px(325 + 510 * (getZoom() - 1)));
       }
 
       if ($lichessGame.length) {
@@ -534,7 +534,7 @@ var storage = {
 
     var manuallySetZoom = $.fp.debounce(setZoom, 10);
     var initialZoom = getZoom();
-    if (initialZoom > 1) setZoom(initialZoom);// Instantiate the page's zoom
+    if (initialZoom > 1) setZoom(initialZoom); // Instantiate the page's zoom
 
     $('.js_email').one('click', function() {
       var email = 'thibault.duplessis@gmail.com';
@@ -976,15 +976,17 @@ var storage = {
       }).find('a:first').click();
 
       $notes = $('#notes');
-      
-      var data = lichess.analyse ? lichess.analyse.data : (lichess.round? lichess.round.data : false);
+
+      var data = lichess.analyse ? lichess.analyse.data : (lichess.round ? lichess.round.data : false);
 
       if (data) {
         $notes.on('change keyup paste', $.fp.debounce(function() {
-          $.post('/' + data.game.id + '/note', {text: $notes.val()});
+          $.post('/' + data.game.id + '/note', {
+            text: $notes.val()
+          });
         }, 1000));
         $notes.val(data.note || '');
-      }      
+      }
     },
     append: function(msg) {
       this._appendHtml(this._render(msg));
