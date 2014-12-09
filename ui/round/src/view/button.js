@@ -78,7 +78,7 @@ module.exports = {
   },
   rematch: function(ctrl) {
     if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament) {
-      if (ctrl.data.opponent.onGame) {
+      if (ctrl.data.opponent.onGame || ctrl.data.game.perf === 'correspondence') {
         return m('a.button.hint--bottom', {
           'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
           onclick: partial(ctrl.socket.send, 'rematch-yes', null)
