@@ -3,6 +3,7 @@ package controllers
 import play.api.mvc.Action
 
 import lila.app._
+import lila.common.HTTPRequest
 import lila.game.{ Game => GameModel, GameRepo }
 import play.api.http.ContentTypes
 import views._
@@ -16,7 +17,8 @@ object Game extends LilaController with BaseGame {
   def searchForm = searchEnv.forms.search
 
   def search(page: Int) = OpenBody { implicit ctx =>
-    Reasonable(page, 100) {
+    if (HTTPRequest.isBot(ctx.req)) notFound
+    else Reasonable(page, 100) {
       implicit def req = ctx.body
       makeListMenu flatMap { listMenu =>
         searchForm.bindFromRequest.fold(

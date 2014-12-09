@@ -1328,12 +1328,8 @@ div.cemetery .tomb {
   display: inline-block;
   margin-left: 10px;
 }
-div.cemetery .grave {
+div.cemetery .mono-piece {
   margin-left: -10px;
-  width: 32px;
-  height: 32px;
-  position: relative;
-  display: inline-block;
 }
 div.under_chat {
   width: 228px;

@@ -1,13 +1,6 @@
 var m = require('mithril');
 var game = require('../game');
 
-function getPlayerRating(ctrl, player) {
-  if (player.user) {
-    var perf = player.user.perfs[ctrl.game.perf];
-    if (perf) return perf.rating;
-  }
-}
-
 function ratingDiff(player) {
   if (typeof player.ratingDiff === 'undefined') return null;
   if (player.ratingDiff === 0) return m('span.rp.null', 0);
