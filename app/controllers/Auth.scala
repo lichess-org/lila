@@ -80,20 +80,4 @@ object Auth extends LilaController {
       }
     )
   }
-
-  def newPassword = AuthBody { implicit ctx =>
-    me =>
-      if (!me.artificial) fuccess(Redirect(routes.Lobby.home))
-      else {
-        implicit val req = ctx.body
-        forms.newPassword.bindFromRequest.fold(
-          err => fuccess {
-            BadRequest(html.auth.artificialPassword(me, err))
-          },
-          pass => UserRepo.artificialSetPassword(me.id, pass) map { _ =>
-            Redirect(routes.Lobby.home)
-          }
-        )
-      }
-  }
 }

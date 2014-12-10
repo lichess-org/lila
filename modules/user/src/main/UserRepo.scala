@@ -215,7 +215,6 @@ trait UserRepo {
   def updateTroll(user: User) = $update.field(user.id, "troll", user.troll)
 
   def isEngine(id: ID): Fu[Boolean] = $count.exists($select(id) ++ engineSelect(true))
-  def isArtificial(id: ID): Fu[Boolean] = $count.exists($select(id) ++ Json.obj("artificial" -> true))
 
   def setRoles(id: ID, roles: List[String]) = $update.field(id, "roles", roles)
 
@@ -284,9 +283,6 @@ trait UserRepo {
         if (blind) BSONDocument("blind" -> true) else BSONDocument()
       }
   }
-
-  def artificialSetPassword(id: String, password: String) =
-    passwd(id, password) >> $update($select(id), $unset("artificial") ++ $set("enabled" -> true))
 
   private def hash(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha1
   private def hash512(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha512
