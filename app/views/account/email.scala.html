@@ -1,29 +1,30 @@
 @(u: User, form: Form[_], ok: Option[Boolean] = None)(implicit ctx: Context)
 
-@title = @{ s"${u.username} - ${trans.changePassword.str()}" }
+@title = @{ s"${u.username} - ${trans.changeEmail.str()}" }
 
 @evenMoreCss = {
 @cssTag("user-form.css")
 }
 
-@account.layout(title = title, active = "password") {
+@account.layout(title = title, active = "email") {
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lichess_title">
-      @trans.changePassword()
+      @trans.changeEmail()
       @ok.map {
       case true => {<span class="is-green" data-icon="E"></span>}
       case false => {<span class="is-red" data-icon="L"></span>}
       }
     </h1>
-    <form action="@routes.Account.passwdApply" method="POST">
+    <p>@trans.emailIsOptional()</p>
+    <form action="@routes.Account.emailApply" method="POST">
       <ul>
-        @account.passwdFormField(form("oldPasswd"), "Current password")
-        @account.passwdFormField(form("newPasswd1"), "New password")
-        @account.passwdFormField(form("newPasswd2"), "New password (again)")
-        <li>
-          @errMsg(form)
+        <li class="field">
+          <label for="@form("email").id">@trans.email()</label>
+          <input type="email" value="@form("email").value" name="@form("email").name" id="@form("email").id" />
         </li>
+        @account.passwdFormField(form("passwd"), trans.password.str())
+        <li>@errMsg(form)</li>
         <li>
           <button type="submit" class="submit button" data-icon="E">
             @trans.apply()

@@ -37,5 +37,12 @@ object DataForm {
       _.samePasswords
     ))
 
+  case class Email(email: String, passwd: String)
+
+  val email = Form(mapping(
+    "email" -> Forms.email,
+    "passwd" -> nonEmptyText
+  )(Email.apply)(Email.unapply))
+
   val title = Form(single("title" -> optional(nonEmptyText)))
 }

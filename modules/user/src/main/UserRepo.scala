@@ -232,6 +232,8 @@ trait UserRepo {
       }
     }
 
+  def email(id: ID, email: String): Funit = $update.field(id, "email", email)
+
   def setSeenAt(id: ID) {
     $update.fieldUnchecked(id, "seenAt", $date(DateTime.now))
   }
