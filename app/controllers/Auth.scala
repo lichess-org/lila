@@ -87,5 +87,21 @@ object Auth extends LilaController {
     }
   }
 
-  def passwordResetApply = TODO
+  def passwordResetApply = OpenBody { implicit ctx =>
+    implicit val req = ctx.body
+    forms.passwordReset.bindFromRequest.fold(
+      err => forms.anyCaptcha map { captcha =>
+        BadRequest(html.auth.passwordReset(err, captcha))
+      },
+      data => UserRepo byEmail data.email flatten s"No such user: ${data.email}" flatMap { user =>
+        Env.security.passwordReset(user, data.email) inject Redirect(routes.Auth.passwordResetSent(data.email))
+      }
+    )
+  }
+
+  def passwordResetSent(email: String) = Open { implicit ctx =>
+    fuccess {
+      Ok(html.auth.passwordResetSent(email))
+    }
+  }
 }

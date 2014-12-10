@@ -26,6 +26,10 @@ final class Env(
     val FloodDuration = config duration "flood.duration"
     val GeoIPFile = config getString "geoip.file"
     val GeoIPCacheSize = config getInt "geoip.cache_size"
+    val MailgunApiUrl = config getString "mailgun.api.url"
+    val MailgunApiKey = config getString "mailgun.api.key"
+    val MailgunSender = config getString "mailgun.sender"
+    val MailgunBaseUrl = config getString "mailgun.base_url"
   }
   import settings._
 
@@ -49,6 +53,12 @@ final class Env(
   lazy val userSpy = UserSpy(firewall, geoIP) _
 
   lazy val disconnect = Store disconnect _
+
+  lazy val passwordReset = new PasswordReset(
+    apiUrl = MailgunApiUrl,
+    apiKey = MailgunApiKey,
+    sender = MailgunSender,
+    baseUrl = MailgunBaseUrl)
 
   def cli = new Cli
 

@@ -117,6 +117,7 @@ object User {
     val lang = "lang"
     val title = "title"
     def glicko(perf: String) = s"$perfs.$perf.gl"
+    val email = "email"
   }
 
   import lila.db.BSON

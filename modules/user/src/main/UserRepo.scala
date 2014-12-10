@@ -42,6 +42,8 @@ trait UserRepo {
 
   def byIds(ids: Iterable[ID]): Fu[List[User]] = $find byIds ids
 
+  def byEmail(email: String): Fu[Option[User]] = $find one Json.obj(F.email -> email)
+
   def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =
     $find byIds List(x, y).flatten map { users =>
       x.??(xx => users.find(_.id == xx)) ->
