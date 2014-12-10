@@ -32,6 +32,16 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
 
   def signupWithCaptcha = withCaptcha(signup)
 
+  val passwordReset = Form(mapping(
+    "email" -> Forms.email,
+    "gameId" -> nonEmptyText,
+    "move" -> nonEmptyText
+  )(PasswordReset.apply)(_ => None)
+    .verifying(captchaFailMessage, validateCaptcha _)
+  )
+
+  def passwordResetWithCaptcha = withCaptcha(passwordReset)
+
   val newPassword = Form(single(
     "password" -> text(minLength = 4)
   ))
@@ -73,6 +83,11 @@ object DataForm {
   case class SignupData(
     username: String,
     password: String,
+    gameId: String,
+    move: String)
+
+  case class PasswordReset(
+    email: String,
     gameId: String,
     move: String)
 }

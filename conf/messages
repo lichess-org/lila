@@ -96,6 +96,7 @@ changePassword=Change password
 changeEmail=Change email
 email=Email
 emailIsOptional=Email is optional. Lichess will use to reset your password if you forget it.
+passwordReset=Password reset
 learnMoreAboutLichess=Learn more about Lichess
 rank=Rank
 gamesPlayed=Games played

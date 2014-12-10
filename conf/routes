@@ -178,6 +178,8 @@ POST  /login                           controllers.Auth.authenticate
 GET   /logout                          controllers.Auth.logout
 GET   /signup                          controllers.Auth.signup
 POST  /signup                          controllers.Auth.signupPost
+GET   /password-reset                  controllers.Auth.passwordReset
+POST  /password-reset                  controllers.Auth.passwordResetApply
 
 # Mod
 POST  /mod/:username/engine            controllers.Mod.engine(username: String)
