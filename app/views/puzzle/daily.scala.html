@@ -1,7 +1,7 @@
 @(p: lila.puzzle.Puzzle, fen: String, lastMove: String)
 
 <a href="@routes.Puzzle.show(p.id)"
-  class="mini_board parse_fen"
+  class="mini_board parse_fen is2d"
   data-color="@p.color"
   data-fen="@fen"
   data-lastmove="@lastMove">@miniBoardContent</a>

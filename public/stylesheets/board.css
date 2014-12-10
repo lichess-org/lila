@@ -28,237 +28,202 @@ div.lichess_game div.lichess_ground {
 div.lichess_board {
   position: relative;
 }
-.is2d.blue .cg-board,
+
+/* 3D boards */
+
+.Black-White-Aluminium .is3d .cg-board-wrap,
+#top .is3d .Black-White-Aluminium {
+  background-image: url(../staunton/Boards/Scaled/1024/Black-White-Aluminium.png);
+}
+.Brushed-Aluminium .is3d .cg-board-wrap,
+#top .is3d .Brushed-Aluminium {
+  background-image: url(../staunton/Boards/Scaled/1024/Brushed-Aluminium.png);
+}
+.China-Blue .is3d .cg-board-wrap,
+#top .is3d .China-Blue {
+  background-image: url(../staunton/Boards/Scaled/1024/China-Blue.png);
+}
+.China-Green .is3d .cg-board-wrap,
+#top .is3d .China-Green {
+  background-image: url(../staunton/Boards/Scaled/1024/China-Green.png);
+}
+.China-Grey .is3d .cg-board-wrap,
+#top .is3d .China-Grey {
+  background-image: url(../staunton/Boards/Scaled/1024/China-Grey.png);
+}
+.China-Scarlet .is3d .cg-board-wrap,
+#top .is3d .China-Scarlet {
+  background-image: url(../staunton/Boards/Scaled/1024/China-Scarlet.png);
+}
+.China-Yellow .is3d .cg-board-wrap,
+#top .is3d .China-Yellow {
+  background-image: url(../staunton/Boards/Scaled/1024/China-Yellow.png);
+}
+.Classic-Blue .is3d .cg-board-wrap,
+#top .is3d .Classic-Blue {
+  background-image: url(../staunton/Boards/Scaled/1024/Classic-Blue.png);
+}
+.Transparent-Glass .is3d .cg-board-wrap,
+#top .is3d .Transparent-Glass {
+  background-image: url(../staunton/Boards/Scaled/1024/Glass.png);
+}
+.Gold-Silver .is3d .cg-board-wrap,
+#top .is3d .Gold-Silver {
+  background-image: url(../staunton/Boards/Scaled/1024/Gold-Silver.png);
+}
+.Green-Glass .is3d .cg-board-wrap,
+#top .is3d .Green-Glass {
+  background-image: url(../staunton/Boards/Scaled/1024/Green-Glass.png);
+}
+.Light-Wood .is3d .cg-board-wrap,
+#top .is3d .Light-Wood {
+  background-image: url(../staunton/Boards/Scaled/1024/Light-Wood.png);
+}
+.Power-Coated .is3d .cg-board-wrap,
+#top .is3d .Power-Coated {
+  background-image: url(../staunton/Boards/Scaled/1024/Power-Coated.png);
+}
+.Purple-Black .is3d .cg-board-wrap,
+#top .is3d .Purple-Black {
+  background-image: url(../staunton/Boards/Scaled/1024/Purple-Black.png);
+}
+.Rosewood .is3d .cg-board-wrap,
+#top .is3d .Rosewood {
+  background-image: url(../staunton/Boards/Scaled/1024/Rosewood.png);
+}
+.Wood-Glass .is3d .cg-board-wrap,
+#top .is3d .Wood-Glass {
+  background-image: url(../staunton/Boards/Scaled/1024/Wood-Glass.png);
+}
+.Wax .is3d .cg-board-wrap,
+#top .is3d .Wax {
+  background-image: url(../staunton/Boards/Scaled/1024/Wax.png);
+}
+.Jade .is3d .cg-board-wrap,
+#top .is3d .Jade {
+  background-image: url(../staunton/Boards/Scaled/1024/Jade.png);
+}
+.Marble .is3d .cg-board-wrap,
+#top .is3d .Marble {
+  background-image: url(../images/board/3d/marble.1024.png);
+}
+.Woodi .is3d .cg-board-wrap,
+#top .is3d .Woodi {
+  background-image: url(../images/board/3d/woodi.1024.png);
+}
+
+/* 3D boards */
+
+.blue .is2d .cg-board,
 #top div.color_demo.blue {
   background-image: url(../images/board/blue.png);
 }
-.is2d.blue2 .cg-board,
+.blue2 .is2d .cg-board,
 #top div.color_demo.blue2 {
   background-image: url(../images/board/blue2.jpg);
 }
-.is2d.wood2 .cg-board,
+.wood2 .is2d .cg-board,
 #top div.color_demo.wood2 {
   background-image: url(../images/board/wood2.jpg);
 }
-.is2d.wood3 .cg-board,
+.wood3 .is2d .cg-board,
 #top div.color_demo.wood3 {
   background-image: url(../images/board/wood3.jpg);
 }
-.is2d.blue3 .cg-board,
+.blue3 .is2d .cg-board,
 #top div.color_demo.blue3 {
   background-image: url(../images/board/blue3.jpg);
 }
-.is2d.marble .cg-board,
+.marble .is2d .cg-board,
 #top div.color_demo.marble {
   background-image: url(../images/board/marble.jpg);
 }
-.is2d.brown .cg-board,
+.brown .is2d .cg-board,
 #top div.color_demo.brown {
   background-image: url(../images/board/brown.png);
 }
-.is2d.green .cg-board,
+.green .is2d .cg-board,
 #top div.color_demo.green {
   background-image: url(../images/board/green.png);
 }
-.is2d.olive .cg-board,
+.olive .is2d .cg-board,
 #top div.color_demo.olive {
   background-image: url(../images/board/olive.jpg);
 }
-.is2d.purple .cg-board,
+.purple .is2d .cg-board,
 #top div.color_demo.purple {
   background-image: url(../images/board/purple.png);
 }
-.is2d.grey .cg-board,
+.grey .is2d .cg-board,
 #top div.color_demo.grey {
   background-image: url(../images/board/grey.jpg);
 }
-.is2d.wood .cg-board,
+.wood .is2d .cg-board,
 #top div.color_demo.wood {
   background-image: url(../images/board/wood-1024.jpg);
 }
-.is2d.canvas .cg-board,
+.canvas .is2d .cg-board,
 #top div.color_demo.canvas {
   background-image: url(../images/board/canvas2-1024.jpg);
 }
-.is2d.leather .cg-board,
+.leather .is2d .cg-board,
 #top div.color_demo.leather {
   background-image: url(../images/board/leather-1024.jpg);
 }
-.is2d.metal .cg-board,
+.metal .is2d .cg-board,
 #top div.color_demo.metal {
   background-image: url(../images/board/metal-1024.jpg);
 }
 /* KotH boards */
 
-.is2d.blue .kingOfTheHill .cg-board {
+.blue .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/blue.jpg);
 }
-.is2d.blue2 .kingOfTheHill .cg-board {
+.blue2 .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/blue2.jpg);
 }
-.is2d.blue3 .kingOfTheHill .cg-board {
+.blue3 .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/blue3.jpg);
 }
-.is2d.wood2 .kingOfTheHill .cg-board {
+.wood2 .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/wood2.jpg);
 }
-.is2d.wood3 .kingOfTheHill .cg-board {
+.wood3 .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/wood3.jpg);
 }
-.is2d.marble .kingOfTheHill .cg-board {
+.marble .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/marble.jpg);
 }
-.is2d.brown .kingOfTheHill .cg-board {
+.brown .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/brown.jpg);
 }
-.is2d.green .kingOfTheHill .cg-board {
+.green .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/green.jpg);
 }
-.is2d.olive .kingOfTheHill .cg-board {
+.olive .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/olive.jpg);
 }
-.is2d.purple .kingOfTheHill .cg-board {
+.purple .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/purple.jpg);
 }
-.is2d.grey .kingOfTheHill .cg-board {
+.grey .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/grey.jpg);
 }
-.is2d.wood .kingOfTheHill .cg-board {
+.wood .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/wood.jpg);
 }
-.is2d.canvas .kingOfTheHill .cg-board {
+.canvas .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/canvas.jpg);
 }
-.is2d.leather .kingOfTheHill .cg-board {
+.leather .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/leather.jpg);
 }
-.is2d.metal .kingOfTheHill .cg-board {
+.metal .is2d .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/metal.jpg);
-}
-
-/* 3D boards */
-
-.is3d.Black-White-Aluminium .cg-board-wrap,
-#top .is3d .Black-White-Aluminium {
-  background-image: url(../staunton/Boards/Scaled/1024/Black-White-Aluminium.png);
-}
-.is3d.Brushed-Aluminium .cg-board-wrap,
-#top .is3d .Brushed-Aluminium {
-  background-image: url(../staunton/Boards/Scaled/1024/Brushed-Aluminium.png);
-}
-.is3d.China-Blue .cg-board-wrap,
-#top .is3d .China-Blue {
-  background-image: url(../staunton/Boards/Scaled/1024/China-Blue.png);
-}
-.is3d.China-Green .cg-board-wrap,
-#top .is3d .China-Green {
-  background-image: url(../staunton/Boards/Scaled/1024/China-Green.png);
-}
-.is3d.China-Grey .cg-board-wrap,
-#top .is3d .China-Grey {
-  background-image: url(../staunton/Boards/Scaled/1024/China-Grey.png);
-}
-.is3d.China-Scarlet .cg-board-wrap,
-#top .is3d .China-Scarlet {
-  background-image: url(../staunton/Boards/Scaled/1024/China-Scarlet.png);
-}
-.is3d.China-Yellow .cg-board-wrap,
-#top .is3d .China-Yellow {
-  background-image: url(../staunton/Boards/Scaled/1024/China-Yellow.png);
-}
-.is3d.Classic-Blue .cg-board-wrap,
-#top .is3d .Classic-Blue {
-  background-image: url(../staunton/Boards/Scaled/1024/Classic-Blue.png);
-}
-.is3d.Transparent-Glass .cg-board-wrap,
-#top .is3d .Transparent-Glass {
-  background-image: url(../staunton/Boards/Scaled/1024/Glass.png);
-}
-.is3d.Gold-Silver .cg-board-wrap,
-#top .is3d .Gold-Silver {
-  background-image: url(../staunton/Boards/Scaled/1024/Gold-Silver.png);
-}
-.is3d.Green-Glass .cg-board-wrap,
-#top .is3d .Green-Glass {
-  background-image: url(../staunton/Boards/Scaled/1024/Green-Glass.png);
-}
-.is3d.Light-Wood .cg-board-wrap,
-#top .is3d .Light-Wood {
-  background-image: url(../staunton/Boards/Scaled/1024/Light-Wood.png);
-}
-.is3d.Power-Coated .cg-board-wrap,
-#top .is3d .Power-Coated {
-  background-image: url(../staunton/Boards/Scaled/1024/Power-Coated.png);
-}
-.is3d.Purple-Black .cg-board-wrap,
-#top .is3d .Purple-Black {
-  background-image: url(../staunton/Boards/Scaled/1024/Purple-Black.png);
-}
-.is3d.Rosewood .cg-board-wrap,
-#top .is3d .Rosewood {
-  background-image: url(../staunton/Boards/Scaled/1024/Rosewood.png);
-}
-.is3d.Wood-Glass .cg-board-wrap,
-#top .is3d .Wood-Glass {
-  background-image: url(../staunton/Boards/Scaled/1024/Wood-Glass.png);
-}
-.is3d.Wax .cg-board-wrap,
-#top .is3d .Wax {
-  background-image: url(../staunton/Boards/Scaled/1024/Wax.png);
-}
-.is3d.Jade .cg-board-wrap,
-#top .is3d .Jade {
-  background-image: url(../staunton/Boards/Scaled/1024/Jade.png);
-}
-.is3d.Marble .cg-board-wrap,
-#top .is3d .Marble {
-  background-image: url(../images/board/3d/marble.1024.png);
-}
-.is3d.Woodi .cg-board-wrap,
-#top .is3d .Woodi {
-  background-image: url(../images/board/3d/woodi.1024.png);
 }
 
 .is2d .cg-board-wrap.minimal-dom {
   background: none;
-}
-
-.is2d.cburnett .cg-piece.pawn.white {
-  background-image: url(../piece/cburnett/wP.svg);
-}
-.is2d.cburnett .cg-piece.bishop.white {
-  background-image: url(../piece/cburnett/wB.svg);
-}
-.is2d.cburnett .cg-piece.knight.white,
-#top .cg-piece.cburnett {
-  background-image: url(../piece/cburnett/wN.svg);
-}
-.is2d.cburnett .cg-piece.rook.white {
-  background-image: url(../piece/cburnett/wR.svg);
-}
-.is2d.cburnett .cg-piece.queen.white {
-  background-image: url(../piece/cburnett/wQ.svg);
-}
-.is2d.cburnett .cg-piece.king.white {
-  background-image: url(../piece/cburnett/wK.svg);
-}
-.is2d.cburnett .cg-piece.pawn.black {
-  background-image: url(../piece/cburnett/bP.svg);
-}
-.is2d.cburnett .cg-piece.bishop.black {
-  background-image: url(../piece/cburnett/bB.svg);
-}
-.is2d.cburnett .cg-piece.knight.black {
-  background-image: url(../piece/cburnett/bN.svg);
-}
-.is2d.cburnett .cg-piece.rook.black {
-  background-image: url(../piece/cburnett/bR.svg);
-}
-.is2d.cburnett .cg-piece.queen.black {
-  background-image: url(../piece/cburnett/bQ.svg);
-}
-.is2d.cburnett .cg-piece.king.black {
-  background-image: url(../piece/cburnett/bK.svg);
 }
 .mono-piece {
   width: 32px;
@@ -724,6 +689,44 @@ div.lichess_board {
 }
 .ModernWood .is3d .king.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-King.png);
+}
+
+.cburnett .is2d .cg-piece.pawn.white {
+  background-image: url(../piece/cburnett/wP.svg);
+}
+.cburnett .is2d .cg-piece.bishop.white {
+  background-image: url(../piece/cburnett/wB.svg);
+}
+.cburnett .is2d .cg-piece.knight.white,
+#top .cg-piece.cburnett {
+  background-image: url(../piece/cburnett/wN.svg);
+}
+.cburnett .is2d .cg-piece.rook.white {
+  background-image: url(../piece/cburnett/wR.svg);
+}
+.cburnett .is2d .cg-piece.queen.white {
+  background-image: url(../piece/cburnett/wQ.svg);
+}
+.cburnett .is2d .cg-piece.king.white {
+  background-image: url(../piece/cburnett/wK.svg);
+}
+.cburnett .is2d .cg-piece.pawn.black {
+  background-image: url(../piece/cburnett/bP.svg);
+}
+.cburnett .is2d .cg-piece.bishop.black {
+  background-image: url(../piece/cburnett/bB.svg);
+}
+.cburnett .is2d .cg-piece.knight.black {
+  background-image: url(../piece/cburnett/bN.svg);
+}
+.cburnett .is2d .cg-piece.rook.black {
+  background-image: url(../piece/cburnett/bR.svg);
+}
+.cburnett .is2d .cg-piece.queen.black {
+  background-image: url(../piece/cburnett/bQ.svg);
+}
+.cburnett .is2d .cg-piece.king.black {
+  background-image: url(../piece/cburnett/bK.svg);
 }
 .pirouetti .is2d .cg-piece.piece.white {
   -webkit-filter: drop-shadow(0 0 0.5px #000);

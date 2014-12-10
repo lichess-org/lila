@@ -9,7 +9,7 @@
 <div class="checkmateCaptcha clearfix" data-check-url="@routes.Main.captchaCheck(captcha.gameId)">
   <div class="checkmateFen">
     <div
-      class="mini_board parse_fen with_keys"
+      class="mini_board parse_fen is2d with_keys"
       data-playable="1"
       data-moves="@Json.stringify(Json.toJson(captcha.moves))"
       data-color="@captcha.white.fold("white", "black")"

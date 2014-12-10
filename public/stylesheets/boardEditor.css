@@ -19,13 +19,13 @@
   width: 64px;
   height: 64px;
 }
-body.is3d #board_editor .spare .no-square {
+.is3d #board_editor .spare .no-square {
   height: 58.102px;
 }
 #board_editor .spare .cg-piece {
   cursor: pointer;
 }
-body.is3d .spare .cg-piece {
+.is3d .spare .cg-piece {
   /* original size:
      width: 140.625%;
      height: 179.6875%; */

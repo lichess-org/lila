@@ -18,6 +18,6 @@ function parseFen($elem) {
     };
     if (color) config.orientation = color;
     if (ground) ground.set(config);
-    else $this.addClass('is2d').data('chessground', Chessground($this[0], config));
+    else $this.data('chessground', Chessground($this[0], config));
   });
 }

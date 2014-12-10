@@ -1,4 +1,4 @@
-body.is3d .cg-board-wrap {
+.is3d .cg-board-wrap {
   position: relative;
   background-size: cover;
 }
@@ -7,7 +7,7 @@ body.is3d .cg-board-wrap {
   height: 512px;
   position: relative;
 }
-body.is3d .cg-512 .cg-board-wrap {
+.is3d .cg-512 .cg-board-wrap {
   height: 479.08572px;
 }
 .cg-board {
@@ -24,9 +24,13 @@ body.is3d .cg-512 .cg-board-wrap {
 .manipulable .cg-board {
   cursor: pointer;
 }
-body.is3d .cg-board {
+.is3d .cg-board {
   top: 0.6168702%;
   height: 97.0229%;
+}
+.is2d .cg-board {
+  top: 0;
+  height: 100%;
 }
 .cg-square {
   position: absolute;
@@ -69,7 +73,7 @@ body.coords_2 .cg-square[data-coord-x]::after {
   color: #bbb;
   font-weight: bold;
 }
-body.coords_2.is3d .cg-square[data-coord-x]::after {
+body.coords_2 .is3d .cg-square[data-coord-x]::after {
   bottom: calc(-10px - 22%);
 }
 body.coords_2 .cg-square[data-coord-y]::before {
@@ -144,7 +148,7 @@ body.base .cg-board .cg-square.current-premove {
   -moz-transform: none;
   -ms-transform: none;
 }
-body.is3d .cg-piece {
+.is3d .cg-piece {
   /* original size:
      width: 140.625%;
      height: 179.6875%; */
@@ -152,7 +156,11 @@ body.is3d .cg-piece {
   width: 140.625%;
   height: 197.925%;
   left: -18%;
-  top: -78%;
+  bottom: -20%;
+}
+.is2d .cg-piece {
+  width: 100%;
+  height: 100%;
 }
 .cg-piece.dragging {
   z-index: 3;
@@ -161,9 +169,6 @@ body.is3d .cg-piece {
 .cg-piece.ghost {
   opacity: 0.3;
 }
-body.is3d .cg-piece.ghost {
-  opacity: 0.4;
-}
 
 /* minimal dom overrides */
 
@@ -171,16 +176,4 @@ body.is3d .cg-piece.ghost {
   position: absolute;
   width: 12.5%;
   height: 12.5%;
-}
-body.is3d .minimal-dom .cg-board {
-  top: 0;
-  height: 100%;
-}
-body.is3d .minimal-dom .cg-piece {
-  /* original size:
-     width: 140.625%;
-     height: 179.6875%; */
-  /* size on 3D board, with height/width = 90.78571% */
-  width: 100%;
-  height: 100%;
 }

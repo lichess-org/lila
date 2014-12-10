@@ -829,7 +829,7 @@ div.chat_menu > a.active {
 div.chat_panels {
   height: 325px;
 }
-body.is3d div.chat_panels {
+.is3d div.chat_panels {
   height: 290px;
 }
 div.chat_panels div.messages_container,
@@ -1273,11 +1273,11 @@ ul.language_links li:last-child {
   text-align: center;
 }
 body #themepicker div.is2d,
-body.is3d #themepicker div.is3d {
+.is3d #themepicker div.is3d {
   display: block;
 }
 body #themepicker div.is3d,
-body.is3d #themepicker div.is2d {
+.is3d #themepicker div.is2d {
   display: none;
 }
 #themepicker div.board,
@@ -1294,14 +1294,14 @@ body.is3d #themepicker div.is2d {
 #themepicker div.theme:hover {
   background: #f0f0f0;
 }
-body.is2d #themepicker div.color_demo {
+.is2d #themepicker div.color_demo {
   width: 64px;
   height: 32px;
   background-size: 256px;
   border: 1px solid #d0d0d0;
   position: relative;
 }
-body.is3d #themepicker div.color_demo {
+.is3d #themepicker div.color_demo {
   width: 66px;
   height: 30px;
   background-size: 264px;
