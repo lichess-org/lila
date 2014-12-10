@@ -1743,10 +1743,6 @@ a.mini_board {
   height: 224px;
   position: relative;
 }
-body.is3d .mini_board .cg-board-wrap {
-  margin-top: 8px;
-  height: 209.6px;
-}
 #now_playing {
   margin: 4px 0 0 4px;
   overflow: hidden;
@@ -1785,10 +1781,6 @@ body.is3d .mini_board .cg-board-wrap {
 #now_playing .mini_board .cg-board-wrap {
   width: 160px;
   height: 160px;
-}
-body.is3d #now_playing .mini_board .cg-board-wrap {
-  margin-top: 6px;
-  height: 149.7px;
 }
 /* opening.css */
 

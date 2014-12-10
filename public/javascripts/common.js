@@ -12,11 +12,12 @@ function parseFen($elem) {
     var config = {
       coordinates: false,
       viewOnly: !playable,
+      minimalDom: true,
       fen: $this.data('fen'),
       lastMove: lm ? [lm[0] + lm[1], lm[2] + lm[3]] : null
     };
     if (color) config.orientation = color;
     if (ground) ground.set(config);
-    else $this.data('chessground', Chessground($this[0], config));
+    else $this.addClass('is2d').data('chessground', Chessground($this[0], config));
   });
 }

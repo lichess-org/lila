@@ -2,14 +2,14 @@
   position: relative;
   min-height: 512px;
 }
-body.is3d #lichess {
+.is3d #lichess {
   min-height: 479.08572px;
 }
 div.lichess_game {
   height: 512px;
 }
-body.is3d div.lichess_game,
-body.is3d div.lichess_game div.lichess_ground {
+.is3d div.lichess_game,
+.is3d div.lichess_game div.lichess_ground {
   height: 479.08572px;
 }
 div.lichess_game div.lichess_board_wrap {
@@ -28,228 +28,236 @@ div.lichess_game div.lichess_ground {
 div.lichess_board {
   position: relative;
 }
-body.is2d.blue .cg-board,
+.is2d.blue .cg-board,
 #top div.color_demo.blue {
   background-image: url(../images/board/blue.png);
 }
-body.is2d.blue2 .cg-board,
+.is2d.blue2 .cg-board,
 #top div.color_demo.blue2 {
   background-image: url(../images/board/blue2.jpg);
 }
-body.is2d.wood2 .cg-board,
+.is2d.wood2 .cg-board,
 #top div.color_demo.wood2 {
   background-image: url(../images/board/wood2.jpg);
 }
-body.is2d.wood3 .cg-board,
+.is2d.wood3 .cg-board,
 #top div.color_demo.wood3 {
   background-image: url(../images/board/wood3.jpg);
 }
-body.is2d.blue3 .cg-board,
+.is2d.blue3 .cg-board,
 #top div.color_demo.blue3 {
   background-image: url(../images/board/blue3.jpg);
 }
-body.is2d.marble .cg-board,
+.is2d.marble .cg-board,
 #top div.color_demo.marble {
   background-image: url(../images/board/marble.jpg);
 }
-body.is2d.brown .cg-board,
+.is2d.brown .cg-board,
 #top div.color_demo.brown {
   background-image: url(../images/board/brown.png);
 }
-body.is2d.green .cg-board,
+.is2d.green .cg-board,
 #top div.color_demo.green {
   background-image: url(../images/board/green.png);
 }
-body.is2d.olive .cg-board,
+.is2d.olive .cg-board,
 #top div.color_demo.olive {
   background-image: url(../images/board/olive.jpg);
 }
-body.is2d.purple .cg-board,
+.is2d.purple .cg-board,
 #top div.color_demo.purple {
   background-image: url(../images/board/purple.png);
 }
-body.is2d.grey .cg-board,
+.is2d.grey .cg-board,
 #top div.color_demo.grey {
   background-image: url(../images/board/grey.jpg);
 }
-body.is2d.wood .cg-board,
+.is2d.wood .cg-board,
 #top div.color_demo.wood {
   background-image: url(../images/board/wood-1024.jpg);
 }
-body.is2d.canvas .cg-board,
+.is2d.canvas .cg-board,
 #top div.color_demo.canvas {
   background-image: url(../images/board/canvas2-1024.jpg);
 }
-body.is2d.leather .cg-board,
+.is2d.leather .cg-board,
 #top div.color_demo.leather {
   background-image: url(../images/board/leather-1024.jpg);
 }
-body.is2d.metal .cg-board,
+.is2d.metal .cg-board,
 #top div.color_demo.metal {
   background-image: url(../images/board/metal-1024.jpg);
 }
 /* KotH boards */
 
-body.is2d.blue .kingOfTheHill .cg-board {
+.is2d.blue .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/blue.jpg);
 }
-body.is2d.blue2 .kingOfTheHill .cg-board {
+.is2d.blue2 .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/blue2.jpg);
 }
-body.is2d.blue3 .kingOfTheHill .cg-board {
+.is2d.blue3 .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/blue3.jpg);
 }
-body.is2d.wood2 .kingOfTheHill .cg-board {
+.is2d.wood2 .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/wood2.jpg);
 }
-body.is2d.wood3 .kingOfTheHill .cg-board {
+.is2d.wood3 .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/wood3.jpg);
 }
-body.is2d.marble .kingOfTheHill .cg-board {
+.is2d.marble .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/marble.jpg);
 }
-body.is2d.brown .kingOfTheHill .cg-board {
+.is2d.brown .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/brown.jpg);
 }
-body.is2d.green .kingOfTheHill .cg-board {
+.is2d.green .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/green.jpg);
 }
-body.is2d.olive .kingOfTheHill .cg-board {
+.is2d.olive .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/olive.jpg);
 }
-body.is2d.purple .kingOfTheHill .cg-board {
+.is2d.purple .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/purple.jpg);
 }
-body.is2d.grey .kingOfTheHill .cg-board {
+.is2d.grey .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/grey.jpg);
 }
-body.is2d.wood .kingOfTheHill .cg-board {
+.is2d.wood .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/wood.jpg);
 }
-body.is2d.canvas .kingOfTheHill .cg-board {
+.is2d.canvas .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/canvas.jpg);
 }
-body.is2d.leather .kingOfTheHill .cg-board {
+.is2d.leather .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/leather.jpg);
 }
-body.is2d.metal .kingOfTheHill .cg-board {
+.is2d.metal .kingOfTheHill .cg-board {
   background-image: url(../images/board/koth/metal.jpg);
 }
-body.is3d.Black-White-Aluminium .cg-board-wrap,
+
+/* 3D boards */
+
+.is3d.Black-White-Aluminium .cg-board-wrap,
 #top .is3d .Black-White-Aluminium {
   background-image: url(../staunton/Boards/Scaled/1024/Black-White-Aluminium.png);
 }
-body.is3d.Brushed-Aluminium .cg-board-wrap,
+.is3d.Brushed-Aluminium .cg-board-wrap,
 #top .is3d .Brushed-Aluminium {
   background-image: url(../staunton/Boards/Scaled/1024/Brushed-Aluminium.png);
 }
-body.is3d.China-Blue .cg-board-wrap,
+.is3d.China-Blue .cg-board-wrap,
 #top .is3d .China-Blue {
   background-image: url(../staunton/Boards/Scaled/1024/China-Blue.png);
 }
-body.is3d.China-Green .cg-board-wrap,
+.is3d.China-Green .cg-board-wrap,
 #top .is3d .China-Green {
   background-image: url(../staunton/Boards/Scaled/1024/China-Green.png);
 }
-body.is3d.China-Grey .cg-board-wrap,
+.is3d.China-Grey .cg-board-wrap,
 #top .is3d .China-Grey {
   background-image: url(../staunton/Boards/Scaled/1024/China-Grey.png);
 }
-body.is3d.China-Scarlet .cg-board-wrap,
+.is3d.China-Scarlet .cg-board-wrap,
 #top .is3d .China-Scarlet {
   background-image: url(../staunton/Boards/Scaled/1024/China-Scarlet.png);
 }
-body.is3d.China-Yellow .cg-board-wrap,
+.is3d.China-Yellow .cg-board-wrap,
 #top .is3d .China-Yellow {
   background-image: url(../staunton/Boards/Scaled/1024/China-Yellow.png);
 }
-body.is3d.Classic-Blue .cg-board-wrap,
+.is3d.Classic-Blue .cg-board-wrap,
 #top .is3d .Classic-Blue {
   background-image: url(../staunton/Boards/Scaled/1024/Classic-Blue.png);
 }
-body.is3d.Transparent-Glass .cg-board-wrap,
+.is3d.Transparent-Glass .cg-board-wrap,
 #top .is3d .Transparent-Glass {
   background-image: url(../staunton/Boards/Scaled/1024/Glass.png);
 }
-body.is3d.Gold-Silver .cg-board-wrap,
+.is3d.Gold-Silver .cg-board-wrap,
 #top .is3d .Gold-Silver {
   background-image: url(../staunton/Boards/Scaled/1024/Gold-Silver.png);
 }
-body.is3d.Green-Glass .cg-board-wrap,
+.is3d.Green-Glass .cg-board-wrap,
 #top .is3d .Green-Glass {
   background-image: url(../staunton/Boards/Scaled/1024/Green-Glass.png);
 }
-body.is3d.Light-Wood .cg-board-wrap,
+.is3d.Light-Wood .cg-board-wrap,
 #top .is3d .Light-Wood {
   background-image: url(../staunton/Boards/Scaled/1024/Light-Wood.png);
 }
-body.is3d.Power-Coated .cg-board-wrap,
+.is3d.Power-Coated .cg-board-wrap,
 #top .is3d .Power-Coated {
   background-image: url(../staunton/Boards/Scaled/1024/Power-Coated.png);
 }
-body.is3d.Purple-Black .cg-board-wrap,
+.is3d.Purple-Black .cg-board-wrap,
 #top .is3d .Purple-Black {
   background-image: url(../staunton/Boards/Scaled/1024/Purple-Black.png);
 }
-body.is3d.Rosewood .cg-board-wrap,
+.is3d.Rosewood .cg-board-wrap,
 #top .is3d .Rosewood {
   background-image: url(../staunton/Boards/Scaled/1024/Rosewood.png);
 }
-body.is3d.Wood-Glass .cg-board-wrap,
+.is3d.Wood-Glass .cg-board-wrap,
 #top .is3d .Wood-Glass {
   background-image: url(../staunton/Boards/Scaled/1024/Wood-Glass.png);
 }
-body.is3d.Wax .cg-board-wrap,
+.is3d.Wax .cg-board-wrap,
 #top .is3d .Wax {
   background-image: url(../staunton/Boards/Scaled/1024/Wax.png);
 }
-body.is3d.Jade .cg-board-wrap,
+.is3d.Jade .cg-board-wrap,
 #top .is3d .Jade {
   background-image: url(../staunton/Boards/Scaled/1024/Jade.png);
 }
-body.is3d.Marble .cg-board-wrap,
+.is3d.Marble .cg-board-wrap,
 #top .is3d .Marble {
   background-image: url(../images/board/3d/marble.1024.png);
 }
-body.is3d.Woodi .cg-board-wrap,
+.is3d.Woodi .cg-board-wrap,
 #top .is3d .Woodi {
   background-image: url(../images/board/3d/woodi.1024.png);
 }
-body.is2d.cburnett .cg-piece.pawn.white {
+
+.is2d .cg-board-wrap.minimal-dom {
+  background: none;
+}
+
+.is2d.cburnett .cg-piece.pawn.white {
   background-image: url(../piece/cburnett/wP.svg);
 }
-body.is2d.cburnett .cg-piece.bishop.white {
+.is2d.cburnett .cg-piece.bishop.white {
   background-image: url(../piece/cburnett/wB.svg);
 }
-body.is2d.cburnett .cg-piece.knight.white,
+.is2d.cburnett .cg-piece.knight.white,
 #top .cg-piece.cburnett {
   background-image: url(../piece/cburnett/wN.svg);
 }
-body.is2d.cburnett .cg-piece.rook.white {
+.is2d.cburnett .cg-piece.rook.white {
   background-image: url(../piece/cburnett/wR.svg);
 }
-body.is2d.cburnett .cg-piece.queen.white {
+.is2d.cburnett .cg-piece.queen.white {
   background-image: url(../piece/cburnett/wQ.svg);
 }
-body.is2d.cburnett .cg-piece.king.white {
+.is2d.cburnett .cg-piece.king.white {
   background-image: url(../piece/cburnett/wK.svg);
 }
-body.is2d.cburnett .cg-piece.pawn.black {
+.is2d.cburnett .cg-piece.pawn.black {
   background-image: url(../piece/cburnett/bP.svg);
 }
-body.is2d.cburnett .cg-piece.bishop.black {
+.is2d.cburnett .cg-piece.bishop.black {
   background-image: url(../piece/cburnett/bB.svg);
 }
-body.is2d.cburnett .cg-piece.knight.black {
+.is2d.cburnett .cg-piece.knight.black {
   background-image: url(../piece/cburnett/bN.svg);
 }
-body.is2d.cburnett .cg-piece.rook.black {
+.is2d.cburnett .cg-piece.rook.black {
   background-image: url(../piece/cburnett/bR.svg);
 }
-body.is2d.cburnett .cg-piece.queen.black {
+.is2d.cburnett .cg-piece.queen.black {
   background-image: url(../piece/cburnett/bQ.svg);
 }
-body.is2d.cburnett .cg-piece.king.black {
+.is2d.cburnett .cg-piece.king.black {
   background-image: url(../piece/cburnett/bK.svg);
 }
 .mono-piece {
@@ -276,641 +284,641 @@ body.is2d.cburnett .cg-piece.king.black {
 .mono-piece.king {
   background-image: url(../piece/mono/K.svg);
 }
-body.is2d.pirouetti .cg-piece.piece.white {
-  -webkit-filter: drop-shadow(0 0 0.5px #000);
-}
-body.is2d.pirouetti .cg-piece.piece.black {
-  -webkit-filter: drop-shadow(0 0 0.6px #e0e0e0);
-}
-body.is2d.pirouetti .cg-piece.piece.ui-draggable-dragging,
-body.is2d.pirouetti .piece.animating {
-  -webkit-filter: none!important;
-}
-body.is2d.pirouetti .cg-piece.pawn.white {
-  background-image: url(../piece/pirouetti/wP.svg);
-}
-body.is2d.pirouetti .cg-piece.bishop.white {
-  background-image: url(../piece/pirouetti/wB.svg);
-}
-body.is2d.pirouetti .cg-piece.knight.white,
-#top .cg-piece.pirouetti {
-  background-image: url(../piece/pirouetti/wN.svg);
-}
-body.is2d.pirouetti .cg-piece.rook.white {
-  background-image: url(../piece/pirouetti/wR.svg);
-}
-body.is2d.pirouetti .cg-piece.queen.white {
-  background-image: url(../piece/pirouetti/wQ.svg);
-}
-body.is2d.pirouetti .cg-piece.king.white {
-  background-image: url(../piece/pirouetti/wK.svg);
-}
-body.is2d.pirouetti .cg-piece.pawn.black {
-  background-image: url(../piece/pirouetti/bP.svg);
-}
-body.is2d.pirouetti .cg-piece.bishop.black {
-  background-image: url(../piece/pirouetti/bB.svg);
-}
-body.is2d.pirouetti .cg-piece.knight.black {
-  background-image: url(../piece/pirouetti/bN.svg);
-}
-body.is2d.pirouetti .cg-piece.rook.black {
-  background-image: url(../piece/pirouetti/bR.svg);
-}
-body.is2d.pirouetti .cg-piece.queen.black {
-  background-image: url(../piece/pirouetti/bQ.svg);
-}
-body.is2d.pirouetti .cg-piece.king.black {
-  background-image: url(../piece/pirouetti/bK.svg);
-}
-body.is2d.merida .cg-piece.pawn.white {
-  background-image: url(../piece/merida/wP.svg);
-}
-body.is2d.merida .cg-piece.bishop.white {
-  background-image: url(../piece/merida/wB.svg);
-}
-body.is2d.merida .cg-piece.knight.white,
-#top .cg-piece.merida {
-  background-image: url(../piece/merida/wN.svg);
-}
-body.is2d.merida .cg-piece.rook.white {
-  background-image: url(../piece/merida/wR.svg);
-}
-body.is2d.merida .cg-piece.queen.white {
-  background-image: url(../piece/merida/wQ.svg);
-}
-body.is2d.merida .cg-piece.king.white {
-  background-image: url(../piece/merida/wK.svg);
-}
-body.is2d.merida .cg-piece.pawn.black {
-  background-image: url(../piece/merida/bP.svg);
-}
-body.is2d.merida .cg-piece.bishop.black {
-  background-image: url(../piece/merida/bB.svg);
-}
-body.is2d.merida .cg-piece.knight.black {
-  background-image: url(../piece/merida/bN.svg);
-}
-body.is2d.merida .cg-piece.rook.black {
-  background-image: url(../piece/merida/bR.svg);
-}
-body.is2d.merida .cg-piece.queen.black {
-  background-image: url(../piece/merida/bQ.svg);
-}
-body.is2d.merida .cg-piece.king.black {
-  background-image: url(../piece/merida/bK.svg);
-}
-body.is2d.spatial .cg-piece.pawn.white {
-  background-image: url(../piece/spatial/wP.svg);
-}
-body.is2d.spatial .cg-piece.bishop.white {
-  background-image: url(../piece/spatial/wB.svg);
-}
-body.is2d.spatial .cg-piece.knight.white,
-#top .cg-piece.spatial {
-  background-image: url(../piece/spatial/wN.svg);
-}
-body.is2d.spatial .cg-piece.rook.white {
-  background-image: url(../piece/spatial/wR.svg);
-}
-body.is2d.spatial .cg-piece.queen.white {
-  background-image: url(../piece/spatial/wQ.svg);
-}
-body.is2d.spatial .cg-piece.king.white {
-  background-image: url(../piece/spatial/wK.svg);
-}
-body.is2d.spatial .cg-piece.pawn.black {
-  background-image: url(../piece/spatial/bP.svg);
-}
-body.is2d.spatial .cg-piece.bishop.black {
-  background-image: url(../piece/spatial/bB.svg);
-}
-body.is2d.spatial .cg-piece.knight.black {
-  background-image: url(../piece/spatial/bN.svg);
-}
-body.is2d.spatial .cg-piece.rook.black {
-  background-image: url(../piece/spatial/bR.svg);
-}
-body.is2d.spatial .cg-piece.queen.black {
-  background-image: url(../piece/spatial/bQ.svg);
-}
-body.is2d.spatial .cg-piece.king.black {
-  background-image: url(../piece/spatial/bK.svg);
-}
-body.is2d.lightp .cg-piece.pawn.white {
-  background-image: url(../piece/lightp/wP.png);
-}
-body.is2d.lightp .cg-piece.bishop.white {
-  background-image: url(../piece/lightp/wB.png);
-}
-body.is2d.lightp .cg-piece.knight.white,
-#top .cg-piece.lightp {
-  background-image: url(../piece/lightp/wN.png);
-}
-body.is2d.lightp .cg-piece.rook.white {
-  background-image: url(../piece/lightp/wR.png);
-}
-body.is2d.lightp .cg-piece.queen.white {
-  background-image: url(../piece/lightp/wQ.png);
-}
-body.is2d.lightp .cg-piece.king.white {
-  background-image: url(../piece/lightp/wK.png);
-}
-body.is2d.lightp .cg-piece.pawn.black {
-  background-image: url(../piece/lightp/bP.png);
-}
-body.is2d.lightp .cg-piece.bishop.black {
-  background-image: url(../piece/lightp/bB.png);
-}
-body.is2d.lightp .cg-piece.knight.black {
-  background-image: url(../piece/lightp/bN.png);
-}
-body.is2d.lightp .cg-piece.rook.black {
-  background-image: url(../piece/lightp/bR.png);
-}
-body.is2d.lightp .cg-piece.queen.black {
-  background-image: url(../piece/lightp/bQ.png);
-}
-body.is2d.lightp .cg-piece.king.black {
-  background-image: url(../piece/lightp/bK.png);
-}
-body.is2d.alpha .cg-piece.pawn.white {
-  background-image: url(../piece/alpha/wP.svg);
-}
-body.is2d.alpha .cg-piece.bishop.white {
-  background-image: url(../piece/alpha/wB.svg);
-}
-body.is2d.alpha .cg-piece.knight.white,
-#top .cg-piece.alpha {
-  background-image: url(../piece/alpha/wN.svg);
-}
-body.is2d.alpha .cg-piece.rook.white {
-  background-image: url(../piece/alpha/wR.svg);
-}
-body.is2d.alpha .cg-piece.queen.white {
-  background-image: url(../piece/alpha/wQ.svg);
-}
-body.is2d.alpha .cg-piece.king.white {
-  background-image: url(../piece/alpha/wK.svg);
-}
-body.is2d.alpha .cg-piece.pawn.black {
-  background-image: url(../piece/alpha/bP.svg);
-}
-body.is2d.alpha .cg-piece.bishop.black {
-  background-image: url(../piece/alpha/bB.svg);
-}
-body.is2d.alpha .cg-piece.knight.black {
-  background-image: url(../piece/alpha/bN.svg);
-}
-body.is2d.alpha .cg-piece.rook.black {
-  background-image: url(../piece/alpha/bR.svg);
-}
-body.is2d.alpha .cg-piece.queen.black {
-  background-image: url(../piece/alpha/bQ.svg);
-}
-body.is2d.alpha .cg-piece.king.black {
-  background-image: url(../piece/alpha/bK.svg);
-}
-body.is3d.Basic .pawn.white {
+.Basic .is3d .pawn.white {
   background-image: url(../staunton/Renders/Basic/Scaled/White-Pawn.png);
 }
-body.is3d.Basic .bishop.white {
+.Basic .is3d .bishop.white {
   background-image: url(../staunton/Renders/Basic/Scaled/White-Bishop.png);
 }
-body.is3d.Basic .orientation-black .bishop.white {
+.Basic .is3d .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/Basic/Scaled/White-Bishop-Flipped.png);
 }
-body.is3d.Basic .knight.white,
+.Basic .is3d .knight.white,
 #top .is3d .cg-piece.Basic {
   background-image: url(../staunton/Renders/Basic/Scaled/White-Knight.png);
 }
-body.is3d.Basic .orientation-black .knight.white {
+.Basic .is3d .orientation-black .knight.white {
   background-image: url(../staunton/Renders/Basic/Scaled/White-Knight-Flipped.png);
 }
-body.is3d.Basic .rook.white {
+.Basic .is3d .rook.white {
   background-image: url(../staunton/Renders/Basic/Scaled/White-Rook.png);
 }
-body.is3d.Basic .queen.white {
+.Basic .is3d .queen.white {
   background-image: url(../staunton/Renders/Basic/Scaled/White-Queen.png);
 }
-body.is3d.Basic .king.white {
+.Basic .is3d .king.white {
   background-image: url(../staunton/Renders/Basic/Scaled/White-King.png);
 }
-body.is3d.Basic .pawn.black {
+.Basic .is3d .pawn.black {
   background-image: url(../staunton/Renders/Basic/Scaled/Black-Pawn.png);
 }
-body.is3d.Basic .bishop.black {
+.Basic .is3d .bishop.black {
   background-image: url(../staunton/Renders/Basic/Scaled/Black-Bishop.png);
 }
-body.is3d.Basic .orientation-white .bishop.black {
+.Basic .is3d .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/Basic/Scaled/Black-Bishop-Flipped.png);
 }
-body.is3d.Basic .knight.black {
+.Basic .is3d .knight.black {
   background-image: url(../staunton/Renders/Basic/Scaled/Black-Knight.png);
 }
-body.is3d.Basic .orientation-white .knight.black {
+.Basic .is3d .orientation-white .knight.black {
   background-image: url(../staunton/Renders/Basic/Scaled/Black-Knight-Flipped.png);
 }
-body.is3d.Basic .rook.black {
+.Basic .is3d .rook.black {
   background-image: url(../staunton/Renders/Basic/Scaled/Black-Rook.png);
 }
-body.is3d.Basic .queen.black {
+.Basic .is3d .queen.black {
   background-image: url(../staunton/Renders/Basic/Scaled/Black-Queen.png);
 }
-body.is3d.Basic .king.black {
+.Basic .is3d .king.black {
   background-image: url(../staunton/Renders/Basic/Scaled/Black-King.png);
 }
-body.is3d.Glass .pawn.white {
+.Glass .is3d .pawn.white {
   background-image: url(../staunton/Renders/Glass/Scaled/White-Pawn.png);
 }
-body.is3d.Glass .bishop.white {
+.Glass .is3d .bishop.white {
   background-image: url(../staunton/Renders/Glass/Scaled/White-Bishop.png);
 }
-body.is3d.Glass .orientation-black .bishop.white {
+.Glass .is3d .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/Glass/Scaled/White-Bishop-Flipped.png);
 }
-body.is3d.Glass .knight.white,
+.Glass .is3d .knight.white,
 #top .is3d .cg-piece.Glass {
   background-image: url(../staunton/Renders/Glass/Scaled/White-Knight.png);
 }
-body.is3d.Glass .orientation-black .knight.white {
+.Glass .is3d .orientation-black .knight.white {
   background-image: url(../staunton/Renders/Glass/Scaled/White-Knight-Flipped.png);
 }
-body.is3d.Glass .rook.white {
+.Glass .is3d .rook.white {
   background-image: url(../staunton/Renders/Glass/Scaled/White-Rook.png);
 }
-body.is3d.Glass .queen.white {
+.Glass .is3d .queen.white {
   background-image: url(../staunton/Renders/Glass/Scaled/White-Queen.png);
 }
-body.is3d.Glass .king.white {
+.Glass .is3d .king.white {
   background-image: url(../staunton/Renders/Glass/Scaled/White-King.png);
 }
-body.is3d.Glass .pawn.black {
+.Glass .is3d .pawn.black {
   background-image: url(../staunton/Renders/Glass/Scaled/Black-Pawn.png);
 }
-body.is3d.Glass .bishop.black {
+.Glass .is3d .bishop.black {
   background-image: url(../staunton/Renders/Glass/Scaled/Black-Bishop.png);
 }
-body.is3d.Glass .orientation-white .bishop.black {
+.Glass .is3d .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/Glass/Scaled/Black-Bishop-Flipped.png);
 }
-body.is3d.Glass .knight.black {
+.Glass .is3d .knight.black {
   background-image: url(../staunton/Renders/Glass/Scaled/Black-Knight.png);
 }
-body.is3d.Glass .orientation-white .knight.black {
+.Glass .is3d .orientation-white .knight.black {
   background-image: url(../staunton/Renders/Glass/Scaled/Black-Knight-Flipped.png);
 }
-body.is3d.Glass .rook.black {
+.Glass .is3d .rook.black {
   background-image: url(../staunton/Renders/Glass/Scaled/Black-Rook.png);
 }
-body.is3d.Glass .queen.black {
+.Glass .is3d .queen.black {
   background-image: url(../staunton/Renders/Glass/Scaled/Black-Queen.png);
 }
-body.is3d.Glass .king.black {
+.Glass .is3d .king.black {
   background-image: url(../staunton/Renders/Glass/Scaled/Black-King.png);
 }
-body.is3d.Wood .pawn.white {
+.Wood .is3d .pawn.white {
   background-image: url(../staunton/Renders/Wood/Scaled/White-Pawn.png);
 }
-body.is3d.Wood .bishop.white {
+.Wood .is3d .bishop.white {
   background-image: url(../staunton/Renders/Wood/Scaled/White-Bishop.png);
 }
-body.is3d.Wood .orientation-black .bishop.white {
+.Wood .is3d .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/Wood/Scaled/White-Bishop-Flipped.png);
 }
-body.is3d.Wood .knight.white,
+.Wood .is3d .knight.white,
 #top .is3d .cg-piece.Wood {
   background-image: url(../staunton/Renders/Wood/Scaled/White-Knight.png);
 }
-body.is3d.Wood .orientation-black .knight.white {
+.Wood .is3d .orientation-black .knight.white {
   background-image: url(../staunton/Renders/Wood/Scaled/White-Knight-Flipped.png);
 }
-body.is3d.Wood .rook.white {
+.Wood .is3d .rook.white {
   background-image: url(../staunton/Renders/Wood/Scaled/White-Rook.png);
 }
-body.is3d.Wood .queen.white {
+.Wood .is3d .queen.white {
   background-image: url(../staunton/Renders/Wood/Scaled/White-Queen.png);
 }
-body.is3d.Wood .king.white {
+.Wood .is3d .king.white {
   background-image: url(../staunton/Renders/Wood/Scaled/White-King.png);
 }
-body.is3d.Wood .pawn.black {
+.Wood .is3d .pawn.black {
   background-image: url(../staunton/Renders/Wood/Scaled/Black-Pawn.png);
 }
-body.is3d.Wood .bishop.black {
+.Wood .is3d .bishop.black {
   background-image: url(../staunton/Renders/Wood/Scaled/Black-Bishop.png);
 }
-body.is3d.Wood .orientation-white .bishop.black {
+.Wood .is3d .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/Wood/Scaled/Black-Bishop-Flipped.png);
 }
-body.is3d.Wood .knight.black {
+.Wood .is3d .knight.black {
   background-image: url(../staunton/Renders/Wood/Scaled/Black-Knight.png);
 }
-body.is3d.Wood .orientation-white .knight.black {
+.Wood .is3d .orientation-white .knight.black {
   background-image: url(../staunton/Renders/Wood/Scaled/Black-Knight-Flipped.png);
 }
-body.is3d.Wood .rook.black {
+.Wood .is3d .rook.black {
   background-image: url(../staunton/Renders/Wood/Scaled/Black-Rook.png);
 }
-body.is3d.Wood .queen.black {
+.Wood .is3d .queen.black {
   background-image: url(../staunton/Renders/Wood/Scaled/Black-Queen.png);
 }
-body.is3d.Wood .king.black {
+.Wood .is3d .king.black {
   background-image: url(../staunton/Renders/Wood/Scaled/Black-King.png);
 }
-body.is3d.Metal .pawn.white {
+.Metal .is3d .pawn.white {
   background-image: url(../staunton/Renders/Metal/Scaled/White-Pawn.png);
 }
-body.is3d.Metal .bishop.white {
+.Metal .is3d .bishop.white {
   background-image: url(../staunton/Renders/Metal/Scaled/White-Bishop.png);
 }
-body.is3d.Metal .orientation-black .bishop.white {
+.Metal .is3d .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/Metal/Scaled/White-Bishop-Flipped.png);
 }
-body.is3d.Metal .knight.white,
+.Metal .is3d .knight.white,
 #top .is3d .cg-piece.Metal {
   background-image: url(../staunton/Renders/Metal/Scaled/White-Knight.png);
 }
-body.is3d.Metal .orientation-black .knight.white {
+.Metal .is3d .orientation-black .knight.white {
   background-image: url(../staunton/Renders/Metal/Scaled/White-Knight-Flipped.png);
 }
-body.is3d.Metal .rook.white {
+.Metal .is3d .rook.white {
   background-image: url(../staunton/Renders/Metal/Scaled/White-Rook.png);
 }
-body.is3d.Metal .queen.white {
+.Metal .is3d .queen.white {
   background-image: url(../staunton/Renders/Metal/Scaled/White-Queen.png);
 }
-body.is3d.Metal .king.white {
+.Metal .is3d .king.white {
   background-image: url(../staunton/Renders/Metal/Scaled/White-King.png);
 }
-body.is3d.Metal .pawn.black {
+.Metal .is3d .pawn.black {
   background-image: url(../staunton/Renders/Metal/Scaled/Black-Pawn.png);
 }
-body.is3d.Metal .bishop.black {
+.Metal .is3d .bishop.black {
   background-image: url(../staunton/Renders/Metal/Scaled/Black-Bishop.png);
 }
-body.is3d.Metal .orientation-white .bishop.black {
+.Metal .is3d .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/Metal/Scaled/Black-Bishop-Flipped.png);
 }
-body.is3d.Metal .knight.black {
+.Metal .is3d .knight.black {
   background-image: url(../staunton/Renders/Metal/Scaled/Black-Knight.png);
 }
-body.is3d.Metal .orientation-white .knight.black {
+.Metal .is3d .orientation-white .knight.black {
   background-image: url(../staunton/Renders/Metal/Scaled/Black-Knight-Flipped.png);
 }
-body.is3d.Metal .rook.black {
+.Metal .is3d .rook.black {
   background-image: url(../staunton/Renders/Metal/Scaled/Black-Rook.png);
 }
-body.is3d.Metal .queen.black {
+.Metal .is3d .queen.black {
   background-image: url(../staunton/Renders/Metal/Scaled/Black-Queen.png);
 }
-body.is3d.Metal .king.black {
+.Metal .is3d .king.black {
   background-image: url(../staunton/Renders/Metal/Scaled/Black-King.png);
 }
-body.is3d.RedVBlue .pawn.white {
+.RedVBlue .is3d .pawn.white {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Pawn.png);
 }
-body.is3d.RedVBlue .bishop.white {
+.RedVBlue .is3d .bishop.white {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Bishop.png);
 }
-body.is3d.RedVBlue .orientation-black .bishop.white {
+.RedVBlue .is3d .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Bishop-Flipped.png);
 }
-body.is3d.RedVBlue .knight.white,
+.RedVBlue .is3d .knight.white,
 #top .is3d .cg-piece.RedVBlue {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Knight.png);
 }
-body.is3d.RedVBlue .orientation-black .knight.white {
+.RedVBlue .is3d .orientation-black .knight.white {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Knight-Flipped.png);
 }
-body.is3d.RedVBlue .rook.white {
+.RedVBlue .is3d .rook.white {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Rook.png);
 }
-body.is3d.RedVBlue .queen.white {
+.RedVBlue .is3d .queen.white {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-Queen.png);
 }
-body.is3d.RedVBlue .king.white {
+.RedVBlue .is3d .king.white {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/White-King.png);
 }
-body.is3d.RedVBlue .pawn.black {
+.RedVBlue .is3d .pawn.black {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Pawn.png);
 }
-body.is3d.RedVBlue .bishop.black {
+.RedVBlue .is3d .bishop.black {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Bishop.png);
 }
-body.is3d.RedVBlue .orientation-white .bishop.black {
+.RedVBlue .is3d .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Bishop-Flipped.png);
 }
-body.is3d.RedVBlue .knight.black {
+.RedVBlue .is3d .knight.black {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Knight.png);
 }
-body.is3d.RedVBlue .orientation-white .knight.black {
+.RedVBlue .is3d .orientation-white .knight.black {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Knight-Flipped.png);
 }
-body.is3d.RedVBlue .rook.black {
+.RedVBlue .is3d .rook.black {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Rook.png);
 }
-body.is3d.RedVBlue .queen.black {
+.RedVBlue .is3d .queen.black {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-Queen.png);
 }
-body.is3d.RedVBlue .king.black {
+.RedVBlue .is3d .king.black {
   background-image: url(../staunton/Renders/RedVBlue/Scaled/Black-King.png);
 }
-body.is3d.Trimmed .pawn.white {
+.Trimmed .is3d .pawn.white {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-Pawn.png);
 }
-body.is3d.Trimmed .bishop.white {
+.Trimmed .is3d .bishop.white {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-Bishop.png);
 }
-body.is3d.Trimmed .orientation-black .bishop.white {
+.Trimmed .is3d .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-Bishop-Flipped.png);
 }
-body.is3d.Trimmed .knight.white,
+.Trimmed .is3d .knight.white,
 #top .is3d .cg-piece.Trimmed {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-Knight.png);
 }
-body.is3d.Trimmed .orientation-black .knight.white {
+.Trimmed .is3d .orientation-black .knight.white {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-Knight-Flipped.png);
 }
-body.is3d.Trimmed .rook.white {
+.Trimmed .is3d .rook.white {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-Rook.png);
 }
-body.is3d.Trimmed .queen.white {
+.Trimmed .is3d .queen.white {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-Queen.png);
 }
-body.is3d.Trimmed .king.white {
+.Trimmed .is3d .king.white {
   background-image: url(../staunton/Renders/Trimmed/Scaled/White-King.png);
 }
-body.is3d.Trimmed .pawn.black {
+.Trimmed .is3d .pawn.black {
   background-image: url(../staunton/Renders/Trimmed/Scaled/Black-Pawn.png);
 }
-body.is3d.Trimmed .bishop.black {
+.Trimmed .is3d .bishop.black {
   background-image: url(../staunton/Renders/Trimmed/Scaled/Black-Bishop.png);
 }
-body.is3d.Trimmed .orientation-white .bishop.black {
+.Trimmed .is3d .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/Trimmed/Scaled/Black-Bishop-Flipped.png);
 }
-body.is3d.Trimmed .knight.black {
+.Trimmed .is3d .knight.black {
   background-image: url(../staunton/Renders/Trimmed/Scaled/Black-Knight.png);
 }
-body.is3d.Trimmed .orientation-white .knight.black {
+.Trimmed .is3d .orientation-white .knight.black {
   background-image: url(../staunton/Renders/Trimmed/Scaled/Black-Knight-Flipped.png);
 }
-body.is3d.Trimmed .rook.black {
+.Trimmed .is3d .rook.black {
   background-image: url(../staunton/Renders/Trimmed/Scaled/Black-Rook.png);
 }
-body.is3d.Trimmed .queen.black {
+.Trimmed .is3d .queen.black {
   background-image: url(../staunton/Renders/Trimmed/Scaled/Black-Queen.png);
 }
-body.is3d.Trimmed .king.black {
+.Trimmed .is3d .king.black {
   background-image: url(../staunton/Renders/Trimmed/Scaled/Black-King.png);
 }
-body.is3d.Experimental .pawn.white {
+.Experimental .is3d .pawn.white {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-Pawn.png);
 }
-body.is3d.Experimental .bishop.white {
+.Experimental .is3d .bishop.white {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-Bishop.png);
 }
-body.is3d.Experimental .orientation-black .bishop.white {
+.Experimental .is3d .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-Bishop-Flipped.png);
 }
-body.is3d.Experimental .knight.white,
+.Experimental .is3d .knight.white,
 #top .is3d .cg-piece.Experimental {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-Knight.png);
 }
-body.is3d.Experimental .orientation-black .knight.white {
+.Experimental .is3d .orientation-black .knight.white {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-Knight-Flipped.png);
 }
-body.is3d.Experimental .rook.white {
+.Experimental .is3d .rook.white {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-Rook.png);
 }
-body.is3d.Experimental .queen.white {
+.Experimental .is3d .queen.white {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-Queen.png);
 }
-body.is3d.Experimental .king.white {
+.Experimental .is3d .king.white {
   background-image: url(../staunton/Renders/Experimental/Scaled/White-King.png);
 }
-body.is3d.Experimental .pawn.black {
+.Experimental .is3d .pawn.black {
   background-image: url(../staunton/Renders/Experimental/Scaled/Black-Pawn.png);
 }
-body.is3d.Experimental .bishop.black {
+.Experimental .is3d .bishop.black {
   background-image: url(../staunton/Renders/Experimental/Scaled/Black-Bishop.png);
 }
-body.is3d.Experimental .orientation-white .bishop.black {
+.Experimental .is3d .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/Experimental/Scaled/Black-Bishop-Flipped.png);
 }
-body.is3d.Experimental .knight.black {
+.Experimental .is3d .knight.black {
   background-image: url(../staunton/Renders/Experimental/Scaled/Black-Knight.png);
 }
-body.is3d.Experimental .orientation-white .knight.black {
+.Experimental .is3d .orientation-white .knight.black {
   background-image: url(../staunton/Renders/Experimental/Scaled/Black-Knight-Flipped.png);
 }
-body.is3d.Experimental .rook.black {
+.Experimental .is3d .rook.black {
   background-image: url(../staunton/Renders/Experimental/Scaled/Black-Rook.png);
 }
-body.is3d.Experimental .queen.black {
+.Experimental .is3d .queen.black {
   background-image: url(../staunton/Renders/Experimental/Scaled/Black-Queen.png);
 }
-body.is3d.Experimental .king.black {
+.Experimental .is3d .king.black {
   background-image: url(../staunton/Renders/Experimental/Scaled/Black-King.png);
 }
-body.is3d.ModernJade .pawn.white {
+.ModernJade .is3d .pawn.white {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-Pawn.png);
 }
-body.is3d.ModernJade .bishop.white {
+.ModernJade .is3d .bishop.white {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-Bishop.png);
 }
-body.is3d.ModernJade .orientation-black .bishop.white {
+.ModernJade .is3d .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-Bishop-Flipped.png);
 }
-body.is3d.ModernJade .knight.white,
+.ModernJade .is3d .knight.white,
 #top .is3d .cg-piece.ModernJade {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-Knight.png);
 }
-body.is3d.ModernJade .orientation-black .knight.white {
+.ModernJade .is3d .orientation-black .knight.white {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-Knight-Flipped.png);
 }
-body.is3d.ModernJade .rook.white {
+.ModernJade .is3d .rook.white {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-Rook.png);
 }
-body.is3d.ModernJade .queen.white {
+.ModernJade .is3d .queen.white {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-Queen.png);
 }
-body.is3d.ModernJade .king.white {
+.ModernJade .is3d .king.white {
   background-image: url(../staunton/Renders/ModernJade/Scaled/White-King.png);
 }
-body.is3d.ModernJade .pawn.black {
+.ModernJade .is3d .pawn.black {
   background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Pawn.png);
 }
-body.is3d.ModernJade .bishop.black {
+.ModernJade .is3d .bishop.black {
   background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Bishop.png);
 }
-body.is3d.ModernJade .orientation-white .bishop.black {
+.ModernJade .is3d .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Bishop-Flipped.png);
 }
-body.is3d.ModernJade .knight.black {
+.ModernJade .is3d .knight.black {
   background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Knight.png);
 }
-body.is3d.ModernJade .orientation-white .knight.black {
+.ModernJade .is3d .orientation-white .knight.black {
   background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Knight-Flipped.png);
 }
-body.is3d.ModernJade .rook.black {
+.ModernJade .is3d .rook.black {
   background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Rook.png);
 }
-body.is3d.ModernJade .queen.black {
+.ModernJade .is3d .queen.black {
   background-image: url(../staunton/Renders/ModernJade/Scaled/Black-Queen.png);
 }
-body.is3d.ModernJade .king.black {
+.ModernJade .is3d .king.black {
   background-image: url(../staunton/Renders/ModernJade/Scaled/Black-King.png);
 }
-body.is3d.ModernWood .pawn.white {
+.ModernWood .is3d .pawn.white {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-Pawn.png);
 }
-body.is3d.ModernWood .bishop.white {
+.ModernWood .is3d .bishop.white {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-Bishop.png);
 }
-body.is3d.ModernWood .orientation-black .bishop.white {
+.ModernWood .is3d .orientation-black .bishop.white {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-Bishop-Flipped.png);
 }
-body.is3d.ModernWood .knight.white,
+.ModernWood .is3d .knight.white,
 #top .is3d .cg-piece.ModernWood {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-Knight.png);
 }
-body.is3d.ModernWood .orientation-black .knight.white {
+.ModernWood .is3d .orientation-black .knight.white {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-Knight-Flipped.png);
 }
-body.is3d.ModernWood .rook.white {
+.ModernWood .is3d .rook.white {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-Rook.png);
 }
-body.is3d.ModernWood .queen.white {
+.ModernWood .is3d .queen.white {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-Queen.png);
 }
-body.is3d.ModernWood .king.white {
+.ModernWood .is3d .king.white {
   background-image: url(../staunton/Renders/ModernWood/Scaled/White-King.png);
 }
-body.is3d.ModernWood .pawn.black {
+.ModernWood .is3d .pawn.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Pawn.png);
 }
-body.is3d.ModernWood .bishop.black {
+.ModernWood .is3d .bishop.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Bishop.png);
 }
-body.is3d.ModernWood .orientation-white .bishop.black {
+.ModernWood .is3d .orientation-white .bishop.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Bishop-Flipped.png);
 }
-body.is3d.ModernWood .knight.black {
+.ModernWood .is3d .knight.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Knight.png);
 }
-body.is3d.ModernWood .orientation-white .knight.black {
+.ModernWood .is3d .orientation-white .knight.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Knight-Flipped.png);
 }
-body.is3d.ModernWood .rook.black {
+.ModernWood .is3d .rook.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Rook.png);
 }
-body.is3d.ModernWood .queen.black {
+.ModernWood .is3d .queen.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-Queen.png);
 }
-body.is3d.ModernWood .king.black {
+.ModernWood .is3d .king.black {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-King.png);
+}
+.pirouetti .is2d .cg-piece.piece.white {
+  -webkit-filter: drop-shadow(0 0 0.5px #000);
+}
+.pirouetti .is2d .cg-piece.piece.black {
+  -webkit-filter: drop-shadow(0 0 0.6px #e0e0e0);
+}
+.pirouetti .is2d .cg-piece.piece.ui-draggable-dragging,
+.pirouetti .is2d .piece.animating {
+  -webkit-filter: none!important;
+}
+.pirouetti .is2d .cg-piece.pawn.white {
+  background-image: url(../piece/pirouetti/wP.svg);
+}
+.pirouetti .is2d .cg-piece.bishop.white {
+  background-image: url(../piece/pirouetti/wB.svg);
+}
+.pirouetti .is2d .cg-piece.knight.white,
+#top .cg-piece.pirouetti {
+  background-image: url(../piece/pirouetti/wN.svg);
+}
+.pirouetti .is2d .cg-piece.rook.white {
+  background-image: url(../piece/pirouetti/wR.svg);
+}
+.pirouetti .is2d .cg-piece.queen.white {
+  background-image: url(../piece/pirouetti/wQ.svg);
+}
+.pirouetti .is2d .cg-piece.king.white {
+  background-image: url(../piece/pirouetti/wK.svg);
+}
+.pirouetti .is2d .cg-piece.pawn.black {
+  background-image: url(../piece/pirouetti/bP.svg);
+}
+.pirouetti .is2d .cg-piece.bishop.black {
+  background-image: url(../piece/pirouetti/bB.svg);
+}
+.pirouetti .is2d .cg-piece.knight.black {
+  background-image: url(../piece/pirouetti/bN.svg);
+}
+.pirouetti .is2d .cg-piece.rook.black {
+  background-image: url(../piece/pirouetti/bR.svg);
+}
+.pirouetti .is2d .cg-piece.queen.black {
+  background-image: url(../piece/pirouetti/bQ.svg);
+}
+.pirouetti .is2d .cg-piece.king.black {
+  background-image: url(../piece/pirouetti/bK.svg);
+}
+.merida .is2d .cg-piece.pawn.white {
+  background-image: url(../piece/merida/wP.svg);
+}
+.merida .is2d .cg-piece.bishop.white {
+  background-image: url(../piece/merida/wB.svg);
+}
+.merida .is2d .cg-piece.knight.white,
+#top .cg-piece.merida {
+  background-image: url(../piece/merida/wN.svg);
+}
+.merida .is2d .cg-piece.rook.white {
+  background-image: url(../piece/merida/wR.svg);
+}
+.merida .is2d .cg-piece.queen.white {
+  background-image: url(../piece/merida/wQ.svg);
+}
+.merida .is2d .cg-piece.king.white {
+  background-image: url(../piece/merida/wK.svg);
+}
+.merida .is2d .cg-piece.pawn.black {
+  background-image: url(../piece/merida/bP.svg);
+}
+.merida .is2d .cg-piece.bishop.black {
+  background-image: url(../piece/merida/bB.svg);
+}
+.merida .is2d .cg-piece.knight.black {
+  background-image: url(../piece/merida/bN.svg);
+}
+.merida .is2d .cg-piece.rook.black {
+  background-image: url(../piece/merida/bR.svg);
+}
+.merida .is2d .cg-piece.queen.black {
+  background-image: url(../piece/merida/bQ.svg);
+}
+.merida .is2d .cg-piece.king.black {
+  background-image: url(../piece/merida/bK.svg);
+}
+.spatial .is2d .cg-piece.pawn.white {
+  background-image: url(../piece/spatial/wP.svg);
+}
+.spatial .is2d .cg-piece.bishop.white {
+  background-image: url(../piece/spatial/wB.svg);
+}
+.spatial .is2d .cg-piece.knight.white,
+#top .cg-piece.spatial {
+  background-image: url(../piece/spatial/wN.svg);
+}
+.spatial .is2d .cg-piece.rook.white {
+  background-image: url(../piece/spatial/wR.svg);
+}
+.spatial .is2d .cg-piece.queen.white {
+  background-image: url(../piece/spatial/wQ.svg);
+}
+.spatial .is2d .cg-piece.king.white {
+  background-image: url(../piece/spatial/wK.svg);
+}
+.spatial .is2d .cg-piece.pawn.black {
+  background-image: url(../piece/spatial/bP.svg);
+}
+.spatial .is2d .cg-piece.bishop.black {
+  background-image: url(../piece/spatial/bB.svg);
+}
+.spatial .is2d .cg-piece.knight.black {
+  background-image: url(../piece/spatial/bN.svg);
+}
+.spatial .is2d .cg-piece.rook.black {
+  background-image: url(../piece/spatial/bR.svg);
+}
+.spatial .is2d .cg-piece.queen.black {
+  background-image: url(../piece/spatial/bQ.svg);
+}
+.spatial .is2d .cg-piece.king.black {
+  background-image: url(../piece/spatial/bK.svg);
+}
+.lightp .is2d .cg-piece.pawn.white {
+  background-image: url(../piece/lightp/wP.png);
+}
+.lightp .is2d .cg-piece.bishop.white {
+  background-image: url(../piece/lightp/wB.png);
+}
+.lightp .is2d .cg-piece.knight.white,
+#top .cg-piece.lightp {
+  background-image: url(../piece/lightp/wN.png);
+}
+.lightp .is2d .cg-piece.rook.white {
+  background-image: url(../piece/lightp/wR.png);
+}
+.lightp .is2d .cg-piece.queen.white {
+  background-image: url(../piece/lightp/wQ.png);
+}
+.lightp .is2d .cg-piece.king.white {
+  background-image: url(../piece/lightp/wK.png);
+}
+.lightp .is2d .cg-piece.pawn.black {
+  background-image: url(../piece/lightp/bP.png);
+}
+.lightp .is2d .cg-piece.bishop.black {
+  background-image: url(../piece/lightp/bB.png);
+}
+.lightp .is2d .cg-piece.knight.black {
+  background-image: url(../piece/lightp/bN.png);
+}
+.lightp .is2d .cg-piece.rook.black {
+  background-image: url(../piece/lightp/bR.png);
+}
+.lightp .is2d .cg-piece.queen.black {
+  background-image: url(../piece/lightp/bQ.png);
+}
+.lightp .is2d .cg-piece.king.black {
+  background-image: url(../piece/lightp/bK.png);
+}
+.alpha .is2d .cg-piece.pawn.white {
+  background-image: url(../piece/alpha/wP.svg);
+}
+.alpha .is2d .cg-piece.bishop.white {
+  background-image: url(../piece/alpha/wB.svg);
+}
+.alpha .is2d .cg-piece.knight.white,
+#top .cg-piece.alpha {
+  background-image: url(../piece/alpha/wN.svg);
+}
+.alpha .is2d .cg-piece.rook.white {
+  background-image: url(../piece/alpha/wR.svg);
+}
+.alpha .is2d .cg-piece.queen.white {
+  background-image: url(../piece/alpha/wQ.svg);
+}
+.alpha .is2d .cg-piece.king.white {
+  background-image: url(../piece/alpha/wK.svg);
+}
+.alpha .is2d .cg-piece.pawn.black {
+  background-image: url(../piece/alpha/bP.svg);
+}
+.alpha .is2d .cg-piece.bishop.black {
+  background-image: url(../piece/alpha/bB.svg);
+}
+.alpha .is2d .cg-piece.knight.black {
+  background-image: url(../piece/alpha/bN.svg);
+}
+.alpha .is2d .cg-piece.rook.black {
+  background-image: url(../piece/alpha/bR.svg);
+}
+.alpha .is2d .cg-piece.queen.black {
+  background-image: url(../piece/alpha/bQ.svg);
+}
+.alpha .is2d .cg-piece.king.black {
+  background-image: url(../piece/alpha/bK.svg);
 }
 div.lichess_overboard {
   position: absolute;
@@ -994,7 +1002,7 @@ div.dont_touch {
   box-shadow: inset 0 0 25px 3px #808080;
   transition: all 0.3s;
 }
-body.is3d #promotion_choice div.cg-piece {
+.is3d #promotion_choice div.cg-piece {
   background-position: 0 -6px;
 }
 #promotion_choice div.cg-piece:hover {
@@ -1003,7 +1011,7 @@ body.is3d #promotion_choice div.cg-piece {
   box-shadow: inset 0 0 15px 3px #909090;
   background-position: 0 84px;
 }
-body.is3d #promotion_choice div.cg-piece:hover {
+.is3d #promotion_choice div.cg-piece:hover {
   background-position: 0 98px;
 }
 div.table_wrap {
@@ -1297,7 +1305,7 @@ div.current_player div.no-square .loader {
   margin-top: 5px;
   font-size: 5.8px;
 }
-body.is3d div.current_player div.cg-piece {
+.is3d div.current_player div.cg-piece {
   width: 100%;
   height: 132%;
   left: 0;
