@@ -193,13 +193,13 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val lastMove = ~game.castleLastMoveTime.lastMoveString
     val variant = game.variant.key
     val tag = if (withLink) "a" else "span"
-    s"""<$tag $href $title class="mini_board parse_fen $cssClass $variant" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</$tag>"""
+    s"""<$tag $href $title class="mini_board parse_fen is2d $cssClass $variant" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</$tag>"""
   }
 
   def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false, blank: Boolean = false) = Html {
     var isLive = game.isBeingPlayed
     val variant = game.variant.key
-    s"""<a href="%s%s" title="%s" class="mini_board parse_fen %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
+    s"""<a href="%s%s" title="%s" class="mini_board parse_fen is2d %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
       blank ?? netBaseUrl,
       tv.fold(routes.Tv.index, routes.Round.watcher(game.id, color.name)),
       gameTitle(game, color),

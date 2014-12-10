@@ -47,7 +47,6 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     ctx.pref.highlight ?? "highlight",
     ctx.pref.destination ?? "destination",
     ctx.blindMode ?? "blind_mode",
-    if (ctx.is3d) "is3d" else "is2d",
     "coords_" + ctx.pref.coords).mkString(" ")"
     data-sound-dir="@routes.Assets.at("sound")"
     data-ports="@portsString"
@@ -58,7 +57,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
       <button type="submit">Accessibility: @ctx.blindMode.fold("Disable", "Enable") blind mode</button>
     </form>
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
-    <div id="top" class="clearfix">
+    <div id="top" class="clearfix @ctx.is3d.fold("is3d", "is2d")">
       @if(!zen) {
       <div id="sound_control">
         <button id="sound_state" class="a available hint--bottom-left">
@@ -205,7 +204,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
       }
       }
     </div>
-    <div class="content">
+    <div class="content @ctx.is3d.fold("is3d", "is2d")">
       <div id="site_header">
         @ctx.me.map { me =>
         <div id="notifications">@notifications(me)</div>

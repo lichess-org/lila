@@ -375,27 +375,28 @@ var storage = {
     }, 200);
 
     // themepicker
-    var $body = $('body');
     $('#themepicker_toggle').one('click', function() {
+      var $body = $('body');
+      var $content = $body.children('.content');
       var $themepicker = $('#themepicker');
       var themes = $themepicker.data('themes').split(' ');
-      var theme = $.fp.find(document.body.className.split(/\s+/), function(a) {
+      var theme = $.fp.find(document.body.classList, function(a) {
         return $.fp.contains(themes, a);
       });
       var sets = $themepicker.data('sets').split(' ');
-      var set = $.fp.find(document.body.className.split(/\s+/), function(a) {
+      var set = $.fp.find(document.body.classList, function(a) {
         return $.fp.contains(sets, a);
       });
       var theme3ds = $themepicker.data('theme3ds').split(' ');
-      var theme3d = $.fp.find(document.body.className.split(/\s+/), function(a) {
+      var theme3d = $.fp.find(document.body.classList, function(a) {
         return $.fp.contains(theme3ds, a);
       });
       var set3ds = $themepicker.data('set3ds').split(' ');
-      var set3d = $.fp.find(document.body.className.split(/\s+/), function(a) {
+      var set3d = $.fp.find(document.body.classList, function(a) {
         return $.fp.contains(set3ds, a);
       });
-      var background = $('body').hasClass('dark') ? 'dark' : 'light';
-      var is3d = $('body').hasClass('is3d');
+      var background = $body.hasClass('dark') ? 'dark' : 'light';
+      var is3d = $content.hasClass('is3d');
       $themepicker.find('.is2d div.theme').hover(function() {
         $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
       }, function() {
@@ -449,7 +450,7 @@ var storage = {
         }
       };
       var showDimensions = function(is3d) {
-        $body.removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
+        $content.add('#top').removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
         setZoom(getZoom());
       };
       $themepicker.find('.background a').click(function() {
@@ -508,7 +509,7 @@ var storage = {
       $('.underboard').css("margin-left", px((getZoom() - 1) * 250));
       $('.lichess_game > .lichess_overboard').css("left", px(56 + (getZoom() - 1) * 254));
 
-      if ($('body').hasClass('is3d')) {
+      if ($('body > .content').hasClass('is3d')) {
         $boardWrap.css("height", px(479.08572 * getZoom()));
         $lichessGame.css({
           height: px(479.08572 * getZoom()),
@@ -535,11 +536,6 @@ var storage = {
     var manuallySetZoom = $.fp.debounce(setZoom, 10);
     var initialZoom = getZoom();
     if (initialZoom > 1) setZoom(initialZoom); // Instantiate the page's zoom
-
-    $('.js_email').one('click', function() {
-      var email = 'thibault.duplessis@gmail.com';
-      $(this).replaceWith($('<a/>').text(email).attr('href', 'mailto:' + email));
-    });
 
     function translateTexts() {
       $('.trans_me').each(function() {
