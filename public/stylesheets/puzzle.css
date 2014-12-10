@@ -140,7 +140,6 @@
   display: block;
   font-size: 24px;
   text-decoration: none;
-  width: 40px;
 }
 #puzzle div.upvote.enabled a:hover,
 #puzzle div.upvote a.active {
@@ -149,7 +148,6 @@
 #puzzle div.upvote span.count {
   display: block;
   font-size: 24px;
-  width: 40px;
   line-height: 1;
 }
 #puzzle #disqus_thread {
