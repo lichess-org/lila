@@ -115,8 +115,7 @@ object ApplicationBuild extends Build {
 
   lazy val chat = project("chat", Seq(
     common, db, user, security, i18n)).settings(
-    libraryDependencies ++= provided(
-      play.api, RM, PRM)
+    libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
   lazy val timeline = project("timeline", Seq(common, db, game, user, hub, security, relation)).settings(
@@ -182,8 +181,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val security = project("security", Seq(common, hub, db, user)).settings(
-    libraryDependencies ++= provided(
-      play.api, RM, PRM, maxmind)
+    libraryDependencies ++= provided(play.api, RM, PRM, maxmind, hasher)
   )
 
   lazy val relation = project("relation", Seq(common, db, memo, hub, user, game, pref)).settings(

@@ -44,6 +44,8 @@ trait UserRepo {
 
   def byEmail(email: String): Fu[Option[User]] = $find one Json.obj(F.email -> email)
 
+  def enabledByEmail(email: String): Fu[Option[User]] = byEmail(email) map (_ filter (_.enabled))
+
   def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =
     $find byIds List(x, y).flatten map { users =>
       x.??(xx => users.find(_.id == xx)) ->
@@ -55,8 +57,8 @@ trait UserRepo {
   def enabledByIds(ids: Seq[ID]): Fu[List[User]] =
     $find(enabledSelect ++ $select.byIds(ids))
 
-  def enabledById(id: ID): Fu[List[User]] =
-    $find(enabledSelect ++ $select.byId(id))
+  def enabledById(id: ID): Fu[Option[User]] =
+    $find.one(enabledSelect ++ $select.byId(id))
 
   def named(username: String): Fu[Option[User]] = $find byId normalize(username)
 
@@ -183,6 +185,9 @@ trait UserRepo {
     } map {
       _ ?? (data => data.enabled && data.compare(password))
     }
+
+  def getPasswordHash(id: ID): Fu[Option[String]] =
+    $primitive.one($select(id), "password")(_.asOpt[String])
 
   def create(username: String, password: String, blind: Boolean): Fu[Option[User]] =
     !nameExists(username) flatMap {

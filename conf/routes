@@ -180,7 +180,8 @@ GET   /signup                          controllers.Auth.signup
 POST  /signup                          controllers.Auth.signupPost
 GET   /password-reset                  controllers.Auth.passwordReset
 POST  /password-reset                  controllers.Auth.passwordResetApply
-POST  /password-reset-sent/:email      controllers.Auth.passwordResetSent(email: String)
+POST  /password-reset/sent/:email      controllers.Auth.passwordResetSent(email: String)
+GET   /password-reset/confirm/:token   controllers.Auth.passwordResetConfirm(token: String)
 
 # Mod
 POST  /mod/:username/engine            controllers.Mod.engine(username: String)
