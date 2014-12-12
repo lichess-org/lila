@@ -174,6 +174,7 @@ object LangList {
     "ty" -> "Reo Mā`ohi, Reo Tahiti",
     "uk" -> "українська",
     "ur" -> "اُردُو",
+    "ug" -> "ئۇيغۇرچە",
     "ve" -> "Tshivenḓa",
     "vi" -> "Tiếng Việt",
     "vo" -> "Volapük",
