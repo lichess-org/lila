@@ -22,7 +22,7 @@ private[opening] final class OpeningApi(
     def find(id: Opening.ID): Fu[Option[Opening]] =
       openingColl.find(BSONDocument("_id" -> id)).one[Opening]
 
-    def importGenerated(json: JsValue, token: String): Fu[Opening.ID] =
+    def importOne(json: JsValue, token: String): Fu[Opening.ID] =
       if (token != apiToken) fufail("Invalid API token")
       else {
         import Generated.generatedJSONRead
