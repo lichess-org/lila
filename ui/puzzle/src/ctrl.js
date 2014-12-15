@@ -30,14 +30,13 @@ module.exports = function(cfg, router, i18n) {
         this.data.comment = 'retry';
         break;
       case 'fail':
-        var t = this;
         setTimeout(function() {
-          if (t.data.mode == 'play') {
-            t.chessground.stop();
-            xhr.attempt(t, false);
+          if (this.data.mode == 'play') {
+            this.chessground.stop();
+            xhr.attempt(this, false);
           }
-          else t.revert(t.data.puzzle.id);
-        }, 500);
+          else this.revert(this.data.puzzle.id);
+        }.bind(this), 500);
         this.data.comment = 'fail';
         break;
       default:
@@ -63,6 +62,7 @@ module.exports = function(cfg, router, i18n) {
         dests: this.data.chess.dests()
       }
     });
+    m.redraw();
     if (this.data.chess.in_check()) this.chessground.setCheck();
   }.bind(this);
 

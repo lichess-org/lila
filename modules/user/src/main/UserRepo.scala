@@ -42,6 +42,10 @@ trait UserRepo {
 
   def byIds(ids: Iterable[ID]): Fu[List[User]] = $find byIds ids
 
+  def byEmail(email: String): Fu[Option[User]] = $find one Json.obj(F.email -> email)
+
+  def enabledByEmail(email: String): Fu[Option[User]] = byEmail(email) map (_ filter (_.enabled))
+
   def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =
     $find byIds List(x, y).flatten map { users =>
       x.??(xx => users.find(_.id == xx)) ->
@@ -53,8 +57,8 @@ trait UserRepo {
   def enabledByIds(ids: Seq[ID]): Fu[List[User]] =
     $find(enabledSelect ++ $select.byIds(ids))
 
-  def enabledById(id: ID): Fu[List[User]] =
-    $find(enabledSelect ++ $select.byId(id))
+  def enabledById(id: ID): Fu[Option[User]] =
+    $find.one(enabledSelect ++ $select.byId(id))
 
   def named(username: String): Fu[Option[User]] = $find byId normalize(username)
 
@@ -182,6 +186,9 @@ trait UserRepo {
       _ ?? (data => data.enabled && data.compare(password))
     }
 
+  def getPasswordHash(id: ID): Fu[Option[String]] =
+    $primitive.one($select(id), "password")(_.asOpt[String])
+
   def create(username: String, password: String, blind: Boolean): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
@@ -215,7 +222,6 @@ trait UserRepo {
   def updateTroll(user: User) = $update.field(user.id, "troll", user.troll)
 
   def isEngine(id: ID): Fu[Boolean] = $count.exists($select(id) ++ engineSelect(true))
-  def isArtificial(id: ID): Fu[Boolean] = $count.exists($select(id) ++ Json.obj("artificial" -> true))
 
   def setRoles(id: ID, roles: List[String]) = $update.field(id, "roles", roles)
 
@@ -231,6 +237,10 @@ trait UserRepo {
           "sha512" -> false)))
       }
     }
+
+  def email(id: ID, email: String): Funit = $update.field(id, F.email, email)
+
+  def email(id: ID): Fu[Option[String]] = $primitive.one($select(id), F.email)(_.asOpt[String])
 
   def setSeenAt(id: ID) {
     $update.fieldUnchecked(id, "seenAt", $date(DateTime.now))
@@ -282,9 +292,6 @@ trait UserRepo {
         if (blind) BSONDocument("blind" -> true) else BSONDocument()
       }
   }
-
-  def artificialSetPassword(id: String, password: String) =
-    passwd(id, password) >> $update($select(id), $unset("artificial") ++ $set("enabled" -> true))
 
   private def hash(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha1
   private def hash512(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha512

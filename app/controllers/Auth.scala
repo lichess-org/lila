@@ -14,37 +14,39 @@ object Auth extends LilaController {
   private def api = Env.security.api
   private def forms = Env.security.forms
 
+  private def authenticateUser(u: lila.user.User)(implicit ctx: lila.api.Context) = {
+    implicit val req = ctx.req
+    u.ipBan.fold(
+      Env.security.firewall.blockIp(req.remoteAddress) inject BadRequest("blocked by firewall"),
+      api saveAuthentication u.id flatMap { sessionId =>
+        negotiate(
+          html = Redirect {
+            get("referrer").filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
+          }.fuccess,
+          api = _ => Ok(Env.user.jsonView(u, extended = true)).fuccess
+        ) map {
+            _ withCookies LilaCookie.withSession { session =>
+              session + ("sessionId" -> sessionId) - api.AccessUri
+            }
+          }
+      }
+    )
+  }
+
   def login = Open { implicit ctx =>
     val referrer = get("referrer")
     Ok(html.auth.login(api.loginForm, referrer)) fuccess
   }
 
   def authenticate = OpenBody { implicit ctx =>
-    val referrer = get("referrer")
     Firewall {
       implicit val req = ctx.body
       api.loginForm.bindFromRequest.fold(
         err => negotiate(
-          html = Unauthorized(html.auth.login(err, referrer)).fuccess,
+          html = Unauthorized(html.auth.login(err, get("referrer"))).fuccess,
           api = _ => Unauthorized(err.errorsAsJson).fuccess
         ),
-        _.fold(InternalServerError("authenticate error").fuccess) { u =>
-          u.ipBan.fold(
-            Env.security.firewall.blockIp(req.remoteAddress) inject BadRequest("blocked by firewall"),
-            api saveAuthentication u.id flatMap { sessionId =>
-              negotiate(
-                html = Redirect {
-                  referrer.filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
-                }.fuccess,
-                api = _ => Ok(Env.user.jsonView(u, extended = true)).fuccess
-              ) map {
-                  _ withCookies LilaCookie.withSession { session =>
-                    session + ("sessionId" -> sessionId) - api.AccessUri
-                  }
-                }
-            }
-          )
-        }
+        _.fold(InternalServerError("authenticate error").fuccess)(authenticateUser)
       )
     }
   }
@@ -81,19 +83,48 @@ object Auth extends LilaController {
     )
   }
 
-  def newPassword = AuthBody { implicit ctx =>
-    me =>
-      if (!me.artificial) fuccess(Redirect(routes.Lobby.home))
-      else {
-        implicit val req = ctx.body
-        forms.newPassword.bindFromRequest.fold(
-          err => fuccess {
-            BadRequest(html.auth.artificialPassword(me, err))
-          },
-          pass => UserRepo.artificialSetPassword(me.id, pass) map { _ =>
-            Redirect(routes.Lobby.home)
-          }
-        )
+  def passwordReset = Open { implicit ctx =>
+    forms.passwordResetWithCaptcha map {
+      case (form, captcha) => Ok(html.auth.passwordReset(form, captcha))
+    }
+  }
+
+  def passwordResetApply = OpenBody { implicit ctx =>
+    implicit val req = ctx.body
+    forms.passwordReset.bindFromRequest.fold(
+      err => forms.anyCaptcha map { captcha =>
+        BadRequest(html.auth.passwordReset(err, captcha))
+      },
+      data => UserRepo enabledByEmail data.email flatten s"No such user: ${data.email}" flatMap { user =>
+        Env.security.passwordReset.send(user, data.email) inject Redirect(routes.Auth.passwordResetSent(data.email))
       }
+    )
+  }
+
+  def passwordResetSent(email: String) = Open { implicit ctx =>
+    fuccess {
+      Ok(html.auth.passwordResetSent(email))
+    }
+  }
+
+  def passwordResetConfirm(token: String) = Open { implicit ctx =>
+    Env.security.passwordReset confirm token flatMap {
+      case Some(user) =>
+        fuccess(html.auth.passwordResetConfirm(user, token, forms.passwdReset, none))
+      case _ => notFound
+    }
+  }
+
+  def passwordResetConfirmApply(token: String) = OpenBody { implicit ctx =>
+    Env.security.passwordReset confirm token flatMap {
+      case Some(user) =>
+        implicit val req = ctx.body
+        FormFuResult(forms.passwdReset) { err =>
+          fuccess(html.auth.passwordResetConfirm(user, token, err, false.some))
+        } { data =>
+          UserRepo.passwd(user.id, data.newPasswd1) >> authenticateUser(user)
+        }
+      case _ => notFound
+    }
   }
 }

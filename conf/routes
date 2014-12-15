@@ -42,6 +42,8 @@ GET   /player/autocomplete             controllers.User.autocomplete
 # Account
 GET   /account/passwd                  controllers.Account.passwd
 POST  /account/passwd                  controllers.Account.passwdApply
+GET   /account/email                   controllers.Account.email
+POST  /account/email                   controllers.Account.emailApply
 GET   /account/close                   controllers.Account.close
 POST  /account/closeConfirm            controllers.Account.closeConfirm
 GET   /account/profile                 controllers.Account.profile
@@ -176,7 +178,11 @@ POST  /login                           controllers.Auth.authenticate
 GET   /logout                          controllers.Auth.logout
 GET   /signup                          controllers.Auth.signup
 POST  /signup                          controllers.Auth.signupPost
-POST  /new-password                    controllers.Auth.newPassword
+GET   /password/reset                  controllers.Auth.passwordReset
+POST  /password/reset                  controllers.Auth.passwordResetApply
+GET   /password/reset/sent/:email      controllers.Auth.passwordResetSent(email: String)
+GET   /password/reset/confirm/:token   controllers.Auth.passwordResetConfirm(token: String)
+POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmApply(token: String)
 
 # Mod
 POST  /mod/:username/engine            controllers.Mod.engine(username: String)

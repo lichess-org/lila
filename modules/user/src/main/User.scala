@@ -10,7 +10,6 @@ case class User(
     username: String,
     perfs: Perfs,
     count: Count,
-    artificial: Boolean = false,
     troll: Boolean = false,
     ipBan: Boolean = false,
     enabled: Boolean,
@@ -103,7 +102,6 @@ object User {
   object BSONFields {
     val id = "_id"
     val username = "username"
-    val artificial = "artificial"
     val perfs = "perfs"
     val count = "count"
     val troll = "troll"
@@ -119,6 +117,7 @@ object User {
     val lang = "lang"
     val title = "title"
     def glicko(perf: String) = s"$perfs.$perf.gl"
+    val email = "email"
   }
 
   import lila.db.BSON
@@ -136,7 +135,6 @@ object User {
       username = r str username,
       perfs = r.getO[Perfs](perfs) | Perfs.default,
       count = r.get[Count](count),
-      artificial = r boolD artificial,
       troll = r boolD troll,
       ipBan = r boolD ipBan,
       enabled = r bool enabled,
@@ -155,7 +153,6 @@ object User {
       username -> o.username,
       perfs -> o.perfs,
       count -> o.count,
-      artificial -> w.boolO(o.artificial),
       troll -> w.boolO(o.troll),
       ipBan -> w.boolO(o.ipBan),
       enabled -> o.enabled,

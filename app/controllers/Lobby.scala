@@ -12,14 +12,9 @@ import views._
 object Lobby extends LilaController {
 
   def home = Open { implicit ctx =>
-    ctx.me match {
-      case Some(u) if u.artificial => fuccess {
-        views.html.auth.artificialPassword(u, Env.security.forms.newPassword)
-      }
-      case _ => renderHome(Results.Ok).map(_.withHeaders(
-        CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
-      ))
-    }
+    renderHome(Results.Ok).map(_.withHeaders(
+      CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
+    ))
   }
 
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =

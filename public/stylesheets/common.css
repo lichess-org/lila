@@ -101,6 +101,9 @@ time {
 [data-icon].is-green::before {
   color: #759900;
 }
+[data-icon].is-red::before {
+  color: #dc322f;
+}
 [data-icon].is-gold::before {
   color: #d59120;
 }

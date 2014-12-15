@@ -71,9 +71,8 @@ object User extends LilaController {
           else
             userGames(u, filterOption, page)
         } map { status(_) },
-          UserRepo isArtificial u.id map { artificial =>
-            NotFound(html.user.disabled(u, artificial))
-          })
+          fuccess(NotFound(html.user.disabled(u)))
+        )
       }
     }
 

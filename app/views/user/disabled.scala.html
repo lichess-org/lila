@@ -1,4 +1,4 @@
-@(u: User, artificial: Boolean)(implicit ctx: Context)
+@(u: User)(implicit ctx: Context)
 
 @user.layout(
 title = u.username,
@@ -9,11 +9,6 @@ robots = false) {
   </div>
   <div class="content_box_content clearfix">
     This account is closed.
-    @if(artificial) {
-    This account infos have been lost during a server failure.<br />
-    All new accounts between 12 Dec 2013 and 22 Dec 2013 are affected.<br />
-    We are very sorry for the inconvenience.
-    }
   </div>
 </div>
 }
