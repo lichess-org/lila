@@ -130,4 +130,5 @@ object Env {
   def qa = lila.qa.Env.current
   def history = lila.history.Env.current
   def worldMap = lila.worldMap.Env.current
+  def opening = lila.opening.Env.current
 }

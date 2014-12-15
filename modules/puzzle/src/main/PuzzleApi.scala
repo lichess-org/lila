@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import scala.concurrent.Future
 import scala.util.{ Try, Success, Failure }
 
 import org.joda.time.DateTime

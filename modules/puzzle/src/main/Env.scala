@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import akka.actor.{ ActorSelection, ActorSystem, Props }
+import akka.actor.{ ActorSelection, ActorSystem }
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
