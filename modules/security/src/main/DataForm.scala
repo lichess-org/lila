@@ -46,6 +46,20 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
     "password" -> text(minLength = 4)
   ))
 
+  case class PasswordResetConfirm(
+      newPasswd1: String,
+      newPasswd2: String) {
+    def samePasswords = newPasswd1 == newPasswd2
+  }
+
+  val passwdReset = Form(mapping(
+    "newPasswd1" -> nonEmptyText(minLength = 2),
+    "newPasswd2" -> nonEmptyText(minLength = 2)
+  )(PasswordResetConfirm.apply)(PasswordResetConfirm.unapply).verifying(
+      "the new passwords don't match",
+      _.samePasswords
+    ))
+
   private def userExists(data: SignupData) =
     if (usernameSucks(data.username.toLowerCase)) fuccess(true)
     else $count.exists(data.username.toLowerCase)

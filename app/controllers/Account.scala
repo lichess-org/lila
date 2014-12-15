@@ -79,9 +79,15 @@ object Account extends LilaController {
       }
   }
 
+  private def emailForm(id: String) = UserRepo email id map { email =>
+    forms.email.fill(forms.Email(~email, ""))
+  }
+
   def email = Auth { implicit ctx =>
     me =>
-      Ok(html.account.email(me, forms.email)).fuccess
+      emailForm(me.id) map { form =>
+        Ok(html.account.email(me, form))
+      }
   }
 
   def emailApply = AuthBody { implicit ctx =>
@@ -93,8 +99,9 @@ object Account extends LilaController {
         for {
           ok ← UserRepo.checkPassword(me.id, data.passwd)
           _ ← ok ?? UserRepo.email(me.id, data.email)
+          form <- emailForm(me.id)
         } yield {
-          val content = html.account.email(me, forms.email.fill(data), ok.some)
+          val content = html.account.email(me, form, ok.some)
           ok.fold(Ok(content), BadRequest(content))
         }
       }

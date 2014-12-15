@@ -238,7 +238,9 @@ trait UserRepo {
       }
     }
 
-  def email(id: ID, email: String): Funit = $update.field(id, "email", email)
+  def email(id: ID, email: String): Funit = $update.field(id, F.email, email)
+
+  def email(id: ID): Fu[Option[String]] = $primitive.one($select(id), F.email)(_.asOpt[String])
 
   def setSeenAt(id: ID) {
     $update.fieldUnchecked(id, "seenAt", $date(DateTime.now))

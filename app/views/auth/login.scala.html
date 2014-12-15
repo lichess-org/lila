@@ -20,6 +20,10 @@
   <div class="alternative">
     @trans.newToLichess()
     <a href="@routes.Auth.signup()" class="button" data-icon="F"> @trans.signUp()</a>
+    <br />
+    <br />
+    @trans.forgotPassword()
+    <a href="@routes.Auth.passwordReset()"> @trans.passwordReset()</a>
   </div>
 </div>
 }
