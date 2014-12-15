@@ -93,10 +93,14 @@ object Auth extends LilaController {
     implicit val req = ctx.body
     forms.passwordReset.bindFromRequest.fold(
       err => forms.anyCaptcha map { captcha =>
-        BadRequest(html.auth.passwordReset(err, captcha))
+        BadRequest(html.auth.passwordReset(err, captcha, false.some))
       },
-      data => UserRepo enabledByEmail data.email flatten s"No such user: ${data.email}" flatMap { user =>
-        Env.security.passwordReset.send(user, data.email) inject Redirect(routes.Auth.passwordResetSent(data.email))
+      data => UserRepo enabledByEmail data.email flatMap {
+        case Some(user) =>
+          Env.security.passwordReset.send(user, data.email) inject Redirect(routes.Auth.passwordResetSent(data.email))
+        case None => forms.passwordResetWithCaptcha map {
+          case (form, captcha) => BadRequest(html.auth.passwordReset(form, captcha, false.some))
+        }
       }
     )
   }
