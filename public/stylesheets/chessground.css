@@ -161,6 +161,8 @@ body.base .cg-board .cg-square.current-premove {
 .is2d .cg-piece {
   width: 100%;
   height: 100%;
+  left: 0;
+  bottom: 0;
 }
 .cg-piece.dragging {
   z-index: 3;
