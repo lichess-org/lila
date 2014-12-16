@@ -3,7 +3,7 @@
 
 mkdir -p public/compiled
 
-for app in editor puzzle round analyse; do
+for app in editor puzzle opening round analyse; do
   cd ui/$app
   npm install ../chessli
   npm install ../game
