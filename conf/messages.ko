@@ -82,6 +82,7 @@ minutesPerSide=진영 당 주어진 시간(분)
 variant=모드
 timeControl=시간 제한
 clock=제한 시간
+correspondence=긴 체스
 daysPerTurn=한 턴에 걸리는 날짜
 oneDay=하루
 nbDays=턴당 %s일
