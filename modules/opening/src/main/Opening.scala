@@ -47,12 +47,14 @@ object Opening {
     def reads(r: BSON.Reader): Move = Move(
       first = r str "first",
       cp = r int "cp",
-      line = r str "line" split ' ' toList)
+      line = chess.format.pgn.Binary.readMoves(r.bytes("line").value.toList).get)
 
     def writes(w: BSON.Writer, o: Move) = BSONDocument(
       "first" -> o.first,
       "cp" -> o.cp,
-      "line" -> o.line.mkString(" "))
+      "line" -> lila.db.ByteArray {
+        chess.format.pgn.Binary.writeMoves(o.line).get.toArray
+      })
   }
 
   object BSONFields {

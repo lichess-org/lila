@@ -26,7 +26,7 @@ private[opening] final class OpeningApi(
       if (token != apiToken) fufail("Invalid API token")
       else {
         import Generated.generatedJSONRead
-        Try(json.as[Generated]).pp match {
+        Try(json.as[Generated]) match {
           case Failure(err)       => fufail(err.getMessage)
           case Success(generated) => generated.toOpening.future flatMap insertOpening
         }
