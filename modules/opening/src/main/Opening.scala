@@ -18,7 +18,24 @@ case class Opening(
     attempts: Int,
     score: Double) {
 
+  def scoredMoves = moves.map { move =>
+    ScoredMove(move, Score.Good)
+  }
 }
+
+sealed trait Score {
+  def name = toString.toLowerCase
+}
+object Score {
+  case object Great extends Score
+  case object Good extends Score
+  case object Dubious extends Score
+  case object Bad extends Score
+}
+
+case class ScoredMove(
+  move: Move,
+  score: Score)
 
 object Opening {
 

@@ -16,12 +16,16 @@ final class Env(
   }
   import settings._
 
-  val AnimationDuration = config duration "animation.duration"
-
   lazy val api = new OpeningApi(
     openingColl = openingColl,
     attemptColl = attemptColl,
     apiToken = ApiToken)
+
+  lazy val selector = new Selector(
+    openingColl = openingColl,
+    api = api)
+
+  lazy val userInfos = UserInfos(attemptColl = attemptColl)
 
   private[opening] lazy val openingColl = db(CollectionOpening)
   private[opening] lazy val attemptColl = db(CollectionAttempt)

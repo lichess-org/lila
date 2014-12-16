@@ -10,11 +10,26 @@ import lila.app._
 import lila.opening.{ Generated, Opening => OpeningModel }
 import lila.user.{ User => UserModel, UserRepo }
 import views._
-// import views.html.puzzle.JsData
+// import views.html.opening.JsData
 
 object Opening extends LilaController {
 
   private def env = Env.opening
+
+  private def renderShow(opening: OpeningModel)(implicit ctx: Context) =
+    env userInfos ctx.me map { infos =>
+      views.html.opening.show(opening, infos)
+    }
+
+  def home = Open { implicit ctx =>
+    env.selector(ctx.me) flatMap { opening =>
+      renderShow(opening) map { Ok(_) }
+    }
+  }
+
+  def show(id: OpeningModel.ID) = Open { implicit ctx =>
+    OptionFuOk(env.api.opening find id)(renderShow)
+  }
 
   def importOne = Action.async(parse.json) { implicit req =>
     env.api.opening.importOne(req.body, ~get("token", req)) map { id =>
