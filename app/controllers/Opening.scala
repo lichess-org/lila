@@ -22,7 +22,7 @@ object Opening extends LilaController {
         val url = s"http://lichess.org/training/opening/$id"
         play.api.Logger("opening import").info(s"${req.remoteAddress} $url")
         url
-      }.mkString(" "))
+      })
     } recover {
       case e =>
         play.api.Logger("opening import").warn(e.getMessage)

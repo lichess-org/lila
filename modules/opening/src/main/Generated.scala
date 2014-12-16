@@ -7,8 +7,7 @@ import play.api.libs.json._
 
 private[opening] case class Generated(
     fen: String,
-    moves: Map[String, Generated.Move],
-    id: String) {
+    moves: Map[String, Generated.Move]) {
 
   def toOpening: Try[Opening.ID => Opening] =
     (chess.format.Forsyth <<< fen) match {
@@ -17,10 +16,13 @@ private[opening] case class Generated(
         val ply = parsed.fullMoveNumber
         val color = parsed.situation.color
         moves.map {
-          case (first, move) =>
-            Generated.toPgn(parsed.situation, first :: move.line.split(' ').toList) map { pgn =>
-              Move(first = first, cp = move.cp, line = pgn)
+          case (first, move) => for {
+            pgn <- Generated.toPgn(parsed.situation, first :: move.line.split(' ').toList)
+            cp <- parseIntOption(move.cp) match {
+              case None     => Failure(new Exception(s"Invalid cp ${move.cp}"))
+              case Some(cp) => Success(cp)
             }
+          } yield Move(first = first, cp = cp, line = pgn)
         }.foldLeft(Try(List[Move]())) {
           case (Success(acc), Success(l)) => Success(l :: acc)
           case (err: Failure[_], _)       => err
@@ -37,7 +39,7 @@ private[opening] case class Generated(
 
 private[opening] object Generated {
 
-  case class Move(cp: Int, line: String)
+  case class Move(cp: String, line: String)
 
   implicit val generatedMoveJSONRead = Json.reads[Move]
   implicit val generatedJSONRead = Json.reads[Generated]

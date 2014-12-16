@@ -11,7 +11,7 @@ final class Env(
 
   private val settings = new {
     val CollectionOpening = config getString "collection.opening"
-    val CollectionAttempt = config getString "collection.opening_attempt"
+    val CollectionAttempt = config getString "collection.attempt"
     val ApiToken = config getString "api.token"
   }
   import settings._
@@ -30,6 +30,6 @@ final class Env(
 object Env {
 
   lazy val current: Env = "[boot] opening" describes new Env(
-    config = lila.common.PlayApp loadConfig "puzzle",
+    config = lila.common.PlayApp loadConfig "opening",
     db = lila.db.Env.current)
 }

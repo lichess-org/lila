@@ -26,9 +26,9 @@ private[opening] final class OpeningApi(
       if (token != apiToken) fufail("Invalid API token")
       else {
         import Generated.generatedJSONRead
-        json.asOpt[Generated] match {
-          case None            => fufail(s"Invalid $json")
-          case Some(generated) => generated.toOpening.future flatMap insertOpening
+        Try(json.as[Generated]).pp match {
+          case Failure(err)       => fufail(err.getMessage)
+          case Success(generated) => generated.toOpening.future flatMap insertOpening
         }
       }
 
