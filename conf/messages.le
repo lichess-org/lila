@@ -86,6 +86,7 @@ correspondence=(0|?|?3$|20|\||)3|\|(3
 daysPerTurn=|)4j$ |?3|? TU|?|\|
 oneDay=0|\|3 |)4Y
 nbDays=%s D4YS
+nbHours=%s |-|0u|?$
 time=7im3
 username=us3r N@M3
 password=P@5$w0Rd
