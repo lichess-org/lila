@@ -15,7 +15,7 @@
       @themSeeks.map { seek =>
       @defining(ctx.userId ?? (seek.user.id ==)) { isMine =>
       <tr title="@isMine.fold(trans.joinTheGame(), trans.cancel())"
-        class="@isMine.fold("join", "cancel")@if(ctx.isAnon){ must_login}"
+        class="@isMine.fold("cancel", "join")@if(ctx.isAnon){ must_login}"
         data-action="@isMine.fold("cancelSeek", "joinSeek")"
         data-variant="@seek.realVariant.key"
         data-id="@seek.id">

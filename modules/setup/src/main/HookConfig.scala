@@ -28,8 +28,7 @@ case class HookConfig(
     case TimeMode.Clock => Left(Hook.make(
       uid = uid,
       variant = variant,
-      clock = makeClock,
-      daysPerTurn = makeDaysPerTurn,
+      clock = justMakeClock,
       mode = mode,
       allowAnon = allowAnon,
       color = color.name,

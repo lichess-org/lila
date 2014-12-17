@@ -37,9 +37,10 @@ private[setup] trait Config {
 
   def clockHasTime = time + increment > 0
 
-  def makeClock = hasClock option {
+  def makeClock = hasClock option justMakeClock
+
+  protected def justMakeClock =
     Clock(time * 60, clockHasTime.fold(increment, 1))
-  }
 
   def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
 }

@@ -52,16 +52,12 @@ private[lobby] object Biter {
   private def makeGame(hook: Hook) = Game.make(
     game = ChessGame(
       board = Board init hook.realVariant,
-      clock = hook.hasClock.fold(
-        hook.time |@| hook.increment apply Clock.apply,
-        none)
-    ),
+      clock = hook.clock.some),
     whitePlayer = Player.white,
     blackPlayer = Player.black,
     mode = hook.realMode,
     variant = hook.realVariant,
     source = lila.game.Source.Lobby,
-    daysPerTurn = None,
     pgnImport = None)
 
   private def makeGame(seek: Seek) = Game.make(
