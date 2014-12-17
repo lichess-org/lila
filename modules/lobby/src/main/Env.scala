@@ -34,7 +34,9 @@ final class Env(
     uidTtl = SocketUidTtl
   )), name = SocketName)
 
-  lazy val seekApi = new SeekApi(coll = db(CollectionSeek))
+  lazy val seekApi = new SeekApi(
+    coll = db(CollectionSeek),
+    blocking = blocking)
 
   val lobby = system.actorOf(Props(new Lobby(
     socket = socket,

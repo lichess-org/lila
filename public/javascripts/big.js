@@ -1707,6 +1707,12 @@ var storage = {
     }
 
     $seeks.on('click', 'tr', function() {
+      if ($(this).hasClass('must_login')) {
+        if (confirm($.trans('You need an account to do that'))) {
+          location.href = '/signup';
+        }
+        return false;
+      }
       if ($(this).data('action') != 'joinSeek' || confirmVariant($(this).data('variant'))) {
         lichess.socket.send($(this).data('action'), $(this).data('id'));
       }
@@ -2114,7 +2120,7 @@ var storage = {
 
     $panels.find('form.future_game_analysis').submit(function() {
       if ($(this).hasClass('must_login')) {
-        if (confirm($.trans('You need an account to do that') + '.')) {
+        if (confirm($.trans('You need an account to do that'))) {
           location.href = '/signup';
         }
         return false;

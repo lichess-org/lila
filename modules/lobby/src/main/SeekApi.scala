@@ -7,10 +7,22 @@ import reactivemongo.core.commands._
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
 
-final class SeekApi(coll: Coll) {
+final class SeekApi(
+    coll: Coll,
+    blocking: String => Fu[Set[String]]) {
 
-  def all: Fu[List[Seek]] =
-    coll.find(BSONDocument()).cursor[Seek].collect[List]()
+  def all(max: Int): Fu[List[Seek]] =
+    coll.find(BSONDocument()).cursor[Seek].collect[List](max)
+
+  def forUser(max: Int)(user: User): Fu[List[Seek]] =
+    blocking(user.id) flatMap { blocked =>
+      all(max) map {
+        _ filter { seek =>
+          !seek.user.blocking.contains(user.id) &&
+            !blocked.contains(seek.user.id)
+        }
+      }
+    }
 
   def find(id: String): Fu[Option[Seek]] =
     coll.find(BSONDocument("_id" -> id)).one[Seek]
