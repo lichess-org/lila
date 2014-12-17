@@ -5,6 +5,7 @@ var analyse = require('./analyse');
 var ground = require('./ground');
 var keyboard = require('./keyboard');
 var treePath = require('./path');
+var m = require('mithril');
 
 module.exports = function(cfg, router, i18n, onChange) {
 

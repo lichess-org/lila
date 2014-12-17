@@ -4,17 +4,17 @@ function make(fen) {
   return new Chess(fen);
 }
 
-function move(c, m) {
+function move(c, mo) {
   var m2 = {
-    from: m[0],
-    to: m[1]
+    from: mo[0],
+    to: mo[1]
   };
-  if (m[2]) m2.promotion = m[2];
+  if (mo[2]) m2.promotion = mo[2];
   c.move(m2);
 }
 
-function parseMove(m) {
-  return m ? [m.from, m.to] : null;
+function parseMove(mo) {
+  return mo ? [mo.from, mo.to] : null;
 }
 
 function lastMove(c) {

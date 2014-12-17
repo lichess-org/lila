@@ -16,8 +16,6 @@ final class Env(
   }
   import settings._
 
-  val AnimationDuration = config duration "animation.duration"
-
   lazy val api = new OpeningApi(
     openingColl = openingColl,
     attemptColl = attemptColl,

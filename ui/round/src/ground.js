@@ -1,8 +1,9 @@
 var chessground = require('chessground');
 var game = require('game').game;
+var m = require('mithril');
 
-function str2move(m) {
-  return m ? [m.slice(0, 2), m.slice(2, 4)] : null;
+function str2move(mo) {
+  return mo ? [mo.slice(0, 2), mo.slice(2, 4)] : null;
 }
 
 function makeConfig(data, fen, flip) {

@@ -1,5 +1,6 @@
 var k = require('mousetrap');
 var control = require('./control');
+var m = require('mithril');
 
 function preventing(f) {
   return function(e) {

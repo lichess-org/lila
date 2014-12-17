@@ -2,6 +2,7 @@ var chessground = require('chessground');
 var partial = chessground.util.partial;
 var editor = require('./editor');
 var drag = require('./drag');
+var m = require('mithril');
 
 function promptNewFen(ctrl) {
   var fen = prompt('Paste FEN position');

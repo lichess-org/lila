@@ -1,3 +1,5 @@
+var m = require('mithril');
+
 module.exports = function(data, onFlag, soundColor) {
 
   var lastUpdate;

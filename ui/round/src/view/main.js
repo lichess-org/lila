@@ -1,4 +1,3 @@
-var m = require('mithril');
 var game = require('game').game;
 var chessground = require('chessground');
 var renderTable = require('./table');
@@ -8,6 +7,7 @@ var partial = require('chessground').util.partial;
 var button = require('./button');
 var blind = require('../blind');
 var keyboard = require('../replay/keyboard');
+var m = require('mithril');
 
 function renderMaterial(ctrl, material) {
   var children = [];

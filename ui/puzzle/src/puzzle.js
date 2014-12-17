@@ -6,12 +6,12 @@ var pairs = require('lodash-node/modern/objects/pairs')
 var chessground = require('chessground');
 var chess = require('./chess');
 
-function str2move(m) {
-  return m ? [m.slice(0, 2), m.slice(2, 4), m[4]] : null;
+function str2move(str) {
+  return str ? [str.slice(0, 2), str.slice(2, 4), str[4]] : null;
 }
 
-function move2str(m) {
-  return m.join('');
+function move2str(move) {
+  return move.join('');
 }
 
 function getPath(obj, ks) {
