@@ -13,7 +13,6 @@ private[opening] case class Generated(
     (chess.format.Forsyth <<< fen) match {
       case None => Failure(new Exception(s"Can't parse fen $fen"))
       case Some(parsed) =>
-        val ply = parsed.fullMoveNumber
         val color = parsed.situation.color
         moves.map {
           case (first, move) => for {
@@ -30,7 +29,6 @@ private[opening] case class Generated(
         }.map { realMoves =>
           Opening.make(
             fen = fen,
-            ply = ply,
             color = color,
             moves = realMoves)
         }
