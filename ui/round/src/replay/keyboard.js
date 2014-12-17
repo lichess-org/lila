@@ -1,4 +1,5 @@
 var k = require('mousetrap');
+var m = require('mithril');
 
 function replayPly(ctrl) {
   return ctrl.replay.active ? ctrl.replay.ply : ctrl.data.game.moves.length;

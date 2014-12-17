@@ -26,7 +26,7 @@ case class UserInfo(
     nbBlockers: Option[Int],
     nbPosts: Int,
     playTime: User.PlayTime,
-    donated: Int) {
+    donor: Boolean) {
 
   def nbRated = user.count.rated
 
@@ -46,7 +46,7 @@ object UserInfo {
     postApi: PostApi,
     getRatingChart: User => Fu[Option[String]],
     getRanks: String => Fu[Map[String, Int]],
-    getDonated: String => Fu[Int])(user: User, ctx: Context): Fu[UserInfo] =
+    isDonor: String => Fu[Boolean])(user: User, ctx: Context): Fu[UserInfo] =
     countUsers() zip
       getRanks(user.id) zip
       (gameCached nbPlaying user.id) zip
@@ -57,9 +57,9 @@ object UserInfo {
       relationApi.nbFollowers(user.id) zip
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.nbBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
-      getDonated(user.id) zip
+      isDonor(user.id) zip
       PlayTime(user) map {
-        case (((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), donated), playTime) => new UserInfo(
+        case (((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), isDonor), playTime) => new UserInfo(
           user = user,
           ranks = ranks,
           nbUsers = nbUsers,
@@ -73,6 +73,6 @@ object UserInfo {
           nbBlockers = nbBlockers,
           nbPosts = nbPosts,
           playTime = playTime,
-          donated = donated)
+          donor = isDonor)
       }
 }

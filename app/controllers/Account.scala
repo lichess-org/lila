@@ -41,6 +41,8 @@ object Account extends LilaController {
               "nowPlaying" -> JsArray(povs map { pov =>
                 Json.obj(
                   "id" -> pov.fullId,
+                  "fen" -> (chess.format.Forsyth exportBoard pov.game.toChess.board),
+                  "lastMove" -> ~pov.game.castleLastMoveTime.lastMoveString,
                   "variant" -> pov.game.variant.key,
                   "speed" -> pov.game.speed.key,
                   "perf" -> lila.game.PerfPicker.key(pov.game),

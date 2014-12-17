@@ -117,9 +117,10 @@ object GameRepo {
       )))
     }
 
-  def nowPlaying(user: User): Fu[List[Pov]] = $find(Query nowPlaying user.id) map {
-    _ flatMap { Pov(_, user) }
-  }
+  def nowPlaying(user: User): Fu[List[Pov]] =
+    $find(Query nowPlaying user.id) map {
+      _ flatMap { Pov(_, user) } sortBy Pov.priority
+    }
 
   def setTv(id: ID) {
     $update.fieldUnchecked(id, F.tvAt, $date(DateTime.now))

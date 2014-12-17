@@ -1,5 +1,6 @@
 var ctrl = require('./ctrl');
 var view = require('./view/main');
+var m = require('mithril');
 
 module.exports = function(element, config, router, i18n, socketSend) {
 

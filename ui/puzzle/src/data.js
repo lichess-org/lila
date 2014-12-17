@@ -1,4 +1,5 @@
 var merge = require('lodash-node/modern/objects/merge');
+var m = require('mithril');
 var chess = require('./chess');
 var puzzle = require('./puzzle');
 var util = require('chessground').util;
