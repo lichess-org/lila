@@ -24,6 +24,7 @@ final class Env(
     val ActorName = config getString "actor.name"
     val BroomPeriod = config duration "broom_period"
     val ResyncIdsPeriod = config duration "resync_ids_period"
+    val CollectionSeek = config getString "collection.seek"
   }
   import settings._
 
@@ -33,8 +34,11 @@ final class Env(
     uidTtl = SocketUidTtl
   )), name = SocketName)
 
+  lazy val seekApi = new SeekApi(coll = db(CollectionSeek))
+
   val lobby = system.actorOf(Props(new Lobby(
     socket = socket,
+    seekApi = seekApi,
     blocking = blocking,
     onStart = onStart
   )), name = ActorName)

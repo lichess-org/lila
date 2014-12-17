@@ -15,6 +15,7 @@ import org.joda.time.DateTime
 
 private[lobby] final class Lobby(
     socket: ActorRef,
+    seekApi: SeekApi,
     blocking: String => Fu[Set[String]],
     onStart: String => Unit) extends Actor {
 
@@ -36,8 +37,18 @@ private[lobby] final class Lobby(
       }
     }
 
-    case SaveHook(msg) => {
+    case msg@AddSeek(seek) => (seekApi insert seek) >>- {
+      // findCompatible(hook) foreach {
+      //   case Some(h) => self ! BiteHook(h.id, hook.uid, hook.user)
+      //   case None    => self ! SaveHook(msg)
+      // }
+    }
+
+    case SaveHook(msg) =>
       HookRepo save msg.hook
+      socket ! msg
+
+    case SaveSeek(msg) => (seekApi insert msg.seek) >>- {
       socket ! msg
     }
 
@@ -45,16 +56,28 @@ private[lobby] final class Lobby(
       HookRepo byUid uid foreach remove
     }
 
+    case CancelSeek(seekId, user) => seekApi.removeBy(seekId, user.id)
+
     case BiteHook(hookId, uid, user) => HookRepo byId hookId foreach { hook =>
       HookRepo byUid uid foreach remove
       Biter(hook, uid, user) pipeTo self
     }
 
-    case msg@JoinHook(_, hook, game, _) => {
+    case BiteSeek(seekId, user) => seekApi find seekId foreach {
+      _ foreach { seek =>
+        Biter(seek, user) pipeTo self
+      }
+    }
+
+    case msg@JoinHook(_, hook, game, _) =>
       onStart(game.id)
       socket ! msg
       remove(hook)
-    }
+
+    case msg@JoinSeek(seek, game, _) =>
+      onStart(game.id)
+      socket ! msg
+      seekApi remove seek
 
     case Broom => socket ? GetUids mapTo manifest[Iterable[String]] foreach { uids =>
       val hooks = {

@@ -25,7 +25,8 @@ final class Env(
     timelineEntries = Env.timeline.getter.userEntries _,
     dailyPuzzle = Env.puzzle.daily,
     streamsOnAir = () => Env.tv.streamsOnAir,
-    countRounds = Env.round.count)
+    countRounds = Env.round.count,
+    seekApi = Env.lobby.seekApi)
 
   lazy val userInfo = mashup.UserInfo(
     countUsers = () => Env.user.countEnabled,

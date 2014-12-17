@@ -1,0 +1,36 @@
+@(themSeeks: List[lila.lobby.Seek])(implicit ctx: Context)
+
+<div class="table_wrap">
+  <table>
+    <thead>
+      <tr>
+        <th class="reload"><span data-icon="P"></span></th>
+        <th class="player">@trans.player()</th>
+        <th class="rating">Rating</th>
+        <th>@trans.time()</th>
+        <th>@trans.mode()</th>
+      </tr>
+    </thead>
+    <tbody>
+      @themSeeks.map { seek =>
+      @defining(ctx.userId ?? (seek.user.id ==)) { isMine =>
+      <tr title="@isMine.fold(trans.joinTheGame(), trans.cancel())"
+        class="@isMine.fold("join", "cancel")"
+        data-action="@isMine.fold("joinSeek", "cancelSeek")"
+        data-variant="@seek.realVariant.key"
+        data-id="@seek.id">
+        <td><span class="is is2 color-icon @seek.color"></span></td>
+        <td>@usernameLink(seek.user.username.some)</td>
+        <td>@seek.rating</td>
+        <td>@seek.daysPerTurn match {
+          case None => {∞}
+          case Some(1) => {@trans.oneDay()}
+          case Some(days) => {@trans.nbDays(days)}
+          }</td>
+        <td><span class="varicon" data-icon="@seek.perfType.map(_.iconChar)"</span>@modeName(seek.realMode)</td>
+      </tr>
+      }
+      }
+    </tbody>
+  </table>
+</div>

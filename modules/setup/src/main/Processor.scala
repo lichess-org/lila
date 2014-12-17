@@ -9,7 +9,7 @@ import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, Pov, Progress, PerfPicker }
 import lila.i18n.I18nDomain
-import lila.lobby.actorApi.AddHook
+import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.lobby.Hook
 import lila.user.{ User, UserContext }
 import makeTimeout.short
@@ -55,7 +55,11 @@ private[setup] final class Processor(
     sid: Option[String],
     blocking: Set[String])(implicit ctx: UserContext): Funit =
     saveConfig(_ withHook config) >>- {
-      lobby ! AddHook(config.hook(uid, ctx.me, sid, blocking))
+      config.hook(uid, ctx.me, sid, blocking) match {
+        case Left(hook)        => lobby ! AddHook(hook)
+        case Right(Some(seek)) => lobby ! AddSeek(seek)
+        case _                 =>
+      }
     }
 
   private def saveConfig(map: UserConfig => UserConfig)(implicit ctx: UserContext): Funit =

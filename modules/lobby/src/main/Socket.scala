@@ -65,6 +65,10 @@ private[lobby] final class Socket(
         "cookie" -> AnonCookie.json(game, !creatorColor)
       ).noNull))
 
+    case JoinSeek(seek, game, creatorColor) =>
+
+    case AddSeek(seek) =>
+
     case HookIds(ids)                         => notifyVersion("hook_list", ids, Messadata())
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))

@@ -1474,6 +1474,7 @@ var storage = {
 
     var socketUrl = $wrap.data('socket-url');
     var $nowPlaying = $('#now_playing');
+    var $seeks = $('#seeks');
     var $timeline = $("#timeline");
     var $newposts = $("div.new_posts");
     var $canvas = $wrap.find('.canvas');
@@ -1483,7 +1484,7 @@ var storage = {
     var $tablereload = $table.find('th.reload');
     var $tbody = $table.find('tbody');
     var animation = 500;
-    var pool = [];
+    var hookPool = [];
     var nextHooks = [];
 
     var flushHooksTimeout;
@@ -1607,7 +1608,7 @@ var storage = {
     }
     resizeTimeline();
 
-    lichess_preload.pool.forEach(addHook);
+    lichess_preload.hookPool.forEach(addHook);
     drawHooks(true);
     $table.find('th:eq(2)').click().end();
 
@@ -1688,20 +1689,43 @@ var storage = {
       }
     });
 
+    var variantConfirms = {
+      '960': "This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?",
+      'KotH': "This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill",
+      '3+': "This is a Three-check game!\n\nThe game can be won by checking the opponent 3 times.\nRead more: http://en.wikipedia.org/wiki/Three-check_chess"
+    };
+
+    function confirmVariant(variant) {
+      return Object.keys(variantConfirms).every(function(key) {
+        var v = variantConfirms[key]
+        if (variant == key && !storage.get(key)) {
+          var c = confirm(v);
+          if (c) storage.set(key, 1);
+          return c;
+        } else return true;
+      })
+    }
+
+    $seeks.on('click', 'tr', function() {
+      if ($(this).data('action') != 'joinSeek' || confirmVariant($(this).data('variant'))) {
+        lichess.socket.send($(this).data('action'), $(this).data('id'));
+      }
+    });
+
     function changeFeatured(o) {
       $('#featured_game').html(o.html);
       $('body').trigger('lichess.content_loaded');
     }
 
     function removeHook(id) {
-      pool = pool.filter(function(h) {
+      hookPool = hookPool.filter(function(h) {
         return h.id != id;
       });
       drawHooks();
     }
 
     function syncHookIds(ids) {
-      pool = pool.filter(function(h) {
+      hookPool = hookPool.filter(function(h) {
         return $.fp.contains(ids, h.id);
       });
       drawHooks();
@@ -1709,7 +1733,7 @@ var storage = {
 
     function addHook(hook) {
       hook.action = hook.uid == lichess.StrongSocket.sri ? "cancel" : "join";
-      pool.push(hook);
+      hookPool.push(hook);
     }
 
     function disableHook(id) {
@@ -1734,7 +1758,7 @@ var storage = {
       var seen = [];
       var hidden = 0;
       var visible = 0;
-      pool.forEach(function(hook) {
+      hookPool.forEach(function(hook) {
         // ugly hack to deal with correspondence, which is not a speed
         var speedMatches = $.fp.contains(filter.speed, hook.days ? 99 : hook.speed);
         var hide = !$.fp.contains(filter.variant, hook.variant) || !$.fp.contains(filter.mode, hook.mode) || !speedMatches ||
@@ -1765,7 +1789,7 @@ var storage = {
         $.makeArray($tbody.children()).map(function(o) {
           return o.getAttribute('data-id');
         })).forEach(function(id) {
-        if (!$.fp.find(pool, function(x) {
+        if (!$.fp.find(hookPool, function(x) {
           return x.id == id;
         })) disableHook(id);
       });
@@ -1882,21 +1906,9 @@ var storage = {
       $('#' + $(this).parent().data('id')).click();
     });
     $canvas.on('click', '>span.plot:not(.hiding)', function() {
-      var hook = $(this).data('hook');
-      var variantConfirms = {
-        '960': "This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?",
-        'KotH': "This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill",
-        '3+': "This is a Three-check game!\n\nThe game can be won by checking the opponent 3 times.\nRead more: http://en.wikipedia.org/wiki/Three-check_chess"
-      };
-      if (hook.action != 'join' || Object.keys(variantConfirms).every(function(key) {
-        var variant = variantConfirms[key]
-        if (hook.variant == key && !storage.get(key)) {
-          var c = confirm(variant);
-          if (c) storage.set(key, 1);
-          return c;
-        } else return true;
-      })) {
-        lichess.socket.send(hook.action, hook.id);
+      var data = $(this).data('hook');
+      if (data.action != 'join' || confirmVariant(data.variant)) {
+        lichess.socket.send(data.action, data.id);
       }
     });
   });

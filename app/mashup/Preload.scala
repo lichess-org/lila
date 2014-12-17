@@ -10,7 +10,7 @@ import lila.api.Context
 import lila.forum.MiniForumPost
 import lila.game.{ Game, GameRepo, Pov }
 import lila.lobby.actorApi.GetOpen
-import lila.lobby.{ Hook, HookRepo }
+import lila.lobby.{ Hook, HookRepo, Seek, SeekApi }
 import lila.rating.PerfType
 import lila.setup.FilterConfig
 import lila.socket.History
@@ -29,9 +29,10 @@ final class Preload(
     timelineEntries: String => Fu[List[Entry]],
     streamsOnAir: => () => Fu[List[StreamOnAir]],
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
-    countRounds: () => Int) {
+    countRounds: () => Int,
+    seekApi: SeekApi) {
 
-  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[Pov], List[StreamOnAir], Int)
+  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[Pov], List[Seek], List[StreamOnAir], Int)
 
   def apply(
     posts: Fu[List[MiniForumPost]],
@@ -45,14 +46,15 @@ final class Preload(
       leaderboard(true) zip
       tourneyWinners(10) zip
       dailyPuzzle() zip
-      (ctx.me ?? GameRepo.nowPlaying ) zip
+      (ctx.me ?? GameRepo.nowPlaying) zip
+      seekApi.all zip
       filter zip
       streamsOnAir() map {
-        case ((((((((((hooks, posts), tours), feat), entries), lead), tWinners), puzzle), povs), filter), streams) =>
+        case (((((((((((hooks, posts), tours), feat), entries), lead), tWinners), puzzle), povs), seeks), filter), streams) =>
           (Json.obj(
             "version" -> lobbyVersion(),
-            "pool" -> JsArray(hooks map (_.render)),
+            "hookPool" -> JsArray(hooks map (_.render)),
             "filter" -> filter.render
-          ), entries, posts, tours, feat, lead, tWinners, puzzle, povs, streams, countRounds())
+          ), entries, posts, tours, feat, lead, tWinners, puzzle, povs, seeks, streams, countRounds())
       }
 }

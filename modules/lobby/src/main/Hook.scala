@@ -10,6 +10,7 @@ import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.{ User, Perfs }
 
+// realtime chess, volatile
 case class Hook(
     id: String,
     uid: String, // owner socket uid
