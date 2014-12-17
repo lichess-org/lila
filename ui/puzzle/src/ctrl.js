@@ -1,9 +1,9 @@
 var m = require('mithril');
 var k = require('mousetrap');
-var partial = require('lodash-node/modern/functions/partial');
 var merge = require('merge');
 var last = require('lodash-node/modern/arrays/last');
 var chessground = require('chessground');
+var partial = chessground.util.partial;
 var data = require('./data');
 var chess = require('./chess');
 var puzzle = require('./puzzle');
@@ -34,8 +34,7 @@ module.exports = function(cfg, router, i18n) {
           if (this.data.mode == 'play') {
             this.chessground.stop();
             xhr.attempt(this, false);
-          }
-          else this.revert(this.data.puzzle.id);
+          } else this.revert(this.data.puzzle.id);
         }.bind(this), 500);
         this.data.comment = 'fail';
         break;
@@ -44,8 +43,7 @@ module.exports = function(cfg, router, i18n) {
         if (newLines == 'win') {
           this.chessground.stop();
           xhr.attempt(this, true);
-        }
-        else setTimeout(partial(this.playOpponentNextMove, this.data.puzzle.id), 1000);
+        } else setTimeout(partial(this.playOpponentNextMove, this.data.puzzle.id), 1000);
         break;
     }
     m.endComputation(); // give feedback ASAP, don't wait for delayed action

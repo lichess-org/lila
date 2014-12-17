@@ -1,6 +1,7 @@
 var chessground = require('chessground');
 var partial = chessground.util.partial;
 var editor = require('./editor');
+var m = require('mithril');
 
 module.exports = function(cfg) {
 

@@ -9,6 +9,7 @@ var renderReplay = require('../replay/view');
 var renderStatus = require('./status');
 var renderUser = require('game').view.user;
 var button = require('./button');
+var m = require('mithril');
 
 function compact(x) {
   if (Object.prototype.toString.call(x) === '[object Array]') {

@@ -1,4 +1,5 @@
 var classSet = require('chessground').util.classSet;
+var m = require('mithril');
 
 function prefixInteger(num, length) {
   return (num / Math.pow(10, length)).toFixed(length).substr(2);

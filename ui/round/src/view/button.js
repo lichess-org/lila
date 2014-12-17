@@ -3,6 +3,7 @@ var game = require('game').game;
 var status = require('game').status;
 var partial = chessground.util.partial;
 var throttle = require('lodash-node/modern/functions/throttle');
+var m = require('mithril');
 
 module.exports = {
   standard: function(ctrl, condition, icon, hint, socketMsg) {
