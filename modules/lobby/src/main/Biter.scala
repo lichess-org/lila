@@ -42,7 +42,7 @@ private[lobby] object Biter {
       blame(creatorColor, owner.some, makeGame(seek))
     ).start
     _ ← GameRepo insertDenormalized game
-  } yield JoinSeek(seek, game, creatorColor)
+  } yield JoinSeek(user.id, seek, game, creatorColor)
 
   private def blame(color: ChessColor, userOption: Option[User], game: Game) =
     userOption.fold(game) { user =>

@@ -74,7 +74,7 @@ private[lobby] final class Lobby(
       socket ! msg
       remove(hook)
 
-    case msg@JoinSeek(seek, game, _) =>
+    case msg@JoinSeek(_, seek, game, _) =>
       onStart(game.id)
       socket ! msg
       seekApi remove seek

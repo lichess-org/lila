@@ -119,8 +119,9 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def uids = members.keys
 
-  def memberByUserId(userId: String): Option[M] =
-    members.values find (_.userId == Some(userId))
+  def memberByUserId(userId: String): Option[M] = members find {
+    case (_, member) => member.userId.fold(false)(userId ==)
+  } map (_._2)
 
   def userIds: Iterable[String] = members.values.flatMap(_.userId)
 

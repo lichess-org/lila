@@ -16,7 +16,7 @@
       @defining(ctx.userId ?? (seek.user.id ==)) { isMine =>
       <tr title="@isMine.fold(trans.joinTheGame(), trans.cancel())"
         class="@isMine.fold("join", "cancel")@if(ctx.isAnon){ must_login}"
-        data-action="@isMine.fold("joinSeek", "cancelSeek")"
+        data-action="@isMine.fold("cancelSeek", "joinSeek")"
         data-variant="@seek.realVariant.key"
         data-id="@seek.id">
         <td><span class="is is2 color-icon @seek.color"></span></td>
