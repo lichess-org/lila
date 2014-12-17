@@ -11,7 +11,6 @@ case class Move(
 case class Opening(
     id: Opening.ID,
     fen: String,
-    ply: Int,
     moves: List[Move],
     color: Color,
     date: DateTime,
@@ -43,12 +42,10 @@ object Opening {
 
   def make(
     fen: String,
-    ply: Int,
     color: Color,
     moves: List[Move])(id: ID) = new Opening(
     id = id,
     fen = fen,
-    ply = ply,
     moves = moves,
     color = color,
     date = DateTime.now,
@@ -77,7 +74,6 @@ object Opening {
   object BSONFields {
     val id = "_id"
     val fen = "fen"
-    val ply = "ply"
     val moves = "moves"
     val white = "white"
     val date = "date"
@@ -92,7 +88,6 @@ object Opening {
     def reads(r: BSON.Reader): Opening = Opening(
       id = r int id,
       fen = r str fen,
-      ply = r int ply,
       moves = r.get[List[Move]](moves),
       color = Color(r bool white),
       date = r date date,
@@ -102,7 +97,6 @@ object Opening {
     def writes(w: BSON.Writer, o: Opening) = BSONDocument(
       id -> o.id,
       fen -> o.fen,
-      ply -> o.ply,
       moves -> o.moves,
       white -> o.color.white,
       date -> o.date,
