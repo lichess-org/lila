@@ -3,6 +3,7 @@ var classSet = require('chessground').util.classSet;
 var game = require('game').game;
 var status = require('game').status;
 var renderStatus = require('../view/status');
+var m = require('mithril');
 
 function renderTd(move, ply, curPly) {
   return move ? {

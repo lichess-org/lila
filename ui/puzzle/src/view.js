@@ -1,6 +1,6 @@
-var partial = require('lodash-node/modern/functions/partial');
 var map = require('lodash-node/modern/collections/map');
 var chessground = require('chessground');
+var partial = chessground.util.partial;
 var m = require('mithril');
 var puzzle = require('./puzzle');
 var xhr = require('./xhr');

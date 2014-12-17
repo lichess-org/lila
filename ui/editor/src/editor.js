@@ -1,4 +1,5 @@
 var mapValues = require('lodash-node/modern/objects/mapValues')
+var m = require('mithril');
 
 function init(cfg) {
   return {

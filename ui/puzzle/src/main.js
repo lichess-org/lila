@@ -1,5 +1,6 @@
 var ctrl = require('./ctrl');
 var view = require('./view');
+var m = require('mithril');
 
 module.exports = function(element, config, router, i18n) {
   var controller = new ctrl(config, router, i18n);
