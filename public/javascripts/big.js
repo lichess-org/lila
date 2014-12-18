@@ -1297,8 +1297,10 @@ var storage = {
             type: 'post'
           });
           $form.find('a.close').click();
-          if ($('#hooks_wrap .tabs .now_playing').hasClass('active'))
-            $('#hooks_wrap .tabs .list').click();
+          if ($timeModeSelect.val() == '1')
+            $('#hooks_wrap .tabs .real_time').click();
+          else
+            $('#hooks_wrap .tabs .seeks').click();
           return false;
         };
         $formTag.find('.color_submits button').click(function() {
@@ -1477,11 +1479,11 @@ var storage = {
     var $seeks = $('#seeks');
     var $timeline = $("#timeline");
     var $newposts = $("div.new_posts");
+    var $realTime = $('#real_time');
     var $canvas = $wrap.find('.canvas');
     var $hooksList = $wrap.find('#hooks_list');
     var $tableWrap = $hooksList.find('div.table_wrap');
     var $table = $tableWrap.find('table').sortable();
-    var $tablereload = $table.find('th.reload');
     var $tbody = $table.find('tbody');
     var animation = 500;
     var hookPool = [];
@@ -1504,10 +1506,6 @@ var storage = {
       flushHooksSchedule();
     };
     flushHooksSchedule();
-    $tablereload.click(function(e) {
-      e.stopPropagation();
-      flushHooks();
-    });
     $('body').on('lichess.hook-flush', flushHooks);
 
     $wrap.on('click', '>div.tabs>a', function() {
@@ -1517,9 +1515,18 @@ var storage = {
       storage.set('lobbytab', tab);
       reloadSeeksIfVisible();
     });
-    var active = storage.get('lobbytab') || 'list';
+    var active = storage.get('lobbytab') || 'real_time';
     $wrap.find('>div.tabs>.' + active).addClass('active');
     $wrap.find('>.' + active).show();
+
+    $realTime.on('click', '.toggle', function() {
+      var mode = $(this).data('mode');
+      $realTime.children().hide().filter('#hooks_' + mode).show();
+      storage.set('lobbymode', mode);
+    });
+    var mode = storage.get('lobbymode') || 'list';
+    $('#hooks_' + mode).show();
+
     $wrap.find('a.filter').click(function() {
       var $a = $(this);
       var $div = $wrap.find('#hook_filter');
@@ -1905,7 +1912,7 @@ var storage = {
     }
 
     $('#hooks_chart').append(
-      [1000, 1200, 1400, 1500, 1600, 1800, 2000, 2200, 2400, 2600, 2800].map(function(v) {
+      [1000, 1200, 1400, 1500, 1600, 1800, 2000, 2200, 2400].map(function(v) {
         var b = ratingY(v);
         return '<span class="y label" style="bottom:' + (b + 5) + 'px">' + v + '</span>' +
           '<div class="grid horiz" style="height:' + (b + 4) + 'px"></div>';

@@ -39,7 +39,7 @@
       <strong>
         @g.clock.map(_.show).getOrElse {
         @g.daysPerTurn.map { days =>
-        <span data-hint="@trans.correspondence()" class="hint--top">@{(days == 1).fold(trans.oneDay(), trans.nbDays(days))}</span>
+        <span data-hint="@trans.correspondence()" class="hint--top">@if(days == 1) {@trans.oneDay()} else {@trans.nbDays(days)}</span>
         }.getOrElse {
         <span data-hint="@trans.unlimited()" class="hint--top">∞</span>
         }

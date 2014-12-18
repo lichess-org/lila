@@ -83,6 +83,7 @@ variant=Variante
 timeControl=Contrôle du temps
 clock=Horloge
 correspondence=Correspondance
+realTime=Temps réel
 daysPerTurn=Jours par coup
 oneDay=Un jour
 nbDays=%s jours

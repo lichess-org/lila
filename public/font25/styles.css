@@ -293,3 +293,6 @@
 .icon-screen-full:before {
   content: "=";
 }
+.icon-list:before {
+  content: "?";
+}

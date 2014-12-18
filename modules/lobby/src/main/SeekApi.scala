@@ -10,10 +10,13 @@ import lila.user.{ User, UserRepo }
 final class SeekApi(
     coll: Coll,
     blocking: String => Fu[Set[String]],
-  maxPerPage: Int) {
+    maxPerPage: Int,
+    maxPerUser: Int) {
 
   def forAnon: Fu[List[Seek]] =
-    coll.find(BSONDocument()).cursor[Seek].collect[List](maxPerPage)
+    coll.find(BSONDocument())
+      .sort(BSONDocument("createdAt" -> -1))
+      .cursor[Seek].collect[List](maxPerPage)
 
   def forUser(user: User): Fu[List[Seek]] =
     blocking(user.id) flatMap { blocked =>
@@ -28,7 +31,15 @@ final class SeekApi(
   def find(id: String): Fu[Option[Seek]] =
     coll.find(BSONDocument("_id" -> id)).one[Seek]
 
-  def insert(seek: Seek) = coll.insert(seek).void
+  def insert(seek: Seek) = coll.insert(seek) >> findByUser(seek.user.id).flatMap {
+    case seeks if seeks.size <= maxPerUser => funit
+    case seeks                             => seeks.drop(maxPerUser).map(remove).sequenceFu
+  }
+
+  def findByUser(userId: String): Fu[List[Seek]] =
+    coll.find(BSONDocument("user.id" -> userId))
+      .sort(BSONDocument("createdAt" -> -1))
+      .cursor[Seek].collect[List]()
 
   def remove(seek: Seek) = coll.remove(BSONDocument("_id" -> seek.id)).void
 

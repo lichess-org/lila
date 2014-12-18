@@ -41,7 +41,7 @@ div.lobby_and_ground {
 #hooks_wrap > div.tabs > a {
   display: inline-block;
   text-decoration: none;
-  padding: 0px 10px;
+  padding: 0px 8px;
   border: 1px solid #ccc;
   background: #dadada;
   transition: 0.13s;
@@ -60,6 +60,18 @@ div.lobby_and_ground {
 }
 #hooks_wrap > div.tabs a.hilight .unread {
   display: inline;
+}
+#real_time .toggle {
+  cursor: pointer;
+}
+#hooks_list, #hooks_chart {
+  display: none;
+}
+#hooks_chart .toggle {
+  position: absolute;
+  top: 15px;
+  left: 13px;
+  z-index: 2;
 }
 #hooks_wrap > a.filter {
   position: absolute;
@@ -136,6 +148,7 @@ div.lobby_and_ground {
 #hooks_wrap .table_wrap {
   width: 512px;
   max-height: 512px;
+  min-height: 200px;
   overflow: hidden;
 }
 #hooks_wrap .table_wrap table {

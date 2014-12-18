@@ -12,7 +12,11 @@
       }">
       @userSpan(user, withOnline = false, withPerfRating = g.perfType)
       <span class="setup">
-        @g.clock.map(_.show).getOrElse {∞} •
+        @g.clock.map(_.show).getOrElse {
+        @g.daysPerTurn.map { days =>
+        @if(days == 1) {@trans.oneDay.en()} else {@trans.nbDays.en(days)}
+        }.getOrElse {∞}
+        } •
         @if(g.variant.exotic) {
         @(if (g.variant == chess.Variant.KingOfTheHill) g.variant.shortName else g.variant.name)
         } else {
