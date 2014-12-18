@@ -6,20 +6,20 @@ import lila.rating.RatingRange
 case class FilterConfig(
     variant: List[Variant],
     mode: List[Mode],
-    speed: List[FilterConfig.SpeedOrCorrespondence],
+    speed: List[Speed],
     ratingRange: RatingRange) {
 
   def >> = (
     variant map (_.id),
     mode map (_.id),
-    speed map FilterConfig.speedId,
+    speed map (_.id),
     ratingRange.toString
   ).some
 
   def render = play.api.libs.json.Json.obj(
     "variant" -> variant.map(_.shortName),
     "mode" -> mode.map(_.toString),
-    "speed" -> speed.map(FilterConfig.speedId),
+    "speed" -> speed.map(_.id),
     "rating" -> ratingRange.notBroad.map(rr => List(rr.min, rr.max)))
 
   def nonEmpty = copy(
@@ -30,13 +30,9 @@ case class FilterConfig(
 
 object FilterConfig {
 
-  type SpeedOrCorrespondence = Option[Speed]
-
-  def speedId(speed: SpeedOrCorrespondence) = speed.fold(Config.correspondenceSpeedId)(_.id)
-
   val variants = List(Variant.Standard, Variant.Chess960, Variant.KingOfTheHill, Variant.ThreeCheck)
   val modes = Mode.all
-  val speeds: List[SpeedOrCorrespondence] = Speed.all.map(_.some) :+ None
+  val speeds = Speed.all
 
   val default = FilterConfig(
     variant = variants,
@@ -45,9 +41,9 @@ object FilterConfig {
     ratingRange = RatingRange.default)
 
   def <<(v: List[Int], m: List[Int], s: List[Int], e: String) = new FilterConfig(
-    variant = v flatMap Variant.apply,
-    mode = m flatMap { Mode(_) },
-    speed = s map Speed.apply,
+    variant = v map Variant.apply flatten,
+    mode = m map Mode.apply flatten,
+    speed = s map Speed.apply flatten,
     ratingRange = RatingRange orDefault e
   ).nonEmpty
 
@@ -59,13 +55,13 @@ object FilterConfig {
     def reads(r: BSON.Reader): FilterConfig = FilterConfig(
       variant = r intsD "v" flatMap Variant.apply,
       mode = r intsD "m" flatMap { Mode(_) },
-      speed = r intsD "s" map { Speed(_) },
+      speed = r intsD "s" flatMap { Speed(_) },
       ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default)
 
     def writes(w: BSON.Writer, o: FilterConfig) = BSONDocument(
       "v" -> o.variant.map(_.id),
       "m" -> o.mode.map(_.id),
-      "s" -> o.speed.map(speedId),
+      "s" -> o.speed.map(_.id),
       "e" -> o.ratingRange.toString)
   }
 

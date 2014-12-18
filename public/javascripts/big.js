@@ -1777,9 +1777,7 @@ var storage = {
       var hidden = 0;
       var visible = 0;
       hookPool.forEach(function(hook) {
-        // ugly hack to deal with correspondence, which is not a speed
-        var speedMatches = $.fp.contains(filter.speed, hook.days ? 99 : hook.speed);
-        var hide = !$.fp.contains(filter.variant, hook.variant) || !$.fp.contains(filter.mode, hook.mode) || !speedMatches ||
+        var hide = !$.fp.contains(filter.variant, hook.variant) || !$.fp.contains(filter.mode, hook.mode) || !$.fp.contains(filter.speed, hook.speed) ||
           (filter.rating && (!hook.rating || (hook.rating < filter.rating[0] || hook.rating > filter.rating[1])));
         var hash = hook.mode + hook.variant + hook.time + hook.rating;
         if (hide && hook.action != 'cancel') {
