@@ -42,6 +42,7 @@ object Account extends LilaController {
                 Json.obj(
                   "id" -> pov.fullId,
                   "fen" -> (chess.format.Forsyth exportBoard pov.game.toChess.board),
+                  "color" -> pov.color.name,
                   "lastMove" -> ~pov.game.castleLastMoveTime.lastMoveString,
                   "variant" -> pov.game.variant.key,
                   "speed" -> pov.game.speed.key,
