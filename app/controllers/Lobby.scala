@@ -1,7 +1,6 @@
 package controllers
 
-import play.api.libs.json.Json
-import play.api.libs.json.JsValue
+import play.api.libs.json._
 import play.api.mvc._
 
 import lila.api.Context
@@ -45,8 +44,11 @@ object Lobby extends LilaController {
   }
 
   def seeks = Open { implicit ctx =>
-    ctx.me.fold(Env.lobby.seekApi.forAnon)(Env.lobby.seekApi.forUser) map { seeks =>
-      html.lobby.seeks(seeks)
+    ctx.me.fold(Env.lobby.seekApi.forAnon)(Env.lobby.seekApi.forUser) flatMap { seeks =>
+      negotiate(
+        html = fuccess(html.lobby.seeks(seeks)),
+        api = _ => fuccess(Ok(Json.obj("seeks" -> JsArray(seeks.map(_.render)))))
+      )
     }
   }
 
