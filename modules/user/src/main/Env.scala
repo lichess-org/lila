@@ -10,7 +10,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     scheduler: lila.common.Scheduler,
-    timeline:ActorSelection,
+    timeline: ActorSelection,
     system: ActorSystem) {
 
   private val settings = new {
@@ -43,7 +43,10 @@ final class Env(
   def cli = new lila.common.Cli {
     import tube.userTube
     def process = {
-      case "user" :: "typecheck" :: Nil => lila.db.Typecheck.apply[User]
+      case "user" :: "typecheck" :: Nil =>
+        lila.db.Typecheck.apply[User]
+      case "user" :: "email" :: userId :: email :: Nil =>
+        UserRepo.email(userId, email) inject "done"
     }
   }
 
