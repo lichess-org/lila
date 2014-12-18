@@ -1515,6 +1515,7 @@ var storage = {
       $(this).siblings().removeClass('active').end().addClass('active');
       $wrap.find('>.tab').hide().filter('.' + tab).show();
       storage.set('lobbytab', tab);
+      reloadSeeksIfVisible();
     });
     var active = storage.get('lobbytab') || 'list';
     $wrap.find('>div.tabs>.' + active).addClass('active');
@@ -1653,13 +1654,7 @@ var storage = {
             });
           }, Math.round(Math.random() * 5000));
         },
-        reload_seeks: function() {
-          $.ajax($seeks.data('reload-url'), {
-            success: function(html) {
-              $seeks.html(html);
-            }
-          });
-        },
+        reload_seeks: reloadSeeksIfVisible,
         nbr: function(e) {
           var $tag = $('#site_baseline span');
           if ($tag.length && e) {
@@ -1724,6 +1719,16 @@ var storage = {
         lichess.socket.send($(this).data('action'), $(this).data('id'));
       }
     });
+
+    function reloadSeeksIfVisible() {
+      if ($seeks.is(':visible')) {
+        $.ajax($seeks.data('reload-url'), {
+          success: function(html) {
+            $seeks.html(html);
+          }
+        });
+      }
+    }
 
     function changeFeatured(o) {
       $('#featured_game').html(o.html);

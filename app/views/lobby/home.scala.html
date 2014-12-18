@@ -68,7 +68,7 @@ openGraph = Map(
       }
     </div>
     <a class="filter" href="@routes.Setup.filterForm()">
-      <span data-icon="D"> @trans.filterGames()</span>
+      <span class="hint--top" data-hint="@trans.filterGames()"><span data-icon="D"></span></span>
       <span class="number">(0)</span>
     </a>
     <div id="now_playing" class="tab now_playing none" data-href="@routes.Lobby.playing">

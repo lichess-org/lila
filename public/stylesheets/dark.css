@@ -220,6 +220,10 @@ body.dark #hooks_wrap > div.tabs > a:hover,
 body.dark #hooks_wrap > div.tabs > a.active {
   background-color: #303030;
 }
+body.dark #hooks_wrap > div.tabs > a:hover,
+body.dark #hooks_wrap > div.tabs > a.active {
+  border-top: 2px solid #d85000;
+}
 body.dark div.table_not_started {
   box-shadow: none;
   background: none;

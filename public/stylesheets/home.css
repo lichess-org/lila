@@ -33,7 +33,7 @@ div.lobby_and_ground {
 }
 #hooks_wrap > div.tabs {
   position: absolute;
-  top: -21px;
+  top: -22px;
   left: 0px;
   height: 20px;
   line-height: 20px;
@@ -49,6 +49,7 @@ div.lobby_and_ground {
 #hooks_wrap > div.tabs > a:hover,
 #hooks_wrap > div.tabs > a.active {
   background: #f0f0f0;
+  border-top: 2px solid #d85000;
 }
 #hooks_wrap > div.tabs > a.active {
   font-weight: bold;
@@ -63,10 +64,11 @@ div.lobby_and_ground {
 #hooks_wrap > a.filter {
   position: absolute;
   top: -20px;
-  right: 281px;
+  left: 487px;
   height: 20px;
   line-height: 20px;
-  padding: 0 10px 0 10px;
+  font-size: 1.1em;
+  padding: 0 5px;
   border-bottom: 0;
   display: block;
   text-decoration: none;
