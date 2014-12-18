@@ -1653,6 +1653,13 @@ var storage = {
             });
           }, Math.round(Math.random() * 5000));
         },
+        reload_seeks: function() {
+          $.ajax($seeks.data('reload-url'), {
+            success: function(html) {
+              $seeks.html(html);
+            }
+          });
+        },
         nbr: function(e) {
           var $tag = $('#site_baseline span');
           if ($tag.length && e) {

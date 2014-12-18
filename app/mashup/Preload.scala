@@ -34,8 +34,6 @@ final class Preload(
 
   private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[Pov], List[Seek], List[StreamOnAir], Int)
 
-  private val maxSeeks = 14
-
   def apply(
     posts: Fu[List[MiniForumPost]],
     tours: Fu[List[Enterable]],
@@ -49,7 +47,7 @@ final class Preload(
       tourneyWinners(10) zip
       dailyPuzzle() zip
       (ctx.me ?? GameRepo.nowPlaying) zip
-      ctx.me.fold(seekApi all maxSeeks)(seekApi forUser maxSeeks) zip
+      ctx.me.fold(seekApi.forAnon)(seekApi.forUser) zip
       filter zip
       streamsOnAir() map {
         case (((((((((((hooks, posts), tours), feat), entries), lead), tWinners), puzzle), povs), seeks), filter), streams) =>

@@ -25,6 +25,7 @@ final class Env(
     val BroomPeriod = config duration "broom_period"
     val ResyncIdsPeriod = config duration "resync_ids_period"
     val CollectionSeek = config getString "collection.seek"
+    val SeekMaxPerPage = config getInt "seek.max_per_page"
   }
   import settings._
 
@@ -36,7 +37,8 @@ final class Env(
 
   lazy val seekApi = new SeekApi(
     coll = db(CollectionSeek),
-    blocking = blocking)
+    blocking = blocking,
+    maxPerPage = SeekMaxPerPage)
 
   val lobby = system.actorOf(Props(new Lobby(
     socket = socket,

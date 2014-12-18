@@ -37,12 +37,7 @@ private[lobby] final class Lobby(
       }
     }
 
-    case msg@AddSeek(seek) => (seekApi insert seek) >>- {
-      // findCompatible(hook) foreach {
-      //   case Some(h) => self ! BiteHook(h.id, hook.uid, hook.user)
-      //   case None    => self ! SaveHook(msg)
-      // }
-    }
+    case msg@AddSeek(seek) => self ! SaveSeek(msg)
 
     case SaveHook(msg) =>
       HookRepo save msg.hook
@@ -56,7 +51,9 @@ private[lobby] final class Lobby(
       HookRepo byUid uid foreach remove
     }
 
-    case CancelSeek(seekId, user) => seekApi.removeBy(seekId, user.id)
+    case CancelSeek(seekId, user) => seekApi.removeBy(seekId, user.id) >>- {
+      socket ! RemoveSeek(seekId)
+    }
 
     case BiteHook(hookId, uid, user) => HookRepo byId hookId foreach { hook =>
       HookRepo byUid uid foreach remove
@@ -77,7 +74,9 @@ private[lobby] final class Lobby(
     case msg@JoinSeek(_, seek, game, _) =>
       onStart(game.id)
       socket ! msg
-      seekApi remove seek
+      (seekApi remove seek) >>- {
+        socket ! RemoveSeek(seek.id)
+      }
 
     case Broom => socket ? GetUids mapTo manifest[Iterable[String]] foreach { uids =>
       val hooks = {

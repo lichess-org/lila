@@ -75,7 +75,7 @@ openGraph = Map(
       @playing(nowPlaying)
     </div>
     <div id="hooks_chart" class="tab graph none"><div class="canvas"></div></div>
-    <div id="seeks" class="tab seeks none">
+    <div id="seeks" class="tab seeks none" data-reload-url="@routes.Lobby.seeks">
       @lobby.seeks(seeks)
     </div>
     <div id="hooks_list" class="tab list none">

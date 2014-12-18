@@ -44,6 +44,12 @@ object Lobby extends LilaController {
       }
   }
 
+  def seeks = Open { implicit ctx =>
+    ctx.me.fold(Env.lobby.seekApi.forAnon)(Env.lobby.seekApi.forUser) map { seeks =>
+      html.lobby.seeks(seeks)
+    }
+  }
+
   def socket(apiVersion: Int) = Socket[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
       Env.lobby.socketHandler(uid = uid, user = ctx.me)

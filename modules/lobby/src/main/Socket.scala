@@ -51,7 +51,11 @@ private[lobby] final class Socket(
     case AddHook(hook) =>
       notifyVersion("hook_add", hook.render, Messadata(hook = hook.some))
 
+    case AddSeek(_) => notifySeeks
+
     case RemoveHook(hookId) => notifyVersion("hook_remove", hookId, Messadata())
+
+    case RemoveSeek(_) => notifySeeks
 
     case JoinHook(uid, hook, game, creatorColor) =>
       withMember(hook.uid)(notifyPlayerStart(game, creatorColor))
@@ -88,5 +92,9 @@ private[lobby] final class Socket(
 
   private def notifyTournaments(html: String) {
     notifyAll(makeMessage("tournaments", html))
+  }
+
+  private def notifySeeks() {
+    notifyAll(makeMessage("reload_seeks"))
   }
 }
