@@ -49,11 +49,10 @@ trait SetupHelper { self: I18nHelper =>
     translatedVariantChoicesWithVariants :+
       variantTuple(Variant.FromPosition)
 
-  def translatedSpeedChoices(implicit ctx: Context) = Speed.all map { s =>
+  def translatedSpeedChoices(implicit ctx: Context) = Speed.limited map { s =>
     (s.id.toString, {
       (s.range.min, s.range.max) match {
         case (0, y)            => s.toString + " - " + trans.lessThanNbMinutes(y / 60 + 1)
-        case (x, Int.MaxValue) => trans.unlimited.str()
         case (x, y)            => s.toString + " - " + trans.xToYMinutes(x / 60, y / 60 + 1)
       }
     }, none)
