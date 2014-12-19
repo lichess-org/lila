@@ -81,6 +81,7 @@ players=ผู้เล่น
 minutesPerSide=นาทีต่อฝ่าย
 variant=ตัวแปร
 timeControl=การควบคุมเวลา
+realTime=เวลาจริง
 correspondence=ยาวนาน
 daysPerTurn=วันต่อตาเดิน
 oneDay=หนึ่งวัน
