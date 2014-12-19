@@ -81,7 +81,6 @@ players=Jugadors d'escacs
 minutesPerSide=Minuts per jugador
 variant=Variant
 timeControl=Control de temps
-clock=Rellotge
 correspondence=Correspondència
 daysPerTurn=Dies per torn
 oneDay=Un dia

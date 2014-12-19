@@ -81,7 +81,6 @@ players=Players
 minutesPerSide=Minutes per side
 variant=Variant
 timeControl=Time control
-clock=Clock
 realTime=Real Time
 correspondence=Correspondence
 daysPerTurn=Days per turn

@@ -81,7 +81,6 @@ players=Гульцы
 minutesPerSide=Хвілінаў на партыю
 variant=Варыянт
 timeControl=Абмежаваньне часу
-clock=Гадзіннік
 correspondence=Карэспандэнцыя
 daysPerTurn=Дзён пра ход
 oneDay=Aдзін дзень

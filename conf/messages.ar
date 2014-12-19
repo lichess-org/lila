@@ -81,7 +81,6 @@ players=لاعبي الشطرنج
 minutesPerSide=دقائق لكل طرف
 variant=النوع
 timeControl=التحكم بالوقت
-clock=ساعة توقيت
 correspondence=طويل الأمد
 daysPerTurn=يوم لكل نقلة
 oneDay=يوم واحد

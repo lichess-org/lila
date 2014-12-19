@@ -81,7 +81,6 @@ players=Pemain catur
 minutesPerSide=Menit untuk tiap sisi
 variant=Variasi
 timeControl=Kontrol waktu
-clock=Jam
 correspondence=Korespondensi
 daysPerTurn=Hari per langkah
 oneDay=Satu hari

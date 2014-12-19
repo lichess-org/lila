@@ -81,7 +81,6 @@ players=Igrači
 minutesPerSide=Minuta po igraču
 variant=Varijanta
 timeControl=Vremenska kontrola
-clock=Sat
 correspondence=Dopisni sah
 daysPerTurn=Dana po potezu
 oneDay=Jedan dan

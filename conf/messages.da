@@ -81,7 +81,6 @@ players=Skakspillere
 minutesPerSide=Minutter per spiller
 variant=Variant
 timeControl=Tidskontrol
-clock=Tid
 correspondence=Korrespondance
 daysPerTurn=Dage per træk
 oneDay=En dag

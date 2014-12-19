@@ -81,7 +81,6 @@ players=Skákmenn
 minutesPerSide=Mínútur á lið
 variant=Afbrigði
 timeControl=Tímaskorður
-clock=Klukka
 daysPerTurn=Dagar á leik
 oneDay=Einn dagur
 nbDays=%s dagar

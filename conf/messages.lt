@@ -81,7 +81,6 @@ players=Šachmatų žaidėjai
 minutesPerSide=Žaidimo trukmė
 variant=Variantas
 timeControl=Laiko kontrolė
-clock=Laikrodis
 daysPerTurn=Dienos vienam ėjimui
 time=Laikas
 username=Prisijungimo Vardas

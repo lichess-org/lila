@@ -81,7 +81,6 @@ players=Jugadores
 minutesPerSide=Minutos por jugador
 variant=Variante
 timeControl=Tiempo
-clock=Reloj
 correspondence=Correspondencia
 daysPerTurn=Días por turno
 oneDay=Un día
