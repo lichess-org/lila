@@ -80,7 +80,6 @@ players=Խաղացողները
 minutesPerSide=Րոպեներ ամեն կողմի համար
 variant=Տեսակ
 timeControl=Ժամանակի վերահսկողություն
-clock=Ժամանակով
 daysPerTurn=Օրական քայլ
 oneDay=մեկ օր
 nbDays=%s օր

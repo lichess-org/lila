@@ -81,7 +81,6 @@ players=プレイヤー
 minutesPerSide=持ち時間
 variant=バリアント
 timeControl=持ち時間制限
-clock=時間
 correspondence=通信チェス
 daysPerTurn=制限日数
 nbDays=%s日

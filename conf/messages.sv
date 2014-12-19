@@ -81,7 +81,6 @@ players=Schackspelare
 minutesPerSide=Minuter per spelare
 variant=Variant
 timeControl=Tidskontroll
-clock=Klocka
 correspondence=Korrespondens
 daysPerTurn=Dagar per speltur
 oneDay=En dag

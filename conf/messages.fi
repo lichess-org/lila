@@ -81,7 +81,6 @@ players=Pelaajat
 minutesPerSide=Minuuttia per puoli
 variant=Variantti
 timeControl=Ajan hallinta
-clock=Ajastettu
 correspondence=Kirjeshakki
 daysPerTurn=Päivää per vuoro
 oneDay=Yksi päivä

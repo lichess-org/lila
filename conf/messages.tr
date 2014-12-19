@@ -81,7 +81,6 @@ players=Oyuncular
 minutesPerSide=Oyuncu başına dakika
 variant=Varyant
 timeControl=Süreli oyun
-clock=Saat
 correspondence=Yazışma
 daysPerTurn=hamle için gün
 oneDay=bir gün
