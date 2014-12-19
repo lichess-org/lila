@@ -37,7 +37,11 @@ private[lobby] final class Lobby(
       }
     }
 
-    case msg@AddSeek(seek) => self ! SaveSeek(msg)
+    case msg@AddSeek(seek) =>
+      findCompatible(seek) foreach {
+        case Some(s) => self ! BiteSeek(s.id, seek.user)
+        case None    => self ! SaveSeek(msg)
+      }
 
     case SaveHook(msg) =>
       HookRepo save msg.hook
@@ -107,6 +111,13 @@ private[lobby] final class Lobby(
       case false => findCompatibleIn(hook, rest)
     }
   }
+
+  private def findCompatible(seek: Seek): Fu[Option[Seek]] =
+    seekApi forUser seek.user map {
+      _ filter (_ compatibleWith seek)
+    } map { seeks =>
+      seeks find { Biter.canJoin(_, seek.user) }
+    }
 
   private def remove(hook: Hook) = {
     HookRepo remove hook

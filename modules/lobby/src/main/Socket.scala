@@ -65,8 +65,6 @@ private[lobby] final class Socket(
       memberByUserId(seek.user.id) foreach notifyPlayerStart(game, creatorColor)
       memberByUserId(userId) foreach notifyPlayerStart(game, !creatorColor)
 
-    case AddSeek(seek)                        =>
-
     case HookIds(ids)                         => notifyVersion("hook_list", ids, Messadata())
 
     case lila.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))

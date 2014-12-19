@@ -6,6 +6,7 @@ import reactivemongo.core.commands._
 
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
+import actorApi.LobbyUser
 
 final class SeekApi(
     coll: Coll,
@@ -19,12 +20,15 @@ final class SeekApi(
       .cursor[Seek].collect[List](maxPerPage)
 
   def forUser(user: User): Fu[List[Seek]] =
-    blocking(user.id) flatMap { blocked =>
-      forAnon map {
-        _ filter { seek =>
-          !seek.user.blocking.contains(user.id) &&
-            !blocked.contains(seek.user.id)
-        }
+    blocking(user.id) flatMap { blocking =>
+      forUser(LobbyUser.make(user, blocking))
+    }
+
+  def forUser(user: LobbyUser): Fu[List[Seek]] =
+    forAnon map {
+      _ filter { seek =>
+        !seek.user.blocking.contains(user.id) &&
+          !user.blocking.contains(seek.user.id)
       }
     }
 

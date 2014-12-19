@@ -19,7 +19,6 @@ case class Seek(
     color: String,
     user: LobbyUser,
     ratingRange: String,
-    gameId: Option[String] = None,
     createdAt: DateTime) {
 
   def id = _id
@@ -31,6 +30,7 @@ case class Seek(
   def realMode = Mode orDefault mode
 
   def compatibleWith(h: Seek) =
+    user.id != h.user.id &&
     compatibilityProperties == h.compatibilityProperties &&
       (realColor compatibleWith h.realColor) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this)
