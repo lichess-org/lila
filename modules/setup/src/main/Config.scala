@@ -27,7 +27,7 @@ private[setup] trait Config {
   // Creator player color
   val color: Color
 
-  def hasClock = timeMode == TimeMode.Clock
+  def hasClock = timeMode == TimeMode.RealTime
 
   lazy val creatorColor = color.resolve
 

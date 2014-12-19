@@ -9,7 +9,7 @@ import lila.tournament.System
 trait SetupHelper { self: I18nHelper =>
 
   def translatedTimeModeChoices(implicit ctx: Context) = List(
-    (TimeMode.Clock.id.toString, trans.clock.str(), none),
+    (TimeMode.RealTime.id.toString, trans.realTime.str(), none),
     (TimeMode.Correspondence.id.toString, trans.correspondence.str(), none),
     (TimeMode.Unlimited.id.toString, trans.unlimited.str(), none)
   )

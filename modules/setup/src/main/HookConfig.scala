@@ -25,7 +25,7 @@ case class HookConfig(
     user: Option[User],
     sid: Option[String],
     blocking: Set[String]): Either[Hook, Option[Seek]] = timeMode match {
-    case TimeMode.Clock => Left(Hook.make(
+    case TimeMode.RealTime => Left(Hook.make(
       uid = uid,
       variant = variant,
       clock = justMakeClock,
@@ -70,7 +70,7 @@ object HookConfig extends BaseHumanConfig {
 
   val default = HookConfig(
     variant = variantDefault,
-    timeMode = TimeMode.Clock,
+    timeMode = TimeMode.RealTime,
     time = 5,
     increment = 8,
     days = 2,
