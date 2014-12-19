@@ -22,11 +22,7 @@ case class Hook(
     color: String,
     user: Option[LobbyUser],
     ratingRange: String,
-    gameId: Option[String] = None,
     createdAt: DateTime) {
-
-  def open = gameId.isEmpty
-  def closed = !open
 
   def realColor = Color orDefault color
 

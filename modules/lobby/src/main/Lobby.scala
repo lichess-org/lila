@@ -25,7 +25,7 @@ private[lobby] final class Lobby(
       val replyTo = sender
       (userOption.map(_.id) ?? blocking) foreach { blocks =>
         val lobbyUser = userOption map { LobbyUser.make(_, blocks) }
-        replyTo ! HookRepo.allOpen.filter { Biter.canJoin(_, lobbyUser) }
+        replyTo ! HookRepo.list.filter { Biter.canJoin(_, lobbyUser) }
       }
 
     case msg@AddHook(hook) => {
@@ -80,7 +80,7 @@ private[lobby] final class Lobby(
 
     case Broom => socket ? GetUids mapTo manifest[Iterable[String]] foreach { uids =>
       val hooks = {
-        (HookRepo openNotInUids uids.toSet) ::: HookRepo.cleanupOld
+        (HookRepo notInUids uids.toSet) ::: HookRepo.cleanupOld
       }.toSet
       if (hooks.nonEmpty) self ! RemoveHooks(hooks)
     }

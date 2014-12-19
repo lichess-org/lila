@@ -72,7 +72,7 @@ private[lobby] object Biter {
     daysPerTurn = seek.daysPerTurn,
     pgnImport = None)
 
-  def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean = hook.open &&
+  def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean =
     hook.realMode.casual.fold(
       user.isDefined || hook.allowAnon,
       user ?? { _.engine == hook.engine }
