@@ -81,6 +81,7 @@ players=Игроки
 minutesPerSide=Минут на партию
 variant=Вариант
 timeControl=Контроль времени
+realTime=Реальное время
 correspondence=По переписке
 daysPerTurn=Дней на ход
 oneDay=Ежедневно
