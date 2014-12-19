@@ -81,6 +81,7 @@ players=Schachspieler
 minutesPerSide=Minuten je Seite
 variant=Variante
 timeControl=Zeitkontrolle
+realTime=Echtzeit
 correspondence=Fernschach
 daysPerTurn=Tage pro Zug
 oneDay=ein Tag
