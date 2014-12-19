@@ -81,6 +81,7 @@ players=Jogadores
 minutesPerSide=Minutos por lado
 variant=Variante
 timeControl=Controlo de Tempo
+realTime=Tempo Real
 correspondence=Correspondência
 daysPerTurn=Dias por lance
 oneDay=Um dia
