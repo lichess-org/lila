@@ -81,6 +81,7 @@ players=Szachiści
 minutesPerSide=Minuty na gracza
 variant=Wariant
 timeControl=Limit czasu
+realTime=Czas rzeczywisty
 correspondence=Szachy korespondencyjne
 daysPerTurn=Dni na ruch
 oneDay=1 dzień na ruch
