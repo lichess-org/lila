@@ -5,7 +5,7 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.common.LilaCookie
+import lila.common.{ LilaCookie, HTTPRequest }
 import views._
 
 object Lobby extends LilaController {
@@ -38,7 +38,9 @@ object Lobby extends LilaController {
 
   def playing = Auth { implicit ctx =>
     me =>
-      lila.game.GameRepo nowPlaying me map { povs =>
+      if (HTTPRequest isSynchronousHttp ctx.req)
+        fuccess(Redirect(routes.Lobby.home))
+      else lila.game.GameRepo nowPlaying me map { povs =>
         html.lobby.playing(povs)
       }
   }
@@ -46,7 +48,8 @@ object Lobby extends LilaController {
   def seeks = Open { implicit ctx =>
     ctx.me.fold(Env.lobby.seekApi.forAnon)(Env.lobby.seekApi.forUser) flatMap { seeks =>
       negotiate(
-        html = fuccess(html.lobby.seeks(seeks)),
+        html = if (HTTPRequest isSynchronousHttp ctx.req) fuccess(Redirect(routes.Lobby.home))
+        else fuccess(html.lobby.seeks(seeks)),
         api = _ => fuccess(Ok(Json.obj("seeks" -> JsArray(seeks.map(_.render)))))
       )
     }
