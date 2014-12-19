@@ -1290,6 +1290,12 @@ var storage = {
       };
       if (isHook) {
         var $formTag = $form.find('form');
+        if ($form.data('anon')) {
+          $timeModeSelect.val(1)
+            .children('.timeMode_2, .timeMode_0')
+            .prop('disabled', true)
+            .attr('title', $.trans('You need an account to do that'));
+        }
         var ajaxSubmit = function(color) {
           $.ajax({
             url: $formTag.attr('action').replace(/uid-placeholder/, lichess.StrongSocket.sri),
