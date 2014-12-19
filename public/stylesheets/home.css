@@ -49,11 +49,14 @@ div.lobby_and_ground {
 #hooks_wrap > div.tabs > a:hover,
 #hooks_wrap > div.tabs > a.active {
   background: #f0f0f0;
-  border-top: 2px solid #d85000;
+}
+#hooks_wrap > div.tabs > a:hover {
+  border-top: 2px solid #808080;
 }
 #hooks_wrap > div.tabs > a.active {
   font-weight: bold;
   border-bottom-color: #f0f0f0;
+  border-top: 2px solid #d85000;
 }
 #hooks_wrap > div.tabs .unread {
   display: none;

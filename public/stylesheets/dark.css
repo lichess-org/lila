@@ -137,9 +137,6 @@ body.dark div.chat_menu > a {
 body.dark .crosstable td.last {
   border-right-color: #3d3d3d;
 }
-body.dark #hooks_wrap > div.tabs > a.active {
-  border-bottom-color: #303030;
-}
 body.dark .ui-slider,
 body.dark div.progressbar,
 body.dark #translation_call div.progressbar,
@@ -220,9 +217,12 @@ body.dark #hooks_wrap > div.tabs > a:hover,
 body.dark #hooks_wrap > div.tabs > a.active {
   background-color: #303030;
 }
-body.dark #hooks_wrap > div.tabs > a:hover,
+body.dark #hooks_wrap > div.tabs > a:hover {
+  border-top-color: #808080;
+}
 body.dark #hooks_wrap > div.tabs > a.active {
-  border-top: 2px solid #d85000;
+  border-bottom-color: #303030;
+  border-top-color: #d85000;
 }
 body.dark div.table_not_started {
   box-shadow: none;
