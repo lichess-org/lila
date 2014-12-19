@@ -1877,10 +1877,6 @@ var storage = {
       return Math.round(durLog(Math.min(max, dur || max)) / durLog(max) * 489);
     }
 
-    function renderHookDays(days) {
-      return days === 1 ? $.trans('One day') : $.trans('%s days', days);
-    }
-
     function renderHook(hook) {
       var html = '';
       if (hook.rating) {
@@ -1889,13 +1885,7 @@ var storage = {
       } else {
         html += '<span class="opponent anon">Anonymous</span>';
       }
-      if (hook.clock) {
-        html += '<span class="clock">' + hook.clock + '</span>';
-      } else if (hook.days) {
-        html += '<span class="clock">' + renderHookDays(hook.days) + '</span>';
-      } else {
-        html += '<span class="clock nope">∞</span>';
-      }
+      html += '<span class="clock">' + hook.clock + '</span>';
       html += '<span class="mode">' +
         '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' + $.trans(hook.mode) + '</span>';
       html += '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>';
@@ -1908,7 +1898,7 @@ var storage = {
         ['', '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>'],
         [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous')],
         [hook.rating || 0, hook.rating ? hook.rating : ''],
-        [hook.time || 9999, hook.clock ? hook.clock : (hook.days ? renderHookDays(hook.days) : '∞')],
+        [hook.time, hook.clock],
         [hook.mode,
           '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' +
           $.trans(hook.mode)
