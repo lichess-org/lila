@@ -1,8 +1,18 @@
 @(u: User, gs: Paginator[Game], filterName: String)(implicit ctx: Context)
-
-<div class="games infinitescroll">
+<div class="games infinitescroll@if(filterName == "playing"){ center}">
   @gs.nextPage.map { np =>
   <div class="pager none"><a href="@routes.User.showFilter(u.username, filterName, np)">Next</a></div>
   }
+  @if(filterName == "playing") {
+  <div class="game_list playing clearfix">
+    @gs.currentPageResults.flatMap{ Pov(_, u) }.map { p =>
+    <div>
+      @gameFen(p.game, p.color)
+      @game.vstext(p.game)(ctx.some)
+    </div>
+    }
+  </div>
+  } else {
   @game.widgets(gs.currentPageResults, user = u.some, ownerLink = ctx is u)
+  }
 </div>

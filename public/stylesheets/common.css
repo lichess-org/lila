@@ -1701,10 +1701,10 @@ div.game_row span.down {
 div.game_row div.metadata {
   margin-top: 10px;
 }
-div.game_list.realtime {
+div.game_list.playing {
   margin-top: 1.4em;
 }
-div.game_list.realtime > div {
+div.game_list.playing > div {
   float: left;
   margin: 0px 11px 11px 11px;
 }

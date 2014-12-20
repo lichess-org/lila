@@ -69,7 +69,7 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  private def otherGames(g: GameModel)(implicit ctx: Context) = ctx.me.ifFalse(g.hasClock) ?? { user =>
+  private def otherGames(g: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
     GameRepo nowPlaying user map {
       _ filter { pov =>
         pov.isMyTurn && pov.game.id != g.id
