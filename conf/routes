@@ -60,7 +60,7 @@ GET   /blog/:id/:slug     controllers.Blog.show(id: String, slug: String, ref: O
 GET   /blog.atom          controllers.Blog.atom(ref: Option[String] ?= None)
 
 # Game
-GET   /games              controllers.Game.realtime
+GET   /games              controllers.Game.playing
 GET   /games/all          controllers.Game.all(page: Int ?= 1)
 GET   /games/checkmate    controllers.Game.checkmate(page: Int ?= 1)
 GET   /games/bookmark     controllers.Game.bookmark(page: Int ?= 1)

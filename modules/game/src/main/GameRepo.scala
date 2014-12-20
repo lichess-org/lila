@@ -122,6 +122,8 @@ object GameRepo {
       _ flatMap { Pov(_, user) } sortBy Pov.priority
     }
 
+  def onePlaying(user: User): Fu[Option[Pov]] = nowPlaying(user) map (_.headOption)
+
   def setTv(id: ID) {
     $update.fieldUnchecked(id, F.tvAt, $date(DateTime.now))
   }
@@ -239,15 +241,10 @@ object GameRepo {
       $count(Json.obj(F.createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
     }).sequenceFu
 
-  def nowPlaying(userId: String): Fu[Option[Game]] =
-    $find.one(Query.status(Status.Started) ++ Query.user(userId) ++ Json.obj(
-      F.createdAt -> $gt($date(DateTime.now minusHours 1))
-    ))
-
-  def isNowPlaying(userId: String): Fu[Boolean] = nowPlaying(userId) map (_.isDefined)
-
-  def lastPlayed(userId: String): Fu[Option[Game]] =
-    $find($query(Query user userId) sort ($sort desc F.createdAt), 1) map (_.headOption)
+  def lastPlayed(userId: String): Fu[Option[Pov]] =
+    $find($query(Query user userId) sort ($sort desc F.createdAt), 1) map {
+      _.headOption flatMap { Pov(_, userId) }
+    }
 
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
     import reactivemongo.bson._

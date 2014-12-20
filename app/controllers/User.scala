@@ -23,9 +23,9 @@ object User extends LilaController {
 
   def tv(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      (GameRepo nowPlaying user.id) orElse
+      (GameRepo onePlaying user) orElse
         (GameRepo lastPlayed user.id) flatMap {
-          _.flatMap { Pov(_, user) }.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
+          _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
             Round.watch(pov, userTv = user.some)
           }
         }
@@ -38,12 +38,12 @@ object User extends LilaController {
 
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      GameRepo nowPlaying user.id zip
+      GameRepo onePlaying user zip
         (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
         (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
-          case (((game, blocked), followable), relation) =>
-            Ok(html.user.mini(user, game, blocked, followable, relation))
+          case (((pov, blocked), followable), relation) =>
+            Ok(html.user.mini(user, pov, blocked, followable, relation))
               .withHeaders(CACHE_CONTROL -> "max-age=5")
         }
     }

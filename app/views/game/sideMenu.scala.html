@@ -1,6 +1,6 @@
 @(listMenu: lila.game.ListMenu, active: String)(implicit ctx: Context)
 
-<a class="@active.active("realtime")" href="@routes.Game.realtime()">
+<a class="@active.active("playing")" href="@routes.Game.playing()">
   @trans.gamesBeingPlayedRightNow()
 </a>
 <a class="@active.active("search")" href="@routes.Game.search()">
