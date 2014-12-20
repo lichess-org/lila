@@ -81,6 +81,7 @@ players=שחקנים
 minutesPerSide=דקות עבור כל צד
 variant=סוג משחק
 timeControl=כמות זמן
+realTime=זמן אמת
 correspondence=התכתבות
 daysPerTurn=ימים לצעד
 oneDay=יום אחד
