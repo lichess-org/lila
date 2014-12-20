@@ -114,9 +114,7 @@ private[lobby] final class Lobby(
 
   private def findCompatible(seek: Seek): Fu[Option[Seek]] =
     seekApi forUser seek.user map {
-      _ filter (_ compatibleWith seek)
-    } map { seeks =>
-      seeks find { Biter.canJoin(_, seek.user) }
+      _ find (_ compatibleWith seek)
     }
 
   private def remove(hook: Hook) = {

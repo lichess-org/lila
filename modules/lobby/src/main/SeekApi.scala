@@ -4,9 +4,9 @@ import org.joda.time.DateTime
 import reactivemongo.bson.{ BSONDocument, BSONInteger, BSONRegex, BSONArray, BSONBoolean }
 import reactivemongo.core.commands._
 
+import actorApi.LobbyUser
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
-import actorApi.LobbyUser
 
 final class SeekApi(
     coll: Coll,
@@ -24,13 +24,9 @@ final class SeekApi(
       forUser(LobbyUser.make(user, blocking))
     }
 
-  def forUser(user: LobbyUser): Fu[List[Seek]] =
-    forAnon map {
-      _ filter { seek =>
-        !seek.user.blocking.contains(user.id) &&
-          !user.blocking.contains(seek.user.id)
-      }
-    }
+  def forUser(user: LobbyUser): Fu[List[Seek]] = forAnon map {
+    _ filter { Biter.canJoin(_, user) }
+  }
 
   def find(id: String): Fu[Option[Seek]] =
     coll.find(BSONDocument("_id" -> id)).one[Seek]
