@@ -1748,7 +1748,6 @@ a.mini_board {
 }
 #now_playing {
   margin: 4px 0 0 4px;
-  overflow: hidden;
 }
 #now_playing.other_games {
   width: 512px;
@@ -1763,6 +1762,10 @@ a.mini_board {
   text-align: center;
   transition: background-color 0.13s;
   background: rgba(255, 255, 255, 0.6);
+}
+#now_playing .move_on {
+  font-size: 0.7em;
+  float: right;
 }
 #now_playing.other_games > a {
   padding: 5px;

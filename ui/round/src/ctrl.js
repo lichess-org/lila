@@ -18,9 +18,9 @@ var replayCtrl = require('./replay/ctrl');
 var clockCtrl = require('./clock/ctrl');
 var correspondenceClockCtrl = require('./correspondenceClock/ctrl');
 
-module.exports = function(cfg, router, i18n, socketSend) {
+module.exports = function(opts) {
 
-  this.data = data({}, cfg);
+  this.data = data({}, opts.data);
 
   this.vm = {
     flip: false,
@@ -28,7 +28,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
     redirecting: false
   };
 
-  this.socket = new socket(socketSend, this);
+  this.socket = new socket(opts.socketSend, this);
 
   this.flip = function() {
     this.vm.flip = !this.vm.flip;
@@ -69,7 +69,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
     if (this.data.blind) blind.reload(this);
   }.bind(this);
 
-  this.chessground = ground.make(this.data, cfg.game.fen, this.userMove);
+  this.chessground = ground.make(this.data, opts.data.game.fen, this.userMove);
 
   this.reload = function(cfg) {
     this.replay.onReload(cfg);
@@ -113,10 +113,10 @@ module.exports = function(cfg, router, i18n, socketSend) {
 
   this.replay = new replayCtrl(this);
 
-  this.router = router;
+  this.router = opts.router;
 
   this.trans = function() {
-    var str = i18n[arguments[0]]
+    var str = opts.i18n[arguments[0]]
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
       str = str.replace('%s', arg);
     });

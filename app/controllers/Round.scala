@@ -54,7 +54,7 @@ object Round extends LilaController with TheftPrevention {
             PreventTheft(pov) {
               (pov.game.tournamentId ?? TournamentRepo.byId) zip
                 Env.game.crosstableApi(pov.game) zip
-                otherPovs(pov.game) flatMap {
+                otherPovs(pov.gameId) flatMap {
                   case ((tour, crosstable), playing) =>
                     Env.api.roundApi.player(pov, Env.api.version) map { data =>
                       Ok(html.round.player(pov, data, tour = tour, cross = crosstable, playing = playing))
@@ -69,10 +69,16 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  private def otherPovs(g: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
+  def others(gameId: String) = Open { implicit ctx =>
+    otherPovs(gameId) map { playing =>
+      Ok(html.round.others(playing))
+    }
+  }
+
+  private def otherPovs(gameId: String)(implicit ctx: Context) = ctx.me ?? { user =>
     GameRepo nowPlaying user map {
       _ filter { pov =>
-        pov.isMyTurn && pov.game.id != g.id
+        pov.isMyTurn && pov.game.id != gameId
       }
     }
   }

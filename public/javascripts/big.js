@@ -803,14 +803,37 @@ var storage = {
               .find('.white').text(e.black).end()
               .find('.black').text(e.white);
           }
+        },
+        opponent_play: function(e) {
+          $.ajax({
+            url: $nowPlaying.data('reload-url'),
+            success: function(html) {
+              $nowPlaying.html(html);
+              $('body').trigger('lichess.content_loaded');
+              loadPlaying();
+            }
+          });
         }
       });
-    round = LichessRound(element.querySelector('.round'), cfg.data, cfg.routes, cfg.i18n, lichess.socket.send.bind(lichess.socket));
+    cfg.element = element.querySelector('.round');
+    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    round = LichessRound(cfg);
     startTournamentClock();
     $('.crosstable', element).prependTo($('.underboard .center', element)).show();
     $('#tv_history').on("click", "tr", function() {
       location.href = $(this).find('a.view').attr('href');
     });
+    var loadPlaying = function() {
+      var key = "lichess.move_on";
+      $nowPlaying.find('.move_on').click(function() {
+        setMoveOn(!storage.get(key));
+      });
+      var setMoveOn = function(value) {
+        storage.set(key, value);
+        $moveOn.toggleClass('active', value);
+      };
+      setMoveOn(storage.get(key));
+    };
   }
 
   function startPrelude(element, cfg) {

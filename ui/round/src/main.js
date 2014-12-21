@@ -2,11 +2,11 @@ var ctrl = require('./ctrl');
 var view = require('./view/main');
 var m = require('mithril');
 
-module.exports = function(element, config, router, i18n, socketSend) {
+module.exports = function(opts) {
 
-  var controller = new ctrl(config, router, i18n, socketSend);
+  var controller = new ctrl(opts);
 
-  m.module(element, {
+  m.module(opts.element, {
     controller: function () { return controller; },
     view: view
   });

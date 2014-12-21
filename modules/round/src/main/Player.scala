@@ -31,7 +31,7 @@ private[round] final class Player(
             case (progress, move) =>
               (GameRepo save progress) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, move)) >>-
-                notifyProgress(move, progress, ip) >>
+                notifyMove(move, progress.game, ip) >>
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
                     cheatDetector(progress.game) addEffect {
@@ -61,13 +61,13 @@ private[round] final class Player(
       fufail(s"[ai play] game ${game.id} turn ${game.turns} not AI turn")
     ) logFailureErr s"[ai play] game ${game.id} turn ${game.turns}"
 
-  private def notifyProgress(move: chess.Move, progress: Progress, ip: String) {
-    val game = progress.game
+  private def notifyMove(move: chess.Move, game: Game, ip: String) {
     bus.publish(MoveEvent(
       ip = ip,
       gameId = game.id,
       fen = Forsyth exportBoard game.toChess.board,
-      move = move.keyString
+      move = move.keyString,
+      opponentUserId = game.player(!move.color).userId
     ), 'moveEvent)
   }
 

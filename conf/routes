@@ -97,6 +97,7 @@ GET   /$gameId<\w{8}>/$color<white|black>/socket controllers.Round.websocketWatc
 GET   /$fullId<\w{12}>/socket/v:apiVersion       controllers.Round.websocketPlayer(fullId: String, apiVersion: Int)
 GET   /$gameId<\w{8}>/$color<white|black>/side   controllers.Round.sideWatcher(gameId: String, color: String)
 GET   /$fullId<\w{12}>/side                      controllers.Round.sidePlayer(fullId: String)
+GET   /$fullId<\w{12}>/others                    controllers.Round.others(fullId: String)
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
 POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: String)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: String)
