@@ -1546,6 +1546,7 @@ var storage = {
     });
     var active = storage.get('lobbytab');
     if (['real_time', 'seeks', 'now_playing'].indexOf(active) === -1) active = 'real_time';
+    if (!$wrap.find('>div.tabs>.' + active).length) active = 'real_time';
     $wrap.find('>div.tabs>.' + active).addClass('active');
     $wrap.find('>.' + active).show();
 
