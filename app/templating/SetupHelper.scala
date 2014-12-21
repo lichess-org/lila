@@ -35,7 +35,8 @@ trait SetupHelper { self: I18nHelper =>
   def translatedVariantChoicesWithVariants(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
       variantTuple(Variant.KingOfTheHill) :+
-      variantTuple(Variant.ThreeCheck)
+      variantTuple(Variant.ThreeCheck) :+
+      variantTuple(Variant.SuicideChess)
 
   def translatedVariantChoicesWithFen(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+

@@ -98,8 +98,9 @@ trait BaseConfig {
 
   val variantsWithFen = variants :+ Variant.FromPosition.id
   val variantsWithFenAndKingOfTheHill = variants :+ Variant.KingOfTheHill.id :+ Variant.FromPosition.id
-  val variantsWithVariants = variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id
-  val variantsWithFenAndVariants = variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id :+ Variant.FromPosition.id
+  val variantsWithVariants = variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id :+ Variant.SuicideChess.id
+  val variantsWithFenAndVariants =
+    variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id :+ Variant.SuicideChess :+ Variant.FromPosition.id
 
   val speeds = Speed.all map (_.id)
 

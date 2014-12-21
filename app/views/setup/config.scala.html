@@ -22,7 +22,7 @@
   }
   @ctx.me.map { me =>
   <div class="ratings">
-    @List("bullet", "blitz", "classical", "correspondence", "chess960", "kingOfTheHill", "threeCheck").map { key =>
+    @List("bullet", "blitz", "classical", "correspondence", "chess960", "kingOfTheHill", "threeCheck", "suicide").map { key =>
     @lila.rating.PerfType(key).map { perfType =>
     <div class="@key">
       @trans.ratingX(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}""")

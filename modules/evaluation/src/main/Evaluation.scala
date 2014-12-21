@@ -56,7 +56,7 @@ object Evaluation {
   import play.api.libs.functional.syntax._
 
  private[evaluation] def watchPerfs(p: Perfs): List[Perf] =
-    List(p.bullet, p.blitz, p.classical, p.chess960, p.kingOfTheHill, p.threeCheck)
+    List(p.bullet, p.blitz, p.classical, p.chess960, p.suicide, p.kingOfTheHill, p.threeCheck)
 
   private[evaluation] object heuristics {
 

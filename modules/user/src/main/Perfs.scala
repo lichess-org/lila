@@ -10,6 +10,7 @@ case class Perfs(
     standard: Perf,
     chess960: Perf,
     kingOfTheHill: Perf,
+    suicide: Perf,
     threeCheck: Perf,
     bullet: Perf,
     blitz: Perf,
@@ -21,6 +22,7 @@ case class Perfs(
     "standard" -> standard,
     "chess960" -> chess960,
     "kingOfTheHill" -> kingOfTheHill,
+    "suicide" -> suicide,
     "threeCheck" -> threeCheck,
     "bullet" -> bullet,
     "blitz" -> blitz,
@@ -40,7 +42,7 @@ case class Perfs(
   }
 
   def bestRating: Int = {
-    val ps = List(bullet, blitz, classical, correspondence, chess960, kingOfTheHill, threeCheck)
+    val ps = List(bullet, blitz, classical, correspondence, chess960, kingOfTheHill, threeCheck, suicide)
     val minNb = ps.foldLeft(0)(_ + _.nb) / 10
     ps.foldLeft(none[Int]) {
       case (ro, p) if p.nb >= minNb => ro.fold(p.intRating.some) { r =>
@@ -75,6 +77,7 @@ case class Perfs(
     case PerfType.Chess960       => chess960
     case PerfType.KingOfTheHill  => kingOfTheHill
     case PerfType.ThreeCheck     => threeCheck
+    case PerfType.Suicide        => suicide
     case PerfType.Puzzle         => puzzle
   }
 
@@ -105,7 +108,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p)
   }
 
   def variantLens(variant: Variant): Option[Perfs => Perf] = variant match {
@@ -113,6 +116,7 @@ case object Perfs {
     case Variant.Chess960      => Some(_.chess960)
     case Variant.KingOfTheHill => Some(_.kingOfTheHill)
     case Variant.ThreeCheck    => Some(_.threeCheck)
+    case Variant.SuicideChess  => Some(_.suicide)
     case Variant.FromPosition  => none
   }
 
@@ -134,6 +138,7 @@ case object Perfs {
         standard = perf("standard"),
         chess960 = perf("chess960"),
         kingOfTheHill = perf("kingOfTheHill"),
+        suicide = perf("suicide"),
         threeCheck = perf("threeCheck"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
@@ -147,6 +152,7 @@ case object Perfs {
     def writes(w: BSON.Writer, o: Perfs) = BSONDocument(
       "standard" -> notNew(o.standard),
       "chess960" -> notNew(o.chess960),
+      "suicide" -> notNew(o.suicide),
       "kingOfTheHill" -> notNew(o.kingOfTheHill),
       "threeCheck" -> notNew(o.threeCheck),
       "bullet" -> notNew(o.bullet),

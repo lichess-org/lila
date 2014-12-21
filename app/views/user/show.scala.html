@@ -42,6 +42,9 @@
   @if(u.perfs.threeCheck.nonEmpty) {
   @showPerf(u.perfs.threeCheck, PerfType.ThreeCheck)
   }
+  @if(u.perfs.suicide.nonEmpty) {
+  @showPerf(u.perfs.suicide, PerfType.Suicide)
+  }
   <br />
   }
   @showPerf(u.perfs.puzzle, PerfType.Puzzle)

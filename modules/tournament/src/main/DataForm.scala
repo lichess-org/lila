@@ -42,7 +42,8 @@ final class DataForm(isDev: Boolean) {
     "minutes" -> numberIn(minutePrivateChoices),
     "minPlayers" -> numberIn(minPlayerChoices),
     "system" -> number.verifying(Set(System.Arena.id, System.Swiss.id) contains _),
-    "variant" -> number.verifying(Set(Variant.Standard.id, Variant.Chess960.id, Variant.KingOfTheHill.id, Variant.ThreeCheck.id) contains _),
+    "variant" -> number.verifying(Set(Variant.Standard.id, Variant.Chess960.id, Variant.KingOfTheHill.id,
+      Variant.ThreeCheck.id, Variant.SuicideChess.id) contains _),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
     "password" -> optional(nonEmptyText)
   )(TournamentSetup.apply)(TournamentSetup.unapply)

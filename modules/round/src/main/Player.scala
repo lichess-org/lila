@@ -71,10 +71,15 @@ private[round] final class Player(
     ), 'moveEvent)
   }
 
-  private def moveFinish(game: Game, color: Color): Fu[Events] = game.status match {
-    case Status.Mate                             => finisher(game, _.Mate, Some(color))
-    case Status.VariantEnd                       => finisher(game, _.VariantEnd, Some(color))
-    case status@(Status.Stalemate | Status.Draw) => finisher(game, _ => status)
-    case _                                       => fuccess(Nil)
+  private def moveFinish(game: Game, color: Color): Fu[Events] = {
+    lazy val winner = game.toChess.situation.winner
+
+    game.status match {
+
+      case Status.Mate                             => finisher(game, _.Mate, winner)
+      case Status.VariantEnd                       => finisher(game, _.VariantEnd, winner)
+      case status@(Status.Stalemate | Status.Draw) => finisher(game, _ => status)
+      case _                                       => fuccess(Nil)
+    }
   }
 }
