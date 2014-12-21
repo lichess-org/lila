@@ -56,7 +56,7 @@ module.exports = function(cfg, router, i18n, onChange) {
         move = moves[ply - 1];
         hash += move;
         lm = chess.move(move);
-        var turnColor = ply % 2 === 1 ? 'black' : 'white';
+        var turnColor = chess.turn() == 'w' ? 'white' : 'black';
         situationCache[hash] = {
           fen: chess.fen(),
           turnColor: turnColor,
