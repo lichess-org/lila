@@ -167,7 +167,7 @@ object BinaryFormat {
       def splitInts(int: Int) = Array(int >> 4, int & 0x0F)
       def intPiece(int: Int): Option[Piece] =
         intToRole(int & 7) map { role => Piece(Color((int & 8) == 0), role) }
-      val (aliveInts, deadInts) = ba.value map toInt flatMap splitInts splitAt 64
+      val aliveInts = ba.value map toInt take 32 flatMap splitInts
       (Pos.all zip aliveInts flatMap {
         case (pos, int) => intPiece(int) map (pos -> _)
       }).toMap
