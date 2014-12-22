@@ -124,6 +124,9 @@ object GameRepo {
 
   def onePlaying(user: User): Fu[Option[Pov]] = nowPlaying(user) map (_.headOption)
 
+  def countPlayingRealTime(userId: String): Fu[Int] =
+    $count(Query.nowPlaying(userId) ++ Query.clock(true))
+
   def setTv(id: ID) {
     $update.fieldUnchecked(id, F.tvAt, $date(DateTime.now))
   }

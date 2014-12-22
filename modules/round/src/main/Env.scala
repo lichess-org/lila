@@ -29,6 +29,7 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     chatApi: lila.chat.ChatApi,
     historyApi: lila.history.HistoryApi,
+    isPlayingSimul: String => Fu[Boolean],
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -84,7 +85,8 @@ final class Env(
           uidTimeout = UidTimeout,
           socketTimeout = SocketTimeout,
           disconnectTimeout = PlayerDisconnectTimeout,
-          ragequitTimeout = PlayerRagequitTimeout)
+          ragequitTimeout = PlayerRagequitTimeout,
+          isPlayingSimul = isPlayingSimul)
         def receive: Receive = ({
           case msg@lila.chat.actorApi.ChatLine(id, line) =>
             self ! lila.hub.actorApi.map.Tell(id take 8, msg)
@@ -197,5 +199,6 @@ object Env {
     prefApi = lila.pref.Env.current.api,
     chatApi = lila.chat.Env.current.api,
     historyApi = lila.history.Env.current.api,
+    isPlayingSimul = lila.game.Env.current.cached.isPlayingSimul,
     scheduler = lila.common.PlayApp.scheduler)
 }

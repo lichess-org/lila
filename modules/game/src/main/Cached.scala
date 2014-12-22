@@ -18,6 +18,12 @@ final class Cached(defaultTtl: FiniteDuration) {
 
   def nbPlaying(userId: String): Fu[Int] = countShortTtl(Query nowPlaying userId)
 
+  private val isPlayingSimulCache = AsyncCache[String, Boolean](
+    f = userId => GameRepo.countPlayingRealTime(userId) map (1 <),
+    timeToLive = 10.seconds)
+
+  val isPlayingSimul: String => Fu[Boolean] = isPlayingSimulCache.apply _
+
   val rematch960 = new ExpireSetMemo(3.hours)
 
   val activePlayerUidsDay = AsyncCache(
@@ -29,7 +35,7 @@ final class Cached(defaultTtl: FiniteDuration) {
     timeToLive = 6 hours)
 
   private val count = countTtl(defaultTtl)
-  private val countShortTtl = countTtl(3.seconds)
+  private val countShortTtl = countTtl(5.seconds)
 
   private def countTtl(ttl: FiniteDuration) =
     AsyncCache((o: JsObject) => $count(o), timeToLive = ttl)
