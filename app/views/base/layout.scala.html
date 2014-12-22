@@ -11,7 +11,8 @@ robots: Boolean = true,
 moreCss: Html = Html(""),
 moreJs: Html = Html(""),
 zen: Boolean = false,
-openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
+openGraph: Map[Symbol, String] = Map.empty,
+chessground: Boolean = true)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <head>
@@ -271,7 +272,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     </div>
     }
     @jQueryTag
-    @jsTag("vendor/chessground.min.js")
+    @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @jsTag("deps.min.js")
     @momentjsTag
     @powertipTag

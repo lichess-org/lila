@@ -23,7 +23,8 @@ side = views.html.game.side(pov, tour, withTourStanding = true),
 chat = pov.game.hasChat.option(base.chatDom(trans.chatRoom.str(), ctx.isAuth)),
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
-openGraph = povOpenGraph(pov)) {
+openGraph = povOpenGraph(pov),
+chessground = false) {
 <div class="round cg-512">@miniBoardContent</div>
 <div class="crosstable" style="display:none">
   @cross.map { c =>
