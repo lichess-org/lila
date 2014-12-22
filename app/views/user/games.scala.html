@@ -3,7 +3,7 @@
   @gs.nextPage.map { np =>
   <div class="pager none"><a href="@routes.User.showFilter(u.username, filterName, np)">Next</a></div>
   }
-  @if(filterName == "playing") {
+  @if(filterName == "playing" && gs.nbResults > 2) {
   <div class="game_list playing">
     @gs.currentPageResults.flatMap{ Pov(_, u) }.map { p =>
     <div>
