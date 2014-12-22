@@ -823,17 +823,23 @@ var storage = {
     $('#tv_history').on("click", "tr", function() {
       location.href = $(this).find('a.view').attr('href');
     });
+    var $nowPlaying = $('#now_playing');
     var loadPlaying = function() {
       var key = "lichess.move_on";
-      $nowPlaying.find('.move_on').click(function() {
-        setMoveOn(!storage.get(key));
+      var $moveOn = $nowPlaying.find('.move_on').click(function() {
+        setMoveOn(storage.get(key) === '1' ? '0' : '1');
       });
       var setMoveOn = function(value) {
         storage.set(key, value);
-        $moveOn.toggleClass('active', value);
+        $moveOn.toggleClass('active', value === '1');
       };
-      setMoveOn(storage.get(key));
+      setMoveOn(storage.get(key) || '0');
     };
+    loadPlaying();
+    $nowPlaying.on('click', '>a', function() {
+      lichess.hasToReload = true;
+      return true;
+    });
   }
 
   function startPrelude(element, cfg) {
