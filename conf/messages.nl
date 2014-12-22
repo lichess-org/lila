@@ -81,6 +81,7 @@ players=Geregistreerde spelers en spelers die online zijn
 minutesPerSide=Minuten per speler
 variant=Variant
 timeControl=Speelduur
+realTime=Live
 correspondence=Correspondensie
 daysPerTurn=Dagen per zet
 oneDay=Eén dag

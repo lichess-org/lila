@@ -81,6 +81,7 @@ players=Σκακιστές
 minutesPerSide=Λεπτά ανά πλευρά
 variant=Εκδοχή
 timeControl=Χρονόμετρο
+realTime=Πραγματικός χρόνος
 correspondence=Αλληλογραφία
 daysPerTurn=Μέρες ανά σειρά
 oneDay=Μία μέρα

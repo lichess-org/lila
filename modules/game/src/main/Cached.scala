@@ -9,14 +9,14 @@ import lila.db.api.$count
 import lila.memo.{ AsyncCache, ExpireSetMemo, Builder }
 import tube.gameTube
 
-final class Cached(ttl: Duration) {
+final class Cached(defaultTtl: FiniteDuration) {
 
   def nbGames: Fu[Int] = count(Query.all)
   def nbMates: Fu[Int] = count(Query.mate)
   def nbImported: Fu[Int] = count(Query.imported)
   def nbImportedBy(userId: String): Fu[Int] = count(Query imported userId)
 
-  def nbPlaying(userId: String): Fu[Int] = count(Query nowPlaying userId)
+  def nbPlaying(userId: String): Fu[Int] = countShortTtl(Query nowPlaying userId)
 
   val rematch960 = new ExpireSetMemo(3.hours)
 
@@ -28,7 +28,11 @@ final class Cached(ttl: Duration) {
     (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusWeeks 1, nb),
     timeToLive = 6 hours)
 
-  private val count = AsyncCache((o: JsObject) => $count(o), timeToLive = ttl)
+  private val count = countTtl(defaultTtl)
+  private val countShortTtl = countTtl(3.seconds)
+
+  private def countTtl(ttl: FiniteDuration) =
+    AsyncCache((o: JsObject) => $count(o), timeToLive = ttl)
 
   object Divider {
 

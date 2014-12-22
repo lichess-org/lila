@@ -81,6 +81,7 @@ players=Igralci
 minutesPerSide=Minut na igralca
 variant=Različica
 timeControl=Ura
+realTime=Standardno
 correspondence=Korespondenčno
 daysPerTurn=Število dni na potezo
 oneDay=En dan

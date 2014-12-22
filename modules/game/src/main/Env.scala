@@ -41,7 +41,7 @@ final class Env(
 
   lazy val pngExport = PngExport(PngExecPath) _
 
-  lazy val cached = new Cached(ttl = CachedNbTtl)
+  lazy val cached = new Cached(defaultTtl = CachedNbTtl)
 
   lazy val paginator = new PaginatorBuilder(
     cached = cached,

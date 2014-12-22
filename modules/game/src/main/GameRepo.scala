@@ -181,15 +181,15 @@ object GameRepo {
     _ sort Query.sortCreated skip (Random nextInt distribution)
   )
 
-  def insertDenormalized(game: Game, ratedCheck: Boolean = true): Funit = {
-    val g2 = if (ratedCheck && game.rated && game.userIds.distinct.size != 2)
-      game.copy(mode = chess.Mode.Casual)
-    else game
-    val userIds = game.userIds.distinct
+  def insertDenormalized(g: Game, ratedCheck: Boolean = true): Funit = {
+    val g2 = if (ratedCheck && g.rated && g.userIds.distinct.size != 2)
+      g.copy(mode = chess.Mode.Casual)
+    else g
+    val userIds = g2.userIds.distinct
     val bson = (gameTube.handler write g2) ++ BSONDocument(
       F.initialFen -> g2.variant.exotic.option(Forsyth >> g2.toChess),
-      F.checkAt -> (!game.isPgnImport).option(DateTime.now.plusHours(game.hasClock.fold(1, 24))),
-      F.playingUids -> userIds.nonEmpty.option(userIds)
+      F.checkAt -> (!g2.isPgnImport).option(DateTime.now.plusHours(g2.hasClock.fold(1, 24))),
+      F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     $insert bson bson
   }

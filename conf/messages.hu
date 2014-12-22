@@ -81,6 +81,7 @@ players=Játékosok
 minutesPerSide=Perc játékosonként
 variant=Változat
 timeControl=Játék időre
+realTime=Valós Idő
 correspondence=Levelezés
 daysPerTurn=Lépésenkénti napok száma
 oneDay=Egy nap
