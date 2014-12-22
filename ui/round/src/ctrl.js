@@ -115,7 +115,7 @@ module.exports = function(opts) {
 
   this.replay = new replayCtrl(this);
 
-  this.router = opts.router;
+  this.router = opts.routes;
 
   this.trans = function() {
     var str = opts.i18n[arguments[0]]

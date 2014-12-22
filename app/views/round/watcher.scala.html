@@ -1,8 +1,6 @@
 @(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], userTv: Option[User] = None)(implicit ctx: Context)
 
-@import pov._
-
-@title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in $gameId" }
+@title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in ${pov.gameId}" }
 
 @moreJs = {
 @jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
