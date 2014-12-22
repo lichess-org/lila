@@ -64,4 +64,4 @@ private[lobby] case class HookIds(ids: List[String])
 
 case class AddHook(hook: Hook)
 case class AddSeek(seek: Seek)
-case class GetOpen(user: Option[User])
+case class HooksFor(user: Option[User])
