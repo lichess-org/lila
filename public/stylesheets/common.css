@@ -1767,6 +1767,15 @@ a.mini_board {
   font-size: 0.7em;
   float: right;
 }
+#now_playing .move_on i {
+  font-size: 1.2em;
+  display: none;
+  transition: 0.13s;
+}
+#now_playing .move_on.enabled i {
+  display: inline-block;
+  margin-right: 10px;
+}
 #now_playing.other_games > a {
   padding: 5px;
 }

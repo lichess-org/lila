@@ -831,7 +831,7 @@ var storage = {
       });
       var setMoveOn = function(value) {
         storage.set(key, value);
-        $moveOn.toggleClass('active', value === '1');
+        $moveOn.toggleClass('enabled', value === '1');
       };
       setMoveOn(storage.get(key) || '0');
     };
