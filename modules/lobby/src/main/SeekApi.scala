@@ -14,18 +14,20 @@ final class SeekApi(
     maxPerPage: Int,
     maxPerUser: Int) {
 
-  def forAnon: Fu[List[Seek]] =
+  private def allCursor =
     coll.find(BSONDocument())
       .sort(BSONDocument("createdAt" -> -1))
-      .cursor[Seek].collect[List](maxPerPage)
+      .cursor[Seek]
+
+  def forAnon: Fu[List[Seek]] = allCursor.collect[List](maxPerPage)
 
   def forUser(user: User): Fu[List[Seek]] =
     blocking(user.id) flatMap { blocking =>
       forUser(LobbyUser.make(user, blocking))
     }
 
-  def forUser(user: LobbyUser): Fu[List[Seek]] = forAnon map {
-    _ filter { Biter.canJoin(_, user) }
+  def forUser(user: LobbyUser): Fu[List[Seek]] = allCursor.collect[List]() map {
+    _ filter { Biter.canJoin(_, user) } take maxPerPage
   }
 
   def find(id: String): Fu[Option[Seek]] =
