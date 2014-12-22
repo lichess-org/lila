@@ -81,6 +81,7 @@ players=Hráči
 minutesPerSide=Minut pro každého hráče
 variant=Varianta
 timeControl=Tempo hry
+realTime=Skutečný čas
 correspondence=Korespondenčně
 daysPerTurn=Dnů na tah
 oneDay=Jeden den
