@@ -27,7 +27,9 @@ final class SeekApi(
     }
 
   def forUser(user: LobbyUser): Fu[List[Seek]] = allCursor.collect[List]() map {
-    _ filter { Biter.canJoin(_, user) } take maxPerPage
+    _ filter { seek =>
+      seek.user.id == user.id || Biter.canJoin(seek, user)
+    } take maxPerPage
   }
 
   def find(id: String): Fu[Option[Seek]] =
