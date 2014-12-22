@@ -1705,7 +1705,7 @@ div.game_list.playing {
   margin-top: 1.4em;
 }
 div.game_list.playing > div {
-  float: left;
+  display: inline-block;
   margin: 0px 11px 11px 11px;
 }
 div.vstext {

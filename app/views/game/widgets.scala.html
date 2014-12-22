@@ -23,7 +23,7 @@
 }
 
 @games.map { g =>
-<div class="game_row paginated_element clearfix">
+<div class="game_row paginated_element">
   @defining(user flatMap g.player) { fromPlayer =>
   @defining(fromPlayer | g.firstPlayer ) { firstPlayer =>
   @gameFen(g, firstPlayer.color, ownerLink, withTitle = false)
