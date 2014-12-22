@@ -51,8 +51,8 @@ final class SeekApi(
   def insert(seek: Seek) = coll.insert(seek) >> findByUser(seek.user.id).flatMap {
     case seeks if seeks.size <= maxPerUser => funit
     case seeks =>
-      seeks.drop(maxPerUser).map(remove).sequenceFu >> cache.clear
-  }
+      seeks.drop(maxPerUser).map(remove).sequenceFu
+  } >> cache.clear
 
   def findByUser(userId: String): Fu[List[Seek]] =
     coll.find(BSONDocument("user.id" -> userId))
