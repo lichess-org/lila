@@ -24,6 +24,7 @@ module.exports = function(send, ctrl) {
       ctrl.data.game.turns = o.turns;
       m.redraw();
       ctrl.setTitle();
+      ctrl.moveOn.next();
     },
     move: function(o) {
       ctrl.apiMove(o);

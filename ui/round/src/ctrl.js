@@ -4,10 +4,8 @@ var chessground = require('chessground');
 var partial = chessground.util.partial;
 var data = require('./data');
 var game = require('game').game;
-var status = require('game').status;
 var ground = require('./ground');
 var socket = require('./socket');
-var xhr = require('./xhr');
 var title = require('./title');
 var promotion = require('./promotion');
 var hold = require('./hold');
@@ -17,6 +15,7 @@ var blind = require('./blind');
 var replayCtrl = require('./replay/ctrl');
 var clockCtrl = require('./clock/ctrl');
 var correspondenceClockCtrl = require('./correspondenceClock/ctrl');
+var moveOn = require('./moveOn');
 
 module.exports = function(opts) {
 
@@ -78,6 +77,7 @@ module.exports = function(opts) {
     if (!this.replay.active) ground.reload(this.chessground, this.data, cfg.game.fen, this.vm.flip);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
+    this.moveOn.next();
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(
@@ -90,7 +90,7 @@ module.exports = function(opts) {
       ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
   }.bind(this);
 
-  this.clockTick = function() {
+  var clockTick = function() {
     if (this.isClockRunning()) this.clock.tick(this.data.game.player);
   }.bind(this);
 
@@ -103,13 +103,15 @@ module.exports = function(opts) {
   }.bind(this);
   makeCorrespondenceClock();
 
-  this.correspondenceClockTick = function() {
+  var correspondenceClockTick = function() {
     if (this.correspondenceClock && game.playable(this.data))
       this.correspondenceClock.tick(this.data.game.player);
   }.bind(this);
 
-  if (this.clock) setInterval(this.clockTick, 100);
-  else setInterval(this.correspondenceClockTick, 1000);
+  if (this.clock) setInterval(clockTick, 100);
+  else setInterval(correspondenceClockTick, 1000);
+
+  this.moveOn = new moveOn(this, 'lichess.move_on');
 
   this.replay = new replayCtrl(this);
 

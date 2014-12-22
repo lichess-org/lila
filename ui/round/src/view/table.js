@@ -34,26 +34,6 @@ function renderPlayer(ctrl, player) {
 
 var loader = m('div.loader', m('span'));
 
-function renderKing(ctrl, color) {
-  return m('div.no-square', (ctrl.vm.reloading || ctrl.vm.redirecting) ? loader : m('div.cg-piece.king.' + color));
-}
-
-function renderResult(ctrl) {
-  var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
-  return winner ? m('div.player.' + winner.color, [
-      renderKing(ctrl, winner.color),
-      m('p', [
-        renderStatus(ctrl),
-        m('br'),
-        ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious')
-      ])
-    ]) :
-    m('div.player', [
-      (ctrl.vm.reloading || ctrl.vm.redirecting) ? m('div.no-square', loader) : null,
-      m('p', renderStatus(ctrl))
-    ]);
-}
-
 function renderTableEnd(ctrl) {
   var d = ctrl.data;
   var buttons = compact(ctrl.vm.redirecting ? null : [

@@ -81,6 +81,12 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
+  def next(gameId: String) = Open { implicit ctx =>
+    otherPovs(gameId) map { playing =>
+      Ok(Json.obj("next" -> playing.find(_.isMyTurn).headOption.map(_.fullId))) as JSON
+    }
+  }
+
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
       watch(pov)

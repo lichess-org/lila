@@ -768,6 +768,7 @@ var storage = {
       gameId: data.game.id
     });
     var $watchers = $('#site_header div.watchers').watchers();
+    var $nowPlaying = $('#now_playing');
     var round;
     if (data.tournament) $('body').data('tournament-id', data.tournament.id);
     lichess.socket = new lichess.StrongSocket(
@@ -802,17 +803,18 @@ var storage = {
             $('div.check_count')
               .find('.white').text(e.black).end()
               .find('.black').text(e.white);
+          },
+          opponent_play: function(e) {
+            $.ajax({
+              url: $nowPlaying.data('reload-url'),
+              success: function(html) {
+                $nowPlaying.html(html);
+                $('body').trigger('lichess.content_loaded');
+                loadPlaying();
+                round.moveOn.next();
+              }
+            });
           }
-        },
-        opponent_play: function(e) {
-          $.ajax({
-            url: $nowPlaying.data('reload-url'),
-            success: function(html) {
-              $nowPlaying.html(html);
-              $('body').trigger('lichess.content_loaded');
-              loadPlaying();
-            }
-          });
         }
       });
     cfg.element = element.querySelector('.round');
@@ -823,17 +825,14 @@ var storage = {
     $('#tv_history').on("click", "tr", function() {
       location.href = $(this).find('a.view').attr('href');
     });
-    var $nowPlaying = $('#now_playing');
     var loadPlaying = function() {
-      var key = "lichess.move_on";
       var $moveOn = $nowPlaying.find('.move_on').click(function() {
-        setMoveOn(storage.get(key) === '1' ? '0' : '1');
+        setMoveOn(round.moveOn.toggle());
       });
       var setMoveOn = function(value) {
-        storage.set(key, value);
-        $moveOn.toggleClass('enabled', value === '1');
+        $moveOn.toggleClass('enabled', value);
       };
-      setMoveOn(storage.get(key) || '0');
+      setMoveOn(round.moveOn.get());
     };
     loadPlaying();
     $nowPlaying.on('click', '>a', function() {
@@ -1719,7 +1718,7 @@ var storage = {
         // override fen event to reload playing games list
         fen: function(e) {
           lichess.StrongSocket.defaults.events.fen(e);
-          if ($nowPlaying.find('.live_' + e.id).length) $.ajax({
+          if ($nowPlaying.find('.mini_board_' + e.id).length) $.ajax({
             url: $nowPlaying.data('href'),
             success: function(html) {
               $nowPlaying.html(html);

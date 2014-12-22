@@ -12,6 +12,7 @@ module.exports = function(opts) {
   });
 
   return {
-    socketReceive: controller.socket.receive
+    socketReceive: controller.socket.receive,
+    moveOn: controller.moveOn
   };
 };
