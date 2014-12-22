@@ -305,3 +305,5 @@ thisPuzzleIsCorrect=This puzzle is correct and interesting
 thisPuzzleIsWrong=This puzzle is wrong or boring
 youHaveNbSecondsToMakeYourFirstMove=You have %s seconds to make your first move!
 nbGamesInPlay=%s games in play
+automaticallyProceedToNextGameAfterMoving=Automatically proceed to next game after moving
+autoSwitch=Auto switch
