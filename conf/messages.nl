@@ -305,3 +305,5 @@ thisPuzzleIsCorrect=De puzzel is correct en interessant
 thisPuzzleIsWrong=De puzzel is fout of saai
 youHaveNbSecondsToMakeYourFirstMove=Je hebt %s seconden om je eerste zet te doen!
 nbGamesInPlay=%s partijen bezig
+automaticallyProceedToNextGameAfterMoving=Automatische doorgaan naar de volgende partij na uw zet
+autoSwitch=Automatische switch
