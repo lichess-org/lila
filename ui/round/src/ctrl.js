@@ -82,7 +82,7 @@ module.exports = function(opts) {
 
   this.clock = this.data.clock ? new clockCtrl(
     this.data.clock,
-    this.data.player.spectator ? function() {} : throttle(partial(this.socket.send, 'outoftime'), 500), (this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
+    throttle(partial(this.socket.send, 'outoftime'), this.data.player.spectator ? 1000 : 500), (this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
   ) : false;
 
   this.isClockRunning = function() {
