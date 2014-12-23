@@ -27,7 +27,7 @@ module.exports = function(ctrl, key) {
   }.bind(this);
 
   this.next = function() {
-    if (!this.value || game.isPlayerTurn(ctrl.data)) return;
+    if (!this.value || !game.isPlayerPlaying(ctrl.data) || game.isPlayerTurn(ctrl.data)) return;
     xhr.next(ctrl).then(function(data) {
       if (data.next && this.value) {
         ctrl.vm.redirecting = true;
