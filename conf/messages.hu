@@ -305,3 +305,5 @@ thisPuzzleIsCorrect=Ez a feladvány helyes és érdekes
 thisPuzzleIsWrong=Ez a feladvány hibás vagy unalmas
 youHaveNbSecondsToMakeYourFirstMove=%s másodperced van hogy megtedd az első lépést!
 nbGamesInPlay=%s meccset játszanak éppen az oldalon
+automaticallyProceedToNextGameAfterMoving=Automatikusan menjen a következő játékhoz amiután lépett
+autoSwitch=Automatikus váltás
