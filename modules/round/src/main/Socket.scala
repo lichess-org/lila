@@ -9,7 +9,7 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
-import lila.common.LightUser
+import lila.common.{ LightUser, Debouncer }
 import lila.game.actorApi.UserStartGame
 import lila.game.Event
 import lila.hub.actorApi.game.ChangeFeatured
@@ -124,7 +124,7 @@ private[round] final class Socket(
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, color, playerId, ip, userTv = userTv)
       addMember(uid, member)
-      notifyCrowd
+      crowdNotifier ! watchers
       playerDo(color, _.ping)
       sender ! Connected(enumerator, member)
       if (member.userTv.isDefined) refreshSubscriptions
@@ -144,7 +144,7 @@ private[round] final class Socket(
     case Quit(uid) =>
       members get uid foreach { member =>
         quit(uid)
-        notifyCrowd
+        crowdNotifier ! watchers
         if (member.userTv.isDefined) refreshSubscriptions
       }
 
@@ -155,17 +155,18 @@ private[round] final class Socket(
     }
   }
 
-  def notifyCrowd {
-    val (anons, users) = watchers.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
-      case ((anons, users), Some(user)) => anons -> (user :: users)
-      case ((anons, users), None)       => (anons + 1) -> users
-    }
-    notify(Event.Crowd(
-      white = ownerOf(White).isDefined,
-      black = ownerOf(Black).isDefined,
-      watchers = showSpectators(users, anons)
-    ) :: Nil)
-  }
+  val crowdNotifier =
+    context.system.actorOf(Props(new Debouncer(700.millis, (ms: Iterable[Member]) => {
+      val (anons, users) = ms.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
+        case ((anons, users), Some(user)) => anons -> (user :: users)
+        case ((anons, users), None)       => (anons + 1) -> users
+      }
+      notify(Event.Crowd(
+        white = ownerOf(White).isDefined,
+        black = ownerOf(Black).isDefined,
+        watchers = showSpectators(users, anons)
+      ) :: Nil)
+    })))
 
   def notify(events: Events) {
     val vevents = history addEvents events
