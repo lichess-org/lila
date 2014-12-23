@@ -366,6 +366,7 @@ var storage = {
     if (lichess.round) startRound(document.getElementById('lichess'), lichess.round);
     else if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
     else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
+    else if (lichess.analyse_free) startAnalyseFree(document.getElementById('lichess'), lichess.analyse_free);
 
     setTimeout(function() {
       if (lichess.socket === null) {
@@ -2180,6 +2181,14 @@ var storage = {
       });
       return false;
     });
+  }
+
+  ////////////////
+  // analyse_free.js //
+  ////////////////
+
+  function startAnalyseFree(element, cfg) {
+    var analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, null);
   }
 
   /////////////// forum.js ////////////////////

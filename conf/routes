@@ -64,6 +64,7 @@ GET   /games              controllers.Game.playing
 GET   /games/all          controllers.Game.all(page: Int ?= 1)
 GET   /games/checkmate    controllers.Game.checkmate(page: Int ?= 1)
 GET   /games/bookmark     controllers.Game.bookmark(page: Int ?= 1)
+GET   /games/analyse      controllers.Game.analyse
 GET   /games/analysed     controllers.Game.analysed(page: Int ?= 1)
 GET   /games/imported     controllers.Game.imported(page: Int ?= 1)
 GET   /games/export/:user controllers.Game.export(user: String)

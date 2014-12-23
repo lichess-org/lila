@@ -12,6 +12,9 @@
 <a class="@active.active("edit")" href="@routes.Editor.index">
   @trans.boardEditor()
 </a>
+<a class="@active.active("analyse")" href="@routes.Game.analyse">
+  @trans.analysis()
+</a>
 <a class="@active.active("all")" href="@routes.Game.all()">
   @trans.viewAllNbGames(listMenu.nbGames.localize)
 </a>
