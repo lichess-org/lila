@@ -15,7 +15,7 @@ import lila.db.api._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.Implicits._
-import lila.user.User
+import lila.user.{User,UidNb}
 
 object GameRepo {
 
@@ -320,7 +320,7 @@ object GameRepo {
     ))
   }
 
-  def activePlayersSince(since: DateTime, max: Int): Fu[List[(String, Int)]] = {
+  def activePlayersSince(since: DateTime, max: Int): Fu[List[UidNb]] = {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
     import lila.db.BSON.BSONJodaDateTimeHandler
@@ -342,7 +342,7 @@ object GameRepo {
       (stream.toList map { obj =>
         toJSON(obj).asOpt[JsObject] flatMap { o =>
           o int "nb" map { nb =>
-            ~(o str "_id") -> nb
+            UidNb(~(o str "_id"), nb)
           }
         }
       }).flatten

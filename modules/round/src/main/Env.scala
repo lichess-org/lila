@@ -8,7 +8,6 @@ import scala.concurrent.duration._
 import actorApi.{ GetSocketStatus, SocketStatus }
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
-import lila.memo.AsyncCache
 import lila.socket.actorApi.GetVersion
 import makeTimeout.large
 
