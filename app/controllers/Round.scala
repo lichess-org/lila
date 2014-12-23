@@ -85,7 +85,7 @@ object Round extends LilaController with TheftPrevention {
     OptionFuResult(GameRepo game gameId) { currentGame =>
       otherPovs(gameId) map { playing =>
         Ok(Json.obj("next" -> playing.find { pov =>
-          pov.isMyTurn && pov.game.isCorrespondence == currentGame.isCorrespondence
+          pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
         }.map(_.fullId))) as JSON
       }
     }
