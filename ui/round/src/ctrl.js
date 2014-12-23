@@ -66,6 +66,7 @@ module.exports = function(opts) {
     m.redraw();
     if (this.data.player.spectator || o.color != this.data.player.color) $.sound.move(o.color == 'white');
     if (this.data.blind) blind.reload(this);
+    if (game.isPlayerPlaying(this.data) && o.color === this.data.player.color) this.moveOn.next();
   }.bind(this);
 
   this.chessground = ground.make(this.data, opts.data.game.fen, this.userMove);

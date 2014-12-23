@@ -69,24 +69,29 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def others(gameId: String) = Open { implicit ctx =>
-    otherPovs(gameId) map { playing =>
-      Ok(html.round.others(playing))
-    }
-  }
-
   private def otherPovs(gameId: String)(implicit ctx: Context) = ctx.me ?? { user =>
     GameRepo nowPlaying user map {
       _ filter { _.game.id != gameId }
     }
   }
 
+  private def getNext(currentGame: GameModel)(povs: List[Pov])(implicit ctx: Context) =
+    povs find { pov =>
+      pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
+    } map (_.fullId)
+
+  def others(gameId: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo game gameId) { currentGame =>
+      otherPovs(gameId) map { povs =>
+        Ok(html.round.others(povs, nextId = getNext(currentGame)(povs)))
+      }
+    }
+  }
+
   def next(gameId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo game gameId) { currentGame =>
-      otherPovs(gameId) map { playing =>
-        Ok(Json.obj("next" -> playing.find { pov =>
-          pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
-        }.map(_.fullId))) as JSON
+      otherPovs(gameId) map getNext(currentGame) map { nextId =>
+        Ok(Json.obj("next" -> nextId))
       }
     }
   }

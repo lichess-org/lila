@@ -815,7 +815,8 @@ var storage = {
                 $nowPlaying.html(html);
                 $('body').trigger('lichess.content_loaded');
                 loadPlaying();
-                round.moveOn.next();
+                var nextId = $nowPlaying.find('input.next_id').val();
+                if (nextId) round.moveOn.next(nextId);
               }
             });
           }

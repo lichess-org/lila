@@ -1,4 +1,7 @@
-@(playing: List[Pov])(implicit ctx: Context)
+@(playing: List[Pov], nextId: Option[String])(implicit ctx: Context)
+@nextId.map { id =>
+<input type="hidden" class="next_id" value="@id" />
+}
 <h3>
   <button class="move_on button hint--bottom" data-hint="@trans.automaticallyProceedToNextGameAfterMoving()">
     <i data-icon="E" class="is-green"></i><span>@trans.autoSwitch()</span>

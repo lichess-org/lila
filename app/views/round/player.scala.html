@@ -33,7 +33,7 @@ chessground = false) {
 </div>
 @if(playing.nonEmpty) {
 <div id="now_playing" class="clearfix other_games" data-reload-url="@routes.Round.others(pov.gameId)">
-  @others(playing)
+  @others(playing, none)
 </div>
 }
 }

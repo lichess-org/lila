@@ -13,7 +13,7 @@ module.exports = function(ctrl, key) {
   this.toggle = function() {
     this.value = !this.value;
     store();
-    this.next(ctrl);
+    this.next();
     return this.value;
   }.bind(this);
 
@@ -26,15 +26,18 @@ module.exports = function(ctrl, key) {
     store();
   }.bind(this);
 
-  this.next = function() {
+  var goToId = function(id) {
+    ctrl.vm.redirecting = true;
+    lichess.hasToReload = true;
+    m.redraw();
+    location.href = '/' + id;
+  }.bind(this);
+
+  this.next = function(id) {
     if (!this.value || !game.isPlayerPlaying(ctrl.data) || game.isPlayerTurn(ctrl.data)) return;
-    xhr.next(ctrl).then(function(data) {
-      if (data.next && this.value) {
-        ctrl.vm.redirecting = true;
-        lichess.hasToReload = true;
-        m.redraw();
-        location.href = '/' + data.next;
-      }
+    if (id) goToId(id);
+    else xhr.next(ctrl).then(function(data) {
+      if (data.next) goToId(data.next);
     }.bind(this));
   }.bind(this);
 };
