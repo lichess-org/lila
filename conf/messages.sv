@@ -305,5 +305,5 @@ thisPuzzleIsCorrect=Det här schackproblemet är korrekt och intressant
 thisPuzzleIsWrong=Det här schackproblemet är fel eller tråkigt
 youHaveNbSecondsToMakeYourFirstMove=du har %s sekunder för att göra första draget
 nbGamesInPlay=%s partier spelas
-automaticallyProceedToNextGameAfterMoving=Gå automatiskt vidare till nästa spel efter drag
-autoSwitch=Auto byt
+automaticallyProceedToNextGameAfterMoving=Gör att du automatiskt fortsätter till nästa parti efter du gjort ett drag
+autoSwitch=Automatiskt byte
