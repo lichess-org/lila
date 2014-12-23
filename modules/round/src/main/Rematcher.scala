@@ -66,12 +66,11 @@ private[round] final class Rematcher(
   private def returnGame(pov: Pov): Fu[Game] = for {
     initialFen <- GameRepo initialFen pov.game.id
     situation = initialFen flatMap Forsyth.<<<
-    pieces = pov.game.variant.standard.fold(
-      pov.game.variant.pieces,
+    pieces = pov.game.variant.chess960.fold(
       rematch960Cache.get(pov.game.id).fold(
         Variant.Chess960.pieces,
         situation.fold(pov.game.variant.pieces)(_.situation.board.pieces)
-      )
+      ), pov.game.variant.pieces
     )
     whitePlayer ← returnPlayer(pov.game, White)
     blackPlayer ← returnPlayer(pov.game, Black)
