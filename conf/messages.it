@@ -305,3 +305,5 @@ thisPuzzleIsCorrect=Questo esercizio è corretto e interessante
 thisPuzzleIsWrong=Questo esercizio è sbagliato o noioso
 youHaveNbSecondsToMakeYourFirstMove=Hai %s secondi per fare la tua prima mossa
 nbGamesInPlay=%s partite in gioco
+automaticallyProceedToNextGameAfterMoving=Passa automaticamente alla partita successiva dopo aver mosso
+autoSwitch=Passaggio automatico
