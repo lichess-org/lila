@@ -48,6 +48,6 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.loadNewFen = function(fen) {
-    window.location = editor.makeUrl(this.data, fen);
+    window.location = editor.makeUrl(this.data.baseUrl, fen);
   }.bind(this);
 };

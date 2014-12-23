@@ -49,7 +49,7 @@ module.exports = function(cfg, router, i18n, onChange) {
       lm;
     if (nbMoves == 0) {
       var chess = new Chess(
-        fen || this.data.game.initialFen,
+        this.data.game.initialFen,
         is960() ? 1 : 0);
       var turnColor = chess.turn() == 'w' ? 'white' : 'black';
       this.vm.situation = {

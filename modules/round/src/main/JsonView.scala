@@ -62,9 +62,7 @@ final class JsonView(
               "check" -> game.check.map(_.key),
               "rematch" -> game.next,
               "source" -> game.source.map(sourceJson),
-              "status" -> Json.obj(
-                "id" -> game.status.id,
-                "name" -> game.status.name)),
+              "status" -> statusJson(game.status)),
             "clock" -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock.map(correspondenceJson),
             "player" -> Json.obj(
@@ -166,9 +164,7 @@ final class JsonView(
                   "size" -> o.size
                 )
               },
-              "status" -> Json.obj(
-                "id" -> game.status.id,
-                "name" -> game.status.name)),
+              "status" -> statusJson(game.status)),
             "clock" -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock.map(correspondenceJson),
             "player" -> Json.obj(
@@ -219,6 +215,31 @@ final class JsonView(
           )
       }
 
+  def userAnalysisJson(pov: Pov, pref: Pref) = {
+    import pov._
+    val fen = Forsyth >> game.toChess
+    Json.obj(
+      "game" -> Json.obj(
+        "id" -> gameId,
+        "variant" -> variantJson(game.variant),
+        "initialFen" -> fen,
+        "fen" -> fen,
+        "player" -> game.turnColor.name,
+        "status" -> statusJson(game.status)),
+      "player" -> Json.obj(
+        "color" -> color.name
+      ),
+      "opponent" -> Json.obj(
+        "color" -> opponent.color.name
+      ),
+      "pref" -> Json.obj(
+        "animationDuration" -> animationDuration(pov, pref),
+        "highlight" -> pref.highlight,
+        "coords" -> pref.coords
+      ),
+      "userAnalysis" -> true)
+  }
+
   private def blurs(game: Game, player: lila.game.Player) = {
     val percent = game.playerBlurPercent(player.color)
     (percent > 30) option Json.obj(
@@ -258,10 +279,13 @@ final class JsonView(
     "moretime" -> moretimeSeconds)
 
   private def correspondenceJson(c: CorrespondenceClock) = Json.obj(
-      "increment" -> c.increment,
-      "white" -> c.whiteTime,
-      "black" -> c.blackTime,
-      "emerg" -> c.emerg)
+    "increment" -> c.increment,
+    "white" -> c.whiteTime,
+    "black" -> c.blackTime,
+    "emerg" -> c.emerg)
+
+  private def statusJson(s: chess.Status) =
+    Json.obj("id" -> s.id, "name" -> s.name)
 
   private def sourceJson(source: Source) = source.name
 

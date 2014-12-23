@@ -57,7 +57,6 @@ object Pov {
       else 10 // first move has priority over games with more than 10s left
     }
     else Int.MaxValue
-
 }
 
 case class PovRef(gameId: String, color: Color) {

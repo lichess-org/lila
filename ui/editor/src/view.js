@@ -59,6 +59,12 @@ function controls(ctrl, fen) {
     ]),
     m('div', [
       m('a.button', {
+        href: editor.makeUrl('/analysis/', fen),
+        rel: 'nofollow'
+      }, ctrl.trans('analysis'))
+    ]),
+    m('div', [
+      m('a.button', {
         href: '/?fen=' + fen + '#ai',
         rel: 'nofollow'
       }, ctrl.trans('playWithTheMachine')),
@@ -81,14 +87,14 @@ function inputs(ctrl, fen) {
     m('p', [
       m('strong.name', 'URL'),
       m('input.copyable[readonly][spellCheck=false]', {
-        value: editor.makeUrl(ctrl.data, fen)
+        value: editor.makeUrl(ctrl.data.baseUrl, fen)
       })
     ])
   ]);
 }
 
 function sparePieces(ctrl, color, orientation, position) {
-  return m('div.spare.'+position+'.orientation-' + orientation, ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
+  return m('div.spare.' + position + '.orientation-' + orientation, ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
     return m('div.no-square', m('div', {
       class: ['cg-piece', color, role].join(' '),
       'data-color': color,

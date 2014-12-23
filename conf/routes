@@ -64,7 +64,6 @@ GET   /games              controllers.Game.playing
 GET   /games/all          controllers.Game.all(page: Int ?= 1)
 GET   /games/checkmate    controllers.Game.checkmate(page: Int ?= 1)
 GET   /games/bookmark     controllers.Game.bookmark(page: Int ?= 1)
-GET   /games/analyse      controllers.Game.analyse
 GET   /games/analysed     controllers.Game.analysed(page: Int ?= 1)
 GET   /games/imported     controllers.Game.imported(page: Int ?= 1)
 GET   /games/export/:user controllers.Game.export(user: String)
@@ -89,6 +88,10 @@ GET   /training/:id                    controllers.Puzzle.show(id: Int)
 GET   /training/:id/load               controllers.Puzzle.load(id: Int)
 POST  /training/:id/attempt            controllers.Puzzle.attempt(id: Int)
 POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
+
+# User Analysis
+GET   /analysis/*urlFen                controllers.UserAnalysis.load(urlFen: String)
+GET   /analysis                        controllers.UserAnalysis.index
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
@@ -244,7 +247,7 @@ DELETE /notification/$id<\w{8}>      controllers.Notification.remove(id)
 GET   /paste                           controllers.Importer.importGame
 POST  /import                          controllers.Importer.sendGame
 
-# Progressive import API
+# Progressive Import API
 POST  /api/import/live                     controllers.Importer.liveCreate
 POST  /api/import/live/$id<\w{8}>/:move  controllers.Importer.liveMove(id: String, move: String)
 

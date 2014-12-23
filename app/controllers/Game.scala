@@ -94,20 +94,4 @@ object Game extends LilaController with BaseGame {
       }
       else notFound
   }
-
-  private lazy val freeAnalysePov = lila.game.Pov.white(lila.game.Game.make(
-    game = chess.Game(chess.Variant.Standard),
-    whitePlayer = lila.game.Player.white,
-    blackPlayer = lila.game.Player.black,
-    mode = chess.Mode.Casual,
-    variant = chess.Variant.Standard,
-    source = lila.game.Source.Api,
-    pgnImport = None))
-
-  def analyse = Open { implicit ctx =>
-    import play.api.libs.json.Json
-    Env.api.roundApi.watcher(freeAnalysePov, Env.api.version, none) zip makeListMenu map {
-      case (data, menu) => Ok(html.game.analyse(data ++ Json.obj("free" -> true), menu))
-    }
-  }
 }

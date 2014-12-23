@@ -366,7 +366,7 @@ var storage = {
     if (lichess.round) startRound(document.getElementById('lichess'), lichess.round);
     else if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
     else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
-    else if (lichess.analyse_free) startAnalyseFree(document.getElementById('lichess'), lichess.analyse_free);
+    else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
 
     setTimeout(function() {
       if (lichess.socket === null) {
@@ -2185,10 +2185,10 @@ var storage = {
   }
 
   ////////////////
-  // analyse_free.js //
+  // user_analysis.js //
   ////////////////
 
-  function startAnalyseFree(element, cfg) {
+  function startUserAnalysis(element, cfg) {
     var analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, null);
   }
 
