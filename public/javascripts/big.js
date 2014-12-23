@@ -560,7 +560,10 @@ var storage = {
       $(this).infinitescroll({
         navSelector: ".pager",
         nextSelector: ".pager a:last",
-        itemSelector: ".infinitescroll .paginated_element"
+        itemSelector: ".infinitescroll .paginated_element",
+        errorCallback: function() {
+          $("#infscr-loading").remove();
+        }
       }, function() {
         $("#infscr-loading").remove();
         $('body').trigger('lichess.content_loaded');
