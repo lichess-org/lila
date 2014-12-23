@@ -305,3 +305,5 @@ thisPuzzleIsCorrect=To zadanie jest poprawne i ciekawe
 thisPuzzleIsWrong=To zadanie jest niepoprawne lub nudne
 youHaveNbSecondsToMakeYourFirstMove=Masz %s sekund na pierwszy ruch!
 nbGamesInPlay=%s gier w trakcie
+automaticallyProceedToNextGameAfterMoving=Automatycznie przejdź do następnej gry po wykonaniu ruchu
+autoSwitch=Auto przełączanie
