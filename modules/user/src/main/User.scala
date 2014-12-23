@@ -122,7 +122,7 @@ object User {
 
   import lila.db.BSON
 
-  private def userBSONHandler = new BSON[User] {
+  private[user] val userBSONHandler = new BSON[User] {
 
     import BSONFields._
     import reactivemongo.bson.BSONDocument
