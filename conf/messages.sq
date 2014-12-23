@@ -305,3 +305,5 @@ thisPuzzleIsCorrect=Ky mister është korekt dhe interesant
 thisPuzzleIsWrong=Kjo levizje është e gabuar ose e bezëdisëshme
 youHaveNbSecondsToMakeYourFirstMove=Ju keni%s sekonda për të bërë lëvizje tuaj të parë
 nbGamesInPlay=%s lojëra duke u luajtur
+automaticallyProceedToNextGameAfterMoving=Procesimi Automatik i lojës ,më pas duke luajtur potezin
+autoSwitch=Mbyllje automatike
