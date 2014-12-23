@@ -305,3 +305,5 @@ thisPuzzleIsCorrect=Dieses Rätsel ist korrekt und interessant.
 thisPuzzleIsWrong=Dieses Rätsel ist falsch oder langweilig.
 youHaveNbSecondsToMakeYourFirstMove=Du hast %s Sekunden, um deinen ersten Zug zu machen!
 nbGamesInPlay=%s laufende Spiele
+automaticallyProceedToNextGameAfterMoving=Nach dem Zug automatisch zur nächsten Partie gehen
+autoSwitch=Automatischer Wechsel
