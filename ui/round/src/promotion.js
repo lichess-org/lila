@@ -38,10 +38,15 @@ module.exports = {
   start: start,
 
   view: function(ctrl) {
+    var pieces = ctrl.data.game.variant.key != "antichess" ?
+     ['queen', 'knight', 'rook', 'bishop', 'antiking'] : ['queen', 'knight', 'rook', 'bishop', 'antiking']
+
     return promoting ? m('div#promotion_choice', {
       onclick: partial(cancel, ctrl)
-    }, ['queen', 'knight', 'rook', 'bishop'].map(function(role) {
-      return m('div.cg-piece.' + role + '.' + ctrl.data.player.color, {
+    }, pieces.map(function(role) {
+      var cssPiece = role == "antiking" ? "king" : role;
+
+      return m('div.cg-piece.' + cssPiece + '.' + ctrl.data.player.color, {
         onclick: function(e) {
           e.stopPropagation();
           finish(ctrl, role);

@@ -95,7 +95,7 @@ trait UserRepo {
       "chess960" -> (_.chess960),
       "kingOfTheHill" -> (_.kingOfTheHill),
       "threeCheck" -> (_.threeCheck),
-      "suicide" -> (_.suicide),
+      "antichess" -> (_.antichess),
       "bullet" -> (_.bullet),
       "blitz" -> (_.blitz),
       "classical" -> (_.classical),

@@ -114,7 +114,7 @@ object User extends LilaController {
       chess960 ← env.cached topPerf PerfType.Chess960.key
       kingOfTheHill ← env.cached topPerf PerfType.KingOfTheHill.key
       threeCheck ← env.cached topPerf PerfType.ThreeCheck.key
-      suicide <- env.cached topPerf PerfType.Suicide.key
+      antichess <- env.cached topPerf PerfType.Antichess.key
       nbAllTime ← env.cached topNbGame nb map2 { (user: UserModel) =>
         user -> user.count.game
       }
@@ -132,7 +132,7 @@ object User extends LilaController {
       chess960 = chess960,
       kingOfTheHill = kingOfTheHill,
       threeCheck = threeCheck,
-      suicide = suicide,
+      antichess = antichess,
       nbWeek = nbWeek,
       nbAllTime = nbAllTime)
   }

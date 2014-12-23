@@ -43,7 +43,7 @@ final class RatingChartApi(historyApi: HistoryApi, cacheTtl: Duration) {
       Json stringify {
         Json.toJson {
           import lila.rating.PerfType._
-          List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, Suicide, ThreeCheck, Puzzle).map { pt =>
+          List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, Antichess, ThreeCheck, Puzzle).map { pt =>
             pt -> history(pt)
           } sortBy (-_._2.size) map {
             case (pt, rm) => ratingsMapToJson(pt, rm)

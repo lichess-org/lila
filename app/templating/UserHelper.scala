@@ -29,7 +29,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     PerfType.KingOfTheHill,
     PerfType.Classical,
     PerfType.ThreeCheck,
-    PerfType.Suicide)
+    PerfType.Antichess)
 
   val miniViewSortedPerfTypes: List[PerfType] = List(
     PerfType.Bullet,
@@ -37,7 +37,7 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     PerfType.Classical,
     PerfType.Chess960,
     PerfType.ThreeCheck,
-    PerfType.Suicide)
+    PerfType.Antichess)
 
   def showPerfRating(rating: Int, name: String, nb: Int, icon: Char, klass: String) = Html {
     val title = s"$name rating over $nb games"

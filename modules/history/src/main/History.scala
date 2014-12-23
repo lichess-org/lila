@@ -7,7 +7,7 @@ case class History(
     standard: RatingsMap,
     chess960: RatingsMap,
     kingOfTheHill: RatingsMap,
-    suicide: RatingsMap,
+    antichess: RatingsMap,
     threeCheck: RatingsMap,
     bullet: RatingsMap,
     blitz: RatingsMap,
@@ -23,7 +23,7 @@ case class History(
     case PerfType.Correspondence => correspondence
     case PerfType.Chess960       => chess960
     case PerfType.KingOfTheHill  => kingOfTheHill
-    case PerfType.Suicide        => suicide
+    case PerfType.Antichess        => antichess
     case PerfType.ThreeCheck     => threeCheck
     case PerfType.Puzzle         => puzzle
   }
@@ -51,7 +51,7 @@ object History {
         chess960 = ratingsMap("chess960"),
         kingOfTheHill = ratingsMap("kingOfTheHill"),
         threeCheck = ratingsMap("threeCheck"),
-        suicide = ratingsMap("suicide"),
+        antichess = ratingsMap("antichess"),
         bullet = ratingsMap("bullet"),
         blitz = ratingsMap("blitz"),
         classical = ratingsMap("classical"),

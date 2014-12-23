@@ -183,7 +183,7 @@ object BinaryFormat {
       case 3 => Some(Rook)
       case 4 => Some(Knight)
       case 5 => Some(Bishop)
-      case 7 => Some(SuicideKing)
+      case 7 => Some(Antiking)
       case _ => None
     }
     private def roleToInt(role: Role): Int = role match {
@@ -193,7 +193,7 @@ object BinaryFormat {
       case Rook   => 3
       case Knight => 4
       case Bishop => 5
-      case SuicideKing => 7
+      case Antiking => 7
     }
   }
 

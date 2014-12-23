@@ -10,7 +10,7 @@ case class Perfs(
     standard: Perf,
     chess960: Perf,
     kingOfTheHill: Perf,
-    suicide: Perf,
+    antichess: Perf,
     threeCheck: Perf,
     bullet: Perf,
     blitz: Perf,
@@ -22,7 +22,7 @@ case class Perfs(
     "standard" -> standard,
     "chess960" -> chess960,
     "kingOfTheHill" -> kingOfTheHill,
-    "suicide" -> suicide,
+    "suicide" -> antichess,
     "threeCheck" -> threeCheck,
     "bullet" -> bullet,
     "blitz" -> blitz,
@@ -42,7 +42,7 @@ case class Perfs(
   }
 
   def bestRating: Int = {
-    val ps = List(bullet, blitz, classical, correspondence, chess960, kingOfTheHill, threeCheck, suicide)
+    val ps = List(bullet, blitz, classical, correspondence, chess960, kingOfTheHill, threeCheck, antichess)
     val minNb = ps.foldLeft(0)(_ + _.nb) / 10
     ps.foldLeft(none[Int]) {
       case (ro, p) if p.nb >= minNb => ro.fold(p.intRating.some) { r =>
@@ -77,7 +77,7 @@ case class Perfs(
     case PerfType.Chess960       => chess960
     case PerfType.KingOfTheHill  => kingOfTheHill
     case PerfType.ThreeCheck     => threeCheck
-    case PerfType.Suicide        => suicide
+    case PerfType.Antichess        => antichess
     case PerfType.Puzzle         => puzzle
   }
 
@@ -116,7 +116,7 @@ case object Perfs {
     case Variant.Chess960      => Some(_.chess960)
     case Variant.KingOfTheHill => Some(_.kingOfTheHill)
     case Variant.ThreeCheck    => Some(_.threeCheck)
-    case Variant.SuicideChess  => Some(_.suicide)
+    case Variant.Antichess  => Some(_.antichess)
     case Variant.FromPosition  => none
   }
 
@@ -138,7 +138,7 @@ case object Perfs {
         standard = perf("standard"),
         chess960 = perf("chess960"),
         kingOfTheHill = perf("kingOfTheHill"),
-        suicide = perf("suicide"),
+        antichess = perf("antichess"),
         threeCheck = perf("threeCheck"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
@@ -152,7 +152,7 @@ case object Perfs {
     def writes(w: BSON.Writer, o: Perfs) = BSONDocument(
       "standard" -> notNew(o.standard),
       "chess960" -> notNew(o.chess960),
-      "suicide" -> notNew(o.suicide),
+      "antichess" -> notNew(o.antichess),
       "kingOfTheHill" -> notNew(o.kingOfTheHill),
       "threeCheck" -> notNew(o.threeCheck),
       "bullet" -> notNew(o.bullet),

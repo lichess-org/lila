@@ -52,9 +52,9 @@ object PerfType {
     title = "King of the Hill variant",
     iconChar = '(')
 
-  case object Suicide extends PerfType(
+  case object Antichess extends PerfType(
     key = "suicide",
-    name = Variant.SuicideChess.name,
+    name = Variant.Antichess.name,
     title = "Suicide Chess variant",
     iconChar = '+' // todo: use a unique icon
   )
