@@ -305,3 +305,5 @@ thisPuzzleIsCorrect=Tato úloha je správná a zajímavá
 thisPuzzleIsWrong=Tato úloha je špatná nebo nudná
 youHaveNbSecondsToMakeYourFirstMove=Máte %s sekund na provedení prvního tahu!
 nbGamesInPlay=%s rozehraných her
+automaticallyProceedToNextGameAfterMoving=Automaticky přejdi k další hře po tahu
+autoSwitch=Přepni automaticky
