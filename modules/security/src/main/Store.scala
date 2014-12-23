@@ -22,7 +22,7 @@ object Store {
     $insert(Json.obj(
       "_id" -> sessionId,
       "user" -> userId,
-      "ip" -> ip(req),
+      "ip" -> req.remoteAddress,
       "ua" -> ua(req),
       "date" -> $date(DateTime.now),
       "up" -> true))
@@ -43,8 +43,6 @@ object Store {
     $set("up" -> false),
     upsert = false,
     multi = true)
-
-  private def ip(req: RequestHeader) = req.remoteAddress
 
   private def ua(req: RequestHeader) = req.headers.get("User-Agent") | "?"
 }
