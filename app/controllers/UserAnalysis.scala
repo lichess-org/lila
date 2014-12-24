@@ -31,7 +31,8 @@ object UserAnalysis extends LilaController with BaseGame {
       mode = chess.Mode.Casual,
       variant = chess.Variant.Standard,
       source = lila.game.Source.Api,
-      pgnImport = None),
+      pgnImport = None,
+      castles = situation.board.history.castles),
     situation.color)
 
   // def game(id: String) = Open { implicit ctx =>

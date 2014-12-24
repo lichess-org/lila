@@ -58,12 +58,12 @@ function controls(ctrl, fen) {
       ])
     ]),
     m('div', [
-      m('a.button', {
+      ctrl.positionLooksLegit() ? m('a.button[data-icon=@]', {
         href: editor.makeUrl('/analysis/', fen),
         rel: 'nofollow'
-      }, ctrl.trans('analysis'))
-    ]),
-    m('div', [
+      }, ctrl.trans('analysis')) : m('span.button.disabled[data-icon=@]', {
+        rel: 'nofollow'
+      }, ctrl.trans('analysis')),
       m('a.button', {
         href: '/?fen=' + fen + '#ai',
         rel: 'nofollow'

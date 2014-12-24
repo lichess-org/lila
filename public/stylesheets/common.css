@@ -70,8 +70,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font25/fonts/lichess.eot");
-  src: url("../font25/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font25/fonts/lichess.woff") format("woff"), url("../font25/fonts/lichess.ttf") format("truetype"), url("../font25/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font26/fonts/lichess.eot");
+  src: url("../font26/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font26/fonts/lichess.woff") format("woff"), url("../font26/fonts/lichess.ttf") format("truetype"), url("../font26/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -88,6 +88,7 @@ time {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: attr(data-icon);
+  margin-right: 5px;
 }
 [data-icon].is2::before {
   font-size: 20px;
