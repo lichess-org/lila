@@ -2,13 +2,13 @@
 
 @game.layout(
 title = trans.gamesBeingPlayedRightNow.str(),
-menu = sideMenu(listMenu, "realtime").some) {
-<div style="padding-bottom: 0" class="content_box current_games_box">
-  <div class="game_list realtime clearfix">
+menu = sideMenu(listMenu, "playing").some) {
+<div style="padding-bottom: 0" class="content_box">
+  <div class="game_list playing">
     @games.map { g =>
     <div>
       @gameFen(g, g.firstPlayer.color)
-      @game.vstext(g)
+      @game.vstext(g)(ctx.some)
     </div>
     }
   </div>

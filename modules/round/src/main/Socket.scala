@@ -9,7 +9,7 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
-import lila.common.LightUser
+import lila.common.{ LightUser, Debouncer }
 import lila.game.actorApi.UserStartGame
 import lila.game.Event
 import lila.hub.actorApi.game.ChangeFeatured
@@ -26,7 +26,8 @@ private[round] final class Socket(
     uidTimeout: Duration,
     socketTimeout: Duration,
     disconnectTimeout: Duration,
-    ragequitTimeout: Duration) extends SocketActor[Member](uidTimeout) {
+    ragequitTimeout: Duration,
+    isPlayingSimul: String => Fu[Boolean]) extends SocketActor[Member](uidTimeout) {
 
   private var hasAi = false
 
@@ -39,8 +40,10 @@ private[round] final class Socket(
     // wether the player closed the window intentionally
     private var bye: Int = 0
 
+    var userId = none[String]
+
     def ping {
-      if (isGone) notifyGone(color, false)
+      isGone foreach { _ ?? notifyGone(color, false) }
       if (bye > 0) bye = bye - 1
       time = nowMillis
     }
@@ -49,7 +52,10 @@ private[round] final class Socket(
     }
     private def isBye = bye > 0
 
-    def isGone = time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis)
+    def isGone =
+      if (time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis))
+        (userId ?? isPlayingSimul) map (!_)
+      else fuccess(false)
   }
 
   private val whitePlayer = new Player(White)
@@ -74,7 +80,10 @@ private[round] final class Socket(
 
   def receiveSpecific = {
 
-    case SetGame(Some(game)) => hasAi = game.hasAi
+    case SetGame(Some(game)) =>
+      hasAi = game.hasAi
+      whitePlayer.userId = game.player(White).userId
+      blackPlayer.userId = game.player(Black).userId
 
     case PingVersion(uid, v) =>
       timeBomb.delay
@@ -94,25 +103,28 @@ private[round] final class Socket(
       broom
       if (timeBomb.boom) self ! PoisonPill
       else if (!hasAi) Color.all foreach { c =>
-        if (playerGet(c, _.isGone)) notifyGone(c, true)
+        playerGet(c, _.isGone) foreach { _ ?? notifyGone(c, true) }
       }
 
     case GetVersion    => sender ! history.getVersion
 
-    case IsGone(color) => sender ! playerGet(color, _.isGone)
+    case IsGone(color) => playerGet(color, _.isGone) pipeTo sender
 
-    case GetSocketStatus => sender ! SocketStatus(
-      version = history.getVersion,
-      whiteOnGame = ownerOf(White).isDefined,
-      whiteIsGone = playerGet(White, _.isGone),
-      blackOnGame = ownerOf(Black).isDefined,
-      blackIsGone = playerGet(Black, _.isGone))
+    case GetSocketStatus =>
+      playerGet(White, _.isGone) zip playerGet(Black, _.isGone) map {
+        case (whiteIsGone, blackIsGone) => SocketStatus(
+          version = history.getVersion,
+          whiteOnGame = ownerOf(White).isDefined,
+          whiteIsGone = whiteIsGone,
+          blackOnGame = ownerOf(Black).isDefined,
+          blackIsGone = blackIsGone)
+      } pipeTo sender
 
     case Join(uid, user, version, color, playerId, ip, userTv) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, color, playerId, ip, userTv = userTv)
       addMember(uid, member)
-      notifyCrowd
+      crowdNotifier ! watchers
       playerDo(color, _.ping)
       sender ! Connected(enumerator, member)
       if (member.userTv.isDefined) refreshSubscriptions
@@ -132,7 +144,7 @@ private[round] final class Socket(
     case Quit(uid) =>
       members get uid foreach { member =>
         quit(uid)
-        notifyCrowd
+        crowdNotifier ! watchers
         if (member.userTv.isDefined) refreshSubscriptions
       }
 
@@ -143,17 +155,18 @@ private[round] final class Socket(
     }
   }
 
-  def notifyCrowd {
-    val (anons, users) = watchers.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
-      case ((anons, users), Some(user)) => anons -> (user :: users)
-      case ((anons, users), None)       => (anons + 1) -> users
-    }
-    notify(Event.Crowd(
-      white = ownerOf(White).isDefined,
-      black = ownerOf(Black).isDefined,
-      watchers = showSpectators(users, anons)
-    ) :: Nil)
-  }
+  val crowdNotifier =
+    context.system.actorOf(Props(new Debouncer(700.millis, (ms: Iterable[Member]) => {
+      val (anons, users) = ms.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
+        case ((anons, users), Some(user)) => anons -> (user :: users)
+        case ((anons, users), None)       => (anons + 1) -> users
+      }
+      notify(Event.Crowd(
+        white = ownerOf(White).isDefined,
+        black = ownerOf(Black).isDefined,
+        watchers = showSpectators(users, anons)
+      ) :: Nil)
+    })))
 
   def notify(events: Events) {
     val vevents = history addEvents events

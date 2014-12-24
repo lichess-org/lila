@@ -1,0 +1,15 @@
+@(playing: List[Pov], nextId: Option[String])(implicit ctx: Context)
+@nextId.map { id =>
+<input type="hidden" class="next_id" value="@id" />
+}
+<h3>
+  <button class="move_on button hint--bottom" data-hint="@trans.automaticallyProceedToNextGameAfterMoving()">
+    <i data-icon="E" class="is-green"></i><span>@trans.autoSwitch()</span>
+  </button>
+  @trans.gamesBeingPlayedRightNow()
+</h3>
+@defining(playing.partition(_.isMyTurn)) {
+case (myTurn, otherTurn) => {
+@lobby.playing(myTurn ++ otherTurn.take(6 - myTurn.size))
+}
+}

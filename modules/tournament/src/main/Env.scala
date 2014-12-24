@@ -15,6 +15,7 @@ final class Env(
     config: Config,
     system: ActorSystem,
     db: lila.db.Env,
+    mongoCache: lila.memo.MongoCache.Builder,
     flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMap: ActorRef,
@@ -61,7 +62,9 @@ final class Env(
     chat = hub.actor.chat,
     flood = flood)
 
-  lazy val winners = new Winners(LeaderboardCacheTtl)
+  lazy val winners = new Winners(
+    mongoCache = mongoCache,
+    ttl = LeaderboardCacheTtl)
 
   lazy val cached = new Cached
 
@@ -136,6 +139,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "tournament",
     system = lila.common.PlayApp.system,
     db = lila.db.Env.current,
+    mongoCache = lila.memo.Env.current.mongoCache,
     flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
     roundMap = lila.round.Env.current.roundMap,

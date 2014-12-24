@@ -81,6 +81,7 @@ players=Sjakkspelarar
 minutesPerSide=Minutt per side
 variant=Variant
 timeControl=Tidskontroll
+realTime=Sanntid
 correspondence=Fjernsjakk
 daysPerTurn=Dagar per trekk
 oneDay=Ein dag

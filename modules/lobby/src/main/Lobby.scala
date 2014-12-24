@@ -21,11 +21,13 @@ private[lobby] final class Lobby(
 
   def receive = {
 
-    case GetOpen(userOption) =>
+    case HooksFor(userOption) =>
       val replyTo = sender
       (userOption.map(_.id) ?? blocking) foreach { blocks =>
         val lobbyUser = userOption map { LobbyUser.make(_, blocks) }
-        replyTo ! HookRepo.list.filter { Biter.canJoin(_, lobbyUser) }
+        replyTo ! HookRepo.list.filter { hook =>
+          ~(hook.userId |@| lobbyUser.map(_.id)).apply(_ == _) || Biter.canJoin(hook, lobbyUser)
+        }
       }
 
     case msg@AddHook(hook) => {

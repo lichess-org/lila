@@ -61,7 +61,24 @@ object BSON {
         }
       }
     }
+
+    implicit def MapHandler[V](implicit vr: BSONReader[_ <: BSONValue, V], vw: BSONWriter[V, _ <: BSONValue]): BSONHandler[BSONDocument, Map[String, V]] = new BSONHandler[BSONDocument, Map[String, V]] {
+      private val reader = MapReader[V]
+      private val writer = MapWriter[V]
+      def read(bson: BSONDocument): Map[String, V] = reader read bson
+      def write(map: Map[String, V]): BSONDocument = writer write map
+    }
   }
+
+  // List Handler
+  final class ListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]) extends BSONHandler[BSONArray, List[T]] {
+    def read(array: BSONArray) = array.stream.filter(_.isSuccess).map { v =>
+      reader.asInstanceOf[BSONReader[BSONValue, T]].read(v.get)
+    }.toList
+    def write(repr: List[T]) =
+      new BSONArray(repr.map(s => scala.util.Try(writer.write(s))).to[Stream])
+  }
+  implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new ListHandler
 
   final class Reader(val doc: BSONDocument) {
 

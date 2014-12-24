@@ -1,4 +1,4 @@
-@(u: User, playing: Option[Game], blocked: Boolean, followable: Boolean, rel: Option[lila.relation.Relation])(implicit ctx: Context)
+@(u: User, playing: Option[Pov], blocked: Boolean, followable: Boolean, rel: Option[lila.relation.Relation])(implicit ctx: Context)
 <div class="title">
   <div>
     @u.profileOrDefault.countryInfo.map {
@@ -22,8 +22,8 @@
   </div>
   }
 </div>
-@playing.map { g =>
-@gameFen(g, g.player(u).getOrElse(g.firstPlayer).color)
+@playing.map { pov =>
+@gameFen(pov.game, pov.color)
 }
 @ctx.userId.map { myId =>
 @if(myId != u.id) {

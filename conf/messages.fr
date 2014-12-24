@@ -305,3 +305,5 @@ thisPuzzleIsCorrect=Ce problème est correct et intéressant
 thisPuzzleIsWrong=Ce problème est erroné ou ennuyeux
 youHaveNbSecondsToMakeYourFirstMove=Vous avez %s secondes pour jouer votre premier coup !
 nbGamesInPlay=%s parties en cours
+automaticallyProceedToNextGameAfterMoving=Aller automatiquement à la prochaine partie après coup
+autoSwitch=Changement automatique

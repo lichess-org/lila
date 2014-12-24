@@ -15,7 +15,7 @@ object Rewind {
       val rewindedHistory = rewindedGame.board.history
       val rewindedSituation = rewindedGame.situation
       def rewindPlayer(player: Player) = player.copy(isProposingTakeback = false)
-      Progress(game, game.copy(
+      val newGame = game.copy(
         whitePlayer = rewindPlayer(game.whitePlayer),
         blackPlayer = rewindPlayer(game.blackPlayer),
         binaryPieces = BinaryFormat.piece write rewindedGame.board.pieces,
@@ -29,7 +29,7 @@ object Rewind {
           check = if (rewindedSituation.check) rewindedSituation.kingPos else None),
         binaryMoveTimes = BinaryFormat.moveTime write (game.moveTimes take rewindedGame.turns),
         status = game.status,
-        clock = game.clock map (_.switch)
-      ))
+        clock = game.clock map (_.takeback))
+      Progress(game, newGame, newGame.clock.map(Event.Clock.apply).toList)
     }
 }

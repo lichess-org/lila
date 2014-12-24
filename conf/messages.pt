@@ -305,3 +305,5 @@ thisPuzzleIsCorrect=O quebra-cabeças está correcto e é interessante
 thisPuzzleIsWrong=O quebra-cabeças está errado ou é chato
 youHaveNbSecondsToMakeYourFirstMove=Tens %s segundos para fazeres a primeira jogada!
 nbGamesInPlay=%s partidas em andamento
+automaticallyProceedToNextGameAfterMoving=Automaticamente passa ao jogo seguinte após seu lance
+autoSwitch=Auto ciclo

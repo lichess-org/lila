@@ -366,6 +366,7 @@ var storage = {
     if (lichess.round) startRound(document.getElementById('lichess'), lichess.round);
     else if (lichess.prelude) startPrelude(document.querySelector('.lichess_game'), lichess.prelude);
     else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
+    else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
 
     setTimeout(function() {
       if (lichess.socket === null) {
@@ -560,7 +561,10 @@ var storage = {
       $(this).infinitescroll({
         navSelector: ".pager",
         nextSelector: ".pager a:last",
-        itemSelector: ".infinitescroll .paginated_element"
+        itemSelector: ".infinitescroll .paginated_element",
+        errorCallback: function() {
+          $("#infscr-loading").remove();
+        }
       }, function() {
         $("#infscr-loading").remove();
         $('body').trigger('lichess.content_loaded');
@@ -768,6 +772,7 @@ var storage = {
       gameId: data.game.id
     });
     var $watchers = $('#site_header div.watchers').watchers();
+    var $nowPlaying = $('#now_playing');
     var round;
     if (data.tournament) $('body').data('tournament-id', data.tournament.id);
     lichess.socket = new lichess.StrongSocket(
@@ -802,14 +807,42 @@ var storage = {
             $('div.check_count')
               .find('.white').text(e.black).end()
               .find('.black').text(e.white);
+          },
+          opponent_play: function(e) {
+            $.ajax({
+              url: $nowPlaying.data('reload-url'),
+              success: function(html) {
+                $nowPlaying.html(html);
+                $('body').trigger('lichess.content_loaded');
+                loadPlaying();
+                var nextId = $nowPlaying.find('input.next_id').val();
+                if (nextId) round.moveOn.next(nextId);
+              }
+            });
           }
         }
       });
-    round = LichessRound(element.querySelector('.round'), cfg.data, cfg.routes, cfg.i18n, lichess.socket.send.bind(lichess.socket));
+    cfg.element = element.querySelector('.round');
+    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    round = LichessRound(cfg);
     startTournamentClock();
     $('.crosstable', element).prependTo($('.underboard .center', element)).show();
     $('#tv_history').on("click", "tr", function() {
       location.href = $(this).find('a.view').attr('href');
+    });
+    var loadPlaying = function() {
+      var $moveOn = $nowPlaying.find('.move_on').click(function() {
+        setMoveOn(round.moveOn.toggle());
+      });
+      var setMoveOn = function(value) {
+        $moveOn.toggleClass('enabled', value);
+      };
+      setMoveOn(round.moveOn.get());
+    };
+    loadPlaying();
+    $nowPlaying.on('click', '>a', function() {
+      lichess.hasToReload = true;
+      return true;
     });
   }
 
@@ -1525,6 +1558,7 @@ var storage = {
     });
     var active = storage.get('lobbytab');
     if (['real_time', 'seeks', 'now_playing'].indexOf(active) === -1) active = 'real_time';
+    if (!$wrap.find('>div.tabs>.' + active).length) active = 'real_time';
     $wrap.find('>div.tabs>.' + active).addClass('active');
     $wrap.find('>.' + active).show();
 
@@ -1691,7 +1725,7 @@ var storage = {
         // override fen event to reload playing games list
         fen: function(e) {
           lichess.StrongSocket.defaults.events.fen(e);
-          if ($nowPlaying.find('.live_' + e.id).length) $.ajax({
+          if ($nowPlaying.find('.mini_board_' + e.id).length) $.ajax({
             url: $nowPlaying.data('href'),
             success: function(html) {
               $nowPlaying.html(html);
@@ -2151,6 +2185,14 @@ var storage = {
       });
       return false;
     });
+  }
+
+  ////////////////
+  // user_analysis.js //
+  ////////////////
+
+  function startUserAnalysis(element, cfg) {
+    var analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, null);
   }
 
   /////////////// forum.js ////////////////////

@@ -2,7 +2,7 @@
 
 @povs.take(9).map { pov =>
 <a href="@routes.Round.player(pov.fullId)" class="@if(pov.isMyTurn){my_turn}">
-  @gameFen(pov.game, pov.color, withLink = false, withTitle = false)
+  @gameFen(pov.game, pov.color, withLink = false, withTitle = false, withLive = false)
   <span class="meta">
     @playerText(pov.opponent, withRating = false)
     <span class="indicator">

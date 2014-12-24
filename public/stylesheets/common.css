@@ -70,8 +70,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font25/fonts/lichess.eot");
-  src: url("../font25/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font25/fonts/lichess.woff") format("woff"), url("../font25/fonts/lichess.ttf") format("truetype"), url("../font25/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font26/fonts/lichess.eot");
+  src: url("../font26/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font26/fonts/lichess.woff") format("woff"), url("../font26/fonts/lichess.ttf") format("truetype"), url("../font26/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -88,6 +88,10 @@ time {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: attr(data-icon);
+}
+.is.text::before,
+.text[data-icon]::before {
+  margin-right: 5px;
 }
 [data-icon].is2::before {
   font-size: 20px;
@@ -1701,11 +1705,11 @@ div.game_row span.down {
 div.game_row div.metadata {
   margin-top: 10px;
 }
-div.game_list.realtime {
+div.game_list.playing {
   margin-top: 1.4em;
 }
-div.game_list.realtime > div {
-  float: left;
+div.game_list.playing > div {
+  display: inline-block;
   margin: 0px 11px 11px 11px;
 }
 div.vstext {
@@ -1748,7 +1752,6 @@ a.mini_board {
 }
 #now_playing {
   margin: 4px 0 0 4px;
-  overflow: hidden;
 }
 #now_playing.other_games {
   width: 512px;
@@ -1763,6 +1766,19 @@ a.mini_board {
   text-align: center;
   transition: background-color 0.13s;
   background: rgba(255, 255, 255, 0.6);
+}
+#now_playing .move_on {
+  font-size: 0.7em;
+  float: right;
+}
+#now_playing .move_on i {
+  font-size: 1.2em;
+  display: none;
+  transition: 0.13s;
+}
+#now_playing .move_on.enabled i {
+  display: inline-block;
+  margin-right: 10px;
 }
 #now_playing.other_games > a {
   padding: 5px;

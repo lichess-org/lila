@@ -19,8 +19,16 @@ module.exports = function(cfg, router, i18n, onChange) {
     pathStr: treePath.write(initialPath),
     situation: null,
     continue: false,
-    comments: true
+    comments: true,
+    flip: false
   };
+
+  this.flip = function() {
+    this.vm.flip = !this.vm.flip;
+    this.chessground.set({
+      orientation: this.vm.flip ? this.data.opponent.color : this.data.player.color
+    });
+  }.bind(this);
 
   var is960 = function() {
     return ['chess960', 'fromPosition'].indexOf(this.data.game.variant.key) !== -1;
@@ -39,50 +47,66 @@ module.exports = function(cfg, router, i18n, onChange) {
     var ply, move, cached, fen, hash = '',
       h = '',
       lm;
-    for (ply = 1; ply <= nbMoves; ply++) {
-      move = moves[ply - 1];
-      h += move;
-      cached = situationCache[h];
-      if (!cached) break;
-      hash = h;
-      fen = cached.fen;
-    }
-    if (!cached || ply < nbMoves) {
+    if (nbMoves == 0) {
       var chess = new Chess(
-        fen || this.data.game.initialFen,
-        is960() ? 1 : 0
-      );
-      for (ply = ply; ply <= nbMoves; ply++) {
+        this.data.game.initialFen,
+        is960() ? 1 : 0);
+      var turnColor = chess.turn() == 'w' ? 'white' : 'black';
+      this.vm.situation = {
+        fen: this.data.game.initialFen,
+        turnColor: turnColor,
+        movable: {
+          color: turnColor,
+          dests: chess.dests()
+        },
+        check: false,
+        lastMove: null
+      };
+    } else {
+      for (ply = 1; ply <= nbMoves; ply++) {
         move = moves[ply - 1];
-        hash += move;
-        lm = chess.move(move);
-        var turnColor = chess.turn() == 'w' ? 'white' : 'black';
-        situationCache[hash] = {
-          fen: chess.fen(),
-          turnColor: turnColor,
-          movable: {
-            color: turnColor,
-            dests: chess.dests()
-          },
-          check: chess.in_check(),
-          lastMove: [lm.from, lm.to]
-        };
+        h += move;
+        cached = situationCache[h];
+        if (!cached) break;
+        hash = h;
+        fen = cached.fen;
       }
+      if (!cached || ply < nbMoves) {
+        var chess = new Chess(
+          fen || this.data.game.initialFen,
+          is960() ? 1 : 0);
+        for (ply = ply; ply <= nbMoves; ply++) {
+          move = moves[ply - 1];
+          hash += move;
+          lm = chess.move(move);
+          var turnColor = chess.turn() == 'w' ? 'white' : 'black';
+          situationCache[hash] = {
+            fen: chess.fen(),
+            turnColor: turnColor,
+            movable: {
+              color: turnColor,
+              dests: chess.dests()
+            },
+            check: chess.in_check(),
+            lastMove: [lm.from, lm.to]
+          };
+        }
+      }
+      this.vm.situation = situationCache[hash] || {
+        fen: this.data.game.initialFen,
+        turnColor: 'white',
+        movable: {
+          color: null
+        },
+        check: false,
+        lastMove: null
+      };
     }
-    this.vm.situation = situationCache[hash] || {
-      fen: this.data.game.initialFen,
-      turnColor: 'white',
-      movable: {
-        color: null
-      },
-      check: false,
-      lastMove: null
-    };
     if (!this.chessground)
       this.chessground = ground.make(this.data, this.vm.situation, this.onMove);
     this.chessground.stop();
     this.chessground.set(this.vm.situation);
-    onChange(this.vm.situation.fen, this.vm.path);
+    if (onChange) onChange(this.vm.situation.fen, this.vm.path);
   }.bind(this);
 
   this.jump = function(path) {

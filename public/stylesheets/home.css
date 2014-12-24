@@ -108,7 +108,7 @@ div.lobby_and_ground {
   top: 1px;
   left: 1px;
   width: 472px;
-  height: 472px;
+  height: calc(100% - 42px);
   padding: 20px;
   background: rgba(255, 255, 255, 0.8);
   display: none;

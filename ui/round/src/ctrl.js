@@ -4,10 +4,8 @@ var chessground = require('chessground');
 var partial = chessground.util.partial;
 var data = require('./data');
 var game = require('game').game;
-var status = require('game').status;
 var ground = require('./ground');
 var socket = require('./socket');
-var xhr = require('./xhr');
 var title = require('./title');
 var promotion = require('./promotion');
 var hold = require('./hold');
@@ -17,10 +15,11 @@ var blind = require('./blind');
 var replayCtrl = require('./replay/ctrl');
 var clockCtrl = require('./clock/ctrl');
 var correspondenceClockCtrl = require('./correspondenceClock/ctrl');
+var moveOn = require('./moveOn');
 
-module.exports = function(cfg, router, i18n, socketSend) {
+module.exports = function(opts) {
 
-  this.data = data({}, cfg);
+  this.data = data({}, opts.data);
 
   this.vm = {
     flip: false,
@@ -28,7 +27,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
     redirecting: false
   };
 
-  this.socket = new socket(socketSend, this);
+  this.socket = new socket(opts.socketSend, this);
 
   this.flip = function() {
     this.vm.flip = !this.vm.flip;
@@ -67,9 +66,10 @@ module.exports = function(cfg, router, i18n, socketSend) {
     m.redraw();
     if (this.data.player.spectator || o.color != this.data.player.color) $.sound.move(o.color == 'white');
     if (this.data.blind) blind.reload(this);
+    if (game.isPlayerPlaying(this.data) && o.color === this.data.player.color) this.moveOn.next();
   }.bind(this);
 
-  this.chessground = ground.make(this.data, cfg.game.fen, this.userMove);
+  this.chessground = ground.make(this.data, opts.data.game.fen, this.userMove);
 
   this.reload = function(cfg) {
     this.replay.onReload(cfg);
@@ -78,11 +78,12 @@ module.exports = function(cfg, router, i18n, socketSend) {
     if (!this.replay.active) ground.reload(this.chessground, this.data, cfg.game.fen, this.vm.flip);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
+    this.moveOn.next();
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(
     this.data.clock,
-    this.data.player.spectator ? function() {} : throttle(partial(this.socket.send, 'outoftime'), 500), (this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
+    throttle(partial(this.socket.send, 'outoftime'), this.data.player.spectator ? 1000 : 500), (this.data.player.spectator || !this.data.pref.clockSound) ? null : this.data.player.color
   ) : false;
 
   this.isClockRunning = function() {
@@ -90,7 +91,7 @@ module.exports = function(cfg, router, i18n, socketSend) {
       ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
   }.bind(this);
 
-  this.clockTick = function() {
+  var clockTick = function() {
     if (this.isClockRunning()) this.clock.tick(this.data.game.player);
   }.bind(this);
 
@@ -103,20 +104,22 @@ module.exports = function(cfg, router, i18n, socketSend) {
   }.bind(this);
   makeCorrespondenceClock();
 
-  this.correspondenceClockTick = function() {
+  var correspondenceClockTick = function() {
     if (this.correspondenceClock && game.playable(this.data))
       this.correspondenceClock.tick(this.data.game.player);
   }.bind(this);
 
-  if (this.clock) setInterval(this.clockTick, 100);
-  else setInterval(this.correspondenceClockTick, 1000);
+  if (this.clock) setInterval(clockTick, 100);
+  else setInterval(correspondenceClockTick, 1000);
+
+  this.moveOn = new moveOn(this, 'lichess.move_on');
 
   this.replay = new replayCtrl(this);
 
-  this.router = router;
+  this.router = opts.routes;
 
   this.trans = function() {
-    var str = i18n[arguments[0]]
+    var str = opts.i18n[arguments[0]]
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
       str = str.replace('%s', arg);
     });
