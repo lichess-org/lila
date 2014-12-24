@@ -60,6 +60,12 @@ function reload(ground, data, fen, flip) {
 }
 
 function promote(ground, key, role) {
+
+  // If the player has promoted to a king in the antichess mode, we treat
+  // the piece like a king
+  if (role === "antiking")
+    role = "king";
+
   var pieces = {};
   var piece = ground.data.pieces[key];
   if (piece && piece.role == 'pawn') {
