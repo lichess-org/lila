@@ -54,10 +54,10 @@ object Round extends LilaController with TheftPrevention {
             PreventTheft(pov) {
               (pov.game.tournamentId ?? TournamentRepo.byId) zip
                 Env.game.crosstableApi(pov.game) zip
-                otherGames(pov.game) flatMap {
-                  case ((tour, crosstable), otherGames) =>
+                otherPovs(pov.gameId) flatMap {
+                  case ((tour, crosstable), playing) =>
                     Env.api.roundApi.player(pov, Env.api.version) map { data =>
-                      Ok(html.round.player(pov, data, tour = tour, cross = crosstable, otherGames = otherGames))
+                      Ok(html.round.player(pov, data, tour = tour, cross = crosstable, playing = playing))
                     }
                 }
             },
@@ -69,11 +69,30 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  private def otherGames(g: GameModel)(implicit ctx: Context) = ctx.me.ifFalse(g.hasClock) ?? { user =>
+  private def otherPovs(gameId: String)(implicit ctx: Context) = ctx.me ?? { user =>
     GameRepo nowPlaying user map {
-      _ filter { pov =>
-        pov.isMyTurn && pov.game.id != g.id
-      } sortBy Pov.priority
+      _ filter { _.game.id != gameId }
+    }
+  }
+
+  private def getNext(currentGame: GameModel)(povs: List[Pov])(implicit ctx: Context) =
+    povs find { pov =>
+      pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
+    } map (_.fullId)
+
+  def others(gameId: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo game gameId) { currentGame =>
+      otherPovs(gameId) map { povs =>
+        Ok(html.round.others(povs, nextId = getNext(currentGame)(povs)))
+      }
+    }
+  }
+
+  def next(gameId: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo game gameId) { currentGame =>
+      otherPovs(gameId) map getNext(currentGame) map { nextId =>
+        Ok(Json.obj("next" -> nextId))
+      }
     }
   }
 

@@ -8,6 +8,7 @@ import lila.hub.actorApi.message.LichessThread
 final class Env(
     config: Config,
     db: lila.db.Env,
+    mongoCache: lila.memo.MongoCache.Builder,
     blocks: (String, String) => Fu[Boolean],
     system: ActorSystem) {
 
@@ -17,7 +18,7 @@ final class Env(
 
   private[message] lazy val threadColl = db(CollectionThread)
 
-  private lazy val unreadCache = new UnreadCache
+  private lazy val unreadCache = new UnreadCache(mongoCache)
 
   lazy val forms = new DataForm(blocks = blocks)
 
@@ -46,6 +47,7 @@ object Env {
   lazy val current = "[boot] message" describes new Env(
     config = lila.common.PlayApp loadConfig "message",
     db = lila.db.Env.current,
+    mongoCache = lila.memo.Env.current.mongoCache,
     blocks = lila.relation.Env.current.api.blocks,
     system = lila.common.PlayApp.system)
 }

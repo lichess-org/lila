@@ -9,15 +9,15 @@ import org.joda.time.DateTime
 import spray.caching.{ LruCache, Cache }
 
 import lila.common.paginator._
-import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.BSON._
 import lila.db.paginator._
 import lila.db.Types.Coll
-import lila.memo.AsyncCache
 import lila.user.{ User, UserRepo }
 
 final class QaApi(
     questionColl: Coll,
     answerColl: Coll,
+    mongoCache: lila.memo.MongoCache.Builder,
     notifier: Notifier) {
 
   object question {
@@ -84,11 +84,12 @@ final class QaApi(
         currentPage = page,
         maxPerPage = perPage)
 
-    private def popularCache = AsyncCache(
-      (nb: Int) => questionColl.find(BSONDocument())
+    private def popularCache = mongoCache(
+      prefix = "qa:popular",
+      f = (nb: Int) => questionColl.find(BSONDocument())
         .sort(BSONDocument("vote.score" -> -1))
         .cursor[Question].collect[List](nb),
-      timeToLive = 1 hour)
+      timeToLive = 3 hour)
 
     def popular(max: Int): Fu[List[Question]] = popularCache(max)
 
@@ -111,7 +112,7 @@ final class QaApi(
           questionColl.update(
             BSONDocument("_id" -> q.id),
             BSONDocument("$set" -> BSONDocument("vote" -> newVote))
-          ) >> profile.clearCache >> popularCache.clear inject newVote.some
+          ) >> profile.clearCache inject newVote.some
         }
       }
 

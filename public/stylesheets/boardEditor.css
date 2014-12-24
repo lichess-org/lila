@@ -38,17 +38,20 @@
 #editor-side {
   position: absolute;
   left: 552px;
-  top: 124px;
+  top: 90px;
   width: 228px;
 }
 #editor-side > div {
   margin-bottom: 3em;
   text-align: center;
 }
-#board_editor a.button {
+#board_editor .button {
   display: block;
   text-align: center;
   margin-bottom: 1em;
+}
+#board_editor .button.disabled {
+  opacity: 0.5;
 }
 #board_editor table td, #board_editor table th {
   padding: 5px;

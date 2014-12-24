@@ -18,9 +18,6 @@ case class Pov(game: Game, color: Color) {
 
   def unary_! = Pov(game, !color)
 
-  def isPlayerFullId(fullId: Option[String]): Boolean =
-    fullId ?? { game.isPlayerFullId(player, _) }
-
   def ref = PovRef(game.id, color)
 
   def withGame(g: Game) = copy(game = g)
@@ -31,6 +28,8 @@ case class Pov(game: Game, color: Color) {
   def remainingSeconds: Option[Int] = game.clock.map(_.remainingTime(color).toInt).orElse {
     game.correspondenceClock.map(_.remainingTime(color).toInt)
   }
+
+  def hasMoved = game playerHasMoved color
 
   override def toString = ref.toString
 }
@@ -53,9 +52,11 @@ object Pov {
     game player user map { apply(game, _) }
 
   def priority(pov: Pov) =
-    if (pov.isMyTurn) pov.remainingSeconds.getOrElse(Int.MaxValue - 1)
+    if (pov.isMyTurn) {
+      if (pov.hasMoved) pov.remainingSeconds.getOrElse(Int.MaxValue - 1)
+      else 10 // first move has priority over games with more than 10s left
+    }
     else Int.MaxValue
-
 }
 
 case class PovRef(gameId: String, color: Color) {

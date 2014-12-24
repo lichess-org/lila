@@ -31,8 +31,8 @@ function computeFen(data, getBaseFen) {
   return getBaseFen() + ' ' + fenMetadatas(data);
 }
 
-function makeUrl(data, fen) {
-  return data.baseUrl + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+function makeUrl(url, fen) {
+  return url + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
 }
 
 function trans(data, key) {

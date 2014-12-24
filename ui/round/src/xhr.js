@@ -21,6 +21,15 @@ function reload(ctrl) {
   return req;
 }
 
+function next(ctrl) {
+  return m.request({
+    method: 'GET',
+    url: ctrl.router.Round.next(ctrl.data.game.id).url,
+    config: xhrConfig
+  });
+}
+
 module.exports = {
-  reload: reload
+  reload: reload,
+  next: next
 };

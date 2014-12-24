@@ -15,7 +15,7 @@ import lila.db.api._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.Implicits._
-import lila.user.User
+import lila.user.{ User, UidNb }
 
 object GameRepo {
 
@@ -122,6 +122,18 @@ object GameRepo {
       _ flatMap { Pov(_, user) } sortBy Pov.priority
     }
 
+  // gets most urgent game to play
+  def onePlaying(user: User): Fu[Option[Pov]] = nowPlaying(user) map (_.headOption)
+
+  // gets last recently played move game
+  def lastPlayed(user: User): Fu[Option[Pov]] =
+    $find.one($query(Query recentlyPlayingWithClock user.id) sort Query.sortUpdatedNoIndex) map {
+      _ flatMap { Pov(_, user) }
+    }
+
+  def countPlayingRealTime(userId: String): Fu[Int] =
+    $count(Query.nowPlaying(userId) ++ Query.clock(true))
+
   def setTv(id: ID) {
     $update.fieldUnchecked(id, F.tvAt, $date(DateTime.now))
   }
@@ -179,15 +191,15 @@ object GameRepo {
     _ sort Query.sortCreated skip (Random nextInt distribution)
   )
 
-  def insertDenormalized(game: Game, ratedCheck: Boolean = true): Funit = {
-    val g2 = if (ratedCheck && game.rated && game.userIds.distinct.size != 2)
-      game.copy(mode = chess.Mode.Casual)
-    else game
-    val userIds = game.userIds.distinct
+  def insertDenormalized(g: Game, ratedCheck: Boolean = true): Funit = {
+    val g2 = if (ratedCheck && g.rated && g.userIds.distinct.size != 2)
+      g.copy(mode = chess.Mode.Casual)
+    else g
+    val userIds = g2.userIds.distinct
     val bson = (gameTube.handler write g2) ++ BSONDocument(
       F.initialFen -> g2.variant.exotic.option(Forsyth >> g2.toChess),
-      F.checkAt -> (!game.isPgnImport).option(DateTime.now.plusHours(game.hasClock.fold(1, 24))),
-      F.playingUids -> userIds.nonEmpty.option(userIds)
+      F.checkAt -> (!g2.isPgnImport).option(DateTime.now.plusHours(g2.hasClock.fold(1, 24))),
+      F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     $insert bson bson
   }
@@ -238,16 +250,6 @@ object GameRepo {
       val to = from plusDays 1
       $count(Json.obj(F.createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
     }).sequenceFu
-
-  def nowPlaying(userId: String): Fu[Option[Game]] =
-    $find.one(Query.status(Status.Started) ++ Query.user(userId) ++ Json.obj(
-      F.createdAt -> $gt($date(DateTime.now minusHours 1))
-    ))
-
-  def isNowPlaying(userId: String): Fu[Boolean] = nowPlaying(userId) map (_.isDefined)
-
-  def lastPlayed(userId: String): Fu[Option[Game]] =
-    $find($query(Query user userId) sort ($sort desc F.createdAt), 1) map (_.headOption)
 
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
     import reactivemongo.bson._
@@ -320,7 +322,7 @@ object GameRepo {
     ))
   }
 
-  def activePlayersSince(since: DateTime, max: Int): Fu[List[(String, Int)]] = {
+  def activePlayersSince(since: DateTime, max: Int): Fu[List[UidNb]] = {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
     import lila.db.BSON.BSONJodaDateTimeHandler
@@ -342,7 +344,7 @@ object GameRepo {
       (stream.toList map { obj =>
         toJSON(obj).asOpt[JsObject] flatMap { o =>
           o int "nb" map { nb =>
-            ~(o str "_id") -> nb
+            UidNb(~(o str "_id"), nb)
           }
         }
       }).flatten

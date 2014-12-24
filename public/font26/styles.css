@@ -296,3 +296,6 @@
 .icon-list:before {
   content: "?";
 }
+.icon-flow-cascade:before {
+  content: "@";
+}

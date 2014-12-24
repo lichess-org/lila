@@ -6,11 +6,12 @@ import scala.collection.mutable
 import scala.concurrent.duration._
 
 import actorApi.{ SocketLeave, SocketEnter }
+import lila.hub.actorApi.round.MoveEvent
 import lila.hub.actorApi.{ SendTo, SendTos, WithUserIds }
 
 private final class UserRegister extends Actor {
 
-  context.system.lilaBus.subscribe(self, 'users, 'socketDoor)
+  context.system.lilaBus.subscribe(self, 'users, 'socketDoor, 'moveEvent)
 
   type UID = String
   type UserId = String
@@ -24,6 +25,10 @@ private final class UserRegister extends Actor {
     case SendTos(userIds, msg) => userIds foreach { sendTo(_, msg) }
 
     case WithUserIds(f)        => f(users.keys)
+
+    case move: MoveEvent => move.opponentUserId foreach { userId =>
+      sendTo(userId, Socket.makeMessage("opponent_play", move.gameId))
+    }
 
     case SocketEnter(uid, member) => member.userId foreach { userId =>
       users get userId match {

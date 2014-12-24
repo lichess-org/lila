@@ -9,6 +9,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     db: lila.db.Env,
+    mongoCache: lila.memo.MongoCache.Builder,
     system: ActorSystem,
     hub: lila.hub.Env,
     getLightUser: String => Option[lila.common.LightUser],
@@ -41,7 +42,9 @@ final class Env(
 
   lazy val pngExport = PngExport(PngExecPath) _
 
-  lazy val cached = new Cached(ttl = CachedNbTtl)
+  lazy val cached = new Cached(
+    mongoCache = mongoCache,
+    defaultTtl = CachedNbTtl)
 
   lazy val paginator = new PaginatorBuilder(
     cached = cached,
@@ -100,6 +103,7 @@ object Env {
   lazy val current = "[boot] game" describes new Env(
     config = lila.common.PlayApp loadConfig "game",
     db = lila.db.Env.current,
+    mongoCache = lila.memo.Env.current.mongoCache,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     getLightUser = lila.user.Env.current.lightUser,

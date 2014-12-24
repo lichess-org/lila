@@ -4,7 +4,7 @@
 <div id="featured_game">
   @featured.map { g =>
   @gameFen(g, g.firstPlayer.color, tv = true)
-  @game.vstext(g)
+  @game.vstext(g)(ctx.some)
   }
 </div>
 }

@@ -86,10 +86,11 @@ case class Game(
   // in tenths
   private def lastMoveTime: Option[Long] = castleLastMoveTime.lastMoveTime map {
     _.toLong + (createdAt.getMillis / 100)
-  }
+  } orElse updatedAt.map(_.getMillis / 100)
+
   private def lastMoveTimeDate: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
     createdAt plusMillis (lmt * 100)
-  }
+  } orElse updatedAt
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 

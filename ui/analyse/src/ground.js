@@ -21,7 +21,7 @@ function makeConfig(data, situation, onMove) {
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,
-      dragOver: false
+      dragOver: true
     },
     animation: {
       enabled: true,

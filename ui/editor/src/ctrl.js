@@ -48,6 +48,15 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.loadNewFen = function(fen) {
-    window.location = editor.makeUrl(this.data, fen);
+    window.location = editor.makeUrl(this.data.baseUrl, fen);
+  }.bind(this);
+
+  this.positionLooksLegit = function() {
+    var kings = {white: 0, black: 0};
+    var pieces = this.chessground.data.pieces;
+    for (var pos in pieces) {
+      if (pieces[pos] && pieces[pos].role === 'king') kings[pieces[pos].color]++;
+    }
+    return kings.white === 1 && kings.black === 1;
   }.bind(this);
 };

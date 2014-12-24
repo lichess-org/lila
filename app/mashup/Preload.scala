@@ -9,7 +9,7 @@ import controllers.routes
 import lila.api.Context
 import lila.forum.MiniForumPost
 import lila.game.{ Game, GameRepo, Pov }
-import lila.lobby.actorApi.GetOpen
+import lila.lobby.actorApi.HooksFor
 import lila.lobby.{ Hook, HookRepo, Seek, SeekApi }
 import lila.rating.PerfType
 import lila.setup.FilterConfig
@@ -38,7 +38,7 @@ final class Preload(
     posts: Fu[List[MiniForumPost]],
     tours: Fu[List[Enterable]],
     filter: Fu[FilterConfig])(implicit ctx: Context): Fu[Response] =
-    (lobby ? GetOpen(ctx.me)).mapTo[List[Hook]] zip
+    (lobby ? HooksFor(ctx.me)).mapTo[List[Hook]] zip
       posts zip
       tours zip
       featured.one zip

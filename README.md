@@ -1,6 +1,8 @@
 [lichess.org](http://lichess.org)
 ---------------------------------
 
+<img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/homepage_light.1200.png" alt="lichess.org" />
+
 It's a free online chess game focused on [realtime](http://lichess.org/games) and ease of use
 
 It has a [search engine](http://lichess.org/games/search),

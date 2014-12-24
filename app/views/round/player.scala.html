@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], otherGames: List[Pov])(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], playing: List[Pov])(implicit ctx: Context)
 
 @import pov._
 
@@ -23,17 +23,17 @@ side = views.html.game.side(pov, tour, withTourStanding = true),
 chat = pov.game.hasChat.option(base.chatDom(trans.chatRoom.str(), ctx.isAuth)),
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
-openGraph = povOpenGraph(pov)) {
+openGraph = povOpenGraph(pov),
+chessground = false) {
 <div class="round cg-512">@miniBoardContent</div>
 <div class="crosstable" style="display:none">
   @cross.map { c =>
   @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov))
   }
 </div>
-@if(otherGames.nonEmpty) {
-<div id="now_playing" class="other_games">
-  <h3>Other correspondence games</h3>
-  @lobby.playing(otherGames take 6)
+@if(playing.nonEmpty) {
+<div id="now_playing" class="clearfix other_games" data-reload-url="@routes.Round.others(pov.gameId)">
+  @others(playing, none)
 </div>
 }
 }

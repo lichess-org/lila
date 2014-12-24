@@ -164,11 +164,14 @@ object BinaryFormat {
     }
 
     def read(ba: ByteArray): PieceMap = {
-      def splitInts(int: Int) = Array(int >> 4, int & 0x0F)
+      def splitInts(b: Byte) = {
+        val int = b.toInt
+        Array(int >> 4, int & 0x0F)
+      }
       def intPiece(int: Int): Option[Piece] =
         intToRole(int & 7) map { role => Piece(Color((int & 8) == 0), role) }
-      val (aliveInts, deadInts) = ba.value map toInt flatMap splitInts splitAt 64
-      (Pos.all zip aliveInts flatMap {
+      val pieceInts = ba.value flatMap splitInts
+      (Pos.all zip pieceInts flatMap {
         case (pos, int) => intPiece(int) map (pos -> _)
       }).toMap
     }

@@ -82,4 +82,5 @@ object PerfType {
   def name(key: Perf.Key): Option[String] = apply(key) map (_.name)
 
   val nonPuzzle: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck)
+  val leaderboardable: List[PerfType] = List(Bullet, Blitz, Classical, Chess960, KingOfTheHill, ThreeCheck)
 }
