@@ -49,7 +49,11 @@ object Query {
   def users(u: Seq[String]) = Json.obj(F.playerUids -> $in(u))
 
   def nowPlaying(u: String) = Json.obj(F.playingUids -> u)
-  def nowPlayingWithClock(u: String) = nowPlaying(u) ++ clock(true)
+
+  def recentlyPlayingWithClock(u: String) = 
+    nowPlaying(u) ++ clock(true) ++ Json.obj(
+      F.updatedAt -> $gt($date(DateTime.now minusMinutes 5))
+    )
 
   // use the us index
   def win(u: String) = user(u) ++ Json.obj(F.winnerId -> u)

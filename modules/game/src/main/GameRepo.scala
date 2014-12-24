@@ -127,7 +127,7 @@ object GameRepo {
 
   // gets last recently played move game
   def lastPlayed(user: User): Fu[Option[Pov]] =
-    $find.one($query(Query nowPlayingWithClock user.id) sort Query.sortUpdatedNoIndex) map {
+    $find.one($query(Query recentlyPlayingWithClock user.id) sort Query.sortUpdatedNoIndex) map {
       _ flatMap { Pov(_, user) }
     }
 
