@@ -44,12 +44,4 @@ object UserAnalysis extends LilaController with BaseGame {
       }
     }
   }
-
-  // def game(id: String) = Open { implicit ctx =>
-  //   OptionResult(GameRepo game id) { game =>
-  //     Redirect(routes.Editor.load(
-  //       get("fen") | (chess.format.Forsyth >> game.toChess)
-  //     ))
-  //   }
-  // }
 }
