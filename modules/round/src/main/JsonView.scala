@@ -235,6 +235,7 @@ final class JsonView(
       "pref" -> Json.obj(
         "animationDuration" -> animationDuration(pov, pref),
         "highlight" -> pref.highlight,
+        "destination" -> pref.destination,
         "coords" -> pref.coords
       ),
       "userAnalysis" -> true)
