@@ -296,6 +296,9 @@
 .icon-list:before {
   content: "?";
 }
-.icon-flow-cascade:before {
-  content: "@";
+.icon-skull:before {
+  content: ">";
+}
+.icon-share:before {
+  content: "[";
 }
