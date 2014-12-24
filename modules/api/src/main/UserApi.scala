@@ -41,7 +41,7 @@ private[api] final class UserApi(
 
   def one(username: String, token: Option[String]): Fu[Option[JsObject]] = UserRepo named username flatMap {
     case None => fuccess(none)
-    case Some(u) => GameRepo onePlaying u zip
+    case Some(u) => GameRepo lastPlayed u zip
       makeUrl(R User username) zip
       (check(token) ?? (knownEnginesSharingIp(u.id) map (_.some))) flatMap {
         case ((gameOption, userUrl), knownEngines) => gameOption ?? { g =>

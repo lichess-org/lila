@@ -23,8 +23,8 @@ object User extends LilaController {
 
   def tv(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      (GameRepo onePlaying user) orElse
-        (GameRepo lastPlayed user.id) flatMap {
+      (GameRepo lastPlayed user) orElse
+        (GameRepo lastPlayed user) flatMap {
           _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
             Round.watch(pov, userTv = user.some)
           }
@@ -38,7 +38,7 @@ object User extends LilaController {
 
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      GameRepo onePlaying user zip
+      GameRepo lastPlayed user zip
         (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
         (ctx.userId ?? { relationApi.relation(_, user.id) }) map {

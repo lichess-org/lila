@@ -15,7 +15,7 @@ import lila.db.api._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.Implicits._
-import lila.user.{User,UidNb}
+import lila.user.{ User, UidNb }
 
 object GameRepo {
 
@@ -122,7 +122,14 @@ object GameRepo {
       _ flatMap { Pov(_, user) } sortBy Pov.priority
     }
 
+  // gets most urgent game to play
   def onePlaying(user: User): Fu[Option[Pov]] = nowPlaying(user) map (_.headOption)
+
+  // gets last recently played move game
+  def lastPlayed(user: User): Fu[Option[Pov]] =
+    $find.one($query(Query nowPlayingWithClock user.id) sort Query.sortUpdatedNoIndex) map {
+      _ flatMap { Pov(_, user) }
+    }
 
   def countPlayingRealTime(userId: String): Fu[Int] =
     $count(Query.nowPlaying(userId) ++ Query.clock(true))
@@ -243,11 +250,6 @@ object GameRepo {
       val to = from plusDays 1
       $count(Json.obj(F.createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
     }).sequenceFu
-
-  def lastPlayed(userId: String): Fu[Option[Pov]] =
-    $find($query(Query user userId) sort ($sort desc F.createdAt), 1) map {
-      _.headOption flatMap { Pov(_, userId) }
-    }
 
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
     import reactivemongo.bson._

@@ -49,6 +49,7 @@ object Query {
   def users(u: Seq[String]) = Json.obj(F.playerUids -> $in(u))
 
   def nowPlaying(u: String) = Json.obj(F.playingUids -> u)
+  def nowPlayingWithClock(u: String) = nowPlaying(u) ++ clock(true)
 
   // use the us index
   def win(u: String) = user(u) ++ Json.obj(F.winnerId -> u)
@@ -65,4 +66,5 @@ object Query {
   def checkable = Json.obj(F.checkAt -> $lt($date(DateTime.now)))
 
   val sortCreated = $sort desc F.createdAt
+  val sortUpdatedNoIndex = $sort desc F.updatedAt
 }
