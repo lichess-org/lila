@@ -5,7 +5,7 @@ import chess.{ Situation, Variant }
 import play.api.libs.json.Json
 
 import lila.app._
-import lila.game.GameRepo
+import lila.game.{ GameRepo, Pov }
 import views._
 
 object UserAnalysis extends LilaController with BaseGame {
@@ -19,7 +19,7 @@ object UserAnalysis extends LilaController with BaseGame {
     val pov = makePov(situation)
     val data = Env.round.jsonView.userAnalysisJson(pov, ctx.pref)
     makeListMenu map { listMenu =>
-      Ok(html.board.userAnalysis(data, listMenu))
+      Ok(html.board.userAnalysis(listMenu, data, none))
     }
   }
 
@@ -34,6 +34,16 @@ object UserAnalysis extends LilaController with BaseGame {
       pgnImport = None,
       castles = situation.board.history.castles),
     situation.color)
+
+  def game(id: String, color: String) = Open { implicit ctx =>
+    OptionFuOk(GameRepo game id) { game =>
+      val pov = Pov(game, chess.Color(color == "white"))
+      val data = Env.round.jsonView.userAnalysisJson(pov, ctx.pref)
+      makeListMenu map { listMenu =>
+        html.board.userAnalysis(listMenu, data, pov.some)
+      }
+    }
+  }
 
   // def game(id: String) = Open { implicit ctx =>
   //   OptionResult(GameRepo game id) { game =>

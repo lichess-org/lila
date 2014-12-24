@@ -88,6 +88,9 @@ time {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: attr(data-icon);
+}
+.is.text::before,
+.text[data-icon]::before {
   margin-right: 5px;
 }
 [data-icon].is2::before {

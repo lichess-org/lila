@@ -254,3 +254,8 @@ div.shortcuts li {
 #site_header div.shortcuts strong {
   font-weight: bold;
 }
+.back_to_game {
+  margin-top: 30px;
+  width: 512px;
+  text-align: center;
+}

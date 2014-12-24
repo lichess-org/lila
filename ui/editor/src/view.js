@@ -30,7 +30,7 @@ function controls(ctrl, fen) {
       }, ctrl.trans('clearBoard'))
     ]),
     m('div', [
-      m('a.button[data-icon=B]', {
+      m('a.button.text[data-icon=B]', {
         onclick: ctrl.chessground.toggleOrientation
       }, ctrl.trans('flipBoard')),
       m('a.button', {
@@ -58,10 +58,10 @@ function controls(ctrl, fen) {
       ])
     ]),
     m('div', [
-      ctrl.positionLooksLegit() ? m('a.button[data-icon=@]', {
+      ctrl.positionLooksLegit() ? m('a.button.text[data-icon=@]', {
         href: editor.makeUrl('/analysis/', fen),
         rel: 'nofollow'
-      }, ctrl.trans('analysis')) : m('span.button.disabled[data-icon=@]', {
+      }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon=@]', {
         rel: 'nofollow'
       }, ctrl.trans('analysis')),
       m('a.button', {

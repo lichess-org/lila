@@ -1,4 +1,4 @@
-@(data: play.api.libs.json.JsObject, listMenu: lila.game.ListMenu)(implicit ctx: Context)
+@(listMenu: lila.game.ListMenu, data: play.api.libs.json.JsObject, pov: Option[Pov])(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("analyse.css")
@@ -23,4 +23,11 @@ moreCss = moreCss,
 moreJs = moreJs,
 menu = game.sideMenu(listMenu, "userAnalysis").some) {
 <div class="analyse cg-512">@miniBoardContent</div>
+@pov.map { p =>
+<div class="back_to_game">
+  <a class="button" href="@routes.Round.watcher(p.gameId, p.color.name)">
+    <span data-icon="i" class="text">@trans.backToGame()</span>
+  </a>
+</div>
+}
 }

@@ -106,6 +106,7 @@ GET   /$gameId<\w{8}>/next                       controllers.Round.next(gameId: 
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
 POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: String)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: String)
+GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: String, color: String)
 
 # Round accessibility: text representation
 GET   /$fullId<\w{12}>/text                      controllers.Round.playerText(fullId: String)
