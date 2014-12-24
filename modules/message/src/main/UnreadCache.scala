@@ -12,8 +12,8 @@ private[message] final class UnreadCache(
   private val cache = mongoCache[String, List[String]](
     prefix = "message:unread",
     f = ThreadRepo.userUnreadIds,
-    maxCapacity = 8192,
-    timeToLive = 6 hours)
+    maxCapacity = 4096,
+    timeToLive = 2.days)
 
   def apply(userId: String): Fu[List[String]] = cache(userId)
 

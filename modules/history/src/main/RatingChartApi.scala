@@ -21,7 +21,7 @@ final class RatingChartApi(
   private val cache = mongoCache[User, String](
     prefix = "history:rating",
     f = (user: User) => build(user) map (~_),
-    maxCapacity = 50,
+    maxCapacity = 64,
     timeToLive = cacheTtl,
     keyToString = _.id)
 

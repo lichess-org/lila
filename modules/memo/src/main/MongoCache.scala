@@ -52,12 +52,13 @@ object MongoCache {
     def apply[K, V: Handler](
       prefix: String,
       f: K => Fu[V],
-      maxCapacity: Int = 500,
-      initialCapacity: Int = 16,
+      maxCapacity: Int = 512,
+      initialCapacity: Int = 64,
       timeToLive: FiniteDuration,
+      timeToLiveMongo: Option[FiniteDuration] = None,
       keyToString: K => String = (k: K) => k.toString): MongoCache[K, V] = new MongoCache[K, V](
       prefix = prefix,
-      expiresAt = expiresAt(timeToLive),
+      expiresAt = expiresAt(timeToLiveMongo | timeToLive),
       cache = LruCache(maxCapacity, initialCapacity, timeToLive),
       coll = coll,
       f = f,
@@ -66,9 +67,10 @@ object MongoCache {
     def single[V: Handler](
       prefix: String,
       f: => Fu[V],
-      timeToLive: FiniteDuration) = new MongoCache[Boolean, V](
+      timeToLive: FiniteDuration,
+      timeToLiveMongo: Option[FiniteDuration] = None) = new MongoCache[Boolean, V](
       prefix = prefix,
-      expiresAt = expiresAt(timeToLive),
+      expiresAt = expiresAt(timeToLiveMongo | timeToLive),
       cache = LruCache(timeToLive = timeToLive),
       coll = coll,
       f = _ => f,

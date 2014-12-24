@@ -35,7 +35,7 @@ final class Cached(
   val topPerf = mongoCache[Perf.Key, List[User]](
     prefix = "user:top:perf",
     f = (perf: Perf.Key) => UserRepo.topPerfSince(perf, twoWeeksAgo, leaderboardSize),
-    timeToLive = 10 minutes)
+    timeToLive = 15 minutes)
 
   private case class UserPerf(user: User, perfKey: String)
   private implicit val UserPerfBSONHandler = reactivemongo.bson.Macros.handler[UserPerf]
@@ -47,7 +47,7 @@ final class Cached(
         UserPerf(u, perf.key)
       }
     }.sequenceFu map (_.flatten),
-    timeToLive = 10 minutes)
+    timeToLive = 14 minutes)
 
   def topToday(x: Boolean): Fu[List[(User, PerfType)]] =
     topTodayCache(x) map2 { (up: UserPerf) =>
@@ -59,15 +59,14 @@ final class Cached(
     f = UserRepo.topNbGame,
     timeToLive = 34 minutes)
 
-  val topOnline = mongoCache[Int, List[User]](
-    prefix = "user:top:online",
+  val topOnline = lila.memo.AsyncCache[Int, List[User]](
     f = UserRepo.byIdsSortRating(onlineUserIdMemo.keys, _),
-    timeToLive = 5 seconds)
+    timeToLive = 10 seconds)
 
   val topToints = mongoCache[Int, List[User]](
     prefix = "user:toint:online",
     f = UserRepo.allSortToints,
-    timeToLive = 10 minutes)
+    timeToLive = 21 minutes)
 
   object ranking {
 
@@ -81,7 +80,7 @@ final class Cached(
     private val cache = mongoCache[Perf.Key, Map[User.ID, Int]](
       prefix = "user:ranking",
       f = compute,
-      timeToLive = 31 minutes)
+      timeToLive = 33 minutes)
 
     private def compute(perf: Perf.Key): Fu[Map[User.ID, Int]] =
       $primitive(
