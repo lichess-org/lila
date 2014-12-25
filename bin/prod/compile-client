@@ -1,15 +1,9 @@
 #!/bin/sh
 . bin/lilarc
 
-mkdir -p public/compiled
+./ui/build prod
 
-for app in editor puzzle round analyse; do
-  cd ui/$app
-  npm install ../chessli
-  npm install ../game
-  npm install && gulp dev && gulp prod
-  cd -
-done
+mkdir -p public/compiled
 
 for file in socket.js tv.js common.js big.js chart2.js user.js coordinate.js; do
   orig=public/javascripts/$file

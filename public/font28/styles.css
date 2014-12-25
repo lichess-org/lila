@@ -296,9 +296,12 @@
 .icon-list:before {
   content: "?";
 }
-.icon-skull:before {
-  content: ">";
-}
 .icon-share:before {
   content: "[";
+}
+.icon-atom:before {
+  content: ">";
+}
+.icon-diamond:before {
+  content: "{";
 }

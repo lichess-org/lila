@@ -305,3 +305,5 @@ thisPuzzleIsCorrect=Ο γρίφος είναι σωστός και ενδιαφ�
 thisPuzzleIsWrong=Ο γρίφος είναι λανθασμένος ή βαρετός
 youHaveNbSecondsToMakeYourFirstMove=Έχετε %s δευτερόλεπτα για να κάνετε τη πρώτη σας κίνηση!
 nbGamesInPlay=%s παιχνίδια παίζονται τώρα
+automaticallyProceedToNextGameAfterMoving=Προχωρήστε αυτόματα στο επόμενο παιχνίδι μετά την κίνηση
+autoSwitch=Αυτόματη εναλλαγή

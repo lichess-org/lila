@@ -17,7 +17,7 @@ module.exports = function(ctrl, player, klass) {
         if (isUpdate) return;
         el.classList.add('ulpt');
       },
-      class: 'user_link ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
+      class: 'text user_link ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
       href: '/@/' + player.user.username,
       target: game.isPlayerPlaying(ctrl.data) ? '_blank' : null,
       'data-icon': 'r',

@@ -74,7 +74,7 @@ function renderTablePlay(ctrl) {
     button.cancelDrawOffer(ctrl),
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
-    button.answerOpponentTakebackProposition(ctrl), (game.mandatory(d) && game.nbMoves(d, d.player.color) === 0) ? m('div[data-icon=j]',
+    button.answerOpponentTakebackProposition(ctrl), (game.mandatory(d) && game.nbMoves(d, d.player.color) === 0) ? m('div.text[data-icon=j]',
       ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 30)
     ) : null
   ]);
