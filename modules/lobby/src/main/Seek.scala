@@ -54,7 +54,7 @@ case class Seek(
     "days" -> daysPerTurn,
     "color" -> chess.Color(color).??(_.name),
     "perf" -> Json.obj(
-      "icon" -> perfType.map(_.icon),
+      "icon" -> perfType.map(_.iconChar.toString),
       "name" -> perfType.map(_.name))
   )
 

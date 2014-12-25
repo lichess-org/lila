@@ -78,7 +78,7 @@ case class Perfs(
     case PerfType.Chess960       => chess960
     case PerfType.KingOfTheHill  => kingOfTheHill
     case PerfType.ThreeCheck     => threeCheck
-    case PerfType.Antichess      => antichess
+    case PerfType.Antichess        => antichess
     case PerfType.Puzzle         => puzzle
   }
 
@@ -117,7 +117,7 @@ case object Perfs {
     case Variant.Chess960      => Some(_.chess960)
     case Variant.KingOfTheHill => Some(_.kingOfTheHill)
     case Variant.ThreeCheck    => Some(_.threeCheck)
-    case Variant.Antichess     => Some(_.antichess)
+    case Variant.Antichess  => Some(_.antichess)
     case Variant.FromPosition  => none
   }
 

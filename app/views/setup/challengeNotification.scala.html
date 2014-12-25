@@ -7,7 +7,7 @@
   <a class="block" href="@routes.Round.watcher(g.id, "white")">
     <span class="game_infos" data-icon="@g.perfType match {
       case _ if g.fromPosition => {*}
-      case Some(p) => {@p.icon}
+      case Some(p) => {@p.iconChar}
       case _ => {8}
       }">
       @userSpan(user, withOnline = false, withPerfRating = g.perfType)

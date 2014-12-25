@@ -9,7 +9,7 @@
       case _ if game.fromPosition => {*}
       case _ if game.hasAi => {:}
       case _ if game.imported => {/}
-      case Some(p) => {@p.icon}
+      case Some(p) => {@p.iconChar}
       case _ => {8}
       }">
 
@@ -61,7 +61,7 @@
     </div>
     }
     @if(game.variant.threeCheck) {
-    <div class="check_count" data-icon="@lila.rating.PerfType("threeCheck").map(_.icon)">
+    <div class="check_count" data-icon="@lila.rating.PerfType("threeCheck").map(_.iconChar)">
       Checks given:
       @* Note that they are stored the other way round, as checks received *@
       <span class="player is color-icon black">@game.checkCount.white</span>
