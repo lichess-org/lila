@@ -305,3 +305,5 @@ thisPuzzleIsCorrect=هذا اللغز صحيح وممتع
 thisPuzzleIsWrong=هذا اللغز خطأ وممل
 youHaveNbSecondsToMakeYourFirstMove=لديك %s  ثانية لتقوم بأول نقلة
 nbGamesInPlay=%s لعبة جارية
+automaticallyProceedToNextGameAfterMoving=الإنتقال تلقائياً للعبة التالية بعد كل نقلة
+autoSwitch=تبديل تلقائي
