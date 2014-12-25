@@ -169,6 +169,7 @@ tournaments=مسابقه ها
 tournamentPoints=مجموع امتیازات مسابقات
 viewTournament=مشاهده مسابقات
 backToTournament=برگشت به مسابقه
+backToGame=بازگشت به بازی
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=بازی شطرنج آنلاین. بازی شطرنج در حال حاضر در یک رابط تمیز. بدون نیاز به ثبت نام ، بدون تبلیغات ، هیچ پلاگین مورد نیاز، در دسترس است. بازی شطرنج با کامپیوتر، دوستان و یا حریفان تصادفی.
 teams=تیم ها
 nbMembers=%sعضو
