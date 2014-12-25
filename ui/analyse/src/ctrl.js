@@ -34,6 +34,10 @@ module.exports = function(cfg, router, i18n, onChange) {
     return ['chess960', 'fromPosition'].indexOf(this.data.game.variant.key) !== -1;
   }.bind(this);
 
+  var isAntichess = function () {
+    return this.data.game.variant.key === "antichess";
+  }.bind(this);
+
   var situationCache = {};
   var showGround = function() {
     var moves;
@@ -50,7 +54,7 @@ module.exports = function(cfg, router, i18n, onChange) {
     if (nbMoves == 0) {
       var chess = new Chess(
         this.data.game.initialFen,
-        is960() ? 1 : 0);
+        is960() ? 1 : (isAntichess() ? 2 : 0));
       var turnColor = chess.turn() == 'w' ? 'white' : 'black';
       this.vm.situation = {
         fen: this.data.game.initialFen,
@@ -74,7 +78,7 @@ module.exports = function(cfg, router, i18n, onChange) {
       if (!cached || ply < nbMoves) {
         var chess = new Chess(
           fen || this.data.game.initialFen,
-          is960() ? 1 : 0);
+        is960() ? 1 : (isAntichess() ? 2 : 0));
         for (ply = ply; ply <= nbMoves; ply++) {
           move = moves[ply - 1];
           hash += move;
@@ -126,8 +130,7 @@ module.exports = function(cfg, router, i18n, onChange) {
     $.sound.move();
     var chess = new Chess(
       this.vm.situation.fen,
-      is960() ? 1 : 0
-    );
+        is960() ? 1 : (isAntichess() ? 2 : 0));
     var move = chess.move({
       from: orig,
       to: dest,

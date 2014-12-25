@@ -28,10 +28,11 @@ module.exports = function(root) {
         fen = cached.fen;
       }
       if (!cached || ply < this.ply) {
+        var variant = root.data.game.variant.key;
+
         var chess = new Chess(
           fen || root.data.game.initialFen,
-          root.data.game.variant.key == 'chess960' ? 1 : 0
-        );
+          variant == 'chess960' ? 1 : (variant == 'antichess' ? 2 : 0));
         for (ply = ply; ply <= this.ply; ply++) {
           move = root.data.game.moves[ply - 1];
           hash += move;
