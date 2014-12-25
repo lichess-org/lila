@@ -7,7 +7,7 @@
   @error.map { e =>
   <p class="error">@e</p>
   <br />
-  <a href="@routes.Lobby.home" class="button" data-icon="L">&nbsp;@trans.cancel()</a>
+  <a href="@routes.Lobby.home" class="button text" data-icon="L">@trans.cancel()</a>
   }.getOrElse {
   <div class="game_config_form">
     @helper.form(action = route, 'novalidate -> "novalidate") {
