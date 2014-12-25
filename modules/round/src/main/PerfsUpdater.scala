@@ -29,6 +29,8 @@ final class PerfsUpdater(historyApi: HistoryApi) {
             updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result, system)
           case chess.Variant.ThreeCheck =>
             updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, result, system)
+          case chess.Variant.Antichess =>
+            updateRatings(ratingsW.antichess, ratingsB.antichess, result, system)
           case _ =>
         }
         if (game.variant.standard) {
@@ -65,6 +67,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     chess960: Rating,
     kingOfTheHill: Rating,
     threeCheck: Rating,
+    antichess: Rating,
     bullet: Rating,
     blitz: Rating,
     classical: Rating,
@@ -74,6 +77,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     chess960 = perfs.chess960.toRating,
     kingOfTheHill = perfs.kingOfTheHill.toRating,
     threeCheck = perfs.threeCheck.toRating,
+    antichess = perfs.antichess.toRating,
     bullet = perfs.bullet.toRating,
     blitz = perfs.blitz.toRating,
     classical = perfs.classical.toRating,
@@ -112,6 +116,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
       chess960 = game.variant.chess960.fold(perfs.chess960.add(ratings.chess960, date), perfs.chess960),
       kingOfTheHill = game.variant.kingOfTheHill.fold(perfs.kingOfTheHill.add(ratings.kingOfTheHill, date), perfs.kingOfTheHill),
       threeCheck = game.variant.threeCheck.fold(perfs.threeCheck.add(ratings.threeCheck, date), perfs.threeCheck),
+      antichess = game.variant.antichess.fold(perfs.antichess.add(ratings.antichess, date), perfs.antichess),
       bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
       classical = (!isCor && isStd && classicalSpeeds(speed)).fold(perfs.classical.add(ratings.classical, date), perfs.classical),
