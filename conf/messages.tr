@@ -169,6 +169,7 @@ tournaments=Turnuvalar
 tournamentPoints=Turnuvadan alınan puanlar
 viewTournament=Turnuvayı izle
 backToTournament=Turnuvaya dön
+backToGame=Oyuna dön
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Bedava online Satranç oyunu. Şimdi temiz bir arayüzde Satranç oyna. Kayıta gerek yok, reklam yok, eklenti yok. Kendine, arkadaşlarına veya rastgele bir rakiple Satranç oyna.
 teams=Takımlar
 nbMembers=%s üyeler
