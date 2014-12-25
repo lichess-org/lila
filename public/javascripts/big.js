@@ -1318,6 +1318,7 @@ var storage = {
             break;
           case '5':
             key = 'threeCheck';
+            break;
           case '6':
             key = 'antichess'
         }
