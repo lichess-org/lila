@@ -305,3 +305,5 @@ thisPuzzleIsCorrect=Dette problemet er riktig og interessant
 thisPuzzleIsWrong=Dette problemet er feil eller kjedelig
 youHaveNbSecondsToMakeYourFirstMove=Du har %s sekunder på deg til å gjøre første trekk!
 nbGamesInPlay=%s partier i gang
+automaticallyProceedToNextGameAfterMoving=Fortsett automatisk til neste parti etter utført trekk
+autoSwitch=Autosyklus
