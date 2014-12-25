@@ -22,12 +22,10 @@
   }
   @ctx.me.map { me =>
   <div class="ratings">
-    @List("bullet", "blitz", "classical", "correspondence", "chess960", "kingOfTheHill", "threeCheck", "antichess").map { key =>
-    @lila.rating.PerfType(key).map { perfType =>
-    <div class="@key">
-      @trans.ratingX(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}""")
+    @lila.rating.PerfType.nonPuzzle.map { perfType =>
+    <div class="@perfType.key">
+      @trans.ratingX(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(perfType.key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}""")
     </div>
-    }
     }
   </div>
   }
