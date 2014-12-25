@@ -62,7 +62,7 @@ function hasAi(data) {
 }
 
 function userAnalysable(data) {
-  return !data.clock || !isPlayerPlaying(data);
+  return !replayable(data) && (!data.clock || !isPlayerPlaying(data));
 }
 
 function setOnGame(data, color, onGame) {
