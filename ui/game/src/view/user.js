@@ -25,7 +25,7 @@ module.exports = function(ctrl, player, klass) {
       (player.user.title ? player.user.title + ' ' : '') + player.user.username,
       rating ? ' (' + rating + ')' : '',
       ratingDiff(player),
-      player.engine ? m('span.text[data-icon=j]', {
+      player.engine ? m('span[data-icon=j]', {
         title: ctrl.trans('thisPlayerUsesChessComputerAssistance')
       }) : null
     ]),

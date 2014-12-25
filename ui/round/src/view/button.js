@@ -47,11 +47,11 @@ module.exports = {
     if (ctrl.data.opponent.offeringDraw) return m('div.negotiation', [
       ctrl.trans('yourOpponentOffersADraw'),
       m('br'),
-      m('a.button[data-icon=E]', {
+      m('a.button.text[data-icon=E]', {
         onclick: partial(ctrl.socket.send, 'draw-yes', null)
       }, ctrl.trans('accept')),
       m.trust('&nbsp;'),
-      m('a.button[data-icon=L]', {
+      m('a.button.text[data-icon=L]', {
         onclick: partial(ctrl.socket.send, 'draw-no', null)
       }, ctrl.trans('decline')),
     ]);
@@ -68,11 +68,11 @@ module.exports = {
     if (ctrl.data.opponent.proposingTakeback) return m('div.negotiation', [
       ctrl.trans('yourOpponentProposesATakeback'),
       m('br'),
-      m('a.button[data-icon=E]', {
+      m('a.button.text[data-icon=E]', {
         onclick: partial(ctrl.socket.send, 'takeback-yes', null)
       }, ctrl.trans('accept')),
       m.trust('&nbsp;'),
-      m('a.button[data-icon=L]', {
+      m('a.button.text[data-icon=L]', {
         onclick: partial(ctrl.socket.send, 'takeback-no', null)
       }, ctrl.trans('decline')),
     ]);
@@ -113,7 +113,7 @@ module.exports = {
     ];
   },
   viewRematch: function(ctrl) {
-    if (ctrl.data.game.rematch) return m('a.viewRematch.button[data-icon=v]', {
+    if (ctrl.data.game.rematch) return m('a.viewRematch.button.text[data-icon=v]', {
       href: ctrl.router.Round.watcher(ctrl.data.game.rematch, ctrl.data.opponent.color).url
     }, ctrl.trans('viewRematch'));
   },
@@ -127,7 +127,7 @@ module.exports = {
     ];
   },
   backToTournament: function(ctrl) {
-    if (ctrl.data.tournament && ctrl.data.tournament.running) return m('a[data-icon=G].button.strong.glowing', {
+    if (ctrl.data.tournament && ctrl.data.tournament.running) return m('a.text[data-icon=G].button.strong.glowing', {
       href: '/tournament/' + ctrl.data.tournament.id
     }, ctrl.trans('backToTournament'));
   },

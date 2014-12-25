@@ -74,12 +74,12 @@ function renderCommentary(ctrl) {
       ]);
     case 'great':
       return m('div.comment.great', [
-        m('h3[data-icon=E]', m('strong', ctrl.trans('bestMove'))),
+        m('h3.text[data-icon=E]', m('strong', ctrl.trans('bestMove'))),
         m('span', ctrl.trans('keepGoing'))
       ]);
     case 'fail':
       return m('div.comment.fail', [
-        m('h3[data-icon=k]', m('strong', ctrl.trans('puzzleFailed'))),
+        m('h3.text[data-icon=k]', m('strong', ctrl.trans('puzzleFailed'))),
         ctrl.data.mode == 'try' ? m('span', ctrl.trans('butYouCanKeepTrying')) : null
       ]);
     default:
@@ -93,7 +93,7 @@ function renderRatingDiff(diff) {
 
 function renderWin(ctrl, attempt) {
   return m('div.comment.win', [
-    m('h3[data-icon=E]', [
+    m('h3.text[data-icon=E]', [
       m('strong', ctrl.trans('victory')),
       attempt ? renderRatingDiff(attempt.userRatingDiff) : null
     ]),
@@ -103,7 +103,7 @@ function renderWin(ctrl, attempt) {
 
 function renderLoss(ctrl, attempt) {
   return m('div.comment.loss',
-    m('h3[data-icon=k]', [
+    m('h3.text[data-icon=k]', [
       m('strong', ctrl.trans('puzzleFailed')),
       attempt ? renderRatingDiff(attempt.userRatingDiff) : null
     ])
@@ -198,11 +198,11 @@ function renderViewTable(ctrl) {
       )
     ]),
     m('div.continue_wrap', [
-      ctrl.data.win === null ? m('button.continue.button[data-icon=G]', {
+      ctrl.data.win === null ? m('button.continue.button.text[data-icon=G]', {
         onclick: partial(xhr.newPuzzle, ctrl)
-      }, ctrl.trans('continueTraining')) : m('a.continue.button[data-icon=G]', {
+      }, ctrl.trans('continueTraining')) : m('a.continue.button.text[data-icon=G]', {
         onclick: partial(xhr.newPuzzle, ctrl)
-      }, ctrl.trans('startTraining')), !(ctrl.data.win === null ? ctrl.data.attempt.win : ctrl.data.win) ? m('a.retry[data-icon=P]', {
+      }, ctrl.trans('startTraining')), !(ctrl.data.win === null ? ctrl.data.attempt.win : ctrl.data.win) ? m('a.retry.text[data-icon=P]', {
         onclick: partial(xhr.retry, ctrl)
       }, ctrl.trans('retryThisPuzzle')) : null
     ])
