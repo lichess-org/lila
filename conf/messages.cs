@@ -169,6 +169,7 @@ tournaments=Turnaje
 tournamentPoints=Turnajové body
 viewTournament=Zobrazit turnaj
 backToTournament=Zpět k turnaji
+backToGame=Zpět do hry
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Šachy online zdarma. Hrajte šachy přímo ve Vašem prohlížeči, bez registrace, bez reklam, bez dalšího stahování. Hrajte proti počítači, kamarádům nebo náhodně vybraným soupeřům.
 teams=Týmy
 nbMembers=%s členové
