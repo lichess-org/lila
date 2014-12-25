@@ -169,6 +169,7 @@ tournaments=Torneos
 tournamentPoints=Puntos de torneo
 viewTournament=Ver torneo
 backToTournament=Regresar al torneo.
+backToGame=Regresar al juego
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Ajedrez en línea gratis. Juega al ajedrez con una interfaz limpia. Sin registrarse, sin publicidad, sin requerimiento de plugins. Juega al ajedrez contra el ordenador, amigos u oponentes aleatorios.
 teams=Equipos
 nbMembers=%s miembros
