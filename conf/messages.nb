@@ -169,6 +169,7 @@ tournaments=Turneringer
 tournamentPoints=Turneringspoeng
 viewTournament=Vis turnering
 backToTournament=Tilbake til turneringen
+backToGame=Tilbake til partiet
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.
 teams=Lag
 nbMembers=%s medlemmer
