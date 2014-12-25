@@ -169,6 +169,7 @@ tournaments=Πρωταθλήματα
 tournamentPoints=Πόντοι από πρωταθλήματα
 viewTournament=Παρακολούθηση πρωταθλήματος
 backToTournament=Επιστροφή στο πρωτάθλημα
+backToGame=Επιστρέψτε στο παιχνίδι
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.
 teams=Ομάδες
 nbMembers=%s μέλη
