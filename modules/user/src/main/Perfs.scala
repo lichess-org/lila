@@ -22,7 +22,7 @@ case class Perfs(
     "standard" -> standard,
     "chess960" -> chess960,
     "kingOfTheHill" -> kingOfTheHill,
-    "suicide" -> antichess,
+    "antichess" -> antichess,
     "threeCheck" -> threeCheck,
     "bullet" -> bullet,
     "blitz" -> blitz,
