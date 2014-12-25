@@ -15,7 +15,7 @@
 }
 
 @showPerf(perf: lila.rating.Perf, perfType: PerfType, name: Option[String] = none) = {
-<div data-icon="@perfType.iconChar">
+<div data-icon="@perfType.icon">
   <h3 class="hint--top" data-hint="@perfType.title">@name.getOrElse(perfType.name).toUpperCase</h3>
   <div class="rating">
     <strong class="hint--bottom" data-hint="Glicko rating">@perf.glicko.intRating</strong>

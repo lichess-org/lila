@@ -64,7 +64,7 @@ case class Hook(
     "speed" -> speed.id,
     "color" -> chess.Color(color).??(_.name),
     "perf" -> Json.obj(
-      "icon" -> perfType.map(_.iconChar.toString),
+      "icon" -> perfType.map(_.icon),
       "name" -> perfType.map(_.name))
   )
 

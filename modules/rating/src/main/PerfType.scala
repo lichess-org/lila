@@ -6,7 +6,7 @@ sealed abstract class PerfType(
   val key: Perf.Key,
   val name: String,
   val title: String,
-  val iconChar: Char)
+  val icon: String)
 
 object PerfType {
 
@@ -14,62 +14,62 @@ object PerfType {
     key = "bullet",
     name = Speed.Bullet.name,
     title = Speed.Bullet.title,
-    iconChar = 'T')
+    icon = "T")
 
   case object Blitz extends PerfType(
     key = "blitz",
     name = Speed.Blitz.name,
     title = Speed.Blitz.title,
-    iconChar = ')')
+    icon = ")")
 
   case object Classical extends PerfType(
     key = "classical",
     name = Speed.Classical.name,
     title = Speed.Classical.title,
-    iconChar = '+')
+    icon = "+")
 
   case object Correspondence extends PerfType(
     key = "correspondence",
     name = "Corresp.",
     title = "Correspondence (days per turn)",
-    iconChar = ';')
+    icon = ";")
 
   case object Standard extends PerfType(
     key = "standard",
     name = Variant.Standard.name,
     title = "Standard rules of chess",
-    iconChar = '8')
+    icon = "8")
 
   case object Chess960 extends PerfType(
     key = "chess960",
     name = Variant.Chess960.name,
     title = "Chess960 variant",
-    iconChar = ''')
+    icon = "'")
 
   case object KingOfTheHill extends PerfType(
     key = "kingOfTheHill",
     name = Variant.KingOfTheHill.name,
     title = "King of the Hill variant",
-    iconChar = '(')
+    icon = "(")
 
   case object Antichess extends PerfType(
     key = "antichess",
     name = Variant.Antichess.name,
     title = "Antichess variant",
-    iconChar = '>'
+    icon = "&gt;"
   )
 
   case object ThreeCheck extends PerfType(
     key = "threeCheck",
     name = Variant.ThreeCheck.name,
     title = "Three-check variant",
-    iconChar = '.')
+    icon = ".")
 
   case object Puzzle extends PerfType(
     key = "puzzle",
     name = "Training",
     title = "Training puzzles",
-    iconChar = '-')
+    icon = "-")
 
   val all: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Puzzle)
   val byKey = all map { p => (p.key, p) } toMap

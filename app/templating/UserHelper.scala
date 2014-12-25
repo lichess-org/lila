@@ -39,14 +39,14 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     PerfType.ThreeCheck,
     PerfType.Antichess)
 
-  def showPerfRating(rating: Int, name: String, nb: Int, icon: Char, klass: String) = Html {
+  def showPerfRating(rating: Int, name: String, nb: Int, icon: String, klass: String) = Html {
     val title = s"$name rating over $nb games"
     val attr = if (klass == "title") "title" else "data-hint"
     s"""<span $attr="$title" class="$klass"><span data-icon="$icon">${(nb > 0).fold(rating, "&nbsp;&nbsp;&nbsp;-")}</span></span>"""
   }
 
   def showPerfRating(perfType: PerfType, perf: Perf, klass: String): Html =
-    showPerfRating(perf.intRating, perfType.name, perf.nb, perfType.iconChar, klass)
+    showPerfRating(perf.intRating, perfType.name, perf.nb, perfType.icon, klass)
 
   def showPerfRating(u: User, perfType: PerfType, klass: String = "hint--bottom"): Html =
     showPerfRating(perfType, u perfs perfType, klass)
