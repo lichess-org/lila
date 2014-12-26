@@ -93,7 +93,12 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
         api = _ => BadRequest(err.errorsAsJson).fuccess),
       config => (ctx.userId ?? Env.relation.api.blocking) flatMap { blocking =>
         JsonOk {
-          env.processor.hook(config, uid, lila.common.HTTPRequest sid req, blocking) inject Json.obj("ok" -> true)
+          env.processor.hook(config, uid, lila.common.HTTPRequest sid req, blocking) map { hookId =>
+            Json.obj(
+              "ok" -> true,
+              "hook" -> Json.obj(
+                "id" -> hookId))
+          }
         }
       }
     )

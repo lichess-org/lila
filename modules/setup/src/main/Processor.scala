@@ -53,12 +53,18 @@ private[setup] final class Processor(
     config: HookConfig,
     uid: String,
     sid: Option[String],
-    blocking: Set[String])(implicit ctx: UserContext): Funit =
-    saveConfig(_ withHook config) >>- {
+    blocking: Set[String])(implicit ctx: UserContext): Fu[String] =
+      saveConfig(_ withHook config) >> {
       config.hook(uid, ctx.me, sid, blocking) match {
-        case Left(hook)        => lobby ! AddHook(hook)
-        case Right(Some(seek)) => lobby ! AddSeek(seek)
-        case _                 =>
+        case Left(hook) => fuccess {
+          lobby ! AddHook(hook)
+          hook.id
+        }
+        case Right(Some(seek)) => fuccess {
+          lobby ! AddSeek(seek)
+          seek.id
+        }
+        case _ => fufail("Can't create seek")
       }
     }
 
