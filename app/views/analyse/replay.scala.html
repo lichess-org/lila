@@ -135,7 +135,7 @@ openGraph = povOpenGraph(pov)) {
     </div>
     @cross.map { c =>
     <div class="panel crosstable">
-      @views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov))
+      @views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
     </div>
     }
   </div>

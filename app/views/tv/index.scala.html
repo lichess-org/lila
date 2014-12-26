@@ -28,7 +28,7 @@ chessground = false) {
 </div>
 <div class="crosstable" style="display:none">
   @cross.map { c =>
-  @game.crosstable(pov.player.userId.fold(c)(c.fromPov))
+  @game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
   }
 </div>
 }

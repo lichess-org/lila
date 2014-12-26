@@ -28,7 +28,7 @@ chessground = false) {
 <div class="round cg-512">@miniBoardContent</div>
 <div class="crosstable" style="display:none">
   @cross.map { c =>
-  @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov))
+  @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)
   }
 </div>
 @if(playing.nonEmpty) {

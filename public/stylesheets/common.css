@@ -1932,6 +1932,7 @@ div.lichess_overboard.joining .mini_board {
   border: 1px solid #eee;
   padding: 0;
   min-width: 15px;
+  transition: 0.13s;
 }
 .crosstable td a {
   line-height: 2em;
@@ -1941,6 +1942,13 @@ div.lichess_overboard.joining .mini_board {
   background: #fff;
   text-decoration: none;
 }
+.crosstable td.current {
+  box-shadow: 0 4px 12px #666;
+  transform: translateY(-3px);
+}
+.crosstable td:hover {
+  transform: translateY(-3px);
+}
 body.base .crosstable .win {
   font-weight: bold;
   color: #759900;
@@ -1948,7 +1956,7 @@ body.base .crosstable .win {
 body.base .crosstable .loss {
   color: #ac524f;
 }
-.crosstable td.last {
+.crosstable td:nth-last-child(3) {
   border-right: 1px solid #ccc;
 }
 .crosstable th {
