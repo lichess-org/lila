@@ -11,9 +11,17 @@ import views._
 object Lobby extends LilaController {
 
   def home = Open { implicit ctx =>
-    renderHome(Results.Ok).map(_.withHeaders(
-      CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
-    ))
+    negotiate(
+      html = renderHome(Results.Ok).map(_.withHeaders(
+        CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
+      )),
+      api = _ => fuccess {
+        Ok(Json.obj(
+          "lobby" -> Json.obj(
+            "version" -> Env.lobby.history.version)
+        ))
+      }
+    )
   }
 
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =
