@@ -141,15 +141,15 @@ openGraph = povOpenGraph(pov)) {
   </div>
   <div class="analysis_menu">
     @if(game.analysable) {
-    <a data-panel="computer_analysis">@trans.computerAnalysis()</a>
+    <a data-panel="computer_analysis" class="computer_analysis">@trans.computerAnalysis()</a>
     }
     @if(!game.isPgnImport) {
-    <a data-panel="move_times">@trans.moveTimes()</a>
+    <a data-panel="move_times" class="move_times">@trans.moveTimes()</a>
     @if(cross.isDefined) {
-    <a data-panel="crosstable">Crosstable</a>
+    <a data-panel="crosstable" class="crosstable">Crosstable</a>
     }
     }
-    <a data-panel="fen_pgn">FEN &amp; PGN</a>
+    <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>
   </div>
   @analysis.filter(_.old && ctx.isAuth).map { a =>
   <form class="better_analysis" action="@routes.Analyse.betterAnalysis(gameId, color.name)" method="post">

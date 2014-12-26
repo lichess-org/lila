@@ -2106,7 +2106,7 @@ var storage = {
       });
     };
     var lastFen, lastPath;
-    lichess.analyse.onChange = function(fen, path) {
+    cfg.onChange = function(fen, path) {
       lastFen = fen = fen || lastFen;
       lastPath = path = path || lastPath;
       var chart, point;
@@ -2154,21 +2154,33 @@ var storage = {
       }
     };
     data.path = window.location.hash ? location.hash.replace(/#/, '') : '';
-    analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, lichess.analyse.onChange);
-    lichess.analyse.jump = analyse.jump;
+    analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, cfg.onChange);
+    cfg.jump = analyse.jump;
 
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
     $('.advice_summary', element).appendTo($('.underboard .right', element)).show();
 
     $panels = $('div.analysis_panels > div');
-    $('div.analysis_menu').on('click', 'a', function() {
-      var panel = $(this).data('panel');
-      $(this).siblings('.active').removeClass('active').end().addClass('active');
+    var $menu = $('div.analysis_menu');
+    var storageKey = 'lichess.analysis.panel';
+    var setPanel = function(panel) {
+      $menu.children('.active').removeClass('active').end().find('.' + panel).addClass('active');
       $panels.removeClass('active').filter('.' + panel).addClass('active');
       if (panel == 'move_times') try {
         $.renderMoveTimesChart();
       } catch (e) {}
-    }).find('a:first').click();
+    };
+    $menu.on('click', 'a', function() {
+      var panel = $(this).data('panel');
+      storage.set(storageKey, panel);
+      setPanel(panel);
+    });
+    if (cfg.data.analysis) setPanel('computer_analysis');
+    else {
+      var stored = storage.get(storageKey);
+      if (stored && $menu.children('.' + stored).length) setPanel(stored);
+      else $menu.children('.crosstable').click();
+    }
 
     $panels.find('form.future_game_analysis').submit(function() {
       if ($(this).hasClass('must_login')) {
