@@ -28,7 +28,6 @@ private[tournament] final class TournamentApi(
     socketHub: ActorRef,
     site: ActorSelection,
     lobby: ActorSelection,
-    onStart: String => Unit,
     roundMap: ActorRef) {
 
   def makePairings(oldTour: Started, pairings: NonEmptyList[Pairing], postEvents: Events) {
@@ -87,7 +86,7 @@ private[tournament] final class TournamentApi(
           TournamentRepo.update(started).void >>-
             sendTo(started.id, Start) >>-
             reloadSiteSocket >>-
-            lobbyReload >>- onStart(created.id)
+            lobbyReload
         case None => fufail("Can't start missing tournament " + oldTour.id)
       }
     }

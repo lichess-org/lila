@@ -53,7 +53,6 @@ final class Env(
     socketHub = socketHub,
     site = hub.socket.site,
     lobby = hub.socket.lobby,
-    onStart = onStart,
     roundMap = roundMap)
 
   lazy val socketHandler = new SocketHandler(
@@ -106,6 +105,7 @@ final class Env(
   private lazy val autoPairing = new AutoPairing(
     roundMap = roundMap,
     system = system,
+    onStart = onStart,
     secondsToMove = secondsToMove)
 
   {
