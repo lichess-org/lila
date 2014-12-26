@@ -39,7 +39,7 @@ object GameFilterMenu {
   def apply(
     info: UserInfo,
     me: Option[User],
-    currentName: String): GameFilterMenu = {
+    currentNameOption: Option[String]): GameFilterMenu = {
 
     val user = info.user
 
@@ -53,6 +53,8 @@ object GameFilterMenu {
       (info.nbBookmark > 0) option Bookmark,
       (info.nbImported > 0) option Imported
     ).flatten)
+
+    val currentName = currentNameOption | info.hasSimul.fold(Playing, All).name
 
     val current = currentOf(filters, currentName)
 

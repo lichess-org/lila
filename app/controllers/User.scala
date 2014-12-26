@@ -78,8 +78,7 @@ object User extends LilaController {
 
   private def userShow(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: Context) = for {
     info ← Env.current.userInfo(u, ctx)
-    filterName = filterOption | "all"
-    filters = GameFilterMenu(info, ctx.me, filterName)
+    filters = GameFilterMenu(info, ctx.me, filterOption)
     pag <- GameFilterMenu.paginatorOf(
       user = u,
       info = info.some,
@@ -95,14 +94,18 @@ object User extends LilaController {
   } yield html.user.show(u, info, pag, filters, relation, notes, followable, blocked)
 
   private def userGames(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: Context) = {
-    val filterName = filterOption | "all"
-    GameFilterMenu.paginatorOf(
-      user = u,
-      info = none,
-      filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
-      me = ctx.me,
-      page = page
-    ) map { html.user.games(u, _, filterName) }
+    import lila.app.mashup.GameFilter.{ All, Playing }
+    filterOption.fold({
+      Env.game.cached isPlayingSimul u.id map (_.fold(Playing, All).name)
+    })(fuccess) flatMap { filterName =>
+      GameFilterMenu.paginatorOf(
+        user = u,
+        info = none,
+        filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
+        me = ctx.me,
+        page = page
+      ) map { html.user.games(u, _, filterName) }
+    }
   }
 
   def list = Open { implicit ctx =>
