@@ -104,7 +104,7 @@ final class JsonView(
               "destination" -> pref.destination,
               "coords" -> pref.coords,
               "replay" -> pref.replay,
-              "autoQueen" -> pref.autoQueen,
+              "autoQueen" -> (pov.game.variant == Variant.Antichess).fold(Pref.AutoQueen.NEVER, pref.autoQueen),
               "clockTenths" -> pref.clockTenths,
               "clockBar" -> pref.clockBar,
               "clockSound" -> pref.clockSound,
