@@ -125,10 +125,15 @@ object GameRepo {
   // gets most urgent game to play
   def onePlaying(user: User): Fu[Option[Pov]] = nowPlaying(user) map (_.headOption)
 
-  // gets last recently played move game
-  def lastPlayed(user: User): Fu[Option[Pov]] =
+  // gets last recently played move game in progress
+  def lastPlayedPlaying(user: User): Fu[Option[Pov]] =
     $find.one($query(Query recentlyPlayingWithClock user.id) sort Query.sortUpdatedNoIndex) map {
       _ flatMap { Pov(_, user) }
+    }
+
+  def lastPlayed(user: User): Fu[Option[Pov]] =
+    $find($query(Query user user.id) sort ($sort desc F.createdAt), 20) map {
+      _.sortBy(_.updatedAt).lastOption flatMap { Pov(_, user) }
     }
 
   def countPlayingRealTime(userId: String): Fu[Int] =
