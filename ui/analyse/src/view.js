@@ -286,12 +286,12 @@ function buttons(ctrl) {
         });
       })),
       m('a.button.hint--bottom', flipAttrs, m('span[data-icon=B]')),
-      m('a.button.hint--bottom', {
+      ctrl.data.inGame ? null : m('a.button.hint--bottom', {
         'data-hint': ctrl.trans('boardEditor'),
         href: ctrl.data.userAnalysis ? '/editor?fen=' + ctrl.vm.situation.fen : '/' + ctrl.data.game.id + '/edit?fen=' + ctrl.vm.situation.fen,
         rel: 'nofollow'
       }, m('span[data-icon=m]')),
-      m('a.button.hint--bottom', {
+      ctrl.data.inGame ? null : m('a.button.hint--bottom', {
         'data-hint': ctrl.trans('continueFromHere'),
         onclick: function() {
           ctrl.vm.continue = !ctrl.vm.continue
