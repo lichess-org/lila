@@ -104,7 +104,7 @@ object Round extends LilaController with TheftPrevention {
 
   def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
     negotiate(
-      html = if (pov.game.replayable) Analyse replay pov
+      html = if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
       else if (pov.game.joinable) join(pov)
       else ctx.userId.flatMap(pov.game.playerByUserId).ifTrue(pov.game.playable) match {
         case Some(player) => fuccess(Redirect(routes.Round.player(pov.game fullIdOf player.color)))

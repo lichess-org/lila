@@ -53,7 +53,7 @@ object Analyse extends LilaController {
     Ok
   }
 
-  def replay(pov: Pov)(implicit ctx: Context) =
+  def replay(pov: Pov, userTv: Option[lila.user.User])(implicit ctx: Context) =
     GameRepo initialFen pov.game.id flatMap { initialFen =>
       (env.analyser get pov.game.id) zip
         (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
@@ -73,6 +73,7 @@ object Analyse extends LilaController {
                 tour,
                 new TimeChart(pov.game, pov.game.pgnMoves),
                 crosstable,
+                userTv,
                 division))
             }
         }

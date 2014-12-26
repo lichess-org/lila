@@ -2083,7 +2083,8 @@ var storage = {
           name: "analyse"
         },
         params: {
-          ran: "--ranph--"
+          ran: "--ranph--",
+          userTv: $('.user_tv').data('user-tv')
         },
         events: {
           analysisAvailable: function() {
