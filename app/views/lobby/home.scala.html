@@ -1,4 +1,4 @@
-@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], nowPlaying: List[Pov], seeks: List[lila.lobby.Seek], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], nbRounds: Int)(implicit ctx: Context)
+@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], nbRounds: Int)(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
@@ -29,7 +29,16 @@
 }
 
 @moreJs = {
-@embedJs(s"var lichess_preload = $preload;")
+@jsAt(s"compiled/lichess.lobby${isProd??(".min")}.js")
+@jsRoutes()
+@embedJs {
+lichess = lichess || {};
+lichess.lobby = {
+data: @Html(play.api.libs.json.Json.stringify(data)),
+routes: lobbyRoutes.controllers,
+i18n: @jsI18n()
+};
+}
 }
 
 @base.layout(
@@ -41,6 +50,7 @@ side = side.some,
 moreJs = moreJs,
 moreCss = cssTag("home.css"),
 underchat = underchat.some,
+chessground = false,
 openGraph = Map(
 'type -> "website",
 'image -> s"${staticUrl("images/large_tile.png")}",
@@ -53,7 +63,8 @@ openGraph = Map(
   @translationCall.map(i18n.callBox(_))
 </div>
 <div class="lobby_and_ground">
-  <div id="hooks_wrap" data-socket-url="@routes.Lobby.socket(apiVersion)">
+  <div id="hooks_wrap">
+    @*
     <div class="tabs">
       <a data-tab="real_time" class="real_time">@trans.realTime()</a>
       <a data-tab="seeks" class="seeks">@trans.correspondence()</a>
@@ -106,6 +117,7 @@ openGraph = Map(
     </div>
     <div id="hook_overlay"></div>
     <div id="hook_filter"></div>
+    *@
   </div>
   <div id="start_buttons" class="lichess_ground">
     @lobbyMenu.all.map { b =>

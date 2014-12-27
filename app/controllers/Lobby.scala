@@ -31,17 +31,13 @@ object Lobby extends LilaController {
     Env.current.preloader(
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds),
       tours = Env.tournament promotable true,
-      filter = Env.setup.filter).map {
-        case (preload, entries, posts, tours, featured, lead, tWinners, puzzle, nowPlaying, seeks, streams, nbRounds) =>
-          val response = status(html.lobby.home(
-            Json stringify preload, entries, posts, tours, featured, lead, tWinners,
-            puzzle, nowPlaying, seeks, streams, Env.blog.lastPostCache.apply, nbRounds
-          ))
-          // the session cookie is required for anon lobby filter storage
-          ctx.req.session.data.contains(LilaCookie.sessionId).fold(
-            response,
-            response withCookies LilaCookie.makeSessionId(ctx.req)
-          )
+      filter = Env.setup.filter
+    ) map (html.lobby.home.apply _).tupled map { template =>
+        // the session cookie is required for anon lobby filter storage
+        ctx.req.session.data.contains(LilaCookie.sessionId).fold(
+          status(template),
+          status(template) withCookies LilaCookie.makeSessionId(ctx.req)
+        )
       }
 
   def playing = Auth { implicit ctx =>

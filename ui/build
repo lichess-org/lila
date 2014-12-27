@@ -5,10 +5,8 @@ target=${1-dev}
 
 mkdir -p public/compiled
 
-for app in editor puzzle round analyse; do
+for app in editor puzzle round analyse lobby; do
   cd ui/$app
-  npm install ../chessli
-  npm install ../game
   npm install && gulp $target
   cd -
 done

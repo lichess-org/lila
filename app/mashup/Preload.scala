@@ -32,7 +32,7 @@ final class Preload(
     countRounds: () => Int,
     seekApi: SeekApi) {
 
-  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[Pov], List[Seek], List[StreamOnAir], Int)
+  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Int)
 
   def apply(
     posts: Fu[List[MiniForumPost]],
@@ -53,8 +53,10 @@ final class Preload(
         case (((((((((((hooks, posts), tours), feat), entries), lead), tWinners), puzzle), povs), seeks), filter), streams) =>
           (Json.obj(
             "version" -> lobbyVersion(),
-            "hookPool" -> JsArray(hooks map (_.render)),
+            "hooks" -> JsArray(hooks map (_.render)),
+            "seeks" -> JsArray(),
+            "nowPlaying" -> JsArray(),
             "filter" -> filter.render
-          ), entries, posts, tours, feat, lead, tWinners, puzzle, povs, seeks, streams, countRounds())
+          ), entries, posts, tours, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, countRounds())
       }
 }
