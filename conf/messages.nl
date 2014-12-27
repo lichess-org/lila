@@ -169,6 +169,7 @@ tournaments=Toernooien
 tournamentPoints=Toernooipunten
 viewTournament=Bekijk het toernooi
 backToTournament=Terug naar het tournament
+backToGame=Terug naar spel
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.
 teams=Teams
 nbMembers=%s leden
