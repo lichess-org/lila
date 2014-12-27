@@ -166,16 +166,6 @@ div.lobby_and_ground {
 #hooks_list thead th {
   cursor: pointer;
 }
-#hooks_wrap .table_wrap th.reload span {
-  display: block;
-  cursor: pointer;
-  margin-left: 2px;
-  opacity: 0.5;
-  transition: 0.13s;
-}
-#hooks_wrap .table_wrap th.reload:hover span {
-  opacity: 0.8;
-}
 #hooks_wrap .table_wrap th.sorting-asc,
 #hooks_wrap .table_wrap th.sorting-desc {
   font-weight: normal;
