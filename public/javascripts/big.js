@@ -831,18 +831,6 @@ var storage = {
             $('div.check_count')
               .find('.white').text(e.black).end()
               .find('.black').text(e.white);
-          },
-          opponent_play: function(e) {
-            $.ajax({
-              url: $nowPlaying.data('reload-url'),
-              success: function(html) {
-                $nowPlaying.html(html);
-                $('body').trigger('lichess.content_loaded');
-                loadPlaying();
-                var nextId = $nowPlaying.find('input.next_id').val();
-                if (nextId) round.moveOn.next(nextId);
-              }
-            });
           }
         }
       });
