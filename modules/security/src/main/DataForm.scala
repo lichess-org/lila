@@ -27,6 +27,7 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
     "move" -> nonEmptyText
   )(SignupData.apply)(_ => None)
     .verifying("This user already exists", d => !userExists(d).await)
+    .verifying("This username is not acceptable", d => !usernameSucks(d.username.toLowerCase))
     .verifying(captchaFailMessage, validateCaptcha _)
   )
 
@@ -61,10 +62,19 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
     ))
 
   private def userExists(data: SignupData) =
-    if (usernameSucks(data.username.toLowerCase)) fuccess(true)
-    else $count.exists(data.username.toLowerCase)
+    $count.exists(data.username.toLowerCase)
 
-  private def usernameSucks(u: String) = lameUsernames exists u.contains
+  private def usernameSucks(u: String) =
+    (lameUsernames exists u.contains) ||
+      (lamePrefixes exists u.startsWith) ||
+      (lameSuffixes exists u.endsWith)
+
+  private val lamePrefixes = "_" :: "-" :: (for {
+    title <- "nm cm fm im gm lm".split(' ').toList
+    sep <- List("-", "_")
+  } yield s"$title$sep") ::: (0 to 9).toList map (_.toString)
+
+  private val lameSuffixes = List("-", "_")
 
   private val lameUsernames = List(
     "hitler",
