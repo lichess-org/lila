@@ -64,11 +64,6 @@ trait AssetHelper { self: I18nHelper =>
     jsAt(s"vendor/moment/locale/$l.js", static = true)
   }
 
-  val powertipTag = cdnOrLocal(
-    cdn = "http://cdnjs.cloudflare.com/ajax/libs/jquery-powertip/1.2.0/jquery.powertip.min.js",
-    test = "$.powerTip",
-    local = staticUrl("vendor/powertip.min.js"))
-
   val tagmanagerTag = cdnOrLocal(
     cdn = "http://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
     test = "$.tagsManager",

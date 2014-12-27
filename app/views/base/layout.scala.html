@@ -275,7 +275,6 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @jsTag("deps.min.js")
     @momentjsTag
-    @powertipTag
     @jsTagCompiled("socket.js")
     @jsTagCompiled("big.js")
     @moreJs
