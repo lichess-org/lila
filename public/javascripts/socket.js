@@ -33,7 +33,7 @@ lichess.StrongSocket.defaults = {
   events: {
     fen: function(e) {
       $('.live_' + e.id).each(function() {
-        parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
+        lichess.parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
       });
     }
   },
