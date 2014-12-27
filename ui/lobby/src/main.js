@@ -1,16 +1,20 @@
 var m = require('mithril');
 
-var realTime = require('./module/realTime');
+var ctrl = require('./ctrl');
+var view = require('./view/main');
 
-module.exports = function(element, env) {
+module.exports = function(element, opts) {
 
-  //setup routes to start w/ the `#` symbol
-  m.route.mode = 'hash';
+  var controller = new ctrl(opts);
 
-  //define a route
-  m.route(element, '/', {
-    '/': realTime(env)
+  m.module(element, {
+    controller: function () { return controller; },
+    view: view
   });
+
+  return {
+    socketReceive: controller.socket.receive
+  };
 };
 
 // lol, that's for the rest of lichess to access mithril

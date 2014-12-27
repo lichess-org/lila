@@ -42,6 +42,7 @@ div.lobby_and_ground {
   display: inline-block;
   text-decoration: none;
   padding: 0px 8px;
+  margin-right: 3px;
   border: 1px solid #ccc;
   background: #dadada;
   transition: 0.13s;
@@ -59,10 +60,7 @@ div.lobby_and_ground {
   border-top: 2px solid #d85000;
 }
 #hooks_wrap > div.tabs .unread {
-  display: none;
-}
-#hooks_wrap > div.tabs a.hilight .unread {
-  display: inline;
+  margin-left: 3px;
 }
 #real_time .toggle {
   cursor: pointer;
@@ -149,14 +147,11 @@ div.lobby_and_ground {
   margin-left: 3px;
 }
 #hooks_wrap .table_wrap {
+  text-shadow: 0px 1px 0px #FFF;
   width: 512px;
   max-height: 512px;
-  min-height: 200px;
+  min-height: 78px;
   overflow: hidden;
-}
-#hooks_wrap .table_wrap table {
-  width: 512px;
-  text-shadow: 0px 1px 0px #FFF;
 }
 #hooks_wrap .table_wrap thead th {
   padding: 14px 12px;
@@ -165,16 +160,6 @@ div.lobby_and_ground {
 }
 #hooks_list thead th {
   cursor: pointer;
-}
-#hooks_wrap .table_wrap th.reload span {
-  display: block;
-  cursor: pointer;
-  margin-left: 2px;
-  opacity: 0.5;
-  transition: 0.13s;
-}
-#hooks_wrap .table_wrap th.reload:hover span {
-  opacity: 0.8;
 }
 #hooks_wrap .table_wrap th.sorting-asc,
 #hooks_wrap .table_wrap th.sorting-desc {

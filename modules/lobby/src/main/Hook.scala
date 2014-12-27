@@ -58,7 +58,7 @@ case class Hook(
     "username" -> username,
     "rating" -> rating,
     "variant" -> realVariant.shortName,
-    "mode" -> realMode.toString,
+    "mode" -> realMode.id,
     "clock" -> clock.show,
     "time" -> clock.estimateTotalTime,
     "speed" -> speed.id,
