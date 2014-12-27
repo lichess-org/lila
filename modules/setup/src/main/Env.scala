@@ -24,7 +24,7 @@ final class Env(
 
   lazy val forms = new FormFactory(CasualOnly)
 
-  def filter(implicit ctx: UserContext): Fu[FilterConfig] =
+  def filter(ctx: UserContext): Fu[FilterConfig] =
     ctx.me.fold(AnonConfigRepo filter ctx.req)(UserConfigRepo.filter)
 
   lazy val processor = new Processor(

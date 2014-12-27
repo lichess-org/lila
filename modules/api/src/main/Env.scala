@@ -16,6 +16,8 @@ final class Env(
     userEnv: lila.user.Env,
     analyseEnv: lila.analyse.Env,
     puzzleEnv: lila.puzzle.Env,
+    lobbyEnv: lila.lobby.Env,
+    setupEnv: lila.setup.Env,
     userIdsSharingIp: String => Fu[List[String]],
     val isProd: Boolean) {
 
@@ -64,7 +66,15 @@ final class Env(
   val roundApi = new RoundApi(
     jsonView = roundJsonView,
     noteApi = noteApi,
-    analysisApi = analysisApi)
+    analysisApi = analysisApi,
+    lightUser = userEnv.lightUser)
+
+  val lobbyApi = new LobbyApi(
+    lobby = lobbyEnv.lobby,
+    lobbyVersion = () => lobbyEnv.history.version,
+    getFilter = setupEnv.filter,
+    lightUser = userEnv.lightUser,
+    seekApi = lobbyEnv.seekApi)
 
   val puzzleApi = new PuzzleApi(
     env = puzzleEnv,
@@ -88,6 +98,8 @@ object Env {
     userEnv = lila.user.Env.current,
     analyseEnv = lila.analyse.Env.current,
     puzzleEnv = lila.puzzle.Env.current,
+    lobbyEnv = lila.lobby.Env.current,
+    setupEnv = lila.setup.Env.current,
     roundJsonView = lila.round.Env.current.jsonView,
     noteApi = lila.round.Env.current.noteApi,
     pgnDump = lila.game.Env.current.pgnDump,

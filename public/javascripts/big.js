@@ -1540,138 +1540,138 @@ var storage = {
     if (!$wrap.length) return;
     if (!lichess.StrongSocket.available) return;
 
-    var socketUrl = $wrap.data('socket-url');
     var $nowPlaying = $('#now_playing');
     var $seeks = $('#seeks');
     var $timeline = $("#timeline");
     var $newposts = $("div.new_posts");
     var $realTime = $('#real_time');
-    var $canvas = $wrap.find('.canvas');
-    var $hooksList = $wrap.find('#hooks_list');
-    var $tableWrap = $hooksList.find('div.table_wrap');
-    var $table = $tableWrap.find('table').sortable();
-    var $tbody = $table.find('tbody');
-    var animation = 500;
-    var hookPool = [];
-    var nextHooks = [];
+    var nbPlayersElement = document.getElementById('site_baseline span');
+    // var $canvas = $wrap.find('.canvas');
+    // var $hooksList = $wrap.find('#hooks_list');
+    // var $tableWrap = $hooksList.find('div.table_wrap');
+    // var $table = $tableWrap.find('table').sortable();
+    // var $tbody = $table.find('tbody');
+    // var animation = 500;
+    // var hookPool = [];
+    // var nextHooks = [];
 
-    var flushHooksTimeout;
-    var flushHooksSchedule = function() {
-      flushHooksTimeout = setTimeout(flushHooks, 8000);
-    };
-    var flushHooks = function() {
-      clearTimeout(flushHooksTimeout);
-      $tbody.fadeIn(500);
-      $tableWrap.clone().attr('id', 'tableclone').appendTo($hooksList).fadeOut(500, function() {
-        $(this).remove();
-      });
-      $tbody.find('tr.disabled').remove();
-      $tbody.append(nextHooks);
-      nextHooks = [];
-      $table.trigger('sortable.sort');
-      flushHooksSchedule();
-    };
-    flushHooksSchedule();
-    $('body').on('lichess.hook-flush', flushHooks);
+    // var flushHooksTimeout;
+    // var flushHooksSchedule = function() {
+    //   flushHooksTimeout = setTimeout(flushHooks, 8000);
+    // };
+    // var flushHooks = function() {
+    //   clearTimeout(flushHooksTimeout);
+    //   $tbody.fadeIn(500);
+    //   $tableWrap.clone().attr('id', 'tableclone').appendTo($hooksList).fadeOut(500, function() {
+    //     $(this).remove();
+    //   });
+    //   $tbody.find('tr.disabled').remove();
+    //   $tbody.append(nextHooks);
+    //   nextHooks = [];
+    //   $table.trigger('sortable.sort');
+    //   flushHooksSchedule();
+    // };
+    // flushHooksSchedule();
+    // $('body').on('lichess.hook-flush', flushHooks);
 
-    $wrap.on('click', '>div.tabs>a', function() {
-      var tab = $(this).data('tab');
-      $(this).siblings().removeClass('active').end().addClass('active');
-      $wrap.find('>.tab').hide().filter('.' + tab).show();
-      storage.set('lobbytab', tab);
-      reloadSeeksIfVisible();
-    });
-    var active = storage.get('lobbytab');
-    if (['real_time', 'seeks', 'now_playing'].indexOf(active) === -1) active = 'real_time';
-    if (!$wrap.find('>div.tabs>.' + active).length) active = 'real_time';
-    $wrap.find('>div.tabs>.' + active).addClass('active');
-    $wrap.find('>.' + active).show();
+    // $wrap.on('click', '>div.tabs>a', function() {
+    //   var tab = $(this).data('tab');
+    //   $(this).siblings().removeClass('active').end().addClass('active');
+    //   $wrap.find('>.tab').hide().filter('.' + tab).show();
+    //   storage.set('lobbytab', tab);
+    //   reloadSeeksIfVisible();
+    // });
+    // var active = storage.get('lobbytab');
+    // if (['real_time', 'seeks', 'now_playing'].indexOf(active) === -1) active = 'real_time';
+    // if (!$wrap.find('>div.tabs>.' + active).length) active = 'real_time';
+    // $wrap.find('>div.tabs>.' + active).addClass('active');
+    // $wrap.find('>.' + active).show();
 
-    $realTime.on('click', '.toggle', function() {
-      var mode = $(this).data('mode');
-      $realTime.children().hide().filter('#hooks_' + mode).show();
-      storage.set('lobbymode', mode);
-    });
-    var mode = storage.get('lobbymode') || 'list';
-    $('#hooks_' + mode).show();
+    // $realTime.on('click', '.toggle', function() {
+    //   var mode = $(this).data('mode');
+    //   $realTime.children().hide().filter('#hooks_' + mode).show();
+    //   storage.set('lobbymode', mode);
+    // });
+    // var mode = storage.get('lobbymode') || 'list';
+    // $('#hooks_' + mode).show();
 
-    $wrap.find('a.filter').click(function() {
-      var $a = $(this);
-      var $div = $wrap.find('#hook_filter');
-      setTimeout(function() {
-        $div.click(function(e) {
-          e.stopPropagation();
-        });
-        $('html').one('click', function(e) {
-          $div.off('click').removeClass('active');
-          $a.removeClass('active');
-        });
-      }, 10);
-      if ($(this).toggleClass('active').hasClass('active')) {
-        $div.addClass('active');
-        if ($div.is(':empty')) {
-          $.ajax({
-            url: $(this).attr('href'),
-            success: function(html) {
-              var save = $.fp.debounce(function() {
-                var $form = $div.find('form');
-                $.ajax({
-                  url: $form.attr('action'),
-                  data: $form.serialize(),
-                  type: 'post',
-                  success: function(filter) {
-                    lichess_preload.filter = filter;
-                    drawHooks();
-                    $('body').trigger('lichess.hook-flush');
-                  }
-                });
-              }, 500);
-              $div.html(html).find('input').change(save);
-              $div.find('button.reset').click(function() {
-                $div.find('label input').prop('checked', true).trigger('change');
-                $div.find('.rating_range').each(function() {
-                  var s = $(this);
-                  s.slider('values', [s.slider('option', 'min'), s.slider('option', 'max')]).trigger('change');
-                });
-              });
-              $div.find('button').click(function() {
-                $wrap.find('a.filter').click();
-                return false;
-              });
-              $div.find('.rating_range').each(function() {
-                var $this = $(this);
-                var $input = $this.find("input");
-                var $span = $this.siblings(".range");
-                var min = $input.data("min");
-                var max = $input.data("max");
-                var values = $input.val() ? $input.val().split("-") : [min, max];
-                $span.text(values.join(' - '));
+    // $wrap.find('a.filter').click(function() {
+    //   var $a = $(this);
+    //   var $div = $wrap.find('#hook_filter');
+    //   setTimeout(function() {
+    //     $div.click(function(e) {
+    //       e.stopPropagation();
+    //     });
+    //     $('html').one('click', function(e) {
+    //       $div.off('click').removeClass('active');
+    //       $a.removeClass('active');
+    //     });
+    //   }, 10);
+    //   if ($(this).toggleClass('active').hasClass('active')) {
+    //     $div.addClass('active');
+    //     if ($div.is(':empty')) {
+    //       $.ajax({
+    //         url: $(this).attr('href'),
+    //         success: function(html) {
+    //           var save = $.fp.debounce(function() {
+    //             var $form = $div.find('form');
+    //             $.ajax({
+    //               url: $form.attr('action'),
+    //               data: $form.serialize(),
+    //               type: 'post',
+    //               success: function(filter) {
+    //                 lichess_preload.filter = filter;
+    //                 drawHooks();
+    //                 $('body').trigger('lichess.hook-flush');
+    //               }
+    //             });
+    //           }, 500);
+    //           $div.html(html).find('input').change(save);
+    //           $div.find('button.reset').click(function() {
+    //             $div.find('label input').prop('checked', true).trigger('change');
+    //             $div.find('.rating_range').each(function() {
+    //               var s = $(this);
+    //               s.slider('values', [s.slider('option', 'min'), s.slider('option', 'max')]).trigger('change');
+    //             });
+    //           });
+    //           $div.find('button').click(function() {
+    //             $wrap.find('a.filter').click();
+    //             return false;
+    //           });
+    //           $div.find('.rating_range').each(function() {
+    //             var $this = $(this);
+    //             var $input = $this.find("input");
+    //             var $span = $this.siblings(".range");
+    //             var min = $input.data("min");
+    //             var max = $input.data("max");
+    //             var values = $input.val() ? $input.val().split("-") : [min, max];
+    //             $span.text(values.join(' - '));
 
-                function change() {
-                  setTimeout(function() {
-                    var values = $this.slider('values');
-                    $input.val(values[0] + "-" + values[1]);
-                    $span.text(values[0] + " - " + values[1]);
-                    save();
-                  }, 50);
-                }
-                $this.slider({
-                  range: true,
-                  min: min,
-                  max: max,
-                  values: values,
-                  step: 50,
-                  slide: change
-                }).change(change);
-              });
-            }
-          });
-        }
-      } else {
-        $div.removeClass('active');
-      }
-      return false;
-    });
+    //             function change() {
+    //               setTimeout(function() {
+    //                 var values = $this.slider('values');
+    //                 $input.val(values[0] + "-" + values[1]);
+    //                 $span.text(values[0] + " - " + values[1]);
+    //                 save();
+    //               }, 50);
+    //             }
+    //             $this.slider({
+    //               range: true,
+    //               min: min,
+    //               max: max,
+    //               values: values,
+    //               step: 50,
+    //               slide: change
+    //             }).change(change);
+    //           });
+    //         }
+    //       });
+    //     }
+    //   } else {
+    //     $div.removeClass('active');
+    //   }
+    //   return false;
+    // });
 
     function resizeTimeline() {
       if ($timeline.length) {
@@ -1684,315 +1684,316 @@ var storage = {
     }
     resizeTimeline();
 
-    lichess_preload.hookPool.forEach(addHook);
-    drawHooks(true);
-    $table.find('th:eq(2)').click().end();
+    // lichess_preload.hookPool.forEach(addHook);
+    // drawHooks(true);
+    // $table.find('th:eq(2)').click().end();
 
-    lichess.socket = new lichess.StrongSocket(socketUrl, lichess_preload.version, {
-      events: {
-        reload_timeline: function() {
-          $.ajax({
-            url: $timeline.data('href'),
-            success: function(html) {
-              $timeline.html(html);
-              resizeTimeline();
-              $('body').trigger('lichess.content_loaded');
-            }
-          });
-        },
-        streams: function(html) {
-          $('#streams_on_air').html(html);
-        },
-        hook_add: function(hook) {
-          addHook(hook);
-          drawHooks();
-          if (hook.action == 'cancel') $('body').trigger('lichess.hook-flush');
-        },
-        hook_remove: removeHook,
-        hook_list: syncHookIds,
-        featured: changeFeatured,
-        redirect: function(e) {
-          $.lichessOpeningPreventClicks();
-          $.redirect(e);
-        },
-        tournaments: function(data) {
-          $("#enterable_tournaments").html(data);
-          $('body').trigger('lichess.content_loaded');
-        },
-        reload_forum: function() {
-          setTimeout(function() {
-            $.ajax($newposts.data('url'), {
-              success: function(data) {
-                $newposts.find('ol').html(data).end().scrollTop(0);
+    lichess.socket = new lichess.StrongSocket(
+      '/lobby/socket/v1',
+      lichess.lobby.data.version, {
+        events: {
+          reload_timeline: function() {
+            $.ajax({
+              url: $timeline.data('href'),
+              success: function(html) {
+                $timeline.html(html);
+                resizeTimeline();
                 $('body').trigger('lichess.content_loaded');
               }
             });
-          }, Math.round(Math.random() * 5000));
-        },
-        reload_seeks: reloadSeeksIfVisible,
-        nbr: function(e) {
-          var $tag = $('#site_baseline span');
-          if ($tag.length && e) {
-            var prev = parseInt($tag.text(), 10);
-            var k = 5;
-            var interv = 2000 / k;
-            $.fp.range(k).forEach(function(it) {
-              setTimeout(function() {
-                var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
-                if (val != prev) {
-                  $tag.text(val);
-                  prev = val;
+          },
+          streams: function(html) {
+            $('#streams_on_air').html(html);
+          },
+          // hook_add: function(hook) {
+          //   addHook(hook);
+          //   drawHooks();
+          //   if (hook.action == 'cancel') $('body').trigger('lichess.hook-flush');
+          // },
+          // hook_remove: removeHook,
+          // hook_list: syncHookIds,
+          featured: changeFeatured,
+          redirect: function(e) {
+            $.lichessOpeningPreventClicks();
+            $.redirect(e);
+          },
+          tournaments: function(data) {
+            $("#enterable_tournaments").html(data);
+            $('body').trigger('lichess.content_loaded');
+          },
+          reload_forum: function() {
+            setTimeout(function() {
+              $.ajax($newposts.data('url'), {
+                success: function(data) {
+                  $newposts.find('ol').html(data).end().scrollTop(0);
+                  $('body').trigger('lichess.content_loaded');
                 }
-              }, Math.round(it * interv));
-            });
-          }
-        },
-        // override fen event to reload playing games list
-        fen: function(e) {
-          lichess.StrongSocket.defaults.events.fen(e);
-          if ($nowPlaying.find('.mini_board_' + e.id).length) $.ajax({
-            url: $nowPlaying.data('href'),
-            success: function(html) {
-              $nowPlaying.html(html);
-              $('body').trigger('lichess.content_loaded');
-              var nb = $nowPlaying.find('.my_turn').length;
-              $wrap.find('.tabs .now_playing').toggleClass('hilight', nb).find('.unread').text(nb);
+              });
+            }, Math.round(Math.random() * 5000));
+          },
+          // reload_seeks: reloadSeeksIfVisible,
+          nbr: function(e) {
+            if (nbPlayersElement && e) {
+              var prev = parseInt(nbPlayersElement.textContent, 10);
+              var k = 5;
+              var interv = 2000 / k;
+              $.fp.range(k).forEach(function(it) {
+                setTimeout(function() {
+                  var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
+                  if (val != prev) {
+                    nbPlayersElement.textContent = val;
+                    prev = val;
+                  }
+                }, Math.round(it * interv));
+              });
             }
-          });
+          },
+          // override fen event to reload playing games list
+          // fen: function(e) {
+          //   lichess.StrongSocket.defaults.events.fen(e);
+          //   if ($nowPlaying.find('.mini_board_' + e.id).length) $.ajax({
+          //     url: $nowPlaying.data('href'),
+          //     success: function(html) {
+          //       $nowPlaying.html(html);
+          //       $('body').trigger('lichess.content_loaded');
+          //       var nb = $nowPlaying.find('.my_turn').length;
+          //       $wrap.find('.tabs .now_playing').toggleClass('hilight', nb).find('.unread').text(nb);
+          //     }
+          //   });
+          // }
+        },
+        options: {
+          name: "lobby"
         }
-      },
-      options: {
-        name: "lobby"
-      }
-    });
+      });
 
-    var variantConfirms = {
-      '960': "This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?",
-      'KotH': "This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill",
-      '3+': "This is a Three-check game!\n\nThe game can be won by checking the opponent 3 times.\nRead more: http://en.wikipedia.org/wiki/Three-check_chess",
-      "Anti": "This is an antichess chess game!\n\n If you can take a piece, you must. The game can be won by losing all your pieces."
-    };
+    // var variantConfirms = {
+    //   '960': "This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?",
+    //   'KotH': "This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill",
+    //   '3+': "This is a Three-check game!\n\nThe game can be won by checking the opponent 3 times.\nRead more: http://en.wikipedia.org/wiki/Three-check_chess",
+    //   "Anti": "This is an antichess chess game!\n\n If you can take a piece, you must. The game can be won by losing all your pieces."
+    // };
 
-    function confirmVariant(variant) {
-      return Object.keys(variantConfirms).every(function(key) {
-        var v = variantConfirms[key]
-        if (variant == key && !storage.get(key)) {
-          var c = confirm(v);
-          if (c) storage.set(key, 1);
-          return c;
-        } else return true;
-      })
-    }
+    // function confirmVariant(variant) {
+    //   return Object.keys(variantConfirms).every(function(key) {
+    //     var v = variantConfirms[key]
+    //     if (variant == key && !storage.get(key)) {
+    //       var c = confirm(v);
+    //       if (c) storage.set(key, 1);
+    //       return c;
+    //     } else return true;
+    //   })
+    // }
 
-    $seeks.on('click', 'tr', function() {
-      if ($(this).hasClass('must_login')) {
-        if (confirm($.trans('You need an account to do that'))) {
-          location.href = '/signup';
-        }
-        return false;
-      }
-      if ($(this).data('action') != 'joinSeek' || confirmVariant($(this).data('variant'))) {
-        lichess.socket.send($(this).data('action'), $(this).data('id'));
-      }
-    });
+    // $seeks.on('click', 'tr', function() {
+    //   if ($(this).hasClass('must_login')) {
+    //     if (confirm($.trans('You need an account to do that'))) {
+    //       location.href = '/signup';
+    //     }
+    //     return false;
+    //   }
+    //   if ($(this).data('action') != 'joinSeek' || confirmVariant($(this).data('variant'))) {
+    //     lichess.socket.send($(this).data('action'), $(this).data('id'));
+    //   }
+    // });
 
-    function reloadSeeksIfVisible() {
-      if ($seeks.is(':visible')) {
-        $.ajax($seeks.data('reload-url'), {
-          success: function(html) {
-            $seeks.html(html);
-          }
-        });
-      }
-    }
+    // function reloadSeeksIfVisible() {
+    //   if ($seeks.is(':visible')) {
+    //     $.ajax($seeks.data('reload-url'), {
+    //       success: function(html) {
+    //         $seeks.html(html);
+    //       }
+    //     });
+    //   }
+    // }
 
     function changeFeatured(o) {
       $('#featured_game').html(o.html);
       $('body').trigger('lichess.content_loaded');
     }
 
-    function removeHook(id) {
-      hookPool = hookPool.filter(function(h) {
-        return h.id != id;
-      });
-      drawHooks();
-    }
+    // function removeHook(id) {
+    //   hookPool = hookPool.filter(function(h) {
+    //     return h.id != id;
+    //   });
+    //   drawHooks();
+    // }
 
-    function syncHookIds(ids) {
-      hookPool = hookPool.filter(function(h) {
-        return $.fp.contains(ids, h.id);
-      });
-      drawHooks();
-    }
+    // function syncHookIds(ids) {
+    //   hookPool = hookPool.filter(function(h) {
+    //     return $.fp.contains(ids, h.id);
+    //   });
+    //   drawHooks();
+    // }
 
-    function addHook(hook) {
-      hook.action = hook.uid == lichess.StrongSocket.sri ? "cancel" : "join";
-      hookPool.push(hook);
-    }
+    // function addHook(hook) {
+    //   hook.action = hook.uid == lichess.StrongSocket.sri ? "cancel" : "join";
+    //   hookPool.push(hook);
+    // }
 
-    function disableHook(id) {
-      $tbody.children('.' + id).addClass('disabled').attr('title', '');
-      destroyChartHook(id);
-    }
+    // function disableHook(id) {
+    //   $tbody.children('.' + id).addClass('disabled').attr('title', '');
+    //   destroyChartHook(id);
+    // }
 
-    function destroyHook(id) {
-      $tbody.children('.' + id).remove();
-      destroyChartHook(id);
-    }
+    // function destroyHook(id) {
+    //   $tbody.children('.' + id).remove();
+    //   destroyChartHook(id);
+    // }
 
-    function destroyChartHook(id) {
-      $('#' + id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
-        $.powerTip.destroy($(this));
-        $(this).remove();
-      });
-    }
+    // function destroyChartHook(id) {
+    //   $('#' + id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
+    //     $.powerTip.destroy($(this));
+    //     $(this).remove();
+    //   });
+    // }
 
-    function drawHooks(initial) {
-      var filter = lichess_preload.filter;
-      var seen = [];
-      var hidden = 0;
-      var visible = 0;
-      hookPool.forEach(function(hook) {
-        var hide = !$.fp.contains(filter.variant, hook.variant) || !$.fp.contains(filter.mode, hook.mode) || !$.fp.contains(filter.speed, hook.speed) ||
-          (filter.rating && (!hook.rating || (hook.rating < filter.rating[0] || hook.rating > filter.rating[1])));
-        var hash = hook.mode + hook.variant + hook.time + hook.rating;
-        if (hide && hook.action != 'cancel') {
-          destroyHook(hook.id);
-          hidden++;
-        } else if ($.fp.contains(seen, hash) && hook.action != 'cancel') {
-          $('#' + hook.id).filter(':visible').hide();
-          $tbody.children('.' + hook.id).hide();
-        } else {
-          visible++;
-          if (!$('#' + hook.id).length) {
-            $canvas.append($(renderPlot(hook)).fadeIn(animation));
-            if (initial) $tbody.append(renderTr(hook));
-            else nextHooks.push(renderTr(hook));
-          } else {
-            $('#' + hook.id).not(':visible').fadeIn(animation);
-            $tbody.children('.' + hook.id).show();
-          }
-        }
-        if (hook.action != 'cancel') seen.push(hash);
-      });
-      $.makeArray($canvas.find('>span.plot')).map(function(o) {
-        return o.getAttribute('data-id');
-      }).concat(
-        $.makeArray($tbody.children()).map(function(o) {
-          return o.getAttribute('data-id');
-        })).forEach(function(id) {
-        if (!$.fp.find(hookPool, function(x) {
-          return x.id == id;
-        })) disableHook(id);
-      });
+    // function drawHooks(initial) {
+    //   var filter = lichess_preload.filter;
+    //   var seen = [];
+    //   var hidden = 0;
+    //   var visible = 0;
+    //   hookPool.forEach(function(hook) {
+    //     var hide = !$.fp.contains(filter.variant, hook.variant) || !$.fp.contains(filter.mode, hook.mode) || !$.fp.contains(filter.speed, hook.speed) ||
+    //       (filter.rating && (!hook.rating || (hook.rating < filter.rating[0] || hook.rating > filter.rating[1])));
+    //     var hash = hook.mode + hook.variant + hook.time + hook.rating;
+    //     if (hide && hook.action != 'cancel') {
+    //       destroyHook(hook.id);
+    //       hidden++;
+    //     } else if ($.fp.contains(seen, hash) && hook.action != 'cancel') {
+    //       $('#' + hook.id).filter(':visible').hide();
+    //       $tbody.children('.' + hook.id).hide();
+    //     } else {
+    //       visible++;
+    //       if (!$('#' + hook.id).length) {
+    //         $canvas.append($(renderPlot(hook)).fadeIn(animation));
+    //         if (initial) $tbody.append(renderTr(hook));
+    //         else nextHooks.push(renderTr(hook));
+    //       } else {
+    //         $('#' + hook.id).not(':visible').fadeIn(animation);
+    //         $tbody.children('.' + hook.id).show();
+    //       }
+    //     }
+    //     if (hook.action != 'cancel') seen.push(hash);
+    //   });
+    //   $.makeArray($canvas.find('>span.plot')).map(function(o) {
+    //     return o.getAttribute('data-id');
+    //   }).concat(
+    //     $.makeArray($tbody.children()).map(function(o) {
+    //       return o.getAttribute('data-id');
+    //     })).forEach(function(id) {
+    //     if (!$.fp.find(hookPool, function(x) {
+    //       return x.id == id;
+    //     })) disableHook(id);
+    //   });
 
-      $wrap
-        .find('a.filter')
-        .toggleClass('on', hidden > 0)
-        .find('span.number').text('(' + hidden + ')');
+    //   $wrap
+    //     .find('a.filter')
+    //     .toggleClass('on', hidden > 0)
+    //     .find('span.number').text('(' + hidden + ')');
 
-      $('body').trigger('lichess.content_loaded');
-    }
+    //   $('body').trigger('lichess.content_loaded');
+    // }
 
-    function renderPlot(hook) {
-      var bottom = Math.max(0, ratingY(hook.rating) - 7);
-      var left = Math.max(0, clockX(hook.time) - 4);
-      var klass = [
-        'plot',
-        hook.mode == "Rated" ? 'rated' : 'casual',
-        hook.action == 'cancel' ? 'cancel' : '',
-        hook.variant != 'STD' ? 'variant' : ''
-      ].join(' ');
-      var $plot = $('<span id="' + hook.id + '" class="' + klass + '" style="bottom:' + bottom + 'px;left:' + left + 'px;"></span>');
-      return $plot.data('hook', hook).powerTip({
-        fadeInTime: 0,
-        fadeOutTime: 0,
-        placement: hook.rating > 2200 ? 'se' : 'ne',
-        mouseOnToPopup: true,
-        closeDelay: 200,
-        intentPollInterval: 50,
-        popupId: 'hook'
-      }).data('powertipjq', $(renderHook(hook)));
-    }
+    // function renderPlot(hook) {
+    //   var bottom = Math.max(0, ratingY(hook.rating) - 7);
+    //   var left = Math.max(0, clockX(hook.time) - 4);
+    //   var klass = [
+    //     'plot',
+    //     hook.mode == "Rated" ? 'rated' : 'casual',
+    //     hook.action == 'cancel' ? 'cancel' : '',
+    //     hook.variant != 'STD' ? 'variant' : ''
+    //   ].join(' ');
+    //   var $plot = $('<span id="' + hook.id + '" class="' + klass + '" style="bottom:' + bottom + 'px;left:' + left + 'px;"></span>');
+    //   return $plot.data('hook', hook).powerTip({
+    //     fadeInTime: 0,
+    //     fadeOutTime: 0,
+    //     placement: hook.rating > 2200 ? 'se' : 'ne',
+    //     mouseOnToPopup: true,
+    //     closeDelay: 200,
+    //     intentPollInterval: 50,
+    //     popupId: 'hook'
+    //   }).data('powertipjq', $(renderHook(hook)));
+    // }
 
-    function ratingY(e) {
-      function ratingLog(a) {
-        return Math.log(a / 150 + 1);
-      }
-      var rating = Math.max(800, Math.min(2800, e || 1500));
-      var ratio;
-      if (rating == 1500) {
-        ratio = 0.25;
-      } else if (rating > 1500) {
-        ratio = 0.25 + (ratingLog(rating - 1500) / ratingLog(1300)) * 3 / 4;
-      } else {
-        ratio = 0.25 - (ratingLog(1500 - rating) / ratingLog(500)) / 4;
-      }
-      return Math.round(ratio * 489);
-    }
+    // function ratingY(e) {
+    //   function ratingLog(a) {
+    //     return Math.log(a / 150 + 1);
+    //   }
+    //   var rating = Math.max(800, Math.min(2800, e || 1500));
+    //   var ratio;
+    //   if (rating == 1500) {
+    //     ratio = 0.25;
+    //   } else if (rating > 1500) {
+    //     ratio = 0.25 + (ratingLog(rating - 1500) / ratingLog(1300)) * 3 / 4;
+    //   } else {
+    //     ratio = 0.25 - (ratingLog(1500 - rating) / ratingLog(500)) / 4;
+    //   }
+    //   return Math.round(ratio * 489);
+    // }
 
-    function clockX(dur) {
-      function durLog(a) {
-        return Math.log((a - 30) / 200 + 1);
-      }
-      var max = 2000;
-      return Math.round(durLog(Math.min(max, dur || max)) / durLog(max) * 489);
-    }
+    // function clockX(dur) {
+    //   function durLog(a) {
+    //     return Math.log((a - 30) / 200 + 1);
+    //   }
+    //   var max = 2000;
+    //   return Math.round(durLog(Math.min(max, dur || max)) / durLog(max) * 489);
+    // }
 
-    function renderHook(hook) {
-      var html = '';
-      if (hook.rating) {
-        html += '<a class="opponent" href="/@/' + hook.username + '">' + hook.username.substr(0, 14) + '</a>';
-        html += '<span class="rating">' + hook.rating + '</span>';
-      } else {
-        html += '<span class="opponent anon">Anonymous</span>';
-      }
-      html += '<span class="clock">' + hook.clock + '</span>';
-      html += '<span class="mode">' +
-        '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' + $.trans(hook.mode) + '</span>';
-      html += '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>';
-      return html;
-    }
+    // function renderHook(hook) {
+    //   var html = '';
+    //   if (hook.rating) {
+    //     html += '<a class="opponent" href="/@/' + hook.username + '">' + hook.username.substr(0, 14) + '</a>';
+    //     html += '<span class="rating">' + hook.rating + '</span>';
+    //   } else {
+    //     html += '<span class="opponent anon">Anonymous</span>';
+    //   }
+    //   html += '<span class="clock">' + hook.clock + '</span>';
+    //   html += '<span class="mode">' +
+    //     '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' + $.trans(hook.mode) + '</span>';
+    //   html += '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>';
+    //   return html;
+    // }
 
-    function renderTr(hook) {
-      var title = (hook.action == "join") ? $.trans('Join the game') + ' - ' + hook.perf.name : $.trans('cancel');
-      return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + [
-        ['', '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>'],
-        [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous')],
-        [hook.rating || 0, hook.rating ? hook.rating : ''],
-        [hook.time, hook.clock],
-        [hook.mode,
-          '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' +
-          $.trans(hook.mode)
-        ]
-      ].map(function(x) {
-        return '<td data-sort-value="' + x[0] + '">' + x[1] + '</td>';
-      }).join('') + '</tr>';
-    }
+    // function renderTr(hook) {
+    //   var title = (hook.action == "join") ? $.trans('Join the game') + ' - ' + hook.perf.name : $.trans('cancel');
+    //   return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + [
+    //     ['', '<span class="is is2 color-icon ' + (hook.color || "random") + '"></span>'],
+    //     [hook.username, (hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous')],
+    //     [hook.rating || 0, hook.rating ? hook.rating : ''],
+    //     [hook.time, hook.clock],
+    //     [hook.mode,
+    //       '<span class="varicon" data-icon="' + hook.perf.icon + '"></span>' +
+    //       $.trans(hook.mode)
+    //     ]
+    //   ].map(function(x) {
+    //     return '<td data-sort-value="' + x[0] + '">' + x[1] + '</td>';
+    //   }).join('') + '</tr>';
+    // }
 
-    $('#hooks_chart').append(
-      [1000, 1200, 1400, 1500, 1600, 1800, 2000, 2200, 2400].map(function(v) {
-        var b = ratingY(v);
-        return '<span class="y label" style="bottom:' + (b + 5) + 'px">' + v + '</span>' +
-          '<div class="grid horiz" style="height:' + (b + 4) + 'px"></div>';
-      }).join('') + [1, 2, 3, 5, 7, 10, 15, 20, 30].map(function(v) {
-        var l = clockX(v * 60);
-        return '<span class="x label" style="left:' + l + 'px">' + v + '</span>' +
-          '<div class="grid vert" style="width:' + (l + 7) + 'px"></div>';
-      }).join(''));
+    // $('#hooks_chart').append(
+    //   [1000, 1200, 1400, 1500, 1600, 1800, 2000, 2200, 2400].map(function(v) {
+    //     var b = ratingY(v);
+    //     return '<span class="y label" style="bottom:' + (b + 5) + 'px">' + v + '</span>' +
+    //       '<div class="grid horiz" style="height:' + (b + 4) + 'px"></div>';
+    //   }).join('') + [1, 2, 3, 5, 7, 10, 15, 20, 30].map(function(v) {
+    //     var l = clockX(v * 60);
+    //     return '<span class="x label" style="left:' + l + 'px">' + v + '</span>' +
+    //       '<div class="grid vert" style="width:' + (l + 7) + 'px"></div>';
+    //   }).join(''));
 
-    $tbody.on('click', 'a.ulink', function(e) {
-      e.stopPropagation();
-    });
-    $tbody.on('click', 'td:not(.disabled)', function() {
-      $('#' + $(this).parent().data('id')).click();
-    });
-    $canvas.on('click', '>span.plot:not(.hiding)', function() {
-      var data = $(this).data('hook');
-      if (data.action != 'join' || confirmVariant(data.variant)) {
-        lichess.socket.send(data.action, data.id);
-      }
-    });
+    // $tbody.on('click', 'a.ulink', function(e) {
+    //   e.stopPropagation();
+    // });
+    // $tbody.on('click', 'td:not(.disabled)', function() {
+    //   $('#' + $(this).parent().data('id')).click();
+    // });
+    // $canvas.on('click', '>span.plot:not(.hiding)', function() {
+    //   var data = $(this).data('hook');
+    //   if (data.action != 'join' || confirmVariant(data.variant)) {
+    //     lichess.socket.send(data.action, data.id);
+    //   }
+    // });
   });
 
   ///////////////////

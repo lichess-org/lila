@@ -10,11 +10,13 @@ import lila.round.JsonView
 import lila.security.Granter
 import lila.tournament.{ Tournament, TournamentRepo }
 import lila.user.User
+import lila.common.LightUser
 
 private[api] final class RoundApi(
     jsonView: JsonView,
     noteApi: lila.round.NoteApi,
-    analysisApi: AnalysisApi) {
+    analysisApi: AnalysisApi,
+    lightUser: String => Option[LightUser]) {
 
   def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] =
     jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,

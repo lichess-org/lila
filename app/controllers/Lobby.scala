@@ -30,8 +30,7 @@ object Lobby extends LilaController {
   def renderHome(status: Results.Status)(implicit ctx: Context): Fu[Result] =
     Env.current.preloader(
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds),
-      tours = Env.tournament promotable true,
-      filter = Env.setup.filter
+      tours = Env.tournament promotable true
     ) map (html.lobby.home.apply _).tupled map { template =>
         // the session cookie is required for anon lobby filter storage
         ctx.req.session.data.contains(LilaCookie.sessionId).fold(

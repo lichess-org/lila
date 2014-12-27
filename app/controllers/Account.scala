@@ -38,24 +38,7 @@ object Account extends LilaController {
           Ok {
             import play.api.libs.json._
             Env.user.jsonView(me, extended = true) ++ Json.obj(
-              "nowPlaying" -> JsArray(povs map { pov =>
-                Json.obj(
-                  "id" -> pov.fullId,
-                  "fen" -> (chess.format.Forsyth exportBoard pov.game.toChess.board),
-                  "color" -> pov.color.name,
-                  "lastMove" -> ~pov.game.castleLastMoveTime.lastMoveString,
-                  "variant" -> pov.game.variant.key,
-                  "speed" -> pov.game.speed.key,
-                  "perf" -> lila.game.PerfPicker.key(pov.game),
-                  "rated" -> pov.game.rated,
-                  "opponent" -> Json.obj(
-                    "id" -> pov.opponent.userId,
-                    "username" -> lila.game.Namer.playerString(pov.opponent, withRating = false)(Env.user.lightUser),
-                    "rating" -> pov.opponent.rating),
-                  "isMyTurn" -> pov.isMyTurn,
-                  "secondsLeft" -> pov.remainingSeconds)
-              })
-            )
+              "nowPlaying" -> JsArray(povs map Env.api.lobbyApi.nowPlaying))
           }
         }
       )

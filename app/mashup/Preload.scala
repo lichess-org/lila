@@ -1,28 +1,17 @@
 package lila.app
 package mashup
 
-import akka.actor.ActorRef
-import akka.pattern.ask
-import play.api.libs.json.{ Json, JsObject, JsArray }
-
-import controllers.routes
 import lila.api.Context
 import lila.forum.MiniForumPost
-import lila.game.{ Game, GameRepo, Pov }
-import lila.lobby.actorApi.HooksFor
-import lila.lobby.{ Hook, HookRepo, Seek, SeekApi }
+import lila.game.Game
 import lila.rating.PerfType
-import lila.setup.FilterConfig
-import lila.socket.History
 import lila.timeline.Entry
 import lila.tournament.{ Enterable, Winner }
 import lila.tv.{ Featured, StreamOnAir }
 import lila.user.User
-import makeTimeout.large
+import play.api.libs.json.JsObject
 
 final class Preload(
-    lobby: ActorRef,
-    lobbyVersion: () => Int,
     featured: Featured,
     leaderboard: Boolean => Fu[List[(User, PerfType)]],
     tourneyWinners: Int => Fu[List[Winner]],
@@ -30,15 +19,14 @@ final class Preload(
     streamsOnAir: => () => Fu[List[StreamOnAir]],
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
     countRounds: () => Int,
-    seekApi: SeekApi) {
+    lobbyApi: lila.api.LobbyApi) {
 
   private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Int)
 
   def apply(
     posts: Fu[List[MiniForumPost]],
-    tours: Fu[List[Enterable]],
-    filter: Fu[FilterConfig])(implicit ctx: Context): Fu[Response] =
-    (lobby ? HooksFor(ctx.me)).mapTo[List[Hook]] zip
+    tours: Fu[List[Enterable]])(implicit ctx: Context): Fu[Response] =
+    lobbyApi(ctx) zip
       posts zip
       tours zip
       featured.one zip
@@ -46,17 +34,8 @@ final class Preload(
       leaderboard(true) zip
       tourneyWinners(10) zip
       dailyPuzzle() zip
-      (ctx.me ?? GameRepo.nowPlaying) zip
-      ctx.me.fold(seekApi.forAnon)(seekApi.forUser) zip
-      filter zip
       streamsOnAir() map {
-        case (((((((((((hooks, posts), tours), feat), entries), lead), tWinners), puzzle), povs), seeks), filter), streams) =>
-          (Json.obj(
-            "version" -> lobbyVersion(),
-            "hooks" -> JsArray(hooks map (_.render)),
-            "seeks" -> JsArray(),
-            "nowPlaying" -> JsArray(),
-            "filter" -> filter.render
-          ), entries, posts, tours, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, countRounds())
+        case ((((((((data, posts), tours), feat), entries), lead), tWinners), puzzle), streams) =>
+          (data, entries, posts, tours, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, countRounds())
       }
 }
