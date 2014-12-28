@@ -97,8 +97,8 @@ body.dark div.user_show div.user-infos,
 body.dark div.game_config input[type="text"],
 body.dark #powerTip,
 body.dark #powerTip > .title,
-body.dark #hooks_wrap .table_wrap table th,
-body.dark #hooks_wrap .table_wrap table td,
+body.dark #hooks_wrap .table_wrap th,
+body.dark #hooks_wrap .table_wrap td,
 body.dark #hooks_wrap,
 body.dark #hooks_wrap > div.tabs > a,
 body.dark #hooks_chart > div.grid,
@@ -198,15 +198,15 @@ body.dark div.chat_menu > a.active,
 body.dark div.chat_panels > .notes {
   background-color: #262626;
 }
-body.dark #hooks_wrap .table_wrap table td,
+body.dark #hooks_wrap .table_wrap td,
 body.dark #now_playing > a {
   background: rgba(40, 40, 40, 0.6);
   border-color: #242424;
 }
-body.dark #hooks_wrap .table_wrap table tr.cancel td {
+body.dark #hooks_wrap .table_wrap tr.cancel td {
   background: rgba(0, 80, 0, 0.7);
 }
-body.dark #hooks_wrap .table_wrap table tr:hover td,
+body.dark #hooks_wrap .table_wrap tr.hook:hover td,
 body.dark #now_playing > a:hover {
   background: rgba(27, 51, 68, 0.7);
 }
@@ -262,7 +262,7 @@ body.dark #timeline > .entry {
   border-color: #2b2b2b;
 }
 body.dark #site_header div.side_menu a.active,
-body.dark #hooks_wrap .table_wrap table,
+body.dark #hooks_wrap .table_wrap,
 body.dark div.content_box h1 {
   text-shadow: 0px 1px 0px #000;
 }

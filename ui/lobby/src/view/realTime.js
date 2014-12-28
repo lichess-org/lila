@@ -15,7 +15,7 @@ function renderHook(ctrl, hook) {
   return m('tr', {
     title: (hook.action === 'join') ? ctrl.trans('joinTheGame') + ' - ' + hook.perf.name : ctrl.trans('cancel'),
     'data-id': hook.id,
-    class: hook.action,
+    class: 'hook ' + hook.action + (hook.disabled ? ' disabled' : ''),
     onclick: util.partial(ctrl.clickHook, hook)
   }, tds([
     m('span', {
@@ -31,7 +31,15 @@ function renderHook(ctrl, hook) {
   ]));
 };
 
+function isStandard(value) {
+  return function(hook) {
+    return (hook.variant === 'STD') === value;
+  };
+}
+
 module.exports = function(ctrl) {
+  var standards = ctrl.vm.stepHooks.filter(isStandard(true)).map(util.partial(renderHook, ctrl));
+  var variants = ctrl.vm.stepHooks.filter(isStandard(false)).map(util.partial(renderHook, ctrl));
   return m('table.table_wrap', [
     m('thead',
       m('tr', [
@@ -45,6 +53,12 @@ module.exports = function(ctrl) {
         m('th', ctrl.trans('mode'))
       ])
     ),
-    m('tbody', ctrl.data.hooks.map(util.partial(renderHook, ctrl)))
+    m('tbody' + (ctrl.vm.stepping ? '.stepping' : ''), [
+      standards,
+      variants.length ? m('tr.variants',
+        m('td[colspan=5]', '- ' + ctrl.trans('variant') + ' -')
+      ) : null,
+      variants
+    ])
   ]);
 };

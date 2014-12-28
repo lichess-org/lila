@@ -18,7 +18,7 @@ module.exports = function(ctrl) {
   return [
     tab(ctrl, 'real_time', active, ctrl.trans('realTime')),
     tab(ctrl, 'seeks', active, ctrl.trans('correspondence')),
-    nowPlayingNb > 0 ? tab(ctrl, 'now_playing', active, [
+    (active === 'now_playing' || nowPlayingNb > 0) ? tab(ctrl, 'now_playing', active, [
       ctrl.trans('nbGamesInPlay', nowPlayingNb),
       myTurnPovsNb > 0 ? m('span.unread', myTurnPovsNb) : null
     ]) : null
