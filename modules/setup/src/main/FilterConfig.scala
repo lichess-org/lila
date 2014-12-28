@@ -18,7 +18,7 @@ case class FilterConfig(
 
   def render = play.api.libs.json.Json.obj(
     "variant" -> variant.map(_.shortName),
-    "mode" -> mode.map(_.toString),
+    "mode" -> mode.map(_.id),
     "speed" -> speed.map(_.id),
     "rating" -> ratingRange.notBroad.map(rr => List(rr.min, rr.max)))
 

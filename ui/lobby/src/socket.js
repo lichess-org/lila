@@ -19,11 +19,13 @@ module.exports = function(send, ctrl) {
     hook_list: function(ids) {
       hookRepo.syncIds(ctrl, ids);
       m.redraw();
+    },
+    reload_seeks: function() {
+      if (ctrl.vm.tab === 'seeks') xhr.seeks().then(ctrl.setSeeks);
     }
   };
 
   this.receive = function(type, data) {
-    // if (type != 'n') console.log(type, data);
     if (handlers[type]) {
       handlers[type](data);
       return true;

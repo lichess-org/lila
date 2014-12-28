@@ -6,10 +6,20 @@ function sort(ctrl) {
   ctrl.data.hooks.sort(order);
 }
 
+function fixBC(hook) {
+  hook.mode = hook.mode === 'Casual' ? 0 : 1;
+}
+
+function init(hook) {
+  hook.action = hook.uid === lichess.socket.settings.params.sri ? 'cancel' : 'join';
+  fixBC(hook);
+}
+
 module.exports = {
+  init: init,
   sort: sort,
   add: function(ctrl, hook) {
-    hook.action = hook.uid === lichess.socket.settings.params.sri ? 'cancel' : 'join';
+    init(hook);
     ctrl.data.hooks.push(hook);
     sort(ctrl);
   },
@@ -25,9 +35,6 @@ module.exports = {
     ctrl.data.hooks = ctrl.data.hooks.filter(function(h) {
       return ids.indexOf(h.id) !== -1;
     });
-  },
-  stepSlice: function(ctrl) {
-    return ctrl.data.hooks.slice(0, 14);
   },
   find: function(ctrl, id) {
     return ctrl.data.hooks.filter(function(h) {

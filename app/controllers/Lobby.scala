@@ -53,7 +53,7 @@ object Lobby extends LilaController {
       negotiate(
         html = if (HTTPRequest isSynchronousHttp ctx.req) fuccess(Redirect(routes.Lobby.home))
         else fuccess(html.lobby.seeks(seeks)),
-        api = _ => fuccess(Ok(Json.obj("seeks" -> JsArray(seeks.map(_.render)))))
+        api = _ => fuccess(Ok(JsArray(seeks.map(_.render))))
       )
     }
   }

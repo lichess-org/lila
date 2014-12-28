@@ -120,21 +120,25 @@ function renderYAxis() {
   });
 }
 
-module.exports = function(ctrl) {
-  return m('div.hooks_chart', [
-    m('span', {
+module.exports = {
+  toggle: function(ctrl) {
+    return m('span', {
       'data-hint': ctrl.trans('list'),
-      class: 'toggle hint--bottom',
+      class: 'mode_toggle hint--bottom',
       onclick: util.partial(ctrl.setMode, 'list')
-    }, m('span.chart[data-icon=?]')),
-    m('div.canvas', {
-      onclick: function(e) {
-        if (e.target.classList.contains('plot')) {
-          ctrl.clickHook(e.target.id);
+    }, m('span.chart[data-icon=?]'));
+  },
+  render: function(ctrl, hooks) {
+    return m('div.hooks_chart', [
+      m('div.canvas', {
+        onclick: function(e) {
+          if (e.target.classList.contains('plot')) {
+            ctrl.clickHook(e.target.id);
+          }
         }
-      }
-    }, ctrl.data.hooks.map(util.partial(renderPlot, ctrl))),
-    renderYAxis(),
-    renderXAxis()
-  ]);
+      }, hooks.map(util.partial(renderPlot, ctrl))),
+      renderYAxis(),
+      renderXAxis()
+    ]);
+  }
 };

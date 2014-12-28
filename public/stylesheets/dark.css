@@ -180,7 +180,6 @@ body.dark div.undertable_top span.title {
   color: #777;
 }
 body.dark .crosstable td a,
-body.dark #hook_filter td > label.hover:hover,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
 }
@@ -210,15 +209,10 @@ body.dark #hooks_wrap .table_wrap tr.hook:hover td,
 body.dark #now_playing > a:hover {
   background: rgba(27, 51, 68, 0.7);
 }
-body.dark #hook_filter {
-  background: rgba(0, 0, 0, 0.8);
-}
-body.dark #hook_filter td > label {
+body.dark #hook_filter .checkable {
   color: #c0c0c0;
 }
 body.dark #hooks_wrap,
-body.dark #hooks_wrap a.filter:hover,
-body.dark #hooks_wrap a.filter.active,
 body.dark #hooks_wrap > div.tabs > a:hover,
 body.dark #hooks_wrap > div.tabs > a.active {
   background-color: #303030;

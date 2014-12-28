@@ -50,7 +50,7 @@ case class Seek(
     "username" -> user.username,
     "rating" -> rating,
     "variant" -> realVariant.shortName,
-    "mode" -> realMode.toString,
+    "mode" -> realMode.id,
     "days" -> daysPerTurn,
     "color" -> chess.Color(color).??(_.name),
     "perf" -> Json.obj(

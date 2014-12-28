@@ -13,7 +13,11 @@ module.exports = function(element, opts) {
   });
 
   return {
-    socketReceive: controller.socket.receive
+    socketReceive: controller.socket.receive,
+    setTab: function(tab) {
+      controller.setTab(tab);
+      m.redraw();
+    }
   };
 };
 
