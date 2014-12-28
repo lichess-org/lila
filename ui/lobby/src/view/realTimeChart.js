@@ -127,7 +127,13 @@ module.exports = function(ctrl) {
       class: 'toggle hint--bottom',
       onclick: util.partial(ctrl.setMode, 'list')
     }, m('span.chart[data-icon=?]')),
-    m('div.canvas', ctrl.data.hooks.map(util.partial(renderPlot, ctrl))),
+    m('div.canvas', {
+      onclick: function(e) {
+        if (e.target.classList.contains('plot')) {
+          ctrl.clickHook(e.target.id);
+        }
+      }
+    }, ctrl.data.hooks.map(util.partial(renderPlot, ctrl))),
     renderYAxis(),
     renderXAxis()
   ]);
