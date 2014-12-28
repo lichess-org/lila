@@ -13,6 +13,7 @@ function tds(bits) {
 function renderHook(ctrl, hook) {
   var title = (hook.action === 'join') ? ctrl.trans('joinTheGame') + ' - ' + hook.perf.name : ctrl.trans('cancel');
   return m('tr', {
+    key: hook.id,
     title: (hook.action === 'join') ? ctrl.trans('joinTheGame') + ' - ' + hook.perf.name : ctrl.trans('cancel'),
     'data-id': hook.id,
     class: 'hook ' + hook.action + (hook.disabled ? ' disabled' : ''),
@@ -45,7 +46,8 @@ module.exports = function(ctrl) {
       m('tr', [
         m('th', m('span', {
           'data-hint': ctrl.trans('graph'),
-          class: 'toggle hint--bottom'
+          class: 'toggle hint--bottom',
+          onclick: util.partial(ctrl.setMode, 'chart')
         }, m('span.chart[data-icon=9]'))),
         m('th', ctrl.trans('player')),
         m('th', 'Rating'),

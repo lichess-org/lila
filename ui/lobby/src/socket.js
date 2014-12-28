@@ -9,8 +9,8 @@ module.exports = function(send, ctrl) {
   var handlers = {
     hook_add: function(hook) {
       hookRepo.add(ctrl, hook);
-      // if (hook.action == 'cancel') $('body').trigger('lichess.hook-flush');
-      m.redraw();
+      if (hook.action === 'cancel') ctrl.flushHooks();
+      else m.redraw();
     },
     hook_remove: function(id) {
       hookRepo.remove(ctrl, id);

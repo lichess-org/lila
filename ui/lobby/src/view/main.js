@@ -1,14 +1,20 @@
 var m = require('mithril');
 
 var renderTabs = require('./tabs');
-var renderRealTime = require('./realTime');
+var renderRealTimeList = require('./realTimeList');
+var renderRealTimeChart = require('./realTimeChart');
 
 module.exports = function(ctrl) {
   var body;
   switch (ctrl.vm.tab) {
     case 'real_time':
-      body = renderRealTime(ctrl);
-      break;
+      switch (ctrl.vm.mode) {
+        case 'chart':
+          body = renderRealTimeChart(ctrl);
+          break;
+        default:
+          body = renderRealTimeList(ctrl);
+      }
   }
   return [
     m('div.tabs', renderTabs(ctrl)),

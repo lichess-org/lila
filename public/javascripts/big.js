@@ -1692,23 +1692,12 @@ var storage = {
     //     lichess.socket.send(data.action, data.id);
     //   }
     // });
-  }
-
-  ////////////////
-  // lobby.js //
-  ////////////////
-
-  $(function() {
 
     var $startButtons = $('#start_buttons');
 
     if (!lichess.StrongSocket.available) {
       $startButtons.find('a').attr('href', '#');
       $("div.lichess_overboard.joining input.submit").remove();
-      return;
-    }
-
-    if (!$startButtons.length) {
       return;
     }
 
@@ -1978,7 +1967,7 @@ var storage = {
           $(this).attr("href", $(this).attr("href") + location.search);
         }).click();
     }
-  });
+  };
 
   $.lichessOpeningPreventClicks = function() {
     $('#hooks_list, #hooks_chart').hide();

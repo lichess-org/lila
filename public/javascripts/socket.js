@@ -216,7 +216,7 @@ lichess.StrongSocket.prototype = {
   },
   debug: function(msg, always) {
     if ((always || this.options.debug) && window.console && console.debug) {
-      console.debug("[" + this.options.name + " " + lichess.StrongSocket.sri + "]", msg);
+      console.debug("[" + this.options.name + " " + this.settings.params.sri + "]", msg);
     }
   },
   destroy: function() {

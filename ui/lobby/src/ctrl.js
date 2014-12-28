@@ -3,6 +3,7 @@ var socket = require('./socket');
 var variant = require('./variant');
 var hookRepo = require('./hookRepo');
 var store = require('./store');
+var util = require('chessground').util;
 
 module.exports = function(env) {
 
@@ -13,6 +14,7 @@ module.exports = function(env) {
 
   this.vm = {
     tab: store.tab.get(),
+    mode: store.mode.get(),
     stepHooks: hookRepo.stepSlice(this),
     stepping: false
   };
@@ -31,13 +33,15 @@ module.exports = function(env) {
     flushHooksSchedule();
   }.bind(this);
 
-  var flushHooksSchedule = function() {
-    flushHooksTimeout = setTimeout(this.flushHooks, 8000);
-  }.bind(this);
+  var flushHooksSchedule = util.partial(setTimeout, this.flushHooks, 8000);
   flushHooksSchedule();
 
   this.setTab = function(tab) {
     this.vm.tab = store.tab.set(tab);
+  }.bind(this);
+
+  this.setMode = function(mode) {
+    this.vm.mode = store.mode.set(mode);
   }.bind(this);
 
   this.clickHook = function(hook) {

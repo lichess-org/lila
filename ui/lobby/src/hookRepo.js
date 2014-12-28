@@ -9,6 +9,7 @@ function sort(ctrl) {
 module.exports = {
   sort: sort,
   add: function(ctrl, hook) {
+    hook.action = hook.uid === lichess.socket.settings.params.sri ? 'cancel' : 'join';
     ctrl.data.hooks.push(hook);
     sort(ctrl);
   },

@@ -1,19 +1,37 @@
-var tabKey = 'lichess.lobby.tab';
-
-function fixTab(tab) {
-  if (['real_time', 'seeks', 'now_playing'].indexOf(tab) === -1) tab = 'real_time';
-  return tab;
+var tab = {
+  key: 'lichess.lobby.tab',
+  fix: function(t) {
+    if (['real_time', 'seeks', 'now_playing'].indexOf(t) === -1) t = 'real_time';
+    return t;
+  }
+};
+var mode = {
+  key: 'lichess.lobby.mode',
+  fix: function(m) {
+    if (['list', 'chart'].indexOf(m) === -1) m = 'list';
+    return m;
+  }
 };
 
 module.exports = {
   tab: {
-    set: function(tab) {
-      var tab = fixTab(tab);
-      storage.set(tabKey, tab);
-      return tab;
+    set: function(t) {
+      t = tab.fix(t);
+      storage.set(tab.key, t);
+      return t;
     },
     get: function() {
-      return fixTab(storage.get(tabKey));
+      return tab.fix(storage.get(tab.key));
+    }
+  },
+  mode: {
+    set: function(m) {
+      m = mode.fix(m);
+      storage.set(mode.key, m);
+      return m;
+    },
+    get: function() {
+      return mode.fix(storage.get(mode.key));
     }
   }
 };

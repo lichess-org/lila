@@ -26,6 +26,7 @@ div.lobby_and_ground {
   min-width: 512px;
   width: 512px;
   height: 512px;
+  max-height: 512px;
   overflow: hidden;
   border: 1px solid #ccc;
   background: #f0f0f0 url(../images/wN-bg.svg);
@@ -62,13 +63,10 @@ div.lobby_and_ground {
 #hooks_wrap > div.tabs .unread {
   margin-left: 3px;
 }
-#real_time .toggle {
+#hooks_wrap .toggle {
   cursor: pointer;
 }
-#hooks_list, #hooks_chart {
-  display: none;
-}
-#hooks_chart .toggle {
+#hooks_wrap .hooks_chart .toggle {
   position: absolute;
   top: 15px;
   left: 13px;
@@ -149,7 +147,6 @@ div.lobby_and_ground {
 #hooks_wrap .table_wrap {
   text-shadow: 0px 1px 0px #FFF;
   width: 512px;
-  max-height: 512px;
   min-height: 78px;
   overflow: hidden;
 }
@@ -234,24 +231,14 @@ div.lobby_and_ground {
   text-transform: uppercase;
   letter-spacing: 3px;
 }
-#tableclone {
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  max-height: 512px;
-  z-index: 19;
-}
-#tableclone thead {
-  opacity: 0;
-}
-#hooks_chart {
+#hooks_wrap .hooks_chart {
   position: absolute;
   top: 0;
   left: 0;
   width: 512px;
   height: 512px;
 }
-#hooks_chart > span.label {
+#hooks_wrap .hooks_chart > span.label {
   font-size: 8px;
   position: absolute;
   left: 3px;
@@ -259,25 +246,25 @@ div.lobby_and_ground {
   text-shadow: 0 0 3px #fff;
   font-weight: bold;
 }
-#hooks_chart > div.grid {
+#hooks_wrap .hooks_chart > div.grid {
   position: absolute;
   left: 0px;
   bottom: 0px;
 }
-#hooks_chart > div.grid.horiz {
+#hooks_wrap .hooks_chart > div.grid.horiz {
   width: 100%;
   border-top: 1px dashed #ccc;
 }
-#hooks_chart > div.grid.vert {
+#hooks_wrap .hooks_chart > div.grid.vert {
   height: 100%;
   border-right: 1px dashed #ccc;
 }
-#hooks_chart .canvas {
+#hooks_wrap .hooks_chart .canvas {
   position: relative;
   width: 512px;
   height: 512px;
 }
-#hooks_chart .plot {
+#hooks_wrap .hooks_chart .plot {
   position: absolute;
   width: 17px;
   height: 17px;
@@ -287,32 +274,32 @@ div.lobby_and_ground {
   cursor: pointer;
   z-index: 1;
 }
-#hooks_chart .plot:hover {
+#hooks_wrap .hooks_chart .plot:hover {
   z-index: 2;
 }
-#hooks_chart .plot.casual {
+#hooks_wrap .hooks_chart .plot.casual {
   border-radius: 16px;
 }
-#hooks_chart .plot.rated {
+#hooks_wrap .hooks_chart .plot.rated {
   border-radius: 3px;
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   width: 15px;
   height: 15px;
 }
-#hooks_chart .plot.variant {
+#hooks_wrap .hooks_chart .plot.variant {
   border-style: double;
   border-width: 5px;
 }
-#hooks_chart .plot.casual.variant {
+#hooks_wrap .hooks_chart .plot.casual.variant {
   width: 13px;
   height: 13px;
 }
-#hooks_chart .plot.rated.variant {
+#hooks_wrap .hooks_chart .plot.rated.variant {
   width: 11px;
   height: 11px;
 }
-#hooks_chart .plot.cancel {
+#hooks_wrap .hooks_chart .plot.cancel {
   background: #666;
 }
 #hook {
@@ -325,10 +312,10 @@ div.lobby_and_ground {
   box-shadow: 0 0 9px #333;
   background: #d0d0d0;
 }
-#hooks_chart .plot:hover {
+#hooks_wrap .hooks_chart .plot:hover {
   background-color: #f6f6f6;
 }
-#hooks_chart .plot:hover {
+#hooks_wrap .hooks_chart .plot:hover {
   box-shadow: 0 0 9px #d85000 !important;
 }
 #hook .opponent {
