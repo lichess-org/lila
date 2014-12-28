@@ -16,12 +16,11 @@ function renderHook(ctrl, hook) {
     key: hook.id,
     title: (hook.action === 'join') ? ctrl.trans('joinTheGame') + ' - ' + hook.perf.name : ctrl.trans('cancel'),
     'data-id': hook.id,
-    class: 'hook ' + hook.action + (hook.disabled ? ' disabled' : ''),
-    onclick: util.partial(ctrl.clickHook, hook)
+    class: 'hook ' + hook.action + (hook.disabled ? ' disabled' : '')
   }, tds([
     m('span', {
       class: 'is is2 color-icon ' + (hook.color || 'random')
-    }), (hook.rating ? m('a', {
+    }), (hook.rating ? m('a.ulink', {
       href: '/@/' + hook.username
     }, hook.username) : 'Anonymous'),
     hook.rating ? hook.rating : '',
@@ -55,7 +54,18 @@ module.exports = function(ctrl) {
         m('th', ctrl.trans('mode'))
       ])
     ),
-    m('tbody' + (ctrl.vm.stepping ? '.stepping' : ''), [
+    m('tbody', {
+      class: ctrl.vm.stepping ? 'stepping' : '',
+      onclick: function(e) {
+        var el = e.target;
+        if (el.classList.contains('ulink')) return;
+        do {
+          el = el.parentNode;
+          if (el.nodeName === 'TR') return ctrl.clickHook(el.getAttribute('data-id'));
+        }
+        while (el.nodeName !== 'TABLE');
+      }
+    }, [
       standards,
       variants.length ? m('tr.variants',
         m('td[colspan=5]', '- ' + ctrl.trans('variant') + ' -')

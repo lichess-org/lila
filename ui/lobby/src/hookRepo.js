@@ -28,5 +28,10 @@ module.exports = {
   },
   stepSlice: function(ctrl) {
     return ctrl.data.hooks.slice(0, 14);
+  },
+  find: function(ctrl, id) {
+    return ctrl.data.hooks.filter(function(h) {
+      return h.id === id;
+    })[0];
   }
 };

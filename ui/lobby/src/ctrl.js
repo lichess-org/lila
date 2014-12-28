@@ -44,9 +44,12 @@ module.exports = function(env) {
     this.vm.mode = store.mode.set(mode);
   }.bind(this);
 
-  this.clickHook = function(hook) {
+  this.clickHook = function(id) {
     if (this.vm.stepping) return;
-    if (hook.action === 'cancel' || variant.confirm(data.variant)) socket.send(hook.action, hook.id);
+    var hook = hookRepo.find(this, id);
+    if (!hook || hook.disabled) return;
+    console.log(hook);
+    // if (hook.action === 'cancel' || variant.confirm(hook.variant)) this.socket.send(hook.action, hook.id);
   }.bind(this);
 
   this.router = env.routes;
