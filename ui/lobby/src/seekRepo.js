@@ -10,8 +10,8 @@ function fixBC(seek) {
   seek.mode = seek.mode === 'Casual' ? 0 : 1;
 }
 
-function init(seek) {
-  seek.action = seek.uid === lichess.socket.settings.params.sri ? 'cancelSeek' : 'joinSeek';
+function init(ctrl, seek) {
+  seek.action = (ctrl.data.me && seek.username === ctrl.data.me.username) ? 'cancelSeek' : 'joinSeek';
   fixBC(seek);
 }
 

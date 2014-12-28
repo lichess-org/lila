@@ -7,7 +7,7 @@ function renderSeek(ctrl, seek) {
     key: seek.id,
     title: (seek.action === 'joinSeek') ? ctrl.trans('joinTheGame') + ' - ' + seek.perf.name : ctrl.trans('cancel'),
     'data-id': seek.id,
-    class: 'seek ' + seek.action
+    class: 'seek ' + (seek.action === 'joinSeek' ? 'join' : 'cancel')
   }, tds([
     m('span', {
       class: 'is is2 color-icon ' + (seek.color || 'random')
@@ -40,8 +40,8 @@ module.exports = function(ctrl) {
         do {
           el = el.parentNode;
           if (el.nodeName === 'TR') {
-            if (!this.data.me) {
-              if (confirm(this.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
+            if (!ctrl.data.me) {
+              if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
               return;
             }
             return ctrl.clickSeek(el.getAttribute('data-id'));

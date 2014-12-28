@@ -12,7 +12,7 @@ module.exports = function(env) {
   this.data = env.data;
   this.data.hooks.forEach(hookRepo.init);
   hookRepo.sort(this);
-  this.data.seeks.forEach(seekRepo.init);
+  this.data.seeks.forEach(util.partial(seekRepo.init, this));
   seekRepo.sort(this);
 
   this.socket = new socket(env.socketSend, this);
@@ -47,6 +47,7 @@ module.exports = function(env) {
   this.setTab = function(tab) {
     if (tab === 'seeks' && tab !== this.vm.tab) xhr.seeks().then(this.setSeeks);
     this.vm.tab = store.tab.set(tab);
+    this.vm.filter.open = false;
   }.bind(this);
 
   this.setMode = function(mode) {
@@ -66,20 +67,18 @@ module.exports = function(env) {
     if (this.vm.stepping) return;
     var hook = hookRepo.find(this, id);
     if (!hook || hook.disabled) return;
-    console.log(hook);
-    // if (hook.action === 'cancel' || variant.confirm(hook.variant)) this.socket.send(hook.action, hook.id);
+    if (hook.action === 'cancel' || variant.confirm(hook.variant)) this.socket.send(hook.action, hook.id);
   }.bind(this);
 
   this.clickSeek = function(id) {
     var seek = seekRepo.find(this, id);
     if (!seek) return;
-    console.log(seek);
-    // if (hook.action === 'cancel' || variant.confirm(hook.variant)) this.socket.send(hook.action, hook.id);
+    if (seek.action === 'cancelSeek' || variant.confirm(seek.variant)) this.socket.send(seek.action, seek.id);
   }.bind(this);
 
   this.setSeeks = function(seeks) {
     this.data.seeks = seeks;
-    this.data.seeks.forEach(seekRepo.init);
+    this.data.seeks.forEach(util.partial(seekRepo.init, this));
     seekRepo.sort(this);
   }.bind(this);
 
