@@ -5,14 +5,19 @@ var xhrConfig = function(xhr) {
   xhr.setRequestHeader('Accept', 'application/vnd.lichess.v1+json');
 }
 
-function seeks() {
-  return m.request({
-    method: 'GET',
-    url: '/lobby/seeks',
-    config: xhrConfig
-  });
-}
-
 module.exports = {
-  seeks: seeks
+  seeks: function() {
+    return m.request({
+      method: 'GET',
+      url: '/lobby/seeks',
+      config: xhrConfig
+    });
+  },
+  nowPlaying: function() {
+    return m.request({
+      method: 'GET',
+      url: '/lobby/playing',
+      config: xhrConfig
+    });
+  }
 };

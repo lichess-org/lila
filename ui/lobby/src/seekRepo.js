@@ -10,13 +10,16 @@ function fixBC(seek) {
   seek.mode = seek.mode === 'Casual' ? 0 : 1;
 }
 
-function init(ctrl, seek) {
-  seek.action = (ctrl.data.me && seek.username === ctrl.data.me.username) ? 'cancelSeek' : 'joinSeek';
-  fixBC(seek);
+function initAll(ctrl) {
+  ctrl.data.seeks.forEach(function(seek) {
+    seek.action = (ctrl.data.me && seek.username === ctrl.data.me.username) ? 'cancelSeek' : 'joinSeek';
+    fixBC(seek);
+  });
+  sort(ctrl);
 }
 
 module.exports = {
-  init: init,
+  initAll: initAll,
   sort: sort,
   find: function(ctrl, id) {
     return ctrl.data.seeks.filter(function(s) {

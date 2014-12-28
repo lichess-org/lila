@@ -101,7 +101,7 @@ body.dark #hooks_wrap .table_wrap th,
 body.dark #hooks_wrap .table_wrap td,
 body.dark #hooks_wrap,
 body.dark #hooks_wrap > div.tabs > a,
-body.dark #hooks_chart > div.grid,
+body.dark #hooks_wrap .hooks_chart > div.grid,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
 body.dark #enterable_tournaments table.scheduled,
@@ -209,7 +209,7 @@ body.dark #hooks_wrap .table_wrap tr.hook:hover td,
 body.dark #now_playing > a:hover {
   background: rgba(27, 51, 68, 0.7);
 }
-body.dark #hook_filter .checkable {
+body.dark #hooks_wrap .hook_filter .checkable {
   color: #c0c0c0;
 }
 body.dark #hooks_wrap,
@@ -345,10 +345,10 @@ body.dark .ui-state-hover {
   background: -ms-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
   background: linear-gradient(to bottom, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
 }
-body.dark #hooks_chart .plot {
+body.dark #hooks_wrap .hooks_chart .plot {
   box-shadow: 0 0 5px #000;
 }
-body.dark #hooks_chart > span.label {
+body.dark #hooks_wrap .hooks_chart > span.label {
   text-shadow: 0 0 3px #000;
 }
 body.dark .loader {

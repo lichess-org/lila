@@ -5,6 +5,7 @@ import akka.pattern.ask
 import play.api.libs.json.{ Json, JsObject, JsArray }
 
 import lila.common.LightUser
+import lila.common.PimpedJson._
 import lila.game.{ GameRepo, Pov }
 import lila.lobby.actorApi.HooksFor
 import lila.lobby.{ Hook, HookRepo, Seek, SeekApi }
@@ -32,12 +33,13 @@ final class LobbyApi(
           "version" -> lobbyVersion(),
           "hooks" -> JsArray(hooks map (_.render)),
           "seeks" -> JsArray(seeks map (_.render)),
-          "nowPlaying" -> JsArray(povs map nowPlaying),
+          "nowPlaying" -> JsArray(povs take 9 map nowPlaying),
           "filter" -> filter.render)
       }
 
   def nowPlaying(pov: Pov) = Json.obj(
-    "id" -> pov.fullId,
+    "fullId" -> pov.fullId,
+    "gameId" -> pov.gameId,
     "fen" -> (chess.format.Forsyth exportBoard pov.game.toChess.board),
     "color" -> pov.color.name,
     "lastMove" -> ~pov.game.castleLastMoveTime.lastMoveString,
@@ -48,7 +50,8 @@ final class LobbyApi(
     "opponent" -> Json.obj(
       "id" -> pov.opponent.userId,
       "username" -> lila.game.Namer.playerString(pov.opponent, withRating = false)(lightUser),
-      "rating" -> pov.opponent.rating),
+      "rating" -> pov.opponent.rating,
+      "aiLevel" -> pov.opponent.aiLevel).noNull,
     "isMyTurn" -> pov.isMyTurn,
     "secondsLeft" -> pov.remainingSeconds)
 }

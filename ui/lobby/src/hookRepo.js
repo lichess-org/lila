@@ -15,8 +15,14 @@ function init(hook) {
   fixBC(hook);
 }
 
+function initAll(ctrl) {
+  ctrl.data.hooks.forEach(init);
+  sort(ctrl);
+}
+
 module.exports = {
   init: init,
+  initAll: initAll,
   sort: sort,
   add: function(ctrl, hook) {
     init(hook);

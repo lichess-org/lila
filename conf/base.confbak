@@ -1,0 +1,555 @@
+mongodb {
+  servers = ["127.0.0.1:27017"]
+  db = "lichess"
+}
+net {
+  domain = "lichess.org"
+  protocol = "http://"
+  base_url = ${net.protocol}${net.domain}
+  base_en_url = ${net.protocol}en.${net.domain}
+  extra_ports = [9021, 9022, 9023, 9024, 9025, 9026, 9027, 9028, 9029]
+  asset {
+    domain = ${net.domain}
+    version = 438
+  }
+}
+app {
+  scheduler {
+    disabled = ${ai.server-only}
+    debug = false
+  }
+  renderer.name = "renderer"
+  router.name = "router"
+  web_path = "public"
+  casual_only = false
+}
+api {
+  token = secret
+  version = 1
+}
+cli {
+  username = "thibault"
+}
+chessground {
+  animation {
+    duration = 250 ms
+  }
+}
+editor {
+  animation.duration = ${chessground.animation.duration}
+}
+accessibility {
+  blind {
+    cookie {
+      name = "mBzamRgfXgRBSnXB"
+      salt = "WWcTbz5xxaHU4d96"
+      max_age = 31536000 # one year
+    }
+  }
+}
+ws { # as in "web service", it's play http client
+  useragent = ${net.base_url}
+  timeout {
+    connection = 5 seconds
+    idle = 20 minutes
+    request = 20 minutes
+  }
+}
+prismic {
+  api_url = "https://d27t3nufpewl0w.cloudfront.net/api"
+}
+blog {
+  prismic {
+    api_url = ${prismic.api_url}
+    collection = blog
+  }
+  notify {
+    delay = 20 minutes
+    user_id = "lichess-blog"
+  }
+  last_post_cache.ttl = 10 minutes
+  rss {
+    email = "thibault.duplessis@gmail.com"
+  }
+}
+qa {
+  collection {
+    question = qa_question
+    answer = qa_answer
+  }
+  notifier.sender = lichess-qa
+}
+donation {
+  collection.donation = donation
+  monthly_goal = 18300
+  server_donors = [ drazak ]
+}
+chat {
+  collection.chat = chat
+  max_lines = 50
+  net.domain = ${net.domain}
+  actor.name = chat
+}
+puzzle {
+  collection {
+    puzzle = puzzle
+    attempt = puzzle_attempt
+  }
+  api.token = ${api.token}
+  selector {
+    anon_min_rating = 30
+    tolerance = {
+      step = 160
+      max = 1000
+    }
+    modulo = 60000
+  }
+  animation.duration = ${chessground.animation.duration}
+}
+coordinate {
+  collection {
+    score = coordinate_score
+  }
+}
+opening {
+  collection {
+    opening = opening
+    attempt = opening_attempt
+  }
+# deviation from the best move in centipawns
+  threshold {
+    great = 30
+    good = 60
+    dubious = 80
+  }
+  api.token = ${api.token}
+}
+search {
+  es {
+    host = localhost
+    port = 9300
+    cluster = elasticsearch
+  }
+  default_index = lila
+  indexes_to_optimize = [${search.default_index}]
+}
+team {
+  collection{
+    team = team
+    member = team_member
+    request = team_request
+  }
+  notifier.sender = lichess-team
+  paginator.max_per_page = 15
+  paginator.max_user_per_page = 24
+}
+teamSearch {
+  index = ${search.default_index}
+  type = team
+  paginator.max_per_page = ${team.paginator.max_per_page}
+  indexer.name = team-type-indexer
+}
+relation {
+  collection {
+    relation = relation
+  }
+  actor {
+    name = relation-actor
+    notify_freq = 2 seconds
+  }
+  limit {
+    follow = 300
+    block = 500
+  }
+}
+pref {
+  collection.pref = pref
+  cache.ttl = 30 minutes
+}
+bookmark {
+  collection.bookmark = bookmark
+  paginator.max_per_page = ${game.paginator.max_per_page}
+  actor.name = bookmark
+}
+analyse {
+  collection.analysis = analysis2
+  net.domain = ${net.domain}
+  cached.nb.ttl = ${game.cached.nb.ttl}
+  paginator.max_per_page = ${game.paginator.max_per_page}
+  actor.name = analyser
+}
+geoip {
+  file = ""
+  cache_size = 1000
+}
+security {
+  collection.security = security
+  wiretap.ips = []
+  flood.duration = 60 seconds
+  firewall {
+    enabled=true
+    cached.ips.ttl = 10 minutes
+    cookie {
+      enabled = false
+      name=fEKHA4zI74ZrZrom
+    }
+    collection.firewall = firewall
+  }
+  geoip = ${geoip}
+  password_reset {
+    mailgun = ${mailgun}
+    secret = "???"
+  }
+}
+worldMap {
+  geoip = ${geoip}
+  players.cache_size = 1024
+}
+mod {
+  collection.modlog = modlog
+  actor.name = mod
+}
+report {
+  collection.report = report
+  actor.name = report
+}
+i18n {
+  web_path.relative = ${app.web_path}/trans
+  file_path.relative = "conf"
+  upstream.url_pattern = "http://en.lichess.org/translation/fetch/%d"
+  hide_calls.cookie {
+    name="hide_i18n_calls"
+    max_age=604800 # one week
+  }
+  collection.translation = translation
+  request_handler.protocol = ${net.protocol}
+  context.git {
+    url = "git://github.com/ornicar/lila.wiki.git"
+    file = "translation_context.md"
+  }
+  cdn_domain = ${net.asset.domain}
+}
+detectlanguage.api {
+  url = "http://ws.detectlanguage.com/0.2/detect"
+  key = "???"
+}
+mailgun {
+  api {
+    url = "???"
+    key = "???"
+  }
+  sender = "noreply@mail.lichess.org"
+  base_url = ${net.base_url}
+}
+monitor {
+  rps.interval = 1 second
+  actor.name = monitor-actor
+  socket.name = monitor-socket
+  socket.uid.ttl = ${site.socket.uid.ttl}
+}
+lobby {
+  message.ttl = 30 seconds
+  orphan_hook.ttl = 5 seconds
+  socket {
+    name = lobby-socket
+    uid.ttl = ${site.socket.uid.ttl}
+  }
+  seek {
+    max_per_page = 10
+    max_per_user = 10
+  }
+  actor.name = lobby-actor
+  net.domain = ${net.domain}
+  broom_period = 1 second
+  resync_ids_period = 15 seconds
+  collection.seek = seek
+}
+timeline {
+  user {
+    collection.entry = timeline_entry
+    display_max = 12
+    actor.name = user-timeline
+  }
+}
+game {
+  cached.nb.ttl = 1 hour
+  paginator.max_per_page = 8
+  collection {
+    game = game5
+    crosstable = crosstable
+  }
+  js_path {
+    raw = public/javascripts/big.js
+    compiled = public/compiled/big.js
+  }
+  actor.name = game-actor
+  captcher {
+    name = captcher
+    duration = 7 seconds
+  }
+  net.base_url = ${net.base_url}
+  uci_memo.ttl = 2 minutes
+  mandatory.seconds_to_move = 30
+  pdf.exec_path = "submodules/pdfexporter"
+  png.exec_path = "submodules/boardcreator"
+}
+tv {
+  featured {
+    continue = 1 seconds
+    disrupt = 5 seconds
+  }
+  streaming {
+    search = 10 seconds
+    ustream_api_key = ""
+    collection.whitelist = stream_whitelist
+  }
+}
+gameSearch {
+  index = ${search.default_index}
+  type = game
+  paginator.max_per_page = ${game.paginator.max_per_page}
+  indexer.name = game-type-indexer
+}
+round {
+  active.ttl = 30 seconds
+  message.ttl = 30 seconds
+  uid.timeout = 10 seconds
+  finisher.lock.timeout = 20 seconds
+  animation.duration = ${chessground.animation.duration}
+  moretime = 15 seconds
+  casual_only = ${app.casual_only}
+  player {
+    disconnect.timeout = 2 minutes
+    ragequit.timeout = 20 seconds
+  }
+  socket {
+    name = round-socket
+    timeout = 30 seconds
+  }
+  actor {
+    name = round
+    map.name = round-map
+  }
+  collection.note = game_note
+  net.domain = ${net.domain}
+}
+tournament {
+  collection {
+    tournament = tournament
+  }
+  history.message.ttl = 30 seconds
+  uid.timeout = 7 seconds # small to avoid missed events
+  socket {
+    name = tournament-socket
+    timeout = 2 minutes
+  }
+  organizer.name = tournament-organizer
+  reminder.name = tournament-reminder
+  sequencer {
+    map_name = tournament-sequencers
+    timeout = 10 minutes
+  }
+  created.cache.ttl = 2 seconds
+  leaderboard.cache.ttl = 1 hour
+  net.domain = ${net.domain}
+}
+forum {
+  topic.max_per_page = 10
+  post.max_per_page = 10
+  recent {
+    ttl = 1 hour
+    nb = 20
+  }
+  collection {
+    categ = f_categ
+    topic = f_topic
+    post = f_post
+  }
+  public_categ_ids = [
+    general-chess-discussion
+    game-analysis
+    lichess-feedback
+    off-topic-discussion
+  ]
+  actor.name = forum
+}
+forumSearch {
+  index = ${search.default_index}
+  type = forum
+  paginator.max_per_page = 10
+  indexer.name = forum-post-indexer
+}
+message {
+  thread.max_per_page = 30
+  collection.thread = m_thread
+  actor.name = message
+}
+setup {
+  friend.memo.ttl = 1 day
+  casual_only = ${app.casual_only}
+  collection {
+    user_config = config
+    anon_config = config_anon
+  }
+  challenger.name = "setup-challenger"
+}
+site {
+  socket {
+    name = site-socket
+    uid.ttl = 10 seconds
+  }
+}
+user {
+  paginator.max_per_page = 40
+  cached.nb.ttl = 10 minutes
+  online.ttl = 7 seconds
+  collection {
+    user = user4
+    note = note
+  }
+}
+history {
+  collection.history = history3
+  cached.rating_chart.ttl = 1 hour
+}
+evaluation {
+  collection.evaluation = evaluation
+  evaluator.exec_path = "submodules/evaluator"
+  actor.name = evaluator
+  api {
+    url = ${net.base_en_url}/api
+    token = ${api.token}
+  }
+}
+ai {
+  exec_path = local/Stockfish/src/stockfish
+  hash_size = 128
+  threads = 1
+  instances = 2
+  debug = false
+  endpoint = ${net.base_url}/ai
+  callback_url = ${net.protocol}en.${net.domain}/%/post-analysis
+  server-only = false
+  play {
+    movetime = 500 ms
+    timeout = 5 seconds
+  }
+  analyse {
+    max_plies = 200
+    movetime = 1500 ms
+  }
+  collection.ai_perf = "ai_perf"
+  ai_perf.cache_ttl = 5 seconds
+  actor.name = ai
+}
+application {
+  langs="en,fr,ru,de,tr,sr,lv,bs,da,es,ro,it,fi,uk,pt,pl,nl,vi,sv,cs,sk,hu,ca,sl,az,nn,eo,tp,el,fp,lt,nb,et,hy,af,hi,ar,zh,gl,hr,mk,id,ja,bg,th,fa,he,mr,mn,cy,gd,ga,sq,be,ka,sw,ps,is,kk,io,gu,fo,eu,bn,id,la,jv,ky,pi,as,le,ta,sa,ml,kn,ko,mg,kb,zu,ur"
+  secret="CiebwjgIM9cHQ;I?Xk:sfqDJ;BhIe:jsL?r=?IPF[saf>s^r0]?0grUq4>q?5mP^"
+  global="lila.app.Global"
+}
+session {
+  cookieName = "lila2"
+  maxAge = 365 days
+}
+wiki {
+  collection.page = wiki
+  git.url = "git://github.com/ornicar/lichess.wiki.git"
+  markdown_path = "/usr/bin/markdown"
+}
+importer {
+  delay = 50 milliseconds
+}
+relay {
+  user_id = "lichess-relay"
+  import {
+    ip = "69.36.243.188"
+    move_delay = 50 milliseconds
+  }
+  fics {
+    host = "freechess.org"
+    port = 5000
+  }
+}
+simulation {
+  enabled = false
+  players = 300
+  watchers = 200
+}
+hub {
+  actor {
+    game {
+      actor = ${game.actor.name}
+      indexer = ${gameSearch.indexer.name}
+    }
+    renderer = ${app.renderer.name}
+    captcher = ${game.captcher.name}
+    forum {
+      actor = ${forum.actor.name}
+      indexer = ${forumSearch.indexer.name}
+    }
+    messenger = ${message.actor.name}
+    router = ${app.router.name}
+    team.indexer = ${teamSearch.indexer.name}
+    ai = ${ai.actor.name}
+    monitor = ${monitor.actor.name}
+    tournament.organizer = ${tournament.organizer.name}
+    timeline {
+      user = ${timeline.user.actor.name}
+    }
+    bookmark = ${bookmark.actor.name}
+    round {
+      map = ${round.actor.map.name}
+      actor = ${round.actor.name}
+    }
+    lobby = ${lobby.actor.name}
+    relation = ${relation.actor.name}
+    challenger = ${setup.challenger.name}
+    report = ${report.actor.name}
+    mod = ${mod.actor.name}
+    evaluator = ${evaluation.actor.name}
+    chat = ${chat.actor.name}
+    analyser = ${analyse.actor.name}
+    move_broadcast = ${socket.move_broadcast.name}
+    user_register = ${socket.user_register.name}
+  }
+  socket {
+    lobby = ${lobby.socket.name}
+    monitor = ${monitor.socket.name}
+    site = ${site.socket.name}
+    round = ${round.socket.name}
+    tournament = ${tournament.socket.name}
+    hub = ${socket.hub.name}
+  }
+}
+
+socket {
+  hub.name = socket.hub
+  move_broadcast.name = socket.move-broadcast
+  user_register.name = socket.user-register
+  population.name = socket.population
+}
+
+# trust proxy X-Forwarded-For header
+trustxforwarded = true
+
+dbplugin = disabled
+evolutionplugin = disabled
+ehcacheplugin = disabled
+
+logger {
+  root=INFO
+  play=INFO
+  lila=INFO
+  application=INFO
+  org.elasticsearch=INFO
+  reactivemongo=INFO
+}
+
+akka {
+  loglevel = INFO
+  stdout-loglevel = INFO
+  log-config-on-start = off
+  log-dead-letters-during-shutdown = off
+}
+
+forcedev = false

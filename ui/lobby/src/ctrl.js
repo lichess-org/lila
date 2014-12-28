@@ -10,10 +10,8 @@ var util = require('chessground').util;
 module.exports = function(env) {
 
   this.data = env.data;
-  this.data.hooks.forEach(hookRepo.init);
-  hookRepo.sort(this);
-  this.data.seeks.forEach(util.partial(seekRepo.init, this));
-  seekRepo.sort(this);
+  hookRepo.initAll(this);
+  seekRepo.initAll(this);
 
   this.socket = new socket(env.socketSend, this);
 
@@ -32,11 +30,11 @@ module.exports = function(env) {
   this.flushHooks = function() {
     clearTimeout(flushHooksTimeout);
     this.vm.stepping = true;
-    m.redraw();
+    if (this.vm.tab === 'real_time') m.redraw();
     setTimeout(function() {
       this.vm.stepping = false;
       this.vm.stepHooks = this.data.hooks.slice(0);
-      m.redraw();
+      if (this.vm.tab === 'real_time') m.redraw();
     }.bind(this), 500);
     flushHooksSchedule();
   }.bind(this);
@@ -78,9 +76,38 @@ module.exports = function(env) {
 
   this.setSeeks = function(seeks) {
     this.data.seeks = seeks;
-    this.data.seeks.forEach(util.partial(seekRepo.init, this));
-    seekRepo.sort(this);
+    seekRepo.initAll(this);
   }.bind(this);
+
+  this.setNowPlaying = function(povs) {
+    this.data.nowPlaying = povs;
+    this.startWatching();
+    m.redraw();
+  }.bind(this);
+
+  this.gameActivity = function(gameId) {
+    console.log(gameId);
+    if (this.data.nowPlaying.filter(function(p) {
+      return p.gameId === gameId;
+    }).length) xhr.nowPlaying().then(this.setNowPlaying);
+  }.bind(this);
+
+  var alreadyWatching = [];
+  this.startWatching = function() {
+    var newIds = this.data.nowPlaying.map(function(p) {
+      return p.gameId;
+    }).filter(function(id) {
+      return alreadyWatching.indexOf(id) === -1;
+    });
+    if (newIds.length) {
+      setTimeout(function() {
+        this.socket.send("startWatching", newIds.join(' '));
+      }.bind(this), 2000);
+      newIds.forEach(alreadyWatching.push.bind(alreadyWatching));
+    }
+  }.bind(this);
+
+  this.startWatching();
 
   this.router = env.routes;
   this.trans = function(key) {

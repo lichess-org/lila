@@ -1171,7 +1171,7 @@ var storage = {
       $('.mini_board.live').removeClass("live").each(function() {
         ids.push(this.getAttribute("data-live"));
       });
-      if (ids.length > 0) {
+      if (ids.length) {
         lichess.socket.send("startWatching", ids.join(" "));
       }
     }
@@ -1305,49 +1305,18 @@ var storage = {
               });
             }
           },
-          // override fen event to reload playing games list
-          // fen: function(e) {
-          //   lichess.StrongSocket.defaults.events.fen(e);
-          //   if ($nowPlaying.find('.mini_board_' + e.id).length) $.ajax({
-          //     url: $nowPlaying.data('href'),
-          //     success: function(html) {
-          //       $nowPlaying.html(html);
-          //       $('body').trigger('lichess.content_loaded');
-          //       var nb = $nowPlaying.find('.my_turn').length;
-          //       $wrap.find('.tabs .now_playing').toggleClass('hilight', nb).find('.unread').text(nb);
-          //     }
-          //   });
-          // }
+          fen: function(e) {
+            lichess.StrongSocket.defaults.events.fen(e);
+            lobby.gameActivity(e.id);
+          }
         },
         options: {
           name: 'lobby'
         }
       });
 
-      cfg.socketSend = lichess.socket.send.bind(lichess.socket);
-      lobby = LichessLobby(document.getElementById('hooks_wrap'), cfg);
-
-    // $seeks.on('click', 'tr', function() {
-    //   if ($(this).hasClass('must_login')) {
-    //     if (confirm($.trans('You need an account to do that'))) {
-    //       location.href = '/signup';
-    //     }
-    //     return false;
-    //   }
-    //   if ($(this).data('action') != 'joinSeek' || confirmVariant($(this).data('variant'))) {
-    //     lichess.socket.send($(this).data('action'), $(this).data('id'));
-    //   }
-    // });
-
-    // function reloadSeeksIfVisible() {
-    //   if ($seeks.is(':visible')) {
-    //     $.ajax($seeks.data('reload-url'), {
-    //       success: function(html) {
-    //         $seeks.html(html);
-    //       }
-    //     });
-    //   }
-    // }
+    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    lobby = LichessLobby(document.getElementById('hooks_wrap'), cfg);
 
     function changeFeatured(o) {
       $('#featured_game').html(o.html);

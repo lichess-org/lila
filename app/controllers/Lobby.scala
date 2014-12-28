@@ -41,21 +41,21 @@ object Lobby extends LilaController {
 
   def playing = Auth { implicit ctx =>
     me =>
-      if (HTTPRequest isSynchronousHttp ctx.req)
-        fuccess(Redirect(routes.Lobby.home))
-      else lila.game.GameRepo nowPlaying me map { povs =>
-        html.lobby.playing(povs)
-      }
+      negotiate(
+        html = fuccess(NotFound),
+        api = _ => lila.game.GameRepo nowPlaying me map { povs =>
+          Ok(JsArray(povs map Env.api.lobbyApi.nowPlaying))
+        }
+      )
   }
 
   def seeks = Open { implicit ctx =>
-    ctx.me.fold(Env.lobby.seekApi.forAnon)(Env.lobby.seekApi.forUser) flatMap { seeks =>
-      negotiate(
-        html = if (HTTPRequest isSynchronousHttp ctx.req) fuccess(Redirect(routes.Lobby.home))
-        else fuccess(html.lobby.seeks(seeks)),
-        api = _ => fuccess(Ok(JsArray(seeks.map(_.render))))
-      )
-    }
+    negotiate(
+      html = fuccess(NotFound),
+      api = _ => ctx.me.fold(Env.lobby.seekApi.forAnon)(Env.lobby.seekApi.forUser) map { seeks =>
+        Ok(JsArray(seeks.map(_.render)))
+      }
+    )
   }
 
   def socket(apiVersion: Int) = Socket[JsValue] { implicit ctx =>

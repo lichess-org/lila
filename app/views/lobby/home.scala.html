@@ -63,62 +63,7 @@ openGraph = Map(
   @translationCall.map(i18n.callBox(_))
 </div>
 <div class="lobby_and_ground">
-  <div id="hooks_wrap">
-    @*
-    <div class="tabs">
-      <a data-tab="real_time" class="real_time">@trans.realTime()</a>
-      <a data-tab="seeks" class="seeks">@trans.correspondence()</a>
-      @if(nowPlaying.nonEmpty) {
-      @defining(nowPlaying.count(_.isMyTurn)) { nb =>
-      <a data-tab="now_playing" class="now_playing @if(nb > 0){hilight}">
-        @trans.nbGamesInPlay(nowPlaying.size)
-        <span class="unread">@nb</span>
-      </a>
-      }
-      }
-    </div>
-    <a class="filter" href="@routes.Setup.filterForm()">
-      <span class="hint--top" data-hint="@trans.filterGames()"><span data-icon="%"></span></span>
-      <span class="number">(0)</span>
-    </a>
-    <div id="now_playing" class="tab now_playing none" data-href="@routes.Lobby.playing">
-      @playing(nowPlaying)
-    </div>
-    <div id="real_time" class="tab real_time none">
-      <div id="hooks_chart">
-        <span data-mode="list" data-hint="@trans.list()" class="toggle hint--bottom">
-          <span data-icon="?" class="list"></span>
-        </span>
-        <div class="canvas"></div>
-      </div>
-      <div id="hooks_list">
-        <div class="table_wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  <span data-mode="chart" data-hint="@trans.graph()" class="toggle hint--bottom">
-                    <span data-icon="9" class="chart"></span>
-                  </span>
-                </th>
-                <th data-sort="string" class="player"><span class="is">&nbsp;@trans.player()</span></th>
-                <th data-sort="int" class="rating"><span class="is">&nbsp;Rating</span></th>
-                <th data-sort="int"><span class="is">&nbsp;@trans.time()</span></th>
-                <th data-sort="string"><span class="is">&nbsp;@trans.mode()</span></th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <div id="seeks" class="tab seeks none" data-reload-url="@routes.Lobby.seeks">
-      @lobby.seeks(seeks)
-    </div>
-    <div id="hook_overlay"></div>
-    <div id="hook_filter"></div>
-    *@
-  </div>
+  <div id="hooks_wrap"></div>
   <div id="start_buttons" class="lichess_ground">
     @lobbyMenu.all.map { b =>
     <a class="fat button config_@b.code hint--bottom" href="@b.route" onclick="return false">@b.name()</a>

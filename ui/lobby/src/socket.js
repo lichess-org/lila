@@ -10,15 +10,15 @@ module.exports = function(send, ctrl) {
     hook_add: function(hook) {
       hookRepo.add(ctrl, hook);
       if (hook.action === 'cancel') ctrl.flushHooks();
-      else m.redraw();
+      if (ctrl.vm.tab === 'real_time') m.redraw();
     },
     hook_remove: function(id) {
       hookRepo.remove(ctrl, id);
-      m.redraw();
+      if (ctrl.vm.tab === 'real_time') m.redraw();
     },
     hook_list: function(ids) {
       hookRepo.syncIds(ctrl, ids);
-      m.redraw();
+      if (ctrl.vm.tab === 'real_time') m.redraw();
     },
     reload_seeks: function() {
       if (ctrl.vm.tab === 'seeks') xhr.seeks().then(ctrl.setSeeks);

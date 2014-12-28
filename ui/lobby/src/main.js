@@ -17,7 +17,8 @@ module.exports = function(element, opts) {
     setTab: function(tab) {
       controller.setTab(tab);
       m.redraw();
-    }
+    },
+    gameActivity: controller.gameActivity
   };
 };
 
