@@ -134,7 +134,7 @@ body.dark #message_notifications div.notification,
 body.dark div.chat_menu > a {
   border-color: #3d3d3d;
 }
-body.dark .crosstable td:nth-last-child(2) {
+body.dark .crosstable td:nth-last-child(3) {
   border-right-color: #3d3d3d;
 }
 body.dark .crosstable td.current {
