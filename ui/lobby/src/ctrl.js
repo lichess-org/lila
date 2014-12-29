@@ -122,7 +122,6 @@ module.exports = function(env) {
     }.bind(this), 2000);
   }.bind(this);
 
-  this.router = env.routes;
   this.trans = function(key) {
     var str = env.i18n[key] || key;
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {

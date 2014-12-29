@@ -30,12 +30,10 @@
 
 @moreJs = {
 @jsAt(s"compiled/lichess.lobby${isProd??(".min")}.js")
-@jsRoutes()
 @embedJs {
 lichess = lichess || {};
 lichess.lobby = {
 data: @Html(play.api.libs.json.Json.stringify(data)),
-routes: lobbyRoutes.controllers,
 i18n: @jsI18n()
 };
 }
