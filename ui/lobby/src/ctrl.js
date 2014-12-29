@@ -28,15 +28,22 @@ module.exports = function(env) {
 
   var flushHooksTimeout;
 
-  this.flushHooks = function() {
-    clearTimeout(flushHooksTimeout);
-    this.vm.stepping = true;
+  var doFlushHooks = function() {
+    this.vm.stepHooks = this.data.hooks.slice(0);
     if (this.vm.tab === 'real_time') m.redraw();
-    setTimeout(function() {
-      this.vm.stepping = false;
-      this.vm.stepHooks = this.data.hooks.slice(0);
+  }.bind(this);
+
+  this.flushHooks = function(now) {
+    clearTimeout(flushHooksTimeout);
+    if (now) doFlushHooks();
+    else {
+      this.vm.stepping = true;
       if (this.vm.tab === 'real_time') m.redraw();
-    }.bind(this), 500);
+      setTimeout(function() {
+        this.vm.stepping = false;
+        doFlushHooks();
+      }.bind(this), 500);
+    }
     flushHooksSchedule();
   }.bind(this);
 

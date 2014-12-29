@@ -9,7 +9,7 @@ module.exports = function(send, ctrl) {
   var handlers = {
     hook_add: function(hook) {
       hookRepo.add(ctrl, hook);
-      if (hook.action === 'cancel') ctrl.flushHooks();
+      if (hook.action === 'cancel') ctrl.flushHooks(true);
       if (ctrl.vm.tab === 'real_time') m.redraw();
     },
     hook_remove: function(id) {
