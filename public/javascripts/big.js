@@ -2061,7 +2061,8 @@ lichess.storage = {
     else {
       var stored = lichess.storage.get(storageKey);
       if (stored && $menu.children('.' + stored).length) setPanel(stored);
-      else $menu.children('.crosstable').click();
+      else if ($menu.children('.crosstable').length) $menu.children('.crosstable').click();
+      else $menu.children('.move_times').click();
     }
 
     $panels.find('form.future_game_analysis').submit(function() {
