@@ -17,21 +17,21 @@ module.exports = {
   tab: {
     set: function(t) {
       t = tab.fix(t);
-      storage.set(tab.key, t);
+      lichess.storage.set(tab.key, t);
       return t;
     },
     get: function() {
-      return tab.fix(storage.get(tab.key));
+      return tab.fix(lichess.storage.get(tab.key));
     }
   },
   mode: {
     set: function(m) {
       m = mode.fix(m);
-      storage.set(mode.key, m);
+      lichess.storage.set(mode.key, m);
       return m;
     },
     get: function() {
-      return mode.fix(storage.get(mode.key));
+      return mode.fix(lichess.storage.get(mode.key));
     }
   }
 };

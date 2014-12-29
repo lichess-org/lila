@@ -4,10 +4,10 @@ var m = require('mithril');
 
 module.exports = function(ctrl, key) {
 
-  this.value = storage.get(key) === '1';
+  this.value = lichess.storage.get(key) === '1';
 
   var store = function() {
-    storage.set(key, this.value ? '1' : '0');
+    lichess.storage.set(key, this.value ? '1' : '0');
   }.bind(this);
 
   this.toggle = function() {
