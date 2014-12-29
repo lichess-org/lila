@@ -1233,21 +1233,9 @@ var storage = {
   });
 
   function startLobby(element, cfg) {
-    var $timeline = $("#timeline");
     var $newposts = $("div.new_posts");
-    var nbPlayersElement = document.getElementById('site_baseline span');
+    var nbRoundsEl = document.getElementById('site_baseline span');
     var lobby;
-
-    function resizeTimeline() {
-      if ($timeline.length) {
-        var pos = $timeline.offset().top,
-          max = $('#lichess').offset().top + 536;
-        while (pos + $timeline.outerHeight() > max) {
-          $timeline.find('div.entry:last').remove();
-        }
-      }
-    }
-    resizeTimeline();
 
     lichess.socket = new lichess.StrongSocket(
       '/lobby/socket/v1',
@@ -1259,10 +1247,9 @@ var storage = {
         events: {
           reload_timeline: function() {
             $.ajax({
-              url: $timeline.data('href'),
+              url: $("#timeline").data('href'),
               success: function(html) {
-                $timeline.html(html);
-                resizeTimeline();
+                $('#timeline').html(html);
                 $('body').trigger('lichess.content_loaded');
               }
             });
@@ -1290,15 +1277,15 @@ var storage = {
             }, Math.round(Math.random() * 5000));
           },
           nbr: function(e) {
-            if (nbPlayersElement && e) {
-              var prev = parseInt(nbPlayersElement.textContent, 10);
+            if (nbRoundsEl && e) {
+              var prev = parseInt(nbRoundsEl.textContent, 10);
               var k = 5;
               var interv = 2000 / k;
               $.fp.range(k).forEach(function(it) {
                 setTimeout(function() {
                   var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
                   if (val != prev) {
-                    nbPlayersElement.textContent = val;
+                    nbRoundsEl.textContent = val;
                     prev = val;
                   }
                 }, Math.round(it * interv));

@@ -608,7 +608,11 @@ div.game_config div.color_submits button.random span {
   width: 230px;
   font-size: 0.9em;
 }
-#timeline > .entry {
+#timeline .entries {
+  height: 400px;
+  overflow: hidden;
+}
+#timeline .entry {
   padding-bottom: 8px;
   border-bottom: 1px solid #e4e4e4;
   margin-bottom: 8px;
@@ -629,6 +633,7 @@ div.game_config div.color_submits button.random span {
   padding-left: 0;
 }
 #timeline .links {
+  margin-top: 10px;
   width: 100%;
 }
 #timeline .links a {

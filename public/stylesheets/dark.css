@@ -252,7 +252,7 @@ body.dark div.content_box .loader:after {
   background-color: #2b2b2b;
 }
 body.dark #timeline,
-body.dark #timeline > .entry {
+body.dark #timeline .entry {
   border-color: #2b2b2b;
 }
 body.dark #site_header div.side_menu a.active,
