@@ -1234,7 +1234,7 @@ var storage = {
 
   function startLobby(element, cfg) {
     var $newposts = $("div.new_posts");
-    var nbRoundsEl = document.querySelector('#site_baseline span');
+    var nbrEl = document.querySelector('#site_baseline span');
     var lobby;
 
     lichess.socket = new lichess.StrongSocket(
@@ -1280,15 +1280,15 @@ var storage = {
             }, Math.round(Math.random() * 5000));
           },
           nbr: function(e) {
-            if (nbRoundsEl && e) {
-              var prev = parseInt(nbRoundsEl.textContent, 10);
+            if (nbrEl && e) {
+              var prev = parseInt(nbrEl.textContent, 10);
               var k = 4;
               var interv = 2000 / k;
               $.fp.range(k).forEach(function(it) {
                 setTimeout(function() {
                   var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
-                  if (val != prev) {
-                    nbRoundsEl.textContent = val;
+                  if (val !== prev) {
+                    nbrEl.textContent = val;
                     prev = val;
                   }
                 }, Math.round(it * interv));

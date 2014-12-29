@@ -6,14 +6,8 @@ function sort(ctrl) {
   ctrl.data.hooks.sort(order);
 }
 
-function fixBC(hook) {
-  if (hook.mode === 'Casual') hook.mode = 0;
-  else if (hook.mode === 'Rated') hook.mode = 1;
-}
-
 function init(hook) {
   hook.action = hook.uid === lichess.socket.settings.params.sri ? 'cancel' : 'join';
-  fixBC(hook);
 }
 
 function initAll(ctrl) {
