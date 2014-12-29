@@ -70,16 +70,14 @@ module.exports = function(env) {
   }.bind(this);
 
   this.clickHook = function(id) {
-    if (this.vm.stepping || this.vm.redirecting) return;
     var hook = hookRepo.find(this, id);
-    if (!hook || hook.disabled) return;
+    if (!hook || hook.disabled || this.vm.stepping || this.vm.redirecting) return;
     if (hook.action === 'cancel' || variant.confirm(hook.variant)) this.socket.send(hook.action, hook.id);
   }.bind(this);
 
   this.clickSeek = function(id) {
-    if (this.vm.redirecting) return;
     var seek = seekRepo.find(this, id);
-    if (!seek) return;
+    if (!seek || this.vm.redirecting) return;
     if (seek.action === 'cancelSeek' || variant.confirm(seek.variant)) this.socket.send(seek.action, seek.id);
   }.bind(this);
 
