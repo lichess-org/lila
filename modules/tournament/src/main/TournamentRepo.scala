@@ -44,6 +44,9 @@ object TournamentRepo {
   def started: Fu[List[Started]] =
     coll.find(startedSelect).sort(BSONDocument("createdAt" -> -1)).toList[Started](None)
 
+  def noPasswordStarted: Fu[List[Started]] =
+    coll.find(startedSelect ++ BSONDocument("password" -> BSONDocument("$exists" -> false))).sort(BSONDocument("createdAt" -> -1)).toList[Started](None)
+
   def finished(limit: Int): Fu[List[Finished]] =
     coll.find(finishedSelect).sort(BSONDocument("startedAt" -> -1)).toList[Finished](limit.some)
 
