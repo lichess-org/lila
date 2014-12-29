@@ -178,7 +178,7 @@ var storage = {
             }
             refreshButton();
           }
-          $('div.lichess_overboard.joining.' + data.id).each(function() {
+          $('.lichess_overboard.joining.' + data.id).each(function() {
             if (!$(this).find('a.decline').length) $(this).find('form').append(
               declineListener($(data.html).find('a.decline').text($.trans('decline')), function() {
                 location.href = "/";
@@ -1234,7 +1234,7 @@ var storage = {
 
   function startLobby(element, cfg) {
     var $newposts = $("div.new_posts");
-    var nbRoundsEl = document.getElementById('site_baseline span');
+    var nbRoundsEl = document.querySelector('#site_baseline span');
     var lobby;
 
     lichess.socket = new lichess.StrongSocket(
@@ -1257,9 +1257,12 @@ var storage = {
           streams: function(html) {
             $('#streams_on_air').html(html);
           },
-          featured: changeFeatured,
+          featured: function(o) {
+            $('#featured_game').html(o.html);
+            $('body').trigger('lichess.content_loaded');
+          },
           redirect: function(e) {
-            $.lichessOpeningPreventClicks();
+            lobby.setRedirecting();
             $.redirect(e);
           },
           tournaments: function(data) {
@@ -1279,7 +1282,7 @@ var storage = {
           nbr: function(e) {
             if (nbRoundsEl && e) {
               var prev = parseInt(nbRoundsEl.textContent, 10);
-              var k = 5;
+              var k = 4;
               var interv = 2000 / k;
               $.fp.range(k).forEach(function(it) {
                 setTimeout(function() {
@@ -1305,18 +1308,7 @@ var storage = {
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     lobby = LichessLobby(document.getElementById('hooks_wrap'), cfg);
 
-    function changeFeatured(o) {
-      $('#featured_game').html(o.html);
-      $('body').trigger('lichess.content_loaded');
-    }
-
     var $startButtons = $('#start_buttons');
-
-    if (!lichess.StrongSocket.available) {
-      $startButtons.find('a').attr('href', '#');
-      $("div.lichess_overboard.joining input.submit").remove();
-      return;
-    }
 
     function sliderTime(v) {
       if (v <= 20) return v;
@@ -1359,7 +1351,7 @@ var storage = {
     }
 
     function prepareForm() {
-      var $form = $('div.lichess_overboard');
+      var $form = $('.lichess_overboard');
       var $timeModeSelect = $form.find('#timeMode');
       var $modeChoicesWrap = $form.find('.mode_choice');
       var $modeChoices = $modeChoicesWrap.find('input');
@@ -1560,11 +1552,11 @@ var storage = {
 
     $startButtons.find('a').click(function() {
       $(this).addClass('active').siblings().removeClass('active');
-      $('div.lichess_overboard').remove();
+      $('.lichess_overboard').remove();
       $.ajax({
         url: $(this).attr('href'),
         success: function(html) {
-          $('div.lichess_overboard').remove();
+          $('.lichess_overboard').remove();
           $('#hooks_wrap').prepend(html);
           prepareForm();
           $('body').trigger('lichess.content_loaded');
@@ -1572,19 +1564,14 @@ var storage = {
       });
       return false;
     });
-    $('#lichess').on('submit', 'form', $.lichessOpeningPreventClicks);
 
-    if (window.location.hash) {
+    if (['#ai', '#friend', '#hook'].indexOf(window.location.hash) !== -1) {
       $startButtons
         .find('a.config_' + location.hash.replace(/#/, ''))
         .each(function() {
           $(this).attr("href", $(this).attr("href") + location.search);
         }).click();
     }
-  };
-
-  $.lichessOpeningPreventClicks = function() {
-    $('#hooks_list, #hooks_chart').hide();
   };
 
   ///////////////////

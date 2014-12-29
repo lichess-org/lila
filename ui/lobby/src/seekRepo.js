@@ -7,7 +7,8 @@ function sort(ctrl) {
 }
 
 function fixBC(seek) {
-  seek.mode = seek.mode === 'Casual' ? 0 : 1;
+  if (seek.mode === 'Casual') seek.mode = 0;
+  else if (seek.mode === 'Rated') seek.mode = 1;
 }
 
 function initAll(ctrl) {

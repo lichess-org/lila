@@ -22,7 +22,8 @@ module.exports = function(env) {
       open: false
     },
     stepHooks: this.data.hooks.slice(0),
-    stepping: false
+    stepping: false,
+    redirecting: false
   };
 
   var flushHooksTimeout;
@@ -62,13 +63,14 @@ module.exports = function(env) {
   }.bind(this);
 
   this.clickHook = function(id) {
-    if (this.vm.stepping) return;
+    if (this.vm.stepping || this.vm.redirecting) return;
     var hook = hookRepo.find(this, id);
     if (!hook || hook.disabled) return;
     if (hook.action === 'cancel' || variant.confirm(hook.variant)) this.socket.send(hook.action, hook.id);
   }.bind(this);
 
   this.clickSeek = function(id) {
+    if (this.vm.redirecting) return;
     var seek = seekRepo.find(this, id);
     if (!seek) return;
     if (seek.action === 'cancelSeek' || variant.confirm(seek.variant)) this.socket.send(seek.action, seek.id);
@@ -86,7 +88,6 @@ module.exports = function(env) {
   }.bind(this);
 
   this.gameActivity = function(gameId) {
-    console.log(gameId);
     if (this.data.nowPlaying.filter(function(p) {
       return p.gameId === gameId;
     }).length) xhr.nowPlaying().then(this.setNowPlaying);
@@ -108,6 +109,13 @@ module.exports = function(env) {
   }.bind(this);
 
   this.startWatching();
+
+  this.setRedirecting = function() {
+    this.vm.redirecting = true;
+    setTimeout(function() {
+      this.vm.redirecting = false;
+    }.bind(this), 2000);
+  }.bind(this);
 
   this.router = env.routes;
   this.trans = function(key) {

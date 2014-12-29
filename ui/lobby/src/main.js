@@ -8,7 +8,9 @@ module.exports = function(element, opts) {
   var controller = new ctrl(opts);
 
   m.module(element, {
-    controller: function () { return controller; },
+    controller: function() {
+      return controller;
+    },
     view: view
   });
 
@@ -18,7 +20,8 @@ module.exports = function(element, opts) {
       controller.setTab(tab);
       m.redraw();
     },
-    gameActivity: controller.gameActivity
+    gameActivity: controller.gameActivity,
+    setRedirecting: controller.setRedirecting
   };
 };
 

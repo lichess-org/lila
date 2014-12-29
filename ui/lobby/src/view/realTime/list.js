@@ -39,11 +39,10 @@ module.exports = {
   render: function(ctrl, allHooks) {
     var max = 14;
     var hooks = allHooks.slice(0, max);
-    var standards = hooks.filter(isStandard(true))
-      .map(util.partial(renderHook, ctrl));
+    var render = util.partial(renderHook, ctrl);
+    var standards = hooks.filter(isStandard(true));
     var variants = hooks.filter(isStandard(false))
-      .slice(0, Math.max(0, max - standards.length - 1))
-      .map(util.partial(renderHook, ctrl));
+      .slice(0, Math.max(0, max - standards.length - 1));
     return m('table.table_wrap', [
       m('thead',
         m('tr', [
@@ -66,11 +65,14 @@ module.exports = {
           while (el.nodeName !== 'TABLE');
         }
       }, [
-        standards,
+        standards.map(render),
         variants.length ? m('tr.variants',
-          m('td[colspan=5]', '- ' + ctrl.trans('variant') + ' -')
+          m('td', {
+            key: 'variants',
+            colspan: 5
+          }, '- ' + ctrl.trans('variant') + ' -')
         ) : null,
-        variants
+        variants.map(render)
       ])
     ]);
   }

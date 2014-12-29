@@ -7,7 +7,8 @@ function sort(ctrl) {
 }
 
 function fixBC(hook) {
-  hook.mode = hook.mode === 'Casual' ? 0 : 1;
+  if (hook.mode === 'Casual') hook.mode = 0;
+  else if (hook.mode === 'Rated') hook.mode = 1;
 }
 
 function init(hook) {
