@@ -673,119 +673,126 @@ lichess.storage = {
     }, 200);
 
     // themepicker
-    $('#themepicker_toggle').one('click', function() {
-      var $body = $('body');
-      var $content = $body.children('.content');
+    $('#themepicker_toggle').one('mouseover', function() {
       var $themepicker = $('#themepicker');
-      var themes = $themepicker.data('themes').split(' ');
-      var theme = $.fp.find(document.body.classList, function(a) {
-        return $.fp.contains(themes, a);
-      });
-      var sets = $themepicker.data('sets').split(' ');
-      var set = $.fp.find(document.body.classList, function(a) {
-        return $.fp.contains(sets, a);
-      });
-      var theme3ds = $themepicker.data('theme3ds').split(' ');
-      var theme3d = $.fp.find(document.body.classList, function(a) {
-        return $.fp.contains(theme3ds, a);
-      });
-      var set3ds = $themepicker.data('set3ds').split(' ');
-      var set3d = $.fp.find(document.body.classList, function(a) {
-        return $.fp.contains(set3ds, a);
-      });
-      var background = $body.hasClass('dark') ? 'dark' : 'light';
-      var is3d = $content.hasClass('is3d');
-      $themepicker.find('.is2d div.theme').hover(function() {
-        $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
-      }, function() {
-        $body.removeClass(themes.join(' ')).addClass(theme);
-      }).click(function() {
-        theme = $(this).data("theme");
-        $.post($(this).parent().data("href"), {
-          theme: theme
-        });
-        $themepicker.removeClass("shown");
-      });
-      $themepicker.find('.is2d div.no-square').hover(function() {
-        $body.removeClass(sets.join(' ')).addClass($(this).data("set"));
-      }, function() {
-        $body.removeClass(sets.join(' ')).addClass(set);
-      }).click(function() {
-        set = $(this).data("set");
-        $.post($(this).parent().data("href"), {
-          set: set
-        });
-        $themepicker.removeClass("shown");
-      });
-      $themepicker.find('.is3d div.theme').hover(function() {
-        $body.removeClass(theme3ds.join(' ')).addClass($(this).data("theme"));
-      }, function() {
-        $body.removeClass(theme3ds.join(' ')).addClass(theme3d);
-      }).click(function() {
-        theme3d = $(this).data("theme");
-        $.post($(this).parent().data("href"), {
-          theme: theme3d
-        });
-        $themepicker.removeClass("shown");
-      });
-      $themepicker.find('.is3d div.no-square').hover(function() {
-        $body.removeClass(set3ds.join(' ')).addClass($(this).data("set"));
-      }, function() {
-        $body.removeClass(set3ds.join(' ')).addClass(set3d);
-      }).click(function() {
-        set3d = $(this).data("set");
-        $.post($(this).parent().data("href"), {
-          set: set3d
-        });
-        $themepicker.removeClass("shown");
-      });
-      var showBg = function(bg) {
-        $body.removeClass('light dark').addClass(bg);
-        if (bg == 'dark' && $('link[href*="dark.css"]').length === 0) {
-          $('link[href*="common.css"]').clone().each(function() {
-            $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
+      $.ajax({
+        url: $(this).data('url'),
+        success: function(html) {
+          $themepicker.append(html);
+          var $body = $('body');
+          var $content = $body.children('.content');
+          var $dropdown = $themepicker.find('.dropdown');
+          var themes = $dropdown.data('themes').split(' ');
+          var theme = $.fp.find(document.body.classList, function(a) {
+            return $.fp.contains(themes, a);
           });
-        }
-      };
-      var showDimensions = function(is3d) {
-        $content.add('#top').removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
-        setZoom(getZoom());
-      };
-      $themepicker.find('.background a').click(function() {
-        background = $(this).data('bg');
-        $.post($(this).parent().data('href'), {
-          bg: background
-        });
-        $(this).addClass('active').siblings().removeClass('active');
-        $themepicker.removeClass("shown");
-        return false;
-      }).hover(function() {
-        showBg($(this).data('bg'));
-      }, function() {
-        showBg(background);
-      }).filter('.' + background).addClass('active');
-      $themepicker.find('.dimensions a').click(function() {
-        is3d = $(this).data('is3d');
-        $.post($(this).parent().data('href'), {
-          is3d: is3d
-        });
-        $(this).addClass('active').siblings().removeClass('active');
-        $themepicker.removeClass("shown");
-        return false;
-      }).hover(function() {
-        showDimensions($(this).data('is3d'));
-      }, function() {
-        showDimensions(is3d);
-      }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
-      $themepicker.find('.slider').slider({
-        orientation: "horizontal",
-        min: 1,
-        max: 2,
-        range: 'min',
-        step: 0.01,
-        value: getZoom(),
-        slide: function(e, ui) {
-          manuallySetZoom(ui.value);
+          var sets = $dropdown.data('sets').split(' ');
+          var set = $.fp.find(document.body.classList, function(a) {
+            return $.fp.contains(sets, a);
+          });
+          var theme3ds = $dropdown.data('theme3ds').split(' ');
+          var theme3d = $.fp.find(document.body.classList, function(a) {
+            return $.fp.contains(theme3ds, a);
+          });
+          var set3ds = $dropdown.data('set3ds').split(' ');
+          var set3d = $.fp.find(document.body.classList, function(a) {
+            return $.fp.contains(set3ds, a);
+          });
+          var background = $body.hasClass('dark') ? 'dark' : 'light';
+          var is3d = $content.hasClass('is3d');
+          $themepicker.find('.is2d div.theme').hover(function() {
+            $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
+          }, function() {
+            $body.removeClass(themes.join(' ')).addClass(theme);
+          }).click(function() {
+            theme = $(this).data("theme");
+            $.post($(this).parent().data("href"), {
+              theme: theme
+            });
+            $themepicker.removeClass("shown");
+          });
+          $themepicker.find('.is2d div.no-square').hover(function() {
+            $body.removeClass(sets.join(' ')).addClass($(this).data("set"));
+          }, function() {
+            $body.removeClass(sets.join(' ')).addClass(set);
+          }).click(function() {
+            set = $(this).data("set");
+            $.post($(this).parent().data("href"), {
+              set: set
+            });
+            $themepicker.removeClass("shown");
+          });
+          $themepicker.find('.is3d div.theme').hover(function() {
+            $body.removeClass(theme3ds.join(' ')).addClass($(this).data("theme"));
+          }, function() {
+            $body.removeClass(theme3ds.join(' ')).addClass(theme3d);
+          }).click(function() {
+            theme3d = $(this).data("theme");
+            $.post($(this).parent().data("href"), {
+              theme: theme3d
+            });
+            $themepicker.removeClass("shown");
+          });
+          $themepicker.find('.is3d div.no-square').hover(function() {
+            $body.removeClass(set3ds.join(' ')).addClass($(this).data("set"));
+          }, function() {
+            $body.removeClass(set3ds.join(' ')).addClass(set3d);
+          }).click(function() {
+            set3d = $(this).data("set");
+            $.post($(this).parent().data("href"), {
+              set: set3d
+            });
+            $themepicker.removeClass("shown");
+          });
+          var showBg = function(bg) {
+            $body.removeClass('light dark').addClass(bg);
+            if (bg == 'dark' && $('link[href*="dark.css"]').length === 0) {
+              $('link[href*="common.css"]').clone().each(function() {
+                $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
+              });
+            }
+          };
+          var showDimensions = function(is3d) {
+            $content.add('#top').removeClass('is2d is3d').addClass(is3d ? 'is3d' : 'is2d');
+            setZoom(getZoom());
+          };
+          $themepicker.find('.background a').click(function() {
+            background = $(this).data('bg');
+            $.post($(this).parent().data('href'), {
+              bg: background
+            });
+            $(this).addClass('active').siblings().removeClass('active');
+            $themepicker.removeClass("shown");
+            return false;
+          }).hover(function() {
+            showBg($(this).data('bg'));
+          }, function() {
+            showBg(background);
+          }).filter('.' + background).addClass('active');
+          $themepicker.find('.dimensions a').click(function() {
+            is3d = $(this).data('is3d');
+            $.post($(this).parent().data('href'), {
+              is3d: is3d
+            });
+            $(this).addClass('active').siblings().removeClass('active');
+            $themepicker.removeClass("shown");
+            return false;
+          }).hover(function() {
+            showDimensions($(this).data('is3d'));
+          }, function() {
+            showDimensions(is3d);
+          }).filter('.' + (is3d ? 'd3' : 'd2')).addClass('active');
+          $themepicker.find('.slider').slider({
+            orientation: "horizontal",
+            min: 1,
+            max: 2,
+            range: 'min',
+            step: 0.01,
+            value: getZoom(),
+            slide: function(e, ui) {
+              manuallySetZoom(ui.value);
+            }
+          });
         }
       });
     });
@@ -832,8 +839,7 @@ lichess.storage = {
     };
 
     var manuallySetZoom = $.fp.debounce(setZoom, 10);
-    var initialZoom = getZoom();
-    if (initialZoom > 1) setZoom(initialZoom); // Instantiate the page's zoom
+    if (getZoom() > 1) setZoom(getZoom()); // Instantiate the page's zoom
 
     function translateTexts() {
       $('.trans_me').each(function() {

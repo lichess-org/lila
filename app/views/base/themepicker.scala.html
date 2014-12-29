@@ -1,0 +1,45 @@
+@()(implicit ctx: Context)
+<div class="dropdown"
+  data-themes="@lila.pref.Theme.listString"
+  data-theme3ds="@lila.pref.Theme3d.listString"
+  data-sets="@lila.pref.PieceSet.listString"
+  data-set3ds="@lila.pref.PieceSet3d.listString">
+  <div class="background toggles" data-href="@routes.Pref.set("bg")">
+    <a class="light button" data-bg="light" data-icon="5"></a>
+    <a class="dark button" data-bg="dark" data-icon="4"></a>
+  </div>
+  <div class="dimensions toggles" data-href="@routes.Pref.set("is3d")">
+    <a class="d2 button" data-is3d="false">2D</a>
+    <a class="d3 button" data-is3d="true">3D</a>
+  </div>
+  <div class="zoom_control">
+    <i data-icon="<"></i><div class="slider"></div>
+  </div>
+  <div class="is2d">
+    <div class="board" data-href="@routes.Pref.set("theme")">
+      @lila.pref.Theme.list.map { theme =>
+      <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>
+      }
+    </div>
+    <div class="piece_set" data-href="@routes.Pref.set("pieceSet")">
+      @lila.pref.PieceSet.list.map { set =>
+      <div class="no-square" data-set="@set.name"><div class="cg-piece @set.name"></div></div>
+      }
+    </div>
+  </div>
+  <div class="is3d">
+    <div class="board" data-href="@routes.Pref.set("theme3d")">
+      @lila.pref.Theme3d.list.map { theme =>
+      <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>
+      }
+    </div>
+    <div class="piece_set" data-href="@routes.Pref.set("pieceSet3d")">
+      @lila.pref.PieceSet3d.list.map { set =>
+      <div class="no-square" data-set="@set.name"><div class="cg-piece @set.name"></div></div>
+      }
+    </div>
+  </div>
+  @if(ctx.isAuth) {
+  <a class="prefs button" href="@routes.Pref.form"><span data-icon="%">&nbsp;@trans.preferences()</span></a>
+  }
+</div>
