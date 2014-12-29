@@ -59,25 +59,23 @@ object UserInfo {
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.nbBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
       isDonor(user.id) zip
-      PlayTime(user) flatMap {
+      PlayTime(user) map {
         case (((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), isDonor), playTime) =>
-          (nbPlaying > 0) ?? gameCached.isPlayingSimul(user.id) map { hasSimul =>
-            new UserInfo(
-              user = user,
-              ranks = ranks,
-              nbUsers = nbUsers,
-              nbPlaying = nbPlaying,
-              hasSimul = hasSimul,
-              crosstable = crosstable,
-              nbBookmark = bookmarkApi countByUser user,
-              nbImported = nbImported,
-              ratingChart = ratingChart,
-              nbFollowing = nbFollowing,
-              nbFollowers = nbFollowers,
-              nbBlockers = nbBlockers,
-              nbPosts = nbPosts,
-              playTime = playTime,
-              donor = isDonor)
-          }
+          new UserInfo(
+            user = user,
+            ranks = ranks,
+            nbUsers = nbUsers,
+            nbPlaying = nbPlaying,
+            hasSimul = (nbPlaying > 0 && gameCached.isPlayingSimul(user.id)),
+            crosstable = crosstable,
+            nbBookmark = bookmarkApi countByUser user,
+            nbImported = nbImported,
+            ratingChart = ratingChart,
+            nbFollowing = nbFollowing,
+            nbFollowers = nbFollowers,
+            nbBlockers = nbBlockers,
+            nbPosts = nbPosts,
+            playTime = playTime,
+            donor = isDonor)
       }
 }
