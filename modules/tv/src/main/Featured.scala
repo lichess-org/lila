@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import akka.actor._
 import akka.actor.ActorSelection
 import akka.pattern.{ ask, pipe }
-import chess.Color
+import chess.{ Color, Variant }
 import play.twirl.api.Html
 
 import lila.db.api._
@@ -26,7 +26,7 @@ final class Featured(
   private val bus = system.lilaBus
 
   def one: Fuog =
-    (actor ? Get mapTo manifest[Option[String]]) recover {
+    (actor ? GetGame mapTo manifest[Option[String]]) recover {
       case _: Exception => none
     } flatMap { _ ?? GameRepo.game }
 
@@ -36,9 +36,9 @@ final class Featured(
 
     def receive = {
 
-      case Get => sender ! oneId
+      case GetGame => sender ! oneId
 
-      case Set(game) =>
+      case SetGame(game) =>
         oneId = game.id.some
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
           case html: Html =>
@@ -64,7 +64,7 @@ final class Featured(
     }
 
     def elect(gameOption: Option[Game]) {
-      gameOption foreach { self ! Set(_) }
+      gameOption foreach { self ! SetGame(_) }
     }
 
     def fresh(game: Game) = game.isBeingPlayed
@@ -82,7 +82,7 @@ final class Featured(
     def featureIfOld(game: Game): Fuog = (game olderThan 7) ?? feature
 
     def feature: Fuog = GameRepo.featuredCandidates map { games =>
-      Featured.sort(games filter fresh).headOption
+      Featured.sort(games filter fresh filter Featured.acceptableVariant).headOption
     } orElse GameRepo.random
   }))
 
@@ -91,12 +91,19 @@ final class Featured(
 
 object Featured {
 
-  private case object Get
-  private case class Set(game: Game)
+  private val variants = Set[Variant](
+    Variant.Standard,
+    Variant.Chess960,
+    Variant.KingOfTheHill)
+
+  private case object GetGame
+  private case class SetGame(game: Game)
   case object Continue
   case object Disrupt
 
   def sort(games: List[Game]): List[Game] = games sortBy { -score(_) }
+
+  private def acceptableVariant(g: Game) = variants contains g.variant
 
   private[tv] def score(game: Game): Int = math.round {
     (heuristics map {

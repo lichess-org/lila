@@ -19,7 +19,7 @@ object Query {
 
   def status(s: Status) = Json.obj(F.status -> s.id)
 
-  val started: JsObject = Json.obj(F.status-> $gte(Status.Started.id))
+  val started: JsObject = Json.obj(F.status -> $gte(Status.Started.id))
 
   def started(u: String): JsObject = user(u) ++ started
 
@@ -50,7 +50,7 @@ object Query {
 
   def nowPlaying(u: String) = Json.obj(F.playingUids -> u)
 
-  def recentlyPlayingWithClock(u: String) = 
+  def recentlyPlayingWithClock(u: String) =
     nowPlaying(u) ++ clock(true) ++ Json.obj(
       F.updatedAt -> $gt($date(DateTime.now minusMinutes 5))
     )
