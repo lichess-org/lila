@@ -7,7 +7,7 @@ import play.api.libs.json.JsObject
 
 import lila.db.api.$count
 import lila.db.BSON._
-import lila.memo.{ AsyncCache, MongoCache, ExpireSetMemo, Builder }
+import lila.memo.{ AsyncCache, MixedCache, MongoCache, ExpireSetMemo, Builder }
 import lila.user.{ User, UidNb }
 import tube.gameTube
 import UidNb.UidNbBSONHandler
@@ -25,11 +25,12 @@ final class Cached(
 
   private implicit val userHandler = User.userBSONHandler
 
-  private val isPlayingSimulCache = AsyncCache[String, Boolean](
+  private val isPlayingSimulCache = MixedCache[String, Boolean](
     f = userId => GameRepo.countPlayingRealTime(userId) map (1 <),
-    timeToLive = 10.seconds)
+    timeToLive = 15.seconds,
+    default = _ => false)
 
-  val isPlayingSimul: String => Fu[Boolean] = isPlayingSimulCache.apply _
+  val isPlayingSimul: String => Boolean = isPlayingSimulCache.get
 
   val rematch960 = new ExpireSetMemo(3.hours)
 
