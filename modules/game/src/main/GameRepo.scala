@@ -201,8 +201,10 @@ object GameRepo {
       g.copy(mode = chess.Mode.Casual)
     else g
     val userIds = g2.userIds.distinct
+    val fen = List(Variant.Chess960, Variant.FromPosition).contains(g2.variant)
+      .option(Forsyth >> g2.toChess).filterNot(Forsyth.initial ==)
     val bson = (gameTube.handler write g2) ++ BSONDocument(
-      F.initialFen -> g2.variant.exotic.option(Forsyth >> g2.toChess),
+      F.initialFen -> fen,
       F.checkAt -> (!g2.isPgnImport).option(DateTime.now.plusHours(g2.hasClock.fold(1, 24))),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
