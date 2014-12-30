@@ -57,7 +57,7 @@ module.exports = {
               sort: ctrl.vm.sort === 'rating'
             }),
             onclick: util.partial(ctrl.setSort, 'rating')
-          }, [m('i.is'), 'Rating']),
+          }, [m('i.is'), ctrl.trans('rating')]),
           m('th', {
             class: util.classSet({
               sortable: true,

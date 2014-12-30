@@ -28,7 +28,7 @@ module.exports = function(ctrl) {
       m('tr', [
         m('th'),
         m('th', ctrl.trans('player')),
-        m('th', 'Rating'),
+        m('th', ctrl.trans('rating')),
         m('th', ctrl.trans('time')),
         m('th', ctrl.trans('mode'))
       ])

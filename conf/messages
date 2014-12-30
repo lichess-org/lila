@@ -88,6 +88,7 @@ oneDay=One day
 nbDays=%s days
 nbHours=%s hours
 time=Time
+rating=Rating
 username=User name
 password=Password
 haveAnAccount=Have an account?
