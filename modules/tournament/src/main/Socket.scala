@@ -8,7 +8,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.common.{ LightUser, Debouncer }
+import lila.common.LightUser
 import lila.hub.actorApi.WithUserIds
 import lila.hub.TimeBomb
 import lila.memo.ExpireSetMemo
@@ -22,9 +22,12 @@ private[tournament] final class Socket(
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
 
-  val joiningMemo = new ExpireSetMemo(uidTimeout)
+  private val joiningMemo = new ExpireSetMemo(uidTimeout)
 
   private val timeBomb = new TimeBomb(socketTimeout)
+
+  private var delayedCrowdNotification = false
+  private var delayedReloadNotification = false
 
   def receiveSpecific = {
 
@@ -34,9 +37,9 @@ private[tournament] final class Socket(
           notifyMember("redirect", game fullIdOf player.color)(member)
         }
       }
-      reloadNotifier ! Debouncer.Nothing
+      notifyReload
 
-    case Reload         => reloadNotifier ! Debouncer.Nothing
+    case Reload         => notifyReload
 
     case Start          => notifyVersion("start", JsNull, Messadata())
 
@@ -69,32 +72,44 @@ private[tournament] final class Socket(
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid, member)
-      crowdNotifier ! members.values
+      notifyCrowd
       sender ! Connected(enumerator, member)
 
     case Quit(uid) =>
       quit(uid)
-      crowdNotifier ! members.values
+      notifyCrowd
 
     case Joining(userId) => joiningMemo put userId
+
+    case NotifyCrowd =>
+      delayedCrowdNotification = false
+      val (anons, users) = members.values.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
+        case ((anons, users), Some(user)) => anons -> (user :: users)
+        case ((anons, users), None)       => (anons + 1) -> users
+      }
+      notifyVersion("crowd", showSpectators(users, anons), Messadata())
+
+    case NotifyReload =>
+      delayedReloadNotification = false
+      notifyAll(makeMessage("reload"))
+  }
+
+  def notifyCrowd {
+    if (!delayedCrowdNotification) {
+      delayedCrowdNotification = true
+      context.system.scheduler.scheduleOnce(500 millis, self, NotifyCrowd)
+    }
+  }
+
+  def notifyReload {
+    if (!delayedReloadNotification) {
+      delayedReloadNotification = true
+      context.system.scheduler.scheduleOnce(1 second, self, NotifyReload)
+    }
   }
 
   override def userIds = (super.userIds ++ joiningMemo.keys).toList.distinct
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =
     message.metadata.trollish && !member.troll
-
-  val crowdNotifier =
-    context.system.actorOf(Props(new Debouncer(1.seconds, (ms: Iterable[Member]) => {
-      val (anons, users) = members.values.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
-        case ((anons, users), Some(user)) => anons -> (user :: users)
-        case ((anons, users), None)       => (anons + 1) -> users
-      }
-      notifyVersion("crowd", showSpectators(users, anons), Messadata())
-    })))
-
-  val reloadNotifier =
-    context.system.actorOf(Props(new Debouncer(1.seconds, (_: Debouncer.Nothing) => {
-      notifyAll(makeMessage("reload"))
-    })))
 }

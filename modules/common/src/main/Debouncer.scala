@@ -3,6 +3,8 @@ package lila.common
 import akka.actor._
 import scala.concurrent.duration._
 
+// do NOT embed me in an actor
+// for it would likely create a memory leak
 final class Debouncer[A: Manifest](length: FiniteDuration, function: A => Unit) extends Actor {
 
   private case object DelayEnd

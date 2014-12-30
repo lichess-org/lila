@@ -31,9 +31,9 @@ private[round] final class Socket(
 
   private var hasAi = false
 
-  private var delayedCrowdNotification = false
-
   private val timeBomb = new TimeBomb(socketTimeout)
+
+  private var delayedCrowdNotification = false
 
   private final class Player(color: Color) {
 

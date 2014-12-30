@@ -40,3 +40,5 @@ case class RemindTournament(tour: Started)
 case class TournamentTable(tours: List[Enterable])
 
 private[tournament] case object ScheduleNow
+private[tournament] case object NotifyCrowd
+private[tournament] case object NotifyReload
