@@ -34,6 +34,7 @@ final class LobbyApi(
           "hooks" -> JsArray(hooks map (_.render)),
           "seeks" -> JsArray(seeks map (_.render)),
           "nowPlaying" -> JsArray(povs take 9 map nowPlaying),
+          "nbNowPlaying" -> povs.size,
           "filter" -> filter.render)
       }
 
