@@ -40,7 +40,7 @@ side = Html("")) {
     @views.html.game.miniBoard(fen, color = pov.color.name)
     }
     @if(!game.rated || ctx.isAuth) {
-    @if(game.rated && !game.hasClock && !game.isCorrespondence) {
+    @if(game.rated && game.isUnlimited) {
     <div class="join_warning warning">@trans.bewareTheGameIsRatedButHasNoClock()</div>
     }
     <form style="margin-top: 20px" action="@routes.Setup.join(gameId)" method="post">

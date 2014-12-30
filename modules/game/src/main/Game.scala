@@ -224,7 +224,7 @@ case class Game(
 
   def speed = chess.Speed(clock)
 
-  def perfType = PerfType(PerfPicker.key(this))
+  lazy val perfType = PerfType(PerfPicker.key(this))
 
   def started = status >= Status.Started
 
@@ -336,9 +336,11 @@ case class Game(
     if c outoftime player.color
   } yield player
 
-  def isCorrespondence = daysPerTurn.isDefined
+  def isCorrespondence = perfType == PerfType.Correspondence
 
   def hasClock = clock.isDefined
+
+  def isUnlimited = !hasClock && daysPerTurn.isEmpty
 
   def isClockRunning = clock ?? (_.isRunning)
 

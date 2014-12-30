@@ -41,8 +41,10 @@ final class PerfsUpdater(historyApi: HistoryApi) {
               updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
             case chess.Speed.Blitz =>
               updateRatings(ratingsW.blitz, ratingsB.blitz, result, system)
-            case chess.Speed.Classical | chess.Speed.Unlimited =>
+            case chess.Speed.Classical =>
               updateRatings(ratingsW.classical, ratingsB.classical, result, system)
+            case chess.Speed.Unlimited =>
+              // should have been handled by the correspondence case above
           }
         }
         val perfsW = mkPerfs(ratingsW, white.perfs, game)
@@ -105,8 +107,6 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     }
   }
 
-  private val classicalSpeeds: Set[Speed] = Set(Speed.Classical, Speed.Unlimited)
-
   private def mkPerfs(ratings: Ratings, perfs: Perfs, game: Game): Perfs = {
     val speed = game.speed
     val isStd = game.variant.standard
@@ -119,7 +119,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
       antichess = game.variant.antichess.fold(perfs.antichess.add(ratings.antichess, date), perfs.antichess),
       bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
-      classical = (!isCor && isStd && classicalSpeeds(speed)).fold(perfs.classical.add(ratings.classical, date), perfs.classical),
+      classical = (!isCor && isStd && speed == Speed.Classical).fold(perfs.classical.add(ratings.classical, date), perfs.classical),
       correspondence = (isCor && isStd).fold(perfs.correspondence.add(ratings.correspondence, date), perfs.correspondence))
     if (isStd) perfs1.updateStandard else perfs1
   }
