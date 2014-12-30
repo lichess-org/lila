@@ -31,6 +31,8 @@ private[round] final class Socket(
 
   private var hasAi = false
 
+  private var delayedCrowdNotification = false
+
   private val timeBomb = new TimeBomb(socketTimeout)
 
   private final class Player(color: Color) {
@@ -153,18 +155,25 @@ private[round] final class Socket(
     case UserStartGame(userId, game) => watchers filter (_ onUserTv userId) foreach {
       _ push makeMessage("resync")
     }
+
+    case NotifyCrowd =>
+      delayedCrowdNotification = false
+      val (anons, users) = watchers.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
+        case ((anons, users), Some(user)) => anons -> (user :: users)
+        case ((anons, users), None)       => (anons + 1) -> users
+      }
+      notify(Event.Crowd(
+        white = ownerOf(White).isDefined,
+        black = ownerOf(Black).isDefined,
+        watchers = showSpectators(users, anons)
+      ) :: Nil)
   }
 
   def notifyCrowd {
-    val (anons, users) = watchers.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
-      case ((anons, users), Some(user)) => anons -> (user :: users)
-      case ((anons, users), None)       => (anons + 1) -> users
+    if (!delayedCrowdNotification) {
+      delayedCrowdNotification = true
+      context.system.scheduler.scheduleOnce(1 second, self, NotifyCrowd)
     }
-    notify(Event.Crowd(
-      white = ownerOf(White).isDefined,
-      black = ownerOf(Black).isDefined,
-      watchers = showSpectators(users, anons)
-    ) :: Nil)
   }
 
   def notify(events: Events) {

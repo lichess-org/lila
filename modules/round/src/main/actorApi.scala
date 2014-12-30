@@ -128,3 +128,4 @@ case class HoldAlert(playerId: String, mean: Int, sd: Int)
 }
 
 private[round] case object GetNbRounds
+private[round] case object NotifyCrowd
