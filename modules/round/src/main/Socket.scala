@@ -27,7 +27,7 @@ private[round] final class Socket(
     socketTimeout: Duration,
     disconnectTimeout: Duration,
     ragequitTimeout: Duration,
-    isPlayingSimul: String => Boolean) extends SocketActor[Member](uidTimeout) {
+    isPlayingSimul: String => Fu[Boolean]) extends SocketActor[Member](uidTimeout) {
 
   private var hasAi = false
 
@@ -43,7 +43,7 @@ private[round] final class Socket(
     var userId = none[String]
 
     def ping {
-      if (isGone) notifyGone(color, false)
+      isGone foreach { _ ?? notifyGone(color, false) }
       if (bye > 0) bye = bye - 1
       time = nowMillis
     }
@@ -52,9 +52,10 @@ private[round] final class Socket(
     }
     private def isBye = bye > 0
 
-    def isGone = {
-      time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis)
-    } && !userId.??(isPlayingSimul)
+    def isGone =
+      if (time < (nowMillis - isBye.fold(ragequitTimeout, disconnectTimeout).toMillis))
+        (userId ?? isPlayingSimul) map (!_)
+      else fuccess(false)
   }
 
   private val whitePlayer = new Player(White)
@@ -102,19 +103,22 @@ private[round] final class Socket(
       broom
       if (timeBomb.boom) self ! PoisonPill
       else if (!hasAi) Color.all foreach { c =>
-        if (playerGet(c, _.isGone)) notifyGone(c, true)
+        playerGet(c, _.isGone) foreach { _ ?? notifyGone(c, true) }
       }
 
     case GetVersion    => sender ! history.getVersion
 
-    case IsGone(color) => sender ! playerGet(color, _.isGone)
+    case IsGone(color) => playerGet(color, _.isGone) pipeTo sender
 
-    case GetSocketStatus => sender ! SocketStatus(
-      version = history.getVersion,
-      whiteOnGame = ownerOf(White).isDefined,
-      whiteIsGone = playerGet(White, _.isGone),
-      blackOnGame = ownerOf(Black).isDefined,
-      blackIsGone = playerGet(Black, _.isGone))
+    case GetSocketStatus =>
+      playerGet(White, _.isGone) zip playerGet(Black, _.isGone) map {
+        case (whiteIsGone, blackIsGone) => SocketStatus(
+          version = history.getVersion,
+          whiteOnGame = ownerOf(White).isDefined,
+          whiteIsGone = whiteIsGone,
+          blackOnGame = ownerOf(Black).isDefined,
+          blackIsGone = blackIsGone)
+      } pipeTo sender
 
     case Join(uid, user, version, color, playerId, ip, userTv) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]

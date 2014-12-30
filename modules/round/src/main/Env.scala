@@ -28,7 +28,7 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     chatApi: lila.chat.ChatApi,
     historyApi: lila.history.HistoryApi,
-    isPlayingSimul: String => Boolean,
+    isPlayingSimul: String => Fu[Boolean],
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -70,8 +70,6 @@ final class Env(
         hub.socket.lobby ! lila.hub.actorApi.round.NbRounds(nbRounds)
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
-
-  scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
 
   private var nbRounds = 0
   def count() = nbRounds
@@ -162,6 +160,8 @@ final class Env(
     moretimeSeconds = Moretime.toSeconds.toInt)
 
   lazy val noteApi = new NoteApi(db(CollectionNote))
+
+  scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
 
   system.actorOf(
     Props(classOf[Titivate], roundMap, hub.actor.bookmark),

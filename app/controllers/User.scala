@@ -95,16 +95,17 @@ object User extends LilaController {
 
   private def userGames(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: Context) = {
     import lila.app.mashup.GameFilter.{ All, Playing }
-    val filterName = filterOption | {
-      Env.game.cached.isPlayingSimul(u.id).fold(Playing, All).name
+    filterOption.fold({
+      Env.game.cached isPlayingSimul u.id map (_.fold(Playing, All).name)
+    })(fuccess) flatMap { filterName =>
+      GameFilterMenu.paginatorOf(
+        user = u,
+        info = none,
+        filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
+        me = ctx.me,
+        page = page
+      ) map { html.user.games(u, _, filterName) }
     }
-    GameFilterMenu.paginatorOf(
-      user = u,
-      info = none,
-      filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
-      me = ctx.me,
-      page = page
-    ) map { html.user.games(u, _, filterName) }
   }
 
   def list = Open { implicit ctx =>
