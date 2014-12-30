@@ -1628,6 +1628,12 @@ lichess.storage = {
       }
     }
 
+    function sliderInitVal(v, f, max) {
+      for (var i = 0; i < max; i++) {
+        if (f(i) === v) return i;
+      }
+    }
+
     function prepareForm() {
       var $form = $('.lichess_overboard');
       var $timeModeSelect = $form.find('#timeMode');
@@ -1706,7 +1712,7 @@ lichess.storage = {
         var $input = $(this),
           $value = $input.siblings('span');
         $input.hide().after($('<div>').slider({
-          value: $input.val(),
+          value: sliderInitVal(parseInt($input.val()), sliderTime, 100),
           min: 0,
           max: 30,
           range: 'min',
@@ -1724,7 +1730,7 @@ lichess.storage = {
         var $input = $(this),
           $value = $input.siblings('span');
         $input.hide().after($('<div>').slider({
-          value: $input.val(),
+          value: sliderInitVal(parseInt($input.val()), sliderDays, 20),
           min: 1,
           max: 7,
           range: 'min',
