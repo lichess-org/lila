@@ -19,6 +19,7 @@
 }
 #tournament div.tournament_show {
   width: 525px;
+  min-height: 600px;
 }
 #tournament div.tournament_show div.game_list {
   margin: 0 0 0 15px;
