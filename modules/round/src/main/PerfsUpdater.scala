@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.Speed
+import chess.{ Variant, Speed }
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
 import play.api.Logger
@@ -23,29 +23,25 @@ final class PerfsUpdater(historyApi: HistoryApi) {
         val ratingsB = mkRatings(black.perfs)
         val result = resultOf(game)
         game.variant match {
-          case chess.Variant.Chess960 =>
+          case Variant.Chess960 =>
             updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
-          case chess.Variant.KingOfTheHill =>
+          case Variant.KingOfTheHill =>
             updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result, system)
-          case chess.Variant.ThreeCheck =>
+          case Variant.ThreeCheck =>
             updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, result, system)
-          case chess.Variant.Antichess =>
+          case Variant.Antichess =>
             updateRatings(ratingsW.antichess, ratingsB.antichess, result, system)
-          case _ =>
-        }
-        if (game.variant.standard) {
-          if (game.isCorrespondence)
-            updateRatings(ratingsW.correspondence, ratingsB.correspondence, result, system)
-          else game.speed match {
-            case chess.Speed.Bullet =>
+          case Variant.Standard => game.speed match {
+            case Speed.Bullet =>
               updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
-            case chess.Speed.Blitz =>
+            case Speed.Blitz =>
               updateRatings(ratingsW.blitz, ratingsB.blitz, result, system)
-            case chess.Speed.Classical =>
+            case Speed.Classical =>
               updateRatings(ratingsW.classical, ratingsB.classical, result, system)
-            case chess.Speed.Unlimited =>
-              // should have been handled by the correspondence case above
+            case Speed.Correspondence =>
+              updateRatings(ratingsW.correspondence, ratingsB.correspondence, result, system)
           }
+          case _ =>
         }
         val perfsW = mkPerfs(ratingsW, white.perfs, game)
         val perfsB = mkPerfs(ratingsB, black.perfs, game)
@@ -110,7 +106,6 @@ final class PerfsUpdater(historyApi: HistoryApi) {
   private def mkPerfs(ratings: Ratings, perfs: Perfs, game: Game): Perfs = {
     val speed = game.speed
     val isStd = game.variant.standard
-    val isCor = game.isCorrespondence
     val date = game.updatedAt | game.createdAt
     val perfs1 = perfs.copy(
       chess960 = game.variant.chess960.fold(perfs.chess960.add(ratings.chess960, date), perfs.chess960),
@@ -119,8 +114,8 @@ final class PerfsUpdater(historyApi: HistoryApi) {
       antichess = game.variant.antichess.fold(perfs.antichess.add(ratings.antichess, date), perfs.antichess),
       bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
-      classical = (!isCor && isStd && speed == Speed.Classical).fold(perfs.classical.add(ratings.classical, date), perfs.classical),
-      correspondence = (isCor && isStd).fold(perfs.correspondence.add(ratings.correspondence, date), perfs.correspondence))
+      classical = (isStd && speed == Speed.Classical).fold(perfs.classical.add(ratings.classical, date), perfs.classical),
+      correspondence = (isStd && speed == Speed.Correspondence).fold(perfs.correspondence.add(ratings.correspondence, date), perfs.correspondence))
     if (isStd) perfs1.updateStandard else perfs1
   }
 

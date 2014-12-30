@@ -336,7 +336,7 @@ case class Game(
     if c outoftime player.color
   } yield player
 
-  def isCorrespondence = perfType == PerfType.Correspondence
+  def isCorrespondence = speed == chess.Speed.Correspondence
 
   def hasClock = clock.isDefined
 

@@ -125,7 +125,7 @@ case object Perfs {
     case Speed.Bullet => perfs => perfs.bullet
     case Speed.Blitz => perfs => perfs.blitz
     case Speed.Classical => perfs => perfs.classical
-    case Speed.Unlimited => perfs => perfs.correspondence
+    case Speed.Correspondence => perfs => perfs.correspondence
   }
 
   private def PerfsBSONHandler = new BSON[Perfs] {

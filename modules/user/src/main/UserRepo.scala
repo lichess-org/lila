@@ -107,7 +107,10 @@ trait UserRepo {
           s"perfs.$name" -> Perf.perfBSONHandler.write(lens(perfs))
         }
     }
-    $update($select(user.id), BSONDocument("$set" -> BSONDocument(diff)))
+    diff.nonEmpty ?? $update(
+      $select(user.id),
+      BSONDocument("$set" -> BSONDocument(diff))
+    )
   }
 
   def setPerf(userId: String, perfName: String, perf: Perf) = $update($select(userId), $setBson(
