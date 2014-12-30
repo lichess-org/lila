@@ -56,6 +56,7 @@ object LangList {
     "fo" -> "føroyskt",
     "fj" -> "vosa Vakaviti",
     "fi" -> "suomen kieli",
+    "ff" -> "Filipino",
     "fr" -> "français",
     "fp" -> "arpitan",
     //"frp" -> "arpitan",
