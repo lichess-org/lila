@@ -1077,6 +1077,12 @@ body.offline #nb_connected_players {
   padding: 5px 3% 5px 3%;
   text-align: center;
 }
+#message_notifications,
+#challenge_notifications {
+  width: 240px;
+  z-index: 2;
+  left: -94px;
+}
 #message_notifications div.notification,
 #challenge_notifications div.notification {
   border-bottom: 1px solid #c0c0c0;
@@ -1087,8 +1093,6 @@ body.offline #nb_connected_players {
 #challenge_notifications div.notification:hover {
   background-color: #f0f0f0;
 }
-#message_notifications,
-#challenge_notifications,
 #notifications {
   position: absolute;
   top: -20px;
@@ -1104,22 +1108,6 @@ body.offline #nb_connected_players {
   box-shadow: 0 0 3px 0px #d85000;
   transition: box-shadow 1.5s;
 }
-#notifications > div.foldable {
-  line-height: 1.6em;
-  height: 1.5em;
-  overflow: hidden;
-}
-#notifications > div.foldable:hover {
-  line-height: inherit;
-  height: auto;
-}
-#notifications > div a.close {
-  text-decoration: none;
-  float: right;
-}
-#notifications > div a.close:hover {
-  font-weight: bold;
-}
 #message_notifications .user_link,
 #challenge_notifications .user_link,
 #message_notifications .block .title {
@@ -1133,8 +1121,7 @@ body.offline #nb_connected_players {
   text-transform: uppercase;
 }
 #message_notifications .actions,
-#challenge_notifications .actions,
-#notifications .actions {
+#challenge_notifications .actions {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -1164,6 +1151,10 @@ body.offline #nb_connected_players {
 #message_notifications .notification:hover .actions,
 #challenge_notifications .notification:hover .actions {
   opacity: 0.7;
+}
+#notifications .actions {
+  margin-top: 5px;
+  text-align: right;
 }
 #notifications .actions a {
   margin-left: 10px;
