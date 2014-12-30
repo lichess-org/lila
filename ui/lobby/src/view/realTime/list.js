@@ -1,6 +1,7 @@
 var m = require('mithril');
 var util = require('chessground').util;
 var tds = require('../util').tds;
+var hookRepo = require('../../hookRepo');
 
 function renderHook(ctrl, hook) {
   return m('tr', {
@@ -41,15 +42,29 @@ module.exports = {
     var hooks = allHooks.slice(0, max);
     var render = util.partial(renderHook, ctrl);
     var standards = hooks.filter(isStandard(true));
+    hookRepo.sort(ctrl, standards);
     var variants = hooks.filter(isStandard(false))
       .slice(0, Math.max(0, max - standards.length - 1));
+    hookRepo.sort(ctrl, variants);
     return m('table.table_wrap', [
       m('thead',
         m('tr', [
           m('th'),
           m('th', ctrl.trans('player')),
-          m('th', 'Rating'),
-          m('th', ctrl.trans('time')),
+          m('th', {
+            class: util.classSet({
+              sortable: true,
+              sort: ctrl.vm.sort === 'rating'
+            }),
+            onclick: util.partial(ctrl.setSort, 'rating')
+          }, [m('i.is'), 'Rating']),
+          m('th', {
+            class: util.classSet({
+              sortable: true,
+              sort: ctrl.vm.sort === 'time'
+            }),
+            onclick: util.partial(ctrl.setSort, 'time')
+          }, [m('i.is'), ctrl.trans('time')]),
           m('th', ctrl.trans('mode'))
         ])
       ),

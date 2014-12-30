@@ -18,9 +18,8 @@ module.exports = function(env) {
   this.vm = {
     tab: store.tab.get(),
     mode: store.mode.get(),
-    filter: {
-      open: false
-    },
+    sort: store.sort.get(),
+    filterOpen: false,
     stepHooks: this.data.hooks.slice(0),
     stepping: false,
     redirecting: false
@@ -44,7 +43,7 @@ module.exports = function(env) {
         doFlushHooks();
       }.bind(this), 500);
     }
-    flushHooksSchedule();
+    flushHooksTimeout = flushHooksSchedule();
   }.bind(this);
 
   var flushHooksSchedule = util.partial(setTimeout, this.flushHooks, 8000);
@@ -53,20 +52,26 @@ module.exports = function(env) {
   this.setTab = function(tab) {
     if (tab === 'seeks' && tab !== this.vm.tab) xhr.seeks().then(this.setSeeks);
     this.vm.tab = store.tab.set(tab);
-    this.vm.filter.open = false;
+    this.vm.filterOpen = false;
   }.bind(this);
 
   this.setMode = function(mode) {
     this.vm.mode = store.mode.set(mode);
-    this.vm.filter.open = false;
+    this.vm.filterOpen = false;
+  }.bind(this);
+
+  this.setSort = function(sort) {
+    this.vm.sort = store.sort.set(sort);
   }.bind(this);
 
   this.toggleFilter = function() {
-    this.vm.filter.open = !this.vm.filter.open;
+    this.vm.filterOpen = !this.vm.filterOpen;
   }.bind(this);
 
   this.setFilter = function(filter) {
     this.data.filter = filter;
+    this.flushHooks(true);
+    if (this.vm.tab !== 'real_time') m.redraw();
   }.bind(this);
 
   this.clickHook = function(id) {

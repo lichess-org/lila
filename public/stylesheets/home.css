@@ -32,14 +32,17 @@ div.lobby_and_ground {
   background: #f0f0f0 url(../images/wN-bg.svg);
   background-size: 100% 100%;
 }
-#hooks_wrap > .tabs {
+#hooks_wrap .lobby_box {
+  position: relative;
+}
+#hooks_wrap .tabs {
   position: absolute;
   top: -22px;
   left: 0px;
   height: 20px;
   line-height: 20px;
 }
-#hooks_wrap > .tabs > a {
+#hooks_wrap .tabs a {
   display: inline-block;
   text-decoration: none;
   padding: 0px 8px;
@@ -48,43 +51,40 @@ div.lobby_and_ground {
   background: #dadada;
   transition: 0.13s;
 }
-#hooks_wrap > .tabs > a:hover,
-#hooks_wrap > .tabs > a.active {
+#hooks_wrap .tabs a:hover {
   background: #f0f0f0;
-}
-#hooks_wrap > .tabs > a:hover {
   border-top: 2px solid #808080;
 }
-#hooks_wrap > .tabs > a.active {
+#hooks_wrap .tabs a.active {
+  background: #f0f0f0;
   font-weight: bold;
   border-bottom-color: #f0f0f0;
   border-top: 2px solid #d85000;
 }
-#hooks_wrap > .tabs .unread {
+#hooks_wrap .tabs .unread {
   margin-left: 3px;
 }
-#hooks_wrap .toggles {
+#hooks_wrap .mode_toggle,
+#hooks_wrap .filter_toggle {
   position: absolute;
-  top: 13px;
-  left: 15px;
-  width: 483px;
+  top: 10px;
+  cursor: pointer;
   z-index: 2;
+  font-size: 1.3em;
+  opacity: 0.7;
+  transition: 0.13s;
 }
 #hooks_wrap .mode_toggle {
-  float: left;
-  cursor: pointer;
+  left: 15px;
 }
 #hooks_wrap .filter_toggle {
-  float: right;
-  cursor: pointer;
-  font-size: 1.2em;
-  opacity: 0.8;
-  transition: 0.13s;
+  right: 15px;
 }
 #hooks_wrap .filter_toggle .number {
   margin-left: 3px;
   font-size: 0.8em;
 }
+#hooks_wrap .mode_toggle:hover,
 #hooks_wrap .filter_toggle:hover {
   opacity: 1;
 }
@@ -127,20 +127,22 @@ div.lobby_and_ground {
   min-height: 78px;
   overflow: hidden;
 }
-#hooks_wrap .table_wrap thead th {
+#hooks_wrap .table_wrap th {
   padding: 14px 12px;
   font-weight: lighter;
   border-bottom: transparent;
 }
-#hooks_wrap .table_wrap th.sorting-asc,
-#hooks_wrap .table_wrap th.sorting-desc {
+#hooks_wrap .table_wrap th.sortable {
+  cursor: pointer;
+}
+#hooks_wrap .table_wrap th.sortable:hover,
+#hooks_wrap .table_wrap th.sort {
   font-weight: normal;
 }
-#hooks_wrap .table_wrap th.sorting-desc .is:before {
+#hooks_wrap .table_wrap th.sort .is:before {
+  opacity: 0.7;
+  margin-right: 3px;
   content: "R";
-}
-#hooks_wrap .table_wrap th.sorting-asc .is:before {
-  content: "S";
 }
 #hooks_wrap .table_wrap th.player {
   width: 110px;

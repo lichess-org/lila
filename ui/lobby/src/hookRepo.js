@@ -1,9 +1,21 @@
-function order(a, b) {
+function ratingOrder(a, b) {
   return a.rating > b.rating ? -1 : 1;
 }
 
-function sort(ctrl) {
-  ctrl.data.hooks.sort(order);
+function timeOrder(a, b) {
+  return a.time < b.time ? -1 : 1;
+}
+
+function sort(ctrl, hooks) {
+  var order;
+  switch(ctrl.vm.sort) {
+    case 'time':
+      order = timeOrder;
+      break;
+    default:
+      order = ratingOrder;
+  }
+  hooks.sort(order);
 }
 
 function init(hook) {
@@ -12,7 +24,6 @@ function init(hook) {
 
 function initAll(ctrl) {
   ctrl.data.hooks.forEach(init);
-  sort(ctrl);
 }
 
 module.exports = {
@@ -22,7 +33,6 @@ module.exports = {
   add: function(ctrl, hook) {
     init(hook);
     ctrl.data.hooks.push(hook);
-    sort(ctrl);
   },
   remove: function(ctrl, id) {
     ctrl.data.hooks = ctrl.data.hooks.filter(function(h) {

@@ -56,10 +56,10 @@ function initialize(ctrl, el) {
 module.exports = {
   toggle: function(ctrl, nbFiltered) {
     return m('span', {
-      class: 'filter_toggle' + (ctrl.vm.filter.open ? ' active' : ''),
+      class: 'filter_toggle' + (ctrl.vm.filterOpen ? ' active' : ''),
       onclick: util.partial(ctrl.toggleFilter)
     }, [
-      ctrl.vm.filter.open ? m('span[data-icon=L]') : m('span', {
+      ctrl.vm.filterOpen ? m('span[data-icon=L]') : m('span', {
         class: 'hint--bottom-left',
         'data-hint': ctrl.trans('filterGames'),
       }, m('span[data-icon=%]')),

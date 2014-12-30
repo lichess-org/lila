@@ -20,6 +20,6 @@ module.exports = function(ctrl) {
   }
   return [
     m('div.tabs', renderTabs(ctrl)),
-    body
+    m('div.lobby_box', body)
   ];
 };

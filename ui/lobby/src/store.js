@@ -12,26 +12,29 @@ var mode = {
     return m;
   }
 };
+var sort = {
+  key: 'lichess.lobby.sort',
+  fix: function(m) {
+    if (['rating', 'time'].indexOf(m) === -1) m = 'rating';
+    return m;
+  }
+};
 
-module.exports = {
-  tab: {
+function makeStore(conf) {
+  return {
     set: function(t) {
-      t = tab.fix(t);
-      lichess.storage.set(tab.key, t);
+      t = conf.fix(t);
+      lichess.storage.set(conf.key, t);
       return t;
     },
     get: function() {
-      return tab.fix(lichess.storage.get(tab.key));
+      return conf.fix(lichess.storage.get(conf.key));
     }
-  },
-  mode: {
-    set: function(m) {
-      m = mode.fix(m);
-      lichess.storage.set(mode.key, m);
-      return m;
-    },
-    get: function() {
-      return mode.fix(lichess.storage.get(mode.key));
-    }
-  }
+  };
+}
+
+module.exports = {
+  tab: makeStore(tab),
+  mode: makeStore(mode),
+  sort: makeStore(sort)
 };

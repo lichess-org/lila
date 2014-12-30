@@ -100,7 +100,7 @@ body.dark #powerTip > .title,
 body.dark #hooks_wrap .table_wrap th,
 body.dark #hooks_wrap .table_wrap td,
 body.dark #hooks_wrap,
-body.dark #hooks_wrap > div.tabs > a,
+body.dark #hooks_wrap div.tabs a,
 body.dark #hooks_wrap .hooks_chart > div.grid,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
@@ -149,7 +149,7 @@ body.dark #translation_call div.progressbar,
 body.dark #themepicker div.theme:hover {
   background-color: #505050;
 }
-body.dark #hooks_wrap > div.tabs > a,
+body.dark #hooks_wrap div.tabs a,
 body.dark #top div.auth .links a:hover,
 body.dark #top ul.language_links a:hover,
 body.dark #top ul.language_links a.current,
@@ -213,14 +213,14 @@ body.dark #hooks_wrap .hook_filter .checkable {
   color: #c0c0c0;
 }
 body.dark #hooks_wrap,
-body.dark #hooks_wrap > div.tabs > a:hover,
-body.dark #hooks_wrap > div.tabs > a.active {
+body.dark #hooks_wrap div.tabs a:hover,
+body.dark #hooks_wrap div.tabs a.active {
   background-color: #303030;
 }
-body.dark #hooks_wrap > div.tabs > a:hover {
+body.dark #hooks_wrap div.tabs a:hover {
   border-top-color: #808080;
 }
-body.dark #hooks_wrap > div.tabs > a.active {
+body.dark #hooks_wrap div.tabs a.active {
   border-bottom-color: #303030;
   border-top-color: #d85000;
 }
