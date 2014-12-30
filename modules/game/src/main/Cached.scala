@@ -27,6 +27,7 @@ final class Cached(
 
   private val isPlayingSimulCache = MixedCache[String, Boolean](
     f = userId => GameRepo.countPlayingRealTime(userId) map (1 <),
+    awaitTime = 10.milliseconds,
     timeToLive = 15.seconds,
     default = _ => false)
 
