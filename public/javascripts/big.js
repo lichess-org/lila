@@ -441,6 +441,9 @@ lichess.storage = {
           else {
             $('#challenge_notifications').append(data.html);
             $notif = $('#' + htmlId);
+            $notif.find('> a').click(function() {
+              lichess.hasToReload = true; // allow quit by accept challenge (simul)
+            });
             declineListener($notif.find('a.decline'));
             $('body').trigger('lichess.content_loaded');
             if (!lichess.storage.get('challenge-' + data.id)) {
