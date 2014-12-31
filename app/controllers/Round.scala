@@ -56,7 +56,7 @@ object Round extends LilaController with TheftPrevention {
                 Env.game.crosstableApi(pov.game) zip
                 otherPovs(pov.gameId) flatMap {
                   case ((tour, crosstable), playing) =>
-                    Env.api.roundApi.player(pov, Env.api.version) map { data =>
+                    Env.api.roundApi.player(pov, Env.api.version, playing) map { data =>
                       Ok(html.round.player(pov, data, tour = tour, cross = crosstable, playing = playing))
                     }
                 }
@@ -64,7 +64,7 @@ object Round extends LilaController with TheftPrevention {
             Redirect(routes.Setup.await(fullId)).fuccess
           )
         },
-        api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { Ok(_) }
+        api = apiVersion => Env.api.roundApi.player(pov, apiVersion, Nil) map { Ok(_) }
       )
     }
   }
@@ -121,7 +121,7 @@ object Round extends LilaController with TheftPrevention {
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
     GameRepo initialFen pov.gameId zip
-      Env.api.roundApi.player(pov, Env.api.version) zip
+      Env.api.roundApi.player(pov, Env.api.version, otherPovs = Nil) zip
       ((pov.player.userId orElse pov.opponent.userId) ?? UserRepo.byId) map {
         case ((fen, data), opponent) => Ok(html.setup.join(
           pov, data, opponent, Env.setup.friendConfigMemo get pov.game.id, fen))

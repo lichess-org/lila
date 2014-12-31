@@ -18,13 +18,13 @@ private[api] final class RoundApi(
     analysisApi: AnalysisApi,
     lightUser: String => Option[LightUser]) {
 
-  def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] =
+  def player(pov: Pov, apiVersion: Int, otherPovs: List[Pov])(implicit ctx: Context): Fu[JsObject] =
     jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
       withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
         case ((json, tourOption), note) => (
-          blindMode _ compose withTournament(tourOption)_ compose withNote(note)_
+          blindMode _ compose withTournament(tourOption)_ compose withNote(note)_ compose withOtherPovs(otherPovs)_
         )(json)
       }
 
@@ -39,6 +39,9 @@ private[api] final class RoundApi(
           blindMode _ compose withTournament(tourOption)_ compose withNote(note)_
         )(json)
       }
+
+  private def withOtherPovs(otherPovs: List[Pov])(json: JsObject) =
+    if (otherPovs.isEmpty) json else json + ("simul" -> JsBoolean(true))
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
