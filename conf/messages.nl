@@ -88,6 +88,7 @@ oneDay=Eén dag
 nbDays=%s dagen
 nbHours=%s uren
 time=Tijd
+rating=sterkte
 username=Gebruikersnaam
 password=Wachtwoord
 haveAnAccount=Heeft u al een account?
