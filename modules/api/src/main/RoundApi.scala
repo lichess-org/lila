@@ -36,7 +36,7 @@ private[api] final class RoundApi(
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
         case ((json, tourOption), note) => (
-          blindMode _ compose withTournament(tourOption)_ compose withNote(note)_
+          blindMode _ compose withTournament(tourOption)_ compose withNote(note)_ compose withAnalysis(analysis)_
         )(json)
       }
 
