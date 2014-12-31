@@ -256,9 +256,7 @@ trait UserRepo {
       "count.game" -> $gt(4)
     ), "_id")(_.asOpt[String])
 
-  def setLang(id: ID, lang: String) {
-    $update.fieldUnchecked(id, "lang", lang)
-  }
+  def setLang(id: ID, lang: String) = $update.field(id, "lang", lang)
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
     import reactivemongo.core.commands._

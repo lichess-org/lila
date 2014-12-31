@@ -182,6 +182,7 @@ GET   /translation/form/:lang          controllers.I18n.translationForm(lang: St
 POST  /translation/post/:lang          controllers.I18n.translationPost(lang: String)
 GET   /translation/fetch/:from         controllers.I18n.fetch(from: Int)
 POST  /translation/hideCalls           controllers.I18n.hideCalls
+POST  /translation/select              controllers.I18n.select
 
 # Authentication
 GET   /login                           controllers.Auth.login

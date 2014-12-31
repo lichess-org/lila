@@ -1,0 +1,35 @@
+# ornicar/lila open issues
+  184  Desktop notifications [feature] 1
+  183  antichess doesn't play well with takebacks [bug] 1
+  181  miniboard empty [bug] [planned] 1
+  180  autoswitch after no other game in simul [improvement] [planned]
+  179  simul autoswitch on game end [improvement] [planned]
+  178  make sure ragequit is disabled in simul [bug] [planned]
+  176  Spectator chat split by move number for the benefit of kibitzing context [feature]
+  175  Implement realtime private messaging a la online-go/facebook [feature] 1
+  174  clicking on other language subdomain should retain preferred language [feature] [planned]
+  169  Predefined positions for game creation [feature] [planned]
+  168  Add advanced options in analysis board [feature]
+  167  Atomic chess [feature] [in progress]
+  166  make puzzle of the day embeddable for site owners [feature]
+  165  [Translation] To French. 'only accepts challenges from friends.' 1
+  164  Unsubscribe from something [feature]
+  163  The "%s games" link under favourite opponents no longer works
+  161  TV channels [feature]
+  155  Link Win/Draw/Loss indicator in Tournament Standings to Games [improvement]
+  153  Add support for anti-chess in PDF exporter [improvement]
+  149  Simul tournament [feature] [planned] @
+  143  Stream title on TV doesn't wrap [improvement] 2
+  142  Predefine move sequences in correspondence chess [feature] [planned] 3
+  130  Several colours for clock bar [feature]
+  128  when importing PGN, accept clock information [feature] 2
+  127  export clock information in PGN [feature] 6
+  126  Feature: Possibility to edit/delete forum posts [feature]
+  114  Wrong encoding in names of wiki-pages [bug]
+   97  Feature: Ability to rematch with different game settings [feature] 2
+   77  Feature wish: Training mode long time chart [feature]
+   73  Intermitent problem creating tournaments [bug] [can't reproduce]
+   69  timing in "Spectator room" chat [feature]
+   59  Feature: Clock pause [feature] 1
+   58  separate TVs for bullet-time, blitz and slow games. [feature] [planned] 1
+   53  Advanced comments [feature] 3

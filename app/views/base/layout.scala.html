@@ -110,9 +110,9 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
         <a class="toggle" href="#">
           <span data-icon="u">&nbsp;@langName(lang)</span>
         </a>
-        <ul class="language_links dropdown" data-url="@staticUrl("trans/refs.json")">
+        <form action="@routes.I18n.select" method="POST" class="language_links dropdown" data-url="@staticUrl("trans/refs.json")">
           <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
-        </ul>
+        </form>
       </div>
       @ctx.me.map { me =>
       <div class="auth">

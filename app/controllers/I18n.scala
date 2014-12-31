@@ -2,15 +2,28 @@ package controllers
 
 import play.api.data.Form
 
-import lila.app._
-import lila.common.{ Captcha, LilaCookie }
-import lila.i18n.{ Translation, TransInfo }
 import lila.api.Context
+import lila.app._
+import lila.common.{ Captcha, LilaCookie, HTTPRequest }
+import lila.i18n.{ Translation, TransInfo }
 import views._
 
 object I18n extends LilaController {
 
   private def env = Env.i18n
+
+  def select = AuthBody { implicit ctx =>
+    me =>
+      import play.api.data.Forms._
+      import play.api.data._
+      implicit val req = ctx.body
+      Form(single("lang" -> text.verifying(env.pool contains _))).bindFromRequest.fold(
+        _ => funit,
+        lang => lila.user.UserRepo.setLang(me.id, lang)
+      ) inject Redirect {
+          HTTPRequest referer ctx.req getOrElse routes.Lobby.home.url
+        }
+  }
 
   def contribute = Open { implicit ctx =>
     val mines = (ctx.req.acceptLanguages map env.transInfos.get).toList.flatten.distinct
