@@ -88,6 +88,7 @@ oneDay=Jeden den
 nbDays=%s dní
 nbHours=%s hodin
 time=Tempo
+rating=Rating
 username=Uživatelské jméno
 password=Heslo
 haveAnAccount=Máte již účet?
