@@ -88,6 +88,7 @@ oneDay=Ежедневно
 nbDays=%s дней
 nbHours=%s часов
 time=Время
+rating=рейтинг
 username=Имя пользователя
 password=Пароль
 haveAnAccount=Есть учетная запись?
