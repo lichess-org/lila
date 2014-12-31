@@ -88,6 +88,7 @@ oneDay=En dan
 nbDays=%s dni
 nbHours=%s ur
 time=Čas
+rating=Rejting
 username=Uporabniško ime
 password=Geslo
 haveAnAccount=Ali že imaš račun?
