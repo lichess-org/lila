@@ -88,6 +88,7 @@ oneDay=Un día
 nbDays=%s días
 nbHours=%s horas
 time=Tiempo
+rating=Rating
 username=Usuario
 password=Contraseña
 haveAnAccount=¿Tienes una cuenta?
