@@ -4,13 +4,13 @@ import play.api.libs.json._
 
 import chess.format.pgn.Pgn
 import lila.analyse.Analysis
+import lila.common.LightUser
 import lila.game.Pov
 import lila.pref.Pref
 import lila.round.JsonView
 import lila.security.Granter
 import lila.tournament.{ Tournament, TournamentRepo }
 import lila.user.User
-import lila.common.LightUser
 
 private[api] final class RoundApi(
     jsonView: JsonView,
@@ -23,13 +23,9 @@ private[api] final class RoundApi(
       withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-        case ((json, tourOption), note) => blindMode {
-          withTournament(tourOption) {
-            withNote(note) {
-              json
-            }
-          }
-        }
+        case ((json, tourOption), note) => (
+          blindMode _ compose withTournament(tourOption)_ compose withNote(note)_
+        )(json)
       }
 
   def watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean],
@@ -39,15 +35,9 @@ private[api] final class RoundApi(
       withBlurs = ctx.me ?? Granter(_.ViewBlurs), initialFen = initialFen) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-        case ((json, tourOption), note) => blindMode {
-          withTournament(tourOption) {
-            withAnalysis(analysis) {
-              withNote(note) {
-                json
-              }
-            }
-          }
-        }
+        case ((json, tourOption), note) => (
+          blindMode _ compose withTournament(tourOption)_ compose withNote(note)_
+        )(json)
       }
 
   private def withNote(note: String)(json: JsObject) =
