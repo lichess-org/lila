@@ -1681,6 +1681,8 @@ lichess.storage = {
             break;
           case '6':
             key = 'antichess'
+          case '7':
+            key = 'atomicChess'
         }
         $ratings.hide().filter('.' + key).show();
       };

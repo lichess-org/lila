@@ -8,6 +8,7 @@ case chess.Variant.KingOfTheHill => {@routes.Page.kingOfTheHill}
 case chess.Variant.ThreeCheck => {http://en.wikipedia.org/wiki/Three-check_chess}
 case chess.Variant.Antichess => {http://en.wikipedia.org/wiki/Losing_chess}
 case chess.Variant.FromPosition => {@routes.Editor.index}
+case chess.Variant.AtomicChess => {http://en.wikipedia.org/wiki/Atomic_chess}
 }
 }
 <a href="@url" target="_blank" @if(hintAsTitle){title}else{data-hint}="@variant.title" class="@cssClass">@name</a>
