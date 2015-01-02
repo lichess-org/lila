@@ -88,6 +88,7 @@ oneDay=يوم واحد
 nbDays=%s يوم
 nbHours=%s ساعة
 time=الوقت
+rating=التصنيف
 username=إسم المستخدم
 password=كلمة السر
 haveAnAccount=هل لديك حساب؟
