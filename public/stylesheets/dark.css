@@ -151,8 +151,7 @@ body.dark #themepicker div.theme:hover {
 }
 body.dark #hooks_wrap div.tabs a,
 body.dark #top div.auth .links a:hover,
-body.dark #top ul.language_links a:hover,
-body.dark #top ul.language_links a.current,
+body.dark #top .language_links button:hover,
 body.dark #challenge_notifications > div.notification:hover,
 body.dark #message_notifications div.notification:hover {
   background-color: #3e3e3e;
@@ -276,7 +275,7 @@ body.dark #friend_box,
 body.dark #powerTip {
   background: #343434;
 }
-body.dark #top ul.language_links a.accepted,
+body.dark #top .language_links button.accepted,
 body.dark #lichess_forum div.post .message,
 body.dark #lichess_blog,
 body.dark #lichess_message div.thread_message div.thread_message_body,
