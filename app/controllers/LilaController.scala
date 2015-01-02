@@ -45,7 +45,11 @@ private[controllers] trait LilaController
     Open(BodyParsers.parse.anyContent)(f)
 
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
-    Action.async(p)(req => reqToCtx(req) flatMap f)
+    Action.async(p) { req =>
+      reqToCtx(req) flatMap { ctx =>
+        Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx))(fuccess)
+      }
+    }
 
   protected def OpenBody(f: BodyContext => Fu[Result]): Action[AnyContent] =
     OpenBody(BodyParsers.parse.anyContent)(f)
@@ -62,7 +66,9 @@ private[controllers] trait LilaController
   protected def Auth[A](p: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       reqToCtx(req) flatMap { implicit ctx =>
-        ctx.me.fold(authenticationFailed)(me => f(ctx)(me))
+        ctx.me.fold(authenticationFailed) { me =>
+          Env.i18n.requestHandler.forUser(req, ctx.me).fold(f(ctx)(me))(fuccess)
+        }
       }
     }
 

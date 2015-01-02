@@ -19,7 +19,7 @@ module.exports = function(ctrl, player, klass) {
       },
       class: 'text user_link ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
       href: '/@/' + player.user.username,
-      target: game.isPlayerPlaying(ctrl.data) ? '_blank' : null,
+      target: game.isPlayerPlaying(ctrl.data) ? '_blank' : '_self',
       'data-icon': 'r',
     }, [
       (player.user.title ? player.user.title + ' ' : '') + player.user.username,

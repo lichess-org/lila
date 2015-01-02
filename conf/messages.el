@@ -88,6 +88,7 @@ oneDay=Μία μέρα
 nbDays=%s μέρες
 nbHours=%s ώρες
 time=Χρόνος
+rating=Κατάταξη
 username=Όνομα χρήστη
 password=Κωδικός
 haveAnAccount=Έχετε λογαριασμό;

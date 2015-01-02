@@ -88,6 +88,7 @@ oneDay=1 dzień na ruch
 nbDays=%s Dni
 nbHours=%s godzin
 time=Czas
+rating=Ranking
 username=Nazwa użytkownika
 password=Hasło
 haveAnAccount=Masz już konto?

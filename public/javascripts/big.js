@@ -904,9 +904,8 @@ lichess.storage = {
           url: $links.data('url'),
           success: function(list) {
             $links.prepend(list.map(function(lang) {
-              var href = location.href.replace(/\/\/\w+\./, '//' + lang[0] + '.');
               var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
-              return '<li><a ' + klass + ' lang="' + lang[0] + '" href="' + href + '">' + lang[1] + '</a></li>';
+              return '<li><button type="submit" ' + klass + '" name="lang" value="' + lang[0] + '">' + lang[1] + '</button></li>';
             }).join(''));
           }
         });

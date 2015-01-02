@@ -58,7 +58,6 @@ final class Env(
       def receive = {
         case User.Active(user, lang) =>
           if (!user.seenRecently) UserRepo setSeenAt user.id
-          if (user.lang != lang.some) UserRepo.setLang(user.id, lang)
           onlineUserIdMemo put user.id
       }
     })), 'userActive)

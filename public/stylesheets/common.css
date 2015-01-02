@@ -1217,42 +1217,48 @@ div.lichess_language {
   float: right;
   position: relative;
 }
-ul.language_links {
+.language_links {
   width: 620px;
   padding: 10px;
   max-height: 700px;
   overflow: auto;
 }
-#top div.lichess_language.shown ul.language_links {
+#top div.lichess_language.shown .language_links {
   display: block;
 }
-ul.language_links a {
+.language_links button {
   display: block;
   padding: 0.4em 0.5em;
   text-decoration: none;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  transition: 0.13s;
 }
-ul.language_links a.current,
-ul.language_links a.accepted {
+.language_links button.current,
+.language_links button.accepted {
   font-weight: bold;
   color: #444;
 }
-ul.language_links a.accepted {
+.language_links button.accepted {
   text-decoration: underline;
 }
-ul.language_links a:hover,
-ul.language_links a.current {
+.language_links button:hover,
+.language_links button.current {
   background: #F0F0F0;
 }
-ul.language_links li {
+.language_links li {
   width: 25%;
   height: 24px;
   float: left;
   display: block;
   overflow: hidden;
 }
-ul.language_links li:last-child {
+.language_links li:last-child {
   width: 50%;
   font-weight: bold;
+  padding-top: 10px;
 }
 #themepicker {
   float: right;
@@ -1265,7 +1271,7 @@ ul.language_links li:last-child {
   text-decoration: none;
   line-height: normal;
 }
-#themepicker.shown div.dropdown {
+#themepicker.shown .dropdown {
   display: block;
   width: 241px;
   text-align: center;
@@ -1823,25 +1829,6 @@ div.auth input.login {
 div.lichess_language {
   float: right;
   position: relative;
-}
-ul.language_links {
-  width: 620px;
-  padding: 10px;
-  max-height: 700px;
-  overflow: auto;
-}
-#top div.lichess_language.shown ul.language_links {
-  display: block;
-}
-ul.language_links a {
-  display: block;
-  padding: 0.4em 0.5em;
-  text-decoration: none;
-  transition: 0.13s;
-}
-ul.language_links a.current,
-ul.language_links a.accepted {
-  font-weight: bold;
 }
 div.undertable {
   width: 512px;
