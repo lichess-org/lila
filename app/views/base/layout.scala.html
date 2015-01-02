@@ -172,7 +172,11 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
           <a id="site_title" href="@routes.Lobby.home">
             lichess<span class="extension">.org</span>
           </a>
+          @if(acceptsLanguage(lang)) {
           @baseline
+          } else {
+          @langFallbackLinks
+          }
         </h1>
         @menu.map { side =>
         <div class="side_menu">@side</div>
