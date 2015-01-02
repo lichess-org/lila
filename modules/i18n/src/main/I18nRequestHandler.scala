@@ -23,12 +23,8 @@ final class I18nRequestHandler(
   } yield Redirect(redirectUrlLang(req, userLang))
 
   private def redirectUrl(req: RequestHeader) =
-    protocol +
-      I18nDomain(req.domain).withLang(pool preferred req).domain +
-      req.uri
+    redirectUrlLang(req, pool.preferred(req).language)
 
   private def redirectUrlLang(req: RequestHeader, lang: String) =
-    protocol +
-      I18nDomain(req.domain).withLang(lang).domain +
-      req.uri
+    s"$protocol${I18nDomain(req.domain).withLang(lang).domain}${req.uri}"
 }

@@ -1253,6 +1253,7 @@ div.lichess_language {
 .language_links li:last-child {
   width: 50%;
   font-weight: bold;
+  padding-top: 10px;
 }
 #themepicker {
   float: right;

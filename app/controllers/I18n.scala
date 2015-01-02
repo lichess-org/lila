@@ -12,17 +12,20 @@ object I18n extends LilaController {
 
   private def env = Env.i18n
 
-  def select = AuthBody { implicit ctx =>
-    me =>
-      import play.api.data.Forms._
-      import play.api.data._
-      implicit val req = ctx.body
-      Form(single("lang" -> text.verifying(env.pool contains _))).bindFromRequest.fold(
-        _ => funit,
-        lang => lila.user.UserRepo.setLang(me.id, lang)
-      ) inject Redirect {
-          HTTPRequest referer ctx.req getOrElse routes.Lobby.home.url
+  def select = OpenBody { implicit ctx =>
+    import play.api.data.Forms._
+    import play.api.data._
+    implicit val req = ctx.body
+    Form(single("lang" -> text.verifying(env.pool contains _))).bindFromRequest.fold(
+      _ => notFound,
+      lang => (ctx.me ?? { me => lila.user.UserRepo.setLang(me.id, lang) }) inject Redirect {
+        s"${Env.api.Net.Protocol}${lang}.${Env.api.Net.Domain}" + {
+          HTTPRequest.referer(ctx.req).fold(routes.Lobby.home.url) { str =>
+            new java.net.URL(str).getPath
+          }
         }
+      }
+    )
   }
 
   def contribute = Open { implicit ctx =>
