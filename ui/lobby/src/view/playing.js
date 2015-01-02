@@ -2,6 +2,13 @@ var m = require('mithril');
 
 var boardContent = m('div.cg-board-wrap', m('div.cg-board'));
 
+function timer(pov) {
+  var time = moment().add(pov.secondsLeft, 'seconds');
+  return m('time.moment-from-now', {
+    datetime: time
+  }, time.fromNow());
+}
+
 module.exports = function(ctrl) {
   return m('div#now_playing',
     ctrl.data.nowPlaying.map(function(pov) {
@@ -15,18 +22,13 @@ module.exports = function(ctrl) {
           'data-fen': pov.fen,
           'data-lastmove': pov.lastMove,
           config: function(el, isUpdate) {
-            if (isUpdate) return;
-            lichess.parseFen($(el));
+            if (!isUpdate) lichess.parseFen($(el));
           }
         }, boardContent),
         m('span.meta', [
           pov.opponent.aiLevel ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', pov.opponent.aiLevel) : pov.opponent.username,
           m('span.indicator',
-            pov.isMyTurn ? (pov.secondsLeft ? m('time.moment-from-now', {
-              config: function(el, isUpdate) {
-                if (!isUpdate) el.setAttribute('datetime', moment().add(pov.secondsLeft, 'seconds'));
-              }
-            }) : ctrl.trans('yourTurn')) : m.trust('&nbsp;'))
+            pov.isMyTurn ? (pov.secondsLeft ? timer(pov) : ctrl.trans('yourTurn')) : m.trust('&nbsp;'))
         ])
       ])
     })
