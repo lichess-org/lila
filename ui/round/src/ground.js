@@ -39,17 +39,17 @@ function makeConfig(data, fen, flip) {
     },
     draggable: {
       showGhost: data.pref.highlight
-    },
-    events: {
-      capture: $.sound.take
     }
   };
 }
 
-function make(data, fen, userMove) {
+function make(data, fen, userMove, onCapture) {
   var config = makeConfig(data, fen);
   config.movable.events = {
     after: userMove
+  };
+  config.events = {
+    capture: onCapture
   };
   config.viewOnly = data.player.spectator;
   return new chessground.controller(config);

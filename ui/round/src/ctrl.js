@@ -16,6 +16,7 @@ var replayCtrl = require('./replay/ctrl');
 var clockCtrl = require('./clock/ctrl');
 var correspondenceClockCtrl = require('./correspondenceClock/ctrl');
 var moveOn = require('./moveOn');
+var atomic = require('./atomic');
 
 module.exports = function(opts) {
 
@@ -51,11 +52,18 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  this.userMove = function(orig, dest, meta) {
+  var onUserMove = function(orig, dest, meta) {
     hold.register(this.socket, meta.holdTime);
     if (!promotion.start(this, orig, dest, meta.premove)) this.sendMove(orig, dest);
     $.sound.move(this.data.player.color == 'white');
   }.bind(this);
+
+  var onCapture = function(key) {
+    if (this.data.game.variant.key === 'atomicChess') atomic.capture(this, key);
+    else $.sound.take();
+  }.bind(this);
+
+  this.chessground = ground.make(this.data, opts.data.game.fen, onUserMove, onCapture);
 
   this.apiMove = function(o) {
     if (this.replay.active) this.replay.vm.late = true;
@@ -68,8 +76,6 @@ module.exports = function(opts) {
     if (this.data.blind) blind.reload(this);
     if (game.isPlayerPlaying(this.data) && o.color === this.data.player.color) this.moveOn.next();
   }.bind(this);
-
-  this.chessground = ground.make(this.data, opts.data.game.fen, this.userMove);
 
   this.reload = function(cfg) {
     this.replay.onReload(cfg);
