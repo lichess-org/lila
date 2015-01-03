@@ -567,6 +567,7 @@ lichess.storage = {
     else if (lichess.analyse) startAnalyse(document.getElementById('lichess'), lichess.analyse);
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
     else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
+    else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
 
     $('#lichess').on('click', '.socket-link:not(.disabled)', function() {
       lichess.socket.send($(this).data('msg'), $(this).data('data'));
@@ -1866,21 +1867,20 @@ lichess.storage = {
 
   $(function() {
 
-    var $wrap = $('#tournament');
-    if (!$wrap.length) return;
-
-    if (!lichess.StrongSocket.available) return;
-
-    if (typeof _ld_ == "undefined") {
+    var $tournamentList = $('#tournamentList');
+    if (!lichess.tournament) {
       // handle tournament list
       lichess.StrongSocket.defaults.params.flag = "tournament";
       lichess.StrongSocket.defaults.events.reload = function() {
-        $wrap.load($wrap.data("href"), function() {
+        $tournamentList.load($tournamentList.data("href"), function() {
           $('body').trigger('lichess.content_loaded');
         });
       };
       return;
     }
+  });
+
+  function startTournament(element, cfg) {
 
     $('body').data('tournament-id', _ld_.tournament.id);
 
@@ -1950,7 +1950,7 @@ lichess.storage = {
         name: "tournament"
       }
     });
-  });
+  };
 
   ////////////////
   // analyse.js //
