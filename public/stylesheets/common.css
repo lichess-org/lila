@@ -127,7 +127,6 @@ body.blind_mode [data-icon]::before {
 .is.color-icon.random::before {
   content: "l";
 }
-
 @font-face {
   font-family: 'ChessSansPiratf';
   src: url("../fonts/ChessSansPiratf.eot");
@@ -886,7 +885,8 @@ div.side_box .game_infos .bookmark {
   opacity: 0;
   transform: translate(0, -20px);
   transition: 0.3s;
-  z-index: 10; /* to go over the board */
+  z-index: 10;
+  /* to go over the board */
 }
 div.side_box .game_infos:hover .bookmark {
   transform: translate(0, 0);
@@ -894,8 +894,6 @@ div.side_box .game_infos:hover .bookmark {
 }
 div.side_box .game_infos .setup {
   display: block;
-}
-div.side_box div.players {
 }
 div.side_box div.status {
   text-align: center;
@@ -2193,4 +2191,36 @@ input.copyable {
   -webkit-transform: translateX(-8px);
   -moz-transform: translateX(-8px);
   transform: translateX(-8px);
+}
+.continue_with {
+  display: none;
+}
+.continue_with .button {
+  display: inline-block;
+  margin: 1em;
+}
+#modal-overlay {
+  display: block;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+  cursor: pointer;
+}
+#modal-wrap {
+  display: inline-block;
+  position: relative;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 3px;
+  box-shadow: 0 0 95px 25px rgba(0, 0, 0, 0.8);
+  background: #fff;
+  text-align: center;
+  cursor: default;
 }

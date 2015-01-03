@@ -2138,4 +2138,16 @@ lichess.storage = {
       } else startListening();
     }, 5000);
   };
+
+  $.modal = function(html) {
+    var $wrap = $('<div id="modal-wrap">').html(html.clone().show());
+    var $overlay = $('<div id="modal-overlay">').html($wrap);
+    $overlay.one('click', function() {
+      $('#modal-overlay').remove();
+    });
+    $wrap.click(function(e) {
+      e.stopPropagation();
+    });
+    $('body').prepend($overlay);
+  };
 })();

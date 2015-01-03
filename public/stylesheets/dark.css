@@ -140,7 +140,8 @@ body.dark .crosstable td:nth-last-child(3) {
 body.dark .crosstable td.current {
   box-shadow: none;
 }
-body.dark .crosstable td.current a {
+body.dark .crosstable td.current a,
+body.dark #modal-wrap {
   background-color: #303030;
 }
 body.dark .ui-slider,

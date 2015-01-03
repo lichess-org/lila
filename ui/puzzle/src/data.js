@@ -19,7 +19,6 @@ module.exports = function(cfg) {
   merge(data, cfg);
 
   data.puzzle.initialMove = puzzle.str2move(data.puzzle.initialMove);
-  data.showContinueLinks = m.prop(false);
 
   return data;
 };
