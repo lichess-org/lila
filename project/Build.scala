@@ -85,7 +85,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val evaluation = project("evaluation", Seq(
-    common, hub, db, user, game)).settings(
+    common, hub, db, user, game, analyse)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
