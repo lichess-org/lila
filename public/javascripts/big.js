@@ -367,6 +367,7 @@ lichess.storage = {
     };
   };
 
+  var nbEl = document.querySelector('#nb_connected_players > strong');
   lichess.socket = null;
   lichess.idleTime = 20 * 60 * 1000;
   $.extend(true, lichess.StrongSocket.defaults, {
@@ -381,16 +382,15 @@ lichess.storage = {
         $('#friend_box').friends('leaves', name);
       },
       n: function(e) {
-        var $tag = $('#nb_connected_players > strong');
-        if ($tag.length && e) {
-          var prev = parseInt($tag.text(), 10) || Math.max(0, (e - 10));
-          var k = 6;
+        if (nbEl && e) {
+          var prev = parseInt(nbEl.textContent, 10) || Math.max(0, (e - 10));
+          var k = 5;
           var interv = lichess.socket.pingInterval() / k;
           $.fp.range(k).forEach(function(it) {
             setTimeout(function() {
               var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
               if (val != prev) {
-                $tag.text(val);
+                nbEl.textContent = val;
                 prev = val;
               }
             }, Math.round(it * interv));
