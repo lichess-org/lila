@@ -45,7 +45,7 @@ object Dependencies {
   val elastic4s = "com.sksamuel.elastic4s" %% "elastic4s" % "1.3.2"
   val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.5.0.akka23"
   val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.5.0.akka23"
-  val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.2-THIB"
+  val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.4"
 
   object play {
