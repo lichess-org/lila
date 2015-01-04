@@ -622,6 +622,7 @@ lichess.storage = {
     $('#message_notifications_tag').on('click', function() {
       $.ajax({
         url: $(this).data('href'),
+        cache: false,
         success: function(html) {
           $('#message_notifications_display').html(html)
             .find('a.mark_as_read').click(function() {
@@ -680,6 +681,7 @@ lichess.storage = {
       var $themepicker = $('#themepicker');
       $.ajax({
         url: $(this).data('url'),
+        cache: false,
         success: function(html) {
           $themepicker.append(html);
           var $body = $('body');
@@ -902,6 +904,7 @@ lichess.storage = {
           langs = acceptLanguages.split(',');
         $.ajax({
           url: $links.data('url'),
+          cache: false,
           success: function(list) {
             $links.prepend(list.map(function(lang) {
               var klass = $.fp.contains(langs, lang[0]) ? 'class="accepted"' : '';
@@ -1102,10 +1105,14 @@ lichess.storage = {
           },
           end: function() {
             var url = (data.tv ? cfg.routes.Tv.side : cfg.routes.Round.sideWatcher)(data.game.id, data.player.color).url;
-            $.get(url, function(html) {
-              $('#site_header div.side').replaceWith(html);
-              $('body').trigger('lichess.content_loaded');
-              startTournamentClock();
+            $.ajax({
+              url: url,
+              cache: false,
+              success: function(html) {
+                $('#site_header div.side').replaceWith(html);
+                $('body').trigger('lichess.content_loaded');
+                startTournamentClock();
+              }
             });
           },
           checkCount: function(e) {
@@ -1528,6 +1535,7 @@ lichess.storage = {
           reload_timeline: function() {
             $.ajax({
               url: $("#timeline").data('href'),
+              cache: false,
               success: function(html) {
                 $('#timeline').html(html);
                 $('body').trigger('lichess.content_loaded');
@@ -1551,7 +1559,9 @@ lichess.storage = {
           },
           reload_forum: function() {
             setTimeout(function() {
-              $.ajax($newposts.data('url'), {
+              $.ajax({
+                url: $newposts.data('url'),
+                cache: false,
                 success: function(data) {
                   $newposts.find('ol').html(data).end().scrollTop(0);
                   $('body').trigger('lichess.content_loaded');
@@ -1841,6 +1851,7 @@ lichess.storage = {
       $('.lichess_overboard').remove();
       $.ajax({
         url: $(this).attr('href'),
+        cache: false,
         success: function(html) {
           $('.lichess_overboard').remove();
           $('#hooks_wrap').prepend(html);
@@ -1917,6 +1928,7 @@ lichess.storage = {
     function reload() {
       $.ajax({
         url: $wrap.data('href'),
+        cache: false,
         success: function(html) {
           var $tour = $(html);
           if ($wrap.find('table.standing').length) {
