@@ -1882,7 +1882,7 @@ lichess.storage = {
 
   function startTournament(element, cfg) {
 
-    $('body').data('tournament-id', _ld_.tournament.id);
+    $('body').data('tournament-id', cfg.data.id);
 
     var $watchers = $("div.watchers").watchers();
 

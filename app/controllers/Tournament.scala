@@ -34,7 +34,7 @@ object Tournament extends LilaController {
     val system = sysStr flatMap {
       case "arena" => System.Arena.some
       case "swiss" => System.Swiss.some
-      case _ => none
+      case _       => none
     }
     Ok(html.tournament.faqPage(system)).fuccess
   }
@@ -61,8 +61,8 @@ object Tournament extends LilaController {
   }
 
   private def showCreated(tour: Created)(implicit ctx: Context) =
-    env.version(tour.id) zip chatOf(tour) map {
-      case (version, chat) => html.tournament.show.created(tour, version, chat)
+    env.jsonView(tour, Env.api.version) zip chatOf(tour) map {
+      case (data, chat) => html.tournament.showJs(tour, data, chat)
     }
 
   private def showStarted(tour: Started)(implicit ctx: Context) =

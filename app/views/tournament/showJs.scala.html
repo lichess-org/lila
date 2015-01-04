@@ -1,0 +1,27 @@
+@(tour: lila.tournament.Tournament, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
+
+@underchat = {
+<div class="watchers" data-icon="v">
+  <span class="list inline_userlist"></span>
+</div>
+}
+
+@moreJs = {
+@jsAt(s"compiled/lichess.tournament${isProd??(".min")}.js")
+@embedJs {
+lichess = lichess || {};
+lichess.tournament = {
+data: @Html(play.api.libs.json.Json.stringify(data)),
+i18n: @jsI18n()
+};
+}
+}
+
+@tournament.layout(
+title = tour.fullName,
+side = tournament.side(tour).some,
+chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
+underchat = underchat.some,
+moreJs = moreJs) {
+<div id="tournament" @if(tour.scheduled) { class="scheduled" }></div>
+}

@@ -15,7 +15,7 @@ underchat = underchat.some) {
   id="tournament"
   @if(tour.scheduled) { class="scheduled" }
   data-href="@routes.Tournament.reload(tour.id)"
-  data-socket-url="@routes.Tournament.websocket(tour.id)">
+  data-socket-url="@routes.Tournament.websocket(tour.id, 0)">
   @tournament.show.inner(pairings)(body)
 </div>
 @embedJs("var _ld_ = " + tournamentJsData(tour, version, ctx.me))
