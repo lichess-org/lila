@@ -37,11 +37,11 @@ module.exports = {
       next(ctrl);
       m.redraw();
     }));
-    k.bind(['up', 'j'], preventing(function() {
+    k.bind(['up', 'k'], preventing(function() {
       ctrl.replay.jump(1);
       m.redraw();
     }));
-    k.bind(['down', 'k'], preventing(function() {
+    k.bind(['down', 'j'], preventing(function() {
       ctrl.replay.jump(ctrl.data.game.moves.length);
       m.redraw();
     }));
