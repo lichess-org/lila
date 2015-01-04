@@ -12,7 +12,7 @@ case class Perfs(
     kingOfTheHill: Perf,
     threeCheck: Perf,
     antichess: Perf,
-    atomicChess: Perf,
+    atomic: Perf,
     bullet: Perf,
     blitz: Perf,
     classical: Perf,
@@ -25,7 +25,7 @@ case class Perfs(
     "kingOfTheHill" -> kingOfTheHill,
     "threeCheck" -> threeCheck,
     "antichess" -> antichess,
-    "atomicChess" -> atomicChess,
+    "atomic" -> atomic,
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
@@ -44,7 +44,7 @@ case class Perfs(
   }
 
   def bestRating: Int = {
-    val ps = List(bullet, blitz, classical, correspondence, chess960, kingOfTheHill, threeCheck, antichess, atomicChess)
+    val ps = List(bullet, blitz, classical, correspondence, chess960, kingOfTheHill, threeCheck, antichess, atomic)
     val minNb = ps.foldLeft(0)(_ + _.nb) / 10
     ps.foldLeft(none[Int]) {
       case (ro, p) if p.nb >= minNb => ro.fold(p.intRating.some) { r =>
@@ -59,7 +59,7 @@ case class Perfs(
     "kingOfTheHill" -> kingOfTheHill,
     "threeCheck" -> threeCheck,
     "antichess" -> antichess,
-    "atomicChess" -> atomicChess,
+    "atomic" -> atomic,
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
@@ -82,7 +82,7 @@ case class Perfs(
     case PerfType.KingOfTheHill  => kingOfTheHill
     case PerfType.ThreeCheck     => threeCheck
     case PerfType.Antichess      => antichess
-    case PerfType.AtomicChess    => atomicChess
+    case PerfType.Atomic         => atomic
     case PerfType.Puzzle         => puzzle
   }
 
@@ -122,7 +122,7 @@ case object Perfs {
     case Variant.KingOfTheHill => Some(_.kingOfTheHill)
     case Variant.ThreeCheck    => Some(_.threeCheck)
     case Variant.Antichess     => Some(_.antichess)
-    case Variant.AtomicChess   => Some(_.atomicChess)
+    case Variant.Atomic        => Some(_.atomic)
     case Variant.FromPosition  => none
   }
 
@@ -146,7 +146,7 @@ case object Perfs {
         kingOfTheHill = perf("kingOfTheHill"),
         threeCheck = perf("threeCheck"),
         antichess = perf("antichess"),
-        atomicChess = perf("atomicChess"),
+        atomic = perf("atomic"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
         classical = perf("classical"),
@@ -162,7 +162,7 @@ case object Perfs {
       "kingOfTheHill" -> notNew(o.kingOfTheHill),
       "threeCheck" -> notNew(o.threeCheck),
       "antichess" -> notNew(o.antichess),
-      "atomicChess" -> notNew(o.atomicChess),
+      "atomic" -> notNew(o.atomic),
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
       "classical" -> notNew(o.classical),

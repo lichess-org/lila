@@ -59,9 +59,9 @@ object PerfType {
     iconChar = '>'
   )
 
-  case object AtomicChess extends PerfType(
-    key="atomicChess",
-    name= Variant.AtomicChess.name,
+  case object Atomic extends PerfType(
+    key="atomic",
+    name= Variant.Atomic.name,
     title = "Atomic chess variant",
     iconChar = '>'
   )
@@ -78,7 +78,7 @@ object PerfType {
     title = "Training puzzles",
     iconChar = '-')
 
-  val all: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, AtomicChess, Puzzle)
+  val all: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Puzzle)
   val byKey = all map { p => (p.key, p) } toMap
 
   val default = Standard
@@ -88,6 +88,6 @@ object PerfType {
 
   def name(key: Perf.Key): Option[String] = apply(key) map (_.name)
 
-  val nonPuzzle: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck, Antichess, AtomicChess)
+  val nonPuzzle: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic)
   val leaderboardable: List[PerfType] = List(Bullet, Blitz, Classical, Chess960, KingOfTheHill, ThreeCheck)
 }

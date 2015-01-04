@@ -59,7 +59,7 @@ module.exports = function(opts) {
   }.bind(this);
 
   var onCapture = function(key) {
-    if (this.data.game.variant.key === 'atomicChess') atomic.capture(this, key);
+    if (this.data.game.variant.key === 'atomic') atomic.capture(this, key);
     else $.sound.take();
   }.bind(this);
 
