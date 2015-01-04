@@ -9,7 +9,7 @@ module.exports = {
       return p.id === ctrl.userId;
     }).length > 0;
   },
-  myCurrentGame: function(ctrl) {
+  myCurrentPairing: function(ctrl) {
     if (!ctrl.userId) return null;
     return ctrl.data.pairings.filter(function(p) {
       return p.status < status.ids.mate && (

@@ -76,7 +76,8 @@ time {
   font-style: normal;
 }
 .is::before,
-[data-icon]::before {
+[data-icon]::before,
+.is-after::after {
   font-size: 1.2em;
   vertical-align: middle;
   font-family: "lichess" !important;

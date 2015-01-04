@@ -8,7 +8,6 @@ var pairings = require('./pairings');
 
 module.exports = {
   main: function(ctrl) {
-    var gameId = tournament.myCurrentGame(ctrl);
     return [
       m('div.title_tag', ctrl.trans('finished')),
       util.title(ctrl),

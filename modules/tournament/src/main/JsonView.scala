@@ -16,7 +16,6 @@ final class JsonView(
   def apply(tour: Tournament): Fu[JsObject] =
     lastGames(tour) map { games =>
       val sheets = tour.system.scoringSystem scoreSheets tour
-      println(sheets)
       Json.obj(
         "id" -> tour.id,
         "createdBy" -> tour.createdBy,

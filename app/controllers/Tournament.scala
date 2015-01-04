@@ -18,11 +18,6 @@ object Tournament extends LilaController {
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.notFound())
 
-  protected def TourOptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(implicit ctx: Context) =
-    fua flatMap {
-      _.fold(tournamentNotFound(ctx).fuccess)(a => op(a) map { b => Redirect(b) })
-    }
-
   val home = Open { implicit ctx =>
     fetchTournaments zip repo.scheduled zip UserRepo.allSortToints(10) map {
       case ((((created, started), finished), scheduled), leaderboard) =>
@@ -52,17 +47,14 @@ object Tournament extends LilaController {
   def show(id: String) = Open { implicit ctx =>
     repo byId id flatMap {
       _.fold(tournamentNotFound.fuccess) { tour =>
-        showJs(tour) map { Ok(_) }
+        env.version(tour.id) zip
+          env.jsonView(tour) zip
+          chatOf(tour) map {
+            case ((version, data), chat) => html.tournament.show(tour, version, data, chat)
+          }
       }
     }
   }
-
-  private def showJs(tour: Tourney)(implicit ctx: Context) =
-    env.version(tour.id) zip
-      env.jsonView(tour) zip
-      chatOf(tour) map {
-        case ((version, data), chat) => html.tournament.showJs(tour, version, data, chat)
-      }
 
   def join(id: String) = AuthBody { implicit ctx =>
     implicit me =>
@@ -125,9 +117,9 @@ object Tournament extends LilaController {
 
   def earlyStart(id: String) = Auth { implicit ctx =>
     implicit me =>
-      TourOptionFuRedirect(repo.createdByIdAndCreator(id, me.id)) { tour =>
+      OptionResult(repo.createdByIdAndCreator(id, me.id)) { tour =>
         env.api startIfReady tour
-        fuccess(routes.Tournament show tour.id)
+        Ok(Json.obj("ok" -> true)) as JSON
       }
   }
 

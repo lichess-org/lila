@@ -12,6 +12,8 @@ function tourAction(action, ctrl) {
     method: 'POST',
     url: '/tournament/' + ctrl.data.id + '/' + action,
     config: xhrConfig
+  }).then(null, function() {
+    location.reload();
   });
 }
 

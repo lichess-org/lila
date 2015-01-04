@@ -1063,9 +1063,8 @@ lichess.storage = {
   var startTournamentClock = function() {
     $("div.game_tournament div.clock").each(function() {
       $(this).clock({
-        time: $(this).data("time"),
-        showTenths: false
-      }).clock("start");
+        time: $(this).data("time")
+      });
     });
   };
 
@@ -1353,72 +1352,27 @@ lichess.storage = {
 
   $.widget("lichess.clock", {
     _create: function() {
-      var o = this.options;
-      this.options.time = parseFloat(this.options.time) * 1000;
-      this.options.barTime = parseFloat(this.options.barTime) * 1000;
-      this.options.emerg = parseFloat(this.options.emerg) * 1000;
-      $.extend(this.options, {
-        state: 'ready'
-      });
+      var self = this;
+      this.options.time = this.options.time * 1000;
       this.$time = this.element.find('>div.time');
-      this.$bar = this.element.find('>div.bar>span');
-      this._show();
+      var end_time = new Date().getTime() + self.options.time;
+      self.options.interval = setInterval(function() {
+          var current_time = Math.round(end_time - new Date().getTime());
+          if (current_time <= 0) {
+            clearInterval(self.options.interval);
+            current_time = 0;
+          }
+          self.options.time = current_time;
+          self._show();
+        },
+        1000);
     },
     destroy: function() {
       this.stop();
       $.Widget.prototype.destroy.apply(this);
     },
-    start: function() {
-      var self = this;
-      self.options.state = 'running';
-      self.element.addClass('running');
-      var end_time = new Date().getTime() + self.options.time;
-      self.options.interval = setInterval(function() {
-          if (self.options.state == 'running') {
-            var current_time = Math.round(end_time - new Date().getTime());
-            if (current_time <= 0) {
-              clearInterval(self.options.interval);
-              current_time = 0;
-            }
-
-            self.options.time = current_time;
-            self._show();
-
-            //If the timer completed, fire the buzzer callback
-            if (current_time === 0 && $.isFunction(self.options.buzzer)) self.options.buzzer(self.element);
-          } else {
-            clearInterval(self.options.interval);
-          }
-        },
-        100);
-    },
-
-    setTime: function(time) {
-      this.options.time = parseFloat(time) * 1000;
-      this._show();
-    },
-
-    getSeconds: function() {
-      return Math.round(this.options.time / 1000);
-    },
-
-    stop: function() {
-      clearInterval(this.options.interval);
-      this.options.state = 'stop';
-      this.element.removeClass('running');
-      this.element.toggleClass('outoftime', this.options.time <= 0);
-    },
-
     _show: function() {
-      var html = this._formatDate(new Date(this.options.time));
-      if (html != this.$time.html()) {
-        this.$time.html(html);
-        this.element.toggleClass('emerg', this.options.time < this.options.emerg);
-      }
-      if (this.options.showBar) {
-        var barWidth = Math.max(0, Math.min(100, (this.options.time / this.options.barTime) * 100));
-        this.$bar.css('width', barWidth + '%');
-      }
+      this.$time.html(this._formatDate(new Date(this.options.time)));
     },
 
     _formatDate: function(date) {
@@ -1427,10 +1381,7 @@ lichess.storage = {
       var b = function(x) {
         return '<b>' + x + '</b>';
       };
-      if (this.options.showTenths && this.options.time < 10000) {
-        tenths = Math.floor(date.getMilliseconds() / 100);
-        return b(minutes) + ':' + b(seconds) + '<span>.' + b(tenths) + '</span>';
-      } else if (this.options.time >= 3600000) {
+      if (this.options.time >= 3600000) {
         var hours = this._prefixInteger(date.getUTCHours(), 2);
         return b(hours) + ':' + b(minutes) + ':' + b(seconds);
       } else {
@@ -1529,8 +1480,7 @@ lichess.storage = {
       '/lobby/socket/v1',
       cfg.data.version, {
         receive: function(t, d) {
-          if (lobby) lobby.socketReceive(t, d);
-          else console.log('missed', t, d);
+          lobby.socketReceive(t, d);
         },
         events: {
           reload_timeline: function() {
@@ -1894,25 +1844,24 @@ lichess.storage = {
   function startTournament(element, cfg) {
     $('body').data('tournament-id', cfg.data.id);
     var $watchers = $("div.watchers").watchers();
-    var $chat = $('#chat');
-    if ($chat.length) $chat.chat({
+    if (lichess_chat) $('#chat').chat({
       messages: lichess_chat
     });
     var tournament;
     lichess.socket = new lichess.StrongSocket(
-        '/tournament/' + cfg.data.id + '/socket/v1', cfg.socketVersion, {
+      '/tournament/' + cfg.data.id + '/socket/v1', cfg.socketVersion, {
         receive: function(t, d) {
-          tournament.socketReceive(t, d);
+          tournament.socketReceive(t, d)
         },
-      events: {
-        crowd: function(data) {
-          $watchers.watchers("set", data);
+        events: {
+          crowd: function(data) {
+            $watchers.watchers("set", data);
+          }
+        },
+        options: {
+          name: "tournament"
         }
-      },
-      options: {
-        name: "tournament"
-      }
-    });
+      });
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     tournament = LichessTournament(element, cfg);
   };

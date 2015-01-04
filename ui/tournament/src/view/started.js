@@ -8,7 +8,8 @@ var pairings = require('./pairings');
 
 module.exports = {
   main: function(ctrl) {
-    var gameId = tournament.myCurrentGame(ctrl);
+    var myPairing = tournament.myCurrentPairing(ctrl);
+    var gameId = myPairing ? myPairing.gameId : null;
     return [
       m('div.tournament_clock.title_tag', {
         config: function(el, isUpdate) {
@@ -18,7 +19,7 @@ module.exports = {
         }
       }, m('div.time.text[data-icon=p]')),
       util.title(ctrl),
-      gameId ? m('a.is.pov.button.glowing', {
+      gameId ? m('a.is.is-after.pov.button.glowing', {
         href: '/' + gameId
       }, [
         'You are playing!',

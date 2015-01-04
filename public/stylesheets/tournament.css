@@ -60,8 +60,8 @@ ol.scheduled_tournaments a:hover {
 #tournament a.pov::after {
   right: 15px;
 }
-#tournament table.slist .create td {
-  padding: 0.6em 1.2em 0.6em 0.6em;
+#tournament_list table.slist .create td {
+  padding: 2em;
   text-align: center;
 }
 #tournament table.slist span.rank {
