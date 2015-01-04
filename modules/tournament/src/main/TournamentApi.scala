@@ -105,7 +105,7 @@ private[tournament] final class TournamentApi(
           else started.readyToFinish ?? {
             val finished = started.finish
             TournamentRepo.update(finished).void >>-
-              sendTo(finished.id, ReloadPage) >>-
+              sendTo(finished.id, Reload) >>-
               reloadSiteSocket >>-
               finished.players.filter(_.score > 0).map { p =>
                 UserRepo.incToints(p.id, p.score)
@@ -119,7 +119,7 @@ private[tournament] final class TournamentApi(
   def join(oldTour: Enterable, me: User, password: Option[String]) {
     sequence(oldTour.id) {
       TournamentRepo enterableById oldTour.id flatMap {
-        case Some(tour) => (tour.join(me, password)).future flatMap { tour2 =>
+        case Some(tour) => tour.join(me, password).future flatMap { tour2 =>
           TournamentRepo withdraw me.id flatMap { withdrawIds =>
             TournamentRepo.update(tour2).void >>- {
               sendTo(tour.id, Joining(me.id))

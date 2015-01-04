@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Tournament, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
+@(tour: lila.tournament.Tournament, socketVersion: Int, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
 
 @underchat = {
 <div class="watchers" data-icon="v">
@@ -12,7 +12,9 @@
 lichess = lichess || {};
 lichess.tournament = {
 data: @Html(play.api.libs.json.Json.stringify(data)),
-i18n: @jsI18n()
+i18n: @jsI18n(),
+socketVersion: @socketVersion,
+userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 };
 }
 }

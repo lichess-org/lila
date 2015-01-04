@@ -67,13 +67,14 @@ final class Env(
 
   lazy val cached = new Cached
 
-  lazy val jsonView = new JsonView
+  lazy val jsonView = new JsonView(lightUser, isOnline)
 
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
       def mkActor(tournamentId: String) = new Socket(
         tournamentId = tournamentId,
         history = new History(ttl = HistoryMessageTtl),
+        jsonView = jsonView,
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout,
         lightUser = lightUser)

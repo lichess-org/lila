@@ -6,6 +6,10 @@ module.exports = function(send, ctrl) {
   this.send = send;
 
   var handlers = {
+    reload: function(data) {
+      ctrl.reload(data);
+      m.redraw();
+    }
   };
 
   this.receive = function(type, data) {

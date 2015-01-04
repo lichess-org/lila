@@ -7,6 +7,8 @@ case class Schedule(
     speed: Schedule.Speed,
     at: DateTime) {
 
+  def inSeconds: Int = (at.getSeconds - nowSeconds).toInt
+
   def name = s"${freq.toString} ${speed.toString}"
 
   def sameSpeed(other: Schedule) = speed == other.speed

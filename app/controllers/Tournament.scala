@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsValue
+import play.api.libs.json._
 import play.api.mvc._
 
 import lila.api.Context
@@ -60,19 +60,18 @@ object Tournament extends LilaController {
     }
   }
 
+  private def showJs(tour: Tourney)(implicit ctx: Context) =
+    env.version(tour.id) zip
+      env.jsonView(tour) zip
+      chatOf(tour) map {
+        case ((version, data), chat) => html.tournament.showJs(tour, version, data, chat)
+      }
+
   private def showCreated(tour: Created)(implicit ctx: Context) =
-    env.jsonView(tour, Env.api.version) zip chatOf(tour) map {
-      case (data, chat) => html.tournament.showJs(tour, data, chat)
-    }
+    showJs(tour)
 
   private def showStarted(tour: Started)(implicit ctx: Context) =
-    env.version(tour.id) zip
-      chatOf(tour) zip
-      GameRepo.games(tour recentGameIds 4) zip
-      tour.userCurrentPov(ctx.me).??(GameRepo.pov) map {
-        case (((version, chat), games), pov) =>
-          html.tournament.show.started(tour, version, chat, games, pov)
-      }
+    showJs(tour)
 
   private def showFinished(tour: Finished)(implicit ctx: Context) =
     env.version(tour.id) zip
@@ -85,15 +84,21 @@ object Tournament extends LilaController {
   def join(id: String) = AuthBody { implicit ctx =>
     implicit me =>
       NoEngine {
-        TourOptionFuRedirect(repo enterableById id) { tour =>
-          fuccess {
-            if (tour.hasPassword) routes.Tournament.joinPassword(id)
+        negotiate(
+          html = OptionFuRedirect(repo enterableById id) { tour =>
+            if (tour.hasPassword) fuccess {
+              routes.Tournament.joinPassword(id)
+            }
             else {
               env.api.join(tour, me, none)
-              routes.Tournament.show(tour.id)
+              fuccess(routes.Tournament.show(tour.id))
             }
+          },
+          api = _ => OptionFuOk(repo enterableById id) { tour =>
+            env.api.join(tour, me, none)
+            fuccess(Json.obj("ok" -> true))
           }
-        }
+        )
       }
   }
 
@@ -129,9 +134,9 @@ object Tournament extends LilaController {
 
   def withdraw(id: String) = Auth { implicit ctx =>
     me =>
-      TourOptionFuRedirect(repo byId id) { tour =>
+      OptionResult(repo byId id) { tour =>
         env.api.withdraw(tour, me.id)
-        fuccess(routes.Tournament.show(tour.id))
+        Ok(Json.obj("ok" -> true)) as JSON
       }
   }
 

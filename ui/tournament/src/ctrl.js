@@ -7,10 +7,18 @@ module.exports = function(env) {
 
   this.data = env.data;
 
+  this.userId = env.userId;
+
   this.socket = new socket(env.socketSend, this);
 
   this.vm = {
+    loading: false
   };
+
+  this.reload = function(data) {
+    this.data = data;
+    this.vm.loading = false;
+  }.bind(this);
 
   this.trans = function(key) {
     var str = env.i18n[key] || key;

@@ -1,11 +1,12 @@
-#tournament table.slist td:first-child a {
+#tournament table.slist td:first-child a,
+#tournament_list table.slist td:first-child a {
   font-weight: bold;
   text-decoration: none;
 }
-#tournament table.slist td:first-child a:hover {
+#tournament table.slist td:first-child a:hover,
+#tournament_list table.slist td:first-child a:hover {
   text-decoration: underline;
 }
-#tournament table.slist tbody.scheduled a,
 #tournament.scheduled h1,
 #tournament table tr.standing.scheduled:first-child td:first-child {
   color: #d59120;
@@ -125,10 +126,9 @@
   background: #759900;
   opacity: 0.5;
 }
-#tournament form.inline {
-  display: inline;
+#tournament button.right {
   float: right;
-  padding-right: 0.6em;
+  margin-left: 5px;
 }
 #tournament span.joined {
   font-weight: bold;

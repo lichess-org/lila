@@ -26,7 +26,6 @@ private[tournament] case class Join(
 private[tournament] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 private[tournament] case object Start
 private[tournament] case object Reload
-private[tournament] case object ReloadPage
 private[tournament] case class StartGame(game: Game)
 private[tournament] case class Joining(userId: String)
 private[tournament] case class Connected(enumerator: JsEnumerator, member: Member)
