@@ -13,11 +13,7 @@ module.exports = function(ctrl, player, klass) {
   var rating = player.rating ? player.rating : (perf ? perf.rating : null);
   return player.user ? [
     m('a', {
-      config: function(el, isUpdate) {
-        if (isUpdate) return;
-        el.classList.add('ulpt');
-      },
-      class: 'text user_link ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
+      class: 'text ulpt user_link ' + (player.user.online ? 'online is-green' : 'offline') + (klass ? ' ' + klass : ''),
       href: '/@/' + player.user.username,
       target: game.isPlayerPlaying(ctrl.data) ? '_blank' : '_self',
       'data-icon': 'r',
