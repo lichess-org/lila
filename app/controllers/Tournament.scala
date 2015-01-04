@@ -51,11 +51,8 @@ object Tournament extends LilaController {
 
   def show(id: String) = Open { implicit ctx =>
     repo byId id flatMap {
-      _ match {
-        case Some(tour: Created)  => showCreated(tour) map { Ok(_) }
-        case Some(tour: Started)  => showStarted(tour) map { Ok(_) }
-        case Some(tour: Finished) => showFinished(tour) map { Ok(_) }
-        case _                    => tournamentNotFound.fuccess
+      _.fold(tournamentNotFound.fuccess) { tour =>
+        showJs(tour) map { Ok(_) }
       }
     }
   }
@@ -65,20 +62,6 @@ object Tournament extends LilaController {
       env.jsonView(tour) zip
       chatOf(tour) map {
         case ((version, data), chat) => html.tournament.showJs(tour, version, data, chat)
-      }
-
-  private def showCreated(tour: Created)(implicit ctx: Context) =
-    showJs(tour)
-
-  private def showStarted(tour: Started)(implicit ctx: Context) =
-    showJs(tour)
-
-  private def showFinished(tour: Finished)(implicit ctx: Context) =
-    env.version(tour.id) zip
-      chatOf(tour) zip
-      GameRepo.games(tour recentGameIds 4) map {
-        case ((version, chat), games) =>
-          html.tournament.show.finished(tour, version, chat, games)
       }
 
   def join(id: String) = AuthBody { implicit ctx =>

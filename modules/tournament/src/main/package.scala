@@ -6,6 +6,8 @@ package object tournament extends PackageObject with WithPlay with WithSocket {
 
   private[tournament]type Players = List[tournament.Player]
 
+  private[tournament]type RankedPlayers = List[(Int, Player)]
+
   private[tournament]type Pairings = List[tournament.Pairing]
 
   private[tournament]type Events = List[tournament.Event]

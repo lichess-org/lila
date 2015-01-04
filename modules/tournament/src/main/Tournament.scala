@@ -69,6 +69,7 @@ sealed trait Tournament {
   def isActive(user: User): Boolean = isActive(user.id)
   def isActive(user: Option[User]): Boolean = ~user.map(isActive)
   def missingPlayers = minPlayers - players.size
+  def rankedPlayers: RankedPlayers = system.scoringSystem.rank(this, players)
 
   def createdBy = data.createdBy
   def createdAt = data.createdAt
@@ -111,13 +112,10 @@ sealed trait Enterable extends Tournament {
 }
 
 sealed trait StartedOrFinished extends Tournament {
-  type RankedPlayers = List[(Int, Player)]
 
   def startedAt: DateTime
   def withPlayers(s: Players): StartedOrFinished
   def refreshPlayers: StartedOrFinished
-
-  def rankedPlayers: RankedPlayers = system.scoringSystem.rank(this, players)
 
   def winner = players.headOption
   def winnerUserId = winner map (_.id)

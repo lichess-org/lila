@@ -16,6 +16,7 @@ final class JsonView(
 
   def apply(tour: Tournament): Fu[JsObject] =
     lastGames(tour) map { games =>
+      val sheets = tour.system.scoringSystem scoreSheets tour
       Json.obj(
         "id" -> tour.id,
         "createdBy" -> tour.createdBy,
@@ -23,7 +24,7 @@ final class JsonView(
         "private" -> tour.hasPassword,
         "schedule" -> tour.schedule.map(scheduleJson),
         "variant" -> tour.variant.key,
-        "players" -> tour.players.map(playerJson),
+        "players" -> tour.rankedPlayers.map((playerJson(sheets) _).tupled),
         "winner" -> tour.winner.map(_.id),
         "pairings" -> tour.pairings.map(pairingJson),
         "isOpen" -> tour.isOpen,
@@ -69,16 +70,30 @@ final class JsonView(
     "user1" -> gameUserJson(g.firstPlayer),
     "user2" -> gameUserJson(g.secondPlayer))
 
-  private def playerJson(p: Player) = {
+  private def sheetJson(sheet: ScoreSheet) = sheet match {
+    case s: arena.ScoringSystem.Sheet => Json.obj(
+      "scores" -> s.scores.take(20).reverse.map { score =>
+        Json.arr(score.value, score.flag.toString.toLowerCase)
+      },
+      "total" -> s.total,
+      "fire" -> s.onFire)
+    case s: swiss.SwissSystem.Sheet => Json.obj(
+      "scores" -> s.scores.take(20).reverse.map(_.value),
+      "total" -> s.total)
+  }
+
+  private def playerJson(sheets: Map[String, ScoreSheet])(rank: Int, p: Player) = {
     val light = getLightUser(p.id)
     Json.obj(
+      "rank" -> rank,
       "id" -> p.id,
       "username" -> light.map(_.name),
       "title" -> light.map(_.title),
       "online" -> isOnline(p.id).option(true),
       "rating" -> p.rating,
       "withdraw" -> p.withdraw.option(true),
-      "score" -> p.score).noNull
+      "score" -> p.score,
+      "sheet" -> sheets.get(p.id).map(sheetJson)).noNull
   }
 
   private def pairingJson(p: Pairing) = Json.obj(

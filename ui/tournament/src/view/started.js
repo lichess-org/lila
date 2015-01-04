@@ -52,7 +52,7 @@ module.exports = {
       m('div.standing_wrap.scroll-shadow-soft',
         m('table.slist.standing' + ctrl.data.scheduled ? '.scheduled' : '',
           ctrl.data.system === 'arena' ? arena.standing(ctrl) : null)),
-      util.games(ctrl.data.games)
+      util.games(ctrl.data.lastGames)
     ];
   },
   side: function(ctrl) {

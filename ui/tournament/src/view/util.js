@@ -21,7 +21,7 @@ function miniGame(game) {
         game.user1.title ? game.user1.title + ' ' : '',
         game.user1.rating
       ]),
-      m('div.left', [
+      m('div.right', [
         game.user1.name,
         m('br'),
         game.user1.rating,
@@ -54,7 +54,7 @@ module.exports = {
       p.rating ? ' (' + p.rating + ')' : '',
     ]);
   },
-  games: function(ctrl) {
-    return m('div.game_list.playing', ctrl.data.games.map(miniGame));
+  games: function(games) {
+    return m('div.game_list.playing', games.map(miniGame));
   }
 };

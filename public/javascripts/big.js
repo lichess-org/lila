@@ -1881,14 +1881,12 @@ lichess.storage = {
   });
 
   function startTournament(element, cfg) {
-
     $('body').data('tournament-id', cfg.data.id);
     var $watchers = $("div.watchers").watchers();
     var $chat = $('#chat');
     if ($chat.length) $chat.chat({
       messages: lichess_chat
     });
-
     var tournament;
     lichess.socket = new lichess.StrongSocket(
         '/tournament/' + cfg.data.id + '/socket/v1', cfg.socketVersion, {
@@ -1906,50 +1904,6 @@ lichess.storage = {
     });
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     tournament = LichessTournament(element, cfg);
-
-    // function startClock() {
-    //   $("div.tournament_clock").each(function() {
-    //     $(this).clock({
-    //       time: $(this).data("time")
-    //     }).clock("start");
-    //   });
-    // }
-    // startClock();
-
-    // function drawBars() {
-    //   $wrap.find('table.standing').each(function() {
-    //     var $bars = $(this).find('.bar');
-    //     var max = Math.max.apply(Math, $bars.map(function() {
-    //       return parseInt(this.getAttribute('data-value'));
-    //     }));
-    //     $bars.each(function() {
-    //       var width = Math.ceil((parseInt($(this).data('value')) * 100) / max);
-    //       $(this).css('width', width + '%');
-    //     });
-    //   });
-    // }
-    // drawBars();
-
-    // function reload() {
-    //   $.ajax({
-    //     url: $wrap.data('href'),
-    //     success: function(html) {
-    //       var $tour = $(html);
-    //       if ($wrap.find('table.standing').length) {
-    //         // started
-    //         $wrap.find('table.standing thead').replaceWith($tour.find('table.standing thead'));
-    //         $wrap.find('table.standing tbody').replaceWith($tour.find('table.standing tbody'));
-    //         drawBars();
-    //         $wrap.find('div.pairings').replaceWith($tour.find('div.pairings'));
-    //         $wrap.find('div.game_list').replaceWith($tour.find('div.game_list'));
-    //       } else {
-    //         // created
-    //         $wrap.find('table.user_list').replaceWith($tour.find('table.user_list'));
-    //       }
-    //       $('body').trigger('lichess.content_loaded');
-    //     }
-    //   });
-    // }
   };
 
   ////////////////
