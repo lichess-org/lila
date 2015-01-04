@@ -273,8 +273,12 @@ function renderHistory(ctrl) {
       var hash = ctrl.data.user.history.join('');
       if (hash == context.hash) return;
       context.hash = hash;
-      $.get('/training/history', function(html) {
-        el.innerHTML = html;
+      $.ajax({
+        url: '/training/history',
+        cache: false,
+        success: function(html) {
+          el.innerHTML = html;
+        }
       });
     }
   });
