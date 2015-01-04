@@ -24,6 +24,7 @@ title = tour.fullName,
 side = tournament.side(tour).some,
 chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some,
-moreJs = moreJs) {
+moreJs = moreJs,
+chessground = false) {
 <div id="tournament" @if(tour.scheduled) { class="scheduled" }></div>
 }

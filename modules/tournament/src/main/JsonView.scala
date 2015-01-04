@@ -8,8 +8,7 @@ import lila.game.{ Game, GameRepo }
 import lila.user.User
 
 final class JsonView(
-    getLightUser: String => Option[LightUser],
-    isOnline: String => Boolean) {
+    getLightUser: String => Option[LightUser]) {
 
   def apply(id: String): Fu[JsObject] =
     TournamentRepo byId id flatten s"No such tournament: $id" flatMap apply
@@ -17,16 +16,18 @@ final class JsonView(
   def apply(tour: Tournament): Fu[JsObject] =
     lastGames(tour) map { games =>
       val sheets = tour.system.scoringSystem scoreSheets tour
+      println(sheets)
       Json.obj(
         "id" -> tour.id,
         "createdBy" -> tour.createdBy,
+        "system" -> tour.system.toString.toLowerCase,
         "fullName" -> tour.fullName,
         "private" -> tour.hasPassword,
         "schedule" -> tour.schedule.map(scheduleJson),
         "variant" -> tour.variant.key,
         "players" -> tour.rankedPlayers.map((playerJson(sheets) _).tupled),
         "winner" -> tour.winner.map(_.id),
-        "pairings" -> tour.pairings.map(pairingJson),
+        "pairings" -> tour.pairings.take(50).map(pairingJson),
         "isOpen" -> tour.isOpen,
         "isRunning" -> tour.isRunning,
         "isFinished" -> tour.isFinished,
@@ -73,13 +74,15 @@ final class JsonView(
   private def sheetJson(sheet: ScoreSheet) = sheet match {
     case s: arena.ScoringSystem.Sheet => Json.obj(
       "scores" -> s.scores.take(20).reverse.map { score =>
-        Json.arr(score.value, score.flag.toString.toLowerCase)
+        if (score.flag == arena.ScoringSystem.Normal) Json.arr(score.value)
+        else Json.arr(score.value, score.flag.toString.toLowerCase)
       },
       "total" -> s.total,
       "fire" -> s.onFire)
     case s: swiss.SwissSystem.Sheet => Json.obj(
-      "scores" -> s.scores.take(20).reverse.map(_.value),
-      "total" -> s.total)
+      "scores" -> s.scores.take(20).reverse.map(_.repr),
+      "total" -> s.totalRepr,
+      "neustadtl" -> s.neustadtlRepr)
   }
 
   private def playerJson(sheets: Map[String, ScoreSheet])(rank: Int, p: Player) = {
@@ -89,17 +92,22 @@ final class JsonView(
       "id" -> p.id,
       "username" -> light.map(_.name),
       "title" -> light.map(_.title),
-      "online" -> isOnline(p.id).option(true),
       "rating" -> p.rating,
       "withdraw" -> p.withdraw.option(true),
       "score" -> p.score,
       "sheet" -> sheets.get(p.id).map(sheetJson)).noNull
   }
 
+  private def pairingUserJson(userId: String) = {
+    val name = getLightUser(userId).fold(userId)(_.name)
+    if (name == userId) Json.arr(userId)
+    else Json.arr(userId, name)
+  }
+
   private def pairingJson(p: Pairing) = Json.obj(
     "gameId" -> p.gameId,
-    "status" -> p.status.name,
-    "user1" -> p.user1,
-    "user2" -> p.user2,
+    "status" -> p.status.id,
+    "user1" -> pairingUserJson(p.user1),
+    "user2" -> pairingUserJson(p.user2),
     "winner" -> p.winner)
 }

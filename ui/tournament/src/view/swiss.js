@@ -11,10 +11,7 @@ var legend = m('th.legend', [
 function scoreTag(s) {
   return {
     tag: 'span',
-    attrs: {
-      class: s[1] || ''
-    },
-    children: [s[0]]
+    children: [s]
   };
 }
 
@@ -38,12 +35,13 @@ function playerTrs(ctrl, maxScore, player) {
         util.player(player)
       ]),
       m('td.sheet', player.sheet.scores.map(scoreTag)),
-      m('td.total',
-        m('strong',
-          player.sheet.fire ? {
-            class: 'is-gold text',
-            'data-icon': 'Q'
-          } : {}, player.sheet.total))
+      m('td.total', [
+        m('strong', player.sheet.total),
+        m('span', {
+          class: 'neustadtl',
+          title: 'Tie-breaker "Neustadtl" score'
+        }, player.sheet.neustadtl)
+      ])
     ]
   }, {
     tag: 'tr',
@@ -72,7 +70,7 @@ module.exports = {
           m('th.large', [
             ctrl.trans('standing') + ' (' + ctrl.data.players.length + ')'
           ]),
-          legend,
+          m('th'),
           m('th')
         ])),
       m('tbody', ctrl.data.players.map(partial(playerTrs, ctrl, maxScore)))

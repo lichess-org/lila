@@ -83,8 +83,8 @@ object BSONHandlers {
 
   private implicit val eventHandler = new BSON[Event] {
     def reads(r: BSON.Reader): Event = r int "i" match {
-      case 1  => RoundEnd(timestamp = r date "t")
-      case 10 => Bye(user = r str "u", timestamp = r date "t")
+      case 1  => RoundEnd(timestamp = r date "t").pp
+      case 10 => Bye(user = r str "u", timestamp = r date "t").pp
       case x  => sys error s"tournament event id $x"
     }
     def writes(w: BSON.Writer, o: Event) = o match {

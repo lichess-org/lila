@@ -123,7 +123,6 @@ POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: St
 GET   /tournament/$id<\w{8}>/join/password    controllers.Tournament.joinPasswordForm(id: String)
 POST  /tournament/$id<\w{8}>/join/password    controllers.Tournament.joinPassword(id: String)
 POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.withdraw(id: String)
-GET   /tournament/$id<\w{8}>/reload           controllers.Tournament.reload(id: String)
 POST  /tournament/$id<\w{8}>/early-start      controllers.Tournament.earlyStart(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
 

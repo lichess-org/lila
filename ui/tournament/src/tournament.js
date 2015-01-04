@@ -13,7 +13,7 @@ module.exports = {
     if (!ctrl.userId) return null;
     return ctrl.data.pairings.filter(function(p) {
       return p.status < status.ids.mate && (
-        p.user1 === ctrl.userId || p.user2 === ctrl.userId
+        p.user1[0] === ctrl.userId || p.user2[0] === ctrl.userId
       );
     })[0];
   }

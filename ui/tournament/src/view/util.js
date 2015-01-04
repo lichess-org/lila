@@ -5,7 +5,8 @@ var boardContent = m('div.cg-board-wrap', m('div.cg-board'));
 
 function miniGame(game) {
   return m('div', [
-    m('span', {
+    m('a', {
+      href: '/' + game.id,
       class: 'mini_board mini_board_' + game.id + ' live live_' + game.id + ' parse_fen is2d',
       'data-color': game.color,
       'data-fen': game.fen,
@@ -45,14 +46,17 @@ module.exports = {
     ]);
   },
   player: function(p) {
-    return m('a', {
-      class: 'text ulpt user_link ' + (p.online ? 'online is-green' : 'offline'),
-      href: '/@/' + p.username,
-      'data-icon': 'r',
-    }, [
-      (p.title ? p.title + ' ' : '') + p.username,
-      p.rating ? ' (' + p.rating + ')' : '',
-    ]);
+    return {
+      tag: 'a',
+      attrs: {
+        class: 'text ulpt user_link',
+        href: '/@/' + p.username
+      },
+      children: [
+        (p.title ? p.title + ' ' : '') + p.username,
+        p.rating ? ' (' + p.rating + ')' : '',
+      ]
+    };
   },
   games: function(games) {
     return m('div.game_list.playing', games.map(miniGame));

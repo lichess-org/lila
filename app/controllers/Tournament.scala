@@ -131,35 +131,6 @@ object Tournament extends LilaController {
       }
   }
 
-  def reload(id: String) = Open { implicit ctx =>
-    OptionFuOk(repo byId id) {
-      case tour: Created  => reloadCreated(tour)
-      case tour: Started  => reloadStarted(tour)
-      case tour: Finished => reloadFinished(tour)
-    }
-  }
-
-  private def reloadCreated(tour: Created)(implicit ctx: Context) = fuccess {
-    html.tournament.show.inner(none)(html.tournament.show.createdInner(tour))
-  }
-
-  private def reloadStarted(tour: Started)(implicit ctx: Context) =
-    GameRepo.games(tour recentGameIds 4) zip
-      tour.userCurrentPov(ctx.me).??(GameRepo.pov) map {
-        case (games, pov) => {
-          val pairings = html.tournament.pairings(tour)
-          val inner = html.tournament.show.startedInner(tour, games, pov)
-          html.tournament.show.inner(pairings.some)(inner)
-        }
-      }
-
-  private def reloadFinished(tour: Finished)(implicit ctx: Context) =
-    GameRepo games (tour recentGameIds 4) map { games =>
-      val pairings = html.tournament.pairings(tour)
-      val inner = html.tournament.show.finishedInner(tour, games)
-      html.tournament.show.inner(pairings.some)(inner)
-    }
-
   def form = Auth { implicit ctx =>
     me =>
       NoEngine {
