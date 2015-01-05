@@ -24,7 +24,6 @@ private[tournament] case class Join(
   user: Option[User],
   version: Int)
 private[tournament] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
-private[tournament] case object Start
 private[tournament] case object Reload
 private[tournament] case class StartGame(game: Game)
 private[tournament] case class Joining(userId: String)

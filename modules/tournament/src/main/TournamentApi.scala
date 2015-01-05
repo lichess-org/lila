@@ -84,7 +84,7 @@ private[tournament] final class TournamentApi(
         case Some(created) =>
           val started = created.start
           TournamentRepo.update(started).void >>-
-            sendTo(started.id, Start) >>-
+            sendTo(started.id, Reload) >>-
             reloadSiteSocket >>-
             lobbyReload
         case None => fufail("Can't start missing tournament " + oldTour.id)

@@ -45,19 +45,6 @@ object BSONHandlers {
       "createdAt" -> w.date(o.createdAt),
       "createdBy" -> w.str(o.createdBy))
   }
-
-  // private implicit val playerHandler = new BSON[Player] {
-  //   def reads(r: BSON.Reader) = Player(
-  //     id = r str "id",
-  //     rating = r int "rating",
-  //     withdraw = r boolD "withdraw",
-  //     score = r intD "score")
-  //   def writes(w: BSON.Writer, o: Player) = BSONDocument(
-  //     "id" -> o.id,
-  //     "rating" -> o.rating,
-  //     "withdraw" -> w.boolO(o.withdraw),
-  //     "score" -> w.intO(o.score))
-  // }
   private implicit val playerBSONHandler = Macros.handler[Player]
 
   private implicit val pairingHandler = new BSON[Pairing] {

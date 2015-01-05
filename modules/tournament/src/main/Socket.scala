@@ -42,8 +42,6 @@ private[tournament] final class Socket(
 
     case Reload         => notifyReload
 
-    case Start          => notifyVersion("start", JsNull, Messadata())
-
     case WithUserIds(f) => f(userIds)
 
     case PingVersion(uid, v) => {
@@ -91,7 +89,7 @@ private[tournament] final class Socket(
     case NotifyReload =>
       delayedReloadNotification = false
       jsonView(tournamentId) foreach { obj =>
-        notifyAll(makeMessage("reload", obj))
+        notifyVersion("reload", obj, Messadata())
       }
   }
 
