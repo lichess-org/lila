@@ -62,7 +62,8 @@ final class JsonView(
               "check" -> game.check.map(_.key),
               "rematch" -> game.next,
               "source" -> game.source.map(sourceJson),
-              "status" -> statusJson(game.status)),
+              "status" -> statusJson(game.status),
+              "tournamentId" -> game.tournamentId),
             "clock" -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock.map(correspondenceJson),
             "player" -> Json.obj(
