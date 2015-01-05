@@ -260,52 +260,57 @@ function blindBoard(ctrl) {
 
 function buttons(ctrl) {
   var nbMoves = ctrl.data.game.moves.length;
+  var flipAttrs = {
+    'data-hint': ctrl.trans('flipBoard'),
+  };
+  if (ctrl.data.userAnalysis) flipAttrs.onclick = ctrl.flip;
+  else flipAttrs.href = ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url;
   return [
     m('div.game_control', [
       m('div.jumps.hint--bottom', {
         'data-hint': 'Tip: use your keyboard arrow keys!'
       }, [
-        ['first', 'W', control.first],
+        ['first', 'W', control.first, ],
         ['prev', 'Y', control.prev],
         ['next', 'X', control.next],
         ['last', 'V', control.last]
       ].map(function(b) {
-        var enabled = true;
-        return m('a', {
-          class: 'button ' + b[0] + ' ' + classSet({
-            disabled: (ctrl.broken || !enabled),
-            glowing: ctrl.vm.late && b[0] === 'last'
-          }),
-          'data-icon': b[1],
-          onclick: enabled ? partial(b[2], ctrl) : null
-        });
+        return {
+          tag: 'a',
+          attrs: {
+            class: 'button ' + b[0] + ' ' + classSet({
+              disabled: ctrl.broken,
+              glowing: ctrl.vm.late && b[0] === 'last'
+            }),
+            'data-icon': b[1],
+            onclick: partial(b[2], ctrl)
+          }
+        };
       })),
-      m('a.button.hint--bottom', {
-        'data-hint': ctrl.trans('flipBoard'),
-        href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url
-      }, m('span[data-icon=B]')),
-      m('a.button.hint--bottom', {
+      m('a.button.hint--bottom', flipAttrs, m('span[data-icon=B]')),
+      ctrl.data.inGame ? null : m('a.button.hint--bottom', {
         'data-hint': ctrl.trans('boardEditor'),
-        href: '/' + ctrl.data.game.id + '/edit?fen=' + ctrl.vm.situation.fen,
+        href: ctrl.data.userAnalysis ? '/editor?fen=' + ctrl.vm.situation.fen : '/' + ctrl.data.game.id + '/edit?fen=' + ctrl.vm.situation.fen,
         rel: 'nofollow'
       }, m('span[data-icon=m]')),
-      m('a.button.hint--bottom', {
+      ctrl.data.inGame ? null : m('a.button.hint--bottom', {
         'data-hint': ctrl.trans('continueFromHere'),
         onclick: function() {
-          ctrl.vm.continue = !ctrl.vm.continue
+          $.modal($('.continue_with.' + ctrl.data.game.id));
         }
       }, m('span[data-icon=U]'))
     ]),
-    ctrl.vm.continue ? m('div.continue', [
+    m('div.continue_with.' + ctrl.data.game.id, [
       m('a.button', {
-        href: ctrl.router.Round.continue(ctrl.data.game.id, 'ai').url + '?fen=' + ctrl.vm.situation.fen,
+        href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.vm.situation.fen + '#ai' : ctrl.router.Round.continue(ctrl.data.game.id, 'ai').url + '?fen=' + ctrl.vm.situation.fen,
         rel: 'nofollow'
       }, ctrl.trans('playWithTheMachine')),
+      m('br'),
       m('a.button', {
-        href: ctrl.router.Round.continue(ctrl.data.game.id, 'friend').url + '?fen=' + ctrl.vm.situation.fen,
+        href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.vm.situation.fen + '#friend' : ctrl.router.Round.continue(ctrl.data.game.id, 'friend').url + '?fen=' + ctrl.vm.situation.fen,
         rel: 'nofollow'
       }, ctrl.trans('playWithAFriend'))
-    ]) : null
+    ])
   ];
 }
 

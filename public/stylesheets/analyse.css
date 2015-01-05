@@ -32,6 +32,9 @@ div.analysis_menu > a.active {
   background-color: #eee;
   border-top: 1px solid #eee;
 }
+body.base div.analysis_menu > a.active {
+  border-bottom: 2px solid #d85000;
+}
 div.analysis_panels {
   margin-top: -10px;
 }
@@ -253,4 +256,9 @@ div.shortcuts li {
 }
 #site_header div.shortcuts strong {
   font-weight: bold;
+}
+.back_to_game {
+  margin-top: 30px;
+  width: 512px;
+  text-align: center;
 }

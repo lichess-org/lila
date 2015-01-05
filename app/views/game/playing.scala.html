@@ -1,0 +1,16 @@
+@(games: List[Game], listMenu: lila.game.ListMenu)(implicit ctx: Context)
+
+@game.layout(
+title = trans.gamesBeingPlayedRightNow.str(),
+menu = sideMenu(listMenu, "playing").some) {
+<div style="padding-bottom: 0" class="content_box">
+  <div class="game_list playing">
+    @games.map { g =>
+    <div>
+      @gameFen(g, g.firstPlayer.color)
+      @game.vstext(g)(ctx.some)
+    </div>
+    }
+  </div>
+</div>
+}

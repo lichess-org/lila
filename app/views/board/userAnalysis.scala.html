@@ -1,0 +1,35 @@
+@(listMenu: lila.game.ListMenu, data: play.api.libs.json.JsObject, pov: Option[Pov])(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("analyse.css")
+}
+
+@moreJs = {
+@jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+@round.jsRoutes()
+@embedJs {
+lichess = lichess || {};
+lichess.user_analysis = {
+data: @Html(play.api.libs.json.Json.stringify(data)),
+routes: roundRoutes.controllers,
+i18n: @round.jsI18n()
+};
+lichess.user_analysis.data.inGame = true;
+}
+}
+
+@game.layout(
+title = trans.analysis.str(),
+moreCss = moreCss,
+moreJs = moreJs,
+menu = game.sideMenu(listMenu, "userAnalysis").some,
+chessground = false) {
+<div class="analyse cg-512">@miniBoardContent</div>
+@pov.map { p =>
+<div class="back_to_game">
+  <a class="button" href="@routes.Round.watcher(p.gameId, p.color.name)">
+    <span data-icon="i" class="text">@trans.backToGame()</span>
+  </a>
+</div>
+}
+}

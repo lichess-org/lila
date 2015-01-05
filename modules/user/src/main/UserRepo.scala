@@ -54,8 +54,7 @@ trait UserRepo {
 
   def byOrderedIds(ids: Iterable[ID]): Fu[List[User]] = $find byOrderedIds ids
 
-  def enabledByIds(ids: Seq[ID]): Fu[List[User]] =
-    $find(enabledSelect ++ $select.byIds(ids))
+  def enabledByIds(ids: Seq[ID]): Fu[List[User]] = $find(enabledSelect ++ $select.byIds(ids))
 
   def enabledById(id: ID): Fu[Option[User]] =
     $find.one(enabledSelect ++ $select.byId(id))
@@ -95,6 +94,7 @@ trait UserRepo {
       "chess960" -> (_.chess960),
       "kingOfTheHill" -> (_.kingOfTheHill),
       "threeCheck" -> (_.threeCheck),
+      "antichess" -> (_.antichess),
       "bullet" -> (_.bullet),
       "blitz" -> (_.blitz),
       "classical" -> (_.classical),
@@ -106,7 +106,10 @@ trait UserRepo {
           s"perfs.$name" -> Perf.perfBSONHandler.write(lens(perfs))
         }
     }
-    $update($select(user.id), BSONDocument("$set" -> BSONDocument(diff)))
+    diff.nonEmpty ?? $update(
+      $select(user.id),
+      BSONDocument("$set" -> BSONDocument(diff))
+    )
   }
 
   def setPerf(userId: String, perfName: String, perf: Perf) = $update($select(userId), $setBson(
@@ -252,9 +255,7 @@ trait UserRepo {
       "count.game" -> $gt(4)
     ), "_id")(_.asOpt[String])
 
-  def setLang(id: ID, lang: String) {
-    $update.fieldUnchecked(id, "lang", lang)
-  }
+  def setLang(id: ID, lang: String) = $update.field(id, "lang", lang)
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
     import reactivemongo.core.commands._

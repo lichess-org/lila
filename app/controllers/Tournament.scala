@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsValue
+import play.api.libs.json._
 import play.api.mvc._
 
 import lila.api.Context
@@ -18,11 +18,6 @@ object Tournament extends LilaController {
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.notFound())
 
-  protected def TourOptionFuRedirect[A](fua: Fu[Option[A]])(op: A => Fu[Call])(implicit ctx: Context) =
-    fua flatMap {
-      _.fold(tournamentNotFound(ctx).fuccess)(a => op(a) map { b => Redirect(b) })
-    }
-
   val home = Open { implicit ctx =>
     fetchTournaments zip repo.scheduled zip UserRepo.allSortToints(10) map {
       case ((((created, started), finished), scheduled), leaderboard) =>
@@ -34,7 +29,7 @@ object Tournament extends LilaController {
     val system = sysStr flatMap {
       case "arena" => System.Arena.some
       case "swiss" => System.Swiss.some
-      case _ => none
+      case _       => none
     }
     Ok(html.tournament.faqPage(system)).fuccess
   }
@@ -47,130 +42,53 @@ object Tournament extends LilaController {
   }
 
   private def fetchTournaments =
-    env allCreatedSorted true zip repo.started zip repo.finished(30)
+    env allCreatedSorted true zip repo.publicStarted zip repo.finished(20)
 
   def show(id: String) = Open { implicit ctx =>
     repo byId id flatMap {
-      _ match {
-        case Some(tour: Created)  => showCreated(tour) map { Ok(_) }
-        case Some(tour: Started)  => showStarted(tour) map { Ok(_) }
-        case Some(tour: Finished) => showFinished(tour) map { Ok(_) }
-        case _                    => tournamentNotFound.fuccess
+      _.fold(tournamentNotFound.fuccess) { tour =>
+        env.version(tour.id) zip
+          env.jsonView(tour) zip
+          chatOf(tour) map {
+            case ((version, data), chat) => html.tournament.show(tour, version, data, chat)
+          }
       }
     }
   }
-
-  private def showCreated(tour: Created)(implicit ctx: Context) =
-    env.version(tour.id) zip chatOf(tour) map {
-      case (version, chat) => html.tournament.show.created(tour, version, chat)
-    }
-
-  private def showStarted(tour: Started)(implicit ctx: Context) =
-    env.version(tour.id) zip
-      chatOf(tour) zip
-      GameRepo.games(tour recentGameIds 4) zip
-      tour.userCurrentPov(ctx.me).??(GameRepo.pov) map {
-        case (((version, chat), games), pov) =>
-          html.tournament.show.started(tour, version, chat, games, pov)
-      }
-
-  private def showFinished(tour: Finished)(implicit ctx: Context) =
-    env.version(tour.id) zip
-      chatOf(tour) zip
-      GameRepo.games(tour recentGameIds 4) map {
-        case ((version, chat), games) =>
-          html.tournament.show.finished(tour, version, chat, games)
-      }
 
   def join(id: String) = AuthBody { implicit ctx =>
     implicit me =>
       NoEngine {
-        TourOptionFuRedirect(repo enterableById id) { tour =>
-          fuccess {
-            if (tour.hasPassword) routes.Tournament.joinPassword(id)
-            else {
-              env.api.join(tour, me, none)
-              routes.Tournament.show(tour.id)
-            }
+        negotiate(
+          html = repo enterableById id map {
+            case None => tournamentNotFound
+            case Some(tour) =>
+              env.api.join(tour, me)
+              Redirect(routes.Tournament.show(tour.id))
+          },
+          api = _ => OptionFuOk(repo enterableById id) { tour =>
+            env.api.join(tour, me)
+            fuccess(Json.obj("ok" -> true))
           }
-        }
+        )
       }
   }
-
-  def joinPasswordForm(id: String) = Auth { implicit ctx =>
-    implicit me => NoEngine {
-      repo createdById id flatMap {
-        _.fold(tournamentNotFound(ctx).fuccess) { tour =>
-          renderJoinPassword(tour, env.forms.joinPassword) map { Ok(_) }
-        }
-      }
-    }
-  }
-
-  def joinPassword(id: String) = AuthBody { implicit ctx =>
-    implicit me =>
-      NoEngine {
-        implicit val req = ctx.body
-        repo createdById id flatMap {
-          _.fold(tournamentNotFound(ctx).fuccess) { tour =>
-            env.forms.joinPassword.bindFromRequest.fold(
-              err => renderJoinPassword(tour, err) map { BadRequest(_) },
-              password => {
-                env.api.join(tour, me, password.some)
-                fuccess(Redirect(routes.Tournament.show(tour.id)))
-              })
-          }
-        }
-      }
-  }
-
-  private def renderJoinPassword(tour: Created, form: Form[_])(implicit ctx: Context) =
-    env version tour.id map { html.tournament.joinPassword(tour, form, _) }
 
   def withdraw(id: String) = Auth { implicit ctx =>
     me =>
-      TourOptionFuRedirect(repo byId id) { tour =>
+      OptionResult(repo byId id) { tour =>
         env.api.withdraw(tour, me.id)
-        fuccess(routes.Tournament.show(tour.id))
+        Ok(Json.obj("ok" -> true)) as JSON
       }
   }
 
   def earlyStart(id: String) = Auth { implicit ctx =>
     implicit me =>
-      TourOptionFuRedirect(repo.createdByIdAndCreator(id, me.id)) { tour =>
+      OptionResult(repo.createdByIdAndCreator(id, me.id)) { tour =>
         env.api startIfReady tour
-        fuccess(routes.Tournament show tour.id)
+        Ok(Json.obj("ok" -> true)) as JSON
       }
   }
-
-  def reload(id: String) = Open { implicit ctx =>
-    OptionFuOk(repo byId id) {
-      case tour: Created  => reloadCreated(tour)
-      case tour: Started  => reloadStarted(tour)
-      case tour: Finished => reloadFinished(tour)
-    }
-  }
-
-  private def reloadCreated(tour: Created)(implicit ctx: Context) = fuccess {
-    html.tournament.show.inner(none)(html.tournament.show.createdInner(tour))
-  }
-
-  private def reloadStarted(tour: Started)(implicit ctx: Context) =
-    GameRepo.games(tour recentGameIds 4) zip
-      tour.userCurrentPov(ctx.me).??(GameRepo.pov) map {
-        case (games, pov) => {
-          val pairings = html.tournament.pairings(tour)
-          val inner = html.tournament.show.startedInner(tour, games, pov)
-          html.tournament.show.inner(pairings.some)(inner)
-        }
-      }
-
-  private def reloadFinished(tour: Finished)(implicit ctx: Context) =
-    GameRepo games (tour recentGameIds 4) map { games =>
-      val pairings = html.tournament.pairings(tour)
-      val inner = html.tournament.show.finishedInner(tour, games)
-      html.tournament.show.inner(pairings.some)(inner)
-    }
 
   def form = Auth { implicit ctx =>
     me =>
@@ -191,7 +109,7 @@ object Tournament extends LilaController {
       }
   }
 
-  def websocket(id: String) = Socket[JsValue] { implicit ctx =>
+  def websocket(id: String, apiVersion: Int) = Socket[JsValue] { implicit ctx =>
     ~(getInt("version") |@| get("sri") apply {
       case (version, uid) => env.socketHandler.join(id, version, uid, ctx.me)
     })

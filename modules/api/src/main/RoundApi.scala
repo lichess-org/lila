@@ -4,6 +4,7 @@ import play.api.libs.json._
 
 import chess.format.pgn.Pgn
 import lila.analyse.Analysis
+import lila.common.LightUser
 import lila.game.Pov
 import lila.pref.Pref
 import lila.round.JsonView
@@ -14,20 +15,17 @@ import lila.user.User
 private[api] final class RoundApi(
     jsonView: JsonView,
     noteApi: lila.round.NoteApi,
-    analysisApi: AnalysisApi) {
+    analysisApi: AnalysisApi,
+    lightUser: String => Option[LightUser]) {
 
-  def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] =
+  def player(pov: Pov, apiVersion: Int, otherPovs: List[Pov])(implicit ctx: Context): Fu[JsObject] =
     jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
       withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-        case ((json, tourOption), note) => blindMode {
-          withTournament(tourOption) {
-            withNote(note) {
-              json
-            }
-          }
-        }
+        case ((json, tourOption), note) => (
+          blindMode _ compose withTournament(tourOption)_ compose withNote(note)_ compose withOtherPovs(otherPovs)_
+        )(json)
       }
 
   def watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean],
@@ -37,16 +35,13 @@ private[api] final class RoundApi(
       withBlurs = ctx.me ?? Granter(_.ViewBlurs), initialFen = initialFen) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-        case ((json, tourOption), note) => blindMode {
-          withTournament(tourOption) {
-            withAnalysis(analysis) {
-              withNote(note) {
-                json
-              }
-            }
-          }
-        }
+        case ((json, tourOption), note) => (
+          blindMode _ compose withTournament(tourOption)_ compose withNote(note)_ compose withAnalysis(analysis)_
+        )(json)
       }
+
+  private def withOtherPovs(otherPovs: List[Pov])(json: JsObject) =
+    if (otherPovs.isEmpty) json else json + ("simul" -> JsBoolean(true))
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))

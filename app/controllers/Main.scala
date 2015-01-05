@@ -64,4 +64,10 @@ object Main extends LilaController {
       html.site.irc(_)
     }
   }
+
+  def themepicker = Open { implicit ctx =>
+    fuccess {
+      html.base.themepicker()
+    }
+  }
 }

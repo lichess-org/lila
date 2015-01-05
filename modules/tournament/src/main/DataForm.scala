@@ -42,9 +42,10 @@ final class DataForm(isDev: Boolean) {
     "minutes" -> numberIn(minutePrivateChoices),
     "minPlayers" -> numberIn(minPlayerChoices),
     "system" -> number.verifying(Set(System.Arena.id, System.Swiss.id) contains _),
-    "variant" -> number.verifying(Set(Variant.Standard.id, Variant.Chess960.id, Variant.KingOfTheHill.id, Variant.ThreeCheck.id) contains _),
+    "variant" -> number.verifying(Set(Variant.Standard.id, Variant.Chess960.id, Variant.KingOfTheHill.id,
+      Variant.ThreeCheck.id, Variant.Antichess.id) contains _),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
-    "password" -> optional(nonEmptyText)
+    "private" -> optional(text.verifying("on" == _))
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
@@ -55,12 +56,8 @@ final class DataForm(isDev: Boolean) {
     minPlayers = minPlayerDefault,
     system = System.default.id,
     variant = Variant.Standard.id,
-    password = none,
+    `private` = None,
     mode = Mode.Casual.id.some)
-
-  lazy val joinPassword = Form(single(
-    "password" -> nonEmptyText
-  ))
 }
 
 private[tournament] case class TournamentSetup(
@@ -71,7 +68,7 @@ private[tournament] case class TournamentSetup(
     system: Int,
     variant: Int,
     mode: Option[Int],
-    password: Option[String]) {
+    `private`: Option[String]) {
 
   def validClock = (clockTime + clockIncrement) > 0
 

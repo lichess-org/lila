@@ -1,4 +1,4 @@
-@(g: Game)
+@(g: Game)(ctxOption: Option[Context])
 <div class="vstext clearfix">
 <div class="left">
 @playerUsername(g.firstPlayer, withRating = false, withTitle = false)
@@ -14,5 +14,13 @@
 </div>
 @g.clock.map { c =>
 <div class="center"><span data-icon="p">&nbsp;@shortClockName(c)</span></div>
+}.getOrElse {
+@ctxOption.map { ctx =>
+@g.daysPerTurn.map { days =>
+<div class="center">
+<span data-hint="@trans.correspondence()(ctx)" class="hint--top">@{(days == 1).fold(trans.oneDay()(ctx), trans.nbDays(days)(ctx))}</span>
+</div>
+}
+}
 }
 </div>

@@ -1,4 +1,4 @@
-@(title: String, moreJs: Html = Html(""), side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(title: String, moreJs: Html = Html(""), side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, chessground: Boolean = true)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("tournament.css")
@@ -11,6 +11,7 @@ moreJs = moreJs,
 side = side,
 chat = chat,
 active = siteMenu.tournament.some,
-underchat = underchat) {
+underchat = underchat,
+chessground = chessground) {
 @body
 }

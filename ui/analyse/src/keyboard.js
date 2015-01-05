@@ -23,11 +23,11 @@ module.exports = function(ctrl) {
     control.next(ctrl);
     m.redraw();
   }));
-  k.bind(['up', 'j'], preventing(function() {
+  k.bind(['up', 'k'], preventing(function() {
     control.first(ctrl);
     m.redraw();
   }));
-  k.bind(['down', 'k'], preventing(function() {
+  k.bind(['down', 'j'], preventing(function() {
     control.last(ctrl);
     m.redraw();
   }));

@@ -9,7 +9,7 @@ import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, Pov, Progress, PerfPicker }
 import lila.i18n.I18nDomain
-import lila.lobby.actorApi.AddHook
+import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.lobby.Hook
 import lila.user.{ User, UserContext }
 import makeTimeout.short
@@ -53,9 +53,19 @@ private[setup] final class Processor(
     config: HookConfig,
     uid: String,
     sid: Option[String],
-    blocking: Set[String])(implicit ctx: UserContext): Funit =
-    saveConfig(_ withHook config) >>- {
-      lobby ! AddHook(config.hook(uid, ctx.me, sid, blocking))
+    blocking: Set[String])(implicit ctx: UserContext): Fu[String] =
+      saveConfig(_ withHook config) >> {
+      config.hook(uid, ctx.me, sid, blocking) match {
+        case Left(hook) => fuccess {
+          lobby ! AddHook(hook)
+          hook.id
+        }
+        case Right(Some(seek)) => fuccess {
+          lobby ! AddSeek(seek)
+          seek.id
+        }
+        case _ => fufail("Can't create seek")
+      }
     }
 
   private def saveConfig(map: UserConfig => UserConfig)(implicit ctx: UserContext): Funit =

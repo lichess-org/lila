@@ -15,6 +15,7 @@ final class Env(
     config: Config,
     system: ActorSystem,
     db: lila.db.Env,
+    mongoCache: lila.memo.MongoCache.Builder,
     flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMap: ActorRef,
@@ -44,6 +45,7 @@ final class Env(
   lazy val forms = new DataForm(isDev)
 
   lazy val api = new TournamentApi(
+    system = system,
     sequencers = sequencerMap,
     autoPairing = autoPairing,
     router = hub.actor.router,
@@ -52,7 +54,6 @@ final class Env(
     socketHub = socketHub,
     site = hub.socket.site,
     lobby = hub.socket.lobby,
-    onStart = onStart,
     roundMap = roundMap)
 
   lazy val socketHandler = new SocketHandler(
@@ -61,15 +62,20 @@ final class Env(
     chat = hub.actor.chat,
     flood = flood)
 
-  lazy val winners = new Winners(LeaderboardCacheTtl)
+  lazy val winners = new Winners(
+    mongoCache = mongoCache,
+    ttl = LeaderboardCacheTtl)
 
   lazy val cached = new Cached
+
+  lazy val jsonView = new JsonView(lightUser)
 
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
       def mkActor(tournamentId: String) = new Socket(
         tournamentId = tournamentId,
         history = new History(ttl = HistoryMessageTtl),
+        jsonView = jsonView,
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout,
         lightUser = lightUser)
@@ -95,7 +101,7 @@ final class Env(
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
 
   val allCreatedSorted =
-    lila.memo.AsyncCache.single(TournamentRepo.noPasswordCreatedSorted, timeToLive = CreatedCacheTtl)
+    lila.memo.AsyncCache.single(TournamentRepo.publicCreatedSorted, timeToLive = CreatedCacheTtl)
 
   val promotable =
     lila.memo.AsyncCache.single(TournamentRepo.promotable, timeToLive = CreatedCacheTtl)
@@ -103,6 +109,7 @@ final class Env(
   private lazy val autoPairing = new AutoPairing(
     roundMap = roundMap,
     system = system,
+    onStart = onStart,
     secondsToMove = secondsToMove)
 
   {
@@ -136,6 +143,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "tournament",
     system = lila.common.PlayApp.system,
     db = lila.db.Env.current,
+    mongoCache = lila.memo.Env.current.mongoCache,
     flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
     roundMap = lila.round.Env.current.roundMap,

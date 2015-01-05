@@ -70,13 +70,14 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font23/fonts/lichess.eot");
-  src: url("../font23/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font23/fonts/lichess.woff") format("woff"), url("../font23/fonts/lichess.ttf") format("truetype"), url("../font23/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font28/fonts/lichess.eot");
+  src: url("../font28/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font28/fonts/lichess.woff") format("woff"), url("../font28/fonts/lichess.ttf") format("truetype"), url("../font28/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 .is::before,
-[data-icon]::before {
+[data-icon]::before,
+.is-after::after {
   font-size: 1.2em;
   vertical-align: middle;
   font-family: "lichess" !important;
@@ -88,6 +89,10 @@ time {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: attr(data-icon);
+}
+.is.text::before,
+.text[data-icon]::before {
+  margin-right: 5px;
 }
 [data-icon].is2::before {
   font-size: 20px;
@@ -123,7 +128,6 @@ body.blind_mode [data-icon]::before {
 .is.color-icon.random::before {
   content: "l";
 }
-
 @font-face {
   font-family: 'ChessSansPiratf';
   src: url("../fonts/ChessSansPiratf.eot");
@@ -882,7 +886,8 @@ div.side_box .game_infos .bookmark {
   opacity: 0;
   transform: translate(0, -20px);
   transition: 0.3s;
-  z-index: 10; /* to go over the board */
+  z-index: 10;
+  /* to go over the board */
 }
 div.side_box .game_infos:hover .bookmark {
   transform: translate(0, 0);
@@ -890,8 +895,6 @@ div.side_box .game_infos:hover .bookmark {
 }
 div.side_box .game_infos .setup {
   display: block;
-}
-div.side_box div.players {
 }
 div.side_box div.status {
   text-align: center;
@@ -1073,6 +1076,12 @@ body.offline #nb_connected_players {
   padding: 5px 3% 5px 3%;
   text-align: center;
 }
+#message_notifications,
+#challenge_notifications {
+  width: 240px;
+  z-index: 2;
+  left: -94px;
+}
 #message_notifications div.notification,
 #challenge_notifications div.notification {
   border-bottom: 1px solid #c0c0c0;
@@ -1083,8 +1092,6 @@ body.offline #nb_connected_players {
 #challenge_notifications div.notification:hover {
   background-color: #f0f0f0;
 }
-#message_notifications,
-#challenge_notifications,
 #notifications {
   position: absolute;
   top: -20px;
@@ -1100,22 +1107,6 @@ body.offline #nb_connected_players {
   box-shadow: 0 0 3px 0px #d85000;
   transition: box-shadow 1.5s;
 }
-#notifications > div.foldable {
-  line-height: 1.6em;
-  height: 1.5em;
-  overflow: hidden;
-}
-#notifications > div.foldable:hover {
-  line-height: inherit;
-  height: auto;
-}
-#notifications > div a.close {
-  text-decoration: none;
-  float: right;
-}
-#notifications > div a.close:hover {
-  font-weight: bold;
-}
 #message_notifications .user_link,
 #challenge_notifications .user_link,
 #message_notifications .block .title {
@@ -1129,8 +1120,7 @@ body.offline #nb_connected_players {
   text-transform: uppercase;
 }
 #message_notifications .actions,
-#challenge_notifications .actions,
-#notifications .actions {
+#challenge_notifications .actions {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -1160,6 +1150,10 @@ body.offline #nb_connected_players {
 #message_notifications .notification:hover .actions,
 #challenge_notifications .notification:hover .actions {
   opacity: 0.7;
+}
+#notifications .actions {
+  margin-top: 5px;
+  text-align: right;
 }
 #notifications .actions a {
   margin-left: 10px;
@@ -1222,42 +1216,48 @@ div.lichess_language {
   float: right;
   position: relative;
 }
-ul.language_links {
+.language_links {
   width: 620px;
   padding: 10px;
   max-height: 700px;
   overflow: auto;
 }
-#top div.lichess_language.shown ul.language_links {
+#top div.lichess_language.shown .language_links {
   display: block;
 }
-ul.language_links a {
+.language_links button {
   display: block;
   padding: 0.4em 0.5em;
   text-decoration: none;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  transition: 0.13s;
 }
-ul.language_links a.current,
-ul.language_links a.accepted {
+.language_links button.current,
+.language_links button.accepted {
   font-weight: bold;
   color: #444;
 }
-ul.language_links a.accepted {
+.language_links button.accepted {
   text-decoration: underline;
 }
-ul.language_links a:hover,
-ul.language_links a.current {
+.language_links button:hover,
+.language_links button.current {
   background: #F0F0F0;
 }
-ul.language_links li {
+.language_links li {
   width: 25%;
   height: 24px;
   float: left;
   display: block;
   overflow: hidden;
 }
-ul.language_links li:last-child {
+.language_links li:last-child {
   width: 50%;
   font-weight: bold;
+  padding-top: 10px;
 }
 #themepicker {
   float: right;
@@ -1270,7 +1270,7 @@ ul.language_links li:last-child {
   text-decoration: none;
   line-height: normal;
 }
-#themepicker.shown div.dropdown {
+#themepicker.shown .dropdown {
   display: block;
   width: 241px;
   text-align: center;
@@ -1701,11 +1701,11 @@ div.game_row span.down {
 div.game_row div.metadata {
   margin-top: 10px;
 }
-div.game_list.realtime {
+div.game_list.playing {
   margin-top: 1.4em;
 }
-div.game_list.realtime > div {
-  float: left;
+div.game_list.playing > div {
+  display: inline-block;
   margin: 0px 11px 11px 11px;
 }
 div.vstext {
@@ -1748,7 +1748,6 @@ a.mini_board {
 }
 #now_playing {
   margin: 4px 0 0 4px;
-  overflow: hidden;
 }
 #now_playing.other_games {
   width: 512px;
@@ -1763,6 +1762,19 @@ a.mini_board {
   text-align: center;
   transition: background-color 0.13s;
   background: rgba(255, 255, 255, 0.6);
+}
+#now_playing .move_on {
+  font-size: 0.7em;
+  float: right;
+}
+#now_playing .move_on i {
+  font-size: 1.2em;
+  display: none;
+  transition: 0.13s;
+}
+#now_playing .move_on.enabled i {
+  display: inline-block;
+  margin-right: 10px;
 }
 #now_playing.other_games > a {
   padding: 5px;
@@ -1816,25 +1828,6 @@ div.auth input.login {
 div.lichess_language {
   float: right;
   position: relative;
-}
-ul.language_links {
-  width: 620px;
-  padding: 10px;
-  max-height: 700px;
-  overflow: auto;
-}
-#top div.lichess_language.shown ul.language_links {
-  display: block;
-}
-ul.language_links a {
-  display: block;
-  padding: 0.4em 0.5em;
-  text-decoration: none;
-  transition: 0.13s;
-}
-ul.language_links a.current,
-ul.language_links a.accepted {
-  font-weight: bold;
 }
 div.undertable {
   width: 512px;
@@ -1916,6 +1909,7 @@ div.lichess_overboard.joining .mini_board {
   border: 1px solid #eee;
   padding: 0;
   min-width: 15px;
+  transition: 0.13s;
 }
 .crosstable td a {
   line-height: 2em;
@@ -1925,6 +1919,13 @@ div.lichess_overboard.joining .mini_board {
   background: #fff;
   text-decoration: none;
 }
+.crosstable td.current {
+  box-shadow: 0 4px 12px #666;
+  transform: translateY(-3px);
+}
+.crosstable td:hover {
+  transform: translateY(-3px);
+}
 body.base .crosstable .win {
   font-weight: bold;
   color: #759900;
@@ -1932,7 +1933,7 @@ body.base .crosstable .win {
 body.base .crosstable .loss {
   color: #ac524f;
 }
-.crosstable td.last {
+.crosstable td:nth-last-child(3) {
   border-right: 1px solid #ccc;
 }
 .crosstable th {
@@ -2191,4 +2192,36 @@ input.copyable {
   -webkit-transform: translateX(-8px);
   -moz-transform: translateX(-8px);
   transform: translateX(-8px);
+}
+.continue_with {
+  display: none;
+}
+.continue_with .button {
+  display: inline-block;
+  margin: 1em;
+}
+#modal-overlay {
+  display: block;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+  cursor: pointer;
+}
+#modal-wrap {
+  display: inline-block;
+  position: relative;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 3px;
+  box-shadow: 0 0 95px 25px rgba(0, 0, 0, 0.8);
+  background: #fff;
+  text-align: center;
+  cursor: default;
 }

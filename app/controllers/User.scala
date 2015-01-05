@@ -23,9 +23,9 @@ object User extends LilaController {
 
   def tv(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      (GameRepo nowPlaying user.id) orElse
-        (GameRepo lastPlayed user.id) flatMap {
-          _.flatMap { Pov(_, user) }.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
+      (GameRepo lastPlayedPlaying user) orElse
+        (GameRepo lastPlayed user) flatMap {
+          _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
             Round.watch(pov, userTv = user.some)
           }
         }
@@ -38,12 +38,12 @@ object User extends LilaController {
 
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      GameRepo nowPlaying user.id zip
+      GameRepo lastPlayedPlaying user zip
         (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
         (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
-          case (((game, blocked), followable), relation) =>
-            Ok(html.user.mini(user, game, blocked, followable, relation))
+          case (((pov, blocked), followable), relation) =>
+            Ok(html.user.mini(user, pov, blocked, followable, relation))
               .withHeaders(CACHE_CONTROL -> "max-age=5")
         }
     }
@@ -78,8 +78,7 @@ object User extends LilaController {
 
   private def userShow(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: Context) = for {
     info ← Env.current.userInfo(u, ctx)
-    filterName = filterOption | "all"
-    filters = GameFilterMenu(info, ctx.me, filterName)
+    filters = GameFilterMenu(info, ctx.me, filterOption)
     pag <- GameFilterMenu.paginatorOf(
       user = u,
       info = info.some,
@@ -95,14 +94,18 @@ object User extends LilaController {
   } yield html.user.show(u, info, pag, filters, relation, notes, followable, blocked)
 
   private def userGames(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: Context) = {
-    val filterName = filterOption | "all"
-    GameFilterMenu.paginatorOf(
-      user = u,
-      info = none,
-      filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
-      me = ctx.me,
-      page = page
-    ) map { html.user.games(u, _, filterName) }
+    import lila.app.mashup.GameFilter.{ All, Playing }
+    filterOption.fold({
+      Env.game.cached isPlayingSimul u.id map (_.fold(Playing, All).name)
+    })(fuccess) flatMap { filterName =>
+      GameFilterMenu.paginatorOf(
+        user = u,
+        info = none,
+        filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
+        me = ctx.me,
+        page = page
+      ) map { html.user.games(u, _, filterName) }
+    }
   }
 
   def list = Open { implicit ctx =>
@@ -114,11 +117,12 @@ object User extends LilaController {
       chess960 ← env.cached topPerf PerfType.Chess960.key
       kingOfTheHill ← env.cached topPerf PerfType.KingOfTheHill.key
       threeCheck ← env.cached topPerf PerfType.ThreeCheck.key
+      antichess <- env.cached topPerf PerfType.Antichess.key
       nbAllTime ← env.cached topNbGame nb map2 { (user: UserModel) =>
         user -> user.count.game
       }
       nbWeek ← Env.game.cached activePlayerUidsWeek nb flatMap { pairs =>
-        UserRepo.byOrderedIds(pairs.map(_._1)) map (_ zip pairs.map(_._2))
+        UserRepo.byOrderedIds(pairs.map(_.userId)) map (_ zip pairs.map(_.nb))
       }
       tourneyWinners ← Env.tournament.winners scheduled nb
       online ← env.cached topOnline 30
@@ -131,6 +135,7 @@ object User extends LilaController {
       chess960 = chess960,
       kingOfTheHill = kingOfTheHill,
       threeCheck = threeCheck,
+      antichess = antichess,
       nbWeek = nbWeek,
       nbAllTime = nbAllTime)
   }

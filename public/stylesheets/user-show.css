@@ -113,6 +113,9 @@ div.user_show .teams a {
 div.user_show div.games {
   margin-top: 10px;
 }
+div.user_show div.games.center {
+  text-align: center;
+}
 div.user_show .profile {
   margin-bottom: 1em;
 }

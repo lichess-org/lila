@@ -13,6 +13,7 @@ import lila.user.{ User, UserRepo }
 final class AutoPairing(
     roundMap: ActorRef,
     system: ActorSystem,
+    onStart: String => Unit,
     secondsToMove: Int) {
 
   def apply(tour: Started)(pairing: Pairing): Fu[Game] = for {
@@ -37,7 +38,8 @@ final class AutoPairing(
       .withId(pairing.gameId)
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
-      scheduleIdleCheck(PovRef(game2.id, Color.White), secondsToMove)
+      scheduleIdleCheck(PovRef(game2.id, Color.White), secondsToMove) >>-
+      onStart(game2.id)
   } yield game2
 
   private def getUser(username: String): Fu[User] =

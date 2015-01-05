@@ -28,7 +28,7 @@ object BSONHandlers {
       minPlayers = r int "minPlayers",
       variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault),
       mode = r.intO("mode").fold[Mode](Mode.default)(Mode.orDefault),
-      password = r strO "password",
+      `private` = r boolD "private",
       schedule = r.getO[Schedule]("schedule"),
       createdAt = r date "createdAt",
       createdBy = r str "createdBy")
@@ -40,24 +40,11 @@ object BSONHandlers {
       "minPlayers" -> o.minPlayers,
       "variant" -> o.variant.id,
       "mode" -> o.mode.id,
-      "password" -> o.password,
+      "private" -> w.boolO(o.`private`),
       "schedule" -> o.schedule,
       "createdAt" -> w.date(o.createdAt),
       "createdBy" -> w.str(o.createdBy))
   }
-
-  // private implicit val playerHandler = new BSON[Player] {
-  //   def reads(r: BSON.Reader) = Player(
-  //     id = r str "id",
-  //     rating = r int "rating",
-  //     withdraw = r boolD "withdraw",
-  //     score = r intD "score")
-  //   def writes(w: BSON.Writer, o: Player) = BSONDocument(
-  //     "id" -> o.id,
-  //     "rating" -> o.rating,
-  //     "withdraw" -> w.boolO(o.withdraw),
-  //     "score" -> w.intO(o.score))
-  // }
   private implicit val playerBSONHandler = Macros.handler[Player]
 
   private implicit val pairingHandler = new BSON[Pairing] {

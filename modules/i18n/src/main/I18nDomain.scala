@@ -13,5 +13,7 @@ case class I18nDomain(domain: String) {
 
   lazy val commonDomain = hasLang.fold(parts drop 1 mkString ".", domain)
 
-  def withLang(lang: Lang) = I18nDomain(lang.language + "." + commonDomain)
+  def withLang(lang: Lang): I18nDomain = withLang(lang.language)
+
+  def withLang(lang: String): I18nDomain = I18nDomain(lang + "." + commonDomain)
 }

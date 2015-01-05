@@ -38,13 +38,19 @@ module.exports = {
   start: start,
 
   view: function(ctrl) {
+    var pieces = ctrl.data.game.variant.key != "antichess" ?
+     ['queen', 'knight', 'rook', 'bishop'] : ['queen', 'knight', 'rook', 'bishop', 'antiking']
+
     return promoting ? m('div#promotion_choice', {
       onclick: partial(cancel, ctrl)
-    }, ['queen', 'knight', 'rook', 'bishop'].map(function(role) {
-      return m('div.cg-piece.' + role + '.' + ctrl.data.player.color, {
+    }, pieces.map(function(serverRole) {
+      // We display the piece for the antiking the same way we would for a normal king
+      var internalPiece = serverRole == "antiking" ? "king" : serverRole;
+
+      return m('div.cg-piece.' + internalPiece + '.' + ctrl.data.player.color, {
         onclick: function(e) {
           e.stopPropagation();
-          finish(ctrl, role);
+          finish(ctrl, serverRole);
         }
       });
     })) : null

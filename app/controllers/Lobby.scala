@@ -1,20 +1,27 @@
 package controllers
 
-import play.api.libs.json.Json
-import play.api.libs.json.JsValue
+import play.api.libs.json._
 import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.common.LilaCookie
+import lila.common.{ LilaCookie, HTTPRequest }
 import views._
 
 object Lobby extends LilaController {
 
   def home = Open { implicit ctx =>
-    renderHome(Results.Ok).map(_.withHeaders(
-      CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
-    ))
+    negotiate(
+      html = renderHome(Results.Ok).map(_.withHeaders(
+        CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
+      )),
+      api = _ => fuccess {
+        Ok(Json.obj(
+          "lobby" -> Json.obj(
+            "version" -> Env.lobby.history.version)
+        ))
+      }
+    )
   }
 
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =
@@ -23,26 +30,32 @@ object Lobby extends LilaController {
   def renderHome(status: Results.Status)(implicit ctx: Context): Fu[Result] =
     Env.current.preloader(
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds),
-      tours = Env.tournament promotable true,
-      filter = Env.setup.filter
-    ).map {
-        case (preload, entries, posts, tours, featured, lead, tWinners, puzzle, reminds, streams, nbRounds) =>
-          val response = status(html.lobby.home(
-            Json stringify preload, entries, posts, tours, featured, lead, tWinners,
-            puzzle, reminds, streams, Env.blog.lastPostCache.apply, nbRounds
-          ))
-          // the session cookie is required for anon lobby filter storage
-          ctx.req.session.data.contains(LilaCookie.sessionId).fold(
-            response,
-            response withCookies LilaCookie.makeSessionId(ctx.req)
-          )
+      tours = Env.tournament promotable true
+    ) map (html.lobby.home.apply _).tupled map { template =>
+        // the session cookie is required for anon lobby filter storage
+        ctx.req.session.data.contains(LilaCookie.sessionId).fold(
+          status(template),
+          status(template) withCookies LilaCookie.makeSessionId(ctx.req)
+        )
       }
 
   def playing = Auth { implicit ctx =>
     me =>
-      lila.game.GameRepo nowPlaying me map { povs =>
-        html.lobby.playing(povs)
+      negotiate(
+        html = fuccess(NotFound),
+        api = _ => lila.game.GameRepo nowPlaying me map { povs =>
+          Ok(JsArray(povs map Env.api.lobbyApi.nowPlaying))
+        }
+      )
+  }
+
+  def seeks = Open { implicit ctx =>
+    negotiate(
+      html = fuccess(NotFound),
+      api = _ => ctx.me.fold(Env.lobby.seekApi.forAnon)(Env.lobby.seekApi.forUser) map { seeks =>
+        Ok(JsArray(seeks.map(_.render)))
       }
+    )
   }
 
   def socket(apiVersion: Int) = Socket[JsValue] { implicit ctx =>

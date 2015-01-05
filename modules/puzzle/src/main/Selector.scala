@@ -40,6 +40,8 @@ private[puzzle] final class Selector(
           .one[Puzzle] flatten "Can't find a puzzle for anon player!"
       case Some(user) => api.attempt.playedIds(user, modulo) flatMap { ids =>
         tryRange(user, toleranceStep, difficultyDecay(difficulty), ids, isMate)
+      } recoverWith {
+        case e: Exception => apply(none, difficulty)
       }
     }
   }

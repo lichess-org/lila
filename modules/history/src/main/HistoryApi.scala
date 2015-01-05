@@ -13,20 +13,18 @@ final class HistoryApi(coll: Coll) {
 
   import History.BSONReader
 
-  private val classicalSpeeds: Set[Speed] = Set(Speed.Classical, Speed.Unlimited)
-
   def add(user: User, game: Game, perfs: Perfs): Funit = {
     val isStd = game.variant.standard
-    val isCor = game.isCorrespondence
     val changes = List(
       isStd.option("standard" -> perfs.standard),
       game.variant.chess960.option("chess960" -> perfs.chess960),
       game.variant.kingOfTheHill.option("kingOfTheHill" -> perfs.kingOfTheHill),
       game.variant.threeCheck.option("threeCheck" -> perfs.threeCheck),
+      game.variant.antichess.option("antichess" -> perfs.antichess),
       (isStd && game.speed == Speed.Bullet).option("bullet" -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz" -> perfs.blitz),
-      (isStd && !isCor && classicalSpeeds(game.speed)).option("classical" -> perfs.classical),
-      (isStd && isCor).option("correspondence" -> perfs.correspondence)
+      (isStd && game.speed == Speed.Classical).option("classical" -> perfs.classical),
+      (isStd && game.speed == Speed.Correspondence).option("correspondence" -> perfs.correspondence)
     ).flatten.map {
         case (k, p) => k -> p.intRating
       }

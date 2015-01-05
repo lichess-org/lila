@@ -7,6 +7,7 @@ import lila.lobby.Color
 import lila.user.UserContext
 import play.api.data._
 import play.api.data.Forms._
+import tube.{ userConfigTube, anonConfigTube }
 
 private[setup] final class FormFactory(casualOnly: Boolean) {
 
@@ -19,7 +20,7 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
     mapping(
       "variant" -> list(variantWithVariants),
       "mode" -> list(rawMode(withRated = true)),
-      "speed" -> list(speedWithCorrespondence),
+      "speed" -> list(speed),
       "ratingRange" -> ratingRange
     )(FilterConfig.<<)(_.>>)
   )

@@ -30,7 +30,7 @@ function controls(ctrl, fen) {
       }, ctrl.trans('clearBoard'))
     ]),
     m('div', [
-      m('a.button[data-icon=B]', {
+      m('a.button.text[data-icon=B]', {
         onclick: ctrl.chessground.toggleOrientation
       }, ctrl.trans('flipBoard')),
       m('a.button', {
@@ -58,10 +58,25 @@ function controls(ctrl, fen) {
       ])
     ]),
     m('div', [
+      ctrl.positionLooksLegit() ? m('a.button.text[data-icon="["]', {
+        href: editor.makeUrl('/analysis/', fen),
+        rel: 'nofollow'
+      }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="["]', {
+        rel: 'nofollow'
+      }, ctrl.trans('analysis')),
+      m('a.button', {
+          onclick: function() {
+            $.modal($('.continue_with'));
+          }
+        },
+        m('span.text[data-icon=U]', ctrl.trans('continueFromHere')))
+    ]),
+    m('div.continue_with', [
       m('a.button', {
         href: '/?fen=' + fen + '#ai',
         rel: 'nofollow'
       }, ctrl.trans('playWithTheMachine')),
+      m('br'),
       m('a.button', {
         href: '/?fen=' + fen + '#friend',
         rel: 'nofollow'
@@ -81,14 +96,14 @@ function inputs(ctrl, fen) {
     m('p', [
       m('strong.name', 'URL'),
       m('input.copyable[readonly][spellCheck=false]', {
-        value: editor.makeUrl(ctrl.data, fen)
+        value: editor.makeUrl(ctrl.data.baseUrl, fen)
       })
     ])
   ]);
 }
 
 function sparePieces(ctrl, color, orientation, position) {
-  return m('div.spare.'+position+'.orientation-' + orientation, ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
+  return m('div.spare.' + position + '.orientation-' + orientation, ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
     return m('div.no-square', m('div', {
       class: ['cg-piece', color, role].join(' '),
       'data-color': color,

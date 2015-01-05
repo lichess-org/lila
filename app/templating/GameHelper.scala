@@ -34,7 +34,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     import pov._
     val p1 = playerText(player, withRating = true)
     val p2 = playerText(opponent, withRating = true)
-    val speedAndClock = game.clock.fold(chess.Speed.Unlimited.name) { c =>
+    val speedAndClock = game.clock.fold(chess.Speed.Correspondence.name) { c =>
       s"${chess.Speed(c.some).name} (${c.show})"
     }
     val mode = game.mode.name
@@ -50,6 +50,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case (_, _, VariantEnd) => game.variant match {
         case Variant.KingOfTheHill => "King in the center"
         case Variant.ThreeCheck    => "Three checks"
+        case Variant.Antichess     => "Lose all your pieces to win"
         case _                     => "Variant ending"
       }
       case _ => "Game is still being played"
@@ -177,8 +178,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     ownerLink: Boolean = false,
     tv: Boolean = false,
     withTitle: Boolean = true,
-    withLink: Boolean = true)(implicit ctx: UserContext) = Html {
-    var isLive = game.isBeingPlayed
+    withLink: Boolean = true,
+    withLive: Boolean = true)(implicit ctx: UserContext) = Html {
+    var isLive = withLive && game.isBeingPlayed
     val href = withLink ?? {
       val owner = ownerLink.fold(ctx.me flatMap game.player, none)
       val url = tv.fold(routes.Tv.index, owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
@@ -193,13 +195,13 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val lastMove = ~game.castleLastMoveTime.lastMoveString
     val variant = game.variant.key
     val tag = if (withLink) "a" else "span"
-    s"""<$tag $href $title class="mini_board parse_fen is2d $cssClass $variant" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</$tag>"""
+    s"""<$tag $href $title class="mini_board mini_board_${game.id} parse_fen is2d $cssClass $variant" data-live="$live" data-color="${color.name}" data-fen="$fen" data-lastmove="$lastMove">$miniBoardContent</$tag>"""
   }
 
   def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false, blank: Boolean = false) = Html {
     var isLive = game.isBeingPlayed
     val variant = game.variant.key
-    s"""<a href="%s%s" title="%s" class="mini_board parse_fen is2d %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
+    s"""<a href="%s%s" title="%s" class="mini_board mini_board_${game.id} parse_fen is2d %s $variant" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"%s>$miniBoardContent</a>""".format(
       blank ?? netBaseUrl,
       tv.fold(routes.Tv.index, routes.Round.watcher(game.id, color.name)),
       gameTitle(game, color),

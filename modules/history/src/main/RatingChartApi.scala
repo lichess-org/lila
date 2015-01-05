@@ -9,13 +9,21 @@ import play.api.libs.json._
 import lila.rating.{ Glicko, PerfType }
 import lila.user.{ User, Perfs }
 
-final class RatingChartApi(historyApi: HistoryApi, cacheTtl: Duration) {
+final class RatingChartApi(
+    historyApi: HistoryApi,
+    mongoCache: lila.memo.MongoCache.Builder,
+    cacheTtl: FiniteDuration) {
 
-  def apply(user: User): Fu[Option[String]] = cache(user)
+  def apply(user: User): Fu[Option[String]] = cache(user) map { chart =>
+    chart.nonEmpty option chart
+  }
 
-  private val cache = lila.memo.AsyncCache(build,
-    maxCapacity = 50,
-    timeToLive = cacheTtl)
+  private val cache = mongoCache[User, String](
+    prefix = "history:rating",
+    f = (user: User) => build(user) map (~_),
+    maxCapacity = 64,
+    timeToLive = cacheTtl,
+    keyToString = _.id)
 
   private val columns = Json stringify {
     Json.arr(
@@ -43,7 +51,7 @@ final class RatingChartApi(historyApi: HistoryApi, cacheTtl: Duration) {
       Json stringify {
         Json.toJson {
           import lila.rating.PerfType._
-          List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck, Puzzle).map { pt =>
+          List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, Antichess, ThreeCheck, Puzzle).map { pt =>
             pt -> history(pt)
           } sortBy (-_._2.size) map {
             case (pt, rm) => ratingsMapToJson(pt, rm)

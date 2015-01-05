@@ -21,13 +21,14 @@ side = side(pov, games, streams),
 underchat = game.watchers().some,
 active = siteMenu.tv.some,
 moreJs = moreJs,
-moreCss = cssTag("tv.css")) {
+moreCss = cssTag("tv.css"),
+chessground = false) {
 <div class="round cg-512">
   @miniBoardContent
 </div>
 <div class="crosstable" style="display:none">
   @cross.map { c =>
-  @game.crosstable(pov.player.userId.fold(c)(c.fromPov))
+  @game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
   }
 </div>
 }

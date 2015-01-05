@@ -152,7 +152,8 @@ case class MoveEvent(
   gameId: String,
   fen: String,
   move: String,
-  ip: String)
+  ip: String,
+  opponentUserId: Option[String])
 case class NbRounds(nb: Int)
 }
 

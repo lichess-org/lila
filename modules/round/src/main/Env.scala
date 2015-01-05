@@ -8,7 +8,6 @@ import scala.concurrent.duration._
 import actorApi.{ GetSocketStatus, SocketStatus }
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
-import lila.memo.AsyncCache
 import lila.socket.actorApi.GetVersion
 import makeTimeout.large
 
@@ -29,6 +28,7 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     chatApi: lila.chat.ChatApi,
     historyApi: lila.history.HistoryApi,
+    isPlayingSimul: String => Fu[Boolean],
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -84,7 +84,8 @@ final class Env(
           uidTimeout = UidTimeout,
           socketTimeout = SocketTimeout,
           disconnectTimeout = PlayerDisconnectTimeout,
-          ragequitTimeout = PlayerRagequitTimeout)
+          ragequitTimeout = PlayerRagequitTimeout,
+          isPlayingSimul = isPlayingSimul)
         def receive: Receive = ({
           case msg@lila.chat.actorApi.ChatLine(id, line) =>
             self ! lila.hub.actorApi.map.Tell(id take 8, msg)
@@ -160,11 +161,7 @@ final class Env(
 
   lazy val noteApi = new NoteApi(db(CollectionNote))
 
-  {
-    import scala.concurrent.duration._
-
-    scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
-  }
+  scheduler.message(2.1 seconds)(roundMap -> actorApi.GetNbRounds)
 
   system.actorOf(
     Props(classOf[Titivate], roundMap, hub.actor.bookmark),
@@ -197,5 +194,6 @@ object Env {
     prefApi = lila.pref.Env.current.api,
     chatApi = lila.chat.Env.current.api,
     historyApi = lila.history.Env.current.api,
+    isPlayingSimul = lila.game.Env.current.cached.isPlayingSimul,
     scheduler = lila.common.PlayApp.scheduler)
 }

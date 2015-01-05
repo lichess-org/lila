@@ -6,29 +6,51 @@ import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 
 import lila.db.api.$count
-import lila.memo.{ AsyncCache, ExpireSetMemo, Builder }
+import lila.db.BSON._
+import lila.memo.{ AsyncCache, MongoCache, ExpireSetMemo, Builder }
+import lila.user.{ User, UidNb }
 import tube.gameTube
+import UidNb.UidNbBSONHandler
 
-final class Cached(ttl: Duration) {
+final class Cached(
+    mongoCache: MongoCache.Builder,
+    defaultTtl: FiniteDuration) {
 
   def nbGames: Fu[Int] = count(Query.all)
   def nbMates: Fu[Int] = count(Query.mate)
   def nbImported: Fu[Int] = count(Query.imported)
   def nbImportedBy(userId: String): Fu[Int] = count(Query imported userId)
 
-  def nbPlaying(userId: String): Fu[Int] = count(Query nowPlaying userId)
+  def nbPlaying(userId: String): Fu[Int] = countShortTtl(Query nowPlaying userId)
+
+  private implicit val userHandler = User.userBSONHandler
+
+  private val isPlayingSimulCache = AsyncCache[String, Boolean](
+    f = userId => GameRepo.countPlayingRealTime(userId) map (1 <),
+    timeToLive = 10.seconds)
+
+  val isPlayingSimul: String => Fu[Boolean] = isPlayingSimulCache.apply _
 
   val rematch960 = new ExpireSetMemo(3.hours)
 
-  val activePlayerUidsDay = AsyncCache(
+  val activePlayerUidsDay = mongoCache[Int, List[UidNb]](
+    prefix = "player:active:day",
     (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
     timeToLive = 1 hour)
 
-  val activePlayerUidsWeek = AsyncCache(
+  val activePlayerUidsWeek = mongoCache[Int, List[UidNb]](
+    prefix = "player:active:week",
     (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusWeeks 1, nb),
     timeToLive = 6 hours)
 
-  private val count = AsyncCache((o: JsObject) => $count(o), timeToLive = ttl)
+  private val countShortTtl = AsyncCache[JsObject, Int](
+    f = (o: JsObject) => $count(o),
+    timeToLive = 5.seconds)
+
+  private val count = mongoCache(
+      prefix = "game:count",
+      f = (o: JsObject) => $count(o),
+      timeToLive = defaultTtl)
 
   object Divider {
 

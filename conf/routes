@@ -7,6 +7,7 @@ GET   /lobby/socket/v:apiVersion       controllers.Lobby.socket(apiVersion: Int)
 GET   /timeline                        controllers.Lobby.timeline
 GET   /timeline/more                   controllers.Lobby.timelineMore
 GET   /lobby/playing                   controllers.Lobby.playing
+GET   /lobby/seeks                     controllers.Lobby.seeks
 
 # TV
 GET   /tv                              controllers.Tv.index
@@ -59,7 +60,7 @@ GET   /blog/:id/:slug     controllers.Blog.show(id: String, slug: String, ref: O
 GET   /blog.atom          controllers.Blog.atom(ref: Option[String] ?= None)
 
 # Game
-GET   /games              controllers.Game.realtime
+GET   /games              controllers.Game.playing
 GET   /games/all          controllers.Game.all(page: Int ?= 1)
 GET   /games/checkmate    controllers.Game.checkmate(page: Int ?= 1)
 GET   /games/bookmark     controllers.Game.bookmark(page: Int ?= 1)
@@ -89,6 +90,10 @@ GET   /training/:id/load               controllers.Puzzle.load(id: Int)
 POST  /training/:id/attempt            controllers.Puzzle.attempt(id: Int)
 POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
 
+# User Analysis
+GET   /analysis/*urlFen                controllers.UserAnalysis.load(urlFen: String)
+GET   /analysis                        controllers.UserAnalysis.index
+
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
 GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)
@@ -97,9 +102,12 @@ GET   /$gameId<\w{8}>/$color<white|black>/socket controllers.Round.websocketWatc
 GET   /$fullId<\w{12}>/socket/v:apiVersion       controllers.Round.websocketPlayer(fullId: String, apiVersion: Int)
 GET   /$gameId<\w{8}>/$color<white|black>/side   controllers.Round.sideWatcher(gameId: String, color: String)
 GET   /$fullId<\w{12}>/side                      controllers.Round.sidePlayer(fullId: String)
+GET   /$gameId<\w{8}>/others                     controllers.Round.others(gameId: String)
+GET   /$gameId<\w{8}>/next                       controllers.Round.next(gameId: String)
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
 POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: String)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: String)
+GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: String, color: String)
 
 # Round accessibility: text representation
 GET   /$fullId<\w{12}>/text                      controllers.Round.playerText(fullId: String)
@@ -111,12 +119,9 @@ GET   /tournament/reload                      controllers.Tournament.homeReload
 GET   /tournament/new                         controllers.Tournament.form
 POST  /tournament/new                         controllers.Tournament.create
 GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id: String)
-GET   /tournament/$id<\w{8}>/socket           controllers.Tournament.websocket(id: String)
+GET   /tournament/$id<\w{8}>/socket/v:apiVersion  controllers.Tournament.websocket(id: String, apiVersion: Int)
 POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: String)
-GET   /tournament/$id<\w{8}>/join/password    controllers.Tournament.joinPasswordForm(id: String)
-POST  /tournament/$id<\w{8}>/join/password    controllers.Tournament.joinPassword(id: String)
 POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.withdraw(id: String)
-GET   /tournament/$id<\w{8}>/reload           controllers.Tournament.reload(id: String)
 POST  /tournament/$id<\w{8}>/early-start      controllers.Tournament.earlyStart(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
 
@@ -175,6 +180,7 @@ GET   /translation/form/:lang          controllers.I18n.translationForm(lang: St
 POST  /translation/post/:lang          controllers.I18n.translationPost(lang: String)
 GET   /translation/fetch/:from         controllers.I18n.fetch(from: Int)
 POST  /translation/hideCalls           controllers.I18n.hideCalls
+POST  /translation/select              controllers.I18n.select
 
 # Authentication
 GET   /login                           controllers.Auth.login
@@ -241,7 +247,7 @@ DELETE /notification/$id<\w{8}>      controllers.Notification.remove(id)
 GET   /paste                           controllers.Importer.importGame
 POST  /import                          controllers.Importer.sendGame
 
-# Progressive import API
+# Progressive Import API
 POST  /api/import/live                     controllers.Importer.liveCreate
 POST  /api/import/live/$id<\w{8}>/:move  controllers.Importer.liveMove(id: String, move: String)
 
@@ -297,6 +303,7 @@ GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id: String)
 GET   /developers                      controllers.Main.developers
 GET   /embed                           controllers.Main.embed
 GET   /irc                             controllers.Main.irc
+GET   /themepicker                     controllers.Main.themepicker
 
 # Map
 GET   /world-map                       controllers.WorldMap.index

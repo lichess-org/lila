@@ -11,6 +11,8 @@ private[i18n] case class I18nPool(val langs: Set[Lang], val default: Lang) {
 
   val names: Map[String, String] = (langs map langNames).toMap
 
+  val contains: Set[String] = langs.map(_.language)
+
   private def langNames(lang: Lang): (String, String) =
     lang.language -> LangList.nameOrCode(lang.language)
 

@@ -57,8 +57,8 @@ function renderTable(ctrl, curPly) {
 }
 
 function renderButtons(ctrl, curPly) {
-  var nbMoves = ctrl.root.data.game.moves.length;
   var root = ctrl.root;
+  var nbMoves = root.data.game.moves.length;
   var flipAttrs = {
     class: 'button flip hint--top' + (root.vm.flip ? ' active' : ''),
     'data-hint': root.trans('flipBoard'),
@@ -67,7 +67,8 @@ function renderButtons(ctrl, curPly) {
   else if (root.data.player.spectator) flipAttrs.href = root.router.Round.watcher(root.data.game.id, root.data.opponent.color).url;
   else flipAttrs.onclick = root.flip;
   return m('div.buttons', [
-    m('a', flipAttrs, m('span[data-icon=B]')), m('div.hint--top', {
+    m('a', flipAttrs, m('span[data-icon=B]')),
+    m('div.hint--top', {
       'data-hint': 'Tip: use your keyboard arrow keys!'
     }, [
       ['first', 'W', 1],
@@ -84,7 +85,12 @@ function renderButtons(ctrl, curPly) {
         'data-icon': b[1],
         onclick: enabled ? partial(ctrl.jump, b[2]) : null
       });
-    }))
+    })),
+    (game.userAnalysable(root.data) ? m('a', {
+      class: 'button hint--top analysis',
+      'data-hint': root.trans('analysis'),
+      href: root.router.UserAnalysis.game(root.data.game.id, root.data.player.color).url,
+    }, m('span[data-icon="["]')) : null)
   ]);
 }
 

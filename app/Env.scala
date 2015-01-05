@@ -17,15 +17,14 @@ final class Env(
   lazy val bus = lila.common.Bus(system)
 
   lazy val preloader = new mashup.Preload(
-    lobby = Env.lobby.lobby,
-    lobbyVersion = () => Env.lobby.history.version,
     featured = Env.tv.featured,
-    leaderboard = Env.user.cached.topToday.apply,
+    leaderboard = Env.user.cached.topToday,
     tourneyWinners = Env.tournament.winners.scheduled,
     timelineEntries = Env.timeline.getter.userEntries _,
     dailyPuzzle = Env.puzzle.daily,
     streamsOnAir = () => Env.tv.streamsOnAir,
-    countRounds = Env.round.count)
+    countRounds = Env.round.count,
+    lobbyApi = Env.api.lobbyApi)
 
   lazy val userInfo = mashup.UserInfo(
     countUsers = () => Env.user.countEnabled,

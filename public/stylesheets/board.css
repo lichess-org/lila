@@ -1089,6 +1089,9 @@ div.table .notyet {
 .lichess_ground .replay a.flip {
   margin-right: 10px;
 }
+.lichess_ground .replay a.analysis {
+  margin-left: 10px;
+}
 .lichess_ground .replay a.disabled {
   cursor: default;
 }

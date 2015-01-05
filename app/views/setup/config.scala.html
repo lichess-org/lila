@@ -1,12 +1,13 @@
 @(form: Form[_], typ: String, title: Html, route: Call, fields: Html, error: Option[Html] = None)(implicit ctx: Context)
 
-<div class="lichess_overboard game_config game_config_@typ">
+<div class="lichess_overboard game_config game_config_@typ"
+  @if(ctx.isAnon){data-anon="1"}>
   <a href="@routes.Lobby.home" class="close icon" title="@trans.cancel()" data-icon="L"></a>
   <h2>@title</h2>
   @error.map { e =>
   <p class="error">@e</p>
   <br />
-  <a href="@routes.Lobby.home" class="button" data-icon="L">&nbsp;@trans.cancel()</a>
+  <a href="@routes.Lobby.home" class="button text" data-icon="L">@trans.cancel()</a>
   }.getOrElse {
   <div class="game_config_form">
     @helper.form(action = route, 'novalidate -> "novalidate") {
@@ -21,12 +22,10 @@
   }
   @ctx.me.map { me =>
   <div class="ratings">
-    @List("bullet", "blitz", "classical", "correspondence", "chess960", "kingOfTheHill", "threeCheck").map { key =>
-    @lila.rating.PerfType(key).map { perfType =>
-    <div class="@key">
-      @trans.ratingX(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}""")
+    @lila.rating.PerfType.nonPuzzle.map { perfType =>
+    <div class="@perfType.key">
+      @trans.ratingX(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(perfType.key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}""")
     </div>
-    }
     }
   </div>
   }

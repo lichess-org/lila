@@ -57,6 +57,14 @@ function getPlayer(data, color) {
   return null;
 }
 
+function hasAi(data) {
+  return data.player.ai || data.opponent.ai;
+}
+
+function userAnalysable(data) {
+  return !replayable(data) && (!data.clock || !isPlayerPlaying(data));
+}
+
 function setOnGame(data, color, onGame) {
   var player = getPlayer(data, color);
   onGame = onGame || player.ai;
@@ -86,6 +94,7 @@ module.exports = {
   moretimeable: moretimeable,
   mandatory: mandatory,
   replayable: replayable,
+  userAnalysable: userAnalysable,
   getPlayer: getPlayer,
   parsePossibleMoves: parsePossibleMoves,
   nbMoves: nbMoves,

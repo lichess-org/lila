@@ -28,6 +28,16 @@ private[lobby] final class SocketHandler(
       lobby ! BiteHook(id, uid, member.user)
     }
     case ("cancel", o) => lobby ! CancelHook(uid)
+    case ("joinSeek", o) => for {
+      id <- o str "d"
+      user <- member.user
+    } lobby ! BiteSeek(id, user)
+
+    case ("cancelSeek", o) => for {
+      id <- o str "d"
+      user <- member.user
+    } lobby ! CancelSeek(id, user)
+
     case ("startWatching", o) => o str "d" foreach { ids =>
       hub.actor.moveBroadcast ! StartWatching(uid, member, ids.split(' ').toSet)
     }

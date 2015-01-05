@@ -1,0 +1,15 @@
+#!/bin/sh
+. bin/lilarc
+
+./ui/build prod
+
+mkdir -p public/compiled
+
+for file in tv.js big.js chart2.js user.js coordinate.js; do
+  orig=public/javascripts/$file
+  comp=public/compiled/$file
+  if [[ ! -f $comp || $orig -nt $comp ]]; then
+    lilalog "Compiling lila javascript - $file"
+    closure --js $orig --js_output_file $comp
+  fi
+done

@@ -40,6 +40,7 @@ private[round] final class SocketHandler(
       case ("talk", o) => o str "d" foreach { text =>
         messenger.watcher(gameId, member, text, socket)
       }
+      case ("outoftime", _) => round(Outoftime)
     }) { playerId =>
       {
         case ("p", o)            => o int "v" foreach { v => socket ! PingVersion(uid, v) }

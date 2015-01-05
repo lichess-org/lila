@@ -27,7 +27,7 @@ private[setup] trait Config {
   // Creator player color
   val color: Color
 
-  def hasClock = timeMode == TimeMode.Clock
+  def hasClock = timeMode == TimeMode.RealTime
 
   lazy val creatorColor = color.resolve
 
@@ -37,9 +37,10 @@ private[setup] trait Config {
 
   def clockHasTime = time + increment > 0
 
-  def makeClock = hasClock option {
+  def makeClock = hasClock option justMakeClock
+
+  protected def justMakeClock =
     Clock(time * 60, clockHasTime.fold(increment, 1))
-  }
 
   def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
 }
@@ -64,7 +65,7 @@ trait Positional { self: Config =>
   }
 
   def fenGame(builder: ChessGame => Game): Game = {
-    val state = fen filter (_ => variant == Variant.FromPosition) flatMap Forsyth.<<<
+    val state = fen ifTrue (variant == Variant.FromPosition) flatMap Forsyth.<<<
     val chessGame = state.fold(makeGame) {
       case sit@SituationPlus(Situation(board, color), _) =>
         ChessGame(
@@ -79,6 +80,7 @@ trait Positional { self: Config =>
       case sit@SituationPlus(Situation(board, _), _) => game.copy(
         variant = Variant.FromPosition,
         castleLastMoveTime = game.castleLastMoveTime.copy(
+          lastMove = board.history.lastMove,
           castles = board.history.castles
         ),
         turns = sit.turns)
@@ -97,12 +99,11 @@ trait BaseConfig {
 
   val variantsWithFen = variants :+ Variant.FromPosition.id
   val variantsWithFenAndKingOfTheHill = variants :+ Variant.KingOfTheHill.id :+ Variant.FromPosition.id
-  val variantsWithVariants = variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id
-  val variantsWithFenAndVariants = variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id :+ Variant.FromPosition.id
+  val variantsWithVariants = variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id :+ Variant.Antichess.id
+  val variantsWithFenAndVariants =
+    variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id :+ Variant.Antichess.id :+ Variant.FromPosition.id
 
   val speeds = Speed.all map (_.id)
-  val correspondenceSpeedId = 99
-  val speedsWithCorrespondence = speeds :+ correspondenceSpeedId
 
   private val timeMin = 0
   private val timeMax = 180

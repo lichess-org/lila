@@ -41,7 +41,7 @@ private[lobby] final class Socket(
       addMember(uid, member)
       sender ! Connected(enumerator, member)
 
-    case ReloadTournaments(html) => notifyTournaments(html)
+    case ReloadTournaments(html) => notifyAll(makeMessage("tournaments", html))
 
     case NewForumPost            => notifyAll("reload_forum")
 
@@ -51,19 +51,19 @@ private[lobby] final class Socket(
     case AddHook(hook) =>
       notifyVersion("hook_add", hook.render, Messadata(hook = hook.some))
 
+    case AddSeek(_) => notifySeeks
+
     case RemoveHook(hookId) => notifyVersion("hook_remove", hookId, Messadata())
 
+    case RemoveSeek(_) => notifySeeks
+
     case JoinHook(uid, hook, game, creatorColor) =>
-      withMember(hook.uid)(notifyMember("redirect", Json.obj(
-        "id" -> (game fullIdOf creatorColor),
-        "url" -> playerUrl(game fullIdOf creatorColor),
-        "cookie" -> AnonCookie.json(game, creatorColor)
-      ).noNull))
-      withMember(uid)(notifyMember("redirect", Json.obj(
-        "id" -> (game fullIdOf !creatorColor),
-        "url" -> playerUrl(game fullIdOf !creatorColor),
-        "cookie" -> AnonCookie.json(game, !creatorColor)
-      ).noNull))
+      withMember(hook.uid)(notifyPlayerStart(game, creatorColor))
+      withMember(uid)(notifyPlayerStart(game, !creatorColor))
+
+    case JoinSeek(userId, seek, game, creatorColor) =>
+      memberByUserId(seek.user.id) foreach notifyPlayerStart(game, creatorColor)
+      memberByUserId(userId) foreach notifyPlayerStart(game, !creatorColor)
 
     case HookIds(ids)                         => notifyVersion("hook_list", ids, Messadata())
 
@@ -74,6 +74,13 @@ private[lobby] final class Socket(
     case ChangeFeatured(_, msg)               => notifyAll(msg)
   }
 
+  private def notifyPlayerStart(game: lila.game.Game, color: chess.Color) =
+    notifyMember("redirect", Json.obj(
+      "id" -> (game fullIdOf color),
+      "url" -> playerUrl(game fullIdOf color),
+      "cookie" -> AnonCookie.json(game, color)
+    ).noNull) _
+
   protected def shouldSkipMessageFor(message: Message, member: Member) =
     message.metadata.hook ?? { hook =>
       hook.uid != member.uid && !Biter.canJoin(hook, member.user)
@@ -81,7 +88,7 @@ private[lobby] final class Socket(
 
   private def playerUrl(fullId: String) = s"/$fullId"
 
-  private def notifyTournaments(html: String) {
-    notifyAll(makeMessage("tournaments", html))
+  private def notifySeeks() {
+    notifyAll(makeMessage("reload_seeks"))
   }
 }

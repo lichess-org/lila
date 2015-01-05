@@ -11,10 +11,12 @@ robots: Boolean = true,
 moreCss: Html = Html(""),
 moreJs: Html = Html(""),
 zen: Boolean = false,
-openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
+openGraph: Map[Symbol, String] = Map.empty,
+chessground: Boolean = true)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <head>
+    <meta charset="utf-8">
     <title>@if(!isProd){ [dev] }@fullTitle.getOrElse{@title • lichess.org}</title>
     @if(ctx.currentBg == "dark") {
     @cssTag("dark.css")
@@ -24,7 +26,6 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     @cssTag("board.css")
     @moreCss
     <meta content="@openGraph.get('description).getOrElse(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())" name="description">
-    <meta charset="utf-8">
     <link rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
     <meta content="noindex, nofollow" name="robots">
@@ -100,62 +101,18 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
         @trans.nbConnectedPlayers("<strong>?</strong>")
       </div>
       <a id="reconnecting" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
-      <div id="themepicker"
-        data-themes="@lila.pref.Theme.listString"
-        data-theme3ds="@lila.pref.Theme3d.listString"
-        data-sets="@lila.pref.PieceSet.listString"
-        data-set3ds="@lila.pref.PieceSet3d.listString">
-        <a id="themepicker_toggle" class="toggle icon hint--bottom-left" data-hint="Theming">
+      <div id="themepicker">
+        <a id="themepicker_toggle" class="toggle icon hint--bottom-left" data-hint="Theming" data-url="@routes.Main.themepicker">
           &nbsp;<span data-icon="v"></span>&nbsp;
         </a>
-        <div class="dropdown">
-          <div class="background toggles" data-href="@routes.Pref.set("bg")">
-            <a class="light button" data-bg="light" data-icon="5"></a>
-            <a class="dark button" data-bg="dark" data-icon="4"></a>
-          </div>
-          <div class="dimensions toggles" data-href="@routes.Pref.set("is3d")">
-            <a class="d2 button" data-is3d="false">2D</a>
-            <a class="d3 button" data-is3d="true">3D</a>
-          </div>
-          <div class="zoom_control">
-            <i data-icon="<"></i><div class="slider"></div>
-          </div>
-          <div class="is2d">
-            <div class="board" data-href="@routes.Pref.set("theme")">
-              @lila.pref.Theme.list.map { theme =>
-              <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>
-              }
-            </div>
-            <div class="piece_set" data-href="@routes.Pref.set("pieceSet")">
-              @lila.pref.PieceSet.list.map { set =>
-              <div class="no-square" data-set="@set.name"><div class="cg-piece @set.name"></div></div>
-              }
-            </div>
-          </div>
-          <div class="is3d">
-            <div class="board" data-href="@routes.Pref.set("theme3d")">
-              @lila.pref.Theme3d.list.map { theme =>
-              <div class="theme" data-theme="@theme.name"><div class="color_demo @theme.name"></div></div>
-              }
-            </div>
-            <div class="piece_set" data-href="@routes.Pref.set("pieceSet3d")">
-              @lila.pref.PieceSet3d.list.map { set =>
-              <div class="no-square" data-set="@set.name"><div class="cg-piece @set.name"></div></div>
-              }
-            </div>
-          </div>
-          @if(ctx.isAuth) {
-          <a class="prefs button" href="@routes.Pref.form"><span data-icon="%">&nbsp;@trans.preferences()</span></a>
-          }
-        </div>
       </div>
       <div class="lichess_language">
         <a class="toggle" href="#">
           <span data-icon="u">&nbsp;@langName(lang)</span>
         </a>
-        <ul class="language_links dropdown" data-url="@staticUrl("trans/refs.json")">
+        <form action="@routes.I18n.select" method="POST" class="language_links dropdown" data-url="@staticUrl("trans/refs.json")?v=@assetVersion">
           <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
-        </ul>
+        </form>
       </div>
       @ctx.me.map { me =>
       <div class="auth">
@@ -215,7 +172,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
           <a id="site_title" href="@routes.Lobby.home">
             lichess<span class="extension">.org</span>
           </a>
-          @if(acceptsLanguage(lang)) {
+          @if(ctx.isAuth || acceptsLanguage(lang)) {
           @baseline
           } else {
           @langFallbackLinks
@@ -250,7 +207,7 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
         <a href="@routes.Blog.index()">Blog</a> |
         <a href="@routes.QaQuestion.index()" title="Questions &amp; Answers">Q&amp;A</a> |
         <a href="@routes.Wiki.home" title="@trans.learnMoreAboutLichess()">Wiki</a><br />
-        <a href="@routes.WorldMap.index" title="Realtime world map of chess moves">Map</a> |
+        <a href="@routes.WorldMap.index" title="Real time world map of chess moves">Map</a> |
         <a href="@routes.Monitor.index">Monitor</a> |
         <a href="@routes.Page.helpLichess">Help lichess.org</a>
       </div>
@@ -271,12 +228,9 @@ openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
     </div>
     }
     @jQueryTag
-    @jsTag("vendor/chessground.min.js")
+    @if(chessground) {@jsTag("vendor/chessground.min.js")}
     @jsTag("deps.min.js")
     @momentjsTag
-    @powertipTag
-    @jsTagCompiled("common.js")
-    @jsTagCompiled("strongSocket.js")
     @jsTagCompiled("big.js")
     @moreJs
     @jsAt(s"trans/${lang.language}.js")

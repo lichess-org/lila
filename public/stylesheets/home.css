@@ -26,150 +26,128 @@ div.lobby_and_ground {
   min-width: 512px;
   width: 512px;
   height: 512px;
+  max-height: 512px;
   overflow: hidden;
   border: 1px solid #ccc;
   background: #f0f0f0 url(../images/wN-bg.svg);
   background-size: 100% 100%;
 }
-#hooks_wrap > div.tabs {
+#hooks_wrap .lobby_box {
+  position: relative;
+}
+#hooks_wrap .tabs {
   position: absolute;
-  top: -21px;
+  top: -22px;
   left: 0px;
   height: 20px;
   line-height: 20px;
 }
-#hooks_wrap > div.tabs > a {
+#hooks_wrap .tabs a {
   display: inline-block;
   text-decoration: none;
-  padding: 0px 10px;
+  padding: 0px 8px;
+  margin-right: 3px;
   border: 1px solid #ccc;
   background: #dadada;
   transition: 0.13s;
 }
-#hooks_wrap > div.tabs > a:hover,
-#hooks_wrap > div.tabs > a.active {
+#hooks_wrap .tabs a:hover {
   background: #f0f0f0;
+  border-top: 2px solid #808080;
 }
-#hooks_wrap > div.tabs > a.active {
+#hooks_wrap .tabs a.active {
+  background: #f0f0f0;
   font-weight: bold;
   border-bottom-color: #f0f0f0;
+  border-top: 2px solid #d85000;
 }
-#hooks_wrap > div.tabs .unread {
-  display: none;
+#hooks_wrap .tabs .unread {
+  margin-left: 5px;
 }
-#hooks_wrap > div.tabs a.hilight .unread {
-  display: inline;
-}
-#hooks_wrap > a.filter {
+#hooks_wrap .mode_toggle,
+#hooks_wrap .filter_toggle {
   position: absolute;
-  top: -20px;
-  right: 281px;
-  height: 20px;
-  line-height: 20px;
-  padding: 0 10px 0 10px;
-  border-bottom: 0;
-  display: block;
-  text-decoration: none;
+  top: 10px;
+  cursor: pointer;
+  z-index: 2;
+  font-size: 1.3em;
+  opacity: 0.7;
   transition: 0.13s;
 }
-#hooks_wrap > a.filter:hover,
-#hooks_wrap > a.filter.active {
-  background: #f0f0f0;
+#hooks_wrap .mode_toggle {
+  left: 15px;
 }
-#hooks_wrap > a.filter span.number {
-  display: none;
+#hooks_wrap .filter_toggle {
+  right: 15px;
 }
-#hooks_wrap > a.filter.on {
-  padding: 0 10px 0 2px;
+#hooks_wrap .filter_toggle .number {
+  margin-left: 3px;
+  font-size: 0.8em;
 }
-#hooks_wrap > a.filter.on span.number {
-  display: inline;
+#hooks_wrap .mode_toggle:hover,
+#hooks_wrap .filter_toggle:hover {
+  opacity: 1;
 }
-#hook_filter {
-  position: absolute;
-  z-index: 99;
-  top: 1px;
-  left: 1px;
-  width: 472px;
-  height: 472px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.8);
-  display: none;
+#hooks_wrap .hook_filter {
+  padding: 10px 20px;
 }
-#hook_filter.active {
-  display: block;
-}
-#hook_filter table {
+#hooks_wrap .hook_filter table {
   width: 100%;
 }
-#hook_filter td {
-  padding: 17px 0;
+#hooks_wrap .hook_filter td {
+  padding: 20px 0;
 }
-#hook_filter td:first-child {
+#hooks_wrap .hook_filter td:first-child {
   font-size: 1.3em;
 }
-#hook_filter td > label {
-  display: block;
+#hooks_wrap .hook_filter .checkable {
   padding: 3px 0;
   color: #444;
 }
-#hook_filter label.hover,
-#hook_filter input {
+#hooks_wrap .hook_filter label.hover,
+#hooks_wrap .hook_filter input {
+  vertical-align: middle;
   cursor: pointer;
 }
-#hook_filter td > label.hover:hover {
-  background: #fff;
-}
-#hook_filter .range {
+#hooks_wrap .hook_filter .range {
+  display: block;
   text-align: center;
 }
-#hook_filter .actions {
+#hooks_wrap .hook_filter .actions {
   margin-top: 20px;
   text-align: right;
 }
-#hook_filter .actions button {
+#hooks_wrap .hook_filter .actions button {
   padding: 6px;
   margin-left: 3px;
 }
-#hooks_list div.table_wrap {
+#hooks_wrap .table_wrap {
+  text-shadow: 0px 1px 0px #FFF;
   width: 512px;
-  max-height: 512px;
+  min-height: 78px;
   overflow: hidden;
 }
-#hooks_list table {
-  width: 512px;
-  text-shadow: 0px 1px 0px #FFF;
-}
-#hooks_list thead th {
-  cursor: pointer;
+#hooks_wrap .table_wrap th {
   padding: 14px 12px;
   font-weight: lighter;
   border-bottom: transparent;
 }
-#hooks_list th.reload span {
-  display: block;
+#hooks_wrap .table_wrap th.sortable {
   cursor: pointer;
-  margin-left: 2px;
-  opacity: 0.5;
-  transition: 0.13s;
 }
-#hooks_list th.reload:hover span {
-  opacity: 0.8;
-}
-#hooks_list th.sorting-asc,
-#hooks_list th.sorting-desc {
+#hooks_wrap .table_wrap th.sortable:hover,
+#hooks_wrap .table_wrap th.sort {
   font-weight: normal;
 }
-#hooks_list th.sorting-desc .is:before {
+#hooks_wrap .table_wrap th.sort .is:before {
+  opacity: 0.7;
+  margin-right: 3px;
   content: "R";
 }
-#hooks_list th.sorting-asc .is:before {
-  content: "S";
-}
-#hooks_list th.player {
+#hooks_wrap .table_wrap th.player {
   width: 110px;
 }
-#hooks_list td {
+#hooks_wrap .table_wrap td {
   padding: 8px 12px;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
@@ -178,65 +156,65 @@ div.lobby_and_ground {
   transition: 0.13s;
   background: rgba(255, 255, 255, 0.6);
 }
-#hooks_list tr.disabled {
+#hooks_wrap .table_wrap tbody.stepping {
+  opacity: 0.7;
+}
+#hooks_wrap .table_wrap tr.disabled {
   opacity: 0.4;
 }
-#hooks_list tr.disabled td {
+#hooks_wrap .table_wrap tr.disabled td {
   cursor: default;
   background: transparent!important;
   border-color: transparent!important;
 }
-#hooks_list a {
+#hooks_wrap .table_wrap a {
   text-decoration: none;
 }
-#hooks_list tr.cancel td {
+#hooks_wrap .table_wrap tr.cancel td {
   background: rgba(200, 255, 200, 0.7);
 }
-#hooks_list tr:hover td {
+#hooks_wrap .table_wrap tr.hook:hover td {
   background: rgba(191, 231, 255, 0.7);
 }
-#hooks_list td:first-child {
+#hooks_wrap .table_wrap td:first-child {
   width: 16px;
 }
-#hooks_list td:first-child span {
+#hooks_wrap .table_wrap td:first-child span {
   display: block;
   padding: 0;
   width: 16px;
   height: 16px;
   opacity: 0.7;
 }
-#hooks_list .varicon::before {
+#hooks_wrap .table_wrap .varicon::before {
   margin-right: 8px;
   line-height: 12px;
   font-size: 20px;
   opacity: 0.7;
 }
-#hooks_list tr:hover .varicon::before,
-#hooks_list tr:hover td:first-child span {
+#hooks_wrap .table_wrap tr:hover .varicon::before,
+#hooks_wrap .table_wrap tr:hover td:first-child span {
   opacity: 1;
 }
-#hooks_list tr.disabled:hover .varicon::before,
-#hooks_list tr.disabled:hover td:first-child span {
+#hooks_wrap .table_wrap tr.disabled:hover .varicon::before,
+#hooks_wrap .table_wrap tr.disabled:hover td:first-child span {
   opacity: 0.7;
 }
-#tableclone {
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  max-height: 512px;
-  z-index: 19;
+#hooks_wrap .table_wrap tr.variants td {
+  text-align: center;
+  padding: 3px 0;
+  background: none;
+  text-transform: uppercase;
+  letter-spacing: 3px;
 }
-#tableclone thead {
-  opacity: 0;
-}
-#hooks_chart {
+#hooks_wrap .hooks_chart {
   position: absolute;
   top: 0;
   left: 0;
   width: 512px;
   height: 512px;
 }
-#hooks_chart > span.label {
+#hooks_wrap .hooks_chart > span.label {
   font-size: 8px;
   position: absolute;
   left: 3px;
@@ -244,25 +222,25 @@ div.lobby_and_ground {
   text-shadow: 0 0 3px #fff;
   font-weight: bold;
 }
-#hooks_chart > div.grid {
+#hooks_wrap .hooks_chart > div.grid {
   position: absolute;
   left: 0px;
   bottom: 0px;
 }
-#hooks_chart > div.grid.horiz {
+#hooks_wrap .hooks_chart > div.grid.horiz {
   width: 100%;
   border-top: 1px dashed #ccc;
 }
-#hooks_chart > div.grid.vert {
+#hooks_wrap .hooks_chart > div.grid.vert {
   height: 100%;
   border-right: 1px dashed #ccc;
 }
-#hooks_chart .canvas {
+#hooks_wrap .hooks_chart .canvas {
   position: relative;
   width: 512px;
   height: 512px;
 }
-#hooks_chart .plot {
+#hooks_wrap .hooks_chart .plot {
   position: absolute;
   width: 17px;
   height: 17px;
@@ -272,32 +250,32 @@ div.lobby_and_ground {
   cursor: pointer;
   z-index: 1;
 }
-#hooks_chart .plot:hover {
+#hooks_wrap .hooks_chart .plot:hover {
   z-index: 2;
 }
-#hooks_chart .plot.casual {
+#hooks_wrap .hooks_chart .plot.casual {
   border-radius: 16px;
 }
-#hooks_chart .plot.rated {
+#hooks_wrap .hooks_chart .plot.rated {
   border-radius: 3px;
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   width: 15px;
   height: 15px;
 }
-#hooks_chart .plot.variant {
+#hooks_wrap .hooks_chart .plot.variant {
   border-style: double;
   border-width: 5px;
 }
-#hooks_chart .plot.casual.variant {
+#hooks_wrap .hooks_chart .plot.casual.variant {
   width: 13px;
   height: 13px;
 }
-#hooks_chart .plot.rated.variant {
+#hooks_wrap .hooks_chart .plot.rated.variant {
   width: 11px;
   height: 11px;
 }
-#hooks_chart .plot.cancel {
+#hooks_wrap .hooks_chart .plot.cancel {
   background: #666;
 }
 #hook {
@@ -310,10 +288,10 @@ div.lobby_and_ground {
   box-shadow: 0 0 9px #333;
   background: #d0d0d0;
 }
-#hooks_chart .plot:hover {
+#hooks_wrap .hooks_chart .plot:hover {
   background-color: #f6f6f6;
 }
-#hooks_chart .plot:hover {
+#hooks_wrap .hooks_chart .plot:hover {
   box-shadow: 0 0 9px #d85000 !important;
 }
 #hook .opponent {
@@ -632,7 +610,11 @@ div.game_config div.color_submits button.random span {
   width: 230px;
   font-size: 0.9em;
 }
-#timeline > .entry {
+#timeline .entries {
+  height: 400px;
+  overflow: hidden;
+}
+#timeline .entry {
   padding-bottom: 8px;
   border-bottom: 1px solid #e4e4e4;
   margin-bottom: 8px;
@@ -653,6 +635,7 @@ div.game_config div.color_submits button.random span {
   padding-left: 0;
 }
 #timeline .links {
+  margin-top: 10px;
   width: 100%;
 }
 #timeline .links a {

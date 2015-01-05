@@ -9,7 +9,7 @@ import lila.tournament.System
 trait SetupHelper { self: I18nHelper =>
 
   def translatedTimeModeChoices(implicit ctx: Context) = List(
-    (TimeMode.Clock.id.toString, trans.clock.str(), none),
+    (TimeMode.RealTime.id.toString, trans.realTime.str(), none),
     (TimeMode.Correspondence.id.toString, trans.correspondence.str(), none),
     (TimeMode.Unlimited.id.toString, trans.unlimited.str(), none)
   )
@@ -35,25 +35,26 @@ trait SetupHelper { self: I18nHelper =>
   def translatedVariantChoicesWithVariants(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
       variantTuple(Variant.KingOfTheHill) :+
-      variantTuple(Variant.ThreeCheck)
+      variantTuple(Variant.ThreeCheck) :+
+      variantTuple(Variant.Antichess)
 
   def translatedVariantChoicesWithFen(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
       variantTuple(Variant.FromPosition)
 
   def translatedVariantChoicesWithFenAndKingOfTheHill(implicit ctx: Context) =
-    translatedVariantChoicesWithFen(ctx) :+
-      variantTuple(Variant.KingOfTheHill)
+    translatedVariantChoices(ctx) :+
+      variantTuple(Variant.KingOfTheHill) :+
+      variantTuple(Variant.FromPosition)
 
   def translatedVariantChoicesWithVariantsAndFen(implicit ctx: Context) =
     translatedVariantChoicesWithVariants :+
       variantTuple(Variant.FromPosition)
 
-  def translatedSpeedChoices(implicit ctx: Context) = Speed.all map { s =>
+  def translatedSpeedChoices(implicit ctx: Context) = Speed.limited map { s =>
     (s.id.toString, {
       (s.range.min, s.range.max) match {
         case (0, y)            => s.toString + " - " + trans.lessThanNbMinutes(y / 60 + 1)
-        case (x, Int.MaxValue) => trans.unlimited.str()
         case (x, y)            => s.toString + " - " + trans.xToYMinutes(x / 60, y / 60 + 1)
       }
     }, none)

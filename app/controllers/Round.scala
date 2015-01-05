@@ -54,26 +54,48 @@ object Round extends LilaController with TheftPrevention {
             PreventTheft(pov) {
               (pov.game.tournamentId ?? TournamentRepo.byId) zip
                 Env.game.crosstableApi(pov.game) zip
-                otherGames(pov.game) flatMap {
-                  case ((tour, crosstable), otherGames) =>
-                    Env.api.roundApi.player(pov, Env.api.version) map { data =>
-                      Ok(html.round.player(pov, data, tour = tour, cross = crosstable, otherGames = otherGames))
+                (!pov.game.isTournament ?? otherPovs(pov.gameId)) flatMap {
+                  case ((tour, crosstable), playing) =>
+                    Env.api.roundApi.player(pov, Env.api.version, playing) map { data =>
+                      Ok(html.round.player(pov, data, tour = tour, cross = crosstable, playing = playing))
                     }
                 }
             },
             Redirect(routes.Setup.await(fullId)).fuccess
           )
         },
-        api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { Ok(_) }
+        api = apiVersion => {
+          if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
+          Env.api.roundApi.player(pov, apiVersion, Nil) map { Ok(_) }
+        }
       )
     }
   }
 
-  private def otherGames(g: GameModel)(implicit ctx: Context) = ctx.me.ifFalse(g.hasClock) ?? { user =>
+  private def otherPovs(gameId: String)(implicit ctx: Context) = ctx.me ?? { user =>
     GameRepo nowPlaying user map {
-      _ filter { pov =>
-        pov.isMyTurn && pov.game.id != g.id
-      } sortBy Pov.priority
+      _ filter { _.game.id != gameId }
+    }
+  }
+
+  private def getNext(currentGame: GameModel)(povs: List[Pov])(implicit ctx: Context) =
+    povs find { pov =>
+      pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
+    } map (_.fullId)
+
+  def others(gameId: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo game gameId) { currentGame =>
+      otherPovs(gameId) map { povs =>
+        Ok(html.round.others(povs, nextId = getNext(currentGame)(povs)))
+      }
+    }
+  }
+
+  def next(gameId: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo game gameId) { currentGame =>
+      otherPovs(gameId) map getNext(currentGame) map { nextId =>
+        Ok(Json.obj("next" -> nextId))
+      }
     }
   }
 
@@ -85,7 +107,7 @@ object Round extends LilaController with TheftPrevention {
 
   def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
     negotiate(
-      html = if (pov.game.replayable) Analyse replay pov
+      html = if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
       else if (pov.game.joinable) join(pov)
       else ctx.userId.flatMap(pov.game.playerByUserId).ifTrue(pov.game.playable) match {
         case Some(player) => fuccess(Redirect(routes.Round.player(pov.game fullIdOf player.color)))
@@ -102,7 +124,7 @@ object Round extends LilaController with TheftPrevention {
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
     GameRepo initialFen pov.gameId zip
-      Env.api.roundApi.player(pov, Env.api.version) zip
+      Env.api.roundApi.player(pov, Env.api.version, otherPovs = Nil) zip
       ((pov.player.userId orElse pov.opponent.userId) ?? UserRepo.byId) map {
         case ((fen, data), opponent) => Ok(html.setup.join(
           pov, data, opponent, Env.setup.friendConfigMemo get pov.game.id, fen))

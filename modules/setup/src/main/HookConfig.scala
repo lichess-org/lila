@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.{ Variant, Mode, Color => ChessColor }
 import lila.lobby.Color
-import lila.lobby.Hook
+import lila.lobby.{ Hook, Seek }
 import lila.rating.RatingRange
 import lila.user.User
 
@@ -20,18 +20,33 @@ case class HookConfig(
   // allowAnons -> membersOnly
   def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, !allowAnon, ratingRange.toString.some, color.name).some
 
-  def hook(uid: String, user: Option[User], sid: Option[String], blocking: Set[String]) = Hook.make(
-    uid = uid,
-    variant = variant,
-    clock = makeClock,
-    daysPerTurn = makeDaysPerTurn,
-    mode = mode,
-    allowAnon = allowAnon,
-    color = color.name,
-    user = user,
-    blocking = blocking,
-    sid = sid,
-    ratingRange = ratingRange)
+  def hook(
+    uid: String,
+    user: Option[User],
+    sid: Option[String],
+    blocking: Set[String]): Either[Hook, Option[Seek]] = timeMode match {
+    case TimeMode.RealTime => Left(Hook.make(
+      uid = uid,
+      variant = variant,
+      clock = justMakeClock,
+      mode = mode,
+      allowAnon = allowAnon,
+      color = color.name,
+      user = user,
+      blocking = blocking,
+      sid = sid,
+      ratingRange = ratingRange))
+    case _ => Right(user map { u =>
+      Seek.make(
+        variant = variant,
+        daysPerTurn = makeDaysPerTurn,
+        mode = mode,
+        color = color.name,
+        user = u,
+        blocking = blocking,
+        ratingRange = ratingRange)
+    })
+  }
 
   def noRatedUnlimited = mode.casual || hasClock || makeDaysPerTurn.isDefined
 }
@@ -55,7 +70,7 @@ object HookConfig extends BaseHumanConfig {
 
   val default = HookConfig(
     variant = variantDefault,
-    timeMode = TimeMode.Clock,
+    timeMode = TimeMode.RealTime,
     time = 5,
     increment = 8,
     days = 2,

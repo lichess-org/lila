@@ -29,8 +29,10 @@ LichessEditor(document.getElementById('board_editor'), {
     trans.loadPosition,
     trans.whitePlays,
     trans.blackPlays,
+    trans.continueFromHere,
     trans.playWithTheMachine,
-    trans.playWithAFriend
+    trans.playWithAFriend,
+    trans.analysis
   )))
 });
 }
@@ -40,6 +42,7 @@ LichessEditor(document.getElementById('board_editor'), {
 title = trans.boardEditor.str(),
 menu = game.sideMenu(listMenu, "edit").some,
 moreJs = moreJs,
-moreCss = moreCss) {
+moreCss = moreCss,
+chessground = false) {
 <div id="board_editor" class="content_box cg-512" data-asset-url="@assetBaseUrl"></div>
 }

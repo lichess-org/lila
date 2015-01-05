@@ -8,6 +8,7 @@ final class Env(
     config: Config,
     hub: lila.hub.Env,
     detectLanguage: DetectLanguage,
+    mongoCache: lila.memo.MongoCache.Builder,
     db: lila.db.Env) {
 
   private val CollectionQuestion = config getString "collection.question"
@@ -19,6 +20,7 @@ final class Env(
   lazy val api = new QaApi(
     questionColl = questionColl,
     answerColl = db(CollectionAnswer),
+    mongoCache = mongoCache,
     notifier = notifier)
 
   private lazy val notifier = new Notifier(
@@ -37,5 +39,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "qa",
     hub = lila.hub.Env.current,
     detectLanguage = DetectLanguage(lila.common.PlayApp loadConfig "detectlanguage"),
+    mongoCache = lila.memo.Env.current.mongoCache,
     db = lila.db.Env.current)
 }

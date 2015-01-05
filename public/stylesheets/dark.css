@@ -97,11 +97,11 @@ body.dark div.user_show div.user-infos,
 body.dark div.game_config input[type="text"],
 body.dark #powerTip,
 body.dark #powerTip > .title,
-body.dark #hooks_list table th,
-body.dark #hooks_list table td,
+body.dark #hooks_wrap .table_wrap th,
+body.dark #hooks_wrap .table_wrap td,
 body.dark #hooks_wrap,
-body.dark #hooks_wrap > div.tabs > a,
-body.dark #hooks_chart > div.grid,
+body.dark #hooks_wrap div.tabs a,
+body.dark #hooks_wrap .hooks_chart > div.grid,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
 body.dark #enterable_tournaments table.scheduled,
@@ -134,11 +134,15 @@ body.dark #message_notifications div.notification,
 body.dark div.chat_menu > a {
   border-color: #3d3d3d;
 }
-body.dark .crosstable td.last {
+body.dark .crosstable td:nth-last-child(3) {
   border-right-color: #3d3d3d;
 }
-body.dark #hooks_wrap > div.tabs > a.active {
-  border-bottom-color: #303030;
+body.dark .crosstable td.current {
+  box-shadow: none;
+}
+body.dark .crosstable td.current a,
+body.dark #modal-wrap {
+  background-color: #303030;
 }
 body.dark .ui-slider,
 body.dark div.progressbar,
@@ -146,10 +150,9 @@ body.dark #translation_call div.progressbar,
 body.dark #themepicker div.theme:hover {
   background-color: #505050;
 }
-body.dark #hooks_wrap > div.tabs > a,
+body.dark #hooks_wrap div.tabs a,
 body.dark #top div.auth .links a:hover,
-body.dark #top ul.language_links a:hover,
-body.dark #top ul.language_links a.current,
+body.dark #top .language_links button:hover,
 body.dark #challenge_notifications > div.notification:hover,
 body.dark #message_notifications div.notification:hover {
   background-color: #3e3e3e;
@@ -177,7 +180,6 @@ body.dark div.undertable_top span.title {
   color: #777;
 }
 body.dark .crosstable td a,
-body.dark #hook_filter td > label.hover:hover,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
 }
@@ -195,30 +197,32 @@ body.dark div.chat_menu > a.active,
 body.dark div.chat_panels > .notes {
   background-color: #262626;
 }
-body.dark #hooks_list table td,
+body.dark #hooks_wrap .table_wrap td,
 body.dark #now_playing > a {
   background: rgba(40, 40, 40, 0.6);
   border-color: #242424;
 }
-body.dark #hooks_list table tr.cancel td {
+body.dark #hooks_wrap .table_wrap tr.cancel td {
   background: rgba(0, 80, 0, 0.7);
 }
-body.dark #hooks_list table tr:hover td,
+body.dark #hooks_wrap .table_wrap tr.hook:hover td,
 body.dark #now_playing > a:hover {
   background: rgba(27, 51, 68, 0.7);
 }
-body.dark #hook_filter {
-  background: rgba(0, 0, 0, 0.8);
-}
-body.dark #hook_filter td > label {
+body.dark #hooks_wrap .hook_filter .checkable {
   color: #c0c0c0;
 }
 body.dark #hooks_wrap,
-body.dark #hooks_wrap a.filter:hover,
-body.dark #hooks_wrap a.filter.active,
-body.dark #hooks_wrap > div.tabs > a:hover,
-body.dark #hooks_wrap > div.tabs > a.active {
+body.dark #hooks_wrap div.tabs a:hover,
+body.dark #hooks_wrap div.tabs a.active {
   background-color: #303030;
+}
+body.dark #hooks_wrap div.tabs a:hover {
+  border-top-color: #808080;
+}
+body.dark #hooks_wrap div.tabs a.active {
+  border-bottom-color: #303030;
+  border-top-color: #d85000;
 }
 body.dark div.table_not_started {
   box-shadow: none;
@@ -248,11 +252,11 @@ body.dark div.content_box .loader:after {
   background-color: #2b2b2b;
 }
 body.dark #timeline,
-body.dark #timeline > .entry {
+body.dark #timeline .entry {
   border-color: #2b2b2b;
 }
 body.dark #site_header div.side_menu a.active,
-body.dark #hooks_list table,
+body.dark #hooks_wrap .table_wrap,
 body.dark div.content_box h1 {
   text-shadow: 0px 1px 0px #000;
 }
@@ -272,7 +276,7 @@ body.dark #friend_box,
 body.dark #powerTip {
   background: #343434;
 }
-body.dark #top ul.language_links a.accepted,
+body.dark #top .language_links button.accepted,
 body.dark #lichess_forum div.post .message,
 body.dark #lichess_blog,
 body.dark #lichess_message div.thread_message div.thread_message_body,
@@ -341,10 +345,10 @@ body.dark .ui-state-hover {
   background: -ms-linear-gradient(top, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
   background: linear-gradient(to bottom, rgba(44, 44, 44, 1) 0%, rgba(40, 40, 40, 1) 100%);
 }
-body.dark #hooks_chart .plot {
+body.dark #hooks_wrap .hooks_chart .plot {
   box-shadow: 0 0 5px #000;
 }
-body.dark #hooks_chart > span.label {
+body.dark #hooks_wrap .hooks_chart > span.label {
   text-shadow: 0 0 3px #000;
 }
 body.dark .loader {

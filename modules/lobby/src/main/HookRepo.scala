@@ -6,7 +6,7 @@ object HookRepo {
 
   private var hooks = Vector[Hook]()
 
-  def findCompatible(hook: Hook): List[Hook] = allOpen filter (_ compatibleWith hook)
+  def findCompatible(hook: Hook): List[Hook] = list filter (_ compatibleWith hook)
 
   def list = hooks.toList
 
@@ -16,9 +16,7 @@ object HookRepo {
 
   def bySid(sid: String) = hooks find (_.sid == sid.some)
 
-  def allOpen: List[Hook] = list.filter(_.open)
-
-  def openNotInUids(uids: Set[String]): List[Hook] = allOpen.filterNot(h => uids(h.uid))
+  def notInUids(uids: Set[String]): List[Hook] = list.filterNot(h => uids(h.uid))
 
   def save(hook: Hook) {
     hooks = hooks.filterNot(_.id == hook.id) :+ hook

@@ -1,10 +1,10 @@
-@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], nowPlaying: List[Pov], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], nbRounds: Int)(implicit ctx: Context)
+@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], nbRounds: Int)(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
   @featured.map { g =>
   @gameFen(g, g.firstPlayer.color, tv = true)
-  @game.vstext(g)
+  @game.vstext(g)(ctx.some)
   }
 </div>
 }
@@ -29,7 +29,14 @@
 }
 
 @moreJs = {
-@embedJs(s"var lichess_preload = $preload;")
+@jsAt(s"compiled/lichess.lobby${isProd??(".min")}.js")
+@embedJs {
+lichess = lichess || {};
+lichess.lobby = {
+data: @Html(play.api.libs.json.Json.stringify(data)),
+i18n: @jsI18n()
+};
+}
 }
 
 @base.layout(
@@ -41,6 +48,7 @@ side = side.some,
 moreJs = moreJs,
 moreCss = cssTag("home.css"),
 underchat = underchat.some,
+chessground = false,
 openGraph = Map(
 'type -> "website",
 'image -> s"${staticUrl("images/large_tile.png")}",
@@ -53,46 +61,7 @@ openGraph = Map(
   @translationCall.map(i18n.callBox(_))
 </div>
 <div class="lobby_and_ground">
-  <div id="hooks_wrap" data-socket-url="@routes.Lobby.socket(apiVersion)">
-    <div class="tabs">
-      <a data-tab="list" class="list">@trans.list()</a>
-      <a data-tab="graph" class="graph">@trans.graph()</a>
-      @if(nowPlaying.nonEmpty) {
-      @defining(nowPlaying.count(_.isMyTurn)) { nb =>
-      <a data-tab="now_playing" class="now_playing @if(nb > 0){hilight}">
-        @trans.nbGamesInPlay(nowPlaying.size)
-        <span class="unread">@nb</span>
-      </a>
-      }
-      }
-    </div>
-    <a class="filter" href="@routes.Setup.filterForm()">
-      <span data-icon="D"> @trans.filterGames()</span>
-      <span class="number">(0)</span>
-    </a>
-    <div id="now_playing" class="tab now_playing none" data-href="@routes.Lobby.playing">
-      @playing(nowPlaying)
-    </div>
-    <div id="hooks_chart" class="tab graph none"><div class="canvas"></div></div>
-    <div id="hooks_list" class="tab list none">
-      <div class="table_wrap">
-        <table>
-          <thead>
-            <tr>
-              <th class="reload"><span data-icon="P"></span></th>
-              <th data-sort="string" class="player"><span class="is">&nbsp;@trans.player()</span></th>
-              <th data-sort="int" class="rating"><span class="is">&nbsp;Rating</span></th>
-              <th data-sort="int"><span class="is">&nbsp;@trans.time()</span></th>
-              <th data-sort="string"><span class="is">&nbsp;@trans.mode()</span></th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-    <div id="hook_overlay"></div>
-    <div id="hook_filter"></div>
-  </div>
+  <div id="hooks_wrap"></div>
   <div id="start_buttons" class="lichess_ground">
     @lobbyMenu.all.map { b =>
     <a class="fat button config_@b.code hint--bottom" href="@b.route" onclick="return false">@b.name()</a>

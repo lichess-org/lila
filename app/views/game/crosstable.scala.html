@@ -1,4 +1,4 @@
-@(crosstable: lila.game.Crosstable)(implicit ctx: Context)
+@(crosstable: lila.game.Crosstable, currentId: Option[String])(implicit ctx: Context)
 
 <table>
   <tbody>
@@ -11,7 +11,7 @@
       }
       @crosstable.results.zipWithIndex.map {
       case (r, index) => {
-      <td @if(index == crosstable.size - 1) { class="last" }>
+      <td @if(currentId.??(r.gameId==)){class="current"}>
         <a href="@routes.Round.watcher(r.gameId, "white")" class="@r.winnerId match {
           case Some(w) if w == u.id => { win }
           case None => {}

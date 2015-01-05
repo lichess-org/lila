@@ -11,6 +11,7 @@ case class Perfs(
     chess960: Perf,
     kingOfTheHill: Perf,
     threeCheck: Perf,
+    antichess: Perf,
     bullet: Perf,
     blitz: Perf,
     classical: Perf,
@@ -22,6 +23,7 @@ case class Perfs(
     "chess960" -> chess960,
     "kingOfTheHill" -> kingOfTheHill,
     "threeCheck" -> threeCheck,
+    "antichess" -> antichess,
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
@@ -40,7 +42,7 @@ case class Perfs(
   }
 
   def bestRating: Int = {
-    val ps = List(bullet, blitz, classical, correspondence, chess960, kingOfTheHill, threeCheck)
+    val ps = List(bullet, blitz, classical, correspondence, chess960, kingOfTheHill, threeCheck, antichess)
     val minNb = ps.foldLeft(0)(_ + _.nb) / 10
     ps.foldLeft(none[Int]) {
       case (ro, p) if p.nb >= minNb => ro.fold(p.intRating.some) { r =>
@@ -54,6 +56,7 @@ case class Perfs(
     "chess960" -> chess960,
     "kingOfTheHill" -> kingOfTheHill,
     "threeCheck" -> threeCheck,
+    "antichess" -> antichess,
     "bullet" -> bullet,
     "blitz" -> blitz,
     "classical" -> classical,
@@ -75,6 +78,7 @@ case class Perfs(
     case PerfType.Chess960       => chess960
     case PerfType.KingOfTheHill  => kingOfTheHill
     case PerfType.ThreeCheck     => threeCheck
+    case PerfType.Antichess      => antichess
     case PerfType.Puzzle         => puzzle
   }
 
@@ -105,7 +109,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p)
   }
 
   def variantLens(variant: Variant): Option[Perfs => Perf] = variant match {
@@ -113,6 +117,7 @@ case object Perfs {
     case Variant.Chess960      => Some(_.chess960)
     case Variant.KingOfTheHill => Some(_.kingOfTheHill)
     case Variant.ThreeCheck    => Some(_.threeCheck)
+    case Variant.Antichess     => Some(_.antichess)
     case Variant.FromPosition  => none
   }
 
@@ -120,7 +125,7 @@ case object Perfs {
     case Speed.Bullet => perfs => perfs.bullet
     case Speed.Blitz => perfs => perfs.blitz
     case Speed.Classical => perfs => perfs.classical
-    case Speed.Unlimited => perfs => perfs.correspondence
+    case Speed.Correspondence => perfs => perfs.correspondence
   }
 
   private def PerfsBSONHandler = new BSON[Perfs] {
@@ -135,6 +140,7 @@ case object Perfs {
         chess960 = perf("chess960"),
         kingOfTheHill = perf("kingOfTheHill"),
         threeCheck = perf("threeCheck"),
+        antichess = perf("antichess"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
         classical = perf("classical"),
@@ -149,6 +155,7 @@ case object Perfs {
       "chess960" -> notNew(o.chess960),
       "kingOfTheHill" -> notNew(o.kingOfTheHill),
       "threeCheck" -> notNew(o.threeCheck),
+      "antichess" -> notNew(o.antichess),
       "bullet" -> notNew(o.bullet),
       "blitz" -> notNew(o.blitz),
       "classical" -> notNew(o.classical),

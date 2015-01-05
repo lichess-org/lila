@@ -53,13 +53,10 @@ private[i18n] final class JsDump(
     keys.challengeToPlay,
     keys.youNeedAnAccountToDoThat,
     keys.createANewTournament,
+    keys.withdraw,
     keys.join,
     keys.joinTheGame,
-    keys.cancel,
-    keys.withdraw,
-    keys.tournamentIsStarting,
-    keys.oneDay,
-    keys.nbDays)
+    keys.tournamentIsStarting)
 
   private val pathFile = new File(path)
 

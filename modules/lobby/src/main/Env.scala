@@ -24,6 +24,9 @@ final class Env(
     val ActorName = config getString "actor.name"
     val BroomPeriod = config duration "broom_period"
     val ResyncIdsPeriod = config duration "resync_ids_period"
+    val CollectionSeek = config getString "collection.seek"
+    val SeekMaxPerPage = config getInt "seek.max_per_page"
+    val SeekMaxPerUser = config getInt "seek.max_per_user"
   }
   import settings._
 
@@ -33,8 +36,15 @@ final class Env(
     uidTtl = SocketUidTtl
   )), name = SocketName)
 
+  lazy val seekApi = new SeekApi(
+    coll = db(CollectionSeek),
+    blocking = blocking,
+    maxPerPage = SeekMaxPerPage,
+    maxPerUser = SeekMaxPerUser)
+
   val lobby = system.actorOf(Props(new Lobby(
     socket = socket,
+    seekApi = seekApi,
     blocking = blocking,
     onStart = onStart
   )), name = ActorName)

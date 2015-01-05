@@ -1,8 +1,10 @@
-@(field: play.api.data.Field, options: Seq[(String,String, Option[String])])
+@(field: play.api.data.Field, options: Seq[(String, String, Option[String])])
 <select id="@field.id" name="@field.name">
-  @options.map { v =>
-  <option value="@v._1" class="@{field.name}_@v._1" @v._3.map { title =>
-  title="@title"
-  } @if(field.value.contains(v._1)){selected="selected"}>@v._2</option>
+  @options.map {
+  case (value, name, title) => {
+  <option value="@value" class="@{field.name}_@value" @title.map { t =>
+  title="@t"
+  } @if(field.value.contains(value)){selected="selected"}>@name</option>
+  }
   }
 </select>

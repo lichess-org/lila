@@ -147,14 +147,10 @@ module.exports = function(cfg, router, i18n) {
     chessground.anim(puzzle.jump, this.chessground.data)(this.data, to);
   }.bind(this);
 
-  this.toggleContinueLinks = function() {
-    this.data.showContinueLinks(!this.data.showContinueLinks());
-  }.bind(this);
-
   this.router = router;
 
-  this.trans = function() {
-    var str = i18n[arguments[0]]
+  this.trans = function(key) {
+    var str = i18n[key] || key;
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
       str = str.replace('%s', arg);
     });

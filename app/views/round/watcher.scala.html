@@ -1,8 +1,6 @@
 @(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], userTv: Option[User] = None)(implicit ctx: Context)
 
-@import pov._
-
-@title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in $gameId" }
+@title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in ${pov.gameId}" }
 
 @moreJs = {
 @jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
@@ -23,11 +21,12 @@ side = views.html.game.side(pov, tour, withTourStanding = false, userTv = userTv
 chat = base.chatDom(trans.spectatorRoom.str()).some,
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
-openGraph = povOpenGraph(pov)) {
+openGraph = povOpenGraph(pov),
+chessground = false) {
 <div class="round cg-512">@miniBoardContent</div>
 <div class="crosstable" style="display:none">
   @cross.map { c =>
-  @views.html.game.crosstable(c)
+  @views.html.game.crosstable(c, pov.gameId.some)
   }
 </div>
 }

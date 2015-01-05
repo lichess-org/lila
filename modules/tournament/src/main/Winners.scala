@@ -2,12 +2,20 @@ package lila.tournament
 
 import scala.concurrent.duration.FiniteDuration
 
+import lila.db.BSON._
 import lila.user.{ User, UserRepo }
 
-final class Winners(ttl: FiniteDuration) {
+final class Winners(
+    mongoCache: lila.memo.MongoCache.Builder,
+    ttl: FiniteDuration) {
 
-  private val scheduledCache =
-    lila.memo.AsyncCache(fetchScheduled, timeToLive = ttl)
+  private implicit val WinnerBSONHandler =
+    reactivemongo.bson.Macros.handler[Winner]
+
+  private val scheduledCache = mongoCache[Int, List[Winner]](
+    prefix = "tournament:winner",
+    f = fetchScheduled,
+    timeToLive = ttl)
 
   import Schedule.Freq
   private def fetchScheduled(nb: Int): Fu[List[Winner]] =
@@ -24,9 +32,9 @@ final class Winners(ttl: FiniteDuration) {
       tour.winner map { w =>
         Winner(tour.id, tour.name, w.id)
       }
-  }.map { winner =>
-    UserRepo isEngine winner.userId map (!_ option winner)
-  }.sequenceFu map (_.flatten)
+    }.map { winner =>
+      UserRepo isEngine winner.userId map (!_ option winner)
+    }.sequenceFu map (_.flatten)
 
   def scheduled(nb: Int): Fu[List[Winner]] = scheduledCache apply nb
 }

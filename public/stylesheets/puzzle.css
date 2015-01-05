@@ -107,10 +107,6 @@
   height: 22px;
   display:inline-block;
 }
-#puzzle div.continue.links {
-  margin: 20px 0 20px 0;
-  text-align: center;
-}
 #puzzle #GameButtons {
   display: inline-block;
   margin-left: 10px;

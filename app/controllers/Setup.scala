@@ -93,7 +93,12 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
         api = _ => BadRequest(err.errorsAsJson).fuccess),
       config => (ctx.userId ?? Env.relation.api.blocking) flatMap { blocking =>
         JsonOk {
-          env.processor.hook(config, uid, lila.common.HTTPRequest sid req, blocking) inject Json.obj("ok" -> true)
+          env.processor.hook(config, uid, lila.common.HTTPRequest sid req, blocking) map { hookId =>
+            Json.obj(
+              "ok" -> true,
+              "hook" -> Json.obj(
+                "id" -> hookId))
+          }
         }
       }
     )
@@ -133,7 +138,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
     OptionFuResult(GameRepo pov fullId) { pov =>
       pov.game.started.fold(
         Redirect(routes.Round.player(pov.fullId)).fuccess,
-          Env.api.roundApi.player(pov, Env.api.version) zip
+          Env.api.roundApi.player(pov, Env.api.version, otherPovs = Nil) zip
           (userId ?? UserRepo.named) flatMap {
             case (data, user) => PreventTheft(pov) {
               Ok(html.setup.await(
@@ -180,7 +185,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
         config => op(config)(ctx) flatMap {
           case (pov, call) => negotiate(
             html = fuccess(redirectPov(pov, call)),
-            api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { data =>
+            api = apiVersion => Env.api.roundApi.player(pov, apiVersion, otherPovs = Nil) map { data =>
               Created(data) as JSON
             }
           )

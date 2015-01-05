@@ -86,10 +86,11 @@ case class Game(
   // in tenths
   private def lastMoveTime: Option[Long] = castleLastMoveTime.lastMoveTime map {
     _.toLong + (createdAt.getMillis / 100)
-  }
+  } orElse updatedAt.map(_.getMillis / 100)
+
   private def lastMoveTimeDate: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
     createdAt plusMillis (lmt * 100)
-  }
+  } orElse updatedAt
 
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
@@ -223,7 +224,7 @@ case class Game(
 
   def speed = chess.Speed(clock)
 
-  def perfType = PerfType(PerfPicker.key(this))
+  lazy val perfType = PerfType(PerfPicker.key(this))
 
   def started = status >= Status.Started
 
@@ -335,9 +336,11 @@ case class Game(
     if c outoftime player.color
   } yield player
 
-  def isCorrespondence = daysPerTurn.isDefined
+  def isCorrespondence = speed == chess.Speed.Correspondence
 
   def hasClock = clock.isDefined
+
+  def isUnlimited = !hasClock && daysPerTurn.isEmpty
 
   def isClockRunning = clock ?? (_.isRunning)
 

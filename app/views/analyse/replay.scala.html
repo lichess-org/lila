@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], division: chess.Division)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
 
 @import pov._
 
@@ -42,7 +42,7 @@ i18n: @round.jsI18n()
 
 @analyse.layout(
 title = title,
-side = views.html.game.side(pov, tour, withTourStanding = false).some,
+side = views.html.game.side(pov, tour, withTourStanding = false, userTv = userTv).some,
 chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth).some,
 underchat = underchat.some,
 moreCss = moreCss,
@@ -135,21 +135,21 @@ openGraph = povOpenGraph(pov)) {
     </div>
     @cross.map { c =>
     <div class="panel crosstable">
-      @views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov))
+      @views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
     </div>
     }
   </div>
   <div class="analysis_menu">
     @if(game.analysable) {
-    <a data-panel="computer_analysis">@trans.computerAnalysis()</a>
+    <a data-panel="computer_analysis" class="computer_analysis">@trans.computerAnalysis()</a>
     }
     @if(!game.isPgnImport) {
-    <a data-panel="move_times">@trans.moveTimes()</a>
+    <a data-panel="move_times" class="move_times">@trans.moveTimes()</a>
     @if(cross.isDefined) {
-    <a data-panel="crosstable">Crosstable</a>
+    <a data-panel="crosstable" class="crosstable">Crosstable</a>
     }
     }
-    <a data-panel="fen_pgn">FEN &amp; PGN</a>
+    <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>
   </div>
   @analysis.filter(_.old && ctx.isAuth).map { a =>
   <form class="better_analysis" action="@routes.Analyse.betterAnalysis(gameId, color.name)" method="post">

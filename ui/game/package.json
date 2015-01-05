@@ -31,6 +31,6 @@
   },
   "dependencies": {
     "lodash-node": "^2.4.1",
-    "mithril": "0.1.27"
+    "mithril": "0.1.28"
   }
 }
