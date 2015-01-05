@@ -41,6 +41,8 @@ object TournamentRepo {
     "schedule" -> BSONDocument("$exists" -> false)
   )).toList[Created](None)
 
+  def createdIncludingScheduled: Fu[List[Created]] = coll.find(createdSelect).toList[Created](None)
+
   def started: Fu[List[Started]] =
     coll.find(startedSelect).sort(BSONDocument("createdAt" -> -1)).toList[Started](None)
 
@@ -89,7 +91,7 @@ object TournamentRepo {
   def exists(id: String) = coll.db command Count(coll.name, BSONDocument("_id" -> id).some) map (0 !=)
 
   def withdraw(userId: String): Fu[List[String]] = for {
-    createds ← created
+    createds ← createdIncludingScheduled
     createdIds ← (createds map (_ withdraw userId) collect {
       case scalaz.Success(tour) => update(tour) inject tour.id
     }).sequenceFu
