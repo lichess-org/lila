@@ -19,13 +19,19 @@ object JsData extends lila.Steroids {
         "attempts" -> opening.attempts,
         "fen" -> opening.fen,
         "color" -> opening.color.name,
-        "moves" -> JsArray(opening.scoredMoves.map {
-          case ScoredMove(move, score) => Json.obj(
+        "moves" -> JsArray(opening.qualityMoves.map {
+          case QualityMove(move, quality) => Json.obj(
             "first" -> move.first,
             "cp" -> move.cp,
             "line" -> move.line.mkString(" "),
-            "score" -> score.name)
+            "quality" -> quality.name)
         }),
         "url" -> s"$netBaseUrl${routes.Opening.show(opening.id)}"
-      ))))
+      ),
+      "user" -> userInfos.map { i =>
+        Json.obj(
+          "score" -> i.score,
+          "history" -> i.history.nonEmpty.option(Json.toJson(i.chart))
+        )
+      })))
 }

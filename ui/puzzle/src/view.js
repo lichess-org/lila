@@ -40,7 +40,7 @@ function renderTrainingBox(ctrl) {
       }, 'Puzzle'),
       m('a.button', {
         href: '/training/coordinate'
-      }, 'Coordinate')
+      }, 'Coord')
     ]),
     ctrl.data.user ? renderUserInfos(ctrl) : m('div.register', [
       m('p', ctrl.trans('toTrackYourProgress')),

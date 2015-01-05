@@ -17,28 +17,39 @@ case class Opening(
     attempts: Int,
     score: Double) {
 
-  def scoredMoves = moves.map { move =>
-    ScoredMove(move, Score.Good)
+  def qualityMoves: List[QualityMove] = {
+    val bestCp = moves.foldLeft(Int.MaxValue) {
+      case (cp, move) => if (move.cp < cp) move.cp else cp
+    }
+    moves.map { move =>
+      QualityMove(move, Quality(move.cp - bestCp))
+    }
   }
 }
 
-sealed trait Score {
-  def name = toString.toLowerCase
+sealed abstract class Quality(val threshold: Int) {
+  val name = toString.toLowerCase
 }
-object Score {
-  case object Great extends Score
-  case object Good extends Score
-  case object Dubious extends Score
-  case object Bad extends Score
+object Quality {
+  case object Good extends Quality(30)
+  case object Dubious extends Quality(80)
+  case object Bad extends Quality(Int.MaxValue)
+
+  def apply(cp: Int) =
+    if (cp < Good.threshold) Good
+    else if (cp < Dubious.threshold) Dubious
+    else Bad
 }
 
-case class ScoredMove(
+case class QualityMove(
   move: Move,
-  score: Score)
+  quality: Quality)
 
 object Opening {
 
   type ID = Int
+
+  val defaultScore = 50
 
   def make(
     fen: String,
