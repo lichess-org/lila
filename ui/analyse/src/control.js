@@ -26,7 +26,7 @@ module.exports = {
     var p = ctrl.vm.path;
     var len = p.length;
     if (len === 1) {
-      if (p[0].ply === 1) return;
+      if (p[0].ply === 0) return;
       p[0].ply--;
     } else {
       if (p[len - 1].ply > p[len - 2].ply) p[len - 1].ply--;
