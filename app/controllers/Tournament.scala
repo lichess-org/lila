@@ -60,14 +60,12 @@ object Tournament extends LilaController {
     implicit me =>
       NoEngine {
         negotiate(
-          html = OptionFuRedirect(repo enterableById id) { tour =>
-            if (tour.hasPassword) fuccess {
-              routes.Tournament.joinPassword(id)
-            }
-            else {
+          html = repo enterableById id map {
+            case None                           => tournamentNotFound
+            case Some(tour) if tour.hasPassword => Redirect(routes.Tournament.joinPassword(id))
+            case Some(tour) =>
               env.api.join(tour, me, none)
-              fuccess(routes.Tournament.show(tour.id))
-            }
+              Redirect(routes.Tournament.show(tour.id))
           },
           api = _ => OptionFuOk(repo enterableById id) { tour =>
             env.api.join(tour, me, none)
