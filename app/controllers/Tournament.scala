@@ -42,7 +42,7 @@ object Tournament extends LilaController {
   }
 
   private def fetchTournaments =
-    env allCreatedSorted true zip repo.noPasswordStarted zip repo.finished(20)
+    env allCreatedSorted true zip repo.publicStarted zip repo.finished(20)
 
   def show(id: String) = Open { implicit ctx =>
     repo byId id flatMap {
@@ -61,49 +61,18 @@ object Tournament extends LilaController {
       NoEngine {
         negotiate(
           html = repo enterableById id map {
-            case None                           => tournamentNotFound
-            case Some(tour) if tour.hasPassword => Redirect(routes.Tournament.joinPassword(id))
+            case None => tournamentNotFound
             case Some(tour) =>
-              env.api.join(tour, me, none)
+              env.api.join(tour, me)
               Redirect(routes.Tournament.show(tour.id))
           },
           api = _ => OptionFuOk(repo enterableById id) { tour =>
-            env.api.join(tour, me, none)
+            env.api.join(tour, me)
             fuccess(Json.obj("ok" -> true))
           }
         )
       }
   }
-
-  def joinPasswordForm(id: String) = Auth { implicit ctx =>
-    implicit me => NoEngine {
-      repo createdById id flatMap {
-        _.fold(tournamentNotFound(ctx).fuccess) { tour =>
-          renderJoinPassword(tour, env.forms.joinPassword) map { Ok(_) }
-        }
-      }
-    }
-  }
-
-  def joinPassword(id: String) = AuthBody { implicit ctx =>
-    implicit me =>
-      NoEngine {
-        implicit val req = ctx.body
-        repo createdById id flatMap {
-          _.fold(tournamentNotFound(ctx).fuccess) { tour =>
-            env.forms.joinPassword.bindFromRequest.fold(
-              err => renderJoinPassword(tour, err) map { BadRequest(_) },
-              password => {
-                env.api.join(tour, me, password.some)
-                fuccess(Redirect(routes.Tournament.show(tour.id)))
-              })
-          }
-        }
-      }
-  }
-
-  private def renderJoinPassword(tour: Created, form: Form[_])(implicit ctx: Context) =
-    env version tour.id map { html.tournament.joinPassword(tour, form, _) }
 
   def withdraw(id: String) = Auth { implicit ctx =>
     me =>

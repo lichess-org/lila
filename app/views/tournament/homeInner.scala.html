@@ -6,7 +6,7 @@
 <span class="joined label" data-icon="E">&nbsp;JOINED</span>
 } else {
 <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
-  <button data-icon="@tour.hasPassword.fold("a", "G")" type="submit" class="submit button">&nbsp;@trans.join()</button>
+  <button data-icon="G" type="submit" class="submit button text">@trans.join()</button>
 </form>
 }
 }

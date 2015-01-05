@@ -120,8 +120,6 @@ POST  /tournament/new                         controllers.Tournament.create
 GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id: String)
 GET   /tournament/$id<\w{8}>/socket/v:apiVersion  controllers.Tournament.websocket(id: String, apiVersion: Int)
 POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: String)
-GET   /tournament/$id<\w{8}>/join/password    controllers.Tournament.joinPasswordForm(id: String)
-POST  /tournament/$id<\w{8}>/join/password    controllers.Tournament.joinPassword(id: String)
 POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.withdraw(id: String)
 POST  /tournament/$id<\w{8}>/early-start      controllers.Tournament.earlyStart(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)

@@ -58,7 +58,7 @@ private[tournament] final class TournamentApi(
         minutes = setup.minutes,
         minPlayers = setup.minPlayers,
         mode = setup.mode.fold(Mode.default)(Mode.orDefault),
-        password = setup.password,
+        `private` = setup.`private`.isDefined,
         system = System orDefault setup.system,
         variant = Variant orDefault setup.variant)
       TournamentRepo.insert(created).void >>-
@@ -117,10 +117,10 @@ private[tournament] final class TournamentApi(
     }
   }
 
-  def join(oldTour: Enterable, me: User, password: Option[String]) {
+  def join(oldTour: Enterable, me: User) {
     sequence(oldTour.id) {
       TournamentRepo enterableById oldTour.id flatMap {
-        case Some(tour) => tour.join(me, password).future flatMap { tour2 =>
+        case Some(tour) => tour.join(me).future flatMap { tour2 =>
           TournamentRepo withdraw me.id flatMap { withdrawIds =>
             TournamentRepo.update(tour2).void >>- {
               sendTo(tour.id, Joining(me.id))

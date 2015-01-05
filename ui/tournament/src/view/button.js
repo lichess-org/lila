@@ -12,7 +12,7 @@ function withdraw(ctrl) {
 
 function join(ctrl) {
   return m('button.button.right.text', {
-    'data-icon': ctrl.data.private ? 'a' : 'G',
+    'data-icon': 'G',
     onclick: partial(xhr.join, ctrl)
   }, ctrl.trans('join'));
 }

@@ -42,7 +42,10 @@ module.exports = {
   title: function(ctrl) {
     return m('h1.text[data-icon=g]', [
       ctrl.data.fullName,
-      ctrl.data.private ? m('span.text[data-icon=a]', ctrl.trans('isPrivate')) : null
+      ctrl.data.private ? [
+        ' ',
+        m('span.text[data-icon=a]', ctrl.trans('isPrivate'))
+      ] : null
     ]);
   },
   player: function(p) {

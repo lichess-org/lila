@@ -8,16 +8,6 @@
   }.getOrElse {
   @momentFormat(tour.createdAt)
   }
-  @tour.password.map { password =>
-  <br />
-  <span data-icon="a">
-    @if(ctx.userId == tour.createdBy.some) {
-    @trans.password(): @tour.password
-    } else {
-    @trans.isPrivate()
-    }
-  </span>
-  }
   <br /><br />
   <span data-icon="p"> @tour.clock.show</span>,
   @game.variantLink(tour.variant, variantName(tour.variant)),

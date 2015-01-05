@@ -101,7 +101,7 @@ final class Env(
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
 
   val allCreatedSorted =
-    lila.memo.AsyncCache.single(TournamentRepo.noPasswordCreatedSorted, timeToLive = CreatedCacheTtl)
+    lila.memo.AsyncCache.single(TournamentRepo.publicCreatedSorted, timeToLive = CreatedCacheTtl)
 
   val promotable =
     lila.memo.AsyncCache.single(TournamentRepo.promotable, timeToLive = CreatedCacheTtl)

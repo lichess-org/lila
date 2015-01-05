@@ -21,7 +21,7 @@ final class JsonView(
         "createdBy" -> tour.createdBy,
         "system" -> tour.system.toString.toLowerCase,
         "fullName" -> tour.fullName,
-        "private" -> tour.hasPassword,
+        "private" -> tour.`private`,
         "schedule" -> tour.schedule.map(scheduleJson),
         "variant" -> tour.variant.key,
         "players" -> tour.rankedPlayers.map((playerJson(sheets) _).tupled),

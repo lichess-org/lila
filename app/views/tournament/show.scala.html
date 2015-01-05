@@ -29,7 +29,7 @@ chessground = false) {
 <div id="tournament" @if(tour.scheduled) { class="scheduled" }></div>
 @if(!tour.isRunning && !tour.isFinished) {
 <div id="tournament_faq" class="none">
-  @faq(!tour.scheduled option tour.minPlayers.toString, tour.rated.some, tour.system.some)
+  @faq(!tour.scheduled option tour.minPlayers.toString, tour.rated.some, tour.system.some, tour.`private`.option(tour.id))
 </div>
 }
 }
