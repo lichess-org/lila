@@ -29,7 +29,7 @@ object Rewind {
         castleLastMoveTime = CastleLastMoveTime(
           castles = rewindedHistory.castles,
           lastMove = rewindedHistory.lastMove,
-          lastMoveTime = Some(nowSeconds - game.createdAt.getSeconds.toInt),
+          lastMoveTime = Some(((nowMillis - game.createdAt.getMillis) / 100).toInt),
           check = if (rewindedSituation.check) rewindedSituation.kingPos else None),
         binaryMoveTimes = BinaryFormat.moveTime write (game.moveTimes take rewindedGame.turns),
         status = game.status,
