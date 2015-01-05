@@ -34,6 +34,9 @@ object Rewind {
         binaryMoveTimes = BinaryFormat.moveTime write (game.moveTimes take rewindedGame.turns),
         status = game.status,
         clock = game.clock map (_.takeback))
-      Progress(game, newGame, newGame.clock.map(Event.Clock.apply).toList)
+      Progress(game, newGame, List(
+        newGame.clock.map(Event.Clock.apply),
+        newGame.correspondenceClock.map(Event.CorrespondenceClock.apply)
+      ).flatten)
     }
 }
