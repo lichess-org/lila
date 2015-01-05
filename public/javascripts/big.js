@@ -1062,9 +1062,8 @@ lichess.storage = {
   var startTournamentClock = function() {
     $("div.game_tournament div.clock").each(function() {
       $(this).clock({
-        time: $(this).data("time"),
-        showTenths: false
-      }).clock("start");
+        time: parseFloat($(this).data("time"))
+      });
     });
   };
 
@@ -1352,91 +1351,41 @@ lichess.storage = {
 
   $.widget("lichess.clock", {
     _create: function() {
-      var o = this.options;
-      this.options.time = parseFloat(this.options.time) * 1000;
-      this.options.barTime = parseFloat(this.options.barTime) * 1000;
-      this.options.emerg = parseFloat(this.options.emerg) * 1000;
-      $.extend(this.options, {
-        state: 'ready'
-      });
+      var self = this;
+      this.options.time = this.options.time * 1000;
       this.$time = this.element.find('>div.time');
-      this.$bar = this.element.find('>div.bar>span');
-      this._show();
+      var end_time = new Date().getTime() + self.options.time;
+      self.options.interval = setInterval(function() {
+          var current_time = Math.round(end_time - new Date().getTime());
+          if (current_time <= 0) {
+            clearInterval(self.options.interval);
+            current_time = 0;
+          }
+          self.options.time = current_time;
+          self._show();
+        },
+        1000);
     },
     destroy: function() {
       this.stop();
       $.Widget.prototype.destroy.apply(this);
     },
-    start: function() {
-      var self = this;
-      self.options.state = 'running';
-      self.element.addClass('running');
-      var end_time = new Date().getTime() + self.options.time;
-      self.options.interval = setInterval(function() {
-          if (self.options.state == 'running') {
-            var current_time = Math.round(end_time - new Date().getTime());
-            if (current_time <= 0) {
-              clearInterval(self.options.interval);
-              current_time = 0;
-            }
-
-            self.options.time = current_time;
-            self._show();
-
-            //If the timer completed, fire the buzzer callback
-            if (current_time === 0 && $.isFunction(self.options.buzzer)) self.options.buzzer(self.element);
-          } else {
-            clearInterval(self.options.interval);
-          }
-        },
-        100);
-    },
-
-    setTime: function(time) {
-      this.options.time = parseFloat(time) * 1000;
-      this._show();
-    },
-
-    getSeconds: function() {
-      return Math.round(this.options.time / 1000);
-    },
-
-    stop: function() {
-      clearInterval(this.options.interval);
-      this.options.state = 'stop';
-      this.element.removeClass('running');
-      this.element.toggleClass('outoftime', this.options.time <= 0);
-    },
-
     _show: function() {
-      var html = this._formatDate(new Date(this.options.time));
-      if (html != this.$time.html()) {
-        this.$time.html(html);
-        this.element.toggleClass('emerg', this.options.time < this.options.emerg);
-      }
-      if (this.options.showBar) {
-        var barWidth = Math.max(0, Math.min(100, (this.options.time / this.options.barTime) * 100));
-        this.$bar.css('width', barWidth + '%');
-      }
+      this.$time.html(this._formatDate(new Date(this.options.time)));
     },
-
     _formatDate: function(date) {
       var minutes = this._prefixInteger(date.getUTCMinutes(), 2);
       var seconds = this._prefixInteger(date.getSeconds(), 2);
       var b = function(x) {
         return '<b>' + x + '</b>';
       };
-      if (this.options.showTenths && this.options.time < 10000) {
-        tenths = Math.floor(date.getMilliseconds() / 100);
-        return b(minutes) + ':' + b(seconds) + '<span>.' + b(tenths) + '</span>';
-      } else if (this.options.time >= 3600000) {
+      if (this.options.time >= 3600000) {
         var hours = this._prefixInteger(date.getUTCHours(), 2);
         return b(hours) + ':' + b(minutes) + ':' + b(seconds);
       } else {
         return b(minutes) + ':' + b(seconds);
       }
     },
-
     _prefixInteger: function(num, length) {
       return (num / Math.pow(10, length)).toFixed(length).substr(2);
     }
@@ -1905,8 +1854,8 @@ lichess.storage = {
     function startClock() {
       $("div.tournament_clock").each(function() {
         $(this).clock({
-          time: $(this).data("time")
-        }).clock("start");
+          time: parseFloat($(this).data("time"))
+        });
       });
     }
     startClock();
