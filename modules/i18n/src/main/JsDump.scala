@@ -53,6 +53,7 @@ private[i18n] final class JsDump(
     keys.challengeToPlay,
     keys.youNeedAnAccountToDoThat,
     keys.createANewTournament,
+    keys.withdraw,
     keys.join,
     keys.joinTheGame,
     keys.tournamentIsStarting)

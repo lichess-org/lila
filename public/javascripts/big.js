@@ -416,6 +416,7 @@ lichess.storage = {
             $('#tournament_reminder').remove();
             return false;
           });
+          $('body').trigger('lichess.content_loaded');
         }
       },
       challengeReminder: function(data) {
