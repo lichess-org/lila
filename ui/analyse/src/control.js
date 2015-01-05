@@ -25,14 +25,15 @@ module.exports = {
   prev: function(ctrl) {
     var p = ctrl.vm.path;
     var len = p.length;
-    if (len == 1) {
-      if (p[0].ply == 1) return;
+    if (len === 1) {
+      if (p[0].ply === 1) return;
       p[0].ply--;
     } else {
       if (p[len - 1].ply > p[len - 2].ply) p[len - 1].ply--;
       else {
         p.pop();
         p[len - 2].variation = null;
+        if (p[len - 2].ply > 1) p[len - 2].ply--;
       }
     }
     ctrl.jump(p);
