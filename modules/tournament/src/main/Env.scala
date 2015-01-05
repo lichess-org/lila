@@ -45,6 +45,7 @@ final class Env(
   lazy val forms = new DataForm(isDev)
 
   lazy val api = new TournamentApi(
+    system = system,
     sequencers = sequencerMap,
     autoPairing = autoPairing,
     router = hub.actor.router,

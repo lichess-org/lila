@@ -1826,8 +1826,8 @@ lichess.storage = {
 
   $(function() {
 
-    var $tournamentList = $('#tournamentList');
-    if (!lichess.tournament) {
+    var $tournamentList = $('#tournament_list');
+    if ($tournamentList.length) {
       // handle tournament list
       lichess.StrongSocket.defaults.params.flag = "tournament";
       lichess.StrongSocket.defaults.events.reload = function() {
