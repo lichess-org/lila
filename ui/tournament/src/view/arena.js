@@ -2,11 +2,7 @@ var m = require('mithril');
 var partial = require('chessground').util.partial;
 var tournament = require('../tournament');
 var util = require('./util');
-
-var legend = m('th.legend', [
-  m('span.streakstarter', 'Streak starter'),
-  m('span.double', 'Double points')
-]);
+var button = require('./button');
 
 function scoreTag(s) {
   return {
@@ -61,6 +57,11 @@ function playerTrs(ctrl, maxScore, player) {
   }];
 }
 
+var legend = m('th.legend', [
+  m('span.streakstarter', 'Streak starter'),
+  m('span.double', 'Double points')
+]);
+
 module.exports = {
   standing: function(ctrl) {
     var maxScore = Math.max.apply(Math, ctrl.data.players.map(function(p) {
@@ -73,7 +74,7 @@ module.exports = {
             ctrl.trans('standing') + ' (' + ctrl.data.players.length + ')'
           ]),
           legend,
-          m('th')
+          m('th', button.joinWithdraw(ctrl))
         ])),
       m('tbody', ctrl.data.players.map(partial(playerTrs, ctrl, maxScore)))
     ];

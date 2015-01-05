@@ -112,7 +112,7 @@ ol.scheduled_tournaments a:hover {
 #tournament table.standing .total span {
   padding: 0 3px;
 }
-#tournament div.standing_wrap:hover td.total {
+#tournament div.standing_wrap td.total {
   padding-right: 22px;
 }
 #tournament .double {

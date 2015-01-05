@@ -136,7 +136,7 @@ case class Created(
 
   def enoughPlayersToStart = !scheduled && nbPlayers >= minPlayers
 
-  def enoughPlayersToEarlyStart = true //!scheduled && nbPlayers >= math.min(minPlayers, Tournament.minPlayers)
+  def enoughPlayersToEarlyStart = !scheduled && nbPlayers >= math.min(minPlayers, Tournament.minPlayers)
 
   def isEmpty = players.isEmpty
 

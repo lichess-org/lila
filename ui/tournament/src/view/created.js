@@ -2,6 +2,7 @@ var m = require('mithril');
 var partial = require('chessground').util.partial;
 var tournament = require('../tournament');
 var util = require('./util');
+var button = require('./button');
 var xhr = require('../xhr');
 
 function header(ctrl) {
@@ -9,7 +10,7 @@ function header(ctrl) {
   return [
     m('th.large',
       tour.schedule ? [
-        'Starting ',
+        'Starting: ',
         util.secondsFromNow(tour.schedule.seconds)
       ] : (
         tour.enoughPlayersToStart ? ctrl.trans('tournamentIsStarting') : ctrl.trans('waitingForNbPlayers', tour.missingPlayers)
@@ -21,15 +22,9 @@ function header(ctrl) {
         m('button.button.right', {
           onclick: partial(xhr.earlyStart, ctrl)
         }, 'Early start') : null,
-        m('button.button.right.text', {
-          'data-icon': 'b',
-          onclick: partial(xhr.withdraw, ctrl)
-        }, ctrl.trans('withdraw'))
-      ] : m('button.button.right.text', {
-        'data-icon': tour.private ? 'a' : 'G',
-        onclick: partial(xhr.join, ctrl)
-      }, ctrl.trans('join'))
-    ) : null
+        button.withdraw(ctrl)
+      ] : button.join(ctrl)
+    ) : m('th')
   ];
 }
 
@@ -46,7 +41,14 @@ module.exports = {
       util.title(ctrl),
       m('table.slist.user_list',
         m('thead', m('tr', header(ctrl))),
-        m('tbody', ctrl.data.players.map(partial(playerTr, ctrl))))
+        m('tbody', ctrl.data.players.map(partial(playerTr, ctrl)))),
+      m('br'),
+      m('br'),
+      m('div.content_box_content', {
+        config: function(el, isUpdate) {
+          if (!isUpdate) $(el).html($('#tournament_faq').show());
+        }
+      })
     ];
   },
   side: function(ctrl) {

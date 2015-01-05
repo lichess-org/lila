@@ -71,7 +71,7 @@ module.exports = {
             ctrl.trans('standing') + ' (' + ctrl.data.players.length + ')'
           ]),
           m('th'),
-          m('th')
+          m('th', button.joinWithdraw(ctrl))
         ])),
       m('tbody', ctrl.data.players.map(partial(playerTrs, ctrl, maxScore)))
     ];
