@@ -64,7 +64,10 @@ object Round extends LilaController with TheftPrevention {
             Redirect(routes.Setup.await(fullId)).fuccess
           )
         },
-        api = apiVersion => Env.api.roundApi.player(pov, apiVersion, Nil) map { Ok(_) }
+        api = apiVersion => {
+          if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
+          Env.api.roundApi.player(pov, apiVersion, Nil) map { Ok(_) }
+        }
       )
     }
   }
