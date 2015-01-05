@@ -13,8 +13,9 @@ module.exports = function(ctrl) {
   return m('div#now_playing',
     ctrl.data.nowPlaying.map(function(pov) {
       return m('a', {
+        key: pov.id,
         href: '/' + pov.fullId,
-        class: (pov.isMyTurn ? 'my_turn' : '')
+        class: pov.isMyTurn ? 'my_turn' : ''
       }, [
         m('span', {
           class: 'mini_board mini_board_' + pov.id + ' parse_fen is2d',

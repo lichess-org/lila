@@ -1063,7 +1063,7 @@ lichess.storage = {
   var startTournamentClock = function() {
     $("div.game_tournament div.clock").each(function() {
       $(this).clock({
-        time: $(this).data("time")
+        time: parseFloat($(this).data("time"))
       });
     });
   };
@@ -1374,7 +1374,6 @@ lichess.storage = {
     _show: function() {
       this.$time.html(this._formatDate(new Date(this.options.time)));
     },
-
     _formatDate: function(date) {
       var minutes = this._prefixInteger(date.getUTCMinutes(), 2);
       var seconds = this._prefixInteger(date.getSeconds(), 2);
@@ -1388,7 +1387,6 @@ lichess.storage = {
         return b(minutes) + ':' + b(seconds);
       }
     },
-
     _prefixInteger: function(num, length) {
       return (num / Math.pow(10, length)).toFixed(length).substr(2);
     }

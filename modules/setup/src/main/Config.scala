@@ -80,6 +80,7 @@ trait Positional { self: Config =>
       case sit@SituationPlus(Situation(board, _), _) => game.copy(
         variant = Variant.FromPosition,
         castleLastMoveTime = game.castleLastMoveTime.copy(
+          lastMove = board.history.lastMove,
           castles = board.history.castles
         ),
         turns = sit.turns)
