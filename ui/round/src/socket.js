@@ -32,7 +32,7 @@ module.exports = function(send, ctrl) {
       ctrl.chessground.playPremove();
     },
     castling: function(o) {
-      if (ctrl.replay.active) return;
+      if (ctrl.replay.active || ctrl.chessground.data.autoCastle) return;
       var pieces = {};
       pieces[o.king[0]] = null;
       pieces[o.rook[0]] = null;
