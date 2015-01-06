@@ -6,6 +6,7 @@ var boardContent = m('div.cg-board-wrap', m('div.cg-board'));
 function miniGame(game) {
   return m('div', [
     m('a', {
+      key: game.id,
       href: '/' + game.id,
       class: 'mini_board mini_board_' + game.id + ' live live_' + game.id + ' parse_fen is2d',
       'data-color': game.color,

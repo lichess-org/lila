@@ -43,6 +43,9 @@ function playerTrs(ctrl, maxScore, player) {
     ]
   }, {
     tag: 'tr',
+    attrs: {
+      key: player.id + '.bar'
+    },
     children: [
       m('td', {
         class: 'around-bar',
