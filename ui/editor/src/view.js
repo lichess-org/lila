@@ -65,9 +65,18 @@ function controls(ctrl, fen) {
         rel: 'nofollow'
       }, ctrl.trans('analysis')),
       m('a.button', {
+          onclick: function() {
+            $.modal($('.continue_with'));
+          }
+        },
+        m('span.text[data-icon=U]', ctrl.trans('continueFromHere')))
+    ]),
+    m('div.continue_with', [
+      m('a.button', {
         href: '/?fen=' + fen + '#ai',
         rel: 'nofollow'
       }, ctrl.trans('playWithTheMachine')),
+      m('br'),
       m('a.button', {
         href: '/?fen=' + fen + '#friend',
         rel: 'nofollow'

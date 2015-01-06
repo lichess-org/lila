@@ -5,23 +5,20 @@
 @moreJs = {
 <script>
   $(function() {
-    var $pass = $('#tournament tr.password');
     var $check = $('#tournament #isprivate');
     var $time = $('#tournament tr.time td');
     var $minutes = $('#tournament tr.minutes td');
-    function showPassword() {
+    function showPrivate() {
       if ($check.prop('checked')) {
-        $pass.show(500);
         $time.html($('#tournament .private_time').html());
         $minutes.html($('#tournament .private_minutes').html());
       } else {
-        $pass.hide().find('input').val('');
         $time.html($('#tournament .public_time').html());
         $minutes.html($('#tournament .public_minutes').html());
       }
     };
-    $check.on('change', showPassword);
-    showPassword();
+    $check.on('change', showPrivate);
+    showPrivate();
   })
 </script>
 }
@@ -40,11 +37,7 @@ moreJs = moreJs) {
       <table>
         <tr>
           <th><label for="isprivate">@trans.isPrivate()</label></th>
-          <td><input type="checkbox" id="isprivate" @if(form("password").value.filter(_.nonEmpty).isDefined) { checked } /></td>
-        </tr>
-        <tr class="password">
-          <th><label for="@form("password").id">@trans.password()</label></th>
-          <td>@base.input(form("password"))</td>
+          <td><input type="checkbox" name="private" id="isprivate" @if(form("private").value.isDefined) { checked } /></td>
         </tr>
         <tr>
           <th><label for="@form("system").id">System</label></th>

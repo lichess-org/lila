@@ -41,7 +41,7 @@ private[lobby] final class Socket(
       addMember(uid, member)
       sender ! Connected(enumerator, member)
 
-    case ReloadTournaments(html) => notifyTournaments(html)
+    case ReloadTournaments(html) => notifyAll(makeMessage("tournaments", html))
 
     case NewForumPost            => notifyAll("reload_forum")
 
@@ -87,10 +87,6 @@ private[lobby] final class Socket(
     }
 
   private def playerUrl(fullId: String) = s"/$fullId"
-
-  private def notifyTournaments(html: String) {
-    notifyAll(makeMessage("tournaments", html))
-  }
 
   private def notifySeeks() {
     notifyAll(makeMessage("reload_seeks"))

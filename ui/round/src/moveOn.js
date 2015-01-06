@@ -34,7 +34,7 @@ module.exports = function(ctrl, key) {
   }.bind(this);
 
   this.next = function(id) {
-    if (!this.value || ctrl.data.player.spectator || game.isPlayerTurn(ctrl.data)) return;
+    if (!this.value || ctrl.data.player.spectator || ctrl.data.game.tournamentId || game.isPlayerTurn(ctrl.data)) return;
     if (id) goToId(id);
     else xhr.next(ctrl).then(function(data) {
       if (data.next) goToId(data.next);

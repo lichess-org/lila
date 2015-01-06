@@ -18,7 +18,6 @@ module.exports = function(cfg, router, i18n, onChange) {
     path: initialPath,
     pathStr: treePath.write(initialPath),
     situation: null,
-    continue: false,
     comments: true,
     flip: false
   };

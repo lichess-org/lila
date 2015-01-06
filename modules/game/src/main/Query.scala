@@ -48,6 +48,10 @@ object Query {
   def user(u: String) = Json.obj(F.playerUids -> u)
   def users(u: Seq[String]) = Json.obj(F.playerUids -> $in(u))
 
+  val noAi = Json.obj(
+    "p0.ai" -> $exists(false),
+    "p1.ai" -> $exists(false))
+
   def nowPlaying(u: String) = Json.obj(F.playingUids -> u)
 
   def recentlyPlayingWithClock(u: String) =

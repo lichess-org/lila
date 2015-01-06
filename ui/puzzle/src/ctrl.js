@@ -147,10 +147,6 @@ module.exports = function(cfg, router, i18n) {
     chessground.anim(puzzle.jump, this.chessground.data)(this.data, to);
   }.bind(this);
 
-  this.toggleContinueLinks = function() {
-    this.data.showContinueLinks(!this.data.showContinueLinks());
-  }.bind(this);
-
   this.router = router;
 
   this.trans = function(key) {

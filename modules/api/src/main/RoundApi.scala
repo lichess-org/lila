@@ -41,7 +41,8 @@ private[api] final class RoundApi(
       }
 
   private def withOtherPovs(otherPovs: List[Pov])(json: JsObject) =
-    if (otherPovs.isEmpty) json else json + ("simul" -> JsBoolean(true))
+    if (otherPovs.exists(_.game.nonAi)) json + ("simul" -> JsBoolean(true))
+    else json
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))

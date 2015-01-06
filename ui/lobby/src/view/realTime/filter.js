@@ -70,10 +70,14 @@ module.exports = {
     return m('div.hook_filter', {
       config: function(el, isUpdate, ctx) {
         if (ctx.loaded) return;
-        $.get('/setup/filter', function(html) {
-          el.innerHTML = html;
-          ctx.loaded = true;
-          initialize(ctrl, el);
+        $.ajax({
+          url: '/setup/filter',
+          cache: false,
+          success: function(html) {
+            el.innerHTML = html;
+            ctx.loaded = true;
+            initialize(ctrl, el);
+          }
         });
       }
     });

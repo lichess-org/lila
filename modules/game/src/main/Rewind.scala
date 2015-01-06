@@ -29,11 +29,14 @@ object Rewind {
         castleLastMoveTime = CastleLastMoveTime(
           castles = rewindedHistory.castles,
           lastMove = rewindedHistory.lastMove,
-          lastMoveTime = Some(nowSeconds - game.createdAt.getSeconds.toInt),
+          lastMoveTime = Some(((nowMillis - game.createdAt.getMillis) / 100).toInt),
           check = if (rewindedSituation.check) rewindedSituation.kingPos else None),
         binaryMoveTimes = BinaryFormat.moveTime write (game.moveTimes take rewindedGame.turns),
         status = game.status,
         clock = game.clock map (_.takeback))
-      Progress(game, newGame, newGame.clock.map(Event.Clock.apply).toList)
+      Progress(game, newGame, List(
+        newGame.clock.map(Event.Clock.apply),
+        newGame.correspondenceClock.map(Event.CorrespondenceClock.apply)
+      ).flatten)
     }
 }

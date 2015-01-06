@@ -54,8 +54,7 @@ trait UserRepo {
 
   def byOrderedIds(ids: Iterable[ID]): Fu[List[User]] = $find byOrderedIds ids
 
-  def enabledByIds(ids: Seq[ID]): Fu[List[User]] =
-    $find(enabledSelect ++ $select.byIds(ids))
+  def enabledByIds(ids: Seq[ID]): Fu[List[User]] = $find(enabledSelect ++ $select.byIds(ids))
 
   def enabledById(id: ID): Fu[Option[User]] =
     $find.one(enabledSelect ++ $select.byId(id))

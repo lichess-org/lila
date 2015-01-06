@@ -85,7 +85,7 @@ module.exports = {
           m('td', {
             key: 'variants',
             colspan: 5
-          }, '- ' + ctrl.trans('variant') + ' -')
+          }, '— ' + ctrl.trans('variant') + ' —')
         ) : null,
         variants.map(render)
       ])

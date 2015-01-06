@@ -14,6 +14,7 @@ function makeConfig(data, fen, flip) {
     lastMove: str2move(data.game.lastMove),
     check: data.game.check,
     coordinates: data.pref.coords !== 0,
+    autoCastle: data.game.variant.key === 'standard',
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,

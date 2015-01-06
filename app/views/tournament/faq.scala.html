@@ -1,8 +1,12 @@
-@(nbPlayers: Option[String] = Some("all"), rated: Option[Boolean] = None, system: Option[lila.tournament.System] = None)
+@(nbPlayers: Option[String] = Some("all"), rated: Option[Boolean] = None, system: Option[lila.tournament.System] = None, privateId: Option[String] = None)
 
 @import lila.tournament.System
 
 <article class="faq">
+  @privateId.map { id =>
+  <h2>This is a private tournament</h2>
+  Share this URL to let people join it: @netBaseUrl@routes.Tournament.show(id)
+  }
   @nbPlayers.map { players =>
   <h2>When will the tournament start?</h2>
   As soon as @players players join it.
@@ -82,7 +86,7 @@
   }
 
   <h2>How does it end?</h2>
-  The tournament has a countdown clock. 
+  The tournament has a countdown clock.
   When it reaches zero, the tournament rankings are frozen, and the winner is announced.
   Games in progress must be finished, however they don't count for the tournament.
 

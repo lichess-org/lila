@@ -45,6 +45,7 @@ final class Env(
   lazy val forms = new DataForm(isDev)
 
   lazy val api = new TournamentApi(
+    system = system,
     sequencers = sequencerMap,
     autoPairing = autoPairing,
     router = hub.actor.router,
@@ -67,11 +68,14 @@ final class Env(
 
   lazy val cached = new Cached
 
+  lazy val jsonView = new JsonView(lightUser)
+
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
       def mkActor(tournamentId: String) = new Socket(
         tournamentId = tournamentId,
         history = new History(ttl = HistoryMessageTtl),
+        jsonView = jsonView,
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout,
         lightUser = lightUser)
@@ -97,7 +101,7 @@ final class Env(
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
 
   val allCreatedSorted =
-    lila.memo.AsyncCache.single(TournamentRepo.noPasswordCreatedSorted, timeToLive = CreatedCacheTtl)
+    lila.memo.AsyncCache.single(TournamentRepo.publicCreatedSorted, timeToLive = CreatedCacheTtl)
 
   val promotable =
     lila.memo.AsyncCache.single(TournamentRepo.promotable, timeToLive = CreatedCacheTtl)

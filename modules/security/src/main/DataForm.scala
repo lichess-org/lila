@@ -76,7 +76,8 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
 
   private val lameSuffixes = List("-", "_")
 
-  private val lameUsernames = List(
+  private val lameUsernames = for {
+    base <- List(
     "hitler",
     "fuck",
     "penis",
@@ -99,7 +100,10 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
     "pussy",
     "slut",
     "whore",
-    "nazi")
+    "nazi",
+    "morteza")
+    replacement <- List("" -> "", "o" -> "0", "i" -> "1")
+  } yield base.replace(replacement._1, replacement._2)
 }
 
 object DataForm {

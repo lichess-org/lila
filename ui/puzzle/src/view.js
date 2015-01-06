@@ -221,9 +221,11 @@ function renderViewControls(ctrl, fen) {
       'data-hint': ctrl.trans('boardEditor'),
       href: ctrl.router.Editor.load(fen).url
     }, m('span[data-icon=m]')),
-    m('a.continiue.toggle.button.hint--bottom', {
+    m('a.button.hint--bottom', {
       'data-hint': ctrl.trans('continueFromHere'),
-      onclick: ctrl.toggleContinueLinks
+      onclick: function() {
+        $.modal($('.continue_with'));
+      }
     }, m('span[data-icon=U]')),
     m('div#GameButtons.hint--bottom', {
       'data-hint': 'Review puzzle solution'
@@ -243,11 +245,12 @@ function renderViewControls(ctrl, fen) {
 }
 
 function renderContinueLinks(ctrl, fen) {
-  return m('div.continue.links', [
+  return m('div.continue_with', [
     m('a.button', {
       href: '/?fen=' + fen + '#ai',
       rel: 'nofollow'
     }, ctrl.trans('playWithTheMachine')),
+    m('br'),
     m('a.button', {
       href: '/?fen=' + fen + '#friend',
       rel: 'nofollow'
@@ -260,7 +263,7 @@ function renderFooter(ctrl) {
   var fen = ctrl.data.replay.history[ctrl.data.replay.step].fen;
   return m('div', [
     renderViewControls(ctrl, fen),
-    ctrl.data.showContinueLinks() ? renderContinueLinks(ctrl, fen) : null
+    renderContinueLinks(ctrl, fen)
   ]);
 }
 
@@ -270,8 +273,12 @@ function renderHistory(ctrl) {
       var hash = ctrl.data.user.history.join('');
       if (hash == context.hash) return;
       context.hash = hash;
-      $.get('/training/history', function(html) {
-        el.innerHTML = html;
+      $.ajax({
+        url: '/training/history',
+        cache: false,
+        success: function(html) {
+          el.innerHTML = html;
+        }
       });
     }
   });
