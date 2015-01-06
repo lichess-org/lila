@@ -26,8 +26,8 @@ final class Cached(
   private implicit val userHandler = User.userBSONHandler
 
   private val isPlayingSimulCache = AsyncCache[String, Boolean](
-    f = userId => GameRepo.countPlayingRealTime(userId) map (1 <),
-    timeToLive = 10.seconds)
+    f = userId => GameRepo.countPlayingRealTimeHuman(userId) map (1 <),
+    timeToLive = 15.seconds)
 
   val isPlayingSimul: String => Fu[Boolean] = isPlayingSimulCache.apply _
 

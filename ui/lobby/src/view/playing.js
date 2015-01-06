@@ -5,7 +5,7 @@ var boardContent = m('div.cg-board-wrap', m('div.cg-board'));
 function timer(pov) {
   var time = moment().add(pov.secondsLeft, 'seconds');
   return m('time.moment-from-now', {
-    datetime: time
+    datetime: time.format()
   }, time.fromNow());
 }
 
@@ -13,12 +13,12 @@ module.exports = function(ctrl) {
   return m('div#now_playing',
     ctrl.data.nowPlaying.map(function(pov) {
       return m('a', {
-        key: pov.id,
+        key: pov.gameId,
         href: '/' + pov.fullId,
         class: pov.isMyTurn ? 'my_turn' : ''
       }, [
         m('span', {
-          class: 'mini_board mini_board_' + pov.id + ' parse_fen is2d',
+          class: 'mini_board live_' + pov.id + ' parse_fen is2d',
           'data-color': pov.color,
           'data-fen': pov.fen,
           'data-lastmove': pov.lastMove,

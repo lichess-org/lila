@@ -13,6 +13,7 @@ function tourAction(action, ctrl) {
     url: '/tournament/' + ctrl.data.id + '/' + action,
     config: xhrConfig
   }).then(null, function() {
+    // when the tournament no longer exists
     location.reload();
   });
 }

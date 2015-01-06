@@ -37,12 +37,15 @@ function playerTrs(ctrl, maxScore, player) {
       m('td.total',
         m('strong',
           player.sheet.fire ? {
-            class: 'is-gold text',
+            class: 'is-gold',
             'data-icon': 'Q'
           } : {}, player.sheet.total))
     ]
   }, {
     tag: 'tr',
+    attrs: {
+      key: player.id + '.bar'
+    },
     children: [
       m('td', {
         class: 'around-bar',

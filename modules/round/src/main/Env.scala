@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 import lila.common.PimpedConfig._
-import lila.hub.actorApi.map.Ask
+import lila.hub.actorApi.map.{Ask,Tell,TellAll}
 import lila.socket.actorApi.GetVersion
 import makeTimeout.large
 
@@ -88,13 +88,15 @@ final class Env(
           isPlayingSimul = isPlayingSimul)
         def receive: Receive = ({
           case msg@lila.chat.actorApi.ChatLine(id, line) =>
-            self ! lila.hub.actorApi.map.Tell(id take 8, msg)
-          case m: lila.hub.actorApi.game.ChangeFeatured =>
-            self ! lila.hub.actorApi.map.TellAll(m)
+            self ! Tell(id take 8, msg)
+          case msg: lila.hub.actorApi.game.ChangeFeatured =>
+            self ! TellAll(msg)
+          case msg: lila.game.actorApi.StartGame =>
+            self ! Tell(msg.game.id, msg)
         }: Receive) orElse socketHubReceive
       }),
       name = SocketName)
-    system.lilaBus.subscribe(actor, 'changeFeaturedGame)
+    system.lilaBus.subscribe(actor, 'changeFeaturedGame, 'startGame)
     actor
   }
 

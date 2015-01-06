@@ -77,7 +77,8 @@ final class JsonView(
         else Json.arr(score.value, score.flag.toString.toLowerCase)
       },
       "total" -> s.total,
-      "fire" -> s.onFire)
+      "fire" -> s.onFire.option(true)
+    ).noNull
     case s: swiss.SwissSystem.Sheet => Json.obj(
       "scores" -> s.scores.take(20).reverse.map(_.repr),
       "total" -> s.totalRepr,
