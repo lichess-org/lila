@@ -6,7 +6,7 @@ module.exports = {
   },
   containsMe: function(ctrl) {
     return ctrl.userId && ctrl.data.players.filter(function(p) {
-      return p.id === ctrl.userId;
+      return p.id === ctrl.userId && !p.withdraw;
     }).length > 0;
   },
   myCurrentPairing: function(ctrl) {

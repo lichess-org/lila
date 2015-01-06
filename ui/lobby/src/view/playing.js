@@ -18,7 +18,7 @@ module.exports = function(ctrl) {
         class: pov.isMyTurn ? 'my_turn' : ''
       }, [
         m('span', {
-          class: 'mini_board mini_board_' + pov.id + ' parse_fen is2d',
+          class: 'mini_board live_' + pov.id + ' parse_fen is2d',
           'data-color': pov.color,
           'data-fen': pov.fen,
           'data-lastmove': pov.lastMove,

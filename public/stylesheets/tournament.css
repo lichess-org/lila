@@ -131,6 +131,7 @@ ol.scheduled_tournaments a:hover {
   width: 0;
   background: #759900;
   opacity: 0.5;
+  transition: width 0.5s;
 }
 #tournament button.right {
   float: right;

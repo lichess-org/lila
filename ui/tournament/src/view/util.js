@@ -8,7 +8,7 @@ function miniGame(game) {
     m('a', {
       key: game.id,
       href: '/' + game.id,
-      class: 'mini_board mini_board_' + game.id + ' live live_' + game.id + ' parse_fen is2d',
+      class: 'mini_board live_' + game.id + ' parse_fen is2d',
       'data-color': game.color,
       'data-fen': game.fen,
       'data-lastmove': game.lastMove,
@@ -24,10 +24,10 @@ function miniGame(game) {
         game.user1.rating
       ]),
       m('div.right', [
-        game.user1.name,
+        game.user2.name,
         m('br'),
-        game.user1.rating,
-        game.user1.title ? ' ' + game.user1.title : ''
+        game.user2.rating,
+        game.user2.title ? ' ' + game.user2.title : ''
       ])
     ])
   ]);
