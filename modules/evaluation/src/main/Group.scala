@@ -59,12 +59,11 @@ case class PlayerGroup (
       ssd(similarities) // How significant is the similarity?
     )
     val gamesMatch = this.games.similarityTo(that.games)
-
-    if (playersMatch.matches && gamesMatch.matches) {
-      MatchAndSig(true, (playersMatch.significance + gamesMatch.significance) / 2)
-    } else {
-      MatchAndSig(false, (playersMatch.significance + gamesMatch.significance) / 2)
-    }
+    
+    MatchAndSig(
+      (playersMatch.matches && gamesMatch.matches),
+      (playersMatch.significance + gamesMatch.significance) / 2
+    )
   }
 }
 
@@ -148,7 +147,7 @@ object Statistics {
   }
 
   def setToSetSimilarity(avgA: Double, avgB: Double, varA: Double, varB: Double): Similarity = Similarity(
-    pow(E, (-1.0/4.0) * ( log( (1.0/4.0) * ((varA / varB) + (varB / varA) + 2) ) + pow(avgA - avgB, 2) / ( varA + varB ) ))
+    pow(E, (-0.25) * ( log( 0.25 * ((varA / varB) + (varB / varA) + 2) ) + pow(avgA - avgB, 2) / ( varA + varB ) ))
   )
 
   // Bhattacharyya Coefficient
@@ -180,13 +179,11 @@ object Statistics {
   // Coefficient of Variance
   def coefVariation(a: NonEmptyList[Int]): Double = sqrt(variance(a)) / average(a)
 
-  def intervalToVariance4(interval: Double): Double = {
-    pow(interval / 3, 8) // roughly speaking
-  }
+  def intervalToVariance4(interval: Double): Double = pow(interval / 3, 8) // roughly speaking
 
   // Accumulative probability function for normal distributions
   def cdf[T](x: T, avg: T, sd: T)(implicit n: Numeric[T]): Double = {
-    (1.0/2.0) * (1 + erf(n.toDouble(n.minus(x, avg)) / (n.toDouble(sd)*sqrt(2))))
+    0.5 * (1 + erf(n.toDouble(n.minus(x, avg)) / (n.toDouble(sd)*sqrt(2))))
   }
 
   // The probability that you are outside of abs(x-n) from the mean on both sides
@@ -195,14 +192,10 @@ object Statistics {
   }
 
   // all Similarities in the non empty list are similar
-  def allSimilar(a: NonEmptyList[Similarity]): Boolean = {
-    if (a.list.exists( x => x.isSimilar == false )) false else true
-  }
+  def allSimilar(a: NonEmptyList[Similarity]): Boolean = a.list.forall( _.isSimilar )
 
   // Square Sum Distance
-  def ssd(a: NonEmptyList[Similarity]): Double = {
-    sqrt(a.map(x => pow(x.apply, 2)).list.sum)
-  }
+  def ssd(a: NonEmptyList[Similarity]): Double = sqrt(a.map(x => pow(x.apply, 2)).list.sum)
 }
 
 object Erf {
