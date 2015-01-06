@@ -63,7 +63,11 @@ object Analyse extends LilaController {
               if (HTTPRequest.isBot(ctx.req)) divider.empty
               else divider(pov.game, initialFen)
             val pgn = Env.game.pgnDump(pov.game, initialFen)
-            Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data =>
+            Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data => {
+              println(pov)
+              println(pov.game)
+              println(pov.game.moveTimes)
+              println(pov.game.players.map(_.blurs))
               Ok(html.analyse.replay(
                 pov,
                 data,
@@ -75,6 +79,7 @@ object Analyse extends LilaController {
                 crosstable,
                 userTv,
                 division))
+            }
             }
         }
     }
