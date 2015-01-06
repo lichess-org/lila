@@ -85,10 +85,11 @@ ol.scheduled_tournaments a:hover {
 #tournament table.standing td.name,
 #tournament table.standing th:first-child {
   padding-left: 15px;
+  white-space: nowrap;
 }
 #tournament table.standing td.name span {
   display: inline-block;
-  width: 20px;
+  width: 24px;
 }
 #tournament table.standing tr.me td.name {
   border-left: 10px solid #d59120;
