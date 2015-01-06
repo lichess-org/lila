@@ -104,10 +104,7 @@ case class GameGroup (
 
   def compareHoldAlerts (that: GameGroup): Similarity = {
     def isQuestionable(holdAlerts: List[HoldAlert]): Boolean = {
-      holdAlerts.map(_.turn).toNel match {
-        case Some(a)  => ( variance(a, Some(21)) < 10 )
-        case None     => false
-      }
+      holdAlerts.map(_.turn).toNel.fold(false){variance(_, Some(21)) < 10}
     }
     Similarity(
       if (isQuestionable(this.holdAlerts) == isQuestionable(that.holdAlerts)) 1
@@ -135,10 +132,8 @@ object Statistics {
   import Erf._
 
   def variance[T](a: NonEmptyList[T], optionalAvg: Option[T] = None)(implicit n: Numeric[T]): Double = {
-    val avg: Double = optionalAvg match {
-      case Some(a) => n.toDouble(a)
-      case None    => average(a)
-    }
+    val avg: Double = optionalAvg.fold(average(a)){n.toDouble}
+
     a.map( i => pow(n.toDouble(i) - avg, 2)).list.sum / a.length
   }
 
@@ -189,10 +184,12 @@ object Statistics {
     pow(interval / 3, 8) // roughly speaking
   }
 
+  // Accumulative probability function for normal distributions
   def cdf[T](x: T, avg: T, sd: T)(implicit n: Numeric[T]): Double = {
     (1.0/2.0) * (1 + erf(n.toDouble(n.minus(x, avg)) / (n.toDouble(sd)*sqrt(2))))
   }
 
+  // The probability that you are outside of abs(x-n) from the mean on both sides
   def confInterval[T](x: T, avg: T, sd: T)(implicit n: Numeric[T]): Double = {
     1 - cdf(n.abs(x), avg, sd) + cdf(n.times(n.fromInt(-1), n.abs(x)), avg, sd)
   }
