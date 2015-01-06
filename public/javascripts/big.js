@@ -1357,16 +1357,17 @@ lichess.storage = {
       this.options.time = this.options.time * 1000;
       this.$time = this.element.find('>div.time');
       var end_time = new Date().getTime() + self.options.time;
-      self.options.interval = setInterval(function() {
-          var current_time = Math.round(end_time - new Date().getTime());
-          if (current_time <= 0) {
-            clearInterval(self.options.interval);
-            current_time = 0;
-          }
-          self.options.time = current_time;
-          self._show();
-        },
-        1000);
+      var tick = function() {
+        var current_time = Math.round(end_time - new Date().getTime());
+        if (current_time <= 0) {
+          clearInterval(self.options.interval);
+          current_time = 0;
+        }
+        self.options.time = current_time;
+        self._show();
+      };
+      self.options.interval = setInterval(tick, 1000);
+      tick();
     },
     destroy: function() {
       this.stop();
