@@ -58,7 +58,7 @@ module.exports = {
       },
       children: [
         (p.title ? p.title + ' ' : '') + p.username,
-        p.rating ? ' (' + p.rating + ')' : '',
+        p.rating ? m('em', p.rating) : null
       ]
     };
   },
