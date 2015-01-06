@@ -91,7 +91,7 @@ private[round] final class Socket(
     // from lilaBus 'startGame
     // sets definitive user ids
     // in case one joined after the socket creation
-    case StartGame(game) => self ! SetGame(game.some)
+    case StartGame(game) if game.id == gameId => self ! SetGame(game.some)
 
     case PingVersion(uid, v) =>
       timeBomb.delay
