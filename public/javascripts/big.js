@@ -960,22 +960,38 @@ lichess.storage = {
     }, 1500);
   });
 
+  $.lazy = function(factory) {
+    var loaded = {};
+    return function(key) {
+      if (!loaded[key]) loaded[key] = factory(key);
+      return loaded[key];
+    };
+  };
+
   $.sound = (function() {
     var baseUrl = $('body').data('sound-dir') + '/';
     var a = new Audio();
     var hasOgg = !!a.canPlayType && a.canPlayType('audio/ogg; codecs="vorbis"');
     var hasMp3 = !!a.canPlayType && a.canPlayType('audio/mpeg;');
     var ext = hasOgg ? 'ogg' : 'mp3';
-    var audio = {
-      dong: new Audio(baseUrl + 'dong2.' + ext),
-      moveW: new Audio(baseUrl + 'move3.' + ext),
-      moveB: new Audio(baseUrl + 'move3.' + ext),
-      take: new Audio(baseUrl + 'take2.' + ext),
-      lowtime: new Audio(baseUrl + 'lowtime.' + ext)
+    var names = {
+      dong: 'dong2',
+      moveW: 'move3',
+      moveB: 'move3',
+      take: 'take2',
+      lowtime: 'lowtime'
     };
     var volumes = {
-      lowtime: 0.6
+      lowtime: 0.5
     };
+    var computeVolume = function(k, v) {
+      return v * (volumes[k] || 1);
+    };
+    var get = new $.lazy(function(k) {
+      var audio = new Audio(baseUrl + names[k] + '.' + ext);
+      audio.volume = computeVolume(k, getVolume());
+      return audio;
+    });
     var canPlay = hasOgg || hasMp3;
     var $control = $('#sound_control');
     var $toggle = $('#sound_state');
@@ -989,18 +1005,18 @@ lichess.storage = {
     var play = {
       move: function(white) {
         if (shouldPlay()) {
-          if (white) audio.moveW.play();
-          else audio.moveB.play();
+          if (white) get('moveW').play();
+          else get('moveB').play();
         }
       },
       take: function() {
-        if (shouldPlay()) audio.take.play();
+        if (shouldPlay()) get('take').play();
       },
       dong: function() {
-        if (shouldPlay()) audio.dong.play();
+        if (shouldPlay()) get('dong').play();
       },
       lowtime: function() {
-        if (shouldPlay()) audio.lowtime.play();
+        if (shouldPlay()) get('lowtime').play();
       }
     };
     var getVolume = function() {
@@ -1008,15 +1024,14 @@ lichess.storage = {
     };
     var setVolume = function(v) {
       lichess.storage.set('sound-volume', v);
-      Object.keys(audio).forEach(function(k) {
-        audio[k].volume = v * (volumes[k] ? volumes[k] : 1);
+      Object.keys(names).forEach(function(k) {
+        get(k).volume = computeVolume(k, v);
       });
     };
     var manuallySetVolume = $.fp.debounce(function(v) {
       setVolume(v);
       play.move(true);
     }, 100);
-    setVolume(getVolume());
     if (canPlay) {
       $toggle.click(function() {
         $control.add($toggle).toggleClass('sound_state_on', !enabled());
