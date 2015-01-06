@@ -23,6 +23,7 @@ module.exports = function(cfg, router, i18n) {
   };
 
   var onMove = function(orig, dest, meta) {
+    $.sound.move();
     submitMove(orig + dest);
     setTimeout(function() {
       this.chessground.set({
@@ -46,6 +47,7 @@ module.exports = function(cfg, router, i18n) {
     orientation: this.data.opening.color,
     turnColor: this.data.opening.color,
     check: init.check,
+    autoCastle: true,
     movable: {
       color: this.data.opening.color,
       free: false,
