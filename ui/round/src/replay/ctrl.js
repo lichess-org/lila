@@ -16,6 +16,12 @@ module.exports = function(root) {
 
   var situationCache = {};
 
+  var gameVariants = {
+    'chess960' : 1,
+    'antichess': 2,
+    'atomic': 3
+  };
+
   var showFen = function() {
     try {
       var ply, move, cached, fen, hash, h, lm;
@@ -30,9 +36,11 @@ module.exports = function(root) {
       if (!cached || ply < this.ply) {
         var variant = root.data.game.variant.key;
 
+        var gameVariantKey = gameVariants[variant] != null ? gameVariants[variant] : 0;
+
         var chess = new Chess(
           fen || root.data.game.initialFen,
-          variant == 'chess960' ? 1 : (variant == 'antichess' ? 2 : 0));
+          gameVariantKey);
         for (ply = ply; ply <= this.ply; ply++) {
           move = root.data.game.moves[ply - 1];
           hash += move;
