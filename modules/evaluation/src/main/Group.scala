@@ -1,7 +1,7 @@
 package lila.evaluation
 package grouping
 
-import Math.{pow, E, log, sqrt, abs}
+import Math.{pow, E, PI, log, sqrt, abs, exp}
 import scalaz.NonEmptyList
 
 case class HoldAlert(average: Int, deviation: Int, turn: Int)
@@ -34,29 +34,19 @@ case class PlayerGroup (
     averageRating(a.list)
   }
 
-  def intervalToVariance4(interval: Double): Double = {
-    pow(interval / 3, 8) // roughly speaking
-  }
+  def compareRatings (that: PlayerGroup): Similarity = setToSetSimilarity(
+    this.ratingAvg.perf,
+    that.ratingAvg.perf,
+    intervalToVariance4(this.ratingAvg.interval),
+    intervalToVariance4(that.ratingAvg.interval)
+  )
 
-  def compareRatings (that: PlayerGroup): Similarity = {
-    Similarity(
-      bhattCoef(
-        this.ratingAvg.perf,
-        that.ratingAvg.perf,
-        intervalToVariance4(this.ratingAvg.interval),
-        intervalToVariance4(that.ratingAvg.interval)
-      )
-    )
+  def compareAges (that: PlayerGroup): Similarity = (this.ages.tail, that.ages.tail) match {
+    case (Nil, Nil) => pointToPointSimilarity(this.ages.head, that.ages.head)
+    case (Nil, a)   => pointToSetSimilarity(this.ages.head, NonEmptyList.nel(that.ages.head, a))
+    case (a, Nil)   => pointToSetSimilarity(that.ages.head, NonEmptyList.nel(this.ages.head, a))
+    case (a, b)     => setToSetSimilarity(NonEmptyList.nel(this.ages.head, a), NonEmptyList.nel(that.ages.head, b))
   }
-
-  def compareAges (that: PlayerGroup): Similarity = Similarity(
-      (this.ages.tail, that.ages.tail) match {
-        case (Nil, Nil) => percentageSimilarity(this.ages.head, that.ages.head)
-        case (Nil, a)   => mahaDistance(this.ages.head, NonEmptyList.nel(that.ages.head, a))
-        case (a, Nil)   => mahaDistance(that.ages.head, NonEmptyList.nel(this.ages.head, a))
-        case (a, b)     => bhattCoef(NonEmptyList.nel(this.ages.head, a), NonEmptyList.nel(that.ages.head, b))
-      }
-    )
 
   def similarityTo (that: PlayerGroup): MatchAndSig = {
     // Calls compare functions to determine how similar `this` and `that` are to each other
@@ -96,47 +86,26 @@ case class GameGroup (
     }
   }
 
-  def compareMoveTimes (that: GameGroup): Similarity = {
-    Similarity(bhattCoef(this.moveTimes, that.moveTimes))
-  }
+  def compareMoveTimes (that: GameGroup): Similarity = pointToPointSimilarity(coefVariation(this.moveTimes), coefVariation(that.moveTimes))
 
-  def compareSfAccuracies (that: GameGroup): Similarity = {
-    Similarity(bhattCoef(this.sfAccuracies, that.sfAccuracies))
-  }
+  def compareSfAccuracies (that: GameGroup): Similarity = setToSetSimilarity(this.sfAccuracies, that.sfAccuracies)
 
   def compareBlurRates (that: GameGroup): Similarity = {
     (this.blurRates, that.blurRates) match {
-      case (Nil, Nil)                   => Similarity(1f) // Both empty
-      case (Nil, _ :: _)                => Similarity(0f) // One empty, The other with some
-      case (_ :: _, Nil)                => Similarity(0f)
-      case (a :: Nil, b :: Nil)         => { // Both have one
-        Similarity(percentageSimilarity(a, b))
-      } 
-      case (a :: Nil, b :: c) => { // One with one element, the other with many
-        Similarity(
-          mahaDistance(a, NonEmptyList.nel(b, c))
-        )
-      }
-      case (a :: b, c :: Nil) => {
-        Similarity(
-          mahaDistance(c, NonEmptyList.nel(a, b))
-        )
-      }
-      case (a :: b, c :: d) => { // Both have many
-        Similarity(
-          bhattCoef(
-            NonEmptyList.nel(a, b),
-            NonEmptyList.nel(c, d)
-          )
-        )
-      }
+      case (Nil, Nil)                   => Similarity(1) // Both empty
+      case (Nil, _ :: _)                => Similarity(0) // One empty, The other with some
+      case (_ :: _, Nil)                => Similarity(0)
+      case (a :: Nil, b :: Nil)         => pointToPointSimilarity(a, b) // Both have one
+      case (a :: Nil, b :: c)           => pointToSetSimilarity(a, NonEmptyList.nel(b, c)) // One with one element, the other with many
+      case (a :: b, c :: Nil)           => pointToSetSimilarity(c, NonEmptyList.nel(a, b))
+      case (a :: b, c :: d)             => setToSetSimilarity(NonEmptyList.nel(a, b), NonEmptyList.nel(c, d)) // Both have many    
     }
   }
 
   def compareHoldAlerts (that: GameGroup): Similarity = {
     def isQuestionable(holdAlerts: List[HoldAlert]): Boolean = {
       holdAlerts.map(_.turn).toNel match {
-        case Some(a)  => ( variance(a, Some(21.5)) < 10 )
+        case Some(a)  => ( variance(a, Some(21)) < 10 )
         case None     => false
       }
     }
@@ -163,49 +132,64 @@ case class GameGroup (
 }
 
 object Statistics {
-  def variance(a: NonEmptyList[Int], optionalAvg: Option[Double] = None): Double = {
+  import Erf._
+
+  def variance[T](a: NonEmptyList[T], optionalAvg: Option[Double] = None)(implicit n: Numeric[T]): Double = {
     val avg: Double = optionalAvg getOrElse average(a)
     a.map( i => pow(i - avg, 2) ).list.sum / a.length
   }
 
-  def average(a: NonEmptyList[Int]): Double = {
-    def average(a: List[Int], sum: Double = 0, depth: Int = 0): Double = {
+  def average[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
+    def average[T](a: List[T], sum: T = 0, depth: Int = 0)(implicit n: Numeric[T]): Double = {
       a match {
-        case List() if (depth != 0) => sum / depth
+        case List()  => sum / depth
         case x :: xs => average(xs, sum + x, depth + 1)
       }
     }
-
     average(a.list)
   }
 
-  def bhattCoef(avgA: Double, avgB: Double, varA: Double, varB: Double): Double = {
+  def setToSetSimilarity(avgA: Double, avgB: Double, varA: Double, varB: Double): Similarity = Similarity(
     pow(E, (-1.0/4.0) * ( log( (1.0/4.0) * ((varA / varB) + (varB / varA) + 2) ) + pow(avgA - avgB, 2) / ( varA + varB ) ))
-  }
+  )
 
   // Bhattacharyya Coefficient
-  def bhattCoef(a: NonEmptyList[Int], b: NonEmptyList[Int]): Double = {
+  def setToSetSimilarity(a: NonEmptyList[Int], b: NonEmptyList[Int]): Similarity = {
     val avgA = average(a)
     val avgB = average(b)
 
     val varA = pow(variance(a, Some(avgA)), 2)
     val varB = pow(variance(b, Some(avgB)), 2)
 
-    bhattCoef(avgA, avgB, varA, varB)
+    setToSetSimilarity(avgA, avgB, varA, varB)
   }
 
-  // Coefficient of Variance
-  def coefVariation(a: NonEmptyList[Int]): Double = sqrt(variance(a)) / average(a)
+  def pointToSetSimilarity[T](x: T, set: NonEmptyList[T])(implicit n: Numeric[T]): Similarity = Similarity(
+    confInterval(x, average(set), sqrt(variance(set)))
+  )
 
-  // Mahalanobis distance
-  def mahaDistance(a: Int, b: NonEmptyList[Int]): Double = abs((a - average(b)) / sqrt(variance(b)))
-
-  def percentageSimilarity(a: Int, b: Int): Double = {
+  def pointToPointSimilarity[T](a: T, b: T)(implicit n: Numeric[T]): Similarity = Similarity(
     (a, b) match {
       case (a, b) if (a == b)         => 1
       case (a, b) if (a > 0 && b > 0) => pow(E, -(abs((a - b).toDouble / a) + abs((a - b).toDouble / b)) / 2)
       case _                          => 0
     }
+  )
+
+  // Coefficient of Variance
+  def coefVariation(a: NonEmptyList[Int]): Double = sqrt(variance(a)) / average(a)
+  def coefVariation(a: NonEmptyList[Double]): Double = sqrt(variance(a)) / average(a)
+
+  def intervalToVariance4(interval: Double): Double = {
+    pow(interval / 3, 8) // roughly speaking
+  }
+
+  def cdf(x: Double, avg: Double = 0, sd: Double = 1): Double = {
+    (1.0/2.0) * (1 + erf((x - avg) / (sd*sqrt(2))))
+  }
+
+  def confInterval(x: Double, avg: Double = 0, sd: Double = 1): Double = {
+    1 - cdf(abs(x), avg, sd) + cdf(-abs(x), avg, sd)
   }
 
   // all Similarities in the non empty list are similar
@@ -216,5 +200,26 @@ object Statistics {
   // Square Sum Distance
   def ssd(a: NonEmptyList[Similarity]): Double = {
     sqrt(a.map(x => pow(x.apply, 2)).list.sum)
+  }
+}
+
+object Erf {
+  // constants
+  val a1: Double =  0.254829592
+  val a2: Double = -0.284496736
+  val a3: Double =  1.421413741
+  val a4: Double = -1.453152027
+  val a5: Double =  1.061405429
+  val p: Double  =  0.3275911
+
+  def erf(x: Double): Double =  {
+    // Save the sign of x
+    val sign = if (x < 0) -1 else 1
+    val absx = abs(x)
+
+    // A&S formula 7.1.26, rational approximation of error function
+    val t = 1.0/(1.0 + p*absx);
+    val y = 1.0 - (((((a5*t + a4)*t) + a3)*t + a2)*t + a1)*t*exp(-x*x);
+    sign*y
   }
 }
