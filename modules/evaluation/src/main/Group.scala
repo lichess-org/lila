@@ -134,16 +134,19 @@ case class GameGroup (
 object Statistics {
   import Erf._
 
-  def variance[T](a: NonEmptyList[T], optionalAvg: Option[Double] = None)(implicit n: Numeric[T]): Double = {
-    val avg: Double = optionalAvg getOrElse average(a)
-    a.map( i => pow(i - avg, 2) ).list.sum / a.length
+  def variance[T](a: NonEmptyList[T], optionalAvg: Option[T] = None)(implicit n: Numeric[T]): Double = {
+    val avg: Double = optionalAvg match {
+      case Some(a) => n.toDouble(a)
+      case None    => average(a)
+    }
+    a.map( i => pow(n.toDouble(i) - avg, 2)).list.sum / a.length
   }
 
   def average[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
-    def average[T](a: List[T], sum: T = 0, depth: Int = 0)(implicit n: Numeric[T]): Double = {
+    def average(a: List[T], sum: T = n.zero, depth: Int = 0): Double = {
       a match {
-        case List()  => sum / depth
-        case x :: xs => average(xs, sum + x, depth + 1)
+        case List()  => n.toDouble(sum) / depth
+        case x :: xs => average(xs, n.plus(sum, x), depth + 1)
       }
     }
     average(a.list)
@@ -154,42 +157,44 @@ object Statistics {
   )
 
   // Bhattacharyya Coefficient
-  def setToSetSimilarity(a: NonEmptyList[Int], b: NonEmptyList[Int]): Similarity = {
+  def setToSetSimilarity[T](a: NonEmptyList[T], b: NonEmptyList[T])(implicit n: Numeric[T]): Similarity = {
+    val aDouble: NonEmptyList[Double] = a.map(n.toDouble)
+    val bDouble: NonEmptyList[Double] = b.map(n.toDouble)
+
     val avgA = average(a)
     val avgB = average(b)
 
-    val varA = pow(variance(a, Some(avgA)), 2)
-    val varB = pow(variance(b, Some(avgB)), 2)
+    val varA = pow(variance(aDouble, Some(avgA)), 2)
+    val varB = pow(variance(bDouble, Some(avgB)), 2)
 
     setToSetSimilarity(avgA, avgB, varA, varB)
   }
 
   def pointToSetSimilarity[T](x: T, set: NonEmptyList[T])(implicit n: Numeric[T]): Similarity = Similarity(
-    confInterval(x, average(set), sqrt(variance(set)))
+    confInterval(n.toDouble(x), average(set), sqrt(variance(set)))
   )
 
   def pointToPointSimilarity[T](a: T, b: T)(implicit n: Numeric[T]): Similarity = Similarity(
     (a, b) match {
-      case (a, b) if (a == b)         => 1
-      case (a, b) if (a > 0 && b > 0) => pow(E, -(abs((a - b).toDouble / a) + abs((a - b).toDouble / b)) / 2)
-      case _                          => 0
+      case (a, b) if (a == b)                                               => 1
+      case (a, b) if (n.compare(a, n.zero) > 0 && n.compare(b, n.zero) > 0) => pow(E, -(abs(n.toDouble(n.minus(a, b)) / n.toDouble(a)) + abs(n.toDouble(n.minus(a, b)) / n.toDouble(b))) / 2)
+      case _                                                                => 0
     }
   )
 
   // Coefficient of Variance
   def coefVariation(a: NonEmptyList[Int]): Double = sqrt(variance(a)) / average(a)
-  def coefVariation(a: NonEmptyList[Double]): Double = sqrt(variance(a)) / average(a)
 
   def intervalToVariance4(interval: Double): Double = {
     pow(interval / 3, 8) // roughly speaking
   }
 
-  def cdf(x: Double, avg: Double = 0, sd: Double = 1): Double = {
-    (1.0/2.0) * (1 + erf((x - avg) / (sd*sqrt(2))))
+  def cdf[T](x: T, avg: T, sd: T)(implicit n: Numeric[T]): Double = {
+    (1.0/2.0) * (1 + erf(n.toDouble(n.minus(x, avg)) / (n.toDouble(sd)*sqrt(2))))
   }
 
-  def confInterval(x: Double, avg: Double = 0, sd: Double = 1): Double = {
-    1 - cdf(abs(x), avg, sd) + cdf(-abs(x), avg, sd)
+  def confInterval[T](x: T, avg: T, sd: T)(implicit n: Numeric[T]): Double = {
+    1 - cdf(n.abs(x), avg, sd) + cdf(n.times(n.fromInt(-1), n.abs(x)), avg, sd)
   }
 
   // all Similarities in the non empty list are similar
