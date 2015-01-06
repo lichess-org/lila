@@ -75,7 +75,6 @@ private[round] final class Socket(
 
   private def refreshSubscriptions {
     lilaBus.unsubscribe(self)
-    lilaBus.subscribe(self, 'startGame)
     watchers.flatMap(_.userTv).toList.distinct foreach { userId =>
       lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
     }
@@ -91,7 +90,7 @@ private[round] final class Socket(
     // from lilaBus 'startGame
     // sets definitive user ids
     // in case one joined after the socket creation
-    case StartGame(game) if game.id == gameId => self ! SetGame(game.some)
+    case StartGame(game) => self ! SetGame(game.some)
 
     case PingVersion(uid, v) =>
       timeBomb.delay
