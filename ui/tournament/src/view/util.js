@@ -37,7 +37,7 @@ module.exports = {
   secondsFromNow: function(seconds) {
     var time = moment().add(seconds, 'seconds');
     return m('time.moment-from-now', {
-      datetime: time
+      datetime: time.format()
     }, time.fromNow());
   },
   title: function(ctrl) {

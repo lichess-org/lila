@@ -5,7 +5,7 @@ var boardContent = m('div.cg-board-wrap', m('div.cg-board'));
 function timer(pov) {
   var time = moment().add(pov.secondsLeft, 'seconds');
   return m('time.moment-from-now', {
-    datetime: time
+    datetime: time.format()
   }, time.fromNow());
 }
 
