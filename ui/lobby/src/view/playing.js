@@ -13,7 +13,7 @@ module.exports = function(ctrl) {
   return m('div#now_playing',
     ctrl.data.nowPlaying.map(function(pov) {
       return m('a', {
-        key: pov.id,
+        key: pov.gameId,
         href: '/' + pov.fullId,
         class: pov.isMyTurn ? 'my_turn' : ''
       }, [
