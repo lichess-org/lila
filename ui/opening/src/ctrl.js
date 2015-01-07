@@ -13,7 +13,8 @@ module.exports = function(cfg, router, i18n) {
     }).length,
     figuredOut: [],
     messedUp: [],
-    flash: null
+    flash: {},
+    flashFound: null,
   };
 
   var chess = new Chess(this.data.opening.fen);
@@ -58,24 +59,49 @@ module.exports = function(cfg, router, i18n) {
     },
   });
 
-  var submitMove = function(move) {
-    var found = this.data.opening.moves.filter(function(m) {
-      return m.first === move;
+  var submitMove = function(uci) {
+    var chessMove = chess.move({
+      from: uci.substr(0, 2),
+      to: uci.substr(2, 2)
+    });
+    if (!chessMove) return;
+    chess = new Chess(this.data.opening.fen);
+    var move = {
+      uci: uci,
+      san: chessMove.san
+    };
+    var known = this.data.opening.moves.filter(function(m) {
+      return m.first === move.uci;
     })[0];
-    if (found && found.quality === 'good') {
-      if (this.vm.figuredOut.indexOf(move) === -1) this.vm.figuredOut.push(move);
-    } else if (found && found.quality === 'dubious') {
-      flash('dubious');
-    } else if (!found || found.quality === 'bad') {
-      if (this.vm.messedUp.indexOf(move) === -1) this.vm.messedUp.push(move);
-      flash('bad');
+    if (known && known.quality === 'good') {
+      var alreadyFound = this.vm.figuredOut.filter(function(f) {
+        return f.uci === move.uci;
+      }).length > 0;
+      if (alreadyFound) flashFound(move);
+      else {
+        flash(move, 'good');
+        this.vm.figuredOut.push(move);
+      }
+    } else if (known && known.quality === 'dubious') {
+      flash(move, 'dubious');
+    } else {
+      if (this.vm.messedUp.indexOf(move.uci) === -1) this.vm.messedUp.push(move);
+      flash(move, 'bad');
     }
   }.bind(this);
 
-  var flash = function(f) {
-    this.vm.flash = f;
+  var flash = function(move, quality) {
+    this.vm.flash[quality] = move;
     setTimeout(function() {
-      this.vm.flash = null;
+      delete this.vm.flash[quality];
+      m.redraw();
+    }.bind(this), 1000);
+  }.bind(this);
+
+  var flashFound = function(move) {
+    this.vm.flashFound = move;
+    setTimeout(function() {
+      this.vm.flashFound = null;
       m.redraw();
     }.bind(this), 1000);
   }.bind(this);
