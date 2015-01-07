@@ -7,7 +7,7 @@ import play.api.http.ContentTypes
 import play.api.mvc._
 import play.twirl.api.Html
 
-import lila.analyse.{ Analysis, TimeChart, AdvantageChart }
+import lila.analyse.{ Analysis, TimeChart, AdvantageChart, Accuracy }
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
@@ -68,6 +68,7 @@ object Analyse extends LilaController {
               println(pov.game)
               println(pov.game.moveTimes)
               println(pov.game.players.map(_.blurs))
+              analysis.fold(){ x => println(Accuracy.diffsList(pov, x))}
               Ok(html.analyse.replay(
                 pov,
                 data,

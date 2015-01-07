@@ -13,18 +13,19 @@ object Accuracy {
     case (_, Some(m1), _, Some(m2)) => withSignOf(Score.CEILING, m2) - withSignOf(Score.CEILING, m1)
   }
 
-  def apply(pov: Pov, analysis: Analysis): Option[Int] = {
-
-    val diffs = pov.color.fold(
-      Info.start :: analysis.infos,
-      analysis.infos
-    ).grouped(2).foldLeft(List[Int]()) {
-        case (list, List(i1, i2)) =>
-          makeDiff.lift(i1.score, i1.mate, i2.score, i2.mate).fold(list) { diff =>
-            (if (pov.color.white) -diff else diff).max(0) :: list
-          }
-        case (list, _) => list
+  def diffsList(pov: Pov, analysis: Analysis): List[Int] = pov.color.fold(
+    Info.start :: analysis.infos,
+    analysis.infos
+  ).grouped(2).foldLeft(List[Int]()) {
+    case (list, List(i1, i2)) =>
+      makeDiff.lift(i1.score, i1.mate, i2.score, i2.mate).fold(list) { diff =>
+        (if (pov.color.white) -diff else diff).max(0) :: list
       }
+    case (list, _) => list
+  }
+
+  def apply(pov: Pov, analysis: Analysis): Option[Int] = {
+    val diffs = diffsList(pov, analysis)
     val nb = diffs.size
     (nb != 0) option (diffs.sum / nb)
   }

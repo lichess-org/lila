@@ -195,7 +195,7 @@ object Statistics {
   def allSimilar(a: NonEmptyList[Similarity]): Boolean = a.list.forall( _.isSimilar )
 
   // Square Sum Distance
-  def ssd(a: NonEmptyList[Similarity]): Double = sqrt(a.map(x => pow(x.apply, 2)).list.sum) / a.size
+  def ssd(a: NonEmptyList[Similarity]): Double = sqrt(a.map(x => pow(x.apply, 2)).list.sum / a.size)
 }
 
 object Erf {
