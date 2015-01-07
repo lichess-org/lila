@@ -72,7 +72,7 @@ final class JsonView(
 
   private def sheetJson(sheet: ScoreSheet) = sheet match {
     case s: arena.ScoringSystem.Sheet => Json.obj(
-      "scores" -> s.scores.take(20).reverse.map { score =>
+      "scores" -> s.scores.take(18).reverse.map { score =>
         if (score.flag == arena.ScoringSystem.Normal) Json.arr(score.value)
         else Json.arr(score.value, score.flag.toString.toLowerCase)
       },
@@ -80,7 +80,7 @@ final class JsonView(
       "fire" -> s.onFire.option(true)
     ).noNull
     case s: swiss.SwissSystem.Sheet => Json.obj(
-      "scores" -> s.scores.take(20).reverse.map(_.repr),
+      "scores" -> s.scores.take(18).reverse.map(_.repr),
       "total" -> s.totalRepr,
       "neustadtl" -> s.neustadtlRepr)
   }
