@@ -37,7 +37,8 @@ function renderMove(ctrl, move, path) {
     tag: 'a',
     attrs: {
       class: 'move' + (pathStr === ctrl.vm.pathStr ? ' active' : ''),
-      'data-path': pathStr
+      'data-path': pathStr,
+      'href': '#' + path[0].ply
     },
     children: [
       move.san,
@@ -219,9 +220,15 @@ function renderAnalyse(ctrl) {
     ]));
   }
   return m('div.analyse', {
-      onclick: function(e) {
+      onmousedown: function(e) {
         var path = e.target.getAttribute('data-path') || e.target.parentNode.getAttribute('data-path');
-        if (path) ctrl.jump(treePath.read(path));
+        if (path) {
+          e.preventDefault();
+          ctrl.jump(treePath.read(path));
+        }
+      },
+      onclick: function(e) {
+        return false;
       }
     },
     tree);
