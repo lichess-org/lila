@@ -74,6 +74,7 @@ GET   /games/search       controllers.Game.search(page: Int ?= 1)
 # Training - Opening
 GET   /training/opening                controllers.Opening.home
 GET   /training/opening/:id            controllers.Opening.show(id: Int)
+POST  /training/opening/:id            controllers.Opening.attempt(id: Int)
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home

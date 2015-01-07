@@ -17,7 +17,9 @@ case class Opening(
     attempts: Int,
     score: Double) {
 
-  def qualityMoves: List[QualityMove] = {
+  def goal = qualityMoves.size min 5
+
+  lazy val qualityMoves: List[QualityMove] = {
     val bestCp = moves.foldLeft(Int.MaxValue) {
       case (cp, move) => if (move.cp < cp) move.cp else cp
     }

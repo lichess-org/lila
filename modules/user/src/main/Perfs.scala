@@ -4,7 +4,7 @@ import reactivemongo.bson.BSONDocument
 
 import chess.{ Variant, Speed }
 import lila.db.BSON
-import lila.rating.{ Perf, PerfType, Glicko }
+import lila.rating.{ Perf, ScorePerf, PerfType, Glicko }
 
 case class Perfs(
     standard: Perf,
@@ -16,7 +16,8 @@ case class Perfs(
     blitz: Perf,
     classical: Perf,
     correspondence: Perf,
-    puzzle: Perf) {
+    puzzle: Perf,
+    opening: ScorePerf) {
 
   def perfs = List(
     "standard" -> standard,
@@ -109,7 +110,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p, ScorePerf.default)
   }
 
   def variantLens(variant: Variant): Option[Perfs => Perf] = variant match {
@@ -128,13 +129,15 @@ case object Perfs {
     case Speed.Correspondence => perfs => perfs.correspondence
   }
 
-  private def PerfsBSONHandler = new BSON[Perfs] {
+  val perfsBSONHandler = new BSON[Perfs] {
 
-    implicit def perfHandler = Perf.tube.handler
+    implicit def perfHandler = Perf.perfBSONHandler
+    implicit def scorePerfHandler = ScorePerf.scorePerfBSONHandler
     import BSON.Map._
 
     def reads(r: BSON.Reader): Perfs = {
       def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default
+      def scorePerf(key: String) = r.getO[ScorePerf](key) getOrElse ScorePerf.default
       Perfs(
         standard = perf("standard"),
         chess960 = perf("chess960"),
@@ -145,10 +148,12 @@ case object Perfs {
         blitz = perf("blitz"),
         classical = perf("classical"),
         correspondence = perf("correspondence"),
-        puzzle = perf("puzzle"))
+        puzzle = perf("puzzle"),
+        opening = scorePerf("opening"))
     }
 
-    private def notNew(p: Perf) = p.nb > 0 option p
+    private def notNew(p: Perf): Option[Perf] = p.nb > 0 option p
+    private def notNew(p: ScorePerf): Option[ScorePerf] = p.nb > 0 option p
 
     def writes(w: BSON.Writer, o: Perfs) = BSONDocument(
       "standard" -> notNew(o.standard),
@@ -160,8 +165,7 @@ case object Perfs {
       "blitz" -> notNew(o.blitz),
       "classical" -> notNew(o.classical),
       "correspondence" -> notNew(o.correspondence),
-      "puzzle" -> notNew(o.puzzle))
+      "puzzle" -> notNew(o.puzzle),
+      "opening" -> notNew(o.opening))
   }
-
-  lazy val tube = lila.db.BsTube(PerfsBSONHandler)
 }

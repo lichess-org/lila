@@ -7,21 +7,30 @@ module.exports = function(cfg, router, i18n) {
   this.data = cfg;
   console.log(this.data);
 
-  this.vm = {
-    goal: Math.min(5, this.data.opening.moves.filter(function(m) {
-      return m.quality === 'good';
-    }).length),
-    figuredOut: [],
-    messedUp: [],
-    flash: {},
-    flashFound: null,
-  };
+  this.vm;
 
-  var chess = new Chess(this.data.opening.fen);
-  var init = {
-    dests: chess.dests(),
-    check: chess.in_check()
-  };
+  var chess, init;
+
+  var initialize = function() {
+    chess = new Chess(this.data.opening.fen);
+    init = {
+      dests: chess.dests(),
+      check: chess.in_check()
+    };
+    this.vm = {
+      figuredOut: [],
+      messedUp: [],
+      loading: false,
+      flash: {},
+      flashFound: null,
+    };
+  }.bind(this);
+  initialize();
+
+  this.reload = function(data) {
+    this.data = data;
+    initialize();
+  }.bind(this);
 
   var onMove = function(orig, dest, meta) {
     $.sound.move();

@@ -25,6 +25,10 @@ final class Env(
     openingColl = openingColl,
     api = api)
 
+  lazy val finisher = new Finisher(
+    api = api,
+    openingColl = openingColl)
+
   lazy val userInfos = UserInfos(attemptColl = attemptColl)
 
   private[opening] lazy val openingColl = db(CollectionOpening)

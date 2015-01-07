@@ -1,8 +1,16 @@
+#opening .right .findit {
+  display: block;
+  margin: 1em 0 2em 0;
+}
+#opening .right .control {
+  text-align: center;
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
 #opening .meter {
   width: 494px;
-  height: 37px;
+  height: 47px;
   position: relative;
-  background: #ededed;
   border-radius: 25px;
   padding: 10px;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -21,10 +29,8 @@
 }
 #opening .meter li {
   float: left;
-  margin: 0;
-  padding: 0;
-  text-align: right;
   height: 19px;
+  font-weight: bold;
   position: relative;
   border-radius: 10px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25) inset;
@@ -38,7 +44,7 @@
 #opening .meter .step {
   top: -18px;
   border: 3px solid #ddd;
-  color: #ddd;
+  color: #888;
   width: 50px;
   line-height: 50px;
   font-size: 1.1em;
@@ -47,32 +53,34 @@
   border-radius: 50%;
   white-space: nowrap;
   z-index: 1;
-  transition: 0.8s;
+  transition: all 0.8s, transform 0.4s;
 }
 #opening .meter .stage {
   color: #fff;
   font-weight: 700;
 }
 #opening .meter li.found {
-  background: #759900;
+  background: #759900!important;
 }
-#opening .meter li.found span.step {
-  color: #888;
-  border: 3px solid #759900;
+#opening .meter li.found .step {
+  border: 3px solid #759900!important;
+  transform: rotate(360deg);
 }
-#opening .meter li.good span.step {
-  box-shadow: 0 0 15px 5px #759900;
+#opening .meter li.good .step {
+  box-shadow: 0 0 25px 10px #759900;
 }
-#opening .meter li.next span.step {
-  color: #759900;
+#opening .meter li.next .step {
   box-shadow: 0 0 15px #888;
 }
-#opening .meter li.already span.step {
-  background: #759900;
-  color: #fff;
+#opening .meter li.already .step {
+  background: #759900!important;
+  color: #fff!important;
 }
-#opening .meter li.bad span.step {
-  background: #dc322f;
-  color: #fff;
-  box-shadow: 0 0 15px #dc322f;
+#opening .meter li.bad .step {
+  background: #dc322f!important;
+  color: #fff!important;
+  box-shadow: 0 0 15px #dc322f!important;
+}
+#opening .meter li.dubious .step {
+  background: #ddd;
 }

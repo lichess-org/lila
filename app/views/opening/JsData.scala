@@ -12,11 +12,13 @@ object JsData extends lila.Steroids {
 
   def apply(
     opening: Opening,
-    userInfos: Option[lila.opening.UserInfos])(implicit ctx: Context) =
+    userInfos: Option[lila.opening.UserInfos],
+    play: Boolean)(implicit ctx: Context) =
     Html(Json.stringify(Json.obj(
       "opening" -> Json.obj(
         "id" -> opening.id,
         "attempts" -> opening.attempts,
+        "goal" -> opening.goal,
         "fen" -> opening.fen,
         "color" -> opening.color.name,
         "moves" -> JsArray(opening.qualityMoves.map {
@@ -33,5 +35,6 @@ object JsData extends lila.Steroids {
           "score" -> i.score,
           "history" -> i.history.nonEmpty.option(Json.toJson(i.chart))
         )
-      })))
+      },
+      "play" -> play)))
 }

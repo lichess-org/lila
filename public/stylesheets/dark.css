@@ -144,12 +144,21 @@ body.dark .crosstable td.current a,
 body.dark #modal-wrap {
   background-color: #303030;
 }
+body.dark #opening .meter ul,
+body.dark #opening .meter li.dubious .step,
 body.dark .ui-slider,
 body.dark div.progressbar,
 body.dark #translation_call div.progressbar,
 body.dark #themepicker div.theme:hover {
   background-color: #505050;
 }
+body.dark #opening .meter .step {
+  border-color: #505050;
+}
+body.dark #opening .meter li.next .step {
+  box-shadow: 0 0 15px #000;
+}
+body.dark #opening .meter .step,
 body.dark #hooks_wrap div.tabs a,
 body.dark #top div.auth .links a:hover,
 body.dark #top .language_links button:hover,

@@ -1,13 +1,31 @@
 var m = require('mithril');
 var chessground = require('chessground');
+var classSet = chessground.util.classSet;
+var partial = chessground.util.partial;
+var xhr = require('./xhr');
 
 function strong(txt) {
   return '<strong>' + txt + '</strong>';
 }
 
-function renderTable(ctrl) {
+function renderPlayTable(ctrl) {
   return m('div.table',
-    m('div.table_inner', [])
+    m('div.table_inner', [
+      m('div.current_player',
+        m('div.player.' + ctrl.chessground.data.turnColor, [
+          m('div.no-square', m('div.cg-piece.king.' + ctrl.chessground.data.turnColor)),
+          m('p', ctrl.trans('yourTurn'))
+        ])
+      ),
+      m('div.findit', m.trust(ctrl.trans('findNbGoodMoves', strong(ctrl.data.opening.goal)))),
+      m('div.control',
+        ctrl.data.play ? m('a.button', {
+          onclick: partial(xhr.attempt, ctrl)
+        }, ctrl.trans('giveUp')) : m('a.button', {
+          onclick: partial(xhr.newOpening, ctrl)
+        }, ctrl.trans('continueTraining'))
+      )
+    ])
   );
 }
 
@@ -58,16 +76,9 @@ function renderTrainingBox(ctrl) {
   ]);
 }
 
-function renderResult(ctrl) {
-  return [
-    m('div.goal', m.trust(ctrl.trans('findNbGoodMoves', strong(ctrl.vm.goal)))),
-  ];
-}
-
 function renderSide(ctrl) {
   return m('div.side', [
-    renderTrainingBox(ctrl),
-    renderResult(ctrl)
+    renderTrainingBox(ctrl)
   ]);
 }
 
@@ -76,23 +87,25 @@ function progress(ctrl) {
   var nbFiguredOut = ctrl.vm.figuredOut.length;
   var lastI = nbFiguredOut - 1;
   var nextI = nbFiguredOut;
-  for (var i = 0; i < ctrl.vm.goal; i++) {
+  for (var i = 0; i < ctrl.data.opening.goal; i++) {
     steps.push({
       found: ctrl.vm.figuredOut[i],
       last: lastI === i,
       next: nextI === i
     });
   }
-  var liWidth = Math.round(100 / ctrl.vm.goal) + '%';
+  var liWidth = Math.round(100 / ctrl.data.opening.goal) + '%';
   return m('div.meter', [
     m('ul',
       steps.map(function(step) {
         var badSan = (step.next && ctrl.vm.flash.bad) ? ctrl.vm.flash.bad.san : null;
+        var dubiousSan = (step.next && ctrl.vm.flash.dubious) ? ctrl.vm.flash.dubious.san : null;
         return m('li', {
-          class: chessground.util.classSet({
+          class: classSet({
             found: step.found,
             next: step.next,
             bad: badSan,
+            dubious: dubiousSan,
             good: step.last && ctrl.vm.flash.good,
             already: step.found && ctrl.vm.flashFound && ctrl.vm.flashFound.uci === step.found.uci
           }),
@@ -101,7 +114,7 @@ function progress(ctrl) {
           }
         }, [
           m('span.step', step.found ? step.found.san : (
-            badSan || '?'
+            badSan || dubiousSan || '?'
           )),
           m('span.stage')
         ]);
@@ -109,13 +122,15 @@ function progress(ctrl) {
   ]);
 }
 
+var loading = m('div.loader.fast');
+
 module.exports = function(ctrl) {
-  var percent = Math.ceil(ctrl.vm.figuredOut.length * 100 / ctrl.vm.goal) + '%';
+  var percent = Math.ceil(ctrl.vm.figuredOut.length * 100 / ctrl.data.opening.goal) + '%';
   return m('div#opening.training', [
     renderSide(ctrl),
     m('div.board_and_ground', [
       m('div', chessground.view(ctrl.chessground)),
-      m('div.right', renderTable(ctrl))
+      m('div.right', ctrl.vm.loading ? loading : renderPlayTable(ctrl))
     ]),
     m('div.center', [
       progress(ctrl)

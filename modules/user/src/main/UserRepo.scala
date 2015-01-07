@@ -11,7 +11,7 @@ import reactivemongo.bson._
 import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
-import lila.rating.{ Glicko, Perf, PerfType }
+import lila.rating.{ Glicko, Perf, PerfType, ScorePerf }
 import tube.userTube
 
 object UserRepo extends UserRepo {
@@ -116,8 +116,12 @@ trait UserRepo {
     s"${F.perfs}.$perfName" -> Perf.perfBSONHandler.write(perf)
   ))
 
+  def setScorePerf(userId: String, scorePerfName: String, scorePerf: ScorePerf) = $update($select(userId), $setBson(
+    s"${F.perfs}.$scorePerfName" -> ScorePerf.scorePerfBSONHandler.write(scorePerf)
+  ))
+
   def setProfile(id: ID, profile: Profile): Funit =
-    $update($select(id), $setBson(F.profile -> Profile.tube.handler.write(profile)))
+    $update($select(id), $setBson(F.profile -> Profile.profileBSONHandler.write(profile)))
 
   def setTitle(id: ID, title: Option[String]): Funit = title match {
     case Some(t) => $update.field(id, F.title, t)
@@ -276,8 +280,8 @@ trait UserRepo {
   private def newUser(username: String, password: String, blind: Boolean) = {
 
     val salt = ornicar.scalalib.Random nextStringUppercase 32
-    implicit def countHandler = Count.tube.handler
-    implicit def perfsHandler = Perfs.tube.handler
+    implicit def countHandler = Count.countBSONHandler
+    implicit def perfsHandler = Perfs.perfsBSONHandler
     import lila.db.BSON.BSONJodaDateTimeHandler
 
     BSONDocument(
