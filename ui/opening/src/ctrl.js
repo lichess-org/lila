@@ -8,9 +8,9 @@ module.exports = function(cfg, router, i18n) {
   console.log(this.data);
 
   this.vm = {
-    nbGood: this.data.opening.moves.filter(function(m) {
+    goal: Math.min(5, this.data.opening.moves.filter(function(m) {
       return m.quality === 'good';
-    }).length,
+    }).length),
     figuredOut: [],
     messedUp: [],
     flash: {},

@@ -60,7 +60,7 @@ function renderTrainingBox(ctrl) {
 
 function renderResult(ctrl) {
   return [
-    m('div.goal', m.trust(ctrl.trans('findNbGoodMoves', strong(ctrl.vm.nbGood)))),
+    m('div.goal', m.trust(ctrl.trans('findNbGoodMoves', strong(ctrl.vm.goal)))),
   ];
 }
 
@@ -76,14 +76,14 @@ function progress(ctrl) {
   var nbFiguredOut = ctrl.vm.figuredOut.length;
   var lastI = nbFiguredOut - 1;
   var nextI = nbFiguredOut;
-  for (var i = 0; i < ctrl.vm.nbGood; i++) {
+  for (var i = 0; i < ctrl.vm.goal; i++) {
     steps.push({
       found: ctrl.vm.figuredOut[i],
       last: lastI === i,
       next: nextI === i
     });
   }
-  var liWidth = Math.round(100 / ctrl.vm.nbGood) + '%';
+  var liWidth = Math.round(100 / ctrl.vm.goal) + '%';
   return m('div.meter', [
     m('ul',
       steps.map(function(step) {
@@ -110,7 +110,7 @@ function progress(ctrl) {
 }
 
 module.exports = function(ctrl) {
-  var percent = Math.ceil(ctrl.vm.figuredOut.length * 100 / ctrl.vm.nbGood) + '%';
+  var percent = Math.ceil(ctrl.vm.figuredOut.length * 100 / ctrl.vm.goal) + '%';
   return m('div#opening.training', [
     renderSide(ctrl),
     m('div.board_and_ground', [

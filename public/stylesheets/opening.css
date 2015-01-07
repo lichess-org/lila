@@ -1,6 +1,6 @@
 #opening .meter {
   width: 494px;
-  height: 40px;
+  height: 37px;
   position: relative;
   background: #ededed;
   border-radius: 25px;
@@ -9,7 +9,7 @@
   margin-top: 20px;
 }
 #opening .meter ul {
-  margin-top: 4px;
+  margin-top: 13px;
   padding: 0;
   display: block;
   height: 19px;
@@ -28,19 +28,20 @@
   position: relative;
   border-radius: 10px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25) inset;
-  transition: 0.8s;
+  transition: 2s;
 }
 #opening .meter span {
-  right: -12px;
+  right: -9px;
   display: block;
   text-align: center;
 }
 #opening .meter .step {
-  top: -9px;
+  top: -18px;
   border: 3px solid #ddd;
   color: #ddd;
-  width: 33px;
-  line-height: 33px;
+  width: 50px;
+  line-height: 50px;
+  font-size: 1.1em;
   position: absolute;
   background: #fff;
   border-radius: 50%;
@@ -64,7 +65,7 @@
 }
 #opening .meter li.next span.step {
   color: #759900;
-  box-shadow: 0 0 15px #759900;
+  box-shadow: 0 0 15px #888;
 }
 #opening .meter li.already span.step {
   background: #759900;
