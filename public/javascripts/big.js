@@ -1859,7 +1859,7 @@ lichess.storage = {
   function startTournament(element, cfg) {
     $('body').data('tournament-id', cfg.data.id);
     var $watchers = $("div.watchers").watchers();
-    if (lichess_chat) $('#chat').chat({
+    if (typeof lichess_chat !== 'undefined') $('#chat').chat({
       messages: lichess_chat
     });
     var tournament;
