@@ -19,7 +19,7 @@
   text-align: center;
   margin-top: 20px;
 }
-#opening .right .continue {
+#opening .right .continue_wrap .button {
   display: inline-block;
   white-space: nowrap;
   font-size: 1.3em;

@@ -8,6 +8,17 @@ function strong(txt) {
   return '<strong>' + txt + '</strong>';
 }
 
+function renderAnalysisButton(ctrl) {
+  return m('a.button.hint--bottom', {
+    'data-hint': ctrl.trans('analysis'),
+    href: '/analysis/' + encodeURIComponent(ctrl.data.opening.fen).replace(/%20/g, '_').replace(/%2F/g, '/'),
+    target: '_blank',
+    rel: 'nofollow'
+  }, m('span', {
+    'data-icon': '['
+  }));
+}
+
 function renderPlayTable(ctrl) {
   return m('div.table',
     m('div.table_inner', [
@@ -18,15 +29,16 @@ function renderPlayTable(ctrl) {
         ])
       ),
       m('div.findit', m.trust(ctrl.trans('findNbStrongMoves', strong(ctrl.data.opening.goal)))),
-      m('div.control',
+      m('div.control', [
         ctrl.data.play ? m('a.button', {
           onclick: partial(xhr.attempt, ctrl)
         }, ctrl.trans('giveUp')) : m('a.button', {
           onclick: partial(xhr.newOpening, ctrl)
-        }, ctrl.trans('continueTraining'))
-      )
-    ])
-  );
+        }, ctrl.trans('continueTraining')),
+        ' ',
+        renderAnalysisButton(ctrl)
+      ])
+    ]));
 }
 
 function renderViewTable(ctrl) {
@@ -45,11 +57,13 @@ function renderViewTable(ctrl) {
         })
       )
     ]),
-    m('div.continue_wrap',
+    m('div.continue_wrap', [
       m('button.continue.button.text[data-icon=G]', {
         onclick: partial(xhr.newOpening, ctrl)
-      }, ctrl.trans('continueTraining'))
-    )
+      }, ctrl.trans('continueTraining')),
+      ' ',
+      renderAnalysisButton(ctrl)
+    ])
   ];
 }
 
@@ -244,8 +258,7 @@ module.exports = function(ctrl) {
       ))
     ]),
     m('div.center', [
-      progress(ctrl),
-      (ctrl.data.user && ctrl.data.user.history) ? renderHistory(ctrl) : null
+      progress(ctrl), (ctrl.data.user && ctrl.data.user.history) ? renderHistory(ctrl) : null
     ])
   ]);
 };
