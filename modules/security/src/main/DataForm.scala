@@ -101,7 +101,7 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
     "slut",
     "whore",
     "nazi",
-    "morteza")
+    "mortez")
     replacement <- List("" -> "", "o" -> "0", "i" -> "1")
   } yield base.replace(replacement._1, replacement._2)
 }

@@ -6,7 +6,6 @@ var Chess = require('chessli.js').Chess;
 module.exports = function(cfg, router, i18n) {
 
   this.data = cfg;
-  console.log(this.data);
 
   this.vm;
 
@@ -151,7 +150,7 @@ module.exports = function(cfg, router, i18n) {
 
   this.notFiguredOut = function() {
     return this.data.opening.moves.filter(function(m) {
-      return !this.vm.figuredOut.filter(function(fm) {
+      return m.quality === 'good' && !this.vm.figuredOut.filter(function(fm) {
         return fm.uci === m.uci;
       }).length
     }.bind(this));
