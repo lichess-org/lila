@@ -16,6 +16,8 @@ final class Env(
   }
   import settings._
 
+  val AnimationDuration = config duration "animation.duration"
+
   lazy val api = new OpeningApi(
     openingColl = openingColl,
     attemptColl = attemptColl,
@@ -23,7 +25,10 @@ final class Env(
 
   lazy val selector = new Selector(
     openingColl = openingColl,
-    api = api)
+    api = api,
+    toleranceStep = config getInt "selector.tolerance.step",
+    toleranceMax = config getInt "selector.tolerance.max",
+    modulo = config getInt "selector.modulo")
 
   lazy val finisher = new Finisher(
     api = api,

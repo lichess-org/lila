@@ -17,7 +17,7 @@ module.exports = function(cfg, router, i18n) {
 
   this.data = data(cfg);
 
-  this.userMove = function(orig, dest) {
+  var userMove = function(orig, dest) {
     var res = puzzle.tryMove(this.data, [orig, dest]);
     var newProgress = res[0];
     var newLines = res[1];
@@ -85,7 +85,7 @@ module.exports = function(cfg, router, i18n) {
       free: false,
       color: cfg.mode !== 'view' ? cfg.puzzle.color : null,
       events: {
-        after: this.userMove
+        after: userMove
       },
     },
     animation: {

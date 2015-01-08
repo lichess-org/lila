@@ -32,11 +32,11 @@ function renderPlayTable(ctrl) {
 function renderViewTable(ctrl) {
   return [
     m('div.box', [
-      m('h2',
-        m('a', {
-          href: '/training/opening/' + ctrl.data.opening.id
-        }, ctrl.trans('openingId', ctrl.data.opening.id))
-      ),
+      m('h2.text', {
+        'data-icon': ']'
+      }, m('a', {
+        href: '/training/opening/' + ctrl.data.opening.id
+      }, ctrl.trans('openingId', ctrl.data.opening.id))),
       m('p', m.trust(ctrl.trans('ratingX', strong(ctrl.data.opening.rating)))),
       m('p', m.trust(ctrl.trans('playedXTimes', strong(ctrl.data.opening.attempts)))),
       m('p',
@@ -74,6 +74,27 @@ function renderUserInfos(ctrl) {
   ]);
 }
 
+function renderCommentary(ctrl) {
+  switch (ctrl.vm.comment) {
+    case 'dubious':
+      return m('div.comment.retry', [
+        m('h3', m('strong', ctrl.trans('goodMove'))),
+        m('span', ctrl.trans('butYouCanDoBetter'))
+      ]);
+    case 'good':
+      return m('div.comment.great', [
+        m('h3.text[data-icon=E]', m('strong', ctrl.trans('bestMove'))),
+        ctrl.vm.figuredOut.length < ctrl.data.goal ? m('span', ctrl.trans('keepGoing')) : null
+      ]);
+    case 'bad':
+      return m('div.comment.fail', [
+        m('h3.text[data-icon=k]', m('strong', ctrl.trans('thisMoveGivesYourOpponentTheAdvantage')))
+      ]);
+    default:
+      return ctrl.vm.comment
+  }
+}
+
 function renderTrainingBox(ctrl) {
   return m('div.box', [
     m('h1', ctrl.trans('training')),
@@ -100,9 +121,50 @@ function renderTrainingBox(ctrl) {
   ]);
 }
 
+function renderRatingDiff(diff) {
+  return m('strong.rating', diff > 0 ? '+' + diff : diff);
+}
+
+function renderWin(ctrl, attempt) {
+  return m('div.comment.win', [
+    m('h3.text[data-icon=E]', [
+      m('strong', ctrl.trans('victory')),
+      attempt ? renderRatingDiff(attempt.userRatingDiff) : null
+    ]),
+    attempt ? m('span', ctrl.trans('openingSolved')) : null
+  ]);
+}
+
+function renderLoss(ctrl, attempt) {
+  return m('div.comment.loss',
+    m('h3.text[data-icon=k]', [
+      m('strong', ctrl.trans('openingFailed')),
+      attempt ? renderRatingDiff(attempt.userRatingDiff) : null
+    ])
+  );
+}
+
+function renderResult(ctrl) {
+  switch (ctrl.data.win) {
+    case true:
+      return renderWin(ctrl, null);
+    case false:
+      return renderLoss(ctrl, null);
+    default:
+      switch (ctrl.data.attempt && ctrl.data.attempt.win) {
+        case true:
+          return renderWin(ctrl, ctrl.data.attempt);
+        case false:
+          return renderLoss(ctrl, ctrl.data.attempt);
+      }
+  }
+}
+
 function renderSide(ctrl) {
   return m('div.side', [
-    renderTrainingBox(ctrl)
+    renderTrainingBox(ctrl),
+    ctrl.data.play ? renderCommentary(ctrl) : null,
+    renderResult(ctrl)
   ]);
 }
 

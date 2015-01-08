@@ -13,7 +13,10 @@ object JsData extends lila.Steroids {
   def apply(
     opening: Opening,
     userInfos: Option[lila.opening.UserInfos],
-    play: Boolean)(implicit ctx: Context) =
+    play: Boolean,
+    attempt: Option[Attempt],
+    win: Option[Boolean],
+    animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context) =
     Html(Json.stringify(Json.obj(
       "opening" -> Json.obj(
         "id" -> opening.id,
@@ -32,6 +35,15 @@ object JsData extends lila.Steroids {
         }),
         "url" -> s"$netBaseUrl${routes.Opening.show(opening.id)}"
       ),
+      "animation" -> Json.obj(
+        "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
+      ),
+      "attempt" -> attempt.map { a =>
+        Json.obj(
+          "userRatingDiff" -> a.userRatingDiff,
+          "win" -> a.win)
+      },
+      "win" -> win,
       "user" -> userInfos.map { i =>
         Json.obj(
           "rating" -> i.user.perfs.opening.intRating,

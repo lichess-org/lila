@@ -97,6 +97,7 @@ object Opening {
     val attempts = "attempts"
     val wins = "wins"
     val perf = "perf"
+    val rating = s"$perf.gl.r"
   }
 
   implicit val openingBSONHandler = new BSON[Opening] {

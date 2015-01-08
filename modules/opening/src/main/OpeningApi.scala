@@ -58,9 +58,10 @@ private[opening] final class OpeningApi(
 
     private val PlayedIdsGroup = Group(BSONBoolean(true))("ids" -> Push(Attempt.BSONFields.openingId))
 
-    def playedIds(user: User): Fu[BSONArray] = {
+    def playedIds(user: User, max: Int): Fu[BSONArray] = {
       val command = Aggregate(attemptColl.name, Seq(
         Match(BSONDocument(Attempt.BSONFields.userId -> user.id)),
+        Limit(max),
         PlayedIdsGroup
       ))
       attemptColl.db.command(command) map {

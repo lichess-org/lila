@@ -12,11 +12,10 @@ private[opening] final class Finisher(
     api: OpeningApi,
     openingColl: Coll) {
 
-  def apply(opening: Opening, user: User, found: Int, failed: Int): Fu[Attempt] =
+  def apply(opening: Opening, user: User, win: Boolean): Fu[(Attempt, Option[Boolean])] = {
     api.attempt.find(opening.id, user.id) flatMap {
-      case Some(a) => fuccess(a)
+      case Some(a) => fuccess(a -> win.some)
       case None =>
-        val win = found == opening.goal && failed == 0
         val userRating = user.perfs.opening.toRating
         val openingRating = opening.perf.toRating
         updateRatings(userRating, openingRating, win.fold(Glicko.Result.Win, Glicko.Result.Loss))
@@ -44,8 +43,9 @@ private[opening] final class Finisher(
             ))) zip UserRepo.setPerf(user.id, "opening", userPerf)
         }) recover {
           case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") => ()
-        } inject a
+        } inject (a -> none)
     }
+  }
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU = 0.75d

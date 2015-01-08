@@ -24,6 +24,7 @@ module.exports = function(cfg, router, i18n) {
       loading: false,
       flash: {},
       flashFound: null,
+      comment: null
     };
   }.bind(this);
   initialize();
@@ -80,6 +81,13 @@ module.exports = function(cfg, router, i18n) {
     turnColor: this.data.opening.color,
     check: init.check,
     autoCastle: true,
+    animation: {
+      enabled: true,
+      duration: this.data.animation.duration
+    },
+    premovable: {
+      enabled: true
+    },
     movable: {
       color: this.data.opening.color,
       free: false,
@@ -104,6 +112,7 @@ module.exports = function(cfg, router, i18n) {
     var known = this.data.opening.moves.filter(function(m) {
       return m.uci === move.uci;
     })[0];
+    this.comment = null;
     if (known && known.quality === 'good') {
       var alreadyFound = this.vm.figuredOut.filter(function(f) {
         return f.uci === move.uci;
@@ -112,12 +121,15 @@ module.exports = function(cfg, router, i18n) {
       else {
         flash(move, 'good');
         this.vm.figuredOut.push(move);
+        this.vm.comment = 'good';
       }
     } else if (known && known.quality === 'dubious') {
       flash(move, 'dubious');
+      this.vm.comment = 'dubious';
     } else {
       if (this.vm.messedUp.indexOf(move.uci) === -1) this.vm.messedUp.push(move);
       flash(move, 'bad');
+      this.vm.comment = 'bad';
     }
   }.bind(this);
 

@@ -187,7 +187,7 @@ function renderViewTable(ctrl) {
     ]) : null,
     m('div.box', [
       (ctrl.data.puzzle.enabled && ctrl.data.user) ? renderVote(ctrl) : null,
-      m('h2',
+      m('h2.text[data-icon="-"]',
         m('a', {
           href: ctrl.router.Puzzle.show(ctrl.data.puzzle.id).url
         }, ctrl.trans('puzzleId', ctrl.data.puzzle.id))
