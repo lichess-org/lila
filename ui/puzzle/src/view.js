@@ -205,7 +205,7 @@ function renderViewTable(ctrl) {
         onclick: partial(xhr.newPuzzle, ctrl)
       }, ctrl.trans('continueTraining')) : m('a.continue.button.text[data-icon=G]', {
         onclick: partial(xhr.newPuzzle, ctrl)
-      }, ctrl.trans('startTraining')), !(ctrl.data.win === null ? ctrl.data.attempt.win : ctrl.data.win) ? m('a.retry.text[data-icon=P]', {
+      }, ctrl.trans('continueTraining')), !(ctrl.data.win === null ? ctrl.data.attempt.win : ctrl.data.win) ? m('a.retry.text[data-icon=P]', {
         onclick: partial(xhr.retry, ctrl)
       }, ctrl.trans('retryThisPuzzle')) : null
     ])

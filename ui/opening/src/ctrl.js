@@ -112,7 +112,7 @@ module.exports = function(cfg, router, i18n) {
     var known = this.data.opening.moves.filter(function(m) {
       return m.uci === move.uci;
     })[0];
-    this.comment = null;
+    this.vm.comment = null;
     if (known && known.quality === 'good') {
       var alreadyFound = this.vm.figuredOut.filter(function(f) {
         return f.uci === move.uci;

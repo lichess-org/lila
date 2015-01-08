@@ -17,7 +17,7 @@ private[opening] final class Selector(
     toleranceMax: Int,
     modulo: Int) {
 
-  val anonSkipMax = 2000
+  val anonSkipMax = 200
 
   def apply(me: Option[User]): Fu[Opening] = me match {
     case None =>
