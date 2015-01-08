@@ -41,9 +41,9 @@ function renderTrainingBox(ctrl) {
       m('a.button', {
         href: '/training/coordinate'
       }, 'Coord'),
-      m('a.button', {
-        href: '/training/opening'
-      }, 'Opening')
+      // m('a.button', {
+      //   href: '/training/opening'
+      // }, 'Opening')
     ]),
     ctrl.data.user ? renderUserInfos(ctrl) : m('div.register', [
       m('p', ctrl.trans('toTrackYourProgress')),
