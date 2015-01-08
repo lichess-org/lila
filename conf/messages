@@ -315,3 +315,4 @@ findNbStrongMoves=Find %s strong moves
 thisMoveGivesYourOpponentTheAdvantage=This move gives your opponent the advantage
 openingFailed=Opening failed
 openingSolved=Opening solved
+recentlyPlayedOpenings=Recently played openings

@@ -40,6 +40,13 @@ object Opening extends LilaController {
     OptionFuOk(env.api.opening find id)(renderShow)
   }
 
+  def history = Auth { implicit ctx =>
+    me =>
+      XhrOnly {
+        env userInfos me map { ui => Ok(views.html.opening.history(ui)) }
+      }
+  }
+
   private val attemptForm = Form(mapping(
     "found" -> number,
     "failed" -> number

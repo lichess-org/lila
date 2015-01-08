@@ -168,6 +168,23 @@ function renderSide(ctrl) {
   ]);
 }
 
+function renderHistory(ctrl) {
+  return m('div.history', {
+    config: function(el, isUpdate, context) {
+      var hash = ctrl.data.user.history.join('');
+      if (hash == context.hash) return;
+      context.hash = hash;
+      $.ajax({
+        url: '/training/opening/history',
+        cache: false,
+        success: function(html) {
+          el.innerHTML = html;
+        }
+      });
+    }
+  });
+}
+
 function progress(ctrl) {
   var steps = [];
   var figuredOut = ctrl.vm.figuredOut.slice(0);
@@ -227,7 +244,8 @@ module.exports = function(ctrl) {
       ))
     ]),
     m('div.center', [
-      progress(ctrl)
+      progress(ctrl),
+      (ctrl.data.user && ctrl.data.user.history) ? renderHistory(ctrl) : null
     ])
   ]);
 };
