@@ -81,9 +81,10 @@ module.exports = {
         }
       }, [
         standards.map(render),
-        variants.length ? m('tr.variants',
-          m('td', {
+        variants.length ? m('tr.variants', {
             key: 'variants',
+          },
+          m('td', {
             colspan: 5
           }, '— ' + ctrl.trans('variant') + ' —')
         ) : null,

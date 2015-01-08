@@ -7,15 +7,7 @@ function timeOrder(a, b) {
 }
 
 function sort(ctrl, hooks) {
-  var order;
-  switch(ctrl.vm.sort) {
-    case 'time':
-      order = timeOrder;
-      break;
-    default:
-      order = ratingOrder;
-  }
-  hooks.sort(order);
+  hooks.sort(ctrl.vm.sort === 'time' ? timeOrder : ratingOrder);
 }
 
 function init(hook) {
