@@ -46,7 +46,9 @@ private[round] final class Round(
     }
 
     case AiPlay => handle { game =>
-      player ai game map (_.events)
+      game.playableByAi ?? {
+        player ai game map (_.events)
+      }
     }
 
     case Abort(playerId) => handle(playerId) { pov =>
@@ -196,6 +198,6 @@ private[round] final class Round(
     if (events contains Event.Threefold) self ! Threefold
   } addFailureEffect {
     case e: ClientErrorException =>
-    case e => logwarn(s"[round] ${gameId} $e")
+    case e                       => logwarn(s"[round] ${gameId} $e")
   } void
 }
