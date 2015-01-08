@@ -3,6 +3,8 @@ package lila.opening
 import chess.Color
 import org.joda.time.DateTime
 
+import lila.rating.Perf
+
 case class Move(
   first: String,
   cp: Int,
@@ -14,8 +16,9 @@ case class Opening(
     moves: List[Move],
     color: Color,
     date: DateTime,
+    perf: Perf,
     attempts: Int,
-    score: Double) {
+    wins: Int) {
 
   lazy val goal = qualityMoves.count(_.quality == Quality.Good) min 5
 
@@ -27,6 +30,8 @@ case class Opening(
       QualityMove(move, Quality(move.cp - bestCp))
     }
   }
+
+  def winPercent = if (attempts == 0) 0 else wins * 100 / attempts
 }
 
 sealed abstract class Quality(val threshold: Int) {
@@ -51,8 +56,6 @@ object Opening {
 
   type ID = Int
 
-  val defaultScore = 50
-
   def make(
     fen: String,
     color: Color,
@@ -62,8 +65,9 @@ object Opening {
     moves = moves,
     color = color,
     date = DateTime.now,
+    perf = Perf.default,
     attempts = 0,
-    score = 50)
+    wins = 0)
 
   import reactivemongo.bson._
   import lila.db.BSON
@@ -91,12 +95,14 @@ object Opening {
     val white = "white"
     val date = "date"
     val attempts = "attempts"
-    val score = "score"
+    val wins = "wins"
+    val perf = "perf"
   }
 
   implicit val openingBSONHandler = new BSON[Opening] {
 
     import BSONFields._
+    import Perf.perfBSONHandler
 
     def reads(r: BSON.Reader): Opening = Opening(
       id = r int id,
@@ -104,8 +110,9 @@ object Opening {
       moves = r.get[List[Move]](moves),
       color = Color(r bool white),
       date = r date date,
+      perf = r.get[Perf](perf),
       attempts = r int attempts,
-      score = r double score)
+      wins = r int wins)
 
     def writes(w: BSON.Writer, o: Opening) = BSONDocument(
       id -> o.id,
@@ -113,7 +120,8 @@ object Opening {
       moves -> o.moves,
       white -> o.color.white,
       date -> o.date,
+      perf -> o.perf,
       attempts -> o.attempts,
-      score -> o.score)
+      wins -> o.wins)
   }
 }

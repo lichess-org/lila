@@ -4,7 +4,7 @@ import reactivemongo.bson.BSONDocument
 
 import chess.{ Variant, Speed }
 import lila.db.BSON
-import lila.rating.{ Perf, ScorePerf, PerfType, Glicko }
+import lila.rating.{ Perf, PerfType, Glicko }
 
 case class Perfs(
     standard: Perf,
@@ -17,7 +17,7 @@ case class Perfs(
     classical: Perf,
     correspondence: Perf,
     puzzle: Perf,
-    opening: ScorePerf) {
+    opening: Perf) {
 
   def perfs = List(
     "standard" -> standard,
@@ -29,7 +29,8 @@ case class Perfs(
     "blitz" -> blitz,
     "classical" -> classical,
     "correspondence" -> correspondence,
-    "puzzle" -> puzzle)
+    "puzzle" -> puzzle,
+    "opening" -> opening)
 
   def bestPerf: Option[(PerfType, Perf)] = {
     val ps = PerfType.nonPuzzle map { pt => pt -> apply(pt) }
@@ -62,7 +63,8 @@ case class Perfs(
     "blitz" -> blitz,
     "classical" -> classical,
     "correspondence" -> correspondence,
-    "puzzle" -> puzzle)
+    "puzzle" -> puzzle,
+    "opening" -> opening)
 
   def ratingMap: Map[String, Int] = perfsMap mapValues (_.intRating)
 
@@ -110,7 +112,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p, ScorePerf.default)
+    Perfs(p, p, p, p, p, p, p, p, p, p, p)
   }
 
   def variantLens(variant: Variant): Option[Perfs => Perf] = variant match {
@@ -132,12 +134,10 @@ case object Perfs {
   val perfsBSONHandler = new BSON[Perfs] {
 
     implicit def perfHandler = Perf.perfBSONHandler
-    implicit def scorePerfHandler = ScorePerf.scorePerfBSONHandler
     import BSON.Map._
 
     def reads(r: BSON.Reader): Perfs = {
       def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default
-      def scorePerf(key: String) = r.getO[ScorePerf](key) getOrElse ScorePerf.default
       Perfs(
         standard = perf("standard"),
         chess960 = perf("chess960"),
@@ -149,11 +149,10 @@ case object Perfs {
         classical = perf("classical"),
         correspondence = perf("correspondence"),
         puzzle = perf("puzzle"),
-        opening = scorePerf("opening"))
+        opening = perf("opening"))
     }
 
     private def notNew(p: Perf): Option[Perf] = p.nb > 0 option p
-    private def notNew(p: ScorePerf): Option[ScorePerf] = p.nb > 0 option p
 
     def writes(w: BSON.Writer, o: Perfs) = BSONDocument(
       "standard" -> notNew(o.standard),

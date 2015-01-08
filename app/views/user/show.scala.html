@@ -48,14 +48,7 @@
   <br />
   }
   @showPerf(u.perfs.puzzle, PerfType.Puzzle)
-  <div data-icon="]">
-    <h3 class="hint--top" data-hint="Opening trainer">OPENING TRAINER</h3>
-    <div class="rating">
-      <strong class="hint--bottom" data-hint="Percentage score">@u.perfs.opening.averageScore.getOrElse("?")</strong>
-      <span class="hint--bottom">/ @u.perfs.opening.nb.localize Openings</span>
-      @showProgress(u.perfs.opening.progress)
-    </div>
-  </div>
+  @showPerf(u.perfs.opening, PerfType.Opening)
 </div>
 }
 

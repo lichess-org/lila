@@ -1,18 +1,14 @@
 package lila.opening
 
+import play.api.libs.json._
 import reactivemongo.bson._
 import reactivemongo.bson.Macros
-import play.api.libs.json._
 
 import lila.db.Types.Coll
 import lila.rating.Glicko
 import lila.user.User
 
-case class UserInfos(user: User, history: List[Attempt], chart: JsArray) {
-
-  def score = if (history.isEmpty) 50f
-  else history.foldLeft(0)(_ + _.score) / history.size
-}
+case class UserInfos(user: User, history: List[Attempt], chart: JsArray)
 
 object UserInfos {
 
@@ -45,8 +41,8 @@ object UserInfos {
   private def makeHistory(attempts: List[Attempt]) = attempts.take(historySize)
 
   private def makeChart(attempts: List[Attempt]) = JsArray {
-    val scores = attempts.take(chartSize).reverse map (_.score)
-    val filled = List.fill(chartSize - scores.size)(0) ::: scores
+    val ratings = attempts.take(chartSize).reverse map (_.userPostRating)
+    val filled = List.fill(chartSize - ratings.size)(Glicko.default.intRating) ::: ratings
     filled map { JsNumber(_) }
   }
 }

@@ -11,7 +11,7 @@ import reactivemongo.bson._
 import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
-import lila.rating.{ Glicko, Perf, PerfType, ScorePerf }
+import lila.rating.{ Glicko, Perf, PerfType }
 import tube.userTube
 
 object UserRepo extends UserRepo {
@@ -99,7 +99,8 @@ trait UserRepo {
       "blitz" -> (_.blitz),
       "classical" -> (_.classical),
       "correspondence" -> (_.correspondence),
-      "puzzle" -> (_.puzzle))
+      "puzzle" -> (_.puzzle),
+      "opening" -> (_.opening))
     val diff = lenses.flatMap {
       case (name, lens) =>
         lens(perfs).nb != lens(prev).nb option {
@@ -114,10 +115,6 @@ trait UserRepo {
 
   def setPerf(userId: String, perfName: String, perf: Perf) = $update($select(userId), $setBson(
     s"${F.perfs}.$perfName" -> Perf.perfBSONHandler.write(perf)
-  ))
-
-  def setScorePerf(userId: String, scorePerfName: String, scorePerf: ScorePerf) = $update($select(userId), $setBson(
-    s"${F.perfs}.$scorePerfName" -> ScorePerf.scorePerfBSONHandler.write(scorePerf)
   ))
 
   def setProfile(id: ID, profile: Profile): Funit =

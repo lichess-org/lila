@@ -310,6 +310,5 @@ nbGamesInPlay=%s games in play
 automaticallyProceedToNextGameAfterMoving=Automatically proceed to next game after moving
 autoSwitch=Auto switch
 openingId=Opening %s
-scoreX=Score: %s
-yourOpeningScoreX=Your opening score: %s
+yourOpeningRatingX=Your opening rating: %s
 findNbStrongMoves=Find %s strong moves

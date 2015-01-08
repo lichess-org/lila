@@ -37,7 +37,7 @@ function renderViewTable(ctrl) {
           href: '/training/opening/' + ctrl.data.opening.id
         }, ctrl.trans('openingId', ctrl.data.opening.id))
       ),
-      m('p', m.trust(ctrl.trans('scoreX', strong(ctrl.data.opening.score)))),
+      m('p', m.trust(ctrl.trans('ratingX', strong(ctrl.data.opening.rating)))),
       m('p', m.trust(ctrl.trans('playedXTimes', strong(ctrl.data.opening.attempts)))),
       m('p',
         m('input.copyable[readonly][spellCheck=false]', {
@@ -55,7 +55,7 @@ function renderViewTable(ctrl) {
 
 function renderUserInfos(ctrl) {
   return m('div.chart_container', [
-    m('p', m.trust(ctrl.trans('yourOpeningScoreX', strong(ctrl.data.user.score)))),
+    m('p', m.trust(ctrl.trans('yourOpeningRatingX', strong(ctrl.data.user.rating)))),
     ctrl.data.user.history ? m('div.user_chart', {
       config: function(el, isUpdate, context) {
         var hash = ctrl.data.user.history.join('');

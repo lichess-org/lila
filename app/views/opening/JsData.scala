@@ -17,7 +17,7 @@ object JsData extends lila.Steroids {
     Html(Json.stringify(Json.obj(
       "opening" -> Json.obj(
         "id" -> opening.id,
-        "score" -> opening.score.toInt,
+        "rating" -> opening.perf.intRating,
         "attempts" -> opening.attempts,
         "goal" -> opening.goal,
         "fen" -> opening.fen,
@@ -34,7 +34,7 @@ object JsData extends lila.Steroids {
       ),
       "user" -> userInfos.map { i =>
         Json.obj(
-          "score" -> i.score,
+          "rating" -> i.user.perfs.opening.intRating,
           "history" -> i.history.nonEmpty.option(Json.toJson(i.chart))
         )
       },
