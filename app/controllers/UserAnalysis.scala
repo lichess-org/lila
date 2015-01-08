@@ -1,6 +1,7 @@
 package controllers
 
 import chess.format.Forsyth
+import chess.format.Forsyth.SituationPlus
 import chess.{ Situation, Variant }
 import play.api.libs.json.Json
 
@@ -15,7 +16,7 @@ object UserAnalysis extends LilaController with BaseGame {
   def load(urlFen: String) = Open { implicit ctx =>
     val fenStr = Some(urlFen.trim.replace("_", " ")).filter(_.nonEmpty) orElse get("fen")
     val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }.filter(_.nonEmpty)
-    val situation = (decodedFen flatMap Forsyth.<<< map (_.situation)) | Situation(Variant.Standard)
+    val situation = (decodedFen flatMap Forsyth.<<<) | SituationPlus(Situation(Variant.Standard), 1)
     val pov = makePov(situation)
     val data = Env.round.jsonView.userAnalysisJson(pov, ctx.pref)
     makeListMenu map { listMenu =>
@@ -23,17 +24,20 @@ object UserAnalysis extends LilaController with BaseGame {
     }
   }
 
-  private def makePov(situation: Situation) = lila.game.Pov(
+  private def makePov(from: SituationPlus) = lila.game.Pov(
     lila.game.Game.make(
-      game = chess.Game(situation.board, situation.color),
+      game = chess.Game(
+        board = from.situation.board,
+        player = from.situation.color,
+        turns = from.turns),
       whitePlayer = lila.game.Player.white,
       blackPlayer = lila.game.Player.black,
       mode = chess.Mode.Casual,
       variant = chess.Variant.Standard,
       source = lila.game.Source.Api,
       pgnImport = None,
-      castles = situation.board.history.castles),
-    situation.color)
+      castles = from.situation.board.history.castles),
+    from.situation.color)
 
   def game(id: String, color: String) = Open { implicit ctx =>
     OptionFuOk(GameRepo game id) { game =>
