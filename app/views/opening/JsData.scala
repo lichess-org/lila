@@ -17,13 +17,15 @@ object JsData extends lila.Steroids {
     Html(Json.stringify(Json.obj(
       "opening" -> Json.obj(
         "id" -> opening.id,
+        "score" -> opening.score.toInt,
         "attempts" -> opening.attempts,
         "goal" -> opening.goal,
         "fen" -> opening.fen,
         "color" -> opening.color.name,
         "moves" -> JsArray(opening.qualityMoves.map {
           case QualityMove(move, quality) => Json.obj(
-            "first" -> move.first,
+            "uci" -> move.first,
+            "san" -> move.line.headOption,
             "cp" -> move.cp,
             "line" -> move.line.mkString(" "),
             "quality" -> quality.name)

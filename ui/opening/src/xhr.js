@@ -18,7 +18,7 @@ module.exports = {
     showLoading(ctrl);
     m.request({
       method: 'POST',
-      url: ctrl.data.opening.url,
+      url: '/training/opening/' + ctrl.data.opening.id,
       data: {
         found: ctrl.vm.figuredOut.length,
         failed: ctrl.vm.messedUp.length

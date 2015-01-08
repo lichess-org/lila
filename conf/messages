@@ -309,3 +309,7 @@ youHaveNbSecondsToMakeYourFirstMove=You have %s seconds to make your first move!
 nbGamesInPlay=%s games in play
 automaticallyProceedToNextGameAfterMoving=Automatically proceed to next game after moving
 autoSwitch=Auto switch
+openingId=Opening %s
+scoreX=Score: %s
+yourOpeningScoreX=Your opening score: %s
+findNbStrongMoves=Find %s strong moves

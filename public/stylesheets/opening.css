@@ -7,6 +7,27 @@
   font-size: 1.3em;
   margin-bottom: 10px;
 }
+#opening .right .box input {
+  width: 214px;
+}
+#opening .right h2 {
+  font-size: 1.4em;
+  margin-bottom: 7px;
+}
+#opening .right .continue_wrap {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+#opening .right .continue {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+#opening .right .loader {
+  font-size: 10px;
+}
 #opening .meter {
   width: 494px;
   height: 47px;
@@ -21,7 +42,6 @@
   padding: 0;
   display: block;
   height: 19px;
-  width: 99%;
   border-radius: 10px;
   background-color: #ddd;
   position: relative;
@@ -30,11 +50,10 @@
 #opening .meter li {
   float: left;
   height: 19px;
-  font-weight: bold;
-  position: relative;
   border-radius: 10px;
+  position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25) inset;
-  transition: 2s;
+  transition: background-color 0.8s;
 }
 #opening .meter span {
   right: -9px;
@@ -50,6 +69,7 @@
   font-size: 1.1em;
   position: absolute;
   background: #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25) inset;
   border-radius: 50%;
   white-space: nowrap;
   z-index: 1;
@@ -68,9 +88,6 @@
 }
 #opening .meter li.good .step {
   box-shadow: 0 0 25px 10px #759900;
-}
-#opening .meter li.next .step {
-  box-shadow: 0 0 15px #888;
 }
 #opening .meter li.already .step {
   background: #759900!important;

@@ -1,4 +1,5 @@
 var m = require('mithril');
+var xhr = require('./xhr');
 var chessground = require('chessground');
 var Chess = require('chessli.js').Chess;
 
@@ -29,7 +30,28 @@ module.exports = function(cfg, router, i18n) {
 
   this.reload = function(data) {
     this.data = data;
-    initialize();
+    if (this.data.play) {
+      initialize();
+      this.chessground.set({
+        fen: this.data.opening.fen,
+        orientation: this.data.opening.color,
+        lastMove: null,
+        turnColor: this.data.opening.color,
+        check: init.check,
+        movable: {
+          color: this.data.opening.color,
+          dests: init.dests
+        }
+      });
+    } else {
+      this.vm.loading = false;
+      this.chessground.cancelMove();
+      this.chessground.set({
+        movable: {
+          color: null
+        }
+      });
+    }
   }.bind(this);
 
   var onMove = function(orig, dest, meta) {
@@ -41,13 +63,13 @@ module.exports = function(cfg, router, i18n) {
         lastMove: null,
         turnColor: this.data.opening.color,
         check: init.check,
-        premovable: {
-          enabled: false
-        },
         movable: {
           dests: init.dests
         }
       });
+      if (this.vm.figuredOut.length >= this.data.opening.goal) {
+        xhr.attempt(this);
+      } else this.chessground.playPremove();
     }.bind(this), 1000);
     m.redraw();
   }.bind(this);
@@ -80,7 +102,7 @@ module.exports = function(cfg, router, i18n) {
       san: chessMove.san
     };
     var known = this.data.opening.moves.filter(function(m) {
-      return m.first === move.uci;
+      return m.uci === move.uci;
     })[0];
     if (known && known.quality === 'good') {
       var alreadyFound = this.vm.figuredOut.filter(function(f) {
@@ -115,18 +137,21 @@ module.exports = function(cfg, router, i18n) {
     }.bind(this), 1000);
   }.bind(this);
 
+  this.notFiguredOut = function() {
+    return this.data.opening.moves.filter(function(m) {
+      return !this.vm.figuredOut.filter(function(fm) {
+        return fm.uci === m.uci;
+      }).length
+    }.bind(this));
+  }.bind(this);
+
   this.router = router;
 
   this.trans = function() {
-    var str = i18n[arguments[0]] || untranslated[arguments[0]] || arguments[0];
+    var str = i18n[arguments[0]] || arguments[0];
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
       str = str.replace('%s', arg);
     });
     return str;
-  };
-
-  var untranslated = {
-    yourOpeningScoreX: 'Your opening score: %s',
-    findNbGoodMoves: 'Find %s good moves',
   };
 };

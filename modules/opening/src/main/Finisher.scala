@@ -11,12 +11,17 @@ private[opening] final class Finisher(
     api: OpeningApi,
     openingColl: Coll) {
 
+  private def computeScore(opening: Opening, found: Int, failed: Int): Int = {
+    val base = 100d * found / goal
+
+  }
+
   def apply(opening: Opening, user: User, found: Int, failed: Int): Fu[Attempt] =
     api.attempt.find(opening.id, user.id) flatMap {
       case Some(a) => fuccess(a)
       case None =>
         val date = DateTime.now
-        val score = 50
+        val score = computeScore(opening, found, failed)
         val userScorePerf = user.perfs.opening.add(score, DateTime.now)
         val openingScore = 0.1 * (score - opening.score) + opening.score
         val a = new Attempt(

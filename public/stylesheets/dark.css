@@ -155,9 +155,6 @@ body.dark #themepicker div.theme:hover {
 body.dark #opening .meter .step {
   border-color: #505050;
 }
-body.dark #opening .meter li.next .step {
-  box-shadow: 0 0 15px #000;
-}
 body.dark #opening .meter .step,
 body.dark #hooks_wrap div.tabs a,
 body.dark #top div.auth .links a:hover,

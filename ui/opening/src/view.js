@@ -17,7 +17,7 @@ function renderPlayTable(ctrl) {
           m('p', ctrl.trans('yourTurn'))
         ])
       ),
-      m('div.findit', m.trust(ctrl.trans('findNbGoodMoves', strong(ctrl.data.opening.goal)))),
+      m('div.findit', m.trust(ctrl.trans('findNbStrongMoves', strong(ctrl.data.opening.goal)))),
       m('div.control',
         ctrl.data.play ? m('a.button', {
           onclick: partial(xhr.attempt, ctrl)
@@ -27,6 +27,30 @@ function renderPlayTable(ctrl) {
       )
     ])
   );
+}
+
+function renderViewTable(ctrl) {
+  return [
+    m('div.box', [
+      m('h2',
+        m('a', {
+          href: '/training/opening/' + ctrl.data.opening.id
+        }, ctrl.trans('openingId', ctrl.data.opening.id))
+      ),
+      m('p', m.trust(ctrl.trans('scoreX', strong(ctrl.data.opening.score)))),
+      m('p', m.trust(ctrl.trans('playedXTimes', strong(ctrl.data.opening.attempts)))),
+      m('p',
+        m('input.copyable[readonly][spellCheck=false]', {
+          value: ctrl.data.opening.url
+        })
+      )
+    ]),
+    m('div.continue_wrap',
+      m('button.continue.button.text[data-icon=G]', {
+        onclick: partial(xhr.newOpening, ctrl)
+      }, ctrl.trans('continueTraining'))
+    )
+  ];
 }
 
 function renderUserInfos(ctrl) {
@@ -84,12 +108,17 @@ function renderSide(ctrl) {
 
 function progress(ctrl) {
   var steps = [];
-  var nbFiguredOut = ctrl.vm.figuredOut.length;
+  var figuredOut = ctrl.vm.figuredOut.slice(0);
+  var nbFiguredOut = figuredOut.length;
   var lastI = nbFiguredOut - 1;
   var nextI = nbFiguredOut;
+  if (!ctrl.data.play) figuredOut = figuredOut.concat(
+    ctrl.notFiguredOut().slice(0, ctrl.data.opening.goal - figuredOut.length)
+  );
   for (var i = 0; i < ctrl.data.opening.goal; i++) {
     steps.push({
-      found: ctrl.vm.figuredOut[i],
+      found: i < nbFiguredOut,
+      move: figuredOut[i],
       last: lastI === i,
       next: nextI === i
     });
@@ -97,23 +126,24 @@ function progress(ctrl) {
   var liWidth = Math.round(100 / ctrl.data.opening.goal) + '%';
   return m('div.meter', [
     m('ul',
-      steps.map(function(step) {
+      steps.map(function(step, i) {
         var badSan = (step.next && ctrl.vm.flash.bad) ? ctrl.vm.flash.bad.san : null;
         var dubiousSan = (step.next && ctrl.vm.flash.dubious) ? ctrl.vm.flash.dubious.san : null;
         return m('li', {
+          key: i,
           class: classSet({
             found: step.found,
             next: step.next,
             bad: badSan,
             dubious: dubiousSan,
             good: step.last && ctrl.vm.flash.good,
-            already: step.found && ctrl.vm.flashFound && ctrl.vm.flashFound.uci === step.found.uci
+            already: step.move && ctrl.vm.flashFound && ctrl.vm.flashFound.uci === step.move.uci
           }),
           style: {
             width: liWidth
           }
         }, [
-          m('span.step', step.found ? step.found.san : (
+          m('span.step', step.move ? step.move.san : (
             badSan || dubiousSan || '?'
           )),
           m('span.stage')
@@ -130,7 +160,9 @@ module.exports = function(ctrl) {
     renderSide(ctrl),
     m('div.board_and_ground', [
       m('div', chessground.view(ctrl.chessground)),
-      m('div.right', ctrl.vm.loading ? loading : renderPlayTable(ctrl))
+      m('div.right', ctrl.vm.loading ? loading : (
+        ctrl.data.play ? renderPlayTable(ctrl) : renderViewTable(ctrl)
+      ))
     ]),
     m('div.center', [
       progress(ctrl)

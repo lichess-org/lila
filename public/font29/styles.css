@@ -305,3 +305,12 @@
 .icon-diamond:before {
   content: "{";
 }
+.icon-hubot:before {
+  content: "@";
+}
+.icon-book:before {
+  content: "]";
+}
+.icon-invertedking:before {
+  content: "^";
+}
