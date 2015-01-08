@@ -107,7 +107,8 @@ ol.scheduled_tournaments a:hover {
   text-align: right;
 }
 #tournament table.standing .legend span {
-  margin-left: 10px;
+  margin-right: 10px;
+  line-height: 30px;
 }
 #tournament table.standing .sheet,
 #tournament table.standing .total {

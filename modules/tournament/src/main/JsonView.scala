@@ -72,7 +72,7 @@ final class JsonView(
 
   private def sheetJson(sheet: ScoreSheet) = sheet match {
     case s: arena.ScoringSystem.Sheet => Json.obj(
-      "scores" -> s.scores.take(18).reverse.map { score =>
+      "scores" -> s.scores.take(36).reverse.map { score =>
         if (score.flag == arena.ScoringSystem.Normal) Json.arr(score.value)
         else Json.arr(score.value, score.flag.toString.toLowerCase)
       },
