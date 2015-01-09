@@ -448,8 +448,10 @@ lichess.storage = {
             declineListener($notif.find('a.decline'));
             $('body').trigger('lichess.content_loaded');
             if (!lichess.storage.get('challenge-' + data.id)) {
-              $('#top .challenge_notifications').addClass('shown');
-              $.sound.dong();
+              if (!lichess.quietMode) {
+                $('#top .challenge_notifications').addClass('shown');
+                $.sound.dong();
+              }
               lichess.storage.set('challenge-' + data.id, 1);
             }
             refreshButton();

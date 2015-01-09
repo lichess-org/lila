@@ -79,6 +79,7 @@ module.exports = function(opts) {
     this.setTitle();
     if (this.data.blind) blind.reload(this);
     this.moveOn.next();
+    setQuietMode();
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(
@@ -111,6 +112,11 @@ module.exports = function(opts) {
 
   if (this.clock) setInterval(clockTick, 100);
   else setInterval(correspondenceClockTick, 1000);
+
+  var setQuietMode = function() {
+    lichess.quietMode = game.isPlayerPlaying(this.data) ;
+  }.bind(this);
+  setQuietMode();
 
   this.moveOn = new moveOn(this, 'lichess.move_on');
 
