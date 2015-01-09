@@ -62,7 +62,4 @@ case object Perf {
       "re" -> w.intsO(o.recent),
       "la" -> o.latest.map(w.date))
   }
-
-  lazy val tube = lila.db.BsTube(perfBSONHandler)
 }
-

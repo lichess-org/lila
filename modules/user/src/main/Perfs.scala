@@ -17,7 +17,8 @@ case class Perfs(
     blitz: Perf,
     classical: Perf,
     correspondence: Perf,
-    puzzle: Perf) {
+    puzzle: Perf,
+    opening: Perf) {
 
   def perfs = List(
     "standard" -> standard,
@@ -30,7 +31,8 @@ case class Perfs(
     "blitz" -> blitz,
     "classical" -> classical,
     "correspondence" -> correspondence,
-    "puzzle" -> puzzle)
+    "puzzle" -> puzzle,
+    "opening" -> opening)
 
   def bestPerf: Option[(PerfType, Perf)] = {
     val ps = PerfType.nonPuzzle map { pt => pt -> apply(pt) }
@@ -64,7 +66,8 @@ case class Perfs(
     "blitz" -> blitz,
     "classical" -> classical,
     "correspondence" -> correspondence,
-    "puzzle" -> puzzle)
+    "puzzle" -> puzzle,
+    "opening" -> opening)
 
   def ratingMap: Map[String, Int] = perfsMap mapValues (_.intRating)
 
@@ -133,9 +136,9 @@ case object Perfs {
     case Speed.Correspondence => perfs => perfs.correspondence
   }
 
-  private def PerfsBSONHandler = new BSON[Perfs] {
+  val perfsBSONHandler = new BSON[Perfs] {
 
-    implicit def perfHandler = Perf.tube.handler
+    implicit def perfHandler = Perf.perfBSONHandler
     import BSON.Map._
 
     def reads(r: BSON.Reader): Perfs = {
@@ -151,10 +154,11 @@ case object Perfs {
         blitz = perf("blitz"),
         classical = perf("classical"),
         correspondence = perf("correspondence"),
-        puzzle = perf("puzzle"))
+        puzzle = perf("puzzle"),
+        opening = perf("opening"))
     }
 
-    private def notNew(p: Perf) = p.nb > 0 option p
+    private def notNew(p: Perf): Option[Perf] = p.nb > 0 option p
 
     def writes(w: BSON.Writer, o: Perfs) = BSONDocument(
       "standard" -> notNew(o.standard),
@@ -167,8 +171,7 @@ case object Perfs {
       "blitz" -> notNew(o.blitz),
       "classical" -> notNew(o.classical),
       "correspondence" -> notNew(o.correspondence),
-      "puzzle" -> notNew(o.puzzle))
+      "puzzle" -> notNew(o.puzzle),
+      "opening" -> notNew(o.opening))
   }
-
-  lazy val tube = lila.db.BsTube(PerfsBSONHandler)
 }

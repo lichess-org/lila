@@ -88,10 +88,12 @@ ol.scheduled_tournaments a:hover {
   width: 525px;
   border-bottom: none;
 }
+#tournament table.standing td {
+  white-space: nowrap;
+}
 #tournament table.standing td.name,
 #tournament table.standing th:first-child {
   padding-left: 10px;
-  white-space: nowrap;
 }
 #tournament table.standing td.name span {
   display: inline-block;
@@ -105,7 +107,8 @@ ol.scheduled_tournaments a:hover {
   text-align: right;
 }
 #tournament table.standing .legend span {
-  margin-left: 10px;
+  margin-right: 10px;
+  line-height: 30px;
 }
 #tournament table.standing .sheet,
 #tournament table.standing .total {

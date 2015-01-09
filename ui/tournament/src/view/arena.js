@@ -60,11 +60,6 @@ function playerTrs(ctrl, maxScore, player) {
   }];
 }
 
-var legend = m('th.legend', [
-  m('span.streakstarter', 'Streak starter'),
-  m('span.double', 'Double points')
-]);
-
 module.exports = {
   standing: function(ctrl) {
     var maxScore = Math.max.apply(Math, ctrl.data.players.map(function(p) {
@@ -76,8 +71,11 @@ module.exports = {
           m('th.large', [
             ctrl.trans('standing') + ' (' + ctrl.data.players.length + ')'
           ]),
-          legend,
-          m('th', button.joinWithdraw(ctrl))
+          m('th.legend[colspan=2]', [
+            m('span.streakstarter', 'Streak starter'),
+            m('span.double', 'Double points'),
+            button.joinWithdraw(ctrl)
+          ])
         ])),
       m('tbody', ctrl.data.players.map(partial(playerTrs, ctrl, maxScore)))
     ];

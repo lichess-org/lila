@@ -144,12 +144,18 @@ body.dark .crosstable td.current a,
 body.dark #modal-wrap {
   background-color: #303030;
 }
+body.dark #opening .meter ul,
+body.dark #opening .meter li.dubious .step,
 body.dark .ui-slider,
 body.dark div.progressbar,
 body.dark #translation_call div.progressbar,
 body.dark #themepicker div.theme:hover {
   background-color: #505050;
 }
+body.dark #opening .meter .step {
+  border-color: #505050;
+}
+body.dark #opening .meter .step,
 body.dark #hooks_wrap div.tabs a,
 body.dark #top div.auth .links a:hover,
 body.dark #top .language_links button:hover,
@@ -358,17 +364,17 @@ body.dark .loader:before,
 body.dark .loader:after {
   background: #1a1a1a;
 }
-body.dark #puzzle > .side div.fail,
-body.dark #puzzle > .side div.loss {
+body.dark div.training > .side div.fail,
+body.dark div.training > .side div.loss {
   color: #e97472;
   background: #582b33;
 }
-body.dark #puzzle > .side div.retry {
+body.dark div.training > .side div.retry {
   color: #8482c9;
   background: #101034;
 }
-body.dark #puzzle > .side div.great,
-body.dark #puzzle > .side div.win,
+body.dark div.training > .side div.great,
+body.dark div.training > .side div.win,
 body.dark #puzzle > .right .please_vote {
   background: #103410;
   color: #74a962;

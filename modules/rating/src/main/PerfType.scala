@@ -78,7 +78,13 @@ object PerfType {
     title = "Training puzzles",
     iconChar = '-')
 
-  val all: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Puzzle)
+  case object Opening extends PerfType(
+    key = "opening",
+    name = "Opening",
+    title = "Opening trainer",
+    iconChar = ']')
+
+  val all: List[PerfType] = List(Bullet, Blitz, Classical, Correspondence, Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Puzzle, Opening)
   val byKey = all map { p => (p.key, p) } toMap
 
   val default = Standard

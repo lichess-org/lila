@@ -1,13 +1,15 @@
-import sbt._, Keys._
 import play.Play.autoImport._
+import sbt._, Keys._
 
 object BuildSettings {
 
   import Dependencies._
 
+  val globalScalaVersion = "2.11.5"
+
   def buildSettings = Defaults.defaultSettings ++ Seq(
     organization := "org.lichess",
-    scalaVersion := "2.11.4",
+    scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
     parallelExecution in Test := false,
     scalacOptions := compilerOptions,

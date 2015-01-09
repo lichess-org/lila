@@ -98,6 +98,7 @@ object BSON {
     def intO(k: String) = getO[Int](k)
     def intD(k: String) = intO(k) getOrElse 0
     def double(k: String) = get[Double](k)
+    def doubleO(k: String) = getO[Double](k)
     def bool(k: String) = get[Boolean](k)
     def boolO(k: String) = getO[Boolean](k)
     def boolD(k: String) = boolO(k) getOrElse false
@@ -137,6 +138,7 @@ object BSON {
     }
     def docO(o: BSONDocument): Option[BSONDocument] = if (o.isEmpty) None else Some(o)
     def double(i: Double): BSONDouble = BSONDouble(i)
+    def doubleO(i: Double): Option[BSONDouble] = if (i != 0) Some(BSONDouble(i)) else None
     def intsO(l: List[Int]): Option[BSONArray] =
       if (l.isEmpty) None
       else Some(BSONArray(l map BSONInteger.apply))

@@ -448,8 +448,10 @@ lichess.storage = {
             declineListener($notif.find('a.decline'));
             $('body').trigger('lichess.content_loaded');
             if (!lichess.storage.get('challenge-' + data.id)) {
-              $('#top .challenge_notifications').addClass('shown');
-              $.sound.dong();
+              if (!lichess.quietMode) {
+                $('#top .challenge_notifications').addClass('shown');
+                $.sound.dong();
+              }
               lichess.storage.set('challenge-' + data.id, 1);
             }
             refreshButton();
@@ -1861,7 +1863,7 @@ lichess.storage = {
   function startTournament(element, cfg) {
     $('body').data('tournament-id', cfg.data.id);
     var $watchers = $("div.watchers").watchers();
-    if (lichess_chat) $('#chat').chat({
+    if (typeof lichess_chat !== 'undefined') $('#chat').chat({
       messages: lichess_chat
     });
     var tournament;
