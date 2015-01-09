@@ -23,8 +23,8 @@ function renderPlayTable(ctrl) {
   return m('div.table',
     m('div.table_inner', [
       m('div.current_player',
-        m('div.player.' + ctrl.chessground.data.turnColor, [
-          m('div.no-square', m('div.cg-piece.king.' + ctrl.chessground.data.turnColor)),
+        m('div.player.' + ctrl.data.opening.color, [
+          m('div.no-square', m('div.cg-piece.king.' + ctrl.data.opening.color)),
           m('p', ctrl.trans('yourTurn'))
         ])
       ),
