@@ -309,3 +309,7 @@ youHaveNbSecondsToMakeYourFirstMove=Máte %s sekund na provedení prvního tahu!
 nbGamesInPlay=%s rozehraných her
 automaticallyProceedToNextGameAfterMoving=Automaticky přejdi k další hře po tahu
 autoSwitch=Přepni automaticky
+openingId=Zahájení %s
+yourOpeningRatingX=Tvůj rating v zahájeních: %s
+findNbStrongMoves=Najdi %s silných tahů
+thisMoveGivesYourOpponentTheAdvantage=Tento tah dá přebahu tvému soupeři
