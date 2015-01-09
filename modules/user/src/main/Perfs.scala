@@ -116,7 +116,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p, p, p)
   }
 
   def variantLens(variant: Variant): Option[Perfs => Perf] = variant match {
