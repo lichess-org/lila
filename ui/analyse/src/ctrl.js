@@ -38,6 +38,13 @@ module.exports = function(cfg, router, i18n, onChange) {
   }.bind(this);
 
   var situationCache = {};
+
+  var gameVariants = {
+    'chess960' : 1,
+    'antichess': 2,
+    'atomic': 3
+  };
+
   var showGround = function() {
     var moves;
     try {
@@ -51,9 +58,11 @@ module.exports = function(cfg, router, i18n, onChange) {
       h = '',
       lm;
     if (nbMoves == 0) {
+      var variant = this.data.game.variant.key;
+
       var chess = new Chess(
         this.data.game.initialFen,
-        is960() ? 1 : (isAntichess() ? 2 : 0));
+        gameVariants[variant] == null ? 0 : gameVariants[variant]);
       var turnColor = chess.turn() == 'w' ? 'white' : 'black';
       this.vm.situation = {
         fen: this.data.game.initialFen,
