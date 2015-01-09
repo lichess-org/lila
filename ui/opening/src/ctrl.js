@@ -11,7 +11,7 @@ module.exports = function(cfg, router, i18n) {
 
   var chess, init;
 
-  var initialize = function() {
+  initialize = function() {
     chess = new Chess(this.data.opening.fen);
     init = {
       dests: chess.dests(),
@@ -52,6 +52,16 @@ module.exports = function(cfg, router, i18n) {
         }
       });
     }
+  }.bind(this);
+
+  this.pushState = function(cfg) {
+    if (window.history.pushState)
+      window.history.pushState(cfg, null, '/training/opening/' + cfg.opening.id);
+  }.bind(this);
+
+  window.onpopstate = function(cfg) {
+    if (cfg.state) this.reload(cfg.state);
+    m.redraw();
   }.bind(this);
 
   var onMove = function(orig, dest, meta) {

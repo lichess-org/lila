@@ -32,6 +32,9 @@ module.exports = {
       method: 'GET',
       url: uncache('/training/opening'),
       config: xhrConfig
-    }).then(ctrl.reload);
+    }).then(function(cfg) {
+      ctrl.reload(cfg);
+      ctrl.pushState(cfg);
+    });
   }
 };

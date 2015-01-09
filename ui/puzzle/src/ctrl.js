@@ -119,7 +119,7 @@ module.exports = function(cfg, router, i18n) {
 
   window.onpopstate = function(cfg) {
     if (cfg.state) this.reload(cfg.state);
-    return true;
+    m.redraw();
   }.bind(this);
 
   this.playOpponentMove = function(move) {

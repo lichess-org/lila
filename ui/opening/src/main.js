@@ -8,6 +8,7 @@ module.exports = function(element, config, router, i18n) {
     controller: function () { return controller; },
     view: view
   });
+  controller.pushState(config);
 };
 
 // lol, that's for the rest of lichess to access mithril
