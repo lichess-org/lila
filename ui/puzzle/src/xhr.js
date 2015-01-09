@@ -71,7 +71,10 @@ function newPuzzle(ctrl) {
     method: 'GET',
     url: uncache('/training/new'),
     config: xhrConfig
-  }).then(ctrl.reload);
+  }).then(function(cfg) {
+    ctrl.reload(cfg);
+    ctrl.pushState(cfg);
+  });
 }
 
 module.exports = {

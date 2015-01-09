@@ -100,7 +100,7 @@ module.exports = function(cfg, router, i18n) {
   k.bind(['esc'], this.chessground.cancelMove);
 
   this.initiate = function() {
-    if (this.data.mode != 'view')
+    if (this.data.mode !== 'view')
       setTimeout(partial(this.playInitialMove, this.data.puzzle.id), 1000);
   }.bind(this);
 
@@ -110,6 +110,16 @@ module.exports = function(cfg, router, i18n) {
     chessground.board.reset(this.chessground.data);
     chessground.anim(puzzle.reload, this.chessground.data)(this.data, cfg);
     this.initiate();
+  }.bind(this);
+
+  this.pushState = function(cfg) {
+    if (window.history.pushState)
+      window.history.pushState(cfg, null, router.Puzzle.show(cfg.puzzle.id).url);
+  }.bind(this);
+
+  window.onpopstate = function(cfg) {
+    if (cfg.state) this.reload(cfg.state);
+    return true;
   }.bind(this);
 
   this.playOpponentMove = function(move) {
