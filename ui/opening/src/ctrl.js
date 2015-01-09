@@ -149,11 +149,15 @@ module.exports = function(cfg, router, i18n) {
   }.bind(this);
 
   this.notFiguredOut = function() {
-    return this.data.opening.moves.filter(function(m) {
+    var moves = this.data.opening.moves.filter(function(m) {
       return m.quality === 'good' && !this.vm.figuredOut.filter(function(fm) {
         return fm.uci === m.uci;
       }).length
     }.bind(this));
+    moves.sort(function(a, b) {
+      return a.cp > b.cp;
+    });
+    return moves;
   }.bind(this);
 
   this.router = router;
