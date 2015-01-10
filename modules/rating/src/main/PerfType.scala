@@ -62,7 +62,7 @@ object PerfType {
   case object Atomic extends PerfType(
     key="atomic",
     name= Variant.Atomic.name,
-    title = "Atomic chess variant",
+    title = "Atomic variant",
     iconChar = '>'
   )
 
