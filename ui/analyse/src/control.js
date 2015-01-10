@@ -48,7 +48,7 @@ module.exports = {
 
   first: function(ctrl) {
     ctrl.jump([{
-      ply: 1,
+      ply: 0,
       variation: null
     }]);
   }
