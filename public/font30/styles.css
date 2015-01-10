@@ -302,15 +302,12 @@
 .icon-atom:before {
   content: ">";
 }
-.icon-diamond:before {
-  content: "{";
-}
-.icon-hubot:before {
-  content: "@";
-}
 .icon-book:before {
   content: "]";
 }
-.icon-invertedking:before {
-  content: "^";
+.icon-body-cut:before {
+  content: "`";
+}
+.icon-antichess:before {
+  content: "@";
 }
