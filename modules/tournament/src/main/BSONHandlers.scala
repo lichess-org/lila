@@ -57,7 +57,9 @@ object BSONHandlers {
         user2 = users.lift(1) err "tournament pairing second user",
         winner = r strO "w",
         turns = r intO "t",
-        pairedAt = r dateO "p")
+        pairedAt = r dateO "p",
+        berserk1 = r intD "b1",
+        berserk2 = r intD "b2")
     }
     def writes(w: BSON.Writer, o: Pairing) = BSONDocument(
       "g" -> o.gameId,
@@ -65,7 +67,9 @@ object BSONHandlers {
       "u" -> BSONArray(o.user1, o.user2),
       "w" -> o.winner,
       "t" -> o.turns,
-      "p" -> o.pairedAt.map(w.date))
+      "p" -> o.pairedAt.map(w.date),
+      "b1" -> w.intO(o.berserk1),
+      "b2" -> w.intO(o.berserk2))
   }
 
   private implicit val eventHandler = new BSON[Event] {

@@ -60,7 +60,8 @@ private[api] final class RoundApi(
       json + ("tournament" -> Json.obj(
         "id" -> tour.id,
         "name" -> tour.name,
-        "running" -> tour.isRunning))
+        "running" -> tour.isRunning,
+        "berserkable" -> tour.system.berserkable))
     }
 
   private def blindMode(js: JsObject)(implicit ctx: Context) =

@@ -16,7 +16,7 @@ import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.router.Tourney
 import lila.hub.Sequencer
-import lila.round.actorApi.round.ResignColor
+import lila.round.actorApi.round.{ ResignColor, GoBerserk }
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
@@ -153,6 +153,29 @@ private[tournament] final class TournamentApi(
             publish()
         )
         case _ => fufail("Cannot withdraw from finished or missing tournament " + oldTour.id)
+      }
+    }
+  }
+
+  def berserk(oldTour: Started, userId: String) {
+    sequence(oldTour.id) {
+      TournamentRepo startedById oldTour.id flatMap {
+        _ ?? { tour =>
+          (tour userCurrentPairing userId filter { p =>
+            (p berserkOf userId) == 0
+          }) ?? { pairing =>
+            (pairing povRef userId) ?? { povRef =>
+              GameRepo pov povRef flatMap {
+                _.filter(_.game.berserkable) ?? { pov =>
+                  val tour2 = tour.updatePairing(pov.gameId, _ withBerserk userId)
+                  TournamentRepo.update(tour2).void >>- {
+                    roundMap ! Tell(povRef.gameId, GoBerserk(povRef.color))
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

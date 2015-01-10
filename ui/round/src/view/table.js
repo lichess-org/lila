@@ -1,8 +1,10 @@
 var m = require('mithril');
 var chessground = require('chessground');
+var partial = chessground.util.partial;
 var game = require('game').game;
 var status = require('game').status;
 var opposite = chessground.util.opposite;
+var xhr = require('../xhr');
 var renderClock = require('../clock/view');
 var renderCorrespondenceClock = require('../correspondenceClock/view');
 var renderReplay = require('../replay/view');
@@ -84,7 +86,14 @@ function renderTablePlay(ctrl) {
       button.standard(ctrl, game.abortable, 'L', 'abortGame', 'abort'),
       button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes'),
       button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
-      button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
+      button.standard(ctrl, game.resignable, 'b', 'resign', 'resign'),
+      game.berserkable(ctrl.data) ? m('button', {
+        class: 'button hint--bottom',
+        'data-hint': ctrl.trans("GO BERSERK! Half the time, bonus point"),
+        onclick: partial(xhr.berserk, ctrl)
+      }, m('span', {
+        'data-icon': '`'
+      })) : null
     ]),
     buttons ? m('div.control.buttons', buttons) : null,
     renderPlayer(ctrl, d.player)

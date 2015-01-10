@@ -125,6 +125,7 @@ GET   /tournament/$id<\w{8}>/socket/v:apiVersion  controllers.Tournament.websock
 POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: String)
 POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.withdraw(id: String)
 POST  /tournament/$id<\w{8}>/early-start      controllers.Tournament.earlyStart(id: String)
+POST  /tournament/$id<\w{8}>/berserk          controllers.Tournament.berserk(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
 
 # Team

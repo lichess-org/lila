@@ -43,6 +43,10 @@ function resignable(data) {
   return playable(data) && !abortable(data);
 }
 
+function berserkable(data) {
+  return data.tournament && data.tournament.berserkable && playable(data) && playedTurns(data) < 2;
+}
+
 function moretimeable(data) {
   return data.clock && isPlayerPlaying(data) && !mandatory(data);
 }
@@ -91,6 +95,7 @@ module.exports = {
   takebackable: takebackable,
   drawable: drawable,
   resignable: resignable,
+  berserkable: berserkable,
   moretimeable: moretimeable,
   mandatory: mandatory,
   replayable: replayable,

@@ -279,6 +279,8 @@ case class Game(
 
   def abortable = status == Status.Started && playedTurns < 2 && nonMandatory
 
+  def berserkable = status == Status.Started && playedTurns < 2
+
   def resignable = playable && !abortable
   def drawable = playable && !abortable
 

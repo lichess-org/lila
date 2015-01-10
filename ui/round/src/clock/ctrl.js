@@ -30,6 +30,7 @@ module.exports = function(data, onFlag, soundColor) {
     this.data.white = white;
     this.data.black = black;
     setLastUpdate();
+    m.redraw();
   }.bind(this);
 
   this.tick = function(color) {

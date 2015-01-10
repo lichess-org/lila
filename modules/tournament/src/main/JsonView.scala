@@ -109,5 +109,8 @@ final class JsonView(
     "status" -> p.status.id,
     "user1" -> pairingUserJson(p.user1),
     "user2" -> pairingUserJson(p.user2),
-    "winner" -> p.winner)
+    "winner" -> p.winner,
+    "berserk1" -> p.berserk1.some.filter(0!=),
+    "berserk2" -> p.berserk2.some.filter(0!=)
+  ).noNull
 }

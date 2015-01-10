@@ -12,7 +12,9 @@ case class Pairing(
     user2: String,
     winner: Option[String],
     turns: Option[Int],
-    pairedAt: Option[DateTime]) {
+    pairedAt: Option[DateTime],
+    berserk1: Int,
+    berserk2: Int) {
 
   def users = List(user1, user2)
   def usersPair = user1 -> user2
@@ -36,6 +38,15 @@ case class Pairing(
     if (userId == user1) Color.White.some
     else if (userId == user2) Color.Black.some
     else none
+
+  def berserkOf(userId: String): Int =
+    if (userId == user1) berserk1
+    else if (userId == user2) berserk2
+    else 0
+
+  def withBerserk(userId: String) = copy(
+    berserk1 = if (userId == user1) 1 else berserk1,
+    berserk2 = if (userId == user2) 1 else berserk2)
 
   def povRef(userId: String): Option[PovRef] =
     colorOf(userId) map { PovRef(gameId, _) }
@@ -63,5 +74,7 @@ private[tournament] object Pairing {
     user2 = u2,
     winner = none,
     turns = none,
-    pairedAt = pa)
+    pairedAt = pa,
+    berserk1 = 0,
+    berserk2 = 0)
 }

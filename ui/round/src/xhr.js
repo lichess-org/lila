@@ -33,7 +33,16 @@ function next(ctrl) {
   });
 }
 
+function berserk(ctrl) {
+  return m.request({
+    method: 'POST',
+    url: '/tournament/' + ctrl.data.game.tournamentId + '/berserk',
+    config: xhrConfig
+  });
+}
+
 module.exports = {
   reload: reload,
-  next: next
+  next: next,
+  berserk: berserk
 };

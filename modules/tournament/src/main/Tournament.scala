@@ -204,8 +204,12 @@ case class Started(
     "%02d:%02d".format(s / 60, s % 60)
   }
 
+  def userCurrentPairing(userId: String): Option[Pairing] = pairings find { p =>
+    p.playing && p.contains(userId)
+  }
+
   def userCurrentPov(userId: String): Option[PovRef] =
-    playingPairings.flatMap(_ povRef userId).headOption
+    userCurrentPairing(userId) flatMap (_ povRef userId)
 
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.flatMap(u => userCurrentPov(u.id))
