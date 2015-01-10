@@ -313,3 +313,6 @@ openingId=Zahájení %s
 yourOpeningRatingX=Tvůj rating v zahájeních: %s
 findNbStrongMoves=Najdi %s silných tahů
 thisMoveGivesYourOpponentTheAdvantage=Tento tah dá přebahu tvému soupeři
+openingFailed=Zahájení bylo neúspěšné
+openingSolved=Zahájení vyřešeno
+recentlyPlayedOpenings=Posledně hraná zahájení

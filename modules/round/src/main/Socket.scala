@@ -64,6 +64,7 @@ private[round] final class Socket(
   private val blackPlayer = new Player(Black)
 
   override def preStart() {
+    super.preStart()
     refreshSubscriptions
     lila.game.GameRepo game gameId map SetGame.apply pipeTo self
   }

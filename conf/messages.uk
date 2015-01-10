@@ -309,3 +309,5 @@ youHaveNbSecondsToMakeYourFirstMove=Ви маєте %s секунд, щоб зр
 nbGamesInPlay=%s ігор тривають
 automaticallyProceedToNextGameAfterMoving=Автоматично перейти до наступної гри після ходу
 autoSwitch=Авт. перехід
+thisMoveGivesYourOpponentTheAdvantage=Цей хід дає Вашому опоненту перевагу
+openingFailed=Невдале відкриття

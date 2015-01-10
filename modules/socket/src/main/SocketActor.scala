@@ -19,7 +19,18 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   val lilaBus = context.system.lilaBus
 
-  lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
+  // this socket is created during application boot
+  // and therefore should delay its publication
+  // to ensure the listener is ready (sucks, I know)
+  val startsOnApplicationBoot: Boolean = false
+
+  override def preStart() {
+    if (startsOnApplicationBoot)
+      context.system.scheduler.scheduleOnce(1 second) {
+        lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
+      }
+    else lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
+  }
 
   override def postStop() {
     lilaBus.publish(lila.socket.SocketHub.Close(self), 'socket)

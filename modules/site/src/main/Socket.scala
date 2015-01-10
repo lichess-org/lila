@@ -12,6 +12,8 @@ import lila.socket.actorApi.SendToFlag
 
 private[site] final class Socket(timeout: Duration) extends SocketActor[Member](timeout) {
 
+  override val startsOnApplicationBoot = true
+
   def receiveSpecific = {
 
     case Join(uid, username, tags) => {
