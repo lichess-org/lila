@@ -23,7 +23,7 @@ module.exports = function(root) {
   };
 
   var showFen = function() {
-    // try {
+    try {
       var ply, move, cached, fen, hash, h, lm;
       for (ply = 1; ply <= this.ply; ply++) {
         move = root.data.game.moves[ply - 1];
@@ -54,10 +54,10 @@ module.exports = function(root) {
         }
       }
       root.chessground.set(situationCache[hash]);
-    // } catch (e) {
-    //   console.log(e);
-    //   onBreak();
-    // }
+    } catch (e) {
+      console.log(e);
+      onBreak();
+    }
   }.bind(this);
 
   var enable = function() {
