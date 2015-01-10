@@ -19,7 +19,13 @@ trait SocketMember extends Ordered[SocketMember] {
     // Akka.system.scheduler.scheduleOnce(2.second) {
     //   channel push msg
     // }
-    channel push msg
+    try {
+      channel push msg
+    }
+    catch {
+      case _: java.nio.channels.ClosedChannelException =>
+      // catching because it's quite polluting the production logs
+    }
   }
 
   def end {
