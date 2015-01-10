@@ -19,7 +19,11 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   val lilaBus = context.system.lilaBus
 
-  lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
+  override def preStart() {
+    context.system.scheduler.scheduleOnce(1 second) {
+      lilaBus.publish(lila.socket.SocketHub.Open(self), 'socket)
+    }
+  }
 
   override def postStop() {
     lilaBus.publish(lila.socket.SocketHub.Close(self), 'socket)
