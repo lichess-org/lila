@@ -29,21 +29,21 @@ module.exports = function(cfg, router, i18n, onChange) {
     });
   }.bind(this);
 
-  var is960 = function() {
-    return ['chess960', 'fromPosition'].indexOf(this.data.game.variant.key) !== -1;
-  }.bind(this);
-
-  var isAntichess = function() {
-    return this.data.game.variant.key === "antichess";
+  var gameVariantChessId = function() {
+    switch (this.data.game.variant.key) {
+      case 'chess960':
+      case 'fromPosition':
+        return 1;
+      case 'antichess':
+        return 2;
+      case 'atomic':
+        return 3;
+      default:
+        return 0;
+    }
   }.bind(this);
 
   var situationCache = {};
-
-  var gameVariants = {
-    'chess960' : 1,
-    'antichess': 2,
-    'atomic': 3
-  };
 
   var showGround = function() {
     var moves;
@@ -61,8 +61,7 @@ module.exports = function(cfg, router, i18n, onChange) {
       var variant = this.data.game.variant.key;
 
       var chess = new Chess(
-        this.data.game.initialFen,
-        gameVariants[variant] == null ? 0 : gameVariants[variant]);
+        this.data.game.initialFen, gameVariantChessId());
       var turnColor = chess.turn() == 'w' ? 'white' : 'black';
       this.vm.situation = {
         fen: this.data.game.initialFen,
@@ -85,8 +84,7 @@ module.exports = function(cfg, router, i18n, onChange) {
       }
       if (!cached || ply < nbMoves) {
         var chess = new Chess(
-          fen || this.data.game.initialFen,
-          is960() ? 1 : (isAntichess() ? 2 : 0));
+          fen || this.data.game.initialFen, gameVariantChessId())
         for (ply = ply; ply <= nbMoves; ply++) {
           move = moves[ply - 1];
           hash += move;
@@ -139,8 +137,7 @@ module.exports = function(cfg, router, i18n, onChange) {
   this.onMove = function(orig, dest) {
     $.sound.move();
     var chess = new Chess(
-      this.vm.situation.fen,
-      is960() ? 1 : (isAntichess() ? 2 : 0));
+      this.vm.situation.fen, gameVariantChessId());
     var move = chess.move({
       from: orig,
       to: dest,
