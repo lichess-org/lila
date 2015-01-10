@@ -1658,6 +1658,7 @@ lichess.storage = {
             break;
           case '6':
             key = 'antichess'
+            break;
           case '7':
             key = 'atomic'
         }
