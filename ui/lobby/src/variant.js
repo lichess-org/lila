@@ -7,7 +7,7 @@ var variantConfirms = {
 };
 
 function storageKey(key) {
-  return 'lichess.variant.' + key;
+  return 'lobby.variant.' + key;
 }
 
 module.exports = {
