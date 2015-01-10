@@ -368,6 +368,7 @@ lichess.storage = {
   };
 
   var nbEl = document.querySelector('#nb_connected_players > strong');
+  var previousNb;
   lichess.socket = null;
   lichess.idleTime = 20 * 60 * 1000;
   $.extend(true, lichess.StrongSocket.defaults, {
@@ -383,10 +384,11 @@ lichess.storage = {
       },
       n: function(e) {
         if (nbEl && e) {
-          var prev = parseInt(nbEl.textContent, 10) || Math.max(0, (e - 10));
+          var prev = previousNb || Math.max(0, (e - 10));
+          previoucNb = e;
           var k = 5;
           var interv = lichess.socket.pingInterval() / k;
-          $.fp.range(k).forEach(function(it) {
+          for (var it = 0; it < k; it++) {
             setTimeout(function() {
               var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
               if (val != prev) {
@@ -394,7 +396,7 @@ lichess.storage = {
                 prev = val;
               }
             }, Math.round(it * interv));
-          });
+          }
         }
       },
       message: function(msg) {
