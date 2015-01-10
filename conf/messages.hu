@@ -310,3 +310,5 @@ nbGamesInPlay=%s meccset játszanak éppen az oldalon
 automaticallyProceedToNextGameAfterMoving=Automatikusan menjen a következő játékhoz amiután lépett
 autoSwitch=Automatikus váltás
 recentlyPlayedOpenings=Legutóbbi megnyitások
+openingFailed=Megnyitás sikertelen
+openingSolved=Megnyitás sikeres
