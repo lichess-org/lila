@@ -309,3 +309,7 @@ youHaveNbSecondsToMakeYourFirstMove=Disposes de %s segons per realitzar el teu p
 nbGamesInPlay=%s partides en joc
 automaticallyProceedToNextGameAfterMoving=Anar automàticament a la següent partida després de cada moviment
 autoSwitch=Canvi automàtic
+openingId=Obrint %s
+findNbStrongMoves=Troba %s moviments forts
+openingSolved=Obertura resolta
+recentlyPlayedOpenings=Obertures últimament rerpduïdes
