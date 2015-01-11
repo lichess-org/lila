@@ -17,8 +17,19 @@ function capture(ctrl, key) {
   }
   ctrl.chessground.setPieces(diff);
   ctrl.chessground.explode(exploding);
-};
+}
+
+// needs to explicitly destroy the capturing pawn
+function enpassant(ctrl, key, color) {
+  var diff = {};
+  var pos = util.key2pos(key);
+  var pawnPos = [pos[0], pos[1] + (color === 'white' ? -1 : 1)];
+  diff[util.pos2key(pawnPos)] = null;
+  ctrl.chessground.setPieces(diff);
+  capture(ctrl, key);
+}
 
 module.exports = {
-  capture: capture
+  capture: capture,
+  enpassant: enpassant
 };

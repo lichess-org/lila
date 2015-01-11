@@ -19,7 +19,7 @@ sealed trait Event {
 object Event {
 
   def fromMove(move: ChessMove): List[Event] = Move(move) :: List(
-    (move.capture ifTrue move.enpassant) map Event.Enpassant.apply,
+    (move.capture ifTrue move.enpassant) map { Event.Enpassant(_, !move.color) },
     move.promotion map { Promotion(_, move.dest) },
     move.castle map { case (king, rook) => Castling(king, rook, move.color) }
   ).flatten
@@ -66,9 +66,11 @@ object Event {
     override def only = Some(color)
   }
 
-  case class Enpassant(killed: Pos) extends Event {
+  case class Enpassant(pos: Pos, color: Color) extends Event {
     def typ = "enpassant"
-    def data = JsString(killed.key)
+    def data = Json.obj(
+      "key" -> pos.key,
+      "color" -> color.name)
   }
 
   case class Castling(king: (Pos, Pos), rook: (Pos, Pos), color: Color) extends Event {
