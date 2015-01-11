@@ -23,11 +23,11 @@ case class Seek(
 
   def id = _id
 
-  def realColor = Color orDefault color
+  val realColor = Color orDefault color
 
-  def realVariant = chess.variant.Variant orDefault variant
+  val realVariant = chess.variant.Variant orDefault variant
 
-  def realMode = Mode orDefault mode
+  val realMode = Mode orDefault mode
 
   def compatibleWith(h: Seek) =
     user.id != h.user.id &&
@@ -49,7 +49,10 @@ case class Seek(
     "id" -> _id,
     "username" -> user.username,
     "rating" -> rating,
-    "variant" -> realVariant.shortName,
+    "variant" -> Json.obj(
+      "key" -> realVariant.key,
+      "short" -> realVariant.shortName,
+      "name" -> realVariant.name)
     "mode" -> realMode.id,
     "days" -> daysPerTurn,
     "color" -> chess.Color(color).??(_.name),
