@@ -40,8 +40,8 @@ object UserSpy {
     ips = ips zip blockedIps zip locations map {
       case ((ip, blocked), location) => IPData(ip, blocked, location)
     },
-    uas = objs.map(_ str "ua").flatten.distinct,
-    otherUsers = (users + user).toList.sorted)
+    uas = objs.flatMap(_ str "ua").distinct,
+    otherUsers = (users + user).toList.sortBy(-_.createdAt.getMillis))
 
   private def explore(users: Set[User], ips: Set[IP], _users: Set[User]): Fu[Set[User]] = {
     nextIps(users, ips) flatMap { nIps =>
