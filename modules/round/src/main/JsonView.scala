@@ -11,7 +11,7 @@ import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
 import chess.format.Forsyth
-import chess.{ Color, Clock, Variant }
+import chess.{ Color, Clock }
 
 import actorApi.SocketStatus
 
@@ -24,7 +24,7 @@ final class JsonView(
     baseAnimationDuration: Duration,
     moretimeSeconds: Int) {
 
-  private def variantJson(v: Variant) = Json.obj(
+  private def variantJson(v: chess.variant.Variant) = Json.obj(
     "key" -> v.key,
     "name" -> v.name,
     "short" -> v.shortName,
@@ -105,7 +105,7 @@ final class JsonView(
               "destination" -> pref.destination,
               "coords" -> pref.coords,
               "replay" -> pref.replay,
-              "autoQueen" -> (pov.game.variant == Variant.Antichess).fold(Pref.AutoQueen.NEVER, pref.autoQueen),
+              "autoQueen" -> (pov.game.variant == chess.variant.Antichess).fold(Pref.AutoQueen.NEVER, pref.autoQueen),
               "clockTenths" -> pref.clockTenths,
               "clockBar" -> pref.clockBar,
               "clockSound" -> pref.clockSound,

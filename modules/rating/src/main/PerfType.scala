@@ -1,6 +1,6 @@
 package lila.rating
 
-import chess.{ Variant, Speed }
+import chess.Speed
 
 sealed abstract class PerfType(
   val key: Perf.Key,
@@ -36,39 +36,39 @@ object PerfType {
 
   case object Standard extends PerfType(
     key = "standard",
-    name = Variant.Standard.name,
+    name = chess.variant.Standard.name,
     title = "Standard rules of chess",
     iconChar = '8')
 
   case object Chess960 extends PerfType(
     key = "chess960",
-    name = Variant.Chess960.name,
+    name = chess.variant.Chess960.name,
     title = "Chess960 variant",
     iconChar = ''')
 
   case object KingOfTheHill extends PerfType(
     key = "kingOfTheHill",
-    name = Variant.KingOfTheHill.name,
+    name = chess.variant.KingOfTheHill.name,
     title = "King of the Hill variant",
     iconChar = '(')
 
   case object Antichess extends PerfType(
     key = "antichess",
-    name = Variant.Antichess.name,
+    name = chess.variant.Antichess.name,
     title = "Antichess variant",
     iconChar = '@'
   )
 
   case object Atomic extends PerfType(
     key="atomic",
-    name= Variant.Atomic.name,
+    name= chess.variant.Atomic.name,
     title = "Atomic variant",
     iconChar = '>'
   )
 
   case object ThreeCheck extends PerfType(
     key = "threeCheck",
-    name = Variant.ThreeCheck.name,
+    name = chess.variant.ThreeCheck.name,
     title = "Three-check variant",
     iconChar = '.')
 

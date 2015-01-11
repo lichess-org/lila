@@ -3,8 +3,8 @@ package lila.round
 import akka.actor.ActorSelection
 import akka.pattern.ask
 import chess.format.Forsyth
-import chess.Variant._
-import chess.{ Game => ChessGame, Board, Clock, Variant, Color => ChessColor, Castles }
+import chess.variant._
+import chess.{ Game => ChessGame, Board, Clock, Color => ChessColor, Castles }
 import ChessColor.{ White, Black }
 
 import lila.db.api._

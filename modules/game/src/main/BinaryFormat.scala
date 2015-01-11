@@ -177,7 +177,7 @@ object BinaryFormat {
     }
 
     // cache standard start position
-    val standard = write(Board.init(Variant.Standard).pieces)
+    val standard = write(Board.init(chess.variant.Standard).pieces)
 
     private def intToRole(int: Int): Option[Role] = int match {
       case 6 => Some(Pawn)

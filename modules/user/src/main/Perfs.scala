@@ -2,7 +2,7 @@ package lila.user
 
 import reactivemongo.bson.BSONDocument
 
-import chess.{ Variant, Speed }
+import chess.Speed
 import lila.db.BSON
 import lila.rating.{ Perf, PerfType, Glicko }
 
@@ -87,6 +87,7 @@ case class Perfs(
     case PerfType.Antichess      => antichess
     case PerfType.Atomic         => atomic
     case PerfType.Puzzle         => puzzle
+    case PerfType.Opening        => opening
   }
 
   def inShort = perfs map {
@@ -119,14 +120,14 @@ case object Perfs {
     Perfs(p, p, p, p, p, p, p, p, p, p, p, p)
   }
 
-  def variantLens(variant: Variant): Option[Perfs => Perf] = variant match {
-    case Variant.Standard      => Some(_.standard)
-    case Variant.Chess960      => Some(_.chess960)
-    case Variant.KingOfTheHill => Some(_.kingOfTheHill)
-    case Variant.ThreeCheck    => Some(_.threeCheck)
-    case Variant.Antichess     => Some(_.antichess)
-    case Variant.Atomic        => Some(_.atomic)
-    case Variant.FromPosition  => none
+  def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] = variant match {
+    case chess.variant.Standard      => Some(_.standard)
+    case chess.variant.Chess960      => Some(_.chess960)
+    case chess.variant.KingOfTheHill => Some(_.kingOfTheHill)
+    case chess.variant.ThreeCheck    => Some(_.threeCheck)
+    case chess.variant.Antichess     => Some(_.antichess)
+    case chess.variant.Atomic        => Some(_.atomic)
+    case _                           => none
   }
 
   def speedLens(speed: Speed): Perfs => Perf = speed match {

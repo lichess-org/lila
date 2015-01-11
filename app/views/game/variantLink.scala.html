@@ -1,14 +1,14 @@
-@(variant: chess.Variant, name: String, hintAsTitle: Boolean = false, cssClass: String = "hint--bottom")
-@import chess.Variant
+@(variant: chess.variant.Variant, name: String, hintAsTitle: Boolean = false, cssClass: String = "hint--bottom")
 @url = {
 @variant match {
-case chess.Variant.Standard => {https://en.wikipedia.org/wiki/Chess}
-case chess.Variant.Chess960 => {https://en.wikipedia.org/wiki/Chess960}
-case chess.Variant.KingOfTheHill => {@routes.Page.kingOfTheHill}
-case chess.Variant.ThreeCheck => {http://en.wikipedia.org/wiki/Three-check_chess}
-case chess.Variant.Antichess => {http://en.wikipedia.org/wiki/Losing_chess}
-case chess.Variant.FromPosition => {@routes.Editor.index}
-case chess.Variant.Atomic => {http://www.freechess.org/Help/HelpFiles/atomic.html}
+case chess.variant.Standard => {https://en.wikipedia.org/wiki/Chess}
+case chess.variant.Chess960 => {https://en.wikipedia.org/wiki/Chess960}
+case chess.variant.KingOfTheHill => {@routes.Page.kingOfTheHill}
+case chess.variant.ThreeCheck => {http://en.wikipedia.org/wiki/Three-check_chess}
+case chess.variant.Antichess => {http://en.wikipedia.org/wiki/Losing_chess}
+case chess.variant.FromPosition => {@routes.Editor.index}
+case chess.variant.Atomic => {http://www.freechess.org/Help/HelpFiles/atomic.html}
+case _ => {}
 }
 }
 <a href="@url" target="_blank" @if(hintAsTitle){title}else{data-hint}="@variant.title" class="@cssClass">@name</a>

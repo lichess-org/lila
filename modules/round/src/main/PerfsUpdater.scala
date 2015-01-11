@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.{ Variant, Speed }
+import chess.{ Speed }
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
 import play.api.Logger
@@ -23,17 +23,17 @@ final class PerfsUpdater(historyApi: HistoryApi) {
         val ratingsB = mkRatings(black.perfs)
         val result = resultOf(game)
         game.variant match {
-          case Variant.Chess960 =>
+          case chess.variant.Chess960 =>
             updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
-          case Variant.KingOfTheHill =>
+          case chess.variant.KingOfTheHill =>
             updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result, system)
-          case Variant.ThreeCheck =>
+          case chess.variant.ThreeCheck =>
             updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, result, system)
-          case Variant.Antichess =>
+          case chess.variant.Antichess =>
             updateRatings(ratingsW.antichess, ratingsB.antichess, result, system)
-          case Variant.Atomic =>
+          case chess.variant.Atomic =>
             updateRatings(ratingsW.atomic, ratingsB.atomic, result, system)
-          case Variant.Standard => game.speed match {
+          case chess.variant.Standard => game.speed match {
             case Speed.Bullet =>
               updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
             case Speed.Blitz =>

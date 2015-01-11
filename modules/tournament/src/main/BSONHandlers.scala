@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.{ Variant, Speed, Mode }
+import chess.{ Speed, Mode }
 import lila.db.BSON
 import reactivemongo.bson._
 
@@ -26,7 +26,7 @@ object BSONHandlers {
       clock = r.get[TournamentClock]("clock"),
       minutes = r int "minutes",
       minPlayers = r int "minPlayers",
-      variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault),
+      variant = r.intO("variant").fold[chess.variant.Variant](chess.variant.Variant.default)(chess.variant.Variant.orDefault),
       mode = r.intO("mode").fold[Mode](Mode.default)(Mode.orDefault),
       `private` = r boolD "private",
       schedule = r.getO[Schedule]("schedule"),

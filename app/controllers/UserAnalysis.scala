@@ -2,7 +2,7 @@ package controllers
 
 import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
-import chess.{ Situation, Variant }
+import chess.Situation
 import play.api.libs.json.Json
 
 import lila.app._
@@ -16,7 +16,7 @@ object UserAnalysis extends LilaController with BaseGame {
   def load(urlFen: String) = Open { implicit ctx =>
     val fenStr = Some(urlFen.trim.replace("_", " ")).filter(_.nonEmpty) orElse get("fen")
     val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }.filter(_.nonEmpty)
-    val situation = (decodedFen flatMap Forsyth.<<<) | SituationPlus(Situation(Variant.Standard), 1)
+    val situation = (decodedFen flatMap Forsyth.<<<) | SituationPlus(Situation(chess.variant.Standard), 1)
     val pov = makePov(situation)
     val data = Env.round.jsonView.userAnalysisJson(pov, ctx.pref)
     makeListMenu map { listMenu =>
@@ -33,7 +33,7 @@ object UserAnalysis extends LilaController with BaseGame {
       whitePlayer = lila.game.Player.white,
       blackPlayer = lila.game.Player.black,
       mode = chess.Mode.Casual,
-      variant = chess.Variant.Standard,
+      variant = chess.variant.Standard,
       source = lila.game.Source.Api,
       pgnImport = None,
       castles = from.situation.board.history.castles),

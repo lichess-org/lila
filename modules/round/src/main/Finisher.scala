@@ -2,7 +2,7 @@ package lila.round
 
 import chess.Color._
 import chess.Status._
-import chess.{ Status, Color, Speed, Variant }
+import chess.{ Status, Color, Speed }
 
 import lila.db.api._
 import lila.game.actorApi.FinishGame

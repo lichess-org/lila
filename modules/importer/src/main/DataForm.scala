@@ -2,7 +2,7 @@ package lila.importer
 
 import chess.format.Forsyth
 import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
-import chess.{ Game => ChessGame, Board, Replay, Color, Mode, Variant, Move, Status }
+import chess.{ Game => ChessGame, Board, Replay, Color, Mode, Move, Status }
 import play.api.data._
 import play.api.data.Forms._
 
@@ -36,11 +36,11 @@ private[importer] case class ImportData(pgn: String) {
 
         val initBoard = tag(_.FEN) flatMap Forsyth.<< map (_.board)
         val variant = {
-          tag(_.Variant).map(Chess960.fixVariantName).flatMap(Variant.byName) | {
-            initBoard.nonEmpty.fold(Variant.FromPosition, Variant.Standard)
+          tag(_.Variant).map(Chess960.fixVariantName).flatMap(chess.variant.Variant.byName) | {
+            initBoard.nonEmpty.fold(chess.variant.FromPosition, chess.variant.Standard)
           }
         } match {
-          case Variant.Chess960 if !Chess960.isStartPosition(setup.board) => Variant.FromPosition
+          case chess.variant.Chess960 if !Chess960.isStartPosition(setup.board) => chess.variant.FromPosition
           case v => v
         }
 

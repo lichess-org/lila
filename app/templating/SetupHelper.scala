@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import chess.{ Mode, Variant, Speed }
+import chess.{ Mode, Speed }
 import lila.setup.TimeMode
 import lila.api.Context
 import lila.tournament.System
@@ -24,33 +24,33 @@ trait SetupHelper { self: I18nHelper =>
     System.Swiss.id.toString -> "Swiss [beta]"
   )
 
-  private def variantTuple(variant: Variant)(implicit ctx: Context): (String, String, Option[String]) =
+  private def variantTuple(variant: chess.variant.Variant)(implicit ctx: Context): (String, String, Option[String]) =
     (variant.id.toString, variant.name, variant.title.some)
 
   def translatedVariantChoices(implicit ctx: Context) = List(
-    (Variant.Standard.id.toString, trans.standard.str(), Variant.Standard.title.some),
-    variantTuple(Variant.Chess960)
+    (chess.variant.Standard.id.toString, trans.standard.str(), chess.variant.Standard.title.some),
+    variantTuple(chess.variant.Chess960)
   )
 
   def translatedVariantChoicesWithVariants(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
-      variantTuple(Variant.KingOfTheHill) :+
-      variantTuple(Variant.ThreeCheck) :+
-      variantTuple(Variant.Antichess) :+
-      variantTuple(Variant.Atomic)
+      variantTuple(chess.variant.KingOfTheHill) :+
+      variantTuple(chess.variant.ThreeCheck) :+
+      variantTuple(chess.variant.Antichess) :+
+      variantTuple(chess.variant.Atomic)
 
   def translatedVariantChoicesWithFen(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
-      variantTuple(Variant.FromPosition)
+      variantTuple(chess.variant.FromPosition)
 
   def translatedVariantChoicesWithFenAndKingOfTheHill(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
-      variantTuple(Variant.KingOfTheHill) :+
-      variantTuple(Variant.FromPosition)
+      variantTuple(chess.variant.KingOfTheHill) :+
+      variantTuple(chess.variant.FromPosition)
 
   def translatedVariantChoicesWithVariantsAndFen(implicit ctx: Context) =
     translatedVariantChoicesWithVariants :+
-      variantTuple(Variant.FromPosition)
+      variantTuple(chess.variant.FromPosition)
 
   def translatedSpeedChoices(implicit ctx: Context) = Speed.limited map { s =>
     (s.id.toString, {

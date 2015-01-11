@@ -2,7 +2,7 @@ package lila.tournament
 
 import akka.actor.{ Props, ActorRef, ActorSelection, ActorSystem }
 import akka.pattern.{ ask, pipe }
-import chess.{ Mode, Variant }
+import chess.Mode
 import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
@@ -60,7 +60,7 @@ private[tournament] final class TournamentApi(
         mode = setup.mode.fold(Mode.default)(Mode.orDefault),
         `private` = setup.`private`.isDefined,
         system = System orDefault setup.system,
-        variant = Variant orDefault setup.variant)
+        variant = chess.variant.Variant orDefault setup.variant)
       TournamentRepo.insert(created).void >>-
         (withdrawIds foreach socketReload) >>-
         publish() inject created

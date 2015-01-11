@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.{ Variant, Mode, Clock }
+import chess.{ Mode, Clock }
 import lila.rating.RatingRange
 import lila.game.{ Game, Player, Source }
 import lila.lobby.Color
@@ -8,7 +8,7 @@ import lila.lobby.Color
 private[setup] case object ApiConfig extends Config with GameGenerator {
 
   val color = Color.White
-  val variant = Variant.Standard
+  val variant = chess.variant.Standard
   val mode = Mode.Casual
   val timeMode = TimeMode.Unlimited
   val time = 5

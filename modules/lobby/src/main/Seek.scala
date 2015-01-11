@@ -1,6 +1,6 @@
 package lila.lobby
 
-import chess.{ Variant, Mode, Clock, Speed }
+import chess.{ Mode, Clock, Speed }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
@@ -25,7 +25,7 @@ case class Seek(
 
   def realColor = Color orDefault color
 
-  def realVariant = Variant orDefault variant
+  def realVariant = chess.variant.Variant orDefault variant
 
   def realMode = Mode orDefault mode
 
@@ -66,7 +66,7 @@ object Seek {
   val idSize = 8
 
   def make(
-    variant: Variant,
+    variant: chess.variant.Variant,
     daysPerTurn: Option[Int],
     mode: Mode,
     color: String,

@@ -3,7 +3,7 @@ package lila.game
 import scala.util.Random
 
 import chess.format.Forsyth
-import chess.{ Color, Variant, Status }
+import chess.{ Color, Status }
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats.toJSON
@@ -201,7 +201,7 @@ object GameRepo {
       g.copy(mode = chess.Mode.Casual)
     else g
     val userIds = g2.userIds.distinct
-    val fen = List(Variant.Chess960, Variant.FromPosition).contains(g2.variant)
+    val fen = List(chess.variant.Chess960, chess.variant.FromPosition).contains(g2.variant)
       .option(Forsyth >> g2.toChess).filterNot(Forsyth.initial ==)
     val bson = (gameTube.handler write g2) ++ BSONDocument(
       F.initialFen -> fen,
