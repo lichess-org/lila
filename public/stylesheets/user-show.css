@@ -25,6 +25,12 @@ div.user_show .honorific {
   font-weight: bold;
   font-size: 1.4em;
 }
+div.user_show a.honorific {
+  text-decoration: none;
+}
+div.user_show a.honorific:hover {
+  text-decoration: underline;
+}
 div.user_show .social {
   position: relative;
   border-top: 0;
