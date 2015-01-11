@@ -64,7 +64,7 @@
       @userTopPerf(bullet, PerfType.Bullet)
       @userTopPerf(chess960, PerfType.Chess960)
       <div class="user_top">
-        <h2 class="text" data-icon="g">Tournament winners</h2>
+        <h2 class="text" data-icon="g">@trans.tournamentWinners()</h2>
         <table><tbody>
             @tourneyWinners.map { w =>
             <tr>

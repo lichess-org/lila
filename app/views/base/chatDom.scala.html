@@ -3,7 +3,7 @@
 @if(withNotes) {
 <div class="chat_menu">
   <a data-panel="messages_container" class="active">@title <input title="@trans.toggleTheChat()" class="toggle_chat" type="checkbox" /></a>
-  <a data-panel="notes">Notes</a>
+  <a data-panel="notes">@trans.notes()</a>
 </div>
 <div id="chat" class="side_box">
 } else {
@@ -23,7 +23,7 @@
     </div>
     @if(withNotes) {
     <div class="notes">
-      <textarea placeholder="Type private notes here"></textarea>
+      <textarea placeholder="@trans.typePrivateNotesHere()"></textarea>
     </div>
     }
   </div>

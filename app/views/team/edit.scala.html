@@ -16,8 +16,8 @@
         @base.select(form("open"), Seq(0 -> trans.aConfirmationIsRequiredToJoin.str(), 1 -> trans.anyoneCanJoin.str()))
       </label>
       <label>
-        <span>IRC channel</span>
-        @base.select(form("irc"), Seq(0 -> "No", 1 -> "Yes"))
+        <span>@trans.ircChannel()</span>
+        @base.select(form("irc"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
       </label>
       <label>
         <span>@trans.location()</span>
@@ -25,7 +25,7 @@
         @errMsg(form("location"))
       </label>
       <label>
-        <span class="required">Description</span>
+        <span class="required">@trans.description()</span>
         @defining(form("description")) { desc =>
         <textarea name="@desc.name" id="@desc.id">@desc.value</textarea>
         @errMsg(desc)

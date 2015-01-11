@@ -29,9 +29,9 @@ active = siteMenu.puzzle.some) {
     <div class="box">
       <h1>@trans.training()</h1>
       <div class="tabs buttonset">
-        <a href="@routes.Puzzle.home()" class="button">Puzzle</a>
-        <a href="@routes.Coordinate.home()" class="button active">Coord</a>
-        <a href="@routes.Opening.home()" class="button">Opening</a>
+        <a href="@routes.Puzzle.home()" class="button">@trans.puzzles()</a>
+        <a href="@routes.Coordinate.home()" class="button active">@trans.coordinates()</a>
+        <a href="@routes.Opening.home()" class="button">@trans.openings()</a>
       </div>
       @if(ctx.isAuth) {
       @scoreOption.map { score =>

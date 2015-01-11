@@ -102,7 +102,7 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
       </div>
       <a id="reconnecting" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
       <div id="themepicker">
-        <a id="themepicker_toggle" class="toggle icon hint--bottom-left" data-hint="Theming" data-url="@routes.Main.themepicker">
+        <a id="themepicker_toggle" class="toggle icon hint--bottom-left" data-hint="@trans.theming()" data-url="@routes.Main.themepicker">
           &nbsp;<span data-icon="v"></span>&nbsp;
         </a>
       </div>
@@ -111,7 +111,7 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
           <span data-icon="u">&nbsp;@langName(lang)</span>
         </a>
         <form action="@routes.I18n.select" method="POST" class="language_links dropdown" data-url="@staticUrl("trans/refs.json")?v=@assetVersion">
-          <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
+          <li><a href="@routes.I18n.contribute">@trans.helpTranslateLichess()</a></li>
         </form>
       </div>
       @ctx.me.map { me =>
@@ -195,21 +195,21 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     <div id="footer_wrap">
       <div class="footer">
         <div class="right">
-          <a href="http://github.com/ornicar/lila" target="_blank">Source Code</a> |
-          <a href="@routes.Main.developers">Developers</a><br />
-          <a href="@routes.Page.contact">Contact</a> |
-          <a href="@routes.Page.thanks">Thanks</a> |
-          <a href="@routes.Page.tos">ToS</a>
+          <a href="http://github.com/ornicar/lila" target="_blank">@trans.sourceCode()</a> |
+          <a href="@routes.Main.developers">@trans.developers()</a><br />
+          <a href="@routes.Page.contact">@trans.contact()</a> |
+          <a href="@routes.Page.thanks">@trans.thanks()</a> |
+          <a href="@routes.Page.tos">@trans.termsOfService()</a>
         </div>
         <div class="center">
-          <a href="@routes.Donation.index" class="button">Donate</a>
+          <a href="@routes.Donation.index" class="button">@trans.donate()</a>
         </div>
-        <a href="@routes.Blog.index()">Blog</a> |
-        <a href="@routes.QaQuestion.index()" title="Questions &amp; Answers">Q&amp;A</a> |
+        <a href="@routes.Blog.index()">@trans.blog()</a> |
+        <a href="@routes.QaQuestion.index()" title="@trans.questionsAndAnswers()">Q&amp;A</a> |
         <a href="@routes.Wiki.home" title="@trans.learnMoreAboutLichess()">Wiki</a><br />
-        <a href="@routes.WorldMap.index" title="Real time world map of chess moves">Map</a> |
+        <a href="@routes.WorldMap.index" title="@trans.realTimeWorldMapOfChessMoves()">@trans.map()</a> |
         <a href="@routes.Monitor.index">Monitor</a> |
-        <a href="@routes.Page.helpLichess">Help lichess.org</a>
+        <a href="@routes.Page.helpLichess">@trans.contribute() lichess.org</a>
       </div>
     </div>
     }
