@@ -34,9 +34,9 @@ function renderPlot(ctrl, hook) {
   var left = Math.max(0, clockX(hook.time) - 4);
   var klass = [
     'plot',
-    hook.mode == "Rated" ? 'rated' : 'casual',
-    hook.action == 'cancel' ? 'cancel' : '',
-    hook.variant != 'STD' ? 'variant' : ''
+    hook.mode === "Rated" ? 'rated' : 'casual',
+    hook.action === 'cancel' ? 'cancel' : '',
+    hook.variant.key !== 'standard' ? 'variant' : ''
   ].join(' ');
   return m('span', {
     id: hook.id,

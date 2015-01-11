@@ -27,7 +27,7 @@ function renderHook(ctrl, hook) {
 
 function isStandard(value) {
   return function(hook) {
-    return (hook.variant === 'STD') === value;
+    return (hook.variant.key === 'standard') === value;
   };
 }
 
