@@ -81,6 +81,8 @@ sealed trait Tournament {
 
   def isSwiss = system == System.Swiss
 
+  def pairingOfGameId(gameId: String) = pairings find { p => p.gameId == gameId }
+
   // Oldest first!
   def pairingsAndEvents: List[Either[Pairing, Event]] =
     (pairings.reverse.map(Left(_)) ::: events.map(Right(_))).sorted(Tournament.PairingEventOrdering)

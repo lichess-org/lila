@@ -81,6 +81,7 @@ module.exports = function(opts) {
     this.replay.onReload(cfg);
     this.data = data(this.data, cfg);
     makeCorrespondenceClock();
+    if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
     if (!this.replay.active) ground.reload(this.chessground, this.data, cfg.game.fen, this.vm.flip);
     this.setTitle();
     if (this.data.blind) blind.reload(this);

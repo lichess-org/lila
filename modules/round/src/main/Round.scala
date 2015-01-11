@@ -66,7 +66,7 @@ private[round] final class Round(
     case GoBerserk(color) => handle(color) { pov =>
       pov.game.clock.ifTrue(pov.game.berserkable) ?? { clock =>
         val newClock = clock halfTime pov.color
-        val progress = (pov.game withClock newClock) + Event.Clock(newClock)
+        val progress = (pov.game withClock newClock) + Event.Reload
         GameRepo save progress inject progress.events
       }
     }

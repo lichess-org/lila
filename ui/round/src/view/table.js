@@ -87,9 +87,9 @@ function renderTablePlay(ctrl) {
       button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes'),
       button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
       button.standard(ctrl, game.resignable, 'b', 'resign', 'resign'),
-      game.berserkable(ctrl.data) ? m('button', {
-        class: 'button hint--bottom',
-        'data-hint': ctrl.trans("GO BERSERK! Half the time, bonus point"),
+      game.berserkableBy(ctrl.data) ? m('button', {
+        class: 'button hint--bottom-left',
+        'data-hint': "GO BERSERK! Half the time, bonus point",
         onclick: partial(xhr.berserk, ctrl)
       }, m('span', {
         'data-icon': '`'
@@ -115,7 +115,9 @@ module.exports = function(ctrl) {
     (ctrl.clock && !ctrl.data.blind) ? renderClock(
       ctrl.clock,
       ctrl.data.opponent.color,
-      "top", clockRunningColor
+      "top",
+      clockRunningColor,
+      partial(game.berserkOf, ctrl.data)
     ) : (
       ctrl.data.correspondence ? renderCorrespondenceClock(
         ctrl.correspondenceClock, ctrl.trans, ctrl.data.opponent.color, "top", ctrl.data.game.player
@@ -131,7 +133,13 @@ module.exports = function(ctrl) {
         )
       )
     ]), (ctrl.clock && !ctrl.data.blind) ? [
-      renderClock(ctrl.clock, ctrl.data.player.color, "bottom", clockRunningColor),
+      renderClock(
+        ctrl.clock,
+        ctrl.data.player.color,
+        "bottom",
+        clockRunningColor,
+        partial(game.berserkOf, ctrl.data)
+      ),
       button.moretime(ctrl)
     ] : (
       ctrl.data.correspondence ? renderCorrespondenceClock(

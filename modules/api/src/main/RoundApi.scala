@@ -5,6 +5,7 @@ import play.api.libs.json._
 import chess.format.pgn.Pgn
 import lila.analyse.Analysis
 import lila.common.LightUser
+import lila.common.PimpedJson._
 import lila.game.Pov
 import lila.pref.Pref
 import lila.round.JsonView
@@ -24,7 +25,7 @@ private[api] final class RoundApi(
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
         case ((json, tourOption), note) => (
-          blindMode _ compose withTournament(tourOption)_ compose withNote(note)_ compose withOtherPovs(otherPovs)_
+          blindMode _ compose withTournament(pov, tourOption)_ compose withNote(note)_ compose withOtherPovs(otherPovs)_
         )(json)
       }
 
@@ -36,7 +37,7 @@ private[api] final class RoundApi(
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
         case ((json, tourOption), note) => (
-          blindMode _ compose withTournament(tourOption)_ compose withNote(note)_ compose withAnalysis(analysis)_
+          blindMode _ compose withTournament(pov, tourOption)_ compose withNote(note)_ compose withAnalysis(analysis)_
         )(json)
       }
 
@@ -55,13 +56,17 @@ private[api] final class RoundApi(
     ))
   }
 
-  private def withTournament(tourOption: Option[Tournament])(json: JsObject) =
+  private def withTournament(pov: Pov, tourOption: Option[Tournament])(json: JsObject) =
     tourOption.fold(json) { tour =>
+      val pairing = tour.pairingOfGameId(pov.gameId)
       json + ("tournament" -> Json.obj(
         "id" -> tour.id,
         "name" -> tour.name,
         "running" -> tour.isRunning,
-        "berserkable" -> tour.system.berserkable))
+        "berserkable" -> tour.system.berserkable,
+        "berserk1" -> pairing.map(_.berserk1).filter(0!=),
+        "berserk2" -> pairing.map(_.berserk2).filter(0!=)
+      ).noNull)
     }
 
   private def blindMode(js: JsObject)(implicit ctx: Context) =
