@@ -314,4 +314,5 @@ yourOpeningRatingX=Din åpningsrating: %s
 findNbStrongMoves=Finn %s sterke trekk
 thisMoveGivesYourOpponentTheAdvantage=Dette trekket gir fordel til din motstander
 openingFailed=Åpningen mislyktes
+openingSolved=Åpning løst
 recentlyPlayedOpenings=Nylig spilte åpninger
