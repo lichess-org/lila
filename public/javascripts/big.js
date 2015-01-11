@@ -366,9 +366,32 @@ lichess.storage = {
       if (callNow) func.apply(context, args);
     };
   };
+  $.spreadNumber = function(el, nbSteps, getDuration) {
+    var previous, displayed;
+    var display = function(prev, cur, it) {
+      var val = Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps);
+      if (val !== displayed) {
+        el.textContent = val;
+        displayed = val;
+      }
+    };
+    return function(nb) {
+      if (!el || !nb) return;
+      var prev = previous || nb;
+      previous = nb;
+      var interv = getDuration() / nbSteps;
+      for (var i = 0; i < nbSteps; i++) {
+        setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv));
+      }
+    };
+  };
 
-  var nbEl = document.querySelector('#nb_connected_players > strong');
-  var previousNb;
+  var nbUserSpread = $.spreadNumber(
+    document.querySelector('#nb_connected_players > strong'),
+    5,
+    function() {
+      return lichess.socket.pingInterval();
+    });
   lichess.socket = null;
   lichess.idleTime = 20 * 60 * 1000;
   $.extend(true, lichess.StrongSocket.defaults, {
@@ -382,23 +405,7 @@ lichess.storage = {
       following_leaves: function(name) {
         $('#friend_box').friends('leaves', name);
       },
-      n: function(e) {
-        if (nbEl && e) {
-          var prev = previousNb || Math.max(0, (e - 10));
-          previoucNb = e;
-          var k = 5;
-          var interv = lichess.socket.pingInterval() / k;
-          for (var it = 0; it < k; it++) {
-            setTimeout(function() {
-              var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
-              if (val != prev) {
-                nbEl.textContent = val;
-                prev = val;
-              }
-            }, Math.round(it * interv));
-          }
-        }
-      },
+      n: nbUserSpread,
       message: function(msg) {
         $('#chat').chat("append", msg);
       },
@@ -1492,7 +1499,12 @@ lichess.storage = {
 
   function startLobby(element, cfg) {
     var $newposts = $("div.new_posts");
-    var nbrEl = document.querySelector('#site_baseline span');
+    var nbRoundSpread = $.spreadNumber(
+      document.querySelector('#site_baseline span'),
+      4,
+      function() {
+        return lichess.socket.pingInterval();
+      });
     var lobby;
 
     lichess.socket = new lichess.StrongSocket(
@@ -1539,22 +1551,7 @@ lichess.storage = {
               });
             }, Math.round(Math.random() * 5000));
           },
-          nbr: function(e) {
-            if (nbrEl && e) {
-              var prev = parseInt(nbrEl.textContent, 10);
-              var k = 4;
-              var interv = 2000 / k;
-              $.fp.range(k).forEach(function(it) {
-                setTimeout(function() {
-                  var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
-                  if (val !== prev) {
-                    nbrEl.textContent = val;
-                    prev = val;
-                  }
-                }, Math.round(it * interv));
-              });
-            }
-          },
+          nbr: nbRoundSpread,
           fen: function(e) {
             lichess.StrongSocket.defaults.events.fen(e);
             lobby.gameActivity(e.id);
@@ -2084,8 +2081,8 @@ lichess.storage = {
       if (active && new Date() - lastSeenActive > delay) {
         onIdle();
         active = false;
-        startListening();
-      } else startListening();
+      }
+      startListening();
     }, 5000);
   };
 
