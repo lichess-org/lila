@@ -27,10 +27,11 @@ module.exports = function(ctrl, key) {
   }.bind(this);
 
   var goToId = function(id) {
+    m.startComputation();
     ctrl.vm.redirecting = true;
     lichess.hasToReload = true;
-    m.redraw();
     location.href = '/' + id;
+    m.endComputation();
   }.bind(this);
 
   this.next = function(id) {

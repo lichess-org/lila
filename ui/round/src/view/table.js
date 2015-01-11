@@ -111,13 +111,14 @@ function whosTurn(ctrl, color) {
 
 module.exports = function(ctrl) {
   var clockRunningColor = ctrl.isClockRunning() ? ctrl.data.game.player : null;
+  var berserkOf = partial(game.berserkOf, ctrl.data);
   return m('div.table_wrap', [
     (ctrl.clock && !ctrl.data.blind) ? renderClock(
       ctrl.clock,
       ctrl.data.opponent.color,
       "top",
       clockRunningColor,
-      partial(game.berserkOf, ctrl.data)
+      berserkOf
     ) : (
       ctrl.data.correspondence ? renderCorrespondenceClock(
         ctrl.correspondenceClock, ctrl.trans, ctrl.data.opponent.color, "top", ctrl.data.game.player
@@ -138,7 +139,7 @@ module.exports = function(ctrl) {
         ctrl.data.player.color,
         "bottom",
         clockRunningColor,
-        partial(game.berserkOf, ctrl.data)
+        berserkOf
       ),
       button.moretime(ctrl)
     ] : (

@@ -66,18 +66,20 @@ module.exports = function(opts) {
   this.chessground = ground.make(this.data, opts.data.game.fen, onUserMove, onCapture);
 
   this.apiMove = function(o) {
+    m.startComputation();
     if (this.replay.active) this.replay.vm.late = true;
     else this.chessground.apiMove(o.from, o.to);
     if (this.data.game.threefold) this.data.game.threefold = false;
     this.data.game.moves.push(o.san);
     game.setOnGame(this.data, o.color, true);
-    m.redraw();
+    m.endComputation();
     if (this.data.player.spectator || o.color != this.data.player.color) $.sound.move(o.color == 'white');
     if (this.data.blind) blind.reload(this);
     if (game.isPlayerPlaying(this.data) && o.color === this.data.player.color) this.moveOn.next();
   }.bind(this);
 
   this.reload = function(cfg) {
+    m.startComputation();
     this.replay.onReload(cfg);
     this.data = data(this.data, cfg);
     makeCorrespondenceClock();
@@ -87,6 +89,7 @@ module.exports = function(opts) {
     if (this.data.blind) blind.reload(this);
     this.moveOn.next();
     setQuietMode();
+    m.endComputation();
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(
