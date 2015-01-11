@@ -83,6 +83,8 @@ sealed trait Tournament {
 
   def pairingOfGameId(gameId: String) = pairings find { p => p.gameId == gameId }
 
+  def berserkable = system.berserkable && clock.increment == 0
+
   // Oldest first!
   def pairingsAndEvents: List[Either[Pairing, Event]] =
     (pairings.reverse.map(Left(_)) ::: events.map(Right(_))).sorted(Tournament.PairingEventOrdering)
