@@ -34,14 +34,14 @@ object Dependencies {
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.0"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "5.1"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "5.2"
   val config = "com.typesafe" % "config" % "1.2.1"
   val apache = "org.apache.commons" % "commons-lang3" % "3.3.2"
   val guava = "com.google.guava" % "guava" % "18.0"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "2.0.3"
   val hasher = "com.roundeights" %% "hasher" % "1.0.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
-  val jodaTime = "joda-time" % "joda-time" % "2.5"
+  val jodaTime = "joda-time" % "joda-time" % "2.6"
   val elastic4s = "com.sksamuel.elastic4s" %% "elastic4s" % "1.3.2"
   val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.5.0.akka23"
   val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.5.0.akka23"
