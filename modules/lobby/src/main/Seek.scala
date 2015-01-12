@@ -52,7 +52,7 @@ case class Seek(
     "variant" -> Json.obj(
       "key" -> realVariant.key,
       "short" -> realVariant.shortName,
-      "name" -> realVariant.name)
+      "name" -> realVariant.name),
     "mode" -> realMode.id,
     "days" -> daysPerTurn,
     "color" -> chess.Color(color).??(_.name),

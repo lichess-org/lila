@@ -60,7 +60,7 @@ case class Hook(
     "variant" -> Json.obj(
       "key" -> realVariant.key,
       "short" -> realVariant.shortName,
-      "name" -> realVariant.name)
+      "name" -> realVariant.name),
     "mode" -> realMode.id,
     "clock" -> clock.show,
     "time" -> clock.estimateTotalTime,
