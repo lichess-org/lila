@@ -50,6 +50,7 @@ module.exports = function(cfg, router, i18n, onChange) {
     try {
       moves = this.analyse.moveList(this.vm.path);
     } catch (e) {
+      console.log(e);
       this.vm.path = treePath.default();
       moves = this.analyse.moveList(this.vm.path);
     }
