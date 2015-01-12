@@ -1,5 +1,4 @@
 var m = require('mithril');
-var classSet = require('chessground').util.classSet;
 var game = require('game').game;
 
 function prefixInteger(num, length) {
@@ -9,12 +8,6 @@ function prefixInteger(num, length) {
 function bold(x) {
   return '<b>' + x + '</b>';
 }
-
-var berserkIcon = m('span.berserk.hint--bottom-left', {
-  'data-hint': "BERSERK! Half the time, bonus point"
-}, m('span', {
-  'data-icon': '`'
-}));
 
 function formatClockTime(ctrl, time) {
   var date = new Date(time);
@@ -31,23 +24,17 @@ function formatClockTime(ctrl, time) {
   }
 }
 
-module.exports = function(ctrl, color, position, runningColor, getBerserk) {
-  var time = ctrl.data[color];
-  return m('div', {
-    class: 'clock clock_' + color + ' clock_' + position + ' ' + classSet({
-      'outoftime': !time,
-      'running': runningColor === color,
-      'emerg': time < ctrl.data.emerg
+function showBar(ctrl, time) {
+  return ctrl.data.showBar ? m('div.bar',
+    m('span', {
+      style: {
+        width: Math.max(0, Math.min(100, (time / ctrl.data.barTime) * 100)) + '%'
+      }
     })
-  }, [
-    ctrl.data.showBar ? m('div.bar',
-      m('span', {
-        style: {
-          width: Math.max(0, Math.min(100, (time / ctrl.data.barTime) * 100)) + '%'
-        }
-      })
-    ) : null,
-    m('div.time', m.trust(formatClockTime(ctrl, time * 1000))),
-    getBerserk(color) ? berserkIcon : null
-  ]);
+  ) : null;
 }
+
+module.exports = {
+  formatClockTime: formatClockTime,
+  showBar: showBar
+};

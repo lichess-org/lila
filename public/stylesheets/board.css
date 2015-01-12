@@ -1227,6 +1227,10 @@ div.table_wrap .berserk {
   line-height: 27px;
   vertical-align: 2px;
 }
+div.table_wrap .berserk.button {
+  line-height: 17px;
+  vertical-align: -3px;
+}
 div.table_wrap a.moretime {
   opacity: 0.4;
   position: absolute;

@@ -1,11 +1,12 @@
 var m = require('mithril');
 var chessground = require('chessground');
+var classSet = chessground.util.classSet;
 var partial = chessground.util.partial;
 var game = require('game').game;
 var status = require('game').status;
 var opposite = chessground.util.opposite;
 var xhr = require('../xhr');
-var renderClock = require('../clock/view');
+var clockView = require('../clock/view');
 var renderCorrespondenceClock = require('../correspondenceClock/view');
 var renderReplay = require('../replay/view');
 var renderStatus = require('./status');
@@ -86,14 +87,7 @@ function renderTablePlay(ctrl) {
       button.standard(ctrl, game.abortable, 'L', 'abortGame', 'abort'),
       button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes'),
       button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
-      button.standard(ctrl, game.resignable, 'b', 'resign', 'resign'),
-      game.berserkableBy(ctrl.data) ? m('button', {
-        class: 'button hint--bottom-left',
-        'data-hint': "GO BERSERK! Half the time, bonus point",
-        onclick: partial(xhr.berserk, ctrl)
-      }, m('span', {
-        'data-icon': '`'
-      })) : null
+      button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
     ]),
     buttons ? m('div.control.buttons', buttons) : null,
     renderPlayer(ctrl, d.player)
@@ -109,19 +103,44 @@ function whosTurn(ctrl, color) {
   );
 }
 
+var berserkIcon = m('span.berserk.hint--bottom-left', {
+  'data-hint': "BERSERK! Half the time, bonus point"
+}, m('span', {
+  'data-icon': '`'
+}));
+
+function goBerserk(ctrl) {
+  return m('button', {
+    class: 'button berserk hint--bottom-left',
+    'data-hint': "GO BERSERK! Half the time, bonus point",
+    onclick: partial(xhr.berserk, ctrl)
+  }, m('span', {
+    'data-icon': '`'
+  }));
+}
+
+function renderClock(ctrl, color, position) {
+  var time = ctrl.clock.data[color];
+  return m('div', {
+    class: 'clock clock_' + color + ' clock_' + position + ' ' + classSet({
+      'outoftime': !time,
+      'running': ctrl.isClockRunning() && ctrl.data.game.player === color,
+      'emerg': time < ctrl.clock.data.emerg
+    })
+  }, [
+    clockView.showBar(ctrl.clock, time),
+    m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000))),
+    game.berserkOf(ctrl.data, color) ? berserkIcon : (
+      ctrl.data.player.color === color && game.berserkableBy(ctrl.data) ? goBerserk(ctrl) : null
+    )
+  ]);
+}
+
 module.exports = function(ctrl) {
-  var clockRunningColor = ctrl.isClockRunning() ? ctrl.data.game.player : null;
-  var berserkOf = partial(game.berserkOf, ctrl.data);
   return m('div.table_wrap', [
-    (ctrl.clock && !ctrl.data.blind) ? renderClock(
-      ctrl.clock,
-      ctrl.data.opponent.color,
-      "top",
-      clockRunningColor,
-      berserkOf
-    ) : (
+    (ctrl.clock && !ctrl.data.blind) ? renderClock(ctrl, ctrl.data.opponent.color, 'top') : (
       ctrl.data.correspondence ? renderCorrespondenceClock(
-        ctrl.correspondenceClock, ctrl.trans, ctrl.data.opponent.color, "top", ctrl.data.game.player
+        ctrl.correspondenceClock, ctrl.trans, ctrl.data.opponent.color, 'top', ctrl.data.game.player
       ) : whosTurn(ctrl, ctrl.data.opponent.color)
     ),
     m('div', {
@@ -134,13 +153,7 @@ module.exports = function(ctrl) {
         )
       )
     ]), (ctrl.clock && !ctrl.data.blind) ? [
-      renderClock(
-        ctrl.clock,
-        ctrl.data.player.color,
-        "bottom",
-        clockRunningColor,
-        berserkOf
-      ),
+      renderClock(ctrl, ctrl.data.player.color, 'bottom'),
       button.moretime(ctrl)
     ] : (
       ctrl.data.correspondence ? renderCorrespondenceClock(
