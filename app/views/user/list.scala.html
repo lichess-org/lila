@@ -1,4 +1,4 @@
-@(tourneyWinners: List[lila.tournament.Winner], online: List[User], bullet: List[User], blitz: List[User], classical: List[User], chess960: List[User], kingOfTheHill: List[User], threeCheck: List[User], antichess: List[User], atomic: List[User], nbWeek: List[(User, Int)], nbAllTime: List[(User, Int)])(implicit ctx: Context)
+@(tourneyWinners: List[lila.tournament.Winner], online: List[User], bullet: List[User], blitz: List[User], classical: List[User], correspondence: List[User], chess960: List[User], kingOfTheHill: List[User], threeCheck: List[User], antichess: List[User], atomic: List[User], nbWeek: List[(User, Int)], nbAllTime: List[(User, Int)])(implicit ctx: Context)
 
 @import lila.rating.PerfType
 
@@ -62,17 +62,7 @@
 
     <div class="group">
       @userTopPerf(bullet, PerfType.Bullet)
-      @userTopPerf(blitz, PerfType.Blitz)
-      @userTopPerf(classical, PerfType.Classical)
-    </div>
-
-    <div class="group">
       @userTopPerf(chess960, PerfType.Chess960)
-      @userTopPerf(kingOfTheHill, PerfType.KingOfTheHill)
-      @userTopPerf(threeCheck, PerfType.ThreeCheck)
-    </div>
-
-    <div class="group">
       <div class="user_top">
         <h2 data-icon="g">&nbsp;<a href="@routes.Tournament.home">Tournament winners</a></h2>
         <table><tbody>
@@ -84,8 +74,24 @@
             }
         </tbody></table>
       </div>
+    </div>
+
+    <div class="group">
+      @userTopPerf(blitz, PerfType.Blitz)
+      @userTopPerf(threeCheck, PerfType.ThreeCheck)
       @userTopActive(nbWeek, trans.activeThisWeek(), icon = 'U'.some)
+    </div>
+
+    <div class="group">
+      @userTopPerf(classical, PerfType.Classical)
+      @userTopPerf(kingOfTheHill, PerfType.KingOfTheHill)
       @userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some)
+    </div>
+
+    <div class="group">
+      @userTopPerf(correspondence, PerfType.Correspondence)
+      @userTopPerf(antichess, PerfType.Antichess)
+      @userTopPerf(atomic, PerfType.Atomic)
     </div>
 
   </div>

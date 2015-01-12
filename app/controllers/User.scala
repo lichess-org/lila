@@ -114,6 +114,7 @@ object User extends LilaController {
       bullet ← env.cached topPerf PerfType.Bullet.key
       blitz ← env.cached topPerf PerfType.Blitz.key
       classical ← env.cached topPerf PerfType.Classical.key
+      correspondence ← env.cached topPerf PerfType.Correspondence.key
       chess960 ← env.cached topPerf PerfType.Chess960.key
       kingOfTheHill ← env.cached topPerf PerfType.KingOfTheHill.key
       threeCheck ← env.cached topPerf PerfType.ThreeCheck.key
@@ -133,6 +134,7 @@ object User extends LilaController {
       bullet = bullet,
       blitz = blitz,
       classical = classical,
+      correspondence = correspondence,
       chess960 = chess960,
       kingOfTheHill = kingOfTheHill,
       threeCheck = threeCheck,
