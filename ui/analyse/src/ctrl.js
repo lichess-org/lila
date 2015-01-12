@@ -84,23 +84,27 @@ module.exports = function(cfg, router, i18n, onChange) {
         fen = cached.fen;
       }
       if (!cached || ply < nbMoves) {
-        var chess = new Chess(
-          fen || this.data.game.initialFen, gameVariantChessId())
-        for (ply = ply; ply <= nbMoves; ply++) {
-          move = moves[ply - 1];
-          hash += move;
-          lm = chess.move(move);
-          var turnColor = chess.turn() == 'w' ? 'white' : 'black';
-          situationCache[hash] = {
-            fen: chess.fen(),
-            turnColor: turnColor,
-            movable: {
-              color: turnColor,
-              dests: chess.dests()
-            },
-            check: chess.in_check(),
-            lastMove: [lm.from, lm.to]
-          };
+        try {
+          var chess = new Chess(
+            fen || this.data.game.initialFen, gameVariantChessId())
+          for (ply = ply; ply <= nbMoves; ply++) {
+            move = moves[ply - 1];
+            hash += move;
+            lm = chess.move(move);
+            var turnColor = chess.turn() == 'w' ? 'white' : 'black';
+            situationCache[hash] = {
+              fen: chess.fen(),
+              turnColor: turnColor,
+              movable: {
+                color: turnColor,
+                dests: chess.dests()
+              },
+              check: chess.in_check(),
+              lastMove: [lm.from, lm.to]
+            };
+          }
+        } catch (e) {
+          console.log(e);
         }
       }
       this.vm.situation = situationCache[hash] || {
