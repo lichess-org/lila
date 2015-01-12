@@ -16,8 +16,8 @@
         @base.select(form("open"), Seq(0 -> trans.aConfirmationIsRequiredToJoin.str(), 1 -> trans.anyoneCanJoin.str()))
       </label>
       <label>
-        <span>@trans.ircChannel()</span>
-        @base.select(form("irc"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+        <span>IRC channel</span>
+        @base.select(form("irc"), Seq(0 -> "No", 1 -> "Yes"))
       </label>
       <label>
         <span>@trans.location()</span>

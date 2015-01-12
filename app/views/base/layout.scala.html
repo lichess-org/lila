@@ -111,7 +111,7 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
           <span data-icon="u">&nbsp;@langName(lang)</span>
         </a>
         <form action="@routes.I18n.select" method="POST" class="language_links dropdown" data-url="@staticUrl("trans/refs.json")?v=@assetVersion">
-          <li><a href="@routes.I18n.contribute">@trans.helpTranslateLichess()</a></li>
+          <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
         </form>
       </div>
       @ctx.me.map { me =>
@@ -195,11 +195,11 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     <div id="footer_wrap">
       <div class="footer">
         <div class="right">
-          <a href="http://github.com/ornicar/lila" target="_blank">@trans.sourceCode()</a> |
-          <a href="@routes.Main.developers">@trans.developers()</a><br />
-          <a href="@routes.Page.contact">@trans.contact()</a> |
-          <a href="@routes.Page.thanks">@trans.thanks()</a> |
-          <a href="@routes.Page.tos">@trans.termsOfService()</a>
+          <a href="http://github.com/ornicar/lila" target="_blank">Source Code</a> |
+          <a href="@routes.Main.developers">Developers</a><br />
+          <a href="@routes.Page.contact">Contact</a> |
+          <a href="@routes.Page.thanks">Thanks</a> |
+          <a href="@routes.Page.tos">ToS</a>
         </div>
         <div class="center">
           <a href="@routes.Donation.index" class="button">@trans.donate()</a>
@@ -209,7 +209,7 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
         <a href="@routes.Wiki.home" title="@trans.learnMoreAboutLichess()">Wiki</a><br />
         <a href="@routes.WorldMap.index" title="@trans.realTimeWorldMapOfChessMoves()">@trans.map()</a> |
         <a href="@routes.Monitor.index">Monitor</a> |
-        <a href="@routes.Page.helpLichess">@trans.contribute() lichess.org</a>
+        <a href="@routes.Page.helpLichess">Help lichess.org</a>
       </div>
     </div>
     }

@@ -32,7 +32,7 @@ title = topic.name) {
         <span class="mod postip">@post.ip</span>
         }
         @if(isGrantedMod(categ.slug)) {
-        <a class="mod thin delete button" href="@routes.ForumPost.delete(categ.slug, post.id)" data-icon="q"> @trans.delete()</a>
+        <a class="mod thin delete button" href="@routes.ForumPost.delete(categ.slug, post.id)" data-icon="q"> Delete</a>
         }
       </div>
       <p class="message">@autoLink(post.text)</p>
@@ -47,7 +47,7 @@ title = topic.name) {
   }
   @if(isGrantedMod(categ.slug)) {
   <form class="mod" method="post" action="@routes.ForumTopic.close(categ.slug, topic.slug)">
-    <button class="button">@topic.closed.fold(trans.reopenTheTopic(), trans.closeTheTopic())</button>
+    <button class="button">@topic.closed.fold("Reopen the topic", "Close the topic")</button>
   </form>
   }
 
