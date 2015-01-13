@@ -4,7 +4,7 @@
 
 @userTopPerf(users: List[User], perfType: PerfType) = {
 <div class="user_top">
-  <h2 data-icon="@perfType.iconChar"> @perfType.name</h2>
+  <h2 class="text" data-icon="@perfType.iconChar">@perfType.name</h2>
   <table>
     <tbody>
       @users.map { u =>
@@ -20,7 +20,7 @@
 
 @userTopActive(users: List[(User, Int)], title: Any, icon: Option[Char] = None) = {
 <div class="user_top">
-  <h2 @icon.map { i => data-icon="@i" }> @title</h2>
+  <h2 class="text"@icon.map { i => data-icon="@i" }>@title</h2>
   <table>
     <tbody>
       @users.map { u =>
@@ -64,7 +64,7 @@
       @userTopPerf(bullet, PerfType.Bullet)
       @userTopPerf(chess960, PerfType.Chess960)
       <div class="user_top">
-        <h2 data-icon="g">&nbsp;<a href="@routes.Tournament.home">Tournament winners</a></h2>
+        <h2 class="text" data-icon="g">Tournament winners</h2>
         <table><tbody>
             @tourneyWinners.map { w =>
             <tr>

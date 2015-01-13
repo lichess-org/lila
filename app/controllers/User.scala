@@ -127,7 +127,7 @@ object User extends LilaController {
         UserRepo.byOrderedIds(pairs.map(_.userId)) map (_ zip pairs.map(_.nb))
       }
       tourneyWinners ← Env.tournament.winners scheduled nb
-      online ← env.cached topOnline 30
+      online ← env.cached topOnline 40
     } yield html.user.list(
       tourneyWinners = tourneyWinners,
       online = online,
