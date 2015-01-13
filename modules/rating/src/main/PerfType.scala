@@ -30,7 +30,7 @@ object PerfType {
 
   case object Correspondence extends PerfType(
     key = "correspondence",
-    name = "Corresp.",
+    name = "Correspondence",
     title = "Correspondence (days per turn)",
     iconChar = ';')
 
