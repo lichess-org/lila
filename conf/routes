@@ -206,6 +206,7 @@ POST  /mod/:username/title             controllers.Mod.setTitle(username: String
 GET   /mod/:username/communication     controllers.Mod.communication(username: String)
 POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
 GET   /mod/log                         controllers.Mod.log
+POST  /mod/$gameId<\w{8}>/$color<white|black>/assess controllers.Mod.assessGame(gameId: String, color: String)
 
 # Wiki
 GET   /wiki                            controllers.Wiki.home

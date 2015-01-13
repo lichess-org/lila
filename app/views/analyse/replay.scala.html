@@ -27,6 +27,23 @@ i18n: @round.jsI18n()
 @views.html.game.watchers()
 @round.blurs(game)
 @round.holdAlerts(game)
+White:
+<select id="whiteAssessment">
+  <option value="1">Definitely not cheating</option>
+  <option value="2">Unlikely cheating</option>
+  <option value="3">Unclear</option>
+  <option value="4">Likely cheating</option>
+  <option value="5">Definitely cheating</option>
+</select>
+<br/>
+Black:
+<select id="blackAssessment">
+  <option value="1">Definitely not cheating</option>
+  <option value="2">Unlikely cheating</option>
+  <option value="3">Unclear</option>
+  <option value="4">Likely cheating</option>
+  <option value="5">Definitely cheating</option>
+</select>
 <div class="shortcuts">
   <p class="title" data-icon="u"> Keyboard Shortcuts</p>
   <div class="inner">

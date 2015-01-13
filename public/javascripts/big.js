@@ -2089,6 +2089,20 @@ lichess.storage = {
       });
       return false;
     });
+
+    $('#whiteAssessment').change( function() {
+      console.log($(this).val());
+      $.post('/mod/' + data.game.id + '/white/assess', 
+        { assessment: $(this).val() }
+      );
+    });
+
+    $('#blackAssessment').change( function() {
+      console.log($(this).val());
+      $.post('/mod/' + data.game.id + '/white/assess', 
+        { assessment: $(this).val() }
+      );
+    });
   }
 
   ////////////////
