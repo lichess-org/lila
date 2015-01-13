@@ -54,13 +54,11 @@ module.exports = function(send, ctrl) {
     },
     enpassant: function(o) {
       if (!ctrl.replay.active) {
+        var pieces = {};
+        pieces[o.key] = null;
+        ctrl.chessground.setPieces(pieces);
         if (ctrl.data.game.variant.key === 'atomic')
-          atomic.enpassant(ctrl, o.key, o.color);
-        else {
-          var pieces = {};
-          pieces[o.key] = null;
-          ctrl.chessground.setPieces(pieces);
-        }
+          atomic.enpassant(ctrl, o.key);
       }
       $.sound.take();
     },
