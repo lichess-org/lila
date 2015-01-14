@@ -1,6 +1,6 @@
 @(text: Field, author: Field)(implicit ctx: Context)
 <label>
-  <span class="required">Message</span>
+  <span class="required">@trans.message()</span>
   <textarea name="@text.name" id="@text.id">@text.value</textarea>
   @errMsg(text)
 </label>

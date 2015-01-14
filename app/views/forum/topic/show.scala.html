@@ -54,18 +54,18 @@ title = topic.name) {
   <div class="topicReply">
     @formWithCaptcha.map {
     case (form, captcha) => {
-    <h2 class="postNewTitle" id="reply">Reply to this topic</h2>
+    <h2 class="postNewTitle" id="reply">@trans.replyToThisTopic()</h2>
     <form class="wide" action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
       @forum.post.formFields(form("text"), form("author"))
       @base.captcha(form("move"), form("gameId"), captcha)
       @errMsg(form)
-      <button type="submit" class="submit button" data-icon="E"> Reply</button>
+      <button type="submit" class="submit button" data-icon="E"> @trans.reply()</button>
       <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">@trans.cancel()</a>
     </form>
     }
     }.getOrElse {
     @if(topic.closed) {
-    <p>This topic is now closed.</p>
+    <p>@trans.thisTopicIsNowClosed()</p>
     } else {
     @categ.team.map { teamId =>
     @if(!myTeam(teamId)) {

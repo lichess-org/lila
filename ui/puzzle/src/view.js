@@ -37,13 +37,13 @@ function renderTrainingBox(ctrl) {
     m('div.tabs.buttonset', [
       m('a.button.active', {
         href: '/training'
-      }, 'Puzzle'),
+      }, ctrl.trans('puzzles')),
       m('a.button', {
         href: '/training/coordinate'
-      }, 'Coord'),
+      }, ctrl.trans('coordinates')),
       m('a.button', {
         href: '/training/opening'
-      }, 'Opening')
+      }, ctrl.trans('openings'))
     ]),
     ctrl.data.user ? renderUserInfos(ctrl) : m('div.register', [
       m('p', ctrl.trans('toTrackYourProgress')),

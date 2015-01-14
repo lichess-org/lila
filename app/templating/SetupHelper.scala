@@ -5,6 +5,7 @@ import chess.{ Mode, Speed }
 import lila.setup.TimeMode
 import lila.api.Context
 import lila.tournament.System
+import lila.report.Reason
 
 trait SetupHelper { self: I18nHelper =>
 
@@ -12,6 +13,13 @@ trait SetupHelper { self: I18nHelper =>
     (TimeMode.RealTime.id.toString, trans.realTime.str(), none),
     (TimeMode.Correspondence.id.toString, trans.correspondence.str(), none),
     (TimeMode.Unlimited.id.toString, trans.unlimited.str(), none)
+  )
+
+  def translatedReasonChoices(implicit ctx: Context) = List(
+    (Reason.Cheat.name, trans.cheat.str()),
+    (Reason.Insult.name, trans.insult.str()),
+    (Reason.Troll.name, trans.troll.str()),
+    (Reason.Other.name, trans.other.str())
   )
 
   def translatedModeChoices(implicit ctx: Context) = List(
