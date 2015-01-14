@@ -6,7 +6,8 @@ import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo }
 import lila.db.Types.Coll
-import lila.evaluation.{ GameGroup, GamePool }
+import lila.evaluation.{ GameGroup }
+import lila.evaluation.GamePool.Analysed
 import lila.analyse.{ AnalysisRepo }
 import lila.game.{ GameRepo }
 import reactivemongo.bson._
@@ -78,26 +79,20 @@ final class ModApi(
       case "black" => Color.Black
       case _       => Color.White
     }
-    val assessment: Int = eval match {
-      case "1" => 1
-      case "2" => 2
-      case "3" => 3
-      case "4" => 4
-      case "5" => 5
-      case _   => 1
-    }
-    val game = GameRepo.game(id)
-    val analysis = AnalysisRepo.byId(id) onComplete {
-      case Success(a) => a
-      case Failure(t) => None
+    val assessment: Int = parseIntOption(eval) match {
+      case Some(a) if (a >= 1 && a <= 5) => a
+      case _ => 1
     }
 
-    game onComplete {
-      case Success(Some(g)) => {
-        (coll insert GameGroup(Analysed(g, analysis), color, Some(assessment))) >> 
-          logApi.assessGame(mod, id, side, eval)
+    GameRepo.game(id).flatMap {
+      game => AnalysisRepo.byId(id).map {
+        analysis =>
+          game match {
+            case Some(g) => (Coll.insert.GameGroup(Analysed(g, analysis), color, Some(assessment))) >> 
+              logApi.assessGame(mod, id, side, eval)
+            case _ =>
+          }
       }
-      case _ => funit
     }
   }
 }
