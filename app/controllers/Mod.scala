@@ -83,7 +83,7 @@ object Mod extends LilaController {
       implicit def req = ctx.body
       Form(single("assessment" -> text)).bindFromRequest.fold(
         err => fuccess(BadRequest),
-        text => modApi.assessGame(me.id, id, color)
+        text => modApi.assessGame(me.id, id, color, text)
       )
   }
 }

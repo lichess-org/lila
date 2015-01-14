@@ -64,12 +64,14 @@ object Analyse extends LilaController {
               else divider(pov.game, initialFen)
             val pgn = Env.game.pgnDump(pov.game, initialFen)
             Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data => {
+              /*
               println("    GameGroup( //" + pov.game.id + "/" + pov.color)
               println("      NonEmpty" + pov.game.moveTimes.toString + ",")
               println("      NonEmpty" + analysis.fold(List(0)){ x => Accuracy.diffsList(pov, x)}.toString + ",")
               println("      List(" + (200 * pov.game.player(pov.color).blurs.toDouble / pov.game.turns).toInt + "),")
               println("      List(" + pov.game.player(pov.color).hasSuspiciousHoldAlert + ")")
               println("    ),")
+              */
               Ok(html.analyse.replay(
                 pov,
                 data,

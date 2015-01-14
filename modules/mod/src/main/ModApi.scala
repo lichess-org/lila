@@ -65,8 +65,8 @@ final class ModApi(
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     UserRepo named username flatten "[mod] missing user " + username flatMap op
 
-  def assessGame(mod: String, game: String, side: String): Funit = {
-    println(mod + " " +  game + " " + side)
-    ???
+  def assessGame(mod: String, game: String, side: String, eval: String): Funit = {
+    println(mod + " " +  game + " " + side + " " + eval)
+    funit
   }
 }

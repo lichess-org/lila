@@ -3,6 +3,10 @@ package grouping
 
 import Math.{pow, E, PI, log, sqrt, abs, exp}
 import scalaz.NonEmptyList
+import chess.{ Color }
+import lila.evaluation.GamePool._
+import lila.game.{ Pov }
+import lila.analyse.{ Accuracy }
 
 case class Rating(perf: Int, interval: Int)
 
@@ -13,49 +17,33 @@ case class Similarity(a: Double, threshold: Double = 0.9) {
 }
 case class MatchAndSig(matches: Boolean, significance: Double)
 
-case class GameGroup (
-  moveTimes: NonEmptyList[Int],
-  sfAccuracies: NonEmptyList[Int],
-  blurRates: List[Int],
-  holdAlerts: List[Boolean]
-  ) {
+case class GameGroup ( analysed: Analysed, color: Color ) {
   import Statistics._
 
-  def compareMoveTimes (that: GameGroup): Similarity = pointToPointSimilarity(coefVariation(this.moveTimes), coefVariation(that.moveTimes), 0.3)
+  def compareMoveTimes (that: GameGroup): Similarity = {
+    val thisMt: List[Int] = skip(this.analysed.game.moveTimes.toList, {if (this.color == Color.White) 1 else 0})
+    val thatMt: List[Int] = skip(that.analysed.game.moveTimes.toList, {if (that.color == Color.White) 1 else 0})
 
-  def compareSfAccuracies (that: GameGroup): Similarity = setToSetSimilarity(this.sfAccuracies, that.sfAccuracies, 0.7)
-
-  def compareBlurRates (that: GameGroup): Similarity = {
-    (this.blurRates, that.blurRates) match {
-      case (Nil, Nil)                   => Similarity(1) // Both empty
-      case (Nil, _ :: _)                => Similarity(0) // One empty, The other with some
-      case (_ :: _, Nil)                => Similarity(0)
-      case (a :: Nil, b :: Nil)         => pointToPointSimilarity(a, b, 5d) // Both have one
-      case (a :: Nil, b :: c)           => pointToSetSimilarity(a, NonEmptyList.nel(b, c)) // One with one element, the other with many
-      case (a :: b, c :: Nil)           => pointToSetSimilarity(c, NonEmptyList.nel(a, b))
-      case (a :: b, c :: d)             => setToSetSimilarity(NonEmptyList.nel(a, b), NonEmptyList.nel(c, d)) // Both have many    
-    }
+    listToListSimilarity(thisMt, thatMt, 0.3)
   }
 
+  def compareSfAccuracies (that: GameGroup): Similarity = listToListSimilarity(
+    this.analysed.analysis.fold(List(0)){ x => Accuracy.diffsList(Pov(this.analysed.game, this.color), x)},
+    that.analysed.analysis.fold(List(0)){ x => Accuracy.diffsList(Pov(that.analysed.game, that.color), x)},
+    0.7)
+
+  def compareBlurRates (that: GameGroup): Similarity = pointToPointSimilarity(
+    (200 * this.analysed.game.player(this.color).blurs / this.analysed.game.turns).toInt,
+    (200 * that.analysed.game.player(that.color).blurs / that.analysed.game.turns).toInt,
+    5d
+    )
+
   def compareHoldAlerts (that: GameGroup): Similarity = {
-    def isSuspicious(holdAlerts: List[Boolean]): Boolean = {
-      holdAlerts match {
-        case List()  => false
-        case x :: xs => x
-      }
-    }
     Similarity(
-      if (isSuspicious(this.holdAlerts) == isSuspicious(that.holdAlerts)) 1 else 0,
+      if (this.analysed.game.player(this.color).hasSuspiciousHoldAlert == that.analysed.game.player(that.color).hasSuspiciousHoldAlert) 1 else 0,
       0.9
     )
   }
-
-  def merge (that: GameGroup): GameGroup = GameGroup(
-    this.moveTimes.append(that.moveTimes),
-    this.sfAccuracies.append(that.sfAccuracies),
-    this.blurRates ::: that.blurRates,
-    this.holdAlerts ::: that.holdAlerts
-  )
 
   def similarityTo (that: GameGroup): MatchAndSig = {
     // Calls compare functions to determine how similar `this` and `that` are to each other
@@ -113,6 +101,18 @@ object Statistics {
     setToSetSimilarity(avgA, avgB, varA, varB, threshold)
   }
 
+  def listToListSimilarity[T](x: List[T], y: List[T], threshold: Double = 0.9)(implicit n: Numeric[T]): Similarity = {
+    (x, y) match {
+      case (Nil, Nil)                   => Similarity(1) // Both empty
+      case (Nil, _ :: _)                => Similarity(0) // One empty, The other with some
+      case (_ :: _, Nil)                => Similarity(0)
+      case (a :: Nil, b :: Nil)         => pointToPointSimilarity(a, b, 5d) // Both have one
+      case (a :: Nil, b :: c)           => pointToSetSimilarity(a, NonEmptyList.nel(b, c)) // One with one element, the other with many
+      case (a :: b, c :: Nil)           => pointToSetSimilarity(c, NonEmptyList.nel(a, b))
+      case (a :: b, c :: d)             => setToSetSimilarity(NonEmptyList.nel(a, b), NonEmptyList.nel(c, d), threshold) // Both have many
+    }
+  }
+
   def pointToSetSimilarity[T](x: T, set: NonEmptyList[T])(implicit n: Numeric[T]): Similarity = Similarity(
     confInterval(n.toDouble(x), average(set), sqrt(variance(set))),
     0.9
@@ -145,6 +145,9 @@ object Statistics {
 
   // Square Sum Distance
   def ssd(a: NonEmptyList[Similarity]): Double = sqrt(a.map(x => pow(x.apply, 2)).list.sum / a.size)
+
+  def skip[A](l: List[A], n: Int) = 
+    l.zipWithIndex.collect {case (e,i) if ((i+n) % 2) == 0 => e} // (i+1) because zipWithIndex is 0-based
 }
 
 object Erf {

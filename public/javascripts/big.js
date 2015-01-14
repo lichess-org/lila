@@ -2099,7 +2099,7 @@ lichess.storage = {
 
     $('#blackAssessment').change( function() {
       console.log($(this).val());
-      $.post('/mod/' + data.game.id + '/white/assess', 
+      $.post('/mod/' + data.game.id + '/black/assess', 
         { assessment: $(this).val() }
       );
     });
