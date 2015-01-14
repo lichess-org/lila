@@ -20,7 +20,7 @@ private[i18n] object Contributors {
     "pl" -> List("M3n747", "Kurt Keller (DE)"),
     "nl" -> List("Kintaro"),
     "vi" -> List("Xiblack"),
-    "sv" -> List("nizleib", "Kurt Keller (DE)"),
+    "sv" -> List("nizleib", "Kurt Keller (DE)", "RocketBabe"),
     "cs" -> List("Martin", "Claymes"),
     "sk" -> List("taiga", "Kurt Keller (DE)"),
     "hu" -> List("LTBakemono"),

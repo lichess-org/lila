@@ -58,6 +58,9 @@ div.training > .side .buttonset {
   text-align: center;
   margin-top: 2em;
 }
+div.training > .side .tabs.buttonset a.button {
+  display: block;
+}
 div.training > .side .chart_container {
   margin-top: 30px;
 }

@@ -10,23 +10,23 @@
     <h1 class="lichess_title" data-icon="%"> @trans.preferences()</h1>
     <form class="autosubmit" action="@routes.Pref.formApply" method="POST">
       <fieldset>
-        <legend>Game display</legend>
+        <legend>@trans.gameDisplay()</legend>
         <ul>
           <li>
-            <h2>Piece animation</h2>
+            <h2>@trans.pieceAnimation()</h2>
             @base.radios(form("animation"), Pref.Animation.choices)
           </li>
           <li>
-            <h2>Material difference</h2>
-            @base.radios(form("captured"), Seq(0 -> "No", 1 -> "Yes"))
+            <h2>@trans.materialDifference()</h2>
+            @base.radios(form("captured"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
           </li>
           <li>
             <h2>Board highlights (last move and check)</h2>
-            @base.radios(form("highlight"), Seq(0 -> "No", 1 -> "Yes"))
+            @base.radios(form("highlight"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
           </li>
           <li>
             <h2>Piece destinations (valid moves and premoves)</h2>
-            @base.radios(form("destination"), Seq(0 -> "No", 1 -> "Yes"))
+            @base.radios(form("destination"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
           </li>
           <li>
             <h2>Board coordinates (A-H, 1-8)</h2>
@@ -47,11 +47,11 @@
           </li>
           <li>
             <h2>Horizontal green progress bars</h2>
-            @base.radios(form("clockBar"), Seq(0 -> "No", 1 -> "Yes"))
+            @base.radios(form("clockBar"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
           </li>
           <li>
             <h2>Sound when time gets critical</h2>
-            @base.radios(form("clockSound"), Seq(0 -> "No", 1 -> "Yes"))
+            @base.radios(form("clockSound"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
           </li>
         </ul>
       </fieldset>
@@ -60,7 +60,7 @@
         <ul>
           <li>
             <h2>Premoves (playing during opponent turn)</h2>
-            @base.radios(form("premove"), Seq(0 -> "No", 1 -> "Yes"))
+            @base.radios(form("premove"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
           </li>
           <li>
             <h2>Takebacks (with opponent approval)</h2>
@@ -81,7 +81,7 @@
         <ul>
           <li>
             <h2>Let other players follow you</h2>
-            @base.radios(form("follow"), Seq(0 -> "No", 1 -> "Yes"))
+            @base.radios(form("follow"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
           </li>
           <li>
             <h2>Let other players challenge you</h2>
