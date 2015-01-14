@@ -49,14 +49,14 @@ private[round] final class Takebacker(
     }
 
   private def single(game: Game): Fu[Events] = for {
-    fen ← GameRepo initialFen game.id
+    fen ← GameRepo initialFen game
     progress ← Rewind(game, fen).future
     _ ← fuccess { uciMemo.drop(game, 1) }
     events ← save(progress)
   } yield events
 
   private def double(game: Game): Fu[Events] = for {
-    fen ← GameRepo initialFen game.id
+    fen ← GameRepo initialFen game
     prog1 ← Rewind(game, fen).future
     prog2 ← Rewind(prog1.game, fen).future map { progress =>
       prog1 withGame progress.game

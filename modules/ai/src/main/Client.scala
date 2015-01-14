@@ -25,7 +25,7 @@ final class Client(
   def play(game: Game, level: Int): Fu[PlayResult] = withValidSituation(game) {
     // Thread sleep 2000
     for {
-      fen ← game.variant.exotic ?? { GameRepo initialFen game.id }
+      fen ← GameRepo initialFen game
       uciMoves ← uciMemo get game
       moveResult ← move(uciMoves.toList, fen, level, game.variant.kingOfTheHill)
       uciMove ← (UciMove(moveResult.move) toValid s"${game.id} wrong bestmove: $moveResult").future

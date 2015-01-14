@@ -65,7 +65,7 @@ private[round] final class Rematcher(
   } inject List(Event.ReloadOwner)
 
   private def returnGame(pov: Pov): Fu[Game] = for {
-    initialFen <- GameRepo initialFen pov.game.id
+    initialFen <- GameRepo initialFen pov.game
     situation = initialFen flatMap Forsyth.<<<
     pieces = pov.game.variant match {
       case Chess960 =>
