@@ -70,7 +70,7 @@ final class Analyser(
         case None => fufail(s"[analysis] $data")
         case Some(infos) => chess.Replay(game.pgnMoves, initialFen, game.variant).fold(
           fufail(_),
-          replay => UciToPgn(replay.pp, a1 complete infos) match {
+          replay => UciToPgn(replay, a1 complete infos) match {
             case (analysis, errors) =>
               errors foreach { e => logwarn(s"[analysis UciToPgn] $id $e") }
               if (analysis.valid) {
