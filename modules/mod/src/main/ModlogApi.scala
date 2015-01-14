@@ -73,7 +73,7 @@ final class ModlogApi {
     "action" -> Modlog.unengine
   ))
 
-  def assessedGame(mod: String, gameId: String, side: String, assessment: String) = add {
+  def assessGame(mod: String, gameId: String, side: String, assessment: String) = add {
     Modlog(mod, none, Modlog.assessedGame, details = Some(gameId + "/" + side + " => " + assessment))
   }
 

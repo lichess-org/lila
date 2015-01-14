@@ -1,14 +1,14 @@
 package lila.mod
 
-import lila.evaluation.{ GameGroup, GamePool }
-import lila.analyse.{ AnalysisRepo }
-import lila.game.{ GameRepo }
 import chess.Color
 import lila.db.api._
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo }
 import lila.db.Types.Coll
+import lila.evaluation.{ GameGroup, GamePool }
+import lila.analyse.{ AnalysisRepo }
+import lila.game.{ GameRepo }
 import reactivemongo.bson._
 
 final class ModApi(
@@ -95,7 +95,7 @@ final class ModApi(
     game onComplete {
       case Success(Some(g)) => {
         (coll insert GameGroup(Analysed(g, analysis), color, Some(assessment))) >> 
-          logApi.assessGame(mod, game, side, eval)
+          logApi.assessGame(mod, id, side, eval)
       }
       case _ => funit
     }
