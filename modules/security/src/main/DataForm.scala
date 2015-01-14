@@ -70,36 +70,40 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
       (lameSuffixes exists u.endsWith)
 
   private val lamePrefixes = "_" :: "-" :: (for {
-    title <- "nm cm fm im gm lm".split(' ').toList
+    title <- "ncfigl".toList.map(_ + "m")
     sep <- List("-", "_")
   } yield s"$title$sep") ::: (0 to 9).toList map (_.toString)
 
   private val lameSuffixes = List("-", "_")
 
-  private val lameUsernames = List(
-    "hitler",
-    "fuck",
-    "penis",
-    "vagin",
-    "anus",
-    "bastard",
-    "bitch",
-    "shit",
-    "shiz",
-    "cunniling",
-    "cunt",
-    "kunt",
-    "douche",
-    "faggot",
-    "jerk",
-    "nigg",
-    "piss",
-    "poon",
-    "prick",
-    "pussy",
-    "slut",
-    "whore",
-    "nazi")
+  private val lameUsernames = for {
+    base <- List(
+      "hitler",
+      "fuck",
+      "penis",
+      "vagin",
+      "anus",
+      "bastard",
+      "bitch",
+      "shit",
+      "shiz",
+      "cunniling",
+      "cunt",
+      "kunt",
+      "douche",
+      "faggot",
+      "jerk",
+      "nigg",
+      "piss",
+      "poon",
+      "prick",
+      "pussy",
+      "slut",
+      "whore",
+      "nazi",
+      "mortez")
+    replacement <- List("" -> "", "o" -> "0", "i" -> "1")
+  } yield base.replace(replacement._1, replacement._2)
 }
 
 object DataForm {

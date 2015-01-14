@@ -25,6 +25,8 @@ private[lobby] final class Socket(
     router: akka.actor.ActorSelection,
     uidTtl: Duration) extends SocketActor[Member](uidTtl) with Historical[Member, Messadata] {
 
+  override val startsOnApplicationBoot = true
+
   context.system.lilaBus.subscribe(self, 'changeFeaturedGame, 'streams)
 
   def receiveSpecific = {
@@ -41,7 +43,7 @@ private[lobby] final class Socket(
       addMember(uid, member)
       sender ! Connected(enumerator, member)
 
-    case ReloadTournaments(html) => notifyTournaments(html)
+    case ReloadTournaments(html) => notifyAll(makeMessage("tournaments", html))
 
     case NewForumPost            => notifyAll("reload_forum")
 
@@ -51,11 +53,11 @@ private[lobby] final class Socket(
     case AddHook(hook) =>
       notifyVersion("hook_add", hook.render, Messadata(hook = hook.some))
 
-    case AddSeek(_) => notifySeeks
+    case AddSeek(_)         => notifySeeks
 
     case RemoveHook(hookId) => notifyVersion("hook_remove", hookId, Messadata())
 
-    case RemoveSeek(_) => notifySeeks
+    case RemoveSeek(_)      => notifySeeks
 
     case JoinHook(uid, hook, game, creatorColor) =>
       withMember(hook.uid)(notifyPlayerStart(game, creatorColor))
@@ -87,10 +89,6 @@ private[lobby] final class Socket(
     }
 
   private def playerUrl(fullId: String) = s"/$fullId"
-
-  private def notifyTournaments(html: String) {
-    notifyAll(makeMessage("tournaments", html))
-  }
 
   private def notifySeeks() {
     notifyAll(makeMessage("reload_seeks"))

@@ -12,7 +12,7 @@ final class Live(
     roundMap: ActorRef) {
 
   def create = {
-    val variant = chess.Variant.Standard
+    val variant = chess.variant.Standard
     val g = Game.make(
       game = chess.Game(variant),
       whitePlayer = Player.white,

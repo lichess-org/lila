@@ -1,10 +1,10 @@
 package lila.setup
 
-import chess.{ Variant, Mode, Speed }
+import chess.{ Mode, Speed }
 import lila.rating.RatingRange
 
 case class FilterConfig(
-    variant: List[Variant],
+    variant: List[chess.variant.Variant],
     mode: List[Mode],
     speed: List[Speed],
     ratingRange: RatingRange) {
@@ -17,7 +17,7 @@ case class FilterConfig(
   ).some
 
   def render = play.api.libs.json.Json.obj(
-    "variant" -> variant.map(_.shortName),
+    "variant" -> variant.map(_.key),
     "mode" -> mode.map(_.id),
     "speed" -> speed.map(_.id),
     "rating" -> ratingRange.notBroad.map(rr => List(rr.min, rr.max)))
@@ -30,7 +30,14 @@ case class FilterConfig(
 
 object FilterConfig {
 
-  val variants = List(Variant.Standard, Variant.Chess960, Variant.KingOfTheHill, Variant.ThreeCheck)
+  val variants = List(
+    chess.variant.Standard,
+    chess.variant.Chess960,
+    chess.variant.KingOfTheHill,
+    chess.variant.ThreeCheck,
+    chess.variant.Antichess,
+    chess.variant.Atomic)
+
   val modes = Mode.all
   val speeds = Speed.all
 
@@ -41,7 +48,7 @@ object FilterConfig {
     ratingRange = RatingRange.default)
 
   def <<(v: List[Int], m: List[Int], s: List[Int], e: String) = new FilterConfig(
-    variant = v map Variant.apply flatten,
+    variant = v map chess.variant.Variant.apply flatten,
     mode = m map Mode.apply flatten,
     speed = s map Speed.apply flatten,
     ratingRange = RatingRange orDefault e
@@ -53,7 +60,7 @@ object FilterConfig {
   private[setup] implicit val filterConfigBSONHandler = new BSON[FilterConfig] {
 
     def reads(r: BSON.Reader): FilterConfig = FilterConfig(
-      variant = r intsD "v" flatMap Variant.apply,
+      variant = r intsD "v" flatMap chess.variant.Variant.apply,
       mode = r intsD "m" flatMap { Mode(_) },
       speed = r intsD "s" flatMap { Speed(_) },
       ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default)

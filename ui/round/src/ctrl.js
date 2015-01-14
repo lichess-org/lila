@@ -16,6 +16,7 @@ var replayCtrl = require('./replay/ctrl');
 var clockCtrl = require('./clock/ctrl');
 var correspondenceClockCtrl = require('./correspondenceClock/ctrl');
 var moveOn = require('./moveOn');
+var atomic = require('./atomic');
 
 module.exports = function(opts) {
 
@@ -51,34 +52,44 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  this.userMove = function(orig, dest, meta) {
+  var onUserMove = function(orig, dest, meta) {
     hold.register(this.socket, meta.holdTime);
     if (!promotion.start(this, orig, dest, meta.premove)) this.sendMove(orig, dest);
     $.sound.move(this.data.player.color == 'white');
   }.bind(this);
 
+  var onCapture = function(key) {
+    if (this.data.game.variant.key === 'atomic') atomic.capture(this, key);
+    else $.sound.take();
+  }.bind(this);
+
+  this.chessground = ground.make(this.data, opts.data.game.fen, onUserMove, onCapture);
+
   this.apiMove = function(o) {
+    m.startComputation();
     if (this.replay.active) this.replay.vm.late = true;
     else this.chessground.apiMove(o.from, o.to);
     if (this.data.game.threefold) this.data.game.threefold = false;
     this.data.game.moves.push(o.san);
     game.setOnGame(this.data, o.color, true);
-    m.redraw();
+    m.endComputation();
     if (this.data.player.spectator || o.color != this.data.player.color) $.sound.move(o.color == 'white');
     if (this.data.blind) blind.reload(this);
     if (game.isPlayerPlaying(this.data) && o.color === this.data.player.color) this.moveOn.next();
   }.bind(this);
 
-  this.chessground = ground.make(this.data, opts.data.game.fen, this.userMove);
-
   this.reload = function(cfg) {
+    m.startComputation();
     this.replay.onReload(cfg);
     this.data = data(this.data, cfg);
     makeCorrespondenceClock();
+    if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
     if (!this.replay.active) ground.reload(this.chessground, this.data, cfg.game.fen, this.vm.flip);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
     this.moveOn.next();
+    setQuietMode();
+    m.endComputation();
   }.bind(this);
 
   this.clock = this.data.clock ? new clockCtrl(
@@ -111,6 +122,11 @@ module.exports = function(opts) {
 
   if (this.clock) setInterval(clockTick, 100);
   else setInterval(correspondenceClockTick, 1000);
+
+  var setQuietMode = function() {
+    lichess.quietMode = game.isPlayerPlaying(this.data) ;
+  }.bind(this);
+  setQuietMode();
 
   this.moveOn = new moveOn(this, 'lichess.move_on');
 

@@ -46,7 +46,9 @@ private[round] final class Round(
     }
 
     case AiPlay => handle { game =>
-      player ai game map (_.events)
+      game.playableByAi ?? {
+        player ai game map (_.events)
+      }
     }
 
     case Abort(playerId) => handle(playerId) { pov =>
@@ -59,6 +61,14 @@ private[round] final class Round(
 
     case ResignColor(color) => handle(color) { pov =>
       pov.game.resignable ?? finisher(pov.game, _.Resign, Some(!pov.color))
+    }
+
+    case GoBerserk(color) => handle(color) { pov =>
+      pov.game.clock.ifTrue(pov.game.berserkable) ?? { clock =>
+        val newClock = clock halfTime pov.color
+        val progress = (pov.game withClock newClock) + Event.Reload
+        GameRepo save progress inject progress.events
+      }
     }
 
     case ResignForce(playerId) => handle(playerId) { pov =>
@@ -134,7 +144,7 @@ private[round] final class Round(
     case TakebackNo(playerRef)  => handle(playerRef)(takebacker.no)
 
     case Moretime(playerRef) => handle(playerRef) { pov =>
-      pov.game.clock.filter(_ => pov.game.moretimeable) ?? { clock =>
+      pov.game.clock.ifTrue(pov.game.moretimeable) ?? { clock =>
         val newClock = clock.giveTime(!pov.color, moretimeDuration.toSeconds)
         val progress = (pov.game withClock newClock) + Event.Clock(newClock)
         messenger.system(pov.game, (_.untranslated(
@@ -196,6 +206,6 @@ private[round] final class Round(
     if (events contains Event.Threefold) self ! Threefold
   } addFailureEffect {
     case e: ClientErrorException =>
-    case e => logwarn(s"[round] ${gameId} $e")
+    case e                       => logwarn(s"[round] ${gameId} $e")
   } void
 }

@@ -40,7 +40,10 @@ function renderTrainingBox(ctrl) {
       }, 'Puzzle'),
       m('a.button', {
         href: '/training/coordinate'
-      }, 'Coordinate')
+      }, 'Coord'),
+      m('a.button', {
+        href: '/training/opening'
+      }, 'Opening')
     ]),
     ctrl.data.user ? renderUserInfos(ctrl) : m('div.register', [
       m('p', ctrl.trans('toTrackYourProgress')),
@@ -184,7 +187,7 @@ function renderViewTable(ctrl) {
     ]) : null,
     m('div.box', [
       (ctrl.data.puzzle.enabled && ctrl.data.user) ? renderVote(ctrl) : null,
-      m('h2',
+      m('h2.text[data-icon="-"]',
         m('a', {
           href: ctrl.router.Puzzle.show(ctrl.data.puzzle.id).url
         }, ctrl.trans('puzzleId', ctrl.data.puzzle.id))
@@ -202,7 +205,7 @@ function renderViewTable(ctrl) {
         onclick: partial(xhr.newPuzzle, ctrl)
       }, ctrl.trans('continueTraining')) : m('a.continue.button.text[data-icon=G]', {
         onclick: partial(xhr.newPuzzle, ctrl)
-      }, ctrl.trans('startTraining')), !(ctrl.data.win === null ? ctrl.data.attempt.win : ctrl.data.win) ? m('a.retry.text[data-icon=P]', {
+      }, ctrl.trans('continueTraining')), !(ctrl.data.win === null ? ctrl.data.attempt.win : ctrl.data.win) ? m('a.retry.text[data-icon=P]', {
         onclick: partial(xhr.retry, ctrl)
       }, ctrl.trans('retryThisPuzzle')) : null
     ])
@@ -273,8 +276,12 @@ function renderHistory(ctrl) {
       var hash = ctrl.data.user.history.join('');
       if (hash == context.hash) return;
       context.hash = hash;
-      $.get('/training/history', function(html) {
-        el.innerHTML = html;
+      $.ajax({
+        url: '/training/history',
+        cache: false,
+        success: function(html) {
+          el.innerHTML = html;
+        }
       });
     }
   });
@@ -289,9 +296,7 @@ function wheel(ctrl, e) {
   return false;
 }
 
-function renderLoading(ctrl) {
-  return m('div.loader.fast');
-}
+var loading = m('div.loader.fast');
 
 module.exports = function(ctrl) {
   return m('div#puzzle.training', [
@@ -305,7 +310,7 @@ module.exports = function(ctrl) {
           }
         },
         chessground.view(ctrl.chessground)),
-      m('div.right', ctrl.vm.loading ? renderLoading(ctrl) : (ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl)))
+      m('div.right', ctrl.vm.loading ? loading : (ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl)))
     ]),
     m('div.center', [
       renderFooter(ctrl),

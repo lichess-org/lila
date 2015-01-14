@@ -72,7 +72,10 @@ GET   /games/export/:user controllers.Game.export(user: String)
 GET   /games/search       controllers.Game.search(page: Int ?= 1)
 
 # Training - Opening
-# GET   /training/opening                controllers.Opening.home
+GET   /training/opening                controllers.Opening.home
+GET   /training/opening/history        controllers.Opening.history
+GET   /training/opening/:id            controllers.Opening.show(id: Int)
+POST  /training/opening/:id            controllers.Opening.attempt(id: Int)
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
@@ -118,13 +121,11 @@ GET   /tournament/reload                      controllers.Tournament.homeReload
 GET   /tournament/new                         controllers.Tournament.form
 POST  /tournament/new                         controllers.Tournament.create
 GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id: String)
-GET   /tournament/$id<\w{8}>/socket           controllers.Tournament.websocket(id: String)
+GET   /tournament/$id<\w{8}>/socket/v:apiVersion  controllers.Tournament.websocket(id: String, apiVersion: Int)
 POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: String)
-GET   /tournament/$id<\w{8}>/join/password    controllers.Tournament.joinPasswordForm(id: String)
-POST  /tournament/$id<\w{8}>/join/password    controllers.Tournament.joinPassword(id: String)
 POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.withdraw(id: String)
-GET   /tournament/$id<\w{8}>/reload           controllers.Tournament.reload(id: String)
 POST  /tournament/$id<\w{8}>/early-start      controllers.Tournament.earlyStart(id: String)
+POST  /tournament/$id<\w{8}>/berserk          controllers.Tournament.berserk(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
 
 # Team

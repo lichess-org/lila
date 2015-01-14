@@ -2,7 +2,7 @@ package lila.app
 package templating
 
 import chess.format.Forsyth
-import chess.{ Status => S, Variant, Color, Clock, Mode }
+import chess.{ Status => S, Color, Clock, Mode }
 import controllers.routes
 import play.api.mvc.Call
 import play.twirl.api.Html
@@ -38,7 +38,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       s"${chess.Speed(c.some).name} (${c.show})"
     }
     val mode = game.mode.name
-    val variant = if (game.variant == chess.Variant.FromPosition) "position setup chess"
+    val variant = if (game.variant == chess.variant.FromPosition) "position setup chess"
     else if (game.variant.exotic) game.variant.name else "chess"
     import chess.Status._
     val result = (game.winner, game.loser, game.status) match {
@@ -48,10 +48,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case (_, _, Draw | Stalemate)                         => "Game is a draw"
       case (_, _, Aborted)                                  => "Game has been aborted"
       case (_, _, VariantEnd) => game.variant match {
-        case Variant.KingOfTheHill => "King in the center"
-        case Variant.ThreeCheck    => "Three checks"
-        case Variant.Antichess     => "Lose all your pieces to win"
-        case _                     => "Variant ending"
+        case chess.variant.KingOfTheHill => "King in the center"
+        case chess.variant.ThreeCheck    => "Three checks"
+        case chess.variant.Antichess     => "Lose all your pieces to win"
+        case chess.variant.Atomic        => "Explode or mate your opponent's king to win"
+        case _                           => "Variant ending"
       }
       case _ => "Game is still being played"
     }
@@ -59,16 +60,16 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 
-  def variantName(variant: Variant)(implicit ctx: UserContext) = variant match {
-    case Variant.Standard     => trans.standard.str()
-    case Variant.FromPosition => trans.fromPosition.str()
-    case v                    => v.name
+  def variantName(variant: chess.variant.Variant)(implicit ctx: UserContext) = variant match {
+    case chess.variant.Standard     => trans.standard.str()
+    case chess.variant.FromPosition => trans.fromPosition.str()
+    case v                          => v.name
   }
 
-  def variantNameNoCtx(variant: Variant) = variant match {
-    case Variant.Standard     => trans.standard.en()
-    case Variant.FromPosition => trans.fromPosition.en()
-    case v                    => v.name
+  def variantNameNoCtx(variant: chess.variant.Variant) = variant match {
+    case chess.variant.Standard     => trans.standard.en()
+    case chess.variant.FromPosition => trans.fromPosition.en()
+    case v                          => v.name
   }
 
   def shortClockName(clock: Option[Clock])(implicit ctx: UserContext): Html =
@@ -144,9 +145,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
     case S.Cheat => Html("Cheat detected")
     case S.VariantEnd => game.variant match {
-      case Variant.KingOfTheHill => Html("King in the center")
-      case Variant.ThreeCheck    => Html("Three checks")
-      case _                     => Html("Variant ending")
+      case chess.variant.KingOfTheHill => Html("King in the center")
+      case chess.variant.ThreeCheck    => Html("Three checks")
+      case _                           => Html("Variant ending")
     }
     case _ => Html("")
   }

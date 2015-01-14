@@ -25,14 +25,15 @@ module.exports = {
   prev: function(ctrl) {
     var p = ctrl.vm.path;
     var len = p.length;
-    if (len == 1) {
-      if (p[0].ply == 1) return;
+    if (len === 1) {
+      if (p[0].ply === 0) return;
       p[0].ply--;
     } else {
       if (p[len - 1].ply > p[len - 2].ply) p[len - 1].ply--;
       else {
         p.pop();
         p[len - 2].variation = null;
+        if (p[len - 2].ply > 1) p[len - 2].ply--;
       }
     }
     ctrl.jump(p);
@@ -47,7 +48,7 @@ module.exports = {
 
   first: function(ctrl) {
     ctrl.jump([{
-      ply: 1,
+      ply: 0,
       variation: null
     }]);
   }

@@ -54,8 +54,7 @@ trait UserRepo {
 
   def byOrderedIds(ids: Iterable[ID]): Fu[List[User]] = $find byOrderedIds ids
 
-  def enabledByIds(ids: Seq[ID]): Fu[List[User]] =
-    $find(enabledSelect ++ $select.byIds(ids))
+  def enabledByIds(ids: Seq[ID]): Fu[List[User]] = $find(enabledSelect ++ $select.byIds(ids))
 
   def enabledById(id: ID): Fu[Option[User]] =
     $find.one(enabledSelect ++ $select.byId(id))
@@ -96,11 +95,13 @@ trait UserRepo {
       "kingOfTheHill" -> (_.kingOfTheHill),
       "threeCheck" -> (_.threeCheck),
       "antichess" -> (_.antichess),
+      "atomic" -> (_.atomic),
       "bullet" -> (_.bullet),
       "blitz" -> (_.blitz),
       "classical" -> (_.classical),
       "correspondence" -> (_.correspondence),
-      "puzzle" -> (_.puzzle))
+      "puzzle" -> (_.puzzle),
+      "opening" -> (_.opening))
     val diff = lenses.flatMap {
       case (name, lens) =>
         lens(perfs).nb != lens(prev).nb option {
@@ -118,7 +119,7 @@ trait UserRepo {
   ))
 
   def setProfile(id: ID, profile: Profile): Funit =
-    $update($select(id), $setBson(F.profile -> Profile.tube.handler.write(profile)))
+    $update($select(id), $setBson(F.profile -> Profile.profileBSONHandler.write(profile)))
 
   def setTitle(id: ID, title: Option[String]): Funit = title match {
     case Some(t) => $update.field(id, F.title, t)
@@ -277,8 +278,8 @@ trait UserRepo {
   private def newUser(username: String, password: String, blind: Boolean) = {
 
     val salt = ornicar.scalalib.Random nextStringUppercase 32
-    implicit def countHandler = Count.tube.handler
-    implicit def perfsHandler = Perfs.tube.handler
+    implicit def countHandler = Count.countBSONHandler
+    implicit def perfsHandler = Perfs.perfsBSONHandler
     import lila.db.BSON.BSONJodaDateTimeHandler
 
     BSONDocument(

@@ -1,6 +1,7 @@
 var m = require('mithril');
 var game = require('game').game;
 var ground = require('./ground');
+var atomic = require('./atomic');
 var xhr = require('./xhr');
 
 module.exports = function(send, ctrl) {
@@ -32,7 +33,7 @@ module.exports = function(send, ctrl) {
       ctrl.chessground.playPremove();
     },
     castling: function(o) {
-      if (ctrl.replay.active) return;
+      if (ctrl.replay.active || ctrl.chessground.data.autoCastle) return;
       var pieces = {};
       pieces[o.king[0]] = null;
       pieces[o.rook[0]] = null;
@@ -52,9 +53,13 @@ module.exports = function(send, ctrl) {
       });
     },
     enpassant: function(o) {
-      var pieces = {};
-      pieces[o] = null;
-      if (!ctrl.replay.active) ctrl.chessground.setPieces(pieces);
+      if (!ctrl.replay.active) {
+        var pieces = {};
+        pieces[o.key] = null;
+        ctrl.chessground.setPieces(pieces);
+        if (ctrl.data.game.variant.key === 'atomic')
+          atomic.enpassant(ctrl, o.key);
+      }
       $.sound.take();
     },
     reload: function(o) {

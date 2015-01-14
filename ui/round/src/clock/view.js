@@ -1,5 +1,5 @@
-var classSet = require('chessground').util.classSet;
 var m = require('mithril');
+var game = require('game').game;
 
 function prefixInteger(num, length) {
   return (num / Math.pow(10, length)).toFixed(length).substr(2);
@@ -24,22 +24,17 @@ function formatClockTime(ctrl, time) {
   }
 }
 
-module.exports = function(ctrl, color, position, runningColor) {
-  var time = ctrl.data[color];
-  return m('div', {
-    class: 'clock clock_' + color + ' clock_' + position + ' ' + classSet({
-      'outoftime': !time,
-      'running': runningColor === color,
-      'emerg': time < ctrl.data.emerg
+function showBar(ctrl, time) {
+  return ctrl.data.showBar ? m('div.bar',
+    m('span', {
+      style: {
+        width: Math.max(0, Math.min(100, (time / ctrl.data.barTime) * 100)) + '%'
+      }
     })
-  }, [
-    ctrl.data.showBar ? m('div.bar',
-      m('span', {
-        style: {
-          width: Math.max(0, Math.min(100, (time / ctrl.data.barTime) * 100)) + '%'
-        }
-      })
-    ) : null,
-    m('div.time', m.trust(formatClockTime(ctrl, time * 1000)))
-  ]);
+  ) : null;
 }
+
+module.exports = {
+  formatClockTime: formatClockTime,
+  showBar: showBar
+};

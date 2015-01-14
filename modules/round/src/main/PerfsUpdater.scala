@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.{ Variant, Speed }
+import chess.{ Speed }
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
 import play.api.Logger
@@ -23,15 +23,17 @@ final class PerfsUpdater(historyApi: HistoryApi) {
         val ratingsB = mkRatings(black.perfs)
         val result = resultOf(game)
         game.variant match {
-          case Variant.Chess960 =>
+          case chess.variant.Chess960 =>
             updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
-          case Variant.KingOfTheHill =>
+          case chess.variant.KingOfTheHill =>
             updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result, system)
-          case Variant.ThreeCheck =>
+          case chess.variant.ThreeCheck =>
             updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, result, system)
-          case Variant.Antichess =>
+          case chess.variant.Antichess =>
             updateRatings(ratingsW.antichess, ratingsB.antichess, result, system)
-          case Variant.Standard => game.speed match {
+          case chess.variant.Atomic =>
+            updateRatings(ratingsW.atomic, ratingsB.atomic, result, system)
+          case chess.variant.Standard => game.speed match {
             case Speed.Bullet =>
               updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
             case Speed.Blitz =>
@@ -66,6 +68,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     kingOfTheHill: Rating,
     threeCheck: Rating,
     antichess: Rating,
+    atomic: Rating,
     bullet: Rating,
     blitz: Rating,
     classical: Rating,
@@ -76,6 +79,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
     kingOfTheHill = perfs.kingOfTheHill.toRating,
     threeCheck = perfs.threeCheck.toRating,
     antichess = perfs.antichess.toRating,
+    atomic = perfs.atomic.toRating,
     bullet = perfs.bullet.toRating,
     blitz = perfs.blitz.toRating,
     classical = perfs.classical.toRating,
@@ -112,6 +116,7 @@ final class PerfsUpdater(historyApi: HistoryApi) {
       kingOfTheHill = game.variant.kingOfTheHill.fold(perfs.kingOfTheHill.add(ratings.kingOfTheHill, date), perfs.kingOfTheHill),
       threeCheck = game.variant.threeCheck.fold(perfs.threeCheck.add(ratings.threeCheck, date), perfs.threeCheck),
       antichess = game.variant.antichess.fold(perfs.antichess.add(ratings.antichess, date), perfs.antichess),
+      atomic = game.variant.atomic.fold(perfs.atomic.add(ratings.atomic, date), perfs.atomic),
       bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
       classical = (isStd && speed == Speed.Classical).fold(perfs.classical.add(ratings.classical, date), perfs.classical),

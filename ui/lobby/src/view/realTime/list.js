@@ -6,7 +6,9 @@ var hookRepo = require('../../hookRepo');
 function renderHook(ctrl, hook) {
   return m('tr', {
     key: hook.id,
-    title: (hook.action === 'join') ? ctrl.trans('joinTheGame') + ' - ' + hook.perf.name : ctrl.trans('cancel'),
+    title: hook.disabled ? '' : (
+      (hook.action === 'join') ? ctrl.trans('joinTheGame') + ' - ' + hook.perf.name : ctrl.trans('cancel')
+    ),
     'data-id': hook.id,
     class: 'hook ' + hook.action + (hook.disabled ? ' disabled' : '')
   }, tds([
@@ -25,7 +27,7 @@ function renderHook(ctrl, hook) {
 
 function isStandard(value) {
   return function(hook) {
-    return (hook.variant === 'STD') === value;
+    return (hook.variant.key === 'standard') === value;
   };
 }
 
@@ -81,11 +83,12 @@ module.exports = {
         }
       }, [
         standards.map(render),
-        variants.length ? m('tr.variants',
-          m('td', {
+        variants.length ? m('tr.variants', {
             key: 'variants',
+          },
+          m('td', {
             colspan: 5
-          }, '- ' + ctrl.trans('variant') + ' -')
+          }, '— ' + ctrl.trans('variant') + ' —')
         ) : null,
         variants.map(render)
       ])

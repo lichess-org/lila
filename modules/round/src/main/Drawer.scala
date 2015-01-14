@@ -1,7 +1,7 @@
 package lila.round
 
 import akka.pattern.ask
-import chess.{ Game => ChessGame, Board, Clock, Variant }
+import chess.{ Game => ChessGame, Board, Clock }
 
 import lila.db.api._
 import lila.game.tube.gameTube

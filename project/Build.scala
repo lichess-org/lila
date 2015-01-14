@@ -10,7 +10,7 @@ object ApplicationBuild extends Build {
   import Dependencies._
 
   lazy val root = Project("lila", file(".")) enablePlugins PlayScala settings (
-    scalaVersion := "2.11.4",
+    scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions := compilerOptions,
     offline := true,

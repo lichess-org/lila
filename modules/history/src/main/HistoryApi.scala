@@ -21,6 +21,7 @@ final class HistoryApi(coll: Coll) {
       game.variant.kingOfTheHill.option("kingOfTheHill" -> perfs.kingOfTheHill),
       game.variant.threeCheck.option("threeCheck" -> perfs.threeCheck),
       game.variant.antichess.option("antichess" -> perfs.antichess),
+      game.variant.atomic.option("atomic" -> perfs.atomic),
       (isStd && game.speed == Speed.Bullet).option("bullet" -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz" -> perfs.blitz),
       (isStd && game.speed == Speed.Classical).option("classical" -> perfs.classical),

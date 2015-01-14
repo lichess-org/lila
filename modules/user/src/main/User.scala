@@ -126,9 +126,9 @@ object User {
 
     import BSONFields._
     import reactivemongo.bson.BSONDocument
-    private implicit def countHandler = Count.tube.handler
-    private implicit def profileHandler = Profile.tube.handler
-    private implicit def perfsHandler = Perfs.tube.handler
+    private implicit def countHandler = Count.countBSONHandler
+    private implicit def profileHandler = Profile.profileBSONHandler
+    private implicit def perfsHandler = Perfs.perfsBSONHandler
 
     def reads(r: BSON.Reader): User = User(
       id = r str id,

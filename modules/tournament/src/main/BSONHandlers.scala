@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.{ Variant, Speed, Mode }
+import chess.{ Speed, Mode }
 import lila.db.BSON
 import reactivemongo.bson._
 
@@ -26,9 +26,9 @@ object BSONHandlers {
       clock = r.get[TournamentClock]("clock"),
       minutes = r int "minutes",
       minPlayers = r int "minPlayers",
-      variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault),
+      variant = r.intO("variant").fold[chess.variant.Variant](chess.variant.Variant.default)(chess.variant.Variant.orDefault),
       mode = r.intO("mode").fold[Mode](Mode.default)(Mode.orDefault),
-      password = r strO "password",
+      `private` = r boolD "private",
       schedule = r.getO[Schedule]("schedule"),
       createdAt = r date "createdAt",
       createdBy = r str "createdBy")
@@ -40,24 +40,11 @@ object BSONHandlers {
       "minPlayers" -> o.minPlayers,
       "variant" -> o.variant.id,
       "mode" -> o.mode.id,
-      "password" -> o.password,
+      "private" -> w.boolO(o.`private`),
       "schedule" -> o.schedule,
       "createdAt" -> w.date(o.createdAt),
       "createdBy" -> w.str(o.createdBy))
   }
-
-  // private implicit val playerHandler = new BSON[Player] {
-  //   def reads(r: BSON.Reader) = Player(
-  //     id = r str "id",
-  //     rating = r int "rating",
-  //     withdraw = r boolD "withdraw",
-  //     score = r intD "score")
-  //   def writes(w: BSON.Writer, o: Player) = BSONDocument(
-  //     "id" -> o.id,
-  //     "rating" -> o.rating,
-  //     "withdraw" -> w.boolO(o.withdraw),
-  //     "score" -> w.intO(o.score))
-  // }
   private implicit val playerBSONHandler = Macros.handler[Player]
 
   private implicit val pairingHandler = new BSON[Pairing] {
@@ -70,7 +57,9 @@ object BSONHandlers {
         user2 = users.lift(1) err "tournament pairing second user",
         winner = r strO "w",
         turns = r intO "t",
-        pairedAt = r dateO "p")
+        pairedAt = r dateO "p",
+        berserk1 = r intD "b1",
+        berserk2 = r intD "b2")
     }
     def writes(w: BSON.Writer, o: Pairing) = BSONDocument(
       "g" -> o.gameId,
@@ -78,7 +67,9 @@ object BSONHandlers {
       "u" -> BSONArray(o.user1, o.user2),
       "w" -> o.winner,
       "t" -> o.turns,
-      "p" -> o.pairedAt.map(w.date))
+      "p" -> o.pairedAt.map(w.date),
+      "b1" -> w.intO(o.berserk1),
+      "b2" -> w.intO(o.berserk2))
   }
 
   private implicit val eventHandler = new BSON[Event] {

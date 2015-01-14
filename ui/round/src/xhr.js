@@ -5,12 +5,16 @@ var xhrConfig = function(xhr) {
   xhr.setRequestHeader('Accept', 'application/vnd.lichess.v1+json');
 }
 
+function uncache(url) {
+  return url + '?_=' + new Date().getTime();
+}
+
 function reload(ctrl) {
   ctrl.vm.reloading = true;
   m.redraw();
   var req = m.request({
     method: 'GET',
-    url: ctrl.data.url.round,
+    url: uncache(ctrl.data.url.round),
     config: xhrConfig
   });
   req.then(function() {
@@ -24,12 +28,21 @@ function reload(ctrl) {
 function next(ctrl) {
   return m.request({
     method: 'GET',
-    url: ctrl.router.Round.next(ctrl.data.game.id).url,
+    url: uncache(ctrl.router.Round.next(ctrl.data.game.id).url),
+    config: xhrConfig
+  });
+}
+
+function berserk(ctrl) {
+  return m.request({
+    method: 'POST',
+    url: '/tournament/' + ctrl.data.game.tournamentId + '/berserk',
     config: xhrConfig
   });
 }
 
 module.exports = {
   reload: reload,
-  next: next
+  next: next,
+  berserk: berserk
 };

@@ -27,9 +27,11 @@ module.exports = function(data, onFlag, soundColor) {
   setLastUpdate();
 
   this.update = function(white, black) {
+    m.startComputation();
     this.data.white = white;
     this.data.black = black;
     setLastUpdate();
+    m.endComputation();
   }.bind(this);
 
   this.tick = function(color) {

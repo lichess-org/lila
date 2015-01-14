@@ -125,6 +125,7 @@ case object Outoftime
 case object Abandon
 case class Cheat(color: Color)
 case class HoldAlert(playerId: String, mean: Int, sd: Int)
+case class GoBerserk(color: Color)
 }
 
 private[round] case object GetNbRounds

@@ -6,44 +6,6 @@
 #puzzle [data-icon]::before {
   margin-right: 3px;
 }
-#puzzle > .side div.comment {
-  padding: 10px 5px;
-  text-align: center;
-  margin-bottom: 1em;
-}
-#puzzle > .side div.comment h3 {
-  font-size: inherit;
-  margin: 4px;
-  display: block;
-}
-#puzzle > .side div.comment .rating {
-  font-size: 2em;
-  vertical-align: -3px;
-  padding-left: 5px;
-}
-#puzzle > .side div.retry {
-  color: #31708f;
-  background: #D9EDF7;
-}
-#puzzle.retry > .side div.retry {
-  display: block;
-}
-#puzzle > .side div.great,
-#puzzle > .side div.win {
-  background: #DFF0D8;
-  color: #3c763d;
-}
-#puzzle.great > .side div.great {
-  display: block;
-}
-#puzzle > .side div.loss,
-#puzzle > .side div.fail {
-  color: #a94442;
-  background: #ebccd1;
-}
-#puzzle.fail > .side div.fail {
-  display: block;
-}
 #puzzle > .side .difficulty {
   margin-bottom: 2em;
 }

@@ -3,7 +3,7 @@ package lila.tournament
 import org.joda.time.{ DateTime, Duration }
 import ornicar.scalalib.Random
 
-import chess.{ Variant, Speed, Mode }
+import chess.{ Speed, Mode }
 import lila.game.{ PovRef, PerfPicker }
 import lila.user.User
 
@@ -13,9 +13,9 @@ private[tournament] case class Data(
   clock: TournamentClock,
   minutes: Int,
   minPlayers: Int,
-  variant: Variant,
+  variant: chess.variant.Variant,
   mode: Mode,
-  password: Option[String],
+  `private`: Boolean,
   schedule: Option[Schedule],
   createdAt: DateTime,
   createdBy: String)
@@ -31,6 +31,7 @@ sealed trait Tournament {
   def isOpen: Boolean = false
   def isRunning: Boolean = false
   def isFinished: Boolean = false
+  def `private`: Boolean = data.`private`
 
   def name = data.name
   def fullName = s"$name $system"
@@ -44,8 +45,6 @@ sealed trait Tournament {
   def mode = data.mode
   def speed = Speed(clock.chessClock.some)
   def rated = mode.rated
-  def password = data.password
-  def hasPassword = password.isDefined
   def schedule = data.schedule
   def scheduled = data.schedule.isDefined
 
@@ -69,6 +68,7 @@ sealed trait Tournament {
   def isActive(user: User): Boolean = isActive(user.id)
   def isActive(user: Option[User]): Boolean = ~user.map(isActive)
   def missingPlayers = minPlayers - players.size
+  def rankedPlayers: RankedPlayers = system.scoringSystem.rank(this, players)
 
   def createdBy = data.createdBy
   def createdAt = data.createdAt
@@ -81,6 +81,10 @@ sealed trait Tournament {
 
   def isSwiss = system == System.Swiss
 
+  def pairingOfGameId(gameId: String) = pairings find { p => p.gameId == gameId }
+
+  def berserkable = system.berserkable && clock.increment == 0
+
   // Oldest first!
   def pairingsAndEvents: List[Either[Pairing, Event]] =
     (pairings.reverse.map(Left(_)) ::: events.map(Right(_))).sorted(Tournament.PairingEventOrdering)
@@ -90,16 +94,14 @@ sealed trait Enterable extends Tournament {
 
   def withPlayers(s: Players): Enterable
 
-  def join(user: User, pass: Option[String]): Valid[Enterable]
+  def join(user: User): Valid[Enterable]
 
   def withdraw(userId: String): Valid[Enterable]
 
-  def joinNew(user: User, pass: Option[String]): Valid[Enterable] = contains(user).fold(
+  def joinNew(user: User): Valid[Enterable] = contains(user).fold(
     !!("User %s is already part of the tournament" format user.id),
-    (pass != password).fold(
-      !!("Invalid tournament password"),
-      withPlayers(players :+ Player.make(user, perfLens)).success
-    ))
+    withPlayers(players :+ Player.make(user, perfLens)).success
+  )
 
   def ejectCheater(userId: String): Option[Enterable] =
     activePlayers.find(_.id == userId) map { player =>
@@ -111,13 +113,10 @@ sealed trait Enterable extends Tournament {
 }
 
 sealed trait StartedOrFinished extends Tournament {
-  type RankedPlayers = List[(Int, Player)]
 
   def startedAt: DateTime
   def withPlayers(s: Players): StartedOrFinished
   def refreshPlayers: StartedOrFinished
-
-  def rankedPlayers: RankedPlayers = system.scoringSystem.rank(this, players)
 
   def winner = players.headOption
   def winnerUserId = winner map (_.id)
@@ -161,7 +160,7 @@ case class Created(
 
   def asScheduled = schedule map { Scheduled(this, _) }
 
-  def join(user: User, pass: Option[String]) = joinNew(user, pass)
+  def join(user: User) = joinNew(user)
 }
 
 case class Scheduled(tour: Created, schedule: Schedule) {
@@ -209,8 +208,12 @@ case class Started(
     "%02d:%02d".format(s / 60, s % 60)
   }
 
+  def userCurrentPairing(userId: String): Option[Pairing] = pairings find { p =>
+    p.playing && p.contains(userId)
+  }
+
   def userCurrentPov(userId: String): Option[PovRef] =
-    playingPairings.flatMap(_ povRef userId).headOption
+    userCurrentPairing(userId) flatMap (_ povRef userId)
 
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.flatMap(u => userCurrentPov(u.id))
@@ -243,16 +246,14 @@ case class Started(
   def withPlayers(s: Players) = copy(players = s)
   def refreshPlayers = withPlayers(Player refresh this)
 
-  def join(user: User, pass: Option[String]) = joinNew(user, pass) orElse joinBack(user, pass)
+  def join(user: User) = joinNew(user) orElse joinBack(user)
 
-  private def joinBack(user: User, pass: Option[String]) = withdrawnPlayers.find(_ is user) match {
+  private def joinBack(user: User) = withdrawnPlayers.find(_ is user) match {
     case None => !!("User %s is already part of the tournament" format user.id)
-    case Some(player) => (pass != password).fold(
-      !!("Invalid tournament password"),
-      withPlayers(players map {
-        case p if p is player => p.unWithdraw
-        case p                => p
-      }).success)
+    case Some(player) => withPlayers(players map {
+      case p if p is player => p.unWithdraw
+      case p                => p
+    }).success
   }
 }
 
@@ -280,9 +281,9 @@ object Tournament {
     minutes: Int,
     minPlayers: Int,
     system: System,
-    variant: Variant,
+    variant: chess.variant.Variant,
     mode: Mode,
-    password: Option[String]): Created = {
+    `private`: Boolean): Created = {
     val tour = Created(
       id = Random nextStringUppercase 8,
       data = Data(
@@ -293,7 +294,7 @@ object Tournament {
         createdAt = DateTime.now,
         variant = variant,
         mode = mode,
-        password = password,
+        `private` = `private`,
         minutes = minutes,
         schedule = None,
         minPlayers = minPlayers),
@@ -309,9 +310,9 @@ object Tournament {
       clock = Schedule clockFor sched,
       createdBy = "lichess",
       createdAt = DateTime.now,
-      variant = Variant.Standard,
+      variant = chess.variant.Standard,
       mode = Mode.Rated,
-      password = None,
+      `private` = false,
       minutes = minutes,
       schedule = Some(sched),
       minPlayers = 0),

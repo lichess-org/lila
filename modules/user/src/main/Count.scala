@@ -19,7 +19,7 @@ private[user] case class Count(
 
 private[user] object Count {
 
-  private def countBSONHandler = new BSON[Count] {
+  private[user] val countBSONHandler = new BSON[Count] {
 
     def reads(r: BSON.Reader): Count = Count(
       ai = r nInt "ai",
@@ -43,7 +43,6 @@ private[user] object Count {
       "win" -> w.int(o.win),
       "winH" -> w.int(o.winH))
   }
-  private[user] lazy val tube = lila.db.BsTube(countBSONHandler)
 
   val default = Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
 }

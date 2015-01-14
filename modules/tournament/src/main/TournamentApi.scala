@@ -1,25 +1,28 @@
 package lila.tournament
 
-import akka.actor.{ ActorRef, ActorSelection }
+import akka.actor.{ Props, ActorRef, ActorSelection, ActorSystem }
 import akka.pattern.{ ask, pipe }
-import chess.{ Mode, Variant }
+import chess.Mode
 import org.joda.time.DateTime
 import play.api.libs.json._
+import scala.concurrent.duration._
 import scalaz.NonEmptyList
 
 import actorApi._
+import lila.common.Debouncer
 import lila.db.api._
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.router.Tourney
 import lila.hub.Sequencer
-import lila.round.actorApi.round.ResignColor
+import lila.round.actorApi.round.{ ResignColor, GoBerserk }
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
 
 private[tournament] final class TournamentApi(
+    system: ActorSystem,
     sequencers: ActorRef,
     autoPairing: AutoPairing,
     router: ActorSelection,
@@ -55,19 +58,18 @@ private[tournament] final class TournamentApi(
         minutes = setup.minutes,
         minPlayers = setup.minPlayers,
         mode = setup.mode.fold(Mode.default)(Mode.orDefault),
-        password = setup.password,
+        `private` = setup.`private`.isDefined,
         system = System orDefault setup.system,
-        variant = Variant orDefault setup.variant)
+        variant = chess.variant.Variant orDefault setup.variant)
       TournamentRepo.insert(created).void >>-
         (withdrawIds foreach socketReload) >>-
-        reloadSiteSocket >>-
-        lobbyReload inject created
+        publish() inject created
     }
 
   def createScheduled(schedule: Schedule): Funit =
     (Schedule durationFor schedule) ?? { minutes =>
       val created = Tournament.schedule(schedule, minutes)
-      TournamentRepo.insert(created).void >>- reloadSiteSocket >>- lobbyReload
+      TournamentRepo.insert(created).void >>- publish()
     }
 
   def startIfReady(created: Created) {
@@ -84,9 +86,8 @@ private[tournament] final class TournamentApi(
         case Some(created) =>
           val started = created.start
           TournamentRepo.update(started).void >>-
-            sendTo(started.id, Start) >>-
-            reloadSiteSocket >>-
-            lobbyReload
+            sendTo(started.id, Reload) >>-
+            publish()
         case None => fufail("Can't start missing tournament " + oldTour.id)
       }
     }
@@ -95,18 +96,18 @@ private[tournament] final class TournamentApi(
   def wipeEmpty(created: Created): Funit = created.isEmpty ?? doWipe(created)
 
   private def doWipe(created: Created): Funit =
-    TournamentRepo.remove(created).void >>- reloadSiteSocket >>- lobbyReload
+    TournamentRepo.remove(created).void >>- publish()
 
   def finish(oldTour: Started) {
     sequence(oldTour.id) {
       TournamentRepo startedById oldTour.id flatMap {
         case Some(started) =>
-          if (started.pairings.isEmpty) TournamentRepo.remove(started).void >>- reloadSiteSocket >>- lobbyReload
+          if (started.pairings.isEmpty) TournamentRepo.remove(started).void >>- publish()
           else started.readyToFinish ?? {
             val finished = started.finish
             TournamentRepo.update(finished).void >>-
-              sendTo(finished.id, ReloadPage) >>-
-              reloadSiteSocket >>-
+              sendTo(finished.id, Reload) >>-
+              publish() >>-
               finished.players.filter(_.score > 0).map { p =>
                 UserRepo.incToints(p.id, p.score)
               }.sequenceFu
@@ -116,16 +117,15 @@ private[tournament] final class TournamentApi(
     }
   }
 
-  def join(oldTour: Enterable, me: User, password: Option[String]) {
+  def join(oldTour: Enterable, me: User) {
     sequence(oldTour.id) {
       TournamentRepo enterableById oldTour.id flatMap {
-        case Some(tour) => (tour.join(me, password)).future flatMap { tour2 =>
+        case Some(tour) => tour.join(me).future flatMap { tour2 =>
           TournamentRepo withdraw me.id flatMap { withdrawIds =>
             TournamentRepo.update(tour2).void >>- {
               sendTo(tour.id, Joining(me.id))
               (tour.id :: withdrawIds) foreach socketReload
-              reloadSiteSocket
-              lobbyReload
+              publish()
               import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
               timeline ! (Propagate(TourJoin(me.id, tour2.id, tour2.fullName)) toFollowersOf me.id)
             }
@@ -141,7 +141,7 @@ private[tournament] final class TournamentApi(
       TournamentRepo byId oldTour.id flatMap {
         case Some(created: Created) => (created withdraw userId).fold(
           err => fulogwarn(err.shows),
-          tour2 => TournamentRepo.update(tour2).void >>- socketReload(tour2.id) >>- reloadSiteSocket >>- lobbyReload
+          tour2 => TournamentRepo.update(tour2).void >>- socketReload(tour2.id) >>- publish()
         )
         case Some(started: Started) => (started withdraw userId).fold(
           err => fufail(err.shows),
@@ -150,9 +150,32 @@ private[tournament] final class TournamentApi(
               roundMap ! Tell(povRef.gameId, ResignColor(povRef.color))
             }) >>-
             socketReload(tour2.id) >>-
-            reloadSiteSocket
+            publish()
         )
         case _ => fufail("Cannot withdraw from finished or missing tournament " + oldTour.id)
+      }
+    }
+  }
+
+  def berserk(oldTour: Started, userId: String) {
+    sequence(oldTour.id) {
+      TournamentRepo startedById oldTour.id flatMap {
+        _ ?? { tour =>
+          (tour userCurrentPairing userId filter { p =>
+            (p berserkOf userId) == 0
+          }) ?? { pairing =>
+            (pairing povRef userId) ?? { povRef =>
+              GameRepo pov povRef flatMap {
+                _.filter(_.game.berserkable) ?? { pov =>
+                  val tour2 = tour.updatePairing(pov.gameId, _ withBerserk userId)
+                  TournamentRepo.update(tour2).void >>- {
+                    roundMap ! Tell(povRef.gameId, GoBerserk(povRef.color))
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -172,14 +195,6 @@ private[tournament] final class TournamentApi(
           }
         }
       }
-    }
-  }
-
-  private def lobbyReload {
-    TournamentRepo.promotable foreach { tours =>
-      renderer ? TournamentTable(tours) map {
-        case view: play.twirl.api.Html => ReloadTournaments(view.body)
-      } pipeToSelection lobby
     }
   }
 
@@ -207,9 +222,18 @@ private[tournament] final class TournamentApi(
     sendTo(tourId, Reload)
   }
 
-  private val reloadMessage = SendToFlag("tournament", Json.obj("t" -> "reload"))
-  private def reloadSiteSocket {
-    site ! reloadMessage
+  private object publish {
+    private val siteMessage = SendToFlag("tournament", Json.obj("t" -> "reload"))
+    private val debouncer = system.actorOf(Props(new Debouncer(2 seconds, {
+      (_: Debouncer.Nothing) =>
+        site ! siteMessage
+        TournamentRepo.promotable foreach { tours =>
+          renderer ? TournamentTable(tours) map {
+            case view: play.twirl.api.Html => ReloadTournaments(view.body)
+          } pipeToSelection lobby
+        }
+    })))
+    def apply() { debouncer ! Debouncer.Nothing }
   }
 
   private def sendTo(tourId: String, msg: Any) {

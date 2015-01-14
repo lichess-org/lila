@@ -3,6 +3,7 @@ var util = require('chessground').util;
 
 function initialize(ctrl, el) {
   var $div = $(el);
+  var $ratingRange = $div.find('.rating_range');
   var save = $.fp.debounce(function() {
     var $form = $div.find('form');
     $.ajax({
@@ -14,12 +15,19 @@ function initialize(ctrl, el) {
       }
     });
   }, 200);
+  function changeRatingRange(values) {
+    $ratingRange.find('input').val(values[0] + "-" + values[1]);
+    $ratingRange.siblings('.range').text(values[0] + " - " + values[1]);
+    save();
+  }
   $div.find('input').change(save);
   $div.find('button.reset').click(function() {
     $div.find('label input').prop('checked', true).trigger('change');
     $div.find('.rating_range').each(function() {
       var s = $(this);
-      s.slider('values', [s.slider('option', 'min'), s.slider('option', 'max')]).trigger('change');
+      var values = [s.slider('option', 'min'), s.slider('option', 'max')];
+      s.slider('values', values);
+      changeRatingRange(values);
     });
   });
   $div.find('button').click(function() {
@@ -27,7 +35,7 @@ function initialize(ctrl, el) {
     m.redraw();
     return false;
   });
-  $div.find('.rating_range').each(function() {
+  $ratingRange.each(function() {
     var $this = $(this);
     var $input = $this.find("input");
     var $span = $this.siblings(".range");
@@ -36,20 +44,16 @@ function initialize(ctrl, el) {
     var values = $input.val() ? $input.val().split("-") : [min, max];
     $span.text(values.join(' - '));
 
-    function change() {
-      var values = $this.slider('values');
-      $input.val(values[0] + "-" + values[1]);
-      $span.text(values[0] + " - " + values[1]);
-      save();
-    }
     $this.slider({
       range: true,
       min: min,
       max: max,
       values: values,
       step: 50,
-      slide: change
-    }).change(change);
+      slide: function(e, ui) {
+        changeRatingRange(ui.values);
+      }
+    });
   });
 }
 
@@ -70,10 +74,14 @@ module.exports = {
     return m('div.hook_filter', {
       config: function(el, isUpdate, ctx) {
         if (ctx.loaded) return;
-        $.get('/setup/filter', function(html) {
-          el.innerHTML = html;
-          ctx.loaded = true;
-          initialize(ctrl, el);
+        $.ajax({
+          url: '/setup/filter',
+          cache: false,
+          success: function(html) {
+            el.innerHTML = html;
+            ctx.loaded = true;
+            initialize(ctrl, el);
+          }
         });
       }
     });

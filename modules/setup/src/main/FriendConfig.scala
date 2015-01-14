@@ -1,12 +1,12 @@
 package lila.setup
 
-import chess.{ Variant, Mode, Clock, Color => ChessColor }
+import chess.{ Mode, Clock, Color => ChessColor }
 import lila.game.{ Game, Player, Source }
 import lila.lobby.Color
 import lila.rating.RatingRange
 
 case class FriendConfig(
-    variant: Variant,
+    variant: chess.variant.Variant,
     timeMode: TimeMode,
     time: Int,
     increment: Int,
@@ -24,9 +24,9 @@ case class FriendConfig(
       game = chessGame,
       whitePlayer = Player.white,
       blackPlayer = Player.black,
-      mode = (variant == Variant.FromPosition).fold(Mode.Casual, mode),
+      mode = (variant == chess.variant.FromPosition).fold(Mode.Casual, mode),
       variant = variant,
-      source = (variant == Variant.FromPosition).fold(Source.Position, Source.Friend),
+      source = (variant == chess.variant.FromPosition).fold(Source.Position, Source.Friend),
       daysPerTurn = makeDaysPerTurn,
       pgnImport = None)
   }
@@ -36,7 +36,7 @@ object FriendConfig extends BaseHumanConfig {
 
   def <<(v: Int, tm: Int, t: Int, i: Int, d: Int, m: Option[Int], c: String, fen: Option[String]) =
     new FriendConfig(
-      variant = Variant(v) err "Invalid game variant " + v,
+      variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
@@ -60,7 +60,7 @@ object FriendConfig extends BaseHumanConfig {
   private[setup] implicit val friendConfigBSONHandler = new BSON[FriendConfig] {
 
     def reads(r: BSON.Reader): FriendConfig = FriendConfig(
-      variant = Variant orDefault (r int "v"),
+      variant = chess.variant.Variant orDefault (r int "v"),
       timeMode = TimeMode orDefault (r int "tm"),
       time = r int "t",
       increment = r int "i",

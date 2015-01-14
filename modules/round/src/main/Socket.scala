@@ -10,7 +10,7 @@ import play.api.libs.json._
 
 import actorApi._
 import lila.common.LightUser
-import lila.game.actorApi.UserStartGame
+import lila.game.actorApi.{ StartGame, UserStartGame }
 import lila.game.Event
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.TimeBomb
@@ -64,6 +64,7 @@ private[round] final class Socket(
   private val blackPlayer = new Player(Black)
 
   override def preStart() {
+    super.preStart()
     refreshSubscriptions
     lila.game.GameRepo game gameId map SetGame.apply pipeTo self
   }
@@ -86,6 +87,11 @@ private[round] final class Socket(
       hasAi = game.hasAi
       whitePlayer.userId = game.player(White).userId
       blackPlayer.userId = game.player(Black).userId
+
+    // from lilaBus 'startGame
+    // sets definitive user ids
+    // in case one joined after the socket creation
+    case StartGame(game) => self ! SetGame(game.some)
 
     case PingVersion(uid, v) =>
       timeBomb.delay

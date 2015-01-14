@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.format.Forsyth
-import chess.{ Game => ChessGame, Board, Situation, Variant, Clock, Speed }
+import chess.{ Game => ChessGame, Board, Situation, Clock, Speed }
 
 import lila.game.{ GameRepo, Game, Pov }
 import lila.lobby.Color
@@ -22,7 +22,7 @@ private[setup] trait Config {
   val days: Int
 
   // Game variant code
-  val variant: Variant
+  val variant: chess.variant.Variant
 
   // Creator player color
   val color: Color
@@ -60,12 +60,12 @@ trait Positional { self: Config =>
 
   def strictFen: Boolean
 
-  lazy val validFen = variant != Variant.FromPosition || {
+  lazy val validFen = variant != chess.variant.FromPosition || {
     fen ?? { f => ~(Forsyth <<< f).map(_.situation playable strictFen) }
   }
 
   def fenGame(builder: ChessGame => Game): Game = {
-    val state = fen ifTrue (variant == Variant.FromPosition) flatMap Forsyth.<<<
+    val state = fen ifTrue (variant == chess.variant.FromPosition) flatMap Forsyth.<<<
     val chessGame = state.fold(makeGame) {
       case sit@SituationPlus(Situation(board, color), _) =>
         ChessGame(
@@ -78,8 +78,9 @@ trait Positional { self: Config =>
     val game = builder(chessGame)
     state.fold(game) {
       case sit@SituationPlus(Situation(board, _), _) => game.copy(
-        variant = Variant.FromPosition,
+        variant = chess.variant.FromPosition,
         castleLastMoveTime = game.castleLastMoveTime.copy(
+          lastMove = board.history.lastMove,
           castles = board.history.castles
         ),
         turns = sit.turns)
@@ -93,14 +94,16 @@ trait BaseConfig {
   val systems = List(TournamentSystem.Arena.id, TournamentSystem.Swiss.id)
   val systemDefault = TournamentSystem.default
 
-  val variants = List(Variant.Standard.id, Variant.Chess960.id)
-  val variantDefault = Variant.Standard
+  val variants = List(chess.variant.Standard.id, chess.variant.Chess960.id)
+  val variantDefault = chess.variant.Standard
 
-  val variantsWithFen = variants :+ Variant.FromPosition.id
-  val variantsWithFenAndKingOfTheHill = variants :+ Variant.KingOfTheHill.id :+ Variant.FromPosition.id
-  val variantsWithVariants = variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id :+ Variant.Antichess.id
+  val variantsWithFen = variants :+ chess.variant.FromPosition.id
+  val variantsWithFenAndKingOfTheHill = 
+    variants :+ chess.variant.KingOfTheHill.id :+ chess.variant.FromPosition.id
+  val variantsWithVariants = 
+    variants :+ chess.variant.KingOfTheHill.id :+ chess.variant.ThreeCheck.id :+ chess.variant.Antichess.id :+ chess.variant.Atomic.id
   val variantsWithFenAndVariants =
-    variants :+ Variant.KingOfTheHill.id :+ Variant.ThreeCheck.id :+ Variant.Antichess.id :+ Variant.FromPosition.id
+    variants :+ chess.variant.KingOfTheHill.id :+ chess.variant.ThreeCheck.id :+ chess.variant.Antichess.id :+ chess.variant.Atomic.id :+ chess.variant.FromPosition.id
 
   val speeds = Speed.all map (_.id)
 

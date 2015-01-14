@@ -16,6 +16,44 @@ div.training > .side h1 {
   font-weight: bold;
   margin-bottom: 10px;
 }
+div.training > .side div.comment {
+  padding: 10px 5px;
+  text-align: center;
+  margin-bottom: 1em;
+}
+div.training > .side div.comment h3 {
+  font-size: inherit;
+  margin: 4px;
+  display: block;
+}
+div.training > .side div.retry {
+  color: #31708f;
+  background: #D9EDF7;
+}
+div.training > .side div.great,
+div.training > .side div.win {
+  background: #DFF0D8;
+  color: #3c763d;
+}
+div.training > .side div.loss,
+div.training > .side div.fail {
+  color: #a94442;
+  background: #ebccd1;
+}
+div.training > .side div.comment .rating {
+  font-size: 2em;
+  vertical-align: -3px;
+  padding-left: 5px;
+}
+div.training.retry > .side div.retry {
+  display: block;
+}
+div.training.great > .side div.great {
+  display: block;
+}
+div.training.fail > .side div.fail {
+  display: block;
+}
 div.training > .side .buttonset {
   text-align: center;
   margin-top: 2em;

@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import akka.actor._
 import akka.actor.ActorSelection
 import akka.pattern.{ ask, pipe }
-import chess.{ Color, Variant }
+import chess.Color
 import play.twirl.api.Html
 
 import lila.db.api._
@@ -91,10 +91,10 @@ final class Featured(
 
 object Featured {
 
-  private val variants = Set[Variant](
-    Variant.Standard,
-    Variant.Chess960,
-    Variant.KingOfTheHill)
+  private val variants = Set[chess.variant.Variant](
+    chess.variant.Standard,
+    chess.variant.Chess960,
+    chess.variant.KingOfTheHill)
 
   private case object GetGame
   private case class SetGame(game: Game)

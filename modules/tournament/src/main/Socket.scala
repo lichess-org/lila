@@ -18,6 +18,7 @@ import lila.socket.{ SocketActor, History, Historical }
 private[tournament] final class Socket(
     tournamentId: String,
     val history: History[Messadata],
+    jsonView: JsonView,
     lightUser: String => Option[LightUser],
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
@@ -40,10 +41,6 @@ private[tournament] final class Socket(
       notifyReload
 
     case Reload         => notifyReload
-
-    case Start          => notifyVersion("start", JsNull, Messadata())
-
-    case ReloadPage     => notifyVersion("reloadPage", JsNull, Messadata())
 
     case WithUserIds(f) => f(userIds)
 
@@ -91,7 +88,9 @@ private[tournament] final class Socket(
 
     case NotifyReload =>
       delayedReloadNotification = false
-      notifyAll(makeMessage("reload"))
+      jsonView(tournamentId) foreach { obj =>
+        notifyVersion("reload", obj, Messadata())
+      }
   }
 
   def notifyCrowd {
@@ -104,7 +103,9 @@ private[tournament] final class Socket(
   def notifyReload {
     if (!delayedReloadNotification) {
       delayedReloadNotification = true
-      context.system.scheduler.scheduleOnce(1 second, self, NotifyReload)
+      // keep the delay low for immediate response to join/withdraw,
+      // but still debounce to avoid tourney start message rush
+      context.system.scheduler.scheduleOnce(50 millis, self, NotifyReload)
     }
   }
 

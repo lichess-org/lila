@@ -84,8 +84,7 @@ final class Env(
 
   def onStart(gameId: String) = GameRepo game gameId foreach {
     _ foreach { game =>
-      // nobody needs it for now
-      // system.lilaBus.publish(actorApi.StartGame(game), 'startGame)
+      system.lilaBus.publish(actorApi.StartGame(game), 'startGame)
       game.userIds foreach { userId =>
         system.lilaBus.publish(
           actorApi.UserStartGame(userId, game),

@@ -12,6 +12,8 @@ import lila.socket.actorApi.{ PopulationGet, Connected, Broom }
 
 private[monitor] final class Socket(timeout: Duration) extends SocketActor[Member](timeout) {
 
+  override val startsOnApplicationBoot = true
+
   def receiveSpecific = {
 
     // don't eject members - they don't ping the monitor socket

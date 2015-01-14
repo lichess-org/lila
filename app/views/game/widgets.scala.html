@@ -44,7 +44,7 @@
         <span data-hint="@trans.unlimited()" class="hint--top">∞</span>
         }
         }
-        • @g.perfType.map(_.name).getOrElse {@chess.Variant.FromPosition.name}
+        • @g.perfType.map(_.name).getOrElse {@chess.variant.FromPosition.name}
         • @g.rated.fold(trans.rated(), trans.casual())
       </strong>
       @g.pgnImport.flatMap(_.date).getOrElse(momentFormat(g.createdAt))

@@ -3,17 +3,20 @@ package lila.tournament
 sealed abstract class System(val id: Int) {
   val pairingSystem: PairingSystem
   val scoringSystem: ScoringSystem
+  val berserkable: Boolean
 }
 
 object System {
   case object Arena extends System(id = 1) {
     val pairingSystem = arena.PairingSystem
     val scoringSystem = arena.ScoringSystem
+    val berserkable = true
   }
 
   case object Swiss extends System(id = 2) {
     val pairingSystem = swiss.SwissSystem
     val scoringSystem = swiss.SwissSystem
+    val berserkable = false
   }
 
   val default = Arena

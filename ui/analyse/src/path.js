@@ -13,7 +13,7 @@ module.exports = {
 
   default: function() {
     return [{
-      ply: 1,
+      ply: 0,
       variation: null
     }];
   },

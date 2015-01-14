@@ -8,10 +8,12 @@ var m = require('mithril');
 module.exports = {
   standard: function(ctrl, condition, icon, hint, socketMsg) {
     return condition(ctrl.data) ? m('button', {
-      class: 'button hint--bottom ' + socketMsg,
+      class: 'button hint--bottom',
       'data-hint': ctrl.trans(hint),
       onclick: partial(ctrl.socket.send, socketMsg, null)
-    }, m('span[data-icon=' + icon + ']')) : null;
+    }, m('span', {
+      'data-icon': icon
+    })) : null
   },
   forceResign: function(ctrl) {
     if (!ctrl.data.opponent.ai && ctrl.data.clock && ctrl.data.opponent.isGone && game.resignable(ctrl.data))

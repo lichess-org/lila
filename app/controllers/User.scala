@@ -114,10 +114,12 @@ object User extends LilaController {
       bullet ← env.cached topPerf PerfType.Bullet.key
       blitz ← env.cached topPerf PerfType.Blitz.key
       classical ← env.cached topPerf PerfType.Classical.key
+      correspondence ← env.cached topPerf PerfType.Correspondence.key
       chess960 ← env.cached topPerf PerfType.Chess960.key
       kingOfTheHill ← env.cached topPerf PerfType.KingOfTheHill.key
       threeCheck ← env.cached topPerf PerfType.ThreeCheck.key
       antichess <- env.cached topPerf PerfType.Antichess.key
+      atomic <- env.cached topPerf PerfType.Atomic.key
       nbAllTime ← env.cached topNbGame nb map2 { (user: UserModel) =>
         user -> user.count.game
       }
@@ -125,17 +127,19 @@ object User extends LilaController {
         UserRepo.byOrderedIds(pairs.map(_.userId)) map (_ zip pairs.map(_.nb))
       }
       tourneyWinners ← Env.tournament.winners scheduled nb
-      online ← env.cached topOnline 30
+      online ← env.cached topOnline 40
     } yield html.user.list(
       tourneyWinners = tourneyWinners,
       online = online,
       bullet = bullet,
       blitz = blitz,
       classical = classical,
+      correspondence = correspondence,
       chess960 = chess960,
       kingOfTheHill = kingOfTheHill,
       threeCheck = threeCheck,
       antichess = antichess,
+      atomic = atomic,
       nbWeek = nbWeek,
       nbAllTime = nbAllTime)
   }

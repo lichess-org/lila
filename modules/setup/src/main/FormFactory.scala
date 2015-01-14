@@ -1,6 +1,5 @@
 package lila.setup
 
-import chess.Variant
 import lila.rating.RatingRange
 import lila.db.api._
 import lila.lobby.Color
@@ -30,7 +29,7 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
   def aiFilled(fen: Option[String])(implicit ctx: UserContext): Fu[Form[AiConfig]] =
     aiConfig map { config =>
       ai(ctx) fill fen.fold(config) { f =>
-        config.copy(fen = f.some, variant = Variant.FromPosition)
+        config.copy(fen = f.some, variant = chess.variant.FromPosition)
       }
     }
 
@@ -53,7 +52,7 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
   def friendFilled(fen: Option[String])(implicit ctx: UserContext): Fu[Form[FriendConfig]] =
     friendConfig map { config =>
       friend(ctx) fill fen.fold(config) { f =>
-        config.copy(fen = f.some, variant = Variant.FromPosition)
+        config.copy(fen = f.some, variant = chess.variant.FromPosition)
       }
     }
 

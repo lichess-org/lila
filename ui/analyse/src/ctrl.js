@@ -29,20 +29,28 @@ module.exports = function(cfg, router, i18n, onChange) {
     });
   }.bind(this);
 
-  var is960 = function() {
-    return ['chess960', 'fromPosition'].indexOf(this.data.game.variant.key) !== -1;
-  }.bind(this);
-
-  var isAntichess = function () {
-    return this.data.game.variant.key === "antichess";
+  var gameVariantChessId = function() {
+    switch (this.data.game.variant.key) {
+      case 'chess960':
+      case 'fromPosition':
+        return 1;
+      case 'antichess':
+        return 2;
+      case 'atomic':
+        return 3;
+      default:
+        return 0;
+    }
   }.bind(this);
 
   var situationCache = {};
+
   var showGround = function() {
     var moves;
     try {
       moves = this.analyse.moveList(this.vm.path);
     } catch (e) {
+      console.log(e);
       this.vm.path = treePath.default();
       moves = this.analyse.moveList(this.vm.path);
     }
@@ -51,9 +59,10 @@ module.exports = function(cfg, router, i18n, onChange) {
       h = '',
       lm;
     if (nbMoves == 0) {
+      var variant = this.data.game.variant.key;
+
       var chess = new Chess(
-        this.data.game.initialFen,
-        is960() ? 1 : (isAntichess() ? 2 : 0));
+        this.data.game.initialFen, gameVariantChessId());
       var turnColor = chess.turn() == 'w' ? 'white' : 'black';
       this.vm.situation = {
         fen: this.data.game.initialFen,
@@ -75,24 +84,27 @@ module.exports = function(cfg, router, i18n, onChange) {
         fen = cached.fen;
       }
       if (!cached || ply < nbMoves) {
-        var chess = new Chess(
-          fen || this.data.game.initialFen,
-        is960() ? 1 : (isAntichess() ? 2 : 0));
-        for (ply = ply; ply <= nbMoves; ply++) {
-          move = moves[ply - 1];
-          hash += move;
-          lm = chess.move(move);
-          var turnColor = chess.turn() == 'w' ? 'white' : 'black';
-          situationCache[hash] = {
-            fen: chess.fen(),
-            turnColor: turnColor,
-            movable: {
-              color: turnColor,
-              dests: chess.dests()
-            },
-            check: chess.in_check(),
-            lastMove: [lm.from, lm.to]
-          };
+        try {
+          var chess = new Chess(
+            fen || this.data.game.initialFen, gameVariantChessId())
+          for (ply = ply; ply <= nbMoves; ply++) {
+            move = moves[ply - 1];
+            hash += move;
+            lm = chess.move(move);
+            var turnColor = chess.turn() == 'w' ? 'white' : 'black';
+            situationCache[hash] = {
+              fen: chess.fen(),
+              turnColor: turnColor,
+              movable: {
+                color: turnColor,
+                dests: chess.dests()
+              },
+              check: chess.in_check(),
+              lastMove: [lm.from, lm.to]
+            };
+          }
+        } catch (e) {
+          console.log(e);
         }
       }
       this.vm.situation = situationCache[hash] || {
@@ -115,6 +127,8 @@ module.exports = function(cfg, router, i18n, onChange) {
   this.jump = function(path) {
     this.vm.path = path;
     this.vm.pathStr = treePath.write(path);
+    if (window.history.replaceState)
+      window.history.replaceState(null, null, '#' + path[0].ply);
     showGround();
   }.bind(this);
 
@@ -128,8 +142,7 @@ module.exports = function(cfg, router, i18n, onChange) {
   this.onMove = function(orig, dest) {
     $.sound.move();
     var chess = new Chess(
-      this.vm.situation.fen,
-        is960() ? 1 : (isAntichess() ? 2 : 0));
+      this.vm.situation.fen, gameVariantChessId());
     var move = chess.move({
       from: orig,
       to: dest,

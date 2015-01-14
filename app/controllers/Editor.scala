@@ -1,7 +1,7 @@
 package controllers
 
 import chess.format.Forsyth
-import chess.{ Situation, Variant }
+import chess.Situation
 
 import lila.app._
 import lila.game.GameRepo
@@ -15,7 +15,7 @@ object Editor extends LilaController with BaseGame {
     val fenStr = Some(urlFen.trim.replace("_", " ")).filter(_.nonEmpty) orElse get("fen")
     makeListMenu map { listMenu =>
       val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }.filter(_.nonEmpty)
-      val situation = (decodedFen flatMap Forsyth.<<< map (_.situation)) | Situation(Variant.Standard)
+      val situation = (decodedFen flatMap Forsyth.<<< map (_.situation)) | Situation(chess.variant.Standard)
       val fen = Forsyth >> situation
       Ok(html.board.editor(listMenu, situation, fen, animationDuration = Env.api.EditorAnimationDuration))
     }

@@ -51,12 +51,14 @@ object Pov {
   def apply(game: Game, user: lila.user.User): Option[Pov] =
     game player user map { apply(game, _) }
 
-  def priority(pov: Pov) =
-    if (pov.isMyTurn) {
+  def priority(pov: Pov) = {
+    val base = if (pov.isMyTurn) {
       if (pov.hasMoved) pov.remainingSeconds.getOrElse(Int.MaxValue - 1)
       else 10 // first move has priority over games with more than 10s left
     }
     else Int.MaxValue
+    if (pov.game.hasClock) base - 1000 else base
+  }
 }
 
 case class PovRef(gameId: String, color: Color) {

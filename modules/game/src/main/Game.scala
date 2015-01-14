@@ -2,7 +2,8 @@ package lila.game
 
 import chess.Color.{ White, Black }
 import chess.Pos.piotr, chess.Role.forsyth
-import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Variant, Mode, PositionHash }
+import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
+import chess.variant.Variant
 import org.joda.time.DateTime
 
 import lila.db.ByteArray
@@ -279,6 +280,8 @@ case class Game(
 
   def abortable = status == Status.Started && playedTurns < 2 && nonMandatory
 
+  def berserkable = status == Status.Started && playedTurns < 2
+
   def resignable = playable && !abortable
   def drawable = playable && !abortable
 
@@ -411,7 +414,10 @@ case class Game(
 
 object Game {
 
-  val analysableVariants: Set[Variant] = Set(Variant.Standard, Variant.Chess960, Variant.KingOfTheHill)
+  val analysableVariants: Set[Variant] = Set(
+    chess.variant.Standard,
+    chess.variant.Chess960,
+    chess.variant.KingOfTheHill)
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
 
   val gameIdSize = 8
@@ -548,7 +554,7 @@ object Game {
         daysPerTurn = r intO daysPerTurn,
         binaryMoveTimes = (r bytesO moveTimes) | ByteArray.empty,
         mode = Mode(r boolD rated),
-        variant = Variant(r intD variant) | Variant.Standard,
+        variant = Variant(r intD variant) | chess.variant.Standard,
         next = r strO next,
         bookmarks = r intD bookmarks,
         createdAt = createdAtValue,

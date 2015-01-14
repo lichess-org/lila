@@ -37,7 +37,8 @@ function renderMove(ctrl, move, path) {
     tag: 'a',
     attrs: {
       class: 'move' + (pathStr === ctrl.vm.pathStr ? ' active' : ''),
-      'data-path': pathStr
+      'data-path': pathStr,
+      'href': '#' + path[0].ply
     },
     children: [
       move.san,
@@ -219,9 +220,15 @@ function renderAnalyse(ctrl) {
     ]));
   }
   return m('div.analyse', {
-      onclick: function(e) {
+      onmousedown: function(e) {
         var path = e.target.getAttribute('data-path') || e.target.parentNode.getAttribute('data-path');
-        if (path) ctrl.jump(treePath.read(path));
+        if (path) {
+          e.preventDefault();
+          ctrl.jump(treePath.read(path));
+        }
+      },
+      onclick: function(e) {
+        return false;
       }
     },
     tree);
@@ -270,20 +277,22 @@ function buttons(ctrl) {
       m('div.jumps.hint--bottom', {
         'data-hint': 'Tip: use your keyboard arrow keys!'
       }, [
-        ['first', 'W', control.first],
+        ['first', 'W', control.first, ],
         ['prev', 'Y', control.prev],
         ['next', 'X', control.next],
         ['last', 'V', control.last]
       ].map(function(b) {
-        var enabled = true;
-        return m('a', {
-          class: 'button ' + b[0] + ' ' + classSet({
-            disabled: (ctrl.broken || !enabled),
-            glowing: ctrl.vm.late && b[0] === 'last'
-          }),
-          'data-icon': b[1],
-          onclick: enabled ? partial(b[2], ctrl) : null
-        });
+        return {
+          tag: 'a',
+          attrs: {
+            class: 'button ' + b[0] + ' ' + classSet({
+              disabled: ctrl.broken,
+              glowing: ctrl.vm.late && b[0] === 'last'
+            }),
+            'data-icon': b[1],
+            onclick: partial(b[2], ctrl)
+          }
+        };
       })),
       m('a.button.hint--bottom', flipAttrs, m('span[data-icon=B]')),
       ctrl.data.inGame ? null : m('a.button.hint--bottom', {

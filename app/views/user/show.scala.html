@@ -45,9 +45,13 @@
   @if(u.perfs.antichess.nonEmpty) {
   @showPerf(u.perfs.antichess, PerfType.Antichess)
   }
+  @if(u.perfs.atomic.nonEmpty) {
+  @showPerf(u.perfs.atomic, PerfType.Atomic)
+  }
   <br />
   }
   @showPerf(u.perfs.puzzle, PerfType.Puzzle)
+  @showPerf(u.perfs.opening, PerfType.Opening)
 </div>
 }
 

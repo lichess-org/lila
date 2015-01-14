@@ -10,6 +10,10 @@ function showLoading(ctrl) {
   m.redraw();
 }
 
+function uncache(url) {
+  return url + '?_=' + new Date().getTime();
+}
+
 function attempt(ctrl, win) {
   showLoading(ctrl);
   m.request({
@@ -44,7 +48,7 @@ function retry(ctrl) {
   showLoading(ctrl);
   m.request({
     method: 'GET',
-    url: ctrl.router.Puzzle.load(ctrl.data.puzzle.id).url,
+    url: uncache(ctrl.router.Puzzle.load(ctrl.data.puzzle.id).url),
     config: xhrConfig
   }).then(ctrl.reload);
 }
@@ -65,9 +69,12 @@ function newPuzzle(ctrl) {
   showLoading(ctrl);
   m.request({
     method: 'GET',
-    url: '/training/new',
+    url: uncache('/training/new'),
     config: xhrConfig
-  }).then(ctrl.reload);
+  }).then(function(cfg) {
+    ctrl.reload(cfg);
+    ctrl.pushState(cfg);
+  });
 }
 
 module.exports = {
