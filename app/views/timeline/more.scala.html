@@ -1,6 +1,6 @@
 @(entries: List[lila.timeline.Entry])(implicit ctx: Context)
 
-@base.layout(title = "Timeline") {
+@base.layout(title = trans.timeline.str()) {
 <style type="text/css">
   #timeline_more td {
   padding: 1em 25px;
@@ -19,7 +19,7 @@
   }
 </style>
 <div id="timeline_more" class="content_box small_box no_padding">
-  <h1>Timeline</h1>
+  <h1>@trans.timeline()</h1>
   <table class="datatable"><tbody>
       @entries.map { e =>
       <tr>

@@ -6,6 +6,8 @@ import lila.setup.TimeMode
 import lila.api.Context
 import lila.tournament.System
 import lila.report.Reason
+import lila.pref.Pref
+import lila.pref.Pref.Difficulty
 
 trait SetupHelper { self: I18nHelper =>
 
@@ -68,4 +70,47 @@ trait SetupHelper { self: I18nHelper =>
       }
     }, none)
   }
+
+  def translatedAnimationChoices(implicit ctx: Context) = List(
+    (Pref.Animation.NONE, trans.none.str()),
+    (Pref.Animation.FAST, trans.fast.str()),
+    (Pref.Animation.NORMAL, trans.normal.str()),
+    (Pref.Animation.SLOW, trans.slow.str())
+  )
+
+  def translatedBoardCoordinateChoices(implicit ctx: Context) = List(
+    (Pref.Coords.NONE, trans.no.str()),
+    (Pref.Coords.INSIDE, trans.insideTheBoard.str()),
+    (Pref.Coords.OUTSIDE, trans.outsideTheBoard.str())
+  )
+
+  def translatedMoveListWhilePlayingChoices(implicit ctx: Context) = List(
+    (Pref.Replay.NEVER, trans.never.str()),
+    (Pref.Replay.SLOW, trans.onSlowGames.str()),
+    (Pref.Replay.ALWAYS, trans.always.str())
+  )
+
+  def translatedTakebackChoices(implicit ctx: Context) = List(
+    (Pref.Takeback.NEVER, trans.never.str()),
+    (Pref.Takeback.ALWAYS, trans.always.str()),
+    (Pref.Takeback.CASUAL, trans.inCasualGamesOnly.str())
+  )
+
+  def translatedAutoQueenChoices(implicit ctx: Context) = List(
+    (Pref.AutoQueen.NEVER, trans.never.str()),
+    (Pref.AutoQueen.ALWAYS, trans.always.str()),
+    (Pref.AutoQueen.PREMOVE, trans.whenPremoving.str())
+  )
+
+  def translatedAutoThreefoldChoices(implicit ctx: Context) = List(
+    (Pref.AutoThreefold.NEVER, trans.never.str()),
+    (Pref.AutoThreefold.ALWAYS, trans.always.str()),
+    (Pref.AutoThreefold.TIME, trans.whenTimeRemainingLessThanThirtySeconds.str())
+  )
+
+  def translatedDifficultyChoices(implicit ctx: Context) = List(
+    (Pref.Difficulty.EASY, trans.difficultyEasy.str()),
+    (Pref.Difficulty.NORMAL, trans.difficultyNormal.str()),
+    (Pref.Difficulty.HARD, trans.difficultyHard.str())
+  )
 }
