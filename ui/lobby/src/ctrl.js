@@ -91,16 +91,13 @@ module.exports = function(env) {
     seekRepo.initAll(this);
   }.bind(this);
 
-  this.setNowPlaying = function(povs) {
-    this.data.nowPlaying = povs;
-    this.startWatching();
-    m.redraw();
-  }.bind(this);
-
   this.gameActivity = function(gameId) {
     if (this.data.nowPlaying.filter(function(p) {
       return p.gameId === gameId;
-    }).length) xhr.nowPlaying().then(this.setNowPlaying);
+    }).length) xhr.nowPlaying().then(function(povs) {
+      this.data.nowPlaying = povs;
+      this.startWatching();
+    }.bind(this));
   }.bind(this);
 
   var alreadyWatching = [];

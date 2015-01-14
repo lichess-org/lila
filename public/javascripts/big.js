@@ -524,7 +524,7 @@ lichess.storage = {
         viewOnly: !playable,
         minimalDom: !playable,
         fen: $this.data('fen'),
-        lastMove: lm ? [lm[0] + lm[1], lm[2] + lm[3]] : null
+        lastMove: lastMove
       };
       if (color) config.orientation = color;
       if (ground) ground.set(config);
