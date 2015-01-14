@@ -1,5 +1,4 @@
 package lila.evaluation
-package grouping
 
 import Math.{pow, E, PI, log, sqrt, abs, exp}
 import scalaz.NonEmptyList
@@ -17,7 +16,7 @@ case class Similarity(a: Double, threshold: Double = 0.9) {
 }
 case class MatchAndSig(matches: Boolean, significance: Double)
 
-case class GameGroup ( analysed: Analysed, color: Color ) {
+case class GameGroup ( analysed: Analysed, color: Color, assessment: Option[Int] = None ) {
   import Statistics._
 
   def compareMoveTimes (that: GameGroup): Similarity = {

@@ -1,9 +1,15 @@
 package lila.mod
 
+import lila.evaluation.{ GameGroup, GamePool }
+import lila.analyse.{ AnalysisRepo }
+import lila.game.{ GameRepo }
+import chess.Color
 import lila.db.api._
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo }
+import lila.db.Types.Coll
+import reactivemongo.bson._
 
 final class ModApi(
     logApi: ModlogApi,
@@ -65,8 +71,33 @@ final class ModApi(
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     UserRepo named username flatten "[mod] missing user " + username flatMap op
 
-  def assessGame(mod: String, game: String, side: String, eval: String): Funit = {
-    println(mod + " " +  game + " " + side + " " + eval)
-    funit
+  def assessGame(mod: String, id: String, side: String, eval: String): Funit = {
+    println(mod + " " +  id + " " + side + " " + eval)
+    val color: Color = side match {
+      case "white" => Color.White
+      case "black" => Color.Black
+      case _       => Color.White
+    }
+    val assessment: Int = eval match {
+      case "1" => 1
+      case "2" => 2
+      case "3" => 3
+      case "4" => 4
+      case "5" => 5
+      case _   => 1
+    }
+    val game = GameRepo.game(id)
+    val analysis = AnalysisRepo.byId(id) onComplete {
+      case Success(a) => a
+      case Failure(t) => None
+    }
+
+    game onComplete {
+      case Success(Some(g)) => {
+        (coll insert GameGroup(Analysed(g, analysis), color, Some(assessment))) >> 
+          logApi.assessGame(mod, game, side, eval)
+      }
+      case _ => funit
+    }
   }
 }
