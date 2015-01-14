@@ -23,7 +23,13 @@ object Auth extends LilaController {
           html = Redirect {
             get("referrer").filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
           }.fuccess,
-          api = _ => Ok(Env.user.jsonView(u, extended = true)).fuccess
+          api = _ => lila.game.GameRepo nowPlaying u map { povs =>
+            Ok {
+              import play.api.libs.json._
+              Env.user.jsonView(u, extended = true) ++ Json.obj(
+                "nowPlaying" -> JsArray(povs map Env.api.lobbyApi.nowPlaying))
+            }
+          }
         ) map {
             _ withCookies LilaCookie.withSession { session =>
               session + ("sessionId" -> sessionId) - api.AccessUri
