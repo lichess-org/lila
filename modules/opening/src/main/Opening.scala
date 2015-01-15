@@ -39,7 +39,7 @@ sealed abstract class Quality(val threshold: Int) {
 }
 object Quality {
   case object Good extends Quality(30)
-  case object Dubious extends Quality(80)
+  case object Dubious extends Quality(70)
   case object Bad extends Quality(Int.MaxValue)
 
   def apply(cp: Int) =
