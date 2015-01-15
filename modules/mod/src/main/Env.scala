@@ -13,12 +13,16 @@ final class Env(
     firewall: Firewall,
     userSpy: String => Fu[UserSpy]) {
 
+  private val CollectionCrossRef = config getString "collection.crossref"
+  private val CollectionResults = config getString "collection.results"
   private val CollectionModlog = config getString "collection.modlog"
   private val ActorName = config getString "actor.name"
 
   private[mod] lazy val modlogColl = db(CollectionModlog)
 
   lazy val logApi = new ModlogApi
+
+  lazy val assessApi = new AssessApi(db(CollectionCrossRef), logApi)
 
   lazy val api = new ModApi(
     logApi = logApi,

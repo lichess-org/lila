@@ -5,13 +5,6 @@ import lila.db.api._
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo }
-import lila.evaluation.{ GameGroupCrossRef }
-import lila.evaluation.GamePool.Analysed
-import lila.analyse.{ AnalysisRepo }
-import lila.game.{ GameRepo }
-import reactivemongo.bson._
-import com.typesafe.config.Config
-import lila.common.PimpedConfig._
 
 final class ModApi(
     logApi: ModlogApi,
@@ -73,27 +66,4 @@ final class ModApi(
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     UserRepo named username flatten "[mod] missing user " + username flatMap op
 
-  def assessGame(mod: String, gameId: String, side: String, eval: String): Funit = {
-    val color: String = side match {
-      case "white" => "white"
-      case "black" => "black"
-      case _       => "white"
-    }
-    val assessment: Int = parseIntOption(eval) match {
-      case Some(a) if (a >= 1 && a <= 5) => a
-      case _ => 1
-    }
-
-    val db = lila.db.Env.current
-    val config = lila.common.PlayApp loadConfig "gameGroup"
-    val collectionCrossRef = db(config.getString("collection.crossref"))
-    implicit val gameGroupCrossRefBSONhandler = Macros.handler[lila.evaluation.GameGroupCrossRef]
-    val gameGroupCrossRef = GameGroupCrossRef(_id = gameId + "/" + color,gameId = gameId, color = color, assessment = assessment)
-  
-    collectionCrossRef.insert(gameGroupCrossRef).recover {
-      case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") =>
-        collectionCrossRef.update(BSONDocument("_id" -> (gameId + "/" + color)),gameGroupCrossRef)
-      } >> 
-      logApi.assessGame(mod, gameId, color, assessment.toString)
-  }
 }

@@ -8,10 +8,13 @@ import views._
 import play.api.mvc._
 import play.api.mvc.Results._
 
+import lila.evaluation.{ GameGroupCrossRef }
+
 object Mod extends LilaController {
 
   private def modApi = Env.mod.api
   private def modLogApi = Env.mod.logApi
+  private def assessApi = Env.mod.assessApi
 
   def engine(username: String) = Secure(_.MarkEngine) { _ =>
     me => modApi.adjust(me.id, username) inject redirect(username)
@@ -76,14 +79,32 @@ object Mod extends LilaController {
 
   def redirect(username: String, mod: Boolean = true) = Redirect(routes.User.show(username).url + mod.??("?mod"))
 
-  def assessGame(id: String, color: String) = AuthBody { implicit ctx =>
+  def assessGame(id: String, side: String) = AuthBody { implicit ctx =>
     me => 
       import play.api.data.Forms._
       import play.api.data._
       implicit def req = ctx.body
+
       Form(single("assessment" -> text)).bindFromRequest.fold(
         err => fuccess(BadRequest),
-        text => modApi.assessGame(me.id, id, color, text)
+        text => {
+          val color: String = side match {
+            case "white" => "white"
+            case "black" => "black"
+            case _       => "white"
+          }
+
+          val assessment: Int = parseIntOption(text) match {
+            case Some(a) if (a >= 1 && a <= 5) => a
+            case _ => 1
+          }
+
+          assessApi.create(GameGroupCrossRef(
+            _id = id + "/" + color, 
+            gameId = id, 
+            color = color,
+            assessment = assessment), me.id)
+        }
       )
   }
 }
