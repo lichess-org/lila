@@ -18,9 +18,9 @@
     </h1>
     <form action="@routes.Account.passwdApply" method="POST">
       <ul>
-        @account.passwdFormField(form("oldPasswd"), "Current password")
-        @account.passwdFormField(form("newPasswd1"), "New password")
-        @account.passwdFormField(form("newPasswd2"), "New password (again)")
+        @account.passwdFormField(form("oldPasswd"), trans.currentPassword.str())
+        @account.passwdFormField(form("newPasswd1"), trans.newPassword.str())
+        @account.passwdFormField(form("newPasswd2"), trans.newPasswordAgain.str())
         <li>
           @errMsg(form)
         </li>

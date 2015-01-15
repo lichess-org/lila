@@ -17,19 +17,19 @@ case ForumPost(userId, topicName, postId) => {
 @trans.xPostedInForumY(userIdLink(userId.some, withOnline = false), """<a href="%s">&nbsp;%s</a>""".format(routes.ForumPost.redirect(postId), shorten(topicName, 30)))
 }
 case NoteCreate(fromId, toId) => {
-@userIdLink(fromId.some, withOnline = false) left a note on @userIdLink(toId.some, withOnline = false, params = "?note")
+@trans.xLeftANoteOnY(userIdLink(fromId.some, withOnline = false), userIdLink(toId.some, withOnline = false, params = "?note"))
 }
 case TourJoin(userId, tourId, tourName) => {
-@userIdLink(userId.some, withOnline = false) competes in <a href="@routes.Tournament.show(tourId)">@tourName</a>
+@trans.xCompetesInY(userIdLink(userId.some, withOnline = false), """<a href="%s">%s</a>""".format(routes.Tournament.show(tourId), tourName))
 }
 case QaQuestion(userId, id, title) => {
-@userIdLink(userId.some, withOnline = false) asked <a href="@routes.QaQuestion.show(id, "redirect")">@title</a>
+@trans.xAskedY(userIdLink(userId.some, withOnline = false), """<a href="%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), title))
 }
 case QaAnswer(userId, id, title, answerId) => {
-@userIdLink(userId.some, withOnline = false) answered <a href="@routes.QaQuestion.show(id, "redirect")#answer-@answerId">@title</a>
+@trans.xAnsweredY(userIdLink(userId.some, withOnline = false), """<a href="%s#answer-%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), answerId, title))
 }
 case QaComment(userId, id, title, commentId) => {
-@userIdLink(userId.some, withOnline = false) commented <a href="@routes.QaQuestion.show(id, "redirect")#comment-@commentId">@title</a>
+@trans.xCommentedY(userIdLink(userId.some, withOnline = false), """<a href="%s#comment-%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), commentId, title))
 }
 }
 @momentFromNow(e.date)

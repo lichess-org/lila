@@ -10,7 +10,7 @@ function header(ctrl) {
   return [
     m('th.large',
       tour.schedule ? [
-        'Starting: ',
+        ctrl.trans('starting') + ' ',
         util.secondsFromNow(tour.schedule.seconds)
       ] : (
         tour.enoughPlayersToStart ? ctrl.trans('tournamentIsStarting') : ctrl.trans('waitingForNbPlayers', tour.missingPlayers)
