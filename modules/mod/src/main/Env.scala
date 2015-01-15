@@ -22,7 +22,7 @@ final class Env(
 
   lazy val logApi = new ModlogApi
 
-  lazy val assessApi = new AssessApi(db(CollectionCrossRef), logApi)
+  lazy val assessApi = new AssessApi(db(CollectionCrossRef), db(CollectionResult), logApi)
 
   lazy val api = new ModApi(
     logApi = logApi,
