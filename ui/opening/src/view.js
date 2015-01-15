@@ -20,7 +20,7 @@ function renderAnalysisButton(ctrl) {
 }
 
 function renderPlayTable(ctrl) {
-  return m('div.table',
+  return m('div.table', [
     m('div.table_inner', [
       m('div.current_player',
         m('div.player.' + ctrl.data.opening.color, [
@@ -38,7 +38,8 @@ function renderPlayTable(ctrl) {
         ' ',
         renderAnalysisButton(ctrl)
       ])
-    ]));
+    ])
+  ]);
 }
 
 function renderViewTable(ctrl) {
@@ -258,7 +259,10 @@ module.exports = function(ctrl) {
       ))
     ]),
     m('div.center', [
-      progress(ctrl), (ctrl.data.user && ctrl.data.user.history) ? renderHistory(ctrl) : null
+      progress(ctrl),
+      m('ul.names', ctrl.data.opening.names.map(function(name) {
+        return m('li', name);
+      })), (ctrl.data.user && ctrl.data.user.history) ? renderHistory(ctrl) : null
     ])
   ]);
 };

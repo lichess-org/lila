@@ -35,7 +35,7 @@ object JsData extends lila.Steroids {
             "quality" -> quality.name)
         }),
         "url" -> s"$netBaseUrl${routes.Opening.show(opening.id)}",
-        "names" -> names
+        "names" -> names.take(3)
       ),
       "animation" -> Json.obj(
         "duration" -> ctx.pref.animationFactor * animationDuration.toMillis

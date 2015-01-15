@@ -77,7 +77,8 @@ private[opening] final class OpeningApi(
       BSONDocument("_id" -> fen),
       BSONDocument("_id" -> false)
     ).one[BSONDocument] map { opt =>
-        ~(opt ?? (_.getAs[List[String]]("names")))
+        val names = ~(opt ?? (_.getAs[List[String]]("names")))
+        names.map { _.split(',').take(2).mkString(",") }.distinct
       }
   }
 }
