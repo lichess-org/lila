@@ -14,7 +14,7 @@ final class Env(
     userSpy: String => Fu[UserSpy]) {
 
   private val CollectionCrossRef = config getString "collection.crossref"
-  private val CollectionResults = config getString "collection.results"
+  private val CollectionResult = config getString "collection.result"
   private val CollectionModlog = config getString "collection.modlog"
   private val ActorName = config getString "actor.name"
 
@@ -34,6 +34,8 @@ final class Env(
   system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.mod.MarkCheater(userId) => api autoAdjust userId
+      case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
+        assessApi.onAnalysisReady(game, analysis)
     }
   }), name = ActorName)
 }
