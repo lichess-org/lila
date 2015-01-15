@@ -131,22 +131,4 @@ object Puzzle extends LilaController {
         ) map (_ as JSON)
       }
   }
-
-  // def importBatch = Action.async(parse.json) { implicit req =>
-  //   env.api.puzzle.importBatch(req.body, ~get("token", req)) map { ids =>
-  //     Ok("kthxbye " + ids.map {
-  //       case Success(id) =>
-  //         val url = s"http://lichess.org/training/$id"
-  //         play.api.Logger("puzzle import").info(s"${req.remoteAddress} $url")
-  //         url
-  //       case Failure(err) =>
-  //         play.api.Logger("puzzle import").info(s"${req.remoteAddress} ${err.getMessage}")
-  //         err.getMessage
-  //     }.mkString(" "))
-  //   } recover {
-  //     case e =>
-  //       play.api.Logger("puzzle import").warn(e.getMessage)
-  //       BadRequest(e.getMessage)
-  //   }
-  // }
 }

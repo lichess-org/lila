@@ -15,7 +15,6 @@ final class Env(
     pgnDump: lila.game.PgnDump,
     userEnv: lila.user.Env,
     analyseEnv: lila.analyse.Env,
-    puzzleEnv: lila.puzzle.Env,
     lobbyEnv: lila.lobby.Env,
     setupEnv: lila.setup.Env,
     userIdsSharingIp: String => Fu[List[String]],
@@ -76,10 +75,6 @@ final class Env(
     lightUser = userEnv.lightUser,
     seekApi = lobbyEnv.seekApi)
 
-  val puzzleApi = new PuzzleApi(
-    env = puzzleEnv,
-    makeUrl = apiUrl)
-
   private def apiUrl(msg: Any): Fu[String] = {
     import akka.pattern.ask
     import makeTimeout.short
@@ -97,7 +92,6 @@ object Env {
     router = lila.hub.Env.current.actor.router,
     userEnv = lila.user.Env.current,
     analyseEnv = lila.analyse.Env.current,
-    puzzleEnv = lila.puzzle.Env.current,
     lobbyEnv = lila.lobby.Env.current,
     setupEnv = lila.setup.Env.current,
     roundJsonView = lila.round.Env.current.jsonView,
