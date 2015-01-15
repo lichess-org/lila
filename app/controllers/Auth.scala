@@ -27,7 +27,7 @@ object Auth extends LilaController {
             Ok {
               import play.api.libs.json._
               Env.user.jsonView(u, extended = true) ++ Json.obj(
-                "nowPlaying" -> JsArray(povs map Env.api.lobbyApi.nowPlaying))
+                "nowPlaying" -> JsArray(povs take 9 map Env.api.lobbyApi.nowPlaying))
             }
           }
         ) map {
