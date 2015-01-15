@@ -20,7 +20,7 @@ case class Opening(
     attempts: Int,
     wins: Int) {
 
-  lazy val goal = qualityMoves.count(_.quality == Quality.Good) min 5
+  lazy val goal = qualityMoves.count(_.quality == Quality.Good) min 4
 
   lazy val qualityMoves: List[QualityMove] = {
     val bestCp = moves.foldLeft(Int.MaxValue) {
@@ -39,7 +39,7 @@ sealed abstract class Quality(val threshold: Int) {
 }
 object Quality {
   case object Good extends Quality(30)
-  case object Dubious extends Quality(80)
+  case object Dubious extends Quality(70)
   case object Bad extends Quality(Int.MaxValue)
 
   def apply(cp: Int) =

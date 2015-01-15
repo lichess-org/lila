@@ -13,6 +13,7 @@ import lila.user.{ User, UserRepo }
 private[opening] final class OpeningApi(
     openingColl: Coll,
     attemptColl: Coll,
+    nameColl: Coll,
     apiToken: String) {
 
   import Opening.openingBSONHandler
@@ -68,5 +69,15 @@ private[opening] final class OpeningApi(
         _.headOption flatMap (_.getAs[BSONArray]("ids")) getOrElse BSONArray()
       }
     }
+  }
+
+  object identify {
+
+    def apply(fen: String, max: Int): Fu[List[Identified]] = nameColl.find(
+      BSONDocument("_id" -> fen),
+      BSONDocument("_id" -> false)
+    ).one[BSONDocument] map { opt =>
+        Identified.many(~(opt ?? (_.getAs[List[String]]("names"))), max)
+      }
   }
 }

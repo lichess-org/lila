@@ -93,6 +93,8 @@ case class Game(
     createdAt plusMillis (lmt * 100)
   } orElse updatedAt
 
+  def updatedAtOrCreatedAt = updatedAt | createdAt
+
   def lastMoveTimeInSeconds: Option[Int] = lastMoveTime.map(x => (x / 10).toInt)
 
   // in tenths of seconds
@@ -343,7 +345,9 @@ case class Game(
 
   def hasClock = clock.isDefined
 
-  def isUnlimited = !hasClock && daysPerTurn.isEmpty
+  def hasCorrespondenceClock = daysPerTurn.isDefined
+
+  def isUnlimited = !hasClock && !hasCorrespondenceClock
 
   def isClockRunning = clock ?? (_.isRunning)
 

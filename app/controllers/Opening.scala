@@ -9,7 +9,7 @@ import play.twirl.api.Html
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.opening.{ Generated, Opening => OpeningModel }
+import lila.opening.{ Generated, Opening => OpeningModel, UserInfos, Attempt }
 import lila.user.{ User => UserModel, UserRepo }
 import views._
 import views.html.opening.JsData
@@ -18,18 +18,35 @@ object Opening extends LilaController {
 
   private def env = Env.opening
 
+  private def identify(opening: OpeningModel) =
+    env.api.identify(opening.fen, 5)
+
   private def renderShow(opening: OpeningModel)(implicit ctx: Context) =
-    env userInfos ctx.me map { infos =>
-      views.html.opening.show(opening, infos, env.AnimationDuration)
+    env userInfos ctx.me zip identify(opening) map {
+        case (infos, identified) =>
+          views.html.opening.show(opening, identified, infos, env.AnimationDuration)
+      }
+
+  private def makeData(
+    opening: OpeningModel,
+    infos: Option[UserInfos],
+    play: Boolean,
+    attempt: Option[Attempt],
+    win: Option[Boolean])(implicit ctx: Context): Fu[Result] =
+    identify(opening) map { identified =>
+      Ok(JsData(
+        opening,
+        identified,
+        infos,
+        play = play,
+        attempt = attempt,
+        win = win,
+        animationDuration = env.AnimationDuration)) as JSON
     }
 
   def home = Open { implicit ctx =>
-    if (HTTPRequest isXhr ctx.req) env.selector(ctx.me) zip (env userInfos ctx.me) map {
-      case (opening, infos) => Ok(JsData(opening, infos,
-        play = true,
-        attempt = none,
-        win = none,
-        animationDuration = env.AnimationDuration)) as JSON
+    if (HTTPRequest isXhr ctx.req) env.selector(ctx.me) zip (env userInfos ctx.me) flatMap {
+      case (opening, infos) => makeData(opening, infos, true, none, none)
     }
     else env.selector(ctx.me) flatMap { opening =>
       renderShow(opening) map { Ok(_) }
@@ -56,7 +73,7 @@ object Opening extends LilaController {
     implicit val req = ctx.body
     OptionFuResult(env.api.opening find id) { opening =>
       attemptForm.bindFromRequest.fold(
-        err => fuccess(BadRequest(err.errorsAsJson)),
+        err => fuccess(BadRequest(err.errorsAsJson) as JSON),
         data => {
           val (found, failed) = data
           val win = found == opening.goal && failed == 0
@@ -64,34 +81,19 @@ object Opening extends LilaController {
             case Some(me) => env.finisher(opening, me, win) flatMap {
               case (newAttempt, None) =>
                 UserRepo byId me.id map (_ | me) flatMap { me2 =>
-                  (env.api.opening find id) zip (env userInfos me2.some) map {
-                    case (o2, infos) => Ok {
-                      JsData(o2 | opening, infos,
-                        play = false,
-                        attempt = newAttempt.some,
-                        win = none,
-                        animationDuration = env.AnimationDuration)
-                    }
+                  (env.api.opening find id) zip (env userInfos me2.some) flatMap {
+                    case (o2, infos) =>
+                      makeData(o2 | opening, infos, false, newAttempt.some, none)
                   }
                 }
-              case (oldAttempt, Some(win)) => env userInfos me.some map { infos =>
-                Ok(JsData(opening, infos,
-                  play = false,
-                  attempt = oldAttempt.some,
-                  win = win.some,
-                  animationDuration = env.AnimationDuration))
+              case (oldAttempt, Some(win)) => env userInfos me.some flatMap { infos =>
+                makeData(opening, infos, false, oldAttempt.some, win.some)
               }
             }
-            case None => fuccess {
-              Ok(JsData(opening, none,
-                play = false,
-                attempt = none,
-                win = win.some,
-                animationDuration = env.AnimationDuration))
-            }
+            case None => makeData(opening, none, false, none, win.some)
           }
         }
-      ) map (_ as JSON)
+      )
     }
   }
 

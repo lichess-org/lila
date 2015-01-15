@@ -97,13 +97,13 @@ openGraph = povOpenGraph(pov)) {
       }.getOrElse {
       @if(analysis.isEmpty) {
       <form class="future_game_analysis@if(ctx.isAnon) { must_login }" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
-        <button type="submit" class="button"><span class="is3" data-icon="A"> @trans.requestAComputerAnalysis()</span></button>
+        <button type="submit" class="button text"><span class="is3 text" data-icon="^">@trans.requestAComputerAnalysis()</span></button>
       </form>
       }
       }
       <div class="view_game_analysis future_game_analysis" data-href="@routes.Round.watcher(pov.gameId, pov.color.name)">
         <a class="button" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-          <span class="is3" data-icon="A"> @trans.viewTheComputerAnalysis()</span>
+          <span class="is3 text" data-icon="^">@trans.viewTheComputerAnalysis()</span>
         </a>
       </div>
     </div>
@@ -154,7 +154,7 @@ openGraph = povOpenGraph(pov)) {
   @analysis.filter(_.old && ctx.isAuth).map { a =>
   <form class="better_analysis" action="@routes.Analyse.betterAnalysis(gameId, color.name)" method="post">
     <button type="submit" class="button">
-      <span class="is3" data-icon="A"> Request a better computer analysis</span>
+      <span class="is3 text" data-icon="^">Request a better computer analysis</span>
     </button>
   </form>
   }

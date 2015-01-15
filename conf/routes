@@ -6,7 +6,6 @@ GET   /                                controllers.Lobby.home
 GET   /lobby/socket/v:apiVersion       controllers.Lobby.socket(apiVersion: Int)
 GET   /timeline                        controllers.Lobby.timeline
 GET   /timeline/more                   controllers.Lobby.timelineMore
-GET   /lobby/playing                   controllers.Lobby.playing
 GET   /lobby/seeks                     controllers.Lobby.seeks
 
 # TV
@@ -66,7 +65,8 @@ GET   /games/checkmate    controllers.Game.checkmate(page: Int ?= 1)
 GET   /games/bookmark     controllers.Game.bookmark(page: Int ?= 1)
 GET   /games/analysed     controllers.Game.analysed(page: Int ?= 1)
 GET   /games/imported     controllers.Game.imported(page: Int ?= 1)
-GET   /games/export/:user controllers.Game.export(user: String)
+POST  /games/export/:user controllers.Game.exportConfirm(user: String)
+GET   /games/export-form/:user controllers.Game.export(user: String)
 
 # Search
 GET   /games/search       controllers.Game.search(page: Int ?= 1)

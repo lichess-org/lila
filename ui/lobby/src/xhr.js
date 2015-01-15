@@ -20,8 +20,10 @@ module.exports = {
   nowPlaying: function() {
     return m.request({
       method: 'GET',
-      url: uncache('/lobby/playing'),
+      url: uncache('/account/info'),
       config: xhrConfig
+    }).then(function(o) {
+      return o.nowPlaying;
     });
   }
 };

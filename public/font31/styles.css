@@ -296,9 +296,6 @@
 .icon-list:before {
   content: "?";
 }
-.icon-share:before {
-  content: "[";
-}
 .icon-atom:before {
   content: ">";
 }
@@ -310,4 +307,7 @@
 }
 .icon-antichess:before {
   content: "@";
+}
+.icon-hubot:before {
+  content: "^";
 }

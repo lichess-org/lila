@@ -119,7 +119,7 @@ object GameRepo {
 
   def nowPlaying(user: User): Fu[List[Pov]] =
     $find(Query nowPlaying user.id) map {
-      _ flatMap { Pov(_, user) } sortBy Pov.priority
+      _ flatMap { Pov(_, user) } sortWith Pov.priority
     }
 
   // gets most urgent game to play

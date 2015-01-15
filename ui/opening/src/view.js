@@ -15,12 +15,12 @@ function renderAnalysisButton(ctrl) {
     target: '_blank',
     rel: 'nofollow'
   }, m('span', {
-    'data-icon': '['
+    'data-icon': 'A'
   }));
 }
 
 function renderPlayTable(ctrl) {
-  return m('div.table',
+  return m('div.table', [
     m('div.table_inner', [
       m('div.current_player',
         m('div.player.' + ctrl.data.opening.color, [
@@ -38,7 +38,8 @@ function renderPlayTable(ctrl) {
         ' ',
         renderAnalysisButton(ctrl)
       ])
-    ]));
+    ])
+  ]);
 }
 
 function renderViewTable(ctrl) {
@@ -258,7 +259,13 @@ module.exports = function(ctrl) {
       ))
     ]),
     m('div.center', [
-      progress(ctrl), (ctrl.data.user && ctrl.data.user.history) ? renderHistory(ctrl) : null
+      progress(ctrl),
+      m('table.identified', ctrl.data.opening.identified.map(function(ident) {
+        return m('tr', [
+          m('td', ident.name),
+          m('td', ident.moves)
+        ]);
+      })), (ctrl.data.user && ctrl.data.user.history) ? renderHistory(ctrl) : null
     ])
   ]);
 };
