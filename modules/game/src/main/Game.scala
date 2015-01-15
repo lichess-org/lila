@@ -115,7 +115,7 @@ case class Game(
 
   lazy val toChess: ChessGame = {
 
-    val pieces = BinaryFormat.piece read binaryPieces
+    val pieces = BinaryFormat.piece.read(binaryPieces, variant)
 
     ChessGame(
       board = Board(pieces, toChessHistory, variant),
