@@ -15,7 +15,7 @@ case class GameGroupCrossRef(
   )
 
 case class GameGroupResult(
-  _id: String,
+  _id: String, // sourceGameId + "/" + sourceGameColor
   username: String, // The username of the player being evaluated
   sourceGameId: String, // The game being talked about
   sourceColor: String, // The side of the game being talked about
