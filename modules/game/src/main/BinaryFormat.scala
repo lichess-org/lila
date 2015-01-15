@@ -2,6 +2,7 @@ package lila.game
 
 import org.joda.time.DateTime
 import scala.util.{ Try, Success, Failure }
+import chess.variant.Variant
 
 import chess._
 
@@ -163,13 +164,13 @@ object BinaryFormat {
       } toArray)
     }
 
-    def read(ba: ByteArray): PieceMap = {
+    def read(ba: ByteArray, variant: Variant): PieceMap = {
       def splitInts(b: Byte) = {
         val int = b.toInt
         Array(int >> 4, int & 0x0F)
       }
       def intPiece(int: Int): Option[Piece] =
-        intToRole(int & 7) map { role => Piece(Color((int & 8) == 0), role) }
+        intToRole(int & 7, variant) map { role => Piece(Color((int & 8) == 0), role) }
       val pieceInts = ba.value flatMap splitInts
       (Pos.all zip pieceInts flatMap {
         case (pos, int) => intPiece(int) map (pos -> _)
@@ -179,14 +180,15 @@ object BinaryFormat {
     // cache standard start position
     val standard = write(Board.init(chess.variant.Standard).pieces)
 
-    private def intToRole(int: Int): Option[Role] = int match {
+    private def intToRole(int: Int, variant: Variant): Option[Role] = int match {
       case 6 => Some(Pawn)
       case 1 => Some(King)
       case 2 => Some(Queen)
       case 3 => Some(Rook)
       case 4 => Some(Knight)
       case 5 => Some(Bishop)
-      case 7 => Some(Antiking)
+      // Legacy from when we used to have an 'Antiking' piece
+      case 7 if variant.antichess => Some(King)
       case _ => None
     }
     private def roleToInt(role: Role): Int = role match {
@@ -196,7 +198,6 @@ object BinaryFormat {
       case Rook   => 3
       case Knight => 4
       case Bishop => 5
-      case Antiking => 7
     }
   }
 
