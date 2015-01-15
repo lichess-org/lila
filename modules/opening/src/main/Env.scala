@@ -12,6 +12,7 @@ final class Env(
   private val settings = new {
     val CollectionOpening = config getString "collection.opening"
     val CollectionAttempt = config getString "collection.attempt"
+    val CollectionName = config getString "collection.name"
     val ApiToken = config getString "api.token"
   }
   import settings._
@@ -21,6 +22,7 @@ final class Env(
   lazy val api = new OpeningApi(
     openingColl = openingColl,
     attemptColl = attemptColl,
+    nameColl = nameColl,
     apiToken = ApiToken)
 
   lazy val selector = new Selector(
@@ -38,6 +40,7 @@ final class Env(
 
   private[opening] lazy val openingColl = db(CollectionOpening)
   private[opening] lazy val attemptColl = db(CollectionAttempt)
+  private[opening] lazy val nameColl = db(CollectionName)
 }
 
 object Env {
