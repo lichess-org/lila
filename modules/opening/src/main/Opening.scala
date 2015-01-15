@@ -20,7 +20,7 @@ case class Opening(
     attempts: Int,
     wins: Int) {
 
-  lazy val goal = qualityMoves.count(_.quality == Quality.Good) min 5
+  lazy val goal = qualityMoves.count(_.quality == Quality.Good) min 4
 
   lazy val qualityMoves: List[QualityMove] = {
     val bestCp = moves.foldLeft(Int.MaxValue) {
