@@ -86,7 +86,7 @@ final class ModApi(
 
     val db = lila.db.Env.current
     val config = lila.common.PlayApp loadConfig "gameGroup"
-    val CollectionCrosstable = config.getString("collection.crosstable")
+    val CollectionCrosstable = config.getString("collection.crossreftable")
     implicit val gameGroupCrosstableBSONhandler = Macros.handler[lila.evaluation.GameGroupCrosstable]
     val gameGroupCrosstable = GameGroupCrosstable(gameId = gameId, color = color, assessment = assessment)
   
