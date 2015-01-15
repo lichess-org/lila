@@ -2021,19 +2021,20 @@ lichess.storage = {
         selection.removeAllRanges();
         selection.addRange(range);
       }
-
-    $('#whiteAssessment').change( function() {
-      console.log($(this).val());
-      $.post('/mod/' + data.game.id + '/white/assess', 
-        { assessment: $(this).val() }
-      );
     });
 
-    $('#blackAssessment').change( function() {
+    $('#whiteAssessment').change(function() {
       console.log($(this).val());
-      $.post('/mod/' + data.game.id + '/black/assess', 
-        { assessment: $(this).val() }
-      );
+      $.post('/mod/' + data.game.id + '/white/assess', {
+        assessment: $(this).val()
+      });
+    });
+
+    $('#blackAssessment').change(function() {
+      console.log($(this).val());
+      $.post('/mod/' + data.game.id + '/black/assess', {
+        assessment: $(this).val()
+      });
     });
   }
 
