@@ -201,8 +201,9 @@ object GameRepo {
       g.copy(mode = chess.Mode.Casual)
     else g
     val userIds = g2.userIds.distinct
-    val fen = List(chess.variant.Chess960, chess.variant.FromPosition).contains(g2.variant)
-      .option(Forsyth >> g2.toChess).filterNot(Forsyth.initial ==)
+    val fen = (!g2.variant.standardInitialPosition)
+      .option(Forsyth >> g2.toChess)
+      .filterNot(Forsyth.initial ==)
     val bson = (gameTube.handler write g2) ++ BSONDocument(
       F.initialFen -> fen,
       F.checkAt -> (!g2.isPgnImport).option(DateTime.now.plusHours(g2.hasClock.fold(1, 24))),
@@ -240,7 +241,7 @@ object GameRepo {
     }
 
   def initialFen(game: Game): Fu[Option[String]] =
-    if (game.fromPosition || game.imported || game.variant.chess960) initialFen(game.id)
+    if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id)
     else fuccess(none)
 
   def featuredCandidates: Fu[List[Game]] = $find(

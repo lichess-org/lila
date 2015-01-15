@@ -1706,7 +1706,7 @@ div.game_list.playing {
 }
 div.game_list.playing > div {
   display: inline-block;
-  margin: 0px 11px 11px 11px;
+  margin: 0px 10.5px 11px 11px;
 }
 div.vstext {
   width: 212px;
@@ -1724,10 +1724,12 @@ div.vstext > .center {
   text-align: center;
   position: absolute;
   bottom: 4px;
+  left: 0;
   font-size: 0.9em;
 }
 div.vstext .left {
   float: left;
+  text-align: left;
 }
 div.vstext .right {
   float: right;

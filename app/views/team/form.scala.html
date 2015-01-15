@@ -9,7 +9,7 @@ currentTab = "form".some) {
     <form class="new-team wide" action="@routes.Team.create()" method="POST">
       <section class="team-data">
       <label>
-        <span class="required">Name</span>
+        <span class="required">@trans.name()</span>
         @base.input(form("name"))
         @errMsg(form("name"))
       </label>
@@ -27,7 +27,7 @@ currentTab = "form".some) {
         @errMsg(form("location"))
       </label>
       <label>
-        <span class="required">Description</span>
+        <span class="required">@trans.description()</span>
         @defining(form("description")) { desc =>
         <textarea name="@desc.name" id="@desc.id">@desc.value</textarea>
         @errMsg(desc)

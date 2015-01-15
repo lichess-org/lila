@@ -18,14 +18,22 @@ module.exports = function(ctrl) {
         class: pov.isMyTurn ? 'my_turn' : ''
       }, [
         m('span', {
-          class: 'mini_board live_' + pov.id + ' parse_fen is2d',
-          'data-color': pov.color,
-          'data-fen': pov.fen,
-          'data-lastmove': pov.lastMove,
-          config: function(el, isUpdate) {
-            if (!isUpdate) lichess.parseFen($(el));
-          }
-        }, boardContent),
+            class: 'mini_board is2d',
+            config: function(el, isUpdate, ctx) {
+              var lm = pov.lastMove;
+              var config = {
+                coordinates: false,
+                viewOnly: true,
+                minimalDom: true,
+                orientation: pov.color,
+                fen: pov.fen,
+                lastMove: lm ? [lm[0] + lm[1], lm[2] + lm[3]] : []
+              };
+              if (ctx.ground) ctx.ground.set(config);
+              else ctx.ground = Chessground(el, config);
+            }
+          },
+          boardContent),
         m('span.meta', [
           pov.opponent.aiLevel ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', pov.opponent.aiLevel) : pov.opponent.username,
           m('span.indicator',

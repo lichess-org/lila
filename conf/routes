@@ -6,7 +6,6 @@ GET   /                                controllers.Lobby.home
 GET   /lobby/socket/v:apiVersion       controllers.Lobby.socket(apiVersion: Int)
 GET   /timeline                        controllers.Lobby.timeline
 GET   /timeline/more                   controllers.Lobby.timelineMore
-GET   /lobby/playing                   controllers.Lobby.playing
 GET   /lobby/seeks                     controllers.Lobby.seeks
 
 # TV
@@ -297,8 +296,6 @@ GET   /api/user                        controllers.Api.users
 GET   /api/user/:id                    controllers.Api.user(id: String)
 GET   /api/game                        controllers.Api.games
 GET   /api/game/:id                    controllers.Api.game(id: String)
-GET   /api/puzzle/:id                  controllers.Api.puzzle(id: String)
-# POST  /api/puzzle                      controllers.Puzzle.importBatch
 POST  /api/opening                     controllers.Opening.importOne
 
 # Misc

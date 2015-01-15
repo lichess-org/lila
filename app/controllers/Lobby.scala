@@ -39,16 +39,6 @@ object Lobby extends LilaController {
         )
       }
 
-  def playing = Auth { implicit ctx =>
-    me =>
-      negotiate(
-        html = fuccess(NotFound),
-        api = _ => lila.game.GameRepo nowPlaying me map { povs =>
-          Ok(JsArray(povs map Env.api.lobbyApi.nowPlaying))
-        }
-      )
-  }
-
   def seeks = Open { implicit ctx =>
     negotiate(
       html = fuccess(NotFound),

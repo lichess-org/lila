@@ -113,7 +113,7 @@ openGraph = Map(
     <div class="user_top">
       <div class="undertable_top">
         <a class="more hint--bottom" data-hint="@trans.players()" href="@routes.Tournament.home()">@trans.more() »</a>
-        <span class="title" data-icon="g"> Tournament winners</span>
+        <span class="title" data-icon="g"> @trans.tournamentWinners()</span>
       </div>
       <div class="undertable_inner scroll-shadow-hard">
         <table>
@@ -145,7 +145,7 @@ openGraph = Map(
 <div class="blog undertable">
   <div class="undertable_top">
     <a class="more hint--bottom" data-hint="Blog" href="@routes.Blog.index()">@trans.more() »</a>
-    <span class="title" data-icon="6"> Latest updates</span>
+    <span class="title" data-icon="6"> @trans.latestUpdates()</span>
   </div>
   <div class="undertable_inner">
     @lastPost.map { post =>
