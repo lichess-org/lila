@@ -320,6 +320,7 @@ puzzles=Мозайка
 coordinates=Координаты
 openings=Дебюты
 latestUpdates=Последние обновления
+tournamentWinners=Победители турниров
 name=Имя
 description=Описание
 no=Нет
