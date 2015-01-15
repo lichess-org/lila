@@ -981,10 +981,7 @@ lichess.storage = {
 
   $.sound = (function() {
     var baseUrl = $('body').data('sound-dir') + '/';
-    var a = new Audio();
-    var hasOgg = !!a.canPlayType && a.canPlayType('audio/ogg; codecs="vorbis"');
-    var hasMp3 = !!a.canPlayType && a.canPlayType('audio/mpeg;');
-    var ext = hasOgg ? 'ogg' : 'mp3';
+    Howler.volume(lichess.storage.get('sound-volume') || 0.7);
     var names = {
       dong: 'dong2',
       moveW: 'move3',
@@ -995,76 +992,66 @@ lichess.storage = {
     var volumes = {
       lowtime: 0.5
     };
-    var computeVolume = function(k, v) {
-      return v * (volumes[k] || 1);
-    };
     var get = new $.lazy(function(k) {
-      var audio = new Audio(baseUrl + names[k] + '.' + ext);
-      audio.volume = computeVolume(k, getVolume());
-      return audio;
+      return new Howl({
+        urls: ['ogg', 'mp3'].map(function(ext) {
+          return baseUrl + names[k] + '.' + ext;
+        }),
+        volume: volumes[k] || 1
+      });
     });
-    var canPlay = hasOgg || hasMp3;
     var $control = $('#sound_control');
     var $toggle = $('#sound_state');
-    $control.add($toggle).toggleClass('sound_state_on', lichess.storage.get('sound') == 1);
     var enabled = function() {
-      return $toggle.hasClass("sound_state_on");
+      return !!lichess.storage.get('sound');
     };
-    var shouldPlay = function() {
-      return canPlay && enabled();
-    };
+    $control.add($toggle).toggleClass('sound_state_on', enabled());
     var play = {
       move: function(white) {
-        if (shouldPlay()) {
+        if (enabled()) {
           if (white) get('moveW').play();
           else get('moveB').play();
         }
       },
       take: function() {
-        if (shouldPlay()) get('take').play();
+        if (enabled()) get('take').play();
       },
       dong: function() {
-        if (shouldPlay()) get('dong').play();
+        if (enabled()) get('dong').play();
       },
       lowtime: function() {
-        if (shouldPlay()) get('lowtime').play();
+        if (enabled()) get('lowtime').play();
       }
-    };
-    var getVolume = function() {
-      return lichess.storage.get('sound-volume') || 0.8;
     };
     var setVolume = function(v) {
       lichess.storage.set('sound-volume', v);
-      Object.keys(names).forEach(function(k) {
-        get(k).volume = computeVolume(k, v);
-      });
+      Howler.volume(v);
     };
     var manuallySetVolume = $.fp.debounce(function(v) {
       setVolume(v);
       play.move(true);
-    }, 100);
-    if (canPlay) {
-      $toggle.click(function() {
-        $control.add($toggle).toggleClass('sound_state_on', !enabled());
-        if (enabled()) lichess.storage.set('sound', 1);
-        else lichess.storage.remove('sound');
-        play.dong();
-        return false;
+    }, 50);
+    $toggle.click(function() {
+      var enab = !enabled();
+      if (enab) lichess.storage.set('sound', 1);
+      else lichess.storage.remove('sound');
+      $control.add($toggle).toggleClass('sound_state_on', enab);
+      play.dong();
+      return false;
+    });
+    $toggle.one('mouseover', function() {
+      $toggle.parent().find('.slider').slider({
+        orientation: "vertical",
+        min: 0,
+        max: 1,
+        range: 'min',
+        step: 0.01,
+        value: Howler.volume(),
+        slide: function(e, ui) {
+          manuallySetVolume(ui.value);
+        }
       });
-      $toggle.one('mouseover', function() {
-        $toggle.parent().find('.slider').slider({
-          orientation: "vertical",
-          min: 0,
-          max: 1,
-          range: 'min',
-          step: 0.01,
-          value: getVolume(),
-          slide: function(e, ui) {
-            manuallySetVolume(ui.value);
-          }
-        });
-      });
-    } else $toggle.addClass('unavailable');
+    });
 
     return play;
   })();
