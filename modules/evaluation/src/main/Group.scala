@@ -7,6 +7,24 @@ import lila.evaluation.GamePool._
 import lila.game.{ Pov }
 import lila.analyse.{ Accuracy }
 
+case class GameGroupCrossRef(
+  _id: String,
+  gameId: String,
+  color: String, // Side of the game being analysed
+  assessment: Int // 1 = Not Cheating, 2 = Unlikely Cheating, 3 = Unknown, 4 = Likely Cheating, 5 = Cheating
+  )
+
+case class GameGroupResult(
+  _id: String,
+  username: String, // The username of the player being evaluated
+  sourceGameId: String, // The game being talked about
+  sourceColor: String, // The side of the game being talked about
+  targetGameId: String, // The game the source matched against (from crosstable)
+  targetColor: String, // The player of the game who was matched against
+  positiveMatch: Boolean, // Was the match significant enough to make a hard determination on
+  matchPercentange: Int // 0 = Absolutely no match, 100 = Complete match
+  )
+
 case class Rating(perf: Int, interval: Int)
 
 case class Similarity(a: Double, threshold: Double = 0.9) {
@@ -16,7 +34,7 @@ case class Similarity(a: Double, threshold: Double = 0.9) {
 }
 case class MatchAndSig(matches: Boolean, significance: Double)
 
-case class GameGroup ( analysed: Analysed, color: Color, assessment: Option[Int] = None ) {
+case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] = None) {
   import Statistics._
 
   def compareMoveTimes (that: GameGroup): Similarity = {

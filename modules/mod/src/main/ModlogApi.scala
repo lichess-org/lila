@@ -73,8 +73,16 @@ final class ModlogApi {
     "action" -> Modlog.unengine
   ))
 
-  def assessGame(mod: String, gameId: String, side: String, assessment: String) = add {
-    Modlog(mod, none, Modlog.assessedGame, details = Some(gameId + "/" + side + " => " + assessment))
+  def assessGame(mod: String, gameId: String, side: String, assessment: Int) = add {
+    val assessmentString = assessment match {
+      case 1 => "Not cheating"
+      case 2 => "Unlikely cheating"
+      case 3 => "Unclear"
+      case 4 => "Likely cheating"
+      case 5 => "Cheating"
+      case _ => "Not cheating"
+    }
+    Modlog(mod, none, Modlog.assessedGame, details = Some(gameId + "/" + side + " => " + assessmentString))
   }
 
   private def add(m: Modlog): Funit = {

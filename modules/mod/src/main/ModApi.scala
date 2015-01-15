@@ -5,12 +5,6 @@ import lila.db.api._
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo }
-import lila.db.Types.Coll
-import lila.evaluation.{ GameGroup }
-import lila.evaluation.GamePool.Analysed
-import lila.analyse.{ AnalysisRepo }
-import lila.game.{ GameRepo }
-import reactivemongo.bson._
 
 final class ModApi(
     logApi: ModlogApi,
@@ -72,27 +66,4 @@ final class ModApi(
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     UserRepo named username flatten "[mod] missing user " + username flatMap op
 
-  def assessGame(mod: String, id: String, side: String, eval: String): Funit = {
-    println(mod + " " +  id + " " + side + " " + eval)
-    val color: Color = side match {
-      case "white" => Color.White
-      case "black" => Color.Black
-      case _       => Color.White
-    }
-    val assessment: Int = parseIntOption(eval) match {
-      case Some(a) if (a >= 1 && a <= 5) => a
-      case _ => 1
-    }
-
-    GameRepo.game(id).flatMap {
-      game => AnalysisRepo.byId(id).map {
-        analysis =>
-          game match {
-            case Some(g) => (Coll.insert.GameGroup(Analysed(g, analysis), color, Some(assessment))) >> 
-              logApi.assessGame(mod, id, side, eval)
-            case _ =>
-          }
-      }
-    }
-  }
 }
