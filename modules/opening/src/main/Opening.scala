@@ -44,15 +44,15 @@ object Quality {
   case object Dubious extends Quality(70)
   case object Bad extends Quality(Int.MaxValue)
 
-  val Positive = 0
-  val OpMinorAdv = 10 // Cp for opponent to have minor adv
-  val OpMajorAdv = 30 // Cp for opponent to have considerable adv
+  case object Positive extends Quality(0)
+  case object OpMinorAdv extends Quality(10) // Cp for opponent to have minor adv
+  case object OpMajorAdv extends Quality(30) // Cp for opponent to have considerable adv
 
   def apply(moveCp: Int, bestCp: Int) = {
     val dif = moveCp - bestCp
 
-    if      (bestCp <= Positive   && moveCp <= OpMinorAdv && dif < Good.threshold) Good // You have the advantage, don't want to give minor
-    else if (bestCp <= OpMinorAdv && moveCp <= OpMajorAdv && dif < Good.threshold) Good // Op has up to minor adv, cannot give major adv
+    if      (bestCp <=  Positive.threshold    && moveCp <= OpMinorAdv.threshold && dif < Good.threshold) Good // You have the advantage, don't want to give minor
+    else if (bestCp <=  OpMinorAdv.threshold  && moveCp <= OpMajorAdv.threshold && dif < Good.threshold) Good // Op has up to minor adv, cannot give major adv
     else if (dif < Sharp.threshold) Good // Op has major adv, important to not lose any adv
     else if (dif < Dubious.threshold) Dubious
     else Bad
