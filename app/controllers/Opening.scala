@@ -18,11 +18,13 @@ object Opening extends LilaController {
 
   private def env = Env.opening
 
+  private def identify(opening: OpeningModel) =
+    env.api.identify(opening.fen, 5)
+
   private def renderShow(opening: OpeningModel)(implicit ctx: Context) =
-    env userInfos ctx.me zip
-      (env.api.name find opening.fen) map {
-        case (infos, names) =>
-          views.html.opening.show(opening, names, infos, env.AnimationDuration)
+    env userInfos ctx.me zip identify(opening) map {
+        case (infos, identified) =>
+          views.html.opening.show(opening, identified, infos, env.AnimationDuration)
       }
 
   private def makeData(
@@ -31,10 +33,10 @@ object Opening extends LilaController {
     play: Boolean,
     attempt: Option[Attempt],
     win: Option[Boolean])(implicit ctx: Context): Fu[Result] =
-    env.api.name find opening.fen map { names =>
+    identify(opening) map { identified =>
       Ok(JsData(
         opening,
-        names,
+        identified,
         infos,
         play = play,
         attempt = attempt,

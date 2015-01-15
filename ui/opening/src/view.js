@@ -260,8 +260,11 @@ module.exports = function(ctrl) {
     ]),
     m('div.center', [
       progress(ctrl),
-      m('ul.names', ctrl.data.opening.names.map(function(name) {
-        return m('li', name);
+      m('table.identified', ctrl.data.opening.identified.map(function(ident) {
+        return m('tr', [
+          m('td', ident.name),
+          m('td', ident.moves)
+        ]);
       })), (ctrl.data.user && ctrl.data.user.history) ? renderHistory(ctrl) : null
     ])
   ]);

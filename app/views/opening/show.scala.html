@@ -1,4 +1,4 @@
-@(opening: lila.opening.Opening, names: List[String], userInfos: Option[lila.opening.UserInfos], animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
+@(opening: lila.opening.Opening, identified: List[lila.opening.Identified], userInfos: Option[lila.opening.UserInfos], animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
 
 @evenMoreJs = {
 @helper.javascriptRouter("openingRoutes")(
@@ -6,7 +6,7 @@
 @embedJs {
 LichessOpening(
 document.querySelector('#lichess .round'),
-@JsData(opening, names, userInfos, play = true, attempt = none, win = none, animationDuration = animationDuration),
+@JsData(opening, identified, userInfos, play = true, attempt = none, win = none, animationDuration = animationDuration),
 openingRoutes.controllers,
 @Html(J.stringify(i18nJsObject(
 trans.training,

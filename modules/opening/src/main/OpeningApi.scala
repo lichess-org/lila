@@ -71,14 +71,13 @@ private[opening] final class OpeningApi(
     }
   }
 
-  object name {
+  object identify {
 
-    def find(fen: String): Fu[List[String]] = nameColl.find(
+    def apply(fen: String, max: Int): Fu[List[Identified]] = nameColl.find(
       BSONDocument("_id" -> fen),
       BSONDocument("_id" -> false)
     ).one[BSONDocument] map { opt =>
-        val names = ~(opt ?? (_.getAs[List[String]]("names")))
-        names.map { _.split(',').take(2).mkString(",") }.distinct
+        Identified.many(~(opt ?? (_.getAs[List[String]]("names"))), max)
       }
   }
 }

@@ -28,6 +28,9 @@
 #opening .right .loader {
   font-size: 10px;
 }
+#opening table.identified td {
+  padding-right: 2em;
+}
 #opening .meter {
   width: 494px;
   height: 47px;
