@@ -15,7 +15,7 @@ function renderAnalysisButton(ctrl) {
     target: '_blank',
     rel: 'nofollow'
   }, m('span', {
-    'data-icon': '['
+    'data-icon': 'A'
   }));
 }
 

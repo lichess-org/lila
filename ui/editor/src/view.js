@@ -58,10 +58,10 @@ function controls(ctrl, fen) {
       ])
     ]),
     m('div', [
-      ctrl.positionLooksLegit() ? m('a.button.text[data-icon="["]', {
+      ctrl.positionLooksLegit() ? m('a.button.text[data-icon="A"]', {
         href: editor.makeUrl('/analysis/', fen),
         rel: 'nofollow'
-      }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="["]', {
+      }, ctrl.trans('analysis')) : m('span.button.disabled.text[data-icon="A"]', {
         rel: 'nofollow'
       }, ctrl.trans('analysis')),
       m('a.button', {
