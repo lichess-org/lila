@@ -7,13 +7,15 @@ import lila.evaluation.GamePool._
 import lila.game.{ Pov }
 import lila.analyse.{ Accuracy }
 
-case class GameGroupCrosstable(
+case class GameGroupCrossRef(
+  _id: String,
   gameId: String,
   color: String, // Side of the game being analysed
   assessment: Int // 1 = Not Cheating, 2 = Unlikely Cheating, 3 = Unknown, 4 = Likely Cheating, 5 = Cheating
   )
 
 case class GameGroupResult(
+  _id: String,
   username: String, // The username of the player being evaluated
   sourceGameId: String, // The game being talked about
   sourceColor: String, // The side of the game being talked about

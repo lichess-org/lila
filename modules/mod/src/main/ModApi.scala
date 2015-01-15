@@ -5,7 +5,7 @@ import lila.db.api._
 import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo }
-import lila.evaluation.{ GameGroupCrosstable }
+import lila.evaluation.{ GameGroupCrossRef }
 import lila.evaluation.GamePool.Analysed
 import lila.analyse.{ AnalysisRepo }
 import lila.game.{ GameRepo }
@@ -86,11 +86,14 @@ final class ModApi(
 
     val db = lila.db.Env.current
     val config = lila.common.PlayApp loadConfig "gameGroup"
-    val CollectionCrosstable = config.getString("collection.crossreftable")
-    implicit val gameGroupCrosstableBSONhandler = Macros.handler[lila.evaluation.GameGroupCrosstable]
-    val gameGroupCrosstable = GameGroupCrosstable(gameId = gameId, color = color, assessment = assessment)
+    val collectionCrossRef = db(config.getString("collection.crossref"))
+    implicit val gameGroupCrossRefBSONhandler = Macros.handler[lila.evaluation.GameGroupCrossRef]
+    val gameGroupCrossRef = GameGroupCrossRef(_id = gameId + "/" + color,gameId = gameId, color = color, assessment = assessment)
   
-    db(CollectionCrosstable).insert(gameGroupCrosstable) >> 
+    collectionCrossRef.insert(gameGroupCrossRef).recover {
+      case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") =>
+        collectionCrossRef.update(BSONDocument("_id" -> (gameId + "/" + color)),gameGroupCrossRef)
+      } >> 
       logApi.assessGame(mod, gameId, color, assessment.toString)
   }
 }
