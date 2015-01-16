@@ -29,6 +29,10 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     .cursor[GameGroupCrossRef]
     .collect[List]()
 
+  def getReferenceById(id: String) = collRef.find(BSONDocument("_id" -> id))
+    .cursor[GameGroupCrossRef]
+    .collect[List](1)
+
   def getResults(username: String, nb: Int = 100) = collRef.find(BSONDocument("username" -> username))
     .cursor[GameGroupResult]
     .collect[List](nb)
