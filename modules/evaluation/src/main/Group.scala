@@ -22,7 +22,7 @@ case class GameGroupResult(
   targetGameId: String, // The game the source matched against (from crosstable)
   targetColor: String, // The player of the game who was matched against
   positiveMatch: Boolean, // Was the match significant enough to make a hard determination on
-  matchPercentange: Int // 0 = Absolutely no match, 100 = Complete match
+  matchPercentage: Int // 0 = Absolutely no match, 100 = Complete match
   )
 
 case class Rating(perf: Int, interval: Int)
