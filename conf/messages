@@ -416,3 +416,5 @@ allInformationIsPublicAndOptional=All information is public and optional.
 yourCityRegionOrDepartment=Your city, region, or department.
 biographyDescription=Tell about you, what you like in chess, your favorite openings, games, players…
 maximumNbCharacters=Maximum: %s characters.
+blocks=%s blocks
+listBlockedPlayers=List players that you have blocked

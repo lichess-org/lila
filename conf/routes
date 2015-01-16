@@ -25,6 +25,7 @@ POST  /rel/unblock/:userId             controllers.Relation.unblock(userId: Stri
 GET   /@/:username/following           controllers.Relation.following(username: String)
 GET   /@/:username/followers           controllers.Relation.followers(username: String)
 GET   /@/:username/suggestions         controllers.Relation.suggest(username: String)
+GET   /rel/blocks                      controllers.Relation.blocks
 
 # User
 GET   /@/:username/opponents           controllers.User.opponents(username: String)
