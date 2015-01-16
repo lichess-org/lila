@@ -54,15 +54,18 @@ object Pov {
 
   private def orInf(i: Option[Int]) = i getOrElse Int.MaxValue
   private def isFresher(a: Pov, b: Pov) =
-      a.game.updatedAtOrCreatedAt.getSeconds > b.game.updatedAtOrCreatedAt.getSeconds
+    a.game.updatedAtOrCreatedAt.getSeconds > b.game.updatedAtOrCreatedAt.getSeconds
 
   def priority(a: Pov, b: Pov) =
     if (!a.isMyTurn && !b.isMyTurn) isFresher(a, b)
-    else (a.isMyTurn && !b.isMyTurn) ||
-      // first move has priority over games with more than 30s left
-      (!a.hasMoved && orInf(b.remainingSeconds) > 30) ||
-      (orInf(a.remainingSeconds) < orInf(b.remainingSeconds)) ||
-      isFresher(a, b)
+    else if (!a.isMyTurn && b.isMyTurn) false
+    else if (a.isMyTurn && !b.isMyTurn) true
+    // first move has priority over games with more than 30s left
+    else if (!a.hasMoved && orInf(b.remainingSeconds) > 30) true
+    else if (!b.hasMoved && orInf(a.remainingSeconds) > 30) false
+    else if (orInf(a.remainingSeconds) < orInf(b.remainingSeconds)) true
+    else if (orInf(b.remainingSeconds) < orInf(a.remainingSeconds)) false
+    else isFresher(a, b)
 }
 
 case class PovRef(gameId: String, color: Color) {
