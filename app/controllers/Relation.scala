@@ -62,6 +62,13 @@ object Relation extends LilaController {
     }
   }
 
+  def blocks = Auth { implicit ctx =>
+    me =>
+      env.api.blocks(me.id) flatMap followship(me) map { rels =>
+        html.relation.blocks(me, rels)
+      }
+  }
+
   private def followship(user: UserModel)(userIds: Set[String])(implicit ctx: Context): Fu[List[Related]] =
     UserRepo byIds userIds flatMap { users =>
       (ctx.isAuth ?? { Env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>

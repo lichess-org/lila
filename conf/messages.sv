@@ -416,3 +416,5 @@ allInformationIsPublicAndOptional=All information är allmän och frivillig.
 yourCityRegionOrDepartment=Din stad, region eller område.
 biographyDescription=Berätta om dig själv, vad du gillar med schack, dina favoritöppningar, spel, spelare…
 maximumNbCharacters=Max: %s tecken.
+blocks=%s blockeringar
+listBlockedPlayers=Lista spelare som du blockerat
