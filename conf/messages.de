@@ -360,7 +360,6 @@ pieceAnimation=Figurenanimation
 materialDifference=Materialunterschiede
 closeAccount=Mitgliedschaft beenden
 closeYourAccount=Deine Mitgliedschaft beenden
-closeMyAccount=Meine Mitgliedschaft beenden
 changedMindDoNotCloseAccount=Habe meine Meinung geändert, die Mitgliedschaft doch nicht beenden
 closeAccountExplanation=Möchten Sie die Mitgliedschaft wirklich beenden? Diese Entscheidung ist endgültig. Ein Login ist danach nicht mehr möglich und die Profilseite nicht mehr verfügbar.
 thisAccountIsClosed=Dieses Mitgliedskonto ist geschlossen.

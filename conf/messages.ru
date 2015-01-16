@@ -360,7 +360,6 @@ pieceAnimation=Анимация фигур
 materialDifference=Разница по материалу
 closeAccount=Удалить аккаунт
 closeYourAccount=Удаление аккаунта
-closeMyAccount=Удалить мой аккаунт
 changedMindDoNotCloseAccount=Я передумал, не удаляйте мой аккаунт
 closeAccountExplanation=Вы действительно желаете удалить свой аккаунт? Удаление аккаунта невозможно отменить. Вы больше не сможете зайти в игру, и ваша страница больше не будет доступна.
 thisAccountIsClosed=Ваш аккаунт удален.

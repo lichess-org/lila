@@ -360,7 +360,6 @@ pieceAnimation=ความเร็วตัวหมาก
 materialDifference=ความแตกต่างในวัตถุ
 closeAccount=ปิดบัญชี
 closeYourAccount=ปิดบัญชีของคุณ
-closeMyAccount=ปิดบัญชีของฉัน
 changedMindDoNotCloseAccount=ฉันเปลี่ยนใจแล้ว, อย่าปิดบัญชีของฉัน
 closeAccountExplanation=คุณแน่ใจนะว่าจะปิดบัญชีของคุณ? การปิดบัญชีจะเป็นการตัดสินใจที่ถาวร คุณจะไม่สามารถลงชื่อเข้าได้อีก และข้อมูลประจำตัวของคุณจะไม่สามารถเข้าถึงได้อีกเลย
 thisAccountIsClosed=บัญชีนี้ถูกปิดแล้ว

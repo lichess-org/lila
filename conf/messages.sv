@@ -360,7 +360,6 @@ pieceAnimation=Pjäsanimation
 materialDifference=Materialskillnad
 closeAccount=Avsluta konto
 closeYourAccount=Avsluta ditt konto
-closeMyAccount=Avsluta mitt konto
 changedMindDoNotCloseAccount=Jag ändrade mig, avsluta inte mitt konto
 closeAccountExplanation=Är du säker att du vill avsluta ditt konto? Att avsluta ditt konto är ett permanent beslut. Du kommer inte längre kunna logga in och din profilsida kommer inte längre vara tillgänglig.
 thisAccountIsClosed=Det här kontot är avslutat

@@ -360,7 +360,6 @@ pieceAnimation=Piece animation
 materialDifference=Material difference
 closeAccount=Close account
 closeYourAccount=Close your account
-closeMyAccount=Close my account
 changedMindDoNotCloseAccount=I changed my mind, don't close my account
 closeAccountExplanation=Are you sure you want to close your account? Closing your account is a permanent decision. You will no longer be able to login, and your profile page will no longer be accessible.
 thisAccountIsClosed=This account is closed.

@@ -359,6 +359,5 @@ gameDisplay=Configuración visual del juego
 pieceAnimation=Animación de las piezas
 materialDifference=Diferencia material
 closeYourAccount=Cerrar su cuenta
-closeMyAccount=Cerrar mi cuenta
 changedMindDoNotCloseAccount=Cambié de opinión, no cierre mi cuenta.
 invalidUsernameOrPassword=Nombre de usuario o palabra clave inválidas
