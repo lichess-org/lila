@@ -358,3 +358,6 @@ typePrivateNotesHere=Type privé notities hier
 gameDisplay=Spel uitstraling
 pieceAnimation=Stuk animatie
 materialDifference=Materiaal verschil
+currentPassword=Huidig wachtwoord
+newPassword=Nieuw wachtwoord
+newPasswordAgain=Nieuw wachtwoord (herhaling)
