@@ -31,6 +31,14 @@ function isStandard(value) {
   };
 }
 
+function isMine(hook) {
+  return hook.action === 'cancel';
+}
+
+function isNotMine(hook) {
+  return !isMine(hook);
+}
+
 module.exports = {
   toggle: function(ctrl) {
     return m('span', {
@@ -40,14 +48,27 @@ module.exports = {
     }, m('span.chart[data-icon=9]'));
   },
   render: function(ctrl, allHooks) {
-    var max = 14;
+    var mine = allHooks.filter(isMine)[0];
+    var max = mine ? 13 : 14;
     var hooks = allHooks.slice(0, max);
     var render = util.partial(renderHook, ctrl);
-    var standards = hooks.filter(isStandard(true));
+    var standards = hooks.filter(isNotMine).filter(isStandard(true));
     hookRepo.sort(ctrl, standards);
-    var variants = hooks.filter(isStandard(false))
+    var variants = hooks.filter(isNotMine).filter(isStandard(false))
       .slice(0, Math.max(0, max - standards.length - 1));
     hookRepo.sort(ctrl, variants);
+    var renderedHooks = [
+      standards.map(render),
+      variants.length ? m('tr.variants', {
+          key: 'variants',
+        },
+        m('td', {
+          colspan: 5
+        }, '— ' + ctrl.trans('variant') + ' —')
+      ) : null,
+      variants.map(render)
+    ];
+    if (mine) renderedHooks.unshift(render(mine));
     return m('table.table_wrap', [
       m('thead',
         m('tr', [
@@ -81,17 +102,7 @@ module.exports = {
           }
           while (el.nodeName !== 'TABLE');
         }
-      }, [
-        standards.map(render),
-        variants.length ? m('tr.variants', {
-            key: 'variants',
-          },
-          m('td', {
-            colspan: 5
-          }, '— ' + ctrl.trans('variant') + ' —')
-        ) : null,
-        variants.map(render)
-      ])
+      }, renderedHooks)
     ]);
   }
 };
