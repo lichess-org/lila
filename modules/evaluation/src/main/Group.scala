@@ -15,14 +15,14 @@ case class GameGroupCrossRef(
   )
 
 case class GameGroupResult(
-  _id: String,
+  _id: String, // sourceGameId + "/" + sourceGameColor
   username: String, // The username of the player being evaluated
   sourceGameId: String, // The game being talked about
   sourceColor: String, // The side of the game being talked about
   targetGameId: String, // The game the source matched against (from crosstable)
   targetColor: String, // The player of the game who was matched against
   positiveMatch: Boolean, // Was the match significant enough to make a hard determination on
-  matchPercentange: Int // 0 = Absolutely no match, 100 = Complete match
+  matchPercentage: Int // 0 = Absolutely no match, 100 = Complete match
   )
 
 case class Rating(perf: Int, interval: Int)

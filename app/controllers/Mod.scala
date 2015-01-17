@@ -99,7 +99,7 @@ object Mod extends LilaController {
             case _ => 1
           }
 
-          assessApi.create(GameGroupCrossRef(
+          assessApi.createReference(GameGroupCrossRef(
             _id = id + "/" + color, 
             gameId = id, 
             color = color,
