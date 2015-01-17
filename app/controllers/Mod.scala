@@ -8,7 +8,7 @@ import views._
 import play.api.mvc._
 import play.api.mvc.Results._
 
-import lila.evaluation.{ GameGroupCrossRef }
+import lila.evaluation.{ PlayerAssessment }
 
 object Mod extends LilaController {
 
@@ -88,10 +88,16 @@ object Mod extends LilaController {
       Form(single("assessment" -> text)).bindFromRequest.fold(
         err => fuccess(BadRequest),
         text => {
+          val white: Boolean = side match {
+            case "white" => true
+            case "black" => false
+            case _       => true
+          }
+
           val color: String = side match {
             case "white" => "white"
             case "black" => "black"
-            case _       => "white"
+            case _ => "white"
           }
 
           val assessment: Int = parseIntOption(text) match {
@@ -99,10 +105,10 @@ object Mod extends LilaController {
             case _ => 1
           }
 
-          assessApi.createReference(GameGroupCrossRef(
+          assessApi.createPlayerAssessment(PlayerAssessment(
             _id = id + "/" + color, 
             gameId = id, 
-            color = color,
+            white = white,
             assessment = assessment), me.id)
         }
       )

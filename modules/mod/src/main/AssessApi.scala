@@ -5,8 +5,7 @@ import lila.analyse.Analysis
 import lila.db.Types.Coll
 import lila.game.{ Game, GameRepo }
 import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.evaluation.{ GameGroupCrossRef, GameGroupResult, GameGroup }
-import lila.evaluation.GamePool.Analysed
+import lila.evaluation.{ PlayerAssessment, GameGroupResult, GameGroup, Analysed }
 import reactivemongo.bson._
 import scala.concurrent._
 import scala.util.{Success, Failure}
@@ -15,38 +14,38 @@ import chess.Color
 
 final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
 
-  private implicit val gameGroupCrossRefBSONhandler = Macros.handler[GameGroupCrossRef]
+  private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
   private implicit val gameGroupResultBSONhandler = Macros.handler[GameGroupResult]
 
-  def createReference(assessed: GameGroupCrossRef, mod: String) =
+  def createPlayerAssessment(assessed: PlayerAssessment, mod: String) =
     collRef.update(BSONDocument("_id" -> assessed._id), assessed, upsert = true) >>
-      logApi.assessGame(mod, assessed.gameId, assessed.color, assessed.assessment)
+      logApi.assessGame(mod, assessed.gameId, assessed.color.name, assessed.assessment)
 
   def createResult(result: GameGroupResult) =
     collRes.update(BSONDocument("_id" -> result._id), result, upsert = true)
 
-  def getReferences: Fu[List[GameGroupCrossRef]] = collRef.find(BSONDocument())
-    .cursor[GameGroupCrossRef]
+  def getPlayerAssessments: Fu[List[PlayerAssessment]] = collRef.find(BSONDocument())
+    .cursor[PlayerAssessment]
     .collect[List]()
 
-  def getReferenceById(id: String) = collRef.find(BSONDocument("_id" -> id))
-    .one[GameGroupCrossRef]
+  def getPlayerAssessmentById(id: String) = collRef.find(BSONDocument("_id" -> id))
+    .one[PlayerAssessment]
 
   def getResults(username: String, nb: Int = 100) = collRef.find(BSONDocument("username" -> username))
     .cursor[GameGroupResult]
     .collect[List](nb)
 
   def onAnalysisReady(game: Game, analysis: Analysis) {
-    def gameGroupRefs: Fu[List[GameGroup]] = {
-      getReferences flatMap {
-        _.map { crossRef =>
+    def playerAssessmentGameGroups: Fu[List[GameGroup]] = {
+      getPlayerAssessments flatMap {
+        _.map { playerAssessment =>
           for {
-            optionGameRef <- GameRepo.game(crossRef.gameId)
-            optionAnalysisRef <- AnalysisRepo.byId(crossRef.gameId)
+            optionGameRef <- GameRepo.game(playerAssessment.gameId)
+            optionAnalysisRef <- AnalysisRepo.byId(playerAssessment.gameId)
           } yield {
             (optionGameRef, optionAnalysisRef) match {
               case (Some(gameRef), Some(analysisRef)) =>
-                Some(GameGroup(Analysed(gameRef, Some(analysisRef)), Color(crossRef.color == "white"), Some(crossRef.assessment)))
+                Some(GameGroup(Analysed(gameRef, analysisRef), playerAssessment.color, Some(playerAssessment.assessment)))
               case _ => None
             }
           }
@@ -54,43 +53,37 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
       }
     }
 
-    def bestMatch(source: GameGroup, refs: Fu[List[GameGroup]])/*: Fu[Option[GameGroupResult]] = */{
-      refs map {
-        ref => println(ref)
+    def writeBestMatch(source: GameGroup, assessments: List[GameGroup]) {
+      assessments match {
+        case List(best: GameGroup) => {
+          val similarityTo = source.similarityTo(best)
+          createResult(GameGroupResult(
+            _id = source.analysed.game.id + "/" + source.color.name,
+            userId = source.analysed.game.player(source.color).id,
+            sourceGameId = source.analysed.game.id,
+            sourceColor = source.color.name,
+            targetGameId = best.analysed.game.id,
+            targetColor = best.color.name,
+            positiveMatch = similarityTo.matches,
+            matchPercentage = (100 * similarityTo.significance).toInt
+            ))
+        }
+        case x :: y :: rest => {
+          val next = (if (source.similarityTo(x).significance > source.similarityTo(y).significance) x else y) :: rest
+          writeBestMatch( source, next )
+        }
+        case Nil =>
       }
-      /*
-      val whiteGroupCompared = whiteGroup.similarityTo(gameGroup)
-      val blackGroupCompared = blackGroup.similarityTo(gameGroup)
-      (
-        GameGroupResult( // White
-          _id = game.id + "/white",
-          username = game.whitePlayer.id,
-          sourceGameId = game.id,
-          sourceColor = "white",
-          targetGameId = gameGroup.analysed.game.id,
-          targetColor = gameGroup.color.name,
-          positiveMatch = whiteGroupCompared.matches,
-          matchPercentage = (100 * whiteGroupCompared.significance).toInt
-        ),
-        GameGroupResult( // Black
-          _id = game.id + "/black",
-          username = game.blackPlayer.id,
-          sourceGameId = game.id,
-          sourceColor = "black",
-          targetGameId = gameGroup.analysed.game.id,
-          targetColor = gameGroup.color.name,
-          positiveMatch = blackGroupCompared.matches,
-          matchPercentage = (100 * blackGroupCompared.significance).toInt
-        )
-      )
-      */
     }
 
-    println(s"Assess analysed game ${game.id}")
+    val whiteGroup = GameGroup(Analysed(game, analysis), Color.White)
+    val blackGroup = GameGroup(Analysed(game, analysis), Color.Black)
 
-    val whiteGroup = GameGroup(Analysed(game, Some(analysis)), Color.White)
-    val blackGroup = GameGroup(Analysed(game, Some(analysis)), Color.Black)
-
-    gameGroupRefs
+    playerAssessmentGameGroups map {
+      a => {
+        writeBestMatch(whiteGroup, a)
+        writeBestMatch(blackGroup, a)
+      }
+    }
   }
 }

@@ -3,20 +3,21 @@ package lila.evaluation
 import Math.{pow, E, PI, log, sqrt, abs, exp}
 import scalaz.NonEmptyList
 import chess.{ Color }
-import lila.evaluation.GamePool._
-import lila.game.{ Pov }
-import lila.analyse.{ Accuracy }
+import lila.game.{ Pov, Game }
+import lila.analyse.{ Accuracy, Analysis }
 
-case class GameGroupCrossRef(
+case class PlayerAssessment(
   _id: String,
   gameId: String,
-  color: String, // Side of the game being analysed
+  white: Boolean, // Side of the game being analysed
   assessment: Int // 1 = Not Cheating, 2 = Unlikely Cheating, 3 = Unknown, 4 = Likely Cheating, 5 = Cheating
-  )
+  ) {
+  def color = Color(white)
+}
 
 case class GameGroupResult(
   _id: String, // sourceGameId + "/" + sourceGameColor
-  username: String, // The username of the player being evaluated
+  userId: String, // The username of the player being evaluated
   sourceGameId: String, // The game being talked about
   sourceColor: String, // The side of the game being talked about
   targetGameId: String, // The game the source matched against (from crosstable)
@@ -32,6 +33,9 @@ case class Similarity(a: Double, threshold: Double = 0.9) {
 
   val matches: Boolean = this.apply >= threshold
 }
+
+case class Analysed(game: Game, analysis: Analysis)
+
 case class MatchAndSig(matches: Boolean, significance: Double)
 
 case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] = None) {
@@ -45,9 +49,10 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
   }
 
   def compareSfAccuracies (that: GameGroup): Similarity = listToListSimilarity(
-    this.analysed.analysis.fold(List(0)){ x => Accuracy.diffsList(Pov(this.analysed.game, this.color), x)},
-    that.analysed.analysis.fold(List(0)){ x => Accuracy.diffsList(Pov(that.analysed.game, that.color), x)},
-    0.7)
+      Accuracy.diffsList(Pov(this.analysed.game, this.color), this.analysed.analysis),
+      Accuracy.diffsList(Pov(that.analysed.game, that.color), that.analysed.analysis),
+      0.7
+    )
 
   def compareBlurRates (that: GameGroup): Similarity = pointToPointSimilarity(
     (200 * this.analysed.game.player(this.color).blurs / this.analysed.game.turns).toInt,
