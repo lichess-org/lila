@@ -1,6 +1,5 @@
 package lila.mod
 
-import lila.analyse.Analysis
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.Types.Coll
 import lila.evaluation.{ PlayerAssessment, GameGroupResult, GameGroup, Analysed }
