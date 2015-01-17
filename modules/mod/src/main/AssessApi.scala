@@ -37,10 +37,10 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     .collect[List](nb)
 
   def onAnalysisReady(game: Game, analysis: Analysis) {
-    def gameGroupRefs: Fu[Option[GameGroup]] = {
+    def gameGroupRefs: Fu[List[GameGroup]] = {
       getReferences flatMap {
-        _.headOption match {
-          case Some(crossRef) => for {
+        _.map { crossRef =>
+          for {
             optionGameRef <- GameRepo.game(crossRef.gameId)
             optionAnalysisRef <- AnalysisRepo.byId(crossRef.gameId)
           } yield {
@@ -50,8 +50,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
               case _ => None
             }
           }
-          case None => Future { None }
-        }
+        }.sequenceFu.map(_.flatten)
       }
     }
 
