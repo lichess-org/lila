@@ -358,3 +358,5 @@ typePrivateNotesHere=Ecrivez vos notes privées ici
 gameDisplay=Affichage du jeu
 pieceAnimation=Animation des pièces
 materialDifference=Différence de matériel
+emailMeALink=Cliquez sur ce bouton pour ré-initialiser votre mot de passe.
+promoteToQueenAutomatically=Choisissez cette option si vous souhaitez promouvoir vos pions en reine automatiquement, quand ce pion atteint la case de promotion.
