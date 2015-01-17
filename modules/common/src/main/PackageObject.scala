@@ -13,7 +13,7 @@ trait PackageObject extends Steroids with WithFuture {
   def nowTenths: Long = nowMillis / 100
   def nowSeconds: Int = (nowMillis / 1000).toInt
 
-  lazy val logger = play.api.Logger
+  lazy val logger = play.api.Logger("lila")
   def loginfo(s: String) { logger info s }
   def logwarn(s: String) { logger warn s }
   def logerr(s: String) { logger error s }
