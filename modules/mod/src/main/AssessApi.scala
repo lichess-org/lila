@@ -1,16 +1,16 @@
 package lila.mod
 
-import lila.game.Game
 import lila.analyse.Analysis
-import lila.db.Types.Coll
-import lila.game.{ Game, GameRepo }
 import lila.analyse.{ Analysis, AnalysisRepo }
+import lila.db.Types.Coll
 import lila.evaluation.{ PlayerAssessment, GameGroupResult, GameGroup, Analysed }
+import lila.game.Game
+import lila.game.{ Game, GameRepo }
 import reactivemongo.bson._
 import scala.concurrent._
-import scala.util.{Success, Failure}
 
 import chess.Color
+
 
 final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
 
@@ -24,9 +24,9 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
   def createResult(result: GameGroupResult) =
     collRes.update(BSONDocument("_id" -> result._id), result, upsert = true)
 
-  def getPlayerAssessments: Fu[List[PlayerAssessment]] = collRef.find(BSONDocument())
+  def getPlayerAssessments(max: Int): Fu[List[PlayerAssessment]] = collRef.find(BSONDocument())
     .cursor[PlayerAssessment]
-    .collect[List]()
+    .collect[List](max)
 
   def getPlayerAssessmentById(id: String) = collRef.find(BSONDocument("_id" -> id))
     .one[PlayerAssessment]
@@ -36,22 +36,18 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     .collect[List](nb)
 
   def onAnalysisReady(game: Game, analysis: Analysis) {
-    def playerAssessmentGameGroups: Fu[List[GameGroup]] = {
-      getPlayerAssessments flatMap {
-        _.map { playerAssessment =>
-          for {
-            optionGameRef <- GameRepo.game(playerAssessment.gameId)
-            optionAnalysisRef <- AnalysisRepo.byId(playerAssessment.gameId)
-          } yield {
-            (optionGameRef, optionAnalysisRef) match {
-              case (Some(gameRef), Some(analysisRef)) =>
-                Some(GameGroup(Analysed(gameRef, analysisRef), playerAssessment.color, Some(playerAssessment.assessment)))
+    def playerAssessmentGameGroups: Fu[List[GameGroup]] =
+      getPlayerAssessments(200) flatMap { assessments =>
+        GameRepo.gameOptions(assessments.map(_.gameId)) flatMap { games =>
+          AnalysisRepo.doneByIds(assessments.map(_.gameId)) map { analyses =>
+            assessments zip games zip analyses flatMap {
+              case ((assessment, Some(game)), Some(analysisOption)) => 
+                Some(GameGroup(Analysed(game, analysisOption), assessment.color, Some(assessment.assessment)))
               case _ => None
             }
           }
-        }.sequenceFu.map(_.flatten)
+        }
       }
-    }
 
     def writeBestMatch(source: GameGroup, assessments: List[GameGroup]) {
       assessments match {
