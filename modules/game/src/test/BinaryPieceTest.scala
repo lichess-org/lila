@@ -8,6 +8,7 @@ import org.specs2.mutable._
 import org.specs2.specification._
 
 import lila.db.ByteArray
+import chess.variant.Standard
 
 class BinaryPieceTest extends Specification {
 
@@ -15,7 +16,7 @@ class BinaryPieceTest extends Specification {
   def write(all: PieceMap): List[String] =
     (BinaryFormat.piece write all).showBytes.split(',').toList
   def read(bytes: List[String]): PieceMap =
-    BinaryFormat.piece read ByteArray.parseBytes(bytes)
+    BinaryFormat.piece.read(ByteArray.parseBytes(bytes), Standard)
 
   "binary pieces" should {
     "write" should {

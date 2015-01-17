@@ -11,6 +11,17 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
 
   import DataForm._
 
+  case class Empty(gameId: String, move: String)
+
+  val empty = Form(mapping(
+    "gameId" -> nonEmptyText,
+    "move" -> nonEmptyText
+  )(Empty.apply)(_ => None)
+    .verifying(captchaFailMessage, validateCaptcha _)
+  )
+
+  def emptyWithCaptcha = withCaptcha(empty)
+
   val signup = Form(mapping(
     "username" -> nonEmptyText.verifying(
       Constraints minLength 2,

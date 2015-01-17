@@ -39,15 +39,13 @@ module.exports = {
 
   view: function(ctrl) {
     var pieces = ctrl.data.game.variant.key != "antichess" ?
-     ['queen', 'knight', 'rook', 'bishop'] : ['queen', 'knight', 'rook', 'bishop', 'antiking']
+     ['queen', 'knight', 'rook', 'bishop'] : ['queen', 'knight', 'rook', 'bishop', 'king']
 
     return promoting ? m('div#promotion_choice', {
       onclick: partial(cancel, ctrl)
     }, pieces.map(function(serverRole) {
-      // We display the piece for the antiking the same way we would for a normal king
-      var internalPiece = serverRole == "antiking" ? "king" : serverRole;
 
-      return m('div.cg-piece.' + internalPiece + '.' + ctrl.data.player.color, {
+      return m('div.cg-piece.' + serverRole + '.' + ctrl.data.player.color, {
         onclick: function(e) {
           e.stopPropagation();
           finish(ctrl, serverRole);

@@ -316,3 +316,23 @@ thisMoveGivesYourOpponentTheAdvantage=این حرکت به گشایش شما ا�
 openingFailed=گشایش را اشتباه حل کردید
 openingSolved=گشایش حل شد
 recentlyPlayedOpenings=اخیرا گشایش را بازی کردید
+puzzles=پازل ها
+coordinates=مختصات
+openings=افتتاح ها
+latestUpdates=آخرین به روز رسانی ها
+tournamentWinners=برندگان مسابقات
+name=نام
+description=شرح
+no=نه
+yes=بله
+help=راهنما:
+createANewTopic=ایجاد یک موضوع جدید
+topics=مباحث
+posts=پست ها
+lastPost=آخرین ارسال
+views=نمایش ها
+replies=پاسخ ها
+replyToThisTopic=پاسخ به این موضوع
+reply=پاسخ
+message=پیام
+createTheTopic=ایجاد موضوع

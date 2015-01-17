@@ -82,16 +82,30 @@ object Game extends LilaController with BaseGame {
   }
 
   def export(user: String) = Auth { implicit ctx =>
-    me =>
-      if (me.id == user.toLowerCase) fuccess {
-        play.api.Logger("export").info(s"$user from ${ctx.req.remoteAddress}")
-        import org.joda.time.DateTime
-        import org.joda.time.format.DateTimeFormat
-        val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
-        Ok.chunked(Env.game export user).withHeaders(
-          CONTENT_TYPE -> ContentTypes.TEXT,
-          CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${me.username}_$date.pgn"))
+    _ =>
+      Env.security.forms.emptyWithCaptcha map {
+        case (form, captcha) => Ok(html.game.export(user, form, captcha))
       }
+  }
+
+  def exportConfirm(user: String) = AuthBody { implicit ctx =>
+    me =>
+      implicit val req = ctx.body
+      val userId = user.toLowerCase
+      if (me.id == userId)
+        Env.security.forms.empty.bindFromRequest.fold(
+          err => Env.security.forms.anyCaptcha map { captcha =>
+            BadRequest(html.game.export(userId, err, captcha))
+          },
+          _ => fuccess {
+            play.api.Logger("export").info(s"$user from ${ctx.req.remoteAddress}")
+            import org.joda.time.DateTime
+            import org.joda.time.format.DateTimeFormat
+            val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
+            Ok.chunked(Env.game export userId).withHeaders(
+              CONTENT_TYPE -> ContentTypes.TEXT,
+              CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${me.username}_$date.pgn"))
+          })
       else notFound
   }
 }

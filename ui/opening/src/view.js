@@ -12,15 +12,15 @@ function renderAnalysisButton(ctrl) {
   return m('a.button.hint--bottom', {
     'data-hint': ctrl.trans('analysis'),
     href: '/analysis/' + encodeURIComponent(ctrl.data.opening.fen).replace(/%20/g, '_').replace(/%2F/g, '/'),
-    target: '_blank',
+    target: ctrl.data.play ? '_blank' : '_self',
     rel: 'nofollow'
   }, m('span', {
-    'data-icon': '['
+    'data-icon': 'A'
   }));
 }
 
 function renderPlayTable(ctrl) {
-  return m('div.table',
+  return m('div.table', [
     m('div.table_inner', [
       m('div.current_player',
         m('div.player.' + ctrl.data.opening.color, [
@@ -30,15 +30,14 @@ function renderPlayTable(ctrl) {
       ),
       m('div.findit', m.trust(ctrl.trans('findNbStrongMoves', strong(ctrl.data.opening.goal)))),
       m('div.control', [
-        ctrl.data.play ? m('a.button', {
+        m('a.button', {
           onclick: partial(xhr.attempt, ctrl)
-        }, ctrl.trans('giveUp')) : m('a.button', {
-          onclick: partial(xhr.newOpening, ctrl)
-        }, ctrl.trans('continueTraining')),
+        }, ctrl.trans('giveUp')),
         ' ',
         renderAnalysisButton(ctrl)
       ])
-    ]));
+    ])
+  ]);
 }
 
 function renderViewTable(ctrl) {
@@ -51,20 +50,47 @@ function renderViewTable(ctrl) {
       }, ctrl.trans('openingId', ctrl.data.opening.id))),
       m('p', m.trust(ctrl.trans('ratingX', strong(ctrl.data.opening.rating)))),
       m('p', m.trust(ctrl.trans('playedXTimes', strong(ctrl.data.opening.attempts)))),
+      m('div.control', [
+        renderAnalysisButton(ctrl),
+        ' ',
+        m('a.button.hint--bottom', {
+          'data-hint': ctrl.trans('boardEditor'),
+          href: '/editor/' + ctrl.data.opening.fen
+        }, m('span[data-icon=m]')),
+        ' ',
+        m('a.button.hint--bottom', {
+          'data-hint': ctrl.trans('continueFromHere'),
+          onclick: function() {
+            $.modal($('.continue_with'));
+          }
+        }, m('span[data-icon=U]'))
+      ]),
       m('p',
         m('input.copyable[readonly][spellCheck=false]', {
           value: ctrl.data.opening.url
         })
       )
     ]),
-    m('div.continue_wrap', [
+    m('div.continue_wrap',
       m('button.continue.button.text[data-icon=G]', {
         onclick: partial(xhr.newOpening, ctrl)
-      }, ctrl.trans('continueTraining')),
-      ' ',
-      renderAnalysisButton(ctrl)
-    ])
+      }, ctrl.trans('continueTraining'))
+    )
   ];
+}
+
+function renderContinueLinks(ctrl, fen) {
+  return m('div.continue_with', [
+    m('a.button', {
+      href: '/?fen=' + ctrl.data.opening.fen + '#ai',
+      rel: 'nofollow'
+    }, ctrl.trans('playWithTheMachine')),
+    m('br'),
+    m('a.button', {
+      href: '/?fen=' + ctrl.data.opening.fen + '#friend',
+      rel: 'nofollow'
+    }, ctrl.trans('playWithAFriend'))
+  ]);
 }
 
 function renderUserInfos(ctrl) {
@@ -258,7 +284,14 @@ module.exports = function(ctrl) {
       ))
     ]),
     m('div.center', [
-      progress(ctrl), (ctrl.data.user && ctrl.data.user.history) ? renderHistory(ctrl) : null
+      progress(ctrl),
+      m('table.identified', ctrl.data.opening.identified.map(function(ident) {
+        return m('tr', [
+          m('td', ident.name),
+          m('td', ident.moves)
+        ]);
+      })), (ctrl.data.user && ctrl.data.user.history) ? renderHistory(ctrl) : null,
+      ctrl.data.play ? null : renderContinueLinks(ctrl)
     ])
   ]);
 };

@@ -1,5 +1,7 @@
 var chessground = require('chessground');
 
+var movableVariants = ['standard', 'chess960', 'threecheck', 'fromPosition'];
+
 function makeConfig(data, situation, onMove) {
   return {
     fen: situation.fen,
@@ -7,6 +9,7 @@ function makeConfig(data, situation, onMove) {
     lastMove: situation.lastMove,
     orientation: data.player.color,
     coordinates: data.pref.coords !== 0,
+    viewOnly: movableVariants.indexOf(data.game.variant.key) === -1,
     movable: {
       free: false,
       color: situation.movable.color,
