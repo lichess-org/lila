@@ -31,9 +31,12 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
   def getPlayerAssessmentById(id: String) = collRef.find(BSONDocument("_id" -> id))
     .one[PlayerAssessment]
 
-  def getResults(username: String, nb: Int = 100) = collRef.find(BSONDocument("username" -> username))
+  def getResultsByUserId(userId: String, nb: Int = 100) = collRes.find(BSONDocument("userId" -> userId))
     .cursor[GameGroupResult]
     .collect[List](nb)
+
+  def getResultsByGameIdAndColor(gameId: String, color: Color) = collRes.find(BSONDocument("_id" -> gameId + "/" + color.name))
+    .one[GameGroupResult]
 
   def onAnalysisReady(game: Game, analysis: Analysis) {
     def playerAssessmentGameGroups: Fu[List[GameGroup]] =
