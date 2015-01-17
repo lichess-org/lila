@@ -30,12 +30,6 @@ final class JsonView(
     "short" -> v.shortName,
     "title" -> v.title)
 
-  private def perfTypeJson(p: lila.rating.PerfType) = Json.obj(
-    "key" -> p.key,
-    "name" -> p.name,
-    "title" -> p.title,
-    "iconChar" -> p.iconChar.toString)
-
   def playerJson(
     pov: Pov,
     pref: Pref,
@@ -54,7 +48,7 @@ final class JsonView(
               "id" -> gameId,
               "variant" -> variantJson(game.variant),
               "speed" -> game.speed.key,
-              "perfType" -> game.perfType.map(perfTypeJson),
+              "perf" -> PerfPicker.key(game),
               "rated" -> game.rated,
               "initialFen" -> (initialFen | chess.format.Forsyth.initial),
               "fen" -> (Forsyth >> game.toChess),
