@@ -64,7 +64,7 @@ object Relation extends LilaController {
 
   def blocks = Auth { implicit ctx =>
     me =>
-      env.api.blocks(me.id) flatMap followship map { rels =>
+      env.api.blocking(me.id) flatMap followship map { rels =>
         html.relation.blocks(me, rels)
       }
   }
