@@ -16,7 +16,9 @@
 @tour.schedule.filter(_ => tour.isOpen).map { s =>
 @momentFromNow(s.at)
 }.getOrElse {
-@if(tour.variant.exotic) { @tour.variant.shortName }
+@if(tour.variant.exotic) {
+<span class="is text" data-icon="@lila.rating.PerfType(tour.variant.key).map(_.iconChar)">@tour.variant.name</span>
+}
 @if(tour.rated) { @trans.rated() }
 }
 }
@@ -37,8 +39,8 @@
       <tr class="scheduled">
         <td>@tournamentLink(tour)</td>
         <td>@tourMode(tour)</td>
-        <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
-        <td data-icon="r">&nbsp;@tour.nbPlayers</td>
+        <td class="text" data-icon="p">@tour.clock.show | @tour.durationString</td>
+        <td class="text" data-icon="r">@tour.nbPlayers</td>
         <td>@joinButton(tour)</td>
       </tr>
       }
@@ -46,8 +48,8 @@
       <tr>
         <td>@tournamentLink(tour)</td>
         <td>@tourMode(tour)</td>
-        <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
-        <td data-icon="r">&nbsp;@tour.playerRatio</td>
+        <td class="text" data-icon="p">@tour.clock.show | @tour.durationString</td>
+        <td class="text" data-icon="r">@tour.playerRatio</td>
         <td>@joinButton(tour)</td>
       </tr>
       }
@@ -74,8 +76,8 @@
       <tr>
         <td>@tournamentLink(tour)</td>
         <td>@tourMode(tour)</td>
-        <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
-        <td data-icon="r">&nbsp;@tour.nbPlayers</td>
+        <td class="text" data-icon="p">@tour.clock.show | @tour.durationString</td>
+        <td class="text" data-icon="r">@tour.nbPlayers</td>
         <td>@joinButton(tour)</td>
       </tr>
       }
@@ -95,8 +97,8 @@
       <tr>
         <td>@tournamentLink(tour)</td>
         <td>@tourMode(tour)</td>
-        <td data-icon="p">&nbsp;@tour.clock.show | @tour.durationString</td>
-        <td data-icon="r">&nbsp;@tour.nbPlayers</td>
+        <td class="text" data-icon="p">@tour.clock.show | @tour.durationString</td>
+        <td class="text" data-icon="r">@tour.nbPlayers</td>
         <td>@tour.winner.map { player =>
           @userInfosLink(player.id, player.rating.some, withOnline = false)
           }
