@@ -35,7 +35,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     .cursor[GameGroupResult]
     .collect[List](nb)
 
-  def getResultsByGameIdAndColor(gameId: String, color: Color) = collRes.find(BSONDocument("_id" -> gameId + "/" + color.name))
+  def getResultsByGameIdAndColor(gameId: String, color: Color) = collRes.find(BSONDocument("_id" -> (gameId + "/" + color.name)))
     .one[GameGroupResult]
 
   def onAnalysisReady(game: Game, analysis: Analysis) {
