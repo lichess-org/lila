@@ -198,6 +198,9 @@ ol.scheduled_tournaments a:hover {
   overflow: auto;
   text-align: center;
 }
+#site_header .side_box .setup {
+  text-transform: uppercase;
+}
 #tournament_side a {
   padding: 0.3em 0.2em;
   display: block;
