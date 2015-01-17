@@ -44,7 +44,7 @@ object Relation extends LilaController {
 
   def following(username: String) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
-      env.api.following(user.id) flatMap followship(user) flatMap { rels =>
+      env.api.following(user.id) flatMap followship flatMap { rels =>
         env.api nbFollowers user.id map { followers =>
           html.relation.following(user, rels, followers)
         }
@@ -54,7 +54,7 @@ object Relation extends LilaController {
 
   def followers(username: String) = Open { implicit ctx =>
     OptionFuOk(UserRepo named username) { user =>
-      env.api.followers(user.id) flatMap followship(user) flatMap { rels =>
+      env.api.followers(user.id) flatMap followship flatMap { rels =>
         env.api nbFollowing user.id map { following =>
           html.relation.followers(user, rels, following)
         }
@@ -64,12 +64,12 @@ object Relation extends LilaController {
 
   def blocks = Auth { implicit ctx =>
     me =>
-      env.api.blocks(me.id) flatMap followship(me) map { rels =>
+      env.api.blocks(me.id) flatMap followship map { rels =>
         html.relation.blocks(me, rels)
       }
   }
 
-  private def followship(user: UserModel)(userIds: Set[String])(implicit ctx: Context): Fu[List[Related]] =
+  private def followship(userIds: Set[String])(implicit ctx: Context): Fu[List[Related]] =
     UserRepo byIds userIds flatMap { users =>
       (ctx.isAuth ?? { Env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>
