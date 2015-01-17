@@ -1,15 +1,15 @@
 package lila.mod
 
-import lila.game.Game
 import lila.analyse.Analysis
-import lila.db.Types.Coll
-import lila.game.{ Game, GameRepo }
 import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.evaluation.{ GameGroupCrossRef, GameGroupResult, GameGroup }
+import lila.db.Types.Coll
 import lila.evaluation.GamePool.Analysed
+import lila.evaluation.{ GameGroupCrossRef, GameGroupResult, GameGroup }
+import lila.game.Game
+import lila.game.{ Game, GameRepo }
 import reactivemongo.bson._
 import scala.concurrent._
-import scala.util.{Success, Failure}
+import scala.util.{ Success, Failure }
 
 import chess.Color
 
@@ -25,9 +25,9 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
   def createResult(result: GameGroupResult) =
     collRes.update(BSONDocument("_id" -> result._id), result, upsert = true)
 
-  def getReferences: Fu[List[GameGroupCrossRef]] = collRef.find(BSONDocument())
+  def getReferences(max: Int): Fu[List[GameGroupCrossRef]] = collRef.find(BSONDocument())
     .cursor[GameGroupCrossRef]
-    .collect[List]()
+    .collect[List](max)
 
   def getReferenceById(id: String) = collRef.find(BSONDocument("_id" -> id))
     .one[GameGroupCrossRef]
@@ -37,24 +37,21 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     .collect[List](nb)
 
   def onAnalysisReady(game: Game, analysis: Analysis) {
-    def gameGroupRefs: Fu[List[GameGroup]] = {
-      getReferences flatMap {
-        _.map { crossRef =>
-          for {
-            optionGameRef <- GameRepo.game(crossRef.gameId)
-            optionAnalysisRef <- AnalysisRepo.byId(crossRef.gameId)
-          } yield {
-            (optionGameRef, optionAnalysisRef) match {
-              case (Some(gameRef), Some(analysisRef)) =>
-                Some(GameGroup(Analysed(gameRef, Some(analysisRef)), Color(crossRef.color == "white"), Some(crossRef.assessment)))
+    def gameGroupRefs: Fu[List[GameGroup]] =
+      getReferences(200) flatMap { references =>
+        GameRepo.gameOptions(references.map(_.gameId)) flatMap { games =>
+          AnalysisRepo.doneByIds(references.map(_.gameId)) map { analyses =>
+            references zip games zip analyses flatMap {
+              case ((reference, Some(game)), Some(analysisOption)) => Some(GameGroup(
+                Analysed(game, Some(analysisOption)),
+                Color(reference.color == "white"), Some(reference.assessment)))
               case _ => None
             }
           }
-        }.sequenceFu.map(_.flatten)
+        }
       }
-    }
 
-    def bestMatch(source: GameGroup, refs: Fu[List[GameGroup]])/*: Fu[Option[GameGroupResult]] = */{
+    def bestMatch(source: GameGroup, refs: Fu[List[GameGroup]]) /*: Fu[Option[GameGroupResult]] = */ {
       refs map {
         ref => println(ref)
       }
