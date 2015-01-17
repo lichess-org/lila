@@ -14,6 +14,11 @@ data: @Html(play.api.libs.json.Json.stringify(data)),
 routes: roundRoutes.controllers,
 i18n: @jsI18n()
 };
+lichess.variantIcons = {
+@lila.rating.PerfType.variants.map { variant =>
+@variant.key: @Html(s""""${variant.iconChar.toString}""""),
+}
+};
 }
 }
 

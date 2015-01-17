@@ -34,6 +34,24 @@ function wheel(ctrl, e) {
   return false;
 }
 
+function renderVariantReminder(ctrl) {
+  if (ctrl.data.game.speed !== 'correspondence') return;
+  var icon = lichess.variantIcons[ctrl.data.game.perf];
+  if (!icon) return;
+  return m('div', {
+    class: 'variant_reminder is',
+    'data-icon': icon,
+    config: function(el, isUpdate) {
+      if (!isUpdate) setTimeout(function() {
+        el.classList.add('gone');
+        setTimeout(function() {
+          el.remove();
+        }, 600);
+      }, 1000);
+    }
+  });
+}
+
 function visualBoard(ctrl) {
   return m('div.lichess_board_wrap', [
     m('div.lichess_board.' + ctrl.data.game.variant.key, {
@@ -44,7 +62,8 @@ function visualBoard(ctrl) {
       },
       onclick: ctrl.data.player.spectator ? toggleDontTouch : null
     }, chessground.view(ctrl.chessground)),
-    renderPromotion(ctrl)
+    renderPromotion(ctrl),
+    renderVariantReminder(ctrl)
   ]);
 }
 
@@ -70,7 +89,7 @@ module.exports = function(ctrl) {
   return [
     m('div.top', [
       m('div.lichess_game', {
-        config: function(el, isUpdate, context) {
+        config: function(el, isUpdate) {
           if (isUpdate) return;
           $('body').trigger('lichess.content_loaded');
         }
