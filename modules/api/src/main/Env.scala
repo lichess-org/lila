@@ -36,8 +36,6 @@ final class Env(
   val PrismicApiUrl = config getString "prismic.api_url"
   val EditorAnimationDuration = config duration "editor.animation.duration"
 
-  val version = config getInt "api.version"
-
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
     val blindCookieMaxAge = config getInt "accessibility.blind.cookie.max_age"

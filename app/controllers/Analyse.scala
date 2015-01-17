@@ -63,7 +63,7 @@ object Analyse extends LilaController {
               if (HTTPRequest.isBot(ctx.req)) divider.empty
               else divider(pov.game, initialFen)
             val pgn = Env.game.pgnDump(pov.game, initialFen)
-            Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data =>
+            Env.api.roundApi.watcher(pov, lila.api.MobileApi.currentVersion, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data =>
               Ok(html.analyse.replay(
                 pov,
                 data,

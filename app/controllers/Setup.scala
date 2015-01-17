@@ -138,7 +138,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
     OptionFuResult(GameRepo pov fullId) { pov =>
       pov.game.started.fold(
         Redirect(routes.Round.player(pov.fullId)).fuccess,
-          Env.api.roundApi.player(pov, Env.api.version, otherPovs = Nil) zip
+          Env.api.roundApi.player(pov, lila.api.MobileApi.currentVersion, otherPovs = Nil) zip
           (userId ?? UserRepo.named) flatMap {
             case (data, user) => PreventTheft(pov) {
               Ok(html.setup.await(
