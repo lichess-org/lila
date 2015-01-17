@@ -19,6 +19,7 @@ case class AiConfig(
   def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen).some
 
   def game = fenGame { chessGame =>
+    val realVariant = chessGame.board.variant
     Game.make(
       game = chessGame,
       whitePlayer = Player.make(
@@ -28,8 +29,8 @@ case class AiConfig(
         color = ChessColor.Black,
         aiLevel = creatorColor.white option level),
       mode = Mode.Casual,
-      variant = variant,
-      source = (variant == chess.variant.FromPosition).fold(Source.Position, Source.Ai),
+      variant = realVariant,
+      source = (realVariant == chess.variant.FromPosition).fold(Source.Position, Source.Ai),
       daysPerTurn = makeDaysPerTurn,
       pgnImport = None)
   } start
