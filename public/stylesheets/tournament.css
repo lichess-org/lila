@@ -11,12 +11,13 @@ ol.scheduled_tournaments a:hover {
   line-height: 2.3em;
 }
 #tournament_list table.slist .icon {
-  width: 3em;
+  width: 4em;
 }
 #tournament_list table.slist .icon span {
-  font-size: 3em;
-  opacity: 0.8;
-  transition: 0.3s;
+  font-size: 4em;
+  color: rgba(200,200,200,0.5);
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+  /* color: rgba(216,80,0, 0.9); */
 }
 #tournament_list table.slist td {
   padding-top: 1em;
@@ -24,12 +25,23 @@ ol.scheduled_tournaments a:hover {
 }
 #tournament_list table.slist .header {
   letter-spacing: 2px;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 0!important;
 }
-#tournament_list table.slist a.name {
+#tournament_list table.slist .header:hover {
+  transform: translateX(3px);
+}
+#tournament_list table.slist .header a {
+  text-decoration: none;
+  padding: 1em;
+  display: block;
+}
+#tournament_list table.slist .name {
   letter-spacing: 3px;
   font-size: 1.7em;
-  text-decoration: none;
   display: block;
+  transition: 0.3s;
 }
 #tournament.scheduled h1,
 #tournament table tr.standing.scheduled:first-child td:first-child {
@@ -40,7 +52,7 @@ ol.scheduled_tournaments a:hover {
   font-size: 20px;
   font-family: monospace;
   font-weight: bold;
-  margin: 21px 25px 0 0;
+  margin: 25px 25px 0 0;
 }
 #tournament div.tournament_show {
   width: 525px;
@@ -222,6 +234,9 @@ ol.scheduled_tournaments a:hover {
 }
 .setup {
   text-transform: uppercase;
+}
+.setup a {
+  text-decoration: none;
 }
 #tournament_side a {
   padding: 0.3em 0.2em;

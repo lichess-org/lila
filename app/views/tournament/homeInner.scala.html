@@ -3,7 +3,7 @@
 @joinButton(tour: lila.tournament.Enterable) = {
 @ctx.me.map { me =>
 @if(tour isActive me) {
-<span class="joined label" data-icon="E">&nbsp;JOINED</span>
+<span class="joined text" data-icon="E">JOINED</span>
 } else {
 <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
   <button data-icon="G" type="submit" class="submit button text">@trans.join()</button>
@@ -20,8 +20,10 @@
 
 @tourTd(tour: lila.tournament.Tournament) = {
 <td class="header">
-  <a href="@routes.Tournament.show(tour.id)" class="name">@tour.fullName</a>
-  @setup(tour)
+  <a href="@routes.Tournament.show(tour.id)">
+    <span class="name">@tour.fullName</span>
+    @setup(tour)
+  </a>
 </td>
 }
 
@@ -31,7 +33,7 @@
     <thead>
       <tr>
         <th colspan=2 class="large">@trans.openTournaments()</th>
-        <th>@trans.timeControl()</th>
+        <th>@trans.duration()</th>
         <th colspan="2">@trans.players()</th>
       </tr>
     </thead>
@@ -40,7 +42,7 @@
       <tr class="scheduled">
         @iconTd(tour)
         @tourTd(tour)
-        <td class="text" data-icon="p">@tour.durationString</td>
+        <td>@tour.durationString</td>
         <td class="text" data-icon="r">@tour.nbPlayers</td>
         <td>@joinButton(tour)</td>
       </tr>
@@ -49,7 +51,7 @@
       <tr>
         @iconTd(tour)
         @tourTd(tour)
-        <td class="text" data-icon="p">@tour.durationString</td>
+        <td>@tour.durationString</td>
         <td class="text" data-icon="r">@tour.playerRatio</td>
         <td>@joinButton(tour)</td>
       </tr>
@@ -66,7 +68,7 @@
     <thead>
       <tr>
         <th colspan=2 class="large">@trans.playingRightNow()</th>
-        <th>@trans.timeControl()</th>
+        <th>@trans.duration()</th>
         <th>@trans.players()</th>
         <th></th>
       </tr>
@@ -76,7 +78,7 @@
       <tr>
         @iconTd(tour)
         @tourTd(tour)
-        <td class="text" data-icon="p">@tour.durationString</td>
+        <td>@tour.durationString</td>
         <td class="text" data-icon="r">@tour.nbPlayers</td>
         <td>@joinButton(tour)</td>
       </tr>
@@ -86,7 +88,7 @@
     <thead>
       <tr>
         <th colspan=2 class="large">@trans.finished()</th>
-        <th>@trans.timeControl()</th>
+        <th>@trans.duration()</th>
         <th>@trans.players()</th>
         <th>@trans.winner()</th>
       </tr>
@@ -96,7 +98,7 @@
       <tr>
         @iconTd(tour)
         @tourTd(tour)
-        <td class="text" data-icon="p">@tour.durationString</td>
+        <td>@tour.durationString</td>
         <td class="text" data-icon="r">@tour.nbPlayers</td>
         <td>@tour.winner.map { player =>
           @userInfosLink(player.id, player.rating.some, withOnline = false)

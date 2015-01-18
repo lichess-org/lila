@@ -42,7 +42,7 @@ object Tournament extends LilaController {
   }
 
   private def fetchTournaments =
-    env allCreatedSorted true zip repo.publicStarted zip repo.finished(20)
+    env allCreatedSorted true zip repo.publicStarted zip repo.finished(10)
 
   def show(id: String) = Open { implicit ctx =>
     repo byId id flatMap {
