@@ -3,16 +3,7 @@
 <div class="side_box padded">
   <div class="game_infos" data-icon="@tour.perfType.map(_.iconChar)">
     <div class="header">
-      <span class="setup">
-        @tour.clock.show •
-        @if(tour.variant.exotic) {
-        @game.variantLink(tour.variant, (if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName else tour.variant.name), cssClass = "hint--top")
-        } else {
-        @tour.perfType.map { pt =>
-        <span class="hint--top" data-hint="@pt.title">@pt.name</span>
-        }
-        } • @tour.rated.fold(trans.rated.str(), trans.casual.str())
-      </span>
+      @setup(tour)
       @systemName(tour.system).capitalize
       (<a href="@routes.Tournament.help(tour.system.toString.toLowerCase.some)">?</a>)
       • @tour.minutes minutes

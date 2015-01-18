@@ -1,0 +1,16 @@
+@(tour: lila.tournament.Tournament)(implicit ctx: Context)
+<span class="setup">
+  @tour.clock.show •
+  @if(tour.variant.exotic) {
+  @game.variantLink(tour.variant, (if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName else tour.variant.name), cssClass = "hint--top")
+  } else {
+  @tour.perfType.map { pt =>
+  <span class="hint--top" data-hint="@pt.title">@pt.name</span>
+  }
+  } •
+  @tour.schedule.filter(_ => tour.isOpen).map { s =>
+  @momentFromNow(s.at)
+  }.getOrElse {
+  @tour.rated.fold(trans.rated.str(), trans.casual.str())
+  }
+</span>

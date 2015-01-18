@@ -12,15 +12,17 @@
 }
 }
 
-@tourMode(tour: lila.tournament.Tournament) = {
-@tour.schedule.filter(_ => tour.isOpen).map { s =>
-@momentFromNow(s.at)
-}.getOrElse {
-@if(tour.variant.exotic) {
-<span class="is text" data-icon="@lila.rating.PerfType(tour.variant.key).map(_.iconChar)">@tour.variant.name</span>
+@iconTd(tour: lila.tournament.Tournament) = {
+<td class="icon">
+  <span @if(tour.scheduled){class="is-gold"} data-icon="@tour.perfType.map(_.iconChar)"></span>
+</td>
 }
-@if(tour.rated) { @trans.rated() }
-}
+
+@tourTd(tour: lila.tournament.Tournament) = {
+<td class="header">
+  <a href="@routes.Tournament.show(tour.id)" class="name">@tour.fullName</a>
+  @setup(tour)
+</td>
 }
 
 <div class="content_box tournament_box no_padding">
@@ -28,8 +30,7 @@
   <table class="slist">
     <thead>
       <tr>
-        <th class="large">@trans.openTournaments()</th>
-        <th></th>
+        <th colspan=2 class="large">@trans.openTournaments()</th>
         <th>@trans.timeControl()</th>
         <th colspan="2">@trans.players()</th>
       </tr>
@@ -37,25 +38,25 @@
     <tbody>
       @createds.filter(_.scheduled).map { tour =>
       <tr class="scheduled">
-        <td>@tournamentLink(tour)</td>
-        <td>@tourMode(tour)</td>
-        <td class="text" data-icon="p">@tour.clock.show | @tour.durationString</td>
+        @iconTd(tour)
+        @tourTd(tour)
+        <td class="text" data-icon="p">@tour.durationString</td>
         <td class="text" data-icon="r">@tour.nbPlayers</td>
         <td>@joinButton(tour)</td>
       </tr>
       }
       @createds.filterNot(_.scheduled).map { tour =>
       <tr>
-        <td>@tournamentLink(tour)</td>
-        <td>@tourMode(tour)</td>
-        <td class="text" data-icon="p">@tour.clock.show | @tour.durationString</td>
+        @iconTd(tour)
+        @tourTd(tour)
+        <td class="text" data-icon="p">@tour.durationString</td>
         <td class="text" data-icon="r">@tour.playerRatio</td>
         <td>@joinButton(tour)</td>
       </tr>
       }
       @if(ctx.isAuth) {
       <tr class="create">
-        <td colspan="5">
+        <td colspan="6">
           <a href="@routes.Tournament.form()" class="action button text">@trans.createANewTournament()</a>
         </td>
       </tr>
@@ -64,8 +65,7 @@
     @if(starteds.nonEmpty) {
     <thead>
       <tr>
-        <th class="large">@trans.playingRightNow()</th>
-        <th></th>
+        <th colspan=2 class="large">@trans.playingRightNow()</th>
         <th>@trans.timeControl()</th>
         <th>@trans.players()</th>
         <th></th>
@@ -74,9 +74,9 @@
     <tbody>
       @starteds.map { tour =>
       <tr>
-        <td>@tournamentLink(tour)</td>
-        <td>@tourMode(tour)</td>
-        <td class="text" data-icon="p">@tour.clock.show | @tour.durationString</td>
+        @iconTd(tour)
+        @tourTd(tour)
+        <td class="text" data-icon="p">@tour.durationString</td>
         <td class="text" data-icon="r">@tour.nbPlayers</td>
         <td>@joinButton(tour)</td>
       </tr>
@@ -85,8 +85,7 @@
     }
     <thead>
       <tr>
-        <th class="large">@trans.finished()</th>
-        <th></th>
+        <th colspan=2 class="large">@trans.finished()</th>
         <th>@trans.timeControl()</th>
         <th>@trans.players()</th>
         <th>@trans.winner()</th>
@@ -95,9 +94,9 @@
     <tbody>
       @finisheds.map { tour =>
       <tr>
-        <td>@tournamentLink(tour)</td>
-        <td>@tourMode(tour)</td>
-        <td class="text" data-icon="p">@tour.clock.show | @tour.durationString</td>
+        @iconTd(tour)
+        @tourTd(tour)
+        <td class="text" data-icon="p">@tour.durationString</td>
         <td class="text" data-icon="r">@tour.nbPlayers</td>
         <td>@tour.winner.map { player =>
           @userInfosLink(player.id, player.rating.some, withOnline = false)
