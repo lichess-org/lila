@@ -1,8 +1,8 @@
 package controllers
 
 import play.api.data.Form
-import play.api.mvc.{ Result, Results, Call, RequestHeader, Accepting }
 import play.api.libs.json.Json
+import play.api.mvc.{ Result, Results, Call, RequestHeader, Accepting }
 
 import lila.api.{ Context, BodyContext }
 import lila.app._
@@ -121,14 +121,25 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
   def join(id: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo game id) { game =>
       env.friendJoiner(game, ctx.me).fold(
-        err => fuccess {
-          Redirect(routes.Round.watcher(id, "white"))
-        },
-        _ map {
+        err => negotiate(
+          html = fuccess {
+            Redirect(routes.Round.watcher(id, "white"))
+          },
+          api = _ => fuccess {
+            BadRequest(Json.obj("error" -> err.toString)) as JSON
+          }
+        ),
+        _ flatMap {
           case (p, events) => {
             Env.hub.socket.round ! lila.hub.actorApi.map.Tell(p.gameId, lila.round.actorApi.EventList(events))
-            implicit val req = ctx.req
-            redirectPov(p, routes.Round.player(p.fullId))
+            negotiate(
+              html = fuccess {
+                implicit val req = ctx.req
+                redirectPov(p, routes.Round.player(p.fullId))
+              },
+              api = apiVersion => Env.api.roundApi.player(p, apiVersion, otherPovs = Nil) map { data =>
+                Created(data) as JSON
+              })
           }
         })
     }
@@ -138,7 +149,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
     OptionFuResult(GameRepo pov fullId) { pov =>
       pov.game.started.fold(
         Redirect(routes.Round.player(pov.fullId)).fuccess,
-          Env.api.roundApi.player(pov, lila.api.MobileApi.currentVersion, otherPovs = Nil) zip
+        Env.api.roundApi.player(pov, lila.api.MobileApi.currentVersion, otherPovs = Nil) zip
           (userId ?? UserRepo.named) flatMap {
             case (data, user) => PreventTheft(pov) {
               Ok(html.setup.await(
