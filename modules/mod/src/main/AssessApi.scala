@@ -16,7 +16,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
   private implicit val gameGroupResultBSONhandler = Macros.handler[GameGroupResult]
 
-  def createPlayerAssessment(assessed: PlayerAssessment, mod: String) =
+  def createPlayerAssessment(assessed: PlayerAssessment, mod: String) = 
     collRef.update(BSONDocument("_id" -> assessed._id), assessed, upsert = true) >>
       logApi.assessGame(mod, assessed.gameId, assessed.color.name, assessed.assessment)
 
@@ -37,15 +37,25 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
   def getResultsByGameIdAndColor(gameId: String, color: Color) = collRes.find(BSONDocument("_id" -> (gameId + "/" + color.name)))
     .one[GameGroupResult]
 
+  def getResultsByGameId(gameId: String) = Future { (
+    getResultsByGameIdAndColor(gameId, Color.White),
+    getResultsByGameIdAndColor(gameId, Color.Black)
+  ) }
+
   def onAnalysisReady(game: Game, analysis: Analysis) {
     def playerAssessmentGameGroups: Fu[List[GameGroup]] =
       getPlayerAssessments(200) flatMap { assessments =>
         GameRepo.gameOptions(assessments.map(_.gameId)) flatMap { games =>
           AnalysisRepo.doneByIds(assessments.map(_.gameId)) map { analyses =>
             assessments zip games zip analyses flatMap {
-              case ((assessment, Some(game)), Some(analysisOption)) => 
+              case ((assessment, Some(game)), Some(analysisOption)) => {
+                println("I exist!")
                 Some(GameGroup(Analysed(game, analysisOption), assessment.color, Some(assessment.assessment)))
-              case _ => None
+              }
+              case _ => {
+                println("I do not exist!")
+                None
+              }
             }
           }
         }
@@ -55,6 +65,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
       assessments match {
         case List(best: GameGroup) => {
           val similarityTo = source.similarityTo(best)
+          println(best + " is greatest")
           createResult(GameGroupResult(
             _id = source.analysed.game.id + "/" + source.color.name,
             userId = source.analysed.game.player(source.color).id,
@@ -68,6 +79,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
         }
         case x :: y :: rest => {
           val next = (if (source.similarityTo(x).significance > source.similarityTo(y).significance) x else y) :: rest
+          println(next + " is greater")
           writeBestMatch( source, next )
         }
         case Nil =>
@@ -77,8 +89,11 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     val whiteGroup = GameGroup(Analysed(game, analysis), Color.White)
     val blackGroup = GameGroup(Analysed(game, analysis), Color.Black)
 
+    println("I've gotten this far!")
+
     playerAssessmentGameGroups map {
       a => {
+        println(a)
         writeBestMatch(whiteGroup, a)
         writeBestMatch(blackGroup, a)
       }

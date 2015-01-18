@@ -17,7 +17,7 @@ case class PlayerAssessment(
 
 case class GameGroupResult(
   _id: String, // sourceGameId + "/" + sourceGameColor
-  userId: String, // The username of the player being evaluated
+  userId: String, // The userId of the player being evaluated
   sourceGameId: String, // The game being talked about
   sourceColor: String, // The side of the game being talked about
   targetGameId: String, // The game the source matched against (from crosstable)
@@ -42,8 +42,8 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
   import Statistics._
 
   def compareMoveTimes (that: GameGroup): Similarity = {
-    val thisMt: List[Int] = skip(this.analysed.game.moveTimes.toList, {if (this.color == Color.White) 1 else 0})
-    val thatMt: List[Int] = skip(that.analysed.game.moveTimes.toList, {if (that.color == Color.White) 1 else 0})
+    val thisMt: List[Int] = skip(this.analysed.game.moveTimes.toList, {if (this.color == Color.White) 0 else 1})
+    val thatMt: List[Int] = skip(that.analysed.game.moveTimes.toList, {if (that.color == Color.White) 0 else 1})
 
     listToListSimilarity(thisMt, thatMt, 0.3)
   }

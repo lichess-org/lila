@@ -1,6 +1,9 @@
-@(game: Game)(implicit ctx: Context)
+@import lila.evaluation.GameGroupResult
+
+@(game: Game, results: Tuple2[Option[GameGroupResult], Option[GameGroupResult]])(implicit ctx: Context)
 
 @import lila.app._
+@import chess.Color
 
 @if(isGranted(_.MarkEngine)) {
 @game.players.map { p =>
@@ -14,6 +17,11 @@
   <option value="4">Likely cheating</option>
   <option value="5">Cheating</option>
 </select>
+@((results, p.color) match {
+case ((Some(result), _), Color.White) => result._id + " " + (if (result.positiveMatch) "MATCHES" else "PARTIAL") + " " + result.matchPercentage
+case ((_, Some(result)), Color.Black) => result._id + " " + (if (result.positiveMatch) "MATCHES" else "PARTIAL") + " " + result.matchPercentage
+case _ =>
+})
 <br />
 }
 }
