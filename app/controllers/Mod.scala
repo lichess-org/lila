@@ -85,25 +85,12 @@ object Mod extends LilaController {
       import play.api.data._
       implicit def req = ctx.body
 
-      Form(single("assessment" -> text)).bindFromRequest.fold(
+      Form(single("assessment" -> number(min = 1, max = 5))).bindFromRequest.fold(
         err => fuccess(BadRequest),
-        text => {
-          val white: Boolean = side match {
-            case "white" => true
-            case "black" => false
-            case _       => true
-          }
+        assessment => {
+          val white: Boolean = (side == "white")
 
-          val color: String = side match {
-            case "white" => "white"
-            case "black" => "black"
-            case _ => "white"
-          }
-
-          val assessment: Int = parseIntOption(text) match {
-            case Some(a) if (a >= 1 && a <= 5) => a
-            case _ => 1
-          }
+          val color: String = if (white) "white" else "black"
 
           assessApi.createPlayerAssessment(PlayerAssessment(
             _id = id + "/" + color, 

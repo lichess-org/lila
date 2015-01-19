@@ -18,8 +18,8 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
 
   def createPlayerAssessment(assessed: PlayerAssessment, mod: String) = {
     collRef.update(BSONDocument("_id" -> assessed._id), assessed, upsert = true) >>
-      logApi.assessGame(mod, assessed.gameId, assessed.color.name, assessed.assessment)
-    refreshAssess(assessed.gameId)
+      logApi.assessGame(mod, assessed.gameId, assessed.color.name, assessed.assessment) >>
+        refreshAssess(assessed.gameId)
   } 
     
 
@@ -43,16 +43,16 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
   def getResultsByGameId(gameId: String): Fu[GameResults] =
     getResultsByGameIdAndColor(gameId, Color.White) flatMap {
       white =>
-        getResultsByGameIdAndColor(gameId, Color.Black) flatMap {
+        getResultsByGameIdAndColor(gameId, Color.Black) map {
           black => 
-            Future { GameResults(white = white, black = black) }
+            GameResults(white = white, black = black)
         }
     }
 
   
   def refreshAssess(gameId: String) = {
     GameRepo.game(gameId) flatMap { game => 
-      AnalysisRepo.byId(gameId) map { analysis => 
+      AnalysisRepo.doneById(gameId) map { analysis => 
         (game, analysis) match {
           case (Some(g), Some(a)) => onAnalysisReady(g, a)
           case _ =>

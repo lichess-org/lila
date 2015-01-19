@@ -8,6 +8,7 @@ import play.api.mvc._
 import play.twirl.api.Html
 
 import lila.analyse.{ Analysis, TimeChart, AdvantageChart, Accuracy }
+import lila.evaluation.GameResults
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
@@ -65,7 +66,9 @@ object Analyse extends LilaController {
                 if (HTTPRequest.isBot(ctx.req)) divider.empty
                 else divider(pov.game, initialFen)
               val pgn = Env.game.pgnDump(pov.game, initialFen)
-              Env.mod.assessApi.getResultsByGameId(pov.game.id) flatMap {
+              val assessResults = if (isGranted(_.MarkEngine)) Env.mod.assessApi.getResultsByGameId(pov.game.id)
+                else fuccess(GameResults(None, None))
+              assessResults flatMap {
                 results =>
                   Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data => {
                     Ok(html.analyse.replay(
