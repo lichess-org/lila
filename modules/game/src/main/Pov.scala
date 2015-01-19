@@ -53,8 +53,12 @@ object Pov {
     game player user map { apply(game, _) }
 
   private def orInf(i: Option[Int]) = i getOrElse Int.MaxValue
-  private def isFresher(a: Pov, b: Pov) =
-    a.game.updatedAtOrCreatedAt.getSeconds > b.game.updatedAtOrCreatedAt.getSeconds
+  private def isFresher(a: Pov, b: Pov) = {
+    val aDate = a.game.updatedAtOrCreatedAt.getSeconds
+    val bDate = b.game.updatedAtOrCreatedAt.getSeconds
+    if (aDate == bDate) a.id < b.id
+    else aDate > bDate
+  }
 
   def priority(a: Pov, b: Pov) =
     if (!a.isMyTurn && !b.isMyTurn) isFresher(a, b)
