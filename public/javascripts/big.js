@@ -2023,17 +2023,14 @@ lichess.storage = {
       }
     });
 
-    $('#whiteAssessment').change(function() {
-      $.post('/mod/' + data.game.id + '/white/assess', {
-        assessment: $(this).val()
+    function sendAssessment(side, value) {
+      $.post('/mod/' + data.game.id + '/' + side + '/assess', {
+        assessment: value
       });
-    });
+    }
 
-    $('#blackAssessment').change(function() {
-      $.post('/mod/' + data.game.id + '/black/assess', {
-        assessment: $(this).val()
-      });
-    });
+    $('#whiteAssessment').change(sendAssessment('white', $(this).val()));
+    $('#blackAssessment').change(sendAssessment('black', $(this).val()));
     
     $('#refreshAssessment').click(function() {
       $.post('/mod/refreshAssess', {
