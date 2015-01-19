@@ -94,6 +94,12 @@ private[controllers] trait LilaController
         isGranted(perm).fold(f(ctx)(me), fuccess(authorizationFailed(ctx.req)))
     }
 
+  protected def SecureBody[A](p: BodyParser[A])(perm: Permission)(f: BodyContext => UserModel => Fu[Result]): Action[A] =
+    AuthBody(p) { implicit ctx =>
+      me =>
+        isGranted(perm).fold(f(ctx)(me), fuccess(authorizationFailed(ctx.req)))
+    }
+
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     Env.security.firewall.accepts(ctx.req) flatMap {
       _ fold (a, {
