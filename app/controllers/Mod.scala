@@ -109,7 +109,7 @@ object Mod extends LilaController {
 
       Form(single("assess" -> text)).bindFromRequest.fold(
         err => fuccess(BadRequest),
-        text => assessApi.refreshAssess(text)
+        gameId => assessApi.refreshAssess(gameId)
       )
   }
 
