@@ -38,6 +38,7 @@ module.exports = function(cfg) {
       fen: 'start'
     });
     this.data.castles = editor.castlesAt(true);
+    this.data.color('w');
   }.bind(this);
 
   this.clearBoard = function() {

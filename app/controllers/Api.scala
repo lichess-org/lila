@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.libs.json.JsValue
+import play.api.libs.json._
 import play.api.mvc._, Results._
 
 import lila.app._
@@ -9,6 +9,19 @@ object Api extends LilaController {
 
   private val userApi = Env.api.userApi
   private val gameApi = Env.api.gameApi
+
+  def status = Action { req =>
+    val api = lila.api.MobileApi
+    Ok(Json.obj(
+      "current" -> api.currentVersion,
+      "olds" -> api.oldVersions.map { old =>
+        Json.obj(
+          "version" -> old.version,
+          "deprecatedAt" -> old.deprecatedAt,
+          "unsupportedAt" -> old.unsupportedAt)
+      }
+    )) as JSON
+  }
 
   def user(username: String) = ApiResult { req =>
     userApi.one(

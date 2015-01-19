@@ -416,3 +416,4 @@ allInformationIsPublicAndOptional=Tutte le informazioni sono pubbliche e facolta
 yourCityRegionOrDepartment=La tua città, regione o dipartimento.
 biographyDescription=Parlaci di te, cosa ti piace negli scacchi, le tue aperture, giochi, giocatori preferiti...
 maximumNbCharacters=Massimo: %s caratteri.
+listBlockedPlayers=Lista dei giocatori bloccati

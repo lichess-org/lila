@@ -63,7 +63,7 @@ final class JsonView(
               "rematch" -> game.next,
               "source" -> game.source.map(sourceJson),
               "status" -> statusJson(game.status),
-              "tournamentId" -> game.tournamentId),
+              "tournamentId" -> game.tournamentId).noNull,
             "clock" -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock.map(correspondenceJson),
             "player" -> Json.obj(
@@ -123,7 +123,7 @@ final class JsonView(
               })
             },
             "possibleMoves" -> possibleMoves(pov),
-            "takebackable" -> takebackable)
+            "takebackable" -> takebackable).noNull
       }
 
   def watcherJson(
@@ -165,7 +165,8 @@ final class JsonView(
                   "size" -> o.size
                 )
               },
-              "status" -> statusJson(game.status)),
+              "status" -> statusJson(game.status),
+              "joinable" -> game.joinable).noNull,
             "clock" -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock.map(correspondenceJson),
             "player" -> Json.obj(
@@ -213,7 +214,7 @@ final class JsonView(
                   "t" -> text)
               })
             }
-          )
+          ).noNull
       }
 
   def userAnalysisJson(pov: Pov, pref: Pref) = {

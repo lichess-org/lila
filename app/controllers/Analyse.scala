@@ -59,29 +59,28 @@ object Analyse extends LilaController {
     GameRepo initialFen pov.game.id flatMap { initialFen =>
       (env.analyser get pov.game.id) zip
         (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
-          Env.game.crosstableApi(pov.game) flatMap {
-            case ((analysis, tour), crosstable) =>
-              val division =
-                if (HTTPRequest.isBot(ctx.req)) divider.empty
-                else divider(pov.game, initialFen)
-              val pgn = Env.game.pgnDump(pov.game, initialFen)
-              Env.mod.assessApi.getResultsByGameId(pov.game.id) flatMap {
-                results =>
-                  Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data => {
-                    Ok(html.analyse.replay(
-                      pov,
-                      data,
-                      Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
-                      analysis,
-                      analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
-                      tour,
-                      new TimeChart(pov.game, pov.game.pgnMoves),
-                      crosstable,
-                      userTv,
-                      division,
-                      results))
-                  } }
+        Env.game.crosstableApi(pov.game) flatMap {
+          case ((analysis, tour), crosstable) =>
+            val division =
+              if (HTTPRequest.isBot(ctx.req)) divider.empty
+              else divider(pov.game, initialFen)
+            val pgn = Env.game.pgnDump(pov.game, initialFen)
+            Env.mod.assessApi.getResultsByGameId(pov.game.id) flatMap { results =>
+              Env.api.roundApi.watcher(pov, lila.api.MobileApi.currentVersion, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data =>
+                Ok(html.analyse.replay(
+                  pov,
+                  data,
+                  Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
+                  analysis,
+                  analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
+                  tour,
+                  new TimeChart(pov.game, pov.game.pgnMoves),
+                  crosstable,
+                  userTv,
+                  division,
+                  results))
               }
-          }
+            }
+        }
     }
 }
