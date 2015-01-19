@@ -10,6 +10,8 @@ import play.api.mvc.Results._
 
 import lila.evaluation.{ PlayerAssessment }
 
+import chess.Color
+
 object Mod extends LilaController {
 
   private def modApi = Env.mod.api
@@ -88,14 +90,12 @@ object Mod extends LilaController {
       Form(single("assessment" -> number(min = 1, max = 5))).bindFromRequest.fold(
         err => fuccess(BadRequest),
         assessment => {
-          val white: Boolean = (side == "white")
-
-          val color: String = if (white) "white" else "black"
+          val color: Color = Color(side == "white")
 
           assessApi.createPlayerAssessment(PlayerAssessment(
-            _id = id + "/" + color, 
+            _id = id + "/" + color.name, 
             gameId = id, 
-            white = white,
+            white = (color == Color.White),
             assessment = assessment), me.id)
         }
       )
