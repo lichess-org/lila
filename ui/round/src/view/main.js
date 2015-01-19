@@ -1,4 +1,5 @@
 var game = require('game').game;
+var perf = require('game').perf;
 var chessground = require('chessground');
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
@@ -36,7 +37,7 @@ function wheel(ctrl, e) {
 
 function renderVariantReminder(ctrl) {
   if (ctrl.data.game.speed !== 'correspondence') return;
-  var icon = lichess.variantIcons[ctrl.data.game.perf];
+  var icon = perf.icons[ctrl.data.game.perf];
   if (!icon) return;
   return m('div', {
     class: 'variant_reminder is',
