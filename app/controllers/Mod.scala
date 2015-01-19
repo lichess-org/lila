@@ -81,7 +81,7 @@ object Mod extends LilaController {
 
   def redirect(username: String, mod: Boolean = true) = Redirect(routes.User.show(username).url + mod.??("?mod"))
 
-  def assessGame(id: String, side: String) = AuthBody { implicit ctx =>
+  def assessGame(id: String, side: String) = SecureBody(_.MarkEngine) { implicit ctx =>
     me => 
       import play.api.data.Forms._
       import play.api.data._
@@ -101,7 +101,7 @@ object Mod extends LilaController {
       )
   }
 
-  def refreshAssess = AuthBody { implicit ctx =>
+  def refreshAssess = SecureBody(_.MarkEngine) { implicit ctx =>
     me =>
       import play.api.data.Forms._
       import play.api.data._
