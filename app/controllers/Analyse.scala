@@ -83,8 +83,10 @@ object Analyse extends LilaController {
                       userTv,
                       division,
                       results))
-                  } }
+                  }
+                }
               }
-          }
+            }
+        }
     }
 }

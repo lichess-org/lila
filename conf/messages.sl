@@ -415,3 +415,5 @@ allInformationIsPublicAndOptional=Vsi podatki so vidni in niso nujni.
 yourCityRegionOrDepartment=Tvoj kraj, mesto ali regija.
 biographyDescription=Povej kaj o sebi, kaj ti je všeč pri šahu, najljubše otvoritve, igralci,...
 maximumNbCharacters=Največ: %s znakov.
+blocks=%s blokira
+listBlockedPlayers=Seznam igralcev, ki si jih blokiral

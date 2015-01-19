@@ -24,14 +24,14 @@ trait TournamentHelper { self: I18nHelper =>
   }
 
   def tournamentLink(tour: Tournament): Html = Html {
-    val cssClass = if (tour.scheduled) "is-gold" else ""
+    val cssClass = if (tour.scheduled) "text is-gold" else "text"
     val url = routes.Tournament.show(tour.id)
-    s"""<a data-icon="g" class="$cssClass" href="$url">&nbsp;${tour.fullName}</a>"""
+    s"""<a data-icon="g" class="$cssClass" href="$url">${tour.fullName}</a>"""
   }
 
   def tournamentLink(tourId: String): Html = Html {
     val url = routes.Tournament.show(tourId)
-    s"""<a data-icon="g" href="$url">&nbsp;${tournamentIdToName(tourId)}</a>"""
+    s"""<a class="text" data-icon="g" href="$url">${tournamentIdToName(tourId)}</a>"""
   }
 
   def tournamentIdToName(id: String) = tournamentEnv.cached name id getOrElse "Tournament"

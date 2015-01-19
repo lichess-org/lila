@@ -31,7 +31,10 @@ private[setup] trait Config {
 
   lazy val creatorColor = color.resolve
 
-  def makeGame = ChessGame(board = Board init variant, clock = makeClock)
+  def makeGame(v: chess.variant.Variant): ChessGame =
+    ChessGame(board = Board init v, clock = makeClock)
+
+  def makeGame: ChessGame = makeGame(variant)
 
   def validClock = hasClock.fold(clockHasTime, true)
 
@@ -65,15 +68,17 @@ trait Positional { self: Config =>
   }
 
   def fenGame(builder: ChessGame => Game): Game = {
-    val state = fen ifTrue (variant == chess.variant.FromPosition) flatMap Forsyth.<<<
-    val chessGame = state.fold(makeGame) {
+    val baseState = fen ifTrue (variant == chess.variant.FromPosition) flatMap Forsyth.<<<
+    val (chessGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
       case sit@SituationPlus(Situation(board, color), _) =>
-        ChessGame(
+        val game = ChessGame(
           board = board,
           player = color,
           turns = sit.turns,
           startedAtTurn = sit.turns,
           clock = makeClock)
+        if (Forsyth.>>(game) == Forsyth.initial) makeGame(chess.variant.Standard) -> none
+        else game -> baseState
     }
     val game = builder(chessGame)
     state.fold(game) {
@@ -98,9 +103,9 @@ trait BaseConfig {
   val variantDefault = chess.variant.Standard
 
   val variantsWithFen = variants :+ chess.variant.FromPosition.id
-  val variantsWithFenAndKingOfTheHill = 
+  val variantsWithFenAndKingOfTheHill =
     variants :+ chess.variant.KingOfTheHill.id :+ chess.variant.FromPosition.id
-  val variantsWithVariants = 
+  val variantsWithVariants =
     variants :+ chess.variant.KingOfTheHill.id :+ chess.variant.ThreeCheck.id :+ chess.variant.Antichess.id :+ chess.variant.Atomic.id
   val variantsWithFenAndVariants =
     variants :+ chess.variant.KingOfTheHill.id :+ chess.variant.ThreeCheck.id :+ chess.variant.Antichess.id :+ chess.variant.Atomic.id :+ chess.variant.FromPosition.id

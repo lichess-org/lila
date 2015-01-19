@@ -415,3 +415,5 @@ allInformationIsPublicAndOptional=Todas as informações são públicas e opcion
 yourCityRegionOrDepartment=Sua cidade, região ou divisão territorial.
 biographyDescription=Fale sobre você, o que você gosta em xadrez, suas aberturas favoritas, jogos, jogadores...
 maximumNbCharacters=Máximo: %s caracteres.
+blocks=%s bloqueados
+listBlockedPlayers=Sua lista de bloqueados

@@ -56,7 +56,7 @@ object Round extends LilaController with TheftPrevention {
                 Env.game.crosstableApi(pov.game) zip
                 (!pov.game.isTournament ?? otherPovs(pov.gameId)) flatMap {
                   case ((tour, crosstable), playing) =>
-                    Env.api.roundApi.player(pov, Env.api.version, playing) map { data =>
+                    Env.api.roundApi.player(pov, lila.api.MobileApi.currentVersion, playing) map { data =>
                       Ok(html.round.player(pov, data, tour = tour, cross = crosstable, playing = playing))
                     }
                 }
@@ -114,7 +114,7 @@ object Round extends LilaController with TheftPrevention {
         case None =>
           (pov.game.tournamentId ?? TournamentRepo.byId) zip
             Env.game.crosstableApi(pov.game) zip
-            Env.api.roundApi.watcher(pov, Env.api.version, tv = none) map {
+            Env.api.roundApi.watcher(pov, lila.api.MobileApi.currentVersion, tv = none) map {
               case ((tour, crosstable), data) =>
                 Ok(html.round.watcher(pov, data, tour, crosstable, userTv = userTv))
             }
@@ -124,7 +124,7 @@ object Round extends LilaController with TheftPrevention {
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
     GameRepo initialFen pov.game zip
-      Env.api.roundApi.player(pov, Env.api.version, otherPovs = Nil) zip
+      Env.api.roundApi.player(pov, lila.api.MobileApi.currentVersion, otherPovs = Nil) zip
       ((pov.player.userId orElse pov.opponent.userId) ?? UserRepo.byId) map {
         case ((fen, data), opponent) => Ok(html.setup.join(
           pov, data, opponent, Env.setup.friendConfigMemo get pov.game.id, fen))

@@ -382,6 +382,10 @@ body.dark #puzzle > .right .please_vote {
 body.dark div.game_tournament table.standing tr.me td {
   background: #333;
 }
+body.dark #tournament_list table.slist .icon span {
+  color: rgba(200,200,200,0.5);
+  text-shadow: 2px 2px 2px #000;
+}
 body.dark #top .shown .dropdown {
   border: 1px solid #3d3d3d;
   border-top: 0;

@@ -129,9 +129,15 @@ module.exports = {
     ];
   },
   backToTournament: function(ctrl) {
-    if (ctrl.data.tournament && ctrl.data.tournament.running) return m('a.text[data-icon=G].button.strong.glowing', {
-      href: '/tournament/' + ctrl.data.tournament.id
-    }, ctrl.trans('backToTournament'));
+    if (ctrl.data.tournament && ctrl.data.tournament.running) return [
+      m('a.text[data-icon=G].button.strong.glowing', {
+        href: '/tournament/' + ctrl.data.tournament.id
+      }, ctrl.trans('backToTournament')),
+      m('form', {
+        method: 'post',
+        action: '/tournament/' + ctrl.data.tournament.id + '/withdraw'
+      }, m('button.text.button[data-icon=b]', ctrl.trans('withdraw')))
+    ];
   },
   viewTournament: function(ctrl) {
     if (ctrl.data.tournament) return m('a.viewTournament.button', {

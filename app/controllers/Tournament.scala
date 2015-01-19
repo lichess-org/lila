@@ -7,6 +7,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.game.{ Pov, GameRepo }
+import lila.common.HTTPRequest
 import lila.tournament.{ System, TournamentRepo, Created, Started, Finished, Tournament => Tourney }
 import lila.user.UserRepo
 import views._
@@ -42,7 +43,7 @@ object Tournament extends LilaController {
   }
 
   private def fetchTournaments =
-    env allCreatedSorted true zip repo.publicStarted zip repo.finished(20)
+    env allCreatedSorted true zip repo.publicStarted zip repo.finished(10)
 
   def show(id: String) = Open { implicit ctx =>
     repo byId id flatMap {
@@ -78,7 +79,8 @@ object Tournament extends LilaController {
     me =>
       OptionResult(repo byId id) { tour =>
         env.api.withdraw(tour, me.id)
-        Ok(Json.obj("ok" -> true)) as JSON
+        if (HTTPRequest.isXhr(ctx.req)) Ok(Json.obj("ok" -> true)) as JSON
+        else Redirect(routes.Tournament.show(tour.id).url)
       }
   }
 

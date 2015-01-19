@@ -415,3 +415,5 @@ allInformationIsPublicAndOptional=Alle Infos sind öffentlich und optional.
 yourCityRegionOrDepartment=Deine Stadt, Region, Kanton oder Bundesland.
 biographyDescription=Über dich, was du am Schach magst, Lieblingseröffnungen, Spiele, Spieler…
 maximumNbCharacters=Maximal: %s Zeichen.
+blocks=%s gesperrt
+listBlockedPlayers=Liste der gesperrten Spieler
