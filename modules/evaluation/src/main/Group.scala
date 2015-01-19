@@ -33,7 +33,7 @@ case class GameResults(
   ) {
   def report(color: Color): String = {
     def printResult(result: GameGroupResult): String = {
-      result._id + " => " + result.assessment + " " + (if (result.positiveMatch) "MATCHES" else "PARTIAL") + " " + result.matchPercentage
+      result.targetGameId + "/" + result.targetColor + " => " + result.assessment + " " + (if (result.positiveMatch) "MATCHES" else "PARTIAL") + " " + result.matchPercentage
     }
     
     ((white, black), color) match {

@@ -16,9 +16,12 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
   private implicit val gameGroupResultBSONhandler = Macros.handler[GameGroupResult]
 
-  def createPlayerAssessment(assessed: PlayerAssessment, mod: String) = 
+  def createPlayerAssessment(assessed: PlayerAssessment, mod: String) = {
     collRef.update(BSONDocument("_id" -> assessed._id), assessed, upsert = true) >>
       logApi.assessGame(mod, assessed.gameId, assessed.color.name, assessed.assessment)
+    refreshAssess(assessed.gameId)
+  } 
+    
 
   def createResult(result: GameGroupResult) =
     collRes.update(BSONDocument("_id" -> result._id), result, upsert = true)
@@ -71,7 +74,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
         }
       }
     }
-    
+
     def playerAssessmentGameGroups: Fu[List[GameGroup]] =
       getPlayerAssessments(200) flatMap { assessments =>
         GameRepo.gameOptions(assessments.map(_.gameId)) flatMap { games =>
