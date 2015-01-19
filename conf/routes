@@ -209,6 +209,7 @@ GET   /mod/:username/communication     controllers.Mod.communication(username: S
 POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
 GET   /mod/log                         controllers.Mod.log
 POST  /mod/$gameId<\w{8}>/$color<white|black>/assess controllers.Mod.assessGame(gameId: String, color: String)
+POST  /mod/refreshAssess               controllers.Mod.refreshAssess
 
 # Wiki
 GET   /wiki                            controllers.Wiki.home

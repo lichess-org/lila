@@ -113,4 +113,17 @@ object Mod extends LilaController {
         }
       )
   }
+
+  def refreshAssess = AuthBody { implicit ctx =>
+    me =>
+      import play.api.data.Forms._
+      import play.api.data._
+      implicit def req = ctx.body
+
+      Form(single("assess" -> text)).bindFromRequest.fold(
+        err => fuccess(BadRequest),
+        text => assessApi.refreshAssess(text)
+      )
+  }
+
 }

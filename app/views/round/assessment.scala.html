@@ -1,11 +1,9 @@
-@import lila.evaluation.GameGroupResult
+@import lila.evaluation.GameResults
 
-@(game: Game, results: Tuple2[Option[GameGroupResult], Option[GameGroupResult]])(implicit ctx: Context)
+@(game: Game, results: GameResults)(implicit ctx: Context)
 
-@import lila.app._
-@import chess.Color
-
-@if(isGranted(_.MarkEngine)) {
+@if(isGranted(_.MarkEngine) && game.analysable && !game.isCorrespondence) {
+<button type="button" id="refreshAssessment">Refresh</button>
 @game.players.map { p =>
 @if(game.turns > 40) {
 <br />
@@ -17,12 +15,8 @@
   <option value="4">Likely cheating</option>
   <option value="5">Cheating</option>
 </select>
-@((results, p.color) match {
-case ((Some(result), _), Color.White) => result._id + " " + (if (result.positiveMatch) "MATCHES" else "PARTIAL") + " " + result.matchPercentage
-case ((_, Some(result)), Color.Black) => result._id + " " + (if (result.positiveMatch) "MATCHES" else "PARTIAL") + " " + result.matchPercentage
-case _ =>
-})
 <br />
+@results.report(p.color)
 }
 }
 }

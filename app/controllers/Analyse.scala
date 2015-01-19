@@ -65,27 +65,22 @@ object Analyse extends LilaController {
                 if (HTTPRequest.isBot(ctx.req)) divider.empty
                 else divider(pov.game, initialFen)
               val pgn = Env.game.pgnDump(pov.game, initialFen)
-              Env.mod.assessApi.getResultsByGameIdAndColor(pov.game.id, Color.White) flatMap {
-                whiteResult =>
-                Env.mod.assessApi.getResultsByGameIdAndColor(pov.game.id, Color.Black) flatMap {
-                  blackResult => {
-                    Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data => {
-                      Ok(html.analyse.replay(
-                        pov,
-                        data,
-                        Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
-                        analysis,
-                        analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
-                        tour,
-                        new TimeChart(pov.game, pov.game.pgnMoves),
-                        crosstable,
-                        userTv,
-                        division,
-                        whiteResult,
-                        blackResult))
-                    } }
-                  }
-                }
+              Env.mod.assessApi.getResultsByGameId(pov.game.id) flatMap {
+                results =>
+                  Env.api.roundApi.watcher(pov, Env.api.version, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data => {
+                    Ok(html.analyse.replay(
+                      pov,
+                      data,
+                      Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
+                      analysis,
+                      analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
+                      tour,
+                      new TimeChart(pov.game, pov.game.pgnMoves),
+                      crosstable,
+                      userTv,
+                      division,
+                      results))
+                  } }
               }
           }
     }

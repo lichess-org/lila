@@ -2024,18 +2024,23 @@ lichess.storage = {
     });
 
     $('#whiteAssessment').change(function() {
-      console.log($(this).val());
       $.post('/mod/' + data.game.id + '/white/assess', {
         assessment: $(this).val()
       });
     });
 
     $('#blackAssessment').change(function() {
-      console.log($(this).val());
       $.post('/mod/' + data.game.id + '/black/assess', {
         assessment: $(this).val()
       });
     });
+    
+    $('#refreshAssessment').click(function() {
+      $.post('/mod/refreshAssess', {
+        assess: data.game.id
+      });
+    });
+    
   }
 
   ////////////////

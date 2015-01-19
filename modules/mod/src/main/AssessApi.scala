@@ -2,7 +2,7 @@ package lila.mod
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.Types.Coll
-import lila.evaluation.{ PlayerAssessment, GameGroupResult, GameGroup, Analysed }
+import lila.evaluation.{ PlayerAssessment, GameGroupResult, GameResults, GameGroup, Analysed }
 import lila.game.Game
 import lila.game.{ Game, GameRepo }
 import reactivemongo.bson._
@@ -37,25 +37,49 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
   def getResultsByGameIdAndColor(gameId: String, color: Color) = collRes.find(BSONDocument("_id" -> (gameId + "/" + color.name)))
     .one[GameGroupResult]
 
-  def getResultsByGameId(gameId: String) = Future { (
-    getResultsByGameIdAndColor(gameId, Color.White),
-    getResultsByGameIdAndColor(gameId, Color.Black)
-  ) }
+  def getResultsByGameId(gameId: String): Fu[GameResults] =
+    getResultsByGameIdAndColor(gameId, Color.White) flatMap {
+      white =>
+        getResultsByGameIdAndColor(gameId, Color.Black) flatMap {
+          black => 
+            Future { GameResults(white = white, black = black) }
+        }
+    }
+
+  
+  def refreshAssess(gameId: String) = {
+    GameRepo.game(gameId) flatMap { game => 
+      AnalysisRepo.byId(gameId) map { analysis => 
+        (game, analysis) match {
+          case (Some(g), Some(a)) => onAnalysisReady(g, a)
+          case _ =>
+        } 
+      }
+    }
+  }
+  
 
   def onAnalysisReady(game: Game, analysis: Analysis) {
+    if (!game.isCorrespondence) {
+      val whiteGroup = GameGroup(Analysed(game, analysis), Color.White)
+      val blackGroup = GameGroup(Analysed(game, analysis), Color.Black)
+
+      playerAssessmentGameGroups map {
+        a => {
+          writeBestMatch(whiteGroup, a)
+          writeBestMatch(blackGroup, a)
+        }
+      }
+    }
+    
     def playerAssessmentGameGroups: Fu[List[GameGroup]] =
       getPlayerAssessments(200) flatMap { assessments =>
         GameRepo.gameOptions(assessments.map(_.gameId)) flatMap { games =>
           AnalysisRepo.doneByIds(assessments.map(_.gameId)) map { analyses =>
             assessments zip games zip analyses flatMap {
-              case ((assessment, Some(game)), Some(analysisOption)) => {
-                println("I exist!")
+              case ((assessment, Some(game)), Some(analysisOption)) =>
                 Some(GameGroup(Analysed(game, analysisOption), assessment.color, Some(assessment.assessment)))
-              }
-              case _ => {
-                println("I do not exist!")
-                None
-              }
+              case _ => None
             }
           }
         }
@@ -65,7 +89,6 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
       assessments match {
         case List(best: GameGroup) => {
           val similarityTo = source.similarityTo(best)
-          println(best + " is greatest")
           createResult(GameGroupResult(
             _id = source.analysed.game.id + "/" + source.color.name,
             userId = source.analysed.game.player(source.color).id,
@@ -74,28 +97,15 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
             targetGameId = best.analysed.game.id,
             targetColor = best.color.name,
             positiveMatch = similarityTo.matches,
-            matchPercentage = (100 * similarityTo.significance).toInt
+            matchPercentage = (100 * similarityTo.significance).toInt,
+            assessment = best.assessment.getOrElse(1)
             ))
         }
         case x :: y :: rest => {
           val next = (if (source.similarityTo(x).significance > source.similarityTo(y).significance) x else y) :: rest
-          println(next + " is greater")
           writeBestMatch( source, next )
         }
         case Nil =>
-      }
-    }
-
-    val whiteGroup = GameGroup(Analysed(game, analysis), Color.White)
-    val blackGroup = GameGroup(Analysed(game, analysis), Color.Black)
-
-    println("I've gotten this far!")
-
-    playerAssessmentGameGroups map {
-      a => {
-        println(a)
-        writeBestMatch(whiteGroup, a)
-        writeBestMatch(blackGroup, a)
       }
     }
   }
