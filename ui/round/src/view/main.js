@@ -36,7 +36,7 @@ function wheel(ctrl, e) {
 }
 
 function renderVariantReminder(ctrl) {
-  if (ctrl.data.game.speed !== 'correspondence') return;
+  if (!game.isPlayerPlaying(ctrl.data) || ctrl.data.game.speed !== 'correspondence') return;
   var icon = perf.icons[ctrl.data.game.perf];
   if (!icon) return;
   return m('div', {
