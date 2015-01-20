@@ -56,7 +56,7 @@ object Pov {
   private def isFresher(a: Pov, b: Pov) = {
     val aDate = a.game.updatedAtOrCreatedAt.getSeconds
     val bDate = b.game.updatedAtOrCreatedAt.getSeconds
-    if (aDate == bDate) a.id < b.id
+    if (aDate == bDate) a.gameId < b.gameId
     else aDate > bDate
   }
 
