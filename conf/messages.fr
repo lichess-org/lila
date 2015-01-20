@@ -415,5 +415,7 @@ allInformationIsPublicAndOptional=Toutes les informations sont publiques et facu
 yourCityRegionOrDepartment=Votre ville, région ou département.
 allInformationIsPublicAndOptional=Toute l'information est publique et facultative
 yourCityRegionOrDepartment=Votre ville, région, ou département
+biographyDescription=Parlez de vous, de ce que vous aimez dans les échecs, vos ouvertures préférées, vos parties, vos joueurs...
 maximumNbCharacters=Maximum: %s caractères
+blocks=%s joueurs bloqués
 listBlockedPlayers=Lister les joueurs que vous avez bloqués

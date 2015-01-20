@@ -75,7 +75,7 @@ function hasAi(data) {
 }
 
 function userAnalysable(data) {
-  return !replayable(data) && (!data.clock || !isPlayerPlaying(data));
+  return playable(data) && (!data.clock || !isPlayerPlaying(data));
 }
 
 function setOnGame(data, color, onGame) {
