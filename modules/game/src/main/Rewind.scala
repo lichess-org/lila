@@ -26,6 +26,7 @@ object Rewind {
         binaryPgn = BinaryFormat.pgn write rewindedGame.pgnMoves,
         turns = rewindedGame.turns,
         positionHashes = rewindedHistory.positionHashes,
+        checkCount = rewindedHistory.checkCount,
         castleLastMoveTime = CastleLastMoveTime(
           castles = rewindedHistory.castles,
           lastMove = rewindedHistory.lastMove,
