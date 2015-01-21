@@ -18,6 +18,7 @@ final class I18nRequestHandler(
 
   def forUser(req: RequestHeader, userOption: Option[lila.user.User]): Option[Result] = for {
     userLang <- userOption.flatMap(_.lang)
+    if HTTPRequest.isRedirectable(req)
     reqLang <- pool domainLang req
     if userLang != reqLang.language
   } yield Redirect(redirectUrlLang(req, userLang))
