@@ -60,19 +60,16 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     }
   }
 
-  def writeBestMatch(optionBestMatch: Option[GameGroupResult]) {
-    optionBestMatch.fold(){createResult}
-  }
-
   def onAnalysisReady(game: Game, analysis: Analysis) {
     if (!game.isCorrespondence) {
-      val whiteGroup = GameGroup(Analysed(game, analysis), Color.White)
-      val blackGroup = GameGroup(Analysed(game, analysis), Color.Black)
+      val gameGroups = List(
+        GameGroup(Analysed(game, analysis), Color.White),
+        GameGroup(Analysed(game, analysis), Color.Black)
+      )
 
       playerAssessmentGameGroups map {
-        a => {
-          writeBestMatch(getBestMatch(whiteGroup, a))
-          writeBestMatch(getBestMatch(blackGroup, a))
+        a => gameGroups map {
+          gameGroup => getBestMatch(gameGroup, a).fold(){createResult}
         }
       }
     }
