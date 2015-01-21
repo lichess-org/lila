@@ -10,13 +10,13 @@ level=مستوى
 toggleTheChat=قفل/فتح الدردشة
 toggleSound=تغيير الصوت
 chat=دردشة
-resign=إنسحاب
+resign=استسلم
 checkmate=مات الملك
 stalemate=الملك مخنوق
 white=أبيض
 black=أسود
 randomColor=لون عشوائي
-createAGame=أنشئ لعبة
+createAGame=أنشئ مباراة
 whiteIsVictorious=الأبيض هو الفائز
 blackIsVictorious=الأسود هو الفائز
 playWithTheSameOpponentAgain=إلعب مع نفس الخصم مرة أخرى
@@ -26,7 +26,7 @@ yourOpponentWantsToPlayANewGameWithYou=الخصم يريد أن يلعب مبا�
 joinTheGame=الإنضمام إلى المباراة
 whitePlays=دور الأبيض
 blackPlays=دور الأسود
-theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=اللاعب الآخر ربما ترك اللعبة. يمكنك إعلان الفوز، طلب طلب التعادل، أو الإنتظار.
+theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=اللاعب الآخر ربما ترك المباراة. يمكنك إعلان الفوز، طلب التعادل، أو الإنتظار.
 makeYourOpponentResign=اجعل خصمك يستسلم
 forceResignation=اعلان الفوز
 forceDraw=طلب تعادل
@@ -53,8 +53,8 @@ blunders=أخطاء فادحة
 mistakes=أخطاء
 inaccuracies=نقلات غير دقيقة
 moveTimes=توقيت النقلات
-flipBoard=تدوير اللوح
-threefoldRepetition=تكرار ثلاث مرات
+flipBoard=تدوير الرقعة
+threefoldRepetition=تكرار ثلاثي
 claimADraw=إعلان التعادل
 offerDraw=عرض التعادل
 draw=تعادل
@@ -80,8 +80,8 @@ latestForumPosts=آخر منشورات المنتدى
 players=لاعبي الشطرنج
 minutesPerSide=دقائق لكل طرف
 variant=النوع
-timeControl=التحكم بالوقت
-realTime=الوقت الفعلي
+timeControl=تحكم الوقت
+realTime=سريع
 correspondence=طويل الأمد
 daysPerTurn=يوم لكل نقلة
 oneDay=يوم واحد
@@ -102,7 +102,7 @@ forgotPassword=هل نسيت كلمة المرور؟
 learnMoreAboutLichess=Lichess معرفة المزيد حول
 rank=المرتبة
 gamesPlayed=عدد مرات اللعب
-nbGamesWithYou=%s مباريات معك
+nbGamesWithYou=%s مباراة معك
 declineInvitation=رفض الدعوة
 cancel=إلغاء
 timeOut=إنتهى الوقت
@@ -137,9 +137,9 @@ viewRematch=مشاهدة إعادة اللعب
 play=إلعب
 inbox=صندوق الرسائل
 chatRoom=غرفة الدردشة
-spectatorRoom=غرفة المشاهد
+spectatorRoom=غرفة المتفرج
 composeMessage=اكتب رسالة
-noNewMessages=لايوجد رسائل هنا للآن
+noNewMessages=لايوجد رسائل جديدة
 subject=عنوان
 recipient=المستلم
 send=إرسال
@@ -149,7 +149,7 @@ spectators=المتفرجون
 nbWins=%s ربح
 nbLosses=%s خسر
 nbDraws=%s تعادل
-exportGames=تصديراللعبات
+exportGames=تصدير المباريات
 ratingRange=تصنيف Elo
 giveNbSeconds=اعطاء %s ثانية
 premoveEnabledClickAnywhereToCancel=لديك نقلة إستباقية" اضغط في أي مكان للإلغاء"
@@ -162,7 +162,7 @@ takebackPropositionDeclined=تم رفض مقترح تراجع عن النقلة
 takebackPropositionAccepted=تم قبول مقترح تراجع عن النقلة
 takebackPropositionCanceled=تم إلغاء مقترح تراجع عن النقلة
 yourOpponentProposesATakeback=خصمك يقترح تراجع عن النقلة
-bookmarkThisGame=أضف هذه اللعبة للمفضلة
+bookmarkThisGame=أضف هذه المباراة للمفضلة
 search=بحث
 advancedSearch=بحث متقدم
 tournament=مسابقة
@@ -170,8 +170,8 @@ tournaments=مسابقات
 tournamentPoints=نقاط المسابقة
 viewTournament=شاهد المسابقة
 backToTournament=عودة الى المسابقة
-backToGame=العودة للعبة
-freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=.لعبة شطرنج اون لاين مجانية. العب شطرنج الآن بواجهة نظيفه. لا تسجيل. لا دعايات. لا حاجه لوجود أي إضافات. العب الشطرنج مع الحاسوب، أو مع أصدقائك أو مع خصم عشوائي.
+backToGame=العودة للمباراة
+freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=.لعبة شطرنج اون لاين مجانية. العب شطرنج الآن بواجهة نظيفه. لا تسجيل, لا دعايات,  لا حاجة لوجود أي إضافات. العب الشطرنج مع الحاسوب، أو مع أصدقائك أو مع خصم عشوائي.
 teams=الفِرق
 nbMembers=%s عضو
 allTeams=كل الفِرق
@@ -191,7 +191,7 @@ xCreatedTeamY=%s أنشأ فريق %s
 averageElo=متوسط تصنيف Elo
 location=الموقع
 settings=الإعدادات
-filterGames=تصفية اللّعب
+filterGames=تصفية المباريات
 reset=إعادة للإفتراضي
 apply=قبول
 leaderboard=لوحة النقاط
@@ -202,7 +202,7 @@ continueFromHere=المتابعة من هنا
 importGame=استيراد مباراة
 nbImportedGames=المباريات المستوردة %s
 thisIsAChessCaptcha=هذا اختبار شطرنجي  للتمييز بين الحاسب والإنسان
-clickOnTheBoardToMakeYourMove=.اضغط على اللوحة لإختيار النقلة، وبهذا يتم التأكد أن عقلاً بشرياً هنا
+clickOnTheBoardToMakeYourMove=.اضغط على الرقعة لإختيار النقلة، وبهذا يتم التأكد أن عقلاً بشرياً هنا
 notACheckmate=لم تنتهي بموت الملك
 colorPlaysCheckmateInOne=دور %s ، الملك يموت بنقلة واحدة
 retry=أعد المحاولة
@@ -248,33 +248,33 @@ createdBy=أُنشئت بواسطة
 waitingForNbPlayers=بانتظار %s لاعب
 tournamentIsStarting=المسابقة بدأت
 membersOnly=للأعضاء فقط
-boardEditor=محرر الرقعه
-startPosition=وضع البدايه
-clearBoard=مسح الرقعه
+boardEditor=محررالرقعة
+startPosition=وضع البداية
+clearBoard=مسح الرقعة
 savePosition=تخزين الوضعية
 loadPosition=تحميل وضعية
 isPrivate=خاص
-reportXToModerators=التبليغ عن %s
+reportXToModerators=بلغ الإدارة عن %s
 profile=الملف الشخصي
 editProfile=حرر الملف الشخصي
 firstName=الإسم
 lastName=اللقب
 biography=نبذة عن الشخصية
 country=البلد
-preferences=خیارات
+preferences=تفضيلات
 watchLichessTV=شاهد Lichess TV
 previouslyOnLichessTV=سابقاً على Liches TV
-todaysLeaders=قياديي اليوم
+todaysLeaders=أوائل اليوم
 onlinePlayers=لاعبين على الشبكة
 progressToday=تقدم اليوم
 progressThisWeek=تقدم هذا الاسبوع
 progressThisMonth=نقدم هذا الشهر
-leaderboardThisWeek=تقدم هذا الاسبوع
-leaderboardThisMonth=تقدم هذا الشهر
-activeToday=فعال اليوم
-activeThisWeek=فعال هذا الاسبوع
-activePlayers=لاعبين فعالين
-bewareTheGameIsRatedButHasNoClock=كن على حذر, هذه اللعبة خاضعة للتقييم لكن بدون توقيت.
+leaderboardThisWeek=أوائل هذا الاسبوع
+leaderboardThisMonth=أوائل هذا الشهر
+activeToday=نشيط اليوم
+activeThisWeek=نشيط هذا الاسبوع
+activePlayers=لاعبين نشطين
+bewareTheGameIsRatedButHasNoClock=كن على حذر, هذه المباراة خاضعة للتقييم لكن بدون توقيت.
 training=تدريب
 yourPuzzleRatingX=تصنيفك في حل الألغاز:  %s
 findTheBestMoveForWhite=أوجد أفضل نقلة للأبيض.
@@ -282,32 +282,32 @@ findTheBestMoveForBlack=أوجد أفضل نقلة للأسود.
 toTrackYourProgress=لمتابعة تقدمك
 trainingSignupExplanation=سيقدم الموقع ألغازاً تناسب قدراتك, لجعل التدريب أفضل.
 recentlyPlayedPuzzles=آخر الألغاز التي تم لعبها
-puzzleId=%s لعبة
+puzzleId=%s لغز
 puzzleOfTheDay=لغز اليوم
 clickToSolve=اضغط لحل اللغز
-goodMove=حركة جيدة
+goodMove=نقلة جيدة
 butYouCanDoBetter=لكن يمكنك ان تفعل افضل
-bestMove=افضل حركة
+bestMove=أفضل نقلة
 keepGoing=تابع اللعب...
-puzzleFailed=لعبة مخسورة
+puzzleFailed=لقد خسرت اللغز
 butYouCanKeepTrying=لكن تستطيع المحاولة
-victory=انتصار
-giveUp=اعادة
+victory=انتصار!
+giveUp=استسلم
 puzzleSolvedInXSeconds=تم حل اللغز بـ  %s ثانية.
-wasThisPuzzleAnyGood=هل كان استفدت من هذا اللغز ؟
-pleaseVotePuzzle=ساعد الموقع في التحسن عبر تصويتك باستخدام السهم للأعلى أو للأسفل.
-thankYou=شكرا
+wasThisPuzzleAnyGood=هل استفدت من هذا اللغز ؟
+pleaseVotePuzzle=ساعد الموقع في التحسين عبر تصويتك باستخدام السهم للأعلى أو للأسفل.
+thankYou=شكراً لك!
 ratingX=التصنيف:  %s
 playedXTimes=لُعبت  %s مرة
-fromGameLink=من لعبة  %s
+fromGameLink=من مباراة  %s
 startTraining=ابدأ التدريب
 continueTraining=استمر في التدريب
 retryThisPuzzle=أعد لعب هذا اللغز
 thisPuzzleIsCorrect=هذا اللغز صحيح وممتع
 thisPuzzleIsWrong=هذا اللغز خطأ وممل
 youHaveNbSecondsToMakeYourFirstMove=لديك %s  ثانية لتقوم بأول نقلة
-nbGamesInPlay=%s لعبة جارية
-automaticallyProceedToNextGameAfterMoving=الإنتقال تلقائياً للعبة التالية بعد كل نقلة
+nbGamesInPlay=%s مباراة جارية
+automaticallyProceedToNextGameAfterMoving=الإنتقال تلقائياً للمباراة التالية بعد كل نقلة
 autoSwitch=تبديل تلقائي
 openingId=إفتتاحية %s
 yourOpeningRatingX=ترتيبك في الإفتتاح:%s
@@ -320,7 +320,7 @@ puzzles=ألغاز
 coordinates=إحداثيات
 openings=إفتتاحيات
 latestUpdates=آخر التحديثات
-tournamentWinners=فائزوا المسابقة
+tournamentWinners=فائزو المسابقة
 name=الإسم
 description=الوصف
 no=لا
@@ -344,7 +344,7 @@ cheat=غش
 insult=إهانة
 troll=تلاعب
 other=أخرى
-reportDescriptionHelp=ألصق رابط اللعبة/اللعب واشرح ماهو الخطأ في سلوك هذا المستخدم
+reportDescriptionHelp=ألصق رابط المباراة/المباريات واشرح ماهو الخطأ في سلوك هذا المستخدم
 by=بواسطة %s
 thisTopicIsNowClosed=هذا الموضوع مغلق الآن
 theming=السمات
@@ -355,8 +355,8 @@ realTimeWorldMapOfChessMoves=خريطة عالمية آنية لتفاعلات �
 questionsAndAnswers=أسئلة و أجوبة
 notes=ملاحظات
 typePrivateNotesHere=أكتب ملاحظات خاصة هنا
-gameDisplay=عرض اللعبة
-pieceAnimation=الرسم الحركي للقطعة
+gameDisplay=شكل المباراة
+pieceAnimation=الحركة الرسومية للقطعة
 materialDifference=الفرق المادي
 closeAccount=إغلاق الحساب
 closeYourAccount=أغلق حسابك
@@ -368,9 +368,9 @@ emailMeALink=أرسل الرابط لي عبر الإيميل
 currentPassword=كلمة المرور الحالية
 newPassword=كلمة المرور الجديدة
 newPasswordAgain=كلمة المرور الجديدة (إعادة)
-boardHighlights=تلوين اللوح (آخر نقلة والقطعة المراد تحريكها)
+boardHighlights=تلوين الرقعة (آخر نقلة والقطعة المراد تحريكها)
 pieceDestinations=وجهات القطعة ( النقلات المتاحة والنقلات الإستباقية)
-boardCoordinates=إحداثيات اللوح  (A-H, 1-8)
+boardCoordinates=إحداثيات الرقعة  (A-H, 1-8)
 moveListWhilePlaying=لائحة النقلات خلال اللعب
 chessClock=ساعة الشطرنج
 tenthsOfSeconds=عشر ثوانٍ
@@ -378,7 +378,7 @@ never=أبداً
 whenTimeRemainingLessThanTenSeconds=عندما يكون الوقت المتبقي أقل من 10 ثوانٍ
 horizontalGreenProgressBars=الشريط الأخضر الأفقي للتقدم
 soundWhenTimeGetsCritical=الصوت عندما يقارب الوقت على الإنتهاء
-gameBehavior=سلوكيات اللعبة
+gameBehavior=سلوكيات المباراة
 premovesPlayingDuringOpponentTurn=النقلات الإستباقية (اللعب خلال دور الخصم)
 takebacksWithOpponentApproval=التراجع عن النقلات (بموافقة الخصم)
 promoteToQueenAutomatically=الترقية إلى وزير آلياً
@@ -393,11 +393,11 @@ none=لاشئ
 fast=سريع
 normal=عادي
 slow=بطيء
-insideTheBoard=داخل اللوح
-outsideTheBoard=خارج اللوح
-onSlowGames=في اللعبات البطيئة
+insideTheBoard=داخل الرقعة
+outsideTheBoard=خارج الرقعة
+onSlowGames=في المباريات البطيئة
 always=دائماً
-inCasualGamesOnly=في اللعبات غير المقيمة فقط
+inCasualGamesOnly=في المباريات غير المقيمة فقط
 whenPremoving=عند الحركة الإستباقية
 whenTimeRemainingLessThanThirtySeconds=عندما يكون الوقت المتبقي أقل من 30 ثانية
 difficultyEasy=سهل
@@ -413,7 +413,7 @@ seeAllTournaments=شاهد كل المسابقات
 starting=تبدأ خلال:
 allInformationIsPublicAndOptional=كل المعلومات متاحة للجميع وهي إختيارية.
 yourCityRegionOrDepartment=مدينتك, منطقتك. أو المقاطعة.
-biographyDescription=أخبر عن نفسك, ماذا تحب في الشطرنج, ماذا تفضل من الإفتتاحيات, اللعبات, اللاعبين....
+biographyDescription=أخبر عن نفسك, ماذا تحب في الشطرنج, ماذا تفضل من الإفتتاحيات, المباريات, اللاعبين....
 maximumNbCharacters=الحد الأقصى: %s  حرف.
 blocks=%s حظر
 listBlockedPlayers=اعرض اللاعبين الذين قمت بحظرهم
