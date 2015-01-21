@@ -69,7 +69,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
 
       playerAssessmentGameGroups map {
         a => gameGroups map {
-          gameGroup => getBestMatch(gameGroup, a).fold(){createResult}
+          gameGroup => getBestMatch(gameGroup, a).foreach(createResult)
         }
       }
     }
