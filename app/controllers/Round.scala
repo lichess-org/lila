@@ -22,7 +22,7 @@ object Round extends LilaController with TheftPrevention {
   private def bookmarkApi = Env.bookmark.api
   private def analyser = Env.analyse.analyser
 
-  def websocketWatcher(gameId: String, color: String) = Socket[JsValue] { implicit ctx =>
+  def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>
     (get("sri") |@| getInt("version")).tupled ?? {
       case (uid, version) => env.socketHandler.watcher(
         gameId = gameId,
@@ -31,22 +31,25 @@ object Round extends LilaController with TheftPrevention {
         uid = uid,
         user = ctx.me,
         ip = ctx.ip,
-        userTv = get("userTv")) map Right.apply
+        userTv = get("userTv"))
     }
   }
 
-  def websocketPlayer(fullId: String, apiVersion: Int) = Socket[JsValue] { implicit ctx =>
+  private lazy val theftResponse = Unauthorized(Json.obj(
+    "error" -> "This game requires authentication"
+  )) as JSON
+
+  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
     GameRepo pov fullId flatMap {
-      _ ?? { pov =>
-        if (isTheft(pov)) Left(Unauthorized(Json.obj(
-          "error" -> "This game requires authentication"
-        )) as JSON)
-        else (get("sri") |@| getInt("version")).tupled ?? {
-          case (uid, version) => env.socketHandler.player(
+      case Some(pov) =>
+        if (isTheft(pov)) fuccess(Left(theftResponse))
+        else (get("sri") |@| getInt("version")).tupled match {
+          case Some((uid, version)) => env.socketHandler.player(
             pov, version, uid, ~get("ran"), ctx.me, ctx.ip
           ) map Right.apply
+          case None => fuccess(Left(NotFound))
         }
-      }
+      case None => fuccess(Left(NotFound))
     }
   }
 
@@ -70,7 +73,8 @@ object Round extends LilaController with TheftPrevention {
           )
         },
         api = apiVersion => {
-          if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
+          if (isTheft(pov)) theftResponse
+          else if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
           Env.api.roundApi.player(pov, apiVersion, Nil) map { Ok(_) }
         }
       )

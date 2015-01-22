@@ -41,11 +41,16 @@ private[controllers] trait LilaController
   protected def Socket[A: FrameFormatter](f: Context => Fu[(Iteratee[A, _], Enumerator[A])]) =
     WebSocket.tryAccept[A] { req => reqToCtx(req) flatMap f map scala.util.Right.apply }
 
-  protected def Socket[A: FrameFormatter](f: Context => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]) =
+  protected def SocketEither[A: FrameFormatter](f: Context => Fu[Either[Result, (Iteratee[A, _], Enumerator[A])]]) =
     WebSocket.tryAccept[A] { req => reqToCtx(req) flatMap f }
 
-  protected def Socket[A: FrameFormatter](f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
-    Socket[A] { ctx =>
+  protected def SocketOption[A: FrameFormatter](f: Context => Fu[Option[(Iteratee[A, _], Enumerator[A])]]) =
+    WebSocket.tryAccept[A] { req =>
+      reqToCtx(req) flatMap f map {
+        case None       => Left(NotFound(Json.obj("error" -> "socket resource not found")))
+        case Some(pair) => Right(pair)
+      }
+    }
 
   protected def Open(f: Context => Fu[Result]): Action[AnyContent] =
     Open(BodyParsers.parse.anyContent)(f)
