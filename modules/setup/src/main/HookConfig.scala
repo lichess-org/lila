@@ -17,6 +17,11 @@ case class HookConfig(
     color: Color,
     ratingRange: RatingRange) extends HumanConfig {
 
+  def validColor =
+    mode == Mode.Casual ||
+      !lila.game.Game.variantsWhereWhiteIsBetter(variant) ||
+      color != Color.White
+
   // allowAnons -> membersOnly
   def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, !allowAnon, ratingRange.toString.some, color.name).some
 
