@@ -398,3 +398,5 @@ whenTimeRemainingLessThanThirtySeconds=Kun aikaa on jäljellä < 30 sekuntia
 difficultyEasy=Helppo
 difficultyNormal=Keskitaso
 difficultyHard=Vaikea
+xAskedY=%s kysyi %s
+xAnsweredY=%s vastasi %s
