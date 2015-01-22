@@ -78,12 +78,10 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
     5d
     )
 
-  def compareHoldAlerts (that: GameGroup): Similarity = {
-    Similarity(
+  def compareHoldAlerts (that: GameGroup): Similarity = Similarity(
       if (this.analysed.game.player(this.color).hasSuspiciousHoldAlert == that.analysed.game.player(that.color).hasSuspiciousHoldAlert) 1 else 0,
       0.9
     )
-  }
 
   def similarityTo (that: GameGroup): MatchAndSig = {
     // Calls compare functions to determine how similar `this` and `that` are to each other
@@ -141,7 +139,7 @@ object Statistics {
     setToSetSimilarity(avgA, avgB, varA, varB, threshold)
   }
 
-  def listToListSimilarity[T](x: List[T], y: List[T], threshold: Double = 0.9)(implicit n: Numeric[T]): Similarity = {
+  def listToListSimilarity[T](x: List[T], y: List[T], threshold: Double = 0.9)(implicit n: Numeric[T]): Similarity = 
     (x, y) match {
       case (Nil, Nil)                   => Similarity(1) // Both empty
       case (Nil, _ :: _)                => Similarity(0) // One empty, The other with some
@@ -151,7 +149,6 @@ object Statistics {
       case (a :: b, c :: Nil)           => pointToSetSimilarity(c, NonEmptyList.nel(a, b))
       case (a :: b, c :: d)             => setToSetSimilarity(NonEmptyList.nel(a, b), NonEmptyList.nel(c, d), threshold) // Both have many
     }
-  }
 
   def pointToSetSimilarity[T](x: T, set: NonEmptyList[T])(implicit n: Numeric[T]): Similarity = Similarity(
     confInterval(n.toDouble(x), average(set), sqrt(variance(set))),
@@ -171,14 +168,12 @@ object Statistics {
   def intervalToVariance4(interval: Double): Double = pow(interval / 3, 8) // roughly speaking
 
   // Accumulative probability function for normal distributions
-  def cdf[T](x: T, avg: T, sd: T)(implicit n: Numeric[T]): Double = {
+  def cdf[T](x: T, avg: T, sd: T)(implicit n: Numeric[T]): Double =
     0.5 * (1 + erf(n.toDouble(n.minus(x, avg)) / (n.toDouble(sd)*sqrt(2))))
-  }
 
   // The probability that you are outside of abs(x-n) from the mean on both sides
-  def confInterval[T](x: T, avg: T, sd: T)(implicit n: Numeric[T]): Double = {
+  def confInterval[T](x: T, avg: T, sd: T)(implicit n: Numeric[T]): Double =
     1 - cdf(n.abs(x), avg, sd) + cdf(n.times(n.fromInt(-1), n.abs(x)), avg, sd)
-  }
 
   // all Similarities in the non empty list are similar
   def allSimilar(a: NonEmptyList[Similarity]): Boolean = a.list.forall( _.matches )
@@ -199,7 +194,7 @@ object Erf {
   val a5: Double =  1.061405429
   val p: Double  =  0.3275911
 
-  def erf(x: Double): Double =  {
+  def erf(x: Double): Double = {
     // Save the sign of x
     val sign = if (x < 0) -1 else 1
     val absx = abs(x)

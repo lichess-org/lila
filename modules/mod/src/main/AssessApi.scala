@@ -24,7 +24,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     
 
   def createResult(result: GameGroupResult) =
-    collRes.update(BSONDocument("_id" -> result._id), result, upsert = true)
+    collRes.update(BSONDocument("_id" -> result._id), result, upsert = true).void
 
   def getPlayerAssessments(max: Int): Fu[List[PlayerAssessment]] = collRef.find(BSONDocument())
     .cursor[PlayerAssessment]
@@ -60,27 +60,14 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     }
   }
 
-  def onAnalysisReady(game: Game, analysis: Analysis) {
-    if (!game.isCorrespondence) {
-      val gameGroups = List(
-        GameGroup(Analysed(game, analysis), Color.White),
-        GameGroup(Analysed(game, analysis), Color.Black)
-      )
-
-      playerAssessmentGameGroups map {
-        a => gameGroups map {
-          gameGroup => getBestMatch(gameGroup, a).foreach(createResult)
-        }
-      }
-    }
-
+  def onAnalysisReady(game: Game, analysis: Analysis): Funit = {
     def playerAssessmentGameGroups: Fu[List[GameGroup]] =
       getPlayerAssessments(200) flatMap { assessments =>
         GameRepo.gameOptions(assessments.map(_.gameId)) flatMap { games =>
           AnalysisRepo.doneByIds(assessments.map(_.gameId)) map { analyses =>
             assessments zip games zip analyses flatMap {
-              case ((assessment, Some(game)), Some(analysisOption)) =>
-                Some(GameGroup(Analysed(game, analysisOption), assessment.color, Some(assessment.assessment)))
+              case ((assessment, Some(game)), Some(analysis)) =>
+                Some(GameGroup(Analysed(game, analysis), assessment.color, Some(assessment.assessment)))
               case _ => None
             }
           }
@@ -110,5 +97,17 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
         case Nil => None
       }
     }
+
+    if (!game.isCorrespondence) {
+      val whiteGameGroup = GameGroup(Analysed(game, analysis), Color.White)
+      val blackGameGroup = GameGroup(Analysed(game, analysis), Color.Black)
+      
+      playerAssessmentGameGroups flatMap {
+        a => {
+          getBestMatch(whiteGameGroup, a).fold(funit){createResult}
+          getBestMatch(blackGameGroup, a).fold(funit){createResult}
+        }
+      }
+    } else funit
   }
 }
