@@ -54,7 +54,7 @@ final class LobbyApi(
       "id" -> pov.opponent.userId,
       "username" -> lila.game.Namer.playerString(pov.opponent, withRating = false)(lightUser),
       "rating" -> pov.opponent.rating,
-      "aiLevel" -> pov.opponent.aiLevel).noNull,
+      "ai" -> pov.opponent.aiLevel).noNull,
     "isMyTurn" -> pov.isMyTurn,
     "secondsLeft" -> pov.remainingSeconds)
 }

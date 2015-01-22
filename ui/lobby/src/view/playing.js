@@ -35,7 +35,7 @@ module.exports = function(ctrl) {
           },
           boardContent),
         m('span.meta', [
-          pov.opponent.aiLevel ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', pov.opponent.aiLevel) : pov.opponent.username,
+          pov.opponent.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', pov.opponent.aiLevel) : pov.opponent.username,
           m('span.indicator',
             pov.isMyTurn ? (pov.secondsLeft ? timer(pov) : ctrl.trans('yourTurn')) : m.trust('&nbsp;'))
         ])
