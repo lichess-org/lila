@@ -17,12 +17,18 @@
   font-weight: bold;
   color: #a0a0a0;
 }
-#tv_history a.view {
-  padding-left: 5px;
+#tv_history a.icon {
+  font-size: 26px;
+  padding-left: 10px;
   text-decoration: none;
+  opacity: 0.7;
+  transition: 0.3s;
+}
+#tv_history tr:hover a.icon {
+  opacity: 1;
 }
 #tv_history td {
-  padding: 6px 5px 6px 5px;
+  padding: 4px 0px;
   border-top: 1px solid #eaeaea;
 }
 #tv_history tr:first-child td {
