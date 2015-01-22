@@ -26,7 +26,7 @@ private[tournament] final class SocketHandler(
     tourId: String,
     version: Int,
     uid: String,
-    user: Option[User]): Fu[JsSocketHandler] =
+    user: Option[User]): Fu[Option[JsSocketHandler]] =
     TournamentRepo.exists(tourId) flatMap {
       _ ?? {
         for {
@@ -36,7 +36,7 @@ private[tournament] final class SocketHandler(
             case Connected(enum, member) =>
               controller(socket, tourId, uid, member) -> enum
           }
-        } yield handler
+        } yield handler.some
       }
     }
 

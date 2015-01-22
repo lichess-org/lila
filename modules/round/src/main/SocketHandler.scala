@@ -91,9 +91,9 @@ private[round] final class SocketHandler(
     uid: String,
     user: Option[User],
     ip: String,
-    userTv: Option[String]): Fu[JsSocketHandler] =
+    userTv: Option[String]): Fu[Option[JsSocketHandler]] =
     GameRepo.pov(gameId, colorName) flatMap {
-      _ ?? { join(_, none, version, uid, "", user, ip, userTv = userTv) }
+      _ ?? { join(_, none, version, uid, "", user, ip, userTv = userTv) map some }
     }
 
   def player(

@@ -31,15 +31,20 @@ object Round extends LilaController with TheftPrevention {
         uid = uid,
         user = ctx.me,
         ip = ctx.ip,
-        userTv = get("userTv"))
+        userTv = get("userTv")) map Right.apply
     }
   }
 
   def websocketPlayer(fullId: String, apiVersion: Int) = Socket[JsValue] { implicit ctx =>
     GameRepo pov fullId flatMap {
       _ ?? { pov =>
-        (get("sri") |@| getInt("version")).tupled ?? {
-          case (uid, version) => env.socketHandler.player(pov, version, uid, ~get("ran"), ctx.me, ctx.ip)
+        if (isTheft(pov)) Left(Unauthorized(Json.obj(
+          "error" -> "This game requires authentication"
+        )) as JSON)
+        else (get("sri") |@| getInt("version")).tupled ?? {
+          case (uid, version) => env.socketHandler.player(
+            pov, version, uid, ~get("ran"), ctx.me, ctx.ip
+          ) map Right.apply
         }
       }
     }

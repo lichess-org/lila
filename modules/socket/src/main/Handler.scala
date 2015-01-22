@@ -41,17 +41,8 @@ object Handler {
       ).map(_ => socket ! Quit(uid))
     }
 
-    (socket ? join map connecter map {
+    socket ? join map connecter map {
       case (controller, enum) => iteratee(controller) -> enum
-    }) recover {
-      case t: Exception => errorHandler(t.getMessage)
     }
   }
-
-  def errorHandler(err: String): JsSocketHandler =
-    Iteratee.skipToEof[JsValue] ->
-      Enumerator[JsValue](Json.obj(
-        "error" -> "Socket handler error: %s".format(err)
-      )).andThen(Enumerator.eof)
-
 }
