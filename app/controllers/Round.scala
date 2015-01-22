@@ -172,9 +172,11 @@ object Round extends LilaController with TheftPrevention {
   }
 
   private def side(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
-    pov.game.tournamentId ?? TournamentRepo.byId map { tour =>
-      Ok(html.game.side(pov, tour, withTourStanding = isPlayer))
-    }
+    (pov.game.tournamentId ?? TournamentRepo.byId) zip
+      GameRepo.initialFen(pov.game) map {
+        case (tour, initialFen) =>
+          Ok(html.game.side(pov, initialFen, tour, withTourStanding = isPlayer))
+      }
 
   def continue(id: String, mode: String) = Open { implicit ctx =>
     OptionResult(GameRepo game id) { game =>

@@ -1,4 +1,4 @@
-@(pov: Pov, tour: Option[lila.tournament.Tournament], withTourStanding: Boolean, userTv: Option[User] = None)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.Tournament], withTourStanding: Boolean, userTv: Option[User] = None)(implicit ctx: Context)
 
 @import pov._
 @import lila.tournament.arena
@@ -66,6 +66,13 @@
       <span class="player is color-icon black">@game.checkCount.white</span>
       <span class="player is color-icon white">@game.checkCount.black</span>
     </div>
+    }
+    @if(game.variant.chess960) {
+    @initialFen.map { fen =>
+    @chess.variant.Chess960.positionNumber(fen).map { number =>
+    Chess960 start position: <strong>@number</strong>
+    }
+    }
     }
   </div>
 
