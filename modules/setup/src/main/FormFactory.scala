@@ -88,7 +88,6 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
       "ratingRange" -> optional(ratingRange),
       "color" -> nonEmptyText.verifying(Color.names contains _)
     )(HookConfig.<<)(_.>>)
-      .verifying("Invalid color", _.validColor)
       .verifying("Invalid clock", _.validClock)
       .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
   )
