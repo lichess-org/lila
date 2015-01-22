@@ -49,7 +49,6 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
         }
     }
 
-  
   def refreshAssess(gameId: String) = {
     GameRepo.game(gameId) flatMap { game => 
       AnalysisRepo.doneById(gameId) map { analysis => 
@@ -60,17 +59,17 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
       }
     }
   }
-  
 
   def onAnalysisReady(game: Game, analysis: Analysis) {
     if (!game.isCorrespondence) {
-      val whiteGroup = GameGroup(Analysed(game, analysis), Color.White)
-      val blackGroup = GameGroup(Analysed(game, analysis), Color.Black)
+      val gameGroups = List(
+        GameGroup(Analysed(game, analysis), Color.White),
+        GameGroup(Analysed(game, analysis), Color.Black)
+      )
 
       playerAssessmentGameGroups map {
-        a => {
-          writeBestMatch(whiteGroup, a)
-          writeBestMatch(blackGroup, a)
+        a => gameGroups map {
+          gameGroup => getBestMatch(gameGroup, a).foreach(createResult)
         }
       }
     }
@@ -88,11 +87,11 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
         }
       }
 
-    def writeBestMatch(source: GameGroup, assessments: List[GameGroup]) {
+    def getBestMatch(source: GameGroup, assessments: List[GameGroup]): Option[GameGroupResult] = {
       assessments match {
         case List(best: GameGroup) => {
           val similarityTo = source.similarityTo(best)
-          createResult(GameGroupResult(
+          Some(GameGroupResult(
             _id = source.analysed.game.id + "/" + source.color.name,
             userId = source.analysed.game.player(source.color).id,
             sourceGameId = source.analysed.game.id,
@@ -102,13 +101,13 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
             positiveMatch = similarityTo.matches,
             matchPercentage = (100 * similarityTo.significance).toInt,
             assessment = best.assessment.getOrElse(1)
-            ))
+          ))
         }
         case x :: y :: rest => {
           val next = (if (source.similarityTo(x).significance > source.similarityTo(y).significance) x else y) :: rest
-          writeBestMatch( source, next )
+          getBestMatch( source, next )
         }
-        case Nil =>
+        case Nil => None
       }
     }
   }
