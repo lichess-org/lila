@@ -1622,8 +1622,7 @@ lichess.storage = {
         var ratedOk = !isHook || !rated || timeMode != '0';
         if (timeOk && ratedOk) {
           $form.find('.color_submits button').show();
-          $form.find('.color_submits button.white').toggle(
-            !rated || whiteVariants.indexOf($variantSelect.val()) === -1);
+          $form.find('.color_submits button.white').toggle(!rated || whiteVariants.indexOf($variantSelect.val()) === -1);
         } else
           $form.find('.color_submits button').hide();
       };
@@ -2030,21 +2029,22 @@ lichess.storage = {
       }
     });
 
-    function sendAssessment(side, select) {
-      $.post('/mod/' + data.game.id + '/' + side + '/assess', {
-        assessment: select.value
+    if ($('#refreshAssessment').length) {
+
+      var sendAssessment = function(side, e) {
+        $.post('/mod/' + data.game.id + '/' + side + '/assess', {
+          assessment: $(e.target).val()
+        });
+      }
+      $('#whiteAssessment').change(sendAssessment.bind(null, 'white'));
+      $('#blackAssessment').change(sendAssessment.bind(null, 'black'));
+
+      $('#refreshAssessment').click(function() {
+        $.post('/mod/refreshAssess', {
+          assess: data.game.id
+        });
       });
     }
-
-    $('#whiteAssessment').change(sendAssessment.bind(null, 'white'));
-    $('#blackAssessment').change(sendAssessment.bind(null, 'black'));
-    
-    $('#refreshAssessment').click(function() {
-      $.post('/mod/refreshAssess', {
-        assess: data.game.id
-      });
-    });
-    
   }
 
   ////////////////
