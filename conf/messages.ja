@@ -363,3 +363,6 @@ emailMeALink=リンクをメールで送る
 currentPassword=現在のパスワード
 newPassword=新しいパスワード
 newPasswordAgain=新しいパスワード（確認）
+maximumNbCharacters=最大: %s 文字
+blocks=%s 名をブロック
+listBlockedPlayers=ブロックしたプレイヤーリスト
