@@ -20,8 +20,8 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     collRef.update(BSONDocument("_id" -> assessed._id), assessed, upsert = true) >>
       logApi.assessGame(mod, assessed.gameId, assessed.color.name, assessed.assessment) >>
         refreshAssess(assessed.gameId)
-  } 
-    
+  }
+
 
   def createResult(result: GameGroupResult) =
     collRes.update(BSONDocument("_id" -> result._id), result, upsert = true).void
@@ -42,14 +42,14 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
 
   def getResultsByGameId(gameId: String): Fu[GameResults] =
     getResultsByGameIdAndColor(gameId, Color.White) zip
-        getResultsByGameIdAndColor(gameId, Color.Black) map 
+        getResultsByGameIdAndColor(gameId, Color.Black) map
             GameResults.tupled
 
-  def refreshAssess(gameId: String) = {
+  def refreshAssess(gameId: String): Funit = {
     GameRepo.game(gameId) zip
-      AnalysisRepo.doneById(gameId) map { 
+      AnalysisRepo.doneById(gameId) map {
           case (Some(g), Some(a)) => onAnalysisReady(g, a)
-          case _ =>
+          case _ => funit
       }
   }
 
@@ -94,10 +94,10 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     if (!game.isCorrespondence) {
       val whiteGameGroup = GameGroup(Analysed(game, analysis), Color.White)
       val blackGameGroup = GameGroup(Analysed(game, analysis), Color.Black)
-      
+
       playerAssessmentGameGroups flatMap {
         a => {
-          getBestMatch(whiteGameGroup, a).fold(funit){createResult}
+          getBestMatch(whiteGameGroup, a).fold(funit){createResult} >>
           getBestMatch(blackGameGroup, a).fold(funit){createResult}
         }
       }
