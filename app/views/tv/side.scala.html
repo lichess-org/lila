@@ -22,7 +22,7 @@
         <tbody>
           @games.map { g =>
           <tr>
-            <td><a class="view" href="@routes.Round.watcher(g.id, g.firstPlayer.color.name)" data-icon="v"></a></td>
+            <td><a class="icon" href="@routes.Round.watcher(g.id, g.firstPlayer.color.name)" data-icon="@game.gameIcon(g)"></a></td>
             <td>
               @playerLink(g.firstPlayer, withOnline = false, withDiff = true)<br />
               @playerLink(g.secondPlayer, withOnline = false, withDiff = true)

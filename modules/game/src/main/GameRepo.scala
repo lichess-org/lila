@@ -121,8 +121,16 @@ object GameRepo {
     }
 
   def nowPlaying(user: User): Fu[List[Pov]] =
-    $find(Query nowPlaying user.id) map {
-      _ flatMap { Pov(_, user) } sortWith Pov.priority
+    $find(Query nowPlaying user.id) map { games =>
+      val povs = games flatMap { Pov(_, user) }
+      try {
+        povs sortWith Pov.priority
+      }
+      catch {
+        case e: IllegalArgumentException =>
+          logerr(s"GameRepo.nowPlaying(${user.id}) ${povs.size} ${e.getMessage}")
+          povs
+      }
     }
 
   // gets most urgent game to play

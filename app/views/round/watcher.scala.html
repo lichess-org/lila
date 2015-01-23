@@ -17,7 +17,7 @@ i18n: @jsI18n()
 
 @round.layout(
 title = title,
-side = views.html.game.side(pov, tour, withTourStanding = false, userTv = userTv),
+side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, withTourStanding = false, userTv = userTv),
 chat = base.chatDom(trans.spectatorRoom.str()).some,
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,

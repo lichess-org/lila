@@ -6,8 +6,8 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.game.{ Pov, GameRepo }
 import lila.common.HTTPRequest
+import lila.game.{ Pov, GameRepo }
 import lila.tournament.{ System, TournamentRepo, Created, Started, Finished, Tournament => Tourney }
 import lila.user.UserRepo
 import views._
@@ -119,10 +119,10 @@ object Tournament extends LilaController {
       }
   }
 
-  def websocket(id: String, apiVersion: Int) = Socket[JsValue] { implicit ctx =>
-    ~(getInt("version") |@| get("sri") apply {
+  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
+    (getInt("version") |@| get("sri")).tupled ?? {
       case (version, uid) => env.socketHandler.join(id, version, uid, ctx.me)
-    })
+    }
   }
 
   private def chatOf(tour: lila.tournament.Tournament)(implicit ctx: Context) =

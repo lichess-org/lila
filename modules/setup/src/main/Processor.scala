@@ -50,11 +50,12 @@ private[setup] final class Processor(
   }
 
   def hook(
-    config: HookConfig,
+    configBase: HookConfig,
     uid: String,
     sid: Option[String],
-    blocking: Set[String])(implicit ctx: UserContext): Fu[String] =
-      saveConfig(_ withHook config) >> {
+    blocking: Set[String])(implicit ctx: UserContext): Fu[String] = {
+    val config = configBase.fixColor
+    saveConfig(_ withHook config) >> {
       config.hook(uid, ctx.me, sid, blocking) match {
         case Left(hook) => fuccess {
           lobby ! AddHook(hook)
@@ -67,6 +68,7 @@ private[setup] final class Processor(
         case _ => fufail("Can't create seek")
       }
     }
+  }
 
   private def saveConfig(map: UserConfig => UserConfig)(implicit ctx: UserContext): Funit =
     ctx.me.fold(AnonConfigRepo.update(ctx.req) _)(user => UserConfigRepo.update(user) _)(map)

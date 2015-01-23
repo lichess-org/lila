@@ -22,7 +22,7 @@ object Round extends LilaController with TheftPrevention {
   private def bookmarkApi = Env.bookmark.api
   private def analyser = Env.analyse.analyser
 
-  def websocketWatcher(gameId: String, color: String) = Socket[JsValue] { implicit ctx =>
+  def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>
     (get("sri") |@| getInt("version")).tupled ?? {
       case (uid, version) => env.socketHandler.watcher(
         gameId = gameId,
@@ -35,13 +35,21 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def websocketPlayer(fullId: String, apiVersion: Int) = Socket[JsValue] { implicit ctx =>
+  private lazy val theftResponse = Unauthorized(Json.obj(
+    "error" -> "This game requires authentication"
+  )) as JSON
+
+  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
     GameRepo pov fullId flatMap {
-      _ ?? { pov =>
-        (get("sri") |@| getInt("version")).tupled ?? {
-          case (uid, version) => env.socketHandler.player(pov, version, uid, ~get("ran"), ctx.me, ctx.ip)
+      case Some(pov) =>
+        if (isTheft(pov)) fuccess(Left(theftResponse))
+        else (get("sri") |@| getInt("version")).tupled match {
+          case Some((uid, version)) => env.socketHandler.player(
+            pov, version, uid, ~get("ran"), ctx.me, ctx.ip
+          ) map Right.apply
+          case None => fuccess(Left(NotFound))
         }
-      }
+      case None => fuccess(Left(NotFound))
     }
   }
 
@@ -65,7 +73,8 @@ object Round extends LilaController with TheftPrevention {
           )
         },
         api = apiVersion => {
-          if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
+          if (isTheft(pov)) theftResponse
+          else if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
           Env.api.roundApi.player(pov, apiVersion, Nil) map { Ok(_) }
         }
       )
@@ -163,9 +172,11 @@ object Round extends LilaController with TheftPrevention {
   }
 
   private def side(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
-    pov.game.tournamentId ?? TournamentRepo.byId map { tour =>
-      Ok(html.game.side(pov, tour, withTourStanding = isPlayer))
-    }
+    (pov.game.tournamentId ?? TournamentRepo.byId) zip
+      GameRepo.initialFen(pov.game) map {
+        case (tour, initialFen) =>
+          Ok(html.game.side(pov, initialFen, tour, withTourStanding = isPlayer))
+      }
 
   def continue(id: String, mode: String) = Open { implicit ctx =>
     OptionResult(GameRepo game id) { game =>

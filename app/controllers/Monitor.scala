@@ -17,8 +17,10 @@ object Monitor extends LilaController {
     Ok(views.html.monitor.monitor())
   }
 
-  def websocket = Socket[JsValue] { implicit ctx =>
-    get("sri") ?? env.socketHandler.apply
+  def websocket = SocketOption[JsValue] { implicit ctx =>
+    get("sri") ?? { sri =>
+      env.socketHandler(sri) map some
+    }
   }
 
   def status = Action.async { implicit req =>

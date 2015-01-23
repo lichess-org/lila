@@ -1,20 +1,17 @@
-@(pov: Pov, tour: Option[lila.tournament.Tournament], withTourStanding: Boolean, userTv: Option[User] = None)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.Tournament], withTourStanding: Boolean, userTv: Option[User] = None)(implicit ctx: Context)
 
 @import pov._
 @import lila.tournament.arena
 
 <div class="side">
   <div class="side_box padded">
-    <div class="game_infos" data-icon="@game.perfType match {
-      case _ if game.fromPosition => {*}
-      case _ if game.hasAi => {:}
-      case _ if game.imported => {/}
-      case Some(p) => {@p.iconChar}
-      case _ => {8}
-      }">
+    <div class="game_infos" data-icon="@gameIcon(game)">
       <div class="header">
         <span class="setup">
           @bookmark.toggle(game)
+          @if(game.imported) {
+          <a class="hint--top" href="@routes.Importer.importGame" data-hint="@trans.importGame()">IMPORT</a>
+          } else {
           @game.clock.map(_.show).getOrElse {
           @game.daysPerTurn.map { days =>
           <span data-hint="@trans.correspondence()" class="hint--top">@{(days == 1).fold(trans.oneDay(), trans.nbDays(days))}</span>
@@ -29,6 +26,7 @@
           <span class="hint--top" data-hint="@pt.title">@pt.name.toUpperCase</span>
           }
           } • @game.rated.fold(trans.rated.str(), trans.casual.str()).toUpperCase
+          }
         </span>
         @game.pgnImport.flatMap(_.date).getOrElse(
         game.isBeingPlayed.fold(trans.playingRightNow(), momentFormat(game.createdAt))
@@ -66,6 +64,13 @@
       <span class="player is color-icon black">@game.checkCount.white</span>
       <span class="player is color-icon white">@game.checkCount.black</span>
     </div>
+    }
+    @if(game.variant.chess960) {
+    @initialFen.map { fen =>
+    @chess.variant.Chess960.positionNumber(fen).map { number =>
+    Chess960 start position: <strong>@number</strong>
+    }
+    }
     }
   </div>
 

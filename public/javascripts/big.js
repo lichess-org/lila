@@ -1614,12 +1614,18 @@ lichess.storage = {
       var $daysInput = $form.find('.days_choice input');
       var isHook = $form.hasClass('game_config_hook');
       var $ratings = $form.find('.ratings > div');
+      var whiteVariants = $form.data('white-variants').split(',');
       var toggleButtons = function() {
         var timeMode = $timeModeSelect.val();
         var rated = $rated.prop('checked');
         var timeOk = timeMode != '1' || $timeInput.val() > 0 || $incrementInput.val() > 0;
         var ratedOk = !isHook || !rated || timeMode != '0';
-        $form.find('.color_submits button').toggle(timeOk && ratedOk);
+        if (timeOk && ratedOk) {
+          $form.find('.color_submits button').show();
+          $form.find('.color_submits button.white').toggle(
+            !rated || whiteVariants.indexOf($variantSelect.val()) === -1);
+        } else
+          $form.find('.color_submits button').hide();
       };
       var showRating = function() {
         var timeMode = $timeModeSelect.val();
@@ -1783,6 +1789,7 @@ lichess.storage = {
         $modeChoicesWrap.toggle(!fen);
         if (fen) $casual.click();
         showRating();
+        toggleButtons();
       }).trigger('change');
 
       $form.find('div.level').each(function() {
