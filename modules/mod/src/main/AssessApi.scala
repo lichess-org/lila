@@ -2,6 +2,7 @@ package lila.mod
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.Types.Coll
+import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.evaluation.{ PlayerAssessment, GameGroupResult, GameResults, GameGroup, Analysed }
 import lila.game.Game
 import lila.game.{ Game, GameRepo }
@@ -16,9 +17,9 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
   private implicit val gameGroupResultBSONhandler = Macros.handler[GameGroupResult]
 
-  def createPlayerAssessment(assessed: PlayerAssessment, mod: String) = {
+  def createPlayerAssessment(assessed: PlayerAssessment) = {
     collRef.update(BSONDocument("_id" -> assessed._id), assessed, upsert = true) >>
-      logApi.assessGame(mod, assessed.gameId, assessed.color.name, assessed.assessment) >>
+      logApi.assessGame(assessed.by, assessed.gameId, assessed.color.name, assessed.assessment) >>
         refreshAssess(assessed.gameId)
   }
 
@@ -45,13 +46,12 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
         getResultsByGameIdAndColor(gameId, Color.Black) map
             GameResults.tupled
 
-  def refreshAssess(gameId: String): Funit = {
+  def refreshAssess(gameId: String): Funit =
     GameRepo.game(gameId) zip
       AnalysisRepo.doneById(gameId) map {
           case (Some(g), Some(a)) => onAnalysisReady(g, a)
           case _ => funit
       }
-  }
 
   def onAnalysisReady(game: Game, analysis: Analysis): Funit = {
     def playerAssessmentGameGroups: Fu[List[GameGroup]] =

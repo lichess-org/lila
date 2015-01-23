@@ -1,6 +1,7 @@
 package lila.evaluation
 
 import Math.{pow, E, PI, log, sqrt, abs, exp}
+import org.joda.time.DateTime
 import scalaz.NonEmptyList
 import chess.{ Color }
 import lila.game.{ Pov, Game }
@@ -10,8 +11,10 @@ case class PlayerAssessment(
   _id: String,
   gameId: String,
   white: Boolean, // Side of the game being analysed
-  assessment: Int // 1 = Not Cheating, 2 = Unlikely Cheating, 3 = Unknown, 4 = Likely Cheating, 5 = Cheating
-  ) {
+  assessment: Int, // 1 = Not Cheating, 2 = Unlikely Cheating, 3 = Unknown, 4 = Likely Cheating, 5 = Cheating
+  by: String, // moderator ID
+  date: DateTime) {
+
   def color = Color(white)
 }
 
@@ -35,7 +38,7 @@ case class GameResults(
     def printResult(result: GameGroupResult): String = {
       result.targetGameId + "/" + result.targetColor + " => " + result.assessment + " " + (if (result.positiveMatch) "MATCHES" else "PARTIAL") + " " + result.matchPercentage
     }
-    
+
     ((white, black), color) match {
       case ((Some(result), _), Color.White) => printResult(result)
       case ((_, Some(result)), Color.Black) => printResult(result)
@@ -139,7 +142,7 @@ object Statistics {
     setToSetSimilarity(avgA, avgB, varA, varB, threshold)
   }
 
-  def listToListSimilarity[T](x: List[T], y: List[T], threshold: Double = 0.9)(implicit n: Numeric[T]): Similarity = 
+  def listToListSimilarity[T](x: List[T], y: List[T], threshold: Double = 0.9)(implicit n: Numeric[T]): Similarity =
     (x, y) match {
       case (Nil, Nil)                   => Similarity(1) // Both empty
       case (Nil, _ :: _)                => Similarity(0) // One empty, The other with some
@@ -181,7 +184,7 @@ object Statistics {
   // Square Sum Distance
   def ssd(a: NonEmptyList[Similarity]): Double = sqrt(a.map(x => pow(x.apply, 2)).list.sum / a.size)
 
-  def skip[A](l: List[A], n: Int) = 
+  def skip[A](l: List[A], n: Int) =
     l.zipWithIndex.collect {case (e,i) if ((i+n) % 2) == 0 => e} // (i+1) because zipWithIndex is 0-based
 }
 

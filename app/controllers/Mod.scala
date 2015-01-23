@@ -5,6 +5,7 @@ import lila.security.Permission
 import lila.user.UserRepo
 import views._
 
+import org.joda.time.DateTime
 import play.api.mvc._
 import play.api.mvc.Results._
 
@@ -96,7 +97,9 @@ object Mod extends LilaController {
             _id = id + "/" + color.name, 
             gameId = id, 
             white = (color == Color.White),
-            assessment = assessment), me.id).void
+            assessment = assessment, 
+            by = me.id,
+            date = DateTime.now)).void
         }
       )
   }
