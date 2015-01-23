@@ -41,23 +41,16 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     .one[GameGroupResult]
 
   def getResultsByGameId(gameId: String): Fu[GameResults] =
-    getResultsByGameIdAndColor(gameId, Color.White) flatMap {
-      white =>
-        getResultsByGameIdAndColor(gameId, Color.Black) map {
-          black => 
-            GameResults(white = white, black = black)
-        }
-    }
+    getResultsByGameIdAndColor(gameId, Color.White) zip
+        getResultsByGameIdAndColor(gameId, Color.Black) map 
+            GameResults.tupled
 
   def refreshAssess(gameId: String) = {
-    GameRepo.game(gameId) flatMap { game => 
-      AnalysisRepo.doneById(gameId) map { analysis => 
-        (game, analysis) match {
+    GameRepo.game(gameId) zip
+      AnalysisRepo.doneById(gameId) map { 
           case (Some(g), Some(a)) => onAnalysisReady(g, a)
           case _ =>
-        } 
       }
-    }
   }
 
   def onAnalysisReady(game: Game, analysis: Analysis): Funit = {
