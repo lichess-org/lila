@@ -2030,14 +2030,14 @@ lichess.storage = {
       }
     });
 
-    function sendAssessment(side, value) {
+    function sendAssessment(side, select) {
       $.post('/mod/' + data.game.id + '/' + side + '/assess', {
-        assessment: value
+        assessment: select.value
       });
     }
 
-    $('#whiteAssessment').change(sendAssessment('white', $(this).val()));
-    $('#blackAssessment').change(sendAssessment('black', $(this).val()));
+    $('#whiteAssessment').change(sendAssessment.bind(null, 'white'));
+    $('#blackAssessment').change(sendAssessment.bind(null, 'black'));
     
     $('#refreshAssessment').click(function() {
       $.post('/mod/refreshAssess', {
