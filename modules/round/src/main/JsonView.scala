@@ -30,6 +30,9 @@ final class JsonView(
     "short" -> v.shortName,
     "title" -> v.title)
 
+  private def checkCount(game: Game, color: Color) =
+    (game.variant == chess.variant.ThreeCheck) ?? game.checkCount(color)
+
   def playerJson(
     pov: Pov,
     pref: Pref,
@@ -78,6 +81,7 @@ final class JsonView(
               "offeringDraw" -> player.isOfferingDraw.option(true),
               "proposingTakeback" -> player.isProposingTakeback.option(true),
               "onGame" -> (player.isAi || socket.onGame(player.color)),
+              "checks" -> checkCount(game, player.color),
               "hold" -> (withBlurs option hold(player)),
               "blurs" -> (withBlurs option blurs(game, player))
             ).noNull,
@@ -92,6 +96,7 @@ final class JsonView(
               "proposingTakeback" -> opponent.isProposingTakeback.option(true),
               "onGame" -> (opponent.isAi || socket.onGame(opponent.color)),
               "isGone" -> (!opponent.isAi && socket.isGone(opponent.color)),
+              "checks" -> checkCount(game, opponent.color),
               "hold" -> (withBlurs option hold(opponent)),
               "blurs" -> (withBlurs option blurs(game, opponent))
             ).noNull,
@@ -178,6 +183,7 @@ final class JsonView(
               "rating" -> player.rating,
               "ratingDiff" -> player.ratingDiff,
               "onGame" -> (player.isAi || socket.onGame(player.color)),
+              "checks" -> checkCount(game, player.color),
               "hold" -> (withBlurs option hold(player)),
               "blurs" -> (withBlurs option blurs(game, player))
             ).noNull,
@@ -188,6 +194,7 @@ final class JsonView(
               "rating" -> opponent.rating,
               "ratingDiff" -> opponent.ratingDiff,
               "onGame" -> (opponent.isAi || socket.onGame(opponent.color)),
+              "checks" -> checkCount(game, opponent.color),
               "hold" -> (withBlurs option hold(opponent)),
               "blurs" -> (withBlurs option blurs(game, opponent))
             ).noNull,
