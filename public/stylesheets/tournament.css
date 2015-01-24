@@ -26,7 +26,7 @@ ol.scheduled_tournaments a:hover {
 #tournament_list table.slist .header {
   letter-spacing: 2px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: transform 0.3s;
   padding: 0!important;
 }
 #tournament_list table.slist .header:hover {
@@ -41,7 +41,6 @@ ol.scheduled_tournaments a:hover {
   letter-spacing: 3px;
   font-size: 1.7em;
   display: block;
-  transition: 0.3s;
 }
 #tournament.scheduled h1,
 #tournament table tr.standing.scheduled:first-child td:first-child {
