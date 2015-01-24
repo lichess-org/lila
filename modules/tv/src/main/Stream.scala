@@ -10,6 +10,8 @@ case class StreamOnAir(
     url: String,
     streamId: String) {
 
+  def streamerId = streamer.toLowerCase
+
   val id = url.md5.hex take 8
 }
 
