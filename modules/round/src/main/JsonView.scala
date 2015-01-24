@@ -31,7 +31,7 @@ final class JsonView(
     "title" -> v.title)
 
   private def checkCount(game: Game, color: Color) =
-    (game.variant == chess.variant.ThreeCheck) ?? game.checkCount(color)
+    (game.variant == chess.variant.ThreeCheck) option game.checkCount(color)
 
   def playerJson(
     pov: Pov,
