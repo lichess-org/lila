@@ -4,7 +4,7 @@ dir=`mktemp -d`
 echo "Building in $dir"
 cd $dir
 
-git clone git@github.com:ornicar/scalalib.git
+git clone https://github.com/ornicar/scalalib
 cd scalalib
 sbt publish-local
 cd ..
