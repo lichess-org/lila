@@ -70,7 +70,7 @@ object Analyse extends LilaController {
                 else fuccess(GameResults(None, None))
               assessResults flatMap {
                 results =>
-                  Env.api.roundApi.watcher(pov, lila.api.MobileApi.currentVersion, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data => {
+                  Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data => {
                     Ok(html.analyse.replay(
                       pov,
                       data,
