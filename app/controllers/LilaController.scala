@@ -201,14 +201,11 @@ private[controllers] trait LilaController
   protected def authorizationFailed(req: RequestHeader): Result =
     Forbidden("no permission")
 
-  protected def negotiate(html: => Fu[Result], api: Int => Fu[Result])(implicit ctx: Context): Fu[Result] = {
-    import play.api.mvc.Accepting
-    val accepts = ~ctx.req.headers.get(HeaderNames.ACCEPT)
-    val response =
-      if (accepts contains "application/vnd.lichess.v1+json") api(1) map (_ as JSON)
-      else html
-    response map (_.withHeaders("Vary" -> "Accept"))
-  }
+  protected def negotiate(html: => Fu[Result], api: Int => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    (lila.api.MobileApi.requestApiVersion(ctx.req) match {
+      case Some(1) => api(1) map (_ as JSON)
+      case _       => html
+    }) map (_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
     restoreUser(req) map { UserContext(req, _) } flatMap { ctx =>

@@ -18,14 +18,15 @@ object Store {
 
   type IP = String
 
-  private[security] def save(sessionId: String, userId: String, req: RequestHeader): Funit =
+  private[security] def save(sessionId: String, userId: String, req: RequestHeader, apiVersion: Option[Int]): Funit =
     $insert(Json.obj(
       "_id" -> sessionId,
       "user" -> userId,
       "ip" -> req.remoteAddress,
       "ua" -> ua(req),
       "date" -> $date(DateTime.now),
-      "up" -> true))
+      "up" -> true,
+      "api" -> apiVersion))
 
   def userId(sessionId: String): Fu[Option[String]] =
     storeTube.coll.find(

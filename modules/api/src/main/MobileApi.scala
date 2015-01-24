@@ -1,6 +1,8 @@
 package lila.api
 
 import org.joda.time.DateTime
+import play.api.http.HeaderNames
+import play.api.mvc.RequestHeader
 
 object MobileApi {
 
@@ -21,4 +23,10 @@ object MobileApi {
       deprecatedAt = new DateTime("2014-08-01"),
       unsupportedAt = new DateTime("2014-12-01"))
   )
+
+  def requestApiVersion(req: RequestHeader): Option[Int] = {
+    val accepts = ~req.headers.get(HeaderNames.ACCEPT)
+    if (accepts contains "application/vnd.lichess.v1+json") some(1)
+    else none
+  }
 }
