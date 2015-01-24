@@ -26,10 +26,15 @@ object Mobile {
         unsupportedAt = new DateTime("2014-12-01"))
     )
 
+    private val PathPattern = """^.+/socket/v(\d+)$""".r
+
     def requestVersion(req: RequestHeader): Option[Int] = {
       val accepts = ~req.headers.get(HeaderNames.ACCEPT)
       if (accepts contains "application/vnd.lichess.v1+json") some(1)
-      else none
+      else req.path match {
+        case PathPattern(version) => parseIntOption(version)
+        case _                    => None
+      }
     }
   }
 
