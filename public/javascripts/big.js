@@ -1142,7 +1142,7 @@ lichess.storage = {
     startTournamentClock();
     $('.crosstable', element).prependTo($('.underboard .center', element)).show();
     $('#tv_history').on("click", "tr", function() {
-      location.href = $(this).find('a.view').attr('href');
+      location.href = $(this).find('a.icon').attr('href');
     });
     var loadPlaying = function() {
       var $moveOn = $nowPlaying.find('.move_on').click(function() {
