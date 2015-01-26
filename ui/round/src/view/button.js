@@ -8,7 +8,7 @@ var m = require('mithril');
 module.exports = {
   standard: function(ctrl, condition, icon, hint, socketMsg) {
     return condition(ctrl.data) ? m('button', {
-      class: 'button hint--bottom',
+      class: 'button hint--bottom ' + socketMsg,
       'data-hint': ctrl.trans(hint),
       onclick: partial(ctrl.socket.send, socketMsg, null)
     }, m('span', {
