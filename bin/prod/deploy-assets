@@ -1,6 +1,8 @@
 #!/bin/sh
 . bin/lilarc
 
+bin/prod/compile-client
+
 REMOTE="frank"
 REMOTE_DIR="/home/lichess"
 
