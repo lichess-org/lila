@@ -2,10 +2,9 @@
 
 @(game: Game, results: GameResults)(implicit ctx: Context)
 
-@if(isGranted(_.MarkEngine) && game.analysable && !game.isCorrespondence) {
+@if(isGranted(_.MarkEngine) && game.analysable && !game.isCorrespondence && game.turns > 40) {
 <button type="button" id="refreshAssessment">Refresh</button>
 @game.players.map { p =>
-@if(game.turns > 40) {
 <br />
 @playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, withOnline = false, mod = true)
 <select id="@(p.color.name)Assessment">
@@ -17,6 +16,5 @@
 </select>
 <br />
 @results.report(p.color)
-}
 }
 }
