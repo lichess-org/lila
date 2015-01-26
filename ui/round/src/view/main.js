@@ -49,7 +49,7 @@ function renderVariantReminder(ctrl) {
         setTimeout(function() {
           el.remove();
         }, 600);
-      }, 1000);
+      }, 500);
     }
   });
 }
