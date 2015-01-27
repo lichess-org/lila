@@ -17,12 +17,10 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
   private implicit val gameGroupResultBSONhandler = Macros.handler[GameGroupResult]
 
-  def createPlayerAssessment(assessed: PlayerAssessment) = {
+  def createPlayerAssessment(assessed: PlayerAssessment) =
     collRef.update(BSONDocument("_id" -> assessed._id), assessed, upsert = true) >>
       logApi.assessGame(assessed.by, assessed.gameId, assessed.color.name, assessed.assessment) >>
         refreshAssess(assessed.gameId)
-  }
-
 
   def createResult(result: GameGroupResult) =
     collRes.update(BSONDocument("_id" -> result._id), result, upsert = true).void

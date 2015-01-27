@@ -262,3 +262,33 @@ div.shortcuts li {
   width: 512px;
   text-align: center;
 }
+table.modAssessment {
+  border-spacing: 2px;
+  border-collapse: separate;
+}
+
+table.modAssessment a {
+  margin-left: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+table.modAssessment td.match a {
+  color: #759900;
+}
+
+table.modAssessment td.partial a {
+  color: #d59120;
+}
+
+table.modAssessment td.none a {
+  color: #ac524f;
+}
+
+.modAssessment select {
+  margin-left: 15px;
+}
+
+#refreshAssessment {
+  margin: 10px auto auto 80px;
+}

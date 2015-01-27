@@ -34,17 +34,34 @@ case class GameResults(
   white: Option[GameGroupResult],
   black: Option[GameGroupResult]
   ) {
-  def report(color: Color): String = {
-    def printResult(result: GameGroupResult): String = {
-      result.targetGameId + "/" + result.targetColor + " => " + result.assessment + " " + (if (result.positiveMatch) "MATCHES" else "PARTIAL") + " " + result.matchPercentage
+
+  def assessment(color: Color): Int =
+    ((white, black), color) match {
+      case ((Some(result), _), Color.White) => result.assessment
+      case ((_, Some(result)), Color.Black) => result.assessment
+      case _ => 0
     }
 
+  def htmlClass(color: Color): String =
     ((white, black), color) match {
-      case ((Some(result), _), Color.White) => printResult(result)
-      case ((_, Some(result)), Color.Black) => printResult(result)
-      case _ => "No matches found"
+      case ((Some(result), _), Color.White) => if (result.positiveMatch) "match" else "partial"
+      case ((_, Some(result)), Color.Black) => if (result.positiveMatch) "match" else "partial"
+      case _ => "none"
     }
-  }
+
+  def href(color: Color): String =
+    ((white, black), color) match {
+      case ((Some(result), _), Color.White) => "/" + result.targetGameId + "/" + result.targetColor
+      case ((_, Some(result)), Color.Black) => "/" + result.targetGameId + "/" + result.targetColor
+      case _ => ""
+    }
+
+  def matchPercentage(color: Color): String =
+    ((white, black), color) match {
+      case ((Some(result), _), Color.White) => result.matchPercentage + "%"
+      case ((_, Some(result)), Color.Black) => result.matchPercentage + "%"
+      case _ => "None"
+    } 
 }
 
 case class Rating(perf: Int, interval: Int)
