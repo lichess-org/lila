@@ -224,31 +224,34 @@ final class JsonView(
           ).noNull
       }
 
-  def userAnalysisJson(pov: Pov, pref: Pref) = {
-    import pov._
-    val fen = Forsyth >> game.toChess
-    Json.obj(
-      "game" -> Json.obj(
-        "id" -> gameId,
-        "variant" -> variantJson(game.variant),
-        "initialFen" -> fen,
-        "fen" -> fen,
-        "player" -> game.turnColor.name,
-        "status" -> statusJson(game.status)),
-      "player" -> Json.obj(
-        "color" -> color.name
-      ),
-      "opponent" -> Json.obj(
-        "color" -> opponent.color.name
-      ),
-      "pref" -> Json.obj(
-        "animationDuration" -> animationDuration(pov, pref),
-        "highlight" -> pref.highlight,
-        "destination" -> pref.destination,
-        "coords" -> pref.coords
-      ),
-      "userAnalysis" -> true)
-  }
+  def userAnalysisJson(pov: Pov, pref: Pref) =
+    GameRepo.initialFen(pov.game) map { initialFen =>
+      import pov._
+      val fen = Forsyth >> game.toChess
+      Json.obj(
+        "game" -> Json.obj(
+          "id" -> gameId,
+          "variant" -> variantJson(game.variant),
+          "initialFen" -> (initialFen | chess.format.Forsyth.initial),
+          "fen" -> fen,
+          "moves" -> game.pgnMoves.mkString(" "),
+          "turns" -> game.turns,
+          "player" -> game.turnColor.name,
+          "status" -> statusJson(game.status)),
+        "player" -> Json.obj(
+          "color" -> color.name
+        ),
+        "opponent" -> Json.obj(
+          "color" -> opponent.color.name
+        ),
+        "pref" -> Json.obj(
+          "animationDuration" -> animationDuration(pov, pref),
+          "highlight" -> pref.highlight,
+          "destination" -> pref.destination,
+          "coords" -> pref.coords
+        ),
+        "userAnalysis" -> true)
+    }
 
   private def blurs(game: Game, player: lila.game.Player) = {
     val percent = game.playerBlurPercent(player.color)
