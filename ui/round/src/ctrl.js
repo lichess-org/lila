@@ -128,6 +128,11 @@ module.exports = function(opts) {
   }.bind(this);
   setQuietMode();
 
+  this.takebackYes = function() {
+    this.socket.send('takeback-yes');
+    this.chessground.cancelPremove();
+  }.bind(this);
+
   this.moveOn = new moveOn(this, 'lichess.move_on');
 
   this.replay = new replayCtrl(this);

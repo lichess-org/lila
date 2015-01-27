@@ -71,7 +71,7 @@ module.exports = {
       ctrl.trans('yourOpponentProposesATakeback'),
       m('br'),
       m('a.button.text[data-icon=E]', {
-        onclick: partial(ctrl.socket.send, 'takeback-yes', null)
+        onclick: partial(ctrl.takebackYes),
       }, ctrl.trans('accept')),
       m.trust('&nbsp;'),
       m('a.button.text[data-icon=L]', {
