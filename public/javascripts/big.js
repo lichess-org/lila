@@ -50,7 +50,7 @@ lichess.StrongSocket.defaults = {
     pingDelay: 1000, // time between pong and ping
     autoReconnectDelay: 1000,
     lagTag: false, // jQuery object showing ping lag
-    ignoreUnknownMessages: false,
+    ignoreUnknownMessages: true,
     baseUrls: ['socket.' + document.domain].concat(
       ($('body').data('ports') + '').split(',').map(function(port) {
         return 'socket.' + document.domain + ':' + port;
