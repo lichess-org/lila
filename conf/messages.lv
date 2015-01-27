@@ -415,3 +415,5 @@ allInformationIsPublicAndOptional=Visa informācija ir publiska un nav obligāta
 yourCityRegionOrDepartment=Tava pilsēta, novads vai nodaļa.
 biographyDescription=Pastāsti par sevi, kāpēc tev patīk šahs, savas mīļākās atklātes, spēles, šahistus ...
 maximumNbCharacters=Maksimums: %s simboli.
+blocks=%s bloķētie
+listBlockedPlayers=Parādīt bloķēto spēlētāju sarakstu
