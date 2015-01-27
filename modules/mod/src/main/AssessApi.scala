@@ -71,7 +71,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
           val similarityTo = source.similarityTo(best)
           Some(GameGroupResult(
             _id = source.analysed.game.id + "/" + source.color.name,
-            userId = source.analysed.game.player(source.color).id,
+            userId = source.analysed.game.player(source.color).userId.getOrElse(""),
             sourceGameId = source.analysed.game.id,
             sourceColor = source.color.name,
             targetGameId = best.analysed.game.id,
