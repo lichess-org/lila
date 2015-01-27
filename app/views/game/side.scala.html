@@ -20,7 +20,7 @@
           }
           } •
           @if(game.variant.exotic) {
-          @variantLink(game.variant, (if (game.variant ==  chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top")
+          @variantLink(game.variant, (if (game.variant ==  chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
           } else {
           @game.perfType.map { pt =>
           <span class="hint--top" data-hint="@pt.title">@pt.name.toUpperCase</span>
