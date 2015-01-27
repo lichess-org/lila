@@ -90,7 +90,7 @@ case class Game(
   } orElse updatedAt.map(_.getMillis / 100)
 
   private def lastMoveTimeDate: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
-    createdAt plusMillis (lmt * 100)
+    createdAt plus (lmt * 100l)
   } orElse updatedAt
 
   def updatedAtOrCreatedAt = updatedAt | createdAt
