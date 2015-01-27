@@ -35,33 +35,19 @@ case class GameResults(
   black: Option[GameGroupResult]
   ) {
 
+  def color(c: Color): Option[GameGroupResult] =
+    c match {
+      case Color.White => white
+      case Color.Black => black
+      case _ => none
+    }
+
   def assessment(color: Color): Int =
     ((white, black), color) match {
       case ((Some(result), _), Color.White) => result.assessment
       case ((_, Some(result)), Color.Black) => result.assessment
       case _ => 0
     }
-
-  def htmlClass(color: Color): String =
-    ((white, black), color) match {
-      case ((Some(result), _), Color.White) => if (result.positiveMatch) "match" else "partial"
-      case ((_, Some(result)), Color.Black) => if (result.positiveMatch) "match" else "partial"
-      case _ => "none"
-    }
-
-  def href(color: Color): String =
-    ((white, black), color) match {
-      case ((Some(result), _), Color.White) => "/" + result.targetGameId + "/" + result.targetColor
-      case ((_, Some(result)), Color.Black) => "/" + result.targetGameId + "/" + result.targetColor
-      case _ => ""
-    }
-
-  def matchPercentage(color: Color): String =
-    ((white, black), color) match {
-      case ((Some(result), _), Color.White) => result.matchPercentage + "%"
-      case ((_, Some(result)), Color.Black) => result.matchPercentage + "%"
-      case _ => "None"
-    } 
 }
 
 case class Rating(perf: Int, interval: Int)

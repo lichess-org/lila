@@ -266,29 +266,25 @@ table.modAssessment {
   border-spacing: 2px;
   border-collapse: separate;
 }
-
 table.modAssessment a {
   margin-left: 10px;
   text-decoration: none;
   font-weight: bold;
 }
-
 table.modAssessment td.match a {
   color: #759900;
 }
-
 table.modAssessment td.partial a {
   color: #d59120;
 }
-
-table.modAssessment td.none a {
+table.modAssessment td.noMatch {
   color: #ac524f;
+  padding-left: 10px;
+  font-weight: bold;
 }
-
 .modAssessment select {
   margin-left: 15px;
 }
-
 #refreshAssessment {
   margin: 10px auto auto 80px;
 }

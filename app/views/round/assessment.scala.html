@@ -19,7 +19,15 @@
         <option value="5">Cheating</option>
       </select>
     </td>
-    <td class="@results.htmlClass(p.color)"><a href="@results.href(p.color)">@results.matchPercentage(p.color)</a></td>
+    @results.color(p.color).fold{
+    <td class="noMatch">None</td>
+    }{ result =>
+    <td class=@(if(result.positiveMatch) "match" else "partial")>
+      <a href="@routes.Round.watcher(result.targetGameId, result.targetColor)">
+        @(result.matchPercentage)%
+      </a>
+    </td>
+    }
   </tr>
 </table>
 }

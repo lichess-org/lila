@@ -2047,7 +2047,7 @@ lichess.storage = {
         $.post('/mod/refreshAssess', {
           assess: data.game.id
         });
-        location.reload();
+        location.reload().delay(2500);
       });
     }
   }
