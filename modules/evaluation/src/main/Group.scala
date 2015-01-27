@@ -35,19 +35,7 @@ case class GameResults(
   black: Option[GameGroupResult]
   ) {
 
-  def color(c: Color): Option[GameGroupResult] =
-    c match {
-      case Color.White => white
-      case Color.Black => black
-      case _ => none
-    }
-
-  def assessment(color: Color): Int =
-    ((white, black), color) match {
-      case ((Some(result), _), Color.White) => result.assessment
-      case ((_, Some(result)), Color.Black) => result.assessment
-      case _ => 0
-    }
+  def color(c: Color): Option[GameGroupResult] = c.fold(white, black)
 }
 
 case class Rating(perf: Int, interval: Int)

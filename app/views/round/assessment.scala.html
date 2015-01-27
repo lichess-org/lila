@@ -10,7 +10,7 @@
   </tr>
   <tr>
     <td>
-      <select id="@(p.color.name)Assessment" data-val="@results.assessment(p.color)">
+      <select id="@(p.color.name)Assessment" data-val="@(results.color(p.color).fold(0){ result => result.assessment })">
         <option value="0"></option>
         <option value="1">Not cheating</option>
         <option value="2">Unlikely cheating</option>
