@@ -17,12 +17,10 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
   private implicit val gameGroupResultBSONhandler = Macros.handler[GameGroupResult]
 
-  def createPlayerAssessment(assessed: PlayerAssessment) = {
+  def createPlayerAssessment(assessed: PlayerAssessment) =
     collRef.update(BSONDocument("_id" -> assessed._id), assessed, upsert = true) >>
       logApi.assessGame(assessed.by, assessed.gameId, assessed.color.name, assessed.assessment) >>
         refreshAssess(assessed.gameId)
-  }
-
 
   def createResult(result: GameGroupResult) =
     collRes.update(BSONDocument("_id" -> result._id), result, upsert = true).void
@@ -73,7 +71,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
           val similarityTo = source.similarityTo(best)
           Some(GameGroupResult(
             _id = source.analysed.game.id + "/" + source.color.name,
-            userId = source.analysed.game.player(source.color).id,
+            userId = source.analysed.game.player(source.color).userId.getOrElse(""),
             sourceGameId = source.analysed.game.id,
             sourceColor = source.color.name,
             targetGameId = best.analysed.game.id,

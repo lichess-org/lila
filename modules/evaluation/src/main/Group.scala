@@ -34,17 +34,8 @@ case class GameResults(
   white: Option[GameGroupResult],
   black: Option[GameGroupResult]
   ) {
-  def report(color: Color): String = {
-    def printResult(result: GameGroupResult): String = {
-      result.targetGameId + "/" + result.targetColor + " => " + result.assessment + " " + (if (result.positiveMatch) "MATCHES" else "PARTIAL") + " " + result.matchPercentage
-    }
 
-    ((white, black), color) match {
-      case ((Some(result), _), Color.White) => printResult(result)
-      case ((_, Some(result)), Color.Black) => printResult(result)
-      case _ => "No matches found"
-    }
-  }
+  def color(c: Color): Option[GameGroupResult] = c.fold(white, black)
 }
 
 case class Rating(perf: Int, interval: Int)
@@ -66,14 +57,18 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
     val thisMt: List[Int] = skip(this.analysed.game.moveTimes.toList, {if (this.color == Color.White) 0 else 1})
     val thatMt: List[Int] = skip(that.analysed.game.moveTimes.toList, {if (that.color == Color.White) 0 else 1})
 
-    listToListSimilarity(thisMt, thatMt, 0.3)
+    listToListSimilarity(thisMt, thatMt, 0.8)
   }
 
-  def compareSfAccuracies (that: GameGroup): Similarity = listToListSimilarity(
+  def compareSfAccuracies (that: GameGroup): (Similarity, Similarity) = (listToListSimilarity(
       Accuracy.diffsList(Pov(this.analysed.game, this.color), this.analysed.analysis),
       Accuracy.diffsList(Pov(that.analysed.game, that.color), that.analysed.analysis),
-      0.7
-    )
+      0.8
+    ), listToListSimilarity(
+      Accuracy.diffsList(Pov(this.analysed.game, !this.color), this.analysed.analysis),
+      Accuracy.diffsList(Pov(that.analysed.game, !that.color), that.analysed.analysis),
+      0.8
+    ))
 
   def compareBlurRates (that: GameGroup): Similarity = pointToPointSimilarity(
     (200 * this.analysed.game.player(this.color).blurs / this.analysed.game.turns).toInt,
@@ -88,9 +83,12 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
 
   def similarityTo (that: GameGroup): MatchAndSig = {
     // Calls compare functions to determine how similar `this` and `that` are to each other
+    val sfComparison = compareSfAccuracies(that)
+
     val similarities = NonEmptyList(
       compareMoveTimes(that),
-      compareSfAccuracies(that),
+      sfComparison._1,
+      sfComparison._2,
       compareBlurRates(that),
       compareHoldAlerts(that)
     )

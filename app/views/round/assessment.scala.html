@@ -1,22 +1,35 @@
 @import lila.evaluation.GameResults
 
 @(game: Game, results: GameResults)(implicit ctx: Context)
-
-@if(isGranted(_.MarkEngine) && game.analysable && !game.isCorrespondence) {
-<button type="button" id="refreshAssessment">Refresh</button>
+<br />
+@if(isGranted(_.MarkEngine) && game.analysable && !game.isCorrespondence && game.turns > 40) {
 @game.players.map { p =>
-@if(game.turns > 40) {
-<br />
-@playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, withOnline = false, mod = true)
-<select id="@(p.color.name)Assessment">
-  <option value="1">Not cheating</option>
-  <option value="2">Unlikely cheating</option>
-  <option value="3">Unclear</option>
-  <option value="4">Likely cheating</option>
-  <option value="5">Cheating</option>
-</select>
-<br />
-@results.report(p.color)
+<table class="modAssessment">
+  <tr>
+    @playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, withOnline = false, mod = true)
+  </tr>
+  <tr>
+    <td>
+      <select id="@(p.color.name)Assessment" data-val="@(results.color(p.color).fold(0){ _.assessment })">
+        <option value="0"></option>
+        <option value="1">Not cheating</option>
+        <option value="2">Unlikely cheating</option>
+        <option value="3">Unclear</option>
+        <option value="4">Likely cheating</option>
+        <option value="5">Cheating</option>
+      </select>
+    </td>
+    @results.color(p.color).fold{
+    <td class="noMatch">None</td>
+    }{ result =>
+    <td class=@(if(result.positiveMatch) "match" else "partial")>
+      <a href="@routes.Round.watcher(result.targetGameId, result.targetColor)">
+        @(result.matchPercentage)%
+      </a>
+    </td>
+    }
+  </tr>
+</table>
 }
-}
+<button type="button" id="refreshAssessment">Refresh</button>
 }

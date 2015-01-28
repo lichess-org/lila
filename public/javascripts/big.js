@@ -2030,18 +2030,23 @@ lichess.storage = {
     });
 
     if ($('#refreshAssessment').length) {
+      $('#whiteAssessment').val($('#whiteAssessment').data('val'));
+      $('#blackAssessment').val($('#blackAssessment').data('val'));
 
       var sendAssessment = function(side, e) {
-        $.post('/mod/' + data.game.id + '/' + side + '/assess', {
-          assessment: $(e.target).val()
-        });
+        if ($(e.target).val() != "0") {
+          $.post('/mod/' + data.game.id + '/' + side + '/assess', {
+            assessment: $(e.target).val()
+          });
+        }
       }
       $('#whiteAssessment').change(sendAssessment.bind(null, 'white'));
       $('#blackAssessment').change(sendAssessment.bind(null, 'black'));
 
       $('#refreshAssessment').click(function() {
         $.post('/mod/refreshAssess', {
-          assess: data.game.id
+          assess: data.game.id,
+          success: function() {location.reload()}
         });
       });
     }
