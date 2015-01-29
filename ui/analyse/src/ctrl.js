@@ -6,6 +6,8 @@ var ground = require('./ground');
 var keyboard = require('./keyboard');
 var treePath = require('./path');
 var actionMenu = require('./actionMenu').controller;
+var autoplay = require('./autoplay');
+var control = require('./control');
 var m = require('mithril');
 
 module.exports = function(cfg, router, i18n, onChange) {
@@ -13,6 +15,7 @@ module.exports = function(cfg, router, i18n, onChange) {
   this.data = data({}, cfg);
   this.analyse = new analyse(this.data.game, this.data.analysis);
   this.actionMenu = new actionMenu();
+  this.autoplay = new autoplay(this);
 
   var initialPath = cfg.path ? treePath.read(cfg.path) : treePath.default();
 
@@ -21,8 +24,7 @@ module.exports = function(cfg, router, i18n, onChange) {
     pathStr: treePath.write(initialPath),
     situation: null,
     comments: true,
-    flip: false,
-    play: false
+    flip: false
   };
 
   this.flip = function() {
@@ -30,6 +32,16 @@ module.exports = function(cfg, router, i18n, onChange) {
     this.chessground.set({
       orientation: this.vm.flip ? this.data.opponent.color : this.data.player.color
     });
+  }.bind(this);
+
+  this.togglePlay = function() {
+    this.autoplay.toggle();
+    this.actionMenu.open = false;
+  }.bind(this);
+
+  this.control = function(command) {
+    this.autoplay.stop();
+    control[command](this);
   }.bind(this);
 
   var gameVariantChessId = function() {

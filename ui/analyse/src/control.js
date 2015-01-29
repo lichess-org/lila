@@ -15,6 +15,8 @@ function canGoForward(ctrl) {
 
 module.exports = {
 
+  canGoForward: canGoForward,
+
   next: function(ctrl) {
     if (!canGoForward(ctrl)) return;
     var p = ctrl.vm.path;
