@@ -33,6 +33,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     .one[PlayerAssessment]
 
   def getResultsByUserId(userId: String, nb: Int = 100) = collRes.find(BSONDocument("userId" -> userId))
+    .sort(BSONDocument("assessment" -> -1, "positiveMatch" -> -1,"matchPercentage" -> -1))
     .cursor[GameGroupResult]
     .collect[List](nb)
 

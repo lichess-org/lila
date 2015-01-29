@@ -146,7 +146,7 @@ object User extends LilaController {
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>
     me => OptionFuOk(UserRepo named username) { user =>
-      (Env.evaluation.evaluator find user) zip (Env.security userSpy user.id) zip (Env.mod.assessApi.getResultsByUserId(user.id)) map {
+      (Env.evaluation.evaluator find user) zip (Env.security userSpy user.id) zip (Env.mod.assessApi.getResultsByUserId(user.id, 25)) map {
         case ((eval, spy), gameResults) => html.user.mod(user, spy, eval, gameResults)
       }
     }

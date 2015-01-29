@@ -229,12 +229,12 @@ div.user_show .evaluation strong {
   text-transform: uppercase;
 }
 div.user_show .evaluation .assessment_1 {
-  color: #759900;
+  color: #99d531;
 }
 div.user_show .evaluation .assessment_2 {
-  color: #cbd531;
+  color: #b8d531;
 }
-div.user_show .evaluaiton .assessment_3 {
+div.user_show .evaluation .assessment_3 {
   color: #d3d531;
 }
 div.user_show .evaluation .assessment_4 {
@@ -243,7 +243,7 @@ div.user_show .evaluation .assessment_4 {
 }
 div.user_show .evaluation .assessment_5 {
   font-weight: bold;
-  color: #ac524f;
+  color: #de6039;
 }
 div.user_show .evaluation .match {
   font-weight: bold;
