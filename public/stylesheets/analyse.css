@@ -285,6 +285,6 @@ table.modAssessment td.noMatch {
 .modAssessment select {
   margin-left: 15px;
 }
-#refreshAssessment {
-  margin: 10px auto auto 80px;
+.assessmentButtons {
+  margin: 10px auto auto 50px;
 }

@@ -2049,6 +2049,19 @@ lichess.storage = {
           success: function(){ setTimeout(function(){ location.reload(); }, 3000) }
         });
       });
+
+      $('#confirmAssessment').click(function() {
+        if ($('#whiteAssessment').val() != "0") {
+          $.post('/mod/' + data.game.id + '/white/assess', {
+            assessment: $('#whiteAssessment').val()
+          });
+        }
+        if ($('#blackAssessment').val() != "0") {
+          $.post('/mod/' + data.game.id + '/black/assess', {
+            assessment: $('#blackAssessment').val()
+          });
+        }
+      });
     }
   }
 
