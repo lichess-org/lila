@@ -27,9 +27,16 @@ case class GameGroupResult(
   targetColor: String, // The player of the game who was matched against
   positiveMatch: Boolean, // Was the match significant enough to make a hard determination on
   matchPercentage: Int, // 0 = Absolutely no match, 100 = Complete match
-  assessment: Int
+  assessment: Int,
+  // Meta infos
+  sfAvg: Int,
+  sfSd: Int,
+  mtAvg: Int,
+  mtSd: Int,
+  blur: Int,
+  hold: Boolean
   ) {
-  def assessmentString: String =
+  val assessmentString: String =
     assessment match {
       case 1 => "Not cheating"
       case 2 => "Unlikely cheating"
@@ -38,8 +45,6 @@ case class GameGroupResult(
       case 5 => "Cheating"
       case _ => "Undefined"
     }
-
-  def matchString: String = if (positiveMatch) "Match" else "Partial"
 }
 
 case class GameResults(
@@ -92,6 +97,13 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
       if (this.analysed.game.player(this.color).hasSuspiciousHoldAlert == that.analysed.game.player(that.color).hasSuspiciousHoldAlert) 1 else 0,
       0.9
     )
+
+  val sfAvg: Int = listAverage(Accuracy.diffsList(Pov(this.analysed.game, this.color), this.analysed.analysis)).toInt
+  val sfSd: Int = listDeviation(Accuracy.diffsList(Pov(this.analysed.game, this.color), this.analysed.analysis)).toInt
+  val mtAvg: Int = listAverage(skip(this.analysed.game.moveTimes.toList, {if (this.color == Color.White) 0 else 1})).toInt
+  val mtSd: Int = listDeviation(skip(this.analysed.game.moveTimes.toList, {if (this.color == Color.White) 0 else 1})).toInt
+  val blurs: Int = (200 * this.analysed.game.player(this.color).blurs / this.analysed.game.turns).toInt;
+  val hold: Boolean = this.analysed.game.player(this.color).hasSuspiciousHoldAlert
 
   def similarityTo (that: GameGroup): MatchAndSig = {
     // Calls compare functions to determine how similar `this` and `that` are to each other
@@ -196,6 +208,18 @@ object Statistics {
 
   def skip[A](l: List[A], n: Int) =
     l.zipWithIndex.collect {case (e,i) if ((i+n) % 2) == 0 => e} // (i+1) because zipWithIndex is 0-based
+
+  def listAverage[T](x: List[T])(implicit n: Numeric[T]): Double = x match {
+    case Nil      => 0
+    case a :: Nil => n.toDouble(a)
+    case a :: b   => average(NonEmptyList.nel(a, b))
+  }
+
+  def listDeviation[T](x: List[T])(implicit n: Numeric[T]): Double = x match {
+    case Nil      => 0
+    case _ :: Nil => 0
+    case a :: b   => deviation(NonEmptyList.nel(a, b))
+  }
 }
 
 object Erf {

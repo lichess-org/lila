@@ -77,27 +77,28 @@
   }
   @if(gameResults.nonEmpty) {
   <div class="evaluation">
-    <p>
-      Assessed games
-      <br />
-      <br />
-    </p>
     <table class="slist">
       <thead>
         <tr>
-          <th>Most suspicious games found</th>
-          <th>Assessment</th>
+          <th>Assessed games</th>
+          <th>Centi-Pawn Loss (Avg±SD)</th>
+          <th>Move Times (Avg±SD)</th>
+          <th>Blurs</th>
+          <th>Bot</th>
           <th>Significance</th>
-          <th>Match</th>
+          <th>Assessment</th>
         </tr>
       </thead>
       <tbody>
       @gameResults.map { result =>
         <tr>
           <td><a href="@routes.Round.watcher(result.sourceGameId, result.sourceColor)">@routes.Round.watcher(result.sourceGameId, result.sourceColor)</a></td>
+          <td>@result.sfAvg ± @result.sfSd</td>
+          <td>@result.mtAvg ± @result.mtSd</td>
+          <td>@(result.blur)%</td>
+          <td>@if(result.hold){Yes} else {No}</td>
+          <td class=@(if(result.positiveMatch) "match" else "partial")>@(result.matchPercentage)%</td>
           <td class="assessment_@(result.assessment)">@result.assessmentString</td>
-          <td>@(result.matchPercentage)%</td>
-          <td class=@(if(result.positiveMatch) "match" else "partial")>@result.matchString</td>
         </tr>
       }
       </tbody>

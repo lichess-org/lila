@@ -79,7 +79,13 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
             targetColor = best.color.name,
             positiveMatch = similarityTo.matches,
             matchPercentage = (100 * similarityTo.significance).toInt,
-            assessment = best.assessment.getOrElse(1)
+            assessment = best.assessment.getOrElse(1),
+            sfAvg = best.sfAvg,
+            sfSd = best.sfSd,
+            mtAvg = best.mtAvg,
+            mtSd = best.mtSd,
+            blur = best.blurs,
+            hold = best.hold
           ))
         }
         case x :: y :: rest => {
