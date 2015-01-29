@@ -80,12 +80,12 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
             positiveMatch = similarityTo.matches,
             matchPercentage = (100 * similarityTo.significance).toInt,
             assessment = best.assessment.getOrElse(1),
-            sfAvg = best.sfAvg,
-            sfSd = best.sfSd,
-            mtAvg = best.mtAvg,
-            mtSd = best.mtSd,
-            blur = best.blurs,
-            hold = best.hold
+            sfAvg = source.sfAvg,
+            sfSd = source.sfSd,
+            mtAvg = source.mtAvg,
+            mtSd = source.mtSd,
+            blur = source.blurs,
+            hold = source.hold
           ))
         }
         case x :: y :: rest => {
