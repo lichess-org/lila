@@ -1,4 +1,4 @@
-@(u: User, spy: lila.security.UserSpy, eval: Option[lila.evaluation.Evaluation])(implicit ctx: Context)
+@(u: User, spy: lila.security.UserSpy, eval: Option[lila.evaluation.Evaluation], gameResults: List[lila.evaluation.GameGroupResult])(implicit ctx: Context)
 
 <div class="actions clearfix">
   @if(isGranted(_.UserEvaluate)) {
@@ -73,6 +73,43 @@
       </tbody>
     </table>
     }
+  </div>
+  }
+  @if(gameResults.nonEmpty) {
+  <div class="evaluation">
+    <p>
+      Assessed games
+      <br />
+      <br />
+    </p>
+    <table class="slist">
+      <thead>
+        <tr>
+          <th>Most suspicious games found</th>
+          <th>Assessment</th>
+          <th>Significance</th>
+          <th>Match</th>
+        </tr>
+      </thead>
+      <tbody>
+      @gameResults.map { result =>
+        <tr>
+          <td><a href="@routes.Round.watcher(result.sourceGameId, result.sourceColor)">@routes.Round.watcher(result.sourceGameId, result.sourceColor)</a></td>
+          <td class="assessment_@(result.assessment)">@result.assessmentString</td>
+          <td>@(result.matchPercentage)%</td>
+          <td class=@(if(result.positiveMatch) "match" else "partial")>@result.matchString</td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+  } else {
+  <div class="evaluation">
+    <p>
+      No assessed games
+      <br />
+      <br />
+    </p>
   </div>
   }
   @if(spy.otherUsers.size < 2) {

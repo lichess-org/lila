@@ -28,7 +28,19 @@ case class GameGroupResult(
   positiveMatch: Boolean, // Was the match significant enough to make a hard determination on
   matchPercentage: Int, // 0 = Absolutely no match, 100 = Complete match
   assessment: Int
-  )
+  ) {
+  def assessmentString: String =
+    assessment match {
+      case 1 => "Not cheating"
+      case 2 => "Unlikely cheating"
+      case 3 => "Unclear"
+      case 4 => "Likely cheating"
+      case 5 => "Cheating"
+      case _ => "Undefined"
+    }
+
+  def matchString: String = if (positiveMatch) "Match" else "Partial"
+}
 
 case class GameResults(
   white: Option[GameGroupResult],

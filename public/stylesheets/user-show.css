@@ -228,6 +228,30 @@ div.user_show .evaluation strong {
   display: inline;
   text-transform: uppercase;
 }
+div.user_show .evaluation .assessment_1 {
+  color: #759900;
+}
+div.user_show .evaluation .assessment_2 {
+  color: #cbd531;
+}
+div.user_show .evaluaiton .assessment_3 {
+  color: #d3d531;
+}
+div.user_show .evaluation .assessment_4 {
+  font-weight: bold;
+  color: #d59931;
+}
+div.user_show .evaluation .assessment_5 {
+  font-weight: bold;
+  color: #ac524f;
+}
+div.user_show .evaluation .match {
+  font-weight: bold;
+  color: #759900;
+}
+div.user_show .evaluation .partial {
+  color: #d59120;
+}
 div.user_show div.content_box_inter.tabs {
   margin-left: -8px;
   padding-left: 30px;
