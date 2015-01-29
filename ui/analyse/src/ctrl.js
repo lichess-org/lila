@@ -34,8 +34,8 @@ module.exports = function(cfg, router, i18n, onChange) {
     });
   }.bind(this);
 
-  this.togglePlay = function() {
-    this.autoplay.toggle();
+  this.togglePlay = function(delay) {
+    this.autoplay.toggle(delay);
     this.actionMenu.open = false;
   }.bind(this);
 

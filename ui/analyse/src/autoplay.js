@@ -5,7 +5,8 @@ var m = require('mithril');
 module.exports = function(ctrl) {
 
   var interval;
-  var delay = 1000;
+
+  this.delay = null;
 
   var next = function() {
     if (control.canGoForward(ctrl)) {
@@ -16,10 +17,10 @@ module.exports = function(ctrl) {
     } else this.stop();
   }.bind(this);
 
-  this.start = function() {
+  var start = function(delay) {
+    this.delay = delay;
     this.stop();
-    next();
-    interval = setInterval(next, delay);
+    interval = setInterval(next, this.delay);
   }.bind(this);
 
   this.stop = function() {
@@ -29,12 +30,15 @@ module.exports = function(ctrl) {
     }
   }.bind(this);
 
-  this.toggle = function() {
-    if (this.active()) this.stop();
-    else this.start();
+  this.toggle = function(delay) {
+    if (this.active(delay)) this.stop();
+    else {
+      if (!this.active()) next();
+      start(delay);
+    }
   }.bind(this);
 
-  this.active = function() {
-    return !!interval;
+  this.active = function(delay) {
+    return (!delay || delay === this.delay) && !!interval;
   }.bind(this);
 };

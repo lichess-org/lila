@@ -1,3 +1,4 @@
+var partial = require('chessground').util.partial;
 var m = require('mithril');
 
 module.exports = {
@@ -25,11 +26,18 @@ module.exports = {
           onclick: function() {
             $.modal($('.continue_with.' + ctrl.data.game.id));
           }
-        }, ctrl.trans('continueFromHere')),
-        m('a.button[data-icon=G]', {
-          class: 'text' + (ctrl.autoplay.active() ? ' active' : ''),
-          onclick: ctrl.togglePlay
-        }, 'Auto play'),
+        }, ctrl.trans('continueFromHere')), [{
+          name: 'fast',
+          delay: 1000
+        }, {
+          name: 'slow',
+          delay: 5000
+        }].map(function(speed) {
+          return m('a.button[data-icon=G]', {
+            class: 'text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
+            onclick: partial(ctrl.togglePlay, speed.delay)
+          }, 'Auto play ' + speed.name);
+        }),
         m('div.continue_with.' + ctrl.data.game.id, [
           m('a.button', {
             href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.vm.situation.fen + '#ai' : ctrl.router.Round.continue(ctrl.data.game.id, 'ai').url + '?fen=' + ctrl.vm.situation.fen,
