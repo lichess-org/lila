@@ -39,11 +39,6 @@ module.exports = function(cfg, router, i18n, onChange) {
     this.actionMenu.open = false;
   }.bind(this);
 
-  this.control = function(command) {
-    this.autoplay.stop();
-    control[command](this);
-  }.bind(this);
-
   var gameVariantChessId = function() {
     switch (this.data.game.variant.key) {
       case 'chess960':
@@ -147,8 +142,13 @@ module.exports = function(cfg, router, i18n, onChange) {
     showGround();
   }.bind(this);
 
+  this.userJump = function(path) {
+    this.autoplay.stop();
+    this.jump(path);
+  }.bind(this);
+
   this.jumpToMain = function(ply) {
-    this.jump([{
+    this.userJump([{
       ply: ply,
       variation: null
     }]);
@@ -163,7 +163,7 @@ module.exports = function(cfg, router, i18n, onChange) {
       to: dest,
       promotion: (dest[1] == 1 || dest[1] == 8) ? 'q' : null
     });
-    if (move) this.jump(this.analyse.explore(this.vm.path, move.san));
+    if (move) this.userJump(this.analyse.explore(this.vm.path, move.san));
     else this.chessground.set(this.vm.situation);
     m.redraw();
   }.bind(this);

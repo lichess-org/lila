@@ -32,6 +32,9 @@ module.exports = {
         }, {
           name: 'slow',
           delay: 5000
+        }, {
+          name: 'realtime',
+          delay: true
         }].map(function(speed) {
           return m('a.button[data-icon=G]', {
             class: 'text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),

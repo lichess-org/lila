@@ -138,7 +138,8 @@ final class JsonView(
     user: Option[User],
     tv: Option[Boolean],
     withBlurs: Boolean,
-    initialFen: Option[Option[String]] = None) =
+    initialFen: Option[Option[String]] = None,
+    withMoveTimes: Boolean) =
     initialFen.fold(GameRepo initialFen pov.game)(fuccess) zip
       getSocketStatus(pov.game.id) zip
       getWatcherChat(pov.game, user) zip
@@ -163,6 +164,7 @@ final class JsonView(
               "rematch" -> game.next,
               "source" -> game.source.map(sourceJson),
               "moves" -> game.pgnMoves.mkString(" "),
+              "moveTimes" -> withMoveTimes.option(game.moveTimes),
               "opening" -> game.opening.map { o =>
                 Json.obj(
                   "code" -> o.code,

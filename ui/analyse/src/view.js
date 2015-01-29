@@ -6,6 +6,7 @@ var partial = require('chessground').util.partial;
 var renderStatus = require('game').view.status;
 var mod = require('game').view.mod;
 var treePath = require('./path');
+var control = require('./control');
 var actionMenu = require('./actionMenu').view;
 
 function renderEval(e) {
@@ -224,7 +225,7 @@ function renderAnalyse(ctrl) {
         var path = e.target.getAttribute('data-path') || e.target.parentNode.getAttribute('data-path');
         if (path) {
           e.preventDefault();
-          ctrl.jump(treePath.read(path));
+          ctrl.userJump(treePath.read(path));
         }
       },
       onclick: function(e) {
@@ -235,8 +236,8 @@ function renderAnalyse(ctrl) {
 }
 
 function wheel(ctrl, e) {
-  if (e.deltaY > 0) ctrl.control('next');
-  else if (e.deltaY < 0) ctrl.control('prev');
+  if (e.deltaY > 0) control.next(ctrl);
+  else if (e.deltaY < 0) control.prev(ctrl);
   m.redraw();
   e.preventDefault();
   return false;
@@ -269,10 +270,10 @@ function buttons(ctrl) {
   return [
     m('div.game_control', [
       m('div.jumps.hint--bottom', [
-        ['first', 'W', 'first', ],
-        ['prev', 'Y', 'prev'],
-        ['next', 'X', 'next'],
-        ['last', 'V', 'last']
+        ['first', 'W', control.first, ],
+        ['prev', 'Y', control.prev],
+        ['next', 'X', control.next],
+        ['last', 'V', control.last]
       ].map(function(b) {
         return {
           tag: 'a',
@@ -282,7 +283,7 @@ function buttons(ctrl) {
               glowing: ctrl.vm.late && b[0] === 'last'
             }),
             'data-icon': b[1],
-            onclick: partial(ctrl.control, b[2])
+            onclick: partial(b[2], ctrl)
           }
         };
       })),
