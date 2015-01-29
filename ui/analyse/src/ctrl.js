@@ -5,12 +5,14 @@ var analyse = require('./analyse');
 var ground = require('./ground');
 var keyboard = require('./keyboard');
 var treePath = require('./path');
+var actionMenu = require('./actionMenu').controller;
 var m = require('mithril');
 
 module.exports = function(cfg, router, i18n, onChange) {
 
   this.data = data({}, cfg);
   this.analyse = new analyse(this.data.game, this.data.analysis);
+  this.actionMenu = new actionMenu();
 
   var initialPath = cfg.path ? treePath.read(cfg.path) : treePath.default();
 
@@ -19,7 +21,8 @@ module.exports = function(cfg, router, i18n, onChange) {
     pathStr: treePath.write(initialPath),
     situation: null,
     comments: true,
-    flip: false
+    flip: false,
+    play: false
   };
 
   this.flip = function() {
