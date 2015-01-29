@@ -80,13 +80,19 @@
     <table class="slist">
       <thead>
         <tr>
-          <th>Assessed games</th>
-          <th>Centi-Pawn Loss (Avg±SD)</th>
-          <th>Move Times (Avg±SD)</th>
+          <th>Assessed game</th>
+          <th>
+            Centi-Pawn
+            <br />(Avg ± SD)
+          </th>
+          <th>
+            Move Times
+            <br />(Avg ± SD)
+          </th>
           <th>Blurs</th>
           <th>Bot</th>
-          <th>Significance</th>
-          <th>Assessment</th>
+          <th class="assessment">Assessment</th>
+          <th>Confidence</th>
         </tr>
       </thead>
       <tbody>
@@ -97,8 +103,8 @@
           <td>@result.mtAvg ± @result.mtSd</td>
           <td>@(result.blur)%</td>
           <td>@if(result.hold){Yes} else {No}</td>
+          <td class="assessment sig_@(result.assessment)">@result.assessmentString</td>
           <td class=@(if(result.positiveMatch) "match" else "partial")>@(result.matchPercentage)%</td>
-          <td class="assessment_@(result.assessment)">@result.assessmentString</td>
         </tr>
       }
       </tbody>

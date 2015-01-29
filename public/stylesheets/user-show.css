@@ -228,20 +228,23 @@ div.user_show .evaluation strong {
   display: inline;
   text-transform: uppercase;
 }
-div.user_show .evaluation .assessment_1 {
+div.user_show .evaluation .assessment {
+  text-align: right;
+}
+div.user_show .evaluation .sig_1 {
   color: #99d531;
 }
-div.user_show .evaluation .assessment_2 {
+div.user_show .evaluation .sig_2 {
   color: #b8d531;
 }
-div.user_show .evaluation .assessment_3 {
+div.user_show .evaluation .sig_3 {
   color: #d3d531;
 }
-div.user_show .evaluation .assessment_4 {
+div.user_show .evaluation .sig_4 {
   font-weight: bold;
   color: #d59931;
 }
-div.user_show .evaluation .assessment_5 {
+div.user_show .evaluation .sig_5 {
   font-weight: bold;
   color: #de6039;
 }
