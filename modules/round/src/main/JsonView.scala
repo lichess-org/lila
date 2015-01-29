@@ -225,14 +225,17 @@ final class JsonView(
       }
 
   def userAnalysisJson(pov: Pov, pref: Pref) =
-    GameRepo.initialFen(pov.game) map { initialFen =>
+    (pov.game.pgnMoves.nonEmpty ?? GameRepo.initialFen(pov.game)) map { initialFen =>
       import pov._
       val fen = Forsyth >> game.toChess
       Json.obj(
         "game" -> Json.obj(
           "id" -> gameId,
           "variant" -> variantJson(game.variant),
-          "initialFen" -> (initialFen | chess.format.Forsyth.initial),
+          "initialFen" -> {
+            if (pov.game.pgnMoves.isEmpty) fen
+            else (initialFen | chess.format.Forsyth.initial)
+          },
           "fen" -> fen,
           "moves" -> game.pgnMoves.mkString(" "),
           "turns" -> game.turns,
