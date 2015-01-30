@@ -7,6 +7,7 @@ var renderStatus = require('game').view.status;
 var mod = require('game').view.mod;
 var treePath = require('./path');
 var control = require('./control');
+var actionMenu = require('./actionMenu').view;
 
 function renderEval(e) {
   e = Math.round(e / 10) / 10;
@@ -224,7 +225,7 @@ function renderAnalyse(ctrl) {
         var path = e.target.getAttribute('data-path') || e.target.parentNode.getAttribute('data-path');
         if (path) {
           e.preventDefault();
-          ctrl.jump(treePath.read(path));
+          ctrl.userJump(treePath.read(path));
         }
       },
       onclick: function(e) {
@@ -266,17 +267,9 @@ function blindBoard(ctrl) {
 }
 
 function buttons(ctrl) {
-  var nbMoves = ctrl.data.game.moves.length;
-  var flipAttrs = {
-    'data-hint': ctrl.trans('flipBoard'),
-  };
-  if (ctrl.data.userAnalysis) flipAttrs.onclick = ctrl.flip;
-  else flipAttrs.href = ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url;
   return [
     m('div.game_control', [
-      m('div.jumps.hint--bottom', {
-        'data-hint': 'Tip: use your keyboard arrow keys!'
-      }, [
+      m('div.jumps.hint--bottom', [
         ['first', 'W', control.first, ],
         ['prev', 'Y', control.prev],
         ['next', 'X', control.next],
@@ -294,29 +287,12 @@ function buttons(ctrl) {
           }
         };
       })),
-      m('a.button.hint--bottom', flipAttrs, m('span[data-icon=B]')),
-      ctrl.data.inGame ? null : m('a.button.hint--bottom', {
-        'data-hint': ctrl.trans('boardEditor'),
-        href: ctrl.data.userAnalysis ? '/editor?fen=' + ctrl.vm.situation.fen : '/' + ctrl.data.game.id + '/edit?fen=' + ctrl.vm.situation.fen,
-        rel: 'nofollow'
-      }, m('span[data-icon=m]')),
-      ctrl.data.inGame ? null : m('a.button.hint--bottom', {
-        'data-hint': ctrl.trans('continueFromHere'),
-        onclick: function() {
-          $.modal($('.continue_with.' + ctrl.data.game.id));
-        }
-      }, m('span[data-icon=U]'))
-    ]),
-    m('div.continue_with.' + ctrl.data.game.id, [
-      m('a.button', {
-        href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.vm.situation.fen + '#ai' : ctrl.router.Round.continue(ctrl.data.game.id, 'ai').url + '?fen=' + ctrl.vm.situation.fen,
-        rel: 'nofollow'
-      }, ctrl.trans('playWithTheMachine')),
-      m('br'),
-      m('a.button', {
-        href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.vm.situation.fen + '#friend' : ctrl.router.Round.continue(ctrl.data.game.id, 'friend').url + '?fen=' + ctrl.vm.situation.fen,
-        rel: 'nofollow'
-      }, ctrl.trans('playWithAFriend'))
+      ctrl.data.inGame ? null : m('a.button', {
+        onclick: ctrl.actionMenu.toggle,
+        class: ctrl.actionMenu.open ? 'active' : ''
+      }, m('span', {
+        'data-icon': '['
+      }))
     ])
   ];
 }
@@ -332,7 +308,7 @@ module.exports = function(ctrl) {
       }, [
         ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
         m('div.lichess_ground',
-          m('div.replay', {
+          ctrl.actionMenu.open ? actionMenu(ctrl) : m('div.replay', {
               config: function(el, isUpdate) {
                 autoScroll(el);
                 if (!isUpdate) setTimeout(partial(autoScroll, el), 100);

@@ -138,7 +138,8 @@ final class JsonView(
     user: Option[User],
     tv: Option[Boolean],
     withBlurs: Boolean,
-    initialFen: Option[Option[String]] = None) =
+    initialFen: Option[Option[String]] = None,
+    withMoveTimes: Boolean) =
     initialFen.fold(GameRepo initialFen pov.game)(fuccess) zip
       getSocketStatus(pov.game.id) zip
       getWatcherChat(pov.game, user) zip
@@ -163,6 +164,7 @@ final class JsonView(
               "rematch" -> game.next,
               "source" -> game.source.map(sourceJson),
               "moves" -> game.pgnMoves.mkString(" "),
+              "moveTimes" -> withMoveTimes.option(game.moveTimes),
               "opening" -> game.opening.map { o =>
                 Json.obj(
                   "code" -> o.code,
@@ -224,31 +226,37 @@ final class JsonView(
           ).noNull
       }
 
-  def userAnalysisJson(pov: Pov, pref: Pref) = {
-    import pov._
-    val fen = Forsyth >> game.toChess
-    Json.obj(
-      "game" -> Json.obj(
-        "id" -> gameId,
-        "variant" -> variantJson(game.variant),
-        "initialFen" -> fen,
-        "fen" -> fen,
-        "player" -> game.turnColor.name,
-        "status" -> statusJson(game.status)),
-      "player" -> Json.obj(
-        "color" -> color.name
-      ),
-      "opponent" -> Json.obj(
-        "color" -> opponent.color.name
-      ),
-      "pref" -> Json.obj(
-        "animationDuration" -> animationDuration(pov, pref),
-        "highlight" -> pref.highlight,
-        "destination" -> pref.destination,
-        "coords" -> pref.coords
-      ),
-      "userAnalysis" -> true)
-  }
+  def userAnalysisJson(pov: Pov, pref: Pref) =
+    (pov.game.pgnMoves.nonEmpty ?? GameRepo.initialFen(pov.game)) map { initialFen =>
+      import pov._
+      val fen = Forsyth >> game.toChess
+      Json.obj(
+        "game" -> Json.obj(
+          "id" -> gameId,
+          "variant" -> variantJson(game.variant),
+          "initialFen" -> {
+            if (pov.game.pgnMoves.isEmpty) fen
+            else (initialFen | chess.format.Forsyth.initial)
+          },
+          "fen" -> fen,
+          "moves" -> game.pgnMoves.mkString(" "),
+          "turns" -> game.turns,
+          "player" -> game.turnColor.name,
+          "status" -> statusJson(game.status)),
+        "player" -> Json.obj(
+          "color" -> color.name
+        ),
+        "opponent" -> Json.obj(
+          "color" -> opponent.color.name
+        ),
+        "pref" -> Json.obj(
+          "animationDuration" -> animationDuration(pov, pref),
+          "highlight" -> pref.highlight,
+          "destination" -> pref.destination,
+          "coords" -> pref.coords
+        ),
+        "userAnalysis" -> true)
+    }
 
   private def blurs(game: Game, player: lila.game.Player) = {
     val percent = game.playerBlurPercent(player.color)

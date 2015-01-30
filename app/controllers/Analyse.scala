@@ -8,10 +8,10 @@ import play.api.mvc._
 import play.twirl.api.Html
 
 import lila.analyse.{ Analysis, TimeChart, AdvantageChart, Accuracy }
-import lila.evaluation.GameResults
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
+import lila.evaluation.GameResults
 import lila.game.{ Pov, Game => GameModel, GameRepo, PgnDump }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.AnalysisAvailable
@@ -60,17 +60,21 @@ object Analyse extends LilaController {
     GameRepo initialFen pov.game.id flatMap { initialFen =>
       (env.analyser get pov.game.id) zip
         (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
-          Env.game.crosstableApi(pov.game) flatMap {
-            case ((analysis, tour), crosstable) =>
-              val division =
-                if (HTTPRequest.isBot(ctx.req)) divider.empty
-                else divider(pov.game, initialFen)
-              val pgn = Env.game.pgnDump(pov.game, initialFen)
-              val assessResults = if (isGranted(_.MarkEngine)) Env.mod.assessApi.getResultsByGameId(pov.game.id)
-                else fuccess(GameResults(None, None))
-              assessResults flatMap {
-                results =>
-                  Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none, analysis.map(pgn -> _), initialFen = initialFen.some) map { data => {
+        Env.game.crosstableApi(pov.game) flatMap {
+          case ((analysis, tour), crosstable) =>
+            val division =
+              if (HTTPRequest.isBot(ctx.req)) divider.empty
+              else divider(pov.game, initialFen)
+            val pgn = Env.game.pgnDump(pov.game, initialFen)
+            val assessResults = if (isGranted(_.MarkEngine)) Env.mod.assessApi.getResultsByGameId(pov.game.id)
+            else fuccess(GameResults(None, None))
+            assessResults flatMap {
+              results =>
+                Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion,
+                  tv = none,
+                  analysis.map(pgn -> _),
+                  initialFen = initialFen.some,
+                  withMoveTimes = true) map { data =>
                     Ok(html.analyse.replay(
                       pov,
                       data,
@@ -83,8 +87,8 @@ object Analyse extends LilaController {
                       userTv,
                       division,
                       results))
-                  } }
-              }
-          }
+                  }
+            }
+        }
     }
 }

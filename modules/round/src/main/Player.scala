@@ -38,8 +38,8 @@ private[round] final class Player(
                       case Some(color) => round ! Cheat(color)
                       case None =>
                         if (progress.game.playableByAi) round ! AiPlay
-                        if (game.player.isOfferingDraw) round ! DrawNo(game.player.id)
-                        if (game.player.isProposingTakeback) round ! TakebackNo(game.player.id)
+                        if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
+                        if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
                     } inject progress.events
                   })
           }

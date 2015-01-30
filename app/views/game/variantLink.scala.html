@@ -1,4 +1,4 @@
-@(variant: chess.variant.Variant, name: String, hintAsTitle: Boolean = false, cssClass: String = "hint--bottom")
+@(variant: chess.variant.Variant, name: String, hintAsTitle: Boolean = false, cssClass: String = "hint--bottom", initialFen: Option[String] = None)
 @url = {
 @variant match {
 case chess.variant.Standard => {https://en.wikipedia.org/wiki/Chess}
@@ -6,7 +6,7 @@ case chess.variant.Chess960 => {https://en.wikipedia.org/wiki/Chess960}
 case chess.variant.KingOfTheHill => {@routes.Page.kingOfTheHill}
 case chess.variant.ThreeCheck => {http://en.wikipedia.org/wiki/Three-check_chess}
 case chess.variant.Antichess => {http://en.wikipedia.org/wiki/Losing_chess}
-case chess.variant.FromPosition => {@routes.Editor.index}
+case chess.variant.FromPosition => {@routes.Editor.index?fen=@initialFen}
 case chess.variant.Atomic => {http://www.freechess.org/Help/HelpFiles/atomic.html}
 case _ => {}
 }
