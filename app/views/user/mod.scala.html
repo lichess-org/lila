@@ -63,7 +63,7 @@
       <tbody>
         @e.games.map { g =>
         <tr>
-          <td><a href="@g.url">@g.url</a></td>
+          <td><a href="@g.path">@g.path</a></td>
           <td>@g.moveTime.map(_ + "%")</td>
           <td>@g.blur.map(_ + "%")</td>
           <td>@g.error.map(_ + "%")</td>

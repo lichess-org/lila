@@ -92,6 +92,8 @@ object Evaluation {
       case _               => none
     }
 
+    def path = url.replace("http://lichess.org", "")
+
     override def toString = List(
       moveTime map (x => s"Move time: $x%"),
       blur map (x => s"Blur: $x%"),
