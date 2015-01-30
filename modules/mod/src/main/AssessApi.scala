@@ -96,7 +96,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
       }
     }
 
-    if (!game.isCorrespondence) {
+    if (!game.isCorrespondence && !game.turns > 40) {
       val whiteGameGroup = GameGroup(Analysed(game, analysis), Color.White)
       val blackGameGroup = GameGroup(Analysed(game, analysis), Color.Black)
 
