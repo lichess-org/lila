@@ -126,6 +126,7 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
 
 object Statistics {
   import Erf._
+  import scala.annotation._
 
   def variance[T](a: NonEmptyList[T], optionalAvg: Option[T] = None)(implicit n: Numeric[T]): Double = {
     val avg: Double = optionalAvg.fold(average(a)){n.toDouble}
@@ -136,7 +137,7 @@ object Statistics {
   def deviation[T](a: NonEmptyList[T], optionalAvg: Option[T] = None)(implicit n: Numeric[T]): Double = sqrt(variance(a, optionalAvg))
 
   def average[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
-    def average(a: List[T], sum: T = n.zero, depth: Int = 0): Double = {
+    @tailrec def average(a: List[T], sum: T = n.zero, depth: Int = 0): Double = {
       a match {
         case List()  => n.toDouble(sum) / depth
         case x :: xs => average(xs, n.plus(sum, x), depth + 1)
