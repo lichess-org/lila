@@ -82,36 +82,38 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
       Accuracy.diffsList(Pov(game, color), analysis).grouped(size).toList
     // Insist that is greater than this (so this can be compared in full saturation)
     if (that.analysed.game.turns < this.analysed.game.turns) return (Similarity(0), Similarity(0))
-    (
-      (groupedDiffList(this.analysed.game, this.color, this.analysed.analysis) zip
-      groupedDiffList(that.analysed.game, that.color, that.analysed.analysis)) map {
-        a => listToListSimilarity(a._1, a._2, 0.8)
-      }
-    ,
-      (groupedDiffList(this.analysed.game, !this.color, this.analysed.analysis) zip
-      groupedDiffList(that.analysed.game, !that.color, that.analysed.analysis)) map {       
-        a => listToListSimilarity(a._1, a._2, 0.8)
-      }
-    ) match {
-      case (Nil, Nil)                   => (Similarity(0), Similarity(0)) // Both empty
-      case (Nil, a :: _)                => (Similarity(0), Similarity(0)) // One empty, The other with some
-      case (a :: _, Nil)                => (Similarity(0), Similarity(0))
-      case (a :: Nil, b :: Nil)         => (a, b)
-      case (a :: Nil, b :: c)           => {
-        val ssdA = ssd(b, c)
-        (a, Similarity(ssdA, if (allSimilar(b, c)) (ssdA - 0.01) else (ssdA + 0.01)))
-      }
-      case (a :: b, c :: Nil)           => {
-        val ssdA = ssd(a, b)
-        (c, Similarity(ssdA, if (allSimilar(a, b)) (ssdA - 0.01) else (ssdA + 0.01)))
-      }
-      case (a :: b, c :: d)             => {
-        val ssdA = ssd(a, b)
-        val ssdB = ssd(c, d)
-        (
-          Similarity(ssdA, if (allSimilar(a, b)) (ssdA - 0.01) else (ssdA + 0.01)),
-          Similarity(ssdB, if (allSimilar(c, d)) (ssdB - 0.01) else (ssdB + 0.01))
-        )
+    else {
+      (
+        (groupedDiffList(this.analysed.game, this.color, this.analysed.analysis) zip
+        groupedDiffList(that.analysed.game, that.color, that.analysed.analysis)) map {
+          a => listToListSimilarity(a._1, a._2, 0.8)
+        }
+      ,
+        (groupedDiffList(this.analysed.game, !this.color, this.analysed.analysis) zip
+        groupedDiffList(that.analysed.game, !that.color, that.analysed.analysis)) map {       
+          a => listToListSimilarity(a._1, a._2, 0.8)
+        }
+      ) match {
+        case (Nil, Nil)                   => (Similarity(0), Similarity(0)) // Both empty
+        case (Nil, a :: _)                => (Similarity(0), Similarity(0)) // One empty, The other with some
+        case (a :: _, Nil)                => (Similarity(0), Similarity(0))
+        case (a :: Nil, b :: Nil)         => (a, b)
+        case (a :: Nil, b :: c)           => {
+          val ssdA = ssd(b, c)
+          (a, Similarity(ssdA, if (allSimilar(b, c)) (ssdA - 0.01) else (ssdA + 0.01)))
+        }
+        case (a :: b, c :: Nil)           => {
+          val ssdA = ssd(a, b)
+          (c, Similarity(ssdA, if (allSimilar(a, b)) (ssdA - 0.01) else (ssdA + 0.01)))
+        }
+        case (a :: b, c :: d)             => {
+          val ssdA = ssd(a, b)
+          val ssdB = ssd(c, d)
+          (
+            Similarity(ssdA, if (allSimilar(a, b)) (ssdA - 0.01) else (ssdA + 0.01)),
+            Similarity(ssdB, if (allSimilar(c, d)) (ssdB - 0.01) else (ssdB + 0.01))
+          )
+        }
       }
     }
   }
