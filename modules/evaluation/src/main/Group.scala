@@ -77,15 +77,40 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
     listToListSimilarity(thisMt, thatMt, 0.8)
   }
 
-  def compareSfAccuracies (that: GameGroup): (Similarity, Similarity) = (listToListSimilarity(
-      Accuracy.diffsList(Pov(this.analysed.game, this.color), this.analysed.analysis),
-      Accuracy.diffsList(Pov(that.analysed.game, that.color), that.analysed.analysis),
-      0.8
-    ), listToListSimilarity(
-      Accuracy.diffsList(Pov(this.analysed.game, !this.color), this.analysed.analysis),
-      Accuracy.diffsList(Pov(that.analysed.game, !that.color), that.analysed.analysis),
-      0.8
-    ))
+  def compareSfAccuracies (that: GameGroup): (Similarity, Similarity) = {
+    (
+      (Accuracy.diffsList(Pov(this.analysed.game, this.color), this.analysed.analysis).grouped(5).toList zip
+      Accuracy.diffsList(Pov(this.analysed.game, that.color), that.analysed.analysis).grouped(5).toList) map {
+        a => listToListSimilarity(a._1, a._2, 0.8)
+      }
+    ,
+      (Accuracy.diffsList(Pov(this.analysed.game, !this.color), this.analysed.analysis).grouped(5).toList zip
+      Accuracy.diffsList(Pov(this.analysed.game, !that.color), that.analysed.analysis).grouped(5).toList) map {       
+        a => listToListSimilarity(a._1, a._2, 0.8)
+      }
+    ) match {
+      case (Nil, Nil)                   => (Similarity(0), Similarity(0)) // Both empty
+      case (Nil, a :: _)                => (Similarity(0), Similarity(0)) // One empty, The other with some
+      case (a :: _, Nil)                => (Similarity(0), Similarity(0))
+      case (a :: Nil, b :: Nil)         => (a, b)
+      case (a :: Nil, b :: c)           => {
+        val ssdA = ssd(b, c)
+        (a, Similarity(ssdA, if (allSimilar(b, c)) (ssdA - 0.01) else (ssdA + 0.01)))
+      }
+      case (a :: b, c :: Nil)           => {
+        val ssdA = ssd(a, b)
+        (c, Similarity(ssdA, if (allSimilar(a, b)) (ssdA - 0.01) else (ssdA + 0.01)))
+      }
+      case (a :: b, c :: d)             => {
+        val ssdA = ssd(a, b)
+        val ssdB = ssd(c, d)
+        (
+          Similarity(ssdA, if (allSimilar(a, b)) (ssdA - 0.01) else (ssdA + 0.01)),
+          Similarity(ssdB, if (allSimilar(c, d)) (ssdB - 0.01) else (ssdB + 0.01))
+        )
+      }
+    }
+  }
 
   def compareBlurRates (that: GameGroup): Similarity = pointToPointSimilarity(
     (200 * this.analysed.game.player(this.color).blurs / this.analysed.game.turns).toInt,
@@ -146,10 +171,14 @@ object Statistics {
     average(a.list)
   }
 
-  def setToSetSimilarity(avgA: Double, avgB: Double, varA: Double, varB: Double, threshold: Double): Similarity = Similarity(
-    pow(E, (-0.25) * ( log( 0.25 * ((varA / varB) + (varB / varA) + 2) ) + pow(avgA - avgB, 2) / ( varA + varB ) )),
-    threshold
-  )
+  def setToSetSimilarity(avgA: Double, avgB: Double, varA: Double, varB: Double, threshold: Double): Similarity = {
+    val sim = Similarity(
+      pow(E, (-0.25) * ( log( 0.25 * ((varA / varB) + (varB / varA) + 2) ) + pow(avgA - avgB, 2) / ( varA + varB ) )),
+      threshold)
+
+    if (sim.a.isNaN || sim.a.isInfinity) Similarity(1, threshold)
+    else sim
+  }
 
   // Bhattacharyya Coefficient
   def setToSetSimilarity[T](a: NonEmptyList[T], b: NonEmptyList[T], threshold: Double = 0.9)(implicit n: Numeric[T]): Similarity = {
@@ -203,9 +232,11 @@ object Statistics {
 
   // all Similarities in the non empty list are similar
   def allSimilar(a: NonEmptyList[Similarity]): Boolean = a.list.forall( _.matches )
+  def allSimilar(a: Similarity, b: List[Similarity]): Boolean = allSimilar(NonEmptyList.nel(a, b))
 
   // Square Sum Distance
   def ssd(a: NonEmptyList[Similarity]): Double = sqrt(a.map(x => pow(x.apply, 2)).list.sum / a.size)
+  def ssd(a: Similarity, b: List[Similarity]): Double = ssd(NonEmptyList.nel(a, b))
 
   def skip[A](l: List[A], n: Int) =
     l.zipWithIndex.collect {case (e,i) if ((i+n) % 2) == 0 => e} // (i+1) because zipWithIndex is 0-based
