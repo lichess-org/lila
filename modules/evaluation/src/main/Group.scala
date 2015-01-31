@@ -78,14 +78,16 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
   }
 
   def compareSfAccuracies (that: GameGroup): (Similarity, Similarity) = {
+    def groupedDiffList(game: Game, color: Color, analysis: Analysis, size: Int = 5): List[List[Int]] =
+      Accuracy.diffsList(Pov(game, color), analysis).grouped(size).toList
     (
-      (Accuracy.diffsList(Pov(this.analysed.game, this.color), this.analysed.analysis).grouped(5).toList zip
-      Accuracy.diffsList(Pov(this.analysed.game, that.color), that.analysed.analysis).grouped(5).toList) map {
+      (groupedDiffList(this.analysed.game, this.color, this.analysed.analysis) zip
+      groupedDiffList(that.analysed.game, that.color, that.analysed.analysis)) map {
         a => listToListSimilarity(a._1, a._2, 0.8)
       }
     ,
-      (Accuracy.diffsList(Pov(this.analysed.game, !this.color), this.analysed.analysis).grouped(5).toList zip
-      Accuracy.diffsList(Pov(this.analysed.game, !that.color), that.analysed.analysis).grouped(5).toList) map {       
+      (groupedDiffList(this.analysed.game, !this.color, this.analysed.analysis) zip
+      groupedDiffList(that.analysed.game, !that.color, that.analysed.analysis)) map {       
         a => listToListSimilarity(a._1, a._2, 0.8)
       }
     ) match {
