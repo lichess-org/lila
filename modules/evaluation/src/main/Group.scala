@@ -80,6 +80,8 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
   def compareSfAccuracies (that: GameGroup): (Similarity, Similarity) = {
     def groupedDiffList(game: Game, color: Color, analysis: Analysis, size: Int = 5): List[List[Int]] =
       Accuracy.diffsList(Pov(game, color), analysis).grouped(size).toList
+    // Insist that is greater than this (so this can be compared in full saturation)
+    if (that.analysed.game.turns < this.analysed.game.turns) return (Similarity(0), Similarity(0))
     (
       (groupedDiffList(this.analysed.game, this.color, this.analysed.analysis) zip
       groupedDiffList(that.analysed.game, that.color, that.analysed.analysis)) map {
