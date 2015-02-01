@@ -35,6 +35,17 @@ case class PeerGame(
       case 5 => "CH" // Cheating
       case _ => "Undef"
     }
+
+  val explanation: String =
+    (if (positiveMatch) "Matches " else "Partially matches ") + "with " +
+    (assessment match {
+      case 1 => "a non cheating"
+      case 2 => "an unlikely cheating"
+      case 3 => "an unclear"
+      case 4 => "a likely cheating"
+      case 5 => "a cheating"
+      case _ => "Undefined"
+    }) + " game at " + matchPercentage + "% confidence"
 }
 
 case class GameGroupResult(

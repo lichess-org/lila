@@ -264,3 +264,6 @@ div.user_show div.content_box_inter.tabs {
 div.user_show #crosstable {
   margin: 25px auto 15px auto;
 }
+div.user_show .evaluation .peerLink {
+  text-decoration: none;
+}
