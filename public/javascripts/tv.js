@@ -34,7 +34,7 @@ $(function() {
   source.addEventListener('message', function(e) {
     var data = JSON.parse(e.data);
     if (data.t == "featured") {
-      $('#featured_game').html(data.d.html);
+      $('#featured_game').html(data.d.html).find('a').attr('target', '_blank');
       parseFen(board());
     } else if (data.t == "fen") {
       parseFen(board().data("fen", data.d.fen).data("lastmove", data.d.lm));
