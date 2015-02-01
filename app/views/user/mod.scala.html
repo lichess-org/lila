@@ -113,7 +113,7 @@
             <span class="assessment sig_@(result.bestMatch.assessment)">@result.bestMatch.assessmentString</span>
             <br /><span class=@(if(result.bestMatch.positiveMatch) "match" else "partial")>@(result.bestMatch.matchPercentage)%</span>
           </td>
-          @(0 to 4).map { i =>
+          @Range(0, 4).map { i =>
             @result.secondaryMatches.lift(i) match {
               case Some(peer) => {
                 <td>
