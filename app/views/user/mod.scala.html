@@ -107,19 +107,19 @@
           <td>@(result.blur)%</td>
           <td>@if(result.hold){Yes} else {No}</td>
           <td>
-            <div class="hint--top" data-hint="@result.bestMatch.explanation">
+            <a href="@routes.Round.watcher(result.bestMatch.gameId, result.bestMatch.color.name)" class="peerLink hint--top" data-hint="@result.bestMatch.explanation">
               <span class="assessment sig_@(result.bestMatch.assessment)">@result.bestMatch.assessmentString</span>
               <br /><span class="@if(result.bestMatch.positiveMatch) {match} else {partial}">@(result.bestMatch.matchPercentage)%</span>
-            </div>
+            </a>
           </td>
           @Range(0, 4).map { i =>
           @result.secondaryMatches.lift(i) match {
           case Some(peer) => {
           <td>
-            <div class="hint--top" data-hint="@peer.explanation">
+            <a href="@routes.Round.watcher(peer.gameId, peer.color.name)" class="peerLink hint--top" data-hint="@peer.explanation">
               <span class="assessment sig_@(peer.assessment)">@peer.assessmentString</span>
               <br /><span class="@if(peer.positiveMatch) {match} else {partial}">@(peer.matchPercentage)%</span>
-            </div>
+            </a>
           </td>
           }
           case _ => {
