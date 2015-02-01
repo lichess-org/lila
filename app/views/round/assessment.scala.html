@@ -10,7 +10,7 @@
   </tr>
   <tr>
     <td>
-      <select id="@(p.color.name)Assessment" data-val="@(results.color(p.color).fold(0){ _.assessment })">
+      <select id="@(p.color.name)Assessment" data-val="@(results.color(p.color).fold(0){ _.bestMatch.assessment })">
         <option value="0"></option>
         <option value="1">Not cheating</option>
         <option value="2">Unlikely cheating</option>
@@ -22,9 +22,9 @@
     @results.color(p.color).fold{
     <td class="noMatch">None</td>
     }{ result =>
-    <td class=@(if(result.positiveMatch) "match" else "partial")>
-      <a href="@routes.Round.watcher(result.targetGameId, result.targetColor)">
-        @(result.matchPercentage)%
+    <td class=@(if(result.bestMatch.positiveMatch) "match" else "partial")>
+      <a href="@routes.Round.watcher(result.bestMatch.gameId, result.bestMatch.color.name)">
+        @(result.bestMatch.matchPercentage)%
       </a>
     </td>
     }

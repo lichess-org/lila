@@ -3,7 +3,7 @@ package lila.mod
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.Types.Coll
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.evaluation.{ PlayerAssessment, GameGroupResult, GameResults, GameGroup, Analysed }
+import lila.evaluation.{ PlayerAssessment, GameGroupResult, GameResults, GameGroup, Analysed, PeerGame, MatchAndSig }
 import lila.game.Game
 import lila.game.{ Game, GameRepo }
 import reactivemongo.bson._
@@ -14,6 +14,7 @@ import chess.Color
 
 final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
 
+  private implicit val bestMatchBSONhandler = Macros.handler[PeerGame]
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
   private implicit val gameGroupResultBSONhandler = Macros.handler[GameGroupResult]
 
@@ -33,7 +34,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
     .one[PlayerAssessment]
 
   def getResultsByUserId(userId: String, nb: Int = 100) = collRes.find(BSONDocument("userId" -> userId))
-    .sort(BSONDocument("assessment" -> -1, "positiveMatch" -> -1,"matchPercentage" -> -1))
+    .sort(BSONDocument("bestMatch.assessment" -> -1, "bestMatch.positiveMatch" -> -1, "bestMatch.matchPercentage" -> -1))
     .cursor[GameGroupResult]
     .collect[List](nb)
 
@@ -66,20 +67,25 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
         }
       }
 
-    def getBestMatch(source: GameGroup, assessments: List[GameGroup]): Option[GameGroupResult] = {
-      assessments match {
-        case List(best: GameGroup) => {
-          val similarityTo = source.similarityTo(best)
+    def buildGameGroupResult(source: GameGroup, assessments: List[GameGroup], nb: Int = 5): Option[GameGroupResult] =
+      (assessments.map(source.similarityTo) zip assessments).sortBy(-_._1.significance).take(nb).map { 
+        case (matchAndSig: MatchAndSig, gameGroup: GameGroup) => 
+          PeerGame(
+            gameId = gameGroup.analysed.game.id,
+            white = gameGroup.color.white,
+            positiveMatch = matchAndSig.matches,
+            matchPercentage = (100 * matchAndSig.significance).toInt,
+            assessment = gameGroup.assessment.getOrElse(1)
+          )
+      } match {
+        case a :: b => 
           Some(GameGroupResult(
             _id = source.analysed.game.id + "/" + source.color.name,
             userId = source.analysed.game.player(source.color).userId.getOrElse(""),
-            sourceGameId = source.analysed.game.id,
-            sourceColor = source.color.name,
-            targetGameId = best.analysed.game.id,
-            targetColor = best.color.name,
-            positiveMatch = similarityTo.matches,
-            matchPercentage = (100 * similarityTo.significance).toInt,
-            assessment = best.assessment.getOrElse(1),
+            gameId = source.analysed.game.id,
+            white = source.color.white,
+            bestMatch = a,
+            secondaryMatches = b,
             sfAvg = source.sfAvg,
             sfSd = source.sfSd,
             mtAvg = source.mtAvg,
@@ -87,14 +93,8 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
             blur = source.blurs,
             hold = source.hold
           ))
-        }
-        case x :: y :: rest => {
-          val next = (if (source.similarityTo(x).significance > source.similarityTo(y).significance) x else y) :: rest
-          getBestMatch( source, next )
-        }
-        case Nil => None
+        case _ => None
       }
-    }
 
     if (!game.isCorrespondence && game.turns > 40 && game.mode.rated) {
       val whiteGameGroup = GameGroup(Analysed(game, analysis), Color.White)
@@ -102,8 +102,8 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
 
       playerAssessmentGameGroups flatMap {
         a => {
-          getBestMatch(whiteGameGroup, a).fold(funit){createResult} >>
-          getBestMatch(blackGameGroup, a).fold(funit){createResult}
+          buildGameGroupResult(whiteGameGroup, a).fold(funit){createResult} >>
+          buildGameGroupResult(blackGameGroup, a).fold(funit){createResult}
         }
       }
     } else funit
