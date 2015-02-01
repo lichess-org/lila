@@ -13,12 +13,6 @@ trait SocketMember extends Ordered[SocketMember] {
   def compare(other: SocketMember) = ~userId compare ~other.userId
 
   def push(msg: JsValue) {
-    // import play.api.Play.current
-    // import play.api.libs.concurrent.Akka
-    // import scala.concurrent.duration._
-    // Akka.system.scheduler.scheduleOnce(2.second) {
-    //   channel push msg
-    // }
     try {
       channel push msg
     }
