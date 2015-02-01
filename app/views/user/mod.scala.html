@@ -108,14 +108,14 @@
           <td>@if(result.hold){Yes} else {No}</td>
           <td>
             <span class="assessment sig_@(result.bestMatch.assessment)">@result.bestMatch.assessmentString</span>
-            <br /><span class=@(if(result.bestMatch.positiveMatch) "match" else "partial")>@(result.bestMatch.matchPercentage)%</span>
+            <br /><span class="@if(result.bestMatch.positiveMatch) {match} else {partial}">@(result.bestMatch.matchPercentage)%</span>
           </td>
           @Range(0, 4).map { i =>
           @result.secondaryMatches.lift(i) match {
           case Some(peer) => {
           <td>
             <span class="assessment sig_@(peer.assessment)">@peer.assessmentString</span>
-            <br /><span class=@(if(peer.positiveMatch) "match" else "partial")>@(peer.matchPercentage)%</span>
+            <br /><span class="@if(peer.positiveMatch) {match} else {partial}">@(peer.matchPercentage)%</span>
            </td>
           }
           case _ => {
