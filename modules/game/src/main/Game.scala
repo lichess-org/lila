@@ -146,7 +146,9 @@ case class Game(
       (Event fromSituation situation)
 
     def copyPlayer(player: Player) = player.copy(
-      blurs = player.blurs + (blur && move.color == player.color).fold(1, 0)
+      blurs = math.min(
+        playerMoves(player.color), 
+        player.blurs + (blur && move.color == player.color).fold(1, 0))
     )
 
     val updated = copy(
