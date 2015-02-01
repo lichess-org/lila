@@ -68,9 +68,7 @@ function renderButtons(ctrl, curPly) {
   else flipAttrs.onclick = root.flip;
   return m('div.buttons', [
     m('a', flipAttrs, m('span[data-icon=B]')),
-    m('div.hint--top', {
-      'data-hint': 'Tip: use your keyboard arrow keys!'
-    }, [
+    [
       ['first', 'W', 1],
       ['prev', 'Y', curPly - 1],
       ['next', 'X', curPly + 1],
@@ -85,7 +83,7 @@ function renderButtons(ctrl, curPly) {
         'data-icon': b[1],
         onclick: enabled ? partial(ctrl.jump, b[2]) : null
       });
-    })),
+    }),
     (game.userAnalysable(root.data) ? m('a', {
       class: 'button hint--top analysis',
       'data-hint': root.trans('analysis'),

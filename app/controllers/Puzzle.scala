@@ -22,6 +22,19 @@ object Puzzle extends LilaController {
       views.html.puzzle.show(puzzle, infos, mode, animationDuration = env.AnimationDuration)
     }
 
+  def daily = Open { implicit ctx =>
+    OptionFuResult(env.daily() flatMap {
+      _.map(_.id) ?? env.api.puzzle.find
+    }) { puzzle =>
+      (ctx.me ?? { env.api.attempt.hasPlayed(_, puzzle) map (!_) }) flatMap { asPlay =>
+        renderShow(puzzle, asPlay.fold("play", "try")) map { html =>
+          Ok(html).withHeaders(
+            CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache")
+        }
+      }
+    }
+  }
+
   def home = Open { implicit ctx =>
     selectPuzzle(ctx.me) flatMap { puzzle =>
       renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { Ok(_) }
