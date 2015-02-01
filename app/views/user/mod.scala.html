@@ -91,10 +91,7 @@
           </th>
           <th>Blurs</th>
           <th>Bot</th>
-          <th>
-            Assessment
-            <br />Confidence
-          </th>
+          <th>Primary</th>
           <th>2</th>
           <th>3</th>
           <th>4</th>
@@ -114,17 +111,17 @@
             <br /><span class=@(if(result.bestMatch.positiveMatch) "match" else "partial")>@(result.bestMatch.matchPercentage)%</span>
           </td>
           @Range(0, 4).map { i =>
-            @result.secondaryMatches.lift(i) match {
-              case Some(peer) => {
-                <td>
-                  <span class="assessment sig_@peer.assessment">@peer.assessmentString</span>
-                  <br /><span class=@(if(peer.positiveMatch) "match" else "partial")>@peer.matchPercentage%</span>
-                </td>
-              }
-              case _ => {
-                <td></td>
-              }
-            }
+          @result.secondaryMatches.lift(i) match {
+          case Some(peer) => {
+          <td>
+            <span class="assessment sig_@(peer.assessment)">@peer.assessmentString</span>
+            <br /><span class=@(if(peer.positiveMatch) "match" else "partial")>@(peer.matchPercentage)%</span>
+           </td>
+          }
+          case _ => {
+            <td></td>
+          }
+          }
           }
         </tr>
       }
