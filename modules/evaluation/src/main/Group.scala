@@ -14,20 +14,36 @@ case class PlayerAssessment(
   assessment: Int, // 1 = Not Cheating, 2 = Unlikely Cheating, 3 = Unknown, 4 = Likely Cheating, 5 = Cheating
   by: String, // moderator ID
   date: DateTime) {
+  val color = Color(white)
+}
 
-  def color = Color(white)
+case class PeerGame(
+  gameId: String,
+  white: Boolean,
+  positiveMatch: Boolean,
+  matchPercentage: Int,
+  assessment: Int
+  ) {
+  val color = Color(white)
+
+  val assessmentString: String = 
+    assessment match {
+      case 1 => "NC" // Not cheating
+      case 2 => "UC" // Unlikely Cheating
+      case 3 => "NA" // Unclear
+      case 4 => "LC" // Likely Cheating
+      case 5 => "CH" // Cheating
+      case _ => "Undef"
+    }
 }
 
 case class GameGroupResult(
   _id: String, // sourceGameId + "/" + sourceGameColor
   userId: String, // The userId of the player being evaluated
-  sourceGameId: String, // The game being talked about
-  sourceColor: String, // The side of the game being talked about
-  targetGameId: String, // The game the source matched against (from crosstable)
-  targetColor: String, // The player of the game who was matched against
-  positiveMatch: Boolean, // Was the match significant enough to make a hard determination on
-  matchPercentage: Int, // 0 = Absolutely no match, 100 = Complete match
-  assessment: Int,
+  gameId: String, // The game being talked about
+  white: Boolean, // The side of the game being talked about
+  bestMatch: PeerGame,
+  secondaryMatches: List[PeerGame],
   // Meta infos
   sfAvg: Int,
   sfSd: Int,
@@ -36,15 +52,7 @@ case class GameGroupResult(
   blur: Int,
   hold: Boolean
   ) {
-  val assessmentString: String =
-    assessment match {
-      case 1 => "Not cheating"
-      case 2 => "Unlikely cheating"
-      case 3 => "Unclear"
-      case 4 => "Likely cheating"
-      case 5 => "Cheating"
-      case _ => "Undefined"
-    }
+  val color = Color(white)
 }
 
 case class GameResults(

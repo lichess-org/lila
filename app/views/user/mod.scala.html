@@ -91,20 +91,38 @@
           </th>
           <th>Blurs</th>
           <th>Bot</th>
-          <th class="assessment">Assessment</th>
-          <th>Confidence</th>
+          <th>Primary</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
         </tr>
       </thead>
       <tbody>
       @gameResults.map { result =>
         <tr>
-          <td><a href="@routes.Round.watcher(result.sourceGameId, result.sourceColor)">@routes.Round.watcher(result.sourceGameId, result.sourceColor)</a></td>
+          <td><a href="@routes.Round.watcher(result.gameId, result.color.name)">@routes.Round.watcher(result.gameId, result.color.name)</a></td>
           <td>@result.sfAvg ± @result.sfSd</td>
           <td>@(result.mtAvg/10) ± @(result.mtSd/10)</td>
           <td>@(result.blur)%</td>
           <td>@if(result.hold){Yes} else {No}</td>
-          <td class="assessment sig_@(result.assessment)">@result.assessmentString</td>
-          <td class=@(if(result.positiveMatch) "match" else "partial")>@(result.matchPercentage)%</td>
+          <td>
+            <span class="assessment sig_@(result.bestMatch.assessment)">@result.bestMatch.assessmentString</span>
+            <br /><span class=@(if(result.bestMatch.positiveMatch) "match" else "partial")>@(result.bestMatch.matchPercentage)%</span>
+          </td>
+          @Range(0, 4).map { i =>
+          @result.secondaryMatches.lift(i) match {
+          case Some(peer) => {
+          <td>
+            <span class="assessment sig_@(peer.assessment)">@peer.assessmentString</span>
+            <br /><span class=@(if(peer.positiveMatch) "match" else "partial")>@(peer.matchPercentage)%</span>
+           </td>
+          }
+          case _ => {
+            <td></td>
+          }
+          }
+          }
         </tr>
       }
       </tbody>
