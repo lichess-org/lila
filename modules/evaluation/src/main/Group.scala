@@ -1,6 +1,6 @@
 package lila.evaluation
 
-import Math.{pow, E, PI, log, sqrt, abs, exp}
+import Math.{pow, E, PI, log, sqrt, abs, exp, round}
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
 import chess.{ Color }
@@ -26,16 +26,6 @@ case class PeerGame(
   ) {
   val color = Color(white)
 
-  val assessmentString: String = 
-    assessment match {
-      case 1 => "NC" // Not cheating
-      case 2 => "UC" // Unlikely Cheating
-      case 3 => "NA" // Unclear
-      case 4 => "LC" // Likely Cheating
-      case 5 => "CH" // Cheating
-      case _ => "Undef"
-    }
-
   val explanation: String =
     (if (positiveMatch) "Matches " else "Partially matches ") + "with " +
     (assessment match {
@@ -46,6 +36,23 @@ case class PeerGame(
       case 5 => "a cheating"
       case _ => "Undefined"
     }) + " game at " + matchPercentage + "% confidence"
+}
+
+case class AggregateAssessment(
+    assessment: Int,
+    confidence: Int,
+    positiveMatch: Boolean
+  ) {
+  val explanation: String =
+    (if (positiveMatch) "Matches " else "Partially matches ") +
+    (assessment match {
+      case 1 => "Not Cheating"
+      case 2 => "Unlikely Cheating"
+      case 3 => "Unclear"
+      case 4 => "Likely Cheating"
+      case 5 => "Cheating"
+      case _ => "Undefined"
+    }) + " at " + confidence + "% confidence"
 }
 
 case class GameGroupResult(
@@ -63,8 +70,52 @@ case class GameGroupResult(
   blur: Int,
   hold: Boolean
   ) {
+  import Statistics.listSum
   val color = Color(white)
+  val aggregate: AggregateAssessment = {
+    def maxConfidence(xs: List[PeerGame]): Int = xs match {
+      case Nil => 0
+      case List(x: PeerGame) => x.matchPercentage
+      case x :: y :: rest => maxConfidence( (if (x.matchPercentage > y.matchPercentage) x else y) :: rest )
+    }
+    val peers = bestMatch :: secondaryMatches
+    AggregateAssessment(
+      round(listSum(peers.map {
+        case a if (a.positiveMatch) => 2 * a.matchPercentage * a.assessment
+        case a => a.matchPercentage * a.assessment
+      }).toDouble / listSum(peers.map {
+        case a if (a.positiveMatch) => 2 * a.matchPercentage
+        case a => a.matchPercentage
+      })).toInt,
+      maxConfidence(peers),
+      peers.exists(_.positiveMatch)
+    )
+  }
 }
+
+object Display {
+  def assessmentString(x: Int): String = 
+    x match {
+      case 1 => "Not Cheating" // Not cheating
+      case 2 => "Unlikely Cheating" // Unlikely Cheating
+      case 3 => "Unclear" // Unclear
+      case 4 => "Likely Cheating" // Likely Cheating
+      case 5 => "Cheating" // Cheating
+      case _ => "Undef"
+    }
+
+  def dataIcon(positiveMatch: Boolean, confidence: Int): String = {
+    (positiveMatch, confidence) match {
+      case (true, _) => "J"
+      case (_, a) if (a >= 80) => "l"
+      case _ => "K"
+    }
+
+  }
+  def dataIcon(x: AggregateAssessment): String = dataIcon(x.positiveMatch, x.confidence)
+  def dataIcon(x: PeerGame): String = dataIcon(x.positiveMatch, x.matchPercentage)
+}
+
 
 case class GameResults(
   white: Option[GameGroupResult],
@@ -100,17 +151,18 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
     def groupedDiffList(game: Game, color: Color, analysis: Analysis, size: Int = 5): List[List[Int]] =
       Accuracy.diffsList(Pov(game, color), analysis).grouped(size).toList
     // Insist that is greater than this (so this can be compared in full saturation)
-    if (that.analysed.game.turns < this.analysed.game.turns) return (Similarity(0), Similarity(0))
+    val thisPlayerDiffs = groupedDiffList(this.analysed.game, this.color, this.analysed.analysis)
+    val thatPlayerDiffs = groupedDiffList(that.analysed.game, that.color, that.analysed.analysis)
+    if (thisPlayerDiffs.size != thatPlayerDiffs.size) return (Similarity(0), Similarity(0))
     else {
       (
-        (groupedDiffList(this.analysed.game, this.color, this.analysed.analysis) zip
-        groupedDiffList(that.analysed.game, that.color, that.analysed.analysis)) map {
+        thisPlayerDiffs zip thatPlayerDiffs map {
           a => listToListSimilarity(a._1, a._2, 0.8)
         }
       ,
         (groupedDiffList(this.analysed.game, !this.color, this.analysed.analysis) zip
         groupedDiffList(that.analysed.game, !that.color, that.analysed.analysis)) map {       
-          a => listToListSimilarity(a._1, a._2, 0.8)
+          a => listToListSimilarity(a._1, a._2, 0.6)
         }
       ) match {
         case (Nil, Nil)                   => (Similarity(0), Similarity(0)) // Both empty
@@ -265,6 +317,12 @@ object Statistics {
 
   def skip[A](l: List[A], n: Int) =
     l.zipWithIndex.collect {case (e,i) if ((i+n) % 2) == 0 => e} // (i+1) because zipWithIndex is 0-based
+
+
+  def listSum(xs: List[Int]): Int = xs match {
+    case Nil => 0
+    case x :: tail => x + listSum(tail)
+  }
 
   def listAverage[T](x: List[T])(implicit n: Numeric[T]): Double = x match {
     case Nil      => 0

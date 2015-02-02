@@ -294,7 +294,7 @@ table.modAssessment td.match a {
   color: #759900;
 }
 table.modAssessment td.partial a {
-  color: #d59120;
+  /*color: #d59120;*/
 }
 table.modAssessment td.noMatch {
   color: #ac524f;

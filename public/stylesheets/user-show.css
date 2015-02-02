@@ -228,32 +228,37 @@ div.user_show .evaluation strong {
   display: inline;
   text-transform: uppercase;
 }
-div.user_show .evaluation .assessment {
-  text-align: right;
+div.user_show .evaluation .percentage {
+  font-size: 0.9em;
+}
+div.user_show .evaluation .legend {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+div.user_show .evaluation .legend span {
+  padding: 10px;
 }
 div.user_show .evaluation .sig_1 {
-  color: #99d531;
+  color: #388922; /* green */
 }
 div.user_show .evaluation .sig_2 {
-  color: #b8d531;
+  color: #83ab23; /* appricot */
 }
 div.user_show .evaluation .sig_3 {
-  color: #d3d531;
+  color: #B8AA1A; /* yellow */
 }
 div.user_show .evaluation .sig_4 {
-  font-weight: bold;
-  color: #d59931;
+  color: #C36A2A; /* orange */
 }
 div.user_show .evaluation .sig_5 {
-  font-weight: bold;
-  color: #de6039;
+  color: #dc322f; /* red */
 }
 div.user_show .evaluation .match {
   font-weight: bold;
   color: #759900;
 }
 div.user_show .evaluation .partial {
-  color: #d59120;
 }
 div.user_show div.content_box_inter.tabs {
   margin-left: -8px;
@@ -265,5 +270,12 @@ div.user_show #crosstable {
   margin: 25px auto 15px auto;
 }
 div.user_show .evaluation .peerLink {
+  text-align: center;
   text-decoration: none;
+}
+div.user_show .results table.slist th {
+  text-align: center;
+}
+div.user_show .results table.slist td {
+  text-align: center;
 }

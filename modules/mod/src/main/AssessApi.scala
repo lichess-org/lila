@@ -55,7 +55,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
 
   def onAnalysisReady(game: Game, analysis: Analysis): Funit = {
     def playerAssessmentGameGroups: Fu[List[GameGroup]] =
-      getPlayerAssessments(200) flatMap { assessments =>
+      getPlayerAssessments(400) flatMap { assessments =>
         GameRepo.gameOptions(assessments.map(_.gameId)) flatMap { games =>
           AnalysisRepo.doneByIds(assessments.map(_.gameId)) map { analyses =>
             assessments zip games zip analyses flatMap {
