@@ -133,7 +133,7 @@ object Round extends LilaController with TheftPrevention {
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
     GameRepo initialFen pov.game zip
-      Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion, otherPovs = Nil) zip
+      Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) zip
       ((pov.player.userId orElse pov.opponent.userId) ?? UserRepo.byId) map {
         case ((fen, data), opponent) => Ok(html.setup.join(
           pov, data, opponent, Env.setup.friendConfigMemo get pov.game.id, fen))
