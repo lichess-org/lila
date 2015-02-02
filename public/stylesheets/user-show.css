@@ -279,3 +279,29 @@ div.user_show .results table.slist th {
 div.user_show .results table.slist td {
   text-align: center;
 }
+div.user_show .reportCard {
+  margin: 0 auto 10px auto;
+}
+div.user_show .reportCard th {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  padding: 0 20px 5px 20px;
+}
+div.user_show .reportCard td {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+div.user_show .reportCard .mark {
+  color: #dc322f; /* red */
+}
+div.user_show .reportCard .noMark {
+  /*color: #dc322f;*/ /* red */
+}
+div.user_show .reportCard .report {
+  color: #B8AA1A; /* red */
+}
+div.user_show .reportCard .noReport {
+  /*color: #dc322f;*/ /* red */
+}

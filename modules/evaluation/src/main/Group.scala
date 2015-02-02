@@ -38,6 +38,25 @@ case class PeerGame(
     }) + " game at " + matchPercentage + "% confidence"
 }
 
+case class PlayerAggregateAssessment(
+  gameGroupResults: List[GameGroupResult]
+  ) {
+  import Statistics.listSum
+  def sumAssessment(x: Int): Int =
+    listSum(gameGroupResults.map { result => 
+      if (result.aggregate.assessment == x && (result.aggregate.positiveMatch || result.aggregate.confidence > 80)) 1
+      else 0
+    })
+
+  val cheatingSum: Int = sumAssessment(5)
+  val likelyCheatingSum: Int = sumAssessment(4)
+  val unclearSum: Int = sumAssessment(3)
+
+  val markPri: Boolean = cheatingSum >= 2
+  val markSec: Boolean = cheatingSum + likelyCheatingSum >= 5
+  val report: Boolean = cheatingSum + likelyCheatingSum + unclearSum >= 5
+}
+
 case class AggregateAssessment(
     assessment: Int,
     confidence: Int,
@@ -62,6 +81,7 @@ case class GameGroupResult(
   white: Boolean, // The side of the game being talked about
   bestMatch: PeerGame,
   secondaryMatches: List[PeerGame],
+  date: DateTime,
   // Meta infos
   sfAvg: Int,
   sfSd: Int,
@@ -70,7 +90,7 @@ case class GameGroupResult(
   blur: Int,
   hold: Boolean
   ) {
-  import Statistics.listSum
+  import Statistics.{listSum, listAverage}
   val color = Color(white)
   val aggregate: AggregateAssessment = {
     def maxConfidence(xs: List[PeerGame]): Int = xs match {
@@ -87,7 +107,10 @@ case class GameGroupResult(
         case a if (a.positiveMatch) => 2 * a.matchPercentage
         case a => a.matchPercentage
       })).toInt,
-      maxConfidence(peers),
+      listAverage(peers.map{ _ match {
+        case i if (i.positiveMatch) => List.fill(2)(i.matchPercentage)
+        case i => List(i.matchPercentage)
+      }}.flatten).toInt,
       peers.exists(_.positiveMatch)
     )
   }

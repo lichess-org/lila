@@ -6,6 +6,7 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.evaluation.{ PlayerAssessment, GameGroupResult, GameResults, GameGroup, Analysed, PeerGame, MatchAndSig }
 import lila.game.Game
 import lila.game.{ Game, GameRepo }
+import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.concurrent._
 
@@ -86,6 +87,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
             white = source.color.white,
             bestMatch = a,
             secondaryMatches = b,
+            date = DateTime.now,
             sfAvg = source.sfAvg,
             sfSd = source.sfSd,
             mtAvg = source.mtAvg,

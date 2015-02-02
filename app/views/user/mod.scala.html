@@ -1,4 +1,4 @@
-@(u: User, spy: lila.security.UserSpy, eval: Option[lila.evaluation.Evaluation], gameResults: List[lila.evaluation.GameGroupResult])(implicit ctx: Context)
+@(u: User, spy: lila.security.UserSpy, eval: Option[lila.evaluation.Evaluation], aggregateAssessment: lila.evaluation.PlayerAggregateAssessment)(implicit ctx: Context)
 
 @import lila.evaluation.Display
 
@@ -77,8 +77,39 @@
     }
   </div>
   }
-  @if(gameResults.nonEmpty) {
+  @if(aggregateAssessment.gameGroupResults.nonEmpty) {
   <div class="evaluation results">
+    <table class="reportCard">
+      <thead>
+        <tr>
+          <th>
+            <span class="@(if(aggregateAssessment.markPri) "mark" else "noMark")">Cheating</span>
+          </th>
+          <th>
+            <span class="@(if(aggregateAssessment.markSec) "mark" else "noMark")">Cheating</span>
+          </th>
+          <th>
+            <span class="@(if(aggregateAssessment.report) "report" else "noReport")">Report</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="sig_5">@aggregateAssessment.cheatingSum</span> / 2
+          </td>
+          <td>
+            <span class="sig_5">@aggregateAssessment.cheatingSum</span> + 
+            <span class="sig_4">@aggregateAssessment.likelyCheatingSum</span> / 5
+          </td>
+          <td>
+            <span class="sig_5">@aggregateAssessment.cheatingSum</span> + 
+            <span class="sig_4">@aggregateAssessment.likelyCheatingSum</span> + 
+            <span class="sig_3">@aggregateAssessment.unclearSum</span> / 5
+          </td>
+        </tr>
+      </tbody>
+    </table>
     <p class="legend">
       @Range(1, 6).map { i =>
       <span class="sig_@i">@Display.assessmentString(i)</span>
@@ -107,7 +138,7 @@
         </tr>
       </thead>
       <tbody>
-      @gameResults.map { result =>
+      @aggregateAssessment.gameGroupResults.map { result =>
         <tr>
           <td><a href="@routes.Round.watcher(result.gameId, result.color.name)">@routes.Round.watcher(result.gameId, result.color.name)</a></td>
           <td>@result.sfAvg ± @result.sfSd</td>
