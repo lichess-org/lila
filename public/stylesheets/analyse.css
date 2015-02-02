@@ -163,6 +163,7 @@ div.game_control .jumps {
   line-height: 22px;
   display: inline-block;
   padding: 2px 7px;
+  white-space: nowrap;
 }
 .lichess_ground .replay .turn .move.empty {
   opacity: 0.5;
