@@ -157,13 +157,13 @@ div.game_control .jumps {
   text-decoration: none;
 }
 .lichess_ground .replay .turn .move {
+  position: relative;
   width: calc(50% - 14px - 13px);
   font-size: 17px;
   height: 22px;
   line-height: 22px;
   display: inline-block;
   padding: 2px 7px;
-  white-space: nowrap;
 }
 .lichess_ground .replay .turn .move.empty {
   opacity: 0.5;
@@ -180,10 +180,11 @@ div.game_control .jumps {
   font-weight: bold;
 }
 .lichess_ground .replay .eval {
+  position: absolute;
+  top: 2px;
+  right: 5px;
   font-size: 0.8em;
   font-weight: lighter;
-  float: right;
-  margin: 2px 5px 0 0;
   opacity: 0.7;
   transition: 0.13s;
 }
