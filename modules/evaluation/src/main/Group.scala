@@ -101,14 +101,14 @@ case class GameGroupResult(
     val peers = bestMatch :: secondaryMatches
     AggregateAssessment(
       round(listSum(peers.map {
-        case a if (a.positiveMatch) => 2 * a.matchPercentage * a.assessment
+        case a if (a.positiveMatch) => 4 * a.matchPercentage * a.assessment
         case a => a.matchPercentage * a.assessment
       }).toDouble / listSum(peers.map {
-        case a if (a.positiveMatch) => 2 * a.matchPercentage
+        case a if (a.positiveMatch) => 4 * a.matchPercentage
         case a => a.matchPercentage
       })).toInt,
       listAverage(peers.map{ _ match {
-        case i if (i.positiveMatch) => List.fill(2)(i.matchPercentage)
+        case i if (i.positiveMatch) => List.fill(4)(i.matchPercentage)
         case i => List(i.matchPercentage)
       }}.flatten).toInt,
       peers.exists(_.positiveMatch)
