@@ -5,6 +5,7 @@ cd local
 rm -rf Stockfish
 git clone https://github.com/ddugovic/Stockfish
 cd Stockfish/src
+git reset --hard 271582eaa5d43afd4ef48ec3d8bcdfc724ac148e
 if [[ $1 = "old" ]]; then
   make build ARCH=x86-64
 else
