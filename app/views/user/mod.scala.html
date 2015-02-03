@@ -89,7 +89,10 @@
             <span class="@(if(aggregateAssessment.markSec) "mark" else "noMark")">Cheating</span>
           </th>
           <th>
-            <span class="@(if(aggregateAssessment.report) "report" else "noReport")">Report</span>
+            <span class="@(if(aggregateAssessment.reportPri) "report" else "noReport")">Report</span>
+          </th>
+          <th>
+            <span class="@(if(aggregateAssessment.reportSec) "report" else "noReport")">Report</span>
           </th>
         </tr>
       </thead>
@@ -100,12 +103,16 @@
           </td>
           <td>
             <span class="sig_5">@aggregateAssessment.cheatingSum</span> + 
-            <span class="sig_4">@aggregateAssessment.likelyCheatingSum</span> / 5
+            <span class="sig_4">@aggregateAssessment.likelyCheatingSum</span> / 4
+          </td>
+          <td>
+            <span class="sig_5">@aggregateAssessment.cheatingSum</span> + 
+            <span class="sig_4">@aggregateAssessment.likelyCheatingSum</span> / 2
           </td>
           <td>
             <span class="sig_5">@aggregateAssessment.cheatingSum</span> + 
             <span class="sig_4">@aggregateAssessment.likelyCheatingSum</span> + 
-            <span class="sig_3">@aggregateAssessment.unclearSum</span> / 5
+            <span class="sig_3">@aggregateAssessment.unclearSum</span> / 4
           </td>
         </tr>
       </tbody>
@@ -129,7 +136,7 @@
           </th>
           <th>Blurs</th>
           <th>Bot</th>
-          <th><span class="aggregate hint--top-left" data-hint="Aggregate match">&Sigma;</span></th>
+          <th><span class="hint--top-left" data-hint="Aggregate match">&Sigma;</span></th>
           <th><span class="hint--top-left" data-hint="Primary match">1</span></th>
           <th><span class="hint--top-left" data-hint="Secondary match">2</span></th>
           <th><span class="hint--top-left" data-hint="Tertiary match">3</span></th>
@@ -146,9 +153,8 @@
           <td>@(result.blur)%</td>
           <td>@if(result.hold){Yes} else {No}</td>
           <td>
-            <span class="hint--top-left" data-hint="@result.aggregate.explanation">
+            <span class="aggregate hint--top-left" data-hint="@result.aggregate.explanation">
               <span class="sig_@(result.aggregate.assessment)" data-icon="@Display.dataIcon(result.aggregate)"></span>
-              <br />@(result.aggregate.confidence)%
             </span>
           </td>
           <td>

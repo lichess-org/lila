@@ -53,8 +53,9 @@ case class PlayerAggregateAssessment(
   val unclearSum: Int = sumAssessment(3)
 
   val markPri: Boolean = cheatingSum >= 2
-  val markSec: Boolean = cheatingSum + likelyCheatingSum >= 5
-  val report: Boolean = cheatingSum + likelyCheatingSum + unclearSum >= 5
+  val markSec: Boolean = cheatingSum + likelyCheatingSum >= 4
+  val reportPri: Boolean = cheatingSum + likelyCheatingSum >= 2
+  val reportSec: Boolean = cheatingSum + likelyCheatingSum + unclearSum >= 4
 }
 
 case class AggregateAssessment(
@@ -93,11 +94,6 @@ case class GameGroupResult(
   import Statistics.{listSum, listAverage}
   val color = Color(white)
   val aggregate: AggregateAssessment = {
-    def maxConfidence(xs: List[PeerGame]): Int = xs match {
-      case Nil => 0
-      case List(x: PeerGame) => x.matchPercentage
-      case x :: y :: rest => maxConfidence( (if (x.matchPercentage > y.matchPercentage) x else y) :: rest )
-    }
     val peers = bestMatch :: secondaryMatches
     AggregateAssessment(
       round(listSum(peers.map {
@@ -107,10 +103,7 @@ case class GameGroupResult(
         case a if (a.positiveMatch) => 4 * a.matchPercentage
         case a => a.matchPercentage
       })).toInt,
-      listAverage(peers.map{ _ match {
-        case i if (i.positiveMatch) => List.fill(4)(i.matchPercentage)
-        case i => List(i.matchPercentage)
-      }}.flatten).toInt,
+      bestMatch.matchPercentage,
       peers.exists(_.positiveMatch)
     )
   }

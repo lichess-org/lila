@@ -293,6 +293,10 @@ div.user_show .reportCard td {
   font-weight: bold;
   font-size: 1.2em;
 }
+div.user_show .results .aggregate {
+  font-size: 2.2em;
+  margin-top: -5px;
+}
 div.user_show .reportCard .mark {
   color: #dc322f; /* red */
 }
