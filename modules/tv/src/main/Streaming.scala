@@ -44,10 +44,9 @@ private final class Streaming(
           .get() map { res =>
             res.json.asOpt[Twitch.Result] match {
               case Some(data) => data.streamsOnAir filter { stream =>
-                authorizedStreamers contains stream.streamerId
+                authorizedStreamers contains stream.streamer.toLowerCase
               } filter { stream =>
-                stream.streamerId == "chesswhiz" ||
-                  stream.name.contains(keyword)
+                stream.name contains keyword
               } take max
               case None =>
                 logger.warn(s"twitch ${res.status} ${~res.body.lines.toList.headOption}")
