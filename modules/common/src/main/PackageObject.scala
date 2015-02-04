@@ -24,7 +24,7 @@ trait PackageObject extends Steroids with WithFuture {
   implicit final def runOptionT[F[+_], A](ot: OptionT[F, A]): F[Option[A]] = ot.run
 
   // from scalaz. We don't want to import all OptionTFunctions, because of the classh with `some`
-  def optionT[M[_]] = new (({type λ[α] = M[Option[α]]})#λ ~> ({type λ[α] = OptionT[M, α]})#λ) {
+  def optionT[M[_]] = new (({ type λ[α] = M[Option[α]] })#λ ~>({ type λ[α] = OptionT[M, α] })#λ) {
     def apply[A](a: M[Option[A]]) = new OptionT[M, A](a)
   }
 
@@ -95,7 +95,7 @@ trait WithPlay { self: PackageObject =>
 
   implicit def execontext = play.api.libs.concurrent.Execution.defaultContext
 
-  implicit val LilaFutureInstances = new Monad[Fu] {
+  implicit val LilaFutureMonad = new Monad[Fu] {
     override def map[A, B](fa: Fu[A])(f: A => B) = fa map f
     def point[A](a: => A) = fuccess(a)
     def bind[A, B](fa: Fu[A])(f: A => Fu[B]) = fa flatMap f
