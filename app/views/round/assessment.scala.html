@@ -2,7 +2,7 @@
 
 @(game: Game, results: GameResults)(implicit ctx: Context)
 <br />
-@if(isGranted(_.MarkEngine) && game.analysable && !game.isCorrespondence && game.turns > 40) {
+@if(isGranted(_.MarkEngine) && game.analysable && !game.isCorrespondence && game.turns >= 40) {
 @game.players.map { p =>
 <table class="modAssessment">
   <tr>

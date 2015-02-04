@@ -6,6 +6,7 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.evaluation.{ PlayerAssessment, GameGroupResult, GameResults, GameGroup, Analysed, PeerGame, MatchAndSig }
 import lila.game.Game
 import lila.game.{ Game, GameRepo }
+import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.concurrent._
 
@@ -55,7 +56,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
 
   def onAnalysisReady(game: Game, analysis: Analysis): Funit = {
     def playerAssessmentGameGroups: Fu[List[GameGroup]] =
-      getPlayerAssessments(200) flatMap { assessments =>
+      getPlayerAssessments(400) flatMap { assessments =>
         GameRepo.gameOptions(assessments.map(_.gameId)) flatMap { games =>
           AnalysisRepo.doneByIds(assessments.map(_.gameId)) map { analyses =>
             assessments zip games zip analyses flatMap {
@@ -86,6 +87,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
             white = source.color.white,
             bestMatch = a,
             secondaryMatches = b,
+            date = DateTime.now,
             sfAvg = source.sfAvg,
             sfSd = source.sfSd,
             mtAvg = source.mtAvg,
@@ -96,7 +98,7 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
         case _ => None
       }
 
-    if (!game.isCorrespondence && game.turns > 40 && game.mode.rated) {
+    if (!game.isCorrespondence && game.turns >= 40 && game.mode.rated) {
       val whiteGameGroup = GameGroup(Analysed(game, analysis), Color.White)
       val blackGameGroup = GameGroup(Analysed(game, analysis), Color.Black)
 
