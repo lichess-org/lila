@@ -6,10 +6,12 @@ var lichessSri = Math.random().toString(36).substring(2);
 var url = 'ws://socket.en.lichess.org/socket';
 var client = new WebSocketClient();
 var geoLag = process.argv[2];
+var password = process.argv[3];
+if (!password) throw "missing SMS password";
 var averageLag;
 var lagAlert = 50; // in milliseconds
 var fail = 0;
-var failAlert = 1000;
+var failAlert = 2000;
 
 var logger = function(sev, msg) {
   console.log();
@@ -31,7 +33,7 @@ var sendSms = function(msg) {
       rejectUnauthorized: false,
       qs: {
         user: '21942578',
-        pass: 'gh6oKPhwsDAgxO',
+        pass: password,
         msg: '[wsmon] lichess.org: ' + msg
       }
     },
