@@ -6,7 +6,11 @@ final class LastPostCache(api: BlogApi, ttl: Duration, collection: String) {
 
   private val cache = lila.memo.MixedCache.single[List[MiniPost]](
     api.prismicApi flatMap { prismic =>
-      api.recent(prismic, none, 3) map (_.results flatMap MiniPost.fromDocument(collection))
+      api.recent(prismic, none, 3) map {
+        _ ?? {
+          _.results flatMap MiniPost.fromDocument(collection)
+        }
+      }
     },
     timeToLive = ttl,
     default = Nil,
