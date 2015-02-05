@@ -1,6 +1,23 @@
 var partial = require('chessground').util.partial;
 var m = require('mithril');
 
+var baseSpeeds = [{
+  name: 'fast',
+  delay: 1000
+}, {
+  name: 'slow',
+  delay: 5000
+}];
+
+var allSpeeds = baseSpeeds.concat({
+  name: 'realtime',
+  delay: true
+});
+
+function speedsOf(data) {
+  data.game.movetimes.length ? allSpeeds : baseSpeeds;
+}
+
 module.exports = {
   controller: function() {
 
@@ -26,16 +43,8 @@ module.exports = {
           onclick: function() {
             $.modal($('.continue_with.' + ctrl.data.game.id));
           }
-        }, ctrl.trans('continueFromHere')), [{
-          name: 'fast',
-          delay: 1000
-        }, {
-          name: 'slow',
-          delay: 5000
-        }, {
-          name: 'realtime',
-          delay: true
-        }].map(function(speed) {
+        }, ctrl.trans('continueFromHere')),
+        speedsOf(ctrl.data).map(function(speed) {
           return m('a.button[data-icon=G]', {
             class: 'text' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
             onclick: partial(ctrl.togglePlay, speed.delay)
