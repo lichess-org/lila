@@ -43,7 +43,7 @@ object Auth extends LilaController {
 
   def login = Open { implicit ctx =>
     val referrer = get("referrer")
-    Ok(html.auth.login(api.loginForm, referrer)) fuccess
+    Ok(html.auth.login(api.loginForm, referrer)).fuccess
   }
 
   def authenticate = OpenBody { implicit ctx =>
@@ -77,7 +77,7 @@ object Auth extends LilaController {
   private def doSignup(username: String, password: String)(res: UserModel => Fu[Result])(implicit ctx: lila.api.Context) =
     Firewall {
       implicit val req = ctx.req
-      UserRepo.create(username, password, ctx.blindMode) flatMap { userOption =>
+      UserRepo.create(username, password, ctx.blindMode, ctx.mobileApiVersion) flatMap { userOption =>
         val user = userOption err "No user could be created for %s".format(username)
         api.saveAuthentication(
           user.id,

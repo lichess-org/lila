@@ -47,6 +47,8 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def currentBg = ctxPref("bg") | "light"
 
+  def mobileApiVersion = Mobile.Api requestVersion req
+
   private def ctxPref(name: String): Option[String] =
     userContext.req.session get name orElse { pref get name }
 }
