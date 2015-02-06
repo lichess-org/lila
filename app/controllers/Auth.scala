@@ -26,7 +26,7 @@ object Auth extends LilaController {
     implicit val req = ctx.req
     u.ipBan.fold(
       Env.security.firewall.blockIp(req.remoteAddress) inject BadRequest("blocked by firewall"),
-      api.saveAuthentication(u.id, lila.api.Mobile.Api.requestVersion(ctx.req)) flatMap { sessionId =>
+      api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
         negotiate(
           html = Redirect {
             get("referrer").filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
@@ -81,7 +81,7 @@ object Auth extends LilaController {
         val user = userOption err "No user could be created for %s".format(username)
         api.saveAuthentication(
           user.id,
-          lila.api.Mobile.Api.requestVersion(ctx.req)
+          ctx.mobileApiVersion
         ) flatMap { sessionId =>
             res(user) map {
               _ withCookies LilaCookie.session("sessionId", sessionId)
