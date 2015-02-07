@@ -15,7 +15,7 @@ var allSpeeds = baseSpeeds.concat({
 });
 
 function speedsOf(data) {
-  data.game.movetimes.length ? allSpeeds : baseSpeeds;
+  return data.game.moveTimes.length ? allSpeeds : baseSpeeds;
 }
 
 module.exports = {
