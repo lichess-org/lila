@@ -68,18 +68,16 @@ body.coords_1 .cg-square[data-coord-y]::before {
   text-shadow: 0 1px 2px #000;
 }
 body.coords_2 .cg-square[data-coord-x]::after {
-  bottom: -11px;
+  bottom: -12px;
   left: calc(50% - 3.5px);
-  color: #bbb;
   font-weight: bold;
 }
 body.coords_2 .is3d .cg-square[data-coord-x]::after {
   bottom: calc(-10px - 22%);
 }
 body.coords_2 .cg-square[data-coord-y]::before {
-  right: -8px;
+  right: -9px;
   top: calc(50% - 7px);
-  color: #bbb;
   font-weight: bold;
 }
 body.highlight .manipulable .cg-square.drag-over {
