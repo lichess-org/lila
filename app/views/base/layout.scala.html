@@ -206,7 +206,8 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
         </div>
         <a href="@routes.Blog.index()">@trans.blog()</a> |
         <a href="@routes.QaQuestion.index()" title="@trans.questionsAndAnswers()">Q&amp;A</a> |
-        <a href="@routes.Wiki.home" title="@trans.learnMoreAboutLichess()">Wiki</a><br />
+        <a href="@routes.Wiki.home" title="@trans.learnMoreAboutLichess()">Wiki</a> |
+        <a href="@routes.Main.mobile">Mobile App</a><br />
         <a href="@routes.WorldMap.index" title="@trans.realTimeWorldMapOfChessMoves()">@trans.map()</a> |
         <a href="@routes.Monitor.index">Monitor</a> |
         <a href="@routes.Page.helpLichess">Help lichess.org</a>
