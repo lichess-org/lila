@@ -1,0 +1,43 @@
+.mobile.content_box {
+  min-height: 400px;
+}
+.mobile .right-side {
+  float: right;
+  width: 264px;
+  text-align: center;
+}
+.mobile .right-side img {
+  margin: -50px 0 30px 0;
+}
+.mobile .left-side {
+  width: 245px;
+  text-align: center;
+}
+.mobile h1 {
+  font-size: 4em;
+}
+.mobile .store {
+  display: inline-block;
+  margin: 20px 0 0 20px;
+}
+.mobile .left-side h2 {
+  margin-top: 20px;
+  font-size: 1.5em;
+}
+.mobile .left-side .block {
+  text-align: left;
+  margin: 10px 0 20px 0;
+}
+.mobile .left-side li {
+  list-style: inside disc;
+}
+.mobile .support {
+  font-style: monospace;
+  font-weight: bold;
+}
+.mobile .support.good {
+  color: #759900;
+}
+.mobile .support.partial {
+  color: #dc322f;
+}

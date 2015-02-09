@@ -310,6 +310,7 @@ GET   /developers                      controllers.Main.developers
 GET   /embed                           controllers.Main.embed
 GET   /irc                             controllers.Main.irc
 GET   /themepicker                     controllers.Main.themepicker
+GET   /mobile                          controllers.Main.mobile
 
 # Map
 GET   /world-map                       controllers.WorldMap.index
