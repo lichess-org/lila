@@ -420,6 +420,7 @@ listBlockedPlayers=Sua lista de bloqueados
 human=Humano
 computer=Computador
 side=Cor
+clock=Relógio
 unauthorizedError=Acesso negado
 noInternetConnection=Sem conectividade. Você ainda pode jogar offline do menu.
 connectedToLichess=Você está conectado à lichess.org
