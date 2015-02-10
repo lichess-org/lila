@@ -12,6 +12,7 @@ import lila.rating.PerfType
 import lila.security.Permission
 import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
+import lila.evaluation.PlayerAggregateAssessment
 import views._
 
 object User extends LilaController {
@@ -146,10 +147,9 @@ object User extends LilaController {
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>
     me => OptionFuOk(UserRepo named username) { user =>
-      Env.evaluation.evaluator find user zip
-        (Env.security userSpy user.id) map {
-          case (eval, spy) => html.user.mod(user, spy, eval)
-        }
+      (Env.evaluation.evaluator find user) zip (Env.security userSpy user.id) zip (Env.mod.assessApi.getResultsByUserId(user.id, 25)) map {
+        case ((eval, spy), gameResults) => html.user.mod(user, spy, eval, PlayerAggregateAssessment(gameResults))
+      }
     }
   }
 

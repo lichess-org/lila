@@ -188,8 +188,10 @@ private[round] final class Socket(
   }
 
   def batch(member: Member, vevents: List[VersionedEvent]) {
-    if (vevents.nonEmpty) {
-      member push makeMessage("b", vevents map (_ jsFor member))
+    vevents match {
+      case Nil       =>
+      case List(one) => member push one.jsFor(member)
+      case many      => member push makeMessage("b", many map (_ jsFor member))
     }
   }
 

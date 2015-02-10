@@ -178,8 +178,6 @@ body.dark div.undertable a.user_link,
 body.dark #tv_history a.user_link,
 body.dark #timeline a.user_link,
 body.dark #team .forum a.user_link,
-body.dark.coords_2 .cg-square[data-coord-x]::after,
-body.dark.coords_2 .cg-square[data-coord-y]::before,
 body.dark div.user_show div.content_box_top > span,
 body.dark span.progress > .zero,
 body.dark div.undertable_top span.title {

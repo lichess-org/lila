@@ -1,0 +1,50 @@
+@()(implicit ctx: Context)
+
+@base.layout(
+title = "Mobile",
+moreCss = cssTag("mobile.css")) {
+<div class="mobile content_box small_box">
+  <div class="right-side">
+    <img class="nexus5-playing" width="268" height="513" src="@staticUrl("images/mobile/nexus5-playing.png")" alt="Lichess mobile on nexus 5" />
+    <a class="download button" href="https://play.google.com/store/apps/details?id=org.lichess.mobileapp">
+      Download now for free
+    </a>
+  </div>
+  <div class="left-side">
+    <h1>Play chess everywhere</h1>
+    <a class="store" href="https://play.google.com/store/apps/details?id=org.lichess.mobileapp">
+      <img alt="Android app on Google Play"
+      src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
+    </a>
+    <h2>lichess on the go</h2>
+    <ul class="block">
+      <li>Challenge online players</li>
+      <li>Play Stockfish level 1 to 8</li>
+      <li>Login or play as Anonymous</li>
+      <li>Available in 80 languages!</li>
+    </ul>
+    <h2>As free as lichess</h2>
+    <ul class="block">
+      <li>Built for the love of chess, not money</li>
+      <li>Everybody gets <strong>all features for free</strong></li>
+      <li>Zero advertisement</li>
+      <li>Entirely <a href="https://github.com/veloce/lichobile">Open Source</a> as usual</li>
+    </ul>
+    <h2>Three modes included</h2>
+    <ul class="block">
+      <li>Real time with increment</li>
+      <li>Correspondence games</li>
+      <li>On The Board, offline</li>
+    </ul>
+    <p class="block">
+      More of the features you love from the website will be added in the near future.<br />
+      Look out for updates regularly!
+    </p>
+    <p class="block">
+      Android 4.4 and 5+ support: <span class="good support">GOOD</span><br />
+      Android 4.1 and 4.2 support: <span class="partial support">PARTIAL</span><br />
+      The iOS app will land in early March 2015.
+    </p>
+  </div>
+</div>
+}

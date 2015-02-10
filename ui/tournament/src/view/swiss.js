@@ -2,6 +2,7 @@ var m = require('mithril');
 var partial = require('chessground').util.partial;
 var tournament = require('../tournament');
 var util = require('./util');
+var button = require('./button');
 
 var legend = m('th.legend', [
   m('span.streakstarter', 'Streak starter'),
@@ -45,6 +46,9 @@ function playerTrs(ctrl, maxScore, player) {
     ]
   }, {
     tag: 'tr',
+    attrs: {
+      key: player.id + '.bar'
+    },
     children: [
       m('td', {
         class: 'around-bar',

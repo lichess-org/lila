@@ -75,7 +75,7 @@ private[round] final class Round(
       (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock) ?? {
         socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
           case true => finisher(pov.game, _.Timeout, Some(pov.color))
-          case _    => fufail("[round] cannot force resign of " + pov)
+          case _    => fuccess(List(Event.Reload))
         }
       }
     }
@@ -88,7 +88,7 @@ private[round] final class Round(
       (pov.game.drawable && !pov.game.hasAi && pov.game.hasClock) ?? {
         socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
           case true => finisher(pov.game, _.Timeout, None)
-          case _    => fufail("[round] cannot force draw of " + pov)
+          case _    => fuccess(List(Event.Reload))
         }
       }
     }

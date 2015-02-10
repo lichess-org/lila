@@ -12,7 +12,9 @@ private[blog] final class Notifier(
 
   def apply {
     blogApi.prismicApi foreach { prismicApi =>
-      blogApi.recent(prismicApi, none, 1) map (_.results.headOption) foreach {
+      blogApi.recent(prismicApi, none, 1) map {
+        _ ?? (_.results.headOption)
+      } foreach {
         _ ?? { post =>
           ThreadRepo.visibleByUserContainingExists(user = lichessUserId, containing = post.id) foreach {
             case true => funit

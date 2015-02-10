@@ -85,7 +85,11 @@ function renderTablePlay(ctrl) {
     renderReplay(ctrl.replay),
     m('div.control.icons', [
       button.standard(ctrl, game.abortable, 'L', 'abortGame', 'abort'),
-      button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes'),
+      game.takebackable(ctrl.data) ? m('button', {
+        class: 'button hint--bottom takeback-yes',
+        'data-hint': ctrl.trans('proposeATakeback'),
+        onclick: partial(ctrl.takebackYes)
+      }, m('span[data-icon=i]')) : null,
       button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
       button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
     ]),

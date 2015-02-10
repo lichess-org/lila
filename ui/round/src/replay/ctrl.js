@@ -34,13 +34,9 @@ module.exports = function(root) {
         fen = cached.fen;
       }
       if (!cached || ply < this.ply) {
-        var variant = root.data.game.variant.key;
-
-        var gameVariantKey = gameVariants[variant] != null ? gameVariants[variant] : 0;
-
         var chess = new Chess(
           fen || root.data.game.initialFen,
-          gameVariantKey);
+          gameVariants[root.data.game.variant.key] || 0);
         for (ply = ply; ply <= this.ply; ply++) {
           move = root.data.game.moves[ply - 1];
           hash += move;

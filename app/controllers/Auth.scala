@@ -1,12 +1,12 @@
 package controllers
 
 import play.api.data._, Forms._
-import play.api.libs.json.Json
+import play.api.libs.json._
 import play.api.mvc._, Results._
 
 import lila.app._
 import lila.common.LilaCookie
-import lila.user.UserRepo
+import lila.user.{ UserRepo, User => UserModel }
 import views._
 
 object Auth extends LilaController {
@@ -14,22 +14,24 @@ object Auth extends LilaController {
   private def api = Env.security.api
   private def forms = Env.security.forms
 
-  private def authenticateUser(u: lila.user.User)(implicit ctx: lila.api.Context) = {
+  private def mobileUserOk(u: UserModel): Fu[Result] =
+    lila.game.GameRepo nowPlaying u map { povs =>
+      Ok {
+        Env.user.jsonView(u, extended = true) ++ Json.obj(
+          "nowPlaying" -> JsArray(povs take 9 map Env.api.lobbyApi.nowPlaying))
+      }
+    }
+
+  private def authenticateUser(u: UserModel)(implicit ctx: lila.api.Context) = {
     implicit val req = ctx.req
     u.ipBan.fold(
       Env.security.firewall.blockIp(req.remoteAddress) inject BadRequest("blocked by firewall"),
-      api saveAuthentication u.id flatMap { sessionId =>
+      api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
         negotiate(
           html = Redirect {
             get("referrer").filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
           }.fuccess,
-          api = _ => lila.game.GameRepo nowPlaying u map { povs =>
-            Ok {
-              import play.api.libs.json._
-              Env.user.jsonView(u, extended = true) ++ Json.obj(
-                "nowPlaying" -> JsArray(povs take 9 map Env.api.lobbyApi.nowPlaying))
-            }
-          }
+          api = _ => mobileUserOk(u)
         ) map {
             _ withCookies LilaCookie.withSession { session =>
               session + ("sessionId" -> sessionId) - api.AccessUri
@@ -41,7 +43,7 @@ object Auth extends LilaController {
 
   def login = Open { implicit ctx =>
     val referrer = get("referrer")
-    Ok(html.auth.login(api.loginForm, referrer)) fuccess
+    Ok(html.auth.login(api.loginForm, referrer)).fuccess
   }
 
   def authenticate = OpenBody { implicit ctx =>
@@ -67,25 +69,44 @@ object Auth extends LilaController {
   }
 
   def signup = Open { implicit ctx =>
-    forms.signupWithCaptcha map {
+    forms.signup.websiteWithCaptcha map {
       case (form, captcha) => Ok(html.auth.signup(form, captcha))
     }
   }
 
+  private def doSignup(username: String, password: String)(res: UserModel => Fu[Result])(implicit ctx: lila.api.Context) =
+    Firewall {
+      implicit val req = ctx.req
+      UserRepo.create(username, password, ctx.blindMode, ctx.mobileApiVersion) flatMap { userOption =>
+        val user = userOption err "No user could be created for %s".format(username)
+        api.saveAuthentication(
+          user.id,
+          ctx.mobileApiVersion
+        ) flatMap { sessionId =>
+            res(user) map {
+              _ withCookies LilaCookie.session("sessionId", sessionId)
+            }
+          }
+      }
+    }
+
   def signupPost = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    forms.signup.bindFromRequest.fold(
-      err => forms.anyCaptcha map { captcha =>
-        BadRequest(html.auth.signup(err, captcha))
-      },
-      data => Firewall {
-        UserRepo.create(data.username, data.password, ctx.blindMode) flatMap { userOption =>
-          val user = userOption err "No user could be created for %s".format(data.username)
-          api saveAuthentication user.id map { sessionId =>
-            Redirect(routes.User.show(user.username)) withCookies LilaCookie.session("sessionId", sessionId)
-          }
+    negotiate(
+      html = forms.signup.website.bindFromRequest.fold(
+        err => forms.anyCaptcha map { captcha =>
+          BadRequest(html.auth.signup(err, captcha))
+        },
+        data => doSignup(data.username, data.password) { user =>
+          fuccess(Redirect(routes.User.show(user.username)))
         }
-      }
+      ),
+      api = _ => forms.signup.mobile.bindFromRequest.fold(
+        err => fuccess(BadRequest(Json.obj(
+          "error" -> err.errorsAsJson
+        ))),
+        data => doSignup(data.username, data.password)(mobileUserOk)
+      )
     )
   }
 

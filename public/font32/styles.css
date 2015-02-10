@@ -311,3 +311,6 @@
 .icon-hubot:before {
   content: "^";
 }
+.icon-reorder:before {
+  content: "[";
+}

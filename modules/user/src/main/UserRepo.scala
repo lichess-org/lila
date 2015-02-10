@@ -194,10 +194,10 @@ trait UserRepo {
   def getPasswordHash(id: ID): Fu[Option[String]] =
     $primitive.one($select(id), "password")(_.asOpt[String])
 
-  def create(username: String, password: String, blind: Boolean): Fu[Option[User]] =
+  def create(username: String, password: String, blind: Boolean, mobileApiVersion: Option[Int]): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        $insert.bson(newUser(username, password, blind)) >> named(normalize(username))
+        $insert.bson(newUser(username, password, blind, mobileApiVersion)) >> named(normalize(username))
       }
     }
 
@@ -275,7 +275,7 @@ trait UserRepo {
   def filterByEngine(userIds: List[String]): Fu[List[String]] =
     $primitive(Json.obj("_id" -> $in(userIds)) ++ engineSelect(true), F.username)(_.asOpt[String])
 
-  private def newUser(username: String, password: String, blind: Boolean) = {
+  private def newUser(username: String, password: String, blind: Boolean, mobileApiVersion: Option[Int]) = {
 
     val salt = ornicar.scalalib.Random nextStringUppercase 32
     implicit def countHandler = Count.countBSONHandler
@@ -291,6 +291,8 @@ trait UserRepo {
       F.count -> Count.default,
       F.enabled -> true,
       F.createdAt -> DateTime.now,
+      F.createdAt -> DateTime.now,
+      F.createdWithApiVersion -> mobileApiVersion,
       F.seenAt -> DateTime.now) ++ {
         if (blind) BSONDocument("blind" -> true) else BSONDocument()
       }

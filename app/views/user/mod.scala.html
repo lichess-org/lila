@@ -1,4 +1,6 @@
-@(u: User, spy: lila.security.UserSpy, eval: Option[lila.evaluation.Evaluation])(implicit ctx: Context)
+@(u: User, spy: lila.security.UserSpy, eval: Option[lila.evaluation.Evaluation], aggregateAssessment: lila.evaluation.PlayerAggregateAssessment)(implicit ctx: Context)
+
+@import lila.evaluation.Display
 
 <div class="actions clearfix">
   @if(isGranted(_.UserEvaluate)) {
@@ -63,7 +65,7 @@
       <tbody>
         @e.games.map { g =>
         <tr>
-          <td><a href="@g.url">@g.url</a></td>
+          <td><a href="@g.path">@g.path</a></td>
           <td>@g.moveTime.map(_ + "%")</td>
           <td>@g.blur.map(_ + "%")</td>
           <td>@g.error.map(_ + "%")</td>
@@ -73,6 +75,121 @@
       </tbody>
     </table>
     }
+  </div>
+  }
+  @if(aggregateAssessment.gameGroupResults.nonEmpty) {
+  <div class="evaluation results">
+    <table class="reportCard">
+      <thead>
+        <tr>
+          <th>
+            <span class="@(if(aggregateAssessment.markPri) "mark" else "noMark")">Cheating</span>
+          </th>
+          <th>
+            <span class="@(if(aggregateAssessment.markSec) "mark" else "noMark")">Cheating</span>
+          </th>
+          <th>
+            <span class="@(if(aggregateAssessment.reportPri) "report" else "noReport")">Report</span>
+          </th>
+          <th>
+            <span class="@(if(aggregateAssessment.reportSec) "report" else "noReport")">Report</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="sig_5">@aggregateAssessment.cheatingSum</span> / 2
+          </td>
+          <td>
+            <span class="sig_5">@aggregateAssessment.cheatingSum</span> + 
+            <span class="sig_4">@aggregateAssessment.likelyCheatingSum</span> / 4
+          </td>
+          <td>
+            <span class="sig_5">@aggregateAssessment.cheatingSum</span> + 
+            <span class="sig_4">@aggregateAssessment.likelyCheatingSum</span> / 2
+          </td>
+          <td>
+            <span class="sig_5">@aggregateAssessment.cheatingSum</span> + 
+            <span class="sig_4">@aggregateAssessment.likelyCheatingSum</span> + 
+            <span class="sig_3">@aggregateAssessment.unclearSum</span> / 4
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="legend">
+      @Range(1, 6).map { i =>
+      <span class="sig_@i">@Display.assessmentString(i)</span>
+      }
+    </p>
+    <table class="slist">
+      <thead>
+        <tr>
+          <th>Assessed game</th>
+          <th>
+            Centi-Pawn
+            <br />(Avg ± SD)
+          </th>
+          <th>
+            Move Times
+            <br />(Avg ± SD)
+          </th>
+          <th>Blurs</th>
+          <th>Bot</th>
+          <th><span class="hint--top-left" data-hint="Aggregate match">&Sigma;</span></th>
+          <th><span class="hint--top-left" data-hint="Primary match">1</span></th>
+          <th><span class="hint--top-left" data-hint="Secondary match">2</span></th>
+          <th><span class="hint--top-left" data-hint="Tertiary match">3</span></th>
+          <th><span class="hint--top-left" data-hint="Quaternary match">4</span></th>
+          <th><span class="hint--top-left" data-hint="Quinary match">5</span></th>
+        </tr>
+      </thead>
+      <tbody>
+      @aggregateAssessment.gameGroupResults.map { result =>
+        <tr>
+          <td><a href="@routes.Round.watcher(result.gameId, result.color.name)">@routes.Round.watcher(result.gameId, result.color.name)</a></td>
+          <td>@result.sfAvg ± @result.sfSd</td>
+          <td>@(result.mtAvg/10) ± @(result.mtSd/10)</td>
+          <td>@(result.blur)%</td>
+          <td>@if(result.hold){Yes} else {No}</td>
+          <td>
+            <span class="aggregate hint--top-left" data-hint="@result.aggregate.explanation">
+              <span class="sig_@(result.aggregate.assessment)" data-icon="@Display.dataIcon(result.aggregate)"></span>
+            </span>
+          </td>
+          <td>
+            <a href="@routes.Round.watcher(result.bestMatch.gameId, result.bestMatch.color.name)" class="peerLink hint--top-left" data-hint="@result.bestMatch.explanation">
+              <span class="sig_@(result.bestMatch.assessment)" data-icon="@Display.dataIcon(result.bestMatch)">&nbsp;</span>
+              <br /><span class="percentage">@(result.bestMatch.matchPercentage)%</span>
+            </a>
+          </td>
+          @Range(0, 4).map { i =>
+          @result.secondaryMatches.lift(i) match {
+          case Some(peer) => {
+          <td>
+            <a href="@routes.Round.watcher(peer.gameId, peer.color.name)" class="peerLink hint--top-left" data-hint="@peer.explanation">
+              <span class="sig_@(peer.assessment)" data-icon="@Display.dataIcon(peer)"></span>
+              <br /><span class="percentage">@(peer.matchPercentage)%</span>
+            </a>
+          </td>
+          }
+          case _ => {
+          <td></td>
+          }
+          }
+          }
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+  } else {
+  <div class="evaluation">
+    <p>
+      No assessed games
+      <br />
+      <br />
+    </p>
   </div>
   }
   @if(spy.otherUsers.size < 2) {

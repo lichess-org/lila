@@ -58,7 +58,7 @@ module.exports = function(send, ctrl) {
         pieces[o.key] = null;
         ctrl.chessground.setPieces(pieces);
         if (ctrl.data.game.variant.key === 'atomic')
-          atomic.enpassant(ctrl, o.key);
+          atomic.enpassant(ctrl, o.key, o.color);
       }
       $.sound.take();
     },

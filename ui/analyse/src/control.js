@@ -15,11 +15,13 @@ function canGoForward(ctrl) {
 
 module.exports = {
 
+  canGoForward: canGoForward,
+
   next: function(ctrl) {
     if (!canGoForward(ctrl)) return;
     var p = ctrl.vm.path;
     p[p.length - 1].ply++;
-    ctrl.jump(p);
+    ctrl.userJump(p);
   },
 
   prev: function(ctrl) {
@@ -36,18 +38,18 @@ module.exports = {
         if (p[len - 2].ply > 1) p[len - 2].ply--;
       }
     }
-    ctrl.jump(p);
+    ctrl.userJump(p);
   },
 
   last: function(ctrl) {
-    ctrl.jump([{
+    ctrl.userJump([{
       ply: ctrl.analyse.tree[ctrl.analyse.tree.length - 1].ply,
       variation: null
     }]);
   },
 
   first: function(ctrl) {
-    ctrl.jump([{
+    ctrl.userJump([{
       ply: 0,
       variation: null
     }]);

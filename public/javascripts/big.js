@@ -50,7 +50,7 @@ lichess.StrongSocket.defaults = {
     pingDelay: 1000, // time between pong and ping
     autoReconnectDelay: 1000,
     lagTag: false, // jQuery object showing ping lag
-    ignoreUnknownMessages: false,
+    ignoreUnknownMessages: true,
     baseUrls: ['socket.' + document.domain].concat(
       ($('body').data('ports') + '').split(',').map(function(port) {
         return 'socket.' + document.domain + ':' + port;
@@ -1142,7 +1142,7 @@ lichess.storage = {
     startTournamentClock();
     $('.crosstable', element).prependTo($('.underboard .center', element)).show();
     $('#tv_history').on("click", "tr", function() {
-      location.href = $(this).find('a.view').attr('href');
+      location.href = $(this).find('a.icon').attr('href');
     });
     var loadPlaying = function() {
       var $moveOn = $nowPlaying.find('.move_on').click(function() {
@@ -2030,19 +2030,37 @@ lichess.storage = {
     });
 
     if ($('#refreshAssessment').length) {
+      $('#whiteAssessment').val($('#whiteAssessment').data('val'));
+      $('#blackAssessment').val($('#blackAssessment').data('val'));
 
       var sendAssessment = function(side, e) {
-        $.post('/mod/' + data.game.id + '/' + side + '/assess', {
-          assessment: $(e.target).val()
-        });
+        if ($(e.target).val() != "0") {
+          $.post('/mod/' + data.game.id + '/' + side + '/assess', {
+            assessment: $(e.target).val()
+          });
+        }
       }
       $('#whiteAssessment').change(sendAssessment.bind(null, 'white'));
       $('#blackAssessment').change(sendAssessment.bind(null, 'black'));
 
       $('#refreshAssessment').click(function() {
         $.post('/mod/refreshAssess', {
-          assess: data.game.id
+          assess: data.game.id,
+          success: function(){ setTimeout(function(){ location.reload(); }, 3000) }
         });
+      });
+
+      $('#confirmAssessment').click(function() {
+        if ($('#whiteAssessment').val() != "0") {
+          $.post('/mod/' + data.game.id + '/white/assess', {
+            assessment: $('#whiteAssessment').val()
+          });
+        }
+        if ($('#blackAssessment').val() != "0") {
+          $.post('/mod/' + data.game.id + '/black/assess', {
+            assessment: $('#blackAssessment').val()
+          });
+        }
       });
     }
   }

@@ -90,7 +90,7 @@ case class Game(
   } orElse updatedAt.map(_.getMillis / 100)
 
   private def lastMoveTimeDate: Option[DateTime] = castleLastMoveTime.lastMoveTime map { lmt =>
-    createdAt plusMillis (lmt * 100)
+    createdAt plus (lmt * 100l)
   } orElse updatedAt
 
   def updatedAtOrCreatedAt = updatedAt | createdAt
@@ -146,7 +146,9 @@ case class Game(
       (Event fromSituation situation)
 
     def copyPlayer(player: Player) = player.copy(
-      blurs = player.blurs + (blur && move.color == player.color).fold(1, 0)
+      blurs = math.min(
+        playerMoves(player.color), 
+        player.blurs + (blur && move.color == player.color).fold(1, 0))
     )
 
     val updated = copy(

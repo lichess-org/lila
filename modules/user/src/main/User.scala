@@ -114,6 +114,7 @@ object User {
     val playTime = "time"
     val createdAt = "createdAt"
     val seenAt = "seenAt"
+    val createdWithApiVersion = "createdWithApiVersion"
     val lang = "lang"
     val title = "title"
     def glicko(perf: String) = s"$perfs.$perf.gl"

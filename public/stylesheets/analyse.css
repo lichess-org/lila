@@ -100,12 +100,13 @@ div.fen_pgn input.fen {
 div.game_control {
   margin-top: 10px;
   text-align: center;
-  white-space: nowrap
+  width: 244px;
+  white-space: nowrap;
 }
 div.game_control a {
   font-size: 12px;
+  width: 25px;
   height: 17px;
-  width: 12px;
   display: inline-block;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -113,13 +114,31 @@ div.game_control a {
   margin: 0 -1px;
 }
 div.game_control .jumps {
+  display: inline-block;
   margin-right: 10px;
 }
-.lichess_ground .replay {
+.lichess_ground .replay,
+.lichess_ground .action_menu {
   height: calc(100% - 40px);
   overflow: auto;
   overflow-x: hidden;
   border: 1px solid #ccc;
+}
+.lichess_ground .action_menu {
+  border-color: transparent;
+}
+.lichess_ground .action_menu .inner {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.lichess_ground .action_menu .button {
+  display: block;
+  margin: 15px 0;
+  padding: 10px;
+}
+.lichess_ground .action_menu .button::before {
+  font-size: 2em;
 }
 .lichess_ground .replay .turn > .index {
   display: inline-block;
@@ -138,6 +157,7 @@ div.game_control .jumps {
   text-decoration: none;
 }
 .lichess_ground .replay .turn .move {
+  position: relative;
   width: calc(50% - 14px - 13px);
   font-size: 17px;
   height: 22px;
@@ -160,10 +180,11 @@ div.game_control .jumps {
   font-weight: bold;
 }
 .lichess_ground .replay .eval {
+  position: absolute;
+  top: 2px;
+  right: 5px;
   font-size: 0.8em;
   font-weight: lighter;
-  float: right;
-  margin: 2px 5px 0 0;
   opacity: 0.7;
   transition: 0.13s;
 }
@@ -261,4 +282,30 @@ div.shortcuts li {
   margin-top: 30px;
   width: 512px;
   text-align: center;
+}
+table.modAssessment {
+  border-spacing: 2px;
+  border-collapse: separate;
+}
+table.modAssessment a {
+  margin-left: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+table.modAssessment td.match a {
+  color: #759900;
+}
+table.modAssessment td.partial a {
+  color: #d59120;
+}
+table.modAssessment td.noMatch {
+  color: #ac524f;
+  padding-left: 10px;
+  font-weight: bold;
+}
+.modAssessment select {
+  margin-left: 15px;
+}
+.assessmentButtons {
+  margin: 20px auto auto 40px;
 }

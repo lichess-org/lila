@@ -228,6 +228,38 @@ div.user_show .evaluation strong {
   display: inline;
   text-transform: uppercase;
 }
+div.user_show .evaluation .percentage {
+  font-size: 0.9em;
+}
+div.user_show .evaluation .legend {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+div.user_show .evaluation .legend span {
+  padding: 10px;
+}
+div.user_show .evaluation .sig_1 {
+  color: #388922; /* green */
+}
+div.user_show .evaluation .sig_2 {
+  color: #83ab23; /* appricot */
+}
+div.user_show .evaluation .sig_3 {
+  color: #B8AA1A; /* yellow */
+}
+div.user_show .evaluation .sig_4 {
+  color: #C36A2A; /* orange */
+}
+div.user_show .evaluation .sig_5 {
+  color: #dc322f; /* red */
+}
+div.user_show .evaluation .match {
+  font-weight: bold;
+  color: #759900;
+}
+div.user_show .evaluation .partial {
+}
 div.user_show div.content_box_inter.tabs {
   margin-left: -8px;
   padding-left: 30px;
@@ -236,4 +268,44 @@ div.user_show div.content_box_inter.tabs {
 }
 div.user_show #crosstable {
   margin: 25px auto 15px auto;
+}
+div.user_show .evaluation .peerLink {
+  text-align: center;
+  text-decoration: none;
+}
+div.user_show .results table.slist th {
+  text-align: center;
+}
+div.user_show .results table.slist td {
+  text-align: center;
+}
+div.user_show .reportCard {
+  margin: 0 auto 10px auto;
+}
+div.user_show .reportCard th {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  padding: 0 20px 5px 20px;
+}
+div.user_show .reportCard td {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+div.user_show .results .aggregate {
+  font-size: 2.2em;
+  margin-top: -5px;
+}
+div.user_show .reportCard .mark {
+  color: #dc322f; /* red */
+}
+div.user_show .reportCard .noMark {
+  /*color: #dc322f;*/ /* red */
+}
+div.user_show .reportCard .report {
+  color: #B8AA1A; /* red */
+}
+div.user_show .reportCard .noReport {
+  /*color: #dc322f;*/ /* red */
 }

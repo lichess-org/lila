@@ -88,6 +88,7 @@ GET   /training                        controllers.Puzzle.home
 POST  /training/difficulty             controllers.Puzzle.difficulty
 GET   /training/new                    controllers.Puzzle.newPuzzle
 GET   /training/history                controllers.Puzzle.history
+GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/:id                    controllers.Puzzle.show(id: Int)
 GET   /training/:id/load               controllers.Puzzle.load(id: Int)
 POST  /training/:id/attempt            controllers.Puzzle.attempt(id: Int)
@@ -309,6 +310,7 @@ GET   /developers                      controllers.Main.developers
 GET   /embed                           controllers.Main.embed
 GET   /irc                             controllers.Main.irc
 GET   /themepicker                     controllers.Main.themepicker
+GET   /mobile                          controllers.Main.mobile
 
 # Map
 GET   /world-map                       controllers.WorldMap.index

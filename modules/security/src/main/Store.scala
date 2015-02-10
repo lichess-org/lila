@@ -8,24 +8,23 @@ import play.api.mvc.RequestHeader
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import reactivemongo.bson.BSONDocument
 
-import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Types.Coll
+import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.user.{ User, UserRepo }
 import tube.storeTube
 
 object Store {
 
-  type IP = String
-
-  private[security] def save(sessionId: String, userId: String, req: RequestHeader): Funit =
-    $insert(Json.obj(
+  private[security] def save(sessionId: String, userId: String, req: RequestHeader, apiVersion: Option[Int]): Funit =
+    storeTube.coll.insert(BSONDocument(
       "_id" -> sessionId,
       "user" -> userId,
       "ip" -> req.remoteAddress,
-      "ua" -> ua(req),
-      "date" -> $date(DateTime.now),
-      "up" -> true))
+      "ua" -> lila.common.HTTPRequest.userAgent(req),
+      "date" -> DateTime.now,
+      "up" -> true,
+      "api" -> apiVersion)).void
 
   def userId(sessionId: String): Fu[Option[String]] =
     storeTube.coll.find(
@@ -43,6 +42,4 @@ object Store {
     $set("up" -> false),
     upsert = false,
     multi = true)
-
-  private def ua(req: RequestHeader) = req.headers.get("User-Agent") | "?"
 }

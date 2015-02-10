@@ -5,12 +5,17 @@ var analyse = require('./analyse');
 var ground = require('./ground');
 var keyboard = require('./keyboard');
 var treePath = require('./path');
+var actionMenu = require('./actionMenu').controller;
+var autoplay = require('./autoplay');
+var control = require('./control');
 var m = require('mithril');
 
 module.exports = function(cfg, router, i18n, onChange) {
 
   this.data = data({}, cfg);
   this.analyse = new analyse(this.data.game, this.data.analysis);
+  this.actionMenu = new actionMenu();
+  this.autoplay = new autoplay(this);
 
   var initialPath = cfg.path ? treePath.read(cfg.path) : treePath.default();
 
@@ -27,6 +32,11 @@ module.exports = function(cfg, router, i18n, onChange) {
     this.chessground.set({
       orientation: this.vm.flip ? this.data.opponent.color : this.data.player.color
     });
+  }.bind(this);
+
+  this.togglePlay = function(delay) {
+    this.autoplay.toggle(delay);
+    this.actionMenu.open = false;
   }.bind(this);
 
   var gameVariantChessId = function() {
@@ -132,8 +142,13 @@ module.exports = function(cfg, router, i18n, onChange) {
     showGround();
   }.bind(this);
 
+  this.userJump = function(path) {
+    this.autoplay.stop();
+    this.jump(path);
+  }.bind(this);
+
   this.jumpToMain = function(ply) {
-    this.jump([{
+    this.userJump([{
       ply: ply,
       variation: null
     }]);
@@ -148,7 +163,7 @@ module.exports = function(cfg, router, i18n, onChange) {
       to: dest,
       promotion: (dest[1] == 1 || dest[1] == 8) ? 'q' : null
     });
-    if (move) this.jump(this.analyse.explore(this.vm.path, move.san));
+    if (move) this.userJump(this.analyse.explore(this.vm.path, move.san));
     else this.chessground.set(this.vm.situation);
     m.redraw();
   }.bind(this);

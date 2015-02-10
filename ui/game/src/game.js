@@ -32,11 +32,19 @@ function abortable(data) {
 }
 
 function takebackable(data) {
-  return playable(data) && data.takebackable && !data.tournament && playedTurns(data) > 1 && !data.player.proposingTakeback && !data.opponent.proposingTakeback;
+  return playable(data) &&
+    data.takebackable &&
+    !data.tournament &&
+    playedTurns(data) > 1 &&
+    !data.player.proposingTakeback &&
+    !data.opponent.proposingTakeback;
 }
 
 function drawable(data) {
-  return playable(data) && data.game.turns >= 2 && !data.player.offeringDraw && !data.opponent.ai;
+  return playable(data) &&
+    data.game.turns >= 2 &&
+    !data.player.offeringDraw &&
+    !data.opponent.ai;
 }
 
 function resignable(data) {

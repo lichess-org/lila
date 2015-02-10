@@ -70,4 +70,10 @@ object Main extends LilaController {
       html.base.themepicker()
     }
   }
+
+  def mobile = Open { implicit ctx =>
+    fuccess {
+      html.site.mobile()
+    }
+  }
 }

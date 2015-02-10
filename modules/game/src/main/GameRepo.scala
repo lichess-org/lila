@@ -121,7 +121,7 @@ object GameRepo {
     }
 
   def nowPlaying(user: User): Fu[List[Pov]] =
-    $find(Query nowPlaying user.id) map { games =>
+    $find(Query nowPlaying user.id, 50) map { games =>
       val povs = games flatMap { Pov(_, user) }
       try {
         povs sortWith Pov.priority

@@ -36,7 +36,7 @@ module.exports = function(ctrl) {
     if (!ctrl.vm.comments && ctrl.vm.path.length > 1) {
       path = [ctrl.vm.path[0]];
       path[0].variation = null;
-      ctrl.jump(path);
+      ctrl.userJump(path);
     }
     m.redraw();
   }));

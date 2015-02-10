@@ -38,10 +38,10 @@ module.exports = {
   start: start,
 
   view: function(ctrl) {
-    var pieces = ctrl.data.game.variant.key != "antichess" ?
-     ['queen', 'knight', 'rook', 'bishop'] : ['queen', 'knight', 'rook', 'bishop', 'king']
-
-    return promoting ? m('div#promotion_choice', {
+    if (!promoting) return;
+    var pieces = ['queen', 'knight', 'rook', 'bishop'];
+    if (ctrl.data.game.variant.key === "antichess") pieces.push('king');
+    return m('div#promotion_choice', {
       onclick: partial(cancel, ctrl)
     }, pieces.map(function(serverRole) {
 
@@ -51,6 +51,6 @@ module.exports = {
           finish(ctrl, serverRole);
         }
       });
-    })) : null
+    }));
   }
 };
