@@ -426,3 +426,5 @@ noInternetConnection=Pas de connection internet. Vous pouvez cependant jouer hor
 connectedToLichess=Vous êtes maintenant connecté à lichess.org
 connectedToLichessAnonymous=Vous êtes maintenant connecté à lichess.org. Vous pouvez vous connecter ou commencer une nouvelle partie à partir du menu.
 signedOut=Vous vous êtes déconnecté
+playOnTheBoardOffline=Jouer hors-ligne, avec un ami
+showPGN=Montrer le PGN
