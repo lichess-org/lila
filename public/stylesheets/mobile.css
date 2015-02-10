@@ -1,13 +1,13 @@
-.mobile.content_box {
-  min-height: 400px;
-}
 .mobile .right-side {
   float: right;
   width: 264px;
   text-align: center;
 }
-.mobile .right-side img {
+.mobile .right-side .nexus5-playing {
   margin: -50px 0 30px 0;
+}
+.mobile .right-side .qrcode {
+  margin-top: 20px;
 }
 .mobile .left-side {
   width: 245px;
@@ -18,10 +18,10 @@
 }
 .mobile .store {
   display: inline-block;
-  margin: 20px 0 0 20px;
+  margin: 30px 0 0 20px;
 }
 .mobile .left-side h2 {
-  margin-top: 20px;
+  margin-top: 30px;
   font-size: 1.5em;
 }
 .mobile .left-side .block {
@@ -39,5 +39,5 @@
   color: #759900;
 }
 .mobile .support.partial {
-  color: #dc322f;
+  color: #d59120;
 }
