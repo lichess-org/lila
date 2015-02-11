@@ -15,6 +15,7 @@ final class Env(
 
   private val CollectionPlayerAssessment = config getString "collection.crossref"
   private val CollectionResult = config getString "collection.result"
+  private val CollectionBoosting = config getString "collection.boosting"
   private val CollectionModlog = config getString "collection.modlog"
   private val ActorName = config getString "actor.name"
 
@@ -31,7 +32,8 @@ final class Env(
     lilaBus = system.lilaBus)
 
   private lazy val boosting = new BoostingApi(
-    modApi = api)
+    modApi = api,
+    collBoosting = db(CollectionBoosting))
 
   // api actor
   private val actorApi = system.actorOf(Props(new Actor {
