@@ -47,7 +47,7 @@ final class Env(
       case "user" :: "typecheck" :: Nil =>
         lila.db.Typecheck.apply[User]
       case "user" :: "email" :: userId :: email :: Nil =>
-        UserRepo.email(userId, email) inject "done"
+        UserRepo.email(User normalize userId, email) inject "done"
     }
   }
 
