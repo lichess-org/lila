@@ -10,11 +10,12 @@ import scala.concurrent._
 
 
 final class BoostingApi(modApi: ModApi, collBoosting: Coll) {
+  import BoostingApi._
 
   private implicit val boostingRecordBSONHandler = Macros.handler[BoostingRecord]
 
-  def getBoostingRecord(_id: String): Fu[Option[BoostingRecord]] =
-    collBoosting.find(BSONDocument("_id" -> _id))
+  def getBoostingRecord(id: String): Fu[Option[BoostingRecord]] =
+    collBoosting.find(BSONDocument("_id" -> id))
       .one[BoostingRecord]
 
   def createBoostRecord(record: BoostingRecord) =
@@ -34,21 +35,21 @@ final class BoostingApi(modApi: ModApi, collBoosting: Coll) {
     if (game.rated && game.accountable && game.playedTurns <= 10 && !game.isTournament && game.winnerColor.isDefined) {
       game.winnerColor match {
         case Some(a) => {
-          val result: Result = a match { 
-            case Color.White => Result(winner = whiteUser, loser = blackUser)
-            case Color.Black => Result(winner = blackUser, loser = whiteUser)
+          val result: GameResult = a match { 
+            case Color.White => GameResult(winner = whiteUser, loser = blackUser)
+            case Color.Black => GameResult(winner = blackUser, loser = whiteUser)
           }
-          val _id = boostingId(result.winner, result.loser)
-          getBoostingRecord(_id).flatMap{
+          val id = boostingId(result.winner, result.loser)
+          getBoostingRecord(id).flatMap{
             case Some(record) => 
               determineBoosting(record, result.winner) >>
               createBoostRecord(BoostingRecord(
-                _id = _id,
+                _id = id,
                 player = result.winner.id,
                 games = record.games + 1
                 ))
             case none => createBoostRecord(BoostingRecord(
-                _id = _id,
+                _id = id,
                 player = result.winner.id,
                 games = 1
               ))
@@ -60,13 +61,18 @@ final class BoostingApi(modApi: ModApi, collBoosting: Coll) {
       funit
     }
   }
+
 }
 
-case class BoostingRecord(
-  _id: String,
-  player: String,
-  games: Int)
+object BoostingApi {
 
-case class Result(
-  winner: User,
-  loser: User)
+  case class BoostingRecord(
+    _id: String,
+    player: String,
+    games: Int)
+
+  case class GameResult(
+    winner: User,
+    loser: User)
+
+}
