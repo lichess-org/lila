@@ -16,6 +16,7 @@ case class User(
     roles: List[String],
     profile: Option[Profile] = None,
     engine: Boolean = false,
+    booster: Boolean = false,
     toints: Int = 0,
     playTime: Option[User.PlayTime] = None,
     title: Option[String] = None,

@@ -19,11 +19,11 @@ final class BoostingApi(modApi: ModApi, collBoosting: Coll) {
       .one[BoostingRecord]
 
   def createBoostRecord(record: BoostingRecord) =
-    collBoosting.update(BSONDocument("_id" -> record._id), record, upsert = true).void
+    collBoosting.update(BSONDocument("_id" -> record.id), record, upsert = true).void
 
   def determineBoosting(record: BoostingRecord, winner: User): Funit = {
     if (record.games + 1 >= 3) {
-      modApi.autoAdjust(winner.username)
+      modApi.autoBooster(winner.username)
     } else {
       funit
     }
@@ -32,7 +32,11 @@ final class BoostingApi(modApi: ModApi, collBoosting: Coll) {
   def boostingId(winner: User, loser: User): String = winner.id + "/" + loser.id
 
   def check(game: Game, whiteUser: User, blackUser: User): Funit = {
-    if (game.rated && game.accountable && game.playedTurns <= 10 && !game.isTournament && game.winnerColor.isDefined) {
+    if (game.rated 
+      && game.accountable 
+      && game.playedTurns <= 10 
+      && !game.isTournament 
+      && game.winnerColor.isDefined) {
       game.winnerColor match {
         case Some(a) => {
           val result: GameResult = a match { 
@@ -69,7 +73,9 @@ object BoostingApi {
   case class BoostingRecord(
     _id: String,
     player: String,
-    games: Int)
+    games: Int) {
+    def id = _id
+  }
 
   case class GameResult(
     winner: User,
