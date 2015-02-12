@@ -3,12 +3,15 @@
 @base.layout(
 title = "Mobile",
 moreCss = cssTag("mobile.css")) {
-<div class="mobile content_box small_box">
+<div class="mobile content_box small_box clearfix">
   <div class="right-side">
     <img class="nexus5-playing" width="268" height="513" src="@staticUrl("images/mobile/nexus5-playing.png")" alt="Lichess mobile on nexus 5" />
-    <a class="download button" href="https://play.google.com/store/apps/details?id=org.lichess.mobileapp">
-      Download now for free
-    </a>
+    <p>
+      <a class="download button" href="https://play.google.com/store/apps/details?id=org.lichess.mobileapp">
+        Download now for free
+      </a>
+    </p>
+    <img class="qrcode" width="200" height="200" src="@staticUrl("images/mobile/android-qrcode.png")" alt="Android QR code" />
   </div>
   <div class="left-side">
     <h1>Play chess everywhere</h1>
@@ -34,15 +37,15 @@ moreCss = cssTag("mobile.css")) {
     <ul class="block">
       <li>Real time with increment</li>
       <li>Correspondence games</li>
-      <li>On The Board, offline</li>
+      <li>Over The Board, offline</li>
     </ul>
     <p class="block">
       More of the features you love from the website will be added in the near future.<br />
       Look out for updates regularly!
     </p>
     <p class="block">
-      Android 4.4 and 5+ support: <span class="good support">GOOD</span><br />
-      Android 4.1 and 4.2 support: <span class="partial support">PARTIAL</span><br />
+      Android 4.4 and 5+ support: <span class="good support">PERFECT</span><br />
+      Android 4.1 to 4.3 support: <span class="partial support">CORRECT</span><br />
       The iOS app will land in early March 2015.
     </p>
   </div>

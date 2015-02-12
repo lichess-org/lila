@@ -16,9 +16,12 @@ final class DonationApi(coll: Coll, monthlyGoal: Int) {
     .cursor[Donation]
     .collect[List]()
 
-  def top(nb: Int) = coll.find(BSONDocument())
-    .sort(BSONDocument("gross" -> -1, "date" -> -1))
-    .cursor[Donation]
+  def top(nb: Int) = coll.find(BSONDocument(
+    "userId" -> BSONDocument("$exists" -> true)
+  )).sort(BSONDocument(
+    "gross" -> -1,
+    "date" -> -1
+  )).cursor[Donation]
     .collect[List](nb)
 
   def create(donation: Donation) = coll insert donation recover {

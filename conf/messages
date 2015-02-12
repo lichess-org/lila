@@ -426,5 +426,6 @@ noInternetConnection=No internet connection. You can still play offline from the
 connectedToLichess=You are now connected to lichess.org
 connectedToLichessAnonymous=You are now connected to lichess.org. You can sign in or start a new game from the menu.
 signedOut=You have been signed out
+loginSuccessful=Login successful
 playOnTheBoardOffline=Play offline, over the board
 showPGN=Show PGN
