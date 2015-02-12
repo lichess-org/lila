@@ -13,8 +13,8 @@ final class BoostingApi(modApi: ModApi, collBoosting: Coll) {
 
   private implicit val boostingRecordBSONHandler = Macros.handler[BoostingRecord]
 
-  def getBoostingRecord(winner: User, loser: User): Fu[Option[BoostingRecord]] =
-    collBoosting.find(BSONDocument("_id" -> (winner.id + "/" + loser.id)))
+  def getBoostingRecord(_id: String): Fu[Option[BoostingRecord]] =
+    collBoosting.find(BSONDocument("_id" -> _id))
       .one[BoostingRecord]
 
   def createBoostRecord(record: BoostingRecord) =
@@ -28,6 +28,8 @@ final class BoostingApi(modApi: ModApi, collBoosting: Coll) {
     }
   }
 
+  def boostingId(winner: User, loser: User): String = winner.id + "/" + loser.id
+
   def check(game: Game, whiteUser: User, blackUser: User): Funit = {
     if (game.rated && game.accountable && game.playedTurns <= 10 && !game.isTournament && game.winnerColor.isDefined) {
       game.winnerColor match {
@@ -36,16 +38,17 @@ final class BoostingApi(modApi: ModApi, collBoosting: Coll) {
             case Color.White => Result(winner = whiteUser, loser = blackUser)
             case Color.Black => Result(winner = blackUser, loser = whiteUser)
           }
-          getBoostingRecord(result.winner, result.loser).flatMap{
+          val _id = boostingId(result.winner, result.loser)
+          getBoostingRecord(_id).flatMap{
             case Some(record) => 
               determineBoosting(record, result.winner) >>
               createBoostRecord(BoostingRecord(
-                _id = result.winner.id + "/" + result.loser.id,
+                _id = _id,
                 player = result.winner.id,
                 games = record.games + 1
                 ))
             case none => createBoostRecord(BoostingRecord(
-                _id = result.winner.id + "/" + result.loser.id,
+                _id = _id,
                 player = result.winner.id,
                 games = 1
               ))
