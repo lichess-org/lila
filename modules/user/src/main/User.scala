@@ -64,6 +64,8 @@ case class User(
   def timeNoSee: Duration = seenAt.fold[Duration](Duration.Inf) { s =>
     (nowMillis - s.getMillis).millis
   }
+
+  def lame = booster || engine
 }
 
 object User {
@@ -111,6 +113,7 @@ object User {
     val roles = "roles"
     val profile = "profile"
     val engine = "engine"
+    val booster = "booster"
     val toints = "toints"
     val playTime = "time"
     val createdAt = "createdAt"
@@ -143,6 +146,7 @@ object User {
       roles = ~r.getO[List[String]](roles),
       profile = r.getO[Profile](profile),
       engine = r boolD engine,
+      booster = r boolD booster,
       toints = r nIntD toints,
       playTime = r.getO[PlayTime](playTime),
       createdAt = r date createdAt,
@@ -161,6 +165,7 @@ object User {
       roles -> o.roles.some.filter(_.nonEmpty),
       profile -> o.profile,
       engine -> w.boolO(o.engine),
+      booster -> w.boolO(o.booster),
       toints -> w.intO(o.toints),
       playTime -> o.playTime,
       createdAt -> o.createdAt,

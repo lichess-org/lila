@@ -12,7 +12,9 @@ private[lobby] case class LobbyUser(
   engine: Boolean,
   booster: Boolean,
   ratingMap: Map[String, Int],
-  blocking: Set[String])
+  blocking: Set[String]) {
+  def lame = engine || booster
+}
 
 private[lobby] object LobbyUser {
 
