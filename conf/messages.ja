@@ -426,5 +426,5 @@ noInternetConnection=インターネットに繋がっていません。メニ�
 connectedToLichess=lichess.org に繋がっています。
 connectedToLichessAnonymous=lichess.orgに繋がっています。サインイン、またはメニューから新しいゲームを始めることができます。
 signedOut=サインアウトしました。
-showPGN=ＰＧＮを見る。
 playOnTheBoardOffline=オフラインで遊ぶ。ＯＴＢチェス
+showPGN=ＰＧＮを見る。
