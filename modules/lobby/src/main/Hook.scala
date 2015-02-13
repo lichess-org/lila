@@ -51,6 +51,7 @@ case class Hook(
   def username = user.fold(User.anonymous)(_.username)
   def rating = user flatMap { u => perfType map (_.key) flatMap u.ratingMap.get }
   def engine = user ?? (_.engine)
+  def booster = user ?? (_.booster)
 
   def render: JsObject = Json.obj(
     "id" -> id,

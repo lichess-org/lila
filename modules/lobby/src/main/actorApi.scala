@@ -10,6 +10,7 @@ private[lobby] case class LobbyUser(
   username: String,
   troll: Boolean,
   engine: Boolean,
+  booster: Boolean,
   ratingMap: Map[String, Int],
   blocking: Set[String])
 
@@ -20,6 +21,7 @@ private[lobby] object LobbyUser {
     username = user.username,
     troll = user.troll,
     engine = user.engine,
+    booster = user.booster,
     ratingMap = user.perfs.ratingMap,
     blocking = blocking)
 }

@@ -75,7 +75,7 @@ private[lobby] object Biter {
   def canJoin(hook: Hook, user: Option[LobbyUser]): Boolean =
     hook.realMode.casual.fold(
       user.isDefined || hook.allowAnon,
-      user ?? { _.engine == hook.engine }
+      user ?? { u => u.engine == hook.engine || u.booster == hook.booster }
     ) &&
       !(hook.userId ?? (user ?? (_.blocking)).contains) &&
       !((user map (_.id)) ?? (hook.user ?? (_.blocking)).contains) &&
@@ -86,7 +86,7 @@ private[lobby] object Biter {
       }
 
   def canJoin(seek: Seek, user: LobbyUser): Boolean =
-    (seek.realMode.casual || user.engine == seek.user.engine) &&
+    (seek.realMode.casual || user.engine == seek.user.engine || user.booster == seek.user.booster) &&
       !(user.blocking contains seek.user.id) &&
       !(seek.user.blocking contains user.id) &&
       seek.realRatingRange.fold(true) { range =>

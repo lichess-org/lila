@@ -13,6 +13,11 @@
     <input class="confirm button" type="submit" value="@u.engine.fold("Un-engine", "Engine")" />
   </form>
   }
+  @if(isGranted(_.MarkBooster)) {
+  <form method="post" action="@routes.Mod.booster(u.username)">
+    <input class="confirm button" type="submit" value="@u.booster.fold("Un-booster", "Booster")" />
+  </form>
+  }
   @if(isGranted(_.MarkTroll)) {
   <form method="post" action="@routes.Mod.troll(u.username)">
     <input class="confirm button" type="submit" value="@u.troll.fold("Un-troll", "Troll")" />
