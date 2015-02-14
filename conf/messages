@@ -154,6 +154,7 @@ ratingRange=Rating range
 giveNbSeconds=Give %s seconds
 premoveEnabledClickAnywhereToCancel=Premove enabled - Click anywhere to cancel
 thisPlayerUsesChessComputerAssistance=This player uses chess computer assistance
+thisPlayerArtificiallyIncreasesTheirRating=This player artificially increases their rating
 opening=Opening
 takeback=Takeback
 proposeATakeback=Propose a takeback

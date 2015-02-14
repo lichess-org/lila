@@ -46,12 +46,12 @@ final class BoostingApi(modApi: ModApi, collBoosting: Coll) {
           val id = boostingId(result.winner, result.loser)
           getBoostingRecord(id).flatMap{
             case Some(record) => 
-              determineBoosting(record, result.winner) >>
               createBoostRecord(BoostingRecord(
                 _id = id,
                 player = result.winner.id,
                 games = record.games + 1
-                ))
+                )) >>
+              determineBoosting(record, result.winner)
             case none => createBoostRecord(BoostingRecord(
                 _id = id,
                 player = result.winner.id,
