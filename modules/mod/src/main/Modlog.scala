@@ -12,6 +12,8 @@ case class Modlog(
   def showAction = action match {
     case Modlog.engine           => "mark as engine"
     case Modlog.unengine         => "un-mark as engine"
+    case Modlog.booster          => "mark as booster"
+    case Modlog.unbooster        => "un-mark as booster"
     case Modlog.deletePost       => "delete forum post"
     case Modlog.ban              => "ban user"
     case Modlog.ipban            => "ban IPs"
@@ -38,6 +40,8 @@ object Modlog {
 
   val engine = "engine"
   val unengine = "unengine"
+  val booster = "booster"
+  val unbooster = "unbooster"
   val troll = "troll"
   val untroll = "untroll"
   val ban = "ban"

@@ -23,6 +23,10 @@ object Mod extends LilaController {
     me => modApi.adjust(me.id, username) inject redirect(username)
   }
 
+  def booster(username: String) = Secure(_.MarkBooster) { _ =>
+    me => modApi.adjustBooster(me.id, username) inject redirect(username)
+  }
+
   def troll(username: String) = Secure(_.MarkTroll) { _ =>
     me =>
       modApi.troll(me.id, username) inject redirect(username)

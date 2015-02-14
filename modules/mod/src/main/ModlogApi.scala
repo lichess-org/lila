@@ -11,6 +11,10 @@ final class ModlogApi {
     Modlog(mod, user.some, v.fold(Modlog.engine, Modlog.unengine))
   }
 
+  def booster(mod: String, user: String, v: Boolean) = add {
+    Modlog(mod, user.some, v.fold(Modlog.booster, Modlog.unbooster))
+  }
+
   def troll(mod: String, user: String, v: Boolean) = add {
     Modlog(mod, user.some, v.fold(Modlog.troll, Modlog.untroll))
   }
@@ -71,6 +75,11 @@ final class ModlogApi {
   def wasUnengined(userId: String) = $count.exists(Json.obj(
     "user" -> userId,
     "action" -> Modlog.unengine
+  ))
+
+  def wasUnbooster(userId: String) = $count.exists(Json.obj(
+    "user" -> userId,
+    "action" -> Modlog.unbooster
   ))
 
   def assessGame(mod: String, gameId: String, side: String, assessment: Int) = add {
