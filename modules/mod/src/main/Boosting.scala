@@ -22,7 +22,7 @@ final class BoostingApi(modApi: ModApi, collBoosting: Coll) {
     collBoosting.update(BSONDocument("_id" -> record.id), record, upsert = true).void
 
   def determineBoosting(record: BoostingRecord, winner: User): Funit = {
-    if (record.games + 1 >= 3) {
+    if (record.games >= 3) {
       modApi.autoBooster(winner.username)
     } else {
       funit
@@ -45,13 +45,13 @@ final class BoostingApi(modApi: ModApi, collBoosting: Coll) {
           }
           val id = boostingId(result.winner, result.loser)
           getBoostingRecord(id).flatMap{
-            case Some(record) => 
-              createBoostRecord(BoostingRecord(
+            case Some(record) =>
+              val newRecord = BoostingRecord(
                 _id = id,
                 player = result.winner.id,
                 games = record.games + 1
-                )) >>
-              determineBoosting(record, result.winner)
+                )
+              createBoostRecord(newRecord) >> determineBoosting(newRecord, result.winner)
             case none => createBoostRecord(BoostingRecord(
                 _id = id,
                 player = result.winner.id,
