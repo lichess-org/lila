@@ -9,7 +9,7 @@ import reactivemongo.bson._
 import scala.concurrent._
 
 
-final class BoostingApi(modApi: ModApi, collBoosting: Coll) {
+final class BoostingApi(modApi: ModApi, collBoosting: Coll, nbGamesToMark: Int) {
   import BoostingApi._
 
   private implicit val boostingRecordBSONHandler = Macros.handler[BoostingRecord]
@@ -22,7 +22,7 @@ final class BoostingApi(modApi: ModApi, collBoosting: Coll) {
     collBoosting.update(BSONDocument("_id" -> record.id), record, upsert = true).void
 
   def determineBoosting(record: BoostingRecord, winner: User): Funit = {
-    if (record.games >= 3) {
+    if (record.games >= nbGamesToMark) {
       modApi.autoBooster(winner.username)
     } else {
       funit
