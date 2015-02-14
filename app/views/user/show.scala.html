@@ -164,11 +164,19 @@ openGraph = Map(
     </div>
     }
     <div class="user-infos scroll-shadow-hard">
-      @if(u.engine && ctx.me.fold(true)(u !=)) {
+      @if(ctx.me.fold(true)(u !=)) {
+      @if(u.engine) {
       <div class="warning engine_warning">
         <span data-icon="j" class="is4"></span>
         @trans.thisPlayerUsesChessComputerAssistance()
       </div>
+      }
+      @if(u.booster) {
+      <div class="warning engine_warning">
+        <span data-icon="j" class"is4"></span>
+        @trans.thisPlayerArtificiallyIncreasesTheirRating()
+      </div>
+      }
       } else {
       @u.title.flatMap(lila.user.User.titlesMap.get).map { title =>
       <p data-icon="E" class="honorific title"> @title</p>

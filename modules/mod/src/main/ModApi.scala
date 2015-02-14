@@ -24,6 +24,18 @@ final class ModApi(
     case false => adjust("lichess", username)
   }
 
+  def adjustBooster(mod: String, username: String): Funit = withUser(username) { user =>
+    logApi.booster(mod, user.id, !user.booster) zip
+      UserRepo.toggleBooster(user.id) >>- {
+        if (!user.booster) lilaBus.publish(lila.hub.actorApi.mod.MarkBooster(user.id), 'adjustBooster)
+      } void
+  }
+
+  def autoBooster(username: String): Funit = logApi.wasUnbooster(User.normalize(username)) flatMap {
+    case true => funit
+    case false => adjustBooster("lichess", username)
+  }
+
   def troll(mod: String, username: String): Fu[Boolean] = withUser(username) { u =>
     val user = u.copy(troll = !u.troll)
     ((UserRepo updateTroll user) >>-

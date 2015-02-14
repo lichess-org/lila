@@ -18,6 +18,7 @@ object Permission {
   case object UserEvaluate extends Permission("ROLE_USER_EVALUATE")
   case object MarkTroll extends Permission("ROLE_CHAT_BAN", List(UserSpy))
   case object MarkEngine extends Permission("ROLE_ADJUST_CHEATER", List(UserSpy))
+  case object MarkBooster extends Permission("ROLE_ADJUST_BOOSTER", List(UserSpy))
   case object IpBan extends Permission("ROLE_IP_BAN", List(UserSpy))
   case object CloseAccount extends Permission("ROLE_CLOSE_ACCOUNT", List(UserSpy))
   case object ReopenAccount extends Permission("ROLE_REOPEN_ACCOUNT", List(UserSpy))
@@ -25,10 +26,10 @@ object Permission {
   case object SeeReport extends Permission("ROLE_SEE_REPORT")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
-    ViewBlurs, MarkEngine, StaffForum, UserSpy, UserEvaluate, SeeReport))
+    ViewBlurs, MarkEngine, MarkBooster, StaffForum, UserSpy, UserEvaluate, SeeReport))
 
   case object Admin extends Permission("ROLE_ADMIN", List(
-    ViewBlurs, MarkTroll, MarkEngine, StaffForum, ModerateForum, UserSpy,
+    ViewBlurs, MarkTroll, MarkEngine, MarkBooster, StaffForum, ModerateForum, UserSpy,
     UserEvaluate, SeeReport, IpBan, CloseAccount, ReopenAccount, SetTitle,
     ModerateQa))
 
@@ -36,7 +37,7 @@ object Permission {
 
   private lazy val all: List[Permission] = List(
     SuperAdmin, Admin, Hunter, ViewBlurs, StaffForum, ModerateForum,
-    UserSpy, MarkTroll, MarkEngine, IpBan, ModerateQa)
+    UserSpy, MarkTroll, MarkEngine, MarkBooster, IpBan, ModerateQa)
 
   private lazy val allByName: Map[String, Permission] = all map { p => (p.name, p) } toMap
 
