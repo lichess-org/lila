@@ -18,7 +18,7 @@ final class Env(
   private val CollectionBoosting = config getString "collection.boosting"
   private val CollectionModlog = config getString "collection.modlog"
   private val ActorName = config getString "actor.name"
-  private val NbGamesToMark = config getInt "nb_games_to_mark"
+  private val NbGamesToMark = config getInt "boosting.nb_games_to_mark"
 
   private[mod] lazy val modlogColl = db(CollectionModlog)
 
