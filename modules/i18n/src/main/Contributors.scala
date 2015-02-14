@@ -33,7 +33,7 @@ private[i18n] object Contributors {
     "el" -> List("Tzortzakos Fivos", "Γιάννης Ανθυμίδης"),
     "fp" -> List("Alex"),
     "lt" -> List("Anonymous"),
-    "nb" -> List("sundaune"),
+    "nb" -> List("sundaune", "Tobias V. Langhoff"),
     "et" -> List("Anonymous"),
     "hy" -> List("Network.am"),
     "af" -> List("secreteagle"),
