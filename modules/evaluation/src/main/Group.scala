@@ -183,7 +183,7 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
           chartDifs(Accuracy.diffsList(Pov(that.analysed.game,  that.color), that.analysed.analysis) zip
                     Accuracy.diffsList(Pov(that.analysed.game, !that.color), that.analysed.analysis))
         ))
-      Similarity(((300d - avgDif) / 300d).max(0d), 0.5)
+      Similarity(((300d - avgDif) / 300d).max(0d), 0.67)
     } else Similarity(0)
   }
 
