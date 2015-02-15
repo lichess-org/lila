@@ -76,7 +76,10 @@ final class AssessApi(collRef: Coll, collRes: Coll, logApi: ModlogApi) {
             white = gameGroup.color.white,
             positiveMatch = matchAndSig.matches,
             matchPercentage = (100 * matchAndSig.significance).toInt,
-            assessment = gameGroup.assessment.getOrElse(1)
+            assessment = gameGroup.assessment.getOrElse(1).min(source.analysed.game.wonBy(source.color) match {
+              case Some(color) if (color) => 5
+              case _ => 3
+              })
           )
       } match {
         case a :: b => 
