@@ -16,6 +16,7 @@ case class User(
     roles: List[String],
     profile: Option[Profile] = None,
     engine: Boolean = false,
+    booster: Boolean = false,
     toints: Int = 0,
     playTime: Option[User.PlayTime] = None,
     title: Option[String] = None,
@@ -63,6 +64,8 @@ case class User(
   def timeNoSee: Duration = seenAt.fold[Duration](Duration.Inf) { s =>
     (nowMillis - s.getMillis).millis
   }
+
+  def lame = booster || engine
 }
 
 object User {
@@ -110,10 +113,12 @@ object User {
     val roles = "roles"
     val profile = "profile"
     val engine = "engine"
+    val booster = "booster"
     val toints = "toints"
     val playTime = "time"
     val createdAt = "createdAt"
     val seenAt = "seenAt"
+    val createdWithApiVersion = "createdWithApiVersion"
     val lang = "lang"
     val title = "title"
     def glicko(perf: String) = s"$perfs.$perf.gl"
@@ -141,6 +146,7 @@ object User {
       roles = ~r.getO[List[String]](roles),
       profile = r.getO[Profile](profile),
       engine = r boolD engine,
+      booster = r boolD booster,
       toints = r nIntD toints,
       playTime = r.getO[PlayTime](playTime),
       createdAt = r date createdAt,
@@ -159,6 +165,7 @@ object User {
       roles -> o.roles.some.filter(_.nonEmpty),
       profile -> o.profile,
       engine -> w.boolO(o.engine),
+      booster -> w.boolO(o.booster),
       toints -> w.intO(o.toints),
       playTime -> o.playTime,
       createdAt -> o.createdAt,

@@ -994,7 +994,7 @@ lichess.storage = {
     };
     var get = new $.lazy(function(k) {
       return new Howl({
-        urls: ['ogg', 'mp3'].map(function(ext) {
+        src: ['ogg', 'mp3'].map(function(ext) {
           return baseUrl + names[k] + '.' + ext;
         }),
         volume: volumes[k] || 1

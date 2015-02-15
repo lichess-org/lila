@@ -42,9 +42,10 @@ function renderMove(ctrl, move, path) {
       'href': '#' + path[0].ply
     },
     children: [
-      move.san,
       move.eval ? renderEvalTag(renderEval(move.eval)) : (
-        move.mate ? renderEvalTag('#' + move.mate) : null)
+        move.mate ? renderEvalTag('#' + move.mate) : null
+      ),
+      move.san
     ]
   };
 }

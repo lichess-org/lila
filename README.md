@@ -327,11 +327,9 @@ name | type | default | description
 
 (1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
 
-### `GET /{id}/pgn` fetch one game PGN by ID
+### `GET /game/export/{id}.pgn` fetch one game PGN by ID
 
-```
-> curl http://en.lichess.org/Qa7FJNk2/pgn
-```
+http://en.lichess.org/game/export/Qa7FJNk2.pgn
 
 This returns the raw PGN for a game.
 

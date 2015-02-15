@@ -22,8 +22,9 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
 
   def emptyWithCaptcha = withCaptcha(empty)
 
-  val signup = Form(mapping(
-    "username" -> nonEmptyText.verifying(
+  object signup {
+
+    private val username = nonEmptyText.verifying(
       Constraints minLength 2,
       Constraints maxLength 20,
       Constraints.pattern(
@@ -32,17 +33,23 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
       Constraints.pattern(
         regex = """^[^\d].+$""".r,
         error = "The username must not start with a number")
-    ),
-    "password" -> text(minLength = 4),
-    "gameId" -> nonEmptyText,
-    "move" -> nonEmptyText
-  )(SignupData.apply)(_ => None)
-    .verifying("This user already exists", d => !userExists(d).await)
-    .verifying("This username is not acceptable", d => !usernameSucks(d.username.toLowerCase))
-    .verifying(captchaFailMessage, validateCaptcha _)
-  )
+    ).verifying("This user already exists", u => !$count.exists(u.toLowerCase).await)
+      .verifying("This username is not acceptable", u => !usernameSucks(u.toLowerCase))
 
-  def signupWithCaptcha = withCaptcha(signup)
+    val website = Form(mapping(
+      "username" -> username,
+      "password" -> text(minLength = 4),
+      "gameId" -> nonEmptyText,
+      "move" -> nonEmptyText
+    )(SignupData.apply)(_ => None)
+      .verifying(captchaFailMessage, validateCaptcha _))
+
+    val mobile = Form(mapping(
+      "username" -> username,
+      "password" -> text(minLength = 4))(MobileSignupData.apply)(_ => None))
+
+    def websiteWithCaptcha = withCaptcha(website)
+  }
 
   val passwordReset = Form(mapping(
     "email" -> Forms.email,
@@ -71,9 +78,6 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
       "the new passwords don't match",
       _.samePasswords
     ))
-
-  private def userExists(data: SignupData) =
-    $count.exists(data.username.toLowerCase)
 
   private def usernameSucks(u: String) =
     (lameUsernames exists u.contains) ||
@@ -124,6 +128,10 @@ object DataForm {
     password: String,
     gameId: String,
     move: String)
+
+  case class MobileSignupData(
+    username: String,
+    password: String)
 
   case class PasswordReset(
     email: String,

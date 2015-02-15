@@ -15,8 +15,10 @@ final class Env(
 
   private val CollectionPlayerAssessment = config getString "collection.crossref"
   private val CollectionResult = config getString "collection.result"
+  private val CollectionBoosting = config getString "collection.boosting"
   private val CollectionModlog = config getString "collection.modlog"
   private val ActorName = config getString "actor.name"
+  private val NbGamesToMark = config getInt "boosting.nb_games_to_mark"
 
   private[mod] lazy val modlogColl = db(CollectionModlog)
 
@@ -30,14 +32,24 @@ final class Env(
     firewall = firewall,
     lilaBus = system.lilaBus)
 
+  private lazy val boosting = new BoostingApi(
+    modApi = api,
+    collBoosting = db(CollectionBoosting),
+    nbGamesToMark = NbGamesToMark)
+
   // api actor
-  system.actorOf(Props(new Actor {
+  private val actorApi = system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.mod.MarkCheater(userId) => api autoAdjust userId
       case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
         assessApi.onAnalysisReady(game, analysis)
+      case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) =>
+        (whiteUserOption |@| blackUserOption) apply {
+          case (whiteUser, blackUser) => boosting.check(game, whiteUser, blackUser)
+        }
     }
   }), name = ActorName)
+  system.lilaBus.subscribe(actorApi, 'finishGame)
 }
 
 object Env {

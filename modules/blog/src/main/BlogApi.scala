@@ -5,10 +5,10 @@ import play.api.mvc.RequestHeader
 
 final class BlogApi(prismicUrl: String, collection: String) {
 
-  def recent(api: Api, ref: Option[String], nb: Int) =
+  def recent(api: Api, ref: Option[String], nb: Int): Fu[Option[Response]] =
     api.forms(collection).ref(ref | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
-      .pageSize(nb).page(1).submit()
+      .pageSize(nb).page(1).submit().fold(_ => none, some _)
 
   def one(api: Api, ref: Option[String], id: String) =
     api.forms(collection)

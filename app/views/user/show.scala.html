@@ -6,7 +6,7 @@
 
 @evenMoreJs = {
 @highstockTag
-@if(!u.engine || ctx.is(u) || isGranted(_.UserSpy)) {
+@if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
 @jsTagCompiled("chart2.js")
 @info.ratingChart.map { ratingChart =>
 @embedJs(s"var lichess_rating_series = $ratingChart;")
@@ -27,7 +27,7 @@
 
 @side = {
 <div class="side sub_ratings">
-  @if(!u.engine || ctx.is(u) || isGranted(_.UserSpy)) {
+  @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
   @showPerf(u.perfs.bullet, PerfType.Bullet)
   @showPerf(u.perfs.blitz, PerfType.Blitz)
   @showPerf(u.perfs.classical, PerfType.Classical)
@@ -69,7 +69,7 @@ openGraph = Map(
 'description -> describeUser(u))) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
-    @if(!u.engine) {
+    @if(!u.lame) {
     @info.ranks.map {
     case (perf, rank) if rank == 1 => {
     <span class="trophy hint--left" data-hint="@PerfType.name(perf) Champion!">
@@ -158,17 +158,25 @@ openGraph = Map(
   }
   <div class="mod_zone"></div>
   <div class="meat">
-    @info.ratingChart.ifTrue(!u.engine || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
+    @info.ratingChart.ifTrue(!u.lame || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
     <div class="rating_history">
       <span>Chart loading&#8230;</span>
     </div>
     }
     <div class="user-infos scroll-shadow-hard">
-      @if(u.engine && ctx.me.fold(true)(u !=)) {
+      @if(ctx.me.fold(true)(u !=)) {
+      @if(u.engine) {
       <div class="warning engine_warning">
         <span data-icon="j" class="is4"></span>
         @trans.thisPlayerUsesChessComputerAssistance()
       </div>
+      }
+      @if(u.booster) {
+      <div class="warning engine_warning">
+        <span data-icon="j" class"is4"></span>
+        @trans.thisPlayerArtificiallyIncreasesTheirRating()
+      </div>
+      }
       } else {
       @u.title.flatMap(lila.user.User.titlesMap.get).map { title =>
       <p data-icon="E" class="honorific title"> @title</p>
