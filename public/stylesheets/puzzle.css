@@ -42,6 +42,16 @@
   font-size: 1.3em;
   margin-bottom: 10px;
 }
+#puzzle .right .control .giveup {
+  visibility: hidden;
+  font-weight: normal;
+  transition: 1s;
+  opacity: 0;
+}
+#puzzle .right .control .giveup.revealed {
+  opacity: 1;
+  visibility: visible;
+}
 #puzzle .right .continue_wrap {
   width: 100%;
   text-align: center;

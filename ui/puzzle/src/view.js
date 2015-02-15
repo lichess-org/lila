@@ -149,7 +149,12 @@ function renderPlayTable(ctrl) {
       ),
       m('p.findit', ctrl.trans(ctrl.data.puzzle.color == 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')),
       m('div.control',
-        m('a.button', {
+        m('a.button.giveup', {
+          config: function(el, isUpdate) {
+            setTimeout(function() {
+              el.classList.add('revealed');
+            }, 1000);
+          },
           onclick: partial(xhr.attempt, ctrl, 0)
         }, ctrl.trans('giveUp'))
       )
