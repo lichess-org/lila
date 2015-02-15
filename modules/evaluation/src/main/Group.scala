@@ -44,7 +44,7 @@ case class PlayerAggregateAssessment(
   import Statistics.listSum
   def sumAssessment(x: Int): Int =
     listSum(gameGroupResults.map { result => 
-      if (result.aggregate.assessment == x && (result.aggregate.positiveMatch || result.aggregate.confidence > 80)) 1
+      if (result.aggregate.assessment == x && (result.aggregate.positiveMatch || result.aggregate.confidence >= 80)) 1
       else 0
     })
 
@@ -54,8 +54,8 @@ case class PlayerAggregateAssessment(
 
   val markPri: Boolean = cheatingSum >= 2
   val markSec: Boolean = cheatingSum + likelyCheatingSum >= 4
-  val reportPri: Boolean = cheatingSum + likelyCheatingSum >= 2
-  val reportSec: Boolean = cheatingSum + likelyCheatingSum + unclearSum >= 4
+  val reportPri: Boolean = cheatingSum >= 1
+  val reportSec: Boolean = cheatingSum + likelyCheatingSum >= 2
 }
 
 case class AggregateAssessment(
@@ -163,46 +163,28 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
     listToListSimilarity(thisMt, thatMt, 0.8)
   }
 
-  def compareSfAccuracies (that: GameGroup): (Similarity, Similarity) = {
-    def groupedDiffList(game: Game, color: Color, analysis: Analysis, size: Int = 5): List[List[Int]] =
-      Accuracy.diffsList(Pov(game, color), analysis).grouped(size).toList
-    // Insist that is greater than this (so this can be compared in full saturation)
-    val thisPlayerDiffs = groupedDiffList(this.analysed.game, this.color, this.analysed.analysis)
-    val thatPlayerDiffs = groupedDiffList(that.analysed.game, that.color, that.analysed.analysis)
-    if (thisPlayerDiffs.size != thatPlayerDiffs.size) return (Similarity(0), Similarity(0))
-    else {
-      (
-        thisPlayerDiffs zip thatPlayerDiffs map {
-          a => listToListSimilarity(a._1, a._2, 0.8)
-        }
-      ,
-        (groupedDiffList(this.analysed.game, !this.color, this.analysed.analysis) zip
-        groupedDiffList(that.analysed.game, !that.color, that.analysed.analysis)) map {       
-          a => listToListSimilarity(a._1, a._2, 0.6)
-        }
-      ) match {
-        case (Nil, Nil)                   => (Similarity(0), Similarity(0)) // Both empty
-        case (Nil, a :: _)                => (Similarity(0), Similarity(0)) // One empty, The other with some
-        case (a :: _, Nil)                => (Similarity(0), Similarity(0))
-        case (a :: Nil, b :: Nil)         => (a, b)
-        case (a :: Nil, b :: c)           => {
-          val ssdA = ssd(b, c)
-          (a, Similarity(ssdA, if (allSimilar(b, c)) (ssdA - 0.01) else (ssdA + 0.01)))
-        }
-        case (a :: b, c :: Nil)           => {
-          val ssdA = ssd(a, b)
-          (c, Similarity(ssdA, if (allSimilar(a, b)) (ssdA - 0.01) else (ssdA + 0.01)))
-        }
-        case (a :: b, c :: d)             => {
-          val ssdA = ssd(a, b)
-          val ssdB = ssd(c, d)
-          (
-            Similarity(ssdA, if (allSimilar(a, b)) (ssdA - 0.01) else (ssdA + 0.01)),
-            Similarity(ssdB, if (allSimilar(c, d)) (ssdB - 0.01) else (ssdB + 0.01))
-          )
-        }
+  def compareSfAccuracies (that: GameGroup): Similarity = {
+    def chartDifs(difs: List[(Int, Int)], sum: Int = 0): List[Int] = {
+      difs match {
+        case Nil      => Nil
+        case a :: Nil => List((sum + a._1), (sum + a._1 + a._2))
+        case a :: b   => List((sum + a._1), (sum + a._1 + a._2)) ::: chartDifs(b, sum + a._1 + a._2)
       }
     }
+
+    def averageDif(chart: List[(Int, Int)]): Double = listAverage(chart.map{a => abs(a._1 - a._2)})
+
+    if (abs(this.analysed.game.playedTurns - that.analysed.game.playedTurns) <= 5) {
+      val avgDif = averageDif(
+        (
+          chartDifs(Accuracy.diffsList(Pov(this.analysed.game,  this.color), this.analysed.analysis) zip
+                    Accuracy.diffsList(Pov(this.analysed.game, !this.color), this.analysed.analysis))
+        ) zip (
+          chartDifs(Accuracy.diffsList(Pov(that.analysed.game,  that.color), that.analysed.analysis) zip
+                    Accuracy.diffsList(Pov(that.analysed.game, !that.color), that.analysed.analysis))
+        ))
+      Similarity(((300d - avgDif) / 300d).max(0d), 0.67)
+    } else Similarity(0)
   }
 
   def compareBlurRates (that: GameGroup): Similarity = pointToPointSimilarity(
@@ -229,8 +211,7 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
 
     val similarities = NonEmptyList(
       compareMoveTimes(that),
-      sfComparison._1,
-      sfComparison._2,
+      compareSfAccuracies(that),
       compareBlurRates(that),
       compareHoldAlerts(that)
     )
