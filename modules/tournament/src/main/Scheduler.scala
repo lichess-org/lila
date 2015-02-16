@@ -33,7 +33,7 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         Schedule(Daily, Bullet, at(today, 17)),
         Schedule(Daily, Blitz, at(today, 18)),
         Schedule(Daily, Classical, at(today, 20)),
-        Schedule(Hourly, Bullet, at(nextHourDate, nextHour)),
+        Schedule(Hourly, if (nextHour % 2 == 0) Bullet else Bullitz, at(nextHourDate, nextHour)),
         Schedule(Hourly, Blitz, at(nextHourDate, nextHour, 30))
       ).foldLeft(List[Schedule]()) {
           case (scheds, sched) if sched.at.isBeforeNow      => scheds
