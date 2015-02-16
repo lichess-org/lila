@@ -369,6 +369,7 @@ currentPassword=Jelenlegi jelszó
 newPassword=Új jelszó
 newPasswordAgain=Új jelszó (ismét)
 boardHighlights=Lépések kiemelése a táblán (utolsó lépés és sakk)
+pieceDestinations=A figurák érkezési mezői (érvényes lépések és előre bevitt lépések)
 boardCoordinates=Tábla koordináták (A-H, 1-8)
 moveListWhilePlaying=Lépéslista játék közben
 chessClock=Sakkóra
