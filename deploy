@@ -1,0 +1,1 @@
+db.seek.update({},{$set:{'user.booster':false}},{multi:true})
