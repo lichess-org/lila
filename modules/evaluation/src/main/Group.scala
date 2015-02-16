@@ -1,6 +1,6 @@
 package lila.evaluation
 
-import Math.{pow, E, PI, log, sqrt, abs, exp, round}
+import Math.{pow, E, PI, log, sqrt, abs, exp, round, atan}
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
 import chess.{ Color }
@@ -155,6 +155,7 @@ case class MatchAndSig(matches: Boolean, significance: Double)
 
 case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] = None) {
   import Statistics._
+  import LinearRegression._
 
   def compareMoveTimes (that: GameGroup): Similarity = {
     val thisMt: List[Int] = skip(this.analysed.game.moveTimes.toList, {if (this.color == Color.White) 0 else 1})
@@ -164,26 +165,30 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
   }
 
   def compareSfAccuracies (that: GameGroup): Similarity = {
-    def chartDifs(difs: List[(Int, Int)], sum: Int = 0): List[Int] = {
+    def chartFromDifs(difs: List[(Int, Int)], sum: Int = 0): List[Int] =
       difs match {
         case Nil      => Nil
         case a :: Nil => List((sum + a._1), (sum + a._1 + a._2))
-        case a :: b   => List((sum + a._1), (sum + a._1 + a._2)) ::: chartDifs(b, sum + a._1 + a._2)
+        case a :: b   => List((sum + a._1), (sum + a._1 + a._2)) ::: chartFromDifs(b, sum + a._1 + a._2)
       }
-    }
+
+    def sampledBy(list: List[Int], size: Int = 5): List[List[(Int, Int)]] = 
+      for(i <- List.range(0, list.size - size)) yield list.drop(i).take(size).zipWithIndex
 
     def averageDif(chart: List[(Int, Int)]): Double = listAverage(chart.map{a => abs(a._1 - a._2)})
 
+    def regressedGradients(game: Game, color: Color, analysis: Analysis): List[Double] =
+      sampledBy(chartFromDifs(
+        Accuracy.diffsList(Pov(game, color), analysis) zip
+        Accuracy.diffsList(Pov(game, !color), analysis))) map gradient
+
     if (abs(this.analysed.game.playedTurns - that.analysed.game.playedTurns) <= 5) {
-      val avgDif = averageDif(
-        (
-          chartDifs(Accuracy.diffsList(Pov(this.analysed.game,  this.color), this.analysed.analysis) zip
-                    Accuracy.diffsList(Pov(this.analysed.game, !this.color), this.analysed.analysis))
-        ) zip (
-          chartDifs(Accuracy.diffsList(Pov(that.analysed.game,  that.color), that.analysed.analysis) zip
-                    Accuracy.diffsList(Pov(that.analysed.game, !that.color), that.analysed.analysis))
-        ))
-      Similarity(((300d - avgDif) / 300d).max(0d), 0.67)
+      val avgDif = listAverage(
+        regressedGradients(this.analysed.game, this.color, this.analysed.analysis) zip
+        regressedGradients(that.analysed.game, that.color, that.analysed.analysis) map {
+          a => gradientSimilarity(a._1, a._2)
+        })
+      Similarity(avgDif, 0.75)
     } else Similarity(0)
   }
 
@@ -315,8 +320,12 @@ object Statistics {
   def skip[A](l: List[A], n: Int) =
     l.zipWithIndex.collect {case (e,i) if ((i+n) % 2) == 0 => e} // (i+1) because zipWithIndex is 0-based
 
-
   def listSum(xs: List[Int]): Int = xs match {
+    case Nil => 0
+    case x :: tail => x + listSum(tail)
+  }
+
+  def listSum(xs: List[Double]): Double = xs match {
     case Nil => 0
     case x :: tail => x + listSum(tail)
   }
@@ -332,6 +341,31 @@ object Statistics {
     case _ :: Nil => 0
     case a :: b   => deviation(NonEmptyList.nel(a, b))
   }
+}
+
+object LinearRegression {
+  import Statistics._
+
+  def sumY(points: List[(Int, Int)]): Double = listSum(points.map(_._2.toDouble))
+  def sumX(points: List[(Int, Int)]): Double = listSum(points.map(_._1.toDouble))
+
+  def sumX_2(points: List[(Int, Int)]): Double = pow(sumX(points), 2)
+  def sumX2(points: List[(Int, Int)]): Double = listSum(points.map( a => pow(a._1, 2)))
+
+  def sumXY(points: List[(Int, Int)]): Double = listSum(points.map( a => a._1 * a._2))
+
+  def n(points: List[(Int, Int)]): Int = points.size
+
+  def gradient(points: List[(Int, Int)]): Double =
+    ( ( sumY(points) * sumX2(points) - sumX(points) * sumXY(points) ) / ( n(points) * sumX2(points) - sumX_2(points) ) ) match {
+      case a if (a.isNaN) => 0
+      case a => atan(a)
+    }
+
+  def offset(points: List[(Int, Int)]): Double =
+    ( n(points) * sumXY(points) - sumX(points) * sumY(points) ) / ( n(points) * sumX2(points) - sumX_2(points) )
+
+  def gradientSimilarity(a1: Double, a2: Double): Double = pow(E, -abs(a1 - a2) * 2)
 }
 
 object Erf {
