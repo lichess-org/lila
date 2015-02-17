@@ -21,8 +21,8 @@ private final class Streaming(
     actor ? Get mapTo manifest[List[StreamOnAir]]
     // fuccess(List(StreamOnAir(
     //   service = "twitch",
-    //   name = "test with lichess.org",
-    //   streamer = "thib",
+    //   name = "Chess master streams at lichess.org",
+    //   streamer = "ChessNetwork",
     //   url = "http://foo.com",
     //   streamId = "test")))
   }
