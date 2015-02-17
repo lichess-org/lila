@@ -3,6 +3,7 @@ package lila.mod
 import lila.db.Types.Coll
 import lila.game.Game
 import lila.user.User
+import chess.variant.Variant
 import chess.Color
 
 import reactivemongo.bson._
@@ -36,7 +37,10 @@ final class BoostingApi(modApi: ModApi, collBoosting: Coll, nbGamesToMark: Int) 
       && game.accountable 
       && game.playedTurns <= 10 
       && !game.isTournament 
-      && game.winnerColor.isDefined) {
+      && game.winnerColor.isDefined
+      && game.variant == Variant.default
+      && !game.isCorrespondence
+      && game.clock.fold(false){_.limitInMinutes >= 1}) {
       game.winnerColor match {
         case Some(a) => {
           val result: GameResult = a match { 
