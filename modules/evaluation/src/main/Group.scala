@@ -173,7 +173,7 @@ case class GameGroup(analysed: Analysed, color: Color, assessment: Option[Int] =
       }
 
     def sampledBy(list: List[Int], size: Int = 5): List[List[(Int, Int)]] = 
-      for(i <- List.range(0, list.size - size)) yield list.drop(i).take(size).zipWithIndex
+      for(i <- List.range(0, list.size - size) if (i % 3 == 0)) yield list.drop(i).take(size).zipWithIndex
 
     def averageDif(chart: List[(Int, Int)]): Double = listAverage(chart.map{a => abs(a._1 - a._2)})
 
@@ -365,7 +365,7 @@ object LinearRegression {
   def offset(points: List[(Int, Int)]): Double =
     ( n(points) * sumXY(points) - sumX(points) * sumY(points) ) / ( n(points) * sumX2(points) - sumX_2(points) )
 
-  def gradientSimilarity(a1: Double, a2: Double): Double = pow(E, -abs(a1 - a2) * 2)
+  def gradientSimilarity(a1: Double, a2: Double): Double = pow(E, -abs(a1 - a2) * 3)
 }
 
 object Erf {
