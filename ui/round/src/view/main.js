@@ -62,7 +62,10 @@ function visualBoard(ctrl) {
           return wheel(ctrl, e);
         });
       },
-      onclick: ctrl.data.player.spectator ? toggleDontTouch : null
+      onclick: ctrl.data.player.spectator ? toggleDontTouch : null,
+      oncontextmenu: function(e) {
+        e.preventDefault();
+      }
     }, chessground.view(ctrl.chessground)),
     renderPromotion(ctrl),
     renderVariantReminder(ctrl)
