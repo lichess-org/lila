@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "game": "file:../game",
-    "chessground": "1.9.2",
+    "chessground": "1.9.4",
     "lodash-node": "^2.4.1",
     "mithril": "0.1.30"
   }

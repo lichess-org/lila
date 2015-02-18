@@ -94,7 +94,8 @@ module.exports = function(cfg, router, i18n) {
     },
     premovable: {
       enabled: true
-    }
+    },
+    disableContextMenu: true
   }, this.data.chessground));
 
   k.bind(['esc'], this.chessground.cancelMove);

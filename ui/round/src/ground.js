@@ -40,7 +40,8 @@ function makeConfig(data, fen, flip) {
     },
     draggable: {
       showGhost: data.pref.highlight
-    }
+    },
+    disableContextMenu: true
   };
 }
 
