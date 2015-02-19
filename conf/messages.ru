@@ -427,6 +427,6 @@ noInternetConnection=Нет интернет соединения. Вы може
 connectedToLichess=Сейчас вы подключены к lichess.org
 connectedToLichessAnonymous=Сейчас вы подключены к lichess.org  Вы можете дать сигнал для старта новой игры из меню.
 signedOut=Вы вышли.
-loginSuccessful=Вход успешен
+loginSuccessful=Войти успешный
 playOnTheBoardOffline=Играйте оффлайн
 showPGN=Показать PGN
