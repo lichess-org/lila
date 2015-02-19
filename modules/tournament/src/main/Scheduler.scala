@@ -18,18 +18,18 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       val rightNow = DateTime.now
       val today = rightNow.withTimeAtStartOfDay
       val lastDayOfMonth = today.dayOfMonth.withMaximumValue
-      val lastFridayOfCurrentMonth = lastDayOfMonth.minusDays((lastDayOfMonth.getDayOfWeek + 1) % 7)
-      val nextFriday = today.plusDays((13 - today.getDayOfWeek) % 7)
+      val lastSaturdayOfCurrentMonth = lastDayOfMonth.minusDays((lastDayOfMonth.getDayOfWeek + 1) % 7)
+      val nextSaturday = today.plusDays((13 - today.getDayOfWeek) % 7)
       val nextHourDate = rightNow plusHours 1
       val nextHour = nextHourDate.getHourOfDay
 
       val scheds = List(
-        Schedule(Monthly, Bullet, at(lastFridayOfCurrentMonth, 17)),
-        Schedule(Monthly, Blitz, at(lastFridayOfCurrentMonth, 18, 20)),
-        Schedule(Monthly, Classical, at(lastFridayOfCurrentMonth, 20, 30)),
-        Schedule(Weekly, Bullet, at(nextFriday, 17)),
-        Schedule(Weekly, Blitz, at(nextFriday, 18)),
-        Schedule(Weekly, Classical, at(nextFriday, 20)),
+        Schedule(Monthly, Bullet, at(lastSaturdayOfCurrentMonth, 17)),
+        Schedule(Monthly, Blitz, at(lastSaturdayOfCurrentMonth, 18, 20)),
+        Schedule(Monthly, Classical, at(lastSaturdayOfCurrentMonth, 20, 30)),
+        Schedule(Weekly, Bullet, at(nextSaturday, 17)),
+        Schedule(Weekly, Blitz, at(nextSaturday, 18)),
+        Schedule(Weekly, Classical, at(nextSaturday, 20)),
         Schedule(Daily, Bullet, at(today, 17)),
         Schedule(Daily, Blitz, at(today, 18)),
         Schedule(Daily, Classical, at(today, 20)),
