@@ -82,7 +82,7 @@
     }
   </div>
   }
-  @if(aggregateAssessment.gameGroupResults.nonEmpty) {
+  @if(aggregateAssessment.playerAssessments.nonEmpty) {
   <div class="evaluation results">
     <table class="reportCard">
       <thead>
@@ -140,47 +140,21 @@
           <th>Blurs</th>
           <th>Bot</th>
           <th><span class="hint--top-left" data-hint="Aggregate match">&Sigma;</span></th>
-          <th><span class="hint--top-left" data-hint="Primary match">1</span></th>
-          <th><span class="hint--top-left" data-hint="Secondary match">2</span></th>
-          <th><span class="hint--top-left" data-hint="Tertiary match">3</span></th>
-          <th><span class="hint--top-left" data-hint="Quaternary match">4</span></th>
-          <th><span class="hint--top-left" data-hint="Quinary match">5</span></th>
         </tr>
       </thead>
       <tbody>
-      @aggregateAssessment.gameGroupResults.map { result =>
+      @aggregateAssessment.playerAssessments.map { result =>
         <tr>
           <td><a href="@routes.Round.watcher(result.gameId, result.color.name)">@routes.Round.watcher(result.gameId, result.color.name)</a></td>
           <td>@result.sfAvg ± @result.sfSd</td>
           <td>@(result.mtAvg/10) ± @(result.mtSd/10)</td>
-          <td>@(result.blur)%</td>
+          <td>@(result.blurs)%</td>
           <td>@if(result.hold){Yes} else {No}</td>
           <td>
-            <span class="aggregate hint--top-left" data-hint="@result.aggregate.explanation">
-              <span class="sig_@(result.aggregate.assessment)" data-icon="@Display.dataIcon(result.aggregate)"></span>
+            <span class="aggregate hint--top-left">
+              <span class="sig_@(result.assessment)" data-icon="J"></span>
             </span>
           </td>
-          <td>
-            <a href="@routes.Round.watcher(result.bestMatch.gameId, result.bestMatch.color.name)" class="peerLink hint--top-left" data-hint="@result.bestMatch.explanation">
-              <span class="sig_@(result.bestMatch.assessment)" data-icon="@Display.dataIcon(result.bestMatch)">&nbsp;</span>
-              <br /><span class="percentage">@(result.bestMatch.matchPercentage)%</span>
-            </a>
-          </td>
-          @Range(0, 4).map { i =>
-          @result.secondaryMatches.lift(i) match {
-          case Some(peer) => {
-          <td>
-            <a href="@routes.Round.watcher(peer.gameId, peer.color.name)" class="peerLink hint--top-left" data-hint="@peer.explanation">
-              <span class="sig_@(peer.assessment)" data-icon="@Display.dataIcon(peer)"></span>
-              <br /><span class="percentage">@(peer.matchPercentage)%</span>
-            </a>
-          </td>
-          }
-          case _ => {
-          <td></td>
-          }
-          }
-          }
         </tr>
       }
       </tbody>
