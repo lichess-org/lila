@@ -10,9 +10,8 @@ It has a [search engine](http://lichess.org/games/search),
 [tournaments](http://lichess.org/tournament),
 [forums](http://lichess.org/forum),
 [teams](http://lichess.org/team),
-[puzzles](http://lichess.org/training),
-a weird [monitoring console](http://lichess.org/monitor),
-and a [world map](http://map.lichess.org).
+[puzzles](http://lichess.org/training)
+and a weird [monitoring console](http://lichess.org/monitor).
 The UI is available in [80 languages](http://lichess.org/translation/contribute) thanks to the community.
 
 Lichess is written in [Scala 2.11](http://www.scala-lang.org/),
