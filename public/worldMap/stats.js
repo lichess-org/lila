@@ -19,7 +19,7 @@ $(function() {
         $('#countries > span').text(Object.keys(stats.countries).length);
         topCountries();
 
-        setTimeout(function() { updateStats(); }, 500);
+        setTimeout(function() { updateStats(); }, 200);
     };
 
     updateStats();

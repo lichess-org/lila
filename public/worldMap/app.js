@@ -3,7 +3,8 @@ var stats = {
   countries: {}
 };
 
-var audio_context, oscillator, sound = {};
+var context, gain_node, filter, oscillator, sound = {};
+var noteIt = 0;
 
 sound.stop = function() {
   try {
@@ -12,16 +13,22 @@ sound.stop = function() {
 };
 
 sound.play = function(freq) {
-  oscillator = audio_context.createOscillator();
-  oscillator.type = 'square';
-  oscillator.connect(audio_context.destination);
+  oscillator = context.createOscillator();
+  oscillator.type = 'sawtooth';
+  oscillator.connect(filter);
   oscillator.frequency.value = freq;
   oscillator.noteOn(0);
 };
 
 (function init(g) {
   try {
-    audio_context = new(g.AudioContext || g.webkitAudioContext);
+    context = new(g.AudioContext || g.webkitAudioContext);
+    gain_node = context.createGain();
+    gain_node.connect(context.destination);
+    gain_node.gain.value = 0.1;
+    filter = context.createBiquadFilter();
+    filter.type = filter.LOWPASS;
+    filter.connect(gain_node);
   } catch (e) {
     console.log('No web audio oscillator support in this browser');
   }
@@ -34,11 +41,17 @@ setInterval(function() {
   if (!soundEnabled) return;
   sound.stop();
   if (stats.nMoves > 0) {
+    noteIt++;
     if (prevMoves) {
-      var note = 30 + (stats.nMoves - prevMoves);
+      var note = Math.min(
+        21 + 3 * (stats.nMoves - prevMoves),
+        69);
       var freq = MIDIUtils.noteNumberToFrequency(note);
       sound.play(freq);
     }
+    filter.frequency.value = 2400 + Math.sin(noteIt / 22) * 2000;
+    filter.Q.value = 6 + Math.sin(noteIt / 9) * 12;
+    gain_node.gain.value = 0.3 + -0.08 * Math.sin(noteIt / 22);
     prevMoves = stats.nMoves;
   }
 }, 100);
@@ -61,9 +74,11 @@ $(function() {
   paper.setStart();
   for (var country in worldmap.shapes) {
     paper.path(worldmap.shapes[country]).attr({
-      stroke: null,
+      'stroke': '#05121b',
+      'stroke-width': 0.5,
+      'stroke-opacity': 0.25,
       fill: "#67777F",
-      "fill-opacity": 0.3
+      "fill-opacity": 0.25
     }).transform("s" + scale + "," + scale + " 0,0");
   }
   var world = paper.setFinish();
@@ -89,8 +104,8 @@ $(function() {
 
     source.addEventListener('message', function(e) {
       var data = JSON.parse(e.data);
-      data.lat += Math.random() * 2 - 1;
-      data.lon += Math.random() * 2 - 1;
+      data.lat += Math.random() - 0.5;
+      data.lon += Math.random() - 0.5;
       var orig = world.getXY(data.lat, data.lon);
       var dot = paper.circle().attr({
         fill: "#FE7727",
@@ -103,8 +118,8 @@ $(function() {
       }, 5000);
       var area = paper.circle().attr({
         fill: "#fff",
-        'fill-opacity': Math.random() * 0.015,
-        r: 20 + Math.random() * 50,
+        'fill-opacity': Math.random() * 0.012,
+        r: 20 + Math.random() * 60,
         'stroke-width': 0
       });
       area.attr(orig);
@@ -119,7 +134,8 @@ $(function() {
         var lightning = paper.path(str);
         lightning.attr({
           opacity: 0.2,
-          stroke: "#fff"
+          stroke: "#fff",
+          'stroke-width': 0.5
         });
         setTimeout(function() {
           lightning.remove();
@@ -127,11 +143,22 @@ $(function() {
           line.attr({
             opacity: 0.35,
             stroke: "#FE7727",
+            'stroke-width': 0.5,
             'arrow-end': 'oval-wide-long'
           });
           setTimeout(function() {
             line.remove();
-          }, 700);
+            var drag = paper.path(str);
+            drag.attr({
+              opacity: 0.2,
+              stroke: "#FE7727",
+              'stroke-width': 0.5,
+              'arrow-end': 'oval-wide-long'
+            });
+            setTimeout(function() {
+              drag.remove();
+            }, 500);
+          }, 500);
         }, 50);
       }
 
@@ -142,15 +169,15 @@ $(function() {
       if (data.country in stats.countries) stats.countries[data.country]++;
       else stats.countries[data.country] = 1;
     }, false);
-    source.addEventListener('open', function(e) {
-      // Connection was opened.
-      // console.log("connection opened");
-    }, false);
-    source.addEventListener('error', function(e) {
-      if (e.readyState == EventSource.CLOSED) {
-        // Connection was closed.
-        // console.log("connection closed");
-      }
-    }, false);
+    // source.addEventListener('open', function(e) {
+    //   // Connection was opened.
+    //   // console.log("connection opened");
+    // }, false);
+    // source.addEventListener('error', function(e) {
+    //   if (e.readyState == EventSource.CLOSED) {
+    //     // Connection was closed.
+    //     // console.log("connection closed");
+    //   }
+    // }, false);
   }
 });
