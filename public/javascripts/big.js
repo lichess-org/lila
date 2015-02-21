@@ -1187,7 +1187,8 @@ lichess.storage = {
       coordinates: data.pref.coords !== 0,
       highlight: {
         check: data.pref.highlight
-      }
+      },
+      disableContextMenu: true
     });
     setTimeout(function() {
       $('.lichess_overboard_wrap', element).addClass('visible');
@@ -1454,7 +1455,8 @@ lichess.storage = {
                 submit(orig + ' ' + dest);
               }
             }
-          }
+          },
+          disableContextMenu: true
         });
 
         var submit = function(solution) {

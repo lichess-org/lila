@@ -105,6 +105,7 @@ module.exports = function(cfg, router, i18n) {
         after: onMove
       }
     },
+    disableContextMenu: true
   });
 
   var submitMove = function(uci) {

@@ -31,7 +31,8 @@ function makeConfig(data, situation, onMove) {
     },
     events: {
       capture: $.sound.take
-    }
+    },
+    disableContextMenu: true
   };
 }
 

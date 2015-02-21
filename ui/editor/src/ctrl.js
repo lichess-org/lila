@@ -26,7 +26,8 @@ module.exports = function(cfg) {
     },
     events: {
       change: m.redraw
-    }
+    },
+    disableContextMenu: true
   });
 
   this.computeFen = partial(editor.computeFen, this.data, this.chessground.getFen);

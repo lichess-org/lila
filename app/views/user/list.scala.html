@@ -69,7 +69,7 @@
             @tourneyWinners.map { w =>
             <tr>
               <td>@userIdLink(w.userId.some, cssClass="revert-underline".some)</td>
-              <td><a href="@routes.Tournament.show(w.tourId)" class="revert-underline">@w.tourName.replace("Lichess ", "")</a></td>
+              <td><a href="@routes.Tournament.show(w.tourId)" class="revert-underline">@scheduledTournamentNameShortHtml(w.tourName)</a></td>
             </tr>
             }
         </tbody></table>

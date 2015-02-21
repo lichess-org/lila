@@ -66,7 +66,7 @@ private[tournament] final class TournamentApi(
         publish() inject created
     }
 
-  def createScheduled(schedule: Schedule): Funit =
+  private[tournament] def createScheduled(schedule: Schedule): Funit =
     (Schedule durationFor schedule) ?? { minutes =>
       val created = Tournament.schedule(schedule, minutes)
       TournamentRepo.insert(created).void >>- publish()

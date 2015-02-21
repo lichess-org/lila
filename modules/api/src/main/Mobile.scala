@@ -40,6 +40,6 @@ object Mobile {
 
   object App {
 
-    def currentVersion = "1.0.0"
+    val currentVersion = lila.common.PlayApp.loadConfig getString "mobile.app.version"
   }
 }
