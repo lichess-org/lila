@@ -89,7 +89,7 @@ case class Assessible(analysed: Analysed) {
     this.analysed.game.playerBlurPercent(color) > 70
 
   def consistentMoveTimes(color: Color): Boolean =
-    moveTimes(color).toNel.map(coefVariation).fold(false)(_ < 0.8)
+    moveTimes(color).toNel.map(coefVariation).fold(false)(_ < 0.7)
 
   def noFastMoves(color: Color): Boolean = !moveTimes(color).exists(_ < 10)
 
