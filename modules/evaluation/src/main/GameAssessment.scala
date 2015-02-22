@@ -15,6 +15,12 @@ case class PlayerAssessment(
   assessment: Int, // 1 = Not Cheating, 2 = Unlikely Cheating, 3 = Unknown, 4 = Likely Cheating, 5 = Cheating
   date: DateTime,
   // meta
+  suspiciousErrorRate: Boolean,
+  alwaysHasAdvantage: Boolean,
+  highBlurRate: Boolean,
+  moderateBlurRate: Boolean,
+  consistentMoveTimes: Boolean,
+  noFastMoves: Boolean,
   sfAvg: Int,
   sfSd: Int,
   mtAvg: Int,
@@ -90,19 +96,22 @@ case class Assessible(analysed: Analysed) {
   def suspiciousHoldAlert(color: Color): Boolean =
     this.analysed.game.player(color).hasSuspiciousHoldAlert
 
+  def flags(color: Color): Tuple7[Boolean, Boolean, Boolean, Boolean, Boolean, Boolean, Boolean] = (
+    suspiciousErrorRate(color),
+    alwaysHasAdvantage(color),
+    highBlurRate(color),
+    moderateBlurRate(color),
+    consistentMoveTimes(color),
+    noFastMoves(color),
+    suspiciousHoldAlert(color)
+  )
+
   def rankCheating(color: Color): Int =
-    ((
-      suspiciousErrorRate(color),
-      alwaysHasAdvantage(color),
-      highBlurRate(color),
-      moderateBlurRate(color),
-      consistentMoveTimes(color),
-      noFastMoves(color),
-      suspiciousHoldAlert(color)
-    ) match {
+    (flags(color) match {
         //  SF1    SF2    BLR1   BLR2   MTs1   MTs2   Holds
       case (true,  true,  true,  true,  true,  true,  true)   => 5 // all true, obvious cheat
       case (true,  _,     _,     _,     _,     true,  true)   => 5 // high accuracy, no fast moves, hold alerts
+      case (_,     true,  _,     _,     _,     true,  true)   => 5 // always has advantage, no fast moves, hold alerts
       case (true,  _,     true,  _,     _,     true,  _)      => 5 // high accuracy, high blurs, no fast moves
       case (true,  _,     _,     _,     true,  true,  _)      => 5 // high accuracy, consistent move times, no fast moves
       case (_,     true,  _,     _,     _,     _,     true)   => 4 // always has advantage, hold alerts
@@ -124,7 +133,10 @@ case class Assessible(analysed: Analysed) {
   def blurs(color: Color): Int = this.analysed.game.playerBlurPercent(color)
   def hold(color: Color): Boolean = this.analysed.game.player(color).hasSuspiciousHoldAlert
 
-  def playerAssessment(color: Color): PlayerAssessment = PlayerAssessment(
+  def playerAssessment(color: Color): PlayerAssessment = {
+    val playerFlags = flags(color)
+
+    PlayerAssessment(
     _id = this.analysed.game.id + "/" + color.name,
     gameId = this.analysed.game.id,
     userId = this.analysed.game.player(color).userId.getOrElse(""),
@@ -132,6 +144,13 @@ case class Assessible(analysed: Analysed) {
     assessment = rankCheating(color),
     date = DateTime.now,
     // meta
+    suspiciousErrorRate = playerFlags._1,
+    alwaysHasAdvantage = playerFlags._2,
+    highBlurRate = playerFlags._3,
+    moderateBlurRate = playerFlags._4,
+    consistentMoveTimes = playerFlags._5,
+    noFastMoves = playerFlags._6,
+
     sfAvg = sfAvg(color),
     sfSd = sfSd(color),
     mtAvg = mtAvg(color),
@@ -139,6 +158,8 @@ case class Assessible(analysed: Analysed) {
     blurs = blurs(color),
     hold = hold(color)
     )
+  }
+    
 
   val assessments: GameAssessments = GameAssessments(
     white = Some(playerAssessment(Color.White)),
@@ -153,8 +174,31 @@ object Display {
       case 3 => "Unclear"
       case 4 => "Likely cheating"
       case 5 => "Cheating"
-      case 6 => "Undef"
+      case _ => "Undef"
     }
+
+  def stockfishSig(pa: PlayerAssessment): Int =
+    (pa.suspiciousErrorRate, pa.alwaysHasAdvantage) match {
+      case (true, _) => 5
+      case (_, true) => 4
+      case _         => 1
+    }
+
+  def moveTimeSig(pa: PlayerAssessment): Int =
+    (pa.consistentMoveTimes, pa.noFastMoves) match {
+      case (true, _) => 5
+      case (_, true) => 4
+      case _         => 1
+    }
+
+  def blurSig(pa: PlayerAssessment): Int =
+    (pa.highBlurRate, pa.moderateBlurRate) match {
+      case (true, _) => 5
+      case (_, true) => 4
+      case _         => 1
+    }
+
+  def holdSig(pa: PlayerAssessment): Int = if (pa.hold) 5 else 1
 }
 
 object Statistics {

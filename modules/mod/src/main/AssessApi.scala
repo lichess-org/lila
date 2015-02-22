@@ -31,8 +31,7 @@ final class AssessApi(collAssessments: Coll, logApi: ModlogApi) {
     .collect[List](nb)
 
   def getResultsByGameIdAndColor(gameId: String, color: Color) =
-    collAssessments.find(BSONDocument("_id" -> (gameId + "/" + color.name)))
-    .one[PlayerAssessment]
+    getPlayerAssessmentById(gameId + "/" + color.name)
 
   def getGameResultsById(gameId: String) =
     getResultsByGameIdAndColor(gameId, Color.White) zip

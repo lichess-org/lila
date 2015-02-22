@@ -146,10 +146,22 @@
       @aggregateAssessment.playerAssessments.map { result =>
         <tr>
           <td><a href="@routes.Round.watcher(result.gameId, result.color.name)">@routes.Round.watcher(result.gameId, result.color.name)</a></td>
-          <td>@result.sfAvg ± @result.sfSd</td>
-          <td>@(result.mtAvg/10) ± @(result.mtSd/10)</td>
-          <td>@(result.blurs)%</td>
-          <td>@if(result.hold){Yes} else {No}</td>
+          <td>
+            <span class="sig_@(Display.stockfishSig(result))" data-icon="J"></span>
+            @result.sfAvg ± @result.sfSd
+          </td>
+          <td>
+            <span class="sig_@(Display.moveTimeSig(result))" data-icon="J"></span>
+            @(result.mtAvg/10) ± @(result.mtSd/10)
+          </td>
+          <td>
+            <span class="sig_@(Display.blurSig(result))" data-icon="J"></span>
+            @(result.blurs)%
+          </td>
+          <td>
+            <span class="sig_@(Display.holdSig(result))" data-icon="J"></span>
+            @if(result.hold){Yes} else {No}
+          </td>
           <td>
             <span class="aggregate hint--top-left">
               <span class="sig_@(result.assessment)" data-icon="J"></span>
