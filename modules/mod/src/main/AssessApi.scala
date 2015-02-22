@@ -3,7 +3,7 @@ package lila.mod
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.Types.Coll
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.evaluation.{ Analysed, PlayerAssessment, GameAssessments, Assessible }
+import lila.evaluation.{ Analysed, PlayerAssessment, PlayerFlags, GameAssessments, Assessible }
 import lila.game.Game
 import lila.game.{ Game, GameRepo }
 import org.joda.time.DateTime
@@ -15,6 +15,7 @@ import chess.Color
 
 final class AssessApi(collAssessments: Coll, logApi: ModlogApi) {
 
+  private implicit val playerFlagsBSONhandler = Macros.handler[PlayerFlags]
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
 
   def createPlayerAssessment(assessed: PlayerAssessment) =

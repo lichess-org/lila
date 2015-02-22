@@ -15,12 +15,7 @@ case class PlayerAssessment(
   assessment: Int, // 1 = Not Cheating, 2 = Unlikely Cheating, 3 = Unknown, 4 = Likely Cheating, 5 = Cheating
   date: DateTime,
   // meta
-  suspiciousErrorRate: Boolean,
-  alwaysHasAdvantage: Boolean,
-  highBlurRate: Boolean,
-  moderateBlurRate: Boolean,
-  consistentMoveTimes: Boolean,
-  noFastMoves: Boolean,
+  flags: PlayerFlags,
   sfAvg: Int,
   sfSd: Int,
   mtAvg: Int,
@@ -61,6 +56,15 @@ case class GameAssessments(
 
 case class Analysed(game: Game, analysis: Analysis)
 
+case class PlayerFlags(
+  suspiciousErrorRate: Boolean,
+  alwaysHasAdvantage: Boolean,
+  highBlurRate: Boolean,
+  moderateBlurRate: Boolean,
+  consistentMoveTimes: Boolean,
+  noFastMoves: Boolean,
+  suspiciousHoldAlert: Boolean)
+
 case class Assessible(analysed: Analysed) {
   import Statistics._
 
@@ -96,7 +100,7 @@ case class Assessible(analysed: Analysed) {
   def suspiciousHoldAlert(color: Color): Boolean =
     this.analysed.game.player(color).hasSuspiciousHoldAlert
 
-  def flags(color: Color): Tuple7[Boolean, Boolean, Boolean, Boolean, Boolean, Boolean, Boolean] = (
+  def flags(color: Color): PlayerFlags = PlayerFlags(
     suspiciousErrorRate(color),
     alwaysHasAdvantage(color),
     highBlurRate(color),
@@ -109,17 +113,17 @@ case class Assessible(analysed: Analysed) {
   def rankCheating(color: Color): Int =
     (flags(color) match {
         //  SF1    SF2    BLR1   BLR2   MTs1   MTs2   Holds
-      case (true,  true,  true,  true,  true,  true,  true)   => 5 // all true, obvious cheat
-      case (true,  _,     _,     _,     _,     true,  true)   => 5 // high accuracy, no fast moves, hold alerts
-      case (_,     true,  _,     _,     _,     true,  true)   => 5 // always has advantage, no fast moves, hold alerts
-      case (true,  _,     true,  _,     _,     true,  _)      => 5 // high accuracy, high blurs, no fast moves
-      case (true,  _,     _,     _,     true,  true,  _)      => 5 // high accuracy, consistent move times, no fast moves
-      case (_,     true,  _,     _,     _,     _,     true)   => 4 // always has advantage, hold alerts
-      case (_,     true,  true,  _,     _,     _,     _)      => 4 // always has advantage, high blurs
-      case (true,  _,     _,     false, false, true,  _)      => 3 // high accuracy, no fast moves, but doesn't blur or flat line
-      case (true,  _,     _,     _,     _,     false, _)      => 2 // high accuracy, but has fast moves
-      case (false, false, _,     _,     _,    _,      _)      => 1 // low accuracy, doesn't hold advantage
-      case (false, false, false, false, false, false, false)  => 1 // all false, obviously not cheating
+      case PlayerFlags(true,  true,  true,  true,  true,  true,  true)   => 5 // all true, obvious cheat
+      case PlayerFlags(true,  _,     _,     _,     _,     true,  true)   => 5 // high accuracy, no fast moves, hold alerts
+      case PlayerFlags(_,     true,  _,     _,     _,     true,  true)   => 5 // always has advantage, no fast moves, hold alerts
+      case PlayerFlags(true,  _,     true,  _,     _,     true,  _)      => 5 // high accuracy, high blurs, no fast moves
+      case PlayerFlags(true,  _,     _,     _,     true,  true,  _)      => 5 // high accuracy, consistent move times, no fast moves
+      case PlayerFlags(_,     true,  _,     _,     _,     _,     true)   => 4 // always has advantage, hold alerts
+      case PlayerFlags(_,     true,  true,  _,     _,     _,     _)      => 4 // always has advantage, high blurs
+      case PlayerFlags(true,  _,     _,     false, false, true,  _)      => 3 // high accuracy, no fast moves, but doesn't blur or flat line
+      case PlayerFlags(true,  _,     _,     _,     _,     false, _)      => 2 // high accuracy, but has fast moves
+      case PlayerFlags(false, false, _,     _,     _,    _,      _)      => 1 // low accuracy, doesn't hold advantage
+      case PlayerFlags(false, false, false, false, false, false, false)  => 1 // all false, obviously not cheating
       case _ => 1
     }).min(this.analysed.game.wonBy(color) match {
       case Some(c) if (c) => 5
@@ -133,9 +137,7 @@ case class Assessible(analysed: Analysed) {
   def blurs(color: Color): Int = this.analysed.game.playerBlurPercent(color)
   def hold(color: Color): Boolean = this.analysed.game.player(color).hasSuspiciousHoldAlert
 
-  def playerAssessment(color: Color): PlayerAssessment = {
-    val playerFlags = flags(color)
-
+  def playerAssessment(color: Color): PlayerAssessment =
     PlayerAssessment(
     _id = this.analysed.game.id + "/" + color.name,
     gameId = this.analysed.game.id,
@@ -144,13 +146,7 @@ case class Assessible(analysed: Analysed) {
     assessment = rankCheating(color),
     date = DateTime.now,
     // meta
-    suspiciousErrorRate = playerFlags._1,
-    alwaysHasAdvantage = playerFlags._2,
-    highBlurRate = playerFlags._3,
-    moderateBlurRate = playerFlags._4,
-    consistentMoveTimes = playerFlags._5,
-    noFastMoves = playerFlags._6,
-
+    flags = flags(color),
     sfAvg = sfAvg(color),
     sfSd = sfSd(color),
     mtAvg = mtAvg(color),
@@ -158,8 +154,6 @@ case class Assessible(analysed: Analysed) {
     blurs = blurs(color),
     hold = hold(color)
     )
-  }
-    
 
   val assessments: GameAssessments = GameAssessments(
     white = Some(playerAssessment(Color.White)),
@@ -178,27 +172,27 @@ object Display {
     }
 
   def stockfishSig(pa: PlayerAssessment): Int =
-    (pa.suspiciousErrorRate, pa.alwaysHasAdvantage) match {
+    (pa.flags.suspiciousErrorRate, pa.flags.alwaysHasAdvantage) match {
       case (true, _) => 5
       case (_, true) => 4
       case _         => 1
     }
 
   def moveTimeSig(pa: PlayerAssessment): Int =
-    (pa.consistentMoveTimes, pa.noFastMoves) match {
+    (pa.flags.consistentMoveTimes, pa.flags.noFastMoves) match {
       case (true, _) => 5
       case (_, true) => 4
       case _         => 1
     }
 
   def blurSig(pa: PlayerAssessment): Int =
-    (pa.highBlurRate, pa.moderateBlurRate) match {
+    (pa.flags.highBlurRate, pa.flags.moderateBlurRate) match {
       case (true, _) => 5
       case (_, true) => 4
       case _         => 1
     }
 
-  def holdSig(pa: PlayerAssessment): Int = if (pa.hold) 5 else 1
+  def holdSig(pa: PlayerAssessment): Int = if (pa.flags.suspiciousHoldAlert) 5 else 1
 }
 
 object Statistics {
