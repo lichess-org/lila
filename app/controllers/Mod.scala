@@ -86,28 +86,6 @@ object Mod extends LilaController {
 
   def redirect(username: String, mod: Boolean = true) = Redirect(routes.User.show(username).url + mod.??("?mod"))
 
-  def assessGame(id: String, side: String) = SecureBody(_.MarkEngine) { implicit ctx =>
-    me => 
-      import play.api.data.Forms._
-      import play.api.data._
-      implicit def req = ctx.body
-
-      Form(single("assessment" -> number(min = 1, max = 5))).bindFromRequest.fold(
-        err => fuccess(BadRequest),
-        assessment => {
-          val color: Color = Color(side == "white")
-
-          assessApi.createPlayerAssessment(PlayerAssessment(
-            _id = id + "/" + color.name, 
-            gameId = id, 
-            white = (color == Color.White),
-            assessment = assessment, 
-            by = me.id,
-            date = DateTime.now)).void
-        }
-      )
-  }
-
   def refreshAssess = SecureBody(_.MarkEngine) { implicit ctx =>
     me =>
       import play.api.data.Forms._
