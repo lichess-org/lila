@@ -100,7 +100,7 @@ $(function() {
   });
 
   if (!!window.EventSource) {
-    var source = new EventSource("http://en.lichess.org/world-map/stream");
+    var source = new EventSource("/network/stream");
 
     source.addEventListener('message', function(e) {
       var data = JSON.parse(e.data);
