@@ -112,16 +112,22 @@ case class Assessible(analysed: Analysed) {
 
   def rankCheating(color: Color): Int =
     (flags(color) match {
-        //  SF1    SF2    BLR1   BLR2   MTs1   MTs2   Holds
+                   //  SF1    SF2    BLR1   BLR2   MTs1   MTs2   Holds
       case PlayerFlags(true,  true,  true,  true,  true,  true,  true)   => 5 // all true, obvious cheat
       case PlayerFlags(true,  _,     _,     _,     _,     true,  true)   => 5 // high accuracy, no fast moves, hold alerts
       case PlayerFlags(_,     true,  _,     _,     _,     true,  true)   => 5 // always has advantage, no fast moves, hold alerts
       case PlayerFlags(true,  _,     true,  _,     _,     true,  _)      => 5 // high accuracy, high blurs, no fast moves
       case PlayerFlags(true,  _,     _,     _,     true,  true,  _)      => 5 // high accuracy, consistent move times, no fast moves
+
+      case PlayerFlags(true,  _,     _,     true,  _,     true,  _)      => 4 // high accuracy, moderate blurs, no fast moves
+      case PlayerFlags(_,     true,  _,     true,  true,  _,     _)      => 4 // always has advantage, moderate blurs, highly consistent move times
       case PlayerFlags(_,     true,  _,     _,     _,     _,     true)   => 4 // always has advantage, hold alerts
       case PlayerFlags(_,     true,  true,  _,     _,     _,     _)      => 4 // always has advantage, high blurs
+
       case PlayerFlags(true,  _,     _,     false, false, true,  _)      => 3 // high accuracy, no fast moves, but doesn't blur or flat line
+
       case PlayerFlags(true,  _,     _,     _,     _,     false, _)      => 2 // high accuracy, but has fast moves
+
       case PlayerFlags(false, false, _,     _,     _,    _,      _)      => 1 // low accuracy, doesn't hold advantage
       case PlayerFlags(false, false, false, false, false, false, false)  => 1 // all false, obviously not cheating
       case _ => 1
@@ -193,6 +199,15 @@ object Display {
     }
 
   def holdSig(pa: PlayerAssessment): Int = if (pa.flags.suspiciousHoldAlert) 5 else 1
+
+  def emoticon(assessment: Int): String = assessment match {
+    case 5 => ">:("
+    case 4 => ":("
+    case 3 => ":|"
+    case 2 => ":)"
+    case 1 => ":D"
+    case _ => "\\o/"
+  }
 }
 
 object Statistics {

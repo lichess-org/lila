@@ -163,9 +163,9 @@
             @if(result.hold){Yes} else {No}
           </td>
           <td>
-            <span class="aggregate hint--top-left">
-              <span class="sig_@(result.assessment)" data-icon="J"></span>
-            </span>
+            <div class="aggregate hint--top-left">
+              <span class="sig_@(result.assessment)">@(Display.emoticon(result.assessment))</span>
+            </div>
           </td>
         </tr>
       }

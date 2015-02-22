@@ -239,6 +239,9 @@ div.user_show .evaluation .legend {
 div.user_show .evaluation .legend span {
   padding: 10px;
 }
+div.user_show .evaluation [data-icon] {
+  text-shadow: 1px 1px 1px #000;
+}
 div.user_show .evaluation .sig_1 {
   color: #2077C0; /* dark blue */
 }
@@ -246,13 +249,13 @@ div.user_show .evaluation .sig_2 {
   color: #23A1AB; /* light blue */
 }
 div.user_show .evaluation .sig_3 {
-  color: #B8AA1A; /* yellow */
+  color: #DDCF3F; /* yellow */
 }
 div.user_show .evaluation .sig_4 {
-  color: #C36A2A; /* orange */
+  color: #E79B64; /* orange */
 }
 div.user_show .evaluation .sig_5 {
-  color: #dc322f; /* red */
+  color: #E73B38; /* red */
 }
 div.user_show .evaluation .match {
   font-weight: bold;
@@ -273,12 +276,6 @@ div.user_show .evaluation .peerLink {
   text-align: center;
   text-decoration: none;
 }
-div.user_show .results table.slist th {
-  text-align: center;
-}
-div.user_show .results table.slist td {
-  text-align: center;
-}
 div.user_show .reportCard {
   margin: 0 auto 10px auto;
 }
@@ -294,8 +291,14 @@ div.user_show .reportCard td {
   font-size: 1.2em;
 }
 div.user_show .results .aggregate {
+  text-shadow: 1px -1px 1px #000;
+  font-weight: bold;
   font-size: 2.2em;
-  margin-top: -5px;
+  text-align: center;
+  margin-left: -20px;
+  width: 50px;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 div.user_show .reportCard .mark {
   color: #dc322f; /* red */
