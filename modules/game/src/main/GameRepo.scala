@@ -78,6 +78,10 @@ object GameRepo {
     $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc F.createdAt)
   )
 
+  def chronologicalFinishedByUser(userId: String, nb: Int): Fu[List[Game]] = $find(
+    $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc F.createdAt), nb
+  )
+
   def unrate(gameId: String) =
     $update($select(gameId), BSONDocument("$unset" -> BSONDocument(
       F.rated -> true,

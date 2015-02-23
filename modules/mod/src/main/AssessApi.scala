@@ -49,7 +49,7 @@ final class AssessApi(collAssessments: Coll, logApi: ModlogApi) {
       }
 
   def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
-    GameRepo.chronologicalFinishedByUser(user.id) map {
+    GameRepo.chronologicalFinishedByUser(user.id, 200) map {
       gs => gs map {
         g => AnalysisRepo.doneById(g.id) flatMap {
           case Some(a) => onAnalysisReady(g, a)
@@ -58,7 +58,6 @@ final class AssessApi(collAssessments: Coll, logApi: ModlogApi) {
       }
     }
   }
-    
 
   def onAnalysisReady(game: Game, analysis: Analysis): Funit = {
     if (!game.isCorrespondence && game.turns >= 40 && game.mode.rated) {
