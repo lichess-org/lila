@@ -18,6 +18,7 @@ final class Env(
   private val CollectionModlog = config getString "collection.modlog"
   private val ActorName = config getString "actor.name"
   private val NbGamesToMark = config getInt "boosting.nb_games_to_mark"
+  private val RatioGamesToMark = config getDouble "boosting.ratio_games_to_mark"
 
   private[mod] lazy val modlogColl = db(CollectionModlog)
 
@@ -34,7 +35,8 @@ final class Env(
   private lazy val boosting = new BoostingApi(
     modApi = api,
     collBoosting = db(CollectionBoosting),
-    nbGamesToMark = NbGamesToMark)
+    nbGamesToMark = NbGamesToMark,
+    ratioGamesToMark = RatioGamesToMark)
 
   // api actor
   private val actorApi = system.actorOf(Props(new Actor {
