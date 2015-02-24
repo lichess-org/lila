@@ -5,7 +5,10 @@
 <div class="actions clearfix">
   @if(isGranted(_.UserEvaluate)) {
   <form method="post" action="@routes.User.evaluate(u.username)">
-    <input class="button" type="submit" value="@{eval.isDefined.??("(Re)")}Evaluate" />
+    <input class="button" type="submit" value="@{eval.isDefined.??("(Re)")}Evaluate (old)" />
+  </form>
+  <form method="post" action="@routes.Mod.refreshUserAssess(u.username)">
+    <input class="button" type="submit" value="@{aggregateAssessment.playerAssessments.nonEmpty.??("(Re)")}Evaluate (new)" />
   </form>
   }
   @if(isGranted(_.MarkEngine)) {
@@ -120,11 +123,6 @@
         </tr>
       </tbody>
     </table>
-    <p class="legend">
-      @Range(1, 6).map { i =>
-      <span class="sig_@i">@Display.assessmentString(i)</span>
-      }
-    </p>
     <table class="slist">
       <thead>
         <tr>

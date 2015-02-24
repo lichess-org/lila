@@ -78,6 +78,15 @@ object GameRepo {
     $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc F.createdAt)
   )
 
+  def gamesForAssessment(userId: String, nb: Int): Fu[List[Game]] = $find(
+    $query(Query.finished 
+      ++ Query.rated 
+      ++ Query.user(userId)
+      ++ Query.analysed(true)
+      ++ Query.turnsMoreThan(20)
+      ++ Query.clock(true)) sort ($sort asc F.createdAt), nb
+  )
+
   def unrate(gameId: String) =
     $update($select(gameId), BSONDocument("$unset" -> BSONDocument(
       F.rated -> true,
@@ -160,13 +169,11 @@ object GameRepo {
     $update.fieldUnchecked(id, F.analysed, true)
   }
 
-  private def selectAnalysed = Json.obj(F.analysed -> true)
-
   def isAnalysed(id: ID): Fu[Boolean] =
-    $count.exists($select(id) ++ selectAnalysed)
+    $count.exists($select(id) ++ Query.analysed(true))
 
   def filterAnalysed(ids: Seq[String]): Fu[Set[String]] =
-    $primitive(($select byIds ids) ++ selectAnalysed, "_id")(_.asOpt[String]) map (_.toSet)
+    $primitive(($select byIds ids) ++ Query.analysed(true), "_id")(_.asOpt[String]) map (_.toSet)
 
   def incBookmarks(id: ID, value: Int) =
     $update($select(id), $incBson(F.bookmarks -> value))

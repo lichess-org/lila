@@ -6,6 +6,7 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.evaluation.{ Analysed, PlayerAssessment, PlayerFlags, GameAssessments, Assessible }
 import lila.game.Game
 import lila.game.{ Game, GameRepo }
+import lila.user.{ User, UserRepo }
 import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.concurrent._
@@ -42,10 +43,21 @@ final class AssessApi(collAssessments: Coll, logApi: ModlogApi) {
 
   def refreshAssess(gameId: String): Funit =
     GameRepo.game(gameId) zip
-      AnalysisRepo.doneById(gameId) map {
+      AnalysisRepo.doneById(gameId) flatMap {
         case (Some(g), Some(a)) => onAnalysisReady(g, a)
         case _ => funit
       }
+
+  def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
+    GameRepo.gamesForAssessment(user.id, 200) flatMap {
+      gs => (gs map {
+        g => AnalysisRepo.doneById(g.id) flatMap {
+          case Some(a) => onAnalysisReady(g, a)
+          case _ => funit
+        }
+      }).sequenceFu.void
+    }
+  }
 
   def onAnalysisReady(game: Game, analysis: Analysis): Funit = {
     if (!game.isCorrespondence && game.turns >= 40 && game.mode.rated) {
@@ -54,4 +66,8 @@ final class AssessApi(collAssessments: Coll, logApi: ModlogApi) {
       gameAssessments.black.fold(funit){createPlayerAssessment}
     } else funit
   }
+  
+  private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
+    UserRepo named username flatten "[mod] missing user " + username flatMap op
+
 }

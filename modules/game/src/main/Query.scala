@@ -35,6 +35,10 @@ object Query {
 
   val notFinished: JsObject = Json.obj(F.status -> $lte(Status.Started.id))
 
+  def analysed(an: Boolean): JsObject = Json.obj(F.analysed -> an)
+
+  def turnsMoreThan(length: Int): JsObject = Json.obj(F.turns -> $gte(length))
+
   val frozen = Json.obj(F.status -> $gte(Status.Mate.id))
 
   val imported: JsObject = Json.obj(s"${F.source}" -> Source.Import.id)
