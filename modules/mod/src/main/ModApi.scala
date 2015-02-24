@@ -12,28 +12,34 @@ final class ModApi(
     firewall: Firewall,
     lilaBus: lila.common.Bus) {
 
-  def adjust(mod: String, username: String): Funit = withUser(username) { user =>
-    logApi.engine(mod, user.id, !user.engine) zip
-      UserRepo.toggleEngine(user.id) >>- {
-        if (!user.engine) lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id), 'adjustCheater)
+  def toggleEngine(mod: String, username: String): Funit = withUser(username) { user =>
+    setEngine(mod, username, !user.engine)
+  }
+
+  def setEngine(mod: String, username: String, v: Boolean): Funit = withUser(username) { user =>
+    logApi.engine(mod, user.id, v) zip
+      UserRepo.setEngine(user.id, v) >>- {
+        if (v) lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id), 'adjustCheater)
       } void
   }
 
   def autoAdjust(username: String): Funit = logApi.wasUnengined(User.normalize(username)) flatMap {
     case true  => funit
-    case false => adjust("lichess", username)
+    case false => setEngine("lichess", username, true)
   }
 
-  def adjustBooster(mod: String, username: String): Funit = withUser(username) { user =>
-    logApi.booster(mod, user.id, !user.booster) zip
-      UserRepo.toggleBooster(user.id) >>- {
-        if (!user.booster) lilaBus.publish(lila.hub.actorApi.mod.MarkBooster(user.id), 'adjustBooster)
-      } void
+  def toggleBooster(mod: String, username: String): Funit = withUser(username) { user =>
+    setBooster(mod, username, !user.booster)
+  }
+
+  def setBooster(mod: String, username: String, v: Boolean): Funit = withUser(username) { user =>
+    logApi.booster(mod, user.id, v) zip
+      UserRepo.setBooster(user.id, v) void
   }
 
   def autoBooster(username: String): Funit = logApi.wasUnbooster(User.normalize(username)) flatMap {
-    case true => funit
-    case false => adjustBooster("lichess", username)
+    case true  => funit
+    case false => setBooster("lichess", username, true)
   }
 
   def troll(mod: String, username: String): Fu[Boolean] = withUser(username) { u =>

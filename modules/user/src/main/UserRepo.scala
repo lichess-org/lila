@@ -222,9 +222,9 @@ trait UserRepo {
     $setBson("engine" -> BSONBoolean(!u.engine))
   }
 
-  def toggleBooster(id: ID): Funit = $update.docBson[ID, User](id) { u =>
-    $setBson("booster" -> BSONBoolean(!u.booster))
-  }
+  def setEngine(id: ID, v: Boolean): Funit = $update.field(id, "engine", v)
+
+  def setBooster(id: ID, v: Boolean): Funit = $update.field(id, "booster", v)
 
   def toggleIpBan(id: ID) = $update.doc[ID, User](id) { u => $set("ipBan" -> !u.ipBan) }
 
