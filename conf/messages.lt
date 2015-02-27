@@ -299,3 +299,5 @@ thisPuzzleIsCorrect=Šis galvosūkis yra teisingas ir įdomus
 thisPuzzleIsWrong=Šis galvosūkis yra klaidingas arba nuobodus
 youHaveNbSecondsToMakeYourFirstMove=Turite %s sekundžių(-es) pirmo ėjimo padarimui!
 nbGamesInPlay=%s Aktyvūs žaidimai
+no=Ne
+yes=Taip
