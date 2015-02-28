@@ -18,7 +18,7 @@ final class BoostingApi(
 
   private implicit val boostingRecordBSONHandler = Macros.handler[BoostingRecord]
 
-  private val variants = Set(
+  private val variants = Set[variant.Variant](
     variant.Standard,
     variant.Chess960,
     variant.KingOfTheHill,
@@ -49,7 +49,7 @@ final class BoostingApi(
       && game.playedTurns <= 10
       && !game.isTournament
       && game.winnerColor.isDefined
-      && variants(game.variant)
+      && variants.contains(game.variant)
       && !game.isCorrespondence
       && game.clock.fold(false) { _.limitInMinutes >= 1 }) {
       game.winnerColor match {
