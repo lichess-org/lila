@@ -7,6 +7,8 @@ final class GeoIP(file: String, cacheSize: Int) {
   private val geoIp = MaxMindIpGeo(file, cacheSize)
 
   def apply(ip: String): Option[Location] = geoIp getLocation ip map Location.apply
+
+  def orUnknown(ip: String): Location = apply(ip) | Location.unknown
 }
 
 case class Location(
@@ -24,6 +26,8 @@ case class Location(
 object Location {
 
   val unknown = Location("Solar System", none, none)
+
+  val tor = Location("TOR exit node", none, none)
 
   def apply(ipLoc: IpLocation): Location =
     Location(ipLoc.countryName | unknown.country, ipLoc.region, ipLoc.city)
