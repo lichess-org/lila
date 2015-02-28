@@ -13,5 +13,5 @@ final class Tor(providerUrl: String) {
     }
   }
 
-  private[security] def isExitNode(ip: String) = ips contains ip
+  def isExitNode(ip: String) = ips contains ip
 }

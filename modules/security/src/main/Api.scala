@@ -20,10 +20,13 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
   )
 
   def saveAuthentication(id: String, apiVersion: Option[Int])(implicit req: RequestHeader): Fu[String] = {
-    val sessionId = Random nextStringUppercase 12
-    Store.save(
-      sessionId, id, req, apiVersion, tor isExitNode req.remoteAddress
-    ) inject sessionId
+    if (tor isExitNode req.remoteAddress) fufail(Api.AuthFromTorExitNode)
+    else {
+      val sessionId = Random nextStringUppercase 12
+      Store.save(
+        sessionId, id, req, apiVersion, tor isExitNode req.remoteAddress
+      ) inject sessionId
+    }
   }
 
   // blocking function, required by Play2 form
@@ -56,4 +59,9 @@ private[security] final class Api(firewall: Firewall, tor: Tor) {
             _.flatMap(_.getAs[String]("user"))
           }
       }
+}
+
+object Api {
+
+  case object AuthFromTorExitNode extends Exception
 }
