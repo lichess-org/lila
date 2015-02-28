@@ -85,7 +85,7 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
       (lameSuffixes exists u.endsWith)
 
   private val lamePrefixes = "_" :: "-" :: (for {
-    title <- "ncfigl".toList.map(_ + "m")
+    title <- ("wg" :: "ncfigl".toList).map(_ + "m")
     sep <- List("-", "_")
   } yield s"$title$sep") ::: (0 to 9).toList map (_.toString)
 
