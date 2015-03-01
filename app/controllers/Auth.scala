@@ -37,13 +37,24 @@ object Auth extends LilaController {
               session + ("sessionId" -> sessionId) - api.AccessUri
             }
           }
+      } recoverWith {
+        case lila.security.Api.AuthFromTorExitNode => negotiate(
+          html = Unauthorized(html.auth.tor()).fuccess,
+          api = _ => Unauthorized(Json.obj(
+            "error" -> "Can't login from TOR exit node"
+          )).fuccess
+        )
       }
     )
   }
 
   def login = Open { implicit ctx =>
-    val referrer = get("referrer")
-    Ok(html.auth.login(api.loginForm, referrer)).fuccess
+    if (Env.security.tor isExitNode ctx.req.remoteAddress)
+      Unauthorized(html.auth.tor()).fuccess
+    else {
+      val referrer = get("referrer")
+      Ok(html.auth.login(api.loginForm, referrer)).fuccess
+    }
   }
 
   def authenticate = OpenBody { implicit ctx =>
@@ -54,7 +65,7 @@ object Auth extends LilaController {
           html = Unauthorized(html.auth.login(err, get("referrer"))).fuccess,
           api = _ => Unauthorized(err.errorsAsJson).fuccess
         ),
-        _.fold(InternalServerError("authenticate error").fuccess)(authenticateUser)
+        _.fold(InternalServerError("Authentication error").fuccess)(authenticateUser)
       )
     }
   }
@@ -69,8 +80,12 @@ object Auth extends LilaController {
   }
 
   def signup = Open { implicit ctx =>
-    forms.signup.websiteWithCaptcha map {
-      case (form, captcha) => Ok(html.auth.signup(form, captcha))
+    if (Env.security.tor isExitNode ctx.req.remoteAddress)
+      Unauthorized(html.auth.tor()).fuccess
+    else {
+      forms.signup.websiteWithCaptcha map {
+        case (form, captcha) => Ok(html.auth.signup(form, captcha))
+      }
     }
   }
 
@@ -86,7 +101,15 @@ object Auth extends LilaController {
             res(user) map {
               _ withCookies LilaCookie.session("sessionId", sessionId)
             }
+          } recoverWith {
+            case lila.security.Api.AuthFromTorExitNode => negotiate(
+              html = Unauthorized(html.auth.tor()).fuccess,
+              api = _ => Unauthorized(Json.obj(
+                "error" -> "Can't register from TOR exit node"
+              )).fuccess
+            )
           }
+
       }
     }
 

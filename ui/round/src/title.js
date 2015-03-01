@@ -1,16 +1,35 @@
 var game = require('game').game;
 var status = require('game').status;
 var partial = require('chessground').util.partial;
+var visible = require('./util').visible;
 
 var initialTitle = document.title;
 var tickDelay = 400;
-
+var F = [
+  '/assets/images/favicon-32-white.png',
+  '/assets/images/favicon-32-black.png'
+].map(function(path) {
+  var link = document.createElement('link');
+  link.type = 'image/x-icon';
+  link.rel = 'shortcut icon';
+  link.id = 'dynamic-favicon';
+  link.href = path;
+  return function() {
+    var oldLink = document.getElementById('dynamic-favicon');
+    if (oldLink) document.head.removeChild(oldLink);
+    document.head.appendChild(link);
+  };
+});
+var iteration = 0;
 var tick = function(ctrl) {
-  if (status.started(ctrl.data) && game.isPlayerTurn(ctrl.data)) {
-    document.title = document.title.indexOf('/\\/') === 0 ? '\\/\\ ' + document.title.replace(/\/\\\/ /, '') : '/\\/ ' + document.title.replace(/\\\/\\ /, '');
+  if (!visible() && status.started(ctrl.data) && game.isPlayerTurn(ctrl.data)) {
+    F[++iteration % 2]();
   }
   setTimeout(partial(tick, ctrl), tickDelay);
 };
+visible(function(v) {
+  if (v) F[0]();
+});
 
 var init = function(ctrl) {
   if (!ctrl.data.opponent.ai && !ctrl.data.player.spectator) setTimeout(partial(tick, ctrl), tickDelay);

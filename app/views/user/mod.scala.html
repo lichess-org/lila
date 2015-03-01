@@ -179,8 +179,7 @@
       <tr>
         <th>@spy.otherUsers.size user(s) sharing IPs</th>
         <th>Games</th>
-        <th>Engine</th>
-        <th>Troll</th>
+        <th>Marks</th>
         <th>IPban</th>
         <th>Closed</th>
         <th>Created</th>
@@ -191,8 +190,11 @@
       <tr @if(o == u){class="same"}>
         <td>@userLink(o, withBestRating = true, mod = true)</td>
         <td>@o.count.game</td>
-        <td>@if(o.engine){ENGINE}</td>
-        <td>@if(o.troll){TROLL}</td>
+        <td>
+          @if(o.engine){ENGINE}
+          @if(o.booster){BOOSTER}
+          @if(o.troll){TROLL}
+        </td>
         <td>@if(o.ipBan){IPBAN}</td>
         <td>@if(o.disabled){CLOSED}</td>
         <td>@momentFromNow(o.createdAt)</td>

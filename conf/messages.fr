@@ -429,4 +429,6 @@ connectedToLichessAnonymous=Vous êtes maintenant connecté à lichess.org. Vous
 signedOut=Vous vous êtes déconnecté
 loginSuccessful=Connexion réussie
 playOnTheBoardOffline=Jouer hors ligne, avec un ami
+playOfflineComputer=Jouer hors ligne, avec l'ordinateur
 showPGN=Montrer le PGN
+opponent=Adversaire

@@ -45,7 +45,6 @@ case class Check(userId: String)
 
 package mod {
 case class MarkCheater(userId: String)
-case class MarkBooster(userId: String)
 }
 
 package setup {

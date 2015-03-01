@@ -4,6 +4,7 @@ import scala.collection.JavaConversions._
 
 import akka.actor.{ ActorRef, ActorSystem }
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 import lila.db.Types.Coll
@@ -13,6 +14,7 @@ final class Env(
     config: Config,
     captcher: akka.actor.ActorSelection,
     system: ActorSystem,
+    scheduler: lila.common.Scheduler,
     db: lila.db.Env) {
 
   private val settings = new {
@@ -31,10 +33,10 @@ final class Env(
     val PasswordResetMailgunSender = config getString "password_reset.mailgun.sender"
     val PasswordResetMailgunBaseUrl = config getString "password_reset.mailgun.base_url"
     val PasswordResetSecret = config getString "password_reset.secret"
+    val TorProviderUrl = config getString "tor.provider_url"
+    val TorRefreshDelay = config duration "tor.refresh_delay"
   }
   import settings._
-
-  lazy val api = new Api(firewall = firewall)
 
   lazy val firewall = new Firewall(
     cookieName = FirewallCookieName.some filter (_ => FirewallCookieEnabled),
@@ -62,6 +64,12 @@ final class Env(
     baseUrl = PasswordResetMailgunBaseUrl,
     secret = PasswordResetSecret)
 
+  lazy val tor = new Tor(TorProviderUrl)
+  scheduler.once(8 seconds)(tor.refresh)
+  scheduler.effect(TorRefreshDelay, "Refresh TOR exit nodes")(tor.refresh)
+
+  lazy val api = new Api(firewall, tor)
+
   def cli = new Cli
 
   private[security] lazy val storeColl = db(CollectionSecurity)
@@ -74,5 +82,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "security",
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
+    scheduler = lila.common.PlayApp.scheduler,
     captcher = lila.hub.Env.current.actor.captcher)
 }

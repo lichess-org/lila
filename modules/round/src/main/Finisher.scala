@@ -68,7 +68,7 @@ private[round] final class Finisher(
           if game.turns > 10
           humanColor <- game.players.find(_.isHuman).map(_.color)
           user <- humanColor.fold(white, black)
-          if !user.engine
+          if !user.lame
           result = game.winnerColor match {
             case Some(c) if c == humanColor => Loss
             case Some(_)                    => Win

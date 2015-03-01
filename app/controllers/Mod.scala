@@ -20,11 +20,11 @@ object Mod extends LilaController {
   private def assessApi = Env.mod.assessApi
 
   def engine(username: String) = Secure(_.MarkEngine) { _ =>
-    me => modApi.adjust(me.id, username) inject redirect(username)
+    me => modApi.toggleEngine(me.id, username) inject redirect(username)
   }
 
   def booster(username: String) = Secure(_.MarkBooster) { _ =>
-    me => modApi.adjustBooster(me.id, username) inject redirect(username)
+    me => modApi.toggleBooster(me.id, username) inject redirect(username)
   }
 
   def troll(username: String) = Secure(_.MarkTroll) { _ =>

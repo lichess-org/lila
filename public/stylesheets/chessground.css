@@ -36,9 +36,6 @@
   position: absolute;
   width: 12.5%;
   height: 12.5%;
-  transition: 0.25s;
-}
-.manipulable .cg-square {
   transition: 0.13s;
 }
 .cg-square[data-coord-x]::after,

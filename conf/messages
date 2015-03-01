@@ -429,4 +429,6 @@ connectedToLichessAnonymous=You are now connected to lichess.org. You can sign i
 signedOut=You have been signed out
 loginSuccessful=You are now signed in
 playOnTheBoardOffline=Play offline, over the board
+playOfflineComputer=Play offline computer
 showPGN=Show PGN
+opponent=Opponent
