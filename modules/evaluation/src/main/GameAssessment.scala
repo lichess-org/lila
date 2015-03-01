@@ -35,33 +35,33 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
 
   def action = (cheatingSum, likelyCheatingSum, daysOld, relatedCheatersCount, relatedUsersCount) match {
     // New account, some cheating games, strictly related to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4)  && pt <= 1 && rc >= 1 && rc == ru) => 4
+    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4)  && pt < 1 && rc >= 1 && rc == ru)  => 4
     // Older account, many cheating games, has strict relation to cheating accounts
     case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1 && rc == ru) => 4
 
     // New account, some cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt <= 1 && rc >= 1)              => 3
+    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt < 1 && rc >= 1)               => 3
     // Older account, many cheating games, has relation to cheating accounts but is non-strict
     case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1)             => 3
     // Much older account, lots of cheating games, has relation to cheating accounts but is non-strict
     case (cs, lcs, pt, rc, ru) if ((cs >= 15 || cs + lcs >= 30) && pt >= 5 * 1 && rc >= 1)        => 3
 
     // New account, some cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 4 || cs + lcs >= 8) && pt <= 1 && rc == 0)              => 3
+    case (cs, lcs, pt, rc, ru) if ((cs >= 4 || cs + lcs >= 8) && pt < 1 && rc == 0)               => 3
     // Older account, many cheating games, no relation to cheating accounts
     case (cs, lcs, pt, rc, ru) if ((cs >= 15 || cs + lcs >= 30) && pt >= 1 && rc == 0)            => 3
     // Much older account, lots of cheating games, no relation to cheating accounts
     case (cs, lcs, pt, rc, ru) if ((cs >= 30 || cs + lcs >= 60) && pt >= 5 * 1 && rc == 0)        => 3
 
     // New account, some cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 1 || cs + lcs >= 2) && pt <= 1 && rc >= 1)              => 2
+    case (cs, lcs, pt, rc, ru) if ((cs >= 1 || cs + lcs >= 2) && pt < 1 && rc >= 1)               => 2
     // Older account, many cheating games, has relation to cheating accounts but is non-strict
     case (cs, lcs, pt, rc, ru) if ((cs >= 4 || cs + lcs >= 8) && pt >= 1 && rc >= 1)              => 2
     // Much older account, lots of cheating games, has relation to cheating accounts but is non-strict
     case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 5 * 1 && rc >= 1)         => 2
 
     // New account, some cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt <= 1 && rc == 0)              => 2
+    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt < 1 && rc == 0)               => 2
     // Older account, many cheating games, no relation to cheating accounts
     case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc == 0)             => 2
     // Much older account, lots of cheating games, no relation to cheating accounts
