@@ -3,10 +3,11 @@ package lila.mod
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.Types.Coll
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.evaluation.{ Analysed, PlayerAssessment, PlayerFlags, GameAssessments, Assessible }
+import lila.evaluation.{ Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, GameAssessments, Assessible }
 import lila.game.Game
 import lila.game.{ Game, GameRepo }
 import lila.user.{ User, UserRepo }
+
 import org.joda.time.DateTime
 import reactivemongo.bson._
 import scala.concurrent._
@@ -14,7 +15,9 @@ import scala.concurrent._
 import chess.Color
 
 
-final class AssessApi(collAssessments: Coll, logApi: ModlogApi) {
+final class AssessApi(collAssessments: Coll,
+  logApi: ModlogApi,
+  userIdsSharingIp: String => Fu[List[String]]) {
 
   private implicit val playerFlagsBSONhandler = Macros.handler[PlayerFlags]
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
@@ -40,6 +43,15 @@ final class AssessApi(collAssessments: Coll, logApi: ModlogApi) {
     getResultsByGameIdAndColor(gameId, Color.Black) map {
       a => GameAssessments(a._1, a._2)
     }
+
+  def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] = {
+    getPlayerAssessmentsByUserId(userId, nb) zip
+    UserRepo.byId(userId) zip
+    (userIdsSharingIp(userId) flatMap UserRepo.filterByEngine) map {
+      case ((assessedGamesHead :: assessedGamesTail, Some(user)), relatedCheaters) => Some(PlayerAggregateAssessment(assessedGamesHead :: assessedGamesTail, user, relatedCheaters))
+      case _ => none
+    }
+  }
 
   def refreshAssess(gameId: String): Funit =
     GameRepo.game(gameId) zip

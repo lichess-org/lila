@@ -11,7 +11,8 @@ final class Env(
     db: lila.db.Env,
     system: ActorSystem,
     firewall: Firewall,
-    userSpy: String => Fu[UserSpy]) {
+    userSpy: String => Fu[UserSpy],
+    userIdsSharingIp: String => Fu[List[String]]) {
 
   private val CollectionPlayerAssessment= config getString "collection.player_assessment"
   private val CollectionBoosting = config getString "collection.boosting"
@@ -23,7 +24,7 @@ final class Env(
 
   lazy val logApi = new ModlogApi
 
-  lazy val assessApi = new AssessApi(db(CollectionPlayerAssessment), logApi)
+  lazy val assessApi = new AssessApi(db(CollectionPlayerAssessment), logApi, userIdsSharingIp)
 
   lazy val api = new ModApi(
     logApi = logApi,
@@ -58,5 +59,6 @@ object Env {
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     firewall = lila.security.Env.current.firewall,
-    userSpy = lila.security.Env.current.userSpy)
+    userSpy = lila.security.Env.current.userSpy,
+    userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp)
 }

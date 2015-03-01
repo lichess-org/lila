@@ -1,4 +1,4 @@
-@(u: User, spy: lila.security.UserSpy, eval: Option[lila.evaluation.Evaluation], aggregateAssessment: lila.evaluation.PlayerAggregateAssessment)(implicit ctx: Context)
+@(u: User, spy: lila.security.UserSpy, eval: Option[lila.evaluation.Evaluation], optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 
@@ -8,7 +8,7 @@
     <input class="button" type="submit" value="@{eval.isDefined.??("(Re)")}Evaluate (old)" />
   </form>
   <form method="post" action="@routes.Mod.refreshUserAssess(u.username)">
-    <input class="button" type="submit" value="@{aggregateAssessment.playerAssessments.nonEmpty.??("(Re)")}Evaluate (new)" />
+    <input class="button" type="submit" value="Evaluate (new)" />
   </form>
   }
   @if(isGranted(_.MarkEngine)) {
@@ -85,7 +85,15 @@
     }
   </div>
   }
-  @if(aggregateAssessment.playerAssessments.nonEmpty) {
+  @optionAggregateAssessment.fold{
+  <div class="evaluation">
+    <p>
+      No assessment available
+      <br />
+      <br />
+    </p>
+  </div>
+  }{ aggregateAssessment =>
   <div class="evaluation results">
     <table class="reportCard">
       <thead>
@@ -169,14 +177,6 @@
       }
       </tbody>
     </table>
-  </div>
-  } else {
-  <div class="evaluation">
-    <p>
-      No assessed games
-      <br />
-      <br />
-    </p>
   </div>
   }
   @if(spy.otherUsers.size < 2) {

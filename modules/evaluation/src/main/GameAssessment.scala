@@ -3,6 +3,7 @@ package lila.evaluation
 import chess.{ Color }
 import lila.game.{ Pov, Game }
 import lila.analyse.{ Accuracy, Analysis }
+import lila.user.User
 import Math.{ pow, abs, sqrt, E, exp }
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
@@ -26,7 +27,10 @@ case class PlayerAssessment(
   val color = Color.apply(white)
 }
 
-case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment]) {
+case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
+  user: User,
+  relatedCheaters: List[String]) {
+
   import Statistics._
 
   def countAssessmentValue(assessment: Int) = listSum(playerAssessments map {
@@ -93,7 +97,7 @@ case class Assessible(analysed: Analysed) {
     this.analysed.game.playerBlurPercent(color) > 70
 
   def consistentMoveTimes(color: Color): Boolean =
-    moveTimes(color).toNel.map(coefVariation).fold(false)(_ < 0.7)
+    moveTimes(color).toNel.map(coefVariation).fold(false)(_ < 0.5)
 
   def noFastMoves(color: Color): Boolean = !moveTimes(color).exists(_ < 10)
 
@@ -117,8 +121,8 @@ case class Assessible(analysed: Analysed) {
       case PlayerFlags(true,  _,     _,     _,     _,     true,  true)   => 5 // high accuracy, no fast moves, hold alerts
       case PlayerFlags(_,     true,  _,     _,     _,     true,  true)   => 5 // always has advantage, no fast moves, hold alerts
       case PlayerFlags(true,  _,     true,  _,     _,     true,  _)      => 5 // high accuracy, high blurs, no fast moves
-      case PlayerFlags(true,  _,     _,     _,     true,  true,  _)      => 5 // high accuracy, consistent move times, no fast moves
-
+      
+      case PlayerFlags(true,  _,     _,     _,     true,  true,  _)      => 4 // high accuracy, consistent move times, no fast moves
       case PlayerFlags(true,  _,     _,     true,  _,     true,  _)      => 4 // high accuracy, moderate blurs, no fast moves
       case PlayerFlags(_,     true,  _,     true,  true,  _,     _)      => 4 // always has advantage, moderate blurs, highly consistent move times
       case PlayerFlags(_,     true,  _,     _,     _,     _,     true)   => 4 // always has advantage, hold alerts
