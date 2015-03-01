@@ -99,34 +99,26 @@
       <thead>
         <tr>
           <th>
-            <span class="@(if(aggregateAssessment.markPri) "mark" else "noMark")">Cheating</span>
-          </th>
-          <th>
-            <span class="@(if(aggregateAssessment.markSec) "mark" else "noMark")">Cheating</span>
-          </th>
-          <th>
-            <span class="@(if(aggregateAssessment.reportPri) "report" else "noReport")">Report</span>
-          </th>
-          <th>
-            <span class="@(if(aggregateAssessment.reportSec) "report" else "noReport")">Report</span>
+            <span class="result_@aggregateAssessment.action">@aggregateAssessment.actionString</span>
           </th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>
-            <span class="sig_5">@aggregateAssessment.cheatingSum</span> / 2
+            <span class="sig_1">@aggregateAssessment.daysOld</span> days of play
           </td>
+        </tr>
+        <tr>
           <td>
-            <span class="sig_5">@aggregateAssessment.cheatingSum</span> + 
-            <span class="sig_4">@aggregateAssessment.likelyCheatingSum</span> / 4
+            <span class="sig_5">@aggregateAssessment.cheatingSum</span> cheating and 
+            <span class="sig_4">@aggregateAssessment.likelyCheatingSum</span> likely cheating games
           </td>
+        </tr>
+        <tr>
           <td>
-            <span class="sig_5">@aggregateAssessment.cheatingSum</span> / 1
-          </td>
-          <td>
-            <span class="sig_5">@aggregateAssessment.cheatingSum</span> + 
-            <span class="sig_4">@aggregateAssessment.likelyCheatingSum</span> / 2
+            <span class="sig_5">@aggregateAssessment.relatedCheatersCount</span> related cheaters
+            <span class="sig_1">@aggregateAssessment.relatedUsersCount</span> related users
           </td>
         </tr>
       </tbody>
@@ -149,7 +141,7 @@
         </tr>
       </thead>
       <tbody>
-      @aggregateAssessment.playerAssessments.map { result =>
+      @aggregateAssessment.playerAssessments.take(25).map { result =>
         <tr>
           <td><a href="@routes.Round.watcher(result.gameId, result.color.name)">@routes.Round.watcher(result.gameId, result.color.name)</a></td>
           <td>

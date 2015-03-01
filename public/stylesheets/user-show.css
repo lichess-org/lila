@@ -257,6 +257,19 @@ div.user_show .evaluation .sig_4 {
 div.user_show .evaluation .sig_5 {
   color: #E73B38; /* red */
 }
+div.user_show .evaluation .result_4 {
+  color: #E73B38; /* red */
+  font-size: 2em;
+}
+div.user_show .evaluation .result_3 {
+  color: #E73B38; /* red */
+}
+div.user_show .evaluation .result_2 {
+  color: #E79B64; /* orange */
+}
+div.user_show .evaluation .result_1 {
+  color: #2077C0; /* dark blue */
+}
 div.user_show .evaluation .match {
   font-weight: bold;
   color: #759900;
@@ -289,6 +302,7 @@ div.user_show .reportCard td {
   text-align: center;
   font-weight: bold;
   font-size: 1.2em;
+  padding: 5px;
 }
 div.user_show .results .aggregate {
   text-shadow: 1px -1px 1px #000;

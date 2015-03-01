@@ -29,24 +29,64 @@ case class PlayerAssessment(
 
 case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   user: User,
+  relatedUsers: List[String],
   relatedCheaters: List[String]) {
-
   import Statistics._
+
+  def action = (cheatingSum, likelyCheatingSum, daysOld, relatedCheatersCount, relatedUsersCount) match {
+    // New account, some cheating games, strictly related to cheating accounts
+    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4)  && pt <= 1 && rc >= 1 && rc == ru) => 4
+    // Older account, many cheating games, has strict relation to cheating accounts
+    case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1 && rc == ru) => 4
+
+    // New account, some cheating games, has relation to cheating accounts but is non-strict
+    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt <= 1 && rc >= 1)              => 3
+    // Older account, many cheating games, has relation to cheating accounts but is non-strict
+    case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1)             => 3
+    // Much older account, lots of cheating games, has relation to cheating accounts but is non-strict
+    case (cs, lcs, pt, rc, ru) if ((cs >= 15 || cs + lcs >= 30) && pt >= 5 * 1 && rc >= 1)        => 3
+
+    // New account, some cheating games, no relation to cheating accounts
+    case (cs, lcs, pt, rc, ru) if ((cs >= 4 || cs + lcs >= 8) && pt <= 1 && rc == 0)              => 3
+    // Older account, many cheating games, no relation to cheating accounts
+    case (cs, lcs, pt, rc, ru) if ((cs >= 15 || cs + lcs >= 30) && pt >= 1 && rc == 0)            => 3
+    // Much older account, lots of cheating games, no relation to cheating accounts
+    case (cs, lcs, pt, rc, ru) if ((cs >= 30 || cs + lcs >= 60) && pt >= 5 * 1 && rc == 0)        => 3
+
+    // New account, some cheating games, has relation to cheating accounts but is non-strict
+    case (cs, lcs, pt, rc, ru) if ((cs >= 1 || cs + lcs >= 2) && pt <= 1 && rc >= 1)              => 2
+    // Older account, many cheating games, has relation to cheating accounts but is non-strict
+    case (cs, lcs, pt, rc, ru) if ((cs >= 4 || cs + lcs >= 8) && pt >= 1 && rc >= 1)              => 2
+    // Much older account, lots of cheating games, has relation to cheating accounts but is non-strict
+    case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 5 * 1 && rc >= 1)         => 2
+
+    // New account, some cheating games, no relation to cheating accounts
+    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt <= 1 && rc == 0)              => 2
+    // Older account, many cheating games, no relation to cheating accounts
+    case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc == 0)             => 2
+    // Much older account, lots of cheating games, no relation to cheating accounts
+    case (cs, lcs, pt, rc, ru) if ((cs >= 15 || cs + lcs >= 30) && pt >= 5 * 1 && rc == 0)        => 2
+
+    // Anything else
+    case _ => 1
+  }
+
+  def actionString: String = action match {
+    case 4 => "Rain hellfire"
+    case 3 => "Definitely cheating"
+    case 2 => "Possibly cheating"
+    case 1 => "Not cheating"
+  }
 
   def countAssessmentValue(assessment: Int) = listSum(playerAssessments map {
     case a if (a.assessment == assessment) => 1
     case _ => 0
   })
-
+  val daysOld = user.playTime.fold(0){ _.totalPeriod.toStandardDays.getDays }
+  val relatedCheatersCount = relatedCheaters.distinct.size
+  val relatedUsersCount = relatedUsers.distinct.size
   val cheatingSum = countAssessmentValue(5)
   val likelyCheatingSum = countAssessmentValue(4)
-
-  val markPri = countAssessmentValue(5) >= 2
-  val markSec = countAssessmentValue(5) + countAssessmentValue(4) >= 4
-
-  val reportPri = countAssessmentValue(5) >= 1
-  val reportSec = countAssessmentValue(5) + countAssessmentValue(4) >= 2
-
 }
 
 case class GameAssessments(
@@ -133,7 +173,6 @@ case class Assessible(analysed: Analysed) {
       case PlayerFlags(true,  _,     _,     _,     _,     false, _)      => 2 // high accuracy, but has fast moves
 
       case PlayerFlags(false, false, _,     _,     _,    _,      _)      => 1 // low accuracy, doesn't hold advantage
-      case PlayerFlags(false, false, false, false, false, false, false)  => 1 // all false, obviously not cheating
       case _ => 1
     }).min(this.analysed.game.wonBy(color) match {
       case Some(c) if (c) => 5
