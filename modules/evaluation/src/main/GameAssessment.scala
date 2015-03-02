@@ -87,6 +87,40 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   val relatedUsersCount = relatedUsers.distinct.size
   val cheatingSum = countAssessmentValue(5)
   val likelyCheatingSum = countAssessmentValue(4)
+
+  val ageClass = daysOld match {
+    case a if (a > 5) => 5
+    case a if (a >= 1) => 3
+    case _ => 1
+  }
+
+  val cheatingClass = cheatingSum match {
+    case s if (s >= 3) => 5
+    case s if (s >= 2) => 4
+    case s if (s == 1) => 3
+    case _ => 1
+  }
+
+  val likelyCheatingClass = likelyCheatingSum match {
+    case lcs if (lcs > 5) => 5
+    case lcs if (lcs >= 3) => 4
+    case lcs if (lcs >= 2) => 3
+    case _ => 1
+  }
+
+  val relatedCheatersClass = relatedCheatersCount match {
+    case rcc if (rcc >= 2) => 5
+    case rcc if (rcc == 1) => 4
+    case _ => 1
+  }
+
+  val relatedUsersClass = relatedUsersCount match {
+    case ruc if (ruc >= 10) => 5
+    case ruc if (ruc >= 5) => 4
+    case ruc if (ruc >= 2) => 3
+    case ruc if (ruc == 1) => 2
+    case _ => 1
+  }
 }
 
 case class GameAssessments(

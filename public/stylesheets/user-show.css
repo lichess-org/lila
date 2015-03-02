@@ -259,7 +259,6 @@ div.user_show .evaluation .sig_5 {
 }
 div.user_show .evaluation .result_4 {
   color: #E73B38; /* red */
-  font-size: 2em;
 }
 div.user_show .evaluation .result_3 {
   color: #E73B38; /* red */
@@ -293,16 +292,15 @@ div.user_show .reportCard {
   margin: 0 auto 10px auto;
 }
 div.user_show .reportCard th {
-  text-align: center;
   font-weight: bold;
-  font-size: 2em;
-  padding: 0 20px 5px 20px;
+  text-align: center;
+  padding: 5px;
 }
 div.user_show .reportCard td {
-  text-align: center;
   font-weight: bold;
-  font-size: 1.2em;
-  padding: 5px;
+  font-size: 1.6em;
+  text-align: center;
+  padding: 0 5px 0 5px;
 }
 div.user_show .results .aggregate {
   text-shadow: 1px -1px 1px #000;

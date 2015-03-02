@@ -99,26 +99,44 @@
       <thead>
         <tr>
           <th>
-            <span class="result_@aggregateAssessment.action">@aggregateAssessment.actionString</span>
+            Assessment
+          </th>
+          <th>
+            Days Played
+          </th>
+          <th>
+            Cheating
+          </th>
+          <th>
+            Likely Cheating
+          </th>
+          <th>
+            Related Cheaters
+          </th>
+          <th>
+            Related Users
           </th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>
-            <span class="sig_1">@aggregateAssessment.daysOld</span> days of play
+            <span class="result_@aggregateAssessment.action">@aggregateAssessment.actionString</span>
           </td>
-        </tr>
-        <tr>
           <td>
-            <span class="sig_5">@aggregateAssessment.cheatingSum</span> cheating and 
-            <span class="sig_4">@aggregateAssessment.likelyCheatingSum</span> likely cheating games
+            <span class="sig_@aggregateAssessment.ageClass">@aggregateAssessment.daysOld</span>
           </td>
-        </tr>
-        <tr>
           <td>
-            <span class="sig_5">@aggregateAssessment.relatedCheatersCount</span> related cheaters
-            <span class="sig_1">@aggregateAssessment.relatedUsersCount</span> related users
+            <span class="sig_@aggregateAssessment.cheatingClass">@aggregateAssessment.cheatingSum</span>
+          </td>
+          <td>
+            <span class="sig_@aggregateAssessment.likelyCheatingSum">@aggregateAssessment.likelyCheatingSum</span>
+          </td>
+          <td>
+            <span class="sig_@aggregateAssessment.relatedCheatersClass">@aggregateAssessment.relatedCheatersCount</span>
+          </td>
+          <td>
+            <span class="sig_@aggregateAssessment.relatedUsersClass">@aggregateAssessment.relatedUsersCount</span>
           </td>
         </tr>
       </tbody>
