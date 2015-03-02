@@ -31,15 +31,14 @@ final class BoostingApi(
   def createBoostRecord(record: BoostingRecord) =
     collBoosting.update(BSONDocument("_id" -> record.id), record, upsert = true).void
 
-  def determineBoosting(record: BoostingRecord, winner: User): Funit = {
-    if (record.games >= nbGamesToMark &&
-      record.games >= (winner.count.rated * ratioGamesToMark)) {
-      modApi.autoBooster(winner.username)
+  def determineBoosting(record: BoostingRecord, winner: User, loser: User): Funit =
+    (record.games >= nbGamesToMark) ?? {
+      {
+        (record.games >= (winner.count.rated * ratioGamesToMark)) ?? modApi.autoBooster(winner.id)
+      } >> {
+        (record.games >= (loser.count.rated * ratioGamesToMark)) ?? modApi.autoBooster(loser.id)
+      }
     }
-    else {
-      funit
-    }
-  }
 
   def boostingId(winner: User, loser: User): String = winner.id + "/" + loser.id
 
@@ -63,15 +62,11 @@ final class BoostingApi(
             case Some(record) =>
               val newRecord = BoostingRecord(
                 _id = id,
-                player = result.winner.id,
-                games = record.games + 1
-              )
-              createBoostRecord(newRecord) >> determineBoosting(newRecord, result.winner)
+                games = record.games + 1)
+              createBoostRecord(newRecord) >> determineBoosting(newRecord, result.winner, result.loser)
             case none => createBoostRecord(BoostingRecord(
               _id = id,
-              player = result.winner.id,
-              games = 1
-            ))
+              games = 1))
           }
         }
         case none => funit
@@ -86,15 +81,11 @@ final class BoostingApi(
 
 object BoostingApi {
 
-  case class BoostingRecord(
-      _id: String,
-      player: String,
-      games: Int) {
+  case class BoostingRecord(_id: String, games: Int) {
     def id = _id
   }
 
   case class GameResult(
     winner: User,
     loser: User)
-
 }
