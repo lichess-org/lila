@@ -1,7 +1,7 @@
 playWithAFriend=بازی دوستانه
 playWithTheMachine=بازی با رایانه
 toInviteSomeoneToPlayGiveThisUrl=%برای دعوت کردن حریف این پیوند را برای او بفرستید%
-gameOver=%پایان بازی%
+gameOver=پایان بازی
 waitingForOpponent=منتظر حریف
 waiting=انتظار
 yourTurn=نوبت شماست
@@ -407,6 +407,7 @@ xLeftANoteOnY=%s یک پیام برای %s گذاشت
 xCompetesInY=%s در تورنمت %s رقابت می کند
 xAskedY=%s پرسش شده %s
 xAnsweredY=%s جواب داده %s
+xCommentedY=%s به %s پیام داد.
 seeAllTournaments=دیدن تمام مسابقات
 starting=شروع کردن
 allInformationIsPublicAndOptional=تمامی اطلاعات عمومی و اختیاری است.
