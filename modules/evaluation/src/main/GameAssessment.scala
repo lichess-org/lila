@@ -89,9 +89,9 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   val likelyCheatingSum = countAssessmentValue(4)
 
   val ageClass = daysOld match {
-    case a if (a > 5) => 5
-    case a if (a >= 1) => 3
-    case _ => 1
+    case a if (a > 5) => 1
+    case a if (a >= 1) => 2
+    case _ => 5
   }
 
   val cheatingClass = cheatingSum match {
