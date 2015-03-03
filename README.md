@@ -10,8 +10,10 @@ It has a [search engine](http://lichess.org/games/search),
 [tournaments](http://lichess.org/tournament),
 [forums](http://lichess.org/forum),
 [teams](http://lichess.org/team),
-[puzzles](http://lichess.org/training),
-a weird [monitoring console](http://lichess.org/monitor),
+[tactic trainer](http://lichess.org/training),
+[opening trainer](http://lichess.org/training/opening),
+a [mobile app](http://lichess.org/mobile),
+a [monitoring console](http://lichess.org/monitor),
 and a [network world map](http://lichess.org/network).
 The UI is available in [80 languages](http://lichess.org/translation/contribute) thanks to the community.
 
@@ -19,14 +21,14 @@ Lichess is written in [Scala 2.11](http://www.scala-lang.org/),
 and relies on [Play 2.3](http://www.playframework.com/) for the routing, templating, and JSON.
 Pure chess logic is contained in [scalachess](http://github.com/ornicar/scalachess) submodule.
 The codebase is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
-Lichess talks to [Stockfish 5](http://stockfishchess.org/) using a [FSM Actor](https://github.com/ornicar/lila/blob/master/modules/ai/src/main/ActorFSM.scala) to handle AI moves and analysis.
-It uses [MongoDB 2.4](http://mongodb.org) to store more than 30 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
-HTTP requests and websocket connections are proxied by [nginx 1.4](http://nginx.org).
+Lichess talks to [Stockfish](http://stockfishchess.org/) deployed in an AI cluster of donated servers.
+It uses [MongoDB 2.6](http://mongodb.org) to store more than 60 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
+HTTP requests and websocket connections are proxied by [nginx 1.6](http://nginx.org).
 Client-side is written in [mithril.js](http://lhorie.github.io/mithril/).
 The [blog](http://lichess.org/blog) uses a free open content plan from [prismic.io](http://prismic.io).
 
 Join us on #lichess IRC channel on freenode for more info.
-See the roadmap on https://etherpad.mozilla.org/ep/pad/view/ro.3bIwxJwTQYW/latest.
+Use [github issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.
 
 Installation
 ------------
