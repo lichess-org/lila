@@ -293,14 +293,13 @@ div.user_show .reportCard {
 }
 div.user_show .reportCard th {
   font-weight: bold;
-  text-align: center;
-  padding: 5px;
-}
-div.user_show .reportCard td {
-  font-weight: bold;
   font-size: 1.6em;
   text-align: center;
   padding: 0 5px 0 5px;
+}
+div.user_show .reportCard td {
+  text-align: center;
+  padding: 5px;
 }
 div.user_show .results .aggregate {
   text-shadow: 1px -1px 1px #000;
