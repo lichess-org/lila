@@ -70,20 +70,22 @@ final class AssessApi(
     GameRepo.gamesForAssessment(user.id, 200) flatMap {
       gs => (gs map {
         g => AnalysisRepo.doneById(g.id) flatMap {
-          case Some(a) => onAnalysisReady(g, a)
+          case Some(a) => onAnalysisReady(g, a, false)
           case _ => funit
         }
       }).sequenceFu.void
     }
   } >> assessPlayer(username)
 
-  def onAnalysisReady(game: Game, analysis: Analysis): Funit = {
+  def onAnalysisReady(game: Game, analysis: Analysis, assess: Boolean = true): Funit = {
     if (!game.isCorrespondence && game.turns >= 40 && game.mode.rated) {
       val gameAssessments: GameAssessments = Assessible(Analysed(game, analysis)).assessments
       gameAssessments.white.fold(funit){createPlayerAssessment} >>
       gameAssessments.black.fold(funit){createPlayerAssessment}
     } else funit
-  } >> game.whitePlayer.userId.fold(funit){assessPlayer} >> game.blackPlayer.userId.fold(funit){assessPlayer}
+  } >> (if (assess) {
+    game.whitePlayer.userId.fold(funit){assessPlayer} >> game.blackPlayer.userId.fold(funit){assessPlayer}
+  } else funit)
 
   def assessPlayer(userId: String): Funit = getPlayerAggregateAssessment(userId) flatMap {
     case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
