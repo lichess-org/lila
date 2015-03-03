@@ -25,8 +25,6 @@ final class Env(
 
   lazy val logApi = new ModlogApi
 
-  lazy val assessApi = new AssessApi(db(CollectionPlayerAssessment), logApi, userIdsSharingIp)
-
   lazy val api = new ModApi(
     logApi = logApi,
     userSpy = userSpy,
@@ -38,6 +36,12 @@ final class Env(
     collBoosting = db(CollectionBoosting),
     nbGamesToMark = NbGamesToMark,
     ratioGamesToMark = RatioGamesToMark)
+
+  lazy val assessApi = new AssessApi(
+    collAssessments = db(CollectionPlayerAssessment),
+    logApi = logApi,
+    modApi = api,
+    userIdsSharingIp)
 
   // api actor
   private val actorApi = system.actorOf(Props(new Actor {

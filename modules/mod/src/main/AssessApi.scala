@@ -3,7 +3,7 @@ package lila.mod
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.Types.Coll
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.evaluation.{ Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, GameAssessments, Assessible }
+import lila.evaluation.{ AccountAction, Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, GameAssessments, Assessible }
 import lila.game.Game
 import lila.game.{ Game, GameRepo }
 import lila.user.{ User, UserRepo }
@@ -15,8 +15,10 @@ import scala.concurrent._
 import chess.Color
 
 
-final class AssessApi(collAssessments: Coll,
+final class AssessApi(
+  collAssessments: Coll,
   logApi: ModlogApi,
+  modApi: ModApi,
   userIdsSharingIp: String => Fu[List[String]]) {
 
   private implicit val playerFlagsBSONhandler = Macros.handler[PlayerFlags]
@@ -81,6 +83,19 @@ final class AssessApi(collAssessments: Coll,
       gameAssessments.white.fold(funit){createPlayerAssessment} >>
       gameAssessments.black.fold(funit){createPlayerAssessment}
     } else funit
+  }
+
+  def assessPlayerById(userId: String): Funit = {
+    getPlayerAggregateAssessment(userId) flatMap {
+      case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
+        case AccountAction.EngineAndBan => modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)// >>
+          //modApi.autoBan(userId) >> logApi.ban("lichess", userId, true)
+        case AccountAction.Engine => modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
+        case AccountAction.Report => funit
+        case _ => funit
+      }
+      case _ => funit
+    }
   }
   
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =

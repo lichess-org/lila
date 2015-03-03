@@ -27,6 +27,31 @@ case class PlayerAssessment(
   val color = Color.apply(white)
 }
 
+sealed trait AccountAction {
+  val description: String
+  val colorClass: String
+  override def toString = description
+}
+
+object AccountAction {
+  case object EngineAndBan extends AccountAction {
+    val description: String = "Mark and IP ban"
+    val colorClass = "4"
+  }
+  case object Engine extends AccountAction {
+    val description: String = "Mark as engine"
+    val colorClass = "3"
+  }
+  case object Report extends AccountAction {
+    val description: String = "Report to mods"
+    val colorClass = "2"
+  }
+  case object Nothing extends AccountAction {
+    val description: String = "Not suspicious"
+    val colorClass = "1"
+  }
+}
+
 case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   user: User,
   relatedUsers: List[String],
@@ -35,47 +60,40 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
 
   def action = (cheatingSum, likelyCheatingSum, daysOld, relatedCheatersCount, relatedUsersCount) match {
     // New account, some cheating games, strictly related to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4)  && pt < 1 && rc >= 1 && rc == ru)  => 4
+    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4)  && pt < 1 && rc >= 1 && rc == ru)  => AccountAction.EngineAndBan
     // Older account, many cheating games, has strict relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1 && rc == ru) => 4
+    case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1 && rc == ru) => AccountAction.EngineAndBan
 
     // New account, some cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt < 1 && rc >= 1)               => 3
+    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt < 1 && rc >= 1)               => AccountAction.Engine
     // Older account, many cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1)             => 3
+    case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1)             => AccountAction.Engine
     // Much older account, lots of cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 15 || cs + lcs >= 30) && pt >= 5 && rc >= 1)            => 3
+    case (cs, lcs, pt, rc, ru) if ((cs >= 15 || cs + lcs >= 30) && pt >= 5 && rc >= 1)            => AccountAction.Engine
 
     // New account, some cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt < 1 && rc == 0)               => 3
+    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt < 1 && rc == 0)               => AccountAction.Engine
     // Older account, many cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 15 || cs + lcs >= 30) && pt >= 1 && rc == 0)            => 3
+    case (cs, lcs, pt, rc, ru) if ((cs >= 15 || cs + lcs >= 30) && pt >= 1 && rc == 0)            => AccountAction.Engine
     // Much older account, lots of cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 30 || cs + lcs >= 60) && pt >= 5 && rc == 0)            => 3
+    case (cs, lcs, pt, rc, ru) if ((cs >= 30 || cs + lcs >= 60) && pt >= 5 && rc == 0)            => AccountAction.Engine
 
     // New account, some cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 1 || cs + lcs >= 2) && pt < 1 && rc >= 1)               => 2
+    case (cs, lcs, pt, rc, ru) if ((cs >= 1 || cs + lcs >= 2) && pt < 1 && rc >= 1)               => AccountAction.Report
     // Older account, many cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt >= 1 && rc >= 1)              => 2
+    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt >= 1 && rc >= 1)              => AccountAction.Report
     // Much older account, lots of cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 4 || cs + lcs >= 8) && pt >= 5 && rc >= 1)             => 2
+    case (cs, lcs, pt, rc, ru) if ((cs >= 4 || cs + lcs >= 8) && pt >= 5 && rc >= 1)              => AccountAction.Report
 
     // New account, some cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 1 || cs + lcs >= 2) && pt < 1 && rc == 0)               => 2
+    case (cs, lcs, pt, rc, ru) if ((cs >= 1 || cs + lcs >= 2) && pt < 1 && rc == 0)               => AccountAction.Report
     // Older account, many cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 4 || cs + lcs >= 8) && pt >= 1 && rc == 0)             => 2
+    case (cs, lcs, pt, rc, ru) if ((cs >= 4 || cs + lcs >= 8) && pt >= 1 && rc == 0)              => AccountAction.Report
     // Much older account, lots of cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 5 && rc == 0)            => 2
+    case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 5 && rc == 0)             => AccountAction.Report
 
     // Anything else
-    case _ => 1
-  }
-
-  def actionString: String = action match {
-    case 4 => "Rain hellfire"
-    case 3 => "Definitely cheating"
-    case 2 => "Possibly cheating"
-    case 1 => "Not cheating"
+    case _ => AccountAction.Nothing
   }
 
   def countAssessmentValue(assessment: Int) = listSum(playerAssessments map {
@@ -87,40 +105,6 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   val relatedUsersCount = relatedUsers.distinct.size
   val cheatingSum = countAssessmentValue(5)
   val likelyCheatingSum = countAssessmentValue(4)
-
-  val ageClass = daysOld match {
-    case a if (a > 5) => 1
-    case a if (a >= 1) => 2
-    case _ => 5
-  }
-
-  val cheatingClass = cheatingSum match {
-    case s if (s >= 3) => 5
-    case s if (s >= 2) => 4
-    case s if (s == 1) => 3
-    case _ => 1
-  }
-
-  val likelyCheatingClass = likelyCheatingSum match {
-    case lcs if (lcs > 5) => 5
-    case lcs if (lcs >= 3) => 4
-    case lcs if (lcs >= 2) => 3
-    case _ => 1
-  }
-
-  val relatedCheatersClass = relatedCheatersCount match {
-    case rcc if (rcc >= 2) => 5
-    case rcc if (rcc == 1) => 4
-    case _ => 1
-  }
-
-  val relatedUsersClass = relatedUsersCount match {
-    case ruc if (ruc >= 10) => 5
-    case ruc if (ruc >= 5) => 4
-    case ruc if (ruc >= 2) => 3
-    case ruc if (ruc == 1) => 2
-    case _ => 1
-  }
 }
 
 case class GameAssessments(
