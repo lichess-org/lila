@@ -85,8 +85,8 @@ final class AssessApi(
     } else funit
   }
 
-  def assessPlayerById(userId: String): Funit = {
-    getPlayerAggregateAssessment(userId) flatMap {
+  def assessPlayerById(userId: String): Funit = UserRepo.usernameById(userId) flatMap { 
+    case Some(username) => getPlayerAggregateAssessment(username) flatMap {
       case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
         case AccountAction.EngineAndBan => modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)// >>
           //modApi.autoBan(userId) >> logApi.ban("lichess", userId, true)
@@ -96,6 +96,7 @@ final class AssessApi(
       }
       case _ => funit
     }
+    case _ => funit
   }
   
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
