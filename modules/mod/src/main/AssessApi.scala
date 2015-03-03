@@ -75,7 +75,7 @@ final class AssessApi(
         }
       }).sequenceFu.void
     }
-  }
+  } >> assessPlayer(username)
 
   def onAnalysisReady(game: Game, analysis: Analysis): Funit = {
     if (!game.isCorrespondence && game.turns >= 40 && game.mode.rated) {
@@ -83,16 +83,13 @@ final class AssessApi(
       gameAssessments.white.fold(funit){createPlayerAssessment} >>
       gameAssessments.black.fold(funit){createPlayerAssessment}
     } else funit
-  }
+  } >> game.whitePlayer.userId.fold(funit){assessPlayer} >> game.blackPlayer.userId.fold(funit){assessPlayer}
 
-  def assessPlayerById(userId: String): Funit = UserRepo.usernameById(userId) flatMap { 
-    case Some(username) => getPlayerAggregateAssessment(username) flatMap {
-      case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
-        case AccountAction.EngineAndBan => modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
-        case AccountAction.Engine => modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
-        case AccountAction.Report => funit
-        case _ => funit
-      }
+  def assessPlayer(userId: String): Funit = getPlayerAggregateAssessment(userId) flatMap {
+    case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
+      case AccountAction.EngineAndBan => modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
+      case AccountAction.Engine => modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
+      case AccountAction.Report => funit
       case _ => funit
     }
     case _ => funit
