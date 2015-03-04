@@ -429,4 +429,6 @@ connectedToLichessAnonymous=Şimdi lichess.org'a bağlandınız. Menüden giriş
 signedOut=Zaten çıkmışsınız.
 loginSuccessful=Giriş başarılı
 playOnTheBoardOffline=Tahta üzerinde offline oyna
+playOfflineComputer=Bilgisayara Karşı
 showPGN=PGN Göster
+opponent=Rakip
