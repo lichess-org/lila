@@ -57,43 +57,46 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   relatedUsers: List[String],
   relatedCheaters: List[String]) {
   import Statistics._
+  import AccountAction._
 
   def action = (cheatingSum, likelyCheatingSum, daysOld, relatedCheatersCount, relatedUsersCount) match {
+    case (cs, lcs, pt, rc, ru) =>
+
     // New account, some cheating games, strictly related to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4)  && pt < 1 && rc >= 1 && rc == ru)  => AccountAction.EngineAndBan
+    if ((cs >= 2 || cs + lcs >= 4)  && pt < 1 && rc >= 1 && rc == ru)       EngineAndBan
     // Older account, many cheating games, has strict relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1 && rc == ru) => AccountAction.EngineAndBan
+    else if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1 && rc == ru) EngineAndBan
 
     // New account, some cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt < 1 && rc >= 1)               => AccountAction.Engine
+    else if ((cs >= 2 || cs + lcs >= 4) && pt < 1 && rc >= 1)               Engine
     // Older account, many cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1)             => AccountAction.Engine
+    else if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1)             Engine
     // Much older account, lots of cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 15 || cs + lcs >= 30) && pt >= 5 && rc >= 1)            => AccountAction.Engine
+    else if ((cs >= 15 || cs + lcs >= 30) && pt >= 5 && rc >= 1)            Engine
 
     // New account, some cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt < 1 && rc == 0)               => AccountAction.Engine
+    else if ((cs >= 2 || cs + lcs >= 4) && pt < 1 && rc == 0)               Engine
     // Older account, many cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 15 || cs + lcs >= 30) && pt >= 1 && rc == 0)            => AccountAction.Engine
+    else if ((cs >= 15 || cs + lcs >= 30) && pt >= 1 && rc == 0)            Engine
     // Much older account, lots of cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 30 || cs + lcs >= 60) && pt >= 5 && rc == 0)            => AccountAction.Engine
+    else if ((cs >= 30 || cs + lcs >= 60) && pt >= 5 && rc == 0)            Engine
 
     // New account, some cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 1 || cs + lcs >= 2) && pt < 1 && rc >= 1)               => AccountAction.Report
+    else if ((cs >= 1 || cs + lcs >= 2) && pt < 1 && rc >= 1)               Report
     // Older account, many cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 2 || cs + lcs >= 4) && pt >= 1 && rc >= 1)              => AccountAction.Report
+    else if ((cs >= 2 || cs + lcs >= 4) && pt >= 1 && rc >= 1)              Report
     // Much older account, lots of cheating games, has relation to cheating accounts but is non-strict
-    case (cs, lcs, pt, rc, ru) if ((cs >= 4 || cs + lcs >= 8) && pt >= 5 && rc >= 1)              => AccountAction.Report
+    else if ((cs >= 4 || cs + lcs >= 8) && pt >= 5 && rc >= 1)              Report
 
     // New account, some cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 1 || cs + lcs >= 2) && pt < 1 && rc == 0)               => AccountAction.Report
+    else if ((cs >= 1 || cs + lcs >= 2) && pt < 1 && rc == 0)               Report
     // Older account, many cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 4 || cs + lcs >= 8) && pt >= 1 && rc == 0)              => AccountAction.Report
+    else if ((cs >= 4 || cs + lcs >= 8) && pt >= 1 && rc == 0)              Report
     // Much older account, lots of cheating games, no relation to cheating accounts
-    case (cs, lcs, pt, rc, ru) if ((cs >= 8 || cs + lcs >= 15) && pt >= 5 && rc == 0)             => AccountAction.Report
+    else if ((cs >= 8 || cs + lcs >= 15) && pt >= 5 && rc == 0)             Report
 
     // Anything else
-    case _ => AccountAction.Nothing
+    else Nothing
   }
 
   def countAssessmentValue(assessment: Int) = listSum(playerAssessments map {
@@ -179,7 +182,7 @@ case class Assessible(analysed: Analysed) {
       case PlayerFlags(true,  _,     _,     _,     _,     true,  true)   => 5 // high accuracy, no fast moves, hold alerts
       case PlayerFlags(_,     true,  _,     _,     _,     true,  true)   => 5 // always has advantage, no fast moves, hold alerts
       case PlayerFlags(true,  _,     true,  _,     _,     true,  _)      => 5 // high accuracy, high blurs, no fast moves
-      
+
       case PlayerFlags(true,  _,     _,     _,     true,  true,  _)      => 4 // high accuracy, consistent move times, no fast moves
       case PlayerFlags(true,  _,     _,     true,  _,     true,  _)      => 4 // high accuracy, moderate blurs, no fast moves
       case PlayerFlags(_,     true,  _,     true,  true,  _,     _)      => 4 // always has advantage, moderate blurs, highly consistent move times
