@@ -429,4 +429,6 @@ connectedToLichessAnonymous=lichess.orgに繋がっています。サインイ�
 signedOut=サインアウトしました。
 loginSuccessful=ログインしました
 playOnTheBoardOffline=オフラインで遊ぶ。ＯＴＢチェス
+playOfflineComputer=オフラインでＣＰＵと対戦する
 showPGN=ＰＧＮを見る。
+opponent=対戦相手
