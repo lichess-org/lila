@@ -2,9 +2,9 @@ package lila.evaluation
 
 import chess.{ Color }
 import lila.game.{ Pov, Game }
-import lila.analyse.{ Accuracy, Analysis }
+import lila.analyse.{ Accuracy, Analysis, Info }
 import lila.user.User
-import Math.{ pow, abs, sqrt, E, exp }
+import Math.{ pow, abs, sqrt, E, exp, signum }
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
 
@@ -53,59 +53,48 @@ object AccountAction {
 }
 
 case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
-  user: User,
   relatedUsers: List[String],
   relatedCheaters: List[String]) {
   import Statistics._
   import AccountAction._
 
-  def action = (cheatingSum, likelyCheatingSum, daysOld, relatedCheatersCount, relatedUsersCount) match {
-    case (cs, lcs, pt, rc, ru) =>
+  def action = {
+    val markable: Boolean = (
+      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= 4)
+      // more than 5 percent of games are cheating
+      && (cheatingSum.toDouble / assessmentsCount >= 0.05 - relationModifier
+      // or more than 10 percent of games are likely cheating
+        || (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= 0.10 - relationModifier)
+    )
 
-    // New account, some cheating games, strictly related to cheating accounts
-    if ((cs >= 2 || cs + lcs >= 4)  && pt < 1 && rc >= 1 && rc == ru)       EngineAndBan
-    // Older account, many cheating games, has strict relation to cheating accounts
-    else if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1 && rc == ru) EngineAndBan
+    val reportable: Boolean = (
+      (cheatingSum >= 1 || cheatingSum + likelyCheatingSum >= 2)
+      // more than 2 percent of games are cheating
+      && (cheatingSum.toDouble / assessmentsCount >= 0.02 - relationModifier
+      // or more than 5 percent of games are likely cheating
+        || (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= 0.05 - relationModifier)
+    )
 
-    // New account, some cheating games, has relation to cheating accounts but is non-strict
-    else if ((cs >= 2 || cs + lcs >= 4) && pt < 1 && rc >= 1)               Engine
-    // Older account, many cheating games, has relation to cheating accounts but is non-strict
-    else if ((cs >= 8 || cs + lcs >= 15) && pt >= 1 && rc >= 1)             Engine
-    // Much older account, lots of cheating games, has relation to cheating accounts but is non-strict
-    else if ((cs >= 15 || cs + lcs >= 30) && pt >= 5 && rc >= 1)            Engine
+    val bannable: Boolean = (relatedCheatersCount == relatedUsersCount) && relatedUsersCount >= 1
 
-    // New account, some cheating games, no relation to cheating accounts
-    else if ((cs >= 2 || cs + lcs >= 4) && pt < 1 && rc == 0)               Engine
-    // Older account, many cheating games, no relation to cheating accounts
-    else if ((cs >= 15 || cs + lcs >= 30) && pt >= 1 && rc == 0)            Engine
-    // Much older account, lots of cheating games, no relation to cheating accounts
-    else if ((cs >= 30 || cs + lcs >= 60) && pt >= 5 && rc == 0)            Engine
-
-    // New account, some cheating games, has relation to cheating accounts but is non-strict
-    else if ((cs >= 1 || cs + lcs >= 2) && pt < 1 && rc >= 1)               Report
-    // Older account, many cheating games, has relation to cheating accounts but is non-strict
-    else if ((cs >= 2 || cs + lcs >= 4) && pt >= 1 && rc >= 1)              Report
-    // Much older account, lots of cheating games, has relation to cheating accounts but is non-strict
-    else if ((cs >= 4 || cs + lcs >= 8) && pt >= 5 && rc >= 1)              Report
-
-    // New account, some cheating games, no relation to cheating accounts
-    else if ((cs >= 1 || cs + lcs >= 2) && pt < 1 && rc == 0)               Report
-    // Older account, many cheating games, no relation to cheating accounts
-    else if ((cs >= 4 || cs + lcs >= 8) && pt >= 1 && rc == 0)              Report
-    // Much older account, lots of cheating games, no relation to cheating accounts
-    else if ((cs >= 8 || cs + lcs >= 15) && pt >= 5 && rc == 0)             Report
-
-    // Anything else
-    else Nothing
+    if (markable && bannable) EngineAndBan
+    else if (markable)        Engine
+    else if (reportable)      Report
+    else                      Nothing
   }
 
   def countAssessmentValue(assessment: Int) = listSum(playerAssessments map {
     case a if (a.assessment == assessment) => 1
     case _ => 0
   })
-  val daysOld = user.playTime.fold(0){ _.totalPeriod.toStandardDays.getDays }
+
   val relatedCheatersCount = relatedCheaters.distinct.size
   val relatedUsersCount = relatedUsers.distinct.size
+  val assessmentsCount = playerAssessments.size match {
+    case 0 => 1
+    case a => a
+  }
+  val relationModifier = if (relatedUsersCount >= 1) 0.02 else 0 
   val cheatingSum = countAssessmentValue(5)
   val likelyCheatingSum = countAssessmentValue(4)
 }
@@ -139,17 +128,11 @@ case class Assessible(analysed: Analysed) {
   def suspiciousErrorRate(color: Color): Boolean =
     listAverage(Accuracy.diffsList(Pov(this.analysed.game, color), this.analysed.analysis)) < 15
 
-  def alwaysHasAdvantage(color: Color): Boolean = {
-    def chartFromDifs(difs: List[(Int, Int)], sum: Int = 0): List[Int] =
-      difs match {
-        case Nil      => Nil
-        case a :: Nil => List((sum + a._1), (sum + a._1 + a._2))
-        case a :: b   => List((sum + a._1), (sum + a._1 + a._2)) ::: chartFromDifs(b, sum + a._1 + a._2)
-      }
-
-    !chartFromDifs(Accuracy.diffsList(Pov(this.analysed.game, color), this.analysed.analysis) zip
-      Accuracy.diffsList(Pov(this.analysed.game, !color), this.analysed.analysis)).exists(_ < -50)
-  }
+  def alwaysHasAdvantage(color: Color): Boolean =
+    !analysed.analysis.infos.exists{ info => 
+      info.score.fold(info.mate.fold(false){ a => (signum(a).toInt == color.fold(-1, 1)) }){ cp => 
+        color.fold(cp.centipawns < -100, cp.centipawns > 100)}
+    }
 
   def highBlurRate(color: Color): Boolean =
     this.analysed.game.playerBlurPercent(color) > 90
