@@ -429,6 +429,6 @@ connectedToLichessAnonymous=Está conectado a lichess.org. Puede iniciar sesión
 signedOut=Usted ha cerrado la sesión
 loginSuccessful=Login exitoso
 playOnTheBoardOffline=Jugar sin conexión
-playOfflineComputer=Jugar contra la computadora sin conexión
+playOfflineComputer=Jugar vs CPU sin conexión
 showPGN=Ver PGN
 opponent=Oponente
