@@ -44,8 +44,8 @@ setInterval(function() {
     noteIt++;
     if (prevMoves) {
       var note = Math.min(
-        21 + 3 * (stats.nMoves - prevMoves),
-        69);
+        11 + 3 * (stats.nMoves - prevMoves),
+        79);
       var freq = MIDIUtils.noteNumberToFrequency(note);
       sound.play(freq);
     }
@@ -116,16 +116,6 @@ $(function() {
       setTimeout(function() {
         dot.remove();
       }, 5000);
-      var area = paper.circle().attr({
-        fill: "#fff",
-        'fill-opacity': Math.random() * 0.012,
-        r: 20 + Math.random() * 60,
-        'stroke-width': 0
-      });
-      area.attr(orig);
-      setTimeout(function() {
-        area.remove();
-      }, 4000);
       if (data.oLat) {
         var dest = world.getXY(data.oLat, data.oLon);
         dest.lat += Math.random() - 0.5;
