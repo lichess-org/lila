@@ -429,4 +429,6 @@ connectedToLichessAnonymous=Povezani ste na lichess.org. Lahko se vpišete ali p
 signedOut=Odjavili ste se
 loginSuccessful=Prijava uspešna
 playOnTheBoardOffline=Igraj nepovezan, za šahovnico
+playOfflineComputer=Igraj brez povezave
 showPGN=Pokaži pgn
+opponent=Nasprotnik
