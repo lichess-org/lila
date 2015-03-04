@@ -159,7 +159,7 @@
         </tr>
       </thead>
       <tbody>
-      @aggregateAssessment.playerAssessments.take(25).map { result =>
+      @aggregateAssessment.playerAssessments.take(15).map { result =>
         <tr>
           <td><a href="@routes.Round.watcher(result.gameId, result.color.name)">@routes.Round.watcher(result.gameId, result.color.name)</a></td>
           <td>
