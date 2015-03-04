@@ -122,7 +122,7 @@ private[controllers] trait LilaController
     }
 
   protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    ctx.me.??(_.engine).fold(Forbidden(views.html.site.noEngine()).fuccess, a)
+    ctx.me.??(_.lame).fold(Forbidden(views.html.site.noEngine()).fuccess, a)
 
   protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a =>
     Ok(Json toJson a) as JSON
