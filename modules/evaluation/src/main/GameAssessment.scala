@@ -160,7 +160,7 @@ case class Assessible(analysed: Analysed) {
   def consistentMoveTimes(color: Color): Boolean =
     moveTimes(color).toNel.map(coefVariation).fold(false)(_ < 0.5)
 
-  def noFastMoves(color: Color): Boolean = moveTimes(color).filter(_ < 10).size <= 2
+  def noFastMoves(color: Color): Boolean = moveTimes(color).count(_ < 10) <= 2
 
   def suspiciousHoldAlert(color: Color): Boolean =
     this.analysed.game.player(color).hasSuspiciousHoldAlert
