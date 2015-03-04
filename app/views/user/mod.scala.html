@@ -102,7 +102,7 @@
             <span class="result_@aggregateAssessment.action.colorClass">@aggregateAssessment.action.description</span>
           </th>
           <th>
-            @aggregateAssessment.daysOld
+            @aggregateAssessment.playerAssessments.size
           </th>
           <th>
             @aggregateAssessment.cheatingSum
@@ -124,7 +124,7 @@
             Assessment
           </td>
           <td>
-            Days Played
+            Games Assessed
           </td>
           <td>
             Cheating Games
@@ -159,7 +159,7 @@
         </tr>
       </thead>
       <tbody>
-      @aggregateAssessment.playerAssessments.take(15).map { result =>
+      @aggregateAssessment.playerAssessments.sortBy(-_.assessment).take(15).map { result =>
         <tr>
           <td><a href="@routes.Round.watcher(result.gameId, result.color.name)">@routes.Round.watcher(result.gameId, result.color.name)</a></td>
           <td>
