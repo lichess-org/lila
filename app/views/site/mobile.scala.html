@@ -6,18 +6,21 @@ moreCss = cssTag("mobile.css")) {
 <div class="mobile content_box small_box clearfix">
   <div class="right-side">
     <img class="nexus5-playing" width="268" height="513" src="@staticUrl("images/mobile/nexus5-playing.png")" alt="Lichess mobile on nexus 5" />
-    <p>
-      <a class="download button" href="https://play.google.com/store/apps/details?id=org.lichess.mobileapp">
-        Download now for free
-      </a>
-    </p>
-    <img class="qrcode" width="200" height="200" src="@staticUrl("images/mobile/android-qrcode.png")" alt="Android QR code" />
+    <img class="qrcode" width="200" height="200" src="@staticUrl("images/mobile/dynamic-qrcode.png")" alt="Download QR code" />
   </div>
   <div class="left-side">
     <h1>Play chess everywhere</h1>
-    <a class="store" href="https://play.google.com/store/apps/details?id=org.lichess.mobileapp">
+    <a class="store" style="margin-top: 30px"
+      href="https://play.google.com/store/apps/details?id=org.lichess.mobileapp">
       <img alt="Android app on Google Play"
+      width="172"
       src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
+    </a>
+    <a class="store" style="margin-top: 20px"
+      href="https://itunes.apple.com/us/app/lichess-free-online-chess/id968371784">
+      <img alt="Download on the Apple App Store"
+      width="172"
+      src="https://devimages.apple.com.edgekey.net/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" />
     </a>
     <h2>lichess on the go</h2>
     <ul class="block">
@@ -42,11 +45,6 @@ moreCss = cssTag("mobile.css")) {
     <p class="block">
       More of the features you love from the website will be added in the near future.<br />
       Look out for updates regularly!
-    </p>
-    <p class="block">
-      Android 4.4 and 5+ support: <span class="good support">PERFECT</span><br />
-      Android 4.1 to 4.3 support: <span class="partial support">CORRECT</span><br />
-      The iOS app will land in early March 2015.
     </p>
     <div class="block">
       <a href="https://github.com/veloce/lichobile">Lichess mobile is open source, </a>
