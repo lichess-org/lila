@@ -429,4 +429,6 @@ connectedToLichessAnonymous=Du er nå tilkoblet lichess.org. Du kan logge inn el
 signedOut=Du har blitt logget ut.
 loginSuccessful=Innlogging suksessfull
 playOnTheBoardOffline=Spill offline, på enheten
+playOfflineComputer=Spill offline mot datamaskinen
 showPGN=Vis PGN
+opponent=Motstander
