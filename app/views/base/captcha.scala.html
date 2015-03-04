@@ -11,9 +11,9 @@
     <div
       class="mini_board parse_fen is2d"
       data-playable="1"
-      data-moves="@Json.stringify(Json.toJson(captcha.moves))"
-      data-color="@captcha.white.fold("white", "black")"
-      data-fen="@captcha.fen">@miniBoardContent</div>
+      data-x="@encodeFen(Json.stringify(Json.toJson(captcha.moves)))"
+      data-y="@encodeFen(captcha.white.fold("white", "black"))"
+      data-z="@encodeFen(captcha.fen)">@miniBoardContent</div>
   </div>
   <div class="checkmateSection">
     <label>

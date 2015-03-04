@@ -508,6 +508,10 @@ lichess.storage = {
     location.reload();
   };
 
+  lichess.readServerFen = function(t) {
+    return atob(t.split("").reverse().join(""));
+  };
+
   lichess.parseFen = function($elem) {
     if (!$elem || !$elem.jquery) {
       $elem = $('.parse_fen');
@@ -516,14 +520,14 @@ lichess.storage = {
       var $this = $(this).removeClass('parse_fen');
       var lm = $this.data('lastmove');
       var lastMove = lm ? [lm[0] + lm[1], lm[2] + lm[3]] : [];
-      var color = $this.data('color');
+      var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
       var ground = $this.data('chessground');
       var playable = $this.data('playable');
       var config = {
         coordinates: false,
         viewOnly: !playable,
         minimalDom: !playable,
-        fen: $this.data('fen'),
+        fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
         lastMove: lastMove
       };
       if (color) config.orientation = color;
@@ -1439,15 +1443,14 @@ lichess.storage = {
         var $captcha = $(this);
         var $board = $captcha.find('.mini_board');
         var $input = $captcha.find('input').val('');
-        var color = $board.data('color');
+        var cg = $board.data('chessground');
 
-        $board.data('chessground').set({
-          orientation: color,
-          turnColor: color,
+        cg.set({
+          turnColor: cg.getOrientation(),
           movable: {
             free: false,
-            dests: $board.data('moves'),
-            color: color,
+            dests: JSON.parse(lichess.readServerFen($board.data('x'))),
+            color: cg.getOrientation(),
             coordinates: false,
             events: {
               after: function(orig, dest) {
@@ -2035,7 +2038,11 @@ lichess.storage = {
       $('#refreshAssessment').click(function() {
         $.post('/mod/refreshAssess', {
           assess: data.game.id,
-          success: function(){ setTimeout(function(){ location.reload(); }, 500) }
+          success: function() {
+            setTimeout(function() {
+              location.reload();
+            }, 500)
+          }
         });
       });
     }
