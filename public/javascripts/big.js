@@ -1434,12 +1434,13 @@ lichess.storage = {
         var $board = $captcha.find('.mini_board');
         var $input = $captcha.find('input').val('');
         var cg = $board.data('chessground');
+        var dests = JSON.parse(lichess.readServerFen($board.data('x')));
 
         cg.set({
           turnColor: cg.getOrientation(),
           movable: {
             free: false,
-            dests: JSON.parse(lichess.readServerFen($board.data('x'))),
+            dests: dests,
             color: cg.getOrientation(),
             coordinates: false,
             events: {
@@ -1466,9 +1467,9 @@ lichess.storage = {
               else setTimeout(function() {
                 lichess.parseFen($board);
                 $board.data('chessground').set({
-                  turnColor: color,
+                  turnColor: cg.getOrientation(),
                   movable: {
-                    dests: $board.data('moves')
+                    dests: dests
                   }
                 });
               }, 300);
