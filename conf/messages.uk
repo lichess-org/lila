@@ -429,4 +429,6 @@ connectedToLichessAnonymous=Ви з'єднані з lichess.org. Ви может
 signedOut=Ви вийшли.
 loginSuccessful=вхід в систему успішно здійснений
 playOnTheBoardOffline=Грайте офлайн на гаджеті
+playOfflineComputer=Грати офлайн з програмою
 showPGN=Показати PGN
+opponent=Суперник
