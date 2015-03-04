@@ -33,7 +33,7 @@ final class AssessApi(
 
   def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) = 
     collAssessments.find(BSONDocument("userId" -> userId))
-    .sort(BSONDocument("assessment" -> -1))
+    .sort(BSONDocument("date" -> -1))
     .cursor[PlayerAssessment]
     .collect[List](nb)
 
@@ -50,11 +50,10 @@ final class AssessApi(
     val relatedUsers = userIdsSharingIp(userId)
 
     getPlayerAssessmentsByUserId(userId, nb) zip
-    UserRepo.byId(userId) zip
     relatedUsers zip
     (relatedUsers flatMap UserRepo.filterByEngine) map {
-      case (((assessedGamesHead :: assessedGamesTail, Some(user)), relatedUs), relatedCheaters) =>
-        Some(PlayerAggregateAssessment(assessedGamesHead :: assessedGamesTail, user, relatedUs, relatedCheaters))
+      case ((assessedGamesHead :: assessedGamesTail, relatedUs), relatedCheaters) =>
+        Some(PlayerAggregateAssessment(assessedGamesHead :: assessedGamesTail, relatedUs, relatedCheaters))
       case _ => none
     }
   }
@@ -67,7 +66,7 @@ final class AssessApi(
       }
 
   def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
-    GameRepo.gamesForAssessment(user.id, 200) flatMap {
+    GameRepo.gamesForAssessment(user.id, 100) flatMap {
       gs => (gs map {
         g => AnalysisRepo.doneById(g.id) flatMap {
           case Some(a) => onAnalysisReady(g, a, false)
