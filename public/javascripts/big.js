@@ -540,30 +540,20 @@ lichess.storage = {
 
     // small layout
     function onResize() {
-      if ($(document.body).width() < 1000) {
-        $(document.body).addClass("tight");
-        $('#site_header .side_menu').prependTo('div.content_box:first');
-      } else {
-        $(document.body).removeClass("tight");
-        $('#timeline, div.side_box, div.under_chat').each(function() {
-          var ol = $(this).offset().left;
-          if (ol < 3) {
-            var dec = 3 - ol;
-            var pad = $(this).outerWidth() - $(this).width();
-            $(this).css({
-              'margin-left': (dec - 30) + 'px',
-              'width': (230 - pad - dec) + 'px'
-            });
-            $(this).find('input.lichess_say').css('width', (204 - dec) + 'px');
-          }
-        });
-        $('#featured_game').each(function() {
-          $(this).children().toggle($(this).width() >= 220);
-        });
-        $('div.content_box .side_menu').appendTo('#site_header');
-      }
+      $('#timeline, div.side_box, div.under_chat').each(function() {
+        var ol = $(this).offset().left;
+        if (ol < 3) {
+          var dec = 3 - ol;
+          var pad = $(this).outerWidth() - $(this).width();
+          $(this).css({
+            'margin-left': (dec - 30) + 'px',
+            'width': (230 - pad - dec) + 'px'
+          });
+          $(this).find('input.lichess_say').css('width', (204 - dec) + 'px');
+        }
+      });
     }
-    $(window).resize(onResize);
+    $(window).resize($.fp.debounce(onResize, 200));
     onResize();
 
     if (!lichess.StrongSocket.available) {

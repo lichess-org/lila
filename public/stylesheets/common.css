@@ -564,9 +564,6 @@ strong {
   float: left;
   position: relative;
 }
-body.tight #site_header {
-  display: none;
-}
 #site_header a.lang_fallback {
   font-weight: bold;
   display: inline-block;
@@ -576,18 +573,10 @@ body > div.content {
   width: 1005px;
   margin: 20px auto 30px auto;
 }
-body.tight > div.content {
-  width: auto;
-  min-width: 780px;
-  margin-top: 35px;
-}
 #top {
   width: 100%;
   min-width: 1005px;
   height: 24px;
-}
-body.tight #top {
-  min-width: 780px;
 }
 #site_description {
   position: absolute;
@@ -596,9 +585,6 @@ body.tight #top {
 #lichess {
   margin-left: 211px;
 }
-body.tight #lichess {
-  margin-left: 10px;
-}
 #site_title {
   width: 130px;
   font-size: 30px;
@@ -606,17 +592,11 @@ body.tight #lichess {
   display: block;
   margin-bottom: 3px;
 }
-body.tight #site_title {
-  margin-left: 10px;
-}
 #site_title span.extension {
   font-weight: lighter;
 }
 #site_baseline span {
   font-weight: bold;
-}
-body.tight #site_baseline {
-  display: none;
 }
 #footer_wrap {
   border-top: 1px solid #c9c9c9;
@@ -633,10 +613,6 @@ body.tight #site_baseline {
 }
 #footer_wrap div.footer a {
   text-decoration: none;
-}
-body.tight div.footer {
-  width: auto;
-  padding: 0 10px;
 }
 div.footer > .center {
   position: absolute;
@@ -929,9 +905,6 @@ div.side form.search input {
   display: block;
   text-decoration: none;
   width: 203px;
-}
-body.tight div.side_menu a {
-  padding-right: 10px;
 }
 #site_header div.side_menu a.active {
   background: white;
