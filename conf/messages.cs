@@ -429,4 +429,6 @@ connectedToLichessAnonymous=Nyní jste připojeni do lichess.org. Můžete se p�
 signedOut=Byli jste odhlášeni.
 loginSuccessful=Přihlášení úspěšné
 playOnTheBoardOffline=Hrej offline, na šachovnici počítače.
+playOfflineComputer=Hraj proti počítači
 showPGN=Ukaž herní notaci
+opponent=Protihráč
