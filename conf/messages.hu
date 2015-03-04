@@ -429,4 +429,6 @@ connectedToLichessAnonymous=Csatlakoztál a lichess.org oldalhoz. Bejelentkezhet
 signedOut=Kijelentkeztél
 loginSuccessful=Sikeres bejelntkezés
 playOnTheBoardOffline=Játsz offline módban, az asztalon.
+playOfflineComputer=Játsz gép ellen
 showPGN=Mutasd a PGN-t
+opponent=Ellenfél
