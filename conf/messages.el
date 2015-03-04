@@ -429,4 +429,6 @@ connectedToLichessAnonymous=Έχετε συνδεθεί με το lichess.org. �
 signedOut=Έχετε βγει από τον λογαριασμό σας επιτυχός
 loginSuccessful=Είσοδος επιτυχής
 playOnTheBoardOffline=Παίξτε χωρίς σύνδεση, τοπικά
+playOfflineComputer=Παίξετε χωρίς σύνδεση εναντίον του υπολογιστή
 showPGN=Προβολή PGN
+opponent=Αντίπαλος
