@@ -429,4 +429,6 @@ connectedToLichessAnonymous=lichess.org에 접속했습니다. 메뉴에서 로�
 signedOut=접속 종료했습니다
 loginSuccessful=로그인 성공
 playOnTheBoardOffline=오프라인, 로컬 게임
+playOfflineComputer=오프라인 컴퓨터와 대국하기
 showPGN=PGN 보기
+opponent=상대
