@@ -429,4 +429,6 @@ connectedToLichessAnonymous=Verbindung hergestellt. Wähle Menü Starte Neues Sp
 signedOut=Erfolgreich ausgeloggt.
 loginSuccessful=Anmeldung ist erfolgt
 playOnTheBoardOffline=Spiele im Offline-Modus
+playOfflineComputer=Offline gegen den Computer spielen
 showPGN=Zeige PGN
+opponent=Gegenspieler
