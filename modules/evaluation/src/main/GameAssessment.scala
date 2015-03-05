@@ -140,6 +140,10 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   // Average SF Avg given bot
   val sfAvgHold      = sfAvgGiven((a: PlayerAssessment) => a.hold)
   val sfAvgNoHold    = sfAvgGiven((a: PlayerAssessment) => !a.hold)
+
+  def reportText(maxGames: Int = 10) = {
+    "This is an auto report"
+  }
 }
 
 case class GameAssessments(

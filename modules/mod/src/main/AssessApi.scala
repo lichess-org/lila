@@ -1,5 +1,6 @@
 package lila.mod
 
+import akka.actor.ActorSelection
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.Types.Coll
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -19,6 +20,7 @@ final class AssessApi(
   collAssessments: Coll,
   logApi: ModlogApi,
   modApi: ModApi,
+  reporter: ActorSelection,
   userIdsSharingIp: String => Fu[List[String]]) {
 
   private implicit val playerFlagsBSONhandler = Macros.handler[PlayerFlags]
@@ -90,7 +92,7 @@ final class AssessApi(
     case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
       case AccountAction.EngineAndBan => modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
       case AccountAction.Engine => modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
-      case AccountAction.Report => funit
+      case AccountAction.Report => Future{ reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3)) }
       case _ => funit
     }
     case _ => funit
