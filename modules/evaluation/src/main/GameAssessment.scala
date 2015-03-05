@@ -77,10 +77,31 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
 
     val bannable: Boolean = (relatedCheatersCount == relatedUsersCount) && relatedUsersCount >= 1
 
-    if (markable && bannable) EngineAndBan
-    else if (markable)        Engine
-    else if (reportable)      Report
-    else                      Nothing
+    val actionable: Boolean = {
+      def sigDif(a: Option[Int], b: Option[Int]): Option[Boolean] = (a, b) match {
+        case (Some(a), Some(b)) => Some(b - a > 10)
+        case _ => none
+      }
+
+      val difs = List(
+        sigDif(sfAvgBlurs,  sfAvgNoBlurs),
+        sigDif(sfAvgLowVar, sfAvgHighVar),
+        sigDif(sfAvgHold,   sfAvgNoHold)
+      )
+
+      difs.forall(_.isEmpty) || difs.exists(a => a.fold(false){i => i})
+    }
+
+    if (actionable) {
+      if (markable && bannable) EngineAndBan
+      else if (markable)        Engine
+      else if (reportable)      Report
+      else                      Nothing
+    } else {
+      if (markable)             Report
+      else if (reportable)      Report
+      else                      Nothing
+    }
   }
 
   def countAssessmentValue(assessment: Int) = listSum(playerAssessments map {
@@ -97,6 +118,28 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   val relationModifier = if (relatedUsersCount >= 1) 0.02 else 0 
   val cheatingSum = countAssessmentValue(5)
   val likelyCheatingSum = countAssessmentValue(4)
+
+
+  // Some statistics
+  def sfAvgGiven(predicate: PlayerAssessment => Boolean): Option[Int] = {
+    val avg = listAverage(playerAssessments.filter(predicate).map(_.sfAvg)).toInt
+    playerAssessments.filter(predicate).size match {
+      case 0 => none
+      case _ => Some(avg)
+    }
+  }
+
+  // Average SF Avg given blur rate
+  val sfAvgBlurs  = sfAvgGiven((a: PlayerAssessment) => a.blurs > 70)
+  val sfAvgNoBlurs  = sfAvgGiven((a: PlayerAssessment) => a.blurs <= 70)
+
+  // Average SF Avg given move time coef of variance
+  val sfAvgLowVar    = sfAvgGiven((a: PlayerAssessment) => a.mtSd.toDouble / a.mtAvg < 0.5)
+  val sfAvgHighVar   = sfAvgGiven((a: PlayerAssessment) => a.mtSd.toDouble / a.mtAvg >= 0.5)
+
+  // Average SF Avg given bot
+  val sfAvgHold      = sfAvgGiven((a: PlayerAssessment) => a.hold)
+  val sfAvgNoHold    = sfAvgGiven((a: PlayerAssessment) => !a.hold)
 }
 
 case class GameAssessments(
@@ -255,7 +298,7 @@ object Display {
     case 3 => ":|"
     case 2 => ":)"
     case 1 => ":D"
-    case _ => "\\o/"
+    case _ => ":S"
   }
 }
 
