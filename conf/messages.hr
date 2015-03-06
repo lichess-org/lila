@@ -429,5 +429,6 @@ connectedToLichessAnonymous=Spojeni ste na lichess.org. Možete se prijaviti ili
 signedOut=Odjavljeni ste.
 loginSuccessful=Prijavljeni ste.
 playOnTheBoardOffline=Igraj bez mreže, preko uređaja
+playOfflineComputer=Igraj offline sa računlom
 showPGN=Pokaži PGN
 opponent=Protivnik
