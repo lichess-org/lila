@@ -35,6 +35,12 @@ elif [ $mode = "drazak" ]; then
 elif [ $mode = "jaldus" ]; then
   REMOTE="jaldus"
   REMOTE_DIR="/home/ornicar"
+elif [ $mode = "patat" ]; then
+  REMOTE="patat"
+  REMOTE_DIR="/home/lichess"
+elif [ $mode = "neary" ]; then
+  REMOTE="neary"
+  REMOTE_DIR="/home/lichess"
 else
   echo "Unknown deploy target $mode"
   exit 1
