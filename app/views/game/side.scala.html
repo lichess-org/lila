@@ -11,6 +11,10 @@
           @bookmark.toggle(game)
           @if(game.imported) {
           <a class="hint--top" href="@routes.Importer.importGame" data-hint="@trans.importGame()">IMPORT</a>
+          •
+          @if(game.variant.exotic) {
+          @variantLink(game.variant, (if (game.variant ==  chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
+          }
           } else {
           @game.clock.map(_.show).getOrElse {
           @game.daysPerTurn.map { days =>
