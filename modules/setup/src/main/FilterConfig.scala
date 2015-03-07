@@ -36,7 +36,8 @@ object FilterConfig {
     chess.variant.KingOfTheHill,
     chess.variant.ThreeCheck,
     chess.variant.Antichess,
-    chess.variant.Atomic)
+    chess.variant.Atomic,
+    chess.variant.Horde)
 
   val modes = Mode.all
   val speeds = Speed.all
