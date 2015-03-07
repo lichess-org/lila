@@ -1991,7 +1991,7 @@ lichess.storage = {
       var stored = lichess.storage.get(storageKey);
       if (stored && $menu.children('.' + stored).length) setPanel(stored);
       else if ($menu.children('.crosstable').length) $menu.children('.crosstable').click();
-      else $menu.children('.move_times').click();
+      else $menu.children(':first').click();
     }
 
     $panels.find('form.future_game_analysis').submit(function() {
