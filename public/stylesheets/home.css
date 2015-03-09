@@ -173,7 +173,7 @@ div.lobby_and_ground {
 #hooks_wrap .table_wrap tr.cancel td {
   background: rgba(200, 255, 200, 0.7);
 }
-#hooks_wrap .table_wrap tr.hook:hover td {
+#hooks_wrap .table_wrap tr.join:hover td {
   background: rgba(191, 231, 255, 0.7);
 }
 #hooks_wrap .table_wrap td:first-child {
