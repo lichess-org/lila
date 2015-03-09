@@ -96,6 +96,7 @@ trait UserRepo {
       "threeCheck" -> (_.threeCheck),
       "antichess" -> (_.antichess),
       "atomic" -> (_.atomic),
+      "horde" -> (_.horde),
       "bullet" -> (_.bullet),
       "blitz" -> (_.blitz),
       "classical" -> (_.classical),

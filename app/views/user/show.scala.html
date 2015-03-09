@@ -48,6 +48,9 @@
   @if(u.perfs.atomic.nonEmpty) {
   @showPerf(u.perfs.atomic, PerfType.Atomic)
   }
+  @if(u.perfs.horde.nonEmpty) {
+  @showPerf(u.perfs.horde, PerfType.Horde)
+  }
   <br />
   }
   @showPerf(u.perfs.puzzle, PerfType.Puzzle)

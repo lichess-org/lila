@@ -52,6 +52,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         case chess.variant.ThreeCheck    => "Three checks"
         case chess.variant.Antichess     => "Lose all your pieces to win"
         case chess.variant.Atomic        => "Explode or mate your opponent's king to win"
+        case chess.variant.Horde         => "Destroy the horde to win"
         case _                           => "Variant ending"
       }
       case _ => "Game is still being played"

@@ -31,14 +31,15 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     PerfType.ThreeCheck,
     PerfType.Correspondence,
     PerfType.Antichess,
-    PerfType.Atomic)
+    PerfType.Atomic,
+    PerfType.Horde)
 
   private def best3Of(u: User, perfTypes: List[PerfType]) =
     perfTypes.sortBy { pt => -u.perfs(pt).nb } take 3
 
   def miniViewSortedPerfTypes(u: User): List[PerfType] =
     best3Of(u, List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
-      best3Of(u, List(PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic))
+      best3Of(u, List(PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde))
 
   def showPerfRating(rating: Int, name: String, nb: Int, icon: Char, klass: String) = Html {
     val title = s"$name rating over $nb games"

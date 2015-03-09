@@ -8,6 +8,7 @@ module.exports = {
     kingOfTheHill: "(",
     threeCheck: ".",
     antichess: "@",
-    atomic: ">"
+    atomic: ">",
+    horde: "_"
   }
 };

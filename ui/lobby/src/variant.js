@@ -3,7 +3,8 @@ var variantConfirms = {
   'kingOfTheHill': "This is a King of the Hill game!\n\nThe game can be won by bringing the king to the center.\nRead more: http://lichess.org/king-of-the-hill",
   'threeCheck': "This is a Three-check game!\n\nThe game can be won by checking the opponent 3 times.\nRead more: http://en.wikipedia.org/wiki/Three-check_chess",
   "antichess": "This is an antichess chess game!\n\n If you can take a piece, you must. The game can be won by losing all your pieces.",
-  "atomic": "This is an atomic chess game!\n\n. Capturing a piece causes an explosion, taking out your piece and surrounding non-pawns. Win by mating or exploding your opponent's king."
+  "atomic": "This is an atomic chess game!\n\n. Capturing a piece causes an explosion, taking out your piece and surrounding non-pawns. Win by mating or exploding your opponent's king.",
+  "horde": "This is a horde chess game!\n\n. White must take all black pawns to win. Black must checkmate white king."
 };
 
 function storageKey(key) {

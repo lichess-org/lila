@@ -121,6 +121,7 @@ object User extends LilaController {
       threeCheck ← env.cached topPerf PerfType.ThreeCheck.key
       antichess <- env.cached topPerf PerfType.Antichess.key
       atomic <- env.cached topPerf PerfType.Atomic.key
+      horde <- env.cached topPerf PerfType.Horde.key
       nbAllTime ← env.cached topNbGame nb map2 { (user: UserModel) =>
         user -> user.count.game
       }

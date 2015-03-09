@@ -43,7 +43,7 @@ final class DataForm(isDev: Boolean) {
     "minPlayers" -> numberIn(minPlayerChoices),
     "system" -> number.verifying(Set(System.Arena.id, System.Swiss.id) contains _),
     "variant" -> number.verifying(Set(chess.variant.Standard.id, chess.variant.Chess960.id, chess.variant.KingOfTheHill.id,
-      chess.variant.ThreeCheck.id, chess.variant.Antichess.id, chess.variant.Atomic.id) contains _),
+      chess.variant.ThreeCheck.id, chess.variant.Antichess.id, chess.variant.Atomic.id, chess.variant.Horde.id) contains _),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
     "private" -> optional(text.verifying("on" == _))
   )(TournamentSetup.apply)(TournamentSetup.unapply)

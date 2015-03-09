@@ -2,8 +2,8 @@ package lila.game
 
 import chess.Color.{ White, Black }
 import chess.Pos.piotr, chess.Role.forsyth
-import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
 import chess.variant.Variant
+import chess.{ History => ChessHistory, CheckCount, Castles, Role, Board, Move, Pos, Game => ChessGame, Clock, Status, Color, Piece, Mode, PositionHash }
 import org.joda.time.DateTime
 
 import lila.db.ByteArray
@@ -147,7 +147,7 @@ case class Game(
 
     def copyPlayer(player: Player) = player.copy(
       blurs = math.min(
-        playerMoves(player.color), 
+        playerMoves(player.color),
         player.blurs + (blur && move.color == player.color).fold(1, 0))
     )
 
@@ -430,6 +430,7 @@ object Game {
   val variantsWhereWhiteIsBetter: Set[Variant] = Set(
     chess.variant.ThreeCheck,
     chess.variant.Atomic,
+    chess.variant.Horde,
     chess.variant.Antichess)
 
   val gameIdSize = 8
