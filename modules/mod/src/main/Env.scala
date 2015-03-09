@@ -9,6 +9,7 @@ import lila.security.{ Firewall, UserSpy }
 final class Env(
     config: Config,
     db: lila.db.Env,
+    hub: lila.hub.Env,
     system: ActorSystem,
     firewall: Firewall,
     userSpy: String => Fu[UserSpy],
@@ -41,7 +42,8 @@ final class Env(
     collAssessments = db(CollectionPlayerAssessment),
     logApi = logApi,
     modApi = api,
-    userIdsSharingIp)
+    reporter = hub.actor.report,
+    userIdsSharingIp = userIdsSharingIp)
 
   // api actor
   private val actorApi = system.actorOf(Props(new Actor {
@@ -63,6 +65,7 @@ object Env {
   lazy val current = "[boot] mod" describes new Env(
     config = lila.common.PlayApp loadConfig "mod",
     db = lila.db.Env.current,
+    hub = lila.hub.Env.current,
     system = lila.common.PlayApp.system,
     firewall = lila.security.Env.current.firewall,
     userSpy = lila.security.Env.current.userSpy,
