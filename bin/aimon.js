@@ -3,7 +3,7 @@ var HttpClient = require('request');
 var nginx = (function () {/*
   server 216.218.250.236:9000 weight=8; # salim2
   server 91.209.78.225:9000 weight=12; # hexal
-  # server 91.121.16.158:9009 weight=4; # matthews (openings)
+  server 91.121.16.158:9009 weight=4;
   # server 23.251.154.68:9009 weight=8; # nafis (expired)
   server 91.121.7.111:9009 weight=2; # paul
   # server 198.52.200.14:9009 weight=8; # drazak (expired)
@@ -39,5 +39,5 @@ function checks() {
   });
 }
 
-setInterval(checks, 10 * 60 * 1000);
+setInterval(checks, 1 * 60 * 1000);
 checks();
