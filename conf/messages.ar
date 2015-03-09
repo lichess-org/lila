@@ -429,4 +429,6 @@ connectedToLichessAnonymous=الآن متصل بالموقع. يمكنك الد�
 signedOut=تم تسجيل الخروج.
 loginSuccessful=تم الدخول بنجاح
 playOnTheBoardOffline=العب دون اتصال, عبرالجهاز
+playOfflineComputer=العب مع الحاسب دون اتصال
 showPGN=PGN
+opponent=الخصم
