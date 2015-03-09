@@ -314,3 +314,6 @@
 .icon-reorder:before {
   content: "[";
 }
+.icon-keypad:before {
+  content: "_";
+}
