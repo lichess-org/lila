@@ -9,6 +9,7 @@ var nginx = (function () {/*
   # server 198.52.200.14:9009 weight=8; # drazak (expired)
   server jaldus.ddns.net:9009 weight=8; # jaldus
   server 91.121.223.148:9009 weight=4; # neary (ks3)
+  server 91.121.150.217:9009 weight=5; # neary-tmp (ks6)
   server yubaba.mindleaking.org:10080 weight=3; # sarken
   server karmeliet.darklord.fr:9452 weight=3; # pat
 */}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
@@ -18,7 +19,9 @@ var servers = nginx.split(/\n/).map(function(line) {
 }).filter(function(line) {
   return line.length && line[0] != '#';
 }).map(function(line) {
-  return line.split(' ')[1];
+  var server = line.split(' ')[1];
+  console.log(server);
+  return server;
 });
 
 function checks() {

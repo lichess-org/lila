@@ -41,6 +41,9 @@ elif [ $mode = "patat" ]; then
 elif [ $mode = "neary" ]; then
   REMOTE="neary"
   REMOTE_DIR="/home/lichess"
+elif [ $mode = "neary-tmp" ]; then
+  REMOTE="neary-tmp"
+  REMOTE_DIR="/home/lichess"
 else
   echo "Unknown deploy target $mode"
   exit 1
