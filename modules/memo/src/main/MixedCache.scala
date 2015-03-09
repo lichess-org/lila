@@ -39,7 +39,7 @@ object MixedCache {
     timeToLive: Duration = Duration.Inf,
     awaitTime: FiniteDuration = 5.milliseconds,
     default: V): MixedCache[Boolean, V] = {
-    val asyncCache = AsyncCache.single(f, timeToLive = 3 minute)
+    val asyncCache = AsyncCache.single(f, timeToLive = 1 minute)
     val syncCache = Builder.cache[Boolean, V](
       timeToLive,
       (_: Boolean) => asyncCache(true) await makeTimeout(awaitTime))

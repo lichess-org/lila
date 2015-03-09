@@ -2,14 +2,14 @@ package lila.app
 package templating
 
 import chess.{ Mode, Speed }
-import lila.setup.TimeMode
 import lila.api.Context
-import lila.tournament.System
-import lila.report.Reason
 import lila.pref.Pref
 import lila.pref.Pref.Difficulty
+import lila.report.Reason
+import lila.setup.TimeMode
+import lila.tournament.System
 
-trait SetupHelper { self: I18nHelper =>
+trait SetupHelper { self: I18nHelper with HordeHelper =>
 
   def translatedTimeModeChoices(implicit ctx: Context) = List(
     (TimeMode.RealTime.id.toString, trans.realTime.str(), none),
@@ -42,13 +42,15 @@ trait SetupHelper { self: I18nHelper =>
     variantTuple(chess.variant.Chess960)
   )
 
-  def translatedVariantChoicesWithVariants(implicit ctx: Context) =
+  def translatedVariantChoicesWithVariants(implicit ctx: Context) = {
     translatedVariantChoices(ctx) :+
       variantTuple(chess.variant.KingOfTheHill) :+
       variantTuple(chess.variant.ThreeCheck) :+
       variantTuple(chess.variant.Antichess) :+
-      variantTuple(chess.variant.Atomic) :+
-      variantTuple(chess.variant.Horde)
+      variantTuple(chess.variant.Atomic)
+  } ++ isHordeAvailable(ctx).?? {
+    Seq(variantTuple(chess.variant.Horde))
+  }
 
   def translatedVariantChoicesWithFen(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
