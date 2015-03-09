@@ -59,7 +59,7 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
         sigDif(sfAvgHold,   sfAvgNoHold)
       )
 
-      difs.forall(_.isEmpty) || difs.exists(a => a.fold(false){i => i}) || assessmentsCount < 50
+      difs.forall(_.isEmpty) || difs.exists(~_) || assessmentsCount < 50
     }
 
     if (actionable) {
@@ -93,29 +93,31 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   // Some statistics
   def sfAvgGiven(predicate: PlayerAssessment => Boolean): Option[Int] = {
     val avg = listAverage(playerAssessments.filter(predicate).map(_.sfAvg)).toInt
-    playerAssessments.filter(predicate).size match {
-      case 0 => none
-      case _ => Some(avg)
-    }
+    if (playerAssessments.exists(predicate)) Some(avg) else none
   }
 
   // Average SF Avg given blur rate
-  val sfAvgBlurs     = sfAvgGiven((a: PlayerAssessment) => a.blurs > 70)
-  val sfAvgNoBlurs   = sfAvgGiven((a: PlayerAssessment) => a.blurs <= 70)
+  val sfAvgBlurs     = sfAvgGiven(_.blurs > 70)
+  val sfAvgNoBlurs   = sfAvgGiven(_.blurs <= 70)
 
   // Average SF Avg given move time coef of variance
   val sfAvgLowVar    = sfAvgGiven((a: PlayerAssessment) => a.mtSd.toDouble / a.mtAvg < 0.5)
   val sfAvgHighVar   = sfAvgGiven((a: PlayerAssessment) => a.mtSd.toDouble / a.mtAvg >= 0.5)
 
   // Average SF Avg given bot
-  val sfAvgHold      = sfAvgGiven((a: PlayerAssessment) => a.hold)
-  val sfAvgNoHold    = sfAvgGiven((a: PlayerAssessment) => !a.hold)
+  val sfAvgHold      = sfAvgGiven(_.hold)
+  val sfAvgNoHold    = sfAvgGiven(!_.hold)
 
   def reportText(maxGames: Int = 10): String = {
-    "[AUTOREPORT]\n" +
-    "Cheating Games: " + cheatingSum + "\n" +
-    "Likely Cheating Games: " + likelyCheatingSum + "\n\n" +
-    playerAssessments.sortBy(-_.assessment).take(maxGames).map(a => Display.emoticon(a.assessment) + " http://lichess.org/" + a.gameId + "/" + a.color.name).mkString("\n")
+    val gameLinks: String = (playerAssessments.sortBy(-_.assessment).take(maxGames).map{ a =>
+      Display.emoticon(a.assessment) + " http://lichess.org/" + a.gameId + "/" + a.color.name
+    }).mkString("\n")
+
+    s"""[AUTOREPORT]
+    Cheating Games: $cheatingSum
+    Likely Cheating Games: $likelyCheatingSum
+
+    $gameLinks"""
   }
 }
 
