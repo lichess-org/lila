@@ -142,13 +142,10 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   val sfAvgNoHold    = sfAvgGiven((a: PlayerAssessment) => !a.hold)
 
   def reportText(maxGames: Int = 10): String = {
-    import Display.emoticon
-
-    val reportGames = playerAssessments.sortBy(-_.assessment).take(maxGames)
     "[AUTOREPORT]\n" +
     "Cheating Games: " + cheatingSum + "\n" +
     "Likely Cheating Games: " + likelyCheatingSum + "\n\n" +
-    reportGames.map(a => emoticon(a.assessment) + " http://lichess.org/" + a.gameId + "/" + a.color.name).mkString("\n")
+    playerAssessments.sortBy(-_.assessment).take(maxGames).map(a => Display.emoticon(a.assessment) + " http://lichess.org/" + a.gameId + "/" + a.color.name).mkString("\n")
   }
 }
 
