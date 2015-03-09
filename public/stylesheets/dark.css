@@ -209,7 +209,7 @@ body.dark #now_playing > a {
 body.dark #hooks_wrap .table_wrap tr.cancel td {
   background: rgba(0, 80, 0, 0.7);
 }
-body.dark #hooks_wrap .table_wrap tr.hook:hover td,
+body.dark #hooks_wrap .table_wrap tr.join:hover td,
 body.dark #now_playing > a:hover {
   background: rgba(27, 51, 68, 0.7);
 }

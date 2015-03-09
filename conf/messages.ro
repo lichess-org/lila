@@ -429,4 +429,6 @@ connectedToLichessAnonymous=Ești conectat la lichess.org. Autentifică-te sau �
 signedOut=V-ați deconectat
 loginSuccessful=Ești autentificat
 playOnTheBoardOffline=Joaca offline folosind tabla
+playOfflineComputer=Joacă offline cu calculatorul
 showPGN=Arată PNG
+opponent=Oponent
