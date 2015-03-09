@@ -36,6 +36,10 @@
         @g.pgnImport.flatMap(_.user).map { user =>
         @trans.by(userIdLink(user.some, None, false))
         }
+        •
+        @if(g.variant.exotic) {
+        @variantLink(g.variant, g.variant.name.toUpperCase, cssClass = "hint--top")
+        }
         } else {
         @g.clock.map(_.show).getOrElse {
         @g.daysPerTurn.map { days =>
