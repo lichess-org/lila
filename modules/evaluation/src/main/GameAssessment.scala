@@ -89,7 +89,7 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
         sigDif(sfAvgHold,   sfAvgNoHold)
       )
 
-      difs.forall(_.isEmpty) || difs.exists(a => a.fold(false){i => i})
+      difs.forall(_.isEmpty) || difs.exists(a => a.fold(false){i => i}) || assessmentsCount < 50
     }
 
     if (actionable) {
@@ -130,8 +130,8 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   }
 
   // Average SF Avg given blur rate
-  val sfAvgBlurs  = sfAvgGiven((a: PlayerAssessment) => a.blurs > 70)
-  val sfAvgNoBlurs  = sfAvgGiven((a: PlayerAssessment) => a.blurs <= 70)
+  val sfAvgBlurs     = sfAvgGiven((a: PlayerAssessment) => a.blurs > 70)
+  val sfAvgNoBlurs   = sfAvgGiven((a: PlayerAssessment) => a.blurs <= 70)
 
   // Average SF Avg given move time coef of variance
   val sfAvgLowVar    = sfAvgGiven((a: PlayerAssessment) => a.mtSd.toDouble / a.mtAvg < 0.5)
@@ -141,8 +141,14 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   val sfAvgHold      = sfAvgGiven((a: PlayerAssessment) => a.hold)
   val sfAvgNoHold    = sfAvgGiven((a: PlayerAssessment) => !a.hold)
 
-  def reportText(maxGames: Int = 10) = {
-    "This is an auto report"
+  def reportText(maxGames: Int = 10): String = {
+    import Display.emoticon
+
+    val reportGames = playerAssessments.sortBy(-_.assessment).take(maxGames)
+    "[AUTOREPORT]\n" +
+    "Cheating Games: " + cheatingSum + "\n" +
+    "Likely Cheating Games: " + likelyCheatingSum + "\n\n" +
+    reportGames.map(a => emoticon(a.assessment) + " http://lichess.org/" + a.gameId + "/" + a.color.name).mkString("\n")
   }
 }
 
