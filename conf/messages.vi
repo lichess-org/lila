@@ -429,4 +429,6 @@ connectedToLichessAnonymous=Bây giờ bạn đã kết nối với lichess.org.
 signedOut=Bạn đã đăng xuất.
 loginSuccessful=Bây gió bạn đã đăng nhập thành công
 playOnTheBoardOffline=Chơi ngoại tuyến, trên bàn cờ.
+playOfflineComputer=Chơi ngoiaj tuyến với máy tính
 showPGN=Hiển thị biên bản ván đấu
+opponent=Đối thủ
