@@ -101,8 +101,8 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   val sfAvgNoBlurs   = sfAvgGiven(_.blurs <= 70)
 
   // Average SF Avg given move time coef of variance
-  val sfAvgLowVar    = sfAvgGiven((a: PlayerAssessment) => a.mtSd.toDouble / a.mtAvg < 0.5)
-  val sfAvgHighVar   = sfAvgGiven((a: PlayerAssessment) => a.mtSd.toDouble / a.mtAvg >= 0.5)
+  val sfAvgLowVar    = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg < 0.5)
+  val sfAvgHighVar   = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg >= 0.5)
 
   // Average SF Avg given bot
   val sfAvgHold      = sfAvgGiven(_.hold)
