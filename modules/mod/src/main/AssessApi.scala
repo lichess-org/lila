@@ -1,5 +1,6 @@
 package lila.mod
 
+import akka.actor.ActorSelection
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.Types.Coll
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -19,6 +20,7 @@ final class AssessApi(
   collAssessments: Coll,
   logApi: ModlogApi,
   modApi: ModApi,
+  reporter: ActorSelection,
   userIdsSharingIp: String => Fu[List[String]]) {
 
   private implicit val playerFlagsBSONhandler = Macros.handler[PlayerFlags]
@@ -66,15 +68,15 @@ final class AssessApi(
       }
 
   def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
-    GameRepo.gamesForAssessment(user.id, 100) flatMap {
-      gs => (gs map {
+    (GameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
+      (gs map {
         g => AnalysisRepo.doneById(g.id) flatMap {
           case Some(a) => onAnalysisReady(g, a, false)
           case _ => funit
         }
       }).sequenceFu.void
-    }
-  } >> assessPlayer(username)
+    }) >> assessPlayer(user.id)
+  }
 
   def onAnalysisReady(game: Game, analysis: Analysis, assess: Boolean = true): Funit = {
     if (!game.isCorrespondence && game.turns >= 40 && game.mode.rated) {
@@ -88,12 +90,17 @@ final class AssessApi(
 
   def assessPlayer(userId: String): Funit = getPlayerAggregateAssessment(userId) flatMap {
     case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
-      case AccountAction.EngineAndBan => modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
-      case AccountAction.Engine => modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
-      case AccountAction.Report => funit
-      case _ => funit
+      case AccountAction.EngineAndBan => 
+        modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
+      case AccountAction.Engine =>
+        modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
+      case AccountAction.Report => {
+        reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
+        funit
+      }
+      case AccountAction.Nothing => funit
     }
-    case _ => funit
+    case none => funit
   }
   
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
