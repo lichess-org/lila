@@ -47,26 +47,33 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
 
     val bannable: Boolean = (relatedCheatersCount == relatedUsersCount) && relatedUsersCount >= 1
 
+    val suspicious = List(sfAvgBlurs,   sfAvgLowVar,  sfAvgHold)
+    val normal     = List(sfAvgNoBlurs, sfAvgHighVar, sfAvgNoHold)
+
     val actionable: Boolean = {
       def sigDif(a: Option[Int], b: Option[Int]): Option[Boolean] = (a, b) match {
         case (Some(a), Some(b)) => Some(b - a > 10)
         case _ => none
       }
 
-      val difs = List(
-        sigDif(sfAvgBlurs,  sfAvgNoBlurs),
-        sigDif(sfAvgLowVar, sfAvgHighVar),
-        sigDif(sfAvgHold,   sfAvgNoHold)
-      )
+      val difs = (suspicious zip normal).map(a => sigDif(a._1, a._2))
 
       difs.forall(_.isEmpty) || difs.exists(~_) || assessmentsCount < 50
     }
 
+    val exceptional: Boolean =
+      suspicious.exists{
+        case Some(a) => a < 15
+        case none    => false
+      }
+
     if (actionable) {
       if (markable && bannable) EngineAndBan
       else if (markable)        Engine
-      else if (reportable)      Report
-      else                      Nothing
+      else if (reportable 
+        && actionable 
+        && exceptional)         Engine
+      else                      Report
     } else {
       if (markable)             Report
       else if (reportable)      Report
