@@ -70,9 +70,9 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
     if (actionable) {
       if (markable && bannable) EngineAndBan
       else if (markable)        Engine
-      else if (reportable 
-        && actionable 
-        && exceptional)         Engine
+      else if (reportable
+        && exceptional
+        && cheatingSum >= 1)    Engine
       else                      Report
     } else {
       if (markable)             Report
