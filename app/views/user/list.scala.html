@@ -26,7 +26,7 @@
       @users.map { u =>
       <tr>
         <td>@userLink(u._1, cssClass="revert-underline".some)</td>
-        <td><span class="hint--bottom" data-hint="Number of games played">#@u._2.localize</span></td>
+        <td><span class="hint--left" data-hint="Number of games played">#@u._2.localize</span></td>
       </tr>
       }
     </tbody>
