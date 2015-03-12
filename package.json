@@ -1,0 +1,38 @@
+{
+  "name": "lila",
+  "version": "1.0.0",
+  "description": "[lichess.org](http://lichess.org) ---------------------------------",
+  "main": "index.js",
+  "bin": {
+    "lila": "aimon.js"
+  },
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "gulp-svg-sprite": "^1.0.19",
+    "request": "^2.47.0",
+    "svg-sprite": "^1.0.19",
+    "vinyl": "^0.4.6",
+    "websocket": "^1.0.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ornicar/lila.git"
+  },
+  "keywords": [
+    "chess"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ornicar/lila/issues"
+  },
+  "homepage": "https://github.com/ornicar/lila"
+}
