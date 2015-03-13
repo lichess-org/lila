@@ -42,5 +42,5 @@ function checks() {
   });
 }
 
-setInterval(checks, 1 * 60 * 1000);
+setInterval(checks, 10 * 60 * 1000);
 checks();
