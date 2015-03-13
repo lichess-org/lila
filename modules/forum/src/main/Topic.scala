@@ -52,7 +52,8 @@ object Topic {
     categId: String,
     slug: String,
     name: String,
-    troll: Boolean): Topic = Topic(
+    troll: Boolean,
+    featured: Boolean): Topic = Topic(
     id = Random nextString idSize,
     categId = categId,
     slug = slug,
@@ -67,7 +68,7 @@ object Topic {
     lastPostIdTroll = "",
     troll = troll,
     closed = false,
-    hidden = false)
+    hidden = !featured)
 
   import lila.db.JsTube
   import JsTube.Helpers._

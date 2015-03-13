@@ -32,6 +32,12 @@ private[forum] final class TopicApi(
       }
     } yield res
 
+  private def featureNewTopicIn(categ: Categ) =
+    categ.isTeam || Set(
+      "general-chess-discussion",
+      "game-analysis"
+    ).contains(categ.id)
+
   def makeTopic(
     categ: Categ,
     data: DataForm.TopicData)(implicit ctx: UserContext): Fu[Topic] =
@@ -41,7 +47,8 @@ private[forum] final class TopicApi(
           categId = categ.slug,
           slug = slug,
           name = data.name,
-          troll = ctx.troll)
+          troll = ctx.troll,
+          featured = featureNewTopicIn(categ))
         val post = Post.make(
           topicId = topic.id,
           author = data.post.author,
