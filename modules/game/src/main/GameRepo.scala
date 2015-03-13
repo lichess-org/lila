@@ -79,8 +79,8 @@ object GameRepo {
   )
 
   def gamesForAssessment(userId: String, nb: Int): Fu[List[Game]] = $find(
-    $query(Query.finished 
-      ++ Query.rated 
+    $query(Query.finished
+      ++ Query.rated
       ++ Query.user(userId)
       ++ Query.analysed(true)
       ++ Query.turnsMoreThan(20)
@@ -95,7 +95,7 @@ object GameRepo {
     )))
 
   def save(progress: Progress): Funit =
-    GameDiff(progress.origin, progress.game) |> {
+    GameDiff(progress.origin, progress.game) match {
       case (Nil, Nil) => funit
       case (sets, unsets) => gameTube.coll.update(
         $select(progress.origin.id),
