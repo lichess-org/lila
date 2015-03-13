@@ -40,8 +40,12 @@ final class PostApi(
           hidden = topic.hidden,
           categId = categ.id)
         $insert(post) >>
-          $update(topic withPost post) >>
-          $update(categ withTopic post) >>-
+          $update(topic withPost post) >> {
+            (topic.nbPosts == maxPerPage && topic.visibleOnHome) ?? {
+              TopicRepo.hide(topic.id, true)
+            }
+          }
+        $update(categ withTopic post) >>-
           (indexer ! InsertPost(post)) >>
           (env.recent.invalidate inject post) >>-
           ((ctx.userId ifFalse post.troll) ?? { userId =>
