@@ -28,7 +28,27 @@ $(function() {
   }
 
   if ($('div.rating_history').length) {
+    var dashStyles = [
+      // standard gametypes
+      'Solid',
+      'Solid',
+      'Solid',
+      'Solid',
+      // exotic
+      'ShortDash',
+      'ShortDash',
+      'ShortDash',
+      // extreme
+      'ShortDot',
+      'ShortDot',
+      // training
+      'Dash',
+      'Dash'
+    ];
     $('div.rating_history').highcharts('StockChart', mergeDefaults({
+      colors: ["#56B4E9", "#0072B2", "#009E73", "#459F3B", "#F0E442", "#E69F00", "#D55E00",
+        "#CC79A7", "#DF5353", "#FFFFFF", "#888888"
+      ],
       rangeSelector: {
         enabled: true,
         selected: 1,
@@ -44,10 +64,11 @@ $(function() {
         tickWidth: 0
       },
       scrollbar: disabled,
-      series: lichess_rating_series.map(function(serie) {
+      series: lichess_rating_series.map(function(serie, i) {
         return {
           name: serie.name,
           type: 'line',
+          dashStyle: dashStyles[i % dashStyles.length],
           marker: {
             enabled: true,
             radius: 2
