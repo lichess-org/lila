@@ -47,7 +47,7 @@ $(function() {
     ];
     $('div.rating_history').highcharts('StockChart', mergeDefaults({
       colors: ["#56B4E9", "#0072B2", "#009E73", "#459F3B", "#F0E442", "#E69F00", "#D55E00",
-        "#CC79A7", "#FFFFFF", "#888888"
+        "#CC79A7", "#DF5353", "#FFFFFF", "#888888"
       ],
       rangeSelector: {
         enabled: true,
