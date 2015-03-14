@@ -4,7 +4,7 @@ import akka.actor.ActorSelection
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.Types.Coll
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.evaluation.{ AccountAction, Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, GameAssessments, Assessible }
+import lila.evaluation.{ AccountAction, Analysed, GameAssessment, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
 import lila.game.Game
 import lila.game.{ Game, GameRepo }
 import lila.user.{ User, UserRepo }
@@ -45,7 +45,7 @@ final class AssessApi(
   def getGameResultsById(gameId: String) =
     getResultsByGameIdAndColor(gameId, Color.White) zip
     getResultsByGameIdAndColor(gameId, Color.Black) map {
-      a => GameAssessments(a._1, a._2)
+      a => PlayerAssessments(a._1, a._2)
     }
 
   def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] = {
@@ -80,7 +80,7 @@ final class AssessApi(
 
   def onAnalysisReady(game: Game, analysis: Analysis, assess: Boolean = true): Funit = {
     if (!game.isCorrespondence && game.turns >= 40 && game.mode.rated) {
-      val gameAssessments: GameAssessments = Assessible(Analysed(game, analysis)).assessments
+      val gameAssessments: PlayerAssessments = Assessible(Analysed(game, analysis)).assessments
       gameAssessments.white.fold(funit){createPlayerAssessment} >>
       gameAssessments.black.fold(funit){createPlayerAssessment}
     } else funit

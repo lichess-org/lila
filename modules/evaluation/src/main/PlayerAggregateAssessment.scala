@@ -8,7 +8,7 @@ case class PlayerAssessment(
   gameId: String,
   userId: String,
   white: Boolean,
-  assessment: Int, // 1 = Not Cheating, 2 = Unlikely Cheating, 3 = Unknown, 4 = Likely Cheating, 5 = Cheating
+  assessment: GameAssessment,
   date: DateTime,
   // meta
   flags: PlayerFlags,
@@ -121,8 +121,8 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   val sfAvgNoHold    = sfAvgGiven(!_.hold)
 
   def reportText(maxGames: Int = 10): String = {
-    val gameLinks: String = (playerAssessments.sortBy(-_.assessment).take(maxGames).map{ a =>
-      Display.emoticon(a.assessment) + " http://lichess.org/" + a.gameId + "/" + a.color.name
+    val gameLinks: String = (playerAssessments.sortBy(-_.assessment.colorClass).take(maxGames).map{ a =>
+      a.assessment.emoticon + " http://lichess.org/" + a.gameId + "/" + a.color.name
     }).mkString("\n")
 
     s"""[AUTOREPORT]
