@@ -24,6 +24,7 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     @cssTag("common.css")
     @cssTag("chessground.css")
     @cssTag("board.css")
+    @cssTag(s"piece/${ctx.currentPieceSet}.css")
     @moreCss
     <meta content="@openGraph.get('description).getOrElse(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())" name="description">
     <link rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />

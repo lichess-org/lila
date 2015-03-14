@@ -691,42 +691,8 @@ div.lichess_board {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-King.png);
 }
 
-.cburnett .is2d .cg-piece.pawn.white {
-  background-image: url(../piece/cburnett/wP.svg);
-}
-.cburnett .is2d .cg-piece.bishop.white {
-  background-image: url(../piece/cburnett/wB.svg);
-}
-.cburnett .is2d .cg-piece.knight.white,
 #top .cg-piece.cburnett {
   background-image: url(../piece/cburnett/wN.svg);
-}
-.cburnett .is2d .cg-piece.rook.white {
-  background-image: url(../piece/cburnett/wR.svg);
-}
-.cburnett .is2d .cg-piece.queen.white {
-  background-image: url(../piece/cburnett/wQ.svg);
-}
-.cburnett .is2d .cg-piece.king.white {
-  background-image: url(../piece/cburnett/wK.svg);
-}
-.cburnett .is2d .cg-piece.pawn.black {
-  background-image: url(../piece/cburnett/bP.svg);
-}
-.cburnett .is2d .cg-piece.bishop.black {
-  background-image: url(../piece/cburnett/bB.svg);
-}
-.cburnett .is2d .cg-piece.knight.black {
-  background-image: url(../piece/cburnett/bN.svg);
-}
-.cburnett .is2d .cg-piece.rook.black {
-  background-image: url(../piece/cburnett/bR.svg);
-}
-.cburnett .is2d .cg-piece.queen.black {
-  background-image: url(../piece/cburnett/bQ.svg);
-}
-.cburnett .is2d .cg-piece.king.black {
-  background-image: url(../piece/cburnett/bK.svg);
 }
 .pirouetti .is2d .cg-piece.piece.white {
   -webkit-filter: drop-shadow(0 0 0.5px #000);
@@ -886,42 +852,8 @@ div.lichess_board {
 .lightp .is2d .cg-piece.king.black {
   background-image: url(../piece/lightp/bK.png);
 }
-.alpha .is2d .cg-piece.pawn.white {
-  background-image: url(../piece/alpha/wP.svg);
-}
-.alpha .is2d .cg-piece.bishop.white {
-  background-image: url(../piece/alpha/wB.svg);
-}
-.alpha .is2d .cg-piece.knight.white,
 #top .cg-piece.alpha {
   background-image: url(../piece/alpha/wN.svg);
-}
-.alpha .is2d .cg-piece.rook.white {
-  background-image: url(../piece/alpha/wR.svg);
-}
-.alpha .is2d .cg-piece.queen.white {
-  background-image: url(../piece/alpha/wQ.svg);
-}
-.alpha .is2d .cg-piece.king.white {
-  background-image: url(../piece/alpha/wK.svg);
-}
-.alpha .is2d .cg-piece.pawn.black {
-  background-image: url(../piece/alpha/bP.svg);
-}
-.alpha .is2d .cg-piece.bishop.black {
-  background-image: url(../piece/alpha/bB.svg);
-}
-.alpha .is2d .cg-piece.knight.black {
-  background-image: url(../piece/alpha/bN.svg);
-}
-.alpha .is2d .cg-piece.rook.black {
-  background-image: url(../piece/alpha/bR.svg);
-}
-.alpha .is2d .cg-piece.queen.black {
-  background-image: url(../piece/alpha/bQ.svg);
-}
-.alpha .is2d .cg-piece.king.black {
-  background-image: url(../piece/alpha/bK.svg);
 }
 div.lichess_overboard {
   position: absolute;

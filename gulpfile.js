@@ -1,28 +1,30 @@
 var gulp = require('gulp');
-var svgSprite = require('gulp-svg-sprite');
+var svgmin = require('gulp-svgmin');
 
-var config = {
-  mode: {
-    inline: true, // Prepare for inline embedding
-    symbol: true, // Create a «symbol» sprite
-    example: true
-  }
-  // mode: {
-  //   css: { // Activate the «css» mode
-  //     render: {
-  //       css: true // Activate CSS output (with default options)
-  //     },
-  //     example: true
-  //   }
-  // }
-};
 var sourceDir = 'public/piece-src/';
-var destDir = 'public/piece-sprite/';
+var destDir = 'public/stylesheets/piece/';
+
+var pieces = [].concat.apply([], ['w', 'b'].map(function(color) {
+  return ['P', 'B', 'N', 'R', 'Q', 'K'].map(function(role) {
+    return color + role;
+  });
+}));
+
+function makeCss(code) {
+  console.log(code);
+  return code;
+}
 
 gulp.task('piece-sprite', function() {
   ['cburnett', 'alpha'].forEach(function(theme) {
-    gulp.src(sourceDir + theme + '/*.svg')
-      .pipe(svgSprite(config))
-      .pipe(gulp.dest(destDir + theme));
+    var code = pieces.map(function(piece) {
+      var code = gulp.src(sourceDir + theme + '/' + piece + '.svg')
+        .pipe(svgmin({
+          multipass: true,
+          'datauri': 'enc'
+        }))
+        // .pipe(makeCss)
+        .pipe(gulp.dest(destDir + theme));
+    });
   });
 });
