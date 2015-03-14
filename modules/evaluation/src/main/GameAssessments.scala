@@ -20,18 +20,18 @@ sealed trait GameAssessment {
 
 object GameAssessment {
 
-	import reactivemongo.bson.{ BSONHandler, BSONInteger }
+  import reactivemongo.bson.{ BSONHandler, BSONInteger }
 
-	implicit val GameAssessmentBSONHandler = new BSONHandler[BSONInteger, GameAssessment] {
-		def read(bsonInt: BSONInteger): GameAssessment = bsonInt match {
-			case BSONInteger(5) => Cheating
-			case BSONInteger(4) => LikelyCheating
-			case BSONInteger(3) => Unclear
-			case BSONInteger(2) => UnlikelyCheating
-			case _ 							=> NotCheating
-		}
-		def write(x: GameAssessment) = BSONInteger(x.colorClass)
-	}
+  implicit val GameAssessmentBSONHandler = new BSONHandler[BSONInteger, GameAssessment] {
+    def read(bsonInt: BSONInteger): GameAssessment = bsonInt match {
+      case BSONInteger(5) => Cheating
+      case BSONInteger(4) => LikelyCheating
+      case BSONInteger(3) => Unclear
+      case BSONInteger(2) => UnlikelyCheating
+      case _              => NotCheating
+    }
+    def write(x: GameAssessment) = BSONInteger(x.colorClass)
+  }
   case object Cheating extends GameAssessment {
     val description: String = "Cheating"
     val emoticon: String = ">:("
