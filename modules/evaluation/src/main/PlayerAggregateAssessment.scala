@@ -75,7 +75,6 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
     } else {
       if (markable)             Report
       else if (reportable)      Report
-      else if (lowSfAvg)        Report
       else                      Nothing
     }
   }
