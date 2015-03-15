@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+require 'base64'
+include FileUtils
+
+lila_dir = pwd()
+source_dir = lila_dir + '/public/piece/'
+
+themes = ['alpha', 'cburnett']
+pieces = ['wP', 'wN', 'wB', 'wR', 'wQ', 'wK', 'bP', 'bN', 'bB', 'bR', 'bQ', 'bK']
+
+themes.map { |theme|
+  classes = pieces.map { |piece|
+    file = source_dir + theme + '/' + piece + '.svg'
+    svg = File.open(file).readlines[0]
+    base64 = Base64.strict_encode64(svg)
+
+    '.' + theme + ' .is2d .cg-piece.' + role + '.' + color + ' { ' +
+    'background: url(data:image/svg+xml;base64,"' + base64 + '"); }'
+  }
+  puts classes
+}
+
+# file = lila_trans_dir + '/messages'
+# lines = File.open(file).readlines
+# keys = lines.map { |l| l.gsub(/(\w+)=.+/, '\1').strip }
+# vals = keys.map { |k| '  val ' + literal(k) + ' = new Key("' + k + '")' }
+# allCode = code.gsub(/%vals%/, vals.join("\n")).gsub(/%keys%/, keys.map { |k| literal(k) }.join(", "))
+
+# File.open(lila_keys_file, 'w') { |f| f.puts allCode }

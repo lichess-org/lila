@@ -1,31 +1,16 @@
 {
   "name": "lila",
   "version": "1.0.0",
-  "description": "[lichess.org](http://lichess.org) ---------------------------------",
+  "description": "[lichess.org](http://lichess.org)",
   "main": "index.js",
-  "bin": {
-    "lila": "aimon.js"
-  },
-  "directories": {
-    "doc": "doc",
-    "test": "test"
-  },
   "dependencies": {
-    "gulp": "^3.8.11",
-    "gulp-svg-sprite": "^1.0.19",
-    "request": "^2.47.0",
-    "svg-sprite": "^1.0.19",
-    "vinyl": "^0.4.6",
-    "websocket": "^1.0.10"
+    "gulp": "^3.8.11"
   },
   "devDependencies": {
-    "gulp-imagemin": "^2.2.1",
     "gulp-svgmin": "^1.1.1",
-    "imagemin-svgo": "^4.1.2",
-    "svgo": "^0.5.0"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "map-stream": "0.0.5",
+    "svgo": "^0.5.0",
+    "vinyl": "^0.4.6"
   },
   "repository": {
     "type": "git",
@@ -34,10 +19,10 @@
   "keywords": [
     "chess"
   ],
-  "author": "",
+  "author": "Thibault Duplessis",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ornicar/lila/issues"
   },
-  "homepage": "https://github.com/ornicar/lila"
+  "homepage": "http://lichess.org"
 }
