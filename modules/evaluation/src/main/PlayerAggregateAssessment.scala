@@ -64,19 +64,13 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
 
     val exceptionalDif: Boolean = difs map (sigDif(30)_).tupled exists(~_)
 
-    val lowSfAvg: Boolean = difs exists {
-      case (Some(a), _) => a < 15
-      case (_, Some(a)) => a < 15
-      case _ => false
-    }
-
     if (actionable) {
       if (markable && bannable) EngineAndBan
       else if (markable)        Engine
       else if (reportable
         && exceptionalDif
         && cheatingSum >= 1)    Engine
-      else if (lowSfAvg)        Report
+      else if (reportable)      Report
       else                      Nothing
     } else {
       if (markable)             Report
