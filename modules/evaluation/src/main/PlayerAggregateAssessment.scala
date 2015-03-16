@@ -79,10 +79,9 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
     }
   }
 
-  def countAssessmentValue(assessment: Int) = listSum(playerAssessments map {
-    case a if (a.assessment.id == assessment) => 1
-    case _ => 0
-  })
+  def countAssessmentValue(assessment: Int) = playerAssessments count {
+    _.assessment.id == assessment
+  }
 
   val relatedCheatersCount = relatedCheaters.distinct.size
   val relatedUsersCount = relatedUsers.distinct.size
