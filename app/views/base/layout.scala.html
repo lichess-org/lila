@@ -24,8 +24,8 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     @cssTag("common.css")
     @cssTag("chessground.css")
     @cssTag("board.css")
-    @cssTag(s"piece/${ctx.currentPieceSet}.css")
     @moreCss
+    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.get('description).getOrElse(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())" name="description">
     <link rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
@@ -44,12 +44,12 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     ctx.currentTheme.cssClass,
     ctx.currentTheme3d.cssClass,
     ctx.currentBg,
-    ctx.currentPieceSet,
     ctx.currentPieceSet3d,
     ctx.pref.highlight ?? "highlight",
     ctx.pref.destination ?? "destination",
     ctx.blindMode ?? "blind_mode",
     "coords_" + ctx.pref.coords).mkString(" ")"
+    data-piece-set="@ctx.currentPieceSet"
     data-sound-dir="@routes.Assets.at("sound")"
     data-ports="@portsString"
     data-accept-languages="@acceptLanguages.mkString(",")">

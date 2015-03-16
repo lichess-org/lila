@@ -6,26 +6,37 @@ include FileUtils
 
 lila_dir = pwd()
 source_dir = lila_dir + '/public/piece/'
+dest_dir = lila_dir + '/public/stylesheets/piece/'
 
-themes = ['alpha', 'cburnett']
-pieces = ['wP', 'wN', 'wB', 'wR', 'wQ', 'wK', 'bP', 'bN', 'bB', 'bR', 'bQ', 'bK']
+themes = [
+  ['alpha', 'svg'],
+  ['cburnett', 'svg'],
+  ['merida', 'svg'],
+  ['pirouetti', 'svg'],
+  ['spatial', 'svg'],
+  ['lightp', 'png']
+]
+types = {
+  'svg' => 'svg+xml;base64,',
+  'png' => 'png;base64,'
+}
+roles = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king']
+colors = ['white', 'black']
 
 themes.map { |theme|
-  classes = pieces.map { |piece|
-    file = source_dir + theme + '/' + piece + '.svg'
-    svg = File.open(file).readlines[0]
-    base64 = Base64.strict_encode64(svg)
-
-    '.' + theme + ' .is2d .cg-piece.' + role + '.' + color + ' { ' +
-    'background: url(data:image/svg+xml;base64,"' + base64 + '"); }'
-  }
-  puts classes
+  name = theme[0]
+  ext = theme[1]
+  classes = colors.map { |color|
+    roles.map { |role|
+      piece = color[0] + (role == 'knight' ? 'N' : role.upcase[0])
+      file = source_dir + name + '/' + piece + '.' + ext
+      File.open(file, 'r') do|image_file|
+        image = image_file.read
+        base64 = Base64.strict_encode64(image)
+        'body.base .is2d .cg-piece.' + role + '.' + color + ' { ' +
+          "background-image: url('data:image/" + types[ext] + base64 + "'); }"
+      end
+    }
+  }.flatten
+  File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
-
-# file = lila_trans_dir + '/messages'
-# lines = File.open(file).readlines
-# keys = lines.map { |l| l.gsub(/(\w+)=.+/, '\1').strip }
-# vals = keys.map { |k| '  val ' + literal(k) + ' = new Key("' + k + '")' }
-# allCode = code.gsub(/%vals%/, vals.join("\n")).gsub(/%keys%/, keys.map { |k| literal(k) }.join(", "))
-
-# File.open(lila_keys_file, 'w') { |f| f.puts allCode }

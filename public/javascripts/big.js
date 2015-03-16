@@ -694,14 +694,12 @@ lichess.storage = {
           var $body = $('body');
           var $content = $body.children('.content');
           var $dropdown = $themepicker.find('.dropdown');
+          var $pieceSprite = $('#piece-sprite');
           var themes = $dropdown.data('themes').split(' ');
           var theme = $.fp.find(document.body.classList, function(a) {
             return $.fp.contains(themes, a);
           });
-          var sets = $dropdown.data('sets').split(' ');
-          var set = $.fp.find(document.body.classList, function(a) {
-            return $.fp.contains(sets, a);
-          });
+          var set = $body.data('piece-set');
           var theme3ds = $dropdown.data('theme3ds').split(' ');
           var theme3d = $.fp.find(document.body.classList, function(a) {
             return $.fp.contains(theme3ds, a);
@@ -724,9 +722,10 @@ lichess.storage = {
             $themepicker.removeClass("shown");
           });
           $themepicker.find('.is2d div.no-square').hover(function() {
-            $body.removeClass(sets.join(' ')).addClass($(this).data("set"));
+            var s = $(this).data("set");
+            $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, s + '.css'));
           }, function() {
-            $body.removeClass(sets.join(' ')).addClass(set);
+            $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, set + '.css'));
           }).click(function() {
             set = $(this).data("set");
             $.post($(this).parent().data("href"), {
