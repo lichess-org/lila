@@ -47,30 +47,30 @@ case class Assessible(analysed: Analysed) {
     suspiciousHoldAlert(color)
   )
 
-  def rankCheating(color: Color): Int =
-    (flags(color) match {
+  def rankCheating(color: Color): GameAssessment = {
+    val assessment = flags(color) match {
                    //  SF1    SF2    BLR1   BLR2   MTs1   MTs2   Holds
-      case PlayerFlags(true,  true,  true,  true,  true,  true,  true)   => 5 // all true, obvious cheat
-      case PlayerFlags(true,  _,     _,     _,     _,     true,  true)   => 5 // high accuracy, no fast moves, hold alerts
-      case PlayerFlags(_,     true,  _,     _,     _,     true,  true)   => 5 // always has advantage, no fast moves, hold alerts
-      case PlayerFlags(true,  _,     true,  _,     _,     true,  _)      => 5 // high accuracy, high blurs, no fast moves
+      case PlayerFlags(true,  true,  true,  true,  true,  true,  true)   => GameAssessment.Cheating // all true, obvious cheat
+      case PlayerFlags(_   ,  _   ,  _   ,  _   ,  _   ,  _   ,  true)   => GameAssessment.Cheating // Holds are bad, hmk?
+      case PlayerFlags(true,  _,     true,  _,     _,     true,  _)      => GameAssessment.Cheating // high accuracy, high blurs, no fast moves
 
-      case PlayerFlags(true,  _,     _,     _,     true,  true,  _)      => 4 // high accuracy, consistent move times, no fast moves
-      case PlayerFlags(true,  _,     _,     true,  _,     true,  _)      => 4 // high accuracy, moderate blurs, no fast moves
-      case PlayerFlags(_,     true,  _,     true,  true,  _,     _)      => 4 // always has advantage, moderate blurs, highly consistent move times
-      case PlayerFlags(_,     true,  _,     _,     _,     _,     true)   => 4 // always has advantage, hold alerts
-      case PlayerFlags(_,     true,  true,  _,     _,     _,     _)      => 4 // always has advantage, high blurs
+      case PlayerFlags(true,  _,     _,     _,     true,  true,  _)      => GameAssessment.LikelyCheating // high accuracy, consistent move times, no fast moves
+      case PlayerFlags(true,  _,     _,     true,  _,     true,  _)      => GameAssessment.LikelyCheating // high accuracy, moderate blurs, no fast moves
+      case PlayerFlags(_,     true,  _,     true,  true,  _,     _)      => GameAssessment.LikelyCheating // always has advantage, moderate blurs, highly consistent move times
+      case PlayerFlags(_,     true,  true,  _,     _,     _,     _)      => GameAssessment.LikelyCheating // always has advantage, high blurs
 
-      case PlayerFlags(true,  _,     _,     false, false, true,  _)      => 3 // high accuracy, no fast moves, but doesn't blur or flat line
+      case PlayerFlags(true,  _,     _,     false, false, true,  _)      => GameAssessment.Unclear // high accuracy, no fast moves, but doesn't blur or flat line
 
-      case PlayerFlags(true,  _,     _,     _,     _,     false, _)      => 2 // high accuracy, but has fast moves
+      case PlayerFlags(true,  _,     _,     _,     _,     false, _)      => GameAssessment.UnlikelyCheating // high accuracy, but has fast moves
 
-      case PlayerFlags(false, false, _,     _,     _,    _,      _)      => 1 // low accuracy, doesn't hold advantage
-      case _ => 1
-    }).min(this.analysed.game.wonBy(color) match {
-      case Some(c) if (c) => 5
-      case _ => 3
-    })
+      case PlayerFlags(false, false, _,     _,     _,    _,      _)      => GameAssessment.NotCheating // low accuracy, doesn't hold advantage
+      case _ => GameAssessment.NotCheating
+    }
+
+    if (~this.analysed.game.wonBy(color)) assessment
+    else if (assessment == GameAssessment.Cheating || assessment == GameAssessment.LikelyCheating) GameAssessment.Unclear
+    else assessment
+  }
 
   def sfAvg(color: Color): Int = listAverage(Accuracy.diffsList(Pov(this.analysed.game, color), this.analysed.analysis)).toInt
   def sfSd(color: Color): Int = listDeviation(Accuracy.diffsList(Pov(this.analysed.game, color), this.analysed.analysis)).toInt
@@ -97,7 +97,7 @@ case class Assessible(analysed: Analysed) {
     hold = hold(color)
     )
 
-  val assessments: GameAssessments = GameAssessments(
+  val assessments: PlayerAssessments = PlayerAssessments(
     white = Some(playerAssessment(Color.White)),
     black = Some(playerAssessment(Color.Black)))
 }

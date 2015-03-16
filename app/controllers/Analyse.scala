@@ -11,7 +11,7 @@ import lila.analyse.{ Analysis, TimeChart, AdvantageChart, Accuracy }
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.evaluation.GameAssessments
+import lila.evaluation.PlayerAssessments
 import lila.game.{ Pov, Game => GameModel, GameRepo, PgnDump }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.AnalysisAvailable
@@ -67,7 +67,7 @@ object Analyse extends LilaController {
               else divider(pov.game, initialFen)
             val pgn = Env.game.pgnDump(pov.game, initialFen)
             val assessResults = if (isGranted(_.MarkEngine)) Env.mod.assessApi.getGameResultsById(pov.game.id)
-            else fuccess(GameAssessments(None, None))
+            else fuccess(PlayerAssessments(None, None))
             assessResults flatMap {
               results =>
                 Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion,

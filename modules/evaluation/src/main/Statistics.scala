@@ -41,16 +41,6 @@ object Statistics {
   def skip[A](l: List[A], n: Int) =
     l.zipWithIndex.collect {case (e,i) if ((i+n) % 2) == 0 => e} // (i+1) because zipWithIndex is 0-based
 
-  def listSum(xs: List[Int]): Int = xs match {
-    case Nil => 0
-    case x :: tail => x + listSum(tail)
-  }
-
-  def listSum(xs: List[Double]): Double = xs match {
-    case Nil => 0
-    case x :: tail => x + listSum(tail)
-  }
-
   def listAverage[T](x: List[T])(implicit n: Numeric[T]): Double = x match {
     case Nil      => 0
     case a :: Nil => n.toDouble(a)

@@ -4,7 +4,7 @@ import akka.actor.ActorSelection
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.Types.Coll
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.evaluation.{ AccountAction, Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, GameAssessments, Assessible }
+import lila.evaluation.{ AccountAction, Analysed, GameAssessment, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
 import lila.game.Game
 import lila.game.{ Game, GameRepo }
 import lila.user.{ User, UserRepo }
@@ -23,17 +23,17 @@ final class AssessApi(
   reporter: ActorSelection,
   userIdsSharingIp: String => Fu[List[String]]) {
 
-  private implicit val playerFlagsBSONhandler = Macros.handler[PlayerFlags]
+  import PlayerFlags.playerFlagsBSONHandler
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
 
   def createPlayerAssessment(assessed: PlayerAssessment) =
     collAssessments.update(BSONDocument("_id" -> assessed._id), assessed, upsert = true).void
 
-  def getPlayerAssessmentById(id: String) = 
+  def getPlayerAssessmentById(id: String) =
     collAssessments.find(BSONDocument("_id" -> id))
     .one[PlayerAssessment]
 
-  def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) = 
+  def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) =
     collAssessments.find(BSONDocument("userId" -> userId))
     .sort(BSONDocument("date" -> -1))
     .cursor[PlayerAssessment]
@@ -45,7 +45,7 @@ final class AssessApi(
   def getGameResultsById(gameId: String) =
     getResultsByGameIdAndColor(gameId, Color.White) zip
     getResultsByGameIdAndColor(gameId, Color.Black) map {
-      a => GameAssessments(a._1, a._2)
+      a => PlayerAssessments(a._1, a._2)
     }
 
   def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] = {
@@ -80,7 +80,7 @@ final class AssessApi(
 
   def onAnalysisReady(game: Game, analysis: Analysis, assess: Boolean = true): Funit = {
     if (!game.isCorrespondence && game.turns >= 40 && game.mode.rated) {
-      val gameAssessments: GameAssessments = Assessible(Analysed(game, analysis)).assessments
+      val gameAssessments: PlayerAssessments = Assessible(Analysed(game, analysis)).assessments
       gameAssessments.white.fold(funit){createPlayerAssessment} >>
       gameAssessments.black.fold(funit){createPlayerAssessment}
     } else funit
@@ -90,7 +90,7 @@ final class AssessApi(
 
   def assessPlayer(userId: String): Funit = getPlayerAggregateAssessment(userId) flatMap {
     case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
-      case AccountAction.EngineAndBan => 
+      case AccountAction.EngineAndBan =>
         modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
       case AccountAction.Engine =>
         modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
@@ -102,7 +102,7 @@ final class AssessApi(
     }
     case none => funit
   }
-  
+
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     UserRepo named username flatten "[mod] missing user " + username flatMap op
 

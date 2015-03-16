@@ -36,6 +36,8 @@ object Mobile {
         case _                    => None
       }
     }
+
+    def requested(req: RequestHeader) = requestVersion(req).isDefined
   }
 
   object App {

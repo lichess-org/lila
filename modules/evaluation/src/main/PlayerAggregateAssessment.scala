@@ -8,7 +8,7 @@ case class PlayerAssessment(
   gameId: String,
   userId: String,
   white: Boolean,
-  assessment: Int, // 1 = Not Cheating, 2 = Unlikely Cheating, 3 = Unknown, 4 = Likely Cheating, 5 = Cheating
+  assessment: GameAssessment,
   date: DateTime,
   // meta
   flags: PlayerFlags,
@@ -64,32 +64,24 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
 
     val exceptionalDif: Boolean = difs map (sigDif(30)_).tupled exists(~_)
 
-    val lowSfAvg: Boolean = difs exists {
-      case (Some(a), _) => a < 15
-      case (_, Some(a)) => a < 15
-      case _ => false
-    }
-
     if (actionable) {
       if (markable && bannable) EngineAndBan
       else if (markable)        Engine
       else if (reportable
         && exceptionalDif
         && cheatingSum >= 1)    Engine
-      else if (lowSfAvg)        Report
+      else if (reportable)      Report
       else                      Nothing
     } else {
       if (markable)             Report
       else if (reportable)      Report
-      else if (lowSfAvg)        Report
       else                      Nothing
     }
   }
 
-  def countAssessmentValue(assessment: Int) = listSum(playerAssessments map {
-    case a if (a.assessment == assessment) => 1
-    case _ => 0
-  })
+  def countAssessmentValue(assessment: Int) = playerAssessments count {
+    _.assessment.id == assessment
+  }
 
   val relatedCheatersCount = relatedCheaters.distinct.size
   val relatedUsersCount = relatedUsers.distinct.size
@@ -97,7 +89,7 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
     case 0 => 1
     case a => a
   }
-  val relationModifier = if (relatedUsersCount >= 1) 0.02 else 0 
+  val relationModifier = if (relatedUsersCount >= 1) 0.02 else 0
   val cheatingSum = countAssessmentValue(5)
   val likelyCheatingSum = countAssessmentValue(4)
 
@@ -121,8 +113,8 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   val sfAvgNoHold    = sfAvgGiven(!_.hold)
 
   def reportText(maxGames: Int = 10): String = {
-    val gameLinks: String = (playerAssessments.sortBy(-_.assessment).take(maxGames).map{ a =>
-      Display.emoticon(a.assessment) + " http://lichess.org/" + a.gameId + "/" + a.color.name
+    val gameLinks: String = (playerAssessments.sortBy(-_.assessment.id).take(maxGames).map{ a =>
+      a.assessment.emoticon + " http://lichess.org/" + a.gameId + "/" + a.color.name
     }).mkString("\n")
 
     s"""[AUTOREPORT]
@@ -141,3 +133,30 @@ case class PlayerFlags(
   consistentMoveTimes: Boolean,
   noFastMoves: Boolean,
   suspiciousHoldAlert: Boolean)
+
+object PlayerFlags {
+
+  import reactivemongo.bson._
+  import lila.db.BSON
+
+  implicit val playerFlagsBSONHandler = new BSON[PlayerFlags] {
+
+    def reads(r: BSON.Reader): PlayerFlags = PlayerFlags(
+      suspiciousErrorRate = r boolD "ser",
+      alwaysHasAdvantage = r boolD "aha",
+      highBlurRate = r boolD "hbr",
+      moderateBlurRate = r boolD "mbr",
+      consistentMoveTimes = r boolD "cmt",
+      noFastMoves = r boolD "nfm",
+      suspiciousHoldAlert = r boolD "sha")
+
+    def writes(w: BSON.Writer, o: PlayerFlags) = BSONDocument(
+      "ser" -> w.boolO(o.suspiciousErrorRate),
+      "aha" -> w.boolO(o.alwaysHasAdvantage),
+      "hbr" -> w.boolO(o.highBlurRate),
+      "mbr" -> w.boolO(o.moderateBlurRate),
+      "cmt" -> w.boolO(o.consistentMoveTimes),
+      "nfm" -> w.boolO(o.noFastMoves),
+      "sha" -> w.boolO(o.suspiciousHoldAlert))
+  }
+}

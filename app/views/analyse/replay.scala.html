@@ -1,6 +1,6 @@
-@import lila.evaluation.GameAssessments
+@import lila.evaluation.PlayerAssessments
 
-@(pov: Pov, data: play.api.libs.json.JsObject, pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division, results: GameAssessments)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division, results: PlayerAssessments)(implicit ctx: Context)
 
 @import pov._
 
