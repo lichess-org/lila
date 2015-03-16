@@ -114,7 +114,7 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   val sfAvgNoHold    = sfAvgGiven(!_.hold)
 
   def reportText(maxGames: Int = 10): String = {
-    val gameLinks: String = (playerAssessments.sortBy(-_.assessment.colorClass).take(maxGames).map{ a =>
+    val gameLinks: String = (playerAssessments.sortBy(-_.assessment.id).take(maxGames).map{ a =>
       a.assessment.emoticon + " http://lichess.org/" + a.gameId + "/" + a.color.name
     }).mkString("\n")
 

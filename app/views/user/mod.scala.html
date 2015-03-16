@@ -99,7 +99,7 @@
       <thead>
         <tr>
           <th>
-            <span class="result_@aggregateAssessment.action.colorClass">@aggregateAssessment.action.description</span>
+            <span class="result_@aggregateAssessment.action.id">@aggregateAssessment.action.description</span>
           </th>
           <th>
             @aggregateAssessment.playerAssessments.size
@@ -195,7 +195,7 @@
         </tr>
       </thead>
       <tbody>
-      @aggregateAssessment.playerAssessments.sortBy(-_.assessment.colorClass).take(15).map { result =>
+      @aggregateAssessment.playerAssessments.sortBy(-_.assessment.id).take(15).map { result =>
         <tr>
           <td><a href="@routes.Round.watcher(result.gameId, result.color.name)">@routes.Round.watcher(result.gameId, result.color.name)</a></td>
           <td>
@@ -216,7 +216,7 @@
           </td>
           <td>
             <div class="aggregate hint--top-left">
-              <span class="sig_@(result.assessment.colorClass)">@result.assessment.emoticon</span>
+              <span class="sig_@(result.assessment.id)">@result.assessment.emoticon</span>
             </div>
           </td>
         </tr>
