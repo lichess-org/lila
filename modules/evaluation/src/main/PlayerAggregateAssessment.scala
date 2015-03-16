@@ -90,7 +90,7 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
     case 0 => 1
     case a => a
   }
-  val relationModifier = if (relatedUsersCount >= 1) 0.02 else 0 
+  val relationModifier = if (relatedUsersCount >= 1) 0.02 else 0
   val cheatingSum = countAssessmentValue(5)
   val likelyCheatingSum = countAssessmentValue(4)
 
@@ -134,3 +134,29 @@ case class PlayerFlags(
   consistentMoveTimes: Boolean,
   noFastMoves: Boolean,
   suspiciousHoldAlert: Boolean)
+
+object PlayerFlags {
+
+  import reactivemongo.bson._
+  import lila.db.BSON
+  implicit val playerFlagsBSONHandler = new BSON[PlayerFlags] {
+
+    def reads(r: BSON.Reader): PlayerFlags = PlayerFlags(
+      suspiciousErrorRate = r boolD "ser",
+      alwaysHasAdvantage = r boolD "aha",
+      highBlurRate = r boolD "hbr",
+      moderateBlurRate = r boolD "mbr",
+      consistentMoveTimes = r boolD "cmt",
+      noFastMoves = r boolD "nfm",
+      suspiciousHoldAlert = r boolD "sha")
+
+    def writes(w: BSON.Writer, o: PlayerFlags) = BSONDocument(
+      "ser" -> w.boolO(o.suspiciousErrorRate),
+      "aha" -> w.boolO(o.alwaysHasAdvantage),
+      "hbr" -> w.boolO(o.highBlurRate),
+      "mbr" -> w.boolO(o.moderateBlurRate),
+      "cmt" -> w.boolO(o.consistentMoveTimes),
+      "nfm" -> w.boolO(o.noFastMoves),
+      "sha" -> w.boolO(o.suspiciousHoldAlert))
+  }
+}
