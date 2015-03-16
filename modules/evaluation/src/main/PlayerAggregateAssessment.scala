@@ -80,7 +80,7 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   }
 
   def countAssessmentValue(assessment: Int) = listSum(playerAssessments map {
-    case a if (a.assessment == assessment) => 1
+    case a if (a.assessment.id == assessment) => 1
     case _ => 0
   })
 
