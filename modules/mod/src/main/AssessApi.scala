@@ -23,17 +23,17 @@ final class AssessApi(
   reporter: ActorSelection,
   userIdsSharingIp: String => Fu[List[String]]) {
 
-  private implicit val playerFlagsBSONhandler = Macros.handler[PlayerFlags]
+  import PlayerFlags.playerFlagsBSONHandler
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
 
   def createPlayerAssessment(assessed: PlayerAssessment) =
     collAssessments.update(BSONDocument("_id" -> assessed._id), assessed, upsert = true).void
 
-  def getPlayerAssessmentById(id: String) = 
+  def getPlayerAssessmentById(id: String) =
     collAssessments.find(BSONDocument("_id" -> id))
     .one[PlayerAssessment]
 
-  def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) = 
+  def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) =
     collAssessments.find(BSONDocument("userId" -> userId))
     .sort(BSONDocument("date" -> -1))
     .cursor[PlayerAssessment]
@@ -90,7 +90,7 @@ final class AssessApi(
 
   def assessPlayer(userId: String): Funit = getPlayerAggregateAssessment(userId) flatMap {
     case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
-      case AccountAction.EngineAndBan => 
+      case AccountAction.EngineAndBan =>
         modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
       case AccountAction.Engine =>
         modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
@@ -102,7 +102,7 @@ final class AssessApi(
     }
     case none => funit
   }
-  
+
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     UserRepo named username flatten "[mod] missing user " + username flatMap op
 

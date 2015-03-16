@@ -139,6 +139,7 @@ object PlayerFlags {
 
   import reactivemongo.bson._
   import lila.db.BSON
+
   implicit val playerFlagsBSONHandler = new BSON[PlayerFlags] {
 
     def reads(r: BSON.Reader): PlayerFlags = PlayerFlags(
