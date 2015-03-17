@@ -18,6 +18,7 @@ private[round] final class Finisher(
     aiPerfApi: lila.ai.AiPerfApi,
     crosstableApi: lila.game.CrosstableApi,
     bus: lila.common.Bus,
+    timeline: akka.actor.ActorSelection,
     casualOnly: Boolean) {
 
   def apply(
@@ -26,6 +27,8 @@ private[round] final class Finisher(
     winner: Option[Color] = None,
     message: Option[SelectI18nKey] = None): Fu[Events] = {
     val prog = game.finish(status(Status), winner)
+    if (game.nonAi && game.isCorrespondence)
+      Color.all foreach notifyTimeline(prog.game)
     casualOnly.fold(
       GameRepo unrate prog.game.id inject prog.game.copy(mode = chess.Mode.Casual),
       fuccess(prog.game)
@@ -45,6 +48,17 @@ private[round] final class Finisher(
               }
             }
       }
+  }
+
+  private def notifyTimeline(game: Game)(color: Color) = {
+    import lila.hub.actorApi.timeline.{ Propagate, GameEnd }
+    game.player(color).userId foreach { userId =>
+      timeline ! (Propagate(GameEnd(
+        playerId = game fullIdOf color,
+        opponent = game.player(!color).userId,
+        win = game.winnerColor map (color ==),
+        perf = game.perfKey)) toUser userId)
+    }
   }
 
   private def updateCountAndPerfs(finish: FinishGame): Funit =

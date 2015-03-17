@@ -31,6 +31,16 @@ case QaAnswer(userId, id, title, answerId) => {
 case QaComment(userId, id, title, commentId) => {
 @trans.xCommentedY(userIdLink(userId.some, withOnline = false), """<a href="%s#comment-%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), commentId, title))
 }
+case GameEnd(playerId, opponent, win, perfKey) => {
+<a href="@routes.Round.player(playerId)">
+@win match {
+case Some(true) => {Victory}
+case Some(false) => {Defeat}
+case _ => {Draw}
+}</a> vs @userIdLink(opponent, withOnline = false) @lila.rating.PerfType(perfKey).map { perf =>
+in @perf.name
+}
+}
 }
 @momentFromNow(e.date)
 }

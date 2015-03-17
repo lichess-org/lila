@@ -72,9 +72,9 @@ case class Game(
   def playedTurns = turns - startedAtTurn
 
   def fullIdOf(player: Player): Option[String] =
-    (players contains player) option id + player.id
+    (players contains player) option s"$id${player.id}"
 
-  def fullIdOf(color: Color): String = id + player(color).id
+  def fullIdOf(color: Color): String = s"$id${player(color).id}"
 
   def tournamentId = metadata.tournamentId
 
@@ -229,7 +229,8 @@ case class Game(
 
   def speed = chess.Speed(clock)
 
-  lazy val perfType = PerfType(PerfPicker.key(this))
+  def perfKey = PerfPicker.key(this)
+  def perfType = PerfType(perfKey)
 
   def started = status >= Status.Started
 

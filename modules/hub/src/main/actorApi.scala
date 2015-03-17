@@ -76,6 +76,7 @@ case class TourJoin(userId: String, tourId: String, tourName: String) extends At
 case class QaQuestion(userId: String, id: Int, title: String) extends Atom
 case class QaAnswer(userId: String, id: Int, title: String, answerId: Int) extends Atom
 case class QaComment(userId: String, id: Int, title: String, commentId: String) extends Atom
+case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String) extends Atom
 
 object atomFormat {
   implicit val followFormat = Json.format[Follow]
@@ -87,6 +88,7 @@ object atomFormat {
   implicit val qaQuestionFormat = Json.format[QaQuestion]
   implicit val qaAnswerFormat = Json.format[QaAnswer]
   implicit val qaCommentFormat = Json.format[QaComment]
+  implicit val gameEndFormat = Json.format[GameEnd]
 }
 
 object propagation {

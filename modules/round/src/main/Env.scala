@@ -115,6 +115,7 @@ final class Env(
     aiPerfApi = aiPerfApi,
     crosstableApi = crosstableApi,
     bus = system.lilaBus,
+    timeline = hub.actor.timeline,
     casualOnly = CasualOnly)
 
   private lazy val rematcher = new Rematcher(
