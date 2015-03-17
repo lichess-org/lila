@@ -29,7 +29,7 @@ private[api] final class GameApi(
     token: Option[String],
     nb: Option[Int]): Fu[JsObject] = $find($query(Json.obj(
     G.status -> $gte(chess.Status.Mate.id),
-    G.playerUids -> username.toLowerCase,
+    G.playerUids -> username.map(_.toLowerCase),
     G.rated -> rated.map(_.fold(JsBoolean(true), $exists(false))),
     G.analysed -> analysed.map(_.fold(JsBoolean(true), $exists(false))),
     G.variant -> check(token).option($nin(Game.unanalysableVariants.map(_.id)))
