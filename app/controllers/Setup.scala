@@ -8,8 +8,8 @@ import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.common.{ HTTPRequest, LilaCookie }
 import lila.game.{ GameRepo, Pov, AnonCookie }
-import lila.user.UserRepo
 import lila.setup.HookConfig
+import lila.user.UserRepo
 import views._
 
 object Setup extends LilaController with TheftPrevention with play.api.http.ContentTypes {
@@ -105,14 +105,15 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
         api = _ => BadRequest(err.errorsAsJson).fuccess),
       preConfig => (ctx.userId ?? Env.relation.api.blocking) zip
         mobileHookAllowAnon(preConfig) flatMap {
-          case (blocking, config) => JsonOk {
+          case (blocking, config) =>
             env.processor.hook(config, uid, HTTPRequest sid req, blocking) map { hookId =>
-              Json.obj(
+              Ok(Json.obj(
                 "ok" -> true,
                 "hook" -> Json.obj(
-                  "id" -> hookId))
+                  "id" -> hookId))) as JSON
+            } recover {
+              case e: IllegalArgumentException => BadRequest(e.getMessage)
             }
-          }
         }
     )
   }
