@@ -53,6 +53,16 @@ object Export extends LilaController {
     }
   }
 
+  def puzzlePng(id: Int) = Open { implicit ctx =>
+    OnlyHumansAndFacebook {
+      OptionResult(Env.puzzle.api.puzzle find id) { puzzle =>
+        Ok.chunked(Enumerator.outputStream(Env.puzzle.pngExport(puzzle))).withHeaders(
+          CONTENT_TYPE -> "image/png",
+          CACHE_CONTROL -> "max-age=7200")
+      }
+    }
+  }
+
   private def OnlyHumans(result: => Fu[Result])(implicit ctx: lila.api.Context) =
     if (HTTPRequest isBot ctx.req) fuccess(NotFound)
     else result

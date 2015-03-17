@@ -91,6 +91,7 @@ GET   /training/history                controllers.Puzzle.history
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/embed                  controllers.Puzzle.embed
 GET   /training/frame                  controllers.Puzzle.frame
+GET   /training/export/png/:id.png     controllers.Export.puzzlePng(id: Int)
 GET   /training/:id                    controllers.Puzzle.show(id: Int)
 GET   /training/:id/load               controllers.Puzzle.load(id: Int)
 POST  /training/:id/attempt            controllers.Puzzle.attempt(id: Int)

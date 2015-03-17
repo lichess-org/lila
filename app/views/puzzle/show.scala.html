@@ -61,6 +61,18 @@ trans.openings)))
 }
 }
 
-@layout(trans.training.str(), evenMoreJs = Some(evenMoreJs)) {
+@layout(
+trans.training.str(),
+evenMoreJs = Some(evenMoreJs),
+openGraph = Map(
+'type -> "website",
+'image -> cdnUrl(routes.Export.puzzlePng(puzzle.id).url),
+'title -> s"Chess tactic training • ${puzzle.color.name.capitalize} to play",
+'site_name -> "lichess.org",
+'url -> s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
+'description -> puzzle.color.fold(
+trans.findTheBestMoveForWhite,
+trans.findTheBestMoveForBlack
+).str())) {
 <div class="round cg-512">@miniBoardContent</div>
 }

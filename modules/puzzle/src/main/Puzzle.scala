@@ -32,6 +32,15 @@ case class Puzzle(
   def initialMove = history.last
 
   def enabled = vote.sum > -9000
+
+  def fenAfterInitialMove: Option[String] = {
+    import chess.format.{ UciMove, Forsyth }
+    for {
+      sit1 <- Forsyth << fen
+      uci <- UciMove(initialMove)
+      sit2 <- sit1.move(uci.orig, uci.dest, uci.promotion).toOption map (_.situationAfter)
+    } yield Forsyth >> sit2
+  }
 }
 
 object Puzzle {
