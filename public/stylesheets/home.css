@@ -394,7 +394,8 @@ div.blog.undertable div.post time {
   line-height: 2;
 }
 #enterable_tournaments {
-  height: 192px;
+  height: auto;
+  max-height: 192px;
 }
 #enterable_tournaments td:first-child {
   padding-left: 1em;
