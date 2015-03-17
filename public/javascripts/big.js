@@ -512,6 +512,19 @@ lichess.storage = {
     return atob(t.split("").reverse().join(""));
   };
 
+  lichess.openInMobileApp = function(gameId) {
+    // Only in dev mode for now. Add #dev to the URL to enable.
+    if (window.location.hash !== '#dev') return false;
+    if (
+      /android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor) &&
+      confirm('Open in lichess mobile app?')
+    ) {
+      window.location.href = 'lichess://' + gameId;
+      return true;
+    }
+    return false;
+  };
+
   lichess.parseFen = function($elem) {
     if (!$elem || !$elem.jquery) {
       $elem = $('.parse_fen');
@@ -1081,6 +1094,7 @@ lichess.storage = {
 
   function startRound(element, cfg) {
     var data = cfg.data;
+    if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
     if (data.chat) $('#chat').chat({
       messages: data.chat,
       initialNote: data.note,
@@ -1155,6 +1169,7 @@ lichess.storage = {
 
   function startPrelude(element, cfg) {
     var data = cfg.data;
+    if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
     lichess.socket = new lichess.StrongSocket(
       data.url.socket,
       data.player.version, {
