@@ -8,6 +8,8 @@ case class CorrespondenceClock(
     whiteTime: Float,
     blackTime: Float) {
 
+  def daysPerTurn = increment / 60 / 60 / 24
+
   def emerg = 60 * 10
 
   def remainingTime(c: Color) = c.fold(whiteTime, blackTime)

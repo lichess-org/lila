@@ -297,6 +297,7 @@ final class JsonView(
     "moretime" -> moretimeSeconds)
 
   private def correspondenceJson(c: CorrespondenceClock) = Json.obj(
+    "daysPerTurn" -> c.daysPerTurn,
     "increment" -> c.increment,
     "white" -> c.whiteTime,
     "black" -> c.blackTime,
