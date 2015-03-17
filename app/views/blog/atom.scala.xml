@@ -1,4 +1,4 @@
-@(docs: List[io.prismic.Document])(implicit req: RequestHeader)
+@(docs: Seq[io.prismic.Document])(implicit req: RequestHeader)
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
   <id>@routes.Blog.index().absoluteURL()</id>

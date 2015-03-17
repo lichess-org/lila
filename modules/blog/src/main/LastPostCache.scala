@@ -8,7 +8,7 @@ final class LastPostCache(api: BlogApi, ttl: Duration, collection: String) {
     api.prismicApi flatMap { prismic =>
       api.recent(prismic, none, 3) map {
         _ ?? {
-          _.results flatMap MiniPost.fromDocument(collection)
+          _.results.toList flatMap MiniPost.fromDocument(collection)
         }
       }
     },
