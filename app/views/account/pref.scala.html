@@ -36,6 +36,10 @@
             <h2>@trans.moveListWhilePlaying()</h2>
             @base.radios(form("replay"), translatedMoveListWhilePlayingChoices)
           </li>
+          <li>
+            <h2>Blindfold Chess (play without seeing the pieces)</h2>
+            @base.radios(form("blindfold"), Pref.Blindfold.choices)
+          </li>
         </ul>
       </fieldset>
       <fieldset>

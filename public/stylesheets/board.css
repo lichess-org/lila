@@ -149,6 +149,9 @@ body.base .cg-board .cg-square.exploding {
   -ms-transform: none;
   z-index: initial;
 }
+.lichess_board.blindfold .cg-piece {
+  opacity: 0;
+}
 .is3d .cg-piece {
   /* original size:
      width: 140.625%;

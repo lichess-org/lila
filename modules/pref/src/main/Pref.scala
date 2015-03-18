@@ -14,6 +14,7 @@ case class Pref(
     pieceSet: String,
     theme3d: String,
     pieceSet3d: String,
+    blindfold: Int,
     autoQueen: Int,
     autoThreefold: Int,
     takeback: Int,
@@ -72,6 +73,8 @@ case class Pref(
     case Animation.SLOW   => 2
     case _                => 1
   }
+
+  def isBlindfold = blindfold == Pref.Blindfold.YES
 }
 
 object Pref {
@@ -111,6 +114,15 @@ object Pref {
       NEVER -> "Never",
       ALWAYS -> "Always",
       PREMOVE -> "When premoving")
+  }
+
+  object Blindfold {
+    val NO = 0
+    val YES = 1
+
+    val choices = Seq(
+      NO -> "What? No!",
+      YES -> "Yes, hide the pieces")
   }
 
   object AutoThreefold {
@@ -203,6 +215,7 @@ object Pref {
     pieceSet = PieceSet.default.name,
     theme3d = Theme3d.default.name,
     pieceSet3d = PieceSet3d.default.name,
+    blindfold = Blindfold.NO,
     autoQueen = AutoQueen.PREMOVE,
     autoThreefold = AutoThreefold.TIME,
     takeback = Takeback.ALWAYS,
