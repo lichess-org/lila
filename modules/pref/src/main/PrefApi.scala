@@ -7,9 +7,13 @@ import lila.db.BSON
 import lila.db.Types._
 import lila.memo.AsyncCache
 import lila.user.User
+import lila.hub.actorApi.SendTo
 import reactivemongo.bson._
 
-final class PrefApi(coll: Coll, cacheTtl: Duration) {
+final class PrefApi(
+    coll: Coll,
+    cacheTtl: Duration,
+    bus: lila.common.Bus) {
 
   private def fetchPref(id: String): Fu[Option[Pref]] = coll.find(BSONDocument("_id" -> id)).one[Pref]
   private val cache = AsyncCache(fetchPref, timeToLive = cacheTtl)
@@ -110,7 +114,10 @@ final class PrefApi(coll: Coll, cacheTtl: Duration) {
     followableIds(userIds) map { followables => userIds map followables.contains }
 
   def setPref(pref: Pref): Funit =
-    coll.update(BSONDocument("_id" -> pref.id), pref, upsert = true).void >>- { cache remove pref.id }
+    coll.update(BSONDocument("_id" -> pref.id), pref, upsert = true).void >>- {
+      cache remove pref.id
+      bus.publish(SendTo(pref.id, "prefChange", true), 'users)
+    }
 
   def setPref(user: User, change: Pref => Pref): Funit =
     getPref(user) map change flatMap setPref
