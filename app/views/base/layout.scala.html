@@ -11,6 +11,7 @@ robots: Boolean = true,
 moreCss: Html = Html(""),
 moreJs: Html = Html(""),
 zen: Boolean = false,
+playing: Boolean = false,
 openGraph: Map[Symbol, String] = Map.empty,
 chessground: Boolean = true)(body: Html)(implicit ctx: Context)
 <!doctype html>
@@ -116,11 +117,11 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
       </div>
       @ctx.me.map { me =>
       <div class="auth">
-        <a id="user_tag" class="toggle toggle_auth"><span data-icon="u">&nbsp;@me.username</span></a>
+        <a id="user_tag" class="toggle toggle_auth"><span class="text" data-icon="u">@me.username</span></a>
         <div class="links dropdown">
-          <a href="@routes.User.show(me.username)" class="blank_if_play"><span data-icon="r">&nbsp;@trans.profile()</span></a>
-          <a href="@routes.Pref.form"><span data-icon="%">&nbsp;@trans.preferences()</span></a>
-          <a href="@routes.Auth.logout"><span data-icon="w">&nbsp;@trans.logOut()</span></a>
+          <a href="@routes.User.show(me.username)" class="blank_if_play"><span class="text" data-icon="r">@trans.profile()</span></a>
+          <a href="@routes.Pref.form"@if(playing){ target="_blank"}><span class="text" data-icon="%">@trans.preferences()</span></a>
+          <a href="@routes.Auth.logout"><span class="text" data-icon="w">@trans.logOut()</span></a>
           @if(isGranted(_.StaffForum)) {
           <span class="sep"></span>
           <a href="@routes.ForumCateg.show("staff")">Staff Forum</a>

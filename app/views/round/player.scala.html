@@ -24,7 +24,8 @@ chat = pov.game.hasChat.option(base.chatDom(trans.chatRoom.str(), ctx.isAuth)),
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov),
-chessground = false) {
+chessground = false,
+playing = true) {
 <div class="round cg-512@if(ctx.pref.isBlindfold){ blindfold}">@miniBoardContent</div>
 <div class="crosstable" style="display:none">
   @cross.map { c =>
