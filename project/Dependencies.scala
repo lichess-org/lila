@@ -6,7 +6,6 @@ object Dependencies {
 
   object Resolvers {
     val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
-    val typesafeS = "typesafe.com" at "http://repo.typesafe.com/typesafe/snapshots/"
     val sonatype = "sonatype" at "https://oss.sonatype.org/content/repositories/releases"
     val sonatypeS = "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
     val t2v = "t2v.jp repo" at "http://www.t2v.jp/maven-repo/"
@@ -14,7 +13,6 @@ object Dependencies {
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
     val sprayNightlies = "spray nightlies repo" at "http://nightlies.spray.io"
-    val localSonatype = "local sonatype repo" at home + "/local-repo/sonatype/snapshots"
     val local = "local repo" at home + "/local-repo"
     val roundeights = "RoundEights" at "http://maven.spikemark.net/roundeights"
     val snowplow = "SnowPlow Repo" at "http://maven.snplow.com/releases/"
@@ -22,13 +20,11 @@ object Dependencies {
 
     val commons = Seq(
       local,
-      // localSonatype,
       sonatypeS,
       sonatype,
       awesomepom,
       typesafe,
       roundeights,
-      // typesafeS,
       prismic,
       t2v, jgitMaven, sprayRepo, sprayNightlies, snowplow)
   }
