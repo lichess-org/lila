@@ -90,14 +90,11 @@ final class AssessApi(
 
   def assessPlayer(userId: String): Funit = getPlayerAggregateAssessment(userId) flatMap {
     case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
-      case AccountAction.EngineAndBan =>
-        modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
-      case AccountAction.Engine =>
-        modApi.autoAdjust(userId) >> logApi.engine("lichess", userId, true)
-      case AccountAction.Report => {
+      case AccountAction.Engine | AccountAction.EngineAndBan =>
+        modApi.autoAdjust(userId)
+      case AccountAction.Report =>
         reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
         funit
-      }
       case AccountAction.Nothing => funit
     }
     case none => funit
