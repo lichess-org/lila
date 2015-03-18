@@ -1893,13 +1893,22 @@ div.lichess_overboard.joining .mini_board {
   width: 100%;
   background: #fff;
   text-decoration: none;
+  transition: 0.13s;
 }
-.crosstable td.current {
-  box-shadow: 0 4px 12px #666;
-  transform: translateY(-3px);
+.crosstable tr:first-child td:hover a,
+.crosstable tr:first-child td.current a {
+  padding-top: 4px;
+  margin-top: -4px;
+  border-top: 2px solid #808080;
 }
-.crosstable td:hover {
-  transform: translateY(-3px);
+.crosstable tr:last-child td:hover a,
+.crosstable tr:last-child td.current a {
+  padding-bottom: 4px;
+  margin-bottom: -4px;
+  border-bottom: 2px solid #808080;
+}
+.crosstable tr td.current a {
+  border-color: #d85000!important;
 }
 body.base .crosstable .win {
   font-weight: bold;
