@@ -137,8 +137,8 @@ object GameRepo {
       }
       catch {
         case e: IllegalArgumentException =>
-          logerr(s"GameRepo.nowPlaying(${user.id}) ${povs.size} ${e.getMessage}")
-          povs
+          // logerr(s"GameRepo.nowPlaying(${user.id}) ${povs.size} ${e.getMessage}")
+          povs sortBy (-_.game.updatedAtOrCreatedAt.getSeconds)
       }
     }
 
