@@ -3,6 +3,7 @@ package lila.app
 import play.api.mvc._
 import play.api.mvc.Results._
 import play.api.{ Application, GlobalSettings, Mode }
+import lila.common.HTTPRequest
 
 import lila.hub.actorApi.monitor.AddRequest
 
@@ -24,13 +25,15 @@ object Global extends GlobalSettings {
       Env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
     }
 
-  private def niceError(req: RequestHeader): Boolean = req.method == "GET" && {
-    Env.ai.ServerOnly || (lila.common.HTTPRequest isSynchronousHttp req)
-  }
+  private def niceError(req: RequestHeader): Boolean =
+    req.method == "GET" &&
+      !Env.ai.ServerOnly &&
+      HTTPRequest.isSynchronousHttp(req) &&
+      !HTTPRequest.hasFileExtension(req)
 
   override def onHandlerNotFound(req: RequestHeader) =
     if (niceError(req)) controllers.Lobby.handleStatus(req, Results.NotFound)
-    else fuccess(NotFound)
+    else fuccess(NotFound("404 - Resource not found"))
 
   override def onBadRequest(req: RequestHeader, error: String) =
     if (error startsWith "Illegal character in path") fuccess(Redirect("/"))
