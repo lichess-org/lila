@@ -116,8 +116,7 @@ final class AssessApi(
       && game.mode.rated
       && game.analysable
       && (game.players flatMap { p => 
-        List(p.holdAlert,
-          p.blurs.toDouble / game.playedTurns >= 0.7,
+        List(p.blurs.toDouble / game.playedTurns >= 0.7,
           p.hasSuspiciousHoldAlert,
           consistentMoveTimes(p.color))
       }).contains(true)) {
