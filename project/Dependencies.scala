@@ -12,7 +12,6 @@ object Dependencies {
     val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
-    val sprayNightlies = "spray nightlies repo" at "http://nightlies.spray.io"
     val local = "local repo" at home + "/local-repo"
     val roundeights = "RoundEights" at "http://maven.spikemark.net/roundeights"
     val snowplow = "SnowPlow Repo" at "http://maven.snplow.com/releases/"
@@ -26,7 +25,7 @@ object Dependencies {
       typesafe,
       roundeights,
       prismic,
-      t2v, jgitMaven, sprayRepo, sprayNightlies, snowplow)
+      t2v, jgitMaven, sprayRepo, snowplow)
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.1"
