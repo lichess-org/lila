@@ -40,5 +40,5 @@ object HTTPRequest {
   private val fileExtensionPattern = """.+\.[a-z0-9]{2,4}$""".r.pattern
 
   def hasFileExtension(req: RequestHeader) =
-    fileExtensionPattern.matcher(req.path.pp).matches.pp
+    fileExtensionPattern.matcher(req.path).matches
 }
