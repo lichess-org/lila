@@ -27,7 +27,7 @@ $(function() {
     return $.extend(true, {}, defaults, config);
   }
 
-  if ($('div.rating_history').length) {
+  $('div.rating_history').each(function() {
     var dashStyles = [
       // standard gametypes
       'Solid',
@@ -41,13 +41,14 @@ $(function() {
       // extreme
       'ShortDot',
       'ShortDot',
+      'ShortDot',
       // training
       'Dash',
       'Dash'
     ];
-    $('div.rating_history').highcharts('StockChart', mergeDefaults({
+    $(this).highcharts('StockChart', mergeDefaults({
       colors: ["#56B4E9", "#0072B2", "#009E73", "#459F3B", "#F0E442", "#E69F00", "#D55E00",
-        "#CC79A7", "#DF5353", "#FFFFFF", "#888888"
+        "#CC79A7", "#DF5353", "#66558C", "#FFFFFF", "#888888"
       ],
       rangeSelector: {
         enabled: true,
@@ -79,7 +80,7 @@ $(function() {
         };
       })
     }));
-  }
+  });
 
   $('#adv_chart').each(function() {
     var $this = $(this);
