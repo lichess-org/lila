@@ -29,6 +29,8 @@ object Blog extends LilaController {
           case Left(newSlug) => MovedPermanently(routes.Blog.show(id, newSlug, ref).url)
           case Right(doc)    => Ok(views.html.blog.show(doc))
         }
+      } recoverWith {
+        case e: RuntimeException if e.getMessage contains "Not Found" => notFound
       }
     }
   }

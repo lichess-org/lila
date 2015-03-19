@@ -65,7 +65,8 @@ private[setup] final class Processor(
           lobby ! AddSeek(seek)
           seek.id
         }
-        case _ => fufail("Can't create seek")
+        case Right(None) if ctx.me.isEmpty => fufail(new IllegalArgumentException("Anon can't create seek"))
+        case _                             => fufail("Can't create seek for some unknown reason")
       }
     }
   }

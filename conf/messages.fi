@@ -429,4 +429,6 @@ connectedToLichessAnonymous=Nyt olet yhdistettynä lichess.org:iin. Voit kirjaut
 signedOut=Olet kirjautunut ulos
 loginSuccessful=Kirjautuminen onnistui
 playOnTheBoardOffline=Pelaa offline tilassa kaveria vastaan
+playOfflineComputer=Pelaa tietokonetta vastaan
 showPGN=Näytä PGN
+opponent=Vastapelaaja

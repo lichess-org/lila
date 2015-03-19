@@ -72,9 +72,9 @@ case class Game(
   def playedTurns = turns - startedAtTurn
 
   def fullIdOf(player: Player): Option[String] =
-    (players contains player) option id + player.id
+    (players contains player) option s"$id${player.id}"
 
-  def fullIdOf(color: Color): String = id + player(color).id
+  def fullIdOf(color: Color): String = s"$id${player(color).id}"
 
   def tournamentId = metadata.tournamentId
 
@@ -229,7 +229,8 @@ case class Game(
 
   def speed = chess.Speed(clock)
 
-  lazy val perfType = PerfType(PerfPicker.key(this))
+  def perfKey = PerfPicker.key(this)
+  def perfType = PerfType(perfKey)
 
   def started = status >= Status.Started
 
@@ -412,13 +413,19 @@ case class Game(
   def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
   lazy val opening =
-    if (playable || fromPosition || variant.exotic) none
+    if (playable || fromPosition || !Game.openingSensiblevariants(variant)) none
     else chess.OpeningExplorer openingOf pgnMoves
 
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
 }
 
 object Game {
+
+  val openingSensiblevariants: Set[Variant] = Set(
+    chess.variant.Standard,
+    chess.variant.ThreeCheck,
+    chess.variant.KingOfTheHill)
+
 
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,

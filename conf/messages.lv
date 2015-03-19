@@ -429,4 +429,6 @@ connectedToLichessAnonymous=Tu esi pieslēdzies lichess.org. Vari pieslēgties v
 signedOut=Tu esi atslēdzies
 loginSuccessful=Pieslēgšanās veiksmīga
 playOnTheBoardOffline=Spēlēt bezsaistē, kā pie galda
+playOfflineComputer=Spēlē pret datoru
 showPGN=Rādīt PGN
+opponent=Pretinieks

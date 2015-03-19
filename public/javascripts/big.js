@@ -512,6 +512,19 @@ lichess.storage = {
     return atob(t.split("").reverse().join(""));
   };
 
+  lichess.openInMobileApp = function(gameId) {
+    // Only in dev mode for now. Add #dev to the URL to enable.
+    if (window.location.hash !== '#dev') return false;
+    if (
+      /android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor) &&
+      confirm('Open in lichess mobile app?')
+    ) {
+      window.location.href = 'lichess://' + gameId;
+      return true;
+    }
+    return false;
+  };
+
   lichess.parseFen = function($elem) {
     if (!$elem || !$elem.jquery) {
       $elem = $('.parse_fen');
@@ -694,14 +707,12 @@ lichess.storage = {
           var $body = $('body');
           var $content = $body.children('.content');
           var $dropdown = $themepicker.find('.dropdown');
+          var $pieceSprite = $('#piece-sprite');
           var themes = $dropdown.data('themes').split(' ');
           var theme = $.fp.find(document.body.classList, function(a) {
             return $.fp.contains(themes, a);
           });
-          var sets = $dropdown.data('sets').split(' ');
-          var set = $.fp.find(document.body.classList, function(a) {
-            return $.fp.contains(sets, a);
-          });
+          var set = $body.data('piece-set');
           var theme3ds = $dropdown.data('theme3ds').split(' ');
           var theme3d = $.fp.find(document.body.classList, function(a) {
             return $.fp.contains(theme3ds, a);
@@ -724,9 +735,10 @@ lichess.storage = {
             $themepicker.removeClass("shown");
           });
           $themepicker.find('.is2d div.no-square').hover(function() {
-            $body.removeClass(sets.join(' ')).addClass($(this).data("set"));
+            var s = $(this).data("set");
+            $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, s + '.css'));
           }, function() {
-            $body.removeClass(sets.join(' ')).addClass(set);
+            $pieceSprite.attr('href', $pieceSprite.attr('href').replace(/\w+\.css/, set + '.css'));
           }).click(function() {
             set = $(this).data("set");
             $.post($(this).parent().data("href"), {
@@ -1082,6 +1094,7 @@ lichess.storage = {
 
   function startRound(element, cfg) {
     var data = cfg.data;
+    if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
     if (data.chat) $('#chat').chat({
       messages: data.chat,
       initialNote: data.note,
@@ -1156,6 +1169,7 @@ lichess.storage = {
 
   function startPrelude(element, cfg) {
     var data = cfg.data;
+    if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
     lichess.socket = new lichess.StrongSocket(
       data.url.socket,
       data.player.version, {

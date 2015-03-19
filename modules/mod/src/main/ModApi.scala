@@ -17,10 +17,12 @@ final class ModApi(
   }
 
   def setEngine(mod: String, username: String, v: Boolean): Funit = withUser(username) { user =>
-    logApi.engine(mod, user.id, v) zip
-      UserRepo.setEngine(user.id, v) >>- {
-        if (v) lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id), 'adjustCheater)
-      } void
+    (user.engine != v) ?? {
+      logApi.engine(mod, user.id, v) zip
+        UserRepo.setEngine(user.id, v) >>- {
+          if (v) lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id), 'adjustCheater)
+        } void
+    }
   }
 
   def autoAdjust(username: String): Funit = logApi.wasUnengined(User.normalize(username)) flatMap {
@@ -33,8 +35,10 @@ final class ModApi(
   }
 
   def setBooster(mod: String, username: String, v: Boolean): Funit = withUser(username) { user =>
-    logApi.booster(mod, user.id, v) zip
-      UserRepo.setBooster(user.id, v) void
+    (user.booster != v) ?? {
+      logApi.booster(mod, user.id, v) zip
+        UserRepo.setBooster(user.id, v) void
+    }
   }
 
   def autoBooster(username: String): Funit = logApi.wasUnbooster(User.normalize(username)) flatMap {

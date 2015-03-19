@@ -27,6 +27,7 @@ case class Entry(
     case "qa-question" => Json.fromJson[QaQuestion](data)
     case "qa-answer"   => Json.fromJson[QaAnswer](data)
     case "qa-comment"  => Json.fromJson[QaComment](data)
+    case "game-end"    => Json.fromJson[GameEnd](data)
   }).asOpt
 }
 
@@ -42,6 +43,7 @@ object Entry {
     case d: QaQuestion => "qa-question" -> Json.toJson(d)
     case d: QaAnswer   => "qa-answer" -> Json.toJson(d)
     case d: QaComment  => "qa-comment" -> Json.toJson(d)
+    case d: GameEnd    => "game-end" -> Json.toJson(d)
   }) match {
     case (typ, json) => json.asOpt[JsObject] map { new Entry(users, typ, _, DateTime.now) }
   }

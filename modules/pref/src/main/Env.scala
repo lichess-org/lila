@@ -5,6 +5,7 @@ import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
+    bus: lila.common.Bus,
     db: lila.db.Env) {
 
   private val CollectionPref = config getString "collection.pref"
@@ -12,12 +13,13 @@ final class Env(
 
   def forms = new DataForm(api)
 
-  lazy val api = new PrefApi(db(CollectionPref), CacheTtl)
+  lazy val api = new PrefApi(db(CollectionPref), CacheTtl, bus)
 }
 
 object Env {
 
   lazy val current = "[boot] pref" describes new Env(
     config = lila.common.PlayApp loadConfig "pref",
+    bus = lila.common.PlayApp.system.lilaBus,
     db = lila.db.Env.current)
 }

@@ -8,6 +8,7 @@ import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.common.{ HTTPRequest, LilaCookie }
 import lila.game.{ GameRepo, Pov, AnonCookie }
+import lila.setup.HookConfig
 import lila.user.UserRepo
 import views._
 
@@ -85,22 +86,35 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
     }
   }
 
+  // if request comes from mobile
+  // and the hook is casual,
+  // reuse the saved "membersOnly" value
+  // from the site preferred hook setup
+  private def mobileHookAllowAnon(config: HookConfig)(implicit ctx: Context): Fu[HookConfig] =
+    if (lila.api.Mobile.Api requested ctx.req)
+      env.forms.hookConfig map { saved =>
+        config.copy(allowAnon = saved.allowAnon)
+      }
+    else fuccess(config)
+
   def hook(uid: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     env.forms.hook(ctx).bindFromRequest.fold(
       err => negotiate(
         html = BadRequest(err.errorsAsJson.toString).fuccess,
         api = _ => BadRequest(err.errorsAsJson).fuccess),
-      config => (ctx.userId ?? Env.relation.api.blocking) flatMap { blocking =>
-        JsonOk {
-          env.processor.hook(config, uid, lila.common.HTTPRequest sid req, blocking) map { hookId =>
-            Json.obj(
-              "ok" -> true,
-              "hook" -> Json.obj(
-                "id" -> hookId))
-          }
+      preConfig => (ctx.userId ?? Env.relation.api.blocking) zip
+        mobileHookAllowAnon(preConfig) flatMap {
+          case (blocking, config) =>
+            env.processor.hook(config, uid, HTTPRequest sid req, blocking) map { hookId =>
+              Ok(Json.obj(
+                "ok" -> true,
+                "hook" -> Json.obj(
+                  "id" -> hookId))) as JSON
+            } recover {
+              case e: IllegalArgumentException => BadRequest(e.getMessage)
+            }
         }
-      }
     )
   }
 

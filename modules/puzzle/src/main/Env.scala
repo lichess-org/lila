@@ -15,6 +15,7 @@ final class Env(
     val CollectionPuzzle = config getString "collection.puzzle"
     val CollectionAttempt = config getString "collection.attempt"
     val ApiToken = config getString "api.token"
+    val PngExecPath = config getString "png.exec_path"
   }
   import settings._
 
@@ -46,6 +47,8 @@ final class Env(
     renderer,
     system.scheduler
   ).apply _
+
+  lazy val pngExport = PngExport(PngExecPath) _
 
   private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
   private[puzzle] lazy val attemptColl = db(CollectionAttempt)

@@ -1,4 +1,4 @@
-@(title: String, evenMoreCss: Option[Html] = None, evenMoreJs: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(title: String, evenMoreCss: Option[Html] = None, evenMoreJs: Option[Html] = None, openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("training.css")
@@ -17,6 +17,7 @@ title = title,
 moreCss = moreCss,
 moreJs = moreJs,
 active = siteMenu.puzzle.some,
-chessground = false) {
+chessground = false,
+openGraph = openGraph) {
 @body
 }

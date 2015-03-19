@@ -27,7 +27,7 @@ object Handler {
       case ("following_onlines", _) => userId foreach { u =>
         hub.actor.relation ! ReloadOnlineFriends(u)
       }
-      case msg => logwarn("Unhandled msg: " + msg)
+      case _ => // logwarn("Unhandled msg: " + msg)
     }
 
     def iteratee(controller: Controller): JsIteratee = {

@@ -99,10 +99,12 @@ module.exports = function(send, ctrl) {
         m.redraw();
       }
     },
+    prefChange: function() {
+      lichess.reload();
+    }
   };
 
   this.receive = function(type, data) {
-    // if (type != 'n') console.log(type, data);
     if (handlers[type]) {
       handlers[type](data);
       return true;

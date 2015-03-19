@@ -11,6 +11,7 @@ robots: Boolean = true,
 moreCss: Html = Html(""),
 moreJs: Html = Html(""),
 zen: Boolean = false,
+playing: Boolean = false,
 openGraph: Map[Symbol, String] = Map.empty,
 chessground: Boolean = true)(body: Html)(implicit ctx: Context)
 <!doctype html>
@@ -22,9 +23,9 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     @cssTag("dark.css")
     }
     @cssTag("common.css")
-    @cssTag("chessground.css")
     @cssTag("board.css")
     @moreCss
+    <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=$assetVersion")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.get('description).getOrElse(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())" name="description">
     <link rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
@@ -43,12 +44,12 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     ctx.currentTheme.cssClass,
     ctx.currentTheme3d.cssClass,
     ctx.currentBg,
-    ctx.currentPieceSet,
     ctx.currentPieceSet3d,
     ctx.pref.highlight ?? "highlight",
     ctx.pref.destination ?? "destination",
     ctx.blindMode ?? "blind_mode",
     "coords_" + ctx.pref.coords).mkString(" ")"
+    data-piece-set="@ctx.currentPieceSet"
     data-sound-dir="@routes.Assets.at("sound")"
     data-ports="@portsString"
     data-accept-languages="@acceptLanguages.mkString(",")">
@@ -116,11 +117,11 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
       </div>
       @ctx.me.map { me =>
       <div class="auth">
-        <a id="user_tag" class="toggle toggle_auth"><span data-icon="u">&nbsp;@me.username</span></a>
+        <a id="user_tag" class="toggle toggle_auth"><span class="text" data-icon="u">@me.username</span></a>
         <div class="links dropdown">
-          <a href="@routes.User.show(me.username)" class="blank_if_play"><span data-icon="r">&nbsp;@trans.profile()</span></a>
-          <a href="@routes.Pref.form"><span data-icon="%">&nbsp;@trans.preferences()</span></a>
-          <a href="@routes.Auth.logout"><span data-icon="w">&nbsp;@trans.logOut()</span></a>
+          <a href="@routes.User.show(me.username)" class="blank_if_play"><span class="text" data-icon="r">@trans.profile()</span></a>
+          <a href="@routes.Pref.form"@if(playing){ target="_blank"}><span class="text" data-icon="%">@trans.preferences()</span></a>
+          <a href="@routes.Auth.logout"><span class="text" data-icon="w">@trans.logOut()</span></a>
           @if(isGranted(_.StaffForum)) {
           <span class="sep"></span>
           <a href="@routes.ForumCateg.show("staff")">Staff Forum</a>

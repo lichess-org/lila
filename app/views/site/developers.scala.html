@@ -44,6 +44,35 @@
 <br />
 
 <div class="content_box small_box developers">
+  <h1 id="embed-puzzle" class="lichess_title">Embed the daily puzzle in your site</h1>
+
+  <div style="text-align: center;">
+    <script src="http://en.@netDomain/training/embed?theme=blue2&bg=light"></script>
+  </div>
+
+  <p>
+    Just add the following line to your site html:
+  </p>
+
+  <pre>&lt;script src="http://en.@netDomain/training/embed?theme=blue2&bg=light"&gt;&lt;/script&gt;</pre>
+
+  <p>
+    Parameters:
+    <ul>
+      <li>- <strong>theme</strong>: Controls the board theme. Available themes: @lila.pref.Theme.list.map(_.name).mkString(", ").</li>
+      <li>- <strong>bg</strong>: Controls the background color. Available backgrounds: light, dark.</li>
+    </ul>
+  </p>
+
+  <p>
+    The text is automatically translated to your visitor language.
+  </p>
+</div>
+
+<br />
+<br />
+
+<div class="content_box small_box developers">
   <h1 id="use-api" class="lichess_title">Lichess HTTP API</h1>
 
   <p>Lichess exposes a RESTful HTTP/JSON API that you are free to use without limitation.</p>

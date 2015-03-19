@@ -33,6 +33,7 @@ function makeConfig(data, fen, flip) {
     premovable: {
       enabled: data.pref.enablePremove,
       showDests: data.pref.destination,
+      castle: data.game.variant.key !== 'antichess',
       events: {
         set: m.redraw,
         unset: m.redraw

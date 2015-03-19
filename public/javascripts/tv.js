@@ -5,7 +5,6 @@ function parseFen($elem) {
   $elem.each(function() {
     var $this = $(this).removeClass('parse_fen');
     var lm = $this.data('lastmove');
-    var lastMove = lm ? [lm[0] + lm[1], lm[2] + lm[3]] : [];
     var color = $this.data('color');
     var ground = $this.data('chessground');
     var playable = $this.data('playable');

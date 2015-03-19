@@ -105,9 +105,10 @@ final class JsonView(
               "round" -> s"/$fullId"
             ),
             "pref" -> Json.obj(
+              "blindfold" -> pref.isBlindfold,
               "animationDuration" -> animationDuration(pov, pref),
-              "highlight" -> pref.highlight,
-              "destination" -> pref.destination,
+              "highlight" -> (pref.highlight || pref.isBlindfold),
+              "destination" -> (pref.destination && !pref.isBlindfold),
               "coords" -> pref.coords,
               "replay" -> pref.replay,
               "autoQueen" -> (pov.game.variant == chess.variant.Antichess).fold(Pref.AutoQueen.NEVER, pref.autoQueen),
@@ -297,6 +298,7 @@ final class JsonView(
     "moretime" -> moretimeSeconds)
 
   private def correspondenceJson(c: CorrespondenceClock) = Json.obj(
+    "daysPerTurn" -> c.daysPerTurn,
     "increment" -> c.increment,
     "white" -> c.whiteTime,
     "black" -> c.blackTime,
