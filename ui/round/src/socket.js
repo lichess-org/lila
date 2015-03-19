@@ -30,7 +30,12 @@ module.exports = function(send, ctrl) {
       ctrl.apiMove(o);
     },
     premove: function() {
-      ctrl.chessground.playPremove();
+      // atrocious hack to prevent race condition
+      // with explosions and premoves
+      // https://github.com/ornicar/lila/issues/343
+      if (ctrl.data.game.variant.key === 'atomic')
+        setTimeout(ctrl.chessground.playPremove, 100);
+      else ctrl.chessground.playPremove();
     },
     castling: function(o) {
       if (ctrl.replay.active || ctrl.chessground.data.autoCastle) return;
