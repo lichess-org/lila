@@ -58,12 +58,14 @@ module.exports = function(opts) {
     $.sound.move(this.data.player.color == 'white');
   }.bind(this);
 
-  var onCapture = function(key) {
-    if (this.data.game.variant.key === 'atomic') atomic.capture(this, key);
-    else $.sound.take();
+  var onMove = function(orig, dest, captured) {
+    if (captured) {
+      if (this.data.game.variant.key === 'atomic') atomic.capture(this, dest, captured);
+      else $.sound.take();
+    }
   }.bind(this);
 
-  this.chessground = ground.make(this.data, opts.data.game.fen, onUserMove, onCapture);
+  this.chessground = ground.make(this.data, opts.data.game.fen, onUserMove, onMove);
 
   this.apiMove = function(o) {
     m.startComputation();
