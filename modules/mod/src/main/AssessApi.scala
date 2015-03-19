@@ -21,9 +21,11 @@ final class AssessApi(
   logApi: ModlogApi,
   modApi: ModApi,
   reporter: ActorSelection,
+  analyser: ActorSelection,
   userIdsSharingIp: String => Fu[List[String]]) {
 
   import PlayerFlags.playerFlagsBSONHandler
+
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
 
   def createPlayerAssessment(assessed: PlayerAssessment) =
@@ -79,7 +81,7 @@ final class AssessApi(
   }
 
   def onAnalysisReady(game: Game, analysis: Analysis, assess: Boolean = true): Funit = {
-    if (!game.isCorrespondence && game.turns >= 40 && game.mode.rated) {
+    if (!game.isCorrespondence && game.playedTurns >= 40 && game.mode.rated) {
       val gameAssessments: PlayerAssessments = Assessible(Analysed(game, analysis)).assessments
       gameAssessments.white.fold(funit){createPlayerAssessment} >>
       gameAssessments.black.fold(funit){createPlayerAssessment}
@@ -98,6 +100,30 @@ final class AssessApi(
       case AccountAction.Nothing => funit
     }
     case none => funit
+  }
+
+  def onGameReady(game: Game): Funit = {
+    import lila.evaluation.Statistics.{ skip, coefVariation }
+
+    def moveTimes(color: Color): List[Int] =
+      skip(game.moveTimes.toList, {if (color == Color.White) 0 else 1})
+
+    def consistentMoveTimes(color: Color): Boolean =
+      moveTimes(color).toNel.map(coefVariation).fold(false)(_ < 0.5)
+
+    if (!game.isCorrespondence
+      && game.playedTurns >= 40
+      && game.mode.rated
+      && game.analysable
+      && (game.players flatMap { p => 
+        List(p.holdAlert,
+          p.blurs.toDouble / game.playedTurns >= 0.7,
+          p.hasSuspiciousHoldAlert,
+          consistentMoveTimes(p.color))
+      }).contains(true)) {
+      analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
+    }
+    funit
   }
 
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
