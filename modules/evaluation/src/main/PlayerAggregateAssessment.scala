@@ -1,5 +1,6 @@
 package lila.evaluation
 
+import lila.user.User
 import chess.Color
 import org.joda.time.DateTime
 
@@ -22,14 +23,16 @@ case class PlayerAssessment(
   val color = Color.apply(white)
 }
 
-case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
+case class PlayerAggregateAssessment(
+  user: User,
+  playerAssessments: List[PlayerAssessment],
   relatedUsers: List[String],
   relatedCheaters: List[String]) {
   import Statistics._
   import AccountAction._
 
   def action = {
-    val markable: Boolean = (
+    val markable: Boolean = !isGreatUser && (
       (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= 4)
       // more than 10 percent of games are cheating
       && (cheatingSum.toDouble / assessmentsCount >= 0.1 - relationModifier
@@ -111,6 +114,9 @@ case class PlayerAggregateAssessment(playerAssessments: List[PlayerAssessment],
   // Average SF Avg given bot
   val sfAvgHold      = sfAvgGiven(_.hold)
   val sfAvgNoHold    = sfAvgGiven(!_.hold)
+
+  def isGreatUser = user.perfs.bestRating > 2200 &&
+  user.count.rated >= 100
 
   def reportText(maxGames: Int = 10): String = {
     val gameLinks: String = (playerAssessments.sortBy(-_.assessment.id).take(maxGames).map{ a =>

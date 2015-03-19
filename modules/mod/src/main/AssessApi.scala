@@ -52,11 +52,16 @@ final class AssessApi(
   def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] = {
     val relatedUsers = userIdsSharingIp(userId)
 
+    UserRepo.byId(userId) zip
     getPlayerAssessmentsByUserId(userId, nb) zip
     relatedUsers zip
     (relatedUsers flatMap UserRepo.filterByEngine) map {
-      case ((assessedGamesHead :: assessedGamesTail, relatedUs), relatedCheaters) =>
-        Some(PlayerAggregateAssessment(assessedGamesHead :: assessedGamesTail, relatedUs, relatedCheaters))
+      case (((Some(user), assessedGamesHead :: assessedGamesTail), relatedUs), relatedCheaters) =>
+        Some(PlayerAggregateAssessment(
+          user,
+          assessedGamesHead :: assessedGamesTail,
+          relatedUs,
+          relatedCheaters))
       case _ => none
     }
   }
