@@ -20,7 +20,6 @@ case class ConcurrentAnalysisException(userId: String, progressId: String, gameI
 final class Analyser(
     ai: ActorSelection,
     indexer: ActorSelection,
-    evaluator: ActorSelection,
     modActor: ActorSelection) {
 
   def get(id: String): Fu[Option[Analysis]] = AnalysisRepo byId id flatMap evictStalled
@@ -77,9 +76,6 @@ final class Analyser(
               if (analysis.valid) {
                 indexer ! InsertGame(game)
                 AnalysisRepo.done(id, analysis) >>- {
-                  game.userIds foreach { userId =>
-                    evaluator ! lila.hub.actorApi.evaluation.Refresh(userId)
-                  }
                   modActor ! actorApi.AnalysisReady(game, analysis)
                 } >>- GameRepo.setAnalysed(game.id) inject analysis
               }

@@ -65,7 +65,6 @@ final class Env(
       Env.notification,
       Env.bookmark,
       Env.pref,
-      Env.evaluation,
       Env.chat,
       Env.puzzle,
       Env.tv,
@@ -119,7 +118,6 @@ object Env {
   def relation = lila.relation.Env.current
   def report = lila.report.Env.current
   def pref = lila.pref.Env.current
-  def evaluation = lila.evaluation.Env.current
   def chat = lila.chat.Env.current
   def puzzle = lila.puzzle.Env.current
   def coordinate = lila.coordinate.Env.current
