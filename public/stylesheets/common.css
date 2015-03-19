@@ -1276,9 +1276,6 @@ body #themepicker div.is3d,
   background-size: 256px;
   border: 1px solid #d0d0d0;
   box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   position: relative;
 }
 .is3d #themepicker div.color_demo {
