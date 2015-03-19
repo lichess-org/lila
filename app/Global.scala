@@ -38,10 +38,7 @@ object Global extends GlobalSettings {
   override def onBadRequest(req: RequestHeader, error: String) =
     if (error startsWith "Illegal character in path") fuccess(Redirect("/"))
     else if (error startsWith "Cannot parse parameter") onHandlerNotFound(req)
-    else if (niceError(req)) {
-      logwarn("[global] bad request: " + error)
-      controllers.Lobby.handleStatus(req, Results.BadRequest)
-    }
+    else if (niceError(req)) controllers.Lobby.handleStatus(req, Results.BadRequest)
     else fuccess(BadRequest(error))
 
   override def onError(req: RequestHeader, ex: Throwable) =
