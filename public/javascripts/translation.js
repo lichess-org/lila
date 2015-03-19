@@ -17,5 +17,27 @@ $(function() {
       $('div.locale_menu a.missing').click();
     }
   }
-});
 
+  var inputHash = function() {
+    return Array.prototype.map.call(
+      document.querySelectorAll('div.messages input'),
+      function(el) {
+        return el.value;
+      }).join('');
+  };
+  var initialHash = inputHash();
+
+  var beforeUnload = function(e) {
+    if (initialHash !== inputHash()) {
+      var msg = 'There are unsaved translations!';
+      (e || window.event).returnValue = msg;
+      return msg;
+    }
+  };
+
+  window.addEventListener('beforeunload', beforeUnload);
+
+  $('form.translation_form').on('submit', function() {
+    window.removeEventListener('beforeunload', beforeUnload);
+  });
+});
