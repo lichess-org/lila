@@ -2,11 +2,10 @@ package lila.mod
 
 import akka.actor.ActorSelection
 import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.db.Types.Coll
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.Types.Coll
 import lila.evaluation.{ AccountAction, Analysed, GameAssessment, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
-import lila.game.Game
-import lila.game.{ Game, GameRepo }
+import lila.game.{ Game, Player, GameRepo }
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
@@ -105,23 +104,32 @@ final class AssessApi(
   def onGameReady(game: Game): Funit = {
     import lila.evaluation.Statistics.{ skip, coefVariation }
 
+    def manyBlurs(player: Player) =
+      player.blurs.toDouble / game.playedTurns >= 0.7
+
     def moveTimes(color: Color): List[Int] =
-      skip(game.moveTimes.toList, {if (color == Color.White) 0 else 1})
+      skip(game.moveTimes.toList, if (color == Color.White) 0 else 1)
 
-    def consistentMoveTimes(color: Color): Boolean =
-      moveTimes(color).toNel.map(coefVariation).fold(false)(_ < 0.5)
+    def consistentMoveTimes(player: Player): Boolean =
+      moveTimes(player.color).toNel.map(coefVariation).fold(false)(_ < 0.5)
 
-    if (!game.isCorrespondence
-      && game.playedTurns >= 40
-      && game.mode.rated
-      && game.analysable
-      && (game.players flatMap { p => 
-        List(p.blurs.toDouble / game.playedTurns >= 0.7,
-          p.hasSuspiciousHoldAlert,
-          consistentMoveTimes(p.color))
-      }).contains(true)) {
-      analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
-    }
+    def shouldAnalyse =
+      if (game.isCorrespondence) false
+      else if (game.playedTurns < 35) false
+      else if (!game.mode.rated) false
+      else if (!game.analysable) false
+      // someone is using a bot
+      else if (game.players.exists(_.hasSuspiciousHoldAlert)) true
+      // don't analyse bullet games
+      else if (game.speed == chess.Speed.Bullet) false
+      // someone blurs a lot
+      else if (game.players exists manyBlurs) true
+      // someone has consistent move times
+      else if (game.players exists consistentMoveTimes) true
+      else false
+
+    if (shouldAnalyse) analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
+
     funit
   }
 
