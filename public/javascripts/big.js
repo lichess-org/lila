@@ -1662,6 +1662,7 @@ lichess.storage = {
             break;
           case '7':
             key = 'atomic'
+            break;
           case '8':
             key = "horde"
         }
