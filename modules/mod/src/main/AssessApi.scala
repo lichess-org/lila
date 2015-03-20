@@ -120,7 +120,7 @@ final class AssessApi(
 
     def shouldAnalyse =
       if (game.isCorrespondence) false
-      else if (game.playedTurns < 35) false
+      else if (game.playedTurns < 40) false
       else if (!game.mode.rated) false
       else if (!game.analysable) false
       // someone is using a bot
