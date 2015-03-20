@@ -1271,15 +1271,17 @@ body #themepicker div.is3d,
   background: #f0f0f0;
 }
 .is2d #themepicker div.color_demo {
-  width: 64px;
-  height: 32px;
+  width: 66px;
+  height: 34px;
   background-size: 256px;
   border: 1px solid #d0d0d0;
+  box-sizing: border-box;
   position: relative;
 }
 .is3d #themepicker div.color_demo {
   width: 66px;
   height: 30px;
+  margin-bottom: 4px;
   background-size: 264px;
   border: none;
   position: relative;

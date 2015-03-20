@@ -30,7 +30,9 @@ function makeConfig(data, situation, onMove) {
       duration: data.pref.animationDuration
     },
     events: {
-      capture: $.sound.take
+      move: function(orig, dest, captured) {
+        if (captured) $.sound.take();
+      }
     },
     disableContextMenu: true
   };

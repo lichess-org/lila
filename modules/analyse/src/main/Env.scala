@@ -14,7 +14,6 @@ final class Env(
     ai: ActorSelection,
     system: ActorSystem,
     indexer: ActorSelection,
-    evaluator: ActorSelection,
     modActor: ActorSelection) {
 
   private val CollectionAnalysis = config getString "collection.analysis"
@@ -28,7 +27,6 @@ final class Env(
   lazy val analyser = new Analyser(
     ai = ai,
     indexer = indexer,
-    evaluator = evaluator,
     modActor = modActor)
 
   lazy val paginator = new PaginatorBuilder(
@@ -66,6 +64,5 @@ object Env {
     ai = lila.hub.Env.current.actor.ai,
     system = lila.common.PlayApp.system,
     indexer = lila.hub.Env.current.actor.gameIndexer,
-    evaluator = lila.hub.Env.current.actor.evaluator,
     modActor = lila.hub.Env.current.actor.mod)
 }

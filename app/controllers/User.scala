@@ -148,15 +148,9 @@ object User extends LilaController {
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>
     me => OptionFuOk(UserRepo named username) { user =>
-      (Env.evaluation.evaluator find user) zip (Env.security userSpy user.id) zip (Env.mod.assessApi.getPlayerAggregateAssessment(user.id)) map {
-        case ((eval, spy), playerAggregateAssessment) => html.user.mod(user, spy, eval, playerAggregateAssessment)
+      (Env.security userSpy user.id) zip (Env.mod.assessApi.getPlayerAggregateAssessment(user.id)) map {
+        case (spy, playerAggregateAssessment) => html.user.mod(user, spy, playerAggregateAssessment)
       }
-    }
-  }
-
-  def evaluate(username: String) = Secure(_.UserEvaluate) { implicit ctx =>
-    me => OptionFuResult(UserRepo named username) { user =>
-      Env.evaluation.evaluator.generate(user.id, true) inject Redirect(routes.User.show(username).url + "?mod")
     }
   }
 

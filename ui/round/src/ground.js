@@ -46,13 +46,13 @@ function makeConfig(data, fen, flip) {
   };
 }
 
-function make(data, fen, userMove, onCapture) {
+function make(data, fen, userMove, onMove) {
   var config = makeConfig(data, fen);
   config.movable.events = {
     after: userMove
   };
   config.events = {
-    capture: onCapture
+    move: onMove
   };
   config.viewOnly = data.player.spectator;
   return new chessground.controller(config);

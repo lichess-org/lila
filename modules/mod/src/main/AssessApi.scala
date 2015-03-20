@@ -2,11 +2,10 @@ package lila.mod
 
 import akka.actor.ActorSelection
 import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.db.Types.Coll
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.Types.Coll
 import lila.evaluation.{ AccountAction, Analysed, GameAssessment, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
-import lila.game.Game
-import lila.game.{ Game, GameRepo }
+import lila.game.{ Game, Player, GameRepo }
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
@@ -21,9 +20,11 @@ final class AssessApi(
   logApi: ModlogApi,
   modApi: ModApi,
   reporter: ActorSelection,
+  analyser: ActorSelection,
   userIdsSharingIp: String => Fu[List[String]]) {
 
   import PlayerFlags.playerFlagsBSONHandler
+
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
 
   def createPlayerAssessment(assessed: PlayerAssessment) =
@@ -51,11 +52,16 @@ final class AssessApi(
   def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] = {
     val relatedUsers = userIdsSharingIp(userId)
 
+    UserRepo.byId(userId) zip
     getPlayerAssessmentsByUserId(userId, nb) zip
     relatedUsers zip
     (relatedUsers flatMap UserRepo.filterByEngine) map {
-      case ((assessedGamesHead :: assessedGamesTail, relatedUs), relatedCheaters) =>
-        Some(PlayerAggregateAssessment(assessedGamesHead :: assessedGamesTail, relatedUs, relatedCheaters))
+      case (((Some(user), assessedGamesHead :: assessedGamesTail), relatedUs), relatedCheaters) =>
+        Some(PlayerAggregateAssessment(
+          user,
+          assessedGamesHead :: assessedGamesTail,
+          relatedUs,
+          relatedCheaters))
       case _ => none
     }
   }
@@ -79,7 +85,7 @@ final class AssessApi(
   }
 
   def onAnalysisReady(game: Game, analysis: Analysis, assess: Boolean = true): Funit = {
-    if (!game.isCorrespondence && game.turns >= 40 && game.mode.rated) {
+    if (!game.isCorrespondence && game.playedTurns >= 40 && game.mode.rated) {
       val gameAssessments: PlayerAssessments = Assessible(Analysed(game, analysis)).assessments
       gameAssessments.white.fold(funit){createPlayerAssessment} >>
       gameAssessments.black.fold(funit){createPlayerAssessment}
@@ -98,6 +104,38 @@ final class AssessApi(
       case AccountAction.Nothing => funit
     }
     case none => funit
+  }
+
+  def onGameReady(game: Game): Funit = {
+    import lila.evaluation.Statistics.{ skip, coefVariation }
+
+    def manyBlurs(player: Player) =
+      player.blurs.toDouble / game.playedTurns >= 0.7
+
+    def moveTimes(color: Color): List[Int] =
+      skip(game.moveTimes.toList, if (color == Color.White) 0 else 1)
+
+    def consistentMoveTimes(player: Player): Boolean =
+      moveTimes(player.color).toNel.map(coefVariation).fold(false)(_ < 0.5)
+
+    def shouldAnalyse =
+      if (game.isCorrespondence) false
+      else if (game.playedTurns < 40) false
+      else if (!game.mode.rated) false
+      else if (!game.analysable) false
+      // someone is using a bot
+      else if (game.players.exists(_.hasSuspiciousHoldAlert)) true
+      // don't analyse bullet games
+      else if (game.speed == chess.Speed.Bullet) false
+      // someone blurs a lot
+      else if (game.players exists manyBlurs) true
+      // someone has consistent move times
+      else if (game.players exists consistentMoveTimes) true
+      else false
+
+    if (shouldAnalyse) analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
+
+    funit
   }
 
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =

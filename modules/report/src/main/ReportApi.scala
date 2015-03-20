@@ -10,7 +10,7 @@ import lila.db.Implicits._
 import lila.user.{ User, UserRepo }
 import tube.reportTube
 
-private[report] final class ReportApi(evaluator: ActorSelection) {
+private[report] final class ReportApi {
 
   def create(setup: ReportSetup, by: User): Funit =
     Reason(setup.reason).fold[Funit](fufail("Invalid report reason " + setup.reason)) { reason =>
@@ -25,15 +25,9 @@ private[report] final class ReportApi(evaluator: ActorSelection) {
           selectRecent(user, reason),
           Json.obj("$set" -> (reportTube.toMongo(report).get - "processedBy" - "_id"))
         ) flatMap { res =>
-            (!res.updatedExisting) ?? {
-              if (report.isCheat) evaluator ! user
-              $insert(report)
-            }
+            (!res.updatedExisting) ?? $insert(report)
           }
-        else {
-          if (report.isCheat) evaluator ! user
-          $insert(report)
-        }
+        else $insert(report)
       }
     }
 

@@ -13,8 +13,7 @@ private[tournament] final class Organizer(
     api: TournamentApi,
     reminder: ActorRef,
     isOnline: String => Boolean,
-    socketHub: ActorRef,
-    evaluator: ActorSelection) extends Actor {
+    socketHub: ActorRef) extends Actor {
 
   context.system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater)
 
@@ -40,12 +39,6 @@ private[tournament] final class Organizer(
         else startPairing(tour)
       }
       reminder ! RemindTournaments(tours)
-    }
-
-    case CheckLeaders => TournamentRepo.started foreach {
-      _.flatMap(_.leaders).map(_.id).distinct foreach { id =>
-        evaluator ! lila.hub.actorApi.evaluation.AutoCheck(id)
-      }
     }
 
     case FinishGame(game, _, _)                    => api finishGame game

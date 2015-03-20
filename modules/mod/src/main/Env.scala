@@ -43,6 +43,7 @@ final class Env(
     logApi = logApi,
     modApi = api,
     reporter = hub.actor.report,
+    analyser = hub.actor.analyser,
     userIdsSharingIp = userIdsSharingIp)
 
   // api actor
@@ -53,7 +54,8 @@ final class Env(
         assessApi.onAnalysisReady(game, analysis)
       case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) =>
         (whiteUserOption |@| blackUserOption) apply {
-          case (whiteUser, blackUser) => boosting.check(game, whiteUser, blackUser)
+          case (whiteUser, blackUser) => boosting.check(game, whiteUser, blackUser) >>
+            assessApi.onGameReady(game)
         }
     }
   }), name = ActorName)

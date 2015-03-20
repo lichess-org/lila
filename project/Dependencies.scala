@@ -14,7 +14,6 @@ object Dependencies {
     val sprayRepo = "spray repo" at "http://repo.spray.io"
     val local = "local repo" at home + "/local-repo"
     val roundeights = "RoundEights" at "http://maven.spikemark.net/roundeights"
-    val snowplow = "SnowPlow Repo" at "http://maven.snplow.com/releases/"
     val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
 
     val commons = Seq(
@@ -25,7 +24,7 @@ object Dependencies {
       typesafe,
       roundeights,
       prismic,
-      t2v, jgitMaven, sprayRepo, snowplow)
+      t2v, jgitMaven, sprayRepo)
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.1"

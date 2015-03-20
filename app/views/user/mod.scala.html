@@ -1,34 +1,31 @@
-@(u: User, spy: lila.security.UserSpy, eval: Option[lila.evaluation.Evaluation], optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment])(implicit ctx: Context)
+@(u: User, spy: lila.security.UserSpy, optionAggregateAssessment: Option[lila.evaluation.PlayerAggregateAssessment])(implicit ctx: Context)
 
 @import lila.evaluation.Display
 
 <div class="actions clearfix">
   @if(isGranted(_.UserEvaluate)) {
-  <form method="post" action="@routes.User.evaluate(u.username)">
-    <input class="button" type="submit" value="@{eval.isDefined.??("(Re)")}Evaluate (old)" />
-  </form>
   <form method="post" action="@routes.Mod.refreshUserAssess(u.username)">
-    <input class="button" type="submit" value="Evaluate (new)" />
+    <input class="button" type="submit" value="Evaluate" />
   </form>
   }
   @if(isGranted(_.MarkEngine)) {
   <form method="post" action="@routes.Mod.engine(u.username)">
-    <input class="confirm button" type="submit" value="@u.engine.fold("Un-engine", "Engine")" />
+    <input class="confirm button@when(u.engine, " active")" type="submit" value="@u.engine.fold("Un-engine", "Engine")" />
   </form>
   }
   @if(isGranted(_.MarkBooster)) {
   <form method="post" action="@routes.Mod.booster(u.username)">
-    <input class="confirm button" type="submit" value="@u.booster.fold("Un-booster", "Booster")" />
+    <input class="confirm button@when(u.booster, " active")" type="submit" value="@u.booster.fold("Un-booster", "Booster")" />
   </form>
   }
   @if(isGranted(_.MarkTroll)) {
   <form method="post" action="@routes.Mod.troll(u.username)">
-    <input class="confirm button" type="submit" value="@u.troll.fold("Un-troll", "Troll")" />
+    <input class="confirm button@when(u.troll, " active")" type="submit" value="@u.troll.fold("Un-troll", "Troll")" />
   </form>
   }
   @if(isGranted(_.IpBan)) {
   <form method="post" action="@routes.Mod.ban(u.username)">
-    <input class="confirm button" type="submit" value="@u.ipBan.fold("Revoke IP ban", "IP ban")" />
+    <input class="confirm button@when(u.ipBan, " active")" type="submit" value="@u.ipBan.fold("Revoke IP ban", "IP ban")" />
   </form>
   }
   @if(!u.disabled) {
@@ -40,51 +37,18 @@
   } else {
   @if(isGranted(_.ReopenAccount)) {
   <form action="@routes.Mod.reopenAccount(u.username)" method="post">
-    <input type="submit" class="button confirm" value="Reopen" />
+    <input type="submit" class="button confirm active" value="Reopen" />
   </form>
   }
   }
   @if(isGranted(_.SetTitle)) {
   <form class="fide_title" method="post" action="@routes.Mod.setTitle(u.username)">
-    @base.select(lila.user.DataForm.title.fill(u.title)("title"), lila.user.User.titles, "No FIDE title".some)
+    @base.select(lila.user.DataForm.title.fill(u.title)("title"), lila.user.User.titles, "No title".some)
   </form>
   }
 </div>
 
 <div class="user_spy">
-  @eval.map { e =>
-  <div class="evaluation">
-    <p>
-      <strong>@e.verdict(u.perfs)</strong> @e.isDeep.fold("Thoroughly", "Quickly") evaluated @momentFromNow(e.date) as @e.percent%
-      <br />
-      <br />
-    </p>
-    @if(e.games.nonEmpty) {
-    <table class="slist">
-      <thead>
-        <tr>
-          <th>Most suspicious games found</th>
-          <th>Move time</th>
-          <th>Blur</th>
-          <th>Analysis</th>
-          <th>Bot</th>
-        </tr>
-      </thead>
-      <tbody>
-        @e.games.map { g =>
-        <tr>
-          <td><a href="@g.path">@g.path</a></td>
-          <td>@g.moveTime.map(_ + "%")</td>
-          <td>@g.blur.map(_ + "%")</td>
-          <td>@g.error.map(_ + "%")</td>
-          <td>@g.hold.map(_ + "%")</td>
-        </tr>
-        }
-      </tbody>
-    </table>
-    }
-  </div>
-  }
   @optionAggregateAssessment.fold{
   <div class="evaluation">
     <p>
