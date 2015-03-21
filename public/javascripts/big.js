@@ -1665,6 +1665,7 @@ lichess.storage = {
             break;
           case '8':
             key = "horde"
+            break;
         }
         $ratings.hide().filter('.' + key).show();
       };

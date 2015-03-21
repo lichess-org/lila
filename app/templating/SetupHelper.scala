@@ -9,7 +9,7 @@ import lila.report.Reason
 import lila.setup.TimeMode
 import lila.tournament.System
 
-trait SetupHelper { self: I18nHelper with HordeHelper =>
+trait SetupHelper { self: I18nHelper =>
 
   def translatedTimeModeChoices(implicit ctx: Context) = List(
     (TimeMode.RealTime.id.toString, trans.realTime.str(), none),
@@ -42,15 +42,13 @@ trait SetupHelper { self: I18nHelper with HordeHelper =>
     variantTuple(chess.variant.Chess960)
   )
 
-  def translatedVariantChoicesWithVariants(implicit ctx: Context) = {
+  def translatedVariantChoicesWithVariants(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
       variantTuple(chess.variant.KingOfTheHill) :+
       variantTuple(chess.variant.ThreeCheck) :+
       variantTuple(chess.variant.Antichess) :+
-      variantTuple(chess.variant.Atomic)
-  } ++ isHordeAvailable(ctx).?? {
-    Seq(variantTuple(chess.variant.Horde))
-  }
+      variantTuple(chess.variant.Atomic) :+
+      variantTuple(chess.variant.Horde)
 
   def translatedVariantChoicesWithFen(implicit ctx: Context) =
     translatedVariantChoices(ctx) :+
@@ -68,8 +66,8 @@ trait SetupHelper { self: I18nHelper with HordeHelper =>
   def translatedSpeedChoices(implicit ctx: Context) = Speed.limited map { s =>
     (s.id.toString, {
       (s.range.min, s.range.max) match {
-        case (0, y)            => s.toString + " - " + trans.lessThanNbMinutes(y / 60 + 1)
-        case (x, y)            => s.toString + " - " + trans.xToYMinutes(x / 60, y / 60 + 1)
+        case (0, y) => s.toString + " - " + trans.lessThanNbMinutes(y / 60 + 1)
+        case (x, y) => s.toString + " - " + trans.xToYMinutes(x / 60, y / 60 + 1)
       }
     }, none)
   }
