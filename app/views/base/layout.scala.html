@@ -19,6 +19,7 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
   <head>
     <meta charset="utf-8">
     <title>@if(!isProd){ [dev] }@fullTitle.getOrElse{@title • lichess.org}</title>
+    @fonts(lang)
     @if(ctx.currentBg == "dark") {
     @cssTag("dark.css")
     }
