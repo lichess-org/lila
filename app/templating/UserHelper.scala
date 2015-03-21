@@ -31,7 +31,8 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     PerfType.ThreeCheck,
     PerfType.Correspondence,
     PerfType.Antichess,
-    PerfType.Atomic)
+    PerfType.Atomic,
+    PerfType.Horde)
 
   private def best3Of(u: User, perfTypes: List[PerfType]) =
     perfTypes.sortBy { pt => -u.perfs(pt).nb } take 3
