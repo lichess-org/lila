@@ -129,8 +129,9 @@ div.lobby_and_ground {
 }
 #hooks_wrap .table_wrap th {
   padding: 14px 12px;
-  font-weight: lighter;
   border-bottom: transparent;
+  font-family: 'Open Sans';
+  font-weight: 300;
 }
 #hooks_wrap .table_wrap th.sortable {
   cursor: pointer;
@@ -434,7 +435,8 @@ div.new_posts a {
   margin-right: 6px;
 }
 div.new_posts li span.extract {
-  font-weight: lighter;
+  font-family: 'Open Sans';
+  font-weight: 300;
 }
 #call_boxes {
   position: absolute;
@@ -619,12 +621,14 @@ div.game_config div.color_submits button.random span {
   padding-bottom: 8px;
   border-bottom: 1px solid #e4e4e4;
   margin-bottom: 8px;
-  font-weight: lighter;
+  font-family: 'Open Sans';
+  font-weight: 300;
 }
 #timeline time {
   font-size: 0.9em;
 }
 #timeline a {
+  font-family: 'Noto Sans';
   font-weight: bold;
   color: #a0a0a0;
   text-decoration: none;

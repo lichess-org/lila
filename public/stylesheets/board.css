@@ -1053,7 +1053,8 @@ div.table .notyet {
 .lichess_ground .replay td.index {
   width: 15%;
   text-align: center;
-  font-weight: lighter;
+  font-family: 'Open Sans';
+  font-weight: 300;
 }
 .lichess_ground .replay td.move {
   font-family: 'ChessSansPiratf', sans-serif;

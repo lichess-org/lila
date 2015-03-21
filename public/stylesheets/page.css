@@ -3,13 +3,15 @@ div.doc_box .body {
 }
 div.doc_box .body h3 {
   font-size: 1.3em;
-  font-weight: lighter;
+  font-family: 'Open Sans';
+  font-weight: 300;
 }
 div.doc_box .body em {
   font-style: italic;
 }
 div.doc_box .body h3 em {
-  font-weight: lighter;
+  font-family: 'Open Sans';
+  font-weight: 300;
 }
 div.doc_box .body h2 {
   font-size: 1.3em;

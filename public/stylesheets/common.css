@@ -57,30 +57,16 @@ time {
   src: local('Open Sans Light'), local('OpenSans-Light'), url(http://themes.googleusercontent.com/static/fonts/opensans/v7/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff) format('woff');
 }
 @font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v7/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-}
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v7/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
-}
-@font-face {
   font-family: 'Noto Sans';
   font-style: normal;
   font-weight: 400;
-  /* src: local('Noto Sans'), local('NotoSans'), url(http://fonts.gstatic.com/s/notosans/v6/LeFlHvsZjXu2c3ZRgBq9nFtXRa8TVwTICgirnJhmVJw.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/LeFlHvsZjXu2c3ZRgBq9nD8E0i7KZn-EPnyo3HZu7kw.woff) format('woff'); */
-  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v7/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+  src: local('Noto Sans'), local('NotoSans'), url(http://fonts.gstatic.com/s/notosans/v6/LeFlHvsZjXu2c3ZRgBq9nFtXRa8TVwTICgirnJhmVJw.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/LeFlHvsZjXu2c3ZRgBq9nD8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
 }
 @font-face {
   font-family: 'Noto Sans';
   font-style: normal;
   font-weight: 700;
-  /* src: local('Noto Sans Bold'), local('NotoSans-Bold'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ1-gdm0LZdjqr5-oayXSOefg.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ13hCUOGz7vYGh680lGh-uXM.woff) format('woff'); */
-  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v7/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+  src: local('Noto Sans Bold'), local('NotoSans-Bold'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ1-gdm0LZdjqr5-oayXSOefg.woff2) format('woff2'), url(http://fonts.gstatic.com/s/notosans/v6/PIbvSEyHEdL91QLOQRnZ13hCUOGz7vYGh680lGh-uXM.woff) format('woff');
 }
 @font-face {
   font-family: "lichess";
@@ -148,7 +134,8 @@ body.blind_mode [data-icon]::before {
   src: url("../fonts/ChessSansPiratf.eot?#iefix") format("embedded-opentype"), url("../fonts/ChessSansPiratf.woff") format("woff"), url("../fonts/ChessSansPiratf.ttf") format("truetype"), url("../fonts/ChessSansPiratf.svg#lichess") format("svg");
 }
 .thin {
-  font-weight: lighter;
+  font-family: 'Open Sans';
+  font-weight: 300;
 }
 #blind_mode {
   margin-left: -99999px;
@@ -607,7 +594,7 @@ body > div.content {
   margin-bottom: 3px;
 }
 #site_title span.extension {
-  font-weight: lighter;
+  opacity: 0.7;
 }
 #site_baseline span {
   font-weight: bold;
@@ -718,8 +705,9 @@ div.content_box_inter .intertab {
   padding: 0.5em 0.7em;
   text-decoration: none;
   text-transform: capitalize;
-  font-weight: lighter;
   border: 1px solid transparent;
+  font-family: 'Open Sans';
+  font-weight: 300;
 }
 div.content_box_inter.tabs .intertab {
   margin-top: 7px;
@@ -727,6 +715,7 @@ div.content_box_inter.tabs .intertab {
   padding-bottom: 0.8em;
 }
 div.content_box_inter .intertab strong {
+  font-family: 'Noto Sans';
   font-weight: normal;
 }
 div.content_box_inter a.intertab:hover,
@@ -1637,8 +1626,9 @@ div.game_row div.infos::before {
 div.game_row div.header strong {
   font-size: 1.4em;
   text-transform: uppercase;
-  font-weight: lighter;
   display: block;
+  font-family: 'Open Sans';
+  font-weight: 300;
 }
 div.game_row div.versus {
   overflow: hidden;

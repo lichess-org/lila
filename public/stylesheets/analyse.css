@@ -184,7 +184,8 @@ div.game_control .jumps {
   top: 2px;
   right: 5px;
   font-size: 0.8em;
-  font-weight: lighter;
+  font-family: 'Open Sans';
+  font-weight: 300;
   opacity: 0.7;
   transition: 0.13s;
 }
@@ -204,7 +205,8 @@ div.game_control .jumps {
   border-bottom: 1px solid #ccc;
 }
 .lichess_ground .analyse > .variation {
-  font-weight: lighter;
+  font-family: 'Open Sans';
+  font-weight: 300;
   padding: 3px 0 3px 5px;
   border-bottom: 1px solid #ccc;
 }
