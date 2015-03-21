@@ -67,7 +67,7 @@ final class QaApi(
     def accept(q: Question) = questionColl.update(
       BSONDocument("_id" -> q.id),
       BSONDocument("$set" -> BSONDocument("acceptedAt" -> DateTime.now))
-    ) >> profile.clearCache
+    )
 
     def count: Fu[Int] = questionColl.db command Count(questionColl.name, None)
 
@@ -112,7 +112,7 @@ final class QaApi(
           questionColl.update(
             BSONDocument("_id" -> q.id),
             BSONDocument("$set" -> BSONDocument("vote" -> newVote))
-          ) >> profile.clearCache inject newVote.some
+          ) inject newVote.some
         }
       }
 
@@ -136,7 +136,6 @@ final class QaApi(
     def remove(id: QuestionId) =
       questionColl.remove(BSONDocument("_id" -> id)) >>
         (answer removeByQuestion id) >>
-        profile.clearCache >>
         tag.clearCache >>
         relation.clearCache
 
@@ -187,7 +186,7 @@ final class QaApi(
     ) >> answerColl.update(
         BSONDocument("_id" -> a.id),
         BSONDocument("$set" -> BSONDocument("acceptedAt" -> DateTime.now))
-      ) >> profile.clearCache
+      )
 
     def popular(questionId: QuestionId): Fu[List[Answer]] =
       answerColl.find(BSONDocument("questionId" -> questionId))
@@ -212,19 +211,18 @@ final class QaApi(
           answerColl.update(
             BSONDocument("_id" -> a.id),
             BSONDocument("$set" -> BSONDocument("vote" -> newVote))
-          ) >> profile.clearCache inject newVote.some
+          ) inject newVote.some
         }
       }
 
     def remove(a: Answer): Fu[Unit] =
       answerColl.remove(BSONDocument("_id" -> a.id)) >>
-        profile.clearCache >>
         (question recountAnswers a.questionId).void
 
     def remove(id: AnswerId): Fu[Unit] = findById(id) flatMap { _ ?? remove }
 
     def removeByQuestion(id: QuestionId) =
-      answerColl.remove(BSONDocument("questionId" -> id)) >> profile.clearCache
+      answerColl.remove(BSONDocument("questionId" -> id))
 
     def removeComment(id: QuestionId, c: CommentId) = answerColl.update(
       BSONDocument("questionId" -> id),
@@ -305,26 +303,6 @@ final class QaApi(
     }
   }
 
-  object profile {
-
-    // private val cache: Cache[Profile] = LruCache(timeToLive = 1.day)
-
-    def clearCache = funit // fuccess(cache.clear)
-
-    // def apply(u: User): Fu[Profile] = cache(u.id) {
-    //   question.recentByUser(u, 300) zip answer.recentByUser(u, 500) map {
-    //     case (qs, as) => Profile(
-    //       reputation = math.max(0, qs.map { q =>
-    //         q.vote.score
-    //       }.sum + as.map { a =>
-    //         a.vote.score + (if (a.accepted && !qs.exists(_.userId == a.userId)) 5 else 0)
-    //       }.sum),
-    //       questions = qs.size,
-    //       answers = as.size)
-    //   }
-    // }
-  }
-
   object relation {
 
     private val questionsCache: Cache[List[Question]] = LruCache(timeToLive = 3.hours)
@@ -338,7 +316,5 @@ final class QaApi(
     }
 
     def clearCache = fuccess(questionsCache.clear)
-
-    // def tags(tag: Tag, max: Int): Fu[List[Tag]] = ???
   }
 }
