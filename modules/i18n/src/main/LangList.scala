@@ -101,7 +101,7 @@ object LangList {
     "ko" -> "한국어",
     "lb" -> "Lëtzebuergesch",
     "lg" -> "Oluganda",
-    "la" -> "lingua Latīna",
+    "la" -> "lingua Latina",
     "le" -> "1337", // not in the ISO 639 standards (duh!)
     "li" -> "Lèmbörgs",
     "ln" -> "Lingála",
@@ -187,7 +187,7 @@ object LangList {
     "fy" -> "Frysk",
     "xh" -> "isiXhosa",
     "yo" -> "Yorùbá",
-    "za" -> "Saɯ cueŋƅ, Saw cueng",
+    "za" -> "Sawcuengh",
     // the values for 'za' (Zhang languages) are made up. Contact with a native speaker to determine their native name is necessary (won't be hard; it has many speakers)
     "zu" -> "isiZulu")
 }
