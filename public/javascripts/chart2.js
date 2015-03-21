@@ -338,7 +338,7 @@ $(function() {
 });
 
 Highcharts.makeFont = function(size) {
-  return size + "px 'Open Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
+  return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
 };
 
 Highcharts.theme = (function() {
