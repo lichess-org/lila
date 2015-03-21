@@ -11,7 +11,7 @@ object LangList {
   lazy val sortedList = all.toList sortBy (_._1)
 
   val all = Map(
-    "ab" -> "аҧсуа",
+    "ab" -> "аҧсшәа",
     "aa" -> "ʿAfár af",
     "af" -> "Afrikaans",
     "ak" -> "Akan",
@@ -90,18 +90,18 @@ object LangList {
     "kl" -> "kalaallisut",
     "kn" -> "ಕನ್ನಡ",
     "kr" -> "Kanuri",
-    "kk" -> "Қазақ тілі",
+    "kk" -> "қазақша",
     "km" -> "ភាសាខ្មែរ",
     "ki" -> "Gĩkũy",
     "rw" -> "Kinyarwanda",
-    "ky" -> "кыргыз тили",
+    "ky" -> "кыргызча",
     "kv" -> "коми кыв",
     "kg" -> "Kikongo, Kitubà",
     "kj" -> "Kuanyam",
     "ko" -> "한국어",
     "lb" -> "Lëtzebuergesch",
     "lg" -> "Oluganda",
-    "la" -> "lingua Latīna",
+    "la" -> "lingua Latina",
     "le" -> "1337", // not in the ISO 639 standards (duh!)
     "li" -> "Lèmbörgs",
     "ln" -> "Lingála",
@@ -160,11 +160,12 @@ object LangList {
     "sv" -> "svenska",
     "ta" -> "தமிழ்",
     "te" -> "తెలుగు",
+    "tg" -> "тоҷикӣ"
     "th" -> "ไทย",
     "ti" -> "ትግርኛ",
     "tk" -> "Türkmençe",
     "tl" -> "tlhIngan Hol",
-    //"tlh" -> "tlhIngan Hol"
+    //"tlh" -> "tlhIngan Hol"; "tl" is Tagalog, must ask Filipino speakers what they prefer
     "tn" -> "Setswana",
     "to" -> "lea fakatonga", // a variety of different spellings for this
     "tp" -> "toki pona", // note that this constructed language has no ISO code
@@ -176,6 +177,7 @@ object LangList {
     "uk" -> "українська",
     "ur" -> "اُردُو",
     "ug" -> "ئۇيغۇرچە",
+    "uz" -> "oʻzbekcha"
     "ve" -> "Tshivenḓa",
     "vi" -> "Tiếng Việt",
     "vo" -> "Volapük",
@@ -185,7 +187,7 @@ object LangList {
     "fy" -> "Frysk",
     "xh" -> "isiXhosa",
     "yo" -> "Yorùbá",
-    "za" -> "Saɯ cueŋƅ, Saw cueng",
+    "za" -> "Sawcuengh",
     // the values for 'za' (Zhang languages) are made up. Contact with a native speaker to determine their native name is necessary (won't be hard; it has many speakers)
     "zu" -> "isiZulu")
 }
