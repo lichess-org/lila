@@ -94,12 +94,12 @@ final class QaApi(
     def popular(max: Int): Fu[List[Question]] = popularCache(max)
 
     def byTag(tag: String, max: Int): Fu[List[Question]] =
-      questionColl.find(BSONDocument("tags" -> tag))
+      questionColl.find(BSONDocument("tags" -> tag.toLowerCase))
         .sort(BSONDocument("vote.score" -> -1))
         .cursor[Question].collect[List](max)
 
     def byTags(tags: List[String], max: Int): Fu[List[Question]] =
-      questionColl.find(BSONDocument("tags" -> BSONDocument("$in" -> tags))).cursor[Question].collect[List](max)
+      questionColl.find(BSONDocument("tags" -> BSONDocument("$in" -> tags.map(_.toLowerCase)))).cursor[Question].collect[List](max)
 
     def addComment(c: Comment)(q: Question) = questionColl.update(
       BSONDocument("_id" -> q.id),
@@ -298,7 +298,7 @@ final class QaApi(
       questionColl.db.command(command) map {
         _.headOption flatMap {
           _.getAs[List[String]]("tags")
-        } getOrElse Nil
+        } getOrElse Nil map (_.toLowerCase) distinct
       }
     }
   }
