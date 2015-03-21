@@ -160,7 +160,7 @@ object LangList {
     "sv" -> "svenska",
     "ta" -> "தமிழ்",
     "te" -> "తెలుగు",
-    "tg" -> "тоҷикӣ"
+    "tg" -> "тоҷикӣ",
     "th" -> "ไทย",
     "ti" -> "ትግርኛ",
     "tk" -> "Türkmençe",
@@ -177,7 +177,7 @@ object LangList {
     "uk" -> "українська",
     "ur" -> "اُردُو",
     "ug" -> "ئۇيغۇرچە",
-    "uz" -> "oʻzbekcha"
+    "uz" -> "oʻzbekcha",
     "ve" -> "Tshivenḓa",
     "vi" -> "Tiếng Việt",
     "vo" -> "Volapük",
