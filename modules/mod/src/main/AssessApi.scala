@@ -110,7 +110,7 @@ final class AssessApi(
     import lila.evaluation.Statistics.{ skip, coefVariation }
 
     def manyBlurs(player: Player) =
-      player.blurs.toDouble / game.playedTurns >= 0.7
+      player.blurs.toDouble / game.playerMoves(player.color) >= 0.7
 
     def moveTimes(color: Color): List[Int] =
       skip(game.moveTimes.toList, if (color == Color.White) 0 else 1)
@@ -132,6 +132,9 @@ final class AssessApi(
       // someone has consistent move times
       else if (game.players exists consistentMoveTimes) true
       else false
+
+      println(game)
+      println(shouldAnalyse)
 
     if (shouldAnalyse) analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
 
