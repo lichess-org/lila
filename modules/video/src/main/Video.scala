@@ -24,9 +24,4 @@ object Target {
 object Video {
 
   type ID = String
-
-  import BSON.BSONJodaDateTimeHandler
-  import reactivemongo.bson.Macros
-
-  private implicit val VideoBSONHandler = Macros.handler[Video]
 }

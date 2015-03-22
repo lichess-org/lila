@@ -1,4 +1,4 @@
-package lila.opening
+package lila.video
 
 import akka.actor.{ ActorSelection, ActorSystem }
 import com.typesafe.config.Config
@@ -19,7 +19,7 @@ final class Env(
     videoColl = videoColl,
     viewColl = viewColl)
 
-  private[video] lazy val vieoColl = db(CollectionVideo)
+  private[video] lazy val videoColl = db(CollectionVideo)
   private[video] lazy val viewColl = db(CollectionView)
 }
 

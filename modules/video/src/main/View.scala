@@ -10,7 +10,7 @@ case class View(
 
 object View {
 
-  def makeId(videoId: Opening.ID, userId: String) = s"$videoId/$userId"
+  def makeId(videoId: Video.ID, userId: String) = s"$videoId/$userId"
 
   object BSONFields {
     val id = "_id"
@@ -28,7 +28,7 @@ object View {
 
     def reads(r: BSON.Reader): View = View(
       id = r str id,
-      videoId = r int videoId,
+      videoId = r str videoId,
       userId = r str userId,
       date = r.get[DateTime](date))
 

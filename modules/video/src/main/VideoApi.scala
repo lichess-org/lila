@@ -11,18 +11,21 @@ private[video] final class VideoApi(
     videoColl: Coll,
     viewColl: Coll) {
 
-  import Video.VideoBSONHandler
+  import lila.db.BSON.BSONJodaDateTimeHandler
+  import reactivemongo.bson.Macros
+  private implicit val VideoBSONHandler = Macros.handler[Video]
+  import View.viewBSONHandler
 
   object video {
 
     def find(id: Video.ID): Fu[Option[Video]] =
       videoColl.find(BSONDocument("_id" -> id)).one[Video]
 
-    def save(video: Video): Fu[Video.ID] =
+    def save(video: Video): Funit =
       videoColl.update(
         BSONDocument("_id" -> video.id),
         video,
-        upsert = true)
+        upsert = true).void
   }
 
   object view {
