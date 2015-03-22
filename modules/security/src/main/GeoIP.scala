@@ -2,11 +2,17 @@ package lila.security
 
 import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
 
-final class GeoIP(file: String, cacheSize: Int) {
+import lila.memo.Builder
+import scala.concurrent.duration._
+
+final class GeoIP(file: String, cacheTtl: Duration) {
 
   private val geoIp = MaxMindIpGeo(file, cacheSize)
+  private val cache = Builder.cache(cacheTtl, compute)
 
-  def apply(ip: String): Option[Location] = geoIp getLocation ip map Location.apply
+  private def compute(ip: String): Option[Location] = geoIp getLocation ip map Location.apply
+
+  def apply(ip: String): Option[Location] = cache(ip)
 
   def orUnknown(ip: String): Location = apply(ip) | Location.unknown
 }
