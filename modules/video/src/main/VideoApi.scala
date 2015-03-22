@@ -121,7 +121,9 @@ private[video] final class VideoApi(
         View.BSONFields.id -> View.makeId(videoId, userId)
       )).one[View]
 
-    def add(a: View) = viewColl insert a void
+    def add(a: View) = (viewColl insert a).void recover {
+      case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") => ()
+    }
 
     def hasSeen(user: User, video: Video): Fu[Boolean] =
       viewColl.db command Count(viewColl.name, BSONDocument(
