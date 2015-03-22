@@ -6,18 +6,18 @@ import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
 
-private[video] final class FetchSheet(
+private[video] final class Sheet(
     url: String,
     api: VideoApi) {
 
-  import FetchSheet._
+  import Sheet._
 
   private implicit val readGStr = Json.reads[GStr]
   private implicit val readEntry = Json.reads[Entry]
   private implicit val readEntries: Reads[Seq[Entry]] =
     (__ \ "feed" \ "entry").read(Reads seq readEntry)
 
-  def apply: Funit = fetch flatMap { entries =>
+  def fetchAll: Funit = fetch flatMap { entries =>
     entries.map { entry =>
       api.video.find(entry.youtubeId).flatMap {
         case Some(video) => api.video.save(video.copy(
@@ -38,10 +38,11 @@ private[video] final class FetchSheet(
           lang = entry.lang,
           lichess = entry.lichess,
           ads = entry.ads,
+          metadata = Youtube.empty,
           createdAt = DateTime.now,
           updatedAt = entry.updatedAt))
       }.recover {
-        case e: Exception => logerr(s"[video] ${e.getMessage}")
+        case e: Exception => logerr(s"[video sheet] ${e.getMessage}")
       }
     }.sequenceFu.void >>
       api.video.removeNotIn(entries.map(_.youtubeId))
@@ -52,11 +53,11 @@ private[video] final class FetchSheet(
       case JsError(err)          => fufail(err.toString)
       case JsSuccess(entries, _) => fuccess(entries.toList)
     }
-    case res => fufail(s"[video] fetch sheet ${res.status}")
+    case res => fufail(s"[video sheet] fetch ${res.status}")
   }
 }
 
-object FetchSheet {
+object Sheet {
 
   case class GStr(`$t`: String) {
     override def toString = `$t`

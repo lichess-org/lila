@@ -2,6 +2,7 @@ package lila.video
 
 import akka.actor.{ ActorSelection, ActorSystem }
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 
@@ -15,6 +16,10 @@ final class Env(
     val CollectionView = config getString "collection.view"
     val SheetUrl = config getString "sheet.url"
     val SheetDelay = config duration "sheet.delay"
+    val YoutubeUrl = config getString "youtube.url"
+    val YoutubeApiKey = config getString "youtube.api_key"
+    val YoutubeMax = config getInt "youtube.max"
+    val YoutubeDelay = config duration "youtube.delay"
   }
   import settings._
 
@@ -22,12 +27,26 @@ final class Env(
     videoColl = videoColl,
     viewColl = viewColl)
 
-  private lazy val fetch = new FetchSheet(
+  private lazy val sheet = new Sheet(
     url = SheetUrl,
     api = api)
 
-  scheduler.effect(SheetDelay, "video update") {
-    fetch.apply
+  private lazy val youtube = new Youtube(
+    url = YoutubeUrl,
+    apiKey = YoutubeApiKey,
+    max = YoutubeMax,
+    api = api)
+
+  scheduler.effect(SheetDelay, "video update from sheet") {
+    sheet.fetchAll
+  }
+
+  scheduler.effect(YoutubeDelay, "video update from youtube") {
+    youtube.updateAll
+  }
+
+  scheduler.once(10 seconds) {
+    sheet.fetchAll >> youtube.updateAll logFailure "video boot"
   }
 
   private[video] lazy val videoColl = db(CollectionVideo)

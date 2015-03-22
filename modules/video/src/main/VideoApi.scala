@@ -13,6 +13,10 @@ private[video] final class VideoApi(
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.bson.Macros
+  private implicit val YoutubeBSONHandler = {
+    import Youtube.Metadata
+    Macros.handler[Metadata]
+  }
   private implicit val VideoBSONHandler = Macros.handler[Video]
   import View.viewBSONHandler
 
@@ -31,6 +35,21 @@ private[video] final class VideoApi(
       videoColl.remove(
         BSONDocument("_id" -> BSONDocument("$nin" -> ids))
       ).void
+
+    def setMetadata(id: Video.ID, metadata: Youtube.Metadata) =
+      videoColl.update(
+        BSONDocument("_id" -> id),
+        BSONDocument("$set" -> BSONDocument("metadata" -> metadata)),
+        upsert = false
+      ).void
+
+    def allIds: Fu[List[Video.ID]] =
+      videoColl.find(
+        BSONDocument(),
+        BSONDocument("_id" -> true)
+      ).cursor[BSONDocument].collect[List]() map { doc =>
+          doc flatMap (_.getAs[String]("_id"))
+        }
   }
 
   object view {

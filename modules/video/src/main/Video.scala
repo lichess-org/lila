@@ -11,6 +11,7 @@ case class Video(
     lang: Lang,
     lichess: Boolean,
     ads: Boolean,
+    metadata: Youtube.Metadata,
     createdAt: DateTime,
     updatedAt: DateTime) {
 
