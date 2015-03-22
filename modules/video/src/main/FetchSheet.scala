@@ -43,7 +43,8 @@ private[video] final class FetchSheet(
       }.recover {
         case e: Exception => logerr(s"[video] ${e.getMessage}")
       }
-    }.sequenceFu.void
+    }.sequenceFu.void >>
+      api.video.removeNotIn(entries.map(_.youtubeId))
   }
 
   private def fetch: Fu[List[Entry]] = WS.url(url).get() flatMap {

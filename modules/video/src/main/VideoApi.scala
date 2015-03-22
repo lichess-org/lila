@@ -26,6 +26,11 @@ private[video] final class VideoApi(
         BSONDocument("_id" -> video.id),
         video,
         upsert = true).void
+
+    def removeNotIn(ids: List[Video.ID]) =
+      videoColl.remove(
+        BSONDocument("_id" -> BSONDocument("$nin" -> ids))
+      ).void
   }
 
   object view {
