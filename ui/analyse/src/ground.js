@@ -42,6 +42,19 @@ function make(data, situation, onMove) {
   return new chessground.controller(makeConfig(data, situation, onMove));
 }
 
+function promote(ground, key, role) {
+  var pieces = {};
+  var piece = ground.data.pieces[key];
+  if (piece && piece.role == 'pawn') {
+    pieces[key] = {
+      color: piece.color,
+      role: role
+    };
+    ground.setPieces(pieces);
+  }
+}
+
 module.exports = {
-  make: make
+  make: make,
+  promote: promote
 };

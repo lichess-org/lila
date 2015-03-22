@@ -8,6 +8,7 @@ var treePath = require('./path');
 var actionMenu = require('./actionMenu').controller;
 var autoplay = require('./autoplay');
 var control = require('./control');
+var promotion = require('./promotion');
 var m = require('mithril');
 
 module.exports = function(cfg, router, i18n, onChange) {
@@ -128,7 +129,7 @@ module.exports = function(cfg, router, i18n, onChange) {
       };
     }
     if (!this.chessground)
-      this.chessground = ground.make(this.data, this.vm.situation, this.onMove);
+      this.chessground = ground.make(this.data, this.vm.situation, userMove);
     this.chessground.stop();
     this.chessground.set(this.vm.situation);
     if (onChange) onChange(this.vm.situation.fen, this.vm.path);
@@ -154,18 +155,27 @@ module.exports = function(cfg, router, i18n, onChange) {
     }]);
   }.bind(this);
 
-  this.onMove = function(orig, dest) {
+  var forsyth = function(role) {
+    return role === 'knight' ? 'n' : role[0];
+  };
+
+  var addMove = function(orig, dest, promotionRole) {
     $.sound.move();
     var chess = new Chess(
       this.vm.situation.fen, gameVariantChessId());
+    var promotionLetter = (dest[1] == 1 || dest[1] == 8) ? (promotionRole ? forsyth(promotionRole) : 'q') : null;
     var move = chess.move({
       from: orig,
       to: dest,
-      promotion: (dest[1] == 1 || dest[1] == 8) ? 'q' : null
+      promotion: promotionLetter
     });
     if (move) this.userJump(this.analyse.explore(this.vm.path, move.san));
     else this.chessground.set(this.vm.situation);
     m.redraw();
+  }.bind(this);
+
+  var userMove = function(orig, dest) {
+    if (!promotion.start(this, orig, dest, addMove)) addMove(orig, dest);
   }.bind(this);
 
   this.router = router;

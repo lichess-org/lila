@@ -8,6 +8,7 @@ var mod = require('game').view.mod;
 var treePath = require('./path');
 var control = require('./control');
 var actionMenu = require('./actionMenu').view;
+var renderPromotion = require('./promotion').view;
 
 function renderEval(e) {
   e = Math.round(e / 10) / 10;
@@ -253,7 +254,7 @@ function visualBoard(ctrl) {
           });
         }
       },
-      chessground.view(ctrl.chessground)));
+      chessground.view(ctrl.chessground), renderPromotion(ctrl)));
 }
 
 function blindBoard(ctrl) {
