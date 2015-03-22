@@ -8,7 +8,7 @@ object Fonts {
     "cyrillic" -> "av be bg ce cu cv kv mk os ru sr uk",
     "cyrillic-ext" -> "ab ba kk ky mn tg",
     "greek" -> "el",
-    "latin-ext" -> "cs cy gn hu mi ro sm tr ty",
+    "latin-ext" -> "cs cy gn hu mi ro sm tr ty pl",
     "vietnamese" -> "vi"
   ).foldLeft(Map[String, String]()) {
     case (acc, (pack, langs)) => langs.split(' ').foldLeft(acc) {
