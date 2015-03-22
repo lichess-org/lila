@@ -37,7 +37,10 @@ final class Preload(
       dailyPuzzle() zip
       streamsOnAir() map {
         case ((((((((data, posts), tours), feat), entries), lead), tWinners), puzzle), streams) =>
-          val inParis = geoIP(ctx.req.remoteAddress) ?? { loc =>
+          val inParis = ctx.me.?? { u =>
+            u.profile.flatMap(_.country) ?? (_ == "FR") &&
+              u.profile.flatMap(_.location) ?? (_.toLowerCase contains "paris")
+          } || geoIP(ctx.req.remoteAddress) ?? { loc =>
             loc.country == "France" && loc.region.orElse(loc.city) == Some("Paris")
           }
           (data, entries, posts, tours, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, countRounds(), inParis)
