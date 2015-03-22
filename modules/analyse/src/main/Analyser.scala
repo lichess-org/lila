@@ -44,8 +44,8 @@ final class Analyser(
       }
 
     def doGenerate: Fu[Analysis] =
-      $find.byId[Game](id) map (_ filter (_.analysable)) flatMap {
-        case Some(game) => GameRepo initialFen game flatMap { initialFen =>
+      $find.byId[Game](id) flatMap {
+        case Some(game) if game.analysable => GameRepo initialFen game flatMap { initialFen =>
           AnalysisRepo.progress(id, userId) >> {
             chess.Replay(game.pgnMoves, initialFen, game.variant).fold(
               fufail(_),
@@ -56,6 +56,7 @@ final class Analyser(
             )
           }
         }
+        case Some(game) => fufail(s"[analysis] game $id is not analysable")
         case _ => fufail(s"[analysis] game $id is missing")
       }
 
