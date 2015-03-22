@@ -208,6 +208,7 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
         </div>
         <a href="@routes.Blog.index()">@trans.blog()</a> |
         <a href="@routes.QaQuestion.index()" title="@trans.questionsAndAnswers()">Q&amp;A</a> |
+        <a href="@routes.Video.index" title="Free Chess Videos">Videos</a> |
         <a href="@routes.Main.mobile">Mobile App</a><br />
         <a href="@routes.WorldMap.index" title="@trans.realTimeWorldMapOfChessMoves()">@trans.map()</a> |
         <a href="@routes.Monitor.index">Monitor</a> |
