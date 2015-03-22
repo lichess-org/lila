@@ -6,6 +6,8 @@ import reactivemongo.core.commands._
 import scala.concurrent.duration._
 import spray.caching.{ LruCache, Cache }
 
+import lila.common.paginator._
+import lila.db.paginator.BSONAdapter
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
 
@@ -25,6 +27,8 @@ private[video] final class VideoApi(
   import View.viewBSONHandler
 
   object video {
+
+    private val maxPerPage = 15
 
     def find(id: Video.ID): Fu[Option[Video]] =
       videoColl.find(BSONDocument("_id" -> id)).one[Video]
@@ -55,28 +59,39 @@ private[video] final class VideoApi(
           doc flatMap (_.getAs[String]("_id"))
         }
 
-    def popular(max: Int): Fu[List[Video]] =
-      videoColl.find(BSONDocument())
-        .sort(BSONDocument("metadata.likes" -> -1))
-        .cursor[Video]
-        .collect[List](max)
+    def popular(page: Int): Fu[Paginator[Video]] = Paginator(
+      adapter = new BSONAdapter[Video](
+        collection = videoColl,
+        selector = BSONDocument(),
+        sort = BSONDocument("metadata.likes" -> -1)
+      ),
+      currentPage = page,
+      maxPerPage = maxPerPage)
 
-    def byTags(tags: List[Tag], max: Int): Fu[List[Video]] =
-      if (tags.isEmpty) popular(max)
-      else videoColl.find(BSONDocument(
-        "tags" -> BSONDocument("$all" -> tags)
-      )).sort(BSONDocument(
-        "metadata.likes" -> -1
-      )).cursor[Video]
-        .collect[List]()
+    def byTags(tags: List[Tag], page: Int): Fu[Paginator[Video]] =
+      if (tags.isEmpty) popular(page)
+      else Paginator(
+        adapter = new BSONAdapter[Video](
+          collection = videoColl,
+          selector = BSONDocument(
+            "tags" -> BSONDocument("$all" -> tags)
+          ),
+          sort = BSONDocument("metadata.likes" -> -1)
+        ),
+        currentPage = page,
+        maxPerPage = maxPerPage)
 
-    def byAuthor(author: String): Fu[List[Video]] =
-      videoColl.find(BSONDocument(
-        "author" -> author
-      )).sort(BSONDocument(
-        "metadata.likes" -> -1
-      )).cursor[Video]
-        .collect[List]()
+    def byAuthor(author: String, page: Int): Fu[Paginator[Video]] =
+      Paginator(
+        adapter = new BSONAdapter[Video](
+          collection = videoColl,
+          selector = BSONDocument(
+            "author" -> author
+          ),
+          sort = BSONDocument("metadata.likes" -> -1)
+        ),
+        currentPage = page,
+        maxPerPage = maxPerPage)
 
     def similar(video: Video, max: Int): Fu[List[Video]] =
       videoColl.find(BSONDocument(
@@ -112,7 +127,9 @@ private[video] final class VideoApi(
 
     def popularAnd(max: Int, forced: List[Tag]): Fu[List[TagNb]] = popular map { all =>
       val tags = all take max
-      val missing = forced filterNot tags.contains
+      val missing = forced filterNot { t =>
+        tags exists (_.tag == t)
+      }
       tags.take(max - missing.size) ::: missing.flatMap { t =>
         all find (_.tag == t)
       }

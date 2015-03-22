@@ -1,4 +1,4 @@
-@(author: String, videos: List[lila.video.Video], control: lila.video.UserControl)(implicit ctx: Context)
+@(author: String, videos: Paginator[lila.video.Video], control: lila.video.UserControl)(implicit ctx: Context)
 
 @layout(
 title = s"$author • Free Chess Videos",
@@ -7,12 +7,17 @@ control = control) {
 <div class="content_box_top">
   <a class="is4 text lichess_title" data-icon="i" href="@routes.Video.index?@control.filter.queryString"></a>
   <h1 class="lichess_title">
-    @author • @pluralize("video", videos.size) found
+    @author • @pluralize("video", videos.nbResults) found
   </h1>
 </div>
-<div class="list">
-  @videos.map { video =>
+<div class="list infinitescroll">
+  @videos.currentPageResults.map { video =>
   @card(video, control)
+  }
+  @videos.nextPage.map { next =>
+  <div class="pager none">
+    <a href="@routes.Video.author(author)?@control.filter.queryString&page=@next">Next</a>
+  </div>
   }
 </div>
 }

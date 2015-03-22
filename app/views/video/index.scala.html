@@ -1,4 +1,4 @@
-@(videos: List[lila.video.Video], control: lila.video.UserControl)(implicit ctx: Context)
+@(videos: Paginator[lila.video.Video], control: lila.video.UserControl)(implicit ctx: Context)
 
 @layout(
 title = "Free Chess Videos",
@@ -7,19 +7,24 @@ control = control) {
 <div class="content_box_top">
   <h1 data-icon="@openingBrace" class="is4 text lichess_title">
     @if(control.filter.tags.nonEmpty) {
-    @pluralize("video", videos.size) found
+    @pluralize("video", videos.nbResults) found
     } else {
     Video library
     }
   </h1>
 </div>
-<div class="list">
-  @videos.map { video =>
+@if(control.filter.tags.isEmpty) {
+<p class="explain">
+  All videos are free for everyone. Click one or many tags on the left to filter.
+</p>
+}
+<div class="list infinitescroll">
+  @videos.currentPageResults.map { video =>
   @card(video, control)
   }
-  @if(videos.size < 4) {
-  <div class="not_much nb_@videos.size">
-    @if(videos.isEmpty) {
+  @if(videos.currentPageResults.size < 4) {
+  <div class="not_much nb_@videos.nbResults">
+    @if(videos.currentPageResults.isEmpty) {
     No videos for these tags!
     } else {
     That's all we got for these tags!
@@ -27,6 +32,11 @@ control = control) {
     <br />
     <br />
     <a href="@routes.Video.index" class="button">Clear search</a>
+  </div>
+  }
+  @videos.nextPage.map { next =>
+  <div class="pager none">
+    <a href="@routes.Video.index?@control.filter.queryString&page=@next">Next</a>
   </div>
   }
 </div>

@@ -24,7 +24,7 @@ object Video extends LilaController {
   }
 
   private def renderIndex(control: UserControl)(implicit ctx: Context) =
-    env.api.video.byTags(control.filter.tags, 15) map { videos =>
+    env.api.video.byTags(control.filter.tags, getInt("page") | 1) map { videos =>
       Ok(html.video.index(videos, control))
     }
 
@@ -50,7 +50,7 @@ object Video extends LilaController {
 
   def author(author: String) = Open { implicit ctx =>
     WithUserControl { control =>
-      env.api.video byAuthor author map { videos =>
+      env.api.video.byAuthor(author, getInt("page") | 1) map { videos =>
         Ok(html.video.author(author, videos, control))
       }
     }

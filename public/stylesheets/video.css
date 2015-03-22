@@ -143,3 +143,7 @@
 #video .not_much.nb_0 {
   margin-top: 200px;
 }
+#video .explain {
+  text-align: center;
+  margin: 50px 0 35px 0;
+}
