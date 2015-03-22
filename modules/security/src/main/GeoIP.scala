@@ -7,12 +7,12 @@ import scala.concurrent.duration._
 
 final class GeoIP(file: String, cacheTtl: Duration) {
 
-  private val geoIp = MaxMindIpGeo(file, cacheSize)
+  private val geoIp = MaxMindIpGeo(file, 0)
   private val cache = Builder.cache(cacheTtl, compute)
 
   private def compute(ip: String): Option[Location] = geoIp getLocation ip map Location.apply
 
-  def apply(ip: String): Option[Location] = cache(ip)
+  def apply(ip: String): Option[Location] = cache get ip
 
   def orUnknown(ip: String): Location = apply(ip) | Location.unknown
 }

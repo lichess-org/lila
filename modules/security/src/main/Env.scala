@@ -27,7 +27,7 @@ final class Env(
     val FirewallCachedIpsTtl = config duration "firewall.cached.ips.ttl"
     val FloodDuration = config duration "flood.duration"
     val GeoIPFile = config getString "geoip.file"
-    val GeoIPCacheTtl = config getInt "geoip.cache_ttl"
+    val GeoIPCacheTtl = config duration "geoip.cache_ttl"
     val PasswordResetMailgunApiUrl = config getString "password_reset.mailgun.api.url"
     val PasswordResetMailgunApiKey = config getString "password_reset.mailgun.api.key"
     val PasswordResetMailgunSender = config getString "password_reset.mailgun.sender"
