@@ -45,6 +45,10 @@ object Environment
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 
+  private val parisMeetupDate = new org.joda.time.DateTime(2015, 3, 25, 19, 0)
+  def beforeParisMeetup =
+    org.joda.time.DateTime.now.isBefore(parisMeetupDate)
+
   def netDomain = apiEnv.Net.Domain
   def netBaseUrl = apiEnv.Net.BaseUrl
   lazy val portsString = (apiEnv.Net.Port :: apiEnv.Net.ExtraPorts) mkString ","

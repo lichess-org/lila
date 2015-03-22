@@ -19,9 +19,10 @@ final class Preload(
     streamsOnAir: => () => Fu[List[StreamOnAir]],
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
     countRounds: () => Int,
-    lobbyApi: lila.api.LobbyApi) {
+    lobbyApi: lila.api.LobbyApi,
+    geoIP: lila.security.GeoIP) {
 
-  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Int)
+  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Int, Boolean)
 
   def apply(
     posts: Fu[List[MiniForumPost]],
@@ -36,6 +37,9 @@ final class Preload(
       dailyPuzzle() zip
       streamsOnAir() map {
         case ((((((((data, posts), tours), feat), entries), lead), tWinners), puzzle), streams) =>
-          (data, entries, posts, tours, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, countRounds())
+          val inParis = geoIP(ctx.req.remoteAddress) ?? { loc =>
+            loc.country == "France" && loc.region.orElse(loc.city) == Some("Paris")
+          }
+          (data, entries, posts, tours, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, countRounds(), inParis)
       }
 }
