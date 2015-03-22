@@ -1,0 +1,14 @@
+@()(implicit ctx: Context)
+
+@layout(title = "Video not found") {
+
+<div class="content_box_top">
+  <h1 data-icon="@openingBrace" class="is4 text lichess_title">
+    <a href="@routes.Video.index">Video library</a>
+  </h1>
+</div>
+<div class="not_found">
+  <h2>Video Not Found!</h2>
+  <a href="@routes.Video.index">View all videos</a>
+</div>
+}

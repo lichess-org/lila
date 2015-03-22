@@ -1,0 +1,22 @@
+@(video: lila.video.Video, similar: List[lila.video.Video])(implicit ctx: Context)
+
+@layout(title = s"${video.title} • Free Chess Videos") {
+
+<div class="show">
+  <iframe id="ytplayer" type="text/html" width="792" height="482"
+    src="http://www.youtube.com/embed/@video.id?autoplay=0&origin=http://lichess.org"
+    frameborder="0"></iframe>
+  <h1 class="title">@video.title</h1>
+  <div class="meta">
+    <a class="author" href="#">@video.author</a>
+    @video.tags.map { tag =>
+    <a class="tag" data-icon="o" href="#">@tag.capitalize</a>
+    }
+  </div>
+  <div class="similar list">
+    @similar.map { video =>
+    @card(video)
+    }
+  </div>
+</div>
+}

@@ -56,6 +56,17 @@ private[video] final class VideoApi(
         .sort(BSONDocument("metadata.likes" -> -1))
         .cursor[Video]
         .collect[List](max)
+
+    def similar(video: Video, max: Int): Fu[List[Video]] =
+      videoColl.find(BSONDocument(
+        "tags" -> BSONDocument("$in" -> video.tags),
+        "_id" -> BSONDocument("$ne" -> video.id)
+      ))
+        .sort(BSONDocument("metadata.likes" -> -1))
+        .cursor[Video]
+        .collect[List]().map { videos =>
+          videos.sortBy { v => -v.similarity(video) } take max
+        }
   }
 
   object view {

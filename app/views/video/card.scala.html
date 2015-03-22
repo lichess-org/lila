@@ -1,8 +1,17 @@
 @(video: lila.video.Video)(implicit ctx: Context)
 
-<a class="card" href="#">
+<a class="card" href="@routes.Video.show(video.id)">
   <span class="img" style="background-image: url(@video.thumbnail)"></span>
   <span class="info">
     <span class="title">@video.title</span>
+  </span>
+  <span class="reveal">
+    <span class="full-title">@video.title</span>
+    <span class="author">@video.author</span>
+    <span class="tags">
+      @video.tags.map { tag =>
+      <span data-icon="o">@tag.capitalize</span>
+      }
+    </span>
   </span>
 </a>
