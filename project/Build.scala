@@ -41,7 +41,7 @@ object ApplicationBuild extends Build {
     ai, analyse, mod, monitor, site, round, lobby, setup,
     importer, tournament, relation, report, pref, // simulation,
     evaluation, chat, puzzle, tv, coordinate, blog, donation, qa,
-    swisssystem, history, worldMap, opening)
+    swisssystem, history, worldMap, opening, video)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -59,6 +59,11 @@ object ApplicationBuild extends Build {
   )
 
   lazy val opening = project("opening", Seq(
+    common, memo, hub, db, user)).settings(
+    libraryDependencies ++= provided(play.api, RM, PRM)
+  )
+ 
+  lazy val video = project("video", Seq(
     common, memo, hub, db, user)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
