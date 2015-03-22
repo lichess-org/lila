@@ -1,14 +1,16 @@
-@()(implicit ctx: Context)
+@(control: lila.video.UserControl)(implicit ctx: Context)
 
-@layout(title = "Video not found") {
+@layout(
+title = "Video not found",
+control = control) {
 
 <div class="content_box_top">
-  <h1 data-icon="@openingBrace" class="is4 text lichess_title">
-    <a href="@routes.Video.index">Video library</a>
-  </h1>
+  <a class="is4 text lichess_title" data-icon="i" href="@routes.Video.index">Video library</a>
 </div>
 <div class="not_found">
-  <h2>Video Not Found!</h2>
-  <a href="@routes.Video.index">View all videos</a>
+  <h1>Video Not Found!</h1>
+  <br />
+  <br />
+  <a class="big button text" data-icon="i" href="@routes.Video.index">Return to the video library</a>
 </div>
 }

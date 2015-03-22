@@ -183,6 +183,7 @@ GET   /setup/validate-fen              controllers.Setup.validateFen
 
 # Video
 GET   /video                           controllers.Video.index
+GET   /video/author/:author            controllers.Video.author(author: String)
 GET   /video/:id                       controllers.Video.show(id: String)
 
 # I18n

@@ -1,8 +1,16 @@
-@(title: String, side: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(title: String, control: lila.video.UserControl)(body: Html)(implicit ctx: Context)
 
 @sideSection = {
-<div class="side">
-  @side
+<div id="video_side">
+  <div class="tag_list">
+    @control.tags.map { t =>
+    <a class="@if(control.filter.tags contains t.tag) {checked}"
+      href="@routes.Video.index?tags=@control.filter.toggle(t.tag).tagString">
+      <em>@t.nb</em>
+      @t.tag.capitalize
+    </a>
+    }
+  </div>
 </div>
 }
 

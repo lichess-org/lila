@@ -1,9 +1,15 @@
+#video {
+  min-height: 823px;
+}
 #video a {
   text-decoration: none;
 }
 #video .content_box_top {
   padding-bottom: 10px;
   border-bottom: 1px solid #ccc;
+}
+#video .content_box_top .lichess_title {
+  display: inline;
 }
 #video .list {
   overflow: hidden;
@@ -73,7 +79,6 @@
 #video .card .tags span {
   display: block;
 }
-
 #video .show .meta {
   padding: 0 25px 10px 25px;
 }
@@ -93,4 +98,44 @@
 #video .show .author:hover,
 #video .show .tag:hover {
   opacity: 1;
+}
+#video_side {
+  margin-top: 20px;
+  margin-left: -30px;
+  width: 230px;
+}
+#video_side .tag_list {
+  text-transform: capitalize;
+}
+#video_side .tag_list a {
+  display: block;
+  padding: 5px;
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: 0.13s;
+}
+#video_side .tag_list a:hover {
+  background: #f8f8f8;
+  border-color: #ccc;
+}
+#video_side .tag_list em {
+  float: right;
+  font-weight: bold;
+  opacity: 0.7;
+}
+#video_side .tag_list a.checked {
+  background: #fff;
+  border-color: #d85000;
+}
+
+#video .not_found {
+  margin-top: 200px;
+  text-align: center;
+}
+#video .not_much {
+  margin-top: 100px;
+  text-align: center;
+}
+#video .not_much.nb_0 {
+  margin-top: 200px;
 }

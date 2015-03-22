@@ -14,6 +14,7 @@ final class Env(
   private val settings = new {
     val CollectionVideo = config getString "collection.video"
     val CollectionView = config getString "collection.view"
+    val CollectionFilter = config getString "collection.filter"
     val SheetUrl = config getString "sheet.url"
     val SheetDelay = config duration "sheet.delay"
     val YoutubeUrl = config getString "youtube.url"
@@ -25,7 +26,8 @@ final class Env(
 
   lazy val api = new VideoApi(
     videoColl = videoColl,
-    viewColl = viewColl)
+    viewColl = viewColl,
+  filterColl = filterColl)
 
   private lazy val sheet = new Sheet(
     url = SheetUrl,
@@ -46,11 +48,12 @@ final class Env(
   }
 
   scheduler.once(10 seconds) {
-    sheet.fetchAll >> youtube.updateAll logFailure "video boot"
+    // sheet.fetchAll >> youtube.updateAll logFailure "video boot"
   }
 
   private[video] lazy val videoColl = db(CollectionVideo)
   private[video] lazy val viewColl = db(CollectionView)
+  private[video] lazy val filterColl = db(CollectionFilter)
 }
 
 object Env {
