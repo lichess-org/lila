@@ -3,7 +3,7 @@ package lila.video
 import org.joda.time.DateTime
 
 case class Video(
-    id: Video.ID, // youtube ID
+    _id: Video.ID, // youtube ID
     title: String,
     author: String,
     targets: List[Target],
@@ -13,6 +13,8 @@ case class Video(
     ads: Boolean,
     createdAt: DateTime,
     updatedAt: DateTime) {
+
+  def id = _id
 }
 
 object Target {

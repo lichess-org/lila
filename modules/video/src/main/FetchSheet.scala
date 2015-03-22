@@ -19,7 +19,7 @@ private[video] final class FetchSheet(
 
   def apply: Funit = fetch flatMap { entries =>
     entries.map { entry =>
-      api.video.find(entry.youtubeId) flatMap {
+      api.video.find(entry.youtubeId).flatMap {
         case Some(video) => api.video.save(video.copy(
           title = entry.title,
           author = entry.author,
@@ -30,7 +30,7 @@ private[video] final class FetchSheet(
           ads = entry.ads,
           updatedAt = entry.updatedAt))
         case None => api.video.save(Video(
-          id = entry.youtubeId,
+          _id = entry.youtubeId,
           title = entry.title,
           author = entry.author,
           targets = entry.targets,
@@ -40,6 +40,8 @@ private[video] final class FetchSheet(
           ads = entry.ads,
           createdAt = DateTime.now,
           updatedAt = entry.updatedAt))
+      }.recover {
+        case e: Exception => logerr(s"[video] ${e.getMessage}")
       }
     }.sequenceFu.void
   }
