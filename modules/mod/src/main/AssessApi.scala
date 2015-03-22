@@ -110,7 +110,7 @@ final class AssessApi(
     import lila.evaluation.Statistics.{ skip, coefVariation }
 
     def manyBlurs(player: Player) =
-      player.blurs.toDouble / game.playerMoves(player.color) >= 0.7
+      (player.blurs.toDouble / game.playerMoves(player.color)) >= 0.7
 
     def moveTimes(color: Color): List[Int] =
       skip(game.moveTimes.toList, if (color == Color.White) 0 else 1)
@@ -118,7 +118,7 @@ final class AssessApi(
     def consistentMoveTimes(player: Player): Boolean =
       moveTimes(player.color).toNel.map(coefVariation).fold(false)(_ < 0.5)
 
-    def shouldAnalyse =
+    val shouldAnalyse =
       if (game.isCorrespondence) false
       else if (game.playedTurns < 40) false
       else if (!game.mode.rated) false
@@ -131,6 +131,8 @@ final class AssessApi(
       else if (game.players exists manyBlurs) true
       // someone has consistent move times
       else if (game.players exists consistentMoveTimes) true
+      // analyse some tourney games
+      else if (game.isTournament) scala.util.Random.nextInt(4) == 0
       else false
 
     if (shouldAnalyse) analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
