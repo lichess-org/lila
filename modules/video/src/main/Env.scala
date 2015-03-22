@@ -47,7 +47,7 @@ final class Env(
     youtube.updateAll
   }
 
-  scheduler.once(10 seconds) {
+  scheduler.once(5 seconds) {
     sheet.fetchAll >> youtube.updateAll logFailure "video boot"
   }
 

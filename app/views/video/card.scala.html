@@ -8,6 +8,7 @@
   <span class="reveal">
     <span class="full-title">@video.title</span>
     <span class="author">@video.author</span>
+    <span class="target">@video.targets.map(lila.video.Target.name).mkString(", ")</span>
     <span class="tags">
       @video.tags.map { tag =>
       <span data-icon="o">@tag.capitalize</span>

@@ -35,7 +35,7 @@
   transition: 0.13s;
 }
 #video .card:hover .img {
-  opacity: 0.6;
+  opacity: 0.5;
 }
 #video .card .info {
   display: block;
@@ -54,13 +54,12 @@
   position: absolute;
   top: 100%;
   width: 100%;
-  height: 70%;
-  overflow-y: auto;
+  height: 80%;
   background: #f0f0f0 linear-gradient(to bottom, #fafafa 0%, #f0f0f0 100%);
   border-top: 1px solid #ccc;
   box-sizing: border-box;
   z-index: 1;
-  padding: 20px 15px 0 15px;
+  padding: 15px 10px 0 10px;
   opacity: 0;
   transition: 0.13s;
 }
@@ -71,13 +70,17 @@
 #video .card .full-title {
   font-weight: bold;
   display: block;
-  margin-bottom: 1em;
 }
 #video .card .author {
-  font-size: 1.3em;
   display: block;
-  margin-bottom: 1em;
+  margin-bottom: 0.8em;
   opacity: 0.8;
+}
+#video .card .target {
+  text-transform: uppercase;
+  text-align: center;
+  display: block;
+  margin-bottom: 0.8em;
 }
 #video .card .tags span {
   display: block;
@@ -85,12 +88,18 @@
 #video .show .meta {
   padding: 0 25px 10px 25px;
 }
-#video .show .author {
+#video .show .meta .target {
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 1em;
+}
+#video .show .meta .author {
   font-size: 1.5em;
   margin-right: 15px;
   opacity: 0.7;
 }
-#video .show .tag {
+#video .show .meta .tag {
   white-space: nowrap;
   font-weight: bold;
   display: inline-block;
@@ -98,9 +107,12 @@
   opacity: 0.7;
   vertical-align: 2px;
 }
-#video .show .author:hover,
-#video .show .tag:hover {
+#video .show .meta .author:hover,
+#video .show .meta .tag:hover {
   opacity: 1;
+}
+#video .show .meta .description {
+  margin-top: 1em;
 }
 #video_side {
   margin-top: 20px;

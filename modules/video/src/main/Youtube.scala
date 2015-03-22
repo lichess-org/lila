@@ -1,5 +1,6 @@
 package lila.video
 
+import org.joda.time.DateTime
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import play.api.libs.ws.WS
@@ -13,6 +14,7 @@ private[video] final class Youtube(
 
   import Youtube._
 
+  private implicit val readSnippet = Json.reads[Snippet]
   private implicit val readStatistics = Json.reads[Statistics]
   private implicit val readEntry = Json.reads[Entry]
   private implicit val readEntries: Reads[Seq[Entry]] =
@@ -23,7 +25,11 @@ private[video] final class Youtube(
       api.video.setMetadata(entry.id, Metadata(
         views = ~parseIntOption(entry.statistics.viewCount),
         likes = ~parseIntOption(entry.statistics.likeCount) -
-          ~parseIntOption(entry.statistics.dislikeCount))
+          ~parseIntOption(entry.statistics.dislikeCount),
+        description = entry.snippet.description,
+        publishedAt = entry.snippet.publishedAt.flatMap { at =>
+          scala.util.Try { new DateTime(at) }.toOption
+        })
       ).recover {
         case e: Exception => logerr(s"[video youtube] ${e.getMessage}")
       }
@@ -33,7 +39,7 @@ private[video] final class Youtube(
   private def fetch: Fu[List[Entry]] = api.video.allIds flatMap { ids =>
     WS.url(url).withQueryString(
       "id" -> scala.util.Random.shuffle(ids).take(max).mkString(","),
-      "part" -> "id,statistics",
+      "part" -> "id,statistics,snippet",
       "key" -> apiKey
     ).get() flatMap {
         case res if res.status == 200 => readEntries reads res.json match {
@@ -49,15 +55,22 @@ private[video] final class Youtube(
 
 object Youtube {
 
-  def empty = Metadata(0, 0)
+  def empty = Metadata(0, 0, None, None)
 
   case class Metadata(
     views: Int,
-    likes: Int)
+    likes: Int,
+    description: Option[String],
+    publishedAt: Option[DateTime])
 
   private[video] case class Entry(
     id: String,
+    snippet: Snippet,
     statistics: Statistics)
+
+  private[video] case class Snippet(
+    description: Option[String],
+    publishedAt: Option[String])
 
   private[video] case class Statistics(
     viewCount: String,

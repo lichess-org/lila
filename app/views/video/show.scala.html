@@ -13,9 +13,13 @@ control = control) {
     frameborder="0"></iframe>
   <h1 class="title">@video.title</h1>
   <div class="meta">
+    <div class="target">@video.targets.map(lila.video.Target.name).mkString(", ")</div>
     <a class="author" href="@routes.Video.author(video.author)?@control.filter.queryString">@video.author</a>
     @video.tags.map { tag =>
     <a class="tag" data-icon="o" href="@routes.Video.index?tags=@tag">@tag.capitalize</a>
+    }
+    @video.metadata.description.map { desc =>
+    <p class="description">@autoLink(desc)</p>
     }
   </div>
   <div class="similar list">
