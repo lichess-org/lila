@@ -12,6 +12,12 @@ object View {
 
   def makeId(videoId: Video.ID, userId: String) = s"$videoId/$userId"
 
+  def make(videoId: Video.ID, userId: String) = View(
+    id = makeId(videoId, userId),
+    videoId = videoId,
+    userId = userId,
+    date = DateTime.now)
+
   object BSONFields {
     val id = "_id"
     val videoId = "v"

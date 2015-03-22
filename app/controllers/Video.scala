@@ -41,9 +41,13 @@ object Video extends LilaController {
     WithUserControl { control =>
       env.api.video.find(id) flatMap {
         case None => fuccess(NotFound(html.video.notFound(control)))
-        case Some(video) => env.api.video.similar(video, 9) map { similar =>
-          Ok(html.video.show(video, similar, control))
-        }
+        case Some(video) => env.api.video.similar(video, 9) zip
+          ctx.userId.?? { userId =>
+            env.api.view.add(View.make(videoId = video.id, userId = userId))
+          } map {
+            case (similar, _) =>
+              Ok(html.video.show(video, similar, control))
+          }
       }
     }
   }
