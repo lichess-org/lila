@@ -69,7 +69,8 @@ final class Env(
       Env.chat,
       Env.puzzle,
       Env.tv,
-      Env.blog)
+      Env.blog,
+      Env.video)
     loginfo("[boot] Preloading complete")
   }
 

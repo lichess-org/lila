@@ -12,6 +12,7 @@ final class Env(
   private val settings = new {
     val CollectionVideo = config getString "collection.video"
     val CollectionView = config getString "collection.view"
+    val SheetUrl = config getString "sheet.url"
   }
   import settings._
 
@@ -19,13 +20,19 @@ final class Env(
     videoColl = videoColl,
     viewColl = viewColl)
 
+  private lazy val fetch = new FetchSheet(
+    url = SheetUrl,
+    api = api)
+
+  fetch.apply.thenPp
+
   private[video] lazy val videoColl = db(CollectionVideo)
   private[video] lazy val viewColl = db(CollectionView)
 }
 
 object Env {
 
-  lazy val current: Env = "[boot] opening" describes new Env(
-    config = lila.common.PlayApp loadConfig "opening",
+  lazy val current: Env = "[boot] video" describes new Env(
+    config = lila.common.PlayApp loadConfig "video",
     db = lila.db.Env.current)
 }

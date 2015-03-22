@@ -11,7 +11,8 @@ case class Video(
     lang: Lang,
     lichess: Boolean,
     ads: Boolean,
-    createdAt: DateTime) {
+    createdAt: DateTime,
+    updatedAt: DateTime) {
 }
 
 object Target {
