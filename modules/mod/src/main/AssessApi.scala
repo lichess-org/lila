@@ -14,14 +14,13 @@ import scala.concurrent._
 
 import chess.Color
 
-
 final class AssessApi(
-  collAssessments: Coll,
-  logApi: ModlogApi,
-  modApi: ModApi,
-  reporter: ActorSelection,
-  analyser: ActorSelection,
-  userIdsSharingIp: String => Fu[List[String]]) {
+    collAssessments: Coll,
+    logApi: ModlogApi,
+    modApi: ModApi,
+    reporter: ActorSelection,
+    analyser: ActorSelection,
+    userIdsSharingIp: String => Fu[List[String]]) {
 
   import PlayerFlags.playerFlagsBSONHandler
 
@@ -32,54 +31,55 @@ final class AssessApi(
 
   def getPlayerAssessmentById(id: String) =
     collAssessments.find(BSONDocument("_id" -> id))
-    .one[PlayerAssessment]
+      .one[PlayerAssessment]
 
   def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) =
     collAssessments.find(BSONDocument("userId" -> userId))
-    .sort(BSONDocument("date" -> -1))
-    .cursor[PlayerAssessment]
-    .collect[List](nb)
+      .sort(BSONDocument("date" -> -1))
+      .cursor[PlayerAssessment]
+      .collect[List](nb)
 
   def getResultsByGameIdAndColor(gameId: String, color: Color) =
     getPlayerAssessmentById(gameId + "/" + color.name)
 
   def getGameResultsById(gameId: String) =
     getResultsByGameIdAndColor(gameId, Color.White) zip
-    getResultsByGameIdAndColor(gameId, Color.Black) map {
-      a => PlayerAssessments(a._1, a._2)
-    }
+      getResultsByGameIdAndColor(gameId, Color.Black) map {
+        a => PlayerAssessments(a._1, a._2)
+      }
 
   def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] = {
     val relatedUsers = userIdsSharingIp(userId)
 
     UserRepo.byId(userId) zip
-    getPlayerAssessmentsByUserId(userId, nb) zip
-    relatedUsers zip
-    (relatedUsers flatMap UserRepo.filterByEngine) map {
-      case (((Some(user), assessedGamesHead :: assessedGamesTail), relatedUs), relatedCheaters) =>
-        Some(PlayerAggregateAssessment(
-          user,
-          assessedGamesHead :: assessedGamesTail,
-          relatedUs,
-          relatedCheaters))
-      case _ => none
-    }
+      getPlayerAssessmentsByUserId(userId, nb) zip
+      relatedUsers zip
+      (relatedUsers flatMap UserRepo.filterByEngine) map {
+        case (((Some(user), assessedGamesHead :: assessedGamesTail), relatedUs), relatedCheaters) =>
+          Some(PlayerAggregateAssessment(
+            user,
+            assessedGamesHead :: assessedGamesTail,
+            relatedUs,
+            relatedCheaters))
+        case _ => none
+      }
   }
 
   def refreshAssess(gameId: String): Funit =
     GameRepo.game(gameId) zip
       AnalysisRepo.doneById(gameId) flatMap {
         case (Some(g), Some(a)) => onAnalysisReady(g, a)
-        case _ => funit
+        case _                  => funit
       }
 
   def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
     (GameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
       (gs map {
-        g => AnalysisRepo.doneById(g.id) flatMap {
-          case Some(a) => onAnalysisReady(g, a, false)
-          case _ => funit
-        }
+        g =>
+          AnalysisRepo.doneById(g.id) flatMap {
+            case Some(a) => onAnalysisReady(g, a, false)
+            case _       => funit
+          }
       }).sequenceFu.void
     }) >> assessPlayer(user.id)
   }
@@ -87,12 +87,14 @@ final class AssessApi(
   def onAnalysisReady(game: Game, analysis: Analysis, assess: Boolean = true): Funit = {
     if (!game.isCorrespondence && game.playedTurns >= 40 && game.mode.rated) {
       val gameAssessments: PlayerAssessments = Assessible(Analysed(game, analysis)).assessments
-      gameAssessments.white.fold(funit){createPlayerAssessment} >>
-      gameAssessments.black.fold(funit){createPlayerAssessment}
-    } else funit
+      gameAssessments.white.fold(funit) { createPlayerAssessment } >>
+        gameAssessments.black.fold(funit) { createPlayerAssessment }
+    }
+    else funit
   } >> (if (assess) {
-    game.whitePlayer.userId.fold(funit){assessPlayer} >> game.blackPlayer.userId.fold(funit){assessPlayer}
-  } else funit)
+    game.whitePlayer.userId.fold(funit) { assessPlayer } >> game.blackPlayer.userId.fold(funit) { assessPlayer }
+  }
+  else funit)
 
   def assessPlayer(userId: String): Funit = getPlayerAggregateAssessment(userId) flatMap {
     case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
@@ -106,7 +108,7 @@ final class AssessApi(
     case none => funit
   }
 
-  def onGameReady(game: Game): Funit = {
+  def onGameReady(game: Game, white: User, black: User): Funit = {
     import lila.evaluation.Statistics.{ skip, coefVariation }
 
     def manyBlurs(player: Player) =
@@ -117,6 +119,12 @@ final class AssessApi(
 
     def consistentMoveTimes(player: Player): Boolean =
       moveTimes(player.color).toNel.map(coefVariation).fold(false)(_ < 0.5)
+
+    def winnerGreatProgress(player: Player): Boolean = {
+      game.winner ?? (player ==)
+    } && game.perfType ?? { perfType =>
+      player.color.fold(white, black).perfs(perfType).progress >= 100
+    }
 
     val shouldAnalyse =
       if (game.isCorrespondence) false
@@ -131,6 +139,8 @@ final class AssessApi(
       else if (game.players exists manyBlurs) true
       // someone has consistent move times
       else if (game.players exists consistentMoveTimes) true
+      // the winner shows a great rating progress
+      else if (game.players exists winnerGreatProgress) true
       // analyse some tourney games
       else if (game.isTournament) scala.util.Random.nextInt(4) == 0
       else false

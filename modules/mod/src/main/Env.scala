@@ -55,7 +55,7 @@ final class Env(
       case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) =>
         (whiteUserOption |@| blackUserOption) apply {
           case (whiteUser, blackUser) => boosting.check(game, whiteUser, blackUser) >>
-            assessApi.onGameReady(game)
+            assessApi.onGameReady(game, whiteUser, blackUser)
         }
     }
   }), name = ActorName)
