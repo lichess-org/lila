@@ -51,12 +51,6 @@ time {
   display: inline-block;
 }
 @font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Open Sans Light'), local('OpenSans-Light'), url(http://themes.googleusercontent.com/static/fonts/opensans/v7/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff) format('woff');
-}
-@font-face {
   font-family: "lichess";
   src: url("../font34/fonts/lichess.eot");
   src: url("../font34/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font34/fonts/lichess.woff") format("woff"), url("../font34/fonts/lichess.ttf") format("truetype"), url("../font34/fonts/lichess.svg#lichess") format("svg");
@@ -125,7 +119,7 @@ body.blind_mode [data-icon]::before {
   src: url("../fonts/ChessSansPiratf.eot?#iefix") format("embedded-opentype"), url("../fonts/ChessSansPiratf.woff") format("woff"), url("../fonts/ChessSansPiratf.ttf") format("truetype"), url("../fonts/ChessSansPiratf.svg#lichess") format("svg");
 }
 .thin {
-  font-family: 'Open Sans';
+  font-family: 'Roboto';
   font-weight: 300;
 }
 #blind_mode {
@@ -697,7 +691,7 @@ div.content_box_inter .intertab {
   text-decoration: none;
   text-transform: capitalize;
   border: 1px solid transparent;
-  font-family: 'Open Sans';
+  font-family: 'Roboto';
   font-weight: 300;
 }
 div.content_box_inter.tabs .intertab {
@@ -1618,7 +1612,7 @@ div.game_row div.header strong {
   font-size: 1.4em;
   text-transform: uppercase;
   display: block;
-  font-family: 'Open Sans';
+  font-family: 'Roboto';
   font-weight: 300;
 }
 div.game_row div.versus {
