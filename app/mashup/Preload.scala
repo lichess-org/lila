@@ -41,7 +41,7 @@ final class Preload(
             u.profile.flatMap(_.country) ?? (_ == "FR") &&
               u.profile.flatMap(_.location) ?? (_.toLowerCase contains "paris")
           } || geoIP(ctx.req.remoteAddress) ?? { loc =>
-            loc.country == "France" && loc.region.orElse(loc.city) == Some("Paris")
+            loc.country == "France" && (loc.region == Some("Paris") || loc.city == Some("Paris"))
           }
           (data, entries, posts, tours, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, countRounds(), inParis)
       }
