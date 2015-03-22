@@ -15,7 +15,7 @@ control = control) {
 </div>
 <div class="list">
   @videos.map { video =>
-  @card(video)
+  @card(video, control)
   }
   @if(videos.size < 4) {
   <div class="not_much nb_@videos.size">

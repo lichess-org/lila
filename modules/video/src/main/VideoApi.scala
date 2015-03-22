@@ -22,7 +22,6 @@ private[video] final class VideoApi(
   }
   private implicit val VideoBSONHandler = Macros.handler[Video]
   private implicit val TagNbBSONHandler = Macros.handler[TagNb]
-  private implicit val FilterBSONHandler = Macros.handler[Filter]
   import View.viewBSONHandler
 
   object video {
@@ -125,23 +124,4 @@ private[video] final class VideoApi(
       }
     }
   }
-
-  object filter {
-
-    def get(userId: String) =
-      filterColl.find(
-        BSONDocument("_id" -> userId)
-      ).one[Filter] map (_ | Filter(userId, Nil, DateTime.now))
-
-    def set(filter: Filter) =
-      filterColl.update(
-        BSONDocument("_id" -> filter.id),
-        BSONDocument("$set" -> filter.copy(
-          date = DateTime.now
-        )),
-        upsert = true).void
-  }
-
-  def userControl(userId: String, maxTags: Int): Fu[UserControl] =
-    filter.get(userId) zip tag.popular(maxTags) map (UserControl.apply _).tupled
 }

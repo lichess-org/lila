@@ -102,14 +102,14 @@
 #video_side {
   margin-top: 20px;
   margin-left: -30px;
-  width: 230px;
+  width: 241px;
 }
 #video_side .tag_list {
   text-transform: capitalize;
 }
 #video_side .tag_list a {
   display: block;
-  padding: 5px;
+  padding: 5px 10px 5px 5px;
   text-decoration: none;
   border-left: 2px solid transparent;
   transition: 0.13s;
@@ -124,6 +124,7 @@
   opacity: 0.7;
 }
 #video_side .tag_list a.checked {
+  font-weight: bold;
   background: #fff;
   border-color: #d85000;
 }

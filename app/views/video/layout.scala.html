@@ -5,7 +5,7 @@
   <div class="tag_list">
     @control.tags.map { t =>
     <a class="@if(control.filter.tags contains t.tag) {checked}"
-      href="@routes.Video.index?tags=@control.filter.toggle(t.tag).tagString">
+      href="@routes.Video.index?@control.filter.toggle(t.tag).queryString">
       <em>@t.nb</em>
       @t.tag.capitalize
     </a>
