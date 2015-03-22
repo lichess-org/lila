@@ -133,9 +133,6 @@ final class AssessApi(
       else if (game.players exists consistentMoveTimes) true
       else false
 
-      println(game)
-      println(shouldAnalyse)
-
     if (shouldAnalyse) analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)
 
     funit
