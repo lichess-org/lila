@@ -1,4 +1,4 @@
-@(videos: Paginator[lila.video.Video], control: lila.video.UserControl)(implicit ctx: Context)
+@(videos: Paginator[lila.video.Video], count: Int, control: lila.video.UserControl)(implicit ctx: Context)
 
 @layout(
 title = "Free Chess Videos",
@@ -15,7 +15,9 @@ control = control) {
 </div>
 @if(control.filter.tags.isEmpty) {
 <p class="explain">
-  All videos are free for everyone. Click one or many tags on the left to filter.
+  All videos are free for everyone.<br />
+  Click one or many tags on the left to filter.<br />
+  We have carefully selected <strong>@count</strong> videos so far!
 </p>
 }
 <div class="list infinitescroll">

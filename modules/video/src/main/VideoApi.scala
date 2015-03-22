@@ -102,6 +102,16 @@ private[video] final class VideoApi(
         .collect[List]().map { videos =>
           videos.sortBy { v => -v.similarity(video) } take max
         }
+
+    object count {
+      private val cache: Cache[Int] = LruCache(timeToLive = 1.day)
+
+      def clearCache = fuccess(cache.clear)
+
+      def apply: Fu[Int] = cache(true) {
+        videoColl.db command Count(videoColl.name, none)
+      }
+    }
   }
 
   object view {

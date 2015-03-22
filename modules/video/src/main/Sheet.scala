@@ -45,7 +45,9 @@ private[video] final class Sheet(
         case e: Exception => logerr(s"[video sheet] ${e.getMessage}")
       }
     }.sequenceFu.void >>
-      api.video.removeNotIn(entries.map(_.youtubeId))
+      api.video.removeNotIn(entries.map(_.youtubeId)) >>
+      api.video.count.clearCache >>
+      api.tag.clearCache
   }
 
   private def fetch: Fu[List[Entry]] = WS.url(url).get() flatMap {
