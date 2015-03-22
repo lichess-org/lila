@@ -74,29 +74,27 @@ final class AssessApi(
 
   def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
     (GameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
-      (gs map {
-        g =>
-          AnalysisRepo.doneById(g.id) flatMap {
-            case Some(a) => onAnalysisReady(g, a, false)
-            case _       => funit
-          }
+      (gs map { g =>
+        AnalysisRepo.doneById(g.id) flatMap {
+          case Some(a) => onAnalysisReady(g, a, false)
+          case _       => funit
+        }
       }).sequenceFu.void
-    }) >> assessPlayer(user.id)
+    }) >> assessUser(user.id)
   }
 
   def onAnalysisReady(game: Game, analysis: Analysis, assess: Boolean = true): Funit = {
-    if (!game.isCorrespondence && game.playedTurns >= 40 && game.mode.rated) {
-      val gameAssessments: PlayerAssessments = Assessible(Analysed(game, analysis)).assessments
-      gameAssessments.white.fold(funit) { createPlayerAssessment } >>
-        gameAssessments.black.fold(funit) { createPlayerAssessment }
+    (!game.isCorrespondence && game.playedTurns >= 40 && game.mode.rated) ?? {
+      val assessible = Assessible(Analysed(game, analysis))
+      createPlayerAssessment(assessible playerAssessment chess.White) >>
+        createPlayerAssessment(assessible playerAssessment chess.Black)
     }
-    else funit
-  } >> (if (assess) {
-    game.whitePlayer.userId.fold(funit) { assessPlayer } >> game.blackPlayer.userId.fold(funit) { assessPlayer }
-  }
-  else funit)
+  } >> (assess ?? {
+    game.whitePlayer.userId.??(assessUser) >>
+      game.blackPlayer.userId.??(assessUser)
+  })
 
-  def assessPlayer(userId: String): Funit = getPlayerAggregateAssessment(userId) flatMap {
+  def assessUser(userId: String): Funit = getPlayerAggregateAssessment(userId) flatMap {
     case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
       case AccountAction.Engine | AccountAction.EngineAndBan =>
         modApi.autoAdjust(userId)
