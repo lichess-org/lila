@@ -129,4 +129,5 @@ object Env {
   def history = lila.history.Env.current
   def worldMap = lila.worldMap.Env.current
   def opening = lila.opening.Env.current
+  def video = lila.video.Env.current
 }
