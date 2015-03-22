@@ -29,6 +29,10 @@ body.dark div.chat_menu > a.active {
 body.dark .crosstable td {
   border-color: #1a1a1a;
 }
+body.dark #video_side .tag_list a:hover {
+  background: #222;
+  border-color: #444;
+}
 body.dark #reconnecting,
 body.dark .mini_board,
 body.dark #nb_connected_players,
@@ -131,6 +135,7 @@ body.dark div.negotiation,
 body.dark div.side_box div.game_infos,
 body.dark #challenge_notifications div.notification,
 body.dark #message_notifications div.notification,
+body.dark #video .content_box_top,
 body.dark div.chat_menu > a {
   border-color: #3d3d3d;
 }
@@ -151,6 +156,7 @@ body.dark #themepicker div.theme:hover {
 body.dark #opening .meter .step {
   border-color: #505050;
 }
+
 body.dark #opening .meter .step,
 body.dark #hooks_wrap div.tabs a,
 body.dark #top div.auth .links a:hover,
@@ -245,12 +251,15 @@ body.dark #tournament_side,
 body.dark table.translations tbody tr,
 body.dark form.translation_form div.message,
 body.dark #lichess_forum table.forum_table thead tr:nth-child(odd),
+body.dark #video_side .tag_list a.checked,
 body.dark div.lichess_overboard .loader:before,
 body.dark div.lichess_overboard .loader:after,
 body.dark div.content_box .loader:before,
 body.dark div.content_box .loader:after {
   background-color: #2b2b2b;
 }
+body.dark #video .card .info,
+body.dark #video .card .reveal,
 body.dark #timeline,
 body.dark #timeline .entry {
   border-color: #2b2b2b;
@@ -316,6 +325,8 @@ body.dark #notifications > div,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
 body.dark #qa .answers-header,
+body.dark #video .card .info,
+body.dark #video .card .reveal,
 body.dark table.slist thead {
   background: rgb(40, 40, 40);
   background: -moz-linear-gradient(top, rgba(40, 40, 40, 1) 0%, rgba(34, 34, 34, 1) 100%);

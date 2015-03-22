@@ -21,18 +21,21 @@
   width: 239px;
   margin: 10px;
   overflow: hidden;
-  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
-  transition: 0.3s;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.16), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: 0.13s;
 }
 #video .card:hover {
-  box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.26), 0px 8px 15px 0px rgba(0, 0, 0, 0.22);
-  transform: translateY(-3px);
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.26), 0px 6px 15px 0px rgba(0, 0, 0, 0.22);
 }
 #video .card .img {
   width: 100%;
   height: 180px;
   display: block;
   background-size: cover;
+  transition: 0.13s;
+}
+#video .card:hover .img {
+  opacity: 0.6;
 }
 #video .card .info {
   display: block;
@@ -44,8 +47,8 @@
 }
 #video .card .title {
   font-weight: bold;
-  line-height: 30px;
-  white-space: nowrap;
+  display: block;
+  height: 30px;
 }
 #video .card .reveal {
   position: absolute;
@@ -121,12 +124,12 @@
 #video_side .tag_list em {
   float: right;
   font-weight: bold;
-  opacity: 0.7;
+  opacity: 0.5;
 }
 #video_side .tag_list a.checked {
   font-weight: bold;
   background: #fff;
-  border-color: #d85000;
+  border-color: #d85000!important;
 }
 
 #video .not_found {

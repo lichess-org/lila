@@ -14,13 +14,14 @@ object Video extends LilaController {
 
   private def env = Env.video
 
-  private def WithUserControl[A](f: UserControl => Fu[A])(implicit ctx: Context): Fu[A] =
-    env.api.tag popular 25 map { tags =>
-      val reqTags = get("tags") ?? (_.split(',').toList.map(_.trim.toLowerCase))
+  private def WithUserControl[A](f: UserControl => Fu[A])(implicit ctx: Context): Fu[A] = {
+    val reqTags = get("tags") ?? (_.split(',').toList.map(_.trim.toLowerCase))
+    env.api.tag.popularAnd(25, reqTags) map { tags =>
       UserControl(
         filter = Filter(reqTags),
         tags = tags)
     } flatMap f
+  }
 
   private def renderIndex(control: UserControl)(implicit ctx: Context) =
     env.api.video.byTags(control.filter.tags, 15) map { videos =>
