@@ -317,3 +317,6 @@
 .icon-keypad:before {
   content: "_";
 }
+.icon-youtube-play:before {
+  content: "{";
+}

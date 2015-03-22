@@ -22,8 +22,8 @@ private[video] final class Youtube(
     entries.map { entry =>
       api.video.setMetadata(entry.id, Metadata(
         views = ~parseIntOption(entry.statistics.viewCount),
-        likes = ~parseIntOption(entry.statistics.likeCount),
-        dislikes = ~parseIntOption(entry.statistics.dislikeCount))
+        likes = ~parseIntOption(entry.statistics.likeCount) -
+          ~parseIntOption(entry.statistics.dislikeCount))
       ).recover {
         case e: Exception => logerr(s"[video youtube] ${e.getMessage}")
       }
@@ -49,12 +49,11 @@ private[video] final class Youtube(
 
 object Youtube {
 
-  def empty = Metadata(0, 0, 0)
+  def empty = Metadata(0, 0)
 
   case class Metadata(
     views: Int,
-    likes: Int,
-    dislikes: Int)
+    likes: Int)
 
   private[video] case class Entry(
     id: String,

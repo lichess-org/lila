@@ -67,4 +67,6 @@ object Environment
 
   def reportNbUnprocessed(implicit ctx: lila.api.Context): Int =
     isGranted(_.SeeReport) ?? lila.report.Env.current.api.nbUnprocessed.await
+
+  val openingBrace = "{"
 }

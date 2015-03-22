@@ -1,0 +1,21 @@
+@(title: String, side: Option[Html] = None)(body: Html)(implicit ctx: Context)
+
+@sideSection = {
+<div class="side">
+  @side
+</div>
+}
+
+@evenMoreJs = {
+@jsTag("video.js")
+}
+
+@base.layout(
+title = title,
+moreCss = cssTag("video.css"),
+moreJs = evenMoreJs,
+side = sideSection.some) {
+<div id="video" class="content_box no_padding">
+  @body
+</div>
+}

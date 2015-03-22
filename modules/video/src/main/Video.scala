@@ -16,6 +16,8 @@ case class Video(
     updatedAt: DateTime) {
 
   def id = _id
+
+  def thumbnail = s"http://img.youtube.com/vi/$id/0.jpg"
 }
 
 object Target {

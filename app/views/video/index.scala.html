@@ -1,0 +1,19 @@
+@(videos: List[lila.video.Video])(implicit ctx: Context)
+
+@side = {
+}
+
+@layout(
+title = "Video library",
+side = side.some) {
+
+<div class="content_box_top">
+  <h1 data-icon="@openingBrace" class="is4 text lichess_title">Video library</h1>
+</div>
+<div class="list">
+  @videos.map { video =>
+  @card(video)
+  }
+</div>
+</table>
+}

@@ -181,6 +181,9 @@ GET   /setup/filter                    controllers.Setup.filterForm
 POST  /setup/filter                    controllers.Setup.filter
 GET   /setup/validate-fen              controllers.Setup.validateFen
 
+# Video
+GET   /video                           controllers.Video.index
+
 # I18n
 GET   /translation/contribute          controllers.I18n.contribute
 GET   /translation/form/:lang          controllers.I18n.translationForm(lang: String)

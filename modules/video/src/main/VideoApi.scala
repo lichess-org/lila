@@ -50,6 +50,12 @@ private[video] final class VideoApi(
       ).cursor[BSONDocument].collect[List]() map { doc =>
           doc flatMap (_.getAs[String]("_id"))
         }
+
+    def popular(max: Int): Fu[List[Video]] =
+      videoColl.find(BSONDocument())
+        .sort(BSONDocument("metadata.likes" -> -1))
+        .cursor[Video]
+        .collect[List](max)
   }
 
   object view {
