@@ -144,7 +144,7 @@
   border-color: #d85000!important;
 }
 #video_side .tag_list a.empty {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: default;
 }
 
