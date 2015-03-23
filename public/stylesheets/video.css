@@ -129,19 +129,23 @@
   border-left: 2px solid transparent;
   transition: 0.13s;
 }
-#video_side .tag_list a:hover {
+#video_side .tag_list a.full:hover {
   background: #f8f8f8;
   border-color: #ccc;
 }
 #video_side .tag_list em {
   float: right;
   font-weight: bold;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 #video_side .tag_list a.checked {
   font-weight: bold;
   background: #fff;
   border-color: #d85000!important;
+}
+#video_side .tag_list a.empty {
+  opacity: 0.6;
+  cursor: default;
 }
 
 #video .not_found {

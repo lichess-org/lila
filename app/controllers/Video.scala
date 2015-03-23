@@ -16,7 +16,7 @@ object Video extends LilaController {
 
   private def WithUserControl[A](f: UserControl => Fu[A])(implicit ctx: Context): Fu[A] = {
     val reqTags = get("tags") ?? (_.split(',').toList.map(_.trim.toLowerCase))
-    env.api.tag.popularAnd(25, reqTags) map { tags =>
+    env.api.tag.pathsAnd(25, reqTags) map { tags =>
       UserControl(
         filter = Filter(reqTags),
         tags = tags)

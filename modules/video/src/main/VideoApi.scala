@@ -133,21 +133,27 @@ private[video] final class VideoApi(
 
   object tag {
 
-    private val cache: Cache[List[TagNb]] = LruCache(timeToLive = 1.day)
+    private val nbCache: Cache[List[TagNb]] = LruCache(timeToLive = 1.day)
 
-    def clearCache = fuccess(cache.clear)
-
-    def popularAnd(max: Int, forced: List[Tag]): Fu[List[TagNb]] = popular map { all =>
-      val tags = all take max
-      val missing = forced filterNot { t =>
-        tags exists (_.tag == t)
-      }
-      tags.take(max - missing.size) ::: missing.flatMap { t =>
-        all find (_.tag == t)
-      }
+    def clearCache = fuccess {
+      nbCache.clear
     }
 
-    def popular: Fu[List[TagNb]] = cache(true) {
+    def pathsAnd(max: Int, forced: List[Tag]): Fu[List[TagNb]] =
+      popular zip paths(forced) map {
+        case (all, paths) =>
+          val tags = all take max map { t =>
+            paths find (_._id == t._id) getOrElse TagNb(t._id, 0)
+          }
+          val missing = forced filterNot { t =>
+            tags exists (_.tag == t)
+          }
+          tags.take(max - missing.size) ::: missing.flatMap { t =>
+            all find (_.tag == t)
+          }
+      }
+
+    def popular: Fu[List[TagNb]] = nbCache("") {
       import reactivemongo.core.commands._
       val command = Aggregate(videoColl.name, Seq(
         Project("tags" -> BSONBoolean(true)),
@@ -159,5 +165,22 @@ private[video] final class VideoApi(
         _.toList.flatMap(_.asOpt[TagNb])
       }
     }
+
+    def paths(tags: List[Tag]): Fu[List[TagNb]] =
+      if (tags.isEmpty) popular
+      else nbCache(tags.sorted.mkString(",")) {
+        import reactivemongo.core.commands._
+        val command = Aggregate(videoColl.name, Seq(
+          Match(BSONDocument("tags" -> BSONDocument("$all" -> tags))),
+          Project("tags" -> BSONBoolean(true)),
+          Unwind("tags"),
+          // Match(BSONDocument("tags" -> BSONDocument("$nin" -> tags))),
+          GroupField("tags")("nb" -> SumValue(1)),
+          Sort(Seq(Descending("nb")))
+        ))
+        videoColl.db.command(command) map {
+          _.toList.flatMap(_.asOpt[TagNb])
+        }
+      }
   }
 }
