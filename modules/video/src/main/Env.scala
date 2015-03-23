@@ -40,11 +40,11 @@ final class Env(
     api = api)
 
   scheduler.effect(SheetDelay, "video update from sheet") {
-    sheet.fetchAll
+    sheet.fetchAll logFailure "video sheet"
   }
 
   scheduler.effect(YoutubeDelay, "video update from youtube") {
-    youtube.updateAll
+    youtube.updateAll logFailure "video youtube"
   }
 
   scheduler.once(15 seconds) {
