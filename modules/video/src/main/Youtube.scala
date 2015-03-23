@@ -47,7 +47,7 @@ private[video] final class Youtube(
           case JsSuccess(entries, _) => fuccess(entries.toList)
         }
         case res =>
-          println(s"key: $apiKey")
+          println(res.body)
           fufail(s"[video youtube] fetch ${res.status}")
       }
   }
