@@ -20,6 +20,9 @@ function makeConfig(data, situation, onMove) {
     premovable: {
       enabled: false
     },
+    drawable: {
+      enabled: true
+    },
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,
