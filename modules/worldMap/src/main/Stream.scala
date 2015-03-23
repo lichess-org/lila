@@ -7,16 +7,22 @@ import java.io.File
 import lila.hub.actorApi.round.MoveEvent
 import play.api.libs.iteratee._
 import play.api.libs.json._
+import scala.concurrent.duration._
 
 final class Stream(
     system: ActorSystem,
     players: Players,
-    geoIp: MaxMindIpGeo) {
+    geoIp: MaxMindIpGeo,
+    geoIpCacheTtl: Duration) {
 
   private val (enumerator, channel) = Concurrent.broadcast[MoveEvent]
 
+  private val ipCache = lila.memo.Builder.cache(geoIpCacheTtl, localizeIp)
+  private def localizeIp(ip: String): Option[Location] =
+    geoIp getLocation ip flatMap Location.apply
+
   def processMove(move: MoveEvent) =
-    geoIp getLocation move.ip flatMap Location.apply match {
+    ipCache get move.ip match {
       case None => Input.Empty
       case Some(loc) =>
         val opponentLoc = players.getOpponentLocation(move.gameId, loc)
