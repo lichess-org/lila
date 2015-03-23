@@ -208,7 +208,7 @@ body.base .cg-board .cg-square.exploding {
   z-index: 2;
 }
 .cg-board-wrap svg * {
-  transition: 0.3s;
+  transition: 0.35s;
 }
 /* lichess */
 

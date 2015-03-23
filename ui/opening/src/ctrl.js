@@ -105,6 +105,9 @@ module.exports = function(cfg, router, i18n) {
         after: onMove
       }
     },
+    drawable: {
+      enabled: true
+    },
     disableContextMenu: true
   });
 

@@ -95,6 +95,9 @@ module.exports = function(cfg, router, i18n) {
     premovable: {
       enabled: true
     },
+    drawable: {
+      enabled: true
+    },
     disableContextMenu: true
   }, this.data.chessground));
 

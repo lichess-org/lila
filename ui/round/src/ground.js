@@ -42,6 +42,9 @@ function makeConfig(data, fen, flip) {
     draggable: {
       showGhost: data.pref.highlight
     },
+    drawable: {
+      enabled: true
+    },
     disableContextMenu: true
   };
 }
