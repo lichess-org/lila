@@ -49,6 +49,14 @@ private[report] final class ReportApi {
     }
   }
 
+  def clean(userId: String): Funit = $update(
+    Json.obj(
+      "user" -> userId,
+      "reason" -> "cheat"
+    ) ++ unprocessedSelect,
+    $set("processedBy" -> "lichess"),
+    multi = true)
+
   def process(id: String, by: User): Funit = $find byId id flatMap {
     _ ?? { report =>
       $update(

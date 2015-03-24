@@ -23,6 +23,8 @@ final class Env(
     def receive = {
       case lila.hub.actorApi.report.Cheater(userId, text) =>
         api.autoCheatReport(userId, text)
+      case lila.hub.actorApi.report.Clean(userId) =>
+        api.clean(userId)
       case lila.hub.actorApi.report.Check(userId) =>
         api.autoProcess(userId)
     }

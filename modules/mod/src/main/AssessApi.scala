@@ -94,17 +94,20 @@ final class AssessApi(
       game.blackPlayer.userId.??(assessUser)
   })
 
-  def assessUser(userId: String): Funit = getPlayerAggregateAssessment(userId) flatMap {
-    case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
-      case AccountAction.Engine | AccountAction.EngineAndBan =>
-        modApi.autoAdjust(userId)
-      case AccountAction.Report =>
-        reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
-        funit
-      case AccountAction.Nothing => funit
+  def assessUser(userId: String): Funit =
+    getPlayerAggregateAssessment(userId) flatMap {
+      case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
+        case AccountAction.Engine | AccountAction.EngineAndBan =>
+          modApi.autoAdjust(userId)
+        case AccountAction.Report =>
+          reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
+          funit
+        case AccountAction.Nothing =>
+          reporter ! lila.hub.actorApi.report.Clean(userId)
+          funit
+      }
+      case none => funit
     }
-    case none => funit
-  }
 
   def onGameReady(game: Game, white: User, black: User): Funit = {
     import lila.evaluation.Statistics.{ skip, coefVariation }
