@@ -132,8 +132,9 @@ trait UserRepo {
 
   val enabledSelect = Json.obj(F.enabled -> true)
   def engineSelect(v: Boolean) = Json.obj(F.engine -> v.fold(JsBoolean(true), $ne(true)))
+  def boosterSelect(v: Boolean) = Json.obj(F.booster -> v.fold(JsBoolean(true), $ne(true)))
   def stablePerfSelect(perf: String) = Json.obj(s"perfs.$perf.nb" -> $gte(30))
-  val goodLadSelect = enabledSelect ++ engineSelect(false)
+  val goodLadSelect = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
   def perfSince(perf: String, since: DateTime) = Json.obj(s"perfs.$perf.la" -> $gt($date(since)))
   val goodLadQuery = $query(goodLadSelect)
 
