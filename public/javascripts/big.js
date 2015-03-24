@@ -1009,7 +1009,7 @@ lichess.storage = {
     var $control = $('#sound_control');
     var $toggle = $('#sound_state');
     var enabled = function() {
-      return !!lichess.storage.get('sound');
+      return lichess.storage.get('sound') !== 'no';
     };
     $control.add($toggle).toggleClass('sound_state_on', enabled());
     var play = {
@@ -1039,8 +1039,7 @@ lichess.storage = {
     }, 50);
     $toggle.click(function() {
       var enab = !enabled();
-      if (enab) lichess.storage.set('sound', 1);
-      else lichess.storage.remove('sound');
+      lichess.storage.set('sound', enab ? 'yes' : 'no');
       $control.add($toggle).toggleClass('sound_state_on', enab);
       play.dong();
       return false;
