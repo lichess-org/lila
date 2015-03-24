@@ -32,7 +32,7 @@ case class PlayerAggregateAssessment(
   import AccountAction._
 
   def action = {
-    val markable: Boolean = !isGreatUser && (
+    val markable: Boolean = !isGreatUser && isDecentUser && (
       (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= 4)
       // more than 10 percent of games are cheating
       && (cheatingSum.toDouble / assessmentsCount >= 0.1 - relationModifier
@@ -40,12 +40,12 @@ case class PlayerAggregateAssessment(
         || (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= 0.20 - relationModifier)
     )
 
-    val reportable: Boolean = (
+    val reportable: Boolean = isDecentUser && (
       (cheatingSum >= 1 || cheatingSum + likelyCheatingSum >= 2)
-      // more than 2 percent of games are cheating
-      && (cheatingSum.toDouble / assessmentsCount >= 0.02 - relationModifier
-      // or more than 5 percent of games are likely cheating
-        || (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= 0.05 - relationModifier)
+      // more than 5 percent of games are cheating
+      && (cheatingSum.toDouble / assessmentsCount >= 0.05 - relationModifier
+      // or more than 10 percent of games are likely cheating
+        || (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= 0.10 - relationModifier)
     )
 
     val bannable: Boolean = (relatedCheatersCount == relatedUsersCount) && relatedUsersCount >= 1
@@ -115,8 +115,9 @@ case class PlayerAggregateAssessment(
   val sfAvgHold      = sfAvgGiven(_.hold)
   val sfAvgNoHold    = sfAvgGiven(!_.hold)
 
-  def isGreatUser = user.perfs.bestRating > 2200 &&
-  user.count.rated >= 100
+  def isGreatUser = user.perfs.bestRating > 2200 && user.count.rated >= 100
+
+  def isDecentUser = user.perfs.bestRating > 1600 && user.count.rated >= 5
 
   def reportText(maxGames: Int = 10): String = {
     val gameLinks: String = (playerAssessments.sortBy(-_.assessment.id).take(maxGames).map{ a =>
