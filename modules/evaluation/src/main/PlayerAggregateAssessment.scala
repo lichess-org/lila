@@ -1,33 +1,32 @@
 package lila.evaluation
 
-import lila.user.User
 import chess.Color
+import lila.user.User
 import org.joda.time.DateTime
 
 case class PlayerAssessment(
-  _id: String,
-  gameId: String,
-  userId: String,
-  white: Boolean,
-  assessment: GameAssessment,
-  date: DateTime,
-  // meta
-  flags: PlayerFlags,
-  sfAvg: Int,
-  sfSd: Int,
-  mtAvg: Int,
-  mtSd: Int,
-  blurs: Int,
-  hold: Boolean
-  ) {
+    _id: String,
+    gameId: String,
+    userId: String,
+    white: Boolean,
+    assessment: GameAssessment,
+    date: DateTime,
+    // meta
+    flags: PlayerFlags,
+    sfAvg: Int,
+    sfSd: Int,
+    mtAvg: Int,
+    mtSd: Int,
+    blurs: Int,
+    hold: Boolean) {
   val color = Color.apply(white)
 }
 
 case class PlayerAggregateAssessment(
-  user: User,
-  playerAssessments: List[PlayerAssessment],
-  relatedUsers: List[String],
-  relatedCheaters: List[String]) {
+    user: User,
+    playerAssessments: List[PlayerAssessment],
+    relatedUsers: List[String],
+    relatedCheaters: List[String]) {
   import Statistics._
   import AccountAction._
   import GameAssessment.{ Cheating, LikelyCheating }
@@ -37,7 +36,7 @@ case class PlayerAggregateAssessment(
       (cheatingSum >= 3 || cheatingSum + likelyCheatingSum >= 6)
       // more than 10 percent of games are cheating
       && (cheatingSum.toDouble / assessmentsCount >= 0.1 - relationModifier
-      // or more than 20 percent of games are likely cheating
+        // or more than 20 percent of games are likely cheating
         || (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= 0.20 - relationModifier)
     )
 
@@ -45,41 +44,40 @@ case class PlayerAggregateAssessment(
       (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= 4)
       // more than 5 percent of games are cheating
       && (cheatingSum.toDouble / assessmentsCount >= 0.05 - relationModifier
-      // or more than 10 percent of games are likely cheating
+        // or more than 10 percent of games are likely cheating
         || (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= 0.10 - relationModifier)
     )
 
     val bannable: Boolean = (relatedCheatersCount == relatedUsersCount) && relatedUsersCount >= 1
 
-    def sigDif(dif: Int)(a: Option[Int], b: Option[Int]): Option[Boolean] = (a, b) match {
-      case (Some(a), Some(b)) => Some(b - a > dif)
-      case _ => none
-    }
+    def sigDif(dif: Int)(a: Option[Int], b: Option[Int]): Option[Boolean] =
+      (a |@| b) apply { case (a, b) => b - a > dif }
 
     val difs = List(
-      (sfAvgBlurs,  sfAvgNoBlurs),
+      (sfAvgBlurs, sfAvgNoBlurs),
       (sfAvgLowVar, sfAvgHighVar),
-      (sfAvgHold,   sfAvgNoHold))
+      (sfAvgHold, sfAvgNoHold))
 
     val actionable: Boolean = {
       val difFlags = difs map (sigDif(10)_).tupled
       difFlags.forall(_.isEmpty) || difFlags.exists(~_) || assessmentsCount < 50
     }
 
-    val exceptionalDif: Boolean = difs map (sigDif(30)_).tupled exists(~_)
+    val exceptionalDif: Boolean = difs map (sigDif(30)_).tupled exists (~_)
 
     if (actionable) {
       if (markable && bannable) EngineAndBan
-      else if (markable)        Engine
+      else if (markable) Engine
       else if (reportable
         && exceptionalDif
-        && cheatingSum >= 1)    Engine
-      else if (reportable)      Report
-      else                      Nothing
-    } else {
-      if (markable)             Report
-      else if (reportable)      Report
-      else                      Nothing
+        && cheatingSum >= 1) Engine
+      else if (reportable) Report
+      else Nothing
+    }
+    else {
+      if (markable) Report
+      else if (reportable) Report
+      else Nothing
     }
   }
 
@@ -97,7 +95,6 @@ case class PlayerAggregateAssessment(
   val cheatingSum = countAssessmentValue(Cheating)
   val likelyCheatingSum = countAssessmentValue(LikelyCheating)
 
-
   // Some statistics
   def sfAvgGiven(predicate: PlayerAssessment => Boolean): Option[Int] = {
     val avg = listAverage(playerAssessments.filter(predicate).map(_.sfAvg)).toInt
@@ -105,23 +102,23 @@ case class PlayerAggregateAssessment(
   }
 
   // Average SF Avg given blur rate
-  val sfAvgBlurs     = sfAvgGiven(_.blurs > 70)
-  val sfAvgNoBlurs   = sfAvgGiven(_.blurs <= 70)
+  val sfAvgBlurs = sfAvgGiven(_.blurs > 70)
+  val sfAvgNoBlurs = sfAvgGiven(_.blurs <= 70)
 
   // Average SF Avg given move time coef of variance
-  val sfAvgLowVar    = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg < 0.5)
-  val sfAvgHighVar   = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg >= 0.5)
+  val sfAvgLowVar = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg < 0.5)
+  val sfAvgHighVar = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg >= 0.5)
 
   // Average SF Avg given bot
-  val sfAvgHold      = sfAvgGiven(_.hold)
-  val sfAvgNoHold    = sfAvgGiven(!_.hold)
+  val sfAvgHold = sfAvgGiven(_.hold)
+  val sfAvgNoHold = sfAvgGiven(!_.hold)
 
   def isGreatUser = user.perfs.bestRating > 2200 && user.count.rated >= 100
 
   def isDecentUser = user.perfs.bestRating > 1600 && user.count.rated >= 5
 
   def reportText(maxGames: Int = 10): String = {
-    val gameLinks: String = (playerAssessments.sortBy(-_.assessment.id).take(maxGames).map{ a =>
+    val gameLinks: String = (playerAssessments.sortBy(-_.assessment.id).take(maxGames).map { a =>
       a.assessment.emoticon + " http://lichess.org/" + a.gameId + "/" + a.color.name
     }).mkString("\n")
 
