@@ -13,6 +13,11 @@
     }
     }
   </div>
+  @if(control.filter.tags.nonEmpty) {
+  <div class="under_tags">
+    <a class="button" href="@routes.Video.index">Clear search</a>
+  </div>
+  }
 </div>
 }
 

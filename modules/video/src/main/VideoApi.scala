@@ -4,11 +4,11 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 import scala.concurrent.duration._
-import spray.caching.{ LruCache, Cache }
 
 import lila.common.paginator._
 import lila.db.paginator.BSONAdapter
 import lila.db.Types.Coll
+import lila.memo.AsyncCache
 import lila.user.{ User, UserRepo }
 
 private[video] final class VideoApi(
@@ -104,13 +104,14 @@ private[video] final class VideoApi(
         }
 
     object count {
-      private val cache: Cache[Int] = LruCache(timeToLive = 1.day)
 
-      def clearCache = fuccess(cache.clear)
+      private val cache = AsyncCache.single(
+        f = videoColl.db command Count(videoColl.name, none),
+        timeToLive = 1.day)
 
-      def apply: Fu[Int] = cache(true) {
-        videoColl.db command Count(videoColl.name, none)
-      }
+      def clearCache = cache.clear
+
+      def apply: Fu[Int] = cache apply true
     }
   }
 
@@ -133,54 +134,58 @@ private[video] final class VideoApi(
 
   object tag {
 
-    private val nbCache: Cache[List[TagNb]] = LruCache(timeToLive = 1.day)
+    def paths(filterTags: List[Tag]): Fu[List[TagNb]] = pathsCache(filterTags.sorted)
 
-    def clearCache = fuccess {
-      nbCache.clear
-    }
+    def clearCache = pathsCache.clear >> popularCache.clear
 
-    def pathsAnd(max: Int, forced: List[Tag]): Fu[List[TagNb]] =
-      popular zip paths(forced) map {
-        case (all, paths) =>
-          val tags = all take max map { t =>
-            paths find (_._id == t._id) getOrElse TagNb(t._id, 0)
+    private val max = 25
+
+    private val pathsCache = AsyncCache[List[Tag], List[TagNb]](
+      f = filterTags => {
+        val allPaths =
+          if (filterTags.isEmpty) popularCache(true)
+          else {
+            val command = Aggregate(videoColl.name, Seq(
+              Match(BSONDocument("tags" -> BSONDocument("$all" -> filterTags))),
+              Project("tags" -> BSONBoolean(true)),
+              Unwind("tags"),
+              GroupField("tags")("nb" -> SumValue(1))
+            ))
+            videoColl.db.command(command) map {
+              _.toList.flatMap(_.asOpt[TagNb])
+            }
           }
-          val missing = forced filterNot { t =>
-            tags exists (_.tag == t)
-          }
-          tags.take(max - missing.size) ::: missing.flatMap { t =>
-            all find (_.tag == t)
-          }
-      }
+        popularCache(true) zip allPaths map {
+          case (all, paths) =>
+            val tags = all map { t =>
+              paths find (_._id == t._id) getOrElse TagNb(t._id, 0)
+            } filterNot (_.empty) take max
+            val missing = filterTags filterNot { t =>
+              tags exists (_.tag == t)
+            }
+            val list = tags.take(max - missing.size) ::: missing.flatMap { t =>
+              all find (_.tag == t)
+            }
+            list.sortBy { t =>
+              if (filterTags contains t.tag) Int.MinValue
+              else -t.nb
+            }
+        }
+      },
+      timeToLive = 1.day)
 
-    def popular: Fu[List[TagNb]] = nbCache("") {
-      import reactivemongo.core.commands._
-      val command = Aggregate(videoColl.name, Seq(
-        Project("tags" -> BSONBoolean(true)),
-        Unwind("tags"),
-        GroupField("tags")("nb" -> SumValue(1)),
-        Sort(Seq(Descending("nb")))
-      ))
-      videoColl.db.command(command) map {
-        _.toList.flatMap(_.asOpt[TagNb])
-      }
-    }
-
-    def paths(tags: List[Tag]): Fu[List[TagNb]] =
-      if (tags.isEmpty) popular
-      else nbCache(tags.sorted.mkString(",")) {
-        import reactivemongo.core.commands._
+    private val popularCache = AsyncCache.single[List[TagNb]](
+      f = {
         val command = Aggregate(videoColl.name, Seq(
-          Match(BSONDocument("tags" -> BSONDocument("$all" -> tags))),
           Project("tags" -> BSONBoolean(true)),
           Unwind("tags"),
-          // Match(BSONDocument("tags" -> BSONDocument("$nin" -> tags))),
           GroupField("tags")("nb" -> SumValue(1)),
           Sort(Seq(Descending("nb")))
         ))
         videoColl.db.command(command) map {
           _.toList.flatMap(_.asOpt[TagNb])
         }
-      }
+      },
+      timeToLive = 1.day)
   }
 }

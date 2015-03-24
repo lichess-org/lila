@@ -147,6 +147,10 @@
   opacity: 0.5;
   cursor: default;
 }
+#video_side .under_tags {
+  margin-top: 2em;
+  text-align: center;
+}
 
 #video .not_found {
   margin-top: 200px;

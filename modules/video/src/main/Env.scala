@@ -47,10 +47,6 @@ final class Env(
     youtube.updateAll logFailure "video youtube"
   }
 
-  scheduler.once(15 seconds) {
-    sheet.fetchAll >> youtube.updateAll logFailure "video boot"
-  }
-
   private[video] lazy val videoColl = db(CollectionVideo)
   private[video] lazy val viewColl = db(CollectionView)
   private[video] lazy val filterColl = db(CollectionFilter)

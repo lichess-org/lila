@@ -5,6 +5,8 @@ import org.joda.time.DateTime
 case class TagNb(_id: Tag, nb: Int) {
 
   def tag = _id
+
+  def empty = nb == 0
 }
 
 case class Filter(tags: List[String]) {
