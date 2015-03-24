@@ -514,12 +514,12 @@ lichess.storage = {
 
   lichess.openInMobileApp = function(gameId) {
     // Only in dev mode for now. Add #dev to the URL to enable.
-    if (window.location.hash !== '#dev') return false;
+    if (location.hash !== '#dev') return false;
     if (
       /android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor) &&
       confirm('Open in lichess mobile app?')
     ) {
-      window.location.href = 'lichess://' + gameId;
+      location.href = 'lichess://' + gameId;
       return true;
     }
     return false;
@@ -1839,7 +1839,7 @@ lichess.storage = {
       return false;
     });
 
-    if (['#ai', '#friend', '#hook'].indexOf(window.location.hash) !== -1) {
+    if (['#ai', '#friend', '#hook'].indexOf(location.hash) !== -1) {
       $startButtons
         .find('a.config_' + location.hash.replace(/#/, ''))
         .each(function() {
@@ -1983,7 +1983,7 @@ lichess.storage = {
         }
       }
     };
-    data.path = window.location.hash ? location.hash.replace(/#/, '') : '';
+    data.path = location.hash ? location.hash.replace(/#/, '') : '';
     analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, cfg.onChange);
     cfg.jump = analyse.jump;
 
