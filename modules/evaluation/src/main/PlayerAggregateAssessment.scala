@@ -30,6 +30,7 @@ case class PlayerAggregateAssessment(
   relatedCheaters: List[String]) {
   import Statistics._
   import AccountAction._
+  import GameAssessment.{ Cheating, LikelyCheating }
 
   def action = {
     val markable: Boolean = !isGreatUser && isDecentUser && (
@@ -82,8 +83,8 @@ case class PlayerAggregateAssessment(
     }
   }
 
-  def countAssessmentValue(assessment: Int) = playerAssessments count {
-    _.assessment.id == assessment
+  def countAssessmentValue(assessment: GameAssessment) = playerAssessments count {
+    _.assessment == assessment
   }
 
   val relatedCheatersCount = relatedCheaters.distinct.size
@@ -93,8 +94,8 @@ case class PlayerAggregateAssessment(
     case a => a
   }
   val relationModifier = if (relatedUsersCount >= 1) 0.02 else 0
-  val cheatingSum = countAssessmentValue(5)
-  val likelyCheatingSum = countAssessmentValue(4)
+  val cheatingSum = countAssessmentValue(Cheating)
+  val likelyCheatingSum = countAssessmentValue(LikelyCheating)
 
 
   // Some statistics
