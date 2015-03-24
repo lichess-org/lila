@@ -33,6 +33,14 @@ body.dark #video_side .tag_list a.full:hover {
   background: #222;
   border-color: #444;
 }
+body.dark #video .tag_list a {
+  background: #363636;
+  color: #9a9a9a;
+}
+body.dark #video .tag_list a:hover {
+  background: #3a3a3a;
+  color: #a0a0a0;
+}
 body.dark #reconnecting,
 body.dark .mini_board,
 body.dark #nb_connected_players,

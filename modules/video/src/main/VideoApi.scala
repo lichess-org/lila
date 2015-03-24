@@ -136,6 +136,8 @@ private[video] final class VideoApi(
 
     def paths(filterTags: List[Tag]): Fu[List[TagNb]] = pathsCache(filterTags.sorted)
 
+    def allPopular: Fu[List[TagNb]] = popularCache(true)
+
     def clearCache = pathsCache.clear >> popularCache.clear
 
     private val max = 25

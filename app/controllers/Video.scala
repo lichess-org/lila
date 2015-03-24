@@ -53,4 +53,12 @@ object Video extends LilaController {
       }
     }
   }
+
+  def tags = Open { implicit ctx =>
+    WithUserControl { control =>
+      env.api.tag.allPopular map { tags =>
+        Ok(html.video.tags(tags, control))
+      }
+    }
+  }
 }

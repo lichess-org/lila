@@ -151,6 +151,32 @@
   margin-top: 2em;
   text-align: center;
 }
+#video_side .under_tags a {
+  text-decoration: none;
+}
+
+#video .tag_list {
+  margin: 10px;
+  text-align: justify;
+}
+#video .tag_list a {
+  display: inline-block;
+  font-size: 1.2em;
+  padding: 3px 5px;
+  margin: 5px 5px;
+  background: #f0f0f0;
+  border-radius: 2px;
+  text-transform: capitalize;
+}
+#video .tag_list a:hover {
+  background: #fff;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.16), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+#video .tag_list a em {
+  font-weight: bold;
+  opacity: 0.6;
+  color: #d59120;
+}
 
 #video .not_found {
   margin-top: 200px;
