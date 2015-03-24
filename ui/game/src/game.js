@@ -86,7 +86,8 @@ var userAnalysableVariants = [
   'standard',
   'fromPosition',
   'chess960',
-  'kingOfTheHill'
+  'kingOfTheHill',
+  'threeCheck'
 ];
 
 function userAnalysable(data) {
