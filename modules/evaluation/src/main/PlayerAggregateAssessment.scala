@@ -34,7 +34,7 @@ case class PlayerAggregateAssessment(
 
   def action = {
     val markable: Boolean = !isGreatUser && isDecentUser && (
-      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= 4)
+      (cheatingSum >= 3 || cheatingSum + likelyCheatingSum >= 6)
       // more than 10 percent of games are cheating
       && (cheatingSum.toDouble / assessmentsCount >= 0.1 - relationModifier
       // or more than 20 percent of games are likely cheating
@@ -42,7 +42,7 @@ case class PlayerAggregateAssessment(
     )
 
     val reportable: Boolean = isDecentUser && (
-      (cheatingSum >= 1 || cheatingSum + likelyCheatingSum >= 2)
+      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= 4)
       // more than 5 percent of games are cheating
       && (cheatingSum.toDouble / assessmentsCount >= 0.05 - relationModifier
       // or more than 10 percent of games are likely cheating
