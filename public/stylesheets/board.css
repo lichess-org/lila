@@ -206,6 +206,7 @@ body.base .cg-board .cg-square.exploding {
   height: 100%;
   pointer-events: none;
   z-index: 2;
+  opacity: 0.6;
 }
 .cg-board-wrap svg * {
   transition: 0.35s;
