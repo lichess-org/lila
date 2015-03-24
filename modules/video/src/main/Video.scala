@@ -12,8 +12,7 @@ case class Video(
     lichess: Boolean,
     ads: Boolean,
     metadata: Youtube.Metadata,
-    createdAt: DateTime,
-    updatedAt: DateTime) {
+    createdAt: DateTime) {
 
   def id = _id
 
@@ -23,6 +22,8 @@ case class Video(
     (tags intersect other.tags).size +
       (targets intersect other.targets).size +
       (if (author == other.author) 1 else 0)
+
+  override def toString = s"[$id] $title ($author)"
 }
 
 object Target {

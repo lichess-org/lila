@@ -20,27 +20,34 @@ private[video] final class Sheet(
   def fetchAll: Funit = fetch flatMap { entries =>
     entries.map { entry =>
       api.video.find(entry.youtubeId).flatMap {
-        case Some(video) => api.video.save(video.copy(
-          title = entry.title,
-          author = entry.author,
-          targets = entry.targets,
-          tags = entry.tags,
-          lang = entry.lang,
-          lichess = entry.lichess,
-          ads = entry.ads,
-          updatedAt = entry.updatedAt))
-        case None => api.video.save(Video(
-          _id = entry.youtubeId,
-          title = entry.title,
-          author = entry.author,
-          targets = entry.targets,
-          tags = entry.tags,
-          lang = entry.lang,
-          lichess = entry.lichess,
-          ads = entry.ads,
-          metadata = Youtube.empty,
-          createdAt = DateTime.now,
-          updatedAt = entry.updatedAt))
+        case Some(video) =>
+          val updated = video.copy(
+            title = entry.title,
+            author = entry.author,
+            targets = entry.targets,
+            tags = entry.tags,
+            lang = entry.lang,
+            lichess = entry.lichess,
+            ads = entry.ads)
+          (video != updated) ?? {
+            loginfo(s"[video sheet] update $updated")
+            api.video.save(updated)
+          }
+        case None =>
+          val video = Video(
+            _id = entry.youtubeId,
+            title = entry.title,
+            author = entry.author,
+            targets = entry.targets,
+            tags = entry.tags,
+            lang = entry.lang,
+            lichess = entry.lichess,
+            ads = entry.ads,
+            metadata = Youtube.empty,
+            createdAt = DateTime.now)
+          loginfo(s"[video sheet] insert $video")
+          api.video.save(video)
+        case _ => funit
       }.recover {
         case e: Exception => logerr(s"[video sheet] ${e.getMessage}")
       }
@@ -73,8 +80,7 @@ object Sheet {
       `gsx$tags`: GStr,
       `gsx$language`: GStr,
       `gsx$useslichess`: GStr,
-      `gsx$ads`: GStr,
-      updated: GStr) {
+      `gsx$ads`: GStr) {
     def youtubeId = `gsx$youtubeid`.toString
     def author = `gsx$youtubeauthor`.toString
     def title = `gsx$title`.toString
@@ -83,6 +89,5 @@ object Sheet {
     def lang = `gsx$language`.toString
     def lichess = `gsx$useslichess`.toString == "yes"
     def ads = `gsx$ads`.toString == "yes"
-    def updatedAt = new DateTime(updated.toString)
   }
 }
