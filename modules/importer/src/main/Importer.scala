@@ -56,7 +56,8 @@ private[importer] final class Importer(
           (GameRepo insertDenormalized game) >> {
             game.pgnImport.flatMap(_.user).isDefined ?? GameRepo.setImportCreatedAt(game)
           } >> applyMoves(Pov(game, Color.white), moves) >>-
-            (result foreach { r => applyResult(game, r) }) inject game
+            (result foreach { r => applyResult(game, r) }) >>
+            (GameRepo game game.id).map(_ | game)
       }
     }
   }
