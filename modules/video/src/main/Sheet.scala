@@ -81,13 +81,13 @@ object Sheet {
       `gsx$language`: GStr,
       `gsx$useslichess`: GStr,
       `gsx$ads`: GStr) {
-    def youtubeId = `gsx$youtubeid`.toString
-    def author = `gsx$youtubeauthor`.toString
-    def title = `gsx$title`.toString
+    def youtubeId = `gsx$youtubeid`.toString.trim
+    def author = `gsx$youtubeauthor`.toString.trim
+    def title = `gsx$title`.toString.trim
     def targets = `gsx$target`.toString.split(';').map(_.trim).toList flatMap parseIntOption
     def tags = `gsx$tags`.toString.split(';').map(_.trim.toLowerCase).toList
-    def lang = `gsx$language`.toString
-    def lichess = `gsx$useslichess`.toString == "yes"
-    def ads = `gsx$ads`.toString == "yes"
+    def lang = `gsx$language`.toString.trim
+    def lichess = `gsx$useslichess`.toString.trim == "yes"
+    def ads = `gsx$ads`.toString.trim == "yes"
   }
 }
