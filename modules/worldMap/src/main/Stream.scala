@@ -32,7 +32,8 @@ final class Stream(
             "lat" -> loc.lat,
             "lon" -> loc.lon,
             "oLat" -> opponentLoc.map(_.lat),
-            "oLon" -> opponentLoc.map(_.lon)
+            "oLon" -> opponentLoc.map(_.lon),
+            "move" -> move.move
           )
         })
     }
