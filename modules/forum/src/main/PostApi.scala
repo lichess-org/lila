@@ -3,6 +3,7 @@ package lila.forum
 import actorApi._
 import akka.actor.ActorSelection
 import play.api.libs.json._
+import org.joda.time.DateTime
 
 import lila.common.paginator._
 import lila.db.api._
@@ -41,9 +42,7 @@ final class PostApi(
           categId = categ.id)
         $insert(post) >>
           $update(topic withPost post) >> {
-            (topic.nbPosts == maxPerPage && topic.visibleOnHome) ?? {
-              TopicRepo.hide(topic.id, true)
-            }
+            shouldHideOnPost(topic) ?? TopicRepo.hide(topic.id, true)
           }
         $update(categ withTopic post) >>-
           (indexer ! InsertPost(post)) >>
@@ -56,6 +55,12 @@ final class PostApi(
               )
             )
           }) inject post
+    }
+
+  private def shouldHideOnPost(topic: Topic) =
+    topic.visibleOnHome && {
+      topic.nbPosts == maxPerPage ||
+        topic.createdAt.isBefore(DateTime.now minusDays 5)
     }
 
   def urlData(postId: String, troll: Boolean): Fu[Option[PostUrlData]] = get(postId) flatMap {
