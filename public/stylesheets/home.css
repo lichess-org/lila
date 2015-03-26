@@ -208,6 +208,10 @@ div.lobby_and_ground {
   text-transform: uppercase;
   letter-spacing: 3px;
 }
+#hooks_wrap .create {
+  margin-top: 20px;
+  text-align: center;
+}
 #hooks_wrap .hooks_chart {
   position: absolute;
   top: 0;

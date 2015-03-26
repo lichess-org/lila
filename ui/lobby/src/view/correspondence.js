@@ -15,40 +15,52 @@ function renderSeek(ctrl, seek) {
       href: '/@/' + seek.username
     }, seek.username) : 'Anonymous'),
     seek.rating ? seek.rating : '',
-    seek.days ?  ctrl.trans(seek.days === 1 ? 'oneDay' : 'nbDays', seek.days) : '∞', [m('span', {
+    seek.days ? ctrl.trans(seek.days === 1 ? 'oneDay' : 'nbDays', seek.days) : '∞', [m('span', {
       class: 'varicon',
       'data-icon': seek.perf.icon
     }), ctrl.trans(seek.mode === 1 ? 'rated' : 'casual')]
   ]));
 };
 
+function createSeek(ctrl) {
+  if (ctrl.data.seeks.length < 8)
+    return m('div.create',
+      m('a.button', {
+        href: '/?time=correspondence#hook',
+      }, ctrl.trans('createAGame'))
+    );
+}
+
 module.exports = function(ctrl) {
-  return m('table.table_wrap', [
-    m('thead',
-      m('tr', [
-        m('th'),
-        m('th', ctrl.trans('player')),
-        m('th', ctrl.trans('rating')),
-        m('th', ctrl.trans('time')),
-        m('th', ctrl.trans('mode'))
-      ])
-    ),
-    m('tbody', {
-      onclick: function(e) {
-        var el = e.target;
-        if (el.classList.contains('ulink')) return;
-        do {
-          el = el.parentNode;
-          if (el.nodeName === 'TR') {
-            if (!ctrl.data.me) {
-              if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
-              return;
+  return [
+    m('table.table_wrap', [
+      m('thead',
+        m('tr', [
+          m('th'),
+          m('th', ctrl.trans('player')),
+          m('th', ctrl.trans('rating')),
+          m('th', ctrl.trans('time')),
+          m('th', ctrl.trans('mode'))
+        ])
+      ),
+      m('tbody', {
+        onclick: function(e) {
+          var el = e.target;
+          if (el.classList.contains('ulink')) return;
+          do {
+            el = el.parentNode;
+            if (el.nodeName === 'TR') {
+              if (!ctrl.data.me) {
+                if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
+                return;
+              }
+              return ctrl.clickSeek(el.getAttribute('data-id'));
             }
-            return ctrl.clickSeek(el.getAttribute('data-id'));
           }
+          while (el.nodeName !== 'TABLE');
         }
-        while (el.nodeName !== 'TABLE');
-      }
-    }, ctrl.data.seeks.map(util.partial(renderSeek, ctrl)))
-  ]);
+      }, ctrl.data.seeks.map(util.partial(renderSeek, ctrl)))
+    ]),
+    createSeek(ctrl)
+  ];
 };
