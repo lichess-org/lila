@@ -115,7 +115,7 @@ case class PlayerAggregateAssessment(
 
   def isGreatUser = user.perfs.bestRating > 2200 && user.count.rated >= 100
 
-  def isDecentUser = user.perfs.bestRating > 1600 && user.count.rated >= 5
+  def isDecentUser = user.perfs.bestRating > 1600 && user.count.rated >= 4
 
   def reportText(maxGames: Int = 10): String = {
     val gameLinks: String = (playerAssessments.sortBy(-_.assessment.id).take(maxGames).map { a =>
