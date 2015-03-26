@@ -145,7 +145,9 @@ private[video] final class VideoApi(
     private val pathsCache = AsyncCache[List[Tag], List[TagNb]](
       f = filterTags => {
         val allPaths =
-          if (filterTags.isEmpty) popularCache(true)
+          if (filterTags.isEmpty) allPopular map { tags =>
+            tags.filterNot(_.isNumeric)
+          }
           else {
             val command = Aggregate(videoColl.name, Seq(
               Match(BSONDocument("tags" -> BSONDocument("$all" -> filterTags))),
@@ -157,7 +159,7 @@ private[video] final class VideoApi(
               _.toList.flatMap(_.asOpt[TagNb])
             }
           }
-        popularCache(true) zip allPaths map {
+        allPopular zip allPaths map {
           case (all, paths) =>
             val tags = all map { t =>
               paths find (_._id == t._id) getOrElse TagNb(t._id, 0)
