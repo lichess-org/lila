@@ -28,7 +28,7 @@ private[video] final class VideoApi(
 
   object video {
 
-    private val maxPerPage = 15
+    private val maxPerPage = 18
 
     def find(id: Video.ID): Fu[Option[Video]] =
       videoColl.find(BSONDocument("_id" -> id)).one[Video]

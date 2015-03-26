@@ -25,6 +25,13 @@ case class HookConfig(
   // allowAnons -> membersOnly
   def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, !allowAnon, ratingRange.toString.some, color.name).some
 
+  def withTimeModeString(tc: Option[String]) = tc match {
+    case Some("realTime")       => copy(timeMode = TimeMode.RealTime)
+    case Some("correspondence") => copy(timeMode = TimeMode.Correspondence)
+    case Some("unlimited")      => copy(timeMode = TimeMode.Unlimited)
+    case _                      => this
+  }
+
   def hook(
     uid: String,
     user: Option[User],

@@ -1840,7 +1840,7 @@ lichess.storage = {
 
     if (['#ai', '#friend', '#hook'].indexOf(location.hash) !== -1) {
       $startButtons
-        .find('a.config_' + location.hash.replace(/#/, ''))
+        .find('a.config_' + location.hash.replace('#', ''))
         .each(function() {
           $(this).attr("href", $(this).attr("href") + location.search);
         }).click();

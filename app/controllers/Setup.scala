@@ -80,7 +80,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
 
   def hookForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req)
-      env.forms.hookFilled map { html.setup.hook(_) }
+      env.forms.hookFilled(timeModeString = get("time")) map { html.setup.hook(_) }
     else fuccess {
       Redirect(routes.Lobby.home + "#hook")
     }

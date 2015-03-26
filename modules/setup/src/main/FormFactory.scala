@@ -73,8 +73,8 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
 
   def friendConfig(implicit ctx: UserContext): Fu[FriendConfig] = savedConfig map (_.friend)
 
-  def hookFilled(implicit ctx: UserContext): Fu[Form[HookConfig]] =
-    hookConfig map hook(ctx).fill
+  def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Fu[Form[HookConfig]] =
+    hookConfig map (_ withTimeModeString timeModeString) map hook(ctx).fill
 
   def hook(ctx: UserContext) = Form(
     mapping(
