@@ -160,7 +160,7 @@ private[round] final class Round(
         val freeSeconds = 15
         val newClock = clock.giveTime(Color.White, freeSeconds).giveTime(Color.Black, freeSeconds)
         val progress = (game withClock newClock) + Event.Clock(newClock)
-        messenger.system(game, (_.untranslated("Deploy in progress")))
+        messenger.system(game, (_.untranslated("Lichess has been updated")))
         messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
         Color.all.foreach { c =>
           messenger.system(game, (_.untranslated(s"$c + $freeSeconds seconds")))
