@@ -27,7 +27,7 @@ object Pref extends LilaController {
         fuccess(html.account.pref(me, err))
       } { data =>
         api getPref me flatMap { pref =>
-          api.setPref(data(pref))
+          api.setPref(data(pref), notifyChange = true)
         } inject Ok("saved")
       }
   }
@@ -55,5 +55,7 @@ object Pref extends LilaController {
     "is3d" -> (forms.is3d -> save("is3d") _))
 
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
-    ctx.me ?? { api.setPrefString(_, name, value) } inject LilaCookie.session(name, value)(ctx.req)
+    ctx.me ?? {
+      api.setPrefString(_, name, value, notifyChange = false)
+    } inject LilaCookie.session(name, value)(ctx.req)
 }

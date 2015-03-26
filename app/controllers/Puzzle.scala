@@ -81,13 +81,16 @@ object Puzzle extends LilaController {
       implicit val req = ctx.body
       env.forms.difficulty.bindFromRequest.fold(
         err => fuccess(BadRequest(err.errorsAsJson)),
-        value => Env.pref.api.setPref(me, (p: lila.pref.Pref) => p.copy(puzzleDifficulty = value)) >> {
-          reqToCtx(ctx.req) flatMap { newCtx =>
-            selectPuzzle(newCtx.me) zip env.userInfos(newCtx.me) map {
-              case (puzzle, infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)(newCtx))
+        value => Env.pref.api.setPref(
+          me,
+          (p: lila.pref.Pref) => p.copy(puzzleDifficulty = value),
+          notifyChange = false) >> {
+            reqToCtx(ctx.req) flatMap { newCtx =>
+              selectPuzzle(newCtx.me) zip env.userInfos(newCtx.me) map {
+                case (puzzle, infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)(newCtx))
+              }
             }
           }
-        }
       ) map (_ as JSON)
   }
 

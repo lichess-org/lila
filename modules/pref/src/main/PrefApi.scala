@@ -113,19 +113,19 @@ final class PrefApi(
   def followables(userIds: List[String]): Fu[List[Boolean]] =
     followableIds(userIds) map { followables => userIds map followables.contains }
 
-  def setPref(pref: Pref): Funit =
+  def setPref(pref: Pref, notifyChange: Boolean): Funit =
     coll.update(BSONDocument("_id" -> pref.id), pref, upsert = true).void >>- {
       cache remove pref.id
-      bus.publish(SendTo(pref.id, "prefChange", true), 'users)
+      if (notifyChange) bus.publish(SendTo(pref.id, "prefChange", true), 'users)
     }
 
-  def setPref(user: User, change: Pref => Pref): Funit =
-    getPref(user) map change flatMap setPref
+  def setPref(user: User, change: Pref => Pref, notifyChange: Boolean): Funit =
+    getPref(user) map change flatMap { setPref(_, notifyChange) }
 
-  def setPref(userId: String, change: Pref => Pref): Funit =
-    getPref(userId) map change flatMap setPref
+  def setPref(userId: String, change: Pref => Pref, notifyChange: Boolean): Funit =
+    getPref(userId) map change flatMap { setPref(_, notifyChange) }
 
-  def setPrefString(user: User, name: String, value: String): Funit =
+  def setPrefString(user: User, name: String, value: String, notifyChange: Boolean): Funit =
     getPref(user) map { _.set(name, value) } flatten
-      s"Bad pref ${user.id} $name -> $value" flatMap setPref
+      s"Bad pref ${user.id} $name -> $value" flatMap { setPref(_, notifyChange) }
 }
