@@ -103,7 +103,16 @@ $(function() {
     var source = new EventSource("/network/stream");
 
     source.addEventListener('message', function(e) {
-      var data = JSON.parse(e.data);
+      var raw = e.data.split('|');
+      var data = {
+        country: raw[0],
+        lat: parseFloat(raw[1]),
+        lon: parseFloat(raw[2]),
+        oLat: parseFloat(raw[3]),
+        oLon: parseFloat(raw[4])
+        // move: raw[5],
+        // piece: raw[6]
+      };
       data.lat += Math.random() - 0.5;
       data.lon += Math.random() - 0.5;
       var orig = world.getXY(data.lat, data.lon);

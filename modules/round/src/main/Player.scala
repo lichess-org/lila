@@ -67,6 +67,7 @@ private[round] final class Player(
       gameId = game.id,
       fen = Forsyth exportBoard game.toChess.board,
       move = move.keyString,
+      piece = move.piece.forsyth,
       opponentUserId = game.player(!move.color).userId
     ), 'moveEvent)
   }

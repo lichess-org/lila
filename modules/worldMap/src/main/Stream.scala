@@ -26,16 +26,15 @@ final class Stream(
       case None => Input.Empty
       case Some(loc) =>
         val opponentLoc = players.getOpponentLocation(move.gameId, loc)
-        Input.El(Json.stringify {
-          Json.obj(
-            "country" -> loc.country,
-            "lat" -> loc.lat,
-            "lon" -> loc.lon,
-            "oLat" -> opponentLoc.map(_.lat),
-            "oLon" -> opponentLoc.map(_.lon),
-            "move" -> move.move
-          )
-        })
+        Input.El(List(
+          loc.country,
+          loc.lat,
+          loc.lon,
+          opponentLoc.map(_.lat) getOrElse "",
+          opponentLoc.map(_.lon) getOrElse "",
+          move.move,
+          move.piece
+        ) mkString "|")
     }
 
   private val processor: Enumeratee[MoveEvent, String] =
