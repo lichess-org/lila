@@ -20,7 +20,9 @@ final class MongoCache[K, V: MongoCache.Handler] private (
   def apply(k: K): Fu[V] = cache(k) {
     coll.find(select(k)).one[Entry] flatMap {
       case None => f(k) flatMap { v =>
-        coll.insert(makeEntry(k, v)) inject v
+        coll.insert(makeEntry(k, v)) recover {
+          case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") => ()
+        } inject v
       }
       case Some(entry) => fuccess(entry.v)
     }
