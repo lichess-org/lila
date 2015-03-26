@@ -22,7 +22,7 @@
   margin: 10px;
   overflow: hidden;
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.16), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-  transition: 0.13s;
+  transition: box-shadow 0.13s;
 }
 #video .card:hover {
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.26), 0px 6px 15px 0px rgba(0, 0, 0, 0.22);
@@ -32,7 +32,7 @@
   height: 180px;
   display: block;
   background-size: cover;
-  transition: 0.13s;
+  transition: opacity 0.13s;
 }
 #video .card:hover .img {
   opacity: 0.5;
@@ -61,7 +61,7 @@
   z-index: 1;
   padding: 15px 10px 0 10px;
   opacity: 0;
-  transition: 0.13s;
+  transition: transform 0.13s, opacity 0.13s;
 }
 #video .card:hover .reveal {
   transform: translateY(-100%);
