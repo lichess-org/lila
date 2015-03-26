@@ -52,11 +52,11 @@ private[game] object GameDiff {
       import Player.BSONFields._
       val name = s"p$i."
       val player: Game => Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
-      dOpt(name + lastDrawOffer, player(_).lastDrawOffer, w.map[Option, Int, BSONInteger])
-      dOpt(name + isOfferingDraw, player(_).isOfferingDraw, w.boolO)
-      dOpt(name + isOfferingRematch, player(_).isOfferingRematch, w.boolO)
-      dOpt(name + isProposingTakeback, player(_).isProposingTakeback, w.boolO)
-      dOpt(name + blurs, player(_).blurs, w.intO)
+      dOpt(s"$name$lastDrawOffer", player(_).lastDrawOffer, w.map[Option, Int, BSONInteger])
+      dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)
+      dOpt(s"$name$isOfferingRematch", player(_).isOfferingRematch, w.boolO)
+      dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, w.intO)
+      dOpt(s"$name$blurs", player(_).blurs, w.intO)
     }
 
     (addUa(setBuilder.toList), unsetBuilder.toList)

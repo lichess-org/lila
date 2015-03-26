@@ -10,11 +10,15 @@ private[round] final class Takebacker(
 
   def yes(pov: Pov): Fu[Events] = IfAllowedByPrefs(pov.game) {
     pov match {
-      case Pov(game, _) if pov.opponent.isProposingTakeback => double(game)
-      case Pov(game, _) if pov.opponent.isAi                => double(game)
+      case Pov(game, _) if pov.opponent.isProposingTakeback =>
+        if (pov.opponent.proposeTakebackAt == pov.game.turns) single(game)
+        else double(game)
+      case Pov(game, _) if pov.opponent.isAi => double(game)
       case Pov(game, color) if (game playerCanProposeTakeback color) =>
         messenger.system(game, _.takebackPropositionSent)
-        val progress = Progress(game) map { g => g.updatePlayer(color, _.proposeTakeback) }
+        val progress = Progress(game) map { g =>
+          g.updatePlayer(color, _ proposeTakeback g.turns)
+        }
         GameRepo save progress inject List(Event.ReloadOwner)
       case _ => ClientErrorException.future("[takebacker] invalid yes " + pov)
     }
