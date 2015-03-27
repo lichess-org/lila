@@ -977,8 +977,19 @@ lichess.storage = {
     }, 1500);
 
     (function() {
-      var isOpen = true;
-// fpmenu
+      var open = false;
+      var $menu = $('#fpmenu');
+      $('#hamburger').click(function() {
+        open = !open;
+        if (open) {
+          $(this).removeClass('is-closed').addClass('is-open');
+          $menu.addClass('open');
+        }
+        else {
+          $(this).removeClass('is-open').addClass('is-closed');
+          $menu.removeClass('open');
+        }
+      });
     })();
   });
 
