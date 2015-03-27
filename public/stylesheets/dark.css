@@ -171,7 +171,6 @@ body.dark #message_notifications div.notification:hover {
   background-color: #3e3e3e;
   color: #b0b0b0;
 }
-body.dark #top a.signin,
 body.dark #top a.toggle:hover,
 body.dark #sound_state:hover {
   color: #c0c0c0;
@@ -434,12 +433,56 @@ body.dark .is.color-icon.black::before {
 body.dark::-webkit-input-placeholder {
   color: #666;
 }
-body.dark:-moz-placeholder {
-  color: #666;
-}
 body.dark::-moz-placeholder {
   color: #666;
 }
 body.dark:-ms-input-placeholder {
   color: #666;
+}
+body.dark #fpmenu {
+  background: #1c2328;
+  color: #aeaeae;
+}
+body.dark #fpmenu h2 {
+  color: #aeaeae;
+}
+body.dark #fpmenu .login input {
+  background-color: #1c2328;
+  border-color: #404040;
+}
+body.dark #fpmenu .login input::-webkit-input-placeholder {
+  color: #666;
+}
+body.dark #fpmenu .login input::-moz-placeholder {
+  color: #666;
+}
+body.dark #fpmenu .login input.submit {
+  background: #d59120;
+}
+body.dark #fpmenu .menu {
+  border-color: #444;
+}
+body.dark #fpmenu a.signup {
+  background: #1c2328;
+  border: 1px solid #555;
+  color: inherit;
+}
+body.dark #fpmenu a.signup:hover {
+  background: #d59120;
+  color: #fff;
+  text-decoration: none;
+}
+body.dark #fpmenu .perf strong {
+  color: #aeaeae;
+}
+body.dark #hamburger .top,
+body.dark #hamburger .bottom {
+  background: #999;
+}
+body.dark #hamburger path,
+body.dark #hamburger line {
+  stroke: #999;
+}
+body.dark #fpmenu .perf::before {
+  color: #8b6523;
 }

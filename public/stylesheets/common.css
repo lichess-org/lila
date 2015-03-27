@@ -567,7 +567,6 @@ body > div.content {
 }
 #top {
   position: relative;
-  width: 1005px;
   height: 24px;
   margin: 0 auto 30px auto;
 }
@@ -884,6 +883,10 @@ div.side form.search input {
   height: 24px;
   line-height: 24px;
   padding: 0 8px;
+  transition: opacity 0.13s;
+}
+#top .link:hover {
+  opacity: 1;
 }
 #reconnecting {
   display: none;
@@ -920,26 +923,20 @@ body.offline #nb_connected_players {
 #top .shown a.toggle {
   background: #fff;
 }
-#top a.signin {
-  display: block;
-  margin: 4px 0.5em 0 0;
-  border-color: #d85000;
-  padding: 1px 5px;
-}
 #fpmenu {
   position: fixed;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  background: #fff;
   z-index: 5000;
   width: 100%;
   height: 100%;
   font-size: 14px;
   display: none;
+  background: #fff;
 }
-#fpmenu.open {
+body.fpmenu #fpmenu {
   display: block;
 }
 #fpmenu a {
@@ -948,6 +945,17 @@ body.offline #nb_connected_players {
 #fpmenu a:hover {
   text-decoration: underline;
 }
+#fpmenu section {
+  margin-top: 50px;
+}
+#fpmenu h2 {
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-size: 24px;
+  color: #2a2a2a;
+  text-transform: uppercase;
+  margin-bottom: 9px;
+}
 #fpmenu .inner {
   width: 1005px;
   margin: 0 auto;
@@ -955,9 +963,13 @@ body.offline #nb_connected_players {
   top: 50%;
   transform: translateY(-50%);
 }
-#fpmenu .left {
-  float: left;
-  width: 390px;
+#fpmenu .body {
+  overflow: hidden;
+}
+#fpmenu .user,
+#fpmenu .anon {
+  width: 402px;
+  margin-left: 620px;
 }
 #fpmenu .perf {
   display: inline-block;
@@ -980,6 +992,9 @@ body.offline #nb_connected_players {
   margin: 0 0 5px 0;
   color: #d59120;
 }
+#fpmenu .perf.nope {
+  opacity: 0.5;
+}
 #fpmenu .perf strong {
   font-family: 'Roboto';
   font-weight: 300;
@@ -989,24 +1004,75 @@ body.offline #nb_connected_players {
 #fpmenu .perf .progress {
   opacity: 0.6;
 }
-#fpmenu .right {
-  margin-left: 390px;
-  width: 582px;
-  border-left: 1px solid #cfcfcf;
-  padding: 0 0 40px 80px;
+#fpmenu .anon {
+  margin-top: 50px;
+  width: 322px;
 }
-#fpmenu section {
-  display: inline-block;
-  width: 260px;
-  margin: 50px 0 0 0;
+#fpmenu .anon h2 {
+  margin-bottom: 22px;
 }
-#fpmenu section h2 {
-  font-family: 'Roboto';
-  font-weight: 300;
-  font-size: 24px;
-  color: #2a2a2a;
+#fpmenu .login input {
+  width: 290px;
+  line-height: 47px;
+  padding: 0 15px;
+  background: #fff;
+  border: 1px solid #ebebeb;
+  outline: none;
+}
+#fpmenu .login input.password {
+  border-top: none;
+}
+#fpmenu .login input.submit {
+  margin-top: 30px;
+  width: 100%;
+  background: #d59120;
+  border: none;
   text-transform: uppercase;
-  margin-bottom: 9px;
+  color: #fff;
+  font-weight: bold;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.13s;
+}
+#fpmenu .login input.submit:hover {
+  opacity: 0.65;
+}
+#fpmenu .forgot {
+  font-size: 0.8em;
+  margin-top: 5px;
+  text-align: center;
+}
+#fpmenu .forgot a {
+  color: inherit;
+  opacity: 0.6;
+}
+#fpmenu a.signup {
+  display: block;
+  line-height: 47px;
+  padding: 0 15px;
+  background: #fff;
+  border: 1px solid #d8d8d8;
+  color: inherit;
+  text-transform: uppercase;
+  text-align: center;
+  transition: 0.13s;
+}
+#fpmenu a.signup:hover {
+  background: #d59120;
+  color: #fff;
+  text-decoration: none;
+}
+#fpmenu .menu {
+  float: left;
+  width: 500px;
+  border-right: 1px solid #cfcfcf;
+  margin-left: 20px;
+  padding-bottom: 40px;
+  overflow: hidden;
+}
+#fpmenu .menu section {
+  float: left;
+  width: 250px;
 }
 #fpmenu section a {
   color: #d59120;
@@ -1015,7 +1081,8 @@ body.offline #nb_connected_players {
 }
 #fpmenu .footer {
   width: 100%;
-  padding: 30px 0;
+  padding: 35px 0;
+  margin-left: -20px;
   text-align: center;
   font-size: 12px;
   opacity: 0.6;
@@ -1028,14 +1095,15 @@ body.offline #nb_connected_players {
   display: inline-block;
   margin: 0 12px;
 }
-#hamburger *:before,
-#hamburger *:after {
-  box-sizing: border-box;
+#ham-plate {
+  position: relative;
+  width: 1005px;
+  margin: 0 auto;
 }
 #hamburger {
   position: absolute;
-  top: 43px;
-  left: -62px;
+  top: -5px;
+  left: -16px;
   z-index: 5001;
   display: block;
   width: 68px;
@@ -1044,14 +1112,19 @@ body.offline #nb_connected_players {
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
+  transform: scale(0.85);
   opacity: 0.6;
-  transition: left 1s;
+  transition: opacity 0.13s, transform 0.75s;
 }
 #hamburger:hover {
   opacity: 1;
 }
+#hamburger *:before,
+#hamburger *:after {
+  box-sizing: border-box;
+}
 #hamburger.open {
-  left: -72px;
+  transform: scale(0.5);
 }
 #hamburger .top,
 #hamburger .bottom {
@@ -1060,7 +1133,7 @@ body.offline #nb_connected_players {
   height: 4px;
   width: 36px;
   border-radius: 2px;
-  background: #d59120;
+  background: #666;
   transform-origin: 34px 2px;
   transform: rotate(0deg);
   transition: all 0.5s cubic-bezier(.8, -1.1, .5, 1.9);
@@ -1075,7 +1148,7 @@ body.offline #nb_connected_players {
 }
 #hamburger path,
 #hamburger line {
-  stroke: #d59120;
+  stroke: #666;
   stroke-linecap: round;
 }
 #ham-circle {
@@ -1125,16 +1198,6 @@ body.offline #nb_connected_players {
   padding-top: 5px;
   margin-top: 5px;
   border-top: 1px solid #d4d4d4;
-}
-#top div.auth .perfs {
-  text-align: center;
-  font-size: 1.1em;
-  min-width: 120px;
-}
-#top div.auth .perfs > span {
-  padding: 5px 3% 5px 3%;
-  width: 38%;
-  text-align: left;
 }
 #top div.auth .ping {
   display: block;

@@ -978,20 +978,21 @@ lichess.storage = {
 
     (function() {
       var open = false;
-      var $menu = $('#fpmenu');
-      var hamburger = function(e) {
-        e.preventDefault();
+      $('#hamburger').click(function() {
+        document.body.scrollTop = 0;
         open = !open;
         if (open) {
           $(this).removeClass('closed').addClass('open');
-          $menu.addClass('open');
+          document.body.classList.add('fpmenu');
         } else {
           $(this).removeClass('open').addClass('closed');
-          $menu.removeClass('open');
+          document.body.classList.remove('fpmenu');
         }
-      };
-      $('#hamburger').click(hamburger);
-      Mousetrap.bind('space', hamburger);
+      });
+      Mousetrap.bind('space', function(e) {
+        $('#hamburger').click();
+        return false;
+      });
     })();
   });
 

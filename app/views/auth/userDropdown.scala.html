@@ -11,13 +11,5 @@
   <a href="@routes.Report.list()">User reports</a>
   }
   <span class="sep"></span>
-  <div class="perfs">
-    @topBarSortedPerfTypes.map { pt =>
-    @me.perfs(pt.key).map { perf =>
-    @showPerfRating(pt, perf, klass = "hint--bottom-left")
-    }
-    }
-  </div>
-  <span class="sep"></span>
   <div class="ping">PING <strong>?</strong> ms</div>
 </div>
