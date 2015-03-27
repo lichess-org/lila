@@ -982,11 +982,11 @@ lichess.storage = {
       $('#hamburger').click(function() {
         open = !open;
         if (open) {
-          $(this).removeClass('is-closed').addClass('is-open');
+          $(this).removeClass('closed').addClass('open');
           $menu.addClass('open');
         }
         else {
-          $(this).removeClass('is-open').addClass('is-closed');
+          $(this).removeClass('open').addClass('closed');
           $menu.removeClass('open');
         }
       });

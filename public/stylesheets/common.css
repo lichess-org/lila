@@ -566,6 +566,7 @@ body > div.content {
   margin: 0 auto 30px auto;
 }
 #top {
+  position: relative;
   width: 1005px;
   height: 24px;
   margin: 0 auto 30px auto;
@@ -1027,463 +1028,70 @@ body.offline #nb_connected_players {
   display: inline-block;
   margin: 0 12px;
 }
-.hamburglar *:before,
-.hamburglar *:after {
+#hamburger *:before,
+#hamburger *:after {
   box-sizing: border-box;
 }
-.hamburglar {
-  transform: scale(1);
-  margin: 40px auto;
+#hamburger {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 0px;
+  left: -12px;
   z-index: 5001;
   display: block;
   width: 68px;
   height: 68px;
   -webkit-touch-callout: none;
   user-select: none;
+  -webkit-user-select: none;
   cursor: pointer;
+  opacity: 0.6;
+  transition: top 1s;
 }
-.path-burger {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 68px;
-  width: 68px;
-  mask: url(#mask);
-  -webkit-mask-box-image: url(https://raygun.io/upload/mask.svg);
+#hamburger:hover {
+  opacity: 1;
 }
-.animate-path {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 68px;
-  height: 68px;
+#hamburger.open {
+  top: 12px;
 }
-.path-rotation {
-  height: 34px;
-  width: 34px;
-  margin: 34px 34px 0 0;
-  transform: rotate(0deg);
-  transform-origin: 100% 0;
-}
-.path-rotation::before {
-  content: '';
-  display: block;
-  width: 30px;
-  height: 34px;
-  margin: 0 4px 0 0;
-}
-@keyframes rotate-out {
-  0% {
-    transform: rotate(0deg);
-  }
-  40% {
-    transform: rotate(180deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@keyframes rotate-in {
-  0% {
-    transform: rotate(360deg);
-  }
-  40% {
-    transform: rotate(180deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-.hamburglar.is-open .path {
-  animation: dash-in 0.6s linear normal;
-  -webkit-animation: dash-in 0.6s linear normal;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
-}
-.hamburglar.is-open .animate-path {
-  animation: rotate-in 0.6s linear normal;
-  -webkit-animation: rotate-in 0.6s linear normal;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
-}
-.hamburglar.is-closed .path {
-  animation: dash-out 0.6s linear normal;
-  -webkit-animation: dash-out 0.6s linear normal;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
-}
-.hamburglar.is-closed .animate-path {
-  animation: rotate-out 0.6s linear normal;
-  -webkit-animation: rotate-out 0.6s linear normal;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
-}
-.hamburglar .path {
-  stroke-dasharray: 240;
-  stroke-dashoffset: 240;
-  stroke-linejoin: round;
-}
-@keyframes dash-in {
-  0% {
-    stroke-dashoffset: 240;
-  }
-  40% {
-    stroke-dashoffset: 240;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-@-webkit-keyframes dash-in {
-  0% {
-    stroke-dashoffset: 240;
-  }
-  40% {
-    stroke-dashoffset: 240;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes dash-out {
-  0% {
-    stroke-dashoffset: 0;
-  }
-  40% {
-    stroke-dashoffset: 240;
-  }
-  100% {
-    stroke-dashoffset: 240;
-  }
-}
-@-webkit-keyframes dash-out {
-  0% {
-    stroke-dashoffset: 0;
-  }
-  40% {
-    stroke-dashoffset: 240;
-  }
-  100% {
-    stroke-dashoffset: 240;
-  }
-}
-.burger-icon {
-  position: absolute;
-  padding: 20px 16px;
-  height: 68px;
-  width: 68px;
-}
-.burger-container {
-  position: relative;
-  height: 28px;
-  width: 36px;
-}
-.burger-bun-top,
-.burger-bun-bot,
-.burger-filling {
+#hamburger .top,
+#hamburger .bottom {
   position: absolute;
   display: block;
   height: 4px;
   width: 36px;
   border-radius: 2px;
   background: #d59120;
-}
-.burger-bun-top {
-  top: 0;
   transform-origin: 34px 2px;
+  transform: rotate(0deg);
+  transition: all 0.5s cubic-bezier(.8, -1.1, .5, 1.9);
 }
-.burger-bun-bot {
-  bottom: 0;
-  transform-origin: 34px 2px;
+#hamburger .top {
+  top: 19px;
+  left: 14px;
 }
-.burger-filling {
-  top: 12px;
+#hamburger .bottom {
+  top: 41px;
+  left: 14px;
 }
-.burger-ring {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 68px;
-  height: 68px;
+#hamburger path,
+#hamburger line {
+  stroke: #d59120;
+  stroke-linecap: round;
 }
-.svg-ring {
-  width: 68px;
-  height: 68px;
+#ham-circle {
+  stroke-dasharray: 1 100 32 300;
+  stroke-dashoffset: 101;
+  transition: all 0.75s ease;
 }
-.hamburglar.is-open .burger-bun-top {
-  animation: bun-top-out 0.6s linear normal;
-  -webkit-animation: bun-top-out 0.6s linear normal;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
+#hamburger.open #ham-circle {
+  stroke-dasharray: 1 100 190 300;
+  stroke-dashoffset: 1;
 }
-.hamburglar.is-open .burger-bun-bot {
-  animation: bun-bot-out 0.6s linear normal;
-  -webkit-animation: bun-bot-out 0.6s linear normal;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
+#hamburger.open .top {
+  transform: translateX(-4.5px) rotate(-45deg);
 }
-.hamburglar.is-closed .burger-bun-top {
-  animation: bun-top-in 0.6s linear normal;
-  -webkit-animation: bun-top-in 0.6s linear normal;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
-}
-.hamburglar.is-closed .burger-bun-bot {
-  animation: bun-bot-in 0.6s linear normal;
-  -webkit-animation: bun-bot-in 0.6s linear normal;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
-}
-@keyframes bun-top-out {
-  0% {
-    left: 0;
-    top: 0;
-    transform: rotate(0deg);
-  }
-  20% {
-    left: 0;
-    top: 0;
-    transform: rotate(15deg);
-  }
-  80% {
-    left: -5px;
-    top: 0;
-    transform: rotate(-60deg);
-  }
-  100% {
-    left: -5px;
-    top: 1px;
-    transform: rotate(-45deg);
-  }
-}
-@-webkit-keyframes bun-top-out {
-  0% {
-    left: 0;
-    top: 0;
-    transform: rotate(0deg);
-  }
-  20% {
-    left: 0;
-    top: 0;
-    transform: rotate(15deg);
-  }
-  80% {
-    left: -5px;
-    top: 0;
-    transform: rotate(-60deg);
-  }
-  100% {
-    left: -5px;
-    top: 1px;
-    transform: rotate(-45deg);
-  }
-}
-@keyframes bun-bot-out {
-  0% {
-    left: 0;
-    transform: rotate(0deg);
-  }
-  20% {
-    left: 0;
-    transform: rotate(-15deg);
-  }
-  80% {
-    left: -5px;
-    transform: rotate(60deg);
-  }
-  100% {
-    left: -5px;
-    transform: rotate(45deg);
-  }
-}
-@-webkit-keyframes bun-bot-out {
-  0% {
-    left: 0;
-    transform: rotate(0deg);
-  }
-  20% {
-    left: 0;
-    transform: rotate(-15deg);
-  }
-  80% {
-    left: -5px;
-    transform: rotate(60deg);
-  }
-  100% {
-    left: -5px;
-    transform: rotate(45deg);
-  }
-}
-@keyframes bun-top-in {
-  0% {
-    left: -5px;
-    bot: 0;
-    transform: rotate(-45deg);
-  }
-  20% {
-    left: -5px;
-    bot: 0;
-    transform: rotate(-60deg);
-  }
-  80% {
-    left: 0;
-    bot: 0;
-    transform: rotate(15deg);
-  }
-  100% {
-    left: 0;
-    bot: 1px;
-    transform: rotate(0deg);
-  }
-}
-@-webkit-keyframes bun-top-in {
-  0% {
-    left: -5px;
-    bot: 0;
-    transform: rotate(-45deg);
-  }
-  20% {
-    left: -5px;
-    bot: 0;
-    transform: rotate(-60deg);
-  }
-  80% {
-    left: 0;
-    bot: 0;
-    transform: rotate(15deg);
-  }
-  100% {
-    left: 0;
-    bot: 1px;
-    transform: rotate(0deg);
-  }
-}
-@keyframes bun-bot-in {
-  0% {
-    left: -5px;
-    transform: rotate(45deg);
-  }
-  20% {
-    left: -5px;
-    bot: 0;
-    transform: rotate(60deg);
-  }
-  80% {
-    left: 0;
-    bot: 0;
-    transform: rotate(-15deg);
-  }
-  100% {
-    left: 0;
-    transform: rotate(0deg);
-  }
-}
-@-webkit-keyframes bun-bot-in {
-  0% {
-    left: -5px;
-    transform: rotate(45deg);
-  }
-  20% {
-    left: -5px;
-    bot: 0;
-    transform: rotate(60deg);
-  }
-  80% {
-    left: 0;
-    bot: 0;
-    transform: rotate(-15deg);
-  }
-  100% {
-    left: 0;
-    transform: rotate(0deg);
-  }
-}
-.hamburglar.is-open .burger-filling {
-  animation: burger-fill-out 0.6s linear normal;
-  -webkit-animation: burger-fill-out 0.6s linear normal;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
-}
-.hamburglar.is-closed .burger-filling {
-  animation: burger-fill-in 0.6s linear normal;
-  -webkit-animation: burger-fill-in 0.6s linear normal;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
-}
-@keyframes burger-fill-in {
-  0% {
-    width: 0;
-    left: 36px;
-  }
-  40% {
-    width: 0;
-    left: 40px;
-  }
-  80% {
-    width: 36px;
-    left: -6px;
-  }
-  100% {
-    width: 36px;
-    left: 0px;
-  }
-}
-@-webkit-keyframes burger-fill-in {
-  0% {
-    width: 0;
-    left: 36px;
-  }
-  40% {
-    width: 0;
-    left: 40px;
-  }
-  80% {
-    width: 36px;
-    left: -6px;
-  }
-  100% {
-    width: 36px;
-    left: 0px;
-  }
-}
-@keyframes burger-fill-out {
-  0% {
-    width: 36px;
-    left: 0px;
-  }
-  20% {
-    width: 42px;
-    left: -6px;
-  }
-  40% {
-    width: 0;
-    left: 40px;
-  }
-  100% {
-    width: 0;
-    left: 36px;
-  }
-}
-@-webkit-keyframes burger-fill-out {
-  0% {
-    width: 36px;
-    left: 0px;
-  }
-  20% {
-    width: 42px;
-    left: -6px;
-  }
-  40% {
-    width: 0;
-    left: 40px;
-  }
-  100% {
-    width: 0;
-    left: 36px;
-  }
+#hamburger.open .bottom {
+  transform: translateX(-4.5px) rotate(45deg);
 }
 #user_tag {
   font-weight: bold;

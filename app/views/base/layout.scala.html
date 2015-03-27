@@ -60,7 +60,13 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     </form>
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
     <div id="top" class="@ctx.is3d.fold("is3d", "is2d")">
-      <a href="#" id="fpmenu_toggle"></a>
+      <div id="hamburger" class="closed">
+        <div class="top"></div>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <path id="ham-circle" fill="none" stroke-width="4" stroke-miterlimit="10" d="M16,32h32c0,0,11.723-0.306,10.75-11 c-0.25-2.75-1.644-4.971-2.869-7.151C50.728,7.08,42.767,2.569,33.733,2.054C33.159,2.033,32.599,2,32,2C15.432,2,2,15.432,2,32 c0,16.566,13.432,30,30,30c16.566,0,30-13.434,30-30C62,15.5,48.5,2,32,2S1.875,15.5,1.875,32"/>
+        </svg>
+        <div class="bottom"></div>
+      </div>
       @if(!zen) {
       <div id="sound_control" class="fright link">
         <button id="sound_state" class="a available hint--bottom-left">
@@ -128,30 +134,6 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
         @trans.nbConnectedPlayers("<strong>?</strong>")
       </div>
       }
-    </div>
-    <div id="hamburger" class="hamburglar is-closed">
-      <div class="burger-icon">
-        <div class="burger-container">
-          <span class="burger-bun-top"></span>
-          <span class="burger-filling"></span>
-          <span class="burger-bun-bot"></span>
-        </div>
-      </div>
-      <div class="burger-ring">
-        <svg class="svg-ring">
-          <path class="path" fill="none" stroke="#d59120" stroke-miterlimit="10" stroke-width="4" d="M 34 2 C 16.3 2 2 16.3 2 34 s 14.3 32 32 32 s 32 -14.3 32 -32 S 51.7 2 34 2" />
-        </svg>
-      </div>
-      <svg width="0" height="0">
-        <mask id="mask">
-          <path xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ff0000" stroke-miterlimit="10" stroke-width="4" d="M 34 2 c 11.6 0 21.8 6.2 27.4 15.5 c 2.9 4.8 5 16.5 -9.4 16.5 h -4" />
-        </mask>
-      </svg>
-      <div class="path-burger">
-        <div class="animate-path">
-          <div class="path-rotation"></div>
-        </div>
-      </div>
     </div>
     <div id="fpmenu">@fpmenu()</div>
     <div class="content @ctx.is3d.fold("is3d", "is2d")">
