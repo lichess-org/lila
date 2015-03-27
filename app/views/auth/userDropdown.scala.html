@@ -1,5 +1,5 @@
 @(me: User, playing: Boolean)(implicit ctx: Context)
-<a id="user_tag" class="toggle toggle_auth link"><span class="text" data-icon="u">@me.username</span></a>
+<a id="user_tag" class="toggle toggle_auth link"><span data-icon="u">@me.username</span></a>
 <div class="links dropdown">
   <a href="@routes.User.show(me.username)" class="blank_if_play"><span class="text" data-icon="r">@trans.profile()</span></a>
   <a href="@routes.Pref.form"@if(playing){ target="_blank"}><span class="text" data-icon="%">@trans.preferences()</span></a>

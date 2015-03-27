@@ -46,6 +46,7 @@
   display: block;
   margin-bottom: 4px;
   padding-bottom: 5px;
+  text-decoration: none;
 }
 #team table.slist a.team-name span.team-icon {
   float: left;

@@ -563,7 +563,7 @@ strong {
 }
 body > div.content {
   width: 1005px;
-  margin: 0 auto 30px auto;
+  margin: 36px auto 30px auto;
 }
 body.fpmenu > div.content {
   display: none;
@@ -571,7 +571,6 @@ body.fpmenu > div.content {
 #top {
   position: relative;
   height: 24px;
-  margin: 0 auto 30px auto;
 }
 #site_description {
   position: absolute;
@@ -880,16 +879,11 @@ div.side form.search input {
   border-right: none;
 }
 #top .link {
-  opacity: 0.7;
   text-decoration: none;
   font-size: 13px;
   height: 24px;
   line-height: 24px;
   padding: 0 8px;
-  transition: opacity 0.13s;
-}
-#top .link:hover {
-  opacity: 1;
 }
 #reconnecting {
   display: none;
@@ -904,10 +898,6 @@ body.offline #nb_connected_players {
 }
 #top .fright {
   float: right;
-}
-#sound_state:hover {
-  color: #303030;
-  border-color: #808080;
 }
 .unread {
   padding: 1px 5px 1px 4px;
@@ -1330,7 +1320,15 @@ form.wide textarea {
   display: block;
   float: left;
   padding-left: 4px;
+}
+#top a.toggle,
+#top #sound_state {
   transition: 0.13s;
+}
+#top a.toggle:hover,
+#sound_state:hover {
+  color: #303030;
+  border-color: #808080;
 }
 #top #themepicker_toggle,
 #top #sound_state {

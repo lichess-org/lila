@@ -16,7 +16,7 @@ function renderTd(move, ply, curPly) {
   } : null;
 }
 
-function renderResult(ctrl) {
+function renderResult(ctrl, asTable) {
   var result;
   if (status.finished(ctrl.root.data)) switch (ctrl.root.data.game.winner) {
     case 'white':
@@ -30,12 +30,18 @@ function renderResult(ctrl) {
   }
   if (result || status.aborted(ctrl.root.data)) {
     var winner = game.getPlayer(ctrl.root.data, ctrl.root.data.game.winner);
-    return [
+    return asTable ? [
       m('tr', m('td.result[colspan=3]', result)),
       m('tr.status', m('td[colspan=3]', [
         renderStatus(ctrl.root),
         winner ? ', ' + ctrl.root.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
       ]))
+    ] : [
+      m('p.result', result),
+      m('p.status', [
+        renderStatus(ctrl.root),
+        winner ? ', ' + ctrl.root.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
+      ])
     ];
   }
 }
@@ -50,7 +56,7 @@ function renderTable(ctrl, curPly) {
       renderTd(pair[0], 2 * i + 1, curPly),
       renderTd(pair[1], 2 * i + 2, curPly)
     ]);
-  }).concat(renderResult(ctrl));
+  }).concat(renderResult(ctrl, true));
   return m('table',
     m('tbody', {
         onclick: function(e) {
@@ -114,6 +120,6 @@ module.exports = function(ctrl) {
         autoScroll(el);
         if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
       },
-    }, renderTable(ctrl, curPly)) : renderResult(ctrl)
+    }, renderTable(ctrl, curPly)) : renderResult(ctrl, false)
   ]);
 }

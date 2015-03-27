@@ -70,8 +70,8 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     </div>
     <div id="top" class="@ctx.is3d.fold("is3d", "is2d")">
       @if(!zen) {
-      <div id="sound_control" class="fright link">
-        <button id="sound_state" class="a available hint--bottom-left">
+      <div id="sound_control" class="fright">
+        <button id="sound_state" class="a link available hint--bottom-left">
           <span class="is2 on" data-icon="#"></span>
           <span class="is2 off" data-icon="$"></span>
         </button>

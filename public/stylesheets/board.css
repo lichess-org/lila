@@ -1090,13 +1090,13 @@ div.table .notyet {
   color: #d85000;
   font-weight: bold;
 }
-.lichess_ground .replay td.result {
+.lichess_ground .replay .result {
   font-weight: bold;
   font-size: 1.3em;
   padding: 4px 0;
   text-align: center;
 }
-.lichess_ground .replay .status td {
+.lichess_ground .replay .status {
   font-size: 1em;
   text-align: center;
   font-style: italic;
