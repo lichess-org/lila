@@ -565,6 +565,9 @@ body > div.content {
   width: 1005px;
   margin: 0 auto 30px auto;
 }
+body.fpmenu > div.content {
+  display: none;
+}
 #top {
   position: relative;
   height: 24px;
@@ -895,7 +898,6 @@ body.offline #reconnecting,
 #network_error {
   display: inline-block;
   color: #dc322f;
-  float: left;
 }
 body.offline #nb_connected_players {
   display: none;
@@ -1114,7 +1116,7 @@ body.fpmenu #fpmenu {
   cursor: pointer;
   transform: scale(0.85);
   opacity: 0.6;
-  transition: opacity 0.13s, transform 0.75s;
+  transition: opacity 0.13s, transform 0.75s, left 1s;
 }
 #hamburger:hover {
   opacity: 1;
@@ -1123,8 +1125,13 @@ body.fpmenu #fpmenu {
 #hamburger *:after {
   box-sizing: border-box;
 }
-#hamburger.open {
+body.fpmenu #hamburger {
   transform: scale(0.5);
+}
+@media (max-height: 600px) {
+  body.fpmenu #hamburger {
+    left: -40px;
+  }
 }
 #hamburger .top,
 #hamburger .bottom {
@@ -1156,14 +1163,14 @@ body.fpmenu #fpmenu {
   stroke-dashoffset: 101;
   transition: all 0.75s ease;
 }
-#hamburger.open #ham-circle {
+body.fpmenu #hamburger #ham-circle {
   stroke-dasharray: 1 100 190 300;
   stroke-dashoffset: 1;
 }
-#hamburger.open .top {
+body.fpmenu #hamburger .top {
   transform: translateX(-4.5px) rotate(-45deg);
 }
-#hamburger.open .bottom {
+body.fpmenu #hamburger .bottom {
   transform: translateX(-4.5px) rotate(45deg);
 }
 #user_tag {

@@ -87,7 +87,6 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
       }
       }
       @if(!zen) {
-      <a id="reconnecting" class="fright link" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
       <div id="themepicker" class="fright">
         <a id="themepicker_toggle" class="toggle icon link hint--bottom-left" data-hint="@trans.theming()" data-url="@routes.Main.themepicker">
           &nbsp;<span data-icon="v"></span>&nbsp;
@@ -130,10 +129,8 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
       <a class="fright link" href="@routes.Report.list" data-icon="n"><strong>@nb</strong></a>
       }
       }
-      <div id="nb_connected_players" class="nb_connected_players fright link">
-        @trans.nbConnectedPlayers("<strong>?</strong>")
-      </div>
       }
+      <a id="reconnecting" class="fright link" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
     </div>
     <div id="fpmenu">@fpmenu()</div>
     <div class="content @ctx.is3d.fold("is3d", "is2d")">
@@ -144,15 +141,9 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
         <div id="notifications"></div>
         }
         <h1>
-          <a id="site_title" href="@routes.Lobby.home">
-            lichess<span class="extension">.org</span>
-          </a>
-          @if(ctx.isAuth || acceptsLanguage(lang)) {
-          @baseline
-          } else {
-          @langFallbackLinks
-          }
+          <a id="site_title" href="@routes.Lobby.home">lichess<span class="extension">.org</span></a>
         </h1>
+        @baseline
         @menu.map { side =>
         <div class="side_menu">@side</div>
         }

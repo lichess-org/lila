@@ -248,7 +248,7 @@ lichess.StrongSocket.prototype = {
     setTimeout(function() {
       if (!$('#network_error').length) {
         var msg = "Your browser supports websockets, but cannot get a connection. Maybe you are behind a proxy that does not support websockets. Ask your system administrator to fix it!";
-        $('#nb_connected_players').after('<span id="network_error" title="' + msg + '" data-icon="j"> Network error</span>');
+        $('#top').append('<span class="fright link text" id="network_error" title="' + msg + '" data-icon="j">Network error</span>');
       }
     }, 1000);
     clearTimeout(self.pingSchedule);
@@ -974,26 +974,15 @@ lichess.storage = {
 
     setInterval(function() {
       $('.glowing').toggleClass('glow');
-    }, 1500);
+    }, 2000);
 
-    (function() {
-      var open = false;
-      $('#hamburger').click(function() {
-        document.body.scrollTop = 0;
-        open = !open;
-        if (open) {
-          $(this).removeClass('closed').addClass('open');
-          document.body.classList.add('fpmenu');
-        } else {
-          $(this).removeClass('open').addClass('closed');
-          document.body.classList.remove('fpmenu');
-        }
-      });
-      Mousetrap.bind('space', function(e) {
-        $('#hamburger').click();
-        return false;
-      });
-    })();
+    $('#hamburger').click(function() {
+      document.body.classList.toggle('fpmenu');
+    });
+    Mousetrap.bind('space', function() {
+      $('#hamburger').click();
+      return false;
+    });
   });
 
   $.lazy = function(factory) {

@@ -138,17 +138,6 @@ function renderCommentary(ctrl) {
 function renderTrainingBox(ctrl) {
   return m('div.box', [
     m('h1', ctrl.trans('training')),
-    m('div.tabs.buttonset', [
-      m('a.button', {
-        href: '/training'
-      }, ctrl.trans('puzzles')),
-      m('a.button', {
-        href: '/training/coordinate'
-      }, ctrl.trans('coordinates')),
-      m('a.button.active', {
-        href: '/training/opening'
-      }, ctrl.trans('openings')),
-    ]),
     ctrl.data.user ? renderUserInfos(ctrl) : m('div.register', [
       m('p', ctrl.trans('toTrackYourProgress')),
       m('p.signup',
