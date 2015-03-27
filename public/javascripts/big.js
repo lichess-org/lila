@@ -983,6 +983,16 @@ lichess.storage = {
       $('#hamburger').click();
       return false;
     });
+    if (!lichess.storage.get('ham')) {
+      var $help = $('<span class="help">' +
+        '← Click the menu icon or press the space key!' +
+        '</span>');
+      $('#ham-plate').append($help.fadeIn(2000));
+      $('#hamburger').click(function() {
+        $help.remove();
+        lichess.storage.set('ham', 1);
+      });
+    }
   });
 
   $.lazy = function(factory) {

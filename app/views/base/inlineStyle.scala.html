@@ -1,0 +1,80 @@
+@()
+@* inline to avoid animation on page load on firefox *@
+<style type="text/css">
+#ham-plate {
+  position: relative;
+  width: 1005px;
+  margin: 0 auto;
+}
+#hamburger {
+  position: absolute;
+  top: -5px;
+  left: -16px;
+  z-index: 5001;
+  display: block;
+  width: 68px;
+  height: 68px;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  transform: scale(0.85);
+  opacity: 0.6;
+  transition: opacity 0.13s, transform 0.75s, left 1s;
+}
+#hamburger:hover {
+  opacity: 1;
+}
+#hamburger *:before,
+#hamburger *:after {
+  box-sizing: border-box;
+}
+body.fpmenu #hamburger {
+  transform: scale(0.5);
+}
+@@media (max-height: 600px) {
+  body.fpmenu #hamburger {
+    left: -40px;
+  }
+}
+#hamburger .top,
+#hamburger .bottom {
+  position: absolute;
+  display: block;
+  height: 4px;
+  width: 36px;
+  border-radius: 2px;
+  background: #666;
+  transform-origin: 34px 2px;
+  transform: rotate(0deg);
+  transition: all 0.5s cubic-bezier(.8, -1.1, .5, 1.9);
+}
+#hamburger .top {
+  top: 19px;
+  left: 14px;
+}
+#hamburger .bottom {
+  top: 41px;
+  left: 14px;
+}
+#hamburger path,
+#hamburger line {
+  stroke: #666;
+  stroke-linecap: round;
+}
+#ham-circle {
+  stroke-dasharray: 1 100 32 300;
+  stroke-dashoffset: 101;
+  transition: all 0.75s ease;
+}
+body.fpmenu #hamburger #ham-circle {
+  stroke-dasharray: 1 100 190 300;
+  stroke-dashoffset: 1;
+}
+body.fpmenu #hamburger .top {
+  transform: translateX(-4.5px) rotate(-45deg);
+}
+body.fpmenu #hamburger .bottom {
+  transform: translateX(-4.5px) rotate(45deg);
+}
+</style>
