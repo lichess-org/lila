@@ -1502,7 +1502,6 @@ lichess.storage = {
   });
 
   function startLobby(element, cfg) {
-    var $newposts = $("div.new_posts");
     var nbRoundSpread = $.spreadNumber(
       document.querySelector('#site_baseline span'),
       4,
@@ -1544,6 +1543,7 @@ lichess.storage = {
             $('body').trigger('lichess.content_loaded');
           },
           reload_forum: function() {
+            var $newposts = $("div.new_posts");
             setTimeout(function() {
               $.ajax({
                 url: $newposts.data('url'),
@@ -1853,6 +1853,15 @@ lichess.storage = {
           $(this).attr("href", $(this).attr("href") + location.search);
         }).click();
     }
+
+    if (location.hash === '#hook') {
+      if (/time=realTime/.test(location.search))
+        lobby.setTab('real_time');
+      else if (/time=correspondence/.test(location.search))
+        lobby.setTab('seeks');
+    }
+
+    window.history.replaceState(null, null, '/');
   };
 
   ///////////////////

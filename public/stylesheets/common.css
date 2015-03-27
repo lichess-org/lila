@@ -1081,6 +1081,11 @@ body.fpmenu #fpmenu {
   display: block;
   padding: 9px 0;
 }
+#fpmenu section .disabled {
+  opacity: 0.5;
+  display: block;
+  padding: 9px 0;
+}
 #fpmenu .footer {
   width: 100%;
   padding: 35px 0;

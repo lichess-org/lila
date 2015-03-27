@@ -5,8 +5,12 @@
     <div class="menu">
       <section>
         <h2>Play</h2>
-        <a href="/">@trans.realTime()</a>
+        <a href="/?time=realTime#hook">@trans.realTime()</a>
+        @if(ctx.isAuth) {
         <a href="/?time=correspondence#hook">@trans.correspondence()</a>
+        } else {
+        <span title="@trans.youNeedAnAccountToDoThat()" class="disabled">@trans.correspondence()</span>
+        }
         <a href="@routes.Tournament.home">@trans.tournament()</a>
         <a href="@routes.Tv.index">Lichess TV</a>
       </section>

@@ -23,7 +23,7 @@ function renderSeek(ctrl, seek) {
 };
 
 function createSeek(ctrl) {
-  if (ctrl.data.seeks.length < 8)
+  if (ctrl.data.me && ctrl.data.seeks.length < 8)
     return m('div.create',
       m('a.button', {
         href: '/?time=correspondence#hook',
