@@ -2001,13 +2001,13 @@ div.lichess_overboard.joining .mini_board {
 .crosstable tr:first-child td:hover a,
 .crosstable tr:first-child td.current a {
   padding-top: 4px;
-  margin-top: -4px;
+  margin-top: -6px;
   border-top: 2px solid #808080;
 }
 .crosstable tr:last-child td:hover a,
 .crosstable tr:last-child td.current a {
   padding-bottom: 4px;
-  margin-bottom: -4px;
+  margin-bottom: -6px;
   border-bottom: 2px solid #808080;
 }
 .crosstable tr td.current a {
