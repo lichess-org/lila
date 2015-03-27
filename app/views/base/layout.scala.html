@@ -1,7 +1,6 @@
 @(
 title: String,
 fullTitle: Option[String] = None,
-active: Option[lila.app.ui.SiteMenu.Elem] = None,
 baseline: Option[Html] = None,
 side: Option[Html] = None,
 menu: Option[Html] = None,
@@ -60,9 +59,10 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
       <button type="submit">Accessibility: @ctx.blindMode.fold("Disable", "Enable") blind mode</button>
     </form>
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
-    <div id="top" class="clearfix @ctx.is3d.fold("is3d", "is2d")">
+    <div id="top" class="@ctx.is3d.fold("is3d", "is2d")">
+      <a href="#" id="fpmenu_toggle"></a>
       @if(!zen) {
-      <div id="sound_control">
+      <div id="sound_control" class="fright link">
         <button id="sound_state" class="a available hint--bottom-left">
           <span class="is2 on" data-icon="#"></span>
           <span class="is2 off" data-icon="$"></span>
@@ -71,78 +71,34 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
       </div>
       }
       @if(!zen) {
-      @siteMenu.all(ctx.me).map { elem =>
-      @elem.code match {
-      case "team" if ctx.teamNbRequests > 0 => {
-      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@routes.Team.requests()">
-        @elem.name()
+      @if(ctx.teamNbRequests > 0) {
+      <a class="fright link" href="@routes.Team.requests()">
+        @trans.teams()
         <span id="nb_messages" class="new_messages unread">@ctx.teamNbRequests</span>
       </a>
       }
-      case "team" => {
-      <a class="goto_nav blank_if_play @elem.currentClass(active)"
-        href="@ctx.isAuth.fold(routes.Team.mine, elem.route)">
-        @elem.name()
-      </a>
-      }
-      case _ => {
-      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
-        @elem.name()
-      </a>
-      }
-      }
-      }
-      }
-      @defining(reportNbUnprocessed) { nb =>
-      @if(nb > 0) {
-      <a class="goto_nav" href="@routes.Report.list" data-icon="n"><strong>@nb</strong></a>
-      }
       }
       @if(!zen) {
-      <div id="nb_connected_players" class="nb_connected_players">
-        @trans.nbConnectedPlayers("<strong>?</strong>")
-      </div>
-      <a id="reconnecting" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
-      <div id="themepicker">
-        <a id="themepicker_toggle" class="toggle icon hint--bottom-left" data-hint="@trans.theming()" data-url="@routes.Main.themepicker">
+      <a id="reconnecting" class="fright link" onclick="location.reload();" data-icon="B">&nbsp;@trans.reconnecting()</a>
+      <div id="themepicker" class="fright">
+        <a id="themepicker_toggle" class="toggle icon link hint--bottom-left" data-hint="@trans.theming()" data-url="@routes.Main.themepicker">
           &nbsp;<span data-icon="v"></span>&nbsp;
         </a>
       </div>
-      <div class="lichess_language">
-        <a class="toggle" href="#">
-          <span data-icon="u">&nbsp;@langName(lang)</span>
+      <div class="lichess_language fright">
+        <a class="toggle link text" href="#">
+          <span data-icon="u">@langName(lang)</span>
         </a>
         <form action="@routes.I18n.select" method="POST" class="language_links dropdown" data-url="@staticUrl("trans/refs.json")?v=@assetVersion">
           <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
         </form>
       </div>
       @ctx.me.map { me =>
-      <div class="auth">
-        <a id="user_tag" class="toggle toggle_auth"><span class="text" data-icon="u">@me.username</span></a>
-        <div class="links dropdown">
-          <a href="@routes.User.show(me.username)" class="blank_if_play"><span class="text" data-icon="r">@trans.profile()</span></a>
-          <a href="@routes.Pref.form"@if(playing){ target="_blank"}><span class="text" data-icon="%">@trans.preferences()</span></a>
-          <a href="@routes.Auth.logout"><span class="text" data-icon="w">@trans.logOut()</span></a>
-          @if(isGranted(_.StaffForum)) {
-          <span class="sep"></span>
-          <a href="@routes.ForumCateg.show("staff")">Staff Forum</a>
-          <a href="@routes.Mod.log()">Mod log</a>
-          <a href="@routes.Report.list()">User reports</a>
-          }
-          <span class="sep"></span>
-          <div class="perfs">
-            @topBarSortedPerfTypes.map { pt =>
-            @me.perfs(pt.key).map { perf =>
-            @showPerfRating(pt, perf, klass = "hint--bottom-left")
-            }
-            }
-          </div>
-          <span class="sep"></span>
-          <div class="ping">PING <strong>?</strong> ms</div>
-        </div>
+      <div class="auth fright">
+        @auth.userDropdown(me, playing)
       </div>
-      <div id="message_notifications_parent" class="message_notifications">
-        <a id="message_notifications_tag" class="toggle" data-href="@routes.Message.preview">
+      <div id="message_notifications_parent" class="message_notifications fright">
+        <a id="message_notifications_tag" class="toggle link" data-href="@routes.Message.preview">
           <span data-icon="e"></span>
           <span id="nb_messages" class="new_messages@if(ctx.nbMessages > 0) { unread}">@ctx.nbMessages</span>
         </a>
@@ -151,18 +107,29 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
           <div class="title"><a href="@routes.Message.inbox(page=1)">@trans.inbox() »</a></div>
         </div>
       </div>
-      <div class="challenge_notifications">
-        <a id="challenge_notifications_tag" class="toggle none">
+      <div class="challenge_notifications fright">
+        <a id="challenge_notifications_tag" class="toggle link none">
           <span data-icon="U"></span>
           <span id="nb_challenges" class="new_challenges unread">0</span>
         </a>
         <div id="challenge_notifications" class="links dropdown"></div>
       </div>
       }.getOrElse {
-      <a href="@routes.Auth.login" class="signin button" data-icon="F">&nbsp;@trans.signIn()</a>
+      <a href="@routes.Auth.login" class="signin button text fright" data-icon="F">@trans.signIn()</a>
       }
+      }
+      @if(!zen) {
+      @defining(reportNbUnprocessed) { nb =>
+      @if(nb > 0) {
+      <a class="fright link" href="@routes.Report.list" data-icon="n"><strong>@nb</strong></a>
+      }
+      }
+      <div id="nb_connected_players" class="nb_connected_players fright link">
+        @trans.nbConnectedPlayers("<strong>?</strong>")
+      </div>
       }
     </div>
+    <div id="fpmenu">@fpmenu()</div>
     <div class="content @ctx.is3d.fold("is3d", "is2d")">
       <div id="site_header">
         @ctx.me.map { me =>
@@ -193,29 +160,6 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
         @body
       </div>
     </div>
-    @if(!zen) {
-    <div id="footer_wrap">
-      <div class="footer">
-        <div class="right">
-          <a href="http://github.com/ornicar/lila" target="_blank">Source Code</a> |
-          <a href="@routes.Main.developers">Developers</a><br />
-          <a href="@routes.Page.contact">Contact</a> |
-          <a href="@routes.Page.thanks">Thanks</a> |
-          <a href="@routes.Page.tos">ToS</a>
-        </div>
-        <div class="center">
-          <a href="@routes.Donation.index" class="button">@trans.donate()</a>
-        </div>
-        <a href="@routes.Blog.index()">@trans.blog()</a> |
-        <a href="@routes.QaQuestion.index()" title="@trans.questionsAndAnswers()">Q&amp;A</a> |
-        <a href="@routes.Video.index" title="Free Chess Videos">Videos</a> |
-        <a href="@routes.Main.mobile">Mobile App</a><br />
-        <a href="@routes.WorldMap.index" title="@trans.realTimeWorldMapOfChessMoves()">@trans.map()</a> |
-        <a href="@routes.Monitor.index">Monitor</a> |
-        <a href="@routes.Page.helpLichess">Help lichess.org</a>
-      </div>
-    </div>
-    }
     @ctx.me.map { me =>
     <div id="friend_box" data-preload="@ctx.friends.map(_.titleName).mkString(",")">
       <div class="title"><strong class="online"> </strong> @trans.onlineFriends()</div>

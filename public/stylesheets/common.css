@@ -563,12 +563,12 @@ strong {
 }
 body > div.content {
   width: 1005px;
-  margin: 20px auto 30px auto;
+  margin: 0 auto 30px auto;
 }
 #top {
-  width: 100%;
-  min-width: 1005px;
+  width: 1005px;
   height: 24px;
+  margin: 0 auto 30px auto;
 }
 #site_description {
   position: absolute;
@@ -589,35 +589,6 @@ body > div.content {
 }
 #site_baseline span {
   font-weight: bold;
-}
-#footer_wrap {
-  border-top: 1px solid #c9c9c9;
-  border-bottom: 1px solid #c9c9c9;
-  background: #e4e4e4;
-  padding: 30px 0;
-  margin-top: 60px;
-}
-#footer_wrap div.footer {
-  width: 1000px;
-  margin: auto;
-  line-height: 2em;
-  position: relative;
-}
-#footer_wrap div.footer a {
-  text-decoration: none;
-}
-div.footer > .center {
-  position: absolute;
-  top: 1em;
-  left: 0px;
-  right: 0px;
-  margin: 0px auto;
-  width: 120px;
-}
-div.footer div.right {
-  float: right;
-  text-align: right;
-  margin-right: 74px;
 }
 #friend_box .nobody {
   text-align: center;
@@ -905,12 +876,8 @@ div.side form.search input {
   border: 1px solid #dadada;
   border-right: none;
 }
-#nb_connected_players,
-#reconnecting,
-#network_error,
-a.goto_nav,
-#top a.toggle,
-#sound_state {
+#top .link {
+  opacity: 0.7;
   text-decoration: none;
   font-size: 13px;
   height: 24px;
@@ -929,31 +896,12 @@ body.offline #reconnecting,
 body.offline #nb_connected_players {
   display: none;
 }
-#nb_connected_players,
-#reconnecting {
-  border-left: 1px solid #ccc;
-}
-#top a.goto_nav,
-#nb_connected_players {
-  float: left;
-}
-#top a.message {
-  opacity: 0.7;
+#top .fright {
   float: right;
 }
-#top .goto_nav {
-  border-bottom: 2px solid transparent;
-  transition: 0.13s;
-}
-#top a.goto_nav:hover,
-#top a.toggle:hover,
 #sound_state:hover {
   color: #303030;
   border-color: #808080;
-}
-#top a.goto_nav.current {
-  color: #303030;
-  border-color: #d85000;
 }
 .unread {
   padding: 1px 5px 1px 4px;
@@ -972,19 +920,31 @@ body.offline #nb_connected_players {
   background: #fff;
 }
 #top a.signin {
-  float: right;
   display: block;
   margin: 4px 0.5em 0 0;
   border-color: #d85000;
   padding: 1px 5px;
+}
+#fpmenu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  z-index: 5000;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 #user_tag {
   font-weight: bold;
 }
 #top div.message_notifications,
 #top div.challenge_notifications,
-#top div.auth {
-  float: right;
+#top div.auth,
+#top #themepicker,
+#top div.lichess_language {
   position: relative;
 }
 #top div.message_notifications.shown .links,
@@ -1179,10 +1139,6 @@ div.auth input.password {
 div.auth input.login {
   padding: 0 3px;
 }
-div.lichess_language {
-  float: right;
-  position: relative;
-}
 .language_links {
   width: 620px;
   padding: 10px;
@@ -1226,10 +1182,6 @@ div.lichess_language {
   width: 50%;
   font-weight: bold;
   padding-top: 10px;
-}
-#themepicker {
-  float: right;
-  position: relative;
 }
 #themepicker span.down {
   display: block;
@@ -1346,7 +1298,6 @@ body #themepicker div.is3d,
 }
 #sound_control {
   margin-right: 5px;
-  float: right;
   transition: 0.13s;
 }
 #sound_control .dropdown {
@@ -1797,10 +1748,6 @@ div.auth input.password {
 }
 div.auth input.login {
   padding: 0 3px;
-}
-div.lichess_language {
-  float: right;
-  position: relative;
 }
 div.undertable {
   width: 512px;

@@ -41,9 +41,7 @@ body.dark #video .tag_list a:hover {
   background: #3a3a3a;
   color: #a0a0a0;
 }
-body.dark #reconnecting,
 body.dark .mini_board,
-body.dark #nb_connected_players,
 body.dark #chat div.top,
 body.dark #chat .messages,
 body.dark div.undertable_top,
@@ -52,7 +50,6 @@ body.dark div.undertable td,
 body.dark #tv_history td,
 body.dark #chat form input,
 body.dark #translation_call,
-body.dark #footer_wrap,
 body.dark div.game_config .optional_config,
 body.dark div.game_config .ratings,
 body.dark .ui-state-default,
@@ -176,8 +173,6 @@ body.dark #message_notifications div.notification:hover {
 }
 body.dark #top a.signin,
 body.dark #top a.toggle:hover,
-body.dark #top a.goto_nav.current,
-body.dark #top a.goto_nav:hover,
 body.dark #sound_state:hover {
   color: #c0c0c0;
 }
@@ -202,7 +197,6 @@ body.dark div.side_box,
 body.dark div.table,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
-body.dark #footer_wrap,
 body.dark div.undertable_inner,
 body.dark #tv_history div.content,
 body.dark div.table .loader:before,

@@ -57,8 +57,6 @@ object Environment
 
   def apiVersion = lila.api.Mobile.Api.currentVersion
 
-  lazy val siteMenu = new lila.app.ui.SiteMenu(trans)
-
   lazy val lobbyMenu = new lila.app.ui.LobbyMenu(trans)
 
   def globalCasualOnlyMessage = Env.setup.CasualOnly option {

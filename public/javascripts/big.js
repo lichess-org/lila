@@ -975,6 +975,11 @@ lichess.storage = {
     setInterval(function() {
       $('.glowing').toggleClass('glow');
     }, 1500);
+
+    (function() {
+      var isOpen = true;
+// fpmenu
+    })();
   });
 
   $.lazy = function(factory) {
