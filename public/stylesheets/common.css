@@ -1034,8 +1034,8 @@ body.offline #nb_connected_players {
 }
 #hamburger {
   position: absolute;
-  top: 0px;
-  left: -12px;
+  top: 43px;
+  left: -62px;
   z-index: 5001;
   display: block;
   width: 68px;
@@ -1045,13 +1045,13 @@ body.offline #nb_connected_players {
   -webkit-user-select: none;
   cursor: pointer;
   opacity: 0.6;
-  transition: top 1s;
+  transition: left 1s;
 }
 #hamburger:hover {
   opacity: 1;
 }
 #hamburger.open {
-  top: 12px;
+  left: -72px;
 }
 #hamburger .top,
 #hamburger .bottom {

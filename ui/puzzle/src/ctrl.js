@@ -1,5 +1,5 @@
 var m = require('mithril');
-var k = require('mousetrap');
+var k = Mousetrap;
 var merge = require('merge');
 var last = require('lodash-node/modern/arrays/last');
 var chessground = require('chessground');

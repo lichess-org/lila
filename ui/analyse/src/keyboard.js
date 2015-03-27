@@ -1,4 +1,4 @@
-var k = require('mousetrap');
+var k = Mousetrap;
 var control = require('./control');
 var m = require('mithril');
 

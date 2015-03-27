@@ -33,54 +33,6 @@ object Game extends LilaController with BaseGame {
     }
   }
 
-  def playing = Open { implicit ctx =>
-    GameRepo.featuredCandidates map lila.tv.Featured.sort map (_ take 9) zip
-      makeListMenu map {
-        case (games, menu) => html.game.playing(games, menu)
-      }
-  }
-
-  def all(page: Int) = Open { implicit ctx =>
-    Reasonable(page) {
-      paginator recent page zip makeListMenu map {
-        case (pag, menu) => html.game.all(pag, menu)
-      }
-    }
-  }
-
-  def checkmate(page: Int) = Open { implicit ctx =>
-    Reasonable(page) {
-      paginator checkmate page zip makeListMenu map {
-        case (pag, menu) => html.game.checkmate(pag, menu)
-      }
-    }
-  }
-
-  def bookmark(page: Int) = Auth { implicit ctx =>
-    me =>
-      Reasonable(page) {
-        Env.bookmark.api.gamePaginatorByUser(me, page) zip makeListMenu map {
-          case (pag, menu) => html.game.bookmarked(pag, menu)
-        }
-      }
-  }
-
-  def analysed(page: Int) = Open { implicit ctx =>
-    Reasonable(page) {
-      analysePaginator games page zip makeListMenu map {
-        case (pag, menu) => html.game.analysed(pag, menu)
-      }
-    }
-  }
-
-  def imported(page: Int) = Open { implicit ctx =>
-    Reasonable(page) {
-      paginator imported page zip makeListMenu map {
-        case (pag, menu) => html.game.imported(pag, menu)
-      }
-    }
-  }
-
   def export(user: String) = Auth { implicit ctx =>
     _ =>
       Env.security.forms.emptyWithCaptcha map {

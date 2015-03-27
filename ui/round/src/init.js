@@ -3,7 +3,7 @@ var blur = require('./blur');
 var game = require('game').game;
 var status = require('game').status;
 var keyboard = require('./replay/keyboard');
-var k = require('mousetrap');
+var k = Mousetrap;
 
 module.exports = function(ctrl) {
 

@@ -1,4 +1,4 @@
-var k = require('mousetrap');
+var k = Mousetrap;
 var m = require('mithril');
 
 function replayPly(ctrl) {

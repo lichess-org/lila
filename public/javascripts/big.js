@@ -979,17 +979,19 @@ lichess.storage = {
     (function() {
       var open = false;
       var $menu = $('#fpmenu');
-      $('#hamburger').click(function() {
+      var hamburger = function(e) {
+        e.preventDefault();
         open = !open;
         if (open) {
           $(this).removeClass('closed').addClass('open');
           $menu.addClass('open');
-        }
-        else {
+        } else {
           $(this).removeClass('open').addClass('closed');
           $menu.removeClass('open');
         }
-      });
+      };
+      $('#hamburger').click(hamburger);
+      Mousetrap.bind('space', hamburger);
     })();
   });
 
