@@ -572,6 +572,9 @@ body.fpmenu > div.content {
   position: relative;
   height: 24px;
 }
+body.fpmenu #top {
+  display: none;
+}
 #site_description {
   position: absolute;
   top: -100px;
@@ -1092,6 +1095,15 @@ body.fpmenu #fpmenu {
   display: inline-block;
   margin: 0 12px;
 }
+@media (max-height: 600px) {
+  #fpmenu {
+    position: relative;
+  }
+  #fpmenu .inner {
+    top: 0;
+    transform: none;
+  }
+}
 #ham-plate .help {
   position: absolute;
   top: 12px;
@@ -1498,6 +1510,9 @@ body #themepicker div.is3d,
   border: 1px solid #ccc;
   border-right: 0;
   min-width: 150px;
+}
+body.fpmenu #friend_box {
+  display: none;
 }
 #friend_box .title {
   cursor: pointer;
