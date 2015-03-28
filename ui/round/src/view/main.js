@@ -62,8 +62,7 @@ function visualBoard(ctrl) {
         if (!isUpdate) el.addEventListener('wheel', function(e) {
           return wheel(ctrl, e);
         });
-      },
-      onclick: ctrl.data.player.spectator ? toggleDontTouch : null
+      }
     }, chessground.view(ctrl.chessground)),
     renderPromotion(ctrl),
     renderVariantReminder(ctrl)
@@ -79,12 +78,6 @@ function blindBoard(ctrl) {
     }),
     chessground.view(ctrl.chessground)
   ]);
-}
-
-var dontTouch = m.prop(false);
-
-function toggleDontTouch() {
-  dontTouch(!dontTouch());
 }
 
 module.exports = function(ctrl) {
@@ -105,12 +98,7 @@ module.exports = function(ctrl) {
       ])
     ]),
     m('div.underboard', [
-      m('div.center', [
-        ctrl.chessground.data.premovable.current ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null,
-        dontTouch() ? m('div.dont_touch', {
-          onclick: toggleDontTouch
-        }, ctrl.trans('youAreViewingThisGameAsASpectator')) : null
-      ]),
+      m('div.center', ctrl.chessground.data.premovable.current ? m('div.premove_alert', ctrl.trans('premoveEnabledClickAnywhereToCancel')) : null),
       m('div.blurs', [
         [ctrl.data.opponent, ctrl.data.player].map(partial(mod.blursOf, ctrl)), [ctrl.data.opponent, ctrl.data.player].map(partial(mod.holdOf, ctrl))
       ])
