@@ -41,6 +41,9 @@ body.dark #video .tag_list a:hover {
   background: #3a3a3a;
   color: #a0a0a0;
 }
+body.dark #site_title {
+  color: #acacac;
+}
 body.dark .mini_board,
 body.dark #chat div.top,
 body.dark #chat .messages,
