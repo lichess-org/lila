@@ -21,7 +21,6 @@ final class Env(
   private val CollectionWhitelist = config getString "streaming.collection.whitelist"
 
   lazy val featured = new Featured(
-    lobbySocket = hub.socket.lobby,
     rendererActor = hub.actor.renderer,
     system = system)
 

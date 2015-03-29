@@ -13,7 +13,6 @@ import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo }
 
 final class Featured(
-    lobbySocket: ActorSelection,
     rendererActor: ActorSelection,
     system: ActorSystem) {
 
@@ -44,7 +43,9 @@ final class Featured(
           case html: Html =>
             val msg = lila.socket.Socket.makeMessage(
               "featured",
-              play.api.libs.json.Json.obj("html" -> html.toString))
+              play.api.libs.json.Json.obj(
+                "html" -> html.toString,
+                "id" -> game.id))
             bus.publish(lila.hub.actorApi.game.ChangeFeatured(game.id, msg), 'changeFeaturedGame)
         }
         GameRepo setTv game.id
