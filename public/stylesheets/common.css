@@ -1087,7 +1087,7 @@ body.fpmenu #fpmenu {
 }
 #fpmenu .footer {
   width: 100%;
-  padding: 35px 0;
+  padding: 23px 0;
   margin-left: -20px;
   text-align: center;
   font-size: 12px;
@@ -1099,7 +1099,11 @@ body.fpmenu #fpmenu {
 }
 #fpmenu .footer a {
   display: inline-block;
-  margin: 0 12px;
+  padding: 12px 12px;
+  transition: 0.3s;
+}
+#fpmenu .footer a:hover {
+  transform: translateY(-2px);
 }
 @media (max-height: 600px) {
   #fpmenu {
