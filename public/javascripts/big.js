@@ -1862,16 +1862,16 @@ lichess.storage = {
         .each(function() {
           $(this).attr("href", $(this).attr("href") + location.search);
         }).click();
-    }
 
-    if (location.hash === '#hook') {
-      if (/time=realTime/.test(location.search))
-        lobby.setTab('real_time');
-      else if (/time=correspondence/.test(location.search))
-        lobby.setTab('seeks');
-    }
+      if (location.hash === '#hook') {
+        if (/time=realTime/.test(location.search))
+          lobby.setTab('real_time');
+        else if (/time=correspondence/.test(location.search))
+          lobby.setTab('seeks');
+      }
 
-    window.history.replaceState(null, null, '/');
+      window.history.replaceState(null, null, '/');
+    }
   };
 
   ///////////////////
