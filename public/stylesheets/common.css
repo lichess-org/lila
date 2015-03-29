@@ -1007,6 +1007,8 @@ body.fpmenu #fpmenu {
 }
 #fpmenu .anon {
   margin-top: 50px;
+}
+#fpmenu .anon section {
   width: 322px;
 }
 #fpmenu .anon h2 {
@@ -1112,6 +1114,35 @@ body.fpmenu #fpmenu {
   #fpmenu .inner {
     top: 0;
     transform: none;
+  }
+}
+@media (max-width: 970px) {
+  #fpmenu {
+    position: relative;
+  }
+  #fpmenu .inner {
+    top: 0;
+    transform: none;
+    width: auto;
+  }
+  #fpmenu .body {
+    padding-left: 13%;
+  }
+  #fpmenu .menu {
+    border: none;
+    float: none;
+    margin: auto;
+    padding-bottom: 0;
+  }
+  #fpmenu .user,
+  #fpmenu .anon {
+    margin: auto;
+    width: 500px;
+  }
+}
+@media (max-width: 440px) {
+  #fpmenu .body {
+    padding-left: 10px;
   }
 }
 #ham-plate .help {

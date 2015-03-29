@@ -22,6 +22,9 @@ div.side_box.for_selector .top {
   overflow: hidden;
   white-space: nowrap;
 }
+.stream_title:hover {
+  white-space: wrap;
+}
 div.side div.box {
   width: 312px;
 }
