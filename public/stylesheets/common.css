@@ -980,9 +980,6 @@ body.fpmenu #fpmenu {
   margin: 18px 0;
   line-height: 1.2em;
 }
-#fpmenu .perf:nth-child(even) {
-  margin-left: 10%;
-}
 #fpmenu .perf::before {
   color: #C4A86F;
   font-size: 42px;
