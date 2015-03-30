@@ -980,6 +980,16 @@ lichess.storage = {
     Mousetrap.bind('g h', function() {
       location.href = '/';
     });
+    // konami code!
+    Mousetrap.bind('up up down down left right left right b a enter', function() {
+      if (!document.getElementById('konami')) {
+        $('body').prepend($('<div id="konami"></div>'));
+      }
+      $('#konami').show(800);
+      setTimeout(function() {
+        $('#konami').hide(800);
+      }, 3000);
+    });
   });
 
   $.lazy = function(factory) {
