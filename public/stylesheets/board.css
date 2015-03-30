@@ -911,9 +911,6 @@ div.lichess_board {
 #top .cg-piece.spatial {
   background-image: url(../piece/spatial/wN.svg);
 }
-#top .cg-piece.lightp {
-  background-image: url(../piece/lightp/wN.png);
-}
 #top .cg-piece.alpha {
   background-image: url(../piece/alpha/wN.svg);
 }
