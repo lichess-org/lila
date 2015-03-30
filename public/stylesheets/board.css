@@ -1384,6 +1384,12 @@ div.under_chat {
   width: 228px;
   margin: 10px 0 0 -30px;
 }
+@media (max-width: 1070px) {
+div.under_chat {
+  margin-left: 0px;
+  width: 198px;
+}
+}
 div.under_chat .watchtv {
   display: block;
   height: 24px;
@@ -1413,7 +1419,8 @@ div.under_chat .watchtv {
   border: 0;
   border-top: 1px solid #ccc;
   padding: 2px 20px 2px 4px;
-  width: 202px;
+  width: 100%;
+  box-sizing: border-box;
 }
 #chat a.send {
   position: absolute;

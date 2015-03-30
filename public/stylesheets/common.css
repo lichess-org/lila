@@ -749,9 +749,9 @@ div.side_box {
   margin-left: -30px;
   width: 226px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 div.side_box.padded {
-  width: 212px;
   padding: 7px;
 }
 div.side_box .top {
@@ -762,6 +762,12 @@ div.side_box .top {
 }
 div.side_box .padded {
   padding: 7px;
+}
+@media (max-width: 1070px) {
+div.side_box, #site_header a.stream {
+  margin-left: 0px!important;
+  width: 196px!important;
+}
 }
 div.chat_menu {
   margin-left: -30px;

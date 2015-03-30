@@ -551,24 +551,6 @@ lichess.storage = {
 
   $(function() {
 
-    // small layout
-    function onResize() {
-      $('#timeline, div.side_box, div.under_chat').each(function() {
-        var ol = $(this).offset().left;
-        if (ol < 3) {
-          var dec = 3 - ol;
-          var pad = $(this).outerWidth() - $(this).width();
-          $(this).css({
-            'margin-left': (dec - 30) + 'px',
-            'width': (230 - pad - dec) + 'px'
-          });
-          $(this).find('input.lichess_say').css('width', (204 - dec) + 'px');
-        }
-      });
-    }
-    $(window).resize($.fp.debounce(onResize, 200));
-    onResize();
-
     if (!lichess.StrongSocket.available) {
       $('#lichess').on('mouseover', function() {
         $('#lichess').off('mouseover');
