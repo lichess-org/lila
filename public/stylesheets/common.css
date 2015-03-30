@@ -962,6 +962,7 @@ body.fpmenu #fpmenu {
   margin: 0 auto;
   position: relative;
   top: 50%;
+  -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
 #fpmenu .body {
@@ -980,7 +981,7 @@ body.fpmenu #fpmenu {
   line-height: 1.2em;
 }
 #fpmenu .perf:nth-child(even) {
-  margin-left 10%
+  margin-left: 10%;
 }
 #fpmenu .perf::before {
   color: #C4A86F;
@@ -1107,6 +1108,7 @@ body.fpmenu #fpmenu {
   }
   #fpmenu .inner {
     top: 0;
+    -webkit-transform: none;
     transform: none;
   }
 }
@@ -1729,7 +1731,7 @@ div.game_row:hover {
 div.game_row a.mini_board {
   position: absolute;
   top: 15px;
-  left 10px;
+  left: 10px;
 }
 div.game_row div.infos {
   position: absolute;
