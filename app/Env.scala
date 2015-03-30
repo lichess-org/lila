@@ -117,6 +117,7 @@ object Env {
   def setup = lila.setup.Env.current
   def importer = lila.importer.Env.current
   def tournament = lila.tournament.Env.current
+  def simul = lila.simul.Env.current
   def relation = lila.relation.Env.current
   def report = lila.report.Env.current
   def pref = lila.pref.Env.current

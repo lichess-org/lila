@@ -11,9 +11,11 @@ case class Simul(
     nbPlayers: Int,
     players: List[SimulPlayer],
     pairings: List[SimulPairing],
-    variant: Variant,
+    variants: List[Variant],
     createdAt: DateTime,
-    createdBy: String) {
+    createdBy: String,
+    startedAt: Option[DateTime],
+    finishedAt: Option[DateTime]) {
 
   def id = _id
 }
@@ -27,14 +29,16 @@ object Simul {
     createdBy: String,
     clock: SimulClock,
     nbPlayers: Int,
-    variant: chess.variant.Variant): Simul = Simul(
+    variants: List[Variant]): Simul = Simul(
     _id = Random nextStringUppercase 8,
     name = name,
     clock = clock,
     createdBy = createdBy,
     createdAt = DateTime.now,
-    variant = variant,
+    variants = variants,
     nbPlayers = nbPlayers,
     players = Nil,
-    pairings = Nil)
+    pairings = Nil,
+    startedAt = none,
+    finishedAt = none)
 }

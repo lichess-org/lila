@@ -126,6 +126,11 @@ POST  /tournament/$id<\w{8}>/early-start      controllers.Tournament.earlyStart(
 POST  /tournament/$id<\w{8}>/berserk          controllers.Tournament.berserk(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
 
+# Simul
+GET   /simul                                  controllers.Simul.home
+GET   /simul/new                              controllers.Simul.form
+POST  /simul/new                              controllers.Simul.create
+
 # Team
 GET   /team                                   controllers.Team.home(page: Int ?= 1)
 GET   /team/new                               controllers.Team.form

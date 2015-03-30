@@ -1,0 +1,15 @@
+@(title: String, side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, chessground: Boolean = true)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("simul.css")
+}
+
+@base.layout(
+title = title,
+moreCss = moreCss,
+side = side,
+chat = chat,
+underchat = underchat,
+chessground = chessground) {
+@body
+}

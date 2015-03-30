@@ -30,6 +30,8 @@ final class Env(
   lazy val api = new SimulApi(
     simulColl = simulColl)
 
+  lazy val forms = new DataForm
+
   private[simul] val simulColl = db(CollectionSimul)
 }
 
