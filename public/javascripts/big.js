@@ -977,6 +977,9 @@ lichess.storage = {
         });
       }
     })('ham-' + document.body.getAttribute('data-user'));
+    Mousetrap.bind('g h', function() {
+      location.href = '/';
+    });
   });
 
   $.lazy = function(factory) {
