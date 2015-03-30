@@ -50,6 +50,7 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     ctx.pref.destination ?? "destination",
     ctx.blindMode ?? "blind_mode",
     "coords_" + ctx.pref.coords).mkString(" ")"
+    data-user="@ctx.userId"
     data-piece-set="@ctx.currentPieceSet"
     data-sound-dir="@routes.Assets.at("sound")"
     data-ports="@portsString"
