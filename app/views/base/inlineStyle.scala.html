@@ -18,8 +18,9 @@
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
-  transform: scale(0.85);
   opacity: 0.6;
+  transform: scale(0.85);
+  -webkit-transform: scale(0.85);
   transition: opacity 0.13s, transform 0.75s, left 1s;
 }
 #hamburger:hover {
@@ -31,6 +32,7 @@
 }
 body.fpmenu #hamburger {
   transform: scale(0.5);
+  -webkit-transform: scale(0.5);
 }
 #hamburger .top,
 #hamburger .bottom {
@@ -42,6 +44,8 @@ body.fpmenu #hamburger {
   background: #666;
   transform-origin: 34px 2px;
   transform: rotate(0deg);
+  -webkit-transform-origin: 34px 2px;
+  -webkit-transform: rotate(0deg);
   transition: all 0.5s cubic-bezier(.8, -1.1, .5, 1.9);
 }
 #hamburger .top {
@@ -68,8 +72,10 @@ body.fpmenu #hamburger #ham-circle {
 }
 body.fpmenu #hamburger .top {
   transform: translateX(-4.5px) rotate(-45deg);
+  -webkit-transform: translateX(-4.5px) rotate(-45deg);
 }
 body.fpmenu #hamburger .bottom {
   transform: translateX(-4.5px) rotate(45deg);
+  -webkit-transform: translateX(-4.5px) rotate(45deg);
 }
 </style>

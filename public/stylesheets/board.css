@@ -149,16 +149,12 @@ body.base .cg-board .cg-square.exploding {
   left: 0;
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
   z-index: 2;
   /* no less than 2 */
 }
 .mini_board .cg-piece {
   transform: none;
   -webkit-transform: none;
-  -moz-transform: none;
-  -ms-transform: none;
   z-index: initial;
 }
 .lichess_board.blindfold .cg-piece {
@@ -934,7 +930,7 @@ div.lichess_overboard {
   top: 50%;
   left: 56px;
   transform: translate(0, -50%);
-  ms-transform: translate(0, -50%);
+  webkit-transform: translate(0, -50%);
   padding: 15px 0 22px 0;
   font-size: 14px;
   line-height: 1.8em;
@@ -1005,6 +1001,7 @@ div.dont_touch {
 .lichess_board_wrap .variant_reminder.gone {
   opacity: 0;
   transform: translateY(-100px);
+  -webkit-transform: translateY(-100px);
 }
 #promotion_choice {
   position: absolute;
@@ -1291,6 +1288,7 @@ div.control.icons .button {
 div.control.icons .takeback-yes span:before {
   display: inline-block;
   transform: translateY(1px);
+  -webkit-transform: translateY(1px);
 }
 div.control.icons .draw-yes span:before {
   display: inline-block;
@@ -1300,6 +1298,7 @@ div.control.icons .draw-yes span:before {
 div.control.icons .resign span:before {
   display: inline-block;
   transform: translateY(1px);
+  -webkit-transform: translateY(1px);
 }
 div.control.buttons .button {
   display: inline-block;

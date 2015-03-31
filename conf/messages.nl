@@ -41,7 +41,6 @@ blackResigned=Zwart geeft op
 whiteLeftTheGame=Wit is weggegaan
 blackLeftTheGame=Zwart is weggegaan
 shareThisUrlToLetSpectatorsSeeTheGame=Verstuur deze link om anderen de partij te laten zien
-youAreViewingThisGameAsASpectator=U bekijkt deze partij als toeschouwer
 replayAndAnalyse=Partij naspelen met analyse
 computerAnalysisInProgress=Computeranalyse is bezig
 theComputerAnalysisHasFailed=De computeranalyse is mislukt

@@ -41,7 +41,6 @@ blackResigned=Crni je predao
 whiteLeftTheGame=Bijeli je napustio partiju
 blackLeftTheGame=Crni je napustio partiju
 shareThisUrlToLetSpectatorsSeeTheGame=Podijelite ovaj link kako bi drugi mogli vidjeti partiju
-youAreViewingThisGameAsASpectator=Ovdje ste kao posmatrač
 replayAndAnalyse=Ponovite i analizirajte
 computerAnalysisInProgress=Računarska analiza u toku
 theComputerAnalysisHasFailed=Računarska analiza nije uspjela

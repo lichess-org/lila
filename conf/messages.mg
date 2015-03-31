@@ -41,7 +41,6 @@ blackResigned=Niverina ny mainty
 whiteLeftTheGame=Nandao ny lalao ny fotsy
 blackLeftTheGame=Nandao ny lalao ny mainty
 shareThisUrlToLetSpectatorsSeeTheGame=Zarao ity URL ity ahafahan'ny mpijery manaraka ny lalao
-youAreViewingThisGameAsASpectator=You are viewing this game as a spectator
 replayAndAnalyse=Averina ny hetsika tamin'ny lalao ary hadihadiana
 computerAnalysisInProgress=Eo am-panadihadiana ny solosaina
 theComputerAnalysisHasFailed=Nandamoaka ny fanadihadiana nataon'ny solosaina

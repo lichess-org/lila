@@ -27,7 +27,6 @@ private[video] final class Sheet(
             targets = entry.targets,
             tags = entry.tags,
             lang = entry.lang,
-            lichess = entry.lichess,
             ads = entry.ads)
           (video != updated) ?? {
             loginfo(s"[video sheet] update $updated")
@@ -41,7 +40,6 @@ private[video] final class Sheet(
             targets = entry.targets,
             tags = entry.tags,
             lang = entry.lang,
-            lichess = entry.lichess,
             ads = entry.ads,
             metadata = Youtube.empty,
             createdAt = DateTime.now)
@@ -79,15 +77,17 @@ object Sheet {
       `gsx$target`: GStr,
       `gsx$tags`: GStr,
       `gsx$language`: GStr,
-      `gsx$useslichess`: GStr,
       `gsx$ads`: GStr) {
     def youtubeId = `gsx$youtubeid`.toString.trim
     def author = `gsx$youtubeauthor`.toString.trim
     def title = `gsx$title`.toString.trim
     def targets = `gsx$target`.toString.split(';').map(_.trim).toList flatMap parseIntOption
-    def tags = `gsx$tags`.toString.split(';').map(_.trim.toLowerCase).toList
+    def tags = `gsx$tags`.toString.split(';').map(_.trim.toLowerCase).toList ::: {
+      if (targets contains 1) List("beginner")
+      else if (targets contains 3) List("advanced")
+      else Nil
+    }
     def lang = `gsx$language`.toString.trim
-    def lichess = `gsx$useslichess`.toString.trim == "yes"
     def ads = `gsx$ads`.toString.trim == "yes"
   }
 }

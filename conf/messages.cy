@@ -38,7 +38,6 @@ blackResigned=Du wedi ymddiswyddo
 whiteLeftTheGame=Gwyn wedi adael yr gêm
 blackLeftTheGame=Du wedi adael yr gêm
 shareThisUrlToLetSpectatorsSeeTheGame=Cyfran yr cyfeiriad hyn i gadael ymwelwyr i gweld yr gêm
-youAreViewingThisGameAsASpectator=Rhydych yn edrych a'r gêm fel ymwelwyr
 replayAndAnalyse=Ailchwarae ac dadansoddi
 flipBoard=Troi'r bwrdd
 threefoldRepetition=Ailadroddd triphlyg

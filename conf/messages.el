@@ -41,7 +41,6 @@ blackResigned=Τα μαύρα παραιτήθηκαν
 whiteLeftTheGame=Τα λευκά έφυγαν από το παιχνίδι
 blackLeftTheGame=Τα μαύρα έφυγαν από το παιχνίδι
 shareThisUrlToLetSpectatorsSeeTheGame=Στείλτε αυτήν τη διεύθυνση και επιτρέψτε σε θεατές να δουν το παιχνίδι
-youAreViewingThisGameAsASpectator=Παρακολουθείτε το παιχνίδι ως θεατής
 replayAndAnalyse=Ξαναπαίξτε και αναλύστε
 computerAnalysisInProgress=Ανάλυση υπολογιστή σε εξέλιξη
 theComputerAnalysisHasFailed=Η υπολογιστική ανάλυση απέτυχε
