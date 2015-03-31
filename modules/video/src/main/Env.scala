@@ -9,7 +9,8 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     scheduler: lila.common.Scheduler,
-    db: lila.db.Env) {
+    db: lila.db.Env,
+    isDev: Boolean) {
 
   private val settings = new {
     val CollectionVideo = config getString "collection.video"
@@ -27,7 +28,7 @@ final class Env(
   lazy val api = new VideoApi(
     videoColl = videoColl,
     viewColl = viewColl,
-  filterColl = filterColl)
+    filterColl = filterColl)
 
   private lazy val sheet = new Sheet(
     url = SheetUrl,
@@ -39,12 +40,14 @@ final class Env(
     max = YoutubeMax,
     api = api)
 
-  scheduler.effect(SheetDelay, "video update from sheet") {
-    sheet.fetchAll logFailure "video sheet"
-  }
+  if (!isDev) {
+    scheduler.effect(SheetDelay, "video update from sheet") {
+      sheet.fetchAll logFailure "video sheet"
+    }
 
-  scheduler.effect(YoutubeDelay, "video update from youtube") {
-    youtube.updateAll logFailure "video youtube"
+    scheduler.effect(YoutubeDelay, "video update from youtube") {
+      youtube.updateAll logFailure "video youtube"
+    }
   }
 
   private[video] lazy val videoColl = db(CollectionVideo)
@@ -57,5 +60,6 @@ object Env {
   lazy val current: Env = "[boot] video" describes new Env(
     config = lila.common.PlayApp loadConfig "video",
     scheduler = lila.common.PlayApp.scheduler,
+    isDev = lila.common.PlayApp.isDev,
     db = lila.db.Env.current)
 }
