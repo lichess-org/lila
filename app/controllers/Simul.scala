@@ -26,23 +26,27 @@ object Simul extends LilaController {
     // }
   }
 
+  private def newForm(me: lila.user.User) =
+    env.forms.create(s"${me.username}'s simul")
+
   def form = Auth { implicit ctx =>
     me =>
       NoEngine {
-        Ok(html.simul.form(env.forms.create, env.forms)).fuccess
+        Ok(html.simul.form(newForm(me), env.forms)).fuccess
       }
   }
 
   def create = AuthBody { implicit ctx =>
     implicit me =>
-      ???
-      // NoEngine {
-      //   implicit val req = ctx.body
-      //   env.forms.create.bindFromRequest.fold(
-      //     err => BadRequest(html.tournament.form(err, env.forms)).fuccess,
-      //     setup => env.api.createTournament(setup, me) map { tour =>
-      //       Redirect(routes.Tournament.show(tour.id))
-      //     })
-      // }
+      NoEngine {
+        implicit val req = ctx.body
+        newForm(me).bindFromRequest.fold(
+          err => BadRequest(html.simul.form(err.pp, env.forms)).fuccess,
+          setup => env.api.createSimul(setup, me) map { simul =>
+            println(simul)
+            ???
+            // Redirect(routes.Simul.show(simul.id))
+          })
+      }
   }
 }

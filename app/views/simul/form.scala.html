@@ -1,4 +1,4 @@
-@(form: Form[_], config: lila.simul.DataForm)(implicit ctx: Context)
+@(form: Form[lila.simul.SimulSetup], config: lila.simul.DataForm)(implicit ctx: Context)
 
 @import config._
 
@@ -13,28 +13,28 @@ title = "New simul") {
       }
       <table>
         <tr>
-          <th><label for="@form("variant").id">@trans.variant()</label></th>
-          <td>@base.select(form("variant"), translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))</td>
-        </tr>
-        <tr>
-          <th><label for="@form("mode").id">@trans.mode()</label></th>
-          <td>
-            @globalCasualOnlyMessage.getOrElse {
-            @base.select(form("mode"), translatedModeChoices.map(x => x._1 -> x._2))
-            }
-          </td>
+          <th><label for="@form("variants").id">@trans.variant()</label></th>
+          <td>@setup.filterCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants)</td>
         </tr>
         <tr class="time">
           <th><label>@trans.timeControl()</label></th>
-          <td class="inline"></td>
-        </tr>
-        <tr class="minutes">
-          <th><label for="@form("minutes").id">@trans.duration()</label></th>
-          <td></td>
+          <td class="inline">
+            @base.select(form("clockTime"), config.clockTimeChoices)
+            +
+            @base.select(form("clockIncrement"), config.clockIncrementChoices)
+          </td>
         </tr>
         <tr>
-          <th><label for="@form("minPlayers").id">@trans.players()</label></th>
-          <td>@base.select(form("minPlayers"), config.minPlayerChoices)</td>
+          <th><label for="@form("clockMultiplier").id" title="Multiply the host player clock time and increments by:">Host clock multiplier</label></th>
+          <td>@base.select(form("clockMultiplier"), config.clockMultiplierChoices)</td>
+        </tr>
+        <tr>
+          <th><label for="@form("nbPlayers").id">Participants</label></th>
+          <td>@base.select(form("nbPlayers"), config.nbPlayerChoices)</td>
+        </tr>
+        <tr>
+          <th><label for="@form("name").id">Name</label></th>
+          <td>@base.input(form("name"))</td>
         </tr>
         <tr>
           <th></th>
@@ -46,25 +46,6 @@ title = "New simul") {
         </tr>
       </table>
     </form>
-    <div class="none private_time">
-      @base.select(form("clockTime"), config.clockTimePrivateChoices)
-      +
-      @base.select(form("clockIncrement"), config.clockIncrementPrivateChoices)
-    </div>
-    <div class="none public_time">
-      @base.select(form("clockTime"), config.clockTimeChoices)
-      +
-      @base.select(form("clockIncrement"), config.clockIncrementChoices)
-    </div>
-    <div class="none private_minutes">
-      @base.select(form("minutes"), config.minutePrivateChoices)
-    </div>
-    <div class="none public_minutes">
-      @base.select(form("minutes"), config.minuteChoices)
-    </div>
-  </div>
-  <div class="content_box small_box faq_box tournament_box">
-    <div class="content_box_content">@tournament.faq()</div>
   </div>
 </div>
 }

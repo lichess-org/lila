@@ -5,9 +5,10 @@ import reactivemongo.bson._
 import reactivemongo.core.commands._
 import scala.concurrent.duration._
 
-import chess.variant.Variant
 import chess.Status
+import chess.variant.Variant
 import lila.db.Types.Coll
+import lila.user.User
 
 private[simul] final class SimulApi(
     simulColl: Coll) {
@@ -29,4 +30,14 @@ private[simul] final class SimulApi(
 
   def find(id: Simul.ID): Fu[Option[Simul]] =
     simulColl.find(BSONDocument("_id" -> id)).one[Simul]
+
+  def createSimul(setup: SimulSetup, me: User): Fu[Simul] = {
+    val simul = Simul.make(
+      name = setup.name,
+      clock = SimulClock(setup.clockTime * 60, setup.clockIncrement),
+      nbPlayers = setup.nbPlayers,
+      variants = setup.variants.flatMap(chess.variant.Variant.apply),
+      createdBy = me.id)
+    simulColl insert simul inject simul
+  }
 }

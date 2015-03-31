@@ -1,0 +1,28 @@
+#simul form.plain td {
+  padding: 0.6em;
+  white-space: nowrap;
+}
+#simul form.plain label {
+  margin-right: 10px;
+}
+#simul form.plain input {
+  width: 96%;
+  padding: 0.5% 1%;
+}
+#simul form.plain input[type=checkbox] {
+  width: auto;
+}
+#simul form.plain select {
+  padding: 0.5% 1%;
+  text-transform: capitalize;
+  width: 99%;
+}
+#simul form.plain .inline select {
+  width: 46%;
+}
+#simul form.plain input.submit {
+  width: 99%;
+}
+#simul form.plain .error {
+  color: red;
+}

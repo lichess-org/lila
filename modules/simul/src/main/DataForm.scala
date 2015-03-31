@@ -18,33 +18,41 @@ final class DataForm {
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
   val clockMultipliers = 1 to 5
-  val clockMultiplierChoices = options(clockMultipliers, "%dx more time")
+  val clockMultiplierChoices = clockMultipliers map {
+    case 1 => (1, "Same as participants")
+    case 2 => (2, "Twice more time")
+    case x => (x, s"${x}x more time")
+  }
   val clockMultiplierDefault = 1
 
-  val minPlayers = (2 to 9) ++ (10 to 20 by 2) ++ (25 to 50 by 5)
-  val minPlayerDefault = 8
-  val minPlayerChoices = options(minPlayers, "%d player{s}")
+  val nbPlayers = (2 to 9) ++ (10 to 20 by 2) ++ (25 to 50 by 5)
+  val nbPlayerDefault = 8
+  val nbPlayerChoices = options(nbPlayers, "%d player{s}")
 
-  lazy val create = Form(mapping(
+  def create(defaultName: String) = Form(mapping(
+    "name" -> text(minLength = 4),
     "clockTime" -> numberIn(clockTimeChoices),
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "clockMultiplier" -> numberIn(clockMultiplierChoices),
-    "minPlayers" -> numberIn(minPlayerChoices),
+    "nbPlayers" -> numberIn(nbPlayerChoices),
     "variants" -> list {
       number.verifying(Set(chess.variant.Standard.id, chess.variant.Chess960.id, chess.variant.KingOfTheHill.id,
         chess.variant.ThreeCheck.id, chess.variant.Antichess.id, chess.variant.Atomic.id, chess.variant.Horde.id) contains _)
-    })(SimulSetup.apply)(SimulSetup.unapply)
+    }.verifying("At least one variant", _.nonEmpty)
+  )(SimulSetup.apply)(SimulSetup.unapply)
   ) fill SimulSetup(
+    name = defaultName,
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     clockMultiplier = clockMultiplierDefault,
-    minPlayers = minPlayerDefault,
+    nbPlayers = nbPlayerDefault,
     variants = List(chess.variant.Standard.id))
 }
 
-private[simul] case class SimulSetup(
+case class SimulSetup(
+  name: String,
   clockTime: Int,
   clockIncrement: Int,
   clockMultiplier: Int,
-  minPlayers: Int,
+  nbPlayers: Int,
   variants: List[Int])

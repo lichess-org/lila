@@ -31,6 +31,7 @@ ol.scheduled_tournaments a:hover {
 }
 #tournament_list table.slist .header:hover {
   transform: translateX(3px);
+  -webkit-transform: translateX(3px);
 }
 #tournament_list table.slist .header a {
   text-decoration: none;
