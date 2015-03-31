@@ -41,7 +41,6 @@ blackResigned=Черные сдались
 whiteLeftTheGame=Белые вышли из игры
 blackLeftTheGame=Черные вышли из игры
 shareThisUrlToLetSpectatorsSeeTheGame=Поделитесь этой ссылкой с другими для просмотра игры
-youAreViewingThisGameAsASpectator=Вы являетесь зрителем в этой партии
 replayAndAnalyse=Повтор и анализ игры
 computerAnalysisInProgress=Производится компьютерный анализ
 theComputerAnalysisHasFailed=Произошёл сбой.

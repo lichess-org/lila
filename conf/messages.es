@@ -41,7 +41,6 @@ blackResigned=Las negras se han rendido
 whiteLeftTheGame=Las blancas han abandonado la partida
 blackLeftTheGame=Las negras han abandonado la partida
 shareThisUrlToLetSpectatorsSeeTheGame=Comparte este enlace para que espectadores puedan ver la partida
-youAreViewingThisGameAsASpectator=Estás viendo esta partida como espectador
 replayAndAnalyse=Repetición y análisis
 computerAnalysisInProgress=Análisis de la computadora en progreso
 theComputerAnalysisHasFailed=El análisis de la computadora ha fallado

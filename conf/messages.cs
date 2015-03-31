@@ -41,7 +41,6 @@ blackResigned=Černý se vzdal
 whiteLeftTheGame=Bílý opustil hru
 blackLeftTheGame=Černý opustil hru
 shareThisUrlToLetSpectatorsSeeTheGame=Pomocí tohoto odkazu můžete pozvat ostatní ke sledování této partie
-youAreViewingThisGameAsASpectator=Tuto hru sledujete jako divák
 replayAndAnalyse=Přehrát a analyzovat partii
 computerAnalysisInProgress=Počítačová analýza právě probíha
 theComputerAnalysisHasFailed=Počítačová analýza selhala

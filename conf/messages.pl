@@ -41,7 +41,6 @@ blackResigned=Czarne rezygnują
 whiteLeftTheGame=Białe opuszczają grę
 blackLeftTheGame=Czarne opuszczają grę
 shareThisUrlToLetSpectatorsSeeTheGame=Podziel się tym adresem, aby zaprosić widzów do obserwowania tej gry
-youAreViewingThisGameAsASpectator=Obserwujesz tę grę jako widz
 replayAndAnalyse=Odtwórz i analizuj
 computerAnalysisInProgress=Analiza komputerowa w toku
 theComputerAnalysisHasFailed=Analiza komputerowa nie powiodła się

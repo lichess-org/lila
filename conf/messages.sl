@@ -41,7 +41,6 @@ blackResigned=Črni je predal
 whiteLeftTheGame=Beli je zapustil igro
 blackLeftTheGame=Črni je zapustil igro
 shareThisUrlToLetSpectatorsSeeTheGame=S tem naslovom lahko povabiš v igro opazovalce
-youAreViewingThisGameAsASpectator=To igro opazuješ
 replayAndAnalyse=Predvajaj in analiziraj
 computerAnalysisInProgress=Računalniška analiza v teku
 theComputerAnalysisHasFailed=Računalniška analiza je spodletela
