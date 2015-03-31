@@ -1021,6 +1021,7 @@ body.fpmenu #fpmenu {
   margin-bottom: 22px;
 }
 #fpmenu .login input {
+  -webkit-appearance: none;
   width: 290px;
   line-height: 47px;
   padding: 0 15px;
