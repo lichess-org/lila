@@ -4,7 +4,7 @@ import lila.common.PimpedJson._
 import play.api.libs.json._
 
 import chess.Pos.{ piotr, allPiotrs }
-import chess.{ PromotableRole, Pos, Color, Situation, Move => ChessMove, Clock => ChessClock }
+import chess.{ PromotableRole, Pos, Color, Situation, Move => ChessMove, Clock => ChessClock, Status }
 import lila.chat.{ Line, UserLine, PlayerLine }
 
 sealed trait Event {
@@ -176,12 +176,22 @@ object Event {
     )
   }
 
-  case class State(color: Color, turns: Int) extends Event {
+  case class State(
+      color: Color,
+      turns: Int,
+      status: Status,
+      whiteOffersDraw: Boolean,
+      blackOffersDraw: Boolean) extends Event {
     def typ = "state"
     def data = Json.obj(
       "color" -> color.name,
-      "turns" -> turns
-    )
+      "turns" -> turns,
+      "status" -> Json.obj(
+        "id" -> status.id,
+        "name" -> status.name),
+      "wDraw" -> whiteOffersDraw.option(true),
+      "bDraw" -> blackOffersDraw.option(true)
+    ).noNull
   }
 
   case class Crowd(
