@@ -77,9 +77,11 @@ case class Game(
   def fullIdOf(color: Color): String = s"$id${player(color).id}"
 
   def tournamentId = metadata.tournamentId
+  def simulId = metadata.simulId
 
   def isTournament = tournamentId.isDefined
-  def isMandatory = isTournament
+  def isSimul = simulId.isDefined
+  def isMandatory = isTournament || isSimul
   def nonMandatory = !isMandatory
 
   def hasChat = !isTournament && nonAi
@@ -398,8 +400,10 @@ case class Game(
   }
 
   def withTournamentId(id: String) = this.copy(
-    metadata = metadata.copy(tournamentId = id.some)
-  )
+    metadata = metadata.copy(tournamentId = id.some))
+
+  def withSimulId(id: String) = this.copy(
+    metadata = metadata.copy(simulId = id.some))
 
   def withId(newId: String) = this.copy(id = newId)
 
@@ -483,6 +487,7 @@ object Game {
       source = source.some,
       pgnImport = pgnImport,
       tournamentId = none,
+      simulId = none,
       tvAt = none,
       analysed = false),
     createdAt = DateTime.now)
@@ -524,6 +529,7 @@ object Game {
     val source = "so"
     val pgnImport = "pgni"
     val tournamentId = "tid"
+    val simulId = "sid"
     val tvAt = "tv"
     val winnerColor = "w"
     val winnerId = "wid"
@@ -581,6 +587,7 @@ object Game {
           source = r intO source flatMap Source.apply,
           pgnImport = r.getO[PgnImport](pgnImport)(PgnImport.pgnImportBSONHandler),
           tournamentId = r strO tournamentId,
+          simulId = r strO simulId,
           tvAt = r dateO tvAt,
           analysed = r boolD analysed)
       )
@@ -612,6 +619,7 @@ object Game {
       source -> o.metadata.source.map(_.id),
       pgnImport -> o.metadata.pgnImport,
       tournamentId -> o.metadata.tournamentId,
+      simulId -> o.metadata.simulId,
       tvAt -> o.metadata.tvAt.map(w.date),
       analysed -> w.boolO(o.metadata.analysed)
     )

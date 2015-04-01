@@ -47,8 +47,13 @@ case class Perfs(
     }
   }
 
-  def bestRating: Int = {
-    val ps = List(bullet, blitz, classical, correspondence, chess960, kingOfTheHill, threeCheck, antichess, atomic, horde)
+  def bestRating: Int = bestRatingIn(PerfType.leaderboardable)
+
+  def bestRatingIn(types: List[PerfType]): Int = {
+    val ps = types map apply match {
+      case Nil => List(standard)
+      case x   => x
+    }
     val minNb = ps.foldLeft(0)(_ + _.nb) / 10
     ps.foldLeft(none[Int]) {
       case (ro, p) if p.nb >= minNb => ro.fold(p.intRating.some) { r =>

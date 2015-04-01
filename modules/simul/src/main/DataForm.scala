@@ -25,16 +25,11 @@ final class DataForm {
   }
   val clockMultiplierDefault = 1
 
-  val nbPlayers = (2 to 9) ++ (10 to 20 by 2) ++ (25 to 50 by 5)
-  val nbPlayerDefault = 8
-  val nbPlayerChoices = options(nbPlayers, "%d player{s}")
-
   def create(defaultName: String) = Form(mapping(
     "name" -> text(minLength = 4),
     "clockTime" -> numberIn(clockTimeChoices),
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "clockMultiplier" -> numberIn(clockMultiplierChoices),
-    "nbPlayers" -> numberIn(nbPlayerChoices),
     "variants" -> list {
       number.verifying(Set(chess.variant.Standard.id, chess.variant.Chess960.id, chess.variant.KingOfTheHill.id,
         chess.variant.ThreeCheck.id, chess.variant.Antichess.id, chess.variant.Atomic.id, chess.variant.Horde.id) contains _)
@@ -45,7 +40,6 @@ final class DataForm {
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     clockMultiplier = clockMultiplierDefault,
-    nbPlayers = nbPlayerDefault,
     variants = List(chess.variant.Standard.id))
 }
 
@@ -54,5 +48,4 @@ case class SimulSetup(
   clockTime: Int,
   clockIncrement: Int,
   clockMultiplier: Int,
-  nbPlayers: Int,
   variants: List[Int])

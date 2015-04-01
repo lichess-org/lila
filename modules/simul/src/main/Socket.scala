@@ -1,4 +1,4 @@
-package lila.tournament
+package lila.simul
 
 import akka.actor._
 import play.api.libs.iteratee._
@@ -13,15 +13,13 @@ import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.{ SocketActor, History, Historical }
 
-private[tournament] final class Socket(
-    tournamentId: String,
+private[simul] final class Socket(
+    simulId: String,
     val history: History[Messadata],
     jsonView: JsonView,
     lightUser: String => Option[LightUser],
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member, Messadata] {
-
-  private val joiningMemo = new ExpireSetMemo(uidTimeout)
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -29,16 +27,6 @@ private[tournament] final class Socket(
   private var delayedReloadNotification = false
 
   def receiveSpecific = {
-
-    case StartGame(game) =>
-      game.players foreach { player =>
-        player.userId flatMap memberByUserId foreach { member =>
-          notifyMember("redirect", game fullIdOf player.color)(member)
-        }
-      }
-      notifyReload
-
-    case Reload         => notifyReload
 
     case WithUserIds(f) => f(userIds)
 
@@ -74,8 +62,6 @@ private[tournament] final class Socket(
       quit(uid)
       notifyCrowd
 
-    case Joining(userId) => joiningMemo put userId
-
     case NotifyCrowd =>
       delayedCrowdNotification = false
       val (anons, users) = members.values.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
@@ -86,7 +72,7 @@ private[tournament] final class Socket(
 
     case NotifyReload =>
       delayedReloadNotification = false
-      jsonView(tournamentId) foreach { obj =>
+      jsonView(simulId) foreach { obj =>
         notifyVersion("reload", obj, Messadata())
       }
   }
@@ -106,8 +92,6 @@ private[tournament] final class Socket(
       context.system.scheduler.scheduleOnce(50 millis, self, NotifyReload)
     }
   }
-
-  override def userIds = (super.userIds ++ joiningMemo.keys).toList.distinct
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =
     message.metadata.trollish && !member.troll

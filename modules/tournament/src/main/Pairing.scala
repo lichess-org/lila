@@ -56,8 +56,7 @@ case class Pairing(
   def finish(s: chess.Status, w: Option[String], t: Int) = copy(
     status = s,
     winner = w,
-    turns = t.some
-  )
+    turns = t.some)
 }
 
 private[tournament] object Pairing {
