@@ -179,16 +179,18 @@ object Event {
   case class State(
       color: Color,
       turns: Int,
-      status: Status,
+      status: Option[Status],
       whiteOffersDraw: Boolean,
       blackOffersDraw: Boolean) extends Event {
     def typ = "state"
     def data = Json.obj(
       "color" -> color.name,
       "turns" -> turns,
-      "status" -> Json.obj(
-        "id" -> status.id,
-        "name" -> status.name),
+      "status" -> status.map { s =>
+        Json.obj(
+          "id" -> s.id,
+          "name" -> s.name)
+      },
       "wDraw" -> whiteOffersDraw.option(true),
       "bDraw" -> blackOffersDraw.option(true)
     ).noNull
