@@ -23,7 +23,7 @@ module.exports = function(send, ctrl) {
       });
       ctrl.data.game.player = o.color;
       ctrl.data.game.turns = o.turns;
-      ctrl.data.game.status = o.status;
+      if (o.status) ctrl.data.game.status = o.status;
       ctrl.data[ctrl.data.player.color === 'white' ? 'player' : 'opponent'].offeringDraw = o.wDraw;
       ctrl.data[ctrl.data.player.color === 'black' ? 'player' : 'opponent'].offeringDraw = o.bDraw;
       m.redraw();

@@ -138,18 +138,6 @@ case class Game(
     blur: Boolean = false): Progress = {
     val (history, situation) = (game.board.history, game.situation)
 
-    val events = (players collect {
-      case p if p.isHuman => Event.possibleMoves(situation, p.color)
-    }) :::
-      Event.State(
-        situation.color,
-        game.turns,
-        status,
-        whiteOffersDraw = whitePlayer.isOfferingDraw,
-        blackOffersDraw = blackPlayer.isOfferingDraw) ::
-        (Event fromMove move) :::
-        (Event fromSituation situation)
-
     def copyPlayer(player: Player) = player.copy(
       blurs = math.min(
         playerMoves(player.color),
@@ -175,6 +163,18 @@ case class Game(
       ),
       status = situation.status | status,
       clock = game.clock)
+
+    val events = (players collect {
+      case p if p.isHuman => Event.possibleMoves(situation, p.color)
+    }) :::
+      Event.State(
+        situation.color,
+        game.turns,
+        (status != updated.status) option status,
+        whiteOffersDraw = whitePlayer.isOfferingDraw,
+        blackOffersDraw = blackPlayer.isOfferingDraw) ::
+        (Event fromMove move) :::
+        (Event fromSituation situation)
 
     val clockEvent = updated.clock map Event.Clock.apply orElse {
       updated.correspondenceClock map Event.CorrespondenceClock.apply
