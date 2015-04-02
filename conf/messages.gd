@@ -41,7 +41,6 @@ blackResigned=Ghèill dubh
 whiteLeftTheGame=Dh’fhàg geal an geama
 blackLeftTheGame=Dh’fhàg dubh an geama
 shareThisUrlToLetSpectatorsSeeTheGame=Co-roinn an url seo gus luchd-amhairc a leigeil a-steach dhan gheama
-youAreViewingThisGameAsASpectator=Tha thu a’ coimhead air a’ gheama seo ’nad neach-amhairc
 replayAndAnalyse=Ath-chluich is sgrùdaich
 computerAnalysisInProgress=Tha anailis a’ choimpiutair a’ dol
 theComputerAnalysisHasFailed=Dh’fhàillig le anailis a’ choimpiutair

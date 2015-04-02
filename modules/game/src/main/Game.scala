@@ -141,9 +141,14 @@ case class Game(
     val events = (players collect {
       case p if p.isHuman => Event.possibleMoves(situation, p.color)
     }) :::
-      Event.State(situation.color, game.turns) ::
-      (Event fromMove move) :::
-      (Event fromSituation situation)
+      Event.State(
+        situation.color,
+        game.turns,
+        status,
+        whiteOffersDraw = whitePlayer.isOfferingDraw,
+        blackOffersDraw = blackPlayer.isOfferingDraw) ::
+        (Event fromMove move) :::
+        (Event fromSituation situation)
 
     def copyPlayer(player: Player) = player.copy(
       blurs = math.min(
@@ -176,12 +181,6 @@ case class Game(
     }
 
     val finalEvents = events ::: clockEvent.toList ::: {
-      (updated.playable && (
-        abortable != updated.abortable || (Color.all exists { color =>
-          playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
-        })
-      )) ?? List(Event.Reload)
-    } ::: {
       // abstraction leak, I know.
       (updated.variant.threeCheck && situation.check) ?? List(Event.CheckCount(
         white = updated.checkCount.white,
@@ -378,7 +377,7 @@ case class Game(
 
   def isBeingPlayed = !isPgnImport && !finishedOrAborted
 
-  def olderThan(seconds: Int) = updatedAt.??(_ isBefore DateTime.now.minusSeconds(seconds))
+  def olderThan(seconds: Int) = (updatedAt | createdAt) isBefore DateTime.now.minusSeconds(seconds)
 
   def unplayed = !bothPlayersHaveMoved && (createdAt isBefore Game.unplayedDate)
 
@@ -425,7 +424,6 @@ object Game {
     chess.variant.Standard,
     chess.variant.ThreeCheck,
     chess.variant.KingOfTheHill)
-
 
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,

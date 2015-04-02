@@ -41,7 +41,6 @@ blackResigned=Чорныя здаліся
 whiteLeftTheGame=Белыя пакінулі гульню
 blackLeftTheGame=Чорныя пакінулі гульню
 shareThisUrlToLetSpectatorsSeeTheGame=Падзяліцца гэтай спасылкай каб дазволіць назіральнікам глядзець гульню
-youAreViewingThisGameAsASpectator=Ты назіральнік гэтай гульні
 replayAndAnalyse=Паўтор і аналіз
 computerAnalysisInProgress=Выконваецца камп'ютарны аналіз
 theComputerAnalysisHasFailed=Камп'ютарны аналіз ня ўдаўся

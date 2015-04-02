@@ -41,7 +41,6 @@ blackResigned=Svart ga opp
 whiteLeftTheGame=Hvit forlot partiet
 blackLeftTheGame=Svart forlot partiet
 shareThisUrlToLetSpectatorsSeeTheGame=Del denne lenken for å la andre følge dette spillet
-youAreViewingThisGameAsASpectator=Du er en tilskuer til dette partiet
 replayAndAnalyse=Spill gjennom og analyser
 computerAnalysisInProgress=Datamaskinanalyse pågår
 theComputerAnalysisHasFailed=Datamaskinanalysen fungerte ikke

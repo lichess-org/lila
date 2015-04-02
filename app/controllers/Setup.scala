@@ -112,7 +112,8 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
                 "hook" -> Json.obj(
                   "id" -> hookId))) as JSON
             } recover {
-              case e: IllegalArgumentException => BadRequest(e.getMessage)
+              case e: IllegalArgumentException =>
+                BadRequest(Json.obj("error" -> e.getMessage)) as JSON
             }
         }
     )

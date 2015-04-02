@@ -149,16 +149,12 @@ body.base .cg-board .cg-square.exploding {
   left: 0;
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
   z-index: 2;
   /* no less than 2 */
 }
 .mini_board .cg-piece {
   transform: none;
   -webkit-transform: none;
-  -moz-transform: none;
-  -ms-transform: none;
   z-index: initial;
 }
 .lichess_board.blindfold .cg-piece {
@@ -911,9 +907,6 @@ div.lichess_board {
 #top .cg-piece.spatial {
   background-image: url(../piece/spatial/wN.svg);
 }
-#top .cg-piece.lightp {
-  background-image: url(../piece/lightp/wN.png);
-}
 #top .cg-piece.alpha {
   background-image: url(../piece/alpha/wN.svg);
 }
@@ -937,7 +930,7 @@ div.lichess_overboard {
   top: 50%;
   left: 56px;
   transform: translate(0, -50%);
-  ms-transform: translate(0, -50%);
+  webkit-transform: translate(0, -50%);
   padding: 15px 0 22px 0;
   font-size: 14px;
   line-height: 1.8em;
@@ -1008,6 +1001,7 @@ div.dont_touch {
 .lichess_board_wrap .variant_reminder.gone {
   opacity: 0;
   transform: translateY(-100px);
+  -webkit-transform: translateY(-100px);
 }
 #promotion_choice {
   position: absolute;
@@ -1294,6 +1288,7 @@ div.control.icons .button {
 div.control.icons .takeback-yes span:before {
   display: inline-block;
   transform: translateY(1px);
+  -webkit-transform: translateY(1px);
 }
 div.control.icons .draw-yes span:before {
   display: inline-block;
@@ -1303,6 +1298,7 @@ div.control.icons .draw-yes span:before {
 div.control.icons .resign span:before {
   display: inline-block;
   transform: translateY(1px);
+  -webkit-transform: translateY(1px);
 }
 div.control.buttons .button {
   display: inline-block;
@@ -1387,6 +1383,12 @@ div.under_chat {
   width: 228px;
   margin: 10px 0 0 -30px;
 }
+@media (max-width: 1070px) {
+div.under_chat {
+  margin-left: 0px;
+  width: 198px;
+}
+}
 div.under_chat .watchtv {
   display: block;
   height: 24px;
@@ -1416,7 +1418,8 @@ div.under_chat .watchtv {
   border: 0;
   border-top: 1px solid #ccc;
   padding: 2px 20px 2px 4px;
-  width: 202px;
+  width: 100%;
+  box-sizing: border-box;
 }
 #chat a.send {
   position: absolute;

@@ -41,7 +41,6 @@ blackResigned=Svart har gett upp
 whiteLeftTheGame=Vitspelaren har lämnat partiet
 blackLeftTheGame=Svartspelaren har lämnat partiet
 shareThisUrlToLetSpectatorsSeeTheGame=Dela den här länken till åskådare som vill se partiet
-youAreViewingThisGameAsASpectator=Du tittar på spelet som åskådare
 replayAndAnalyse=Spela igenom och analysera
 computerAnalysisInProgress=Datoranalysen pågår
 theComputerAnalysisHasFailed=Datoranalysen misslyckades

@@ -9,7 +9,6 @@ case class Video(
     targets: List[Target],
     tags: List[Tag],
     lang: Lang,
-    lichess: Boolean,
     ads: Boolean,
     metadata: Youtube.Metadata,
     createdAt: DateTime) {

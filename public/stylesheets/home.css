@@ -621,6 +621,12 @@ div.game_config div.color_submits button.random span {
   width: 230px;
   font-size: 0.9em;
 }
+@media (max-width: 1070px) {
+#timeline {
+  margin-left: 0px;
+  width: 200px;
+}
+}
 #timeline .entries {
   height: 400px;
   overflow: hidden;

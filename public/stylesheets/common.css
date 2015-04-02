@@ -749,9 +749,9 @@ div.side_box {
   margin-left: -30px;
   width: 226px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 div.side_box.padded {
-  width: 212px;
   padding: 7px;
 }
 div.side_box .top {
@@ -762,6 +762,12 @@ div.side_box .top {
 }
 div.side_box .padded {
   padding: 7px;
+}
+@media (max-width: 1070px) {
+div.side_box, #site_header a.stream {
+  margin-left: 0px!important;
+  width: 196px!important;
+}
 }
 div.chat_menu {
   margin-left: -30px;
@@ -837,12 +843,14 @@ div.side_box .game_infos .bookmark {
   background: radial-gradient(ellipse at center, rgba(238, 238, 238, 1) 0%, rgba(238, 238, 238, 1) 25%, rgba(238, 238, 238, 0) 100%);
   opacity: 0;
   transform: translate(0, -20px);
+  -webkit-transform: translate(0, -20px);
   transition: 0.3s;
   z-index: 10;
   /* to go over the board */
 }
 div.side_box .game_infos:hover .bookmark {
   transform: translate(0, 0);
+  -webkit-transform: translate(0, 0);
   opacity: 1;
 }
 div.side_box .game_infos .setup {
@@ -962,6 +970,7 @@ body.fpmenu #fpmenu {
   margin: 0 auto;
   position: relative;
   top: 50%;
+  -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
 #fpmenu .body {
@@ -978,9 +987,6 @@ body.fpmenu #fpmenu {
   width: 45%;
   margin: 18px 0;
   line-height: 1.2em;
-}
-#fpmenu .perf:nth-child(even) {
-  margin-left 10%
 }
 #fpmenu .perf::before {
   color: #C4A86F;
@@ -1007,12 +1013,15 @@ body.fpmenu #fpmenu {
 }
 #fpmenu .anon {
   margin-top: 50px;
+}
+#fpmenu .anon section {
   width: 322px;
 }
 #fpmenu .anon h2 {
   margin-bottom: 22px;
 }
 #fpmenu .login input {
+  -webkit-appearance: none;
   width: 290px;
   line-height: 47px;
   padding: 0 15px;
@@ -1111,7 +1120,38 @@ body.fpmenu #fpmenu {
   }
   #fpmenu .inner {
     top: 0;
+    -webkit-transform: none;
     transform: none;
+  }
+}
+@media (max-width: 970px) {
+  #fpmenu {
+    position: relative;
+  }
+  #fpmenu .inner {
+    top: 0;
+    transform: none;
+    -webkit-transform: none;
+    width: auto;
+  }
+  #fpmenu .body {
+    padding-left: 13%;
+  }
+  #fpmenu .menu {
+    border: none;
+    float: none;
+    margin: auto;
+    padding-bottom: 0;
+  }
+  #fpmenu .user,
+  #fpmenu .anon {
+    margin: auto;
+    width: 500px;
+  }
+}
+@media (max-width: 440px) {
+  #fpmenu .body {
+    padding-left: 10px;
   }
 }
 #ham-plate .help {
@@ -1733,7 +1773,7 @@ div.game_row:hover {
 div.game_row a.mini_board {
   position: absolute;
   top: 15px;
-  left 10px;
+  left: 10px;
 }
 div.game_row div.infos {
   position: absolute;
@@ -2174,7 +2214,6 @@ input.copyable {
 [data-hint]:after {
   position: absolute;
   -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   visibility: hidden;
   opacity: 0;
@@ -2233,7 +2272,6 @@ input.copyable {
 .hint--bottom:hover:after,
 .hint--bottom:hover:before {
   -webkit-transform: translateY(8px);
-  -moz-transform: translateY(8px);
   transform: translateY(8px);
 }
 .hint--top:before {
@@ -2250,7 +2288,6 @@ input.copyable {
 .hint--top:hover:after,
 .hint--top:hover:before {
   -webkit-transform: translateY(-8px);
-  -moz-transform: translateY(-8px);
   transform: translateY(-8px);
 }
 .hint--top-left:before {
@@ -2267,7 +2304,6 @@ input.copyable {
 .hint--top-left:hover:after,
 .hint--top-left:hover:before {
   -webkit-transform: translateY(-8px);
-  -moz-transform: translateY(-8px);
   transform: translateY(-8px);
 }
 .hint--bottom-left:before {
@@ -2284,7 +2320,6 @@ input.copyable {
 .hint--bottom-left:hover:after,
 .hint--bottom-left:hover:before {
   -webkit-transform: translateY(8px);
-  -moz-transform: translateY(8px);
   transform: translateY(8px);
 }
 .hint--left:before {
@@ -2302,7 +2337,6 @@ input.copyable {
 .hint--left:hover:after,
 .hint--left:hover:before {
   -webkit-transform: translateX(-8px);
-  -moz-transform: translateX(-8px);
   transform: translateX(-8px);
 }
 .continue_with {
@@ -2330,10 +2364,21 @@ input.copyable {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
   padding: 20px;
   border-radius: 3px;
   box-shadow: 0 0 95px 25px rgba(0, 0, 0, 0.8);
   background: #fff;
   text-align: center;
   cursor: default;
+}
+#konami {
+  display: none;
+  background: url(../images/easter.png);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 295px;
+  z-index: 9999;
 }

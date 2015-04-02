@@ -551,24 +551,6 @@ lichess.storage = {
 
   $(function() {
 
-    // small layout
-    function onResize() {
-      $('#timeline, div.side_box, div.under_chat').each(function() {
-        var ol = $(this).offset().left;
-        if (ol < 3) {
-          var dec = 3 - ol;
-          var pad = $(this).outerWidth() - $(this).width();
-          $(this).css({
-            'margin-left': (dec - 30) + 'px',
-            'width': (230 - pad - dec) + 'px'
-          });
-          $(this).find('input.lichess_say').css('width', (204 - dec) + 'px');
-        }
-      });
-    }
-    $(window).resize($.fp.debounce(onResize, 200));
-    onResize();
-
     if (!lichess.StrongSocket.available) {
       $('#lichess').on('mouseover', function() {
         $('#lichess').off('mouseover');
@@ -979,20 +961,35 @@ lichess.storage = {
     $('#hamburger').click(function() {
       document.body.classList.toggle('fpmenu');
     });
-    Mousetrap.bind('space', function() {
+    Mousetrap.bind('esc', function() {
       $('#hamburger').click();
       return false;
     });
-    if (!lichess.storage.get('ham')) {
-      var $help = $('<span class="help">' +
-        '← Click the menu icon or press the space key!' +
-        '</span>');
-      $('#ham-plate').append($help.fadeIn(2000));
-      $('#hamburger').click(function() {
-        $help.remove();
-        lichess.storage.set('ham', 1);
-      });
-    }
+    (function(key) {
+      if (!lichess.storage.get(key)) {
+        var $help = $('<span class="help">' +
+          '← Click the menu icon or press the &lt;escape&gt; key!' +
+          '</span>');
+        $('#ham-plate').append($help.fadeIn(2000));
+        $('#hamburger').click(function() {
+          $help.remove();
+          lichess.storage.set(key, 1);
+        });
+      }
+    })('ham-' + document.body.getAttribute('data-user'));
+    Mousetrap.bind('g h', function() {
+      location.href = '/';
+    });
+    // konami code!
+    Mousetrap.bind('up up down down left right left right b a enter', function() {
+      if (!document.getElementById('konami')) {
+        $('body').prepend($('<div id="konami"></div>'));
+      }
+      $('#konami').show(800);
+      setTimeout(function() {
+        $('#konami').hide(800);
+      }, 3000);
+    });
   });
 
   $.lazy = function(factory) {
@@ -1862,16 +1859,16 @@ lichess.storage = {
         .each(function() {
           $(this).attr("href", $(this).attr("href") + location.search);
         }).click();
-    }
 
-    if (location.hash === '#hook') {
-      if (/time=realTime/.test(location.search))
-        lobby.setTab('real_time');
-      else if (/time=correspondence/.test(location.search))
-        lobby.setTab('seeks');
-    }
+      if (location.hash === '#hook') {
+        if (/time=realTime/.test(location.search))
+          lobby.setTab('real_time');
+        else if (/time=correspondence/.test(location.search))
+          lobby.setTab('seeks');
+      }
 
-    window.history.replaceState(null, null, '/');
+      window.history.replaceState(null, null, '/');
+    }
   };
 
   ///////////////////
