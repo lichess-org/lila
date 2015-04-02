@@ -280,7 +280,8 @@ case class Game(
       !player(color).isProposingTakeback &&
       !opponent(color).isProposingTakeback
 
-  def moretimeable = playable && nonMandatory && hasClock
+  def moretimeable(color: Color) =
+    playable && nonMandatory && clock.??(_ moretimeable color)
 
   def abortable = status == Status.Started && playedTurns < 2 && nonMandatory
 

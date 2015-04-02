@@ -144,7 +144,7 @@ private[round] final class Round(
     case TakebackNo(playerRef)  => handle(playerRef)(takebacker.no)
 
     case Moretime(playerRef) => handle(playerRef) { pov =>
-      pov.game.clock.ifTrue(pov.game.moretimeable) ?? { clock =>
+      pov.game.clock.ifTrue(pov.game moretimeable !pov.color) ?? { clock =>
         val newClock = clock.giveTime(!pov.color, moretimeDuration.toSeconds)
         val progress = (pov.game withClock newClock) + Event.Clock(newClock)
         messenger.system(pov.game, (_.untranslated(
