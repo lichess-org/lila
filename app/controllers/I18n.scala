@@ -21,7 +21,11 @@ object I18n extends LilaController {
       lang => (ctx.me ?? { me => lila.user.UserRepo.setLang(me.id, lang) }) inject Redirect {
         s"${Env.api.Net.Protocol}${lang}.${Env.api.Net.Domain}" + {
           HTTPRequest.referer(ctx.req).fold(routes.Lobby.home.url) { str =>
-            new java.net.URL(str).getPath
+            try {
+              new java.net.URL(str).getPath
+            } catch {
+              case e: java.net.MalformedURLException => routes.Lobby.home.url
+            }
           }
         }
       }
