@@ -1,4 +1,4 @@
-package lila.tournament
+package lila.simul
 
 import scala.concurrent.duration._
 
@@ -15,25 +15,26 @@ import lila.socket.Handler
 import lila.user.User
 import makeTimeout.short
 
-private[tournament] final class SocketHandler(
+private[simul] final class SocketHandler(
     hub: lila.hub.Env,
     socketHub: ActorRef,
     chat: ActorSelection,
-    flood: Flood) {
+    flood: Flood,
+    exists: Simul.ID => Fu[Boolean]) {
 
   def join(
-    tourId: String,
+    simId: String,
     version: Int,
     uid: String,
     user: Option[User]): Fu[Option[JsSocketHandler]] =
-    TournamentRepo.exists(tourId) flatMap {
+    exists(simId) flatMap {
       _ ?? {
         for {
-          socket ← socketHub ? Get(tourId) mapTo manifest[ActorRef]
+          socket ← socketHub ? Get(simId) mapTo manifest[ActorRef]
           join = Join(uid = uid, user = user, version = version)
           handler ← Handler(hub, socket, uid, join, user map (_.id)) {
             case Connected(enum, member) =>
-              controller(socket, tourId, uid, member) -> enum
+              controller(socket, simId, uid, member) -> enum
           }
         } yield handler.some
       }
@@ -41,7 +42,7 @@ private[tournament] final class SocketHandler(
 
   private def controller(
     socket: ActorRef,
-    tourId: String,
+    simId: String,
     uid: String,
     member: Member): Handler.Controller = {
     case ("p", o) => o int "v" foreach { v => socket ! PingVersion(uid, v) }
@@ -50,7 +51,7 @@ private[tournament] final class SocketHandler(
     }
     case ("talk", o) => o str "d" foreach { text =>
       member.userId foreach { userId =>
-        chat ! lila.chat.actorApi.UserTalk(tourId, userId, text, socket)
+        chat ! lila.chat.actorApi.UserTalk(simId, userId, text, socket)
       }
     }
   }

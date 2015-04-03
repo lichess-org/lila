@@ -1,0 +1,9 @@
+@(opens: List[lila.simul.Simul], starteds: List[lila.simul.Simul], finisheds: List[lila.simul.Simul])(implicit ctx: Context)
+
+@simul.layout(
+title = "Simuls",
+side = none) {
+<div id="simul_list" data-href="@routes.Simul.homeReload()">
+  @simul.homeInner(opens, starteds, finisheds)
+</div>
+}

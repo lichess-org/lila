@@ -1,9 +1,7 @@
-#tournament table.slist td:first-child a,
 ol.scheduled_tournaments a {
   font-weight: bold;
   text-decoration: none;
 }
-#tournament table.slist td:first-child a:hover,
 ol.scheduled_tournaments a:hover {
   text-decoration: underline;
 }
@@ -17,7 +15,6 @@ ol.scheduled_tournaments a:hover {
   font-size: 4em;
   color: rgba(200,200,200,0.5);
   text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
-  /* color: rgba(216,80,0, 0.9); */
 }
 #tournament_list table.slist td {
   padding-top: 1em;

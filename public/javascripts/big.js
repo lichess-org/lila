@@ -569,6 +569,7 @@ lichess.storage = {
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
     else if (lichess.lobby) startLobby(document.getElementById('hooks_wrap'), lichess.lobby);
     else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
+    else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
 
     $('#lichess').on('click', '.socket-link:not(.disabled)', function() {
       lichess.socket.send($(this).data('msg'), $(this).data('data'));
@@ -1913,6 +1914,50 @@ lichess.storage = {
       });
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     tournament = LichessTournament(element, cfg);
+  };
+
+  ///////////////////
+  // simul.js //
+  ///////////////////
+
+  $(function() {
+
+    var $simulList = $('#simul_list');
+    if ($simulList.length) {
+      // handle simul list
+      lichess.StrongSocket.defaults.params.flag = "simul";
+      lichess.StrongSocket.defaults.events.reload = function() {
+        $simulList.load($simulList.data("href"), function() {
+          $('body').trigger('lichess.content_loaded');
+        });
+      };
+      return;
+    }
+  });
+
+  function startSimul(element, cfg) {
+    $('body').data('simul-id', cfg.data.id);
+    var $watchers = $("div.watchers").watchers();
+    if (typeof lichess_chat !== 'undefined') $('#chat').chat({
+      messages: lichess_chat
+    });
+    var simul;
+    lichess.socket = new lichess.StrongSocket(
+      '/simul/' + cfg.data.id + '/socket/v1', cfg.socketVersion, {
+        receive: function(t, d) {
+          simul.socketReceive(t, d)
+        },
+        events: {
+          crowd: function(data) {
+            $watchers.watchers("set", data);
+          }
+        },
+        options: {
+          name: "simul"
+        }
+      });
+    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    simul = LichessSimul(element, cfg);
   };
 
   ////////////////

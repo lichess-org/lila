@@ -8,6 +8,7 @@ import ornicar.scalalib.Random
 case class Simul(
     _id: Simul.ID,
     name: String,
+    status: SimulStatus,
     clock: SimulClock,
     applicants: List[SimulApplicant],
     pairings: List[SimulPairing],
@@ -22,7 +23,7 @@ case class Simul(
 
   def isStarted = startedAt.isDefined
 
-  def isOpen = !isStarted
+  def isCreated = !isStarted
 
   def isFinished = finishedAt.isDefined
 
@@ -32,17 +33,17 @@ case class Simul(
 
   def hasUser(userId: String) = hasApplicant(userId) || hasPairing(userId)
 
-  def addApplicant(applicant: SimulApplicant) = Open {
+  def addApplicant(applicant: SimulApplicant) = Created {
     if (!hasApplicant(applicant.player.user) && variants.contains(applicant.player.variant))
       copy(applicants = applicants :+ applicant)
     else this
   }
 
-  def removeApplicant(userId: String) = Open {
+  def removeApplicant(userId: String) = Created {
     copy(applicants = applicants filterNot (_ is userId))
   }
 
-  def accept(userId: String, v: Boolean) = Open {
+  def accept(userId: String, v: Boolean) = Created {
     copy(applicants = applicants map {
       case a if a is userId => a.copy(accepted = v)
       case a                => a
@@ -52,7 +53,7 @@ case class Simul(
   def removePairing(userId: String) =
     copy(pairings = pairings filterNot (_ is userId))
 
-  def startable = isOpen && applicants.count(_.accepted) > 1
+  def startable = isCreated && applicants.count(_.accepted) > 1
 
   def start = startable option copy(
     startedAt = DateTime.now.some,
@@ -74,7 +75,18 @@ case class Simul(
 
   def gameIds = pairings.map(_.gameId)
 
-  private def Open(s: => Simul): Simul = if (isOpen) s else this
+  def perfTypes: List[lila.rating.PerfType] = variants.flatMap { variant =>
+    lila.game.PerfPicker.perfType(
+      speed = chess.Speed.Classical,
+      variant = variant,
+      daysPerTurn = none)
+  }
+
+  def applicantRatio = s"${applicants.count(_.accepted)}/${applicants.size}"
+
+  def variantRich = variants.size > 3
+
+  private def Created(s: => Simul): Simul = if (isCreated) s else this
 }
 
 object Simul {
@@ -88,6 +100,7 @@ object Simul {
     variants: List[Variant]): Simul = Simul(
     _id = Random nextStringUppercase 8,
     name = name,
+    status = SimulStatus.Created,
     clock = clock,
     hostId = host.id,
     hostRating = host.perfs.bestRatingIn {

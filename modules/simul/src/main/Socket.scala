@@ -16,6 +16,7 @@ import lila.socket.{ SocketActor, History, Historical }
 private[simul] final class Socket(
     simulId: String,
     val history: History[Messadata],
+    getSimul: Simul.ID => Fu[Option[Simul]],
     jsonView: JsonView,
     lightUser: String => Option[LightUser],
     uidTimeout: Duration,
@@ -72,8 +73,12 @@ private[simul] final class Socket(
 
     case NotifyReload =>
       delayedReloadNotification = false
-      jsonView(simulId) foreach { obj =>
-        notifyVersion("reload", obj, Messadata())
+      getSimul(simulId) foreach {
+        _ foreach { simul =>
+          jsonView(simul) foreach { obj =>
+            notifyVersion("reload", obj, Messadata())
+          }
+        }
       }
   }
 

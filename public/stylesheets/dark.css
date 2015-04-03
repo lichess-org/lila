@@ -489,3 +489,8 @@ body.dark #hamburger line {
 body.dark #fpmenu .perf::before {
   color: #8b6523;
 }
+body.dark #simul_list table.slist .icon span {
+  text-shadow: 0px 0px 5px #000,
+  0px 0px 10px #000,
+  0px 0px 20px #000;
+}

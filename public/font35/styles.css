@@ -320,3 +320,6 @@
 .icon-youtube-play:before {
   content: "{";
 }
+.icon-arrows-in:before {
+  content: "|";
+}

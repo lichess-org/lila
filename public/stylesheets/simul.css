@@ -26,3 +26,55 @@
 #simul form.plain .error {
   color: red;
 }
+#simul table.slist.started {
+  background: #000;
+  width: 50%;
+  display: inline-block;
+}
+#simul_list table.slist {
+  line-height: 2.3em;
+}
+#simul_list table.slist .icon {
+  width: 4em;
+  white-space: nowrap;
+}
+#simul_list table.slist .icon span {
+  font-size: 4em;
+  color: rgba(200,200,200,0.5);
+  text-shadow: 0px 0px 5px #fff,
+  0px 0px 10px #fff,
+  0px 0px 20px #fff;
+}
+#simul_list table.slist .icon span:not(:first-child) {
+  margin-left: -0.5em;
+}
+#simul_list table.slist .icon.rich span:not(:first-child) {
+  margin-left: -0.7em;
+}
+#simul_list table.slist td {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+#simul_list table.slist .header {
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  padding: 0!important;
+}
+#simul_list table.slist .header:hover {
+  transform: translateX(3px);
+  -webkit-transform: translateX(3px);
+}
+#simul_list table.slist .header a {
+  text-decoration: none;
+  padding: 1em;
+  display: block;
+}
+#simul_list table.slist .name {
+  letter-spacing: 3px;
+  font-size: 1.7em;
+  display: block;
+}
+.setup {
+  text-transform: uppercase;
+}

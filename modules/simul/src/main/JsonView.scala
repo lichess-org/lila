@@ -8,29 +8,26 @@ import lila.game.{ Game, GameRepo }
 import lila.user.{ User, UserRepo }
 
 final class JsonView(
-    getSimul: Simul.ID => Fu[Option[Simul]],
     getLightUser: String => Option[LightUser]) {
 
-  def apply(simulId: Simul.ID): Fu[JsObject] =
-    getSimul(simulId) flatten s"No such simul: $simulId" flatMap { simul =>
-      GameRepo.games(simul.gameIds) map { games =>
-        val lightHost = getLightUser(simul.hostId)
-        Json.obj(
-          "id" -> simul.id,
-          "host" -> lightHost.map { host =>
-            Json.obj(
-              "id" -> host.id,
-              "name" -> host.name,
-              "title" -> host.title,
-              "rating" -> simul.hostRating)
-          },
-          "name" -> simul.name,
-          "variants" -> simul.variants.map(variantJson),
-          "applicants" -> simul.applicants.sortBy(-_.player.rating).map(applicantJson),
-          "pairings" -> simul.pairings.sortBy(-_.player.rating).map(pairingJson(games)),
-          "isStarted" -> simul.isStarted,
-          "isFinished" -> simul.isFinished)
-      }
+  def apply(simul: Simul): Fu[JsObject] =
+    GameRepo.games(simul.gameIds) map { games =>
+      val lightHost = getLightUser(simul.hostId)
+      Json.obj(
+        "id" -> simul.id,
+        "host" -> lightHost.map { host =>
+          Json.obj(
+            "id" -> host.id,
+            "name" -> host.name,
+            "title" -> host.title,
+            "rating" -> simul.hostRating)
+        },
+        "name" -> simul.name,
+        "variants" -> simul.variants.map(variantJson),
+        "applicants" -> simul.applicants.sortBy(-_.player.rating).map(applicantJson),
+        "pairings" -> simul.pairings.sortBy(-_.player.rating).map(pairingJson(games)),
+        "isStarted" -> simul.isStarted,
+        "isFinished" -> simul.isFinished)
     }
 
   private def variantJson(v: chess.variant.Variant) = Json.obj(
@@ -42,7 +39,7 @@ final class JsonView(
     Json.obj(
       "id" -> player.user,
       "variant" -> player.variant.key,
-      "name" -> light.map(_.name),
+      "username" -> light.map(_.name),
       "title" -> light.map(_.title),
       "rating" -> player.rating
     ).noNull
@@ -54,6 +51,7 @@ final class JsonView(
 
   private def gameJson(g: Game) = Json.obj(
     "id" -> g.id,
+    "status" -> g.status.id,
     "fen" -> (chess.format.Forsyth exportBoard g.toChess.board),
     "lastMove" -> ~g.castleLastMoveTime.lastMoveString)
 
