@@ -18,7 +18,7 @@ private[video] final class Sheet(
     (__ \ "feed" \ "entry").read(Reads seq readEntry)
 
   def fetchAll: Funit = fetch flatMap { entries =>
-    entries.map { entry =>
+    entries.filter(_.include).map { entry =>
       api.video.find(entry.youtubeId).flatMap {
         case Some(video) =>
           val updated = video.copy(
@@ -77,6 +77,7 @@ object Sheet {
       `gsx$target`: GStr,
       `gsx$tags`: GStr,
       `gsx$language`: GStr,
+      `gsx$include`: GStr,
       `gsx$ads`: GStr) {
     def youtubeId = `gsx$youtubeid`.toString.trim
     def author = `gsx$youtubeauthor`.toString.trim
@@ -89,5 +90,6 @@ object Sheet {
     }
     def lang = `gsx$language`.toString.trim
     def ads = `gsx$ads`.toString.trim == "yes"
+    def include = `gsx$include`.toString.trim == "yes"
   }
 }
