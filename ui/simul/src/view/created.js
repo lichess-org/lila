@@ -74,7 +74,6 @@ module.exports = function(ctrl) {
               m('td.action', isHost ? m('a.button.text', {
                 'data-icon': 'E',
                 onclick: function(e) {
-                  e.target.parentNode.parentNode.style.display = 'none';
                   xhr.accept(applicant.player.id)(ctrl);
                 }
               }, 'Accept') : null)
@@ -101,7 +100,6 @@ module.exports = function(ctrl) {
               m('td.action', isHost ? m('a.button.text', {
                 'data-icon': 'L',
                 onclick: function(e) {
-                  e.target.parentNode.parentNode.style.display = 'none';
                   xhr.reject(applicant.player.id)(ctrl);
                 }
               }, 'Reject') : null)
