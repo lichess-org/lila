@@ -19,8 +19,12 @@ private[simul] final class SimulApi(
     socketHub: ActorRef,
     repo: SimulRepo) {
 
-  def addApplicant(simulId: Simul.ID, user: User, variant: Variant) {
-    WithSimul(repo.findCreated, simulId) { _ addApplicant SimulApplicant(SimulPlayer(user, variant)) }
+  def addApplicant(simulId: Simul.ID, user: User, variantKey: String) {
+    WithSimul(repo.findCreated, simulId) { simul =>
+      Variant(variantKey).filter(simul.variants.contains).fold(simul) { variant =>
+        simul addApplicant SimulApplicant(SimulPlayer(user, variant))
+      }
+    }
   }
 
   def removeApplicant(simulId: Simul.ID, user: User) {
@@ -34,8 +38,6 @@ private[simul] final class SimulApi(
       }
     }
   }
-
-  def update(simul: Simul) = repo.update(simul) >>- socketReload(simul.id)
 
   def start(simulId: Simul.ID) {
     Sequence(simulId) {
@@ -60,7 +62,8 @@ private[simul] final class SimulApi(
           _ ?? { simul =>
             val simul2 = simul.updatePairing(
               game.id,
-              _.finish(game.status, game.winnerUserId, game.turns))
+              _.finish(game.status, game.winnerUserId, game.turns)
+            )
             update(simul2).void >>- socketReload(simul2.id)
           }
         }
@@ -102,8 +105,12 @@ private[simul] final class SimulApi(
       .withSimulId(simul.id)
       .withId(pairing.gameId)
       .start
-    _ ← (GameRepo insertDenormalized game2) >>- onGameStart(game2.id)
+    _ ← (GameRepo insertDenormalized game2) >>-
+      onGameStart(game2.id) >>-
+      sendTo(simul.id, actorApi.StartGame(game2))
   } yield game2
+
+  private def update(simul: Simul) = repo.update(simul) >>- socketReload(simul.id)
 
   private def WithSimul(
     finding: Simul.ID => Fu[Option[Simul]],

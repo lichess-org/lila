@@ -68,7 +68,7 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     val simul = Simul.make(
       name = setup.name,
       clock = SimulClock(setup.clockTime * 60, setup.clockIncrement),
-      variants = setup.variants.flatMap(chess.variant.Variant.apply),
+      variants = setup.variants.flatMap { chess.variant.Variant(_) },
       host = me)
     simulColl insert simul inject simul
   }

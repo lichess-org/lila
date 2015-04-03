@@ -21,11 +21,13 @@ case class Simul(
 
   def id = _id
 
-  def isStarted = startedAt.isDefined
-
   def isCreated = !isStarted
 
+  def isStarted = startedAt.isDefined
+
   def isFinished = finishedAt.isDefined
+
+  def isRunning = isStarted && !isFinished
 
   def hasApplicant(userId: String) = applicants.exists(_ is userId)
 
@@ -51,7 +53,7 @@ case class Simul(
   }
 
   def removePairing(userId: String) =
-    copy(pairings = pairings filterNot (_ is userId))
+    copy(pairings = pairings filterNot (_ is userId)).finishIfDone
 
   def startable = isCreated && applicants.count(_.accepted) > 1
 
@@ -66,12 +68,15 @@ case class Simul(
     pairings = pairings collect {
       case p if p.gameId == gameId => f(p)
       case p                       => p
-    })
+    }).finishIfDone
 
   def ejectCheater(userId: String): Option[Simul] =
     hasUser(userId) option removeApplicant(userId).removePairing(userId)
 
-  def finish = copy(finishedAt = DateTime.now.some)
+  private def finishIfDone =
+    if (pairings.forall(_.finished))
+      copy(finishedAt = DateTime.now.some)
+    else this
 
   def gameIds = pairings.map(_.gameId)
 

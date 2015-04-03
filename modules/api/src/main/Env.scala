@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 import lila.common.PimpedConfig._
 import scala.collection.JavaConversions._
+import lila.simul.Simul
 
 final class Env(
     config: Config,
@@ -17,6 +18,7 @@ final class Env(
     analyseEnv: lila.analyse.Env,
     lobbyEnv: lila.lobby.Env,
     setupEnv: lila.setup.Env,
+    getSimul: Simul.ID => Fu[Option[Simul]],
     userIdsSharingIp: String => Fu[List[String]],
     val isProd: Boolean) {
 
@@ -64,6 +66,7 @@ final class Env(
     jsonView = roundJsonView,
     noteApi = noteApi,
     analysisApi = analysisApi,
+    getSimul = getSimul,
     lightUser = userEnv.lightUser)
 
   val lobbyApi = new LobbyApi(
@@ -92,6 +95,7 @@ object Env {
     analyseEnv = lila.analyse.Env.current,
     lobbyEnv = lila.lobby.Env.current,
     setupEnv = lila.setup.Env.current,
+    getSimul = lila.simul.Env.current.repo.find,
     roundJsonView = lila.round.Env.current.jsonView,
     noteApi = lila.round.Env.current.noteApi,
     pgnDump = lila.game.Env.current.pgnDump,

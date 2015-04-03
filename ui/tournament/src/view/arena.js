@@ -19,7 +19,7 @@ function playerTrs(ctrl, maxScore, player) {
     tag: 'tr',
     attrs: {
       key: player.id,
-      class: ctrl.userId === player.id ? '.me' : ''
+      class: ctrl.userId === player.id ? 'me' : ''
     },
     children: [
       m('td.name', [

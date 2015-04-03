@@ -5,53 +5,101 @@ var util = require('./util');
 var button = require('./button');
 var xhr = require('../xhr');
 
-function header(ctrl) {
-  var sim = ctrl.data;
-  return [
-    m('th.large', 'Simul in preparation'),
-    ctrl.userId ? m('th',
-      simul.containsMe(ctrl) ? [
-        (simul.createdByMe(ctrl) && simul.accepted().length > 1) ?
-        m('button.button.right', {
-          onclick: partial(xhr.start, ctrl)
-        }, 'Start') : null,
-        button.withdraw(ctrl)
-      ] : button.join(ctrl)
-    ) : m('th')
-  ];
+function maybeWithdrawButton(ctrl, applicant) {
+  if (ctrl.userId === applicant.player.id) return m('a.thin.button', {
+    onclick: partial(xhr.withdraw, ctrl)
+  }, ctrl.trans('withdraw'));
+}
+
+function byRating(a, b) {
+  return a.rating > b.rating
 }
 
 module.exports = function(ctrl) {
-  var candidates = simul.candidates(ctrl);
-  var accepted = simul.accepted(ctrl);
+  var candidates = simul.candidates(ctrl).sort(byRating);
+  var accepted = simul.accepted(ctrl).sort(byRating);
   var isHost = simul.createdByMe(ctrl);
   return [
-    util.title(ctrl),
-    m('table.slist.user_list.started.candidates',
-      m('thead', m('tr', m('th', {
-        colspan: 3
-      }, candidates.length + ' candidate players'))),
-      m('tbody', candidates.map(function(applicant) {
-        return m('tr', [
-          m('td', util.player(applicant.player)),
-          m('td', util.playerVariantName(ctrl, applicant.player)),
-          m('td', isHost ? m('button.button', {
-            onclick: partial(xhr.accept(applicant.player.id), ctrl)
-          }, 'Accept') : null)
-        ])
-      }))),
-    m('table.slist.user_list.started.accepted',
-      m('thead', m('tr', m('th', {
-        colspan: 3
-      }, accepted.length + ' accepted players'))),
-      m('tbody', accepted.map(function(applicant) {
-        return m('tr', [
-          m('td', util.player(applicant.player)),
-          m('td', util.playerVariantName(ctrl, applicant.player)),
-          m('td', isHost ? m('button.button', {
-            onclick: partial(xhr.reject(applicant.player.id), ctrl)
-          }, 'Reject') : null)
-        ])
-      }))),
+    ctrl.userId ? (
+      simul.createdByMe(ctrl) ? (accepted.length > 1 ?
+        m('a.button.top_right.text.active', {
+          'data-icon': 'G',
+          onclick: partial(xhr.start, ctrl)
+        }, 'Start') : null
+      ) : (
+        simul.containsMe(ctrl) ? m('a.button.top_right', {
+          onclick: partial(xhr.withdraw, ctrl)
+        }, ctrl.trans('withdraw')) : m('a.button.top_right.text', {
+            'data-icon': 'G',
+            onclick: function() {
+              if (ctrl.data.variants.length === 1)
+                xhr.join(ctrl.data.variants[0].key)(ctrl);
+              else {
+                $.modal($('#simul .join_choice'));
+                $('#modal-wrap .join_choice a').click(function() {
+                  $.modal.close();
+                  xhr.join($(this).data('variant'))(ctrl);
+                });
+              }
+            }
+          },
+          ctrl.trans('join'))
+      )) : null,
+    m('h1.text[data-icon=|]', ctrl.data.name),
+    m('div.halves',
+      m('div.half.candidates',
+        m('table.slist.user_list',
+          m('thead', m('tr', m('th', {
+            colspan: 3
+          }, [
+            m('strong', candidates.length),
+            ' candidate players'
+          ]))),
+          m('tbody', candidates.map(function(applicant) {
+            var variant = util.playerVariant(ctrl, applicant.player);
+            return m('tr', {
+              class: ctrl.userId === applicant.player.id ? 'me' : ''
+            }, [
+              m('td', util.player(applicant.player)),
+              m('td.variant.text', {
+                'data-icon': variant.icon
+              }, variant.name),
+              m('td.action', isHost ? m('a.button.text', {
+                'data-icon': 'E',
+                onclick: partial(xhr.accept(applicant.player.id), ctrl)
+              }, 'Accept') : null)
+            ])
+          })))
+      ),
+      m('div.half.accepted',
+        m('table.slist.user_list',
+          m('thead', m('tr', m('th', {
+            colspan: 3
+          }, [
+            m('strong', accepted.length),
+            ' accepted players'
+          ]))),
+          m('tbody', accepted.map(function(applicant) {
+            var variant = util.playerVariant(ctrl, applicant.player);
+            return m('tr', {
+              class: ctrl.userId === applicant.player.id ? 'me' : ''
+            }, [
+              m('td', util.player(applicant.player)),
+              m('td.variant.text', {
+                'data-icon': variant.icon
+              }, variant.name),
+              m('td.action', isHost ? m('a.button.text', {
+                'data-icon': 'L',
+                onclick: partial(xhr.reject(applicant.player.id), ctrl)
+              }, 'Reject') : null)
+            ])
+          })))
+      )
+    ),
+    m('div.join_choice', ctrl.data.variants.map(function(variant) {
+      return m('a.button', {
+        'data-variant': variant.key
+      }, variant.name);
+    }))
   ];
 };

@@ -29,6 +29,15 @@ private[simul] final class Socket(
 
   def receiveSpecific = {
 
+    case StartGame(game) =>
+      game.players foreach { player =>
+        player.userId flatMap memberByUserId foreach { member =>
+          notifyMember("redirect", game fullIdOf player.color)(member)
+        }
+      }
+
+    case Reload         => notifyReload
+
     case WithUserIds(f) => f(userIds)
 
     case PingVersion(uid, v) => {

@@ -1,7 +1,7 @@
 @(createds: List[lila.simul.Simul], starteds: List[lila.simul.Simul], finisheds: List[lila.simul.Simul])(implicit ctx: Context)
 
 @iconTd(sim: lila.simul.Simul) = {
-<td class="icon @if(sim.variantRich){rich}">
+<td class="variant_icons @if(sim.variantRich){rich}">
   @sim.perfTypes.map { pt =>
   <span class="is-gold" data-icon="@pt.iconChar"></span>
   }

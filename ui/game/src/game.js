@@ -20,7 +20,7 @@ function isPlayerTurn(data) {
 }
 
 function mandatory(data) {
-  return !!data.tournament;
+  return !!data.tournament || !!data.simul;
 }
 
 function playedTurns(data) {
@@ -35,6 +35,7 @@ function takebackable(data) {
   return playable(data) &&
     data.takebackable &&
     !data.tournament &&
+    !data.simul &&
     playedTurns(data) > 1 &&
     !data.player.proposingTakeback &&
     !data.opponent.proposingTakeback;

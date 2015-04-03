@@ -1,4 +1,4 @@
-@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.Tournament], withTourStanding: Boolean, userTv: Option[User] = None)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.Tournament], withTourStanding: Boolean, simul: Option[lila.simul.Simul], userTv: Option[User] = None)(implicit ctx: Context)
 
 @import pov._
 @import lila.tournament.arena
@@ -139,5 +139,11 @@
   }
   case _ => {
   }
+  }
+
+  @simul.map { sim =>
+  <div class="game_simul side_box no_padding">
+    <p class="top text" data-icon="|"><a href="@routes.Simul.show(sim.id)">@sim.name</a></p>
+  </div>
   }
 </div>

@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.Tournament], cross: Option[lila.game.Crosstable], playing: List[Pov])(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.Tournament], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], playing: List[Pov])(implicit ctx: Context)
 
 @import pov._
 
@@ -19,7 +19,7 @@ i18n: @jsI18n()
 
 @round.layout(
 title = title,
-side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, withTourStanding = true),
+side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, withTourStanding = true, simul),
 chat = pov.game.hasChat.option(base.chatDom(trans.chatRoom.str(), ctx.isAuth)),
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,

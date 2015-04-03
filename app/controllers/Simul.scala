@@ -91,6 +91,36 @@ object Simul extends LilaController {
       }
   }
 
+  def join(id: String, variant: String) = AuthBody { implicit ctx =>
+    implicit me =>
+      NoEngine {
+        negotiate(
+          html = fuccess {
+            env.api.addApplicant(id, me, variant)
+            Redirect(routes.Simul.show(id))
+          },
+          api = _ => fuccess {
+            env.api.addApplicant(id, me, variant)
+            Ok(Json.obj("ok" -> true))
+          }
+        )
+      }
+  }
+
+  def withdraw(id: String) = Auth { implicit ctx =>
+    me =>
+      negotiate(
+        html = fuccess {
+          env.api.removeApplicant(id, me)
+          Redirect(routes.Simul.show(id))
+        },
+        api = _ => fuccess {
+          env.api.removeApplicant(id, me)
+          Ok(Json.obj("ok" -> true))
+        }
+      )
+  }
+
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     (getInt("version") |@| get("sri")).tupled ?? {
       case (version, uid) => env.socketHandler.join(id, version, uid, ctx.me)

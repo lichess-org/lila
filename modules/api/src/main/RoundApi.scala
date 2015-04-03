@@ -10,6 +10,7 @@ import lila.game.Pov
 import lila.pref.Pref
 import lila.round.JsonView
 import lila.security.Granter
+import lila.simul.Simul
 import lila.tournament.{ Tournament, TournamentRepo }
 import lila.user.User
 
@@ -17,15 +18,21 @@ private[api] final class RoundApi(
     jsonView: JsonView,
     noteApi: lila.round.NoteApi,
     analysisApi: AnalysisApi,
+    getSimul: Simul.ID => Fu[Option[Simul]],
     lightUser: String => Option[LightUser]) {
 
   def player(pov: Pov, apiVersion: Int, otherPovs: List[Pov])(implicit ctx: Context): Fu[JsObject] =
     jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
       withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
+      (pov.game.simulId ?? getSimul) zip
       (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-        case ((json, tourOption), note) => (
-          blindMode _ compose withTournament(pov, tourOption)_ compose withNote(note)_ compose withOtherPovs(otherPovs)_
+        case (((json, tourOption), simulOption), note) => (
+          blindMode _ compose
+          withTournament(pov, tourOption)_ compose
+          withSimul(pov, simulOption)_ compose
+          withNote(note)_ compose
+          withOtherPovs(otherPovs)_
         )(json)
       }
 
@@ -38,9 +45,14 @@ private[api] final class RoundApi(
       initialFen = initialFen,
       withMoveTimes = withMoveTimes) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
+      (pov.game.simulId ?? getSimul) zip
       (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-        case ((json, tourOption), note) => (
-          blindMode _ compose withTournament(pov, tourOption)_ compose withNote(note)_ compose withAnalysis(analysis)_
+        case (((json, tourOption), simulOption), note) => (
+          blindMode _ compose
+          withTournament(pov, tourOption)_ compose
+          withSimul(pov, simulOption)_ compose
+          withNote(note)_ compose
+          withAnalysis(analysis)_
         )(json)
       }
 
@@ -70,6 +82,14 @@ private[api] final class RoundApi(
         "berserk1" -> pairing.map(_.berserk1).filter(0!=),
         "berserk2" -> pairing.map(_.berserk2).filter(0!=)
       ).noNull)
+    }
+
+  private def withSimul(pov: Pov, simulOption: Option[Simul])(json: JsObject) =
+    simulOption.fold(json) { simul =>
+      json + ("simul" -> Json.obj(
+        "id" -> simul.id,
+        "name" -> simul.name
+      ))
     }
 
   private def blindMode(js: JsObject)(implicit ctx: Context) =

@@ -60,8 +60,9 @@ object Analyse extends LilaController {
     GameRepo initialFen pov.game.id flatMap { initialFen =>
       (env.analyser get pov.game.id) zip
         (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
+        (pov.game.simulId ?? Env.simul.repo.find) zip
         Env.game.crosstableApi(pov.game) flatMap {
-          case ((analysis, tour), crosstable) =>
+          case (((analysis, tour), simul), crosstable) =>
             val division =
               if (HTTPRequest.isBot(ctx.req)) divider.empty
               else divider(pov.game, initialFen)
@@ -82,6 +83,7 @@ object Analyse extends LilaController {
                       analysis,
                       analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
                       tour,
+                      simul,
                       new TimeChart(pov.game, pov.game.pgnMoves),
                       crosstable,
                       userTv,

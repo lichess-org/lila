@@ -61,11 +61,12 @@ object Round extends LilaController with TheftPrevention {
           pov.game.started.fold(
             PreventTheft(pov) {
               (pov.game.tournamentId ?? TournamentRepo.byId) zip
+              (pov.game.simulId ?? Env.simul.repo.find) zip
                 Env.game.crosstableApi(pov.game) zip
                 (!pov.game.isTournament ?? otherPovs(pov.gameId)) flatMap {
-                  case ((tour, crosstable), playing) =>
+                  case (((tour, simul), crosstable), playing) =>
                     Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion, playing) map { data =>
-                      Ok(html.round.player(pov, data, tour = tour, cross = crosstable, playing = playing))
+                      Ok(html.round.player(pov, data, tour = tour, simul = simul, cross = crosstable, playing = playing))
                     }
                 }
             },
@@ -124,10 +125,11 @@ object Round extends LilaController with TheftPrevention {
         case Some(player) => fuccess(Redirect(routes.Round.player(pov.game fullIdOf player.color)))
         case None =>
           (pov.game.tournamentId ?? TournamentRepo.byId) zip
+          (pov.game.simulId ?? Env.simul.repo.find) zip
             Env.game.crosstableApi(pov.game) zip
             Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) map {
-              case ((tour, crosstable), data) =>
-                Ok(html.round.watcher(pov, data, tour, crosstable, userTv = userTv))
+              case (((tour, simul), crosstable), data) =>
+                Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv))
             }
       },
       api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = none) map { Ok(_) }
@@ -175,9 +177,10 @@ object Round extends LilaController with TheftPrevention {
 
   private def side(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
     (pov.game.tournamentId ?? TournamentRepo.byId) zip
+    (pov.game.simulId ?? Env.simul.repo.find) zip
       GameRepo.initialFen(pov.game) map {
-        case (tour, initialFen) =>
-          Ok(html.game.side(pov, initialFen, tour, withTourStanding = isPlayer))
+        case ((tour, simul), initialFen) =>
+          Ok(html.game.side(pov, initialFen, tour, withTourStanding = isPlayer, simul))
       }
 
   def continue(id: String, mode: String) = Open { implicit ctx =>

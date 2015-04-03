@@ -23,6 +23,7 @@ private[simul] case class Join(
   user: Option[User],
   version: Int)
 private[simul] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
+private[simul] case class StartGame(game: lila.game.Game)
 private[simul] case object Reload
 private[simul] case class Connected(enumerator: JsEnumerator, member: Member)
 

@@ -6,19 +6,16 @@ case class SimulPairing(
     player: SimulPlayer,
     gameId: String,
     status: chess.Status,
-    wins: Option[Boolean],
-    turns: Option[Int]) {
+    wins: Option[Boolean]) {
 
   def finished = status >= chess.Status.Mate
-  def playing = !finished
 
   def is(userId: String): Boolean = player is userId
   def is(other: SimulPlayer): Boolean = player is other
 
   def finish(s: chess.Status, w: Option[String], t: Int) = copy(
     status = s,
-    wins = w map player.is,
-    turns = t.some)
+    wins = w map player.is)
 }
 
 private[simul] object SimulPairing {
@@ -27,6 +24,5 @@ private[simul] object SimulPairing {
     player = player,
     gameId = IdGenerator.game,
     status = chess.Status.Created,
-    wins = none,
-    turns = none)
+    wins = none)
 }

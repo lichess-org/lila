@@ -19,13 +19,15 @@ function simulAction(action, ctrl) {
 }
 
 module.exports = {
-  earlyStart: partial(simulAction, 'start'),
-  join: partial(simulAction, 'join'),
+  start: partial(simulAction, 'start'),
+  join: function(variantKey) {
+    return partial(simulAction, 'join/' + variantKey);
+  },
   withdraw: partial(simulAction, 'withdraw'),
   accept: function(user) {
-    simulAction('accept/' + user)
+    return partial(simulAction, 'accept/' + user)
   },
-  unaccept: function(user) {
-    simulAction('unaccept/' + user)
+  reject: function(user) {
+    return partial(simulAction, 'reject/' + user)
   }
 };

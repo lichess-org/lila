@@ -23,15 +23,16 @@ final class JsonView(
             "rating" -> simul.hostRating)
         },
         "name" -> simul.name,
-        "variants" -> simul.variants.map(variantJson),
+        "variants" -> simul.variants.map(variantJson(chess.Speed(simul.clock.chessClock.some))),
         "applicants" -> simul.applicants.sortBy(-_.player.rating).map(applicantJson),
         "pairings" -> simul.pairings.sortBy(-_.player.rating).map(pairingJson(games)),
         "isStarted" -> simul.isStarted,
         "isFinished" -> simul.isFinished)
     }
 
-  private def variantJson(v: chess.variant.Variant) = Json.obj(
+  private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) = Json.obj(
     "key" -> v.key,
+    "icon" -> lila.game.PerfPicker.perfType(speed, v, none).map(_.iconChar.toString),
     "name" -> v.name)
 
   private def playerJson(player: SimulPlayer) = {
@@ -57,6 +58,7 @@ final class JsonView(
 
   private def pairingJson(games: List[Game])(p: SimulPairing) = Json.obj(
     "player" -> playerJson(p.player),
+    "wins" -> p.wins,
     "game" -> games.find(_.id == p.gameId).map(gameJson)
   )
 }

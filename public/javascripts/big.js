@@ -2177,12 +2177,13 @@ lichess.storage = {
   $.modal = function(html) {
     var $wrap = $('<div id="modal-wrap">').html(html.clone().show());
     var $overlay = $('<div id="modal-overlay">').html($wrap);
-    $overlay.one('click', function() {
-      $('#modal-overlay').remove();
-    });
+    $overlay.one('click', $.modal.close);
     $wrap.click(function(e) {
       e.stopPropagation();
     });
     $('body').prepend($overlay);
+  };
+  $.modal.close = function() {
+    $('#modal-overlay').remove();
   };
 })();
