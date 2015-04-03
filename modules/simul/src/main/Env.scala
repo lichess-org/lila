@@ -40,7 +40,9 @@ final class Env(
 
   lazy val api = new SimulApi(
     repo = repo,
+    system = system,
     socketHub = socketHub,
+    site = hub.socket.site,
     onGameStart = onGameStart,
     sequencers = sequencerMap)
 

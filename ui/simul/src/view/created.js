@@ -46,6 +46,13 @@ module.exports = function(ctrl) {
           ctrl.trans('join'))
       )) : null,
     m('h1.text[data-icon=|]', ctrl.data.name),
+    simul.acceptedContainsMe(ctrl) ? m('div.instructions',
+      'You have been selected! Hold still, the simul is about to begin.'
+    ) : (
+      (simul.createdByMe(ctrl) && ctrl.data.applicants.length < 6) ? m('div.instructions',
+        'Share this page URL to let people enter the simul!'
+      ) : null
+    ),
     m('div.halves',
       m('div.half.candidates',
         m('table.slist.user_list',
@@ -66,7 +73,10 @@ module.exports = function(ctrl) {
               }, variant.name),
               m('td.action', isHost ? m('a.button.text', {
                 'data-icon': 'E',
-                onclick: partial(xhr.accept(applicant.player.id), ctrl)
+                onclick: function(e) {
+                  e.target.parentNode.parentNode.style.display = 'none';
+                  xhr.accept(applicant.player.id)(ctrl);
+                }
               }, 'Accept') : null)
             ])
           })))
@@ -90,7 +100,10 @@ module.exports = function(ctrl) {
               }, variant.name),
               m('td.action', isHost ? m('a.button.text', {
                 'data-icon': 'L',
-                onclick: partial(xhr.reject(applicant.player.id), ctrl)
+                onclick: function(e) {
+                  e.target.parentNode.parentNode.style.display = 'none';
+                  xhr.reject(applicant.player.id)(ctrl);
+                }
               }, 'Reject') : null)
             ])
           })))

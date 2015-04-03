@@ -29,6 +29,11 @@ module.exports = {
       return a.accepted;
     });
   },
+  acceptedContainsMe: function(ctrl) {
+    return ctrl.data.applicants.filter(function(a) {
+      return a.accepted && a.player.id === ctrl.userId;
+    }).length > 0
+  },
   myCurrentPairing: function(ctrl) {
     if (!ctrl.userId) return null;
     return ctrl.data.pairings.filter(function(p) {

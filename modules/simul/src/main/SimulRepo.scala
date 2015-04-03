@@ -67,7 +67,10 @@ private[simul] final class SimulRepo(simulColl: Coll) {
   def create(setup: SimulSetup, me: User): Fu[Simul] = {
     val simul = Simul.make(
       name = setup.name,
-      clock = SimulClock(setup.clockTime * 60, setup.clockIncrement),
+      clock = SimulClock(
+        limit = setup.clockTime * 60,
+        increment = setup.clockIncrement,
+        hostExtraTime = setup.clockExtra * 60),
       variants = setup.variants.flatMap { chess.variant.Variant(_) },
       host = me)
     simulColl insert simul inject simul

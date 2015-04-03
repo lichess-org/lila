@@ -6,6 +6,7 @@ import play.api.data.validation.Constraints._
 
 import chess.Mode
 import lila.common.Form._
+import lila.common.LameName
 
 final class DataForm {
 
@@ -17,19 +18,16 @@ final class DataForm {
   val clockIncrementDefault = 60
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
-  val clockMultipliers = 1 to 5
-  val clockMultiplierChoices = clockMultipliers map {
-    case 1 => (1, "Same as participants")
-    case 2 => (2, "Twice more time")
-    case x => (x, s"${x}x more time")
-  }
-  val clockMultiplierDefault = 1
+  val clockExtras = (10 to 60 by 10) ++ (90 to 120 by 30)
+  val clockExtraChoices = options(clockExtras, "%d minute{s}")
+  val clockExtraDefault = 30
 
   def create(defaultName: String) = Form(mapping(
-    "name" -> text(minLength = 4),
+    "name" -> text(minLength = 4)
+      .verifying("This name is not acceptable", n => !LameName(n)),
     "clockTime" -> numberIn(clockTimeChoices),
     "clockIncrement" -> numberIn(clockIncrementChoices),
-    "clockMultiplier" -> numberIn(clockMultiplierChoices),
+    "clockExtra" -> numberIn(clockExtraChoices),
     "variants" -> list {
       number.verifying(Set(chess.variant.Standard.id, chess.variant.Chess960.id, chess.variant.KingOfTheHill.id,
         chess.variant.ThreeCheck.id, chess.variant.Antichess.id, chess.variant.Atomic.id, chess.variant.Horde.id) contains _)
@@ -39,7 +37,7 @@ final class DataForm {
     name = defaultName,
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
-    clockMultiplier = clockMultiplierDefault,
+    clockExtra = clockExtraDefault,
     variants = List(chess.variant.Standard.id))
 }
 
@@ -47,5 +45,5 @@ case class SimulSetup(
   name: String,
   clockTime: Int,
   clockIncrement: Int,
-  clockMultiplier: Int,
+  clockExtra: Int,
   variants: List[Int])

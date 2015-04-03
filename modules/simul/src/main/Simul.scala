@@ -25,9 +25,9 @@ case class Simul(
 
   def isStarted = startedAt.isDefined
 
-  def isFinished = finishedAt.isDefined
+  def isFinished = status == SimulStatus.Finished
 
-  def isRunning = isStarted && !isFinished
+  def isRunning = status == SimulStatus.Started
 
   def hasApplicant(userId: String) = applicants.exists(_ is userId)
 
@@ -58,6 +58,7 @@ case class Simul(
   def startable = isCreated && applicants.count(_.accepted) > 1
 
   def start = startable option copy(
+    status = SimulStatus.Started,
     startedAt = DateTime.now.some,
     applicants = Nil,
     pairings = applicants collect {
@@ -75,7 +76,9 @@ case class Simul(
 
   private def finishIfDone =
     if (pairings.forall(_.finished))
-      copy(finishedAt = DateTime.now.some)
+      copy(
+        status = SimulStatus.Finished,
+        finishedAt = DateTime.now.some)
     else this
 
   def gameIds = pairings.map(_.gameId)

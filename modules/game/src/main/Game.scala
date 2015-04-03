@@ -84,7 +84,7 @@ case class Game(
   def isMandatory = isTournament || isSimul
   def nonMandatory = !isMandatory
 
-  def hasChat = !isTournament && nonAi
+  def hasChat = !isTournament && !isSimul && nonAi
 
   // in tenths
   private def lastMoveTime: Option[Long] = castleLastMoveTime.lastMoveTime map {
@@ -209,13 +209,6 @@ case class Game(
     updatedAt = DateTime.now.some
   ))
 
-  def startClock(compensation: Float) = copy(
-    clock = clock map {
-      case c: chess.PausedClock => c.start.giveTime(White, compensation)
-      case c                    => c
-    }
-  )
-
   def correspondenceClock: Option[CorrespondenceClock] =
     daysPerTurn ifTrue (playable && bothPlayersHaveMoved) map { days =>
       val increment = days * 24 * 60 * 60
@@ -277,7 +270,7 @@ case class Game(
       nonMandatory
 
   def playerCanProposeTakeback(color: Color) =
-    started && playable && !isTournament &&
+    started && playable && !isTournament && !isSimul &&
       bothPlayersHaveMoved &&
       !player(color).isProposingTakeback &&
       !opponent(color).isProposingTakeback

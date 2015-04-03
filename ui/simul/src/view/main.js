@@ -12,7 +12,7 @@ module.exports = function(ctrl) {
   else handler = created;
 
   return m('div', {
-      class: 'content_box no_padding simul_box simul_show' + (ctrl.vm.loading ? ' loading' : '')
+      class: 'content_box no_padding simul_box simul_show'
     },
     handler(ctrl)
   );

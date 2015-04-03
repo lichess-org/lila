@@ -7,7 +7,6 @@ import scala.concurrent.duration._
 
 import actorApi._
 import lila.common.LightUser
-import lila.hub.actorApi.WithUserIds
 import lila.hub.TimeBomb
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -37,8 +36,6 @@ private[simul] final class Socket(
       }
 
     case Reload         => notifyReload
-
-    case WithUserIds(f) => f(userIds)
 
     case PingVersion(uid, v) => {
       ping(uid)

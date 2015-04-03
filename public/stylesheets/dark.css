@@ -144,6 +144,7 @@ body.dark div.side_box div.game_infos,
 body.dark #challenge_notifications div.notification,
 body.dark #message_notifications div.notification,
 body.dark #video .content_box_top,
+body.dark #simul .half,
 body.dark div.chat_menu > a {
   border-color: #3d3d3d;
 }
@@ -489,7 +490,7 @@ body.dark #hamburger line {
 body.dark #fpmenu .perf::before {
   color: #8b6523;
 }
-body.dark #simul_list table.slist .icon span {
+body.dark .variant_icons span {
   text-shadow: 0px 0px 5px #000,
   0px 0px 10px #000,
   0px 0px 20px #000;

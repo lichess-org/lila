@@ -83,7 +83,7 @@ object Simul extends LilaController {
       NoEngine {
         implicit val req = ctx.body
         newForm(me).bindFromRequest.fold(
-          err => BadRequest(html.simul.form(err.pp, env.forms)).fuccess,
+          err => BadRequest(html.simul.form(err, env.forms)).fuccess,
           setup => env.repo.create(setup, me) map { simul =>
             println(simul)
             Redirect(routes.Simul.show(simul.id))

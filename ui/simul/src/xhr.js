@@ -7,7 +7,6 @@ var xhrConfig = function(xhr) {
 }
 
 function simulAction(action, ctrl) {
-  ctrl.vm.loading = true;
   return m.request({
     method: 'POST',
     url: '/simul/' + ctrl.data.id + '/' + action,

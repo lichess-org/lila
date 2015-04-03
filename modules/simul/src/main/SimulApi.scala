@@ -1,22 +1,27 @@
 package lila.simul
 
-import akka.actor.ActorRef
+import akka.actor._
 import org.joda.time.DateTime
+import play.api.libs.json._
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 import scala.concurrent.duration._
 
 import chess.Status
 import chess.variant.Variant
+import lila.common.Debouncer
 import lila.db.Types.Coll
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.map.Tell
+import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 
 private[simul] final class SimulApi(
+    system: ActorSystem,
     sequencers: ActorRef,
     onGameStart: String => Unit,
     socketHub: ActorRef,
+    site: ActorSelection,
     repo: SimulRepo) {
 
   def addApplicant(simulId: Simul.ID, user: User, variantKey: String) {
@@ -64,7 +69,7 @@ private[simul] final class SimulApi(
               game.id,
               _.finish(game.status, game.winnerUserId, game.turns)
             )
-            update(simul2).void >>- socketReload(simul2.id)
+            update(simul2).void
           }
         }
       }
@@ -78,7 +83,7 @@ private[simul] final class SimulApi(
           repo.findCreated(oldSimul.id) flatMap {
             _ ?? { simul =>
               (simul ejectCheater userId) ?? { simul2 =>
-                update(simul2).void >>- socketReload(simul2.id)
+                update(simul2).void
               }
             }
           }
@@ -110,7 +115,8 @@ private[simul] final class SimulApi(
       sendTo(simul.id, actorApi.StartGame(game2))
   } yield game2
 
-  private def update(simul: Simul) = repo.update(simul) >>- socketReload(simul.id)
+  private def update(simul: Simul) =
+    repo.update(simul) >>- socketReload(simul.id) >>- publish()
 
   private def WithSimul(
     finding: Simul.ID => Fu[Option[Simul]],
@@ -124,6 +130,15 @@ private[simul] final class SimulApi(
 
   private def Sequence(simulId: Simul.ID)(work: => Funit) {
     sequencers ! Tell(simulId, lila.hub.Sequencer work work)
+  }
+
+  private object publish {
+    private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
+    private val debouncer = system.actorOf(Props(new Debouncer(2 seconds, {
+      (_: Debouncer.Nothing) =>
+        site ! siteMessage
+    })))
+    def apply() { debouncer ! Debouncer.Nothing }
   }
 
   private def sendTo(simulId: Simul.ID, msg: Any) {

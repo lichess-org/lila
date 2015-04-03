@@ -26,6 +26,9 @@
 #simul form.plain .error {
   color: red;
 }
+#simul .content_box {
+  min-height: 400px;
+}
 #simul .halves {
   overflow: hidden;
 }
@@ -44,7 +47,7 @@
   width: calc(50% + 1px);
 }
 #simul .half .variant::before {
-  font-size: 1.8em;
+  font-size: 1.6em;
   opacity: 0.8;
 }
 #simul .half .user_link {
@@ -65,6 +68,10 @@
 #simul .top_right {
   float: right;
   margin: 20px 25px 0 0;
+}
+#simul .instructions {
+  text-align: center;
+  margin-bottom: 1em;
 }
 #simul a.user_link em {
   font-weight: bold;
@@ -152,6 +159,10 @@ div.side_box .game_infos {
   letter-spacing: 3px;
   font-size: 1.7em;
   display: block;
+}
+#simul_list table.slist .create td {
+  padding: 2em;
+  text-align: center;
 }
 .setup {
   text-transform: uppercase;

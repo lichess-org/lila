@@ -11,13 +11,8 @@ module.exports = function(env) {
 
   this.socket = new socket(env.socketSend, this);
 
-  this.vm = {
-    loading: false
-  };
-
   this.reload = function(data) {
     this.data = data;
-    this.vm.loading = false;
     startWatching();
   }.bind(this);
 
