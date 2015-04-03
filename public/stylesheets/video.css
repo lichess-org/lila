@@ -119,6 +119,12 @@
   margin-left: -30px;
   width: 241px;
 }
+@media (max-width: 1070px) {
+#video_side {
+  margin-left: 0px;
+  width: 211px;
+}
+}
 #video_side .tag_list {
   text-transform: capitalize;
 }
