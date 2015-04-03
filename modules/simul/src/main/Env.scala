@@ -3,6 +3,7 @@ package lila.simul
 import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
@@ -14,6 +15,7 @@ import makeTimeout.short
 final class Env(
     config: Config,
     system: ActorSystem,
+    scheduler: lila.common.Scheduler,
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
     flood: lila.security.Flood,
@@ -89,6 +91,8 @@ final class Env(
   private val sequencerMap = system.actorOf(Props(ActorMap { id =>
     new Sequencer(SequencerTimeout)
   }), name = SequencerMapName)
+
+  scheduler.effect(1 minute, "[simul] cleanup")(repo.cleanup)
 }
 
 object Env {
@@ -98,6 +102,7 @@ object Env {
   lazy val current = "[boot] simul" describes new Env(
     config = lila.common.PlayApp loadConfig "simul",
     system = lila.common.PlayApp.system,
+    scheduler = lila.common.PlayApp.scheduler,
     db = lila.db.Env.current,
     mongoCache = lila.memo.Env.current.mongoCache,
     flood = lila.security.Env.current.flood,

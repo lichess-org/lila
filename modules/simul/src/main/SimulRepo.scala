@@ -2,6 +2,7 @@ package lila.simul
 
 import reactivemongo.bson._
 import reactivemongo.core.commands._
+import org.joda.time.DateTime
 
 import chess.Status
 import chess.variant.Variant
@@ -49,15 +50,15 @@ private[simul] final class SimulRepo(simulColl: Coll) {
 
   def allCreated: Fu[List[Simul]] = simulColl.find(
     createdSelect
-  ).sort(BSONDocument("createdAt" -> 1)).cursor[Simul].collect[List]()
+  ).sort(BSONDocument("createdAt" -> -1)).cursor[Simul].collect[List]()
 
   def allStarted: Fu[List[Simul]] = simulColl.find(
     startedSelect
-  ).sort(BSONDocument("createdAt" -> 1)).cursor[Simul].collect[List]()
+  ).sort(BSONDocument("createdAt" -> -1)).cursor[Simul].collect[List]()
 
   def allFinished(max: Int): Fu[List[Simul]] = simulColl.find(
     finishedSelect
-  ).sort(BSONDocument("createdAt" -> 1)).cursor[Simul].collect[List](max)
+  ).sort(BSONDocument("createdAt" -> -1)).cursor[Simul].collect[List](max)
 
   def allNotFinished =
     simulColl.find(
@@ -78,4 +79,9 @@ private[simul] final class SimulRepo(simulColl: Coll) {
 
   def update(simul: Simul) =
     simulColl.update(BSONDocument("_id" -> simul.id), simul).void
+
+  def cleanup =
+    simulColl.remove(
+      createdSelect ++ BSONDocument(
+        "createdAt" -> BSONDocument("$lt" -> (DateTime.now minusMinutes 30))))
 }
