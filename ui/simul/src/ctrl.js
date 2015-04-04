@@ -2,6 +2,7 @@ var m = require('mithril');
 var socket = require('./socket');
 var xhr = require('./xhr');
 var util = require('chessground').util;
+var simul = require('./simul');
 
 module.exports = function(env) {
 
@@ -12,6 +13,8 @@ module.exports = function(env) {
   this.socket = new socket(env.socketSend, this);
 
   this.reload = function(data) {
+    if (simul.createdByMe(data) && !this.data.isStarted && data.isStarted)
+      lichess.storage.set('lichess.move_on', 1); // hideous hack :D
     this.data = data;
     startWatching();
   }.bind(this);
