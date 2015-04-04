@@ -61,6 +61,7 @@ module.exports = function(root) {
   }.bind(this);
 
   var disable = function() {
+    this.ply = 0;
     this.vm.late = false;
     root.chessground.set({
       movable: {
@@ -82,9 +83,9 @@ module.exports = function(root) {
     if (this.ply == ply || ply < 1 || ply > root.data.game.moves.length) return;
     this.active = ply != root.data.game.moves.length;
     this.ply = ply;
+    showFen();
     if (this.active) enable();
     else disable();
-    showFen();
   }.bind(this);
 
   this.onReload = function(cfg) {
