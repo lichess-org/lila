@@ -12,7 +12,6 @@ import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
 import lila.rating.{ Glicko, Perf, PerfType }
-import tube.userTube
 
 object UserRepo extends UserRepo {
   protected def userTube = tube.userTube
@@ -238,7 +237,9 @@ trait UserRepo {
 
   def enable(id: ID) = $update.field(id, "enabled", true)
 
-  def disable(id: ID) = $update.field(id, "enabled", false)
+  def disable(id: ID) = $update($select(id), BSONDocument(
+    "$set" -> BSONDocument("enabled" -> false),
+    "$unset" -> BSONDocument("email" -> true)))
 
   def passwd(id: ID, password: String): Funit =
     $primitive.one($select(id), "salt")(_.asOpt[String]) flatMap { saltOption =>
