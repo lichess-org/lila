@@ -9,7 +9,7 @@
     </div>
     <span class="clock">@sim.clock.show</span><br />
     <div class="setup">
-      @sim.variants.map(_.name).mkString(", ")
+      @sim.variants.map(_.name).mkString(", "), @trans.casual()
     </div>
   </div>
   @trans.by(usernameOrId(sim.hostId)), @momentFormat(sim.createdAt)
