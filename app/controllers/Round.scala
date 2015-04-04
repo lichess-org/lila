@@ -65,7 +65,7 @@ object Round extends LilaController with TheftPrevention {
                 Env.game.crosstableApi(pov.game) zip
                 (!pov.game.isTournament ?? otherPovs(pov.gameId)) flatMap {
                   case (((tour, simul), crosstable), playing) =>
-                    Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion, playing) map { data =>
+                    Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
                       Ok(html.round.player(pov, data, tour = tour, simul = simul, cross = crosstable, playing = playing))
                     }
                 }
@@ -77,7 +77,7 @@ object Round extends LilaController with TheftPrevention {
           if (isTheft(pov)) fuccess(theftResponse)
           else {
             if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
-            Env.api.roundApi.player(pov, apiVersion, Nil) map { Ok(_) }
+            Env.api.roundApi.player(pov, apiVersion) map { Ok(_) }
           }
         }
       )

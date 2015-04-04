@@ -152,7 +152,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
                 implicit val req = ctx.req
                 redirectPov(p, routes.Round.player(p.fullId))
               },
-              api = apiVersion => Env.api.roundApi.player(p, apiVersion, otherPovs = Nil) map { data =>
+              api = apiVersion => Env.api.roundApi.player(p, apiVersion) map { data =>
                 Created(data) as JSON
               })
           }
@@ -164,7 +164,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
     OptionFuResult(GameRepo pov fullId) { pov =>
       pov.game.started.fold(
         Redirect(routes.Round.player(pov.fullId)).fuccess,
-        Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion, otherPovs = Nil) zip
+        Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) zip
           (userId ?? UserRepo.named) flatMap {
             case (data, user) => PreventTheft(pov) {
               Ok(html.setup.await(
@@ -211,7 +211,7 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
         config => op(config)(ctx) flatMap {
           case (pov, call) => negotiate(
             html = fuccess(redirectPov(pov, call)),
-            api = apiVersion => Env.api.roundApi.player(pov, apiVersion, otherPovs = Nil) map { data =>
+            api = apiVersion => Env.api.roundApi.player(pov, apiVersion) map { data =>
               Created(data) as JSON
             }
           )

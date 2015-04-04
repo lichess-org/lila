@@ -21,7 +21,7 @@ private[api] final class RoundApi(
     getSimul: Simul.ID => Fu[Option[Simul]],
     lightUser: String => Option[LightUser]) {
 
-  def player(pov: Pov, apiVersion: Int, otherPovs: List[Pov])(implicit ctx: Context): Fu[JsObject] =
+  def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] =
     jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
       withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) zip
@@ -31,8 +31,7 @@ private[api] final class RoundApi(
           blindMode _ compose
           withTournament(pov, tourOption)_ compose
           withSimul(pov, simulOption)_ compose
-          withNote(note)_ compose
-          withOtherPovs(otherPovs)_
+          withNote(note)_
         )(json)
       }
 
@@ -55,10 +54,6 @@ private[api] final class RoundApi(
           withAnalysis(analysis)_
         )(json)
       }
-
-  private def withOtherPovs(otherPovs: List[Pov])(json: JsObject) =
-    if (otherPovs.exists(_.game.nonAi)) json + ("simul" -> JsBoolean(true))
-    else json
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
