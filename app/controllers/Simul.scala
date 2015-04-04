@@ -54,6 +54,13 @@ object Simul extends LilaController {
     }
   }
 
+  def abort(simulId: String) = Open { implicit ctx =>
+    AsHost(simulId) { simul =>
+      env.api abort simul.id
+      Ok(Json.obj("ok" -> true)) as JSON
+    }
+  }
+
   def accept(simulId: String, userId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
       env.api.accept(simul.id, userId, true)
@@ -68,13 +75,10 @@ object Simul extends LilaController {
     }
   }
 
-  private def newForm(me: lila.user.User) =
-    env.forms.create(s"${me.username}'s simul")
-
   def form = Auth { implicit ctx =>
     me =>
       NoEngine {
-        Ok(html.simul.form(newForm(me), env.forms)).fuccess
+        Ok(html.simul.form(env.forms.create, env.forms)).fuccess
       }
   }
 
@@ -82,7 +86,7 @@ object Simul extends LilaController {
     implicit me =>
       NoEngine {
         implicit val req = ctx.body
-        newForm(me).bindFromRequest.fold(
+        env.forms.create.bindFromRequest.fold(
           err => BadRequest(html.simul.form(err, env.forms)).fuccess,
           setup => env.api.create(setup, me) map { simul =>
             Redirect(routes.Simul.show(simul.id))

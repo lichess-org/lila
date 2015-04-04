@@ -27,6 +27,7 @@ private[simul] case class Talk(tourId: String, u: String, t: String, troll: Bool
 private[simul] case class StartGame(game: Game)
 private[simul] case class StartSimul(firstGame: Game)
 private[simul] case object Reload
+private[simul] case object Aborted
 private[simul] case class Connected(enumerator: JsEnumerator, member: Member)
 
 private[simul] case object NotifyCrowd

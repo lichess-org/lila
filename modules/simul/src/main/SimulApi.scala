@@ -33,7 +33,6 @@ private[simul] final class SimulApi(
 
   def create(setup: SimulSetup, me: User): Fu[Simul] = {
     val simul = Simul.make(
-      name = setup.name,
       clock = SimulClock(
         limit = setup.clockTime * 60,
         increment = setup.clockIncrement,
@@ -78,6 +77,16 @@ private[simul] final class SimulApi(
               }
             } >> currentHostIdsCache.clear
           }
+        }
+      }
+    }
+  }
+
+  def abort(simulId: Simul.ID) {
+    Sequence(simulId) {
+      repo.findCreated(simulId) flatMap {
+        _ ?? { simul =>
+          (repo remove simul) >>- sendTo(simul.id, actorApi.Aborted) >>- publish()
         }
       }
     }

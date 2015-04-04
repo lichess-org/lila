@@ -35,11 +35,13 @@ private[simul] final class Socket(
 
   def receiveSpecific = {
 
-    case StartGame(game) => redirectPlayer(game, chess.Black)
+    case StartGame(game)       => redirectPlayer(game, chess.Black)
 
     case StartSimul(firstGame) => redirectPlayer(firstGame, chess.White)
 
-    case Reload => notifyReload
+    case Reload                => notifyReload
+
+    case Aborted               => notifyVersion("aborted", Json.obj(), Messadata())
 
     case PingVersion(uid, v) => {
       ping(uid)

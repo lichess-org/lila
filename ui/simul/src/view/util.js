@@ -8,7 +8,7 @@ module.exports = {
     }, time.fromNow());
   },
   title: function(ctrl) {
-    return m('h1.text[data-icon=|]', ctrl.data.name);
+    return m('h1.text[data-icon=|]', ctrl.data.fullName);
   },
   player: function(p) {
     return {

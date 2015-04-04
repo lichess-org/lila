@@ -72,6 +72,9 @@ private[simul] final class SimulRepo(simulColl: Coll) {
   def update(simul: Simul) =
     simulColl.update(BSONDocument("_id" -> simul.id), simul).void
 
+  def remove(simul: Simul) =
+    simulColl.remove(BSONDocument("_id" -> simul.id)).void
+
   def cleanup =
     simulColl.remove(
       createdSelect ++ BSONDocument(

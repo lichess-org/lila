@@ -19,6 +19,7 @@ function simulAction(action, ctrl) {
 
 module.exports = {
   start: partial(simulAction, 'start'),
+  abort: partial(simulAction, 'abort'),
   join: function(variantKey) {
     return partial(simulAction, 'join/' + variantKey);
   },

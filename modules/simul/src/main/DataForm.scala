@@ -22,9 +22,7 @@ final class DataForm {
   val clockExtraChoices = options(clockExtras, "%d minute{s}")
   val clockExtraDefault = 0
 
-  def create(defaultName: String) = Form(mapping(
-    "name" -> text(minLength = 4)
-      .verifying("This name is not acceptable", n => !LameName(n)),
+  def create = Form(mapping(
     "clockTime" -> numberIn(clockTimeChoices),
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "clockExtra" -> numberIn(clockExtraChoices),
@@ -34,7 +32,6 @@ final class DataForm {
     }.verifying("At least one variant", _.nonEmpty)
   )(SimulSetup.apply)(SimulSetup.unapply)
   ) fill SimulSetup(
-    name = defaultName,
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     clockExtra = clockExtraDefault,
@@ -42,7 +39,6 @@ final class DataForm {
 }
 
 case class SimulSetup(
-  name: String,
   clockTime: Int,
   clockIncrement: Int,
   clockExtra: Int,

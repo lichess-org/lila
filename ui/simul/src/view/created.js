@@ -25,7 +25,12 @@ module.exports = function(ctrl) {
         m('a.button.top_right.text.active', {
           'data-icon': 'G',
           onclick: partial(xhr.start, ctrl)
-        }, 'Start') : null
+        }, 'Start') : m('a.button.top_right.text', {
+          'data-icon': 'L',
+          onclick: function() {
+            if (confirm('Delete this simul?')) xhr.abort(ctrl);
+          }
+        }, ctrl.trans('cancel'))
       ) : (
         simul.containsMe(ctrl) ? m('a.button.top_right', {
           onclick: partial(xhr.withdraw, ctrl)
@@ -45,7 +50,7 @@ module.exports = function(ctrl) {
           },
           ctrl.trans('join'))
       )) : null,
-    m('h1.text[data-icon=|]', ctrl.data.name),
+    util.title(ctrl),
     simul.acceptedContainsMe(ctrl) ? m('div.instructions',
       'You have been selected! Hold still, the simul is about to begin.'
     ) : (

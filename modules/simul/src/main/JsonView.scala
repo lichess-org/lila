@@ -23,6 +23,7 @@ final class JsonView(
             "rating" -> simul.hostRating)
         },
         "name" -> simul.name,
+        "fullName" -> simul.fullName,
         "variants" -> simul.variants.map(variantJson(chess.Speed(simul.clock.chessClock.some))),
         "applicants" -> simul.applicants.sortBy(-_.player.rating).map(applicantJson),
         "pairings" -> simul.pairings.sortBy(-_.player.rating).map(pairingJson(games)),

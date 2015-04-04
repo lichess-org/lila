@@ -9,6 +9,9 @@ module.exports = function(send, ctrl) {
     reload: function(data) {
       ctrl.reload(data);
       m.redraw();
+    },
+    aborted: function() {
+      location.reload();
     }
   };
 

@@ -133,9 +133,10 @@ POST  /simul/new                              controllers.Simul.create
 GET   /simul/reload                           controllers.Simul.homeReload
 GET   /simul/$id<\w{8}>                       controllers.Simul.show(id: String)
 GET   /simul/$id<\w{8}>/socket/v:apiVersion   controllers.Simul.websocket(id: String, apiVersion: Int)
-POST   /simul/$id<\w{8}>/accept/:user         controllers.Simul.accept(id: String, user: String)
-POST   /simul/$id<\w{8}>/reject/:user         controllers.Simul.reject(id: String, user: String)
-POST   /simul/$id<\w{8}>/start                controllers.Simul.start(id: String)
+POST  /simul/$id<\w{8}>/accept/:user          controllers.Simul.accept(id: String, user: String)
+POST  /simul/$id<\w{8}>/reject/:user          controllers.Simul.reject(id: String, user: String)
+POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id: String)
+POST  /simul/$id<\w{8}>/abort                 controllers.Simul.abort(id: String)
 POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id: String, variant: String)
 POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id: String)
 

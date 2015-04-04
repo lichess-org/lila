@@ -21,6 +21,8 @@ case class Simul(
 
   def id = _id
 
+  def fullName = s"$name simul"
+
   def isCreated = !isStarted
 
   def isStarted = startedAt.isDefined
@@ -102,12 +104,11 @@ object Simul {
   type ID = String
 
   def make(
-    name: String,
     host: User,
     clock: SimulClock,
     variants: List[Variant]): Simul = Simul(
     _id = Random nextStringUppercase 8,
-    name = name,
+    name = RandomName(),
     status = SimulStatus.Created,
     clock = clock,
     hostId = host.id,
