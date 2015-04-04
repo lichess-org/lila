@@ -42,7 +42,9 @@ object DataForm {
   val email = Form(mapping(
     "email" -> Forms.email,
     "passwd" -> nonEmptyText
-  )(Email.apply)(Email.unapply))
+  )(Email.apply)(Email.unapply)
+    .verifying("This email already exists", e => UserRepo.byEmail(e.email).await.isEmpty)
+  )
 
   val title = Form(single("title" -> optional(nonEmptyText)))
 }
