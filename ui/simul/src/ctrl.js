@@ -13,8 +13,6 @@ module.exports = function(env) {
   this.socket = new socket(env.socketSend, this);
 
   this.reload = function(data) {
-    if (simul.createdByMe(data) && !this.data.isStarted && data.isStarted)
-      lichess.storage.set('lichess.move_on', 1); // hideous hack :D
     this.data = data;
     startWatching();
   }.bind(this);
@@ -34,6 +32,9 @@ module.exports = function(env) {
     }
   }.bind(this);
   startWatching();
+
+  if (simul.createdByMe(this) && this.data.isCreated)
+    lichess.storage.set('lichess.move_on', '1'); // hideous hack :D
 
   this.trans = function(key) {
     var str = env.i18n[key] || key;
