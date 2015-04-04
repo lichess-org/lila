@@ -61,9 +61,11 @@
 #simul .half td.action:hover {
   opacity: 1;
 }
-#simul .half tr.me td:first-child {
+#simul .half.candidates tr.me {
   border-left: 10px solid #d59120;
-  padding-left: 9px;
+}
+#simul .half.accepted tr.me {
+  border-right: 10px solid #d59120;
 }
 #simul .top_right {
   float: right;

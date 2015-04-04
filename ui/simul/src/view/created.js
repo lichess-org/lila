@@ -65,6 +65,7 @@ module.exports = function(ctrl) {
           m('tbody', candidates.map(function(applicant) {
             var variant = util.playerVariant(ctrl, applicant.player);
             return m('tr', {
+              key: applicant.player.id,
               class: ctrl.userId === applicant.player.id ? 'me' : ''
             }, [
               m('td', util.player(applicant.player)),
@@ -91,18 +92,19 @@ module.exports = function(ctrl) {
           m('tbody', accepted.map(function(applicant) {
             var variant = util.playerVariant(ctrl, applicant.player);
             return m('tr', {
+              key: applicant.player.id,
               class: ctrl.userId === applicant.player.id ? 'me' : ''
             }, [
               m('td', util.player(applicant.player)),
               m('td.variant.text', {
                 'data-icon': variant.icon
               }, variant.name),
-              m('td.action', isHost ? m('a.button.text', {
+              m('td.action', isHost ? m('a.button', {
                 'data-icon': 'L',
                 onclick: function(e) {
                   xhr.reject(applicant.player.id)(ctrl);
                 }
-              }, 'Reject') : null)
+              }) : null)
             ])
           })))
       )
