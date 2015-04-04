@@ -7,7 +7,7 @@ var finished = require('./finished');
 
 module.exports = function(ctrl) {
   var handler;
-  if (ctrl.data.isStarted) handler = started;
+  if (ctrl.data.isRunning) handler = started;
   else if (ctrl.data.isFinished) handler = finished;
   else handler = created;
 
