@@ -18,9 +18,9 @@ final class DataForm {
   val clockIncrementDefault = 60
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
-  val clockExtras = (10 to 60 by 10) ++ (90 to 120 by 30)
+  val clockExtras = (0 to 60 by 10) ++ (90 to 120 by 30)
   val clockExtraChoices = options(clockExtras, "%d minute{s}")
-  val clockExtraDefault = 30
+  val clockExtraDefault = 0
 
   def create(defaultName: String) = Form(mapping(
     "name" -> text(minLength = 4)
