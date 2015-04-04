@@ -18,6 +18,7 @@ final class Env(config: Config, system: ActorSystem) {
     val ai = select("actor.ai")
     val monitor = select("actor.monitor")
     val tournamentOrganizer = select("actor.tournament.organizer")
+    val simul = select("actor.simul")
     val timeline = select("actor.timeline.user")
     val bookmark = select("actor.bookmark")
     val roundMap = select("actor.round.map")

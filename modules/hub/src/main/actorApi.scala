@@ -64,6 +64,10 @@ case class ReloadTournaments(html: String)
 case object NewForumPost
 }
 
+package simul {
+  case object GetHostIds
+}
+
 package timeline {
 case class ReloadTimeline(user: String)
 

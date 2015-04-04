@@ -34,6 +34,7 @@ final class Env(
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
+    val ActorName = config getString "actor.name"
   }
   import settings._
 
@@ -75,11 +76,15 @@ final class Env(
     override def preStart() {
       system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater)
     }
+    import akka.pattern.pipe
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
       case lila.hub.actorApi.mod.MarkCheater(userId) => api ejectCheater userId
+      case lila.hub.actorApi.simul.GetHostIds        => api.currentHostIds pipeTo sender
     }
-  }))
+  }), name = ActorName)
+
+  def isHosting(userId: String): Fu[Boolean] = api.currentHostIds map (_ contains userId)
 
   val allCreated = lila.memo.AsyncCache.single(repo.allCreated, timeToLive = CreatedCacheTtl)
 

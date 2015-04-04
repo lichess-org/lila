@@ -35,6 +35,7 @@ private[simul] final class SimulRepo(simulColl: Coll) {
   private val createdSelect = BSONDocument("status" -> SimulStatus.Created.id)
   private val startedSelect = BSONDocument("status" -> SimulStatus.Started.id)
   private val finishedSelect = BSONDocument("status" -> SimulStatus.Finished.id)
+  private val createdSort = BSONDocument("createdAt" -> -1)
 
   def find(id: Simul.ID): Fu[Option[Simul]] =
     simulColl.find(BSONDocument("_id" -> id)).one[Simul]
@@ -50,15 +51,15 @@ private[simul] final class SimulRepo(simulColl: Coll) {
 
   def allCreated: Fu[List[Simul]] = simulColl.find(
     createdSelect
-  ).sort(BSONDocument("createdAt" -> -1)).cursor[Simul].collect[List]()
+  ).sort(createdSort).cursor[Simul].collect[List]()
 
   def allStarted: Fu[List[Simul]] = simulColl.find(
     startedSelect
-  ).sort(BSONDocument("createdAt" -> -1)).cursor[Simul].collect[List]()
+  ).sort(createdSort).cursor[Simul].collect[List]()
 
   def allFinished(max: Int): Fu[List[Simul]] = simulColl.find(
     finishedSelect
-  ).sort(BSONDocument("createdAt" -> -1)).cursor[Simul].collect[List](max)
+  ).sort(createdSort).cursor[Simul].collect[List](max)
 
   def allNotFinished =
     simulColl.find(

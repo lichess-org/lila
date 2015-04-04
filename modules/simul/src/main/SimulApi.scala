@@ -13,6 +13,7 @@ import lila.common.Debouncer
 import lila.db.Types.Coll
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.map.Tell
+import lila.memo.AsyncCache
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 
@@ -23,6 +24,12 @@ private[simul] final class SimulApi(
     socketHub: ActorRef,
     site: ActorSelection,
     repo: SimulRepo) {
+
+  def currentHostIds: Fu[Set[String]] = currentHostIdsCache apply true
+
+  private val currentHostIdsCache = AsyncCache.single[Set[String]](
+    f = repo.allStarted map (_ map (_.hostId) toSet),
+    timeToLive = 10 minutes)
 
   def create(setup: SimulSetup, me: User): Fu[Simul] = {
     val simul = Simul.make(
@@ -65,7 +72,7 @@ private[simul] final class SimulApi(
               UserRepo byId started.hostId flatten s"No such host: ${simul.hostId}" flatMap { host =>
                 started.pairings.map(makeGame(started, host)).sequenceFu.void
               }
-            }
+            } >> currentHostIdsCache.clear
           }
         }
       }
@@ -81,7 +88,7 @@ private[simul] final class SimulApi(
               game.id,
               _.finish(game.status, game.winnerUserId, game.turns)
             )
-            update(simul2).void
+            update(simul2) >> currentHostIdsCache.clear
           }
         }
       }

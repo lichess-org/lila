@@ -25,12 +25,6 @@ final class Cached(
 
   private implicit val userHandler = User.userBSONHandler
 
-  private val isPlayingSimulCache = AsyncCache[String, Boolean](
-    f = userId => GameRepo.countPlayingRealTimeHuman(userId) map (1 <),
-    timeToLive = 15.seconds)
-
-  val isPlayingSimul: String => Fu[Boolean] = isPlayingSimulCache.apply _
-
   val rematch960 = new ExpireSetMemo(3.hours)
 
   val activePlayerUidsDay = mongoCache[Int, List[UidNb]](

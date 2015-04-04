@@ -47,7 +47,8 @@ object UserInfo {
     postApi: PostApi,
     getRatingChart: User => Fu[Option[String]],
     getRanks: String => Fu[Map[String, Int]],
-    isDonor: String => Fu[Boolean])(user: User, ctx: Context): Fu[UserInfo] =
+    isDonor: String => Fu[Boolean],
+    isHostingSimul: String => Fu[Boolean])(user: User, ctx: Context): Fu[UserInfo] =
     countUsers() zip
       getRanks(user.id) zip
       (gameCached nbPlaying user.id) zip
@@ -61,7 +62,7 @@ object UserInfo {
       isDonor(user.id) zip
       PlayTime(user) flatMap {
         case (((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), isDonor), playTime) =>
-          (nbPlaying > 0) ?? gameCached.isPlayingSimul(user.id) map { hasSimul =>
+          (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
               ranks = ranks,

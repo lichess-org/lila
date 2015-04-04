@@ -156,9 +156,6 @@ object GameRepo {
       _.sortBy(_.updatedAt).lastOption flatMap { Pov(_, user) }
     }
 
-  def countPlayingRealTimeHuman(userId: String): Fu[Int] =
-    $count(Query.nowPlaying(userId) ++ Query.clock(true) ++ Query.noAi)
-
   def setTv(id: ID) {
     $update.fieldUnchecked(id, F.tvAt, $date(DateTime.now))
   }

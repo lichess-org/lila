@@ -36,7 +36,8 @@ final class Env(
     postApi = Env.forum.postApi,
     getRatingChart = Env.history.ratingChartApi.apply,
     getRanks = Env.user.cached.ranking.getAll,
-    isDonor = Env.donation.isDonor) _
+    isDonor = Env.donation.isDonor,
+    isHostingSimul = Env.simul.isHosting) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
