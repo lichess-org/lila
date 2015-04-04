@@ -70,7 +70,11 @@ private[simul] final class SimulApi(
           simul.start ?? { started =>
             update(started) >> {
               UserRepo byId started.hostId flatten s"No such host: ${simul.hostId}" flatMap { host =>
-                started.pairings.map(makeGame(started, host)).sequenceFu.void
+                started.pairings.map(makeGame(started, host)).sequenceFu addEffect { games =>
+                  games.headOption foreach { game =>
+                    sendTo(simul.id, actorApi.StartSimul(game))
+                  }
+                }
               }
             } >> currentHostIdsCache.clear
           }
@@ -111,7 +115,7 @@ private[simul] final class SimulApi(
     }
   }
 
-  private def makeGame(simul: Simul, host: User)(pairing: SimulPairing) = for {
+  private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[Game] = for {
     user ← UserRepo byId pairing.player.user flatten s"No user with id ${pairing.player.user}"
     game1 = Game.make(
       game = chess.Game(
