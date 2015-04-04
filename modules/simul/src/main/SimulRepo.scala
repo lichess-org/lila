@@ -1,8 +1,8 @@
 package lila.simul
 
+import org.joda.time.DateTime
 import reactivemongo.bson._
 import reactivemongo.core.commands._
-import org.joda.time.DateTime
 
 import chess.Status
 import chess.variant.Variant
@@ -65,17 +65,8 @@ private[simul] final class SimulRepo(simulColl: Coll) {
       BSONDocument("status" -> BSONDocument("$ne" -> SimulStatus.Finished.id))
     ).cursor[Simul].collect[List]()
 
-  def create(setup: SimulSetup, me: User): Fu[Simul] = {
-    val simul = Simul.make(
-      name = setup.name,
-      clock = SimulClock(
-        limit = setup.clockTime * 60,
-        increment = setup.clockIncrement,
-        hostExtraTime = setup.clockExtra * 60),
-      variants = setup.variants.flatMap { chess.variant.Variant(_) },
-      host = me)
-    simulColl insert simul inject simul
-  }
+  def create(simul: Simul): Funit =
+    simulColl insert simul void
 
   def update(simul: Simul) =
     simulColl.update(BSONDocument("_id" -> simul.id), simul).void

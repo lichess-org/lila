@@ -24,6 +24,18 @@ private[simul] final class SimulApi(
     site: ActorSelection,
     repo: SimulRepo) {
 
+  def create(setup: SimulSetup, me: User): Fu[Simul] = {
+    val simul = Simul.make(
+      name = setup.name,
+      clock = SimulClock(
+        limit = setup.clockTime * 60,
+        increment = setup.clockIncrement,
+        hostExtraTime = setup.clockExtra * 60),
+      variants = setup.variants.flatMap { chess.variant.Variant(_) },
+      host = me)
+    (repo create simul) >>- publish() inject simul
+  }
+
   def addApplicant(simulId: Simul.ID, user: User, variantKey: String) {
     WithSimul(repo.findCreated, simulId) { simul =>
       Variant(variantKey).filter(simul.variants.contains).fold(simul) { variant =>
