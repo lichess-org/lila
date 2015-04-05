@@ -83,7 +83,7 @@ object Sheet {
     def author = `gsx$youtubeauthor`.toString.trim
     def title = `gsx$title`.toString.trim
     def targets = `gsx$target`.toString.split(';').map(_.trim).toList flatMap parseIntOption
-    def tags = `gsx$tags`.toString.split(';').map(_.trim.toLowerCase).toList ::: {
+    def tags = `gsx$tags`.toString.split(';').map(_.trim.toLowerCase).toList.filter(_.nonEmpty) ::: {
       if (targets contains 1) List("beginner")
       else if (targets contains 3) List("advanced")
       else Nil
