@@ -82,6 +82,10 @@
   text-align: center;
   margin-bottom: 1em;
 }
+#simul h1 .author {
+  margin-left: 1em;
+  font-size: 0.7em;
+}
 #simul a.user_link em {
   font-weight: bold;
   padding-left: 5px;

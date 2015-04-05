@@ -18,7 +18,7 @@ final class JsonView(
         "host" -> lightHost.map { host =>
           Json.obj(
             "id" -> host.id,
-            "name" -> host.name,
+            "username" -> host.name,
             "title" -> host.title,
             "rating" -> simul.hostRating)
         },

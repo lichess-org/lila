@@ -17,12 +17,20 @@
 </td>
 }
 
+@simHost(sim: lila.simul.Simul) = {
+<td class="host">
+  @userIdLink(sim.hostId.some, withOnline = false)<br />
+  <strong>@sim.hostRating</strong>
+</td>
+}
+
 <div class="content_box simul_box no_padding">
   <h1>Simultaneous exhibitions (Beta)</h1>
   <table class="slist">
     <thead>
       <tr>
         <th colspan=2 class="large">Created simuls</th>
+        <th>Host</th>
         <th>@trans.players()</th>
       </tr>
     </thead>
@@ -31,6 +39,7 @@
       <tr class="scheduled">
         @iconTd(sim)
         @simTd(sim)
+        @simHost(sim)
         <td class="text" data-icon="r">@sim.applicantRatio</td>
       </tr>
       }
@@ -46,6 +55,7 @@
     <thead>
       <tr>
         <th colspan=2 class="large">@trans.playingRightNow()</th>
+        <th>Host</th>
         <th>@trans.players()</th>
       </tr>
     </thead>
@@ -54,6 +64,7 @@
       <tr>
         @iconTd(sim)
         @simTd(sim)
+        @simHost(sim)
         <td class="text" data-icon="r">@sim.pairings.size</td>
       </tr>
       }
@@ -62,6 +73,7 @@
     <thead>
       <tr>
         <th colspan=2 class="large">@trans.finished()</th>
+        <th>Host</th>
         <th>@trans.players()</th>
       </tr>
     </thead>
@@ -70,6 +82,7 @@
       <tr>
         @iconTd(sim)
         @simTd(sim)
+        @simHost(sim)
         <td class="text" data-icon="r">@sim.pairings.size</td>
       </tr>
       }
