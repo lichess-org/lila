@@ -53,34 +53,37 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
+  private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] = negotiate(
+    html = {
+      if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
+      pov.game.started.fold(
+        PreventTheft(pov) {
+          (pov.game.tournamentId ?? TournamentRepo.byId) zip
+            (pov.game.simulId ?? Env.simul.repo.find) zip
+            Env.game.crosstableApi(pov.game) zip
+            (!pov.game.isTournament ?? otherPovs(pov.gameId)) flatMap {
+              case (((tour, simul), crosstable), playing) =>
+                simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
+                Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
+                  Ok(html.round.player(pov, data, tour = tour, simul = simul, cross = crosstable, playing = playing))
+                }
+            }
+        },
+        Redirect(routes.Setup.await(pov.fullId)).fuccess
+      )
+    },
+    api = apiVersion => {
+      if (isTheft(pov)) fuccess(theftResponse)
+      else {
+        if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
+        Env.api.roundApi.player(pov, apiVersion) map { Ok(_) }
+      }
+    }
+  )
+
   def player(fullId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo pov fullId) { pov =>
-      negotiate(
-        html = {
-          if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
-          pov.game.started.fold(
-            PreventTheft(pov) {
-              (pov.game.tournamentId ?? TournamentRepo.byId) zip
-              (pov.game.simulId ?? Env.simul.repo.find) zip
-                Env.game.crosstableApi(pov.game) zip
-                (!pov.game.isTournament ?? otherPovs(pov.gameId)) flatMap {
-                  case (((tour, simul), crosstable), playing) =>
-                    Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
-                      Ok(html.round.player(pov, data, tour = tour, simul = simul, cross = crosstable, playing = playing))
-                    }
-                }
-            },
-            Redirect(routes.Setup.await(fullId)).fuccess
-          )
-        },
-        api = apiVersion => {
-          if (isTheft(pov)) fuccess(theftResponse)
-          else {
-            if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
-            Env.api.roundApi.player(pov, apiVersion) map { Ok(_) }
-          }
-        }
-      )
+      renderPlayer(pov)
     }
   }
 
@@ -121,11 +124,11 @@ object Round extends LilaController with TheftPrevention {
     negotiate(
       html = if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
       else if (pov.game.joinable) join(pov)
-      else ctx.userId.flatMap(pov.game.playerByUserId).ifTrue(pov.game.playable) match {
-        case Some(player) => fuccess(Redirect(routes.Round.player(pov.game fullIdOf player.color)))
+      else ctx.userId.flatMap(pov.game.playerByUserId) ifTrue pov.game.playable match {
+        case Some(player) => renderPlayer(pov)
         case None =>
           (pov.game.tournamentId ?? TournamentRepo.byId) zip
-          (pov.game.simulId ?? Env.simul.repo.find) zip
+            (pov.game.simulId ?? Env.simul.repo.find) zip
             Env.game.crosstableApi(pov.game) zip
             Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) map {
               case (((tour, simul), crosstable), data) =>
@@ -177,7 +180,7 @@ object Round extends LilaController with TheftPrevention {
 
   private def side(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
     (pov.game.tournamentId ?? TournamentRepo.byId) zip
-    (pov.game.simulId ?? Env.simul.repo.find) zip
+      (pov.game.simulId ?? Env.simul.repo.find) zip
       GameRepo.initialFen(pov.game) map {
         case ((tour, simul), initialFen) =>
           Ok(html.game.side(pov, initialFen, tour, withTourStanding = isPlayer, simul))
