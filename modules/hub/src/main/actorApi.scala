@@ -65,7 +65,8 @@ case object NewForumPost
 }
 
 package simul {
-  case object GetHostIds
+case object GetHostIds
+case class PlayerMove(gameId: String)
 }
 
 package timeline {
@@ -160,8 +161,10 @@ case class MoveEvent(
   fen: String,
   move: String,
   piece: Char,
+  color: chess.Color,
   ip: String,
-  opponentUserId: Option[String])
+  opponentUserId: Option[String],
+  simulId: Option[String])
 case class NbRounds(nb: Int)
 }
 

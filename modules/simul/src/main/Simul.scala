@@ -16,6 +16,7 @@ case class Simul(
     createdAt: DateTime,
     hostId: String,
     hostRating: Int,
+    hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[DateTime],
     finishedAt: Option[DateTime]) {
 
@@ -80,7 +81,8 @@ case class Simul(
     if (pairings.forall(_.finished))
       copy(
         status = SimulStatus.Finished,
-        finishedAt = DateTime.now.some)
+        finishedAt = DateTime.now.some,
+        hostGameId = none)
     else this
 
   def gameIds = pairings.map(_.gameId)
@@ -120,6 +122,7 @@ object Simul {
           daysPerTurn = none)
       }
     },
+    hostGameId = none,
     createdAt = DateTime.now,
     variants = variants,
     applicants = Nil,

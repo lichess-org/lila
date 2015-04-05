@@ -31,6 +31,7 @@ final class Env(config: Config, system: ActorSystem) {
     val chat = select("actor.chat")
     val analyser = select("actor.analyser")
     val moveBroadcast = select("actor.move_broadcast")
+    val userRegister = select("actor.user_register")
   }
 
   object socket {

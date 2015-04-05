@@ -109,6 +109,12 @@ module.exports = function(send, ctrl) {
     },
     prefChange: function() {
       lichess.reload();
+    },
+    simulPlayerMove: function(gameId) {
+      if (ctrl.moveOn.get()) {
+        lichess.hasToReload = true;
+        location.href = '/' + gameId;
+      }
     }
   };
 

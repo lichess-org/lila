@@ -75,6 +75,12 @@ private[simul] final class SimulRepo(simulColl: Coll) {
   def remove(simul: Simul) =
     simulColl.remove(BSONDocument("_id" -> simul.id)).void
 
+  def setHostGameId(simul: Simul, gameId: String) =
+    simulColl.update(
+      BSONDocument("_id" -> simul.id),
+      BSONDocument("$set" -> BSONDocument("hostGameId" -> gameId))
+    ).void
+
   def cleanup =
     simulColl.remove(
       createdSelect ++ BSONDocument(

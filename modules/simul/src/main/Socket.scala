@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import actorApi._
 import lila.common.LightUser
+import lila.hub.actorApi.round.MoveEvent
 import lila.hub.TimeBomb
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -39,9 +40,11 @@ private[simul] final class Socket(
 
     case StartSimul(firstGame) => redirectPlayer(firstGame, chess.White)
 
-    case Reload                => notifyReload
+    case HostIsOn(gameId)      => notifyVersion("hostGame", gameId, Messadata())
 
-    case Aborted               => notifyVersion("aborted", Json.obj(), Messadata())
+    case Reload  => notifyReload
+
+    case Aborted => notifyVersion("aborted", Json.obj(), Messadata())
 
     case PingVersion(uid, v) => {
       ping(uid)

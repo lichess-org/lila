@@ -82,6 +82,13 @@ private[simul] final class SimulApi(
     }
   }
 
+  def onPlayerConnection(game: Game, user: Option[User])(simul: Simul) {
+    user.filter(_.id == simul.hostId) ifTrue simul.isRunning foreach { host =>
+      repo.setHostGameId(simul, game.id)
+      sendTo(simul.id, actorApi.HostIsOn(game.id))
+    }
+  }
+
   def abort(simulId: Simul.ID) {
     Sequence(simulId) {
       repo.findCreated(simulId) flatMap {

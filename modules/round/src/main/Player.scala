@@ -65,10 +65,12 @@ private[round] final class Player(
     bus.publish(MoveEvent(
       ip = ip,
       gameId = game.id,
+      color = move.color,
       fen = Forsyth exportBoard game.toChess.board,
       move = move.keyString,
       piece = move.piece.forsyth,
-      opponentUserId = game.player(!move.color).userId
+      opponentUserId = game.player(!move.color).userId,
+      simulId = game.simulId
     ), 'moveEvent)
   }
 

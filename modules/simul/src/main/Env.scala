@@ -74,13 +74,20 @@ final class Env(
 
   system.actorOf(Props(new Actor {
     override def preStart() {
-      system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater)
+      system.lilaBus.subscribe(self, 'finishGame, 'adjustCheater, 'moveEvent)
     }
     import akka.pattern.pipe
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
       case lila.hub.actorApi.mod.MarkCheater(userId) => api ejectCheater userId
       case lila.hub.actorApi.simul.GetHostIds        => api.currentHostIds pipeTo sender
+      case move: lila.hub.actorApi.round.MoveEvent if move.color == chess.Black =>
+        move.simulId foreach { simulId =>
+          move.opponentUserId foreach { hostId =>
+            hub.actor.userRegister ! lila.hub.actorApi.SendTo(hostId,
+              lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId).pp)
+          }
+        }
     }
   }), name = ActorName)
 

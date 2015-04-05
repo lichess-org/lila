@@ -20,7 +20,8 @@ final class JsonView(
             "id" -> host.id,
             "username" -> host.name,
             "title" -> host.title,
-            "rating" -> simul.hostRating)
+            "rating" -> simul.hostRating,
+            "gameId" -> simul.hostGameId)
         },
         "name" -> simul.name,
         "fullName" -> simul.fullName,

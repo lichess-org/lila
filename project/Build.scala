@@ -267,7 +267,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api)
   )
 
-  lazy val hub = project("hub", Seq(common)).settings(
+  lazy val hub = project("hub", Seq(common, chess)).settings(
     libraryDependencies ++= provided(play.api)
   )
 

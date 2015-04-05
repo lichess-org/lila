@@ -109,6 +109,9 @@
   margin-top: 30px;
   text-align: center;
 }
+#simul .game_list .vstext {
+  transition: all 1s;
+}
 .variant_icons {
   white-space: nowrap;
 }
@@ -179,4 +182,8 @@ div.side_box .game_infos {
 }
 .setup {
   text-transform: uppercase;
+}
+#simul div.game_list.playing > div {
+  position: relative;
+  overflow: hidden;
 }

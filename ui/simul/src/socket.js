@@ -12,6 +12,10 @@ module.exports = function(send, ctrl) {
     },
     aborted: function() {
       location.reload();
+    },
+    hostGame: function(gameId) {
+      ctrl.data.host.gameId = gameId;
+      m.redraw();
     }
   };
 

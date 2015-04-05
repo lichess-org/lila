@@ -1712,6 +1712,7 @@ div.pagination span.current,
 .unread,
 #top span.new_challenges,
 div.progressbar.flashy div,
+#simul .game_list .host.vstext,
 #import_game .progression {
   color: #fff !important;
   text-shadow: 0px 1px 0px #000 !important;
