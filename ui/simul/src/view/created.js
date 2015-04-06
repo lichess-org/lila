@@ -96,7 +96,7 @@ module.exports = function(ctrl) {
               ' accepted players'
             ])), (candidates.length && !accepted.length) ? m('tr.help',
               m('th',
-                'Now you get to accept some players, then start the simul')): null
+                'Now you get to accept some players, then start the simul')) : null
           ]),
           m('tbody', accepted.map(function(applicant) {
             var variant = util.playerVariant(ctrl, applicant.player);

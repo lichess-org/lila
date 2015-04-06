@@ -85,7 +85,7 @@ final class Env(
         move.simulId foreach { simulId =>
           move.opponentUserId foreach { hostId =>
             hub.actor.userRegister ! lila.hub.actorApi.SendTo(hostId,
-              lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId).pp)
+              lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId))
           }
         }
     }
