@@ -1410,6 +1410,7 @@ div.under_chat .watchtv {
   height: 100%;
   overflow: hidden;
   overflow-y: auto;
+  word-wrap: break-word;
 }
 #chat form {
   position: relative;
