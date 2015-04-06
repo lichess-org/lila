@@ -61,6 +61,7 @@ case class ValidCaptcha(id: String, solution: String)
 
 package lobby {
 case class ReloadTournaments(html: String)
+case class ReloadSimuls(html: String)
 case object NewForumPost
 }
 

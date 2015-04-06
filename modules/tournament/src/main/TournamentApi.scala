@@ -12,7 +12,7 @@ import actorApi._
 import lila.common.Debouncer
 import lila.db.api._
 import lila.game.{ Game, GameRepo }
-import lila.hub.actorApi.lobby.ReloadTournaments
+import lila.hub.actorApi.lobby.{ ReloadTournaments, ReloadSimuls }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.router.Tourney
 import lila.hub.Sequencer

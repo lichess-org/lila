@@ -45,6 +45,8 @@ private[lobby] final class Socket(
 
     case ReloadTournaments(html) => notifyAll(makeMessage("tournaments", html))
 
+    case ReloadSimuls(html) => notifyAll(makeMessage("simuls", html))
+
     case NewForumPost            => notifyAll("reload_forum")
 
     case ReloadTimeline(userId) =>

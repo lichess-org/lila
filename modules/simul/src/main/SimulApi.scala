@@ -1,10 +1,8 @@
 package lila.simul
 
 import akka.actor._
-import org.joda.time.DateTime
-import play.api.libs.json._
-import reactivemongo.bson._
-import reactivemongo.core.commands._
+import akka.pattern.{ ask, pipe }
+import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import chess.Status
@@ -12,10 +10,12 @@ import chess.variant.Variant
 import lila.common.Debouncer
 import lila.db.Types.Coll
 import lila.game.{ Game, GameRepo }
+import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.map.Tell
 import lila.memo.AsyncCache
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
+import makeTimeout.short
 
 private[simul] final class SimulApi(
     system: ActorSystem,
@@ -23,6 +23,8 @@ private[simul] final class SimulApi(
     onGameStart: String => Unit,
     socketHub: ActorRef,
     site: ActorSelection,
+    renderer: ActorSelection,
+    lobby: ActorSelection,
     repo: SimulRepo) {
 
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache apply true
@@ -177,6 +179,11 @@ private[simul] final class SimulApi(
     private val debouncer = system.actorOf(Props(new Debouncer(2 seconds, {
       (_: Debouncer.Nothing) =>
         site ! siteMessage
+        repo.allCreated foreach { simuls =>
+          renderer ? actorApi.SimulTable(simuls) map {
+            case view: play.twirl.api.Html => ReloadSimuls(view.body)
+          } pipeToSelection lobby
+        }
     })))
     def apply() { debouncer ! Debouncer.Nothing }
   }

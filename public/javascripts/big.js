@@ -1552,6 +1552,10 @@ lichess.storage = {
             $("#enterable_tournaments").html(data);
             $('body').trigger('lichess.content_loaded');
           },
+          simuls: function(data) {
+            $("#enterable_simuls").html(data).parent().toggle($('#enterable_simuls tr').length);
+            $('body').trigger('lichess.content_loaded');
+          },
           reload_forum: function() {
             var $newposts = $("div.new_posts");
             setTimeout(function() {

@@ -83,8 +83,7 @@ openGraph = Map(
   </div>
 </div>
 }
-@if(simuls.nonEmpty) {
-<div class="undertable">
+<div class="undertable @if(simuls.isEmpty){none}">
   <div class="undertable_top">
     <a class="more hint--bottom" href="@routes.Simul.home">@trans.more() »</a>
     <span class="title text" data-icon="|">Simultaneous exhibitions</span>
@@ -93,7 +92,6 @@ openGraph = Map(
     @simul.allCreated(simuls)
   </div>
 </div>
-}
 <div class="undertable">
   <div class="undertable_top">
     <a class="more hint--bottom" data-hint="@trans.seeAllTournaments()" href="@routes.Tournament.home">@trans.more() »</a>

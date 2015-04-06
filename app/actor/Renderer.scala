@@ -35,6 +35,9 @@ private[app] final class Renderer extends Actor {
     case lila.tournament.actorApi.TournamentTable(tours) =>
       sender ! spaceless(V.tournament.enterable(tours))
 
+    case lila.simul.actorApi.SimulTable(simuls) =>
+      sender ! spaceless(V.simul.allCreated(simuls))
+
     case lila.puzzle.RenderDaily(puzzle, fen, lastMove) =>
       sender ! spaceless(V.puzzle.daily(puzzle, fen, lastMove))
 
