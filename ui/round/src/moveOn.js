@@ -26,19 +26,11 @@ module.exports = function(ctrl, key) {
     store();
   }.bind(this);
 
-  var goToId = function(id) {
-    m.startComputation();
+  this.next = function() {
+    if (!this.value || ctrl.data.player.spectator || ctrl.data.game.tournamentId || game.isPlayerTurn(ctrl.data)) return;
     ctrl.vm.redirecting = true;
     lichess.hasToReload = true;
-    location.href = '/' + id;
-    m.endComputation();
-  }.bind(this);
-
-  this.next = function(id) {
-    if (!this.value || ctrl.data.player.spectator || ctrl.data.game.tournamentId || game.isPlayerTurn(ctrl.data)) return;
-    if (id) goToId(id);
-    else xhr.next(ctrl).then(function(data) {
-      if (data.next) goToId(data.next);
-    }.bind(this));
+    location.href = ctrl.router.Round.next(ctrl.data.game.id).url;
+    m.redraw();
   }.bind(this);
 };

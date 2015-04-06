@@ -25,14 +25,6 @@ function reload(ctrl) {
   return req;
 }
 
-function next(ctrl) {
-  return m.request({
-    method: 'GET',
-    url: uncache(ctrl.router.Round.next(ctrl.data.game.id).url),
-    config: xhrConfig
-  });
-}
-
 function berserk(ctrl) {
   return m.request({
     method: 'POST',
@@ -43,6 +35,5 @@ function berserk(ctrl) {
 
 module.exports = {
   reload: reload,
-  next: next,
   berserk: berserk
 };

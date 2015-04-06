@@ -96,22 +96,29 @@ object Round extends LilaController with TheftPrevention {
   private def getNext(currentGame: GameModel)(povs: List[Pov])(implicit ctx: Context) =
     povs find { pov =>
       pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
-    } map (_.fullId)
+    }
 
   def others(gameId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo game gameId) { currentGame =>
       otherPovs(gameId) map { povs =>
-        Ok(html.round.others(povs, nextId = getNext(currentGame)(povs)))
+        Ok(html.round.others(povs))
       }
     }
   }
 
-  def next(gameId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo game gameId) { currentGame =>
-      otherPovs(gameId) map getNext(currentGame) map { nextId =>
-        Ok(Json.obj("next" -> nextId))
+  def next(gameId: String) = Auth { implicit ctx =>
+    me =>
+      OptionFuResult(GameRepo game gameId) { currentGame =>
+        otherPovs(gameId) map getNext(currentGame) map {
+          _ orElse Pov(currentGame, me)
+        } flatMap {
+          case Some(next) => renderPlayer(next)
+          case None => fuccess(Redirect(currentGame.simulId match {
+            case Some(simulId) => routes.Simul.show(simulId)
+            case None          => routes.Round.watcher(gameId, "white")
+          }))
+        }
       }
-    }
   }
 
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
@@ -125,7 +132,7 @@ object Round extends LilaController with TheftPrevention {
       html = if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
       else if (pov.game.joinable) join(pov)
       else ctx.userId.flatMap(pov.game.playerByUserId) ifTrue pov.game.playable match {
-        case Some(player) => renderPlayer(pov)
+        case Some(player) => renderPlayer(pov withColor player.color)
         case None =>
           (pov.game.tournamentId ?? TournamentRepo.byId) zip
             (pov.game.simulId ?? Env.simul.repo.find) zip

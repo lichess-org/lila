@@ -1180,6 +1180,8 @@ lichess.storage = {
       lichess.hasToReload = true;
       return true;
     });
+    if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
+      window.history.replaceState(null, null, '/' + data.game.id);
   }
 
   function startPrelude(element, cfg) {
