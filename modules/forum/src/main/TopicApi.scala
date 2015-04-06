@@ -60,7 +60,7 @@ private[forum] final class TopicApi(
           (indexer ! InsertPost(post)) >>
           env.recent.invalidate >>-
           ((ctx.userId ifFalse post.troll) ?? { userId =>
-            timeline ! Propagate(ForumPost(userId, topic.name, post.id)).|>(prop =>
+            timeline ! Propagate(ForumPost(userId, topic.id, topic.name, post.id)).|>(prop =>
               post.isStaff.fold(prop toStaffFriendsOf userId, prop toFollowersOf userId)
             )
           }) inject topic

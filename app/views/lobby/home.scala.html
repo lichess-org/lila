@@ -17,11 +17,11 @@
 }
 <div id="streams_on_air">@tv.streamsOnAir(streams)</div>
 @ctx.me.map { u =>
-<div id="timeline" data-href="@routes.Lobby.timeline">
+<div id="timeline" data-href="@routes.Timeline.home">
   @timeline.entries(userTimeline)
   <div class="links clearfix">
     @if(userTimeline.size >= 8) {
-    <a class="more" href="@routes.Lobby.timelineMore">@trans.more() »</a>
+    <a class="more" href="@routes.Timeline.more">@trans.more() »</a>
     }
   </div>
 </div>

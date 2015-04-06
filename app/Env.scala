@@ -20,7 +20,7 @@ final class Env(
     featured = Env.tv.featured,
     leaderboard = Env.user.cached.topToday,
     tourneyWinners = Env.tournament.winners.scheduled,
-    timelineEntries = Env.timeline.getter.userEntries _,
+    timelineEntries = Env.timeline.entryRepo.userEntries _,
     dailyPuzzle = Env.puzzle.daily,
     streamsOnAir = () => Env.tv.streamsOnAir,
     countRounds = Env.round.count,

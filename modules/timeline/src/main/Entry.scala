@@ -2,14 +2,16 @@ package lila.timeline
 
 import org.joda.time.DateTime
 import play.api.libs.json._
+import reactivemongo.bson._
 
-import lila.common.PimpedJson._
 import lila.hub.actorApi.timeline._
 import lila.hub.actorApi.timeline.atomFormat._
 
 case class Entry(
+    _id: BSONObjectID,
     users: List[String],
     typ: String,
+    chan: Option[String],
     data: JsObject,
     date: DateTime) {
 
@@ -45,15 +47,13 @@ object Entry {
     case d: QaComment  => "qa-comment" -> Json.toJson(d)
     case d: GameEnd    => "game-end" -> Json.toJson(d)
   }) match {
-    case (typ, json) => json.asOpt[JsObject] map { new Entry(users, typ, _, DateTime.now) }
+    case (typ, json) => json.asOpt[JsObject] map {
+      new Entry(BSONObjectID.generate, users, typ, data.channel.some, _, DateTime.now)
+    }
   }
 
-  import lila.db.JsTube
-  import JsTube.Helpers._
-  import play.api.libs.json._
-
-  private[timeline] lazy val tube = JsTube(
-    (__.json update (readDate('date))) andThen Json.reads[Entry],
-    Json.writes[Entry] andThen (__.json update writeDate('date)),
-    Seq(_.NoId))
+  import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+  import lila.db.BSON.BSONJodaDateTimeHandler
+  import reactivemongo.bson.Macros
+  implicit val EntryBSONHandler = Macros.handler[Entry]
 }

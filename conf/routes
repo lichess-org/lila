@@ -4,9 +4,12 @@ POST  /toggle-blind-mode               controllers.Main.toggleBlindMode
 # Lobby
 GET   /                                controllers.Lobby.home
 GET   /lobby/socket/v:apiVersion       controllers.Lobby.socket(apiVersion: Int)
-GET   /timeline                        controllers.Lobby.timeline
-GET   /timeline/more                   controllers.Lobby.timelineMore
 GET   /lobby/seeks                     controllers.Lobby.seeks
+
+# Timeline
+GET   /timeline                        controllers.Timeline.home
+GET   /timeline/more                   controllers.Timeline.more
+POST  /timeline/unsub/:channel         controllers.Timeline.unsub(channel: String)
 
 # TV
 GET   /tv                              controllers.Tv.index

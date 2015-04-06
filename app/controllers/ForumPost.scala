@@ -27,8 +27,10 @@ object ForumPost extends LilaController with ForumController {
         case (categ, topic, posts) =>
           if (topic.closed) fuccess(BadRequest("This topic is closed"))
           else forms.post.bindFromRequest.fold(
-            err => forms.anyCaptcha map { captcha =>
-              BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha)))
+            err => forms.anyCaptcha flatMap { captcha =>
+              ctx.userId ?? Env.timeline.status(s"forum:${topic.id}") map { unsub =>
+                BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha), unsub))
+              }
             },
             data => postApi.makePost(categ, topic, data) map { post =>
               Redirect(routes.ForumPost.redirect(post.id))

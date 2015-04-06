@@ -1,4 +1,4 @@
-@(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post], formWithCaptcha: Option[FormWithCaptcha])(implicit ctx: Context)
+@(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post], formWithCaptcha: Option[FormWithCaptcha], unsub: Option[Boolean])(implicit ctx: Context)
 
 @forum.layout(
 title = topic.name) {
@@ -40,14 +40,21 @@ title = topic.name) {
     }
   </div>
 
+  @unsub.map { uns =>
+  <form class="mod unsub @if(uns){on}else{off}" method="post" action="@routes.Timeline.unsub(s"forum:${topic.id}")">
+    <button class="button text on" data-icon="v" data-unsub="off">Subscribe</button>
+    <button class="button text off" data-icon="v" data-unsub="on">Unsubscribe</button>
+  </form>
+  }
+
   @if(isGranted(_.ModerateForum)) {
   <form class="mod" method="post" action="@routes.ForumTopic.hide(categ.slug, topic.slug)">
-    <button class="button">@topic.hidden.fold("Show the topic on homepage", "Hide the topic on homepage")</button>
+    <button class="button">@topic.hidden.fold("Feature", "Un-feature")</button>
   </form>
   }
   @if(isGrantedMod(categ.slug)) {
   <form class="mod" method="post" action="@routes.ForumTopic.close(categ.slug, topic.slug)">
-    <button class="button">@topic.closed.fold("Reopen the topic", "Close the topic")</button>
+    <button class="button">@topic.closed.fold("Reopen", "Close")</button>
   </form>
   }
 

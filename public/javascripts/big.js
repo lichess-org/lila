@@ -2145,6 +2145,12 @@ lichess.storage = {
     return false;
   });
 
+  $('#lichess_forum').on('click', 'form.unsub button', function() {
+    var $form = $(this).parent().toggleClass('on off');
+    $.post($form.attr("action") + '?unsub=' + $(this).data('unsub'));
+    return false;
+  });
+
   $.idleTimer = function(delay, onIdle, onWakeUp) {
     var eventType = 'mousemove';
     var listening = false;

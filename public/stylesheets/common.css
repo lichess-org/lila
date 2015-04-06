@@ -2176,10 +2176,10 @@ div.progressbar.flashy.green div {
 }
 @-webkit-keyframes glow {
   0% {
-    box-shadow: none;
+    box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000;
   }
   100% {
-    box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000;
+    box-shadow: none;
   }
 }
 
