@@ -142,6 +142,11 @@ object GameRepo {
       }
     }
 
+  def nowPlayingWithClock(user: User): Fu[List[Pov]] =
+    $find(Query.nowPlaying(user.id) ++ Query.clock(true)) map {
+      _ flatMap { Pov(_, user) }
+    }
+
   // gets most urgent game to play
   def onePlaying(user: User): Fu[Option[Pov]] = nowPlaying(user) map (_.headOption)
 
