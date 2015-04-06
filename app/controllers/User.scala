@@ -142,6 +142,7 @@ object User extends LilaController {
       threeCheck = threeCheck,
       antichess = antichess,
       atomic = atomic,
+      horde = horde,
       nbWeek = nbWeek,
       nbAllTime = nbAllTime)
   }

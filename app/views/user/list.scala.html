@@ -1,4 +1,4 @@
-@(tourneyWinners: List[lila.tournament.Winner], online: List[User], bullet: List[User], blitz: List[User], classical: List[User], correspondence: List[User], chess960: List[User], kingOfTheHill: List[User], threeCheck: List[User], antichess: List[User], atomic: List[User], nbWeek: List[(User, Int)], nbAllTime: List[(User, Int)])(implicit ctx: Context)
+@(tourneyWinners: List[lila.tournament.Winner], online: List[User], bullet: List[User], blitz: List[User], classical: List[User], correspondence: List[User], chess960: List[User], kingOfTheHill: List[User], threeCheck: List[User], antichess: List[User], atomic: List[User], horde: List[User], nbWeek: List[(User, Int)], nbAllTime: List[(User, Int)])(implicit ctx: Context)
 
 @import lila.rating.PerfType
 
@@ -92,6 +92,12 @@
       @userTopPerf(correspondence, PerfType.Correspondence)
       @userTopPerf(antichess, PerfType.Antichess)
       @userTopPerf(atomic, PerfType.Atomic)
+    </div>
+
+    <div class="group">
+      <div class="user_top">
+      </div>
+      @userTopPerf(horde, PerfType.Horde)
     </div>
 
   </div>
