@@ -590,6 +590,7 @@ body.fpmenu > div.content {
 }
 body.fpmenu #ham-plate {
   top: -3px;
+  border-radius: 0 0 50% 50%;
 }
 
 #site_description {
@@ -1088,13 +1089,15 @@ body.fpmenu #fpmenu {
   text-decoration: none;
 }
 #fpmenu .menu {
-  width: 540px;
   margin-left: 540px;
   overflow: hidden;
 }
 #fpmenu .menu section {
   float: left;
-  width: 50%;
+  width: 55%;
+}
+#fpmenu .menu section:nth-child(even) {
+  width: 45%;
 }
 #fpmenu section a {
   color: #d59120;
