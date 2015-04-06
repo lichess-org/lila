@@ -37,7 +37,8 @@ object Environment
     with TeamHelper
     with AnalysisHelper
     with IRCHelper
-    with TournamentHelper {
+    with TournamentHelper
+    with SimulHelper {
 
   implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
     (a, b) => Html(a.body + b.body),
