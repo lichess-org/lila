@@ -94,7 +94,7 @@ module.exports = function(ctrl) {
             }, [
               m('strong', accepted.length),
               ' accepted players'
-            ])), (candidates.length && !accepted.length) ? m('tr.help',
+            ])), (simul.createdByMe(ctrl) && candidates.length && !accepted.length) ? m('tr.help',
               m('th',
                 'Now you get to accept some players, then start the simul')) : null
           ]),
