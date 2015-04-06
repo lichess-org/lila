@@ -2,36 +2,6 @@
 
 <div class="inner">
   <div class="body">
-    <div class="menu">
-      <section>
-        <h2>Play</h2>
-        <a href="/?any#hook">@trans.createAGame()</a>
-        <a href="@routes.Tournament.home">@trans.tournament()</a>
-        <a href="@routes.Simul.home">Simul</a>
-        <a href="@routes.Tv.index">Lichess TV</a>
-      </section>
-      <section>
-        <h2>Learn</h2>
-        <a href="@routes.Puzzle.home">@trans.training()</a>
-        <a href="@routes.Opening.home">@trans.openings()</a>
-        <a href="@routes.Coordinate.home">@trans.coordinates()</a>
-        <a href="@routes.Video.index">Video library</a>
-      </section>
-      <section>
-        <h2>Community</h2>
-        <a href="@routes.User.list">@trans.players()</a>
-        <a href="@routes.Team.home()">@trans.teams()</a>
-        <a href="@routes.ForumCateg.index">@trans.forum()</a>
-        <a href="@routes.QaQuestion.index()">@trans.questionsAndAnswers()</a>
-      </section>
-      <section>
-        <h2>Tools</h2>
-        <a href="@routes.Editor.index">@trans.boardEditor()</a>
-        <a href="@routes.UserAnalysis.index">@trans.analysis()</a>
-        <a href="@routes.Importer.importGame">@trans.importGame()</a>
-        <a href="@routes.Game.search()">@trans.advancedSearch()</a>
-      </section>
-    </div>
     @ctx.me.map { me =>
     <div class="user">
       <section><h2>@me.username</h2></section>
@@ -70,6 +40,36 @@
       </section>
     </div>
     }
+    <div class="menu">
+      <section>
+        <h2>Play</h2>
+        <a href="/?any#hook">@trans.createAGame()</a>
+        <a href="@routes.Tournament.home">@trans.tournament()</a>
+        <a href="@routes.Simul.home">Simul</a>
+        <a href="@routes.Tv.index">Lichess TV</a>
+      </section>
+      <section>
+        <h2>Learn</h2>
+        <a href="@routes.Puzzle.home">@trans.training()</a>
+        <a href="@routes.Opening.home">@trans.openings()</a>
+        <a href="@routes.Coordinate.home">@trans.coordinates()</a>
+        <a href="@routes.Video.index">Video library</a>
+      </section>
+      <section>
+        <h2>Community</h2>
+        <a href="@routes.User.list">@trans.players()</a>
+        <a href="@routes.Team.home()">@trans.teams()</a>
+        <a href="@routes.ForumCateg.index">@trans.forum()</a>
+        <a href="@routes.QaQuestion.index()">@trans.questionsAndAnswers()</a>
+      </section>
+      <section>
+        <h2>Tools</h2>
+        <a href="@routes.Editor.index">@trans.boardEditor()</a>
+        <a href="@routes.UserAnalysis.index">@trans.analysis()</a>
+        <a href="@routes.Importer.importGame">@trans.importGame()</a>
+        <a href="@routes.Game.search()">@trans.advancedSearch()</a>
+      </section>
+    </div>
   </div>
   <div class="footer">
     <a href="/mobile">Mobile App</a> ı

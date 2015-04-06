@@ -410,7 +410,7 @@ lichess.storage = {
         $('#chat').chat("append", msg);
       },
       nbm: function(e) {
-        $('#nb_messages').text(e || "0").toggleClass("unread", e > 0);
+        $('#nb_messages').text(e || "0").parent().parent().toggle(e > 0);
       },
       redirect: function(o) {
         setTimeout(function() {
@@ -959,25 +959,14 @@ lichess.storage = {
       $('.glowing').toggleClass('glow');
     }, 2000);
 
-    $('#hamburger').click(function() {
+    $('#ham-plate').click(function() {
       document.body.classList.toggle('fpmenu');
     });
+    if (location.hash === '#fpmenu') $('#ham-plate').click();
     Mousetrap.bind('esc', function() {
-      $('#hamburger').click();
+      $('#ham-plate').click();
       return false;
     });
-    (function(key) {
-      if (!lichess.storage.get(key)) {
-        var $help = $('<span class="help">' +
-          '← Click the menu icon or press the &lt;escape&gt; key!' +
-          '</span>');
-        $('#ham-plate').append($help.fadeIn(2000));
-        $('#hamburger').click(function() {
-          $help.remove();
-          lichess.storage.set(key, 1);
-        });
-      }
-    })('ham-' + document.body.getAttribute('data-user'));
     Mousetrap.bind('g h', function() {
       location.href = '/';
     });

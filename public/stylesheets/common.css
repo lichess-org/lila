@@ -506,13 +506,7 @@ html {
 body {
   font: 12px'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   color: #707070;
-  background: #eee;
-  background-image: -moz-linear-gradient(top, #d7d7d7 0%, #eeeeee 116px);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d7d7d7), color-stop(116px, #eeeeee));
-  background-image: -webkit-linear-gradient(top, #d7d7d7 0%, #eeeeee 116px);
-  background-image: -ms-linear-gradient(top, #d7d7d7 0%, #eeeeee 116px);
-  background-image: linear-gradient(to bottom, #d7d7d7 0%, #eeeeee 116px);
-  background-repeat: no-repeat;
+  background: #eee no-repeat linear-gradient(to bottom, #d7d7d7 0%, #eeeeee 116px);
   overflow-x: hidden;
 }
 a,
@@ -563,7 +557,7 @@ strong {
 }
 body > div.content {
   width: 1005px;
-  margin: 36px auto 30px auto;
+  margin: 30px auto 30px auto;
 }
 body.fpmenu > div.content {
   display: none;
@@ -571,10 +565,33 @@ body.fpmenu > div.content {
 #top {
   position: relative;
   height: 24px;
+  width: 1005px;
+  margin: 0 auto;
+  padding: 5px 70px 0 0;
+  box-sizing: border-box;
+  z-index: 5001;
 }
-body.fpmenu #top {
-  display: none;
+#ham-plate {
+  position: absolute;
+  top: -7px;
+  right: 0;
+  background: #fff;
+  margin-left: 30px;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.16), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  transition: top 0.13s;
 }
+#ham-plate:hover {
+  top: -3px;
+}
+body.fpmenu #ham-plate {
+  background: #eee;
+}
+
 #site_description {
   position: absolute;
   top: -100px;
@@ -916,18 +933,17 @@ body.offline #nb_connected_players {
 #top .fright {
   float: right;
 }
+body.fpmenu #top {
+  height: 0;
+}
+body.fpmenu #top .fright {
+  display: none;
+}
 .unread {
   padding: 1px 5px 1px 4px;
   font-weight: bold;
   border-radius: 2px;
   font-size: 0.9em;
-}
-#top .new_messages,
-#top .new_challenges {
-  display: none;
-}
-#top .unread {
-  display: inline;
 }
 #top .shown a.toggle {
   background: #fff;
@@ -978,13 +994,15 @@ body.fpmenu #fpmenu {
 }
 #fpmenu .user,
 #fpmenu .anon {
-  width: 402px;
-  margin-left: 620px;
+  float: left;
+  width: 400px;
+  border-right: 1px solid #cfcfcf;
+  padding: 0 40px 40px 0;
 }
 #fpmenu .perf {
   display: inline-block;
   text-align: left;
-  width: 45%;
+  width: 49%;
   margin: 18px 0;
   line-height: 1.2em;
 }
@@ -1073,16 +1091,13 @@ body.fpmenu #fpmenu {
   text-decoration: none;
 }
 #fpmenu .menu {
-  float: left;
-  width: 500px;
-  border-right: 1px solid #cfcfcf;
-  margin-left: 20px;
-  padding-bottom: 40px;
+  width: 540px;
+  margin-left: 540px;
   overflow: hidden;
 }
 #fpmenu .menu section {
   float: left;
-  width: 250px;
+  width: 50%;
 }
 #fpmenu section a {
   color: #d59120;
@@ -1137,16 +1152,21 @@ body.fpmenu #fpmenu {
   #fpmenu .body {
     padding-left: 13%;
   }
-  #fpmenu .menu {
+  #fpmenu .user {
+    display: none;
+  }
+  #fpmenu .anon {
     border: none;
     float: none;
     margin: auto;
     padding-bottom: 0;
   }
-  #fpmenu .user,
-  #fpmenu .anon {
+  #fpmenu .menu {
     margin: auto;
     width: 500px;
+  }
+  body.fpmenu #top {
+    width: calc(100% - 25px);
   }
 }
 @media (max-width: 440px) {
@@ -1310,7 +1330,6 @@ form.wide textarea {
 #top a.toggle {
   display: block;
   float: left;
-  padding-left: 4px;
 }
 #top a.toggle,
 #top #sound_state {
@@ -1519,11 +1538,13 @@ body #themepicker div.is3d,
 #sound_control {
   margin-right: 5px;
   transition: 0.13s;
+  position: relative;
 }
 #sound_control .dropdown {
   width: 40px;
   background: none!important;
   padding: 5px 0 20px 0;
+  left: -2px;
 }
 #sound_control.sound_state_on:hover .dropdown {
   display: block;

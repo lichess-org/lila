@@ -1,30 +1,15 @@
 @()
 @* inline to avoid animation on page load on firefox *@
 <style type="text/css">
-#ham-plate {
-  position: relative;
-  width: 1005px;
-  margin: 0 auto;
-}
 #hamburger {
-  position: absolute;
-  top: -5px;
-  left: -16px;
-  z-index: 5001;
   display: block;
-  width: 68px;
-  height: 68px;
-  -webkit-touch-callout: none;
-  user-select: none;
-  -webkit-user-select: none;
-  cursor: pointer;
-  opacity: 0.6;
+  width: 64px;
+  height: 58px;
   transform: scale(0.85);
   -webkit-transform: scale(0.85);
-  transition: opacity 0.13s, transform 0.75s, left 1s;
+  transition: transform 0.75s, left 1s;
 }
 #hamburger:hover {
-  opacity: 1;
 }
 #hamburger *:before,
 #hamburger *:after {
