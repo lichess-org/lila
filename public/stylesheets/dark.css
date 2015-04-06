@@ -1,10 +1,5 @@
 body.dark {
-  background: #1a1a1a;
-  background-image: -moz-linear-gradient(top, #303030 0%, #1a1a1a 116px);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #303030), color-stop(116px, #1a1a1a));
-  background-image: -webkit-linear-gradient(top, #303030 0%, #1a1a1a 116px);
-  background-image: -ms-linear-gradient(top, #303030 0%, #1a1a1a 116px);
-  background-image: linear-gradient(to bottom, #303030 0%, #1a1a1a 116px);
+  background: #1a1a1a linear-gradient(to bottom, #2c2c2c 0%, #1a1a1a 116px);
   color: #8c8c8c;
 }
 body.dark a,
