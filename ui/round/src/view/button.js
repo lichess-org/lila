@@ -129,8 +129,10 @@ module.exports = {
     ];
   },
   backToTournament: function(ctrl) {
-    if (ctrl.data.tournament && ctrl.data.tournament.running) return [
-      m('a.text[data-icon=G].button.strong.glowing', {
+    if (ctrl.data.tournament) return [
+      m('a', {
+        'data-icon': 'G',
+        class: 'text button strong' + (ctrl.data.tournament.running ? ' glowing' : ''),
         href: '/tournament/' + ctrl.data.tournament.id
       }, ctrl.trans('backToTournament')),
       m('form', {
