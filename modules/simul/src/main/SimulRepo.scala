@@ -43,6 +43,10 @@ private[simul] final class SimulRepo(simulColl: Coll) {
   def exists(id: Simul.ID): Fu[Boolean] =
     simulColl.db command Count(simulColl.name, BSONDocument("_id" -> id).some) map (0 !=)
 
+  def createdByHostId(hostId: String): Fu[List[Simul]] =
+    simulColl.find(createdSelect ++ BSONDocument("hostId" -> hostId))
+      .cursor[Simul].collect[List]()
+
   def findStarted(id: Simul.ID): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isStarted))
 

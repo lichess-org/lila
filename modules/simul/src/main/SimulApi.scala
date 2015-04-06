@@ -39,6 +39,7 @@ private[simul] final class SimulApi(
         hostExtraTime = setup.clockExtra * 60),
       variants = setup.variants.flatMap { chess.variant.Variant(_) },
       host = me)
+    repo.createdByHostId(me.id) foreach { _.map(_.id).foreach(abort) }
     (repo create simul) >>- publish() inject simul
   }
 

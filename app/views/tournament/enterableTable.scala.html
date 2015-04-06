@@ -4,7 +4,9 @@
 <tr class="create">
   <td>
     <br />
-    <a href="@routes.Tournament.form()" data-icon="g" class="action button">&nbsp;<span class="trans_me">@trans.createANewTournament.en()</span></a>
+    <a href="@routes.Tournament.form()" data-icon="g" class="action button text">
+      <span class="trans_me">@trans.createANewTournament.en()</span>
+    </a>
     <br />
     <br />
   </td>
@@ -12,8 +14,11 @@
 } else {
 @tours.filter(_.scheduled == scheduled).map { tour =>
 <tr @if(scheduled) { class="scheduled" }>
-  <td>
-    <a data-icon="g" href="@routes.Tournament.show(tour.id)">&nbsp;@tour.name</a>
+  <td class="name">
+    <a class="text" href="@routes.Tournament.show(tour.id)">
+      <span data-icon="@tour.perfType.map(_.iconChar)"></span>
+      @tour.name
+    </a>
   </td>
   @tour.schedule.map { s =>
   <td>@momentFromNow(s.at)</td>

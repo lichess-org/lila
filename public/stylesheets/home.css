@@ -398,35 +398,42 @@ div.blog.undertable div.post time {
   font-weight: 100;
   line-height: 2;
 }
-#enterable_tournaments {
+#lichess .enterable_list {
   height: auto;
   max-height: 193px;
 }
-#enterable_tournaments td:first-child {
+#enterable_simuls td {
+  padding: 10px 5px;
+}
+#lichess .enterable_list td:first-child {
   padding-left: 1em;
 }
 #enterable_tournaments tr.create td {
   text-align: center;
 }
-#enterable_tournaments a {
+#lichess .enterable_list a {
   text-decoration: none;
 }
-#enterable_tournaments button {
+#lichess .enterable_list .button {
   padding: 4px 8px;
   opacity: 0;
   transition: 0.13s;
 }
-#enterable_tournaments tr:hover button {
+#lichess .enterable_list tr:hover .button {
   opacity: 1;
 }
-#enterable_tournaments a:hover {
-  text-decoration: underline;
+#lichess .enterable_list td.name span {
+  font-size: 17px;
+  letter-spacing: -5px;
 }
-#enterable_tournaments tr.scheduled a {
+#lichess .enterable_list td.name span:last-child {
+  margin-right: 10px;
+}
+#lichess .enterable_list td.name a {
   font-weight: bold;
   color: #d59120;
 }
-#enterable_tournaments td:last-child {
+#lichess .enterable_list td:last-child {
   width: 20px;
 }
 div.new_posts li {

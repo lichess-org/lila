@@ -1,4 +1,4 @@
-@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], nbRounds: Int, inParis: Boolean)(implicit ctx: Context)
+@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], nbRounds: Int, inParis: Boolean)(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
@@ -83,12 +83,23 @@ openGraph = Map(
   </div>
 </div>
 }
-<div class="open_tournaments undertable">
+@if(simuls.nonEmpty) {
+<div class="undertable">
   <div class="undertable_top">
-    <a class="more hint--bottom" data-hint="@trans.seeAllTournaments()" href="@routes.Tournament.home()">@trans.more() »</a>
-    <span class="title"> @trans.openTournaments()</span>
+    <a class="more hint--bottom" href="@routes.Simul.home">@trans.more() »</a>
+    <span class="title text" data-icon="|">Simultaneous exhibitions</span>
   </div>
-  <div id="enterable_tournaments" class="undertable_inner scroll-shadow-hard">
+  <div id="enterable_simuls" class="enterable_list undertable_inner">
+    @simul.allCreated(simuls)
+  </div>
+</div>
+}
+<div class="undertable">
+  <div class="undertable_top">
+    <a class="more hint--bottom" data-hint="@trans.seeAllTournaments()" href="@routes.Tournament.home">@trans.more() »</a>
+    <span class="title text" data-icon="g">@trans.openTournaments()</span>
+  </div>
+  <div id="enterable_tournaments" class="enterable_list undertable_inner scroll-shadow-hard">
     @tournament.enterable(tours)
   </div>
 </div>
