@@ -111,7 +111,7 @@ module.exports = function(send, ctrl) {
       lichess.reload();
     },
     simulPlayerMove: function(gameId) {
-      if (ctrl.moveOn.get()) {
+      if (ctrl.moveOn.get() && ctrl.chessground.data.turnColor !== ctrl.chessground.data.orientation) {
         lichess.hasToReload = true;
         location.href = '/' + gameId;
       }
