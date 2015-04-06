@@ -12,4 +12,6 @@ case class SimulClock(
 
   def chessClock = chess.Clock(limit, increment)
     .giveTime(chess.White, hostExtraTime)
+
+  def hostExtraMinutes = hostExtraTime / 60
 }

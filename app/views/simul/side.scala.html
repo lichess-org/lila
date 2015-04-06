@@ -11,6 +11,7 @@
     <div class="setup">
       @sim.variants.map(_.name).mkString(", ") • @trans.casual()
     </div>
+    Host extra time: @sim.clock.hostExtraMinutes minutes
   </div>
   @trans.by(usernameOrId(sim.hostId)), @momentFormat(sim.createdAt)
 </div>
