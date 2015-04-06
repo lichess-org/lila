@@ -955,14 +955,19 @@ lichess.storage = {
       return true;
     });
 
-    setInterval(function() {
-      $('.glowing').toggleClass('glow');
-    }, 2000);
-
     $('#ham-plate').click(function() {
       document.body.classList.toggle('fpmenu');
     });
     if (location.hash === '#fpmenu') $('#ham-plate').click();
+    (function(key) {
+      if (!lichess.storage.get(key)) {
+        $('#ham-plate').addClass('glowing');
+        $('#hamburger').click(function() {
+          $('#ham-plate').removeClass('glowing');
+          lichess.storage.set(key, 1);
+        });
+      }
+    })('ham2-' + document.body.getAttribute('data-user'));
     Mousetrap.bind('esc', function() {
       $('#ham-plate').click();
       return false;

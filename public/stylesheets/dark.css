@@ -463,7 +463,8 @@ body.dark #fpmenu .login input::-moz-placeholder {
 body.dark #fpmenu .login input.submit {
   background: #d59120;
 }
-body.dark #fpmenu .menu {
+body.dark #fpmenu .user,
+body.dark #fpmenu .anon {
   border-color: #444;
 }
 body.dark #fpmenu a.signup {
@@ -479,13 +480,16 @@ body.dark #fpmenu a.signup:hover {
 body.dark #fpmenu .perf strong {
   color: #aeaeae;
 }
+body.dark #ham-plate {
+  background: #404040;
+}
 body.dark #hamburger .top,
 body.dark #hamburger .bottom {
-  background: #999;
+  background: #aaa;
 }
 body.dark #hamburger path,
 body.dark #hamburger line {
-  stroke: #999;
+  stroke: #aaa;
 }
 body.dark #fpmenu .perf::before {
   color: #8b6523;

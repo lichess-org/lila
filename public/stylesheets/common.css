@@ -567,7 +567,7 @@ body.fpmenu > div.content {
   height: 24px;
   width: 1005px;
   margin: 0 auto;
-  padding: 5px 70px 0 0;
+  padding: 5px 52px 0 0;
   box-sizing: border-box;
   z-index: 5001;
 }
@@ -583,13 +583,13 @@ body.fpmenu > div.content {
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
-  transition: top 0.13s;
+  transition: 0.13s;
 }
 #ham-plate:hover {
   top: -3px;
 }
 body.fpmenu #ham-plate {
-  background: #eee;
+  top: -3px;
 }
 
 #site_description {
@@ -1028,9 +1028,6 @@ body.fpmenu #fpmenu {
 }
 #fpmenu .perf .progress {
   opacity: 0.6;
-}
-#fpmenu .anon {
-  margin-top: 50px;
 }
 #fpmenu .anon section {
   width: 322px;
@@ -2166,11 +2163,26 @@ div.progressbar.flashy.green div {
   background-color: #759900 !important;
 }
 .glowing {
-  transition: box-shadow 1.5s;
+  animation: glow 2s infinite ease;
+  -webkit-animation: glow 2s infinite ease;
 }
-.glow {
-  box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000!important;
+@keyframes glow {
+  0% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000!important;
+  }
 }
+@-webkit-keyframes glow {
+  0% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000;
+  }
+}
+
 a.hover_text > .base,
 a.hover_text:hover > .hover {
   display: inline-block;
