@@ -86,14 +86,18 @@ module.exports = function(ctrl) {
             ])
           })))
       ),
-      m('div.half.accepted',
+      m('div.half.accepted', [
         m('table.slist.user_list',
-          m('thead', m('tr', m('th', {
-            colspan: 3
-          }, [
-            m('strong', accepted.length),
-            ' accepted players'
-          ]))),
+          m('thead', [
+            m('tr', m('th', {
+              colspan: 3
+            }, [
+              m('strong', accepted.length),
+              ' accepted players'
+            ])), (candidates.length && !accepted.length) ? m('tr.help',
+              m('th',
+                'Now you get to accept some players, then start the simul')): null
+          ]),
           m('tbody', accepted.map(function(applicant) {
             var variant = util.playerVariant(ctrl, applicant.player);
             return m('tr', {
@@ -112,7 +116,7 @@ module.exports = function(ctrl) {
               }) : null)
             ])
           })))
-      )
+      ])
     ),
     m('div.join_choice', ctrl.data.variants.map(function(variant) {
       return m('a.button', {

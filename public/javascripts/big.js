@@ -1931,6 +1931,9 @@ lichess.storage = {
           $('body').trigger('lichess.content_loaded');
         });
       };
+      $('#site_header .help a.more').click(function() {
+        $.modal($(this).parent().find('div.more').clone()).addClass('card');
+      });
       return;
     }
   });
@@ -2182,6 +2185,7 @@ lichess.storage = {
       e.stopPropagation();
     });
     $('body').prepend($overlay);
+    return $wrap;
   };
   $.modal.close = function() {
     $('#modal-overlay').remove();

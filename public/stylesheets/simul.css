@@ -1,6 +1,25 @@
+#simul.form h1 {
+  text-align: center;
+  display: block;
+}
+#simul form.plain {
+  margin-top: 10px;
+}
+#simul form.plain .help {
+  margin-bottom: 40px;
+  text-align: center;
+}
 #simul form.plain td {
   padding: 0.6em;
   white-space: nowrap;
+}
+#simul form.plain tr td,
+#simul form.plain tr th {
+  padding: 0 0 50px 0;
+}
+#simul form.plain tr.help th {
+  font-style: italic;
+  padding: 0 0 10px 0;
 }
 #simul form.plain label {
   margin-right: 10px;
@@ -25,6 +44,10 @@
 }
 #simul form.plain .error {
   color: red;
+}
+#simul form.plain button[type=submit] {
+  font-size: 2em;
+  margin-right: 20px;
 }
 #simul .content_box {
   min-height: 400px;
@@ -52,6 +75,9 @@
 }
 #simul .half .user_link {
   line-height: 2.5em;
+}
+#simul .half tr.help th {
+  padding: 60px 20px;
 }
 #simul .half td.action {
   text-align: right;
@@ -186,4 +212,23 @@ div.side_box .game_infos {
 #simul div.game_list.playing > div {
   position: relative;
   overflow: hidden;
+}
+#site_header .help {
+  margin-top: 20px;
+}
+#modal-wrap.card {
+  max-width: 500px;
+  padding: 0;
+}
+#modal-wrap.card img {
+  width: 100%;
+}
+#modal-wrap.card em {
+  font-style: italic;
+  margin-top: 10px;
+  display: block;
+}
+#modal-wrap.card p {
+  margin: 30px 20px;
+  text-align: justify;
 }
