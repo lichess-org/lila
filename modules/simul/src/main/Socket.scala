@@ -25,7 +25,6 @@ private[simul] final class Socket(
   private val timeBomb = new TimeBomb(socketTimeout)
 
   private var delayedCrowdNotification = false
-  private var delayedReloadNotification = false
 
   private def redirectPlayer(game: lila.game.Game, color: chess.Color) {
     val player = game player color
@@ -42,7 +41,14 @@ private[simul] final class Socket(
 
     case HostIsOn(gameId)      => notifyVersion("hostGame", gameId, Messadata())
 
-    case Reload  => notifyReload
+    case Reload =>
+      getSimul(simulId) foreach {
+        _ foreach { simul =>
+          jsonView(simul) foreach { obj =>
+            notifyVersion("reload", obj, Messadata())
+          }
+        }
+      }
 
     case Aborted => notifyVersion("aborted", Json.obj(), Messadata())
 
@@ -85,31 +91,12 @@ private[simul] final class Socket(
         case ((anons, users), None)       => (anons + 1) -> users
       }
       notifyVersion("crowd", showSpectators(users, anons), Messadata())
-
-    case NotifyReload =>
-      delayedReloadNotification = false
-      getSimul(simulId) foreach {
-        _ foreach { simul =>
-          jsonView(simul) foreach { obj =>
-            notifyVersion("reload", obj, Messadata())
-          }
-        }
-      }
   }
 
   def notifyCrowd {
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
       context.system.scheduler.scheduleOnce(500 millis, self, NotifyCrowd)
-    }
-  }
-
-  def notifyReload {
-    if (!delayedReloadNotification) {
-      delayedReloadNotification = true
-      // keep the delay low for immediate response to join/withdraw,
-      // but still debounce to avoid tourney start message rush
-      context.system.scheduler.scheduleOnce(50 millis, self, NotifyReload)
     }
   }
 

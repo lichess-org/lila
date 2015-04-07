@@ -32,6 +32,5 @@ private[simul] case object Aborted
 private[simul] case class Connected(enumerator: JsEnumerator, member: Member)
 
 private[simul] case object NotifyCrowd
-private[simul] case object NotifyReload
 
 case class SimulTable(simuls: List[Simul])
