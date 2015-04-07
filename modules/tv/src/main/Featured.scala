@@ -68,7 +68,7 @@ final class Featured(
       gameOption foreach { self ! SetGame(_) }
     }
 
-    def fresh(game: Game) = game.isBeingPlayed
+    def fresh(game: Game) = game.isBeingPlayed && !game.olderThan(15)
 
     def wayBetter(game: Game): Fuog = feature map {
       case Some(next) if isWayBetter(game, next) => next.some
