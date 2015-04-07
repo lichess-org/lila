@@ -27,6 +27,7 @@ module.exports = function(ctrl, key) {
   }.bind(this);
 
   this.next = function() {
+    if (!ctrl.data.simul) return;
     if (!this.value || ctrl.data.player.spectator || ctrl.data.game.tournamentId || game.isPlayerTurn(ctrl.data)) return;
     ctrl.vm.redirecting = true;
     lichess.hasToReload = true;
