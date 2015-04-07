@@ -77,5 +77,11 @@ module.exports = {
   enterVariation: function(ctrl) {
     if (canEnterVariation(ctrl))
       ctrl.userJump(path.withVariation(ctrl.vm.path, 1));
+  },
+
+  exitVariation: function(ctrl) {
+    var p = ctrl.vm.path
+    if (p.length > 1)
+      ctrl.userJump(path.withoutVariation(p));
   }
 };

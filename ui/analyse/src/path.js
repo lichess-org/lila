@@ -58,5 +58,14 @@ module.exports = {
       variation: null
     });
     return p2;
+  },
+
+  withoutVariation: function(path) {
+    var p2 = path.slice(0, path.length - 1);
+    var last = p2.length - 1;
+    p2[last] = copy(p2[last], {
+      variation: null
+    });
+    return p2;
   }
 };

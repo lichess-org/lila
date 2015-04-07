@@ -19,11 +19,15 @@ module.exports = function(ctrl) {
     control.prev(ctrl);
     m.redraw();
   }));
+  k.bind(['shift+left', 'shift+h'], preventing(function() {
+    control.exitVariation(ctrl);
+    m.redraw();
+  }));
   k.bind(['right', 'l'], preventing(function() {
     control.next(ctrl);
     m.redraw();
   }));
-  k.bind('shift+right', preventing(function() {
+  k.bind(['shift+right', 'shift+l'], preventing(function() {
     control.enterVariation(ctrl);
     m.redraw();
   }));
