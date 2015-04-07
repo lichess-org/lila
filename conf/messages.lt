@@ -304,3 +304,6 @@ description=Aprašymas
 no=Ne
 yes=Taip
 help=Pagalba:
+difficultyEasy=Lengvas
+difficultyNormal=Normalus
+difficultyHard=Sudėtingas
