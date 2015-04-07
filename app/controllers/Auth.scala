@@ -121,7 +121,7 @@ object Auth extends LilaController {
           BadRequest(html.auth.signup(err, captcha))
         },
         data => doSignup(data.username, data.password) { user =>
-          fuccess(Redirect(routes.User.show(user.username)))
+          fuccess(Redirect(routes.Lobby.home))
         }
       ),
       api = _ => forms.signup.mobile.bindFromRequest.fold(
