@@ -1166,7 +1166,9 @@ body.fpmenu #fpmenu {
     margin: auto;
     width: 500px;
   }
-  body.fpmenu #top {
+}
+@media (max-width: 1020px) {
+  #top {
     width: calc(100% - 25px);
   }
 }
