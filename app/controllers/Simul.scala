@@ -107,16 +107,11 @@ object Simul extends LilaController {
 
   def withdraw(id: String) = Auth { implicit ctx =>
     me =>
-      negotiate(
-        html = fuccess {
-          env.api.removeApplicant(id, me)
-          Redirect(routes.Simul.show(id))
-        },
-        api = _ => fuccess {
-          env.api.removeApplicant(id, me)
-          Ok(Json.obj("ok" -> true))
-        }
-      )
+      fuccess {
+        env.api.removeApplicant(id, me)
+        if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON
+        else Redirect(routes.Simul.show(id))
+      }
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
