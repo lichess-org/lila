@@ -144,7 +144,6 @@ recipient=수신자
 send=전송
 incrementInSeconds=턴 당 추가 시간(초)
 freeOnlineChess=무료 온라인 체스
-spectators=명이 관전 중:
 nbWins=%s번 승리
 nbLosses=%s번 패배
 nbDraws=%s번 비김

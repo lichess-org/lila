@@ -144,7 +144,6 @@ recipient=Destinatari
 send=Envia
 incrementInSeconds=Increment en segons
 freeOnlineChess=Escacs en línia gratis
-spectators=Espectadors
 nbWins=%s victòries
 nbLosses=%s derrotes
 nbDraws=%s taules

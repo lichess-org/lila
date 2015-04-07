@@ -97,7 +97,6 @@ noNewMessages=шинэ мессеж байхгүй
 subject=гарчиг
 incrementInSeconds=Секундээр нэмэгдүүлэх
 freeOnlineChess=Үнэгүй онлайн шатар
-spectators=Үзэгчид:
 nbWins=%s хожсон
 nbLosses=%s хожигдсон
 nbDraws=%s тэнцсэн

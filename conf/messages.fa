@@ -144,7 +144,6 @@ recipient=گیرنده
 send=ارسال
 incrementInSeconds=افزایش در ثانیه
 freeOnlineChess=شطرنج آنلاین رایگان
-spectators=تماشاگران :
 nbWins=برد %s
 nbLosses=باخت %s
 nbDraws=مساوی %s

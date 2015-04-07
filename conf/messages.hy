@@ -144,7 +144,6 @@ recipient=Ընդունող
 send=Ուղարկել
 incrementInSeconds=Ժամանակի աճը ըստ վայրկյանների
 freeOnlineChess=Անվճար օնլայն շախմատ
-spectators=հանդիսատեսներ
 nbWins=%s հաղթեց
 nbLosses=%s պարտվեց
 nbDraws=%s ոչոքի

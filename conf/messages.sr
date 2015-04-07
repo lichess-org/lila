@@ -144,7 +144,6 @@ recipient=Прималац
 send=Пошаљи
 incrementInSeconds=Додавање у секундама
 freeOnlineChess=Бесплатни интернет шах
-spectators=Посматрачи:
 nbWins=%s победа
 nbLosses=%s пораза
 nbDraws=%s ремија

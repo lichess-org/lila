@@ -144,7 +144,6 @@ recipient=Príjemca
 send=Poslať
 incrementInSeconds=Prídavok v sekundách
 freeOnlineChess=Online šach zadarmo
-spectators=Pozorovatelia:
 nbWins=%s víťazstiev
 nbLosses=%s prehier
 nbDraws=%s remíz

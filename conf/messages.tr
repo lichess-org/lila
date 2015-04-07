@@ -144,7 +144,6 @@ recipient=Alıcı
 send=Gönder
 incrementInSeconds=Saniyedeki artış
 freeOnlineChess=Ücretsiz Çevrimiçi Satranç
-spectators=İzleyiciler
 nbWins=%s kez kazandı
 nbLosses=%s kez kaybetti
 nbDraws=%s kez berabere kaldı

@@ -144,7 +144,6 @@ recipient=المستلم
 send=إرسال
 incrementInSeconds=الزيادة بالثواني
 freeOnlineChess=شطرنج مجاني أونلاين
-spectators=المتفرجون
 nbWins=%s ربح
 nbLosses=%s خسر
 nbDraws=%s تعادل

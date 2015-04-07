@@ -144,7 +144,6 @@ recipient=Destinataire
 send=Envoyer
 incrementInSeconds=Incrément en secondes
 freeOnlineChess=Jeu d'échecs gratuit en ligne
-spectators=Spectateurs :
 nbWins=%s victoires
 nbLosses=%s défaites
 nbDraws=%s nuls

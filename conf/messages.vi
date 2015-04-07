@@ -144,7 +144,6 @@ recipient=Người nhận
 send=Gửi
 incrementInSeconds=Thêm giây
 freeOnlineChess=Chơi cờ miễn phí online
-spectators=Khán giả:
 nbWins=%s thắng
 nbLosses=%s thua
 nbDraws=%s hòa

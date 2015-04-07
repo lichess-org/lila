@@ -144,7 +144,6 @@ recipient=Məktubu alan
 send=Göndər
 incrementInSeconds=saniyə artırma
 freeOnlineChess=Pulsuz
-spectators=tamaşaçı
 nbWins=%s qalib gəldi
 nbLosses=%s uduzurlar
 nbDraws=%s heç-heçə edirlər

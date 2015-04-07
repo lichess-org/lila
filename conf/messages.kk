@@ -89,7 +89,6 @@ chatRoom=Сөйлесу бөлмесі
 composeMessage=Хат жазу
 incrementInSeconds=Секунд қосылады
 freeOnlineChess=Тегін онлайн шахмат
-spectators=Көрермен
 nbWins=%s ұтыс
 nbLosses=%s ұтылыс
 nbDraws=%s тепе-тең

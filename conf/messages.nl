@@ -144,7 +144,6 @@ recipient=Ontvanger
 send=Verstuur
 incrementInSeconds=Seconden extra per zet
 freeOnlineChess=Gratis online schaken
-spectators=Toeschouwers:
 nbWins=%s gewonnen
 nbLosses=%s verloren
 nbDraws=%s remise

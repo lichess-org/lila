@@ -144,7 +144,6 @@ recipient=Recipiente
 send=Enviar
 incrementInSeconds=Acréscimo em segundos
 freeOnlineChess=Xadrez Online Gratuito
-spectators=Espectadores:
 nbWins=%s vitórias
 nbLosses=%s derrotas
 nbDraws=%s empates

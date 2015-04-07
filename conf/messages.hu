@@ -144,7 +144,6 @@ recipient=Címzett
 send=Elküld
 incrementInSeconds=Másodperc léptetés
 freeOnlineChess=Ingyenes Online Sakk
-spectators=Megfigyelők
 nbWins=%s győzelem
 nbLosses=%s vereség
 nbDraws=%s döntetlen

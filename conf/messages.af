@@ -127,7 +127,6 @@ recipient=Ontvanger
 send=Stuur
 incrementInSeconds=Tel in sekondes
 freeOnlineChess=Gratis Aanlyn Skaak
-spectators=Toeskouers
 nbWins=%s gewen
 nbLosses=%s verloor
 nbDraws=%s gelykop

@@ -144,7 +144,6 @@ recipient=Mottakar
 send=Send
 incrementInSeconds=Tilleggstid i sekund
 freeOnlineChess=Gratis nettsjakk
-spectators=Tilskodarar
 nbWins=%s sigrar
 nbLosses=%s tap
 nbDraws=%s uavgjort

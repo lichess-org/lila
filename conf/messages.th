@@ -144,7 +144,6 @@ recipient=ผู้รับ
 send=ส่ง
 incrementInSeconds=วินาทีที่บวกเพิ่ม
 freeOnlineChess=หมากรุกสากลออนไลน์ฟรี
-spectators=ผู้สังเกตการณ์:
 nbWins=ชนะ %s
 nbLosses=แพ้ %s
 nbDraws=เสมอ %s

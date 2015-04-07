@@ -126,7 +126,6 @@ recipient=Faightear
 send=Cuir
 incrementInSeconds=Ioncramaid ann an diogan
 freeOnlineChess=Tàileasg air loidhne an-asgaidh
-spectators=Luchd-amhairc:
 nbWins=Bhuannaich %s
 nbLosses=Chaill %s
 nbDraws=Geama ionnanach le %s

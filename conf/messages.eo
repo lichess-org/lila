@@ -144,7 +144,6 @@ recipient=Al
 send=Sendi
 incrementInSeconds=Pliigo en sekundoj
 freeOnlineChess=Senpaga Interreta Ŝako
-spectators=Spektantoj:
 nbWins=%s venkoj
 nbLosses=%s malvenkoj
 nbDraws=%s egalvenkoj

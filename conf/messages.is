@@ -143,7 +143,6 @@ recipient=Móttakandi
 send=Senda
 incrementInSeconds=Tímaaukning í sekúndum
 freeOnlineChess=Ókeypis vefskák
-spectators=Áhorfendur
 nbWins=%s vinningar
 nbLosses=%s töp
 nbDraws=%s jafntefli
