@@ -108,7 +108,9 @@ final class Env(
     new Sequencer(SequencerTimeout)
   }), name = SequencerMapName)
 
-  scheduler.effect(1 minute, "[simul] cleanup")(repo.cleanup)
+  private lazy val simulCleaner = new SimulCleaner(repo, api, socketHub)
+
+  scheduler.effect(15 seconds, "[simul] cleaner")(simulCleaner.apply)
 }
 
 object Env {

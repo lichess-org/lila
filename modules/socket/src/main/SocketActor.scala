@@ -8,7 +8,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 
 import actorApi._
-import lila.hub.actorApi.{ Deploy, GetUids }
+import lila.hub.actorApi.{ Deploy, GetUids, GetUserIds }
 import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
@@ -53,6 +53,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     case NbMembers(_, pongMsg) => pong = pongMsg
 
     case GetUids               => sender ! uids
+
+    case GetUserIds            => sender ! userIds
 
     case Resync(uid)           => resync(uid)
 

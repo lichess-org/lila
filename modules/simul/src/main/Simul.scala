@@ -18,7 +18,8 @@ case class Simul(
     hostRating: Int,
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[DateTime],
-    finishedAt: Option[DateTime]) {
+    finishedAt: Option[DateTime],
+    hostSeenAt: Option[DateTime]) {
 
   def id = _id
 
@@ -66,7 +67,8 @@ case class Simul(
     applicants = Nil,
     pairings = applicants collect {
       case a if a.accepted => SimulPairing(a.player)
-    })
+    },
+    hostSeenAt = none)
 
   def updatePairing(gameId: String, f: SimulPairing => SimulPairing) = copy(
     pairings = pairings collect {
@@ -132,5 +134,6 @@ object Simul {
     applicants = Nil,
     pairings = Nil,
     startedAt = none,
-    finishedAt = none)
+    finishedAt = none,
+    hostSeenAt = DateTime.now.some)
 }
