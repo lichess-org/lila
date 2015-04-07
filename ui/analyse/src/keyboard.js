@@ -23,6 +23,10 @@ module.exports = function(ctrl) {
     control.next(ctrl);
     m.redraw();
   }));
+  k.bind('shift+right', preventing(function() {
+    control.enterVariation(ctrl);
+    m.redraw();
+  }));
   k.bind(['up', 'k'], preventing(function() {
     control.first(ctrl);
     m.redraw();

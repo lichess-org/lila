@@ -1,3 +1,5 @@
+var path = require('./path');
+
 function canGoForward(ctrl) {
   var tree = ctrl.analyse.tree;
   var ok = false;
@@ -8,6 +10,23 @@ function canGoForward(ctrl) {
         tree = move.variations[step.variation - 1];
         break;
       } else ok = step.ply < move.ply;
+    }
+  });
+  return ok;
+}
+
+function canEnterVariation(ctrl) {
+  var tree = ctrl.analyse.tree;
+  var ok = false;
+  ctrl.vm.path.forEach(function(step) {
+    for (i = 0, nb = tree.length; i < nb; i++) {
+      var move = tree[i];
+      if (step.ply === move.ply) {
+        if (step.variation) {
+          tree = move.variations[step.variation - 1];
+          break;
+        } else ok = move.variations.length > 0;
+      }
     }
   });
   return ok;
@@ -53,5 +72,10 @@ module.exports = {
       ply: 0,
       variation: null
     }]);
+  },
+
+  enterVariation: function(ctrl) {
+    if (canEnterVariation(ctrl))
+      ctrl.userJump(path.withVariation(ctrl.vm.path, 1));
   }
 };
