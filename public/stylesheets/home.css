@@ -635,7 +635,7 @@ div.game_config div.color_submits button.random span {
 }
 }
 #timeline .entries {
-  height: 400px;
+  height: 380px;
   overflow: hidden;
 }
 #timeline .entry {
