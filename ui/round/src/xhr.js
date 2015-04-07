@@ -33,7 +33,16 @@ function berserk(ctrl) {
   });
 }
 
+function whatsNext(ctrl) {
+  return m.request({
+    method: 'GET',
+    url: uncache(ctrl.router.Round.whatsNext(ctrl.data.game.id).url),
+    config: xhrConfig
+  });
+}
+
 module.exports = {
   reload: reload,
-  berserk: berserk
+  berserk: berserk,
+  whatsNext: whatsNext
 };

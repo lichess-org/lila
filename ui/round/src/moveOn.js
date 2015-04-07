@@ -13,7 +13,7 @@ module.exports = function(ctrl, key) {
   this.toggle = function() {
     this.value = !this.value;
     store();
-    this.next();
+    this.next(true);
     return this.value;
   }.bind(this);
 
@@ -26,12 +26,20 @@ module.exports = function(ctrl, key) {
     store();
   }.bind(this);
 
-  this.next = function() {
-    if (!ctrl.data.simul) return;
-    if (!this.value || ctrl.data.player.spectator || ctrl.data.game.tournamentId || game.isPlayerTurn(ctrl.data)) return;
+  var redirect = function(href) {
     ctrl.vm.redirecting = true;
     lichess.hasToReload = true;
-    location.href = ctrl.router.Round.next(ctrl.data.game.id).url;
+    location.href = href;
     m.redraw();
+  };
+
+  this.next = function(force) {
+    if (!this.value || ctrl.data.player.spectator || ctrl.data.game.tournamentId || game.isPlayerTurn(ctrl.data)) return;
+    if (force) redirect(ctrl.router.Round.next(ctrl.data.game.id).url);
+    else if (ctrl.data.simul) {
+      if (ctrl.data.simul.hostId === ctrl.userId) redirect(ctrl.router.Round.next(ctrl.data.game.id).url)
+    } else xhr.whatsNext(ctrl).then(function(data) {
+      if (data.next) redirect('/' + data.next);
+    }.bind(this));
   }.bind(this);
 };

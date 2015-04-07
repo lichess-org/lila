@@ -98,6 +98,8 @@ case class Simul(
 
   def variantRich = variants.size > 3
 
+  def isHost(userOption: Option[User]) = userOption ?? (_.id == hostId)
+
   private def Created(s: => Simul): Simul = if (isCreated) s else this
 }
 

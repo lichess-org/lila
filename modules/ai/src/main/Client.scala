@@ -23,7 +23,6 @@ final class Client(
     else fufail("[ai stockfish] invalid position")
 
   def play(game: Game, level: Int): Fu[PlayResult] = withValidSituation(game) {
-    // Thread sleep 2000
     for {
       fen ← GameRepo initialFen game
       uciMoves ← uciMemo get game

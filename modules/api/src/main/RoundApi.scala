@@ -83,6 +83,7 @@ private[api] final class RoundApi(
     simulOption.fold(json) { simul =>
       json + ("simul" -> Json.obj(
         "id" -> simul.id,
+        "hostId" -> simul.hostId,
         "name" -> simul.name
       ))
     }

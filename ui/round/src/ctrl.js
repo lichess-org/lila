@@ -22,6 +22,8 @@ module.exports = function(opts) {
 
   this.data = data({}, opts.data);
 
+  this.userId = opts.userId;
+
   this.vm = {
     flip: false,
     reloading: false,

@@ -112,6 +112,7 @@ GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId:
 GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: String, color: String)
 
 GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: String)
+GET   /whats-next/$gameId<\w{8}>                 controllers.Round.whatsNext(gameId: String)
 
 # Round accessibility: text representation
 GET   /$fullId<\w{12}>/text                      controllers.Round.playerText(fullId: String)
