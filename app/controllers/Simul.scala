@@ -97,16 +97,11 @@ object Simul extends LilaController {
   def join(id: String, variant: String) = AuthBody { implicit ctx =>
     implicit me =>
       NoEngine {
-        negotiate(
-          html = fuccess {
-            env.api.addApplicant(id, me, variant)
-            Redirect(routes.Simul.show(id))
-          },
-          api = _ => fuccess {
-            env.api.addApplicant(id, me, variant)
-            Ok(Json.obj("ok" -> true))
-          }
-        )
+        fuccess {
+          env.api.addApplicant(id, me, variant)
+          if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON
+          else Redirect(routes.Simul.show(id))
+        }
       }
   }
 
