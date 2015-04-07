@@ -88,7 +88,7 @@ function renderButtons(ctrl, curPly) {
       return m('a', {
         class: 'button ' + b[0] + ' ' + classSet({
           disabled: (ctrl.broken || !enabled),
-          glowing: ctrl.vm.late && b[0] === 'last'
+          glowing: b[0] === 'last' && ctrl.isLate()
         }),
         'data-icon': b[1],
         onclick: enabled ? partial(ctrl.jump, b[2]) : null

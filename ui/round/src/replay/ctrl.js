@@ -1,5 +1,6 @@
 var Chess = require('chessli.js').Chess;
 var game = require('game').game;
+var status = require('game').status;
 var xhr = require('../xhr');
 
 module.exports = function(root) {
@@ -10,7 +11,6 @@ module.exports = function(root) {
   this.ply = 0;
 
   this.vm = {
-    late: false,
     hash: ''
   };
 
@@ -62,7 +62,6 @@ module.exports = function(root) {
 
   var disable = function() {
     this.ply = 0;
-    this.vm.late = false;
     root.chessground.set({
       movable: {
         color: game.isPlayerPlaying(root.data) ? root.data.player.color : null,
@@ -98,5 +97,9 @@ module.exports = function(root) {
     return d.pref.replay === 2 || (
       d.pref.replay === 1 && (d.game.speed === 'classical' || d.game.speed === 'unlimited')
     );
+  }.bind(this);
+
+  this.isLate = function() {
+    return this.active && status.playing(root.data);
   }.bind(this);
 }

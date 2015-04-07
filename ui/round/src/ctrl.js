@@ -71,8 +71,7 @@ module.exports = function(opts) {
 
   this.apiMove = function(o) {
     m.startComputation();
-    if (this.replay.active) this.replay.vm.late = true;
-    else this.chessground.apiMove(o.from, o.to);
+    if (!this.replay.active) this.chessground.apiMove(o.from, o.to);
     if (this.data.game.threefold) this.data.game.threefold = false;
     this.data.game.moves.push(o.san);
     game.setOnGame(this.data, o.color, true);
