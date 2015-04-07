@@ -57,14 +57,13 @@ module.exports = function(opts) {
   var onUserMove = function(orig, dest, meta) {
     hold.register(this.socket, meta.holdTime);
     if (!promotion.start(this, orig, dest, meta.premove)) this.sendMove(orig, dest);
-    $.sound.move(this.data.player.color == 'white');
   }.bind(this);
 
   var onMove = function(orig, dest, captured) {
     if (captured) {
       if (this.data.game.variant.key === 'atomic') atomic.capture(this, dest, captured);
       else $.sound.take();
-    }
+    } else $.sound.move();
   }.bind(this);
 
   this.chessground = ground.make(this.data, opts.data.game.fen, onUserMove, onMove);
@@ -76,7 +75,6 @@ module.exports = function(opts) {
     this.data.game.moves.push(o.san);
     game.setOnGame(this.data, o.color, true);
     m.endComputation();
-    if (this.data.player.spectator || o.color != this.data.player.color) $.sound.move(o.color == 'white');
     if (this.data.blind) blind.reload(this);
     if (game.isPlayerPlaying(this.data) && o.color === this.data.player.color) this.moveOn.next();
   }.bind(this);

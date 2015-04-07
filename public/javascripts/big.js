@@ -1000,8 +1000,7 @@ lichess.storage = {
     Howler.volume(lichess.storage.get('sound-volume') || 0.7);
     var names = {
       dong: 'dong2',
-      moveW: 'move3',
-      moveB: 'move3',
+      move: 'move3',
       take: 'take2',
       lowtime: 'lowtime'
     };
@@ -1023,11 +1022,8 @@ lichess.storage = {
     };
     $control.add($toggle).toggleClass('sound_state_on', enabled());
     var play = {
-      move: function(white) {
-        if (enabled()) {
-          if (white) get('moveW').play();
-          else get('moveB').play();
-        }
+      move: function() {
+        if (enabled()) get('move').play();
       },
       take: function() {
         if (enabled()) get('take').play();
