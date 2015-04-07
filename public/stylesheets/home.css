@@ -633,6 +633,9 @@ div.game_config div.color_submits button.random span {
   margin-left: 0px;
   width: 200px;
 }
+#featured_game {
+  display: none;
+}
 }
 #timeline .entries {
   height: 380px;

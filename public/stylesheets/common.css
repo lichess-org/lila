@@ -1172,7 +1172,7 @@ body.fpmenu #fpmenu {
     width: calc(100% - 25px);
   }
 }
-@media (max-width: 440px) {
+@media (max-width: 520px) {
   #fpmenu .body {
     padding-left: 10px;
   }
