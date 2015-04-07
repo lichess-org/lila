@@ -19,6 +19,9 @@ div.user_show div.content_box_top > .trophy {
   float: right;
   margin-top: -46px;
 }
+div.user_show div.content_box_top > .trophy:first-child {
+  margin-right: 50px;
+}
 div.user_show .honorific {
   display: inline-block;
   margin-top: 1em;
