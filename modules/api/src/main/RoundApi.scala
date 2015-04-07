@@ -84,7 +84,8 @@ private[api] final class RoundApi(
       json + ("simul" -> Json.obj(
         "id" -> simul.id,
         "hostId" -> simul.hostId,
-        "name" -> simul.name
+        "name" -> simul.name,
+        "nbPlaying" -> simul.playingPairings.size
       ))
     }
 

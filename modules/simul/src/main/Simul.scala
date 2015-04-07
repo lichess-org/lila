@@ -100,6 +100,8 @@ case class Simul(
 
   def isHost(userOption: Option[User]) = userOption ?? (_.id == hostId)
 
+  def playingPairings = pairings filterNot (_.finished)
+
   private def Created(s: => Simul): Simul = if (isCreated) s else this
 }
 
