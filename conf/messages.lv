@@ -144,6 +144,7 @@ recipient=Saņēmējs
 send=Sūtīt
 incrementInSeconds=Pieaugums sekundēs
 freeOnlineChess=Bezmaksas Šahs Tiešsaistē
+spectators=Skatītāji
 nbWins=%s uzvaras
 nbLosses=%s zaudējumi
 nbDraws=%s neizšķirti

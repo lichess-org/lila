@@ -144,6 +144,7 @@ recipient=Recipient
 send=Send
 incrementInSeconds=Increment in seconds
 freeOnlineChess=Free Online Chess
+spectators=Spectators:
 nbWins=%s wins
 nbLosses=%s losses
 nbDraws=%s draws

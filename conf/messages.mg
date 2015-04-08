@@ -122,6 +122,7 @@ recipient=Antontany
 send=Alefaso
 incrementInSeconds=Increment in seconds
 freeOnlineChess=Echéc maimaimpoana amin'ny tranon'kala
+spectators=Mpanaraka:
 nbWins=Fandresena %s
 nbLosses=Faharesena %s
 nbDraws=Lalao sahala %s

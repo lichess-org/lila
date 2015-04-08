@@ -144,6 +144,7 @@ recipient=受信者
 send=送信する
 incrementInSeconds=１手ごとに増える秒数
 freeOnlineChess=無料オンラインチェス
+spectators=観覧者数:
 nbWins=%sの勝ち
 nbLosses=%sの負け
 nbDraws=%sの引き分け

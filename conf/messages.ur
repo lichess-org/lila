@@ -142,6 +142,7 @@ recipient=وصول کنندہ
 send=ارسال کریں
 incrementInSeconds=اضافہ سیکنڈوں میں
 freeOnlineChess=مفت آن لائن شطرنج
+spectators=ناظرین:
 nbWins=%s فتوحات
 nbLosses=%s شکستیں
 nbDraws=%s برابر

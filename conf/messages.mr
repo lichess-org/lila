@@ -120,6 +120,7 @@ recipient=प्राप्तकर्ता
 send=पाठवा
 incrementInSeconds=सेकंदांमध्ये वाढ
 freeOnlineChess=विनामूल्य ऑनलाइन बुद्धिबळ
+spectators=प्रेक्षक
 nbWins=%s विजय
 nbLosses=%s पराभव
 nbDraws=%s अनिर्णीत

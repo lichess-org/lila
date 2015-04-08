@@ -144,6 +144,7 @@ recipient=Primalac
 send=Pošaljite
 incrementInSeconds=Dodatnih sekundi po potezu
 freeOnlineChess=Besplatni internet-šah
+spectators=Posmatrača
 nbWins=%s pobjeda
 nbLosses=%s poraza
 nbDraws=%s remija

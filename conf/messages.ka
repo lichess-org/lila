@@ -141,6 +141,7 @@ recipient=მიმღები
 send=გაგზავნა
 incrementInSeconds=ზრდა წამებში
 freeOnlineChess=უფასო ონლაინ ჭადრაკი
+spectators=მაყურებლები
 nbWins=%s გამარჯვება
 nbLosses=%s მარცხი
 nbDraws=%s ფრე

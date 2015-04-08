@@ -140,6 +140,7 @@ recipient=Saaja
 send=Saada
 incrementInSeconds=Lisatavad sekundid
 freeOnlineChess=Tasuta onlain male
+spectators=Pealtvaatajad
 nbWins=%s võitu
 nbLosses=%s kaotust
 nbDraws=%s viiki

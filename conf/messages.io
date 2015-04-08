@@ -103,6 +103,7 @@ spectatorRoom=Spekterochambro
 composeMessage=Kompozar mesajo
 incrementInSeconds=Kreskajo en sekundi
 freeOnlineChess=Libera Enlinea Shakoludo
+spectators=Spekteri:
 nbWins=%s vinki
 nbLosses=%s desvinki
 nbDraws=%s egaligi

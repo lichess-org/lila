@@ -144,6 +144,7 @@ recipient=Prano
 send=Dergo
 incrementInSeconds=Koha shtesë në sekonda
 freeOnlineChess=Shah i lirë  i drejtpërdrejtë
+spectators=Shikues:
 nbWins=%s fitore
 nbLosses=%s humbje
 nbDraws=%s barazime

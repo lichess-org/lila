@@ -144,6 +144,7 @@ recipient=Παραλήπτης
 send=Αποστολή
 incrementInSeconds=Προσαύξηση σε δευτερόλεπτα
 freeOnlineChess=Δωρεάν Διαδικτυακό Σκάκι
+spectators=Θεατές:
 nbWins=%s νίκες
 nbLosses=%s ήττες
 nbDraws=%s ισοπαλίες

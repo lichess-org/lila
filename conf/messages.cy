@@ -93,6 +93,7 @@ chatRoom=Ystafell sgwrs
 composeMessage=Creu Neges
 incrementInSeconds=Cynyddiad mewn eiliadau
 freeOnlineChess=Chess arlein am ddim
+spectators=Ymwelwyr
 nbWins=%s yn ennill
 nbLosses=%s yn colli
 nbDraws=%s yn cyfartal

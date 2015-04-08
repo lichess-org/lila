@@ -144,6 +144,7 @@ recipient=Mottagare
 send=Skicka
 incrementInSeconds=Tilläggssekunder
 freeOnlineChess=Gratis schack på internet
+spectators=Åskådare
 nbWins=%s vinster
 nbLosses=%s förluster
 nbDraws=%s remier

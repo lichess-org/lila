@@ -144,6 +144,7 @@ recipient=Ricevente
 send=Invia
 incrementInSeconds=Incremento in secondi
 freeOnlineChess=Scacchi Online Gratis
+spectators=Spettatori
 nbWins=%s vinte
 nbLosses=%s perse
 nbDraws=%s patte

@@ -130,6 +130,7 @@ recipient=Receptor
 send=Mandare
 incrementInSeconds=Incrementum (secundae)
 freeOnlineChess=Liberi scacci in rete
+spectators=Spectatores
 nbWins=%s victoriae
 nbLosses=%s clades
 nbDraws=%s pacis casus

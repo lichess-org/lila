@@ -143,6 +143,7 @@ recipient=penerima
 send=kirim
 incrementInSeconds=Dalam detik
 freeOnlineChess=Catur online gratis!
+spectators=Penonton
 nbWins=%s menang
 nbLosses=%s kalah
 nbDraws=%s imbang

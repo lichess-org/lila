@@ -144,6 +144,7 @@ recipient=Получатель
 send=Послать
 incrementInSeconds=Прибавка в секундах
 freeOnlineChess=Бесплатные онлайн-шахматы
+spectators=Зрители:
 nbWins=%s выиграно
 nbLosses=%s проиграно
 nbDraws=%s сыграно вничью

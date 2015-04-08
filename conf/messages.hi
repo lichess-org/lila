@@ -140,6 +140,7 @@ recipient=प्राप्तकर्ता
 send=भेजें
 incrementInSeconds=हर चाल पर सेकंड्स की वृद्धि
 freeOnlineChess=मुफ्त ऑनलाइन शतरंज
+spectators=दर्शक
 nbWins=%s जीत
 nbLosses=%s हार
 nbDraws=%s ड्रा

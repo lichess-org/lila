@@ -144,6 +144,7 @@ recipient=Mottaker
 send=Send
 incrementInSeconds=Tillegg i sekunder per trekk
 freeOnlineChess=Gratis online-sjakk
+spectators=Tilskuere:
 nbWins=%s seire
 nbLosses=%s tap
 nbDraws=%s remis

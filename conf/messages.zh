@@ -144,6 +144,7 @@ recipient=收件人
 send=发送
 incrementInSeconds=增加秒数
 freeOnlineChess=免费的在线国际象棋
+spectators=位旁观者：
 nbWins=胜%s次
 nbLosses=败%s次
 nbDraws=和%s次

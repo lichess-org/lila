@@ -144,6 +144,7 @@ recipient=Destinatar
 send=Trimite
 incrementInSeconds=Activizare în secunde
 freeOnlineChess=Șah online gratuit
+spectators=Spectatori
 nbWins=%s victorii
 nbLosses=%s înfrangeri
 nbDraws=%s remize

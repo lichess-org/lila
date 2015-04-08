@@ -144,6 +144,7 @@ recipient=Adresat
 send=Wyślij
 incrementInSeconds=Zwiększanie czasu w sekundach
 freeOnlineChess=Darmowe Szachy Online
+spectators=Widzowie:
 nbWins=%s Wygrane
 nbLosses=%s Przegrane
 nbDraws=%s Remisy

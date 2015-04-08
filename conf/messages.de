@@ -144,6 +144,7 @@ recipient=Empfänger
 send=Senden
 incrementInSeconds=Erhöhung in Sekunden
 freeOnlineChess=Gratis Online-Schach
+spectators=Zuschauer:
 nbWins=%s Siege
 nbLosses=%s Niederlagen
 nbDraws=%s Remis

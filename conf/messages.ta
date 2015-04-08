@@ -129,6 +129,7 @@ recipient=பெறுநர்
 send=அனுப்பு
 incrementInSeconds=கூட்டளவு நொடிகள்
 freeOnlineChess=இலவச இணையச் சதுரங்கம்
+spectators=பார்வையாளர்கள்
 nbWins=%s வெற்றிகள்
 nbLosses=%s தோல்விகள்
 nbDraws=%s இழுபறிகள்

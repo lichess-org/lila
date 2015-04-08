@@ -144,6 +144,7 @@ recipient=Одержувач
 send=Відправити
 incrementInSeconds=Додаток на хід у секундах
 freeOnlineChess=Безкоштовні інтернет-шахи
+spectators=Глядачі:
 nbWins=%s перемог
 nbLosses=%s поразок
 nbDraws=%s нічиїх

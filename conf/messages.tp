@@ -124,6 +124,7 @@ recipient=toki tawa jan seme?
 send=pana
 incrementInSeconds=tenpo pi kama jo
 freeOnlineChess=musi pi wile mani ala
+spectators=jan lukin
 nbWins=%s li pini pona
 nbLosses=%s li pini ike
 nbDraws=%s li pini sama

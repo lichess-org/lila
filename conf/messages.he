@@ -144,6 +144,7 @@ recipient=נמען
 send=שלח
 incrementInSeconds=תוספת בשניות
 freeOnlineChess=שחמט חינמי ברשת
+spectators=צופים:
 nbWins=%s נצחונות
 nbLosses=%s הפסדים
 nbDraws=%s תוצאות תיקו

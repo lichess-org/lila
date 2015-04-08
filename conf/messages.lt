@@ -137,6 +137,7 @@ recipient=Gavėjas
 send=Siųsti
 incrementInSeconds=Didinti sekundėmis
 freeOnlineChess=Nemokami šachmatai tinkle
+spectators=Stebėtojai:
 nbWins=%s pergalės
 nbLosses=%s pralaimėjimai
 nbDraws=%s lygiosios

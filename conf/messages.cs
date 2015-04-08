@@ -144,6 +144,7 @@ recipient=Adresát
 send=Odeslat
 incrementInSeconds=Bonus za tah (v sekundách)
 freeOnlineChess=Šachy online zdarma
+spectators=Diváci:
 nbWins=%s výhry
 nbLosses=%s prohry
 nbDraws=%s remízy

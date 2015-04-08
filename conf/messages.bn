@@ -123,6 +123,7 @@ recipient=প্রাপক
 send=পাঠান
 incrementInSeconds=প্রতি সেকেন্ডে পর্যায়ক্রমিক বৃদ্ধি
 freeOnlineChess=ফ্রি অনলাইন দাবা
+spectators=দর্শক
 nbWins=%s টি জয়
 nbLosses=%s টি পরাজয়
 nbDraws=%s টি ড্র

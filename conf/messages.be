@@ -143,6 +143,7 @@ recipient=Атрымальнік
 send=Даслаць
 incrementInSeconds=Прырост у сэкундах
 freeOnlineChess=Бясплатныя он-лайн шахматы
+spectators=Назіральнікі:
 nbWins=%s перамог
 nbLosses=%s паразаў
 nbDraws=%s нічыіх
