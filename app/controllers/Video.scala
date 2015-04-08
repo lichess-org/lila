@@ -17,17 +17,22 @@ object Video extends LilaController {
   private def WithUserControl[A](f: UserControl => Fu[A])(implicit ctx: Context): Fu[A] = {
     val reqTags = get("tags") ?? (_.split(',').toList.map(_.trim.toLowerCase))
     env.api.tag.paths(reqTags) map { tags =>
-      UserControl(filter = Filter(reqTags), tags = tags)
+      UserControl(filter = Filter(reqTags), tags = tags, query = get("q"))
     } flatMap f
   }
 
   def index = Open { implicit ctx =>
     WithUserControl { control =>
-      env.api.video.byTags(control.filter.tags, getInt("page") | 1) zip
-        env.api.video.count.apply map {
-          case (videos, count) =>
-            Ok(html.video.index(videos, count, control))
+      control.query match {
+        case Some(query) => env.api.video.search(query, getInt("page") | 1) map { videos =>
+          Ok(html.video.search(videos, control))
         }
+        case None => env.api.video.byTags(control.filter.tags, getInt("page") | 1) zip
+          env.api.video.count.apply map {
+            case (videos, count) =>
+              Ok(html.video.index(videos, count, control))
+          }
+      }
     }
   }
 

@@ -962,7 +962,7 @@ lichess.storage = {
     (function(key) {
       if (!lichess.storage.get(key)) {
         $('#ham-plate').addClass('glowing');
-        $('#hamburger').click(function() {
+        $('#hamburger').one('mouseover', function() {
           $('#ham-plate').removeClass('glowing');
           lichess.storage.set(key, 1);
         });

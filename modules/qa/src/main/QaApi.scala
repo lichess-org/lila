@@ -79,6 +79,7 @@ final class QaApi(
         adapter = new BSONAdapter[Question](
           collection = questionColl,
           selector = selector,
+          projection = BSONDocument(),
           sort = sort
         ),
         currentPage = page,

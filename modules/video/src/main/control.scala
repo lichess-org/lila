@@ -16,10 +16,19 @@ case class Filter(tags: List[String]) {
   def toggle(tag: String) = copy(
     tags = if (tags contains tag) tags filter (tag!=) else tags :+ tag
   )
-
-  def queryString = s"tags=${tags.sorted mkString ","}".replace(" ", "+")
 }
 
 case class UserControl(
-  filter: Filter,
-  tags: List[TagNb])
+    filter: Filter,
+    tags: List[TagNb],
+    query: Option[String]) {
+
+  def toggleTag(tag: String) = copy(
+    filter = filter toggle tag,
+    query = none)
+
+  def queryString = List(
+    filter.tags.nonEmpty option s"tags=${filter.tags.sorted mkString ","}".replace(" ", "+"),
+    query.map { q => s"q=$q" }
+  ).flatten mkString "&"
+}

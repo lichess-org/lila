@@ -33,6 +33,22 @@ private[video] final class VideoApi(
     def find(id: Video.ID): Fu[Option[Video]] =
       videoColl.find(BSONDocument("_id" -> id)).one[Video]
 
+    def search(query: String, page: Int): Fu[Paginator[Video]] = {
+      val q = query.split(' ').map { word => s""""$word"""" } mkString " "
+      val textScore = BSONDocument("score" -> BSONDocument("$meta" -> "textScore"))
+      Paginator(
+        adapter = new BSONAdapter[Video](
+          collection = videoColl,
+          selector = BSONDocument(
+            "$text" -> BSONDocument("$search" -> q)
+          ),
+          projection = textScore,
+          sort = textScore
+        ),
+        currentPage = page,
+        maxPerPage = maxPerPage)
+    }
+
     def save(video: Video): Funit =
       videoColl.update(
         BSONDocument("_id" -> video.id),
@@ -63,6 +79,7 @@ private[video] final class VideoApi(
       adapter = new BSONAdapter[Video](
         collection = videoColl,
         selector = BSONDocument(),
+        projection = BSONDocument(),
         sort = BSONDocument("metadata.likes" -> -1)
       ),
       currentPage = page,
@@ -76,6 +93,7 @@ private[video] final class VideoApi(
           selector = BSONDocument(
             "tags" -> BSONDocument("$all" -> tags)
           ),
+          projection = BSONDocument(),
           sort = BSONDocument("metadata.likes" -> -1)
         ),
         currentPage = page,
@@ -88,6 +106,7 @@ private[video] final class VideoApi(
           selector = BSONDocument(
             "author" -> author
           ),
+          projection = BSONDocument(),
           sort = BSONDocument("metadata.likes" -> -1)
         ),
         currentPage = page,

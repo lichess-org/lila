@@ -9,6 +9,7 @@ body.dark #powerTip > .actions a,
 body.dark .button {
   color: #8a8a8a;
 }
+body.dark #video .content_box_top form input,
 body.dark input,
 body.dark textarea,
 body.dark div.analysis_menu > a.active,
@@ -425,19 +426,19 @@ body.dark div.game_row:hover {
   background: rgba(27, 51, 68, 0.5);
 }
 body.dark .is.color-icon.white::before {
-  content: "J";
+  content: 'J';
 }
 body.dark .is.color-icon.black::before {
-  content: "K";
+  content: 'K';
 }
 body.dark::-webkit-input-placeholder {
-  color: #666;
+  color: #666!important;
 }
 body.dark::-moz-placeholder {
-  color: #666;
+  color: #666!important;
 }
 body.dark:-ms-input-placeholder {
-  color: #666;
+  color: #666!important;
 }
 body.dark #fpmenu {
   background: #1c2328;
@@ -449,12 +450,6 @@ body.dark #fpmenu h2 {
 body.dark #fpmenu .login input {
   background-color: #1c2328;
   border-color: #404040;
-}
-body.dark #fpmenu .login input::-webkit-input-placeholder {
-  color: #666;
-}
-body.dark #fpmenu .login input::-moz-placeholder {
-  color: #666;
 }
 body.dark #fpmenu .login input.submit {
   background: #d59120;

@@ -1,6 +1,6 @@
 @(video: lila.video.Video, control: lila.video.UserControl)(implicit ctx: Context)
 
-<a class="card paginated_element" href="@routes.Video.show(video.id)?@control.filter.queryString">
+<a class="card paginated_element" href="@routes.Video.show(video.id)?@control.queryString">
   <span class="img" style="background-image: url(@video.thumbnail)"></span>
   <span class="info">
     <span class="title">@video.title</span>

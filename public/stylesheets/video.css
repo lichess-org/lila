@@ -8,6 +8,29 @@
   padding-bottom: 10px;
   border-bottom: 1px solid #ccc;
 }
+#video .content_box_top form {
+  float: right;
+  position: relative;
+}
+#video .content_box_top form span {
+  position: absolute;
+  left: 10px;
+  top: 4px;
+  font-size: 1.4em;
+  opacity: 0.6;
+}
+#video .content_box_top form input {
+  font-size: 1.2em;
+  border: none;
+  -webkit-appearance: none;
+  line-height: 54px;
+  padding: 0 15px;
+  background: none;
+  outline: none;
+  margin-top: -10px;
+  background: #fff;
+  text-indent: 23px;
+}
 #video .content_box_top .lichess_title {
   display: inline;
 }

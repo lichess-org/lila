@@ -1,26 +1,15 @@
-@(videos: Paginator[lila.video.Video], count: Int, control: lila.video.UserControl)(implicit ctx: Context)
+@(videos: Paginator[lila.video.Video], control: lila.video.UserControl)(implicit ctx: Context)
 
 @layout(
-title = "Free Chess Videos",
+title = s"${control.query.getOrElse("Search")} • Free Chess Videos",
 control = control) {
 
 <div class="content_box_top">
   @searchForm(control.query)
   <h1 data-icon="@openingBrace" class="is4 text lichess_title">
-    @if(control.filter.tags.nonEmpty) {
     @pluralize("video", videos.nbResults) found
-    } else {
-    Free Chess video library
-    }
   </h1>
 </div>
-@if(control.filter.tags.isEmpty) {
-<p class="explain">
-  All videos are free for everyone.<br />
-  Click one or many tags on the left to filter.<br />
-  We have carefully selected <strong>@count</strong> videos so far!
-</p>
-}
 <div class="list infinitescroll">
   @videos.currentPageResults.map { video =>
   @card(video, control)
@@ -28,13 +17,11 @@ control = control) {
   @if(videos.currentPageResults.size < 4) {
   <div class="not_much nb_@videos.nbResults">
     @if(videos.currentPageResults.isEmpty) {
-    No videos for these tags:
+    No videos for this search:
     } else {
-    That's all we got for these tags:
+    That's all we got for this search:
     }
-    @control.filter.tags.map { tag =>
-    <a class="tag" data-icon="o" href="@routes.Video.index?tags=@tag">@tag.capitalize</a>
-    }
+    "@control.query"
     <br />
     <br />
     <a href="@routes.Video.index" class="button">Clear search</a>
