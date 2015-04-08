@@ -28,14 +28,13 @@ object Schedule {
     def apply(name: String) = all find (_.name == name)
   }
 
-  sealed trait Speed {
-    def name = toString.toLowerCase
-  }
+  sealed abstract class Speed(val name: String)
+
   object Speed {
-    case object Bullet extends Speed
-    case object Bullitz extends Speed
-    case object Blitz extends Speed
-    case object Classical extends Speed
+    case object Bullet extends Speed("bullet")
+    case object Bullitz extends Speed("3 + 0")
+    case object Blitz extends Speed("blitz")
+    case object Classical extends Speed("classical")
     val all: List[Speed] = List(Bullet, Bullitz, Blitz, Classical)
     def apply(name: String) = all find (_.name == name)
   }
