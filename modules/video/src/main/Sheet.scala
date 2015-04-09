@@ -17,8 +17,11 @@ private[video] final class Sheet(
   private implicit val readEntries: Reads[Seq[Entry]] =
     (__ \ "feed" \ "entry").read(Reads seq readEntry)
 
+  def select(entry: Entry) =
+    entry.include && entry.lang == "en"
+
   def fetchAll: Funit = fetch flatMap { entries =>
-    entries.filter(_.include).map { entry =>
+    entries.filter(select).map { entry =>
       api.video.find(entry.youtubeId).flatMap {
         case Some(video) =>
           val updated = video.copy(
