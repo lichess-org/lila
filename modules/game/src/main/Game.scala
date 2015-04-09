@@ -210,7 +210,7 @@ case class Game(
   ))
 
   def correspondenceClock: Option[CorrespondenceClock] =
-    daysPerTurn ifTrue (playable && bothPlayersHaveMoved) map { days =>
+    daysPerTurn ifTrue playable map { days =>
       val increment = days * 24 * 60 * 60
       val secondsLeft = lastMoveTimeDate.fold(increment) { lmd =>
         (lmd.getSeconds + increment - nowSeconds).toInt max 0

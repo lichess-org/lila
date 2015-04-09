@@ -143,9 +143,10 @@ function renderClock(ctrl, color, position) {
 }
 
 module.exports = function(ctrl) {
+  var showCorrespondenceClock = ctrl.data.correspondence && ctrl.data.game.turns > 1;
   return m('div.table_wrap', [
     (ctrl.clock && !ctrl.data.blind) ? renderClock(ctrl, ctrl.data.opponent.color, 'top') : (
-      ctrl.data.correspondence ? renderCorrespondenceClock(
+      showCorrespondenceClock ? renderCorrespondenceClock(
         ctrl.correspondenceClock, ctrl.trans, ctrl.data.opponent.color, 'top', ctrl.data.game.player
       ) : whosTurn(ctrl, ctrl.data.opponent.color)
     ),
@@ -162,7 +163,7 @@ module.exports = function(ctrl) {
       renderClock(ctrl, ctrl.data.player.color, 'bottom'),
       button.moretime(ctrl)
     ] : (
-      ctrl.data.correspondence ? renderCorrespondenceClock(
+      showCorrespondenceClock ? renderCorrespondenceClock(
         ctrl.correspondenceClock, ctrl.trans, ctrl.data.player.color, "bottom", ctrl.data.game.player
       ) : whosTurn(ctrl, ctrl.data.player.color))
   ]);
