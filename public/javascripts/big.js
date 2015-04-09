@@ -513,8 +513,6 @@ lichess.storage = {
   };
 
   lichess.openInMobileApp = function(gameId) {
-    // Only in dev mode for now. Add #dev to the URL to enable.
-    if (location.hash !== '#dev') return false;
     if (
       /android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor) &&
       confirm('Open in lichess mobile app?')
