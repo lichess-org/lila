@@ -146,6 +146,7 @@ openGraph = Map(
     </div>
   </div>
 </div>
+@if(ctx.noKid) {
 <div class="new_posts undertable nomargin" data-url="@routes.ForumPost.recent">
   <div class="undertable_top">
     <a class="more hint--bottom" data-hint="@trans.forum()" href="@routes.ForumCateg.index()">@trans.more() »</a>
@@ -157,6 +158,7 @@ openGraph = Map(
     </div>
   </div>
 </div>
+}
 @if(lastPost.nonEmpty) {
 <div class="blog undertable">
   <div class="undertable_top">

@@ -42,6 +42,8 @@ trait UserContextWrapper extends UserContext {
   val userContext: UserContext
   val req = userContext.req
   val me = userContext.me
+  val kid = me.??(_.kid)
+  val noKid = !kid
 }
 
 object UserContext {

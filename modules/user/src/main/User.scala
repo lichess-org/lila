@@ -22,6 +22,7 @@ case class User(
     title: Option[String] = None,
     createdAt: DateTime,
     seenAt: Option[DateTime],
+    kid: Boolean,
     lang: Option[String]) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
@@ -118,6 +119,7 @@ object User {
     val playTime = "time"
     val createdAt = "createdAt"
     val seenAt = "seenAt"
+    val kid = "kid"
     val createdWithApiVersion = "createdWithApiVersion"
     val lang = "lang"
     val title = "title"
@@ -151,6 +153,7 @@ object User {
       playTime = r.getO[PlayTime](playTime),
       createdAt = r date createdAt,
       seenAt = r dateO seenAt,
+      kid = r boolD kid,
       lang = r strO lang,
       title = r strO title)
 
@@ -170,6 +173,7 @@ object User {
       playTime -> o.playTime,
       createdAt -> o.createdAt,
       seenAt -> o.seenAt,
+      kid -> w.boolO(o.kid),
       lang -> o.lang,
       title -> o.title)
   }

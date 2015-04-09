@@ -42,7 +42,7 @@
     }
     <div class="menu">
       <section>
-        <h2>Play</h2>
+        <h2>@trans.play()</h2>
         <a href="/?any#hook">@trans.createAGame()</a>
         <a href="@routes.Tournament.home">@trans.tournament()</a>
         <a href="@routes.Simul.home">Simul</a>
@@ -59,7 +59,9 @@
         <h2>Community</h2>
         <a href="@routes.User.list">@trans.players()</a>
         <a href="@routes.Team.home()">@trans.teams()</a>
+        @if(ctx.noKid) {
         <a href="@routes.ForumCateg.index">@trans.forum()</a>
+        }
         <a href="@routes.QaQuestion.index()">@trans.questionsAndAnswers()</a>
       </section>
       <section>
@@ -72,15 +74,23 @@
     </div>
   </div>
   <div class="footer">
+    @if(ctx.noKid) {
     <a href="/mobile">Mobile App</a> ı
+    }
     <a href="/blog">@trans.blog()</a> ı
+    @if(ctx.noKid) {
     <a href="/developers">Webmasters</a> ı
     <a href="/help-lichess">Contribute</a> ı
+    }
     <a href="/thanks">Thanks</a> ı
+    @if(ctx.noKid) {
     <a href="/donate">Donate</a> ı
+    }
     <a href="/contact">Contact</a> ı
     <a href="@routes.Page.tos">ToS</a> ı
+    @if(ctx.noKid) {
     <a href="http://github.com/ornicar/lila" target="_blank">Source Code</a> ı
+    }
     <a href="/network" target="_blank" title="@trans.realTimeWorldMapOfChessMoves()">@trans.map()</a> ı
     <a href="/monitor" target="_blank">Monitor</a>
   </div>
