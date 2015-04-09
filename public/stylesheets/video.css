@@ -156,7 +156,7 @@
   padding: 5px 10px 5px 5px;
   text-decoration: none;
   border-left: 2px solid transparent;
-  transition: 0.13s;
+  transition: background 0.13s, border 0.13s;
 }
 #video_side .tag_list a.full:hover {
   background: #f8f8f8;
