@@ -256,4 +256,7 @@ private[controllers] trait LilaController
 
   protected def Reasonable(page: Int, max: Int = 40)(result: => Fu[Result]): Fu[Result] =
     (page < max).fold(result, BadRequest("resource too old").fuccess)
+
+  protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
+    if (ctx.kid) notFound else f
 }

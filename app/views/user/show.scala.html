@@ -128,15 +128,18 @@ openGraph = Map(
       <a class="button hint--bottom-left" href="@routes.User.tv(u.username)" data-hint="Watch games"><span data-icon="1"></span></a>
       @if(ctx.isAuth && !ctx.is(u)) {
       @relation.actions(u.id, relation = rel, followable = followable, blocked = blocked)
+      @NotForKids {
       <a data-hint="@trans.reportXToModerators(u.username)" class="button hint--bottom-left" href="@routes.Report.form?username=@u.username">
         <span data-icon="!"></span>
       </a>
+      }
       }
       @if(ctx is u) {
       <a class="button hint--bottom-left" href="@routes.Game.export(u.id)" data-hint="@trans.exportGames()"><span data-icon="x"></span></a>
       }
     </div>
   </div>
+  @NotForKids {
   @if(!(ctx is u)) {
   <div class="note_zone">
     <form class="wide" action="@routes.User.writeNote(u.username)?note" method="post">
@@ -153,6 +156,7 @@ openGraph = Map(
     </div>
     }
   </div>
+  }
   }
   @if((ctx is u) && u.perfs.bestRating > 2400 && !u.hasTitle && !ctx.pref.hasSeenVerifyTitle ) {
   @claimTitle(u)
@@ -190,8 +194,10 @@ openGraph = Map(
       @p.nonEmptyRealName.map { name =>
       <strong class="name">@name</strong>
       }
+      @NotForKids {
       @p.nonEmptyBio.map { bio =>
       <p class="bio">@shorten(bio, 400)</p>
+      }
       }
       }
       <div class="stats">

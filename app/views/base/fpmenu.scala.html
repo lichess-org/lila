@@ -59,7 +59,7 @@
         <h2>Community</h2>
         <a href="@routes.User.list">@trans.players()</a>
         <a href="@routes.Team.home()">@trans.teams()</a>
-        @if(ctx.noKid) {
+        @NotForKids {
         <a href="@routes.ForumCateg.index">@trans.forum()</a>
         }
         <a href="@routes.QaQuestion.index()">@trans.questionsAndAnswers()</a>
@@ -74,21 +74,21 @@
     </div>
   </div>
   <div class="footer">
-    @if(ctx.noKid) {
+    @NotForKids {
     <a href="/mobile">Mobile App</a> ı
     }
     <a href="/blog">@trans.blog()</a> ı
-    @if(ctx.noKid) {
+    @NotForKids {
     <a href="/developers">Webmasters</a> ı
     <a href="/help-lichess">Contribute</a> ı
     }
     <a href="/thanks">Thanks</a> ı
-    @if(ctx.noKid) {
+    @NotForKids {
     <a href="/donate">Donate</a> ı
     }
     <a href="/contact">Contact</a> ı
     <a href="@routes.Page.tos">ToS</a> ı
-    @if(ctx.noKid) {
+    @NotForKids {
     <a href="http://github.com/ornicar/lila" target="_blank">Source Code</a> ı
     }
     <a href="/network" target="_blank" title="@trans.realTimeWorldMapOfChessMoves()">@trans.map()</a> ı

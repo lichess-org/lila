@@ -16,8 +16,10 @@ object Message extends LilaController {
 
   def inbox(page: Int) = Auth { implicit ctx =>
     me =>
-      api updateUser me.id
-      api.inbox(me, page) map { html.message.inbox(me, _) }
+      NotForKids {
+        api updateUser me.id
+        api.inbox(me, page) map { html.message.inbox(me, _) }
+      }
   }
 
   def preview = Auth { implicit ctx =>
@@ -26,9 +28,11 @@ object Message extends LilaController {
 
   def thread(id: String) = Auth { implicit ctx =>
     implicit me =>
-      OptionFuOk(api.thread(id, me)) { thread =>
-        relationApi.blocks(thread otherUserId me, me.id) map { blocked =>
-          html.message.thread(thread, forms.post, blocked)
+      NotForKids {
+        OptionFuOk(api.thread(id, me)) { thread =>
+          relationApi.blocks(thread otherUserId me, me.id) map { blocked =>
+            html.message.thread(thread, forms.post, blocked)
+          }
         }
       }
   }
@@ -48,21 +52,25 @@ object Message extends LilaController {
 
   def form = Auth { implicit ctx =>
     implicit me =>
-      get("user") ?? UserRepo.named map { user =>
-        Ok(html.message.form(forms.thread(me), user, get("title")))
+      NotForKids {
+        get("user") ?? UserRepo.named map { user =>
+          Ok(html.message.form(forms.thread(me), user, get("title")))
+        }
       }
   }
 
   def create = AuthBody { implicit ctx =>
     implicit me =>
-      implicit val req = ctx.body
-      forms.thread(me).bindFromRequest.fold(
-        err => get("username") ?? UserRepo.named map { user =>
-          BadRequest(html.message.form(err, user))
-        },
-        data => api.makeThread(data, me) map { thread =>
-          Redirect(routes.Message.thread(thread.id))
-        })
+      NotForKids {
+        implicit val req = ctx.body
+        forms.thread(me).bindFromRequest.fold(
+          err => get("username") ?? UserRepo.named map { user =>
+            BadRequest(html.message.form(err, user))
+          },
+          data => api.makeThread(data, me) map { thread =>
+            Redirect(routes.Message.thread(thread.id))
+          })
+      }
   }
 
   def delete(id: String) = AuthBody { implicit ctx =>

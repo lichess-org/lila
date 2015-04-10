@@ -49,6 +49,7 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     ctx.pref.highlight ?? "highlight",
     ctx.pref.destination ?? "destination",
     ctx.blindMode ?? "blind_mode",
+    ctx.kid ?? "kid",
     "coords_" + ctx.pref.coords).mkString(" ")"
     data-user="@ctx.userId"
     data-piece-set="@ctx.currentPieceSet"

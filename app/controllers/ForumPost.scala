@@ -6,17 +6,21 @@ import views._
 object ForumPost extends LilaController with ForumController {
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
-    text.trim.isEmpty.fold(
-      Redirect(routes.ForumCateg.index).fuccess,
-      Env.forumSearch(text, page, isGranted(_.StaffForum), ctx.troll) map { paginator =>
-        html.forum.search(text, paginator)
-      }
-    )
+    NotForKids {
+      text.trim.isEmpty.fold(
+        Redirect(routes.ForumCateg.index).fuccess,
+        Env.forumSearch(text, page, isGranted(_.StaffForum), ctx.troll) map { paginator =>
+          html.forum.search(text, paginator)
+        }
+      )
+    }
   }
 
   def recent = Open { implicit ctx =>
-    Env.forum.recent(ctx.me, teamCache.teamIds) map { posts =>
-      html.forum.post.recent(posts)
+    NotForKids {
+      Env.forum.recent(ctx.me, teamCache.teamIds) map { posts =>
+        html.forum.post.recent(posts)
+      }
     }
   }
 

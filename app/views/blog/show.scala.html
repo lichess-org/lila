@@ -30,6 +30,7 @@ openGraph = Map(
 <div class="body">
   @doc.getHtml("blog.body", prismic.linkResolver).map(Html.apply)
 </div>
+@NotForKids {
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'lichessorg'; // required: replace example with your forum shortname
@@ -41,4 +42,5 @@ openGraph = Map(
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
+}
 }

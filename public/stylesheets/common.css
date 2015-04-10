@@ -776,6 +776,10 @@ div.chat_menu {
   font-weight: bold;
   color: #999;
 }
+body.kid div.chat_menu,
+body.kid #chat {
+  display: none;
+}
 div.chat_menu > a {
   text-decoration: none;
   background: #f0f0f0;

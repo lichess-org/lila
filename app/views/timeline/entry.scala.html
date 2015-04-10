@@ -13,10 +13,10 @@ case TeamJoin(userId, teamId) => {
 case TeamCreate(userId, teamId) => {
 @trans.xCreatedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
 }
-case ForumPost(userId, topicId, topicName, postId) => {
+case ForumPost(userId, topicId, topicName, postId) if ctx.noKid => {
 @trans.xPostedInForumY(userIdLink(userId.some, withOnline = false), """<a href="%s">&nbsp;%s</a>""".format(routes.ForumPost.redirect(postId), shorten(topicName, 30)))
 }
-case NoteCreate(fromId, toId) => {
+case NoteCreate(fromId, toId) if ctx.noKid => {
 @trans.xLeftANoteOnY(userIdLink(fromId.some, withOnline = false), userIdLink(toId.some, withOnline = false, params = "?note"))
 }
 case TourJoin(userId, tourId, tourName) => {
@@ -41,6 +41,7 @@ case _ => {Draw}
 in @perf.name
 }
 }
+case _ => {}
 }
 @momentFromNow(e.date)
 }

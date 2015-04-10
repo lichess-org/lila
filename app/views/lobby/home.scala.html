@@ -146,7 +146,7 @@ openGraph = Map(
     </div>
   </div>
 </div>
-@if(ctx.noKid) {
+@NotForKids {
 <div class="new_posts undertable nomargin" data-url="@routes.ForumPost.recent">
   <div class="undertable_top">
     <a class="more hint--bottom" data-hint="@trans.forum()" href="@routes.ForumCateg.index()">@trans.more() »</a>
