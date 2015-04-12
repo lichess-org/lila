@@ -851,7 +851,7 @@ div.side_box .game_infos .bookmark {
   opacity: 0;
   transform: translate(0, -20px);
   -webkit-transform: translate(0, -20px);
-  transition: 0.3s;
+  transition: transform 0.3s;
   z-index: 10;
   /* to go over the board */
 }
@@ -1230,7 +1230,7 @@ body.fpmenu #fpmenu {
 #message_notifications div.notification,
 #challenge_notifications div.notification {
   border-bottom: 1px solid #c0c0c0;
-  transition: 0.13s;
+  transition: background-color 0.13s;
   position: relative;
 }
 #message_notifications div.notification:hover,
@@ -1272,7 +1272,7 @@ body.fpmenu #fpmenu {
   z-index: 1;
   text-decoration: none;
   opacity: 0;
-  transition: 0.13s;
+  transition: opacity 0.13s;
 }
 #message_notifications a,
 #challenge_notifications a {
@@ -1319,12 +1319,11 @@ form.wide textarea {
 }
 #top a.toggle,
 #top #sound_state {
-  transition: 0.13s;
+  transition: color 0.13s;
 }
 #top a.toggle:hover,
 #sound_state:hover {
   color: #303030;
-  border-color: #808080;
 }
 #top #themepicker_toggle,
 #top #sound_state {
@@ -1382,7 +1381,7 @@ div.auth input.login {
   background: none;
   width: 100%;
   text-align: left;
-  transition: 0.13s;
+  transition: background 0.13s;
 }
 .language_links button.current,
 .language_links button.accepted {
@@ -1437,7 +1436,7 @@ body #themepicker div.is3d,
   float: left;
   padding: 7px;
   cursor: pointer;
-  transition: 0.13s;
+  transition: background 0.13s;
 }
 #themepicker div.theme:hover {
   background: #f0f0f0;
@@ -1523,7 +1522,6 @@ body #themepicker div.is3d,
 }
 #sound_control {
   margin-right: 5px;
-  transition: 0.13s;
   position: relative;
 }
 #sound_control .dropdown {
@@ -1582,7 +1580,7 @@ body.fpmenu #friend_box {
   display: block;
   max-height: 100px;
   overflow-y: auto;
-  transition: 0.13s;
+  transition: background 0.13s;
 }
 #friend_box .content a:hover {
   background: #F0F0F0;
@@ -1770,7 +1768,7 @@ div.game_row {
   border-bottom: 1px solid #eaeaea;
   position: relative;
   cursor: pointer;
-  transition: 0.17s;
+  transition: background 0.17s;
 }
 div.game_row:nth-child(odd) {
   background: #f4f4f4;
@@ -1915,7 +1913,7 @@ a.mini_board {
   padding: 4px;
   text-decoration: none;
   text-align: center;
-  transition: background-color 0.13s;
+  transition: background 0.13s;
   background: rgba(255, 255, 255, 0.6);
 }
 #now_playing .move_on {
@@ -1925,7 +1923,6 @@ a.mini_board {
 #now_playing .move_on i {
   font-size: 1.2em;
   display: none;
-  transition: 0.13s;
 }
 #now_playing .move_on.enabled i {
   display: inline-block;
