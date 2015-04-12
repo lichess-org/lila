@@ -879,7 +879,7 @@ div.lichess_board {
   background-image: url(../staunton/Renders/ModernWood/Scaled/Black-King.png);
 }
 #top .cg-piece.cburnett {
-  background-image: url(../piece/cburnett/wN.svg);
+  background-image: url(../piece-src/cburnett/wN.svg);
 }
 #top .cg-piece.merida {
   background-image: url(../piece/merida/wN.svg);
@@ -891,7 +891,7 @@ div.lichess_board {
   background-image: url(../piece/alpha/wN.svg);
 }
 #top .cg-piece.pirouetti {
-  background-image: url(../piece/pirouetti/wN.svg);
+  background-image: url(../piece-src/pirouetti/wN.svg);
 }
 .pirouetti .is2d .cg-piece.piece.white {
   -webkit-filter: drop-shadow(0 0 0.5px #000);
