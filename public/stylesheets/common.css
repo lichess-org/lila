@@ -596,6 +596,11 @@ body.fpmenu > div.content {
 #site_title span.extension {
   opacity: 0.7;
 }
+#site_title span.kiddo {
+  opacity: 0.7;
+  margin-right: 5px;
+  font-size: 0.9em;
+}
 #site_baseline span {
   font-weight: bold;
 }

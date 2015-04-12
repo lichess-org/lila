@@ -51,6 +51,8 @@ GET   /account/close                   controllers.Account.close
 POST  /account/closeConfirm            controllers.Account.closeConfirm
 GET   /account/profile                 controllers.Account.profile
 POST  /account/profile                 controllers.Account.profileApply
+GET   /account/kid                     controllers.Account.kid
+POST  /account/kidConfirm              controllers.Account.kidConfirm
 GET   /account/info                    controllers.Account.info
 
 # Site

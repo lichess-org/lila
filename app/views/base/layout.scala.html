@@ -142,7 +142,7 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
         <div id="notifications"></div>
         }
         <h1>
-          <a id="site_title" href="@routes.Lobby.home">lichess<span class="extension">.org</span></a>
+          <a id="site_title" href="@routes.Lobby.home">@if(ctx.kid){<span title="Kid mode" class="kiddo">😊</span>}lichess<span class="extension">.org</span></a>
         </h1>
         @baseline
         @menu.map { side =>

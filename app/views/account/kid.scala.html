@@ -1,0 +1,23 @@
+@(u: User)(implicit ctx: Context)
+
+@title = @{ s"${u.username} - Kid mode" }
+
+@account.layout(title = title, active = "kid") {
+<div class="content_box small_box">
+  <div class="signup_box">
+    <h1 class="lichess_title">Kid mode</h1>
+    <p class="explanation">
+      This is about safety.<br />
+      In kid mode, all site communications are disabled.<br />
+      Enable this for your children and school students,<br />
+      to protect them from other Internet users.
+    </p>
+    <br />
+    <br />
+    <br />
+    <form action="@routes.Account.kidConfirm" method="POST">
+      <input type="submit" class="submit button" value="@if(u.kid) {Disable Kid mode} else {Enable Kid mode}" />
+    </form>
+  </div>
+</div>
+}

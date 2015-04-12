@@ -229,6 +229,8 @@ trait UserRepo {
 
   def toggleIpBan(id: ID) = $update.doc[ID, User](id) { u => $set("ipBan" -> !u.ipBan) }
 
+  def toggleKid(user: User) = $update.field(user.id, "kid", !user.kid)
+
   def updateTroll(user: User) = $update.field(user.id, "troll", user.troll)
 
   def isEngine(id: ID): Fu[Boolean] = $count.exists($select(id) ++ engineSelect(true))
