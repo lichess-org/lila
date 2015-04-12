@@ -18,8 +18,8 @@ case class Assessible(analysed: Analysed) {
     listAverage(Accuracy.diffsList(Pov(this.analysed.game, color), this.analysed.analysis)) < 15
 
   def alwaysHasAdvantage(color: Color): Boolean =
-    !analysed.analysis.infos.exists{ info => 
-      info.score.fold(info.mate.fold(false){ a => (signum(a).toInt == color.fold(-1, 1)) }){ cp => 
+    !analysed.analysis.infos.exists{ info =>
+      info.score.fold(info.mate.fold(false){ a => (signum(a).toInt == color.fold(-1, 1)) }){ cp =>
         color.fold(cp.centipawns < -100, cp.centipawns > 100)}
     }
 
@@ -48,27 +48,28 @@ case class Assessible(analysed: Analysed) {
   )
 
   def rankCheating(color: Color): GameAssessment = {
+    import GameAssessment._
     val assessment = flags(color) match {
                    //  SF1    SF2    BLR1   BLR2   MTs1   MTs2   Holds
-      case PlayerFlags(true,  true,  true,  true,  true,  true,  true)   => GameAssessment.Cheating // all true, obvious cheat
-      case PlayerFlags(_   ,  _   ,  _   ,  _   ,  _   ,  _   ,  true)   => GameAssessment.Cheating // Holds are bad, hmk?
-      case PlayerFlags(true,  _,     true,  _,     _,     true,  _)      => GameAssessment.Cheating // high accuracy, high blurs, no fast moves
+      case PlayerFlags(true,  true,  true,  true,  true,  true,  true) => Cheating // all true, obvious cheat
+      case PlayerFlags(_   ,  _   ,  _   ,  _   ,  _   ,  _   ,  true) => Cheating // Holds are bad, hmk?
+      case PlayerFlags(true,  _,     true,  _,     _,     true,  _)    => Cheating // high accuracy, high blurs, no fast moves
 
-      case PlayerFlags(true,  _,     _,     _,     true,  true,  _)      => GameAssessment.LikelyCheating // high accuracy, consistent move times, no fast moves
-      case PlayerFlags(true,  _,     _,     true,  _,     true,  _)      => GameAssessment.LikelyCheating // high accuracy, moderate blurs, no fast moves
-      case PlayerFlags(_,     true,  _,     true,  true,  _,     _)      => GameAssessment.LikelyCheating // always has advantage, moderate blurs, highly consistent move times
-      case PlayerFlags(_,     true,  true,  _,     _,     _,     _)      => GameAssessment.LikelyCheating // always has advantage, high blurs
+      case PlayerFlags(true,  _,     _,     _,     true,  true,  _)    => LikelyCheating // high accuracy, consistent move times, no fast moves
+      case PlayerFlags(true,  _,     _,     true,  _,     true,  _)    => LikelyCheating // high accuracy, moderate blurs, no fast moves
+      case PlayerFlags(_,     true,  _,     true,  true,  _,     _)    => LikelyCheating // always has advantage, moderate blurs, highly consistent move times
+      case PlayerFlags(_,     true,  true,  _,     _,     _,     _)    => LikelyCheating // always has advantage, high blurs
 
-      case PlayerFlags(true,  _,     _,     false, false, true,  _)      => GameAssessment.Unclear // high accuracy, no fast moves, but doesn't blur or flat line
+      case PlayerFlags(true,  _,     _,     false, false, true,  _)    => Unclear // high accuracy, no fast moves, but doesn't blur or flat line
 
-      case PlayerFlags(true,  _,     _,     _,     _,     false, _)      => GameAssessment.UnlikelyCheating // high accuracy, but has fast moves
+      case PlayerFlags(true,  _,     _,     _,     _,     false, _)    => UnlikelyCheating // high accuracy, but has fast moves
 
-      case PlayerFlags(false, false, _,     _,     _,    _,      _)      => GameAssessment.NotCheating // low accuracy, doesn't hold advantage
-      case _ => GameAssessment.NotCheating
+      case PlayerFlags(false, false, _,     _,     _,    _,      _)    => NotCheating // low accuracy, doesn't hold advantage
+      case _                                                           => NotCheating
     }
 
     if (~this.analysed.game.wonBy(color)) assessment
-    else if (assessment == GameAssessment.Cheating || assessment == GameAssessment.LikelyCheating) GameAssessment.Unclear
+    else if (assessment == Cheating || assessment == LikelyCheating) Unclear
     else assessment
   }
 
@@ -83,7 +84,7 @@ case class Assessible(analysed: Analysed) {
     PlayerAssessment(
     _id = this.analysed.game.id + "/" + color.name,
     gameId = this.analysed.game.id,
-    userId = this.analysed.game.player(color).userId.getOrElse(""),
+    userId = ~this.analysed.game.player(color).userId,
     white = (color == Color.White),
     assessment = rankCheating(color),
     date = DateTime.now,
