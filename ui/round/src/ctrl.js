@@ -61,8 +61,8 @@ module.exports = function(opts) {
 
   var onMove = function(orig, dest, captured) {
     if (captured) {
+      $.sound.take();
       if (this.data.game.variant.key === 'atomic') atomic.capture(this, dest, captured);
-      else $.sound.take();
     } else $.sound.move();
   }.bind(this);
 
