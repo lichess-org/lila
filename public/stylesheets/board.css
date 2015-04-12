@@ -83,7 +83,7 @@ body.highlight .manipulable .cg-square.drag-over {
   background: rgba(255, 255, 255, 0.1);
 }
 body.destination .cg-board .cg-square.move-dest {
-  background: radial-gradient(rgba(20, 85, 30, 0.3) 22%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
+  background: radial-gradient(rgba(20, 85, 30, 0.3) 17%, #208530 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
   cursor: pointer;
 }
 body.destination .cg-board .cg-square.occupied.move-dest {
@@ -91,7 +91,7 @@ body.destination .cg-board .cg-square.occupied.move-dest {
 }
 
 body.destination .cg-board .cg-square.premove-dest {
-  background: radial-gradient(rgba(20, 30, 85, 0.3) 22%, #203085 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
+  background: radial-gradient(rgba(20, 30, 85, 0.3) 17%, #203085 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
 }
 body.destination .cg-board .cg-square.occupied.premove-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.3) 80%);
