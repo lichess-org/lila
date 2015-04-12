@@ -143,11 +143,11 @@ private[tournament] final class TournamentApi(
     sequence(oldTour.id) {
       TournamentRepo byId oldTour.id flatMap {
         case Some(created: Created) => (created withdraw userId).fold(
-          err => fulogwarn(err.shows),
+          err => funit,
           tour2 => TournamentRepo.update(tour2).void >>- socketReload(tour2.id) >>- publish()
         )
         case Some(started: Started) => (started withdraw userId).fold(
-          err => fufail(err.shows),
+          err => funit,
           tour2 => TournamentRepo.update(tour2).void >>-
             (tour2.userCurrentPov(userId) ?? { povRef =>
               roundMap ! Tell(povRef.gameId, ResignColor(povRef.color))
