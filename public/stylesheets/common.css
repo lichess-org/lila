@@ -950,6 +950,11 @@ body.fpmenu #top .fright {
   transform: scale(0.7);
   -webkit-transform: scale(0.7);
   margin: -3px 3px 0px -7px;
+  transition: transform 0.5s;
+}
+body.fpmenu #hamburger {
+  transform: scale(0.5);
+  -webkit-transform: scale(0.5);
 }
 #hamburger *:before,
 #hamburger *:after {
@@ -1018,7 +1023,9 @@ body.fpmenu #hamburger .bottom {
 }
 body.fpmenu #ham-plate {
   top: -3px;
-  border-radius: 0 0 50% 50%;
+  background: transparent;
+  border: transparent;
+  box-shadow: none;
 }
 #fpmenu {
   position: fixed;
