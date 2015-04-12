@@ -46,7 +46,7 @@ private final class Streaming(
               case Some(data) => data.streamsOnAir filter { stream =>
                 authorizedStreamers contains stream.streamer.toLowerCase
               } filter { stream =>
-                stream.name contains keyword
+                stream.name.toLowerCase contains keyword
               } take max
               case None =>
                 logger.warn(s"twitch ${res.status} ${~res.body.lines.toList.headOption}")
@@ -55,7 +55,7 @@ private final class Streaming(
           }
         val hitbox = WS.url("http://api.hitbox.tv/media/live/" + authorizedStreamers.mkString(",")).get() map { res =>
           res.json.asOpt[Hitbox.Result] match {
-            case Some(data) => data.streamsOnAir filter (_.name contains keyword) take max
+            case Some(data) => data.streamsOnAir filter (_.name.toLowerCase contains keyword) take max
             case None =>
               logger.warn(s"hitbox ${res.status} ${~res.body.lines.toList.headOption}")
               Nil
