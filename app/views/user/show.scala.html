@@ -191,18 +191,20 @@ openGraph = Map(
       <a href="@routes.Donation.index" data-icon="t" class="honorific is-gold"> Lichess Donor</a>
       }
       @u.profile.map { p =>
+      @NotForKids {
       @p.nonEmptyRealName.map { name =>
       <strong class="name">@name</strong>
       }
-      @NotForKids {
       @p.nonEmptyBio.map { bio =>
       <p class="bio">@shorten(bio, 400)</p>
       }
       }
       }
       <div class="stats">
+        @NotForKids {
         @u.profileOrDefault.nonEmptyLocation.map { l =>
         <span class="location">@l</span>,
+        }
         }
         @u.profileOrDefault.countryInfo.map {
         case (code, name) => {
