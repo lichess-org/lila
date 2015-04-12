@@ -107,4 +107,15 @@ object Account extends LilaController {
           Redirect(routes.User show me.username) withCookies LilaCookie.newSession
         }
   }
+
+  def kid = Auth { implicit ctx =>
+    me =>
+      Ok(html.account.kid(me)).fuccess
+  }
+
+  def kidConfirm = Auth { ctx =>
+    me =>
+      implicit val req = ctx.req
+      (UserRepo toggleKid me) inject Redirect(routes.Lobby.home)
+  }
 }
