@@ -39,7 +39,6 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     }
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
     @langAnnotations
-    @inlineStyle()
   </head>
   <body class="base @List(
     ctx.currentTheme.cssClass,

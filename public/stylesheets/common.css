@@ -938,6 +938,83 @@ body.fpmenu #top .fright {
 #top .shown a.toggle {
   background: #fff;
 }
+#hamburger {
+  display: block;
+  width: 48px;
+  height: 48px;
+  transform: scale(0.7);
+  -webkit-transform: scale(0.7);
+  margin: -3px 3px 0px -7px;
+}
+#hamburger *:before,
+#hamburger *:after {
+  box-sizing: border-box;
+}
+#hamburger .top,
+#hamburger .bottom {
+  position: absolute;
+  display: block;
+  height: 4px;
+  width: 36px;
+  border-radius: 2px;
+  background: #666;
+  transform-origin: 34px 2px;
+  transform: rotate(0deg);
+  -webkit-transform-origin: 34px 2px;
+  -webkit-transform: rotate(0deg);
+  transition: all 0.5s cubic-bezier(.8, -1.1, .5, 1.9);
+}
+#hamburger .top {
+  top: 19px;
+  left: 14px;
+}
+#hamburger .bottom {
+  top: 41px;
+  left: 14px;
+}
+#hamburger path,
+#hamburger line {
+  stroke: #666;
+  stroke-linecap: round;
+}
+#ham-circle {
+  stroke-dasharray: 1 100 32 300;
+  stroke-dashoffset: 101;
+  transition: all 0.75s ease;
+}
+body.fpmenu #hamburger #ham-circle {
+  stroke-dasharray: 1 100 190 300;
+  stroke-dashoffset: 1;
+}
+body.fpmenu #hamburger .top {
+  transform: translateX(-4.5px) rotate(-45deg);
+  -webkit-transform: translateX(-4.5px) rotate(-45deg);
+}
+body.fpmenu #hamburger .bottom {
+  transform: translateX(-4.5px) rotate(45deg);
+  -webkit-transform: translateX(-4.5px) rotate(45deg);
+}
+#ham-plate {
+  position: absolute;
+  top: -7px;
+  right: 0;
+  background: #fff;
+  margin-left: 30px;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.16), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  transition: top 0.13s;
+}
+#ham-plate:hover {
+  top: -3px;
+}
+body.fpmenu #ham-plate {
+  top: -3px;
+  border-radius: 0 0 50% 50%;
+}
 #fpmenu {
   position: fixed;
   left: 0;
