@@ -16,17 +16,15 @@ final class Greeter(
       to = user.id,
       subject = s"""Hi ${user.username}, welcome to lichess.org!""",
       message = s"""
-Thank you, ${user.username}, for giving lichess.org a try!
+Thank you, ${user.username}, for joining lichess.org!
 
-This site is free forever. All features are entirely available for everybody.
-We are the world community answer to commercial websites: yes, chess can be free!
+Here, all features are completely free and available without limitation for now and forever.
+We are the world's community answer to commercial websites: yes, chess can be free!
 
 Note that we don't ask for your email during registration.
-However you can still link it to your account, to get a way to recover your password: http://lichess.org/account/email.
-You know, just in case.
+However you can still link it to your account as a way to recover your password: http://lichess.org/account/email.
 
 Now play some games, enjoy the computer analysis, try out tournaments and maybe some variants!
-
 We wish you fantastic games and loads of fun :)
 
 Cheers,
