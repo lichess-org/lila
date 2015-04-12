@@ -13,7 +13,7 @@ final class Env(
   private val PrismicApiUrl = config getString "prismic.api_url"
   private val PrismicCollection = config getString "prismic.collection"
   private val NotifyDelay = config duration "notify.delay"
-  private val NotifyUserId = config getString "notify.user_id"
+  private val NotifySender = config getString "notify.sender"
   private val LastPostCacheTtl = config duration "last_post_cache.ttl"
 
   val RssEmail = config getString "rss.email"
@@ -28,7 +28,7 @@ final class Env(
     blogApi = api,
     messageApi = messageApi,
     lastPostCache = lastPostCache,
-    lichessUserId = NotifyUserId)
+    lichessUserId = NotifySender)
 
   {
     import scala.concurrent.duration._

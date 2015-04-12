@@ -16,6 +16,9 @@ final class Env(
   private val ThreadMaxPerPage = config getInt "thread.max_per_page"
   private val ActorName = config getString "actor.name"
 
+  import scala.collection.JavaConversions._
+  val LichessSenders = (config getStringList "lichess_senders").toList
+
   private[message] lazy val threadColl = db(CollectionThread)
 
   private lazy val unreadCache = new UnreadCache(mongoCache)
