@@ -19,7 +19,7 @@ case class Entry(
 
   def similarTo(other: Entry) = typ == other.typ && data == other.data
 
-  def decode: Option[Atom] = (typ match {
+  lazy val decode: Option[Atom] = (typ match {
     case "follow"      => Json.fromJson[Follow](data)
     case "team-join"   => Json.fromJson[TeamJoin](data)
     case "team-create" => Json.fromJson[TeamCreate](data)
@@ -31,6 +31,8 @@ case class Entry(
     case "qa-comment"  => Json.fromJson[QaComment](data)
     case "game-end"    => Json.fromJson[GameEnd](data)
   }).asOpt
+
+  def okForKid = decode ?? (_.okForKid)
 }
 
 object Entry {

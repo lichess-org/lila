@@ -74,17 +74,17 @@ case class PlayerMove(gameId: String)
 package timeline {
 case class ReloadTimeline(user: String)
 
-sealed abstract class Atom(val channel: String)
-case class Follow(u1: String, u2: String) extends Atom(s"follow")
-case class TeamJoin(userId: String, teamId: String) extends Atom(s"teamJoin")
-case class TeamCreate(userId: String, teamId: String) extends Atom(s"teamCreate")
-case class ForumPost(userId: String, topicId: Option[String], topicName: String, postId: String) extends Atom(s"forum:${~topicId}")
-case class NoteCreate(from: String, to: String) extends Atom(s"note")
-case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom(s"tournament")
-case class QaQuestion(userId: String, id: Int, title: String) extends Atom(s"qa")
-case class QaAnswer(userId: String, id: Int, title: String, answerId: Int) extends Atom(s"qa")
-case class QaComment(userId: String, id: Int, title: String, commentId: String) extends Atom(s"qa")
-case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String) extends Atom(s"gameEnd")
+sealed abstract class Atom(val channel: String, val okForKid: Boolean)
+case class Follow(u1: String, u2: String) extends Atom(s"follow", true)
+case class TeamJoin(userId: String, teamId: String) extends Atom(s"teamJoin", false)
+case class TeamCreate(userId: String, teamId: String) extends Atom(s"teamCreate", false)
+case class ForumPost(userId: String, topicId: Option[String], topicName: String, postId: String) extends Atom(s"forum:${~topicId}", false)
+case class NoteCreate(from: String, to: String) extends Atom(s"note", false)
+case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom(s"tournament", true)
+case class QaQuestion(userId: String, id: Int, title: String) extends Atom(s"qa", true)
+case class QaAnswer(userId: String, id: Int, title: String, answerId: Int) extends Atom(s"qa", true)
+case class QaComment(userId: String, id: Int, title: String, commentId: String) extends Atom(s"qa", true)
+case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String) extends Atom(s"gameEnd", true)
 
 object atomFormat {
   implicit val followFormat = Json.format[Follow]

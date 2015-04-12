@@ -1,7 +1,7 @@
 @(entries: List[lila.timeline.Entry])(implicit ctx: Context)
 
 <div class="entries">
-  @entries.map { entry =>
+  @entries.filter(e => e.okForKid || ctx.noKid).map { entry =>
   <div class="entry">
     @timeline.entry(entry)
   </div>
