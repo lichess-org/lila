@@ -1000,10 +1000,12 @@ lichess.storage = {
       dong: 'dong2',
       move: 'move3',
       take: 'take2',
+      explode: 'explosion',
       lowtime: 'lowtime'
     };
     var volumes = {
-      lowtime: 0.5
+      lowtime: 0.5,
+      explode: 0.4
     };
     var get = new $.lazy(function(k) {
       return new Howl({
@@ -1019,20 +1021,17 @@ lichess.storage = {
       return lichess.storage.get('sound') !== 'no';
     };
     $control.add($toggle).toggleClass('sound_state_on', enabled());
-    var play = {
-      move: function() {
-        if (enabled()) get('move').play();
-      },
-      take: function() {
-        if (enabled()) get('take').play();
-      },
-      dong: function() {
-        if (enabled()) get('dong').play();
-      },
-      lowtime: function() {
-        if (enabled()) get('lowtime').play();
+    var player = function(s) {
+      return function() {
+        if (enabled()) get(s).play();
+      };
+    }
+    var play = {};
+    Object.keys(names).forEach(function(name) {
+      play[name] = function() {
+        if (enabled()) get(name).play();
       }
-    };
+    });
     var setVolume = function(v) {
       lichess.storage.set('sound-volume', v);
       Howler.volume(v);
