@@ -63,7 +63,10 @@ private[tournament] final class TournamentApi(
         variant = chess.variant.Variant orDefault setup.variant)
       TournamentRepo.insert(created).void >>-
         (withdrawIds foreach socketReload) >>-
-        publish() inject created
+        publish() >>- {
+          import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
+          timeline ! (Propagate(TourJoin(me.id, created.id, created.fullName)) toFollowersOf me.id)
+        } inject created
     }
 
   private[tournament] def createScheduled(schedule: Schedule): Funit =
