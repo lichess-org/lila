@@ -98,6 +98,7 @@ object Auth extends LilaController {
           user.id,
           ctx.mobileApiVersion
         ) flatMap { sessionId =>
+            Env.security.greeter(user)
             res(user) map {
               _ withCookies LilaCookie.session("sessionId", sessionId)
             }

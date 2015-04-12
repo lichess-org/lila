@@ -13,6 +13,7 @@ import lila.user.{ User, UserRepo }
 final class Env(
     config: Config,
     captcher: akka.actor.ActorSelection,
+    messenger: akka.actor.ActorSelection,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     db: lila.db.Env) {
@@ -35,6 +36,7 @@ final class Env(
     val PasswordResetSecret = config getString "password_reset.secret"
     val TorProviderUrl = config getString "tor.provider_url"
     val TorRefreshDelay = config duration "tor.refresh_delay"
+    val GreeterSender = config getString "greeter.sender"
   }
   import settings._
 
@@ -72,6 +74,10 @@ final class Env(
 
   def cli = new Cli
 
+  lazy val greeter = new Greeter(
+    sender = GreeterSender,
+    messenger = messenger)
+
   private[security] lazy val storeColl = db(CollectionSecurity)
   private[security] lazy val firewallColl = db(FirewallCollectionFirewall)
 }
@@ -83,5 +89,6 @@ object Env {
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
-    captcher = lila.hub.Env.current.actor.captcher)
+    captcher = lila.hub.Env.current.actor.captcher,
+  messenger = lila.hub.Env.current.actor.messenger)
 }
