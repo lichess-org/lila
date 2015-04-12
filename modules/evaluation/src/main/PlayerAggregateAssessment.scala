@@ -32,7 +32,7 @@ case class PlayerAggregateAssessment(
   import GameAssessment.{ Cheating, LikelyCheating }
 
   def action = {
-    val markable: Boolean = !isGreatUser && isDecentUser && (
+    val markable: Boolean = !isGreatUser && isWorthLookingAt && (
       (cheatingSum >= 3 || cheatingSum + likelyCheatingSum >= 6)
       // more than 10 percent of games are cheating
       && (cheatingSum.toDouble / assessmentsCount >= 0.1 - relationModifier
@@ -40,7 +40,7 @@ case class PlayerAggregateAssessment(
         || (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= 0.20 - relationModifier)
     )
 
-    val reportable: Boolean = isDecentUser && (
+    val reportable: Boolean = isWorthLookingAt && (
       (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= 4)
       // more than 5 percent of games are cheating
       && (cheatingSum.toDouble / assessmentsCount >= 0.05 - relationModifier
@@ -115,7 +115,9 @@ case class PlayerAggregateAssessment(
 
   def isGreatUser = user.perfs.bestRating > 2200 && user.count.rated >= 100
 
-  def isDecentUser = user.perfs.bestRating > 1600 && user.count.rated >= 4
+  def isWorthLookingAt = {
+    user.perfs.bestRating > 1600 && user.count.rated >= 4
+  } || user.perfs.bestProgress > 200
 
   def reportText(maxGames: Int = 10): String = {
     val gameLinks: String = (playerAssessments.sortBy(-_.assessment.id).take(maxGames).map { a =>

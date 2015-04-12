@@ -63,6 +63,13 @@ case class Perfs(
     } | Perf.default.intRating
   }
 
+  def bestProgress: Int = bestProgressIn(PerfType.leaderboardable)
+
+  def bestProgressIn(types: List[PerfType]): Int = types map apply match {
+    case Nil   => 0
+    case perfs => perfs.map(_.progress).max
+  }
+
   lazy val perfsMap: Map[String, Perf] = Map(
     "chess960" -> chess960,
     "kingOfTheHill" -> kingOfTheHill,
