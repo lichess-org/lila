@@ -1524,8 +1524,8 @@ body #themepicker div.is3d,
   background: #f0f0f0;
 }
 .is2d #themepicker div.color_demo {
-  width: 66px;
-  height: 34px;
+  width: 64px;
+  height: 32px;
   background-size: 256px;
   border: 1px solid #d0d0d0;
   box-sizing: border-box;
