@@ -40,6 +40,7 @@
 #team table.slist td {
   padding-top: 1em;
   padding-bottom: 1em;
+  word-break: break-all;
 }
 #team table.slist a.team-name {
   font-size: 1.3em;
