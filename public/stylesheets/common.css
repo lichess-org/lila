@@ -1,3 +1,8 @@
+/* https://css-tricks.com/transitions-only-after-page-load/ */
+body.preload * {
+  transition: none !important;
+  -webkit-transition: none !important;
+}
 body,
 ul,
 ol,
