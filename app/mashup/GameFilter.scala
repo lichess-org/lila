@@ -54,7 +54,10 @@ object GameFilterMenu {
       (info.nbImported > 0) option Imported
     ).flatten)
 
-    val currentName = currentNameOption | info.hasSimul.fold(Playing, All).name
+    val currentName = currentNameOption | info.hasSimul.fold(
+      Playing,
+      if (!info.user.hasGames && info.nbImported > 0) Imported else All
+    ).name
 
     val current = currentOf(filters, currentName)
 
