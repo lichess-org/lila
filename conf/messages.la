@@ -78,6 +78,7 @@ players=Scaccorum lusores
 minutesPerSide=Minutae pro utriusque lusore
 variant=Varietas
 timeControl=Temporis curatio
+oneDay=dies unus
 nbDays=%s dies
 nbHours=%s horae
 time=Tempum
