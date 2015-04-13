@@ -20,7 +20,12 @@ private[simul] object SimulPlayer {
     user = user.id,
     variant = variant,
     rating = {
-      if (variant == chess.variant.Standard) user.perfs.classical
+      if (variant == chess.variant.Standard) {
+        if (user.perfs.classical.nb >= 20 ||
+          user.perfs.classical.nb > user.perfs.blitz.nb)
+          user.perfs.classical
+        else user.perfs.blitz
+      }
       else Perfs.variantLens(variant).fold(user.perfs.standard)(_(user.perfs))
     }.intRating
   )
