@@ -10,24 +10,25 @@ case class Analysed(game: Game, analysis: Analysis)
 
 case class Assessible(analysed: Analysed) {
   import Statistics._
+  import analysed._
 
   def moveTimes(color: Color): List[Int] =
-    skip(this.analysed.game.moveTimes.toList, {if (color == Color.White) 0 else 1})
+    skip(game.moveTimes.toList, {if (color == Color.White) 0 else 1})
 
   def suspiciousErrorRate(color: Color): Boolean =
-    listAverage(Accuracy.diffsList(Pov(this.analysed.game, color), this.analysed.analysis)) < 15
+    listAverage(Accuracy.diffsList(Pov(game, color), analysis)) < 15
 
   def alwaysHasAdvantage(color: Color): Boolean =
-    !analysed.analysis.infos.exists{ info =>
+    !analysis.infos.exists{ info =>
       info.score.fold(info.mate.fold(false){ a => (signum(a).toInt == color.fold(-1, 1)) }){ cp =>
         color.fold(cp.centipawns < -100, cp.centipawns > 100)}
     }
 
   def highBlurRate(color: Color): Boolean =
-    this.analysed.game.playerBlurPercent(color) > 90
+    !game.isSimul && game.playerBlurPercent(color) > 90
 
   def moderateBlurRate(color: Color): Boolean =
-    this.analysed.game.playerBlurPercent(color) > 70
+    !game.isSimul && game.playerBlurPercent(color) > 70
 
   def consistentMoveTimes(color: Color): Boolean =
     moveTimes(color).toNel.map(coefVariation).fold(false)(_ < 0.5)
@@ -35,7 +36,7 @@ case class Assessible(analysed: Analysed) {
   def noFastMoves(color: Color): Boolean = moveTimes(color).count(_ < 10) <= 2
 
   def suspiciousHoldAlert(color: Color): Boolean =
-    this.analysed.game.player(color).hasSuspiciousHoldAlert
+    game.player(color).hasSuspiciousHoldAlert
 
   def flags(color: Color): PlayerFlags = PlayerFlags(
     suspiciousErrorRate(color),
@@ -68,23 +69,23 @@ case class Assessible(analysed: Analysed) {
       case _                                                           => NotCheating
     }
 
-    if (~this.analysed.game.wonBy(color)) assessment
+    if (~game.wonBy(color)) assessment
     else if (assessment == Cheating || assessment == LikelyCheating) Unclear
     else assessment
   }
 
-  def sfAvg(color: Color): Int = listAverage(Accuracy.diffsList(Pov(this.analysed.game, color), this.analysed.analysis)).toInt
-  def sfSd(color: Color): Int = listDeviation(Accuracy.diffsList(Pov(this.analysed.game, color), this.analysed.analysis)).toInt
-  def mtAvg(color: Color): Int = listAverage(skip(this.analysed.game.moveTimes.toList, {if (color == Color.White) 0 else 1})).toInt
-  def mtSd(color: Color): Int = listDeviation(skip(this.analysed.game.moveTimes.toList, {if (color == Color.White) 0 else 1})).toInt
-  def blurs(color: Color): Int = this.analysed.game.playerBlurPercent(color)
-  def hold(color: Color): Boolean = this.analysed.game.player(color).hasSuspiciousHoldAlert
+  def sfAvg(color: Color): Int = listAverage(Accuracy.diffsList(Pov(game, color), analysis)).toInt
+  def sfSd(color: Color): Int = listDeviation(Accuracy.diffsList(Pov(game, color), analysis)).toInt
+  def mtAvg(color: Color): Int = listAverage(skip(game.moveTimes.toList, {if (color == Color.White) 0 else 1})).toInt
+  def mtSd(color: Color): Int = listDeviation(skip(game.moveTimes.toList, {if (color == Color.White) 0 else 1})).toInt
+  def blurs(color: Color): Int = game.playerBlurPercent(color)
+  def hold(color: Color): Boolean = game.player(color).hasSuspiciousHoldAlert
 
   def playerAssessment(color: Color): PlayerAssessment =
     PlayerAssessment(
-    _id = this.analysed.game.id + "/" + color.name,
-    gameId = this.analysed.game.id,
-    userId = ~this.analysed.game.player(color).userId,
+    _id = game.id + "/" + color.name,
+    gameId = game.id,
+    userId = ~game.player(color).userId,
     white = (color == Color.White),
     assessment = rankCheating(color),
     date = DateTime.now,
