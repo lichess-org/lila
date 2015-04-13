@@ -13,7 +13,8 @@ themes = [
   ['cburnett', 'svg'],
   ['merida', 'svg'],
   ['pirouetti', 'svg'],
-  ['spatial', 'svg']
+  ['spatial', 'svg'],
+  ['chess7', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',

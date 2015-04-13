@@ -884,6 +884,9 @@ div.lichess_board {
 #top .cg-piece.merida {
   background-image: url(../piece/merida/wN.svg);
 }
+#top .cg-piece.chess7 {
+  background-image: url(../piece/chess7/wN.svg);
+}
 #top .cg-piece.spatial {
   background-image: url(../piece/spatial/wN.svg);
 }
