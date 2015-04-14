@@ -45,5 +45,6 @@ module.exports = {
       ctrl.replay.jump(ctrl.data.game.moves.length);
       m.redraw();
     }));
+    k.bind('f', preventing(ctrl.flip));
   }
 };

@@ -2,6 +2,7 @@ var chessground = require('chessground');
 var partial = chessground.util.partial;
 var editor = require('./editor');
 var m = require('mithril');
+var keyboard = require('./keyboard');
 
 module.exports = function(cfg) {
 
@@ -54,11 +55,16 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.positionLooksLegit = function() {
-    var kings = {white: 0, black: 0};
+    var kings = {
+      white: 0,
+      black: 0
+    };
     var pieces = this.chessground.data.pieces;
     for (var pos in pieces) {
       if (pieces[pos] && pieces[pos].role === 'king') kings[pieces[pos].color]++;
     }
     return kings.white === 1 && kings.black === 1;
   }.bind(this);
+
+  keyboard(this);
 };

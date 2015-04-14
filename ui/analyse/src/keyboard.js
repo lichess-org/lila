@@ -49,4 +49,5 @@ module.exports = function(ctrl) {
     m.redraw();
   }));
   k.bind(['esc'], ctrl.chessground.cancelMove);
+  k.bind('f', preventing(ctrl.flip));
 };
