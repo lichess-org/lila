@@ -174,6 +174,18 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   lazy val miniBoardContent = Html("""<div class="cg-board-wrap"><div class="cg-board"></div></div>""")
 
+  def gameLink(
+    game: Game,
+    color: Color,
+    ownerLink: Boolean = false,
+    tv: Boolean = false)(implicit ctx: UserContext): String = {
+    val owner = ownerLink.fold(ctx.me flatMap game.player, none)
+    val url = tv.fold(routes.Tv.index, owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
+      routes.Round.player(game fullIdOf o.color)
+    })
+    url.toString
+  }
+
   def gameFen(
     game: Game,
     color: Color,
@@ -183,13 +195,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withLink: Boolean = true,
     withLive: Boolean = true)(implicit ctx: UserContext) = Html {
     var isLive = withLive && game.isBeingPlayed
-    val href = withLink ?? {
-      val owner = ownerLink.fold(ctx.me flatMap game.player, none)
-      val url = tv.fold(routes.Tv.index, owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
-        routes.Round.player(game fullIdOf o.color)
-      })
-      s"""href="$url""""
-    }
+    val href = withLink ?? s"""href="${gameLink(game, color, ownerLink, tv)}""""
     val title = withTitle ?? s"""title="${gameTitle(game, color)}""""
     val cssClass = isLive ?? ("live live_" + game.id)
     val live = isLive ?? game.id

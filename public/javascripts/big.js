@@ -593,10 +593,6 @@ lichess.storage = {
       return false;
     });
 
-    $('body').on('click', '.game_row', function() {
-      location.href = $(this).find('a.mini_board').attr('href');
-    });
-
     function userPowertips() {
       var header = document.getElementById('site_header');
       $('.ulpt').removeClass('ulpt').each(function() {

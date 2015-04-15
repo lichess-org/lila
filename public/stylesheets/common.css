@@ -1865,6 +1865,18 @@ div.game_row:nth-child(odd) {
 div.game_row:hover {
   background: rgba(191, 231, 255, 0.5);
 }
+div.game_row a {
+  position: relative;
+  z-index: 3;
+}
+div.game_row a.game_link_overlay {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 div.game_row a.mini_board {
   position: absolute;
   top: 15px;
