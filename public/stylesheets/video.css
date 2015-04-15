@@ -90,6 +90,16 @@
   transform: translateY(-100%);
   opacity: 1;
 }
+#video .card .view {
+  position: absolute;
+  bottom: 5px;
+  right: 8px;
+  z-index: 2;
+  opacity: 0.3;
+}
+#video .card .view.yes {
+  opacity: 1;
+}
 #video .card .full-title {
   font-weight: bold;
   display: block;

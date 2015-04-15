@@ -1,16 +1,19 @@
-@(video: lila.video.Video, control: lila.video.UserControl)(implicit ctx: Context)
+@(vv: lila.video.VideoView, control: lila.video.UserControl)(implicit ctx: Context)
 
-<a class="card paginated_element" href="@routes.Video.show(video.id)?@control.queryString">
-  <span class="img" style="background-image: url(@video.thumbnail)"></span>
+<a class="card paginated_element" href="@routes.Video.show(vv.video.id)?@control.queryString">
+  @if(ctx.isAuth) {
+  <span class="view@if(vv.view){ yes}" data-icon="v"></span>
+  }
+  <span class="img" style="background-image: url(@vv.video.thumbnail)"></span>
   <span class="info">
-    <span class="title">@video.title</span>
+    <span class="title">@vv.video.title</span>
   </span>
   <span class="reveal">
-    <span class="full-title">@video.title</span>
-    <span class="author">@video.author</span>
-    <span class="target">@video.targets.map(lila.video.Target.name).mkString(", ")</span>
+    <span class="full-title">@vv.video.title</span>
+    <span class="author">@vv.video.author</span>
+    <span class="target">@vv.video.targets.map(lila.video.Target.name).mkString(", ")</span>
     <span class="tags">
-      @video.tags.map { tag =>
+      @vv.video.tags.map { tag =>
       <span data-icon="o">@tag.capitalize</span>
       }
     </span>

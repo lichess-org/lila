@@ -8,6 +8,8 @@ case class View(
   userId: String,
   date: DateTime)
 
+case class VideoView(video: Video, view: Boolean)
+
 object View {
 
   def makeId(videoId: Video.ID, userId: String) = s"$videoId/$userId"

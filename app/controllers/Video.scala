@@ -24,10 +24,10 @@ object Video extends LilaController {
   def index = Open { implicit ctx =>
     WithUserControl { control =>
       control.query match {
-        case Some(query) => env.api.video.search(query, getInt("page") | 1) map { videos =>
+        case Some(query) => env.api.video.search(ctx.me, query, getInt("page") | 1) map { videos =>
           Ok(html.video.search(videos, control))
         }
-        case None => env.api.video.byTags(control.filter.tags, getInt("page") | 1) zip
+        case None => env.api.video.byTags(ctx.me, control.filter.tags, getInt("page") | 1) zip
           env.api.video.count.apply map {
             case (videos, count) =>
               Ok(html.video.index(videos, count, control))
@@ -40,7 +40,7 @@ object Video extends LilaController {
     WithUserControl { control =>
       env.api.video.find(id) flatMap {
         case None => fuccess(NotFound(html.video.notFound(control)))
-        case Some(video) => env.api.video.similar(video, 9) zip
+        case Some(video) => env.api.video.similar(ctx.me, video, 9) zip
           ctx.userId.?? { userId =>
             env.api.view.add(View.make(videoId = video.id, userId = userId))
           } map {
@@ -53,7 +53,7 @@ object Video extends LilaController {
 
   def author(author: String) = Open { implicit ctx =>
     WithUserControl { control =>
-      env.api.video.byAuthor(author, getInt("page") | 1) map { videos =>
+      env.api.video.byAuthor(ctx.me, author, getInt("page") | 1) map { videos =>
         Ok(html.video.author(author, videos, control))
       }
     }

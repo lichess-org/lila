@@ -1,4 +1,4 @@
-@(videos: Paginator[lila.video.Video], control: lila.video.UserControl)(implicit ctx: Context)
+@(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(implicit ctx: Context)
 
 @layout(
 title = s"${control.query.getOrElse("Search")} • Free Chess Videos",

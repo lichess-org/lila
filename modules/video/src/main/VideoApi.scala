@@ -26,6 +26,17 @@ private[video] final class VideoApi(
   private implicit val TagNbBSONHandler = Macros.handler[TagNb]
   import View.viewBSONHandler
 
+  private def videoViews(userOption: Option[User])(videos: Seq[Video]): Fu[Seq[VideoView]] = userOption match {
+    case None => fuccess {
+      videos map { VideoView(_, false) }
+    }
+    case Some(user) => view.seenVideoIds(user, videos) map { ids =>
+      videos.map { v =>
+        VideoView(v, ids contains v.id)
+      }
+    }
+  }
+
   object video {
 
     private val maxPerPage = 18
@@ -33,7 +44,7 @@ private[video] final class VideoApi(
     def find(id: Video.ID): Fu[Option[Video]] =
       videoColl.find(BSONDocument("_id" -> id)).one[Video]
 
-    def search(query: String, page: Int): Fu[Paginator[Video]] = {
+    def search(user: Option[User], query: String, page: Int): Fu[Paginator[VideoView]] = {
       val q = query.split(' ').map { word => s""""$word"""" } mkString " "
       val textScore = BSONDocument("score" -> BSONDocument("$meta" -> "textScore"))
       Paginator(
@@ -44,7 +55,7 @@ private[video] final class VideoApi(
           ),
           projection = textScore,
           sort = textScore
-        ),
+        ) mapFutureList videoViews(user),
         currentPage = page,
         maxPerPage = maxPerPage)
     }
@@ -75,18 +86,18 @@ private[video] final class VideoApi(
           doc flatMap (_.getAs[String]("_id"))
         }
 
-    def popular(page: Int): Fu[Paginator[Video]] = Paginator(
+    def popular(user: Option[User], page: Int): Fu[Paginator[VideoView]] = Paginator(
       adapter = new BSONAdapter[Video](
         collection = videoColl,
         selector = BSONDocument(),
         projection = BSONDocument(),
         sort = BSONDocument("metadata.likes" -> -1)
-      ),
+      ) mapFutureList videoViews(user),
       currentPage = page,
       maxPerPage = maxPerPage)
 
-    def byTags(tags: List[Tag], page: Int): Fu[Paginator[Video]] =
-      if (tags.isEmpty) popular(page)
+    def byTags(user: Option[User], tags: List[Tag], page: Int): Fu[Paginator[VideoView]] =
+      if (tags.isEmpty) popular(user, page)
       else Paginator(
         adapter = new BSONAdapter[Video](
           collection = videoColl,
@@ -95,11 +106,11 @@ private[video] final class VideoApi(
           ),
           projection = BSONDocument(),
           sort = BSONDocument("metadata.likes" -> -1)
-        ),
+        ) mapFutureList videoViews(user),
         currentPage = page,
         maxPerPage = maxPerPage)
 
-    def byAuthor(author: String, page: Int): Fu[Paginator[Video]] =
+    def byAuthor(user: Option[User], author: String, page: Int): Fu[Paginator[VideoView]] =
       Paginator(
         adapter = new BSONAdapter[Video](
           collection = videoColl,
@@ -108,11 +119,11 @@ private[video] final class VideoApi(
           ),
           projection = BSONDocument(),
           sort = BSONDocument("metadata.likes" -> -1)
-        ),
+        ) mapFutureList videoViews(user),
         currentPage = page,
         maxPerPage = maxPerPage)
 
-    def similar(video: Video, max: Int): Fu[List[Video]] =
+    def similar(user: Option[User], video: Video, max: Int): Fu[Seq[VideoView]] =
       videoColl.find(BSONDocument(
         "tags" -> BSONDocument("$in" -> video.tags),
         "_id" -> BSONDocument("$ne" -> video.id)
@@ -120,7 +131,7 @@ private[video] final class VideoApi(
         .cursor[Video]
         .collect[List]().map { videos =>
           videos.sortBy { v => -v.similarity(video) } take max
-        }
+        } flatMap videoViews(user)
 
     object count {
 
@@ -149,6 +160,18 @@ private[video] final class VideoApi(
       viewColl.db command Count(viewColl.name, BSONDocument(
         View.BSONFields.id -> View.makeId(video.id, user.id)
       ).some) map (0!=)
+
+    def seenVideoIds(user: User, videos: Seq[Video]): Fu[Set[Video.ID]] =
+      viewColl.find(
+        BSONDocument(
+          "_id" -> BSONDocument("$in" -> videos.map { v =>
+            View.makeId(v.id, user.id)
+          })
+        ),
+        BSONDocument(View.BSONFields.videoId -> true, "_id" -> false)
+      ).cursor[BSONDocument].collect[List]() map { docs =>
+          docs.flatMap(_.getAs[String](View.BSONFields.videoId)).toSet
+        }
   }
 
   object tag {

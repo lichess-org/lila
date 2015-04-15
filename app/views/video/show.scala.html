@@ -1,4 +1,4 @@
-@(video: lila.video.Video, similar: List[lila.video.Video], control: lila.video.UserControl)(implicit ctx: Context)
+@(video: lila.video.Video, similar: Seq[lila.video.VideoView], control: lila.video.UserControl)(implicit ctx: Context)
 
 @layout(
 title = s"${video.title} • Free Chess Videos",
@@ -24,8 +24,8 @@ control = control) {
     }
   </div>
   <div class="similar list">
-    @similar.map { video =>
-    @card(video, control)
+    @similar.map { vv =>
+    @card(vv, control)
     }
   </div>
 </div>
