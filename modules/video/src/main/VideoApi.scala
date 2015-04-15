@@ -14,10 +14,17 @@ import lila.user.{ User, UserRepo }
 private[video] final class VideoApi(
     videoColl: Coll,
     viewColl: Coll,
-    filterColl: Coll,
-    paginator: VideoPaginator) {
+    filterColl: Coll) {
 
-  import handlers._
+  import lila.db.BSON.BSONJodaDateTimeHandler
+  import reactivemongo.bson.Macros
+  private implicit val YoutubeBSONHandler = {
+    import Youtube.Metadata
+    Macros.handler[Metadata]
+  }
+  private implicit val VideoBSONHandler = Macros.handler[Video]
+  private implicit val TagNbBSONHandler = Macros.handler[TagNb]
+  import View.viewBSONHandler
 
   object video {
 
@@ -68,7 +75,7 @@ private[video] final class VideoApi(
           doc flatMap (_.getAs[String]("_id"))
         }
 
-    def popular(page: Int): Fu[Paginator[VideoView]] = Paginator(
+    def popular(page: Int): Fu[Paginator[Video]] = Paginator(
       adapter = new BSONAdapter[Video](
         collection = videoColl,
         selector = BSONDocument(),

@@ -25,15 +25,10 @@ final class Env(
   }
   import settings._
 
-  private lazy val paginator = new VideoPaginator(
-    videoColl = videoColl,
-    viewColl = viewColl)
-
   lazy val api = new VideoApi(
     videoColl = videoColl,
     viewColl = viewColl,
-    filterColl = filterColl,
-    paginator = paginator)
+    filterColl = filterColl)
 
   private lazy val sheet = new Sheet(
     url = SheetUrl,
