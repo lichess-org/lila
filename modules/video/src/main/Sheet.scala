@@ -30,7 +30,8 @@ private[video] final class Sheet(
             targets = entry.targets,
             tags = entry.tags,
             lang = entry.lang,
-            ads = entry.ads)
+            ads = entry.ads,
+          startTime = entry.startTime)
           (video != updated) ?? {
             loginfo(s"[video sheet] update $updated")
             api.video.save(updated)
@@ -44,6 +45,7 @@ private[video] final class Sheet(
             tags = entry.tags,
             lang = entry.lang,
             ads = entry.ads,
+            startTime = entry.startTime,
             metadata = Youtube.empty,
             createdAt = DateTime.now)
           loginfo(s"[video sheet] insert $video")
@@ -81,6 +83,7 @@ object Sheet {
       `gsx$tags`: GStr,
       `gsx$language`: GStr,
       `gsx$include`: GStr,
+      `gsx$starttimeinseconds`: GStr,
       `gsx$ads`: GStr) {
     def youtubeId = `gsx$youtubeid`.toString.trim
     def author = `gsx$youtubeauthor`.toString.trim
@@ -94,5 +97,6 @@ object Sheet {
     def lang = `gsx$language`.toString.trim
     def ads = `gsx$ads`.toString.trim == "yes"
     def include = `gsx$include`.toString.trim == "yes"
+    def startTime = ~parseIntOption(`gsx$starttimeinseconds`.toString.trim)
   }
 }

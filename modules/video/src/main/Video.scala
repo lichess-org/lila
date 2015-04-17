@@ -10,6 +10,7 @@ case class Video(
     tags: List[Tag],
     lang: Lang,
     ads: Boolean,
+    startTime: Int, // in seconds
     metadata: Youtube.Metadata,
     createdAt: DateTime) {
 

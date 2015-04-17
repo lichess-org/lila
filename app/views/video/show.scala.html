@@ -10,7 +10,7 @@ control = control) {
     <a class="is4 text lichess_title" data-icon="i" href="@routes.Video.index?@control.queryString">Video library</a>
   </div>
   <iframe id="ytplayer" type="text/html" width="792" height="482"
-    src="http://www.youtube.com/embed/@video.id?autoplay=1&origin=http://lichess.org"
+    src="http://www.youtube.com/embed/@video.id?autoplay=1&origin=http://lichess.org&start=@video.startTime"
     frameborder="0"></iframe>
   <h1 class="title">@video.title</h1>
   <div class="meta">
