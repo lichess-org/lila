@@ -431,3 +431,6 @@ playOnTheBoardOffline=Jouer hors ligne, avec un ami
 playOfflineComputer=Jouer hors ligne, avec l'ordinateur
 showPGN=Montrer le PGN
 opponent=Adversaire
+learn=Apprendre
+community=Communauté
+tools=Outils

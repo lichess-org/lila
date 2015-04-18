@@ -49,14 +49,14 @@
         <a href="@routes.Tv.index">Lichess TV</a>
       </section>
       <section>
-        <h2>Learn</h2>
+        <h2>@trans.learn()</h2>
         <a href="@routes.Puzzle.home">@trans.training()</a>
         <a href="@routes.Opening.home">@trans.openings()</a>
         <a href="@routes.Coordinate.home">@trans.coordinates()</a>
         <a href="@routes.Video.index">Video library</a>
       </section>
       <section>
-        <h2>Community</h2>
+        <h2>@trans.community()</h2>
         <a href="@routes.User.list">@trans.players()</a>
         @NotForKids {
         <a href="@routes.Team.home()">@trans.teams()</a>
@@ -65,7 +65,7 @@
         <a href="@routes.QaQuestion.index()">@trans.questionsAndAnswers()</a>
       </section>
       <section>
-        <h2>Tools</h2>
+        <h2>@trans.tools()</h2>
         <a href="@routes.Editor.index">@trans.boardEditor()</a>
         <a href="@routes.UserAnalysis.index">@trans.analysis()</a>
         <a href="@routes.Importer.importGame">@trans.importGame()</a>
