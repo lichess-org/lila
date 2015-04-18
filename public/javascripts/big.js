@@ -1695,7 +1695,7 @@ lichess.storage = {
         };
         $formTag.find('.color_submits button').click(function() {
           return ajaxSubmit($(this).val());
-        });
+        }).attr('disabled', false);
         $formTag.submit(function() {
           return ajaxSubmit('random');
         });

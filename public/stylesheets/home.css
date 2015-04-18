@@ -585,6 +585,9 @@ div.game_config button {
   display: inline-block;
   margin: 0 5px;
 }
+div.game_config button:disabled {
+  opacity: 0.3;
+}
 div.game_config button.black,
 div.game_config button.white {
   width: 50px;
