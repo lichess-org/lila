@@ -908,7 +908,7 @@ div.lichess_board {
 }
 div.lichess_overboard {
   position: absolute;
-  z-index: 20;
+  z-index: 5010; /* above top menu */
   width: 400px;
   top: 50%;
   left: 56px;
