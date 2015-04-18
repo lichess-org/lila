@@ -38,7 +38,7 @@ case class PlayReq(
   val analyse = false
   val requestedByHuman = true
 
-  val priority = 999999 - level
+  val priority = 999999
 }
 
 case class AnalReq(
