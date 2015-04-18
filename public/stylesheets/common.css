@@ -563,7 +563,7 @@ strong {
 }
 body > div.content {
   width: 1005px;
-  margin: 30px auto 30px auto;
+  margin: 35px auto 30px auto;
 }
 body.fpmenu > div.content {
   display: none;
