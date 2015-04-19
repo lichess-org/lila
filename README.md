@@ -8,6 +8,7 @@ It's a free online chess game focused on [realtime](http://lichess.org/games) an
 It has a [search engine](http://lichess.org/games/search),
 [computer analysis](http://lichess.org/analyse/ief49lif),
 [tournaments](http://lichess.org/tournament),
+[simuls](http://lichess.org/simul),
 [forums](http://lichess.org/forum),
 [teams](http://lichess.org/team),
 [tactic trainer](http://lichess.org/training),
@@ -22,7 +23,7 @@ and relies on [Play 2.3](http://www.playframework.com/) for the routing, templat
 Pure chess logic is contained in [scalachess](http://github.com/ornicar/scalachess) submodule.
 The codebase is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
 Lichess talks to [Stockfish](http://stockfishchess.org/) deployed in an AI cluster of donated servers.
-It uses [MongoDB 2.6](http://mongodb.org) to store more than 60 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
+It uses [MongoDB 2.6](http://mongodb.org) to store more than 68 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
 HTTP requests and websocket connections are proxied by [nginx 1.6](http://nginx.org).
 Client-side is written in [mithril.js](http://lhorie.github.io/mithril/).
 The [blog](http://lichess.org/blog) uses a free open content plan from [prismic.io](http://prismic.io).
