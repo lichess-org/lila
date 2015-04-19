@@ -88,7 +88,7 @@ module.exports = function(root) {
   }.bind(this);
 
   this.onReload = function(cfg) {
-    if (this.active && cfg.game.moves.join() != root.data.game.moves.join()) this.active = false;
+    if (this.active && cfg.game.moves != root.data.game.moves.join(' ')) this.active = false;
     this.vm.hash = null;
   }.bind(this);
 
