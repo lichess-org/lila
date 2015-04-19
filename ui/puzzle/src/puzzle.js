@@ -1,8 +1,8 @@
-var compact = require('lodash-node/modern/arrays/compact')
-var keys = require('lodash-node/modern/objects/keys')
-var first = require('lodash-node/modern/arrays/first')
-var rest = require('lodash-node/modern/arrays/rest')
-var pairs = require('lodash-node/modern/objects/pairs')
+var compact = require('lodash/array/compact')
+var keys = require('lodash/object/keys')
+var first = require('lodash/array/first')
+var rest = require('lodash/array/rest')
+var pairs = require('lodash/object/pairs')
 var chessground = require('chessground');
 var chess = require('./chess');
 

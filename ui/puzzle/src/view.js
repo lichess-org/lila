@@ -1,4 +1,4 @@
-var map = require('lodash-node/modern/collections/map');
+var map = require('lodash/collection/map');
 var chessground = require('chessground');
 var partial = chessground.util.partial;
 var m = require('mithril');

@@ -2,7 +2,7 @@ var chessground = require('chessground');
 var game = require('game').game;
 var status = require('game').status;
 var partial = chessground.util.partial;
-var throttle = require('lodash-node/modern/functions/throttle');
+var throttle = require('lodash/function/throttle');
 var m = require('mithril');
 
 module.exports = {

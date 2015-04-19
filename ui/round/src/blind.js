@@ -1,4 +1,4 @@
-var throttle = require('lodash-node/modern/functions/throttle');
+var throttle = require('lodash/function/throttle');
 
 // #FIXME jQuery crap here
 

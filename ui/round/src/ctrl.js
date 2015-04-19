@@ -1,5 +1,5 @@
 var m = require('mithril');
-var throttle = require('lodash-node/modern/functions/throttle');
+var throttle = require('lodash/function/throttle');
 var chessground = require('chessground');
 var partial = chessground.util.partial;
 var data = require('./data');
