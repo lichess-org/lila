@@ -164,8 +164,7 @@ object LangList {
     "th" -> "ไทย",
     "ti" -> "ትግርኛ",
     "tk" -> "Türkmençe",
-    "tl" -> "tlhIngan Hol",
-    //"tlh" -> "tlhIngan Hol"; "tl" is Tagalog, must ask Filipino speakers what they prefer
+    "tl" -> "Tagalog",
     "tn" -> "Setswana",
     "to" -> "lea fakatonga", // a variety of different spellings for this
     "tp" -> "toki pona", // note that this constructed language has no ISO code
