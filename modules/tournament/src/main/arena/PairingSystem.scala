@@ -3,22 +3,22 @@ package arena
 
 import lila.tournament.{ PairingSystem => AbstractPairingSystem }
 
-import scala.util.Random
 import scala.concurrent.Future
+import scala.util.Random
 
 object PairingSystem extends AbstractPairingSystem {
   type P = (String, String)
 
-  def createPairings(tour: Tournament, users: List[String]): Future[(Pairings,Events)] = {
+  def createPairings(tour: Tournament, users: List[String]): Future[(Pairings, Events)] = {
     val pairings = tour.pairings
     val nbActiveUsers = tour.nbActiveUsers
 
     if (users.size < 2)
-      Future.successful((Nil,Nil))
+      Future.successful((Nil, Nil))
     else {
-      val idles: List[String] = Random shuffle {
-        users.toSet diff { (pairings filter (_.playing) flatMap (_.users)).toSet } toList
-      }
+      val idles: Players = users.toSet.intersect {
+        (pairings filterNot (_.playing) flatMap (_.users)).toSet
+      }.toList flatMap tour.playerByUserId
 
       val ps = pairings.isEmpty.fold(
         naivePairings(idles),
@@ -28,16 +28,16 @@ object PairingSystem extends AbstractPairingSystem {
         )
       )
 
-      Future.successful((ps,Nil))
+      Future.successful((ps, Nil))
     }
   }
 
-  private def naivePairings(users: List[String]) =
-    Random shuffle users grouped 2 collect {
-      case List(u1, u2) => Pairing(u1, u2)
+  private def naivePairings(players: Players) =
+    players.sortBy(_.rating) grouped 2 collect {
+      case List(p1, p2) => Pairing(p1, p2)
     } toList
 
-  private def smartPairings(users: List[String], pairings: Pairings, nbActiveUsers: Int): Pairings = {
+  private def smartPairings(players: Players, pairings: Pairings, nbActiveUsers: Int): Pairings = {
 
     def lastOpponent(user: String): Option[String] =
       pairings find (_ contains user) flatMap (_ opponentOf user)
@@ -49,18 +49,17 @@ object PairingSystem extends AbstractPairingSystem {
       pairings.takeWhile(_ notContains u).size
 
     // lower is better
-    def score(pair: P): Int = pair match {
-      case (a, b) => justPlayedTogether(a, b).fold(
-        100,
-        -timeSincePlay(a) - timeSincePlay(b))
+    def score(pair: (Player, Player)): Int = pair match {
+      case (a, b) if justPlayedTogether(a.id, b.id) => 9000
+      case (a, b)                                   => Math.abs(b.rating - a.rating)
     }
 
-    (users match {
-      case x if x.size < 2                            => Nil
-      case List(u1, u2) if nbActiveUsers == 2         => List(u1 -> u2)
-      case List(u1, u2) if justPlayedTogether(u1, u2) => Nil
-      case List(u1, u2)                               => List(u1 -> u2)
-      case us => allPairCombinations(us)
+    (players match {
+      case x if x.size < 2                                  => Nil
+      case List(p1, p2) if nbActiveUsers == 2               => List(p1 -> p2)
+      case List(p1, p2) if justPlayedTogether(p1.id, p2.id) => Nil
+      case List(p1, p2)                                     => List(p1 -> p2)
+      case ps => allPairCombinations(Random shuffle ps)
         .map(c => c -> c.map(score).sum)
         .sortBy(_._2)
         .headOption
@@ -68,14 +67,13 @@ object PairingSystem extends AbstractPairingSystem {
     }) map Pairing.apply
   }
 
-  private def allPairCombinations(list: List[String]): List[List[(String, String)]] = list match {
+  private def allPairCombinations(list: Players): List[List[(Player, Player)]] = list match {
     case a :: rest => for {
       b ← rest
       init = (a -> b)
-      nps = allPairCombinations(rest filter (b !=))
+      nps = allPairCombinations(rest filterNot b.is)
       ps ← nps.isEmpty.fold(List(List(init)), nps map (np => init :: np))
     } yield ps
     case _ => Nil
   }
 }
-

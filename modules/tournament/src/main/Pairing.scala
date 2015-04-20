@@ -60,11 +60,11 @@ case class Pairing(
 }
 
 private[tournament] object Pairing {
-  type P = (String, String)
 
-  def apply(us: P): Pairing = apply(us._1, us._2)
   def apply(u1: String, u2: String): Pairing = apply(u1, u2, None)
   def apply(u1: String, u2: String, pa: DateTime): Pairing = apply(u1, u2, Some(pa))
+  def apply(p1: Player, p2: Player): Pairing = apply(p1.id, p2.id)
+  def apply(ps: (Player, Player)): Pairing = apply(ps._1, ps._2)
 
   def apply(u1: String, u2: String, pa: Option[DateTime]): Pairing = new Pairing(
     gameId = IdGenerator.game,

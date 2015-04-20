@@ -70,6 +70,7 @@ sealed trait Tournament {
   def isActive(user: Option[User]): Boolean = ~user.map(isActive)
   def missingPlayers = minPlayers - players.size
   def rankedPlayers: RankedPlayers = system.scoringSystem.rank(this, players)
+  def playerByUserId(userId: String) = players find (_.id == userId)
 
   def createdBy = data.createdBy
   def createdAt = data.createdAt
