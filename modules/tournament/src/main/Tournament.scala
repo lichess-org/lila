@@ -243,7 +243,7 @@ case class Started(
   )
 
   def quickLossStreak(user: String): Boolean =
-    userPairings(user).takeWhile { pair => (pair lostBy user) && pair.quickLoss }.size >= 3
+    userPairings(user).takeWhile { pair => (pair lostBy user) && pair.quickFinish }.size >= 3
 
   def withPlayers(s: Players) = copy(players = s)
   def refreshPlayers = withPlayers(Player refresh this)

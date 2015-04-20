@@ -25,8 +25,9 @@ case class Pairing(
   def playing = !finished
 
   def lostBy(user: String) = winner.??(user !=)
-  def quickLoss = finished && turns.??(20 >)
+  def quickFinish = finished && turns.??(20 >)
   def quickDraw = draw && turns.??(20 >)
+  def notSoQuickFinish = finished && turns.??(14 >)
 
   def opponentOf(user: String): Option[String] =
     if (user == user1) user2.some else if (user == user2) user1.some else none
@@ -43,6 +44,9 @@ case class Pairing(
     if (userId == user1) berserk1
     else if (userId == user2) berserk2
     else 0
+
+  def validBerserkOf(userId: String): Int =
+    notSoQuickFinish ?? berserkOf(userId)
 
   def withBerserk(userId: String) = copy(
     berserk1 = if (userId == user1) 1 else berserk1,

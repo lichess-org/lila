@@ -40,26 +40,28 @@ object ScoringSystem extends AbstractScoringSystem {
     val filtered = tour userPairings user filter (_.finished) reverse
     val nexts = (filtered drop 1 map Some.apply) :+ None
     filtered.zip(nexts).foldLeft(List[Score]()) {
-      case (scores, (p, n)) => (p.winner match {
-        case None if p.quickDraw => Score(
-          Some(false),
-          Normal,
-          p berserkOf user)
-        case None => Score(
-          None,
-          if (firstTwoAreWins(scores)) Double else Normal,
-          p berserkOf user)
-        case Some(w) if (user == w) => Score(
-          Some(true),
-          if (firstTwoAreWins(scores)) Double
-          else if (scores.headOption ?? (_.flag == StreakStarter)) StreakStarter
-          else n.flatMap(_.winner) match {
-            case Some(w) if (user == w) => StreakStarter
-            case _                      => Normal
-          },
-          p berserkOf user)
-        case _ => Score(Some(false), Normal, p berserkOf user)
-      }) :: scores
+      case (scores, (p, n)) =>
+        val berserkValue = p validBerserkOf user
+        (p.winner match {
+          case None if p.quickDraw => Score(
+            Some(false),
+            Normal,
+            berserkValue)
+          case None => Score(
+            None,
+            if (firstTwoAreWins(scores)) Double else Normal,
+            berserkValue)
+          case Some(w) if (user == w) => Score(
+            Some(true),
+            if (firstTwoAreWins(scores)) Double
+            else if (scores.headOption ?? (_.flag == StreakStarter)) StreakStarter
+            else n.flatMap(_.winner) match {
+              case Some(w) if (user == w) => StreakStarter
+              case _                      => Normal
+            },
+            berserkValue)
+          case _ => Score(Some(false), Normal, berserkValue)
+        }) :: scores
     }
   }
 
