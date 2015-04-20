@@ -39,3 +39,5 @@ case class TournamentTable(tours: List[Enterable])
 private[tournament] case object ScheduleNow
 private[tournament] case object NotifyCrowd
 private[tournament] case object NotifyReload
+
+private[tournament] case class WithWaitingUserIds(f: List[String] => Unit)

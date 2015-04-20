@@ -10,21 +10,20 @@ object PairingSystem extends AbstractPairingSystem {
   type P = (String, String)
 
   def createPairings(tour: Tournament, users: List[String]): Future[(Pairings, Events)] = {
-    val pairings = tour.pairings
     val nbActiveUsers = tour.nbActiveUsers
 
     if (users.size < 2)
       Future.successful((Nil, Nil))
     else {
-      val idles: Players = users.toSet.intersect {
-        (pairings filterNot (_.playing) flatMap (_.users)).toSet
+      val idles: Players = users.toSet.diff {
+        tour.playingUserIds.toSet
       }.toList flatMap tour.playerByUserId
 
-      val ps = pairings.isEmpty.fold(
+      val ps = tour.pairings.isEmpty.fold(
         naivePairings(idles),
         (idles.size > 12).fold(
           naivePairings(idles),
-          smartPairings(idles, pairings, nbActiveUsers)
+          smartPairings(idles, tour.pairings, nbActiveUsers)
         )
       )
 

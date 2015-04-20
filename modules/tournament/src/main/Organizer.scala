@@ -6,7 +6,6 @@ import akka.pattern.{ ask, pipe }
 import actorApi._
 import lila.game.actorApi.FinishGame
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.WithUserIds
 import makeTimeout.short
 
 private[tournament] final class Organizer(
@@ -51,7 +50,7 @@ private[tournament] final class Organizer(
 
   private def startPairing(tour: Started) {
     if (!tour.isAlmostFinished) {
-      withUserIds(tour.id) { ids =>
+      withWaitingUserIds(tour.id) { ids =>
         val users = tour.activeUserIds intersect ids
         tour.system.pairingSystem.createPairings(tour, users) onSuccess {
           case (pairings, events) =>
@@ -61,7 +60,7 @@ private[tournament] final class Organizer(
     }
   }
 
-  private def withUserIds(tourId: String)(f: List[String] => Unit) {
-    socketHub ! Tell(tourId, WithUserIds(ids => f(ids.toList)))
+  private def withWaitingUserIds(tourId: String)(f: List[String] => Unit) {
+    socketHub ! Tell(tourId, WithWaitingUserIds(ids => f(ids.toList)))
   }
 }

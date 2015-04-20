@@ -4,10 +4,10 @@ import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
+import org.joda.time.DateTime
 
 import actorApi._
 import lila.common.LightUser
-import lila.hub.actorApi.WithUserIds
 import lila.hub.TimeBomb
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -40,7 +40,7 @@ private[tournament] final class Socket(
 
     case Reload         => notifyReload
 
-    case WithUserIds(f) => f(userIds)
+    case WithWaitingUserIds(f) => f(waitingUserIds)
 
     case PingVersion(uid, v) => {
       ping(uid)
@@ -89,6 +89,23 @@ private[tournament] final class Socket(
       jsonView(tournamentId) foreach { obj =>
         notifyVersion("reload", obj, Messadata())
       }
+  }
+
+  private var waitingUsers = Map[String, DateTime]()
+
+  // users that have been here for some time
+  def waitingUserIds: List[String] = {
+    val us = userIds
+    val date = DateTime.now
+    waitingUsers = waitingUsers.filterKeys { u =>
+      us contains u
+    }.++ {
+      us.filterNot(waitingUsers.contains).map { _ -> date }
+    }
+    val since = date minusSeconds 7
+    waitingUsers.collect {
+      case (u, d) if d.isBefore(since) => u
+    }.toList
   }
 
   def notifyCrowd {

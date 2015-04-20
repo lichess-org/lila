@@ -79,6 +79,10 @@ sealed trait Tournament {
 
   def userPairings(user: String) = pairings filter (_ contains user)
 
+  def playingPairings = pairings filter (_.playing)
+
+  def playingUserIds = playingPairings.flatMap(_.users).distinct
+
   def scoreSheet(player: Player) = system.scoringSystem.scoreSheet(this, player.id)
 
   def isSwiss = system == System.Swiss
@@ -183,10 +187,6 @@ case class Started(
     events: List[Event]) extends StartedOrFinished with Enterable {
 
   override def isRunning = true
-
-  def playingPairings = pairings filter (_.playing)
-
-  def playingUserIds = playingPairings.flatMap(_.users).distinct
 
   def addPairings(ps: scalaz.NonEmptyList[Pairing]) =
     copy(pairings = ps.list ::: pairings)
