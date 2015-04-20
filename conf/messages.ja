@@ -436,3 +436,6 @@ increment=追加時間
 board=ボード
 pieces=駒
 sharePGN=PGNを表示
+playOnline=オンラインでプレイする
+playOffline=オフラインでプレイする
+shareGameURL=ゲームのURLを共有
