@@ -1,13 +1,14 @@
 package lila.tournament
 
 import akka.actor._
+import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
-import org.joda.time.DateTime
 
 import actorApi._
 import lila.common.LightUser
+import lila.hub.actorApi.WithUserIds
 import lila.hub.TimeBomb
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -38,8 +39,9 @@ private[tournament] final class Socket(
       }
       notifyReload
 
-    case Reload         => notifyReload
+    case Reload                => notifyReload
 
+    case WithUserIds(f)        => f(userIds)
     case WithWaitingUserIds(f) => f(waitingUserIds)
 
     case PingVersion(uid, v) => {
