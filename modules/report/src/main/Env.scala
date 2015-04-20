@@ -27,6 +27,8 @@ final class Env(
         api.clean(userId)
       case lila.hub.actorApi.report.Check(userId) =>
         api.autoProcess(userId)
+      case lila.hub.actorApi.report.MarkCheater(userId, by) =>
+        api.processEngine(userId, by)
     }
   }), name = ActorName)
 

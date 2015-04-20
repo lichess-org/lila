@@ -10,6 +10,7 @@ final class ModApi(
     logApi: ModlogApi,
     userSpy: String => Fu[UserSpy],
     firewall: Firewall,
+    reporter: akka.actor.ActorSelection,
     lilaBus: lila.common.Bus) {
 
   def toggleEngine(mod: String, username: String): Funit = withUser(username) { user =>
@@ -21,6 +22,7 @@ final class ModApi(
       logApi.engine(mod, user.id, v) zip
         UserRepo.setEngine(user.id, v) >>- {
           if (v) lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id), 'adjustCheater)
+          reporter ! lila.hub.actorApi.report.MarkCheater(user.id, mod)
         } void
     }
   }

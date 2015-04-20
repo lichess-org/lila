@@ -69,6 +69,14 @@ private[report] final class ReportApi {
     }
   }
 
+  def processEngine(userId: String, byModId: String): Funit = $update(
+    Json.obj(
+      "user" -> userId,
+      "reason" -> Reason.Cheat.name
+    ) ++ unprocessedSelect,
+    $set("processedBy" -> byModId),
+    multi = true)
+
   def autoProcess(userId: String): Funit =
     $update(Json.obj("user" -> userId.toLowerCase), Json.obj("processedBy" -> "lichess"))
 

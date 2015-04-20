@@ -30,6 +30,7 @@ final class Env(
     logApi = logApi,
     userSpy = userSpy,
     firewall = firewall,
+    reporter = hub.actor.report,
     lilaBus = system.lilaBus)
 
   private lazy val boosting = new BoostingApi(

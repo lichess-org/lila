@@ -43,6 +43,7 @@ package report {
 case class Cheater(userId: String, text: String)
 case class Clean(userId: String)
 case class Check(userId: String)
+case class MarkCheater(userId: String, by: String)
 }
 
 package mod {
