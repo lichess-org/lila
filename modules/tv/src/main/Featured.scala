@@ -45,6 +45,7 @@ final class Featured(
               "featured",
               play.api.libs.json.Json.obj(
                 "html" -> html.toString,
+                "color" -> game.firstColor.name,
                 "id" -> game.id))
             bus.publish(lila.hub.actorApi.game.ChangeFeatured(game.id, msg), 'changeFeaturedGame)
         }
