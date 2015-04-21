@@ -29,6 +29,11 @@ module.exports = function(send, ctrl) {
       m.redraw();
       ctrl.setTitle();
     },
+    takebackOffers: function(o) {
+      ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
+      ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
+      m.redraw();
+    },
     move: function(o) {
       ctrl.apiMove(o);
     },

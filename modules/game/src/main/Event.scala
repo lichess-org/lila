@@ -196,6 +196,16 @@ object Event {
     ).noNull
   }
 
+  case class TakebackOffers(
+      white: Boolean,
+      black: Boolean) extends Event {
+    def typ = "takebackOffers"
+    def data = Json.obj(
+      "white" -> white.option(true),
+      "black" -> black.option(true)
+    ).noNull
+  }
+
   case class Crowd(
       white: Boolean,
       black: Boolean,
