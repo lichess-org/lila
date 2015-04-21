@@ -9,7 +9,15 @@ import scala.util.Random
 object PairingSystem extends AbstractPairingSystem {
   type P = (String, String)
 
-  def createPairings(tour: Tournament, users: List[String]): Future[(Pairings, Events)] = {
+  // if waiting users can make pairings
+  // then pair all users
+  def createPairings(tour: Tournament, users: AllUserIds): Future[(Pairings, Events)] =
+    tryPairings(tour, users.waiting) flatMap {
+      case nope@(Nil, _) => fuccess(nope)
+      case _             => tryPairings(tour, users.all)
+    }
+
+  private def tryPairings(tour: Tournament, users: List[String]): Future[(Pairings, Events)] = {
     val nbActiveUsers = tour.nbActiveUsers
 
     if (users.size < 2)

@@ -24,4 +24,6 @@ package object tournament extends PackageObject with WithPlay with WithSocket {
 package tournament {
 
 case class Winner(tourId: String, tourName: String, userId: String)
+
+private[tournament] case class AllUserIds(all: List[String], waiting: List[String])
 }

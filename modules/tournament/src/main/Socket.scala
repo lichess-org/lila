@@ -41,8 +41,7 @@ private[tournament] final class Socket(
 
     case Reload                => notifyReload
 
-    case WithUserIds(f)        => f(userIds)
-    case WithWaitingUserIds(f) => f(waitingUserIds)
+    case GetAllUserIds => sender ! AllUserIds(all = userIds, waiting = waitingUserIds)
 
     case PingVersion(uid, v) => {
       ping(uid)

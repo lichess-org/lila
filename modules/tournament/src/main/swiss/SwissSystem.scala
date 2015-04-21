@@ -90,7 +90,8 @@ object SwissSystem extends PairingSystem with ScoringSystem {
     r(active) ::: r(inactive)
   }
 
-  override def createPairings(tour: Tournament, users: List[String]): Future[(Pairings,Events)] = {
+  override def createPairings(tour: Tournament, allUsers: AllUserIds): Future[(Pairings,Events)] = {
+    val users = allUsers.all
     val failed       = (Nil,Nil)
     val failedFuture = Future.successful(failed) // Oh the irony.
 
