@@ -31,7 +31,7 @@ case class Seek(
 
   def compatibleWith(h: Seek) =
     user.id != h.user.id &&
-    compatibilityProperties == h.compatibilityProperties &&
+      compatibilityProperties == h.compatibilityProperties &&
       (realColor compatibleWith h.realColor) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this)
 
@@ -83,6 +83,16 @@ object Seek {
     color = color,
     user = LobbyUser.make(user, blocking),
     ratingRange = ratingRange.toString,
+    createdAt = DateTime.now)
+
+  def renew(seek: Seek) = new Seek(
+    _id = Random nextStringUppercase idSize,
+    variant = seek.variant,
+    daysPerTurn = seek.daysPerTurn,
+    mode = seek.mode,
+    color = seek.color,
+    user = seek.user,
+    ratingRange = seek.ratingRange,
     createdAt = DateTime.now)
 
   import reactivemongo.bson.Macros

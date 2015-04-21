@@ -6,12 +6,14 @@ import reactivemongo.core.commands._
 import scala.concurrent.duration._
 
 import actorApi.LobbyUser
+import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.Types.Coll
 import lila.memo.AsyncCache
 import lila.user.{ User, UserRepo }
 
 final class SeekApi(
     coll: Coll,
+    archiveColl: Coll,
     blocking: String => Fu[Set[String]],
     maxPerPage: Int,
     maxPerUser: Int) {
@@ -30,7 +32,7 @@ final class SeekApi(
       case ForAnon => allCursor.collect[List](maxPerPage)
       case ForUser => allCursor.collect[List]()
     },
-    timeToLive = 5.seconds)
+    timeToLive = 3.seconds)
 
   def forAnon = cache(ForAnon)
 
@@ -61,6 +63,18 @@ final class SeekApi(
 
   def remove(seek: Seek) =
     coll.remove(BSONDocument("_id" -> seek.id)).void >> cache.clear
+
+  def archive(seek: Seek, gameId: String) = {
+    val archiveDoc = Seek.seekBSONHandler.write(seek) ++ BSONDocument(
+      "gameId" -> gameId,
+      "archivedAt" -> DateTime.now)
+    coll.remove(BSONDocument("_id" -> seek.id)).void >>
+      cache.clear >>
+      archiveColl.insert(archiveDoc)
+  }
+
+  def findArchived(gameId: String): Fu[Option[Seek]] =
+    archiveColl.find(BSONDocument("gameId" -> gameId)).one[Seek]
 
   def removeBy(seekId: String, userId: String) =
     coll.remove(BSONDocument(

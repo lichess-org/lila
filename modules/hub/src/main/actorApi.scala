@@ -169,6 +169,7 @@ case class MoveEvent(
   opponentUserId: Option[String],
   simulId: Option[String])
 case class NbRounds(nb: Int)
+case class Abort(gameId: String, byColor: String)
 }
 
 package evaluation {

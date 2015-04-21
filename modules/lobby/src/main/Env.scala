@@ -25,6 +25,7 @@ final class Env(
     val BroomPeriod = config duration "broom_period"
     val ResyncIdsPeriod = config duration "resync_ids_period"
     val CollectionSeek = config getString "collection.seek"
+    val CollectionSeekArchive = config getString "collection.seek_archive"
     val SeekMaxPerPage = config getInt "seek.max_per_page"
     val SeekMaxPerUser = config getInt "seek.max_per_user"
   }
@@ -38,6 +39,7 @@ final class Env(
 
   lazy val seekApi = new SeekApi(
     coll = db(CollectionSeek),
+    archiveColl = db(CollectionSeekArchive),
     blocking = blocking,
     maxPerPage = SeekMaxPerPage,
     maxPerUser = SeekMaxPerUser)
@@ -56,6 +58,16 @@ final class Env(
     blocking = blocking)
 
   lazy val history = new History[actorApi.Messadata](ttl = MessageTtl)
+
+  private val abortListener = new AbortListener(seekApi = seekApi)
+
+  system.actorOf(Props(new Actor {
+    system.lilaBus.subscribe(self, 'abortGame)
+    def receive = {
+      case lila.game.actorApi.AbortedBy(pov) if pov.game.isCorrespondence =>
+        abortListener recreateSeek pov
+    }
+  }))
 
   {
     import scala.concurrent.duration._

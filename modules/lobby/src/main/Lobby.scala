@@ -80,7 +80,7 @@ private[lobby] final class Lobby(
     case msg@JoinSeek(_, seek, game, _) =>
       onStart(game.id)
       socket ! msg
-      (seekApi remove seek) >>- {
+      seekApi.archive(seek, game.id) >>- {
         socket ! RemoveSeek(seek.id)
       }
 

@@ -5,7 +5,7 @@ import chess.Status._
 import chess.{ Status, Color, Speed }
 
 import lila.db.api._
-import lila.game.actorApi.FinishGame
+import lila.game.actorApi.{ FinishGame, AbortedBy }
 import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Pov, Event }
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
@@ -20,6 +20,10 @@ private[round] final class Finisher(
     bus: lila.common.Bus,
     timeline: akka.actor.ActorSelection,
     casualOnly: Boolean) {
+
+  def abort(pov: Pov): Fu[Events] = apply(pov.game, _.Aborted) addEffect { _ =>
+    bus.publish(AbortedBy(pov), 'abortGame)
+  }
 
   def apply(
     game: Game,

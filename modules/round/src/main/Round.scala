@@ -52,7 +52,7 @@ private[round] final class Round(
     }
 
     case Abort(playerId) => handle(playerId) { pov =>
-      pov.game.abortable ?? finisher(pov.game, _.Aborted)
+      pov.game.abortable ?? finisher.abort(pov)
     }
 
     case Resign(playerId) => handle(playerId) { pov =>
