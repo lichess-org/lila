@@ -4,6 +4,11 @@
 
 var lichess = window.lichess = window.lichess || {};
 
+lichess.getParameterByName = function(name) {
+  var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
+  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+};
+
 lichess.StrongSocket = function(url, version, settings) {
   var self = this;
   self.settings = $.extend(true, {}, lichess.StrongSocket.defaults, settings);
@@ -32,7 +37,7 @@ lichess.StrongSocket = function(url, version, settings) {
   });
 };
 lichess.StrongSocket.available = window.WebSocket || window.MozWebSocket;
-lichess.StrongSocket.sri = Math.random().toString(36).substring(2);
+lichess.StrongSocket.sri = lichess.getParameterByName('sri') || Math.random().toString(36).substring(2);
 lichess.StrongSocket.defaults = {
   events: {
     fen: function(e) {

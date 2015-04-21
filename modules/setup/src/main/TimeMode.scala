@@ -19,4 +19,9 @@ object TimeMode {
   def apply(id: Int): Option[TimeMode] = byId get id
 
   def orDefault(id: Int) = apply(id) | default
+
+  def ofGame(game: lila.game.Game) =
+    if (game.hasClock) RealTime
+    else if (game.hasCorrespondenceClock) Correspondence
+    else Unlimited
 }

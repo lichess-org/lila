@@ -1106,7 +1106,8 @@ div.table .notyet {
   text-shadow: none !important;
 }
 .lichess_ground .control.buttons .button {
-  width: 190px;
+  box-sizing: border-box;
+  width: 220px;
   margin-top: 5px;
 }
 .lichess_ground .control.buttons a.fat {

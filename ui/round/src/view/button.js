@@ -157,5 +157,18 @@ module.exports = {
       onclick: partial(ctrl.socket.send, 'rematch-no', null),
       href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.player.color).url
     }, ctrl.trans('analysis'));
+  },
+  newOpponent: function(ctrl) {
+    if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && ctrl.data.game.source == 'lobby') {
+      return m('form.new_opponent', {
+          method: 'post',
+          action: '/setup/hook/like/' + ctrl.data.game.id
+        },
+        m('button.button.hint--bottom', {
+          type: 'submit',
+          'data-hint': ctrl.trans('playWithAnotherOpponent')
+        }, ctrl.trans('newOpponent'))
+      );
+    }
   }
 };

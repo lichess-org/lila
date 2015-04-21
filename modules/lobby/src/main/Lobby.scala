@@ -85,8 +85,11 @@ private[lobby] final class Lobby(
       }
 
     case Broom => socket ? GetUids mapTo manifest[Iterable[String]] foreach { uids =>
+      val createdBefore = DateTime.now minusSeconds 5
       val hooks = {
-        (HookRepo notInUids uids.toSet) ::: HookRepo.cleanupOld
+        (HookRepo notInUids uids.toSet).filter {
+          _.createdAt isBefore createdBefore
+        } ::: HookRepo.cleanupOld
       }.toSet
       if (hooks.nonEmpty) self ! RemoveHooks(hooks)
     }

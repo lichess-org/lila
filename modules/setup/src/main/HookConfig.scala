@@ -61,6 +61,14 @@ case class HookConfig(
   }
 
   def noRatedUnlimited = mode.casual || hasClock || makeDaysPerTurn.isDefined
+
+  def updateFrom(game: lila.game.Game) = copy(
+    variant = game.variant,
+    timeMode = TimeMode ofGame game,
+    time = game.clock.map(_.limitInMinutes) | time,
+    increment = game.clock.map(_.increment) | increment,
+    days = game.daysPerTurn | days,
+    mode = game.mode)
 }
 
 object HookConfig extends BaseHumanConfig {

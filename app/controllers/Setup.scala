@@ -119,6 +119,23 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
     )
   }
 
+  def like(gameId: String) = Open { implicit ctx =>
+    env.forms.hookConfig flatMap { config =>
+      GameRepo game gameId map {
+        _.fold(config)(config.updateFrom)
+      } flatMap { config =>
+        (ctx.userId ?? Env.relation.api.blocking) flatMap { blocking =>
+          val sri = ornicar.scalalib.Random nextString 8
+          env.processor.hook(config, sri, HTTPRequest sid ctx.req, blocking) map { hookId =>
+            Redirect(routes.Lobby.home.url + "?sri=" + sri)
+          } recover {
+            case e: IllegalArgumentException => Redirect(routes.Lobby.home)
+          }
+        }
+      }
+    }
+  }
+
   def filterForm = Open { implicit ctx =>
     env.forms.filterFilled map {
       case (form, filter) => html.setup.filter(form, filter)

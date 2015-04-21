@@ -46,6 +46,7 @@ function renderTableEnd(ctrl) {
       button.cancelRematch(ctrl) ||
       button.rematch(ctrl)
     ],
+    button.newOpponent(ctrl),
     button.analysis(ctrl)
   ]);
   return [
