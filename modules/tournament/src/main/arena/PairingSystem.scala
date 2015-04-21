@@ -13,8 +13,9 @@ object PairingSystem extends AbstractPairingSystem {
   // then pair all users
   def createPairings(tour: Tournament, users: AllUserIds): Future[(Pairings, Events)] =
     tryPairings(tour, users.waiting) flatMap {
-      case nope@(Nil, _) => fuccess(nope)
-      case _             => tryPairings(tour, users.all)
+      case nope@(Nil, _) if tour.pairings.isEmpty => tryPairings(tour, users.all)
+      case nope@(Nil, _)                          => fuccess(nope)
+      case _                                      => tryPairings(tour, users.all)
     }
 
   private def tryPairings(tour: Tournament, users: List[String]): Future[(Pairings, Events)] = {
