@@ -103,7 +103,7 @@
     <table class="slist standing">
       <tbody>
         @t.rankedPlayers.map {
-        case (rank, player) => {
+        case lila.tournament.RankedPlayer(rank, player) => {
         @defining((
         t scoreSheet player,
         // TODO FIXME that's a little ugly I must say.

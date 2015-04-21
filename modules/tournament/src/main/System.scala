@@ -44,7 +44,6 @@ trait ScoreSheet {
 
 trait ScoringSystem {
   type Sheet <: ScoreSheet
-  type RankedPlayers = List[(Int, Player)]
 
   // This should rank players by score, and rank all withdrawn players after active ones.
   def rank(tournament: Tournament, players: Players): RankedPlayers

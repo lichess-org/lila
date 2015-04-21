@@ -69,8 +69,12 @@ sealed trait Tournament {
   def isActive(user: User): Boolean = isActive(user.id)
   def isActive(user: Option[User]): Boolean = ~user.map(isActive)
   def missingPlayers = minPlayers - players.size
-  def rankedPlayers: RankedPlayers = system.scoringSystem.rank(this, players)
   def playerByUserId(userId: String) = players find (_.id == userId)
+
+  lazy val rankedPlayers: RankedPlayers = system.scoringSystem.rank(this, players)
+  def rankedPlayerByUserId(userId: String): Option[RankedPlayer] = rankedPlayers find {
+    _.player.id == userId
+  }
 
   def createdBy = data.createdBy
   def createdAt = data.createdAt
@@ -219,10 +223,6 @@ case class Started(
 
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.flatMap(u => userCurrentPov(u.id))
-
-  def leaders: List[Player] = rankedPlayers filter {
-    case (rank, player) => rank <= 2 && player.score >= 8
-  } map (_._2)
 
   def finish = refreshPlayers |> { tour =>
     Finished(

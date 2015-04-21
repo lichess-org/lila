@@ -6,7 +6,7 @@ package object tournament extends PackageObject with WithPlay with WithSocket {
 
   private[tournament]type Players = List[tournament.Player]
 
-  private[tournament]type RankedPlayers = List[(Int, Player)]
+  private[tournament]type RankedPlayers = List[RankedPlayer]
 
   private[tournament]type Pairings = List[tournament.Pairing]
 
@@ -22,6 +22,10 @@ package object tournament extends PackageObject with WithPlay with WithSocket {
 }
 
 package tournament {
+
+case class RankedPlayer(rank: Int, player: Player) {
+  def is(other: RankedPlayer) = player is other.player
+}
 
 case class Winner(tourId: String, tourName: String, userId: String)
 

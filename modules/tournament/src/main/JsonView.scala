@@ -24,7 +24,7 @@ final class JsonView(
         "private" -> tour.`private`,
         "schedule" -> tour.schedule.map(scheduleJson),
         "variant" -> tour.variant.key,
-        "players" -> tour.rankedPlayers.map((playerJson(sheets) _).tupled),
+        "players" -> tour.rankedPlayers.map(playerJson(sheets)),
         "winner" -> tour.winner.map(_.id),
         "pairings" -> tour.pairings.take(50).map(pairingJson),
         "isOpen" -> tour.isOpen,
@@ -85,10 +85,11 @@ final class JsonView(
       "neustadtl" -> s.neustadtlRepr)
   }
 
-  private def playerJson(sheets: Map[String, ScoreSheet])(rank: Int, p: Player) = {
+  private def playerJson(sheets: Map[String, ScoreSheet])(rankedPlayer: RankedPlayer) = {
+    val p = rankedPlayer.player
     val light = getLightUser(p.id)
     Json.obj(
-      "rank" -> rank,
+      "rank" -> rankedPlayer.rank,
       "id" -> p.id,
       "username" -> light.map(_.name),
       "title" -> light.map(_.title),

@@ -31,8 +31,11 @@ object ScoringSystem extends AbstractScoringSystem {
 
   override def rank(tour: Tournament, players: Players): RankedPlayers = {
     players.foldLeft(Nil: RankedPlayers) {
-      case (Nil, p)                  => (1, p) :: Nil
-      case (list@((r0, p0) :: _), p) => ((p0.score == p.score).fold(r0, list.size + 1), p) :: list
+      case (Nil, p) => RankedPlayer(rank = 1, player = p) :: Nil
+      case (list@(RankedPlayer(r0, p0) :: _), p) => RankedPlayer(
+        rank = (p0.score == p.score).fold(r0, list.size + 1),
+        player = p
+      ) :: list
     }.reverse
   }
 

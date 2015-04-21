@@ -24,9 +24,9 @@ object PairingSystem extends AbstractPairingSystem {
     if (users.size < 2)
       Future.successful((Nil, Nil))
     else {
-      val idles: Players = users.toSet.diff {
+      val idles: RankedPlayers = users.toSet.diff {
         tour.playingUserIds.toSet
-      }.toList flatMap tour.playerByUserId
+      }.toList flatMap tour.rankedPlayerByUserId
 
       val ps = tour.pairings.isEmpty.fold(
         naivePairings(idles),
@@ -40,12 +40,14 @@ object PairingSystem extends AbstractPairingSystem {
     }
   }
 
-  private def naivePairings(players: Players) =
-    players.sortBy(_.rating) grouped 2 collect {
-      case List(p1, p2) => Pairing(p1, p2)
+  private def naivePairings(players: RankedPlayers) =
+    players.sortBy { p =>
+      p.rank -> -p.player.rating
+    } grouped 2 collect {
+      case List(p1, p2) => Pairing(p1.player, p2.player)
     } toList
 
-  private def smartPairings(players: Players, pairings: Pairings, nbActiveUsers: Int): Pairings = {
+  private def smartPairings(players: RankedPlayers, pairings: Pairings, nbActiveUsers: Int): Pairings = {
 
     def lastOpponent(user: String): Option[String] =
       pairings find (_ contains user) flatMap (_ opponentOf user)
@@ -57,25 +59,28 @@ object PairingSystem extends AbstractPairingSystem {
       pairings.takeWhile(_ notContains u).size
 
     // lower is better
-    def score(pair: (Player, Player)): Int = pair match {
-      case (a, b) if justPlayedTogether(a.id, b.id) => 9000
-      case (a, b)                                   => Math.abs(b.rating - a.rating)
+    def score(pair: (RankedPlayer, RankedPlayer)): Int = pair match {
+      case (a, b) if justPlayedTogether(a.player.id, b.player.id) => 9000
+      case (a, b) => Math.abs(a.rank - b.rank)
     }
 
     (players match {
-      case x if x.size < 2                                  => Nil
-      case List(p1, p2) if nbActiveUsers == 2               => List(p1 -> p2)
-      case List(p1, p2) if justPlayedTogether(p1.id, p2.id) => Nil
-      case List(p1, p2)                                     => List(p1 -> p2)
+      case x if x.size < 2 => Nil
+      case List(p1, p2) if nbActiveUsers == 2 => List(p1.player -> p2.player)
+      case List(p1, p2) if justPlayedTogether(p1.player.id, p2.player.id) => Nil
+      case List(p1, p2) => List(p1.player -> p2.player)
       case ps => allPairCombinations(Random shuffle ps)
         .map(c => c -> c.map(score).sum)
         .sortBy(_._2)
         .headOption
-        .map(_._1) | Nil
+        .??(_._1)
+        .map {
+          case (rp0, rp1) => rp0.player -> rp1.player
+        }
     }) map Pairing.apply
   }
 
-  private def allPairCombinations(list: Players): List[List[(Player, Player)]] = list match {
+  private def allPairCombinations(list: RankedPlayers): List[List[(RankedPlayer, RankedPlayer)]] = list match {
     case a :: rest => for {
       b ← rest
       init = (a -> b)
