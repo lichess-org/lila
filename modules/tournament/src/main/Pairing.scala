@@ -27,7 +27,7 @@ case class Pairing(
   def lostBy(user: String) = winner.??(user !=)
   def quickFinish = finished && turns.??(20 >)
   def quickDraw = draw && turns.??(20 >)
-  def notSoQuickFinish = finished && turns.??(14 >)
+  def notSoQuickFinish = finished && turns.??(14 <)
 
   def opponentOf(user: String): Option[String] =
     if (user == user1) user2.some else if (user == user2) user1.some else none
