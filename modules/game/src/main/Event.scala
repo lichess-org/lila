@@ -204,6 +204,7 @@ object Event {
       "white" -> white.option(true),
       "black" -> black.option(true)
     ).noNull
+    override def owner = true
   }
 
   case class Crowd(
