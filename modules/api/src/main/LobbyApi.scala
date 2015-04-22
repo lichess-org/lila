@@ -24,7 +24,7 @@ final class LobbyApi(
   def apply(implicit ctx: Context): Fu[JsObject] =
     (lobby ? HooksFor(ctx.me)).mapTo[List[Hook]] zip
       ctx.me.fold(seekApi.forAnon)(seekApi.forUser) zip
-      (ctx.me ?? GameRepo.nowPlaying) zip
+      (ctx.me ?? GameRepo.urgentGames) zip
       getFilter(ctx) map {
         case (((hooks, seeks), povs), filter) => Json.obj(
           "me" -> ctx.me.map { u =>

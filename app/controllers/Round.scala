@@ -88,7 +88,7 @@ object Round extends LilaController with TheftPrevention {
   }
 
   private def otherPovs(gameId: String)(implicit ctx: Context) = ctx.me ?? { user =>
-    GameRepo nowPlaying user map {
+    GameRepo urgentGames user map {
       _ filter { _.game.id != gameId }
     }
   }

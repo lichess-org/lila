@@ -34,7 +34,7 @@ object Account extends LilaController {
     me =>
       negotiate(
         html = notFound,
-        api = _ => lila.game.GameRepo nowPlaying me map { povs =>
+        api = _ => lila.game.GameRepo urgentGames me map { povs =>
           Ok {
             import play.api.libs.json._
             Env.user.jsonView(me, extended = true) ++ Json.obj(

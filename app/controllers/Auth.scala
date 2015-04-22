@@ -15,7 +15,7 @@ object Auth extends LilaController {
   private def forms = Env.security.forms
 
   private def mobileUserOk(u: UserModel): Fu[Result] =
-    lila.game.GameRepo nowPlaying u map { povs =>
+    lila.game.GameRepo urgentGames u map { povs =>
       Ok {
         Env.user.jsonView(u, extended = true) ++ Json.obj(
           "nowPlaying" -> JsArray(povs take 9 map Env.api.lobbyApi.nowPlaying))

@@ -175,20 +175,6 @@ final class Env(
     prefApi = prefApi)
 
   lazy val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
-
-  // game ids where the user is present on board
-  def userPlayingGameIds(user: lila.user.User): Fu[Set[String]] =
-    lila.game.GameRepo.nowPlayingWithClock(user) flatMap { povs =>
-      povs.map { pov =>
-        getSocketStatus(pov.gameId) map { ss =>
-          (pov.gameId, ss.onGame(pov.color))
-        }
-      }.sequenceFu map {
-        _ collect {
-          case (gameId, true) => gameId
-        } toSet
-      }
-    }
 }
 
 object Env {

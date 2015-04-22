@@ -129,7 +129,7 @@ object GameRepo {
       )))
     }
 
-  def nowPlaying(user: User): Fu[List[Pov]] =
+  def urgentGames(user: User): Fu[List[Pov]] =
     $find(Query nowPlaying user.id, 50) map { games =>
       val povs = games flatMap { Pov(_, user) }
       try {
@@ -137,18 +137,12 @@ object GameRepo {
       }
       catch {
         case e: IllegalArgumentException =>
-          // logerr(s"GameRepo.nowPlaying(${user.id}) ${povs.size} ${e.getMessage}")
           povs sortBy (-_.game.updatedAtOrCreatedAt.getSeconds)
       }
     }
 
-  def nowPlayingWithClock(user: User): Fu[List[Pov]] =
-    $find(Query.nowPlaying(user.id) ++ Query.clock(true)) map {
-      _ flatMap { Pov(_, user) }
-    }
-
   // gets most urgent game to play
-  def onePlaying(user: User): Fu[Option[Pov]] = nowPlaying(user) map (_.headOption)
+  def mostUrgentGame(user: User): Fu[Option[Pov]] = urgentGames(user) map (_.headOption)
 
   // gets last recently played move game in progress
   def lastPlayedPlaying(user: User): Fu[Option[Pov]] =
