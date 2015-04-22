@@ -37,7 +37,7 @@ lichess.StrongSocket = function(url, version, settings) {
   });
 };
 lichess.StrongSocket.available = window.WebSocket || window.MozWebSocket;
-lichess.StrongSocket.sri = lichess.getParameterByName('sri') || Math.random().toString(36).substring(2);
+lichess.StrongSocket.sri = Math.random().toString(36).substring(2);
 lichess.StrongSocket.defaults = {
   events: {
     fen: function(e) {
@@ -60,6 +60,7 @@ lichess.StrongSocket.defaults = {
       ($('body').data('ports') + '').split(',').map(function(port) {
         return 'socket.' + document.domain + ':' + port;
       })),
+    onFirstConnect: $.noop(),
     baseUrlKey: 'surl3'
   }
 };
@@ -260,6 +261,8 @@ lichess.StrongSocket.prototype = {
   },
   onSuccess: function() {
     $('#network_error').remove();
+    this.nbConnects = (this.nbConnects || 0) + 1;
+    if (this.nbConnects === 1) this.options.onFirstConnect();
   },
   baseUrl: function() {
     var key = this.options.baseUrlKey;
@@ -1502,14 +1505,20 @@ lichess.storage = {
   });
 
   function startLobby(element, cfg) {
+    var lobby;
     var nbRoundSpread = $.spreadNumber(
       document.querySelector('#site_baseline span'),
       4,
       function() {
         return lichess.socket.pingInterval();
       });
-    var lobby;
-
+    var onFirstConnect = function() {
+      var gameId = lichess.getParameterByName('hook_like');
+      if (!gameId) return;
+      $.post('/setup/hook/' + lichess.StrongSocket.sri + '/like/' + gameId);
+      lobby.setTab('real_time');
+      window.history.replaceState(null, null, '/');
+    };
     lichess.socket = new lichess.StrongSocket(
       '/lobby/socket/v1',
       cfg.data.version, {
@@ -1566,7 +1575,8 @@ lichess.storage = {
           }
         },
         options: {
-          name: 'lobby'
+          name: 'lobby',
+          onFirstConnect: onFirstConnect
         }
       });
 

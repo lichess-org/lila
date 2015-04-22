@@ -160,15 +160,10 @@ module.exports = {
   },
   newOpponent: function(ctrl) {
     if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && ctrl.data.game.source == 'lobby') {
-      return m('form.new_opponent', {
-          method: 'post',
-          action: '/setup/hook/like/' + ctrl.data.game.id
-        },
-        m('button.button.hint--bottom', {
-          type: 'submit',
-          'data-hint': ctrl.trans('playWithAnotherOpponent')
-        }, ctrl.trans('newOpponent'))
-      );
+      return m('a.button.hint--bottom', {
+        href: '/?hook_like=' + ctrl.data.game.id,
+        'data-hint': ctrl.trans('playWithAnotherOpponent')
+      }, ctrl.trans('newOpponent'));
     }
   }
 };

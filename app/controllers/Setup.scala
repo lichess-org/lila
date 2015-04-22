@@ -97,6 +97,11 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
       }
     else fuccess(config)
 
+  private def hookResponse(hookId: String) =
+    Ok(Json.obj(
+      "ok" -> true,
+      "hook" -> Json.obj("id" -> hookId))) as JSON
+
   def hook(uid: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     env.forms.hook(ctx).bindFromRequest.fold(
@@ -106,30 +111,21 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
       preConfig => (ctx.userId ?? Env.relation.api.blocking) zip
         mobileHookAllowAnon(preConfig) flatMap {
           case (blocking, config) =>
-            env.processor.hook(config, uid, HTTPRequest sid req, blocking) map { hookId =>
-              Ok(Json.obj(
-                "ok" -> true,
-                "hook" -> Json.obj(
-                  "id" -> hookId))) as JSON
-            } recover {
-              case e: IllegalArgumentException =>
-                BadRequest(Json.obj("error" -> e.getMessage)) as JSON
+            env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse recover {
+              case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
             }
         }
     )
   }
 
-  def like(gameId: String) = Open { implicit ctx =>
+  def like(uid: String, gameId: String) = Open { implicit ctx =>
     env.forms.hookConfig flatMap { config =>
       GameRepo game gameId map {
         _.fold(config)(config.updateFrom)
       } flatMap { config =>
         (ctx.userId ?? Env.relation.api.blocking) flatMap { blocking =>
-          val sri = ornicar.scalalib.Random nextString 8
-          env.processor.hook(config, sri, HTTPRequest sid ctx.req, blocking) map { hookId =>
-            Redirect(routes.Lobby.home.url + "?sri=" + sri)
-          } recover {
-            case e: IllegalArgumentException => Redirect(routes.Lobby.home)
+          env.processor.hook(config, uid, HTTPRequest sid ctx.req, blocking) map hookResponse recover {
+            case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
           }
         }
       }
