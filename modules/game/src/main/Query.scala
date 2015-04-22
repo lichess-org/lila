@@ -58,8 +58,8 @@ object Query {
 
   def nowPlaying(u: String) = Json.obj(F.playingUids -> u)
 
-  def recentlyPlayingWithClock(u: String) =
-    nowPlaying(u) ++ clock(true) ++ Json.obj(
+  def recentlyPlaying(u: String) =
+    nowPlaying(u) ++ Json.obj(
       F.updatedAt -> $gt($date(DateTime.now minusMinutes 5))
     )
 
