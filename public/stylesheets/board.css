@@ -990,8 +990,9 @@ div.dont_touch {
   position: absolute;
   top: 0;
   left: 0;
-  width: 404px;
-  height: 288px;
+  box-sizing: border-box;
+  width: 512px;
+  height: 512px;
   background: rgba(250, 250, 250, 0.7);
   text-align: center;
   padding: 224px 0 0 108px;
