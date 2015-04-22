@@ -38,7 +38,7 @@ sealed trait Tournament {
 
   def clock = data.clock
   def minutes = data.minutes
-  lazy val duration = new Duration(minutes * 60 * 1000)
+  lazy val extendedDuration = new Duration(minutes * 60 * 1000 + 5)
 
   def system = data.system
   def variant = data.variant
@@ -133,7 +133,7 @@ sealed trait StartedOrFinished extends Tournament {
 
   def recentGameIds(max: Int) = pairings take max map (_.gameId)
 
-  def finishedAt = startedAt plus duration
+  def finishedAt = startedAt plus extendedDuration
 }
 
 case class Created(
