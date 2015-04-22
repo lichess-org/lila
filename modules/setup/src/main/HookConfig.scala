@@ -112,7 +112,7 @@ object HookConfig extends BaseHumanConfig {
       days = r int "d",
       mode = Mode orDefault (r int "m"),
       allowAnon = r bool "a",
-      color = Color.White,
+      color = Color.Random,
       ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default)
 
     def writes(w: BSON.Writer, o: HookConfig) = BSONDocument(
