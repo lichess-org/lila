@@ -97,6 +97,8 @@ final class Env(
 
   val allCreated = lila.memo.AsyncCache.single(repo.allCreated, timeToLive = CreatedCacheTtl)
 
+  val allCreatedFeaturable = lila.memo.AsyncCache.single(repo.allCreatedFeaturable, timeToLive = CreatedCacheTtl)
+
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
 

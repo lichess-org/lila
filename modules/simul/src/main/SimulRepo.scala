@@ -57,6 +57,12 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     createdSelect
   ).sort(createdSort).cursor[Simul].collect[List]()
 
+  def allCreatedFeaturable: Fu[List[Simul]] = simulColl.find(
+    createdSelect ++ BSONDocument(
+      "hostRating" -> BSONDocument("$gte" -> 1700)
+    )
+  ).sort(createdSort).cursor[Simul].collect[List]()
+
   def allStarted: Fu[List[Simul]] = simulColl.find(
     startedSelect
   ).sort(createdSort).cursor[Simul].collect[List]()
