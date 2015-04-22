@@ -40,6 +40,8 @@
         •
         @if(g.variant.exotic) {
         @variantLink(g.variant, g.variant.name.toUpperCase, cssClass = "hint--top")
+        } else {
+        @g.variant.name.toUpperCase
         }
         } else {
         @g.clock.map(_.show).getOrElse {

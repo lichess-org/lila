@@ -174,7 +174,8 @@ final class JsonView(
                 )
               },
               "status" -> statusJson(game.status),
-              "joinable" -> game.joinable).noNull,
+              "joinable" -> game.joinable,
+              "importedBy" -> game.pgnImport.flatMap(_.user)).noNull,
             "clock" -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock.map(correspondenceJson),
             "player" -> Json.obj(

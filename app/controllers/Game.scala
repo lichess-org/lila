@@ -33,6 +33,19 @@ object Game extends LilaController with BaseGame {
     }
   }
 
+  def delete(gameId: String) = Auth { implicit ctx =>
+    me =>
+      OptionFuResult(GameRepo game gameId) { game =>
+        if (game.pgnImport.flatMap(_.user) ?? (me.id==)) {
+          Env.hub.actor.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
+          GameRepo remove game.id inject Redirect(routes.User.show(me.username))
+        }
+        else fuccess {
+          Redirect(routes.Round.watcher(game.id, game.firstColor.name))
+        }
+      }
+  }
+
   def export(user: String) = Auth { implicit ctx =>
     _ =>
       Env.security.forms.emptyWithCaptcha map {

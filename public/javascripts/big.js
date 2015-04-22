@@ -60,7 +60,7 @@ lichess.StrongSocket.defaults = {
       ($('body').data('ports') + '').split(',').map(function(port) {
         return 'socket.' + document.domain + ':' + port;
       })),
-    onFirstConnect: $.noop(),
+    onFirstConnect: $.noop,
     baseUrlKey: 'surl3'
   }
 };
@@ -239,10 +239,10 @@ lichess.StrongSocket.prototype = {
     if (this.ws) {
       this.debug("Disconnect", true);
       this.autoReconnect = false;
-      this.ws.onerror = $.noop();
-      this.ws.onclose = $.noop();
-      this.ws.onopen = $.noop();
-      this.ws.onmessage = $.noop();
+      this.ws.onerror = $.noop;
+      this.ws.onclose = $.noop;
+      this.ws.onopen = $.noop;
+      this.ws.onmessage = $.noop;
       this.ws.close();
     }
   },
@@ -2061,7 +2061,8 @@ lichess.storage = {
       }
     };
     data.path = location.hash ? location.hash.replace(/#/, '') : '';
-    analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, cfg.onChange);
+    cfg.element = element.querySelector('.analyse');
+    analyse = LichessAnalyse(cfg);
     cfg.jump = analyse.jump;
 
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();

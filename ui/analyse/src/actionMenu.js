@@ -18,6 +18,21 @@ function speedsOf(data) {
   return data.game.moveTimes.length ? allSpeeds : baseSpeeds;
 }
 
+function deleteButton(data, userId) {
+  if (data.game.source === 'import' &&
+    data.game.importedBy && data.game.importedBy === userId)
+    return m('form.delete', {
+      method: 'post',
+      action: '/' + data.game.id + '/delete',
+      onsubmit: function() {
+        return confirm('Delete this imported game?');
+      }
+    }, m('button.button.text.thin', {
+      type: 'submit',
+      'data-icon': 'q',
+    }, 'Delete'));
+}
+
 module.exports = {
   controller: function() {
 
@@ -50,6 +65,7 @@ module.exports = {
             onclick: partial(ctrl.togglePlay, speed.delay)
           }, 'Auto play ' + speed.name);
         }),
+        deleteButton(ctrl.data, ctrl.userId),
         m('div.continue_with.' + ctrl.data.game.id, [
           m('a.button', {
             href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.vm.situation.fen + '#ai' : ctrl.router.Round.continue(ctrl.data.game.id, 'ai').url + '?fen=' + ctrl.vm.situation.fen,

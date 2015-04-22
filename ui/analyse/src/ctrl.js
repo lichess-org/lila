@@ -11,14 +11,16 @@ var control = require('./control');
 var promotion = require('./promotion');
 var m = require('mithril');
 
-module.exports = function(cfg, router, i18n, onChange) {
+module.exports = function(opts) {
 
-  this.data = data({}, cfg);
+  this.data = data({}, opts.data);
   this.analyse = new analyse(this.data.game, this.data.analysis);
   this.actionMenu = new actionMenu();
   this.autoplay = new autoplay(this);
 
-  var initialPath = cfg.path ? treePath.read(cfg.path) : treePath.default();
+  this.userId = opts.userId;
+
+  var initialPath = opts.path ? treePath.read(opts.path) : treePath.default();
 
   this.vm = {
     path: initialPath,
@@ -132,7 +134,7 @@ module.exports = function(cfg, router, i18n, onChange) {
       this.chessground = ground.make(this.data, this.vm.situation, userMove);
     this.chessground.stop();
     this.chessground.set(this.vm.situation);
-    if (onChange) onChange(this.vm.situation.fen, this.vm.path);
+    if (opts.onChange) opts.onChange(this.vm.situation.fen, this.vm.path);
   }.bind(this);
 
   this.jump = function(path) {
@@ -178,10 +180,10 @@ module.exports = function(cfg, router, i18n, onChange) {
     if (!promotion.start(this, orig, dest, addMove)) addMove(orig, dest);
   }.bind(this);
 
-  this.router = router;
+  this.router = opts.routes;
 
   this.trans = function(key) {
-    var str = i18n[key] || key;
+    var str = opts.i18n[key] || key;
     Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
       str = str.replace('%s', arg);
     });

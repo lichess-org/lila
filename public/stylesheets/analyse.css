@@ -140,6 +140,17 @@ div.game_control .jumps {
 .lichess_ground .action_menu .button::before {
   font-size: 2em;
 }
+.lichess_ground .action_menu form.delete {
+  margin-top: 2em;
+  text-align: right;
+}
+.lichess_ground .action_menu form.delete .button {
+  display: inline-block;
+  padding: 0 8px;
+}
+.lichess_ground .action_menu form.delete .button::before {
+  font-size: 1.2em;
+}
 .lichess_ground .replay .turn > .index {
   display: inline-block;
   width: 26px;
