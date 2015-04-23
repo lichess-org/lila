@@ -37,7 +37,8 @@ object Game extends LilaController {
         if (game.pgnImport.flatMap(_.user) ?? (me.id==)) {
           Env.hub.actor.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
           (GameRepo remove game.id) >>
-            (lila.analyse.AnalysisRepo remove game.id) inject
+            (lila.analyse.AnalysisRepo remove game.id) >>
+            Env.game.cached.clearNbImportedByCache(me.id) inject
             Redirect(routes.User.show(me.username))
         }
         else fuccess {

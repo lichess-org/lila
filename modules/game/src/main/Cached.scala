@@ -17,6 +17,7 @@ final class Cached(
     defaultTtl: FiniteDuration) {
 
   def nbImportedBy(userId: String): Fu[Int] = count(Query imported userId)
+  def clearNbImportedByCache(userId: String) = count.remove(Query imported userId)
 
   def nbPlaying(userId: String): Fu[Int] = countShortTtl(Query nowPlaying userId)
 
