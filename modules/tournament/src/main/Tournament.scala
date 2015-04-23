@@ -38,7 +38,7 @@ sealed trait Tournament {
 
   def clock = data.clock
   def minutes = data.minutes
-  lazy val extendedDuration = new Duration(minutes * 60 * 1000 + 5)
+  lazy val extendedDuration = new Duration((minutes * 60 + 5) * 1000)
 
   def system = data.system
   def variant = data.variant
