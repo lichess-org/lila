@@ -44,7 +44,8 @@ object PairingSystem extends AbstractPairingSystem {
     players.sortBy { p =>
       p.rank -> -p.player.rating
     } grouped 2 collect {
-      case List(p1, p2) => Pairing(p1.player, p2.player)
+      case List(p1, p2) if Random.nextBoolean => Pairing(p1.player, p2.player)
+      case List(p1, p2)                       => Pairing(p2.player, p1.player)
     } toList
 
   private def smartPairings(players: RankedPlayers, pairings: Pairings, nbActiveUsers: Int): Pairings = {
@@ -75,7 +76,8 @@ object PairingSystem extends AbstractPairingSystem {
         .headOption
         .??(_._1)
         .map {
-          case (rp0, rp1) => rp0.player -> rp1.player
+          case (rp0, rp1) if Random.nextBoolean => rp0.player -> rp1.player
+          case (rp0, rp1)                       => rp1.player -> rp0.player
         }
     }) map Pairing.apply
   }
