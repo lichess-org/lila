@@ -963,15 +963,6 @@ lichess.storage = {
       document.body.classList.toggle('fpmenu');
     });
     if (location.hash === '#fpmenu') $('#ham-plate').click();
-    (function(key) {
-      if (!lichess.storage.get(key)) {
-        $('#ham-plate').addClass('glowing');
-        $('#hamburger').one('mouseover', function() {
-          $('#ham-plate').removeClass('glowing');
-          lichess.storage.set(key, 1);
-        });
-      }
-    })('ham2-' + document.body.getAttribute('data-user'));
     Mousetrap.bind('esc', function() {
       $('#ham-plate').click();
       return false;
@@ -980,7 +971,7 @@ lichess.storage = {
       location.href = '/';
     });
     // konami code!
-    Mousetrap.bind('up up down down left right left right b a enter', function() {
+    Mousetrap.bind('up up down down left right left right b a', function() {
       if (!document.getElementById('konami')) {
         $('body').prepend($('<div id="konami"></div>'));
       }
