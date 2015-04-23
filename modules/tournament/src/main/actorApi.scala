@@ -41,3 +41,5 @@ private[tournament] case object NotifyCrowd
 private[tournament] case object NotifyReload
 
 private[tournament] case object GetAllUserIds
+
+private[tournament] case class SetTournament(tour: Option[Tournament])

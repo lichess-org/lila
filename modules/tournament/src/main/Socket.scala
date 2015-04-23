@@ -1,6 +1,7 @@
 package lila.tournament
 
 import akka.actor._
+import akka.pattern.pipe
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import play.api.libs.json._
@@ -29,7 +30,17 @@ private[tournament] final class Socket(
   private var delayedCrowdNotification = false
   private var delayedReloadNotification = false
 
+  private var clock = none[chess.Clock]
+
+  override def preStart() {
+    super.preStart()
+    TournamentRepo byId tournamentId map SetTournament.apply pipeTo self
+  }
+
   def receiveSpecific = {
+
+    case SetTournament(Some(tour)) =>
+      clock = tour.clock.chessClock.some
 
     case StartGame(game) =>
       game.players foreach { player =>
@@ -103,7 +114,8 @@ private[tournament] final class Socket(
     }.++ {
       us.filterNot(waitingUsers.contains).map { _ -> date }
     }
-    val since = date minusSeconds 7
+    val waitSeconds = (clock.fold(60)(_.estimateTotalTime) / 20) min 30 max 8
+    val since = date minusSeconds waitSeconds
     waitingUsers.collect {
       case (u, d) if d.isBefore(since) => u
     }.toList
