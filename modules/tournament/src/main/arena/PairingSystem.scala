@@ -62,7 +62,8 @@ object PairingSystem extends AbstractPairingSystem {
     // lower is better
     def score(pair: (RankedPlayer, RankedPlayer)): Int = pair match {
       case (a, b) if justPlayedTogether(a.player.id, b.player.id) => 9000
-      case (a, b) => Math.abs(a.rank - b.rank)
+      case (a, b) => Math.abs(a.rank - b.rank) +
+        Math.abs(a.player.rating - b.player.rating) / 1000
     }
 
     (players match {
