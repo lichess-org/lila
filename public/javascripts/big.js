@@ -2141,7 +2141,8 @@ lichess.storage = {
   ////////////////
 
   function startUserAnalysis(element, cfg) {
-    var analyse = LichessAnalyse(element.querySelector('.analyse'), cfg.data, cfg.routes, cfg.i18n, null);
+    cfg.element = element.querySelector('.analyse');
+    LichessAnalyse(cfg);
   }
 
   /////////////// forum.js ////////////////////
