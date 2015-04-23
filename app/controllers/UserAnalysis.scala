@@ -9,7 +9,7 @@ import lila.app._
 import lila.game.{ GameRepo, Pov }
 import views._
 
-object UserAnalysis extends LilaController with BaseGame {
+object UserAnalysis extends LilaController {
 
   def index = load("")
 
@@ -18,9 +18,8 @@ object UserAnalysis extends LilaController with BaseGame {
     val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }.filter(_.nonEmpty)
     val situation = (decodedFen flatMap Forsyth.<<<) | SituationPlus(Situation(chess.variant.Standard), 1)
     val pov = makePov(situation)
-    Env.round.jsonView.userAnalysisJson(pov, ctx.pref) zip makeListMenu map {
-      case (data, listMenu) =>
-        Ok(html.board.userAnalysis(listMenu, data, none))
+    Env.round.jsonView.userAnalysisJson(pov, ctx.pref) map { data =>
+      Ok(html.board.userAnalysis(data, none))
     }
   }
 
@@ -42,9 +41,8 @@ object UserAnalysis extends LilaController with BaseGame {
   def game(id: String, color: String) = Open { implicit ctx =>
     OptionFuOk(GameRepo game id) { game =>
       val pov = Pov(game, chess.Color(color == "white"))
-      Env.round.jsonView.userAnalysisJson(pov, ctx.pref) zip makeListMenu map {
-        case (data, listMenu) =>
-          html.board.userAnalysis(listMenu, data, pov.some)
+      Env.round.jsonView.userAnalysisJson(pov, ctx.pref) map { data =>
+        html.board.userAnalysis(data, pov.some)
       }
     }
   }

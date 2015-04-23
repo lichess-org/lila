@@ -63,10 +63,9 @@ private[monitor] final class Reporting(
       case 0 => idle = true
       case _ => {
         val before = nowMillis
-        MongoStatus(db.db)(mongoStatus) zip
-          (hub.actor.game ? lila.hub.actorApi.game.Count).mapTo[Int] onComplete {
+        MongoStatus(db.db)(mongoStatus) onComplete {
             case Failure(e) => logwarn("[reporting] " + e.getMessage)
-            case Success((mongoS, games)) => {
+            case Success(mongoS) => {
               latency = (nowMillis - before).toInt
               mongoStatus = mongoS
               loadAvg = osStats.getSystemLoadAverage.toFloat

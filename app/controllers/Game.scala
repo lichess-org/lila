@@ -8,7 +8,7 @@ import lila.game.{ Game => GameModel, GameRepo }
 import play.api.http.ContentTypes
 import views._
 
-object Game extends LilaController with BaseGame {
+object Game extends LilaController {
 
   private def paginator = Env.game.paginator
   private def analysePaginator = Env.analyse.paginator
@@ -20,16 +20,14 @@ object Game extends LilaController with BaseGame {
     if (HTTPRequest.isBot(ctx.req)) notFound
     else Reasonable(page, 100) {
       implicit def req = ctx.body
-      makeListMenu flatMap { listMenu =>
-        searchForm.bindFromRequest.fold(
-          failure => Ok(html.game.search(listMenu, failure)).fuccess,
-          data => searchEnv.nonEmptyQuery(data) ?? { query =>
-            searchEnv.paginator(query, page) map (_.some)
-          } map { pager =>
-            Ok(html.game.search(listMenu, searchForm fill data, pager))
-          }
-        )
-      }
+      searchForm.bindFromRequest.fold(
+        failure => Ok(html.game.search(failure)).fuccess,
+        data => searchEnv.nonEmptyQuery(data) ?? { query =>
+          searchEnv.paginator(query, page) map (_.some)
+        } map { pager =>
+          Ok(html.game.search(searchForm fill data, pager))
+        }
+      )
     }
   }
 
@@ -39,7 +37,7 @@ object Game extends LilaController with BaseGame {
         if (game.pgnImport.flatMap(_.user) ?? (me.id==)) {
           Env.hub.actor.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
           (GameRepo remove game.id) >>
-            (AnalysisRepo remove game.id) inject
+            (lila.analyse.AnalysisRepo remove game.id) inject
             Redirect(routes.User.show(me.username))
         }
         else fuccess {

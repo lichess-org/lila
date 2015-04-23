@@ -52,8 +52,6 @@ final class Env(
 
   lazy val export = new PgnExport(pgnDump).apply _
 
-  lazy val listMenu = ListMenu(cached) _
-
   lazy val rewind = Rewind
 
   lazy val gameJs = new GameJs(path = jsPath, useCache = isProd)
@@ -68,13 +66,6 @@ final class Env(
 
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
-
-  // api actor
-  system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.game.Count => cached.nbGames pipeTo sender
-    }
-  }), name = ActorName)
 
   scheduler.message(CaptcherDuration) {
     captcher -> actorApi.NewCaptcha
