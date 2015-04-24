@@ -1109,7 +1109,7 @@ div.table .notyet {
 .lichess_ground .control.buttons .button {
   box-sizing: border-box;
   width: 220px;
-  margin-top: 5px;
+  margin-top: 12px;
 }
 .lichess_ground .control.buttons a.fat {
   font-size: 150%;
@@ -1260,7 +1260,6 @@ div.separator {
   border-bottom: 1px solid #ddd;
 }
 div.control {
-  margin-top: 5px;
   text-align: center;
   width: 100%;
 }
@@ -1290,6 +1289,7 @@ div.control.buttons .button {
   text-align: center;
   text-decoration: none;
   font-weight: bold;
+  padding: 10px 0;
 }
 div.control .button.disabled {
   opacity: 0.5;
@@ -1352,10 +1352,15 @@ div.table.finished div.player p {
   margin-top: 12px;
 }
 div.cemetery {
-  margin: 10px 0;
   height: 32px;
   line-height: 0;
   white-space: nowrap;
+}
+div.cemetery:first-child {
+  margin-bottom: 5px;
+}
+div.cemetery:last-child {
+  margin-bottom: 5px;
 }
 div.cemetery .tomb {
   display: inline-block;
