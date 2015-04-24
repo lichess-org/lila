@@ -93,7 +93,7 @@
     @t match {
     case t: lila.tournament.Started => {
     <div class="clock" data-time="@t.remainingSeconds">
-      <div class="time" data-icon="p">@t.clockStatus</div>
+      <div class="time text" data-icon="p">@t.clockStatus</div>
     </div>
     }
     case _ => {

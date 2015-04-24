@@ -1002,7 +1002,7 @@ lichess.storage = {
     };
     var volumes = {
       lowtime: 0.5,
-      explode: 0.4
+      explode: 0.35
     };
     var get = new $.lazy(function(k) {
       return new Howl({
