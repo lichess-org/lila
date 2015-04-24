@@ -114,7 +114,11 @@ private[tournament] final class Socket(
     }.++ {
       us.filterNot(waitingUsers.contains).map { _ -> date }
     }
-    val waitSeconds = (clock.fold(60)(_.estimateTotalTime) / 20) min 30 max 8
+    // 1+0  -> 5  -> 8
+    // 3+0  -> 9  -> 11
+    // 5+0  -> 17 -> 17
+    // 10+0 -> 32 -> 30
+    val waitSeconds = ((clock.fold(60)(_.estimateTotalTime) / 20) + 2) min 30 max 8
     val since = date minusSeconds waitSeconds
     waitingUsers.collect {
       case (u, d) if d.isBefore(since) => u
