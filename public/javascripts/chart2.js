@@ -23,6 +23,9 @@ $(function() {
     legend: disabled
   };
 
+  var whiteColor = '#fff';
+  var blackColor = '#000';
+
   function mergeDefaults(config) {
     return $.extend(true, {}, defaults, config);
   }
@@ -149,8 +152,8 @@ $(function() {
       },
       plotOptions: {
         area: {
-          color: theme.colors[7],
-          negativeColor: theme.colors[1],
+          color: whiteColor,
+          negativeColor: blackColor,
           threshold: 0,
           lineWidth: 1,
           allowPointSelect: true,
@@ -282,8 +285,8 @@ $(function() {
         },
         plotOptions: {
           area: {
-            color: theme.colors[7],
-            negativeColor: theme.colors[1],
+            color: whiteColor,
+            negativeColor: blackColor,
             threshold: 0,
             lineWidth: 1,
             allowPointSelect: true,
