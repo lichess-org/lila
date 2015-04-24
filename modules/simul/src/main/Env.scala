@@ -47,6 +47,7 @@ final class Env(
     socketHub = socketHub,
     site = hub.socket.site,
     renderer = hub.actor.renderer,
+    timeline = hub.actor.timeline,
     lobby = hub.socket.lobby,
     onGameStart = onGameStart,
     sequencers = sequencerMap)

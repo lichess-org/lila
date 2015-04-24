@@ -12,6 +12,7 @@ import lila.db.Types.Coll
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.AsyncCache
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
@@ -24,6 +25,7 @@ private[simul] final class SimulApi(
     socketHub: ActorRef,
     site: ActorSelection,
     renderer: ActorSelection,
+    timeline: ActorSelection,
     lobby: ActorSelection,
     repo: SimulRepo) {
 
@@ -42,11 +44,14 @@ private[simul] final class SimulApi(
       variants = setup.variants.flatMap { chess.variant.Variant(_) },
       host = me)
     repo.createdByHostId(me.id) foreach { _.map(_.id).foreach(abort) }
-    (repo create simul) >>- publish() inject simul
+    (repo create simul) >>- publish() >>- {
+      timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
+    } inject simul
   }
 
   def addApplicant(simulId: Simul.ID, user: User, variantKey: String) {
     WithSimul(repo.findCreated, simulId) { simul =>
+      timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
       Variant(variantKey).filter(simul.variants.contains).fold(simul) { variant =>
         simul addApplicant SimulApplicant(SimulPlayer(user, variant))
       }

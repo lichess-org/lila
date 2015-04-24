@@ -22,6 +22,12 @@ case NoteCreate(fromId, toId) => {
 case TourJoin(userId, tourId, tourName) => {
 @trans.xCompetesInY(userIdLink(userId.some, withOnline = false), """<a href="%s">%s</a>""".format(routes.Tournament.show(tourId), tourName))
 }
+case SimulCreate(userId, simulId, simulName) => {
+@userIdLink(userId.some, withOnline = false) hosts the <a href="@routes.Simul.show(simulId)">@simulName</a>
+}
+case SimulJoin(userId, simulId, simulName) => {
+@userIdLink(userId.some, withOnline = false) joins the <a href="@routes.Simul.show(simulId)">@simulName</a>
+}
 case QaQuestion(userId, id, title) => {
 @trans.xAskedY(userIdLink(userId.some, withOnline = false), """<a href="%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), title))
 }

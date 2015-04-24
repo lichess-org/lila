@@ -86,6 +86,8 @@ case class QaQuestion(userId: String, id: Int, title: String) extends Atom(s"qa"
 case class QaAnswer(userId: String, id: Int, title: String, answerId: Int) extends Atom(s"qa", true)
 case class QaComment(userId: String, id: Int, title: String, commentId: String) extends Atom(s"qa", true)
 case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String) extends Atom(s"gameEnd", true)
+case class SimulCreate(userId: String, simulId: String, simulName: String) extends Atom(s"simulCreate", true)
+case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom(s"simulJoin", true)
 
 object atomFormat {
   implicit val followFormat = Json.format[Follow]
@@ -98,6 +100,8 @@ object atomFormat {
   implicit val qaAnswerFormat = Json.format[QaAnswer]
   implicit val qaCommentFormat = Json.format[QaComment]
   implicit val gameEndFormat = Json.format[GameEnd]
+  implicit val simulCreateFormat = Json.format[SimulCreate]
+  implicit val simulJoinFormat = Json.format[SimulJoin]
 }
 
 object propagation {
