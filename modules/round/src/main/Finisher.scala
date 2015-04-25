@@ -9,12 +9,14 @@ import lila.game.actorApi.{ FinishGame, AbortedBy }
 import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Pov, Event }
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
+import lila.playban.{ PlaybanApi, Outcome }
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo, Perfs }
 
 private[round] final class Finisher(
     messenger: Messenger,
     perfsUpdater: PerfsUpdater,
+    playban: PlaybanApi,
     aiPerfApi: lila.ai.AiPerfApi,
     crosstableApi: lila.game.CrosstableApi,
     bus: lila.common.Bus,
@@ -22,6 +24,7 @@ private[round] final class Finisher(
     casualOnly: Boolean) {
 
   def abort(pov: Pov): Fu[Events] = apply(pov.game, _.Aborted) addEffect { _ =>
+    playban.abort(pov)
     bus.publish(AbortedBy(pov), 'abortGame)
   }
 

@@ -19,6 +19,7 @@ final class Env(
     ai: lila.ai.Client,
     aiPerfApi: lila.ai.AiPerfApi,
     crosstableApi: lila.game.CrosstableApi,
+    playban: lila.playban.PlaybanApi,
     lightUser: String => Option[lila.common.LightUser],
     userJsonView: lila.user.JsonView,
     uciMemo: lila.game.UciMemo,
@@ -113,6 +114,7 @@ final class Env(
     perfsUpdater = perfsUpdater,
     aiPerfApi = aiPerfApi,
     crosstableApi = crosstableApi,
+    playban = playban,
     bus = system.lilaBus,
     timeline = hub.actor.timeline,
     casualOnly = CasualOnly)
@@ -187,6 +189,7 @@ object Env {
     ai = lila.ai.Env.current.client,
     aiPerfApi = lila.ai.Env.current.aiPerfApi,
     crosstableApi = lila.game.Env.current.crosstableApi,
+    playban = lila.playban.Env.current.api,
     lightUser = lila.user.Env.current.lightUser,
     userJsonView = lila.user.Env.current.jsonView,
     uciMemo = lila.game.Env.current.uciMemo,

@@ -203,7 +203,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
-  lazy val playban = project("playban", Seq(common, db)).settings(
+  lazy val playban = project("playban", Seq(common, db, game)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
