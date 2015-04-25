@@ -2057,7 +2057,7 @@ lichess.storage = {
         }
       }
     };
-    data.path = location.hash ? location.hash.replace(/#/, '') : '';
+    cfg.path = location.hash ? location.hash.replace(/#/, '') : '';
     cfg.element = element.querySelector('.analyse');
     analyse = LichessAnalyse(cfg);
     cfg.jump = analyse.jump;
