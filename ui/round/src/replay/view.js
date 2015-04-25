@@ -96,7 +96,7 @@ function renderButtons(ctrl, curPly) {
     }), (game.userAnalysable(root.data) ? m('a', {
       class: 'button hint--top analysis',
       'data-hint': root.trans('analysis'),
-      href: root.router.UserAnalysis.game(root.data.game.id, root.data.player.color).url,
+      href: root.router.UserAnalysis.game(root.data.game.id, root.data.player.color).url + '#' + curPly,
     }, m('span[data-icon="A"]')) : null)
   ]);
 }

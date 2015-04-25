@@ -2138,6 +2138,7 @@ lichess.storage = {
   ////////////////
 
   function startUserAnalysis(element, cfg) {
+    cfg.path = location.hash ? location.hash.replace(/#/, '') : '';
     cfg.element = element.querySelector('.analyse');
     LichessAnalyse(cfg);
   }
