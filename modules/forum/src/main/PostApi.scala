@@ -12,6 +12,7 @@ import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
 import lila.mod.ModlogApi
 import lila.security.{ Granter => MasterGranter }
+import lila.shutup.{ ShutupApi, TextType }
 import lila.user.{ User, UserContext }
 import tube._
 
@@ -20,6 +21,7 @@ final class PostApi(
     indexer: ActorSelection,
     maxPerPage: Int,
     modLog: ModlogApi,
+    shutup: ShutupApi,
     timeline: ActorSelection,
     detectLanguage: lila.common.DetectLanguage) {
 
@@ -43,10 +45,13 @@ final class PostApi(
         $insert(post) >>
           $update(topic withPost post) >> {
             shouldHideOnPost(topic) ?? TopicRepo.hide(topic.id, true)
-          }
-        $update(categ withTopic post) >>-
+          } >>
+          $update(categ withTopic post) >>-
           (indexer ! InsertPost(post)) >>
           (env.recent.invalidate inject post) >>-
+          ctx.userId.?? { userId =>
+            shutup.record(userId, post.text, post.isTeam.fold(TextType.TeamForumMessage, TextType.PublicForumMessage))
+          } >>-
           ((ctx.userId ifFalse post.troll) ?? { userId =>
             timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
               post.isStaff.fold(

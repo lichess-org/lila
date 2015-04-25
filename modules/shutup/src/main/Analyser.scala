@@ -1,16 +1,11 @@
 package lila.shutup
 
-object Detect {
+object Analyser {
 
-  def find(text: String): List[String] = bigRegex.findAllMatchIn(text).map(_.toString).toList
-
-  def count(text: String): Int = find(text).size
-
-  def ratio(text: String): Double = {
-    val nbWords = text.split("""\W+""").size
-    if (nbWords == 0) 0
-    else find(text).size.toDouble / nbWords
-  }
+  def apply(text: String) = TextAnalysis(
+    text,
+    bigRegex.findAllMatchIn(text).map(_.toString).toList
+  )
 
   // based on https://github.com/snipe/banbuilder/blob/master/src/CensorWords.php#L97
   private val leetReplace = Map(

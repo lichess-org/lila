@@ -6,7 +6,6 @@ import play.api.data.validation.Constraints._
 
 import chess.Mode
 import lila.common.Form._
-import lila.common.LameName
 
 final class DataForm {
 

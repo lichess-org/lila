@@ -127,7 +127,6 @@ case class PlayerAggregateAssessment(
     s"""[AUTOREPORT]
     Cheating Games: $cheatingSum
     Likely Cheating Games: $likelyCheatingSum
-
     $gameLinks"""
   }
 }

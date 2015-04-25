@@ -9,6 +9,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     flood: lila.security.Flood,
+    shutup: lila.shutup.ShutupApi,
     system: ActorSystem) {
 
   private val settings = new {
@@ -22,6 +23,7 @@ final class Env(
   lazy val api = new ChatApi(
     coll = chatColl,
     flood = flood,
+    shutup = shutup,
     maxLinesPerChat = MaxLinesPerChat,
     netDomain = NetDomain)
 
@@ -36,5 +38,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "chat",
     db = lila.db.Env.current,
     flood = lila.security.Env.current.flood,
+    shutup = lila.shutup.Env.current.api,
     system = lila.common.PlayApp.system)
 }

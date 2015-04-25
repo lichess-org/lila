@@ -9,6 +9,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
+    shutup: lila.shutup.ShutupApi,
     blocks: (String, String) => Fu[Boolean],
     system: ActorSystem) {
 
@@ -27,6 +28,7 @@ final class Env(
 
   lazy val api = new Api(
     unreadCache = unreadCache,
+    shutup = shutup,
     maxPerPage = ThreadMaxPerPage,
     blocks = blocks,
     bus = system.lilaBus)
@@ -50,6 +52,7 @@ object Env {
   lazy val current = "[boot] message" describes new Env(
     config = lila.common.PlayApp loadConfig "message",
     db = lila.db.Env.current,
+    shutup = lila.shutup.Env.current.api,
     mongoCache = lila.memo.Env.current.mongoCache,
     blocks = lila.relation.Env.current.api.blocks,
     system = lila.common.PlayApp.system)
