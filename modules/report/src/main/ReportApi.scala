@@ -37,7 +37,6 @@ private[report] final class ReportApi {
       (report.isTroll && user.troll)
 
   def autoCheatReport(userId: String, text: String): Funit = {
-    logger.info(s"auto cheat report $userId: ${~text.lines.toList.headOption}")
     UserRepo byId userId zip UserRepo.lichess flatMap {
       case (Some(user), Some(lichess)) => create(ReportSetup(
         user = user,
@@ -77,6 +76,18 @@ private[report] final class ReportApi {
     $set("processedBy" -> byModId),
     multi = true)
 
+  def autoInsultReport(userId: String, text: String): Funit = {
+    UserRepo byId userId zip UserRepo.lichess flatMap {
+      case (Some(user), Some(lichess)) => create(ReportSetup(
+        user = user,
+        reason = "insult",
+        text = text,
+        gameId = "",
+        move = ""), lichess)
+      case _ => funit
+    }
+  }
+
   def autoProcess(userId: String): Funit =
     $update(Json.obj("user" -> userId.toLowerCase), Json.obj("processedBy" -> "lichess"))
 
@@ -100,6 +111,4 @@ private[report] final class ReportApi {
 
   private def findRecent(user: User, reason: Reason): Fu[Option[Report]] =
     $find.one(selectRecent(user, reason))
-
-  private val logger = play.api.Logger("report")
 }

@@ -31,7 +31,10 @@ final class ShutupApi(
         upsert = true
       )
     } map2 UserRecordBSONHandler.read flatMap {
-      case None             => fufail(s"ShutupApi.analyse failed for user $userId")
+      case None =>
+        val msg = s"ShutupApi.analyse failed for user $userId"
+        logerr(msg)
+        fufail(msg)
       case Some(userRecord) => legiferate(userRecord)
     }
 

@@ -2,20 +2,20 @@ package lila.shutup
 
 case class UserRecord(
     _id: String,
-    puf: List[Double],
-    tef: List[Double],
-    prm: List[Double],
-    prc: List[Double],
-    puc: List[Double]) {
+    puf: Option[List[Double]],
+    tef: Option[List[Double]],
+    prm: Option[List[Double]],
+    prc: Option[List[Double]],
+    puc: Option[List[Double]]) {
 
   def userId = _id
 
   def reports: List[TextReport] = List(
-    TextReport(TextType.PublicForumMessage, puf),
-    TextReport(TextType.TeamForumMessage, tef),
-    TextReport(TextType.PrivateMessage, prm),
-    TextReport(TextType.PrivateChat, prc),
-    TextReport(TextType.PublicChat, puc))
+    TextReport(TextType.PublicForumMessage, ~puf),
+    TextReport(TextType.TeamForumMessage, ~tef),
+    TextReport(TextType.PrivateMessage, ~prm),
+    TextReport(TextType.PrivateChat, ~prc),
+    TextReport(TextType.PublicChat, ~puc))
 }
 
 case class TextAnalysis(
