@@ -1660,7 +1660,7 @@ lichess.storage = {
         switch ($variantSelect.val()) {
           case '1':
             if (timeMode == '1') {
-              var time = $timeInput.val() * 60 + $incrementInput.val() * 30;
+              var time = $timeInput.val() * 60 + $incrementInput.val() * 40;
               if (time < 180) key = 'bullet';
               else if (time < 480) key = 'blitz';
               else key = 'classical';
