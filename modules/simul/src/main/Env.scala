@@ -48,6 +48,7 @@ final class Env(
     site = hub.socket.site,
     renderer = hub.actor.renderer,
     timeline = hub.actor.timeline,
+    userRegister = hub.actor.userRegister,
     lobby = hub.socket.lobby,
     onGameStart = onGameStart,
     sequencers = sequencerMap)

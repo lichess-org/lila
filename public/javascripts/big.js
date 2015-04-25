@@ -498,6 +498,12 @@ lichess.storage = {
           $('#deploy_post').fadeOut(1000).remove();
         }, 10000);
         lichess.socket.disconnect();
+      },
+      simulEnd: function(simul) {
+        $.modal($(
+          '<p>Simul complete!</p><br /><br />' +
+          '<a class="button" href="/simul/' + simul.id + '">Back to ' + simul.name + ' simul</a>'
+        ));
       }
     },
     params: {},

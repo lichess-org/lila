@@ -26,6 +26,7 @@ private[simul] final class SimulApi(
     site: ActorSelection,
     renderer: ActorSelection,
     timeline: ActorSelection,
+    userRegister: ActorSelection,
     lobby: ActorSelection,
     repo: SimulRepo) {
 
@@ -116,7 +117,13 @@ private[simul] final class SimulApi(
               game.id,
               _.finish(game.status, game.winnerUserId, game.turns)
             )
-            update(simul2) >> currentHostIdsCache.clear
+            update(simul2) >> currentHostIdsCache.clear >>- {
+              if (simul2.isFinished) userRegister ! lila.hub.actorApi.SendTo(simul2.hostId,
+                lila.socket.Socket.makeMessage("simulEnd", Json.obj(
+                  "id" -> simul.id,
+                  "name" -> simul.name
+                )))
+            }
           }
         }
       }
