@@ -25,6 +25,7 @@ final class Env(
     streamsOnAir = () => Env.tv.streamsOnAir,
     countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
+    getPlayban = Env.playban.api.currentBan _,
     geoIP = Env.security.geoIP)
 
   lazy val userInfo = mashup.UserInfo(
@@ -133,4 +134,5 @@ object Env {
   def worldMap = lila.worldMap.Env.current
   def opening = lila.opening.Env.current
   def video = lila.video.Env.current
+  def playban = lila.playban.Env.current
 }

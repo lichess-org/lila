@@ -1578,7 +1578,7 @@ lichess.storage = {
       });
 
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
-    lobby = LichessLobby(document.getElementById('hooks_wrap'), cfg);
+    lobby = LichessLobby(element, cfg);
 
     var $startButtons = $('#start_buttons');
 
@@ -1841,7 +1841,7 @@ lichess.storage = {
       });
     }
 
-    $startButtons.find('a').click(function() {
+    $startButtons.find('a').not('.disabled').click(function() {
       $(this).addClass('active').siblings().removeClass('active');
       $('.lichess_overboard').remove();
       $.ajax({

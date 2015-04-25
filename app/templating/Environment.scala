@@ -58,8 +58,6 @@ object Environment
 
   def apiVersion = lila.api.Mobile.Api.currentVersion
 
-  lazy val lobbyMenu = new lila.app.ui.LobbyMenu(trans)
-
   def globalCasualOnlyMessage = Env.setup.CasualOnly option {
     "Due to temporary maintenance on the servers, only casual games are available."
   }

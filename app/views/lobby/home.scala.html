@@ -1,4 +1,5 @@
-@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], nbRounds: Int, inParis: Boolean)(implicit ctx: Context)
+@(data: play.api.libs.json.JsObject, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[lila.tournament.Enterable], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[(User, lila.rating.PerfType)], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], nbRounds: Int, inParis: Boolean)(implicit ctx: Context)
+@import play.api.libs.json.Json
 
 @underchat = {
 <div id="featured_game">
@@ -44,7 +45,10 @@
 @embedJs {
 lichess = lichess || {};
 lichess.lobby = {
-data: @Html(play.api.libs.json.Json.stringify(data)),
+data: @Html(Json.stringify(data)),
+playban: @playban.fold(Html("null")){ pb =>
+@Html(Json.stringify(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
+},
 i18n: @jsI18n()
 };
 }
@@ -70,12 +74,13 @@ openGraph = Map(
 <div id="call_boxes">
   @translationCall.map(i18n.callBox(_))
 </div>
-<div class="lobby_and_ground">
+<div class="lobby_and_ground@if(playban.isDefined){ playban}">
+  @playban.map(playbanInfo(_))
   <div id="hooks_wrap"></div>
   <div id="start_buttons" class="lichess_ground">
-    @lobbyMenu.all.map { b =>
-    <a class="fat button config_@b.code hint--bottom" href="@b.route" onclick="return false">@b.name()</a>
-    }
+    <a class="fat button config_hook hint--bottom@if(playban.isDefined){ disabled}" href="@routes.Setup.hookForm" onclick="return false">@trans.createAGame()</a>
+    <a class="fat button config_friend hint--bottom" href="@routes.Setup.friendForm(none)" onclick="return false">@trans.playWithAFriend()</a>
+    <a class="fat button config_ai hint--bottom" href="@routes.Setup.aiForm" onclick="return false">@trans.playWithTheMachine()</a>
   </div>
 </div>
 @puzzle.map { p =>

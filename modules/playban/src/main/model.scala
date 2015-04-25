@@ -4,12 +4,12 @@ import org.joda.time.DateTime
 
 case class UserRecord(
     _id: String,
-    o: List[Outcome],
-    b: List[TempBan]) {
+    o: Option[List[Outcome]],
+    b: Option[List[TempBan]]) {
 
   def userId = _id
-  def outcomes = o
-  def bans = b
+  def outcomes: List[Outcome] = ~o
+  def bans: List[TempBan] = ~b
 
   def banInEffect = bans.lastOption.??(_.inEffect)
 
@@ -40,7 +40,7 @@ case class TempBan(
 
   def remainingSeconds: Int = (endsAt.getSeconds - nowSeconds).toInt max 0
 
-  def inEffect = endsAt isBefore DateTime.now
+  def inEffect = endsAt isAfter DateTime.now
 
   def isOld = date isBefore DateTime.now.minusDays(1)
 }

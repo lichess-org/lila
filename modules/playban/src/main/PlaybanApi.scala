@@ -24,7 +24,7 @@ final class PlaybanApi(coll: Coll) {
 
   private case class Blame(player: Player, outcome: Outcome)
 
-  private def blameable(game: Game) = game.source == Source.Lobby && game.hasClock
+  private def blameable(game: Game) = game.source == Some(Source.Lobby) && game.hasClock
 
   def abort(pov: Pov): Funit = blameable(pov.game) ?? {
 
@@ -34,10 +34,8 @@ final class PlaybanApi(coll: Coll) {
       else pov.player.some map { Blame(_, Outcome.Abort) }
 
     blame match {
-      case None => pov.game.userIds.map(save(Outcome.Good)).sequenceFu.void
-      case Some(Blame(player, outcome)) =>
-        player.userId.??(save(outcome)) >>
-          pov.game.opponent(player).userId.??(save(Outcome.Good))
+      case None                         => pov.game.userIds.map(save(Outcome.Good)).sequenceFu.void
+      case Some(Blame(player, outcome)) => player.userId.??(save(outcome))
     }
   }
 

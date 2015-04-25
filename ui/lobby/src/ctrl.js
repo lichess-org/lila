@@ -10,6 +10,8 @@ var util = require('chessground').util;
 module.exports = function(env) {
 
   this.data = env.data;
+  this.playban = env.playban;
+
   hookRepo.initAll(this);
   seekRepo.initAll(this);
 
@@ -131,4 +133,6 @@ module.exports = function(env) {
     });
     return str;
   };
+
+  if (this.playban) setTimeout(location.reload, this.playban.remainingSeconds * 1000);
 };

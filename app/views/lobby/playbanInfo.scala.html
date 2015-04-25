@@ -1,0 +1,6 @@
+@(ban: lila.playban.TempBan)(implicit ctx: Context)
+
+<div id="lobby_playban">
+  <h1>Oh no, you have been temporary banned from lobby games!</h1>
+  <p>You'll be able to play again @secondsFromNow(ban.remainingSeconds)</p>
+</div>
