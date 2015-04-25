@@ -31,9 +31,9 @@ case class Assessible(analysed: Analysed) {
     !game.isSimul && game.playerBlurPercent(color) > 70
 
   def consistentMoveTimes(color: Color): Boolean =
-    moveTimes(color).toNel.map(coefVariation).fold(false)(_ < 0.5)
+    moveTimes(color).toNel.map(moveTimeCoefVariation).fold(false)(_ < 0.5)
 
-  def noFastMoves(color: Color): Boolean = moveTimes(color).count(_ < 10) <= 2
+  def noFastMoves(color: Color): Boolean = moveTimes(color).count(0 ==) <= 2
 
   def suspiciousHoldAlert(color: Color): Boolean =
     game.player(color).hasSuspiciousHoldAlert

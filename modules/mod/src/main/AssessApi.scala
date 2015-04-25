@@ -50,7 +50,6 @@ final class AssessApi(
 
   def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] = {
     val relatedUsers = userIdsSharingIp(userId)
-
     UserRepo.byId(userId) zip
       getPlayerAssessmentsByUserId(userId, nb) zip
       relatedUsers zip
@@ -103,7 +102,7 @@ final class AssessApi(
     }
 
   def onGameReady(game: Game, white: User, black: User): Funit = {
-    import lila.evaluation.Statistics.{ skip, coefVariation }
+    import lila.evaluation.Statistics.{ skip, moveTimeCoefVariation }
 
     def manyBlurs(player: Player) =
       (player.blurs.toDouble / game.playerMoves(player.color)) >= 0.7
@@ -112,7 +111,7 @@ final class AssessApi(
       skip(game.moveTimes.toList, if (color == Color.White) 0 else 1)
 
     def consistentMoveTimes(player: Player): Boolean =
-      moveTimes(player.color).toNel.map(coefVariation).fold(false)(_ < 0.5)
+      moveTimes(player.color).toNel.map(moveTimeCoefVariation).fold(false)(_ < 0.5)
 
     def winnerGreatProgress(player: Player): Boolean = {
       game.winner ?? (player ==)
