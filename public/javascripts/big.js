@@ -2118,19 +2118,6 @@ lichess.storage = {
         selection.addRange(range);
       }
     });
-
-    if ($('#refreshAssessment').length) {
-      $('#refreshAssessment').click(function() {
-        $.post('/mod/refreshAssess', {
-          assess: data.game.id,
-          success: function() {
-            setTimeout(function() {
-              location.reload();
-            }, 500)
-          }
-        });
-      });
-    }
   }
 
   ////////////////

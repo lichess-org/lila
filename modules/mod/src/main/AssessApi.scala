@@ -65,13 +65,6 @@ final class AssessApi(
       }
   }
 
-  def refreshAssess(gameId: String): Funit =
-    GameRepo.game(gameId) zip
-      AnalysisRepo.doneById(gameId) flatMap {
-        case (Some(g), Some(a)) => onAnalysisReady(g, a)
-        case _                  => funit
-      }
-
   def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
     (GameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
       (gs map { g =>

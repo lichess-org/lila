@@ -1,6 +1,6 @@
 @import lila.evaluation.PlayerAssessments
 
-@(pov: Pov, data: play.api.libs.json.JsObject, pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division, results: PlayerAssessments)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
 
 @import pov._
 
@@ -30,9 +30,8 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 @views.html.game.watchers()
 @round.blurs(game)
 @round.holdAlerts(game)
-@round.assessment(game, results)
 <div class="shortcuts">
-  <p class="title" data-icon="u"> Keyboard Shortcuts</p>
+  <p class="title text" data-icon="u">Keyboard Shortcuts</p>
   <div class="inner">
     <ul>
       <li><strong>h</strong>/<strong>l</strong> or <strong>←</strong>/<strong>→</strong> move backward/forward</li>

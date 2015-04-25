@@ -236,7 +236,6 @@ POST  /mod/:username/title             controllers.Mod.setTitle(username: String
 GET   /mod/:username/communication     controllers.Mod.communication(username: String)
 POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
 GET   /mod/log                         controllers.Mod.log
-POST  /mod/refreshAssess               controllers.Mod.refreshAssess
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)
 
 # Wiki
