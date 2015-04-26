@@ -56,11 +56,11 @@ private[round] final class Round(
     }
 
     case Resign(playerId) => handle(playerId) { pov =>
-      pov.game.resignable ?? finisher(pov.game, _.Resign, Some(!pov.color))
+      pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
     }
 
     case ResignColor(color) => handle(color) { pov =>
-      pov.game.resignable ?? finisher(pov.game, _.Resign, Some(!pov.color))
+      pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
     }
 
     case GoBerserk(color) => handle(color) { pov =>
@@ -74,20 +74,20 @@ private[round] final class Round(
     case ResignForce(playerId) => handle(playerId) { pov =>
       (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock) ?? {
         socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
-          case true => finisher(pov.game, _.Timeout, Some(pov.color))
+          case true => finisher.rageQuit(pov.game, Some(pov.color))
           case _    => fuccess(List(Event.Reload))
         }
       }
     }
 
     case NoStartColor(color) => handle(color) { pov =>
-      finisher(pov.game, _.NoStart, Some(!pov.color))
+      finisher.other(pov.game, _.NoStart, Some(!pov.color))
     }
 
     case DrawForce(playerId) => handle(playerId) { pov =>
       (pov.game.drawable && !pov.game.hasAi && pov.game.hasClock) ?? {
         socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
-          case true => finisher(pov.game, _.Timeout, None)
+          case true => finisher.rageQuit(pov.game, None)
           case _    => fuccess(List(Event.Reload))
         }
       }
@@ -103,8 +103,8 @@ private[round] final class Round(
     case Abandon => fuccess {
       GameRepo game gameId foreach { gameOption =>
         gameOption filter (_.abandoned) foreach { game =>
-          if (game.abortable) finisher(game, _.Aborted)
-          else finisher(game, _.Resign, Some(!game.player.color))
+          if (game.abortable) finisher.other(game, _.Aborted)
+          else finisher.other(game, _.Resign, Some(!game.player.color))
           self ! PoisonPill
         }
       }
@@ -116,7 +116,7 @@ private[round] final class Round(
     case DrawForce           => handle(drawer force _)
     case Cheat(color) => handle { game =>
       (game.playable && !game.imported) ?? {
-        finisher(game, _.Cheat, Some(!color))
+        finisher.other(game, _.Cheat, Some(!color))
       }
     }
 
@@ -172,12 +172,12 @@ private[round] final class Round(
     case AbortForMaintenance => handle { game =>
       messenger.system(game, (_.untranslated("Game aborted for server maintenance")))
       messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
-      game.playable ?? finisher(game, _.Aborted)
+      game.playable ?? finisher.other(game, _.Aborted)
     }
   }
 
   private def outOfTime(game: Game)(p: lila.game.Player) =
-    finisher(game, _.Outoftime, Some(!p.color) filterNot { color =>
+    finisher.other(game, _.Outoftime, Some(!p.color) filterNot { color =>
       game.toChess.board.variant.drawsOnInsufficientMaterial &&
         chess.InsufficientMatingMaterial(game.toChess.board, color)
     })

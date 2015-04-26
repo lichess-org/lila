@@ -28,7 +28,19 @@ private[round] final class Finisher(
     bus.publish(AbortedBy(pov), 'abortGame)
   }
 
-  def apply(
+  def rageQuit(game: Game, winner: Option[Color]): Fu[Events] =
+    apply(game, _.Timeout, winner) addEffect { _ =>
+      playban.rageQuit(game)
+    }
+
+  def other(
+    game: Game,
+    status: Status.type => Status,
+    winner: Option[Color] = None,
+    message: Option[SelectI18nKey] = None): Fu[Events] =
+    apply(game, status, winner, message) >>- playban.goodFinish(game)
+
+  private def apply(
     game: Game,
     status: Status.type => Status,
     winner: Option[Color] = None,

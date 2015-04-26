@@ -26,9 +26,9 @@ private[round] final class Drawer(
 
   def yes(pov: Pov): Fu[Events] = pov match {
     case pov if pov.game.toChessHistory.threefoldRepetition =>
-      finisher(pov.game, _.Draw)
+      finisher.other(pov.game, _.Draw)
     case pov if pov.opponent.isOfferingDraw =>
-      finisher(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
+      finisher.other(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
     case Pov(g, color) if (g playerCanOfferDraw color) => GameRepo save {
       messenger.system(g, color.fold(_.whiteOffersDraw, _.blackOffersDraw))
       Progress(g) map { g => g.updatePlayer(color, _ offerDraw g.turns) }
@@ -49,7 +49,7 @@ private[round] final class Drawer(
   }
 
   def claim(pov: Pov): Fu[Events] =
-    (pov.game.playable && pov.game.toChessHistory.threefoldRepetition) ?? finisher(pov.game, _.Draw)
+    (pov.game.playable && pov.game.toChessHistory.threefoldRepetition) ?? finisher.other(pov.game, _.Draw)
 
-  def force(game: Game): Fu[Events] = finisher(game, _.Draw, None, None)
+  def force(game: Game): Fu[Events] = finisher.other(game, _.Draw, None, None)
 }

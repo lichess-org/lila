@@ -27,16 +27,19 @@ final class PlaybanApi(coll: Coll) {
   private def blameable(game: Game) = game.source == Some(Source.Lobby) && game.hasClock
 
   def abort(pov: Pov): Funit = blameable(pov.game) ?? {
+    if (pov.game olderThan 45) pov.game.playerWhoDidNotMove map { Blame(_, Outcome.NoPlay) }
+    else if (pov.game olderThan 15) none
+    else pov.player.some map { Blame(_, Outcome.Abort) }
+  } ?? {
+    case Blame(player, outcome) => player.userId.??(save(outcome))
+  }
 
-    val blame =
-      if (pov.game olderThan 45) pov.game.playerWhoDidNotMove map { Blame(_, Outcome.NoPlay) }
-      else if (pov.game olderThan 15) none
-      else pov.player.some map { Blame(_, Outcome.Abort) }
+  def rageQuit(game: Game): Funit = blameable(game) ?? {
+    game.loser.flatMap(_.userId) ?? save(Outcome.RageQuit)
+  }
 
-    blame match {
-      case None                         => pov.game.userIds.map(save(Outcome.Good)).sequenceFu.void
-      case Some(Blame(player, outcome)) => player.userId.??(save(outcome))
-    }
+  def goodFinish(game: Game): Funit = blameable(game) ?? {
+    game.userIds.map(save(Outcome.Good)).sequenceFu.void
   }
 
   def currentBan(userId: String): Fu[Option[TempBan]] = coll.find(
