@@ -1263,6 +1263,9 @@ div.control {
   text-align: center;
   width: 100%;
 }
+div.control.icons {
+  margin-top: 5px;
+}
 div.control.icons .button {
   font-size: 16px;
   height: 34px;

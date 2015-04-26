@@ -34,8 +34,8 @@ final class PlaybanApi(coll: Coll) {
     case Blame(player, outcome) => player.userId.??(save(outcome))
   }
 
-  def rageQuit(game: Game): Funit = blameable(game) ?? {
-    game.loser.flatMap(_.userId) ?? save(Outcome.RageQuit)
+  def rageQuit(game: Game, quitterColor: Color): Funit = blameable(game) ?? {
+    game.player(quitterColor).userId ?? save(Outcome.RageQuit)
   }
 
   def goodFinish(game: Game): Funit = blameable(game) ?? {

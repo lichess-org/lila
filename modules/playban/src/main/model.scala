@@ -62,7 +62,7 @@ object Outcome {
   case object NoPlay extends Outcome(2, "Won't play a move")
   case object RageQuit extends Outcome(3, "Quit without resigning")
 
-  val all = List(Good, Abort, NoPlay)
+  val all = List(Good, Abort, NoPlay, RageQuit)
 
   val byId = all map { v => (v.id, v) } toMap
 

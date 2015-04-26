@@ -23,15 +23,13 @@ private[round] final class Finisher(
     timeline: akka.actor.ActorSelection,
     casualOnly: Boolean) {
 
-  def abort(pov: Pov): Fu[Events] = apply(pov.game, _.Aborted) addEffect { _ =>
+  def abort(pov: Pov): Fu[Events] = apply(pov.game, _.Aborted) >>- {
     playban.abort(pov)
     bus.publish(AbortedBy(pov), 'abortGame)
   }
 
   def rageQuit(game: Game, winner: Option[Color]): Fu[Events] =
-    apply(game, _.Timeout, winner) addEffect { _ =>
-      playban.rageQuit(game)
-    }
+    apply(game, _.Timeout, winner) >>- winner.?? { color => playban.rageQuit(game, !color) }
 
   def other(
     game: Game,
