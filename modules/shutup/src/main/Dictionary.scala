@@ -33,11 +33,13 @@ boob
 bugger
 buk?kake
 bull?shit
+cancer
 cawk
 chink
 choad
 clit
 clitoris
+clown
 condom
 coon
 cooter
