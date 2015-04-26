@@ -54,8 +54,10 @@ final class Api(
               t deleteFor invited,
               t)
             sendUnlessBlocked(thread) >>-
-              updateUser(invited.id) >>-
-              (!me.troll ?? shutup.record(me.id, data.text, TextType.PrivateMessage)) inject thread
+              updateUser(invited.id) >>- {
+                val text = data.subject + " " + data.text
+                (!me.troll ?? shutup.record(me.id, text, TextType.PrivateMessage))
+              } inject thread
           }
       }
     }

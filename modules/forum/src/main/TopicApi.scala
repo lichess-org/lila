@@ -62,7 +62,8 @@ private[forum] final class TopicApi(
           (indexer ! InsertPost(post)) >>
           env.recent.invalidate >>-
           ctx.userId.ifFalse(post.troll).?? { userId =>
-            shutup.record(userId, post.text, post.isTeam.fold(TextType.TeamForumMessage, TextType.PublicForumMessage))
+            val text = topic.name + " " + post.text
+            shutup.record(userId, text, post.isTeam.fold(TextType.TeamForumMessage, TextType.PublicForumMessage))
           } >>-
           ((ctx.userId ifFalse post.troll) ?? { userId =>
             timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>
