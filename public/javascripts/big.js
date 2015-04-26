@@ -1100,13 +1100,6 @@ lichess.storage = {
   function startRound(element, cfg) {
     var data = cfg.data;
     if (data.player.spectator && lichess.openInMobileApp(data.game.id)) return;
-    if (data.chat) $('#chat').chat({
-      messages: data.chat,
-      initialNote: data.note,
-      gameId: data.game.id
-    });
-    var $watchers = $('#site_header div.watchers').watchers();
-    var $nowPlaying = $('#now_playing');
     var round;
     if (data.tournament) $('body').data('tournament-id', data.tournament.id);
     lichess.socket = new lichess.StrongSocket(
@@ -1151,8 +1144,15 @@ lichess.storage = {
     cfg.element = element.querySelector('.round');
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     round = LichessRound(cfg);
-    startTournamentClock();
     $('.crosstable', element).prependTo($('.underboard .center', element)).show();
+    if (data.chat) $('#chat').chat({
+      messages: data.chat,
+      initialNote: data.note,
+      gameId: data.game.id
+    });
+    var $watchers = $('#site_header div.watchers').watchers();
+    var $nowPlaying = $('#now_playing');
+    startTournamentClock();
     $('#tv_history').on("click", "tr", function() {
       location.href = $(this).find('a.icon').attr('href');
     });

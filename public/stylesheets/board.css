@@ -89,7 +89,6 @@ body.destination .cg-board .cg-square.move-dest {
 body.destination .cg-board .cg-square.occupied.move-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
 }
-
 body.destination .cg-board .cg-square.premove-dest {
   background: radial-gradient(rgba(20, 30, 85, 0.3) 17%, #203085 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
 }
@@ -104,7 +103,6 @@ body.highlight .cg-board .cg-square.premove-dest.drag-over,
 body.highlight .cg-board .cg-square.premove-dest:hover {
   background: rgba(20, 30, 85, 0.3);
 }
-
 body.base .cg-board .cg-square.selected {
   background-color: rgba(20, 85, 30, 0.5);
 }
@@ -908,7 +906,8 @@ div.lichess_board {
 }
 div.lichess_overboard {
   position: absolute;
-  z-index: 5010; /* above top menu */
+  z-index: 5010;
+  /* above top menu */
   width: 400px;
   top: 50%;
   left: 56px;
@@ -1377,10 +1376,10 @@ div.under_chat {
   margin: 10px 0 0 -30px;
 }
 @media (max-width: 1070px) {
-div.under_chat {
-  margin-left: 0px;
-  width: 198px;
-}
+  div.under_chat {
+    margin-left: 0px;
+    width: 198px;
+  }
 }
 div.under_chat .watchtv {
   display: block;
@@ -1513,6 +1512,10 @@ div.underboard .center {
   width: 512px;
   text-align: center;
   padding-top: 15px;
+}
+div.underboard .center .crosstable_placeholder {
+  /* prevent crosstable FOUC */
+  min-height: 81px;
 }
 div.underboard .blurs,
 div.underboard .right {
