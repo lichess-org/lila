@@ -1852,6 +1852,9 @@ lichess.storage = {
           $('#hooks_wrap').prepend(html);
           prepareForm();
           $('body').trigger('lichess.content_loaded');
+        },
+        error: function() {
+          location.reload();
         }
       });
       return false;

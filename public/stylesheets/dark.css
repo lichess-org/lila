@@ -440,6 +440,9 @@ body.dark::-moz-placeholder {
 body.dark:-ms-input-placeholder {
   color: #666!important;
 }
+body.dark #lobby_playban {
+  background: rgba(0,0,0,0.7);
+}
 body.dark #fpmenu {
   background: #1c2328;
   color: #aeaeae;
