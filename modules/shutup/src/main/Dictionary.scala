@@ -8,15 +8,14 @@ package lila.shutup
 object Dictionary {
 
   def en: List[String] = dict("""
-(c|k)oc?k
-(c|k)oc?ksuc?ker
+(c|k)oc?k(y|suc?ker|)
 (c|k)um(shot|)
 (c|k)unt(ing|)
-(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing|tar|tard|face|)
+(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|tard?|face|off?|)
 abortion
 anal(plug|sex|)
 anus
-arse(hole|)
+arse(hole|wipe|)
 ass
 ass?hole
 ball
@@ -47,8 +46,7 @@ cornhole
 coward?
 crap
 cunn?ilingu
-dic?k
-dic?khead
+dic?k(head|face|suc?ker|)
 dildo
 dogg?ystyle
 dong
