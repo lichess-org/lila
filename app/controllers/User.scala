@@ -7,12 +7,12 @@ import lila.app._
 import lila.app.mashup.GameFilterMenu
 import lila.common.LilaCookie
 import lila.db.api.$find
+import lila.evaluation.{ PlayerAggregateAssessment }
 import lila.game.{ GameRepo, Pov }
 import lila.rating.PerfType
 import lila.security.Permission
 import lila.user.tube.userTube
 import lila.user.{ User => UserModel, UserRepo }
-import lila.evaluation.{PlayerAggregateAssessment}
 import views._
 
 object User extends LilaController {
@@ -149,9 +149,13 @@ object User extends LilaController {
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>
     me => OptionFuOk(UserRepo named username) { user =>
-      (Env.security userSpy user.id) zip (Env.mod.assessApi.getPlayerAggregateAssessment(user.id)) map {
-        case (spy, playerAggregateAssessment) => html.user.mod(user, spy, playerAggregateAssessment)
-      }
+      (Env.security userSpy user.id) zip
+        (Env.mod.assessApi.getPlayerAggregateAssessment(user.id)) flatMap {
+          case (spy, playerAggregateAssessment) =>
+            (Env.playban.api bans spy.otherUsers.map(_.id)) map { bans =>
+              html.user.mod(user, spy, playerAggregateAssessment, bans)
+            }
+        }
     }
   }
 

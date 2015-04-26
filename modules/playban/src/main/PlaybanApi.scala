@@ -54,6 +54,17 @@ final class PlaybanApi(coll: Coll) {
       ~_.flatMap(_.getAs[List[TempBan]]("b"))
     }
 
+  def bans(userIds: List[String]): Fu[Map[String, Int]] = coll.find(
+    BSONDocument("_id" -> BSONDocument("$in" -> userIds)),
+    BSONDocument("b" -> true)
+  ).cursor[BSONDocument].collect[List]().map {
+      _.flatMap { obj =>
+        obj.getAs[String]("_id") flatMap { id =>
+          obj.getAs[BSONArray]("b") map { id -> _.stream.size }
+        }
+      }.toMap
+    }
+
   private def save(outcome: Outcome): String => Funit = userId => coll.db.command {
     FindAndModify(
       collection = coll.name,
