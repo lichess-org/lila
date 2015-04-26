@@ -28,8 +28,12 @@ div.lobby_and_ground {
   position: absolute;
   width: 512px;
   height: 512px;
-  padding-top: 120px;
   text-align: center;
+}
+#lobby_playban h2 {
+  font-size: 1.5em;
+  line-height: 3;
+  margin-top: 1em;
 }
 /********** HOOKS **********/
 
