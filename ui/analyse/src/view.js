@@ -55,9 +55,9 @@ function plyToTurn(ply) {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
-function renderVariation(ctrl, variation, path, border) {
+function renderVariation(ctrl, variation, path, border, klass) {
   return m('div', {
-    class: 'variation' + (border ? ' border' : '')
+    class: 'variation' + (border ? ' border' : '') + (klass ? ' ' + klass : '')
   }, renderVariationContent(ctrl, variation, path));
 }
 
@@ -129,12 +129,24 @@ function renderMeta(ctrl, move, path) {
   if (!move || (!opening && !move.comments.length && !move.variations.length)) return;
   var children = [];
   if (opening) children.push(opening);
+  var commentClass;
   if (move.comments.length) move.comments.forEach(function(comment) {
-    children.push(m('div.comment', comment));
+    if (comment.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
+    else if (comment.indexOf('Mistake.') === 0) commentClass = 'mistake';
+    else if (comment.indexOf('Blunder.') === 0) commentClass = 'blunder';
+    children.push(m('div', {
+      class: 'comment ' + commentClass
+    }, comment));
   });
   var border = children.length === 0;
   if (move.variations.length) move.variations.forEach(function(variation, i) {
-    children.push(renderVariation(ctrl, variation, treePath.withVariation(path, i + 1), border));
+    children.push(renderVariation(
+      ctrl,
+      variation,
+      treePath.withVariation(path, i + 1),
+      border,
+      i === 0 ? commentClass : null
+    ));
     border = false;
   });
   return children;

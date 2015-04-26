@@ -211,6 +211,15 @@ div.game_control .jumps {
   padding: 3px 0 0 5px;
   border-top: 1px solid #ccc;
 }
+.lichess_ground .inaccuracy {
+  border-left: 3px solid #909090!important;
+}
+.lichess_ground .mistake {
+  border-left: 3px solid #cf8a02!important;
+}
+.lichess_ground .blunder {
+  border-left: 3px solid #c1080f!important;
+}
 .lichess_ground .opening {
   padding-bottom: 3px;
   border-bottom: 1px solid #ccc;
