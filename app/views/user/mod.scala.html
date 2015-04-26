@@ -178,7 +178,7 @@
           @if(o.troll){TROLL}
           @bans.get(o.id).map { nb =>
           <span title="Temporary banned from playing for aborting or not playing games">
-            @pluralize("PLAYBAN", nb)
+            PLAYBAN(@nb)
           </span>
           }
         </td>

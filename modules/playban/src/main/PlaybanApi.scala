@@ -86,7 +86,8 @@ final class PlaybanApi(coll: Coll) {
   } logFailure "PlaybanApi"
 
   private def legiferate(record: UserRecord): Funit = record.newBan ?? { ban =>
-    loginfo(s"[playban] ban ${record.userId} for ${ban.mins} minutes")
+    if (ban.mins > TempBan.initialMinutes)
+      loginfo(s"[playban] ban ${record.userId} for ${ban.mins} minutes")
     coll.update(
       BSONDocument("_id" -> record.userId),
       BSONDocument(
