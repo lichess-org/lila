@@ -44,7 +44,7 @@ object Analyse extends LilaController {
     }
 
   def postAnalysis(id: String) = Action(parse.text) { req =>
-    env.analyser.complete(id, req.body) >>- {
+    env.analyser.complete(id, req.body, req.remoteAddress) >>- {
       Env.hub.socket.round ! Tell(id, AnalysisAvailable)
     }
     Ok
