@@ -55,7 +55,7 @@ final class Api(
               t)
             sendUnlessBlocked(thread) >>-
               updateUser(invited.id) >>-
-              shutup.record(me.id, data.text, TextType.PrivateMessage) inject thread
+              (!me.troll ?? shutup.record(me.id, data.text, TextType.PrivateMessage)) inject thread
           }
       }
     }
@@ -81,7 +81,7 @@ final class Api(
         _.map(_.id) foreach updateUser
       }
     } >>-
-      shutup.record(me.id, text, TextType.PrivateMessage) inject newThread
+      (!me.troll ?? shutup.record(me.id, text, TextType.PrivateMessage)) inject newThread
   }
 
   def deleteThread(id: String, me: User): Funit =

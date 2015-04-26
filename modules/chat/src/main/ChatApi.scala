@@ -27,7 +27,7 @@ final class ChatApi(
     def write(chatId: ChatId, userId: String, text: String, public: Boolean): Fu[Option[UserLine]] =
       makeLine(userId, text) flatMap {
         _ ?? { line =>
-          shutup.record(userId, text, public.fold(TextType.PublicChat, TextType.PrivateChat))
+          if (!line.troll) shutup.record(userId, text, public.fold(TextType.PublicChat, TextType.PrivateChat))
           pushLine(chatId, line) inject line.some
         }
       }

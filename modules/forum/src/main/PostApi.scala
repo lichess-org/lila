@@ -49,7 +49,7 @@ final class PostApi(
           $update(categ withTopic post) >>-
           (indexer ! InsertPost(post)) >>
           (env.recent.invalidate inject post) >>-
-          ctx.userId.?? { userId =>
+          ctx.userId.ifFalse(post.troll).?? { userId =>
             shutup.record(userId, post.text, post.isTeam.fold(TextType.TeamForumMessage, TextType.PublicForumMessage))
           } >>-
           ((ctx.userId ifFalse post.troll) ?? { userId =>
