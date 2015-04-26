@@ -23,8 +23,8 @@ $(function() {
     legend: disabled
   };
 
-  var whiteColor = '#fff';
-  var blackColor = '#000';
+  var whiteColor = 'rgba(255,255,255,0.7)'; //'#fff';
+  var blackColor = 'rgba(0,0,0,0.7)'; //'#000';
 
   function mergeDefaults(config) {
     return $.extend(true, {}, defaults, config);
@@ -147,15 +147,16 @@ $(function() {
       chart: {
         type: 'area',
         margin: 0,
-        marginTop: 20,
-        spacing: [10, 0, 0, 0]
+        marginTop: 0,
+        spacing: [0, 0, 0, 0]
       },
       plotOptions: {
         area: {
-          color: whiteColor,
-          negativeColor: blackColor,
+          fillColor: whiteColor,
+          negativeFillColor: blackColor,
           threshold: 0,
-          lineWidth: 1,
+          lineWidth: 2,
+          color: '#808080',
           allowPointSelect: true,
           column: noAnimation,
           cursor: 'pointer',
@@ -184,11 +185,7 @@ $(function() {
           }
         }
       },
-      title: {
-        text: $this.data('title'),
-        align: 'left',
-        y: 5
-      },
+      title: noText,
       xAxis: {
         title: noText,
         labels: disabled,
@@ -200,7 +197,7 @@ $(function() {
         min: -cpMax,
         max: cpMax,
         labels: disabled,
-        gridLineWidth: 0
+        lineWidth: 1
       }
     }));
     lichess.analyse.onChange();
@@ -221,7 +218,6 @@ $(function() {
             verticalAlign: 'top',
             align: 'left',
             x: 6,
-            y: 30,
             style: {
               color: Highcharts.theme.lichess.text.weak
             }
@@ -236,7 +232,6 @@ $(function() {
             verticalAlign: 'top',
             align: 'left',
             x: 6,
-            y: 30,
             style: {
               color: Highcharts.theme.lichess.text.weak
             }
@@ -252,7 +247,6 @@ $(function() {
           verticalAlign: 'top',
           align: 'left',
           x: 6,
-          y: 30,
           style: {
             color: Highcharts.theme.lichess.text.weak
           }
@@ -285,10 +279,12 @@ $(function() {
         },
         plotOptions: {
           area: {
-            color: whiteColor,
-            negativeColor: blackColor,
+            fillColor: whiteColor,
+            negativeFillColor: blackColor,
+            fillOpacity: 1,
             threshold: 0,
-            lineWidth: 1,
+            lineWidth: 2,
+            color: '#808080',
             allowPointSelect: true,
             column: noAnimation,
             cursor: 'pointer',
@@ -317,9 +313,7 @@ $(function() {
             }
           }
         },
-        title: {
-          text: null
-        },
+        title: noText,
         xAxis: {
           title: noText,
           labels: disabled,
