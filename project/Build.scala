@@ -168,7 +168,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val lobby = project("lobby", Seq(
-    common, db, memo, hub, socket, chess, game, user, round, timeline, relation)).settings(
+    common, db, memo, hub, socket, chess, game, user, round, timeline, relation, playban)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 

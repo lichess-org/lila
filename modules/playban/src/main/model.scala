@@ -40,6 +40,8 @@ case class TempBan(
 
   def remainingSeconds: Int = (endsAt.getSeconds - nowSeconds).toInt max 0
 
+  def remainingMinutes: Int = (remainingMinutes / 60) max 1
+
   def inEffect = endsAt isAfter DateTime.now
 
   def isOld = date isBefore DateTime.now.minusDays(1)

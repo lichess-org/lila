@@ -39,13 +39,12 @@ final class PlaybanApi(coll: Coll) {
     }
   }
 
-  def currentBan(userId: String): Fu[Option[TempBan]] = fuccess(none)
-  // coll.find(
-  //   BSONDocument("_id" -> userId, "b.0" -> BSONDocument("$exists" -> true)),
-  //   BSONDocument("_id" -> false, "b" -> BSONDocument("$slice" -> -1))
-  // ).one[BSONDocument].map {
-  //     _.flatMap(_.getAs[List[TempBan]]("b")).??(_.find(_.inEffect))
-  //   }
+  def currentBan(userId: String): Fu[Option[TempBan]] = coll.find(
+    BSONDocument("_id" -> userId, "b.0" -> BSONDocument("$exists" -> true)),
+    BSONDocument("_id" -> false, "b" -> BSONDocument("$slice" -> -1))
+  ).one[BSONDocument].map {
+      _.flatMap(_.getAs[List[TempBan]]("b")).??(_.find(_.inEffect))
+    }
 
   def bans(userId: String): Fu[List[TempBan]] = coll.find(
     BSONDocument("_id" -> userId, "b.0" -> BSONDocument("$exists" -> true)),

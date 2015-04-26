@@ -79,8 +79,9 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
   }
 
   def hookForm = Open { implicit ctx =>
-    if (HTTPRequest isXhr ctx.req)
+    if (HTTPRequest isXhr ctx.req) NoPlayban {
       env.forms.hookFilled(timeModeString = get("time")) map { html.setup.hook(_) }
+    }
     else fuccess {
       Redirect(routes.Lobby.home + "#hook")
     }
@@ -104,28 +105,32 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
 
   def hook(uid: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    env.forms.hook(ctx).bindFromRequest.fold(
-      err => negotiate(
-        html = BadRequest(err.errorsAsJson.toString).fuccess,
-        api = _ => BadRequest(err.errorsAsJson).fuccess),
-      preConfig => (ctx.userId ?? Env.relation.api.blocking) zip
-        mobileHookAllowAnon(preConfig) flatMap {
-          case (blocking, config) =>
-            env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse recover {
-              case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
-            }
-        }
-    )
+    NoPlayban {
+      env.forms.hook(ctx).bindFromRequest.fold(
+        err => negotiate(
+          html = BadRequest(err.errorsAsJson.toString).fuccess,
+          api = _ => BadRequest(err.errorsAsJson).fuccess),
+        preConfig => (ctx.userId ?? Env.relation.api.blocking) zip
+          mobileHookAllowAnon(preConfig) flatMap {
+            case (blocking, config) =>
+              env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse recover {
+                case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
+              }
+          }
+      )
+    }
   }
 
   def like(uid: String, gameId: String) = Open { implicit ctx =>
-    env.forms.hookConfig flatMap { config =>
-      GameRepo game gameId map {
-        _.fold(config)(config.updateFrom)
-      } flatMap { config =>
-        (ctx.userId ?? Env.relation.api.blocking) flatMap { blocking =>
-          env.processor.hook(config, uid, HTTPRequest sid ctx.req, blocking) map hookResponse recover {
-            case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
+    NoPlayban {
+      env.forms.hookConfig flatMap { config =>
+        GameRepo game gameId map {
+          _.fold(config)(config.updateFrom)
+        } flatMap { config =>
+          (ctx.userId ?? Env.relation.api.blocking) flatMap { blocking =>
+            env.processor.hook(config, uid, HTTPRequest sid ctx.req, blocking) map hookResponse recover {
+              case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
+            }
           }
         }
       }

@@ -12,6 +12,7 @@ final class Env(
     hub: lila.hub.Env,
     onStart: String => Unit,
     blocking: String => Fu[Set[String]],
+    playban: String => Fu[Option[lila.playban.TempBan]],
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
@@ -48,6 +49,7 @@ final class Env(
     socket = socket,
     seekApi = seekApi,
     blocking = blocking,
+    playban = playban,
     onStart = onStart
   )), name = ActorName)
 
@@ -91,6 +93,7 @@ object Env {
     hub = lila.hub.Env.current,
     onStart = lila.game.Env.current.onStart,
     blocking = lila.relation.Env.current.api.blocking,
+    playban = lila.playban.Env.current.api.currentBan _,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)
 }

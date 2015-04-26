@@ -124,6 +124,20 @@ private[controllers] trait LilaController
   protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     ctx.me.??(_.lame).fold(Forbidden(views.html.site.noEngine()).fuccess, a)
 
+  protected def NoPlayban(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    ctx.userId.??(Env.playban.api.currentBan) flatMap {
+      _.fold(a) { ban =>
+        negotiate(
+          html = Lobby.renderHome(Results.Forbidden),
+          api = _ => fuccess {
+            Forbidden(Json.obj(
+              "error" -> s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts or unplayed games"
+            )) as JSON
+          }
+        )
+      }
+    }
+
   protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a =>
     Ok(Json toJson a) as JSON
   }

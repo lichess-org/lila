@@ -17,6 +17,7 @@ private[lobby] final class Lobby(
     socket: ActorRef,
     seekApi: SeekApi,
     blocking: String => Fu[Set[String]],
+    playban: String => Fu[Option[lila.playban.TempBan]],
     onStart: String => Unit) extends Actor {
 
   def receive = {
@@ -61,14 +62,18 @@ private[lobby] final class Lobby(
       socket ! RemoveSeek(seekId)
     }
 
-    case BiteHook(hookId, uid, user) => HookRepo byId hookId foreach { hook =>
-      HookRepo byUid uid foreach remove
-      Biter(hook, uid, user) pipeTo self
+    case BiteHook(hookId, uid, user) => NoPlayban(user) {
+      HookRepo byId hookId foreach { hook =>
+        HookRepo byUid uid foreach remove
+        Biter(hook, uid, user) pipeTo self
+      }
     }
 
-    case BiteSeek(seekId, user) => seekApi find seekId foreach {
-      _ foreach { seek =>
-        Biter(seek, user) pipeTo self
+    case BiteSeek(seekId, user) => NoPlayban(user.some) {
+      seekApi find seekId foreach {
+        _ foreach { seek =>
+          Biter(seek, user) pipeTo self
+        }
       }
     }
 
@@ -97,6 +102,13 @@ private[lobby] final class Lobby(
     case RemoveHooks(hooks) => hooks foreach remove
 
     case Resync             => socket ! HookIds(HookRepo.list map (_.id))
+  }
+
+  private def NoPlayban(user: Option[LobbyUser])(f: => Unit) {
+    user.?? { u => playban(u.id) } foreach {
+      case None => f
+      case _    =>
+    }
   }
 
   private def findCompatible(hook: Hook): Fu[Option[Hook]] =
