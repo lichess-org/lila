@@ -31,12 +31,6 @@ object Analyse extends LilaController {
         Ok(html.analyse.computing())
   }
 
-  def betterAnalysis(id: String, color: String) = Auth { implicit ctx =>
-    me =>
-      makeAnalysis(id, me) injectAnyway
-        Redirect(routes.Round.watcher(id, color))
-  }
-
   private def makeAnalysis(id: String, me: lila.user.User)(implicit ctx: Context) =
     addCallbacks(id) {
       env.analyser.getOrGenerate(id, me.id, concurrent = isGranted(_.MarkEngine), auto = false)

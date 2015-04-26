@@ -156,12 +156,5 @@ openGraph = povOpenGraph(pov)) {
     }
     <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>
   </div>
-  @analysis.filter(_.old && ctx.isAuth).map { a =>
-  <form class="better_analysis" action="@routes.Analyse.betterAnalysis(gameId, color.name)" method="post">
-    <button type="submit" class="button">
-      <span class="is3 text" data-icon="^">Request a better computer analysis</span>
-    </button>
-  </form>
-  }
 </div>
 }
