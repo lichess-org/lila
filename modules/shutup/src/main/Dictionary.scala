@@ -58,6 +58,7 @@ fanny
 fart
 foreskin
 gangbang
+gay
 genital
 genitalia
 gobshite?
@@ -66,7 +67,7 @@ gypo
 handjob
 hell
 hitler
-homm?o
+homm?o(sexual|)
 honkey
 hooker
 hore
@@ -137,6 +138,7 @@ spick
 spoo
 spooge
 spunk
+stfu
 stripper
 stupid
 suc?k
