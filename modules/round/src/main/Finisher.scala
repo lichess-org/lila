@@ -51,19 +51,23 @@ private[round] final class Finisher(
       fuccess(prog.game)
     ) flatMap { g =>
         (GameRepo save prog) >>
-          GameRepo.finish(g.id, winner, winner flatMap (g.player(_).userId)) >>
-          UserRepo.pair(
-            g.whitePlayer.userId,
-            g.blackPlayer.userId).flatMap {
-              case (whiteO, blackO) => {
-                val finish = FinishGame(g, whiteO, blackO)
-                updateCountAndPerfs(finish) inject {
-                  message foreach { messenger.system(g, _) }
-                  bus.publish(finish, 'finishGame)
-                  prog.events
+          GameRepo.finish(
+            id = g.id,
+            winnerColor = winner,
+            winnerId = winner flatMap (g.player(_).userId),
+            status = prog.game.status) >>
+            UserRepo.pair(
+              g.whitePlayer.userId,
+              g.blackPlayer.userId).flatMap {
+                case (whiteO, blackO) => {
+                  val finish = FinishGame(g, whiteO, blackO)
+                  updateCountAndPerfs(finish) inject {
+                    message foreach { messenger.system(g, _) }
+                    bus.publish(finish, 'finishGame)
+                    prog.events
+                  }
                 }
               }
-            }
       }
   }
 

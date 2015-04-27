@@ -187,23 +187,33 @@ object GameRepo {
     ).void
   }
 
-  def finish(id: ID, winnerColor: Option[Color], winnerId: Option[String]) = $update(
-    $select(id),
-    nonEmptyMod("$set", BSONDocument(
-      F.winnerId -> winnerId,
-      F.winnerColor -> winnerColor.map(_.white)
-    )) ++ BSONDocument("$unset" -> BSONDocument(
+  def finish(
+    id: ID,
+    winnerColor: Option[Color],
+    winnerId: Option[String],
+    status: Status) = {
+    val partialUnsets = BSONDocument(
       F.positionHashes -> true,
-      F.checkAt -> true,
       F.playingUids -> true,
       ("p0." + Player.BSONFields.lastDrawOffer) -> true,
       ("p1." + Player.BSONFields.lastDrawOffer) -> true,
       ("p0." + Player.BSONFields.isOfferingDraw) -> true,
       ("p1." + Player.BSONFields.isOfferingDraw) -> true,
       ("p0." + Player.BSONFields.proposeTakebackAt) -> true,
-      ("p1." + Player.BSONFields.proposeTakebackAt) -> true
-    ))
-  )
+      ("p1." + Player.BSONFields.proposeTakebackAt) -> true)
+    // keep the checkAt field when game is aborted,
+    // so it gets deleted in 24h
+    val unsets =
+      if (status >= Status.Mate) partialUnsets ++ BSONDocument(F.checkAt -> true)
+      else partialUnsets
+    $update(
+      $select(id),
+      nonEmptyMod("$set", BSONDocument(
+        F.winnerId -> winnerId,
+        F.winnerColor -> winnerColor.map(_.white)
+      )) ++ BSONDocument("$unset" -> unsets)
+    )
+  }
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] = $find.one(
     Query.mate ++ Json.obj("v" -> $exists(false)),
