@@ -85,7 +85,7 @@ milf
 molest
 moron
 mother
-motherfuc?k
+motherfuc?k(er|)
 mthrfckr
 muff
 nazi
