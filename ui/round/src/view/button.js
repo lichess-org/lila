@@ -153,10 +153,10 @@ module.exports = {
     }, m('span[data-icon=O]'));
   },
   analysis: function(ctrl) {
-    var curPly = ctrl.replay.active ? ctrl.replay.ply : ctrl.data.game.moves.length;
+    var hash = ctrl.replay.active ? '#' + ctrl.replay.ply : '';
     if (game.replayable(ctrl.data)) return m('a.button.replay_and_analyse', {
       onclick: partial(ctrl.socket.send, 'rematch-no', null),
-      href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.player.color).url + '#' + curPly
+      href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.player.color).url + hash
     }, ctrl.trans('analysis'));
   },
   newOpponent: function(ctrl) {

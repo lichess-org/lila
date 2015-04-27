@@ -23,9 +23,6 @@ $(function() {
     legend: disabled
   };
 
-  var whiteColor = 'rgba(255,255,255,0.7)'; //'#fff';
-  var blackColor = 'rgba(0,0,0,0.7)'; //'#000';
-
   function mergeDefaults(config) {
     return $.extend(true, {}, defaults, config);
   }
@@ -85,9 +82,7 @@ $(function() {
     }));
   });
 
-  $('#adv_chart').each(function() {
-    var $this = $(this);
-    var cpMax = parseInt($this.data('max'), 10) / 100;
+  var divisionLines = function($this) {
     var mid = parseInt($this.data('division-mid'));
     var end = parseInt($this.data('division-end'));
     var divisionLines = [];
@@ -97,7 +92,7 @@ $(function() {
           text: 'Opening',
           verticalAlign: 'top',
           align: 'left',
-          x: 6,
+          y: 0,
           style: {
             color: Highcharts.theme.lichess.text.weak
           }
@@ -111,7 +106,7 @@ $(function() {
           text: 'Mid-Game',
           verticalAlign: 'top',
           align: 'left',
-          x: 6,
+          y: 0,
           style: {
             color: Highcharts.theme.lichess.text.weak
           }
@@ -126,7 +121,7 @@ $(function() {
         text: 'End-Game',
         verticalAlign: 'top',
         align: 'left',
-        x: 6,
+        y: 0,
         style: {
           color: Highcharts.theme.lichess.text.weak
         }
@@ -135,28 +130,32 @@ $(function() {
       width: end === null ? 0 : 1,
       value: end
     });
+    return divisionLines;
+  };
+
+  $('#adv_chart').each(function() {
+    var $this = $(this);
+    var cpMax = parseInt($this.data('max'), 10) / 100;
 
     $(this).highcharts(mergeDefaults({
       series: [{
         name: 'Advantage',
         data: $this.data('rows').map(function(row) {
-          row.y = row.y / 100;
+          row.y = Math.max(-9.9, Math.min(row.y / 100, 9.9));
           return row;
         })
       }],
       chart: {
         type: 'area',
-        margin: 0,
-        marginTop: 0,
-        spacing: [0, 0, 0, 0]
+        spacing: [2, 0, 2, 0]
       },
       plotOptions: {
         area: {
-          fillColor: whiteColor,
-          negativeFillColor: blackColor,
+          fillColor: Highcharts.theme.lichess.area.white,
+          negativeFillColor: Highcharts.theme.lichess.area.black,
           threshold: 0,
           lineWidth: 2,
-          color: '#808080',
+          color: Highcharts.theme.lichess.line.fat,
           allowPointSelect: true,
           column: noAnimation,
           cursor: 'pointer',
@@ -173,12 +172,12 @@ $(function() {
             states: {
               hover: {
                 radius: 3,
-                lineColor: '#b57600',
+                lineColor: '#d85000',
                 fillColor: '#ffffff'
               },
               select: {
                 radius: 4,
-                lineColor: '#b57600',
+                lineColor: '#d85000',
                 fillColor: '#ffffff'
               }
             }
@@ -191,14 +190,21 @@ $(function() {
         labels: disabled,
         lineWidth: 0,
         tickWidth: 0,
-        plotLines: divisionLines
+        plotLines: divisionLines($this)
       },
       yAxis: {
         min: -cpMax,
         max: cpMax,
         labels: disabled,
-        lineWidth: 1
+        lineWidth: 1,
+        gridLineWidth: 0,
+        plotLines: [{
+          color: Highcharts.theme.lichess.text.weak,
+          width: 1,
+          value: 0
+        }]
       }
+
     }));
     lichess.analyse.onChange();
   });
@@ -208,53 +214,6 @@ $(function() {
       var $this = $(this).addClass('rendered');
       var series = $this.data('series');
       var timeMax = parseInt($this.data('max'), 10);
-      var mid = parseInt($this.data('division-mid'));
-      var end = parseInt($this.data('division-end'));
-      var divisionLines = [];
-      if (mid) {
-        divisionLines.push({
-          label: {
-            text: 'Opening',
-            verticalAlign: 'top',
-            align: 'left',
-            x: 6,
-            style: {
-              color: Highcharts.theme.lichess.text.weak
-            }
-          },
-          color: '#30cc4d',
-          width: 1,
-          value: 0
-        });
-        divisionLines.push({
-          label: {
-            text: 'Mid-Game',
-            verticalAlign: 'top',
-            align: 'left',
-            x: 6,
-            style: {
-              color: Highcharts.theme.lichess.text.weak
-            }
-          },
-          color: '#3093cc',
-          width: mid === null ? 0 : 1,
-          value: mid
-        });
-      }
-      if (end) divisionLines.push({
-        label: {
-          text: 'End-Game',
-          verticalAlign: 'top',
-          align: 'left',
-          x: 6,
-          style: {
-            color: Highcharts.theme.lichess.text.weak
-          }
-        },
-        color: '#cc9730',
-        width: end === null ? 0 : 1,
-        value: end
-      });
 
       $(this).highcharts(mergeDefaults({
         series: [{
@@ -266,9 +225,7 @@ $(function() {
         }],
         chart: {
           type: 'area',
-          margin: 0,
-          marginTop: 0,
-          spacing: [0, 0, 0, 0]
+          spacing: [2, 0, 2, 0]
         },
         tooltip: {
           formatter: function() {
@@ -279,12 +236,12 @@ $(function() {
         },
         plotOptions: {
           area: {
-            fillColor: whiteColor,
-            negativeFillColor: blackColor,
+            fillColor: Highcharts.theme.lichess.area.white,
+            negativeFillColor: Highcharts.theme.lichess.area.black,
             fillOpacity: 1,
             threshold: 0,
             lineWidth: 2,
-            color: '#808080',
+            color: Highcharts.theme.lichess.line.fat,
             allowPointSelect: true,
             column: noAnimation,
             cursor: 'pointer',
@@ -319,7 +276,7 @@ $(function() {
           labels: disabled,
           lineWidth: 0,
           tickWidth: 0,
-          plotLines: divisionLines
+          plotLines: divisionLines($this)
         },
         yAxis: {
           min: -timeMax,
@@ -347,14 +304,20 @@ Highcharts.theme = (function() {
   };
   var line = {
     weak: light ? '#ccc' : '#404040',
-    strong: light ? '#a0a0a0' : '#606060'
+    strong: light ? '#a0a0a0' : '#606060',
+    fat: '#d85000' // light ? '#a0a0a0' : '#707070'
+  };
+  var area = {
+    white: light ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.5)',
+    black: light ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,1)'
   };
 
   return {
     light: light,
     lichess: {
       text: text,
-      line: line
+      line: line,
+      area: area
     },
     colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee",
       "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"
