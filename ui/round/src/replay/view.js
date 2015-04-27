@@ -47,9 +47,12 @@ function renderResult(ctrl, asTable) {
 }
 
 function renderTable(ctrl, curPly) {
-  var moves = ctrl.root.data.game.moves;
+  var situations = ctrl.root.data.game.situations;
   var pairs = [];
-  for (var i = 0; i < moves.length; i += 2) pairs.push([moves[i], moves[i + 1]]);
+  for (var i = 0; i < situations.length; i += 2) pairs.push([
+    situations[i].san,
+    situations[i + 1] ? situations[i + 1].san : null
+  ]);
   var trs = pairs.map(function(pair, i) {
     return m('tr', [
       m('td.index', i + 1),
@@ -69,7 +72,7 @@ function renderTable(ctrl, curPly) {
 
 function renderButtons(ctrl, curPly) {
   var root = ctrl.root;
-  var nbMoves = root.data.game.moves.length;
+  var nbMoves = root.data.game.situations.length;
   var flipAttrs = {
     class: 'button flip hint--top' + (root.vm.flip ? ' active' : ''),
     'data-hint': root.trans('flipBoard'),
@@ -108,7 +111,7 @@ function autoScroll(movelist) {
 
 module.exports = function(ctrl) {
   var curPly = ctrl.active ? ctrl.ply : ctrl.root.data.game.moves.length;
-  var h = curPly + ctrl.root.data.game.moves.join('') + ctrl.root.vm.flip;
+  var h = curPly + ctrl.situationsHash(ctrl.root.data.situations) + ctrl.root.vm.flip;
   if (ctrl.vm.hash === h) return {
     subtree: 'retain'
   };

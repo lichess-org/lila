@@ -18,11 +18,12 @@ sealed trait Event {
 
 object Event {
 
-  def fromMove(move: ChessMove): List[Event] = Move(move) :: List(
-    (move.capture ifTrue move.enpassant) map { Event.Enpassant(_, !move.color) },
-    move.promotion map { Promotion(_, move.dest) },
-    move.castle map { case (king, rook) => Castling(king, rook, move.color) }
-  ).flatten
+  def fromMove(move: ChessMove, situation: Situation): List[Event] =
+    Move(move, situation) :: List(
+      (move.capture ifTrue move.enpassant) map { Event.Enpassant(_, !move.color) },
+      move.promotion map { Promotion(_, move.dest) },
+      move.castle map { case (king, rook) => Castling(king, rook, move.color) }
+    ).flatten
 
   def fromSituation(situation: Situation): List[Event] = List(
     situation.check ?? situation.kingPos map Check.apply,
@@ -41,17 +42,32 @@ object Event {
     def typ = "start"
   }
 
-  case class Move(orig: Pos, dest: Pos, color: Color, san: String) extends Event {
+  case class Move(
+      orig: Pos,
+      dest: Pos,
+      color: Color,
+      san: String,
+      fen: String,
+      check: Boolean) extends Event {
     def typ = "move"
     def data = Json.obj(
       "from" -> orig.key,
       "to" -> dest.key,
       "color" -> color.name,
-      "san" -> san)
+      "san" -> san,
+      "fen" -> fen,
+      "check" -> check.option(true)
+    ).noNull
   }
   object Move {
-    def apply(move: ChessMove): Move =
-      Move(move.orig, move.dest, move.piece.color, chess.format.pgn.Dumper(move))
+    def apply(move: ChessMove, situation: Situation): Move =
+      Move(
+        orig = move.orig,
+        dest = move.dest,
+        color = move.piece.color,
+        san = chess.format.pgn.Dumper(move),
+        fen = chess.format.Forsyth.exportBoard(situation.board),
+        check = situation.check)
   }
 
   case class PossibleMoves(

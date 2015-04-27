@@ -175,7 +175,7 @@ case class Game(
         (status != updated.status) option status,
         whiteOffersDraw = whitePlayer.isOfferingDraw,
         blackOffersDraw = blackPlayer.isOfferingDraw) ::
-        (Event fromMove move) :::
+        Event.fromMove(move, situation) :::
         (Event fromSituation situation)
 
     val clockEvent = updated.clock map Event.Clock.apply orElse {

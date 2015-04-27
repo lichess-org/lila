@@ -75,7 +75,11 @@ module.exports = function(opts) {
     m.startComputation();
     if (!this.replay.active) this.chessground.apiMove(o.from, o.to);
     if (this.data.game.threefold) this.data.game.threefold = false;
-    this.data.game.moves.push(o.san);
+    this.data.game.situations.push({
+      fen: o.fen,
+      lm: o.san,
+      check: o.check
+    });
     game.setOnGame(this.data, o.color, true);
     m.endComputation();
     if (this.data.blind) blind.reload(this);

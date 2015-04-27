@@ -245,7 +245,23 @@ final class JsonView(
     "rematch" -> game.next,
     "source" -> game.source.map(sourceJson),
     "status" -> statusJson(game.status),
-    "tournamentId" -> game.tournamentId).noNull
+    "tournamentId" -> game.tournamentId,
+    "situations" -> situationsJson(game, initialFen)
+  ).noNull
+
+  private def situationsJson(game: Game, initialFen: Option[String]): Option[JsArray] =
+    chess.Replay.boards(game.pgnMoves, initialFen).toOption map { boards =>
+      JsArray(boards.tail.zipWithIndex map {
+        case (board, i) =>
+          val color = chess.Color(i % 2 == 0)
+          Json.obj(
+            "fen" -> chess.format.Forsyth.exportBoard(board),
+            "uci" -> board.history.lastMoveString,
+            "san" -> game.pgnMoves.lift(i),
+            "check" -> board.check(color).option(true)
+          ).noNull
+      })
+    }
 
   private def blurs(game: Game, player: lila.game.Player) = {
     val percent = game.playerBlurPercent(player.color)
