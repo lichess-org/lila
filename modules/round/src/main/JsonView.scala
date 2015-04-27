@@ -47,26 +47,7 @@ final class JsonView(
         case ((((initialFen, socket), opponentUser), takebackable), chat) =>
           import pov._
           Json.obj(
-            "game" -> Json.obj(
-              "id" -> gameId,
-              "variant" -> variantJson(game.variant),
-              "speed" -> game.speed.key,
-              "perf" -> PerfPicker.key(game),
-              "rated" -> game.rated,
-              "initialFen" -> (initialFen | chess.format.Forsyth.initial),
-              "fen" -> (Forsyth >> game.toChess),
-              "moves" -> game.pgnMoves.mkString(" "),
-              "player" -> game.turnColor.name,
-              "winner" -> game.winnerColor.map(_.name),
-              "turns" -> game.turns,
-              "startedAtTurn" -> game.startedAtTurn,
-              "lastMove" -> game.castleLastMoveTime.lastMoveString,
-              "threefold" -> game.toChessHistory.threefoldRepetition,
-              "check" -> game.check.map(_.key),
-              "rematch" -> game.next,
-              "source" -> game.source.map(sourceJson),
-              "status" -> statusJson(game.status),
-              "tournamentId" -> game.tournamentId).noNull,
+            "game" -> gameJson(game, initialFen),
             "clock" -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock.map(correspondenceJson),
             "player" -> Json.obj(
@@ -148,34 +129,19 @@ final class JsonView(
         case (((initialFen, socket), chat), (playerUser, opponentUser)) =>
           import pov._
           Json.obj(
-            "game" -> Json.obj(
-              "id" -> gameId,
-              "variant" -> variantJson(game.variant),
-              "speed" -> game.speed.key,
-              "perf" -> PerfPicker.key(game),
-              "rated" -> game.rated,
-              "initialFen" -> (initialFen | chess.format.Forsyth.initial),
-              "fen" -> (Forsyth >> game.toChess),
-              "player" -> game.turnColor.name,
-              "winner" -> game.winnerColor.map(_.name),
-              "turns" -> game.turns,
-              "startedAtTurn" -> game.startedAtTurn,
-              "lastMove" -> game.castleLastMoveTime.lastMoveString,
-              "check" -> game.check.map(_.key),
-              "rematch" -> game.next,
-              "source" -> game.source.map(sourceJson),
-              "moves" -> game.pgnMoves.mkString(" "),
-              "moveTimes" -> withMoveTimes.option(game.moveTimes),
-              "opening" -> game.opening.map { o =>
-                Json.obj(
-                  "code" -> o.code,
-                  "name" -> o.name,
-                  "size" -> o.size
-                )
-              },
-              "status" -> statusJson(game.status),
-              "joinable" -> game.joinable,
-              "importedBy" -> game.pgnImport.flatMap(_.user)).noNull,
+            "game" -> {
+              gameJson(game, initialFen) ++ Json.obj(
+                "moveTimes" -> withMoveTimes.option(game.moveTimes),
+                "opening" -> game.opening.map { o =>
+                  Json.obj(
+                    "code" -> o.code,
+                    "name" -> o.name,
+                    "size" -> o.size
+                  )
+                },
+                "joinable" -> game.joinable,
+                "importedBy" -> game.pgnImport.flatMap(_.user)).noNull
+            },
             "clock" -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock.map(correspondenceJson),
             "player" -> Json.obj(
@@ -259,6 +225,27 @@ final class JsonView(
         ),
         "userAnalysis" -> true)
     }
+
+  private def gameJson(game: Game, initialFen: Option[String]) = Json.obj(
+    "id" -> game.id,
+    "variant" -> variantJson(game.variant),
+    "speed" -> game.speed.key,
+    "perf" -> PerfPicker.key(game),
+    "rated" -> game.rated,
+    "initialFen" -> (initialFen | chess.format.Forsyth.initial),
+    "fen" -> (Forsyth >> game.toChess),
+    "moves" -> game.pgnMoves.mkString(" "),
+    "player" -> game.turnColor.name,
+    "winner" -> game.winnerColor.map(_.name),
+    "turns" -> game.turns,
+    "startedAtTurn" -> game.startedAtTurn,
+    "lastMove" -> game.castleLastMoveTime.lastMoveString,
+    "threefold" -> game.toChessHistory.threefoldRepetition,
+    "check" -> game.check.map(_.key),
+    "rematch" -> game.next,
+    "source" -> game.source.map(sourceJson),
+    "status" -> statusJson(game.status),
+    "tournamentId" -> game.tournamentId).noNull
 
   private def blurs(game: Game, player: lila.game.Player) = {
     val percent = game.playerBlurPercent(player.color)

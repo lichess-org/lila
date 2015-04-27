@@ -1,4 +1,3 @@
-var Chess = require('chessli.js').Chess;
 var game = require('game').game;
 var status = require('game').status;
 var xhr = require('../xhr');
@@ -16,12 +15,6 @@ module.exports = function(root) {
 
   var situationCache = {};
 
-  var gameVariants = {
-    'chess960' : 1,
-    'antichess': 2,
-    'atomic': 3
-  };
-
   var showFen = function() {
     try {
       var ply, move, cached, fen, hash, h, lm;
@@ -34,6 +27,7 @@ module.exports = function(root) {
         fen = cached.fen;
       }
       if (!cached || ply < this.ply) {
+        throw "Missing situation at ply " + ply;
         var chess = new Chess(
           fen || root.data.game.initialFen,
           gameVariants[root.data.game.variant.key] || 0);
