@@ -24,6 +24,7 @@ final class Env(
     userJsonView: lila.user.JsonView,
     uciMemo: lila.game.UciMemo,
     rematch960Cache: lila.memo.ExpireSetMemo,
+    isRematchCache: lila.memo.ExpireSetMemo,
     onStart: String => Unit,
     i18nKeys: lila.i18n.I18nKeys,
     prefApi: lila.pref.PrefApi,
@@ -122,7 +123,8 @@ final class Env(
   private lazy val rematcher = new Rematcher(
     messenger = messenger,
     onStart = onStart,
-    rematch960Cache = rematch960Cache)
+    rematch960Cache = rematch960Cache,
+    isRematchCache = isRematchCache)
 
   private lazy val player: Player = new Player(
     engine = ai,
@@ -194,6 +196,7 @@ object Env {
     userJsonView = lila.user.Env.current.jsonView,
     uciMemo = lila.game.Env.current.uciMemo,
     rematch960Cache = lila.game.Env.current.cached.rematch960,
+    isRematchCache = lila.game.Env.current.cached.isRematch,
     onStart = lila.game.Env.current.onStart,
     i18nKeys = lila.i18n.Env.current.keys,
     prefApi = lila.pref.Env.current.api,

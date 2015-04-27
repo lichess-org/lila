@@ -17,7 +17,8 @@ import makeTimeout.short
 private[round] final class Rematcher(
     messenger: Messenger,
     onStart: String => Unit,
-    rematch960Cache: ExpireSetMemo) {
+    rematch960Cache: ExpireSetMemo,
+    isRematchCache: ExpireSetMemo) {
 
   def yes(pov: Pov): Fu[Events] = pov match {
     case Pov(game, color) if (game playerCanRematch color) =>
@@ -50,6 +51,7 @@ private[round] final class Rematcher(
     _ ← (GameRepo insertDenormalized nextGame) >>
       GameRepo.saveNext(pov.game, nextGame.id) >>-
       messenger.system(pov.game, _.rematchOfferAccepted) >>- {
+        isRematchCache.put(nextGame.id)
         if (pov.game.variant == Chess960 && !rematch960Cache.get(pov.game.id))
           rematch960Cache.put(nextGame.id)
       }

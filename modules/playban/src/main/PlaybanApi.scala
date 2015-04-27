@@ -11,7 +11,9 @@ import lila.db.BSON._
 import lila.db.Types.Coll
 import lila.game.{ Pov, Game, Player, Source }
 
-final class PlaybanApi(coll: Coll) {
+final class PlaybanApi(
+    coll: Coll,
+    isRematch: String => Boolean) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.bson.Macros
@@ -24,7 +26,10 @@ final class PlaybanApi(coll: Coll) {
 
   private case class Blame(player: Player, outcome: Outcome)
 
-  private def blameable(game: Game) = game.source == Some(Source.Lobby) && game.hasClock
+  private def blameable(game: Game) =
+    game.source == Some(Source.Lobby) &&
+      game.hasClock &&
+      !isRematch(game.id)
 
   def abort(pov: Pov): Funit = blameable(pov.game) ?? {
     if (pov.game olderThan 45) pov.game.playerWhoDidNotMove map { Blame(_, Outcome.NoPlay) }
