@@ -2024,12 +2024,8 @@ lichess.storage = {
           if (path.length > 1) unselect(chart);
           else {
             point = chart.series[0].data[path[0].ply - 1];
-            if (typeof point != "undefined") {
-              point.select();
-              chart.setTitle({
-                text: point.name + ' ' + 'Advantage: <strong>' + point.y + '</strong>'
-              });
-            } else unselect(chart);
+            if (typeof point != "undefined") point.select();
+            else unselect(chart);
           }
         }
       }
