@@ -2029,7 +2029,6 @@ lichess.storage = {
           }
         }
       }
-      var timeChartFirstDisplay = true;
       if ($timeChart.length) {
         chart = $timeChart.highcharts();
         if (chart) {
@@ -2039,19 +2038,8 @@ lichess.storage = {
             var serie = white ? 0 : 1;
             var turn = Math.floor((path[0].ply - 1) / 2);
             point = chart.series[serie].data[turn];
-            if (typeof point != "undefined") {
-              point.select();
-              var title = point.name + ' ' + 'Time used: <strong>' + (point.y * (white ? 1 : -1)) + '</strong> s';
-              chart.setTitle({
-                text: title
-              });
-              if (timeChartFirstDisplay) {
-                chart.setTitle({
-                  text: title
-                });
-                timeChartFirstDisplay = false;
-              }
-            } else unselect(chart);
+            if (typeof point != "undefined") point.select();
+            else unselect(chart);
           }
         }
       }
