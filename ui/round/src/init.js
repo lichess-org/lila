@@ -2,7 +2,7 @@ var title = require('./title');
 var blur = require('./blur');
 var game = require('game').game;
 var status = require('game').status;
-var keyboard = require('./replay/keyboard');
+var keyboard = require('./keyboard');
 var k = Mousetrap;
 
 module.exports = function(ctrl) {

@@ -153,7 +153,7 @@ module.exports = {
     }, m('span[data-icon=O]'));
   },
   analysis: function(ctrl) {
-    var hash = ctrl.replay.active ? '#' + ctrl.replay.ply : '';
+    var hash = ctrl.replaying() ? '#' + ctrl.vm.ply : '';
     if (game.replayable(ctrl.data)) return m('a.button.replay_and_analyse', {
       onclick: partial(ctrl.socket.send, 'rematch-no', null),
       href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.player.color).url + hash

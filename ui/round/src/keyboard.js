@@ -1,10 +1,6 @@
 var k = Mousetrap;
 var m = require('mithril');
 
-function replayPly(ctrl) {
-  return ctrl.replay.active ? ctrl.replay.ply : ctrl.data.game.moves.length;
-}
-
 function preventing(f) {
   return function(e) {
     if (e.preventDefault) {
@@ -18,11 +14,11 @@ function preventing(f) {
 }
 
 function prev(ctrl) {
-  ctrl.replay.jump(replayPly(ctrl) - 1);
+  ctrl.jump(ctrl.vm.ply - 1);
 }
 
 function next(ctrl) {
-  ctrl.replay.jump(replayPly(ctrl) + 1);
+  ctrl.jump(ctrl.vm.ply + 1);
 }
 
 module.exports = {
@@ -38,11 +34,11 @@ module.exports = {
       m.redraw();
     }));
     k.bind(['up', 'k'], preventing(function() {
-      ctrl.replay.jump(1);
+      ctrl.jump(1);
       m.redraw();
     }));
     k.bind(['down', 'j'], preventing(function() {
-      ctrl.replay.jump(ctrl.data.game.moves.length);
+      ctrl.jump(ctrl.data.game.steps.length);
       m.redraw();
     }));
     k.bind('f', preventing(ctrl.flip));

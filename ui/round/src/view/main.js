@@ -7,7 +7,7 @@ var mod = require('game').view.mod;
 var partial = require('chessground').util.partial;
 var button = require('./button');
 var blind = require('../blind');
-var keyboard = require('../replay/keyboard');
+var keyboard = require('../keyboard');
 var m = require('mithril');
 
 function renderMaterial(ctrl, material) {

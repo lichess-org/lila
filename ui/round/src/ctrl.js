@@ -4,6 +4,7 @@ var chessground = require('chessground');
 var partial = chessground.util.partial;
 var data = require('./data');
 var game = require('game').game;
+var status = require('game').status;
 var ground = require('./ground');
 var socket = require('./socket');
 var title = require('./title');
@@ -12,7 +13,6 @@ var hold = require('./hold');
 var blur = require('./blur');
 var init = require('./init');
 var blind = require('./blind');
-var replayCtrl = require('./replay/ctrl');
 var clockCtrl = require('./clock/ctrl');
 var correspondenceClockCtrl = require('./correspondenceClock/ctrl');
 var moveOn = require('./moveOn');
@@ -25,12 +25,72 @@ module.exports = function(opts) {
   this.userId = opts.userId;
 
   this.vm = {
+    ply: this.data.game.steps.length - 1,
     flip: false,
     reloading: false,
-    redirecting: false
+    redirecting: false,
+    replayHash: ''
   };
 
   this.socket = new socket(opts.socketSend, this);
+
+  var onUserMove = function(orig, dest, meta) {
+    hold.register(this.socket, meta.holdTime);
+    if (!promotion.start(this, orig, dest, meta.premove)) this.sendMove(orig, dest);
+  }.bind(this);
+
+  var onMove = function(orig, dest, captured) {
+    if (captured) {
+      if (this.data.game.variant.key === 'atomic') {
+        $.sound.explode();
+        atomic.capture(this, dest, captured);
+      } else $.sound.take();
+    } else $.sound.move();
+  }.bind(this);
+
+  this.chessground = ground.make(this.data, opts.data.game.fen, onUserMove, onMove);
+
+  this.replaying = function() {
+    return this.vm.ply !== this.data.game.steps.length - 1;
+  }.bind(this);
+
+  this.stepsHash = function(steps) {
+    var h = '';
+    for (i in steps) {
+      h += steps[i].san;
+    }
+    return h;
+  };
+
+  this.jump = function(ply) {
+    var nbSteps = this.data.game.steps.length;
+    if (ply < 0 || ply >= nbSteps) return;
+    this.vm.ply = ply;
+    var s = this.data.game.steps[this.vm.ply];
+    var config = {
+      fen: s.fen,
+      lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2)] : null,
+      check: s.check,
+      turnColor: this.vm.ply % 2 === 0 ? 'white' : 'black'
+    };
+    if (this.replaying()) this.chessground.stop();
+    else config.movable = {
+      color: game.isPlayerPlaying(this.data) ? this.data.player.color : null,
+      dests: game.parsePossibleMoves(this.data.possibleMoves)
+    }
+    this.chessground.set(config);
+  }.bind(this);
+
+  this.replayEnabledByPref = function() {
+    var d = this.data;
+    return d.pref.replay === 2 || (
+      d.pref.replay === 1 && (d.game.speed === 'classical' || d.game.speed === 'unlimited')
+    );
+  }.bind(this);
+
+  this.isLate = function() {
+    return this.replaying() && status.playing(this.data);
+  }.bind(this);
 
   this.flip = function() {
     this.vm.flip = !this.vm.flip;
@@ -54,30 +114,17 @@ module.exports = function(opts) {
     });
   }.bind(this);
 
-  var onUserMove = function(orig, dest, meta) {
-    hold.register(this.socket, meta.holdTime);
-    if (!promotion.start(this, orig, dest, meta.premove)) this.sendMove(orig, dest);
-  }.bind(this);
-
-  var onMove = function(orig, dest, captured) {
-    if (captured) {
-      if (this.data.game.variant.key === 'atomic') {
-        $.sound.explode();
-        atomic.capture(this, dest, captured);
-      }
-      else $.sound.take();
-    } else $.sound.move();
-  }.bind(this);
-
-  this.chessground = ground.make(this.data, opts.data.game.fen, onUserMove, onMove);
-
   this.apiMove = function(o) {
     m.startComputation();
-    if (!this.replay.active) this.chessground.apiMove(o.from, o.to);
+    if (!this.replaying()) {
+      this.vm.ply++;
+      this.chessground.apiMove(o.from, o.to);
+    }
     if (this.data.game.threefold) this.data.game.threefold = false;
-    this.data.game.situations.push({
+    this.data.game.steps.push({
       fen: o.fen,
-      lm: o.san,
+      san: o.san,
+      uci: o.uci,
       check: o.check
     });
     game.setOnGame(this.data, o.color, true);
@@ -88,11 +135,12 @@ module.exports = function(opts) {
 
   this.reload = function(cfg) {
     m.startComputation();
-    this.replay.onReload(cfg);
+    if (this.stepsHash(cfg.game.steps) !== this.stepsHash(this.data.game.steps))
+      this.vm.ply = cfg.game.steps.length - 1;
     this.data = data(this.data, cfg);
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
-    if (!this.replay.active) ground.reload(this.chessground, this.data, cfg.game.fen, this.vm.flip);
+    if (!this.replaying()) ground.reload(this.chessground, this.data, cfg.game.fen, this.vm.flip);
     this.setTitle();
     if (this.data.blind) blind.reload(this);
     this.moveOn.next();
@@ -132,7 +180,7 @@ module.exports = function(opts) {
   else setInterval(correspondenceClockTick, 1000);
 
   var setQuietMode = function() {
-    lichess.quietMode = game.isPlayerPlaying(this.data) ;
+    lichess.quietMode = game.isPlayerPlaying(this.data);
   }.bind(this);
   setQuietMode();
 
@@ -142,8 +190,6 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.moveOn = new moveOn(this, 'lichess.move_on');
-
-  this.replay = new replayCtrl(this);
 
   this.router = opts.routes;
 

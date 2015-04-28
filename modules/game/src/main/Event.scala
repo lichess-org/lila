@@ -51,9 +51,12 @@ object Event {
       check: Boolean) extends Event {
     def typ = "move"
     def data = Json.obj(
+      // legacy data
       "from" -> orig.key,
       "to" -> dest.key,
       "color" -> color.name,
+      // new data
+      "uci" -> s"${orig.key}${dest.key}",
       "san" -> san,
       "fen" -> fen,
       "check" -> check.option(true)

@@ -246,18 +246,18 @@ final class JsonView(
     "source" -> game.source.map(sourceJson),
     "status" -> statusJson(game.status),
     "tournamentId" -> game.tournamentId,
-    "situations" -> situationsJson(game, initialFen)
+    "steps" -> stepsJson(game, initialFen)
   ).noNull
 
-  private def situationsJson(game: Game, initialFen: Option[String]): Option[JsArray] =
-    chess.Replay.boards(game.pgnMoves, initialFen).toOption map { boards =>
-      JsArray(boards.tail.zipWithIndex map {
+  private def stepsJson(game: Game, initialFen: Option[String]): Option[JsArray] =
+    chess.Replay.boards(game.pgnMoves, initialFen, game.variant).toOption map { boards =>
+      JsArray(boards.zipWithIndex map {
         case (board, i) =>
-          val color = chess.Color(i % 2 == 0)
+          val color = chess.Color(i % 2 == 1)
           Json.obj(
             "fen" -> chess.format.Forsyth.exportBoard(board),
             "uci" -> board.history.lastMoveString,
-            "san" -> game.pgnMoves.lift(i),
+            "san" -> game.pgnMoves.lift(i - 1),
             "check" -> board.check(color).option(true)
           ).noNull
       })

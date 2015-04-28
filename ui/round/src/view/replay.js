@@ -2,7 +2,7 @@ var partial = require('chessground').util.partial;
 var classSet = require('chessground').util.classSet;
 var game = require('game').game;
 var status = require('game').status;
-var renderStatus = require('../view/status');
+var renderStatus = require('./status');
 var m = require('mithril');
 
 function renderTd(move, ply, curPly) {
@@ -18,7 +18,7 @@ function renderTd(move, ply, curPly) {
 
 function renderResult(ctrl, asTable) {
   var result;
-  if (status.finished(ctrl.root.data)) switch (ctrl.root.data.game.winner) {
+  if (status.finished(ctrl.data)) switch (ctrl.data.game.winner) {
     case 'white':
       result = '1-0';
       break;
@@ -28,36 +28,39 @@ function renderResult(ctrl, asTable) {
     default:
       result = '½-½';
   }
-  if (result || status.aborted(ctrl.root.data)) {
-    var winner = game.getPlayer(ctrl.root.data, ctrl.root.data.game.winner);
+  if (result || status.aborted(ctrl.data)) {
+    var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
     return asTable ? [
       m('tr', m('td.result[colspan=3]', result)),
       m('tr.status', m('td[colspan=3]', [
-        renderStatus(ctrl.root),
-        winner ? ', ' + ctrl.root.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
+        renderStatus(ctrl),
+        winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
       ]))
     ] : [
       m('p.result', result),
       m('p.status', [
-        renderStatus(ctrl.root),
-        winner ? ', ' + ctrl.root.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
+        renderStatus(ctrl),
+        winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
       ])
     ];
   }
 }
 
-function renderTable(ctrl, curPly) {
-  var situations = ctrl.root.data.game.situations;
+function renderTable(ctrl) {
+  var steps = ctrl.data.game.steps;
+  var nbSteps = steps.length;
+  if (!nbSteps) return;
   var pairs = [];
-  for (var i = 0; i < situations.length; i += 2) pairs.push([
-    situations[i].san,
-    situations[i + 1] ? situations[i + 1].san : null
+  for (var i = 1; i < nbSteps; i += 2) pairs.push([
+    steps[i].san,
+    steps[i + 1] ? steps[i + 1].san : null
   ]);
+
   var trs = pairs.map(function(pair, i) {
     return m('tr', [
       m('td.index', i + 1),
-      renderTd(pair[0], 2 * i + 1, curPly),
-      renderTd(pair[1], 2 * i + 2, curPly)
+      renderTd(pair[0], 2 * i + 1, ctrl.vm.ply),
+      renderTd(pair[1], 2 * i + 2, ctrl.vm.ply)
     ]);
   }).concat(renderResult(ctrl, true));
   return m('table',
@@ -70,24 +73,23 @@ function renderTable(ctrl, curPly) {
       trs));
 }
 
-function renderButtons(ctrl, curPly) {
-  var root = ctrl.root;
-  var nbMoves = root.data.game.situations.length;
+function renderButtons(ctrl) {
+  var nbSteps = ctrl.data.game.steps.length;
   var flipAttrs = {
-    class: 'button flip hint--top' + (root.vm.flip ? ' active' : ''),
-    'data-hint': root.trans('flipBoard'),
+    class: 'button flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
+    'data-hint': ctrl.trans('flipBoard'),
   };
-  if (root.data.tv) flipAttrs.href = '/tv' + (root.data.tv.flip ? '' : '?flip=1');
-  else if (root.data.player.spectator) flipAttrs.href = root.router.Round.watcher(root.data.game.id, root.data.opponent.color).url;
-  else flipAttrs.onclick = root.flip;
+  if (ctrl.data.tv) flipAttrs.href = '/tv' + (ctrl.data.tv.flip ? '' : '?flip=1');
+  else if (ctrl.data.player.spectator) flipAttrs.href = ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url;
+  else flipAttrs.onclick = ctrl.flip;
   return m('div.buttons', [
     m('a', flipAttrs, m('span[data-icon=B]')), [
-      ['first', 'W', 1],
-      ['prev', 'Y', curPly - 1],
-      ['next', 'X', curPly + 1],
-      ['last', 'V', nbMoves]
+      ['first', 'W', 0],
+      ['prev', 'Y', ctrl.vm.ply - 1],
+      ['next', 'X', ctrl.vm.ply + 1],
+      ['last', 'V', nbSteps - 1]
     ].map(function(b) {
-      var enabled = curPly != b[2] && b[2] >= 1 && b[2] <= nbMoves;
+      var enabled = ctrl.vm.ply !== b[2] && b[2] >= 0 && b[2] < nbSteps;
       return m('a', {
         class: 'button ' + b[0] + ' ' + classSet({
           disabled: (ctrl.broken || !enabled),
@@ -96,10 +98,10 @@ function renderButtons(ctrl, curPly) {
         'data-icon': b[1],
         onclick: enabled ? partial(ctrl.jump, b[2]) : null
       });
-    }), (game.userAnalysable(root.data) ? m('a', {
+    }), (game.userAnalysable(ctrl.data) ? m('a', {
       class: 'button hint--top analysis',
-      'data-hint': root.trans('analysis'),
-      href: root.router.UserAnalysis.game(root.data.game.id, root.data.player.color).url + '#' + curPly,
+      'data-hint': ctrl.trans('analysis'),
+      href: ctrl.router.UserAnalysis.game(ctrl.data.game.id, ctrl.data.player.color).url + '#' + ctrl.vm.ply,
     }, m('span[data-icon="A"]')) : null)
   ]);
 }
@@ -110,19 +112,18 @@ function autoScroll(movelist) {
 }
 
 module.exports = function(ctrl) {
-  var curPly = ctrl.active ? ctrl.ply : ctrl.root.data.game.moves.length;
-  var h = curPly + ctrl.situationsHash(ctrl.root.data.situations) + ctrl.root.vm.flip;
-  if (ctrl.vm.hash === h) return {
+  var h = ctrl.vm.ply + ctrl.stepsHash(ctrl.data.game.steps) + ctrl.vm.flip;
+  if (ctrl.vm.replayHash === h) return {
     subtree: 'retain'
   };
-  ctrl.vm.hash = h;
+  ctrl.vm.replayHash = h;
   return m('div.replay', [
-    renderButtons(ctrl, curPly),
-    ctrl.enabledByPref() ? m('div.moves', {
+    renderButtons(ctrl),
+    ctrl.replayEnabledByPref() ? m('div.moves', {
       config: function(el, isUpdate) {
         autoScroll(el);
         if (!isUpdate) setTimeout(partial(autoScroll, el), 100);
       },
-    }, renderTable(ctrl, curPly)) : renderResult(ctrl, false)
+    }, renderTable(ctrl)) : renderResult(ctrl, false)
   ]);
 }

@@ -11,14 +11,14 @@ module.exports = function(send, ctrl) {
   var handlers = {
     possibleMoves: function(o) {
       ctrl.data.possibleMoves = o;
-      if (!ctrl.replay.active) ctrl.chessground.set({
+      if (!ctrl.replaying()) ctrl.chessground.set({
         movable: {
           dests: game.parsePossibleMoves(o)
         }
       });
     },
     state: function(o) {
-      if (!ctrl.replay.active) ctrl.chessground.set({
+      if (!ctrl.replaying()) ctrl.chessground.set({
         turnColor: o.color
       });
       ctrl.data.game.player = o.color;
@@ -46,7 +46,7 @@ module.exports = function(send, ctrl) {
       else ctrl.chessground.playPremove();
     },
     castling: function(o) {
-      if (ctrl.replay.active || ctrl.chessground.data.autoCastle) return;
+      if (ctrl.replaying() || ctrl.chessground.data.autoCastle) return;
       var pieces = {};
       pieces[o.king[0]] = null;
       pieces[o.rook[0]] = null;
@@ -61,12 +61,12 @@ module.exports = function(send, ctrl) {
       ctrl.chessground.setPieces(pieces);
     },
     check: function(o) {
-      if (!ctrl.replay.active) ctrl.chessground.set({
+      if (!ctrl.replaying()) ctrl.chessground.set({
         check: o
       });
     },
     enpassant: function(o) {
-      if (!ctrl.replay.active) {
+      if (!ctrl.replaying()) {
         var pieces = {};
         pieces[o.key] = null;
         ctrl.chessground.setPieces(pieces);
