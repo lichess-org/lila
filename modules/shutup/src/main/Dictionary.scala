@@ -17,7 +17,7 @@ anal(plug|sex|)
 anus
 arse(hole|wipe|)
 ass
-ass?hole
+ass?(hole|fag)
 ball
 bastard?
 bewb
@@ -73,6 +73,7 @@ hooker
 hore
 horny
 humping
+idiot
 incest
 jerk
 jizz?(um|)
@@ -80,7 +81,7 @@ kaffir
 kike
 labia
 lesbo
-masturbat(e|ion)
+masturbat(e|ion|ing)
 milf
 molest
 moron
