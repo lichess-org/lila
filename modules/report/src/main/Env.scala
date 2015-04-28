@@ -29,6 +29,8 @@ final class Env(
         api.autoProcess(userId)
       case lila.hub.actorApi.report.MarkCheater(userId, by) =>
         api.processEngine(userId, by)
+      case lila.hub.actorApi.report.MarkTroll(userId, by) =>
+        api.processTroll(userId, by)
       case lila.hub.actorApi.report.Shutup(userId, text) =>
         api.autoInsultReport(userId, text)
     }
