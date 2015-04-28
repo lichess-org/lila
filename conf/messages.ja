@@ -438,4 +438,5 @@ pieces=駒
 sharePGN=PGNを表示
 playOnline=オンラインでプレイする
 playOffline=オフラインでプレイする
+allowAnalytics=無名な統計情報を許す？
 shareGameURL=ゲームのURLを共有
