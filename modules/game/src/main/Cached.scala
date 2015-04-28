@@ -55,7 +55,8 @@ final class Cached(
       Option(cache getIfPresent game.id) | {
         val div = chess.Replay.boards(
           moveStrs = game.pgnMoves,
-          initialFen = initialFen
+          initialFen = initialFen,
+          variant = game.variant
         ).toOption.fold(empty)(chess.Divider.apply)
         cache.put(game.id, div)
         div
