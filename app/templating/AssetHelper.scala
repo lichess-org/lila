@@ -36,12 +36,12 @@ trait AssetHelper { self: I18nHelper =>
     local = staticUrl("javascripts/vendor/jquery.min.js"))
 
   val highchartsTag = cdnOrLocal(
-    cdn = "http://code.highcharts.com/4.1/highcharts.js",
+    cdn = "http://code.highcharts.com/4.1.4/highcharts.js",
     test = "window.Highcharts",
     local = staticUrl("vendor/highcharts4/highcharts.js"))
 
   val highchartsMoreTag = cdnOrLocal(
-    cdn = "http://code.highcharts.com/4.1/highcharts-more.js",
+    cdn = "http://code.highcharts.com/4.1.4/highcharts-more.js",
     test = "window.Highcharts",
     local = staticUrl("vendor/highcharts4/highcharts-more.js"))
 
