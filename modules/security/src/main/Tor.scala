@@ -10,6 +10,7 @@ final class Tor(providerUrl: String) {
   private[security] def refresh {
     WS.url(providerUrl).get() map { res =>
       ips = res.body.lines.filterNot(_ startsWith "#").toSet
+      loginfo(s"[tor] registered ${ips.size} exit nodes")
     }
   }
 
