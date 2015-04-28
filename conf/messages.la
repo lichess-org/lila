@@ -186,6 +186,7 @@ continueFromHere=Hinc persequi
 importGame=Lusionem imponere
 nbImportedGames=%s impositae lusiones
 thisIsAChessCaptcha=Hic ludus CAPTCHA est
+notACheckmate=rex non captus est
 retry=Adparare iterum
 findFriends=Reperire amici
 follow=Spectare
