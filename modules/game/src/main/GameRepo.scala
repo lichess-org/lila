@@ -354,6 +354,21 @@ object GameRepo {
     ))
   }
 
+  def countRecentGamesBetween(u1: String, u2: String, since: DateTime): Fu[Int] = {
+    $count(Json.obj(
+      F.playerUids -> Json.obj("$all" -> List(u1, u2)),
+      F.createdAt -> Json.obj("$gt" -> $date(since))
+    ))
+  }
+
+  def getUserIds(id: ID): Fu[List[String]] =
+    gameTube.coll.find(
+      $select(id), BSONDocument(
+        F.id -> false,
+        F.playerUids -> true
+      )
+    ).one[BSONDocument] map { ~_.flatMap(_.getAs[List[String]](F.playerUids)) }
+
   def activePlayersSince(since: DateTime, max: Int): Fu[List[UidNb]] = {
     import reactivemongo.bson._
     import reactivemongo.core.commands._

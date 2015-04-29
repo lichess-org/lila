@@ -131,6 +131,7 @@ trait UserRepo {
 
   val enabledSelect = Json.obj(F.enabled -> true)
   def engineSelect(v: Boolean) = Json.obj(F.engine -> v.fold(JsBoolean(true), $ne(true)))
+  def trollSelect(v: Boolean) = Json.obj(F.troll -> v.fold(JsBoolean(true), $ne(true)))
   def boosterSelect(v: Boolean) = Json.obj(F.booster -> v.fold(JsBoolean(true), $ne(true)))
   def stablePerfSelect(perf: String) = Json.obj(s"perfs.$perf.nb" -> $gte(30))
   val goodLadSelect = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
@@ -234,6 +235,8 @@ trait UserRepo {
   def updateTroll(user: User) = $update.field(user.id, "troll", user.troll)
 
   def isEngine(id: ID): Fu[Boolean] = $count.exists($select(id) ++ engineSelect(true))
+
+  def isTroll(id: ID): Fu[Boolean] = $count.exists($select(id) ++ trollSelect(true))
 
   def setRoles(id: ID, roles: List[String]) = $update.field(id, "roles", roles)
 

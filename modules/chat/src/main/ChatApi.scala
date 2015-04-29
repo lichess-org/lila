@@ -5,12 +5,11 @@ import reactivemongo.bson.BSONDocument
 
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
-import lila.shutup.{ShutupApi, TextType}
 
 final class ChatApi(
     coll: Coll,
     flood: lila.security.Flood,
-    shutup: ShutupApi,
+    shutup: akka.actor.ActorSelection,
     maxLinesPerChat: Int,
     netDomain: String) {
 
@@ -27,8 +26,11 @@ final class ChatApi(
     def write(chatId: ChatId, userId: String, text: String, public: Boolean): Fu[Option[UserLine]] =
       makeLine(userId, text) flatMap {
         _ ?? { line =>
-          if (!line.troll) shutup.record(userId, text, public.fold(TextType.PublicChat, TextType.PrivateChat))
-          pushLine(chatId, line) inject line.some
+          pushLine(chatId, line) >>- {
+            shutup ! public.fold(
+              lila.hub.actorApi.shutup.RecordPublicChat(chatId, userId, text),
+              lila.hub.actorApi.shutup.RecordPrivateChat(chatId, userId, text))
+          } inject line.some
         }
       }
 
