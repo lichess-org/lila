@@ -11,8 +11,8 @@ var reload = throttle(function(ctrl) {
       var text = $(this).find('.move').val();
       var move = {
         from: text.substring(0, 2),
-        to: text.substring(2, 4),
-        promotion: text.substring(4, 5)
+        to: text.substring(2, 2),
+        promotion: text.substring(4, 1)
       };
       ctrl.socket.send("move", move, {
         ackable: true

@@ -69,7 +69,7 @@ module.exports = function(opts) {
     var s = this.data.game.steps[this.vm.ply];
     var config = {
       fen: s.fen,
-      lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2)] : null,
+      lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
       check: s.check,
       turnColor: this.vm.ply % 2 === 0 ? 'white' : 'black'
     };

@@ -2,11 +2,15 @@ var treePath = require('./path');
 
 module.exports = function(game, analysis) {
 
-  var makeTree = function(sans, fromPly) {
-    return sans.map(function(san, i) {
+  var makeTree = function(steps, fromPly) {
+    return steps.map(function(s, i) {
       return {
         ply: fromPly + i,
-        san: san,
+        san: s.san,
+        uci: s.uci,
+        fen: s.fen,
+        dests: s.dests,
+        check: s.check,
         comments: [],
         variations: []
       };
@@ -23,24 +27,40 @@ module.exports = function(game, analysis) {
     });
   };
 
-  this.tree = makeTree(game.moves, 1);
+  this.tree = makeTree(game.steps, 0);
   if (analysis) applyAnalysis(this.tree, analysis.moves);
 
-  this.moveList = function(path) {
+  this.getStep = function(path) {
     var tree = this.tree;
-    var moves = [];
-    path.forEach(function(step) {
+    for (var j in path) {
+      var p = path[j];
       for (var i = 0, nb = tree.length; i < nb; i++) {
-        var move = tree[i];
-        if (step.ply == move.ply && step.variation) {
-          tree = move.variations[step.variation - 1];
-          break;
-        } else if (step.ply >= move.ply) moves.push(move.san);
-        else break;
+        if (p.ply === tree[i].ply) {
+          if (p.variation) {
+            tree = tree[i].variations[p.variation - 1];
+            break;
+          }
+          return tree[i];
+        }
       }
-    });
-    return moves;
-  }.bind(this);
+    }
+  }
+
+  // this.moveList = function(path) {
+  //   var tree = this.tree;
+  //   var moves = [];
+  //   path.forEach(function(step) {
+  //     for (var i = 0, nb = tree.length; i < nb; i++) {
+  //       var move = tree[i];
+  //       if (step.ply == move.ply && step.variation) {
+  //         tree = move.variations[step.variation - 1];
+  //         break;
+  //       } else if (step.ply >= move.ply) moves.push(move.san);
+  //       else break;
+  //     }
+  //   });
+  //   return moves;
+  // }.bind(this);
 
   this.explore = function(path, san) {
     var nextPath = treePath.withPly(path, treePath.currentPly(path) + 1);

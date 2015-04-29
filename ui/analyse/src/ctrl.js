@@ -1,4 +1,3 @@
-var Chess = require('chessli.js').Chess;
 var chessground = require('chessground');
 var data = require('./data');
 var analyse = require('./analyse');
@@ -9,6 +8,7 @@ var actionMenu = require('./actionMenu').controller;
 var autoplay = require('./autoplay');
 var control = require('./control');
 var promotion = require('./promotion');
+var readDests = require('./util').readDests;
 var m = require('mithril');
 
 module.exports = function(opts) {
@@ -42,99 +42,32 @@ module.exports = function(opts) {
     this.actionMenu.open = false;
   }.bind(this);
 
-  var gameVariantChessId = function() {
-    switch (this.data.game.variant.key) {
-      case 'chess960':
-      case 'fromPosition':
-        return 1;
-      case 'antichess':
-        return 2;
-      case 'atomic':
-        return 3;
-      default:
-        return 0;
-    }
-  }.bind(this);
-
-  var situationCache = {};
-
   var showGround = function() {
-    var moves;
+    var s;
     try {
-      moves = this.analyse.moveList(this.vm.path);
+      s = this.analyse.getStep(this.vm.path);
     } catch (e) {
       console.log(e);
       this.vm.path = treePath.default();
-      moves = this.analyse.moveList(this.vm.path);
+      s = this.analyse.getStep(this.vm.path);
     }
-    var nbMoves = moves.length;
-    var ply, move, cached, fen, hash = '',
-      h = '',
-      lm;
-    if (nbMoves == 0) {
-      var variant = this.data.game.variant.key;
-
-      var chess = new Chess(
-        this.data.game.initialFen, gameVariantChessId());
-      var turnColor = chess.turn() == 'w' ? 'white' : 'black';
-      this.vm.situation = {
-        fen: this.data.game.initialFen,
-        turnColor: turnColor,
-        movable: {
-          color: turnColor,
-          dests: chess.dests()
-        },
-        check: false,
-        lastMove: null
-      };
-    } else {
-      for (ply = 1; ply <= nbMoves; ply++) {
-        move = moves[ply - 1];
-        h += move;
-        cached = situationCache[h];
-        if (!cached) break;
-        hash = h;
-        fen = cached.fen;
-      }
-      if (!cached || ply < nbMoves) {
-        try {
-          var chess = new Chess(
-            fen || this.data.game.initialFen, gameVariantChessId())
-          for (ply = ply; ply <= nbMoves; ply++) {
-            move = moves[ply - 1];
-            hash += move;
-            lm = chess.move(move);
-            var turnColor = chess.turn() == 'w' ? 'white' : 'black';
-            situationCache[hash] = {
-              fen: chess.fen(),
-              turnColor: turnColor,
-              movable: {
-                color: turnColor,
-                dests: chess.dests()
-              },
-              check: chess.in_check(),
-              lastMove: [lm.from, lm.to]
-            };
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      }
-      this.vm.situation = situationCache[hash] || {
-        fen: this.data.game.initialFen,
-        turnColor: 'white',
-        movable: {
-          color: null
-        },
-        check: false,
-        lastMove: null
-      };
-    }
+    var color = s.ply % 2 === 0 ? 'white' : 'black';
+    var config = {
+      fen: s.fen,
+      turnColor: color,
+      movable: {
+        color: color,
+        dests: readDests(s.dests)
+      },
+      check: s.check,
+      lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
+    };
+    console.log(config);
     if (!this.chessground)
-      this.chessground = ground.make(this.data, this.vm.situation, userMove);
+      this.chessground = ground.make(this.data, config, userMove);
     this.chessground.stop();
-    this.chessground.set(this.vm.situation);
-    if (opts.onChange) opts.onChange(this.vm.situation.fen, this.vm.path);
+    this.chessground.set(config);
+    if (opts.onChange) opts.onChange(config.fen, this.vm.path);
   }.bind(this);
 
   this.jump = function(path) {
@@ -161,20 +94,20 @@ module.exports = function(opts) {
     return role === 'knight' ? 'n' : role[0];
   };
 
-  var addMove = function(orig, dest, promotionRole) {
-    $.sound.move();
-    var chess = new Chess(
-      this.vm.situation.fen, gameVariantChessId());
-    var promotionLetter = (dest[1] == 1 || dest[1] == 8) ? (promotionRole ? forsyth(promotionRole) : 'q') : null;
-    var move = chess.move({
-      from: orig,
-      to: dest,
-      promotion: promotionLetter
-    });
-    if (move) this.userJump(this.analyse.explore(this.vm.path, move.san));
-    else this.chessground.set(this.vm.situation);
-    m.redraw();
-  }.bind(this);
+  // var addMove = function(orig, dest, promotionRole) {
+  //   $.sound.move();
+  //   var chess = new Chess(
+  //     this.vm.situation.fen, gameVariantChessId());
+  //   var promotionLetter = (dest[1] == 1 || dest[1] == 8) ? (promotionRole ? forsyth(promotionRole) : 'q') : null;
+  //   var move = chess.move({
+  //     from: orig,
+  //     to: dest,
+  //     promotion: promotionLetter
+  //   });
+  //   if (move) this.userJump(this.analyse.explore(this.vm.path, move.san));
+  //   else this.chessground.set(this.vm.situation);
+  //   m.redraw();
+  // }.bind(this);
 
   var userMove = function(orig, dest) {
     if (!promotion.start(this, orig, dest, addMove)) addMove(orig, dest);

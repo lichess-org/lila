@@ -47,7 +47,7 @@ final class JsonView(
         case ((((initialFen, socket), opponentUser), takebackable), chat) =>
           import pov._
           Json.obj(
-            "game" -> gameJson(game, initialFen),
+            "game" -> gameJson(game, initialFen, false),
             "clock" -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock.map(correspondenceJson),
             "player" -> Json.obj(
@@ -121,7 +121,8 @@ final class JsonView(
     tv: Option[Boolean],
     withBlurs: Boolean,
     initialFen: Option[Option[String]] = None,
-    withMoveTimes: Boolean) =
+    withMoveTimes: Boolean,
+    withPossibleMoves: Boolean) =
     initialFen.fold(GameRepo initialFen pov.game)(fuccess) zip
       getSocketStatus(pov.game.id) zip
       getWatcherChat(pov.game, user) zip
@@ -130,7 +131,7 @@ final class JsonView(
           import pov._
           Json.obj(
             "game" -> {
-              gameJson(game, initialFen) ++ Json.obj(
+              gameJson(game, initialFen, withPossibleMoves) ++ Json.obj(
                 "moveTimes" -> withMoveTimes.option(game.moveTimes),
                 "opening" -> game.opening.map { o =>
                   Json.obj(
@@ -226,7 +227,7 @@ final class JsonView(
         "userAnalysis" -> true)
     }
 
-  private def gameJson(game: Game, initialFen: Option[String]) = Json.obj(
+  private def gameJson(game: Game, initialFen: Option[String], withPossibleMoves: Boolean) = Json.obj(
     "id" -> game.id,
     "variant" -> variantJson(game.variant),
     "speed" -> game.speed.key,
@@ -246,19 +247,24 @@ final class JsonView(
     "source" -> game.source.map(sourceJson),
     "status" -> statusJson(game.status),
     "tournamentId" -> game.tournamentId,
-    "steps" -> stepsJson(game, initialFen)
+    "steps" -> stepsJson(game, initialFen, withPossibleMoves)
   ).noNull
 
-  private def stepsJson(game: Game, initialFen: Option[String]): Option[JsArray] =
+  private def stepsJson(game: Game, initialFen: Option[String], possibleMoves: Boolean): Option[JsArray] =
     chess.Replay.boards(game.pgnMoves, initialFen, game.variant).toOption map { boards =>
       JsArray(boards.zipWithIndex map {
         case (board, i) =>
-          val color = chess.Color(i % 2 == 1)
+          val color = chess.Color(i % 2 == 0)
           Json.obj(
             "fen" -> chess.format.Forsyth.exportBoard(board),
             "uci" -> board.history.lastMoveString,
             "san" -> game.pgnMoves.lift(i - 1),
-            "check" -> board.check(color).option(true)
+            "check" -> board.check(color).option(true),
+            "dests" -> possibleMoves.option {
+              chess.Situation(board, color).destinations.map {
+                case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
+              }.mkString(" ")
+            }
           ).noNull
       })
     }
