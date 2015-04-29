@@ -12,6 +12,7 @@ object Dictionary {
 (c|k)um(shot|)
 (c|k)unt(ing|)
 (f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|tard?|face|off?|)
+fck(er|r|u|k|ed|d|t|ing?|tard?|face|off?|)
 abortion
 anal(plug|sex|)
 anus
