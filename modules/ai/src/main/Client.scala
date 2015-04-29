@@ -54,6 +54,7 @@ final class Client(
       "uciMoves" -> uciMoves.mkString(" "),
       "initialFen" -> ~initialFen,
       "human" -> requestedByHuman.fold("1", "0"),
+      "gameId" -> gameId,
       "kingOfTheHill" -> (kingOfTheHill ?? "1")).post("go")
   }
 

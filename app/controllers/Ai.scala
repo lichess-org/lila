@@ -27,6 +27,7 @@ object Ai extends LilaController {
 
   def analyse = Action.async { req =>
     get("replyUrl", req) foreach { replyToUrl =>
+      println(s"analyse gameId ${get("gameId", req)}")
       Env.ai.server.analyse(
         uciMoves = get("uciMoves", req) ?? (_.split(' ').toList),
         initialFen = get("initialFen", req),
