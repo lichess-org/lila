@@ -77,7 +77,7 @@ final class Analyser(
                 errors foreach { e => logwarn(s"[analysis UciToPgn] $id $e") }
                 if (analysis.valid) {
                   if (analysis.emptyRatio >= 1d / 10)
-                    logwarn(s"Analysis $id from $from has ${analysis.nbEmptyInfos} empty infos out of {$analysis.infos.size}")
+                    logwarn(s"Analysis $id from $from has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
                   indexer ! InsertGame(game)
                   AnalysisRepo.done(id, analysis) >>- {
                     modActor ! actorApi.AnalysisReady(game, analysis)
