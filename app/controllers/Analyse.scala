@@ -44,7 +44,9 @@ object Analyse extends LilaController {
     }
 
   def postAnalysis(id: String) = Action.async(parse.text) { req =>
-    env.analyser.complete(id, req.body, req.remoteAddress) >>- {
+    env.analyser.complete(id, req.body, req.remoteAddress) recoverWith {
+      case e: lila.common.LilaException => fufail(s"${req.remoteAddress} ${e.message}")
+    } andThenAnyway {
       Env.hub.socket.round ! Tell(id, AnalysisAvailable)
     } inject Ok
   }
