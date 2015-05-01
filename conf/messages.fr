@@ -372,6 +372,7 @@ boardHighlights=Surligner les cases (dernier coup, échec)
 pieceDestinations=Cases de destination (coups et pré-coups valides)
 boardCoordinates=Coordonnées (A-H, 1-8)
 moveListWhilePlaying=Liste de coups durant la partie
+blindfoldChess=Partie à l'aveugle
 chessClock=Horloge
 tenthsOfSeconds=Dixièmes de seconde
 never=Jamais

@@ -372,6 +372,7 @@ boardHighlights=Board highlights (last move and check)
 pieceDestinations=Piece destinations (valid moves and premoves)
 boardCoordinates=Board coordinates (A-H, 1-8)
 moveListWhilePlaying=Move list while playing
+blindfoldChess=Blindfold Chess
 chessClock=Chess clock
 tenthsOfSeconds=Tenths of seconds
 never=Never

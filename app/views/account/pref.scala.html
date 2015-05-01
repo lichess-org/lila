@@ -37,8 +37,8 @@
             @base.radios(form("replay"), translatedMoveListWhilePlayingChoices)
           </li>
           <li>
-            <h2>Blindfold Chess (play without seeing the pieces)</h2>
-            @base.radios(form("blindfold"), Pref.Blindfold.choices)
+            <h2>@trans.blindfoldChess()</h2>
+            @base.radios(form("blindfold"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
           </li>
         </ul>
       </fieldset>
