@@ -17,9 +17,9 @@
   <h2>Is it rated?</h2>
   @rated.map { r =>
   @if(r) {
-  This tournaments is rated and will affect your rating.
+  This tournament is rated and will affect your rating.
   } else {
-  This tournaments is *not* rated and will *not* affect your rating.
+  This tournament is *not* rated and will *not* affect your rating.
   }
   }.getOrElse {
   Some tournaments are rated and will affect your rating.
