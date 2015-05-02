@@ -30,7 +30,7 @@ function finish(ctrl, role) {
 
 function cancel(ctrl) {
   promoting = false;
-  ctrl.chessground.set(ctrl.vm.situation);
+  ctrl.chessground.set(ctrl.vm.cgConfig);
   m.redraw();
 }
 

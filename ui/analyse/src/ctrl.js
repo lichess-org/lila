@@ -25,7 +25,8 @@ module.exports = function(opts) {
   this.vm = {
     path: initialPath,
     pathStr: treePath.write(initialPath),
-    situation: null,
+    step: null,
+    cgConfig: null,
     comments: true,
     flip: false
   };
@@ -62,7 +63,8 @@ module.exports = function(opts) {
       check: s.check,
       lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
     };
-    console.log(config);
+    this.vm.step = s;
+    this.vm.cgConfig = config;
     if (!this.chessground)
       this.chessground = ground.make(this.data, config, userMove);
     this.chessground.stop();

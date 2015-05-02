@@ -51,7 +51,7 @@ module.exports = {
       m('div.inner', [
         m('a.button.text[data-icon=B]', flipAttrs, ctrl.trans('flipBoard')),
         m('a.button.text[data-icon=m]', {
-          href: ctrl.data.userAnalysis ? '/editor?fen=' + ctrl.vm.situation.fen : '/' + ctrl.data.game.id + '/edit?fen=' + ctrl.vm.situation.fen,
+          href: ctrl.data.userAnalysis ? '/editor?fen=' + ctrl.vm.step.fen : '/' + ctrl.data.game.id + '/edit?fen=' + ctrl.vm.step.fen,
           rel: 'nofollow'
         }, ctrl.trans('boardEditor')),
         m('a.button.text[data-icon=U]', {
@@ -68,12 +68,12 @@ module.exports = {
         deleteButton(ctrl.data, ctrl.userId),
         m('div.continue_with.' + ctrl.data.game.id, [
           m('a.button', {
-            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.vm.situation.fen + '#ai' : ctrl.router.Round.continue(ctrl.data.game.id, 'ai').url + '?fen=' + ctrl.vm.situation.fen,
+            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.vm.step.fen + '#ai' : ctrl.router.Round.continue(ctrl.data.game.id, 'ai').url + '?fen=' + ctrl.vm.step.fen,
             rel: 'nofollow'
           }, ctrl.trans('playWithTheMachine')),
           m('br'),
           m('a.button', {
-            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.vm.situation.fen + '#friend' : ctrl.router.Round.continue(ctrl.data.game.id, 'friend').url + '?fen=' + ctrl.vm.situation.fen,
+            href: ctrl.data.userAnalysis ? '/?fen=' + ctrl.vm.step.fen + '#friend' : ctrl.router.Round.continue(ctrl.data.game.id, 'friend').url + '?fen=' + ctrl.vm.step.fen,
             rel: 'nofollow'
           }, ctrl.trans('playWithAFriend'))
         ])
