@@ -77,7 +77,7 @@ final class Analyser(
                 errors foreach { e => logwarn(s"[analysis UciToPgn] $id $e") }
                 if (analysis.valid) {
                   if (analysis.emptyRatio >= 1d / 10)
-                    logwarn(s"Analysis $id from $from has ${analysis.nbEmptyInfos} empty infos out of {$analysis.infos.size}")
+                    fufail(s"Analysis $id from $from has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
                   indexer ! InsertGame(game)
                   AnalysisRepo.done(id, analysis) >>- {
                     modActor ! actorApi.AnalysisReady(game, analysis)
@@ -86,7 +86,8 @@ final class Analyser(
                 else fufail(s"[analysis] invalid $id")
             })
         }
-      case _ => fufail(s"[analysis] complete non-existing $id")
+      case ((Some(game), _), _) => fufail(s"[analysis] complete non analysable $id")
+      case _                    => fufail(s"[analysis] complete non existing $id")
     } addFailureEffect {
       _ => AnalysisRepo remove id
     }

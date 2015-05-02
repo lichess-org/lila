@@ -9,7 +9,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
-    shutup: lila.shutup.ShutupApi,
+    shutup: ActorSelection,
     blocks: (String, String) => Fu[Boolean],
     system: ActorSystem) {
 
@@ -52,7 +52,7 @@ object Env {
   lazy val current = "[boot] message" describes new Env(
     config = lila.common.PlayApp loadConfig "message",
     db = lila.db.Env.current,
-    shutup = lila.shutup.Env.current.api,
+    shutup = lila.hub.Env.current.actor.shutup,
     mongoCache = lila.memo.Env.current.mongoCache,
     blocks = lila.relation.Env.current.api.blocks,
     system = lila.common.PlayApp.system)

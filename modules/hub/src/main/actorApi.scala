@@ -48,6 +48,14 @@ case class MarkTroll(userId: String, by: String)
 case class Shutup(userId: String, text: String)
 }
 
+package shutup {
+  case class RecordPublicForumMessage(userId: String, text: String)
+  case class RecordTeamForumMessage(userId: String, text: String)
+  case class RecordPrivateMessage(userId: String, toUserId: String, text: String)
+  case class RecordPrivateChat(chatId: String, userId: String, text: String)
+  case class RecordPublicChat(chatId: String, userId: String, text: String)
+}
+
 package mod {
 case class MarkCheater(userId: String)
 }

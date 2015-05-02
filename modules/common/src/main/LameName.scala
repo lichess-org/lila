@@ -1,4 +1,4 @@
-package lila.shutup
+package lila.common
 
 object LameName {
 

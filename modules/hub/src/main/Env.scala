@@ -27,6 +27,7 @@ final class Env(config: Config, system: ActorSystem) {
     val relation = select("actor.relation")
     val challenger = select("actor.challenger")
     val report = select("actor.report")
+    val shutup = select("actor.shutup")
     val mod = select("actor.mod")
     val chat = select("actor.chat")
     val analyser = select("actor.analyser")

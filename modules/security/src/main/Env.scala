@@ -67,7 +67,7 @@ final class Env(
     secret = PasswordResetSecret)
 
   lazy val tor = new Tor(TorProviderUrl)
-  scheduler.once(20 seconds)(tor.refresh)
+  scheduler.once(30 seconds)(tor.refresh)
   scheduler.effect(TorRefreshDelay, "Refresh TOR exit nodes")(tor.refresh)
 
   lazy val api = new Api(firewall, tor)

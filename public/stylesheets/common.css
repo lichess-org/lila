@@ -513,7 +513,6 @@ body {
   color: #707070;
   background: #eee;
   background-image: linear-gradient(to bottom, #d7d7d7 0%, #eeeeee 116px);
-  overflow-x: hidden;
 }
 a,
 a:visited,

@@ -9,13 +9,12 @@ import lila.db.paginator._
 import lila.hub.actorApi.message._
 import lila.hub.actorApi.SendTo
 import lila.security.Granter
-import lila.shutup.{ ShutupApi, TextType }
 import lila.user.{ User, UserRepo }
 import tube.threadTube
 
 final class Api(
     unreadCache: UnreadCache,
-    shutup: ShutupApi,
+    shutup: akka.actor.ActorSelection,
     maxPerPage: Int,
     blocks: (String, String) => Fu[Boolean],
     bus: lila.common.Bus) {
@@ -56,7 +55,7 @@ final class Api(
             sendUnlessBlocked(thread) >>-
               updateUser(invited.id) >>- {
                 val text = data.subject + " " + data.text
-                (!me.troll ?? shutup.record(me.id, text, TextType.PrivateMessage))
+                shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text)
               } inject thread
           }
       }
@@ -82,8 +81,10 @@ final class Api(
       UserRepo.named(thread receiverOf post) foreach {
         _.map(_.id) foreach updateUser
       }
-    } >>-
-      (!me.troll ?? shutup.record(me.id, text, TextType.PrivateMessage)) inject newThread
+    } >>- {
+      val toUserId = newThread otherUserId me
+      shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
+    } inject newThread
   }
 
   def deleteThread(id: String, me: User): Funit =

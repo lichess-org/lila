@@ -435,6 +435,7 @@ tools=כלים
 increment=שניות למהלך
 board=לוח
 pieces=כלים
+sharePGN=שתף PGN
 playOnline=משחק רשת
 playOffline=משחק מקומי
 allowAnalytics=אפשר דגימה אנונימית

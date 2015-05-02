@@ -123,8 +123,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, elastic4s)
   )
 
-  lazy val chat = project("chat", Seq(
-    common, db, user, security, i18n, shutup)).settings(
+  lazy val chat = project("chat", Seq(common, db, user, security, i18n)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
@@ -195,11 +194,11 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
-  lazy val security = project("security", Seq(common, hub, db, user, shutup)).settings(
+  lazy val security = project("security", Seq(common, hub, db, user)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM, maxmind, hasher)
   )
 
-  lazy val shutup = project("shutup", Seq(common, db, hub)).settings(
+  lazy val shutup = project("shutup", Seq(common, db, hub, game, relation)).settings(
     libraryDependencies ++= provided(play.api, RM, PRM)
   )
 
@@ -220,7 +219,7 @@ object ApplicationBuild extends Build {
       play.api, RM, PRM, spray.caching)
   )
 
-  lazy val forum = project("forum", Seq(common, db, user, security, hub, mod, shutup)).settings(
+  lazy val forum = project("forum", Seq(common, db, user, security, hub, mod)).settings(
     libraryDependencies ++= provided(
       play.api, RM, PRM, spray.caching)
   )

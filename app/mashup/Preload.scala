@@ -25,7 +25,7 @@ final class Preload(
     getPlayban: String => Fu[Option[TempBan]],
     geoIP: lila.security.GeoIP) {
 
-  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], List[Simul], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Int, Boolean)
+  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], List[Simul], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Int)
 
   def apply(
     posts: Fu[List[MiniForumPost]],
@@ -43,12 +43,6 @@ final class Preload(
       streamsOnAir() zip
       (ctx.userId ?? getPlayban) map {
         case ((((((((((data, posts), tours), simuls), feat), entries), lead), tWinners), puzzle), streams), playban) =>
-          val inParis = ctx.me.?? { u =>
-            u.profile.flatMap(_.country) ?? (_ == "FR") &&
-              u.profile.flatMap(_.location) ?? (_.toLowerCase contains "paris")
-          } || geoIP(ctx.req.remoteAddress) ?? { loc =>
-            loc.country == "France" && (loc.region == Some("Paris") || loc.city == Some("Paris"))
-          }
-          (data, entries, posts, tours, simuls, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, countRounds(), inParis)
+          (data, entries, posts, tours, simuls, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, countRounds())
       }
 }

@@ -9,7 +9,6 @@ import lila.db.Implicits._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
 import lila.security.{ Granter => MasterGranter }
-import lila.shutup.{ ShutupApi, TextType }
 import lila.user.{ User, UserContext }
 import tube._
 
@@ -18,7 +17,7 @@ private[forum] final class TopicApi(
     indexer: ActorSelection,
     maxPerPage: Int,
     modLog: lila.mod.ModlogApi,
-    shutup: ShutupApi,
+    shutup: ActorSelection,
     timeline: ActorSelection,
     detectLanguage: lila.common.DetectLanguage) {
 
@@ -61,9 +60,11 @@ private[forum] final class TopicApi(
           $update(categ withTopic post) >>-
           (indexer ! InsertPost(post)) >>
           env.recent.invalidate >>-
-          ctx.userId.ifFalse(post.troll).?? { userId =>
+          ctx.userId.?? { userId =>
             val text = topic.name + " " + post.text
-            shutup.record(userId, text, post.isTeam.fold(TextType.TeamForumMessage, TextType.PublicForumMessage))
+            shutup ! post.isTeam.fold(
+              lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, text),
+              lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, text))
           } >>-
           ((ctx.userId ifFalse post.troll) ?? { userId =>
             timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|>(prop =>

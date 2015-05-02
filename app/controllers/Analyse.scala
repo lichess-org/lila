@@ -43,11 +43,12 @@ object Analyse extends LilaController {
       case Success(analysis) if analysis.done                   => Env.hub.socket.round ! Tell(id, AnalysisAvailable)
     }
 
-  def postAnalysis(id: String) = Action(parse.text) { req =>
-    env.analyser.complete(id, req.body, req.remoteAddress) >>- {
+  def postAnalysis(id: String) = Action.async(parse.text) { req =>
+    env.analyser.complete(id, req.body, req.remoteAddress) recoverWith {
+      case e: lila.common.LilaException => fufail(s"${req.remoteAddress} ${e.message}")
+    } andThenAnyway {
       Env.hub.socket.round ! Tell(id, AnalysisAvailable)
-    }
-    Ok
+    } inject Ok
   }
 
   def replay(pov: Pov, userTv: Option[lila.user.User])(implicit ctx: Context) =

@@ -20,8 +20,8 @@ private[video] final class Sheet(
   def select(entry: Entry) =
     entry.include && entry.lang == "en"
 
-  def fetchAll: Funit = fetch flatMap { entries =>
-    entries.filter(select).map { entry =>
+  def fetchAll: Funit = fetch map (_ filter select) flatMap { entries =>
+    entries.map { entry =>
       api.video.find(entry.youtubeId).flatMap {
         case Some(video) =>
           val updated = video.copy(
@@ -31,7 +31,7 @@ private[video] final class Sheet(
             tags = entry.tags,
             lang = entry.lang,
             ads = entry.ads,
-          startTime = entry.startTime)
+            startTime = entry.startTime)
           (video != updated) ?? {
             loginfo(s"[video sheet] update $updated")
             api.video.save(updated)

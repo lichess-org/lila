@@ -1,6 +1,6 @@
 package lila.chat
 
-import akka.actor.{ ActorSystem, Props }
+import akka.actor.{ ActorSystem, Props, ActorSelection }
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
@@ -9,7 +9,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     flood: lila.security.Flood,
-    shutup: lila.shutup.ShutupApi,
+    shutup: ActorSelection,
     system: ActorSystem) {
 
   private val settings = new {
@@ -38,6 +38,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "chat",
     db = lila.db.Env.current,
     flood = lila.security.Env.current.flood,
-    shutup = lila.shutup.Env.current.api,
+    shutup = lila.hub.Env.current.actor.shutup,
     system = lila.common.PlayApp.system)
 }
