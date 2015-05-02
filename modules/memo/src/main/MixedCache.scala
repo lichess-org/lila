@@ -13,6 +13,9 @@ final class MixedCache[K, V] private (
   }
   catch {
     case _: java.util.concurrent.ExecutionException => default(k)
+    case e: com.google.common.util.concurrent.UncheckedExecutionException =>
+      logerr(e.getMessage)
+      default(k)
   }
 
   def invalidate(k: K) {
