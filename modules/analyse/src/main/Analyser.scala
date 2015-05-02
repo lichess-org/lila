@@ -86,7 +86,8 @@ final class Analyser(
                 else fufail(s"[analysis] invalid $id")
             })
         }
-      case _ => fufail(s"[analysis] complete non-existing $id")
+      case ((Some(game), _), _) => fufail(s"[analysis] complete non analysable $id")
+      case _                    => fufail(s"[analysis] complete non existing $id")
     } addFailureEffect {
       _ => AnalysisRepo remove id
     }
