@@ -18,7 +18,20 @@ final class JsonView(isOnline: String => Boolean) {
       case (name, perf) => name -> perfWrites.writes(perf)
     })
   }
-  private implicit val profileWrites = Json.writes[Profile]
+  private implicit val profileWrites: Writes[Profile] = Writes { o =>
+    Json.obj(
+      "country" -> o.country,
+      "countryName" -> o.countryInfo.fold[JsValue](JsNull)(i => JsString(i._2)),
+      "location" -> o.location,
+      "bio" -> o.bio,
+      "firstName" -> o.firstName,
+      "lastName" -> o.lastName)
+  }
+  private implicit val playTimeWrites: Writes[User.PlayTime] = Writes { o =>
+    Json.obj(
+      "total" -> o.total,
+      "tv" -> o.tv)
+  }
 
   def apply(u: User, extended: Boolean) = Json.obj(
     "id" -> u.id,
@@ -28,7 +41,10 @@ final class JsonView(isOnline: String => Boolean) {
       "online" -> isOnline(u.id),
       "engine" -> u.engine,
       "language" -> u.lang,
-      "profile" -> u.profile.??(profileWrites.writes).noNull,
-      "perfs" -> u.perfs
+      "profile" -> u.profile,
+      "perfs" -> u.perfs,
+      "createdAt" -> u.createdAt,
+      "seenAt" -> u.seenAt,
+      "playTime" -> u.playTime
     )).noNull
 }
