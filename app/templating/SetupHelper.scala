@@ -109,6 +109,13 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.AutoThreefold.TIME, trans.whenTimeRemainingLessThanThirtySeconds.str())
   )
 
+  def translatedChallengeChoices(implicit ctx: Context) = List(
+    (Pref.Challenge.NEVER, trans.never.str()),
+    (Pref.Challenge.RATING, trans.ifRatingIsInThreshold.str()),
+    (Pref.Challenge.FRIEND, trans.onlyFriends.str()),
+    (Pref.Challenge.ALWAYS, trans.always.str())
+  )
+
   def translatedDifficultyChoices(implicit ctx: Context) = List(
     (Pref.Difficulty.EASY, trans.difficultyEasy.str()),
     (Pref.Difficulty.NORMAL, trans.difficultyNormal.str()),
