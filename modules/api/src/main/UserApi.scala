@@ -39,6 +39,12 @@ private[api] final class UserApi(
     }
   }
 
+  private implicit val playTimeWrites: Writes[User.PlayTime] = Writes { o =>
+    Json.obj(
+      "total" -> o.total,
+      "tv" -> o.tv)
+  }
+
   def one(username: String, token: Option[String]): Fu[Option[JsObject]] = UserRepo named username flatMap {
     case None => fuccess(none)
     case Some(u) => GameRepo mostUrgentGame u zip
@@ -50,7 +56,10 @@ private[api] final class UserApi(
           jsonView(u, extended = true) ++ Json.obj(
             "url" -> userUrl,
             "playing" -> gameUrlOption,
-            "knownEnginesSharingIp" -> knownEngines
+            "knownEnginesSharingIp" -> knownEngines,
+            "createdAt" -> u.createdAt,
+            "seenAt" -> u.seenAt,
+            "playTime" -> u.playTime
           ).noNull
         }
       } map (_.some)
