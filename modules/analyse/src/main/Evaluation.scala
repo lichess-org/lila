@@ -9,6 +9,8 @@ case class Evaluation(
 
   def checkMate = mate == Some(0)
 
+  def invalid = score.isEmpty && mate.isEmpty
+
   override def toString = s"Evaluation ${score.fold("?")(_.showPawns)} ${mate | 0} ${line.mkString(" ")}"
 }
 
