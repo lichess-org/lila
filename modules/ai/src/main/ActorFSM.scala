@@ -28,11 +28,11 @@ private[ai] final class ActorFSM(
       config.init foreach process.write
       loginfo(s"[$name] stockfish is ready")
       job.fold(goto(Idle))(start)
-    case Event(req: Req, none) => stay using Job(req, sender, Nil).some
+    case Event(req: Req, none) => stay using Job(req, sender, None).some
   }
   when(Idle) {
     case Event(Out(t), _)   => sys error s"[$name] Unexpected engine output $t"
-    case Event(req: Req, _) => start(Job(req, sender, Nil))
+    case Event(req: Req, _) => start(Job(req, sender, None))
   }
   when(IsReady) {
     case Event(Out("readyok"), Some(Job(req, _, _))) =>
@@ -60,7 +60,7 @@ private[ai] final class ActorFSM(
     case Job(req, sender, _) =>
       config prepare req foreach process.write
       process write "isready"
-      goto(IsReady) using Job(req, sender, Nil).some
+      goto(IsReady) using Job(req, sender, None).some
   }
 
   private def relevantLine(l: String) =

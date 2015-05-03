@@ -58,14 +58,14 @@ private[ai] final class Queue(config: Config) extends Actor {
         tasks += Task(req, sender, timeout)
       }
 
-    case FullAnalReq(moves, fen, requestedByHuman, kingOfTheHill) if (requestedByHuman || tasks.size < maxTasks) =>
+    case FullAnalReq(moves, fen, requestedByHuman, variant) if (requestedByHuman || tasks.size < maxTasks) =>
       val mrSender = sender
       val size = moves.size
       implicit val timeout = makeTimeout {
         if (requestedByHuman) 1.hour else 24.hours
       }
       val futures = (0 to size) map moves.take map { serie =>
-        self ? AnalReq(serie, fen, size, requestedByHuman, kingOfTheHill) mapTo manifest[Option[Evaluation]]
+        self ? AnalReq(serie, fen, size, requestedByHuman, variant) mapTo manifest[Option[Evaluation]]
       }
       Future.fold(futures)(Vector[Option[Evaluation]]())(_ :+ _) addFailureEffect {
         case e => mrSender ! Status.Failure(e)
