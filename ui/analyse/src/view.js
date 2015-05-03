@@ -26,7 +26,7 @@ function renderEvalTag(e) {
 }
 
 function autoScroll(movelist) {
-  var plyEl = movelist.querySelector('.active');
+  var plyEl = movelist.querySelector('.active') || movelist.querySelector('.turn:first-child');
   if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
 }
 
@@ -202,7 +202,7 @@ function renderTurn(ctrl, turn, path) {
 
 function renderTree(ctrl, tree) {
   var turns = [];
-  for (i = 0, nb = tree.length; i < nb; i += 2) turns.push({
+  for (i = 1, nb = tree.length; i < nb; i += 2) turns.push({
     turn: Math.floor(i / 2) + 1,
     white: tree[i],
     black: tree[i + 1]

@@ -6,9 +6,10 @@ import scala.math
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
-import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
+import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock, Step }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
+import Step.stepJsonWriter
 
 import chess.format.Forsyth
 import chess.{ Color, Clock }
@@ -247,26 +248,21 @@ final class JsonView(
     "source" -> game.source.map(sourceJson),
     "status" -> statusJson(game.status),
     "tournamentId" -> game.tournamentId,
-    "steps" -> stepsJson(game, initialFen, withPossibleMoves)
+    "steps" -> steps(game, initialFen, withPossibleMoves)
   ).noNull
 
-  private def stepsJson(game: Game, initialFen: Option[String], possibleMoves: Boolean): Option[JsArray] =
-    chess.Replay.boards(game.pgnMoves, initialFen, game.variant).toOption map { boards =>
-      JsArray(boards.zipWithIndex map {
-        case (board, i) =>
-          val color = chess.Color(i % 2 == 0)
-          Json.obj(
-            "fen" -> chess.format.Forsyth.exportBoard(board),
-            "uci" -> board.history.lastMoveString,
-            "san" -> game.pgnMoves.lift(i - 1),
-            "check" -> board.check(color).option(true),
-            "dests" -> possibleMoves.option {
-              chess.Situation(board, color).destinations.map {
-                case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
-              }.mkString(" ")
-            }
-          ).noNull
-      })
+  private def steps(game: Game, initialFen: Option[String], possibleMoves: Boolean): List[Step] =
+    chess.Replay.boards(game.pgnMoves, initialFen, game.variant).err.zipWithIndex map {
+      case (board, i) =>
+        var color = chess.Color(i % 2 == 0)
+        Step(
+          move = for {
+            pos <- board.history.lastMove
+            san <- game.pgnMoves.lift(i - 1)
+          } yield Step.Move(pos, san),
+          fen = chess.format.Forsyth.exportBoard(board),
+          check = board.check(color),
+          dests = possibleMoves ?? chess.Situation(board, color).destinations)
     }
 
   private def blurs(game: Game, player: lila.game.Player) = {
