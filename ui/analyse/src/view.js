@@ -1,6 +1,7 @@
 var m = require('mithril');
 var chessground = require('chessground');
 var classSet = require('chessground').util.classSet;
+var defined = require('./util').defined;
 var game = require('game').game;
 var partial = require('chessground').util.partial;
 var renderStatus = require('game').view.status;
@@ -43,8 +44,8 @@ function renderMove(ctrl, move, path) {
       'href': '#' + path[0].ply
     },
     children: [
-      move.eval ? renderEvalTag(renderEval(move.eval)) : (
-        move.mate ? renderEvalTag('#' + move.mate) : null
+      defined(move.eval) ? renderEvalTag(renderEval(move.eval)) : (
+        defined(move.mate) ? renderEvalTag('#' + move.mate) : null
       ),
       move.san
     ]
