@@ -27,8 +27,8 @@ case object ThreeCheck extends Variant
 object Variant {
   def apply(str: String): Variant = str.toLowerCase match {
     case "chess960"      => Chess960
-    case "kingOfTheHill" => KingOfTheHill
-    case "threeCheck"    => ThreeCheck
+    case "kingofthehill" => KingOfTheHill
+    case "threecheck"    => ThreeCheck
     case _               => Standard
   }
   def apply(v: chess.variant.Variant): Variant = apply(v.key)

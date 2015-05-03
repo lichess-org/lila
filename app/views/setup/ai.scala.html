@@ -1,7 +1,7 @@
 @(form: Form[_], ratings: Map[Int, Int])(implicit ctx: Context)
 
 @fields = {
-@setup.variant(form, translatedVariantChoicesWithFenAndKingOfTheHill)
+@setup.variant(form, translatedAiVariantChoices)
 @fenInput(form("fen"), true)
 @setup.timeMode(form, lila.setup.AiConfig)
 @trans.level()

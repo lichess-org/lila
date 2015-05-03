@@ -45,7 +45,7 @@ private[ai] case class Config(
   }) :: List(
     setoption("UCI_Chess960", req.variant == Chess960),
     setoption("UCI_KingOfTheHill", req.variant == KingOfTheHill),
-    setoption("UCI_ThreeCheck", req.variant == ThreeCheck))
+    setoption("UCI_3Check", req.variant == ThreeCheck))
 
   def go(req: Req): List[String] = req match {
     case r: PlayReq => List(

@@ -35,7 +35,7 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
 
   def ai(ctx: UserContext) = Form(
     mapping(
-      "variant" -> variantWithFenAndKingOfTheHill,
+      "variant" -> aiVariants,
       "timeMode" -> timeMode,
       "time" -> time,
       "increment" -> increment,

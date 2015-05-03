@@ -31,7 +31,9 @@ private[ai] final class ActorFSM(
     case Event(req: Req, none) => stay using Job(req, sender, None).some
   }
   when(Idle) {
-    case Event(Out(t), _)   => sys error s"[$name] Unexpected engine output $t"
+    case Event(Out(t), _) if t.nonEmpty =>
+      logwarn(s"""[$name] Unexpected engine output: "$t"""")
+      stay
     case Event(req: Req, _) => start(Job(req, sender, None))
   }
   when(IsReady) {
