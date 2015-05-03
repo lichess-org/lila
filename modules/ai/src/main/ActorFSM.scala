@@ -45,7 +45,7 @@ private[ai] final class ActorFSM(
       goto(Running)
   }
   when(Running) {
-    case Event(Out(t), Some(job)) if t startsWith "info depth" =>
+    case Event(Out(t), Some(job)) if (t startsWith "info depth") && relevantLine(t) =>
       stay using (job + t).some
     case Event(Out(t), Some(job)) if t startsWith "bestmove" =>
       job.sender ! (job complete t)
@@ -62,6 +62,11 @@ private[ai] final class ActorFSM(
       process write "isready"
       goto(IsReady) using Job(req, sender, Nil).some
   }
+
+  private def relevantLine(l: String) =
+    !(l contains "currmovenumber") &&
+      !(l contains "lowerbound") &&
+      !(l contains "upperbound")
 
   override def postStop() {
     println(s"======== $name\n${lastWrite mkString "\n"}\n========")
