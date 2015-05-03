@@ -49,11 +49,11 @@ case class Shutup(userId: String, text: String)
 }
 
 package shutup {
-  case class RecordPublicForumMessage(userId: String, text: String)
-  case class RecordTeamForumMessage(userId: String, text: String)
-  case class RecordPrivateMessage(userId: String, toUserId: String, text: String)
-  case class RecordPrivateChat(chatId: String, userId: String, text: String)
-  case class RecordPublicChat(chatId: String, userId: String, text: String)
+case class RecordPublicForumMessage(userId: String, text: String)
+case class RecordTeamForumMessage(userId: String, text: String)
+case class RecordPrivateMessage(userId: String, toUserId: String, text: String)
+case class RecordPrivateChat(chatId: String, userId: String, text: String)
+case class RecordPublicChat(chatId: String, userId: String, text: String)
 }
 
 package mod {
@@ -163,7 +163,12 @@ case class MakeTeam(id: String, name: String)
 }
 
 package ai {
-case class Analyse(gameId: String, uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean, kingOfTheHill: Boolean)
+case class Analyse(
+  gameId: String,
+  uciMoves: List[String],
+  initialFen: Option[String],
+  requestedByHuman: Boolean,
+  variant: chess.variant.Variant)
 case class AutoAnalyse(gameId: String)
 }
 

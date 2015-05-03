@@ -39,18 +39,13 @@ private[ai] case class Config(
     setoption("Threads", nbThreads),
     setoption("Ponder", false))
 
-  def prepare(req: Req) = req match {
-    case r: PlayReq => List(
-      setoption("Skill Level", skill(r.level)),
-      setoption("UCI_Chess960", r.chess960),
-      setoption("UCI_KingOfTheHill", r.kingOfTheHill),
-      setoption("OwnBook", ownBook(r.level)))
-    case r: AnalReq => List(
-      setoption("Skill Level", skillMax),
-      setoption("UCI_Chess960", r.chess960),
-      setoption("UCI_KingOfTheHill", r.kingOfTheHill),
-      setoption("OwnBook", true))
-  }
+  def prepare(req: Req) = (req match {
+    case r: PlayReq => setoption("Skill Level", skill(r.level))
+    case r: AnalReq => setoption("Skill Level", skillMax)
+  }) :: List(
+    setoption("UCI_Chess960", req.variant == Chess960),
+    setoption("UCI_KingOfTheHill", req.variant == KingOfTheHill),
+    setoption("UCI_3Check", req.variant == ThreeCheck))
 
   def go(req: Req): List[String] = req match {
     case r: PlayReq => List(

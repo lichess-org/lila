@@ -44,13 +44,13 @@ object Info {
 
   lazy val start = Info(0, Evaluation.start.score, none, Nil)
 
-  def decode(ply: Int, str: String): Option[Info] = str.split(separator).toList match {
-    case Nil                  => Info(ply).some
-    case List(cp)             => Info(ply, Score(cp)).some
-    case List(cp, ma)         => Info(ply, Score(cp), parseIntOption(ma)).some
-    case List(cp, ma, va)     => Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList).some
-    case List(cp, ma, va, be) => Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList, UciMove piotr be).some
-    case _                    => none
+  def decode(ply: Int, str: String): Option[Info] = str.split(separator) match {
+    case Array()               => Info(ply).some
+    case Array(cp)             => Info(ply, Score(cp)).some
+    case Array(cp, ma)         => Info(ply, Score(cp), parseIntOption(ma)).some
+    case Array(cp, ma, va)     => Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList).some
+    case Array(cp, ma, va, be) => Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList, UciMove piotr be).some
+    case _                     => none
   }
 
   def decodeList(str: String): Option[List[Info]] = {

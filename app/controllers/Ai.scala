@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._
 
+import lila.ai.actorApi.{ Chess960, KingOfTheHill, Variant }
 import lila.api.Context
 import lila.app._
 
@@ -10,12 +11,17 @@ import play.api.Play.current
 
 object Ai extends LilaController {
 
+  private def requestVariant(req: RequestHeader): Variant =
+    if (get("initialFen", req).isDefined) Chess960
+    else if (getBool("kingOfTheHill", req)) KingOfTheHill
+    else Variant(~get("variant", req))
+
   def move = Action.async { req =>
     Env.ai.server.move(
       uciMoves = get("uciMoves", req) ?? (_.split(' ').toList),
       initialFen = get("initialFen", req),
       level = getInt("level", req) | 1,
-      kingOfTheHill = getBool("kingOfTheHill", req)
+      variant = requestVariant(req)
     ) fold (
         err => {
           logwarn("[ai] stockfish server play: " + err)
@@ -27,12 +33,11 @@ object Ai extends LilaController {
 
   def analyse = Action.async { req =>
     get("replyUrl", req) foreach { replyToUrl =>
-      println(s"analyse gameId ${get("gameId", req)}")
       Env.ai.server.analyse(
         uciMoves = get("uciMoves", req) ?? (_.split(' ').toList),
         initialFen = get("initialFen", req),
         requestedByHuman = getBool("human", req),
-        kingOfTheHill = getBool("kingOfTheHill", req)
+        variant = requestVariant(req)
       ).effectFold(
           err => WS.url(replyToUrl).post(err.toString),
           infos => WS.url(replyToUrl).post(lila.analyse.Info encodeList infos)

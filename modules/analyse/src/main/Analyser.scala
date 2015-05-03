@@ -50,7 +50,7 @@ final class Analyser(
             chess.Replay(game.pgnMoves, initialFen, game.variant).fold(
               fufail(_),
               replay => {
-                ai ! lila.hub.actorApi.ai.Analyse(game.id, UciDump(replay), initialFen, requestedByHuman = !auto, game.variant.kingOfTheHill)
+                ai ! lila.hub.actorApi.ai.Analyse(game.id, UciDump(replay), initialFen, requestedByHuman = !auto, game.variant)
                 AnalysisRepo byId id flatten "Missing analysis"
               }
             )

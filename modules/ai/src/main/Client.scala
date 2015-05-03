@@ -26,7 +26,7 @@ final class Client(
     for {
       fen ← GameRepo initialFen game
       uciMoves ← uciMemo get game
-      moveResult ← move(uciMoves.toList, fen, level, game.variant.kingOfTheHill)
+      moveResult ← move(uciMoves.toList, fen, level, Variant(game.variant))
       uciMove ← (UciMove(moveResult.move) toValid s"${game.id} wrong bestmove: $moveResult").future
       result ← game.toChess(uciMove.orig, uciMove.dest, uciMove.promotion).future
       (c, move) = result
@@ -37,25 +37,25 @@ final class Client(
 
   private val networkLatency = 1 second
 
-  def move(uciMoves: List[String], initialFen: Option[String], level: Int, kingOfTheHill: Boolean): Fu[MoveResult] = {
+  def move(uciMoves: List[String], initialFen: Option[String], level: Int, variant: Variant): Fu[MoveResult] = {
     implicit val timeout = makeTimeout(config.playTimeout + networkLatency)
     sendRequest(true) {
       WS.url(s"$endpoint/move").withQueryString(
         "uciMoves" -> uciMoves.mkString(" "),
         "initialFen" -> ~initialFen,
         "level" -> level.toString,
-        "kingOfTheHill" -> (kingOfTheHill ?? "1"))
+        "variant" -> variant.toString)
     } map MoveResult.apply
   }
 
-  def analyse(gameId: String, uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean, kingOfTheHill: Boolean) {
+  def analyse(gameId: String, uciMoves: List[String], initialFen: Option[String], requestedByHuman: Boolean, variant: Variant) {
     WS.url(s"$endpoint/analyse").withQueryString(
       "replyUrl" -> callbackUrl.replace("%", gameId),
       "uciMoves" -> uciMoves.mkString(" "),
       "initialFen" -> ~initialFen,
       "human" -> requestedByHuman.fold("1", "0"),
       "gameId" -> gameId,
-      "kingOfTheHill" -> (kingOfTheHill ?? "1")).post("go")
+      "variant" -> variant.toString).post("go")
   }
 
   private def sendRequest(retriable: Boolean)(req: WSRequestHolder): Fu[String] =

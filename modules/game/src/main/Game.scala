@@ -426,7 +426,8 @@ object Game {
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,
     chess.variant.Chess960,
-    chess.variant.KingOfTheHill)
+    chess.variant.KingOfTheHill,
+    chess.variant.ThreeCheck)
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
 

@@ -9,5 +9,8 @@ module.exports = {
       });
     });
     return dests;
+  },
+  defined: function(v) {
+    return typeof v !== 'undefined';
   }
 };
