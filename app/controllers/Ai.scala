@@ -2,7 +2,7 @@ package controllers
 
 import play.api.mvc._
 
-import lila.ai.actorApi.{ KingOfTheHill, Variant }
+import lila.ai.actorApi.{ Chess960, KingOfTheHill, Variant }
 import lila.api.Context
 import lila.app._
 
@@ -12,7 +12,8 @@ import play.api.Play.current
 object Ai extends LilaController {
 
   private def requestVariant(req: RequestHeader): Variant =
-    if (getBool("kingOfTheHill", req)) KingOfTheHill
+    if (get("initialFen", req).isDefined) Chess960
+    else if (getBool("kingOfTheHill", req)) KingOfTheHill
     else Variant(~get("variant", req))
 
   def move = Action.async { req =>
