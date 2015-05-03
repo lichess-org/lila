@@ -43,13 +43,11 @@ private[ai] case class Config(
     case r: PlayReq => List(
       setoption("Skill Level", skill(r.level)),
       setoption("UCI_Chess960", r.chess960),
-      setoption("UCI_KingOfTheHill", r.kingOfTheHill),
-      setoption("OwnBook", ownBook(r.level)))
+      setoption("UCI_KingOfTheHill", r.kingOfTheHill))
     case r: AnalReq => List(
       setoption("Skill Level", skillMax),
       setoption("UCI_Chess960", r.chess960),
-      setoption("UCI_KingOfTheHill", r.kingOfTheHill),
-      setoption("OwnBook", true))
+      setoption("UCI_KingOfTheHill", r.kingOfTheHill))
   }
 
   def go(req: Req): List[String] = req match {
