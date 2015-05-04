@@ -471,3 +471,7 @@ donate=Faire un don
 contact=Nous contacter
 termsOfService=Conditions
 sourceCode=Code source
+forumPosts=Messages sur Forum
+timeSpentPlaying=Temps total joué
+watchGames=Regarder parties
+timeSpentOnTV=Temps passé sur TV
