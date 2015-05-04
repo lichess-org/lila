@@ -1,8 +1,9 @@
 @(game: Game)(implicit ctx: Context)
 @game.perfType match {
 case _ if game.fromPosition => {*}
-case _ if game.hasAi => {:}
 case _ if game.imported => {/}
+case Some(p) if game.variant.exotic => {@p.iconChar}
+case _ if game.hasAi => {:}
 case Some(p) => {@p.iconChar}
 case _ => {8}
 }
