@@ -527,14 +527,20 @@ lichess.storage = {
   };
 
   lichess.openInMobileApp = function(gameId) {
-    if (
-      /android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor) &&
-      confirm('Open in lichess mobile app?')
-    ) {
-      location.href = 'lichess://' + gameId;
-      return true;
-    }
-    return false;
+    if (!/android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor)) return false;
+    var storageKey = 'open-game-in-mobile';
+    var open = function(v) {
+      if (v > 0) {
+        lichess.storage.set(storageKey, v - 1);
+        location.href = 'lichess://' + gameId;
+        return true;
+      }
+      lichess.storage.set(storageKey, v + 1);
+      return false;
+    };
+    var stored = parseInt(lichess.storage.get(storageKey));
+    if (stored) return open(stored);
+    return open(confirm('Open in lichess mobile app?') ? 10 : -10);
   };
 
   lichess.parseFen = function($elem) {
