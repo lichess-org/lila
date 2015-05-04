@@ -484,3 +484,4 @@ videoLibraryExplanTwo=Hacer click en las etiquetas para filtro.
 videoLibraryExplanThree=videos seleccionados prudentemente hasta ahora
 viewMoreTags=Ver más etiquetas
 clearSearch=Borrar búsqueda
+keyboardShortcuts=Los atajos

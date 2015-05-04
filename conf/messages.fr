@@ -484,3 +484,4 @@ videoLibraryExplanTwo=Cliquer sur les tags pour filtre.
 videoLibraryExplanThree=vidéos sélectionnées prudemment jusqu'à présent !
 viewMoreTags=Voir plus de tags
 clearSearch=Effacer la recherche
+keyboardShortcuts=Les raccourcis

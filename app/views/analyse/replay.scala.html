@@ -31,7 +31,7 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 @round.blurs(game)
 @round.holdAlerts(game)
 <div class="shortcuts">
-  <p class="title text" data-icon="u">Keyboard Shortcuts</p>
+  <p class="title text" data-icon="u">@trans.keyboardShortcuts()</p>
   <div class="inner">
     <ul>
       <li><strong>h</strong>/<strong>l</strong> or <strong>←</strong>/<strong>→</strong> move backward/forward</li>
