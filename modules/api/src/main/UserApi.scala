@@ -14,6 +14,7 @@ import makeTimeout.short
 
 private[api] final class UserApi(
     jsonView: lila.user.JsonView,
+    relationApi: lila.relation.RelationApi,
     makeUrl: Any => Fu[String],
     apiToken: String,
     userIdsSharingIp: String => Fu[List[String]]) {
@@ -43,14 +44,18 @@ private[api] final class UserApi(
     case None => fuccess(none)
     case Some(u) => GameRepo mostUrgentGame u zip
       makeUrl(R User username) zip
-      (check(token) ?? (knownEnginesSharingIp(u.id) map (_.some))) flatMap {
-        case ((gameOption, userUrl), knownEngines) => gameOption ?? { g =>
+      (check(token) ?? (knownEnginesSharingIp(u.id) map (_.some))) zip
+      relationApi.nbFollowing(u.id) zip
+      relationApi.nbFollowers(u.id) flatMap {
+        case ((((gameOption, userUrl), knownEngines), following), followers) => gameOption ?? { g =>
           makeUrl(R.Watcher(g.gameId, g.color.name)) map (_.some)
         } map { gameUrlOption =>
           jsonView(u, extended = true) ++ Json.obj(
             "url" -> userUrl,
             "playing" -> gameUrlOption,
-            "knownEnginesSharingIp" -> knownEngines
+            "knownEnginesSharingIp" -> knownEngines,
+            "following" -> following,
+            "followers" -> followers
           ).noNull
         }
       } map (_.some)
