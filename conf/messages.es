@@ -476,3 +476,4 @@ timeSpentPlaying=Tiempo total jugado
 watchGames=Ver partidas
 timeSpentOnTV=Tiempo pasado en TV
 castling=Enroque
+menu=Menú
