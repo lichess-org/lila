@@ -10,15 +10,15 @@ control = control) {
     @if(control.filter.tags.nonEmpty) {
     @pluralize("video", videos.nbResults) found
     } else {
-    Free Chess video library
+    @trans.freeChessVideoLibrary()
     }
   </h1>
 </div>
 @if(control.filter.tags.isEmpty) {
 <p class="explain">
-  All videos are free for everyone.<br />
-  Click one or many tags on the left to filter.<br />
-  We have carefully selected <strong>@count</strong> videos so far!
+  @trans.videoLibraryExplanOne()<br />
+  @trans.videoLibraryExplanTwo()<br />
+  <strong>@count</strong> @trans.videoLibraryExplanThree()
 </p>
 }
 <div class="list infinitescroll">
@@ -37,7 +37,7 @@ control = control) {
     }
     <br />
     <br />
-    <a href="@routes.Video.index" class="button">Clear search</a>
+    <a href="@routes.Video.index" class="button">@trans.clearSearch()</a>
   </div>
   }
   @videos.nextPage.map { next =>
