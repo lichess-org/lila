@@ -40,22 +40,27 @@ private[api] final class UserApi(
     }
   }
 
-  def one(username: String, token: Option[String]): Fu[Option[JsObject]] = UserRepo named username flatMap {
+  def one(username: String, token: Option[String])(implicit ctx: Context): Fu[Option[JsObject]] = UserRepo named username flatMap {
     case None => fuccess(none)
     case Some(u) => GameRepo mostUrgentGame u zip
       makeUrl(R User username) zip
       (check(token) ?? (knownEnginesSharingIp(u.id) map (_.some))) zip
       relationApi.nbFollowing(u.id) zip
-      relationApi.nbFollowers(u.id) flatMap {
-        case ((((gameOption, userUrl), knownEngines), following), followers) => gameOption ?? { g =>
+      relationApi.nbFollowers(u.id) zip
+      ctx.userId ?? { relationApi.relation(_, u.id) } zip
+      ctx.userId ?? { relationApi.relation(u.id, _) } flatMap {
+        case ((((((gameOption, userUrl), knownEngines), following), followers), relation), revRelation) => gameOption ?? { g =>
           makeUrl(R.Watcher(g.gameId, g.color.name)) map (_.some)
         } map { gameUrlOption =>
           jsonView(u, extended = true) ++ Json.obj(
             "url" -> userUrl,
             "playing" -> gameUrlOption,
             "knownEnginesSharingIp" -> knownEngines,
-            "following" -> following,
-            "followers" -> followers
+            "nbFollowing" -> following,
+            "nbFollowers" -> followers,
+            "following" -> relation.exists(true ==),
+            "blocking" -> relation.exists(false ==),
+            "followsYou" -> revRelation.exists(true ==)
           ).noNull
         }
       } map (_.some)
