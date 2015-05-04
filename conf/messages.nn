@@ -437,5 +437,6 @@ board=Brett
 pieces=Brikker
 sharePGN=Del PGN
 playOnline=Spill på nett
+playOffline=Spel utan nett
 allowAnalytics=Tillat anonym statistikk
 shareGameURL=Del spill-URL
