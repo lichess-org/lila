@@ -230,7 +230,7 @@ openGraph = Map(
         <br />
         <p>@trans.timeSpentPlaying(): @showPeriod(info.playTime.totalPeriod)</p>
         @info.playTime.tvPeriod.map { tvPeriod =>
-        <p>@trans.timeSpentOnTV: @showPeriod(tvPeriod)</p>
+        <p>@trans.timeSpentOnTV(): @showPeriod(tvPeriod)</p>
         }
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
