@@ -15,6 +15,7 @@ import makeTimeout.short
 private[api] final class UserApi(
     jsonView: lila.user.JsonView,
     relationApi: lila.relation.RelationApi,
+    prefApi: lila.pref.PrefApi,
     makeUrl: Any => Fu[String],
     apiToken: String,
     userIdsSharingIp: String => Fu[List[String]]) {
@@ -47,21 +48,26 @@ private[api] final class UserApi(
       (check(token) ?? (knownEnginesSharingIp(u.id) map (_.some))) zip
       relationApi.nbFollowing(u.id) zip
       relationApi.nbFollowers(u.id) zip
-      ctx.userId ?? { relationApi.relation(_, u.id) } zip
-      ctx.userId ?? { relationApi.relation(u.id, _) } flatMap {
-        case ((((((gameOption, userUrl), knownEngines), following), followers), relation), revRelation) => gameOption ?? { g =>
+      ctx.isAuth.?? { prefApi followable u.id } zip
+      ctx.userId.?? { relationApi.relation(_, u.id) } zip
+      ctx.userId.?? { relationApi.relation(u.id, _) } flatMap {
+        case (((((((gameOption, userUrl), knownEngines), following), followers), followable), relation), revRelation) => gameOption ?? { g =>
           makeUrl(R.Watcher(g.gameId, g.color.name)) map (_.some)
         } map { gameUrlOption =>
-          jsonView(u, extended = true) ++ Json.obj(
-            "url" -> userUrl,
-            "playing" -> gameUrlOption,
-            "knownEnginesSharingIp" -> knownEngines,
-            "nbFollowing" -> following,
-            "nbFollowers" -> followers,
-            "following" -> relation.exists(true ==),
-            "blocking" -> relation.exists(false ==),
-            "followsYou" -> revRelation.exists(true ==)
-          ).noNull
+          jsonView(u, extended = true) ++ {
+            Json.obj(
+              "url" -> userUrl,
+              "playing" -> gameUrlOption,
+              "knownEnginesSharingIp" -> knownEngines,
+              "nbFollowing" -> following,
+              "nbFollowers" -> followers
+            ) ++ ctx.isAuth.??(Json.obj(
+                "followable" -> followable,
+                "following" -> relation.exists(true ==),
+                "blocking" -> relation.exists(false ==),
+                "followsYou" -> revRelation.exists(true ==)
+              ))
+          }.noNull
         }
       } map (_.some)
   }
