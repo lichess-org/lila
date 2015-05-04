@@ -41,6 +41,12 @@ private[round] final class SocketHandler(
         messenger.watcher(gameId, member, text, socket)
       }
       case ("outoftime", _) => round(Outoftime)
+      case ("anaMove", o) => parseAnaMove(o) foreach {
+        case (orig, dest, prom, moves) => {
+          socket ! Ack(uid)
+          println(s"$orig $dest $moves")
+        }
+      }
     }) { playerId =>
       {
         case ("p", o)            => o int "v" foreach { v => socket ! PingVersion(uid, v) }
@@ -138,4 +144,12 @@ private[round] final class SocketHandler(
     blur = (d int "b") == Some(1)
     lag = d int "lag"
   } yield (orig, dest, prom, blur, ~lag)
+
+  private def parseAnaMove(o: JsObject) = for {
+    d ← o obj "d"
+    orig ← d str "orig"
+    dest ← d str "dest"
+    moves ← d str "moves"
+    prom = d str "promotion"
+  } yield (orig, dest, prom, moves)
 }

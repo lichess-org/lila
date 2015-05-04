@@ -21,21 +21,22 @@ module.exports = function(steps, analysis) {
     }
   }
 
-  // this.moveList = function(path) {
-  //   var tree = this.tree;
-  //   var moves = [];
-  //   path.forEach(function(step) {
-  //     for (var i = 0, nb = tree.length; i < nb; i++) {
-  //       var move = tree[i];
-  //       if (step.ply == move.ply && step.variation) {
-  //         tree = move.variations[step.variation - 1];
-  //         break;
-  //       } else if (step.ply >= move.ply) moves.push(move.san);
-  //       else break;
-  //     }
-  //   });
-  //   return moves;
-  // }.bind(this);
+  this.moveList = function(path) {
+    var tree = this.tree;
+    var moves = [];
+    for (var j in path) {
+      var p = path[j];
+      for (var i = 0, nb = tree.length; i < nb; i++) {
+        var move = tree[i];
+        if (p.ply == move.ply && p.variation) {
+          tree = move.variations[p.variation - 1];
+          break;
+        } else if (p.ply >= move.ply) moves.push(move.san);
+        else break;
+      }
+    }
+    return moves;
+  }.bind(this);
 
   this.explore = function(path, san) {
     var nextPath = treePath.withPly(path, treePath.currentPly(path) + 1);

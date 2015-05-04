@@ -96,24 +96,38 @@ module.exports = function(opts) {
     return role === 'knight' ? 'n' : role[0];
   };
 
-  // var addMove = function(orig, dest, promotionRole) {
-  //   $.sound.move();
-  //   var chess = new Chess(
-  //     this.vm.situation.fen, gameVariantChessId());
-  //   var promotionLetter = (dest[1] == 1 || dest[1] == 8) ? (promotionRole ? forsyth(promotionRole) : 'q') : null;
-  //   var move = chess.move({
-  //     from: orig,
-  //     to: dest,
-  //     promotion: promotionLetter
-  //   });
-  //   if (move) this.userJump(this.analyse.explore(this.vm.path, move.san));
-  //   else this.chessground.set(this.vm.situation);
-  //   m.redraw();
-  // }.bind(this);
+  var addMove = function(orig, dest, promotionRole) {
+    $.sound.move();
+    var chess = new Chess(
+      this.vm.situation.fen, gameVariantChessId());
+    var promotionLetter = (dest[1] == 1 || dest[1] == 8) ? (promotionRole ? forsyth(promotionRole) : 'q') : null;
+    var move = chess.move({
+      from: orig,
+      to: dest,
+      promotion: promotionLetter
+    });
+    if (move) this.userJump(this.analyse.explore(this.vm.path, move.san));
+    else this.chessground.set(this.vm.situation);
+    m.redraw();
+  }.bind(this);
 
   var userMove = function(orig, dest) {
-    if (!promotion.start(this, orig, dest, addMove)) addMove(orig, dest);
+    if (!promotion.start(this, orig, dest, sendMove)) sendMove(orig, dest);
   }.bind(this);
+
+  var sendMove = function(orig, dest, prom) {
+    var move = {
+      orig: orig,
+      dest: dest,
+      pgn: this.analyse.moveList(this.vm.path).join(' ')
+    };
+    if (prom) move.promotion = prom;
+    this.socket.send('anaMove', move, {
+      ackable: true
+    });
+  }.bind(this);
+
+  this.socket = new socket(opts.socketSend, this);
 
   this.router = opts.routes;
 
