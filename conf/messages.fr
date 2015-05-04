@@ -475,3 +475,4 @@ forumPosts=Messages sur Forum
 timeSpentPlaying=Temps total joué
 watchGames=Regarder parties
 timeSpentOnTV=Temps passé sur TV
+castling=Roque
