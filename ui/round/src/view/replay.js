@@ -47,7 +47,7 @@ function renderResult(ctrl, asTable) {
 }
 
 function renderTable(ctrl) {
-  var steps = ctrl.data.game.steps;
+  var steps = ctrl.data.steps;
   var nbSteps = steps.length;
   if (!nbSteps) return;
   var pairs = [];
@@ -74,7 +74,7 @@ function renderTable(ctrl) {
 }
 
 function renderButtons(ctrl) {
-  var nbSteps = ctrl.data.game.steps.length;
+  var nbSteps = ctrl.data.steps.length;
   var flipAttrs = {
     class: 'button flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
     'data-hint': ctrl.trans('flipBoard'),
@@ -112,7 +112,7 @@ function autoScroll(movelist) {
 }
 
 module.exports = function(ctrl) {
-  var h = ctrl.vm.ply + ctrl.stepsHash(ctrl.data.game.steps) + ctrl.vm.flip;
+  var h = ctrl.vm.ply + ctrl.stepsHash(ctrl.data.steps) + ctrl.vm.flip;
   if (ctrl.vm.replayHash === h) return {
     subtree: 'retain'
   };

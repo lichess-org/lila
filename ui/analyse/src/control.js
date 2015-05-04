@@ -1,4 +1,5 @@
 var path = require('./path');
+var empty = require('./util').empty;
 
 function canGoForward(ctrl) {
   var tree = ctrl.analyse.tree;
@@ -25,7 +26,7 @@ function canEnterVariation(ctrl) {
         if (step.variation) {
           tree = move.variations[step.variation - 1];
           break;
-        } else ok = move.variations.length > 0;
+        } else ok = !empty(move.variations);
       }
     }
   });

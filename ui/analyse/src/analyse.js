@@ -53,6 +53,7 @@ module.exports = function(steps, analysis) {
       }
     });
     if (curMove) {
+      curMove.variations = curMove.variations || [];
       if (curMove.san == san) return nextPath;
       for (var i = 0; i < curMove.variations.length; i++) {
         if (curMove.variations[i][0].san == san) {

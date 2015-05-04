@@ -38,7 +38,7 @@ module.exports = {
       m.redraw();
     }));
     k.bind(['down', 'j'], preventing(function() {
-      ctrl.jump(ctrl.data.game.steps.length);
+      ctrl.jump(ctrl.data.steps.length - 1);
       m.redraw();
     }));
     k.bind('f', preventing(ctrl.flip));

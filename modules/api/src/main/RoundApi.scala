@@ -92,43 +92,38 @@ private[api] final class RoundApi(
     analysis: Analysis,
     variant: Variant,
     possibleMoves: Boolean): List[Step] =
-    analysis.advices.pp.foldLeft(steps.pp) {
+    analysis.advices.foldLeft(steps) {
       case (steps, ad) => (for {
         before <- steps lift (ad.ply - 1)
         after <- steps lift ad.ply
       } yield steps.updated(ad.ply, after.copy(
         nag = ad.nag.symbol.some,
-        comments = ad.makeComment(true, true) :: step.comments,
-        variations = if (ad.info.variation.isEmpty) step.variations
-        else makeVariation(before, ad.info, variant, possibleMoves) :: step.variations))
+        comments = ad.makeComment(false, true) :: after.comments,
+        variations = if (ad.info.variation.isEmpty) after.variations
+        else makeVariation(before, ad.info, variant, possibleMoves) :: after.variations))
       ) | steps
     }
 
   private def makeVariation(fromStep: Step, info: Info, variant: Variant, possibleMoves: Boolean): List[Step] =
-    try {
-      chess.Replay.boards(
-        info.pp.variation take 20,
-        fromStep.pp.fen.some,
-        variant,
-        info.color
-      ).err.drop(1).pp.zipWithIndex.map {
-          case (board, i) =>
-            val ply = info.ply + i
-            var color = chess.Color(ply % 2 == 0)
-            Step(
-              ply = ply,
-              move = for {
-                pos <- board.history.lastMove
-                san <- info.variation lift i
-              } yield Step.Move(pos, san),
-              fen = Forsyth exportBoard board,
-              check = board check color,
-              dests = possibleMoves ?? chess.Situation(board, color).destinations)
-        }
-    }
-    catch {
-      case e: Exception => Nil
-    }
+    chess.Replay.boards(
+      info.variation take 20,
+      fromStep.fen.some,
+      variant,
+      info.color
+    ).err.drop(1).zipWithIndex.map {
+        case (board, i) =>
+          val ply = info.ply + i
+          var color = chess.Color(ply % 2 == 0)
+          Step(
+            ply = ply,
+            move = for {
+              pos <- board.history.lastMove
+              san <- info.variation lift i
+            } yield Step.Move(pos, san),
+            fen = Forsyth exportBoard board,
+            check = board check color,
+            dests = possibleMoves ?? chess.Situation(board, color).destinations)
+      }
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
