@@ -168,6 +168,7 @@ search=Recherche
 advancedSearch=Recherche avancée
 tournament=Tournoi
 tournaments=Tournois
+lichessTournaments=Tournois Lichess
 tournamentPoints=Score de tournoi
 viewTournament=Voir le tournoi
 backToTournament=Retour au tournoi
