@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._
 import play.twirl.api.Html
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app._
@@ -16,11 +17,19 @@ object Relation extends LilaController {
   private def renderActions(userId: String, mini: Boolean)(implicit ctx: Context) =
     (ctx.userId ?? { env.api.relation(_, userId) }) zip
       (ctx.isAuth ?? { Env.pref.api followable userId }) zip
-      (ctx.userId ?? { env.api.blocks(userId, _) }) map {
-        case ((relation, followable), blocked) => mini.fold(
-          html.relation.mini(userId, blocked = blocked, followable = followable, relation = relation),
-          html.relation.actions(userId, relation = relation, blocked = blocked, followable = followable))
-      } map { Ok(_) }
+      (ctx.userId ?? { env.api.blocks(userId, _) }) flatMap {
+        case ((relation, followable), blocked) => negotiate(
+          html = fuccess(Ok(mini.fold(
+            html.relation.mini(userId, blocked = blocked, followable = followable, relation = relation),
+            html.relation.actions(userId, relation = relation, blocked = blocked, followable = followable)
+          ))),
+          api = _ => fuccess(Ok(Json.obj(
+            "followable" -> followable,
+            "following" -> relation.exists(true ==),
+            "blocking" -> relation.exists(false ==)
+          )))
+        )
+      }
 
   def follow(userId: String) = Auth { implicit ctx =>
     me =>
