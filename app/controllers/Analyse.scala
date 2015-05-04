@@ -65,7 +65,7 @@ object Analyse extends LilaController {
             Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion,
               tv = none,
               analysis.map(pgn -> _),
-              initialFen = initialFen.some,
+              initialFenO = initialFen.some,
               withMoveTimes = true,
               withPossibleMoves = true) map { data =>
                 Ok(html.analyse.replay(

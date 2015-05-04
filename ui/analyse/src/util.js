@@ -12,5 +12,8 @@ module.exports = {
   },
   defined: function(v) {
     return typeof v !== 'undefined';
+  },
+  empty: function(a) {
+    return !a || a.length === 0;
   }
 };

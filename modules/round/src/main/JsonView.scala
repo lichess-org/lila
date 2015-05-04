@@ -6,10 +6,9 @@ import scala.math
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
-import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock, Step }
+import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
-import Step.stepJsonWriter
 
 import chess.format.Forsyth
 import chess.{ Color, Clock }
@@ -39,16 +38,16 @@ final class JsonView(
     pref: Pref,
     apiVersion: Int,
     playerUser: Option[User],
+    initialFen: Option[String],
     withBlurs: Boolean): Fu[JsObject] =
-    GameRepo.initialFen(pov.game) zip
-      getSocketStatus(pov.game.id) zip
+    getSocketStatus(pov.game.id) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
       canTakeback(pov.game) zip
       getPlayerChat(pov.game, playerUser) map {
-        case ((((initialFen, socket), opponentUser), takebackable), chat) =>
+        case (((socket, opponentUser), takebackable), chat) =>
           import pov._
           Json.obj(
-            "game" -> gameJson(game, initialFen, false),
+            "game" -> gameJson(game, initialFen),
             "clock" -> game.clock.map(clockJson),
             "correspondence" -> game.correspondenceClock.map(correspondenceJson),
             "player" -> Json.obj(
@@ -121,18 +120,16 @@ final class JsonView(
     user: Option[User],
     tv: Option[Boolean],
     withBlurs: Boolean,
-    initialFen: Option[Option[String]] = None,
-    withMoveTimes: Boolean,
-    withPossibleMoves: Boolean) =
-    initialFen.fold(GameRepo initialFen pov.game)(fuccess) zip
-      getSocketStatus(pov.game.id) zip
+    initialFen: Option[String] = None,
+    withMoveTimes: Boolean) =
+    getSocketStatus(pov.game.id) zip
       getWatcherChat(pov.game, user) zip
       UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
-        case (((initialFen, socket), chat), (playerUser, opponentUser)) =>
+        case ((socket, chat), (playerUser, opponentUser)) =>
           import pov._
           Json.obj(
             "game" -> {
-              gameJson(game, initialFen, withPossibleMoves) ++ Json.obj(
+              gameJson(game, initialFen) ++ Json.obj(
                 "moveTimes" -> withMoveTimes.option(game.moveTimes),
                 "opening" -> game.opening.map { o =>
                   Json.obj(
@@ -228,7 +225,7 @@ final class JsonView(
         "userAnalysis" -> true)
     }
 
-  private def gameJson(game: Game, initialFen: Option[String], withPossibleMoves: Boolean) = Json.obj(
+  private def gameJson(game: Game, initialFen: Option[String]) = Json.obj(
     "id" -> game.id,
     "variant" -> variantJson(game.variant),
     "speed" -> game.speed.key,
@@ -247,23 +244,7 @@ final class JsonView(
     "rematch" -> game.next,
     "source" -> game.source.map(sourceJson),
     "status" -> statusJson(game.status),
-    "tournamentId" -> game.tournamentId,
-    "steps" -> steps(game, initialFen, withPossibleMoves)
-  ).noNull
-
-  private def steps(game: Game, initialFen: Option[String], possibleMoves: Boolean): List[Step] =
-    chess.Replay.boards(game.pgnMoves, initialFen, game.variant).err.zipWithIndex map {
-      case (board, i) =>
-        var color = chess.Color(i % 2 == 0)
-        Step(
-          move = for {
-            pos <- board.history.lastMove
-            san <- game.pgnMoves.lift(i - 1)
-          } yield Step.Move(pos, san),
-          fen = chess.format.Forsyth.exportBoard(board),
-          check = board.check(color),
-          dests = possibleMoves ?? chess.Situation(board, color).destinations)
-    }
+    "tournamentId" -> game.tournamentId).noNull
 
   private def blurs(game: Game, player: lila.game.Player) = {
     val percent = game.playerBlurPercent(player.color)

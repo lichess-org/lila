@@ -2,6 +2,7 @@ var m = require('mithril');
 var chessground = require('chessground');
 var classSet = require('chessground').util.classSet;
 var defined = require('./util').defined;
+var empty = require('./util').empty;
 var game = require('game').game;
 var partial = require('chessground').util.partial;
 var renderStatus = require('game').view.status;
@@ -91,7 +92,7 @@ function renderVariationContent(ctrl, variation, path) {
 }
 
 function renderVariationMeta(ctrl, move, path) {
-  if (!move || !move.variations.length) return;
+  if (!move || empty(move.variations)) return;
   return move.variations.map(function(variation, i) {
     return renderVariationNested(ctrl, variation, treePath.withVariation(path, i + 1));
   });
@@ -127,11 +128,11 @@ function renderMeta(ctrl, move, path) {
   if (!ctrl.vm.comments) return;
   var opening = ctrl.data.game.opening;
   opening = (move && opening && opening.size == move.ply) ? renderOpening(ctrl, opening) : null;
-  if (!move || (!opening && !move.comments.length && !move.variations.length)) return;
+  if (!move || (!opening && empty(move.comments) && empty(move.variations))) return;
   var children = [];
   if (opening) children.push(opening);
   var commentClass;
-  if (move.comments.length) move.comments.forEach(function(comment) {
+  if (!empty(move.comments)) move.comments.forEach(function(comment) {
     if (comment.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
     else if (comment.indexOf('Mistake.') === 0) commentClass = 'mistake';
     else if (comment.indexOf('Blunder.') === 0) commentClass = 'blunder';
@@ -140,7 +141,8 @@ function renderMeta(ctrl, move, path) {
     }, comment));
   });
   var border = children.length === 0;
-  if (move.variations.length) move.variations.forEach(function(variation, i) {
+  if (!empty(move.variations)) move.variations.forEach(function(variation, i) {
+    if (empty(variation)) return;
     children.push(renderVariation(
       ctrl,
       variation,

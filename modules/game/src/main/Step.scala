@@ -5,14 +5,19 @@ import chess.Pos
 import play.api.libs.json._
 
 case class Step(
+    ply: Int,
     move: Option[Step.Move],
     fen: String,
     check: Boolean,
     dests: Map[Pos, List[Pos]],
     eval: Option[Int] = None,
     mate: Option[Int] = None,
+    nag: Option[String] = None,
     comments: List[String] = Nil,
     variations: List[List[Step]] = Nil) {
+
+  // who's color plays next
+  def color = chess.Color(ply % 2 == 0)
 }
 
 object Step {
@@ -27,9 +32,11 @@ object Step {
       add("check", true, check) _ compose
       add("eval", eval) _ compose
       add("mate", mate) _ compose
+      add("nag", nag) _ compose
       add("comments", comments, comments.nonEmpty) _ compose
       add("variations", variations, variations.nonEmpty) _
     )(Json.obj(
+        "ply" -> ply,
         "uci" -> move.map(_.uci),
         "san" -> move.map(_.san),
         "fen" -> fen,

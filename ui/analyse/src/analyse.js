@@ -1,35 +1,9 @@
 var treePath = require('./path');
 var defined = require('./util').defined;
 
-module.exports = function(game, analysis) {
+module.exports = function(steps, analysis) {
 
-  var makeTree = function(steps, fromPly) {
-    return steps.map(function(s, i) {
-      return {
-        ply: fromPly + i,
-        san: s.san,
-        uci: s.uci,
-        fen: s.fen,
-        dests: s.dests,
-        check: s.check,
-        comments: [],
-        variations: []
-      };
-    });
-  }
-
-  var applyAnalysis = function(tree, analysed) {
-    analysed.forEach(function(ana, i) {
-      if (!tree[i]) return;
-      if (defined(ana.mate)) tree[i].mate = ana.mate;
-      else if (defined(ana.eval)) tree[i].eval = ana.eval;
-      if (ana.comment) tree[i].comments.push(ana.comment);
-      if (ana.variation) tree[i].variations.push(makeTree(ana.variation.split(' '), i + 1));
-    });
-  };
-
-  this.tree = makeTree(game.steps, 0);
-  if (analysis) applyAnalysis(this.tree, analysis.moves);
+  this.tree = steps;
 
   this.getStep = function(path) {
     var tree = this.tree;

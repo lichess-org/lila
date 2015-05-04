@@ -14,7 +14,7 @@ var m = require('mithril');
 module.exports = function(opts) {
 
   this.data = data({}, opts.data);
-  this.analyse = new analyse(this.data.game, this.data.analysis);
+  this.analyse = new analyse(this.data.steps);
   this.actionMenu = new actionMenu();
   this.autoplay = new autoplay(this);
 
