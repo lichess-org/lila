@@ -1,9 +1,10 @@
 @(vv: lila.video.VideoView, control: lila.video.UserControl)(implicit ctx: Context)
 
 <a class="card paginated_element" href="@routes.Video.show(vv.video.id)?@control.queryString">
-  @if(ctx.isAuth) {
-  <span class="view@if(vv.view){ yes}" data-icon="v"></span>
+  @if(vv.view) {
+  <span class="view">watched</span>
   }
+  <span class="duration">@vv.video.durationString</span>
   <span class="img" style="background-image: url(@vv.video.thumbnail)"></span>
   <span class="info">
     <span class="title">@vv.video.title</span>
