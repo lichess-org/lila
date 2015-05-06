@@ -30,6 +30,6 @@
   },
   "dependencies": {
     "lodash": "~3.7.0",
-    "mithril": "0.1.30"
+    "mithril": "0.2.0"
   }
 }
