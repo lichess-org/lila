@@ -17,7 +17,7 @@ private[monitor] final class SocketHandler(
     }
 
     Handler(hub, socket, uid, Join(uid), none) {
-      case Connected(enum, member) => controller -> enum
+      case Connected(enum, member) => (controller, enum, member)
     }
   }
 }

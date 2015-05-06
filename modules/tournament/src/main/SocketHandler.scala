@@ -33,7 +33,7 @@ private[tournament] final class SocketHandler(
           join = Join(uid = uid, user = user, version = version)
           handler ← Handler(hub, socket, uid, join, user map (_.id)) {
             case Connected(enum, member) =>
-              controller(socket, tourId, uid, member) -> enum
+              (controller(socket, tourId, uid, member), enum, member)
           }
         } yield handler.some
       }

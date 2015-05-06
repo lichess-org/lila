@@ -1,4 +1,4 @@
-package lila.game
+package lila.socket
 
 import chess.Pos
 

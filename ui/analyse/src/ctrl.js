@@ -50,7 +50,10 @@ module.exports = function(opts) {
       s = this.analyse.getStep(this.vm.path);
     } catch (e) {
       console.log(e);
+    }
+    if (!s) {
       this.vm.path = treePath.default();
+      this.vm.pathStr = treePath.write(this.vm.path);
       s = this.analyse.getStep(this.vm.path);
     }
     var color = s.ply % 2 === 0 ? 'white' : 'black';

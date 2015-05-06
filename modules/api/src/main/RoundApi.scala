@@ -8,8 +8,8 @@ import chess.variant.Variant
 import lila.analyse.{ Analysis, Info }
 import lila.common.LightUser
 import lila.common.PimpedJson._
-import lila.game.Step.stepJsonWriter
-import lila.game.{ Pov, Game, Step, GameRepo }
+import lila.socket.Step
+import lila.game.{ Pov, Game, GameRepo }
 import lila.pref.Pref
 import lila.round.JsonView
 import lila.security.Granter
@@ -65,6 +65,9 @@ private[api] final class RoundApi(
           )(json)
         }
     }
+
+  def userAnalysisJson(pov: Pov, pref: Pref) =
+    jsonView.userAnalysisJson(pov, pref) map withSteps(pov.game, none, none, true)_
 
   private def withSteps(game: Game, a: Option[(Pgn, Analysis)], initialFen: Option[String], possibleMoves: Boolean)(json: JsObject) =
     json ++ Json.obj("steps" -> {

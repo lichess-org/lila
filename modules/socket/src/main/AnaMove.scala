@@ -1,6 +1,7 @@
-package lila.round
+package lila.socket
 
-import lila.game.Step
+import play.api.libs.json.JsObject
+import lila.common.PimpedJson._
 
 case class AnaMove(
     orig: chess.Pos,
@@ -21,4 +22,23 @@ case class AnaMove(
         check = game.situation.check,
         dests = !game.situation.end ?? game.situation.destinations)
     }
+}
+
+object AnaMove {
+
+  def parse(o: JsObject) = for {
+    d ← o obj "d"
+    orig ← d str "orig" flatMap chess.Pos.posAt
+    dest ← d str "dest" flatMap chess.Pos.posAt
+    variant ← d str "variant" map chess.variant.Variant.orDefault
+    fen ← d str "fen"
+    path ← d str "path"
+    prom = d str "promotion" flatMap (_.headOption) flatMap chess.Role.promotable
+  } yield AnaMove(
+    orig = orig,
+    dest = dest,
+    variant = variant,
+    fen = fen,
+    path = path,
+    promotion = prom)
 }

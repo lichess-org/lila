@@ -206,7 +206,6 @@ final class JsonView(
             else (initialFen | chess.format.Forsyth.initial)
           },
           "fen" -> fen,
-          "moves" -> game.pgnMoves.mkString(" "),
           "turns" -> game.turns,
           "player" -> game.turnColor.name,
           "status" -> statusJson(game.status)),

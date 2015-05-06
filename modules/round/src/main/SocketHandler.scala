@@ -41,18 +41,6 @@ private[round] final class SocketHandler(
         messenger.watcher(gameId, member, text, socket)
       }
       case ("outoftime", _) => round(Outoftime)
-      case ("anaMove", o) =>
-        parseAnaMove(o) foreach { anaMove =>
-          anaMove.step match {
-            case scalaz.Success(step) =>
-              member push lila.socket.Socket.makeMessage("step", Json.obj(
-                "step" -> step.json,
-                "path" -> anaMove.path
-              ))
-            case scalaz.Failure(err) =>
-              member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
-          }
-        }
     }) { playerId =>
       {
         case ("p", o)            => o int "v" foreach { v => socket ! PingVersion(uid, v) }
@@ -136,7 +124,7 @@ private[round] final class SocketHandler(
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
       Handler(hub, socket, uid, join, user map (_.id)) {
         case Connected(enum, member) =>
-          controller(pov.gameId, socket, uid, pov.ref, member) -> enum
+          (controller(pov.gameId, socket, uid, pov.ref, member), enum, member)
       }
     }
   }
@@ -149,22 +137,6 @@ private[round] final class SocketHandler(
     blur = (d int "b") == Some(1)
     lag = d int "lag"
   } yield (orig, dest, prom, blur, ~lag)
-
-  private def parseAnaMove(o: JsObject) = for {
-    d ← o obj "d"
-    orig ← d str "orig" flatMap chess.Pos.posAt
-    dest ← d str "dest" flatMap chess.Pos.posAt
-    variant ← d str "variant" map chess.variant.Variant.orDefault
-    fen ← d str "fen"
-    path ← d str "path"
-    prom = d str "promotion" flatMap (_.headOption) flatMap chess.Role.promotable
-  } yield AnaMove(
-    orig = orig,
-    dest = dest,
-    variant = variant,
-    fen = fen,
-    path = path,
-    promotion = prom)
 
   private val ackEvent = Json.obj("t" -> "ack")
 }

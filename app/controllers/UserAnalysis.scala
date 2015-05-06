@@ -18,7 +18,7 @@ object UserAnalysis extends LilaController {
     val decodedFen = fenStr.map { java.net.URLDecoder.decode(_, "UTF-8").trim }.filter(_.nonEmpty)
     val situation = (decodedFen flatMap Forsyth.<<<) | SituationPlus(Situation(chess.variant.Standard), 1)
     val pov = makePov(situation)
-    Env.round.jsonView.userAnalysisJson(pov, ctx.pref) map { data =>
+    Env.api.roundApi.userAnalysisJson(pov, ctx.pref) map { data =>
       Ok(html.board.userAnalysis(data, none))
     }
   }
@@ -41,7 +41,7 @@ object UserAnalysis extends LilaController {
   def game(id: String, color: String) = Open { implicit ctx =>
     OptionFuOk(GameRepo game id) { game =>
       val pov = Pov(game, chess.Color(color == "white"))
-      Env.round.jsonView.userAnalysisJson(pov, ctx.pref) map { data =>
+      Env.api.roundApi.userAnalysisJson(pov, ctx.pref) map { data =>
         html.board.userAnalysis(data, pov.some)
       }
     }

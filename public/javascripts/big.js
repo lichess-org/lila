@@ -2122,9 +2122,22 @@ lichess.storage = {
   ////////////////
 
   function startUserAnalysis(element, cfg) {
+    var analyse;
     cfg.path = location.hash ? location.hash.replace(/#/, '') : '';
     cfg.element = element.querySelector('.analyse');
-    LichessAnalyse(cfg);
+    lichess.socket = new lichess.StrongSocket('/socket', 0, {
+      options: {
+        name: "analyse"
+      },
+      params: {
+        ran: "--ranph--",
+      },
+      receive: function(t, d) {
+        analyse.socketReceive(t, d);
+      }
+    });
+    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
+    analyse = LichessAnalyse(cfg);
   }
 
   /////////////// forum.js ////////////////////
