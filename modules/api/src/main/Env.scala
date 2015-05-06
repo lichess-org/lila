@@ -13,6 +13,8 @@ final class Env(
     bus: lila.common.Bus,
     roundJsonView: lila.round.JsonView,
     noteApi: lila.round.NoteApi,
+    relationApi: lila.relation.RelationApi,
+    prefApi: lila.pref.PrefApi,
     pgnDump: lila.game.PgnDump,
     userEnv: lila.user.Env,
     analyseEnv: lila.analyse.Env,
@@ -52,6 +54,8 @@ final class Env(
     jsonView = userEnv.jsonView,
     makeUrl = apiUrl,
     apiToken = apiToken,
+    relationApi = relationApi,
+    prefApi = prefApi,
     userIdsSharingIp = userIdsSharingIp)
 
   val analysisApi = new AnalysisApi
@@ -98,6 +102,8 @@ object Env {
     getSimul = lila.simul.Env.current.repo.find,
     roundJsonView = lila.round.Env.current.jsonView,
     noteApi = lila.round.Env.current.noteApi,
+    relationApi = lila.relation.Env.current.api,
+    prefApi = lila.pref.Env.current.api,
     pgnDump = lila.game.Env.current.pgnDump,
     userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp,
     bus = lila.common.PlayApp.system.lilaBus,

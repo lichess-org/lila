@@ -16,6 +16,7 @@ private[video] final class Youtube(
 
   private implicit val readSnippet = Json.reads[Snippet]
   private implicit val readStatistics = Json.reads[Statistics]
+  private implicit val readContentDetails = Json.reads[ContentDetails]
   private implicit val readEntry = Json.reads[Entry]
   private implicit val readEntries: Reads[Seq[Entry]] =
     (__ \ "items").read(Reads seq readEntry)
@@ -27,6 +28,7 @@ private[video] final class Youtube(
         likes = ~parseIntOption(entry.statistics.likeCount) -
           ~parseIntOption(entry.statistics.dislikeCount),
         description = entry.snippet.description,
+        duration = Some(entry.contentDetails.seconds),
         publishedAt = entry.snippet.publishedAt.flatMap { at =>
           scala.util.Try { new DateTime(at) }.toOption
         })
@@ -39,7 +41,7 @@ private[video] final class Youtube(
   private def fetch: Fu[List[Entry]] = api.video.allIds flatMap { ids =>
     WS.url(url).withQueryString(
       "id" -> scala.util.Random.shuffle(ids).take(max).mkString(","),
-      "part" -> "id,statistics,snippet",
+      "part" -> "id,statistics,snippet,contentDetails",
       "key" -> apiKey
     ).get() flatMap {
         case res if res.status == 200 => readEntries reads res.json match {
@@ -55,18 +57,20 @@ private[video] final class Youtube(
 
 object Youtube {
 
-  def empty = Metadata(0, 0, None, None)
+  def empty = Metadata(0, 0, None, None, None)
 
   case class Metadata(
     views: Int,
     likes: Int,
     description: Option[String],
+    duration: Option[Int], // in seconds
     publishedAt: Option[DateTime])
 
   private[video] case class Entry(
     id: String,
     snippet: Snippet,
-    statistics: Statistics)
+    statistics: Statistics,
+    contentDetails: ContentDetails)
 
   private[video] case class Snippet(
     description: Option[String],
@@ -76,4 +80,10 @@ object Youtube {
     viewCount: String,
     likeCount: String,
     dislikeCount: String)
+
+  private val iso8601Formatter = org.joda.time.format.ISOPeriodFormat.standard()
+
+  private[video] case class ContentDetails(duration: String) {
+    def seconds: Int = iso8601Formatter.parsePeriod(duration).toStandardSeconds.getSeconds
+  }
 }

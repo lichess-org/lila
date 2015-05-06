@@ -23,6 +23,10 @@ case class Video(
       (targets intersect other.targets).size +
       (if (author == other.author) 1 else 0)
 
+  def durationString = metadata.duration.map { seconds =>
+    "%02d:%02d".format(seconds / 60, seconds % 60)
+  }
+
   override def toString = s"[$id] $title ($author)"
 }
 

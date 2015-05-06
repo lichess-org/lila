@@ -33,7 +33,8 @@ final class Stream(
           opponentLoc.map(_.lat) getOrElse "",
           opponentLoc.map(_.lon) getOrElse "",
           move.move,
-          move.piece
+          move.piece,
+          opponentLoc.map(_.country) getOrElse ""
         ) mkString "|")
     }
 

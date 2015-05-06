@@ -28,48 +28,48 @@ object Api extends LilaController {
     )) as JSON
   }
 
-  def user(username: String) = ApiResult { req =>
+  def user(username: String) = ApiResult { implicit ctx =>
     userApi.one(
       username = username,
-      token = get("token", req))
+      token = get("token"))
   }
 
-  def users = ApiResult { req =>
+  def users = ApiResult { implicit ctx =>
     userApi.list(
-      team = get("team", req),
-      engine = getBoolOpt("engine", req),
-      token = get("token", req),
-      nb = getInt("nb", req)
+      team = get("team"),
+      engine = getBoolOpt("engine"),
+      token = get("token"),
+      nb = getInt("nb")
     ) map (_.some)
   }
 
-  def games = ApiResult { req =>
+  def games = ApiResult { implicit ctx =>
     gameApi.list(
-      username = get("username", req),
-      rated = getBoolOpt("rated", req),
-      analysed = getBoolOpt("analysed", req),
-      withAnalysis = getBool("with_analysis", req),
-      withMoves = getBool("with_moves", req),
-      withOpening = getBool("with_opening", req),
-      token = get("token", req),
-      nb = getInt("nb", req)
+      username = get("username"),
+      rated = getBoolOpt("rated"),
+      analysed = getBoolOpt("analysed"),
+      withAnalysis = getBool("with_analysis"),
+      withMoves = getBool("with_moves"),
+      withOpening = getBool("with_opening"),
+      token = get("token"),
+      nb = getInt("nb")
     ) map (_.some)
   }
 
-  def game(id: String) = ApiResult { req =>
+  def game(id: String) = ApiResult { implicit ctx =>
     gameApi.one(
       id = id take lila.game.Game.gameIdSize,
-      withAnalysis = getBool("with_analysis", req),
-      withMoves = getBool("with_moves", req),
-      withOpening = getBool("with_opening", req),
-      withFens = getBool("with_fens", req),
-      token = get("token", req))
+      withAnalysis = getBool("with_analysis"),
+      withMoves = getBool("with_moves"),
+      withOpening = getBool("with_opening"),
+      withFens = getBool("with_fens"),
+      token = get("token"))
   }
 
-  private def ApiResult(js: RequestHeader => Fu[Option[JsValue]]) = Action async { req =>
-    js(req) map {
+  private def ApiResult(js: lila.api.Context => Fu[Option[JsValue]]) = Open { implicit ctx =>
+    js(ctx) map {
       case None => NotFound
-      case Some(json) => get("callback", req) match {
+      case Some(json) => get("callback") match {
         case None           => Ok(json) as JSON
         case Some(callback) => Ok(s"$callback($json)") as JAVASCRIPT
       }

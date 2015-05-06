@@ -1,8 +1,9 @@
 package lila.user
 
+import lila.common.PimpedJson._
 import lila.rating.{ Perf, Glicko }
 import play.api.libs.json._
-import lila.common.PimpedJson._
+import User.PlayTime
 
 final class JsonView(isOnline: String => Boolean) {
 
@@ -19,6 +20,7 @@ final class JsonView(isOnline: String => Boolean) {
     })
   }
   private implicit val profileWrites = Json.writes[Profile]
+  private implicit val playTimeWrites = Json.writes[PlayTime]
 
   def apply(u: User, extended: Boolean) = Json.obj(
     "id" -> u.id,
@@ -29,6 +31,19 @@ final class JsonView(isOnline: String => Boolean) {
       "engine" -> u.engine,
       "language" -> u.lang,
       "profile" -> u.profile.??(profileWrites.writes).noNull,
-      "perfs" -> u.perfs
+      "perfs" -> u.perfs,
+      "createdAt" -> u.createdAt,
+      "seenAt" -> u.seenAt,
+      "playTime" -> u.playTime,
+      "count" -> Json.obj(
+        "game" -> u.count.game,
+        "rated" -> u.count.rated,
+        "ai" -> u.count.ai,
+        "draw" -> u.count.draw,
+        "drawH" -> u.count.drawH,
+        "loss" -> u.count.loss,
+        "lossH" -> u.count.lossH,
+        "win" -> u.count.win,
+        "winH" -> u.count.winH)
     )).noNull
 }

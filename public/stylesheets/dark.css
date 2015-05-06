@@ -38,6 +38,9 @@ body.dark #video .tag_list a:hover {
   background: #3a3a3a;
   color: #a0a0a0;
 }
+body.dark #video .card .duration {
+  background: rgba(0,0,0,0.7);
+}
 body.dark #site_title {
   color: #acacac;
 }
