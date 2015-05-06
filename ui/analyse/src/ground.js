@@ -8,7 +8,6 @@ function makeConfig(data, config, onMove) {
     lastMove: config.lastMove,
     orientation: data.player.color,
     coordinates: data.pref.coords !== 0,
-    viewOnly: game.userAnalysableVariants.indexOf(data.game.variant.key) === -1,
     movable: {
       free: false,
       color: config.movable.color,

@@ -83,18 +83,8 @@ function hasAi(data) {
   return data.player.ai || data.opponent.ai;
 }
 
-var userAnalysableVariants = [
-  'standard',
-  'fromPosition',
-  'chess960',
-  'kingOfTheHill',
-  'threeCheck'
-];
-
 function userAnalysable(data) {
-  return playable(data) &&
-    (!data.clock || !isPlayerPlaying(data)) &&
-    userAnalysableVariants.indexOf(data.game.variant.key) !== -1;
+  return playable(data) && (!data.clock || !isPlayerPlaying(data));
 }
 
 function setOnGame(data, color, onGame) {
@@ -129,7 +119,6 @@ module.exports = {
   mandatory: mandatory,
   replayable: replayable,
   userAnalysable: userAnalysable,
-  userAnalysableVariants: userAnalysableVariants,
   getPlayer: getPlayer,
   parsePossibleMoves: parsePossibleMoves,
   nbMoves: nbMoves,
