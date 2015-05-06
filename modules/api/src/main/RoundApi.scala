@@ -68,18 +68,16 @@ private[api] final class RoundApi(
 
   private def withSteps(game: Game, a: Option[(Pgn, Analysis)], initialFen: Option[String], possibleMoves: Boolean)(json: JsObject) =
     json ++ Json.obj("steps" -> {
-      val steps = chess.Replay.boards(game.pgnMoves, initialFen, game.variant).err.zipWithIndex.map {
-        case (board, ply) =>
-          var color = chess.Color(ply % 2 == 0)
-          Step(
-            ply = ply,
-            move = for {
-              pos <- board.history.lastMove
-              san <- game.pgnMoves.lift(ply - 1)
-            } yield Step.Move(pos, san),
-            fen = Forsyth exportBoard board,
-            check = board check color,
-            dests = possibleMoves ?? chess.Situation(board, color).destinations)
+      val steps = chess.Replay.games(game.pgnMoves, initialFen, game.variant).err.map { g =>
+        Step(
+          ply = g.turns,
+          move = for {
+            pos <- g.board.history.lastMove
+            san <- g.pgnMoves.lastOption
+          } yield Step.Move(pos._1, pos._2, san),
+          fen = Forsyth >> g,
+          check = g.situation.check,
+          dests = possibleMoves ?? g.situation.destinations)
       }
       a.fold(steps) {
         case (pgn, analysis) => applyAnalysis(steps, pgn, analysis, game.variant, possibleMoves)
@@ -105,24 +103,21 @@ private[api] final class RoundApi(
     }
 
   private def makeVariation(fromStep: Step, info: Info, variant: Variant, possibleMoves: Boolean): List[Step] =
-    chess.Replay.boards(
+    chess.Replay.games(
       info.variation take 20,
       fromStep.fen.some,
-      variant,
-      info.color
-    ).err.drop(1).zipWithIndex.map {
-        case (board, i) =>
-          val ply = info.ply + i
-          var color = chess.Color(ply % 2 == 0)
-          Step(
-            ply = ply,
-            move = for {
-              pos <- board.history.lastMove
-              san <- info.variation lift i
-            } yield Step.Move(pos, san),
-            fen = Forsyth exportBoard board,
-            check = board check color,
-            dests = possibleMoves ?? chess.Situation(board, color).destinations)
+      variant
+    ).err.drop(1).map { g =>
+        Step(
+          ply = g.turns,
+          move = for {
+            pos <- g.board.history.lastMove
+            (orig, dest) = pos
+            san <- g.pgnMoves.lastOption
+          } yield Step.Move(orig, dest, san),
+          fen = Forsyth >> g,
+          check = g.situation.check,
+          dests = possibleMoves ?? g.situation.destinations)
       }
 
   private def withNote(note: String)(json: JsObject) =

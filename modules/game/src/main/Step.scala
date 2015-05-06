@@ -18,12 +18,14 @@ case class Step(
 
   // who's color plays next
   def color = chess.Color(ply % 2 == 0)
+
+  def json = Step.stepJsonWriter writes this
 }
 
 object Step {
 
-  case class Move(pos: (Pos, Pos), san: String) {
-    def uci = s"${pos._1.key}${pos._2.key}"
+  case class Move(orig: Pos, dest: Pos, san: String) {
+    def uci = s"$orig$dest"
   }
 
   implicit val stepJsonWriter: Writes[Step] = Writes { step =>

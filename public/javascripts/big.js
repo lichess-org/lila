@@ -1999,6 +1999,9 @@ lichess.storage = {
           ran: "--ranph--",
           userTv: $('.user_tv').data('user-tv')
         },
+        receive: function(t, d) {
+          analyse.socketReceive(t, d);
+        },
         events: {
           analysisAvailable: function() {
             $.sound.dong();
@@ -2052,6 +2055,7 @@ lichess.storage = {
     };
     cfg.path = location.hash ? location.hash.replace(/#/, '') : '';
     cfg.element = element.querySelector('.analyse');
+    cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     analyse = LichessAnalyse(cfg);
     cfg.jump = analyse.jump;
 

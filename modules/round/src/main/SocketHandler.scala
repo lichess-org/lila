@@ -41,12 +41,18 @@ private[round] final class SocketHandler(
         messenger.watcher(gameId, member, text, socket)
       }
       case ("outoftime", _) => round(Outoftime)
-      case ("anaMove", o) => parseAnaMove(o) foreach {
-        case (orig, dest, prom, moves) => {
-          socket ! Ack(uid)
-          println(s"$orig $dest $moves")
+      case ("anaMove", o) =>
+        parseAnaMove(o) foreach { anaMove =>
+          anaMove.step match {
+            case scalaz.Success(step) =>
+              member push lila.socket.Socket.makeMessage("step", Json.obj(
+                "step" -> step.json,
+                "path" -> anaMove.path
+              ))
+            case scalaz.Failure(err) =>
+              member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
+          }
         }
-      }
     }) { playerId =>
       {
         case ("p", o)            => o int "v" foreach { v => socket ! PingVersion(uid, v) }
@@ -62,12 +68,11 @@ private[round] final class SocketHandler(
         case ("draw-force", _)   => round(DrawForce(playerId))
         case ("abort", _)        => round(Abort(playerId))
         case ("move", o) => parseMove(o) foreach {
-          case (orig, dest, prom, blur, lag) => {
-            socket ! Ack(uid)
+          case (orig, dest, prom, blur, lag) =>
+            member push ackEvent
             round(HumanPlay(
               playerId, member.ip, orig, dest, prom, blur, lag.millis, _ => socket ! Resync(uid)
             ))
-          }
         }
         case ("moretime", _)  => round(Moretime(playerId))
         case ("outoftime", _) => round(Outoftime)
@@ -147,9 +152,19 @@ private[round] final class SocketHandler(
 
   private def parseAnaMove(o: JsObject) = for {
     d ← o obj "d"
-    orig ← d str "orig"
-    dest ← d str "dest"
-    moves ← d str "moves"
-    prom = d str "promotion"
-  } yield (orig, dest, prom, moves)
+    orig ← d str "orig" flatMap chess.Pos.posAt
+    dest ← d str "dest" flatMap chess.Pos.posAt
+    variant ← d str "variant" map chess.variant.Variant.orDefault
+    fen ← d str "fen"
+    path ← d str "path"
+    prom = d str "promotion" flatMap (_.headOption) flatMap chess.Role.promotable
+  } yield AnaMove(
+    orig = orig,
+    dest = dest,
+    variant = variant,
+    fen = fen,
+    path = path,
+    promotion = prom)
+
+  private val ackEvent = Json.obj("t" -> "ack")
 }

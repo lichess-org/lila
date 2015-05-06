@@ -109,8 +109,6 @@ private[round] final class Socket(
 
     case Bye(color) => playerDo(color, _.setBye)
 
-    case Ack(uid)   => withMember(uid) { _ push ackEvent }
-
     case Broom =>
       broom
       if (timeBomb.boom) self ! PoisonPill

@@ -21,60 +21,33 @@ module.exports = function(steps, analysis) {
     }
   }
 
-  this.moveList = function(path) {
-    var tree = this.tree;
-    var moves = [];
-    for (var j in path) {
-      var p = path[j];
-      for (var i = 0, nb = tree.length; i < nb; i++) {
-        var move = tree[i];
-        if (p.ply == move.ply && p.variation) {
-          tree = move.variations[p.variation - 1];
-          break;
-        } else if (p.ply >= move.ply) moves.push(move.san);
-        else break;
-      }
-    }
-    return moves;
-  }.bind(this);
-
-  this.explore = function(path, san) {
+  this.addStep = function(step, path) {
     var nextPath = treePath.withPly(path, treePath.currentPly(path) + 1);
     var tree = this.tree;
-    var curMove = null;
-    nextPath.forEach(function(step) {
+    var curStep = null;
+    nextPath.forEach(function(p) {
       for (i = 0, nb = tree.length; i < nb; i++) {
-        var move = tree[i];
-        if (step.ply == move.ply) {
-          if (step.variation) {
-            tree = move.variations[step.variation - 1];
+        var step = tree[i];
+        if (p.ply == step.ply) {
+          if (p.variation) {
+            tree = step.variations[p.variation - 1];
             break;
-          } else curMove = move;
-        } else if (step.ply < move.ply) break;
+          } else curStep = step;
+        } else if (p.ply < step.ply) break;
       }
     });
-    if (curMove) {
-      curMove.variations = curMove.variations || [];
-      if (curMove.san == san) return nextPath;
-      for (var i = 0; i < curMove.variations.length; i++) {
-        if (curMove.variations[i][0].san == san) {
+    if (curStep) {
+      curStep.variations = curStep.variations || [];
+      if (curStep.san === step.san) return nextPath;
+      for (var i = 0; i < curStep.variations.length; i++) {
+        if (curStep.variations[i][0].san === step.san) {
           return treePath.withVariation(nextPath, i + 1);
         }
       }
-      curMove.variations.push([{
-        ply: curMove.ply,
-        san: san,
-        comments: [],
-        variations: []
-      }]);
-      return treePath.withVariation(nextPath, curMove.variations.length);
+      curStep.variations.push([step]);
+      return treePath.withVariation(nextPath, curStep.variations.length);
     }
-    tree.push({
-      ply: treePath.currentPly(nextPath),
-      san: san,
-      comments: [],
-      variations: []
-    });
+    tree.push(step);
     return nextPath;
   }.bind(this);
 }

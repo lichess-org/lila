@@ -2,7 +2,18 @@ module.exports = function(send, ctrl) {
 
   this.send = send;
 
+  var anaMoveTimeout;
+
   var handlers = {
+    step: function(data) {
+      ctrl.addStep(data.step, data.path);
+      clearTimeout(anaMoveTimeout);
+    },
+    stepFailure: function(data) {
+      console.log(data);
+      clearTimeout(anaMoveTimeout);
+      ctrl.reset();
+    }
   };
 
   this.receive = function(type, data) {
@@ -11,5 +22,10 @@ module.exports = function(send, ctrl) {
       return true;
     }
     return false;
+  }.bind(this);
+
+  this.sendAnaMove = function(move) {
+    this.send('anaMove', move);
+    anaMoveTimeout = setTimeout(this.sendAnaMove.bind(this, move), 3000);
   }.bind(this);
 }
