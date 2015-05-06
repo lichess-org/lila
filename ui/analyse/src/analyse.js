@@ -28,7 +28,7 @@ module.exports = function(steps, analysis) {
     nextPath.forEach(function(p) {
       for (i = 0, nb = tree.length; i < nb; i++) {
         var step = tree[i];
-        if (p.ply == step.ply) {
+        if (p.ply === step.ply) {
           if (p.variation) {
             tree = step.variations[p.variation - 1];
             break;
@@ -38,11 +38,9 @@ module.exports = function(steps, analysis) {
     });
     if (curStep) {
       curStep.variations = curStep.variations || [];
-      if (curStep.san === step.san) return nextPath;
+      if (curStep.san === step.san) return false;;
       for (var i = 0; i < curStep.variations.length; i++) {
-        if (curStep.variations[i][0].san === step.san) {
-          return treePath.withVariation(nextPath, i + 1);
-        }
+        if (curStep.variations[i][0].san === step.san) return false;
       }
       curStep.variations.push([step]);
       return treePath.withVariation(nextPath, curStep.variations.length);

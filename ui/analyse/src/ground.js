@@ -17,7 +17,7 @@ function makeConfig(data, config, onMove) {
       }
     },
     premovable: {
-      enabled: false
+      enabled: true
     },
     drawable: {
       enabled: true

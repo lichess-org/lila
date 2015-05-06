@@ -1,4 +1,5 @@
 var chessground = require('chessground');
+var opposite = chessground.util.opposite;
 var data = require('./data');
 var analyse = require('./analyse');
 var ground = require('./ground');
@@ -72,7 +73,6 @@ module.exports = function(opts) {
     this.vm.cgConfig = config;
     if (!this.chessground)
       this.chessground = ground.make(this.data, config, userMove);
-    this.chessground.stop();
     this.chessground.set(config);
     if (opts.onChange) opts.onChange(config.fen, this.vm.path);
   }.bind(this);
@@ -116,11 +116,21 @@ module.exports = function(opts) {
     };
     if (prom) move.promotion = prom;
     this.socket.sendAnaMove(move);
+    this.chessground.set({
+      turnColor: this.chessground.data.movable.color,
+      movable: {
+        color: opposite(this.chessground.data.movable.color)
+      }
+    });
+    console.log(this.chessground.data);
   }.bind(this);
 
   this.addStep = function(step, path) {
-    this.userJump(this.analyse.addStep(step, treePath.read(path)));
+    var newPath = this.analyse.addStep(step, treePath.read(path));
+    if (!newPath) return;
+    this.jump(newPath);
     m.redraw();
+    this.chessground.playPremove();
   }.bind(this);
 
   this.reset = function() {
