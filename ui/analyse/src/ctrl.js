@@ -54,12 +54,13 @@ module.exports = function(opts) {
       s = this.analyse.getStep(this.vm.path);
     }
     var color = s.ply % 2 === 0 ? 'white' : 'black';
+    var dests = readDests(s.dests);
     var config = {
       fen: s.fen,
       turnColor: color,
       movable: {
-        color: color,
-        dests: readDests(s.dests)
+        color: Object.keys(dests).length === 0 ? null : color,
+        dests: dests
       },
       check: s.check,
       lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,

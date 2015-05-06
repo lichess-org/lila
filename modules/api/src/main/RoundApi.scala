@@ -77,7 +77,7 @@ private[api] final class RoundApi(
           } yield Step.Move(pos._1, pos._2, san),
           fen = Forsyth >> g,
           check = g.situation.check,
-          dests = possibleMoves ?? g.situation.destinations)
+          dests = (possibleMoves && !g.situation.end) ?? g.situation.destinations)
       }
       a.fold(steps) {
         case (pgn, analysis) => applyAnalysis(steps, pgn, analysis, game.variant, possibleMoves)
@@ -117,7 +117,7 @@ private[api] final class RoundApi(
           } yield Step.Move(orig, dest, san),
           fen = Forsyth >> g,
           check = g.situation.check,
-          dests = possibleMoves ?? g.situation.destinations)
+          dests = (possibleMoves && !g.situation.end) ?? g.situation.destinations)
       }
 
   private def withNote(note: String)(json: JsObject) =
