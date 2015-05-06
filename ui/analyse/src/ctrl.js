@@ -116,13 +116,13 @@ module.exports = function(opts) {
     };
     if (prom) move.promotion = prom;
     this.socket.sendAnaMove(move);
+    // prepare premoving
     this.chessground.set({
       turnColor: this.chessground.data.movable.color,
       movable: {
         color: opposite(this.chessground.data.movable.color)
       }
     });
-    console.log(this.chessground.data);
   }.bind(this);
 
   this.addStep = function(step, path) {
