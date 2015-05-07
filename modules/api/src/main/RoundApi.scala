@@ -8,12 +8,12 @@ import chess.variant.Variant
 import lila.analyse.{ Analysis, Info }
 import lila.common.LightUser
 import lila.common.PimpedJson._
-import lila.socket.Step
 import lila.game.{ Pov, Game, GameRepo }
 import lila.pref.Pref
 import lila.round.JsonView
 import lila.security.Granter
 import lila.simul.Simul
+import lila.socket.Step
 import lila.tournament.{ Tournament, TournamentRepo }
 import lila.user.User
 
@@ -83,11 +83,23 @@ private[api] final class RoundApi(
           dests = (possibleMoves && !g.situation.end) ?? g.situation.destinations)
       }
       a.fold(steps) {
-        case (pgn, analysis) => applyAnalysis(steps, pgn, analysis, game.variant, possibleMoves)
+        case (pgn, analysis) => applyAnalysisAdvices(
+          applyAnalysisEvals(steps, analysis),
+          pgn, analysis, game.variant, possibleMoves)
       }
     })
 
-  private def applyAnalysis(
+  private def applyAnalysisEvals(steps: List[Step], analysis: Analysis): List[Step] =
+    steps.zipWithIndex map {
+      case (step, index) =>
+        analysis.infos.lift(index - 1).fold(step) { info =>
+          step.copy(
+            eval = info.score map (_.ceiled.centipawns),
+            mate = info.mate)
+        }
+    }
+
+  private def applyAnalysisAdvices(
     steps: List[Step],
     pgn: Pgn,
     analysis: Analysis,
