@@ -22,7 +22,7 @@ module.exports = function(opts) {
 
   this.userId = opts.userId;
 
-  var initialPath = opts.path ? treePath.read(opts.path) : treePath.default();
+  var initialPath = opts.path ? treePath.read(opts.path) : treePath.default(this.analyse.firstPly());
 
   this.vm = {
     path: initialPath,
@@ -53,7 +53,7 @@ module.exports = function(opts) {
       console.log(e);
     }
     if (!s) {
-      this.vm.path = treePath.default();
+      this.vm.path = treePath.default(this.analyse.firstPly());
       this.vm.pathStr = treePath.write(this.vm.path);
       s = this.analyse.getStep(this.vm.path);
     }

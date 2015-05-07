@@ -11,9 +11,9 @@ function copy(obj, newValues) {
 
 module.exports = {
 
-  default: function() {
+  default: function(ply) {
     return [{
-      ply: 0,
+      ply: ply || 0,
       variation: null
     }];
   },

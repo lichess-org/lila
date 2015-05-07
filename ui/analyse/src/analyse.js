@@ -5,6 +5,10 @@ module.exports = function(steps, analysis) {
 
   this.tree = steps;
 
+  this.firstPly = function() {
+    return this.tree[0].ply;
+  }.bind(this);
+
   this.getStep = function(path) {
     var tree = this.tree;
     for (var j in path) {

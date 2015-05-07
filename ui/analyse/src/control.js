@@ -48,7 +48,7 @@ module.exports = {
     var p = ctrl.vm.path;
     var len = p.length;
     if (len === 1) {
-      if (p[0].ply === 0) return;
+      if (p[0].ply === ctrl.analyse.firstPly()) return;
       p[0].ply--;
     } else {
       if (p[len - 1].ply > p[len - 2].ply) p[len - 1].ply--;
@@ -70,7 +70,7 @@ module.exports = {
 
   first: function(ctrl) {
     ctrl.userJump([{
-      ply: 0,
+      ply: ctrl.analyse.firstPly(),
       variation: null
     }]);
   },
