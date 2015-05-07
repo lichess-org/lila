@@ -1,6 +1,6 @@
 module.exports = {
   piotr2key: {
-    'a': 'VA',
+    'a': 'a1',
     'b': 'b1',
     'c': 'c1',
     'd': 'd1',
