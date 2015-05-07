@@ -205,8 +205,9 @@ function renderTurn(ctrl, turn, path) {
 
 function renderTree(ctrl, tree) {
   var turns = [];
+  var initPly = ctrl.analyse.firstPly();
   for (i = 1, nb = tree.length; i < nb; i += 2) turns.push({
-    turn: Math.floor(i / 2) + 1,
+    turn: Math.floor((initPly + i) / 2) + 1,
     white: tree[i],
     black: tree[i + 1]
   });
