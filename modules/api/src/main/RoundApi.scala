@@ -75,7 +75,9 @@ private[api] final class RoundApi(
         logwarn(s"[game steps] ${game.id} (${game.createdAt}) $err")
         json
       case scalaz.Success(games) =>
+        val lastPly = games.lastOption.map(_.turns)
         val steps = games.map { g =>
+          val isEnd = lastPly.exists(g.turns ==) && g.situation.end
           Step(
             ply = g.turns,
             move = for {
@@ -84,7 +86,7 @@ private[api] final class RoundApi(
             } yield Step.Move(pos._1, pos._2, san),
             fen = Forsyth >> g,
             check = g.situation.check,
-            dests = (possibleMoves && !g.situation.end) ?? g.situation.destinations)
+            dests = (possibleMoves && !isEnd) ?? g.situation.destinations)
         }
         json ++ Json.obj("steps" -> a.fold(steps) {
           case (pgn, analysis) => applyAnalysisAdvices(
@@ -131,7 +133,9 @@ private[api] final class RoundApi(
           logwarn(s"[game variation] $err")
           Nil
         case scalaz.Success(games) =>
+          val lastPly = games.lastOption.map(_.turns)
           games.map { g =>
+            val isEnd = lastPly.exists(g.turns ==) && g.situation.end
             Step(
               ply = g.turns,
               move = for {
@@ -141,7 +145,7 @@ private[api] final class RoundApi(
               } yield Step.Move(orig, dest, san),
               fen = Forsyth >> g,
               check = g.situation.check,
-              dests = (possibleMoves && !g.situation.end) ?? g.situation.destinations)
+              dests = (possibleMoves && !isEnd) ?? g.situation.destinations)
           }
       }
 
