@@ -38,9 +38,10 @@ module.exports = function(steps, analysis) {
     });
     if (curStep) {
       curStep.variations = curStep.variations || [];
-      if (curStep.san === step.san) return false;;
+      if (curStep.san === step.san) return nextPath;
       for (var i = 0; i < curStep.variations.length; i++) {
-        if (curStep.variations[i][0].san === step.san) return false;
+        if (curStep.variations[i][0].san === step.san)
+           return treePath.withVariation(nextPath, i + 1);
       }
       curStep.variations.push([step]);
       return treePath.withVariation(nextPath, curStep.variations.length);

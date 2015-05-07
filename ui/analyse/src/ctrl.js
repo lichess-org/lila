@@ -127,7 +127,6 @@ module.exports = function(opts) {
 
   this.addStep = function(step, path) {
     var newPath = this.analyse.addStep(step, treePath.read(path));
-    if (!newPath) return;
     this.jump(newPath);
     m.redraw();
     this.chessground.playPremove();

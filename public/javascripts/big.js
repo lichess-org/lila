@@ -2130,7 +2130,7 @@ lichess.storage = {
         name: "analyse"
       },
       params: {
-        ran: "--ranph--",
+        ran: "--ranph--"
       },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
