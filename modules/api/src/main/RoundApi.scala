@@ -66,8 +66,8 @@ private[api] final class RoundApi(
         }
     }
 
-  def userAnalysisJson(pov: Pov, pref: Pref) =
-    jsonView.userAnalysisJson(pov, pref) map withSteps(pov.game, none, Some(Forsyth >> pov.game.toChess), true)_
+  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String]) =
+    jsonView.userAnalysisJson(pov, pref) map withSteps(pov.game, none, initialFen, true)_
 
   private def withSteps(game: Game, a: Option[(Pgn, Analysis)], initialFen: Option[String], possibleMoves: Boolean)(json: JsObject) =
     json ++ Json.obj("steps" -> {
