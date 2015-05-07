@@ -70,24 +70,28 @@ private[api] final class RoundApi(
     jsonView.userAnalysisJson(pov, pref) map withSteps(pov.game, none, initialFen, true)_
 
   private def withSteps(game: Game, a: Option[(Pgn, Analysis)], initialFen: Option[String], possibleMoves: Boolean)(json: JsObject) =
-    json ++ Json.obj("steps" -> {
-      val steps = chess.Replay.games(game.pgnMoves, initialFen, game.variant).err.map { g =>
-        Step(
-          ply = g.turns,
-          move = for {
-            pos <- g.board.history.lastMove
-            san <- g.pgnMoves.lastOption
-          } yield Step.Move(pos._1, pos._2, san),
-          fen = Forsyth >> g,
-          check = g.situation.check,
-          dests = (possibleMoves && !g.situation.end) ?? g.situation.destinations)
-      }
-      a.fold(steps) {
-        case (pgn, analysis) => applyAnalysisAdvices(
-          applyAnalysisEvals(steps, analysis),
-          pgn, analysis, game.variant, possibleMoves)
-      }
-    })
+    chess.Replay.games(game.pgnMoves, initialFen, game.variant) match {
+      case scalaz.Failure(err) =>
+        logwarn(s"[game steps] ${game.id} (${game.createdAt}) $err")
+        json
+      case scalaz.Success(games) =>
+        val steps = games.map { g =>
+          Step(
+            ply = g.turns,
+            move = for {
+              pos <- g.board.history.lastMove
+              san <- g.pgnMoves.lastOption
+            } yield Step.Move(pos._1, pos._2, san),
+            fen = Forsyth >> g,
+            check = g.situation.check,
+            dests = (possibleMoves && !g.situation.end) ?? g.situation.destinations)
+        }
+        json ++ Json.obj("steps" -> a.fold(steps) {
+          case (pgn, analysis) => applyAnalysisAdvices(
+            applyAnalysisEvals(steps, analysis),
+            pgn, analysis, game.variant, possibleMoves)
+        })
+    }
 
   private def applyAnalysisEvals(steps: List[Step], analysis: Analysis): List[Step] =
     steps.zipWithIndex map {
@@ -122,17 +126,23 @@ private[api] final class RoundApi(
       info.variation take 20,
       fromStep.fen.some,
       variant
-    ).err.drop(1).map { g =>
-        Step(
-          ply = g.turns,
-          move = for {
-            pos <- g.board.history.lastMove
-            (orig, dest) = pos
-            san <- g.pgnMoves.lastOption
-          } yield Step.Move(orig, dest, san),
-          fen = Forsyth >> g,
-          check = g.situation.check,
-          dests = (possibleMoves && !g.situation.end) ?? g.situation.destinations)
+    ) match {
+        case scalaz.Failure(err) =>
+          logwarn(s"[game variation] $err")
+          Nil
+        case scalaz.Success(games) =>
+          games.map { g =>
+            Step(
+              ply = g.turns,
+              move = for {
+                pos <- g.board.history.lastMove
+                (orig, dest) = pos
+                san <- g.pgnMoves.lastOption
+              } yield Step.Move(orig, dest, san),
+              fen = Forsyth >> g,
+              check = g.situation.check,
+              dests = (possibleMoves && !g.situation.end) ?? g.situation.destinations)
+          }
       }
 
   private def withNote(note: String)(json: JsObject) =
