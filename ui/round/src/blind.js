@@ -10,9 +10,9 @@ var reload = throttle(function(ctrl) {
     $(this).find('form').submit(function() {
       var text = $(this).find('.move').val();
       var move = {
-        from: text.substring(0, 2),
-        to: text.substring(2, 2),
-        promotion: text.substring(4, 1)
+        from: text.substr(0, 2),
+        to: text.substr(2, 2),
+        promotion: text.substr(4, 1)
       };
       ctrl.socket.send("move", move, {
         ackable: true
