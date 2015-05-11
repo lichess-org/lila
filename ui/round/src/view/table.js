@@ -79,7 +79,7 @@ function renderTablePlay(ctrl) {
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
     button.answerOpponentTakebackProposition(ctrl), (ctrl.data.tournament && game.nbMoves(d, d.player.color) === 0) ? m('div.text[data-icon=j]',
-      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 30)
+      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 15)
     ) : null
   ]);
   return [
