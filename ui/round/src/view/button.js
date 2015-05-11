@@ -1,4 +1,5 @@
 var chessground = require('chessground');
+var classSet = chessground.util.classSet;
 var game = require('game').game;
 var status = require('game').status;
 var partial = chessground.util.partial;
@@ -6,14 +7,16 @@ var throttle = require('lodash/function/throttle');
 var m = require('mithril');
 
 module.exports = {
-  standard: function(ctrl, condition, icon, hint, socketMsg) {
-    return condition(ctrl.data) ? m('button', {
-      class: 'button hint--bottom ' + socketMsg,
+  standard: function(ctrl, condition, icon, hint, socketMsg, onclick) {
+    // disabled if condition callback is provied and is falsy
+    var enabled = !condition || condition(ctrl.data);
+    return m('button', {
+      class: 'button hint--bottom ' + socketMsg + classSet({' disabled': !enabled}),
       'data-hint': ctrl.trans(hint),
-      onclick: partial(ctrl.socket.send, socketMsg, null)
+      onclick: enabled ? onclick || partial(ctrl.socket.send, socketMsg, null) : null
     }, m('span', {
       'data-icon': icon
-    })) : null
+    }));
   },
   forceResign: function(ctrl) {
     if (!ctrl.data.opponent.ai && ctrl.data.clock && ctrl.data.opponent.isGone && game.resignable(ctrl.data))
