@@ -54,10 +54,7 @@ object PairingSystem extends AbstractPairingSystem {
       pairings find (_ contains user) flatMap (_ opponentOf user)
 
     def justPlayedTogether(u1: String, u2: String): Boolean =
-      lastOpponent(u1) == u2.some && lastOpponent(u2) == u1.some
-
-    def timeSincePlay(u: String): Int =
-      pairings.takeWhile(_ notContains u).size
+      lastOpponent(u1).exists(u2==) || lastOpponent(u2).exists(u1==)
 
     // lower is better
     def score(pair: (RankedPlayer, RankedPlayer)): Int = pair match {
