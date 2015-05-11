@@ -70,7 +70,10 @@ private[api] final class RoundApi(
     jsonView.userAnalysisJson(pov, pref) map withSteps(pov.game, none, initialFen, true)_
 
   private def withSteps(game: Game, a: Option[(Pgn, Analysis)], initialFen: Option[String], possibleMoves: Boolean)(json: JsObject) = {
-    val steps = chess.Replay.gameStream(game.pgnMoves, initialFen, game.variant).map { g =>
+    val games = chess.Replay.gameWhileValid(game.pgnMoves, initialFen, game.variant)
+    val lastPly = games.lastOption.map(_.turns)
+    val steps = games.map { g =>
+      val isEnd = lastPly.exists(g.turns ==) && g.situation.end
       Step(
         ply = g.turns,
         move = for {
@@ -79,7 +82,7 @@ private[api] final class RoundApi(
         } yield Step.Move(pos._1, pos._2, san),
         fen = Forsyth >> g,
         check = g.situation.check,
-        dests = !g.situation.end ?? g.situation.destinations)
+        dests = !isEnd ?? g.situation.destinations)
     }
     json + {
       "steps" -> JsArray(a.fold[Seq[Step]](steps) {
@@ -118,23 +121,23 @@ private[api] final class RoundApi(
       ) | steps
     }
 
-  private def makeVariation(fromStep: Step, info: Info, variant: Variant, possibleMoves: Boolean): Stream[Step] =
-    chess.Replay.gameStream(
-      info.variation take 20,
-      fromStep.fen.some,
-      variant
-    ).map { g =>
-        Step(
-          ply = g.turns,
-          move = for {
-            pos <- g.board.history.lastMove
-            (orig, dest) = pos
-            san <- g.pgnMoves.lastOption
-          } yield Step.Move(orig, dest, san),
-          fen = Forsyth >> g,
-          check = g.situation.check,
-          dests = !g.situation.end ?? g.situation.destinations)
-      }
+  private def makeVariation(fromStep: Step, info: Info, variant: Variant, possibleMoves: Boolean): List[Step] = {
+    val games = chess.Replay.gameWhileValid(info.variation take 20, fromStep.fen.some, variant)
+    val lastPly = games.lastOption.map(_.turns)
+    games.map { g =>
+      val isEnd = lastPly.exists(g.turns ==) && g.situation.end
+      Step(
+        ply = g.turns,
+        move = for {
+          pos <- g.board.history.lastMove
+          (orig, dest) = pos
+          san <- g.pgnMoves.lastOption
+        } yield Step.Move(orig, dest, san),
+        fen = Forsyth >> g,
+        check = g.situation.check,
+        dests = !g.situation.end ?? g.situation.destinations)
+    }
+  }
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
