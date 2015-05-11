@@ -32,7 +32,7 @@ object Handler {
           anaMove.step match {
             case scalaz.Success(step) =>
               member push lila.socket.Socket.makeMessage("step", Json.obj(
-                "step" -> step.json,
+                "step" -> step.toJson,
                 "path" -> anaMove.path
               ))
             case scalaz.Failure(err) =>

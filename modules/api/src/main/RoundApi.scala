@@ -69,27 +69,26 @@ private[api] final class RoundApi(
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String]) =
     jsonView.userAnalysisJson(pov, pref) map withSteps(pov.game, none, initialFen, true)_
 
-  private def withSteps(game: Game, a: Option[(Pgn, Analysis)], initialFen: Option[String], possibleMoves: Boolean)(json: JsObject) =
-    chess.Replay.gameStream(game.pgnMoves, initialFen, game.variant).foldLeft(Json.obj()) {
-      case (obj, game) =>
-        val lastPly = games.lastOption.map(_.turns)
-        val steps = games.map { g =>
-          Step(
-            ply = g.turns,
-            move = for {
-              pos <- g.board.history.lastMove
-              san <- g.pgnMoves.lastOption
-            } yield Step.Move(pos._1, pos._2, san),
-            fen = Forsyth >> g,
-            check = g.situation.check,
-            dests = !g.situation.end ?? g.situation.destinations)
-        }
-        json ++ Json.obj("steps" -> a.fold(steps) {
-          case (pgn, analysis) => applyAnalysisAdvices(
-            applyAnalysisEvals(steps, analysis),
-            pgn, analysis, game.variant, possibleMoves)
-        })
+  private def withSteps(game: Game, a: Option[(Pgn, Analysis)], initialFen: Option[String], possibleMoves: Boolean)(json: JsObject) = {
+    val steps = chess.Replay.gameStream(game.pgnMoves, initialFen, game.variant).map { g =>
+      Step(
+        ply = g.turns,
+        move = for {
+          pos <- g.board.history.lastMove
+          san <- g.pgnMoves.lastOption
+        } yield Step.Move(pos._1, pos._2, san),
+        fen = Forsyth >> g,
+        check = g.situation.check,
+        dests = !g.situation.end ?? g.situation.destinations)
     }
+    json + {
+      "steps" -> JsArray(a.fold[Seq[Step]](steps) {
+        case (pgn, analysis) => applyAnalysisAdvices(
+          applyAnalysisEvals(steps.toList, analysis),
+          pgn, analysis, game.variant, possibleMoves)
+      }.map(_.toJson))
+    }
+  }
 
   private def applyAnalysisEvals(steps: List[Step], analysis: Analysis): List[Step] =
     steps.zipWithIndex map {
@@ -115,33 +114,26 @@ private[api] final class RoundApi(
         nag = ad.nag.symbol.some,
         comments = ad.makeComment(false, true) :: after.comments,
         variations = if (ad.info.variation.isEmpty) after.variations
-        else makeVariation(before, ad.info, variant, possibleMoves) :: after.variations))
+        else makeVariation(before, ad.info, variant, possibleMoves).toList :: after.variations))
       ) | steps
     }
 
-  private def makeVariation(fromStep: Step, info: Info, variant: Variant, possibleMoves: Boolean): List[Step] =
-    chess.Replay.games(
+  private def makeVariation(fromStep: Step, info: Info, variant: Variant, possibleMoves: Boolean): Stream[Step] =
+    chess.Replay.gameStream(
       info.variation take 20,
       fromStep.fen.some,
       variant
-    ) match {
-        case scalaz.Failure(err) =>
-          logwarn(s"[game variation] $err")
-          Nil
-        case scalaz.Success(games) =>
-          val lastPly = games.lastOption.map(_.turns)
-          games.map { g =>
-            Step(
-              ply = g.turns,
-              move = for {
-                pos <- g.board.history.lastMove
-                (orig, dest) = pos
-                san <- g.pgnMoves.lastOption
-              } yield Step.Move(orig, dest, san),
-              fen = Forsyth >> g,
-              check = g.situation.check,
-              dests = !g.situation.end ?? g.situation.destinations)
-          }
+    ).map { g =>
+        Step(
+          ply = g.turns,
+          move = for {
+            pos <- g.board.history.lastMove
+            (orig, dest) = pos
+            san <- g.pgnMoves.lastOption
+          } yield Step.Move(orig, dest, san),
+          fen = Forsyth >> g,
+          check = g.situation.check,
+          dests = !g.situation.end ?? g.situation.destinations)
       }
 
   private def withNote(note: String)(json: JsObject) =
