@@ -70,26 +70,30 @@ private[api] final class RoundApi(
     jsonView.userAnalysisJson(pov, pref) map withSteps(pov.game, none, initialFen, true)_
 
   private def withSteps(game: Game, a: Option[(Pgn, Analysis)], initialFen: Option[String], possibleMoves: Boolean)(json: JsObject) = {
-    val games = chess.Replay.gameWhileValid(game.pgnMoves, initialFen, game.variant)
-    val lastPly = games.lastOption.map(_.turns)
-    val steps = games.map { g =>
-      val isEnd = lastPly.exists(g.turns ==) && g.situation.end
-      Step(
-        ply = g.turns,
-        move = for {
-          pos <- g.board.history.lastMove
-          san <- g.pgnMoves.lastOption
-        } yield Step.Move(pos._1, pos._2, san),
-        fen = Forsyth >> g,
-        check = g.situation.check,
-        dests = !isEnd ?? g.situation.destinations)
-    }
-    json + {
-      "steps" -> JsArray(a.fold[Seq[Step]](steps) {
-        case (pgn, analysis) => applyAnalysisAdvices(
-          applyAnalysisEvals(steps.toList, analysis),
-          pgn, analysis, game.variant, possibleMoves)
-      }.map(_.toJson))
+    chess.Replay.gameWhileValid(game.pgnMoves, initialFen, game.variant) match {
+      case (games, error) =>
+        error foreach logChessError(game.id)
+        val lastPly = games.lastOption.map(_.turns)
+        val steps = games.map { g =>
+          val isEnd = lastPly.exists(g.turns ==) && g.situation.end
+          Step(
+            ply = g.turns,
+            move = for {
+              pos <- g.board.history.lastMove
+              san <- g.pgnMoves.lastOption
+            } yield Step.Move(pos._1, pos._2, san),
+            fen = Forsyth >> g,
+            check = g.situation.check,
+            dests = !isEnd ?? g.situation.destinations)
+        }
+        json + {
+          "steps" -> JsArray(a.fold[Seq[Step]](steps) {
+            case (pgn, analysis) => applyAnalysisAdvices(
+              game.id,
+              applyAnalysisEvals(steps.toList, analysis),
+              pgn, analysis, game.variant, possibleMoves)
+          }.map(_.toJson))
+        }
     }
   }
 
@@ -104,6 +108,7 @@ private[api] final class RoundApi(
     }
 
   private def applyAnalysisAdvices(
+    gameId: String,
     steps: List[Step],
     pgn: Pgn,
     analysis: Analysis,
@@ -117,27 +122,32 @@ private[api] final class RoundApi(
         nag = ad.nag.symbol.some,
         comments = ad.makeComment(false, true) :: after.comments,
         variations = if (ad.info.variation.isEmpty) after.variations
-        else makeVariation(before, ad.info, variant, possibleMoves).toList :: after.variations))
+        else makeVariation(gameId, before, ad.info, variant, possibleMoves).toList :: after.variations))
       ) | steps
     }
 
-  private def makeVariation(fromStep: Step, info: Info, variant: Variant, possibleMoves: Boolean): List[Step] = {
-    val games = chess.Replay.gameWhileValid(info.variation take 20, fromStep.fen.some, variant)
-    val lastPly = games.lastOption.map(_.turns)
-    games.map { g =>
-      val isEnd = lastPly.exists(g.turns ==) && g.situation.end
-      Step(
-        ply = g.turns,
-        move = for {
-          pos <- g.board.history.lastMove
-          (orig, dest) = pos
-          san <- g.pgnMoves.lastOption
-        } yield Step.Move(orig, dest, san),
-        fen = Forsyth >> g,
-        check = g.situation.check,
-        dests = !g.situation.end ?? g.situation.destinations)
+  private def makeVariation(gameId: String, fromStep: Step, info: Info, variant: Variant, possibleMoves: Boolean): List[Step] = {
+    chess.Replay.gameWhileValid(info.variation take 20, fromStep.fen.some, variant) match {
+      case (games, error) =>
+        error foreach logChessError(gameId)
+        val lastPly = games.lastOption.map(_.turns)
+        games.map { g =>
+          val isEnd = lastPly.exists(g.turns ==) && g.situation.end
+          Step(
+            ply = g.turns,
+            move = for {
+              pos <- g.board.history.lastMove
+              (orig, dest) = pos
+              san <- g.pgnMoves.lastOption
+            } yield Step.Move(orig, dest, san),
+            fen = Forsyth >> g,
+            check = g.situation.check,
+            dests = !g.situation.end ?? g.situation.destinations)
+        }
     }
   }
+
+  private val logChessError = (id: String) => (err: String) => logwarn(s"Round API http://lichess.org/$id $err")
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
