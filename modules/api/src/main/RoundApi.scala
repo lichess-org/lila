@@ -147,7 +147,8 @@ private[api] final class RoundApi(
     }
   }
 
-  private val logChessError = (id: String) => (err: String) => logwarn(s"Round API http://lichess.org/$id $err")
+  private val logChessError = (id: String) => (err: String) =>
+    logwarn(s"Round API http://lichess.org/$id ${err.lines.headOption}")
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
