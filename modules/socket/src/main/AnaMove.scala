@@ -33,7 +33,7 @@ object AnaMove {
     variant ← d str "variant" map chess.variant.Variant.orDefault
     fen ← d str "fen"
     path ← d str "path"
-    prom = d str "promotion" flatMap (_.headOption) flatMap chess.Role.promotable
+    prom = d str "promotion" flatMap chess.Role.promotable
   } yield AnaMove(
     orig = orig,
     dest = dest,
