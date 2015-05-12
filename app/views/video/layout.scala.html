@@ -15,11 +15,11 @@
   </div>
   @if(control.filter.tags.nonEmpty) {
   <div class="under_tags">
-    <a class="button" href="@routes.Video.index">Clear search</a>
+    <a class="button" href="@routes.Video.index">@trans.clearSearch()</a>
   </div>
   } else {
   <div class="under_tags">
-    <a data-icon="o" href="@routes.Video.tags">View more tags</a>
+    <a data-icon="o" href="@routes.Video.tags">@trans.viewMoreTags()</a>
   </div>
   }
 </div>

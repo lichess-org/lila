@@ -11,7 +11,7 @@
   <li>@userLink(user, withOnline = false, text = Some(user.username + " [" + user.toints.localize + "]"))</li>
   }
 </ol>
-<h2 class="leaderboard_title">Lichess tournaments</h2>
+<h2 class="leaderboard_title">@trans.lichessTournaments()</h2>
 <ol class="scheduled_tournaments">
   @scheduled.map { tour =>
   @tour.schedule.map { s =>

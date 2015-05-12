@@ -97,7 +97,7 @@ openGraph = Map(
 <div class="undertable @if(simuls.isEmpty){none}">
   <div class="undertable_top">
     <a class="more hint--bottom" href="@routes.Simul.home">@trans.more() »</a>
-    <span class="title text" data-icon="|">Simultaneous exhibitions</span>
+    <span class="title text" data-icon="|">@trans.simultaneousExhibitions()</span>
   </div>
   <div id="enterable_simuls" class="enterable_list undertable_inner">
     @simul.allCreated(simuls)
