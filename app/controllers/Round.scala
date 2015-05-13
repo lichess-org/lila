@@ -183,12 +183,12 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def sideWatcher(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color)) { side(_, false) }
+  def sidesWatcher(gameId: String, color: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo.pov(gameId, color)) { sides(_, false) }
   }
 
-  def sidePlayer(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo pov fullId) { side(_, true) }
+  def sidesPlayer(gameId: String, color: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo.pov(gameId, color)) { sides(_, true) }
   }
 
   def writeNote(gameId: String) = AuthBody { implicit ctx =>
@@ -201,12 +201,13 @@ object Round extends LilaController with TheftPrevention {
         text => Env.round.noteApi.set(gameId, me.id, text.trim take 10000))
   }
 
-  private def side(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
+  private def sides(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
     (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (pov.game.simulId ?? Env.simul.repo.find) zip
-      GameRepo.initialFen(pov.game) map {
-        case ((tour, simul), initialFen) =>
-          Ok(html.game.side(pov, initialFen, tour, withTourStanding = isPlayer, simul))
+      GameRepo.initialFen(pov.game) zip
+      Env.game.crosstableApi(pov.game) map {
+        case (((tour, simul), initialFen), crosstable) =>
+          Ok(html.game.sides(pov, initialFen, tour, crosstable, withTourStanding = isPlayer, simul))
       }
 
   def continue(id: String, mode: String) = Open { implicit ctx =>

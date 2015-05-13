@@ -1129,12 +1129,13 @@ lichess.storage = {
             if (data.tv) lichess.reload();
           },
           end: function() {
-            var url = (data.tv ? cfg.routes.Tv.side : (data.player.spectator ? cfg.routes.Round.sideWatcher : cfg.routes.Round.sidePlayer))(data.game.id, data.player.color).url;
+            var url = (data.tv ? cfg.routes.Tv.sides : (data.player.spectator ? cfg.routes.Round.sidesWatcher : cfg.routes.Round.sidesPlayer))(data.game.id, data.player.color).url;
             $.ajax({
               url: url,
               cache: false,
               success: function(html) {
-                $('#site_header div.side').replaceWith(html);
+                $('#site_header div.side').replaceWith($html.find('>.side'));
+                $('#lichess div.crosstable').replaceWith($html.find('>.crosstable'));
                 $('body').trigger('lichess.content_loaded');
                 startTournamentClock();
               }

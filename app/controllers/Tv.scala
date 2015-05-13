@@ -25,11 +25,13 @@ object Tv extends LilaController {
     lichessTv
   }
 
-  def side(gameId: String, color: String) = Open { implicit ctx =>
+  def sides(gameId: String, color: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
-      (GameRepo onTv 10) zip Env.tv.streamsOnAir map {
-        case (games, streams) => Ok(html.tv.side(pov, games, streams))
-      }
+      (GameRepo onTv 10) zip
+        Env.tv.streamsOnAir zip
+        Env.game.crosstableApi(pov.game) map {
+          case ((games, streams), crosstable) => Ok(html.tv.sides(pov, games, crosstable, streams))
+        }
     }
   }
 
