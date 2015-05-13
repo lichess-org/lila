@@ -131,13 +131,14 @@ ol.scheduled_tournaments a:hover {
 }
 #tournament table.standing tr.me td.name {
   border-left: 10px solid #d59120;
-  padding-left: 9px;
+  padding-left: 5px;
 }
 #tournament table.standing .legend {
   text-align: right;
+  font-size: 0.9em;
 }
 #tournament table.standing .legend span {
-  margin-right: 10px;
+  margin-right: 5px;
   line-height: 30px;
 }
 #tournament table.standing .sheet,

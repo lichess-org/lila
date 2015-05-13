@@ -1486,6 +1486,10 @@ div.game_tournament table.standing td {
   padding: 0 10px;
   text-align: left;
   line-height: 2em;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 div.game_tournament table.standing td.name span {
   display: inline-block;
