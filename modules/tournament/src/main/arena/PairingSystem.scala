@@ -30,7 +30,7 @@ object PairingSystem extends AbstractPairingSystem {
 
       val ps = tour.pairings.isEmpty.fold(
         naivePairings(idles),
-        (idles.size > 12).fold(
+        (idles.size > 20).fold(
           naivePairings(idles),
           smartPairings(idles, tour.pairings, nbActiveUsers)
         )
