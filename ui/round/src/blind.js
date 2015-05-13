@@ -1,4 +1,4 @@
-var throttle = require('lodash/function/throttle');
+var throttle = require('./util').throttle;
 
 // #FIXME jQuery crap here
 

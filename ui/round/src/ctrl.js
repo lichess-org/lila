@@ -1,5 +1,5 @@
 var m = require('mithril');
-var throttle = require('lodash/function/throttle');
+var throttle = require('./util').throttle;
 var chessground = require('chessground');
 var partial = chessground.util.partial;
 var data = require('./data');
@@ -17,6 +17,7 @@ var clockCtrl = require('./clock/ctrl');
 var correspondenceClockCtrl = require('./correspondenceClock/ctrl');
 var moveOn = require('./moveOn');
 var atomic = require('./atomic');
+var util = require('./util');
 
 module.exports = function(opts) {
 
@@ -76,7 +77,7 @@ module.exports = function(opts) {
     if (this.replaying()) this.chessground.stop();
     else config.movable = {
       color: game.isPlayerPlaying(this.data) ? this.data.player.color : null,
-      dests: game.parsePossibleMoves(this.data.possibleMoves)
+      dests: util.parsePossibleMoves(this.data.possibleMoves)
     }
     this.chessground.set(config);
   }.bind(this);

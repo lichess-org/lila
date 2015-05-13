@@ -1,5 +1,6 @@
 var chessground = require('chessground');
 var game = require('game').game;
+var util = require('./util');
 var m = require('mithril');
 
 function str2move(mo) {
@@ -23,7 +24,7 @@ function makeConfig(data, fen, flip) {
     movable: {
       free: false,
       color: game.isPlayerPlaying(data) ? data.player.color : null,
-      dests: game.parsePossibleMoves(data.possibleMoves),
+      dests: util.parsePossibleMoves(data.possibleMoves),
       showDests: data.pref.destination
     },
     animation: {

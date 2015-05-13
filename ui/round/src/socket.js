@@ -2,6 +2,7 @@ var m = require('mithril');
 var game = require('game').game;
 var ground = require('./ground');
 var atomic = require('./atomic');
+var util = require('./util');
 var xhr = require('./xhr');
 
 module.exports = function(send, ctrl) {
@@ -13,7 +14,7 @@ module.exports = function(send, ctrl) {
       ctrl.data.possibleMoves = o;
       if (!ctrl.replaying()) ctrl.chessground.set({
         movable: {
-          dests: game.parsePossibleMoves(o)
+          dests: util.parsePossibleMoves(o)
         }
       });
     },

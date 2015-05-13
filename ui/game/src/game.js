@@ -1,11 +1,4 @@
-var mapValues = require('lodash/object/mapValues');
 var status = require('./status');
-
-function parsePossibleMoves(possibleMoves) {
-  return mapValues(possibleMoves, function(moves) {
-    return moves.match(/.{2}/g);
-  });
-}
 
 function playable(data) {
   return data.game.status.id < status.ids.aborted;
@@ -120,7 +113,6 @@ module.exports = {
   replayable: replayable,
   userAnalysable: userAnalysable,
   getPlayer: getPlayer,
-  parsePossibleMoves: parsePossibleMoves,
   nbMoves: nbMoves,
   setOnGame: setOnGame,
   setIsGone: setIsGone
