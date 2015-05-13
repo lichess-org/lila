@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="200"
+   height="200"
+   viewBox="0 0 200 200"
+   id="svg8327"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="wQ.svg">
+  <defs
+     id="defs8329">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 100 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="200 : 100 : 1"
+       inkscape:persp3d-origin="100 : 66.666667 : 1"
+       id="perspective4469" />
+    <filter
+       id="fShadow"
+       width="150%"
+       height="150%">
+      <feGaussianBlur
+         in="SourceAlpha"
+         stdDeviation="3"
+         result="blur"
+         id="feGaussianBlur4609" />
+      <feColorMatrix
+         in="blur"
+         type="matrix"
+         values="2 0 0 0 0 0 2 0 0 0 0 0 2 0 0 0 0 0 0.5 0 "
+         result="blurAlpha"
+         id="feColorMatrix4611" />
+      <feOffset
+         in="blurAlpha"
+         dx="4.5"
+         dy="4.5"
+         result="offsetBlur"
+         id="feOffset4613" />
+      <feBlend
+         in="SourceGraphic"
+         in2="offsetBlur"
+         mode="normal"
+         id="feBlend4615" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="204.70924"
+     inkscape:cy="61.763464"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1680"
+     inkscape:window-height="902"
+     inkscape:window-x="0"
+     inkscape:window-y="82"
+     inkscape:window-maximized="0"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:object-nodes="true"
+     inkscape:snap-midpoints="true" />
+  <metadata
+     id="metadata8332">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,0)">
+    <path
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:6;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#fShadow)"
+       d="M 80 20 L 80 51.714844 L 57.574219 29.289062 L 29.289062 57.574219 L 51.714844 80 L 20 80 L 20 120 L 51.714844 120 L 29.289062 142.42578 L 57.574219 170.71094 L 80 148.28516 L 80 180 L 120 180 L 120 148.28516 L 142.42578 170.71094 L 170.71094 142.42578 L 148.28516 120 L 180 120 L 180 80 L 148.28516 80 L 170.71094 57.574219 L 142.42578 29.289062 L 120 51.714844 L 120 20 L 80 20 z M 100 78.033203 A 21.965883 21.965883 0 0 1 121.9668 100 A 21.965883 21.965883 0 0 1 100 121.9668 A 21.965883 21.965883 0 0 1 78.033203 100 A 21.965883 21.965883 0 0 1 100 78.033203 z "
+       id="path4405" />
+  </g>
+</svg>

@@ -900,6 +900,15 @@ div.lichess_board {
 #top .cg-piece.pirouetti {
   background-image: url(../piece-src/pirouetti/wN.svg);
 }
+#top .cg-piece.reillycraig {
+  background-image: url(../piece/reillycraig/wN.svg);
+}
+#top .cg-piece.fantasy {
+  background-image: url(../piece/fantasy/wN.svg);
+}
+#top .cg-piece.shapes {
+  background-image: url(../piece/shapes/wN.svg);
+}
 .pirouetti .is2d .cg-piece.piece.white {
   -webkit-filter: drop-shadow(0 0 0.5px #000);
 }

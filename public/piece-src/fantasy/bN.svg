@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="700pt"
+   height="700pt"
+   viewBox="0 0 900 900"
+   id="svg36220"
+   sodipodi:version="0.32"
+   inkscape:version="0.43"
+   version="1.0"
+   inkscape:export-filename="/home/maurizio/out/bn.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90"
+   sodipodi:docbase="/home/maurizio/out1"
+   sodipodi:docname="bn.svg">
+  <defs
+     id="defs36222">
+    <linearGradient
+       id="linearGradient2672">
+      <stop
+         style="stop-color:#000000;stop-opacity:1"
+         offset="0"
+         id="stop2674" />
+      <stop
+         style="stop-color:#505070;stop-opacity:1"
+         offset="1"
+         id="stop2676" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2672"
+       id="linearGradient2230"
+       gradientUnits="userSpaceOnUse"
+       x1="705.29126"
+       y1="378.28769"
+       x2="787.12555"
+       y2="465.62366"
+       gradientTransform="translate(0,4)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2672"
+       id="linearGradient2233"
+       gradientUnits="userSpaceOnUse"
+       x1="667.0329"
+       y1="299.32745"
+       x2="739.15356"
+       y2="348.42047"
+       gradientTransform="translate(4,4)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2672"
+       id="linearGradient2236"
+       gradientUnits="userSpaceOnUse"
+       x1="598.67926"
+       y1="209.76059"
+       x2="705.53198"
+       y2="232.28799"
+       gradientTransform="translate(0,4)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2672"
+       id="linearGradient2239"
+       gradientUnits="userSpaceOnUse"
+       x1="493.79175"
+       y1="157.9061"
+       x2="625.8526"
+       y2="159.48897"
+       gradientTransform="translate(4,-2)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2672"
+       id="linearGradient2319"
+       gradientUnits="userSpaceOnUse"
+       x1="265.6459"
+       y1="255.9399"
+       x2="753.20837"
+       y2="854.32837"
+       gradientTransform="translate(0,4)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.15000001"
+     inkscape:cx="322.56502"
+     inkscape:cy="454.31563"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:window-width="997"
+     inkscape:window-height="730"
+     inkscape:window-x="161"
+     inkscape:window-y="23" />
+  <metadata
+     id="metadata36225">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Maurizio Monge</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Maurizio Monge</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/GPL/2.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/SourceCode" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <path
+       style="opacity:1;fill:url(#linearGradient2319);fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 528.58974,401.8085 C 528.80425,478.30066 440.36335,544.461 353.13367,511.14215 C 339.7749,506.03954 218.5656,615.94543 199.14016,600.90798 C 183.81525,589.0448 216.11868,540.13943 213.77024,546.38578 C 202.58851,576.12672 153.22337,609.22986 113.58016,566.49819 C 98.07692,549.78715 102.87108,501.72211 136.26425,462.5651 C 171.04104,421.78565 206.35255,358.98804 220.02102,322.76921 C 247.51334,249.91983 236.72646,248.3286 289.41246,182.26341 C 299.31018,169.85224 273.32387,121.66778 282.76868,90.215849 C 320.07646,96.869072 334.45836,134.37834 351.6141,150.1194 C 361.61471,126.96772 354.895,64.758363 372.67311,67.657143 C 390.45124,70.555903 410.90073,124.44873 440.22836,148.1194 C 791.49081,256.21526 788.61945,818.32311 690.44973,820.14423 C 569.27826,822.39205 424.20927,821.88335 302.34491,819.94173 C 272.81744,819.47128 259.1485,781.27041 264.84223,758.44141 C 291.99727,649.56332 406.67542,573.35474 462.85026,535.58802 C 520.54747,496.7978 531.11133,458.6781 528.58974,401.8085 z "
+       id="path9661"
+       sodipodi:nodetypes="csssssssccscssssc" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#808080;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 345.00626,294.09868 C 315.93346,288.73337 290.44162,297.17685 269.38927,318.12957"
+       id="path31294"
+       sodipodi:nodetypes="cs" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#808080;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 298.13781,325.80259 C 308.58084,336.44308 321.87167,336.88677 324.06134,318.80598"
+       id="path31298"
+       sodipodi:nodetypes="cs" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#808080;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 150.77115,518.28958 C 136.91636,513.50427 126.89297,535.82654 135.73294,536.73724"
+       id="path31300"
+       sodipodi:nodetypes="cs" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#808080;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 316.87611,474.30434 L 326.36363,486.09484"
+       id="path31308"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#808080;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 528.75307,369.23593 L 529.04384,344.31804"
+       id="path31312"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#808080;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 325.87873,162.64943 L 315.7656,167.93042"
+       id="path32040"
+       sodipodi:nodetypes="cs" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#808080;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 379.27012,108.87359 C 409.42235,150.99371 420.3092,159.51395 384.4566,153.47055"
+       id="path32768"
+       sodipodi:nodetypes="cs" />
+    <path
+       style="fill:url(#linearGradient2239);fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 454.44369,131.12593 C 541.01638,156.50987 526.41453,138.18821 544.67294,167.9218 C 554.90224,184.58009 569.07649,162.24397 602.81894,164.35698 C 621.04165,165.49812 552.81807,137.13582 543.92025,125.79428 C 531.56743,110.04884 441.7423,127.40176 454.44369,131.12593 z "
+       id="path1849"
+       sodipodi:nodetypes="cssss" />
+    <path
+       style="fill:url(#linearGradient2236);fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 579.55132,199.72251 C 606.74348,220.39515 626.6611,199.39789 625.58693,235.26835 C 624.8494,259.89786 658.09296,243.44216 674.23703,253.71604 C 689.11003,263.18101 704.02779,225.00077 694.56767,225.00077 C 680.33507,225.00077 656.16757,231.67796 660.54029,215.60611 C 670.13848,180.32814 571.74121,193.78494 579.55132,199.72251 z "
+       id="path1851"
+       sodipodi:nodetypes="csssss" />
+    <path
+       style="fill:url(#linearGradient2233);fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 659.5315,277.71568 C 664.82435,279.56734 693.65216,299.08537 692.31737,308.36689 C 685.43268,356.23972 720.73307,353.13664 735.92491,358.19734 C 757.21302,365.28883 734.93287,339.87357 724.19137,326.80647 C 713.44977,313.73937 731.5314,307.88862 730.26548,299.60032 C 725.81231,270.44436 656.76815,276.74895 659.5315,277.71568 z "
+       id="path1853"
+       sodipodi:nodetypes="csssss" />
+    <path
+       style="fill:url(#linearGradient2230);fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 710.38973,378.64722 C 715.44783,387.46697 727.30787,397.4563 731.06737,411.29205 C 734.82697,425.12781 736.24227,437.46295 743.76137,452.32357 C 751.28047,467.18419 781.53366,465.24706 794.57936,460.88558 C 812.15726,455.00888 752.08313,436.75859 765.61893,408.93406 C 774.18603,391.32331 707.66003,373.88742 710.38973,378.64722 z "
+       id="path1855"
+       sodipodi:nodetypes="csssss" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#808080;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 438.14707,729.50113 L 412.36729,790.99343"
+       id="path2732" />
+  </g>
+</svg>
