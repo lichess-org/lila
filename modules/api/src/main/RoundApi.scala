@@ -131,7 +131,7 @@ private[api] final class RoundApi(
       case (games, error) =>
         error foreach logChessError(gameId)
         val lastPly = games.lastOption.map(_.turns)
-        games.map { g =>
+        games.drop(1).map { g =>
           val isEnd = lastPly.exists(g.turns ==) && g.situation.end
           Step(
             ply = g.turns,
