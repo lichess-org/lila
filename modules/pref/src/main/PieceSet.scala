@@ -28,7 +28,7 @@ sealed trait PieceSetObject {
 
 object PieceSet extends PieceSetObject {
 
-  val all = NonEmptyList("cburnett", "merida", "pirouetti", "alpha", "spatial", "chess7", "reillycraig") map { name => new PieceSet(name) }
+  val all = NonEmptyList("cburnett", "merida", "pirouetti", "alpha", "spatial", "chess7", "reillycraig", "fantasy") map { name => new PieceSet(name) }
 }
 
 object PieceSet3d extends PieceSetObject {

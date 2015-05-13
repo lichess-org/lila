@@ -15,7 +15,8 @@ themes = [
   ['pirouetti', 'svg'],
   ['spatial', 'svg'],
   ['chess7', 'svg'],
-  ['reillycraig', 'svg']
+  ['reillycraig', 'svg'],
+  ['fantasy', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',
