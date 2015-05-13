@@ -4,6 +4,7 @@ var ground = require('./ground');
 var atomic = require('./atomic');
 var util = require('./util');
 var xhr = require('./xhr');
+var partial = require('chessground').util.partial;
 
 module.exports = function(send, ctrl) {
 
@@ -126,6 +127,8 @@ module.exports = function(send, ctrl) {
       }
     }
   };
+
+  this.moreTime = util.throttle(partial(send, 'moretime', null), 300);
 
   this.receive = function(type, data) {
     if (handlers[type]) {

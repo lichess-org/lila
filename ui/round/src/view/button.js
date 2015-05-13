@@ -152,7 +152,7 @@ module.exports = {
   moretime: function(ctrl) {
     if (game.moretimeable(ctrl.data)) return m('a.moretime.hint--bottom-left', {
       'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime),
-      onclick: throttle(partial(ctrl.socket.send, 'moretime', null), 600)
+      onclick: ctrl.socket.moreTime
     }, m('span[data-icon=O]'));
   },
   analysis: function(ctrl) {
