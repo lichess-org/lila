@@ -39,8 +39,8 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
       <li><strong>c</strong> @trans.showOrHideComments()</li>
       <li><strong>shift</strong> + <strong>h</strong>/<strong>l</strong> @trans.or() <strong>←</strong>/<strong>→</strong> @trans.enterOrExitVariation()</li>
     </ul>
-    trans.youCanDrawArrowsAndCircles()<br />
-    trans.youCanScrollToMove()
+    @trans.youCanDrawArrowsAndCircles()<br />
+    @trans.youCanScrollToMove()
   </div>
 </div>
 }
