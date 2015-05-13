@@ -490,3 +490,5 @@ moveBackwardOrForward=avancer/reculer
 goToStartOrEnd=aller au début/à la fin
 showOrHideComments=montrer/cacher des annotations
 enterOrExitVariation=entrer dans/sortir une variation
+youCanDrawArrowsAndCircles=Maintenir la touche majuscule enfoncée pour dessiner les flèches et cercles !
+youCanScrollToMove=Vous pouvez aussi utiliser la roulette de défilement pour changer de place.

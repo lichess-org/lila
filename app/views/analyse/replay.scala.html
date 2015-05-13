@@ -39,8 +39,8 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
       <li><strong>c</strong> @trans.showOrHideComments()</li>
       <li><strong>shift</strong> + <strong>h</strong>/<strong>l</strong> @trans.or() <strong>←</strong>/<strong>→</strong> @trans.enterOrExitVariation()</li>
     </ul>
-    Press shift+click or right-click to draw circles and arrows on the board!<br />
-    You can also scroll over the board to move in the game.
+    trans.youCanDrawArrowsAndCircles()<br />
+    trans.youCanScrollToMove()
   </div>
 </div>
 }

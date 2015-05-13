@@ -490,3 +490,5 @@ moveBackwardOrForward=move backward/forward
 goToStartOrEnd=go to start/end
 showOrHideComments=show/hide comments
 enterOrExitVariation=enter/exit variation
+youCanDrawArrowsAndCircles=Press shift+click or right-click to draw circles and arrows on the board!
+youCanScrollToMove=You can also scroll over the board to move in the game.
