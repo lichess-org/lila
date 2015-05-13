@@ -31,11 +31,11 @@ module.exports = function(ctrl) {
     case 'variantEnd':
       switch (ctrl.data.game.variant.key) {
         case 'kingOfTheHill':
-          return 'King in the center';
+          return ctrl.trans('kingInTheCenter');
         case 'threeCheck':
-          return 'Three checks';
+          return ctrl.trans('threeChecks');
         default:
-          return 'Variant ending';
+          return ctrl.trans('variantEnding');
       }
       break;
     default:
