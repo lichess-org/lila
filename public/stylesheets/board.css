@@ -214,6 +214,12 @@ div.lichess_game div.lichess_ground {
   height: 512px;
   width: 242px;
 }
+div.lichess_game div.lichess_ground.for_bot h1 {
+  font-size: 2em;
+}
+div.lichess_game div.lichess_ground.for_bot p {
+  margin: 1em 0;
+}
 div.lichess_board {
   position: relative;
 }

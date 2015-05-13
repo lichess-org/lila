@@ -8,6 +8,7 @@ import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
+import lila.common.HTTPRequest
 import lila.game.{ Pov, PlayerRef, GameRepo, Game => GameModel }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
@@ -141,13 +142,20 @@ object Round extends LilaController with TheftPrevention {
       else if (pov.game.joinable) join(pov)
       else ctx.userId.flatMap(pov.game.playerByUserId) ifTrue pov.game.playable match {
         case Some(player) => renderPlayer(pov withColor player.color)
-        case None =>
+        case None if HTTPRequest.isHuman(ctx.req) =>
           (pov.game.tournamentId ?? TournamentRepo.byId) zip
             (pov.game.simulId ?? Env.simul.repo.find) zip
             Env.game.crosstableApi(pov.game) zip
             Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) map {
               case (((tour, simul), crosstable), data) =>
                 Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv))
+            }
+        case _ => // web crawlers don't need the full thing
+          GameRepo.initialFen(pov.game.id) zip
+            Env.game.crosstableApi(pov.game) map {
+              case (initialFen, crosstable) =>
+                val pgn = Env.game.pgnDump(pov.game, initialFen)
+                Ok(html.round.watcherBot(pov, initialFen, pgn, crosstable))
             }
       },
       api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = none) map { Ok(_) }

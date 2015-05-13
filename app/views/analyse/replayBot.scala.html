@@ -1,33 +1,25 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], tour: Option[lila.tournament.Tournament], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable])(implicit ctx: Context)
 
 @import pov._
 
 @title = @{ s"${playerText(pov.player)} vs ${playerText(pov.opponent)} in $gameId : ${game.opening.fold(trans.analysis.str())(_.fullName)}" }
 
+@moreJs = {
+@embedJs {
+Chessground(document.querySelector('#lichess .analyse .lichess_board'), {
+viewOnly: true,
+fen: "@{chess.format.Forsyth.>>(pov.game.toChess)}",
+orientation: "@pov.color.name"
+});
+}
+}
+
 @moreCss = {
 @cssTag("analyse.css")
 }
 
-@moreJs = {
-@highchartsTag
-@jsTagCompiled("chart2.js")
-@jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
-@round.jsRoutes()
-@embedJs {
-lichess = lichess || {};
-lichess.analyse = {
-data: @Html(play.api.libs.json.Json.stringify(data)),
-routes: roundRoutes.controllers,
-i18n: @round.jsI18n(),
-userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
-};
-}
-}
-
 @underchat = {
 @views.html.game.watchers()
-@round.blurs(game)
-@round.holdAlerts(game)
 <div class="shortcuts">
   <p class="title text" data-icon="u">Keyboard Shortcuts</p>
   <div class="inner">
@@ -45,14 +37,32 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 
 @analyse.layout(
 title = title,
-side = views.html.game.side(pov, initialFen, tour, withTourStanding = false, simul = simul, userTv = userTv).some,
+side = views.html.game.side(pov, initialFen, tour, withTourStanding = false, simul = simul).some,
 chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth).some,
 underchat = underchat.some,
-moreCss = moreCss,
 moreJs = moreJs,
+moreCss = moreCss,
 openGraph = povOpenGraph(pov),
-chessground = false) {
-<div class="analyse cg-512">@miniBoardContent</div>
+chessground = true) {
+<div class="analyse cg-512">
+  <div class="top">
+    <div class="lichess_game">
+      <div class="lichess_board_wrap">
+        <div class="lichess_board">
+          <div class="cg-board-wrap">
+            <div class="cg-board"></div>
+          </div>
+        </div>
+      </div>
+      <div class="lichess_ground for_bot">
+        <h1>@titlePov(pov)</h1>
+        <p>@describePov(pov)</p>
+        <p>@pov.game.opening.map(_.fullName)</p>
+        <div class="pgn">@Html(nl2br(escape(pgn.toString)))</div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="advice_summary" style="display:none">
   @analysis.filter(_.done).map { a =>
   <table>
@@ -84,33 +94,6 @@ chessground = false) {
 </div>
 <div class="underboard_content" style="display:none">
   <div class="analysis_panels">
-    @if(game.analysable) {
-    <div class="panel computer_analysis">
-      @analysis.map { a =>
-      @advantageChart.map { chart =>
-      <div
-        id="adv_chart"
-        data-division-mid="@division.mid.getOrElse("null")"
-        data-division-end="@division.end.getOrElse("null")"
-        data-max="@lila.analyse.AdvantageChart.max"
-        data-rows="@chart"></div>
-      }.getOrElse {
-      @analyse.computing()
-      }
-      }.getOrElse {
-      @if(analysis.isEmpty) {
-      <form class="future_game_analysis@if(ctx.isAnon) { must_login }" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
-        <button type="submit" class="button text"><span class="is3 text" data-icon="^">@trans.requestAComputerAnalysis()</span></button>
-      </form>
-      }
-      }
-      <div class="view_game_analysis future_game_analysis" data-href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-        <a class="button" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-          <span class="is3 text" data-icon="^">@trans.viewTheComputerAnalysis()</span>
-        </a>
-      </div>
-    </div>
-    }
     <div class="panel fen_pgn">
       <p><strong>FEN</strong><input type="input" readonly="true" spellcheck="false" class="copyable fen" /></p>
       <p><strong>PGN</strong>
@@ -128,14 +111,6 @@ chessground = false) {
       </p>
       <div class="pgn">@Html(nl2br(escape(pgn)))</div>
     </div>
-    <div class="panel move_times">
-      <div
-        id="movetimes_chart"
-        data-division-mid="@division.mid.getOrElse("null")"
-        data-division-end="@division.end.getOrElse("null")"
-        data-series="@timeChart.series"
-        data-max="@timeChart.maxTime"></div>
-    </div>
     @cross.map { c =>
     <div class="panel crosstable">
       @views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
@@ -143,14 +118,8 @@ chessground = false) {
     }
   </div>
   <div class="analysis_menu">
-    @if(game.analysable) {
-    <a data-panel="computer_analysis" class="computer_analysis">@trans.computerAnalysis()</a>
-    }
-    @if(!game.isPgnImport) {
-    <a data-panel="move_times" class="move_times">@trans.moveTimes()</a>
     @if(cross.isDefined) {
     <a data-panel="crosstable" class="crosstable">Crosstable</a>
-    }
     }
     <a data-panel="fen_pgn" class="fen_pgn">FEN &amp; PGN</a>
   </div>
