@@ -1527,6 +1527,10 @@ body #themepicker div.is3d,
   cursor: pointer;
   transition: background 0.13s;
 }
+.is2d #themepicker div.theme {
+  padding: 7px 9px 9px 7px;
+}
+
 #themepicker div.theme:hover {
   background: #f0f0f0;
 }
@@ -1555,14 +1559,10 @@ body #themepicker div.is3d,
   background: rgba(250, 250, 250, 0.15);
 }
 #themepicker .no-square {
-  width: 64px;
-  height: 64px;
-  padding: 8px;
-  position: relative;
-}
-#themepicker .is3d .no-square {
   width: 72px;
   height: 72px;
+  padding: 8px;
+  position: relative;
   margin: 0px -3px -3px -3px;
 }
 #themepicker .is3d .cg-piece {
