@@ -16,7 +16,7 @@ class StepBuilderPerfTest extends Specification {
   // val iterations = 1
 
   def runOne(moves: List[String]) =
-    StepBuilder("abcd1234", moves, chess.variant.Standard, None, None, true)
+    StepBuilder("abcd1234", moves, chess.variant.Standard, None, None)
   def run { gameMoves foreach runOne }
 
   "playing a game" should {

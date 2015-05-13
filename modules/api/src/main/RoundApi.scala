@@ -33,7 +33,7 @@ private[api] final class RoundApi(
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
-            withSteps(pov, none, initialFen, false)_ compose
+            withSteps(pov, none, initialFen)_ compose
             withNote(note)_
           )(json)
         }
@@ -42,8 +42,7 @@ private[api] final class RoundApi(
   def watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean],
     analysis: Option[(Pgn, Analysis)] = None,
     initialFenO: Option[Option[String]] = None,
-    withMoveTimes: Boolean = false,
-    withPossibleMoves: Boolean = false)(implicit ctx: Context): Fu[JsObject] =
+    withMoveTimes: Boolean = false)(implicit ctx: Context): Fu[JsObject] =
     initialFenO.fold(GameRepo initialFen pov.game)(fuccess) flatMap { initialFen =>
       jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
         withBlurs = ctx.me ?? Granter(_.ViewBlurs),
@@ -57,17 +56,17 @@ private[api] final class RoundApi(
             withTournament(pov, tourOption)_ compose
             withSimul(pov, simulOption)_ compose
             withNote(note)_ compose
-            withSteps(pov, analysis, initialFen, withPossibleMoves)_ compose
+            withSteps(pov, analysis, initialFen)_ compose
             withAnalysis(analysis)_
           )(json)
         }
     }
 
   def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String]) =
-    jsonView.userAnalysisJson(pov, pref) map withSteps(pov, none, initialFen, true)_
+    jsonView.userAnalysisJson(pov, pref) map withSteps(pov, none, initialFen)_
 
-  private def withSteps(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String], possibleMoves: Boolean)(obj: JsObject) =
-    obj + ("steps" -> lila.round.StepBuilder(pov.game.id, pov.game.pgnMoves, pov.game.variant, a, initialFen, possibleMoves))
+  private def withSteps(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String])(obj: JsObject) =
+    obj + ("steps" -> lila.round.StepBuilder(pov.game.id, pov.game.pgnMoves, pov.game.variant, a, initialFen))
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))

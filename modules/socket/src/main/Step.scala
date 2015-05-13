@@ -9,7 +9,8 @@ case class Step(
     move: Option[Step.Move],
     fen: String,
     check: Boolean,
-    dests: Map[Pos, List[Pos]],
+    // None when not computed yet
+    dests: Option[Map[Pos, List[Pos]]],
     eval: Option[Int] = None,
     mate: Option[Int] = None,
     nag: Option[String] = None,
@@ -36,15 +37,17 @@ object Step {
       add("mate", mate) _ compose
       add("nag", nag) _ compose
       add("comments", comments, comments.nonEmpty) _ compose
-      add("variations", variations, variations.nonEmpty) _
+      add("variations", variations, variations.nonEmpty) _ compose
+      add("dests", dests.map {
+        _.map {
+          case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
+        }.mkString(" ")
+      })
     )(Json.obj(
         "ply" -> ply,
         "uci" -> move.map(_.uci),
         "san" -> move.map(_.san),
-        "fen" -> fen,
-        "dests" -> dests.map {
-          case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
-        }.mkString(" ")))
+        "fen" -> fen))
   }
 
   private def add[A](k: String, v: A, cond: Boolean)(o: JsObject)(implicit writes: Writes[A]): JsObject =

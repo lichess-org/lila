@@ -39,6 +39,16 @@ object Handler {
               member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
           }
         }
+      case ("anaDests", o) =>
+        AnaDests parse o match {
+          case Some(req) =>
+            member push lila.socket.Socket.makeMessage("dests", Json.obj(
+              "dests" -> req.dests,
+              "path" -> req.path
+            ))
+          case None =>
+            member push lila.socket.Socket.makeMessage("destsFailure", "Bad dests request")
+        }
       case _ => // logwarn("Unhandled msg: " + msg)
     }
 

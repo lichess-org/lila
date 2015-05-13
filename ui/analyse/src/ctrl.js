@@ -10,6 +10,7 @@ var autoplay = require('./autoplay');
 var control = require('./control');
 var promotion = require('./promotion');
 var readDests = require('./util').readDests;
+var debounce = require('./util').debounce;
 var socket = require('./socket');
 var m = require('mithril');
 
@@ -63,8 +64,8 @@ module.exports = function(opts) {
       fen: s.fen,
       turnColor: color,
       movable: {
-        color: Object.keys(dests).length === 0 ? null : color,
-        dests: dests
+        color: dests && Object.keys(dests).length > 0 ? color : null,
+        dests: dests || {}
       },
       check: s.check,
       lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
@@ -75,7 +76,17 @@ module.exports = function(opts) {
       this.chessground = ground.make(this.data, config, userMove);
     this.chessground.set(config);
     if (opts.onChange) opts.onChange(config.fen, this.vm.path);
+    if (!dests) getDests();
   }.bind(this);
+
+  var getDests = debounce(function() {
+    if (this.vm.step.dests) return;
+    this.socket.sendAnaDests({
+      variant: this.data.game.variant.key,
+      fen: this.vm.step.fen,
+      path: this.vm.pathStr
+    });
+  }.bind(this), 200, false);
 
   this.jump = function(path) {
     this.vm.path = path;
@@ -130,6 +141,11 @@ module.exports = function(opts) {
     this.jump(newPath);
     m.redraw();
     this.chessground.playPremove();
+  }.bind(this);
+
+  this.addDests = function(dests, path) {
+    this.analyse.addDests(dests, treePath.read(path));
+    if (path === this.vm.pathStr) showGround();
   }.bind(this);
 
   this.reset = function() {

@@ -20,7 +20,7 @@ case class AnaMove(
         },
         fen = chess.format.Forsyth >> game,
         check = game.situation.check,
-        dests = !game.situation.end ?? game.situation.destinations)
+        dests = Some(!game.situation.end ?? game.situation.destinations))
     }
 }
 
@@ -30,7 +30,7 @@ object AnaMove {
     d ← o obj "d"
     orig ← d str "orig" flatMap chess.Pos.posAt
     dest ← d str "dest" flatMap chess.Pos.posAt
-    variant ← d str "variant" map chess.variant.Variant.orDefault
+    variant = chess.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
     prom = d str "promotion" flatMap chess.Role.promotable

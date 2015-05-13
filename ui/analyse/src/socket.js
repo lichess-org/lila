@@ -3,6 +3,7 @@ module.exports = function(send, ctrl) {
   this.send = send;
 
   var anaMoveTimeout;
+  var anaDestsTimeout;
 
   var handlers = {
     step: function(data) {
@@ -13,6 +14,14 @@ module.exports = function(send, ctrl) {
       console.log(data);
       clearTimeout(anaMoveTimeout);
       ctrl.reset();
+    },
+    dests: function(data) {
+      ctrl.addDests(data.dests, data.path);
+      clearTimeout(anaDestsTimeout);
+    },
+    destsFailure: function(data) {
+      console.log(data);
+      clearTimeout(anaDestsTimeout);
     }
   };
 
@@ -24,8 +33,19 @@ module.exports = function(send, ctrl) {
     return false;
   }.bind(this);
 
-  this.sendAnaMove = function(move) {
-    this.send('anaMove', move);
-    anaMoveTimeout = setTimeout(this.sendAnaMove.bind(this, move), 3000);
+  this.sendAnaMove = function(req) {
+    withoutStandardVariant(req);
+    this.send('anaMove', req);
+    anaMoveTimeout = setTimeout(this.sendAnaMove.bind(this, req), 3000);
   }.bind(this);
+
+  this.sendAnaDests = function(req) {
+    withoutStandardVariant(req);
+    this.send('anaDests', req);
+    anaDestsTimeout = setTimeout(this.sendAnaDests.bind(this, req), 3000);
+  }.bind(this);
+
+  var withoutStandardVariant = function(obj) {
+    if (obj.variant === 'standard') delete obj.variant;
+  };
 }
