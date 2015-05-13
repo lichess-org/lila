@@ -19,6 +19,7 @@ final class Env(
     flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMap: ActorRef,
+    roundSocketHub: ActorSelection,
     lightUser: String => Option[lila.common.LightUser],
     isOnline: String => Boolean,
     isDev: Boolean,
@@ -54,7 +55,8 @@ final class Env(
     socketHub = socketHub,
     site = hub.socket.site,
     lobby = hub.socket.lobby,
-    roundMap = roundMap)
+    roundMap = roundMap,
+    roundSocketHub = roundSocketHub)
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
@@ -142,6 +144,7 @@ object Env {
     flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
     roundMap = lila.round.Env.current.roundMap,
+    roundSocketHub = lila.hub.Env.current.socket.round,
     lightUser = lila.user.Env.current.lightUser,
     isOnline = lila.user.Env.current.isOnline,
     isDev = lila.common.PlayApp.isDev,

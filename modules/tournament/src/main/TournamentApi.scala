@@ -13,10 +13,10 @@ import lila.common.Debouncer
 import lila.db.api._
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.lobby.{ ReloadTournaments, ReloadSimuls }
-import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.map.{ Tell, TellIds }
 import lila.hub.actorApi.router.Tourney
 import lila.hub.Sequencer
-import lila.round.actorApi.round.{ ResignColor, GoBerserk }
+import lila.round.actorApi.round.{ ResignColor, GoBerserk, TournamentStanding }
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
@@ -31,7 +31,8 @@ private[tournament] final class TournamentApi(
     socketHub: ActorRef,
     site: ActorSelection,
     lobby: ActorSelection,
-    roundMap: ActorRef) {
+    roundMap: ActorRef,
+    roundSocketHub: ActorSelection) {
 
   def makePairings(oldTour: Started, pairings: NonEmptyList[Pairing], postEvents: Events) {
     sequence(oldTour.id) {
@@ -194,7 +195,9 @@ private[tournament] final class TournamentApi(
             ).refreshPlayers
             TournamentRepo.update(tour2).void >>- {
               game.loserUserId.filter(tour2.quickLossStreak) foreach { withdraw(tour2, _) }
-            } >>- socketReload(tour2.id)
+            } >>- socketReload(tour2.id) >>- {
+              roundSocketHub ! TellIds(tour2.playingPairings.map(_.gameId), TournamentStanding(tour2.id))
+            }
           }
         }
       }

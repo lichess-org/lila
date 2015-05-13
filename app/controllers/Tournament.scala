@@ -57,6 +57,12 @@ object Tournament extends LilaController {
     }
   }
 
+  def gameStanding(id: String) = Open { implicit ctx =>
+    OptionOk(repo startedOrFinishedById id) { tour =>
+      html.tournament.gameStanding(tour, true)
+    }
+  }
+
   def join(id: String) = AuthBody { implicit ctx =>
     implicit me =>
       NoEngine {

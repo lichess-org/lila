@@ -1145,6 +1145,16 @@ lichess.storage = {
             $('div.check_count')
               .find('.white').text(e.black).end()
               .find('.black').text(e.white);
+          },
+          tournamentStanding: function(id) {
+            $.ajax({
+              url: '/tournament/' + id + '/game-standing',
+              cache: false,
+              success: function(html) {
+                $('#site_header div.game_tournament').replaceWith(html);
+                startTournamentClock();
+              }
+            });
           }
         }
       });

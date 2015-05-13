@@ -30,6 +30,7 @@ case class StreamsOnAir(html: String)
 package map {
 case class Get(id: String)
 case class Tell(id: String, msg: Any)
+case class TellIds(ids: Seq[String], msg: Any)
 case class TellAll(msg: Any)
 case class Ask(id: String, msg: Any)
 }

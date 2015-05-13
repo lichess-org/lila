@@ -14,7 +14,6 @@ import lila.game.actorApi.{ StartGame, UserStartGame }
 import lila.game.Event
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.TimeBomb
-import lila.round.actorApi.Bye
 import lila.socket._
 import lila.socket.actorApi.{ Connected => _, _ }
 import makeTimeout.short
@@ -164,6 +163,10 @@ private[round] final class Socket(
       _ push makeMessage("resync")
     }
 
+    case round.TournamentStanding(id) => owners.foreach {
+      _ push makeMessage("tournamentStanding", id)
+    }
+
     case NotifyCrowd =>
       delayedCrowdNotification = false
       val (anons, users) = watchers.map(_.userId flatMap lightUser).foldLeft(0 -> List[LightUser]()) {
@@ -216,6 +219,8 @@ private[round] final class Socket(
     members get uid filter (_.owner)
 
   def watchers: Iterable[Member] = members.values.filter(_.watcher)
+
+  def owners: Iterable[Member] = members.values.filter(_.owner)
 
   private def playerGet[A](color: Color, getter: Player => A): A =
     getter(color.fold(whitePlayer, blackPlayer))

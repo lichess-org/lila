@@ -32,6 +32,12 @@ object TournamentRepo {
   def startedById(id: String): Fu[Option[Started]] =
     coll.find(selectId(id) ++ startedSelect).one[Started]
 
+  def startedOrFinishedById(id: String): Fu[Option[StartedOrFinished]] =
+    byId(id) map {
+      case Some(t: StartedOrFinished) => t.some
+      case _                          => none
+    }
+
   def createdByIdAndCreator(id: String, userId: String): Fu[Option[Created]] =
     createdById(id) map (_ filter (_ isCreator userId))
 
