@@ -19,7 +19,7 @@ private[round] final class Takebacker(
         val progress = Progress(game) map { g =>
           g.updatePlayer(color, _ proposeTakeback g.turns)
         }
-        GameRepo save progress inject List(Event.TakebackOffers(color.white, color.black), Event.ReloadOwner)
+        GameRepo save progress inject List(Event.TakebackOffers(color.white, color.black))
       case _ => ClientErrorException.future("[takebacker] invalid yes " + pov)
     }
   }
@@ -29,11 +29,11 @@ private[round] final class Takebacker(
       case Pov(game, color) if pov.player.isProposingTakeback => GameRepo save {
         messenger.system(game, _.takebackPropositionCanceled)
         Progress(game) map { g => g.updatePlayer(color, _.removeTakebackProposition) }
-      } inject List(Event.TakebackOffers(false, false), Event.ReloadOwner)
+      } inject List(Event.TakebackOffers(false, false))
       case Pov(game, color) if pov.opponent.isProposingTakeback => GameRepo save {
         messenger.system(game, _.takebackPropositionDeclined)
         Progress(game) map { g => g.updatePlayer(!color, _.removeTakebackProposition) }
-      } inject List(Event.TakebackOffers(false, false), Event.ReloadOwner)
+      } inject List(Event.TakebackOffers(false, false))
       case _ => ClientErrorException.future("[takebacker] invalid no " + pov)
     }
   }
