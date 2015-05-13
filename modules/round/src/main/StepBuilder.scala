@@ -20,9 +20,9 @@ object StepBuilder {
     chess.Replay.gameWhileValid(pgnMoves, initialFen, variant) match {
       case (games, error) =>
         error foreach logChessError(id)
-        val lastPly = games.lastOption.map(_.turns)
+        val lastPly = games.lastOption.??(_.turns)
         val steps = games.map { g =>
-          val isEnd = lastPly.exists(g.turns ==) && g.situation.end
+          val withDests = possibleMoves && !(lastPly == g.turns && g.situation.end)
           Step(
             ply = g.turns,
             move = for {
@@ -31,7 +31,7 @@ object StepBuilder {
             } yield Step.Move(pos._1, pos._2, san),
             fen = Forsyth >> g,
             check = g.situation.check,
-            dests = !isEnd ?? g.situation.destinations)
+            dests = withDests ?? g.situation.destinations)
         }
         JsArray(a.fold[Seq[Step]](steps) {
           case (pgn, analysis) => applyAnalysisAdvices(
@@ -75,9 +75,9 @@ object StepBuilder {
     chess.Replay.gameWhileValid(info.variation take 20, fromStep.fen.some, variant) match {
       case (games, error) =>
         error foreach logChessError(gameId)
-        val lastPly = games.lastOption.map(_.turns)
+        val lastPly = games.lastOption.??(_.turns)
         games.drop(1).map { g =>
-          val isEnd = lastPly.exists(g.turns ==) && g.situation.end
+          val withDests = possibleMoves && !(lastPly == g.turns && g.situation.end)
           Step(
             ply = g.turns,
             move = for {
@@ -87,7 +87,7 @@ object StepBuilder {
             } yield Step.Move(orig, dest, san),
             fen = Forsyth >> g,
             check = g.situation.check,
-            dests = !g.situation.end ?? g.situation.destinations)
+            dests = withDests ?? g.situation.destinations)
         }
     }
   }

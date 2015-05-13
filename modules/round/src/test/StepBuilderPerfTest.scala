@@ -33,9 +33,9 @@ class StepBuilderPerfTest extends Specification {
         duration
       }
       val nbGames = iterations * nb
-      val moveMillis = durations.sum / nbGames
-      println(s"Average = $moveMillis ms per game")
-      println(s"          ${1000000 / moveMillis} games per second")
+      val moveMicros = (1000 * durations.sum) / nbGames
+      println(s"Average = $moveMicros microseconds per game")
+      println(s"          ${1000000 / moveMicros} games per second")
       true === true
     }
   }
