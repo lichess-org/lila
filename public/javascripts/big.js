@@ -1134,6 +1134,7 @@ lichess.storage = {
               url: url,
               cache: false,
               success: function(html) {
+                var $html = $(html);
                 $('#site_header div.side').replaceWith($html.find('>.side'));
                 $('#lichess div.crosstable').replaceWith($html.find('>.crosstable'));
                 $('body').trigger('lichess.content_loaded');
