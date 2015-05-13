@@ -74,10 +74,6 @@ object GameRepo {
     $query(Query user user) sort Query.sortCreated, nb
   ) map { _.flatMap(g => Pov(g, user)) }
 
-  def chronologicalFinishedByUser(userId: String): Fu[List[Game]] = $find(
-    $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc F.createdAt)
-  )
-
   def gamesForAssessment(userId: String, nb: Int): Fu[List[Game]] = $find(
     $query(Query.finished
       ++ Query.rated

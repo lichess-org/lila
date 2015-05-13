@@ -77,6 +77,9 @@ object Query {
 
   def checkable = Json.obj(F.checkAt -> $lt($date(DateTime.now)))
 
+  def variant(v: chess.variant.Variant) =
+    Json.obj(F.variant -> v.standard.fold($exists(false), v.id))
+
   val sortCreated = $sort desc F.createdAt
   val sortUpdatedNoIndex = $sort desc F.updatedAt
 }
