@@ -1129,7 +1129,7 @@ lichess.storage = {
             if (data.tv) lichess.reload();
           },
           end: function() {
-            var url = (data.tv ? cfg.routes.Tv.side : cfg.routes.Round.sideWatcher)(data.game.id, data.player.color).url;
+            var url = (data.tv ? cfg.routes.Tv.side : (data.player.spectator ? cfg.routes.Round.sideWatcher : cfg.routes.Round.sidePlayer))(data.game.id, data.player.color).url;
             $.ajax({
               url: url,
               cache: false,
