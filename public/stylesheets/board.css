@@ -906,6 +906,9 @@ div.lichess_board {
 #top .cg-piece.fantasy {
   background-image: url(../piece/fantasy/wN.svg);
 }
+#top .cg-piece.shapes {
+  background-image: url(../piece/shapes/wN.svg);
+}
 .pirouetti .is2d .cg-piece.piece.white {
   -webkit-filter: drop-shadow(0 0 0.5px #000);
 }
