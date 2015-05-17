@@ -492,3 +492,4 @@ showOrHideComments=mostrar/esconder acotaciones
 enterOrExitVariation=entrar en/salir de variantes
 youCanDrawArrowsAndCircles=¡Mantener presionada la tecla shift o hacer clic con el botón derecho del ratón para dibujar las flechas y los círculos!
 youCanScrollToMove=Además puedes desplazarse para moverse en la partida.
+readTheTermsOfService=¿Deseas enfáticamente leer las
