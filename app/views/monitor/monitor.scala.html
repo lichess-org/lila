@@ -2,18 +2,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Lichess Monitor</title>
+    <title>@trans.lichessMonitor()</title>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <link rel="shortcut icon" href="@routes.Assets.at("favicon.ico")" type="image/x-icon" />
     @cssTag("monitor.css")
   </head>
   <body>
-    <a class="back" href="@routes.Lobby.home">&lt; back to lichess</a>
-    <h1>Lichess reactor <span class="down">DOWN</span><span class="up">OPERATIONAL</span></h1>
+    <a class="back" href="@routes.Lobby.home">&lt; @trans.backToLichessHome()</a>
+    <h1>@trans.lichessReactor() <span class="down">@trans.down()</span><span class="up">trans.up()</span></h1>
     <div id="monitors" class="clearfix">
     </div>
     <div id="actions">
-      <a href="#" id="shutdown">Emergency reactor shutdown - DON'T CLICK</a>
+      <a href="#" id="shutdown">@trans.shutdownDoNotClick()</a>
     </div>
     <script>
       window.document.getElementById("shutdown").onclick = function() {
