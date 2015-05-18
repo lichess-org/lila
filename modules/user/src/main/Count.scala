@@ -3,7 +3,7 @@ package lila.user
 import lila.db.BSON
 import reactivemongo.bson.BSONDocument
 
-private[user] case class Count(
+case class Count(
     ai: Int,
     draw: Int,
     drawH: Int, // only against human opponents
@@ -17,7 +17,7 @@ private[user] case class Count(
   def gameH = winH + lossH + drawH
 }
 
-private[user] object Count {
+object Count {
 
   private[user] val countBSONHandler = new BSON[Count] {
 
