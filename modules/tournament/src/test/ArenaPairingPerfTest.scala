@@ -7,18 +7,20 @@ import org.joda.time.DateTime
 
 class ArenaPairingPerfTest extends Specification {
 
-  val nb = 5
-  val nbPlayers = 14
-  val iterations = 5
-  val nbPrePairings = 10
+  val nb = 10
+  val nbPlayers = 30
+  val iterations = 10
+  val nbPrePairings = 20
 
-  def makeUser(username: String) = lila.user.User(
+  val ratings = Vector(1190, 2366, 1688, 1127, 2439, 1700, 1848, 1593, 1668, 1925, 1329, 1391, 1572, 1911, 2470, 1350, 1493, 1840, 1370, 1190, 1583, 1381, 1049, 1407, 1824, 1041, 1088, 2198, 1366, 1609, 2467, 1509, 1177, 2110, 2026, 1679, 2301, 1691, 1616, 2159, 1775, 2297, 1152, 1579, 2112, 1357, 1131, 1136, 1994, 2297, 1084, 1345, 1296, 1695, 1598, 2190, 2447, 2487, 2483, 1380, 2222, 1924, 2246, 2354, 1419, 1395, 1527, 2159, 2302, 1641, 2311, 1511, 1623, 1682, 1388, 2051, 2069, 1954, 1496, 1938, 1954, 1600, 1457, 2062, 1015, 2018, 1661, 2344, 1888, 1541, 1475, 1724, 2494, 1062, 1358, 1921, 1792, 1105, 1739, 1709)
+
+  def makeUser(username: String, rating: Int) = lila.user.User(
     id = username.toLowerCase,
     username = username,
     perfs = lila.user.Perfs.default.copy(
       bullet = lila.rating.Perf.default.add(
         lila.rating.Glicko.default.copy(
-          rating = 1000 + util.Random.nextInt(1400),
+          rating = rating,
           deviation = 20 + util.Random.nextInt(100)),
         DateTime.now)),
     count = lila.user.Count.default,
@@ -30,12 +32,12 @@ class ArenaPairingPerfTest extends Specification {
     lang = None)
 
   val users = (1 to nbPlayers).map { i =>
-    makeUser(s"player$i")
+    makeUser(s"player$i", ratings(i))
   }.toList
 
   val tour: Started = {
     val t = users.foldLeft(Tournament.make(
-      createdBy = makeUser("creator"),
+      createdBy = makeUser("creator", 1000),
       clock = TournamentClock(1 * 60, 0),
       minutes = 45,
       minPlayers = 20,
@@ -54,7 +56,9 @@ class ArenaPairingPerfTest extends Specification {
           case (pairings@(p :: ps), events) => pairings.foldLeft(
             t addPairings NonEmptyList.nel(p, ps) addEvents events
           ) {
-              case (t, p) => t.updatePairing(p.gameId, _.finish(chess.Status.Draw, None, 20))
+              case (t, p) => t.updatePairing(p.gameId, _.finish(
+                chess.Status.Mate, Some(chess.Color(util.Random.nextBoolean).name), 20
+              ))
             }
           case _ => t
         }
@@ -83,7 +87,7 @@ class ArenaPairingPerfTest extends Specification {
       }
       val moveMillis = durations.sum / (iterations * nb)
       println(s"Average = $moveMillis millis per pairing")
-      println(s"          ${1000 / moveMillis} pairings per second")
+      println(s"          ${1000 / moveMillis.max(1)} pairings per second")
       true === true
     }
   }
