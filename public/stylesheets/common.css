@@ -2215,12 +2215,16 @@ body.base .crosstable .loss {
   display: block;
   margin: 2em 0 2em -30px;
   text-decoration: none;
+  font-size: 0.9em;
+  font-family: 'Roboto';
+  font-weight: 300;
 }
 #site_header a.stream:hover {
   text-decoration: underline;
 }
 #site_header a.stream span {
   color: #d59120;
+  font-family: 'Noto Sans';
   font-weight: bold;
 }
 #site_header a.stream span:before {
