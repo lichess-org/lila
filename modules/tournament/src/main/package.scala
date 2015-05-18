@@ -25,6 +25,7 @@ package tournament {
 
 case class RankedPlayer(rank: Int, player: Player) {
   def is(other: RankedPlayer) = player is other.player
+  override def toString = s"${player.id}[${player.rating}]"
 }
 
 case class Winner(tourId: String, tourName: String, userId: String)

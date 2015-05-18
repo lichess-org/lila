@@ -18,6 +18,8 @@ object PairingSystem extends AbstractPairingSystem {
       case _                                      => tryPairings(tour, users.all)
     }
 
+  val smartHardLimit = 24
+
   private def tryPairings(tour: Tournament, users: List[String]): Future[(Pairings, Events)] = {
     val nbActiveUsers = tour.nbActiveUsers
 
@@ -26,27 +28,22 @@ object PairingSystem extends AbstractPairingSystem {
     else {
       val idles: RankedPlayers = users.toSet.diff {
         tour.playingUserIds.toSet
-      }.toList flatMap tour.rankedPlayerByUserId
+      }.toList flatMap tour.rankedPlayerByUserId sortBy { p =>
+        p.rank -> -p.player.rating
+      }
 
-      // val ps = tour.pairings.isEmpty.fold(
-      //   naivePairings(idles),
-      // (idles.size > 30).fold(
-      //     naivePairings(idles),
-      //     smartPairings(idles, tour.pairings, nbActiveUsers)
-      //   )
-      // )
-      val ps = (idles.size > 30).fold(
-        naivePairings(idles),
-        smartPairings(idles, tour.pairings, nbActiveUsers))
+      val ps =
+        if (tour.pairings.isEmpty) naivePairings(idles)
+        else
+          smartPairings(idles take smartHardLimit, tour.pairings, nbActiveUsers) :::
+            naivePairings(idles drop smartHardLimit)
 
       Future.successful((ps, Nil))
     }
   }
 
   private def naivePairings(players: RankedPlayers) =
-    players.sortBy { p =>
-      p.rank -> -p.player.rating
-    } grouped 2 collect {
+    players grouped 2 collect {
       case List(p1, p2) if Random.nextBoolean => Pairing(p1.player, p2.player)
       case List(p1, p2)                       => Pairing(p2.player, p1.player)
     } toList
@@ -68,39 +65,63 @@ object PairingSystem extends AbstractPairingSystem {
 
     // lower is better
     def pairingScore(pair: RankedPairing): Score = pair match {
-      case (a, b) if justPlayedTogether(a.player.id, b.player.id) => 9000
-      case (a, b) => Math.abs(a.rank - b.rank) +
-        Math.abs(a.player.rating - b.player.rating) / 1000
+      case (a, b) if justPlayedTogether(a.player.id, b.player.id) => 9000 * 1000
+      case (a, b) => Math.abs(a.rank - b.rank) * 1000 +
+        Math.abs(a.player.rating - b.player.rating)
     }
     def score(pairs: Combination): Score = pairs.foldLeft(0) {
       case (s, p) => s + pairingScore(p)
     }
 
-    def bestCombination(list: RankedPlayers): Option[Combination] = list match {
-      case a :: rest =>
-        rest.foldLeft(none[Combination] -> Int.MaxValue) {
-          case ((best, bestScore), b) =>
-            val init = List(a -> b)
-            val initScore = score(init)
-            if (initScore > bestScore) (best, bestScore)
-            val co = bestCombination(rest filterNot b.is).fold(init) { co =>
-              init ::: co
+    def nextCombos(combo: Combination): List[Combination] =
+      players.filterNot { p =>
+        combo.exists(c => c._1 == p || c._2 == p)
+      } match {
+        case a :: rest => rest.map { b =>
+          (a, b) :: combo
+        }
+        case _ => Nil
+      }
+
+    sealed trait FindBetter
+    case class Found(best: Combination) extends FindBetter
+    case object End extends FindBetter
+    case object NoBetter extends FindBetter
+
+    def findBetter(from: Combination, than: Score): FindBetter =
+      nextCombos(from) match {
+        case Nil => End
+        case nexts => nexts.foldLeft(none[Combination]) {
+          case (current, next) =>
+            val toBeat = current.fold(than)(score)
+            if (score(next) >= toBeat) current
+            else findBetter(next, toBeat) match {
+              case Found(b) => b.some
+              case End      => next.some
+              case NoBetter => current
             }
-            val sc = score(co)
-            if (sc > bestScore) (best, bestScore)
-            else Some(co) -> sc
-        }._1
-      case _ => None
-    }
+        } match {
+          case Some(best) => Found(best)
+          case None       => NoBetter
+        }
+      }
 
     (players match {
       case x if x.size < 2 => Nil
       case List(p1, p2) if nbActiveUsers == 2 => List(p1.player -> p2.player)
       case List(p1, p2) if justPlayedTogether(p1.player.id, p2.player.id) => Nil
       case List(p1, p2) => List(p1.player -> p2.player)
-      case ps => (~bestCombination(ps)).map {
-        case (rp0, rp1) if Random.nextBoolean => rp0.player -> rp1.player
-        case (rp0, rp1)                       => rp1.player -> rp0.player
+      case ps => findBetter(Nil, Int.MaxValue) match {
+        case Found(best) => best map {
+          case (rp0, rp1) if Random.nextBoolean => rp0.player -> rp1.player
+          case (rp0, rp1)                       => rp1.player -> rp0.player
+        }
+        case _ =>
+          logwarn("Could not make smart pairings for arena tournament")
+          players map (_.player) grouped 2 collect {
+            case List(p1, p2) if Random.nextBoolean => (p1, p2)
+            case List(p1, p2)                       => (p2, p1)
+          } toList
       }
     }) map Pairing.apply
   }
