@@ -2035,6 +2035,7 @@ lichess.storage = {
     };
     var lastFen, lastPath;
     cfg.onChange = function(fen, path) {
+      if (fen === lastFen) return;
       lastFen = fen = fen || lastFen;
       lastPath = path = path || lastPath;
       var chart, point;
@@ -2050,7 +2051,7 @@ lichess.storage = {
           }
         }
       }
-      if ($timeChart.length) {
+     if ($timeChart.length) {
         chart = $timeChart.highcharts();
         if (chart) {
           if (path.length > 1) unselect(chart);
