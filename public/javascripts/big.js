@@ -1446,7 +1446,7 @@ lichess.storage = {
   /////////////////
 
   $(function() {
-    lichess.parseFen();
+    setTimeout(lichess.parseFen, 200);
     $('body').on('lichess.content_loaded', lichess.parseFen);
 
     var socketOpened = false;
