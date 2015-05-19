@@ -60,7 +60,25 @@ function playerTrs(ctrl, maxScore, player) {
   }];
 }
 
+var trophy = m('div.trophy');
+
 module.exports = {
+  podium: function(ctrl) {
+    return m('div.podium', [
+      ctrl.data.players.filter(function(p) {
+        return p.rank === 1;
+      }).map(function(p) {
+        return m('div.first', [
+          trophy,
+          util.player(p),
+          m('p', '8 wins'),
+          m('p', '8 draws'),
+          m('p', '8 losses'),
+          m('p', '8 berserks')
+        ]);
+      })
+    ]);
+  },
   standing: function(ctrl) {
     var maxScore = Math.max.apply(Math, ctrl.data.players.map(function(p) {
       return p.sheet.total;

@@ -51,6 +51,28 @@ ol.scheduled_tournaments a:hover {
   font-weight: bold;
   margin: 25px 25px 0 0;
 }
+#tournament .podium {
+  margin: 10px 0 30px 0;
+}
+#tournament .podium > div {
+  display: inline-block;
+  padding: 0 10px;
+  text-align: center;
+}
+#tournament .podium .first {
+  width: 50%;
+}
+#tournament .podium .first .trophy {
+  width: 100px;
+  height: 100px;
+  background: url(../images/icons/first33.svg);
+  background-size: contain;
+  margin: auto;
+}
+#tournament .podium .user_link {
+  font-size: 1.5em;
+  text-decoration: none;
+}
 #tournament div.tournament_show {
   width: 525px;
   min-height: 600px;
