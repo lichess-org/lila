@@ -3,14 +3,14 @@ package lila.api
 import akka.actor._
 import com.typesafe.config.Config
 import lila.common.PimpedConfig._
-import scala.collection.JavaConversions._
 import lila.simul.Simul
+import scala.collection.JavaConversions._
 
 final class Env(
     config: Config,
-    renderer: akka.actor.ActorSelection,
-    router: akka.actor.ActorSelection,
-    bus: lila.common.Bus,
+    renderer: ActorSelection,
+    router: ActorSelection,
+    system: ActorSystem,
     roundJsonView: lila.round.JsonView,
     noteApi: lila.round.NoteApi,
     relationApi: lila.relation.RelationApi,
@@ -66,12 +66,15 @@ final class Env(
     pgnDump = pgnDump,
     analysisApi = analysisApi)
 
-  val roundApi = new RoundApi(
-    jsonView = roundJsonView,
-    noteApi = noteApi,
-    analysisApi = analysisApi,
-    getSimul = getSimul,
-    lightUser = userEnv.lightUser)
+  val roundApi = new RoundApiBalancer(
+    api = new RoundApi(
+      jsonView = roundJsonView,
+      noteApi = noteApi,
+      analysisApi = analysisApi,
+      getSimul = getSimul,
+      lightUser = userEnv.lightUser),
+    system = system,
+    nbActors = math.max(1, Runtime.getRuntime.availableProcessors - 1))
 
   val lobbyApi = new LobbyApi(
     lobby = lobbyEnv.lobby,
@@ -86,7 +89,7 @@ final class Env(
     router ? lila.hub.actorApi.router.Abs(msg) mapTo manifest[String]
   }
 
-  lazy val cli = new Cli(bus, renderer)
+  lazy val cli = new Cli(system.lilaBus, renderer)
 }
 
 object Env {
@@ -106,6 +109,6 @@ object Env {
     prefApi = lila.pref.Env.current.api,
     pgnDump = lila.game.Env.current.pgnDump,
     userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp,
-    bus = lila.common.PlayApp.system.lilaBus,
+    system = lila.common.PlayApp.system,
     isProd = lila.common.PlayApp.isProd)
 }
