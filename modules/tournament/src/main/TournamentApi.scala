@@ -189,10 +189,7 @@ private[tournament] final class TournamentApi(
       sequence(tourId) {
         TournamentRepo startedById tourId flatMap {
           _ ?? { tour =>
-            val tour2 = tour.updatePairing(
-              game.id,
-              _.finish(game.status, game.winnerUserId, game.turns)
-            ).refreshPlayers
+            val tour2 = tour.updatePairing(game.id, _ finish game).refreshPlayers
             TournamentRepo.update(tour2).void >>- {
               game.loserUserId.filter(tour2.quickLossStreak) foreach { withdraw(tour2, _) }
             } >>- socketReload(tour2.id) >>- {

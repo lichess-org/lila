@@ -22,19 +22,13 @@ function playerTrs(ctrl, maxScore, player) {
       class: ctrl.userId === player.id ? 'me' : ''
     },
     children: [
-      m('td.name', [
+      m('td.name', util.player(player)),
+      m('td.sheet', player.sheet.scores.map(scoreTag)),
+      m('td.total',
         player.withdraw ? m('span', {
           'data-icon': 'b',
           'title': ctrl.trans('withdraw')
-        }) : (
-          (ctrl.data.isFinished && player.rank === 1) ? m('span', {
-            'data-icon': 'g',
-            'title': ctrl.trans('winner')
-          }) : m('span.rank', player.rank)),
-        util.player(player)
-      ]),
-      m('td.sheet', player.sheet.scores.map(scoreTag)),
-      m('td.total',
+        }) :
         m('strong',
           player.sheet.fire ? {
             class: 'is-gold',
@@ -62,21 +56,66 @@ function playerTrs(ctrl, maxScore, player) {
 
 var trophy = m('div.trophy');
 
+function podiumUsername(p) {
+  return m('a', {
+    class: 'text ulpt user_link',
+    href: '/@/' + p.username
+  }, p.username);
+}
+
+function podiumStats(p, data) {
+  var perf;
+  if (p.perf === 0) perf = m('span', ' =');
+  else if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
+  else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
+  var winP = Math.round(p.sheet.scores.filter(function(s) {
+    return s[1] === 'double' ? s[0] >= 4 : s[0] >= 2;
+  }).length * 100 / p.sheet.scores.length);
+  var berserkP = Math.round(p.sheet.scores.filter(function(s) {
+    return s[0] === 3 || s[0] === 5;
+  }).length * 100 / p.sheet.scores.length);
+  return [
+    m('span.rating.progress', [
+      p.rating,
+      perf
+    ]),
+    m('div.stats', [
+      m('p', ['Win: ', m('strong', winP + '%')]),
+      m('p', ['Berserk: ', m('strong', berserkP + '%')])
+    ])
+  ];
+}
+
+function podiumFirst(p, data) {
+  if (p) return m('div.first', [
+    trophy,
+    podiumUsername(p),
+    podiumStats(p, data)
+  ]);
+}
+
+function podiumSecond(p, data) {
+  if (p) return m('div.second', [
+    trophy,
+    podiumUsername(p),
+    podiumStats(p, data)
+  ]);
+}
+
+function podiumThird(p, data) {
+  if (p) return m('div.third', [
+    trophy,
+    podiumUsername(p),
+    podiumStats(p, data)
+  ]);
+}
+
 module.exports = {
   podium: function(ctrl) {
     return m('div.podium', [
-      ctrl.data.players.filter(function(p) {
-        return p.rank === 1;
-      }).map(function(p) {
-        return m('div.first', [
-          trophy,
-          util.player(p),
-          m('p', '8 wins'),
-          m('p', '8 draws'),
-          m('p', '8 losses'),
-          m('p', '8 berserks')
-        ]);
-      })
+      podiumSecond(ctrl.data.players[1], ctrl.data),
+      podiumFirst(ctrl.data.players[0], ctrl.data),
+      podiumThird(ctrl.data.players[2], ctrl.data)
     ]);
   },
   standing: function(ctrl) {

@@ -99,6 +99,7 @@ object BSON {
     def intD(k: String) = intO(k) getOrElse 0
     def double(k: String) = get[Double](k)
     def doubleO(k: String) = getO[Double](k)
+    def doubleD(k: String) = doubleO(k) getOrElse 0
     def bool(k: String) = get[Boolean](k)
     def boolO(k: String) = getO[Boolean](k)
     def boolD(k: String) = boolO(k) getOrElse false

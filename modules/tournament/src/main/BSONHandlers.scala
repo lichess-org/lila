@@ -45,7 +45,21 @@ object BSONHandlers {
       "createdAt" -> w.date(o.createdAt),
       "createdBy" -> w.str(o.createdBy))
   }
-  private implicit val playerBSONHandler = Macros.handler[Player]
+
+  private implicit val playerBSONHandler = new BSON[Player] {
+    def reads(r: BSON.Reader) = Player(
+      id = r str "id",
+      rating = r int "rating",
+      withdraw = r boolD "withdraw",
+      score = r int "score",
+      perf = r intD "perf")
+    def writes(w: BSON.Writer, o: Player) = BSONDocument(
+      "id" -> o.id,
+      "rating" -> o.rating,
+      "witdraw" -> w.boolO(o.withdraw),
+      "score" -> o.score,
+      "perf" -> o.perf)
+  }
 
   private implicit val pairingHandler = new BSON[Pairing] {
     def reads(r: BSON.Reader) = {
@@ -59,7 +73,9 @@ object BSONHandlers {
         turns = r intO "t",
         pairedAt = r dateO "p",
         berserk1 = r intD "b1",
-        berserk2 = r intD "b2")
+        berserk2 = r intD "b2",
+        perf1 = r intD "p1",
+        perf2 = r intD "p2")
     }
     def writes(w: BSON.Writer, o: Pairing) = BSONDocument(
       "g" -> o.gameId,
@@ -69,7 +85,9 @@ object BSONHandlers {
       "t" -> o.turns,
       "p" -> o.pairedAt.map(w.date),
       "b1" -> w.intO(o.berserk1),
-      "b2" -> w.intO(o.berserk2))
+      "b2" -> w.intO(o.berserk2),
+      "p1" -> w.intO(o.perf1),
+      "p2" -> w.intO(o.perf2))
   }
 
   private implicit val eventHandler = new BSON[Event] {

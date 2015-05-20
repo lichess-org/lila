@@ -96,6 +96,7 @@ final class JsonView(
       "rating" -> p.rating,
       "withdraw" -> p.withdraw.option(true),
       "score" -> p.score,
+      "perf" -> p.perf,
       "sheet" -> sheets.get(p.id).map(sheetJson)).noNull
   }
 

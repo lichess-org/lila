@@ -44,6 +44,9 @@ ol.scheduled_tournaments a:hover {
 #tournament table tr.standing.scheduled:first-child td:first-child {
   color: #d59120;
 }
+#tournament .finished h1 {
+  text-align: center;
+}
 #tournament .title_tag {
   float: right;
   font-size: 20px;
@@ -52,26 +55,59 @@ ol.scheduled_tournaments a:hover {
   margin: 25px 25px 0 0;
 }
 #tournament .podium {
-  margin: 10px 0 30px 0;
+  margin: 0px 0 20px 0;
 }
 #tournament .podium > div {
   display: inline-block;
-  padding: 0 10px;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #tournament .podium .first {
-  width: 50%;
+  width: 44%;
+  font-size: 1.6em;
+}
+#tournament .podium .second {
+  font-size: 1.3em;
+  width: 31%;
+}
+#tournament .podium .third {
+  font-size: 1.2em;
+  width: 25%;
 }
 #tournament .podium .first .trophy {
-  width: 100px;
-  height: 100px;
-  background: url(../images/icons/first33.svg);
-  background-size: contain;
-  margin: auto;
+  height: 150px;
+  width: 195px;
+  background: url(../images/icons/trophy-1.png);
+  background-size: cover;
+}
+#tournament .podium .second .trophy {
+  height: 85px;
+  width: calc(1.1056 * 85px);
+  background: url(../images/icons/trophy-2.min.svg);
+}
+#tournament .podium .third .trophy {
+  height: 60px;
+  width: calc(1.1056 * 60px);
+  background: url(../images/icons/trophy-3.min.svg);
+}
+#tournament .podium .trophy {
+  margin: 0 auto 8px auto;
+  background-size: contain!important;
 }
 #tournament .podium .user_link {
-  font-size: 1.5em;
   text-decoration: none;
+  font-weight: bold;
+}
+#tournament .podium .progress {
+  display: block;
+}
+#tournament .podium .progress span {
+  font-size: 0.8em;
+}
+#tournament .podium .stats {
+  margin-top: 8px;
+  font-size: 0.8em;
 }
 #tournament div.tournament_show {
   width: 525px;
@@ -82,7 +118,7 @@ ol.scheduled_tournaments a:hover {
   padding-top: 20px;
   overflow: hidden;
 }
-#tournament a.user_link em {
+#tournament a.user_link span {
   font-family: 'Roboto';
   font-weight: 300;
   font-style: italic;
@@ -146,10 +182,6 @@ ol.scheduled_tournaments a:hover {
 #tournament table.standing th:first-child {
   padding-left: 10px;
   white-space: nowrap;
-}
-#tournament table.standing td.name span {
-  display: inline-block;
-  width: 24px;
 }
 #tournament table.standing tr.me td.name {
   border-left: 10px solid #d59120;

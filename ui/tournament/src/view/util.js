@@ -41,7 +41,10 @@ module.exports = {
     }, time.fromNow());
   },
   title: function(ctrl) {
-    return m('h1.text[data-icon=g]', [
+    return m('h1', {
+      class: 'text',
+      'data-icon': ctrl.data.isFinished ? '' : 'g'
+    }, [
       ctrl.data.fullName,
       ctrl.data.private ? [
         ' ',
@@ -50,6 +53,9 @@ module.exports = {
     ]);
   },
   player: function(p) {
+    var perf;
+    if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
+    else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
     return {
       tag: 'a',
       attrs: {
@@ -58,7 +64,7 @@ module.exports = {
       },
       children: [
         (p.title ? p.title + ' ' : '') + p.username,
-        p.rating ? m('em', p.rating) : null
+        m('span.progress', [p.rating, perf])
       ]
     };
   },

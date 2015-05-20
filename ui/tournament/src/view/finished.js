@@ -9,7 +9,6 @@ var pairings = require('./pairings');
 module.exports = {
   main: function(ctrl) {
     return [
-      m('div.title_tag', ctrl.trans('finished')),
       util.title(ctrl),
       arena.podium(ctrl),
       m('div.standing_wrap.scroll-shadow-soft',

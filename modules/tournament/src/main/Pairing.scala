@@ -1,7 +1,7 @@
 package lila.tournament
 
 import chess.Color
-import lila.game.{ PovRef, IdGenerator }
+import lila.game.{ Game, PovRef, IdGenerator }
 
 import org.joda.time.DateTime
 
@@ -14,7 +14,9 @@ case class Pairing(
     turns: Option[Int],
     pairedAt: Option[DateTime],
     berserk1: Int,
-    berserk2: Int) {
+    berserk2: Int,
+    perf1: Int,
+    perf2: Int) {
 
   def users = List(user1, user2)
   def usersPair = user1 -> user2
@@ -45,6 +47,11 @@ case class Pairing(
     else if (userId == user2) berserk2
     else 0
 
+  def perfOf(userId: String): Int =
+    if (userId == user1) perf1
+    else if (userId == user2) perf2
+    else 0
+
   def validBerserkOf(userId: String): Int =
     notSoQuickFinish ?? berserkOf(userId)
 
@@ -57,10 +64,12 @@ case class Pairing(
 
   def withStatus(s: chess.Status) = copy(status = s)
 
-  def finish(s: chess.Status, w: Option[String], t: Int) = copy(
-    status = s,
-    winner = w,
-    turns = t.some)
+  def finish(g: Game) = copy(
+    status = g.status,
+    winner = g.winnerUserId,
+    turns = g.turns.some,
+    perf1 = ~g.whitePlayer.ratingDiff,
+    perf2 = ~g.blackPlayer.ratingDiff)
 }
 
 private[tournament] object Pairing {
@@ -79,5 +88,7 @@ private[tournament] object Pairing {
     turns = none,
     pairedAt = pa,
     berserk1 = 0,
-    berserk2 = 0)
+    berserk2 = 0,
+    perf1 = 0,
+    perf2 = 0)
 }

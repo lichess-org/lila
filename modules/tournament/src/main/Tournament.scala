@@ -196,7 +196,7 @@ case class Started(
     copy(pairings = ps.list ::: pairings)
 
   def updatePairing(gameId: String, f: Pairing => Pairing) = copy(
-    pairings = pairings map { p => (p.gameId == gameId).fold(f(p), p) }
+    pairings = pairings map { p => if (p.gameId == gameId) f(p) else p }
   )
 
   def addEvents(es: Events) =
