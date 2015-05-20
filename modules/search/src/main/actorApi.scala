@@ -1,7 +1,7 @@
 package lila.search
 package actorApi
 
-import com.sksamuel.elastic4s.ElasticDsl._
+import com.sksamuel.elastic4s.{ CountDefinition, SearchDefinition }
 import org.elasticsearch.action.search.{ SearchResponse => ESSR }
 
 case object Reset

@@ -1,6 +1,6 @@
 package lila.search
 
-import com.sksamuel.elastic4s.ElasticDsl._
+import com.sksamuel.elastic4s.{ CountDefinition, SearchDefinition }
 
 trait Query {
 

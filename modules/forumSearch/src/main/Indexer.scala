@@ -40,8 +40,8 @@ private[forumSearch] final class Indexer(
     case Reset =>
       lila.search.ElasticSearch.createType(client, indexName, typeName)
       try {
-        client.putMapping(indexName) {
-          typeName as (
+        client execute {
+          put mapping indexName / typeName as Seq(
             Fields.body typed StringType boost 2,
             Fields.topic typed StringType boost 4,
             Fields.author typed StringType,

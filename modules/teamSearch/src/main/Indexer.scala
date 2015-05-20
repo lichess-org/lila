@@ -2,9 +2,9 @@ package lila.teamSearch
 
 import akka.actor._
 import akka.pattern.pipe
-import com.sksamuel.elastic4s.ElasticClient
 import com.sksamuel.elastic4s.ElasticDsl._
 import com.sksamuel.elastic4s.mappings.FieldType._
+import com.sksamuel.elastic4s.ElasticClient
 
 import lila.search.actorApi._
 import lila.team.actorApi._
@@ -31,8 +31,8 @@ private[teamSearch] final class Indexer(
     case Reset =>
       lila.search.ElasticSearch.createType(client, indexName, typeName)
       try {
-        client.putMapping(indexName) {
-          typeName as (
+        client execute {
+          put mapping indexName/typeName as Seq(
             Fields.name typed StringType boost 3,
             Fields.description typed StringType boost 2,
             Fields.location typed StringType,
