@@ -35,12 +35,9 @@ final class Search(collection: Coll) {
     }
   }
 
-  def apply(q: String): Fu[List[Question]] = {
-    collection.db command Search(collection.name, q) map {
-      _.map { d =>
-        d.getAs[BSONDocument]("obj") flatMap (_.asOpt[Question])
-      }.flatten
-    }
-  }
+  def apply(q: String): Fu[List[Question]] =
+    collection.find(BSONDocument(
+      "$text" -> BSONDocument("$search" -> q)
+    )).cursor[Question].collect[List]()
 }
 

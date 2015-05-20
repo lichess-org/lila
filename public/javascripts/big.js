@@ -1446,7 +1446,6 @@ lichess.storage = {
   /////////////////
 
   $(function() {
-    lichess.parseFen();
     $('body').on('lichess.content_loaded', lichess.parseFen);
 
     var socketOpened = false;
@@ -1468,6 +1467,7 @@ lichess.storage = {
     });
 
     setTimeout(function() {
+      lichess.parseFen();
       $('div.checkmateCaptcha').each(function() {
         var $captcha = $(this);
         var $board = $captcha.find('.mini_board');
@@ -1516,7 +1516,7 @@ lichess.storage = {
           });
         };
       });
-    }, 100);
+    }, 200);
   });
 
   function startLobby(element, cfg) {

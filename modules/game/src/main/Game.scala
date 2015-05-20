@@ -409,7 +409,7 @@ case class Game(
 
   def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
-  lazy val opening =
+  lazy val opening: Option[chess.OpeningExplorer.Opening] =
     if (playable || fromPosition || !Game.openingSensiblevariants(variant)) none
     else chess.OpeningExplorer openingOf pgnMoves
 

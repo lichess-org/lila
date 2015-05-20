@@ -24,11 +24,7 @@ final class JsonView(
     baseAnimationDuration: Duration,
     moretimeSeconds: Int) {
 
-  private def variantJson(v: chess.variant.Variant) = Json.obj(
-    "key" -> v.key,
-    "name" -> v.name,
-    "short" -> v.shortName,
-    "title" -> v.title)
+  import JsonView._
 
   private def checkCount(game: Game, color: Color) =
     (game.variant == chess.variant.ThreeCheck) option game.checkCount(color)
@@ -49,7 +45,7 @@ final class JsonView(
           Json.obj(
             "game" -> gameJson(game, initialFen),
             "clock" -> game.clock.map(clockJson),
-            "correspondence" -> game.correspondenceClock.map(correspondenceJson),
+            "correspondence" -> game.correspondenceClock,
             "player" -> Json.obj(
               "id" -> playerId,
               "color" -> player.color.name,
@@ -131,18 +127,12 @@ final class JsonView(
             "game" -> {
               gameJson(game, initialFen) ++ Json.obj(
                 "moveTimes" -> withMoveTimes.option(game.moveTimes),
-                "opening" -> game.opening.map { o =>
-                  Json.obj(
-                    "code" -> o.code,
-                    "name" -> o.name,
-                    "size" -> o.size
-                  )
-                },
+                "opening" -> game.opening,
                 "joinable" -> game.joinable,
                 "importedBy" -> game.pgnImport.flatMap(_.user)).noNull
             },
             "clock" -> game.clock.map(clockJson),
-            "correspondence" -> game.correspondenceClock.map(correspondenceJson),
+            "correspondence" -> game.correspondenceClock,
             "player" -> Json.obj(
               "color" -> color.name,
               "version" -> socket.version,
@@ -200,7 +190,7 @@ final class JsonView(
       Json.obj(
         "game" -> Json.obj(
           "id" -> gameId,
-          "variant" -> variantJson(game.variant),
+          "variant" -> game.variant,
           "initialFen" -> {
             if (pov.game.pgnMoves.isEmpty) fen
             else (initialFen | chess.format.Forsyth.initial)
@@ -208,7 +198,7 @@ final class JsonView(
           "fen" -> fen,
           "turns" -> game.turns,
           "player" -> game.turnColor.name,
-          "status" -> statusJson(game.status)),
+          "status" -> game.status),
         "player" -> Json.obj(
           "color" -> color.name
         ),
@@ -226,7 +216,7 @@ final class JsonView(
 
   private def gameJson(game: Game, initialFen: Option[String]) = Json.obj(
     "id" -> game.id,
-    "variant" -> variantJson(game.variant),
+    "variant" -> game.variant,
     "speed" -> game.speed.key,
     "perf" -> PerfPicker.key(game),
     "rated" -> game.rated,
@@ -242,7 +232,7 @@ final class JsonView(
     "check" -> game.check.map(_.key),
     "rematch" -> game.next,
     "source" -> game.source.map(sourceJson),
-    "status" -> statusJson(game.status),
+    "status" -> game.status,
     "tournamentId" -> game.tournamentId).noNull
 
   private def blurs(game: Game, player: lila.game.Player) = {
@@ -274,26 +264,10 @@ final class JsonView(
     game.whitePlayer.userId,
     game.blackPlayer.userId)
 
-  private def clockJson(clock: Clock) = Json.obj(
-    "running" -> clock.isRunning,
-    "initial" -> clock.limit,
-    "increment" -> clock.increment,
-    "white" -> clock.remainingTime(Color.White),
-    "black" -> clock.remainingTime(Color.Black),
-    "emerg" -> clock.emergTime,
-    "moretime" -> moretimeSeconds)
-
-  private def correspondenceJson(c: CorrespondenceClock) = Json.obj(
-    "daysPerTurn" -> c.daysPerTurn,
-    "increment" -> c.increment,
-    "white" -> c.whiteTime,
-    "black" -> c.blackTime,
-    "emerg" -> c.emerg)
-
-  private def statusJson(s: chess.Status) =
-    Json.obj("id" -> s.id, "name" -> s.name)
-
   private def sourceJson(source: Source) = source.name
+
+  private def clockJson(clock: Clock): JsObject =
+    clockWriter.writes(clock) + ("moretime" -> JsNumber(moretimeSeconds))
 
   private def possibleMoves(pov: Pov) = (pov.game playableBy pov.player) option {
     pov.game.toChess.situation.destinations map {
@@ -313,6 +287,50 @@ final class JsonView(
     animationFactor(pref) * baseAnimationDuration.toMillis * pov.game.finished.fold(
       1,
       math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
+    )
+  }
+}
+
+object JsonView {
+
+  implicit val variantWriter: OWrites[chess.variant.Variant] = OWrites { v =>
+    Json.obj(
+      "key" -> v.key,
+      "name" -> v.name,
+      "short" -> v.shortName,
+      "title" -> v.title)
+  }
+
+  implicit val statusWriter: OWrites[chess.Status] = OWrites { s =>
+    Json.obj(
+      "id" -> s.id,
+      "name" -> s.name)
+  }
+
+  implicit val clockWriter: OWrites[Clock] = OWrites { c =>
+    Json.obj(
+      "running" -> c.isRunning,
+      "initial" -> c.limit,
+      "increment" -> c.increment,
+      "white" -> c.remainingTime(Color.White),
+      "black" -> c.remainingTime(Color.Black),
+      "emerg" -> c.emergTime)
+  }
+
+  implicit val correspondenceWriter: OWrites[CorrespondenceClock] = OWrites { c =>
+    Json.obj(
+      "daysPerTurn" -> c.daysPerTurn,
+      "increment" -> c.increment,
+      "white" -> c.whiteTime,
+      "black" -> c.blackTime,
+      "emerg" -> c.emerg)
+  }
+
+  implicit val openingWriter: OWrites[chess.OpeningExplorer.Opening] = OWrites { o =>
+    Json.obj(
+      "code" -> o.code,
+      "name" -> o.name,
+      "size" -> o.size
     )
   }
 }

@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.libs.json.Json
 import play.api.mvc._, Results._
 
 import lila.api.Context
@@ -66,14 +67,24 @@ object User extends LilaController {
     status: Results.Status = Results.Ok)(implicit ctx: Context) =
     Reasonable(page) {
       OptionFuResult(UserRepo named username) { u =>
-        (u.enabled || isGranted(_.UserSpy)).fold({
-          if (lila.common.HTTPRequest.isSynchronousHttp(ctx.req))
-            userShow(u, filterOption, page)
-          else
-            userGames(u, filterOption, page)
-        } map { status(_) },
-          fuccess(NotFound(html.user.disabled(u)))
-        )
+        if (u.enabled || isGranted(_.UserSpy)) negotiate(
+          html = {
+            if (lila.common.HTTPRequest.isSynchronousHttp(ctx.req)) userShow(u, filterOption, page)
+            else userGames(u, filterOption, page) map {
+              case (filterName, pag) => html.user.games(u, pag, filterName)
+            }
+          } map { status(_) },
+          api = _ => userGames(u, filterOption, page) map {
+            case (filterName, pag) =>
+              import lila.api.UserApiGameJson.writer
+              Ok(Json.obj(
+                "filter" -> filterName,
+                "paginator" -> lila.common.paginator.PaginatorJson(pag)
+              ))
+          })
+        else negotiate(
+          html = fuccess(NotFound(html.user.disabled(u))),
+          api = _ => fuccess(NotFound(Json.obj("error" -> "No such user, or account closed"))))
       }
     }
 
@@ -105,7 +116,7 @@ object User extends LilaController {
         filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
         me = ctx.me,
         page = page
-      ) map { html.user.games(u, _, filterName) }
+      ) map { filterName -> _ }
     }
   }
 
