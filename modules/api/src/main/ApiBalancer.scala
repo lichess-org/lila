@@ -34,7 +34,7 @@ private[api] final class RoundApiBalancer(
           case Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, ctx) =>
             api.watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes)(ctx)
           case UserAnalysis(pov, pref, initialFen) =>
-            fuccess(api.userAnalysisJson(pov, pref, initialFen))
+            api.userAnalysisJson(pov, pref, initialFen)
         }
       })), "api.round.router")
   }
