@@ -56,7 +56,7 @@ object BSONHandlers {
     def writes(w: BSON.Writer, o: Player) = BSONDocument(
       "id" -> o.id,
       "rating" -> o.rating,
-      "witdraw" -> w.boolO(o.withdraw),
+      "withdraw" -> w.boolO(o.withdraw),
       "score" -> o.score,
       "perf" -> o.perf)
   }
