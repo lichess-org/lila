@@ -63,7 +63,9 @@ private[round] final class Finisher(
                   val finish = FinishGame(g, whiteO, blackO)
                   updateCountAndPerfs(finish) inject {
                     message foreach { messenger.system(g, _) }
-                    bus.publish(finish, 'finishGame)
+                    GameRepo game g.id foreach { newGame =>
+                      bus.publish(finish.copy(game = newGame | g), 'finishGame)
+                    }
                     prog.events
                   }
                 }
