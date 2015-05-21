@@ -81,7 +81,7 @@ function podiumStats(p, data) {
     ]),
     m('div.stats', [
       m('p', ['Win: ', m('strong', winP + '%')]),
-      m('p', ['Berserk: ', m('strong', berserkP + '%')])
+      berserkP > 0 ? m('p', ['Berserk: ', m('strong', berserkP + '%')]) : null
     ])
   ];
 }
