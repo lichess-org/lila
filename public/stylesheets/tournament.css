@@ -78,18 +78,18 @@ ol.scheduled_tournaments a:hover {
 #tournament .podium .first .trophy {
   height: 150px;
   width: 195px;
-  background: url(../images/icons/trophy-1.png);
+  background: url(../images/icons/trophy-1.png) no-repeat;
   background-size: cover;
 }
 #tournament .podium .second .trophy {
   height: 85px;
   width: calc(1.1056 * 85px);
-  background: url(../images/icons/trophy-2.min.svg);
+  background: url(../images/icons/trophy-2.min.svg) no-repeat;
 }
 #tournament .podium .third .trophy {
   height: 60px;
   width: calc(1.1056 * 60px);
-  background: url(../images/icons/trophy-3.min.svg);
+  background: url(../images/icons/trophy-3.min.svg) no-repeat;
 }
 #tournament .podium .trophy {
   margin: 0 auto 8px auto;
