@@ -50,7 +50,7 @@ private[tournament] final class Socket(
       }
       notifyReload
 
-    case Reload                => notifyReload
+    case Reload        => notifyReload
 
     case GetAllUserIds => sender ! AllUserIds(all = userIds, waiting = waitingUserIds)
 
@@ -98,9 +98,9 @@ private[tournament] final class Socket(
 
     case NotifyReload =>
       delayedReloadNotification = false
-      jsonView(tournamentId) foreach { obj =>
-        notifyVersion("reload", obj, Messadata())
-      }
+      jsonView(tournamentId).effectFold(
+        err => notifyVersion("deleted", JsNull, Messadata()),
+        obj => notifyVersion("reload", obj, Messadata()))
   }
 
   private var waitingUsers = Map[String, DateTime]()

@@ -101,7 +101,7 @@ private[tournament] final class TournamentApi(
   def wipeHeadless(created: Created): Funit = created.ownerWithdrew ?? doWipe(created)
 
   private def doWipe(created: Created): Funit =
-    TournamentRepo.remove(created).void >>- publish()
+    TournamentRepo.remove(created).void >>- publish() >>-socketReload(created.id)
 
   def finish(oldTour: Started) {
     sequence(oldTour.id) {
