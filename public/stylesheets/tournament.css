@@ -197,13 +197,13 @@ ol.scheduled_tournaments a:hover {
   border-left: 10px solid #d59120;
   padding-left: 5px;
 }
-#tournament table.slist td:first-child span {
+#tournament table.slist td:first-child rank {
   display: inline-block;
   font-weight: bold;
   width: 20px;
   opacity: 0.6;
 }
-#tournament table.slist td:first-child span.big {
+#tournament table.slist td:first-child rank.big {
   width: 30px;
 }
 #tournament table.standing .legend {

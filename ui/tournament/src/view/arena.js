@@ -13,7 +13,7 @@ function scoreTag(s) {
 
 function rank(p) {
   return {
-    tag: 'span',
+    tag: 'rank',
     attrs: p.rank > 99 ? {
       class: 'big'
     } : {},
