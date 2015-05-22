@@ -52,6 +52,12 @@ module.exports = {
       ] : null
     ]);
   },
+  currentPlayer: function(ctrl) {
+    if (!ctrl.userId) return null;
+    return ctrl.data.players.filter(function(p) {
+      return p.id === ctrl.userId;
+    })[0] || null;
+  },
   player: function(p) {
     var perf;
     if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);

@@ -87,8 +87,8 @@ ol.scheduled_tournaments a:hover {
   background: url(../images/icons/trophy-2.min.svg) no-repeat;
 }
 #tournament .podium .third .trophy {
-  height: 60px;
-  width: calc(1.1056 * 60px);
+  height: 65px;
+  width: calc(1.1056 * 65px);
   background: url(../images/icons/trophy-3.min.svg) no-repeat;
 }
 #tournament .podium .trophy {
@@ -188,6 +188,9 @@ ol.scheduled_tournaments a:hover {
 #tournament table.standing {
   width: 525px;
   border-bottom: none;
+}
+#tournament table.standing .player_rank {
+  margin-left: 10px;
 }
 #tournament table.standing td:first-child,
 #tournament table.standing th:first-child {

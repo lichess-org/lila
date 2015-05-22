@@ -133,11 +133,16 @@ module.exports = {
     var maxScore = Math.max.apply(Math, ctrl.data.players.map(function(p) {
       return p.sheet.total;
     }));
+    var player = util.currentPlayer(ctrl);
     return [
       m('thead',
         m('tr', [
           m('th.large', [
-            ctrl.trans('standing') + ' (' + ctrl.data.players.length + ')'
+            ctrl.trans('standing'),
+            player ? [
+              m('strong.player_rank', player.rank),
+              ' / ' + ctrl.data.players.length
+            ] : ' (' + ctrl.data.players.length + ')'
           ]),
           m('th.legend[colspan=2]', [
             m('streakstarter', 'Streak starter'),
