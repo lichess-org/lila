@@ -23,7 +23,7 @@ private[ai] case class Config(
 
   def skill(level: Int) = math.round((levelBox(level) - 1) * (skillMax / 7f))
 
-  def depth(level: Int): Option[Int] = Map(
+  def depth(level: Int, variant: Variant): Option[Int] = Map(
     1 -> 1,
     2 -> 2,
     3 -> 3,
@@ -31,7 +31,7 @@ private[ai] case class Config(
     5 -> 6,
     6 -> 8,
     7 -> 10,
-    8 -> 12
+    8 -> (if (variant == ThreeCheck) 14 else 12)
   ) get levelBox(level)
 
   def init = List(
@@ -50,7 +50,7 @@ private[ai] case class Config(
   def go(req: Req): List[String] = req match {
     case r: PlayReq => List(
       position(r.fen, r.moves),
-      "go movetime %d%s".format(moveTime(r.level), depth(r.level).??(" depth " + _)))
+      "go movetime %d%s".format(moveTime(r.level), depth(r.level, req.variant).??(" depth " + _)))
     case r: AnalReq => List(
       position(r.fen, r.moves),
       "go movetime %d".format(analyseMoveTime.toMillis))
