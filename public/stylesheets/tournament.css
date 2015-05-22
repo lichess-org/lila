@@ -106,7 +106,17 @@ ol.scheduled_tournaments a:hover {
   font-size: 0.8em;
 }
 #tournament .podium .stats {
-  margin-top: 8px;
+  margin: 0.5em auto 0 auto;
+  font-size: 0.7em;
+}
+#tournament .podium .stats th {
+  letter-spacing: -1px;
+}
+#tournament .podium .stats td {
+  font-weight: bold;
+  padding-left: 5px;
+}
+#tournament .podium .third .stats {
   font-size: 0.8em;
 }
 #tournament div.tournament_show {
