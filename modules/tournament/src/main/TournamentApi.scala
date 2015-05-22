@@ -98,6 +98,8 @@ private[tournament] final class TournamentApi(
 
   def wipeEmpty(created: Created): Funit = created.isEmpty ?? doWipe(created)
 
+  def wipeHeadless(created: Created): Funit = created.ownerWithdrew ?? doWipe(created)
+
   private def doWipe(created: Created): Funit =
     TournamentRepo.remove(created).void >>- publish()
 

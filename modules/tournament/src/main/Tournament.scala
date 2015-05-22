@@ -75,7 +75,9 @@ sealed trait Tournament {
   def createdBy = data.createdBy
   def createdAt = data.createdAt
 
-  def isCreator(userId: String) = data.createdBy == userId
+  def isCreator(userId: String) = createdBy == userId
+
+  def creatorPlayer: Option[Player] = playerByUserId(createdBy)
 
   def userPairings(user: String) = pairings filter (_ contains user)
 
@@ -165,6 +167,8 @@ case class Created(
   def asScheduled = schedule map { Scheduled(this, _) }
 
   def join(user: User) = joinNew(user)
+
+  def ownerWithdrew = creatorPlayer.fold(true)(_.withdraw)
 }
 
 case class Scheduled(tour: Created, schedule: Schedule) {
