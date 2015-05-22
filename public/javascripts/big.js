@@ -971,6 +971,12 @@ lichess.storage = {
       return true;
     });
 
+    // minimal touchscreen support for topmenu
+    if ("ontouchstart" in window)
+      $('#topmenu').on('click', '> section a', function() {
+        return false;
+      });
+
     $('#ham-plate').click(function() {
       document.body.classList.toggle('fpmenu');
     });
@@ -2051,7 +2057,7 @@ lichess.storage = {
           }
         }
       }
-     if ($timeChart.length) {
+      if ($timeChart.length) {
         chart = $timeChart.highcharts();
         if (chart) {
           if (path.length > 1) unselect(chart);

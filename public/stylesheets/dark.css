@@ -495,7 +495,7 @@ body.dark #fpmenu .perf::before {
   color: #8b6523;
 }
 body.dark #topmenu section > a {
-  color: #888;
+  color: #777;
   text-shadow: 0px 1px 1px #000;
 }
 body.dark #topmenu section:hover > a {
