@@ -188,20 +188,30 @@ ol.scheduled_tournaments a:hover {
   width: 525px;
   border-bottom: none;
 }
-#tournament table.standing td.name,
+#tournament table.standing td:first-child,
 #tournament table.standing th:first-child {
   padding-left: 10px;
   white-space: nowrap;
 }
-#tournament table.standing tr.me td.name {
+#tournament table.standing tr.me td:first-child {
   border-left: 10px solid #d59120;
   padding-left: 5px;
+}
+#tournament table.slist td:first-child span {
+  display: inline-block;
+  font-weight: bold;
+  width: 20px;
+  opacity: 0.6;
+}
+#tournament table.slist td:first-child span.big {
+  width: 30px;
 }
 #tournament table.standing .legend {
   text-align: right;
   font-size: 0.9em;
 }
-#tournament table.standing .legend span {
+#tournament table.standing .legend double,
+#tournament table.standing .legend streakstarter {
   margin-right: 5px;
   line-height: 30px;
 }
@@ -211,7 +221,7 @@ ol.scheduled_tournaments a:hover {
   font-family: monospace;
   letter-spacing: 0;
 }
-#tournament table.standing .sheet span,
+#tournament table.standing .sheet > *,
 #tournament table.standing .total span {
   display: inline-block;
   width: 12px;
@@ -219,11 +229,11 @@ ol.scheduled_tournaments a:hover {
 #tournament div.standing_wrap td.total {
   padding-right: 20px;
 }
-#tournament .double {
+#tournament double {
   color: #d59120;
   font-weight: bold;
 }
-#tournament .streakstarter {
+#tournament streakstarter {
   color: #759900;
   font-weight: bold;
 }

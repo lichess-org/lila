@@ -6,11 +6,18 @@ var button = require('./button');
 
 function scoreTag(s) {
   return {
-    tag: 'span',
-    attrs: {
-      class: s[1] || ''
-    },
+    tag: s[1] || 'span',
     children: [s[0]]
+  };
+}
+
+function rank(p) {
+  return {
+    tag: 'span',
+    attrs: p.rank > 99 ? {
+      class: 'big'
+    } : {},
+    children: [p.rank]
   };
 }
 
@@ -22,7 +29,10 @@ function playerTrs(ctrl, maxScore, player) {
       class: ctrl.userId === player.id ? 'me' : ''
     },
     children: [
-      m('td.name', util.player(player)),
+      m('td', [
+        rank(player),
+        util.player(player)
+      ]),
       m('td.sheet', player.sheet.scores.map(scoreTag)),
       m('td.total',
         player.withdraw ? m('span', {
@@ -130,8 +140,8 @@ module.exports = {
             ctrl.trans('standing') + ' (' + ctrl.data.players.length + ')'
           ]),
           m('th.legend[colspan=2]', [
-            m('span.streakstarter', 'Streak starter'),
-            m('span.double', 'Double points'),
+            m('streakstarter', 'Streak starter'),
+            m('double', 'Double points'),
             button.joinWithdraw(ctrl)
           ])
         ])),
