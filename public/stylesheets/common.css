@@ -1,4 +1,5 @@
 /* https://css-tricks.com/transitions-only-after-page-load/ */
+
 body.preload * {
   transition: none !important;
   -webkit-transition: none !important;
@@ -578,7 +579,6 @@ body.fpmenu > div.content {
   box-sizing: border-box;
   z-index: 5001;
 }
-
 #site_description {
   position: absolute;
   top: -100px;
@@ -636,7 +636,7 @@ div.content_box {
   background: #fff;
   padding: 20px 24px 24px 24px;
   text-align: left;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 div.content_box h1 {
   font-size: 1.8em;
@@ -774,10 +774,11 @@ div.side_box .padded {
   padding: 7px;
 }
 @media (max-width: 1070px) {
-div.side_box, #site_header a.stream {
-  margin-left: 0px!important;
-  width: 196px!important;
-}
+  div.side_box,
+  #site_header a.stream {
+    margin-left: 0px!important;
+    width: 196px!important;
+  }
 }
 div.chat_menu {
   margin-left: -30px;
@@ -1260,6 +1261,55 @@ body.fpmenu #fpmenu {
     padding-left: 10px;
   }
 }
+#topmenu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 13px;
+}
+#topmenu section {
+  position: relative;
+  float: left;
+  margin: 0;
+}
+#topmenu section > a {
+  color: #888;
+  display: block;
+  text-decoration: none;
+  padding: 9px 12px;
+  text-transform: uppercase;
+  text-shadow: 0px 1px 1px #fff;
+}
+#topmenu section:hover > a {
+  background: #fff;
+}
+#topmenu section:hover div {
+  display: block;
+}
+#topmenu div {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  font-size: 12px;
+  background: #fff;
+  width: 144px;
+  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+}
+#topmenu div a {
+  display: block;
+  text-decoration: none;
+  padding: 6px 10px;
+  transition: background 0.13s;
+}
+#topmenu div a:hover {
+  background: #f0f0f0;
+  color: #444;
+}
+#topmenu div div {
+  top: 0;
+  left: 100%;
+}
 #user_tag {
   font-weight: bold;
 }
@@ -1536,7 +1586,6 @@ body #themepicker div.is3d,
 .is2d #themepicker div.theme {
   padding: 7px 9px 9px 7px;
 }
-
 #themepicker div.theme:hover {
   background: #f0f0f0;
 }
@@ -2285,7 +2334,6 @@ div.progressbar.flashy.green div {
     box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000;
   }
 }
-
 a.hover_text > .base,
 a.hover_text:hover > .hover {
   display: inline-block;

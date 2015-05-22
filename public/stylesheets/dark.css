@@ -494,6 +494,23 @@ body.dark #hamburger line {
 body.dark #fpmenu .perf::before {
   color: #8b6523;
 }
+body.dark #topmenu section > a {
+  color: #888;
+  text-shadow: 0px 1px 1px #000;
+}
+body.dark #topmenu section:hover > a {
+  background: #2b2b2b;
+}
+body.dark #topmenu div {
+  background: #2b2b2b;
+  border: 1px solid #3d3d3d;
+  border-top: 0;
+  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+}
+body.dark #topmenu div a:hover {
+  background: #3e3e3e;
+  color: #b0b0b0;
+}
 body.dark .variant_icons span {
   text-shadow: 0px 0px 5px #000,
   0px 0px 10px #000,
