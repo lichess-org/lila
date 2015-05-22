@@ -16,12 +16,8 @@ function header(ctrl) {
     ),
     ctrl.userId ? m('th',
       tournament.containsMe(ctrl) ? [
-        tournament.createdByMe(ctrl) ? (
-          tour.enoughPlayersToStart ? m('button.button.right.text.glowing[data-icon=E]', {
-            onclick: partial(xhr.start, ctrl)
-          }, 'Start now') : m('button.button.right[disabled]', 'Start now')
-        ) : null,
-        button.withdraw(ctrl)
+        tournament.createdByMe(ctrl) ? button.start(ctrl) : null,
+        tournament.createdByMe(ctrl) ? button.deleteTournament(ctrl) : button.withdraw(ctrl)
       ] : button.join(ctrl)
     ) : m('th')
   ];
