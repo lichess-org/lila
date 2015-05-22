@@ -19,7 +19,7 @@ function tourAction(action, ctrl) {
 }
 
 module.exports = {
-  earlyStart: partial(tourAction, 'early-start'),
+  start: partial(tourAction, 'start'),
   join: partial(tourAction, 'join'),
   withdraw: partial(tourAction, 'withdraw')
 };

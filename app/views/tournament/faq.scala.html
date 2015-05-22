@@ -1,4 +1,4 @@
-@(nbPlayers: Option[String] = Some("all"), rated: Option[Boolean] = None, system: Option[lila.tournament.System] = None, privateId: Option[String] = None)
+@(rated: Option[Boolean] = None, system: Option[lila.tournament.System] = None, privateId: Option[String] = None)
 
 @import lila.tournament.System
 
@@ -6,10 +6,6 @@
   @privateId.map { id =>
   <h2>This is a private tournament</h2>
   Share this URL to let people join it: @netBaseUrl@routes.Tournament.show(id)
-  }
-  @nbPlayers.map { players =>
-  <h2>When will the tournament start?</h2>
-  As soon as @players players join it.
   }
   You will be notified when the tournament starts, so it is safe to
   <a target="_blank" href="@routes.Lobby.home()">play in another tab</a> while waiting.

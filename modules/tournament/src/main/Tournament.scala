@@ -12,7 +12,6 @@ private[tournament] case class Data(
   system: System,
   clock: TournamentClock,
   minutes: Int,
-  minPlayers: Int,
   variant: chess.variant.Variant,
   mode: Mode,
   `private`: Boolean,
@@ -57,8 +56,6 @@ sealed trait Tournament {
   def nbActiveUsers = players count (_.active)
   def withdrawnPlayers = players filterNot (_.active)
   def nbPlayers = players.size
-  def minPlayers = data.minPlayers
-  def playerRatio = if (scheduled) nbPlayers.toString else s"$nbPlayers/$minPlayers"
   def durationString =
     if (minutes < 60) s"${minutes}m"
     else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
@@ -68,7 +65,6 @@ sealed trait Tournament {
   def isActive(userId: String): Boolean = activeUserIds contains userId
   def isActive(user: User): Boolean = isActive(user.id)
   def isActive(user: Option[User]): Boolean = ~user.map(isActive)
-  def missingPlayers = minPlayers - players.size
   def playerByUserId(userId: String) = players find (_.id == userId)
 
   lazy val rankedPlayers: RankedPlayers = system.scoringSystem.rank(this, players)
@@ -145,9 +141,7 @@ case class Created(
 
   override def isOpen = true
 
-  def enoughPlayersToStart = !scheduled && nbPlayers >= minPlayers
-
-  def enoughPlayersToEarlyStart = !scheduled && nbPlayers >= math.min(minPlayers, Tournament.minPlayers)
+  def enoughPlayersToStart = !scheduled && nbPlayers >= Tournament.minPlayers
 
   def isEmpty = players.isEmpty
 
@@ -275,13 +269,12 @@ case class Finished(
 
 object Tournament {
 
-  val minPlayers = 4
+  val minPlayers = 3
 
   def make(
     createdBy: User,
     clock: TournamentClock,
     minutes: Int,
-    minPlayers: Int,
     system: System,
     variant: chess.variant.Variant,
     mode: Mode,
@@ -298,8 +291,7 @@ object Tournament {
         mode = mode,
         `private` = `private`,
         minutes = minutes,
-        schedule = None,
-        minPlayers = minPlayers),
+        schedule = None),
       players = Nil)
     tour withPlayers List(Player.make(createdBy, tour.perfLens))
   }
@@ -316,8 +308,7 @@ object Tournament {
       mode = Mode.Rated,
       `private` = false,
       minutes = minutes,
-      schedule = Some(sched),
-      minPlayers = 0),
+      schedule = Some(sched)),
     players = List())
 
   // To sort combined sequences of pairings and events.

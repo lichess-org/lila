@@ -248,7 +248,6 @@ wins=Wins
 losses=Losses
 winStreak=Win streak
 createdBy=Created by
-waitingForNbPlayers=Waiting for %s players
 tournamentIsStarting=The tournament is starting
 membersOnly=Members only
 boardEditor=Board editor

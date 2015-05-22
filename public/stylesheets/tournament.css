@@ -115,6 +115,7 @@ ol.scheduled_tournaments a:hover {
 #tournament .podium .stats td {
   font-weight: bold;
   padding-left: 5px;
+  text-align: right;
 }
 #tournament .podium .third .stats {
   font-size: 0.8em;

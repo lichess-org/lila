@@ -1812,6 +1812,10 @@ a.button,
 table.slist thead {
   font-weight: bold;
 }
+.button:disabled,
+a.button:disabled {
+  opacity: 0.5;
+}
 .button,
 a.button {
   padding: 6px 11px;

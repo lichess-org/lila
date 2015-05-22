@@ -24,7 +24,6 @@ private[tournament] final class Organizer(
         tour.schedule match {
           case None =>
             if (tour.isEmpty) api wipeEmpty tour
-            else if (tour.enoughPlayersToStart) api startIfReady tour
             else ejectLeavers(tour)
           case Some(schedule) =>
             if (schedule.at.isBeforeNow) api startScheduled tour

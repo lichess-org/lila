@@ -57,7 +57,6 @@ private[tournament] final class TournamentApi(
         createdBy = me,
         clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
         minutes = setup.minutes,
-        minPlayers = setup.minPlayers,
         mode = setup.mode.fold(Mode.default)(Mode.orDefault),
         `private` = setup.`private`.isDefined,
         system = System orDefault setup.system,
@@ -77,7 +76,7 @@ private[tournament] final class TournamentApi(
     }
 
   def startIfReady(created: Created) {
-    if (created.enoughPlayersToEarlyStart) doStart(created)
+    if (created.enoughPlayersToStart) doStart(created)
   }
 
   private[tournament] def startScheduled(created: Created) {

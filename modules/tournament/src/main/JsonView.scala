@@ -34,11 +34,7 @@ final class JsonView(
     }
 
   private def specifics(tour: Tournament) = tour match {
-    case t: Created => Json.obj(
-      "enoughPlayersToStart" -> t.enoughPlayersToStart,
-      "enoughPlayersToEarlyStart" -> t.enoughPlayersToEarlyStart,
-      "missingPlayers" -> (t.missingPlayers != -1).option(t.missingPlayers)
-    ).noNull
+    case t: Created => Json.obj("enoughPlayersToStart" -> t.enoughPlayersToStart)
     case t: Started => Json.obj(
       "seconds" -> t.remainingSeconds)
     case _ => Json.obj()
