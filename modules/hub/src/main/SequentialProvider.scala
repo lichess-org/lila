@@ -13,6 +13,9 @@ trait SequentialProvider extends Actor {
 
   def process: ReceiveAsync
 
+  def debug = false
+  lazy val name = ornicar.scalalib.Random nextString 4
+
   private def idle: Receive = {
 
     case msg =>
@@ -27,7 +30,12 @@ trait SequentialProvider extends Actor {
       case Some(envelope) => processThenDone(envelope)
     }
 
-    case msg => queue enqueue Envelope(msg, sender)
+    case msg =>
+      queue enqueue Envelope(msg, sender)
+      if (debug) queue.size match {
+        case size if size >= 10 && size % 10 == 0 =>
+          logwarn(s"Seq[$name] queue size = $size")
+      }
   }
 
   def receive = idle
