@@ -118,7 +118,7 @@ lichess.StrongSocket.prototype = {
     }
     self.scheduleConnect(self.options.pingMaxLag);
   },
-  send: function(t, d, o) {
+  send: function(t, d, o, again) {
     var self = this;
     var data = d || {},
       options = o || {};
@@ -135,7 +135,12 @@ lichess.StrongSocket.prototype = {
     try {
       self.ws.send(message);
     } catch (e) {
-      self.debug(e);
+      // maybe sent before socket opens,
+      // try again a second later,once.
+      if (!again) setTimeout(function() {
+        this.send(t, d, o, true);
+      }.bind(this), 1000);
+      else console.log(e, 'again');
     }
   },
   sendAckable: function(t, d) {
