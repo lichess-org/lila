@@ -978,7 +978,7 @@ lichess.storage = {
 
     // minimal touchscreen support for topmenu
     if ("ontouchstart" in window)
-      $('#topmenu').on('click', '> section a', function() {
+      $('#topmenu').on('click', '> section > a', function() {
         return false;
       });
 
