@@ -15,6 +15,7 @@ import makeTimeout.short
 private[api] final class UserApi(
     jsonView: lila.user.JsonView,
     relationApi: lila.relation.RelationApi,
+    bookmarkApi: lila.bookmark.BookmarkApi,
     prefApi: lila.pref.PrefApi,
     makeUrl: Any => Fu[String],
     apiToken: String,
@@ -60,7 +61,8 @@ private[api] final class UserApi(
               "playing" -> gameUrlOption,
               "knownEnginesSharingIp" -> knownEngines,
               "nbFollowing" -> following,
-              "nbFollowers" -> followers
+              "nbFollowers" -> followers,
+              "nbBookmark" -> bookmarkApi.countByUser(u)
             ) ++ ctx.isAuth.??(Json.obj(
                 "followable" -> followable,
                 "following" -> relation.exists(true ==),
