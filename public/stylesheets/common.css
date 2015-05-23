@@ -1306,10 +1306,10 @@ body.fpmenu #fpmenu {
   background: #f0f0f0;
   color: #444;
 }
-#topmenu div div {
-  top: 0;
-  left: 100%;
-}
+/* #topmenu div div { */
+/*   top: 0; */
+/*   left: 100%; */
+/* } */
 #user_tag {
   font-weight: bold;
 }
