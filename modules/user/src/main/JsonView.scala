@@ -34,16 +34,6 @@ final class JsonView(isOnline: String => Boolean) {
       "perfs" -> u.perfs,
       "createdAt" -> u.createdAt,
       "seenAt" -> u.seenAt,
-      "playTime" -> u.playTime,
-      "count" -> Json.obj(
-        "game" -> u.count.game,
-        "rated" -> u.count.rated,
-        "ai" -> u.count.ai,
-        "draw" -> u.count.draw,
-        "drawH" -> u.count.drawH,
-        "loss" -> u.count.loss,
-        "lossH" -> u.count.lossH,
-        "win" -> u.count.win,
-        "winH" -> u.count.winH)
+      "playTime" -> u.playTime
     )).noNull
 }

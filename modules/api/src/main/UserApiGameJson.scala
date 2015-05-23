@@ -34,7 +34,8 @@ object UserApiGameJson {
       "opening" -> g.opening.map { o =>
         Json.obj("code" -> o.code, "name" -> o.name)
       },
-      "winner" -> g.winnerColor.map(_.name)
+      "winner" -> g.winnerColor.map(_.name),
+      "bookmarks" -> g.bookmarks
     ).noNull
   }
 }

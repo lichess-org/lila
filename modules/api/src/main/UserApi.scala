@@ -62,7 +62,17 @@ private[api] final class UserApi(
               "knownEnginesSharingIp" -> knownEngines,
               "nbFollowing" -> following,
               "nbFollowers" -> followers,
-              "nbBookmark" -> bookmarkApi.countByUser(u)
+              "count" -> Json.obj(
+                "all" -> u.count.game,
+                "rated" -> u.count.rated,
+                "ai" -> u.count.ai,
+                "draw" -> u.count.draw,
+                "drawH" -> u.count.drawH,
+                "loss" -> u.count.loss,
+                "lossH" -> u.count.lossH,
+                "win" -> u.count.win,
+                "winH" -> u.count.winH,
+                "bookmark" -> bookmarkApi.countByUser(u))
             ) ++ ctx.isAuth.??(Json.obj(
                 "followable" -> followable,
                 "following" -> relation.exists(true ==),
