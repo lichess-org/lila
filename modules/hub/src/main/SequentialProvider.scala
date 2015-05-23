@@ -35,6 +35,7 @@ trait SequentialProvider extends Actor {
       if (debug) queue.size match {
         case size if size >= 10 && size % 10 == 0 =>
           logwarn(s"Seq[$name] queue size = $size")
+        case _ =>
       }
   }
 
