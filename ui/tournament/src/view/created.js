@@ -12,17 +12,12 @@ function header(ctrl) {
       tour.schedule ? [
         ctrl.trans('starting') + ' ',
         util.secondsFromNow(tour.schedule.seconds)
-      ] : (
-        tour.enoughPlayersToStart ? ctrl.trans('tournamentIsStarting') : ctrl.trans('waitingForNbPlayers', tour.missingPlayers)
-      )
+      ] : (tour.players.length + ' Players')
     ),
     ctrl.userId ? m('th',
       tournament.containsMe(ctrl) ? [
-        (tournament.createdByMe(ctrl) && tour.enoughPlayersToEarlyStart) ?
-        m('button.button.right', {
-          onclick: partial(xhr.earlyStart, ctrl)
-        }, 'Early start') : null,
-        button.withdraw(ctrl)
+        tournament.createdByMe(ctrl) ? button.start(ctrl) : null,
+        tournament.createdByMe(ctrl) ? button.deleteTournament(ctrl) : button.withdraw(ctrl)
       ] : button.join(ctrl)
     ) : m('th')
   ];

@@ -86,7 +86,7 @@ object Tournament extends LilaController {
       OptionResult(repo byId id) { tour =>
         env.api.withdraw(tour, me.id)
         if (HTTPRequest.isXhr(ctx.req)) Ok(Json.obj("ok" -> true)) as JSON
-        else Redirect(routes.Tournament.show(tour.id).url)
+        else Redirect(routes.Tournament.show(tour.id))
       }
   }
 
@@ -98,7 +98,7 @@ object Tournament extends LilaController {
       }
   }
 
-  def earlyStart(id: String) = Auth { implicit ctx =>
+  def start(id: String) = Auth { implicit ctx =>
     implicit me =>
       OptionResult(repo.createdByIdAndCreator(id, me.id)) { tour =>
         env.api startIfReady tour

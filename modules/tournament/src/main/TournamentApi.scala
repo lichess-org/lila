@@ -57,7 +57,6 @@ private[tournament] final class TournamentApi(
         createdBy = me,
         clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
         minutes = setup.minutes,
-        minPlayers = setup.minPlayers,
         mode = setup.mode.fold(Mode.default)(Mode.orDefault),
         `private` = setup.`private`.isDefined,
         system = System orDefault setup.system,
@@ -77,7 +76,7 @@ private[tournament] final class TournamentApi(
     }
 
   def startIfReady(created: Created) {
-    if (created.enoughPlayersToEarlyStart) doStart(created)
+    if (created.enoughPlayersToStart) doStart(created)
   }
 
   private[tournament] def startScheduled(created: Created) {
@@ -99,8 +98,10 @@ private[tournament] final class TournamentApi(
 
   def wipeEmpty(created: Created): Funit = created.isEmpty ?? doWipe(created)
 
+  def wipeHeadless(created: Created): Funit = created.ownerWithdrew ?? doWipe(created)
+
   private def doWipe(created: Created): Funit =
-    TournamentRepo.remove(created).void >>- publish()
+    TournamentRepo.remove(created).void >>- publish() >>-socketReload(created.id)
 
   def finish(oldTour: Started) {
     sequence(oldTour.id) {
@@ -189,10 +190,7 @@ private[tournament] final class TournamentApi(
       sequence(tourId) {
         TournamentRepo startedById tourId flatMap {
           _ ?? { tour =>
-            val tour2 = tour.updatePairing(
-              game.id,
-              _.finish(game.status, game.winnerUserId, game.turns)
-            ).refreshPlayers
+            val tour2 = tour.updatePairing(game.id, _ finish game).refreshPlayers
             TournamentRepo.update(tour2).void >>- {
               game.loserUserId.filter(tour2.quickLossStreak) foreach { withdraw(tour2, _) }
             } >>- socketReload(tour2.id) >>- {

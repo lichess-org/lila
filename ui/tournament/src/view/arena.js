@@ -6,11 +6,18 @@ var button = require('./button');
 
 function scoreTag(s) {
   return {
-    tag: 'span',
-    attrs: {
-      class: s[1] || ''
-    },
+    tag: s[1] || 'span',
     children: [s[0]]
+  };
+}
+
+function rank(p) {
+  return {
+    tag: 'rank',
+    attrs: p.rank > 99 ? {
+      class: 'big'
+    } : {},
+    children: [p.rank]
   };
 }
 
@@ -22,19 +29,16 @@ function playerTrs(ctrl, maxScore, player) {
       class: ctrl.userId === player.id ? 'me' : ''
     },
     children: [
-      m('td.name', [
-        player.withdraw ? m('span', {
-          'data-icon': 'b',
-          'title': ctrl.trans('withdraw')
-        }) : (
-          (ctrl.data.isFinished && player.rank === 1) ? m('span', {
-            'data-icon': 'g',
-            'title': ctrl.trans('winner')
-          }) : m('span.rank', player.rank)),
+      m('td', [
+        rank(player),
         util.player(player)
       ]),
       m('td.sheet', player.sheet.scores.map(scoreTag)),
       m('td.total',
+        player.withdraw ? m('span', {
+          'data-icon': 'b',
+          'title': ctrl.trans('withdraw')
+        }) :
         m('strong',
           player.sheet.fire ? {
             class: 'is-gold',
@@ -60,20 +64,89 @@ function playerTrs(ctrl, maxScore, player) {
   }];
 }
 
+var trophy = m('div.trophy');
+
+function podiumUsername(p) {
+  return m('a', {
+    class: 'text ulpt user_link',
+    href: '/@/' + p.username
+  }, p.username);
+}
+
+function podiumStats(p, data) {
+  var perf;
+  if (p.perf === 0) perf = m('span', ' =');
+  else if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
+  else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
+  var winP = Math.round(p.sheet.scores.filter(function(s) {
+    return s[1] === 'double' ? s[0] >= 4 : s[0] >= 2;
+  }).length * 100 / p.sheet.scores.length);
+  var berserkP = Math.round(p.sheet.scores.filter(function(s) {
+    return s[0] === 3 || s[0] === 5;
+  }).length * 100 / p.sheet.scores.length);
+  return [
+    m('span.rating.progress', [
+      p.rating,
+      perf
+    ]),
+    m('table.stats', m('tbody', [
+      m('tr', [m('th', 'Win rate'), m('td', winP + '%')]),
+      p.opposition ? m('tr', [m('th', 'Opponents rating'), m('td', p.opposition)]) : null,
+      berserkP > 0 ? m('tr', [m('th', 'Berserk rate'), m('td', berserkP + '%')]) : null
+    ]))
+  ];
+}
+
+function podiumFirst(p, data) {
+  if (p) return m('div.first', [
+    trophy,
+    podiumUsername(p),
+    podiumStats(p, data)
+  ]);
+}
+
+function podiumSecond(p, data) {
+  if (p) return m('div.second', [
+    trophy,
+    podiumUsername(p),
+    podiumStats(p, data)
+  ]);
+}
+
+function podiumThird(p, data) {
+  if (p) return m('div.third', [
+    trophy,
+    podiumUsername(p),
+    podiumStats(p, data)
+  ]);
+}
+
 module.exports = {
+  podium: function(ctrl) {
+    return m('div.podium', [
+      podiumSecond(ctrl.data.players[1], ctrl.data),
+      podiumFirst(ctrl.data.players[0], ctrl.data),
+      podiumThird(ctrl.data.players[2], ctrl.data)
+    ]);
+  },
   standing: function(ctrl) {
     var maxScore = Math.max.apply(Math, ctrl.data.players.map(function(p) {
       return p.sheet.total;
     }));
+    var player = util.currentPlayer(ctrl);
     return [
       m('thead',
         m('tr', [
           m('th.large', [
-            ctrl.trans('standing') + ' (' + ctrl.data.players.length + ')'
+            ctrl.trans('standing'),
+            player ? [
+              m('strong.player_rank', player.rank),
+              ' / ' + ctrl.data.players.length
+            ] : ' (' + ctrl.data.players.length + ')'
           ]),
           m('th.legend[colspan=2]', [
-            m('span.streakstarter', 'Streak starter'),
-            m('span.double', 'Double points'),
+            m('streakstarter', 'Streak starter'),
+            m('double', 'Double points'),
             button.joinWithdraw(ctrl)
           ])
         ])),

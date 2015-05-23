@@ -16,7 +16,7 @@ private[api] final class RoundApiBalancer(
 
   private object implementation {
 
-    implicit val timeout = makeTimeout seconds 30
+    implicit val timeout = makeTimeout seconds 10
 
     case class Player(pov: Pov, apiVersion: Int, ctx: Context)
     case class Watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean],
@@ -28,13 +28,14 @@ private[api] final class RoundApiBalancer(
 
     val router = system.actorOf(
       akka.routing.RoundRobinPool(nbActors).props(Props(new lila.hub.SequentialProvider {
+        override def debug = true
         def process = {
           case Player(pov, apiVersion, ctx) =>
             api.player(pov, apiVersion)(ctx)
           case Watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes, ctx) =>
             api.watcher(pov, apiVersion, tv, analysis, initialFenO, withMoveTimes)(ctx)
           case UserAnalysis(pov, pref, initialFen) =>
-            fuccess(api.userAnalysisJson(pov, pref, initialFen))
+            api.userAnalysisJson(pov, pref, initialFen)
         }
       })), "api.round.router")
   }

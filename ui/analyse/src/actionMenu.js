@@ -45,7 +45,7 @@ module.exports = {
   view: function(ctrl) {
     var flipAttrs = {};
     if (ctrl.data.userAnalysis) flipAttrs.onclick = ctrl.flip;
-    else flipAttrs.href = ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url;
+    else flipAttrs.href = ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.opponent.color).url + '#' + ctrl.vm.step.ply;
 
     return m('div.action_menu',
       m('div.inner', [

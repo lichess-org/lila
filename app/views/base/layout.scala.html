@@ -62,6 +62,7 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
     </form>
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
     <div id="top" class="@ctx.is3d.fold("is3d", "is2d")">
+      @topmenu()
       <div id="ham-plate" data-hint="Menu <esc>" class="hint--bottom">
         <div id="hamburger">
           <div class="top"></div>

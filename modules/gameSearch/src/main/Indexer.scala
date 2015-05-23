@@ -37,8 +37,8 @@ private[gameSearch] final class Indexer(
       ElasticSearch.createType(client, indexName, typeName)
       try {
         import Fields._
-        client.putMapping(indexName) {
-          typeName as (
+        client execute {
+          put mapping indexName / typeName as Seq(
             status typed ShortType,
             turns typed ShortType,
             rated typed BooleanType,
@@ -93,9 +93,7 @@ private[gameSearch] final class Indexer(
   }
 
   private def storable(game: lila.game.Game) =
-    (game.finished || game.imported) && game.playedTurns > 4 && game.players.forall {
-      _.rating.fold(true)(_ >= 1000)
-    }
+    (game.finished || game.imported) && game.playedTurns > 4
 
   private def store(game: lila.game.Game, hasAnalyse: Boolean) = {
     import Fields._

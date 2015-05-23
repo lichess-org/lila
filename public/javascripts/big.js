@@ -971,6 +971,12 @@ lichess.storage = {
       return true;
     });
 
+    // minimal touchscreen support for topmenu
+    if ("ontouchstart" in window)
+      $('#topmenu').on('click', '> section a', function() {
+        return false;
+      });
+
     $('#ham-plate').click(function() {
       document.body.classList.toggle('fpmenu');
     });
@@ -1446,7 +1452,6 @@ lichess.storage = {
   /////////////////
 
   $(function() {
-    setTimeout(lichess.parseFen, 200);
     $('body').on('lichess.content_loaded', lichess.parseFen);
 
     var socketOpened = false;
@@ -1468,6 +1473,7 @@ lichess.storage = {
     });
 
     setTimeout(function() {
+      lichess.parseFen();
       $('div.checkmateCaptcha').each(function() {
         var $captcha = $(this);
         var $board = $captcha.find('.mini_board');
@@ -1516,7 +1522,7 @@ lichess.storage = {
           });
         };
       });
-    }, 100);
+    }, 200);
   });
 
   function startLobby(element, cfg) {
@@ -2051,7 +2057,7 @@ lichess.storage = {
           }
         }
       }
-     if ($timeChart.length) {
+      if ($timeChart.length) {
         chart = $timeChart.highcharts();
         if (chart) {
           if (path.length > 1) unselect(chart);
