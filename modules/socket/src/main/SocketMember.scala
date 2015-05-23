@@ -19,6 +19,8 @@ trait SocketMember extends Ordered[SocketMember] {
     catch {
       case _: java.nio.channels.ClosedChannelException =>
       // catching because it's quite polluting the production logs
+      case e: Exception =>
+        loginfo(s"SocketMember.push ${e.getMessage}")
     }
   }
 
