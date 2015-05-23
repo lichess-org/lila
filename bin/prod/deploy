@@ -6,7 +6,7 @@ if [ -z $mode ]; then
   echo "Empty deploy target"
   exit 1
 elif [ $mode = "main" ]; then
-  REMOTE="frank"
+  REMOTE="clyde"
   REMOTE_DIR="/home/lichess"
 elif [ $mode = "paul" ]; then
   REMOTE="paul"
@@ -46,9 +46,6 @@ elif [ $mode = "cammy" ]; then
   REMOTE_DIR="/home/lichess"
 elif [ $mode = "adele" ]; then
   REMOTE="adele"
-  REMOTE_DIR="/home/lichess"
-elif [ $mode = "clyde" ]; then
-  REMOTE="clyde"
   REMOTE_DIR="/home/lichess"
 else
   echo "Unknown deploy target $mode"

@@ -3,7 +3,7 @@
 
 bin/prod/compile-client
 
-REMOTE="frank"
+REMOTE="clyde"
 REMOTE_DIR="/home/lichess"
 
 lilalog "Rsync scripts"
