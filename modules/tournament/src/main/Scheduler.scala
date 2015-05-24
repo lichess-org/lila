@@ -1,6 +1,7 @@
 package lila.tournament
 
 import akka.actor._
+import akka.pattern.pipe
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
@@ -13,7 +14,10 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
 
   def receive = {
 
-    case ScheduleNow => TournamentRepo.scheduled.map(_.map(_.schedule).flatten) foreach { dbScheds =>
+    case ScheduleNow =>
+      TournamentRepo.scheduled.map(_.flatMap(_.schedule)) map ScheduleNowWith.apply pipeTo self
+
+    case ScheduleNowWith(dbScheds) =>
 
       val rightNow = DateTime.now
       val today = rightNow.withTimeAtStartOfDay
@@ -23,7 +27,7 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       val nextHourDate = rightNow plusHours 1
       val nextHour = nextHourDate.getHourOfDay
 
-      val scheds = List(
+      List(
         Schedule(Monthly, Bullet, at(lastSaturdayOfCurrentMonth, 17)),
         Schedule(Monthly, Blitz, at(lastSaturdayOfCurrentMonth, 18, 20)),
         Schedule(Monthly, Classical, at(lastSaturdayOfCurrentMonth, 20, 30)),
@@ -40,11 +44,10 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
           case (scheds, sched) if overlaps(sched, dbScheds) => scheds
           case (scheds, sched) if overlaps(sched, scheds)   => scheds
           case (scheds, sched)                              => sched :: scheds
-        }
-
-      scheds foreach api.createScheduled
-    }
+        } foreach api.createScheduled
   }
+
+  private case class ScheduleNowWith(dbScheds: List[Schedule])
 
   private def endsAt(s: Schedule) = s.at plus ((~Schedule.durationFor(s)).toLong * 60 * 1000)
   private def interval(s: Schedule) = new org.joda.time.Interval(s.at, endsAt(s))
