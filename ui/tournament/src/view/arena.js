@@ -30,20 +30,18 @@ function playerTrs(ctrl, maxScore, player) {
     },
     children: [
       m('td', [
-        rank(player),
+        player.withdraw ? m('rank', {
+          'data-icon': 'b',
+          'title': ctrl.trans('withdraw')
+        }) : rank(player),
         util.player(player)
       ]),
       m('td.sheet', player.sheet.scores.map(scoreTag)),
-      m('td.total',
-        player.withdraw ? m('span', {
-          'data-icon': 'b',
-          'title': ctrl.trans('withdraw')
-        }) :
-        m('strong',
-          player.sheet.fire ? {
-            class: 'is-gold',
-            'data-icon': 'Q'
-          } : {}, player.sheet.total))
+      m('td.total', m('strong',
+        player.sheet.fire ? {
+          class: 'is-gold',
+          'data-icon': 'Q'
+        } : {}, player.sheet.total))
     ]
   }, {
     tag: 'tr',
