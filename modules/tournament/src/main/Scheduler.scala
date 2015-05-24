@@ -22,28 +22,30 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       val rightNow = DateTime.now
       val today = rightNow.withTimeAtStartOfDay
       val lastDayOfMonth = today.dayOfMonth.withMaximumValue
-      val lastSaturdayOfCurrentMonth = lastDayOfMonth.minusDays((lastDayOfMonth.getDayOfWeek + 1) % 7)
+      val lastSundayOfCurrentMonth = lastDayOfMonth.minusDays((lastDayOfMonth.getDayOfWeek + 0) % 7)
       val nextSaturday = today.plusDays((13 - today.getDayOfWeek) % 7)
       val nextHourDate = rightNow plusHours 1
       val nextHour = nextHourDate.getHourOfDay
 
+      def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
+
       List(
-        Schedule(Monthly, Bullet, at(lastSaturdayOfCurrentMonth, 18, 0)),
-        Schedule(Monthly, SuperBlitz, at(lastSaturdayOfCurrentMonth, 19, 0)),
-        Schedule(Monthly, Blitz, at(lastSaturdayOfCurrentMonth, 20, 0)),
-        Schedule(Monthly, Classical, at(lastSaturdayOfCurrentMonth, 21, 0)),
+        Schedule(Monthly, Bullet, at(lastSundayOfCurrentMonth, 18, 0)),
+        Schedule(Monthly, SuperBlitz, at(lastSundayOfCurrentMonth, 19, 0)),
+        Schedule(Monthly, Blitz, at(lastSundayOfCurrentMonth, 20, 0)),
+        Schedule(Monthly, Classical, at(lastSundayOfCurrentMonth, 21, 0)),
         Schedule(Weekly, Bullet, at(nextSaturday, 18)),
         Schedule(Weekly, SuperBlitz, at(nextSaturday, 19)),
         Schedule(Weekly, Blitz, at(nextSaturday, 20)),
         Schedule(Weekly, Classical, at(nextSaturday, 21)),
-        Schedule(Daily, Bullet, at(today, 18)),
-        Schedule(Daily, SuperBlitz, at(today, 19)),
-        Schedule(Daily, Blitz, at(today, 20)),
-        Schedule(Daily, Classical, at(today, 21)),
-        Schedule(Nightly, Bullet, at(today, 6)),
-        Schedule(Nightly, SuperBlitz, at(today, 7)),
-        Schedule(Nightly, Blitz, at(today, 8)),
-        Schedule(Nightly, Classical, at(today, 9)),
+        Schedule(Daily, Bullet, at(today, 18) |> orTomorrow),
+        Schedule(Daily, SuperBlitz, at(today, 19) |> orTomorrow),
+        Schedule(Daily, Blitz, at(today, 20) |> orTomorrow),
+        Schedule(Daily, Classical, at(today, 21) |> orTomorrow),
+        Schedule(Nightly, Bullet, at(today, 6) |> orTomorrow),
+        Schedule(Nightly, SuperBlitz, at(today, 7) |> orTomorrow),
+        Schedule(Nightly, Blitz, at(today, 8) |> orTomorrow),
+        Schedule(Nightly, Classical, at(today, 9) |> orTomorrow),
         Schedule(Hourly, Bullet, at(nextHourDate, nextHour)),
         Schedule(Hourly, SuperBlitz, at(nextHourDate, nextHour)),
         Schedule(Hourly, Blitz, at(nextHourDate, nextHour))
