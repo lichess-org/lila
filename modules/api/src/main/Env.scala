@@ -15,6 +15,7 @@ final class Env(
     noteApi: lila.round.NoteApi,
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
+    crosstableApi: lila.game.CrosstableApi,
     prefApi: lila.pref.PrefApi,
     pgnDump: lila.game.PgnDump,
     userEnv: lila.user.Env,
@@ -57,6 +58,7 @@ final class Env(
     apiToken = apiToken,
     relationApi = relationApi,
     bookmarkApi = bookmarkApi,
+    crosstableApi = crosstableApi,
     prefApi = prefApi,
     userIdsSharingIp = userIdsSharingIp)
 
@@ -109,6 +111,7 @@ object Env {
     noteApi = lila.round.Env.current.noteApi,
     relationApi = lila.relation.Env.current.api,
     bookmarkApi = lila.bookmark.Env.current.api,
+    crosstableApi = lila.game.Env.current.crosstableApi,
     prefApi = lila.pref.Env.current.api,
     pgnDump = lila.game.Env.current.pgnDump,
     userIdsSharingIp = lila.security.Env.current.api.userIdsSharingIp,

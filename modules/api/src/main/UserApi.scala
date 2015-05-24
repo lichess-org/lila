@@ -16,6 +16,7 @@ private[api] final class UserApi(
     jsonView: lila.user.JsonView,
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
+    crosstableApi: lila.game.CrosstableApi,
     prefApi: lila.pref.PrefApi,
     makeUrl: Any => Fu[String],
     apiToken: String,
@@ -47,12 +48,13 @@ private[api] final class UserApi(
     case Some(u) => GameRepo mostUrgentGame u zip
       makeUrl(R User username) zip
       (check(token) ?? (knownEnginesSharingIp(u.id) map (_.some))) zip
+      (ctx.me.filter(u!=) ?? { me => crosstableApi.nbGames(me.id, u.id) }) zip
       relationApi.nbFollowing(u.id) zip
       relationApi.nbFollowers(u.id) zip
       ctx.isAuth.?? { prefApi followable u.id } zip
       ctx.userId.?? { relationApi.relation(_, u.id) } zip
       ctx.userId.?? { relationApi.relation(u.id, _) } flatMap {
-        case (((((((gameOption, userUrl), knownEngines), following), followers), followable), relation), revRelation) => gameOption ?? { g =>
+        case ((((((((gameOption, userUrl), knownEngines), nbGamesWithMe), following), followers), followable), relation), revRelation) => gameOption ?? { g =>
           makeUrl(R.Watcher(g.gameId, g.color.name)) map (_.some)
         } map { gameUrlOption =>
           jsonView(u, extended = true) ++ {
@@ -72,7 +74,8 @@ private[api] final class UserApi(
                 "lossH" -> u.count.lossH,
                 "win" -> u.count.win,
                 "winH" -> u.count.winH,
-                "bookmark" -> bookmarkApi.countByUser(u))
+                "bookmark" -> bookmarkApi.countByUser(u),
+                "me" -> nbGamesWithMe)
             ) ++ ctx.isAuth.??(Json.obj(
                 "followable" -> followable,
                 "following" -> relation.exists(true ==),

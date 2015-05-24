@@ -25,6 +25,14 @@ final class CrosstableApi(coll: Coll) {
       case e: reactivemongo.core.commands.LastError if e.getMessage.contains("duplicate key error") => none
     }
 
+  def nbGames(u1: String, u2: String): Fu[Int] =
+    coll.find(
+      select(u1, u2),
+      BSONDocument("n" -> true)
+    ).one[BSONDocument] map {
+      ~_.flatMap(_.getAs[Int]("n"))
+    }
+
   def add(game: Game): Funit = game.userIds.distinct.sorted match {
     case List(u1, u2) =>
       val result = Result(game.id, game.winnerUserId)
