@@ -4,6 +4,7 @@ import play.api.libs.json._
 
 import lila.common.PimpedJson._
 import lila.game.{ Game, PerfPicker }
+import chess.format.Forsyth
 
 object UserApiGameJson {
 
@@ -31,10 +32,13 @@ object UserApiGameJson {
           "ratingDiff" -> p.ratingDiff
         ).noNull
       }),
+      "fen" -> Forsyth.exportBoard(g.toChess.board),
+      "lastMove" -> g.castleLastMoveTime.lastMoveString,
       "opening" -> g.opening.map { o =>
         Json.obj("code" -> o.code, "name" -> o.name)
       },
-      "winner" -> g.winnerColor.map(_.name)
+      "winner" -> g.winnerColor.map(_.name),
+      "bookmarks" -> g.bookmarks
     ).noNull
   }
 }
