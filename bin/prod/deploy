@@ -71,6 +71,7 @@ fi
 
 RSYNC_OPTIONS=" \
   --archive \
+  --no-o --no-g \
   --force \
   --delete \
   --progress \
