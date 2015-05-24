@@ -28,17 +28,25 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       val nextHour = nextHourDate.getHourOfDay
 
       List(
-        Schedule(Monthly, Bullet, at(lastSaturdayOfCurrentMonth, 17)),
-        Schedule(Monthly, Blitz, at(lastSaturdayOfCurrentMonth, 18, 20)),
-        Schedule(Monthly, Classical, at(lastSaturdayOfCurrentMonth, 20, 30)),
-        Schedule(Weekly, Bullet, at(nextSaturday, 17)),
-        Schedule(Weekly, Blitz, at(nextSaturday, 18)),
-        Schedule(Weekly, Classical, at(nextSaturday, 20)),
-        Schedule(Daily, Bullet, at(today, 17)),
-        Schedule(Daily, Blitz, at(today, 18)),
-        Schedule(Daily, Classical, at(today, 20)),
-        Schedule(Hourly, if (nextHour % 2 == 0) Bullet else SuperBlitz, at(nextHourDate, nextHour)),
-        Schedule(Hourly, Blitz, at(nextHourDate, nextHour, 30))
+        Schedule(Monthly, Bullet, at(lastSaturdayOfCurrentMonth, 18, 0)),
+        Schedule(Monthly, SuperBlitz, at(lastSaturdayOfCurrentMonth, 19, 0)),
+        Schedule(Monthly, Blitz, at(lastSaturdayOfCurrentMonth, 20, 0)),
+        Schedule(Monthly, Classical, at(lastSaturdayOfCurrentMonth, 21, 0)),
+        Schedule(Weekly, Bullet, at(nextSaturday, 18)),
+        Schedule(Weekly, SuperBlitz, at(nextSaturday, 19)),
+        Schedule(Weekly, Blitz, at(nextSaturday, 20)),
+        Schedule(Weekly, Classical, at(nextSaturday, 21)),
+        Schedule(Daily, Bullet, at(today, 18)),
+        Schedule(Daily, SuperBlitz, at(today, 19)),
+        Schedule(Daily, Blitz, at(today, 20)),
+        Schedule(Daily, Classical, at(today, 21)),
+        Schedule(Nightly, Bullet, at(today, 6)),
+        Schedule(Nightly, SuperBlitz, at(today, 7)),
+        Schedule(Nightly, Blitz, at(today, 8)),
+        Schedule(Nightly, Classical, at(today, 9)),
+        Schedule(Hourly, Bullet, at(nextHourDate, nextHour)),
+        Schedule(Hourly, SuperBlitz, at(nextHourDate, nextHour)),
+        Schedule(Hourly, Blitz, at(nextHourDate, nextHour))
       ).foldLeft(List[Schedule]()) {
           case (scheds, sched) if sched.at.isBeforeNow      => scheds
           case (scheds, sched) if overlaps(sched, dbScheds) => scheds

@@ -22,9 +22,10 @@ object Schedule {
   object Freq {
     case object Hourly extends Freq
     case object Daily extends Freq
+    case object Nightly extends Freq
     case object Weekly extends Freq
     case object Monthly extends Freq
-    val all: List[Freq] = List(Hourly, Daily, Weekly, Monthly)
+    val all: List[Freq] = List(Hourly, Daily, Nightly, Weekly, Monthly)
     def apply(name: String) = all find (_.name == name)
   }
 
@@ -40,29 +41,36 @@ object Schedule {
     def apply(name: String) = all find (_.name == name)
   }
 
-  private[tournament] def durationFor(sched: Schedule): Option[Int] = Some((sched.freq, sched.speed) match {
-    case (Freq.Hourly, Speed.Bullet)      => 30
-    case (Freq.Hourly, Speed.SuperBlitz)  => 45
-    case (Freq.Hourly, Speed.Blitz)       => 50
-    case (Freq.Hourly, Speed.Classical)   => 0 // N/A
-    case (Freq.Daily, Speed.Bullet)       => 45
-    case (Freq.Daily, Speed.SuperBlitz)   => 0 // N/A
-    case (Freq.Daily, Speed.Blitz)        => 80
-    case (Freq.Daily, Speed.Classical)    => 120
-    case (Freq.Weekly, Speed.Bullet)      => 50
-    case (Freq.Weekly, Speed.SuperBlitz)  => 0 // N/A
-    case (Freq.Weekly, Speed.Blitz)       => 90
-    case (Freq.Weekly, Speed.Classical)   => 120
-    case (Freq.Monthly, Speed.Bullet)     => 60
-    case (Freq.Monthly, Speed.SuperBlitz) => 0 // N/A
-    case (Freq.Monthly, Speed.Blitz)      => 100
-    case (Freq.Monthly, Speed.Classical)  => 150
-  }) filter (0!=)
+  private[tournament] def durationFor(sched: Schedule): Option[Int] = {
+    import Freq._, Speed._
+    Some((sched.freq, sched.speed) match {
+
+      case (Hourly, Bullet)              => 40
+      case (Hourly, SuperBlitz)          => 50
+      case (Hourly, Blitz)               => 50
+      case (Hourly, Classical)           => 0 // N/A
+
+      case (Daily | Nightly, Bullet)     => 50
+      case (Daily | Nightly, SuperBlitz) => 80
+      case (Daily | Nightly, Blitz)      => 80
+      case (Daily | Nightly, Classical)  => 120
+
+      case (Weekly, Bullet)              => 60
+      case (Weekly, SuperBlitz)          => 100
+      case (Weekly, Blitz)               => 100
+      case (Weekly, Classical)           => 150
+
+      case (Monthly, Bullet)             => 90
+      case (Monthly, SuperBlitz)         => 120
+      case (Monthly, Blitz)              => 120
+      case (Monthly, Classical)          => 180
+    }) filter (0!=)
+  }
 
   private[tournament] def clockFor(sched: Schedule) = sched.speed match {
-    case Schedule.Speed.Bullet     => TournamentClock(60, 0)
-    case Schedule.Speed.SuperBlitz => TournamentClock(3 * 60, 0)
-    case Schedule.Speed.Blitz      => TournamentClock(5 * 60, 0)
-    case Schedule.Speed.Classical  => TournamentClock(10 * 60, 0)
+    case Speed.Bullet     => TournamentClock(60, 0)
+    case Speed.SuperBlitz => TournamentClock(3 * 60, 0)
+    case Speed.Blitz      => TournamentClock(5 * 60, 0)
+    case Speed.Classical  => TournamentClock(10 * 60, 0)
   }
 }
