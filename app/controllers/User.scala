@@ -75,12 +75,7 @@ object User extends LilaController {
             }
           } map { status(_) },
           api = _ => userGames(u, filterOption, page) map {
-            case (filterName, pag) =>
-              import lila.api.UserApiGameJson.writer
-              Ok(Json.obj(
-                "filter" -> filterName,
-                "paginator" -> lila.common.paginator.PaginatorJson(pag)
-              ))
+            case (filterName, pag) => Ok(Env.api.userGameApi.filter(filterName, pag))
           })
         else negotiate(
           html = fuccess(NotFound(html.user.disabled(u))),

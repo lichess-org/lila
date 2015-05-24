@@ -70,6 +70,9 @@ final class Env(
     pgnDump = pgnDump,
     analysisApi = analysisApi)
 
+  val userGameApi = new UserGameApi(
+    bookmarkApi = bookmarkApi)
+
   val roundApi = new RoundApiBalancer(
     api = new RoundApi(
       jsonView = roundJsonView,
