@@ -13,15 +13,7 @@ trait SocketMember extends Ordered[SocketMember] {
   def compare(other: SocketMember) = ~userId compare ~other.userId
 
   def push(msg: JsValue) {
-    try {
-      channel push msg
-    }
-    catch {
-      case _: java.nio.channels.ClosedChannelException =>
-      // catching because it's quite polluting the production logs
-      case e: Exception =>
-        loginfo(s"SocketMember.push ${e.getMessage}")
-    }
+    channel push msg
   }
 
   def end {
