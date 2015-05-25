@@ -101,7 +101,7 @@ private[tournament] final class TournamentApi(
   def wipeHeadless(created: Created): Funit = created.ownerWithdrew ?? doWipe(created)
 
   private def doWipe(created: Created): Funit =
-    TournamentRepo.remove(created).void >>- publish() >>-socketReload(created.id)
+    TournamentRepo.remove(created).void >>- publish() >>- socketReload(created.id)
 
   def finish(oldTour: Started) {
     sequence(oldTour.id) {
@@ -193,9 +193,7 @@ private[tournament] final class TournamentApi(
             val tour2 = tour.updatePairing(game.id, _ finish game).refreshPlayers
             TournamentRepo.update(tour2).void >>- {
               game.loserUserId.filter(tour2.quickLossStreak) foreach { withdraw(tour2, _) }
-            } >>- socketReload(tour2.id) >>- {
-              roundSocketHub ! TellIds(tour2.playingPairings.map(_.gameId), TournamentStanding(tour2.id))
-            }
+            } >>- socketReload(tour2.id) >>- updateTournamentStanding(tour2)
           }
         }
       }
@@ -238,6 +236,16 @@ private[tournament] final class TournamentApi(
         }
     })))
     def apply() { debouncer ! Debouncer.Nothing }
+  }
+
+  private object updateTournamentStanding {
+    private val debouncer = system.actorOf(Props(new Debouncer(3 seconds, {
+      (tour: Tournament) =>
+        roundSocketHub ! TellIds(tour.playingPairings.map(_.gameId), TournamentStanding(tour.id))
+    })))
+    def apply(tour: Tournament) {
+      debouncer ! tour
+    }
   }
 
   private def sendTo(tourId: String, msg: Any) {
