@@ -1264,7 +1264,7 @@ body.fpmenu #fpmenu {
 #topmenu {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -10px;
   font-size: 13px;
 }
 #topmenu section {
