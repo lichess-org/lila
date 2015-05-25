@@ -20,6 +20,10 @@
     <br />
     <br />
     <img src="http://lichess1.org/assets/images/maintenance.jpg" alt="Lichess timeout" />
-    <script>setTimeout(function() { location.reload(); }, 8000);</script>
+    <script>
+      setTimeout(
+        function() { location.reload(); },
+        2000 + Math.round(Math.random() * 10000));
+    </script>
   </body>
 </html>
