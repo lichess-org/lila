@@ -39,6 +39,11 @@ div.user_lists div.user_top table {
 div.user_lists div.user_top td {
   padding: 2px 0;
 }
+div.user_lists .tournament_winners td:first-child {
+  max-width: 156px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 #site_header div.user_lists div.user_top td {
   max-width: 160px;
   overflow: hidden;

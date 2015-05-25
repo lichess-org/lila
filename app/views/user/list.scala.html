@@ -65,7 +65,7 @@
       @userTopPerf(chess960, PerfType.Chess960)
       <div class="user_top">
         <h2 class="text" data-icon="g">@trans.tournamentWinners()</h2>
-        <table><tbody>
+        <table class="tournament_winners"><tbody>
             @tourneyWinners.map { w =>
             <tr>
               <td>@userIdLink(w.userId.some, cssClass="revert-underline".some)</td>

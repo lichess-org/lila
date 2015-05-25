@@ -43,6 +43,7 @@ trait TournamentHelper { self: I18nHelper =>
       "Lichess " -> "",
       "Bullet" -> icon(Bullet.iconChar),
       "Blitz" -> icon(Blitz.iconChar),
+      "SuperBlitz" -> icon(Blitz.iconChar),
       "Classical" -> icon(Classical.iconChar)
     )
     def apply(name: String) = Html {
