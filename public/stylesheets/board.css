@@ -1403,6 +1403,13 @@ div.under_chat .watchtv {
   text-align: center;
   margin-top: -24px;
 }
+div.under_chat .watchers {
+  opacity: 0.65;
+  transition: 0.13s;
+}
+div.under_chat .watchers:hover {
+  opacity: 1;
+}
 #chat div.top {
   position: relative;
 }
