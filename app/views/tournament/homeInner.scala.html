@@ -38,7 +38,7 @@
       </tr>
     </thead>
     <tbody>
-      @createds.filter(_.scheduled).map { tour =>
+      @createds.filter(_.scheduled).sortBy(_.clock.chessClock.estimateTotalTime).map { tour =>
       <tr class="scheduled">
         @iconTd(tour)
         @tourTd(tour)
@@ -47,7 +47,7 @@
         <td>@joinButton(tour)</td>
       </tr>
       }
-      @createds.filterNot(_.scheduled).map { tour =>
+      @createds.filterNot(_.scheduled).sortBy(-_.nbPlayers).map { tour =>
       <tr>
         @iconTd(tour)
         @tourTd(tour)
@@ -74,7 +74,7 @@
       </tr>
     </thead>
     <tbody>
-      @starteds.map { tour =>
+      @starteds.sortBy(-_.nbPlayers).map { tour =>
       <tr>
         @iconTd(tour)
         @tourTd(tour)
