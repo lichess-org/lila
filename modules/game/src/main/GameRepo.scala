@@ -223,7 +223,7 @@ object GameRepo {
     val userIds = g2.userIds.distinct
     val fen = (!g2.variant.standardInitialPosition)
       .option(Forsyth >> g2.toChess)
-      .filterNot(Forsyth.initial ==)
+      .filter(Forsyth.initial !=)
     val bson = (gameTube.handler write g2) ++ BSONDocument(
       F.initialFen -> fen,
       F.checkAt -> (!g2.isPgnImport).option(DateTime.now.plusHours(g2.hasClock.fold(1, 24))),
