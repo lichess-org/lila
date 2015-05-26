@@ -389,7 +389,7 @@ case class Game(
 
   def averageUsersRating = userRatings match {
     case a :: b :: Nil => Some((a + b) / 2)
-    case a :: Nil      => Some((a + 1200) / 2)
+    case a :: Nil      => Some((a + 1500) / 2)
     case _             => None
   }
 
