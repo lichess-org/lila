@@ -124,15 +124,16 @@ function goBerserk(ctrl) {
 
 function renderClock(ctrl, color, position) {
   var time = ctrl.clock.data[color];
+  var running = ctrl.isClockRunning() && ctrl.data.game.player === color;
   return m('div', {
     class: 'clock clock_' + color + ' clock_' + position + ' ' + classSet({
       'outoftime': !time,
-      'running': ctrl.isClockRunning() && ctrl.data.game.player === color,
+      'running': running,
       'emerg': time < ctrl.clock.data.emerg
     })
   }, [
     clockView.showBar(ctrl.clock, time),
-    m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000))),
+    m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))),
     game.berserkOf(ctrl.data, color) ? berserkIcon : (
       ctrl.data.player.color === color && game.berserkableBy(ctrl.data) ? goBerserk(ctrl) : null
     )
