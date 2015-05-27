@@ -1413,7 +1413,7 @@ lichess.storage = {
     _create: function() {
       var self = this;
       this.options.time = this.options.time * 1000;
-      this.$time = this.element.find('>.time');
+      this.timeEl = this.element.find('>.time')[0];
       var end_time = new Date().getTime() + self.options.time;
       var tick = function() {
         var current_time = Math.round(end_time - new Date().getTime());
@@ -1432,7 +1432,7 @@ lichess.storage = {
       $.Widget.prototype.destroy.apply(this);
     },
     _show: function() {
-      this.$time.html(this._formatDate(new Date(this.options.time)));
+      this.timeEl.innerHTML = this._formatDate(new Date(this.options.time));
     },
     _formatDate: function(date) {
       var minutes = this._prefixInteger(date.getUTCMinutes(), 2);
