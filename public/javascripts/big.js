@@ -1413,7 +1413,7 @@ lichess.storage = {
     _create: function() {
       var self = this;
       this.options.time = this.options.time * 1000;
-      this.$time = this.element.find('>div.time');
+      this.$time = this.element.find('>.time');
       var end_time = new Date().getTime() + self.options.time;
       var tick = function() {
         var current_time = Math.round(end_time - new Date().getTime());

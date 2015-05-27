@@ -24,10 +24,10 @@ private[tournament] final class Organizer(
         tour.schedule match {
           case None =>
             if (tour.isEmpty) api wipeEmpty tour
-            else if (tour.ownerWithdrew) api wipeHeadless tour
+            else if (tour.hasWaitedEnough) api startOrDelete tour
             else ejectLeavers(tour)
           case Some(schedule) =>
-            if (schedule.at.isBeforeNow) api startScheduled tour
+            if (tour.hasWaitedEnough) api startScheduled tour
             else ejectLeavers(tour)
         }
       }

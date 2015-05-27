@@ -57,6 +57,7 @@ private[tournament] final class TournamentApi(
         createdBy = me,
         clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
         minutes = setup.minutes,
+        waitMinutes = setup.waitMinutes,
         mode = setup.mode.fold(Mode.default)(Mode.orDefault),
         `private` = setup.`private`.isDefined,
         system = System orDefault setup.system,
@@ -75,8 +76,8 @@ private[tournament] final class TournamentApi(
       TournamentRepo.insert(created).void >>- publish()
     }
 
-  def startIfReady(created: Created) {
-    if (created.enoughPlayersToStart) doStart(created)
+  def startOrDelete(created: Created) {
+    if (created.enoughPlayersToStart) doStart(created) else doWipe(created)
   }
 
   private[tournament] def startScheduled(created: Created) {
@@ -97,8 +98,6 @@ private[tournament] final class TournamentApi(
   }
 
   def wipeEmpty(created: Created): Funit = created.isEmpty ?? doWipe(created)
-
-  def wipeHeadless(created: Created): Funit = created.ownerWithdrew ?? doWipe(created)
 
   private def doWipe(created: Created): Funit =
     TournamentRepo.remove(created).void >>- publish() >>- socketReload(created.id)

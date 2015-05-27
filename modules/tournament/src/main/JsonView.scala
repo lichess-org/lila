@@ -22,7 +22,6 @@ final class JsonView(
         "system" -> tour.system.toString.toLowerCase,
         "fullName" -> tour.fullName,
         "private" -> tour.`private`,
-        "schedule" -> tour.schedule.map(scheduleJson),
         "variant" -> tour.variant.key,
         "players" -> tour.rankedPlayers.map(playerJson(sheets, tour)),
         "winner" -> tour.winner.map(_.id),
@@ -34,9 +33,8 @@ final class JsonView(
     }
 
   private def specifics(tour: Tournament) = tour match {
-    case t: Created => Json.obj("enoughPlayersToStart" -> t.enoughPlayersToStart)
-    case t: Started => Json.obj(
-      "seconds" -> t.remainingSeconds)
+    case t: Created => Json.obj("secondsToStart" -> t.secondsToStart)
+    case t: Started => Json.obj("seconds" -> t.remainingSeconds)
     case _ => Json.obj()
   }
 
@@ -44,9 +42,6 @@ final class JsonView(
     case t: StartedOrFinished => GameRepo.games(t recentGameIds 4)
     case _                    => fuccess(Nil)
   }
-
-  private def scheduleJson(s: Schedule) = Json.obj(
-    "seconds" -> s.inSeconds)
 
   private def gameUserJson(player: lila.game.Player) = {
     val light = player.userId flatMap getLightUser

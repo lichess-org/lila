@@ -31,6 +31,7 @@ sealed trait Tournament {
   def isRunning: Boolean = false
   def isFinished: Boolean = false
   def `private`: Boolean = data.`private`
+  def startsAt: Option[DateTime] = None
 
   def name = data.name
   def fullName = s"$name $system"
@@ -76,8 +77,6 @@ sealed trait Tournament {
   def createdAt = data.createdAt
 
   def isCreator(userId: String) = createdBy == userId
-
-  def creatorPlayer: Option[Player] = playerByUserId(createdBy)
 
   def userPairings(user: String) = pairings filter (_ contains user)
 
@@ -137,7 +136,8 @@ sealed trait StartedOrFinished extends Tournament {
 case class Created(
     id: String,
     data: Data,
-    players: Players) extends Tournament with Enterable {
+    players: Players,
+    waitMinutes: Option[Int]) extends Tournament with Enterable {
 
   import data._
 
@@ -168,7 +168,15 @@ case class Created(
 
   def join(user: User) = joinNew(user)
 
-  def ownerWithdrew = creatorPlayer.fold(true)(_.withdraw)
+  def waitUntil: Option[DateTime] = waitMinutes map createdAt.plusMinutes
+
+  override def startsAt: Option[DateTime] = schedule.map(_.at).orElse(waitUntil)
+
+  def hasWaitedEnough = startsAt.??(DateTime.now.isAfter)
+
+  def secondsToStart: Option[Int] = startsAt.map { date =>
+    (date.getSeconds - nowSeconds).toInt
+  }
 }
 
 case class Scheduled(tour: Created, schedule: Schedule) {
@@ -279,6 +287,7 @@ object Tournament {
     createdBy: User,
     clock: TournamentClock,
     minutes: Int,
+    waitMinutes: Int,
     system: System,
     variant: chess.variant.Variant,
     mode: Mode,
@@ -296,7 +305,8 @@ object Tournament {
         `private` = `private`,
         minutes = minutes,
         schedule = None),
-      players = Nil)
+      players = Nil,
+      waitMinutes = waitMinutes.some)
     tour withPlayers List(Player.make(createdBy, tour.perfLens))
   }
 
@@ -313,7 +323,8 @@ object Tournament {
       `private` = false,
       minutes = minutes,
       schedule = Some(sched)),
-    players = List())
+    players = List(),
+    waitMinutes = None)
 
   // To sort combined sequences of pairings and events.
   // This sorts all pairings/events in chronological order. Pairings without a timestamp

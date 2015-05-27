@@ -21,7 +21,9 @@
 @tourTd(tour: lila.tournament.Tournament) = {
 <td class="header">
   <a href="@routes.Tournament.show(tour.id)">
-    <span class="name">@tour.fullName</span>
+    <span class="name">
+      @tour.fullName @if(!tour.rated) {<em class="casual">@trans.casual()</em>}
+    </span>
     @setup(tour)
   </a>
 </td>
