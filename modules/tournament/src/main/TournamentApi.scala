@@ -77,14 +77,10 @@ private[tournament] final class TournamentApi(
     }
 
   def startOrDelete(created: Created) {
-    if (created.enoughPlayersToStart) doStart(created) else doWipe(created)
+    if (created.enoughPlayersToStart) start(created) else wipe(created)
   }
 
-  private[tournament] def startScheduled(created: Created) {
-    doStart(created)
-  }
-
-  private def doStart(oldTour: Created) {
+  def start(oldTour: Created) {
     sequence(oldTour.id) {
       TournamentRepo createdById oldTour.id flatMap {
         case Some(created) =>
@@ -97,9 +93,7 @@ private[tournament] final class TournamentApi(
     }
   }
 
-  def wipeEmpty(created: Created): Funit = created.isEmpty ?? doWipe(created)
-
-  private def doWipe(created: Created): Funit =
+  def wipe(created: Created): Funit =
     TournamentRepo.remove(created).void >>- publish() >>- socketReload(created.id)
 
   def finish(oldTour: Started) {

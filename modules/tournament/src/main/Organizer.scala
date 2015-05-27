@@ -22,13 +22,12 @@ private[tournament] final class Organizer(
     case AllCreatedTournaments => TournamentRepo.allCreated foreach {
       _ foreach { tour =>
         tour.schedule match {
-          case None =>
-            if (tour.isEmpty) api wipeEmpty tour
-            else if (tour.hasWaitedEnough) api startOrDelete tour
-            else ejectLeavers(tour)
-          case Some(schedule) =>
-            if (tour.hasWaitedEnough) api startScheduled tour
-            else ejectLeavers(tour)
+          case None if tour.isEmpty => api wipe tour
+          case None if tour.hasWaitedEnough =>
+            if (tour.enoughPlayersToStart) api start tour
+            else api wipe tour
+          case Some(schedule) if tour.hasWaitedEnough => api start tour
+          case _                                      => ejectLeavers(tour)
         }
       }
     }

@@ -208,7 +208,7 @@ case class Started(
   def addEvents(es: Events) =
     copy(events = es ::: events)
 
-  def readyToFinish = (remainingSeconds == 0) || (nbActiveUsers < 2)
+  def readyToFinish = (remainingSeconds == 0) || (!scheduled && nbActiveUsers < 2)
 
   def remainingSeconds: Float = math.max(0f,
     ((finishedAt.getMillis - nowMillis) / 1000).toFloat
