@@ -105,12 +105,14 @@ object BSONHandlers {
       Created(
         id = r str "_id",
         data = r.doc.as[Data],
-        players = r.get[Players]("players"))
+        players = r.get[Players]("players"),
+        waitMinutes = r.intO("wait"))
     }
     def writes(w: BSON.Writer, o: Created) = dataHandler.write(o.data) ++ BSONDocument(
       "_id" -> o.id,
       "status" -> Status.Created.id,
-      "players" -> o.players)
+      "players" -> o.players,
+      "wait" -> o.waitMinutes)
   }
 
   private[tournament] implicit val startedHandler = new BSON[Started] {

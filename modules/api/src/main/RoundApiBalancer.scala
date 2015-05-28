@@ -16,7 +16,7 @@ private[api] final class RoundApiBalancer(
 
   private object implementation {
 
-    implicit val timeout = makeTimeout seconds 10
+    implicit val timeout = makeTimeout seconds 20
 
     case class Player(pov: Pov, apiVersion: Int, ctx: Context)
     case class Watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean],

@@ -15,7 +15,7 @@ object StepBuilder {
     pgnMoves: List[String],
     variant: Variant,
     a: Option[(Pgn, Analysis)],
-    initialFen: Option[String]): JsArray = {
+    initialFen: String): JsArray = {
     chess.Replay.gameWhileValid(pgnMoves, initialFen, variant) match {
       case (games, error) =>
         error foreach logChessError(id)
@@ -69,7 +69,7 @@ object StepBuilder {
     }
 
   private def makeVariation(gameId: String, fromStep: Step, info: Info, variant: Variant): List[Step] = {
-    chess.Replay.gameWhileValid(info.variation take 20, fromStep.fen.some, variant) match {
+    chess.Replay.gameWhileValid(info.variation take 20, fromStep.fen, variant) match {
       case (games, error) =>
         error foreach logChessError(gameId)
         val lastPly = games.lastOption.??(_.turns)

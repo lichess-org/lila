@@ -9,10 +9,8 @@
   }
   } else {
   @tour.perfType.map(_.name)
-  } •
-  @tour.schedule.filter(_ => tour.isOpen).map { s =>
-  @momentFromNow(s.at)
-  }.getOrElse {
-  @tour.rated.fold(trans.rated.str(), trans.casual.str())
+  }
+  @tour.startsAt.map { date =>
+  • @momentFromNow(date)
   }
 </span>

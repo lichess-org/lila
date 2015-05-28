@@ -98,14 +98,6 @@ object Tournament extends LilaController {
       }
   }
 
-  def start(id: String) = Auth { implicit ctx =>
-    implicit me =>
-      OptionResult(repo.createdByIdAndCreator(id, me.id)) { tour =>
-        env.api startIfReady tour
-        Ok(Json.obj("ok" -> true)) as JSON
-      }
-  }
-
   def form = Auth { implicit ctx =>
     me =>
       NoEngine {

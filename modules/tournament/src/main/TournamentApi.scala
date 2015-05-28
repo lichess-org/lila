@@ -57,6 +57,7 @@ private[tournament] final class TournamentApi(
         createdBy = me,
         clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
         minutes = setup.minutes,
+        waitMinutes = setup.waitMinutes,
         mode = setup.mode.fold(Mode.default)(Mode.orDefault),
         `private` = setup.`private`.isDefined,
         system = System orDefault setup.system,
@@ -75,15 +76,11 @@ private[tournament] final class TournamentApi(
       TournamentRepo.insert(created).void >>- publish()
     }
 
-  def startIfReady(created: Created) {
-    if (created.enoughPlayersToStart) doStart(created)
+  def startOrDelete(created: Created) {
+    if (created.enoughPlayersToStart) start(created) else wipe(created)
   }
 
-  private[tournament] def startScheduled(created: Created) {
-    doStart(created)
-  }
-
-  private def doStart(oldTour: Created) {
+  def start(oldTour: Created) {
     sequence(oldTour.id) {
       TournamentRepo createdById oldTour.id flatMap {
         case Some(created) =>
@@ -96,12 +93,8 @@ private[tournament] final class TournamentApi(
     }
   }
 
-  def wipeEmpty(created: Created): Funit = created.isEmpty ?? doWipe(created)
-
-  def wipeHeadless(created: Created): Funit = created.ownerWithdrew ?? doWipe(created)
-
-  private def doWipe(created: Created): Funit =
-    TournamentRepo.remove(created).void >>- publish() >>-socketReload(created.id)
+  def wipe(created: Created): Funit =
+    TournamentRepo.remove(created).void >>- publish() >>- socketReload(created.id)
 
   def finish(oldTour: Started) {
     sequence(oldTour.id) {
@@ -193,9 +186,7 @@ private[tournament] final class TournamentApi(
             val tour2 = tour.updatePairing(game.id, _ finish game).refreshPlayers
             TournamentRepo.update(tour2).void >>- {
               game.loserUserId.filter(tour2.quickLossStreak) foreach { withdraw(tour2, _) }
-            } >>- socketReload(tour2.id) >>- {
-              roundSocketHub ! TellIds(tour2.playingPairings.map(_.gameId), TournamentStanding(tour2.id))
-            }
+            } >>- socketReload(tour2.id) >>- updateTournamentStanding(tour2)
           }
         }
       }
@@ -238,6 +229,16 @@ private[tournament] final class TournamentApi(
         }
     })))
     def apply() { debouncer ! Debouncer.Nothing }
+  }
+
+  private object updateTournamentStanding {
+    private val debouncer = system.actorOf(Props(new Debouncer(3 seconds, {
+      (tour: Tournament) =>
+        roundSocketHub ! TellIds(tour.playingPairings.map(_.gameId), TournamentStanding(tour.id))
+    })))
+    def apply(tour: Tournament) {
+      debouncer ! tour
+    }
   }
 
   private def sendTo(tourId: String, msg: Any) {

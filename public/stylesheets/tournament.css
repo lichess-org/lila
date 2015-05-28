@@ -40,6 +40,14 @@ ol.scheduled_tournaments a:hover {
   font-size: 1.7em;
   display: block;
 }
+#tournament_list table.slist .name em {
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  opacity: 0.5;
+  letter-spacing: 0px;
+  vertical-align: middle;
+}
 #tournament.scheduled h1,
 #tournament table tr.standing.scheduled:first-child td:first-child {
   color: #d59120;
@@ -49,10 +57,18 @@ ol.scheduled_tournaments a:hover {
 }
 #tournament .title_tag {
   float: right;
-  font-size: 20px;
+  margin: 25px 25px 0 0;
+}
+#tournament .title_tag .time {
   font-family: monospace;
   font-weight: bold;
-  margin: 25px 25px 0 0;
+  font-size: 20px;
+}
+#tournament .title_tag .shy {
+  line-height: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  opacity: 0.6;
 }
 #tournament .podium {
   margin: 0px 0 20px 0;

@@ -679,6 +679,7 @@ div.content_box_inter {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   display: block;
+  white-space: nowrap;
 }
 div.content_box_inter .intertab {
   display: inline-block;

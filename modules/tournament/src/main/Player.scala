@@ -21,7 +21,7 @@ private[tournament] case class Player(
   def unWithdraw = copy(withdraw = false)
 
   def magicScore =
-    (score * 1000000) + (perf * 1000) + rating + withdraw.??(Int.MinValue)
+    (score * 1000000) + (perf * 1000) + rating + withdraw.fold(Int.MinValue / 2, 0)
 }
 
 private[tournament] object Player {

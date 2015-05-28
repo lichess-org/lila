@@ -66,7 +66,12 @@ private[api] final class RoundApi(
     jsonView.userAnalysisJson(pov, pref) map withSteps(pov, none, initialFen)_
 
   private def withSteps(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String])(obj: JsObject) =
-    obj + ("steps" -> lila.round.StepBuilder(pov.game.id, pov.game.pgnMoves, pov.game.variant, a, initialFen))
+    obj + ("steps" -> lila.round.StepBuilder(
+      id = pov.game.id,
+      pgnMoves = pov.game.pgnMoves,
+      variant = pov.game.variant,
+      a = a,
+      initialFen = initialFen | chess.format.Forsyth.initial))
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))

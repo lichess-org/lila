@@ -1213,11 +1213,17 @@ div.table_wrap > .clock > .time {
 div.table_wrap > .correspondence.clock > .time {
   font-size: 20px;
 }
-div.table_wrap > .clock .time span {
+div.table_wrap > .clock .time tenths {
   font-size: 80%;
 }
 div.table_wrap > .clock .time b {
   font-weight: bold;
+}
+div.table_wrap > .clock .time seph {
+  opacity: 0.7;
+}
+div.table_wrap > .clock .time sepl {
+  opacity: 0.15;
 }
 div.table_wrap > .clock.running .time {
   background: #fff077;

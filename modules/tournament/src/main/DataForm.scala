@@ -27,10 +27,15 @@ final class DataForm {
   val minuteChoices = options(minutes, "%d minute{s}")
   val minutePrivateChoices = options(minutesPrivate, "%d minute{s}")
 
+  val waitMinutes = Seq(1, 2, 5, 10)
+  val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
+  val waitMinuteDefault = 2
+
   lazy val create = Form(mapping(
     "clockTime" -> numberIn(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
+    "waitMinutes" -> numberIn(waitMinuteChoices),
     "system" -> number.verifying(Set(System.Arena.id, System.Swiss.id) contains _),
     "variant" -> number.verifying(Set(chess.variant.Standard.id, chess.variant.Chess960.id, chess.variant.KingOfTheHill.id,
       chess.variant.ThreeCheck.id, chess.variant.Antichess.id, chess.variant.Atomic.id, chess.variant.Horde.id) contains _),
@@ -43,6 +48,7 @@ final class DataForm {
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
+    waitMinutes = waitMinuteDefault,
     system = System.default.id,
     variant = chess.variant.Standard.id,
     `private` = None,
@@ -53,6 +59,7 @@ private[tournament] case class TournamentSetup(
     clockTime: Int,
     clockIncrement: Int,
     minutes: Int,
+    waitMinutes: Int,
     system: Int,
     variant: Int,
     mode: Option[Int],

@@ -8,17 +8,9 @@ var xhr = require('../xhr');
 function header(ctrl) {
   var tour = ctrl.data;
   return [
-    m('th.large',
-      tour.schedule ? [
-        ctrl.trans('starting') + ' ',
-        util.secondsFromNow(tour.schedule.seconds)
-      ] : (tour.players.length + ' Players')
-    ),
+    m('th.large', tour.players.length + ' Players'),
     ctrl.userId ? m('th',
-      tournament.containsMe(ctrl) ? [
-        tournament.createdByMe(ctrl) ? button.start(ctrl) : null,
-        tournament.createdByMe(ctrl) ? button.deleteTournament(ctrl) : button.withdraw(ctrl)
-      ] : button.join(ctrl)
+      tournament.containsMe(ctrl) ? button.withdraw(ctrl) : button.join(ctrl)
     ) : m('th')
   ];
 }
@@ -33,6 +25,16 @@ function playerTr(ctrl, player) {
 module.exports = {
   main: function(ctrl) {
     return [
+      ctrl.data.secondsToStart ? m('div.tournament_clock.title_tag', {
+        config: function(el, isUpdate) {
+          if (!isUpdate) $(el).clock({
+            time: ctrl.data.secondsToStart
+          });
+        }
+      }, [
+        m('span.shy', 'Starting in '),
+        m('span.time.text')
+      ]) : null,
       util.title(ctrl),
       m('table.slist.user_list',
         m('thead', m('tr', header(ctrl))),
