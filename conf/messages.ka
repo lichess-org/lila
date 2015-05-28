@@ -241,7 +241,6 @@ wins=იგებს
 losses=აგებს
 winStreak=მოგებული ხაზი
 createdBy=შემქმნელი
-waitingForNbPlayers=%s მოთამაშის მოლოდინში
 tournamentIsStarting=ტურნირი იწყება
 membersOnly=მხოლოდ წევრები
 boardEditor=დაფის რედაქტირება

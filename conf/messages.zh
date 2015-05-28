@@ -246,7 +246,6 @@ wins=胜
 losses=负
 winStreak=连胜
 createdBy=创建者为
-waitingForNbPlayers=等待%s位玩家
 tournamentIsStarting=比赛即将开始
 membersOnly=只限注册成员
 boardEditor=棋盘编辑器

@@ -245,7 +245,6 @@ wins=Հաղթանակներ
 losses=Պարտություններ
 winStreak=Անընդմեջ հաղթանակներ
 createdBy=Ստեղծող՝
-waitingForNbPlayers=Սպասել %s խաղացողների
 tournamentIsStarting=Մրցաշարը սկսվում է
 membersOnly=Միայն անդամները
 boardEditor=Տախտակի խմբագրիչ

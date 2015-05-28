@@ -245,7 +245,6 @@ wins=Перамогі
 losses=Паразы
 winStreak=Сьпіс пераможцаў
 createdBy=Стварыў
-waitingForNbPlayers=Чакаем %s гульцоў
 tournamentIsStarting=Турнір пачынаецца
 membersOnly=Толькі чальцы
 boardEditor=Рэдактар дошкі

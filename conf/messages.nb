@@ -248,7 +248,6 @@ wins=Seire
 losses=Tap
 winStreak=Seiersrekke
 createdBy=Opprettet av
-waitingForNbPlayers=Venter på %s spillere
 tournamentIsStarting=Turneringen begynner
 membersOnly=Kun for medlemmer
 boardEditor=Oppsett

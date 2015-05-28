@@ -248,7 +248,6 @@ wins=Victoires
 losses=Défaites
 winStreak=Série de victoires
 createdBy=Créé par
-waitingForNbPlayers=En attente de %s joueurs
 tournamentIsStarting=Le tournoi commence
 membersOnly=Membres seulement
 boardEditor=Éditeur de partie

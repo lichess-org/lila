@@ -245,7 +245,6 @@ wins=Galibiyetler
 losses=Mağlubiyetler
 winStreak=Ardı ardına galibiyet
 createdBy=Oluşturan kişi
-waitingForNbPlayers=%s oyuncu için bekleniyor
 tournamentIsStarting=Turnuva başlıyor
 membersOnly=Sadece üyeler
 boardEditor=Tahta yapıcı

@@ -248,7 +248,6 @@ wins=Vinster
 losses=Förluster
 winStreak=Vinstserie
 createdBy=Skapad av
-waitingForNbPlayers=Väntar på %s spelare
 tournamentIsStarting=Turneringen startar
 membersOnly=Endast medlemmar
 boardEditor=Brädeditor

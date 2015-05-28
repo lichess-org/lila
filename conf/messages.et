@@ -245,7 +245,6 @@ wins=Võite
 losses=Kaotusi
 winStreak=Järjest võidetuid
 createdBy=Lõi kasutaja
-waitingForNbPlayers=Ootan %s mängijat
 tournamentIsStarting=Turniir algab
 membersOnly=Ainult liikmetele
 boardEditor=Muudetav laud

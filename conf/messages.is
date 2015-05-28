@@ -243,7 +243,6 @@ wins=Vinnur
 losses=Töp
 winStreak=Vinnings rák
 createdBy=Búið til af
-waitingForNbPlayers=Bíður eftir %s skákmönnum
 tournamentIsStarting=Mótin eru að byrja
 membersOnly=Aðeins meðlimir
 boardEditor=Borð ritill

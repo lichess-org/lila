@@ -234,7 +234,6 @@ wins=فتوحات
 losses=ہاریں
 winStreak=مسلسل فتوحات
 createdBy=خالق
-waitingForNbPlayers=%s کھلاڑیوں کا انتظار ہے
 tournamentIsStarting=ٹورنامنٹ شروع ہوا چاہتا ہے
 membersOnly=صرف اراکین کے لیے
 boardEditor=تختہ بنائیں

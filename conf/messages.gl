@@ -247,7 +247,6 @@ wins=Victorias
 losses=Derrotas
 winStreak=Secuencia de victorias
 createdBy=Creado por
-waitingForNbPlayers=Esperando por %s xogadores
 tournamentIsStarting=Comezando o Torneo
 membersOnly=Só membros.
 boardEditor=Editor do taboeiro

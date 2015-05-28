@@ -245,7 +245,6 @@ wins=Uzvaras
 losses=Zaudējumi
 winStreak=Uzvaru sērija
 createdBy=Izveidoja
-waitingForNbPlayers=Gaidām %s spēlētājus
 tournamentIsStarting=Turnīrs tiek sākts
 membersOnly=Tikai dalībniekiem
 boardEditor=Lauciņa redaktors

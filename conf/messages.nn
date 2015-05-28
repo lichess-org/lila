@@ -248,7 +248,6 @@ wins=Sigrar
 losses=Tap
 winStreak=Sigersrekkje
 createdBy=Oppretta av
-waitingForNbPlayers=Ventar på %s deltakarar
 tournamentIsStarting=Turneringa startar
 membersOnly=Berre for medlemmer
 boardEditor=Brettskipar

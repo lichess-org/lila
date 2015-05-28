@@ -248,7 +248,6 @@ wins=Zmage
 losses=Porazi
 winStreak=Zmage zapored
 createdBy=Ustvaril
-waitingForNbPlayers=Čakanje na %s igralcev
 tournamentIsStarting=Turnir se začenja
 membersOnly=Samo za člane
 boardEditor=Urejanje igralne površine

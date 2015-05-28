@@ -248,7 +248,6 @@ wins=Gewonnen
 losses=Verloren
 winStreak=Win-reeks
 createdBy=Gemaakt door
-waitingForNbPlayers=Wachtend op %s spelers
 tournamentIsStarting=Het toernooi begint
 membersOnly=Alleen voor leden
 boardEditor=Bordbewerker

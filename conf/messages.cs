@@ -245,7 +245,6 @@ wins=Výhry
 losses=Prohry
 winStreak=Vítězná série
 createdBy=Vytvořeno uživatelem
-waitingForNbPlayers=Čeká se na %s hráčů
 tournamentIsStarting=Turnaj začíná
 membersOnly=Hrát pouze s registrovanými
 boardEditor=Editor šachovnice

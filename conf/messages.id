@@ -248,7 +248,6 @@ wins=Menang
 losses=Kalah
 winStreak=Menang beruntun
 createdBy=Dibuat oleh
-waitingForNbPlayers=Menunggu %s pemain lagi
 tournamentIsStarting=Turnamen sudah dimulai
 membersOnly=Hanya untuk anggota
 boardEditor=Edit Papan

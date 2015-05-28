@@ -248,7 +248,6 @@ wins=الربح
 losses=الخسارة
 winStreak=فوز متتالي
 createdBy=أُنشئت بواسطة
-waitingForNbPlayers=بانتظار %s لاعب
 tournamentIsStarting=المسابقة بدأت
 membersOnly=للأعضاء فقط
 boardEditor=محررالرقعة

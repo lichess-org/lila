@@ -247,7 +247,6 @@ wins=Victòries
 losses=Derrotes
 winStreak=Victòries consecutives
 createdBy=Creat per
-waitingForNbPlayers=S'estan esperant %s jugadors
 tournamentIsStarting=El torneig està començant
 membersOnly=Membres només
 boardEditor=Editor del tauler

@@ -225,7 +225,6 @@ wins=Buaidhean
 losses=Ruaigean
 winStreak=Sreath de bhuaidhean
 createdBy=Air a chruthachadh le
-waitingForNbPlayers=A’ feitheamh air %s cluicheadairean
 tournamentIsStarting=Tha an fhèill-chluich gu bhith tòiseachadh
 membersOnly=Buill a-mhàin
 boardEditor=Deasaiche a’ bhùird

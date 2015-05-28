@@ -245,7 +245,6 @@ wins=Győzelmek
 losses=Vereségek
 winStreak=Győzelmi sorozat
 createdBy=Készítette:
-waitingForNbPlayers=Várakozás %s játékosra
 tournamentIsStarting=A verseny kezdődik
 membersOnly=Csak tagoknak
 boardEditor=Tábla szerkesztő

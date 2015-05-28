@@ -248,7 +248,6 @@ wins=Vinte
 losses=Perse
 winStreak=Vinte in sequenza
 createdBy=Creato da
-waitingForNbPlayers=Si aspettano %s giocatori
 tournamentIsStarting=Ha inizio il torneo
 membersOnly=Solo gli iscritti
 boardEditor=Editor scacchiera

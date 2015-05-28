@@ -245,7 +245,6 @@ wins=勝
 losses=敗
 winStreak=連勝数
 createdBy=トーナメント作成者
-waitingForNbPlayers=あと %s 人で開始
 tournamentIsStarting=トーナメント開始
 membersOnly=会員限定
 boardEditor=盤面入力

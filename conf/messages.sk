@@ -245,7 +245,6 @@ wins=Víťazi
 losses=Prehry
 winStreak=Séria výhier
 createdBy=Vytvorené
-waitingForNbPlayers=Čakanie na %s hráčov
 tournamentIsStarting=Turnaj sa začína
 membersOnly=len pre členov
 boardEditor=Editor pozície

@@ -245,7 +245,6 @@ wins=Thắng
 losses=Thua
 winStreak=Thắng chớp nhoáng
 createdBy=Được tạo bởi
-waitingForNbPlayers=Đang chờ người chơi %s
 tournamentIsStarting=Giải đấu đang diễn ra
 membersOnly=Chỉ có thành viên
 boardEditor=Chỉnh sửa bàn cờ

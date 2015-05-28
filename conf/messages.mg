@@ -220,7 +220,6 @@ wins=Maharesy
 losses=Resy
 winStreak=Fandresena misesy
 createdBy=Noforonin'i
-waitingForNbPlayers=Miandry mpilalao %s
 tournamentIsStarting=Manomboka ny fifaninanana
 membersOnly=Mpikambana ihany
 boardEditor=Board editor

@@ -245,7 +245,6 @@ wins=Pobjede
 losses=Porazi
 winStreak=Pobjednički niz
 createdBy=Napravio
-waitingForNbPlayers=Čekanje %s igrača
 tournamentIsStarting=Turnir počinje
 membersOnly=Samo za članove
 boardEditor=Uredi ploču

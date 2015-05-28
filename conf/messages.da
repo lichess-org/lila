@@ -245,7 +245,6 @@ wins=Gevinster
 losses=Tab
 winStreak=Sejrsstribe
 createdBy=Lavet af
-waitingForNbPlayers=Venter på %s spillere
 tournamentIsStarting=Turneringen er begyndt
 membersOnly=Kun for medlemmer
 boardEditor=Rediger stilling

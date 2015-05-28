@@ -245,7 +245,6 @@ wins=Zwycięstwa
 losses=Porażki
 winStreak=Passa zwycięstw
 createdBy=Stworzone przez
-waitingForNbPlayers=Oczekiwanie na %s graczy
 tournamentIsStarting=Turniej zaczyna się
 membersOnly=Tylko dla użytkowników
 boardEditor=Edytor szachownicy

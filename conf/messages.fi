@@ -245,7 +245,6 @@ wins=Voitot
 losses=Tappiot
 winStreak=Voittoputki
 createdBy=Tekijä:
-waitingForNbPlayers=Odotetaan %s pelaajaa
 tournamentIsStarting=Turnaus alkaa
 membersOnly=Vain jäsenet
 boardEditor=Lautaeditori
