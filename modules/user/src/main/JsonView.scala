@@ -29,6 +29,7 @@ final class JsonView(isOnline: String => Boolean) {
       "title" -> u.title,
       "online" -> isOnline(u.id),
       "engine" -> u.engine,
+      "booster" -> u.booster,
       "language" -> u.lang,
       "profile" -> u.profile.??(profileWrites.writes).noNull,
       "perfs" -> u.perfs,
