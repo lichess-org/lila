@@ -90,7 +90,7 @@ function podiumStats(p, data) {
     m('table.stats', m('tbody', [
       m('tr', [m('th', 'Win rate'), m('td', winP + '%')]),
       p.opposition ? m('tr', [m('th', 'Opponents rating'), m('td', p.opposition)]) : null,
-      berserkP > 0 ? m('tr', [m('th', 'Berserk rate'), m('td', berserkP + '%')]) : null
+      berserkP > 0 ? m('tr', [m('th', 'Berserk win rate'), m('td', berserkP + '%')]) : null
     ]))
   ];
 }
