@@ -321,6 +321,11 @@ object GameRepo {
     )
   ))
 
+  def findPgnImport(pgn: String): Fu[Option[Game]] =
+    gameTube.coll.find(
+      BSONDocument(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
+    ).one[Game]
+
   def getPgn(id: ID): Fu[PgnMoves] = getOptionPgn(id) map (~_)
 
   def getNonEmptyPgn(id: ID): Fu[Option[PgnMoves]] =

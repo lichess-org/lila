@@ -45,8 +45,6 @@ object Query {
 
   def imported(u: String): JsObject = Json.obj(s"${F.pgnImport}.user" -> u)
 
-  def pgnImport(pgn: String) = imported ++ Json.obj(s"${F.pgnImport}.pgn" -> pgn)
-
   def clock(c: Boolean) = Json.obj(F.clock -> $exists(c))
 
   def user(u: String) = Json.obj(F.playerUids -> u)

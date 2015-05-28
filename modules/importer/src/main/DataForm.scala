@@ -64,7 +64,7 @@ private[importer] case class ImportData(pgn: String) {
           mode = Mode.Casual,
           variant = variant,
           source = Source.Import,
-          pgnImport = PgnImport(user = user, date = date, pgn = pgn).some).start
+          pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some).start
 
         Preprocessed(dbGame, replay.chronoMoves, result)
     }
