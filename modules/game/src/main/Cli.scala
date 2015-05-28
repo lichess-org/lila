@@ -32,6 +32,24 @@ private[game] final class Cli(
       }).await(2.hours)
       fuccess("Done")
     }
+
+    case "game" :: "pgn" :: "hash" :: Nil => {
+      import lila.db.ByteArray.ByteArrayBSONHandler
+      loginfo("Counting games...")
+      val size = $count(Query.imported).await
+      var nb = 0
+      val bulkSize = 1000
+      ($enumerate.bulk[Option[Game]]($query(Query.imported), bulkSize) { gameOptions =>
+        nb = nb + bulkSize
+        gameOptions.flatten.map { g =>
+          g.pgnImport ?? { pgni =>
+            $update.field(g.id, s"${Game.BSONFields.pgnImport}.h", PgnImport hash pgni.pgn)
+          }
+        }.sequenceFu.void >>-
+          loginfo("Hashed %d of %d imported games".format(nb, size))
+      }).await(2.hours)
+      fuccess("Done")
+    }
   }
 
 }
