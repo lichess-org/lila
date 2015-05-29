@@ -136,21 +136,38 @@ object User extends LilaController {
       }
       tourneyWinners ← Env.tournament.winners scheduled nb
       online ← env.cached topOnline 40
-    } yield html.user.list(
-      tourneyWinners = tourneyWinners,
-      online = online,
-      bullet = bullet,
-      blitz = blitz,
-      classical = classical,
-      correspondence = correspondence,
-      chess960 = chess960,
-      kingOfTheHill = kingOfTheHill,
-      threeCheck = threeCheck,
-      antichess = antichess,
-      atomic = atomic,
-      horde = horde,
-      nbWeek = nbWeek,
-      nbAllTime = nbAllTime)
+      res <- negotiate(
+        html = fuccess(Ok(html.user.list(
+          tourneyWinners = tourneyWinners,
+          online = online,
+          bullet = bullet,
+          blitz = blitz,
+          classical = classical,
+          correspondence = correspondence,
+          chess960 = chess960,
+          kingOfTheHill = kingOfTheHill,
+          threeCheck = threeCheck,
+          antichess = antichess,
+          atomic = atomic,
+          horde = horde,
+          nbWeek = nbWeek,
+          nbAllTime = nbAllTime))),
+        api = _ => fuccess {
+          implicit val userWrites = play.api.libs.json.Writes[UserModel] { env.jsonView(_, true) }
+          Ok(Json.obj(
+            "online" -> online,
+            "bullet" -> bullet,
+            "blitz" -> blitz,
+            "classical" -> classical,
+            "correspondence" -> correspondence,
+            "chess960" -> chess960,
+            "kingOfTheHill" -> kingOfTheHill,
+            "threeCheck" -> threeCheck,
+            "antichess" -> antichess,
+            "atomic" -> atomic,
+            "horde" -> horde))
+        })
+    } yield res
   }
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>
