@@ -1,4 +1,4 @@
-@(u: User, reported: Boolean, players: List[(Pov, lila.chat.MixedChat)], threads: List[lila.message.Thread])(implicit ctx: Context)
+@(u: User, players: List[(Pov, lila.chat.MixedChat)], threads: List[lila.message.Thread])(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("mod-communication.css")
@@ -17,9 +17,6 @@ side = side.some) {
 
 <div id="communication" class="content_box">
   <h1>@userLink(u) communications</h1>
-  @if(!reported) {
-  <h2>This user is not reported</h2>
-  } else {
   <h2>Private chats</h2>
   <div class="player_chats">
     @players.map {
@@ -60,7 +57,6 @@ side = side.some) {
       </div>
       }
     </div>
-    }
   </div>
 </div>
 }
