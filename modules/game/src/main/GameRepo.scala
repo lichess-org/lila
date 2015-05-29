@@ -285,6 +285,8 @@ object GameRepo {
     val command = Aggregate(gameTube.coll.name, Seq(
       Match(BSONDocument(F.playerUids -> userId)),
       Match(BSONDocument(F.playerUids -> BSONDocument("$size" -> 2))),
+      Sort(Seq(Descending(F.createdAt))),
+      Limit(1000), // only look in the last 1000 games
       Unwind(F.playerUids),
       Match(BSONDocument(F.playerUids -> BSONDocument("$ne" -> userId))),
       GroupField(F.playerUids)("gs" -> SumValue(1)),

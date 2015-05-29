@@ -1,8 +1,8 @@
 package controllers
 
+import play.api.libs.json.Json
 import play.api.mvc._
 import play.twirl.api.Html
-import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app._
@@ -90,7 +90,7 @@ object Relation extends LilaController {
     }
 
   def suggest(username: String) = Open { implicit ctx =>
-    OptionFuOk(UserRepo named username) { user =>
+    OptionFuResult(UserRepo named username) { user =>
       lila.game.BestOpponents(user.id, 50) flatMap { opponents =>
         Env.pref.api.followableIds(opponents map (_._1.id)) zip
           env.api.onlinePopularUsers(20) flatMap {
@@ -103,8 +103,15 @@ object Relation extends LilaController {
                 case (u, nb) => env.api.relation(user.id, u.id) map {
                   lila.relation.Related(u, nb, true, _)
                 }
-              }.sequenceFu map { rels =>
-                html.relation.suggest(user, rels)
+              }.sequenceFu flatMap { rels =>
+                negotiate(
+                  html = fuccess(Ok(html.relation.suggest(user, rels))),
+                  api = _ => fuccess {
+                    implicit val userWrites = play.api.libs.json.Writes[UserModel] { Env.user.jsonView(_, true) }
+                    Ok(Json.obj(
+                      "user" -> user,
+                      "suggested" -> play.api.libs.json.JsArray(rels.map(_.toJson))))
+                  })
               }
           }
       }
