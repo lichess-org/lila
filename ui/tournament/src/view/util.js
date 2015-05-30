@@ -70,5 +70,12 @@ module.exports = {
   },
   games: function(games) {
     return m('div.game_list.playing', games.map(miniGame));
+  },
+  clock: function(time) {
+    return function(el, isUpdate) {
+      if (!isUpdate) $(el).clock({
+        time: time
+      });
+    };
   }
 };

@@ -12,12 +12,9 @@ module.exports = {
     var gameId = myPairing ? myPairing.gameId : null;
     return [
       m('div.tournament_clock.title_tag', {
-        config: function(el, isUpdate) {
-          if (!isUpdate) $(el).clock({
-            time: ctrl.data.seconds
-          });
-        }
-      }, m('div.time.text[data-icon=p]')),
+          config: util.clock(ctrl.data.seconds)
+        },
+        m('div.time.text[data-icon=p]')),
       util.title(ctrl),
       gameId ? m('a.is.is-after.pov.button.glowing', {
         href: '/' + gameId

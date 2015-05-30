@@ -26,11 +26,7 @@ module.exports = {
   main: function(ctrl) {
     return [
       ctrl.data.secondsToStart ? m('div.tournament_clock.title_tag', {
-        config: function(el, isUpdate) {
-          if (!isUpdate) $(el).clock({
-            time: ctrl.data.secondsToStart
-          });
-        }
+        config: util.clock(ctrl.data.secondsToStart)
       }, [
         m('span.shy', 'Starting in '),
         m('span.time.text')
