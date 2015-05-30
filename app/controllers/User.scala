@@ -42,10 +42,11 @@ object User extends LilaController {
     OptionFuResult(UserRepo named username) { user =>
       GameRepo lastPlayedPlaying user zip
         (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
+        (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
         (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
-          case (((pov, blocked), followable), relation) =>
-            Ok(html.user.mini(user, pov, blocked, followable, relation))
+          case ((((pov, blocked), crosstable), followable), relation) =>
+            Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable))
               .withHeaders(CACHE_CONTROL -> "max-age=5")
         }
     }

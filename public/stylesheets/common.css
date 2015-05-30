@@ -399,6 +399,10 @@ div.content_box .loader:after {
 #powerTip > .actions td:last-child a {
   border-right: 0;
 }
+#powerTip > .score {
+  font-size: 1.2em;
+  text-align: center;
+}
 #powerTip::before,
 #hook::before {
   content: "";
