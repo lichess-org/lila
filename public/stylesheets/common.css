@@ -1784,7 +1784,7 @@ div.join_warning {
 }
 /* soft inactive gradient */
 
-#crosstable th,
+.crosstable th,
 #friend_box .title,
 div.side_box div.top,
 div.undertable_top,
@@ -2223,7 +2223,6 @@ div.lichess_overboard.joining .mini_board {
   border: 1px solid #eee;
   padding: 0;
   min-width: 15px;
-  transition: 0.13s;
 }
 .crosstable td a {
   line-height: 2em;
@@ -2232,7 +2231,6 @@ div.lichess_overboard.joining .mini_board {
   width: 100%;
   background: #fff;
   text-decoration: none;
-  transition: 0.13s;
 }
 .crosstable tr:first-child td:hover a,
 .crosstable tr:first-child td.current a {
