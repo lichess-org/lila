@@ -402,6 +402,7 @@ div.content_box .loader:after {
 #powerTip > .score {
   font-size: 1.2em;
   text-align: center;
+  border-bottom: 1px solid #c0c0c0;
 }
 #powerTip::before,
 #hook::before {
