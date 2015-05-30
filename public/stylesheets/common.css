@@ -355,6 +355,11 @@ div.content_box .loader:after {
   padding: 5px;
   border-bottom: 1px solid #c0c0c0;
 }
+#powerTip > .title a.user_link {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 #powerTip span.localization {
   display: block;
   height: 16px;
