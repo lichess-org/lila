@@ -26,23 +26,29 @@ trait SequentialProvider extends Actor {
   private def busy: Receive = {
 
     case Done => dequeue match {
-      case None           => context become idle
-      case Some(envelope) => processThenDone(envelope)
+      case None => context become idle
+      case Some(envelope) =>
+        debugQueue
+        processThenDone(envelope)
     }
 
     case msg =>
       queue enqueue Envelope(msg, sender)
-      if (debug) queue.size match {
-        case size if size >= 50 && size % 50 == 0 =>
-          logwarn(s"Seq[$name] queue size = $size")
-        case _ =>
-      }
+      debugQueue
   }
 
   def receive = idle
 
   private val queue = collection.mutable.Queue[Envelope]()
   private def dequeue: Option[Any] = Try(queue.dequeue).toOption
+
+  private def debugQueue {
+    if (debug) queue.size match {
+      case size if (size == 50 || (size >= 100 && size % 100 == 0)) =>
+        logwarn(s"Seq[$name] queue size = $size")
+      case _ =>
+    }
+  }
 
   private case object Done
 
