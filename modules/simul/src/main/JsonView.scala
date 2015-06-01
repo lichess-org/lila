@@ -45,7 +45,8 @@ final class JsonView(
       "variant" -> player.variant.key,
       "username" -> light.map(_.name),
       "title" -> light.map(_.title),
-      "rating" -> player.rating
+      "rating" -> player.rating,
+      "provisional" -> player.provisional.filter(identity)
     ).noNull
   }
 
