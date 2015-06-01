@@ -3,7 +3,6 @@ var classSet = chessground.util.classSet;
 var game = require('game').game;
 var status = require('game').status;
 var partial = chessground.util.partial;
-var throttle = require('../util').throttle;
 var m = require('mithril');
 
 module.exports = {
