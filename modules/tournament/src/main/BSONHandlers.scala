@@ -48,12 +48,14 @@ object BSONHandlers {
     def reads(r: BSON.Reader) = Player(
       id = r str "id",
       rating = r int "rating",
+      provisional = r boolD "prov",
       withdraw = r boolD "withdraw",
       score = r int "score",
       perf = r intD "perf")
     def writes(w: BSON.Writer, o: Player) = BSONDocument(
       "id" -> o.id,
       "rating" -> o.rating,
+      "prov" -> w.boolO(o.provisional),
       "withdraw" -> w.boolO(o.withdraw),
       "score" -> o.score,
       "perf" -> o.perf)

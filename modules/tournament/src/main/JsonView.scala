@@ -83,6 +83,7 @@ final class JsonView(
       "name" -> light.map(_.name),
       "title" -> light.map(_.title),
       "rating" -> p.rating,
+      "provisional" -> p.provisional.option(true),
       "withdraw" -> p.withdraw.option(true),
       "score" -> p.score,
       "perf" -> p.perf,

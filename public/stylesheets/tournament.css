@@ -146,11 +146,12 @@ ol.scheduled_tournaments a:hover {
   padding-top: 20px;
   overflow: hidden;
 }
-#tournament a.user_link span {
-  font-family: 'Roboto';
-  font-weight: 300;
+#tournament a.user_link .progress {
   font-style: italic;
   font-size: 0.8em;
+  padding-left: 5px;
+}
+#tournament a.user_link .progress span {
   padding-left: 5px;
 }
 #tournament a.pov {

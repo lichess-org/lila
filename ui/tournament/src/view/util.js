@@ -56,6 +56,7 @@ module.exports = {
     var perf;
     if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
     else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
+    var rating = p.rating + (p.provisional ? '?' : '');
     return {
       tag: 'a',
       attrs: {
@@ -64,7 +65,7 @@ module.exports = {
       },
       children: [
         (p.title ? p.title + ' ' : '') + p.name,
-        m('span.progress', [p.rating, perf])
+        m('span.progress', [rating, perf])
       ]
     };
   },
