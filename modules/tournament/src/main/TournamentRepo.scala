@@ -85,7 +85,10 @@ object TournamentRepo {
   )).sort(BSONDocument("schedule.at" -> 1)).toList[Created](none)
 
   def lastFinishedScheduledByFreq(freq: Schedule.Freq, nb: Int): Fu[List[Finished]] = coll.find(
-    finishedSelect ++ BSONDocument("schedule.freq" -> freq.name)
+    finishedSelect ++ BSONDocument(
+      "schedule.freq" -> freq.name,
+      "schedule.speed" -> BSONDocument("$in" -> Schedule.Speed.noSuperBlitz.map(_.name))
+    )
   ).sort(BSONDocument("schedule.at" -> -1)).toList[Finished](nb.some)
 
   def update(tour: Tournament) = coll.update(BSONDocument("_id" -> tour.id), tour)

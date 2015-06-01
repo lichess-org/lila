@@ -36,6 +36,7 @@ object Schedule {
     case object Blitz extends Speed
     case object Classical extends Speed
     val all: List[Speed] = List(Bullet, SuperBlitz, Blitz, Classical)
+    val noSuperBlitz: List[Speed] = List(Bullet, Blitz, Classical)
     def apply(name: String) = all find (_.name == name)
   }
 
