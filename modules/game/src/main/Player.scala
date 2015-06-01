@@ -18,6 +18,7 @@ case class Player(
     userId: Option[String] = None,
     rating: Option[Int] = None,
     ratingDiff: Option[Int] = None,
+    provisional: Boolean = false,
     blurs: Int = 0,
     holdAlert: Option[Player.HoldAlert] = None,
     name: Option[String] = None) {
@@ -115,6 +116,7 @@ object Player {
     val proposeTakebackAt = "ta"
     val rating = "e"
     val ratingDiff = "d"
+    val provisional = "p"
     val blurs = "b"
     val holdAlert = "h"
     val name = "na"
@@ -144,6 +146,7 @@ object Player {
       userId = userId,
       rating = r intO rating,
       ratingDiff = r intO ratingDiff,
+      provisional = r boolD provisional,
       blurs = r intD blurs,
       holdAlert = r.getO[HoldAlert](holdAlert),
       name = r strO name)
@@ -158,6 +161,7 @@ object Player {
           proposeTakebackAt -> w.intO(p.proposeTakebackAt),
           rating -> p.rating,
           ratingDiff -> p.ratingDiff,
+          provisional -> w.boolO(p.provisional),
           blurs -> w.intO(p.blurs),
           holdAlert -> p.holdAlert,
           name -> p.name)
