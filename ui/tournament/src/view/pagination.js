@@ -40,16 +40,17 @@ module.exports = {
   players: function(ctrl) {
     var page = ctrl.vm.page;
     var nbResults = ctrl.data.players.length;
-    var from = (page - 1) * maxPerPage;
-    var to = Math.min(nbResults, page * maxPerPage);
+    var max = nbResults > 20 ? maxPerPage : 20; // don't paginate 20 or less elements
+    var from = (page - 1) * max;
+    var to = Math.min(nbResults, page * max);
     return {
       currentPage: page,
-      maxPerPage: maxPerPage,
+      maxPerPage: max,
       from: from,
       to: to,
       currentPageResults: ctrl.data.players.slice(from, to),
       nbResults: nbResults,
-      nbPages: Math.ceil(nbResults / maxPerPage)
+      nbPages: Math.ceil(nbResults / max)
     };
   }
 };
