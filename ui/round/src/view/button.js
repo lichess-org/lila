@@ -138,10 +138,10 @@ module.exports = {
         class: 'text button strong' + (ctrl.data.tournament.running ? ' glowing' : ''),
         href: '/tournament/' + ctrl.data.tournament.id
       }, ctrl.trans('backToTournament')),
-      m('form', {
+      ctrl.data.tournament.running ? m('form', {
         method: 'post',
         action: '/tournament/' + ctrl.data.tournament.id + '/withdraw'
-      }, m('button.text.button[data-icon=b]', ctrl.trans('withdraw')))
+      }, m('button.text.button[data-icon=b]', ctrl.trans('withdraw'))) : null
     ];
   },
   viewTournament: function(ctrl) {
