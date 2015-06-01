@@ -12,7 +12,8 @@ module.exports = function(env) {
   this.socket = new socket(env.socketSend, this);
 
   this.vm = {
-    loading: false
+    loading: false,
+    page: 1
   };
 
   this.reload = function(data) {

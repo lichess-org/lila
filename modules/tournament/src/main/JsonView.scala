@@ -46,7 +46,6 @@ final class JsonView(
   private def gameUserJson(player: lila.game.Player) = {
     val light = player.userId flatMap getLightUser
     Json.obj(
-      "id" -> player.userId,
       "name" -> light.map(_.name),
       "title" -> light.map(_.title),
       "rating" -> player.rating
@@ -63,9 +62,9 @@ final class JsonView(
 
   private def sheetJson(sheet: ScoreSheet) = sheet match {
     case s: arena.ScoringSystem.Sheet => Json.obj(
-      "scores" -> s.scores.take(36).reverse.map { score =>
-        if (score.flag == arena.ScoringSystem.Normal) Json.arr(score.value)
-        else Json.arr(score.value, score.flag.toString.toLowerCase)
+      "scores" -> s.scores.reverse.map { score =>
+        if (score.flag == arena.ScoringSystem.Normal) JsNumber(score.value)
+        else Json.arr(score.value, score.flag.id)
       },
       "total" -> s.total,
       "fire" -> s.onFire.option(true)
@@ -81,15 +80,15 @@ final class JsonView(
     val light = getLightUser(p.id)
     Json.obj(
       "rank" -> rankedPlayer.rank,
-      "id" -> p.id,
-      "username" -> light.map(_.name),
+      "name" -> light.map(_.name),
       "title" -> light.map(_.title),
       "rating" -> p.rating,
       "withdraw" -> p.withdraw.option(true),
       "score" -> p.score,
       "perf" -> p.perf,
-      "opposition" -> tour.isFinished.option(opposition(tour, p)),
-      "sheet" -> sheets.get(p.id).map(sheetJson)).noNull
+      "opposition" -> (tour.isFinished && rankedPlayer.rank <= 3).option(opposition(tour, p)),
+      "sheet" -> sheets.get(p.id).map(sheetJson)
+    ).noNull
   }
 
   private def opposition(tour: Tournament, p: Player): Int =
@@ -103,19 +102,13 @@ final class JsonView(
       case (count, sum) => sum / count
     }
 
-  private def pairingUserJson(userId: String) = {
-    val name = getLightUser(userId).fold(userId)(_.name)
-    if (name == userId) Json.arr(userId)
-    else Json.arr(userId, name)
-  }
+  private def pairingUserJson(userId: String) = getLightUser(userId).fold(userId)(_.name)
 
   private def pairingJson(p: Pairing) = Json.obj(
-    "gameId" -> p.gameId,
-    "status" -> p.status.id,
-    "user1" -> pairingUserJson(p.user1),
-    "user2" -> pairingUserJson(p.user2),
-    "winner" -> p.winner,
-    "berserk1" -> p.berserk1.some.filter(0!=),
-    "berserk2" -> p.berserk2.some.filter(0!=)
-  ).noNull
+    "id" -> p.gameId,
+    "st" -> p.status.id,
+    "u1" -> pairingUserJson(p.user1),
+    "u2" -> pairingUserJson(p.user2),
+    "wi" -> p.winner
+  )
 }

@@ -5,10 +5,10 @@ import lila.tournament.{ Score => AbstractScore }
 import lila.tournament.{ ScoringSystem => AbstractScoringSystem }
 
 object ScoringSystem extends AbstractScoringSystem {
-  sealed trait Flag
-  case object StreakStarter extends Flag
-  case object Double extends Flag
-  case object Normal extends Flag
+  sealed abstract class Flag(val id: Int)
+  case object StreakStarter extends Flag(3)
+  case object Double extends Flag(2)
+  case object Normal extends Flag(1)
 
   case class Score(
       win: Option[Boolean],

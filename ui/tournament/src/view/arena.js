@@ -4,10 +4,16 @@ var tournament = require('../tournament');
 var util = require('./util');
 var button = require('./button');
 
+var scoreTagName = {
+  1: 'span',
+  2: 'streak',
+  3: 'double'
+};
+
 function scoreTag(s) {
   return {
-    tag: s[1] || 'span',
-    children: [s[0]]
+    tag: scoreTagName[s[1] || 1],
+    children: [Array.isArray(s) ? s[0] : [s]]
   };
 }
 
@@ -43,22 +49,22 @@ function playerTrs(ctrl, maxScore, player) {
           'data-icon': 'Q'
         } : {}, player.sheet.total))
     ]
-  }, {
-    tag: 'tr',
-    attrs: {
-      key: player.id + '.bar'
-    },
-    children: [
-      m('td', {
-        class: 'around-bar',
-        colspan: 3
-      }, m('div', {
-        class: 'bar',
-        style: {
-          width: Math.ceil(player.sheet.total * 100 / maxScore) + '%'
-        }
-      }))
-    ]
+  // }, {
+  //   tag: 'tr',
+  //   attrs: {
+  //     key: player.id + '.bar'
+  //   },
+  //   children: [
+  //     m('td', {
+  //       class: 'around-bar',
+  //       colspan: 3
+  //     }, m('div', {
+  //       class: 'bar',
+  //       style: {
+  //         width: Math.ceil(player.sheet.total * 100 / maxScore) + '%'
+  //       }
+  //     }))
+  //   ]
   }];
 }
 
@@ -67,8 +73,8 @@ var trophy = m('div.trophy');
 function podiumUsername(p) {
   return m('a', {
     class: 'text ulpt user_link',
-    href: '/@/' + p.username
-  }, p.username);
+    href: '/@/' + p.name
+  }, p.name);
 }
 
 function podiumStats(p, data) {
@@ -127,7 +133,7 @@ module.exports = {
       podiumThird(ctrl.data.players[2], ctrl.data)
     ]);
   },
-  standing: function(ctrl) {
+  standing: function(ctrl, pag) {
     var maxScore = Math.max.apply(Math, ctrl.data.players.map(function(p) {
       return p.sheet.total;
     }));
@@ -139,16 +145,16 @@ module.exports = {
             ctrl.trans('standing'),
             player ? [
               m('strong.player_rank', player.rank),
-              ' / ' + ctrl.data.players.length
-            ] : ' (' + ctrl.data.players.length + ')'
+              ' / ' + pag.nbResults
+            ] : ' (' + pag.nbResults + ')'
           ]),
           m('th.legend[colspan=2]', [
-            m('streakstarter', 'Streak starter'),
+            m('streak', 'Streak starter'),
             m('double', 'Double points'),
             button.joinWithdraw(ctrl)
           ])
         ])),
-      m('tbody', ctrl.data.players.map(partial(playerTrs, ctrl, maxScore)))
+      m('tbody', pag.currentPageResults.map(partial(playerTrs, ctrl, maxScore)))
     ];
   }
 };

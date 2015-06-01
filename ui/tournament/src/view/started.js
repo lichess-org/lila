@@ -5,11 +5,13 @@ var util = require('./util');
 var arena = require('./arena');
 var swiss = require('./swiss');
 var pairings = require('./pairings');
+var pagination = require('./pagination');
 
 module.exports = {
   main: function(ctrl) {
     var myPairing = tournament.myCurrentPairing(ctrl);
     var gameId = myPairing ? myPairing.gameId : null;
+    var pag = pagination.players(ctrl);
     return [
       m('div.tournament_clock.title_tag', {
           config: util.clock(ctrl.data.seconds)
@@ -22,9 +24,9 @@ module.exports = {
         'You are playing!',
         m('span.text[data-icon=G]', ctrl.trans('joinTheGame'))
       ]) : null,
-      m('div.standing_wrap.scroll-shadow-soft',
-        m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''),
-          ctrl.data.system === 'arena' ? arena.standing(ctrl) : swiss.standing(ctrl))),
+,     m('div.standing_wrap',
+        pagination.render(ctrl, pag,
+          m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), (ctrl.data.system === 'arena' ? arena.standing : swiss.standing)(ctrl, pag)))),
       util.games(ctrl.data.lastGames)
     ];
   },

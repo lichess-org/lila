@@ -49,7 +49,7 @@ module.exports = {
   currentPlayer: function(ctrl) {
     if (!ctrl.userId) return null;
     return ctrl.data.players.filter(function(p) {
-      return p.id === ctrl.userId;
+      return (p.name || '').toLowerCase() === ctrl.userId;
     })[0] || null;
   },
   player: function(p) {
@@ -60,10 +60,10 @@ module.exports = {
       tag: 'a',
       attrs: {
         class: 'text ulpt user_link',
-        href: '/@/' + p.username
+        href: '/@/' + p.name
       },
       children: [
-        (p.title ? p.title + ' ' : '') + p.username,
+        (p.title ? p.title + ' ' : '') + p.name,
         m('span.progress', [p.rating, perf])
       ]
     };

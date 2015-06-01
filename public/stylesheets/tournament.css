@@ -72,6 +72,7 @@ ol.scheduled_tournaments a:hover {
 }
 #tournament .podium {
   margin: 0px 0 20px 0;
+  display: none;
 }
 #tournament .podium > div {
   display: inline-block;
@@ -193,13 +194,22 @@ ol.scheduled_tournaments a:hover {
 #tournament table.slist .small {
   font-size: 0.8em;
 }
-#tournament div.standing_wrap {
-  max-height: 485px;
-  overflow: hidden;
-  border-bottom: 1px solid #ccc;
-}
 #tournament div.standing_wrap:hover {
   overflow-y: auto;
+}
+#tournament div.pager {
+  text-align: center;
+  margin: 10px 20px 0 20px;
+  font-weight: bold;
+  opacity: 0.7;
+  transition: 0.13s;
+}
+#tournament div.pager:hover {
+  opacity: 1;
+}
+#tournament div.pager > * {
+  display: inline-block;
+  margin: 0 5px;
 }
 #tournament table.standing {
   width: 525px;
@@ -231,7 +241,7 @@ ol.scheduled_tournaments a:hover {
   font-size: 0.9em;
 }
 #tournament table.standing .legend double,
-#tournament table.standing .legend streakstarter {
+#tournament table.standing .legend streak {
   margin-right: 5px;
   line-height: 30px;
 }
@@ -253,7 +263,7 @@ ol.scheduled_tournaments a:hover {
   color: #d59120;
   font-weight: bold;
 }
-#tournament streakstarter {
+#tournament streak {
   color: #759900;
   font-weight: bold;
 }
