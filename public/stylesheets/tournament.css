@@ -72,7 +72,6 @@ ol.scheduled_tournaments a:hover {
 }
 #tournament .podium {
   margin: 0px 0 20px 0;
-  display: none;
 }
 #tournament .podium > div {
   display: inline-block;
