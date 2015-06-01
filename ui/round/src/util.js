@@ -24,16 +24,14 @@ module.exports = {
     });
     return pms;
   },
-  throttle: function(callback, limit) {
-    var wait = false; // Initially, we're not waiting
-    return function() { // We return a throttled function
-      if (!wait) { // If we're not waiting
-        callback.apply(null, arguments); // Execute users function
-        wait = true; // Prevent future invocations
-        setTimeout(function() { // After a period of time
-          wait = false; // And allow future invocations
-        }, limit);
-      }
-    }
+  throttle: function(callback, delay) {
+    var timeoutId;
+    return function() {
+      if (timeoutId) clearTimeout(timeoutId);
+      var args = arguments;
+      timeoutId = setTimeout(function() {
+        callback.apply(null, args);
+      }, delay);
+    };
   }
 };
