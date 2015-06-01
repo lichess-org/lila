@@ -4,12 +4,12 @@
 @playerUsername(g.firstPlayer, withRating = false, withTitle = false)
 <br />
 @lightUser(g.firstPlayer.userId).flatMap(_.title).map(_ + " ")
-@g.firstPlayer.rating
+@g.firstPlayer.rating@if(g.firstPlayer.provisional){?}
 </div>
 <div class="right">
 @playerUsername(g.secondPlayer, withRating = false, withTitle = false)
 <br />
-@g.secondPlayer.rating
+@g.secondPlayer.rating@if(g.secondPlayer.provisional){?}
 @lightUser(g.secondPlayer.userId).flatMap(_.title).map(" " + _)
 </div>
 @g.clock.map { c =>
