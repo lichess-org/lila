@@ -43,7 +43,8 @@ private[simul] final class SimulApi(
         increment = setup.clockIncrement,
         hostExtraTime = setup.clockExtra * 60),
       variants = setup.variants.flatMap { chess.variant.Variant(_) },
-      host = me)
+      host = me,
+      color = setup.color)
     repo.createdByHostId(me.id) foreach { _.map(_.id).foreach(abort) }
     (repo create simul) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
@@ -148,6 +149,9 @@ private[simul] final class SimulApi(
 
   private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[Game] = for {
     user ← UserRepo byId pairing.player.user flatten s"No user with id ${pairing.player.user}"
+    hostColor = simul.hostColor
+    whiteUser = hostColor.fold(host, user)
+    blackUser = hostColor.fold(user, host)
     game1 = Game.make(
       game = chess.Game(
         board = chess.Board init pairing.player.variant,
@@ -159,8 +163,8 @@ private[simul] final class SimulApi(
       source = lila.game.Source.Simul,
       pgnImport = None)
     game2 = game1
-      .updatePlayer(chess.White, _.withUser(host.id, lila.game.PerfPicker.mainOrDefault(game1)(host.perfs)))
-      .updatePlayer(chess.Black, _.withUser(user.id, lila.game.PerfPicker.mainOrDefault(game1)(user.perfs)))
+      .updatePlayer(chess.White, _.withUser(whiteUser.id, lila.game.PerfPicker.mainOrDefault(game1)(whiteUser.perfs)))
+      .updatePlayer(chess.Black, _.withUser(blackUser.id, lila.game.PerfPicker.mainOrDefault(game1)(blackUser.perfs)))
       .withSimulId(simul.id)
       .withId(pairing.gameId)
       .start

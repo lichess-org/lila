@@ -118,7 +118,11 @@ module.exports = function(send, ctrl) {
       lichess.reload();
     },
     simulPlayerMove: function(gameId) {
-      if (gameId !== ctrl.data.game.id &&
+      if (
+        ctrl.userId &&
+        ctrl.data.simul &&
+        ctrl.userId == ctrl.data.simul.hostId &&
+        gameId !== ctrl.data.game.id &&
         ctrl.moveOn.get() &&
         ctrl.chessground.data.turnColor !== ctrl.chessground.data.orientation) {
         $.sound.move();
