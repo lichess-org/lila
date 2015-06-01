@@ -17,9 +17,10 @@ module.exports = function(ctrl, player, klass) {
       href: '/@/' + player.user.username,
       target: game.isPlayerPlaying(ctrl.data) ? '_blank' : '_self',
       'data-icon': 'r',
+      title: player.provisional ? 'Provisional rating' : null
     }, [
       (player.user.title ? player.user.title + ' ' : '') + player.user.username,
-      rating ? ' (' + rating + ')' : '',
+      rating ? ' (' + rating + (player.provisional ? '?' : '') + ')' : '',
       ratingDiff(player),
       player.engine ? m('span[data-icon=j]', {
         title: ctrl.trans('thisPlayerUsesChessComputerAssistance')

@@ -85,8 +85,8 @@ function renderTablePlay(ctrl) {
   return [
     renderReplay(ctrl),
     m('div.control.icons', [
-      game.abortable(ctrl.data) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') : 
-        button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', partial(ctrl.takebackYes)),
+      game.abortable(ctrl.data) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
+      button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', partial(ctrl.takebackYes)),
       button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
       button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
     ]),

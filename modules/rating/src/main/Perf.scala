@@ -36,6 +36,8 @@ case class Perf(
     nb)
 
   def nonEmpty = nb > 0
+
+  def provisional = glicko.provisional
 }
 
 case object Perf {

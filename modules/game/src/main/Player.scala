@@ -29,9 +29,8 @@ case class Player(
 
   def withUser(id: String, perf: lila.rating.Perf): Player = copy(
     userId = id.some,
-    rating = perf.intRating.some)
-
-  def withRating(rating: Int) = copy(rating = rating.some)
+    rating = perf.intRating.some,
+    provisional = perf.glicko.provisional)
 
   def isAi = aiLevel.isDefined
 
@@ -41,7 +40,9 @@ case class Player(
 
   def isUser(u: User) = userId.fold(false)(_ == u.id)
 
-  def userInfos: Option[(String, Int)] = (userId |@| rating).tupled
+  def userInfos: Option[Player.UserInfo] = (userId |@| rating) {
+    case (id, ra) => Player.UserInfo(id, ra, provisional)
+  }
 
   def wins = isWinner getOrElse false
 
@@ -103,6 +104,8 @@ object Player {
 
     def suspicious = ply >= 20 && ply <= 30
   }
+
+  case class UserInfo(id: String, rating: Int, provisional: Boolean)
 
   import reactivemongo.bson.Macros
   implicit val holdAlertBSONHandler = Macros.handler[HoldAlert]

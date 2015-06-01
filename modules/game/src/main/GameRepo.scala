@@ -115,13 +115,15 @@ object GameRepo {
       s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(white._2),
       s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(black._2))))
 
-  def setUsers(id: ID, white: Option[(String, Int)], black: Option[(String, Int)]) =
+  def setUsers(id: ID, white: Option[Player.UserInfo], black: Option[Player.UserInfo]) =
     (white.isDefined || black.isDefined) ?? {
       $update($select(id), BSONDocument("$set" -> BSONDocument(
-        s"${F.whitePlayer}.${Player.BSONFields.rating}" -> white.map(_._2).map(BSONInteger.apply),
-        s"${F.blackPlayer}.${Player.BSONFields.rating}" -> black.map(_._2).map(BSONInteger.apply),
-        F.playerUids -> lila.db.BSON.writer.listO(List(~white.map(_._1), ~black.map(_._1))),
-        F.playingUids -> List(white.map(_._1), black.map(_._1)).flatten.distinct
+        s"${F.whitePlayer}.${Player.BSONFields.rating}" -> white.map(_.rating).map(BSONInteger.apply),
+        s"${F.blackPlayer}.${Player.BSONFields.rating}" -> black.map(_.rating).map(BSONInteger.apply),
+        s"${F.whitePlayer}.${Player.BSONFields.provisional}" -> white.map(_.provisional).filter(identity),
+        s"${F.blackPlayer}.${Player.BSONFields.provisional}" -> black.map(_.provisional).filter(identity),
+        F.playerUids -> lila.db.BSON.writer.listO(List(~white.map(_.id), ~black.map(_.id))),
+        F.playingUids -> List(white.map(_.id), black.map(_.id)).flatten.distinct
       )))
     }
 
