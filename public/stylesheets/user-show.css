@@ -27,14 +27,18 @@ div.user_show .berserk.trophy {
   height: 80px;
 }
 div.user_show .berserk.trophy span {
-  transform: scale(0.35) translateX(-103px);
-  -webkit-transform: scale(0.35) translateX(-103px);
+  transform: scale(0.35) translate(-103px, 0);
+  -webkit-transform: scale(0.35) translate(-103px, 0);
   margin-top: -63px!important;
   margin-right: -50px;
   color: rgba(0,0,0,0.3);
   font-weight: bold;
   font-size: 150px;
   display: block;
+  transition: 0.8s;
+}
+div.user_show .berserk.trophy span:hover {
+  -webkit-transform: scale(0.35) translate(-103px, -10px);
 }
 body.dark div.user_show .berserk.trophy span {
   color: rgba(255,255,255,0.5);
