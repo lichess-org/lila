@@ -17,7 +17,7 @@ case class Glicko(
   def intervalMax = (rating + deviation * 2).toInt
   def interval = intervalMin -> intervalMax
 
-  def provisional = deviation >= 100
+  def provisional = deviation >= 110
 
   override def toString = s"$intRating $intDeviation"
 }
