@@ -132,7 +132,9 @@ module.exports = function(send, ctrl) {
     }
   };
 
-  this.moreTime = util.throttle(partial(send, 'moretime', null), 300);
+  this.moreTime = util.throttle(300, false, partial(send, 'moretime', null));
+
+  this.outoftime = util.throttle(500, false, partial(send, 'outoftime', null));
 
   this.receive = function(type, data) {
     if (handlers[type]) {

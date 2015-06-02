@@ -4,7 +4,7 @@ var throttle = require('./util').throttle;
 
 var element;
 
-var reload = throttle(function(ctrl) {
+var reload = throttle(1000, false, function(ctrl) {
   var route = ctrl.data.player.spectator ? ctrl.router.Round.watcherText(ctrl.data.game.id, ctrl.data.player.color) : ctrl.router.Round.playerText(ctrl.data.game.id + ctrl.data.player.id);
   $.ajax({
     url: route.url,
@@ -24,7 +24,7 @@ var reload = throttle(function(ctrl) {
       }).find('.move').focus();
     }
   });
-}, 1000);
+});
 
 module.exports = {
   reload: reload,
