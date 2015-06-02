@@ -351,17 +351,22 @@ ol.scheduled_tournaments a:hover {
 #tournament_side a:hover {
   text-decoration: underline;
 }
-#tournament_side span {
+#tournament_side {
+  font-style: italic;
+}
+#tournament_side > a > * {
+  margin: 0 5px;
   font-weight: bold;
+  font-style: normal;
 }
-#tournament_side span.win {
-  color: #00aa00;
+#tournament_side win {
+  color: #33aa33;
 }
-#tournament_side span.loss {
-  color: #aa0000;
+#tournament_side loss {
+  color: #aa3333;
 }
-#tournament_side span.draw {
-  color: #aaaa00;
+#tournament_side draw {
+  color: #bbbb33;
 }
 #tournament_side em {
   font-style: italic;
