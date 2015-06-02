@@ -179,6 +179,10 @@ final class Env(
     prefApi = prefApi)
 
   lazy val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
+
+  def checkOutoftime(gameId: String) {
+    roundMap ! Tell(gameId, actorApi.round.Outoftime)
+  }
 }
 
 object Env {
