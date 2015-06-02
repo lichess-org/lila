@@ -38,6 +38,7 @@ div.user_show .berserk.trophy span {
   transition: 0.8s;
 }
 div.user_show .berserk.trophy span:hover {
+  transform: scale(0.35) translate(-103px, -10px);
   -webkit-transform: scale(0.35) translate(-103px, -10px);
 }
 body.dark div.user_show .berserk.trophy span {
