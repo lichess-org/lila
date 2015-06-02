@@ -618,12 +618,11 @@ lichess.storage = {
       return false;
     });
 
-    function userPowertips() {
-      var header = document.getElementById('site_header');
-      $('.ulpt').removeClass('ulpt').powerTip({
+    function applyPowertip($els, placement) {
+      $els.removeClass('ulpt').powerTip({
         fadeInTime: 100,
         fadeOutTime: 100,
-        placement: $(this).data('placement') || ($.contains(header, this) ? 'e' : 'w'),
+        placement: placement,
         mouseOnToPopup: true,
         closeDelay: 200
       }).on({
@@ -637,6 +636,12 @@ lichess.storage = {
           });
         }
       }).data('powertip', ' ');
+    }
+
+    function userPowertips() {
+      applyPowertip($('#site_header .ulpt'), 'e');
+      applyPowertip($('#friend_box .ulpt'), 'nw');
+      applyPowertip($('.ulpt'), 'w');
     }
     setTimeout(userPowertips, 600);
     $('body').on('lichess.content_loaded', userPowertips);
@@ -1306,7 +1311,7 @@ lichess.storage = {
     },
     _renderUser: function(user) {
       var id = $.fp.contains(user, ' ') ? user.split(' ')[1] : user;
-      return '<a class="ulpt" data-placement="nw" href="/@/' + id + '">' + user + '</a>';
+      return '<a class="ulpt" href="/@/' + id + '">' + user + '</a>';
     }
   });
 
