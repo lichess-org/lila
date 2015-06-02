@@ -6,8 +6,8 @@ import lila.tournament.{ ScoringSystem => AbstractScoringSystem }
 
 object ScoringSystem extends AbstractScoringSystem {
   sealed abstract class Flag(val id: Int)
-  case object StreakStarter extends Flag(3)
-  case object Double extends Flag(2)
+  case object Double extends Flag(3)
+  case object StreakStarter extends Flag(2)
   case object Normal extends Flag(1)
 
   case class Score(
