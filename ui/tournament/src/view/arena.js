@@ -27,8 +27,8 @@ function rank(p) {
   };
 }
 
-function playerTrs(ctrl, maxScore, player) {
-  return [{
+function playerTr(ctrl, maxScore, player) {
+  return {
     tag: 'tr',
     attrs: {
       key: player.id,
@@ -49,23 +49,7 @@ function playerTrs(ctrl, maxScore, player) {
           'data-icon': 'Q'
         } : {}, player.sheet.total))
     ]
-  // }, {
-  //   tag: 'tr',
-  //   attrs: {
-  //     key: player.id + '.bar'
-  //   },
-  //   children: [
-  //     m('td', {
-  //       class: 'around-bar',
-  //       colspan: 3
-  //     }, m('div', {
-  //       class: 'bar',
-  //       style: {
-  //         width: Math.ceil(player.sheet.total * 100 / maxScore) + '%'
-  //       }
-  //     }))
-  //   ]
-  }];
+  };
 }
 
 var trophy = m('div.trophy');
@@ -154,7 +138,7 @@ module.exports = {
             button.joinWithdraw(ctrl)
           ])
         ])),
-      m('tbody', pag.currentPageResults.map(partial(playerTrs, ctrl, maxScore)))
+      m('tbody', pag.currentPageResults.map(partial(playerTr, ctrl, maxScore)))
     ];
   }
 };
