@@ -106,6 +106,12 @@ object PairingSystem extends AbstractPairingSystem {
         }
       }
 
+    def firstPlayerGetsWhite(p1: Player, p2: Player) =
+      pairings.find(_.contains(p1.id, p2.id)) match {
+        case Some(p) => p.user1 != p1.id
+        case None    => Random.nextBoolean
+      }
+
     (players match {
       case x if x.size < 2 => Nil
       case List(p1, p2) if nbActiveUsers == 2 => List(p1.player -> p2.player)
@@ -119,8 +125,8 @@ object PairingSystem extends AbstractPairingSystem {
         case _ =>
           logwarn("Could not make smart pairings for arena tournament")
           players map (_.player) grouped 2 collect {
-            case List(p1, p2) if Random.nextBoolean => (p1, p2)
-            case List(p1, p2)                       => (p2, p1)
+            case List(p1, p2) if firstPlayerGetsWhite(p1, p2) => (p1, p2)
+            case List(p1, p2)                                 => (p2, p1)
           } toList
       }
     }) map Pairing.apply

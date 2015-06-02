@@ -20,7 +20,8 @@ case class Pairing(
 
   def users = List(user1, user2)
   def usersPair = user1 -> user2
-  def contains(user: String) = user1 == user || user2 == user
+  def contains(user: String): Boolean = user1 == user || user2 == user
+  def contains(u1: String, u2: String): Boolean = contains(u1) && contains(u2)
   def notContains(user: String) = !contains(user)
 
   def finished = status >= chess.Status.Mate
