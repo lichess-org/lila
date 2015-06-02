@@ -108,23 +108,17 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
         </button>
         <div class="dropdown"><div class="slider"></div></div>
       </div>
-      }
-      @if(!zen) {
       @if(ctx.teamNbRequests > 0) {
       <a class="fright link" href="@routes.Team.requests()">
         @trans.teams()
         <span id="nb_messages" class="new_messages unread">@ctx.teamNbRequests</span>
       </a>
       }
-      }
-      @if(!zen) {
       <div id="themepicker" class="fright">
         <a id="themepicker_toggle" class="toggle icon link hint--bottom-left" data-hint="@trans.theming()" data-url="@routes.Main.themepicker">
-          &nbsp;<span data-icon="v"></span>&nbsp;
+          &nbsp;<span data-icon="@closingBrace"></span>&nbsp;
         </a>
       </div>
-      }
-      @if(!zen) {
       @defining(reportNbUnprocessed) { nb =>
       @if(nb > 0) {
       <a class="fright link" href="@routes.Report.list" data-icon="n"><strong>@nb</strong></a>

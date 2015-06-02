@@ -323,3 +323,6 @@
 .icon-arrows-in:before {
   content: "|";
 }
+.icon-color-palette:before {
+  content: "}";
+}

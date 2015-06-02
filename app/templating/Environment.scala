@@ -62,6 +62,7 @@ object Environment
     isGranted(_.SeeReport) ?? lila.report.Env.current.api.nbUnprocessed.await
 
   val openingBrace = "{"
+  val closingBrace = "}"
 
   def NotForKids[Html](f: => Html)(implicit ctx: lila.api.Context) =
     if (ctx.kid) Html("") else f
