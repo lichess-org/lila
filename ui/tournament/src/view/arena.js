@@ -111,7 +111,7 @@ module.exports = {
         m('tr', [
           m('th.large', [
             ctrl.trans('standing'),
-            player ? [
+            (player && !player.withdraw) ? [
               m('strong.player_rank', player.rank),
               ' / ' + pag.nbResults
             ] : ' (' + pag.nbResults + ')'
