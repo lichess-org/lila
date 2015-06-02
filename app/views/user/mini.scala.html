@@ -28,7 +28,7 @@
 }
 }
 @ctx.userId.map { myId =>
-@crosstable.map { cross =>
+@crosstable.filter(_.nonEmpty).map { cross =>
 <div class="score">
   Your score:
   <strong>@cross.showScore(myId)</strong> / <strong>@cross.showOpponentScore(myId)</strong>
