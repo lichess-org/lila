@@ -620,25 +620,23 @@ lichess.storage = {
 
     function userPowertips() {
       var header = document.getElementById('site_header');
-      $('.ulpt').removeClass('ulpt').each(function() {
-        $(this).powerTip({
-          fadeInTime: 100,
-          fadeOutTime: 100,
-          placement: $(this).data('placement') || ($.contains(header, this) ? 'e' : 'w'),
-          mouseOnToPopup: true,
-          closeDelay: 200
-        }).on({
-          powerTipPreRender: function() {
-            $.ajax({
-              url: ($(this).attr('href') || $(this).data('href')).replace(/\?.+$/, '') + '/mini',
-              success: function(html) {
-                $('#powerTip').html(html);
-                $('body').trigger('lichess.content_loaded');
-              }
-            });
-          }
-        }).data('powertip', ' ');
-      });
+      $('.ulpt').removeClass('ulpt').powerTip({
+        fadeInTime: 100,
+        fadeOutTime: 100,
+        placement: $(this).data('placement') || ($.contains(header, this) ? 'e' : 'w'),
+        mouseOnToPopup: true,
+        closeDelay: 200
+      }).on({
+        powerTipPreRender: function() {
+          $.ajax({
+            url: ($(this).attr('href') || $(this).data('href')).replace(/\?.+$/, '') + '/mini',
+            success: function(html) {
+              $('#powerTip').html(html);
+              $('body').trigger('lichess.content_loaded');
+            }
+          });
+        }
+      }).data('powertip', ' ');
     }
     setTimeout(userPowertips, 600);
     $('body').on('lichess.content_loaded', userPowertips);
