@@ -31,7 +31,7 @@
 @crosstable.filter(_.nonEmpty).map { cross =>
 <div class="score">
   Your score:
-  <strong>@cross.showScore(myId)</strong> / <strong>@cross.showOpponentScore(myId)</strong>
+  <strong>@cross.showScore(myId)</strong> - <strong>@cross.showOpponentScore(myId)</strong>
 </div>
 }
 @if(myId != u.id) {
