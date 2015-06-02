@@ -85,24 +85,8 @@ function podiumStats(p, data) {
   ];
 }
 
-function podiumFirst(p, data) {
-  if (p) return m('div.first', [
-    trophy,
-    podiumUsername(p),
-    podiumStats(p, data)
-  ]);
-}
-
-function podiumSecond(p, data) {
-  if (p) return m('div.second', [
-    trophy,
-    podiumUsername(p),
-    podiumStats(p, data)
-  ]);
-}
-
-function podiumThird(p, data) {
-  if (p) return m('div.third', [
+function podiumPosition(p, data, pos) {
+  if (p) return m('div.' + pos, [
     trophy,
     podiumUsername(p),
     podiumStats(p, data)
@@ -112,9 +96,9 @@ function podiumThird(p, data) {
 module.exports = {
   podium: function(ctrl) {
     return m('div.podium', [
-      podiumSecond(ctrl.data.players[1], ctrl.data),
-      podiumFirst(ctrl.data.players[0], ctrl.data),
-      podiumThird(ctrl.data.players[2], ctrl.data)
+      podiumPosition(ctrl.data.players[1], ctrl.data, 'second'),
+      podiumPosition(ctrl.data.players[0], ctrl.data, 'first'),
+      podiumPosition(ctrl.data.players[2], ctrl.data, 'third')
     ]);
   },
   standing: function(ctrl, pag) {
