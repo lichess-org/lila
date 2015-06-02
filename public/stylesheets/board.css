@@ -135,7 +135,8 @@ body.base .cg-board .cg-square.exploding {
   -webkit-transform: none;
   z-index: initial;
 }
-.lichess_board.blindfold .cg-piece {
+.lichess_board.blindfold .cg-piece,
+.other_games.blindfold .cg-piece {
   opacity: 0;
 }
 .is3d .cg-piece {

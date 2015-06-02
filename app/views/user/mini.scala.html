@@ -22,8 +22,10 @@
   </div>
   }
 </div>
+@if(!ctx.pref.isBlindfold) {
 @playing.map { pov =>
 @gameFen(pov.game, pov.color)
+}
 }
 @ctx.userId.map { myId =>
 @crosstable.map { cross =>
