@@ -317,3 +317,5 @@ findNbStrongMoves=%s अच्छी चालें ढ़ढ़ें।
 thisMoveGivesYourOpponentTheAdvantage=यह चाल आपके विरोधी को ताकत देती है।
 openingFailed=शुरुवात हार गए।
 openingSolved=शुरुवात जीत गए।
+recentlyPlayedOpenings=हाल ही में खेली हुई शुरुवातें।
+openings=शुरुवातें।
