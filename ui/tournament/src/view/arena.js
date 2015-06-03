@@ -32,7 +32,7 @@ function playerTr(ctrl, maxScore, player) {
     tag: 'tr',
     attrs: {
       key: player.id,
-      class: ctrl.userId === player.id ? 'me' : ''
+      class: ctrl.userId === player.name.toLowerCase() ? 'me' : ''
     },
     children: [
       m('td', [
