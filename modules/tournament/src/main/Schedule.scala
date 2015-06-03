@@ -44,7 +44,7 @@ object Schedule {
     import Freq._, Speed._
     Some((sched.freq, sched.speed) match {
 
-      case (Hourly, Bullet)              => 45
+      case (Hourly, Bullet)              => 40
       case (Hourly, SuperBlitz)          => 60
       case (Hourly, Blitz)               => 60
       case (Hourly, Classical)           => 0 // N/A
