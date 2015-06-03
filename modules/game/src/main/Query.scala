@@ -41,8 +41,6 @@ object Query {
 
   val frozen = Json.obj(F.status -> $gte(Status.Mate.id))
 
-  val imported: JsObject = Json.obj(s"${F.source}" -> Source.Import.id)
-
   def imported(u: String): JsObject = Json.obj(s"${F.pgnImport}.user" -> u)
 
   def clock(c: Boolean) = Json.obj(F.clock -> $exists(c))
