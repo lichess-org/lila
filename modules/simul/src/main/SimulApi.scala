@@ -155,7 +155,7 @@ private[simul] final class SimulApi(
     game1 = Game.make(
       game = chess.Game(
         board = chess.Board init pairing.player.variant,
-        clock = simul.clock.chessClock.start.some),
+        clock = simul.clock.chessClockOf(hostColor).start.some),
       whitePlayer = lila.game.Player.white,
       blackPlayer = lila.game.Player.black,
       mode = chess.Mode.Casual,

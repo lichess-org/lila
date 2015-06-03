@@ -11,7 +11,9 @@ case class SimulClock(
   def show = s"${limitInMinutes}+${increment}"
 
   def chessClock = chess.Clock(limit, increment)
-    .giveTime(chess.White, hostExtraTime)
+
+  def chessClockOf(hostColor: chess.Color) =
+    chessClock.giveTime(hostColor, hostExtraTime)
 
   def hostExtraMinutes = hostExtraTime / 60
 }
