@@ -5,7 +5,7 @@ var util = require('./util');
 var arena = require('./arena');
 var swiss = require('./swiss');
 var pairings = require('./pairings');
-var pagination = require('./pagination');
+var pagination = require('../pagination');
 
 module.exports = {
   main: function(ctrl) {

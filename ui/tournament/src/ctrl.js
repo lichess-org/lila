@@ -1,6 +1,8 @@
 var m = require('mithril');
 var socket = require('./socket');
 var xhr = require('./xhr');
+var pagination = require('./pagination');
+var tournament = require('./tournament');
 var util = require('chessground').util;
 
 module.exports = function(env) {
@@ -37,6 +39,13 @@ module.exports = function(env) {
     }
   }.bind(this);
   startWatching();
+
+  this.scrollToMe = function() {
+    if (tournament.containsMe(this))
+      this.vm.page = pagination.pageOfUserId(this) || this.vm.page;
+  }.bind(this);
+
+  this.scrollToMe();
 
   this.trans = function(key) {
     var str = env.i18n[key] || key;
