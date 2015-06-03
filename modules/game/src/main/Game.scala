@@ -303,7 +303,7 @@ case class Game(
 
   def finishedOrAborted = finished || aborted
 
-  def accountable = playedTurns >= 2
+  def accountable = playedTurns >= 2 || isTournament
 
   def replayable = imported || finished
 
