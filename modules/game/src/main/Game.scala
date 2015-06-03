@@ -351,7 +351,9 @@ case class Game(
 
   def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
 
-  def estimateTotalTime = clock.fold(1200)(_.estimateTotalTime)
+  def estimateTotalTime =
+    clock.map(_.estimateTotalTime) orElse
+      correspondenceClock.map(_.estimateTotalTime) getOrElse 1200
 
   def playerWhoDidNotMove: Option[Player] = playedTurns match {
     case 0 => player(White).some

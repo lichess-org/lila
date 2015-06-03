@@ -15,4 +15,7 @@ case class CorrespondenceClock(
   def remainingTime(c: Color) = c.fold(whiteTime, blackTime)
 
   def outoftime(c: Color) = remainingTime(c) == 0
+
+  // in seconds
+  def estimateTotalTime = increment * 40
 }
