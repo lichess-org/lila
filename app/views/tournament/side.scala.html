@@ -1,7 +1,7 @@
 @(tour: lila.tournament.Tournament)(implicit ctx: Context)
 
 <div class="side_box padded">
-  <div class="game_infos" data-icon="@tournamentIconChar(tour)">
+  <div class="game_infos" data-icon="@tour.perfType.map(_.iconChar)">
     <div class="header">
       @setup(tour)
       @systemName(tour.system).capitalize

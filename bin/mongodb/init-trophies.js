@@ -12,9 +12,9 @@ db.trophy.insert({
   user: 'hiimgosu',
   date: new Date()
 });
-db.trophy.insert({
-  _id: 'marathon1',
-  kind: 'marathonChampion',
-  user: 'thibault',
-  date: new Date()
-});
+// db.trophy.insert({
+//   _id: 'marathon1',
+//   kind: 'marathonWinner',
+//   user: 'hiimgosu',
+//   date: new Date()
+// });

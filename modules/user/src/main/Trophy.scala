@@ -27,12 +27,12 @@ object Trophy {
       name = "The way of Berserk",
       iconChar = '`'.some)
 
-    object MarathonChampion extends Kind(
-      key = "marathonChampion",
-      name = "Marathon Champion",
+    object MarathonWinner extends Kind(
+      key = "marathonWinner",
+      name = "Marathon Winner",
       iconChar = '\\'.some)
 
-    val all = List(ZugMiracle, WayOfBerserk, MarathonChampion)
+    val all = List(ZugMiracle, WayOfBerserk, MarathonWinner)
     def byKey(key: String) = all find (_.key == key)
   }
 

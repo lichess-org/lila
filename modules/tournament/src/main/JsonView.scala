@@ -29,7 +29,8 @@ final class JsonView(
         "isOpen" -> tour.isOpen,
         "isRunning" -> tour.isRunning,
         "isFinished" -> tour.isFinished,
-        "lastGames" -> games.map(gameJson)) ++ specifics(tour)
+        "lastGames" -> games.map(gameJson),
+        "schedule" -> tour.schedule.map(scheduleJson)) ++ specifics(tour)
     }
 
   private def specifics(tour: Tournament) = tour match {
@@ -61,6 +62,10 @@ final class JsonView(
     "lastMove" -> ~g.castleLastMoveTime.lastMoveString,
     "user1" -> gameUserJson(g.firstPlayer),
     "user2" -> gameUserJson(g.secondPlayer))
+
+  private def scheduleJson(s: Schedule) = Json.obj(
+    "freq" -> s.freq.name,
+    "speed" -> s.speed.name)
 
   private def sheetJson(sheet: ScoreSheet) = sheet match {
     case s: arena.ScoringSystem.Sheet => Json.obj(

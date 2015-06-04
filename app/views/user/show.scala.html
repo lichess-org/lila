@@ -98,7 +98,7 @@ openGraph = Map(
     }
     }
     @info.trophies.map { trophy =>
-    <span class="trophy @trophy.kind.key@if(trophy.kind.iconChar.isDefined){ icon_char} hint--left" data-hint="@trophy.kind.name">
+    <span class="trophy @trophy.kind.key@if(trophy.kind.iconChar.isDefined){ fire_trophy} hint--left" data-hint="@trophy.kind.name">
       @trophy.kind match {
       case lila.user.Trophy.Kind.ZugMiracle => {
       <img src="@staticUrl("images/trophy/zug-trophy.png")" height=80 />

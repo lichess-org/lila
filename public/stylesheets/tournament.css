@@ -70,6 +70,26 @@ ol.scheduled_tournaments a:hover {
   text-transform: uppercase;
   opacity: 0.6;
 }
+#tournament .marathon_title {
+  position: relative;
+  padding-left: 90px;
+}
+#tournament .marathon_title .fire_trophy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 80px;
+  opacity: 0.7;
+  transition: 1s;
+}
+#tournament .marathon_title .fire_trophy:hover {
+  opacity: 1;
+}
+#tournament .marathon_title .fire_trophy span {
+  margin-top: -78px;
+  margin-right: 32px;
+}
 #tournament .podium {
   margin: 0px 0 20px 0;
 }
