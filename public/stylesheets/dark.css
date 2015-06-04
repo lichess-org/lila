@@ -519,3 +519,7 @@ body.dark .variant_icons span {
 body.dark .fire_trophy.wayOfBerserk span {
   color: rgba(255,255,255,0.5);
 }
+body.dark ol.scheduled_tournaments li.marathon {
+  background: #2a2a2a;
+  box-shadow: 0 0 9px rgba(0,0,0,0.9);
+}
