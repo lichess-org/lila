@@ -70,7 +70,7 @@ function podiumStats(p, data) {
     return s[1] === 'double' ? s[0] >= 4 : s[0] >= 2;
   }).length * 100 / p.sheet.scores.length);
   var berserkP = Math.round(p.sheet.scores.filter(function(s) {
-    return s[0] === 3 || s[0] === 5;
+    return s === 3 || s[0] === 3 || s[0] === 5;
   }).length * 100 / p.sheet.scores.length);
   return [
     m('span.rating.progress', [
