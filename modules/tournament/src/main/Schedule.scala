@@ -29,7 +29,8 @@ object Schedule {
     case object Nightly extends Freq
     case object Weekly extends Freq
     case object Monthly extends Freq
-    val all: List[Freq] = List(Hourly, Daily, Nightly, Weekly, Monthly)
+    case object Marathon extends Freq
+    val all: List[Freq] = List(Hourly, Daily, Nightly, Weekly, Monthly, Marathon)
     def apply(name: String) = all find (_.name == name)
   }
 
@@ -58,17 +59,20 @@ object Schedule {
       case (Daily | Nightly, Bullet, _)     => 60
       case (Daily | Nightly, SuperBlitz, _) => 90
       case (Daily | Nightly, Blitz, _)      => 90
-      case (Daily | Nightly, Classical, _)  => 120
+      case (Daily | Nightly, Classical, _)  => 60 * 2
 
       case (Weekly, Bullet, _)              => 90
-      case (Weekly, SuperBlitz, _)          => 120
-      case (Weekly, Blitz, _)               => 120
-      case (Weekly, Classical, _)           => 180
+      case (Weekly, SuperBlitz, _)          => 60 * 2
+      case (Weekly, Blitz, _)               => 60 * 2
+      case (Weekly, Classical, _)           => 60 * 3
 
-      case (Monthly, Bullet, _)             => 120
-      case (Monthly, SuperBlitz, _)         => 180
-      case (Monthly, Blitz, _)              => 180
-      case (Monthly, Classical, _)          => 240
+      case (Monthly, Bullet, _)             => 60 * 2
+      case (Monthly, SuperBlitz, _)         => 60 * 3
+      case (Monthly, Blitz, _)              => 60 * 3
+      case (Monthly, Classical, _)          => 60 * 4
+
+      case (Marathon, _, _)                 => 60 * 24 // lol
+
     }) filter (0!=)
   }
 

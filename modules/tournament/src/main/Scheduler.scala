@@ -23,7 +23,9 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       val rightNow = DateTime.now
       val today = rightNow.withTimeAtStartOfDay
       val lastDayOfMonth = today.dayOfMonth.withMaximumValue
-      val lastSundayOfCurrentMonth = lastDayOfMonth.minusDays((lastDayOfMonth.getDayOfWeek + 0) % 7)
+      val firstDayOfMonth = today.dayOfMonth.withMinimumValue
+      val lastSundayOfCurrentMonth = lastDayOfMonth.minusDays(lastDayOfMonth.getDayOfWeek % 7)
+      val firstSundayOfCurrentMonth = firstDayOfMonth.plusDays(7 - firstDayOfMonth.getDayOfWeek)
       val nextSaturday = today.plusDays((13 - today.getDayOfWeek) % 7)
       val nextHourDate = rightNow plusHours 1
       val nextHour = nextHourDate.getHourOfDay
@@ -35,6 +37,8 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         Schedule(Monthly, SuperBlitz, Standard, at(lastSundayOfCurrentMonth, 19, 0)),
         Schedule(Monthly, Blitz, Standard, at(lastSundayOfCurrentMonth, 20, 0)),
         Schedule(Monthly, Classical, Standard, at(lastSundayOfCurrentMonth, 21, 0)),
+
+        Schedule(Marathon, Blitz, Standard, at(firstSundayOfCurrentMonth, 1, 0)),
 
         Schedule(Weekly, Bullet, Standard, at(nextSaturday, 18)),
         Schedule(Weekly, SuperBlitz, Standard, at(nextSaturday, 19)),
