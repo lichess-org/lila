@@ -57,4 +57,9 @@ trait TournamentHelper { self: I18nHelper =>
     case System.Arena => System.Arena.toString
     case System.Swiss => System.Swiss.toString
   }
+
+  def tournamentIconChar(tour: Tournament): Char = tour.schedule.map(_.freq) match {
+    case Some(lila.tournament.Schedule.Freq.Marathon) => '~'
+    case _ => tour.perfType.fold('g')(_.iconChar)
+  }
 }

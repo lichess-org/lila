@@ -22,15 +22,30 @@ function playerTr(ctrl, player) {
     }, util.player(player)));
 }
 
+var oneDayInSeconds = 60 * 60 * 24;
+
+function startingMoment(data) {
+  if (!data.secondsToStart) return;
+
+  if (data.secondsToStart > oneDayInSeconds)
+    return m('div.tournament_clock.title_tag', [
+      m('time.moment-from-now.shy', {
+        datetime: data.startsAt
+      }, data.startsAt)
+    ]);
+
+  return m('div.tournament_clock.title_tag', {
+    config: util.clock(data.secondsToStart)
+  }, [
+    m('span.shy', 'Starting in '),
+    m('span.time.text')
+  ]);
+}
+
 module.exports = {
   main: function(ctrl) {
     return [
-      ctrl.data.secondsToStart ? m('div.tournament_clock.title_tag', {
-        config: util.clock(ctrl.data.secondsToStart)
-      }, [
-        m('span.shy', 'Starting in '),
-        m('span.time.text')
-      ]) : null,
+      startingMoment(ctrl.data),
       util.title(ctrl),
       m('table.slist.user_list',
         m('thead', m('tr', header(ctrl))),

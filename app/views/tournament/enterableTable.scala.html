@@ -16,7 +16,7 @@
 <tr @if(scheduled) { class="scheduled" }>
   <td class="name">
     <a class="text" href="@routes.Tournament.show(tour.id)">
-      <span data-icon="@tour.perfType.map(_.iconChar)"></span>
+      <span data-icon="@tournamentIconChar(tour)"></span>
       @tour.name
     </a>
   </td>

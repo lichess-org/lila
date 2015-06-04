@@ -14,7 +14,7 @@
 
 @iconTd(tour: lila.tournament.Tournament) = {
 <td class="icon">
-  <span @if(tour.scheduled){class="is-gold"} data-icon="@tour.perfType.map(_.iconChar)"></span>
+  <span @if(tour.scheduled){class="is-gold"} data-icon="@tournamentIconChar(tour)"></span>
 </td>
 }
 

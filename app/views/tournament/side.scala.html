@@ -1,12 +1,12 @@
 @(tour: lila.tournament.Tournament)(implicit ctx: Context)
 
 <div class="side_box padded">
-  <div class="game_infos" data-icon="@tour.perfType.map(_.iconChar)">
+  <div class="game_infos" data-icon="@tournamentIconChar(tour)">
     <div class="header">
       @setup(tour)
       @systemName(tour.system).capitalize
       (<a href="@routes.Tournament.help(tour.system.toString.toLowerCase.some)">?</a>)
-      • @tour.minutes minutes
+      • @showMinutes(tour.minutes)
     </div>
   </div>
   @trans.by(usernameOrId(tour.createdBy)), @tour.schedule.map { s =>

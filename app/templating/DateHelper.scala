@@ -53,6 +53,9 @@ trait DateHelper { self: I18nHelper =>
   def showPeriod(period: Period)(implicit ctx: Context): String =
     periodFormatter(ctx) print period.normalizedStandard(periodType)
 
+  def showMinutes(minutes: Int)(implicit ctx: Context): String =
+    showPeriod(new Period(minutes * 60 * 1000l))
+
   def isoDate(date: DateTime): String = isoFormatter print date
 
   def momentFormat(date: DateTime, format: String): Html = Html {

@@ -33,9 +33,11 @@ final class JsonView(
     }
 
   private def specifics(tour: Tournament) = tour match {
-    case t: Created => Json.obj("secondsToStart" -> t.secondsToStart)
+    case t: Created => Json.obj(
+      "secondsToStart" -> t.secondsToStart,
+      "startsAt" -> t.startsAt.map(org.joda.time.format.ISODateTimeFormat.dateTime.print))
     case t: Started => Json.obj("seconds" -> t.remainingSeconds)
-    case _ => Json.obj()
+    case _          => Json.obj()
   }
 
   private def lastGames(tour: Tournament) = tour match {
