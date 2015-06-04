@@ -81,7 +81,7 @@ private[simul] final class SimulApi(
               UserRepo byId started.hostId flatten s"No such host: ${simul.hostId}" flatMap { host =>
                 started.pairings.map(makeGame(started, host)).sequenceFu addEffect { games =>
                   games.headOption foreach { game =>
-                    sendTo(simul.id, actorApi.StartSimul(game, simul.hostColor))
+                    sendTo(simul.id, actorApi.StartSimul(game, simul.hostId))
                   }
                 }
               }
@@ -170,7 +170,7 @@ private[simul] final class SimulApi(
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
       onGameStart(game2.id) >>-
-      sendTo(simul.id, actorApi.StartGame(game2))
+      sendTo(simul.id, actorApi.StartGame(game2, simul.hostId))
   } yield game2
 
   private def update(simul: Simul) =
