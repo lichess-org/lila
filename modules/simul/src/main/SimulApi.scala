@@ -77,7 +77,7 @@ private[simul] final class SimulApi(
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
           simul.start ?? { started =>
-            update(started) >> {
+            {
               UserRepo byId started.hostId flatten s"No such host: ${simul.hostId}" flatMap { host =>
                 started.pairings.map(makeGame(started, host)).sequenceFu addEffect { games =>
                   games.headOption foreach { game =>
@@ -85,7 +85,7 @@ private[simul] final class SimulApi(
                   }
                 }
               }
-            } >> currentHostIdsCache.clear
+            } >> update(started) >> currentHostIdsCache.clear
           }
         }
       }
