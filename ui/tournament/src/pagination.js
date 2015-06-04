@@ -28,7 +28,7 @@ function scrollToMeButton(ctrl, pag) {
 
 function paginate(ctrl, page) {
   var nbResults = ctrl.data.players.length;
-  var max = nbResults > 20 ? maxPerPage : 20; // don't paginate 20 or less elements
+  var max = nbResults > 15 ? maxPerPage : 15; // don't paginate 15 or less elements
   var from = (page - 1) * max;
   var to = Math.min(nbResults, page * max);
   return {
