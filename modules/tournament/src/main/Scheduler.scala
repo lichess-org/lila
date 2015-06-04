@@ -38,7 +38,7 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         Schedule(Monthly, Blitz, Standard, at(lastSundayOfCurrentMonth, 20, 0)),
         Schedule(Monthly, Classical, Standard, at(lastSundayOfCurrentMonth, 21, 0)),
 
-        Schedule(Marathon, Blitz, Standard, at(firstSundayOfCurrentMonth, 1, 0)),
+        Schedule(Marathon, Blitz, Standard, at(firstSundayOfCurrentMonth, 0, 0)),
 
         Schedule(Weekly, Bullet, Standard, at(nextSaturday, 18)),
         Schedule(Weekly, SuperBlitz, Standard, at(nextSaturday, 19)),
