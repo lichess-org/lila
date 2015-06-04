@@ -10,7 +10,7 @@ import lila.forum.PostApi
 import lila.game.{ GameRepo, Game, Crosstable, PlayTime }
 import lila.relation.RelationApi
 import lila.security.Granter
-import lila.user.User
+import lila.user.{ User, Trophies, TrophyApi }
 
 case class UserInfo(
     user: User,
@@ -27,7 +27,8 @@ case class UserInfo(
     nbBlockers: Option[Int],
     nbPosts: Int,
     playTime: User.PlayTime,
-    donor: Boolean) {
+    donor: Boolean,
+    trophies: Trophies) {
 
   def nbRated = user.count.rated
 
@@ -42,6 +43,7 @@ object UserInfo {
     countUsers: () => Fu[Int],
     bookmarkApi: BookmarkApi,
     relationApi: RelationApi,
+    trophyApi: TrophyApi,
     gameCached: lila.game.Cached,
     crosstableApi: lila.game.CrosstableApi,
     postApi: PostApi,
@@ -60,8 +62,9 @@ object UserInfo {
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.nbBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
       isDonor(user.id) zip
+      trophyApi.findByUser(user) zip
       PlayTime(user) flatMap {
-        case (((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), isDonor), playTime) =>
+        case ((((((((((((nbUsers, ranks), nbPlaying), nbImported), crosstable), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts), isDonor), trophies), playTime) =>
           (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -78,7 +81,8 @@ object UserInfo {
               nbBlockers = nbBlockers,
               nbPosts = nbPosts,
               playTime = playTime,
-              donor = isDonor)
+              donor = isDonor,
+              trophies = trophies)
           }
       }
 }

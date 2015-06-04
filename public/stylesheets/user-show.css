@@ -22,13 +22,13 @@ div.user_show div.content_box_top > .trophy {
 div.user_show div.content_box_top > .trophy:first-child {
   margin-right: 50px;
 }
-div.user_show .berserk.trophy {
+div.user_show .trophy.icon_char {
   width: 70px;
   height: 80px;
 }
-div.user_show .berserk.trophy span {
-  transform: scale(0.35) translate(-103px, 0);
-  -webkit-transform: scale(0.35) translate(-103px, 0);
+div.user_show .trophy.icon_char span {
+  transform: scale(0.35) translate(-103px, -3px);
+  -webkit-transform: scale(0.35) translate(-103px, -3px);
   margin-top: -63px!important;
   margin-right: -50px;
   color: rgba(0,0,0,0.3);
@@ -37,14 +37,14 @@ div.user_show .berserk.trophy span {
   display: block;
   transition: 0.8s;
 }
-div.user_show .berserk.trophy span:hover {
+div.user_show .trophy.icon_char span:hover {
   transform: scale(0.35) translate(-103px, -10px);
   -webkit-transform: scale(0.35) translate(-103px, -10px);
 }
-body.dark div.user_show .berserk.trophy span {
+body.dark div.user_show .trophy.icon_char span {
   color: rgba(255,255,255,0.5);
 }
-div.user_show .berserk.trophy span {
+div.user_show .trophy.icon_char span {
   animation: animation 1.25s ease-in-out infinite alternate;
   -moz-animation: animation 1.25s ease-in-out infinite alternate;
   -webkit-animation: animation 1.25s ease-in-out infinite alternate;

@@ -59,7 +59,7 @@ trait TournamentHelper { self: I18nHelper =>
   }
 
   def tournamentIconChar(tour: Tournament): Char = tour.schedule.map(_.freq) match {
-    case Some(lila.tournament.Schedule.Freq.Marathon) => '~'
+    case Some(lila.tournament.Schedule.Freq.Marathon) => '\\'
     case _ => tour.perfType.fold('g')(_.iconChar)
   }
 }

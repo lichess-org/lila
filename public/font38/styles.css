@@ -329,3 +329,6 @@
 .icon-globe-world:before {
   content: "~";
 }
+.icon-earth-globe-streamline:before {
+  content: "\\";
+}

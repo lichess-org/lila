@@ -7,4 +7,6 @@ package object user extends PackageObject with WithPlay {
     // expose user tube
     implicit lazy val userTube = User.tube inColl Env.current.userColl
   }
+
+  type Trophies = List[Trophy]
 }
