@@ -131,13 +131,14 @@ function renderMeta(ctrl, move, path) {
   if (!move || (!opening && empty(move.comments) && empty(move.variations))) return;
   var children = [];
   if (opening) children.push(opening);
+  var colorClass = move.ply % 2 === 0 ? 'black ' : 'white ';
   var commentClass;
   if (!empty(move.comments)) move.comments.forEach(function(comment) {
     if (comment.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
     else if (comment.indexOf('Mistake.') === 0) commentClass = 'mistake';
     else if (comment.indexOf('Blunder.') === 0) commentClass = 'blunder';
     children.push(m('div', {
-      class: 'comment ' + commentClass
+      class: 'comment ' + colorClass + commentClass
     }, comment));
   });
   var border = children.length === 0;
@@ -148,7 +149,7 @@ function renderMeta(ctrl, move, path) {
       variation,
       treePath.withVariation(path, i + 1),
       border,
-      i === 0 ? commentClass : null
+      i === 0 ? colorClass + commentClass : null
     ));
     border = false;
   });
