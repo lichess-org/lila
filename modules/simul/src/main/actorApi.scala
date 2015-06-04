@@ -25,7 +25,7 @@ private[simul] case class Join(
   version: Int)
 private[simul] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
 private[simul] case class StartGame(game: Game)
-private[simul] case class StartSimul(firstGame: Game)
+private[simul] case class StartSimul(firstGame: Game, hostColor: chess.Color)
 private[simul] case class HostIsOn(gameId: String)
 private[simul] case object Reload
 private[simul] case object Aborted

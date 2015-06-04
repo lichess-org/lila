@@ -81,7 +81,7 @@ private[simul] final class SimulApi(
               UserRepo byId started.hostId flatten s"No such host: ${simul.hostId}" flatMap { host =>
                 started.pairings.map(makeGame(started, host)).sequenceFu addEffect { games =>
                   games.headOption foreach { game =>
-                    sendTo(simul.id, actorApi.StartSimul(game))
+                    sendTo(simul.id, actorApi.StartSimul(game, simul.hostColor))
                   }
                 }
               }

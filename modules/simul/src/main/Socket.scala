@@ -35,11 +35,11 @@ private[simul] final class Socket(
 
   def receiveSpecific = {
 
-    case StartGame(game)       => redirectPlayer(game, chess.Black)
+    case StartGame(game)                  => redirectPlayer(game, chess.Black)
 
-    case StartSimul(firstGame) => redirectPlayer(firstGame, chess.White)
+    case StartSimul(firstGame, hostColor) => redirectPlayer(firstGame, hostColor)
 
-    case HostIsOn(gameId)      => notifyVersion("hostGame", gameId, Messadata())
+    case HostIsOn(gameId)                 => notifyVersion("hostGame", gameId, Messadata())
 
     case Reload =>
       getSimul(simulId) foreach {
