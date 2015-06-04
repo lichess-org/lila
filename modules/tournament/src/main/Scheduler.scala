@@ -11,6 +11,7 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
 
   import Schedule.Freq._
   import Schedule.Speed._
+  import chess.variant._
 
   def receive = {
 
@@ -30,25 +31,32 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
 
       List(
-        Schedule(Monthly, Bullet, at(lastSundayOfCurrentMonth, 18, 0)),
-        Schedule(Monthly, SuperBlitz, at(lastSundayOfCurrentMonth, 19, 0)),
-        Schedule(Monthly, Blitz, at(lastSundayOfCurrentMonth, 20, 0)),
-        Schedule(Monthly, Classical, at(lastSundayOfCurrentMonth, 21, 0)),
-        Schedule(Weekly, Bullet, at(nextSaturday, 18)),
-        Schedule(Weekly, SuperBlitz, at(nextSaturday, 19)),
-        Schedule(Weekly, Blitz, at(nextSaturday, 20)),
-        Schedule(Weekly, Classical, at(nextSaturday, 21)),
-        Schedule(Daily, Bullet, at(today, 18) |> orTomorrow),
-        Schedule(Daily, SuperBlitz, at(today, 19) |> orTomorrow),
-        Schedule(Daily, Blitz, at(today, 20) |> orTomorrow),
-        Schedule(Daily, Classical, at(today, 21) |> orTomorrow),
-        Schedule(Nightly, Bullet, at(today, 6) |> orTomorrow),
-        Schedule(Nightly, SuperBlitz, at(today, 7) |> orTomorrow),
-        Schedule(Nightly, Blitz, at(today, 8) |> orTomorrow),
-        Schedule(Nightly, Classical, at(today, 9) |> orTomorrow),
-        Schedule(Hourly, Bullet, at(nextHourDate, nextHour)),
-        Schedule(Hourly, SuperBlitz, at(nextHourDate, nextHour)),
-        Schedule(Hourly, Blitz, at(nextHourDate, nextHour))
+        Schedule(Monthly, Bullet, Standard, at(lastSundayOfCurrentMonth, 18, 0)),
+        Schedule(Monthly, SuperBlitz, Standard, at(lastSundayOfCurrentMonth, 19, 0)),
+        Schedule(Monthly, Blitz, Standard, at(lastSundayOfCurrentMonth, 20, 0)),
+        Schedule(Monthly, Classical, Standard, at(lastSundayOfCurrentMonth, 21, 0)),
+
+        Schedule(Weekly, Bullet, Standard, at(nextSaturday, 18)),
+        Schedule(Weekly, SuperBlitz, Standard, at(nextSaturday, 19)),
+        Schedule(Weekly, Blitz, Standard, at(nextSaturday, 20)),
+        Schedule(Weekly, Classical, Standard, at(nextSaturday, 21)),
+        Schedule(Weekly, Classical, Chess960, at(nextSaturday, 22)),
+
+        Schedule(Daily, Bullet, Standard, at(today, 18) |> orTomorrow),
+        Schedule(Daily, SuperBlitz, Standard, at(today, 19) |> orTomorrow),
+        Schedule(Daily, Blitz, Standard, at(today, 20) |> orTomorrow),
+        Schedule(Daily, Classical, Standard, at(today, 21) |> orTomorrow),
+        Schedule(Daily, Blitz, Chess960, at(today, 22) |> orTomorrow),
+
+        Schedule(Nightly, Bullet, Standard, at(today, 6) |> orTomorrow),
+        Schedule(Nightly, SuperBlitz, Standard, at(today, 7) |> orTomorrow),
+        Schedule(Nightly, Blitz, Standard, at(today, 8) |> orTomorrow),
+        Schedule(Nightly, Classical, Standard, at(today, 9) |> orTomorrow),
+
+        Schedule(Hourly, Bullet, Standard, at(nextHourDate, nextHour)),
+        Schedule(Hourly, SuperBlitz, Standard, at(nextHourDate, nextHour)),
+        Schedule(Hourly, Blitz, Standard, at(nextHourDate, nextHour))
+
       ).foldLeft(List[Schedule]()) {
           case (scheds, sched) if sched.at.isBeforeNow      => scheds
           case (scheds, sched) if overlaps(sched, dbScheds) => scheds
@@ -62,8 +70,8 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
   private def endsAt(s: Schedule) = s.at plus ((~Schedule.durationFor(s)).toLong * 60 * 1000)
   private def interval(s: Schedule) = new org.joda.time.Interval(s.at, endsAt(s))
   private def overlaps(s: Schedule, ss: Seq[Schedule]) = ss exists {
-    case s2 if s sameSpeed s2 => interval(s) overlaps interval(s2)
-    case _                    => false
+    case s2 if s.sameSpeed(s2) && s.sameVariant(s2) => interval(s) overlaps interval(s2)
+    case _ => false
   }
 
   private def at(day: DateTime, hour: Int, minute: Int = 0) =

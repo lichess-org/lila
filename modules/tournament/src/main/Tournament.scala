@@ -318,7 +318,7 @@ object Tournament {
       clock = Schedule clockFor sched,
       createdBy = "lichess",
       createdAt = DateTime.now,
-      variant = chess.variant.Standard,
+      variant = sched.variant,
       mode = Mode.Rated,
       `private` = false,
       minutes = minutes,

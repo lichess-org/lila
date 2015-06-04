@@ -1,5 +1,6 @@
 package lila.tournament
 
+import chess.variant.Variant
 import chess.{ Speed, Mode }
 import lila.db.BSON
 import reactivemongo.bson._
@@ -12,10 +13,12 @@ object BSONHandlers {
     def reads(r: BSON.Reader) = Schedule(
       freq = Schedule.Freq(r str "freq") err "tournament freq",
       speed = Schedule.Speed(r str "speed") err "tournament freq",
+      variant = Variant.orDefault(r intD "variant"),
       at = r date "at")
     def writes(w: BSON.Writer, o: Schedule) = BSONDocument(
       "freq" -> o.freq.name,
       "speed" -> o.speed.name,
+      "variant" -> o.variant.id,
       "at" -> w.date(o.at))
   }
 

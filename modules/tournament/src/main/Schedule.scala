@@ -1,15 +1,21 @@
 package lila.tournament
 
+import chess.variant.Variant
 import org.joda.time.DateTime
 
 case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
+    variant: Variant,
     at: DateTime) {
 
-  def name = s"${freq.toString} ${speed.toString}"
+  def name =
+    if (variant.standard) s"${freq.toString} ${speed.toString}"
+    else s"${freq.toString} ${variant.name}"
 
   def sameSpeed(other: Schedule) = speed == other.speed
+
+  def sameVariant(other: Schedule) = variant.id == other.variant.id
 }
 
 object Schedule {
@@ -42,27 +48,27 @@ object Schedule {
 
   private[tournament] def durationFor(sched: Schedule): Option[Int] = {
     import Freq._, Speed._
-    Some((sched.freq, sched.speed) match {
+    Some((sched.freq, sched.speed, sched.variant) match {
 
-      case (Hourly, Bullet)              => 40
-      case (Hourly, SuperBlitz)          => 60
-      case (Hourly, Blitz)               => 60
-      case (Hourly, Classical)           => 0 // N/A
+      case (Hourly, Bullet, _)              => 40
+      case (Hourly, SuperBlitz, _)          => 60
+      case (Hourly, Blitz, _)               => 60
+      case (Hourly, Classical, _)           => 0 // N/A
 
-      case (Daily | Nightly, Bullet)     => 60
-      case (Daily | Nightly, SuperBlitz) => 90
-      case (Daily | Nightly, Blitz)      => 90
-      case (Daily | Nightly, Classical)  => 120
+      case (Daily | Nightly, Bullet, _)     => 60
+      case (Daily | Nightly, SuperBlitz, _) => 90
+      case (Daily | Nightly, Blitz, _)      => 90
+      case (Daily | Nightly, Classical, _)  => 120
 
-      case (Weekly, Bullet)              => 90
-      case (Weekly, SuperBlitz)          => 120
-      case (Weekly, Blitz)               => 120
-      case (Weekly, Classical)           => 180
+      case (Weekly, Bullet, _)              => 90
+      case (Weekly, SuperBlitz, _)          => 120
+      case (Weekly, Blitz, _)               => 120
+      case (Weekly, Classical, _)           => 180
 
-      case (Monthly, Bullet)             => 120
-      case (Monthly, SuperBlitz)         => 180
-      case (Monthly, Blitz)              => 180
-      case (Monthly, Classical)          => 240
+      case (Monthly, Bullet, _)             => 120
+      case (Monthly, SuperBlitz, _)         => 180
+      case (Monthly, Blitz, _)              => 180
+      case (Monthly, Classical, _)          => 240
     }) filter (0!=)
   }
 
