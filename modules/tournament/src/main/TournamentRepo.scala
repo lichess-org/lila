@@ -84,6 +84,20 @@ object TournamentRepo {
     "schedule" -> BSONDocument("$exists" -> true)
   )).sort(BSONDocument("schedule.at" -> 1)).toList[Created](none)
 
+  def scheduledDedup: Fu[List[Created]] = scheduled map {
+    import Schedule.Freq
+    _.flatMap { tour =>
+      tour.schedule map (tour -> _)
+    }.foldLeft(List[Created]() -> none[Freq]) {
+      case ((tours, skip), (_, sched)) if skip.contains(sched.freq) => (tours, skip)
+      case ((tours, skip), (tour, sched)) => (tour :: tours, sched.freq match {
+        case Freq.Daily   => Freq.Nightly.some
+        case Freq.Nightly => Freq.Daily.some
+        case _            => skip
+      })
+    }._1.reverse
+  }
+
   def lastFinishedScheduledByFreq(freq: Schedule.Freq, nb: Int): Fu[List[Finished]] = coll.find(
     finishedSelect ++ BSONDocument(
       "schedule.freq" -> freq.name,

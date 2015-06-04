@@ -20,7 +20,7 @@ object Tournament extends LilaController {
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.notFound())
 
   val home = Open { implicit ctx =>
-    fetchTournaments zip repo.scheduled zip UserRepo.allSortToints(10) map {
+    fetchTournaments zip repo.scheduledDedup zip UserRepo.allSortToints(10) map {
       case ((((created, started), finished), scheduled), leaderboard) =>
         Ok(html.tournament.home(created, started, finished, scheduled, leaderboard))
     }
