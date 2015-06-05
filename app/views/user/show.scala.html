@@ -98,7 +98,9 @@ openGraph = Map(
     }
     }
     @info.trophies.map { trophy =>
-    <span class="trophy @trophy.kind.key@if(trophy.kind.iconChar.isDefined){ fire_trophy} hint--left" data-hint="@trophy.kind.name">
+    <a @trophy.kind.url.map { url =>
+      href="@url"
+      } class="trophy @trophy.kind.key@if(trophy.kind.iconChar.isDefined){ fire_trophy} hint--left" data-hint="@trophy.kind.name">
       @trophy.kind match {
       case lila.user.Trophy.Kind.ZugMiracle => {
       <img src="@staticUrl("images/trophy/zug-trophy.png")" height=80 />
@@ -107,7 +109,7 @@ openGraph = Map(
       <span data-icon="@trophy.kind.iconChar"></span>
       }
       }
-    </span>
+    </a>
     }
     <h1 class="lichess_title"><span@if(isOnline(u.id)) { class="connected" title="Online" } else { title="Offline" } data-icon="r"></span> @u.titleUsername</h1>
     @if(u.disabled) {
