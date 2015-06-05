@@ -6,7 +6,8 @@ div.user_show .staff {
   font-weight: bold;
   margin-bottom: 1em;
 }
-div.user_show div.content_box_top > span {
+div.user_show div.content_box_top > span,
+div.user_show div.content_box_top > .trophy {
   margin-left: 10px;
   font-size: 1.6em;
   color: #afafaf;
@@ -31,11 +32,34 @@ div.user_show .fire_trophy span {
   -webkit-transform: scale(0.35) translate(-103px, -3px);
   margin-top: -63px!important;
   margin-right: -50px;
+  opacity: 0.8;
   transition: 0.8s;
 }
 div.user_show .fire_trophy span:hover {
+  opacity: 1;
   transform: scale(0.35) translate(-103px, -10px);
   -webkit-transform: scale(0.35) translate(-103px, -10px);
+}
+div.user_show .fire_trophy.marathonTopTen span {
+  transform: scale(0.25) translate(-112px, 36px);
+  -webkit-transform: scale(0.25) translate(-112px, 36px);
+}
+div.user_show .fire_trophy.marathonTopTen span:hover {
+  transform: scale(0.25) translate(-112px, 28px);
+  -webkit-transform: scale(0.25) translate(-112px, 28px);
+}
+div.user_show .fire_trophy.marathonTopFifty span {
+  transform: scale(0.25) translate(-112px, 36px);
+  -webkit-transform: scale(0.25) translate(-112px, 36px);
+  animation: none;
+  -moz-animation: none;
+  -webkit-animation: none;
+  -o-animation: none;
+  text-shadow: 0px 0px 20px #ffae34, 0px 0px 25px #ec760c, 0px 0px 30px #cd4606;
+}
+div.user_show .fire_trophy.marathonTopFifty span:hover {
+  transform: scale(0.25) translate(-112px, 28px);
+  -webkit-transform: scale(0.25) translate(-112px, 28px);
 }
 div.user_show .honorific {
   display: inline-block;

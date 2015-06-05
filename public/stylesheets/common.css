@@ -2580,6 +2580,9 @@ input.copyable {
   height: 295px;
   z-index: 9999;
 }
+.fire_trophy {
+  text-decoration: none;
+}
 .fire_trophy span {
   transform: scale(0.35);
   -webkit-transform: scale(0.35);
@@ -2587,7 +2590,9 @@ input.copyable {
   font-size: 150px;
   display: block;
 }
-.fire_trophy.marathonWinner {
+.fire_trophy.marathonWinner,
+.fire_trophy.marathonTopTen,
+.fire_trophy.marathonTopFifty {
   filter: hue-rotate(190deg);
   -webkit-filter: hue-rotate(190deg);
 }
