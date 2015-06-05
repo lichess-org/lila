@@ -41,12 +41,12 @@ div.user_show .fire_trophy span:hover {
   -webkit-transform: scale(0.35) translate(-103px, -10px);
 }
 div.user_show .fire_trophy.marathonTopTen span {
-  transform: scale(0.25) translate(-112px, 36px);
-  -webkit-transform: scale(0.25) translate(-112px, 36px);
+  transform: scale(0.3) translate(-112px, 14px);
+  -webkit-transform: scale(0.3) translate(-112px, 14px);
 }
 div.user_show .fire_trophy.marathonTopTen span:hover {
-  transform: scale(0.25) translate(-112px, 28px);
-  -webkit-transform: scale(0.25) translate(-112px, 28px);
+  transform: scale(0.3) translate(-112px, 6px);
+  -webkit-transform: scale(0.3) translate(-112px, 6px);
 }
 div.user_show .fire_trophy.marathonTopFifty span {
   transform: scale(0.25) translate(-112px, 36px);
