@@ -31,20 +31,22 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       val nextHour = nextHourDate.getHourOfDay
 
       def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
+      def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
+      def orNextMonth(date: DateTime) = if (date isBefore rightNow) date plusMonths 1 else date
 
       List(
-        Schedule(Monthly, Bullet, Standard, at(lastSundayOfCurrentMonth, 18, 0)),
-        Schedule(Monthly, SuperBlitz, Standard, at(lastSundayOfCurrentMonth, 19, 0)),
-        Schedule(Monthly, Blitz, Standard, at(lastSundayOfCurrentMonth, 20, 0)),
-        Schedule(Monthly, Classical, Standard, at(lastSundayOfCurrentMonth, 21, 0)),
+        Schedule(Monthly, Bullet, Standard, at(lastSundayOfCurrentMonth, 18, 0) |> orNextMonth),
+        Schedule(Monthly, SuperBlitz, Standard, at(lastSundayOfCurrentMonth, 19, 0) |> orNextMonth),
+        Schedule(Monthly, Blitz, Standard, at(lastSundayOfCurrentMonth, 20, 0) |> orNextMonth),
+        Schedule(Monthly, Classical, Standard, at(lastSundayOfCurrentMonth, 21, 0) |> orNextMonth),
 
-        Schedule(Marathon, Blitz, Standard, at(firstSundayOfCurrentMonth, 0, 0)),
+        Schedule(Marathon, Blitz, Standard, at(firstSundayOfCurrentMonth, 0, 0) |> orNextMonth),
 
-        Schedule(Weekly, Bullet, Standard, at(nextSaturday, 18)),
-        Schedule(Weekly, SuperBlitz, Standard, at(nextSaturday, 19)),
-        Schedule(Weekly, Blitz, Standard, at(nextSaturday, 20)),
-        Schedule(Weekly, Classical, Standard, at(nextSaturday, 21)),
-        Schedule(Weekly, Classical, Chess960, at(nextSaturday, 22)),
+        Schedule(Weekly, Bullet, Standard, at(nextSaturday, 18) |> orNextWeek),
+        Schedule(Weekly, SuperBlitz, Standard, at(nextSaturday, 19) |> orNextWeek),
+        Schedule(Weekly, Blitz, Standard, at(nextSaturday, 20) |> orNextWeek),
+        Schedule(Weekly, Classical, Standard, at(nextSaturday, 21) |> orNextWeek),
+        Schedule(Weekly, Classical, Chess960, at(nextSaturday, 22) |> orNextWeek),
 
         Schedule(Daily, Bullet, Standard, at(today, 18) |> orTomorrow),
         Schedule(Daily, SuperBlitz, Standard, at(today, 19) |> orTomorrow),
