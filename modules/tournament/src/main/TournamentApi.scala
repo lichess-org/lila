@@ -32,7 +32,7 @@ private[tournament] final class TournamentApi(
     site: ActorSelection,
     lobby: ActorSelection,
     roundMap: ActorRef,
-    awardMarathonWinner: String => Funit,
+    trophyApi: lila.user.TrophyApi,
     roundSocketHub: ActorSelection) {
 
   def makePairings(oldTour: Started, pairings: NonEmptyList[Pairing], postEvents: Events) {
@@ -118,8 +118,12 @@ private[tournament] final class TournamentApi(
   }
 
   private def awardTrophies(tour: Finished): Funit =
-    if (tour.schedule.??(_.freq == Schedule.Freq.Marathon))
-      tour.winner.map(_.id) ?? awardMarathonWinner
+    if (tour.schedule.??(_.freq == Schedule.Freq.Marathon)) tour.rankedPlayers.map {
+      case rp if rp.rank == 1  => trophyApi.award(rp.player.id, _.MarathonWinner)
+      case rp if rp.rank <= 10 => trophyApi.award(rp.player.id, _.MarathonTopTen)
+      case rp if rp.rank <= 50 => trophyApi.award(rp.player.id, _.MarathonTopFifty)
+      case _                   => funit
+    }.sequenceFu.void
     else funit
 
   def join(oldTour: Enterable, me: User) {
