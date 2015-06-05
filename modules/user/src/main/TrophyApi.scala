@@ -14,10 +14,10 @@ final class TrophyApi(coll: lila.db.Types.Coll) {
   }
   private implicit val trophyBSONHandler = Macros.handler[Trophy]
 
-  def insert(user: User, kind: Trophy.Kind): Fu[Trophy] = {
-    val trophy = Trophy.make(user, kind)
-    coll insert trophy inject trophy
-  }
+  def award(userId: String, kind: Trophy.Kind): Funit =
+    coll insert Trophy.make(userId, kind) void
+
+  def awardMarathonWinner(userId: String): Funit = award(userId, Trophy.Kind.MarathonWinner)
 
   def findByUser(user: User, max: Int = 12): Fu[List[Trophy]] =
     coll.find(BSONDocument("user" -> user.id)).cursor[Trophy].collect[List](max)

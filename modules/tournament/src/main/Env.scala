@@ -24,6 +24,7 @@ final class Env(
     isOnline: String => Boolean,
     onStart: String => Unit,
     secondsToMove: Int,
+    awardMarathonWinner: String => Funit,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -54,6 +55,7 @@ final class Env(
     socketHub = socketHub,
     site = hub.socket.site,
     lobby = hub.socket.lobby,
+    awardMarathonWinner = awardMarathonWinner,
     roundMap = roundMap,
     roundSocketHub = roundSocketHub)
 
@@ -148,5 +150,6 @@ object Env {
     isOnline = lila.user.Env.current.isOnline,
     onStart = lila.game.Env.current.onStart,
     secondsToMove = lila.game.Env.current.MandatorySecondsToMove,
+    awardMarathonWinner = lila.user.Env.current.trophyApi.awardMarathonWinner,
     scheduler = lila.common.PlayApp.scheduler)
 }

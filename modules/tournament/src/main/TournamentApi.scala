@@ -32,6 +32,7 @@ private[tournament] final class TournamentApi(
     site: ActorSelection,
     lobby: ActorSelection,
     roundMap: ActorRef,
+    awardMarathonWinner: String => Funit,
     roundSocketHub: ActorSelection) {
 
   def makePairings(oldTour: Started, pairings: NonEmptyList[Pairing], postEvents: Events) {
@@ -108,12 +109,18 @@ private[tournament] final class TournamentApi(
               publish() >>-
               finished.players.filter(_.score > 0).map { p =>
                 UserRepo.incToints(p.id, p.score)
-              }.sequenceFu
+              }.sequenceFu >>
+              awardTrophies(finished)
           }
         case None => fufail("Cannot finish missing tournament " + oldTour)
       }
     }
   }
+
+  private def awardTrophies(tour: Finished): Funit =
+    if (tour.schedule.??(_.freq == Schedule.Freq.Marathon))
+      tour.winner.map(_.id) ?? awardMarathonWinner
+    else funit
 
   def join(oldTour: Enterable, me: User) {
     sequence(oldTour.id) {
