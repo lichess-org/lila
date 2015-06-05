@@ -171,7 +171,6 @@ div.lobby_and_ground {
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
-  transition: 0.13s;
   background: rgba(255, 255, 255, 0.6);
 }
 #hooks_wrap .table_wrap tbody.stepping {
