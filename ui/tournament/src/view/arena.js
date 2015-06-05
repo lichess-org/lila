@@ -66,12 +66,13 @@ function podiumStats(p, data) {
   if (p.perf === 0) perf = m('span', ' =');
   else if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
   else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
+  var nbGames = p.sheet.scores.length;
   var winP = Math.round(p.sheet.scores.filter(function(s) {
     return s[1] === 'double' ? s[0] >= 4 : s[0] >= 2;
-  }).length * 100 / p.sheet.scores.length);
+  }).length * 100 / nbGames);
   var berserkP = Math.round(p.sheet.scores.filter(function(s) {
     return s === 3 || s[0] === 3 || s[0] === 5;
-  }).length * 100 / p.sheet.scores.length);
+  }).length * 100 / nbGames);
   return [
     m('span.rating.progress', [
       p.rating,
@@ -79,8 +80,9 @@ function podiumStats(p, data) {
     ]),
     m('table.stats', m('tbody', [
       m('tr', [m('th', 'Win rate'), m('td', winP + '%')]),
+      berserkP > 0 ? m('tr', [m('th', 'Berserk win rate'), m('td', berserkP + '%')]) : null,
       p.opposition ? m('tr', [m('th', 'Opponents rating'), m('td', p.opposition)]) : null,
-      berserkP > 0 ? m('tr', [m('th', 'Berserk win rate'), m('td', berserkP + '%')]) : null
+      m('tr', [m('th', 'Games played'), m('td', nbGames)])
     ]))
   ];
 }
