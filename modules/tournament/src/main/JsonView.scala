@@ -87,7 +87,7 @@ final class JsonView(
     val light = getLightUser(p.id)
     Json.obj(
       "rank" -> rankedPlayer.rank,
-      "name" -> light.map(_.name),
+      "name" -> light.fold(p.id)(_.name),
       "title" -> light.map(_.title),
       "rating" -> p.rating,
       "provisional" -> p.provisional.option(true),
