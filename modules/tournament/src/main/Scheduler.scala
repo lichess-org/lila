@@ -19,12 +19,12 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
     // Summer -> first Saturday of August
     // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
     // Winter -> 27 December, convenient day in the space between Boxing Day and New Year's Day
-    Summer -> new DateTime(2015, 8, 1)
-    Autumn -> new DateTime(2015, 10, 24)
-    Winter -> new DateTime(2015, 12, 27)
-    Spring -> new DateTime(2016, 4, 16)
-    Summer -> new DateTime(2016, 8, 6)
-    Autumn -> new DateTime(2015, 10, 22)
+    Summer -> new DateTime(2015, 8, 1),
+    Autumn -> new DateTime(2015, 10, 24),
+    Winter -> new DateTime(2015, 12, 27),
+    Spring -> new DateTime(2016, 4, 16),
+    Summer -> new DateTime(2016, 8, 6),
+    Autumn -> new DateTime(2016, 10, 22),
     Winter -> new DateTime(2016, 12, 27)
   )
 
