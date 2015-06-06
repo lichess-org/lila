@@ -8,7 +8,8 @@ import scala.collection.JavaConversions._
 
 final class Env(
     config: Config,
-    hub: lila.hub.Env,
+    renderer: ActorSelection,
+    router: ActorSelection,
     system: ActorSystem,
     roundJsonView: lila.round.JsonView,
     noteApi: lila.round.NoteApi,
@@ -80,7 +81,6 @@ final class Env(
       getSimul = getSimul,
       lightUser = userEnv.lightUser),
     system = system,
-    addRequest = () => hub.actor.monitor ! lila.hub.actorApi.monitor.AddRoundApiRequest,
     nbActors = math.max(1, Runtime.getRuntime.availableProcessors - 1))
 
   val lobbyApi = new LobbyApi(
@@ -93,17 +93,18 @@ final class Env(
   private def apiUrl(msg: Any): Fu[String] = {
     import akka.pattern.ask
     import makeTimeout.short
-    hub.actor.router ? lila.hub.actorApi.router.Abs(msg) mapTo manifest[String]
+    router ? lila.hub.actorApi.router.Abs(msg) mapTo manifest[String]
   }
 
-  lazy val cli = new Cli(system.lilaBus, hub.actor.renderer)
+  lazy val cli = new Cli(system.lilaBus, renderer)
 }
 
 object Env {
 
   lazy val current = "[boot] api" describes new Env(
     config = lila.common.PlayApp.loadConfig,
-    hub = lila.hub.Env.current,
+    renderer = lila.hub.Env.current.actor.renderer,
+    router = lila.hub.Env.current.actor.router,
     userEnv = lila.user.Env.current,
     analyseEnv = lila.analyse.Env.current,
     lobbyEnv = lila.lobby.Env.current,

@@ -175,7 +175,6 @@ case class AutoAnalyse(gameId: String)
 
 package monitor {
 case object AddRequest
-case object AddRoundApiRequest
 case object Update
 }
 

@@ -9,15 +9,13 @@ import akka.pattern.{ ask, pipe }
 import play.api.libs.concurrent._
 
 import actorApi._
-import lila.common.WindowCount
 import lila.hub.actorApi.monitor._
 import lila.hub.actorApi.round.MoveEvent
 import lila.socket.actorApi.{ NbMembers, PopulationGet }
 
 private[monitor] final class Reporting(
-    reqWindowCount: WindowCount,
-    moveWindowCount: WindowCount,
-    roundWindowCount: WindowCount,
+    reqWindowCount: lila.common.WindowCount,
+    moveWindowCount: lila.common.WindowCount,
     socket: ActorRef,
     db: lila.db.Env,
     hub: lila.hub.Env) extends Actor {
@@ -38,7 +36,6 @@ private[monitor] final class Reporting(
   var latency = 0
   var rps = 0
   var mps = 0
-  var roundApiRequestPerSecond = 0
   var cpu = 0
   var mongoStatus = MongoStatus.default
 
@@ -52,39 +49,35 @@ private[monitor] final class Reporting(
 
   def receive = {
 
-    case _: MoveEvent       => moveWindowCount.add
+    case _: MoveEvent     => moveWindowCount.add
 
-    case AddRequest         => reqWindowCount.add
+    case AddRequest       => reqWindowCount.add
 
-    case AddRoundApiRequest => roundWindowCount.add
+    case PopulationGet    => sender ! nbMembers
 
-    case PopulationGet      => sender ! nbMembers
+    case NbMembers(nb, _) => nbMembers = nb
 
-    case NbMembers(nb, _)   => nbMembers = nb
-
-    case GetNbMoves         => sender ! moveWindowCount.get
+    case GetNbMoves       => sender ! moveWindowCount.get
 
     case Update => socket ? PopulationGet foreach {
       case 0 => idle = true
       case _ => {
         val before = nowMillis
         MongoStatus(db.db)(mongoStatus) onComplete {
-          case Failure(e) => logwarn("[reporting] " + e.getMessage)
-          case Success(mongoS) => {
-            latency = (nowMillis - before).toInt
-            mongoStatus = mongoS
-            loadAvg = osStats.getSystemLoadAverage.toFloat
-            nbThreads = threadStats.getThreadCount
-            memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
-            rps = moveWindowCount.get
-            mps = reqWindowCount.get
-            roundApiRequestPerSecond = roundWindowCount.get
-            if (roundApiRequestPerSecond >= 100) loginfo(s"[monitor] Round API $roundApiRequestPerSecond/s")
-            cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
-            socket ! MonitorData(monitorData(idle))
-            idle = false
+            case Failure(e) => logwarn("[reporting] " + e.getMessage)
+            case Success(mongoS) => {
+              latency = (nowMillis - before).toInt
+              mongoStatus = mongoS
+              loadAvg = osStats.getSystemLoadAverage.toFloat
+              nbThreads = threadStats.getThreadCount
+              memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
+              rps = moveWindowCount.get
+              mps = reqWindowCount.get
+              cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
+              socket ! MonitorData(monitorData(idle))
+              idle = false
+            }
           }
-        }
       }
     }
   }
@@ -98,7 +91,6 @@ private[monitor] final class Reporting(
     "memory" -> memory,
     "rps" -> rps,
     "mps" -> mps,
-    "raps" -> roundApiRequestPerSecond,
     "dbMemory" -> mongoStatus.memory,
     "dbConn" -> mongoStatus.connection,
     "dbQps" -> idle.fold("??", mongoStatus.qps.toString)) map {

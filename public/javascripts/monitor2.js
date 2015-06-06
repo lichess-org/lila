@@ -139,11 +139,6 @@ $(function() {
     title: "JVM Threads",
   });
 
-  add({
-    id: 'raps',
-    title: "Round API reqs",
-  });
-
   // add({
   //   id: 'dbConn',
   //   title: "MongoDB Connections",
