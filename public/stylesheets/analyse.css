@@ -216,18 +216,23 @@ div.game_control .jumps {
 }
 .lichess_ground .analyse .black {
   border-right: 3px solid;
+  margin-right: 1px;
 }
 body .lichess_ground .analyse .inaccuracy {
-  border-left-color: #909090;
-  border-right-color: #909090;
+  border-left-color: #56B4E9;
+  border-right-color: #56B4E9;
 }
 body .lichess_ground .analyse .mistake {
-  border-left-color: #cf8a02;
-  border-right-color: #cf8a02;
+  border-left-color: #E69F00;
+  border-right-color: #E69F00;
 }
 body .lichess_ground .analyse .blunder {
-  border-left-color: #c1080f;
-  border-right-color: #c1080f;
+  border-left-color: #DF5353;
+  border-right-color: #DF5353;
+}
+body .lichess_ground .analyse .undefined {
+  border-left-color: #66558C;
+  border-right-color: #66558C;
 }
 .lichess_ground .opening {
   padding-bottom: 3px;
