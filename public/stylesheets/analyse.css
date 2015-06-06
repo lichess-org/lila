@@ -203,13 +203,13 @@ div.game_control .jumps {
 .lichess_ground .replay .move:hover .eval {
   opacity: 1;
 }
-.lichess_ground .analyse > .comment,
-.lichess_ground .analyse > .variation {
+.lichess_ground .analyse .meta {
   background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-left: none;
 }
 .lichess_ground .comment {
   padding: 3px 0 0 5px;
-  border-top: 1px solid #ccc;
 }
 .lichess_ground .analyse .white {
   border-left: 3px solid;
@@ -218,29 +218,24 @@ div.game_control .jumps {
   border-right: 3px solid;
 }
 body .lichess_ground .analyse .inaccuracy {
-  border-left-color: #909090;
-  border-right-color: #909090;
+  border-color: #56B4E9;
 }
 body .lichess_ground .analyse .mistake {
-  border-left-color: #cf8a02;
-  border-right-color: #cf8a02;
+  border-color: #E69F00;
 }
 body .lichess_ground .analyse .blunder {
-  border-left-color: #c1080f;
-  border-right-color: #c1080f;
+  border-color: #DF5353;
+}
+body .lichess_ground .analyse .undefined {
+  border-color: #66558C;
 }
 .lichess_ground .opening {
   padding-bottom: 3px;
-  border-bottom: 1px solid #ccc;
 }
-.lichess_ground .analyse > .variation {
+.lichess_ground .analyse .meta > .variation {
   font-family: 'Roboto';
   font-weight: 300;
   padding: 3px 0 3px 5px;
-  border-bottom: 1px solid #ccc;
-}
-.lichess_ground .analyse > .variation.border {
-  border-top: 1px solid #ccc;
 }
 .lichess_ground .variation .index {
   margin-left: 5px;
