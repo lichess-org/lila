@@ -11,7 +11,12 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
 
   import Schedule.Freq._
   import Schedule.Speed._
+  import Schedule.Season._
   import chess.variant._
+
+  val marathonDates = List(
+    Summer -> new DateTime(2015, 8, 1)
+  )
 
   def receive = {
 

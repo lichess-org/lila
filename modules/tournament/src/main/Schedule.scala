@@ -47,6 +47,14 @@ object Schedule {
     def apply(name: String) = all find (_.name == name)
   }
 
+  sealed trait Season
+  object Season {
+    case object Spring extends Season
+    case object Summer extends Season
+    case object Autumn extends Season
+    case object Winter extends Season
+  }
+
   private[tournament] def durationFor(sched: Schedule): Option[Int] = {
     import Freq._, Speed._
     Some((sched.freq, sched.speed, sched.variant) match {
