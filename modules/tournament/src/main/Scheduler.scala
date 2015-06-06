@@ -14,7 +14,7 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
   import Schedule.Season._
   import chess.variant._
 
-  val marathonDates = List(
+  def marathonDates = List(
     // Spring -> Saturday of the weekend after Orthodox Easter Sunday
     // Summer -> first Saturday of August
     // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
