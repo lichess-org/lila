@@ -2,8 +2,10 @@ package lila.monitor
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
+import lila.common.WindowCount
 
 final class Env(
     config: Config,
@@ -14,7 +16,6 @@ final class Env(
 
   private val ActorName = config getString "actor.name"
   private val SocketName = config getString "socket.name"
-  private val RpsIntervall = config duration "rps.interval"
   private val SocketUidTtl = config duration "socket.uid.ttl"
 
   private lazy val socket = system.actorOf(
@@ -40,10 +41,10 @@ final class Env(
   }
 
   // requests per second
-  private lazy val reqWindowCount = new lila.common.WindowCount(RpsIntervall)
+  private lazy val reqWindowCount = new WindowCount(1 second)
 
   // moves per second
-  private lazy val moveWindowCount = new lila.common.WindowCount(RpsIntervall)
+  private lazy val moveWindowCount = new WindowCount(1 second)
 }
 
 object Env {
