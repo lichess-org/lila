@@ -230,7 +230,7 @@ case class Started(
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.flatMap(u => userCurrentPov(u.id))
 
-  def finish = refreshPlayers |> { tour =>
+  def finish = withPlayers(players.map(_.unWithdraw)).refreshPlayers |> { tour =>
     Finished(
       id = tour.id,
       data = tour.data,
