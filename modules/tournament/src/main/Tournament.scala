@@ -235,7 +235,7 @@ case class Started(
       id = tour.id,
       data = tour.data,
       startedAt = tour.startedAt,
-      players = tour.players,
+      players = tour.players.map(_.unWithdraw),
       pairings = tour.pairings filterNot (_.playing),
       events = tour.events)
   }
