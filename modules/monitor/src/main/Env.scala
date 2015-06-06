@@ -24,8 +24,8 @@ final class Env(
 
   val reporting = system.actorOf(
     Props(new Reporting(
-      rpsProvider = rpsProvider,
-      mpsProvider = mpsProvider,
+      reqWindowCount = reqWindowCount,
+      moveWindowCount = moveWindowCount,
       socket = socket,
       db = db,
       hub = hub
@@ -40,10 +40,10 @@ final class Env(
   }
 
   // requests per second
-  private lazy val rpsProvider = new RpsProvider(RpsIntervall)
+  private lazy val reqWindowCount = new lila.common.WindowCount(RpsIntervall)
 
   // moves per second
-  private lazy val mpsProvider = new RpsProvider(RpsIntervall)
+  private lazy val moveWindowCount = new lila.common.WindowCount(RpsIntervall)
 }
 
 object Env {

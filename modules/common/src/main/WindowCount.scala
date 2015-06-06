@@ -1,9 +1,9 @@
-package lila.monitor
+package lila.common
 
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.stm.Ref
 
-private[monitor] final class RpsProvider(timeout: FiniteDuration) {
+final class WindowCount(timeout: FiniteDuration) {
 
   private val counter = Ref((0, (0, nowMillis)))
 
@@ -18,7 +18,7 @@ private[monitor] final class RpsProvider(timeout: FiniteDuration) {
     }
   }
 
-  def rps = {
+  def get = {
     val current = nowMillis
     val (precedent, (count, millis)) = counter.single()
     val since = current - millis

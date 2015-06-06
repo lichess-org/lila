@@ -14,8 +14,8 @@ import lila.hub.actorApi.round.MoveEvent
 import lila.socket.actorApi.{ NbMembers, PopulationGet }
 
 private[monitor] final class Reporting(
-    rpsProvider: RpsProvider,
-    mpsProvider: RpsProvider,
+    reqWindowCount: lila.common.WindowCount,
+    moveWindowCount: lila.common.WindowCount,
     socket: ActorRef,
     db: lila.db.Env,
     hub: lila.hub.Env) extends Actor {
@@ -49,15 +49,15 @@ private[monitor] final class Reporting(
 
   def receive = {
 
-    case _: MoveEvent     => mpsProvider.add
+    case _: MoveEvent     => moveWindowCount.add
 
-    case AddRequest       => rpsProvider.add
+    case AddRequest       => reqWindowCount.add
 
     case PopulationGet    => sender ! nbMembers
 
     case NbMembers(nb, _) => nbMembers = nb
 
-    case GetNbMoves       => sender ! mpsProvider.rps
+    case GetNbMoves       => sender ! moveWindowCount.get
 
     case Update => socket ? PopulationGet foreach {
       case 0 => idle = true
@@ -71,8 +71,8 @@ private[monitor] final class Reporting(
               loadAvg = osStats.getSystemLoadAverage.toFloat
               nbThreads = threadStats.getThreadCount
               memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
-              rps = rpsProvider.rps
-              mps = mpsProvider.rps
+              rps = moveWindowCount.get
+              mps = reqWindowCount.get
               cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
               socket ! MonitorData(monitorData(idle))
               idle = false
