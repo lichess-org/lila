@@ -26,7 +26,9 @@ chat = chat.map(c => base.chat(c, trans.chatRoom.str())),
 underchat = underchat.some,
 moreJs = moreJs,
 chessground = false) {
-<div id="tournament" @if(tour.scheduled) { class="scheduled" }></div>
+<div id="tournament" @tour.schedule.map { sched =>
+  class="scheduled @sched.freq @sched.speed @sched.variant"
+  }></div>
 @if(!tour.isRunning && !tour.isFinished) {
 <div id="tournament_faq" class="none">
   @faq(tour.rated.some, tour.system.some, tour.`private`.option(tour.id))
