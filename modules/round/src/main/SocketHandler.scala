@@ -56,12 +56,11 @@ private[round] final class SocketHandler(
         case ("draw-force", _)   => round(DrawForce(playerId))
         case ("abort", _)        => round(Abort(playerId))
         case ("move", o) => parseMove(o) foreach {
-          case (orig, dest, prom, blur, lag) => {
-            socket ! Ack(uid)
+          case (orig, dest, prom, blur, lag) =>
+            member push ackEvent
             round(HumanPlay(
               playerId, member.ip, orig, dest, prom, blur, lag.millis, _ => socket ! Resync(uid)
             ))
-          }
         }
         case ("moretime", _)  => round(Moretime(playerId))
         case ("outoftime", _) => round(Outoftime)
@@ -125,7 +124,7 @@ private[round] final class SocketHandler(
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
       Handler(hub, socket, uid, join, user map (_.id)) {
         case Connected(enum, member) =>
-          controller(pov.gameId, socket, uid, pov.ref, member) -> enum
+          (controller(pov.gameId, socket, uid, pov.ref, member), enum, member)
       }
     }
   }
@@ -138,4 +137,6 @@ private[round] final class SocketHandler(
     blur = (d int "b") == Some(1)
     lag = d int "lag"
   } yield (orig, dest, prom, blur, ~lag)
+
+  private val ackEvent = Json.obj("t" -> "ack")
 }

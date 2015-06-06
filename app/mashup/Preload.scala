@@ -22,8 +22,7 @@ final class Preload(
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
     countRounds: () => Int,
     lobbyApi: lila.api.LobbyApi,
-    getPlayban: String => Fu[Option[TempBan]],
-    geoIP: lila.security.GeoIP) {
+    getPlayban: String => Fu[Option[TempBan]]) {
 
   private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], List[Simul], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Int)
 

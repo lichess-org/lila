@@ -13,7 +13,7 @@
           <a class="hint--top" href="@routes.Importer.importGame" data-hint="@trans.importGame()">IMPORT</a>
           •
           @if(game.variant.exotic) {
-          @variantLink(game.variant, (if (game.variant ==  chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
+          @variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, cssClass = "hint--top", initialFen = initialFen)
           } else {
           @game.variant.name.toUpperCase
           }
@@ -87,60 +87,8 @@
   }
 
   @tour match {
-  case Some(t: lila.tournament.StartedOrFinished) => {
-  <div class="game_tournament side_box no_padding scroll-shadow-soft">
-    <p class="top" data-icon="g"> <a href="@routes.Tournament.show(t.id)">@t.fullName</a></p>
-    @t match {
-    case t: lila.tournament.Started => {
-    <div class="clock" data-time="@t.remainingSeconds">
-      <div class="time text" data-icon="p">@t.clockStatus</div>
-    </div>
-    }
-    case _ => {
-    }
-    }
-    @if(withTourStanding) {
-    <table class="slist standing">
-      <tbody>
-        @t.rankedPlayers.map {
-        case lila.tournament.RankedPlayer(rank, player) => {
-        @defining((
-        t scoreSheet player,
-        // TODO FIXME that's a little ugly I must say.
-        t.system.scoringSystem match {
-        case ss @ arena.ScoringSystem => ss.scoreSheet(t, player.id).onFire
-        case _                        => false
-        })) {
-        case (scoreSheet, onFire) => {
-        <tr @if(ctx.userId.exists(player.id==)) { class="me" }>
-          <td class="name">
-            @if(player.withdraw) {
-            <span data-icon="b" title="@trans.withdraw()"></span>
-            } else {
-            @if(t.isFinished && rank == 1) {
-            <span data-icon="g" title="@trans.winner()"></span>
-            } else {
-            <span class="rank">@rank</span>
-            }
-            }
-            @userInfosLink(player.id, none, withOnline = false)
-          </td>
-          <td class="total">
-            <strong@if(onFire) { class="is-gold" data-icon="Q" }>@scoreSheet.total</strong>
-          </td>
-        </tr>
-        <tr><td class="around-bar" colspan="3"><div class="bar" data-value="@scoreSheet.total"></div></td></tr>
-        }
-        }
-        }
-        }
-      </tbody>
-    </table>
-    }
-  </div>
-  }
-  case _ => {
-  }
+  case Some(t: lila.tournament.StartedOrFinished) => { @tournament.gameStanding(t, withTourStanding) }
+  case _ => {}
   }
 
   @simul.map { sim =>

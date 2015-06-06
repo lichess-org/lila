@@ -1,4 +1,4 @@
-@(title: String, side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, moreCss: Html = Html(""), moreJs: Html = Html(""), openGraph: Map[Symbol, String] = Map.empty)(body: Html)(implicit ctx: Context)
+@(title: String, side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, moreCss: Html = Html(""), moreJs: Html = Html(""), openGraph: Map[Symbol, String] = Map.empty, chessground: Boolean)(body: Html)(implicit ctx: Context)
 
 @base.layout(
 title = title,
@@ -8,4 +8,4 @@ underchat = underchat,
 moreCss = moreCss,
 moreJs = moreJs,
 openGraph = openGraph,
-chessground = false)(body)
+chessground = chessground)(body)

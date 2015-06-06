@@ -85,10 +85,10 @@ final class Env(
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
       case lila.hub.actorApi.mod.MarkCheater(userId) => api ejectCheater userId
       case lila.hub.actorApi.simul.GetHostIds        => api.currentHostIds pipeTo sender
-      case move: lila.hub.actorApi.round.MoveEvent if move.color == chess.Black =>
+      case move: lila.hub.actorApi.round.MoveEvent =>
         move.simulId foreach { simulId =>
-          move.opponentUserId foreach { hostId =>
-            hub.actor.userRegister ! lila.hub.actorApi.SendTo(hostId,
+          move.opponentUserId foreach { opId =>
+            hub.actor.userRegister ! lila.hub.actorApi.SendTo(opId,
               lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId))
           }
         }

@@ -15,10 +15,12 @@
 <ol class="scheduled_tournaments">
   @scheduled.map { tour =>
   @tour.schedule.map { s =>
-  <li data-icon="@tour.perfType.map(_.iconChar)" class="is-gold">
+  @if(s.freq != lila.tournament.Schedule.Freq.Hourly) {
+  <li data-icon="@tournamentIconChar(tour)" class="is-gold @s.freq.name">
     <a href="@routes.Tournament.show(tour.id)">@tour.fullName</a>
     @momentFormat(s.at, "calendar")
   </li>
+  }
   }
   }
 </ol>

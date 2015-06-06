@@ -8,7 +8,7 @@ var opposite = chessground.util.opposite;
 var xhr = require('../xhr');
 var clockView = require('../clock/view');
 var renderCorrespondenceClock = require('../correspondenceClock/view');
-var renderReplay = require('../replay/view');
+var renderReplay = require('./replay');
 var renderStatus = require('./status');
 var renderUser = require('game').view.user;
 var button = require('./button');
@@ -50,7 +50,7 @@ function renderTableEnd(ctrl) {
     button.analysis(ctrl)
   ]);
   return [
-    renderReplay(ctrl.replay),
+    renderReplay(ctrl),
     buttons ? m('div.control.buttons', buttons) : null,
     renderPlayer(ctrl, d.player)
   ];
@@ -64,7 +64,7 @@ function renderTableWatch(ctrl) {
     button.analysis(ctrl)
   ]);
   return [
-    renderReplay(ctrl.replay),
+    renderReplay(ctrl),
     buttons ? m('div.control.buttons', buttons) : null,
     renderPlayer(ctrl, d.player)
   ];
@@ -79,18 +79,14 @@ function renderTablePlay(ctrl) {
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
     button.answerOpponentTakebackProposition(ctrl), (ctrl.data.tournament && game.nbMoves(d, d.player.color) === 0) ? m('div.text[data-icon=j]',
-      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 30)
+      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 15)
     ) : null
   ]);
   return [
-    renderReplay(ctrl.replay),
+    renderReplay(ctrl),
     m('div.control.icons', [
-      button.standard(ctrl, game.abortable, 'L', 'abortGame', 'abort'),
-      game.takebackable(ctrl.data) ? m('button', {
-        class: 'button hint--bottom takeback-yes',
-        'data-hint': ctrl.trans('proposeATakeback'),
-        onclick: partial(ctrl.takebackYes)
-      }, m('span[data-icon=i]')) : null,
+      game.abortable(ctrl.data) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
+      button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', partial(ctrl.takebackYes)),
       button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
       button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
     ]),
@@ -128,15 +124,16 @@ function goBerserk(ctrl) {
 
 function renderClock(ctrl, color, position) {
   var time = ctrl.clock.data[color];
+  var running = ctrl.isClockRunning() && ctrl.data.game.player === color;
   return m('div', {
     class: 'clock clock_' + color + ' clock_' + position + ' ' + classSet({
       'outoftime': !time,
-      'running': ctrl.isClockRunning() && ctrl.data.game.player === color,
+      'running': running,
       'emerg': time < ctrl.clock.data.emerg
     })
   }, [
     clockView.showBar(ctrl.clock, time),
-    m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000))),
+    m('div.time', m.trust(clockView.formatClockTime(ctrl.clock, time * 1000, running))),
     game.berserkOf(ctrl.data, color) ? berserkIcon : (
       ctrl.data.player.color === color && game.berserkableBy(ctrl.data) ? goBerserk(ctrl) : null
     )

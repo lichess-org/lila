@@ -20,6 +20,7 @@ final class Env(
     val OnlineTtl = config duration "online.ttl"
     val CollectionUser = config getString "collection.user"
     val CollectionNote = config getString "collection.note"
+    val CollectionTrophy = config getString "collection.trophy"
   }
   import settings._
 
@@ -30,6 +31,8 @@ final class Env(
   lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
 
   lazy val noteApi = new NoteApi(db(CollectionNote), timeline)
+
+  lazy val trophyApi = new TrophyApi(db(CollectionTrophy))
 
   lazy val jsonView = new JsonView(isOnline)
 

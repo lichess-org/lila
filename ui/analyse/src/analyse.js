@@ -1,84 +1,73 @@
 var treePath = require('./path');
 var defined = require('./util').defined;
 
-module.exports = function(game, analysis) {
+module.exports = function(steps, analysis) {
 
-  var makeTree = function(sans, fromPly) {
-    return sans.map(function(san, i) {
-      return {
-        ply: fromPly + i,
-        san: san,
-        comments: [],
-        variations: []
-      };
-    });
-  }
+  this.tree = steps;
 
-  var applyAnalysis = function(tree, analysed) {
-    analysed.forEach(function(ana, i) {
-      if (!tree[i]) return;
-      if (defined(ana.mate)) tree[i].mate = ana.mate;
-      else if (defined(ana.eval)) tree[i].eval = ana.eval;
-      if (ana.comment) tree[i].comments.push(ana.comment);
-      if (ana.variation) tree[i].variations.push(makeTree(ana.variation.split(' '), i + 1));
-    });
-  };
-
-  this.tree = makeTree(game.moves, 1);
-  if (analysis) applyAnalysis(this.tree, analysis.moves);
-
-  this.moveList = function(path) {
-    var tree = this.tree;
-    var moves = [];
-    path.forEach(function(step) {
-      for (var i = 0, nb = tree.length; i < nb; i++) {
-        var move = tree[i];
-        if (step.ply == move.ply && step.variation) {
-          tree = move.variations[step.variation - 1];
-          break;
-        } else if (step.ply >= move.ply) moves.push(move.san);
-        else break;
-      }
-    });
-    return moves;
+  this.firstPly = function() {
+    return this.tree[0].ply;
   }.bind(this);
 
-  this.explore = function(path, san) {
-    var nextPath = treePath.withPly(path, treePath.currentPly(path) + 1);
+  this.getStep = function(path) {
     var tree = this.tree;
-    var curMove = null;
-    nextPath.forEach(function(step) {
-      for (i = 0, nb = tree.length; i < nb; i++) {
-        var move = tree[i];
-        if (step.ply == move.ply) {
-          if (step.variation) {
-            tree = move.variations[step.variation - 1];
+    for (var j in path) {
+      var p = path[j];
+      for (var i = 0, nb = tree.length; i < nb; i++) {
+        if (p.ply === tree[i].ply) {
+          if (p.variation) {
+            tree = tree[i].variations[p.variation - 1];
             break;
-          } else curMove = move;
-        } else if (step.ply < move.ply) break;
-      }
-    });
-    if (curMove) {
-      if (curMove.san == san) return nextPath;
-      for (var i = 0; i < curMove.variations.length; i++) {
-        if (curMove.variations[i][0].san == san) {
-          return treePath.withVariation(nextPath, i + 1);
+          }
+          return tree[i];
         }
       }
-      curMove.variations.push([{
-        ply: curMove.ply,
-        san: san,
-        comments: [],
-        variations: []
-      }]);
-      return treePath.withVariation(nextPath, curMove.variations.length);
     }
-    tree.push({
-      ply: treePath.currentPly(nextPath),
-      san: san,
-      comments: [],
-      variations: []
+  }
+
+  this.addStep = function(step, path) {
+    var nextPath = treePath.withPly(path, treePath.currentPly(path) + 1);
+    var tree = this.tree;
+    var curStep = null;
+    nextPath.forEach(function(p) {
+      for (i = 0, nb = tree.length; i < nb; i++) {
+        var step = tree[i];
+        if (p.ply === step.ply) {
+          if (p.variation) {
+            tree = step.variations[p.variation - 1];
+            break;
+          } else curStep = step;
+        } else if (p.ply < step.ply) break;
+      }
     });
+    if (curStep) {
+      curStep.variations = curStep.variations || [];
+      if (curStep.san === step.san) return nextPath;
+      for (var i = 0; i < curStep.variations.length; i++) {
+        if (curStep.variations[i][0].san === step.san)
+           return treePath.withVariation(nextPath, i + 1);
+      }
+      curStep.variations.push([step]);
+      return treePath.withVariation(nextPath, curStep.variations.length);
+    }
+    tree.push(step);
     return nextPath;
+  }.bind(this);
+
+  this.addDests = function(dests, path) {
+    var tree = this.tree;
+    for (var j in path) {
+      var p = path[j];
+      for (var i = 0, nb = tree.length; i < nb; i++) {
+        if (p.ply === tree[i].ply) {
+          if (p.variation) {
+            tree = tree[i].variations[p.variation - 1];
+            break;
+          }
+          tree[i].dests = dests;
+          return;
+        }
+      }
+    }
   }.bind(this);
 }

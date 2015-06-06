@@ -240,7 +240,6 @@ wins=Победи
 losses=Порази
 winStreak=Низ од победи
 createdBy=Создадено од
-waitingForNbPlayers=Се чекаат %s играчи
 tournamentIsStarting=Турнирот започна
 membersOnly=Само за членови
 boardEditor=Уредник на таблата

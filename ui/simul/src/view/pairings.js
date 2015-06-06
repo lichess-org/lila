@@ -17,7 +17,7 @@ function miniPairing(ctrl) {
       m('a', {
         href: '/' + game.id,
         class: 'mini_board live_' + game.id + ' parse_fen is2d',
-        'data-color': 'white',
+        'data-color': game.orient,
         'data-fen': game.fen,
         'data-lastmove': game.lastMove,
         config: function(el, isUpdate) {

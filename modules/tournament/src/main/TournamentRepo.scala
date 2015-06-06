@@ -32,6 +32,12 @@ object TournamentRepo {
   def startedById(id: String): Fu[Option[Started]] =
     coll.find(selectId(id) ++ startedSelect).one[Started]
 
+  def startedOrFinishedById(id: String): Fu[Option[StartedOrFinished]] =
+    byId(id) map {
+      case Some(t: StartedOrFinished) => t.some
+      case _                          => none
+    }
+
   def createdByIdAndCreator(id: String, userId: String): Fu[Option[Created]] =
     createdById(id) map (_ filter (_ isCreator userId))
 
@@ -65,12 +71,16 @@ object TournamentRepo {
 
   def allCreated: Fu[List[Created]] = coll.find(allCreatedSelect).toList[Created](None)
 
-  def recentlyStartedSorted: Fu[List[Started]] = coll.find(startedSelect ++ BSONDocument(
-    "private" -> BSONDocument("$exists" -> false),
-    "startedAt" -> BSONDocument("$gt" -> (DateTime.now minusMinutes 20))
-  )).sort(BSONDocument("schedule.at" -> 1, "createdAt" -> 1)).toList[Started](none)
+  private def notCloseToFinishSorted: Fu[List[Started]] = {
+    val finishAfter = DateTime.now plusMinutes 20
+    coll.find(startedSelect ++ BSONDocument(
+      "private" -> BSONDocument("$exists" -> false)
+    )).sort(BSONDocument("schedule.at" -> 1, "createdAt" -> 1)).toList[Started](none) map {
+      _.filter(_.finishedAt isAfter finishAfter)
+    }
+  }
 
-  def promotable: Fu[List[Enterable]] = publicCreatedSorted zip recentlyStartedSorted map {
+  def promotable: Fu[List[Enterable]] = publicCreatedSorted zip notCloseToFinishSorted map {
     case (created, started) => created ::: started
   }
 
@@ -78,8 +88,25 @@ object TournamentRepo {
     "schedule" -> BSONDocument("$exists" -> true)
   )).sort(BSONDocument("schedule.at" -> 1)).toList[Created](none)
 
+  def scheduledDedup: Fu[List[Created]] = scheduled map {
+    import Schedule.Freq
+    _.flatMap { tour =>
+      tour.schedule map (tour -> _)
+    }.foldLeft(List[Created]() -> none[Freq]) {
+      case ((tours, skip), (_, sched)) if skip.contains(sched.freq) => (tours, skip)
+      case ((tours, skip), (tour, sched)) => (tour :: tours, sched.freq match {
+        case Freq.Daily   => Freq.Nightly.some
+        case Freq.Nightly => Freq.Daily.some
+        case _            => skip
+      })
+    }._1.reverse
+  }
+
   def lastFinishedScheduledByFreq(freq: Schedule.Freq, nb: Int): Fu[List[Finished]] = coll.find(
-    finishedSelect ++ BSONDocument("schedule.freq" -> freq.name)
+    finishedSelect ++ BSONDocument(
+      "schedule.freq" -> freq.name,
+      "schedule.speed" -> BSONDocument("$in" -> Schedule.Speed.noSuperBlitz.map(_.name))
+    )
   ).sort(BSONDocument("schedule.at" -> -1)).toList[Finished](nb.some)
 
   def update(tour: Tournament) = coll.update(BSONDocument("_id" -> tour.id), tour)

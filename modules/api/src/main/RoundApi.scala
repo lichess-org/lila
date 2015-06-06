@@ -3,10 +3,10 @@ package lila.api
 import play.api.libs.json._
 
 import chess.format.pgn.Pgn
-import lila.analyse.Analysis
+import lila.analyse.{ Analysis, Info }
 import lila.common.LightUser
 import lila.common.PimpedJson._
-import lila.game.Pov
+import lila.game.{ Pov, Game, GameRepo }
 import lila.pref.Pref
 import lila.round.JsonView
 import lila.security.Granter
@@ -22,45 +22,62 @@ private[api] final class RoundApi(
     lightUser: String => Option[LightUser]) {
 
   def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] =
-    jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
-      withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
-      (pov.game.tournamentId ?? TournamentRepo.byId) zip
-      (pov.game.simulId ?? getSimul) zip
-      (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-        case (((json, tourOption), simulOption), note) => (
-          blindMode _ compose
-          withTournament(pov, tourOption)_ compose
-          withSimul(pov, simulOption)_ compose
-          withNote(note)_
-        )(json)
-      }
+    GameRepo.initialFen(pov.game) flatMap { initialFen =>
+      jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
+        initialFen = initialFen,
+        withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
+        (pov.game.tournamentId ?? TournamentRepo.byId) zip
+        (pov.game.simulId ?? getSimul) zip
+        (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
+          case (((json, tourOption), simulOption), note) => (
+            blindMode _ compose
+            withTournament(pov, tourOption)_ compose
+            withSimul(pov, simulOption)_ compose
+            withSteps(pov, none, initialFen)_ compose
+            withNote(note)_
+          )(json)
+        }
+    }
 
   def watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean],
     analysis: Option[(Pgn, Analysis)] = None,
-    initialFen: Option[Option[String]] = None,
+    initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false)(implicit ctx: Context): Fu[JsObject] =
-    jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
-      withBlurs = ctx.me ?? Granter(_.ViewBlurs),
-      initialFen = initialFen,
-      withMoveTimes = withMoveTimes) zip
-      (pov.game.tournamentId ?? TournamentRepo.byId) zip
-      (pov.game.simulId ?? getSimul) zip
-      (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
-        case (((json, tourOption), simulOption), note) => (
-          blindMode _ compose
-          withTournament(pov, tourOption)_ compose
-          withSimul(pov, simulOption)_ compose
-          withNote(note)_ compose
-          withAnalysis(analysis)_
-        )(json)
-      }
+    initialFenO.fold(GameRepo initialFen pov.game)(fuccess) flatMap { initialFen =>
+      jsonView.watcherJson(pov, ctx.pref, apiVersion, ctx.me, tv,
+        withBlurs = ctx.me ?? Granter(_.ViewBlurs),
+        initialFen = initialFen,
+        withMoveTimes = withMoveTimes) zip
+        (pov.game.tournamentId ?? TournamentRepo.byId) zip
+        (pov.game.simulId ?? getSimul) zip
+        (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
+          case (((json, tourOption), simulOption), note) => (
+            blindMode _ compose
+            withTournament(pov, tourOption)_ compose
+            withSimul(pov, simulOption)_ compose
+            withNote(note)_ compose
+            withSteps(pov, analysis, initialFen)_ compose
+            withAnalysis(analysis)_
+          )(json)
+        }
+    }
+
+  def userAnalysisJson(pov: Pov, pref: Pref, initialFen: Option[String]) =
+    jsonView.userAnalysisJson(pov, pref) map withSteps(pov, none, initialFen)_
+
+  private def withSteps(pov: Pov, a: Option[(Pgn, Analysis)], initialFen: Option[String])(obj: JsObject) =
+    obj + ("steps" -> lila.round.StepBuilder(
+      id = pov.game.id,
+      pgnMoves = pov.game.pgnMoves,
+      variant = pov.game.variant,
+      a = a,
+      initialFen = initialFen | chess.format.Forsyth.initial))
 
   private def withNote(note: String)(json: JsObject) =
     if (note.isEmpty) json else json + ("note" -> JsString(note))
 
   private def withAnalysis(a: Option[(Pgn, Analysis)])(json: JsObject) = a.fold(json) {
     case (pgn, analysis) => json + ("analysis" -> Json.obj(
-      "moves" -> analysisApi.game(analysis, pgn),
       "white" -> analysisApi.player(chess.Color.White)(analysis),
       "black" -> analysisApi.player(chess.Color.Black)(analysis)
     ))

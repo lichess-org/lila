@@ -74,10 +74,6 @@ object GameRepo {
     $query(Query user user) sort Query.sortCreated, nb
   ) map { _.flatMap(g => Pov(g, user)) }
 
-  def chronologicalFinishedByUser(userId: String): Fu[List[Game]] = $find(
-    $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc F.createdAt)
-  )
-
   def gamesForAssessment(userId: String, nb: Int): Fu[List[Game]] = $find(
     $query(Query.finished
       ++ Query.rated
@@ -119,18 +115,20 @@ object GameRepo {
       s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(white._2),
       s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> BSONInteger(black._2))))
 
-  def setUsers(id: ID, white: Option[(String, Int)], black: Option[(String, Int)]) =
+  def setUsers(id: ID, white: Option[Player.UserInfo], black: Option[Player.UserInfo]) =
     (white.isDefined || black.isDefined) ?? {
       $update($select(id), BSONDocument("$set" -> BSONDocument(
-        s"${F.whitePlayer}.${Player.BSONFields.rating}" -> white.map(_._2).map(BSONInteger.apply),
-        s"${F.blackPlayer}.${Player.BSONFields.rating}" -> black.map(_._2).map(BSONInteger.apply),
-        F.playerUids -> lila.db.BSON.writer.listO(List(~white.map(_._1), ~black.map(_._1))),
-        F.playingUids -> List(white.map(_._1), black.map(_._1)).flatten.distinct
+        s"${F.whitePlayer}.${Player.BSONFields.rating}" -> white.map(_.rating).map(BSONInteger.apply),
+        s"${F.blackPlayer}.${Player.BSONFields.rating}" -> black.map(_.rating).map(BSONInteger.apply),
+        s"${F.whitePlayer}.${Player.BSONFields.provisional}" -> white.map(_.provisional).filter(identity),
+        s"${F.blackPlayer}.${Player.BSONFields.provisional}" -> black.map(_.provisional).filter(identity),
+        F.playerUids -> lila.db.BSON.writer.listO(List(~white.map(_.id), ~black.map(_.id))),
+        F.playingUids -> List(white.map(_.id), black.map(_.id)).flatten.distinct
       )))
     }
 
   def urgentGames(user: User): Fu[List[Pov]] =
-    $find(Query nowPlaying user.id, 50) map { games =>
+    $find(Query nowPlaying user.id, 300) map { games =>
       val povs = games flatMap { Pov(_, user) }
       try {
         povs sortWith Pov.priority
@@ -227,7 +225,7 @@ object GameRepo {
     val userIds = g2.userIds.distinct
     val fen = (!g2.variant.standardInitialPosition)
       .option(Forsyth >> g2.toChess)
-      .filterNot(Forsyth.initial ==)
+      .filter(Forsyth.initial !=)
     val bson = (gameTube.handler write g2) ++ BSONDocument(
       F.initialFen -> fen,
       F.checkAt -> (!g2.isPgnImport).option(DateTime.now.plusHours(g2.hasClock.fold(1, 24))),
@@ -289,6 +287,8 @@ object GameRepo {
     val command = Aggregate(gameTube.coll.name, Seq(
       Match(BSONDocument(F.playerUids -> userId)),
       Match(BSONDocument(F.playerUids -> BSONDocument("$size" -> 2))),
+      Sort(Seq(Descending(F.createdAt))),
+      Limit(1000), // only look in the last 1000 games
       Unwind(F.playerUids),
       Match(BSONDocument(F.playerUids -> BSONDocument("$ne" -> userId))),
       GroupField(F.playerUids)("gs" -> SumValue(1)),
@@ -324,6 +324,11 @@ object GameRepo {
       F.binaryPieces -> game.binaryPieces
     )
   ))
+
+  def findPgnImport(pgn: String): Fu[Option[Game]] =
+    gameTube.coll.find(
+      BSONDocument(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
+    ).one[Game]
 
   def getPgn(id: ID): Fu[PgnMoves] = getOptionPgn(id) map (~_)
 

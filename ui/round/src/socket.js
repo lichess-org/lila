@@ -2,7 +2,9 @@ var m = require('mithril');
 var game = require('game').game;
 var ground = require('./ground');
 var atomic = require('./atomic');
+var util = require('./util');
 var xhr = require('./xhr');
+var partial = require('chessground').util.partial;
 
 module.exports = function(send, ctrl) {
 
@@ -11,14 +13,14 @@ module.exports = function(send, ctrl) {
   var handlers = {
     possibleMoves: function(o) {
       ctrl.data.possibleMoves = o;
-      if (!ctrl.replay.active) ctrl.chessground.set({
+      if (!ctrl.replaying()) ctrl.chessground.set({
         movable: {
-          dests: game.parsePossibleMoves(o)
+          dests: util.parsePossibleMoves(o)
         }
       });
     },
     state: function(o) {
-      if (!ctrl.replay.active) ctrl.chessground.set({
+      if (!ctrl.replaying()) ctrl.chessground.set({
         turnColor: o.color
       });
       ctrl.data.game.player = o.color;
@@ -46,7 +48,7 @@ module.exports = function(send, ctrl) {
       else ctrl.chessground.playPremove();
     },
     castling: function(o) {
-      if (ctrl.replay.active || ctrl.chessground.data.autoCastle) return;
+      if (ctrl.replaying() || ctrl.chessground.data.autoCastle) return;
       var pieces = {};
       pieces[o.king[0]] = null;
       pieces[o.rook[0]] = null;
@@ -61,12 +63,12 @@ module.exports = function(send, ctrl) {
       ctrl.chessground.setPieces(pieces);
     },
     check: function(o) {
-      if (!ctrl.replay.active) ctrl.chessground.set({
+      if (!ctrl.replaying()) ctrl.chessground.set({
         check: o
       });
     },
     enpassant: function(o) {
-      if (!ctrl.replay.active) {
+      if (!ctrl.replaying()) {
         var pieces = {};
         pieces[o.key] = null;
         ctrl.chessground.setPieces(pieces);
@@ -116,7 +118,11 @@ module.exports = function(send, ctrl) {
       lichess.reload();
     },
     simulPlayerMove: function(gameId) {
-      if (gameId !== ctrl.data.game.id &&
+      if (
+        ctrl.userId &&
+        ctrl.data.simul &&
+        ctrl.userId == ctrl.data.simul.hostId &&
+        gameId !== ctrl.data.game.id &&
         ctrl.moveOn.get() &&
         ctrl.chessground.data.turnColor !== ctrl.chessground.data.orientation) {
         $.sound.move();
@@ -125,6 +131,10 @@ module.exports = function(send, ctrl) {
       }
     }
   };
+
+  this.moreTime = util.throttle(300, false, partial(send, 'moretime', null));
+
+  this.outoftime = util.throttle(500, false, partial(send, 'outoftime', null));
 
   this.receive = function(type, data) {
     if (handlers[type]) {

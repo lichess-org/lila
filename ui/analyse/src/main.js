@@ -12,6 +12,7 @@ module.exports = function(opts) {
   });
 
   return {
+    socketReceive: controller.socket.receive,
     jump: function(ply) {
       controller.jumpToMain(ply);
       m.redraw();

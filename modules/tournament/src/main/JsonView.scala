@@ -22,26 +22,23 @@ final class JsonView(
         "system" -> tour.system.toString.toLowerCase,
         "fullName" -> tour.fullName,
         "private" -> tour.`private`,
-        "schedule" -> tour.schedule.map(scheduleJson),
         "variant" -> tour.variant.key,
-        "players" -> tour.rankedPlayers.map(playerJson(sheets)),
+        "players" -> tour.rankedPlayers.map(playerJson(sheets, tour)),
         "winner" -> tour.winner.map(_.id),
         "pairings" -> tour.pairings.take(50).map(pairingJson),
         "isOpen" -> tour.isOpen,
         "isRunning" -> tour.isRunning,
         "isFinished" -> tour.isFinished,
-        "lastGames" -> games.map(gameJson)) ++ specifics(tour)
+        "lastGames" -> games.map(gameJson),
+        "schedule" -> tour.schedule.map(scheduleJson)) ++ specifics(tour)
     }
 
   private def specifics(tour: Tournament) = tour match {
     case t: Created => Json.obj(
-      "enoughPlayersToStart" -> t.enoughPlayersToStart,
-      "enoughPlayersToEarlyStart" -> t.enoughPlayersToEarlyStart,
-      "missingPlayers" -> (t.missingPlayers != -1).option(t.missingPlayers)
-    ).noNull
-    case t: Started => Json.obj(
-      "seconds" -> t.remainingSeconds)
-    case _ => Json.obj()
+      "secondsToStart" -> t.secondsToStart,
+      "startsAt" -> t.startsAt.map(org.joda.time.format.ISODateTimeFormat.dateTime.print))
+    case t: Started => Json.obj("seconds" -> t.remainingSeconds)
+    case _          => Json.obj()
   }
 
   private def lastGames(tour: Tournament) = tour match {
@@ -49,13 +46,9 @@ final class JsonView(
     case _                    => fuccess(Nil)
   }
 
-  private def scheduleJson(s: Schedule) = Json.obj(
-    "seconds" -> s.inSeconds)
-
   private def gameUserJson(player: lila.game.Player) = {
     val light = player.userId flatMap getLightUser
     Json.obj(
-      "id" -> player.userId,
       "name" -> light.map(_.name),
       "title" -> light.map(_.title),
       "rating" -> player.rating
@@ -70,11 +63,15 @@ final class JsonView(
     "user1" -> gameUserJson(g.firstPlayer),
     "user2" -> gameUserJson(g.secondPlayer))
 
+  private def scheduleJson(s: Schedule) = Json.obj(
+    "freq" -> s.freq.name,
+    "speed" -> s.speed.name)
+
   private def sheetJson(sheet: ScoreSheet) = sheet match {
     case s: arena.ScoringSystem.Sheet => Json.obj(
-      "scores" -> s.scores.take(36).reverse.map { score =>
-        if (score.flag == arena.ScoringSystem.Normal) Json.arr(score.value)
-        else Json.arr(score.value, score.flag.toString.toLowerCase)
+      "scores" -> s.scores.reverse.map { score =>
+        if (score.flag == arena.ScoringSystem.Normal) JsNumber(score.value)
+        else Json.arr(score.value, score.flag.id)
       },
       "total" -> s.total,
       "fire" -> s.onFire.option(true)
@@ -85,33 +82,41 @@ final class JsonView(
       "neustadtl" -> s.neustadtlRepr)
   }
 
-  private def playerJson(sheets: Map[String, ScoreSheet])(rankedPlayer: RankedPlayer) = {
+  private def playerJson(sheets: Map[String, ScoreSheet], tour: Tournament)(rankedPlayer: RankedPlayer) = {
     val p = rankedPlayer.player
     val light = getLightUser(p.id)
     Json.obj(
       "rank" -> rankedPlayer.rank,
-      "id" -> p.id,
-      "username" -> light.map(_.name),
+      "name" -> light.fold(p.id)(_.name),
       "title" -> light.map(_.title),
       "rating" -> p.rating,
+      "provisional" -> p.provisional.option(true),
       "withdraw" -> p.withdraw.option(true),
       "score" -> p.score,
-      "sheet" -> sheets.get(p.id).map(sheetJson)).noNull
+      "perf" -> p.perf,
+      "opposition" -> (tour.isFinished && rankedPlayer.rank <= 3).option(opposition(tour, p)),
+      "sheet" -> sheets.get(p.id).map(sheetJson)
+    ).noNull
   }
 
-  private def pairingUserJson(userId: String) = {
-    val name = getLightUser(userId).fold(userId)(_.name)
-    if (name == userId) Json.arr(userId)
-    else Json.arr(userId, name)
-  }
+  private def opposition(tour: Tournament, p: Player): Int =
+    tour.userPairings(p.id).foldLeft((0, 0)) {
+      case ((count, sum), pairing) => (
+        count + 1,
+        (pairing opponentOf p.id flatMap tour.playerByUserId).fold(sum)(_.rating + sum)
+      )
+    } match {
+      case (0, _)       => 0
+      case (count, sum) => sum / count
+    }
+
+  private def pairingUserJson(userId: String) = getLightUser(userId).fold(userId)(_.name)
 
   private def pairingJson(p: Pairing) = Json.obj(
-    "gameId" -> p.gameId,
-    "status" -> p.status.id,
-    "user1" -> pairingUserJson(p.user1),
-    "user2" -> pairingUserJson(p.user2),
-    "winner" -> p.winner,
-    "berserk1" -> p.berserk1.some.filter(0!=),
-    "berserk2" -> p.berserk2.some.filter(0!=)
-  ).noNull
+    "id" -> p.gameId,
+    "st" -> p.status.id,
+    "u1" -> pairingUserJson(p.user1),
+    "u2" -> pairingUserJson(p.user2),
+    "wi" -> p.winner
+  )
 }

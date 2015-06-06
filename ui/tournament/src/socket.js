@@ -7,8 +7,13 @@ module.exports = function(send, ctrl) {
 
   var handlers = {
     reload: function(data) {
+      // require to restart the clock
+      if (ctrl.data.isRunning !== data.isRunning) m.redraw.strategy('all');
       ctrl.reload(data);
       m.redraw();
+    },
+    deleted: function() {
+      lichess.reload();
     }
   };
 

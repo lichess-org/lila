@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.libs.json.Json
 import play.api.mvc._, Results._
 
 import lila.api.Context
@@ -41,10 +42,11 @@ object User extends LilaController {
     OptionFuResult(UserRepo named username) { user =>
       GameRepo lastPlayedPlaying user zip
         (ctx.userId ?? { relationApi.blocks(user.id, _) }) zip
+        (ctx.userId ?? { Env.game.crosstableApi(user.id, _) }) zip
         (ctx.isAuth ?? { Env.pref.api.followable(user.id) }) zip
         (ctx.userId ?? { relationApi.relation(_, user.id) }) map {
-          case (((pov, blocked), followable), relation) =>
-            Ok(html.user.mini(user, pov, blocked, followable, relation))
+          case ((((pov, blocked), crosstable), followable), relation) =>
+            Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable))
               .withHeaders(CACHE_CONTROL -> "max-age=5")
         }
     }
@@ -56,7 +58,13 @@ object User extends LilaController {
 
   def online = Open { implicit req =>
     val max = 1000
-    UserRepo.byIdsSortRating(env.onlineUserIdMemo.keys, max) map { html.user.online(_, max) }
+    def get(nb: Int) = UserRepo.byIdsSortRating(env.onlineUserIdMemo.keys, nb)
+    negotiate(
+      html = get(max) map { html.user.online(_, max) },
+      api = _ => get(getInt("nb").fold(10)(_ min max)) map { list =>
+        Ok(Json.toJson(list.map(env.jsonView(_, true))))
+      }
+    )
   }
 
   private def filter(
@@ -66,14 +74,19 @@ object User extends LilaController {
     status: Results.Status = Results.Ok)(implicit ctx: Context) =
     Reasonable(page) {
       OptionFuResult(UserRepo named username) { u =>
-        (u.enabled || isGranted(_.UserSpy)).fold({
-          if (lila.common.HTTPRequest.isSynchronousHttp(ctx.req))
-            userShow(u, filterOption, page)
-          else
-            userGames(u, filterOption, page)
-        } map { status(_) },
-          fuccess(NotFound(html.user.disabled(u)))
-        )
+        if (u.enabled || isGranted(_.UserSpy)) negotiate(
+          html = {
+            if (lila.common.HTTPRequest.isSynchronousHttp(ctx.req)) userShow(u, filterOption, page)
+            else userGames(u, filterOption, page) map {
+              case (filterName, pag) => html.user.games(u, pag, filterName)
+            }
+          } map { status(_) },
+          api = _ => userGames(u, filterOption, page) map {
+            case (filterName, pag) => Ok(Env.api.userGameApi.filter(filterName, pag))
+          })
+        else negotiate(
+          html = fuccess(NotFound(html.user.disabled(u))),
+          api = _ => fuccess(NotFound(Json.obj("error" -> "No such user, or account closed"))))
       }
     }
 
@@ -105,7 +118,7 @@ object User extends LilaController {
         filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
         me = ctx.me,
         page = page
-      ) map { html.user.games(u, _, filterName) }
+      ) map { filterName -> _ }
     }
   }
 
@@ -130,21 +143,38 @@ object User extends LilaController {
       }
       tourneyWinners ← Env.tournament.winners scheduled nb
       online ← env.cached topOnline 40
-    } yield html.user.list(
-      tourneyWinners = tourneyWinners,
-      online = online,
-      bullet = bullet,
-      blitz = blitz,
-      classical = classical,
-      correspondence = correspondence,
-      chess960 = chess960,
-      kingOfTheHill = kingOfTheHill,
-      threeCheck = threeCheck,
-      antichess = antichess,
-      atomic = atomic,
-      horde = horde,
-      nbWeek = nbWeek,
-      nbAllTime = nbAllTime)
+      res <- negotiate(
+        html = fuccess(Ok(html.user.list(
+          tourneyWinners = tourneyWinners,
+          online = online,
+          bullet = bullet,
+          blitz = blitz,
+          classical = classical,
+          correspondence = correspondence,
+          chess960 = chess960,
+          kingOfTheHill = kingOfTheHill,
+          threeCheck = threeCheck,
+          antichess = antichess,
+          atomic = atomic,
+          horde = horde,
+          nbWeek = nbWeek,
+          nbAllTime = nbAllTime))),
+        api = _ => fuccess {
+          implicit val userWrites = play.api.libs.json.Writes[UserModel] { env.jsonView(_, true) }
+          Ok(Json.obj(
+            "online" -> online,
+            "bullet" -> bullet,
+            "blitz" -> blitz,
+            "classical" -> classical,
+            "correspondence" -> correspondence,
+            "chess960" -> chess960,
+            "kingOfTheHill" -> kingOfTheHill,
+            "threeCheck" -> threeCheck,
+            "antichess" -> antichess,
+            "atomic" -> atomic,
+            "horde" -> horde))
+        })
+    } yield res
   }
 
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx =>

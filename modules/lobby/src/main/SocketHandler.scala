@@ -48,7 +48,7 @@ private[lobby] final class SocketHandler(
       val join = Join(uid = uid, user = user, blocking = blockedUserIds)
       Handler(hub, socket, uid, join, user map (_.id)) {
         case Connected(enum, member) =>
-          controller(socket, uid, member) -> enum
+          (controller(socket, uid, member), enum, member)
       }
     }
 }

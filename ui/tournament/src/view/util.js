@@ -34,14 +34,16 @@ function miniGame(game) {
 }
 
 module.exports = {
-  secondsFromNow: function(seconds) {
-    var time = moment().add(seconds, 'seconds');
-    return m('time.moment-from-now', {
-      datetime: time.format()
-    }, time.fromNow());
-  },
   title: function(ctrl) {
-    return m('h1.text[data-icon=g]', [
+    if (ctrl.data.schedule && ctrl.data.schedule.freq === 'marathon')
+      return m('h1.marathon_title', [
+        m('span.fire_trophy.marathonWinner', m('span[data-icon=\\]')),
+        ctrl.data.fullName
+      ]);
+    return m('h1', {
+      class: 'text',
+      'data-icon': ctrl.data.isFinished ? '' : 'g'
+    }, [
       ctrl.data.fullName,
       ctrl.data.private ? [
         ' ',
@@ -49,20 +51,37 @@ module.exports = {
       ] : null
     ]);
   },
+  currentPlayer: function(ctrl) {
+    if (!ctrl.userId) return null;
+    return ctrl.data.players.filter(function(p) {
+      return (p.name || '').toLowerCase() === ctrl.userId;
+    })[0] || null;
+  },
   player: function(p) {
+    var perf;
+    if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
+    else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
+    var rating = p.rating + (p.provisional ? '?' : '');
     return {
       tag: 'a',
       attrs: {
         class: 'text ulpt user_link',
-        href: '/@/' + p.username
+        href: '/@/' + p.name
       },
       children: [
-        (p.title ? p.title + ' ' : '') + p.username,
-        p.rating ? m('em', p.rating) : null
+        (p.title ? p.title + ' ' : '') + p.name,
+        m('span.progress', [rating, perf])
       ]
     };
   },
   games: function(games) {
     return m('div.game_list.playing', games.map(miniGame));
+  },
+  clock: function(time) {
+    return function(el, isUpdate) {
+      if (!isUpdate) $(el).clock({
+        time: time
+      });
+    };
   }
 };

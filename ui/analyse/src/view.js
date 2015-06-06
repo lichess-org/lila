@@ -2,6 +2,7 @@ var m = require('mithril');
 var chessground = require('chessground');
 var classSet = require('chessground').util.classSet;
 var defined = require('./util').defined;
+var empty = require('./util').empty;
 var game = require('game').game;
 var partial = require('chessground').util.partial;
 var renderStatus = require('game').view.status;
@@ -27,7 +28,7 @@ function renderEvalTag(e) {
 }
 
 function autoScroll(movelist) {
-  var plyEl = movelist.querySelector('.active');
+  var plyEl = movelist.querySelector('.active') || movelist.querySelector('.turn:first-child');
   if (plyEl) movelist.scrollTop = plyEl.offsetTop - movelist.offsetHeight / 2 + plyEl.offsetHeight / 2;
 }
 
@@ -91,7 +92,7 @@ function renderVariationContent(ctrl, variation, path) {
 }
 
 function renderVariationMeta(ctrl, move, path) {
-  if (!move || !move.variations.length) return;
+  if (!move || empty(move.variations)) return;
   return move.variations.map(function(variation, i) {
     return renderVariationNested(ctrl, variation, treePath.withVariation(path, i + 1));
   });
@@ -127,26 +128,28 @@ function renderMeta(ctrl, move, path) {
   if (!ctrl.vm.comments) return;
   var opening = ctrl.data.game.opening;
   opening = (move && opening && opening.size == move.ply) ? renderOpening(ctrl, opening) : null;
-  if (!move || (!opening && !move.comments.length && !move.variations.length)) return;
+  if (!move || (!opening && empty(move.comments) && empty(move.variations))) return;
   var children = [];
   if (opening) children.push(opening);
+  var colorClass = move.ply % 2 === 0 ? 'black ' : 'white ';
   var commentClass;
-  if (move.comments.length) move.comments.forEach(function(comment) {
+  if (!empty(move.comments)) move.comments.forEach(function(comment) {
     if (comment.indexOf('Inaccuracy.') === 0) commentClass = 'inaccuracy';
     else if (comment.indexOf('Mistake.') === 0) commentClass = 'mistake';
     else if (comment.indexOf('Blunder.') === 0) commentClass = 'blunder';
     children.push(m('div', {
-      class: 'comment ' + commentClass
+      class: 'comment ' + colorClass + commentClass
     }, comment));
   });
   var border = children.length === 0;
-  if (move.variations.length) move.variations.forEach(function(variation, i) {
+  if (!empty(move.variations)) move.variations.forEach(function(variation, i) {
+    if (empty(variation)) return;
     children.push(renderVariation(
       ctrl,
       variation,
       treePath.withVariation(path, i + 1),
       border,
-      i === 0 ? commentClass : null
+      i === 0 ? colorClass + commentClass : null
     ));
     border = false;
   });
@@ -203,8 +206,9 @@ function renderTurn(ctrl, turn, path) {
 
 function renderTree(ctrl, tree) {
   var turns = [];
-  for (i = 0, nb = tree.length; i < nb; i += 2) turns.push({
-    turn: Math.floor(i / 2) + 1,
+  var initPly = ctrl.analyse.firstPly();
+  for (i = 1, nb = tree.length; i < nb; i += 2) turns.push({
+    turn: Math.floor((initPly + i) / 2) + 1,
     white: tree[i],
     black: tree[i + 1]
   });

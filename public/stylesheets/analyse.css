@@ -211,14 +211,23 @@ div.game_control .jumps {
   padding: 3px 0 0 5px;
   border-top: 1px solid #ccc;
 }
-.lichess_ground .inaccuracy {
-  border-left: 3px solid #909090!important;
+.lichess_ground .analyse .white {
+  border-left: 3px solid;
 }
-.lichess_ground .mistake {
-  border-left: 3px solid #cf8a02!important;
+.lichess_ground .analyse .black {
+  border-right: 3px solid;
 }
-.lichess_ground .blunder {
-  border-left: 3px solid #c1080f!important;
+body .lichess_ground .analyse .inaccuracy {
+  border-left-color: #909090;
+  border-right-color: #909090;
+}
+body .lichess_ground .analyse .mistake {
+  border-left-color: #cf8a02;
+  border-right-color: #cf8a02;
+}
+body .lichess_ground .analyse .blunder {
+  border-left-color: #c1080f;
+  border-right-color: #c1080f;
 }
 .lichess_ground .opening {
   padding-bottom: 3px;

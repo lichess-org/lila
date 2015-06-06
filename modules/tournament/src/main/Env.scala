@@ -19,11 +19,12 @@ final class Env(
     flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMap: ActorRef,
+    roundSocketHub: ActorSelection,
     lightUser: String => Option[lila.common.LightUser],
     isOnline: String => Boolean,
-    isDev: Boolean,
     onStart: String => Unit,
     secondsToMove: Int,
+    trophyApi: lila.user.TrophyApi,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -42,7 +43,7 @@ final class Env(
   }
   import settings._
 
-  lazy val forms = new DataForm(isDev)
+  lazy val forms = new DataForm
 
   lazy val api = new TournamentApi(
     system = system,
@@ -54,7 +55,9 @@ final class Env(
     socketHub = socketHub,
     site = hub.socket.site,
     lobby = hub.socket.lobby,
-    roundMap = roundMap)
+    trophyApi = trophyApi,
+    roundMap = roundMap,
+    roundSocketHub = roundSocketHub)
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,
@@ -142,10 +145,11 @@ object Env {
     flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
     roundMap = lila.round.Env.current.roundMap,
+    roundSocketHub = lila.hub.Env.current.socket.round,
     lightUser = lila.user.Env.current.lightUser,
     isOnline = lila.user.Env.current.isOnline,
-    isDev = lila.common.PlayApp.isDev,
     onStart = lila.game.Env.current.onStart,
     secondsToMove = lila.game.Env.current.MandatorySecondsToMove,
+    trophyApi = lila.user.Env.current.trophyApi,
     scheduler = lila.common.PlayApp.scheduler)
 }

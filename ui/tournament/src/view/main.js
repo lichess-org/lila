@@ -19,7 +19,11 @@ module.exports = function(ctrl) {
       class: 'scroll-shadow-soft'
     }, side) : null,
     m('div', {
-        class: 'content_box no_padding tournament_box tournament_show' + (ctrl.vm.loading ? ' loading' : '')
+        class: util.classSet({
+          'content_box no_padding tournament_box tournament_show': true,
+          'loading': ctrl.vm.loading,
+          'finished': ctrl.data.isFinished
+        })
       },
       handler.main(ctrl)
     )

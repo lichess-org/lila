@@ -1,0 +1,42 @@
+@()(implicit ctx: Context)
+
+<div id="topmenu">
+  <section>
+    <a href="/">@trans.play()</a>
+    <div>
+      <a href="/?any#hook">@trans.createAGame()</a>
+      <a href="@routes.Tournament.home">@trans.tournament()</a>
+      <a href="@routes.Simul.home">Simul</a>
+      <a href="@routes.Tv.index">Lichess TV</a>
+    </div>
+  </section>
+  <section>
+    <a href="@routes.Puzzle.home">@trans.learn()</a>
+    <div>
+      <a href="@routes.Puzzle.home">@trans.training()</a>
+      <a href="@routes.Opening.home">@trans.openings()</a>
+      <a href="@routes.Coordinate.home">@trans.coordinates()</a>
+      <a href="@routes.Video.index">Video library</a>
+    </div>
+  </section>
+  <section>
+    <a href="@routes.User.list">@trans.community()</a>
+    <div>
+      <a href="@routes.User.list">@trans.players()</a>
+      @NotForKids {
+      <a href="@routes.Team.home()">@trans.teams()</a>
+      <a href="@routes.ForumCateg.index">@trans.forum()</a>
+      }
+      <a href="@routes.QaQuestion.index()">@trans.questionsAndAnswers()</a>
+    </div>
+  </section>
+  <section>
+    <a href="@routes.UserAnalysis.index">@trans.tools()</a>
+    <div>
+      <a href="@routes.UserAnalysis.index">@trans.analysis()</a>
+      <a href="@routes.Editor.index">@trans.boardEditor()</a>
+      <a href="@routes.Importer.importGame">@trans.importGame()</a>
+      <a href="@routes.Game.search()">@trans.advancedSearch()</a>
+    </div>
+  </section>
+</div>

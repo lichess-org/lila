@@ -5,15 +5,17 @@ var util = require('./util');
 var arena = require('./arena');
 var swiss = require('./swiss');
 var pairings = require('./pairings');
+var pagination = require('../pagination');
 
 module.exports = {
   main: function(ctrl) {
+    var pag = pagination.players(ctrl);
     return [
-      m('div.title_tag', ctrl.trans('finished')),
       util.title(ctrl),
-      m('div.standing_wrap.scroll-shadow-soft',
-        m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''),
-          ctrl.data.system === 'arena' ? arena.standing(ctrl) : swiss.standing(ctrl))),
+      arena.podium(ctrl),
+      m('div.standing_wrap',
+        pagination.render(ctrl, pag,
+          m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), (ctrl.data.system === 'arena' ? arena.standing : swiss.standing)(ctrl, pag)))),
       util.games(ctrl.data.lastGames)
     ];
   },

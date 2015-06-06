@@ -50,7 +50,7 @@ private[tournament] final class Socket(
       }
       notifyReload
 
-    case Reload                => notifyReload
+    case Reload        => notifyReload
 
     case GetAllUserIds => sender ! AllUserIds(all = userIds, waiting = waitingUserIds)
 
@@ -98,9 +98,9 @@ private[tournament] final class Socket(
 
     case NotifyReload =>
       delayedReloadNotification = false
-      jsonView(tournamentId) foreach { obj =>
-        notifyVersion("reload", obj, Messadata())
-      }
+      jsonView(tournamentId).effectFold(
+        err => notifyVersion("deleted", JsNull, Messadata()),
+        obj => notifyVersion("reload", obj, Messadata()))
   }
 
   private var waitingUsers = Map[String, DateTime]()
@@ -114,11 +114,11 @@ private[tournament] final class Socket(
     }.++ {
       us.filterNot(waitingUsers.contains).map { _ -> date }
     }
-    // 1+0  -> 5  -> 8
-    // 3+0  -> 9  -> 11
-    // 5+0  -> 17 -> 17
-    // 10+0 -> 32 -> 30
-    val waitSeconds = ((clock.fold(60)(_.estimateTotalTime) / 20) + 2) min 30 max 8
+    // 1+0  5  -> 10
+    // 3+0  9  -> 14
+    // 5+0  17 -> 22
+    // 10+0 32 -> 35
+    val waitSeconds = ((clock.fold(60)(_.estimateTotalTime) / 15) + 2) min 35 max 10
     val since = date minusSeconds waitSeconds
     waitingUsers.collect {
       case (u, d) if d.isBefore(since) => u

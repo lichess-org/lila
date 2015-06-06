@@ -7,6 +7,7 @@ object Fonts {
   private lazy val packs: Map[String, String] = List(
     "cyrillic" -> "av be bg ce cu cv kv mk os ru sr uk",
     "cyrillic-ext" -> "ab ba kk ky mn tg",
+    "devanagari" -> "hi ne mr",
     "greek" -> "el",
     "latin-ext" -> "cs cy gn hu mi ro sm tr ty pl",
     "vietnamese" -> "vi"

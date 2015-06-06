@@ -41,11 +41,7 @@ object Query {
 
   val frozen = Json.obj(F.status -> $gte(Status.Mate.id))
 
-  val imported: JsObject = Json.obj(s"${F.source}" -> Source.Import.id)
-
   def imported(u: String): JsObject = Json.obj(s"${F.pgnImport}.user" -> u)
-
-  def pgnImport(pgn: String) = imported ++ Json.obj(s"${F.pgnImport}.pgn" -> pgn)
 
   def clock(c: Boolean) = Json.obj(F.clock -> $exists(c))
 
@@ -76,6 +72,9 @@ object Query {
   def turnsGt(nb: Int) = Json.obj(F.turns -> $gt(nb))
 
   def checkable = Json.obj(F.checkAt -> $lt($date(DateTime.now)))
+
+  def variant(v: chess.variant.Variant) =
+    Json.obj(F.variant -> v.standard.fold($exists(false), v.id))
 
   val sortCreated = $sort desc F.createdAt
   val sortUpdatedNoIndex = $sort desc F.updatedAt

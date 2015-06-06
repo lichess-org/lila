@@ -11,14 +11,16 @@ object Dictionary {
 (c|k)oc?k(y|suc?ker|)
 (c|k)um(shot|)
 (c|k)unt(ing|)
-(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|tard?|face|off?|)
+(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|en|tard?|face|off?|)
 fck(er|r|u|k|ed|d|t|ing?|tard?|face|off?|)
 abortion
+adol(f|ph)
 anal(plug|sex|)
 anus
 arse(hole|wipe|)
 ass
 ass?(hole|fag)
+aus?c?hwitz
 ball
 bastard?
 bewb
@@ -67,7 +69,7 @@ gook
 gypo
 handjob
 hell
-hitler
+hitler+
 homm?o(sexual|)
 honkey
 hooker

@@ -1,0 +1,49 @@
+#!/bin/sh
+. bin/lilarc
+
+for node in cammy; do
+  # for node in paul salim2 hexal matthews jaldus patat cammy adele; do
+  if [ $node = "paul" ]; then
+    REMOTE="paul"
+    REMOTE_DIR="/home/lila5"
+    RESTART="service lila5 restart"
+  elif [ $node = "salim2" ]; then
+    REMOTE="salim2"
+    REMOTE_DIR="/home/lila"
+    RESTART="pkill java && cd /home/lila && bin/lila -Dconfig.file=/home/lila/application.conf -Dhttp.port=9000 -mem 128 > logs/output.log 2>&1 &"
+  elif [ $node = "hexal" ]; then
+    REMOTE="hexal"
+    REMOTE_DIR="/home/lila"
+    RESTART="pkill java && cd /home/lila && bin/lila -Dconfig.file=/home/lila/application.conf -Dhttp.port=9000 -mem 128 > logs/output.log 2>&1 &"
+  elif [ $node = "matthews" ]; then
+    REMOTE="matthews"
+    REMOTE_DIR="/home/thibault/lila"
+    RESTART="cd /home/thibault/lila && bin/lila -mem 128 -Dhttp.port=9009 -Dconfig.file=/home/thibault/lila/application.conf > logs/output 2>&1 &"
+  elif [ $node = "jaldus" ]; then
+    REMOTE="jaldus"
+    REMOTE_DIR="/home/ornicar"
+    RESTART="sudo pkill java && cd /home/ornicar && bin/lila -mem 128 -Dhttp.port=9009 -Dconfig.file=/home/ornicar/application.conf > logs/output.log 2>&1 &"
+  elif [ $node = "patat" ]; then
+    REMOTE="patat"
+    REMOTE_DIR="/home/lichess"
+    RESTART="pkill java"
+  elif [ $node = "neary" ]; then
+    REMOTE="neary"
+    REMOTE_DIR="/home/lichess"
+    # outdated
+  elif [ $node = "cammy" ]; then
+    REMOTE="cammy"
+    REMOTE_DIR="/home/lichess"
+    RESTART='pkill java && cd /home/lichess && bin/lila -Dconfig.file=/home/lichess/application.conf -Dhttp.port=9009 -mem 128 > logs/output.log 2>&1 &'
+  elif [ $node = "adele" ]; then
+    REMOTE="adele"
+    REMOTE_DIR="/home/lichess"
+    RESTART='pkill java && cd /home/lichess && bin/lila -Dconfig.file=/home/lichess/application.conf -Dhttp.port=9009 -mem 128 > logs/output.log 2>&1 &'
+  elif [ $node = "local" ]; then
+    REMOTE="localhost"
+    REMOTE_DIR="/tmp/lila5"
+  fi
+  lilalog "Deploy to $node server $REMOTE:$REMOTE_DIR"
+  # ssh $REMOTE "cd $REMOTE_DIR; $RESTART"
+  ssh $REMOTE "cd $REMOTE_DIR; bin/install-stockfish; $RESTART"
+done

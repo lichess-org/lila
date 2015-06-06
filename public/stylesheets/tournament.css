@@ -40,16 +40,121 @@ ol.scheduled_tournaments a:hover {
   font-size: 1.7em;
   display: block;
 }
+#tournament_list table.slist .name em {
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  opacity: 0.5;
+  letter-spacing: 0px;
+  vertical-align: middle;
+}
 #tournament.scheduled h1,
 #tournament table tr.standing.scheduled:first-child td:first-child {
   color: #d59120;
 }
+#tournament .finished h1 {
+  text-align: center;
+}
 #tournament .title_tag {
   float: right;
-  font-size: 20px;
+  margin: 25px 25px 0 0;
+}
+#tournament .title_tag .time {
   font-family: monospace;
   font-weight: bold;
-  margin: 25px 25px 0 0;
+  font-size: 20px;
+}
+#tournament .title_tag .shy {
+  line-height: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+#tournament .marathon_title {
+  position: relative;
+  padding-left: 90px;
+}
+#tournament .marathon_title .fire_trophy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 80px;
+  opacity: 0.7;
+  transition: 1s;
+}
+#tournament .marathon_title .fire_trophy:hover {
+  opacity: 1;
+}
+#tournament .marathon_title .fire_trophy span {
+  margin-top: -78px;
+  margin-right: 32px;
+}
+#tournament .podium {
+  margin: 0px 0 20px 0;
+}
+#tournament .podium > div {
+  display: inline-block;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#tournament .podium .first {
+  width: 44%;
+  font-size: 1.6em;
+}
+#tournament .podium .second {
+  font-size: 1.3em;
+  width: 31%;
+}
+#tournament .podium .third {
+  font-size: 1.2em;
+  width: 25%;
+}
+#tournament .podium .first .trophy {
+  height: 150px;
+  width: 195px;
+  background: url(../images/icons/trophy-1.png) no-repeat;
+  background-size: cover;
+}
+#tournament .podium .second .trophy {
+  height: 85px;
+  width: calc(1.1056 * 85px);
+  background: url(../images/icons/trophy-2.min.svg) no-repeat;
+}
+#tournament .podium .third .trophy {
+  height: 65px;
+  width: calc(1.1056 * 65px);
+  background: url(../images/icons/trophy-3.min.svg) no-repeat;
+}
+#tournament .podium .trophy {
+  margin: 0 auto 8px auto;
+  background-size: contain!important;
+}
+#tournament .podium .user_link {
+  text-decoration: none;
+  font-weight: bold;
+}
+#tournament .podium .progress {
+  display: block;
+}
+#tournament .podium .progress span {
+  font-size: 0.8em;
+}
+#tournament .podium .stats {
+  margin: 0.5em auto 0 auto;
+  font-size: 0.7em;
+}
+#tournament .podium .stats th {
+  letter-spacing: -1px;
+}
+#tournament .podium .stats td {
+  font-weight: bold;
+  padding-left: 5px;
+  text-align: right;
+}
+#tournament .podium .third .stats {
+  font-size: 0.8em;
 }
 #tournament div.tournament_show {
   width: 525px;
@@ -60,11 +165,12 @@ ol.scheduled_tournaments a:hover {
   padding-top: 20px;
   overflow: hidden;
 }
-#tournament a.user_link em {
-  font-family: 'Roboto';
-  font-weight: 300;
+#tournament a.user_link .progress {
   font-style: italic;
   font-size: 0.8em;
+  padding-left: 5px;
+}
+#tournament a.user_link .progress span {
   padding-left: 5px;
 }
 #tournament a.pov {
@@ -108,36 +214,55 @@ ol.scheduled_tournaments a:hover {
 #tournament table.slist .small {
   font-size: 0.8em;
 }
-#tournament div.standing_wrap {
-  max-height: 485px;
-  overflow: hidden;
-  border-bottom: 1px solid #ccc;
-}
 #tournament div.standing_wrap:hover {
   overflow-y: auto;
+}
+#tournament div.pager {
+  text-align: center;
+  margin: 10px 20px 0 20px;
+  font-weight: bold;
+  opacity: 0.7;
+  transition: 0.13s;
+}
+#tournament div.pager:hover {
+  opacity: 1;
+}
+#tournament div.pager > * {
+  display: inline-block;
+  margin: 0 5px;
 }
 #tournament table.standing {
   width: 525px;
   border-bottom: none;
 }
-#tournament table.standing td.name,
+#tournament table.standing .player_rank {
+  margin-left: 10px;
+}
+#tournament table.standing td:first-child,
 #tournament table.standing th:first-child {
   padding-left: 10px;
   white-space: nowrap;
 }
-#tournament table.standing td.name span {
-  display: inline-block;
-  width: 24px;
-}
-#tournament table.standing tr.me td.name {
+#tournament table.standing tr.me td:first-child {
   border-left: 10px solid #d59120;
-  padding-left: 9px;
+  padding-left: 5px;
+}
+#tournament table.slist td:first-child rank {
+  display: inline-block;
+  font-weight: bold;
+  width: 20px;
+  opacity: 0.6;
+}
+#tournament table.slist td:first-child rank.big {
+  width: 30px;
 }
 #tournament table.standing .legend {
   text-align: right;
+  font-size: 0.9em;
 }
-#tournament table.standing .legend span {
-  margin-right: 10px;
+#tournament table.standing .legend double,
+#tournament table.standing .legend streak {
+  margin-right: 5px;
   line-height: 30px;
 }
 #tournament table.standing .sheet,
@@ -146,7 +271,7 @@ ol.scheduled_tournaments a:hover {
   font-family: monospace;
   letter-spacing: 0;
 }
-#tournament table.standing .sheet span,
+#tournament table.standing .sheet > *,
 #tournament table.standing .total span {
   display: inline-block;
   width: 12px;
@@ -154,11 +279,11 @@ ol.scheduled_tournaments a:hover {
 #tournament div.standing_wrap td.total {
   padding-right: 20px;
 }
-#tournament .double {
+#tournament double {
   color: #d59120;
   font-weight: bold;
 }
-#tournament .streakstarter {
+#tournament streak {
   color: #759900;
   font-weight: bold;
 }
@@ -246,17 +371,22 @@ ol.scheduled_tournaments a:hover {
 #tournament_side a:hover {
   text-decoration: underline;
 }
-#tournament_side span {
+#tournament_side {
+  font-style: italic;
+}
+#tournament_side > a > * {
+  margin: 0 5px;
   font-weight: bold;
+  font-style: normal;
 }
-#tournament_side span.win {
-  color: #00aa00;
+#tournament_side win {
+  color: #33aa33;
 }
-#tournament_side span.loss {
-  color: #aa0000;
+#tournament_side loss {
+  color: #aa3333;
 }
-#tournament_side span.draw {
-  color: #aaaa00;
+#tournament_side draw {
+  color: #999933;
 }
 #tournament_side em {
   font-style: italic;
@@ -300,8 +430,12 @@ ol.scheduled_tournaments li::before {
   font-size: 30px;
   float: left;
   margin: 3px 5px 0 0;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 ol.scheduled_tournaments li:hover::before {
   opacity: 1;
+}
+ol.scheduled_tournaments li.marathon {
+  background: #fff;
+  box-shadow: 0 0 9px rgba(0,0,0,0.2);
 }

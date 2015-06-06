@@ -1,4 +1,5 @@
 var path = require('./path');
+var empty = require('./util').empty;
 
 function canGoForward(ctrl) {
   var tree = ctrl.analyse.tree;
@@ -25,7 +26,7 @@ function canEnterVariation(ctrl) {
         if (step.variation) {
           tree = move.variations[step.variation - 1];
           break;
-        } else ok = move.variations.length > 0;
+        } else ok = !empty(move.variations);
       }
     }
   });
@@ -47,7 +48,7 @@ module.exports = {
     var p = ctrl.vm.path;
     var len = p.length;
     if (len === 1) {
-      if (p[0].ply === 0) return;
+      if (p[0].ply === ctrl.analyse.firstPly()) return;
       p[0].ply--;
     } else {
       if (p[len - 1].ply > p[len - 2].ply) p[len - 1].ply--;
@@ -69,7 +70,7 @@ module.exports = {
 
   first: function(ctrl) {
     ctrl.userJump([{
-      ply: 0,
+      ply: ctrl.analyse.firstPly(),
       variation: null
     }]);
   },

@@ -8,22 +8,9 @@ var xhr = require('../xhr');
 function header(ctrl) {
   var tour = ctrl.data;
   return [
-    m('th.large',
-      tour.schedule ? [
-        ctrl.trans('starting') + ' ',
-        util.secondsFromNow(tour.schedule.seconds)
-      ] : (
-        tour.enoughPlayersToStart ? ctrl.trans('tournamentIsStarting') : ctrl.trans('waitingForNbPlayers', tour.missingPlayers)
-      )
-    ),
+    m('th.large', tour.players.length + ' Players'),
     ctrl.userId ? m('th',
-      tournament.containsMe(ctrl) ? [
-        (tournament.createdByMe(ctrl) && tour.enoughPlayersToEarlyStart) ?
-        m('button.button.right', {
-          onclick: partial(xhr.earlyStart, ctrl)
-        }, 'Early start') : null,
-        button.withdraw(ctrl)
-      ] : button.join(ctrl)
+      tournament.containsMe(ctrl) ? button.withdraw(ctrl) : button.join(ctrl)
     ) : m('th')
   ];
 }
@@ -35,9 +22,30 @@ function playerTr(ctrl, player) {
     }, util.player(player)));
 }
 
+var oneDayInSeconds = 60 * 60 * 24;
+
+function startingMoment(data) {
+  if (!data.secondsToStart) return;
+
+  if (data.secondsToStart > oneDayInSeconds)
+    return m('div.tournament_clock.title_tag', [
+      m('time.moment-from-now.shy', {
+        datetime: data.startsAt
+      }, data.startsAt)
+    ]);
+
+  return m('div.tournament_clock.title_tag', {
+    config: util.clock(data.secondsToStart)
+  }, [
+    m('span.shy', 'Starting in '),
+    m('span.time.text')
+  ]);
+}
+
 module.exports = {
   main: function(ctrl) {
     return [
+      startingMoment(ctrl.data),
       util.title(ctrl),
       m('table.slist.user_list',
         m('thead', m('tr', header(ctrl))),

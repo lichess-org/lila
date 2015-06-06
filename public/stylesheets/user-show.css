@@ -6,7 +6,8 @@ div.user_show .staff {
   font-weight: bold;
   margin-bottom: 1em;
 }
-div.user_show div.content_box_top > span {
+div.user_show div.content_box_top > span,
+div.user_show div.content_box_top > .trophy {
   margin-left: 10px;
   font-size: 1.6em;
   color: #afafaf;
@@ -21,6 +22,44 @@ div.user_show div.content_box_top > .trophy {
 }
 div.user_show div.content_box_top > .trophy:first-child {
   margin-right: 50px;
+}
+div.user_show .fire_trophy {
+  width: 70px;
+  height: 80px;
+}
+div.user_show .fire_trophy span {
+  transform: scale(0.35) translate(-103px, -3px);
+  -webkit-transform: scale(0.35) translate(-103px, -3px);
+  margin-top: -63px!important;
+  margin-right: -50px;
+  opacity: 0.8;
+  transition: 0.8s;
+}
+div.user_show .fire_trophy span:hover {
+  opacity: 1;
+  transform: scale(0.35) translate(-103px, -10px);
+  -webkit-transform: scale(0.35) translate(-103px, -10px);
+}
+div.user_show .fire_trophy.marathonTopTen span {
+  transform: scale(0.3) translate(-112px, 14px);
+  -webkit-transform: scale(0.3) translate(-112px, 14px);
+}
+div.user_show .fire_trophy.marathonTopTen span:hover {
+  transform: scale(0.3) translate(-112px, 6px);
+  -webkit-transform: scale(0.3) translate(-112px, 6px);
+}
+div.user_show .fire_trophy.marathonTopFifty span {
+  transform: scale(0.25) translate(-112px, 36px);
+  -webkit-transform: scale(0.25) translate(-112px, 36px);
+  animation: none;
+  -moz-animation: none;
+  -webkit-animation: none;
+  -o-animation: none;
+  text-shadow: 0px 0px 20px #ffae34, 0px 0px 25px #ec760c, 0px 0px 30px #cd4606;
+}
+div.user_show .fire_trophy.marathonTopFifty span:hover {
+  transform: scale(0.25) translate(-112px, 28px);
+  -webkit-transform: scale(0.25) translate(-112px, 28px);
 }
 div.user_show .honorific {
   display: inline-block;
@@ -246,37 +285,44 @@ div.user_show .evaluation [data-icon] {
   text-shadow: 1px 1px 1px #000;
 }
 div.user_show .evaluation .sig_1 {
-  color: #2077C0; /* dark blue */
+  color: #2077C0;
+  /* dark blue */
 }
 div.user_show .evaluation .sig_2 {
-  color: #23A1AB; /* light blue */
+  color: #23A1AB;
+  /* light blue */
 }
 div.user_show .evaluation .sig_3 {
-  color: #DDCF3F; /* yellow */
+  color: #DDCF3F;
+  /* yellow */
 }
 div.user_show .evaluation .sig_4 {
-  color: #E79B64; /* orange */
+  color: #E79B64;
+  /* orange */
 }
 div.user_show .evaluation .sig_5 {
-  color: #E73B38; /* red */
+  color: #E73B38;
+  /* red */
 }
 div.user_show .evaluation .result_4 {
-  color: #E73B38; /* red */
+  color: #E73B38;
+  /* red */
 }
 div.user_show .evaluation .result_3 {
-  color: #E73B38; /* red */
+  color: #E73B38;
+  /* red */
 }
 div.user_show .evaluation .result_2 {
-  color: #E79B64; /* orange */
+  color: #E79B64;
+  /* orange */
 }
 div.user_show .evaluation .result_1 {
-  color: #2077C0; /* dark blue */
+  color: #2077C0;
+  /* dark blue */
 }
 div.user_show .evaluation .match {
   font-weight: bold;
   color: #759900;
-}
-div.user_show .evaluation .partial {
 }
 div.user_show div.content_box_inter.tabs {
   margin-left: -8px;
@@ -284,8 +330,8 @@ div.user_show div.content_box_inter.tabs {
   width: 775px;
   border: 1px solid #ccc;
 }
-div.user_show #crosstable {
-  margin: 25px auto 15px auto;
+div.crosstable {
+  margin: 25px 10px 15px 10px;
 }
 div.user_show .evaluation .peerLink {
   text-align: center;
@@ -311,7 +357,7 @@ div.user_show .extra_stats caption {
   text-align: center;
   font-weight: bold;
   font-size: 1.2em;
-  padding-bottom: 5px; 
+  padding-bottom: 5px;
 }
 div.user_show .extra_stats th {
   text-align: right;
@@ -334,14 +380,18 @@ div.user_show .results .aggregate {
   transform: rotate(90deg);
 }
 div.user_show .reportCard .mark {
-  color: #dc322f; /* red */
+  color: #dc322f;
+  /* red */
 }
 div.user_show .reportCard .noMark {
-  /*color: #dc322f;*/ /* red */
+  /*color: #dc322f;*/
+  /* red */
 }
 div.user_show .reportCard .report {
-  color: #B8AA1A; /* red */
+  color: #B8AA1A;
+  /* red */
 }
 div.user_show .reportCard .noReport {
-  /*color: #dc322f;*/ /* red */
+  /*color: #dc322f;*/
+  /* red */
 }

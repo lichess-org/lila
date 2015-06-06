@@ -20,7 +20,7 @@ object Tournament extends LilaController {
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.notFound())
 
   val home = Open { implicit ctx =>
-    fetchTournaments zip repo.scheduled zip UserRepo.allSortToints(10) map {
+    fetchTournaments zip repo.scheduledDedup zip UserRepo.allSortToints(10) map {
       case ((((created, started), finished), scheduled), leaderboard) =>
         Ok(html.tournament.home(created, started, finished, scheduled, leaderboard))
     }
@@ -57,6 +57,12 @@ object Tournament extends LilaController {
     }
   }
 
+  def gameStanding(id: String) = Open { implicit ctx =>
+    OptionOk(repo startedOrFinishedById id) { tour =>
+      html.tournament.gameStanding(tour, true)
+    }
+  }
+
   def join(id: String) = AuthBody { implicit ctx =>
     implicit me =>
       NoEngine {
@@ -80,7 +86,7 @@ object Tournament extends LilaController {
       OptionResult(repo byId id) { tour =>
         env.api.withdraw(tour, me.id)
         if (HTTPRequest.isXhr(ctx.req)) Ok(Json.obj("ok" -> true)) as JSON
-        else Redirect(routes.Tournament.show(tour.id).url)
+        else Redirect(routes.Tournament.show(tour.id))
       }
   }
 
@@ -88,14 +94,6 @@ object Tournament extends LilaController {
     me =>
       OptionResult(repo startedById id) { tour =>
         env.api.berserk(tour, me.id)
-        Ok(Json.obj("ok" -> true)) as JSON
-      }
-  }
-
-  def earlyStart(id: String) = Auth { implicit ctx =>
-    implicit me =>
-      OptionResult(repo.createdByIdAndCreator(id, me.id)) { tour =>
-        env.api startIfReady tour
         Ok(Json.obj("ok" -> true)) as JSON
       }
   }

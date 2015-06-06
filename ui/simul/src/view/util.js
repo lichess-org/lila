@@ -9,7 +9,7 @@ function player(p) {
     },
     children: [
       (p.title ? p.title + ' ' : '') + p.username,
-      p.rating ? m('em', p.rating) : null
+      p.rating ? m('em', p.rating + (p.provisional ? '?' : '')) : null
     ]
   };
 }

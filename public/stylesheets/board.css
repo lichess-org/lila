@@ -135,7 +135,8 @@ body.base .cg-board .cg-square.exploding {
   -webkit-transform: none;
   z-index: initial;
 }
-.lichess_board.blindfold .cg-piece {
+.lichess_board.blindfold .cg-piece,
+.other_games.blindfold .cg-piece {
   opacity: 0;
 }
 .is3d .cg-piece {
@@ -213,6 +214,12 @@ div.lichess_game div.lichess_ground {
   padding-left: 15px;
   height: 512px;
   width: 242px;
+}
+div.lichess_game div.lichess_ground.for_bot h1 {
+  font-size: 2em;
+}
+div.lichess_game div.lichess_ground.for_bot p {
+  margin: 1em 0;
 }
 div.lichess_board {
   position: relative;
@@ -894,6 +901,15 @@ div.lichess_board {
 #top .cg-piece.pirouetti {
   background-image: url(../piece-src/pirouetti/wN.svg);
 }
+#top .cg-piece.reillycraig {
+  background-image: url(../piece/reillycraig/wN.svg);
+}
+#top .cg-piece.fantasy {
+  background-image: url(../piece/fantasy/wN.svg);
+}
+#top .cg-piece.shapes {
+  background-image: url(../piece/shapes/wN.svg);
+}
 .pirouetti .is2d .cg-piece.piece.white {
   -webkit-filter: drop-shadow(0 0 0.5px #000);
 }
@@ -1198,11 +1214,17 @@ div.table_wrap > .clock > .time {
 div.table_wrap > .correspondence.clock > .time {
   font-size: 20px;
 }
-div.table_wrap > .clock .time span {
+div.table_wrap > .clock .time tenths {
   font-size: 80%;
 }
 div.table_wrap > .clock .time b {
   font-weight: bold;
+}
+div.table_wrap > .clock .time seph {
+  opacity: 0.7;
+}
+div.table_wrap > .clock .time sepl {
+  opacity: 0.15;
 }
 div.table_wrap > .clock.running .time {
   background: #fff077;
@@ -1388,6 +1410,13 @@ div.under_chat .watchtv {
   text-align: center;
   margin-top: -24px;
 }
+div.under_chat .watchers {
+  opacity: 0.65;
+  transition: 0.13s;
+}
+div.under_chat .watchers:hover {
+  opacity: 1;
+}
 #chat div.top {
   position: relative;
 }
@@ -1486,6 +1515,10 @@ div.game_tournament table.standing td {
   padding: 0 10px;
   text-align: left;
   line-height: 2em;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 div.game_tournament table.standing td.name span {
   display: inline-block;

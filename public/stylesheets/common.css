@@ -1,4 +1,5 @@
 /* https://css-tricks.com/transitions-only-after-page-load/ */
+
 body.preload * {
   transition: none !important;
   -webkit-transition: none !important;
@@ -57,8 +58,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font35/fonts/lichess.eot");
-  src: url("../font35/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font35/fonts/lichess.woff") format("woff"), url("../font35/fonts/lichess.ttf") format("truetype"), url("../font35/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font38/fonts/lichess.eot");
+  src: url("../font38/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font38/fonts/lichess.woff") format("woff"), url("../font38/fonts/lichess.ttf") format("truetype"), url("../font38/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -354,6 +355,11 @@ div.content_box .loader:after {
   padding: 5px;
   border-bottom: 1px solid #c0c0c0;
 }
+#powerTip > .title a.user_link {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 #powerTip span.localization {
   display: block;
   height: 16px;
@@ -397,6 +403,11 @@ div.content_box .loader:after {
 }
 #powerTip > .actions td:last-child a {
   border-right: 0;
+}
+#powerTip > .score {
+  font-size: 1.2em;
+  text-align: center;
+  border-bottom: 1px solid #c0c0c0;
 }
 #powerTip::before,
 #hook::before {
@@ -513,6 +524,8 @@ body {
   color: #707070;
   background: #eee;
   background-image: linear-gradient(to bottom, #d7d7d7 0%, #eeeeee 116px);
+  overflow-x: hidden;
+  cursor: default;
 }
 a,
 a:visited,
@@ -576,7 +589,6 @@ body.fpmenu > div.content {
   box-sizing: border-box;
   z-index: 5001;
 }
-
 #site_description {
   position: absolute;
   top: -100px;
@@ -634,6 +646,7 @@ div.content_box {
   background: #fff;
   padding: 20px 24px 24px 24px;
   text-align: left;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 div.content_box h1 {
   font-size: 1.8em;
@@ -676,6 +689,7 @@ div.content_box_inter {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   display: block;
+  white-space: nowrap;
 }
 div.content_box_inter .intertab {
   display: inline-block;
@@ -771,10 +785,11 @@ div.side_box .padded {
   padding: 7px;
 }
 @media (max-width: 1070px) {
-div.side_box, #site_header a.stream {
-  margin-left: 0px!important;
-  width: 196px!important;
-}
+  div.side_box,
+  #site_header a.stream {
+    margin-left: 0px!important;
+    width: 196px!important;
+  }
 }
 div.chat_menu {
   margin-left: -30px;
@@ -838,6 +853,10 @@ div.side_box .game_infos {
   border-bottom: 1px solid #ccc;
   padding-bottom: 8px;
   margin-bottom: 6px;
+}
+div.side_box .players .player {
+  overflow: hidden;
+  white-space: nowrap;
 }
 .notification .message_infos::before,
 .notification .game_infos::before,
@@ -1253,6 +1272,55 @@ body.fpmenu #fpmenu {
     padding-left: 10px;
   }
 }
+#topmenu {
+  position: absolute;
+  top: 0;
+  left: -10px;
+  font-size: 13px;
+}
+#topmenu section {
+  position: relative;
+  float: left;
+  margin: 0;
+}
+#topmenu section > a {
+  color: #888;
+  display: block;
+  text-decoration: none;
+  padding: 9px 12px;
+  text-transform: uppercase;
+  text-shadow: 0px 1px 1px #fff;
+}
+#topmenu section:hover > a {
+  background: #fff;
+}
+#topmenu section:hover div {
+  display: block;
+}
+#topmenu div {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  font-size: 12px;
+  background: #fff;
+  width: 148px;
+  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+}
+#topmenu div a {
+  display: block;
+  text-decoration: none;
+  padding: 6px 10px;
+  transition: background 0.13s;
+}
+#topmenu div a:hover {
+  background: #f0f0f0;
+  color: #444;
+}
+/* #topmenu div div { */
+/*   top: 0; */
+/*   left: 100%; */
+/* } */
 #user_tag {
   font-weight: bold;
 }
@@ -1526,6 +1594,9 @@ body #themepicker div.is3d,
   cursor: pointer;
   transition: background 0.13s;
 }
+.is2d #themepicker div.theme {
+  padding: 7px 9px 9px 7px;
+}
 #themepicker div.theme:hover {
   background: #f0f0f0;
 }
@@ -1554,14 +1625,10 @@ body #themepicker div.is3d,
   background: rgba(250, 250, 250, 0.15);
 }
 #themepicker .no-square {
-  width: 64px;
-  height: 64px;
-  padding: 8px;
-  position: relative;
-}
-#themepicker .is3d .no-square {
   width: 72px;
   height: 72px;
+  padding: 8px;
+  position: relative;
   margin: 0px -3px -3px -3px;
 }
 #themepicker .is3d .cg-piece {
@@ -1722,7 +1789,7 @@ div.join_warning {
 }
 /* soft inactive gradient */
 
-#crosstable th,
+.crosstable th,
 #friend_box .title,
 div.side_box div.top,
 div.undertable_top,
@@ -1755,6 +1822,10 @@ a.button,
 #translation_call,
 table.slist thead {
   font-weight: bold;
+}
+.button:disabled,
+a.button:disabled {
+  opacity: 0.5;
 }
 .button,
 a.button {
@@ -2157,7 +2228,6 @@ div.lichess_overboard.joining .mini_board {
   border: 1px solid #eee;
   padding: 0;
   min-width: 15px;
-  transition: 0.13s;
 }
 .crosstable td a {
   line-height: 2em;
@@ -2166,7 +2236,6 @@ div.lichess_overboard.joining .mini_board {
   width: 100%;
   background: #fff;
   text-decoration: none;
-  transition: 0.13s;
 }
 .crosstable tr:first-child td:hover a,
 .crosstable tr:first-child td.current a {
@@ -2209,12 +2278,16 @@ body.base .crosstable .loss {
   display: block;
   margin: 2em 0 2em -30px;
   text-decoration: none;
+  font-size: 0.9em;
+  font-family: 'Roboto';
+  font-weight: 300;
 }
 #site_header a.stream:hover {
   text-decoration: underline;
 }
 #site_header a.stream span {
   color: #d59120;
+  font-family: 'Noto Sans';
   font-weight: bold;
 }
 #site_header a.stream span:before {
@@ -2274,7 +2347,6 @@ div.progressbar.flashy.green div {
     box-shadow: 0 0 5px 2px #fff, 0 0 10px 3px #e89000, 0 0 20px 3px #d85000;
   }
 }
-
 a.hover_text > .base,
 a.hover_text:hover > .hover {
   display: inline-block;
@@ -2507,4 +2579,42 @@ input.copyable {
   width: 300px;
   height: 295px;
   z-index: 9999;
+}
+.fire_trophy {
+  text-decoration: none;
+}
+.fire_trophy span {
+  transform: scale(0.35);
+  -webkit-transform: scale(0.35);
+  color: rgba(0,0,0,0.6);
+  font-size: 150px;
+  display: block;
+}
+.fire_trophy.marathonWinner,
+.fire_trophy.marathonTopTen,
+.fire_trophy.marathonTopFifty {
+  filter: hue-rotate(190deg);
+  -webkit-filter: hue-rotate(190deg);
+}
+.fire_trophy span {
+  animation: fire 1.25s ease-in-out infinite alternate;
+  -moz-animation: fire 1.25s ease-in-out infinite alternate;
+  -webkit-animation: fire 1.25s ease-in-out infinite alternate;
+  -o-animation: fire 1.25s ease-in-out infinite alternate;
+}
+@keyframes fire {
+  0% {
+    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
+  }
+  100% {
+    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #fefcc9, -20px -20px 40px #feec85, 22px -42px 60px #ffae34, -22px -58px 50px #ec760c, 0 -82px 80px #cd4606, 10px -90px 80px #973716;
+  }
+}
+@-webkit-keyframes fire {
+  0% {
+    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
+  }
+  100% {
+    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #fefcc9, -20px -20px 40px #feec85, 22px -42px 60px #ffae34, -22px -58px 50px #ec760c, 0 -82px 80px #cd4606, 10px -90px 80px #973716;
+  }
 }

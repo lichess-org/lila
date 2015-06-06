@@ -1,19 +1,21 @@
 var chessground = require('chessground');
+var classSet = chessground.util.classSet;
 var game = require('game').game;
 var status = require('game').status;
 var partial = chessground.util.partial;
-var throttle = require('lodash/function/throttle');
 var m = require('mithril');
 
 module.exports = {
-  standard: function(ctrl, condition, icon, hint, socketMsg) {
-    return condition(ctrl.data) ? m('button', {
-      class: 'button hint--bottom ' + socketMsg,
+  standard: function(ctrl, condition, icon, hint, socketMsg, onclick) {
+    // disabled if condition callback is provied and is falsy
+    var enabled = !condition || condition(ctrl.data);
+    return m('button', {
+      class: 'button hint--bottom ' + socketMsg + classSet({' disabled': !enabled}),
       'data-hint': ctrl.trans(hint),
-      onclick: partial(ctrl.socket.send, socketMsg, null)
+      onclick: enabled ? onclick || partial(ctrl.socket.send, socketMsg, null) : null
     }, m('span', {
       'data-icon': icon
-    })) : null
+    }));
   },
   forceResign: function(ctrl) {
     if (!ctrl.data.opponent.ai && ctrl.data.clock && ctrl.data.opponent.isGone && game.resignable(ctrl.data))
@@ -80,7 +82,7 @@ module.exports = {
     ]);
   },
   rematch: function(ctrl) {
-    if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament) {
+    if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul) {
       if (ctrl.data.opponent.onGame || ctrl.data.game.speed === 'correspondence') {
         return m('a.button.hint--bottom', {
           'data-hint': ctrl.trans('playWithTheSameOpponentAgain'),
@@ -135,10 +137,10 @@ module.exports = {
         class: 'text button strong' + (ctrl.data.tournament.running ? ' glowing' : ''),
         href: '/tournament/' + ctrl.data.tournament.id
       }, ctrl.trans('backToTournament')),
-      m('form', {
+      ctrl.data.tournament.running ? m('form', {
         method: 'post',
         action: '/tournament/' + ctrl.data.tournament.id + '/withdraw'
-      }, m('button.text.button[data-icon=b]', ctrl.trans('withdraw')))
+      }, m('button.text.button[data-icon=b]', ctrl.trans('withdraw'))) : null
     ];
   },
   viewTournament: function(ctrl) {
@@ -149,11 +151,11 @@ module.exports = {
   moretime: function(ctrl) {
     if (game.moretimeable(ctrl.data)) return m('a.moretime.hint--bottom-left', {
       'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime),
-      onclick: throttle(partial(ctrl.socket.send, 'moretime', null), 600)
+      onclick: ctrl.socket.moreTime
     }, m('span[data-icon=O]'));
   },
   analysis: function(ctrl) {
-    var hash = ctrl.replay.active ? '#' + ctrl.replay.ply : '';
+    var hash = ctrl.replaying() ? '#' + ctrl.vm.ply : '';
     if (game.replayable(ctrl.data)) return m('a.button.replay_and_analyse', {
       onclick: partial(ctrl.socket.send, 'rematch-no', null),
       href: ctrl.router.Round.watcher(ctrl.data.game.id, ctrl.data.player.color).url + hash

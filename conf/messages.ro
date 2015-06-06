@@ -245,7 +245,6 @@ wins=Victorii
 losses=Înfrângeri
 winStreak=Victorii consecutive
 createdBy=Creat de
-waitingForNbPlayers=Se așteaptă încă %s jucători
 tournamentIsStarting=Turneul începe
 membersOnly=Doar pentru membri
 boardEditor=Editorul de tablă

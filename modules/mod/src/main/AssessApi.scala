@@ -135,7 +135,7 @@ final class AssessApi(
       // the winner shows a great rating progress
       else if (game.players exists winnerGreatProgress) true
       // analyse some tourney games
-      else if (game.isTournament) scala.util.Random.nextInt(4) == 0
+      else if (game.isTournament) scala.util.Random.nextInt(3) == 0
       else false
 
     if (shouldAnalyse) analyser ! lila.hub.actorApi.ai.AutoAnalyse(game.id)

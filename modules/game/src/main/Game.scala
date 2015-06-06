@@ -175,7 +175,7 @@ case class Game(
         (status != updated.status) option status,
         whiteOffersDraw = whitePlayer.isOfferingDraw,
         blackOffersDraw = blackPlayer.isOfferingDraw) ::
-        (Event fromMove move) :::
+        Event.fromMove(move, situation) :::
         (Event fromSituation situation)
 
     val clockEvent = updated.clock map Event.Clock.apply orElse {
@@ -303,7 +303,7 @@ case class Game(
 
   def finishedOrAborted = finished || aborted
 
-  def accountable = playedTurns >= 2
+  def accountable = playedTurns >= 2 || isTournament
 
   def replayable = imported || finished
 
@@ -351,7 +351,9 @@ case class Game(
 
   def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
 
-  def estimateTotalTime = clock.fold(1200)(_.estimateTotalTime)
+  def estimateTotalTime =
+    clock.map(_.estimateTotalTime) orElse
+      correspondenceClock.map(_.estimateTotalTime) getOrElse 1200
 
   def playerWhoDidNotMove: Option[Player] = playedTurns match {
     case 0 => player(White).some
@@ -389,7 +391,7 @@ case class Game(
 
   def averageUsersRating = userRatings match {
     case a :: b :: Nil => Some((a + b) / 2)
-    case a :: Nil      => Some((a + 1200) / 2)
+    case a :: Nil      => Some((a + 1500) / 2)
     case _             => None
   }
 
@@ -409,7 +411,7 @@ case class Game(
 
   def resetTurns = copy(turns = 0, startedAtTurn = 0)
 
-  lazy val opening =
+  lazy val opening: Option[chess.OpeningExplorer.Opening] =
     if (playable || fromPosition || !Game.openingSensiblevariants(variant)) none
     else chess.OpeningExplorer openingOf pgnMoves
 

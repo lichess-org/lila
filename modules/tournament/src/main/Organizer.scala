@@ -22,13 +22,12 @@ private[tournament] final class Organizer(
     case AllCreatedTournaments => TournamentRepo.allCreated foreach {
       _ foreach { tour =>
         tour.schedule match {
-          case None =>
-            if (tour.isEmpty) api wipeEmpty tour
-            else if (tour.enoughPlayersToStart) api startIfReady tour
-            else ejectLeavers(tour)
-          case Some(schedule) =>
-            if (schedule.at.isBeforeNow) api startScheduled tour
-            else ejectLeavers(tour)
+          case None if tour.isEmpty => api wipe tour
+          case None if tour.hasWaitedEnough =>
+            if (tour.enoughPlayersToStart) api start tour
+            else api wipe tour
+          case Some(schedule) if tour.hasWaitedEnough => api start tour
+          case _                                      => ejectLeavers(tour)
         }
       }
     }
@@ -50,15 +49,13 @@ private[tournament] final class Organizer(
     tour.userIds filterNot isOnline foreach { api.withdraw(tour, _) }
 
   private def startPairing(tour: Started) {
-    if (!tour.isAlmostFinished) {
-      getUserIds(tour) foreach { res =>
-        val allUsers = res.copy(
-          all = tour.activeUserIds intersect res.all,
-          waiting = tour.activeUserIds intersect res.waiting)
-        tour.system.pairingSystem.createPairings(tour, allUsers) onSuccess {
-          case (pairings, events) =>
-            pairings.toNel foreach { api.makePairings(tour, _, events) }
-        }
+    if (!tour.isAlmostFinished) getUserIds(tour) foreach { res =>
+      val allUsers = res.copy(
+        all = tour.activeUserIds intersect res.all,
+        waiting = tour.activeUserIds intersect res.waiting)
+      tour.system.pairingSystem.createPairings(tour, allUsers) onSuccess {
+        case (pairings, events) =>
+          pairings.toNel foreach { api.makePairings(tour, _, events) }
       }
     }
   }

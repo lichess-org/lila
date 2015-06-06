@@ -1,24 +1,23 @@
 var chessground = require('chessground');
 var game = require('game').game;
 
-function makeConfig(data, situation, onMove) {
+function makeConfig(data, config, onMove) {
   return {
-    fen: situation.fen,
-    check: situation.check,
-    lastMove: situation.lastMove,
+    fen: config.fen,
+    check: config.check,
+    lastMove: config.lastMove,
     orientation: data.player.color,
     coordinates: data.pref.coords !== 0,
-    viewOnly: game.userAnalysableVariants.indexOf(data.game.variant.key) === -1,
     movable: {
       free: false,
-      color: situation.movable.color,
-      dests: situation.movable.dests,
+      color: config.movable.color,
+      dests: config.movable.dests,
       events: {
         after: onMove
       }
     },
     premovable: {
-      enabled: false
+      enabled: true
     },
     drawable: {
       enabled: true
@@ -41,8 +40,8 @@ function makeConfig(data, situation, onMove) {
   };
 }
 
-function make(data, situation, onMove) {
-  return new chessground.controller(makeConfig(data, situation, onMove));
+function make(data, config, onMove) {
+  return new chessground.controller(makeConfig(data, config, onMove));
 }
 
 function promote(ground, key, role) {

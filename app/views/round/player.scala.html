@@ -41,7 +41,7 @@ playing = true) {
   }
 </div>
 @if(playing.nonEmpty) {
-<div id="now_playing" class="clearfix other_games" data-reload-url="@routes.Round.others(pov.gameId)">
+<div id="now_playing" class="clearfix other_games @if(ctx.pref.isBlindfold){blindfold}" data-reload-url="@routes.Round.others(pov.gameId)">
   @others(playing)
 </div>
 }

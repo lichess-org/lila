@@ -16,7 +16,7 @@
 <tr @if(scheduled) { class="scheduled" }>
   <td class="name">
     <a class="text" href="@routes.Tournament.show(tour.id)">
-      <span data-icon="@tour.perfType.map(_.iconChar)"></span>
+      <span data-icon="@tournamentIconChar(tour)"></span>
       @tour.name
     </a>
   </td>
@@ -32,7 +32,7 @@
   </td>
   }
   <td>@tour.durationString</td>
-  <td data-icon="r">&nbsp;@tour.playerRatio</td>
+  <td data-icon="r" class="text">@tour.nbPlayers</td>
   <td>
     <form action="@routes.Tournament.join(tour.id)" method="POST">
       <button type="submit" class="submit button" data-icon="G"></button>

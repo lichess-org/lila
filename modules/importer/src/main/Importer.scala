@@ -21,7 +21,7 @@ private[importer] final class Importer(
   def apply(data: ImportData, user: Option[String], ip: String): Fu[Game] = {
 
     def gameExists(processing: => Fu[Game]): Fu[Game] =
-      $find.one(lila.game.Query pgnImport data.pgn) flatMap { _.fold(processing)(fuccess) }
+      GameRepo.findPgnImport(data.pgn) flatMap { _.fold(processing)(fuccess) }
 
     def applyResult(game: Game, result: Result) {
       result match {

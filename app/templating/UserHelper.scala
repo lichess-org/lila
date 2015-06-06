@@ -41,14 +41,16 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     best3Of(u, List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)) :::
       best3Of(u, List(PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde))
 
-  def showPerfRating(rating: Int, name: String, nb: Int, icon: Char, klass: String) = Html {
+  def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char, klass: String) = Html {
     val title = s"$name rating over $nb games"
     val attr = if (klass == "title") "title" else "data-hint"
-    s"""<span $attr="$title" class="$klass"><span data-icon="$icon">${(nb > 0).fold(rating, "&nbsp;&nbsp;&nbsp;-")}</span></span>"""
+    val number = if (nb > 0) s"$rating${if (provisional) "?" else ""}"
+    else "&nbsp;&nbsp;&nbsp;-"
+    s"""<span $attr="$title" class="$klass"><span data-icon="$icon">$number</span></span>"""
   }
 
   def showPerfRating(perfType: PerfType, perf: Perf, klass: String): Html =
-    showPerfRating(perf.intRating, perfType.name, perf.nb, perfType.iconChar, klass)
+    showPerfRating(perf.intRating, perfType.name, perf.nb, perf.provisional, perfType.iconChar, klass)
 
   def showPerfRating(u: User, perfType: PerfType, klass: String = "hint--bottom"): Html =
     showPerfRating(perfType, u perfs perfType, klass)
@@ -226,15 +228,16 @@ trait UserHelper { self: I18nHelper with StringHelper =>
     s"""<span $klass $href>$content</span>"""
   }
 
+  private def renderRating(perf: Perf) =
+    s"&nbsp;(${perf.intRating}${if (perf.provisional) "?" else ""})"
+
   private def userRating(user: User, withPerfRating: Option[PerfType], withBestRating: Boolean) =
-    withPerfRating map (_.key) flatMap user.perfs.ratingOf map { rating =>
-      s"&nbsp;($rating)"
-    } getOrElse {
-      withBestRating ?? {
-        user.perfs.bestPerf ?? {
-          case (pt, perf) => s"&nbsp;${showPerfRating(pt, perf, "hint--bottom")}"
-        }
+    withPerfRating match {
+      case Some(perfType) => renderRating(user.perfs(perfType))
+      case _ if withBestRating => user.perfs.bestPerf ?? {
+        case (_, perf) => renderRating(perf)
       }
+      case _ => ""
     }
 
   private def userHref(username: String, params: String = "") =

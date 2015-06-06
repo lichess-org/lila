@@ -19,7 +19,8 @@ case class Simul(
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[DateTime],
     finishedAt: Option[DateTime],
-    hostSeenAt: Option[DateTime]) {
+    hostSeenAt: Option[DateTime],
+    color: Option[String]) {
 
   def id = _id
 
@@ -104,6 +105,10 @@ case class Simul(
 
   def playingPairings = pairings filterNot (_.finished)
 
+  def hostColor = (color flatMap chess.Color.apply) | {
+    if (scala.util.Random.nextBoolean) chess.White else chess.Black
+  }
+
   private def Created(s: => Simul): Simul = if (isCreated) s else this
 }
 
@@ -114,7 +119,8 @@ object Simul {
   def make(
     host: User,
     clock: SimulClock,
-    variants: List[Variant]): Simul = Simul(
+    variants: List[Variant],
+    color: String): Simul = Simul(
     _id = Random nextStringUppercase 8,
     name = RandomName(),
     status = SimulStatus.Created,
@@ -135,5 +141,6 @@ object Simul {
     pairings = Nil,
     startedAt = none,
     finishedAt = none,
-    hostSeenAt = DateTime.now.some)
+    hostSeenAt = DateTime.now.some,
+    color = color.some)
 }

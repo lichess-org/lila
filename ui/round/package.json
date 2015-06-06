@@ -29,10 +29,8 @@
     "watchify": "~3.1.1"
   },
   "dependencies": {
-    "chessground": "~2.1.0",
-    "chessli.js": "file:../chessli",
+    "chessground": "2.5.2",
     "game": "file:../game",
-    "lodash": "~3.7.0",
-    "mithril": "0.1.30"
+    "mithril": "0.2.0"
   }
 }

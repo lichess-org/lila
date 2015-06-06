@@ -1,11 +1,4 @@
-var mapValues = require('lodash/object/mapValues');
 var status = require('./status');
-
-function parsePossibleMoves(possibleMoves) {
-  return mapValues(possibleMoves, function(moves) {
-    return moves.match(/.{2}/g);
-  });
-}
 
 function playable(data) {
   return data.game.status.id < status.ids.aborted;
@@ -83,18 +76,8 @@ function hasAi(data) {
   return data.player.ai || data.opponent.ai;
 }
 
-var userAnalysableVariants = [
-  'standard',
-  'fromPosition',
-  'chess960',
-  'kingOfTheHill',
-  'threeCheck'
-];
-
 function userAnalysable(data) {
-  return playable(data) &&
-    (!data.clock || !isPlayerPlaying(data)) &&
-    userAnalysableVariants.indexOf(data.game.variant.key) !== -1;
+  return playable(data) && (!data.clock || !isPlayerPlaying(data));
 }
 
 function setOnGame(data, color, onGame) {
@@ -129,9 +112,7 @@ module.exports = {
   mandatory: mandatory,
   replayable: replayable,
   userAnalysable: userAnalysable,
-  userAnalysableVariants: userAnalysableVariants,
   getPlayer: getPlayer,
-  parsePossibleMoves: parsePossibleMoves,
   nbMoves: nbMoves,
   setOnGame: setOnGame,
   setIsGone: setIsGone

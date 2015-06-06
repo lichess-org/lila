@@ -19,15 +19,19 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def mandatorySecondsToMove = lila.game.Env.current.MandatorySecondsToMove
 
   def povOpenGraph(pov: Pov) = {
-    val speed = chess.Speed(pov.game.clock).name
-    val variant = pov.game.variant.exotic ?? s" ${pov.game.variant.name}"
     Map(
       'type -> "website",
       'image -> cdnUrl(routes.Export.png(pov.game.id).url),
-      'title -> s"$speed$variant Chess • ${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}",
+      'title -> titlePov(pov),
       'site_name -> "lichess.org",
       'url -> s"$netBaseUrl${routes.Round.watcher(pov.game.id, pov.color.name).url}",
       'description -> describePov(pov))
+  }
+
+  def titlePov(pov: Pov) = {
+    val speed = chess.Speed(pov.game.clock).name
+    val variant = pov.game.variant.exotic ?? s" ${pov.game.variant.name}"
+    s"$speed$variant Chess • ${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}"
   }
 
   def describePov(pov: Pov) = {

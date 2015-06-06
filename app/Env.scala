@@ -25,13 +25,13 @@ final class Env(
     streamsOnAir = () => Env.tv.streamsOnAir,
     countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
-    getPlayban = Env.playban.api.currentBan _,
-    geoIP = Env.security.geoIP)
+    getPlayban = Env.playban.api.currentBan _)
 
   lazy val userInfo = mashup.UserInfo(
     countUsers = () => Env.user.countEnabled,
     bookmarkApi = Env.bookmark.api,
     relationApi = Env.relation.api,
+    trophyApi = Env.user.trophyApi,
     gameCached = Env.game.cached,
     crosstableApi = Env.game.crosstableApi,
     postApi = Env.forum.postApi,

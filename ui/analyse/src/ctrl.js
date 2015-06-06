@@ -1,5 +1,5 @@
-var Chess = require('chessli.js').Chess;
 var chessground = require('chessground');
+var opposite = chessground.util.opposite;
 var data = require('./data');
 var analyse = require('./analyse');
 var ground = require('./ground');
@@ -9,23 +9,27 @@ var actionMenu = require('./actionMenu').controller;
 var autoplay = require('./autoplay');
 var control = require('./control');
 var promotion = require('./promotion');
+var readDests = require('./util').readDests;
+var debounce = require('./util').debounce;
+var socket = require('./socket');
 var m = require('mithril');
 
 module.exports = function(opts) {
 
   this.data = data({}, opts.data);
-  this.analyse = new analyse(this.data.game, this.data.analysis);
+  this.analyse = new analyse(this.data.steps);
   this.actionMenu = new actionMenu();
   this.autoplay = new autoplay(this);
 
   this.userId = opts.userId;
 
-  var initialPath = opts.path ? treePath.read(opts.path) : treePath.default();
+  var initialPath = opts.path ? treePath.read(opts.path) : treePath.default(this.analyse.firstPly());
 
   this.vm = {
     path: initialPath,
     pathStr: treePath.write(initialPath),
-    situation: null,
+    step: null,
+    cgConfig: null,
     comments: true,
     flip: false
   };
@@ -42,100 +46,47 @@ module.exports = function(opts) {
     this.actionMenu.open = false;
   }.bind(this);
 
-  var gameVariantChessId = function() {
-    switch (this.data.game.variant.key) {
-      case 'chess960':
-      case 'fromPosition':
-        return 1;
-      case 'antichess':
-        return 2;
-      case 'atomic':
-        return 3;
-      default:
-        return 0;
-    }
-  }.bind(this);
-
-  var situationCache = {};
-
   var showGround = function() {
-    var moves;
+    var s;
     try {
-      moves = this.analyse.moveList(this.vm.path);
+      s = this.analyse.getStep(this.vm.path);
     } catch (e) {
       console.log(e);
-      this.vm.path = treePath.default();
-      moves = this.analyse.moveList(this.vm.path);
     }
-    var nbMoves = moves.length;
-    var ply, move, cached, fen, hash = '',
-      h = '',
-      lm;
-    if (nbMoves == 0) {
-      var variant = this.data.game.variant.key;
-
-      var chess = new Chess(
-        this.data.game.initialFen, gameVariantChessId());
-      var turnColor = chess.turn() == 'w' ? 'white' : 'black';
-      this.vm.situation = {
-        fen: this.data.game.initialFen,
-        turnColor: turnColor,
-        movable: {
-          color: turnColor,
-          dests: chess.dests()
-        },
-        check: false,
-        lastMove: null
-      };
-    } else {
-      for (ply = 1; ply <= nbMoves; ply++) {
-        move = moves[ply - 1];
-        h += move;
-        cached = situationCache[h];
-        if (!cached) break;
-        hash = h;
-        fen = cached.fen;
-      }
-      if (!cached || ply < nbMoves) {
-        try {
-          var chess = new Chess(
-            fen || this.data.game.initialFen, gameVariantChessId())
-          for (ply = ply; ply <= nbMoves; ply++) {
-            move = moves[ply - 1];
-            hash += move;
-            lm = chess.move(move);
-            var turnColor = chess.turn() == 'w' ? 'white' : 'black';
-            situationCache[hash] = {
-              fen: chess.fen(),
-              turnColor: turnColor,
-              movable: {
-                color: turnColor,
-                dests: chess.dests()
-              },
-              check: chess.in_check(),
-              lastMove: [lm.from, lm.to]
-            };
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      }
-      this.vm.situation = situationCache[hash] || {
-        fen: this.data.game.initialFen,
-        turnColor: 'white',
-        movable: {
-          color: null
-        },
-        check: false,
-        lastMove: null
-      };
+    if (!s) {
+      this.vm.path = treePath.default(this.analyse.firstPly());
+      this.vm.pathStr = treePath.write(this.vm.path);
+      s = this.analyse.getStep(this.vm.path);
     }
+    var color = s.ply % 2 === 0 ? 'white' : 'black';
+    var dests = readDests(s.dests);
+    var config = {
+      fen: s.fen,
+      turnColor: color,
+      movable: {
+        color: dests && Object.keys(dests).length > 0 ? color : null,
+        dests: dests || {}
+      },
+      check: s.check,
+      lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
+    };
+    this.vm.step = s;
+    this.vm.cgConfig = config;
     if (!this.chessground)
-      this.chessground = ground.make(this.data, this.vm.situation, userMove);
-    this.chessground.stop();
-    this.chessground.set(this.vm.situation);
-    if (opts.onChange) opts.onChange(this.vm.situation.fen, this.vm.path);
+      this.chessground = ground.make(this.data, config, userMove);
+    this.chessground.set(config);
+    if (opts.onChange) opts.onChange(config.fen, this.vm.path);
+    if (!dests) getDests();
   }.bind(this);
+
+  var getDests = debounce(function() {
+    if (this.vm.step.dests) return;
+    this.socket.sendAnaDests({
+      variant: this.data.game.variant.key,
+      fen: this.vm.step.fen,
+      path: this.vm.pathStr
+    });
+  }.bind(this), 200, false);
 
   this.jump = function(path) {
     this.vm.path = path;
@@ -161,24 +112,48 @@ module.exports = function(opts) {
     return role === 'knight' ? 'n' : role[0];
   };
 
-  var addMove = function(orig, dest, promotionRole) {
+  var userMove = function(orig, dest) {
     $.sound.move();
-    var chess = new Chess(
-      this.vm.situation.fen, gameVariantChessId());
-    var promotionLetter = (dest[1] == 1 || dest[1] == 8) ? (promotionRole ? forsyth(promotionRole) : 'q') : null;
-    var move = chess.move({
-      from: orig,
-      to: dest,
-      promotion: promotionLetter
+    if (!promotion.start(this, orig, dest, sendMove)) sendMove(orig, dest);
+  }.bind(this);
+
+  var sendMove = function(orig, dest, prom) {
+    var move = {
+      orig: orig,
+      dest: dest,
+      variant: this.data.game.variant.key,
+      fen: this.vm.step.fen,
+      path: this.vm.pathStr
+    };
+    if (prom) move.promotion = prom;
+    this.socket.sendAnaMove(move);
+    // prepare premoving
+    this.chessground.set({
+      turnColor: this.chessground.data.movable.color,
+      movable: {
+        color: opposite(this.chessground.data.movable.color)
+      }
     });
-    if (move) this.userJump(this.analyse.explore(this.vm.path, move.san));
-    else this.chessground.set(this.vm.situation);
+  }.bind(this);
+
+  this.addStep = function(step, path) {
+    var newPath = this.analyse.addStep(step, treePath.read(path));
+    this.jump(newPath);
+    m.redraw();
+    this.chessground.playPremove();
+  }.bind(this);
+
+  this.addDests = function(dests, path) {
+    this.analyse.addDests(dests, treePath.read(path));
+    if (path === this.vm.pathStr) showGround();
+  }.bind(this);
+
+  this.reset = function() {
+    this.chessground.set(this.vm.situation);
     m.redraw();
   }.bind(this);
 
-  var userMove = function(orig, dest) {
-    if (!promotion.start(this, orig, dest, addMove)) addMove(orig, dest);
-  }.bind(this);
+  this.socket = new socket(opts.socketSend, this);
 
   this.router = opts.routes;
 

@@ -41,11 +41,21 @@ final class SeekApi(
       forUser(LobbyUser.make(user, blocking))
     }
 
-  def forUser(user: LobbyUser): Fu[List[Seek]] = cache(ForUser) map {
-    _ filter { seek =>
+  def forUser(user: LobbyUser): Fu[List[Seek]] = cache(ForUser) map { seeks =>
+    val filtered = seeks.filter { seek =>
       seek.user.id == user.id || Biter.canJoin(seek, user)
-    } take maxPerPage
+    }
+    noDupsFor(user, filtered) take maxPerPage
   }
+
+  private def noDupsFor(user: LobbyUser, seeks: List[Seek]) =
+    seeks.foldLeft(List[Seek]() -> Set[String]()) {
+      case ((res, h), seek) if seek.user.id == user.id => (seek :: res, h)
+      case ((res, h), seek) =>
+        val seekH = List(seek.variant, seek.daysPerTurn, seek.mode, seek.color, seek.user.id) mkString ","
+        if (h contains seekH) (res, h)
+        else (seek :: res, h + seekH)
+    }._1.reverse
 
   def find(id: String): Fu[Option[Seek]] =
     coll.find(BSONDocument("_id" -> id)).one[Seek]

@@ -1,6 +1,4 @@
-@import lila.evaluation.PlayerAssessments
-
-@(pov: Pov, data: play.api.libs.json.JsObject, pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, initialFen: Option[String], pgn: String, analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], tour: Option[lila.tournament.Tournament], simul: Option[lila.simul.Simul], timeChart: lila.analyse.TimeChart, cross: Option[lila.game.Crosstable], userTv: Option[User], division: chess.Division)(implicit ctx: Context)
 
 @import pov._
 
@@ -47,12 +45,13 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 
 @analyse.layout(
 title = title,
-side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, withTourStanding = false, simul = simul, userTv = userTv).some,
+side = views.html.game.side(pov, initialFen, tour, withTourStanding = false, simul = simul, userTv = userTv).some,
 chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth).some,
 underchat = underchat.some,
 moreCss = moreCss,
 moreJs = moreJs,
-openGraph = povOpenGraph(pov)) {
+openGraph = povOpenGraph(pov),
+chessground = false) {
 <div class="analyse cg-512">@miniBoardContent</div>
 <div class="advice_summary" style="display:none">
   @analysis.filter(_.done).map { a =>

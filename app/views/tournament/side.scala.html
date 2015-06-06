@@ -6,10 +6,15 @@
       @setup(tour)
       @systemName(tour.system).capitalize
       (<a href="@routes.Tournament.help(tour.system.toString.toLowerCase.some)">?</a>)
-      • @tour.minutes minutes
+      • @showMinutes(tour.minutes)
     </div>
   </div>
-  @trans.by(usernameOrId(tour.createdBy)), @tour.schedule.map { s =>
+  @if(tour.createdBy == "lichess") {
+  Official
+  } else {
+  @trans.by(usernameOrId(tour.createdBy))
+  }
+  • @tour.schedule.map { s =>
   @momentFormat(s.at)
   }.getOrElse {
   @momentFormat(tour.createdAt)

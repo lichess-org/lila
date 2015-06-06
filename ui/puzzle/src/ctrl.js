@@ -49,6 +49,12 @@ module.exports = function(cfg, router, i18n) {
     m.endComputation(); // give feedback ASAP, don't wait for delayed action
   }.bind(this);
 
+  var onMove = function(orig, dest, captured) {
+    if (captured) {
+      $.sound.take();
+    } else $.sound.move();
+  }.bind(this);
+
   this.revert = function(id) {
     if (id != this.data.puzzle.id) return;
     this.chessground.set({
@@ -87,6 +93,9 @@ module.exports = function(cfg, router, i18n) {
       events: {
         after: userMove
       },
+    },
+    events: {
+      move: onMove
     },
     animation: {
       enabled: true,
@@ -127,6 +136,7 @@ module.exports = function(cfg, router, i18n) {
   }.bind(this);
 
   this.playOpponentMove = function(move) {
+    onMove(move[0], move[1], this.chessground.data.pieces[move[1]]);
     m.startComputation();
     chess.move(this.data.chess, move);
     this.chessground.set({

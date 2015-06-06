@@ -3,10 +3,10 @@
 
 bin/prod/compile-client
 
-REMOTE="frank"
+REMOTE="clyde"
 REMOTE_DIR="/home/lichess"
 
 lilalog "Rsync scripts"
-rsync --archive --progress public $REMOTE:$REMOTE_DIR
+rsync --archive --no-o --no-g --progress public $REMOTE:$REMOTE_DIR
 
 lilalog "Deploy complete"

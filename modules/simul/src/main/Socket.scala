@@ -26,20 +26,22 @@ private[simul] final class Socket(
 
   private var delayedCrowdNotification = false
 
-  private def redirectPlayer(game: lila.game.Game, color: chess.Color) {
-    val player = game player color
-    player.userId flatMap memberByUserId foreach { member =>
-      notifyMember("redirect", game fullIdOf player.color)(member)
+  private def redirectPlayer(game: lila.game.Game, colorOption: Option[chess.Color]) {
+    colorOption foreach { color =>
+      val player = game player color
+      player.userId flatMap memberByUserId foreach { member =>
+        notifyMember("redirect", game fullIdOf player.color)(member)
+      }
     }
   }
 
   def receiveSpecific = {
 
-    case StartGame(game)       => redirectPlayer(game, chess.Black)
+    case StartGame(game, hostId)       => redirectPlayer(game, game.playerByUserId(hostId) map (!_.color))
 
-    case StartSimul(firstGame) => redirectPlayer(firstGame, chess.White)
+    case StartSimul(firstGame, hostId) => redirectPlayer(firstGame, firstGame.playerByUserId(hostId) map (_.color))
 
-    case HostIsOn(gameId)      => notifyVersion("hostGame", gameId, Messadata())
+    case HostIsOn(gameId)              => notifyVersion("hostGame", gameId, Messadata())
 
     case Reload =>
       getSimul(simulId) foreach {

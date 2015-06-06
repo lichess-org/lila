@@ -4,11 +4,6 @@ var tournament = require('../tournament');
 var util = require('./util');
 var button = require('./button');
 
-var legend = m('th.legend', [
-  m('span.streakstarter', 'Streak starter'),
-  m('span.double', 'Double points')
-]);
-
 function scoreTag(s) {
   return {
     tag: 'span',
@@ -64,7 +59,7 @@ function playerTrs(ctrl, maxScore, player) {
 }
 
 module.exports = {
-  standing: function(ctrl) {
+  standing: function(ctrl, page) {
     var maxScore = Math.max.apply(Math, ctrl.data.players.map(function(p) {
       return p.sheet.total;
     }));
@@ -72,12 +67,12 @@ module.exports = {
       m('thead',
         m('tr', [
           m('th.large', [
-            ctrl.trans('standing') + ' (' + ctrl.data.players.length + ')'
+            ctrl.trans('standing') + ' (' + pag.nbResults + ')'
           ]),
           m('th'),
           m('th', button.joinWithdraw(ctrl))
         ])),
-      m('tbody', ctrl.data.players.map(partial(playerTrs, ctrl, maxScore)))
+      m('tbody', pag.currentPageResults.map(partial(playerTrs, ctrl, maxScore)))
     ];
   }
 };

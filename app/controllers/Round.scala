@@ -8,6 +8,7 @@ import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
+import lila.common.HTTPRequest
 import lila.game.{ Pov, PlayerRef, GameRepo, Game => GameModel }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
@@ -83,6 +84,7 @@ object Round extends LilaController with TheftPrevention {
 
   def player(fullId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo pov fullId) { pov =>
+      env.checkOutoftime(pov.gameId)
       renderPlayer(pov)
     }
   }
@@ -131,6 +133,7 @@ object Round extends LilaController with TheftPrevention {
 
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
+      env.checkOutoftime(pov.gameId)
       watch(pov)
     }
   }
@@ -141,13 +144,20 @@ object Round extends LilaController with TheftPrevention {
       else if (pov.game.joinable) join(pov)
       else ctx.userId.flatMap(pov.game.playerByUserId) ifTrue pov.game.playable match {
         case Some(player) => renderPlayer(pov withColor player.color)
-        case None =>
+        case None if HTTPRequest.isHuman(ctx.req) =>
           (pov.game.tournamentId ?? TournamentRepo.byId) zip
             (pov.game.simulId ?? Env.simul.repo.find) zip
             Env.game.crosstableApi(pov.game) zip
             Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) map {
               case (((tour, simul), crosstable), data) =>
                 Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv))
+            }
+        case _ => // web crawlers don't need the full thing
+          GameRepo.initialFen(pov.game.id) zip
+            Env.game.crosstableApi(pov.game) map {
+              case (initialFen, crosstable) =>
+                val pgn = Env.game.pgnDump(pov.game, initialFen)
+                Ok(html.round.watcherBot(pov, initialFen, pgn, crosstable))
             }
       },
       api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = none) map { Ok(_) }
@@ -175,12 +185,12 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def sideWatcher(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color)) { side(_, false) }
+  def sidesWatcher(gameId: String, color: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo.pov(gameId, color)) { sides(_, false) }
   }
 
-  def sidePlayer(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo pov fullId) { side(_, true) }
+  def sidesPlayer(gameId: String, color: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo.pov(gameId, color)) { sides(_, true) }
   }
 
   def writeNote(gameId: String) = AuthBody { implicit ctx =>
@@ -193,12 +203,13 @@ object Round extends LilaController with TheftPrevention {
         text => Env.round.noteApi.set(gameId, me.id, text.trim take 10000))
   }
 
-  private def side(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
+  private def sides(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
     (pov.game.tournamentId ?? TournamentRepo.byId) zip
       (pov.game.simulId ?? Env.simul.repo.find) zip
-      GameRepo.initialFen(pov.game) map {
-        case ((tour, simul), initialFen) =>
-          Ok(html.game.side(pov, initialFen, tour, withTourStanding = isPlayer, simul))
+      GameRepo.initialFen(pov.game) zip
+      Env.game.crosstableApi(pov.game) map {
+        case (((tour, simul), initialFen), crosstable) =>
+          Ok(html.game.sides(pov, initialFen, tour, crosstable, withTourStanding = isPlayer, simul))
       }
 
   def continue(id: String, mode: String) = Open { implicit ctx =>
