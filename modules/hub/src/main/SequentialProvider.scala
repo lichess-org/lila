@@ -1,6 +1,7 @@
 package lila.hub
 
 import scala.util.Try
+import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.pipe
@@ -15,6 +16,8 @@ trait SequentialProvider extends Actor {
 
   def debug = false
   lazy val name = ornicar.scalalib.Random nextString 4
+
+  val windowCount = new lila.common.WindowCount(1 second)
 
   private def idle: Receive = {
 
@@ -45,7 +48,7 @@ trait SequentialProvider extends Actor {
   private def debugQueue {
     if (debug) queue.size match {
       case size if (size == 50 || (size >= 100 && size % 100 == 0)) =>
-        logwarn(s"Seq[$name] queue size = $size")
+        logwarn(s"Seq[$name] queue = $size, mps = ${windowCount.get}")
       case _ =>
     }
   }
@@ -57,6 +60,7 @@ trait SequentialProvider extends Actor {
   }
 
   private def processThenDone(signal: Any) {
+    windowCount.add
     signal match {
       // we don't want to send Done after actor death
       case SequentialProvider.Terminate => self ! PoisonPill
