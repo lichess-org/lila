@@ -21,11 +21,11 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
     // Winter -> 27 December, convenient day in the space between Boxing Day and New Year's Day
     Summer -> new DateTime(2015, 8, 1),
     Autumn -> new DateTime(2015, 10, 24),
-    Winter -> new DateTime(2015, 12, 27),
+    Winter -> new DateTime(2015, 12, 28),
     Spring -> new DateTime(2016, 4, 16),
     Summer -> new DateTime(2016, 8, 6),
     Autumn -> new DateTime(2016, 10, 22),
-    Winter -> new DateTime(2016, 12, 27)
+    Winter -> new DateTime(2016, 12, 28)
   )
 
   def receive = {
