@@ -27,6 +27,7 @@ final class Env(
     Props(new Reporting(
       reqWindowCount = reqWindowCount,
       moveWindowCount = moveWindowCount,
+      roundWindowCount = roundWindowCount,
       socket = socket,
       db = db,
       hub = hub
@@ -45,6 +46,9 @@ final class Env(
 
   // moves per second
   private lazy val moveWindowCount = new WindowCount(1 second)
+
+  // round API requests per second
+  private lazy val roundWindowCount = new WindowCount(1 second)
 }
 
 object Env {
