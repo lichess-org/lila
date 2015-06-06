@@ -93,10 +93,8 @@ private[monitor] final class Reporting(
     "mps" -> mps,
     "dbMemory" -> mongoStatus.memory,
     "dbConn" -> mongoStatus.connection,
-    "dbQps" -> idle.fold("??", mongoStatus.qps.toString),
-    "dbLock" -> math.round(mongoStatus.lock * 10) / 10d
-  ) map {
-      case (name, value) => value + ":" + name
+    "dbQps" -> idle.fold("??", mongoStatus.qps.toString)) map {
+      case (name, value) => s"$value:$name"
     }
 
   private def dataLine(data: List[(String, Any)]) = new {

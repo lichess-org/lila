@@ -99,71 +99,49 @@ $(function() {
   add({
     id: 'rps',
     title: "HTTP Requests",
-    maxVal: 200,
-    threshold: 0.9
   });
 
   add({
     id: 'cpu',
     title: "JVM CPU",
-    maxVal: 100,
-    threshold: 0.3,
     format: "{value}%"
   });
 
   add({
     id: 'mps',
     title: "Chess Moves",
-    maxVal: 100
   });
 
   add({
     id: 'load',
     title: "Load Average",
-    maxVal: 1,
-    threshold: 0.5
   });
 
   add({
     id: 'dbMemory',
     title: "MongoDB Memory",
-    maxVal: 16384,
-    threshold: 0.9,
     format: "{value} MB"
   });
 
   add({
     id: 'dbQps',
     title: "MongoDB Queries",
-    maxVal: 2000,
-    threshold: 0.8,
-  });
-
-  add({
-    id: 'dbLock',
-    title: "MongoDB Lock",
-    maxVal: 10,
   });
 
   add({
     id: 'memory',
     title: "JVM Memory",
-    maxVal: 8192,
     format: "{value} MB"
   });
 
   add({
     id: 'thread',
     title: "JVM Threads",
-    maxVal: 1000,
-    threshold: 0.8
   });
 
   // add({
   //   id: 'dbConn',
   //   title: "MongoDB Connections",
-  //   maxVal: 100,
-  //   threshold: 0.8
   // });
 
   var lastCall = getMillis();
