@@ -6,7 +6,6 @@ import play.twirl.api.Html
 import lila.api.Context
 import lila.app._
 import lila.game.{ GameRepo, Game => GameModel, Pov }
-import lila.tournament.TournamentRepo
 import views._
 
 object Tv extends LilaController {
