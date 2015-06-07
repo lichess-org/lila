@@ -22,10 +22,23 @@ object BSONHandlers {
       "at" -> w.date(o.at))
   }
 
+  private def readSystem(r: BSON.Reader) =
+    r.intO("system").fold[System](System.default)(System.orDefault)
+
+  implicit val roundTournamentHandler = new BSON[RoundTournament] {
+    def reads(r: BSON.Reader) = RoundTournament(
+      id = r str "_id",
+      name = r str "name",
+      status = r int "status",
+      system = readSystem(r),
+      clock = r.get[TournamentClock]("clock"))
+    def writes(w: BSON.Writer, o: RoundTournament) = sys error "RountTournament view is read only!"
+  }
+
   private implicit val dataHandler = new BSON[Data] {
     def reads(r: BSON.Reader) = Data(
       name = r str "name",
-      system = r.intO("system").fold[System](System.default)(System.orDefault),
+      system = readSystem(r),
       clock = r.get[TournamentClock]("clock"),
       minutes = r int "minutes",
       variant = r.intO("variant").fold[chess.variant.Variant](chess.variant.Variant.default)(chess.variant.Variant.orDefault),

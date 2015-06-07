@@ -23,6 +23,9 @@ object TournamentRepo {
 
   def byId(id: String): Fu[Option[Tournament]] = coll.find(selectId(id)).one[Tournament]
 
+  def roundView(id: String): Fu[Option[RoundTournament]] =
+    coll.find(selectId(id)).one[RoundTournament]
+
   def createdById(id: String): Fu[Option[Created]] =
     coll.find(selectId(id) ++ createdSelect).one[Created]
 

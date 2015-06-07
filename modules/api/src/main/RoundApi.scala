@@ -11,7 +11,7 @@ import lila.pref.Pref
 import lila.round.JsonView
 import lila.security.Granter
 import lila.simul.Simul
-import lila.tournament.{ Tournament, TournamentRepo }
+import lila.tournament.{ RoundTournament, TournamentRepo }
 import lila.user.User
 
 private[api] final class RoundApi(
@@ -26,7 +26,7 @@ private[api] final class RoundApi(
       jsonView.playerJson(pov, ctx.pref, apiVersion, ctx.me,
         initialFen = initialFen,
         withBlurs = ctx.me ?? Granter(_.ViewBlurs)) zip
-        (pov.game.tournamentId ?? TournamentRepo.byId) zip
+        (pov.game.tournamentId ?? TournamentRepo.roundView) zip
         (pov.game.simulId ?? getSimul) zip
         (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
           case (((json, tourOption), simulOption), note) => (
@@ -48,7 +48,7 @@ private[api] final class RoundApi(
         withBlurs = ctx.me ?? Granter(_.ViewBlurs),
         initialFen = initialFen,
         withMoveTimes = withMoveTimes) zip
-        (pov.game.tournamentId ?? TournamentRepo.byId) zip
+        (pov.game.tournamentId ?? TournamentRepo.roundView) zip
         (pov.game.simulId ?? getSimul) zip
         (ctx.me ?? (me => noteApi.get(pov.gameId, me.id))) map {
           case (((json, tourOption), simulOption), note) => (
@@ -83,16 +83,15 @@ private[api] final class RoundApi(
     ))
   }
 
-  private def withTournament(pov: Pov, tourOption: Option[Tournament])(json: JsObject) =
+  private def withTournament(pov: Pov, tourOption: Option[RoundTournament])(json: JsObject) =
     tourOption.fold(json) { tour =>
-      val pairing = tour.pairingOfGameId(pov.gameId)
       json + ("tournament" -> Json.obj(
         "id" -> tour.id,
         "name" -> tour.name,
         "running" -> tour.isRunning,
         "berserkable" -> tour.berserkable,
-        "berserk1" -> pairing.map(_.berserk1).filter(0!=),
-        "berserk2" -> pairing.map(_.berserk2).filter(0!=)
+        "berserk1" -> false, //pairing.map(_.berserk1).filter(0!=),
+        "berserk2" -> false //pairing.map(_.berserk2).filter(0!=)
       ).noNull)
     }
 
