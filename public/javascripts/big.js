@@ -835,15 +835,17 @@ lichess.storage = {
     var setZoom = function(v) {
       lichess.storage.set('zoom', v);
 
-      var $boardWrap = $(".lichess_game .cg-board-wrap");
-      var $lichessGame = $(".lichess_game");
+      var $lichessGame = $('.lichess_game, .board_and_ground');
+      var $boardWrap = $lichessGame.find('.cg-board-wrap');
+      var $coordinateProgress = $('.progress_bar_container');
       var px = function(i) {
         return Math.round(i) + 'px';
       };
 
       $boardWrap.css("width", px(512 * getZoom()));
+      $coordinateProgress.css("width", px(512 * getZoom()));
       $('.underboard').css("margin-left", px((getZoom() - 1) * 250));
-      $('.lichess_game > .lichess_overboard').css("left", px(56 + (getZoom() - 1) * 254));
+      $lichessGame.find('.lichess_overboard').css("left", px(56 + (getZoom() - 1) * 254));
 
       if ($('body > .content').hasClass('is3d')) {
         $boardWrap.css("height", px(479.08572 * getZoom()));
@@ -862,6 +864,14 @@ lichess.storage = {
         $('#tv_history > .content').css("height", px(270 + 525 * (getZoom() - 1)));
         $('.chat_panels').css("height", px(325 + 510 * (getZoom() - 1)));
       }
+
+      $('#trainer .overlay_container').css({
+        top: px((getZoom() -1) * 250),
+        left: px((getZoom() -1) * 250)
+      });
+      // doesn't vertical center score at the end, close enough
+      $('#trainer .score_container').css("top", px((getZoom() -1) * 250));
+
 
       if ($lichessGame.length) {
         // if on a board with a game

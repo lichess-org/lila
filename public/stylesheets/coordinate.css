@@ -30,6 +30,16 @@ form.color .color_3 span {
 #trainer form.color {
   text-align: center;
 }
+#trainer .overlay_container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#trainer .score_container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 #trainer .progress_bar_container {
   margin: 10px 0 10px 0;
   width: 514px;
@@ -83,6 +93,7 @@ form.color .color_3 span {
 #trainer .explanation {
   text-align: justify;
   margin-bottom: 20px;
+  width: 242px;
 }
 #trainer .explanation li {
   list-style: inside disc;
