@@ -43,10 +43,9 @@ object Tv extends LilaController {
         Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = flip.some) zip
           (GameRepo onTv 10) zip
           Env.game.crosstableApi(game) zip
-          Env.tv.streamsOnAir zip
-          (game.tournamentId ?? TournamentRepo.byId) map {
-            case ((((data, games), cross), streams), tour) =>
-              Ok(html.tv.index(pov, data, games, streams, tour, cross, flip))
+          Env.tv.streamsOnAir map {
+            case (((data, games), cross), streams) =>
+              Ok(html.tv.index(pov, data, games, streams, cross, flip))
           }
       },
       api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = flip.some) map { Ok(_) }
