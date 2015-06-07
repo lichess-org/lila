@@ -48,7 +48,13 @@ object Trophy {
       iconChar = '\\'.some,
       url = "http://lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1".some)
 
-    val all = List(ZugMiracle, WayOfBerserk, MarathonWinner, MarathonTopTen, MarathonTopFifty)
+    object MarathonSurvivor extends Kind(
+      key = "marathonSurvivor",
+      name = "Marathon #1 survivor",
+      iconChar = ','.some,
+      url = "http://lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1".some)
+
+    val all = List(ZugMiracle, WayOfBerserk, MarathonWinner, MarathonTopTen, MarathonTopFifty, MarathonSurvivor)
     def byKey(key: String) = all find (_.key == key)
   }
 

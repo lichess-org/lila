@@ -266,9 +266,6 @@
 .icon-hourglass:before {
   content: "+";
 }
-.icon-droplet:before {
-  content: ",";
-}
 .icon-arrow-streamline-target:before {
   content: "-";
 }
@@ -326,9 +323,9 @@
 .icon-color-palette:before {
   content: "}";
 }
-.icon-globe-world:before {
-  content: "~";
-}
 .icon-earth-globe-streamline:before {
   content: "\\";
+}
+.icon-nuclear:before {
+  content: ",";
 }
