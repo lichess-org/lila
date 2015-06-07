@@ -82,13 +82,19 @@
 
   @userTv.map { u =>
   <div class="side_box">
-    <h2 class="top user_tv" data-user-tv="@u.id" data-icon="1">&nbsp;@u.titleUsername</h2>
+    <h2 class="top user_tv text" data-user-tv="@u.id" data-icon="1">@u.titleUsername</h2>
   </div>
   }
 
   @myTour match {
   case Some(t: lila.tournament.StartedOrFinished) => { @tournament.gameStanding(t, withTourStanding) }
-  case _ => {}
+  case _ => {
+  @pov.game.tournamentId.map { tourId =>
+  <div class="game_tournament side_box no_padding">
+    <p class="top text" data-icon="g"><a href="@routes.Tournament.show(tourId)">@tournamentIdToName(tourId)</a></p>
+  </div>
+  }
+  }
   }
 
   @simul.map { sim =>
