@@ -881,6 +881,9 @@ lichess.storage = {
 
     var manuallySetZoom = $.fp.debounce(setZoom, 10);
     if (getZoom() > 1) setZoom(getZoom()); // Instantiate the page's zoom
+    $('body').on('lichess.coordinate_trainer_loaded', function() {
+      setZoom(getZoom());
+    });
 
     function translateTexts() {
       $('.trans_me').each(function() {
