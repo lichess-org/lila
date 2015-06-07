@@ -73,12 +73,15 @@ final class Env(
   val userGameApi = new UserGameApi(
     bookmarkApi = bookmarkApi)
 
-  val roundApi = new RoundApi(
-    jsonView = roundJsonView,
-    noteApi = noteApi,
-    analysisApi = analysisApi,
-    getSimul = getSimul,
-    lightUser = userEnv.lightUser)
+  val roundApi = new RoundApiBalancer(
+    api = new RoundApi(
+      jsonView = roundJsonView,
+      noteApi = noteApi,
+      analysisApi = analysisApi,
+      getSimul = getSimul,
+      lightUser = userEnv.lightUser),
+    system = system,
+    nbActors = math.max(1, Runtime.getRuntime.availableProcessors - 1))
 
   val lobbyApi = new LobbyApi(
     lobby = lobbyEnv.lobby,
