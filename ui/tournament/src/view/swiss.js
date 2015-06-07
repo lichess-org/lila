@@ -59,7 +59,7 @@ function playerTrs(ctrl, maxScore, player) {
 }
 
 module.exports = {
-  standing: function(ctrl, page) {
+  standing: function(ctrl, pag) {
     var maxScore = Math.max.apply(Math, ctrl.data.players.map(function(p) {
       return p.sheet.total;
     }));
