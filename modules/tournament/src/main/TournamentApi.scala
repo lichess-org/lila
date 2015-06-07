@@ -230,7 +230,7 @@ private[tournament] final class TournamentApi(
 
   private object publish {
     private val siteMessage = SendToFlag("tournament", Json.obj("t" -> "reload"))
-    private val debouncer = system.actorOf(Props(new Debouncer(2 seconds, {
+    private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, {
       (_: Debouncer.Nothing) =>
         site ! siteMessage
         TournamentRepo.promotable foreach { tours =>
@@ -243,7 +243,7 @@ private[tournament] final class TournamentApi(
   }
 
   private object updateTournamentStanding {
-    private val debouncer = system.actorOf(Props(new Debouncer(3 seconds, {
+    private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, {
       (tour: Tournament) =>
         roundSocketHub ! TellIds(tour.playingPairings.map(_.gameId), TournamentStanding(tour.id))
     })))
