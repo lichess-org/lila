@@ -23,7 +23,8 @@ module.exports = function(cfg) {
       enabled: false
     },
     draggable: {
-      showGhost: false
+      showGhost: false,
+      autoDistance: false
     },
     events: {
       change: m.redraw
