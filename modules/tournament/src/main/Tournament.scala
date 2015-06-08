@@ -299,7 +299,7 @@ object Tournament {
       id = Random nextStringUppercase 8,
       data = Data(
         name =
-          if (position == StartingPosition.initial) RandomName()
+          if (position.initial) RandomName()
           else position.shortName,
         system = system,
         clock = clock,
