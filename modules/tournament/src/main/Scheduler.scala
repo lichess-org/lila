@@ -74,6 +74,7 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         Schedule(Nightly, Blitz, Standard, at(today, 8) |> orTomorrow),
         Schedule(Nightly, Classical, Standard, at(today, 9) |> orTomorrow),
 
+        Schedule(Hourly, Lightning, Standard, at(nextHourDate, nextHour, 35)),
         Schedule(Hourly, Bullet, Standard, at(nextHourDate, nextHour)),
         Schedule(Hourly, SuperBlitz, Standard, at(nextHourDate, nextHour)),
         Schedule(Hourly, Blitz, Standard, at(nextHourDate, nextHour))

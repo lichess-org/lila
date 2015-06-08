@@ -113,7 +113,7 @@ object TournamentRepo {
   def lastFinishedScheduledByFreq(freq: Schedule.Freq, nb: Int): Fu[List[Finished]] = coll.find(
     finishedSelect ++ BSONDocument(
       "schedule.freq" -> freq.name,
-      "schedule.speed" -> BSONDocument("$in" -> Schedule.Speed.noSuperBlitz.map(_.name))
+      "schedule.speed" -> BSONDocument("$in" -> Schedule.Speed.mostPopular.map(_.name))
     )
   ).sort(BSONDocument("schedule.at" -> -1)).toList[Finished](nb.some)
 
