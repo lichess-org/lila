@@ -307,7 +307,10 @@ case class Game(
 
   def replayable = imported || finished
 
-  def analysable = replayable && playedTurns > 4 && Game.analysableVariants(variant)
+  def analysable = replayable && playedTurns > 4 && {
+    // thematic tournament use the "from position" variant
+    Game.analysableVariants(variant) || tournamentId.isDefined
+  }
 
   def fromPosition = source ?? (Source.Position==)
 
