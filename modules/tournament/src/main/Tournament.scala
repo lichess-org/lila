@@ -298,7 +298,9 @@ object Tournament {
     val tour = Created(
       id = Random nextStringUppercase 8,
       data = Data(
-        name = RandomName(),
+        name =
+          if (position == StartingPosition.initial) RandomName()
+          else position.shortName,
         system = system,
         clock = clock,
         createdBy = createdBy.id,

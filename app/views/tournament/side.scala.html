@@ -19,6 +19,10 @@
   }.getOrElse {
   @momentFormat(tour.createdAt)
   }
+  @if(tour.position != chess.StartingPosition.initial) {
+  <br /><br />
+  <strong>@tour.position.eco</strong> @tour.position.name
+  }
   @tour.winner.filter(_ => tour.isFinished).map { winner =>
   <br /><br />
   @trans.winner(): @userInfosLink(winner.id, none)

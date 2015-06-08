@@ -32,7 +32,19 @@ moreJs = moreJs) {
         </tr>
         <tr class="position">
           <th><label for="@form("position").id">@trans.startPosition()</label></th>
-          <td>@base.select(form("position"), positionChoices)</td>
+          <td>
+            @defining(form("position")) { field =>
+            <select name="@field.name">
+              @chess.StartingPosition.categories.map { categ =>
+              <optgroup label="@categ.name">
+                @categ.positions.map { v =>
+                <option value="@v.eco" @(if(field.value == Some(v.eco)) "selected" else "")>@v.fullName</option>
+                }
+              </optgroup>
+              }
+            </select>
+            }
+          </td>
         </tr>
         <tr>
           <th><label for="@form("mode").id">@trans.mode()</label></th>
