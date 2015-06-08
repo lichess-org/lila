@@ -38,16 +38,12 @@ private final class Streaming(
       case Search => whitelist.apply foreach { authorizedStreamers =>
         val max = 3
         val keyword = "lichess.org"
-        val twitch = WS.url("https://api.twitch.tv/kraken/search/streams")
-          .withQueryString("q" -> keyword)
-          .withHeaders("Accept" -> "application/vnd.twitchtv.v2+json")
+        val twitch = WS.url("https://api.twitch.tv/kraken/streams")
+          .withQueryString("channel" -> authorizedStreamers.mkString(","))
+          .withHeaders("Accept" -> "application/vnd.twitchtv.v3+json")
           .get() map { res =>
             res.json.asOpt[Twitch.Result] match {
-              case Some(data) => data.streamsOnAir filter { stream =>
-                authorizedStreamers contains stream.streamer.toLowerCase
-              } filter { stream =>
-                stream.name.toLowerCase contains keyword
-              } take max
+              case Some(data) => data.streamsOnAir filter (_.name.toLowerCase contains keyword) take max
               case None =>
                 logger.warn(s"twitch ${res.status} ${~res.body.lines.toList.headOption}")
                 Nil
