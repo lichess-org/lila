@@ -128,26 +128,28 @@ function renderSide(ctrl) {
 }
 
 function renderPlayTable(ctrl) {
-  return m('div.table',
-    m('div.table_inner', [
-      m('div.current_player',
-        m('div.player.' + ctrl.chessground.data.turnColor, [
-          m('div.no-square', m('div.cg-piece.king.' + ctrl.chessground.data.turnColor)),
-          m('p', ctrl.trans(ctrl.chessground.data.turnColor == ctrl.data.puzzle.color ? 'yourTurn' : 'waiting'))
-        ])
-      ),
-      m('p.findit', ctrl.trans(ctrl.data.puzzle.color == 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')),
-      m('div.control',
-        m('a.button.giveup', {
-          config: function(el, isUpdate) {
-            setTimeout(function() {
-              el.classList.add('revealed');
-            }, 1000);
-          },
-          onclick: partial(xhr.attempt, ctrl, 0)
-        }, ctrl.trans('giveUp'))
-      )
-    ])
+  return m('div.table_wrap',
+    m('div.table',
+      m('div.table_inner', [
+        m('div.current_player',
+          m('div.player.' + ctrl.chessground.data.turnColor, [
+            m('div.no-square', m('div.cg-piece.king.' + ctrl.chessground.data.turnColor)),
+            m('p', ctrl.trans(ctrl.chessground.data.turnColor == ctrl.data.puzzle.color ? 'yourTurn' : 'waiting'))
+          ])
+        ),
+        m('p.findit', ctrl.trans(ctrl.data.puzzle.color == 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')),
+        m('div.control',
+          m('a.button.giveup', {
+            config: function(el, isUpdate) {
+              setTimeout(function() {
+                el.classList.add('revealed');
+              }, 1000);
+            },
+            onclick: partial(xhr.attempt, ctrl, 0)
+          }, ctrl.trans('giveUp'))
+        )
+      ])
+    )
   );
 }
 
@@ -306,9 +308,11 @@ module.exports = function(ctrl) {
         chessground.view(ctrl.chessground)),
       m('div.right', ctrl.vm.loading ? loading : (ctrl.data.mode == 'view' ? renderViewTable(ctrl) : renderPlayTable(ctrl)))
     ]),
-    m('div.center', [
-      renderFooter(ctrl),
-      ctrl.data.user ? renderHistory(ctrl) : null
-    ])
+    m('div.underboard',
+      m('div.center', [
+        renderFooter(ctrl),
+        ctrl.data.user ? renderHistory(ctrl) : null
+      ])
+    )
   ]);
 };
