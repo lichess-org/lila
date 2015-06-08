@@ -6,7 +6,6 @@
       @setup(tour)
       @systemName(tour.system).capitalize
       (<a href="@routes.Tournament.help(tour.system.toString.toLowerCase.some)">?</a>)
-      • @showMinutes(tour.minutes)
     </div>
   </div>
   @if(tour.createdBy == "lichess") {
