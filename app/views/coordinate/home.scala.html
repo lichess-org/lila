@@ -20,10 +20,12 @@ moreJs = moreJs) {
   data-color-pref="@ctx.pref.coordColorName"
   data-color-url="@routes.Coordinate.color()"
   @if(ctx.isAuth) { data-score-url="@routes.Coordinate.score()" }>
-  <div class="next_coord" id="next_coord0"></div>
-  <div class="next_coord" id="next_coord1"></div>
-  <div class="next_coord" id="next_coord2"></div>
-  <div class="score_container"><strong class="score">0</strong></div>
+  <div class="overlay_container">
+    <div class="next_coord" id="next_coord0"></div>
+    <div class="next_coord" id="next_coord1"></div>
+    <div class="next_coord" id="next_coord2"></div>
+    <div class="score_container"><strong class="score">0</strong></div>
+  </div>
   <div class="side">
     <div class="box">
       <h1>@trans.coordinates()</h1>

@@ -20,24 +20,26 @@ function renderAnalysisButton(ctrl) {
 }
 
 function renderPlayTable(ctrl) {
-  return m('div.table', [
-    m('div.table_inner', [
-      m('div.current_player',
-        m('div.player.' + ctrl.data.opening.color, [
-          m('div.no-square', m('div.cg-piece.king.' + ctrl.data.opening.color)),
-          m('p', ctrl.trans('yourTurn'))
+  return m('div.table_wrap',
+    m('div.table', [
+      m('div.table_inner', [
+        m('div.current_player',
+          m('div.player.' + ctrl.data.opening.color, [
+            m('div.no-square', m('div.cg-piece.king.' + ctrl.data.opening.color)),
+            m('p', ctrl.trans('yourTurn'))
+          ])
+        ),
+        m('div.findit', m.trust(ctrl.trans('findNbStrongMoves', strong(ctrl.data.opening.goal)))),
+        m('div.control', [
+          m('a.button', {
+            onclick: partial(xhr.attempt, ctrl)
+          }, ctrl.trans('giveUp')),
+          ' ',
+          renderAnalysisButton(ctrl)
         ])
-      ),
-      m('div.findit', m.trust(ctrl.trans('findNbStrongMoves', strong(ctrl.data.opening.goal)))),
-      m('div.control', [
-        m('a.button', {
-          onclick: partial(xhr.attempt, ctrl)
-        }, ctrl.trans('giveUp')),
-        ' ',
-        renderAnalysisButton(ctrl)
       ])
     ])
-  ]);
+  );
 }
 
 function renderViewTable(ctrl) {
@@ -272,15 +274,17 @@ module.exports = function(ctrl) {
         ctrl.data.play ? renderPlayTable(ctrl) : renderViewTable(ctrl)
       ))
     ]),
-    m('div.center', [
-      progress(ctrl),
-      m('table.identified', ctrl.data.opening.identified.map(function(ident) {
-        return m('tr', [
-          m('td', ident.name),
-          m('td', ident.moves)
-        ]);
-      })), (ctrl.data.user && ctrl.data.user.history) ? renderHistory(ctrl) : null,
-      ctrl.data.play ? null : renderContinueLinks(ctrl)
-    ])
+    m('div.underboard',
+      m('div.center', [
+        progress(ctrl),
+        m('table.identified', ctrl.data.opening.identified.map(function(ident) {
+          return m('tr', [
+            m('td', ident.name),
+            m('td', ident.moves)
+          ]);
+        })), (ctrl.data.user && ctrl.data.user.history) ? renderHistory(ctrl) : null,
+        ctrl.data.play ? null : renderContinueLinks(ctrl)
+      ])
+    )
   ]);
 };
