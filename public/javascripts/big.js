@@ -2072,7 +2072,7 @@ lichess.storage = {
         if (chart) {
           if (path.length > 1) unselect(chart);
           else {
-            point = chart.series[0].data[path[0].ply - 1];
+            point = chart.series[0].data[path[0].ply - 1 - cfg.data.game.startedAtTurn];
             if (typeof point != "undefined") point.select();
             else unselect(chart);
           }
@@ -2085,7 +2085,7 @@ lichess.storage = {
           else {
             var white = path[0].ply % 2 !== 0;
             var serie = white ? 0 : 1;
-            var turn = Math.floor((path[0].ply - 1) / 2);
+            var turn = Math.floor((path[0].ply - 1 - cfg.data.game.startedAtTurn) / 2);
             point = chart.series[serie].data[turn];
             if (typeof point != "undefined") point.select();
             else unselect(chart);

@@ -61,6 +61,7 @@ private[ai] final class Queue(config: Config) extends Actor {
     case FullAnalReq(moves, fen, requestedByHuman, variant) if (requestedByHuman || tasks.size < maxTasks) =>
       val mrSender = sender
       val size = moves.size
+      val startedAtPly = fen.flatMap(chess.format.Forsyth.getPly)
       implicit val timeout = makeTimeout {
         if (requestedByHuman) 1.hour else 24.hours
       }
@@ -70,7 +71,7 @@ private[ai] final class Queue(config: Config) extends Actor {
       Future.fold(futures)(Vector[Option[Evaluation]]())(_ :+ _) addFailureEffect {
         case e => mrSender ! Status.Failure(e)
       } foreach { results =>
-        mrSender ! Evaluation.toInfos(results.toList.map(_ | Evaluation.empty), moves)
+        mrSender ! Evaluation.toInfos(results.toList.map(_ | Evaluation.empty), moves, ~startedAtPly)
       }
 
     case r: FullAnalReq =>
