@@ -29,7 +29,7 @@ module.exports = function(ctrl, e) {
   ];
   ctrl.chessground.data.draggable.current = {
     orig: key,
-    piece: piece.color + ' ' + piece.role,
+    piece: piece.color + piece.role,
     rel: rel,
     epos: [e.clientX, e.clientY],
     pos: [e.clientX - rel[0], e.clientY - rel[1]],
