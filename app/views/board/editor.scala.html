@@ -1,4 +1,4 @@
-@(sit: chess.Situation, fen: String, animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
+@(sit: chess.Situation, fen: String, positionsJson: String, animationDuration: scala.concurrent.duration.Duration)(implicit ctx: Context)
 
 @import chess.Color.{ White, Black }
 @import chess.{ KingSide, QueenSide }
@@ -22,6 +22,7 @@ LichessEditor(document.getElementById('board_editor'), {
   animation: {
     duration: @{ctx.pref.animationFactor * animationDuration.toMillis}
   },
+  positions: @Html(positionsJson),
   i18n: @Html(J.stringify(i18nJsObject(
     trans.startPosition,
     trans.clearBoard,

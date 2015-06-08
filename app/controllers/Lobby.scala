@@ -11,11 +11,6 @@ import views._
 object Lobby extends LilaController {
 
   def home = Open { implicit ctx =>
-    def toFen(moveStr: String): Valid[String] = chess.Replay.boards(moveStr.split(' ').toList, None).map { boards =>
-      chess.format.Forsyth.exportBoard(boards.last) }
-    println {
-      chess.Openings.restrictedListWithMoves.pp.map { case (name, moves) => (name, toFen(moves).toOption) }.mkString("\n")
-    }
     negotiate(
       html = renderHome(Results.Ok).map(_.withHeaders(
         CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"

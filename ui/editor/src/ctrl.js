@@ -8,6 +8,24 @@ module.exports = function(cfg) {
 
   this.data = editor.init(cfg);
 
+  this.trans = partial(editor.trans, this.data.i18n);
+
+  this.extraPositions = [{
+    fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
+    name: this.trans('startPosition')
+  }, {
+    fen: '8/8/8/8/8/8/8/8 w - -',
+    name: this.trans('clearBoard')
+  }, {
+    fen: 'prompt',
+    name: this.trans('loadPosition')
+  }];
+
+  this.positionIndex = {};
+  cfg.positions.forEach(function(p, i) {
+    this.positionIndex[p.fen.split(' ')[0]] = i;
+  }.bind(this));
+
   this.chessground = new chessground.controller({
     fen: cfg.fen,
     orientation: 'white',
@@ -34,8 +52,6 @@ module.exports = function(cfg) {
 
   this.computeFen = partial(editor.computeFen, this.data, this.chessground.getFen);
 
-  this.trans = partial(editor.trans, this.data);
-
   this.startPosition = function() {
     this.chessground.set({
       fen: 'start'
@@ -52,6 +68,10 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.loadNewFen = function(fen) {
+    if (fen === 'prompt') {
+      fen = prompt('Paste FEN position').trim();
+      if (!fen) return;
+    }
     window.location = editor.makeUrl(this.data.baseUrl, fen);
   }.bind(this);
 

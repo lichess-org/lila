@@ -6,6 +6,7 @@ function init(cfg) {
     color: m.prop(cfg.color),
     castles: mapValues(cfg.castles, m.prop),
     baseUrl: cfg.baseUrl,
+    positions: cfg.positions,
     i18n: cfg.i18n
   };
 }
@@ -35,8 +36,8 @@ function makeUrl(url, fen) {
   return url + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
 }
 
-function trans(data, key) {
-  return data.i18n[key];
+function trans(i18n, key) {
+  return i18n[key];
 }
 
 module.exports = {
