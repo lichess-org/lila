@@ -15,7 +15,7 @@ function miniPairing(ctrl) {
     ) : '*';
     return m('div', [
       m('a', {
-        href: '/' + game.id,
+        href: '/' + game.id + '/' + game.orient,
         class: 'mini_board live_' + game.id + ' parse_fen is2d',
         'data-color': game.orient,
         'data-fen': game.fen,
