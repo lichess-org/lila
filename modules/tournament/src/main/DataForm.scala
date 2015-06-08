@@ -61,7 +61,7 @@ final class DataForm {
     variant = chess.variant.Standard.id,
     position = StartingPosition.initial.eco,
     `private` = None,
-    mode = Mode.Casual.id.some)
+    mode = Mode.Rated.id.some)
 }
 
 private[tournament] case class TournamentSetup(
