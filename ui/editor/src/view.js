@@ -2,6 +2,7 @@ var chessground = require('chessground');
 var partial = chessground.util.partial;
 var editor = require('./editor');
 var drag = require('./drag');
+var positions = require('./position');
 var m = require('mithril');
 
 function promptNewFen(ctrl) {
@@ -20,11 +21,30 @@ function castleCheckBox(ctrl, id, label, reversed) {
 }
 
 function controls(ctrl, fen) {
+  var currentPosition = positions.filter(function(pos) {
+    return pos.fen.split(' ')[0] === fen.split(' ')[0];
+  })[0];
+  var positionOptions = positions.map(function(pos) {
+    return m('option', {
+      value: pos.fen,
+      selected: currentPosition && currentPosition.fen === pos.fen
+    }, pos.name);
+  });
+  if (!currentPosition)
+    positionOptions.push(m('option', {
+      value: fen,
+      selected: true
+    }, ''));
   return m('div#editor-side', [
     m('div', [
       m('a.button', {
         onclick: ctrl.startPosition
       }, ctrl.trans('startPosition')),
+      m('select.positions', {
+        onchange: function(e) {
+          ctrl.loadNewFen(e.target.value);
+        }
+      }, positionOptions),
       m('a.button', {
         onclick: ctrl.clearBoard
       }, ctrl.trans('clearBoard'))
