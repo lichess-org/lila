@@ -22,10 +22,11 @@ final class AutoPairing(
     game1 = Game.make(
       game = chess.Game(
         variant = tour.variant.some,
-        fen = tour.position.fen.some
-      ).copy(
-          clock = tour.clock.chessClock.some
-        ),
+        fen = tour.position.fen.some) |> { g =>
+          g.copy(
+            clock = tour.clock.chessClock.some,
+            startedAtTurn = g.player.fold(0, 1))
+        },
       whitePlayer = GamePlayer.white,
       blackPlayer = GamePlayer.black,
       mode = tour.mode,
