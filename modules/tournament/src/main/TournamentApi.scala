@@ -245,7 +245,7 @@ private[tournament] final class TournamentApi(
   }
 
   private object updateTournamentStanding {
-    private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, {
+    private val debouncer = system.actorOf(Props(new Debouncer(10 seconds, {
       (tour: Tournament) =>
         roundSocketHub ! TellIds(tour.playingPairings.map(_.gameId), TournamentStanding(tour.id))
     })))
