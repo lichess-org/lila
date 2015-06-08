@@ -29,7 +29,9 @@ final class AutoPairing(
       whitePlayer = GamePlayer.white,
       blackPlayer = GamePlayer.black,
       mode = tour.mode,
-      variant = tour.variant,
+      variant =
+        if (tour.position.initial) tour.variant
+        else chess.variant.FromPosition,
       source = Source.Tournament,
       pgnImport = None
     )
@@ -40,7 +42,7 @@ final class AutoPairing(
       .withId(pairing.gameId)
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
-      scheduleIdleCheck(PovRef(game2.id, Color.White), secondsToMove) >>-
+      scheduleIdleCheck(PovRef(game2.id, game2.turnColor), secondsToMove) >>-
       onStart(game2.id)
   } yield game2
 
