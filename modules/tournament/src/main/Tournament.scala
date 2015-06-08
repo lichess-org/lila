@@ -3,7 +3,7 @@ package lila.tournament
 import org.joda.time.{ DateTime, Duration }
 import ornicar.scalalib.Random
 
-import chess.{ Speed, Mode }
+import chess.{ Speed, Mode, StartingPosition }
 import lila.game.{ PovRef, PerfPicker }
 import lila.user.User
 
@@ -13,6 +13,7 @@ private[tournament] case class Data(
   clock: TournamentClock,
   minutes: Int,
   variant: chess.variant.Variant,
+  position: StartingPosition,
   mode: Mode,
   `private`: Boolean,
   schedule: Option[Schedule],
@@ -42,6 +43,7 @@ sealed trait Tournament {
 
   def system = data.system
   def variant = data.variant
+  def position = data.position
   def mode = data.mode
   def speed = Speed(clock.chessClock.some)
   def rated = mode.rated
@@ -290,6 +292,7 @@ object Tournament {
     waitMinutes: Int,
     system: System,
     variant: chess.variant.Variant,
+    position: StartingPosition,
     mode: Mode,
     `private`: Boolean): Created = {
     val tour = Created(
@@ -301,6 +304,7 @@ object Tournament {
         createdBy = createdBy.id,
         createdAt = DateTime.now,
         variant = variant,
+        position = position,
         mode = mode,
         `private` = `private`,
         minutes = minutes,
@@ -319,6 +323,7 @@ object Tournament {
       createdBy = "lichess",
       createdAt = DateTime.now,
       variant = sched.variant,
+      position = StartingPosition.initial,
       mode = Mode.Rated,
       `private` = false,
       minutes = minutes,

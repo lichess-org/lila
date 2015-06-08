@@ -1,11 +1,16 @@
 package lila.tournament
 
 import chess.variant.Variant
-import chess.{ Speed, Mode }
+import chess.{ Speed, Mode, StartingPosition }
 import lila.db.BSON
 import reactivemongo.bson._
 
 object BSONHandlers {
+
+  private implicit val StartingPositionBSONHandler = new BSONHandler[BSONString, StartingPosition] {
+    def read(bsonStr: BSONString): StartingPosition = StartingPosition.byEco(bsonStr.value) err s"No such starting position: ${bsonStr.value}"
+    def write(x: StartingPosition) = BSONString(x.eco)
+  }
 
   private implicit val tournamentClockBSONHandler = Macros.handler[TournamentClock]
 
@@ -42,6 +47,7 @@ object BSONHandlers {
       clock = r.get[TournamentClock]("clock"),
       minutes = r int "minutes",
       variant = r.intO("variant").fold[chess.variant.Variant](chess.variant.Variant.default)(chess.variant.Variant.orDefault),
+      position = r.strO("eco").flatMap(StartingPosition.byEco) | StartingPosition.initial,
       mode = r.intO("mode").fold[Mode](Mode.default)(Mode.orDefault),
       `private` = r boolD "private",
       schedule = r.getO[Schedule]("schedule"),
@@ -53,6 +59,7 @@ object BSONHandlers {
       "clock" -> o.clock,
       "minutes" -> o.minutes,
       "variant" -> o.variant.id,
+      "eco" -> o.position.eco,
       "mode" -> o.mode.id,
       "private" -> w.boolO(o.`private`),
       "schedule" -> o.schedule,

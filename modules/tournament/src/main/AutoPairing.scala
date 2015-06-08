@@ -21,9 +21,11 @@ final class AutoPairing(
     user2 ← getUser(pairing.user2)
     game1 = Game.make(
       game = chess.Game(
-        board = chess.Board init tour.variant,
-        clock = tour.clock.chessClock.some
-      ),
+        variant = tour.variant.some,
+        fen = tour.position.fen.some
+      ).copy(
+          clock = tour.clock.chessClock.some
+        ),
       whitePlayer = GamePlayer.white,
       blackPlayer = GamePlayer.black,
       mode = tour.mode,

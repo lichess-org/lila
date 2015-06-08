@@ -2,7 +2,7 @@ package lila.tournament
 
 import akka.actor.{ Props, ActorRef, ActorSelection, ActorSystem }
 import akka.pattern.{ ask, pipe }
-import chess.Mode
+import chess.{ Mode, StartingPosition }
 import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
@@ -54,6 +54,7 @@ private[tournament] final class TournamentApi(
 
   def createTournament(setup: TournamentSetup, me: User): Fu[Created] =
     TournamentRepo withdraw me.id flatMap { withdrawIds =>
+      var variant = chess.variant.Variant orDefault setup.variant
       val created = Tournament.make(
         createdBy = me,
         clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
@@ -62,7 +63,8 @@ private[tournament] final class TournamentApi(
         mode = setup.mode.fold(Mode.default)(Mode.orDefault),
         `private` = setup.`private`.isDefined,
         system = System orDefault setup.system,
-        variant = chess.variant.Variant orDefault setup.variant)
+        variant = variant,
+        position = StartingPosition.byEco(setup.position).ifTrue(variant.standard) | StartingPosition.initial)
       TournamentRepo.insert(created).void >>-
         (withdrawIds foreach socketReload) >>-
         publish() >>- {

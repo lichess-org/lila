@@ -19,6 +19,14 @@
     };
     $check.on('change', showPrivate);
     showPrivate();
+
+    var $variant = $('#tournament tr.variant select');
+    var $position = $('#tournament tr.position');
+    function showPosition() {
+      $position.show($variant.val() == 1);
+    };
+    $variant.on('change', showPosition);
+    showPosition();
   })
 </script>
 }
@@ -43,9 +51,13 @@ moreJs = moreJs) {
           <th><label for="@form("system").id">System</label></th>
           <td>@base.select(form("system"), translatedSystemChoices)</td>
         </tr>
-        <tr>
+        <tr class="variant">
           <th><label for="@form("variant").id">@trans.variant()</label></th>
           <td>@base.select(form("variant"), translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))</td>
+        </tr>
+        <tr class="position">
+          <th><label for="@form("position").id">@trans.startPosition()</label></th>
+          <td>@base.select(form("position"), positionChoices)</td>
         </tr>
         <tr>
           <th><label for="@form("mode").id">@trans.mode()</label></th>

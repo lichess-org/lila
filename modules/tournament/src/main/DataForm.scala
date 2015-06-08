@@ -5,6 +5,7 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
 import chess.Mode
+import chess.StartingPosition
 import lila.common.Form._
 
 final class DataForm {
@@ -31,6 +32,12 @@ final class DataForm {
   val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
   val waitMinuteDefault = 2
 
+  val positions = StartingPosition.allWithInitial.map(_.eco)
+  val positionChoices = StartingPosition.allWithInitial.map { p =>
+    p.eco -> p.fullName
+  }
+  val positionDefault = StartingPosition.initial.eco
+
   lazy val create = Form(mapping(
     "clockTime" -> numberIn(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
@@ -39,6 +46,7 @@ final class DataForm {
     "system" -> number.verifying(Set(System.Arena.id, System.Swiss.id) contains _),
     "variant" -> number.verifying(Set(chess.variant.Standard.id, chess.variant.Chess960.id, chess.variant.KingOfTheHill.id,
       chess.variant.ThreeCheck.id, chess.variant.Antichess.id, chess.variant.Atomic.id, chess.variant.Horde.id) contains _),
+    "position" -> nonEmptyText.verifying(positions contains _),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)),
     "private" -> optional(text.verifying("on" == _))
   )(TournamentSetup.apply)(TournamentSetup.unapply)
@@ -51,6 +59,7 @@ final class DataForm {
     waitMinutes = waitMinuteDefault,
     system = System.default.id,
     variant = chess.variant.Standard.id,
+    position = StartingPosition.initial.eco,
     `private` = None,
     mode = Mode.Casual.id.some)
 }
@@ -62,6 +71,7 @@ private[tournament] case class TournamentSetup(
     waitMinutes: Int,
     system: Int,
     variant: Int,
+    position: String,
     mode: Option[Int],
     `private`: Option[String]) {
 
