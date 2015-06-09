@@ -58,8 +58,9 @@ object Tournament extends LilaController {
   }
 
   def gameStanding(id: String) = Open { implicit ctx =>
-    OptionOk(repo startedOrFinishedById id) { tour =>
-      html.tournament.gameStanding(tour, true)
+    env.cached tour id map {
+      case Some(t: lila.tournament.StartedOrFinished) => Ok(html.tournament.gameStanding(t, true))
+      case _ => NotFound
     }
   }
 

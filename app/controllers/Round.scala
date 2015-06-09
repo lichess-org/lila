@@ -166,7 +166,7 @@ object Round extends LilaController with TheftPrevention {
   private def myTour(tourId: Option[String])(implicit ctx: Context): Fu[Option[Tourney]] =
     tourId ?? { tid =>
       ctx.userId ?? { uid =>
-        TournamentRepo.byIdAndPlayerId(tid, uid)
+        Env.tournament.cached tour tid map (_ filter (_ contains uid))
       }
     }
 
