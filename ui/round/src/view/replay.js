@@ -62,13 +62,15 @@ function renderTable(ctrl) {
     for (var i = 2, len = steps.length; i < len; i += 2) pairs.push([steps[i], steps[i + 1]]);
   }
 
-  var trs = pairs.map(function(pair, i) {
-    return m('tr', [
+  var trs = [];
+  for (var i = 0, len = pairs.length; i < len; i++)
+    trs.push(m('tr', [
       m('td.index', i + 1),
-      renderTd(pair[0], ctrl.vm.ply),
-      renderTd(pair[1], ctrl.vm.ply)
-    ]);
-  }).concat(renderResult(ctrl, true));
+      renderTd(pairs[i][0], ctrl.vm.ply),
+      renderTd(pairs[i][1], ctrl.vm.ply)
+    ]));
+  trs.push(renderResult(ctrl, true));
+
   return m('table',
     m('tbody', {
         onclick: function(e) {

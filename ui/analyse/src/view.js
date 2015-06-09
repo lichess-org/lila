@@ -226,9 +226,11 @@ function renderTree(ctrl, tree) {
   }
 
   var path = treePath.default();
-  return turns.map(function(turn) {
-    return renderTurn(ctrl, turn, path);
-  });
+  var tags = [];
+  for (var i = 0, len = turns.length; i < len; i++)
+    tags.push(renderTurn(ctrl, turns[i], path));
+
+  return tags;
 }
 
 function renderAnalyse(ctrl) {
