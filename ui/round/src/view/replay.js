@@ -48,10 +48,11 @@ function renderResult(ctrl, asTable) {
 
 function renderTable(ctrl) {
   var steps = ctrl.data.steps;
-  var nbSteps = steps.length;
-  if (!nbSteps) return;
+  var firstPly = ctrl.firstPly();
+  var lastPly = ctrl.lastPly();
+  if (typeof lastPly === 'undefined') return;
   var pairs = [];
-  for (var i = 1; i < nbSteps; i += 2) pairs.push([
+  for (var i = 1, len = steps.length; i < len; i += 2) pairs.push([
     steps[i].san,
     steps[i + 1] ? steps[i + 1].san : null
   ]);
@@ -59,8 +60,8 @@ function renderTable(ctrl) {
   var trs = pairs.map(function(pair, i) {
     return m('tr', [
       m('td.index', i + 1),
-      renderTd(pair[0], 2 * i + 1, ctrl.vm.ply),
-      renderTd(pair[1], 2 * i + 2, ctrl.vm.ply)
+      renderTd(pair[0], 2 * i + 1 + firstPly, ctrl.vm.ply),
+      renderTd(pair[1], 2 * i + 2 + firstPly, ctrl.vm.ply)
     ]);
   }).concat(renderResult(ctrl, true));
   return m('table',
@@ -74,7 +75,8 @@ function renderTable(ctrl) {
 }
 
 function renderButtons(ctrl) {
-  var nbSteps = ctrl.data.steps.length;
+  var firstPly = ctrl.firstPly();
+  var lastPly = ctrl.lastPly();
   var flipAttrs = {
     class: 'button flip hint--top' + (ctrl.vm.flip ? ' active' : ''),
     'data-hint': ctrl.trans('flipBoard'),
@@ -84,12 +86,12 @@ function renderButtons(ctrl) {
   else flipAttrs.onclick = ctrl.flip;
   return m('div.buttons', [
     m('a', flipAttrs, m('span[data-icon=B]')), [
-      ['first', 'W', 0],
+      ['first', 'W', ctrl.firstPly()],
       ['prev', 'Y', ctrl.vm.ply - 1],
       ['next', 'X', ctrl.vm.ply + 1],
-      ['last', 'V', nbSteps - 1]
+      ['last', 'V', lastPly]
     ].map(function(b) {
-      var enabled = ctrl.vm.ply !== b[2] && b[2] >= 0 && b[2] < nbSteps;
+      var enabled = ctrl.vm.ply !== b[2] && b[2] >= firstPly && b[2] <= lastPly;
       return m('a', {
         class: 'button ' + b[0] + ' ' + classSet({
           disabled: (ctrl.broken || !enabled),

@@ -25,8 +25,20 @@ module.exports = function(opts) {
 
   this.userId = opts.userId;
 
+  this.firstPly = function() {
+    return this.data.steps[0].ply;
+  }.bind(this);
+
+  this.lastPly = function() {
+    return this.data.steps[this.data.steps.length - 1].ply;
+  }.bind(this);
+
+  this.plyStep = function(ply) {
+    return this.data.steps[ply - this.firstPly()];
+  }.bind(this);
+
   this.vm = {
-    ply: this.data.steps.length - 1,
+    ply: this.lastPly(),
     flip: false,
     reloading: false,
     redirecting: false,
@@ -52,7 +64,7 @@ module.exports = function(opts) {
   this.chessground = ground.make(this.data, opts.data.game.fen, onUserMove, onMove);
 
   this.replaying = function() {
-    return this.vm.ply !== this.data.steps.length - 1;
+    return this.vm.ply !== this.lastPly();
   }.bind(this);
 
   this.stepsHash = function(steps) {
@@ -64,10 +76,9 @@ module.exports = function(opts) {
   };
 
   this.jump = function(ply) {
-    var nbSteps = this.data.steps.length;
-    if (ply < 0 || ply >= nbSteps) return;
+    if (ply < this.firstPly() || ply > this.lastPly()) return;
     this.vm.ply = ply;
-    var s = this.data.steps[this.vm.ply];
+    var s = this.plyStep(ply);
     var config = {
       fen: s.fen,
       lastMove: s.uci ? [s.uci.substr(0, 2), s.uci.substr(2, 2)] : null,
@@ -137,7 +148,7 @@ module.exports = function(opts) {
   this.reload = function(cfg) {
     m.startComputation();
     if (this.stepsHash(cfg.steps) !== this.stepsHash(this.data.steps))
-      this.vm.ply = cfg.steps.length - 1;
+      this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
     this.data = data(this.data, cfg);
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
