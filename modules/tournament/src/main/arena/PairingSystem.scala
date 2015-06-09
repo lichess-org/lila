@@ -63,9 +63,14 @@ object PairingSystem extends AbstractPairingSystem {
     def justPlayedTogether(u1: String, u2: String): Boolean =
       lastOpponents.get(u1).exists(u2==) || lastOpponents.get(u2).exists(u1==)
 
+    def veryMuchJustPlayedTogether(u1: String, u2: String): Boolean =
+      lastOpponents.get(u1).exists(u2==) && lastOpponents.get(u2).exists(u1==)
+
     // lower is better
     def pairingScore(pair: RankedPairing): Score = pair match {
-      case (a, b) if justPlayedTogether(a.player.id, b.player.id) => 9000 * 1000
+      case (a, b) if justPlayedTogether(a.player.id, b.player.id) =>
+        if (veryMuchJustPlayedTogether(a.player.id, b.player.id)) 9000 * 1000
+        else 8000 * 1000
       case (a, b) => Math.abs(a.rank - b.rank) * 1000 +
         Math.abs(a.player.rating - b.player.rating)
     }
