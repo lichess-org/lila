@@ -207,7 +207,7 @@ function renderTree(ctrl, tree) {
   var turns = [];
   var initPly = ctrl.analyse.firstPly();
   if (initPly % 2 === 0)
-    for (i = 1, nb = tree.length; i < nb; i += 2) turns.push({
+    for (var i = 1, nb = tree.length; i < nb; i += 2) turns.push({
       turn: Math.floor((initPly + i) / 2) + 1,
       white: tree[i],
       black: tree[i + 1]
@@ -218,7 +218,7 @@ function renderTree(ctrl, tree) {
       white: null,
       black: tree[1]
     });
-    for (i = 2, nb = tree.length; i < nb; i += 2) turns.push({
+    for (var i = 2, nb = tree.length; i < nb; i += 2) turns.push({
       turn: Math.floor((initPly + i) / 2) + 1,
       white: tree[i],
       black: tree[i + 1]

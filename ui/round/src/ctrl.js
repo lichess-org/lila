@@ -134,6 +134,7 @@ module.exports = function(opts) {
     }
     if (this.data.game.threefold) this.data.game.threefold = false;
     this.data.steps.push({
+      ply: this.lastPly() + 1,
       fen: o.fen,
       san: o.san,
       uci: o.uci,

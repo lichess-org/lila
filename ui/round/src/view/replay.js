@@ -5,15 +5,17 @@ var status = require('game').status;
 var renderStatus = require('./status');
 var m = require('mithril');
 
-function renderTd(move, ply, curPly) {
-  return move ? {
+var emptyTd = m('td', '...');
+
+function renderTd(step, curPly) {
+  return step ? {
     tag: 'td',
     attrs: {
-      class: 'move' + (ply === curPly ? ' active' : ''),
-      'data-ply': ply
+      class: 'move' + (step.ply === curPly ? ' active' : ''),
+      'data-ply': step.ply
     },
-    children: [move]
-  } : null;
+    children: [step.san]
+  } : emptyTd
 }
 
 function renderResult(ctrl, asTable) {
@@ -51,17 +53,20 @@ function renderTable(ctrl) {
   var firstPly = ctrl.firstPly();
   var lastPly = ctrl.lastPly();
   if (typeof lastPly === 'undefined') return;
+
   var pairs = [];
-  for (var i = 1, len = steps.length; i < len; i += 2) pairs.push([
-    steps[i].san,
-    steps[i + 1] ? steps[i + 1].san : null
-  ]);
+  if (firstPly % 2 === 0)
+    for (var i = 1, len = steps.length; i < len; i += 2) pairs.push([steps[i], steps[i + 1]]);
+  else {
+    pairs.push([null, steps[1]]);
+    for (var i = 2, len = steps.length; i < len; i += 2) pairs.push([steps[i], steps[i + 1]]);
+  }
 
   var trs = pairs.map(function(pair, i) {
     return m('tr', [
       m('td.index', i + 1),
-      renderTd(pair[0], 2 * i + 1 + firstPly, ctrl.vm.ply),
-      renderTd(pair[1], 2 * i + 2 + firstPly, ctrl.vm.ply)
+      renderTd(pair[0], ctrl.vm.ply),
+      renderTd(pair[1], ctrl.vm.ply)
     ]);
   }).concat(renderResult(ctrl, true));
   return m('table',
