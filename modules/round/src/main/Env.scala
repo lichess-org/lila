@@ -180,8 +180,9 @@ final class Env(
 
   lazy val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
 
-  def checkOutoftime(gameId: String) {
-    roundMap ! Tell(gameId, actorApi.round.Outoftime)
+  def checkOutoftime(game: lila.game.Game) {
+    if (game.playable && game.started && !game.isUnlimited)
+      roundMap ! Tell(game.id, actorApi.round.Outoftime)
   }
 }
 

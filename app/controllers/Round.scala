@@ -84,7 +84,7 @@ object Round extends LilaController with TheftPrevention {
 
   def player(fullId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo pov fullId) { pov =>
-      env.checkOutoftime(pov.gameId)
+      env.checkOutoftime(pov.game)
       renderPlayer(pov)
     }
   }
@@ -133,7 +133,7 @@ object Round extends LilaController with TheftPrevention {
 
   def watcher(gameId: String, color: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
-      env.checkOutoftime(pov.gameId)
+      env.checkOutoftime(pov.game)
       watch(pov)
     }
   }
