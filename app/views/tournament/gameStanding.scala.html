@@ -14,7 +14,7 @@
   @if(withStanding) {
   <table class="slist standing">
     <tbody>
-      @t.rankedPlayers.map {
+      @t.rankedPlayers.take(50).map {
       case lila.tournament.RankedPlayer(rank, player) => {
       @defining((
       t scoreSheet player,
