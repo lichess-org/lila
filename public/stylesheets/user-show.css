@@ -69,6 +69,10 @@ div.user_show .fire_trophy.marathonSurvivor span:hover {
   transform: scale(0.3) translate(-112px, 6px);
   -webkit-transform: scale(0.3) translate(-112px, 6px);
 }
+div.user_show .fire_trophy.bongcloudWarrior {
+  filter: hue-rotate(70deg);
+  -webkit-filter: hue-rotate(70deg);
+}
 div.user_show .honorific {
   display: inline-block;
   margin-top: 1em;

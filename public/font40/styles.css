@@ -329,3 +329,6 @@
 .icon-nuclear:before {
   content: ",";
 }
+.icon-hookah:before {
+  content: "~";
+}
