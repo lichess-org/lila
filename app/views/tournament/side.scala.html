@@ -6,11 +6,7 @@
       <span class="setup">
         @tour.clock.show •
         @if(tour.variant.exotic) {
-        @if(variantLink) {
         @game.variantLink(tour.variant, (if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName else tour.variant.name), cssClass = "hint--top")
-        } else {
-        @tour.variant.name
-        }
         } else {
         @tour.perfType.map(_.name)
         }
