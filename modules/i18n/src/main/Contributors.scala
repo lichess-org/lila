@@ -37,7 +37,7 @@ private[i18n] object Contributors {
     "et" -> List("Anonymous"),
     "hy" -> List("Network.am"),
     "af" -> List("secreteagle"),
-    "hi" -> List("Samarth Karia"),
+    "hi" -> List("Samarth Karia", "saksham"),
     "ar" -> List("Ziad Dabash"),
     "zh" -> List("神爱"),
     "gl" -> List("José Manuel Castroagudín Silva"),
