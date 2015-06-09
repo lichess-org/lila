@@ -40,9 +40,10 @@ class ArenaPairingPerfTest extends Specification {
       createdBy = makeUser("creator", 1000),
       clock = TournamentClock(1 * 60, 0),
       minutes = 45,
-      minPlayers = 20,
       system = System.Arena,
       variant = chess.variant.Standard,
+      position = chess.StartingPosition.initial,
+      waitMinutes = 1,
       mode = chess.Mode.Rated,
       `private` = false): Enterable) {
       case (tour, u) => (tour join u).toOption.get
@@ -56,9 +57,12 @@ class ArenaPairingPerfTest extends Specification {
           case (pairings@(p :: ps), events) => pairings.foldLeft(
             t addPairings NonEmptyList.nel(p, ps) addEvents events
           ) {
-              case (t, p) => t.updatePairing(p.gameId, _.finish(
-                chess.Status.Mate, Some(chess.Color(util.Random.nextBoolean).name), 20
-              ))
+              case (t, p) => t.updatePairing(p.gameId, _.copy(
+                status = chess.Status.Mate,
+                winner = Some(chess.Color(util.Random.nextBoolean).name),
+                turns = 20.some,
+                perf1 = 0,
+                perf2 = 0))
             }
           case _ => t
         }
