@@ -20,7 +20,7 @@ object ApplicationBuild extends Build {
       spray.caching, maxmind, prismic),
       scalacOptions := compilerOptions,
       incOptions := incOptions.value.withNameHashing(true),
-      // updateOptions := updateOptions.value.withCachedResolution(true),
+      updateOptions := updateOptions.value.withCachedResolution(true),
       sources in doc in Compile := List(),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",

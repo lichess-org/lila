@@ -14,7 +14,7 @@ object BuildSettings {
     parallelExecution in Test := false,
     scalacOptions := compilerOptions,
     incOptions := incOptions.value.withNameHashing(true),
-    // updateOptions := updateOptions.value.withCachedResolution(true),
+    updateOptions := updateOptions.value.withCachedResolution(true),
     sources in doc in Compile := List())
 
   def defaultDeps = Seq(scalaz, scalalib, jodaTime, spray.util, ws)
