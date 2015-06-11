@@ -27,7 +27,7 @@ final class PlaybanApi(
   private case class Blame(player: Player, outcome: Outcome)
 
   private def blameable(game: Game) =
-    game.source == Some(Source.Lobby) &&
+    game.source.contains(Source.Lobby) &&
       game.hasClock &&
       !isRematch(game.id)
 
