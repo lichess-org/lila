@@ -67,46 +67,54 @@ object BSONHandlers {
       "createdBy" -> w.str(o.createdBy))
   }
 
-  private implicit val playerBSONHandler = new BSON[Player] {
+  implicit val playerBSONHandler = new BSON[Player] {
     def reads(r: BSON.Reader) = Player(
-      id = r str "id",
-      rating = r int "rating",
-      provisional = r boolD "prov",
-      withdraw = r boolD "withdraw",
-      score = r int "score",
-      perf = r intD "perf")
+      id = r str "_id",
+      tourId = r str "tid",
+      userId = r str "uid",
+      rating = r int "r",
+      provisional = r boolD "pr",
+      withdraw = r boolD "w",
+      score = r int "s",
+      perf = r int "p",
+      magicScore = r int "m")
     def writes(w: BSON.Writer, o: Player) = BSONDocument(
-      "id" -> o.id,
-      "rating" -> o.rating,
-      "prov" -> w.boolO(o.provisional),
-      "withdraw" -> w.boolO(o.withdraw),
-      "score" -> o.score,
-      "perf" -> o.perf)
+      "_id" -> o.id,
+      "tid" -> o.tourId,
+      "uid" -> o.userId,
+      "r" -> o.rating,
+      "pr" -> w.boolO(o.provisional),
+      "w" -> w.boolO(o.withdraw),
+      "s" -> o.score,
+      "p" -> o.perf,
+      "m" -> o.magicScore)
   }
 
-  private implicit val pairingHandler = new BSON[Pairing] {
+  implicit val pairingHandler = new BSON[Pairing] {
     def reads(r: BSON.Reader) = {
       val users = r strsD "u"
       Pairing(
-        gameId = r str "g",
+        id = r str "_id",
+        tourId = r str "tid",
         status = chess.Status(r int "s") err "tournament pairing status",
         user1 = users.headOption err "tournament pairing first user",
-        user2 = users.lift(1) err "tournament pairing second user",
+        user2 = users lift 1 err "tournament pairing second user",
         winner = r strO "w",
         turns = r intO "t",
-        pairedAt = r dateO "p",
+        date = r date "d",
         berserk1 = r intD "b1",
         berserk2 = r intD "b2",
         perf1 = r intD "p1",
         perf2 = r intD "p2")
     }
     def writes(w: BSON.Writer, o: Pairing) = BSONDocument(
-      "g" -> o.gameId,
+      "_id" -> o.id,
+      "tid" -> o.tourId,
       "s" -> o.status.id,
       "u" -> BSONArray(o.user1, o.user2),
       "w" -> o.winner,
       "t" -> o.turns,
-      "p" -> o.pairedAt.map(w.date),
+      "d" -> w.date(o.date),
       "b1" -> w.intO(o.berserk1),
       "b2" -> w.intO(o.berserk2),
       "p1" -> w.intO(o.perf1),
@@ -130,13 +138,11 @@ object BSONHandlers {
       Created(
         id = r str "_id",
         data = r.doc.as[Data],
-        players = r.get[Players]("players"),
         waitMinutes = r.intO("wait"))
     }
     def writes(w: BSON.Writer, o: Created) = dataHandler.write(o.data) ++ BSONDocument(
       "_id" -> o.id,
       "status" -> Status.Created.id,
-      "players" -> o.players,
       "wait" -> o.waitMinutes)
   }
 
@@ -146,15 +152,11 @@ object BSONHandlers {
         id = r str "_id",
         data = r.doc.as[Data],
         startedAt = r date "startedAt",
-        players = r.get[Players]("players"),
-        pairings = r.get[Pairings]("pairings"),
         events = ~r.getO[Events]("events"))
     }
     def writes(w: BSON.Writer, o: Started) = dataHandler.write(o.data) ++ BSONDocument(
       "_id" -> o.id,
       "status" -> Status.Started.id,
-      "players" -> o.players,
-      "pairings" -> o.pairings,
       "events" -> o.events,
       "startedAt" -> w.date(o.startedAt))
   }
@@ -165,15 +167,11 @@ object BSONHandlers {
         id = r str "_id",
         data = r.doc.as[Data],
         startedAt = r date "startedAt",
-        players = r.get[Players]("players"),
-        pairings = r.get[Pairings]("pairings"),
         events = ~r.getO[Events]("events"))
     }
     def writes(w: BSON.Writer, o: Finished) = dataHandler.write(o.data) ++ BSONDocument(
       "_id" -> o.id,
       "status" -> Status.Finished.id,
-      "players" -> o.players,
-      "pairings" -> o.pairings,
       "events" -> o.events,
       "startedAt" -> w.date(o.startedAt))
   }

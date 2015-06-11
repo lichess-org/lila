@@ -13,25 +13,30 @@ final class JsonView(
   def apply(id: String): Fu[JsObject] =
     TournamentRepo byId id flatten s"No such tournament: $id" flatMap apply
 
-  def apply(tour: Tournament): Fu[JsObject] =
-    lastGames(tour) map { games =>
-      val sheets = tour.system.scoringSystem scoreSheets tour
-      Json.obj(
-        "id" -> tour.id,
-        "createdBy" -> tour.createdBy,
-        "system" -> tour.system.toString.toLowerCase,
-        "fullName" -> tour.fullName,
-        "private" -> tour.`private`,
-        "variant" -> tour.variant.key,
-        "players" -> tour.rankedPlayers.map(playerJson(sheets, tour)),
-        "winner" -> tour.winner.map(_.id),
-        "pairings" -> tour.pairings.take(50).map(pairingJson),
-        "isOpen" -> tour.isOpen,
-        "isRunning" -> tour.isRunning,
-        "isFinished" -> tour.isFinished,
-        "lastGames" -> games.map(gameJson),
-        "schedule" -> tour.schedule.map(scheduleJson)) ++ specifics(tour)
-    }
+  def apply(tour: Tournament): Fu[JsObject] = for {
+    rankedPlayers <- PlayerRepo.bestByTourWithRank(tour.id, 10)
+    pairings <- PairingRepo.recentByTour(tour.id, 40)
+    games <- GameRepo games pairings.map(_.gameId)
+    sheets <- rankedPlayers.map { p =>
+      tour.system.scoringSystem.sheet(tour, p.player.id) map p.player.id.->
+    }.sequenceFu.map(_.toMap)
+  } yield {
+    Json.obj(
+      "id" -> tour.id,
+      "createdBy" -> tour.createdBy,
+      "system" -> tour.system.toString.toLowerCase,
+      "fullName" -> tour.fullName,
+      "private" -> tour.`private`,
+      "variant" -> tour.variant.key,
+      "players" -> rankedPlayers.map(playerJson(sheets, tour)),
+      "winner" -> tour.winner.map(_.id),
+      "pairings" -> pairings.map(pairingJson),
+      "isOpen" -> tour.isOpen,
+      "isRunning" -> tour.isRunning,
+      "isFinished" -> tour.isFinished,
+      "lastGames" -> games.map(gameJson),
+      "schedule" -> tour.schedule.map(scheduleJson)) ++ specifics(tour)
+  }
 
   private def specifics(tour: Tournament) = tour match {
     case t: Created => Json.obj(
@@ -39,11 +44,6 @@ final class JsonView(
       "startsAt" -> t.startsAt.map(org.joda.time.format.ISODateTimeFormat.dateTime.print))
     case t: Started => Json.obj("seconds" -> t.remainingSeconds)
     case _          => Json.obj()
-  }
-
-  private def lastGames(tour: Tournament) = tour match {
-    case t: StartedOrFinished => GameRepo.games(t recentGameIds 4)
-    case _                    => fuccess(Nil)
   }
 
   private def gameUserJson(player: lila.game.Player) = {
@@ -76,10 +76,10 @@ final class JsonView(
       "total" -> s.total,
       "fire" -> s.onFire.option(true)
     ).noNull
-    case s: swiss.SwissSystem.Sheet => Json.obj(
-      "scores" -> s.scores.take(18).reverse.map(_.repr),
-      "total" -> s.totalRepr,
-      "neustadtl" -> s.neustadtlRepr)
+    // case s: swiss.SwissSystem.Sheet => Json.obj(
+    //   "scores" -> s.scores.take(18).reverse.map(_.repr),
+    //   "total" -> s.totalRepr,
+    //   "neustadtl" -> s.neustadtlRepr)
   }
 
   private def playerJson(sheets: Map[String, ScoreSheet], tour: Tournament)(rankedPlayer: RankedPlayer) = {
@@ -94,21 +94,21 @@ final class JsonView(
       "withdraw" -> p.withdraw.option(true),
       "score" -> p.score,
       "perf" -> p.perf,
-      "opposition" -> (tour.isFinished && rankedPlayer.rank <= 3).option(opposition(tour, p)),
+      "opposition" -> none[Int], //(tour.isFinished && rankedPlayer.rank <= 3).option(opposition(tour, p)),
       "sheet" -> sheets.get(p.id).map(sheetJson)
     ).noNull
   }
 
-  private def opposition(tour: Tournament, p: Player): Int =
-    tour.userPairings(p.id).foldLeft((0, 0)) {
-      case ((count, sum), pairing) => (
-        count + 1,
-        (pairing opponentOf p.id flatMap tour.playerByUserId).fold(sum)(_.rating + sum)
-      )
-    } match {
-      case (0, _)       => 0
-      case (count, sum) => sum / count
-    }
+  // private def opposition(tour: Tournament, p: Player): Int =
+  //   tour.userPairings(p.id).foldLeft((0, 0)) {
+  //     case ((count, sum), pairing) => (
+  //       count + 1,
+  //       (pairing opponentOf p.id flatMap tour.playerByUserId).fold(sum)(_.rating + sum)
+  //     )
+  //   } match {
+  //     case (0, _)       => 0
+  //     case (count, sum) => sum / count
+  //   }
 
   private def pairingUserJson(userId: String) = getLightUser(userId).fold(userId)(_.name)
 

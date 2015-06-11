@@ -3,7 +3,6 @@ package arena
 
 import lila.tournament.{ PairingSystem => AbstractPairingSystem }
 
-import scala.concurrent.Future
 import scala.util.Random
 
 object PairingSystem extends AbstractPairingSystem {
@@ -11,51 +10,57 @@ object PairingSystem extends AbstractPairingSystem {
 
   // if waiting users can make pairings
   // then pair all users
-  def createPairings(tour: Tournament, users: AllUserIds): Future[(Pairings, Events)] =
-    tryPairings(tour, users.waiting) flatMap {
-      case (Nil, _) if tour.pairings.isEmpty => tryPairings(tour, users.all)
-      case nope@(Nil, _)                     => fuccess(nope)
-      case _                                 => tryPairings(tour, users.all)
+  def createPairings(
+    tour: Tournament,
+    users: AllUserIds): Fu[(Pairings, Events)] = for {
+    recentPairings <- PairingRepo.recentByTour(tour.id, 50)
+    playingUserIds <- PairingRepo.playingUserIds(tour)
+    nbActiveUsers <- PlayerRepo.countActive(tour.id)
+    pairings <- tryPairings(tour, users.waiting, recentPairings, playingUserIds, nbActiveUsers) flatMap {
+      case (Nil, _) if recentPairings.isEmpty => tryPairings(tour, users.all, recentPairings, playingUserIds, nbActiveUsers)
+      case nope@(Nil, _)                      => fuccess(nope -> nbActiveUsers)
+      case _                                  => tryPairings(tour, users.all, recentPairings, playingUserIds, nbActiveUsers)
     }
+  } yield pairings
 
   val smartHardLimit = 24
 
-  private def tryPairings(tour: Tournament, users: List[String]): Future[(Pairings, Events)] = {
-    val nbActiveUsers = tour.nbActiveUsers
-
-    if (users.size < 2)
-      Future.successful((Nil, Nil))
-    else {
-      val idles: RankedPlayers = users.toSet.diff {
-        tour.playingUserIds.toSet
-      }.toList flatMap tour.rankedPlayerByUserId sortBy { p =>
-        p.rank -> -p.player.rating
-      }
+  private def tryPairings(
+    tour: Tournament,
+    users: List[String],
+    recentPairings: List[Pairing],
+    playingUserIds: Set[String],
+    nbActiveUsers: Int): Fu[(Pairings, Events)] =
+    if (users.size < 2) fuccess(Nil -> Nil)
+    else PlayerRepo.rankedByTourAndUserIds(tour.id, users.toSet diff playingUserIds) flatMap {
+      val idles: RankedPlayers =
+        users.toSet.diff(playingUserIds).toList flatMap tour.rankedPlayerByUserId sortBy { p =>
+          p.rank -> -p.player.rating
+        }
 
       val ps =
-        if (tour.pairings.isEmpty) naivePairings(idles)
+        if (recentPairings.isEmpty) naivePairings(tour, idles)
         else
-          smartPairings(idles take smartHardLimit, tour.pairings, nbActiveUsers) :::
-            naivePairings(idles drop smartHardLimit)
+          smartPairings(tour, idles take smartHardLimit, recentPairings, nbActiveUsers) :::
+            naivePairings(tour, idles drop smartHardLimit)
 
-      Future.successful((ps, Nil))
+      fuccess(ps -> Nil)
     }
-  }
 
-  private def naivePairings(players: RankedPlayers) =
+  private def naivePairings(tour: Tournament, players: RankedPlayers) =
     players grouped 2 collect {
-      case List(p1, p2) if Random.nextBoolean => Pairing(p1.player, p2.player)
-      case List(p1, p2)                       => Pairing(p2.player, p1.player)
+      case List(p1, p2) if Random.nextBoolean => Pairing(tour, p1.player, p2.player)
+      case List(p1, p2)                       => Pairing(tour, p2.player, p1.player)
     } toList
 
-  private def smartPairings(players: RankedPlayers, pairings: Pairings, nbActiveUsers: Int): Pairings = {
+  private def smartPairings(tour: Tournament, players: RankedPlayers, recentPairings: Pairings, nbActiveUsers: Int): Pairings = {
 
     type Score = Int
     type RankedPairing = (RankedPlayer, RankedPlayer)
     type Combination = List[RankedPairing]
 
     val lastOpponents: Map[String, String] = players.flatMap { p =>
-      pairings.find(_ contains p.player.id).flatMap(_ opponentOf p.player.id) map {
+      recentPairings.find(_ contains p.player.id).flatMap(_ opponentOf p.player.id) map {
         p.player.id -> _
       }
     }.toMap
@@ -112,7 +117,7 @@ object PairingSystem extends AbstractPairingSystem {
       }
 
     def firstPlayerGetsWhite(p1: Player, p2: Player) =
-      pairings.find(_.contains(p1.id, p2.id)) match {
+      recentPairings.find(_.contains(p1.id, p2.id)) match {
         case Some(p) => p.user1 != p1.id
         case None    => Random.nextBoolean
       }
@@ -134,6 +139,8 @@ object PairingSystem extends AbstractPairingSystem {
             case List(p1, p2)                                 => (p2, p1)
           } toList
       }
-    }) map Pairing.apply
+    }) map {
+      Pairing(tour, _)
+    }
   }
 }
