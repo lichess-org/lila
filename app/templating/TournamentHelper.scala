@@ -55,7 +55,6 @@ trait TournamentHelper { self: I18nHelper =>
 
   def systemName(sys: System)(implicit ctx: UserContext) = sys match {
     case System.Arena => System.Arena.toString
-    case System.Swiss => System.Swiss.toString
   }
 
   def tournamentIconChar(tour: Tournament): Char = tour.schedule.map(_.freq) match {

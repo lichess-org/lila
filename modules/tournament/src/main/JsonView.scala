@@ -74,10 +74,6 @@ final class JsonView(
       "total" -> s.total,
       "fire" -> s.onFire.option(true)
     ).noNull
-    // case s: swiss.SwissSystem.Sheet => Json.obj(
-    //   "scores" -> s.scores.take(18).reverse.map(_.repr),
-    //   "total" -> s.totalRepr,
-    //   "neustadtl" -> s.neustadtlRepr)
   }
 
   private def playerJson(sheets: Map[String, ScoreSheet], tour: Tournament)(rankedPlayer: RankedPlayer) = {

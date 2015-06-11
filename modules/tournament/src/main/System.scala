@@ -13,15 +13,8 @@ object System {
     val berserkable = true
   }
 
-  // case object Swiss extends System(id = 2) {
-  //   val pairingSystem = swiss.SwissSystem
-  //   val scoringSystem = swiss.SwissSystem
-  //   val berserkable = false
-  // }
-
   val default = Arena
 
-  // val all = List(Arena, Swiss)
   val all = List(Arena)
 
   val byId = all map { s => (s.id -> s) } toMap

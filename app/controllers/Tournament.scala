@@ -29,7 +29,6 @@ object Tournament extends LilaController {
   def help(sysStr: Option[String]) = Open { implicit ctx =>
     val system = sysStr flatMap {
       case "arena" => System.Arena.some
-      case "swiss" => System.Swiss.some
       case _       => none
     }
     Ok(html.tournament.faqPage(system)).fuccess

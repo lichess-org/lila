@@ -45,7 +45,7 @@ private[tournament] final class TournamentApi(
       waitMinutes = setup.waitMinutes,
       mode = setup.mode.fold(Mode.default)(Mode.orDefault),
       `private` = setup.`private`.isDefined,
-      system = System orDefault setup.system,
+      system = System.Arena,
       variant = variant,
       position = StartingPosition.byEco(setup.position).ifTrue(variant.standard) | StartingPosition.initial)
     TournamentRepo.insert(tour).void >>
