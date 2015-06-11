@@ -52,8 +52,8 @@ private[controllers] trait LilaController
       }
     }
 
-  protected def Open(f: Context => Fu[Result]): Action[AnyContent] =
-    Open(BodyParsers.parse.anyContent)(f)
+  protected def Open(f: Context => Fu[Result]): Action[Unit] =
+    Open(BodyParsers.parse.empty)(f)
 
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
     Action.async(p) { req =>
@@ -71,8 +71,8 @@ private[controllers] trait LilaController
   protected def OpenNoCtx(f: RequestHeader => Fu[Result]): Action[AnyContent] =
     Action.async(f)
 
-  protected def Auth(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
-    Auth(BodyParsers.parse.anyContent)(f)
+  protected def Auth(f: Context => UserModel => Fu[Result]): Action[Unit] =
+    Auth(BodyParsers.parse.empty)(f)
 
   protected def Auth[A](p: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
