@@ -17,6 +17,9 @@ object PlayerRepo {
   private def selectId(id: String) = BSONDocument("_id" -> id)
   private def selectTour(tourId: String) = BSONDocument("tid" -> tourId)
   private def selectUser(userId: String) = BSONDocument("uid" -> userId)
+  private def selectTourUser(tourId: String, userId: String) = BSONDocument(
+    "tid" -> tourId,
+    "uid" -> userId)
   private val selectActive = BSONDocument("w" -> BSONDocument("$ne" -> true))
   private val selectWithdraw = BSONDocument("w" -> true)
   private val bestSort = BSONDocument("m" -> -1)
@@ -44,9 +47,12 @@ object PlayerRepo {
   def remove(tourId: String, userId: String) =
     coll.remove(selectTour(tourId) ++ selectUser(userId)).void
 
+  def exists(tourId: String, userId: String) =
+    coll.db command Count(coll.name, selectTourUser(tourId, userId).some) map (0!=)
+
   def existsActive(tourId: String, userId: String) =
     coll.db command Count(coll.name, Some(
-      selectTour(tourId) ++ selectUser(userId) ++ selectActive
+      selectTourUser(tourId, userId) ++ selectActive
     )) map (0!=)
 
   def unWithdraw(tourId: String) = coll.update(
@@ -56,6 +62,11 @@ object PlayerRepo {
 
   def find(tourId: String, userId: String): Fu[Option[Player]] =
     coll.find(selectTour(tourId) ++ selectUser(userId)).one[Player]
+
+  def update(tourId: String, userId: String)(f: Player => Fu[Player]) =
+    find(tourId, userId) flatten s"No such player: $tourId/$userId" flatMap f flatMap { player =>
+      coll.update(selectId(player.id), player).void
+    }
 
   def join(tourId: String, user: User, perfLens: Perfs => Perf) =
     find(tourId, user.id) flatMap {

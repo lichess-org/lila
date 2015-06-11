@@ -6,7 +6,7 @@ import lila.game.{ Game, PovRef, IdGenerator }
 import org.joda.time.DateTime
 
 case class Pairing(
-    id: String, // game ID
+    id: String, // game In
     tourId: String,
     status: chess.Status,
     user1: String,
@@ -15,9 +15,7 @@ case class Pairing(
     turns: Option[Int],
     date: DateTime,
     berserk1: Int,
-    berserk2: Int,
-    perf1: Int,
-    perf2: Int) {
+    berserk2: Int) {
 
   def gameId = id
 
@@ -51,11 +49,6 @@ case class Pairing(
     else if (userId == user2) berserk2
     else 0
 
-  def perfOf(userId: String): Int =
-    if (userId == user1) perf1
-    else if (userId == user2) perf2
-    else 0
-
   def validBerserkOf(userId: String): Int =
     notSoQuickFinish ?? berserkOf(userId)
 
@@ -65,9 +58,7 @@ case class Pairing(
   def finish(g: Game) = copy(
     status = g.status,
     winner = g.winnerUserId,
-    turns = g.turns.some,
-    perf1 = ~g.whitePlayer.ratingDiff,
-    perf2 = ~g.blackPlayer.ratingDiff)
+    turns = g.turns.some)
 }
 
 private[tournament] object Pairing {
@@ -87,7 +78,5 @@ private[tournament] object Pairing {
     turns = none,
     date = d | DateTime.now,
     berserk1 = 0,
-    berserk2 = 0,
-    perf1 = 0,
-    perf2 = 0)
+    berserk2 = 0)
 }

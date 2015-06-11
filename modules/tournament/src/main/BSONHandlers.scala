@@ -78,7 +78,8 @@ object BSONHandlers {
       withdraw = r boolD "w",
       score = r int "s",
       perf = r int "p",
-      magicScore = r int "m")
+      magicScore = r int "m",
+      fire = r boolD "f")
     def writes(w: BSON.Writer, o: Player) = BSONDocument(
       "_id" -> o.id,
       "tid" -> o.tourId,
@@ -88,7 +89,8 @@ object BSONHandlers {
       "w" -> w.boolO(o.withdraw),
       "s" -> o.score,
       "p" -> o.perf,
-      "m" -> o.magicScore)
+      "m" -> o.magicScore,
+      "f" -> w.boolO(o.fire))
   }
 
   implicit val pairingHandler = new BSON[Pairing] {
@@ -104,9 +106,7 @@ object BSONHandlers {
         turns = r intO "t",
         date = r date "d",
         berserk1 = r intD "b1",
-        berserk2 = r intD "b2",
-        perf1 = r intD "p1",
-        perf2 = r intD "p2")
+        berserk2 = r intD "b2")
     }
     def writes(w: BSON.Writer, o: Pairing) = BSONDocument(
       "_id" -> o.id,
@@ -117,9 +117,7 @@ object BSONHandlers {
       "t" -> o.turns,
       "d" -> w.date(o.date),
       "b1" -> w.intO(o.berserk1),
-      "b2" -> w.intO(o.berserk2),
-      "p1" -> w.intO(o.perf1),
-      "p2" -> w.intO(o.perf2))
+      "b2" -> w.intO(o.berserk2))
   }
 
   private implicit val eventHandler = new BSON[Event] {

@@ -12,7 +12,7 @@ import lila.common.HTTPRequest
 import lila.game.{ Pov, PlayerRef, GameRepo, Game => GameModel }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
-import lila.tournament.{ TournamentRepo, Tournament => Tourney }
+import lila.tournament.{ TournamentRepo, Tournament => Tourney, MiniStanding }
 import lila.user.{ User => UserModel, UserRepo }
 import makeTimeout.large
 import views._
@@ -59,7 +59,7 @@ object Round extends LilaController with TheftPrevention {
       if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
       pov.game.started.fold(
         PreventTheft(pov) {
-          myTour(pov.game.tournamentId) zip
+          myTour(pov.game.tournamentId, true) zip
             (pov.game.simulId ?? Env.simul.repo.find) zip
             Env.game.crosstableApi(pov.game) zip
             (!pov.game.isTournament ?? otherPovs(pov.gameId)) flatMap {
@@ -145,7 +145,7 @@ object Round extends LilaController with TheftPrevention {
       else ctx.userId.flatMap(pov.game.playerByUserId) ifTrue pov.game.playable match {
         case Some(player) => renderPlayer(pov withColor player.color)
         case None if HTTPRequest.isHuman(ctx.req) =>
-          myTour(pov.game.tournamentId) zip
+          myTour(pov.game.tournamentId, false) zip
             (pov.game.simulId ?? Env.simul.repo.find) zip
             Env.game.crosstableApi(pov.game) zip
             Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) map {
@@ -163,11 +163,9 @@ object Round extends LilaController with TheftPrevention {
       api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = none) map { Ok(_) }
     )
 
-  private def myTour(tourId: Option[String])(implicit ctx: Context): Fu[Option[Tourney]] =
+  private def myTour(tourId: Option[String], withStanding: Boolean)(implicit ctx: Context): Fu[Option[MiniStanding]] =
     tourId ?? { tid =>
-      ctx.userId ?? { uid =>
-        Env.tournament.cached tour tid map (_ filter (_ contains uid))
-      }
+      Env.tournament.api.miniStanding(tid, ctx.userId, withStanding)
     }
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
@@ -211,12 +209,12 @@ object Round extends LilaController with TheftPrevention {
   }
 
   private def sides(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
-    myTour(pov.game.simulId) zip
+    myTour(pov.game.simulId, isPlayer) zip
       (pov.game.simulId ?? Env.simul.repo.find) zip
       GameRepo.initialFen(pov.game) zip
       Env.game.crosstableApi(pov.game) map {
-        case (((myTour, simul), initialFen), crosstable) =>
-          Ok(html.game.sides(pov, initialFen, myTour, crosstable, withTourStanding = isPlayer, simul))
+        case (((tour, simul), initialFen), crosstable) =>
+          Ok(html.game.sides(pov, initialFen, tour, crosstable, simul))
       }
 
   def continue(id: String, mode: String) = Open { implicit ctx =>

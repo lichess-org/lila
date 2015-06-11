@@ -259,6 +259,9 @@ trait UserRepo {
 
   def email(id: ID): Fu[Option[String]] = $primitive.one($select(id), F.email)(_.asOpt[String])
 
+  def ratingOf(id: ID, perfType: PerfType) =
+    $primitive.one($select(id), s"${F.perfs}.${perfType.key}.gl.r")(_.asOpt[Double])
+
   def setSeenAt(id: ID) {
     $update.fieldUnchecked(id, "seenAt", $date(DateTime.now))
   }

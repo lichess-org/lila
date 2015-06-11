@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Tournament)
+@(tour: Tournament)
 
 @notification.view("tournament_reminder", closable = false, glow = true) {
 <a data-icon="g" href="@routes.Tournament.show(tour.id)">&nbsp;@tour.name</a> in progress!

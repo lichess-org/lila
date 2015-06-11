@@ -168,11 +168,24 @@ private[tournament] final class TournamentApi(
   def finishGame(game: Game) {
     game.tournamentId foreach { tourId =>
       Sequencing(tourId)(TournamentRepo.startedById) { tour =>
-        PairingRepo.update(game.id, _ finish game) >>-
+        PairingRepo.update(game.id, _ finish game) >>
+          game.userIds.map(updatePlayer(tour)).sequenceFu.void >>-
           socketReload(tour.id) >>- updateTournamentStanding(tour)
       }
     }
   }
+
+  def updatePlayer(tour: Tournament)(userId: String): Funit =
+    (tour.perfType ?? { UserRepo.ratingOf(userId, _) }) flatMap { rating =>
+      PlayerRepo.update(tour.id, userId) { player =>
+        tour.system.scoringSystem.sheet(tour, userId) map { sheet =>
+          player.copy(
+            score = sheet.total,
+            fire = sheet.onFire,
+            perf = rating.fold(player.perf)(_.toInt - player.rating))
+        }
+      }
+    }
 
   def ejectCheater(userId: String) {
     TournamentRepo.allEnterable foreach {
@@ -189,6 +202,23 @@ private[tournament] final class TournamentApi(
       PlayerRepo.remove(tour.id, userId) >>- socketReload(tour.id) >>- publish()
     }
   }
+
+  def miniStanding(tourId: String, withStanding: Boolean): Fu[Option[MiniStanding]] =
+    TournamentRepo byId tourId flatMap {
+      _ ?? { tour =>
+        if (withStanding) PlayerRepo.bestByTourWithRank(tour.id, 20) map { rps =>
+          MiniStanding(tour, rps.some).some
+        }
+        else fuccess(MiniStanding(tour, none).some)
+      }
+    }
+
+  def miniStanding(tourId: String, userId: Option[String], withStanding: Boolean): Fu[Option[MiniStanding]] =
+    userId ?? { uid =>
+      PlayerRepo.exists(tourId, uid) flatMap {
+        _ ?? miniStanding(tourId, withStanding)
+      }
+    }
 
   private def sequence(tourId: String)(work: => Funit) {
     sequencers ! Tell(tourId, Sequencer work work)

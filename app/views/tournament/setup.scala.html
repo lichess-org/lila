@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Tournament, variantLink: Boolean = false)(implicit ctx: Context)
+@(tour: Tournament, variantLink: Boolean = false)(implicit ctx: Context)
 <span class="setup">
   @tour.clock.show •
   @if(tour.variant.exotic) {

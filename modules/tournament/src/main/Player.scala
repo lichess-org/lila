@@ -4,8 +4,6 @@ import lila.game.PerfPicker
 import lila.rating.Perf
 import lila.user.{ User, Perfs }
 
-import ornicar.scalalib.Random
-
 private[tournament] case class Player(
     id: String, // random
     tourId: String,
@@ -16,7 +14,7 @@ private[tournament] case class Player(
     score: Int = 0,
     perf: Int = 0,
     magicScore: Int = 0,
-    rank: Int = Int.MaxValue) {
+    fire: Boolean = false) {
 
   def active = !withdraw
 
@@ -28,13 +26,13 @@ private[tournament] case class Player(
   def unWithdraw = copy(withdraw = false)
 
   def recomputeMagicScore = copy(
-    magicScore = (score * 1000000) + (perf * 1000) + rating)
+    magicScore = (score * 1000000) + (perf * 1000) + rating + withdraw.fold(Int.MinValue / 2, 0))
 }
 
 private[tournament] object Player {
 
   private[tournament] def make(tourId: String, user: User, perfLens: Perfs => Perf): Player = new Player(
-    id = Random nextStringUppercase 8,
+    id = lila.game.IdGenerator.game,
     tourId = tourId,
     userId = user.id,
     rating = perfLens(user.perfs).intRating,

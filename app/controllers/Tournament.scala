@@ -57,9 +57,9 @@ object Tournament extends LilaController {
   }
 
   def gameStanding(id: String) = Open { implicit ctx =>
-    env.cached tour id map {
-      case Some(t) if !t.isCreated => Ok(html.tournament.gameStanding(t, true))
-      case _                       => NotFound
+    env.api.miniStanding(id, true) map {
+      case Some(m) if !m.tour.isCreated => Ok(html.tournament.gameStanding(m))
+      case _                            => NotFound
     }
   }
 
@@ -70,11 +70,11 @@ object Tournament extends LilaController {
           html = repo enterableById id map {
             case None => tournamentNotFound
             case Some(tour) =>
-              env.api.join(tour, me)
+              env.api.join(tour.id, me)
               Redirect(routes.Tournament.show(tour.id))
           },
           api = _ => OptionFuOk(repo enterableById id) { tour =>
-            env.api.join(tour, me)
+            env.api.join(tour.id, me)
             fuccess(Json.obj("ok" -> true))
           }
         )

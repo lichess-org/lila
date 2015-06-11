@@ -31,7 +31,7 @@ object ScoringSystem extends AbstractScoringSystem {
 
   val emptySheet = Sheet(Nil)
 
-  def sheet(tour: Tournament, userId: String) =
+  def sheet(tour: Tournament, userId: String): Fu[Sheet] =
     PairingRepo.finishedByPlayerChronological(tour.id, userId) map { pairings =>
       Sheet {
         val nexts = (pairings drop 1 map Some.apply) :+ None

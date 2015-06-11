@@ -45,7 +45,7 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 
 @analyse.layout(
 title = title,
-side = views.html.game.side(pov, initialFen, none, withTourStanding = false, simul = simul, userTv = userTv).some,
+side = views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv).some,
 chat = base.chatDom(trans.spectatorRoom.str(), ctx.isAuth).some,
 underchat = underchat.some,
 moreCss = moreCss,

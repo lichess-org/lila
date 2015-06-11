@@ -36,6 +36,7 @@ trait Score {
 trait ScoreSheet {
   def scores: List[Score]
   def total: Int
+  def onFire: Boolean
 }
 
 trait ScoringSystem {
