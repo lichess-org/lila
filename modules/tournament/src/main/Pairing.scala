@@ -59,14 +59,8 @@ case class Pairing(
   def validBerserkOf(userId: String): Int =
     notSoQuickFinish ?? berserkOf(userId)
 
-  def withBerserk(userId: String) = copy(
-    berserk1 = if (userId == user1) 1 else berserk1,
-    berserk2 = if (userId == user2) 1 else berserk2)
-
   def povRef(userId: String): Option[PovRef] =
     colorOf(userId) map { PovRef(gameId, _) }
-
-  def withStatus(s: chess.Status) = copy(status = s)
 
   def finish(g: Game) = copy(
     status = g.status,

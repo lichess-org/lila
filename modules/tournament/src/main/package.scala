@@ -4,13 +4,15 @@ import lila.socket.WithSocket
 
 package object tournament extends PackageObject with WithPlay with WithSocket {
 
-  private[tournament]type Players = List[tournament.Player]
+  private[tournament] type Players = List[tournament.Player]
 
-  private[tournament]type RankedPlayers = List[RankedPlayer]
+  private[tournament] type RankedPlayers = List[RankedPlayer]
 
-  private[tournament]type Pairings = List[tournament.Pairing]
+  private[tournament] type Pairings = List[tournament.Pairing]
 
-  private[tournament]type Events = List[tournament.Event]
+  private[tournament] type Events = List[tournament.Event]
+
+  private[tournament] type Ranking = Map[String, Int]
 
   private[tournament] object RandomName {
 

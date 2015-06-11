@@ -14,7 +14,7 @@ module.exports = {
     var pag = pagination.players(ctrl);
     return [
       m('div.tournament_clock.title_tag', {
-          config: util.clock(ctrl.data.seconds)
+          config: util.clock(ctrl.data.secondsToFinish)
         },
         m('div.time.text[data-icon=p]')),
       util.title(ctrl),

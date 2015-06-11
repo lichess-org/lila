@@ -16,7 +16,7 @@ final class AutoPairing(
     onStart: String => Unit,
     secondsToMove: Int) {
 
-  def apply(tour: Started)(pairing: Pairing): Fu[Game] = for {
+  def apply(tour: Tournament)(pairing: Pairing): Fu[Game] = for {
     user1 ← getUser(pairing.user1)
     user2 ← getUser(pairing.user2)
     game1 = Game.make(

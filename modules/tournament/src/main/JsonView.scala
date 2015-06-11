@@ -29,21 +29,19 @@ final class JsonView(
       "private" -> tour.`private`,
       "variant" -> tour.variant.key,
       "players" -> rankedPlayers.map(playerJson(sheets, tour)),
-      "winner" -> tour.winner.map(_.id),
       "pairings" -> pairings.map(pairingJson),
-      "isOpen" -> tour.isOpen,
-      "isRunning" -> tour.isRunning,
+      "isStarted" -> tour.isStarted,
       "isFinished" -> tour.isFinished,
       "lastGames" -> games.map(gameJson),
       "schedule" -> tour.schedule.map(scheduleJson)) ++ specifics(tour)
   }
 
   private def specifics(tour: Tournament) = tour match {
-    case t: Created => Json.obj(
+    case t if t.isCreated => Json.obj(
       "secondsToStart" -> t.secondsToStart,
-      "startsAt" -> t.startsAt.map(org.joda.time.format.ISODateTimeFormat.dateTime.print))
-    case t: Started => Json.obj("seconds" -> t.remainingSeconds)
-    case _          => Json.obj()
+      "startsAt" -> org.joda.time.format.ISODateTimeFormat.dateTime.print(t.startsAt))
+    case t if t.isStarted => Json.obj("secondsToFinish" -> t.secondsToFinish)
+    case _                => Json.obj()
   }
 
   private def gameUserJson(player: lila.game.Player) = {

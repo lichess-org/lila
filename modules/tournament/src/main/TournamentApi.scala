@@ -15,6 +15,7 @@ import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.lobby.{ ReloadTournaments, ReloadSimuls }
 import lila.hub.actorApi.map.{ Tell, TellIds }
 import lila.hub.actorApi.router.Tourney
+import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
 import lila.hub.Sequencer
 import lila.round.actorApi.round.{ ResignColor, GoBerserk, TournamentStanding }
 import lila.socket.actorApi.SendToFlag
@@ -35,43 +36,25 @@ private[tournament] final class TournamentApi(
     trophyApi: lila.user.TrophyApi,
     roundSocketHub: ActorSelection) {
 
-  def makePairings(oldTour: Started, pairings: NonEmptyList[Pairing], postEvents: Events) {
-    sequence(oldTour.id) {
-      TournamentRepo startedById oldTour.id flatMap {
-        case Some(t) =>
-          val tour = t addPairings pairings addEvents postEvents
-          TournamentRepo.update(tour).void >> (pairings map autoPairing(tour)).sequence map {
-            _.list foreach { game =>
-              game.tournamentId foreach { tid =>
-                sendTo(tid, StartGame(game))
-              }
-            }
-          }
-        case None => fufail("Can't make pairings of missing tournament " + oldTour.id)
-      }
-    }
+  def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
+    var variant = chess.variant.Variant orDefault setup.variant
+    val tour = Tournament.make(
+      createdBy = me,
+      clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
+      minutes = setup.minutes,
+      waitMinutes = setup.waitMinutes,
+      mode = setup.mode.fold(Mode.default)(Mode.orDefault),
+      `private` = setup.`private`.isDefined,
+      system = System orDefault setup.system,
+      variant = variant,
+      position = StartingPosition.byEco(setup.position).ifTrue(variant.standard) | StartingPosition.initial)
+    TournamentRepo.insert(tour).void >>
+      PlayerRepo.join(tour.id, me, tour.perfLens) >>- {
+        withdrawAllBut(tour.id, me.id)
+        publish()
+        timeline ! (Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id)
+      } inject tour
   }
-
-  def createTournament(setup: TournamentSetup, me: User): Fu[Created] =
-    TournamentRepo withdraw me.id flatMap { withdrawIds =>
-      var variant = chess.variant.Variant orDefault setup.variant
-      val created = Tournament.make(
-        createdBy = me,
-        clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
-        minutes = setup.minutes,
-        waitMinutes = setup.waitMinutes,
-        mode = setup.mode.fold(Mode.default)(Mode.orDefault),
-        `private` = setup.`private`.isDefined,
-        system = System orDefault setup.system,
-        variant = variant,
-        position = StartingPosition.byEco(setup.position).ifTrue(variant.standard) | StartingPosition.initial)
-      TournamentRepo.insert(created).void >>-
-        (withdrawIds foreach socketReload) >>-
-        publish() >>- {
-          import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
-          timeline ! (Propagate(TourJoin(me.id, created.id, created.fullName)) toFollowersOf me.id)
-        } inject created
-    }
 
   private[tournament] def createScheduled(schedule: Schedule): Funit =
     (Schedule durationFor schedule) ?? { minutes =>
@@ -79,151 +62,145 @@ private[tournament] final class TournamentApi(
       TournamentRepo.insert(created).void >>- publish()
     }
 
-  def startOrDelete(created: Created) {
-    if (created.enoughPlayersToStart) start(created) else wipe(created)
-  }
-
-  def start(oldTour: Created) {
-    sequence(oldTour.id) {
-      TournamentRepo createdById oldTour.id flatMap {
-        case Some(created) =>
-          val started = created.start
-          TournamentRepo.update(started).void >>-
-            sendTo(started.id, Reload) >>-
-            publish()
-        case None => fufail("Can't start missing tournament " + oldTour.id)
-      }
-    }
-  }
-
-  def wipe(created: Created): Funit =
-    TournamentRepo.remove(created).void >>- publish() >>- socketReload(created.id)
-
-  def finish(oldTour: Started) {
-    sequence(oldTour.id) {
-      TournamentRepo startedById oldTour.id flatMap {
-        case Some(started) =>
-          if (started.pairings.isEmpty) TournamentRepo.remove(started).void >>- publish()
-          else started.readyToFinish ?? {
-            val finished = started.finish
-            TournamentRepo.update(finished).void >>-
-              sendTo(finished.id, Reload) >>-
-              publish() >>-
-              finished.players.filter(_.score > 0).map { p =>
-                UserRepo.incToints(p.id, p.score)
-              }.sequenceFu >>
-              awardTrophies(finished)
-          }
-        case None => fufail("Cannot finish missing tournament " + oldTour)
-      }
-    }
-  }
-
-  private def awardTrophies(tour: Finished): Funit =
-    if (tour.schedule.??(_.freq == Schedule.Freq.Marathon)) tour.rankedPlayers.map {
-      case rp if rp.rank == 1  => trophyApi.award(rp.player.id, _.MarathonWinner)
-      case rp if rp.rank <= 10 => trophyApi.award(rp.player.id, _.MarathonTopTen)
-      case rp if rp.rank <= 50 => trophyApi.award(rp.player.id, _.MarathonTopFifty)
-      case _                   => funit
-    }.sequenceFu.void
-    else funit
-
-  def join(oldTour: Enterable, me: User) {
-    sequence(oldTour.id) {
-      TournamentRepo enterableById oldTour.id flatMap {
-        case Some(tour) => tour.join(me).future flatMap { tour2 =>
-          TournamentRepo withdraw me.id flatMap { withdrawIds =>
-            TournamentRepo.update(tour2).void >>- {
-              sendTo(tour.id, Joining(me.id))
-              (tour.id :: withdrawIds) foreach socketReload
-              publish()
-              import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
-              timeline ! (Propagate(TourJoin(me.id, tour2.id, tour2.fullName)) toFollowersOf me.id)
-            }
-          }
+  def makePairings(oldTour: Tournament, pairings: NonEmptyList[Pairing], postEvents: Events) {
+    Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
+      pairings.map(autoPairing(tour)).sequence map {
+        _.list foreach { game =>
+          sendTo(tour.id, StartGame(game))
         }
-        case _ => fufail("Cannot join missing tournament " + oldTour.id)
       }
     }
   }
 
-  def withdraw(oldTour: Tournament, userId: String) {
-    sequence(oldTour.id) {
-      TournamentRepo byId oldTour.id flatMap {
-        case Some(created: Created) => (created withdraw userId).fold(
-          err => funit,
-          tour2 => TournamentRepo.update(tour2).void >>- socketReload(tour2.id) >>- publish()
-        )
-        case Some(started: Started) => (started withdraw userId).fold(
-          err => funit,
-          tour2 => TournamentRepo.update(tour2).void >>-
-            (tour2.userCurrentPov(userId) ?? { povRef =>
-              roundMap ! Tell(povRef.gameId, ResignColor(povRef.color))
-            }) >>-
-            socketReload(tour2.id) >>-
-            publish()
-        )
-        case _ => fufail("Cannot withdraw from finished or missing tournament " + oldTour.id)
+  def start(oldTour: Tournament) {
+    Sequencing(oldTour.id)(TournamentRepo.createdById) { tour =>
+      TournamentRepo.setStatus(tour.id, Status.Started) >>-
+        sendTo(tour.id, Reload) >>-
+        publish()
+    }
+  }
+
+  def wipe(tour: Tournament): Funit =
+    TournamentRepo.remove(tour).void >>
+      PairingRepo.removeByTour(tour.id) >>
+      PlayerRepo.removeByTour(tour.id) >>- publish() >>- socketReload(tour.id)
+
+  def finish(oldTour: Tournament) {
+    Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
+      PairingRepo count tour.id flatMap {
+        case 0 => wipe(tour)
+        case _ => for {
+          _ <- TournamentRepo.setStatus(tour.id, Status.Finished)
+          _ <- PlayerRepo unWithdraw tour.id
+          _ <- PairingRepo removePlaying tour.id
+          finished <- TournamentRepo finishedById tour.id flatten s"Tour ${tour.id} missing"
+        } yield {
+          sendTo(finished.id, Reload)
+          publish()
+          PlayerRepo withPoints finished.id foreach {
+            _ foreach { p => UserRepo.incToints(p.id, p.score) }
+          }
+          // awardTrophies(finished)
+        }
       }
     }
   }
 
-  def berserk(oldTour: Started, userId: String) {
-    sequence(oldTour.id) {
-      TournamentRepo startedById oldTour.id flatMap {
-        _ ?? { tour =>
-          (tour userCurrentPairing userId filter { p =>
-            (p berserkOf userId) == 0
-          }) ?? { pairing =>
-            (pairing povRef userId) ?? { povRef =>
-              GameRepo pov povRef flatMap {
-                _.filter(_.game.berserkable) ?? { pov =>
-                  val tour2 = tour.updatePairing(pov.gameId, _ withBerserk userId)
-                  TournamentRepo.update(tour2).void >>- {
-                    roundMap ! Tell(povRef.gameId, GoBerserk(povRef.color))
-                  }
+  // private def awardTrophies(tour: Tournament): Funit =
+  //   if (tour.schedule.??(_.freq == Schedule.Freq.Marathon)) tour.rankedPlayers.map {
+  //     case rp if rp.rank == 1  => trophyApi.award(rp.player.id, _.MarathonWinner)
+  //     case rp if rp.rank <= 10 => trophyApi.award(rp.player.id, _.MarathonTopTen)
+  //     case rp if rp.rank <= 50 => trophyApi.award(rp.player.id, _.MarathonTopFifty)
+  //     case _                   => funit
+  //   }.sequenceFu.void
+  //   else funit
+
+  def join(tourId: String, me: User) {
+    Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
+      PlayerRepo.join(tour.id, me, tour.perfLens) >>- {
+        withdrawAllBut(tour.id, me.id)
+        sendTo(tour.id, Joining(me.id))
+        socketReload(tour.id)
+        publish()
+        timeline ! (Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id)
+      }
+    }
+  }
+
+  private def withdrawAllBut(tourId: String, userId: String) {
+    TournamentRepo.allEnterable foreach {
+      _ filter (_.id != tourId) foreach { other =>
+        PlayerRepo.existsActive(other.id, userId) foreach {
+          _ ?? withdraw(other.id, userId)
+        }
+      }
+    }
+  }
+
+  def withdraw(tourId: String, userId: String) {
+    Sequencing(tourId)(TournamentRepo.enterableById) {
+      case tour if tour.isCreated =>
+        PlayerRepo.remove(tour.id, userId) >>- socketReload(tour.id) >>- publish()
+      case tour if tour.isStarted =>
+        PlayerRepo.withdraw(tour.id, userId) >>- socketReload(tour.id) >>- publish()
+      case _ => funit
+    }
+  }
+
+  def berserk(oldTour: Tournament, userId: String) {
+    Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
+      PairingRepo.findPlaying(tour.id, userId) flatMap {
+        case Some(pairing) if pairing.berserkOf(userId) == 0 =>
+          (pairing povRef userId) ?? { povRef =>
+            GameRepo pov povRef flatMap {
+              _.filter(_.game.berserkable) ?? { pov =>
+                PairingRepo.setBerserk(pairing, userId, 1) >>- {
+                  roundMap ! Tell(povRef.gameId, GoBerserk(povRef.color))
                 }
               }
             }
           }
-        }
+        case _ => funit
       }
     }
   }
 
   def finishGame(game: Game) {
     game.tournamentId foreach { tourId =>
-      sequence(tourId) {
-        TournamentRepo startedById tourId flatMap {
-          _ ?? { tour =>
-            val tour2 = tour.updatePairing(game.id, _ finish game).refreshPlayers
-            TournamentRepo.update(tour2).void >>- {
-              game.loserUserId.filter(tour2.quickLossStreak) foreach { withdraw(tour2, _) }
-            } >>- socketReload(tour2.id) >>- updateTournamentStanding(tour2)
-          }
-        }
+      Sequencing(tourId)(TournamentRepo.startedById) { tour =>
+        PairingRepo.update(game.id, _ finish game) >>-
+          socketReload(tour.id) >>- updateTournamentStanding(tour)
       }
     }
   }
 
   def ejectCheater(userId: String) {
     TournamentRepo.allEnterable foreach {
-      _ foreach { oldTour =>
-        sequence(oldTour.id) {
-          TournamentRepo enterableById oldTour.id flatMap {
-            _ ?? { tour =>
-              (tour ejectCheater userId) ?? { tour2 =>
-                TournamentRepo.update(tour2).void >>- socketReload(tour2.id)
-              }
-            }
-          }
+      _ foreach { tour =>
+        PlayerRepo.existsActive(tour.id, userId) foreach {
+          _ ?? ejectCheater(tour.id, userId)
         }
       }
     }
   }
 
+  def ejectCheater(tourId: String, userId: String) {
+    Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
+      PlayerRepo.remove(tour.id, userId) >>- socketReload(tour.id) >>- publish()
+    }
+  }
+
   private def sequence(tourId: String)(work: => Funit) {
     sequencers ! Tell(tourId, Sequencer work work)
+  }
+
+  private def Sequencing[T <: Tournament](tourId: String)(fetch: String => Fu[Option[T]])(run: T => Funit) {
+    sequence(tourId) {
+      fetch(tourId) flatMap {
+        case Some(t) => run(t)
+        case None    => fufail(s"Can't run sequenced operation on missing tournament $tourId")
+      }
+    }
   }
 
   private def socketReload(tourId: String) {
@@ -246,11 +223,13 @@ private[tournament] final class TournamentApi(
 
   private object updateTournamentStanding {
     private val debouncer = system.actorOf(Props(new Debouncer(10 seconds, {
-      (tour: Tournament) =>
-        roundSocketHub ! TellIds(tour.playingPairings.map(_.gameId), TournamentStanding(tour.id))
+      (tourId: String) =>
+        PairingRepo playingGameIds tourId foreach { ids =>
+          roundSocketHub ! TellIds(ids, TournamentStanding(tourId))
+        }
     })))
     def apply(tour: Tournament) {
-      debouncer ! tour
+      debouncer ! tour.id
     }
   }
 

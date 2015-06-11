@@ -37,7 +37,7 @@ object ScoringSystem extends AbstractScoringSystem {
         val nexts = (pairings drop 1 map Some.apply) :+ None
         pairings.zip(nexts).foldLeft(List[Score]()) {
           case (scores, (p, n)) =>
-            val berserkValue = p validBerserkOf user
+            val berserkValue = p validBerserkOf userId
             (p.winner match {
               case None if p.quickDraw => Score(
                 Some(false),
@@ -47,13 +47,13 @@ object ScoringSystem extends AbstractScoringSystem {
                 None,
                 if (firstTwoAreWins(scores)) Double else Normal,
                 berserkValue)
-              case Some(w) if (user == w) => Score(
+              case Some(w) if (userId == w) => Score(
                 Some(true),
                 if (firstTwoAreWins(scores)) Double
                 else if (scores.headOption ?? (_.flag == StreakStarter)) StreakStarter
                 else n.flatMap(_.winner) match {
-                  case Some(w) if (user == w) => StreakStarter
-                  case _                      => Normal
+                  case Some(w) if (userId == w) => StreakStarter
+                  case _                        => Normal
                 },
                 berserkValue)
               case _ => Score(Some(false), Normal, berserkValue)

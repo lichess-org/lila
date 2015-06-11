@@ -32,9 +32,8 @@ private[tournament] case class Connected(enumerator: JsEnumerator, member: Membe
 // organizer
 private[tournament] case object AllCreatedTournaments
 private[tournament] case object StartedTournaments
-case class RemindTournaments(tours: List[Started])
-case class RemindTournament(tour: Started)
-case class TournamentTable(tours: List[Enterable])
+case class RemindTournament(tour: Tournament, activeUserIds: Set[String])
+case class TournamentTable(tours: List[Tournament])
 
 private[tournament] case object ScheduleNow
 private[tournament] case object NotifyCrowd

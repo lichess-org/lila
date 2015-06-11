@@ -45,7 +45,7 @@ class ArenaPairingPerfTest extends Specification {
       position = chess.StartingPosition.initial,
       waitMinutes = 1,
       mode = chess.Mode.Rated,
-      `private` = false): Enterable) {
+      `private` = false)) {
       case (tour, u) => (tour join u).toOption.get
     } match {
       case t: Created => t.start

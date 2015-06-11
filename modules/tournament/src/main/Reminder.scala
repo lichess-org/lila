@@ -16,17 +16,14 @@ private[tournament] final class Reminder(
 
   def receive = {
 
-    case RemindTournaments(tours) => tours foreach { tour =>
-      renderer ? RemindTournament(tour) foreach {
-        case html: Html =>
-          val event = SendTos(tour.activeUserIds.toSet, Json.obj(
-            "t" -> "tournamentReminder",
-            "d" -> Json.obj(
-              "id" -> tour.id,
-              "html" -> html.toString
-            )))
-          bus.publish(event, 'users)
+    case msg@RemindTournament(tour, activeUserIds) =>
+      renderer ? msg foreach {
+        case html: Html => bus.publish(SendTos(activeUserIds, Json.obj(
+          "t" -> "tournamentReminder",
+          "d" -> Json.obj(
+            "id" -> tour.id,
+            "html" -> html.toString
+          ))), 'users)
       }
-    }
   }
 }

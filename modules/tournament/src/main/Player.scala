@@ -28,23 +28,15 @@ private[tournament] case class Player(
   def unWithdraw = copy(withdraw = false)
 
   def recomputeMagicScore = copy(
-    magicScore = (score * 1000000) + (perf * 1000) + rating + withdraw.fold(Int.MinValue / 2, 0))
+    magicScore = (score * 1000000) + (perf * 1000) + rating)
 }
 
 private[tournament] object Player {
 
-  private[tournament] def make(tour: Tournament, user: User, perfLens: Perfs => Perf): Player = new Player(
+  private[tournament] def make(tourId: String, user: User, perfLens: Perfs => Perf): Player = new Player(
     id = Random nextStringUppercase 8,
-    tourId = tour.id,
+    tourId = tourId,
     userId = user.id,
     rating = perfLens(user.perfs).intRating,
     provisional = perfLens(user.perfs).provisional)
-
-  // private[tournament] def refresh(tour: Tournament, playerPairings: List[Pairing]): Players = tour.players map { p =>
-  //   p.copy(
-  //     score = tour.system.scoringSystem.scoreSheet(tour, p.id).total,
-  //     perf = playerPairings.foldLeft(0) {
-  //       case (perf, pairing) => perf + pairing.perfOf(p.id)
-  //     })
-  // } sortBy (-_.magicScore)
 }

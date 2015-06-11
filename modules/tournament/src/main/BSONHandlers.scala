@@ -12,6 +12,11 @@ object BSONHandlers {
     def write(x: StartingPosition) = BSONString(x.eco)
   }
 
+  private implicit val StatusBSONHandler = new BSONHandler[BSONInteger, Status] {
+    def read(bsonInt: BSONInteger): Status = Status(bsonInt.value) err s"No such status: ${bsonInt.value}"
+    def write(x: Status) = BSONInteger(x.id)
+  }
+
   private implicit val tournamentClockBSONHandler = Macros.handler[TournamentClock]
 
   private implicit val scheduleHandler = new BSON[Schedule] {
@@ -37,12 +42,14 @@ object BSONHandlers {
       status = r int "status",
       system = readSystem(r),
       clock = r.get[TournamentClock]("clock"))
-    def writes(w: BSON.Writer, o: RoundTournament) = sys error "RountTournament view is read only!"
+    def writes(w: BSON.Writer, o: RoundTournament) = sys error "RoundTournament view is read only!"
   }
 
-  private implicit val dataHandler = new BSON[Data] {
-    def reads(r: BSON.Reader) = Data(
+  implicit val tournamentHandler = new BSON[Tournament] {
+    def reads(r: BSON.Reader) = Tournament(
+      id = r str "_id",
       name = r str "name",
+      status = r.get[Status]("status"),
       system = readSystem(r),
       clock = r.get[TournamentClock]("clock"),
       minutes = r int "minutes",
@@ -52,9 +59,12 @@ object BSONHandlers {
       `private` = r boolD "private",
       schedule = r.getO[Schedule]("schedule"),
       createdAt = r date "createdAt",
-      createdBy = r str "createdBy")
-    def writes(w: BSON.Writer, o: Data) = BSONDocument(
+      createdBy = r str "createdBy",
+      startsAt = r date "startsAt")
+    def writes(w: BSON.Writer, o: Tournament) = BSONDocument(
+      "_id" -> o.id,
       "name" -> o.name,
+      "status" -> o.status,
       "system" -> o.system.id,
       "clock" -> o.clock,
       "minutes" -> o.minutes,
@@ -64,7 +74,8 @@ object BSONHandlers {
       "private" -> w.boolO(o.`private`),
       "schedule" -> o.schedule,
       "createdAt" -> w.date(o.createdAt),
-      "createdBy" -> w.str(o.createdBy))
+      "createdBy" -> w.str(o.createdBy),
+      "startsAt" -> w.date(o.startsAt))
   }
 
   implicit val playerBSONHandler = new BSON[Player] {
@@ -132,77 +143,4 @@ object BSONHandlers {
       case Bye(user, timestamp) => BSONDocument("i" -> o.id, "u" -> user, "t" -> w.date(timestamp))
     }
   }
-
-  private[tournament] implicit val createdHandler = new BSON[Created] {
-    def reads(r: BSON.Reader) = assertStatus(r, Status.Created) {
-      Created(
-        id = r str "_id",
-        data = r.doc.as[Data],
-        waitMinutes = r.intO("wait"))
-    }
-    def writes(w: BSON.Writer, o: Created) = dataHandler.write(o.data) ++ BSONDocument(
-      "_id" -> o.id,
-      "status" -> Status.Created.id,
-      "wait" -> o.waitMinutes)
-  }
-
-  private[tournament] implicit val startedHandler = new BSON[Started] {
-    def reads(r: BSON.Reader) = assertStatus(r, Status.Started) {
-      Started(
-        id = r str "_id",
-        data = r.doc.as[Data],
-        startedAt = r date "startedAt",
-        events = ~r.getO[Events]("events"))
-    }
-    def writes(w: BSON.Writer, o: Started) = dataHandler.write(o.data) ++ BSONDocument(
-      "_id" -> o.id,
-      "status" -> Status.Started.id,
-      "events" -> o.events,
-      "startedAt" -> w.date(o.startedAt))
-  }
-
-  private[tournament] implicit val finishedHandler = new BSON[Finished] {
-    def reads(r: BSON.Reader) = assertStatus(r, Status.Finished) {
-      Finished(
-        id = r str "_id",
-        data = r.doc.as[Data],
-        startedAt = r date "startedAt",
-        events = ~r.getO[Events]("events"))
-    }
-    def writes(w: BSON.Writer, o: Finished) = dataHandler.write(o.data) ++ BSONDocument(
-      "_id" -> o.id,
-      "status" -> Status.Finished.id,
-      "events" -> o.events,
-      "startedAt" -> w.date(o.startedAt))
-  }
-
-  private[tournament] implicit val enterableHandler = new BSONHandler[BSONDocument, Enterable] with BSONDocumentReader[Enterable] with BSONDocumentWriter[Enterable] {
-    def read(doc: BSONDocument): Enterable = ~doc.getAs[Int]("status") match {
-      case Status.Created.id => doc.as[Created]
-      case Status.Started.id => doc.as[Started]
-      case _                 => sys error "tournament is not enterable"
-    }
-    def write(o: Enterable): BSONDocument = o match {
-      case x: Created => createdHandler write x
-      case x: Started => startedHandler write x
-    }
-  }
-
-  private[tournament] implicit val anyHandler = new BSONHandler[BSONDocument, Tournament] with BSONDocumentReader[Tournament] with BSONDocumentWriter[Tournament] {
-    def read(doc: BSONDocument): Tournament = ~doc.getAs[Int]("status") match {
-      case Status.Created.id  => doc.as[Created]
-      case Status.Started.id  => doc.as[Started]
-      case Status.Finished.id => doc.as[Finished]
-      case x                  => sys error s"tournament invalid status: $x"
-    }
-    def write(o: Tournament): BSONDocument = o match {
-      case x: Created  => createdHandler write x
-      case x: Started  => startedHandler write x
-      case x: Finished => finishedHandler write x
-    }
-  }
-
-  def assertStatus[A](r: BSON.Reader, status: Status)(f: => A): A =
-    if (r.int("status") != status.id) sys error "invalid tournament status"
-    else f
 }
