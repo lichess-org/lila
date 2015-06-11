@@ -24,6 +24,7 @@ object ApplicationBuild extends Build {
       sources in doc in Compile := List(),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
+        "lila.tournament.Tournament",
         "lila.user.{ User, UserContext }",
         "lila.security.Permission",
         "lila.app.templating.Environment._",

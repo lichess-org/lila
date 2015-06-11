@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Pov, GameRepo }
-import lila.tournament.{ System, TournamentRepo, Created, Started, Finished, Tournament => Tourney }
+import lila.tournament.{ System, TournamentRepo, Tournament => Tourney }
 import lila.user.UserRepo
 import views._
 
@@ -59,8 +59,8 @@ object Tournament extends LilaController {
 
   def gameStanding(id: String) = Open { implicit ctx =>
     env.cached tour id map {
-      case Some(t: lila.tournament.StartedOrFinished) => Ok(html.tournament.gameStanding(t, true))
-      case _ => NotFound
+      case Some(t) if !t.isCreated => Ok(html.tournament.gameStanding(t, true))
+      case _                       => NotFound
     }
   }
 

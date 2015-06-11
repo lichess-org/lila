@@ -28,9 +28,6 @@ object TournamentRepo {
       selectId(id) ++ BSONDocument("players.id" -> userId)
     ).one[Tournament]
 
-  def roundView(id: String): Fu[Option[RoundTournament]] =
-    coll.find(selectId(id)).one[RoundTournament]
-
   def createdById(id: String): Fu[Option[Tournament]] =
     coll.find(selectId(id) ++ createdSelect).one[Tournament]
 

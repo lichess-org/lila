@@ -87,7 +87,7 @@
   }
 
   @myTour match {
-  case Some(t: lila.tournament.StartedOrFinished) => { @tournament.gameStanding(t, withTourStanding) }
+  case Some(t) if !t.isCreated => { @tournament.gameStanding(t, withTourStanding) }
   case _ => {
   @pov.game.tournamentId.map { tourId =>
   <div class="game_tournament side_box no_padding">

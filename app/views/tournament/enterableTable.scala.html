@@ -1,4 +1,4 @@
-@(tours: List[lila.tournament.Enterable], scheduled: Boolean)
+@(tours: List[Tournament], scheduled: Boolean)
 
 @if(!scheduled && tours.isEmpty) {
 <tr class="create">

@@ -7,7 +7,7 @@ import lila.game.Game
 import lila.rating.PerfType
 import lila.simul.Simul
 import lila.timeline.Entry
-import lila.tournament.{ Enterable, Winner }
+import lila.tournament.{ Tournament, Winner }
 import lila.tv.{ Featured, StreamOnAir }
 import lila.user.User
 import lila.playban.TempBan
@@ -24,11 +24,11 @@ final class Preload(
     lobbyApi: lila.api.LobbyApi,
     getPlayban: String => Fu[Option[TempBan]]) {
 
-  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Enterable], List[Simul], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Int)
+  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Simul], Option[Game], List[(User, PerfType)], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Int)
 
   def apply(
     posts: Fu[List[MiniForumPost]],
-    tours: Fu[List[Enterable]],
+    tours: Fu[List[Tournament]],
     simuls: Fu[List[Simul]])(implicit ctx: Context): Fu[Response] =
     lobbyApi(ctx) zip
       posts zip

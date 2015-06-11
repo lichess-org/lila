@@ -35,16 +35,6 @@ object BSONHandlers {
   private def readSystem(r: BSON.Reader) =
     r.intO("system").fold[System](System.default)(System.orDefault)
 
-  implicit val roundTournamentHandler = new BSON[RoundTournament] {
-    def reads(r: BSON.Reader) = RoundTournament(
-      id = r str "_id",
-      name = r str "name",
-      status = r int "status",
-      system = readSystem(r),
-      clock = r.get[TournamentClock]("clock"))
-    def writes(w: BSON.Writer, o: RoundTournament) = sys error "RoundTournament view is read only!"
-  }
-
   implicit val tournamentHandler = new BSON[Tournament] {
     def reads(r: BSON.Reader) = Tournament(
       id = r str "_id",

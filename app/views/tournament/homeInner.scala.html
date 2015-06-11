@@ -1,6 +1,6 @@
-@(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished])(implicit ctx: Context)
+@(createds: List[Tournament], starteds: List[Tournament], finisheds: List[Tournament])(implicit ctx: Context)
 
-@joinButton(tour: lila.tournament.Enterable) = {
+@joinButton(tour: Tournament) = {
 @ctx.me.map { me =>
 @if(tour isActive me) {
 <span class="joined text" data-icon="E">JOINED</span>
@@ -12,13 +12,13 @@
 }
 }
 
-@iconTd(tour: lila.tournament.Tournament) = {
+@iconTd(tour: tournament.Tournament) = {
 <td class="icon">
   <span @if(tour.scheduled){class="is-gold"} data-icon="@tournamentIconChar(tour)"></span>
 </td>
 }
 
-@tourTd(tour: lila.tournament.Tournament) = {
+@tourTd(tour: tournament.Tournament) = {
 <td class="header">
   <a href="@routes.Tournament.show(tour.id)">
     <span class="name">

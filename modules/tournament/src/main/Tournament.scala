@@ -63,63 +63,6 @@ case class Tournament(
 
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
 
-// def userCurrentPairing(userId: String): Option[Pairing] = pairings find { p =>
-//   p.playing && p.contains(userId)
-// }
-
-// def userCurrentPov(userId: String): Option[PovRef] =
-//   userCurrentPairing(userId) flatMap (_ povRef userId)
-
-// def userCurrentPov(user: Option[User]): Option[PovRef] =
-//   user.flatMap(u => userCurrentPov(u.id))
-
-// def finish = withPlayers(players.map(_.unWithdraw)).refreshPlayers |> { tour =>
-//   Finished(
-//     id = tour.id,
-//     data = tour.data,
-//     startedAt = tour.startedAt,
-//     players = tour.players.map(_.unWithdraw),
-//     // pairings = tour.pairings filterNot (_.playing),
-//     events = tour.events)
-// }
-
-// def withdraw(userId: String): Valid[Started] = contains(userId).fold(
-//   withPlayers(players map {
-//     case p if p is userId => p.doWithdraw
-//     case p                => p
-//   }).success,
-//   !!("User %s is not part of the tournament" format userId)
-// )
-
-// def quickLossStreak(user: String): Boolean =
-//   userPairings(user).takeWhile { pair => (pair lostBy user) && pair.quickFinish }.size >= 3
-
-// def withPlayers(s: Players) = copy(players = s)
-// def refreshPlayers = withPlayers(Player refresh this)
-
-// def join(user: User) = joinNew(user) orElse joinBack(user)
-
-// private def joinBack(user: User) = withdrawnPlayers.find(_ is user) match {
-//   case None => !!("User %s is already part of the tournament" format user.id)
-//   case Some(player) => withPlayers(players map {
-//     case p if p is player => p.unWithdraw
-//     case p                => p
-//   }).success
-// }
-// }
-
-// case class Finished(
-//     id: String,
-//     data: Data,
-//     startedAt: DateTime,
-//     events: List[Event]) extends StartedOrFinished {
-
-//   override def isFinished = true
-
-//   // def withPlayers(s: Players) = copy(players = s)
-//   // def refreshPlayers = withPlayers(Player refresh this)
-// }
-
 object Tournament {
 
   val minPlayers = 3
