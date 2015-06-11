@@ -17,7 +17,7 @@ case class Glicko(
   def intervalMax = (rating + deviation * 2).toInt
   def interval = intervalMin -> intervalMax
 
-  def provisional = deviation >= 110
+  def provisional = deviation >= Glicko.provisionalDeviation
 
   override def toString = s"$intRating $intDeviation"
 }
@@ -27,6 +27,8 @@ case object Glicko {
   val minRating = 800
 
   val default = Glicko(1500d, 350d, 0.06d)
+
+  val provisionalDeviation = 110
 
   def range(rating: Double, deviation: Double) = (
     rating - (deviation * 2),
