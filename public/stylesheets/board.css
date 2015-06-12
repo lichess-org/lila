@@ -90,10 +90,10 @@ body.destination .cg-board .cg-square.occupied.move-dest {
   background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
 }
 body.destination .cg-board .cg-square.premove-dest {
-  background: radial-gradient(rgba(20, 30, 85, 0.3) 17%, #203085 0, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 0);
+  background: radial-gradient(rgba(20, 30, 85, 0.2) 17%, #203085 0, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0) 0);
 }
 body.destination .cg-board .cg-square.occupied.premove-dest {
-  background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.3) 80%);
+  background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
 }
 body.highlight .cg-board .cg-square.move-dest.drag-over,
 body.highlight .cg-board .cg-square.move-dest:hover {
@@ -101,7 +101,7 @@ body.highlight .cg-board .cg-square.move-dest:hover {
 }
 body.highlight .cg-board .cg-square.premove-dest.drag-over,
 body.highlight .cg-board .cg-square.premove-dest:hover {
-  background: rgba(20, 30, 85, 0.3);
+  background: rgba(20, 30, 85, 0.2);
 }
 body.base .cg-board .cg-square.selected {
   background-color: rgba(20, 85, 30, 0.5);
