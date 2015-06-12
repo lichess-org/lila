@@ -13,7 +13,6 @@ case class Pairing(
     user2: String,
     winner: Option[String],
     turns: Option[Int],
-    date: DateTime,
     berserk1: Int,
     berserk2: Int) {
 
@@ -54,11 +53,6 @@ case class Pairing(
 
   def povRef(userId: String): Option[PovRef] =
     colorOf(userId) map { PovRef(gameId, _) }
-
-  def finish(g: Game) = copy(
-    status = g.status,
-    winner = g.winnerUserId,
-    turns = g.turns.some)
 }
 
 private[tournament] object Pairing {
@@ -76,7 +70,6 @@ private[tournament] object Pairing {
     user2 = u2,
     winner = none,
     turns = none,
-    date = d | DateTime.now,
     berserk1 = 0,
     berserk2 = 0)
 }

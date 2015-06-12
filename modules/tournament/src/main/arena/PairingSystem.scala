@@ -20,7 +20,7 @@ object PairingSystem extends AbstractPairingSystem {
   def createPairings(
     tour: Tournament,
     users: AllUserIds): Fu[(Pairings, Events)] = for {
-    recentPairings <- PairingRepo.recentByTour(tour.id, 50)
+    recentPairings <- PairingRepo.recentByTourAndUserIds(tour.id, users.all, Math.min(100, users.all.size * 5)).thenPp
     playingUserIds <- PairingRepo.playingUserIds(tour)
     nbActiveUsers <- PlayerRepo.countActive(tour.id)
     ranking <- PlayerRepo.ranking(tour.id)

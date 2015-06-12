@@ -169,7 +169,7 @@ private[tournament] final class TournamentApi(
   def finishGame(game: Game) {
     game.tournamentId foreach { tourId =>
       Sequencing(tourId)(TournamentRepo.startedById) { tour =>
-        PairingRepo.update(game.id, _ finish game) >>
+        PairingRepo.finish(game) >>
           game.userIds.map(updatePlayer(tour)).sequenceFu.void >>-
           socketReload(tour.id) >>- updateTournamentStanding(tour)
       }
