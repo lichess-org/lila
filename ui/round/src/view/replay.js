@@ -5,9 +5,9 @@ var status = require('game').status;
 var renderStatus = require('./status');
 var m = require('mithril');
 
-var emptyTd = m('td', '...');
+var emptyTd = m('td.move', '...');
 
-function renderTd(step, curPly) {
+function renderTd(step, curPly, orEmpty) {
   return step ? {
     tag: 'td',
     attrs: {
@@ -15,7 +15,7 @@ function renderTd(step, curPly) {
       'data-ply': step.ply
     },
     children: [step.san]
-  } : emptyTd
+  } : (orEmpty ? emptyTd : null)
 }
 
 function renderResult(ctrl, asTable) {
@@ -66,8 +66,8 @@ function renderTable(ctrl) {
   for (var i = 0, len = pairs.length; i < len; i++)
     trs.push(m('tr', [
       m('td.index', i + 1),
-      renderTd(pairs[i][0], ctrl.vm.ply),
-      renderTd(pairs[i][1], ctrl.vm.ply)
+      renderTd(pairs[i][0], ctrl.vm.ply, true),
+      renderTd(pairs[i][1], ctrl.vm.ply, false)
     ]));
   trs.push(renderResult(ctrl, true));
 
