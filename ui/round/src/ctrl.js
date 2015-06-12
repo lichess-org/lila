@@ -194,6 +194,8 @@ module.exports = function(opts) {
 
   var setQuietMode = function() {
     lichess.quietMode = game.isPlayerPlaying(this.data);
+    document.body.classList.toggle('no-select',
+      lichess.quietMode && this.clock && this.clock.secondsOf(this.data.player.color) <= 300);
   }.bind(this);
   setQuietMode();
 

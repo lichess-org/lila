@@ -434,6 +434,10 @@ body {
   overflow-x: hidden;
   cursor: default;
 }
+body.no-select {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
 a,
 a:visited,
 button,
