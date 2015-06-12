@@ -51,9 +51,9 @@ lichess.StrongSocket.defaults = {
   },
   options: {
     name: "unnamed",
-    pingMaxLag: 7000, // time to wait for pong before reseting the connection
+    pingMaxLag: 8000, // time to wait for pong before reseting the connection
     pingDelay: 1000, // time between pong and ping
-    autoReconnectDelay: 1000,
+    autoReconnectDelay: 2000,
     lagTag: false, // jQuery object showing ping lag
     ignoreUnknownMessages: true,
     baseUrls: ['socket.' + document.domain].concat(
