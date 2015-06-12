@@ -9,15 +9,20 @@ import lila.game.Event
 case class VersionedEvent(
     version: Int,
     typ: String,
-    data: JsValue,
+    encoded: Either[String, JsValue],
     only: Option[Color],
     owner: Boolean,
     watcher: Boolean,
     troll: Boolean) {
 
+  lazy val decoded: JsValue = encoded match {
+    case Left(s)   => Json parse s
+    case Right(js) => js
+  }
+
   def jsFor(m: Member): JsObject = if (visibleBy(m)) {
-    if (data == JsNull) Json.obj("v" -> version, "t" -> typ)
-    else Json.obj("v" -> version, "t" -> typ, "d" -> data)
+    if (decoded == JsNull) Json.obj("v" -> version, "t" -> typ)
+    else Json.obj("v" -> version, "t" -> typ, "d" -> decoded)
   }
   else Json.obj("v" -> version)
 
@@ -35,7 +40,7 @@ private[round] object VersionedEvent {
   def apply(e: Event, v: Int): VersionedEvent = VersionedEvent(
     version = v,
     typ = e.typ,
-    data = e.data,
+    encoded = Right(e.data),
     only = e.only,
     owner = e.owner,
     watcher = e.watcher,
@@ -48,7 +53,7 @@ private[round] object VersionedEvent {
     def reads(r: BSON.Reader) = VersionedEvent(
       version = r int "v",
       typ = r str "t",
-      data = r.strO("d").fold[JsValue](JsNull)(Json.parse),
+      encoded = r.strO("d").map(Left.apply).getOrElse(Right(JsNull)),
       only = r boolO "o" map Color.apply,
       owner = r boolD "ow",
       watcher = r boolD "w",
@@ -56,7 +61,11 @@ private[round] object VersionedEvent {
     def writes(w: BSON.Writer, o: VersionedEvent) = BSONDocument(
       "v" -> o.version,
       "t" -> o.typ,
-      "d" -> (o.data != JsNull).option(Json stringify o.data),
+      "d" -> (o.encoded match {
+        case Left(s)       => s.some
+        case Right(JsNull) => none
+        case Right(js)     => Json.stringify(js).some
+      }),
       "o" -> o.only.map(_.white),
       "ow" -> w.boolO(o.owner),
       "w" -> w.boolO(o.watcher),
