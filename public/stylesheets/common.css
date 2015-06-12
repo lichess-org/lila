@@ -1348,6 +1348,7 @@ body.fpmenu #fpmenu {
   padding: 5px 10px;
   text-decoration: none;
   transition: 0.13s;
+  white-space: nowrap;
 }
 #top div.auth .links a:hover {
   background: #F0F0F0;
