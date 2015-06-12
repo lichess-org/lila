@@ -184,6 +184,7 @@ div.ui-buttonset .ui-button {
 .difficulty > .button {
   display: block;
   text-align: center;
+  margin: 1em 0;
 }
 ul.ui-autocomplete {
   width: 200px;
