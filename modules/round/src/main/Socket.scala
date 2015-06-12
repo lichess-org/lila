@@ -173,11 +173,11 @@ private[round] final class Socket(
         case ((anons, users), Some(user)) => anons -> (user :: users)
         case ((anons, users), None)       => (anons + 1) -> users
       }
-      notify(Event.Crowd(
+      val event = Event.Crowd(
         white = ownerOf(White).isDefined,
         black = ownerOf(Black).isDefined,
-        watchers = showSpectators(users, anons)
-      ) :: Nil)
+        watchers = showSpectators(users, anons))
+      notifyAll(event.typ, event.data)
   }
 
   def notifyCrowd {
