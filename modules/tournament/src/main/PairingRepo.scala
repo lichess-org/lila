@@ -46,6 +46,8 @@ object PairingRepo {
       selectTourUser(tourId, userId) ++ selectFinished
     ).sort(chronoSort).cursor[Pairing].collect[List]()
 
+  def insert(pairing: Pairing) = coll.insert(pairing).void
+
   def update(id: String, f: Pairing => Pairing) =
     byId(id) flatten s"No such pairing: $id" flatMap { pairing =>
       coll.update(selectId(id), f(pairing)).void

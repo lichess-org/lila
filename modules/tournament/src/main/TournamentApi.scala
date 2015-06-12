@@ -59,7 +59,9 @@ private[tournament] final class TournamentApi(
 
   def makePairings(oldTour: Tournament, pairings: NonEmptyList[Pairing], postEvents: Events) {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
-      pairings.map(autoPairing(tour)).sequence map {
+      pairings.map { pairing =>
+        PairingRepo.insert(pairing) >> autoPairing(tour, pairing)
+      }.sequence map {
         _.list foreach { game =>
           sendTo(tour.id, StartGame(game))
         }

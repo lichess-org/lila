@@ -78,10 +78,10 @@ final class JsonView(
 
   private def playerJson(sheets: Map[String, ScoreSheet], tour: Tournament)(rankedPlayer: RankedPlayer) = {
     val p = rankedPlayer.player
-    val light = getLightUser(p.id)
+    val light = getLightUser(p.userId)
     Json.obj(
       "rank" -> rankedPlayer.rank,
-      "name" -> light.fold(p.id)(_.name),
+      "name" -> light.fold(p.userId)(_.name),
       "title" -> light.map(_.title),
       "rating" -> p.rating,
       "provisional" -> p.provisional.option(true),

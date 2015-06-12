@@ -37,7 +37,7 @@ private[tournament] final class Organizer(
 
     case StartedTournaments => TournamentRepo.started foreach {
       _ foreach { tour =>
-        PlayerRepo activeUserIds tour.id map (_.toSet) foreach { activeUserIds =>
+        PlayerRepo activeUserIds tour.id foreach { activeUserIds =>
           if (tour.secondsToFinish == 0) api finish tour
           else if (!tour.scheduled && activeUserIds.size < 2) api finish tour
           else if (!tour.isAlmostFinished) startPairing(tour, activeUserIds)
@@ -56,9 +56,8 @@ private[tournament] final class Organizer(
       _ filterNot isOnline foreach { api.withdraw(tour.id, _) }
     }
 
-  private def startPairing(tour: Tournament, activeUserIds: Set[String]) = for {
+  private def startPairing(tour: Tournament, activeUserIds: List[String]) = for {
     socketUserIds <- getSocketUserIds(tour)
-    activeUserIds <- PlayerRepo activeUserIds tour.id
     allUsers = socketUserIds.copy(
       all = activeUserIds intersect socketUserIds.all,
       waiting = activeUserIds intersect socketUserIds.waiting)

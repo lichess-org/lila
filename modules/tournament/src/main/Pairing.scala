@@ -65,7 +65,7 @@ private[tournament] object Pairing {
 
   def apply(tour: Tournament, u1: String, u2: String): Pairing = apply(tour, u1, u2, None)
   def apply(tour: Tournament, u1: String, u2: String, d: DateTime): Pairing = apply(tour, u1, u2, Some(d))
-  def apply(tour: Tournament, p1: Player, p2: Player): Pairing = apply(tour, p1.id, p2.id)
+  def apply(tour: Tournament, p1: Player, p2: Player): Pairing = apply(tour, p1.userId, p2.userId)
   def apply(tour: Tournament, ps: (Player, Player)): Pairing = apply(tour, ps._1, ps._2)
 
   def apply(tour: Tournament, u1: String, u2: String, d: Option[DateTime]): Pairing = new Pairing(
