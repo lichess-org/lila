@@ -126,7 +126,9 @@ object PairingSystem extends AbstractPairingSystem {
 
     (players match {
       case x if x.size < 2 => Nil
-      case List(p1, p2) if nbActiveUsers == 2 => List(p1.player -> p2.player)
+      case List(p1, p2) if nbActiveUsers == 2 =>
+        if (firstPlayerGetsWhite(p1.player, p2.player)) List(p1.player -> p2.player)
+        else List(p2.player -> p1.player)
       case List(p1, p2) if justPlayedTogether(p1.player.userId, p2.player.userId) => Nil
       case List(p1, p2) => List(p1.player -> p2.player)
       case ps => findBetter(Nil, Int.MaxValue) match {
