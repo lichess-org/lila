@@ -87,22 +87,23 @@ trait UserRepo {
 
   private type PerfLenses = List[(String, Perfs => Perf)]
 
+  private val perfLenses: PerfLenses = List(
+    "standard" -> (_.standard),
+    "chess960" -> (_.chess960),
+    "kingOfTheHill" -> (_.kingOfTheHill),
+    "threeCheck" -> (_.threeCheck),
+    "antichess" -> (_.antichess),
+    "atomic" -> (_.atomic),
+    "horde" -> (_.horde),
+    "bullet" -> (_.bullet),
+    "blitz" -> (_.blitz),
+    "classical" -> (_.classical),
+    "correspondence" -> (_.correspondence),
+    "puzzle" -> (_.puzzle),
+    "opening" -> (_.opening))
+
   def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
-    val lenses: PerfLenses = List(
-      "standard" -> (_.standard),
-      "chess960" -> (_.chess960),
-      "kingOfTheHill" -> (_.kingOfTheHill),
-      "threeCheck" -> (_.threeCheck),
-      "antichess" -> (_.antichess),
-      "atomic" -> (_.atomic),
-      "horde" -> (_.horde),
-      "bullet" -> (_.bullet),
-      "blitz" -> (_.blitz),
-      "classical" -> (_.classical),
-      "correspondence" -> (_.correspondence),
-      "puzzle" -> (_.puzzle),
-      "opening" -> (_.opening))
-    val diff = lenses.flatMap {
+    val diff = perfLenses.flatMap {
       case (name, lens) =>
         lens(perfs).nb != lens(prev).nb option {
           s"perfs.$name" -> Perf.perfBSONHandler.write(lens(perfs))
