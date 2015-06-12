@@ -6,7 +6,6 @@ import actorApi.map._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import makeTimeout.short
-import scalaz.Monoid
 
 trait ActorMap extends Actor {
 

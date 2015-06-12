@@ -55,10 +55,10 @@ dogg?ystyle
 dong
 douche(bag|)
 dyke
-fag
-fagg?ot
+(f|ph)ag
+(f|ph)agg?ot
 fanny
-fart
+(f|ph)art
 foreskin
 gangbang
 gay

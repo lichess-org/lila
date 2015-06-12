@@ -48,4 +48,8 @@ module.exports = function(data, onFlag, soundColor) {
       emergSound.playable[soundColor] = true;
     }
   }.bind(this);
+
+  this.secondsOf = function(color) {
+    return this.data[color];
+  }.bind(this);
 }

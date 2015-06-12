@@ -63,7 +63,7 @@ object Tournament extends LilaController {
     }
   }
 
-  def join(id: String) = AuthBody { implicit ctx =>
+  def join(id: String) = Auth { implicit ctx =>
     implicit me =>
       NoEngine {
         negotiate(

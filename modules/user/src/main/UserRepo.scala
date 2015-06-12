@@ -75,7 +75,7 @@ trait UserRepo {
       BSONDocument(s"${F.count}.game" -> true)
     ).cursor[BSONDocument].collect[List]() map { docs =>
         docs.sortBy {
-          _.getAs[BSONDocument](F.count) flatMap (_.getAs[Double]("game").map(_.toInt)) getOrElse 0
+          _.getAs[BSONDocument](F.count).flatMap(_.getAs[BSONNumberLike]("game")).??(_.toInt)
         }.map(_.getAs[String]("_id")).flatten match {
           case List(u1, u2) => (u1, u2).some
           case _            => none
@@ -87,22 +87,23 @@ trait UserRepo {
 
   private type PerfLenses = List[(String, Perfs => Perf)]
 
+  private val perfLenses: PerfLenses = List(
+    "standard" -> (_.standard),
+    "chess960" -> (_.chess960),
+    "kingOfTheHill" -> (_.kingOfTheHill),
+    "threeCheck" -> (_.threeCheck),
+    "antichess" -> (_.antichess),
+    "atomic" -> (_.atomic),
+    "horde" -> (_.horde),
+    "bullet" -> (_.bullet),
+    "blitz" -> (_.blitz),
+    "classical" -> (_.classical),
+    "correspondence" -> (_.correspondence),
+    "puzzle" -> (_.puzzle),
+    "opening" -> (_.opening))
+
   def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
-    val lenses: PerfLenses = List(
-      "standard" -> (_.standard),
-      "chess960" -> (_.chess960),
-      "kingOfTheHill" -> (_.kingOfTheHill),
-      "threeCheck" -> (_.threeCheck),
-      "antichess" -> (_.antichess),
-      "atomic" -> (_.atomic),
-      "horde" -> (_.horde),
-      "bullet" -> (_.bullet),
-      "blitz" -> (_.blitz),
-      "classical" -> (_.classical),
-      "correspondence" -> (_.correspondence),
-      "puzzle" -> (_.puzzle),
-      "opening" -> (_.opening))
-    val diff = lenses.flatMap {
+    val diff = perfLenses.flatMap {
       case (name, lens) =>
         lens(perfs).nb != lens(prev).nb option {
           s"perfs.$name" -> Perf.perfBSONHandler.write(lens(perfs))
@@ -133,7 +134,9 @@ trait UserRepo {
   def engineSelect(v: Boolean) = Json.obj(F.engine -> v.fold(JsBoolean(true), $ne(true)))
   def trollSelect(v: Boolean) = Json.obj(F.troll -> v.fold(JsBoolean(true), $ne(true)))
   def boosterSelect(v: Boolean) = Json.obj(F.booster -> v.fold(JsBoolean(true), $ne(true)))
-  def stablePerfSelect(perf: String) = Json.obj(s"perfs.$perf.nb" -> $gte(30))
+  def stablePerfSelect(perf: String) = Json.obj(
+    s"perfs.$perf.nb" -> $gte(30),
+    s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
   val goodLadSelect = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
   def perfSince(perf: String, since: DateTime) = Json.obj(s"perfs.$perf.la" -> $gt($date(since)))
   val goodLadQuery = $query(goodLadSelect)

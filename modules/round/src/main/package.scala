@@ -6,6 +6,8 @@ import lila.socket.WithSocket
 package object round extends PackageObject with WithPlay with WithSocket {
 
   private[round] type Events = List[Event]
+
+  private[round] type VersionedEvents = List[VersionedEvent]
 }
 
 package round {

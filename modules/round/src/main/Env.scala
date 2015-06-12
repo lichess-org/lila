@@ -33,7 +33,6 @@ final class Env(
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
-    val MessageTtl = config duration "message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val PlayerDisconnectTimeout = config duration "player.disconnect.timeout"
     val PlayerRagequitTimeout = config duration "player.ragequit.timeout"
@@ -48,10 +47,11 @@ final class Env(
     val CasualOnly = config getBoolean "casual_only"
     val ActiveTtl = config duration "active.ttl"
     val CollectionNote = config getString "collection.note"
+    val CollectionHistory = config getString "collection.history"
   }
   import settings._
 
-  lazy val history = () => new History(ttl = MessageTtl)
+  lazy val eventHistory = History(db(CollectionHistory)) _
 
   val roundMap = system.actorOf(Props(new lila.hub.ActorMap {
     def mkActor(id: String) = new Round(
@@ -80,7 +80,7 @@ final class Env(
       Props(new lila.socket.SocketHubActor[Socket] {
         def mkActor(id: String) = new Socket(
           gameId = id,
-          history = history(),
+          history = eventHistory(id),
           lightUser = lightUser,
           uidTimeout = UidTimeout,
           socketTimeout = SocketTimeout,
