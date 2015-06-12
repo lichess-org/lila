@@ -100,13 +100,15 @@ object BSONHandlers {
   implicit val pairingHandler = new BSON[Pairing] {
     def reads(r: BSON.Reader) = {
       val users = r strsD "u"
+      val user1 = users.headOption err "tournament pairing first user"
+      val user2 = users lift 1 err "tournament pairing second user"
       Pairing(
         id = r str "_id",
         tourId = r str "tid",
         status = chess.Status(r int "s") err "tournament pairing status",
-        user1 = users.headOption err "tournament pairing first user",
-        user2 = users lift 1 err "tournament pairing second user",
-        winner = r strO "w",
+        user1 = user1,
+        user2 = user2,
+        winner = r boolO "w" map (_.fold(user1, user2)),
         turns = r intO "t",
         date = r date "d",
         berserk1 = r intD "b1",
@@ -117,7 +119,7 @@ object BSONHandlers {
       "tid" -> o.tourId,
       "s" -> o.status.id,
       "u" -> BSONArray(o.user1, o.user2),
-      "w" -> o.winner,
+      "w" -> o.winner.map(o.user1 ==),
       "t" -> o.turns,
       "d" -> w.date(o.date),
       "b1" -> w.intO(o.berserk1),

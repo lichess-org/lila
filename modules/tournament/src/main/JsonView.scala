@@ -18,7 +18,7 @@ final class JsonView(
     pairings <- PairingRepo.recentByTour(tour.id, 40)
     games <- GameRepo games pairings.map(_.gameId)
     sheets <- rankedPlayers.map { p =>
-      tour.system.scoringSystem.sheet(tour, p.player.id) map p.player.id.->
+      tour.system.scoringSystem.sheet(tour, p.player.userId) map p.player.userId.->
     }.sequenceFu.map(_.toMap)
   } yield {
     Json.obj(
@@ -89,7 +89,7 @@ final class JsonView(
       "score" -> p.score,
       "perf" -> p.perf,
       "opposition" -> none[Int], //(tour.isFinished && rankedPlayer.rank <= 3).option(opposition(tour, p)),
-      "sheet" -> sheets.get(p.id).map(sheetJson)
+      "sheet" -> sheets.get(p.userId).map(sheetJson)
     ).noNull
   }
 

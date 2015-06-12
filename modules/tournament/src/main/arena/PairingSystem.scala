@@ -62,8 +62,8 @@ object PairingSystem extends AbstractPairingSystem {
     type Combination = List[RankedPairing]
 
     val lastOpponents: Map[String, String] = players.flatMap { p =>
-      recentPairings.find(_ contains p.player.id).flatMap(_ opponentOf p.player.id) map {
-        p.player.id -> _
+      recentPairings.find(_ contains p.player.userId).flatMap(_ opponentOf p.player.userId) map {
+        p.player.userId -> _
       }
     }.toMap
 
@@ -75,8 +75,8 @@ object PairingSystem extends AbstractPairingSystem {
 
     // lower is better
     def pairingScore(pair: RankedPairing): Score = pair match {
-      case (a, b) if justPlayedTogether(a.player.id, b.player.id) =>
-        if (veryMuchJustPlayedTogether(a.player.id, b.player.id)) 9000 * 1000
+      case (a, b) if justPlayedTogether(a.player.userId, b.player.userId) =>
+        if (veryMuchJustPlayedTogether(a.player.userId, b.player.userId)) 9000 * 1000
         else 8000 * 1000
       case (a, b) => Math.abs(a.rank - b.rank) * 1000 +
         Math.abs(a.player.rating - b.player.rating)
@@ -119,15 +119,15 @@ object PairingSystem extends AbstractPairingSystem {
       }
 
     def firstPlayerGetsWhite(p1: Player, p2: Player) =
-      recentPairings.find(_.contains(p1.id, p2.id)) match {
-        case Some(p) => p.user1 != p1.id
+      recentPairings.find(_.contains(p1.userId, p2.userId)) match {
+        case Some(p) => p.user1 != p1.userId
         case None    => Random.nextBoolean
       }
 
     (players match {
       case x if x.size < 2 => Nil
       case List(p1, p2) if nbActiveUsers == 2 => List(p1.player -> p2.player)
-      case List(p1, p2) if justPlayedTogether(p1.player.id, p2.player.id) => Nil
+      case List(p1, p2) if justPlayedTogether(p1.player.userId, p2.player.userId) => Nil
       case List(p1, p2) => List(p1.player -> p2.player)
       case ps => findBetter(Nil, Int.MaxValue) match {
         case Found(best) => best map {
