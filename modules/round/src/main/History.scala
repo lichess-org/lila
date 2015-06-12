@@ -5,8 +5,10 @@ import scala.concurrent.duration.Duration
 import actorApi._
 import akka.actor._
 import reactivemongo.bson._
+import org.joda.time.DateTime
 
 import lila.db.Types.Coll
+import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.game.Event
 import lila.socket.actorApi.GetVersion
 
@@ -54,6 +56,7 @@ private[round] final class History(
 private[round] object History {
 
   val size = 30
+  val ttlMinutes = 60 * 3
 
   def apply(coll: Coll)(gameId: String): History = new History(
     load = load(coll, gameId),
@@ -67,10 +70,13 @@ private[round] object History {
   private def persist(coll: Coll, gameId: String)(vevs: List[VersionedEvent]) {
     coll.uncheckedUpdate(
       BSONDocument("_id" -> gameId),
-      BSONDocument("$push" -> BSONDocument(
-        "e" -> BSONDocument(
-          "$each" -> vevs,
-          "$slice" -> -History.size))),
+      BSONDocument(
+        "$push" -> BSONDocument(
+          "e" -> BSONDocument(
+            "$each" -> vevs,
+            "$slice" -> -History.size)),
+        "$setOnInsert" -> BSONDocument(
+          "d" -> DateTime.now.plusMinutes(1))),
       upsert = true
     )
   }
