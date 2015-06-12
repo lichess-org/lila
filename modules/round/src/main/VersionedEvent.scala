@@ -26,4 +26,40 @@ case class VersionedEvent(
     else if (owner && m.watcher) false
     else if (troll && !m.troll) false
     else only.fold(true)(_ == m.color)
+
+  override def toString = s"Event $version $typ"
+}
+
+private[round] object VersionedEvent {
+
+  def apply(e: Event, v: Int): VersionedEvent = VersionedEvent(
+    version = v,
+    typ = e.typ,
+    data = e.data,
+    only = e.only,
+    owner = e.owner,
+    watcher = e.watcher,
+    troll = e.troll)
+
+  import lila.db.BSON
+  import reactivemongo.bson._
+
+  implicit val versionedEventHandler = new BSON[VersionedEvent] {
+    def reads(r: BSON.Reader) = VersionedEvent(
+      version = r int "v",
+      typ = r str "t",
+      data = r.strO("d").fold[JsValue](JsNull)(Json.parse),
+      only = r boolO "o" map Color.apply,
+      owner = r boolD "ow",
+      watcher = r boolD "w",
+      troll = r boolD "r")
+    def writes(w: BSON.Writer, o: VersionedEvent) = BSONDocument(
+      "v" -> o.version,
+      "t" -> o.typ,
+      "d" -> (o.data != JsNull).option(Json stringify o.data),
+      "o" -> o.only.map(_.white),
+      "ow" -> w.boolO(o.owner),
+      "w" -> w.boolO(o.watcher),
+      "t" -> w.boolO(o.troll))
+  }
 }
