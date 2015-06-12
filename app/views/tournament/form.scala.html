@@ -22,10 +22,7 @@ moreJs = moreJs) {
           <th><label for="isprivate">@trans.isPrivate()</label></th>
           <td><input type="checkbox" name="private" id="isprivate" @if(form("private").value.isDefined) { checked } /></td>
         </tr>
-        <tr>
-          <th><label for="@form("system").id">System</label></th>
-          <td>@base.select(form("system"), translatedSystemChoices)</td>
-        </tr>
+        <input type="hidden" name="@form("system").id" value="1" />
         <tr class="variant">
           <th><label for="@form("variant").id">@trans.variant()</label></th>
           <td>@base.select(form("variant"), translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))</td>
