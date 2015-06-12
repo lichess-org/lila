@@ -12,7 +12,7 @@ module.exports = {
   myCurrentPairing: function(ctrl) {
     if (!ctrl.userId) return null;
     return ctrl.data.pairings.filter(function(p) {
-      return p.status < status.ids.mate && (
+      return p.st < status.ids.mate && (
         p.u1.toLowerCase() === ctrl.userId || p.u2.toLowerCase() === ctrl.userId
       );
     })[0];

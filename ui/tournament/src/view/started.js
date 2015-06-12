@@ -10,7 +10,7 @@ var pagination = require('../pagination');
 module.exports = {
   main: function(ctrl) {
     var myPairing = tournament.myCurrentPairing(ctrl);
-    var gameId = myPairing ? myPairing.gameId : null;
+    var gameId = myPairing ? myPairing.id : null;
     var pag = pagination.players(ctrl);
     return [
       m('div.tournament_clock.title_tag', {
