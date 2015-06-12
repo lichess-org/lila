@@ -1123,7 +1123,7 @@ body.fpmenu #fpmenu {
   margin-left: -20px;
   text-align: center;
   font-size: 12px;
-  opacity: 0.6;
+  opacity: 0.8;
   transition: opacity 0.3s;
 }
 #fpmenu .footer:hover {
@@ -1136,6 +1136,7 @@ body.fpmenu #fpmenu {
 }
 #fpmenu .footer a:hover {
   transform: translateY(-2px);
+  text-decoration: none;
 }
 @media (max-height: 600px) {
   #fpmenu {
