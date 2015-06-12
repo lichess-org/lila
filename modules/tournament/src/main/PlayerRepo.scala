@@ -45,7 +45,7 @@ object PlayerRepo {
   def removeByTour(tourId: String) = coll.remove(selectTour(tourId)).void
 
   def remove(tourId: String, userId: String) =
-    coll.remove(selectTour(tourId) ++ selectUser(userId)).void
+    coll.remove(selectTourUser(tourId, userId)).void
 
   def exists(tourId: String, userId: String) =
     coll.db command Count(coll.name, selectTourUser(tourId, userId).some) map (0!=)
@@ -61,23 +61,23 @@ object PlayerRepo {
     multi = true).void
 
   def find(tourId: String, userId: String): Fu[Option[Player]] =
-    coll.find(selectTour(tourId) ++ selectUser(userId)).one[Player]
+    coll.find(selectTourUser(tourId, userId)).one[Player]
 
   def update(tourId: String, userId: String)(f: Player => Fu[Player]) =
     find(tourId, userId) flatten s"No such player: $tourId/$userId" flatMap f flatMap { player =>
-      coll.update(selectId(player.id), player).void
+      coll.update(selectId(player._id), player).void
     }
 
   def join(tourId: String, user: User, perfLens: Perfs => Perf) =
     find(tourId, user.id) flatMap {
-      case Some(p) if p.withdraw => coll.update(selectId(p.id), BSONDocument("$unset" -> BSONDocument("w" -> true)))
+      case Some(p) if p.withdraw => coll.update(selectId(p._id), BSONDocument("$unset" -> BSONDocument("w" -> true)))
       case Some(p)               => funit
       case None                  => coll.insert(Player.make(tourId, user, perfLens))
     } void
 
   def withdraw(tourId: String, userId: String) = coll.update(
-    selectTour(tourId) ++ selectUser(userId),
-    BSONDocument("w" -> true)).void
+    selectTourUser(tourId, userId),
+    BSONDocument("$set" -> BSONDocument("w" -> true))).void
 
   def withPoints(tourId: String): Fu[List[Player]] =
     coll.find(

@@ -74,7 +74,7 @@ object BSONHandlers {
 
   implicit val playerBSONHandler = new BSON[Player] {
     def reads(r: BSON.Reader) = Player(
-      id = r str "_id",
+      _id = r str "_id",
       tourId = r str "tid",
       userId = r str "uid",
       rating = r int "r",
@@ -85,7 +85,7 @@ object BSONHandlers {
       magicScore = r int "m",
       fire = r boolD "f")
     def writes(w: BSON.Writer, o: Player) = BSONDocument(
-      "_id" -> o.id,
+      "_id" -> o._id,
       "tid" -> o.tourId,
       "uid" -> o.userId,
       "r" -> o.rating,

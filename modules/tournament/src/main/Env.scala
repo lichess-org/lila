@@ -123,7 +123,7 @@ final class Env(
       organizer -> actorApi.AllCreatedTournaments
     }
 
-    scheduler.message(3 seconds) {
+    scheduler.message(4 seconds) {
       organizer -> actorApi.StartedTournaments
     }
 

@@ -91,12 +91,12 @@ private[tournament] final class TournamentApi(
           _ <- PlayerRepo unWithdraw tour.id
           _ <- PairingRepo removePlaying tour.id
           winner <- PlayerRepo winner tour.id
-          _ <- winner.??(p => TournamentRepo.setWinnerId(tour.id, p.id))
+          _ <- winner.??(p => TournamentRepo.setWinnerId(tour.id, p.userId))
         } yield {
           sendTo(tour.id, Reload)
           publish()
           PlayerRepo withPoints tour.id foreach {
-            _ foreach { p => UserRepo.incToints(p.id, p.score) }
+            _ foreach { p => UserRepo.incToints(p.userId, p.score) }
           }
           // awardTrophies(tour)
         }

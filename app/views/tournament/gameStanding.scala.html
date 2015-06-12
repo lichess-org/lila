@@ -10,7 +10,7 @@
     <tbody>
       @standing.map {
       case lila.tournament.RankedPlayer(rank, player) => {
-      <tr @if(ctx.userId.exists(player.id==)) { class="me" }>
+      <tr @if(ctx.userId.exists(player.is)) { class="me" }>
         <td class="name">
           @if(player.withdraw) {
           <span data-icon="b" title="@trans.withdraw()"></span>

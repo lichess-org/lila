@@ -30,8 +30,8 @@ final class Winners(
   private def toursToWinners(tours: List[Tournament]): Fu[List[Winner]] =
     tours.map { tour =>
       PlayerRepo winner tour.id flatMap {
-        case Some(player) => UserRepo isEngine player.id map { engine =>
-          !engine option Winner(tour.id, tour.name, player.id)
+        case Some(player) => UserRepo isEngine player.userId map { engine =>
+          !engine option Winner(tour.id, tour.name, player.userId)
         }
         case _ => fuccess(none)
       }

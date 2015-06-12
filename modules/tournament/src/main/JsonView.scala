@@ -111,6 +111,5 @@ final class JsonView(
     "st" -> p.status.id,
     "u1" -> pairingUserJson(p.user1),
     "u2" -> pairingUserJson(p.user2),
-    "wi" -> p.winner
-  )
+    "wi" -> p.winner)
 }
