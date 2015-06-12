@@ -61,7 +61,7 @@ object BSONHandlers {
       "clock" -> o.clock,
       "minutes" -> o.minutes,
       "variant" -> o.variant.id,
-      "eco" -> o.position.eco,
+      "eco" -> o.position.some.filterNot(_.initial).map(_.eco),
       "mode" -> o.mode.id,
       "private" -> w.boolO(o.`private`),
       "schedule" -> o.schedule,
