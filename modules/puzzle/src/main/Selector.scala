@@ -16,7 +16,7 @@ private[puzzle] final class Selector(
     anonMinRating: Int,
     toleranceStep: Int,
     toleranceMax: Int,
-    modulo: Int) {
+    maxAttempts: Int) {
 
   private def popularSelector(mate: Boolean) = BSONDocument(
     Puzzle.BSONFields.voteSum -> BSONDocument("$gt" -> BSONInteger(mate.fold(anonMinRating, 0))))
@@ -31,22 +31,21 @@ private[puzzle] final class Selector(
 
   val anonSkipMax = 2000
 
-  def apply(me: Option[User], difficulty: Int): Fu[Puzzle] = {
+  def apply(me: Option[User], difficulty: Int): Fu[Option[Puzzle]] = {
     val isMate = scala.util.Random.nextBoolean
     me match {
       case None =>
         puzzleColl.find(popularSelector(isMate) ++ mateSelector(isMate))
           .options(QueryOpts(skipN = Random nextInt anonSkipMax))
-          .one[Puzzle] flatten "Can't find a puzzle for anon player!"
-      case Some(user) => api.attempt.playedIds(user, modulo) flatMap { ids =>
+          .one[Puzzle]
+      case Some(user) if user.perfs.puzzle.nb > maxAttempts => fuccess(none)
+      case Some(user) => api.attempt.playedIds(user, maxAttempts) flatMap { ids =>
         tryRange(user, toleranceStep, difficultyDecay(difficulty), ids, isMate)
-      } recoverWith {
-        case e: Exception => apply(none, difficulty)
       }
     }
   }
 
-  private def tryRange(user: User, tolerance: Int, decay: Int, ids: BSONArray, isMate: Boolean): Fu[Puzzle] =
+  private def tryRange(user: User, tolerance: Int, decay: Int, ids: BSONArray, isMate: Boolean): Fu[Option[Puzzle]] =
     puzzleColl.find(mateSelector(isMate) ++ BSONDocument(
       Puzzle.BSONFields.id -> BSONDocument("$nin" -> ids),
       Puzzle.BSONFields.rating -> BSONDocument(
@@ -55,9 +54,8 @@ private[puzzle] final class Selector(
       )
     )).sort(BSONDocument(Puzzle.BSONFields.voteSum -> -1))
       .one[Puzzle] flatMap {
-        case Some(puzzle) => fuccess(puzzle)
-        case None => if ((tolerance + toleranceStep) <= toleranceMax)
+        case None if (tolerance + toleranceStep) <= toleranceMax =>
           tryRange(user, tolerance + toleranceStep, decay, ids, isMate)
-        else fufail(s"Can't find a puzzle for user $user!")
+        case res => fuccess(res)
       }
 }

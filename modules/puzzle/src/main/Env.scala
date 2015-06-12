@@ -36,7 +36,7 @@ final class Env(
     anonMinRating = config getInt "selector.anon_min_rating",
     toleranceStep = config getInt "selector.tolerance.step",
     toleranceMax = config getInt "selector.tolerance.max",
-    modulo = config getInt "selector.modulo")
+    maxAttempts = config getInt "selector.max_attempts")
 
   lazy val userInfos = UserInfos(attemptColl = attemptColl)
 

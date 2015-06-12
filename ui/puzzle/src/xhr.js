@@ -53,6 +53,10 @@ function retry(ctrl) {
   }).then(ctrl.reload);
 }
 
+function reloadPage() {
+    location.href = '/training';
+}
+
 function setDifficulty(ctrl, d) {
   showLoading(ctrl);
   m.request({
@@ -62,7 +66,7 @@ function setDifficulty(ctrl, d) {
       difficulty: d
     },
     config: xhrConfig
-  }).then(ctrl.reload);
+  }).then(ctrl.reload, reloadPage);
 }
 
 function newPuzzle(ctrl) {
@@ -74,7 +78,7 @@ function newPuzzle(ctrl) {
   }).then(function(cfg) {
     ctrl.reload(cfg);
     ctrl.pushState(cfg);
-  });
+  }, reloadPage);
 }
 
 module.exports = {
