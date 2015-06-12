@@ -35,7 +35,6 @@ private[tournament] final class Organizer(
       }
     }
 
-    // def readyToFinish = (remainingSeconds == 0) || (!scheduled && nbActiveUsers < 2)
     case StartedTournaments => TournamentRepo.started foreach {
       _ foreach { tour =>
         PlayerRepo activeUserIds tour.id map (_.toSet) foreach { activeUserIds =>

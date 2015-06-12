@@ -19,9 +19,11 @@ case class Tournament(
     mode: Mode,
     `private`: Boolean,
     schedule: Option[Schedule],
+    nbPlayers: Int,
     createdAt: DateTime,
     createdBy: String,
-    startsAt: DateTime) {
+    startsAt: DateTime,
+    winnerId: Option[String] = None) {
 
   def isCreated = status == Status.Created
   def isStarted = status == Status.Started
@@ -85,6 +87,7 @@ object Tournament {
     minutes = minutes,
     createdBy = createdBy.id,
     createdAt = DateTime.now,
+    nbPlayers = 0,
     variant = variant,
     position = position,
     mode = mode,
@@ -101,6 +104,7 @@ object Tournament {
     minutes = minutes,
     createdBy = "lichess",
     createdAt = DateTime.now,
+    nbPlayers = 0,
     variant = sched.variant,
     position = StartingPosition.initial,
     mode = Mode.Rated,

@@ -84,7 +84,7 @@ object Tournament extends LilaController {
   def withdraw(id: String) = Auth { implicit ctx =>
     me =>
       OptionResult(repo byId id) { tour =>
-        env.api.withdraw(tour, me.id)
+        env.api.withdraw(tour.id, me.id)
         if (HTTPRequest.isXhr(ctx.req)) Ok(Json.obj("ok" -> true)) as JSON
         else Redirect(routes.Tournament.show(tour.id))
       }

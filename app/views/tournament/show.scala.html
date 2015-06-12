@@ -31,7 +31,7 @@ chessground = false) {
   }></div>
 @if(tour.isCreated) {
 <div id="tournament_faq" class="none">
-  @faq(tour.rated.some, tour.system.some, tour.`private`.option(tour.id))
+  @faq(tour.mode.rated.some, tour.system.some, tour.`private`.option(tour.id))
 </div>
 }
 }

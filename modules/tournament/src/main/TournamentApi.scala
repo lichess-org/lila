@@ -48,12 +48,7 @@ private[tournament] final class TournamentApi(
       system = System.Arena,
       variant = variant,
       position = StartingPosition.byEco(setup.position).ifTrue(variant.standard) | StartingPosition.initial)
-    TournamentRepo.insert(tour).void >>
-      PlayerRepo.join(tour.id, me, tour.perfLens) >>- {
-        withdrawAllBut(tour.id, me.id)
-        publish()
-        timeline ! (Propagate(TourJoin(me.id, tour.id, tour.fullName)) toFollowersOf me.id)
-      } inject tour
+    TournamentRepo.insert(tour) >>- join(tour.id, me) inject tour
   }
 
   private[tournament] def createScheduled(schedule: Schedule): Funit =
@@ -93,14 +88,15 @@ private[tournament] final class TournamentApi(
           _ <- TournamentRepo.setStatus(tour.id, Status.Finished)
           _ <- PlayerRepo unWithdraw tour.id
           _ <- PairingRepo removePlaying tour.id
-          finished <- TournamentRepo finishedById tour.id flatten s"Tour ${tour.id} missing"
+          winner <- PlayerRepo winner tour.id
+          _ <- winner.??(p => TournamentRepo.setWinnerId(tour.id, p.id))
         } yield {
-          sendTo(finished.id, Reload)
+          sendTo(tour.id, Reload)
           publish()
-          PlayerRepo withPoints finished.id foreach {
+          PlayerRepo withPoints tour.id foreach {
             _ foreach { p => UserRepo.incToints(p.id, p.score) }
           }
-          // awardTrophies(finished)
+          // awardTrophies(tour)
         }
       }
     }
@@ -117,7 +113,7 @@ private[tournament] final class TournamentApi(
 
   def join(tourId: String, me: User) {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
-      PlayerRepo.join(tour.id, me, tour.perfLens) >>- {
+      PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
         withdrawAllBut(tour.id, me.id)
         sendTo(tour.id, Joining(me.id))
         socketReload(tour.id)
@@ -126,6 +122,9 @@ private[tournament] final class TournamentApi(
       }
     }
   }
+
+  private def updateNbPlayers(tourId: String) =
+    PlayerRepo count tourId flatMap { TournamentRepo.setNbPlayers(tourId, _) }
 
   private def withdrawAllBut(tourId: String, userId: String) {
     TournamentRepo.allEnterable foreach {

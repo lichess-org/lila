@@ -68,6 +68,16 @@ object TournamentRepo {
     BSONDocument("$set" -> BSONDocument("status" -> status.id))
   ).void
 
+  def setNbPlayers(tourId: String, nb: Int) = coll.update(
+    selectId(tourId),
+    BSONDocument("$set" -> BSONDocument("nbPlayers" -> nb))
+  ).void
+
+  def setWinnerId(tourId: String, userId: String) = coll.update(
+    selectId(tourId),
+    BSONDocument("$set" -> BSONDocument("winner" -> userId))
+  ).void
+
   private def allCreatedSelect = createdSelect ++ BSONDocument(
     "$or" -> BSONArray(
       BSONDocument("schedule" -> BSONDocument("$exists" -> false)),

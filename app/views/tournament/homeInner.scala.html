@@ -2,27 +2,23 @@
 
 @joinButton(tour: Tournament) = {
 @ctx.me.map { me =>
-@if(tour isActive me) {
-<span class="joined text" data-icon="E">JOINED</span>
-} else {
 <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
   <button data-icon="G" type="submit" class="submit button text">@trans.join()</button>
 </form>
 }
 }
-}
 
-@iconTd(tour: tournament.Tournament) = {
+@iconTd(tour: Tournament) = {
 <td class="icon">
   <span @if(tour.scheduled){class="is-gold"} data-icon="@tournamentIconChar(tour)"></span>
 </td>
 }
 
-@tourTd(tour: tournament.Tournament) = {
+@tourTd(tour: Tournament) = {
 <td class="header">
   <a href="@routes.Tournament.show(tour.id)">
     <span class="name">
-      @tour.fullName @if(!tour.rated) {<em class="casual">@trans.casual()</em>}
+      @tour.fullName @if(!tour.mode.rated) {<em class="casual">@trans.casual()</em>}
     </span>
     @setup(tour)
   </a>
@@ -102,8 +98,8 @@
         @tourTd(tour)
         <td>@tour.durationString</td>
         <td class="text" data-icon="r">@tour.nbPlayers</td>
-        <td>@tour.winner.map { player =>
-          @userInfosLink(player.id, player.rating.some, withOnline = false)
+        <td>@tour.winnerId.map { userId =>
+          @userIdLink(userId.some, withOnline = false)
           }
         </td>
       </tr>

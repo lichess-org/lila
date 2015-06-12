@@ -13,7 +13,5 @@
   @if(!tour.position.initial) {
   • thematic
   }
-  @tour.startsAt.map { date =>
-  • @momentFromNow(date)
-  }
+  • @momentFromNow(tour.startsAt)
 </span>

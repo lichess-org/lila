@@ -48,9 +48,11 @@ object BSONHandlers {
       mode = r.intO("mode").fold[Mode](Mode.default)(Mode.orDefault),
       `private` = r boolD "private",
       schedule = r.getO[Schedule]("schedule"),
+      nbPlayers = r int "nbPlayers",
       createdAt = r date "createdAt",
       createdBy = r str "createdBy",
-      startsAt = r date "startsAt")
+      startsAt = r date "startsAt",
+      winnerId = r strO "winner")
     def writes(w: BSON.Writer, o: Tournament) = BSONDocument(
       "_id" -> o.id,
       "name" -> o.name,
@@ -63,9 +65,11 @@ object BSONHandlers {
       "mode" -> o.mode.id,
       "private" -> w.boolO(o.`private`),
       "schedule" -> o.schedule,
+      "nbPlayers" -> o.nbPlayers,
       "createdAt" -> w.date(o.createdAt),
       "createdBy" -> w.str(o.createdBy),
-      "startsAt" -> w.date(o.startsAt))
+      "startsAt" -> w.date(o.startsAt),
+      "winner" -> o.winnerId)
   }
 
   implicit val playerBSONHandler = new BSON[Player] {
