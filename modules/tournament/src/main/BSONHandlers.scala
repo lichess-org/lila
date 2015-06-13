@@ -19,42 +19,33 @@ object BSONHandlers {
 
   private implicit val tournamentClockBSONHandler = Macros.handler[TournamentClock]
 
-  private implicit val scheduleHandler = new BSON[Schedule] {
-    def reads(r: BSON.Reader) = Schedule(
-      freq = Schedule.Freq(r str "freq") err "tournament freq",
-      speed = Schedule.Speed(r str "speed") err "tournament freq",
-      variant = Variant.orDefault(r intD "variant"),
-      position = r.strO("eco").flatMap(StartingPosition.byEco) | StartingPosition.initial,
-      at = r date "at")
-    def writes(w: BSON.Writer, o: Schedule) = BSONDocument(
-      "freq" -> o.freq.name,
-      "speed" -> o.speed.name,
-      "variant" -> o.variant.id,
-      "eco" -> o.position.some.filterNot(_.initial).map(_.eco),
-      "at" -> w.date(o.at))
-  }
-
-  private def readSystem(r: BSON.Reader) =
-    r.intO("system").fold[System](System.default)(System.orDefault)
-
   implicit val tournamentHandler = new BSON[Tournament] {
-    def reads(r: BSON.Reader) = Tournament(
+    def reads(r: BSON.Reader) = {
+      val variant = r.intO("variant").fold[chess.variant.Variant](chess.variant.Variant.default)(chess.variant.Variant.orDefault)
+      val position = r.strO("eco").flatMap(StartingPosition.byEco) | StartingPosition.initial
+      val startsAt = r date "startsAt"
+      Tournament(
       id = r str "_id",
       name = r str "name",
       status = r.get[Status]("status"),
-      system = readSystem(r),
+      system = r.intO("system").fold[System](System.default)(System.orDefault),
       clock = r.get[TournamentClock]("clock"),
       minutes = r int "minutes",
-      variant = r.intO("variant").fold[chess.variant.Variant](chess.variant.Variant.default)(chess.variant.Variant.orDefault),
-      position = r.strO("eco").flatMap(StartingPosition.byEco) | StartingPosition.initial,
+      variant = variant,
+      position = position,
       mode = r.intO("mode").fold[Mode](Mode.default)(Mode.orDefault),
       `private` = r boolD "private",
-      schedule = r.getO[Schedule]("schedule"),
+      schedule = for {
+        doc <- r.getO[BSONDocument]("schedule")
+        freq <- Schedule.Freq(r str "freq")
+        speed <- Schedule.Speed(r str "speed")
+      } yield Schedule(freq, speed, variant, position, startsAt),
       nbPlayers = r int "nbPlayers",
       createdAt = r date "createdAt",
       createdBy = r str "createdBy",
-      startsAt = r date "startsAt",
+      startsAt = startsAt,
       winnerId = r strO "winner")
+    }
     def writes(w: BSON.Writer, o: Tournament) = BSONDocument(
       "_id" -> o.id,
       "name" -> o.name,
@@ -66,7 +57,11 @@ object BSONHandlers {
       "eco" -> o.position.some.filterNot(_.initial).map(_.eco),
       "mode" -> o.mode.id,
       "private" -> w.boolO(o.`private`),
-      "schedule" -> o.schedule,
+      "schedule" -> o.schedule.map { s =>
+        BSONDocument(
+          "freq" -> s.freq.name,
+          "speed" -> s.speed.name)
+      },
       "nbPlayers" -> o.nbPlayers,
       "createdAt" -> w.date(o.createdAt),
       "createdBy" -> w.str(o.createdBy),

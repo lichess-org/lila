@@ -52,9 +52,7 @@ object PairingRepo {
     ).sort(chronoSort).cursor[Pairing].collect[List]()
 
   def insert(pairing: Pairing) = coll.insert {
-    val bson = pairingHandler.write(pairing) ++ BSONDocument("d" -> DateTime.now)
-    println(lila.db.BSON.debug(bson))
-    bson
+    pairingHandler.write(pairing) ++ BSONDocument("d" -> DateTime.now)
   }.void
 
   def finish(g: lila.game.Game) = coll.update(
