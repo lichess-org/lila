@@ -81,13 +81,13 @@ object TournamentRepo {
   private def allCreatedSelect = createdSelect ++ BSONDocument(
     "$or" -> BSONArray(
       BSONDocument("schedule" -> BSONDocument("$exists" -> false)),
-      BSONDocument("schedule.at" -> BSONDocument("$lt" -> (DateTime.now plusMinutes 30)))
+      BSONDocument("startsAt" -> BSONDocument("$lt" -> (DateTime.now plusMinutes 30)))
     )
   )
 
   def publicCreatedSorted: Fu[List[Tournament]] = coll.find(
     allCreatedSelect ++ BSONDocument("private" -> BSONDocument("$exists" -> false))
-  ).sort(BSONDocument("schedule.at" -> 1, "createdAt" -> 1)).toList[Tournament](None)
+  ).sort(BSONDocument("startsAt" -> 1)).toList[Tournament](None)
 
   def allCreated: Fu[List[Tournament]] = coll.find(allCreatedSelect).toList[Tournament](None)
 
@@ -95,7 +95,7 @@ object TournamentRepo {
     val finishAfter = DateTime.now plusMinutes 20
     coll.find(startedSelect ++ BSONDocument(
       "private" -> BSONDocument("$exists" -> false)
-    )).sort(BSONDocument("schedule.at" -> 1, "createdAt" -> 1)).toList[Tournament](none) map {
+    )).sort(BSONDocument("startsAt" -> 1)).toList[Tournament](none) map {
       _.filter(_.finishesAt isAfter finishAfter)
     }
   }
@@ -106,7 +106,7 @@ object TournamentRepo {
 
   def scheduled: Fu[List[Tournament]] = coll.find(createdSelect ++ BSONDocument(
     "schedule" -> BSONDocument("$exists" -> true)
-  )).sort(BSONDocument("schedule.at" -> 1)).cursor[Tournament].collect[List]()
+  )).sort(BSONDocument("startsAt" -> 1)).cursor[Tournament].collect[List]()
 
   def scheduledDedup: Fu[List[Tournament]] = scheduled map {
     import Schedule.Freq
@@ -127,7 +127,7 @@ object TournamentRepo {
       "schedule.freq" -> freq.name,
       "schedule.speed" -> BSONDocument("$in" -> Schedule.Speed.mostPopular.map(_.name))
     )
-  ).sort(BSONDocument("schedule.at" -> -1)).toList[Tournament](nb.some)
+  ).sort(BSONDocument("startsAt" -> -1)).toList[Tournament](nb.some)
 
   def update(tour: Tournament) = coll.update(BSONDocument("_id" -> tour.id), tour)
 
