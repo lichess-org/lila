@@ -325,7 +325,7 @@ object Tournament {
       createdBy = "lichess",
       createdAt = DateTime.now,
       variant = sched.variant,
-      position = StartingPosition.initial,
+      position = sched.position,
       mode = Mode.Rated,
       `private` = false,
       minutes = minutes,

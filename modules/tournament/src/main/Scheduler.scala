@@ -8,6 +8,9 @@ import scala.concurrent.duration._
 import actorApi._
 import chess.StartingPosition
 
+/**
+ * I'm afraid times are GMT+2
+ */
 private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
 
   import Schedule.Freq._
