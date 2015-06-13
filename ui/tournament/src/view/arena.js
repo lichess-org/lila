@@ -67,12 +67,12 @@ function podiumStats(p, data) {
   else if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
   else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
   var nbGames = p.sheet.scores.length;
-  var winP = Math.round(p.sheet.scores.filter(function(s) {
+  var winP = nbGames ? Math.round(p.sheet.scores.filter(function(s) {
     return s[1] === 3 ? s[0] >= 4 : s[0] >= 2;
-  }).length * 100 / nbGames);
-  var berserkP = Math.round(p.sheet.scores.filter(function(s) {
+  }).length * 100 / nbGames) : 0;
+  var berserkP = nbGames ? Math.round(p.sheet.scores.filter(function(s) {
     return s === 3 || s[0] === 3 || s[0] === 5;
-  }).length * 100 / nbGames);
+  }).length * 100 / nbGames) : 0;
   return [
     m('span.rating.progress', [
       p.rating,
