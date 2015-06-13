@@ -216,6 +216,7 @@ div.game_control .jumps {
 }
 .lichess_ground .analyse .black {
   border-right: 3px solid;
+  margin-right: 2px;
 }
 body .lichess_ground .analyse .inaccuracy {
   border-color: #56B4E9;
