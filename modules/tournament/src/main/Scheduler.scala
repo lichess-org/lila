@@ -38,6 +38,7 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
 
       val rightNow = DateTime.now
       val today = rightNow.withTimeAtStartOfDay
+      val tomorrow = rightNow plusDays 1
       val lastDayOfMonth = today.dayOfMonth.withMaximumValue
       val firstDayOfMonth = today.dayOfMonth.withMinimumValue
       val lastSundayOfCurrentMonth = lastDayOfMonth.minusDays(lastDayOfMonth.getDayOfWeek % 7)
@@ -73,6 +74,9 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         Schedule(Daily, Blitz, Standard, std, at(today, 20) |> orTomorrow),
         Schedule(Daily, Classical, Standard, std, at(today, 21) |> orTomorrow),
         Schedule(Daily, Blitz, Chess960, std, at(today, 22) |> orTomorrow),
+        Schedule(Daily, Blitz, Horde, std, at(today, 23) |> orTomorrow),
+        Schedule(Daily, Blitz, Atomic, std, at(tomorrow, 0) |> orTomorrow),
+        Schedule(Daily, Blitz, Antichess, std, at(tomorrow, 1) |> orTomorrow),
 
         Schedule(Nightly, Bullet, Standard, std, at(today, 6) |> orTomorrow),
         Schedule(Nightly, SuperBlitz, Standard, std, at(today, 7) |> orTomorrow),
