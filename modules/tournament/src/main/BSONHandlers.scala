@@ -25,7 +25,7 @@ object BSONHandlers {
       "freq" -> o.freq.name,
       "speed" -> o.speed.name,
       "variant" -> o.variant.id,
-      "eco" -> o.position.eco,
+      "eco" -> o.position.some.filterNot(_.initial).map(_.eco),
       "at" -> w.date(o.at))
   }
 
