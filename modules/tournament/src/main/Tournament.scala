@@ -106,7 +106,7 @@ object Tournament {
     createdAt = DateTime.now,
     nbPlayers = 0,
     variant = sched.variant,
-    position = StartingPosition.initial,
+    position = sched.position,
     mode = Mode.Rated,
     `private` = false,
     schedule = Some(sched),
