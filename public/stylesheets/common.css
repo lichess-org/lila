@@ -181,6 +181,11 @@ div.ui-buttonset .ui-button {
   margin-left: -2px;
   margin-right: -3px;
 }
+.difficulty > .button {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
 ul.ui-autocomplete {
   width: 200px;
   background: #FAFAFA;
@@ -1264,6 +1269,7 @@ body.fpmenu #fpmenu {
   padding: 5px 10px;
   text-decoration: none;
   transition: 0.13s;
+  white-space: nowrap;
 }
 #top div.auth .links a:hover {
   background: #F0F0F0;
