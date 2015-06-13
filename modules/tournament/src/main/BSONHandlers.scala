@@ -33,7 +33,7 @@ object BSONHandlers {
         minutes = r int "minutes",
         variant = variant,
         position = position,
-        mode = r.intO("mode").fold[Mode](Mode.default)(Mode.orDefault),
+        mode = r.intO("mode") flatMap Mode.apply getOrElse Mode.Rated,
         `private` = r boolD "private",
         schedule = for {
           doc <- r.getO[BSONDocument]("schedule")
@@ -50,12 +50,12 @@ object BSONHandlers {
       "_id" -> o.id,
       "name" -> o.name,
       "status" -> o.status,
-      "system" -> o.system.id,
+      "system" -> o.system.some.filterNot(_.default).map(_.id),
       "clock" -> o.clock,
       "minutes" -> o.minutes,
       "variant" -> o.variant.some.filterNot(_.standard).map(_.id),
       "eco" -> o.position.some.filterNot(_.initial).map(_.eco),
-      "mode" -> o.mode.id,
+      "mode" -> o.mode.some.filterNot(_.rated).map(_.id),
       "private" -> w.boolO(o.`private`),
       "schedule" -> o.schedule.map { s =>
         BSONDocument(
@@ -77,8 +77,8 @@ object BSONHandlers {
       rating = r int "r",
       provisional = r boolD "pr",
       withdraw = r boolD "w",
-      score = r int "s",
-      perf = r int "p",
+      score = r intD "s",
+      perf = r intD "p",
       magicScore = r int "m",
       fire = r boolD "f")
     def writes(w: BSON.Writer, o: Player) = BSONDocument(
@@ -88,8 +88,8 @@ object BSONHandlers {
       "r" -> o.rating,
       "pr" -> w.boolO(o.provisional),
       "w" -> w.boolO(o.withdraw),
-      "s" -> o.score,
-      "p" -> o.perf,
+      "s" -> w.intO(o.score),
+      "p" -> w.intO(o.perf),
       "m" -> o.magicScore,
       "f" -> w.boolO(o.fire))
   }

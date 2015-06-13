@@ -4,6 +4,8 @@ sealed abstract class System(val id: Int) {
   val pairingSystem: PairingSystem
   val scoringSystem: ScoringSystem
   val berserkable: Boolean
+
+  def default = this == System.Arena
 }
 
 object System {

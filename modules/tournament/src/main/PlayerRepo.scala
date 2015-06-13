@@ -31,8 +31,8 @@ object PlayerRepo {
 
   def bestByTourWithRank(tourId: String, nb: Int): Fu[RankedPlayers] =
     bestByTour(tourId, nb).map {
-      _.foldRight(List.empty[RankedPlayer] -> 1) {
-        case (p, (res, rank)) => (RankedPlayer(rank, p) :: res, rank + 1)
+      _.foldRight(List.empty[RankedPlayer] -> nb) {
+        case (p, (res, rank)) => (RankedPlayer(rank, p) :: res, rank - 1)
       }._1
     }
 
