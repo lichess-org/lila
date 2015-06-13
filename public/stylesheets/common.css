@@ -1976,6 +1976,12 @@ div.vstext > .center {
   left: 0;
   font-size: 0.9em;
 }
+div.vstext .left,
+div.vstext .right {
+  max-width: 50%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 div.vstext .left {
   float: left;
   text-align: left;
