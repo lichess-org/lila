@@ -1,4 +1,15 @@
-@(createds: List[Tournament], starteds: List[Tournament], finisheds: List[Tournament], scheduled: List[Tournament], leaderboard: List[User])(implicit ctx: Context)
+@(createds: List[Tournament], starteds: List[Tournament], finisheds: List[Tournament], scheduled: List[Tournament], leaderboard: List[User], json: play.api.libs.json.JsObject)(implicit ctx: Context)
+
+@moreJs = {
+@jsAt(s"compiled/lichess.tournament-schedule${isProd??(".min")}.js")
+@embedJs {
+LichessTournamentSchedule(document.getElementById('tournament_schedule'), {
+data: @Html(J.stringify(json)),
+i18n: @jsI18n(),
+userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
+});
+}
+}
 
 @side = {
 <div class="tournament_links">
@@ -27,7 +38,9 @@
 
 @tournament.layout(
 title = trans.tournaments.str(),
+moreJs = moreJs,
 side = side.some) {
+<div id="tournament_schedule"></div>
 <div id="tournament_list" data-href="@routes.Tournament.homeReload()">
   @tournament.homeInner(createds, starteds, finisheds)
 </div>

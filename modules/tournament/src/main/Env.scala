@@ -75,6 +75,8 @@ final class Env(
 
   lazy val jsonView = new JsonView(lightUser)
 
+  lazy val scheduleJsonView = new ScheduleJsonView(lightUser)
+
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
       def mkActor(tournamentId: String) = new Socket(
@@ -109,6 +111,11 @@ final class Env(
 
   val promotable =
     lila.memo.AsyncCache.single(TournamentRepo.promotable, timeToLive = CreatedCacheTtl)
+
+  val fetchVisibleTournaments: () => Fu[VisibleTournaments] = () =>
+    allCreatedSorted(true) zip TournamentRepo.publicStarted zip TournamentRepo.finished(10) map {
+      case ((created, started), finished) => VisibleTournaments(created, started, finished)
+    }
 
   private lazy val autoPairing = new AutoPairing(
     roundMap = roundMap,
