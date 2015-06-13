@@ -1019,9 +1019,10 @@ div.dont_touch {
   background-color: #b0b0b0;
   box-shadow: inset 0 0 25px 3px #808080;
   box-sizing: border-box;
+  transition: 0.2s;
 }
 .is2d #promotion_choice div.cg-piece {
-  transition: 0.3s;
+  transition: 0.2s;
   transform: scale(0.8);
   -webkit-transform: scale(0.8);
 }
@@ -1036,6 +1037,7 @@ div.dont_touch {
 }
 #promotion_choice div.cg-square:hover {
   box-shadow: inset 0 0 48px 8px #d85000;
+  border-radius: 0%;
 }
 .is2d #promotion_choice div.cg-square:hover div.cg-piece {
   transform: none;
