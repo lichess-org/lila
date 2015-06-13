@@ -34,8 +34,6 @@ final class Env(
     puzzleColl = puzzleColl,
     api = api,
     anonMinRating = config getInt "selector.anon_min_rating",
-    toleranceStep = config getInt "selector.tolerance.step",
-    toleranceMax = config getInt "selector.tolerance.max",
     maxAttempts = config getInt "selector.max_attempts")
 
   lazy val userInfos = UserInfos(attemptColl = attemptColl)
