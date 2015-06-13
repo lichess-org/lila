@@ -47,11 +47,17 @@ object Tournament extends LilaController {
   def show(id: String) = Open { implicit ctx =>
     repo byId id flatMap {
       _.fold(tournamentNotFound.fuccess) { tour =>
-        env.version(tour.id) zip
-          env.jsonView(tour) zip
-          chatOf(tour) map {
-            case ((version, data), chat) => html.tournament.show(tour, version, data, chat)
-          }
+        env.version(tour.id) zip env.jsonView(tour) zip chatOf(tour) map {
+          case ((version, data), chat) => html.tournament.show(tour, version, data, chat)
+        }
+      }
+    }
+  }
+
+  def standing(id: String, page: Int) = Open { implicit ctx =>
+    OptionFuResult(repo byId id) { tour =>
+      env.jsonView.standing(tour, page) map { data =>
+        Ok(data) as JSON
       }
     }
   }

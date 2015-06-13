@@ -128,6 +128,7 @@ GET   /tournament/reload                      controllers.Tournament.homeReload
 GET   /tournament/new                         controllers.Tournament.form
 POST  /tournament/new                         controllers.Tournament.create
 GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id: String)
+GET   /tournament/$id<\w{8}>/standing/:page   controllers.Tournament.standing(id: String, page: Int)
 GET   /tournament/$id<\w{8}>/socket/v:apiVersion controllers.Tournament.websocket(id: String, apiVersion: Int)
 GET   /tournament/$id<\w{8}>/game-standing    controllers.Tournament.gameStanding(id: String)
 POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: String)

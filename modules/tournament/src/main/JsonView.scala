@@ -14,27 +14,33 @@ final class JsonView(
     TournamentRepo byId id flatten s"No such tournament: $id" flatMap apply
 
   def apply(tour: Tournament): Fu[JsObject] = for {
-    rankedPlayers <- PlayerRepo.bestByTourWithRank(tour.id, 10)
     pairings <- PairingRepo.recentByTour(tour.id, 40)
     games <- GameRepo games pairings.map(_.gameId)
+    podiumJson <- tour.isFinished ?? podiumJson(tour).map(_.some)
+  } yield Json.obj(
+    "id" -> tour.id,
+    "createdBy" -> tour.createdBy,
+    "system" -> tour.system.toString.toLowerCase,
+    "fullName" -> tour.fullName,
+    "nbPlayers" -> tour.nbPlayers,
+    "private" -> tour.`private`,
+    "variant" -> tour.variant.key,
+    "pairings" -> pairings.map(pairingJson),
+    "isStarted" -> tour.isStarted,
+    "isFinished" -> tour.isFinished,
+    "lastGames" -> games.map(gameJson),
+    "schedule" -> tour.schedule.map(scheduleJson),
+    "podium" -> podiumJson) ++ specifics(tour)
+
+  def standing(tour: Tournament, page: Int): Fu[JsObject] = for {
+    rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
     sheets <- rankedPlayers.map { p =>
       tour.system.scoringSystem.sheet(tour, p.player.userId) map p.player.userId.->
     }.sequenceFu.map(_.toMap)
-  } yield {
-    Json.obj(
-      "id" -> tour.id,
-      "createdBy" -> tour.createdBy,
-      "system" -> tour.system.toString.toLowerCase,
-      "fullName" -> tour.fullName,
-      "private" -> tour.`private`,
-      "variant" -> tour.variant.key,
-      "players" -> rankedPlayers.map(playerJson(sheets, tour)),
-      "pairings" -> pairings.map(pairingJson),
-      "isStarted" -> tour.isStarted,
-      "isFinished" -> tour.isFinished,
-      "lastGames" -> games.map(gameJson),
-      "schedule" -> tour.schedule.map(scheduleJson)) ++ specifics(tour)
-  }
+  } yield Json.obj(
+    "page" -> page,
+    "players" -> rankedPlayers.map(playerJson(sheets, tour))
+  )
 
   private def specifics(tour: Tournament) = tour match {
     case t if t.isCreated => Json.obj(
@@ -92,6 +98,13 @@ final class JsonView(
       "sheet" -> sheets.get(p.userId).map(sheetJson)
     ).noNull
   }
+
+  private def podiumJson(tour: Tournament): Fu[JsArray] = for {
+    rankedPlayers <- PlayerRepo.bestByTourWithRank(tour.id, 3)
+    sheets <- rankedPlayers.map { p =>
+      tour.system.scoringSystem.sheet(tour, p.player.userId) map p.player.userId.->
+    }.sequenceFu.map(_.toMap)
+  } yield JsArray(rankedPlayers.map(playerJson(sheets, tour)))
 
   // private def opposition(tour: Tournament, p: Player): Int =
   //   tour.userPairings(p.id).foldLeft((0, 0)) {

@@ -1,6 +1,7 @@
 var m = require('mithril');
 var socket = require('./socket');
 var xhr = require('./xhr');
+var throttle = require('./util').throttle;
 var pagination = require('./pagination');
 var tournament = require('./tournament');
 var util = require('chessground').util;
@@ -15,7 +16,8 @@ module.exports = function(env) {
 
   this.vm = {
     loading: false,
-    page: 1
+    page: 1,
+    pages: {}
   };
 
   this.reload = function(data) {
@@ -23,6 +25,20 @@ module.exports = function(env) {
     this.vm.loading = false;
     startWatching();
   }.bind(this);
+
+  var requestPage = throttle(1000, false, function(page) {
+    xhr.loadPage(this, page)
+  }.bind(this));
+
+  this.loadPage = function(data) {
+    this.vm.pages[data.page] = data.players;
+  }.bind(this);
+
+  this.setPage = function(page) {
+    this.vm.page = page;
+    requestPage(page);
+  }.bind(this);
+  this.setPage(1);
 
   var alreadyWatching = [];
   var startWatching = function() {

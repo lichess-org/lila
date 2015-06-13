@@ -27,7 +27,7 @@ function scrollToMeButton(ctrl, pag) {
 }
 
 function paginate(ctrl, page) {
-  var nbResults = ctrl.data.players.length;
+  var nbResults = ctrl.data.nbPlayers;
   var max = nbResults > 15 ? maxPerPage : 15; // don't paginate 15 or less elements
   var from = (page - 1) * max;
   var to = Math.min(nbResults, page * max);
@@ -36,32 +36,27 @@ function paginate(ctrl, page) {
     maxPerPage: max,
     from: from,
     to: to,
-    currentPageResults: ctrl.data.players.slice(from, to),
+    currentPageResults: ctrl.vm.pages[page],
     nbResults: nbResults,
     nbPages: Math.ceil(nbResults / max)
   };
 }
 
-function findIndex(arr, cond) {
-  for (i in arr) {
-    if (cond(arr[i])) return i;
-  }
-}
-
 module.exports = {
   render: function(ctrl, pag, table) {
     return [
-      table,
+      // loader,
+      pag.currentPageResults ? table() : m('div.loader'),
       pag.nbPages > 1 ? m('div.pager', [
         button('First', 'W', function() {
-          ctrl.vm.page = 1;
+          ctrl.setPage(1);
         }, ctrl.vm.page > 1),
         button('Prev', 'Y', function() {
-          ctrl.vm.page--;
+          ctrl.setPage(ctrl.vm.page - 1);
         }, ctrl.vm.page > 1),
         m('span.page', (pag.from + 1) + '-' + pag.to + ' / ' + pag.nbResults),
         button('Next', 'X', function() {
-          ctrl.vm.page++;
+          ctrl.setPage(ctrl.vm.page + 1);
         }, ctrl.vm.page < pag.nbPages),
         scrollToMeButton(ctrl, pag)
       ]) : null
@@ -72,10 +67,10 @@ module.exports = {
   },
   pageOfUserId: function(ctrl) {
     if (!ctrl.userId) return;
-    var pos = findIndex(ctrl.data.players, function(p) {
-      return p.name.toLowerCase() === ctrl.userId;
-    });
-    if (pos === null) return;
-    return Math.floor(pos / 10) + 1;
+    // var pos = findIndex(ctrl.data.players, function(p) {
+    //   return p.name.toLowerCase() === ctrl.userId;
+    // });
+    // if (pos === null) return;
+    // return Math.floor(pos / 10) + 1;
   }
 };

@@ -27,7 +27,7 @@ function rank(p) {
   };
 }
 
-function playerTr(ctrl, maxScore, player) {
+function playerTr(ctrl, player) {
   return {
     tag: 'tr',
     attrs: {
@@ -98,15 +98,12 @@ function podiumPosition(p, data, pos) {
 module.exports = {
   podium: function(ctrl) {
     return m('div.podium', [
-      podiumPosition(ctrl.data.players[1], ctrl.data, 'second'),
-      podiumPosition(ctrl.data.players[0], ctrl.data, 'first'),
-      podiumPosition(ctrl.data.players[2], ctrl.data, 'third')
+      podiumPosition(ctrl.data.podium[1], ctrl.data, 'second'),
+      podiumPosition(ctrl.data.podium[0], ctrl.data, 'first'),
+      podiumPosition(ctrl.data.podium[2], ctrl.data, 'third')
     ]);
   },
   standing: function(ctrl, pag) {
-    var maxScore = Math.max.apply(Math, ctrl.data.players.map(function(p) {
-      return p.sheet.total;
-    }));
     var player = util.currentPlayer(ctrl);
     return [
       m('thead',
@@ -124,7 +121,7 @@ module.exports = {
             button.joinWithdraw(ctrl)
           ])
         ])),
-      m('tbody', pag.currentPageResults.map(partial(playerTr, ctrl, maxScore)))
+      m('tbody', pag.currentPageResults.map(partial(playerTr, ctrl)))
     ];
   }
 };

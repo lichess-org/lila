@@ -26,15 +26,18 @@ object PlayerRepo {
 
   def byId(id: String): Fu[Option[Player]] = coll.find(selectId(id)).one[Player]
 
-  def bestByTour(tourId: String, nb: Int): Fu[List[Player]] =
-    coll.find(selectTour(tourId)).sort(bestSort).cursor[Player].collect[List](nb)
+  def bestByTour(tourId: String, nb: Int, skip: Int = 0): Fu[List[Player]] =
+    coll.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player].collect[List](nb)
 
-  def bestByTourWithRank(tourId: String, nb: Int): Fu[RankedPlayers] =
-    bestByTour(tourId, nb).map {
-      _.foldRight(List.empty[RankedPlayer] -> nb) {
+  def bestByTourWithRank(tourId: String, nb: Int, skip: Int = 0): Fu[RankedPlayers] =
+    bestByTour(tourId, nb, skip).map {
+      _.foldRight(List.empty[RankedPlayer] -> (nb + skip)) {
         case (p, (res, rank)) => (RankedPlayer(rank, p) :: res, rank - 1)
       }._1
     }
+
+  def bestByTourWithRankByPage(tourId: String, nb: Int, page: Int): Fu[RankedPlayers] =
+    bestByTourWithRank(tourId, nb, (page - 1) * nb)
 
   def countActive(tourId: String): Fu[Int] =
     coll.db command Count(coll.name, Some(selectTour(tourId) ++ selectActive))
