@@ -1021,9 +1021,9 @@ div.dont_touch {
   box-sizing: border-box;
 }
 .is2d #promotion_choice div.cg-piece {
-  transition: all 0.3s;
-  transform: rotate(-90deg) scale(0.8);
-  -webkit-transform: rotate(-90deg) scale(0.8);
+  transition: 0.3s;
+  transform: scale(0.8);
+  -webkit-transform: scale(0.8);
 }
 .is3d #promotion_choice div.cg-piece {
   transform: scale(0.7);
@@ -1040,8 +1040,6 @@ div.dont_touch {
 .is2d #promotion_choice div.cg-square:hover div.cg-piece {
   transform: none;
   -webkit-transform: none;
-}
-.is3d #promotion_choice div.cg-piece:hover {
 }
 /* accordion/compress choices when not hovering board
  *  :hover must be checked on board, in case of click-to-move
