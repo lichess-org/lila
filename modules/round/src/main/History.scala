@@ -56,7 +56,6 @@ private[round] final class History(
 private[round] object History {
 
   val size = 30
-  val ttlMinutes = 60 * 3
 
   def apply(coll: Coll)(gameId: String): History = new History(
     load = load(coll, gameId),
@@ -76,7 +75,7 @@ private[round] object History {
             "$each" -> vevs,
             "$slice" -> -History.size)),
         "$setOnInsert" -> BSONDocument(
-          "d" -> DateTime.now.plusMinutes(1))),
+          "d" -> DateTime.now)),
       upsert = true
     )
   }
