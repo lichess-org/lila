@@ -23,7 +23,7 @@ object GameRepo {
 
   type ID = String
 
-  import Game._
+  import BSONHandlers._
   import Game.{ BSONFields => F }
 
   def game(gameId: ID): Fu[Option[Game]] = $find byId gameId

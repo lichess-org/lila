@@ -5,6 +5,7 @@ import play.api.libs.iteratee._
 
 import lila.db.Implicits._
 import tube.gameTube
+import BSONHandlers.gameBSONHandler
 
 private[game] final class PgnExport(pgnDump: lila.game.PgnDump) {
 

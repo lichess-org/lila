@@ -5,6 +5,7 @@ import scala.concurrent.duration._
 import lila.db.api._
 import lila.user.UserRepo
 import lila.game.Game
+import lila.game.BSONHandlers._
 import lila.game.tube.gameTube
 
 private[round] final class Cli(

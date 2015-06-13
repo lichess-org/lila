@@ -6,7 +6,7 @@ import reactivemongo.bson._
 
 import lila.db.api._
 import lila.db.Implicits._
-import lila.game.Game.gameBSONHandler
+import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.Game.{ BSONFields => G }
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.round.PerfsUpdater
