@@ -63,7 +63,7 @@ object Schedule {
       case (Hourly, Lightning, _)           => 20
       case (Hourly, Bullet, _)              => 30
       case (Hourly, SuperBlitz, _)          => 50
-      case (Hourly, Blitz, _)               => 60
+      case (Hourly, Blitz, _)               => 55
       case (Hourly, Classical, _)           => 0 // N/A
 
       case (Daily | Nightly, Lightning, _)  => 0 // N/A
