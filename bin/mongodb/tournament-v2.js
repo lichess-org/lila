@@ -2,31 +2,75 @@ var orig = db.tournament;
 var dest = db.tournament2;
 var pairings = db.tournament_pairing;
 var players = db.tournament_player;
-var max = 2000;
+var batchSize = 5;
+var pause = 500;
 
 // dest.drop();
 // pairings.drop();
 // players.drop();
 
+dest.ensureIndex({
+  status: 1
+});
+dest.ensureIndex({
+  createdAt: 1
+});
+dest.ensureIndex({
+  startsAt: 1
+});
+pairings.ensureIndex({
+  tid: 1,
+  d: -1
+});
+pairings.ensureIndex({
+  tid: 1,
+  u: 1,
+  d: -1
+});
+players.ensureIndex({
+  tid: 1,
+  uid: 1
+});
+players.ensureIndex({
+  tid: 1,
+  m: -1
+});
+
 var cursor = orig.find({
   status: 30
 }).sort({
   createdAt: -1
-});//.limit(max);
+}); //.limit(max);
 
 function int(i) {
   return NumberInt(i);
 }
 
 var uidIt = 0;
+
 function uid() {
   return "i" + uidIt++;
 }
+
+var it = 0;
+var max = cursor.count();
+var dat = new Date().getTime() / 1000;
 
 cursor.forEach(function(o) {
   dest.insert(mkTour(o));
   insertPlayers(o);
   insertPairings(o);
+
+  ++it;
+  if (it % batchSize == 0) {
+    var percent = Math.round((it / max) * 100);
+    var dat2 = new Date().getTime() / 1000;
+    var ms = Math.round(1000 * (dat2 - dat - pause / 1000));
+    var perSec = Math.round(batchSize / ms);
+    dat = dat2;
+    print(it + " " + percent + "% " + ms + "ms");
+    sleep(pause);
+  }
 });
 
 function insertPlayers(o) {
