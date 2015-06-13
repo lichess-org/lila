@@ -6,6 +6,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import actorApi._
+import chess.StartingPosition
 
 private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
 
@@ -49,35 +50,47 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
       def orNextMonth(date: DateTime) = if (date isBefore rightNow) date plusMonths 1 else date
 
+      val std = StartingPosition.initial
+      val opening = StartingPosition.random
+
       List(
-        Schedule(Monthly, Bullet, Standard, at(lastSundayOfCurrentMonth, 18, 0) |> orNextMonth),
-        Schedule(Monthly, SuperBlitz, Standard, at(lastSundayOfCurrentMonth, 19, 0) |> orNextMonth),
-        Schedule(Monthly, Blitz, Standard, at(lastSundayOfCurrentMonth, 20, 0) |> orNextMonth),
-        Schedule(Monthly, Classical, Standard, at(lastSundayOfCurrentMonth, 21, 0) |> orNextMonth),
+        Schedule(Monthly, Bullet, Standard, std, at(lastSundayOfCurrentMonth, 18, 0) |> orNextMonth),
+        Schedule(Monthly, SuperBlitz, Standard, std, at(lastSundayOfCurrentMonth, 19, 0) |> orNextMonth),
+        Schedule(Monthly, Blitz, Standard, std, at(lastSundayOfCurrentMonth, 20, 0) |> orNextMonth),
+        Schedule(Monthly, Classical, Standard, std, at(lastSundayOfCurrentMonth, 21, 0) |> orNextMonth),
 
         // Schedule(Marathon, Blitz, Standard, at(firstSundayOfCurrentMonth, 2, 0) |> orNextMonth),
 
-        Schedule(Weekly, Bullet, Standard, at(nextSaturday, 18) |> orNextWeek),
-        Schedule(Weekly, SuperBlitz, Standard, at(nextSaturday, 19) |> orNextWeek),
-        Schedule(Weekly, Blitz, Standard, at(nextSaturday, 20) |> orNextWeek),
-        Schedule(Weekly, Classical, Standard, at(nextSaturday, 21) |> orNextWeek),
-        Schedule(Weekly, Classical, Chess960, at(nextSaturday, 22) |> orNextWeek),
+        Schedule(Weekly, Bullet, Standard, std, at(nextSaturday, 18) |> orNextWeek),
+        Schedule(Weekly, SuperBlitz, Standard, std, at(nextSaturday, 19) |> orNextWeek),
+        Schedule(Weekly, Blitz, Standard, std, at(nextSaturday, 20) |> orNextWeek),
+        Schedule(Weekly, Classical, Standard, std, at(nextSaturday, 21) |> orNextWeek),
+        Schedule(Weekly, Classical, Chess960, std, at(nextSaturday, 22) |> orNextWeek),
 
-        Schedule(Daily, Bullet, Standard, at(today, 18) |> orTomorrow),
-        Schedule(Daily, SuperBlitz, Standard, at(today, 19) |> orTomorrow),
-        Schedule(Daily, Blitz, Standard, at(today, 20) |> orTomorrow),
-        Schedule(Daily, Classical, Standard, at(today, 21) |> orTomorrow),
-        Schedule(Daily, Blitz, Chess960, at(today, 22) |> orTomorrow),
+        Schedule(Daily, Bullet, Standard, std, at(today, 18) |> orTomorrow),
+        Schedule(Daily, SuperBlitz, Standard, std, at(today, 19) |> orTomorrow),
+        Schedule(Daily, Blitz, Standard, std, at(today, 20) |> orTomorrow),
+        Schedule(Daily, Classical, Standard, std, at(today, 21) |> orTomorrow),
+        Schedule(Daily, Blitz, Chess960, std, at(today, 22) |> orTomorrow),
 
-        Schedule(Nightly, Bullet, Standard, at(today, 6) |> orTomorrow),
-        Schedule(Nightly, SuperBlitz, Standard, at(today, 7) |> orTomorrow),
-        Schedule(Nightly, Blitz, Standard, at(today, 8) |> orTomorrow),
-        Schedule(Nightly, Classical, Standard, at(today, 9) |> orTomorrow),
+        Schedule(Nightly, Bullet, Standard, std, at(today, 6) |> orTomorrow),
+        Schedule(Nightly, SuperBlitz, Standard, std, at(today, 7) |> orTomorrow),
+        Schedule(Nightly, Blitz, Standard, std, at(today, 8) |> orTomorrow),
+        Schedule(Nightly, Classical, Standard, std, at(today, 9) |> orTomorrow),
 
-        Schedule(Hourly, Bullet, Standard, at(nextHourDate, nextHour)),
-        Schedule(Hourly, Bullet, Standard, at(nextHourDate, nextHour, 30)),
-        Schedule(Hourly, SuperBlitz, Standard, at(nextHourDate, nextHour)),
-        Schedule(Hourly, Blitz, Standard, at(nextHourDate, nextHour))
+        // random opening replaces hourly once a day
+        Schedule(Hourly, Bullet, Standard, opening, at(today, 17)),
+        Schedule(Hourly, SuperBlitz, Standard, opening, at(today, 17)),
+        Schedule(Hourly, Blitz, Standard, opening, at(today, 17)),
+        // and once a night
+        Schedule(Hourly, Bullet, Standard, opening, at(today, 5)),
+        Schedule(Hourly, SuperBlitz, Standard, opening, at(today, 5)),
+        Schedule(Hourly, Blitz, Standard, opening, at(today, 5)),
+
+        Schedule(Hourly, Bullet, Standard, std, at(nextHourDate, nextHour)),
+        Schedule(Hourly, Bullet, Standard, std, at(nextHourDate, nextHour, 30)),
+        Schedule(Hourly, SuperBlitz, Standard, std, at(nextHourDate, nextHour)),
+        Schedule(Hourly, Blitz, Standard, std, at(nextHourDate, nextHour))
 
       ).foldLeft(List[Schedule]()) {
           case (scheds, sched) if sched.at.isBeforeNow      => scheds

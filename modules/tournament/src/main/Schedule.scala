@@ -2,15 +2,20 @@ package lila.tournament
 
 import chess.variant.Variant
 import org.joda.time.DateTime
+import chess.StartingPosition
 
 case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
+    position: StartingPosition,
     at: DateTime) {
 
   def name =
-    if (variant.standard) s"${freq.toString} ${speed.toString}"
+    if (variant.standard) {
+      if (position.initial) s"${freq.toString} ${speed.toString}"
+      else s"${position.shortName} ${speed.toString}"
+    }
     else s"${freq.toString} ${variant.name}"
 
   def sameSpeed(other: Schedule) = speed == other.speed
