@@ -25,26 +25,26 @@ object BSONHandlers {
       val position = r.strO("eco").flatMap(StartingPosition.byEco) | StartingPosition.initial
       val startsAt = r date "startsAt"
       Tournament(
-      id = r str "_id",
-      name = r str "name",
-      status = r.get[Status]("status"),
-      system = r.intO("system").fold[System](System.default)(System.orDefault),
-      clock = r.get[TournamentClock]("clock"),
-      minutes = r int "minutes",
-      variant = variant,
-      position = position,
-      mode = r.intO("mode").fold[Mode](Mode.default)(Mode.orDefault),
-      `private` = r boolD "private",
-      schedule = for {
-        doc <- r.getO[BSONDocument]("schedule")
-        freq <- Schedule.Freq(r str "freq")
-        speed <- Schedule.Speed(r str "speed")
-      } yield Schedule(freq, speed, variant, position, startsAt),
-      nbPlayers = r int "nbPlayers",
-      createdAt = r date "createdAt",
-      createdBy = r str "createdBy",
-      startsAt = startsAt,
-      winnerId = r strO "winner")
+        id = r str "_id",
+        name = r str "name",
+        status = r.get[Status]("status"),
+        system = r.intO("system").fold[System](System.default)(System.orDefault),
+        clock = r.get[TournamentClock]("clock"),
+        minutes = r int "minutes",
+        variant = variant,
+        position = position,
+        mode = r.intO("mode").fold[Mode](Mode.default)(Mode.orDefault),
+        `private` = r boolD "private",
+        schedule = for {
+          doc <- r.getO[BSONDocument]("schedule")
+          freq <- doc.getAs[String]("freq") flatMap Schedule.Freq.apply
+          speed <- doc.getAs[String]("speed") flatMap Schedule.Speed.apply
+        } yield Schedule(freq, speed, variant, position, startsAt),
+        nbPlayers = r int "nbPlayers",
+        createdAt = r date "createdAt",
+        createdBy = r str "createdBy",
+        startsAt = startsAt,
+        winnerId = r strO "winner")
     }
     def writes(w: BSON.Writer, o: Tournament) = BSONDocument(
       "_id" -> o.id,
