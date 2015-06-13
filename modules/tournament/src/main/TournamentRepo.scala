@@ -61,7 +61,7 @@ object TournamentRepo {
     coll.find(startedSelect ++ BSONDocument("private" -> BSONDocument("$exists" -> false))).sort(BSONDocument("createdAt" -> -1)).toList[Tournament](None)
 
   def finished(limit: Int): Fu[List[Tournament]] =
-    coll.find(finishedSelect).sort(BSONDocument("startedAt" -> -1)).toList[Tournament](limit.some)
+    coll.find(finishedSelect).sort(BSONDocument("startsAt" -> -1)).toList[Tournament](limit.some)
 
   def setStatus(tourId: String, status: Status) = coll.update(
     selectId(tourId),
