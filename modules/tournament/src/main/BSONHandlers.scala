@@ -24,11 +24,13 @@ object BSONHandlers {
       freq = Schedule.Freq(r str "freq") err "tournament freq",
       speed = Schedule.Speed(r str "speed") err "tournament freq",
       variant = Variant.orDefault(r intD "variant"),
+      position = r.strO("eco").flatMap(StartingPosition.byEco) | StartingPosition.initial,
       at = r date "at")
     def writes(w: BSON.Writer, o: Schedule) = BSONDocument(
       "freq" -> o.freq.name,
       "speed" -> o.speed.name,
       "variant" -> o.variant.id,
+      "eco" -> o.position.some.filterNot(_.initial).map(_.eco),
       "at" -> w.date(o.at))
   }
 

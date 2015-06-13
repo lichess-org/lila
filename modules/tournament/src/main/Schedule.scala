@@ -2,15 +2,20 @@ package lila.tournament
 
 import chess.variant.Variant
 import org.joda.time.DateTime
+import chess.StartingPosition
 
 case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
+    position: StartingPosition,
     at: DateTime) {
 
   def name =
-    if (variant.standard) s"${freq.toString} ${speed.toString}"
+    if (variant.standard) {
+      if (position.initial) s"${freq.toString} ${speed.toString}"
+      else s"${position.shortName} ${speed.toString}"
+    }
     else s"${freq.toString} ${variant.name}"
 
   def sameSpeed(other: Schedule) = speed == other.speed
@@ -38,12 +43,11 @@ object Schedule {
     def name = toString.toLowerCase
   }
   object Speed {
-    case object Lightning extends Speed
     case object Bullet extends Speed
     case object SuperBlitz extends Speed
     case object Blitz extends Speed
     case object Classical extends Speed
-    val all: List[Speed] = List(Lightning, Bullet, SuperBlitz, Blitz, Classical)
+    val all: List[Speed] = List(Bullet, SuperBlitz, Blitz, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Classical)
     def apply(name: String) = all find (_.name == name)
   }
@@ -60,25 +64,21 @@ object Schedule {
     import Freq._, Speed._
     Some((sched.freq, sched.speed, sched.variant) match {
 
-      case (Hourly, Lightning, _)           => 20
-      case (Hourly, Bullet, _)              => 30
+      case (Hourly, Bullet, _)              => 25
       case (Hourly, SuperBlitz, _)          => 50
       case (Hourly, Blitz, _)               => 55
       case (Hourly, Classical, _)           => 0 // N/A
 
-      case (Daily | Nightly, Lightning, _)  => 0 // N/A
       case (Daily | Nightly, Bullet, _)     => 60
       case (Daily | Nightly, SuperBlitz, _) => 90
       case (Daily | Nightly, Blitz, _)      => 90
       case (Daily | Nightly, Classical, _)  => 60 * 2
 
-      case (Weekly, Lightning, _)           => 0 // N/A
       case (Weekly, Bullet, _)              => 90
       case (Weekly, SuperBlitz, _)          => 60 * 2
       case (Weekly, Blitz, _)               => 60 * 2
       case (Weekly, Classical, _)           => 60 * 3
 
-      case (Monthly, Lightning, _)          => 0 // N/A
       case (Monthly, Bullet, _)             => 60 * 2
       case (Monthly, SuperBlitz, _)         => 60 * 3
       case (Monthly, Blitz, _)              => 60 * 3
@@ -90,7 +90,6 @@ object Schedule {
   }
 
   private[tournament] def clockFor(sched: Schedule) = sched.speed match {
-    case Speed.Lightning  => TournamentClock(0, 1)
     case Speed.Bullet     => TournamentClock(60, 0)
     case Speed.SuperBlitz => TournamentClock(3 * 60, 0)
     case Speed.Blitz      => TournamentClock(5 * 60, 0)
