@@ -3,6 +3,8 @@ var chessground = require('chessground');
 var partial = chessground.util.partial;
 var ground = require('./ground');
 var xhr = require('./xhr');
+var invertKey = chessground.util.invertKey;
+var key2pos = chessground.util.key2pos;
 
 var promoting = false;
 
@@ -33,6 +35,23 @@ function cancel(ctrl) {
   promoting = false;
 }
 
+function renderPromotion(ctrl, dest, pieces, color, orientation) {
+  var left =  (key2pos(orientation === 'white' ? dest : invertKey(dest))[0] -1) * 12.5;
+  var vertical = color === orientation ? 'top' : 'bottom';
+
+  return m('div#promotion_choice.' + vertical, {
+    onclick: partial(cancel, ctrl)
+  }, pieces.map(function(serverRole, i) {
+    return m('div.cg-square', {
+      style: vertical + ': ' + i * 12.5 + '%;left: ' + left + '%',
+      onclick: function(e) {
+        e.stopPropagation();
+        finish(ctrl, serverRole);
+      }
+    }, m('div.cg-piece.' + serverRole + '.' + color));
+  }));
+}
+
 module.exports = {
 
   start: start,
@@ -41,16 +60,9 @@ module.exports = {
     if (!promoting) return;
     var pieces = ['queen', 'knight', 'rook', 'bishop'];
     if (ctrl.data.game.variant.key === "antichess") pieces.push('king');
-    return m('div#promotion_choice', {
-      onclick: partial(cancel, ctrl)
-    }, pieces.map(function(serverRole) {
 
-      return m('div.cg-piece.' + serverRole + '.' + ctrl.data.player.color, {
-        onclick: function(e) {
-          e.stopPropagation();
-          finish(ctrl, serverRole);
-        }
-      });
-    }));
+    return renderPromotion(ctrl, promoting[1], pieces,
+        ctrl.data.player.color,
+        ctrl.chessground.data.orientation);
   }
 };

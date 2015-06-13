@@ -2,6 +2,7 @@ package controllers
 
 import scala.util.{ Try, Success, Failure }
 
+import play.api.libs.json.Json
 import play.api.mvc._
 import play.twirl.api.Html
 
@@ -36,8 +37,9 @@ object Puzzle extends LilaController {
   }
 
   def home = Open { implicit ctx =>
-    selectPuzzle(ctx.me) flatMap { puzzle =>
-      renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { Ok(_) }
+    selectPuzzle(ctx.me) flatMap {
+      case Some(puzzle) => renderShow(puzzle, ctx.isAuth.fold("play", "try")) map { Ok(_) }
+      case None         => fuccess(Ok(html.puzzle.noMore()))
     }
   }
 
@@ -67,12 +69,15 @@ object Puzzle extends LilaController {
       }
   }
 
+  private val noMorePuzzleJson = Json.obj("error" -> "No more puzzles for you!")
+
   // XHR load next play puzzle
   def newPuzzle = Open { implicit ctx =>
     XhrOnly {
       selectPuzzle(ctx.me) zip (env userInfos ctx.me) map {
-        case (puzzle, infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)) as JSON
-      }
+        case (Some(puzzle), infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)) as JSON
+        case (None, _)             => NotFound(noMorePuzzleJson)
+      } map (_ as JSON)
     }
   }
 
@@ -87,7 +92,8 @@ object Puzzle extends LilaController {
           notifyChange = false) >> {
             reqToCtx(ctx.req) flatMap { newCtx =>
               selectPuzzle(newCtx.me) zip env.userInfos(newCtx.me) map {
-                case (puzzle, infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)(newCtx))
+                case (Some(puzzle), infos) => Ok(JsData(puzzle, infos, ctx.isAuth.fold("play", "try"), animationDuration = env.AnimationDuration)(newCtx))
+                case (None, _)             => NotFound(noMorePuzzleJson)
               }
             }
           }
