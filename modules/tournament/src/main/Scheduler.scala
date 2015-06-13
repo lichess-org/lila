@@ -65,7 +65,7 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         Schedule(Weekly, SuperBlitz, Standard, std, at(nextSaturday, 19) |> orNextWeek),
         Schedule(Weekly, Blitz, Standard, std, at(nextSaturday, 20) |> orNextWeek),
         Schedule(Weekly, Classical, Standard, std, at(nextSaturday, 21) |> orNextWeek),
-        Schedule(Weekly, Classical, Chess960, std, at(nextSaturday, 22) |> orNextWeek),
+        Schedule(Weekly, Blitz, Chess960, std, at(nextSaturday, 22) |> orNextWeek),
 
         Schedule(Daily, Bullet, Standard, std, at(today, 18) |> orTomorrow),
         Schedule(Daily, SuperBlitz, Standard, std, at(today, 19) |> orTomorrow),
