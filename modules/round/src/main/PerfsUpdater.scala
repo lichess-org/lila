@@ -17,12 +17,12 @@ final class PerfsUpdater(historyApi: HistoryApi) {
   private val system = new RatingCalculator(VOLATILITY, TAU)
 
   def save(game: Game, white: User, black: User, resetGameRatings: Boolean = false): Funit =
-    PerfPicker.main(game) ?? { mainPerf =>
+    PerfPicker.main(game.speed, game.ratingVariant, game.daysPerTurn) ?? { mainPerf =>
       (game.rated && game.finished && game.accountable && !white.lame && !black.lame) ?? {
         val ratingsW = mkRatings(white.perfs)
         val ratingsB = mkRatings(black.perfs)
         val result = resultOf(game)
-        game.variant match {
+        game.ratingVariant match {
           case chess.variant.Chess960 =>
             updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
           case chess.variant.KingOfTheHill =>
@@ -113,15 +113,15 @@ final class PerfsUpdater(historyApi: HistoryApi) {
 
   private def mkPerfs(ratings: Ratings, perfs: Perfs, game: Game): Perfs = {
     val speed = game.speed
-    val isStd = game.variant.standard
+    val isStd = game.ratingVariant.standard
     val date = game.updatedAt | game.createdAt
     val perfs1 = perfs.copy(
-      chess960 = game.variant.chess960.fold(perfs.chess960.add(ratings.chess960, date), perfs.chess960),
-      kingOfTheHill = game.variant.kingOfTheHill.fold(perfs.kingOfTheHill.add(ratings.kingOfTheHill, date), perfs.kingOfTheHill),
-      threeCheck = game.variant.threeCheck.fold(perfs.threeCheck.add(ratings.threeCheck, date), perfs.threeCheck),
-      antichess = game.variant.antichess.fold(perfs.antichess.add(ratings.antichess, date), perfs.antichess),
-      atomic = game.variant.atomic.fold(perfs.atomic.add(ratings.atomic, date), perfs.atomic),
-      horde = game.variant.horde.fold(perfs.horde.add(ratings.horde, date), perfs.horde),
+      chess960 = game.ratingVariant.chess960.fold(perfs.chess960.add(ratings.chess960, date), perfs.chess960),
+      kingOfTheHill = game.ratingVariant.kingOfTheHill.fold(perfs.kingOfTheHill.add(ratings.kingOfTheHill, date), perfs.kingOfTheHill),
+      threeCheck = game.ratingVariant.threeCheck.fold(perfs.threeCheck.add(ratings.threeCheck, date), perfs.threeCheck),
+      antichess = game.ratingVariant.antichess.fold(perfs.antichess.add(ratings.antichess, date), perfs.antichess),
+      atomic = game.ratingVariant.atomic.fold(perfs.atomic.add(ratings.atomic, date), perfs.atomic),
+      horde = game.ratingVariant.horde.fold(perfs.horde.add(ratings.horde, date), perfs.horde),
       bullet = (isStd && speed == Speed.Bullet).fold(perfs.bullet.add(ratings.bullet, date), perfs.bullet),
       blitz = (isStd && speed == Speed.Blitz).fold(perfs.blitz.add(ratings.blitz, date), perfs.blitz),
       classical = (isStd && speed == Speed.Classical).fold(perfs.classical.add(ratings.classical, date), perfs.classical),

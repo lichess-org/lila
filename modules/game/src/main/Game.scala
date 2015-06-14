@@ -314,6 +314,10 @@ case class Game(
     }
   }
 
+  def ratingVariant =
+    if (isTournament && variant == chess.variant.FromPosition) chess.variant.Standard
+    else variant
+
   def fromPosition = source ?? (Source.Position==)
 
   def imported = source exists (_ == Source.Import)
@@ -369,7 +373,11 @@ case class Game(
   def onePlayerHasMoved = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
-  def playerMoves(color: Color): Int = (playedTurns + color.fold(1, 0)) / 2
+  def startColor = Color(startedAtTurn % 2 == 0)
+
+  def playerMoves(color: Color): Int =
+    if (color == startColor) (playedTurns + 1) / 2
+    else playedTurns / 2
 
   def playerHasMoved(color: Color) = playerMoves(color) > 0
 
