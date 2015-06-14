@@ -3,16 +3,16 @@ var partial = require('chessground').util.partial;
 var util = require('./util');
 var status = require('game').status;
 
-function user(pairing, username) {
-  var id = username.toLowerCase();
+var statusClasses = ['playing', 'draw', 'win', 'loss'];
+
+function user(p, it) {
   return {
-    tag: pairing.st >= status.ids.mate ? (
-      pairing.w === null ? 'draw' : (
-        (!!pairing.w === (pairing.u1.toLowerCase() === id)) ? 'win' : 'loss'
+    tag: p.s === 0 ? 'playing' : (
+      p.s === 1 ? 'draw' : (
+        (p.s === 2) === (it === 0) ? 'win' : 'loss'
       )
-    ) : 'playing',
-    attrs: {},
-    children: [username]
+    ),
+    children: [p.u[it]]
   };
 }
 
@@ -25,9 +25,9 @@ module.exports = function(ctrl) {
         href: '/' + p.id
       },
       children: [
-        user(p, p.u1),
+        user(p, 0),
         'vs',
-        user(p, p.u2)
+        user(p, 1)
       ]
     };
   };

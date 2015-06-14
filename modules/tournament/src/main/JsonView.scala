@@ -10,12 +10,19 @@ import lila.user.User
 final class JsonView(
     getLightUser: String => Option[LightUser]) {
 
-  def apply(tour: Tournament, page: Option[Int], me: Option[String]): Fu[JsObject] = for {
+  def apply(
+    tour: Tournament,
+    page: Option[Int],
+    me: Option[String]): Fu[JsObject] = for {
     pairings <- PairingRepo.recentByTour(tour.id, 40)
-    games <- GameRepo games pairings.map(_.gameId)
+    games <- GameRepo games pairings.take(4).map(_.gameId)
     podiumJson <- tour.isFinished ?? podiumJson(tour).map(_.some)
-    stand <- page ?? { standing(tour, _) }
     myInfo <- me ?? { PlayerRepo.playerInfo(tour.id, _) }
+    stand <- (myInfo, page) match {
+      case (_, Some(p)) => standing(tour, p)
+      case (Some(i), _) => standing(tour, i.page)
+      case _            => standing(tour, 1)
+    }
   } yield Json.obj(
     "id" -> tour.id,
     "createdBy" -> tour.createdBy,
@@ -77,14 +84,14 @@ final class JsonView(
     "speed" -> s.speed.name)
 
   private def sheetJson(sheet: ScoreSheet) = sheet match {
-    case s: arena.ScoringSystem.Sheet => Json.obj(
-      "scores" -> s.scores.reverse.map { score =>
-        if (score.flag == arena.ScoringSystem.Normal) JsNumber(score.value)
-        else Json.arr(score.value, score.flag.id)
-      },
-      "total" -> s.total,
-      "fire" -> s.onFire.option(true)
-    ).noNull
+    case s: arena.ScoringSystem.Sheet =>
+      val o = Json.obj(
+        "scores" -> s.scores.reverse.map { score =>
+          if (score.flag == arena.ScoringSystem.Normal) JsNumber(score.value)
+          else Json.arr(score.value, score.flag.id)
+        },
+        "total" -> s.total)
+      s.onFire.fold(o + ("fire" -> JsBoolean(true)), o)
   }
 
   private def playerJson(sheets: Map[String, ScoreSheet], tour: Tournament)(rankedPlayer: RankedPlayer) = {
@@ -126,11 +133,11 @@ final class JsonView(
 
   private def pairingJson(p: Pairing) = Json.obj(
     "id" -> p.gameId,
-    "st" -> p.status.id,
-    "u1" -> pairingUserJson(p.user1),
-    "u2" -> pairingUserJson(p.user2),
-    "w" -> p.winner.map {
-      case w if w == p.user1 => 1
-      case _                 => 0
-    })
+    "u" -> Json.arr(pairingUserJson(p.user1), pairingUserJson(p.user2)),
+    "s" -> (if (p.finished) p.winner match {
+      case Some(w) if w == p.user1 => 2
+      case Some(w)                 => 3
+      case _                       => 1
+    }
+    else 0))
 }

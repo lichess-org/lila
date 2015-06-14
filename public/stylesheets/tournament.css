@@ -215,6 +215,9 @@ ol.scheduled_tournaments a:hover {
 #tournament table.slist .small {
   font-size: 0.8em;
 }
+#tournament div.standing_wrap {
+  overflow: hidden;
+}
 #tournament div.standing_wrap:hover {
   overflow-y: auto;
 }

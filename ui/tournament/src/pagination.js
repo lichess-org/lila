@@ -1,4 +1,3 @@
-var tournament = require('./tournament');
 var m = require('mithril');
 
 var maxPerPage = 10;
@@ -28,24 +27,22 @@ function scrollToMeButton(ctrl, pag) {
 
 function paginate(ctrl, page) {
   var nbResults = ctrl.data.nbPlayers;
-  var max = nbResults > 15 ? maxPerPage : 15; // don't paginate 15 or less elements
-  var from = (page - 1) * max;
-  var to = Math.min(nbResults, page * max);
+  var from = (page - 1) * maxPerPage;
+  var to = Math.min(nbResults, page * maxPerPage);
   return {
     currentPage: page,
-    maxPerPage: max,
+    maxPerPage: maxPerPage,
     from: from,
     to: to,
     currentPageResults: ctrl.vm.pages[page],
     nbResults: nbResults,
-    nbPages: Math.ceil(nbResults / max)
+    nbPages: Math.ceil(nbResults / maxPerPage)
   };
 }
 
 module.exports = {
   render: function(ctrl, pag, table) {
     return [
-      // loader,
       pag.currentPageResults ? table() : m('div.loader'),
       pag.nbPages > 1 ? m('div.pager', [
         button('First', 'W', function() {

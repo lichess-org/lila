@@ -1,15 +1,24 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
-var tournament = require('../tournament');
 var util = require('./util');
 var arena = require('./arena');
 var swiss = require('./swiss');
 var pairings = require('./pairings');
 var pagination = require('../pagination');
 
+
+function myCurrentPairing(ctrl) {
+  if (!ctrl.userId) return null;
+  return ctrl.data.pairings.filter(function(p) {
+    return p.s === 0 && (
+      p.u[0].toLowerCase() === ctrl.userId || p.u[1].toLowerCase() === ctrl.userId
+    );
+  })[0];
+}
+
 module.exports = {
   main: function(ctrl) {
-    var myPairing = tournament.myCurrentPairing(ctrl);
+    var myPairing = myCurrentPairing(ctrl);
     var gameId = myPairing ? myPairing.id : null;
     var pag = pagination.players(ctrl);
     return [

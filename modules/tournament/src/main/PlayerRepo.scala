@@ -30,8 +30,8 @@ object PlayerRepo {
     coll.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player].collect[List](nb)
 
   def bestByTourWithRank(tourId: String, nb: Int, skip: Int = 0): Fu[RankedPlayers] =
-    bestByTour(tourId, nb, skip).map {
-      _.foldRight(List.empty[RankedPlayer] -> (nb + skip)) {
+    bestByTour(tourId, nb, skip).map { res =>
+      res.foldRight(List.empty[RankedPlayer] -> (res.size + skip)) {
         case (p, (res, rank)) => (RankedPlayer(rank, p) :: res, rank - 1)
       }._1
     }

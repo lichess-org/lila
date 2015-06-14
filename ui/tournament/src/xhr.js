@@ -34,7 +34,7 @@ function reloadTournament(ctrl) {
     url: '/tournament/' + ctrl.data.id,
     config: xhrConfig,
     data: {
-      page: ctrl.vm.page
+      page: ctrl.vm.focusOnMe ? null : ctrl.vm.page
     }
   }).then(ctrl.reload, reloadPage);
 }
@@ -44,5 +44,5 @@ module.exports = {
   join: partial(tourAction, 'join'),
   withdraw: partial(tourAction, 'withdraw'),
   loadPage: throttle(1000, false, loadPage),
-  reloadTournament: throttle(1000, false, reloadTournament)
+  reloadTournament: throttle(2000, false, reloadTournament)
 };

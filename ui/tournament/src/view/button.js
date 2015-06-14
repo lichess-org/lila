@@ -1,6 +1,5 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
-var tournament = require('../tournament');
 var xhr = require('../xhr');
 
 function withdraw(ctrl) {
