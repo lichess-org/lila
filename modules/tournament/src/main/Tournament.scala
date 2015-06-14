@@ -67,7 +67,7 @@ case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournam
 
 object Tournament {
 
-  val minPlayers = 3
+  val minPlayers = 2
 
   def make(
     createdBy: User,
