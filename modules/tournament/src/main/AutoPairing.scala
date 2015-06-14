@@ -24,9 +24,11 @@ final class AutoPairing(
         variant = tour.variant.some,
         fen = tour.position.some.filterNot(_.initial).map(_.fen)
       ) |> { g =>
+          val turns = g.player.fold(0, 1)
           g.copy(
             clock = tour.clock.chessClock.some,
-            startedAtTurn = g.player.fold(0, 1))
+            turns = turns,
+            startedAtTurn = turns)
         },
       whitePlayer = GamePlayer.white,
       blackPlayer = GamePlayer.black,
