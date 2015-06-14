@@ -71,6 +71,16 @@ object PlayerRepo {
       coll.update(selectId(player._id), player).void
     }
 
+  def playerInfo(tourId: String, userId: String): Fu[Option[PlayerInfo]] = find(tourId, userId) flatMap {
+    _ ?? { player =>
+      coll.db command Count(coll.name, Some(selectTour(tourId) ++ BSONDocument(
+        "m" -> BSONDocument("$gt" -> player.magicScore))
+      )) map { n =>
+        PlayerInfo((n + 1), player.withdraw).some
+      }
+    }
+  }
+
   def join(tourId: String, user: User, perfLens: Perfs => Perf) =
     find(tourId, user.id) flatMap {
       case Some(p) if p.withdraw => coll.update(selectId(p._id), BSONDocument("$unset" -> BSONDocument("w" -> true)))

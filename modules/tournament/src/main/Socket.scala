@@ -94,13 +94,11 @@ private[tournament] final class Socket(
         case ((anons, users), Some(user)) => anons -> (user :: users)
         case ((anons, users), None)       => (anons + 1) -> users
       }
-      notifyVersion("crowd", showSpectators(users, anons), Messadata())
+      notifyAll("crowd", showSpectators(users, anons))
 
     case NotifyReload =>
       delayedReloadNotification = false
-      jsonView(tournamentId).effectFold(
-        err => notifyVersion("deleted", JsNull, Messadata()),
-        obj => notifyVersion("reload", obj, Messadata()))
+      notifyAll("reload")
   }
 
   private var waitingUsers = Map[String, DateTime]()

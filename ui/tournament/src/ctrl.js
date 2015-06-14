@@ -1,7 +1,6 @@
 var m = require('mithril');
 var socket = require('./socket');
 var xhr = require('./xhr');
-var throttle = require('./util').throttle;
 var pagination = require('./pagination');
 var tournament = require('./tournament');
 var util = require('chessground').util;
@@ -15,30 +14,33 @@ module.exports = function(env) {
   this.socket = new socket(env.socketSend, this);
 
   this.vm = {
-    loading: false,
-    page: 1,
-    pages: {}
+    page: this.data.standing.page,
+    pages: {},
+    focusOnMe: !!this.data.me
   };
 
   this.reload = function(data) {
+    if (this.data.isStarted !== data.isStarted) m.redraw.strategy('all');
     this.data = data;
-    this.vm.loading = false;
+    this.loadPage(data.standing);
+    if (this.vm.focusOnMe) this.scrollToMe();
     startWatching();
   }.bind(this);
-
-  var requestPage = throttle(1000, false, function(page) {
-    xhr.loadPage(this, page)
-  }.bind(this));
 
   this.loadPage = function(data) {
     this.vm.pages[data.page] = data.players;
   }.bind(this);
+  this.loadPage(this.data.standing);
 
-  this.setPage = function(page) {
+  var setPage = function(page) {
     this.vm.page = page;
-    requestPage(page);
+    xhr.loadPage(this, page)
   }.bind(this);
-  this.setPage(1);
+
+  this.userSetPage = function(page) {
+    this.vm.focusOnMe = false;
+    setPage(page);
+  }.bind(this);
 
   var alreadyWatching = [];
   var startWatching = function() {
@@ -57,11 +59,17 @@ module.exports = function(env) {
   startWatching();
 
   this.scrollToMe = function() {
-    if (tournament.containsMe(this))
-      this.vm.page = pagination.pageOfUserId(this) || this.vm.page;
+    if (!this.data.me) return;
+    var page = pagination.myPage(this);
+    if (page !== this.vm.page) setPage(page);
   }.bind(this);
-
   this.scrollToMe();
+
+  this.toggleFocusOnMe = function() {
+    if (!this.data.me) return;
+    this.vm.focusOnMe = !this.vm.focusOnMe;
+    if (this.vm.focusOnMe) this.scrollToMe();
+  }.bind(this);
 
   this.trans = function(key) {
     var str = env.i18n[key] || key;

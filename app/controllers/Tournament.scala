@@ -45,13 +45,20 @@ object Tournament extends LilaController {
     env allCreatedSorted true zip repo.publicStarted zip repo.finished(10)
 
   def show(id: String) = Open { implicit ctx =>
-    repo byId id flatMap {
-      _.fold(tournamentNotFound.fuccess) { tour =>
-        env.version(tour.id) zip env.jsonView(tour) zip chatOf(tour) map {
-          case ((version, data), chat) => html.tournament.show(tour, version, data, chat)
+    val page = getInt("page") | 1
+    negotiate(
+      html = repo byId id flatMap {
+        _.fold(tournamentNotFound.fuccess) { tour =>
+          env.version(tour.id) zip env.jsonView(tour, page.some, ctx.userId) zip chatOf(tour) map {
+            case ((version, data), chat) => html.tournament.show(tour, version, data, chat)
+          }
         }
-      }
-    }
+      },
+      api = _ => repo byId id flatMap {
+        case None       => NotFound(Json.obj("error" -> "No such tournament")).fuccess
+        case Some(tour) => env.jsonView(tour, page.some, ctx.userId) map { Ok(_) }
+      } map (_ as JSON)
+    )
   }
 
   def standing(id: String, page: Int) = Open { implicit ctx =>

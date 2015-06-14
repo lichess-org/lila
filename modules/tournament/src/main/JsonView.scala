@@ -10,27 +10,32 @@ import lila.user.User
 final class JsonView(
     getLightUser: String => Option[LightUser]) {
 
-  def apply(id: String): Fu[JsObject] =
-    TournamentRepo byId id flatten s"No such tournament: $id" flatMap apply
-
-  def apply(tour: Tournament): Fu[JsObject] = for {
+  def apply(tour: Tournament, page: Option[Int], me: Option[String]): Fu[JsObject] = for {
     pairings <- PairingRepo.recentByTour(tour.id, 40)
     games <- GameRepo games pairings.map(_.gameId)
     podiumJson <- tour.isFinished ?? podiumJson(tour).map(_.some)
+    stand <- page ?? { standing(tour, _) }
+    myInfo <- me ?? { PlayerRepo.playerInfo(tour.id, _) }
   } yield Json.obj(
     "id" -> tour.id,
     "createdBy" -> tour.createdBy,
     "system" -> tour.system.toString.toLowerCase,
     "fullName" -> tour.fullName,
     "nbPlayers" -> tour.nbPlayers,
-    "private" -> tour.`private`,
+    "private" -> tour.`private`.option(true),
     "variant" -> tour.variant.key,
     "pairings" -> pairings.map(pairingJson),
     "isStarted" -> tour.isStarted,
     "isFinished" -> tour.isFinished,
     "lastGames" -> games.map(gameJson),
     "schedule" -> tour.schedule.map(scheduleJson),
-    "podium" -> podiumJson) ++ specifics(tour)
+    "standing" -> stand,
+    "me" -> myInfo.map { i =>
+      Json.obj(
+        "rank" -> i.rank,
+        "withdraw" -> i.withdraw)
+    },
+    "podium" -> podiumJson).noNull ++ specifics(tour)
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] = for {
     rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
@@ -124,5 +129,8 @@ final class JsonView(
     "st" -> p.status.id,
     "u1" -> pairingUserJson(p.user1),
     "u2" -> pairingUserJson(p.user2),
-    "wi" -> p.winner)
+    "w" -> p.winner.map {
+      case w if w == p.user1 => 1
+      case _                 => 0
+    })
 }

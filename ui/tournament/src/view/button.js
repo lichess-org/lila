@@ -22,7 +22,7 @@ module.exports = {
   join: join,
   joinWithdraw: function(ctrl) {
     return (!ctrl.userId || ctrl.data.isFinished) ? null : (
-      tournament.containsMe(ctrl) ? withdraw(ctrl) : join(ctrl));
+      ctrl.data.me && !ctrl.data.me.withdraw ? withdraw(ctrl) : join(ctrl));
 
   }
 };

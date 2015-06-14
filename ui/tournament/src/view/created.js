@@ -10,7 +10,7 @@ function header(ctrl) {
   return [
     m('th.large', tour.players.length + ' Players'),
     ctrl.userId ? m('th',
-      tournament.containsMe(ctrl) ? button.withdraw(ctrl) : button.join(ctrl)
+      ctrl.data.me && !ctrl.data.me.withdraw ? button.withdraw(ctrl) : button.join(ctrl)
     ) : m('th')
   ];
 }

@@ -6,14 +6,8 @@ module.exports = function(send, ctrl) {
   this.send = send;
 
   var handlers = {
-    reload: function(data) {
-      // require to restart the clock
-      if (ctrl.data.isStarted !== data.isStarted) m.redraw.strategy('all');
-      ctrl.reload(data);
-      m.redraw();
-    },
-    deleted: function() {
-      lichess.reload();
+    reload: function() {
+      xhr.reloadTournament(ctrl);
     }
   };
 

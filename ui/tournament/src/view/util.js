@@ -51,10 +51,10 @@ module.exports = {
       ] : null
     ]);
   },
-  currentPlayer: function(ctrl) {
+  currentPlayer: function(ctrl, pag) {
     if (!ctrl.userId) return null;
-    return ctrl.data.players.filter(function(p) {
-      return (p.name || '').toLowerCase() === ctrl.userId;
+    return pag.currentPageResults.filter(function(p) {
+      return p.name.toLowerCase() === ctrl.userId;
     })[0] || null;
   },
   player: function(p) {

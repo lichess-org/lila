@@ -1,5 +1,6 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
+var throttle = require('./util').throttle;
 
 var xhrConfig = function(xhr) {
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -12,7 +13,6 @@ function reloadPage() {
 }
 
 function tourAction(action, ctrl) {
-  ctrl.vm.loading = true;
   return m.request({
     method: 'POST',
     url: '/tournament/' + ctrl.data.id + '/' + action,
@@ -21,7 +21,6 @@ function tourAction(action, ctrl) {
 }
 
 function loadPage(ctrl, p) {
-  ctrl.vm.loading = true;
   return m.request({
     method: 'GET',
     url: '/tournament/' + ctrl.data.id + '/standing/' + p,
@@ -29,9 +28,21 @@ function loadPage(ctrl, p) {
   }).then(ctrl.loadPage, reloadPage);
 }
 
+function reloadTournament(ctrl) {
+  return m.request({
+    method: 'GET',
+    url: '/tournament/' + ctrl.data.id,
+    config: xhrConfig,
+    data: {
+      page: ctrl.vm.page
+    }
+  }).then(ctrl.reload, reloadPage);
+}
+
 module.exports = {
   start: partial(tourAction, 'start'),
   join: partial(tourAction, 'join'),
   withdraw: partial(tourAction, 'withdraw'),
-  loadPage: loadPage
+  loadPage: throttle(1000, false, loadPage),
+  reloadTournament: throttle(1000, false, reloadTournament)
 };

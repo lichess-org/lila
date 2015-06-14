@@ -7,7 +7,9 @@ function user(pairing, username) {
   var id = username.toLowerCase();
   return {
     tag: pairing.st >= status.ids.mate ? (
-      pairing.wi ? (pairing.wi === id ? 'win' : 'loss') : 'draw'
+      pairing.w === null ? 'draw' : (
+        (!!pairing.w === (pairing.u1.toLowerCase() === id)) ? 'win' : 'loss'
+      )
     ) : 'playing',
     attrs: {},
     children: [username]

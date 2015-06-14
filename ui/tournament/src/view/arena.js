@@ -104,7 +104,7 @@ module.exports = {
     ]);
   },
   standing: function(ctrl, pag) {
-    var player = util.currentPlayer(ctrl);
+    var player = util.currentPlayer(ctrl, pag);
     return [
       m('thead',
         m('tr', [
