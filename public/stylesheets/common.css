@@ -2513,9 +2513,6 @@ input.copyable {
   height: 295px;
   z-index: 9999;
 }
-.fire_trophy {
-  text-decoration: none;
-}
 .fire_trophy span {
   transform: scale(0.35);
   -webkit-transform: scale(0.35);

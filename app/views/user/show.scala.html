@@ -75,22 +75,22 @@ openGraph = Map(
     @if(!u.lame) {
     @info.ranks.map {
     case (perf, rank) if rank == 1 => {
-    <span class="trophy hint--left" data-hint="@PerfType.name(perf) Champion!">
+    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Champion!">
       <img src="@staticUrl("images/trophy/Big-Gold-Cup.png")" height=80 />
     </span>
     }
     case (perf, rank) if rank <= 10 => {
-    <span class="trophy hint--left" data-hint="@PerfType.name(perf) Top 10!">
+    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Top 10!">
       <img src="@staticUrl("images/trophy/Big-Silver-Cup.png")" height=80 />
     </span>
     }
     case (perf, rank) if rank <= 50 => {
-    <span class="trophy hint--left" data-hint="@PerfType.name(perf) Top 50 player!">
+    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Top 50 player!">
       <img src="@staticUrl("images/trophy/Fancy-Gold.png")" height=80 />
     </span>
     }
     case (perf, rank) if rank <= 100 => {
-    <span class="trophy hint--left" data-hint="@PerfType.name(perf) Top 100 player!">
+    <span class="trophy perf hint--left" data-hint="@PerfType.name(perf) Top 100 player!">
       <img src="@staticUrl("images/trophy/Gold-Cup.png")" height=80 />
     </span>
     }
@@ -100,13 +100,13 @@ openGraph = Map(
     @info.trophies.map { trophy =>
     <a @trophy.kind.url.map { url =>
       href="@url"
-      } class="trophy @trophy.kind.key@if(trophy.kind.iconChar.isDefined){ fire_trophy} hint--left" data-hint="@trophy.kind.name">
+      } class="trophy award @trophy.kind.key @trophy.kind.klass hint--left" data-hint="@trophy.kind.name">
       @trophy.kind match {
       case lila.user.Trophy.Kind.ZugMiracle => {
       <img src="@staticUrl("images/trophy/zug-trophy.png")" height=80 />
       }
       case _ => {
-      <span data-icon="@trophy.kind.iconChar"></span>
+      <span data-icon="@trophy.kind.icon.map(Html.apply)"></span>
       }
       }
     </a>
