@@ -205,10 +205,14 @@ private[tournament] final class TournamentApi(
     }
   }
 
+  private val miniStandingCache = lila.memo.AsyncCache[String, List[RankedPlayer]](
+    (id: String) => PlayerRepo.bestByTourWithRank(id, 30),
+    timeToLive = 3 second)
+
   def miniStanding(tourId: String, withStanding: Boolean): Fu[Option[MiniStanding]] =
     TournamentRepo byId tourId flatMap {
       _ ?? { tour =>
-        if (withStanding) PlayerRepo.bestByTourWithRank(tour.id, 20) map { rps =>
+        if (withStanding) miniStandingCache(tour.id) map { rps =>
           MiniStanding(tour, rps.some).some
         }
         else fuccess(MiniStanding(tour, none).some)
