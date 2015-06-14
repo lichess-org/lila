@@ -40,9 +40,8 @@ function reloadTournament(ctrl) {
 }
 
 module.exports = {
-  start: partial(tourAction, 'start'),
-  join: partial(tourAction, 'join'),
-  withdraw: partial(tourAction, 'withdraw'),
+  join: throttle(1000, false, partial(tourAction, 'join')),
+  withdraw: throttle(1000, false, partial(tourAction, 'withdraw')),
   loadPage: throttle(1000, false, loadPage),
   reloadTournament: throttle(2000, false, reloadTournament)
 };

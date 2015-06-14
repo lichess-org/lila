@@ -41,8 +41,8 @@ function playerTr(ctrl, player) {
         }) : rank(player),
         util.player(player)
       ]),
-      m('td.sheet', player.sheet.scores.map(scoreTag)),
-      m('td.total', m('strong',
+      ctrl.data.startsAt ? m('td') : m('td.sheet', player.sheet.scores.map(scoreTag)),
+      ctrl.data.startsAt ? null : m('td.total', m('strong',
         player.sheet.fire ? {
           class: 'is-gold',
           'data-icon': 'Q'
@@ -106,7 +106,12 @@ module.exports = {
     var player = util.currentPlayer(ctrl, pag);
     return [
       m('thead',
-        m('tr', [
+        m('tr', ctrl.data.startsAt ? [
+          m('th.large', ctrl.data.nbPlayers + ' Players'),
+          ctrl.userId ? m('th',
+            ctrl.data.me && !ctrl.data.me.withdraw ? button.withdraw(ctrl) : button.join(ctrl)
+          ) : m('th')
+        ] : [
           m('th.large', [
             ctrl.trans('standing'), (player && !player.withdraw) ? [
               m('strong.player_rank', player.rank),

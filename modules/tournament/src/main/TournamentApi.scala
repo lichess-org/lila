@@ -141,7 +141,7 @@ private[tournament] final class TournamentApi(
   def withdraw(tourId: String, userId: String) {
     Sequencing(tourId)(TournamentRepo.enterableById) {
       case tour if tour.isCreated =>
-        PlayerRepo.remove(tour.id, userId) >>- socketReload(tour.id) >>- publish()
+        PlayerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) >>- socketReload(tour.id) >>- publish()
       case tour if tour.isStarted =>
         PlayerRepo.withdraw(tour.id, userId) >>- socketReload(tour.id) >>- publish()
       case _ => funit

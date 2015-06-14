@@ -5,7 +5,6 @@ var arena = require('./arena');
 var pairings = require('./pairings');
 var pagination = require('../pagination');
 
-
 function myCurrentPairing(ctrl) {
   if (!ctrl.userId) return null;
   return ctrl.data.pairings.filter(function(p) {
@@ -31,7 +30,7 @@ module.exports = {
       }, [
         'You are playing!',
         m('span.text[data-icon=G]', ctrl.trans('joinTheGame'))
-      ]) : null, , m('div.standing_wrap',
+      ]) : null, m('div.standing_wrap',
         pagination.render(ctrl, pag, function() {
           return m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), arena.standing(ctrl, pag));
         })),

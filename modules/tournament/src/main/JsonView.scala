@@ -1,5 +1,6 @@
 package lila.tournament
 
+import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -11,12 +12,9 @@ import lila.user.User
 final class JsonView(
     getLightUser: String => Option[LightUser]) {
 
-  def apply(
-    tour: Tournament,
-    page: Option[Int],
-    me: Option[String]): Fu[JsObject] = for {
-    pairings <- PairingRepo.recentByTour(tour.id, 40)
-    games <- GameRepo games pairings.take(4).map(_.gameId)
+  def apply(tour: Tournament, page: Option[Int], me: Option[String]): Fu[JsObject] = for {
+    pairings <- (!tour.isCreated) ?? PairingRepo.recentByTour(tour.id, 40)
+    games <- (!tour.isCreated) ?? (GameRepo games pairings.take(4).map(_.gameId))
     podiumJson <- tour.isFinished ?? podiumJson(tour).map(_.some)
     myInfo <- me ?? { PlayerRepo.playerInfo(tour.id, _) }
     stand <- (myInfo, page) match {
@@ -32,18 +30,18 @@ final class JsonView(
     "nbPlayers" -> tour.nbPlayers,
     "private" -> tour.`private`.option(true),
     "variant" -> tour.variant.key,
-    "pairings" -> pairings.map(pairingJson),
     "isStarted" -> tour.isStarted,
     "isFinished" -> tour.isFinished,
-    "lastGames" -> games.map(gameJson),
     "schedule" -> tour.schedule.map(scheduleJson),
+    "secondsToFinish" -> tour.isStarted.option(tour.secondsToFinish),
+    "secondsToStart" -> tour.isCreated.option(tour.secondsToStart),
+    "startsAt" -> tour.isCreated.option(ISODateTimeFormat.dateTime.print(tour.startsAt)),
+    "pairings" -> pairings.map(pairingJson),
+    "lastGames" -> games.map(gameJson),
     "standing" -> stand,
-    "me" -> myInfo.map { i =>
-      Json.obj(
-        "rank" -> i.rank,
-        "withdraw" -> i.withdraw)
-    },
-    "podium" -> podiumJson).noNull ++ specifics(tour)
+    "me" -> myInfo.map(myInfoJson),
+    "podium" -> podiumJson
+  ).noNull
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
     if (page == 1) firstPageCache(tour.id)
@@ -63,13 +61,9 @@ final class JsonView(
     (id: String) => TournamentRepo byId id flatten s"No such tournament: $id" flatMap { computeStanding(_, 1) },
     timeToLive = 1 second)
 
-  private def specifics(tour: Tournament) = tour match {
-    case t if t.isCreated => Json.obj(
-      "secondsToStart" -> t.secondsToStart,
-      "startsAt" -> org.joda.time.format.ISODateTimeFormat.dateTime.print(t.startsAt))
-    case t if t.isStarted => Json.obj("secondsToFinish" -> t.secondsToFinish)
-    case _                => Json.obj()
-  }
+  private def myInfoJson(i: PlayerInfo) = Json.obj(
+    "rank" -> i.rank,
+    "withdraw" -> i.withdraw)
 
   private def gameUserJson(player: lila.game.Player) = {
     val light = player.userId flatMap getLightUser
@@ -115,7 +109,7 @@ final class JsonView(
       "withdraw" -> p.withdraw.option(true),
       "score" -> p.score,
       "perf" -> p.perf,
-      "opposition" -> none[Int], //(tour.isFinished && rankedPlayer.rank <= 3).option(opposition(tour, p)),
+      // "opposition" -> none[Int], //(tour.isFinished && rankedPlayer.rank <= 3).option(opposition(tour, p)),
       "sheet" -> sheets.get(p.userId).map(sheetJson)
     ).noNull
   }

@@ -41,6 +41,16 @@ module.exports = function(env) {
     setPage(page);
   }.bind(this);
 
+  this.withdraw = function() {
+    xhr.withdraw(this);
+    this.vm.focusOnMe = false;
+  }.bind(this);
+
+  this.join = function() {
+    xhr.join(this);
+    this.vm.focusOnMe = true;
+  }.bind(this);
+
   var alreadyWatching = [];
   var startWatching = function() {
     var newIds = this.data.lastGames.map(function(p) {
