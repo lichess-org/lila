@@ -2,7 +2,6 @@ var m = require('mithril');
 var partial = require('chessground').util.partial;
 var util = require('./util');
 var arena = require('./arena');
-var swiss = require('./swiss');
 var pairings = require('./pairings');
 var pagination = require('../pagination');
 
@@ -34,7 +33,7 @@ module.exports = {
         m('span.text[data-icon=G]', ctrl.trans('joinTheGame'))
       ]) : null, , m('div.standing_wrap',
         pagination.render(ctrl, pag, function() {
-          return m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), (ctrl.data.system === 'arena' ? arena.standing : swiss.standing)(ctrl, pag));
+          return m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), arena.standing(ctrl, pag));
         })),
       util.games(ctrl.data.lastGames)
     ];
