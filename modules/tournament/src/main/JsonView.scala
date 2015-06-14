@@ -1,6 +1,7 @@
 package lila.tournament
 
 import play.api.libs.json._
+import scala.concurrent.duration._
 
 import lila.common.LightUser
 import lila.common.PimpedJson._
@@ -44,7 +45,11 @@ final class JsonView(
     },
     "podium" -> podiumJson).noNull ++ specifics(tour)
 
-  def standing(tour: Tournament, page: Int): Fu[JsObject] = for {
+  def standing(tour: Tournament, page: Int): Fu[JsObject] =
+    if (page == 1) firstPageCache(tour.id)
+    else computeStanding(tour, page)
+
+  private def computeStanding(tour: Tournament, page: Int): Fu[JsObject] = for {
     rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
     sheets <- rankedPlayers.map { p =>
       tour.system.scoringSystem.sheet(tour, p.player.userId) map p.player.userId.->
@@ -53,6 +58,10 @@ final class JsonView(
     "page" -> page,
     "players" -> rankedPlayers.map(playerJson(sheets, tour))
   )
+
+  private val firstPageCache = lila.memo.AsyncCache[String, JsObject](
+    (id: String) => TournamentRepo byId id flatten s"No such tournament: $id" flatMap { computeStanding(_, 1) },
+    timeToLive = 1 second)
 
   private def specifics(tour: Tournament) = tour match {
     case t if t.isCreated => Json.obj(
