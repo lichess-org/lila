@@ -4,13 +4,15 @@ import lila.socket.WithSocket
 
 package object tournament extends PackageObject with WithPlay with WithSocket {
 
-  private[tournament]type Players = List[tournament.Player]
+  private[tournament] type Players = List[tournament.Player]
 
-  private[tournament]type RankedPlayers = List[RankedPlayer]
+  private[tournament] type RankedPlayers = List[RankedPlayer]
 
-  private[tournament]type Pairings = List[tournament.Pairing]
+  private[tournament] type Pairings = List[tournament.Pairing]
 
-  private[tournament]type Events = List[tournament.Event]
+  private[tournament] type Events = List[tournament.Event]
+
+  private[tournament] type Ranking = Map[String, Int]
 
   private[tournament] object RandomName {
 
@@ -25,7 +27,7 @@ package tournament {
 
 case class RankedPlayer(rank: Int, player: Player) {
   def is(other: RankedPlayer) = player is other.player
-  override def toString = s"${player.id}[${player.rating}]"
+  override def toString = s"${player.userId}[${player.rating}]"
 }
 
 case class Winner(tourId: String, tourName: String, userId: String)

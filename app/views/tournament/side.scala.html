@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Tournament)(implicit ctx: Context)
+@(tour: Tournament)(implicit ctx: Context)
 
 <div class="side_box padded">
   <div class="game_infos" data-icon="@tour.perfType.map(_.iconChar)">
@@ -32,8 +32,8 @@
   <br /><br />
   <strong>@tour.position.eco</strong> @tour.position.name
   }
-  @tour.winner.filter(_ => tour.isFinished).map { winner =>
+  @tour.winnerId.map { userId =>
   <br /><br />
-  @trans.winner(): @userInfosLink(winner.id, none)
+  @trans.winner(): @userIdLink(userId.some)
   }
 </div>

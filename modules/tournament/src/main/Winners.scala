@@ -27,13 +27,14 @@ final class Winners(
       ) flatMap toursToWinners map (winners ::: _)
     }
 
-  private def toursToWinners(tours: List[Finished]): Fu[List[Winner]] =
-    tours.flatMap { tour =>
-      tour.winner map { w =>
-        Winner(tour.id, tour.name, w.id)
+  private def toursToWinners(tours: List[Tournament]): Fu[List[Winner]] =
+    tours.map { tour =>
+      PlayerRepo winner tour.id flatMap {
+        case Some(player) => UserRepo isEngine player.userId map { engine =>
+          !engine option Winner(tour.id, tour.name, player.userId)
+        }
+        case _ => fuccess(none)
       }
-    }.map { winner =>
-      UserRepo isEngine winner.userId map (!_ option winner)
     }.sequenceFu map (_.flatten)
 
   def scheduled(nb: Int): Fu[List[Winner]] = scheduledCache apply nb

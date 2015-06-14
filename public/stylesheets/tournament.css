@@ -232,6 +232,10 @@ ol.scheduled_tournaments a:hover {
   display: inline-block;
   margin: 0 5px;
 }
+#tournament div.loader {
+  margin: 100px auto;
+  font-size: 20px;
+}
 #tournament table.standing {
   width: 525px;
   border-bottom: none;

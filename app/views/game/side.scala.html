@@ -1,4 +1,4 @@
-@(pov: Pov, initialFen: Option[String], myTour: Option[lila.tournament.Tournament], withTourStanding: Boolean, simul: Option[lila.simul.Simul], userTv: Option[User] = None)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], userTv: Option[User] = None)(implicit ctx: Context)
 
 @import pov._
 @import lila.tournament.arena
@@ -86,15 +86,14 @@
   </div>
   }
 
-  @myTour match {
-  case Some(t: lila.tournament.StartedOrFinished) => { @tournament.gameStanding(t, withTourStanding) }
-  case _ => {
-  @pov.game.tournamentId.map { tourId =>
+  @tour match {
+  case Some(m) if !m.tour.isCreated => { @tournament.gameStanding(m) }
+  case Some(m) => {
   <div class="game_tournament side_box no_padding">
-    <p class="top text" data-icon="g"><a href="@routes.Tournament.show(tourId)">@tournamentIdToName(tourId)</a></p>
+    <p class="top text" data-icon="g"><a href="@routes.Tournament.show(m.tour.id)">@m.tour.fullName</a></p>
   </div>
   }
-  }
+  case _ => {}
   }
 
   @simul.map { sim =>

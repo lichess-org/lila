@@ -4,6 +4,8 @@ sealed abstract class System(val id: Int) {
   val pairingSystem: PairingSystem
   val scoringSystem: ScoringSystem
   val berserkable: Boolean
+
+  def default = this == System.Arena
 }
 
 object System {
@@ -13,15 +15,9 @@ object System {
     val berserkable = true
   }
 
-  case object Swiss extends System(id = 2) {
-    val pairingSystem = swiss.SwissSystem
-    val scoringSystem = swiss.SwissSystem
-    val berserkable = false
-  }
-
   val default = Arena
 
-  val all = List(Arena, Swiss)
+  val all = List(Arena)
 
   val byId = all map { s => (s.id -> s) } toMap
 
@@ -30,7 +26,9 @@ object System {
 }
 
 trait PairingSystem {
-  def createPairings(tournament: Tournament, users: AllUserIds): Fu[(Pairings,Events)]
+  def createPairings(
+    tournament: Tournament,
+    users: AllUserIds): Fu[(Pairings, Events)]
 }
 
 trait Score {
@@ -39,22 +37,14 @@ trait Score {
 
 trait ScoreSheet {
   def scores: List[Score]
-  def total:  Int
+  def total: Int
+  def onFire: Boolean
 }
 
 trait ScoringSystem {
   type Sheet <: ScoreSheet
 
-  // This should rank players by score, and rank all withdrawn players after active ones.
-  def rank(tournament: Tournament, players: Players): RankedPlayers
+  def emptySheet: Sheet
 
-  // You must override either this one or scoreSheet!
-  def scoreSheets(tournament: Tournament): Map[String,Sheet] = {
-    tournament.players.map { p =>
-      (p.id -> scoreSheet(tournament, p.id))
-    } toMap
-  }
-
-  // You must override either this one or scoreSheets!
-  def scoreSheet(tournament: Tournament, player: String): Sheet = scoreSheets(tournament)(player)
+  def sheet(tournament: Tournament, userId: String): Fu[Sheet]
 }

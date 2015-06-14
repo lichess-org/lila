@@ -96,7 +96,7 @@ trait Positional { self: Config =>
 object Config extends BaseConfig
 
 trait BaseConfig {
-  val systems = List(TournamentSystem.Arena.id, TournamentSystem.Swiss.id)
+  val systems = List(TournamentSystem.Arena.id)
   val systemDefault = TournamentSystem.default
 
   val variants = List(chess.variant.Standard.id, chess.variant.Chess960.id)

@@ -1,5 +1,4 @@
 var m = require('mithril');
-var throttle = require('./util').throttle;
 var chessground = require('chessground');
 var partial = chessground.util.partial;
 var data = require('./data');

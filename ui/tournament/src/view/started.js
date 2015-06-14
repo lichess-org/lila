@@ -14,7 +14,7 @@ module.exports = {
     var pag = pagination.players(ctrl);
     return [
       m('div.tournament_clock.title_tag', {
-          config: util.clock(ctrl.data.seconds)
+          config: util.clock(ctrl.data.secondsToFinish)
         },
         m('div.time.text[data-icon=p]')),
       util.title(ctrl),
@@ -23,10 +23,10 @@ module.exports = {
       }, [
         'You are playing!',
         m('span.text[data-icon=G]', ctrl.trans('joinTheGame'))
-      ]) : null,
-,     m('div.standing_wrap',
-        pagination.render(ctrl, pag,
-          m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), (ctrl.data.system === 'arena' ? arena.standing : swiss.standing)(ctrl, pag)))),
+      ]) : null, , m('div.standing_wrap',
+        pagination.render(ctrl, pag, function() {
+          return m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), (ctrl.data.system === 'arena' ? arena.standing : swiss.standing)(ctrl, pag));
+        })),
       util.games(ctrl.data.lastGames)
     ];
   },

@@ -1,4 +1,4 @@
-@(tours: List[lila.tournament.Enterable], scheduled: Boolean)
+@(tours: List[Tournament], scheduled: Boolean)
 
 @if(!scheduled && tours.isEmpty) {
 <tr class="create">
@@ -26,7 +26,7 @@
   <td class="small">
     <span data-icon="p">&nbsp;@tour.clock.show</span>
     @if(tour.variant.exotic) { @tour.variant.shortName }
-    @if(tour.rated) {
+    @if(tour.mode.rated) {
     <span class="trans_me">@trans.rated.en()</span>
     }
   </td>

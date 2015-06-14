@@ -8,7 +8,7 @@ module.exports = function(send, ctrl) {
   var handlers = {
     reload: function(data) {
       // require to restart the clock
-      if (ctrl.data.isRunning !== data.isRunning) m.redraw.strategy('all');
+      if (ctrl.data.isStarted !== data.isStarted) m.redraw.strategy('all');
       ctrl.reload(data);
       m.redraw();
     },

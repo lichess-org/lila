@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Pov, GameRepo }
-import lila.tournament.{ System, TournamentRepo, Created, Started, Finished, Tournament => Tourney }
+import lila.tournament.{ System, TournamentRepo, Tournament => Tourney }
 import lila.user.UserRepo
 import views._
 
@@ -29,7 +29,6 @@ object Tournament extends LilaController {
   def help(sysStr: Option[String]) = Open { implicit ctx =>
     val system = sysStr flatMap {
       case "arena" => System.Arena.some
-      case "swiss" => System.Swiss.some
       case _       => none
     }
     Ok(html.tournament.faqPage(system)).fuccess
@@ -48,19 +47,25 @@ object Tournament extends LilaController {
   def show(id: String) = Open { implicit ctx =>
     repo byId id flatMap {
       _.fold(tournamentNotFound.fuccess) { tour =>
-        env.version(tour.id) zip
-          env.jsonView(tour) zip
-          chatOf(tour) map {
-            case ((version, data), chat) => html.tournament.show(tour, version, data, chat)
-          }
+        env.version(tour.id) zip env.jsonView(tour) zip chatOf(tour) map {
+          case ((version, data), chat) => html.tournament.show(tour, version, data, chat)
+        }
+      }
+    }
+  }
+
+  def standing(id: String, page: Int) = Open { implicit ctx =>
+    OptionFuResult(repo byId id) { tour =>
+      env.jsonView.standing(tour, page) map { data =>
+        Ok(data) as JSON
       }
     }
   }
 
   def gameStanding(id: String) = Open { implicit ctx =>
-    env.cached tour id map {
-      case Some(t: lila.tournament.StartedOrFinished) => Ok(html.tournament.gameStanding(t, true))
-      case _ => NotFound
+    env.api.miniStanding(id, true) map {
+      case Some(m) if !m.tour.isCreated => Ok(html.tournament.gameStanding(m))
+      case _                            => NotFound
     }
   }
 
@@ -71,11 +76,11 @@ object Tournament extends LilaController {
           html = repo enterableById id map {
             case None => tournamentNotFound
             case Some(tour) =>
-              env.api.join(tour, me)
+              env.api.join(tour.id, me)
               Redirect(routes.Tournament.show(tour.id))
           },
           api = _ => OptionFuOk(repo enterableById id) { tour =>
-            env.api.join(tour, me)
+            env.api.join(tour.id, me)
             fuccess(Json.obj("ok" -> true))
           }
         )
@@ -85,7 +90,7 @@ object Tournament extends LilaController {
   def withdraw(id: String) = Auth { implicit ctx =>
     me =>
       OptionResult(repo byId id) { tour =>
-        env.api.withdraw(tour, me.id)
+        env.api.withdraw(tour.id, me.id)
         if (HTTPRequest.isXhr(ctx.req)) Ok(Json.obj("ok" -> true)) as JSON
         else Redirect(routes.Tournament.show(tour.id))
       }

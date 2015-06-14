@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Tournament, socketVersion: Int, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
+@(tour: Tournament, socketVersion: Int, data: play.api.libs.json.JsObject, chat: Option[lila.chat.UserChat])(implicit ctx: Context)
 
 @underchat = {
 <div class="watchers" data-icon="v">
@@ -29,9 +29,9 @@ chessground = false) {
 <div id="tournament" @tour.schedule.map { sched =>
   class="scheduled @sched.freq @sched.speed @sched.variant"
   }></div>
-@if(!tour.isRunning && !tour.isFinished) {
+@if(tour.isCreated) {
 <div id="tournament_faq" class="none">
-  @faq(tour.rated.some, tour.system.some, tour.`private`.option(tour.id))
+  @faq(tour.mode.rated.some, tour.system.some, tour.`private`.option(tour.id))
 </div>
 }
 }

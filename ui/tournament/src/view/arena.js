@@ -27,7 +27,7 @@ function rank(p) {
   };
 }
 
-function playerTr(ctrl, maxScore, player) {
+function playerTr(ctrl, player) {
   return {
     tag: 'tr',
     attrs: {
@@ -67,12 +67,12 @@ function podiumStats(p, data) {
   else if (p.perf > 0) perf = m('span.positive[data-icon=N]', p.perf);
   else if (p.perf < 0) perf = m('span.negative[data-icon=M]', -p.perf);
   var nbGames = p.sheet.scores.length;
-  var winP = Math.round(p.sheet.scores.filter(function(s) {
+  var winP = nbGames ? Math.round(p.sheet.scores.filter(function(s) {
     return s[1] === 3 ? s[0] >= 4 : s[0] >= 2;
-  }).length * 100 / nbGames);
-  var berserkP = Math.round(p.sheet.scores.filter(function(s) {
+  }).length * 100 / nbGames) : 0;
+  var berserkP = nbGames ? Math.round(p.sheet.scores.filter(function(s) {
     return s === 3 || s[0] === 3 || s[0] === 5;
-  }).length * 100 / nbGames);
+  }).length * 100 / nbGames) : 0;
   return [
     m('span.rating.progress', [
       p.rating,
@@ -98,15 +98,12 @@ function podiumPosition(p, data, pos) {
 module.exports = {
   podium: function(ctrl) {
     return m('div.podium', [
-      podiumPosition(ctrl.data.players[1], ctrl.data, 'second'),
-      podiumPosition(ctrl.data.players[0], ctrl.data, 'first'),
-      podiumPosition(ctrl.data.players[2], ctrl.data, 'third')
+      podiumPosition(ctrl.data.podium[1], ctrl.data, 'second'),
+      podiumPosition(ctrl.data.podium[0], ctrl.data, 'first'),
+      podiumPosition(ctrl.data.podium[2], ctrl.data, 'third')
     ]);
   },
   standing: function(ctrl, pag) {
-    var maxScore = Math.max.apply(Math, ctrl.data.players.map(function(p) {
-      return p.sheet.total;
-    }));
     var player = util.currentPlayer(ctrl);
     return [
       m('thead',
@@ -124,7 +121,7 @@ module.exports = {
             button.joinWithdraw(ctrl)
           ])
         ])),
-      m('tbody', pag.currentPageResults.map(partial(playerTr, ctrl, maxScore)))
+      m('tbody', pag.currentPageResults.map(partial(playerTr, ctrl)))
     ];
   }
 };

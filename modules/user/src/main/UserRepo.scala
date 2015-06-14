@@ -262,6 +262,13 @@ trait UserRepo {
 
   def email(id: ID): Fu[Option[String]] = $primitive.one($select(id), F.email)(_.asOpt[String])
 
+  def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] = userTube.coll.find(
+    BSONDocument("_id" -> id),
+    BSONDocument(s"${F.perfs}.${perfType.key}" -> true)
+  ).one[BSONDocument].map {
+      _.flatMap(_.getAs[BSONDocument](F.perfs)).flatMap(_.getAs[Perf](perfType.key))
+    }
+
   def setSeenAt(id: ID) {
     $update.fieldUnchecked(id, "seenAt", $date(DateTime.now))
   }

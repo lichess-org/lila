@@ -30,8 +30,7 @@ trait SetupHelper { self: I18nHelper =>
   )
 
   def translatedSystemChoices(implicit ctx: Context) = List(
-    System.Arena.id.toString -> "Arena",
-    System.Swiss.id.toString -> "Swiss [beta]"
+    System.Arena.id.toString -> "Arena"
   )
 
   private def variantTuple(variant: chess.variant.Variant)(implicit ctx: Context): (String, String, Option[String]) =

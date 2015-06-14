@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Tournament, variantLink: Boolean = false)(implicit ctx: Context)
+@(tour: Tournament, variantLink: Boolean = false)(implicit ctx: Context)
 <span class="setup">
   @tour.clock.show •
   @if(tour.variant.exotic) {
@@ -13,7 +13,5 @@
   @if(!tour.position.initial) {
   • thematic
   }
-  @tour.startsAt.map { date =>
-  • @momentFromNow(date)
-  }
+  • @momentFromNow(tour.startsAt)
 </span>

@@ -29,6 +29,8 @@ final class Env(
 
   private val settings = new {
     val CollectionTournament = config getString "collection.tournament"
+    val CollectionPlayer = config getString "collection.player"
+    val CollectionPairing = config getString "collection.pairing"
     val HistoryMessageTtl = config duration "history.message.ttl"
     val CreatedCacheTtl = config duration "created.cache.ttl"
     val LeaderboardCacheTtl = config duration "leaderboard.cache.ttl"
@@ -121,7 +123,7 @@ final class Env(
       organizer -> actorApi.AllCreatedTournaments
     }
 
-    scheduler.message(3 seconds) {
+    scheduler.message(4 seconds) {
       organizer -> actorApi.StartedTournaments
     }
 
@@ -131,6 +133,8 @@ final class Env(
   }
 
   private[tournament] lazy val tournamentColl = db(CollectionTournament)
+  private[tournament] lazy val pairingColl = db(CollectionPairing)
+  private[tournament] lazy val playerColl = db(CollectionPlayer)
 }
 
 object Env {
