@@ -18,18 +18,6 @@ module.exports = function(send, ctrl) {
         }
       });
     },
-    state: function(o) {
-      if (!ctrl.replaying()) ctrl.chessground.set({
-        turnColor: o.color
-      });
-      ctrl.data.game.player = o.color;
-      ctrl.data.game.turns = o.turns;
-      if (o.status) ctrl.data.game.status = o.status;
-      ctrl.data[ctrl.data.player.color === 'white' ? 'player' : 'opponent'].offeringDraw = o.wDraw;
-      ctrl.data[ctrl.data.player.color === 'black' ? 'player' : 'opponent'].offeringDraw = o.bDraw;
-      m.redraw();
-      ctrl.setTitle();
-    },
     takebackOffers: function(o) {
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
       ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];

@@ -166,21 +166,23 @@ case class Game(
       status = situation.status | status,
       clock = game.clock)
 
-    val events = (players collect {
-      case p if p.isHuman => Event.possibleMoves(situation, p.color)
-    }) :::
-      Event.State(
-        situation.color,
-        game.turns,
-        (status != updated.status) option status,
-        whiteOffersDraw = whitePlayer.isOfferingDraw,
-        blackOffersDraw = blackPlayer.isOfferingDraw) ::
-        Event.fromMove(move, situation) :::
-        (Event fromSituation situation)
+    val state = Event.State(
+      situation.color,
+      game.turns,
+      (status != updated.status) option updated.status,
+      whiteOffersDraw = whitePlayer.isOfferingDraw,
+      blackOffersDraw = blackPlayer.isOfferingDraw)
 
     val clockEvent = updated.clock map Event.Clock.apply orElse {
       updated.correspondenceClock map Event.CorrespondenceClock.apply
     }
+
+    val events = (players collect {
+      case p if p.isHuman => Event.possibleMoves(situation, p.color)
+    }) :::
+      state :: // BC
+      Event.fromMove(move, situation, state, clockEvent) :::
+      (Event fromSituation situation)
 
     val finalEvents = events ::: clockEvent.toList ::: {
       // abstraction leak, I know.

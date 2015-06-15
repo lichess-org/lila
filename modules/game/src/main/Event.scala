@@ -18,8 +18,8 @@ sealed trait Event {
 
 object Event {
 
-  def fromMove(move: ChessMove, situation: Situation): List[Event] =
-    Move(move, situation) :: List(
+  def fromMove(move: ChessMove, situation: Situation, state: State): List[Event] =
+    Move(move, situation, state) :: List(
       (move.capture ifTrue move.enpassant) map { Event.Enpassant(_, !move.color) }, // BC
       move.promotion map { Promotion(_, move.dest) }, // BC
       move.castle map { case (king, rook) => Castling(king, rook, move.color) } // BC
@@ -52,7 +52,8 @@ object Event {
       threefold: Boolean,
       promotion: Option[Promotion],
       enpassant: Option[Enpassant],
-      castle: Option[Castling]) extends Event {
+      castle: Option[Castling],
+      state: State) extends Event {
     def typ = "move"
     def data = Json.obj(
       // legacy data
@@ -67,11 +68,17 @@ object Event {
       "threefold" -> threefold.option(true),
       "promotion" -> promotion.map(_.data),
       "enpassant" -> enpassant.map(_.data),
-      "castle" -> castle.map(_.data)
+      "castle" -> castle.map(_.data),
+      "ply" -> state.turns,
+      "status" -> state.status.map { s =>
+        Json.obj("id" -> s.id, "name" -> s.name)
+      },
+      "wDraw" -> state.whiteOffersDraw.option(true),
+      "bDraw" -> state.blackOffersDraw.option(true)
     ).noNull
   }
   object Move {
-    def apply(move: ChessMove, situation: Situation): Move =
+    def apply(move: ChessMove, situation: Situation, state: State): Move =
       Move(
         orig = move.orig,
         dest = move.dest,
@@ -86,7 +93,8 @@ object Event {
         },
         castle = move.castle.map {
           case (king, rook) => Castling(king, rook, move.color)
-        })
+        },
+        state = state)
   }
 
   case class PossibleMoves(

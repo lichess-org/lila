@@ -127,6 +127,12 @@ module.exports = function(opts) {
 
   this.apiMove = function(o) {
     m.startComputation();
+    this.data.game.turns = o.ply;
+    this.data.game.player = o.ply % 2 === 0 ? 'white' : 'black';
+    if (o.status) this.data.game.status = o.status;
+    this.data[this.data.player.color === 'white' ? 'player' : 'opponent'].offeringDraw = o.wDraw;
+    this.data[this.data.player.color === 'black' ? 'player' : 'opponent'].offeringDraw = o.bDraw;
+    this.setTitle();
     if (!this.replaying()) {
       this.vm.ply++;
       this.chessground.apiMove(o.from, o.to);
@@ -140,7 +146,8 @@ module.exports = function(opts) {
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
       if (o.castling && !this.chessground.data.autoCastle) {
-        var c = o.castling, pieces = {};
+        var c = o.castling,
+          pieces = {};
         pieces[c.king[0]] = null;
         pieces[c.rook[0]] = null;
         pieces[c.king[1]] = {
@@ -153,8 +160,9 @@ module.exports = function(opts) {
         };
         this.chessground.setPieces(pieces);
       }
-      if (o.check) this.chessground.set({
-        check: true
+      this.chessground.set({
+        turnColor: this.data.game.player,
+        check: o.check
       });
       // atrocious hack to prevent race condition
       // with explosions and premoves
