@@ -72,7 +72,7 @@ object Trophy {
       key = "developer",
       name = "Lichess developer",
       icon = "&#xe000;".some,
-      url = "https//github.com/ornicar/lila".some,
+      url = "https://github.com/ornicar/lila/graphs/contributors".some,
       "icon3d".some)
 
     object Moderator extends Kind(
