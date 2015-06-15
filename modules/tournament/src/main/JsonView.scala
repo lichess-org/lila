@@ -12,10 +12,10 @@ import lila.user.User
 final class JsonView(
     getLightUser: String => Option[LightUser]) {
 
+  private case class CachableData(pairings: JsArray, games: JsArray, podium: Option[JsArray])
+
   def apply(tour: Tournament, page: Option[Int], me: Option[String]): Fu[JsObject] = for {
-    pairings <- (!tour.isCreated) ?? PairingRepo.recentByTour(tour.id, 40)
-    games <- (!tour.isCreated) ?? (GameRepo games pairings.take(4).map(_.gameId))
-    podiumJson <- tour.isFinished ?? podiumJson(tour).map(_.some)
+    data <- cachableData(tour.id)
     myInfo <- me ?? { PlayerRepo.playerInfo(tour.id, _) }
     stand <- (myInfo, page) match {
       case (_, Some(p)) => standing(tour, p)
@@ -36,11 +36,11 @@ final class JsonView(
     "secondsToFinish" -> tour.isStarted.option(tour.secondsToFinish),
     "secondsToStart" -> tour.isCreated.option(tour.secondsToStart),
     "startsAt" -> tour.isCreated.option(ISODateTimeFormat.dateTime.print(tour.startsAt)),
-    "pairings" -> pairings.map(pairingJson),
-    "lastGames" -> games.map(gameJson),
+    "pairings" -> data.pairings,
+    "lastGames" -> data.games,
     "standing" -> stand,
     "me" -> myInfo.map(myInfoJson),
-    "podium" -> podiumJson
+    "podium" -> data.podium
   ).noNull
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
@@ -59,6 +59,17 @@ final class JsonView(
 
   private val firstPageCache = lila.memo.AsyncCache[String, JsObject](
     (id: String) => TournamentRepo byId id flatten s"No such tournament: $id" flatMap { computeStanding(_, 1) },
+    timeToLive = 1 second)
+
+  private val cachableData = lila.memo.AsyncCache[String, CachableData](id =>
+    for {
+      pairings <- PairingRepo.recentByTour(id, 40)
+      games <- GameRepo games pairings.take(4).map(_.gameId)
+      podium <- podiumJson(id)
+    } yield CachableData(
+      JsArray(pairings map pairingJson),
+      JsArray(games map gameJson),
+      podium),
     timeToLive = 1 second)
 
   private def myInfoJson(i: PlayerInfo) = Json.obj(
@@ -114,12 +125,17 @@ final class JsonView(
     ).noNull
   }
 
-  private def podiumJson(tour: Tournament): Fu[JsArray] = for {
-    rankedPlayers <- PlayerRepo.bestByTourWithRank(tour.id, 3)
-    sheets <- rankedPlayers.map { p =>
-      tour.system.scoringSystem.sheet(tour, p.player.userId) map p.player.userId.->
-    }.sequenceFu.map(_.toMap)
-  } yield JsArray(rankedPlayers.map(playerJson(sheets, tour)))
+  private def podiumJson(id: String): Fu[Option[JsArray]] =
+    TournamentRepo finishedById id flatMap {
+      _ ?? { tour =>
+        for {
+          rankedPlayers <- PlayerRepo.bestByTourWithRank(id, 3)
+          sheets <- rankedPlayers.map { p =>
+            tour.system.scoringSystem.sheet(tour, p.player.userId) map p.player.userId.->
+          }.sequenceFu.map(_.toMap)
+        } yield JsArray(rankedPlayers.map(playerJson(sheets, tour))).some
+      }
+    }
 
   // private def opposition(tour: Tournament, p: Player): Int =
   //   tour.userPairings(p.id).foldLeft((0, 0)) {
