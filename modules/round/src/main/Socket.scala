@@ -12,6 +12,7 @@ import actorApi._
 import lila.common.LightUser
 import lila.game.actorApi.{ StartGame, UserStartGame }
 import lila.game.Event
+import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.TimeBomb
 import lila.socket._
@@ -95,6 +96,10 @@ private[round] final class Socket(
     // sets definitive user ids
     // in case one joined after the socket creation
     case StartGame(game) => self ! SetGame(game.some)
+
+    case d: Deploy =>
+      onDeploy(d) // default behaviour
+      history.enablePersistence
 
     case PingVersion(uid, v) =>
       timeBomb.delay
