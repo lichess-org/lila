@@ -20,16 +20,16 @@ object Event {
 
   def fromMove(move: ChessMove, situation: Situation): List[Event] =
     Move(move, situation) :: List(
-      (move.capture ifTrue move.enpassant) map { Event.Enpassant(_, !move.color) },
-      move.promotion map { Promotion(_, move.dest) },
-      move.castle map { case (king, rook) => Castling(king, rook, move.color) }
+      (move.capture ifTrue move.enpassant) map { Event.Enpassant(_, !move.color) }, // BC
+      move.promotion map { Promotion(_, move.dest) }, // BC
+      move.castle map { case (king, rook) => Castling(king, rook, move.color) } // BC
     ).flatten
 
   def fromSituation(situation: Situation): List[Event] = List(
-    situation.check ?? situation.kingPos map Check.apply,
-    situation.threefoldRepetition option Threefold,
-    Some(Premove(situation.color))
-  ).flatten
+    situation.check ?? situation.kingPos map Check.apply, // BC
+    situation.threefoldRepetition option Threefold, // BC
+    Some(Premove(situation.color) // BC
+    )).flatten
 
   def possibleMoves(situation: Situation, color: Color): Event =
     PossibleMoves(color, (color == situation.color) ?? situation.destinations)
@@ -48,7 +48,11 @@ object Event {
       color: Color,
       san: String,
       fen: String,
-      check: Boolean) extends Event {
+      check: Boolean,
+      threefold: Boolean,
+      promotion: Option[Promotion],
+      enpassant: Option[Enpassant],
+      castle: Option[Castling]) extends Event {
     def typ = "move"
     def data = Json.obj(
       // legacy data
@@ -59,7 +63,11 @@ object Event {
       "uci" -> s"${orig.key}${dest.key}",
       "san" -> san,
       "fen" -> fen,
-      "check" -> check.option(true)
+      "check" -> check.option(true),
+      "threefold" -> threefold.option(true),
+      "promotion" -> promotion.map(_.data),
+      "enpassant" -> enpassant.map(_.data),
+      "castle" -> castle.map(_.data)
     ).noNull
   }
   object Move {
@@ -70,7 +78,15 @@ object Event {
         color = move.piece.color,
         san = chess.format.pgn.Dumper(move),
         fen = chess.format.Forsyth.exportBoard(situation.board),
-        check = situation.check)
+        check = situation.check,
+        threefold = situation.threefoldRepetition,
+        promotion = move.promotion.map { Promotion(_, move.dest) },
+        enpassant = (move.capture ifTrue move.enpassant).map {
+          Event.Enpassant(_, !move.color)
+        },
+        castle = move.castle.map {
+          case (king, rook) => Castling(king, rook, move.color)
+        })
   }
 
   case class PossibleMoves(

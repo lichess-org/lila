@@ -130,8 +130,39 @@ module.exports = function(opts) {
     if (!this.replaying()) {
       this.vm.ply++;
       this.chessground.apiMove(o.from, o.to);
+      if (o.enpassant) {
+        var p = o.enpassant,
+          pieces = {};
+        pieces[p.key] = null;
+        this.chessground.setPieces(pieces);
+        if (this.data.game.variant.key === 'atomic') atomic.enpassant(this, p.key, p.color);
+        $.sound.take();
+      }
+      if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
+      if (o.castling && !this.chessground.data.autoCastle) {
+        var c = o.castling, pieces = {};
+        pieces[c.king[0]] = null;
+        pieces[c.rook[0]] = null;
+        pieces[c.king[1]] = {
+          role: 'king',
+          color: c.color
+        };
+        pieces[c.rook[1]] = {
+          role: 'rook',
+          color: c.color
+        };
+        this.chessground.setPieces(pieces);
+      }
+      if (o.check) this.chessground.set({
+        check: true
+      });
+      // atrocious hack to prevent race condition
+      // with explosions and premoves
+      // https://github.com/ornicar/lila/issues/343
+      if (this.data.game.variant.key === 'atomic') setTimeout(this.chessground.playPremove, 100);
+      else this.chessground.playPremove();
     }
-    if (this.data.game.threefold) this.data.game.threefold = false;
+    this.data.game.threefold = !!o.threefold;
     this.data.steps.push({
       ply: this.lastPly() + 1,
       fen: o.fen,
