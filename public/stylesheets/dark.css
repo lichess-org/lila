@@ -515,6 +515,9 @@ body.dark .variant_icons span {
   0px 0px 10px #000,
   0px 0px 20px #000;
 }
+body.dark div.user_show .trophy.donor span:hover {
+  color: rgba(255,255,255,0.7);
+}
 body.dark .fire_trophy.wayOfBerserk span {
   color: rgba(255,255,255,0.5);
 }

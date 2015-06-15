@@ -82,6 +82,13 @@ object Trophy {
       url = "http://lichess.org/report".some,
       "icon3d".some)
 
+    object Donor extends Kind(
+      key = "donor",
+      name = "Lichess donor",
+      icon = "&#xe001;".some,
+      url = "http://lichess.org/donate".some,
+      "icon3d".some)
+
     val all = List(
       ZugMiracle,
       WayOfBerserk,

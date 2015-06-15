@@ -20,10 +20,8 @@ private[round] final class History(
     load: Fu[VersionedEvents],
     persist: VersionedEvents => Unit) {
 
-  // private var version = 0
   private var events: VersionedEvents = _
 
-  // TODO optimize
   def getVersion: Int = {
     waitForLoadedEvents
     events.headOption.??(_.version)
