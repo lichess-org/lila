@@ -163,7 +163,7 @@ $(function() {
             click: function(event) {
               if (event.point) {
                 event.point.select();
-                lichess.analyse.jump(event.point.x + 1, 0);
+                lichess.analyse.jumpToIndex(event.point.x);
               }
             }
           },
@@ -249,7 +249,7 @@ $(function() {
               click: function(event) {
                 if (event.point) {
                   event.point.select();
-                  lichess.analyse.jump(event.point.x + 1, 0);
+                  lichess.analyse.jumpToIndex(event.point.x);
                 }
               }
             },

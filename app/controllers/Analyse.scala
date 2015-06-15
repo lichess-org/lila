@@ -70,7 +70,7 @@ object Analyse extends LilaController {
                   initialFen,
                   Env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status, pov.game.clock).toString,
                   analysis,
-                  analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves) },
+                  analysis filter (_.done) map { a => AdvantageChart(a.infoAdvices, pov.game.pgnMoves, pov.game.startedAtTurn) },
                   simul,
                   new TimeChart(pov.game, pov.game.pgnMoves),
                   crosstable,

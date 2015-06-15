@@ -46,7 +46,7 @@ final class Analyser(
     def doGenerate: Fu[Analysis] =
       $find.byId[Game](id) flatMap {
         case Some(game) if game.analysable => GameRepo initialFen game flatMap { initialFen =>
-          AnalysisRepo.progress(id, userId) >> {
+          AnalysisRepo.progress(id, userId, game.startedAtTurn) >> {
             chess.Replay(game.pgnMoves, initialFen, game.variant).fold(
               fufail(_),
               replay => {
@@ -68,7 +68,7 @@ final class Analyser(
   def complete(id: String, data: String, from: String) =
     $find.byId[Game](id) zip get(id) zip (GameRepo initialFen id) flatMap {
       case ((Some(game), Some(a1)), initialFen) if game.analysable =>
-        Info decodeList data match {
+        Info.decodeList(data, game.startedAtTurn) match {
           case None => fufail(s"[analysis] $data")
           case Some(infos) => chess.Replay(game.pgnMoves, initialFen, game.variant).fold(
             fufail(_),

@@ -2097,7 +2097,7 @@ lichess.storage = {
     cfg.element = element.querySelector('.analyse');
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     analyse = LichessAnalyse(cfg);
-    cfg.jump = analyse.jump;
+    cfg.jumpToIndex = analyse.jumpToIndex;
 
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
     $('.advice_summary', element).appendTo($('.underboard .right', element)).show();
