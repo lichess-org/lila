@@ -1275,6 +1275,11 @@ body.fpmenu #fpmenu {
   background: #F0F0F0;
   color: #444;
 }
+#top button.signin {
+  margin: 4px 0.5em 0 0;
+  border-color: #d85000;
+  padding: 1px 5px;
+}
 #top div.auth .sep {
   display: block;
   padding-top: 5px;

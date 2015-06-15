@@ -1001,6 +1001,10 @@ lichess.storage = {
     $('#ham-plate').click(function() {
       document.body.classList.toggle('fpmenu');
     });
+    $('#top button.signin').click(function() {
+      $('#ham-plate').click();
+      $('#fpmenu input.username').focus();
+    });
     if (location.hash === '#fpmenu') $('#ham-plate').click();
     Mousetrap.bind('esc', function() {
       $('#ham-plate').click();

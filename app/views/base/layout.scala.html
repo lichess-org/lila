@@ -99,6 +99,8 @@ chessground: Boolean = true)(body: Html)(implicit ctx: Context)
         </a>
         <div id="challenge_notifications" class="links dropdown"></div>
       </div>
+      }.getOrElse {
+      <button class="signin button fright text">@trans.signIn()</button>
       }
       @if(!zen) {
       <div id="sound_control" class="fright">
