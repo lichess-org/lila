@@ -442,7 +442,8 @@ object Game {
     chess.variant.Standard,
     chess.variant.Chess960,
     chess.variant.KingOfTheHill,
-    chess.variant.ThreeCheck)
+    chess.variant.ThreeCheck,
+    chess.variant.Horde)
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
 

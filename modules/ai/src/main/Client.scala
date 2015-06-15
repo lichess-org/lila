@@ -23,10 +23,15 @@ final class Client(
     else fufail("[ai stockfish] invalid position")
 
   def play(game: Game, level: Int): Fu[PlayResult] = withValidSituation(game) {
+    val aiVariant = Variant(game.variant)
     for {
-      fen ← GameRepo initialFen game
+      storedFen ← GameRepo initialFen game
+      fen = storedFen orElse (aiVariant match {
+        case v@Horde => v.initialFen.some
+        case _       => none
+      })
       uciMoves ← uciMemo get game
-      moveResult ← move(uciMoves.toList, fen, level, Variant(game.variant))
+      moveResult ← move(uciMoves.toList, fen, level, aiVariant)
       uciMove ← (UciMove(moveResult.move) toValid s"${game.id} wrong bestmove: $moveResult").future
       result ← game.toChess(uciMove.orig, uciMove.dest, uciMove.promotion).future
       (c, move) = result
