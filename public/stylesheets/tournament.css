@@ -218,9 +218,6 @@ ol.scheduled_tournaments a:hover {
 #tournament div.standing_wrap {
   overflow: hidden;
 }
-#tournament div.standing_wrap:hover {
-  overflow-y: auto;
-}
 #tournament div.pager {
   text-align: center;
   margin: 10px 20px 0 20px;
