@@ -177,20 +177,24 @@ case class Game(
       updated.correspondenceClock map Event.CorrespondenceClock.apply
     }
 
-    val events = (players collect {
+    val possibleMovesEvent = (players collect {
       case p if p.isHuman => Event.possibleMoves(situation, p.color)
-    }) :::
+    })
+
+    val events = possibleMovesEvent ::: // make that BC
       state :: // BC
       Event.fromMove(move, situation, state, clockEvent) :::
-      (Event fromSituation situation)
+      (Event fromSituation situation) // BC
 
-    val finalEvents = events ::: clockEvent.toList ::: {
-      // abstraction leak, I know.
-      (updated.variant.threeCheck && situation.check) ?? List(Event.CheckCount(
-        white = updated.checkCount.white,
-        black = updated.checkCount.black
-      ))
-    }
+    val finalEvents = events :::
+      clockEvent.toList ::: // BC
+      {
+        // abstraction leak, I know.
+        (updated.variant.threeCheck && situation.check) ?? List(Event.CheckCount(
+          white = updated.checkCount.white,
+          black = updated.checkCount.black
+        ))
+      }
 
     Progress(this, updated, finalEvents)
   }

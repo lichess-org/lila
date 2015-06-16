@@ -36,9 +36,6 @@ module.exports = function(send, ctrl) {
     clock: function(o) {
       if (ctrl.clock) ctrl.clock.update(o.white, o.black);
     },
-    cclock: function(o) {
-      if (ctrl.correspondenceClock) ctrl.correspondenceClock.update(o.white, o.black);
-    },
     crowd: function(o) {
       ['white', 'black'].forEach(function(c) {
         game.setOnGame(ctrl.data, c, o[c]);

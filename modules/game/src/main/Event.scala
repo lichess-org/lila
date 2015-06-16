@@ -18,8 +18,8 @@ sealed trait Event {
 
 object Event {
 
-  def fromMove(move: ChessMove, situation: Situation, state: State): List[Event] =
-    Move(move, situation, state) :: List(
+  def fromMove(move: ChessMove, situation: Situation, state: State, clock: Option[Event]): List[Event] =
+    Move(move, situation, state, clock) :: List(
       (move.capture ifTrue move.enpassant) map { Event.Enpassant(_, !move.color) }, // BC
       move.promotion map { Promotion(_, move.dest) }, // BC
       move.castle map { case (king, rook) => Castling(king, rook, move.color) } // BC
@@ -53,7 +53,8 @@ object Event {
       promotion: Option[Promotion],
       enpassant: Option[Enpassant],
       castle: Option[Castling],
-      state: State) extends Event {
+      state: State,
+      clock: Option[Event]) extends Event {
     def typ = "move"
     def data = Json.obj(
       // legacy data
@@ -74,11 +75,12 @@ object Event {
         Json.obj("id" -> s.id, "name" -> s.name)
       },
       "wDraw" -> state.whiteOffersDraw.option(true),
-      "bDraw" -> state.blackOffersDraw.option(true)
+      "bDraw" -> state.blackOffersDraw.option(true),
+      "clock" -> clock.map(_.data)
     ).noNull
   }
   object Move {
-    def apply(move: ChessMove, situation: Situation, state: State): Move =
+    def apply(move: ChessMove, situation: Situation, state: State, clock: Option[Event]): Move =
       Move(
         orig = move.orig,
         dest = move.dest,
@@ -94,7 +96,8 @@ object Event {
         castle = move.castle.map {
           case (king, rook) => Castling(king, rook, move.color)
         },
-        state = state)
+        state = state,
+        clock = clock)
   }
 
   case class PossibleMoves(

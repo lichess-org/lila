@@ -170,6 +170,11 @@ module.exports = function(opts) {
       if (this.data.game.variant.key === 'atomic') setTimeout(this.chessground.playPremove, 100);
       else this.chessground.playPremove();
     }
+    if (o.clock) {
+      var c = o.clock
+      if (this.clock) this.clock.update(c.white, c.black);
+      else if (this.correspondenceClock) this.correspondenceClock.update(c.white, c.black);
+    }
     this.data.game.threefold = !!o.threefold;
     this.data.steps.push({
       ply: this.lastPly() + 1,
