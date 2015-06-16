@@ -206,7 +206,10 @@ private[round] final class Round(
 
   private def publish[A](op: Fu[Events]) = op addEffect { events =>
     if (events.nonEmpty) socketHub ! Tell(gameId, EventList(events))
-    if (events contains { case e: Move if e.threefold }) self ! Threefold
+    if (events exists {
+      case e: Event.Move => e.threefold
+      case _             => false
+    }) self ! Threefold
   } addFailureEffect {
     case e: ClientErrorException =>
     case e                       => logwarn(s"[round] ${gameId} $e")

@@ -80,7 +80,7 @@ private[round] object History {
     }
 
   private def persist(coll: Coll, gameId: String)(vevs: List[VersionedEvent]) {
-    coll.uncheckedUpdate(
+    if (vevs.nonEmpty) coll.uncheckedUpdate(
       BSONDocument("_id" -> gameId),
       BSONDocument(
         "$set" -> BSONDocument("e" -> vevs.reverse),

@@ -145,8 +145,8 @@ module.exports = function(opts) {
         $.sound.take();
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
-      if (o.castling && !this.chessground.data.autoCastle) {
-        var c = o.castling,
+      if (o.castle && !this.chessground.data.autoCastle) {
+        var c = o.castle,
           pieces = {};
         pieces[c.king[0]] = null;
         pieces[c.rook[0]] = null;
