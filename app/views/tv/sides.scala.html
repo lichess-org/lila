@@ -1,7 +1,7 @@
-@(pov: Pov, games: List[Game], cross: Option[lila.game.Crosstable], streams: List[lila.tv.StreamOnAir])(implicit ctx: Context)
+@(channel: lila.tv.Tv.Channel, pov: Pov, cross: Option[lila.game.Crosstable], streams: List[lila.tv.StreamOnAir])(implicit ctx: Context)
 
 <div class="sides">
-  @side(pov, games, streams)
+  @side(channel, pov, streams)
 
   @cross.map { c =>
   <div class="crosstable">

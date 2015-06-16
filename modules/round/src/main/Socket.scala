@@ -14,6 +14,7 @@ import lila.game.actorApi.{ StartGame, UserStartGame }
 import lila.game.Event
 import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
+import lila.hub.actorApi.tv.Select
 import lila.hub.TimeBomb
 import lila.socket._
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -163,6 +164,8 @@ private[round] final class Socket(
       }
 
     case ChangeFeatured(_, msg) => watchers.foreach(_ push msg)
+
+    case Select(msg)            => watchers.foreach(_ push msg)
 
     case UserStartGame(userId, game) => watchers filter (_ onUserTv userId) foreach {
       _ push makeMessage("resync")

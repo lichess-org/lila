@@ -13,12 +13,12 @@ POST  /timeline/unsub/:channel         controllers.Timeline.unsub(channel: Strin
 
 # TV
 GET   /tv                              controllers.Tv.index
-GET   /tv/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(gameId: String, color: String)
 GET   /tv/embed                        controllers.Tv.embed
 GET   /tv/frame                        controllers.Tv.frame
 GET   /tv/stream                       controllers.Tv.streamOut
 GET   /tv/$id<[0-9a-f]{8}>             controllers.Tv.streamIn(id: String)
-GET   /tv/lichess                      controllers.Tv.lichess
+GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
+GET   /tv/:chanKey/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(chanKey: String, gameId: String, color: String)
 
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)

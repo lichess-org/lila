@@ -1,6 +1,6 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, games: List[Game], streams: List[lila.tv.StreamOnAir], cross: Option[lila.game.Crosstable], flip: Boolean)(implicit ctx: Context)
+@(channel: lila.tv.Tv.Channel, pov: Pov, data: play.api.libs.json.JsObject, streams: List[lila.tv.StreamOnAir], cross: Option[lila.game.Crosstable], flip: Boolean)(implicit ctx: Context)
 
-@title = @{ s"TV ${playerText(pov.player)} vs ${playerText(pov.opponent)}" }
+@title = @{ s"${channel.name} TV ${playerText(pov.player)} vs ${playerText(pov.opponent)}" }
 
 @moreJs = {
 @jsAt(s"compiled/lichess.round${isProd??(".min")}.js")
@@ -17,7 +17,7 @@ i18n: @round.jsI18n()
 
 @round.layout(
 title = title,
-side = side(pov, games, streams),
+side = side(channel, pov, streams),
 underchat = game.watchers().some,
 moreJs = moreJs,
 moreCss = cssTag("tv.css"),

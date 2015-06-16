@@ -14,13 +14,12 @@ final class Env(
     scheduler: lila.common.Scheduler,
     isProd: Boolean) {
 
-  private val FeaturedContinue = config duration "featured.continue"
-  private val FeaturedDisrupt = config duration "featured.disrupt"
+  private val FeaturedSelect = config duration "featured.select"
   private val StreamingSearch = config duration "streaming.search"
   private val UstreamApiKey = config getString "streaming.ustream_api_key"
   private val CollectionWhitelist = config getString "streaming.collection.whitelist"
 
-  lazy val featured = new Featured(
+  lazy val tv = new Tv(
     rendererActor = hub.actor.renderer,
     system = system)
 
@@ -37,12 +36,9 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.message(isProd.fold(FeaturedContinue, 10.seconds)) {
-      featured.actor -> Featured.Continue
-    }
-
-    scheduler.message(FeaturedDisrupt) {
-      featured.actor -> Featured.Disrupt
+    // scheduler.message(isProd.fold(FeaturedContinue, 10.seconds)) {
+    scheduler.message(FeaturedSelect) {
+      tv.actor -> TvActor.Select
     }
 
     scheduler.once(20.seconds) {

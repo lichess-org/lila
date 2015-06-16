@@ -268,9 +268,13 @@ object GameRepo {
 
   def featuredCandidates: Fu[List[Game]] = $find(
     Query.playable ++ Query.clock(true) ++ Query.turnsGt(1) ++ Json.obj(
-      F.createdAt -> $gt($date(DateTime.now minusMinutes 3)),
-      F.updatedAt -> $gt($date(DateTime.now minusSeconds 15))
+      F.createdAt -> $gt($date(DateTime.now minusMinutes 5)),
+      F.updatedAt -> $gt($date(DateTime.now minusSeconds 30))
+    ) ++ $or(Seq(
+      Json.obj(s"${F.whitePlayer}.${Player.BSONFields.rating}" -> $gt(1500)),
+      Json.obj(s"${F.blackPlayer}.${Player.BSONFields.rating}" -> $gt(1500))
     ))
+  )
 
   def count(query: Query.type => JsObject): Fu[Int] = $count(query(Query))
 

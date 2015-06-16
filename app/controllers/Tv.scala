@@ -10,46 +10,42 @@ import views._
 
 object Tv extends LilaController {
 
-  private val defaultToStream = false
+  def index = onChannel(lila.tv.Tv.Channel.Best.key)
 
-  def index = Open { implicit ctx =>
-    if (defaultToStream) Env.tv.streamsOnAir flatMap {
-      case Nil           => lichessTv
-      case first :: rest => fuccess(Ok(html.tv.stream(first, rest)))
-    }
-    else lichessTv
+  def onChannel(chanKey: String) = Open { implicit ctx =>
+    (lila.tv.Tv.Channel.byKey get chanKey).fold(notFound)(lichessTv)
   }
 
-  def lichess = Open { implicit ctx =>
-    lichessTv
-  }
-
-  def sides(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
-      (GameRepo onTv 10) zip
-        Env.tv.streamsOnAir zip
-        Env.game.crosstableApi(pov.game) map {
-          case ((games, streams), crosstable) => Ok(html.tv.sides(pov, games, crosstable, streams))
+  def sides(chanKey: String, gameId: String, color: String) = Open { implicit ctx =>
+    lila.tv.Tv.Channel.byKey get chanKey match {
+      case None => notFound
+      case Some(channel) =>
+        OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
+          Env.tv.streamsOnAir zip
+            Env.game.crosstableApi(pov.game) map {
+              case (streams, crosstable) => Ok(html.tv.sides(channel, pov, crosstable, streams))
+            }
         }
     }
   }
 
-  private def lichessTv(implicit ctx: Context) = OptionFuResult(Env.tv.featured.one) { game =>
-    val flip = getBool("flip")
-    val pov = flip.fold(Pov second game, Pov first game)
-    negotiate(
-      html = {
-        Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = flip.some) zip
-          (GameRepo onTv 10) zip
-          Env.game.crosstableApi(game) zip
-          Env.tv.streamsOnAir map {
-            case (((data, games), cross), streams) =>
-              Ok(html.tv.index(pov, data, games, streams, cross, flip))
-          }
-      },
-      api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = flip.some) map { Ok(_) }
-    )
-  }
+  private def lichessTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =
+    OptionFuResult(Env.tv.tv getGame channel) { game =>
+      val flip = getBool("flip")
+      val pov = flip.fold(Pov second game, Pov first game)
+      val onTv = lila.round.OnTv(channel.key, flip)
+      negotiate(
+        html = {
+          Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
+            Env.game.crosstableApi(game) zip
+            Env.tv.streamsOnAir map {
+              case ((data, cross), streams) =>
+                Ok(html.tv.index(channel, pov, data, streams, cross, flip))
+            }
+        },
+        api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = onTv.some) map { Ok(_) }
+      )
+    }
 
   def streamIn(id: String) = Open { implicit ctx =>
     Env.tv.streamsOnAir flatMap { streams =>
@@ -82,7 +78,7 @@ object Tv extends LilaController {
   }
 
   def frame = Action.async { req =>
-    Env.tv.featured.one map {
+    Env.tv.tv.getBest map {
       case None => NotFound
       case Some(game) => Ok(views.html.tv.embed(
         game,
