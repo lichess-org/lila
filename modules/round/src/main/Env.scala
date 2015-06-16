@@ -91,10 +91,6 @@ final class Env(
         def receive: Receive = ({
           case msg@lila.chat.actorApi.ChatLine(id, line) =>
             self ! Tell(id take 8, msg)
-          case msg: lila.hub.actorApi.game.ChangeFeatured =>
-            self ! TellAll(msg)
-          case msg: lila.hub.actorApi.tv.Select =>
-            self ! TellAll(msg)
           case _: lila.hub.actorApi.Deploy =>
             logwarn("Enable history persistence")
             historyPersistenceEnabled = true
@@ -103,7 +99,7 @@ final class Env(
         }: Receive) orElse socketHubReceive
       }),
       name = SocketName)
-    system.lilaBus.subscribe(actor, 'changeFeaturedGame, 'tvSelect, 'startGame, 'deploy)
+    system.lilaBus.subscribe(actor, 'tvSelect, 'startGame, 'deploy)
     actor
   }
 

@@ -1155,8 +1155,9 @@ lichess.storage = {
             $watchers.watchers("set", e.watchers);
           },
           tvSelect: function(o) {
-            console.log('tvSelect', o);
-            // if (data.tv) lichess.reload();
+            if (data.tv && data.tv.channel == o.channel) lichess.reload();
+            else $('#tv_channels a.' + o.channel + ' span').text(
+              o.player ? o.player.name + '(' + o.player.rating + ')' : 'Anonymous');
           },
           end: function() {
             var url = data.tv ? ['/tv', data.tv.channel, data.game.id, data.player.color].join('/') : (

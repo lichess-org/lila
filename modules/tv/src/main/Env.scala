@@ -1,6 +1,7 @@
 package lila.tv
 
 import com.typesafe.config.Config
+import akka.actor._
 
 import lila.common.PimpedConfig._
 
@@ -10,7 +11,8 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    system: akka.actor.ActorSystem,
+    lightUser: String => Option[lila.common.LightUser],
+    system: ActorSystem,
     scheduler: lila.common.Scheduler,
     isProd: Boolean) {
 
@@ -19,9 +21,12 @@ final class Env(
   private val UstreamApiKey = config getString "streaming.ustream_api_key"
   private val CollectionWhitelist = config getString "streaming.collection.whitelist"
 
-  lazy val tv = new Tv(
-    rendererActor = hub.actor.renderer,
-    system = system)
+  lazy val tv = new Tv(tvActor)
+
+  private val tvActor =
+    system.actorOf(
+      Props(classOf[TvActor], hub.actor.renderer, hub.socket.round, lightUser),
+      name = "tv")
 
   private lazy val streaming = new Streaming(
     system = system,
@@ -38,7 +43,7 @@ final class Env(
 
     // scheduler.message(isProd.fold(FeaturedContinue, 10.seconds)) {
     scheduler.message(FeaturedSelect) {
-      tv.actor -> TvActor.Select
+      tvActor -> TvActor.Select
     }
 
     scheduler.once(20.seconds) {
@@ -56,6 +61,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "tv",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
+    lightUser = lila.user.Env.current.lightUser,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     isProd = lila.common.PlayApp.isProd)

@@ -16,11 +16,11 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
 
   def receive = {
 
-    case GetGame => sender ! oneId
+    case GetGameId => sender ! oneId
 
     case SetGame(game) =>
+      context.parent ! TvActor.Selected(channel, game, oneId)
       oneId = game.id.some
-      context.parent ! TvActor.Selected(channel, game)
 
     case Select(candidates) => if (candidates.nonEmpty) {
       oneId ?? GameRepo.game foreach {
@@ -78,7 +78,7 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
 
 object ChannelActor {
 
-  case object GetGame
+  case object GetGameId
   private case class SetGame(game: Game)
 
   case class Select(candidates: List[Game])

@@ -8,18 +8,14 @@ import akka.pattern.{ ask, pipe }
 
 import lila.game.{ Game, GameRepo }
 
-final class Tv(
-    rendererActor: ActorSelection,
-    system: ActorSystem) {
+final class Tv(actor: ActorRef) {
 
   import Tv._
 
   implicit private def timeout = makeTimeout(50 millis)
 
-  private[tv] val actor = system.actorOf(Props(classOf[TvActor], rendererActor), name = "tv")
-
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    (actor ? TvActor.GetGame(channel) mapTo manifest[Option[String]]) recover {
+    (actor ? TvActor.GetGameId(channel) mapTo manifest[Option[String]]) recover {
       case e: Exception =>
         logwarn("[TV]" + e.getMessage)
         none
