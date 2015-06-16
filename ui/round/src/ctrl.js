@@ -129,6 +129,7 @@ module.exports = function(opts) {
     var d = this.data;
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
+    var playedColor = o.ply % 2 === 0 ? 'black' : 'white';
     if (o.status) d.game.status = o.status;
     d[d.player.color === 'white' ? 'player' : 'opponent'].offeringDraw = o.wDraw;
     d[d.player.color === 'black' ? 'player' : 'opponent'].offeringDraw = o.bDraw;
@@ -136,7 +137,7 @@ module.exports = function(opts) {
     this.setTitle();
     if (!this.replaying()) {
       this.vm.ply++;
-      this.chessground.apiMove(o.from, o.to);
+      this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
       if (o.enpassant) {
         var p = o.enpassant,
           pieces = {};
@@ -187,10 +188,10 @@ module.exports = function(opts) {
       uci: o.uci,
       check: o.check
     });
-    game.setOnGame(d, o.color, true);
+    game.setOnGame(d, playedColor, true);
     m.endComputation();
     if (d.blind) blind.reload(this);
-    if (game.isPlayerPlaying(d) && o.color === d.player.color) this.moveOn.next();
+    if (game.isPlayerPlaying(d) && playedColor === d.player.color) this.moveOn.next();
   }.bind(this);
 
   this.reload = function(cfg) {
