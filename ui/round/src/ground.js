@@ -24,7 +24,7 @@ function makeConfig(data, fen, flip) {
     movable: {
       free: false,
       color: game.isPlayerPlaying(data) ? data.player.color : null,
-      dests: game.isPlayerPlaying(data) ? util.parsePossibleMoves(data.possibleMoves) : null,
+      dests: game.isPlayerPlaying(data) ? util.parsePossibleMoves(data.possibleMoves) : {},
       showDests: data.pref.destination
     },
     animation: {

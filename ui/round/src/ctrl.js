@@ -165,7 +165,7 @@ module.exports = function(opts) {
       this.chessground.set({
         turnColor: d.game.player,
         movable: {
-          dests: game.isPlayerPlaying(d) ? util.parsePossibleMoves(d.possibleMoves) : null
+          dests: game.isPlayerPlaying(d) ? util.parsePossibleMoves(d.possibleMoves) : {}
         },
         check: o.check
       });
