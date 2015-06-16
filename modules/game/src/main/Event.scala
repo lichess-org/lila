@@ -3,6 +3,7 @@ package lila.game
 import lila.common.PimpedJson._
 import play.api.libs.json._
 
+import chess.Pos
 import chess.Pos.{ piotr, allPiotrs }
 import chess.{ PromotableRole, Pos, Color, Situation, Move => ChessMove, Clock => ChessClock, Status }
 import lila.chat.{ Line, UserLine, PlayerLine }
@@ -18,7 +19,7 @@ sealed trait Event {
 
 object Event {
 
-  def fromMove(move: ChessMove, situation: Situation, state: State, clock: Option[Event]): List[Event] =
+  def fromMove(move: ChessMove, situation: Situation, state: State, clock: Option[Event], possibleMoves: List[PossibleMoves]): List[Event] =
     Move(move, situation, state, clock) :: List(
       (move.capture ifTrue move.enpassant) map { Event.Enpassant(_, !move.color) }, // BC
       move.promotion map { Promotion(_, move.dest) }, // BC
@@ -31,7 +32,7 @@ object Event {
     Some(Premove(situation.color) // BC
     )).flatten
 
-  def possibleMoves(situation: Situation, color: Color): Event =
+  def possibleMoves(situation: Situation, color: Color) =
     PossibleMoves(color, (color == situation.color) ?? situation.destinations)
 
   sealed trait Empty extends Event {
@@ -54,7 +55,8 @@ object Event {
       enpassant: Option[Enpassant],
       castle: Option[Castling],
       state: State,
-      clock: Option[Event]) extends Event {
+      clock: Option[Event],
+      possibleMoves: Map[Pos, List[Pos]]) extends Event {
     def typ = "move"
     def data = Json.obj(
       // legacy data
@@ -76,40 +78,45 @@ object Event {
       },
       "wDraw" -> state.whiteOffersDraw.option(true),
       "bDraw" -> state.blackOffersDraw.option(true),
-      "clock" -> clock.map(_.data)
+      "clock" -> clock.map(_.data),
+      "dests" -> PossibleMoves.json(possibleMoves)
     ).noNull
   }
   object Move {
-    def apply(move: ChessMove, situation: Situation, state: State, clock: Option[Event]): Move =
-      Move(
-        orig = move.orig,
-        dest = move.dest,
-        color = move.piece.color,
-        san = chess.format.pgn.Dumper(move),
-        fen = chess.format.Forsyth.exportBoard(situation.board),
-        check = situation.check,
-        threefold = situation.threefoldRepetition,
-        promotion = move.promotion.map { Promotion(_, move.dest) },
-        enpassant = (move.capture ifTrue move.enpassant).map {
-          Event.Enpassant(_, !move.color)
-        },
-        castle = move.castle.map {
-          case (king, rook) => Castling(king, rook, move.color)
-        },
-        state = state,
-        clock = clock)
+    def apply(move: ChessMove, situation: Situation, state: State, clock: Option[Event]): Move = Move(
+      orig = move.orig,
+      dest = move.dest,
+      color = move.piece.color,
+      san = chess.format.pgn.Dumper(move),
+      fen = chess.format.Forsyth.exportBoard(situation.board),
+      check = situation.check,
+      threefold = situation.threefoldRepetition,
+      promotion = move.promotion.map { Promotion(_, move.dest) },
+      enpassant = (move.capture ifTrue move.enpassant).map {
+        Event.Enpassant(_, !move.color)
+      },
+      castle = move.castle.map {
+        case (king, rook) => Castling(king, rook, move.color)
+      },
+      state = state,
+      clock = clock,
+      possibleMoves = situation.destinations)
   }
 
   case class PossibleMoves(
       color: Color,
       moves: Map[Pos, List[Pos]]) extends Event {
     def typ = "possibleMoves"
-    def data =
-      if (moves.isEmpty) JsNull
-      else JsObject(moves map {
-        case (o, d) => o.key -> JsString(d map (_.key) mkString)
-      } toList)
+    def data = PossibleMoves json moves
     override def only = Some(color)
+  }
+
+  object PossibleMoves {
+    def json(moves: Map[Pos, List[Pos]]) =
+      if (moves.isEmpty) JsNull
+      else moves.foldLeft(JsObject(Nil)) {
+        case (res, (o, d)) => res + (o.key, JsString(d map (_.key) mkString))
+      }
   }
 
   case class Enpassant(pos: Pos, color: Color) extends Event {

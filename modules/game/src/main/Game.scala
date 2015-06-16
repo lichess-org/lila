@@ -177,13 +177,13 @@ case class Game(
       updated.correspondenceClock map Event.CorrespondenceClock.apply
     }
 
-    val possibleMovesEvent = (players collect {
+    val possibleMovesEvents = (players collect {
       case p if p.isHuman => Event.possibleMoves(situation, p.color)
     })
 
-    val events = possibleMovesEvent ::: // make that BC
+    val events = possibleMovesEvents ::: // BC
       state :: // BC
-      Event.fromMove(move, situation, state, clockEvent) :::
+      Event.fromMove(move, situation, state, clockEvent, possibleMovesEvents) :::
       (Event fromSituation situation) // BC
 
     val finalEvents = events :::

@@ -10,14 +10,6 @@ module.exports = function(send, ctrl) {
   this.send = send;
 
   var handlers = {
-    possibleMoves: function(o) {
-      ctrl.data.possibleMoves = o;
-      if (!ctrl.replaying()) ctrl.chessground.set({
-        movable: {
-          dests: util.parsePossibleMoves(o)
-        }
-      });
-    },
     takebackOffers: function(o) {
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
       ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
