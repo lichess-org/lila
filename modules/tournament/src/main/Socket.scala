@@ -44,8 +44,10 @@ private[tournament] final class Socket(
 
     case StartGame(game) =>
       game.players foreach { player =>
-        player.userId flatMap memberByUserId foreach { member =>
-          notifyMember("redirect", game fullIdOf player.color)(member)
+        player.userId foreach { userId =>
+          membersByUserId(userId) foreach { member =>
+            notifyMember("redirect", game fullIdOf player.color)(member)
+          }
         }
       }
       notifyReload

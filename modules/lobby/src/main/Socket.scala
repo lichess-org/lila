@@ -50,7 +50,7 @@ private[lobby] final class Socket(
     case NewForumPost            => notifyAll("reload_forum")
 
     case ReloadTimeline(userId) =>
-      memberByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
+      membersByUserId(userId) foreach (_ push makeMessage("reload_timeline"))
 
     case AddHook(hook) =>
       notifyVersion("hook_add", hook.render, Messadata(hook = hook.some))
@@ -66,8 +66,8 @@ private[lobby] final class Socket(
       withMember(uid)(notifyPlayerStart(game, !creatorColor))
 
     case JoinSeek(userId, seek, game, creatorColor) =>
-      memberByUserId(seek.user.id) foreach notifyPlayerStart(game, creatorColor)
-      memberByUserId(userId) foreach notifyPlayerStart(game, !creatorColor)
+      membersByUserId(seek.user.id) foreach notifyPlayerStart(game, creatorColor)
+      membersByUserId(userId) foreach notifyPlayerStart(game, !creatorColor)
 
     case HookIds(ids)                         => notifyVersion("hook_list", ids, Messadata())
 
