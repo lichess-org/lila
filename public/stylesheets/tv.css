@@ -6,7 +6,7 @@
   text-decoration: none;
   text-align: right;
   transition: 0.13s;
-  padding: 5px 5px;
+  padding: 6px 5px 5px 5px;
   line-height: 1.1em;
   border-radius: 25px 0 0 25px;
   border-left: 2px solid transparent;
@@ -19,16 +19,22 @@
 #tv_channels > a.active {
   background: #C4A86F;
   color: #fff;
-  border-color: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.2);
+  text-shadow: 0px 1px 0px rgba(0,0,0,0.2);
 }
 #tv_channels > a::before {
   color: #C4A86F;
   font-size: 27px;
   float: right;
   margin: -2px 0px 0 8px;
+  opacity: 0.5;
 }
 #tv_channels > a.active::before {
   color: #fff;
+  opacity: 1;
+}
+#tv_channels > a:hover::before {
+  opacity: 1;
 }
 #tv_channels > a strong {
   display: block;

@@ -512,6 +512,11 @@ body.dark .variant_icons span {
   0px 0px 10px #000,
   0px 0px 20px #000;
 }
+body.dark #tv_channels > a:hover {
+  background: #333;
+  color: #c0c0c0;
+  box-shadow: 0 -1px 1px rgba(255,255,255,0.3);
+}
 body.dark div.user_show .trophy.donor span:hover {
   color: rgba(255,255,255,0.7);
 }
