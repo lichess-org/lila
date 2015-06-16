@@ -169,11 +169,13 @@ module.exports = function(opts) {
         },
         check: o.check
       });
-      // atrocious hack to prevent race condition
-      // with explosions and premoves
-      // https://github.com/ornicar/lila/issues/343
-      if (d.game.variant.key === 'atomic') setTimeout(this.chessground.playPremove, 100);
-      else this.chessground.playPremove();
+      if (playedColor !== d.player.color) {
+        // atrocious hack to prevent race condition
+        // with explosions and premoves
+        // https://github.com/ornicar/lila/issues/343
+        if (d.game.variant.key === 'atomic') setTimeout(this.chessground.playPremove, 100);
+        else this.chessground.playPremove();
+      }
     }
     if (o.clock) {
       var c = o.clock
