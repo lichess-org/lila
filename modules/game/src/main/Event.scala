@@ -170,8 +170,9 @@ object Event {
     override def owner = !w
   }
 
-  object End extends Empty {
+  case class End(winner: Option[Color]) extends Event {
     def typ = "end"
+    def data = winner.map(_.name).fold[JsValue](JsNull)(JsString.apply)
   }
 
   object Threefold extends Empty {

@@ -39,7 +39,6 @@ module.exports = function(opts) {
   this.vm = {
     ply: this.lastPly(),
     flip: false,
-    reloading: false,
     redirecting: false,
     replayHash: ''
   };

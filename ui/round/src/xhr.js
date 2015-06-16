@@ -10,15 +10,12 @@ function uncache(url) {
 }
 
 function reload(ctrl) {
-  ctrl.vm.reloading = true;
-  m.redraw();
   var req = m.request({
     method: 'GET',
     url: uncache(ctrl.data.url.round),
     config: xhrConfig
   });
   req.then(function() {
-    ctrl.vm.reloading = false;
   }, function(err) {
     lichess.reload();
   });

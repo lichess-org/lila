@@ -42,7 +42,8 @@ module.exports = function(send, ctrl) {
       });
       m.redraw();
     },
-    end: function() {
+    end: function(winner) {
+      ctrl.data.game.winner = winner;
       ground.end(ctrl.chessground);
       xhr.reload(ctrl).then(ctrl.reload);
       if (!ctrl.data.player.spectator) $.sound.dong();

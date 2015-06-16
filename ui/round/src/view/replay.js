@@ -121,7 +121,7 @@ function autoScroll(movelist) {
 }
 
 module.exports = function(ctrl) {
-  var h = ctrl.vm.ply + ctrl.stepsHash(ctrl.data.steps) + ctrl.data.game.status.id + ctrl.vm.flip;
+  var h = ctrl.vm.ply + ctrl.stepsHash(ctrl.data.steps) + ctrl.data.game.status.id + ctrl.data.game.winner + ctrl.vm.flip;
   if (ctrl.vm.replayHash === h) return {
     subtree: 'retain'
   };
