@@ -6,6 +6,7 @@ import akka.actor._
 import akka.actor.ActorSelection
 import akka.pattern.{ ask, pipe }
 
+import lila.common.LightUser
 import lila.game.{ Game, GameRepo }
 
 final class Tv(actor: ActorRef) {
@@ -22,11 +23,19 @@ final class Tv(actor: ActorRef) {
     } flatMap { _ ?? GameRepo.game }
 
   def getBest = getGame(Tv.Channel.Best)
+
+  def getChampions: Fu[Champions] =
+    actor ? TvActor.GetChampions mapTo manifest[Champions]
 }
 
 object Tv {
   import chess.{ Speed => S, variant => V }
   import lila.rating.{ PerfType => P }
+
+  case class Champion(user: LightUser, rating: Int)
+  case class Champions(channels: Map[Channel, Champion]) {
+    def get = channels.get _
+  }
 
   sealed abstract class Channel(val name: String, val icon: String, filters: Seq[Game => Boolean]) {
     def filter(g: Game) = filters forall { _(g) }
@@ -34,7 +43,7 @@ object Tv {
   }
   object Channel {
     case object Best extends Channel(
-      name = "Skill",
+      name = "Top Rated",
       icon = "C",
       filters = Seq(freshBlitz))
     case object Bullet extends Channel(

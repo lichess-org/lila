@@ -22,12 +22,16 @@ private[tv] final class TvActor(
     c -> context.actorOf(Props(classOf[ChannelActor], c), name = c.toString)
   }.toMap
 
+  var channelChampions = Map[Tv.Channel, Tv.Champion]()
+
   def receive = {
 
     case GetGameId(channel) =>
       channelActors get channel foreach { actor =>
         actor ? ChannelActor.GetGameId pipeTo sender
       }
+
+    case GetChampions => sender ! Tv.Champions(channelChampions)
 
     case Select =>
       GameRepo.featuredCandidates foreach { candidates =>
@@ -38,12 +42,16 @@ private[tv] final class TvActor(
 
     case Selected(channel, game, previousId) =>
       import lila.socket.Socket.makeMessage
+      val player = game.firstPlayer
+      val user = player.userId flatMap lightUser
+      (user |@| player.rating) apply {
+        case (u, r) => channelChampions += (channel -> Tv.Champion(u, r))
+      }
       channelActors.collect {
         case (c, actor) if c != channel => actor ? ChannelActor.GetGameId mapTo manifest[Option[String]]
       }.sequenceFu.foreach { otherIds =>
         val gameIds = (previousId.toList ::: otherIds.toList.flatten).distinct
         roundSocket ! TellIds(gameIds, {
-          val user = game.firstPlayer.userId flatMap lightUser
           lila.hub.actorApi.tv.Select(makeMessage("tvSelect", Json.obj(
             "channel" -> channel.key,
             "id" -> game.id,
@@ -51,7 +59,7 @@ private[tv] final class TvActor(
               Json.obj(
                 "name" -> u.name,
                 "title" -> u.title,
-                "rating" -> game.firstPlayer.rating)
+                "rating" -> player.rating)
             })))
         })
       }
@@ -74,4 +82,6 @@ private[tv] object TvActor {
   case class GetGameId(channel: Tv.Channel)
   case object Select
   case class Selected(channel: Tv.Channel, game: lila.game.Game, previousId: Option[String])
+
+  case object GetChampions
 }

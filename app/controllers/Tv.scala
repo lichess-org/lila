@@ -22,8 +22,9 @@ object Tv extends LilaController {
       case Some(channel) =>
         OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
           Env.tv.streamsOnAir zip
+            Env.tv.tv.getChampions zip
             Env.game.crosstableApi(pov.game) map {
-              case (streams, crosstable) => Ok(html.tv.sides(channel, pov, crosstable, streams))
+              case ((streams, champions), crosstable) => Ok(html.tv.sides(channel, champions, pov, crosstable, streams))
             }
         }
     }
@@ -38,9 +39,10 @@ object Tv extends LilaController {
         html = {
           Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
             Env.game.crosstableApi(game) zip
-            Env.tv.streamsOnAir map {
-              case ((data, cross), streams) =>
-                Ok(html.tv.index(channel, pov, data, streams, cross, flip))
+            Env.tv.streamsOnAir zip
+            Env.tv.tv.getChampions map {
+              case (((data, cross), streams), champions) =>
+                Ok(html.tv.index(channel, champions, pov, data, streams, cross, flip))
             }
         },
         api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = onTv.some) map { Ok(_) }

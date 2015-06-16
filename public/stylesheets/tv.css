@@ -17,8 +17,8 @@
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 }
 #tv_channels > a.active {
-  background: #C4A86F;
-  color: #fff;
+  background: #C4A86F!important;
+  color: #fff!important;
   border-color: rgba(0, 0, 0, 0.3);
   text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
 }
