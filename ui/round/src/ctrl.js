@@ -256,6 +256,14 @@ module.exports = function(opts) {
 
   this.moveOn = new moveOn(this, 'lichess.move_on');
 
+  this.setRedirecting = function() {
+    this.vm.redirecting = true;
+    setTimeout(function() {
+      this.vm.redirecting = false;
+      m.redraw();
+    }.bind(this), 2000);
+  }.bind(this);
+
   this.router = opts.routes;
 
   this.trans = function(key) {

@@ -35,11 +35,13 @@ function renderPlayer(ctrl, player) {
   );
 }
 
-var loader = m('div.loader', m('span'));
+function loader() {
+  return m('div.loader.fast', m('span'));
+}
 
 function renderTableEnd(ctrl) {
   var d = ctrl.data;
-  var buttons = compact(ctrl.vm.redirecting ? null : [
+  var buttons = compact(ctrl.vm.redirecting ? loader() : [
     button.backToTournament(ctrl) || [
       button.joinRematch(ctrl) ||
       button.answerOpponentRematch(ctrl) ||
@@ -58,7 +60,7 @@ function renderTableEnd(ctrl) {
 
 function renderTableWatch(ctrl) {
   var d = ctrl.data;
-  var buttons = compact(ctrl.vm.redirecting ? null : [
+  var buttons = compact(ctrl.vm.redirecting ? loader() : [
     button.viewRematch(ctrl),
     button.viewTournament(ctrl),
     button.analysis(ctrl)

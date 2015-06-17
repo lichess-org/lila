@@ -1300,6 +1300,9 @@ div.control {
   text-align: center;
   width: 100%;
 }
+div.control .loader {
+  font-size: 4px;
+}
 div.control.icons {
   margin-top: 5px;
 }

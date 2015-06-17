@@ -22,7 +22,7 @@ module.exports = function(send, ctrl) {
       xhr.reload(ctrl).then(ctrl.reload);
     },
     redirect: function() {
-      ctrl.vm.redirecting = true;
+      ctrl.setRedirecting();
       m.redraw();
     },
     clock: function(o) {
