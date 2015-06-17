@@ -1157,12 +1157,12 @@ lichess.storage = {
           tvSelect: function(o) {
             if (data.tv && data.tv.channel == o.channel) lichess.reload();
             else $('#tv_channels a.' + o.channel + ' span').text(
-              o.player ? o.player.name + '(' + o.player.rating + ')' : 'Anonymous');
+              o.player ? o.player.name + ' (' + o.player.rating + ')' : 'Anonymous');
           },
           end: function() {
-            var url = data.tv ? ['/tv', data.tv.channel, data.game.id, data.player.color].join('/') : (
+            var url = data.tv ? ['/tv', data.tv.channel, data.game.id, data.player.color, 'sides'].join('/') : ((
               data.player.spectator ? cfg.routes.Round.sidesWatcher : cfg.routes.Round.sidesPlayer
-            )(data.game.id, data.player.color).url;
+            )(data.game.id, data.player.color).url);
             $.ajax({
               url: url,
               cache: false,
