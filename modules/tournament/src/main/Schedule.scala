@@ -1,8 +1,8 @@
 package lila.tournament
 
+import chess.StartingPosition
 import chess.variant.Variant
 import org.joda.time.DateTime
-import chess.StartingPosition
 
 case class Schedule(
     freq: Schedule.Freq,
@@ -11,12 +11,12 @@ case class Schedule(
     position: StartingPosition,
     at: DateTime) {
 
-  def name =
-    if (variant.standard) {
-      if (position.initial) s"${freq.toString} ${speed.toString}"
-      else s"${position.shortName} ${speed.toString}"
-    }
-    else s"${freq.toString} ${variant.name}"
+  def name = freq match {
+    case m@Schedule.Freq.ExperimentalMarathon      => m.name
+    case _ if variant.standard && position.initial => s"${freq.toString} ${speed.toString}"
+    case _ if variant.standard                     => s"${position.shortName} ${speed.toString}"
+    case _                                         => s"${freq.toString} ${variant.name}"
+  }
 
   def sameSpeed(other: Schedule) = speed == other.speed
 
@@ -26,7 +26,7 @@ case class Schedule(
 object Schedule {
 
   sealed trait Freq {
-    def name = toString.toLowerCase
+    val name = toString.toLowerCase
   }
   object Freq {
     case object Hourly extends Freq
@@ -35,7 +35,10 @@ object Schedule {
     case object Weekly extends Freq
     case object Monthly extends Freq
     case object Marathon extends Freq
-    val all: List[Freq] = List(Hourly, Daily, Nightly, Weekly, Monthly, Marathon)
+    case object ExperimentalMarathon extends Freq {
+      override val name = "Experimental Marathon"
+    }
+    val all: List[Freq] = List(Hourly, Daily, Nightly, Weekly, Monthly, Marathon, ExperimentalMarathon)
     def apply(name: String) = all find (_.name == name)
   }
 
@@ -85,6 +88,7 @@ object Schedule {
       case (Monthly, Classical, _)          => 60 * 4
 
       case (Marathon, _, _)                 => 60 * 24 // lol
+      case (ExperimentalMarathon, _, _)     => 60 * 4
 
     }) filter (0!=)
   }
