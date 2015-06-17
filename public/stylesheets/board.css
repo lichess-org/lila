@@ -1043,17 +1043,6 @@ div.dont_touch {
   transform: none;
   -webkit-transform: none;
 }
-/* accordion/compress choices when not hovering board
- *  :hover must be checked on board, in case of click-to-move
- *  and click-dragging when placing piece */
-.lichess_board_wrap:not(:hover) #promotion_choice.top .cg-square,
-.board_and_ground:not(:hover) #promotion_choice.top .cg-square {
-  top: 0%!important;
-}
-.lichess_board_wrap:not(:hover) #promotion_choice.bottom .cg-square,
-.board_and_ground:not(:hover) #promotion_choice.bottom .cg-square {
-  bottom: 0%!important;
-}
 div.table_wrap {
   width: 242px;
   position: relative;
