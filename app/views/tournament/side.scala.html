@@ -23,11 +23,7 @@
   } else {
   @trans.by(usernameOrId(tour.createdBy))
   }
-  • @tour.schedule.map { s =>
-  @momentFormat(s.at)
-  }.getOrElse {
-  @momentFormat(tour.createdAt)
-  }
+  • @momentFormat(tour.startsAt)
   @if(tour.position != chess.StartingPosition.initial) {
   <br /><br />
   <strong>@tour.position.eco</strong> @tour.position.name
