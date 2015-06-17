@@ -31,9 +31,9 @@ object PairingSystem extends AbstractPairingSystem {
       case _                             => tryPairings(data, users.all)
     }
   } yield {
-    if (pairings.size * 2 < users.all.size) {
-      val left = users.all.filterNot(pairing.contains)
-      if (left.nonEmpty) println(s"[arena ${tour.id}] left over: ${left mkString ","}")
+    if (pairings.nonEmpty && pairings.size * 2 < users.all.size) {
+      val left = users.all diff pairings.flatMap(_.users)
+      if (left.nonEmpty) println(s"[arena ${tour.id}] left over: ${left mkString ","} out of ${users.all.size}")
     }
     pairings -> Nil
   }
