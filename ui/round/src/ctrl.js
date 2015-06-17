@@ -169,13 +169,6 @@ module.exports = function(opts) {
         },
         check: o.check
       });
-      if (playedColor !== d.player.color) {
-        // atrocious hack to prevent race condition
-        // with explosions and premoves
-        // https://github.com/ornicar/lila/issues/343
-        if (d.game.variant.key === 'atomic') setTimeout(this.chessground.playPremove, 100);
-        else this.chessground.playPremove();
-      }
     }
     if (o.clock) {
       var c = o.clock
@@ -194,6 +187,13 @@ module.exports = function(opts) {
     m.endComputation();
     if (d.blind) blind.reload(this);
     if (game.isPlayerPlaying(d) && playedColor === d.player.color) this.moveOn.next();
+
+    if (!this.replaying() && playedColor !== d.player.color) {
+      // atrocious hack to prevent race condition
+      // with explosions and premoves
+      // https://github.com/ornicar/lila/issues/343
+      setTimeout(this.chessground.playPremove, d.game.variant.key === 'atomic' ? 100 : 10);
+    }
   }.bind(this);
 
   this.reload = function(cfg) {
