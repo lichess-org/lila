@@ -41,7 +41,6 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    // scheduler.message(isProd.fold(FeaturedContinue, 10.seconds)) {
     scheduler.message(FeaturedSelect) {
       tvActor -> TvActor.Select
     }

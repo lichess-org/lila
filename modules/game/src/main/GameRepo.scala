@@ -271,8 +271,8 @@ object GameRepo {
       F.createdAt -> $gt($date(DateTime.now minusMinutes 5)),
       F.updatedAt -> $gt($date(DateTime.now minusSeconds 30))
     ) ++ $or(Seq(
-      Json.obj(s"${F.whitePlayer}.${Player.BSONFields.rating}" -> $gt(1500)),
-      Json.obj(s"${F.blackPlayer}.${Player.BSONFields.rating}" -> $gt(1500))
+      Json.obj(s"${F.whitePlayer}.${Player.BSONFields.rating}" -> $gt(1400)),
+      Json.obj(s"${F.blackPlayer}.${Player.BSONFields.rating}" -> $gt(1400))
     ))
   )
 
