@@ -22,14 +22,6 @@ function reload(ctrl) {
   return req;
 }
 
-function berserk(ctrl) {
-  return m.request({
-    method: 'POST',
-    url: '/tournament/' + ctrl.data.game.tournamentId + '/berserk',
-    config: xhrConfig
-  });
-}
-
 function whatsNext(ctrl) {
   return m.request({
     method: 'GET',
@@ -40,6 +32,5 @@ function whatsNext(ctrl) {
 
 module.exports = {
   reload: reload,
-  berserk: berserk,
   whatsNext: whatsNext
 };

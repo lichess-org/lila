@@ -68,6 +68,8 @@ module.exports = function(send, ctrl) {
 
   this.outoftime = util.throttle(500, false, partial(send, 'outoftime', null));
 
+  this.berserk = util.throttle(200, false, partial(send, 'berserk', null));
+
   this.receive = function(type, data) {
     if (handlers[type]) {
       handlers[type](data);

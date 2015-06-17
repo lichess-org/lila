@@ -103,14 +103,6 @@ object Tournament extends LilaController {
       }
   }
 
-  def berserk(id: String) = Auth { implicit ctx =>
-    me =>
-      OptionResult(repo startedById id) { tour =>
-        env.api.berserk(tour, me.id)
-        Ok(Json.obj("ok" -> true)) as JSON
-      }
-  }
-
   def form = Auth { implicit ctx =>
     me =>
       NoEngine {

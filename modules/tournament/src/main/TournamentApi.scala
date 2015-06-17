@@ -148,20 +148,24 @@ private[tournament] final class TournamentApi(
     }
   }
 
-  def berserk(oldTour: Tournament, userId: String) {
-    Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
-      PairingRepo.findPlaying(tour.id, userId) flatMap {
-        case Some(pairing) if pairing.berserkOf(userId) == 0 =>
-          (pairing povRef userId) ?? { povRef =>
-            GameRepo pov povRef flatMap {
-              _.filter(_.game.berserkable) ?? { pov =>
-                PairingRepo.setBerserk(pairing, userId, 1) >>- {
-                  roundMap ! Tell(povRef.gameId, GoBerserk(povRef.color))
+  def berserk(gameId: String, userId: String) {
+    GameRepo game gameId foreach {
+      _.flatMap(_.tournamentId) foreach { tourId =>
+        Sequencing(tourId)(TournamentRepo.startedById) { tour =>
+          PairingRepo.findPlaying(tour.id, userId) flatMap {
+            case Some(pairing) if pairing.berserkOf(userId) == 0 =>
+              (pairing povRef userId) ?? { povRef =>
+                GameRepo pov povRef flatMap {
+                  _.filter(_.game.berserkable) ?? { pov =>
+                    PairingRepo.setBerserk(pairing, userId, 1) >>- {
+                      roundMap ! Tell(povRef.gameId, GoBerserk(povRef.color))
+                    }
+                  }
                 }
               }
-            }
+            case _ => funit
           }
-        case _ => funit
+        }
       }
     }
   }

@@ -194,6 +194,7 @@ case class MoveEvent(
   simulId: Option[String])
 case class NbRounds(nb: Int)
 case class Abort(gameId: String, byColor: String)
+case class Berserk(gameId: String, userId: String)
 }
 
 package evaluation {

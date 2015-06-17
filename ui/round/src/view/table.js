@@ -5,7 +5,7 @@ var partial = chessground.util.partial;
 var game = require('game').game;
 var status = require('game').status;
 var opposite = chessground.util.opposite;
-var xhr = require('../xhr');
+var socket = require('../socket');
 var clockView = require('../clock/view');
 var renderCorrespondenceClock = require('../correspondenceClock/view');
 var renderReplay = require('./replay');
@@ -118,7 +118,7 @@ function goBerserk(ctrl) {
   return m('button', {
     class: 'button berserk hint--bottom-left',
     'data-hint': "GO BERSERK! Half the time, bonus point",
-    onclick: partial(xhr.berserk, ctrl)
+    onclick: ctrl.socket.berserk
   }, m('span', {
     'data-icon': '`'
   }));
