@@ -57,11 +57,11 @@ object User extends LilaController {
   }
 
   def online = Open { implicit req =>
-    val max = 1000
+    val max = 100
     def get(nb: Int) = UserRepo.byIdsSortRating(env.onlineUserIdMemo.keys, nb)
     negotiate(
-      html = get(max) map { html.user.online(_, max) },
-      api = _ => get(getInt("nb").fold(10)(_ min max)) map { list =>
+      html = env.cached topOnline max map { html.user.online(_, max) },
+      api = _ => env.cached topOnline getInt("nb").fold(10)(_ min max) map { list =>
         Ok(Json.toJson(list.map(env.jsonView(_, true))))
       }
     )
@@ -142,7 +142,7 @@ object User extends LilaController {
         UserRepo.byOrderedIds(pairs.map(_.userId)) map (_ zip pairs.map(_.nb))
       }
       tourneyWinners ← Env.tournament.winners scheduled nb
-      online ← env.cached topOnline 40
+      online ← env.cached topOnline 50
       res <- negotiate(
         html = fuccess(Ok(html.user.list(
           tourneyWinners = tourneyWinners,
