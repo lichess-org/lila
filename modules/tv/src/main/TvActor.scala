@@ -16,7 +16,7 @@ private[tv] final class TvActor(
 
   import TvActor._
 
-  implicit private def timeout = makeTimeout(50 millis)
+  implicit private def timeout = makeTimeout(100 millis)
 
   val channelActors: Map[Tv.Channel, ActorRef] = Tv.Channel.all.map { c =>
     c -> context.actorOf(Props(classOf[ChannelActor], c), name = c.toString)

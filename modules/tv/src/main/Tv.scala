@@ -13,7 +13,7 @@ final class Tv(actor: ActorRef) {
 
   import Tv._
 
-  implicit private def timeout = makeTimeout(50 millis)
+  implicit private def timeout = makeTimeout(200 millis)
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
     (actor ? TvActor.GetGameId(channel) mapTo manifest[Option[String]]) recover {
