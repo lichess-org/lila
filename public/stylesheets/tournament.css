@@ -73,7 +73,7 @@ ol.scheduled_tournaments a:hover {
 #tournament .marathon_title {
   position: relative;
   padding-left: 90px;
-  color: #617ebb;
+  color: #4166a0!important;
 }
 #tournament .marathon_title .fire_trophy {
   position: absolute;

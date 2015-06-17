@@ -35,7 +35,7 @@ function miniGame(game) {
 
 module.exports = {
   title: function(ctrl) {
-    if (ctrl.data.schedule && ctrl.data.schedule.freq === 'marathon')
+    if (ctrl.data.schedule && ctrl.data.schedule.freq.indexOf('marathon') !== 0)
       return m('h1.marathon_title', [
         m('span.fire_trophy.marathonWinner', m('span[data-icon=\\]')),
         ctrl.data.fullName
