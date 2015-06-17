@@ -45,7 +45,7 @@ object Tv {
     case object Best extends Channel(
       name = "Top Rated",
       icon = "C",
-      filters = Seq(freshBlitz))
+      filters = Seq(standard, freshBlitz))
     case object Bullet extends Channel(
       name = S.Bullet.name,
       icon = P.Bullet.iconChar.toString,
@@ -57,7 +57,7 @@ object Tv {
     case object Classical extends Channel(
       name = S.Classical.name,
       icon = P.Classical.iconChar.toString,
-      filters = Seq(standard, speed(S.Classical), fresh(120)))
+      filters = Seq(standard, speed(S.Classical), fresh(60 * 3)))
     case object Chess960 extends Channel(
       name = V.Chess960.name,
       icon = P.Chess960.iconChar.toString,
@@ -93,5 +93,5 @@ object Tv {
   private def variant(variant: chess.variant.Variant) = (g: Game) => g.variant == variant
   private val standard = variant(V.Standard)
   private def fresh(seconds: Int) = (g: Game) => g.isBeingPlayed && !g.olderThan(seconds)
-  private val freshBlitz = fresh(30)
+  private val freshBlitz = fresh(40)
 }
