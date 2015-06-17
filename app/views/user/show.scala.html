@@ -86,6 +86,11 @@ openGraph = Map(
       }
     </a>
     }
+    @if(u.perfs.puzzle.nb >= 10000) {
+    <a href="@routes.Puzzle.home" class="trophy award icon3d puzzle hint--left" data-hint="Played 10,000 training puzzles">
+      <span data-icon="-"></span>
+    </a>
+    }
     @if(!u.lame) {
     @info.ranks.map {
     case (perf, rank) if rank == 1 => {
