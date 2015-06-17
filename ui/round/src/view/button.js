@@ -81,6 +81,16 @@ module.exports = {
       }, ctrl.trans('decline')),
     ]);
   },
+  submitMove: function(ctrl) {
+    if (ctrl.vm.moveToSubmit) return [
+      m('a.button.text[data-icon=E]', {
+        onclick: partial(ctrl.submitMove, true),
+      }, 'Submit move'),
+      m('a.button.text[data-icon=L]', {
+        onclick: partial(ctrl.submitMove, false)
+      }, ctrl.trans('cancel')),
+    ];
+  },
   rematch: function(ctrl) {
     if ((status.finished(ctrl.data) || status.aborted(ctrl.data)) && !ctrl.data.tournament && !ctrl.data.simul) {
       if (ctrl.data.opponent.onGame || ctrl.data.game.speed === 'correspondence') {

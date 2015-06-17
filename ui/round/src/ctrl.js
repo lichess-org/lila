@@ -40,7 +40,8 @@ module.exports = function(opts) {
     ply: this.lastPly(),
     flip: false,
     redirecting: false,
-    replayHash: ''
+    replayHash: '',
+    moveToSubmit: null
   };
 
   this.socket = new socket(opts.socketSend, this);
@@ -119,7 +120,11 @@ module.exports = function(opts) {
     if (prom) move.promotion = prom;
     if (blur.get()) move.b = 1;
     if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
-    this.socket.send('move', move, {
+
+    if (this.data.pref.submitMove) {
+      this.vm.moveToSubmit = move;
+      m.redraw();
+    } else this.socket.send('move', move, {
       ackable: true
     });
   }.bind(this);
@@ -262,6 +267,19 @@ module.exports = function(opts) {
       this.vm.redirecting = false;
       m.redraw();
     }.bind(this), 2000);
+  }.bind(this);
+
+  this.submitMove = function(v) {
+    if (v) {
+      if (this.vm.moveToSubmit)
+        this.socket.send('move', this.vm.moveToSubmit, {
+          ackable: true
+        });
+      this.vm.moveToSubmit = null;
+    } else {
+      this.vm.moveToSubmit = null;
+      this.jump(this.vm.ply);
+    }
   }.bind(this);
 
   this.router = opts.routes;

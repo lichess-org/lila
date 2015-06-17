@@ -95,7 +95,10 @@ final class JsonView(
               "clockBar" -> pref.clockBar,
               "clockSound" -> pref.clockSound,
               "enablePremove" -> pref.premove,
-              "showCaptured" -> pref.captured
+              "showCaptured" -> pref.captured,
+              "submitMove" -> (
+                pref.submitMove == Pref.SubmitMove.CORRESPONDENCE &&
+                game.isCorrespondence && game.nonAi)
             ),
             "chat" -> chat.map { c =>
               JsArray(c.lines map {

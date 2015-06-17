@@ -74,20 +74,20 @@ function renderTableWatch(ctrl) {
 
 function renderTablePlay(ctrl) {
   var d = ctrl.data;
-  var buttons = compact([
+  var buttons = button.submitMove(ctrl) || compact([
     button.forceResign(ctrl),
     button.threefoldClaimDraw(ctrl),
     button.cancelDrawOffer(ctrl),
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
-    button.answerOpponentTakebackProposition(ctrl), (ctrl.data.tournament && game.nbMoves(d, d.player.color) === 0) ? m('div.text[data-icon=j]',
+    button.answerOpponentTakebackProposition(ctrl), (d.tournament && game.nbMoves(d, d.player.color) === 0) ? m('div.text[data-icon=j]',
       ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 15)
     ) : null
   ]);
   return [
     renderReplay(ctrl),
-    m('div.control.icons', [
-      game.abortable(ctrl.data) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
+    ctrl.vm.moveToSubmit ? null : m('div.control.icons', [
+      game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
       button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', partial(ctrl.takebackYes)),
       button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
       button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
@@ -98,11 +98,12 @@ function renderTablePlay(ctrl) {
 }
 
 function whosTurn(ctrl, color) {
-  if (status.finished(ctrl.data) || status.aborted(ctrl.data)) return;
+  var d = ctrl.data;
+  if (status.finished(d) || status.aborted(d)) return;
   return m('div.whos_turn',
-    ctrl.data.game.player === color ? (
-      ctrl.data.player.spectator ? ctrl.trans(ctrl.data.game.player + 'Plays') : ctrl.trans(
-        ctrl.data.game.player === ctrl.data.player.color ? 'yourTurn' : 'waitingForOpponent'
+    d.game.player === color ? (
+      d.player.spectator ? ctrl.trans(d.game.player + 'Plays') : ctrl.trans(
+        d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'
       )
     ) : ''
   );
