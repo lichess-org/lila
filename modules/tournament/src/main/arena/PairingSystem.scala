@@ -20,7 +20,7 @@ object PairingSystem extends AbstractPairingSystem {
   def createPairings(
     tour: Tournament,
     users: AllUserIds): Fu[(Pairings, Events)] = for {
-    recentPairings <- PairingRepo.recentByTourAndUserIds(tour.id, users.all, Math.min(100, users.all.size * 5))
+    recentPairings <- PairingRepo.recentByTourAndUserIds(tour.id, users.all, Math.min(120, users.all.size * 5))
     playingUserIds <- PairingRepo.playingUserIds(tour)
     nbActiveUsers <- PlayerRepo.countActive(tour.id)
     ranking <- PlayerRepo.ranking(tour.id)
@@ -32,8 +32,10 @@ object PairingSystem extends AbstractPairingSystem {
     }
   } yield {
     if (pairings.nonEmpty && pairings.size * 2 < users.all.size) {
-      val left = users.all diff pairings.flatMap(_.users)
-      if (left.nonEmpty) println(s"[arena ${tour.id}] left over: ${left mkString ","} out of ${users.all.size}")
+      val left = users.all diff pairings.flatMap(_.users) map { id =>
+        s"$id [${ranking.getOrElse(id, "?")}]"
+      }
+      if (left.nonEmpty) println(s"[arena ${tour.id} $nbActiveUsers/${tour.nbPlayers}] left over: ${left mkString ", "} out of ${users.all.size}")
     }
     pairings -> Nil
   }
@@ -81,11 +83,12 @@ object PairingSystem extends AbstractPairingSystem {
 
     // lower is better
     def pairingScore(pair: RankedPairing): Score = pair match {
-      case (a, b) if justPlayedTogether(a.player.userId, b.player.userId) =>
-        if (veryMuchJustPlayedTogether(a.player.userId, b.player.userId)) 9000 * 1000
-        else 8000 * 1000
       case (a, b) => Math.abs(a.rank - b.rank) * 1000 +
-        Math.abs(a.player.rating - b.player.rating)
+        Math.abs(a.player.rating - b.player.rating) +
+        justPlayedTogether(a.player.userId, b.player.userId).?? {
+          if (veryMuchJustPlayedTogether(a.player.userId, b.player.userId)) 9000 * 1000
+          else 8000 * 1000
+        }
     }
     def score(pairs: Combination): Score = pairs.foldLeft(0) {
       case (s, p) => s + pairingScore(p)
