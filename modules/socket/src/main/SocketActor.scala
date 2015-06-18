@@ -58,7 +58,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
     case Resync(uid)           => resync(uid)
 
-    case Deploy(event, html)   => notifyAll(makeMessage(event.key, html))
+    case d: Deploy             => onDeploy(d)
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -104,6 +104,10 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     }
   }
 
+  def onDeploy(d: Deploy) {
+    notifyAll(makeMessage(d.event.key, d.html))
+  }
+
   private val resyncMessage = makeMessage("resync")
 
   protected def resync(member: M) {
@@ -132,8 +136,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def uids = members.keys
 
-  def memberByUserId(userId: String): Option[M] = members collectFirst {
-    case (_, member) if member.userId.fold(false)(userId ==) => member
+  def membersByUserId(userId: String): Iterable[M] = members collect {
+    case (_, member) if member.userId.contains(userId) => member
   }
 
   def userIds: Iterable[String] = members.values.flatMap(_.userId)

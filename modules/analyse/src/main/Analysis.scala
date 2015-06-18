@@ -8,11 +8,12 @@ import org.joda.time.DateTime
 case class Analysis(
     id: String,
     infos: List[Info],
+    startPly: Int,
     done: Boolean,
     date: DateTime) {
 
   lazy val infoAdvices: InfoAdvices = {
-    (Info.start :: infos) sliding 2 collect {
+    (Info.start(startPly) :: infos) sliding 2 collect {
       case List(prev, info) => info -> {
         info.hasVariation ?? Advice(prev, info)
       }
@@ -30,7 +31,7 @@ case class Analysis(
     infos = infos,
     done = true)
 
-  def encode: RawAnalysis = RawAnalysis(id, encodeInfos, done, date)
+  def encode: RawAnalysis = RawAnalysis(id, encodeInfos, startPly.some.filterNot(0 ==), done, date)
   private def encodeInfos = Info encodeList infos
 
   def summary: List[(Color, List[(Nag, Int)])] = Color.all map { color =>
@@ -71,13 +72,14 @@ object Analysis {
 private[analyse] case class RawAnalysis(
     id: String,
     data: String,
+    ply: Option[Int],
     done: Boolean,
     date: DateTime) {
 
   def decode: Option[Analysis] = (done, data) match {
-    case (true, "") => new Analysis(id, Nil, false, date).some
-    case (true, d)  => Info decodeList d map { new Analysis(id, _, done, date) }
-    case (false, _) => new Analysis(id, Nil, false, date).some
+    case (true, "") => new Analysis(id, Nil, ~ply, false, date).some
+    case (true, d)  => Info.decodeList(d, ~ply) map { new Analysis(id, _, ~ply, done, date) }
+    case (false, _) => new Analysis(id, Nil, ~ply, false, date).some
   }
 }
 

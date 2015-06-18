@@ -49,6 +49,8 @@ private[tournament] final class Organizer(
     case FinishGame(game, _, _)                    => api finishGame game
 
     case lila.hub.actorApi.mod.MarkCheater(userId) => api ejectCheater userId
+
+    case lila.hub.actorApi.round.Berserk(gameId, userId) => api.berserk(gameId, userId)
   }
 
   private def ejectLeavers(tour: Tournament) =

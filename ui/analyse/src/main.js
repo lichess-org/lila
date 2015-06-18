@@ -13,8 +13,8 @@ module.exports = function(opts) {
 
   return {
     socketReceive: controller.socket.receive,
-    jump: function(ply) {
-      controller.jumpToMain(ply);
+    jumpToIndex: function(index) {
+      controller.jumpToIndex(index);
       m.redraw();
     },
     path: function() {

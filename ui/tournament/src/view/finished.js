@@ -1,9 +1,7 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
-var tournament = require('../tournament');
 var util = require('./util');
 var arena = require('./arena');
-var swiss = require('./swiss');
 var pairings = require('./pairings');
 var pagination = require('../pagination');
 
@@ -15,7 +13,7 @@ module.exports = {
       arena.podium(ctrl),
       m('div.standing_wrap',
         pagination.render(ctrl, pag, function() {
-          return m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), (ctrl.data.system === 'arena' ? arena.standing : swiss.standing)(ctrl, pag));
+          return m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), arena.standing(ctrl, pag));
         })),
       util.games(ctrl.data.lastGames)
     ];

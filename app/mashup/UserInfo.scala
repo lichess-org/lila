@@ -10,7 +10,7 @@ import lila.forum.PostApi
 import lila.game.{ GameRepo, Game, Crosstable, PlayTime }
 import lila.relation.RelationApi
 import lila.security.Granter
-import lila.user.{ User, Trophies, TrophyApi }
+import lila.user.{ User, Trophy, Trophies, TrophyApi }
 
 case class UserInfo(
     user: User,
@@ -35,6 +35,13 @@ case class UserInfo(
   def nbWithMe = crosstable ?? (_.nbGames)
 
   def percentRated: Int = math.round(nbRated / user.count.game.toFloat * 100)
+
+  def allTrophies = (donor ?? List(Trophy(
+    _id = "",
+    user = user.id,
+    kind = Trophy.Kind.Donor,
+    date = org.joda.time.DateTime.now)
+  )) ::: trophies
 }
 
 object UserInfo {

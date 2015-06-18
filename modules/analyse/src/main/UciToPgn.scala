@@ -23,7 +23,7 @@ private[analyse] object UciToPgn {
     }
 
     def uciToPgn(ply: Int, variation: List[String]): Valid[List[PgnMove]] = for {
-      situation ← if (ply == 1) success(replay.setup.situation)
+      situation ← if (ply == replay.setup.startedAtTurn + 1) success(replay.setup.situation)
       else replay moveAtPly ply map (_.situationBefore) toValid "No move found"
       ucis ← variation.map(UciMove.apply).sequence toValid "Invalid UCI moves " + variation
       moves ← ucis.foldLeft[Valid[(Situation, List[Move])]](success(situation -> Nil)) {

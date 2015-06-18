@@ -19,7 +19,7 @@ private[api] final class RoundApiBalancer(
     implicit val timeout = makeTimeout seconds 20
 
     case class Player(pov: Pov, apiVersion: Int, ctx: Context)
-    case class Watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean],
+    case class Watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
       analysis: Option[(Pgn, Analysis)] = None,
       initialFenO: Option[Option[String]] = None,
       withMoveTimes: Boolean = false,
@@ -45,7 +45,7 @@ private[api] final class RoundApiBalancer(
   def player(pov: Pov, apiVersion: Int)(implicit ctx: Context): Fu[JsObject] =
     router ? Player(pov, apiVersion, ctx) mapTo manifest[JsObject]
 
-  def watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean],
+  def watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
     analysis: Option[(Pgn, Analysis)] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false)(implicit ctx: Context): Fu[JsObject] =

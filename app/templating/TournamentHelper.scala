@@ -4,7 +4,7 @@ package templating
 import controllers.routes
 import lila.api.Context
 import lila.tournament.Env.{ current => tournamentEnv }
-import lila.tournament.{ Tournament, System }
+import lila.tournament.{ Tournament, System, Schedule }
 import lila.user.{ User, UserContext }
 
 import play.api.libs.json.Json
@@ -58,7 +58,7 @@ trait TournamentHelper { self: I18nHelper =>
   }
 
   def tournamentIconChar(tour: Tournament): Char = tour.schedule.map(_.freq) match {
-    case Some(lila.tournament.Schedule.Freq.Marathon) => '\\'
+    case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => '\\'
     case _ => tour.perfType.fold('g')(_.iconChar)
   }
 }

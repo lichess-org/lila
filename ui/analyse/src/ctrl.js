@@ -108,6 +108,10 @@ module.exports = function(opts) {
     }]);
   }.bind(this);
 
+  this.jumpToIndex = function(index) {
+    this.jumpToMain(index + 1 + this.data.game.startedAtTurn);
+  }.bind(this);
+
   var forsyth = function(role) {
     return role === 'knight' ? 'n' : role[0];
   };

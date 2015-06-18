@@ -1,4 +1,4 @@
-var piotr2key = require('game').piotr.piotr2key;
+var piotr2key = require('./piotr').piotr2key;
 
 module.exports = {
   readDests: function(lines) {

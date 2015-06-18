@@ -141,27 +141,31 @@ private[tournament] final class TournamentApi(
   def withdraw(tourId: String, userId: String) {
     Sequencing(tourId)(TournamentRepo.enterableById) {
       case tour if tour.isCreated =>
-        PlayerRepo.remove(tour.id, userId) >>- socketReload(tour.id) >>- publish()
+        PlayerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) >>- socketReload(tour.id) >>- publish()
       case tour if tour.isStarted =>
         PlayerRepo.withdraw(tour.id, userId) >>- socketReload(tour.id) >>- publish()
       case _ => funit
     }
   }
 
-  def berserk(oldTour: Tournament, userId: String) {
-    Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
-      PairingRepo.findPlaying(tour.id, userId) flatMap {
-        case Some(pairing) if pairing.berserkOf(userId) == 0 =>
-          (pairing povRef userId) ?? { povRef =>
-            GameRepo pov povRef flatMap {
-              _.filter(_.game.berserkable) ?? { pov =>
-                PairingRepo.setBerserk(pairing, userId, 1) >>- {
-                  roundMap ! Tell(povRef.gameId, GoBerserk(povRef.color))
+  def berserk(gameId: String, userId: String) {
+    GameRepo game gameId foreach {
+      _.flatMap(_.tournamentId) foreach { tourId =>
+        Sequencing(tourId)(TournamentRepo.startedById) { tour =>
+          PairingRepo.findPlaying(tour.id, userId) flatMap {
+            case Some(pairing) if pairing.berserkOf(userId) == 0 =>
+              (pairing povRef userId) ?? { povRef =>
+                GameRepo pov povRef flatMap {
+                  _.filter(_.game.berserkable) ?? { pov =>
+                    PairingRepo.setBerserk(pairing, userId, 1) >>- {
+                      roundMap ! Tell(povRef.gameId, GoBerserk(povRef.color))
+                    }
+                  }
                 }
               }
-            }
+            case _ => funit
           }
-        case _ => funit
+        }
       }
     }
   }
@@ -205,10 +209,14 @@ private[tournament] final class TournamentApi(
     }
   }
 
+  private val miniStandingCache = lila.memo.AsyncCache[String, List[RankedPlayer]](
+    (id: String) => PlayerRepo.bestByTourWithRank(id, 30),
+    timeToLive = 3 second)
+
   def miniStanding(tourId: String, withStanding: Boolean): Fu[Option[MiniStanding]] =
     TournamentRepo byId tourId flatMap {
       _ ?? { tour =>
-        if (withStanding) PlayerRepo.bestByTourWithRank(tour.id, 20) map { rps =>
+        if (withStanding) miniStandingCache(tour.id) map { rps =>
           MiniStanding(tour, rps.some).some
         }
         else fuccess(MiniStanding(tour, none).some)

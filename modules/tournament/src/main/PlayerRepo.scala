@@ -30,8 +30,8 @@ object PlayerRepo {
     coll.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player].collect[List](nb)
 
   def bestByTourWithRank(tourId: String, nb: Int, skip: Int = 0): Fu[RankedPlayers] =
-    bestByTour(tourId, nb, skip).map {
-      _.foldRight(List.empty[RankedPlayer] -> (nb + skip)) {
+    bestByTour(tourId, nb, skip).map { res =>
+      res.foldRight(List.empty[RankedPlayer] -> (res.size + skip)) {
         case (p, (res, rank)) => (RankedPlayer(rank, p) :: res, rank - 1)
       }._1
     }
@@ -70,6 +70,16 @@ object PlayerRepo {
     find(tourId, userId) flatten s"No such player: $tourId/$userId" flatMap f flatMap { player =>
       coll.update(selectId(player._id), player).void
     }
+
+  def playerInfo(tourId: String, userId: String): Fu[Option[PlayerInfo]] = find(tourId, userId) flatMap {
+    _ ?? { player =>
+      coll.db command Count(coll.name, Some(selectTour(tourId) ++ BSONDocument(
+        "m" -> BSONDocument("$gt" -> player.magicScore))
+      )) map { n =>
+        PlayerInfo((n + 1), player.withdraw).some
+      }
+    }
+  }
 
   def join(tourId: String, user: User, perfLens: Perfs => Perf) =
     find(tourId, user.id) flatMap {

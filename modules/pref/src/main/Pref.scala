@@ -32,6 +32,7 @@ case class Pref(
     challenge: Int,
     coordColor: Int,
     puzzleDifficulty: Int,
+    submitMove: Int,
     tags: Map[String, String] = Map.empty) {
 
   import Pref._
@@ -114,6 +115,15 @@ object Pref {
       NEVER -> "Never",
       ALWAYS -> "Always",
       PREMOVE -> "When premoving")
+  }
+
+  object SubmitMove {
+    val NEVER = 0
+    val CORRESPONDENCE = 1
+
+    val choices = Seq(
+      NEVER -> "Never",
+      CORRESPONDENCE -> "On correspondence games")
   }
 
   object Blindfold {
@@ -233,6 +243,7 @@ object Pref {
     challenge = Challenge.RATING,
     coordColor = Color.RANDOM,
     puzzleDifficulty = Difficulty.NORMAL,
+    submitMove = SubmitMove.CORRESPONDENCE,
     tags = Map.empty)
 
   import ornicar.scalalib.Zero

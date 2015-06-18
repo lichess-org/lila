@@ -1,4 +1,3 @@
-var tournament = require('./tournament');
 var m = require('mithril');
 
 var maxPerPage = 10;
@@ -18,45 +17,43 @@ function button(text, icon, click, enable) {
 }
 
 function scrollToMeButton(ctrl, pag) {
-  if (!tournament.containsMe(ctrl)) return;
+  if (!ctrl.data.me) return;
   return m('button', {
-    class: 'button text',
+    class: 'button text' + (ctrl.vm.focusOnMe ? ' active' : ''),
     'data-icon': '7',
-    onclick: ctrl.scrollToMe
+    onclick: ctrl.toggleFocusOnMe
   }, 'Me');
 }
 
 function paginate(ctrl, page) {
   var nbResults = ctrl.data.nbPlayers;
-  var max = nbResults > 15 ? maxPerPage : 15; // don't paginate 15 or less elements
-  var from = (page - 1) * max;
-  var to = Math.min(nbResults, page * max);
+  var from = (page - 1) * maxPerPage;
+  var to = Math.min(nbResults, page * maxPerPage);
   return {
     currentPage: page,
-    maxPerPage: max,
+    maxPerPage: maxPerPage,
     from: from,
     to: to,
     currentPageResults: ctrl.vm.pages[page],
     nbResults: nbResults,
-    nbPages: Math.ceil(nbResults / max)
+    nbPages: Math.ceil(nbResults / maxPerPage)
   };
 }
 
 module.exports = {
   render: function(ctrl, pag, table) {
     return [
-      // loader,
       pag.currentPageResults ? table() : m('div.loader'),
       pag.nbPages > 1 ? m('div.pager', [
         button('First', 'W', function() {
-          ctrl.setPage(1);
+          ctrl.userSetPage(1);
         }, ctrl.vm.page > 1),
         button('Prev', 'Y', function() {
-          ctrl.setPage(ctrl.vm.page - 1);
+          ctrl.userSetPage(ctrl.vm.page - 1);
         }, ctrl.vm.page > 1),
         m('span.page', (pag.from + 1) + '-' + pag.to + ' / ' + pag.nbResults),
         button('Next', 'X', function() {
-          ctrl.setPage(ctrl.vm.page + 1);
+          ctrl.userSetPage(ctrl.vm.page + 1);
         }, ctrl.vm.page < pag.nbPages),
         scrollToMeButton(ctrl, pag)
       ]) : null
@@ -65,12 +62,8 @@ module.exports = {
   players: function(ctrl) {
     return paginate(ctrl, ctrl.vm.page);
   },
-  pageOfUserId: function(ctrl) {
-    if (!ctrl.userId) return;
-    // var pos = findIndex(ctrl.data.players, function(p) {
-    //   return p.name.toLowerCase() === ctrl.userId;
-    // });
-    // if (pos === null) return;
-    // return Math.floor(pos / 10) + 1;
+  myPage: function(ctrl) {
+    if (!ctrl.data.me) return;
+    return Math.floor((ctrl.data.me.rank - 1) / 10) + 1;
   }
 };

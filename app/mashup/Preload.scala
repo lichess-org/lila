@@ -8,13 +8,13 @@ import lila.rating.PerfType
 import lila.simul.Simul
 import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
-import lila.tv.{ Featured, StreamOnAir }
+import lila.tv.{ Tv, StreamOnAir }
 import lila.user.User
 import lila.playban.TempBan
 import play.api.libs.json.JsObject
 
 final class Preload(
-    featured: Featured,
+    tv: Tv,
     leaderboard: Boolean => Fu[List[(User, PerfType)]],
     tourneyWinners: Int => Fu[List[Winner]],
     timelineEntries: String => Fu[List[Entry]],
@@ -34,7 +34,7 @@ final class Preload(
       posts zip
       tours zip
       simuls zip
-      featured.one zip
+      tv.getBest zip
       (ctx.userId ?? timelineEntries) zip
       leaderboard(true) zip
       tourneyWinners(10) zip

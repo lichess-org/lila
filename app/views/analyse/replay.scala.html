@@ -129,12 +129,14 @@ chessground = false) {
       <div class="pgn">@Html(nl2br(escape(pgn)))</div>
     </div>
     <div class="panel move_times">
+      @timeChart.series.map { series =>
       <div
         id="movetimes_chart"
         data-division-mid="@division.mid.getOrElse("null")"
         data-division-end="@division.end.getOrElse("null")"
-        data-series="@timeChart.series"
+        data-series="@series"
         data-max="@timeChart.maxTime"></div>
+      }
     </div>
     @cross.map { c =>
     <div class="panel crosstable">
@@ -147,7 +149,9 @@ chessground = false) {
     <a data-panel="computer_analysis" class="computer_analysis">@trans.computerAnalysis()</a>
     }
     @if(!game.isPgnImport) {
+    @if(timeChart.series.isDefined) {
     <a data-panel="move_times" class="move_times">@trans.moveTimes()</a>
+    }
     @if(cross.isDefined) {
     <a data-panel="crosstable" class="crosstable">Crosstable</a>
     }

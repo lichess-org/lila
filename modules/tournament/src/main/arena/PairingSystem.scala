@@ -30,7 +30,13 @@ object PairingSystem extends AbstractPairingSystem {
       case Nil                           => fuccess(Nil)
       case _                             => tryPairings(data, users.all)
     }
-  } yield pairings -> Nil
+  } yield {
+    if (pairings.nonEmpty && pairings.size * 2 < users.all.size) {
+      val left = users.all diff pairings.flatMap(_.users)
+      if (left.nonEmpty) println(s"[arena ${tour.id}] left over: ${left mkString ","} out of ${users.all.size}")
+    }
+    pairings -> Nil
+  }
 
   val smartHardLimit = 24
 

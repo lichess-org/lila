@@ -21,7 +21,7 @@
   "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
     "browserify": "~9.0.8",
-    "gulp": "~3.8.11",
+    "gulp": "~3.9.0",
     "gulp-streamify": "~0.0.5",
     "gulp-uglify": "~1.2.0",
     "gulp-util": "~3.0.4",
@@ -29,7 +29,7 @@
     "watchify": "~3.1.1"
   },
   "dependencies": {
-    "chessground": "2.7.1",
+    "chessground": "2.8.0",
     "game": "file:../game",
     "mithril": "0.2.0"
   }

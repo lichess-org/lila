@@ -50,7 +50,6 @@ body.dark #chat .messages,
 body.dark div.undertable_top,
 body.dark div.undertable_inner,
 body.dark div.undertable td,
-body.dark #tv_history td,
 body.dark #chat form input,
 body.dark #translation_call,
 body.dark div.game_config .optional_config,
@@ -179,11 +178,11 @@ body.dark #top a.toggle:hover,
 body.dark #sound_state:hover {
   color: #c0c0c0;
 }
+body.dark div.user_show .trophy.icon3d,
 body.dark #timeline a,
 body.dark #chat span,
 body.dark #chat a.user_link,
 body.dark div.undertable a.user_link,
-body.dark #tv_history a.user_link,
 body.dark #timeline a.user_link,
 body.dark #team .forum a.user_link,
 body.dark div.user_show div.content_box_top > span,
@@ -201,7 +200,6 @@ body.dark div.table,
 body.dark div.table_wrap > div.clock > div.time,
 body.dark #friend_box .content a:hover,
 body.dark div.undertable_inner,
-body.dark #tv_history div.content,
 body.dark div.table .loader:before,
 body.dark div.table .loader:after,
 body.dark div.chat_menu > a.active,
@@ -220,6 +218,7 @@ body.dark #hooks_wrap .table_wrap tr.join:hover td,
 body.dark #now_playing > a:hover {
   background: rgba(27, 51, 68, 0.7);
 }
+body.dark #top a.signin,
 body.dark #hooks_wrap .hook_filter .checkable {
   color: #c0c0c0;
 }
@@ -248,7 +247,6 @@ body.dark #top .dropdown,
 body.dark #top .shown a.toggle,
 body.dark div.analysis_menu > a,
 body.dark div.lichess_overboard,
-body.dark #tv_history tr:hover td,
 body.dark div.content_box,
 body.dark div.content_box_inter a.active,
 body.dark #site_header div.side_menu a.active,
@@ -516,6 +514,14 @@ body.dark .variant_icons span {
   text-shadow: 0px 0px 5px #000,
   0px 0px 10px #000,
   0px 0px 20px #000;
+}
+body.dark #tv_channels > a:hover {
+  background: #333;
+  color: #c0c0c0;
+  box-shadow: 0 -1px 1px rgba(255,255,255,0.3);
+}
+body.dark div.user_show .trophy.donor span:hover {
+  color: rgba(255,255,255,0.7);
 }
 body.dark .fire_trophy.wayOfBerserk span {
   color: rgba(255,255,255,0.5);

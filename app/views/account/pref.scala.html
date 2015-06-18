@@ -78,6 +78,10 @@
             <h2>@trans.claimDrawOnThreefoldRepetitionAutomatically("<a rel=\"nofollow\" href=\"http://en.wikipedia.org/wiki/Threefold_repetition\">", "</a>")</h2>
             @base.radios(form("autoThreefold"), translatedAutoThreefoldChoices)
           </li>
+          <li>
+            <h2>Move confirmation</h2>
+            @base.radios(form("submitMove"), submitMoveChoices)
+          </li>
         </ul>
       </fieldset>
       <fieldset>

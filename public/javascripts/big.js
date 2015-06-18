@@ -853,7 +853,6 @@ lichess.storage = {
           height: px(479.08572 * getZoom()),
           paddingTop: px(50 * (getZoom() - 1))
         });
-        $('#tv_history > .content').css("height", px(250 + 540 * (getZoom() - 1)));
         $('.chat_panels').css("height", px(290 + 529 * (getZoom() - 1)));
       } else {
         $boardWrap.css("height", px(512 * getZoom()));
@@ -861,16 +860,15 @@ lichess.storage = {
           height: px(512 * getZoom()),
           paddingTop: px(0)
         });
-        $('#tv_history > .content').css("height", px(270 + 525 * (getZoom() - 1)));
         $('.chat_panels').css("height", px(325 + 510 * (getZoom() - 1)));
       }
 
       $('#trainer .overlay_container').css({
-        top: px((getZoom() -1) * 250),
-        left: px((getZoom() -1) * 250)
+        top: px((getZoom() - 1) * 250),
+        left: px((getZoom() - 1) * 250)
       });
       // doesn't vertical center score at the end, close enough
-      $('#trainer .score_container').css("top", px((getZoom() -1) * 250));
+      $('#trainer .score_container').css("top", px((getZoom() - 1) * 250));
 
 
       if ($lichessGame.length) {
@@ -1000,6 +998,10 @@ lichess.storage = {
 
     $('#ham-plate').click(function() {
       document.body.classList.toggle('fpmenu');
+    });
+    $('#top button.signin').click(function() {
+      $('#ham-plate').click();
+      $('#fpmenu input.username').focus();
     });
     if (location.hash === '#fpmenu') $('#ham-plate').click();
     Mousetrap.bind('esc', function() {
@@ -1152,11 +1154,15 @@ lichess.storage = {
           crowd: function(e) {
             $watchers.watchers("set", e.watchers);
           },
-          featured: function(o) {
-            if (data.tv) lichess.reload();
+          tvSelect: function(o) {
+            if (data.tv && data.tv.channel == o.channel) lichess.reload();
+            else $('#tv_channels a.' + o.channel + ' span').text(
+              o.player ? o.player.name + ' (' + o.player.rating + ')' : 'Anonymous');
           },
           end: function() {
-            var url = (data.tv ? cfg.routes.Tv.sides : (data.player.spectator ? cfg.routes.Round.sidesWatcher : cfg.routes.Round.sidesPlayer))(data.game.id, data.player.color).url;
+            var url = data.tv ? ['/tv', data.tv.channel, data.game.id, data.player.color, 'sides'].join('/') : ((
+              data.player.spectator ? cfg.routes.Round.sidesWatcher : cfg.routes.Round.sidesPlayer
+            )(data.game.id, data.player.color).url);
             $.ajax({
               url: url,
               cache: false,
@@ -1198,9 +1204,6 @@ lichess.storage = {
     var $watchers = $('#site_header div.watchers').watchers();
     var $nowPlaying = $('#now_playing');
     startTournamentClock();
-    $('#tv_history').on("click", "tr", function() {
-      location.href = $(this).find('a.icon').attr('href');
-    });
     var loadPlaying = function() {
       var $moveOn = $nowPlaying.find('.move_on').click(function() {
         setMoveOn(round.moveOn.toggle());
@@ -2097,7 +2100,7 @@ lichess.storage = {
     cfg.element = element.querySelector('.analyse');
     cfg.socketSend = lichess.socket.send.bind(lichess.socket);
     analyse = LichessAnalyse(cfg);
-    cfg.jump = analyse.jump;
+    cfg.jumpToIndex = analyse.jumpToIndex;
 
     $('.underboard_content', element).appendTo($('.underboard .center', element)).show();
     $('.advice_summary', element).appendTo($('.underboard .right', element)).show();

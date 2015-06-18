@@ -10,27 +10,16 @@ function uncache(url) {
 }
 
 function reload(ctrl) {
-  ctrl.vm.reloading = true;
-  m.redraw();
   var req = m.request({
     method: 'GET',
     url: uncache(ctrl.data.url.round),
     config: xhrConfig
   });
   req.then(function() {
-    ctrl.vm.reloading = false;
   }, function(err) {
     lichess.reload();
   });
   return req;
-}
-
-function berserk(ctrl) {
-  return m.request({
-    method: 'POST',
-    url: '/tournament/' + ctrl.data.game.tournamentId + '/berserk',
-    config: xhrConfig
-  });
 }
 
 function whatsNext(ctrl) {
@@ -43,6 +32,5 @@ function whatsNext(ctrl) {
 
 module.exports = {
   reload: reload,
-  berserk: berserk,
   whatsNext: whatsNext
 };

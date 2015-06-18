@@ -1,8 +1,8 @@
 package lila.game
 
+import chess.variant.Variant
 import org.joda.time.DateTime
 import scala.util.{ Try, Success, Failure }
-import chess.variant.Variant
 
 import chess._
 
@@ -155,13 +155,17 @@ object BinaryFormat {
 
   object piece {
 
+    private val groupedPos = Pos.all grouped 2 collect {
+      case List(p1, p2) => (p1, p2)
+    } toArray
+
     def write(pieces: PieceMap): ByteArray = {
-      def posInt(pos: Pos): Int = (pieces get pos).fold(0)(pieceInt)
-      def pieceInt(piece: Piece): Int =
+      def posInt(pos: Pos): Int = (pieces get pos).fold(0) { piece =>
         piece.color.fold(0, 8) + roleToInt(piece.role)
-      ByteArray(Pos.all grouped 2 map {
-        case List(p1, p2) => ((posInt(p1) << 4) + posInt(p2)).toByte
-      } toArray)
+      }
+      ByteArray(groupedPos map {
+        case (p1, p2) => ((posInt(p1) << 4) + posInt(p2)).toByte
+      })
     }
 
     def read(ba: ByteArray, variant: Variant): PieceMap = {
@@ -181,15 +185,15 @@ object BinaryFormat {
     val standard = write(Board.init(chess.variant.Standard).pieces)
 
     private def intToRole(int: Int, variant: Variant): Option[Role] = int match {
-      case 6 => Some(Pawn)
-      case 1 => Some(King)
-      case 2 => Some(Queen)
-      case 3 => Some(Rook)
-      case 4 => Some(Knight)
-      case 5 => Some(Bishop)
+      case 6                      => Some(Pawn)
+      case 1                      => Some(King)
+      case 2                      => Some(Queen)
+      case 3                      => Some(Rook)
+      case 4                      => Some(Knight)
+      case 5                      => Some(Bishop)
       // Legacy from when we used to have an 'Antiking' piece
       case 7 if variant.antichess => Some(King)
-      case _ => None
+      case _                      => None
     }
     private def roleToInt(role: Role): Int = role match {
       case Pawn   => 6

@@ -50,6 +50,7 @@ final class PrefApi(
       challenge = r.getD("challenge", Pref.default.challenge),
       coordColor = r.getD("coordColor", Pref.default.coordColor),
       puzzleDifficulty = r.getD("puzzleDifficulty", Pref.default.puzzleDifficulty),
+      submitMove = r.getD("submitMove", Pref.default.submitMove),
       tags = r.getD("tags", Pref.default.tags))
 
     def writes(w: BSON.Writer, o: Pref) = BSONDocument(
@@ -78,6 +79,7 @@ final class PrefApi(
       "challenge" -> o.challenge,
       "coordColor" -> o.coordColor,
       "puzzleDifficulty" -> o.puzzleDifficulty,
+      "submitMove" -> o.submitMove,
       "tags" -> o.tags)
   }
 

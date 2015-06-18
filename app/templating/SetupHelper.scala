@@ -114,4 +114,9 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Difficulty.NORMAL, trans.difficultyNormal.str()),
     (Pref.Difficulty.HARD, trans.difficultyHard.str())
   )
+
+  def submitMoveChoices(implicit ctx: Context) = List(
+    (Pref.SubmitMove.NEVER, trans.never.str()),
+    (Pref.SubmitMove.CORRESPONDENCE, "In correspondence games")
+  )
 }

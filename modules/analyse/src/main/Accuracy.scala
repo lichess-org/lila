@@ -14,7 +14,7 @@ object Accuracy {
   }
 
   def diffsList(pov: Pov, analysis: Analysis): List[Int] = pov.color.fold(
-    Info.start :: analysis.infos,
+    Info.start(pov.game.startedAtTurn) :: analysis.infos,
     analysis.infos
   ).grouped(2).foldLeft(List[Int]()) {
     case (list, List(i1, i2)) =>
