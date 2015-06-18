@@ -23,6 +23,7 @@ import lila.user.{ User, UserRepo }
 import makeTimeout.short
 
 private[tournament] final class TournamentApi(
+    cached: Cached,
     system: ActorSystem,
     sequencers: ActorRef,
     autoPairing: AutoPairing,
@@ -229,6 +230,14 @@ private[tournament] final class TournamentApi(
         _ ?? miniStanding(tourId, withStanding)
       }
     }
+
+  def fetchVisibleTournaments: Fu[VisibleTournaments] =
+    cached.allCreatedSorted(true) zip
+      TournamentRepo.publicStarted zip
+      TournamentRepo.finished(10) map {
+        case ((created, started), finished) =>
+          VisibleTournaments(created, started, finished)
+      }
 
   private def sequence(tourId: String)(work: => Funit) {
     sequencers ! Tell(tourId, Sequencer work work)
