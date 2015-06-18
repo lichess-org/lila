@@ -40,8 +40,11 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 title = trans.tournaments.str(),
 moreJs = moreJs,
 side = side.some) {
-<div id="tournament_schedule"></div>
-<div id="tournament_list" data-href="@routes.Tournament.homeReload()">
-  @tournament.homeInner(createds, starteds, finisheds)
+<div class="content_box tournament_box no_padding">
+  <h1>@trans.tournaments()</h1>
+  <div id="tournament_schedule"></div>
+  <div id="tournament_list" data-href="@routes.Tournament.homeReload()">
+    @tournament.homeInner(createds, starteds, finisheds)
+  </div>
 </div>
 }
