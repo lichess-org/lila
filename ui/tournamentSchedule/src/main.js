@@ -15,6 +15,6 @@ module.exports = function(element, opts) {
   });
 
   return {
-    socketReceive: controller.socket.receive
+    update: controller.update
   };
 };
