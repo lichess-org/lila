@@ -51,6 +51,7 @@ final class Env(
 
   lazy val api = new TournamentApi(
     cached = cached,
+    scheduleJsonView = scheduleJsonView ,
     system = system,
     sequencers = sequencerMap,
     autoPairing = autoPairing,

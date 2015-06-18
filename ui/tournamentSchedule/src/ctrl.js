@@ -1,5 +1,4 @@
 var m = require('mithril');
-var socket = require('./socket');
 
 module.exports = function(env) {
 
@@ -7,10 +6,9 @@ module.exports = function(env) {
 
   this.userId = env.userId;
 
-  this.socket = new socket(env.socketSend, this);
-
-  this.reload = function(data) {
+  this.update = function(data) {
     this.data = data;
+    m.redraw();
   }.bind(this);
 
   this.trans = function(key) {

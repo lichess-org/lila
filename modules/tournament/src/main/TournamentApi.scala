@@ -24,6 +24,7 @@ import makeTimeout.short
 
 private[tournament] final class TournamentApi(
     cached: Cached,
+    scheduleJsonView: ScheduleJsonView,
     system: ActorSystem,
     sequencers: ActorRef,
     autoPairing: AutoPairing,
@@ -257,10 +258,14 @@ private[tournament] final class TournamentApi(
   }
 
   private object publish {
-    private val siteMessage = SendToFlag("tournament", Json.obj("t" -> "reload"))
     private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, {
       (_: Debouncer.Nothing) =>
-        site ! siteMessage
+        fetchVisibleTournaments foreach { vis =>
+          site ! SendToFlag("tournament", Json.obj(
+            "t" -> "reload",
+            "d" -> scheduleJsonView(vis)
+          ))
+        }
         TournamentRepo.promotable foreach { tours =>
           renderer ? TournamentTable(tours) map {
             case view: play.twirl.api.Html => ReloadTournaments(view.body)

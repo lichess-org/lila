@@ -3,7 +3,8 @@
 @moreJs = {
 @jsAt(s"compiled/lichess.tournament-schedule${isProd??(".min")}.js")
 @embedJs {
-LichessTournamentSchedule(document.getElementById('tournament_schedule'), {
+var lichess = lichess || {};
+lichess.tournamentSchedule = LichessTournamentSchedule(document.getElementById('tournament_schedule'), {
 data: @Html(J.stringify(json)),
 i18n: @jsI18n(),
 userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
