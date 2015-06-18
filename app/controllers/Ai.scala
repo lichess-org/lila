@@ -11,10 +11,7 @@ import play.api.Play.current
 
 object Ai extends LilaController {
 
-  private def requestVariant(req: RequestHeader): Variant =
-    if (get("initialFen", req).isDefined) Chess960
-    else if (getBool("kingOfTheHill", req)) KingOfTheHill
-    else Variant(~get("variant", req))
+  private def requestVariant(req: RequestHeader): Variant = Variant(~get("variant", req))
 
   def move = Action.async { req =>
     Env.ai.server.move(

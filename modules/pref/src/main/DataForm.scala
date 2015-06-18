@@ -23,6 +23,7 @@ private[pref] final class DataForm(api: PrefApi) {
     "challenge" -> number.verifying(Pref.Challenge.choices.toMap contains _),
     "premove" -> number.verifying(Set(0, 1) contains _),
     "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
+    "submitMove" -> number.verifying(Set(0, 1) contains _),
     "captured" -> number.verifying(Set(0, 1) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
@@ -42,6 +43,7 @@ private[pref] final class DataForm(api: PrefApi) {
       challenge: Int,
       premove: Int,
       animation: Int,
+      submitMove: Int,
       captured: Int) {
 
     def apply(pref: Pref) = pref.copy(
@@ -60,6 +62,7 @@ private[pref] final class DataForm(api: PrefApi) {
       challenge = challenge,
       premove = premove == 1,
       animation = animation,
+      submitMove = submitMove,
       captured = captured == 1)
   }
 
@@ -81,6 +84,7 @@ private[pref] final class DataForm(api: PrefApi) {
       challenge = pref.challenge,
       premove = pref.premove.fold(1, 0),
       animation = pref.animation,
+      submitMove = pref.submitMove,
       captured = pref.captured.fold(1, 0))
   }
 

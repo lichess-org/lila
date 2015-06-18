@@ -78,9 +78,10 @@ final class Env(
   private val socketHub = {
     val actor = system.actorOf(
       Props(new lila.socket.SocketHubActor[Socket] {
+        private var historyPersistenceEnabled = false
         def mkActor(id: String) = new Socket(
           gameId = id,
-          history = eventHistory(id),
+          history = eventHistory(id, historyPersistenceEnabled),
           lightUser = lightUser,
           uidTimeout = UidTimeout,
           socketTimeout = SocketTimeout,
@@ -90,14 +91,15 @@ final class Env(
         def receive: Receive = ({
           case msg@lila.chat.actorApi.ChatLine(id, line) =>
             self ! Tell(id take 8, msg)
-          case msg: lila.hub.actorApi.game.ChangeFeatured =>
-            self ! TellAll(msg)
+          case _: lila.hub.actorApi.Deploy =>
+            logwarn("Enable history persistence")
+            historyPersistenceEnabled = true
           case msg: lila.game.actorApi.StartGame =>
             self ! Tell(msg.game.id, msg)
         }: Receive) orElse socketHubReceive
       }),
       name = SocketName)
-    system.lilaBus.subscribe(actor, 'changeFeaturedGame, 'startGame)
+    system.lilaBus.subscribe(actor, 'tvSelect, 'startGame, 'deploy)
     actor
   }
 

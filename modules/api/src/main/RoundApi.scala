@@ -39,7 +39,7 @@ private[api] final class RoundApi(
         }
     }
 
-  def watcher(pov: Pov, apiVersion: Int, tv: Option[Boolean],
+  def watcher(pov: Pov, apiVersion: Int, tv: Option[lila.round.OnTv],
     analysis: Option[(Pgn, Analysis)] = None,
     initialFenO: Option[Option[String]] = None,
     withMoveTimes: Boolean = false)(implicit ctx: Context): Fu[JsObject] =

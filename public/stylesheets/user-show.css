@@ -9,8 +9,7 @@ div.user_show .staff {
 div.user_show div.content_box_top > span,
 div.user_show div.content_box_top > .trophy {
   margin-left: 10px;
-  font-size: 1.6em;
-  color: #afafaf;
+  text-decoration: none;
 }
 div.user_show div.content_box_top > span strong {
   font-weight: normal;
@@ -18,7 +17,7 @@ div.user_show div.content_box_top > span strong {
 }
 div.user_show div.content_box_top > .trophy {
   float: right;
-  margin-top: -46px;
+  margin-top: -47px;
 }
 div.user_show div.content_box_top > .trophy:first-child {
   margin-right: 50px;
@@ -49,12 +48,23 @@ div.user_show .fire_trophy.marathonTopTen span:hover {
   -webkit-transform: scale(0.3) translate(-112px, 6px);
 }
 div.user_show .fire_trophy.marathonTopFifty span {
-  transform: scale(0.25) translate(-112px, 36px);
-  -webkit-transform: scale(0.25) translate(-112px, 36px);
   animation: none;
   -moz-animation: none;
   -webkit-animation: none;
   -o-animation: none;
+}
+div.user_show .trophy.icon3d {
+  margin-top: -10px!important;
+  font-size: 30px;
+  color: #ccc;
+  transition: 0.3s;
+}
+div.user_show .trophy.icon3d:hover {
+  margin-top: -12px!important;
+}
+div.user_show .fire_trophy.marathonTopFifty span {
+  transform: scale(0.25) translate(-112px, 36px);
+  -webkit-transform: scale(0.25) translate(-112px, 36px);
   text-shadow: 0px 0px 20px #ffae34, 0px 0px 25px #ec760c, 0px 0px 30px #cd4606;
 }
 div.user_show .fire_trophy.marathonTopFifty span:hover {
@@ -72,6 +82,19 @@ div.user_show .fire_trophy.marathonSurvivor span:hover {
 div.user_show .fire_trophy.bongcloudWarrior {
   filter: hue-rotate(70deg);
   -webkit-filter: hue-rotate(70deg);
+}
+div.user_show .trophy.donor span {
+  color: #d59120;
+  transition: 0.5s;
+}
+div.user_show .trophy.donor:hover {
+  margin-top: -14px!important;
+}
+div.user_show .trophy.donor span:hover {
+  animation: fire 1.25s ease-in-out infinite alternate;
+  -moz-animation: fire 1.25s ease-in-out infinite alternate;
+  -webkit-animation: fire 1.25s ease-in-out infinite alternate;
+  -o-animation: fire 1.25s ease-in-out infinite alternate;
 }
 div.user_show .honorific {
   display: inline-block;

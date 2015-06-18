@@ -6,7 +6,7 @@ import play.twirl.api.Html
 
 trait AssetHelper { self: I18nHelper =>
 
-  val assetVersion = lila.api.Env.current.Net.AssetVersion
+  def assetVersion = lila.api.Env.current.assetVersion.get
 
   def isProd: Boolean
 

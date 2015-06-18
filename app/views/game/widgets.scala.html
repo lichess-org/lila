@@ -56,6 +56,12 @@
         }
       </strong>
       @g.pgnImport.flatMap(_.date).getOrElse(momentFormat(g.createdAt))
+      @g.tournamentId.map { tourId =>
+      • @tournamentLink(tourId)
+      }
+      @g.simulId.map { simulId =>
+      • @simulLink(simulId)
+      }
     </div>
     <div class="versus">
       @gamePlayer(g.whitePlayer)
@@ -94,12 +100,6 @@
       @if(g.metadata.analysed) {<span data-icon="^"> Computer analysis available</span><br />}
       @g.pgnImport.flatMap(_.user).map { user =>
       PGN import by @userIdLinkMini(user)<br />
-      }
-      @g.tournamentId.map { tourId =>
-      @tournamentLink(tourId)<br />
-      }
-      @g.simulId.map { simulId =>
-      @simulLink(simulId)<br />
       }
     </div>
   </div>

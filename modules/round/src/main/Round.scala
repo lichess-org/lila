@@ -66,7 +66,7 @@ private[round] final class Round(
     case GoBerserk(color) => handle(color) { pov =>
       pov.game.clock.ifTrue(pov.game.berserkable) ?? { clock =>
         val newClock = clock halfTime pov.color
-        val progress = (pov.game withClock newClock) + Event.Reload
+        val progress = (pov.game withClock newClock) + Event.Clock(newClock)
         messenger.system(pov.game, (_.untranslated(
           s"${pov.color.name.capitalize} is going berserk!"
         )))
@@ -206,7 +206,10 @@ private[round] final class Round(
 
   private def publish[A](op: Fu[Events]) = op addEffect { events =>
     if (events.nonEmpty) socketHub ! Tell(gameId, EventList(events))
-    if (events contains Event.Threefold) self ! Threefold
+    if (events exists {
+      case e: Event.Move => e.threefold
+      case _             => false
+    }) self ! Threefold
   } addFailureEffect {
     case e: ClientErrorException =>
     case e                       => logwarn(s"[round] ${gameId} $e")

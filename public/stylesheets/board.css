@@ -1052,9 +1052,6 @@ div.table {
   height: auto;
   padding: 10px;
 }
-div.table .notyet {
-  margin: 20px 0;
-}
 .lichess_ground .replay .moves {
   border-top: 1px solid #e2e2e2;
   border-bottom: 1px solid #e2e2e2;
@@ -1147,6 +1144,10 @@ div.table_not_started {
   width: 242px;
   border: none;
   padding: 0;
+}
+div.table .loader {
+  margin: 7px auto;
+  font-size: 4px;
 }
 div.table div.username {
   white-space: nowrap;

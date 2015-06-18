@@ -44,8 +44,10 @@ private[tournament] final class Socket(
 
     case StartGame(game) =>
       game.players foreach { player =>
-        player.userId flatMap memberByUserId foreach { member =>
-          notifyMember("redirect", game fullIdOf player.color)(member)
+        player.userId foreach { userId =>
+          membersByUserId(userId) foreach { member =>
+            notifyMember("redirect", game fullIdOf player.color)(member)
+          }
         }
       }
       notifyReload
@@ -94,13 +96,11 @@ private[tournament] final class Socket(
         case ((anons, users), Some(user)) => anons -> (user :: users)
         case ((anons, users), None)       => (anons + 1) -> users
       }
-      notifyVersion("crowd", showSpectators(users, anons), Messadata())
+      notifyAll("crowd", showSpectators(users, anons))
 
     case NotifyReload =>
       delayedReloadNotification = false
-      jsonView(tournamentId).effectFold(
-        err => notifyVersion("deleted", JsNull, Messadata()),
-        obj => notifyVersion("reload", obj, Messadata()))
+      notifyAll("reload")
   }
 
   private var waitingUsers = Map[String, DateTime]()
@@ -114,11 +114,11 @@ private[tournament] final class Socket(
     }.++ {
       us.filterNot(waitingUsers.contains).map { _ -> date }
     }
-    // 1+0  5  -> 10
-    // 3+0  9  -> 14
-    // 5+0  17 -> 22
-    // 10+0 32 -> 35
-    val waitSeconds = ((clock.fold(60)(_.estimateTotalTime) / 15) + 2) min 35 max 10
+    // 1+0  -> 5  -> 8
+    // 3+0  -> 9  -> 11
+    // 5+0  -> 17 -> 17
+    // 10+0 -> 32 -> 30
+    val waitSeconds = ((clock.fold(60)(_.estimateTotalTime) / 20) + 2) min 30 max 8
     val since = date minusSeconds waitSeconds
     waitingUsers.collect {
       case (u, d) if d.isBefore(since) => u
@@ -137,7 +137,7 @@ private[tournament] final class Socket(
       delayedReloadNotification = true
       // keep the delay low for immediate response to join/withdraw,
       // but still debounce to avoid tourney start message rush
-      context.system.scheduler.scheduleOnce(100 millis, self, NotifyReload)
+      context.system.scheduler.scheduleOnce(200 millis, self, NotifyReload)
     }
   }
 

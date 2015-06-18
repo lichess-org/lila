@@ -1,15 +1,22 @@
 var m = require('mithril');
 var partial = require('chessground').util.partial;
-var tournament = require('../tournament');
 var util = require('./util');
 var arena = require('./arena');
-var swiss = require('./swiss');
 var pairings = require('./pairings');
 var pagination = require('../pagination');
 
+function myCurrentPairing(ctrl) {
+  if (!ctrl.userId) return null;
+  return ctrl.data.pairings.filter(function(p) {
+    return p.s === 0 && (
+      p.u[0].toLowerCase() === ctrl.userId || p.u[1].toLowerCase() === ctrl.userId
+    );
+  })[0];
+}
+
 module.exports = {
   main: function(ctrl) {
-    var myPairing = tournament.myCurrentPairing(ctrl);
+    var myPairing = myCurrentPairing(ctrl);
     var gameId = myPairing ? myPairing.id : null;
     var pag = pagination.players(ctrl);
     return [
@@ -23,9 +30,9 @@ module.exports = {
       }, [
         'You are playing!',
         m('span.text[data-icon=G]', ctrl.trans('joinTheGame'))
-      ]) : null, , m('div.standing_wrap',
+      ]) : null, m('div.standing_wrap',
         pagination.render(ctrl, pag, function() {
-          return m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), (ctrl.data.system === 'arena' ? arena.standing : swiss.standing)(ctrl, pag));
+          return m('table.slist.standing' + (ctrl.data.scheduled ? '.scheduled' : ''), arena.standing(ctrl, pag));
         })),
       util.games(ctrl.data.lastGames)
     ];

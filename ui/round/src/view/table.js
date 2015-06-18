@@ -5,7 +5,7 @@ var partial = chessground.util.partial;
 var game = require('game').game;
 var status = require('game').status;
 var opposite = chessground.util.opposite;
-var xhr = require('../xhr');
+var socket = require('../socket');
 var clockView = require('../clock/view');
 var renderCorrespondenceClock = require('../correspondenceClock/view');
 var renderReplay = require('./replay');
@@ -35,11 +35,13 @@ function renderPlayer(ctrl, player) {
   );
 }
 
-var loader = m('div.loader', m('span'));
+function loader() {
+  return m('div.loader.fast');
+}
 
 function renderTableEnd(ctrl) {
   var d = ctrl.data;
-  var buttons = compact(ctrl.vm.redirecting ? null : [
+  var buttons = compact(ctrl.vm.redirecting ? loader() : [
     button.backToTournament(ctrl) || [
       button.joinRematch(ctrl) ||
       button.answerOpponentRematch(ctrl) ||
@@ -58,7 +60,7 @@ function renderTableEnd(ctrl) {
 
 function renderTableWatch(ctrl) {
   var d = ctrl.data;
-  var buttons = compact(ctrl.vm.redirecting ? null : [
+  var buttons = compact(ctrl.vm.redirecting ? loader() : [
     button.viewRematch(ctrl),
     button.viewTournament(ctrl),
     button.analysis(ctrl)
@@ -72,35 +74,38 @@ function renderTableWatch(ctrl) {
 
 function renderTablePlay(ctrl) {
   var d = ctrl.data;
-  var buttons = compact([
+  var buttons = button.submitMove(ctrl) || compact([
     button.forceResign(ctrl),
     button.threefoldClaimDraw(ctrl),
     button.cancelDrawOffer(ctrl),
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
-    button.answerOpponentTakebackProposition(ctrl), (ctrl.data.tournament && game.nbMoves(d, d.player.color) === 0) ? m('div.text[data-icon=j]',
+    button.answerOpponentTakebackProposition(ctrl), (d.tournament && game.nbMoves(d, d.player.color) === 0) ? m('div.text[data-icon=j]',
       ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', 15)
     ) : null
   ]);
   return [
     renderReplay(ctrl),
-    m('div.control.icons', [
-      game.abortable(ctrl.data) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
-      button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', partial(ctrl.takebackYes)),
-      button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
-      button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
-    ]),
+    ctrl.vm.moveToSubmit ? null : (
+      button.feedback(ctrl) || m('div.control.icons', [
+        game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
+        button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', partial(ctrl.takebackYes)),
+        button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
+        button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
+      ])
+    ),
     buttons ? m('div.control.buttons', buttons) : null,
     renderPlayer(ctrl, d.player)
   ];
 }
 
 function whosTurn(ctrl, color) {
-  if (status.finished(ctrl.data) || status.aborted(ctrl.data)) return;
+  var d = ctrl.data;
+  if (status.finished(d) || status.aborted(d)) return;
   return m('div.whos_turn',
-    ctrl.data.game.player === color ? (
-      ctrl.data.player.spectator ? ctrl.trans(ctrl.data.game.player + 'Plays') : ctrl.trans(
-        ctrl.data.game.player === ctrl.data.player.color ? 'yourTurn' : 'waitingForOpponent'
+    d.game.player === color ? (
+      d.player.spectator ? ctrl.trans(d.game.player + 'Plays') : ctrl.trans(
+        d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'
       )
     ) : ''
   );
@@ -116,7 +121,7 @@ function goBerserk(ctrl) {
   return m('button', {
     class: 'button berserk hint--bottom-left',
     'data-hint': "GO BERSERK! Half the time, bonus point",
-    onclick: partial(xhr.berserk, ctrl)
+    onclick: ctrl.socket.berserk
   }, m('span', {
     'data-icon': '`'
   }));

@@ -58,8 +58,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font40/fonts/lichess.eot");
-  src: url("../font40/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font40/fonts/lichess.woff") format("woff"), url("../font40/fonts/lichess.ttf") format("truetype"), url("../font40/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font41/fonts/lichess.eot");
+  src: url("../font41/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font41/fonts/lichess.woff") format("woff"), url("../font41/fonts/lichess.ttf") format("truetype"), url("../font41/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -1274,6 +1274,11 @@ body.fpmenu #fpmenu {
 #top div.auth .links a:hover {
   background: #F0F0F0;
   color: #444;
+}
+#top button.signin {
+  margin: 4px 0.5em 0 0;
+  border-color: #d85000;
+  padding: 1px 5px;
 }
 #top div.auth .sep {
   display: block;
@@ -2512,9 +2517,6 @@ input.copyable {
   width: 300px;
   height: 295px;
   z-index: 9999;
-}
-.fire_trophy {
-  text-decoration: none;
 }
 .fire_trophy span {
   transform: scale(0.35);

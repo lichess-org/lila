@@ -21,7 +21,6 @@ module.exports = function(ctrl) {
     m('div', {
         class: util.classSet({
           'content_box no_padding tournament_box tournament_show': true,
-          'loading': ctrl.vm.loading,
           'finished': ctrl.data.isFinished
         })
       },

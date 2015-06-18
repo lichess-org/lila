@@ -27,7 +27,7 @@ module.exports = function(ctrl, key) {
   }.bind(this);
 
   var redirect = function(href) {
-    ctrl.vm.redirecting = true;
+    ctrl.setRedirecting();
     lichess.hasToReload = true;
     location.href = href;
     m.redraw();

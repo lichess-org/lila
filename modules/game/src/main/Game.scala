@@ -166,29 +166,35 @@ case class Game(
       status = situation.status | status,
       clock = game.clock)
 
-    val events = (players collect {
-      case p if p.isHuman => Event.possibleMoves(situation, p.color)
-    }) :::
-      Event.State(
-        situation.color,
-        game.turns,
-        (status != updated.status) option status,
-        whiteOffersDraw = whitePlayer.isOfferingDraw,
-        blackOffersDraw = blackPlayer.isOfferingDraw) ::
-        Event.fromMove(move, situation) :::
-        (Event fromSituation situation)
+    val state = Event.State(
+      situation.color,
+      game.turns,
+      (status != updated.status) option updated.status,
+      whiteOffersDraw = whitePlayer.isOfferingDraw,
+      blackOffersDraw = blackPlayer.isOfferingDraw)
 
     val clockEvent = updated.clock map Event.Clock.apply orElse {
       updated.correspondenceClock map Event.CorrespondenceClock.apply
     }
 
-    val finalEvents = events ::: clockEvent.toList ::: {
-      // abstraction leak, I know.
-      (updated.variant.threeCheck && situation.check) ?? List(Event.CheckCount(
-        white = updated.checkCount.white,
-        black = updated.checkCount.black
-      ))
-    }
+    val possibleMovesEvents = (players collect {
+      case p if p.isHuman => Event.possibleMoves(situation, p.color)
+    })
+
+    val events = possibleMovesEvents ::: // BC
+      state :: // BC
+      Event.fromMove(move, situation, state, clockEvent, possibleMovesEvents) :::
+      (Event fromSituation situation) // BC
+
+    val finalEvents = events :::
+      clockEvent.toList ::: // BC
+      {
+        // abstraction leak, I know.
+        (updated.variant.threeCheck && situation.check) ?? List(Event.CheckCount(
+          white = updated.checkCount.white,
+          black = updated.checkCount.black
+        ))
+      }
 
     Progress(this, updated, finalEvents)
   }
@@ -293,7 +299,7 @@ case class Game(
       blackPlayer = blackPlayer finish (winner == Some(Black)),
       clock = clock map (_.stop)
     ),
-    List(Event.End) ::: clock.??(c => List(Event.Clock(c)))
+    List(Event.End(winner)) ::: clock.??(c => List(Event.Clock(c)))
   )
 
   def rated = mode.rated
@@ -313,6 +319,10 @@ case class Game(
       variant == chess.variant.FromPosition && tournamentId.isDefined
     }
   }
+
+  def ratingVariant =
+    if (isTournament && variant == chess.variant.FromPosition) chess.variant.Standard
+    else variant
 
   def fromPosition = source ?? (Source.Position==)
 
@@ -369,7 +379,11 @@ case class Game(
   def onePlayerHasMoved = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
-  def playerMoves(color: Color): Int = (playedTurns + color.fold(1, 0)) / 2
+  def startColor = Color(startedAtTurn % 2 == 0)
+
+  def playerMoves(color: Color): Int =
+    if (color == startColor) (playedTurns + 1) / 2
+    else playedTurns / 2
 
   def playerHasMoved(color: Color) = playerMoves(color) > 0
 

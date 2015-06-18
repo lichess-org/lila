@@ -42,7 +42,7 @@ object Info {
   private val separator = ","
   private val listSeparator = ";"
 
-  lazy val start = Info(0, Evaluation.start.score, none, Nil)
+  def start(ply: Int) = Info(ply, Evaluation.start.score, none, Nil)
 
   def decode(ply: Int, str: String): Option[Info] = str.split(separator) match {
     case Array()               => Info(ply).some
@@ -53,9 +53,9 @@ object Info {
     case _                     => none
   }
 
-  def decodeList(str: String): Option[List[Info]] = {
+  def decodeList(str: String, fromPly: Int): Option[List[Info]] = {
     str.split(listSeparator).toList.zipWithIndex map {
-      case (infoStr, index) => decode(index + 1, infoStr)
+      case (infoStr, index) => decode(index + 1 + fromPly, infoStr)
     }
   }.sequence
 

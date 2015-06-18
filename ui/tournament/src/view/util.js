@@ -7,7 +7,7 @@ function miniGame(game) {
   return m('div', [
     m('a', {
       key: game.id,
-      href: '/' + game.id,
+      href: '/' + game.id + (game.color === 'white' ? '' : '/black'),
       class: 'mini_board live_' + game.id + ' parse_fen is2d',
       'data-color': game.color,
       'data-fen': game.fen,
@@ -35,7 +35,7 @@ function miniGame(game) {
 
 module.exports = {
   title: function(ctrl) {
-    if (ctrl.data.schedule && ctrl.data.schedule.freq === 'marathon')
+    if (ctrl.data.schedule && ctrl.data.schedule.freq.indexOf('marathon') !== -1)
       return m('h1.marathon_title', [
         m('span.fire_trophy.marathonWinner', m('span[data-icon=\\]')),
         ctrl.data.fullName
@@ -51,10 +51,10 @@ module.exports = {
       ] : null
     ]);
   },
-  currentPlayer: function(ctrl) {
+  currentPlayer: function(ctrl, pag) {
     if (!ctrl.userId) return null;
-    return ctrl.data.players.filter(function(p) {
-      return (p.name || '').toLowerCase() === ctrl.userId;
+    return pag.currentPageResults.filter(function(p) {
+      return p.name.toLowerCase() === ctrl.userId;
     })[0] || null;
   },
   player: function(p) {

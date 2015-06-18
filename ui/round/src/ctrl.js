@@ -39,9 +39,10 @@ module.exports = function(opts) {
   this.vm = {
     ply: this.lastPly(),
     flip: false,
-    reloading: false,
     redirecting: false,
-    replayHash: ''
+    replayHash: '',
+    moveToSubmit: null,
+    buttonFeedback: null
   };
 
   this.socket = new socket(opts.socketSend, this);
@@ -120,29 +121,85 @@ module.exports = function(opts) {
     if (prom) move.promotion = prom;
     if (blur.get()) move.b = 1;
     if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
-    this.socket.send('move', move, {
+
+    if (this.data.pref.submitMove) {
+      this.vm.moveToSubmit = move;
+      m.redraw();
+    } else this.socket.send('move', move, {
       ackable: true
     });
   }.bind(this);
 
   this.apiMove = function(o) {
     m.startComputation();
+    var d = this.data;
+    d.game.turns = o.ply;
+    d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
+    var playedColor = o.ply % 2 === 0 ? 'black' : 'white';
+    if (o.status) d.game.status = o.status;
+    d[d.player.color === 'white' ? 'player' : 'opponent'].offeringDraw = o.wDraw;
+    d[d.player.color === 'black' ? 'player' : 'opponent'].offeringDraw = o.bDraw;
+    d.possibleMoves = d.player.color === d.game.player ? o.dests : null;
+    this.setTitle();
     if (!this.replaying()) {
       this.vm.ply++;
-      this.chessground.apiMove(o.from, o.to);
+      this.chessground.apiMove(o.uci.substr(0, 2), o.uci.substr(2, 2));
+      if (o.enpassant) {
+        var p = o.enpassant,
+          pieces = {};
+        pieces[p.key] = null;
+        this.chessground.setPieces(pieces);
+        if (d.game.variant.key === 'atomic') atomic.enpassant(this, p.key, p.color);
+        $.sound.take();
+      }
+      if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
+      if (o.castle && !this.chessground.data.autoCastle) {
+        var c = o.castle,
+          pieces = {};
+        pieces[c.king[0]] = null;
+        pieces[c.rook[0]] = null;
+        pieces[c.king[1]] = {
+          role: 'king',
+          color: c.color
+        };
+        pieces[c.rook[1]] = {
+          role: 'rook',
+          color: c.color
+        };
+        this.chessground.setPieces(pieces);
+      }
+      this.chessground.set({
+        turnColor: d.game.player,
+        movable: {
+          dests: game.isPlayerPlaying(d) ? util.parsePossibleMoves(d.possibleMoves) : {}
+        },
+        check: o.check
+      });
     }
-    if (this.data.game.threefold) this.data.game.threefold = false;
-    this.data.steps.push({
+    if (o.clock) {
+      var c = o.clock
+      if (this.clock) this.clock.update(c.white, c.black);
+      else if (this.correspondenceClock) this.correspondenceClock.update(c.white, c.black);
+    }
+    d.game.threefold = !!o.threefold;
+    d.steps.push({
       ply: this.lastPly() + 1,
       fen: o.fen,
       san: o.san,
       uci: o.uci,
       check: o.check
     });
-    game.setOnGame(this.data, o.color, true);
+    game.setOnGame(d, playedColor, true);
     m.endComputation();
-    if (this.data.blind) blind.reload(this);
-    if (game.isPlayerPlaying(this.data) && o.color === this.data.player.color) this.moveOn.next();
+    if (d.blind) blind.reload(this);
+    if (game.isPlayerPlaying(d) && playedColor === d.player.color) this.moveOn.next();
+
+    if (!this.replaying() && playedColor !== d.player.color) {
+      // atrocious hack to prevent race condition
+      // with explosions and premoves
+      // https://github.com/ornicar/lila/issues/343
+      setTimeout(this.chessground.playPremove, d.game.variant.key === 'atomic' ? 100 : 10);
+    }
   }.bind(this);
 
   this.reload = function(cfg) {
@@ -204,6 +261,27 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.moveOn = new moveOn(this, 'lichess.move_on');
+
+  this.setRedirecting = function() {
+    this.vm.redirecting = true;
+    setTimeout(function() {
+      this.vm.redirecting = false;
+      m.redraw();
+    }.bind(this), 2000);
+  }.bind(this);
+
+  this.submitMove = function(v) {
+    if (v && this.vm.moveToSubmit) this.socket.send('move', this.vm.moveToSubmit, {
+      ackable: true
+    });
+    else this.jump(this.vm.ply);
+
+    this.vm.moveToSubmit = null;
+    this.vm.buttonFeedback = setTimeout(function() {
+      this.vm.buttonFeedback = null;
+      m.redraw();
+    }.bind(this), 500);
+  }.bind(this);
 
   this.router = opts.routes;
 

@@ -29,7 +29,10 @@ case class Tournament(
   def isStarted = status == Status.Started
   def isFinished = status == Status.Finished
 
-  def fullName = s"$name $system"
+  def fullName = schedule.map(_.freq) match {
+    case Some(Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon) => name
+    case _ => s"$name $system"
+  }
 
   def scheduled = schedule.isDefined
 
@@ -67,7 +70,7 @@ case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournam
 
 object Tournament {
 
-  val minPlayers = 3
+  val minPlayers = 2
 
   def make(
     createdBy: User,

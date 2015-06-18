@@ -136,4 +136,7 @@ object TournamentRepo {
   def remove(tour: Tournament) = coll.remove(BSONDocument("_id" -> tour.id))
 
   def exists(id: String) = coll.db command Count(coll.name, BSONDocument("_id" -> id).some) map (0 !=)
+
+  def isFinished(id: String): Fu[Boolean] =
+    coll.db command Count(coll.name, BSONDocument("_id" -> id, "status" -> Status.Finished.id).some) map (0 !=)
 }

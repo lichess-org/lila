@@ -57,15 +57,17 @@ object StepBuilder {
     analysis: Analysis,
     variant: Variant): List[Step] =
     analysis.advices.foldLeft(steps) {
-      case (steps, ad) => (for {
-        before <- steps lift (ad.ply - 1)
-        after <- steps lift ad.ply
-      } yield steps.updated(ad.ply, after.copy(
-        nag = ad.nag.symbol.some,
-        comments = ad.makeComment(false, true) :: after.comments,
-        variations = if (ad.info.variation.isEmpty) after.variations
-        else makeVariation(gameId, before, ad.info, variant).toList :: after.variations))
-      ) | steps
+      case (steps, ad) =>
+        val index = ad.ply - analysis.startPly
+        (for {
+          before <- steps lift (index - 1)
+          after <- steps lift index
+        } yield steps.updated(index, after.copy(
+          nag = ad.nag.symbol.some,
+          comments = ad.makeComment(false, true) :: after.comments,
+          variations = if (ad.info.variation.isEmpty) after.variations
+          else makeVariation(gameId, before, ad.info, variant).toList :: after.variations))
+        ) | steps
     }
 
   private def makeVariation(gameId: String, fromStep: Step, info: Info, variant: Variant): List[Step] = {

@@ -23,13 +23,13 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
     // Summer -> first Saturday of August
     // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
     // Winter -> 28 December, convenient day in the space between Boxing Day and New Year's Day
-    Summer -> new DateTime(2015, 8, 1),
-    Autumn -> new DateTime(2015, 10, 24),
-    Winter -> new DateTime(2015, 12, 28),
-    Spring -> new DateTime(2016, 4, 16),
-    Summer -> new DateTime(2016, 8, 6),
-    Autumn -> new DateTime(2016, 10, 22),
-    Winter -> new DateTime(2016, 12, 28)
+    Summer -> day(2015, 8, 1),
+    Autumn -> day(2015, 10, 24),
+    Winter -> day(2015, 12, 28),
+    Spring -> day(2016, 4, 16),
+    Summer -> day(2016, 8, 6),
+    Autumn -> day(2016, 10, 22),
+    Winter -> day(2016, 12, 28)
   )
 
   def receive = {
@@ -59,12 +59,15 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       val opening2 = StartingPosition.random
 
       List(
-        Schedule(Monthly, Bullet, Standard, std, at(lastSundayOfCurrentMonth, 18, 0) |> orNextMonth),
-        Schedule(Monthly, SuperBlitz, Standard, std, at(lastSundayOfCurrentMonth, 19, 0) |> orNextMonth),
-        Schedule(Monthly, Blitz, Standard, std, at(lastSundayOfCurrentMonth, 20, 0) |> orNextMonth),
-        Schedule(Monthly, Classical, Standard, std, at(lastSundayOfCurrentMonth, 21, 0) |> orNextMonth),
+        Schedule(Monthly, Bullet, Standard, std, at(lastSundayOfCurrentMonth, 18) |> orNextMonth),
+        Schedule(Monthly, SuperBlitz, Standard, std, at(lastSundayOfCurrentMonth, 19) |> orNextMonth),
+        Schedule(Monthly, Blitz, Standard, std, at(lastSundayOfCurrentMonth, 20) |> orNextMonth),
+        Schedule(Monthly, Classical, Standard, std, at(lastSundayOfCurrentMonth, 21) |> orNextMonth),
 
-        // Schedule(Marathon, Blitz, Standard, at(firstSundayOfCurrentMonth, 2, 0) |> orNextMonth),
+        // Schedule(Marathon, Blitz, Standard, std, at(firstSundayOfCurrentMonth, 2, 0) |> orNextMonth),
+
+        Schedule(ExperimentalMarathon, Bullet, Standard, std, at(day(2015, 6, 17), 18)),
+        Schedule(ExperimentalMarathon, Bullet, Standard, std, at(day(2015, 6, 20), 18)),
 
         Schedule(Weekly, Bullet, Standard, std, at(nextSaturday, 18) |> orNextWeek),
         Schedule(Weekly, SuperBlitz, Standard, std, at(nextSaturday, 19) |> orNextWeek),
@@ -77,9 +80,11 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         Schedule(Daily, Blitz, Standard, std, at(today, 20) |> orTomorrow),
         Schedule(Daily, Classical, Standard, std, at(today, 21) |> orTomorrow),
         Schedule(Daily, Blitz, Chess960, std, at(today, 22) |> orTomorrow),
-        Schedule(Daily, Blitz, Horde, std, at(today, 23) |> orTomorrow),
-        Schedule(Daily, Blitz, Atomic, std, at(tomorrow, 0) |> orTomorrow),
-        Schedule(Daily, Blitz, Antichess, std, at(tomorrow, 1) |> orTomorrow),
+        Schedule(Daily, Blitz, KingOfTheHill, std, at(today, 23) |> orTomorrow),
+        Schedule(Daily, Blitz, ThreeCheck, std, at(tomorrow, 0)),
+        Schedule(Daily, Blitz, Antichess, std, at(tomorrow, 1)),
+        Schedule(Daily, Blitz, Atomic, std, at(tomorrow, 2)),
+        Schedule(Daily, Blitz, Horde, std, at(tomorrow, 3)),
 
         Schedule(Nightly, Bullet, Standard, std, at(today, 6) |> orTomorrow),
         Schedule(Nightly, SuperBlitz, Standard, std, at(today, 7) |> orTomorrow),
@@ -116,6 +121,8 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
     case s2 if s.sameSpeed(s2) && s.sameVariant(s2) => interval(s) overlaps interval(s2)
     case _ => false
   }
+
+  private def day(year: Int, month: Int, day: Int) = new DateTime(year, month, day, 0, 0)
 
   private def at(day: DateTime, hour: Int, minute: Int = 0) =
     day withHourOfDay hour withMinuteOfHour minute withSecondOfMinute 0 withMillisOfSecond 0

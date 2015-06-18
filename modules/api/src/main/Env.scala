@@ -5,9 +5,11 @@ import com.typesafe.config.Config
 import lila.common.PimpedConfig._
 import lila.simul.Simul
 import scala.collection.JavaConversions._
+import scala.concurrent.duration._
 
 final class Env(
     config: Config,
+    db: lila.db.Env,
     renderer: ActorSelection,
     router: ActorSelection,
     system: ActorSystem,
@@ -41,6 +43,19 @@ final class Env(
   }
   val PrismicApiUrl = config getString "prismic.api_url"
   val EditorAnimationDuration = config duration "editor.animation.duration"
+
+  object assetVersion {
+    import reactivemongo.bson._
+    private val coll = db("flag")
+    private val cache = lila.memo.MixedCache.single[Int](
+      f = coll.find(BSONDocument("_id" -> "asset")).one[BSONDocument].map {
+        _.flatMap(_.getAs[BSONNumberLike]("version"))
+          .fold(Net.AssetVersion)(_.toInt max Net.AssetVersion)
+      },
+      timeToLive = 1 minute,
+      default = Net.AssetVersion)
+    def get = cache get true
+  }
 
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
@@ -103,6 +118,7 @@ object Env {
 
   lazy val current = "[boot] api" describes new Env(
     config = lila.common.PlayApp.loadConfig,
+    db = lila.db.Env.current,
     renderer = lila.hub.Env.current.actor.renderer,
     router = lila.hub.Env.current.actor.router,
     userEnv = lila.user.Env.current,

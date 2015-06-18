@@ -42,13 +42,20 @@ object Tournament extends LilaController {
   }
 
   def show(id: String) = Open { implicit ctx =>
-    repo byId id flatMap {
-      _.fold(tournamentNotFound.fuccess) { tour =>
-        env.version(tour.id) zip env.jsonView(tour) zip chatOf(tour) map {
-          case ((version, data), chat) => html.tournament.show(tour, version, data, chat)
+    val page = getInt("page")
+    negotiate(
+      html = repo byId id flatMap {
+        _.fold(tournamentNotFound.fuccess) { tour =>
+          env.version(tour.id) zip env.jsonView(tour, page, ctx.userId) zip chatOf(tour) map {
+            case ((version, data), chat) => html.tournament.show(tour, version, data, chat)
+          }
         }
-      }
-    }
+      },
+      api = _ => repo byId id flatMap {
+        case None       => NotFound(Json.obj("error" -> "No such tournament")).fuccess
+        case Some(tour) => env.jsonView(tour, page, ctx.userId) map { Ok(_) }
+      } map (_ as JSON)
+    )
   }
 
   def standing(id: String, page: Int) = Open { implicit ctx =>
@@ -90,14 +97,6 @@ object Tournament extends LilaController {
         env.api.withdraw(tour.id, me.id)
         if (HTTPRequest.isXhr(ctx.req)) Ok(Json.obj("ok" -> true)) as JSON
         else Redirect(routes.Tournament.show(tour.id))
-      }
-  }
-
-  def berserk(id: String) = Auth { implicit ctx =>
-    me =>
-      OptionResult(repo startedById id) { tour =>
-        env.api.berserk(tour, me.id)
-        Ok(Json.obj("ok" -> true)) as JSON
       }
   }
 

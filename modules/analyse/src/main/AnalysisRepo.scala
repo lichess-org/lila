@@ -20,13 +20,15 @@ object AnalysisRepo {
     ))
   )
 
-  def progress(id: ID, userId: ID) = $update(
+  def progress(id: ID, userId: ID, startPly: Int) = $update(
     $select(id),
-    $set(Json.obj(
-      "uid" -> userId,
-      "done" -> false,
-      "date" -> $date(DateTime.now)
-    )) ++ $unset("old", "data"),
+    $set(
+      Json.obj(
+        "uid" -> userId,
+        "done" -> false,
+        "date" -> $date(DateTime.now)
+      ) ++ (startPly == 0).fold(Json.obj(), Json.obj("ply" -> startPly))
+    ) ++ $unset("old", "data"),
     upsert = true)
 
   def byId(id: ID): Fu[Option[Analysis]] = $find byId id

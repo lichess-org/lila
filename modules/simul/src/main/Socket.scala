@@ -29,8 +29,10 @@ private[simul] final class Socket(
   private def redirectPlayer(game: lila.game.Game, colorOption: Option[chess.Color]) {
     colorOption foreach { color =>
       val player = game player color
-      player.userId flatMap memberByUserId foreach { member =>
-        notifyMember("redirect", game fullIdOf player.color)(member)
+      player.userId foreach { userId =>
+        membersByUserId(userId) foreach { member =>
+          notifyMember("redirect", game fullIdOf player.color)(member)
+        }
       }
     }
   }

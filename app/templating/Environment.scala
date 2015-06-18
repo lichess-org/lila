@@ -64,6 +64,12 @@ object Environment
   val openingBrace = "{"
   val closingBrace = "}"
 
+  object icon {
+    val dev = Html("&#xe000;")
+    val donator = Html("&#xe001;")
+    val mod = Html("&#xe002;")
+  }
+
   def NotForKids[Html](f: => Html)(implicit ctx: lila.api.Context) =
     if (ctx.kid) Html("") else f
 }

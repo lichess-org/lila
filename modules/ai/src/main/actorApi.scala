@@ -23,12 +23,16 @@ case object Standard extends Variant
 case object Chess960 extends Variant
 case object KingOfTheHill extends Variant
 case object ThreeCheck extends Variant
+case object Horde extends Variant {
+  val initialFen = "rnbqkbnr/pppppppp/8/1PP2PP1/PPPPPPPP/PPPPPPPP/PPPPPPPP/PPPPPPPP w kq - 0 1"
+}
 
 object Variant {
   def apply(str: String): Variant = str.toLowerCase match {
     case "chess960"      => Chess960
     case "kingofthehill" => KingOfTheHill
     case "threecheck"    => ThreeCheck
+    case "horde"         => Horde
     case _               => Standard
   }
   def apply(v: chess.variant.Variant): Variant = apply(v.key)

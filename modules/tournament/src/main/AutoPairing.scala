@@ -24,9 +24,11 @@ final class AutoPairing(
         variant = tour.variant.some,
         fen = tour.position.some.filterNot(_.initial).map(_.fen)
       ) |> { g =>
+          val turns = g.player.fold(0, 1)
           g.copy(
             clock = tour.clock.chessClock.some,
-            startedAtTurn = g.player.fold(0, 1))
+            turns = turns,
+            startedAtTurn = turns)
         },
       whitePlayer = GamePlayer.white,
       blackPlayer = GamePlayer.black,
@@ -44,7 +46,7 @@ final class AutoPairing(
       .withId(pairing.gameId)
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
-      scheduleIdleCheck(PovRef(game2.id, game2.turnColor), secondsToMove) >>-
+      scheduleIdleCheck(PovRef(game2.id, game2.turnColor), secondsToMove, true) >>-
       onStart(game2.id)
   } yield game2
 
@@ -53,21 +55,20 @@ final class AutoPairing(
       _.fold(fufail[User]("No user named " + username))(fuccess)
     }
 
-  private def scheduleIdleCheck(povRef: PovRef, in: Int) {
-    system.scheduler.scheduleOnce(in seconds)(idleCheck(povRef))
+  private def scheduleIdleCheck(povRef: PovRef, in: Int, thenAgain: Boolean) {
+    system.scheduler.scheduleOnce(in seconds)(idleCheck(povRef, thenAgain))
   }
 
-  private def idleCheck(povRef: PovRef) {
+  private def idleCheck(povRef: PovRef, thenAgain: Boolean) {
     GameRepo pov povRef foreach {
       _.filter(_.game.playable) foreach { pov =>
-        pov.game.playerHasMoved(pov.color).fold(
-          (pov.color.white && !pov.game.playerHasMoved(Color.Black)) ?? {
+        if (pov.game.playerHasMoved(pov.color)) {
+          if (thenAgain && !pov.game.playerHasMoved(pov.opponent.color))
             scheduleIdleCheck(!pov.ref, pov.game.lastMoveTimeInSeconds.fold(secondsToMove) { lmt =>
               lmt - nowSeconds + secondsToMove
-            })
-          },
-          roundMap ! Tell(pov.gameId, NoStartColor(pov.color))
-        )
+            }, false)
+        }
+        else roundMap ! Tell(pov.gameId, NoStartColor(pov.color))
       }
     }
   }

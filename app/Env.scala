@@ -17,7 +17,7 @@ final class Env(
   lazy val bus = lila.common.Bus(system)
 
   lazy val preloader = new mashup.Preload(
-    featured = Env.tv.featured,
+    tv = Env.tv.tv,
     leaderboard = Env.user.cached.topToday,
     tourneyWinners = Env.tournament.winners.scheduled,
     timelineEntries = Env.timeline.entryRepo.userEntries _,

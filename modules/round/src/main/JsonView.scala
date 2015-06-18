@@ -95,7 +95,10 @@ final class JsonView(
               "clockBar" -> pref.clockBar,
               "clockSound" -> pref.clockSound,
               "enablePremove" -> pref.premove,
-              "showCaptured" -> pref.captured
+              "showCaptured" -> pref.captured,
+              "submitMove" -> (
+                pref.submitMove == Pref.SubmitMove.CORRESPONDENCE &&
+                game.isCorrespondence && game.nonAi)
             ),
             "chat" -> chat.map { c =>
               JsArray(c.lines map {
@@ -116,7 +119,7 @@ final class JsonView(
     pref: Pref,
     apiVersion: Int,
     user: Option[User],
-    tv: Option[Boolean],
+    tv: Option[OnTv],
     withBlurs: Boolean,
     initialFen: Option[String] = None,
     withMoveTimes: Boolean) =
@@ -174,8 +177,8 @@ final class JsonView(
               "clockBar" -> pref.clockBar,
               "showCaptured" -> pref.captured
             ),
-            "tv" -> tv.map { flip =>
-              Json.obj("flip" -> flip)
+            "tv" -> tv.map { onTv =>
+              Json.obj("channel" -> onTv.channel, "flip" -> onTv.flip)
             },
             "chat" -> chat.map { c =>
               JsArray(c.lines map {
