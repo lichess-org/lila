@@ -71,7 +71,7 @@ private[i18n] object Contributors {
     "jv" -> List("errorfilename"),
     "ky" -> List("tmed"),
     "pi" -> List("novalis78"),
-    "as" -> List("BMDR-Tahmeed"),
+    "as" -> List("BMDR-Tahmeed", "milwac"),
     "le" -> List("yPass.net"),
     "ta" -> List("பெரியண்ணன் சந்திரசேகரன்"),
     "sa" -> List("संस्कृत"),
