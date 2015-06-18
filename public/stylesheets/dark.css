@@ -62,6 +62,7 @@ body.dark div.side_box .top,
 body.dark div.table,
 body.dark div.separator,
 body.dark div.table_wrap > div.clock > div.time,
+body.dark #tournament_schedule .schedule,
 body.dark #tournament_side,
 body.dark div.shortcuts .title,
 body.dark div.content_box,
@@ -114,6 +115,7 @@ body.dark #hooks_wrap .table_wrap td,
 body.dark #hooks_wrap,
 body.dark #hooks_wrap div.tabs a,
 body.dark #hooks_wrap .hooks_chart > div.grid,
+body.dark #tournament_schedule .timeheader,
 body.dark div.vstext,
 body.dark div.user_show div.content_box_inter.tabs,
 body.dark #enterable_tournaments table.scheduled,
@@ -223,7 +225,8 @@ body.dark #hooks_wrap .hook_filter .checkable {
 }
 body.dark #hooks_wrap,
 body.dark #hooks_wrap div.tabs a:hover,
-body.dark #hooks_wrap div.tabs a.active {
+body.dark #hooks_wrap div.tabs a.active,
+body.dark #tournament_schedule {
   background-color: #303030;
 }
 body.dark #hooks_wrap div.tabs a:hover {
