@@ -36,7 +36,7 @@ function renderPlayer(ctrl, player) {
 }
 
 function loader() {
-  return m('div.loader.fast', m('span'));
+  return m('div.loader.fast');
 }
 
 function renderTableEnd(ctrl) {
@@ -86,12 +86,14 @@ function renderTablePlay(ctrl) {
   ]);
   return [
     renderReplay(ctrl),
-    ctrl.vm.moveToSubmit ? null : m('div.control.icons', [
-      game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
-      button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', partial(ctrl.takebackYes)),
-      button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
-      button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
-    ]),
+    ctrl.vm.moveToSubmit ? null : (
+      button.feedback(ctrl) || m('div.control.icons', [
+        game.abortable(d) ? button.standard(ctrl, null, 'L', 'abortGame', 'abort') :
+        button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', partial(ctrl.takebackYes)),
+        button.standard(ctrl, game.drawable, '2', 'offerDraw', 'draw-yes'),
+        button.standard(ctrl, game.resignable, 'b', 'resign', 'resign')
+      ])
+    ),
     buttons ? m('div.control.buttons', buttons) : null,
     renderPlayer(ctrl, d.player)
   ];

@@ -41,7 +41,8 @@ module.exports = function(opts) {
     flip: false,
     redirecting: false,
     replayHash: '',
-    moveToSubmit: null
+    moveToSubmit: null,
+    buttonFeedback: null
   };
 
   this.socket = new socket(opts.socketSend, this);
@@ -270,16 +271,16 @@ module.exports = function(opts) {
   }.bind(this);
 
   this.submitMove = function(v) {
-    if (v) {
-      if (this.vm.moveToSubmit)
-        this.socket.send('move', this.vm.moveToSubmit, {
-          ackable: true
-        });
-      this.vm.moveToSubmit = null;
-    } else {
-      this.vm.moveToSubmit = null;
-      this.jump(this.vm.ply);
-    }
+    if (v && this.vm.moveToSubmit) this.socket.send('move', this.vm.moveToSubmit, {
+      ackable: true
+    });
+    else this.jump(this.vm.ply);
+
+    this.vm.moveToSubmit = null;
+    this.vm.buttonFeedback = setTimeout(function() {
+      this.vm.buttonFeedback = null;
+      m.redraw();
+    }.bind(this), 500);
   }.bind(this);
 
   this.router = opts.routes;
