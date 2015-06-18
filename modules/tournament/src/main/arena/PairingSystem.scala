@@ -11,7 +11,6 @@ object PairingSystem extends AbstractPairingSystem {
   case class Data(
     tour: Tournament,
     recentPairings: List[Pairing],
-    playingUserIds: Set[String],
     ranking: Map[String, Int],
     nbActiveUsers: Int)
 
@@ -20,22 +19,22 @@ object PairingSystem extends AbstractPairingSystem {
   def createPairings(
     tour: Tournament,
     users: WaitingUsers): Fu[(Pairings, Events)] = for {
-    recentPairings <- PairingRepo.recentByTourAndUserIds(tour.id, users.all, Math.min(120, users.all.size * 5))
-    playingUserIds <- PairingRepo.playingUserIds(tour)
+    recentPairings <- PairingRepo.recentByTourAndUserIds(tour.id, users.all, Math.min(120, users.size * 5))
     nbActiveUsers <- PlayerRepo.countActive(tour.id)
     ranking <- PlayerRepo.ranking(tour.id)
-    data = Data(tour, recentPairings, playingUserIds, ranking, nbActiveUsers)
+    data = Data(tour, recentPairings, ranking, nbActiveUsers)
     pairings <- tryPairings(data, users.waiting) flatMap {
-      case Nil if recentPairings.isEmpty => tryPairings(data, users.all)
+      case Nil if recentPairings.isEmpty => tryPairings(data, users.evenNumber)
       case Nil                           => fuccess(Nil)
-      case _                             => tryPairings(data, users.all)
+      case _                             => tryPairings(data, users.evenNumber)
     }
   } yield {
-    if (pairings.nonEmpty && pairings.size * 2 < users.all.size) {
+    if (pairings.nonEmpty && pairings.size * 2 < users.size) {
       val left = users.all diff pairings.flatMap(_.users) map { id =>
-        s"$id [${ranking.getOrElse(id, "?")}]"
+        val waitSeconds = users waitSecondsOf id
+        s"$id [${ranking.getOrElse(id, "?")}] ${waitSeconds}s"
       }
-      if (left.nonEmpty) println(s"[arena ${tour.id} $nbActiveUsers/${tour.nbPlayers}] left over: ${left mkString ", "} out of ${users.all.size}")
+      if (left.nonEmpty) println(s"[arena ${tour.id} $nbActiveUsers/${tour.nbPlayers}] left over: ${left mkString ", "} out of ${users.size}")
     }
     pairings -> Nil
   }
@@ -45,15 +44,12 @@ object PairingSystem extends AbstractPairingSystem {
   private def tryPairings(data: Data, users: List[String]): Fu[Pairings] = {
     import data._
     if (users.size < 2) fuccess(Nil)
-    else PlayerRepo.rankedByTourAndUserIds(
-      tour.id,
-      users.toSet diff playingUserIds,
-      ranking) map { idles =>
-        if (recentPairings.isEmpty) naivePairings(tour, idles)
-        else
-          smartPairings(data, idles take smartHardLimit) :::
-            naivePairings(tour, idles drop smartHardLimit)
-      }
+    else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
+      if (recentPairings.isEmpty) naivePairings(tour, idles)
+      else
+        smartPairings(data, idles take smartHardLimit) :::
+          naivePairings(tour, idles drop smartHardLimit)
+    }
   }
 
   private def naivePairings(tour: Tournament, players: RankedPlayers) =

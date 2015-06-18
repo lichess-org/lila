@@ -59,10 +59,12 @@ private[tournament] final class Organizer(
     }
 
   private def startPairing(tour: Tournament, activeUserIds: List[String]) =
-    getWaitingUsers(tour) foreach { waitingUsers =>
-      tour.system.pairingSystem.createPairings(tour, waitingUsers intersect activeUserIds) onSuccess {
-        case (pairings, events) => pairings.toNel foreach { api.makePairings(tour, _, events) }
-      }
+    getWaitingUsers(tour) zip PairingRepo.playingUserIds(tour) foreach {
+      case (waitingUsers, playingUserIds) =>
+        val users = waitingUsers intersect activeUserIds diff playingUserIds
+        tour.system.pairingSystem.createPairings(tour, users) onSuccess {
+          case (pairings, events) => pairings.toNel foreach { api.makePairings(tour, _, events) }
+        }
     }
 
   private def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =

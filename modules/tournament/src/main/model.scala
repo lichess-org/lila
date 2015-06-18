@@ -28,6 +28,16 @@ private[tournament] case class WaitingUsers(
   } min 30 max 7
 
   lazy val all = hash.keys.toList
+  lazy val size = hash.size
+
+  // skips the most recent user if odd
+  def evenNumber: List[String] =
+    if (size % 2 == 0) all
+    else hash.toList.sortBy(-_._2.getMillis).drop(1).map(_._1)
+
+  def waitSecondsOf(userId: String) = hash get userId map { d =>
+    nowSeconds - d.getSeconds
+  }
 
   def waiting = {
     val since = date minusSeconds waitSeconds
@@ -35,9 +45,6 @@ private[tournament] case class WaitingUsers(
       case (u, d) if d.isBefore(since) => u
     }.toList
   }
-
-  def newestId: Option[String] =
-    hash.toList.sortBy(-_._2.getMillis).headOption.map(_._1)
 
   def update(us: Seq[String], clock: Option[chess.Clock]) = {
     val newDate = DateTime.now
@@ -49,7 +56,9 @@ private[tournament] case class WaitingUsers(
     )
   }
 
-  def intersect(us: List[String]) = copy(hash = hash filterKeys us.contains)
+  def intersect(us: Seq[String]) = copy(hash = hash filterKeys us.contains)
+
+  def diff(us: Set[String]) = copy(hash = hash filterKeys { k => !us.contains(k) })
 }
 private[tournament] object WaitingUsers {
   def empty = WaitingUsers(Map.empty, none, DateTime.now)
