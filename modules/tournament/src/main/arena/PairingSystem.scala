@@ -23,21 +23,29 @@ object PairingSystem extends AbstractPairingSystem {
     nbActiveUsers <- PlayerRepo.countActive(tour.id)
     ranking <- PlayerRepo.ranking(tour.id)
     data = Data(tour, recentPairings, ranking, nbActiveUsers)
-    pairings <- tryPairings(data, users.waiting) flatMap {
-      case Nil if recentPairings.isEmpty => tryPairings(data, users.evenNumber)
-      case Nil                           => fuccess(Nil)
-      case _                             => tryPairings(data, users.evenNumber)
+    pairings <- {
+      if (recentPairings.isEmpty) evenOrAll(data, users)
+      else tryPairings(data, users.waiting) flatMap {
+        case Nil => fuccess(Nil)
+        case _   => evenOrAll(data, users)
+      }
     }
   } yield {
     if (pairings.nonEmpty && pairings.size * 2 < users.size) {
       val left = users.all diff pairings.flatMap(_.users) map { id =>
         val waitSeconds = users waitSecondsOf id
-        s"$id [${ranking.getOrElse(id, "?")}] ${waitSeconds}s"
+        s"$id [${ranking.get(id).fold(0)(1+)}] ${waitSeconds getOrElse "?"}s"
       }
       if (left.nonEmpty) println(s"[arena ${tour.id} $nbActiveUsers/${tour.nbPlayers}] left over: ${left mkString ", "} out of ${users.size}")
     }
     pairings -> Nil
   }
+
+  private def evenOrAll(data: Data, users: WaitingUsers) =
+    tryPairings(data, users.evenNumber) flatMap {
+      case Nil if users.isOdd => tryPairings(data, users.all)
+      case x                  => fuccess(x)
+    }
 
   val smartHardLimit = 24
 
