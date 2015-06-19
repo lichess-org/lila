@@ -51,7 +51,7 @@ final class Env(
   def cli = new lila.common.Cli {
     def process = {
       case "puzzle" :: "export" :: nbStr :: Nil => parseIntOption(nbStr) ?? { nb =>
-        api.puzzle export nb map Export.apply
+        Export(api, nb)
       }
     }
   }
