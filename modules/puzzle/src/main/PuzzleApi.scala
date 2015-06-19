@@ -53,6 +53,12 @@ private[puzzle] final class PuzzleApi(
         }
       }
     }
+
+    def export(nb: Int): Fu[List[Puzzle]] = List(true, false).map { mate =>
+      puzzleColl.find(BSONDocument("mate" -> mate))
+        .sort(BSONDocument(Puzzle.BSONFields.voteSum -> -1))
+        .cursor[Puzzle].collect[List](nb / 2)
+    }.sequenceFu.map(_.flatten)
   }
 
   object attempt {
