@@ -24,9 +24,11 @@
   @trans.by(usernameOrId(tour.createdBy))
   }
   • @momentFormat(tour.startsAt)
-  @if(tour.position != chess.StartingPosition.initial) {
+  @if(!tour.position.initial) {
   <br /><br />
-  <strong>@tour.position.eco</strong> @tour.position.name
+  <a href="@tour.position.url">
+    <strong>@tour.position.eco</strong> @tour.position.name
+  </a>
   }
   @tour.winnerId.map { userId =>
   <br /><br />
