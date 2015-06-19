@@ -55,8 +55,8 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       def orNextMonth(date: DateTime) = if (date isBefore rightNow) date plusMonths 1 else date
 
       val std = StartingPosition.initial
-      val opening1 = StartingPosition.random
-      val opening2 = StartingPosition.random
+      val opening1 = StartingPosition.randomFeaturable
+      val opening2 = StartingPosition.randomFeaturable
 
       List(
         Schedule(Monthly, Bullet, Standard, std, at(lastSundayOfCurrentMonth, 18) |> orNextMonth),
