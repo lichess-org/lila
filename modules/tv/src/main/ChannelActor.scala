@@ -41,7 +41,7 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
     case _                                     => none
   }
 
-  def isWayBetter(g1: Game, g2: Game) = score(g2.resetTurns) > (score(g1.resetTurns) * 1.2)
+  def isWayBetter(g1: Game, g2: Game) = score(g2.resetTurns) > (score(g1.resetTurns) * 1.15)
 
   def rematch(game: Game) = game.next ?? GameRepo.game
 
