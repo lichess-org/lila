@@ -80,7 +80,7 @@ object Round extends LilaController with TheftPrevention {
         Env.api.roundApi.player(pov, apiVersion) map { Ok(_) }
       }
     }
-  )
+  ) map NoCache
 
   def player(fullId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo pov fullId) { pov =>
@@ -161,7 +161,7 @@ object Round extends LilaController with TheftPrevention {
             }
       },
       api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = none) map { Ok(_) }
-    )
+    ) map NoCache
 
   private def myTour(tourId: Option[String], withStanding: Boolean)(implicit ctx: Context): Fu[Option[MiniStanding]] =
     tourId ?? { tid =>

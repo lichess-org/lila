@@ -12,9 +12,7 @@ object Lobby extends LilaController {
 
   def home = Open { implicit ctx =>
     negotiate(
-      html = renderHome(Results.Ok).map(_.withHeaders(
-        CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
-      )),
+      html = renderHome(Results.Ok).map(NoCache),
       api = _ => fuccess {
         Ok(Json.obj(
           "lobby" -> Json.obj(

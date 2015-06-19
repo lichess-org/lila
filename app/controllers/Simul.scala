@@ -44,7 +44,7 @@ object Simul extends LilaController {
             case ((version, data), chat) => html.simul.show(sim, version, data, chat)
           }
       }
-    }
+    } map NoCache
   }
 
   def start(simulId: String) = Open { implicit ctx =>
