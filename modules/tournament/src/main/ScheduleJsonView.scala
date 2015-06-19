@@ -33,7 +33,6 @@ final class ScheduleJsonView(
       "name" -> tour.variant.name),
     "secondsToStart" -> tour.secondsToStart,
     "startsAt" -> tour.startsAt,
-    "startsAtString" -> org.joda.time.format.ISODateTimeFormat.dateTime.print(tour.startsAt),
     "finishesAt" -> tour.finishesAt,
     "schedule" -> tour.schedule.map(scheduleJson),
     "winner" -> tour.winnerId.flatMap(getLightUser).map(userJson),
@@ -60,6 +59,6 @@ final class ScheduleJsonView(
   private def perfJson(p: PerfType) = Json.obj(
     "icon" -> p.iconChar.toString,
     "name" -> p.name,
-    "index" -> PerfType.all.indexOf(p))
+    "position" -> PerfType.all.indexOf(p))
 
 }

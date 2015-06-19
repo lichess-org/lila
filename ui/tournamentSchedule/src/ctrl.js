@@ -18,4 +18,6 @@ module.exports = function(env) {
     });
     return str;
   };
+
+  setInterval(m.redraw, 3700);
 };
