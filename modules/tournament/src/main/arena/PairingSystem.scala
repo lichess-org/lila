@@ -30,16 +30,7 @@ object PairingSystem extends AbstractPairingSystem {
         case _   => evenOrAll(data, users)
       }
     }
-  } yield {
-    if (pairings.nonEmpty && pairings.size * 2 < users.size) {
-      val left = users.all diff pairings.flatMap(_.users) map { id =>
-        val waitSeconds = users waitSecondsOf id
-        s"$id [${ranking.get(id).fold(0)(1+)}] ${waitSeconds getOrElse "?"}s"
-      }
-      if (left.nonEmpty) println(s"[arena ${tour.id} $nbActiveUsers/${tour.nbPlayers}] left over: ${left mkString ", "} out of ${users.size}")
-    }
-    pairings -> Nil
-  }
+  } yield pairings -> Nil
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
     tryPairings(data, users.evenNumber) flatMap {
