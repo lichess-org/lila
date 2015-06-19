@@ -439,6 +439,9 @@ body {
   overflow-x: hidden;
   cursor: default;
 }
+body.no-bg {
+  background: none!important;
+}
 body.no-select {
   -moz-user-select: none;
   -webkit-user-select: none;
