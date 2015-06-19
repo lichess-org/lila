@@ -94,7 +94,7 @@ object Simul extends LilaController {
       }
   }
 
-  def join(id: String, variant: String) = AuthBody { implicit ctx =>
+  def join(id: String, variant: String) = Auth { implicit ctx =>
     implicit me =>
       NoEngine {
         fuccess {

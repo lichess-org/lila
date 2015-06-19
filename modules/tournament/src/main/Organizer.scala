@@ -46,9 +46,9 @@ private[tournament] final class Organizer(
       }
     }
 
-    case FinishGame(game, _, _)                    => api finishGame game
+    case FinishGame(game, _, _)                          => api finishGame game
 
-    case lila.hub.actorApi.mod.MarkCheater(userId) => api ejectCheater userId
+    case lila.hub.actorApi.mod.MarkCheater(userId)       => api ejectCheater userId
 
     case lila.hub.actorApi.round.Berserk(gameId, userId) => api.berserk(gameId, userId)
   }
@@ -58,18 +58,15 @@ private[tournament] final class Organizer(
       _ filterNot isOnline foreach { api.withdraw(tour.id, _) }
     }
 
-  private def startPairing(tour: Tournament, activeUserIds: List[String]) = for {
-    socketUserIds <- getSocketUserIds(tour)
-    allUsers = socketUserIds.copy(
-      all = activeUserIds intersect socketUserIds.all,
-      waiting = activeUserIds intersect socketUserIds.waiting)
-  } {
-    tour.system.pairingSystem.createPairings(tour, allUsers) onSuccess {
-      case (pairings, events) =>
-        pairings.toNel foreach { api.makePairings(tour, _, events) }
+  private def startPairing(tour: Tournament, activeUserIds: List[String]) =
+    getWaitingUsers(tour) zip PairingRepo.playingUserIds(tour) foreach {
+      case (waitingUsers, playingUserIds) =>
+        val users = waitingUsers intersect activeUserIds diff playingUserIds
+        tour.system.pairingSystem.createPairings(tour, users) onSuccess {
+          case (pairings, events) => pairings.toNel foreach { api.makePairings(tour, _, events) }
+        }
     }
-  }
 
-  private def getSocketUserIds(tour: Tournament): Fu[AllUserIds] =
-    socketHub ? Ask(tour.id, GetAllUserIds) mapTo manifest[AllUserIds]
+  private def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =
+    socketHub ? Ask(tour.id, GetWaitingUsers) mapTo manifest[WaitingUsers]
 }

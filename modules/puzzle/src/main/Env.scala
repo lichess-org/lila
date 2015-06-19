@@ -48,6 +48,14 @@ final class Env(
 
   lazy val pngExport = PngExport(PngExecPath) _
 
+  def cli = new lila.common.Cli {
+    def process = {
+      case "puzzle" :: "export" :: nbStr :: Nil => parseIntOption(nbStr) ?? { nb =>
+        Export(api, nb)
+      }
+    }
+  }
+
   private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
   private[puzzle] lazy val attemptColl = db(CollectionAttempt)
 }

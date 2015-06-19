@@ -71,8 +71,8 @@ object Main extends LilaController {
   }
 
   def mobile = Open { implicit ctx =>
-    fuccess {
-      html.site.mobile()
+    OptionOk(Prismic oneShotBookmark "mobile-apk") {
+      case (doc, resolver) => html.site.mobile(doc, resolver)
     }
   }
 }
