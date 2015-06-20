@@ -61,6 +61,13 @@ object Trophy {
       url = "http://lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1".some,
       "fire_trophy".some)
 
+    object ExperimentalMarathon extends Kind(
+      key = "experimentalMarathon",
+      name = "Experimental Marathon Top 10",
+      icon = ",".some,
+      url = "http://lichess.org/tournament/maratexp".some,
+      "fire_trophy".some)
+
     object BongcloudWarrior extends Kind(
       key = "bongcloudWarrior",
       name = "Bongcloud Warrior",
