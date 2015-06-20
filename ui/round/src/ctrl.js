@@ -122,7 +122,7 @@ module.exports = function(opts) {
     if (blur.get()) move.b = 1;
     if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
 
-    if (this.data.pref.submitMove) {
+    if (this.userId && this.data.pref.submitMove) {
       this.vm.moveToSubmit = move;
       m.redraw();
     } else this.socket.send('move', move, {
