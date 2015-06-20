@@ -5,49 +5,6 @@ ol.scheduled_tournaments a {
 ol.scheduled_tournaments a:hover {
   text-decoration: underline;
 }
-#tournament_list table.slist {
-  line-height: 2.3em;
-}
-#tournament_list table.slist .icon {
-  width: 4em;
-}
-#tournament_list table.slist .icon span {
-  font-size: 4em;
-  color: rgba(200,200,200,0.5);
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
-}
-#tournament_list table.slist td {
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
-#tournament_list table.slist .header {
-  letter-spacing: 2px;
-  cursor: pointer;
-  transition: transform 0.3s;
-  padding: 0!important;
-}
-#tournament_list table.slist .header:hover {
-  transform: translateX(3px);
-  -webkit-transform: translateX(3px);
-}
-#tournament_list table.slist .header a {
-  text-decoration: none;
-  padding: 1em;
-  display: block;
-}
-#tournament_list table.slist .name {
-  letter-spacing: 3px;
-  font-size: 1.7em;
-  display: block;
-}
-#tournament_list table.slist .name em {
-  font-size: 11px;
-  font-weight: bold;
-  text-transform: uppercase;
-  opacity: 0.5;
-  letter-spacing: 0px;
-  vertical-align: middle;
-}
 #tournament.scheduled h1,
 #tournament table tr.standing.scheduled:first-child td:first-child {
   color: #d59120;

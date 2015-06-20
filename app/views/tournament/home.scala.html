@@ -1,4 +1,4 @@
-@(createds: List[Tournament], starteds: List[Tournament], finisheds: List[Tournament], scheduled: List[Tournament], leaderboard: List[User], json: play.api.libs.json.JsObject)(implicit ctx: Context)
+@(scheduled: List[Tournament], leaderboard: List[User], json: play.api.libs.json.JsObject)(implicit ctx: Context)
 
 @moreJs = {
 @jsAt(s"compiled/lichess.tournament-schedule${isProd??(".min")}.js")
@@ -44,8 +44,5 @@ side = side.some) {
 <div class="content_box tournament_box no_padding">
   <h1>@trans.tournaments()</h1>
   <div id="tournament_schedule"></div>
-  <div id="tournament_list" data-href="@routes.Tournament.homeReload()">
-    @tournament.homeInner(createds, starteds, finisheds)
-  </div>
 </div>
 }

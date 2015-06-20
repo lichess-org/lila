@@ -22,7 +22,7 @@ object Tournament extends LilaController {
   val home = Open { implicit ctx =>
     env.api.fetchVisibleTournaments zip repo.scheduledDedup zip UserRepo.allSortToints(10) map {
       case ((visible@VisibleTournaments(created, started, finished), scheduled), leaderboard) =>
-        Ok(html.tournament.home(created, started, finished, scheduled, leaderboard, env scheduleJsonView visible))
+        Ok(html.tournament.home(scheduled, leaderboard, env scheduleJsonView visible))
     }
   }
 
@@ -32,13 +32,6 @@ object Tournament extends LilaController {
       case _       => none
     }
     Ok(html.tournament.faqPage(system)).fuccess
-  }
-
-  val homeReload = Open { implicit ctx =>
-    env.api.fetchVisibleTournaments map {
-      case VisibleTournaments(created, started, finished) =>
-        Ok(html.tournament.homeInner(created, started, finished))
-    }
   }
 
   def show(id: String) = Open { implicit ctx =>
