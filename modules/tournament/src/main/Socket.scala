@@ -2,7 +2,6 @@ package lila.tournament
 
 import akka.actor._
 import akka.pattern.pipe
-import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
@@ -32,6 +31,8 @@ private[tournament] final class Socket(
 
   private var clock = none[chess.Clock]
 
+  private var waitingUsers = WaitingUsers.empty
+
   override def preStart() {
     super.preStart()
     TournamentRepo byId tournamentId map SetTournament.apply pipeTo self
@@ -52,9 +53,11 @@ private[tournament] final class Socket(
       }
       notifyReload
 
-    case Reload        => notifyReload
+    case Reload => notifyReload
 
-    case GetAllUserIds => sender ! AllUserIds(all = userIds, waiting = waitingUserIds)
+    case GetWaitingUsers =>
+      waitingUsers = waitingUsers.update(userIds, clock)
+      sender ! waitingUsers
 
     case PingVersion(uid, v) => {
       ping(uid)
@@ -101,28 +104,6 @@ private[tournament] final class Socket(
     case NotifyReload =>
       delayedReloadNotification = false
       notifyAll("reload")
-  }
-
-  private var waitingUsers = Map[String, DateTime]()
-
-  // users that have been here for some time
-  def waitingUserIds: List[String] = {
-    val us = userIds
-    val date = DateTime.now
-    waitingUsers = waitingUsers.filterKeys { u =>
-      us contains u
-    }.++ {
-      us.filterNot(waitingUsers.contains).map { _ -> date }
-    }
-    // 1+0  -> 5  -> 8
-    // 3+0  -> 9  -> 11
-    // 5+0  -> 17 -> 17
-    // 10+0 -> 32 -> 30
-    val waitSeconds = ((clock.fold(60)(_.estimateTotalTime) / 20) + 2) min 30 max 8
-    val since = date minusSeconds waitSeconds
-    waitingUsers.collect {
-      case (u, d) if d.isBefore(since) => u
-    }.toList
   }
 
   def notifyCrowd {

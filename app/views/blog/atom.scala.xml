@@ -5,12 +5,12 @@
   <link rel="alternate" type="text/html" href="@routes.Blog.index().absoluteURL()"/>
   <link rel="self" type="application/atom+xml" href="@routes.Blog.atom().absoluteURL()"/>
   <title>lichess.org blog</title>
-  <updated>@(docs.headOption.flatMap(_.getDate("blog.date", "yyyy-MM-dd'T'HH:mm:ss'Z'")).??(_.toString))</updated>
+  <updated>@docs.headOption.flatMap(atomDate("blog.date"))</updated>
   @docs.map { doc =>
   <entry>
     <id>@routes.Blog.show(doc.id, doc.slug).absoluteURL()</id>
-    <published>@(doc.getDate("blog.date", "yyyy-MM-dd'T'HH:mm:ss'Z'").??(_.toString))</published>
-    <updated>@(doc.getDate("blog.date", "yyyy-MM-dd'T'HH:mm:ss'Z'").??(_.toString))</updated>
+    <published>@atomDate("blog.date")(doc)</published>
+    <updated>@atomDate("blog.date")(doc)</updated>
     <link rel="alternate" type="text/html" href="@routes.Blog.show(doc.id, doc.slug).absoluteURL()"/>
     <title>@doc.getText("blog.title")</title>
     <category>

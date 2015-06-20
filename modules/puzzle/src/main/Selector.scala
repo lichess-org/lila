@@ -40,7 +40,7 @@ private[puzzle] final class Selector(
           .one[Puzzle]
       case Some(user) if user.perfs.puzzle.nb > maxAttempts => fuccess(none)
       case Some(user) =>
-        val rating = user.perfs.puzzle.intRating min 2200 max 900
+        val rating = user.perfs.puzzle.intRating min 2300 max 900
         val step = toleranceStepFor(rating)
         api.attempt.playedIds(user, maxAttempts) flatMap { ids =>
           tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)

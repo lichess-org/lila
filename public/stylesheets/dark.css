@@ -390,9 +390,6 @@ body.dark #puzzle > .right .please_vote {
   background: #103410;
   color: #74a962;
 }
-body.dark div.game_tournament table.standing tr.me td {
-  background: #333;
-}
 body.dark #tournament_list table.slist .icon span {
   color: rgba(200,200,200,0.5);
   text-shadow: 2px 2px 2px #000;

@@ -28,7 +28,7 @@ object System {
 trait PairingSystem {
   def createPairings(
     tournament: Tournament,
-    users: AllUserIds): Fu[(Pairings, Events)]
+    users: WaitingUsers): Fu[(Pairings, Events)]
 }
 
 trait Score {

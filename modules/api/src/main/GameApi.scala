@@ -120,6 +120,7 @@ private[api] final class GameApi(
         "name" -> p.name,
         "rating" -> p.rating,
         "ratingDiff" -> p.ratingDiff,
+        "provisional" -> p.provisional.option(true),
         "moveTimes" -> withMoveTimes.fold(
           g.moveTimes.zipWithIndex.filter(_._2 % 2 == i).map(_._1),
           JsNull),

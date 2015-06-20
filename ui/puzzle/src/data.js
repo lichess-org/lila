@@ -1,4 +1,4 @@
-var merge = require('lodash/object/merge');
+var merge = require('merge');
 var m = require('mithril');
 var chess = require('./chess');
 var puzzle = require('./puzzle');
@@ -16,7 +16,7 @@ module.exports = function(cfg) {
 
   if (cfg.user) cfg.user.history = cfg.user.history || [];
 
-  merge(data, cfg);
+  merge.recursive(data, cfg);
 
   data.puzzle.initialMove = puzzle.str2move(data.puzzle.initialMove);
 

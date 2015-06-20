@@ -1514,8 +1514,9 @@ div.game_tournament .clock {
 div.game_tournament table.standing {
   border-bottom: none;
 }
-div.game_tournament table.standing tr.me td {
-  background: #e4e4e4;
+div.game_tournament table.standing tr.me td:first-child {
+  border-left: 10px solid #d59120;
+  padding-left: 5px;
 }
 div.game_tournament table.standing td {
   padding: 0 10px;

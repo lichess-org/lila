@@ -5,6 +5,7 @@ import java.util.Locale
 import scala.collection.mutable
 
 import org.joda.time.format._
+import org.joda.time.format.ISODateTimeFormat
 import org.joda.time.{ Period, PeriodType, DurationFieldType, DateTime }
 import play.twirl.api.Html
 
@@ -68,4 +69,9 @@ trait DateHelper { self: I18nHelper =>
   }
 
   def secondsFromNow(seconds: Int) = momentFromNow(DateTime.now plusSeconds seconds)
+
+  private val atomDateFormatter = ISODateTimeFormat.dateTime
+  def atomDate(date: DateTime): String = atomDateFormatter print date
+  def atomDate(field: String)(doc: io.prismic.Document): Option[String] =
+    doc getDate field map (_.value.toDateTimeAtStartOfDay) map atomDate
 }
