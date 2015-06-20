@@ -109,7 +109,7 @@ private[tournament] final class Socket(
   def notifyCrowd {
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
-      context.system.scheduler.scheduleOnce(500 millis, self, NotifyCrowd)
+      context.system.scheduler.scheduleOnce(1000 millis, self, NotifyCrowd)
     }
   }
 
