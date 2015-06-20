@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo }
-import lila.hub.actorApi.map.TellIds
+import lila.hub.actorApi.map.{ Tell, TellIds }
 
 private[tv] final class TvActor(
     rendererActor: ActorSelection,
@@ -66,12 +66,15 @@ private[tv] final class TvActor(
       if (channel == Tv.Channel.Best)
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
           case html: play.twirl.api.Html =>
-            context.system.lilaBus.publish(
-              lila.hub.actorApi.game.ChangeFeatured(game.id, makeMessage("featured", Json.obj(
+            val event = lila.hub.actorApi.game.ChangeFeatured(
+              game.id,
+              makeMessage("featured", Json.obj(
                 "html" -> html.toString,
                 "color" -> game.firstColor.name,
-                "id" -> game.id))),
-              'changeFeaturedGame)
+                "id" -> game.id)))
+            context.system.lilaBus.publish(event, 'changeFeaturedGame)
+            // mobile app v1 BC
+            previousId foreach { gameId => roundSocket ! Tell(gameId, event) }
         }
       GameRepo setTv game.id
   }
