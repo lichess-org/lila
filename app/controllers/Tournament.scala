@@ -21,9 +21,9 @@ object Tournament extends LilaController {
 
   val home = Open { implicit ctx =>
     env.api.fetchVisibleTournaments zip repo.scheduledDedup zip UserRepo.allSortToints(10) map {
-      case ((visible@VisibleTournaments(created, started, finished), scheduled), leaderboard) =>
+      case ((visible, scheduled), leaderboard) =>
         Ok(html.tournament.home(scheduled, leaderboard, env scheduleJsonView visible))
-    }
+    } map NoCache
   }
 
   def help(sysStr: Option[String]) = Open { implicit ctx =>
@@ -48,7 +48,7 @@ object Tournament extends LilaController {
         case None       => NotFound(Json.obj("error" -> "No such tournament")).fuccess
         case Some(tour) => env.jsonView(tour, page, ctx.userId) map { Ok(_) }
       } map (_ as JSON)
-    )
+    ) map NoCache
   }
 
   def standing(id: String, page: Int) = Open { implicit ctx =>

@@ -38,6 +38,10 @@ private[controllers] trait LilaController
 
   implicit def lang(implicit req: RequestHeader) = Env.i18n.pool lang req
 
+  protected def NoCache(res: Result): Result = res.withHeaders(
+    CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
+  )
+
   protected def Socket[A: FrameFormatter](f: Context => Fu[(Iteratee[A, _], Enumerator[A])]) =
     WebSocket.tryAccept[A] { req => reqToCtx(req) flatMap f map scala.util.Right.apply }
 

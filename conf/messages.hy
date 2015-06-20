@@ -19,6 +19,7 @@ randomColor=Կամայական գույն
 createAGame=Ստեղծել նոր խաղ
 whiteIsVictorious=Սպիտակները հաղթեցին
 blackIsVictorious=Սևերը հաղթեցին
+threeChecks=երեք չեկեր
 playWithTheSameOpponentAgain=Խաղալ նույն հակառակորդի հետ
 newOpponent=Նոր հակառակորդ
 playWithAnotherOpponent=Խաղալ այլ հակառակորդի հետ

@@ -55,8 +55,10 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       def orNextMonth(date: DateTime) = if (date isBefore rightNow) date plusMonths 1 else date
 
       val std = StartingPosition.initial
-      val opening1 = StartingPosition.random
-      val opening2 = StartingPosition.random
+      val opening1 = StartingPosition.randomFeaturable
+      val opening2 = StartingPosition.randomFeaturable
+      val opening3 = StartingPosition.randomFeaturable
+      val opening4 = StartingPosition.randomFeaturable
 
       List(
         Schedule(Monthly, Bullet, Standard, std, at(lastSundayOfCurrentMonth, 18) |> orNextMonth),
@@ -91,14 +93,19 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
         Schedule(Nightly, Blitz, Standard, std, at(today, 8) |> orTomorrow),
         Schedule(Nightly, Classical, Standard, std, at(today, 9) |> orTomorrow),
 
-        // random opening replaces hourly once a day
-        Schedule(Hourly, Bullet, Standard, opening1, at(today, 17)),
-        Schedule(Hourly, SuperBlitz, Standard, opening1, at(today, 17)),
-        Schedule(Hourly, Blitz, Standard, opening1, at(today, 17)),
-        // and once a night
-        Schedule(Hourly, Bullet, Standard, opening2, at(today, 5)),
-        Schedule(Hourly, SuperBlitz, Standard, opening2, at(today, 5)),
-        Schedule(Hourly, Blitz, Standard, opening2, at(today, 5)),
+        // random opening replaces 4 times a day
+        Schedule(Hourly, Bullet, Standard, opening1, at(today, 17) |> orTomorrow),
+        Schedule(Hourly, SuperBlitz, Standard, opening1, at(today, 17) |> orTomorrow),
+        Schedule(Hourly, Blitz, Standard, opening1, at(today, 17) |> orTomorrow),
+        Schedule(Hourly, Bullet, Standard, opening2, at(today, 23) |> orTomorrow),
+        Schedule(Hourly, SuperBlitz, Standard, opening2, at(today, 23) |> orTomorrow),
+        Schedule(Hourly, Blitz, Standard, opening2, at(today, 23) |> orTomorrow),
+        Schedule(Hourly, Bullet, Standard, opening3, at(today, 5) |> orTomorrow),
+        Schedule(Hourly, SuperBlitz, Standard, opening3, at(today, 5) |> orTomorrow),
+        Schedule(Hourly, Blitz, Standard, opening3, at(today, 5) |> orTomorrow),
+        Schedule(Hourly, Bullet, Standard, opening4, at(today, 11) |> orTomorrow),
+        Schedule(Hourly, SuperBlitz, Standard, opening4, at(today, 11) |> orTomorrow),
+        Schedule(Hourly, Blitz, Standard, opening4, at(today, 11) |> orTomorrow),
 
         Schedule(Hourly, Bullet, Standard, std, at(nextHourDate, nextHour)),
         Schedule(Hourly, Bullet, Standard, std, at(nextHourDate, nextHour, 30)),
