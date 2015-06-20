@@ -46,8 +46,7 @@ object PairingSystem extends AbstractPairingSystem {
     else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
       if (recentPairings.isEmpty) naivePairings(tour, idles)
       else
-        smartPairings(data, idles take smartHardLimit) :::
-          naivePairings(tour, idles drop smartHardLimit)
+        smartPairings(data, idles take smartHardLimit)
     }
   }
 
