@@ -8,7 +8,7 @@ import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.common.{ HTTPRequest, LilaCookie }
 import lila.game.{ GameRepo, Pov, AnonCookie }
-import lila.setup.HookConfig
+import lila.setup.{ HookConfig, ValidFen }
 import lila.user.UserRepo
 import views._
 
@@ -17,10 +17,14 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
   private def env = Env.setup
 
   def aiForm = Open { implicit ctx =>
-    if (HTTPRequest isXhr ctx.req)
+    if (HTTPRequest isXhr ctx.req) {
       env.forms aiFilled get("fen") map { form =>
-        html.setup.ai(form, Env.ai.aiPerfApi.intRatings)
+        html.setup.ai(
+          form,
+          Env.ai.aiPerfApi.intRatings,
+          form("fen").value flatMap ValidFen(getBool("strict")))
       }
+    }
     else fuccess {
       Redirect(routes.Lobby.home + "#ai")
     }
@@ -34,13 +38,14 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
   }
 
   def friendForm(userId: Option[String]) = Open { implicit ctx =>
-    if (HTTPRequest isXhr ctx.req) userId ?? UserRepo.named flatMap {
-      case None => env.forms friendFilled get("fen") map {
-        html.setup.friend(_, none, none)
-      }
-      case Some(user) => challenge(user) flatMap { error =>
-        env.forms friendFilled get("fen") map {
-          html.setup.friend(_, user.some, error)
+    if (HTTPRequest isXhr ctx.req) {
+      env.forms friendFilled get("fen") flatMap { form =>
+        val validFen = form("fen").value flatMap ValidFen(false)
+        userId ?? UserRepo.named flatMap {
+          case None => fuccess(html.setup.friend(form, none, none, validFen))
+          case Some(user) => challenge(user) map { error =>
+            html.setup.friend(form, user.some, error, validFen)
+          }
         }
       }
     }
@@ -207,15 +212,10 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
   }
 
   def validateFen = Open { implicit ctx =>
-    {
-      for {
-        fen ← get("fen")
-        parsed ← chess.format.Forsyth <<< fen
-        strict = get("strict").isDefined
-        if (parsed.situation playable strict)
-        validated = chess.format.Forsyth >> parsed
-      } yield html.game.miniBoard(validated, parsed.situation.color.name)
-    }.fold[Result](BadRequest)(Ok(_)).fuccess
+    get("fen") flatMap ValidFen(getBool("strict")) match {
+      case None    => BadRequest.fuccess
+      case Some(v) => Ok(html.game.miniBoard(v.fen, v.color.name)).fuccess
+    }
   }
 
   private def process[A](form: Context => Form[A])(op: A => BodyContext => Fu[(Pov, Call)]) =

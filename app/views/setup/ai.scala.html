@@ -1,8 +1,8 @@
-@(form: Form[_], ratings: Map[Int, Int])(implicit ctx: Context)
+@(form: Form[_], ratings: Map[Int, Int], validFen: Option[lila.setup.ValidFen])(implicit ctx: Context)
 
 @fields = {
 @setup.variant(form, translatedAiVariantChoices)
-@fenInput(form("fen"), true)
+@fenInput(form("fen"), true, validFen)
 @setup.timeMode(form, lila.setup.AiConfig)
 @trans.level()
 <div class="level buttons">

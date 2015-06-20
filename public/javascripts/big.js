@@ -1858,12 +1858,11 @@ lichess.storage = {
             }
           });
         }
-      }, 500);
+      }, 200);
       $fenInput.on('keyup', validateFen);
 
       $variantSelect.on('change', function() {
         var fen = $(this).val() == '3';
-        if (fen && $fenInput.val() !== '') validateFen();
         $fenPosition.toggle(fen);
         $modeChoicesWrap.toggle(!fen);
         if (fen) $casual.click();
