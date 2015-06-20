@@ -42,6 +42,11 @@ title = trans.tournaments.str(),
 moreJs = moreJs,
 side = side.some) {
 <div class="content_box tournament_box no_padding">
+  @if(ctx.isAuth) {
+  <div class="create_tournament">
+    <a href="@routes.Tournament.form()" class="action button text">@trans.createANewTournament()</a>
+  </div>
+  }
   <h1>@trans.tournaments()</h1>
   <div id="tournament_schedule"></div>
 </div>

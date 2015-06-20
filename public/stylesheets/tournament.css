@@ -1,3 +1,8 @@
+div.create_tournament {
+  position: absolute;
+  top: 26px;
+  right: 15px;
+}
 ol.scheduled_tournaments a {
   font-weight: bold;
   text-decoration: none;
