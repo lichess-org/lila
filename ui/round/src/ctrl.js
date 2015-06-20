@@ -150,8 +150,11 @@ module.exports = function(opts) {
           pieces = {};
         pieces[p.key] = null;
         this.chessground.setPieces(pieces);
-        if (d.game.variant.key === 'atomic') atomic.enpassant(this, p.key, p.color);
-        $.sound.take();
+        if (d.game.variant.key === 'atomic') {
+          atomic.enpassant(this, p.key, p.color);
+          $.sound.explode();
+        }
+        else $.sound.take();
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
       if (o.castle && !this.chessground.data.autoCastle) {
