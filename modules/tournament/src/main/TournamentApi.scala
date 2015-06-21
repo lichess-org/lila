@@ -183,7 +183,7 @@ private[tournament] final class TournamentApi(
   }
 
   def updatePlayer(tour: Tournament)(userId: String): Funit =
-    (tour.perfType ?? { UserRepo.perfOf(userId, _) }) flatMap { perf =>
+    (tour.perfType.ifTrue(tour.mode.rated) ?? { UserRepo.perfOf(userId, _) }) flatMap { perf =>
       PlayerRepo.update(tour.id, userId) { player =>
         tour.system.scoringSystem.sheet(tour, userId) map { sheet =>
           player.copy(
