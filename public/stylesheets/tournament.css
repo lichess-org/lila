@@ -425,7 +425,7 @@ ol.scheduled_tournaments li.marathon {
   text-decoration: none;
   transition: 0.13s;
 }
-#tournament_schedule .tournament:hover {
+#tournament_schedule .tournament.joinable:hover {
   -webkit-filter: brightness(1.07);
 }
 #tournament_schedule .timeline {
@@ -453,9 +453,9 @@ ol.scheduled_tournaments li.marathon {
   margin-left: 1px;
   border-left: 2px dashed #d85000!important;
 }
-#tournament_schedule .tournament.finished,
-#tournament_schedule .tournament.scheduled {
-  opacity: 0.5;
+#tournament_schedule .tournament.finished {
+  opacity: 0.7;
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.3) inset;
 }
 #tournament_schedule .rated .icon[data-icon]::before {
   /* color: #FF9400; */

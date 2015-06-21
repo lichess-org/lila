@@ -81,10 +81,11 @@ function renderTournament(ctrl, tour) {
       paddingLeft: paddingLeft + 'px'
     },
     class: (tour.schedule ? tour.schedule.freq : '') +
-      (tour.createdBy === 'lichess' ? ' system ' : ' user-created ') +
-      (tour.rated ? ' rated ' : ' casual ') +
-      (tour.minutes <= 30 ? ' short ' : '') +
-      (tour.position ? ' thematic ' : '')
+      (tour.createdBy === 'lichess' ? ' system' : ' user-created') +
+      (tour.rated ? ' rated' : ' casual') +
+      (tour.minutes <= 30 ? ' short' : '') +
+      (tour.position ? ' thematic' : '') +
+      (tour.status === 30 ? ' finished' : ' joinable')
   }, [
     m('span.icon', tour.perf ? {
       'data-icon': tour.perf.icon,

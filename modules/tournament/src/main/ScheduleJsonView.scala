@@ -34,6 +34,7 @@ final class ScheduleJsonView(
     "secondsToStart" -> tour.secondsToStart,
     "startsAt" -> tour.startsAt,
     "finishesAt" -> tour.finishesAt,
+    "status" -> tour.status.id,
     "schedule" -> tour.schedule.map(scheduleJson),
     "winner" -> tour.winnerId.flatMap(getLightUser).map(userJson),
     "perf" -> tour.perfType.map(perfJson))
