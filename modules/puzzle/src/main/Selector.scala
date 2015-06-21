@@ -50,8 +50,8 @@ private[puzzle] final class Selector(
 
   private def toleranceStepFor(rating: Int) =
     math.abs(1500 - rating) match {
-      case d if d >= 500 => 400
-      case d if d >= 300 => 300
+      case d if d >= 500 => 300
+      case d if d >= 300 => 250
       case d             => 200
     }
 
