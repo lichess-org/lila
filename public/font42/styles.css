@@ -302,9 +302,6 @@
 .icon-antichess:before {
   content: "@";
 }
-.icon-hubot:before {
-  content: "^";
-}
 .icon-reorder:before {
   content: "[";
 }
@@ -337,4 +334,10 @@
 }
 .icon-agent:before {
   content: "\e002";
+}
+.icon-mic:before {
+  content: "\e003";
+}
+.icon-bar-chart:before {
+  content: "\e004";
 }

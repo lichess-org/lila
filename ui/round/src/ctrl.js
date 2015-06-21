@@ -49,7 +49,8 @@ module.exports = function(opts) {
 
   var onUserMove = function(orig, dest, meta) {
     hold.register(this.socket, meta.holdTime);
-    if (!promotion.start(this, orig, dest, meta.premove)) this.sendMove(orig, dest);
+    if (!promotion.start(this, orig, dest, meta.premove))
+      this.sendMove(orig, dest, false, meta.premove);
   }.bind(this);
 
   var onMove = function(orig, dest, captured) {
@@ -113,7 +114,7 @@ module.exports = function(opts) {
 
   this.setTitle = partial(title.set, this);
 
-  this.sendMove = function(orig, dest, prom) {
+  this.sendMove = function(orig, dest, prom, isPremove) {
     var move = {
       from: orig,
       to: dest
@@ -122,7 +123,7 @@ module.exports = function(opts) {
     if (blur.get()) move.b = 1;
     if (this.clock) move.lag = Math.round(lichess.socket.averageLag);
 
-    if (this.userId && this.data.pref.submitMove) {
+    if (this.userId && this.data.pref.submitMove && !isPremove) {
       this.vm.moveToSubmit = move;
       m.redraw();
     } else this.socket.send('move', move, {
@@ -149,8 +150,11 @@ module.exports = function(opts) {
           pieces = {};
         pieces[p.key] = null;
         this.chessground.setPieces(pieces);
-        if (d.game.variant.key === 'atomic') atomic.enpassant(this, p.key, p.color);
-        $.sound.take();
+        if (d.game.variant.key === 'atomic') {
+          atomic.enpassant(this, p.key, p.color);
+          $.sound.explode();
+        }
+        else $.sound.take();
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
       if (o.castle && !this.chessground.data.autoCastle) {

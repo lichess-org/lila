@@ -55,6 +55,7 @@ final class Env(
     system = system,
     sequencers = sequencerMap,
     autoPairing = autoPairing,
+    clearJsonViewCache = jsonView.clearCache,
     router = hub.actor.router,
     renderer = hub.actor.renderer,
     timeline = hub.actor.timeline,

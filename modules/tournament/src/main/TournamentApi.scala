@@ -28,6 +28,7 @@ private[tournament] final class TournamentApi(
     system: ActorSystem,
     sequencers: ActorRef,
     autoPairing: AutoPairing,
+    clearJsonViewCache: String => Funit,
     router: ActorSelection,
     renderer: ActorSelection,
     timeline: ActorSelection,
@@ -94,6 +95,7 @@ private[tournament] final class TournamentApi(
           _ <- PairingRepo removePlaying tour.id
           winner <- PlayerRepo winner tour.id
           _ <- winner.??(p => TournamentRepo.setWinnerId(tour.id, p.userId))
+          _ <- clearJsonViewCache(tour.id)
         } yield {
           sendTo(tour.id, Reload)
           publish()
@@ -183,7 +185,7 @@ private[tournament] final class TournamentApi(
   }
 
   def updatePlayer(tour: Tournament)(userId: String): Funit =
-    (tour.perfType ?? { UserRepo.perfOf(userId, _) }) flatMap { perf =>
+    (tour.perfType.ifTrue(tour.mode.rated) ?? { UserRepo.perfOf(userId, _) }) flatMap { perf =>
       PlayerRepo.update(tour.id, userId) { player =>
         tour.system.scoringSystem.sheet(tour, userId) map { sheet =>
           player.copy(
@@ -195,19 +197,21 @@ private[tournament] final class TournamentApi(
       }
     }
 
-  def ejectCheater(userId: String) {
+  def ejectLame(userId: String) {
     TournamentRepo.allEnterable foreach {
       _ foreach { tour =>
         PlayerRepo.existsActive(tour.id, userId) foreach {
-          _ ?? ejectCheater(tour.id, userId)
+          _ ?? ejectLame(tour.id, userId)
         }
       }
     }
   }
 
-  def ejectCheater(tourId: String, userId: String) {
+  def ejectLame(tourId: String, userId: String) {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
-      PlayerRepo.remove(tour.id, userId) >>- socketReload(tour.id) >>- publish()
+      PlayerRepo.remove(tour.id, userId) >>
+        updateNbPlayers(tour.id) >>-
+        socketReload(tour.id) >>- publish()
     }
   }
 

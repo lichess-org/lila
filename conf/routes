@@ -179,6 +179,7 @@ GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: Str
 POST  /pref/:name                      controllers.Pref.set(name: String)
 GET   /account/preferences             controllers.Pref.form
 POST  /account/preferences             controllers.Pref.formApply
+POST  /account/preferences/mini        controllers.Pref.miniFormApply
 POST  /account/preferences/tag/:name/:value controllers.Pref.saveTag(name: String, value: String)
 
 # Setup

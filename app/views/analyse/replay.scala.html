@@ -100,13 +100,13 @@ chessground = false) {
       }.getOrElse {
       @if(analysis.isEmpty) {
       <form class="future_game_analysis@if(ctx.isAnon) { must_login }" action="@routes.Analyse.requestAnalysis(gameId)" method="post">
-        <button type="submit" class="button text"><span class="is3 text" data-icon="^">@trans.requestAComputerAnalysis()</span></button>
+        <button type="submit" class="button text"><span class="is3 text" data-icon="&#xe004;">@trans.requestAComputerAnalysis()</span></button>
       </form>
       }
       }
       <div class="view_game_analysis future_game_analysis" data-href="@routes.Round.watcher(pov.gameId, pov.color.name)">
         <a class="button" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-          <span class="is3 text" data-icon="^">@trans.viewTheComputerAnalysis()</span>
+          <span class="is3 text" data-icon="&#xe004;">@trans.viewTheComputerAnalysis()</span>
         </a>
       </div>
     </div>

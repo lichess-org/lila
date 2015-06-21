@@ -447,7 +447,12 @@ div.blog.undertable div.post time {
 }
 #lichess .enterable_list td.name a {
   font-weight: bold;
+}
+#lichess .enterable_list tr.scheduled td.name a {
   color: #d59120;
+}
+#lichess .enterable_list tr:not(.scheduled) td.name a {
+  color: #808080;
 }
 #lichess .enterable_list td:last-child {
   width: 20px;
@@ -530,11 +535,6 @@ div.game_config .ratings {
   background: #f4f4f4;
   border-top: solid 1px #e4e4e4;
 }
-div.game_config input[type="text"] {
-  border: 1px solid #ccc;
-  width: 87%;
-  padding: 2px 3px;
-}
 div.game_config .label_select {
   overflow: hidden;
   text-align: left;
@@ -561,9 +561,17 @@ div.game_config .fen_position {
 div.game_config .fen_position .cg-board-wrap {
   margin: 8px auto 0 auto;
 }
-div.game_config .fen_position .button {
-  display: inline-block;
-  margin-top: 8px;
+div.game_config .fen_position .fen_form {
+  width: 95%;
+  margin: auto;
+}
+div.game_config .fen_position .fen_form input {
+  border: 1px solid #ccc;
+  width: 320px;
+  padding: 2px 3px;
+}
+div.game_config .fen_position .fen_form .button {
+  float: right;
 }
 div.game_config input {
   font-family: monospace;

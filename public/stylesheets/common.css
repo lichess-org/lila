@@ -58,8 +58,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font41/fonts/lichess.eot");
-  src: url("../font41/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font41/fonts/lichess.woff") format("woff"), url("../font41/fonts/lichess.ttf") format("truetype"), url("../font41/fonts/lichess.svg#lichess") format("svg");
+  src: url("../font42/fonts/lichess.eot");
+  src: url("../font42/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font42/fonts/lichess.woff") format("woff"), url("../font42/fonts/lichess.ttf") format("truetype"), url("../font42/fonts/lichess.svg#lichess") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -742,8 +742,7 @@ div.chat_panels {
 .is3d div.chat_panels {
   height: 290px;
 }
-div.chat_panels div.messages_container,
-div.chat_panels div.notes {
+div.chat_panels > * {
   display: none;
 }
 div.chat_panels textarea {
@@ -758,6 +757,25 @@ div.chat_panels div.active {
   display: block;
   height: calc(100% - 22px);
 }
+div.chat_panels .preferences {
+  padding: 8px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+div.chat_panels .preferences form > div {
+  margin-bottom: 15px;
+}
+div.chat_panels .preferences label {
+  cursor: pointer;
+}
+div.chat_panels .preferences input {
+  vertical-align: middle;
+}
+div.chat_panels .preferences a.prefs {
+  display: block;
+  text-align: center;
+}
+
 .notification .message_infos,
 .notification .game_infos,
 div.side_box .game_infos {
@@ -2528,9 +2546,9 @@ input.copyable {
   font-size: 150px;
   display: block;
 }
-.fire_trophy.marathonWinner,
-.fire_trophy.marathonTopTen,
-.fire_trophy.marathonTopFifty {
+.fire_trophy.marathonWinner span,
+.fire_trophy.marathonTopTen span,
+.fire_trophy.marathonTopFifty span {
   filter: hue-rotate(190deg);
   -webkit-filter: hue-rotate(190deg);
 }

@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], playing: List[Pov])(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], playing: List[Pov], prefs: Option[Form[_]])(implicit ctx: Context)
 
 @import pov._
 
@@ -21,7 +21,7 @@ userId: @Html(ctx.userId.fold("null")(id => s""""$id""""))
 @round.layout(
 title = title,
 side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour, simul),
-chat = pov.game.hasChat.option(base.chatDom(trans.chatRoom.str(), ctx.isAuth)),
+chat = leftabs(pov, prefs).some,
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov),

@@ -128,6 +128,12 @@ private[controllers] trait LilaController
   protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     ctx.me.??(_.lame).fold(Forbidden(views.html.site.noEngine()).fuccess, a)
 
+  protected def NoBooster[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    ctx.me.??(_.lame).fold(Forbidden(views.html.site.noBooster()).fuccess, a)
+
+  protected def NoLame[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    NoEngine(NoBooster(a))
+
   protected def NoPlayban(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     ctx.userId.??(Env.playban.api.currentBan) flatMap {
       _.fold(a) { ban =>

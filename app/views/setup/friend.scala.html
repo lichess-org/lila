@@ -1,4 +1,4 @@
-@(form: Form[_], user: Option[User], error: Option[String])(implicit ctx: Context)
+@(form: Form[_], user: Option[User], error: Option[String], validFen: Option[lila.setup.ValidFen])(implicit ctx: Context)
 
 @import lila.setup.FriendConfig
 
@@ -7,7 +7,7 @@
 @userLink(u, cssClass="target".some)
 }
 @setup.variant(form, translatedVariantChoicesWithVariantsAndFen)
-@fenInput(form("fen"), false)
+@fenInput(form("fen"), false, validFen)
 @setup.timeMode(form, lila.setup.FriendConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">

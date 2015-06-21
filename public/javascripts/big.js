@@ -1379,13 +1379,29 @@ lichess.storage = {
       }
       if (self.options.messages.length > 0) self._appendMany(self.options.messages);
 
-      // Toggle Notes/Chat display
       $panels = self.element.find('div.chat_panels > div');
-      $parent.find('.chat_menu').on('click', 'a', function() {
+      $menu = $parent.find('.chat_menu');
+      $menu.on('click', 'a', function() {
         var panel = $(this).data('panel');
         $(this).siblings('.active').removeClass('active').end().addClass('active');
         $panels.removeClass('active').filter('.' + panel).addClass('active');
-      }).find('a:first').click();
+      }).find('a:nth(2)').one('click', function() {
+        self.element.find('.preferences form').each(function() {
+          var $form = $(this);
+          $form.find('input').change(function() {
+            $.ajax({
+              url: $form.attr('action'),
+              method: $form.attr('method'),
+              data: $form.serialize()
+            });
+          });
+        });
+      });
+      if (lichess.storage.get('game.settings.seen')) $menu.find('a:first').click();
+      else {
+        lichess.storage.set('game.settings.seen', 1);
+        $menu.find('a:nth(2)').click();
+      }
 
       $notes = self.element.find('.notes textarea');
       if (self.options.gameId && $notes.length) {
@@ -1422,9 +1438,12 @@ lichess.storage = {
     },
     _appendHtml: function(html) {
       if (!html) return;
-      this.$msgs.append(html);
+      this.$msgs.each(function(i, el) {
+        var autoScroll = (el.scrollTop == 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 50)));
+        $(el).append(html);
+        if (autoScroll) el.scrollTop = 999999;
+      });
       $('body').trigger('lichess.content_loaded');
-      this.$msgs.scrollTop(999999);
     }
   });
 
@@ -1858,12 +1877,11 @@ lichess.storage = {
             }
           });
         }
-      }, 500);
+      }, 200);
       $fenInput.on('keyup', validateFen);
 
       $variantSelect.on('change', function() {
         var fen = $(this).val() == '3';
-        if (fen && $fenInput.val() !== '') validateFen();
         $fenPosition.toggle(fen);
         $modeChoicesWrap.toggle(!fen);
         if (fen) $casual.click();

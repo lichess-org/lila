@@ -44,11 +44,11 @@ case class TempBan(
 
   def inEffect = endsAt isAfter DateTime.now
 
-  def isOld = date isBefore DateTime.now.minusDays(1)
+  def isOld = date isBefore DateTime.now.minusDays(2)
 }
 
 object TempBan {
-  val initialMinutes = 5
+  val initialMinutes = 10
   def initial = apply(initialMinutes)
   def apply(minutes: Int): TempBan = TempBan(DateTime.now, minutes min 120)
 }

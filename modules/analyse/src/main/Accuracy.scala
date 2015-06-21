@@ -13,7 +13,7 @@ object Accuracy {
     case (_, Some(m1), _, Some(m2)) => withSignOf(Score.CEILING, m2) - withSignOf(Score.CEILING, m1)
   }
 
-  def diffsList(pov: Pov, analysis: Analysis): List[Int] = pov.color.fold(
+  def diffsList(pov: Pov, analysis: Analysis): List[Int] = (pov.color == pov.game.startColor).fold(
     Info.start(pov.game.startedAtTurn) :: analysis.infos,
     analysis.infos
   ).grouped(2).foldLeft(List[Int]()) {

@@ -66,7 +66,12 @@ object Round extends LilaController with TheftPrevention {
               case (((tour, simul), crosstable), playing) =>
                 simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
                 Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
-                  Ok(html.round.player(pov, data, tour = tour, simul = simul, cross = crosstable, playing = playing))
+                  Ok(html.round.player(pov, data,
+                    tour = tour,
+                    simul = simul,
+                    cross = crosstable,
+                    playing = playing,
+                    prefs = ctx.isAuth option (Env.pref.forms miniPrefOf ctx.pref)))
                 }
             }
         },
