@@ -146,7 +146,7 @@ function isSystemTournament(t) {
 module.exports = function(ctrl) {
   now = (new Date()).getTime();
   startTime = now - 3 * 60 * 60 * 1000;
-  stopTime = startTime + 8 * 60 * 60 * 1000;
+  stopTime = startTime + 10 * 60 * 60 * 1000;
 
   if (!ctrl.data.systemTours) {
     var tours = ctrl.data.finished.concat(ctrl.data.started).concat(ctrl.data.created);
