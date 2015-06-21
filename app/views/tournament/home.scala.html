@@ -2,7 +2,6 @@
 
 @moreJs = {
 @jsAt(s"compiled/lichess.tournament-schedule${isProd??(".min")}.js")
-@jsAt("javascripts/vendor/jquery.doubleScroll.js")
 @embedJs {
 var lichess = lichess || {};
 lichess.tournamentSchedule = LichessTournamentSchedule(document.getElementById('tournament_schedule'), {
