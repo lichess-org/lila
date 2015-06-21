@@ -6,11 +6,11 @@ var startTime;
 var stopTime;
 
 function leftPos(time) {
-  return scale * (time-startTime) / 1000 / 60;
+  return scale * (time - startTime) / 1000 / 60;
 }
 
 function scrollToNow(el) {
-  el.scrollLeft = leftPos(now - el.clientWidth/2/scale * 60 * 1000);
+  el.scrollLeft = leftPos(now - el.clientWidth / 2 / scale * 60 * 1000);
 }
 
 function speedGrouper(t) {
@@ -36,7 +36,7 @@ function group(arr, grouper) {
 function fitLane(lane, tour2) {
   return !lane.some(function(tour1) {
     return !(tour1.finishesAt < tour2.startsAt ||
-             tour2.finishesAt < tour1.startsAt);
+      tour2.finishesAt < tour1.startsAt);
   });
 }
 
@@ -45,10 +45,12 @@ function fitLane(lane, tour2) {
 function splitOverlaping(lanes) {
   var ret = [];
   lanes.forEach(function(lane) {
-    var newLanes = [[]];
+    var newLanes = [
+      []
+    ];
     lane.forEach(function(tour) {
       var collision = true;
-      for(var i = 0; i < newLanes.length; i++) {
+      for (var i = 0; i < newLanes.length; i++) {
         if (fitLane(newLanes[i], tour)) {
           newLanes[i].push(tour);
           collision = false;
@@ -68,7 +70,7 @@ function renderTournament(ctrl, tour) {
   // moves content into viewport, for long tourneys and marathons
   var paddingLeft = tour.minutes < 90 ? 0 : Math.max(0,
     Math.min(width - 250, // max padding, reserved text space
-             leftPos(now) - left - 380)); // distance from Now
+      leftPos(now) - left - 380)); // distance from Now
   // cut right overflow to fit viewport and not widen it, for marathons
   width = Math.min(width, leftPos(stopTime) - left);
 
@@ -84,38 +86,54 @@ function renderTournament(ctrl, tour) {
       (tour.minutes <= 30 ? ' short ' : '') +
       (tour.position ? ' thematic ' : '')
   }, [
-    m('div.icon', tour.perf ? {'data-icon': tour.perf.icon, title: tour.perf.name} : null),
+    m('div.icon', tour.perf ? {
+      'data-icon': tour.perf.icon,
+      title: tour.perf.name
+    } : null),
     m('span', [
-      m('div.name', m('a', {href: '/tournament/' + tour.id}, tour.fullName)),
-      m('div.clock', tour.clock.limit/60 + "+" + tour.clock.increment),
+      m('div.name', m('a', {
+        href: '/tournament/' + tour.id
+      }, tour.fullName)),
+      m('div.clock', tour.clock.limit / 60 + "+" + tour.clock.increment),
       tour.rated ? null : m('div.description', ctrl.trans('casual')),
       tour.position ? m('div.description', 'Thematic') : null,
-      tour.winner ? m('div.winner', {'data-icon': 'g'},
-        m('a.user_link.ulpt', {href: '/@/' + tour.winner.id}, tour.winner.name)
+      tour.winner ? m('div.winner', {
+          'data-icon': 'g'
+        },
+        m('a.user_link.ulpt', {
+          href: '/@/' + tour.winner.id
+        }, tour.winner.name)
       ) : null,
-      m('div.nb-players.text', {'data-icon': 'r'}, tour.nbPlayers),
+      m('div.nb-players.text', {
+        'data-icon': 'r'
+      }, tour.nbPlayers),
     ])
-  ]
-  );
+  ]);
 }
 
 function renderTimeline() {
   var minutesBetween = 10;
   var time = new Date(startTime);
   time.setSeconds(0);
-  time.setMinutes(Math.floor(time.getMinutes()/minutesBetween) * minutesBetween);
+  time.setMinutes(Math.floor(time.getMinutes() / minutesBetween) * minutesBetween);
 
   var timeHeaders = [];
-  while (time.getTime() < (stopTime - minutesBetween*60*1000)) {
+  while (time.getTime() < (stopTime - minutesBetween * 60 * 1000)) {
     timeHeaders.push(m('div.timeheader', {
-      style: {left: leftPos(time.getTime()) + 'px'}
+      style: {
+        left: leftPos(time.getTime()) + 'px'
+      }
     }, timeString(time)));
     time.setMinutes(time.getMinutes() + minutesBetween);
   }
 
   return m('div.timeline',
-      timeHeaders,
-      m('div.timeheader.now', {style: {left: leftPos(now) + 'px'}})
+    timeHeaders,
+    m('div.timeheader.now', {
+      style: {
+        left: leftPos(now) + 'px'
+      }
+    })
   );
 }
 
@@ -147,7 +165,7 @@ module.exports = function(ctrl) {
 
   // group system tournaments into dedicated lanes for PerfType
   var tourLanes = splitOverlaping(
-      group(ctrl.data.systemTours, speedGrouper).concat([ctrl.data.userTours]));
+    group(ctrl.data.systemTours, speedGrouper).concat([ctrl.data.userTours]));
 
   return m('div.schedule', {
     config: function(el, isUpdate) {
@@ -157,7 +175,9 @@ module.exports = function(ctrl) {
     renderTimeline(),
     tourLanes.map(function(lane) {
       return m('div.tournamentline',
-          lane.map(function(tour) { return renderTournament(ctrl, tour); }));
+        lane.map(function(tour) {
+          return renderTournament(ctrl, tour);
+        }));
     })
   ]);
 };
