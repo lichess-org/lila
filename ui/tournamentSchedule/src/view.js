@@ -74,7 +74,8 @@ function renderTournament(ctrl, tour) {
   // cut right overflow to fit viewport and not widen it, for marathons
   width = Math.min(width, leftPos(stopTime) - left);
 
-  return m('div.tournament', {
+  return m('a.tournament', {
+    href: '/tournament/' + tour.id,
     style: {
       width: width + 'px',
       left: left + 'px',
@@ -86,25 +87,16 @@ function renderTournament(ctrl, tour) {
       (tour.minutes <= 30 ? ' short ' : '') +
       (tour.position ? ' thematic ' : '')
   }, [
-    m('div.icon', tour.perf ? {
+    m('span.icon', tour.perf ? {
       'data-icon': tour.perf.icon,
       title: tour.perf.name
     } : null),
     m('span', [
-      m('div.name', m('a', {
-        href: '/tournament/' + tour.id
-      }, tour.fullName)),
-      m('div.clock', tour.clock.limit / 60 + "+" + tour.clock.increment),
-      tour.rated ? null : m('div.description', ctrl.trans('casual')),
-      tour.position ? m('div.description', 'Thematic') : null,
-      tour.winner ? m('div.winner', {
-          'data-icon': 'g'
-        },
-        m('a.user_link.ulpt', {
-          href: '/@/' + tour.winner.id
-        }, tour.winner.name)
-      ) : null,
-      m('div.nb-players.text', {
+      m('span.name', tour.fullName),
+      m('span.clock', tour.clock.limit / 60 + "+" + tour.clock.increment),
+      tour.rated ? null : m('span.description', ctrl.trans('casual')),
+      tour.position ? m('span.description', 'Thematic') : null,
+      m('span.nb-players.text', {
         'data-icon': 'r'
       }, tour.nbPlayers),
     ])
