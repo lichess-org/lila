@@ -160,7 +160,10 @@ module.exports = function(ctrl) {
 
   return m('div.schedule', {
     config: function(el, isUpdate) {
-      if (!isUpdate) scrollToNow(el);
+      if (!isUpdate) {
+        $(el).doubleScroll();
+        scrollToNow(el);
+      } else $(el).doubleScroll('refresh');
     }
   }, [
     renderTimeline(),
