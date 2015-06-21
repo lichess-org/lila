@@ -44,7 +44,7 @@ case class TempBan(
 
   def inEffect = endsAt isAfter DateTime.now
 
-  def isOld = date isBefore DateTime.now.minusDays(1)
+  def isOld = date isBefore DateTime.now minusDays 2
 }
 
 object TempBan {
