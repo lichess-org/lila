@@ -207,7 +207,9 @@ private[tournament] final class TournamentApi(
 
   def ejectLame(tourId: String, userId: String) {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
-      PlayerRepo.remove(tour.id, userId) >>- socketReload(tour.id) >>- publish()
+      PlayerRepo.remove(tour.id, userId) >>
+        updateNbPlayers(tour.id) >>-
+        socketReload(tour.id) >>- publish()
     }
   }
 
