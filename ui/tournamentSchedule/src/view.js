@@ -150,7 +150,7 @@ module.exports = function(ctrl) {
   stopTime = startTime + 6 * 60 * 60 * 1000;
 
   if (!ctrl.data.systemTours) {
-    var tours = ctrl.data.started.concat(ctrl.data.created);
+    var tours = ctrl.data.finished.concat(ctrl.data.started).concat(ctrl.data.created);
     ctrl.data.systemTours = tours.filter(isSystemTournament);
     ctrl.data.userTours = tours.filter(not(isSystemTournament));
   }
