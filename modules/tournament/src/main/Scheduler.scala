@@ -61,64 +61,76 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
       val opening3 = StartingPosition.randomFeaturable
       val opening4 = StartingPosition.randomFeaturable
 
-      List(
-        Schedule(Monthly, Bullet, Standard, std, at(lastSundayOfCurrentMonth, 18) |> orNextMonth),
-        Schedule(Monthly, SuperBlitz, Standard, std, at(lastSundayOfCurrentMonth, 19) |> orNextMonth),
-        Schedule(Monthly, Blitz, Standard, std, at(lastSundayOfCurrentMonth, 20) |> orNextMonth),
-        Schedule(Monthly, Classical, Standard, std, at(lastSundayOfCurrentMonth, 21) |> orNextMonth),
+      val nextSchedules: List[Schedule] = List(
 
         // Schedule(Marathon, Blitz, Standard, std, at(firstSundayOfCurrentMonth, 2, 0) |> orNextMonth),
 
-        Schedule(ExperimentalMarathon, Bullet, Standard, std, at(day(2015, 6, 17), 18)),
-        Schedule(ExperimentalMarathon, Bullet, Standard, std, at(day(2015, 6, 20), 18)),
+        List( // monthly tournaments!
+          Schedule(Monthly, Bullet, Standard, std, at(lastSundayOfCurrentMonth, 18) |> orNextMonth),
+          Schedule(Monthly, SuperBlitz, Standard, std, at(lastSundayOfCurrentMonth, 19) |> orNextMonth),
+          Schedule(Monthly, Blitz, Standard, std, at(lastSundayOfCurrentMonth, 20) |> orNextMonth),
+          Schedule(Monthly, Classical, Standard, std, at(lastSundayOfCurrentMonth, 21) |> orNextMonth)
+        ),
 
-        Schedule(Weekly, Bullet, Standard, std, at(nextSaturday, 18) |> orNextWeek),
-        Schedule(Weekly, SuperBlitz, Standard, std, at(nextSaturday, 19) |> orNextWeek),
-        Schedule(Weekly, Blitz, Standard, std, at(nextSaturday, 20) |> orNextWeek),
-        Schedule(Weekly, Classical, Standard, std, at(nextSaturday, 21) |> orNextWeek),
-        Schedule(Weekly, Blitz, Chess960, std, at(nextSaturday, 22) |> orNextWeek),
+        List( // weekly tournaments!
+          Schedule(Weekly, Bullet, Standard, std, at(nextSaturday, 18) |> orNextWeek),
+          Schedule(Weekly, SuperBlitz, Standard, std, at(nextSaturday, 19) |> orNextWeek),
+          Schedule(Weekly, Blitz, Standard, std, at(nextSaturday, 20) |> orNextWeek),
+          Schedule(Weekly, Classical, Standard, std, at(nextSaturday, 21) |> orNextWeek),
+          Schedule(Weekly, Blitz, Chess960, std, at(nextSaturday, 22) |> orNextWeek)
+        ),
 
-        Schedule(Daily, Bullet, Standard, std, at(today, 18) |> orTomorrow),
-        Schedule(Daily, SuperBlitz, Standard, std, at(today, 19) |> orTomorrow),
-        Schedule(Daily, Blitz, Standard, std, at(today, 20) |> orTomorrow),
-        Schedule(Daily, Classical, Standard, std, at(today, 21) |> orTomorrow),
-        Schedule(Daily, Blitz, Chess960, std, at(today, 22) |> orTomorrow),
-        Schedule(Daily, Blitz, KingOfTheHill, std, at(today, 23) |> orTomorrow),
-        Schedule(Daily, Blitz, ThreeCheck, std, at(tomorrow, 0)),
-        Schedule(Daily, Blitz, Antichess, std, at(tomorrow, 1)),
-        Schedule(Daily, Blitz, Atomic, std, at(tomorrow, 2)),
-        Schedule(Daily, Blitz, Horde, std, at(tomorrow, 3)),
+        List( // daily tournaments!
+          Schedule(Daily, Bullet, Standard, std, at(today, 18) |> orTomorrow),
+          Schedule(Daily, SuperBlitz, Standard, std, at(today, 19) |> orTomorrow),
+          Schedule(Daily, Blitz, Standard, std, at(today, 20) |> orTomorrow),
+          Schedule(Daily, Classical, Standard, std, at(today, 21) |> orTomorrow)
+        ),
 
-        Schedule(Nightly, Bullet, Standard, std, at(today, 6) |> orTomorrow),
-        Schedule(Nightly, SuperBlitz, Standard, std, at(today, 7) |> orTomorrow),
-        Schedule(Nightly, Blitz, Standard, std, at(today, 8) |> orTomorrow),
-        Schedule(Nightly, Classical, Standard, std, at(today, 9) |> orTomorrow),
+        List( // daily variant tournaments!
+          Schedule(Daily, Blitz, Chess960, std, at(today, 22) |> orTomorrow),
+          Schedule(Daily, Blitz, KingOfTheHill, std, at(today, 23) |> orTomorrow),
+          Schedule(Daily, Blitz, ThreeCheck, std, at(tomorrow, 0)),
+          Schedule(Daily, Blitz, Antichess, std, at(tomorrow, 1)),
+          Schedule(Daily, Blitz, Atomic, std, at(tomorrow, 2)),
+          Schedule(Daily, Blitz, Horde, std, at(tomorrow, 3))
+        ),
 
-        // random opening replaces 4 times a day
-        Schedule(Hourly, Bullet, Standard, opening1, at(today, 17) |> orTomorrow),
-        Schedule(Hourly, SuperBlitz, Standard, opening1, at(today, 17) |> orTomorrow),
-        Schedule(Hourly, Blitz, Standard, opening1, at(today, 17) |> orTomorrow),
-        Schedule(Hourly, Bullet, Standard, opening2, at(today, 23) |> orTomorrow),
-        Schedule(Hourly, SuperBlitz, Standard, opening2, at(today, 23) |> orTomorrow),
-        Schedule(Hourly, Blitz, Standard, opening2, at(today, 23) |> orTomorrow),
-        Schedule(Hourly, Bullet, Standard, opening3, at(today, 5) |> orTomorrow),
-        Schedule(Hourly, SuperBlitz, Standard, opening3, at(today, 5) |> orTomorrow),
-        Schedule(Hourly, Blitz, Standard, opening3, at(today, 5) |> orTomorrow),
-        Schedule(Hourly, Bullet, Standard, opening4, at(today, 11) |> orTomorrow),
-        Schedule(Hourly, SuperBlitz, Standard, opening4, at(today, 11) |> orTomorrow),
-        Schedule(Hourly, Blitz, Standard, opening4, at(today, 11) |> orTomorrow),
+        List( // nightly tournaments!
+          Schedule(Nightly, Bullet, Standard, std, at(today, 6) |> orTomorrow),
+          Schedule(Nightly, SuperBlitz, Standard, std, at(today, 7) |> orTomorrow),
+          Schedule(Nightly, Blitz, Standard, std, at(today, 8) |> orTomorrow),
+          Schedule(Nightly, Classical, Standard, std, at(today, 9) |> orTomorrow)
+        ),
 
-        Schedule(Hourly, Bullet, Standard, std, at(nextHourDate, nextHour)),
-        Schedule(Hourly, Bullet, Standard, std, at(nextHourDate, nextHour, 30)),
-        Schedule(Hourly, SuperBlitz, Standard, std, at(nextHourDate, nextHour)),
-        Schedule(Hourly, Blitz, Standard, std, at(nextHourDate, nextHour))
+        List( // random opening replaces hourly 4 times a day
+          5 -> opening1,
+          11 -> opening2,
+          17 -> opening3,
+          23 -> opening4
+        ).flatMap {
+            case (hour, opening) => List(
+              Schedule(Hourly, Bullet, Standard, opening, at(today, hour) |> orTomorrow),
+              Schedule(Hourly, SuperBlitz, Standard, opening, at(today, hour) |> orTomorrow),
+              Schedule(Hourly, Blitz, Standard, opening, at(today, hour) |> orTomorrow)
+            )
+          },
 
-      ).foldLeft(List[Schedule]()) {
-          case (scheds, sched) if sched.at.isBeforeNow      => scheds
-          case (scheds, sched) if overlaps(sched, dbScheds) => scheds
-          case (scheds, sched) if overlaps(sched, scheds)   => scheds
-          case (scheds, sched)                              => sched :: scheds
-        } foreach api.createScheduled
+        List(
+          Schedule(Hourly, Bullet, Standard, std, at(nextHourDate, nextHour)),
+          Schedule(Hourly, Bullet, Standard, std, at(nextHourDate, nextHour, 30)),
+          Schedule(Hourly, SuperBlitz, Standard, std, at(nextHourDate, nextHour)),
+          Schedule(Hourly, Blitz, Standard, std, at(nextHourDate, nextHour))
+        )
+
+      ).flatten
+
+      nextSchedules.foldLeft(List[Schedule]()) {
+        case (scheds, sched) if sched.at.isBeforeNow      => scheds
+        case (scheds, sched) if overlaps(sched, dbScheds) => scheds
+        case (scheds, sched) if overlaps(sched, scheds)   => scheds
+        case (scheds, sched)                              => sched :: scheds
+      } foreach api.createScheduled
   }
 
   private case class ScheduleNowWith(dbScheds: List[Schedule])
