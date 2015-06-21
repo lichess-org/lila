@@ -159,7 +159,7 @@ module.exports = function(ctrl) {
   var tourLanes = splitOverlaping(
     group(ctrl.data.systemTours, speedGrouper).concat([ctrl.data.userTours]));
 
-  return m('div.schedule', {
+  return m('div.schedule.dragscroll', {
     config: function(el, isUpdate) {
       if (!isUpdate) scrollToNow(el);
     }
