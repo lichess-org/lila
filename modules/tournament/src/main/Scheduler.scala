@@ -35,7 +35,8 @@ private[tournament] final class Scheduler(api: TournamentApi) extends Actor {
   def receive = {
 
     case ScheduleNow =>
-      TournamentRepo.scheduled.map(_.flatMap(_.schedule)) map ScheduleNowWith.apply pipeTo self
+      TournamentRepo.scheduledUnfinished.map(_.flatMap(_.schedule)) map
+        ScheduleNowWith.apply pipeTo self
 
     case ScheduleNowWith(dbScheds) =>
 

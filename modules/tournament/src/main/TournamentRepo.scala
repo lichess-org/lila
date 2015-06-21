@@ -20,6 +20,8 @@ object TournamentRepo {
   private val createdSelect = BSONDocument("status" -> Status.Created.id)
   private val startedSelect = BSONDocument("status" -> Status.Started.id)
   private val finishedSelect = BSONDocument("status" -> Status.Finished.id)
+  private val unfinishedSelect = BSONDocument("status" -> BSONDocument("$ne" -> Status.Finished.id))
+  private val scheduledSelect = BSONDocument("schedule" -> BSONDocument("$exists" -> true))
 
   def byId(id: String): Fu[Option[Tournament]] = coll.find(selectId(id)).one[Tournament]
 
@@ -47,10 +49,6 @@ object TournamentRepo {
     createdById(id) map (_ filter (_.createdBy == userId))
 
   def allEnterable: Fu[List[Tournament]] = coll.find(enterableSelect).cursor[Tournament].collect[List]()
-
-  def created: Fu[List[Tournament]] = coll.find(createdSelect ++ BSONDocument(
-    "schedule" -> BSONDocument("$exists" -> false)
-  )).toList[Tournament](None)
 
   def createdIncludingScheduled: Fu[List[Tournament]] = coll.find(createdSelect).toList[Tournament](None)
 
@@ -116,11 +114,15 @@ object TournamentRepo {
       case (created, started) => created ::: started
     }
 
-  def scheduled: Fu[List[Tournament]] = coll.find(createdSelect ++ BSONDocument(
-    "schedule" -> BSONDocument("$exists" -> true)
-  )).sort(BSONDocument("startsAt" -> 1)).cursor[Tournament].collect[List]()
+  def scheduledUnfinished: Fu[List[Tournament]] =
+    coll.find(scheduledSelect ++ unfinishedSelect)
+      .sort(BSONDocument("startsAt" -> 1)).cursor[Tournament].collect[List]()
 
-  def scheduledDedup: Fu[List[Tournament]] = scheduled map {
+  def scheduledCreated: Fu[List[Tournament]] =
+    coll.find(createdSelect ++ scheduledSelect)
+      .sort(BSONDocument("startsAt" -> 1)).cursor[Tournament].collect[List]()
+
+  def scheduledDedup: Fu[List[Tournament]] = scheduledCreated map {
     import Schedule.Freq
     _.flatMap { tour =>
       tour.schedule map (tour -> _)
