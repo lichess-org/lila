@@ -1422,9 +1422,12 @@ lichess.storage = {
     },
     _appendHtml: function(html) {
       if (!html) return;
-      this.$msgs.append(html);
+      this.$msgs.each(function(i, el) {
+        var autoScroll = (el.scrollTop == 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 50)));
+        $(el).append(html);
+        if (autoScroll) el.scrollTop = 999999;
+      });
       $('body').trigger('lichess.content_loaded');
-      this.$msgs.scrollTop(999999);
     }
   });
 
