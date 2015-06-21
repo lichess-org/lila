@@ -195,17 +195,17 @@ private[tournament] final class TournamentApi(
       }
     }
 
-  def ejectCheater(userId: String) {
+  def ejectLame(userId: String) {
     TournamentRepo.allEnterable foreach {
       _ foreach { tour =>
         PlayerRepo.existsActive(tour.id, userId) foreach {
-          _ ?? ejectCheater(tour.id, userId)
+          _ ?? ejectLame(tour.id, userId)
         }
       }
     }
   }
 
-  def ejectCheater(tourId: String, userId: String) {
+  def ejectLame(tourId: String, userId: String) {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
       PlayerRepo.remove(tour.id, userId) >>- socketReload(tour.id) >>- publish()
     }

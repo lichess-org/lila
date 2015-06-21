@@ -39,7 +39,9 @@ final class ModApi(
   def setBooster(mod: String, username: String, v: Boolean): Funit = withUser(username) { user =>
     (user.booster != v) ?? {
       logApi.booster(mod, user.id, v) zip
-        UserRepo.setBooster(user.id, v) void
+      UserRepo.setBooster(user.id, v) >>- {
+        if (v) lilaBus.publish(lila.hub.actorApi.mod.MarkBooster(user.id), 'adjustBooster)
+      } void
     }
   }
 
