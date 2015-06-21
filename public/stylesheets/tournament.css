@@ -412,9 +412,9 @@ ol.scheduled_tournaments li.marathon {
 #tournament_schedule .schedule {
   position: relative;
   overflow-x: scroll;
-  padding: 30px 0;
-  min-height: 35em;
+  padding-top: 30px;
   border-top: 1px solid #d4d4d4;
+  cursor: move;
 }
 #tournament_schedule .tournament {
   position: absolute;
@@ -427,6 +427,7 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .tournament.joinable:hover {
   -webkit-filter: brightness(1.07);
+  filter: brightness(1.07);
 }
 #tournament_schedule .timeline {
   position: absolute;
@@ -501,11 +502,8 @@ ol.scheduled_tournaments li.marathon {
   display: block;
   white-space: nowrap;
 }
-#tournament_schedule .tournament.thematic .name {
-  letter-spacing: -1px;
-}
 #tournament_schedule .tournament.short.thematic .name {
-  font-size: 1em;
+  letter-spacing: -1px;
 }
 #tournament_schedule .clock,
 #tournament_schedule .description,
