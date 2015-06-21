@@ -57,7 +57,7 @@ private[round] final class History(
   def enablePersistence {
     if (!persistenceEnabled) {
       persistenceEnabled = true
-      persist(events)
+      if (events != null) persist(events)
     }
   }
 }
