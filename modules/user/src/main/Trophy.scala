@@ -33,25 +33,39 @@ object Trophy {
       url = "http://lichess.org/qa/340/way-of-berserk-trophy".some,
       "fire_trophy".some)
 
+    object ExperimentalMarathonWinner extends Kind(
+      key = "marathonWinner",
+      name = "Marathon Winner",
+      icon = "\\".some,
+      url = "http://lichess.org/tournament/maratexp".some,
+      "fire_trophy".some)
+
+    object ExperimentalMarathonTopTen extends Kind(
+      key = "marathonTopTen",
+      name = "Marathon Top 10",
+      icon = "\\".some,
+      url = "http://lichess.org/tournament/maratexp".some,
+      "fire_trophy".some)
+
     object MarathonWinner extends Kind(
       key = "marathonWinner",
       name = "Marathon Winner",
       icon = "\\".some,
-      url = "http://lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1".some,
+      url = none,
       "fire_trophy".some)
 
     object MarathonTopTen extends Kind(
       key = "marathonTopTen",
       name = "Marathon Top 10",
       icon = "\\".some,
-      url = "http://lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1".some,
+      url = none,
       "fire_trophy".some)
 
     object MarathonTopFifty extends Kind(
       key = "marathonTopFifty",
       name = "Marathon Top 50",
       icon = "\\".some,
-      url = "http://lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1".some,
+      url = none,
       "fire_trophy".some)
 
     object MarathonSurvivor extends Kind(
@@ -106,7 +120,9 @@ object Trophy {
     val all = List(
       ZugMiracle,
       WayOfBerserk,
-      MarathonWinner, MarathonTopTen, MarathonTopFifty, MarathonSurvivor,
+      MarathonSurvivor,
+      ExperimentalMarathonWinner, ExperimentalMarathonTopTen,
+      MarathonWinner, MarathonTopTen, MarathonTopFifty,
       BongcloudWarrior,
       Developer, Moderator,
       Streamer)
