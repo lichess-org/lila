@@ -324,7 +324,7 @@ case class Game(
     if (isTournament && variant == chess.variant.FromPosition) chess.variant.Standard
     else variant
 
-  def fromPosition = source ?? (Source.Position==)
+  def fromPosition = variant == chess.variant.FromPosition || source.??(Source.Position==)
 
   def imported = source exists (_ == Source.Import)
 
