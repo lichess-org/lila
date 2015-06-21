@@ -26,6 +26,7 @@ private[tournament] final class TournamentApi(
     system: ActorSystem,
     sequencers: ActorRef,
     autoPairing: AutoPairing,
+    clearJsonViewCache: String => Funit,
     router: ActorSelection,
     renderer: ActorSelection,
     timeline: ActorSelection,
@@ -92,6 +93,7 @@ private[tournament] final class TournamentApi(
           _ <- PairingRepo removePlaying tour.id
           winner <- PlayerRepo winner tour.id
           _ <- winner.??(p => TournamentRepo.setWinnerId(tour.id, p.userId))
+          _ <- clearJsonViewCache(tour.id)
         } yield {
           sendTo(tour.id, Reload)
           publish()

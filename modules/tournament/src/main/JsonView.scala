@@ -47,6 +47,9 @@ final class JsonView(
     if (page == 1) firstPageCache(tour.id)
     else computeStanding(tour, page)
 
+  def clearCache(id: String) =
+    firstPageCache.remove(id) >> cachableData.remove(id)
+
   private def computeStanding(tour: Tournament, page: Int): Fu[JsObject] = for {
     rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
     sheets <- rankedPlayers.map { p =>
