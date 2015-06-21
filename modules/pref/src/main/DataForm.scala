@@ -5,7 +5,7 @@ import play.api.data.Forms._
 
 import lila.user.User
 
-private[pref] final class DataForm(api: PrefApi) {
+private[pref] final class DataForm {
 
   val pref = Form(mapping(
     "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
@@ -67,7 +67,6 @@ private[pref] final class DataForm(api: PrefApi) {
   }
 
   object PrefData {
-
     def apply(pref: Pref): PrefData = PrefData(
       autoQueen = pref.autoQueen,
       autoThreefold = pref.autoThreefold,
@@ -88,9 +87,32 @@ private[pref] final class DataForm(api: PrefApi) {
       captured = pref.captured.fold(1, 0))
   }
 
-  def prefOf(user: User): Fu[Form[PrefData]] = api getPref user map { p =>
-    pref fill PrefData(p)
+  def prefOf(p: Pref): Form[PrefData] = pref fill PrefData(p)
+
+  val miniPref = Form(mapping(
+    "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
+    "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _),
+    "submitMove" -> number.verifying(Set(0, 1) contains _)
+  )(MiniPrefData.apply)(MiniPrefData.unapply))
+
+  case class MiniPrefData(
+      autoQueen: Int,
+      blindfold: Int,
+      submitMove: Int) {
+    def apply(pref: Pref) = pref.copy(
+      autoQueen = autoQueen,
+      blindfold = blindfold,
+      submitMove = submitMove)
   }
+
+  object MiniPrefData {
+    def apply(pref: Pref): MiniPrefData = MiniPrefData(
+      autoQueen = pref.autoQueen,
+      blindfold = pref.blindfold,
+      submitMove = pref.submitMove)
+  }
+
+  def miniPrefOf(p: Pref): Form[MiniPrefData] = miniPref fill MiniPrefData(p)
 
   val theme = Form(single(
     "theme" -> nonEmptyText.verifying(Theme contains _)

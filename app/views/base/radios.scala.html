@@ -1,10 +1,12 @@
-@(field: play.api.data.Field, options: Iterable[(Any,String)])
+@(field: play.api.data.Field, options: Iterable[(Any,String)], container: Boolean = false, prefix: String = "")
 
 <div class="radios buttonset">
   @options.map { v =>
   @defining(s"${field.id}_${v._1}") { id =>
-  <input id="@id" @if(field.value == Some(v._1.toString)) { checked class="active" } type="radio" value="@v._1" name="@field.name" />
-  <label for="@id">@v._2</label>
+  @if(container) {<div class="choice">}
+  <input id="@prefix@id" @if(field.value == Some(v._1.toString)) { checked class="active" } type="radio" value="@v._1" name="@field.name" />
+  <label for="@prefix@id">@v._2</label>
+  @if(container) {</div>}
   }
   }
 </div>

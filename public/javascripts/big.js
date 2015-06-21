@@ -1379,13 +1379,29 @@ lichess.storage = {
       }
       if (self.options.messages.length > 0) self._appendMany(self.options.messages);
 
-      // Toggle Notes/Chat display
       $panels = self.element.find('div.chat_panels > div');
-      $parent.find('.chat_menu').on('click', 'a', function() {
+      $menu = $parent.find('.chat_menu');
+      $menu.on('click', 'a', function() {
         var panel = $(this).data('panel');
         $(this).siblings('.active').removeClass('active').end().addClass('active');
         $panels.removeClass('active').filter('.' + panel).addClass('active');
-      }).find('a:first').click();
+      }).find('a:nth(2)').one('click', function() {
+        self.element.find('.preferences form').each(function() {
+          var $form = $(this);
+          $form.find('input').change(function() {
+            $.ajax({
+              url: $form.attr('action'),
+              method: $form.attr('method'),
+              data: $form.serialize()
+            });
+          });
+        });
+      });
+      if (lichess.storage.get('game.settings.seen')) $menu.find('a:first').click();
+      else {
+        lichess.storage.set('game.settings.seen', 1);
+        $menu.find('a:nth(2)').click();
+      }
 
       $notes = self.element.find('.notes textarea');
       if (self.options.gameId && $notes.length) {
