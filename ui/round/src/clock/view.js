@@ -29,7 +29,13 @@ function formatClockTime(ctrl, time, running) {
 }
 
 function showBar(ctrl, time) {
-  return ctrl.data.showBar ? m('div.bar',
+  function chooseColor(time, emergTime) {
+      if (time > emergTime * 5) return 'green';
+      else if (time > emergTime * 2.5) return 'yellow';
+      else if (time > emergTime) return 'orange';
+      else return 'red';
+  }
+  return ctrl.data.showBar ? m('div.bar.' + chooseColor(time, ctrl.data.emerg),
     m('span', {
       style: {
         width: Math.max(0, Math.min(100, (time / ctrl.data.barTime) * 100)) + '%'
