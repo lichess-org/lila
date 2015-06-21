@@ -14,7 +14,7 @@ private[tournament] final class Cached(
 
   def name(id: String): Option[String] = nameCache get id
 
-  val allCreatedSorted = AsyncCache.single(
+  val allCreatedSorted = AsyncCache(
     TournamentRepo.publicCreatedSorted,
     timeToLive = createdTtl)
 
