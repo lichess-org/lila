@@ -417,8 +417,9 @@ ol.scheduled_tournaments li.marathon {
   position: absolute;
   box-sizing: border-box;
   padding: 4px 0;
-  box-shadow: 1px 1px 1px #000000;
+  box-shadow: 1px 3px 5px rgba(0,0,0,0.5);
   border-radius: 4px;
+  text-decoration: none;
 }
 #tournament_schedule .timeline {
   position: absolute;
@@ -450,7 +451,8 @@ ol.scheduled_tournaments li.marathon {
   opacity: 0.5;
 }
 #tournament_schedule .rated .icon[data-icon]::before {
-  color: #FF9400;
+  /* color: #FF9400; */
+  color: #FFFFFF;
 }
 #tournament_schedule .casual .icon[data-icon]::before {
   color: #FFFFFF;
@@ -483,14 +485,14 @@ ol.scheduled_tournaments li.marathon {
   float: left;
   font-size: 2.4em;
   color: rgba(200,200,200,0.5);
-  text-shadow: 1px 1px 2px #000;
-  margin-top: -4px;
+  color: #fff;
+  margin: -4px 0 0 2px;
 }
 #tournament_schedule .name {
+  color: white;
   overflow: hidden;
-  height: 1.4em;
-  font-size: 1.4em;
-  text-shadow: 1px 1px 2px #000000;
+  /* height: 1.4em; */
+  /* font-size: 1.4em; */
 }
 #tournament_schedule .tournament.thematic .name {
   letter-spacing: -1px;
@@ -498,21 +500,11 @@ ol.scheduled_tournaments li.marathon {
 #tournament_schedule .tournament.short.thematic .name {
   font-size: 1em;
 }
-#tournament_schedule .name a,
-#tournament_schedule .winner a {
-  color: white;
-  text-decoration: none;
-}
-#tournament_schedule .name a:hover {
-  text-decoration: underline;
-}
 #tournament_schedule .clock,
 #tournament_schedule .description,
-#tournament_schedule .winner,
 #tournament_schedule .nb-players {
-  color: white;
+  color: #fff;
   font-size: 1em;
-  text-shadow: 1px 1px 2px #000000;
 }
 #tournament_schedule .clock {
   float: left;
@@ -522,19 +514,9 @@ ol.scheduled_tournaments li.marathon {
   float: left;
   margin-left: 5px;
 }
-#tournament_schedule .winner {
-  float: left;
-  clear: left;
-  margin-left: 8px;
-}
-#tournament_schedule .winner[data-icon]::before {
-  color: #FF9400;
-  margin-right: 13px
-}
 #tournament_schedule .nb-players {
   max-width: 480px;
   margin-right: 5px;
   position: relative;
   text-align: right;
 }
-
