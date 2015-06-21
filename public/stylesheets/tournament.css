@@ -452,6 +452,7 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .timeheader.hour {
   font-weight: bold;
+  border-left-style: solid;
 }
 #tournament_schedule .timeheader.now {
   top: 1.7em;
