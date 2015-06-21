@@ -19,8 +19,8 @@ final class Winners(
 
   import Schedule.Freq
   private def fetchScheduled(nb: Int): Fu[List[Winner]] =
-    List(Freq.Monthly, Freq.Weekly, Freq.Daily).map { freq =>
-      TournamentRepo.lastFinishedScheduledByFreq(freq, 3) flatMap toursToWinners
+    List(Freq.Marathon, Freq.ExperimentalMarathon, Freq.Monthly, Freq.Weekly, Freq.Daily).map { freq =>
+      TournamentRepo.lastFinishedScheduledByFreq(freq, 4) flatMap toursToWinners
     }.sequenceFu map (_.flatten) flatMap { winners =>
       TournamentRepo.lastFinishedScheduledByFreq(
         Freq.Hourly, math.max(0, nb - winners.size)
