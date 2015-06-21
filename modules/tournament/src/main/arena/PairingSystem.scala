@@ -39,6 +39,8 @@ object PairingSystem extends AbstractPairingSystem {
     }
 
   val smartHardLimit = 24
+  val overallLimit = 40
+  val extraNaiveLimit = overallLimit - smartHardLimit
 
   private def tryPairings(data: Data, users: List[String]): Fu[Pairings] = {
     import data._
@@ -46,7 +48,8 @@ object PairingSystem extends AbstractPairingSystem {
     else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
       if (recentPairings.isEmpty) naivePairings(tour, idles)
       else
-        smartPairings(data, idles take smartHardLimit)
+        smartPairings(data, idles take smartHardLimit) :::
+          naivePairings(tour, idles drop smartHardLimit take extraNaiveLimit)
     }
   }
 
