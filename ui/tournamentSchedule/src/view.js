@@ -35,8 +35,7 @@ function group(arr, grouper) {
 
 function fitLane(lane, tour2) {
   return !lane.some(function(tour1) {
-    return !(tour1.finishesAt < tour2.startsAt ||
-      tour2.finishesAt < tour1.startsAt);
+    return !(tour1.finishesAt <= tour2.startsAt || tour2.finishesAt <= tour1.startsAt);
   });
 }
 
