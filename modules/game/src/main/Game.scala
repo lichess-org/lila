@@ -313,12 +313,7 @@ case class Game(
 
   def replayable = imported || finished
 
-  def analysable = replayable && playedTurns > 4 && {
-    // thematic tournament use the "from position" variant
-    Game.analysableVariants(variant) || {
-      variant == chess.variant.FromPosition && tournamentId.isDefined
-    }
-  }
+  def analysable = replayable && playedTurns > 4 && Game.analysableVariants(variant)
 
   def ratingVariant =
     if (isTournament && variant == chess.variant.FromPosition) chess.variant.Standard
@@ -448,7 +443,8 @@ object Game {
     chess.variant.Standard,
     chess.variant.Chess960,
     chess.variant.KingOfTheHill,
-    chess.variant.ThreeCheck)
+    chess.variant.ThreeCheck,
+    chess.variant.FromPosition)
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
 
