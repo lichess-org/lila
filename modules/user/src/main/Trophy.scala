@@ -96,12 +96,20 @@ object Trophy {
       url = "http://lichess.org/donate".some,
       "icon3d".some)
 
+    object Streamer extends Kind(
+      key = "streamer",
+      name = "Lichess streamer",
+      icon = "&#xe003;".some,
+      url = "http://lichess.org/how-to-stream-on-lichess".some,
+      "icon3d".some)
+
     val all = List(
       ZugMiracle,
       WayOfBerserk,
       MarathonWinner, MarathonTopTen, MarathonTopFifty, MarathonSurvivor,
       BongcloudWarrior,
-      Developer, Moderator)
+      Developer, Moderator,
+      Streamer)
     def byKey(key: String) = all find (_.key == key)
   }
 
