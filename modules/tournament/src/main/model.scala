@@ -11,3 +11,8 @@ case class PlayerInfo(
     math.floor((rank - 1) / 10) + 1
   }.toInt
 }
+
+case class VisibleTournaments(
+  created: List[Tournament],
+  started: List[Tournament],
+  finished: List[Tournament])

@@ -1,52 +1,14 @@
+div.create_tournament {
+  position: absolute;
+  top: 26px;
+  right: 15px;
+}
 ol.scheduled_tournaments a {
   font-weight: bold;
   text-decoration: none;
 }
 ol.scheduled_tournaments a:hover {
   text-decoration: underline;
-}
-#tournament_list table.slist {
-  line-height: 2.3em;
-}
-#tournament_list table.slist .icon {
-  width: 4em;
-}
-#tournament_list table.slist .icon span {
-  font-size: 4em;
-  color: rgba(200,200,200,0.5);
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
-}
-#tournament_list table.slist td {
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
-#tournament_list table.slist .header {
-  letter-spacing: 2px;
-  cursor: pointer;
-  transition: transform 0.3s;
-  padding: 0!important;
-}
-#tournament_list table.slist .header:hover {
-  transform: translateX(3px);
-  -webkit-transform: translateX(3px);
-}
-#tournament_list table.slist .header a {
-  text-decoration: none;
-  padding: 1em;
-  display: block;
-}
-#tournament_list table.slist .name {
-  letter-spacing: 3px;
-  font-size: 1.7em;
-  display: block;
-}
-#tournament_list table.slist .name em {
-  font-size: 11px;
-  font-weight: bold;
-  text-transform: uppercase;
-  opacity: 0.5;
-  letter-spacing: 0px;
-  vertical-align: middle;
 }
 #tournament.scheduled h1,
 #tournament table tr.standing.scheduled:first-child td:first-child {
@@ -443,4 +405,105 @@ ol.scheduled_tournaments li:hover::before {
 ol.scheduled_tournaments li.marathon {
   background: #fff;
   box-shadow: 0 0 9px rgba(0,0,0,0.2);
+}
+#tournament_schedule {
+  /* margin-left: -200px; */
+}
+#tournament_schedule .schedule {
+  position: relative;
+  overflow-x: scroll;
+  padding-top: 30px;
+  border-top: 1px solid #d4d4d4;
+  cursor: move;
+}
+#tournament_schedule .tournament {
+  position: absolute;
+  box-sizing: border-box;
+  padding: 4px 0;
+  background-color: #303E43;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.5);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: 0.13s;
+  color: #fff;
+}
+#tournament_schedule .tournament.joinable:hover {
+  -webkit-filter: brightness(1.07);
+  filter: brightness(1.07);
+}
+#tournament_schedule .timeline {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+#tournament_schedule .tournamentline {
+  position: relative;
+  height: 4.5em;
+}
+#tournament_schedule .timeheader {
+  position: absolute;
+  display: inline;
+  box-sizing: border-box;
+  height: 100%;
+  border-left: 1px dashed #ccc;
+  padding: 2px 5px;
+}
+#tournament_schedule .timeheader.hour {
+  font-weight: bold;
+}
+#tournament_schedule .timeheader.now {
+  top: 1.7em;
+  height: calc(100% - 1.7em);
+  margin-left: 1px;
+  border-left: 2px dashed #d85000!important;
+}
+#tournament_schedule .tournament.finished {
+  opacity: 0.7;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.3) inset;
+}
+#tournament_schedule .tournament.user-created {
+  background-color: #009E73;
+}
+#tournament_schedule .tournament.hourly {
+  background-color: #3D9333;
+}
+#tournament_schedule .tournament.daily {
+  background-color: #0072B2;
+}
+#tournament_schedule .tournament.nightly {
+  background-color: #2E466E;
+}
+#tournament_schedule .tournament.weekly {
+  background-color: #D55E00;
+}
+#tournament_schedule .tournament.monthly {
+  background-color: #C93D3D;
+}
+#tournament_schedule .tournament.marathon {
+  background-color: #66558C;
+}
+#tournament_schedule .icon {
+  float: left;
+  font-size: 2.4em;
+  margin: -6px 2px 0 2px;
+}
+#tournament_schedule .name {
+  color: white;
+  overflow: hidden;
+  display: block;
+  white-space: nowrap;
+}
+#tournament_schedule .tournament.short.thematic .name {
+  letter-spacing: -1px;
+}
+#tournament_schedule .clock {
+  letter-spacing: 3px;
+}
+#tournament_schedule .tournament span {
+  margin-right: 5px;
+}
+#tournament_schedule .nb-players {
+  float: right;
 }

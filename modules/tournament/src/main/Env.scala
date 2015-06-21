@@ -47,7 +47,11 @@ final class Env(
 
   lazy val forms = new DataForm
 
+  lazy val cached = new Cached(CreatedCacheTtl)
+
   lazy val api = new TournamentApi(
+    cached = cached,
+    scheduleJsonView = scheduleJsonView ,
     system = system,
     sequencers = sequencerMap,
     autoPairing = autoPairing,
@@ -72,9 +76,9 @@ final class Env(
     mongoCache = mongoCache,
     ttl = LeaderboardCacheTtl)
 
-  lazy val cached = new Cached
-
   lazy val jsonView = new JsonView(lightUser)
+
+  lazy val scheduleJsonView = new ScheduleJsonView(lightUser)
 
   private val socketHub = system.actorOf(
     Props(new lila.socket.SocketHubActor.Default[Socket] {
@@ -104,12 +108,6 @@ final class Env(
 
   def version(tourId: String): Fu[Int] =
     socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
-
-  val allCreatedSorted =
-    lila.memo.AsyncCache.single(TournamentRepo.publicCreatedSorted, timeToLive = CreatedCacheTtl)
-
-  val promotable =
-    lila.memo.AsyncCache.single(TournamentRepo.promotable, timeToLive = CreatedCacheTtl)
 
   private lazy val autoPairing = new AutoPairing(
     roundMap = roundMap,

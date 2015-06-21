@@ -1949,17 +1949,9 @@ lichess.storage = {
   ///////////////////
 
   $(function() {
-
-    var $tournamentList = $('#tournament_list');
-    if ($tournamentList.length) {
-      // handle tournament list
+    if (lichess.tournamentSchedule) {
       lichess.StrongSocket.defaults.params.flag = "tournament";
-      lichess.StrongSocket.defaults.events.reload = function() {
-        $tournamentList.load($tournamentList.data("href"), function() {
-          $('body').trigger('lichess.content_loaded');
-        });
-      };
-      return;
+      lichess.StrongSocket.defaults.events.reload = lichess.tournamentSchedule.update;
     }
   });
 

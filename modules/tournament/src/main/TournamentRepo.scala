@@ -58,10 +58,20 @@ object TournamentRepo {
     coll.find(startedSelect).sort(BSONDocument("createdAt" -> -1)).toList[Tournament](None)
 
   def publicStarted: Fu[List[Tournament]] =
-    coll.find(startedSelect ++ BSONDocument("private" -> BSONDocument("$exists" -> false))).sort(BSONDocument("createdAt" -> -1)).toList[Tournament](None)
+    coll.find(startedSelect ++ BSONDocument("private" -> BSONDocument("$exists" -> false)))
+      .sort(BSONDocument("createdAt" -> -1))
+      .cursor[Tournament].collect[List]()
 
   def finished(limit: Int): Fu[List[Tournament]] =
-    coll.find(finishedSelect).sort(BSONDocument("startsAt" -> -1)).toList[Tournament](limit.some)
+    coll.find(finishedSelect)
+      .sort(BSONDocument("startsAt" -> -1))
+      .cursor[Tournament].collect[List](limit)
+
+  def finishedNotable(limit: Int): Fu[List[Tournament]] =
+    coll.find(finishedSelect ++ BSONDocument(
+      "nbPlayers" -> BSONDocument("$gte" -> 15)))
+      .sort(BSONDocument("startsAt" -> -1))
+      .cursor[Tournament].collect[List](limit)
 
   def setStatus(tourId: String, status: Status) = coll.update(
     selectId(tourId),
@@ -78,18 +88,19 @@ object TournamentRepo {
     BSONDocument("$set" -> BSONDocument("winner" -> userId))
   ).void
 
-  private def allCreatedSelect = createdSelect ++ BSONDocument(
+  private def allCreatedSelect(aheadMinutes: Int) = createdSelect ++ BSONDocument(
     "$or" -> BSONArray(
       BSONDocument("schedule" -> BSONDocument("$exists" -> false)),
-      BSONDocument("startsAt" -> BSONDocument("$lt" -> (DateTime.now plusMinutes 30)))
+      BSONDocument("startsAt" -> BSONDocument("$lt" -> (DateTime.now plusMinutes aheadMinutes)))
     )
   )
 
-  def publicCreatedSorted: Fu[List[Tournament]] = coll.find(
-    allCreatedSelect ++ BSONDocument("private" -> BSONDocument("$exists" -> false))
-  ).sort(BSONDocument("startsAt" -> 1)).toList[Tournament](None)
+  def publicCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] = coll.find(
+    allCreatedSelect(aheadMinutes) ++ BSONDocument("private" -> BSONDocument("$exists" -> false))
+  ).sort(BSONDocument("startsAt" -> 1)).cursor[Tournament].collect[List]()
 
-  def allCreated: Fu[List[Tournament]] = coll.find(allCreatedSelect).toList[Tournament](None)
+  def allCreated(aheadMinutes: Int): Fu[List[Tournament]] =
+    coll.find(allCreatedSelect(aheadMinutes)).cursor[Tournament].collect[List]()
 
   private def notCloseToFinishSorted: Fu[List[Tournament]] = {
     val finishAfter = DateTime.now plusMinutes 20
@@ -100,9 +111,10 @@ object TournamentRepo {
     }
   }
 
-  def promotable: Fu[List[Tournament]] = publicCreatedSorted zip notCloseToFinishSorted map {
-    case (created, started) => created ::: started
-  }
+  def promotable: Fu[List[Tournament]] =
+    publicCreatedSorted(30) zip notCloseToFinishSorted map {
+      case (created, started) => created ::: started
+    }
 
   def scheduled: Fu[List[Tournament]] = coll.find(createdSelect ++ BSONDocument(
     "schedule" -> BSONDocument("$exists" -> true)

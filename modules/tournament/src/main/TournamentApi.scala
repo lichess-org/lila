@@ -23,6 +23,8 @@ import lila.user.{ User, UserRepo }
 import makeTimeout.short
 
 private[tournament] final class TournamentApi(
+    cached: Cached,
+    scheduleJsonView: ScheduleJsonView,
     system: ActorSystem,
     sequencers: ActorRef,
     autoPairing: AutoPairing,
@@ -234,6 +236,14 @@ private[tournament] final class TournamentApi(
       }
     }
 
+  def fetchVisibleTournaments: Fu[VisibleTournaments] =
+    cached.allCreatedSorted(120) zip
+      TournamentRepo.publicStarted zip
+      TournamentRepo.finishedNotable(10) map {
+        case ((created, started), finished) =>
+          VisibleTournaments(created, started, finished)
+      }
+
   private def sequence(tourId: String)(work: => Funit) {
     sequencers ! Tell(tourId, Sequencer work work)
   }
@@ -252,10 +262,14 @@ private[tournament] final class TournamentApi(
   }
 
   private object publish {
-    private val siteMessage = SendToFlag("tournament", Json.obj("t" -> "reload"))
     private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, {
       (_: Debouncer.Nothing) =>
-        site ! siteMessage
+        fetchVisibleTournaments foreach { vis =>
+          site ! SendToFlag("tournament", Json.obj(
+            "t" -> "reload",
+            "d" -> scheduleJsonView(vis)
+          ))
+        }
         TournamentRepo.promotable foreach { tours =>
           renderer ? TournamentTable(tours) map {
             case view: play.twirl.api.Html => ReloadTournaments(view.body)

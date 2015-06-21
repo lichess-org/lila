@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Pov, GameRepo }
-import lila.tournament.{ System, TournamentRepo, Tournament => Tourney }
+import lila.tournament.{ System, TournamentRepo, Tournament => Tourney, VisibleTournaments }
 import lila.user.UserRepo
 import views._
 
@@ -20,9 +20,9 @@ object Tournament extends LilaController {
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.notFound())
 
   val home = Open { implicit ctx =>
-    fetchTournaments zip repo.scheduledDedup zip UserRepo.allSortToints(10) map {
-      case ((((created, started), finished), scheduled), leaderboard) =>
-        Ok(html.tournament.home(created, started, finished, scheduled, leaderboard))
+    env.api.fetchVisibleTournaments zip repo.scheduledDedup zip UserRepo.allSortToints(10) map {
+      case ((visible, scheduled), leaderboard) =>
+        Ok(html.tournament.home(scheduled, leaderboard, env scheduleJsonView visible))
     } map NoCache
   }
 
@@ -33,16 +33,6 @@ object Tournament extends LilaController {
     }
     Ok(html.tournament.faqPage(system)).fuccess
   }
-
-  val homeReload = Open { implicit ctx =>
-    fetchTournaments map {
-      case ((created, started), finished) =>
-        Ok(html.tournament.homeInner(created, started, finished))
-    }
-  }
-
-  private def fetchTournaments =
-    env allCreatedSorted true zip repo.publicStarted zip repo.finished(10)
 
   def show(id: String) = Open { implicit ctx =>
     val page = getInt("page")
