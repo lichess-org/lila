@@ -420,10 +420,12 @@ ol.scheduled_tournaments li.marathon {
   position: absolute;
   box-sizing: border-box;
   padding: 4px 0;
+  background-color: #303E43;
   box-shadow: 0px 5px 15px rgba(0,0,0,0.5);
-  border-radius: 4px;
+  border-radius: 2px;
   text-decoration: none;
   transition: 0.13s;
+  color: #fff;
 }
 #tournament_schedule .tournament.joinable:hover {
   -webkit-filter: brightness(1.07);
@@ -438,7 +440,7 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .tournamentline {
   position: relative;
-  height: 5em;
+  height: 4.5em;
 }
 #tournament_schedule .timeheader {
   position: absolute;
@@ -448,6 +450,9 @@ ol.scheduled_tournaments li.marathon {
   border-left: 1px dashed #ccc;
   padding: 2px 5px;
 }
+#tournament_schedule .timeheader.hour {
+  font-weight: bold;
+}
 #tournament_schedule .timeheader.now {
   top: 1.7em;
   height: calc(100% - 1.7em);
@@ -456,17 +461,7 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .tournament.finished {
   opacity: 0.7;
-  box-shadow: 0px 5px 10px rgba(0,0,0,0.3) inset;
-}
-#tournament_schedule .rated .icon[data-icon]::before {
-  /* color: #FF9400; */
-  color: #FFFFFF;
-}
-#tournament_schedule .casual .icon[data-icon]::before {
-  color: #FFFFFF;
-}
-#tournament_schedule .tournament {
-  background-color: #303E43;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.3) inset;
 }
 #tournament_schedule .tournament.user-created {
   background-color: #009E73;
@@ -492,9 +487,7 @@ ol.scheduled_tournaments li.marathon {
 #tournament_schedule .icon {
   float: left;
   font-size: 2.4em;
-  color: rgba(200,200,200,0.5);
-  color: #fff;
-  margin: -4px 2px 0 2px;
+  margin: -6px 2px 0 2px;
 }
 #tournament_schedule .name {
   color: white;
@@ -505,20 +498,12 @@ ol.scheduled_tournaments li.marathon {
 #tournament_schedule .tournament.short.thematic .name {
   letter-spacing: -1px;
 }
-#tournament_schedule .clock,
-#tournament_schedule .description,
-#tournament_schedule .nb-players {
-  color: #fff;
-  font-size: 1em;
-}
 #tournament_schedule .clock {
   letter-spacing: 3px;
 }
-#tournament_schedule .description {
-  margin-left: 5px;
+#tournament_schedule .tournament span {
+  margin-right: 5px;
 }
 #tournament_schedule .nb-players {
-  max-width: 480px;
-  margin-right: 5px;
   float: right;
 }

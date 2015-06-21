@@ -91,15 +91,13 @@ function renderTournament(ctrl, tour) {
       'data-icon': tour.perf.icon,
       title: tour.perf.name
     } : null),
-    m('span', [
-      m('span.name', tour.fullName),
-      m('span.clock', tour.clock.limit / 60 + "+" + tour.clock.increment),
-      tour.rated ? null : m('span.description', ctrl.trans('casual')),
-      tour.position ? m('span.description', 'Thematic') : null,
-      m('span.nb-players.text', {
-        'data-icon': 'r'
-      }, tour.nbPlayers),
-    ])
+    m('span.name', tour.fullName),
+    m('span.clock', tour.clock.limit / 60 + "+" + tour.clock.increment),
+    m('span', tour.rated ? ctrl.trans('rated') : ctrl.trans('casual')),
+    tour.position ? m('span', 'Thematic') : null,
+    tour.nbPlayers ? m('span.nb-players.text', {
+      'data-icon': 'r'
+    }, tour.nbPlayers) : null,
   ]);
 }
 
@@ -111,7 +109,8 @@ function renderTimeline() {
 
   var timeHeaders = [];
   while (time.getTime() < (stopTime - minutesBetween * 60 * 1000)) {
-    timeHeaders.push(m('div.timeheader', {
+    timeHeaders.push(m('div', {
+      class: 'timeheader' + (time.getMinutes() === 0 ? ' hour' : ''),
       style: {
         left: leftPos(time.getTime()) + 'px'
       }
@@ -147,7 +146,7 @@ function isSystemTournament(t) {
 module.exports = function(ctrl) {
   now = (new Date()).getTime();
   startTime = now - 3 * 60 * 60 * 1000;
-  stopTime = startTime + 6 * 60 * 60 * 1000;
+  stopTime = startTime + 8 * 60 * 60 * 1000;
 
   if (!ctrl.data.systemTours) {
     var tours = ctrl.data.finished.concat(ctrl.data.started).concat(ctrl.data.created);
