@@ -15,9 +15,7 @@ object Pref extends LilaController {
 
   def form = Auth { implicit ctx =>
     me =>
-      forms prefOf me map { form =>
-        Ok(html.account.pref(me, form))
-      }
+      Ok(html.account.pref(me, forms prefOf ctx.pref)).fuccess
   }
 
   def formApply = AuthBody { implicit ctx =>
@@ -26,9 +24,17 @@ object Pref extends LilaController {
       FormFuResult(forms.pref) { err =>
         fuccess(html.account.pref(me, err))
       } { data =>
-        api getPref me flatMap { pref =>
-          api.setPref(data(pref), notifyChange = true)
-        } inject Ok("saved")
+        api.setPref(data(ctx.pref), notifyChange = true) inject Ok("saved")
+      }
+  }
+
+  def miniFormApply = AuthBody { implicit ctx =>
+    me =>
+      implicit val req = ctx.body
+      FormFuResult(forms.miniPref) { err =>
+        fuccess("nope")
+      } { data =>
+        api.setPref(data(ctx.pref), notifyChange = true) inject Ok("saved")
       }
   }
 
