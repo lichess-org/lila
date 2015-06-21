@@ -496,7 +496,7 @@ ol.scheduled_tournaments li.marathon {
   display: block;
   white-space: nowrap;
 }
-#tournament_schedule .tournament.short.thematic .name {
+#tournament_schedule .tournament.short.thematic {
   letter-spacing: -1px;
 }
 #tournament_schedule .clock {
