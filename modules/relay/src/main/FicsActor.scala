@@ -4,9 +4,10 @@ import akka.actor._
 import akka.pattern.pipe
 import scala.concurrent.duration._
 
-import actorApi._
+import lila.hub.actorApi.map.Tell
 
 private[relay] final class FicsActor(
+    actorMap: ActorRef,
     remote: java.net.InetSocketAddress) extends Actor with Stash with LoggingFSM[FicsActor.State, Option[FicsActor.Request]] {
 
   import FicsActor._
@@ -47,12 +48,12 @@ private[relay] final class FicsActor(
   }
 
   when(Ready) {
-    case Event(In(data), _) =>
-      log(data)
-      stay
     case Event(cmd: Command, _) =>
       send(cmd.str)
       goto(Run) using Request(cmd, sender).some
+    case Event(Observe(ficsId), _) =>
+      send(s"observe $ficsId")
+      stay
   }
 
   when(Run, stateTimeout = 7 second) {
@@ -77,6 +78,18 @@ private[relay] final class FicsActor(
     case Event(_: Command, _) =>
       stash()
       stay
+    case Event(_: Observe, _) =>
+      stash()
+      stay
+    case Event(in: In, _) if in.data contains "<12>" =>
+      in.lines.filter(_ startsWith "<12>") foreach { line =>
+        val splitted = line split ' '
+        for {
+          ficsId <- splitted lift 16
+          move <- splitted lift 29
+        } actorMap ! Tell(ficsId, GameActor.Move(move))
+      }
+      stay
     case Event(In(data), _) =>
       log(data)
       stay
@@ -95,6 +108,7 @@ private[relay] final class FicsActor(
   }
 
   val noiseR = List(
+    """^\n[a-zA-z]+(\([^\)]+\)){1,2}:\s.+\nfics\%\s$""".r, // people chating
     """(?s).*Welcome to the Free Internet Chess Server.*""".r,
     """(?s).*Starting FICS session.*""".r,
     """(?s).*ROBOadmin.*""".r)
@@ -115,6 +129,8 @@ object FicsActor {
   case object Run extends State
 
   case class Request(cmd: command.Command, replyTo: ActorRef)
+
+  case class Observe(ficsId: Int)
 
   private val EOM = "fics% "
 }

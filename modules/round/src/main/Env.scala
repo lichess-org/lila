@@ -43,7 +43,6 @@ final class Env(
     val FinisherLockTimeout = config duration "finisher.lock.timeout"
     val NetDomain = config getString "net.domain"
     val ActorMapName = config getString "actor.map.name"
-    val ActorName = config getString "actor.name"
     val CasualOnly = config getBoolean "casual_only"
     val ActiveTtl = config duration "active.ttl"
     val CollectionNote = config getString "collection.note"

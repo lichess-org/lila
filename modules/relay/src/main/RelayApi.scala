@@ -2,17 +2,18 @@ package lila.relay
 
 import akka.actor._
 import akka.pattern.ask
+import lila.hub.actorApi.map.Tell
 import makeTimeout.veryLarge
 
 final class RelayApi(
     system: ActorSystem,
     relayRepo: RelayRepo,
-    importer: Importer,
+    actorMap: ActorRef,
     remote: java.net.InetSocketAddress) {
 
-  private val mainActor = system.actorOf(Props(classOf[FicsActor], remote))
+  private val fics = system.actorOf(Props(classOf[FicsActor], actorMap, remote))
 
-  def refreshRelays: Funit = mainActor ? command.ListTourney mapTo
+  def refreshRelays: Funit = fics ? command.ListTourney mapTo
     manifest[command.ListTourney.Result] flatMap {
       _.map { tourney =>
         relayRepo.upsert(tourney.id, tourney.name, tourney.status)
@@ -21,7 +22,7 @@ final class RelayApi(
 
   def refreshRelayGames: Funit = relayRepo.started.flatMap {
     _.map { relay =>
-      mainActor ? command.ListGames(relay.ficsId) mapTo
+      fics ? command.ListGames(relay.ficsId) mapTo
         manifest[command.ListGames.Result] flatMap { games =>
           games.map { g =>
             relay gameByFicsId g.id match {
@@ -30,11 +31,16 @@ final class RelayApi(
                 createGame(rg) inject rg
               case Some(rg) => fuccess(rg)
             }
-          }.sequenceFu flatMap { relayRepo.setGames(relay, _) }
+          }.sequenceFu flatMap { rgs =>
+            relayRepo.setGames(relay, rgs) >>-
+              rgs.foreach { rg => fics ! FicsActor.Observe(rg.ficsId) }
+          }
         }
     }.sequenceFu.void
   }
 
-  def createGame(rg: Relay.Game): Funit = mainActor ? command.Moves(rg.ficsId) mapTo
-    manifest[command.Moves.Result] flatMap importer(rg.id) void
+  def createGame(rg: Relay.Game): Funit = fics ? command.Moves(rg.ficsId) mapTo
+    manifest[command.Moves.Result] map { game =>
+      actorMap ! Tell(rg.ficsId.toString, GameActor.Import(rg.id, game))
+    }
 }

@@ -34,4 +34,10 @@ private final class RelayRepo(coll: Coll) {
       selectId(relay.id),
       BSONDocument("$set" -> BSONDocument("games" -> games))
     ).void
+
+  def gameIdByFicsId(ficsId: Int): Fu[Option[String]] = coll.find(
+    selectStarted ++ BSONDocument("games.ficsId" -> ficsId)
+  ).one[Relay].map {
+      _.flatMap(_ gameIdByFicsId ficsId)
+    }
 }

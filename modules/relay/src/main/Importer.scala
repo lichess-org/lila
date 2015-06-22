@@ -20,7 +20,6 @@ final class Importer(
 
   def apply(id: String)(data: command.Moves.Game): Fu[Game] =
     chess.format.pgn.Reader.full(data.pgn).future flatMap { replay =>
-      println(s"http://en.l.org/$id")
       val g = Game.make(
         game = replay.setup,
         whitePlayer = Player.white withName data.white.name,

@@ -18,18 +18,27 @@ final class Env(
   private val FicsHost = config getString "fics.host"
   private val FicsPort = config getInt "fics.port"
   private val CollectionRelay = config getString "collection.relay"
+  private val ActorMapName = config getString "actor.map.name"
 
   private lazy val relayRepo = new RelayRepo(db(CollectionRelay))
 
   private val remote = new java.net.InetSocketAddress(FicsHost, FicsPort)
 
-  lazy val api = new RelayApi(system, relayRepo, importer, remote)
+  lazy val api = new RelayApi(system, relayRepo, gameMap, remote)
 
   private val importer = new Importer(
     roundMap,
     ImportMoveDelay,
     ImportIP,
     system.scheduler)
+
+  private val gameMap = system.actorOf(Props(new lila.hub.ActorMap {
+    def mkActor(ficsId: String) = new GameActor(
+      ficsId = parseIntOption(ficsId) err s"Invalid relay FICS id $ficsId",
+      getGameId = relayRepo.gameIdByFicsId _,
+      importer = importer)
+    def receive = actorMapReceive
+  }), name = ActorMapName)
 
   // private val relayFSM = system.actorOf(Props(
   //   classOf[RelayFSM],
@@ -46,7 +55,8 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.effect(5 minutes, "refresh FICS relays") {
+    api.refreshRelays >> api.refreshRelayGames
+    scheduler.effect(1 minutes, "refresh FICS relays") {
       api.refreshRelays >> api.refreshRelayGames
     }
   }

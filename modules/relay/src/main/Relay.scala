@@ -12,7 +12,9 @@ case class Relay(
     date: DateTime,
     games: List[Relay.Game]) {
 
-  def gameByFicsId(fi: Int) = games.find(_.ficsId == fi)
+  def gameByFicsId(ficsId: Int) = games.find(_.ficsId == ficsId)
+
+  def gameIdByFicsId(ficsId: Int) = gameByFicsId(ficsId).map(_.id)
 }
 
 object Relay {
